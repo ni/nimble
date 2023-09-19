@@ -4,6 +4,7 @@ import {
     anchoredRegionTemplate as template
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
+import { Notifier, Observable } from '@microsoft/fast-element';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -22,7 +23,60 @@ declare global {
 /**
  * A nimble-styled anchored region control.
  */
-export class AnchoredRegion extends FoundationAnchoredRegion {}
+export class AnchoredRegion extends FoundationAnchoredRegion {
+    private anchorElementNotifier?: Notifier;
+    private anchorElementIntersectionObserver?: IntersectionObserver;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+
+        this.anchorElementNotifier = Observable.getNotifier(this);
+        this.anchorElementNotifier.subscribe(this, 'anchorElement');
+        this.addAnchorElementIntersectionObserver();
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        this.anchorElementNotifier?.unsubscribe(this);
+        this.anchorElementNotifier = undefined;
+        this.removeAnchorElementIntersectionObserver();
+    }
+
+    public handleChange(source: unknown, args: unknown): void {
+        if (!(source instanceof AnchoredRegion && args === 'anchorElement')) {
+            return;
+        }
+
+        this.addAnchorElementIntersectionObserver();
+    }
+
+    private addAnchorElementIntersectionObserver(): void {
+        if (this.anchorElementIntersectionObserver) {
+            this.removeAnchorElementIntersectionObserver();
+        }
+
+        if (!this.anchorElement) {
+            return;
+        }
+
+        this.anchorElementIntersectionObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    this.$emit('target-out-of-view');
+                }
+            });
+        }, {
+            threshold: 0
+        });
+        this.anchorElementIntersectionObserver.observe(this.anchorElement);
+    }
+
+    private removeAnchorElementIntersectionObserver(): void {
+        this.anchorElementIntersectionObserver?.disconnect();
+        this.anchorElementIntersectionObserver = undefined;
+    }
+}
 
 const nimbleAnchoredRegion = AnchoredRegion.compose({
     baseName: 'anchored-region',

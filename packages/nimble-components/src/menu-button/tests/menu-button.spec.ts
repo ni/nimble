@@ -9,7 +9,7 @@ import {
 } from '@microsoft/fast-web-utilities';
 import { FoundationElement, Menu, MenuItem } from '@microsoft/fast-foundation';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { MenuButton } from '..';
+import { MenuButton, menuButtonTag } from '..';
 import { MenuButtonToggleEventDetail, MenuButtonPosition } from '../types';
 import {
     processUpdates,
@@ -33,6 +33,16 @@ async function setup(): Promise<Fixture<MenuButton>> {
 
 async function slottedSetup(): Promise<Fixture<TestSlottedElement>> {
     return fixture(composedTestSlottedElement());
+}
+
+async function scrollableSetup(): Promise<Fixture<HTMLDivElement>> {
+    return fixture<HTMLDivElement>(html`
+        <div style="height: 100px; width: 100px; overflow: auto;">
+            <div style="height: 1000px; width: 1000px;">
+                <nimble-menu-button></nimble-menu-button>
+            </div>
+        </div>
+    `);
 }
 
 /** A helper function to abstract adding a `beforetoggle` event listener, spying
@@ -316,6 +326,72 @@ describe('MenuButton', () => {
             await toggleListener.promise;
             expect(beforeToggleListener.spy).not.toHaveBeenCalled();
             expect(toggleListener.spy).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    fdescribe('auto close behavior', () => {
+        let menuButton: MenuButton;
+        let scrollableElement: HTMLDivElement;
+        let disconnect: () => Promise<void>;
+
+        beforeEach(async () => {
+            let element: HTMLDivElement;
+            let connect: () => Promise<void>;
+            ({ element, connect, disconnect, parent } = await scrollableSetup());
+            menuButton = element.querySelector<MenuButton>(menuButtonTag)!;
+            scrollableElement = element;
+
+            createAndSlotMenu(menuButton);
+            await connect();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        async function scrollParent(options?: ScrollToOptions): Promise<void> {
+            scrollableElement.scroll(options);
+
+            // call waitForUpdatesAsync so that the IntersectionObserver can run
+            // and then the menu button can update in response.
+            await waitForUpdatesAsync();
+            await waitForUpdatesAsync();
+        }
+
+        it('should not close menu when the button scrolls vertically without becoming off screen', async () => {
+            const toggleListener = createEventListener(menuButton, 'toggle');
+            menuButton.open = true;
+            await toggleListener.promise;
+
+            await scrollParent({ top: 10 });
+            expect(menuButton.open).toBeTrue();
+        });
+
+        it('should close menu when the button scrolls off screen vertically', async () => {
+            const toggleListener = createEventListener(menuButton, 'toggle');
+            menuButton.open = true;
+            await toggleListener.promise;
+
+            await scrollParent({ top: 700 });
+            expect(menuButton.open).toBeFalse();
+        });
+
+        it('should not close menu when the button scrolls horizontally without becoming off screen', async () => {
+            const toggleListener = createEventListener(menuButton, 'toggle');
+            menuButton.open = true;
+            await toggleListener.promise;
+
+            await scrollParent({ left: 10 });
+            expect(menuButton.open).toBeTrue();
+        });
+
+        it('should close menu when the button scrolls off screen vertically', async () => {
+            const toggleListener = createEventListener(menuButton, 'toggle');
+            menuButton.open = true;
+            await toggleListener.promise;
+
+            await scrollParent({ left: 700 });
+            expect(menuButton.open).toBeFalse();
         });
     });
 

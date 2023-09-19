@@ -45,6 +45,10 @@ export class Select extends FoundationSelect implements ErrorPattern {
     @observable
     public region?: AnchoredRegion;
 
+    public targetIntersectHandler(): void {
+        this.open = false;
+    }
+
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
         if (!this.$fastController.isConnected) {

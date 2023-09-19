@@ -39,6 +39,7 @@ export const template = html<MenuButton>`
                 vertical-default-position="${x => (x.position === 'above' ? 'top' : 'bottom')}"
                 @loaded="${x => x.regionLoadedHandler()}"
                 @keydown="${(x, c) => x.menuKeyDownHandler(c.event as KeyboardEvent)}"
+                @target-out-of-view="${x => x.menuOutOfViewHandler()}"
                 ${ref('region')}
             >
                 <span part="menu">

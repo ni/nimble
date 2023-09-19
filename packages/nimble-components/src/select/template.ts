@@ -79,6 +79,7 @@ SelectOptions
             horizontal-default-position="center"
             horizontal-positioning-mode="locktodefault"
             horizontal-scaling="anchor"
+            @target-intersect="${x => x.targetIntersectHandler()}"
             ?hidden="${x => (x.collapsible ? !x.open : false)}">
             <div
                 class="listbox"

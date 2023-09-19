@@ -67,33 +67,38 @@ const metadata: Meta<MenuButtonArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         ${disableStorybookZoomTransform}
-        <${menuButtonTag}
-            ?open="${x => x.open}"
-            ?disabled="${x => x.disabled}"
-            ?content-hidden="${x => x.contentHidden}"
-            appearance="${x => x.appearance}"
-            position="${x => x.menuPosition}"
-        >
-            ${when(x => x.icon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
-            ${x => x.label}
-            ${when(x => x.endIcon, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
+        <div style="height: 300px; width: 300px; overflow: auto;">
+            <div style="background: pink; height: 1000px; width: 700px; display: flex; overflow: scroll;">
+                <${menuButtonTag}
+                    ?open="${x => x.open}"
+                    ?disabled="${x => x.disabled}"
+                    ?content-hidden="${x => x.contentHidden}"
+                    appearance="${x => x.appearance}"
+                    position="${x => x.menuPosition}"
+                    style="margin-top: auto; margin-left: auto;margin-bottom: auto; margin-right: auto;"
+                >
+                    ${when(x => x.icon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
+                    ${x => x.label}
+                    ${when(x => x.endIcon, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
 
-            <${menuTag} slot="menu">
-                <${menuItemTag}>Item 1</${menuItemTag}>
-                <${menuItemTag}>
-                    Item 2
-                    <${menuTag}>
+                    <${menuTag} slot="menu">
+                        <${menuItemTag}>Item 1</${menuItemTag}>
                         <${menuItemTag}>
-                            Item 2.1
+                            Item 2
+                            <${menuTag}>
+                                <${menuItemTag}>
+                                    Item 2.1
+                                </${menuItemTag}>
+                                <${menuItemTag}>
+                                    Item 2.2
+                                </${menuItemTag}>
+                            </${menuTag}>
                         </${menuItemTag}>
-                        <${menuItemTag}>
-                            Item 2.2
-                        </${menuItemTag}>
+                        <${menuItemTag} disabled>Item 3 (disabled)</${menuItemTag}>
                     </${menuTag}>
-                </${menuItemTag}>
-                <${menuItemTag} disabled>Item 3 (disabled)</${menuItemTag}>
-            </${menuTag}>
-        </${menuButtonTag}>
+                </${menuButtonTag}>
+            </div>
+        </div>
     `),
     args: {
         label: 'Ghost Menu Button',

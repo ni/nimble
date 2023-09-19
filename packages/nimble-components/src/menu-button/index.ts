@@ -131,6 +131,10 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         this.$emit('toggle', eventDetail);
     }
 
+    public menuOutOfViewHandler(): void {
+        this.setOpen(false);
+    }
+
     public focusoutHandler(e: FocusEvent): boolean {
         if (!this.open) {
             return true;
