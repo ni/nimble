@@ -73,6 +73,7 @@ If you consult the IxD document you will see that the design diverges from the a
     Cons:
 
     - Breaks ARIA guidance that all interactive elements be focusable.
+    - Behavior that doesn't match mouse interactions may cause confusion or frustration that interrupts users' goals/workflows.
 
 #
 
