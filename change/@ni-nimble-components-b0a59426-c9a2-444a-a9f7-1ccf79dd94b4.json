@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fixes the focus back to the editor when the toolbar buttons are clicked in mobile iOS browsers",
+  "packageName": "@ni/nimble-components",
+  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
