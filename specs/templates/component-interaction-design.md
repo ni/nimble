@@ -32,7 +32,7 @@
 ### Mouse Interactions
 *Full description of the proposed interaction design using a mouse.*
 
-### Keyboard Interactions
+### Non-Mouse Interactions
 - *Link to appropriate ARIA authoring guidelines*
 - *Full description of the proposed interaction design using a keyboard*
 - *Additional accessibility considerations like ARIA role/states/properties*
