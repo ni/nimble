@@ -412,18 +412,32 @@ describe('RichTextEditor', () => {
             ]);
         });
 
-        it('should not have "strong" tag name for markdown input to the editor', async () => {
+        it('should render as a plain text for bold markdown input(**) to the editor', async () => {
             await pageObject.setEditorTextContent('**bold**');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P']);
             expect(pageObject.getEditorLeafContents()).toEqual(['**bold**']);
         });
 
-        it('should not have "em" tag name for markdown input to the editor', async () => {
+        it('should render as a plain text for bold markdown input(__) to the editor', async () => {
+            await pageObject.setEditorTextContent('__bold__');
+
+            expect(pageObject.getEditorTagNames()).toEqual(['P']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['__bold__']);
+        });
+
+        it('should render as a plain text for italics markdown input(*) to the editor', async () => {
             await pageObject.setEditorTextContent('*italics*');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P']);
             expect(pageObject.getEditorLeafContents()).toEqual(['*italics*']);
+        });
+
+        it('should render as a plain text for italics markdown input(_) to the editor', async () => {
+            await pageObject.setEditorTextContent('_italics_');
+
+            expect(pageObject.getEditorTagNames()).toEqual(['P']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['_italics_']);
         });
 
         it('should have "bullet list(*)" tag name for markdown input to the editor', async () => {
