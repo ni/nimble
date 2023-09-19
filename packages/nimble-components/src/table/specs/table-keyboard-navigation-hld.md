@@ -29,7 +29,9 @@ If the above guidelines are adhered to, technologies like screen readers should 
 
 ### Option 1: Diverge from ARIA guidelines
 
-If you consult the IxD document you will see that the design diverges from the above ARIA guidance in the follwing ways:
+It is important to note that the IxD document was originally created to align more with the ARIA `grid` pattern, and _not_ the `treegrid`, and some of the interactions described therein _do_ align with the `grid` pattern, but no longer would if we adopt the `treegrid`, which is the current recommendation. It's possible that if we had created the IxD document with the `treegrid` in mind originally that different decisions would have been made.
+
+If you consult the IxD document you will see that the design diverges from the above ARIA guidance for `treegrid` in the follwing ways:
 
 1. When a row is focused, pressing the left and right arrow keys will only move focus between the interactive elements in the row, regardless of whether there are multiple interactive elements in a given cell.
 
@@ -48,7 +50,7 @@ If you consult the IxD document you will see that the design diverges from the a
 
 #
 
-2. Pressing `Tab` either moves the focus _into_ or _out of_ the table.
+2. Pressing `Tab` either moves the focus _into_ or _out of_ the table. _Note: This was aligned with the ARIA `grid` pattern, but is not for the `treegrid`._
 
     Pros:
 
@@ -93,8 +95,10 @@ The following enumerated set provide the counter IxD to what is described above 
 
     - If the row can be expanded and is collapsed, pressing `ArrowRight` will expand the row
     - If the row can be expanded and is expanded, pressing `ArrowRight` will move focus to the first cell (this focus state is dependent on what the cell content is)
+    - If the focus is on any cell other than the last, pressing `ArrowRight` will move focus to the next cell to the right
     - If the focus is on the last cell, pressing `ArrowRight` does nothing
     - If the focus is on the first cell, pressing `ArrowLeft` will focus the row
+    - If the focus is on any cell other than the first cell, pressing `ArrowLeft` will move focus one cell to the left
     - If the row is focused and expanded, pressing `ArrowLeft` will collapse the row
     - If the row is focused and collapsed, pressingt `ArrowLeft` does nothing
     - If a focused cell has multiple interactive elements for its contents, those elements will _not_ receive focus from pressing `ArrowLeft` or `ArrowRight`, and instead focus will be shifted to the appropriate neighboring cell (or do nothing if focus is at the extends of the row).
@@ -107,11 +111,11 @@ The following enumerated set provide the counter IxD to what is described above 
 
     Cons:
 
-    - Screen readers will now only announce contents of a row when the row is highlighted.
+    - ?
 
 #
 
-2. Pressing `Tab` will focus first row, followed by all interactive elements in the row
+2. Pressing `Tab` will focus first row, followed by all interactive elements in the row. Once at the last cell of the row, pressing `Tab` again moves focus to the next element beyond the `Table`.
 
     Pros:
 
