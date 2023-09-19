@@ -7,7 +7,7 @@ import {
     bodyFontColor,
     popupBorderColor,
     controlSlimHeight,
-    smallPadding,
+    mediumPadding,
     standardPadding,
     tableRowBorderColor
 } from '../theme-provider/design-tokens';
@@ -83,7 +83,7 @@ export const styles = css`
 
     .collapse-all-button {
         height: ${controlSlimHeight};
-        margin-left: calc(${smallPadding} * 2);
+        margin-left: ${mediumPadding};
         visibility: hidden;
     }
 

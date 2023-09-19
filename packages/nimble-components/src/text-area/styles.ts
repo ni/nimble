@@ -13,7 +13,8 @@ import {
     controlLabelDisabledFontColor,
     iconSize,
     failColor,
-    standardPadding
+    standardPadding,
+    mediumPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
@@ -159,7 +160,7 @@ export const styles = css`
     :host([error-visible]) .error-icon.scrollbar-width-calculated {
         display: inline-flex;
         position: absolute;
-        top: calc(${standardPadding} / 2);
+        top: ${mediumPadding};
         right: var(--ni-private-scrollbar-width);
     }
 `.withBehaviors(
