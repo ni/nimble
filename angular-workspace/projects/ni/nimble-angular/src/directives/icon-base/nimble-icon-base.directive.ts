@@ -15,11 +15,11 @@ export class NimbleIconBaseDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'severity', value);
     }
 
-    public get alt(): string {
+    public get alt(): string | undefined {
         return this.elementRef.nativeElement.alt;
     }
 
-    @Input() public set alt(value: string) {
+    @Input() public set alt(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'alt', value);
     }
 
