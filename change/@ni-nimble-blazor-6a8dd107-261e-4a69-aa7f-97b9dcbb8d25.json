@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Blazor support for theme provider lang and validity functions",
-  "packageName": "@ni/nimble-blazor",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

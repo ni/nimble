@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 15 Sep 2023 20:36:47 GMT and should not be manually modified.
+This log was last generated on Tue, 19 Sep 2023 19:08:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.3.0
+
+Tue, 19 Sep 2023 19:08:39 GMT
+
+### Minor changes
+
+- Blazor support for theme provider lang and validity functions ([ni/nimble@944399b](https://github.com/ni/nimble/commit/944399b0ac13cf428ce2a0ef12f346315b1194fb))
 
 ## 12.2.1
 
