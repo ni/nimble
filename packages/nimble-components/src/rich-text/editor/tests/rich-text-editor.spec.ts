@@ -459,7 +459,9 @@ describe('RichTextEditor', () => {
             await pageObject.setEditorTextContent('Numbered list');
 
             expect(pageObject.getEditorTagNames()).toEqual(['OL', 'LI', 'P']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['Numbered list']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'Numbered list'
+            ]);
         });
 
         it('should have "numbered list" with a different starting number tag name for markdown input to the editor', async () => {
@@ -468,7 +470,9 @@ describe('RichTextEditor', () => {
             await pageObject.setEditorTextContent('Numbered list');
 
             expect(pageObject.getEditorTagNames()).toEqual(['OL', 'LI', 'P']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['Numbered list']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'Numbered list'
+            ]);
         });
 
         it('should have br tag name when pressing shift + Enter with numbered list content', async () => {
