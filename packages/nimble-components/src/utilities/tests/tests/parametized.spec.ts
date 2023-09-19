@@ -1,5 +1,9 @@
 import { parameterize, parameterizeNamedList } from '../parameterized';
 
+// The following aliases are just to reduce the number
+// of eslint disables in this test file. In normal
+// test code use the globals directly so eslint can
+// guard accidental check-ins of fit, etc.
 // eslint-disable-next-line no-restricted-globals
 const FIT = fit;
 const IT = it;

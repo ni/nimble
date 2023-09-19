@@ -30,7 +30,10 @@ export const getSpecTypeByNamedList = <T extends { name: string }>(
     (x: T) => focusList.includes(x.name),
     (x: T) => disabledList.includes(x.name)
 );
-
+// The following aliases are just to reduce the number
+// of eslint disables in this source file. In normal
+// test code use the globals directly so eslint can
+// guard accidental check-ins of fit, etc.
 // eslint-disable-next-line no-restricted-globals
 type Fit = typeof fit;
 type Xit = typeof xit;
