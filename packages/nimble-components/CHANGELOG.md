@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 15 Sep 2023 21:18:04 GMT and should not be manually modified.
+This log was last generated on Tue, 19 Sep 2023 23:12:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.4.0
+
+Tue, 19 Sep 2023 23:12:45 GMT
+
+### Minor changes
+
+- Add medium padding token and document size ramp ([ni/nimble@b6baa04](https://github.com/ni/nimble/commit/b6baa04c34007f4fad4e546c78505fa820fff6d1))
 
 ## 20.3.2
 
