@@ -63,10 +63,6 @@ Selects can be empty by default or have a default selection from the menu. Empty
 
 ![ ](spec-images/select-4.png)
 
-The client-user should be able to specify whether they want left icons on menu items or not. Icons show up in menu items and are displayed as part of the value in the field button. Images and other content not specified here should not be permitted.
-
-![ ](spec-images/select-7.png)
-
 #### Menu & Menu Items
 
 A list of options to select, displayed as an open state. Order menu items alphabetically by default, unless another ordering will provide value to the end-user. Keep the menu item text concise as possible, limited to a single line of text. Use sentence casing.
@@ -76,6 +72,8 @@ A list of options to select, displayed as an open state. Order menu items alphab
 > NOTE: NEED VISUAL DESIGN GUIDANCE FOR ICON SIZES, WHAT CAN BE USED AS AN ICON, ETC.
 
 In addition to text, menu items can include an icon to the left of the text, which also appears in the field button when selected. Icons should only be used when they provide more immediate communication to the user than the text. Do not include icons unless all menu items have an icon.
+
+![ ](spec-images/select-7.png)
 
 ### Related Components
 
