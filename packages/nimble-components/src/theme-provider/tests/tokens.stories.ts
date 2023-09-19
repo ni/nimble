@@ -19,6 +19,7 @@ import {
     groupHeaderTextTransform
 } from '../design-tokens';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { anchorTag } from '../../anchor';
 
 type TokenName = keyof typeof tokenNames;
 const tokenNameKeys = Object.keys(tokenNames) as TokenName[];
@@ -177,7 +178,14 @@ export const themeAwareTokens: StoryObj<TokenArgs> = {
                         `)}
                     </td>
                     <td>${x => templateForTokenName(x)}</td>
-                    <td>${x => comments[x]}</td>
+                    <td>
+                        ${when(x => comments[x]?.includes('size ramp token'), html<TokenName>`
+                            <${anchorTag} href="./?path=/docs/tokens-size-ramp--docs" target="_top">${x => comments[x]}</${anchorTag}>
+                        `)}
+                        ${when(x => !comments[x]?.includes('size ramp token'), html<TokenName>`
+                            ${x => comments[x]}
+                        `)}
+                    </td>
                 </tr>
             `)}
             </tbody>
