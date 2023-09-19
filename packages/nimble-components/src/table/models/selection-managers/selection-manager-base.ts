@@ -4,6 +4,7 @@ import type {
     RowSelectionState as TanStackRowSelectionState
 } from '@tanstack/table-core';
 import {
+    InternalTableRecord,
     TableRecord,
     TableRowSelectionState,
     TableRowState
@@ -12,7 +13,7 @@ import {
 /**
  * Abstract base class for handling behavior associated with interactive row selection of the table.
  */
-export abstract class SelectionManagerBase<TData extends TableRecord> {
+export abstract class SelectionManagerBase<TData extends InternalTableRecord> {
     protected tanStackTable: TanStackTable<TData>;
 
     public constructor(tanStackTable: TanStackTable<TData>) {

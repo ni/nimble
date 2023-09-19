@@ -3,6 +3,7 @@ import type {
     RowSelectionState as TanStackRowSelectionState
 } from '@tanstack/table-core';
 import {
+    InternalTableRecord,
     TableRecord,
     TableRowSelectionState,
     TableRowState
@@ -14,7 +15,7 @@ import { SelectionManagerBase } from './selection-manager-base';
  * `TableRowSelectionMode.multiple`.
  */
 export class MultiSelectionManager<
-    TData extends TableRecord
+    TData extends InternalTableRecord
 > extends SelectionManagerBase<TData> {
     private shiftSelectStartRowId?: string;
     private previousShiftSelectRowEndId?: string;

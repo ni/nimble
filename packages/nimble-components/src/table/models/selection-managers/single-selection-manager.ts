@@ -1,4 +1,4 @@
-import type { TableRecord, TableRowState } from '../../types';
+import type { InternalTableRecord, TableRecord, TableRowState } from '../../types';
 import { SelectionManagerBase } from './selection-manager-base';
 
 /**
@@ -6,7 +6,7 @@ import { SelectionManagerBase } from './selection-manager-base';
  * `TableRowSelectionMode.single`.
  */
 export class SingleSelectionManager<
-    TData extends TableRecord
+    TData extends InternalTableRecord
 > extends SelectionManagerBase<TData> {
     public override handleRowSelectionToggle(
         rowState: TableRowState,

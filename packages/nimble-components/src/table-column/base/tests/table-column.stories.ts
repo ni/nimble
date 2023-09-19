@@ -20,7 +20,6 @@ import {
 } from './table-column-stories-utils';
 import {
     TableColumnSortDirection,
-    TableFieldValueArray,
     TableRowSelectionMode
 } from '../../../table/types';
 import { iconUserTag } from '../../../icons/user';
@@ -33,16 +32,7 @@ const simpleData = [
         lastName: 'Wiggum',
         favoriteColor: 'Blue',
         quote: "I've got everything I need to convict your boy, except for motive, means, and opportunity.",
-        parentId: '',
-        subRows: [
-            {
-                firstName: 'Ralph',
-                lastName: 'Wiggum',
-                favoriteColor: 'Rainbow',
-                quote: "I'm in danger!",
-                parentId: 'Quincy'
-            }
-        ] as unknown as TableFieldValueArray
+        parentId: ''
     },
     {
         firstName: 'Milhouse',

@@ -1,5 +1,5 @@
 import type { Table as TanStackTable } from '@tanstack/table-core';
-import { TableRecord, TableRowState, TableRowSelectionMode } from '../types';
+import { TableRecord, TableRowState, TableRowSelectionMode, InternalTableRecord } from '../types';
 import type { SelectionManagerBase } from './selection-managers/selection-manager-base';
 import { DisabledSelectionManager } from './selection-managers/disabled-selection-manager';
 import { MultiSelectionManager } from './selection-managers/multi-selection-manager';
@@ -9,7 +9,7 @@ import { SingleSelectionManager } from './selection-managers/single-selection-ma
  * Manages the behavior associated with interactive row selection for the table, including
  * handling when the selection mode of the table is changed.
  */
-export class InteractiveSelectionManager<TData extends TableRecord> {
+export class InteractiveSelectionManager<TData extends InternalTableRecord> {
     private readonly tanStackTable: TanStackTable<TData>;
     private selectionManager: SelectionManagerBase<TData>;
 

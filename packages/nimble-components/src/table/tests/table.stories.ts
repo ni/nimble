@@ -52,6 +52,7 @@ const simpleData = [
     }
 ] as const;
 
+const loadedDataMap: Map<string, boolean> = new Map<string, boolean>();
 const firstNames = ['John', 'Sally', 'Joe', 'Michael', 'Sam'];
 const lastNames = ['Davidson', 'Johnson', 'Abraham', 'Wilson'];
 const colors = ['Red', 'Blue', 'Green', 'Yellow'];
@@ -63,7 +64,7 @@ for (let i = 0; i < 10; i++) {
         lastName: lastNames[i % lastNames.length],
         favoriteColor: colors[i % colors.length],
         quote: `I'm number ${i + 1}!`,
-        subRows: []
+        parentId: undefined
     });
 }
 
@@ -285,22 +286,21 @@ const metadata: Meta<TableArgs> = {
             if (!detail.newState) {
                 return;
             }
-            for (let i = 0; i < largeData.length; i++) {
-                if (largeData[i].subRows.length > 0) {
-                    continue;
-                }
-                for (let j = 0; j < 5000; j++) {
-                    if (largeData[i].id === detail.recordId) {
-                        largeData[i]!.subRows!.push({
-                            id: `${(i * 5000) + j + largeData.length}`,
-                            firstName: firstNames[i % firstNames.length]!,
-                            lastName: lastNames[i % lastNames.length]!,
-                            favoriteColor: colors[i % colors.length]!,
-                            quote: `I'm number ${(i * 5000) + j + largeData.length}!`,
-                            subRows: undefined
-                        });
-                    }
-                }
+            if (loadedDataMap.has(detail.recordId!)) {
+                return;
+            }
+            loadedDataMap.set(detail.recordId!, true);
+            for (let j = 0; j < 5000; j++) {
+                // if (largeData[i].id === detail.recordId) {
+                largeData.push({
+                    id: `${j + largeData.length}`,
+                    firstName: firstNames[j % firstNames.length]!,
+                    lastName: lastNames[j % lastNames.length]!,
+                    favoriteColor: colors[j % colors.length]!,
+                    quote: `I'm number ${j + largeData.length}!`,
+                    parentId: detail.recordId!
+                });
+                // }
             }
             x.updateData(x);
         }

@@ -12,10 +12,9 @@ export type TableSubRowsFieldName = 'subRows';
  * TableFieldValue describes the type associated with values within
  * a table's records.
  */
-export type TableFieldValue = string | number | boolean | null | undefined | TableFieldValueArray;
+export type TableFieldValue = string | number | boolean | null | undefined;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TableFieldValueArray extends Array<TableFieldValue>{}
 
 /**
  * TableStringFieldValue describes the type associated with values within
@@ -30,7 +29,13 @@ export type TableStringFieldValue = string | null | undefined;
  */
 export interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
-    subRows?: TableFieldValueArray;
+    parentId?: string;
+}
+
+export interface InternalTableRecord {
+    [key: TableFieldName]: unknown;
+    subRows?: InternalTableRecord[];
+    parentId?: string;
 }
 
 export type TableStringField<FieldName extends TableFieldName> = {
@@ -152,7 +157,7 @@ export interface TableColumnConfiguration {
  *
  * Internal representation of a row in the table
  */
-export interface TableRowState<TData extends TableRecord = TableRecord> {
+export interface TableRowState<TData extends InternalTableRecord = InternalTableRecord> {
     record: TData;
     id: string;
     selectionState: TableRowSelectionState;
