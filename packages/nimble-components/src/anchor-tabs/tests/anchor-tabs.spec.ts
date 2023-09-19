@@ -13,7 +13,7 @@ import '../../anchor-tab';
 import type { AnchorTab } from '../../anchor-tab';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 describe('AnchorTabs', () => {
     let element: AnchorTabs;
@@ -182,46 +182,51 @@ describe('AnchorTabs', () => {
             await disconnect();
         });
 
-        const navigationTests: {
-            name: string,
-            disabledIndex?: number,
-            hiddenIndex?: number,
-            initialFocusIndex: number,
-            keyName: string,
-            expectedFinalFocusIndex: number
-        }[] = [
+        const navigationTests = [
             {
                 name: 'should focus next tab when right arrow key pressed',
+                disabledIndex: undefined,
+                hiddenIndex: undefined,
                 initialFocusIndex: 0,
                 keyName: keyArrowRight,
                 expectedFinalFocusIndex: 1
             },
             {
                 name: 'should focus previous tab when left arrow key pressed',
+                disabledIndex: undefined,
+                hiddenIndex: undefined,
                 initialFocusIndex: 1,
                 keyName: keyArrowLeft,
                 expectedFinalFocusIndex: 0
             },
             {
                 name: 'should wrap to first tab when arrowing right on last tab',
+                disabledIndex: undefined,
+                hiddenIndex: undefined,
                 initialFocusIndex: 2,
                 keyName: keyArrowRight,
                 expectedFinalFocusIndex: 0
             },
             {
                 name: 'should wrap to last tab when arrowing left on first tab',
+                disabledIndex: undefined,
+                hiddenIndex: undefined,
                 initialFocusIndex: 0,
                 keyName: keyArrowLeft,
                 expectedFinalFocusIndex: 2
             },
             {
                 name: 'should focus first tab when Home key pressed',
+                disabledIndex: undefined,
+                hiddenIndex: undefined,
                 initialFocusIndex: 1,
                 keyName: keyHome,
                 expectedFinalFocusIndex: 0
             },
             {
                 name: 'should focus last tab when End key pressed',
+                disabledIndex: undefined,
+                hiddenIndex: undefined,
                 initialFocusIndex: 1,
                 keyName: keyEnd,
                 expectedFinalFocusIndex: 2
@@ -229,6 +234,7 @@ describe('AnchorTabs', () => {
             {
                 name: 'should skip disabled tab when arrowing right',
                 disabledIndex: 1,
+                hiddenIndex: undefined,
                 initialFocusIndex: 0,
                 keyName: keyArrowRight,
                 expectedFinalFocusIndex: 2
@@ -236,6 +242,7 @@ describe('AnchorTabs', () => {
             {
                 name: 'should skip disabled tab when arrowing left',
                 disabledIndex: 1,
+                hiddenIndex: undefined,
                 initialFocusIndex: 2,
                 keyName: keyArrowLeft,
                 expectedFinalFocusIndex: 0
@@ -243,6 +250,7 @@ describe('AnchorTabs', () => {
             {
                 name: 'should skip disabled when arrowing right on last tab',
                 disabledIndex: 0,
+                hiddenIndex: undefined,
                 initialFocusIndex: 2,
                 keyName: keyArrowRight,
                 expectedFinalFocusIndex: 1
@@ -250,6 +258,7 @@ describe('AnchorTabs', () => {
             {
                 name: 'should skip disabled when arrowing left on first tab',
                 disabledIndex: 2,
+                hiddenIndex: undefined,
                 initialFocusIndex: 0,
                 keyName: keyArrowLeft,
                 expectedFinalFocusIndex: 1
@@ -257,6 +266,7 @@ describe('AnchorTabs', () => {
             {
                 name: 'should focus first enabled tab when Home key pressed',
                 disabledIndex: 0,
+                hiddenIndex: undefined,
                 initialFocusIndex: 2,
                 keyName: keyHome,
                 expectedFinalFocusIndex: 1
@@ -264,12 +274,14 @@ describe('AnchorTabs', () => {
             {
                 name: 'should focus last enabled tab when End key pressed',
                 disabledIndex: 2,
+                hiddenIndex: undefined,
                 initialFocusIndex: 0,
                 keyName: keyEnd,
                 expectedFinalFocusIndex: 1
             },
             {
                 name: 'should skip hidden tab when arrowing right',
+                disabledIndex: undefined,
                 hiddenIndex: 1,
                 initialFocusIndex: 0,
                 keyName: keyArrowRight,
@@ -277,6 +289,7 @@ describe('AnchorTabs', () => {
             },
             {
                 name: 'should skip hidden tab when arrowing left',
+                disabledIndex: undefined,
                 hiddenIndex: 1,
                 initialFocusIndex: 2,
                 keyName: keyArrowLeft,
@@ -284,6 +297,7 @@ describe('AnchorTabs', () => {
             },
             {
                 name: 'should skip hidden when arrowing right on last tab',
+                disabledIndex: undefined,
                 hiddenIndex: 0,
                 initialFocusIndex: 2,
                 keyName: keyArrowRight,
@@ -291,6 +305,7 @@ describe('AnchorTabs', () => {
             },
             {
                 name: 'should skip hidden when arrowing left on first tab',
+                disabledIndex: undefined,
                 hiddenIndex: 2,
                 initialFocusIndex: 0,
                 keyName: keyArrowLeft,
@@ -298,6 +313,7 @@ describe('AnchorTabs', () => {
             },
             {
                 name: 'should focus first visible tab when Home key pressed',
+                disabledIndex: undefined,
                 hiddenIndex: 0,
                 initialFocusIndex: 2,
                 keyName: keyHome,
@@ -305,45 +321,38 @@ describe('AnchorTabs', () => {
             },
             {
                 name: 'should focus last visible tab when End key pressed',
+                disabledIndex: undefined,
                 hiddenIndex: 2,
                 initialFocusIndex: 0,
                 keyName: keyEnd,
                 expectedFinalFocusIndex: 1
             }
-        ];
+        ] as const;
         describe('navigation', () => {
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const test of navigationTests) {
-                const specType = getSpecTypeByNamedList(
-                    test,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(test.name, async () => {
+            parameterizeNamedList(navigationTests, (spec, name, value) => {
+                spec(name, async () => {
                     await connect();
-                    if (test.disabledIndex !== undefined) {
-                        tab(test.disabledIndex).disabled = true;
+                    if (value.disabledIndex !== undefined) {
+                        tab(value.disabledIndex).disabled = true;
                         await waitForUpdatesAsync();
                     }
-                    if (test.hiddenIndex !== undefined) {
-                        tab(test.hiddenIndex).hidden = true;
+                    if (value.hiddenIndex !== undefined) {
+                        tab(value.hiddenIndex).hidden = true;
                         await waitForUpdatesAsync();
                     }
-                    tab(test.initialFocusIndex).focus();
-                    tab(test.initialFocusIndex).dispatchEvent(
-                        new KeyboardEvent('keydown', { key: test.keyName })
+                    tab(value.initialFocusIndex).focus();
+                    tab(value.initialFocusIndex).dispatchEvent(
+                        new KeyboardEvent('keydown', { key: value.keyName })
                     );
                     await waitForUpdatesAsync();
                     expect(document.activeElement).toBe(
-                        tab(test.expectedFinalFocusIndex)
+                        tab(value.expectedFinalFocusIndex)
                     );
-                    expect(tab(test.expectedFinalFocusIndex).ariaSelected).toBe(
+                    expect(tab(value.expectedFinalFocusIndex).ariaSelected).toBe(
                         'true'
                     );
                 });
-            }
+            });
         });
 
         it('should skip past other tabs when pressing tab key after click', async () => {
