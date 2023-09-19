@@ -348,9 +348,9 @@ describe('AnchorTabs', () => {
                     expect(document.activeElement).toBe(
                         tab(value.expectedFinalFocusIndex)
                     );
-                    expect(tab(value.expectedFinalFocusIndex).ariaSelected).toBe(
-                        'true'
-                    );
+                    expect(
+                        tab(value.expectedFinalFocusIndex).ariaSelected
+                    ).toBe('true');
                 });
             });
         });
