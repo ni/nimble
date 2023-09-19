@@ -140,7 +140,7 @@ The client-user can specify whether one panel or more than one panel can be open
 
 ![ ](spec-images/accordion-13.png)
 
-### Keyboard Interactions
+### Non-Mouse Interactions
 
 > NOTE: Based on ARIA APG [accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/)
 
