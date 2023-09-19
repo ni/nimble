@@ -80,7 +80,7 @@ describe('Icons', () => {
     describe('Representative icon', () => {
         async function setup(): Promise<Fixture<IconAdd>> {
             return fixture<IconAdd>(
-                html`<${iconAddTag} aria-label="initial aria label"></${iconAddTag}>`
+                html`<${iconAddTag} alt="initial aria label"></${iconAddTag}>`
             );
         }
         let element: IconAdd;
@@ -95,7 +95,7 @@ describe('Icons', () => {
             await disconnect();
         });
 
-        it('sets initial aria-label on inner SVG', async () => {
+        it('sets initial alt text as aria-label on inner SVG', async () => {
             await connect();
             const svg = element.shadowRoot!.querySelector('svg');
             expect(svg?.getAttribute('aria-label')).toEqual(
@@ -105,21 +105,21 @@ describe('Icons', () => {
 
         it('supports setting blank aria-label on inner SVG', async () => {
             await connect();
-            element.setAttribute('aria-label', '');
+            element.setAttribute('alt', '');
             const svg = element.shadowRoot!.querySelector('svg');
             expect(svg?.getAttribute('aria-label')).toEqual('');
         });
 
-        it('clears aria-label from inner SVG when removed from icon', async () => {
+        it('clears aria-label from inner SVG when alt removed from icon', async () => {
             await connect();
-            element.removeAttribute('aria-label');
+            element.removeAttribute('alt');
             const svg = element.shadowRoot!.querySelector('svg');
             expect(svg?.hasAttribute('aria-label')).toBeFalse();
         });
 
-        it('updates aria-label on inner SVG when changed on icon', async () => {
+        it('updates aria-label on inner SVG when alt changed on icon', async () => {
             await connect();
-            element.setAttribute('aria-label', 'new aria label');
+            element.setAttribute('alt', 'new aria label');
             const svg = element.shadowRoot!.querySelector('svg');
             expect(svg?.getAttribute('aria-label')).toEqual('new aria label');
         });

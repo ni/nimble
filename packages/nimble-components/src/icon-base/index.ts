@@ -1,10 +1,5 @@
 import { attr } from '@microsoft/fast-element';
-import {
-    applyMixins,
-    ARIAGlobalStatesAndProperties,
-    DesignSystem,
-    FoundationElement
-} from '@microsoft/fast-foundation';
+import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist/icons/js';
 import { template } from './template';
 import { styles } from './styles';
@@ -22,35 +17,44 @@ export class Icon extends FoundationElement {
     @attr
     public severity: IconSeverity;
 
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: alt
+     */
+    @attr
+    public alt?: string;
+
     public constructor(/** @internal */ public readonly icon: NimbleIcon) {
         super();
     }
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.forwardAriaLabelToSvg();
+        this.setImgRoleOnSvg();
+        this.forwardAltToSvgAriaLabel();
     }
 
-    private ariaLabelChanged(): void {
-        this.forwardAriaLabelToSvg();
+    private altChanged(): void {
+        this.forwardAltToSvgAriaLabel();
     }
 
-    private forwardAriaLabelToSvg(): void {
+    private forwardAltToSvgAriaLabel(): void {
         const svg = this.shadowRoot?.querySelector('svg');
         if (!svg) {
             return;
         }
-        if (this.ariaLabel !== null && this.ariaLabel !== undefined) {
-            svg.setAttribute('aria-label', this.ariaLabel);
+        if (this.alt !== null && this.alt !== undefined) {
+            svg.setAttribute('aria-label', this.alt);
         } else {
             svg.removeAttribute('aria-label');
         }
     }
-}
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Icon extends ARIAGlobalStatesAndProperties {}
-applyMixins(Icon, ARIAGlobalStatesAndProperties);
+    private setImgRoleOnSvg(): void {
+        this.shadowRoot?.querySelector('svg')?.setAttribute('role', 'img');
+    }
+}
 
 type IconClass = typeof Icon;
 
