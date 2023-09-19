@@ -343,6 +343,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
          */
         return new Editor({
             element: this.editor,
+            enableInputRules: [BulletList, OrderedList],
             extensions: [
                 Document,
                 Paragraph,

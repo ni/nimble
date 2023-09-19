@@ -412,6 +412,65 @@ describe('RichTextEditor', () => {
             ]);
         });
 
+        it('should not have "strong" tag name for markdown input to the editor', async () => {
+            await pageObject.setEditorTextContent('**bold**');
+
+            expect(pageObject.getEditorTagNames()).toEqual(['P']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['**bold**']);
+        });
+
+        it('should not have "em" tag name for markdown input to the editor', async () => {
+            await pageObject.setEditorTextContent('*italics*');
+
+            expect(pageObject.getEditorTagNames()).toEqual(['P']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['*italics*']);
+        });
+
+        it('should have "bullet list(*)" tag name for markdown input to the editor', async () => {
+            await pageObject.setEditorTextContent('*');
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.setEditorTextContent('Bullet list');
+
+            expect(pageObject.getEditorTagNames()).toEqual(['UL', 'LI', 'P']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['Bullet list']);
+        });
+
+        it('should have "bullet list(+)" tag name for markdown input to the editor', async () => {
+            await pageObject.setEditorTextContent('+');
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.setEditorTextContent('Bullet list');
+
+            expect(pageObject.getEditorTagNames()).toEqual(['UL', 'LI', 'P']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['Bullet list']);
+        });
+
+        it('should have "bullet list(-)" tag name for markdown input to the editor', async () => {
+            await pageObject.setEditorTextContent('-');
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.setEditorTextContent('Bullet list');
+
+            expect(pageObject.getEditorTagNames()).toEqual(['UL', 'LI', 'P']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['Bullet list']);
+        });
+
+        it('should have "numbered list" tag name for markdown input to the editor', async () => {
+            await pageObject.setEditorTextContent('1.');
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.setEditorTextContent('Numbered list');
+
+            expect(pageObject.getEditorTagNames()).toEqual(['OL', 'LI', 'P']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['Numbered list']);
+        });
+
+        it('should have "numbered list" with a different starting number tag name for markdown input to the editor', async () => {
+            await pageObject.setEditorTextContent('5.');
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.setEditorTextContent('Numbered list');
+
+            expect(pageObject.getEditorTagNames()).toEqual(['OL', 'LI', 'P']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['Numbered list']);
+        });
+
         it('should have br tag name when pressing shift + Enter with numbered list content', async () => {
             await pageObject.setEditorTextContent('numbered list1');
             await pageObject.clickFooterButton(ToolbarButton.numberedList);
