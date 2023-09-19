@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Enable only necessary formatting input rules in editor",
+  "comment": "Avoid converting markdown syntax characters like star (*) and underscore(_) to format the editor content automatically while typing",
   "packageName": "@ni/nimble-components",
   "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
   "dependentChangeType": "patch"
