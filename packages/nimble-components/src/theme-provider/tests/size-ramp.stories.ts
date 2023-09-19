@@ -26,7 +26,7 @@ const sizeRampTokenNames = (({
 type TokenName = keyof typeof sizeRampTokenNames;
 const tokenNameKeys = Object.keys(sizeRampTokenNames) as TokenName[];
 
-const overviewText = 'Design Tokens representing the range of fixed sizes to use for spacing and layout.';
+const overviewText = 'Design Tokens representing the range of fixed sizes to use for spacing and layout. Use these tokens when no designated token exists for the purpose.';
 
 interface TokenArgs {
     propertyFormat: PropertyFormat;
