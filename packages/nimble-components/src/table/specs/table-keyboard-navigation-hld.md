@@ -58,7 +58,7 @@ If you consult the IxD document you will see that the design diverges from the a
 
     Cons:
 
-    - Possible confusion for users when a a row has focus, with obvious focusable/tabbable elements, and `Tab` does not take them to those elements.
+    - Possible confusion for users when a row has focus, with obvious focusable/tabbable elements, and `Tab` does not take them to those elements.
     - One could say that only adding the interactive elements in a row to the set of tabbable elements on a page isn't that much of an overhead from a navigation perspective, so trying to reduce it below that is an unnecessary goal.
 
 #
