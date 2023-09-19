@@ -44,6 +44,7 @@ for (const key of Object.keys(icons)) {
 @inherits NimbleIconBase
 <${elementName}
     severity="@Severity.ToAttributeValue()"
+    alt="@Alt"
     @attributes="AdditionalAttributes">
 </${elementName}>
  `;

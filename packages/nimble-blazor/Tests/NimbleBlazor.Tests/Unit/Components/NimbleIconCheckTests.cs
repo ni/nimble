@@ -44,6 +44,17 @@ public class NimbleIconCheckTests
         Assert.Contains(expectedAttribute, icon.Markup);
     }
 
+    [Theory]
+    [InlineData(null, "<nimble-icon-check>")]
+    [InlineData("", "alt=\"\"")]
+    [InlineData("check", "alt=\"check\"")]
+    public void Alt_AttributeIsSet(string value, string expectedAttribute)
+    {
+        var icon = RenderWithPropertySet(x => x.Alt, value);
+
+        Assert.Contains(expectedAttribute, icon.Markup);
+    }
+
     private IRenderedComponent<NimbleIconCheck> RenderWithPropertySet<TProperty>(Expression<Func<NimbleIconCheck, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
