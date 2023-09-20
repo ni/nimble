@@ -3,10 +3,12 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { Dialog, dialogTag, UserDismissed } from '..';
 import { TextField, textFieldTag } from '../../text-field';
-import { ExampleContentType } from './types';
+import { DialogSizeOptions, ExampleContentType } from './types';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 import { buttonTag } from '../../button';
 import { checkboxTag } from '../../checkbox';
+import { dialogLargeHeight, dialogLargeWidth, dialogSmallMaxHeight, dialogSmallWidth } from '../../theme-provider/design-tokens';
+import { scssPropertyFromTokenName, tokenNames } from '../../theme-provider/design-token-names';
 
 interface DialogArgs {
     title: string;
@@ -16,6 +18,9 @@ interface DialogArgs {
     includeFooterButtons: boolean;
     preventDismiss: boolean;
     content: ExampleContentType;
+    width: DialogSizeOptions;
+    height: DialogSizeOptions;
+    maxHeight: DialogSizeOptions;
     show: undefined;
     close: undefined;
     dialogRef: Dialog<string>;
@@ -49,6 +54,41 @@ const content = {
     [ExampleContentType.longContent]: longContent
 } as const;
 
+const widthDescription = `
+Width of a nimble dialog.
+The default width that the dialog has is given by ${scssPropertyFromTokenName(tokenNames.dialogSmallWidth)}.
+
+The width can be overriden by setting a different value for the width attribute. For large dialogs, there is a nimble token available: ${scssPropertyFromTokenName(tokenNames.dialogLargeWidth)}
+`;
+
+const heightDescription = `
+Height of a nimble dialog.
+
+The height can be overriden by setting a different value for the height attribute. For large dialogs, there is a nimble token available: ${scssPropertyFromTokenName(tokenNames.dialogLargeHeight)}
+`;
+
+const maxHeightDescription = `
+Maximum height of a nimble dialog.
+The default maximum height that the dialog has is given by ${scssPropertyFromTokenName(tokenNames.dialogSmallMaxHeight)}.
+
+The maximum height can be overriden by setting a different value for the maximum height attribute.
+`;
+
+const widths = {
+    [DialogSizeOptions.default]: dialogSmallWidth.getValueFor(document.body),
+    [DialogSizeOptions.large]: dialogLargeWidth.getValueFor(document.body)
+} as const;
+
+const heights = {
+    [DialogSizeOptions.default]: 'fit-content',
+    [DialogSizeOptions.large]: dialogLargeHeight.getValueFor(document.body)
+} as const;
+
+const maxHeights = {
+    [DialogSizeOptions.default]: dialogSmallMaxHeight.getValueFor(document.body),
+    [DialogSizeOptions.large]: dialogLargeHeight.getValueFor(document.body)
+} as const;
+
 const metadata: Meta<DialogArgs> = {
     title: 'Components/Dialog',
     tags: ['autodocs'],
@@ -71,6 +111,11 @@ const metadata: Meta<DialogArgs> = {
             ?prevent-dismiss="${x => x.preventDismiss}"
             ?header-hidden="${x => x.headerHidden}"
             ?footer-hidden="${x => x.footerHidden}"
+            style="${x => `
+                width:${widths[x.width]};
+                height:${heights[x.height]};
+                max-height:${maxHeights[x.maxHeight]};
+                `}"
         >
             <span slot="title">${x => x.title}</span>
             <span slot="subtitle">${x => x.subtitle}</span>
@@ -154,6 +199,58 @@ const metadata: Meta<DialogArgs> = {
                 }
             }
         },
+        width: {
+            description: widthDescription,
+            options: [
+                DialogSizeOptions.default,
+                DialogSizeOptions.large
+            ],
+            control: {
+                type: 'select',
+                labels: {
+                    [DialogSizeOptions.default]: `Default (${dialogSmallWidth.getValueFor(
+                        document.body
+                    )})`,
+                    [DialogSizeOptions.large]: `Large (${dialogLargeWidth.getValueFor(
+                        document.body
+                    )})`,
+                }
+            }
+        },
+        height: {
+            description: heightDescription,
+            options: [
+                DialogSizeOptions.default,
+                DialogSizeOptions.large
+            ],
+            control: {
+                type: 'select',
+                labels: {
+                    [DialogSizeOptions.default]: 'Default (fit-content)',
+                    [DialogSizeOptions.large]: `Large (${dialogLargeHeight.getValueFor(
+                        document.body
+                    )})`,
+                }
+            }
+        },
+        maxHeight: {
+            description: maxHeightDescription,
+            options: [
+                DialogSizeOptions.default,
+                DialogSizeOptions.large
+            ],
+            control: {
+                type: 'select',
+                labels: {
+                    [DialogSizeOptions.default]: `Default (${dialogSmallMaxHeight.getValueFor(
+                        document.body
+                    )})`,
+                    [DialogSizeOptions.large]: `Large (${dialogLargeHeight.getValueFor(
+                        document.body
+                    )})`,
+                }
+            }
+        },
         show: {
             name: 'show()',
             description:
@@ -178,6 +275,9 @@ const metadata: Meta<DialogArgs> = {
         includeFooterButtons: true,
         preventDismiss: false,
         content: ExampleContentType.shortContent,
+        width: DialogSizeOptions.default,
+        height: DialogSizeOptions.default,
+        maxHeight: DialogSizeOptions.default,
         openAndHandleResult: (dialogRef, textFieldRef) => {
             void (async () => {
                 const reason = await dialogRef.show();

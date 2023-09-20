@@ -1,10 +1,12 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html } from '@microsoft/fast-element';
-import { createFixedThemeStory } from '../../utilities/tests/storybook';
-import { sharedMatrixParameters } from '../../utilities/tests/matrix';
+import { html, ViewTemplate } from '@microsoft/fast-element';
+import { createFixedThemeStory, createStory } from '../../utilities/tests/storybook';
+import { createMatrix, sharedMatrixParameters } from '../../utilities/tests/matrix';
 import { backgroundStates } from '../../utilities/tests/states';
 import { dialogTag } from '..';
 import { buttonTag } from '../../button';
+import { cssPropertyFromTokenName, tokenNames } from '../../theme-provider/design-token-names';
+import { dialogLargeHeight, dialogLargeWidth, dialogSmallMaxHeight, dialogSmallWidth } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Dialog',
@@ -18,6 +20,26 @@ export default metadata;
 const component = html`
     <${dialogTag}>
         <span slot="title">This is my dialog's title. It is pretty long.</span>
+        <span slot="subtitle">The dialog has a subtitle here.</span>
+        <div>Here is the first piece of content in the dialog</div>
+        <div>
+            Here is another piece of content in the dialog. It is a bit longer.
+        </div>
+        <${buttonTag} slot="footer">Cancel</${buttonTag}>
+        <${buttonTag} slot="footer">OK</${buttonTag}>
+    </${dialogTag}>
+`;
+
+const dialogSizingTestCase = (
+    [widthLabel, widthStyle]: [string, string],
+    [heightLabel, heightStyle]: [string, string],
+    [maxHeightLabel, maxHeightStyle]: [string, string]
+): ViewTemplate => html`
+    <p style="font: var(${cssPropertyFromTokenName(
+        tokenNames.bodyFont
+    )}); margin-bottom: 0px;">${() => widthLabel}; ${() => heightLabel} ${() => maxHeightLabel}</p>
+    <${dialogTag} style="${() => widthStyle}; ${() => heightStyle}; ${() => maxHeightStyle};">
+    <span slot="title">This is my dialog's title. It is pretty long.</span>
         <span slot="subtitle">The dialog has a subtitle here.</span>
         <div>Here is the first piece of content in the dialog</div>
         <div>
@@ -60,3 +82,20 @@ export const dialogDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
 );
 
 dialogDarkThemeBlackBackground.play = playFunction;
+
+export const richTextEditorSizing: StoryFn = createStory(html`
+    ${createMatrix(dialogSizingTestCase, [
+        [
+            [`Width ${dialogSmallWidth.getValueFor(document.body)}`, `width: ${dialogSmallWidth.getValueFor(document.body)}`],
+            [`Width ${dialogLargeWidth.getValueFor(document.body)}`, `width: ${dialogLargeWidth.getValueFor(document.body)}`],
+        ],
+        [
+            ['Height fit-content', 'height: fit-content'],
+            [`Height ${dialogLargeHeight.getValueFor(document.body)}`, `height: ${dialogLargeHeight.getValueFor(document.body)}`],
+        ],
+        [
+            [`Max height ${dialogSmallMaxHeight.getValueFor(document.body)}`, `max-height: ${dialogSmallMaxHeight.getValueFor(document.body)}`],
+            [`Max height ${dialogLargeHeight.getValueFor(document.body)}`, `max-height: ${dialogLargeHeight.getValueFor(document.body)}`],
+        ]
+    ])}
+`);

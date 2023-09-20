@@ -12,7 +12,9 @@ import {
     smallPadding,
     subtitleFont,
     subtitleFontColor,
-    elevation3BoxShadow
+    elevation3BoxShadow,
+    dialogSmallWidth,
+    dialogSmallMaxHeight
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -25,14 +27,21 @@ import { themeBehavior } from '../utilities/style/theme';
 export const styles = css`
     ${display('grid')}
 
+    :host {
+        width: ${dialogSmallWidth};
+        height: fit-content;
+        max-height: ${dialogSmallMaxHeight};
+    }
+
     dialog {
         flex-direction: column;
         background-color: ${applicationBackgroundColor};
         border: none;
         box-shadow: ${elevation3BoxShadow};
         padding: 0px;
-        width: 400px;
-        max-height: 600px;
+        width: inherit;
+        height: inherit;
+        max-height: inherit;
     }
 
     dialog[open] {
