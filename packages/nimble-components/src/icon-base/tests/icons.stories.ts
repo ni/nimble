@@ -16,6 +16,7 @@ import { tableColumnIconTag } from '../../table-column/icon';
 import { mappingIconTag } from '../../mapping/icon';
 import { tableColumnTextTag } from '../../table-column/text';
 import { iconMetadata } from './icon-metadata';
+import { iconAddTag } from '../../icons/add';
 
 type IconName = keyof typeof nimbleIconComponentsMap;
 const data = Object.values(nimbleIconComponentsMap).map(iconClass => ({
@@ -31,7 +32,17 @@ interface IconArgs {
 }
 
 const metadata: Meta<IconArgs> = {
-    title: 'Components/Icons'
+    title: 'Components/Icons',
+    parameters: {
+        docs: {
+            description: {
+                component: `Nimble icons can be slotted into other components or used independently. Each icon is available as a custom element. For example, \`<${iconAddTag}></${iconAddTag}>\``
+            },
+            source: {
+                code: null,
+            }
+        }
+    },
 };
 
 export default metadata;

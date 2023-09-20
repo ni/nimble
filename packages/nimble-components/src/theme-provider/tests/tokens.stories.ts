@@ -37,6 +37,9 @@ const metadata: Meta = {
         docs: {
             description: {
                 component: overviewText
+            },
+            source: {
+                code: null,
             }
         }
     }
