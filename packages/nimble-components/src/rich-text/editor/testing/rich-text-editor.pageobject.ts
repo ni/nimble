@@ -124,11 +124,10 @@ export class RichTextEditorPageObject {
 
     public pasteToEditor(text: string): void {
         const editor = this.getTiptapEditor();
-        const clipboardData = new DataTransfer();
-        clipboardData.setData('text/plain', text);
         const pasteEvent = new ClipboardEvent('paste', {
-            clipboardData
+            clipboardData: new DataTransfer()
         });
+        pasteEvent.clipboardData?.setData('text/plain', text);
         editor!.dispatchEvent(pasteEvent);
     }
 
