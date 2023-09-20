@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 20 Sep 2023 22:35:58 GMT",
+      "tag": "@ni/nimble-components_v20.5.0",
+      "version": "20.5.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cc797d79d1457f33aa9116de5a8e75ccc5d0546b",
+            "comment": "Update icon story to nimble-table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 20 Sep 2023 18:55:59 GMT",
       "tag": "@ni/nimble-components_v20.5.0",
       "version": "20.5.0",
