@@ -412,7 +412,7 @@ describe('RichTextEditor', () => {
             ]);
         });
 
-        describe('should render as a plain text for markdown input to the editor', () => {
+        describe('should render as a plain text for bold and italics input rule entered into the editor', () => {
             const markdownInput: { name: string, input: string }[] = [
                 { name: 'bold(**)', input: '**bold**' },
                 { name: 'bold(__)', input: '__bold__' },
