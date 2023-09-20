@@ -27,10 +27,8 @@ const supportedLabels = {
     groupsCollapseAll: tableGroupsCollapseAllLabel,
     cellActionMenu: tableCellActionMenuLabel,
     columnHeaderGrouped: tableColumnHeaderGroupedLabel,
-    columnHeaderSortedAscending:
-        tableColumnHeaderSortedAscendingLabel,
-    columnHeaderSortedDescending:
-        tableColumnHeaderSortedDescendingLabel,
+    columnHeaderSortedAscending: tableColumnHeaderSortedAscendingLabel,
+    columnHeaderSortedDescending: tableColumnHeaderSortedDescendingLabel,
     selectAll: tableSelectAllLabel,
     groupSelectAll: tableGroupSelectAllLabel,
     rowSelect: tableRowSelectLabel,

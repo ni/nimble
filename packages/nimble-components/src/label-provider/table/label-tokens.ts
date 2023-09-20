@@ -26,19 +26,17 @@ export const tableColumnHeaderGroupedLabel = DesignToken.create<string>({
     cssCustomPropertyName: null
 }).withDefault(tableLabelDefaults.tableColumnHeaderGroupedLabel);
 
-export const tableColumnHeaderSortedAscendingLabel = DesignToken.create<string>({
-    name: 'table-column-header-sorted-ascending-label',
-    cssCustomPropertyName: null
-}).withDefault(
-    tableLabelDefaults.tableColumnHeaderSortedAscendingLabel
-);
+export const tableColumnHeaderSortedAscendingLabel = DesignToken.create<string>(
+    {
+        name: 'table-column-header-sorted-ascending-label',
+        cssCustomPropertyName: null
+    }
+).withDefault(tableLabelDefaults.tableColumnHeaderSortedAscendingLabel);
 
 export const tableColumnHeaderSortedDescendingLabel = DesignToken.create<string>({
     name: 'table-column-header-sorted-descending-label',
     cssCustomPropertyName: null
-}).withDefault(
-    tableLabelDefaults.tableColumnHeaderSortedDescendingLabel
-);
+}).withDefault(tableLabelDefaults.tableColumnHeaderSortedDescendingLabel);
 
 export const tableSelectAllLabel = DesignToken.create<string>({
     name: 'table-select-all-label',
