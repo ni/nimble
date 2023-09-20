@@ -5,9 +5,9 @@ import { iconArrowUpTag } from '../../../icons/arrow-up';
 import { iconTwoSquaresInBracketsTag } from '../../../icons/two-squares-in-brackets';
 import { TableColumnSortDirection } from '../../types';
 import {
-    tableColumnHeaderGroupedIndicatorLabel,
-    tableColumnHeaderSortedAscendingIndicatorLabel,
-    tableColumnHeaderSortedDescendingIndicatorLabel
+    tableColumnHeaderGroupedLabel,
+    tableColumnHeaderSortedAscendingLabel,
+    tableColumnHeaderSortedDescendingLabel
 } from '../../../label-provider/table/label-tokens';
 
 // prettier-ignore
@@ -22,22 +22,22 @@ export const template = html<TableHeader>`
         ${when(x => x.sortDirection === TableColumnSortDirection.ascending, html<TableHeader>`
             <${iconArrowUpTag}
                 class="sort-indicator"
-                title="${x => tableColumnHeaderSortedAscendingIndicatorLabel.getValueFor(x)}"
+                title="${x => tableColumnHeaderSortedAscendingLabel.getValueFor(x)}"
                 aria-hidden="true"
             ></${iconArrowUpTag}>
         `)}
         ${when(x => x.sortDirection === TableColumnSortDirection.descending, html<TableHeader>`
             <${iconArrowDownTag}
                 class="sort-indicator"
-                title="${x => tableColumnHeaderSortedDescendingIndicatorLabel.getValueFor(x)}"
+                title="${x => tableColumnHeaderSortedDescendingLabel.getValueFor(x)}"
                 aria-hidden="true"
             ></${iconArrowDownTag}>
         `)}
         ${when(x => x.isGrouped, html<TableHeader>`
             <${iconTwoSquaresInBracketsTag}
                 class="grouped-indicator"
-                title="${x => tableColumnHeaderGroupedIndicatorLabel.getValueFor(x)}"
-                aria-label="${x => tableColumnHeaderGroupedIndicatorLabel.getValueFor(x)}"
+                title="${x => tableColumnHeaderGroupedLabel.getValueFor(x)}"
+                aria-label="${x => tableColumnHeaderGroupedLabel.getValueFor(x)}"
             ></${iconTwoSquaresInBracketsTag}>
         `)}
     </template>

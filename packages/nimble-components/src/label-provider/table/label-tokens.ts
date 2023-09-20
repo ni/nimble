@@ -21,23 +21,23 @@ export const tableCellActionMenuLabel = DesignToken.create<string>({
     cssCustomPropertyName: null
 }).withDefault(tableLabelDefaults.tableCellActionMenuLabel);
 
-export const tableColumnHeaderGroupedIndicatorLabel = DesignToken.create<string>({
-    name: 'table-column-header-grouped-indicator-label',
+export const tableColumnHeaderGroupedLabel = DesignToken.create<string>({
+    name: 'table-column-header-grouped-label',
     cssCustomPropertyName: null
-}).withDefault(tableLabelDefaults.tableColumnHeaderGroupedIndicatorLabel);
+}).withDefault(tableLabelDefaults.tableColumnHeaderGroupedLabel);
 
-export const tableColumnHeaderSortedAscendingIndicatorLabel = DesignToken.create<string>({
-    name: 'table-column-header-sorted-ascending-indicator-label',
+export const tableColumnHeaderSortedAscendingLabel = DesignToken.create<string>({
+    name: 'table-column-header-sorted-ascending-label',
     cssCustomPropertyName: null
 }).withDefault(
-    tableLabelDefaults.tableColumnHeaderSortedAscendingIndicatorLabel
+    tableLabelDefaults.tableColumnHeaderSortedAscendingLabel
 );
 
-export const tableColumnHeaderSortedDescendingIndicatorLabel = DesignToken.create<string>({
-    name: 'table-column-header-sorted-descending-indicator-label',
+export const tableColumnHeaderSortedDescendingLabel = DesignToken.create<string>({
+    name: 'table-column-header-sorted-descending-label',
     cssCustomPropertyName: null
 }).withDefault(
-    tableLabelDefaults.tableColumnHeaderSortedDescendingIndicatorLabel
+    tableLabelDefaults.tableColumnHeaderSortedDescendingLabel
 );
 
 export const tableSelectAllLabel = DesignToken.create<string>({

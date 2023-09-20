@@ -3,9 +3,9 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { DesignTokensFor, LabelProviderBase } from '../base';
 import {
     tableCellActionMenuLabel,
-    tableColumnHeaderGroupedIndicatorLabel,
-    tableColumnHeaderSortedAscendingIndicatorLabel,
-    tableColumnHeaderSortedDescendingIndicatorLabel,
+    tableColumnHeaderGroupedLabel,
+    tableColumnHeaderSortedAscendingLabel,
+    tableColumnHeaderSortedDescendingLabel,
     tableGroupCollapseLabel,
     tableGroupExpandLabel,
     tableGroupSelectAllLabel,
@@ -26,11 +26,11 @@ const supportedLabels = {
     groupExpand: tableGroupExpandLabel,
     groupsCollapseAll: tableGroupsCollapseAllLabel,
     cellActionMenu: tableCellActionMenuLabel,
-    columnHeaderGroupedIndicator: tableColumnHeaderGroupedIndicatorLabel,
-    columnHeaderSortedAscendingIndicator:
-        tableColumnHeaderSortedAscendingIndicatorLabel,
-    columnHeaderSortedDescendingIndicator:
-        tableColumnHeaderSortedDescendingIndicatorLabel,
+    columnHeaderGrouped: tableColumnHeaderGroupedLabel,
+    columnHeaderSortedAscending:
+        tableColumnHeaderSortedAscendingLabel,
+    columnHeaderSortedDescending:
+        tableColumnHeaderSortedDescendingLabel,
     selectAll: tableSelectAllLabel,
     groupSelectAll: tableGroupSelectAllLabel,
     rowSelect: tableRowSelectLabel,
@@ -55,14 +55,14 @@ export class LabelProviderTable
     @attr({ attribute: 'cell-action-menu' })
     public cellActionMenu: string | undefined;
 
-    @attr({ attribute: 'column-header-grouped-indicator' })
-    public columnHeaderGroupedIndicator: string | undefined;
+    @attr({ attribute: 'column-header-grouped' })
+    public columnHeaderGrouped: string | undefined;
 
-    @attr({ attribute: 'column-header-sorted-ascending-indicator' })
-    public columnHeaderSortedAscendingIndicator: string | undefined;
+    @attr({ attribute: 'column-header-sorted-ascending' })
+    public columnHeaderSortedAscending: string | undefined;
 
-    @attr({ attribute: 'column-header-sorted-descending-indicator' })
-    public columnHeaderSortedDescendingIndicator: string | undefined;
+    @attr({ attribute: 'column-header-sorted-descending' })
+    public columnHeaderSortedDescending: string | undefined;
 
     @attr({ attribute: 'select-all' })
     public selectAll: string | undefined;

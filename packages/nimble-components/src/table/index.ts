@@ -136,6 +136,9 @@ export class Table<
         return this.tableValidator.getValidity();
     }
 
+    /**
+     * @internal
+     */
     public get showRowOperationColumn(): boolean {
         return (
             this.selectionMode === TableRowSelectionMode.multiple

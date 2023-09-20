@@ -51,7 +51,7 @@ export const template = html<Table>`
                 <div role="rowgroup" class="header-row-container">
                     <div class="header-row" role="row">
                         <span role="${x => (x.showRowOperationColumn ? 'columnheader' : '')}" class="header-row-action-container" ${ref('headerRowActionContainer')}>
-                            ${when(x => x.showRowOperationColumn, html<Table>`    
+                            ${when(x => x.showRowOperationColumn, html<Table>`
                                 <span class="accessibly-hidden">
                                     ${x => tableRowOperationColumnLabel.getValueFor(x)}
                                 </span>
