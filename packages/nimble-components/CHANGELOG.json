@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 19 Sep 2023 23:12:45 GMT",
+      "tag": "@ni/nimble-components_v20.4.0",
+      "version": "20.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b6baa04c34007f4fad4e546c78505fa820fff6d1",
+            "comment": "Add medium padding token and document size ramp"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 Sep 2023 18:09:20 GMT",
+      "tag": "@ni/nimble-components_v20.3.2",
+      "version": "20.3.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "eadf3f27c7d8d649817910cb2da33406b6873ead",
+            "comment": "Parameterize test pattern"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 15 Sep 2023 21:18:04 GMT",
       "tag": "@ni/nimble-components_v20.3.2",
       "version": "20.3.2",
