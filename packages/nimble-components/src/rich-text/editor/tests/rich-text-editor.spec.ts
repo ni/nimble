@@ -450,7 +450,9 @@ describe('RichTextEditor', () => {
                         await pageObject.pressEnterKeyInEditor();
                         await pageObject.setEditorTextContent(value.name);
 
-                        expect(pageObject.getEditorTagNamesWithClosingTags()).toEqual([
+                        expect(
+                            pageObject.getEditorTagNamesWithClosingTags()
+                        ).toEqual([
                             value.tagName,
                             'LI',
                             'P',
@@ -499,16 +501,29 @@ describe('RichTextEditor', () => {
                 { name: 'horizontal rule(_)', input: '___' },
                 { name: 'Infinity', input: '-Infinity' },
                 { name: 'entity', input: '&nbsp;' },
-                { name: 'symbols', input: '(c) (C) (r) (R) (tm) (TM) (p) (P) +-' },
+                {
+                    name: 'symbols',
+                    input: '(c) (C) (r) (R) (tm) (TM) (p) (P) +-'
+                },
                 { name: 'html string(p)', input: '<div><p>text</p></div>' },
                 { name: 'html string(b)', input: '<b>not bold</b>' },
                 { name: 'html string(em)', input: '<em>not italic</em>' },
-                { name: 'html string(ol)', input: '<ol><li>not list</li><li>not list</li></ol>' },
-                { name: 'html string(ul)', input: '<ul><li>not list</li><li>not list</li></ul>' },
                 {
-                    name: 'html string(a)', input: '<a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a>'
+                    name: 'html string(ol)',
+                    input: '<ol><li>not list</li><li>not list</li></ol>'
                 },
-                { name: 'html string(script)', input: '<script>alert("not alert")</script>' }
+                {
+                    name: 'html string(ul)',
+                    input: '<ul><li>not list</li><li>not list</li></ul>'
+                },
+                {
+                    name: 'html string(a)',
+                    input: '<a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a>'
+                },
+                {
+                    name: 'html string(script)',
+                    input: '<script>alert("not alert")</script>'
+                }
             ];
             const focused: string[] = [];
             const disabled: string[] = [];
