@@ -11,6 +11,7 @@ import {
     groupHeaderTextTransform,
     groupHeaderFontColor,
     smallPadding,
+    mediumPadding,
     elevation2BoxShadow
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
@@ -35,7 +36,7 @@ export const styles = css`
     }
 
     :host([slot='submenu']) {
-        margin: 0 calc(${smallPadding} * 2);
+        margin: 0 ${mediumPadding};
     }
 
     ::slotted(*) {
