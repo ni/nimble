@@ -20,7 +20,7 @@ namespace Demo.Shared.Pages
         private bool BannerOpen { get; set; }
 
         [NotNull]
-        public IEnumerable<SimpleTableRecord> TableData { get; set; } = new List<SimpleTableRecord>();
+        public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();
 
         public ComponentsDemo()
         {
