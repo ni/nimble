@@ -18,9 +18,9 @@ import { tableColumnTextTag } from '../../table-column/text';
 import { iconMetadata } from './icon-metadata';
 
 type IconName = keyof typeof nimbleIconComponentsMap;
-const data = Object.values(nimbleIconComponentsMap).map(klass => ({
-    tag: DesignSystem.tagFor(klass),
-    metaphor: iconMetadata[klass.name as IconName].tags.join(', ')
+const data = Object.values(nimbleIconComponentsMap).map(iconClass => ({
+    tag: DesignSystem.tagFor(iconClass),
+    metaphor: iconMetadata[iconClass.name as IconName].tags.join(', ')
 }));
 
 type Data = (typeof data)[number];
