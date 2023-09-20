@@ -472,13 +472,84 @@ describe('RichTextEditor', () => {
                         await pageObject.pressEnterKeyInEditor();
                         await pageObject.setEditorTextContent(value.name);
 
-                        expect(pageObject.getEditorTagNames()).toEqual([
+                        expect(pageObject.getEditorTagNamesWithClosingTags()).toEqual([
                             value.tagName,
                             'LI',
-                            'P'
+                            'P',
+                            '/P',
+                            '/LI',
+                            `/${value.tagName}`
                         ]);
                         expect(pageObject.getEditorLeafContents()).toEqual([
                             value.name
+                        ]);
+                    }
+                );
+            }
+        });
+
+        describe('should render as a plain text for all supported markdown strings are pasted into the editor', () => {
+            const markdownInput: { name: string, input: string }[] = [
+                { name: 'bold(**)', input: '**bold**' },
+                { name: 'bold(__)', input: '__bold__' },
+                { name: 'italics(*)', input: '*italics*' },
+                { name: 'italics(_)', input: '_italics_' },
+                { name: 'bullet list(*)', input: '* ' },
+                { name: 'bullet list(+)', input: '+ ' },
+                { name: 'bullet list(-)', input: '- ' },
+                { name: 'numbered list(1.)', input: '1. ' },
+                { name: 'numbered list(5.)', input: '5. ' },
+                { name: 'autolink(<https>)', input: '<https://nimble.ni.dev>' },
+                { name: 'autolink(<http>)', input: '<http://nimble.ni.dev>' },
+                { name: 'autolink(<ftp>)', input: '<ftp://example>' },
+                { name: 'hard break', input: 'hard\\nbreak' },
+                { name: 'blockquote', input: '> blockquote' },
+                { name: 'code', input: '`code`' },
+                { name: 'fence', input: '```fence```' },
+                { name: 'strikethrough', input: '~~strikethrough~~' },
+                { name: 'heading 1', input: '# heading 1' },
+                { name: 'heading 2', input: '## heading 2' },
+                { name: 'heading 3', input: '### heading 3' },
+                { name: 'hyperlink', input: '[link](url)' },
+                {
+                    name: 'reference',
+                    input: '[ref][link] [link]:url'
+                },
+                { name: 'image', input: '![Text](Image)' },
+                { name: 'horizontal rule(-)', input: '---' },
+                { name: 'horizontal rule(*)', input: '***' },
+                { name: 'horizontal rule(_)', input: '___' },
+                { name: 'Infinity', input: '-Infinity' },
+                { name: 'entity', input: '&nbsp;' },
+                { name: 'symbols', input: '(c) (C) (r) (R) (tm) (TM) (p) (P) +-' },
+                { name: 'html string(p)', input: '<div><p>text</p></div>' },
+                { name: 'html string(b)', input: '<b>not bold</b>' },
+                { name: 'html string(em)', input: '<em>not italic</em>' },
+                { name: 'html string(ol)', input: '<ol><li>not list</li><li>not list</li></ol>' },
+                { name: 'html string(ul)', input: '<ul><li>not list</li><li>not list</li></ul>' },
+                {
+                    name: 'html string(a)', input: '<a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a>'
+                },
+                { name: 'html string(script)', input: '<script>alert("not alert")</script>' }
+            ];
+            const focused: string[] = [];
+            const disabled: string[] = [];
+
+            for (const value of markdownInput) {
+                const specType = getSpecTypeByNamedList(
+                    value,
+                    focused,
+                    disabled
+                );
+                specType(
+                    `for ${value.name} markdown syntax to the editor`,
+                    // eslint-disable-next-line @typescript-eslint/no-loop-func
+                    () => {
+                        pageObject.pasteToEditor(value.input);
+
+                        expect(pageObject.getEditorTagNames()).toEqual(['P']);
+                        expect(pageObject.getEditorLeafContents()).toEqual([
+                            value.input
                         ]);
                     }
                 );

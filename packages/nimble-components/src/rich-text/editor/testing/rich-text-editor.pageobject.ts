@@ -128,6 +128,16 @@ export class RichTextEditorPageObject {
         toggleButton.control.dispatchEvent(event);
     }
 
+    public pasteToEditor(text: string): void {
+        const editor = this.getTiptapEditor();
+        const clipboardData = new DataTransfer();
+        clipboardData.setData('text/plain', text);
+        const pasteEvent = new ClipboardEvent('paste', {
+            clipboardData
+        });
+        editor!.dispatchEvent(pasteEvent);
+    }
+
     public async setEditorTextContent(value: string): Promise<void> {
         const lastElement = this.getEditorLastChildElement();
         const textNode = document.createTextNode(value);
