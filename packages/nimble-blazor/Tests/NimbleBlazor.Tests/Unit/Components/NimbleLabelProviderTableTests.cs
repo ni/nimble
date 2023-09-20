@@ -34,7 +34,7 @@ public class NimbleLabelProviderTableTests
     [InlineData(nameof(NimbleLabelProviderTable.GroupExpand))]
     [InlineData(nameof(NimbleLabelProviderTable.GroupsCollapseAll))]
     [InlineData(nameof(NimbleLabelProviderTable.CellActionMenu))]
-    [InlineData(nameof(NimbleLabelProviderTable.ColumnHeaderGroupedIndicator))]
+    [InlineData(nameof(NimbleLabelProviderTable.ColumnHeaderGrouped))]
     public void NimbleLabelProviderTable_LabelIsSet(string propertyName)
     {
         var labelValue = propertyName + "UpdatedValue";

@@ -1,8 +1,9 @@
-import { html } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import { TableRow } from '..';
-import type {
+import {
+    tableColumnTextTag,
     TableColumnText,
-    TableColumnTextCellRecord
+    type TableColumnTextCellRecord
 } from '../../../../table-column/text';
 
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
@@ -13,11 +14,16 @@ import type {
 } from '../../../types';
 import { TableRowPageObject } from './table-row.pageobject';
 import { createEventListener } from '../../../../utilities/tests/component';
-import type { Table } from '../../..';
+import { tableTag, type Table } from '../../..';
+import {
+    TableColumnDateText,
+    TableColumnDateTextCellRecord,
+    tableColumnDateTextTag
+} from '../../../../table-column/date-text';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
-    moreStringData: string;
+    numberData: number;
 }
 
 describe('TableRow', () => {
@@ -45,6 +51,24 @@ describe('TableRow', () => {
         it('can construct an element instance', () => {
             // prettier-ignore
             expect(document.createElement('nimble-table-row')).toBeInstanceOf(TableRow);
+        });
+
+        it('includes row operations gridcell when rowOperationGridCellHidden is false', async () => {
+            element.rowOperationGridCellHidden = false;
+            await connect();
+
+            expect(
+                element.shadowRoot!.querySelectorAll('[role="gridcell"]').length
+            ).toBe(1);
+        });
+
+        it('does not include row operations gridcell when rowOperationGridCellHidden is true', async () => {
+            element.rowOperationGridCellHidden = true;
+            await connect();
+
+            expect(
+                element.shadowRoot!.querySelectorAll('[role="gridcell"]').length
+            ).toBe(0);
         });
 
         it('does not have aria-selected attribute when it is not selectable', async () => {
@@ -200,13 +224,19 @@ describe('TableRow', () => {
     });
 
     describe('in table', () => {
+        class ColumnReferences {
+            public firstColumn!: TableColumnText;
+            public secondColumn!: TableColumnDateText;
+        }
+
         // prettier-ignore
-        async function setupTable(): Promise<Fixture<Table<SimpleTableRecord>>> {
+        async function setupTable(source: ColumnReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
             return fixture<Table<SimpleTableRecord>>(
-                html`<nimble-table>
-                        <nimble-table-column-text id="first-column" field-name="stringData" column-id='foo'>Column 1</nimble-table-column-text>
-                        <nimble-table-column-text id="second-column" field-name="moreStringData" column-id='bar'>Column 2</nimble-table-column-text>
-                    </nimble-table>`
+                html`<${tableTag}>
+                        <${tableColumnTextTag} ${ref('firstColumn')} field-name="stringData" column-id='foo'>Column 1</${tableColumnTextTag}>
+                        <${tableColumnDateTextTag} ${ref('secondColumn')} field-name="numberData" column-id='bar'>Column 2</${tableColumnDateTextTag}>
+                    </${tableTag}>`,
+                { source }
             );
         }
 
@@ -215,21 +245,23 @@ describe('TableRow', () => {
         let disconnect: () => Promise<void>;
         let pageObject: TableRowPageObject;
         let row: TableRow;
-        let column1: TableColumnText;
+        let columnReferences: ColumnReferences;
 
         beforeEach(async () => {
-            ({ element, connect, disconnect } = await setupTable());
+            columnReferences = new ColumnReferences();
+            ({ element, connect, disconnect } = await setupTable(
+                columnReferences
+            ));
             await connect();
             await element.setData([
                 {
                     stringData: 'string 1',
-                    moreStringData: 'string 2'
+                    numberData: 0
                 }
             ]);
             await waitForUpdatesAsync();
             row = element.shadowRoot!.querySelector('nimble-table-row')!;
             pageObject = new TableRowPageObject(row);
-            column1 = element.querySelector<TableColumnText>('#first-column')!;
         });
 
         afterEach(async () => {
@@ -240,42 +272,89 @@ describe('TableRow', () => {
             const renderedCell = pageObject.getRenderedCell(0);
 
             expect(renderedCell!.cellViewTemplate).toEqual(
-                column1.columnInternals.cellViewTemplate
+                columnReferences.firstColumn.columnInternals.cellViewTemplate
             );
         });
 
         it('rendered cell gets cellState from column', () => {
-            const columnStates = row.columnStates;
+            const cellStates = row.cellStates;
 
             const firstCell = pageObject.getRenderedCell(0)!;
-            const firstCellState = columnStates[0]?.cellState;
+            const firstCellState = cellStates[0];
             expect(firstCellState).toEqual(firstCell.cellState);
             const firstCellRecord = firstCellState!
                 .cellRecord as TableColumnTextCellRecord;
             expect(firstCellRecord.value).toBe('string 1');
 
             const secondCell = pageObject.getRenderedCell(1)!;
-            const secondCellState = columnStates[1]?.cellState;
+            const secondCellState = cellStates[1];
             expect(secondCellState).toEqual(secondCell.cellState);
             const secondCellRecord = secondCellState!
-                .cellRecord as TableColumnTextCellRecord;
-            expect(secondCellRecord.value).toBe('string 2');
+                .cellRecord as TableColumnDateTextCellRecord;
+            expect(secondCellRecord.value).toBe(0);
         });
 
         it('updates cell.columnId when column changes', async () => {
-            const cell = pageObject.getRenderedCell(0)!;
-            expect(cell.columnId).toEqual('foo');
-            element.removeChild(column1);
+            expect(pageObject.getRenderedCell(0)!.columnId).toEqual('foo');
+            element.removeChild(columnReferences.firstColumn);
             await waitForUpdatesAsync();
-            expect(cell.columnId).toBe('bar');
+            expect(pageObject.getRenderedCell(0)!.columnId).toBe('bar');
         });
 
         it('updates cell.columnId when id of column changes', async () => {
-            const cell = pageObject.getRenderedCell(0)!;
-            expect(cell.columnId).toEqual('foo');
-            column1.columnId = 'baz';
+            expect(pageObject.getRenderedCell(0)!.columnId).toEqual('foo');
+            columnReferences.firstColumn.columnId = 'baz';
             await waitForUpdatesAsync();
-            expect(cell.columnId).toBe('baz');
+            expect(pageObject.getRenderedCell(0)!.columnId).toBe('baz');
+        });
+
+        it('reordering columns reorders cells', async () => {
+            // Swap the two columns
+            element.insertBefore(
+                columnReferences.secondColumn,
+                columnReferences.firstColumn
+            );
+            await waitForUpdatesAsync();
+
+            const cell0 = pageObject.getRenderedCell(0)!;
+            expect(cell0.cellViewTemplate).toEqual(
+                columnReferences.secondColumn.columnInternals.cellViewTemplate
+            );
+            expect(cell0.cellState?.columnConfig).toEqual(
+                columnReferences.secondColumn.columnInternals.columnConfig
+            );
+
+            const cell1 = pageObject.getRenderedCell(1)!;
+            expect(cell1.cellViewTemplate).toEqual(
+                columnReferences.firstColumn.columnInternals.cellViewTemplate
+            );
+            expect(cell1.cellState?.columnConfig).toEqual(
+                columnReferences.firstColumn.columnInternals.columnConfig
+            );
+        });
+
+        it('updating column reuses cell', async () => {
+            const originalCell = pageObject.getRenderedCell(0);
+
+            columnReferences.firstColumn.fieldName = 'updated-field-name';
+            await waitForUpdatesAsync();
+
+            const updatedCell = pageObject.getRenderedCell(0);
+            expect(originalCell).toBe(updatedCell);
+        });
+
+        it('reordering columns creates new cells', async () => {
+            const originalCell = pageObject.getRenderedCell(0);
+
+            // Swap the two columns
+            element.insertBefore(
+                columnReferences.secondColumn,
+                columnReferences.firstColumn
+            );
+            await waitForUpdatesAsync();
+
+            const updatedCell = pageObject.getRenderedCell(0);
+            expect(originalCell).not.toBe(updatedCell);
         });
     });
 });

@@ -7,5 +7,11 @@ export const tableLabelDefaults: { readonly [key in TokenName]: string } = {
     tableGroupExpandLabel: 'Expand group',
     tableGroupsCollapseAllLabel: 'Collapse all groups',
     tableCellActionMenuLabel: 'Options',
-    tableColumnHeaderGroupedIndicatorLabel: 'Grouped'
+    tableColumnHeaderGroupedLabel: 'Grouped',
+    tableColumnHeaderSortedAscendingLabel: 'Sorted ascending',
+    tableColumnHeaderSortedDescendingLabel: 'Sorted descending',
+    tableSelectAllLabel: 'Select all rows',
+    tableGroupSelectAllLabel: 'Select all rows in group',
+    tableRowSelectLabel: 'Select row',
+    tableRowOperationColumnLabel: 'Row operations'
 };

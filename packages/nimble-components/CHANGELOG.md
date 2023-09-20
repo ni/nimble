@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 15 Sep 2023 21:18:04 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Sep 2023 16:38:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.4.3
+
+Wed, 20 Sep 2023 16:38:20 GMT
+
+### Patches
+
+- Add additional localized labels to sub-elements in the table to improve accessibility ([ni/nimble@60947ef](https://github.com/ni/nimble/commit/60947ef38e170552c614f1affcd8e1e385ba9177))
+
+## 20.4.2
+
+Wed, 20 Sep 2023 15:22:26 GMT
+
+### Patches
+
+- Fix bug in table when reordering columns ([ni/nimble@f4dc2ea](https://github.com/ni/nimble/commit/f4dc2eaa9724bee9cf82c28d17ac57422679a1f8))
+
+## 20.4.1
+
+Wed, 20 Sep 2023 02:57:31 GMT
+
+### Patches
+
+- Fixes keyboard closing when rich-text editor toolbar buttons are clicked in mobile iOS browsers ([ni/nimble@36b9611](https://github.com/ni/nimble/commit/36b9611c258f1b5e6aa5d24dc5ca288327382348))
+
+## 20.4.0
+
+Tue, 19 Sep 2023 23:12:45 GMT
+
+### Minor changes
+
+- Add medium padding token and document size ramp ([ni/nimble@b6baa04](https://github.com/ni/nimble/commit/b6baa04c34007f4fad4e546c78505fa820fff6d1))
 
 ## 20.3.2
 

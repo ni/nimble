@@ -85,7 +85,7 @@ The current set of known labels for Nimble is shown below:
 | table-groups-collapse-all             | Collapse all groups |
 | table-cell-action-menu-label          | Options             |
 | table-column-header-menu              | Column options      |
-| table-column-header-grouped-indicator | Grouped             |
+| table-column-header-grouped           | Grouped             |
 | table-column-sort-ascending           | Sort ascending      |
 | table-column-sort-descending          | Sort descending     |
 | table-column-group-by                 | Group by            |
