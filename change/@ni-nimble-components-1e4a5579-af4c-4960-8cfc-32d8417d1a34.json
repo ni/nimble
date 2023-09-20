@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Expose width and height of nimble-dialog & add tokens",
+  "packageName": "@ni/nimble-components",
+  "email": "stefan.ciuprina@ni.com",
+  "dependentChangeType": "patch"
+}
