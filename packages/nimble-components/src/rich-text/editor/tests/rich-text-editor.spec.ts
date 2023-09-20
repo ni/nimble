@@ -412,81 +412,77 @@ describe('RichTextEditor', () => {
             ]);
         });
 
-        it('should render as a plain text for bold markdown input(**) to the editor', async () => {
-            await pageObject.setEditorTextContent('**bold**');
+        describe('should render as a plain text for markdown input to the editor', () => {
+            const markdownInput: { name: string, input: string }[] = [
+                { name: 'bold(**)', input: '**bold**' },
+                { name: 'bold(__)', input: '__bold__' },
+                { name: 'italics(*)', input: '*italics*' },
+                { name: 'italics(_)', input: '_italics_' }
+            ];
+            const focused: string[] = [];
+            const disabled: string[] = [];
 
-            expect(pageObject.getEditorTagNames()).toEqual(['P']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['**bold**']);
+            for (const value of markdownInput) {
+                const specType = getSpecTypeByNamedList(
+                    value,
+                    focused,
+                    disabled
+                );
+                specType(
+                    `for ${value.name} markdown input to the editor`,
+                    // eslint-disable-next-line @typescript-eslint/no-loop-func
+                    async () => {
+                        await pageObject.setEditorTextContent(value.input);
+
+                        expect(pageObject.getEditorTagNames()).toEqual(['P']);
+                        expect(pageObject.getEditorLeafContents()).toEqual([
+                            value.input
+                        ]);
+                    }
+                );
+            }
         });
 
-        it('should render as a plain text for bold markdown input(__) to the editor', async () => {
-            await pageObject.setEditorTextContent('__bold__');
+        describe('should render as lists when its input rule is entered into the editor', () => {
+            const markdownInput: {
+                name: string,
+                input: string,
+                tagName: string
+            }[] = [
+                { name: 'bullet list', input: '*', tagName: 'UL' },
+                { name: 'bullet list', input: '+', tagName: 'UL' },
+                { name: 'bullet list', input: '-', tagName: 'UL' },
+                { name: 'numbered list', input: '1.', tagName: 'OL' },
+                { name: 'numbered list', input: '5.', tagName: 'OL' }
+            ];
+            const focused: string[] = [];
+            const disabled: string[] = [];
 
-            expect(pageObject.getEditorTagNames()).toEqual(['P']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['__bold__']);
-        });
+            for (const value of markdownInput) {
+                const specType = getSpecTypeByNamedList(
+                    value,
+                    focused,
+                    disabled
+                );
+                specType(
+                    `for ${value.name} markdown input (${value.input}) to the editor`,
+                    // eslint-disable-next-line @typescript-eslint/no-loop-func
+                    async () => {
+                        await pageObject.setEditorTextContent(value.input);
+                        await pageObject.pressEnterKeyInEditor();
+                        await pageObject.setEditorTextContent(value.name);
 
-        it('should render as a plain text for italics markdown input(*) to the editor', async () => {
-            await pageObject.setEditorTextContent('*italics*');
-
-            expect(pageObject.getEditorTagNames()).toEqual(['P']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['*italics*']);
-        });
-
-        it('should render as a plain text for italics markdown input(_) to the editor', async () => {
-            await pageObject.setEditorTextContent('_italics_');
-
-            expect(pageObject.getEditorTagNames()).toEqual(['P']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['_italics_']);
-        });
-
-        it('should have "bullet list(*)" tag name for markdown input to the editor', async () => {
-            await pageObject.setEditorTextContent('*');
-            await pageObject.pressEnterKeyInEditor();
-            await pageObject.setEditorTextContent('Bullet list');
-
-            expect(pageObject.getEditorTagNames()).toEqual(['UL', 'LI', 'P']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['Bullet list']);
-        });
-
-        it('should have "bullet list(+)" tag name for markdown input to the editor', async () => {
-            await pageObject.setEditorTextContent('+');
-            await pageObject.pressEnterKeyInEditor();
-            await pageObject.setEditorTextContent('Bullet list');
-
-            expect(pageObject.getEditorTagNames()).toEqual(['UL', 'LI', 'P']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['Bullet list']);
-        });
-
-        it('should have "bullet list(-)" tag name for markdown input to the editor', async () => {
-            await pageObject.setEditorTextContent('-');
-            await pageObject.pressEnterKeyInEditor();
-            await pageObject.setEditorTextContent('Bullet list');
-
-            expect(pageObject.getEditorTagNames()).toEqual(['UL', 'LI', 'P']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['Bullet list']);
-        });
-
-        it('should have "numbered list" tag name for markdown input to the editor', async () => {
-            await pageObject.setEditorTextContent('1.');
-            await pageObject.pressEnterKeyInEditor();
-            await pageObject.setEditorTextContent('Numbered list');
-
-            expect(pageObject.getEditorTagNames()).toEqual(['OL', 'LI', 'P']);
-            expect(pageObject.getEditorLeafContents()).toEqual([
-                'Numbered list'
-            ]);
-        });
-
-        it('should have "numbered list" with a different starting number tag name for markdown input to the editor', async () => {
-            await pageObject.setEditorTextContent('5.');
-            await pageObject.pressEnterKeyInEditor();
-            await pageObject.setEditorTextContent('Numbered list');
-
-            expect(pageObject.getEditorTagNames()).toEqual(['OL', 'LI', 'P']);
-            expect(pageObject.getEditorLeafContents()).toEqual([
-                'Numbered list'
-            ]);
+                        expect(pageObject.getEditorTagNames()).toEqual([
+                            value.tagName,
+                            'LI',
+                            'P'
+                        ]);
+                        expect(pageObject.getEditorLeafContents()).toEqual([
+                            value.name
+                        ]);
+                    }
+                );
+            }
         });
 
         it('should have br tag name when pressing shift + Enter with numbered list content', async () => {
