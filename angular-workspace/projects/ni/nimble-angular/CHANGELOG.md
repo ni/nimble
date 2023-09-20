@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 20 Sep 2023 15:22:26 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Sep 2023 16:38:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.5.6
+
+Wed, 20 Sep 2023 16:38:20 GMT
+
+### Patches
+
+- Rename `columnHeaderGroupedIndicator` table label to `columnHeaderGrouped` ([ni/nimble@60947ef](https://github.com/ni/nimble/commit/60947ef38e170552c614f1affcd8e1e385ba9177))
+- Bump @ni/nimble-components to v20.4.3
 
 ## 17.5.5
 

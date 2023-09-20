@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 19 Sep 2023 19:08:39 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Sep 2023 16:38:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.3.4
+
+Wed, 20 Sep 2023 16:38:20 GMT
+
+### Patches
+
+- Rename `ColumnHeaderGroupedIndicator` tabel label to `ColumnHeaderGroupedIndicator` ([ni/nimble@60947ef](https://github.com/ni/nimble/commit/60947ef38e170552c614f1affcd8e1e385ba9177))
 
 ## 12.3.0
 
