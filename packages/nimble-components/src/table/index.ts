@@ -139,6 +139,16 @@ export class Table<
     /**
      * @internal
      */
+    public get showRowOperationColumn(): boolean {
+        return (
+            this.selectionMode === TableRowSelectionMode.multiple
+            || this.showCollapseAll
+        );
+    }
+
+    /**
+     * @internal
+     */
     public readonly viewport!: HTMLElement;
 
     /**

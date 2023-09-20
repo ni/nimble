@@ -51,9 +51,9 @@ describe('Nimble Label Provider Table', () => {
             expect(nativeElement.cellActionMenu).toBeUndefined();
         });
 
-        it('has expected defaults for columnHeaderGroupedIndicator', () => {
-            expect(directive.columnHeaderGroupedIndicator).toBeUndefined();
-            expect(nativeElement.columnHeaderGroupedIndicator).toBeUndefined();
+        it('has expected defaults for columnHeaderGrouped', () => {
+            expect(directive.columnHeaderGrouped).toBeUndefined();
+            expect(nativeElement.columnHeaderGrouped).toBeUndefined();
         });
 
         it('has expected defaults for groupCollapse', () => {
@@ -77,7 +77,7 @@ describe('Nimble Label Provider Table', () => {
             template: `
                 <nimble-label-provider-table #labelProvider
                     cell-action-menu="${label1}"
-                    column-header-grouped-indicator="${label2}"
+                    column-header-grouped="${label2}"
                     group-collapse="${label3}"
                     group-expand="${label4}"
                     groups-collapse-all="${label5}"
@@ -110,9 +110,9 @@ describe('Nimble Label Provider Table', () => {
             expect(nativeElement.cellActionMenu).toBe(label1);
         });
 
-        it('will use template string values for columnHeaderGroupedIndicator', () => {
-            expect(directive.columnHeaderGroupedIndicator).toBe(label2);
-            expect(nativeElement.columnHeaderGroupedIndicator).toBe(label2);
+        it('will use template string values for columnHeaderGrouped', () => {
+            expect(directive.columnHeaderGrouped).toBe(label2);
+            expect(nativeElement.columnHeaderGrouped).toBe(label2);
         });
 
         it('will use template string values for groupCollapse', () => {
@@ -136,7 +136,7 @@ describe('Nimble Label Provider Table', () => {
             template: `
                 <nimble-label-provider-table #labelProvider
                     [cellActionMenu]="cellActionMenu"
-                    [columnHeaderGroupedIndicator]="columnHeaderGroupedIndicator"
+                    [columnHeaderGrouped]="columnHeaderGrouped"
                     [groupCollapse]="groupCollapse"
                     [groupExpand]="groupExpand"
                     [groupsCollapseAll]="groupsCollapseAll"
@@ -148,7 +148,7 @@ describe('Nimble Label Provider Table', () => {
             @ViewChild('labelProvider', { read: NimbleLabelProviderTableDirective }) public directive: NimbleLabelProviderTableDirective;
             @ViewChild('labelProvider', { read: ElementRef }) public elementRef: ElementRef<LabelProviderTable>;
             public cellActionMenu = label1;
-            public columnHeaderGroupedIndicator = label1;
+            public columnHeaderGrouped = label1;
             public groupCollapse = label1;
             public groupExpand = label1;
             public groupsCollapseAll = label1;
@@ -180,15 +180,15 @@ describe('Nimble Label Provider Table', () => {
             expect(nativeElement.cellActionMenu).toBe(label2);
         });
 
-        it('can be configured with property binding for columnHeaderGroupedIndicator', () => {
-            expect(directive.columnHeaderGroupedIndicator).toBe(label1);
-            expect(nativeElement.columnHeaderGroupedIndicator).toBe(label1);
+        it('can be configured with property binding for columnHeaderGrouped', () => {
+            expect(directive.columnHeaderGrouped).toBe(label1);
+            expect(nativeElement.columnHeaderGrouped).toBe(label1);
 
-            fixture.componentInstance.columnHeaderGroupedIndicator = label2;
+            fixture.componentInstance.columnHeaderGrouped = label2;
             fixture.detectChanges();
 
-            expect(directive.columnHeaderGroupedIndicator).toBe(label2);
-            expect(nativeElement.columnHeaderGroupedIndicator).toBe(label2);
+            expect(directive.columnHeaderGrouped).toBe(label2);
+            expect(nativeElement.columnHeaderGrouped).toBe(label2);
         });
 
         it('can be configured with property binding for groupCollapse', () => {
@@ -230,7 +230,7 @@ describe('Nimble Label Provider Table', () => {
             template: `
                 <nimble-label-provider-table #labelProvider
                     [attr.cell-action-menu]="cellActionMenu"
-                    [attr.column-header-grouped-indicator]="columnHeaderGroupedIndicator"
+                    [attr.column-header-grouped]="columnHeaderGrouped"
                     [attr.group-collapse]="groupCollapse"
                     [attr.group-expand]="groupExpand"
                     [attr.groups-collapse-all]="groupsCollapseAll"
@@ -242,7 +242,7 @@ describe('Nimble Label Provider Table', () => {
             @ViewChild('labelProvider', { read: NimbleLabelProviderTableDirective }) public directive: NimbleLabelProviderTableDirective;
             @ViewChild('labelProvider', { read: ElementRef }) public elementRef: ElementRef<LabelProviderTable>;
             public cellActionMenu = label1;
-            public columnHeaderGroupedIndicator = label1;
+            public columnHeaderGrouped = label1;
             public groupCollapse = label1;
             public groupExpand = label1;
             public groupsCollapseAll = label1;
@@ -274,15 +274,15 @@ describe('Nimble Label Provider Table', () => {
             expect(nativeElement.cellActionMenu).toBe(label2);
         });
 
-        it('can be configured with attribute binding for columnHeaderGroupedIndicator', () => {
-            expect(directive.columnHeaderGroupedIndicator).toBe(label1);
-            expect(nativeElement.columnHeaderGroupedIndicator).toBe(label1);
+        it('can be configured with attribute binding for columnHeaderGrouped', () => {
+            expect(directive.columnHeaderGrouped).toBe(label1);
+            expect(nativeElement.columnHeaderGrouped).toBe(label1);
 
-            fixture.componentInstance.columnHeaderGroupedIndicator = label2;
+            fixture.componentInstance.columnHeaderGrouped = label2;
             fixture.detectChanges();
 
-            expect(directive.columnHeaderGroupedIndicator).toBe(label2);
-            expect(nativeElement.columnHeaderGroupedIndicator).toBe(label2);
+            expect(directive.columnHeaderGrouped).toBe(label2);
+            expect(nativeElement.columnHeaderGrouped).toBe(label2);
         });
 
         it('can be configured with attribute binding for groupCollapse', () => {
