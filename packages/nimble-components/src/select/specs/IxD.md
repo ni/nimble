@@ -31,13 +31,12 @@ When not to use:
 
 ![ ](spec-images/select-1.png)
 
-| Element      | Description                                                                           |
-| ------------ | ------------------------------------------------------------------------------------- |
-| Label        | Text that tells the end-user what to expect in the list of options                    |
-| Helper text  | Text that provides extra context or instruction about what the end-user should select |
-| Field button | Click area that opens the menu and displays the current selected option               |
-| Menu         | A list of options to choose from displayed as an _open_ state                         |
-| Menu item    | A selection the end-user can make, shown with other options in the menu               |
+| Element      | Description                                                             |
+| ------------ | ----------------------------------------------------------------------- |
+| Label        | Text that tells the end-user what to expect in the list of options      |
+| Field button | Click area that opens the menu and displays the current selected option |
+| Menu         | A list of options to choose from displayed as an _open_ state           |
+| Menu item    | A selection the end-user can make, shown with other options in the menu |
 
 #### Label
 
@@ -48,14 +47,6 @@ Keep the label text as concise as possible, limited to a single line of text. Us
 In a form, use the label to indicate whether the select is optional or required for the end-user to interact with. If most of the components in the form are required, indicate which components are optional. If most of the components in the form are optional, indicate which components are required. Required or optional indication in the label text should always follow the pattern "[Label] (optional)" or "[Label] (required)".
 
 ![ ](spec-images/select-2.png)
-
-#### Helper Text
-
-> NOTE: NEEDS VISUAL DESIGN FOR TYPOGRAPHY
-
-Only include helper text to provide information that aids the end-user in choosing the right selection. Keep the helper text concise as possible, limited to a single line of text. Use sentence casing.
-
-![ ](spec-images/select-3.png)
 
 #### Field Button
 
@@ -284,10 +275,7 @@ From a focused menu item, `UP ARROW` moves focus and selects the previous menu i
 
 ![ ](spec-images/select-33.png)
 
-## Validation
-
-TBD
-
 ## Future Considerations
 
 -   Should the select component allow multi-selection? Users on touch-screen devices may see a truncated list of comma-separated selections in the field button, without the ability to hover for a tooltip.
+-   Helper text for input components (where it should be located, how it should be accessed).
