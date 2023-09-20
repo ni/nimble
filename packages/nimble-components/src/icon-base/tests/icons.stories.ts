@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html, repeat } from '@microsoft/fast-element';
+import { html, ref, repeat } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
 import { IconSeverity } from '../types';
@@ -7,16 +7,22 @@ import {
     createUserSelectedThemeStory,
     overrideWarning
 } from '../../utilities/tests/storybook';
-import type { Icon } from '..';
 import {
     tokenNames,
     scssInternalPropertySetterMarkdown
 } from '../../theme-provider/design-token-names';
+import { Table, tableTag } from '../../table';
+import { tableColumnIconTag } from '../../table-column/icon';
+import { mappingIconTag } from '../../mapping/icon';
+import { tableColumnTextTag } from '../../table-column/text';
 
 const nimbleIconComponents = Object.values(nimbleIconComponentsMap);
+const iconTagNames = nimbleIconComponents.map(klass => DesignSystem.tagFor(klass));
 
 interface IconArgs {
     severity: keyof typeof IconSeverity;
+    tableRef: Table;
+    updateData: (args: IconArgs) => void;
 }
 
 const metadata: Meta<IconArgs> = {
@@ -24,22 +30,6 @@ const metadata: Meta<IconArgs> = {
 };
 
 export default metadata;
-
-type IconClass = typeof Icon;
-// The binding in this template generates a new template on the fly
-// which is not a recommended practice by FAST. This is done because
-// bindings can't be used for the element tag name, i.e.:
-// static string interpolation works: html`<${tagName}></${tagName}>`
-// dynamic template binding doesn't work: html`<${() => tagName}></${() => tagName}>`
-const iconTemplate = html<IconClass, IconArgs>`
-    ${(x, c) => html`
-        <${DesignSystem.tagFor(x)}
-            severity=${() => IconSeverity[c.parent.severity]}
-            title=${DesignSystem.tagFor(x)}
-        >
-        </${DesignSystem.tagFor(x)}>
-    `}
-`;
 
 const appearanceDescriptionOverride = `
 With SCSS properties, the icon color can be overriden. For example:
@@ -52,16 +42,31 @@ Set severity on the element to switch between the theme-aware color options.
 ${overrideWarning('Color', appearanceDescriptionOverride)}
 `;
 
+const updateData = (tableRef: Table): void => {
+    void (async () => {
+        // Safari workaround: the table element instance is made at this point
+        // but doesn't seem to be upgraded to a custom element yet
+        await customElements.whenDefined('nimble-table');
+        await tableRef.setData(iconTagNames.map(tag => ({ icon: tag })));
+    })();
+};
+
 // prettier-ignore
 export const icons: StoryObj<IconArgs> = {
     args: {
-        severity: 'default'
+        severity: 'default',
+        tableRef: undefined
     },
     argTypes: {
         severity: {
             options: Object.keys(IconSeverity),
             control: { type: 'radio' },
             description: severityDescription
+        },
+        tableRef: {
+            table: {
+                disable: true
+            }
         }
     },
     render: createUserSelectedThemeStory(html`
@@ -71,7 +76,25 @@ export const icons: StoryObj<IconArgs> = {
             }
         </style>
         <div class="container">
-            ${repeat(() => nimbleIconComponents, iconTemplate)}
+            <${tableTag}
+                ${ref('tableRef')}
+                data-unused="${x => updateData(x.tableRef)}"
+            >
+                <${tableColumnIconTag} field-name="icon" key-type="string">
+                    Icon
+                    ${repeat(() => iconTagNames, html<(typeof iconTagNames)[number], IconArgs>`
+                        <${mappingIconTag}
+                            key="${x => x}"
+                            icon="${x => x}"
+                            text="${x => x}"
+                            severity="${(_, c) => c.parent.severity}"
+                        ></${mappingIconTag}>
+                    `)}
+                </${tableColumnIconTag}>
+                <${tableColumnTextTag} field-name="icon">
+                    Tag Name
+                </${tableColumnTextTag}>
+            </${tableTag}>
         </div>
     `)
 };
