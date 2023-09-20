@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fixes keyboard closing when rich-text editor toolbar buttons are clicked in mobile iOS browsers",
-  "packageName": "@ni/nimble-components",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
