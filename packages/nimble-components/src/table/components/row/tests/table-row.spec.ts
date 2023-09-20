@@ -215,8 +215,8 @@ describe('TableRow', () => {
         async function setupTable(source: ColumnReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
             return fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag}>
-                        <${tableColumnTextTag} ${ref('firstColumn')} id="first-column" field-name="stringData" column-id='foo'>Column 1</${tableColumnTextTag}>
-                        <${tableColumnDateTextTag} ${ref('secondColumn')} id="second-column" field-name="numberData" column-id='bar'>Column 2</${tableColumnDateTextTag}>
+                        <${tableColumnTextTag} ${ref('firstColumn')} field-name="stringData" column-id='foo'>Column 1</${tableColumnTextTag}>
+                        <${tableColumnDateTextTag} ${ref('secondColumn')} field-name="numberData" column-id='bar'>Column 2</${tableColumnDateTextTag}>
                     </${tableTag}>`,
                 { source }
             );

@@ -59,6 +59,11 @@ export class TableRow<
     @observable
     public dataRecord?: TDataRecord;
 
+    /**
+     * @internal
+     * */
+    public columnNotifiers: Notifier[] = [];
+
     @observable
     public columns: TableColumn[] = [];
 
@@ -99,8 +104,6 @@ export class TableRow<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
-
-    private columnNotifiers?: Notifier[] = [];
 
     @volatile
     public override get ariaSelected(): 'true' | 'false' | null {
@@ -215,7 +218,7 @@ export class TableRow<
     }
 
     private removeColumnObservers(): void {
-        this.columnNotifiers?.forEach(notifier => {
+        this.columnNotifiers.forEach(notifier => {
             notifier.unsubscribe(this);
         });
         this.columnNotifiers = [];
