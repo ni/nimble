@@ -201,7 +201,7 @@ Typing text that does not match any existing menu items either allows the end-us
 
 ![ ](spec-images/combobox-21.png)
 
-Standard single line text editing keys, for example `DELETE` and `ALT` + `RIGHT ARROW`, should work when focus is in the field input (not pictured).
+Standard single line text editing keys, for example `DELETE` and `SHIFT` + `RIGHT ARROW`, should work when focus is in the field input (not pictured).
 
 #### Menu
 
