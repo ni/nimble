@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 19 Sep 2023 19:08:39 GMT",
+      "tag": "@ni/nimble-blazor_v12.3.0",
+      "version": "12.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "944399b0ac13cf428ce2a0ef12f346315b1194fb",
+            "comment": "Blazor support for theme provider lang and validity functions"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 15 Sep 2023 20:36:47 GMT",
       "tag": "@ni/nimble-blazor_v12.2.1",
       "version": "12.2.1",
