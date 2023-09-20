@@ -1,6 +1,6 @@
 {
-  "type": "none",
-  "comment": "Move all stories into src",
+  "type": "patch",
+  "comment": "Clean-up dist folder of nimble-components to remove duplicated type hierarchy",
   "packageName": "@ni/nimble-components",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "none"

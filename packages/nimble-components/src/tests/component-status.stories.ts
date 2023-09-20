@@ -540,7 +540,7 @@ const metadata: Meta<TableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             ${/* Make the table big enough to remove vertical scrollbar */ ''}
-            style="height: ${x => x.status === 'active' ? '1200px' : '600px'};"
+            style="height: ${x => (x.status === 'active' ? '1200px' : '600px')};"
         >
             <${tableColumnAnchorTag} target="_top"
                 column-id="component-name-column"
