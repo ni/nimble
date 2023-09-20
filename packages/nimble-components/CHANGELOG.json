@@ -2,6 +2,126 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 20 Sep 2023 16:38:20 GMT",
+      "tag": "@ni/nimble-components_v20.4.3",
+      "version": "20.4.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "60947ef38e170552c614f1affcd8e1e385ba9177",
+            "comment": "Add additional localized labels to sub-elements in the table to improve accessibility"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 15:22:26 GMT",
+      "tag": "@ni/nimble-components_v20.4.2",
+      "version": "20.4.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f4dc2eaa9724bee9cf82c28d17ac57422679a1f8",
+            "comment": "Fix bug in table when reordering columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 02:57:31 GMT",
+      "tag": "@ni/nimble-components_v20.4.1",
+      "version": "20.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "36b9611c258f1b5e6aa5d24dc5ca288327382348",
+            "comment": "Fixes keyboard closing when rich-text editor toolbar buttons are clicked in mobile iOS browsers"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 Sep 2023 23:12:45 GMT",
+      "tag": "@ni/nimble-components_v20.4.0",
+      "version": "20.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b6baa04c34007f4fad4e546c78505fa820fff6d1",
+            "comment": "Add medium padding token and document size ramp"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 Sep 2023 18:09:20 GMT",
+      "tag": "@ni/nimble-components_v20.3.2",
+      "version": "20.3.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "eadf3f27c7d8d649817910cb2da33406b6873ead",
+            "comment": "Parameterize test pattern"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Sep 2023 21:18:04 GMT",
+      "tag": "@ni/nimble-components_v20.3.2",
+      "version": "20.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "129af8084eab1d47df84d6ee7281fd28bbaef8ec",
+            "comment": "Shift/Ctrl/Cmd + Enter will add line break in editor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Sep 2023 20:36:47 GMT",
+      "tag": "@ni/nimble-components_v20.3.1",
+      "version": "20.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2a987381442f5076ea40ea8e60010e2a839bca5a",
+            "comment": "Import number-text column in all-components.ts"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Sep 2023 19:43:51 GMT",
+      "tag": "@ni/nimble-components_v20.3.0",
+      "version": "20.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2314df2fff61db8fb20ca1fbddad9f4961957afa",
+            "comment": "Document and test API to hide step buttons on number-field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 15 Sep 2023 14:38:16 GMT",
       "tag": "@ni/nimble-components_v20.3.0",
       "version": "20.3.0",

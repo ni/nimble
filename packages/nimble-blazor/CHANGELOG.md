@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 31 Aug 2023 21:41:33 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Sep 2023 16:38:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.3.4
+
+Wed, 20 Sep 2023 16:38:20 GMT
+
+### Patches
+
+- Rename `ColumnHeaderGroupedIndicator` tabel label to `ColumnHeaderGroupedIndicator` ([ni/nimble@60947ef](https://github.com/ni/nimble/commit/60947ef38e170552c614f1affcd8e1e385ba9177))
+
+## 12.3.0
+
+Tue, 19 Sep 2023 19:08:39 GMT
+
+### Minor changes
+
+- Blazor support for theme provider lang and validity functions ([ni/nimble@944399b](https://github.com/ni/nimble/commit/944399b0ac13cf428ce2a0ef12f346315b1194fb))
+
+## 12.2.1
+
+Fri, 15 Sep 2023 20:36:47 GMT
+
+### Patches
+
+- Add Blazor support for the number-text column ([ni/nimble@2a98738](https://github.com/ni/nimble/commit/2a987381442f5076ea40ea8e60010e2a839bca5a))
+
+## 12.2.0
+
+Fri, 15 Sep 2023 19:43:51 GMT
+
+### Minor changes
+
+- Add API to hide step buttons on NumberField ([ni/nimble@2314df2](https://github.com/ni/nimble/commit/2314df2fff61db8fb20ca1fbddad9f4961957afa))
 
 ## 12.1.23
 

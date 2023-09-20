@@ -23,7 +23,11 @@ import { buttonTag } from '../button';
 import { ButtonAppearance } from '../button/types';
 import { iconTriangleTwoLinesHorizontalTag } from '../icons/triangle-two-lines-horizontal';
 import { checkboxTag } from '../checkbox';
-import { tableGroupsCollapseAllLabel } from '../label-provider/table/label-tokens';
+import {
+    tableGroupsCollapseAllLabel,
+    tableRowOperationColumnLabel,
+    tableSelectAllLabel
+} from '../label-provider/table/label-tokens';
 
 // prettier-ignore
 export const template = html<Table>`
@@ -46,29 +50,34 @@ export const template = html<Table>`
             <div class="glass-overlay">
                 <div role="rowgroup" class="header-row-container">
                     <div class="header-row" role="row">
-                        <span class="header-row-action-container" ${ref('headerRowActionContainer')}>
+                        <span role="${x => (x.showRowOperationColumn ? 'columnheader' : '')}" class="header-row-action-container" ${ref('headerRowActionContainer')}>
+                            ${when(x => x.showRowOperationColumn, html<Table>`
+                                <span class="accessibly-hidden">
+                                    ${x => tableRowOperationColumnLabel.getValueFor(x)}
+                                </span>
+                            `)}
                             ${when(x => x.selectionMode === TableRowSelectionMode.multiple, html<Table>`
-                                <span role="columnheader" class="checkbox-container">
+                                <span class="checkbox-container">
                                     <${checkboxTag}
                                         ${ref('selectionCheckbox')}
                                         class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
                                         @change="${(x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
+                                        title="${x => tableSelectAllLabel.getValueFor(x)}"
+                                        aria-label="${x => tableSelectAllLabel.getValueFor(x)}"
                                     >
                                     </${checkboxTag}>
                                 </span>
                             `)}
-                            <span role="gridcell">
-                                <${buttonTag}
-                                    class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
-                                    content-hidden
-                                    appearance="${ButtonAppearance.ghost}"
-                                    title="${x => tableGroupsCollapseAllLabel.getValueFor(x)}"
-                                    @click="${x => x.handleCollapseAllGroupRows()}"
-                                >
-                                    <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
-                                    ${x => tableGroupsCollapseAllLabel.getValueFor(x)}
-                                </${buttonTag}>
-                            </span>
+                            <${buttonTag}
+                                class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
+                                content-hidden
+                                appearance="${ButtonAppearance.ghost}"
+                                title="${x => tableGroupsCollapseAllLabel.getValueFor(x)}"
+                                @click="${x => x.handleCollapseAllGroupRows()}"
+                            >
+                                <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
+                                ${x => tableGroupsCollapseAllLabel.getValueFor(x)}
+                            </${buttonTag}>
                         </span>
                         <span class="column-headers-container" ${ref('columnHeadersContainer')}>
                             ${repeat(x => x.visibleColumns, html<TableColumn, Table>`
@@ -129,6 +138,7 @@ export const template = html<Table>`
                                         :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                         :columns="${(_, c) => c.parent.columns}"
                                         :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
+                                        ?row-operation-grid-cell-hidden="${(_, c) => !c.parent.showRowOperationColumn}"
                                         @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"
                                         @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"

@@ -45,6 +45,6 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
         expect(labelProvider.groupExpand).toBe('Translated expand group');
         expect(labelProvider.groupsCollapseAll).toBe('Translated collapse all groups');
         expect(labelProvider.cellActionMenu).toBe('Translated options');
-        expect(labelProvider.columnHeaderGroupedIndicator).toBe('Translated grouped');
+        expect(labelProvider.columnHeaderGrouped).toBe('Translated grouped');
     });
 });

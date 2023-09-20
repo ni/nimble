@@ -49,7 +49,7 @@ export const styles = css`
         background-color: ${fillHoverSelectedColor};
     }
 
-    .checkbox-container {
+    .row-operations-container {
         display: flex;
     }
 

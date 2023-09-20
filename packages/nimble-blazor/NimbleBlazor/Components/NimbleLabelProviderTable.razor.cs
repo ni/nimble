@@ -20,7 +20,7 @@ public partial class NimbleLabelProviderTable : ComponentBase
     public string? CellActionMenu { get; set; }
 
     [Parameter]
-    public string? ColumnHeaderGroupedIndicator { get; set; }
+    public string? ColumnHeaderGrouped { get; set; }
 
     /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.

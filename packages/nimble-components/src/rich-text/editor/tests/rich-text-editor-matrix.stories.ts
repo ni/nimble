@@ -197,6 +197,26 @@ longWordContentInMobileWidth.play = (): void => {
         );
 };
 
+const newLineWithForceLineBreakContent = `
+This is a line 1\\
+This line enters new line using hardbreak <br> tag
+
+
+This line enters new line in paragraph tag
+
+
+1. Point 1
+    * Sub point 1\\
+      Hard break sub point content
+`;
+
+export const newLineWithForceLineBreakInMobileWidth: StoryFn = createStory(mobileWidthComponent);
+newLineWithForceLineBreakInMobileWidth.play = (): void => {
+    document
+        .querySelector('nimble-rich-text-editor')!
+        .setMarkdown(newLineWithForceLineBreakContent);
+};
+
 export const longLinkInMobileWidth: StoryFn = createStory(mobileWidthComponent);
 longLinkInMobileWidth.play = (): void => {
     document

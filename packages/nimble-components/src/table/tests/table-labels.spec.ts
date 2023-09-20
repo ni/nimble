@@ -75,7 +75,7 @@ describe('Table with LabelProviderTable', () => {
         labelProvider.groupsCollapseAll = 'Customized Collapse All';
         labelProvider.groupExpand = 'Customized Expand';
         labelProvider.groupCollapse = 'Customized Collapse';
-        labelProvider.columnHeaderGroupedIndicator = 'Customized Grouped';
+        labelProvider.columnHeaderGrouped = 'Customized Grouped';
         column1.groupIndex = 0;
         await waitForUpdatesAsync();
 
