@@ -79,6 +79,12 @@ The client-user should be able to specify whether they want left icons on menu i
 
 The client-user should be able to create groups for menu items. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
 
+> NOTE: NEEDS VISUAL DESIGN
+
+The client should be able to specify whether they want the group name to be visible on the component when the menu is closed.
+
+![ ](spec-images/combobox-26.png)
+
 #### Secondary Text
 
 The client-user should be able to specify whether they want secondary text on menu items or not. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
