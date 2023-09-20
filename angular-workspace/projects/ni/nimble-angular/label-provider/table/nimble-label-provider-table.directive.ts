@@ -54,13 +54,13 @@ export class NimbleLabelProviderTableDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'cellActionMenu', value);
     }
 
-    public get columnHeaderGroupedIndicator(): string | undefined {
-        return this.elementRef.nativeElement.columnHeaderGroupedIndicator;
+    public get columnHeaderGrouped(): string | undefined {
+        return this.elementRef.nativeElement.columnHeaderGrouped;
     }
 
     // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('column-header-grouped-indicator') public set columnHeaderGroupedIndicator(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'columnHeaderGroupedIndicator', value);
+    @Input('column-header-grouped') public set columnHeaderGrouped(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'columnHeaderGrouped', value);
     }
 }

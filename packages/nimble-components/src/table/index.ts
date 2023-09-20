@@ -139,6 +139,16 @@ export class Table<
     /**
      * @internal
      */
+    public get showRowOperationColumn(): boolean {
+        return (
+            this.selectionMode === TableRowSelectionMode.multiple
+            || this.showCollapseAll
+        );
+    }
+
+    /**
+     * @internal
+     */
     public readonly viewport!: HTMLElement;
 
     /**
@@ -687,7 +697,7 @@ export class Table<
                 column.columnInternals
             );
             notifierInternals.subscribe(this);
-            this.columnNotifiers.push(notifier);
+            this.columnNotifiers.push(notifierInternals);
         }
     }
 
