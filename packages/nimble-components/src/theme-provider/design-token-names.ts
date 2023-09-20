@@ -40,6 +40,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     controlHeight: 'control-height',
     controlSlimHeight: 'control-slim-height',
     smallPadding: 'small-padding',
+    mediumPadding: 'medium-padding',
     standardPadding: 'standard-padding',
     labelHeight: 'label-height',
     borderWidth: 'border-width',

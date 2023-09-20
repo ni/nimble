@@ -2,7 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     controlSlimHeight,
-    smallPadding,
+    mediumPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 
@@ -11,9 +11,9 @@ export const styles = css`
 
     :host {
         --ni-private-table-cell-nesting-level: 0;
-        padding: 0px calc(${standardPadding} / 2);
+        padding: 0px ${mediumPadding};
         padding-left: calc(
-            ${smallPadding} * 2 + ${standardPadding} * 2 *
+            ${mediumPadding} + ${standardPadding} * 2 *
                 var(--ni-private-table-cell-nesting-level)
         );
         align-self: center;
