@@ -39,10 +39,10 @@ const metadata: Meta<IconArgs> = {
                 component: `Nimble icons can be slotted into other components or used independently. Each icon is available as a custom element. For example, \`<${iconAddTag}></${iconAddTag}>\``
             },
             source: {
-                code: null,
+                code: null
             }
         }
-    },
+    }
 };
 
 export default metadata;
