@@ -100,7 +100,7 @@ The client-user should be able to specify whether they want left icons on menu i
 
 > QUESTION: IS THE SL "VIEW" PICKER A SELECT (SHOULD IT BE)? WHAT ABOUT GROUPS WITHOUT LABELS, WHAT ABOUT A SELECTION GROUP VS. AN ACTION GROUP OF MENU ITEMS (A.K.A MEGA-MENUS)?
 
-The client-user should be able to create groups for menu items in the menu. Groups are not interactable.
+The client-user should be able to create groups for menu items in the menu. Groups are not interactable. Filtering by group name should show all the options under that group, whether or not it is included in the option text.
 
 ![ ](spec-images/select-8.png)
 
@@ -216,15 +216,15 @@ Typing into the filter bar filters the menu items in the menu (not pictured). Th
 
 #### Field Button
 
-| Key                    | Description                                                                                                      |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `ENTER` or `SPACE`     | Opens the menu without moving focus or changing selection                                                        |
-| `DOWN ARROW`           | Opens the menu without moving focus or changing selection (DOM focus remains on the select)                      |
-| `ALT` + `DOWN ARROW`   | Opens the menu without moving focus or changing selection                                                        |
-| `UP ARROW`             | Opens the menu and moves visual focus to the first menu item (DOM focus remains on the select)                   |
-| `HOME`                 | Opens the menu and moves visual focus to the first menu item                                                     |
-| `END`                  | Opens the menu and moves visual focus to the last menu item                                                      |
-| _Printable characters_ | Opens the menu (if closed), moves visual focus to the first menu item that matches the typed character or string |
+| Key                    | Description                                                                                                                                                                       |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ENTER` or `SPACE`     | Opens the menu without moving focus or changing selection                                                                                                                         |
+| `DOWN ARROW`           | Opens the menu without moving focus or changing selection (DOM focus remains on the select)                                                                                       |
+| `ALT` + `DOWN ARROW`   | Opens the menu without moving focus or changing selection                                                                                                                         |
+| `UP ARROW`             | Opens the menu and moves visual focus to the first menu item (DOM focus remains on the select)                                                                                    |
+| `HOME`                 | Opens the menu and moves visual focus to the first menu item                                                                                                                      |
+| `END`                  | Opens the menu and moves visual focus to the last menu item                                                                                                                       |
+| _Printable characters_ | Opens the menu (if closed), moves visual focus to the filter input (if filterable) with the characters typed or to the first menu item that matches the typed character or string |
 
 `TAB` focuses the select component from the previous or next focusable element on the page.
 
@@ -248,14 +248,14 @@ Typing into the filter bar filters the menu items in the menu (not pictured). Th
 
 > QUESTION: WHAT KEYBOARD SHORTCUT SHOULD BE USED TO FOCUS THE FIRST MENU ITEM AFTER THE FILTER BAR?
 
-| Key                        | Description                                                                                                 |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `ENTER` or `SPACE`         | Sets the value of the field button to the focused menu item, closes the menu, and moves focus to the select |
-| `DOWN ARROW` or `UP ARROW` | Moves visual focus to the next or previous menu item                                                        |
-| `ESC`                      | Closes the menu and moves visual focus to the select                                                        |
-| `HOME` or `END`            | Moves visual focus to the first or last menu item                                                           |
-| `PAGEUP` or `PAGEDOWN`     | Jumps visual focus up or down ten menu items (or to first or last menu item)                                |
-| _Printable characters_     | Moves visual focus to the first menu item that matches the typed character or string                        |
+| Key                        | Description                                                                                                                                                               |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ENTER` or `SPACE`         | Sets the value of the field button to the focused menu item, closes the menu, and moves focus to the select                                                               |
+| `DOWN ARROW` or `UP ARROW` | Moves visual focus to the next or previous menu item                                                                                                                      |
+| `ESC`                      | Closes the menu and moves visual focus to the select                                                                                                                      |
+| `HOME` or `END`            | Moves visual focus to the first or last menu item                                                                                                                         |
+| `PAGEUP` or `PAGEDOWN`     | Jumps visual focus up or down ten menu items (or to first or last menu item)                                                                                              |
+| _Printable characters_     | Moves visual focus to the filter input (if filterable) with the characters typed or to the first menu item (if not filterable) that matches the typed character or string |
 
 > NOTE: NEED VISUAL DESIGN TO DETERMINE WHETHER BOTH FOCUS AND SELECTION ARE VISUALLY INDICATED ON MENU ITEMS
 
