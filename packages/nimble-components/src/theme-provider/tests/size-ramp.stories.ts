@@ -41,7 +41,7 @@ const metadata: Meta = {
                 component: overviewText
             },
             source: {
-                code: null,
+                code: null
             }
         }
     }
