@@ -2,14 +2,14 @@ import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
-} from '../src/utilities/tests/storybook';
-import { Table, tableTag } from '../src/table';
-import { tableColumnAnchorTag } from '../src/table-column/anchor';
-import { tableColumnIconTag } from '../src/table-column/icon';
-import { mappingIconTag } from '../src/mapping/icon';
-import { iconCheckTag } from '../src/icons/check';
-import { iconTriangleTag } from '../src/icons/triangle';
-import { iconXmarkTag } from '../src/icons/xmark';
+} from '../utilities/tests/storybook';
+import { Table, tableTag } from '../table';
+import { tableColumnAnchorTag } from '../table-column/anchor';
+import { tableColumnIconTag } from '../table-column/icon';
+import { mappingIconTag } from '../mapping/icon';
+import { iconCheckTag } from '../icons/check';
+import { iconTriangleTag } from '../icons/triangle';
+import { iconXmarkTag } from '../icons/xmark';
 import { ComponentFrameworkStatus } from './types';
 
 const statusOptions = ['active', 'future'] as const;
@@ -581,11 +581,10 @@ const metadata: Meta<TableArgs> = {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
                 await customElements.whenDefined('nimble-table');
-                const isFuture = (component: typeof components[number]): boolean =>
-                    component.angularStatus  === ComponentFrameworkStatus.doesNotExist
+                const isFuture = (component: typeof components[number]): boolean => component.angularStatus === ComponentFrameworkStatus.doesNotExist
                     && component.blazorStatus === ComponentFrameworkStatus.doesNotExist
                     && component.componentStatus === ComponentFrameworkStatus.doesNotExist;
-                const data = components.filter(component => x.status === 'future' ? isFuture(component) : !isFuture(component))
+                const data = components.filter(component => (x.status === 'future' ? isFuture(component) : !isFuture(component)));
                 await x.tableRef.setData(data);
             })();
         },
@@ -597,17 +596,17 @@ export default metadata;
 
 export const componentStatus: StoryObj<TableArgs> = {
     parameters: {
-      // Story used by documentation, not needed for visual comparison.
-      chromatic: { disableSnapshot: true }
+        // Story used by documentation, not needed for visual comparison.
+        chromatic: { disableSnapshot: true }
     }
-  };
+};
 
 export const componentStatusFuture: StoryObj<TableArgs> = {
     parameters: {
-      // Story used by documentation, not needed for visual comparison.
-      chromatic: { disableSnapshot: true }
+        // Story used by documentation, not needed for visual comparison.
+        chromatic: { disableSnapshot: true }
     },
     args: {
         status: 'future'
     }
-  };
+};
