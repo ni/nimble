@@ -103,11 +103,11 @@ describe('Icons', () => {
             );
         });
 
-        it('supports setting blank aria-label on inner SVG', async () => {
+        it('clears aria-label from inner SVG when alt is blank', async () => {
             await connect();
             element.setAttribute('alt', '');
             const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.getAttribute('aria-label')).toEqual('');
+            expect(svg?.hasAttribute('aria-label')).toBeFalse();
         });
 
         it('clears aria-label from inner SVG when alt removed from icon', async () => {
@@ -122,6 +122,19 @@ describe('Icons', () => {
             element.setAttribute('alt', 'new aria label');
             const svg = element.shadowRoot!.querySelector('svg');
             expect(svg?.getAttribute('aria-label')).toEqual('new aria label');
+        });
+
+        it('sets SVG role to "graphics-symbol img" when alt is non-empty', async () => {
+            await connect();
+            const svg = element.shadowRoot!.querySelector('svg');
+            expect(svg?.getAttribute('role')).toEqual('graphics-symbol img');
+        });
+
+        it('sets SVG role to "presentation" when alt is cleared', async () => {
+            await connect();
+            element.setAttribute('alt', '');
+            const svg = element.shadowRoot!.querySelector('svg');
+            expect(svg?.getAttribute('role')).toEqual('presentation');
         });
     });
 });

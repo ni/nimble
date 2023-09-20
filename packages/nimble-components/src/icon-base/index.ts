@@ -31,28 +31,25 @@ export class Icon extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.setImgRoleOnSvg();
-        this.forwardAltToSvgAriaLabel();
+        this.updateSvgBasedOnAlt();
     }
 
     private altChanged(): void {
-        this.forwardAltToSvgAriaLabel();
+        this.updateSvgBasedOnAlt();
     }
 
-    private forwardAltToSvgAriaLabel(): void {
+    private updateSvgBasedOnAlt(): void {
         const svg = this.shadowRoot?.querySelector('svg');
         if (!svg) {
             return;
         }
-        if (this.alt !== null && this.alt !== undefined) {
+        if (this.alt) {
+            svg.setAttribute('role', 'graphics-symbol img');
             svg.setAttribute('aria-label', this.alt);
         } else {
+            svg.setAttribute('role', 'presentation');
             svg.removeAttribute('aria-label');
         }
-    }
-
-    private setImgRoleOnSvg(): void {
-        this.shadowRoot?.querySelector('svg')?.setAttribute('role', 'img');
     }
 }
 

@@ -67,7 +67,7 @@ export const icons: StoryObj<IconArgs> = {
         },
         alt: {
             control: { type: 'none' },
-            description: 'Descriptive text to use as the accessible name of the icon.'
+            description: 'Descriptive text to use as the accessible name of the icon. If unspecified, the icon is hidden from assistive technologies.'
         }
     },
     render: createUserSelectedThemeStory(html`
