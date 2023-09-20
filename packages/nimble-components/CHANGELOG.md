@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 19 Sep 2023 23:12:45 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Sep 2023 02:57:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.4.1
+
+Wed, 20 Sep 2023 02:57:31 GMT
+
+### Patches
+
+- Fixes keyboard closing when rich-text editor toolbar buttons are clicked in mobile iOS browsers ([ni/nimble@36b9611](https://github.com/ni/nimble/commit/36b9611c258f1b5e6aa5d24dc5ca288327382348))
 
 ## 20.4.0
 
