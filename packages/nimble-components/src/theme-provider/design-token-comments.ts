@@ -58,8 +58,10 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     iconSize: 'Standard layout height for all icons',
     groupHeaderTextTransform: 'CSS text-transform string to use for headers',
     drawerWidth: 'TODO: delete when able',
-    dialogSmallWidth: 'Standard width for small dialogs like a confirmation dialog.',
-    dialogSmallMaxHeight: 'Standard maximum height for small dialogs like a confirmation dialog.',
+    dialogSmallWidth:
+        'Standard width for small dialogs like a confirmation dialog.',
+    dialogSmallMaxHeight:
+        'Standard maximum height for small dialogs like a confirmation dialog.',
     dialogLargeWidth: 'Standard width for large dialogs.',
     dialogLargeHeight: 'Standard height for large dialogs.',
     bannerGapSize: 'Space between stacked banners',

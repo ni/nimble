@@ -1,12 +1,26 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createFixedThemeStory, createStory } from '../../utilities/tests/storybook';
-import { createMatrix, sharedMatrixParameters } from '../../utilities/tests/matrix';
+import {
+    createFixedThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
+import {
+    createMatrix,
+    sharedMatrixParameters
+} from '../../utilities/tests/matrix';
 import { backgroundStates } from '../../utilities/tests/states';
 import { dialogTag } from '..';
 import { buttonTag } from '../../button';
-import { cssPropertyFromTokenName, tokenNames } from '../../theme-provider/design-token-names';
-import { dialogLargeHeight, dialogLargeWidth, dialogSmallMaxHeight, dialogSmallWidth } from '../../theme-provider/design-tokens';
+import {
+    cssPropertyFromTokenName,
+    tokenNames
+} from '../../theme-provider/design-token-names';
+import {
+    dialogLargeHeight,
+    dialogLargeWidth,
+    dialogSmallMaxHeight,
+    dialogSmallWidth
+} from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Dialog',
@@ -86,16 +100,31 @@ dialogDarkThemeBlackBackground.play = playFunction;
 export const richTextEditorSizing: StoryFn = createStory(html`
     ${createMatrix(dialogSizingTestCase, [
         [
-            [`Width ${dialogSmallWidth.getValueFor(document.body)}`, `width: ${dialogSmallWidth.getValueFor(document.body)}`],
-            [`Width ${dialogLargeWidth.getValueFor(document.body)}`, `width: ${dialogLargeWidth.getValueFor(document.body)}`],
+            [
+                `Width ${dialogSmallWidth.getValueFor(document.body)}`,
+                `width: ${dialogSmallWidth.getValueFor(document.body)}`
+            ],
+            [
+                `Width ${dialogLargeWidth.getValueFor(document.body)}`,
+                `width: ${dialogLargeWidth.getValueFor(document.body)}`
+            ]
         ],
         [
             ['Height fit-content', 'height: fit-content'],
-            [`Height ${dialogLargeHeight.getValueFor(document.body)}`, `height: ${dialogLargeHeight.getValueFor(document.body)}`],
+            [
+                `Height ${dialogLargeHeight.getValueFor(document.body)}`,
+                `height: ${dialogLargeHeight.getValueFor(document.body)}`
+            ]
         ],
         [
-            [`Max height ${dialogSmallMaxHeight.getValueFor(document.body)}`, `max-height: ${dialogSmallMaxHeight.getValueFor(document.body)}`],
-            [`Max height ${dialogLargeHeight.getValueFor(document.body)}`, `max-height: ${dialogLargeHeight.getValueFor(document.body)}`],
+            [
+                `Max height ${dialogSmallMaxHeight.getValueFor(document.body)}`,
+                `max-height: ${dialogSmallMaxHeight.getValueFor(document.body)}`
+            ],
+            [
+                `Max height ${dialogLargeHeight.getValueFor(document.body)}`,
+                `max-height: ${dialogLargeHeight.getValueFor(document.body)}`
+            ]
         ]
     ])}
 `);

@@ -7,8 +7,16 @@ import { DialogSizeOptions, ExampleContentType } from './types';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 import { buttonTag } from '../../button';
 import { checkboxTag } from '../../checkbox';
-import { dialogLargeHeight, dialogLargeWidth, dialogSmallMaxHeight, dialogSmallWidth } from '../../theme-provider/design-tokens';
-import { scssPropertyFromTokenName, tokenNames } from '../../theme-provider/design-token-names';
+import {
+    dialogLargeHeight,
+    dialogLargeWidth,
+    dialogSmallMaxHeight,
+    dialogSmallWidth
+} from '../../theme-provider/design-tokens';
+import {
+    scssPropertyFromTokenName,
+    tokenNames
+} from '../../theme-provider/design-token-names';
 
 interface DialogArgs {
     title: string;
@@ -56,20 +64,28 @@ const content = {
 
 const widthDescription = `
 Width of a nimble dialog.
-The default width that the dialog has is given by ${scssPropertyFromTokenName(tokenNames.dialogSmallWidth)}.
+The default width that the dialog has is given by ${scssPropertyFromTokenName(
+        tokenNames.dialogSmallWidth
+    )}.
 
-The width can be overriden by setting a different value for the width attribute. For large dialogs, there is a nimble token available: ${scssPropertyFromTokenName(tokenNames.dialogLargeWidth)}
+The width can be overriden by setting a different value for the width attribute. For large dialogs, there is a nimble token available: ${scssPropertyFromTokenName(
+        tokenNames.dialogLargeWidth
+    )}
 `;
 
 const heightDescription = `
 Height of a nimble dialog.
 
-The height can be overriden by setting a different value for the height attribute. For large dialogs, there is a nimble token available: ${scssPropertyFromTokenName(tokenNames.dialogLargeHeight)}
+The height can be overriden by setting a different value for the height attribute. For large dialogs, there is a nimble token available: ${scssPropertyFromTokenName(
+        tokenNames.dialogLargeHeight
+    )}
 `;
 
 const maxHeightDescription = `
 Maximum height of a nimble dialog.
-The default maximum height that the dialog has is given by ${scssPropertyFromTokenName(tokenNames.dialogSmallMaxHeight)}.
+The default maximum height that the dialog has is given by ${scssPropertyFromTokenName(
+        tokenNames.dialogSmallMaxHeight
+    )}.
 
 The maximum height can be overriden by setting a different value for the maximum height attribute.
 `;
@@ -85,7 +101,9 @@ const heights = {
 } as const;
 
 const maxHeights = {
-    [DialogSizeOptions.default]: dialogSmallMaxHeight.getValueFor(document.body),
+    [DialogSizeOptions.default]: dialogSmallMaxHeight.getValueFor(
+        document.body
+    ),
     [DialogSizeOptions.large]: dialogLargeHeight.getValueFor(document.body)
 } as const;
 
@@ -201,10 +219,7 @@ const metadata: Meta<DialogArgs> = {
         },
         width: {
             description: widthDescription,
-            options: [
-                DialogSizeOptions.default,
-                DialogSizeOptions.large
-            ],
+            options: [DialogSizeOptions.default, DialogSizeOptions.large],
             control: {
                 type: 'select',
                 labels: {
@@ -213,32 +228,26 @@ const metadata: Meta<DialogArgs> = {
                     )})`,
                     [DialogSizeOptions.large]: `Large (${dialogLargeWidth.getValueFor(
                         document.body
-                    )})`,
+                    )})`
                 }
             }
         },
         height: {
             description: heightDescription,
-            options: [
-                DialogSizeOptions.default,
-                DialogSizeOptions.large
-            ],
+            options: [DialogSizeOptions.default, DialogSizeOptions.large],
             control: {
                 type: 'select',
                 labels: {
                     [DialogSizeOptions.default]: 'Default (fit-content)',
                     [DialogSizeOptions.large]: `Large (${dialogLargeHeight.getValueFor(
                         document.body
-                    )})`,
+                    )})`
                 }
             }
         },
         maxHeight: {
             description: maxHeightDescription,
-            options: [
-                DialogSizeOptions.default,
-                DialogSizeOptions.large
-            ],
+            options: [DialogSizeOptions.default, DialogSizeOptions.large],
             control: {
                 type: 'select',
                 labels: {
@@ -247,7 +256,7 @@ const metadata: Meta<DialogArgs> = {
                     )})`,
                     [DialogSizeOptions.large]: `Large (${dialogLargeHeight.getValueFor(
                         document.body
-                    )})`,
+                    )})`
                 }
             }
         },
