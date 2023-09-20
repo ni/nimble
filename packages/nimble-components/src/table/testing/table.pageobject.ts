@@ -202,21 +202,19 @@ export class TablePageObject<T extends TableRecord> {
         return content.severity ?? '';
     }
 
-    public getRenderedIconColumnCellIconAriaLabel(
+    public getRenderedIconColumnCellIconAltText(
         rowIndex: number,
         columnIndex: number
     ): string {
         const content = this.getRenderedCellView(rowIndex, columnIndex)
             .shadowRoot!.firstElementChild;
-        if (
-            !content
-            || !(content instanceof Icon || content instanceof Spinner)
-        ) {
+        if (!content || !(content instanceof Icon)) {
+            // Should not be called for spinners, since they do not have alt attribute
             throw new Error(
-                `Icon or Spinner not found at cell ${rowIndex},${columnIndex}`
+                `Icon not found at cell ${rowIndex},${columnIndex}`
             );
         }
-        return content.ariaLabel ?? '';
+        return content.alt ?? '';
     }
 
     public getRenderedIconColumnCellIconTagName(
