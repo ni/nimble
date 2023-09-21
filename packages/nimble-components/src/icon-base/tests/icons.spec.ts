@@ -130,11 +130,11 @@ describe('Icons', () => {
             expect(svg?.getAttribute('role')).toEqual('graphics-symbol img');
         });
 
-        it('sets SVG role to "presentation" when alt is cleared', async () => {
+        it('sets SVG aria-hidden to true when alt is cleared', async () => {
             await connect();
             element.setAttribute('alt', '');
             const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.getAttribute('role')).toEqual('presentation');
+            expect(svg?.getAttribute('aria-hidden')).toEqual('true');
         });
     });
 });
