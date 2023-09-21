@@ -343,6 +343,13 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
          */
         return new Editor({
             element: this.editor,
+            // The editor will detect markdown syntax for an input only for these items
+            // https://tiptap.dev/api/editor#enable-input-rules
+            enableInputRules: [BulletList, OrderedList],
+            // The editor will not detect markdown syntax when pasting content in any supported items
+            // Lists do not have any default paste rules, they have only input rules, so disabled paste rules
+            // https://tiptap.dev/api/editor#enable-paste-rules
+            enablePasteRules: false,
             extensions: [
                 Document,
                 Paragraph,
