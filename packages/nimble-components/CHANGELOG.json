@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 21 Sep 2023 13:07:38 GMT",
+      "tag": "@ni/nimble-components_v20.5.1",
+      "version": "20.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "94188a36031bfd9a88374d9e201c695eab8727ae",
+            "comment": "Avoid converting markdown syntax characters like star (*) and underscore(_) to format the editor content automatically while typing"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 20 Sep 2023 22:35:58 GMT",
       "tag": "@ni/nimble-components_v20.5.0",
       "version": "20.5.0",
