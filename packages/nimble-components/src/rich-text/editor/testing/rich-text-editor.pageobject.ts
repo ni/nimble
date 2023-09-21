@@ -96,12 +96,6 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
-    public async clickFooterIconSlot(button: ToolbarButton): Promise<void> {
-        const icon = this.getIconSlot(button);
-        icon!.click();
-        await waitForUpdatesAsync();
-    }
-
     public getButtonCheckedState(button: ToolbarButton): boolean {
         const toggleButton = this.getFormattingButton(button);
         return toggleButton!.checked;
@@ -126,6 +120,15 @@ export class RichTextEditorPageObject {
             key: keyEnter
         } as KeyboardEventInit);
         toggleButton.control.dispatchEvent(event);
+    }
+
+    public pasteToEditor(text: string): void {
+        const editor = this.getTiptapEditor();
+        const pasteEvent = new ClipboardEvent('paste', {
+            clipboardData: new DataTransfer()
+        });
+        pasteEvent.clipboardData?.setData('text/plain', text);
+        editor!.dispatchEvent(pasteEvent);
     }
 
     public async setEditorTextContent(value: string): Promise<void> {
@@ -272,12 +275,5 @@ export class RichTextEditorPageObject {
 
     private getEditorLastChildElement(): Element {
         return getLastChildElement(this.getTiptapEditor() as HTMLElement)!;
-    }
-
-    private getIconSlot(
-        button: ToolbarButton
-    ): HTMLSpanElement | null | undefined {
-        const toggleButton = this.getFormattingButton(button);
-        return toggleButton?.shadowRoot?.querySelector('.start');
     }
 }

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Wed, 02 Aug 2023 19:10:45 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Sep 2023 18:55:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.4.0
+
+Wed, 20 Sep 2023 18:55:59 GMT
+
+### Minor changes
+
+- New icons for indent and outdent list level ([ni/nimble@f12cbc5](https://github.com/ni/nimble/commit/f12cbc59d683ae048a85750990cc4ae174464590))
 
 ## 6.3.0
 

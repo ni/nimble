@@ -3,10 +3,16 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { DesignTokensFor, LabelProviderBase } from '../base';
 import {
     tableCellActionMenuLabel,
-    tableColumnHeaderGroupedIndicatorLabel,
+    tableColumnHeaderGroupedLabel,
+    tableColumnHeaderSortedAscendingLabel,
+    tableColumnHeaderSortedDescendingLabel,
     tableGroupCollapseLabel,
     tableGroupExpandLabel,
-    tableGroupsCollapseAllLabel
+    tableGroupSelectAllLabel,
+    tableGroupsCollapseAllLabel,
+    tableRowOperationColumnLabel,
+    tableRowSelectLabel,
+    tableSelectAllLabel
 } from './label-tokens';
 
 declare global {
@@ -20,7 +26,13 @@ const supportedLabels = {
     groupExpand: tableGroupExpandLabel,
     groupsCollapseAll: tableGroupsCollapseAllLabel,
     cellActionMenu: tableCellActionMenuLabel,
-    columnHeaderGroupedIndicator: tableColumnHeaderGroupedIndicatorLabel
+    columnHeaderGrouped: tableColumnHeaderGroupedLabel,
+    columnHeaderSortedAscending: tableColumnHeaderSortedAscendingLabel,
+    columnHeaderSortedDescending: tableColumnHeaderSortedDescendingLabel,
+    selectAll: tableSelectAllLabel,
+    groupSelectAll: tableGroupSelectAllLabel,
+    rowSelect: tableRowSelectLabel,
+    rowOperationColumn: tableRowOperationColumnLabel
 } as const;
 
 /**
@@ -41,8 +53,26 @@ export class LabelProviderTable
     @attr({ attribute: 'cell-action-menu' })
     public cellActionMenu: string | undefined;
 
-    @attr({ attribute: 'column-header-grouped-indicator' })
-    public columnHeaderGroupedIndicator: string | undefined;
+    @attr({ attribute: 'column-header-grouped' })
+    public columnHeaderGrouped: string | undefined;
+
+    @attr({ attribute: 'column-header-sorted-ascending' })
+    public columnHeaderSortedAscending: string | undefined;
+
+    @attr({ attribute: 'column-header-sorted-descending' })
+    public columnHeaderSortedDescending: string | undefined;
+
+    @attr({ attribute: 'select-all' })
+    public selectAll: string | undefined;
+
+    @attr({ attribute: 'group-select-all' })
+    public groupSelectAll: string | undefined;
+
+    @attr({ attribute: 'row-select' })
+    public rowSelect: string | undefined;
+
+    @attr({ attribute: 'row-operation-column' })
+    public rowOperationColumn: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }

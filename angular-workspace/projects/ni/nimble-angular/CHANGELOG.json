@@ -2,6 +2,102 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 21 Sep 2023 13:07:38 GMT",
+      "tag": "@ni/nimble-angular_v17.5.8",
+      "version": "17.5.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.5.1",
+            "commit": "94188a36031bfd9a88374d9e201c695eab8727ae"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 18:55:59 GMT",
+      "tag": "@ni/nimble-angular_v17.5.7",
+      "version": "17.5.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.5.0",
+            "commit": "f12cbc59d683ae048a85750990cc4ae174464590"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 16:38:20 GMT",
+      "tag": "@ni/nimble-angular_v17.5.6",
+      "version": "17.5.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "60947ef38e170552c614f1affcd8e1e385ba9177",
+            "comment": "Rename `columnHeaderGroupedIndicator` table label to `columnHeaderGrouped`"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.4.3",
+            "commit": "60947ef38e170552c614f1affcd8e1e385ba9177"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 15:22:26 GMT",
+      "tag": "@ni/nimble-angular_v17.5.5",
+      "version": "17.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.4.2",
+            "commit": "f4dc2eaa9724bee9cf82c28d17ac57422679a1f8"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 02:57:31 GMT",
+      "tag": "@ni/nimble-angular_v17.5.4",
+      "version": "17.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.4.1",
+            "commit": "36b9611c258f1b5e6aa5d24dc5ca288327382348"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 Sep 2023 23:12:45 GMT",
+      "tag": "@ni/nimble-angular_v17.5.3",
+      "version": "17.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.4.0",
+            "commit": "b6baa04c34007f4fad4e546c78505fa820fff6d1"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 15 Sep 2023 21:18:05 GMT",
       "tag": "@ni/nimble-angular_v17.5.2",
       "version": "17.5.2",

@@ -16,6 +16,6 @@ export class NimbleLabelProviderTableWithDefaultsDirective {
         this.elementRef.nativeElement.groupExpand = $localize`:Nimble table - expand group|:Expand group`;
         this.elementRef.nativeElement.groupsCollapseAll = $localize`:Nimble table - collapse all groups|:Collapse all groups`;
         this.elementRef.nativeElement.cellActionMenu = $localize`:Nimble table - cell action menu|:Options`;
-        this.elementRef.nativeElement.columnHeaderGroupedIndicator = $localize`:Nimble table - column header grouped indicator|:Grouped`;
+        this.elementRef.nativeElement.columnHeaderGrouped = $localize`:Nimble table - column header grouped indicator|:Grouped`;
     }
 }
