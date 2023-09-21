@@ -122,6 +122,15 @@ export class RichTextEditorPageObject {
         toggleButton.control.dispatchEvent(event);
     }
 
+    public pasteToEditor(text: string): void {
+        const editor = this.getTiptapEditor();
+        const pasteEvent = new ClipboardEvent('paste', {
+            clipboardData: new DataTransfer()
+        });
+        pasteEvent.clipboardData?.setData('text/plain', text);
+        editor!.dispatchEvent(pasteEvent);
+    }
+
     // Simulate the actual pasting of content by passing the extracted HTML string as an argument and setting the format to 'text/html',
     // as in the [DataFormat](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer) object.
     // For example, when copying a link, the clipboard stores information that includes the anchor tag, href attribute value etc, and paste it as an HTML string
