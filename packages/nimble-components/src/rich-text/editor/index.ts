@@ -335,7 +335,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     private createTiptapEditor(): Editor {
         const customLink = this.getCustomLinkExtension();
-        const validLinkRegex = /^https?:\/\//i;
+        const validAbsoluteLinkRegex = /^https?:\/\//i;
 
         /**
          * @param htmlString contains the html string of the copied content. If the content is a link, the `htmlString` contains anchor tag and a href value.
@@ -349,7 +349,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 const href = anchorElement.getAttribute('href');
                 // When pasting a link, the `href` attribute of the anchor element should be a valid HTTPS/HTTP link;
                 // else, it should be rendered as plain text in a paragraph element.
-                if (href && validLinkRegex.test(href)) {
+                if (href && validAbsoluteLinkRegex.test(href)) {
                     anchorElement.textContent = href; // Modifying the anchor element text content with its href
                 } else {
                     const paragraphElement = document.createElement('p');
@@ -404,7 +404,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                     // linkOnPaste can be enabled when hyperlink support added
                     // See: https://github.com/ni/nimble/issues/1527
                     linkOnPaste: false,
-                    validate: href => validLinkRegex.test(href)
+                    validate: href => validAbsoluteLinkRegex.test(href)
                 })
             ]
         });
@@ -428,8 +428,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             inclusive: false,
             parseHTML() {
                 // To load the `nimble-anchor` from the HTML parsed content by markdown-parser as links in the Tiptap editor, the `parseHTML`
-                // of Link extension should return nimble `anchorTag` in addition to `<a>` tag as it is used when pasting a link from external
-                // source. This is because the link mark schema in `markdown-parser.ts` file uses `<nimble-anchor>` as anchor tag and not `<a>`.
+                // of Link extension should return nimble `anchorTag`.
+                // This is because the link mark schema in `markdown-parser.ts` file uses `<nimble-anchor>` as anchor tag and not `<a>`.
+                // ---
+                // `<a>` tag is added here to support when pasting a link from external source.
                 return [
                     {
                         tag: anchorTag
