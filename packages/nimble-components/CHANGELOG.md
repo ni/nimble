@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 20 Sep 2023 16:38:20 GMT and should not be manually modified.
+This log was last generated on Thu, 21 Sep 2023 13:07:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.5.1
+
+Thu, 21 Sep 2023 13:07:38 GMT
+
+### Patches
+
+- Avoid converting markdown syntax characters like star (*) and underscore(_) to format the editor content automatically while typing ([ni/nimble@94188a3](https://github.com/ni/nimble/commit/94188a36031bfd9a88374d9e201c695eab8727ae))
+
+## 20.5.0
+
+Wed, 20 Sep 2023 18:55:59 GMT
+
+### Minor changes
+
+- New icons for indent and outdent list level ([ni/nimble@f12cbc5](https://github.com/ni/nimble/commit/f12cbc59d683ae048a85750990cc4ae174464590))
+- Bump @ni/nimble-tokens to v6.4.0
 
 ## 20.4.3
 

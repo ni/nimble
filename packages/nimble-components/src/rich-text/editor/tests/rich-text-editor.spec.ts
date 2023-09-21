@@ -1,7 +1,10 @@
 import { html } from '@microsoft/fast-element';
 import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import {
+    getSpecTypeByNamedList,
+    parameterizeNamedList
+} from '../../../utilities/tests/parameterized';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import type { Button } from '../../../button';
@@ -388,6 +391,125 @@ describe('RichTextEditor', () => {
             expect(pageObject.getEditorLeafContents()).toEqual([
                 'numbered list'
             ]);
+        });
+
+        describe('should render as a plain text for bold and italics input rule entered into the editor', () => {
+            const markdownInput = [
+                { name: 'bold(**)', input: '**bold**' },
+                { name: 'bold(__)', input: '__bold__' },
+                { name: 'italics(*)', input: '*italics*' },
+                { name: 'italics(_)', input: '_italics_' }
+            ] as const;
+            parameterizeNamedList(markdownInput, (spec, name, value) => {
+                spec(`for ${name} markdown input to the editor`, async () => {
+                    await pageObject.setEditorTextContent(value.input);
+
+                    expect(pageObject.getEditorTagNames()).toEqual(['P']);
+                    expect(pageObject.getEditorLeafContents()).toEqual([
+                        value.input
+                    ]);
+                });
+            });
+        });
+
+        describe('should render as lists when its input rule is entered into the editor', () => {
+            const markdownInput = [
+                { name: 'bullet list', input: '*', tagName: 'UL' },
+                { name: 'bullet list', input: '+', tagName: 'UL' },
+                { name: 'bullet list', input: '-', tagName: 'UL' },
+                { name: 'numbered list', input: '1.', tagName: 'OL' },
+                { name: 'numbered list', input: '5.', tagName: 'OL' }
+            ] as const;
+            parameterizeNamedList(markdownInput, (spec, name, value) => {
+                spec(`for ${name} markdown input to the editor`, async () => {
+                    await pageObject.setEditorTextContent(value.input);
+                    await pageObject.pressEnterKeyInEditor();
+                    await pageObject.setEditorTextContent(value.name);
+
+                    expect(
+                        pageObject.getEditorTagNamesWithClosingTags()
+                    ).toEqual([
+                        value.tagName,
+                        'LI',
+                        'P',
+                        '/P',
+                        '/LI',
+                        `/${value.tagName}`
+                    ]);
+                    expect(pageObject.getEditorLeafContents()).toEqual([
+                        value.name
+                    ]);
+                });
+            });
+        });
+
+        describe('should render as a plain text for all supported markdown strings are pasted into the editor', () => {
+            const markdownInput = [
+                { name: 'bold(**)', input: '**bold**' },
+                { name: 'bold(__)', input: '__bold__' },
+                { name: 'italics(*)', input: '*italics*' },
+                { name: 'italics(_)', input: '_italics_' },
+                { name: 'bullet list(*)', input: '* ' },
+                { name: 'bullet list(+)', input: '+ ' },
+                { name: 'bullet list(-)', input: '- ' },
+                { name: 'numbered list(1.)', input: '1. ' },
+                { name: 'numbered list(5.)', input: '5. ' },
+                { name: 'autolink(<https>)', input: '<https://nimble.ni.dev>' },
+                { name: 'autolink(<http>)', input: '<http://nimble.ni.dev>' },
+                { name: 'autolink(<ftp>)', input: '<ftp://example>' },
+                { name: 'hard break', input: 'hard\\nbreak' },
+                { name: 'blockquote', input: '> blockquote' },
+                { name: 'code', input: '`code`' },
+                { name: 'fence', input: '```fence```' },
+                { name: 'strikethrough', input: '~~strikethrough~~' },
+                { name: 'heading 1', input: '# heading 1' },
+                { name: 'heading 2', input: '## heading 2' },
+                { name: 'heading 3', input: '### heading 3' },
+                { name: 'hyperlink', input: '[link](url)' },
+                {
+                    name: 'reference',
+                    input: '[ref][link] [link]:url'
+                },
+                { name: 'image', input: '![Text](Image)' },
+                { name: 'horizontal rule(-)', input: '---' },
+                { name: 'horizontal rule(*)', input: '***' },
+                { name: 'horizontal rule(_)', input: '___' },
+                { name: 'Infinity', input: '-Infinity' },
+                { name: 'entity', input: '&nbsp;' },
+                {
+                    name: 'symbols',
+                    input: '(c) (C) (r) (R) (tm) (TM) (p) (P) +-'
+                },
+                { name: 'html string(p)', input: '<div><p>text</p></div>' },
+                { name: 'html string(b)', input: '<b>not bold</b>' },
+                { name: 'html string(em)', input: '<em>not italic</em>' },
+                {
+                    name: 'html string(ol)',
+                    input: '<ol><li>not list</li><li>not list</li></ol>'
+                },
+                {
+                    name: 'html string(ul)',
+                    input: '<ul><li>not list</li><li>not list</li></ul>'
+                },
+                {
+                    name: 'html string(a)',
+                    input: '<a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a>'
+                },
+                {
+                    name: 'html string(script)',
+                    input: '<script>alert("not alert")</script>'
+                }
+            ] as const;
+            parameterizeNamedList(markdownInput, (spec, name, value) => {
+                spec(`for ${name} markdown syntax to the editor`, () => {
+                    pageObject.pasteToEditor(value.input);
+
+                    expect(pageObject.getEditorTagNames()).toEqual(['P']);
+                    expect(pageObject.getEditorLeafContents()).toEqual([
+                        value.input
+                    ]);
+                });
+            });
         });
 
         it('should have br tag name when pressing shift + Enter with numbered list content', async () => {
