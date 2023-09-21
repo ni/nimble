@@ -44,7 +44,7 @@ export class Icon extends FoundationElement {
             return;
         }
         if (this.alt) {
-            svg.setAttribute('role', 'graphics-symbol img');
+            svg.setAttribute('role', 'graphics-symbol');
             svg.removeAttribute('aria-hidden');
             svg.setAttribute('aria-label', this.alt);
         } else {

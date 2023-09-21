@@ -124,10 +124,10 @@ describe('Icons', () => {
             expect(svg?.getAttribute('aria-label')).toEqual('new aria label');
         });
 
-        it('sets SVG role to "graphics-symbol img" when alt is non-empty', async () => {
+        it('sets SVG role to "graphics-symbol" when alt is non-empty', async () => {
             await connect();
             const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.getAttribute('role')).toEqual('graphics-symbol img');
+            expect(svg?.getAttribute('role')).toEqual('graphics-symbol');
         });
 
         it('sets SVG aria-hidden to true when alt is cleared', async () => {
