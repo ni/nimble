@@ -45,27 +45,22 @@ const metadata: Meta<SelectArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         ${disableStorybookZoomTransform}
-        <div style="height: 300px; width: 300px; overflow: auto;">
-            <div style="background: pink; height: 1000px; width: 700px; display: flex; overflow: scroll;">
-                <${selectTag}
-                    ?error-visible="${x => x.errorVisible}"
-                    error-text="${x => x.errorText}"
+        <${selectTag}
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            ?disabled="${x => x.disabled}"
+            position="${x => x.dropDownPosition}"
+            appearance="${x => x.appearance}"
+        >
+            ${repeat(x => x.options, html<OptionArgs>`
+                <${listOptionTag}
+                    value="${x => x.value}"
                     ?disabled="${x => x.disabled}"
-                    position="${x => x.dropDownPosition}"
-                    appearance="${x => x.appearance}"
-                    style="margin-top: auto; margin-left: auto;margin-bottom: auto; margin-right: auto;"
                 >
-                    ${repeat(x => x.options, html<OptionArgs>`
-                        <${listOptionTag}
-                            value="${x => x.value}"
-                            ?disabled="${x => x.disabled}"
-                        >
-                            ${x => x.label}
-                        </${listOptionTag}>
-                    `)}
-                </${selectTag}>
-            </div>
-        </div>
+                    ${x => x.label}
+                </${listOptionTag}>
+            `)}
+        </${selectTag}>
     `),
     argTypes: {
         dropDownPosition: {
