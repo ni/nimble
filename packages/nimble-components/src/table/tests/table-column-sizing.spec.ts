@@ -357,8 +357,6 @@ describe('Table Interactive Column Sizing', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: TablePageObject<SimpleTableRecord>;
-    let column1: TableColumn;
-    let column2: TableColumn;
     let column4: TableColumn;
 
     beforeEach(async () => {
@@ -368,8 +366,6 @@ describe('Table Interactive Column Sizing', () => {
         await element.setData(simpleTableData);
         await waitForUpdatesAsync();
         await pageObject.sizeTableToGivenRowWidth(400, element);
-        column1 = element.querySelector<TableColumn>('#first-column')!;
-        column2 = element.querySelector<TableColumn>('#second-column')!;
         column4 = element.querySelector<TableColumn>('#fourth-column')!;
     });
 
@@ -888,7 +884,7 @@ describe('Table Interactive Column Sizing', () => {
 
     it('sizing a column with the same fractional width as other columns, but larger minimum size, does not result in different pixel widths for columns not resized', async () => {
         await pageObject.sizeTableToGivenRowWidth(400, element);
-        column4.columnInternals.minPixelWidth = 150;
+        column4.columnInternals.minPixelWidth = 150; // other columns are now larger than their minimum width, but smaller than this column
         await waitForUpdatesAsync();
         const initalFirstColumnWidth = pageObject.getCellRenderedWidth(0, 0);
         pageObject.dragSizeColumnByLeftDivider(3, [-10]);

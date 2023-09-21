@@ -239,7 +239,8 @@ export class TableLayoutManager<TData extends TableRecord> {
             const column = this.visibleColumns[i]!;
             if (column === this.gridSizedColumns[gridColumnIndex]) {
                 gridColumnIndex += 1;
-                column.columnInternals.currentFractionalWidth = column.columnInternals.currentPixelWidth! / gridSizeColumnAverage;
+                column.columnInternals.currentFractionalWidth = column.columnInternals.currentPixelWidth!
+                    / gridSizeColumnAverage;
                 column.columnInternals.currentPixelWidth = undefined;
             }
         }
