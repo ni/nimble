@@ -1090,6 +1090,11 @@ describe('RichTextEditor', () => {
                         name: 'Anchor with invalid link',
                         input: '<a href="urn:isbn:0451450523">Invalid link</a>',
                         text: 'Invalid link'
+                    },
+                    {
+                        name: 'Anchor with script tag',
+                        input: '<a href="#"><script>alert("attack")</script></a>',
+                        text: 'alert("attack")'
                     }
                 ] as const;
 
