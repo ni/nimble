@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { ViewTemplate, html } from '@microsoft/fast-element';
 import {
     eventChange,
     keyArrowDown,
@@ -35,11 +35,11 @@ async function slottedSetup(): Promise<Fixture<TestSlottedElement>> {
     return fixture(composedTestSlottedElement());
 }
 
-async function scrollableSetup(): Promise<Fixture<HTMLDivElement>> {
+async function scrollableSetup(viewTemplate: ViewTemplate<unknown, unknown>): Promise<Fixture<HTMLDivElement>> {
     return fixture<HTMLDivElement>(html`
         <div style="height: 100px; width: 100px; overflow: auto;">
             <div style="height: 1000px; width: 1000px;">
-                <nimble-menu-button></nimble-menu-button>
+                ${viewTemplate}
             </div>
         </div>
     `);
