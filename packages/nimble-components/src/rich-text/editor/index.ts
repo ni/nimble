@@ -335,6 +335,35 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     private createTiptapEditor(): Editor {
         const customLink = this.getCustomLinkExtension();
+        const validLinkRegex = /^https?:\/\//i;
+
+        /**
+         * @param htmlString contains the html string of the copied content. If the content is a link, the `htmlString` contains anchor tag and a href value.
+         * ProseMirror reference for `transformPastedHTML`: https://prosemirror.net/docs/ref/#view.EditorProps.transformPastedHTML
+         */
+        const transformPastedHTML = function (htmlString: string): string {
+            const tempElement = document.createElement('div');
+            tempElement.innerHTML = htmlString;
+
+            tempElement.querySelectorAll('a').forEach(anchorElement => {
+                const href = anchorElement.getAttribute('href');
+                // When pasting a link, the `href` attribute of the anchor element should be a valid HTTPS/HTTP link;
+                // else, it should be rendered as plain text in a paragraph element.
+                if (href && validLinkRegex.test(href)) {
+                    anchorElement.textContent = href; // Modifying the anchor element text content with its href
+                } else {
+                    const paragraphElement = document.createElement('p');
+                    paragraphElement.textContent = anchorElement.textContent;
+
+                    anchorElement.parentNode?.replaceChild(
+                        paragraphElement,
+                        anchorElement
+                    );
+                }
+            });
+
+            return tempElement.innerHTML;
+        };
 
         /**
          * For more information on the extensions for the supported formatting options, refer to the links below.
@@ -343,6 +372,11 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
          */
         return new Editor({
             element: this.editor,
+            editorProps: {
+                // Pasting rules need not to be transformed when hyperlink support added
+                // See: https://github.com/ni/nimble/issues/1527
+                transformPastedHTML
+            },
             extensions: [
                 Document,
                 Paragraph,
@@ -370,7 +404,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                     // linkOnPaste can be enabled when hyperlink support added
                     // See: https://github.com/ni/nimble/issues/1527
                     linkOnPaste: false,
-                    validate: href => /^https?:\/\//i.test(href)
+                    validate: href => validLinkRegex.test(href)
                 })
             ]
         });
@@ -393,10 +427,17 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             // See: https://github.com/ni/nimble/issues/1527
             inclusive: false,
             parseHTML() {
-                // To load the `nimble-anchor` from the HTML parsed content by markdown-parser as links in the
-                // Tiptap editor, the `parseHTML` of Link extension should return `anchorTag`. This is because the
-                // link mark schema in `markdown-parser.ts` file uses `<nimble-anchor>` as anchor tag and not `<a>`.
-                return [{ tag: anchorTag }];
+                // To load the `nimble-anchor` from the HTML parsed content by markdown-parser as links in the Tiptap editor, the `parseHTML`
+                // of Link extension should return nimble `anchorTag` in addition to `<a>` tag as it is used when pasting a link from external
+                // source. This is because the link mark schema in `markdown-parser.ts` file uses `<nimble-anchor>` as anchor tag and not `<a>`.
+                return [
+                    {
+                        tag: anchorTag
+                    },
+                    {
+                        tag: 'a'
+                    }
+                ];
             },
             // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
             // eslint-disable-next-line @typescript-eslint/naming-convention
