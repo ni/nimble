@@ -101,13 +101,9 @@ The client-user should be able to specify a prefix and/or suffix that appears in
 
 The client-user should be able to specify autocomplete behavior (inline, list, both, none). Autocomplete is accessed via the field input (not pictured). _See [current implementation](https://nimble.ni.dev/storybook/?path=/docs/components-combobox--docs) for more information._
 
-#### Add New
+> NOTE: WE SHOULD PROVIDE DOCUMENTED GUIDANCE THIS FOR CLIENTS
 
-> NOTE: NEEDS DEV REVIEW, VISUAL DESIGNER FOR STATES, & TECH WRITER
-
-The client-user should be able to specify whether custom entries can be added as a menu item in the menu or not. In the former, the menu should display a menu item that new items can be added indicate that a new item can be added. In the later, the menu does not show up at all.
-
-![ ](spec-images/combobox-4.png)
+When autocomplete is set to "list", it should filter menu options based on matching any text. When autocomplete is set to "inline" or "both", it should autocomplete (and filter) menu options based on matching the beginning of text.
 
 ### Behavior
 
@@ -239,3 +235,4 @@ From a focused menu item, `DOWN ARROW` or `UP ARROW` moves focus and selects the
 ## Future Considerations
 
 -   Helper text for input components (where it should be located, how it should be accessed).
+-   Do clients want an "Add new" menu item option? Do we want to document how clients might show an "Add new" menu item indicator in the dropdown?
