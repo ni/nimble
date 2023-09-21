@@ -357,6 +357,9 @@ describe('Table Interactive Column Sizing', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: TablePageObject<SimpleTableRecord>;
+    let column1: TableColumn;
+    let column2: TableColumn;
+    let column4: TableColumn;
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setupInteractiveTests());
@@ -365,6 +368,9 @@ describe('Table Interactive Column Sizing', () => {
         await element.setData(simpleTableData);
         await waitForUpdatesAsync();
         await pageObject.sizeTableToGivenRowWidth(400, element);
+        column1 = element.querySelector<TableColumn>('#first-column')!;
+        column2 = element.querySelector<TableColumn>('#second-column')!;
+        column4 = element.querySelector<TableColumn>('#fourth-column')!;
     });
 
     afterEach(async () => {
@@ -878,5 +884,16 @@ describe('Table Interactive Column Sizing', () => {
         await waitForUpdatesAsync();
         const totalColumnPixelWidth = pageObject.getTotalCellRenderedWidth();
         expect(totalColumnPixelWidth).toBe(202);
+    });
+
+    it('sizing a column with the same fractional width as other columns, but larger minimum size, does not result in different pixel widths for columns not resized', async () => {
+        await pageObject.sizeTableToGivenRowWidth(400, element);
+        column4.columnInternals.minPixelWidth = 150;
+        await waitForUpdatesAsync();
+        const initalFirstColumnWidth = pageObject.getCellRenderedWidth(0, 0);
+        pageObject.dragSizeColumnByLeftDivider(3, [-10]);
+        await waitForUpdatesAsync();
+        const firstColumnWidth = pageObject.getCellRenderedWidth(0, 0);
+        expect(firstColumnWidth).toBe(initalFirstColumnWidth);
     });
 });
