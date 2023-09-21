@@ -97,20 +97,35 @@ export const dialogDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
 
 dialogDarkThemeBlackBackground.play = playFunction;
 
-export const richTextEditorSizing: StoryFn = createStory(html`
+export const smallDialogSizing: StoryFn = createStory(html`
     ${createMatrix(dialogSizingTestCase, [
         [
             [
                 `Width ${dialogSmallWidth.getValueFor(document.body)}`,
                 `width: ${dialogSmallWidth.getValueFor(document.body)}`
-            ],
+            ]
+        ],
+        [['Height fit-content', 'height: fit-content']],
+        [
+            [
+                `Max height ${dialogSmallMaxHeight.getValueFor(document.body)}`,
+                `max-height: ${dialogSmallMaxHeight.getValueFor(document.body)}`
+            ]
+        ]
+    ])}
+`);
+
+smallDialogSizing.play = playFunction;
+
+export const largeDialogSizing: StoryFn = createStory(html`
+    ${createMatrix(dialogSizingTestCase, [
+        [
             [
                 `Width ${dialogLargeWidth.getValueFor(document.body)}`,
                 `width: ${dialogLargeWidth.getValueFor(document.body)}`
             ]
         ],
         [
-            ['Height fit-content', 'height: fit-content'],
             [
                 `Height ${dialogLargeHeight.getValueFor(document.body)}`,
                 `height: ${dialogLargeHeight.getValueFor(document.body)}`
@@ -118,13 +133,11 @@ export const richTextEditorSizing: StoryFn = createStory(html`
         ],
         [
             [
-                `Max height ${dialogSmallMaxHeight.getValueFor(document.body)}`,
-                `max-height: ${dialogSmallMaxHeight.getValueFor(document.body)}`
-            ],
-            [
                 `Max height ${dialogLargeHeight.getValueFor(document.body)}`,
                 `max-height: ${dialogLargeHeight.getValueFor(document.body)}`
             ]
         ]
     ])}
 `);
+
+largeDialogSizing.play = playFunction;
