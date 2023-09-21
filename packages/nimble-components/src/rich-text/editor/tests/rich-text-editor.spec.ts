@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import { getSpecTypeByNamedList, parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import type { Button } from '../../../button';
@@ -391,85 +391,57 @@ describe('RichTextEditor', () => {
         });
 
         describe('should render as a plain text for bold and italics input rule entered into the editor', () => {
-            const markdownInput: { name: string, input: string }[] = [
+            const markdownInput = [
                 { name: 'bold(**)', input: '**bold**' },
                 { name: 'bold(__)', input: '__bold__' },
                 { name: 'italics(*)', input: '*italics*' },
                 { name: 'italics(_)', input: '_italics_' }
-            ];
-            const focused: string[] = [];
-            const disabled: string[] = [];
+            ] as const;
+            parameterizeNamedList(markdownInput, (spec, name, value) => {
+                spec(`for ${name} markdown input to the editor`, async () => {
+                    await pageObject.setEditorTextContent(value.input);
 
-            for (const value of markdownInput) {
-                const specType = getSpecTypeByNamedList(
-                    value,
-                    focused,
-                    disabled
-                );
-                specType(
-                    `for ${value.name} markdown input to the editor`,
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
-                    async () => {
-                        await pageObject.setEditorTextContent(value.input);
-
-                        expect(pageObject.getEditorTagNames()).toEqual(['P']);
-                        expect(pageObject.getEditorLeafContents()).toEqual([
-                            value.input
-                        ]);
-                    }
-                );
-            }
+                    expect(pageObject.getEditorTagNames()).toEqual(['P']);
+                    expect(pageObject.getEditorLeafContents()).toEqual([
+                        value.input
+                    ]);
+                });
+            });
         });
 
         describe('should render as lists when its input rule is entered into the editor', () => {
-            const markdownInput: {
-                name: string,
-                input: string,
-                tagName: string
-            }[] = [
+            const markdownInput = [
                 { name: 'bullet list', input: '*', tagName: 'UL' },
                 { name: 'bullet list', input: '+', tagName: 'UL' },
                 { name: 'bullet list', input: '-', tagName: 'UL' },
                 { name: 'numbered list', input: '1.', tagName: 'OL' },
                 { name: 'numbered list', input: '5.', tagName: 'OL' }
-            ];
-            const focused: string[] = [];
-            const disabled: string[] = [];
+            ] as const;
+            parameterizeNamedList(markdownInput, (spec, name, value) => {
+                spec(`for ${name} markdown input to the editor`, async () => {
+                    await pageObject.setEditorTextContent(value.input);
+                    await pageObject.pressEnterKeyInEditor();
+                    await pageObject.setEditorTextContent(value.name);
 
-            for (const value of markdownInput) {
-                const specType = getSpecTypeByNamedList(
-                    value,
-                    focused,
-                    disabled
-                );
-                specType(
-                    `for ${value.name} markdown input (${value.input}) to the editor`,
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
-                    async () => {
-                        await pageObject.setEditorTextContent(value.input);
-                        await pageObject.pressEnterKeyInEditor();
-                        await pageObject.setEditorTextContent(value.name);
-
-                        expect(
-                            pageObject.getEditorTagNamesWithClosingTags()
-                        ).toEqual([
-                            value.tagName,
-                            'LI',
-                            'P',
-                            '/P',
-                            '/LI',
-                            `/${value.tagName}`
-                        ]);
-                        expect(pageObject.getEditorLeafContents()).toEqual([
-                            value.name
-                        ]);
-                    }
-                );
-            }
+                    expect(
+                        pageObject.getEditorTagNamesWithClosingTags()
+                    ).toEqual([
+                        value.tagName,
+                        'LI',
+                        'P',
+                        '/P',
+                        '/LI',
+                        `/${value.tagName}`
+                    ]);
+                    expect(pageObject.getEditorLeafContents()).toEqual([
+                        value.name
+                    ]);
+                });
+            });
         });
 
         describe('should render as a plain text for all supported markdown strings are pasted into the editor', () => {
-            const markdownInput: { name: string, input: string }[] = [
+            const markdownInput = [
                 { name: 'bold(**)', input: '**bold**' },
                 { name: 'bold(__)', input: '__bold__' },
                 { name: 'italics(*)', input: '*italics*' },
@@ -524,29 +496,17 @@ describe('RichTextEditor', () => {
                     name: 'html string(script)',
                     input: '<script>alert("not alert")</script>'
                 }
-            ];
-            const focused: string[] = [];
-            const disabled: string[] = [];
+            ] as const;
+            parameterizeNamedList(markdownInput, (spec, name, value) => {
+                spec(`for ${name} markdown syntax to the editor`, () => {
+                    pageObject.pasteToEditor(value.input);
 
-            for (const value of markdownInput) {
-                const specType = getSpecTypeByNamedList(
-                    value,
-                    focused,
-                    disabled
-                );
-                specType(
-                    `for ${value.name} markdown syntax to the editor`,
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
-                    () => {
-                        pageObject.pasteToEditor(value.input);
-
-                        expect(pageObject.getEditorTagNames()).toEqual(['P']);
-                        expect(pageObject.getEditorLeafContents()).toEqual([
-                            value.input
-                        ]);
-                    }
-                );
-            }
+                    expect(pageObject.getEditorTagNames()).toEqual(['P']);
+                    expect(pageObject.getEditorLeafContents()).toEqual([
+                        value.input
+                    ]);
+                });
+            });
         });
 
         it('should have br tag name when pressing shift + Enter with numbered list content', async () => {
