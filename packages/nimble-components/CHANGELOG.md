@@ -1,8 +1,73 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 14 Sep 2023 19:53:56 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Sep 2023 18:55:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.5.0
+
+Wed, 20 Sep 2023 18:55:59 GMT
+
+### Minor changes
+
+- New icons for indent and outdent list level ([ni/nimble@f12cbc5](https://github.com/ni/nimble/commit/f12cbc59d683ae048a85750990cc4ae174464590))
+- Bump @ni/nimble-tokens to v6.4.0
+
+## 20.4.3
+
+Wed, 20 Sep 2023 16:38:20 GMT
+
+### Patches
+
+- Add additional localized labels to sub-elements in the table to improve accessibility ([ni/nimble@60947ef](https://github.com/ni/nimble/commit/60947ef38e170552c614f1affcd8e1e385ba9177))
+
+## 20.4.2
+
+Wed, 20 Sep 2023 15:22:26 GMT
+
+### Patches
+
+- Fix bug in table when reordering columns ([ni/nimble@f4dc2ea](https://github.com/ni/nimble/commit/f4dc2eaa9724bee9cf82c28d17ac57422679a1f8))
+
+## 20.4.1
+
+Wed, 20 Sep 2023 02:57:31 GMT
+
+### Patches
+
+- Fixes keyboard closing when rich-text editor toolbar buttons are clicked in mobile iOS browsers ([ni/nimble@36b9611](https://github.com/ni/nimble/commit/36b9611c258f1b5e6aa5d24dc5ca288327382348))
+
+## 20.4.0
+
+Tue, 19 Sep 2023 23:12:45 GMT
+
+### Minor changes
+
+- Add medium padding token and document size ramp ([ni/nimble@b6baa04](https://github.com/ni/nimble/commit/b6baa04c34007f4fad4e546c78505fa820fff6d1))
+
+## 20.3.2
+
+Fri, 15 Sep 2023 21:18:04 GMT
+
+### Patches
+
+- Shift/Ctrl/Cmd + Enter will add line break in editor ([ni/nimble@129af80](https://github.com/ni/nimble/commit/129af8084eab1d47df84d6ee7281fd28bbaef8ec))
+
+## 20.3.1
+
+Fri, 15 Sep 2023 20:36:47 GMT
+
+### Patches
+
+- Import number-text column in all-components.ts ([ni/nimble@2a98738](https://github.com/ni/nimble/commit/2a987381442f5076ea40ea8e60010e2a839bca5a))
+
+## 20.3.0
+
+Fri, 15 Sep 2023 14:38:16 GMT
+
+### Minor changes
+
+- Add partial token for fill hover color ([ni/nimble@b03b880](https://github.com/ni/nimble/commit/b03b880ff881d7046209e59cf4a9cbf74e2fcceb))
 
 ## 20.2.16
 

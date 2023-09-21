@@ -31,6 +31,8 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     fillHoverSelectedColor:
         'Control fill color when hovering a selected control',
     fillHoverColor: 'Control fill color when hovering component',
+    fillHoverRgbPartialColor:
+        'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     fillDownColor: 'Control fill color when mousedown event occurs',
     borderColor: 'Standard control outline or border color',
     borderRgbPartialColor:
@@ -50,8 +52,9 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
     controlSlimHeight:
         'Height of controls that are somewhat shorter than standard height.',
-    smallPadding: 'Small layout padding for components',
-    standardPadding: 'Standard layout padding for components',
+    smallPadding: 'Fixed 4px size ramp token for component layout',
+    mediumPadding: 'Fixed 8px size ramp token for component layout',
+    standardPadding: 'Fixed 16px size ramp token for component layout',
     labelHeight:
         'Standard label height for components. Set the label font rather than explicitly setting the height for a label.',
     borderWidth: 'Standard border width for most components',

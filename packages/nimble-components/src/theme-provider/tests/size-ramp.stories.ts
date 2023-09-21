@@ -1,15 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
+import { html, repeat, when } from '@microsoft/fast-element';
 import { PropertyFormat } from './types';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
     tokenNames,
     cssPropertyFromTokenName,
-    scssPropertyFromTokenName,
-    TokenSuffix,
-    suffixFromTokenName
+    scssPropertyFromTokenName
 } from '../design-token-names';
-import { comments } from '../design-token-comments';
 
 import {
     bodyFont,
@@ -20,18 +17,23 @@ import {
 } from '../design-tokens';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
-type TokenName = keyof typeof tokenNames;
-const tokenNameKeys = Object.keys(tokenNames) as TokenName[];
-tokenNameKeys.sort((a, b) => a.localeCompare(b));
+const sizeRampTokenNames = (({
+    smallPadding,
+    mediumPadding,
+    standardPadding
+}) => ({ smallPadding, mediumPadding, standardPadding }))(tokenNames);
 
-const overviewText = 'Design Tokens to use in applications. See the <a href="https://github.com/ni/nimble/tree/main/packages/nimble-components">nimble-components</a> readme for more information.';
+type TokenName = keyof typeof sizeRampTokenNames;
+const tokenNameKeys = Object.keys(sizeRampTokenNames) as TokenName[];
+
+const overviewText = 'Design Tokens representing the range of fixed sizes to use for spacing and layout. Use these tokens when no designated token exists for the purpose.';
 
 interface TokenArgs {
     propertyFormat: PropertyFormat;
 }
 
 const metadata: Meta = {
-    title: 'Tokens/Theme-aware Tokens',
+    title: 'Tokens/Size Ramp',
     tags: ['autodocs'],
     parameters: {
         docs: {
@@ -53,84 +55,8 @@ const computedCSSValueFromTokenName = (tokenName: string): string => {
     );
 };
 
-const colorTemplate = html<TokenName>`
-    <div
-        title="${x => computedCSSValueFromTokenName(tokenNames[x])}"
-        style="
-        display: inline-block;
-        height: 24px;
-        width: 24px;
-        border: 1px solid black;
-        background-color: var(${x => cssPropertyFromTokenName(tokenNames[x])});
-    "
-    ></div>
-`;
-
-const rgbColorTemplate = html<TokenName>`
-    <div
-        title="${x => computedCSSValueFromTokenName(tokenNames[x])}"
-        style="
-        display: inline-block;
-        height: 24px;
-        width: 24px;
-        border: 1px solid black;
-        background-color: rgba(var(${x => cssPropertyFromTokenName(tokenNames[x])}), 1.0);
-    "
-    ></div>
-`;
-
-const stringValueTemplate = html<TokenName>`
-    <div style="display: inline-block;">
-        ${x => computedCSSValueFromTokenName(tokenNames[x])}
-    </div>
-`;
-
-const fontTemplate = html<TokenName>`
-    <div
-        style="
-        display: inline-block;
-        font: var(${x => cssPropertyFromTokenName(tokenNames[x])});
-    "
-    >
-        Nimble
-    </div>
-`;
-
-/* eslint-disable @typescript-eslint/naming-convention */
-const tokenTemplates: {
-    readonly [key in TokenSuffix]: ViewTemplate<TokenName>;
-} = {
-    Color: colorTemplate,
-    RgbPartialColor: rgbColorTemplate,
-    FontColor: colorTemplate,
-    FontLineHeight: stringValueTemplate,
-    FontWeight: stringValueTemplate,
-    FontSize: stringValueTemplate,
-    TextTransform: stringValueTemplate,
-    FontFamily: stringValueTemplate,
-    BoxShadow: stringValueTemplate,
-    Font: fontTemplate,
-    Size: stringValueTemplate,
-    Width: stringValueTemplate,
-    Height: stringValueTemplate,
-    Delay: stringValueTemplate,
-    Padding: stringValueTemplate
-};
-/* eslint-enable @typescript-eslint/naming-convention */
-
-const templateForTokenName = (
-    tokenName: TokenName
-): ViewTemplate<TokenName> => {
-    const suffix = suffixFromTokenName(tokenName);
-    if (suffix === undefined) {
-        throw new Error(`Cannot identify suffix for token: ${tokenName}`);
-    }
-    const template = tokenTemplates[suffix];
-    return template;
-};
-
 // prettier-ignore
-export const themeAwareTokens: StoryObj<TokenArgs> = {
+export const sizeRampTokens: StoryObj<TokenArgs> = {
     parameters: {
         controls: { hideNoControlsWarning: true }
     },
@@ -164,8 +90,7 @@ export const themeAwareTokens: StoryObj<TokenArgs> = {
             <thead>
                 <tr>
                     <th>${x => x.propertyFormat} Property</th>
-                    <th>Preview</th>
-                    <th>Description</th>
+                    <th>Value</th>
                 </tr>
             </thead>
             <tbody>
@@ -179,8 +104,11 @@ export const themeAwareTokens: StoryObj<TokenArgs> = {
                             ${x => scssPropertyFromTokenName(tokenNames[x])}
                         `)}
                     </td>
-                    <td>${x => templateForTokenName(x)}</td>
-                    <td>${x => comments[x]}</td>
+                    <td>
+                        <div style="display: inline-block;">
+                            ${x => computedCSSValueFromTokenName(tokenNames[x])}
+                        </div>
+                    </td>
                 </tr>
             `)}
             </tbody>
@@ -188,12 +116,10 @@ export const themeAwareTokens: StoryObj<TokenArgs> = {
     `)
 };
 
-themeAwareTokens.name = 'Theme-aware Tokens';
-
 // Setting token default values is done as part of the FAST render queue so it needs to be cleared before reading them
 // https://github.com/microsoft/fast/blob/bbf4e532cf9263727ef1bd8afbc30d79d1104c03/packages/web-components/fast-foundation/src/design-token/custom-property-manager.ts#LL154C3-L154C3
 // This uses Storybook's "loaders" feature to await the queue. https://storybook.js.org/docs/html/writing-stories/loaders
-themeAwareTokens.loaders = [
+sizeRampTokens.loaders = [
     async () => {
         await waitForUpdatesAsync();
         return {};

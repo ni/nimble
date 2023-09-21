@@ -47,7 +47,8 @@ export class RichTextMarkdownSerializer {
             orderedList: orderedListNode,
             doc: defaultMarkdownSerializer.nodes.doc!,
             paragraph: defaultMarkdownSerializer.nodes.paragraph!,
-            text: defaultMarkdownSerializer.nodes.text!
+            text: defaultMarkdownSerializer.nodes.text!,
+            hardBreak: defaultMarkdownSerializer.nodes.hard_break!
         };
         const marks = {
             italic: defaultMarkdownSerializer.marks.em!,

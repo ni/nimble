@@ -847,4 +847,80 @@ describe('Markdown parser', () => {
             );
         }
     });
+
+    describe('Markdown string with hard break should have respective br tag when rendered', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        const r = String.raw;
+        const markdownStringWithHardBreak: {
+            name: string,
+            value: string,
+            tags: string[]
+        }[] = [
+            {
+                name: 'bold and italics',
+                value: r`**bold**\
+*Italics*`,
+                tags: ['P', 'STRONG', 'BR', 'EM']
+            },
+            {
+                name: 'bold and back slash followed by italics',
+                value: r`**bold**\
+ \ *Italics*`,
+                tags: ['P', 'STRONG', 'BR', 'EM']
+            },
+            {
+                name: 'two first level bulleted list items',
+                value: r`* list\
+  hard break content
+
+* list`,
+                tags: ['UL', 'LI', 'P', 'BR', 'LI', 'P']
+            },
+            {
+                name: 'two first level bulleted list items and with nested list',
+                value: r`* list\
+  hard break content
+
+* list
+
+  * nested list\
+    nested hard break content`,
+                tags: ['UL', 'LI', 'P', 'BR', 'LI', 'P', 'UL', 'LI', 'P', 'BR']
+            },
+            {
+                name: 'two first level numbered list items',
+                value: r`1. list\
+   hard break content
+
+2. list`,
+                tags: ['OL', 'LI', 'P', 'BR', 'LI', 'P']
+            },
+            {
+                name: 'two first level numbered list items and with nested list',
+                value: r`1. list\
+   hard break content
+
+2. list
+
+   1. nested list\
+      nested hard break content`,
+                tags: ['OL', 'LI', 'P', 'BR', 'LI', 'P', 'OL', 'LI', 'P', 'BR']
+            }
+        ];
+
+        for (const value of markdownStringWithHardBreak) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            specType(
+                `should render br tag with "${value.name}"`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                () => {
+                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                        value.value
+                    );
+                    expect(getTagsFromElement(doc)).toEqual(value.tags);
+                }
+            );
+        }
+    });
 });

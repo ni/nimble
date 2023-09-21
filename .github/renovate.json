@@ -35,7 +35,6 @@
       "matchPackagePatterns":[
         "^@ni/eslint-config",
         "beachball",
-        "playwright",
         "storybook"
       ],
       "enabled": true

@@ -55,6 +55,18 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
+    public async pressShiftEnterKeysInEditor(): Promise<void> {
+        const editor = this.getTiptapEditor();
+        const shiftEnterEvent = new KeyboardEvent('keydown', {
+            key: keyEnter,
+            shiftKey: true,
+            bubbles: true,
+            cancelable: true
+        });
+        editor!.dispatchEvent(shiftEnterEvent);
+        await waitForUpdatesAsync();
+    }
+
     public async pressTabKeyInEditor(): Promise<void> {
         const editor = this.getTiptapEditor();
         const event = new KeyboardEvent('keydown', {
@@ -81,12 +93,6 @@ export class RichTextEditorPageObject {
     public async clickFooterButton(button: ToolbarButton): Promise<void> {
         const toggleButton = this.getFormattingButton(button);
         toggleButton!.click();
-        await waitForUpdatesAsync();
-    }
-
-    public async clickFooterIconSlot(button: ToolbarButton): Promise<void> {
-        const icon = this.getIconSlot(button);
-        icon!.click();
         await waitForUpdatesAsync();
     }
 
@@ -117,6 +123,13 @@ export class RichTextEditorPageObject {
     }
 
     public async setEditorTextContent(value: string): Promise<void> {
+        const lastElement = this.getEditorLastChildElement();
+        const textNode = document.createTextNode(value);
+        lastElement.parentElement!.appendChild(textNode);
+        await waitForUpdatesAsync();
+    }
+
+    public async replaceEditorContent(value: string): Promise<void> {
         const lastElement = this.getEditorLastChildElement();
         lastElement.parentElement!.textContent = value;
         await waitForUpdatesAsync();
@@ -253,12 +266,5 @@ export class RichTextEditorPageObject {
 
     private getEditorLastChildElement(): Element {
         return getLastChildElement(this.getTiptapEditor() as HTMLElement)!;
-    }
-
-    private getIconSlot(
-        button: ToolbarButton
-    ): HTMLSpanElement | null | undefined {
-        const toggleButton = this.getFormattingButton(button);
-        return toggleButton?.shadowRoot?.querySelector('.start');
     }
 }

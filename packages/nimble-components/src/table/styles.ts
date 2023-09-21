@@ -7,7 +7,7 @@ import {
     bodyFontColor,
     popupBorderColor,
     controlSlimHeight,
-    smallPadding,
+    mediumPadding,
     standardPadding,
     tableRowBorderColor
 } from '../theme-provider/design-tokens';
@@ -83,7 +83,7 @@ export const styles = css`
 
     .collapse-all-button {
         height: ${controlSlimHeight};
-        margin-left: calc(${smallPadding} * 2);
+        margin-left: ${mediumPadding};
         visibility: hidden;
     }
 
@@ -185,6 +185,26 @@ export const styles = css`
 
     .row {
         position: relative;
+    }
+
+    .accessibly-hidden {
+        ${
+            /**
+             * Hide content visually while keeping it screen reader-accessible.
+             * Source: https://webaim.org/techniques/css/invisiblecontent/#techniques
+             * See discussion here: https://github.com/microsoft/fast/issues/5740#issuecomment-1068195035
+             */
+            ''
+        }
+        display: inline-block;
+        height: 1px;
+        width: 1px;
+        position: absolute;
+        margin: -1px;
+        clip: rect(1px, 1px, 1px, 1px);
+        clip-path: inset(50%);
+        overflow: hidden;
+        padding: 0;
     }
 `.withBehaviors(
     themeBehavior(

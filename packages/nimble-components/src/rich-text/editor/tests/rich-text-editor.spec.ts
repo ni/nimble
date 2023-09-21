@@ -208,28 +208,6 @@ describe('RichTextEditor', () => {
         }
     });
 
-    describe('clicking icon slots should update the tab index of the button', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-
-        for (const value of formattingButtons) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `"${value.name}" button icon click check`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    await pageObject.clickFooterIconSlot(
-                        value.toolbarButtonIndex
-                    );
-
-                    expect(
-                        pageObject.getButtonTabIndex(value.toolbarButtonIndex)
-                    ).toBe(0);
-                }
-            );
-        }
-    });
-
     describe('space key press should update the checked state of the buttons', () => {
         const focused: string[] = [];
         const disabled: string[] = [];
@@ -349,12 +327,35 @@ describe('RichTextEditor', () => {
     });
 
     describe('rich text formatting options to its respective HTML elements', () => {
+        it('should have "br" tag name when clicking shift + enter', async () => {
+            await pageObject.setEditorTextContent('Plain text 1');
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent('Plain text 2');
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent('Plain text 3');
+            expect(pageObject.getEditorTagNames()).toEqual(['P', 'BR', 'BR']);
+        });
+
         it('should have "strong" tag name for bold button click', async () => {
             await pageObject.clickFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('bold');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'STRONG']);
             expect(pageObject.getEditorLeafContents()).toEqual(['bold']);
+        });
+
+        it('should have br tag name when pressing shift + Enter with bold content', async () => {
+            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.setEditorTextContent('bold1');
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent('bold after hard break');
+
+            expect(pageObject.getEditorTagNames()).toEqual([
+                'P',
+                'STRONG',
+                'BR',
+                'STRONG'
+            ]);
         });
 
         it('should have "em" tag name for italics button click', async () => {
@@ -365,6 +366,20 @@ describe('RichTextEditor', () => {
             expect(pageObject.getEditorLeafContents()).toEqual(['italics']);
         });
 
+        it('should have br tag name when pressing shift + Enter with Italics content', async () => {
+            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.setEditorTextContent('italics1');
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent('italics after hard break');
+
+            expect(pageObject.getEditorTagNames()).toEqual([
+                'P',
+                'EM',
+                'BR',
+                'EM'
+            ]);
+        });
+
         it('should have "ol" tag name for numbered list button click', async () => {
             await pageObject.setEditorTextContent('numbered list');
             await pageObject.clickFooterButton(ToolbarButton.numberedList);
@@ -372,6 +387,22 @@ describe('RichTextEditor', () => {
             expect(pageObject.getEditorTagNames()).toEqual(['OL', 'LI', 'P']);
             expect(pageObject.getEditorLeafContents()).toEqual([
                 'numbered list'
+            ]);
+        });
+
+        it('should have br tag name when pressing shift + Enter with numbered list content', async () => {
+            await pageObject.setEditorTextContent('numbered list1');
+            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent(
+                'Hard break in first level of numbered list'
+            );
+
+            expect(pageObject.getEditorTagNames()).toEqual([
+                'OL',
+                'LI',
+                'P',
+                'BR'
             ]);
         });
 
@@ -416,6 +447,25 @@ describe('RichTextEditor', () => {
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.numberedList)
             ).toBeTrue();
+        });
+
+        it('should have br tag name when pressing shift + Enter with nested numbered lists content', async () => {
+            await pageObject.setEditorTextContent('List');
+            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.pressTabKeyInEditor();
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent('Hard break in Nested list');
+
+            expect(pageObject.getEditorTagNames()).toEqual([
+                'OL',
+                'LI',
+                'P',
+                'OL',
+                'LI',
+                'P',
+                'BR'
+            ]);
         });
 
         it('should have "ol" tag names for numbered lists when clicking "tab" to make it nested and "shift+Tab" to make it usual list', async () => {
@@ -488,6 +538,22 @@ describe('RichTextEditor', () => {
             expect(pageObject.getEditorLeafContents()).toEqual(['Bullet List']);
         });
 
+        it('should have br tag name when pressing shift + Enter with bulleted list content', async () => {
+            await pageObject.setEditorTextContent('Bulleted List 1');
+            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent(
+                'Hard break in first level of bulleted List'
+            );
+
+            expect(pageObject.getEditorTagNames()).toEqual([
+                'UL',
+                'LI',
+                'P',
+                'BR'
+            ]);
+        });
+
         it('should have multiple "ul" tag names for bullet list button click', async () => {
             await pageObject.setEditorTextContent('Bullet List 1');
             await pageObject.clickFooterButton(ToolbarButton.bulletList);
@@ -529,6 +595,25 @@ describe('RichTextEditor', () => {
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.bulletList)
             ).toBeTrue();
+        });
+
+        it('should have br tag name when pressing shift + Enter with nested bulleted lists content', async () => {
+            await pageObject.setEditorTextContent('List');
+            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.pressTabKeyInEditor();
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent('Nested List');
+
+            expect(pageObject.getEditorTagNames()).toEqual([
+                'UL',
+                'LI',
+                'P',
+                'UL',
+                'LI',
+                'P',
+                'BR'
+            ]);
         });
 
         it('should have "ul" tag name for bullet list and "ol" tag name for nested numbered list', async () => {
@@ -1074,6 +1159,11 @@ describe('RichTextEditor', () => {
         expect(element.getMarkdown()).toBe('new markdown string');
     });
 
+    it('setting an markdown with hard break syntax should have respective br tag', () => {
+        element.setMarkdown('markdown\\\nstring');
+        expect(pageObject.getEditorTagNames()).toEqual(['P', 'BR']);
+    });
+
     describe('Should return respective markdown when supported rich text formatting options from markdown string is assigned', () => {
         beforeEach(async () => {
             await connect();
@@ -1255,6 +1345,70 @@ describe('RichTextEditor', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     element.setMarkdown(value.name);
+
+                    await connect();
+
+                    expect(element.getMarkdown()).toBe(value.value);
+
+                    await disconnect();
+                }
+            );
+        }
+    });
+
+    describe('`getMarkdown` with hard break backslashes should be same immediately after `setMarkdown`', () => {
+        const r = String.raw;
+        const hardBreakMarkdownStrings: { name: string, value: string }[] = [
+            {
+                name: 'bold and italics',
+                value: r`**bold**\
+*Italics*`
+            },
+            {
+                name: 'two first level bulleted list items',
+                value: r`* list\
+  hard break content
+
+* list`
+            },
+            {
+                name: 'two first level bulleted list items and with nested list',
+                value: r`* list\
+  hard break content
+
+* list
+
+  * nested list\
+    nested hard break content`
+            },
+            {
+                name: 'two first level numbered list items',
+                value: r`1. list\
+   hard break content
+
+2. list`
+            },
+            {
+                name: 'two first level numbered list items and with nested list',
+                value: r`1. list\
+   hard break content
+
+2. list
+
+   1. nested list\
+      nested hard break content`
+            }
+        ];
+
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const value of hardBreakMarkdownStrings) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            specType(
+                `markdown string with hard break in "${value.name}" returns as same without any change`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    element.setMarkdown(value.value);
 
                     await connect();
 
@@ -1479,10 +1633,10 @@ describe('RichTextEditor', () => {
     it('should initialize "empty" to true and set false when there is content', async () => {
         expect(element.empty).toBeTrue();
 
-        await pageObject.setEditorTextContent('not empty');
+        await pageObject.replaceEditorContent('not empty');
         expect(element.empty).toBeFalse();
 
-        await pageObject.setEditorTextContent('');
+        await pageObject.replaceEditorContent('');
         expect(element.empty).toBeTrue();
     });
 
