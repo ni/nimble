@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix bug where undefined sorted to wrong position in number-text column",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
