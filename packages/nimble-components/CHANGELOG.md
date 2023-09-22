@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 21 Sep 2023 13:07:38 GMT and should not be manually modified.
+This log was last generated on Fri, 22 Sep 2023 00:01:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.5.2
+
+Fri, 22 Sep 2023 00:01:31 GMT
+
+### Patches
+
+- Clean-up dist folder of nimble-components to remove duplicated type hierarchy ([ni/nimble@908204e](https://github.com/ni/nimble/commit/908204e252ee75affeedc355a46d13a3005d6770))
 
 ## 20.5.1
 
