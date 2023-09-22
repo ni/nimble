@@ -12,11 +12,10 @@ In addition to just supporting data hierarchy with a fully provided set of data,
 
 ## Links To Relevant Work Items and Reference Material
 
-- [#890: Design for hierarchical data support in tables](https://github.com/ni/nimble/issues/890)
-- [#861: Table hierarchical data support](https://github.com/ni/nimble/issues/861)
-- [Prototype using flat list that includes a parentId](https://github.com/ni/nimble/tree/data-hierarchy-flat-list-prototype) with [Storybook](https://60e89457a987cf003efc0a5b-qzwoshcidz.chromatic.com/?path=/story/incubating-table--table&args=data:LargeDataSet)
-- [Prototype with user data being hierarchical](https://github.com/ni/nimble/tree/data-hierarchy-prototype) with [Storybook](https://60e89457a987cf003efc0a5b-yncupvnoes.chromatic.com/?path=/story/incubating-table--table&args=data:LargeDataSet)
-
+-   [#890: Design for hierarchical data support in tables](https://github.com/ni/nimble/issues/890)
+-   [#861: Table hierarchical data support](https://github.com/ni/nimble/issues/861)
+-   [Prototype using flat list that includes a parentId](https://github.com/ni/nimble/tree/data-hierarchy-flat-list-prototype) with [Storybook](https://60e89457a987cf003efc0a5b-qzwoshcidz.chromatic.com/?path=/story/incubating-table--table&args=data:LargeDataSet)
+-   [Prototype with user data being hierarchical](https://github.com/ni/nimble/tree/data-hierarchy-prototype) with [Storybook](https://60e89457a987cf003efc0a5b-yncupvnoes.chromatic.com/?path=/story/incubating-table--table&args=data:LargeDataSet)
 
 ## Implementation / Design
 
@@ -49,7 +48,7 @@ interface TableRowExpandedEventDetail {
 }
 ```
 
-_Note: This event will _not_ be emitted for group rows._
+_Note: This event will \_not_ be emitted for group rows.\_
 
 #### Lazy Loading API Open Question:
 
@@ -60,34 +59,40 @@ Option 1:
 Provide a documented convention that users will have to adopt where they provide a field in their record specifying this state (i.e. a field in the data called something like `niTableIsParentRow`).
 
 Pros:
-- Does not require client to spoof child rows in order for parent rows to show as a parent in the table
-- Allows the table to maintain its expected data shape of a flat list
+
+-   Does not require client to spoof child rows in order for parent rows to show as a parent in the table
+-   Allows the table to maintain its expected data shape of a flat list
 
 Cons:
-- It's a convention-based API, and thus less discoverable
-- Allows a user to improperly denote a row as a parent even though it will never have children in practice.
+
+-   It's a convention-based API, and thus less discoverable
+-   Allows a user to improperly denote a row as a parent even though it will never have children in practice.
 
 Option 2:
 
 Document the strategy currently employed in SLE where the user provides dummy rows "under" the parent, so that the table knows to display the expand/collapse button, and then the user is expected to respond to the expand event to replace the dummy data with the appropriate child data.
 
 Pros:
-- No additional APIs needed either by convention, or explicitly on the `Table` API surface
+
+-   No additional APIs needed either by convention, or explicitly on the `Table` API surface
 
 Cons:
-- Still not very discoverable
-- Requires user to jump through a bit of hoops to get lazy loading to work (maybe this is a reasonable concession in the face of not having to provide a convention-based API).
+
+-   Still not very discoverable
+-   Requires user to jump through a bit of hoops to get lazy loading to work (maybe this is a reasonable concession in the face of not having to provide a convention-based API).
 
 Option 3:
 
 Make the datatype of data provided to the `Table` support hierarchy.
 
 Pros:
-- Does not require client to spoof child rows in order for parent rows to show as a parent in the table.
+
+-   Does not require client to spoof child rows in order for parent rows to show as a parent in the table.
 
 Cons:
-- No clear way to type `TableRecord` in a strong way that supports having a field whose type is an array of `TableRecord`. This could mean that this is also a convention-based API and thus no different than Option 1. Prototyping suggests that their is no noticeable performance distinction between the two options as well.
-- Could result in more data manipulation on the client-side to organize it in the expected way
+
+-   No clear way to type `TableRecord` in a strong way that supports having a field whose type is an array of `TableRecord`. This could mean that this is also a convention-based API and thus no different than Option 1. Prototyping suggests that their is no noticeable performance distinction between the two options as well.
+-   Could result in more data manipulation on the client-side to organize it in the expected way
 
 Other?
 
@@ -95,7 +100,7 @@ Other?
 
 Tanstack provides APIs for us to implement that allow it to return the rows in a hierarchical fashion where child rows are provided as a property on a row called `subRows`. For this to work as expected it is required that a flat list of data (that contains implicit hierarchy) be transformed into a hierarchical data structure.
 
-A third party library called [`performant-array-to-tree`](https://www.npmjs.com/package/performant-array-to-tree) offers an easy, and as the package says, performant means of doing this (in O(n) time). This utility was leveraged in the  [`data-hierarchy-flat-list-prototype`](https://github.com/ni/nimble/tree/data-hierarchy-flat-list-prototype) branch. It comes with an MIT license, and is apparently fully tested, so it seems like it would be suitable to use for this purpose.
+A third party library called [`performant-array-to-tree`](https://www.npmjs.com/package/performant-array-to-tree) offers an easy, and as the package says, performant means of doing this (in O(n) time). This utility was leveraged in the [`data-hierarchy-flat-list-prototype`](https://github.com/ni/nimble/tree/data-hierarchy-flat-list-prototype) branch. It comes with an MIT license, and is apparently fully tested, so it seems like it would be suitable to use for this purpose.
 
 ### Managing expanded state
 
@@ -115,7 +120,7 @@ This ultimately may put the burden on the client to ensure that the `Table` is u
 
 ### ARIA guidance
 
-A parent row would have the same ARIA expectations of any child row, with the additional need to supply the `aria-expanded` attribute when it was expanded.
+A parent row would have the same ARIA expectations of any child row, with the additional need to supply the `aria-expanded` attribute when it is expanded.
 
 ## Alternative Implementations / Designs
 
@@ -123,8 +128,8 @@ A parent row would have the same ARIA expectations of any child row, with the ad
 
 By making the `TableRecord` support hierarchy in its structure, it seemed possible that there would have been a performance benefit, as there would be no need to reformat the data internally for Tanstack to consume it properly. However, I believe we can discard this options for the following reasons:
 
-- There is no clear way to provide a strong type for `TableRecord` that would have a reserved field name of something like `subRows` that itself would be typed to an array of `TableRecord`.
-- The performance profile between the prototypes of a hierarchical data structure, and a flat list were pretty close with one another.
+-   There is no clear way to provide a strong type for `TableRecord` that would have a reserved field name of something like `subRows` that itself would be typed to an array of `TableRecord`.
+-   The performance profile between the prototypes of a hierarchical data structure, and a flat list were pretty close with one another.
 
 ## Open Issues
 
