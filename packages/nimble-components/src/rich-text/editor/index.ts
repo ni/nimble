@@ -34,7 +34,7 @@ import { TipTapNodeName } from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
-import { anchorTag } from '../../anchor';
+import { Anchor, anchorTag } from '../../anchor';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -349,19 +349,22 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             templateElement.content
                 .querySelectorAll('a')
                 .forEach(anchorElement => {
+                    let tempAnchorElement: HTMLAnchorElement | Anchor = anchorElement;
+                    if (
+                        anchorElement.parentElement
+                        && anchorElement.parentElement.tagName === 'NIMBLE-ANCHOR'
+                    ) {
+                        tempAnchorElement = anchorElement.parentElement as Anchor;
+                    }
                     const href = anchorElement.getAttribute('href');
                     // When pasting a link, the `href` attribute of the anchor element should be a valid HTTPS/HTTP link;
-                    // else, it should be rendered as plain text in a paragraph element.
+                    // else, simply rendered as a plain text in the same node by creating a span element and replaced it with anchor element.
                     if (href && validAbsoluteLinkRegex.test(href)) {
-                        anchorElement.textContent = href; // Modifying the anchor element text content with its href
+                        tempAnchorElement.textContent = href; // Modifying the anchor element text content with its href
                     } else {
-                        const paragraphElement = templateDocument.createElement('p');
-                        paragraphElement.textContent = anchorElement.textContent;
-
-                        anchorElement.parentNode?.replaceChild(
-                            paragraphElement,
-                            anchorElement
-                        );
+                        const spanElement = templateDocument.createElement('span');
+                        spanElement.textContent = tempAnchorElement.textContent;
+                        tempAnchorElement.replaceWith(spanElement);
                     }
                 });
 
