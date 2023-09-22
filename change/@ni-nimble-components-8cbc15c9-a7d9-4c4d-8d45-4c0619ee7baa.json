@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Fix bug where undefined sorted to wrong position in number-text column",
+  "comment": "Fix bug where `undefined` and `null` were not sorted correctly when using the `basic` sort operation",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
