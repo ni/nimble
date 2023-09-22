@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 22 Sep 2023 17:41:22 GMT",
+      "tag": "@ni/nimble-angular_v17.5.10",
+      "version": "17.5.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "091d06f6b60ef214b9fcba021ff016fda72b009b",
+            "comment": "Expose new table labels in Angular"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 22 Sep 2023 14:24:47 GMT",
       "tag": "@ni/nimble-angular_v17.5.9",
       "version": "17.5.9",
