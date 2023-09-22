@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add additional localized labels to sub-elements in the table to improve accessibility",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

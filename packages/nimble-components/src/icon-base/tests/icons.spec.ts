@@ -41,7 +41,7 @@ describe('Icons', () => {
     describe('can be constructed', () => {
         type IconName = keyof typeof allIconsNamespace;
         const allIconNames = (Object.keys(allIconsNamespace) as IconName[]).map(
-            (x: IconName) => ({ name: x, klass: allIconsNamespace[x] })
+            (x: IconName) => ({ name: x, iconClass: allIconsNamespace[x] })
         );
 
         const focused: IconName[] = [];
@@ -50,11 +50,11 @@ describe('Icons', () => {
             const specType = getSpecTypeByNamedList(icon, focused, disabled);
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(`for icon ${icon.name}`, () => {
-                const tagName = DesignSystem.tagFor(icon.klass);
+                const tagName = DesignSystem.tagFor(icon.iconClass);
                 expect(typeof tagName).toBe('string');
                 expect(tagName.length).toBeGreaterThan(0);
                 expect(document.createElement(tagName)).toBeInstanceOf(
-                    icon.klass
+                    icon.iconClass
                 );
             });
         }

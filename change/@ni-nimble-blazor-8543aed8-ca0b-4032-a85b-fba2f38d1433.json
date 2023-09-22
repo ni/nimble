@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Rename `ColumnHeaderGroupedIndicator` tabel label to `ColumnHeaderGroupedIndicator`",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
