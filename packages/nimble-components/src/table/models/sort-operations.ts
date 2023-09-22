@@ -56,8 +56,12 @@ function basicSortFunction<TData>(
     rowB: TanStackRow<TData>,
     columnId: string
 ): number {
-    const valueA = rowA.getValue<string | number | boolean | null | undefined>(columnId);
-    const valueB = rowB.getValue<string | number | boolean | null | undefined>(columnId);
+    const valueA = rowA.getValue<string | number | boolean | null | undefined>(
+        columnId
+    );
+    const valueB = rowB.getValue<string | number | boolean | null | undefined>(
+        columnId
+    );
 
     if (valueA === valueB) {
         return 0;

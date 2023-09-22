@@ -1,14 +1,16 @@
-import type {
-    Row as TanStackRow,
-    SortingFn
-} from '@tanstack/table-core';
+import type { Row as TanStackRow, SortingFn } from '@tanstack/table-core';
 import { TableColumnSortOperation } from '../../../table-column/base/types';
 import { getTanStackSortingFunction } from '../sort-operations';
 import type { TableFieldValue } from '../../types';
 
 describe('Sort Operations', () => {
-    function createFakeRow(value: TableFieldValue): TanStackRow<TableFieldValue> {
-        const row = jasmine.createSpyObj<TanStackRow<TableFieldValue>>('TanStackRow', ['getValue']);
+    function createFakeRow(
+        value: TableFieldValue
+    ): TanStackRow<TableFieldValue> {
+        const row = jasmine.createSpyObj<TanStackRow<TableFieldValue>>(
+            'TanStackRow',
+            ['getValue']
+        );
         row.getValue.and.returnValue(value);
         return row;
     }
@@ -36,7 +38,7 @@ describe('Sort Operations', () => {
     const basicStringSortOrder = [
         { value: undefined, name: 'undefined' },
         { value: null, name: 'null' },
-        { value: '', name: '\'\'' },
+        { value: '', name: "''" },
         { value: 'abc', name: 'abc' },
         { value: 'zzz', name: 'zzz' }
     ] as const;
@@ -44,7 +46,7 @@ describe('Sort Operations', () => {
     const localeAwareCaseSensitiveSortOrder = [
         { value: undefined, name: 'undefined' },
         { value: null, name: 'null' },
-        { value: '', name: '\'\'' },
+        { value: '', name: "''" },
         { value: 'abc', name: 'abc' },
         { value: 'ABC', name: 'ABC' },
         { value: 'hello world', name: 'hello WORLD' },
@@ -52,8 +54,18 @@ describe('Sort Operations', () => {
     ];
 
     const sortOrderTestCases = [
-        { sortOperation: TableColumnSortOperation.basic, testCases: [basicNumericSortOrder, basicBooleanSortOrder, basicStringSortOrder] },
-        { sortOperation: TableColumnSortOperation.localeAwareCaseSensitive, testCases: [localeAwareCaseSensitiveSortOrder] }
+        {
+            sortOperation: TableColumnSortOperation.basic,
+            testCases: [
+                basicNumericSortOrder,
+                basicBooleanSortOrder,
+                basicStringSortOrder
+            ]
+        },
+        {
+            sortOperation: TableColumnSortOperation.localeAwareCaseSensitive,
+            testCases: [localeAwareCaseSensitiveSortOrder]
+        }
     ] as const;
     for (const sortOrderTestCase of sortOrderTestCases) {
         for (const expectedSortOrder of sortOrderTestCase.testCases) {
@@ -71,10 +83,14 @@ describe('Sort Operations', () => {
                             expectedSortResult = -1;
                         }
 
-                        const sortFunction = getTanStackSortingFunction(sortOrderTestCase.sortOperation) as SortingFn<TableFieldValue>;
+                        const sortFunction = getTanStackSortingFunction(
+                            sortOrderTestCase.sortOperation
+                        ) as SortingFn<TableFieldValue>;
                         const rowA = createFakeRow(sortOrderA.value);
                         const rowB = createFakeRow(sortOrderB.value);
-                        expect(sortFunction(rowA, rowB, '')).toBe(expectedSortResult);
+                        expect(sortFunction(rowA, rowB, '')).toBe(
+                            expectedSortResult
+                        );
                     });
                 }
             }
