@@ -342,17 +342,18 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
          * ProseMirror reference for `transformPastedHTML`: https://prosemirror.net/docs/ref/#view.EditorProps.transformPastedHTML
          */
         const transformPastedHTML = function (htmlString: string): string {
-            const tempElement = document.createElement('div');
-            tempElement.innerHTML = htmlString;
+            const templateElement = document.createElement('template');
+            templateElement.innerHTML = htmlString;
+            const templateDocument = templateElement.content.ownerDocument;
 
-            tempElement.querySelectorAll('a').forEach(anchorElement => {
+            templateElement.content.querySelectorAll('a').forEach(anchorElement => {
                 const href = anchorElement.getAttribute('href');
                 // When pasting a link, the `href` attribute of the anchor element should be a valid HTTPS/HTTP link;
                 // else, it should be rendered as plain text in a paragraph element.
                 if (href && validAbsoluteLinkRegex.test(href)) {
                     anchorElement.textContent = href; // Modifying the anchor element text content with its href
                 } else {
-                    const paragraphElement = document.createElement('p');
+                    const paragraphElement = templateDocument.createElement('p');
                     paragraphElement.textContent = anchorElement.textContent;
 
                     anchorElement.parentNode?.replaceChild(
@@ -362,7 +363,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 }
             });
 
-            return tempElement.innerHTML;
+            return templateElement.innerHTML;
         };
 
         /**
