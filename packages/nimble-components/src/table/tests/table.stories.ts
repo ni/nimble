@@ -302,7 +302,15 @@ const metadata: Meta<TableArgs> = {
                 });
                 // }
             }
-            x.updateData(x);
+            const timeoutPromise = new Promise(resolve => {
+                setTimeout(() => {
+                    x.updateData(x);
+                }, 2000);
+                resolve(true);
+            });
+            void (async () => {
+                await timeoutPromise;
+            });
         }
 
     }

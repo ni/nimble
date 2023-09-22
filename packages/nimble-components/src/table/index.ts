@@ -1060,6 +1060,7 @@ export class Table<
             this.collapsedRows.delete(row.id);
         }
         row.toggleExpanded();
+        this.tableData[rowIndex]!.isExpanded = !wasExpanded;
         if (row instanceof TableRow) {
             this.$emit('rowExpanded');
         }

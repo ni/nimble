@@ -24,6 +24,7 @@ import { ButtonAppearance } from '../button/types';
 import { iconTriangleTwoLinesHorizontalTag } from '../icons/triangle-two-lines-horizontal';
 import { checkboxTag } from '../checkbox';
 import { tableGroupsCollapseAllLabel } from '../label-provider/table/label-tokens';
+import { spinnerTag } from '../spinner';
 
 // prettier-ignore
 export const template = html<Table>`
@@ -147,6 +148,11 @@ export const template = html<Table>`
                                         `)}
                                     `)}
                                     </${tableRowTag}>
+                                    ${when((x, c) => (c.parent as Table).tableData[x.index]?.record.parentId === undefined && (c.parent as Table).tableData[x.index]?.leafItemCount === 0 && (c.parent as Table).tableData[x.index]?.isExpanded, html<VirtualItem, Table>`
+                                        <div class="row-loading-container">
+                                            <${spinnerTag} class="row-loading-indicator"></${spinnerTag}>
+                                        </div>
+                                    `)}
                                 `)}
                             `)}
                         `)}

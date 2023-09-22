@@ -9,7 +9,8 @@ import {
     controlSlimHeight,
     smallPadding,
     standardPadding,
-    tableRowBorderColor
+    tableRowBorderColor,
+    controlHeight
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -186,6 +187,18 @@ export const styles = css`
     .row {
         position: relative;
     }
+
+    .row-loading-container {
+        display: flex;
+        height: ${controlHeight};
+        justify-content: center;
+    }
+
+    .row-loading-indicator {
+        align-self: center;
+    }
+
+
 `.withBehaviors(
     themeBehavior(
         Theme.color,

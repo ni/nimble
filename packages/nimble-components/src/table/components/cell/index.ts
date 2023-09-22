@@ -91,7 +91,7 @@ export class TableCell<
             oldState: this.expanded,
             newState: !this.expanded,
             recordId: this.recordId
-        }
+        };
         this.$emit('row-expand-toggle', expandEventDetail);
         event.stopImmediatePropagation();
         // To avoid a visual glitch with improper expand/collapse icons performing an
