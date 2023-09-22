@@ -341,27 +341,29 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
          * @param htmlString contains the html string of the copied content. If the content is a link, the `htmlString` contains anchor tag and a href value.
          * ProseMirror reference for `transformPastedHTML`: https://prosemirror.net/docs/ref/#view.EditorProps.transformPastedHTML
          */
-        const transformPastedHTML = function (htmlString: string): string {
+        const transformPastedHTML = (htmlString: string): string => {
             const templateElement = document.createElement('template');
             templateElement.innerHTML = htmlString;
             const templateDocument = templateElement.content.ownerDocument;
 
-            templateElement.content.querySelectorAll('a').forEach(anchorElement => {
-                const href = anchorElement.getAttribute('href');
-                // When pasting a link, the `href` attribute of the anchor element should be a valid HTTPS/HTTP link;
-                // else, it should be rendered as plain text in a paragraph element.
-                if (href && validAbsoluteLinkRegex.test(href)) {
-                    anchorElement.textContent = href; // Modifying the anchor element text content with its href
-                } else {
-                    const paragraphElement = templateDocument.createElement('p');
-                    paragraphElement.textContent = anchorElement.textContent;
+            templateElement.content
+                .querySelectorAll('a')
+                .forEach(anchorElement => {
+                    const href = anchorElement.getAttribute('href');
+                    // When pasting a link, the `href` attribute of the anchor element should be a valid HTTPS/HTTP link;
+                    // else, it should be rendered as plain text in a paragraph element.
+                    if (href && validAbsoluteLinkRegex.test(href)) {
+                        anchorElement.textContent = href; // Modifying the anchor element text content with its href
+                    } else {
+                        const paragraphElement = templateDocument.createElement('p');
+                        paragraphElement.textContent = anchorElement.textContent;
 
-                    anchorElement.parentNode?.replaceChild(
-                        paragraphElement,
-                        anchorElement
-                    );
-                }
-            });
+                        anchorElement.parentNode?.replaceChild(
+                            paragraphElement,
+                            anchorElement
+                        );
+                    }
+                });
 
             return templateElement.innerHTML;
         };
