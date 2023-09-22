@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 22 Sep 2023 14:24:47 GMT",
+      "tag": "@ni/nimble-components_v20.5.3",
+      "version": "20.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8486724cf68c66210de0a180496e75b347391352",
+            "comment": "Add reusable css for styling an element as visually hidden while keeping it available to the accessibility tree"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 22 Sep 2023 00:01:31 GMT",
       "tag": "@ni/nimble-components_v20.5.2",
       "version": "20.5.2",

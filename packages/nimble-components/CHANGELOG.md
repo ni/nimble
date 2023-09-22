@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 22 Sep 2023 00:01:31 GMT and should not be manually modified.
+This log was last generated on Fri, 22 Sep 2023 14:24:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.5.3
+
+Fri, 22 Sep 2023 14:24:47 GMT
+
+### Patches
+
+- Add reusable css for styling an element as visually hidden while keeping it available to the accessibility tree ([ni/nimble@8486724](https://github.com/ni/nimble/commit/8486724cf68c66210de0a180496e75b347391352))
 
 ## 20.5.2
 
