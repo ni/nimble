@@ -28,7 +28,7 @@
     "@angular/forms": "^14.2.0",
     "@angular/localize": "^14.2.0",
     "@angular/router": "^14.2.0",
-    "@ni/nimble-components": "^20.5.1"
+    "@ni/nimble-components": "^20.5.2"
   },
   "dependencies": {
     "tslib": "^2.2.0"
