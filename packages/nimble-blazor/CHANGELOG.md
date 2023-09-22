@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 20 Sep 2023 16:38:20 GMT and should not be manually modified.
+This log was last generated on Fri, 22 Sep 2023 16:10:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.3.8
+
+Fri, 22 Sep 2023 16:10:42 GMT
+
+### Patches
+
+- Expose new table labels in Blazor ([ni/nimble@59d65d5](https://github.com/ni/nimble/commit/59d65d5a4077679c0ad5756336f8b555a8d8a8b5))
 
 ## 12.3.4
 
