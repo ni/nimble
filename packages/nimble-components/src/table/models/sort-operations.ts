@@ -3,6 +3,7 @@ import type {
     Row as TanStackRow
 } from '@tanstack/table-core';
 import { TableColumnSortOperation } from '../../table-column/base/types';
+import type { TableFieldValue } from '../types';
 
 /**
  * Returns the sorting function for TanStack to use based on the specified
@@ -56,12 +57,8 @@ function basicSortFunction<TData>(
     rowB: TanStackRow<TData>,
     columnId: string
 ): number {
-    const valueA = rowA.getValue<string | number | boolean | null | undefined>(
-        columnId
-    );
-    const valueB = rowB.getValue<string | number | boolean | null | undefined>(
-        columnId
-    );
+    const valueA = rowA.getValue<TableFieldValue>(columnId);
+    const valueB = rowB.getValue<TableFieldValue>(columnId);
 
     if (valueA === valueB) {
         return 0;
