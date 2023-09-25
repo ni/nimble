@@ -30,7 +30,7 @@ Tokens are generated using the [Style Dictionary](https://amzn.github.io/style-d
 
 ### Icon naming
 
-Prefer [FontAwesome](https://fontawesome.com) names for icons. I.e. Minimize the use of metaphors; choose descriptive and unambiguous names instead.
+Use [Font Awesome](https://fontawesome.com) names for icons. If Font Awesome doesn't contain an equivalent icon, minimize the use of metaphors; choose descriptive and unambiguous names instead.
 
 | ✅ Descriptive name    | ❌ Metaphor            |
 |------------------------|------------------------|
@@ -38,7 +38,7 @@ Prefer [FontAwesome](https://fontawesome.com) names for icons. I.e. Minimize the
 | `cog`                  | `system-configuration` |
 | `arrow-left-from-line` | `logout`               |
 
-Add all appropriate metaphors and synonyms to the `icon-metadata.ts` file, so clients can quickly find icons in Storybook.
+Add all appropriate metaphors and synonyms to the `icon-metadata.ts` file, so clients can quickly find icons in Storybook. You can find ideas for synonyms in the [Font Awesome metadata](https://github.com/FortAwesome/Font-Awesome/blob/master/metadata/icons.yml).
 
 ### Extract icons from Adobe Illustrator
 
