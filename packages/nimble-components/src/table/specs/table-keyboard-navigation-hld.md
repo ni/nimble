@@ -182,8 +182,10 @@ It seems very likely they we should take a similar approach in order to discover
 Assigning appropriate ARIA roles to the various elements inside the table is critical for technologies like screen readers to work as intended. I believe the following ARIA designations will provide the expected behaviors:
 
 -   `role="rows"` : Provided to both the `TableRow` element and the element hosting all of the column header content
--   `role="columnheader"` : Provided to each `TableHeader` element as well as the container for the selection checkbox -`role="rowheader"` : This seems like a reasonable role to give the element that contains the selection checkbox. Ultimately, an element like the selection checkbox (or its containing element) should not have a `gridcell` role, as technolgies like screen readers will announce those contents with their associated column (specified by the `columnheader` role), which the selection checkbox will not have.
--   `role="gridcell"` : Provided to each `TableCell` element. This is the recommended role for cells in a `treegrid`.
+-   `role="columnheader"` : Provided to each `TableHeader` element as well as the container for the components responsible for various row actions like selection and collapse-all.
+-   `role="gridcell"` : Provided to each `TableCell` element. This is the recommended role for cells in a `treegrid`. This would also be applied to the container element at the front of each row that would host the row selection checkbox.
+
+_Note: For each `gridcell` in a row, there should be a corresponding `columnheader`
 
 ## Alternative Implementations / Designs
 
