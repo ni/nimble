@@ -17,7 +17,6 @@ const nimbleIconComponents = Object.values(nimbleIconComponentsMap);
 
 interface IconArgs {
     severity: keyof typeof IconSeverity;
-    alt: string;
 }
 
 const metadata: Meta<IconArgs> = {
@@ -36,7 +35,8 @@ const iconTemplate = html<IconClass, IconArgs>`
     ${(x, c) => html`
         <${DesignSystem.tagFor(x)}
             severity=${() => IconSeverity[c.parent.severity]}
-            alt=${DesignSystem.tagFor(x)}
+            role="graphics-symbol"
+            aria-label=${DesignSystem.tagFor(x)}
             title=${DesignSystem.tagFor(x)}
         >
         </${DesignSystem.tagFor(x)}>
@@ -64,10 +64,6 @@ export const icons: StoryObj<IconArgs> = {
             options: Object.keys(IconSeverity),
             control: { type: 'radio' },
             description: severityDescription
-        },
-        alt: {
-            control: { type: 'none' },
-            description: 'Descriptive text to use as the accessible name of the icon. If unspecified, the icon is hidden from assistive technologies.'
         }
     },
     render: createUserSelectedThemeStory(html`

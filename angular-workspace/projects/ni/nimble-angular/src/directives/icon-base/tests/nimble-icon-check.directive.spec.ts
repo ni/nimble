@@ -47,11 +47,6 @@ describe('Nimble icon check', () => {
             expect(directive.severity).toBe(IconSeverity.default);
             expect(nativeElement.severity).toBe(IconSeverity.default);
         });
-
-        it('has expected defaults for alt', () => {
-            expect(directive.alt).toBeUndefined();
-            expect(nativeElement.alt).toBeUndefined();
-        });
     });
 
     describe('with template string values', () => {
@@ -59,7 +54,6 @@ describe('Nimble icon check', () => {
             template: `
                 <nimble-icon-check #icon
                     severity="error"
-                    alt="check"
                 >
                 </nimble-icon-check>`
         })
@@ -87,11 +81,6 @@ describe('Nimble icon check', () => {
             expect(directive.severity).toBe(IconSeverity.error);
             expect(nativeElement.severity).toBe(IconSeverity.error);
         });
-
-        it('will use template string values for alt', () => {
-            expect(directive.alt).toBe('check');
-            expect(nativeElement.alt).toBe('check');
-        });
     });
 
     describe('with property bound values', () => {
@@ -99,7 +88,6 @@ describe('Nimble icon check', () => {
             template: `
                 <nimble-icon-check #icon
                     [severity]="severity"
-                    [alt]="alt"
                 >
                 </nimble-icon-check>
             `
@@ -108,7 +96,6 @@ describe('Nimble icon check', () => {
             @ViewChild('icon', { read: NimbleIconCheckDirective }) public directive: NimbleIconCheckDirective;
             @ViewChild('icon', { read: ElementRef }) public elementRef: ElementRef<IconCheck>;
             public severity: IconSeverity;
-            public alt = 'check';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -136,17 +123,6 @@ describe('Nimble icon check', () => {
             expect(directive.severity).toBe(IconSeverity.error);
             expect(nativeElement.severity).toBe(IconSeverity.error);
         });
-
-        it('can be configured with property binding for alt', () => {
-            expect(directive.alt).toBe('check');
-            expect(nativeElement.alt).toBe('check');
-
-            fixture.componentInstance.alt = 'updated';
-            fixture.detectChanges();
-
-            expect(directive.alt).toBe('updated');
-            expect(nativeElement.alt).toBe('updated');
-        });
     });
 
     describe('with attribute bound values', () => {
@@ -154,7 +130,6 @@ describe('Nimble icon check', () => {
             template: `
                 <nimble-icon-check #icon
                     [attr.severity]="severity"
-                    [attr.alt]="alt"
                 >
                 </nimble-icon-check>
             `
@@ -163,7 +138,6 @@ describe('Nimble icon check', () => {
             @ViewChild('icon', { read: NimbleIconCheckDirective }) public directive: NimbleIconCheckDirective;
             @ViewChild('icon', { read: ElementRef }) public elementRef: ElementRef<IconCheck>;
             public severity: IconSeverity;
-            public alt = 'check';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -190,17 +164,6 @@ describe('Nimble icon check', () => {
 
             expect(directive.severity).toBe(IconSeverity.error);
             expect(nativeElement.severity).toBe(IconSeverity.error);
-        });
-
-        it('can be configured with attribute binding for alt', () => {
-            expect(directive.alt).toBe('check');
-            expect(nativeElement.alt).toBe('check');
-
-            fixture.componentInstance.alt = 'updated';
-            fixture.detectChanges();
-
-            expect(directive.alt).toBe('updated');
-            expect(nativeElement.alt).toBe('updated');
         });
     });
 });

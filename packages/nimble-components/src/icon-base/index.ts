@@ -1,5 +1,10 @@
 import { attr } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import {
+    applyMixins,
+    ARIAGlobalStatesAndProperties,
+    DesignSystem,
+    FoundationElement
+} from '@microsoft/fast-foundation';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist/icons/js';
 import { template } from './template';
 import { styles } from './styles';
@@ -17,42 +22,18 @@ export class Icon extends FoundationElement {
     @attr
     public severity: IconSeverity;
 
-    /**
-     * @public
-     * @remarks
-     * HTML Attribute: alt
-     */
-    @attr
-    public alt?: string;
-
     public constructor(/** @internal */ public readonly icon: NimbleIcon) {
         super();
     }
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.updateSvgBasedOnAlt();
-    }
-
-    private altChanged(): void {
-        this.updateSvgBasedOnAlt();
-    }
-
-    private updateSvgBasedOnAlt(): void {
-        const svg = this.shadowRoot?.querySelector('svg');
-        if (!svg) {
-            return;
-        }
-        if (this.alt) {
-            svg.setAttribute('role', 'graphics-symbol');
-            svg.removeAttribute('aria-hidden');
-            svg.setAttribute('aria-label', this.alt);
-        } else {
-            svg.setAttribute('aria-hidden', 'true');
-            svg.removeAttribute('aria-label');
-        }
     }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface Icon extends ARIAGlobalStatesAndProperties {}
+applyMixins(Icon, ARIAGlobalStatesAndProperties);
 
 type IconClass = typeof Icon;
 

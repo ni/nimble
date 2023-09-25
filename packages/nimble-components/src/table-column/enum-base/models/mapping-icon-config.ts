@@ -9,7 +9,8 @@ export interface IconView {
 const createIconTemplate = (icon: string): ViewTemplate<IconView> => html`
     <${icon}
         title="${x => x.text}"
-        alt="${x => x.text}"
+        role="graphics-symbol"
+        aria-label="${x => x.text}"
         severity="${x => x.severity}"
         class="no-shrink"
     >

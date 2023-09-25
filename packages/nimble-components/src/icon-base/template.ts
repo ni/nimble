@@ -3,6 +3,6 @@ import type { Icon } from '.';
 
 export const template = html<Icon>`
     <template>
-        <div class="icon" :innerHTML=${x => x.icon.data}></div>
+        <div class="icon" aria-hidden="true" :innerHTML=${x => x.icon.data}></div>
     </template
 `;

@@ -79,9 +79,7 @@ describe('Icons', () => {
 
     describe('Representative icon', () => {
         async function setup(): Promise<Fixture<IconAdd>> {
-            return fixture<IconAdd>(
-                html`<${iconAddTag} alt="initial aria label"></${iconAddTag}>`
-            );
+            return fixture<IconAdd>(html`<${iconAddTag}></${iconAddTag}>`);
         }
         let element: IconAdd;
         let connect: () => Promise<void>;
@@ -95,46 +93,10 @@ describe('Icons', () => {
             await disconnect();
         });
 
-        it('sets initial alt text as aria-label on inner SVG', async () => {
+        it('sets aria-hidden on inner div', async () => {
             await connect();
-            const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.getAttribute('aria-label')).toEqual(
-                'initial aria label'
-            );
-        });
-
-        it('clears aria-label from inner SVG when alt is blank', async () => {
-            await connect();
-            element.setAttribute('alt', '');
-            const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.hasAttribute('aria-label')).toBeFalse();
-        });
-
-        it('clears aria-label from inner SVG when alt removed from icon', async () => {
-            await connect();
-            element.removeAttribute('alt');
-            const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.hasAttribute('aria-label')).toBeFalse();
-        });
-
-        it('updates aria-label on inner SVG when alt changed on icon', async () => {
-            await connect();
-            element.setAttribute('alt', 'new aria label');
-            const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.getAttribute('aria-label')).toEqual('new aria label');
-        });
-
-        it('sets SVG role to "graphics-symbol" when alt is non-empty', async () => {
-            await connect();
-            const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.getAttribute('role')).toEqual('graphics-symbol');
-        });
-
-        it('sets SVG aria-hidden to true when alt is cleared', async () => {
-            await connect();
-            element.setAttribute('alt', '');
-            const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.getAttribute('aria-hidden')).toEqual('true');
+            const div = element.shadowRoot!.querySelector('.icon');
+            expect(div?.getAttribute('aria-hidden')).toEqual('true');
         });
     });
 });

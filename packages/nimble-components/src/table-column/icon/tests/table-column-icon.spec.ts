@@ -208,7 +208,7 @@ describe('TableColumnIcon', () => {
         await element.setData([{ field1: 'a' }]);
         await connect();
         await waitForUpdatesAsync();
-        expect(pageObject.getRenderedIconColumnCellIconAltText(0, 0)).toBe(
+        expect(pageObject.getRenderedIconColumnCellIconAriaLabel(0, 0)).toBe(
             'alpha'
         );
     });
