@@ -38,23 +38,12 @@ describe('Sort Operations', () => {
         {
             name: 'basic sorting with booleans',
             sortOperation: TableColumnSortOperation.basic,
-            expectedSortOrder: [
-                undefined,
-                null,
-                false,
-                true
-            ]
+            expectedSortOrder: [undefined, null, false, true]
         },
         {
             name: 'basic sorting with strings',
             sortOperation: TableColumnSortOperation.basic,
-            expectedSortOrder: [
-                undefined,
-                null,
-                '',
-                'abc',
-                'zzz'
-            ]
+            expectedSortOrder: [undefined, null, '', 'abc', 'zzz']
         },
         {
             name: 'locale aware case sensitive sorting',
