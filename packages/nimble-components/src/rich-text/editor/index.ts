@@ -375,7 +375,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         // Preventing pasting of files/images to the editor which is to avoid making any network requests
         // ProseMirror handlePaste: https://prosemirror.net/docs/ref/#view.EditorProps.handlePaste
         // The below function needs an update when the image support added
-        const handlePaste = (_view: EditorView, event: ClipboardEvent): void => {
+        const handlePaste = (
+            _view: EditorView,
+            event: ClipboardEvent
+        ): void => {
             if (event.clipboardData && event.clipboardData.files.length >= 1) {
                 event.preventDefault();
             }
