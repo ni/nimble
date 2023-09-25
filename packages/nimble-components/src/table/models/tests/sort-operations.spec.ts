@@ -16,8 +16,9 @@ describe('Sort Operations', () => {
         return row;
     }
 
-    // The `expectedSortOrder` arrays in the test cases are ordered from smallest
-    // value to largest value.
+    // The `expectedSortOrder` arrays in the test cases are ordered from smallest value
+    // to largest value. The tests call the sort operation on each index of each array
+    // with every index in the same array and verify that it returns the correct value.
     const testCases = [
         {
             name: 'basic sorting with numbers',
