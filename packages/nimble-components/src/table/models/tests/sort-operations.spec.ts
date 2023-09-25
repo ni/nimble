@@ -16,6 +16,8 @@ describe('Sort Operations', () => {
         return row;
     }
 
+    // The `expectedSortOrder` arrays in the test cases are ordered from smallest
+    // value to largest value.
     const testCases = [
         {
             name: 'basic sorting with numbers',
