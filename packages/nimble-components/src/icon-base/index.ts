@@ -25,10 +25,6 @@ export class Icon extends FoundationElement {
     public constructor(/** @internal */ public readonly icon: NimbleIcon) {
         super();
     }
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-    }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
