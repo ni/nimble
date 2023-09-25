@@ -7,7 +7,6 @@
 !*.mdx
 !*.json
 !src/
-!docs/
 !/.storybook/
 
 /src/**/*.*
@@ -16,9 +15,6 @@
 !src/**/*.md
 !src/**/*.mdx
 !src/**/*.json
-
-/docs/**/*.*
-!docs/**/*.mdx
 
 /.storybook/*.*
 !/.storybook/*.js
