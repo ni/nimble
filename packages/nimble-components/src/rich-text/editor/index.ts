@@ -359,7 +359,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                     }
                     const href = anchorElement.getAttribute('href');
                     // When pasting a link, the `href` attribute of the anchor element should be a valid HTTPS/HTTP link;
-                    // else, simply rendered as a plain text in the same node by creating a span element and replaced it with anchor element.
+                    // else, simply rendered as a plain text in the same node by creating a span element and replace it with anchor element.
                     if (href && validAbsoluteLinkRegex.test(href)) {
                         tempAnchorElement.textContent = href; // Modifying the anchor element text content with its href
                     } else {
