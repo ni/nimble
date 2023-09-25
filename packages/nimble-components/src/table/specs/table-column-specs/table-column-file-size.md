@@ -11,11 +11,13 @@ The file size table column will provide a way to visualize numeric data that rep
 ### Non-goals
 
 -   Configurable number of decimal places
+-   Configurable units (e.g. display all values in KB)
+-   Grouping by value ranges/buckets
 
 ### Features
 
--   Converts the byte value into other units (e.g. KB, MB, GB), based on the magnitude
--   Option to convert using binary or decimal factor (i.e. 1024 or 1000)
+-   Converts the byte value to largest unit (e.g. KB, MB, GB) that results in a value of >=1
+-   Option to use 1024-based units (e.g. KiB) or 1000-based units (e.g. KB)
 -   Displays up to one decimal place
 -   Sorts/groups by numeric value (number of bytes) rather than display string
 -   Localized number and unit strings
@@ -144,7 +146,7 @@ class TableColumnFileSizeCellView extends TableColumnTextCellViewBase<
         if (this.columnConfig) {
             this.text = formatFileSize(
                 this.columnConfig.formatter, // instance of Intl.NumberFormat
-                this.unitStrings,
+                this.unitStrings, // either ['byte', 'bytes', 'KB', ...] or ['byte', 'bytes', 'KiB', ...]
                 this.columnConfig.unitType,
                 this.cellRecord?.value
             );
@@ -193,7 +195,7 @@ class TableColumnFileSizeGroupHeaderView extends TableColumnTextGroupHeaderViewB
     private updateText(): void {
         if (this.columnConfig) {
             this.text = formatFileSize(
-                this.columnConfig.formatter, // instance of Intl.NumberFormat
+                this.columnConfig.formatter,
                 this.unitStrings,
                 this.columnConfig.unitType,
                 this.cellRecord?.value
@@ -229,17 +231,29 @@ This is more difficult, as there does not seem to be any API for getting a file 
 
 1. Find translations of each of our unit labels ("byte", "bytes", "KB", "MB", "GB", "TB", "PB", "KiB", "MiB", "GiB", "TiB", "PiB") for a fixed set of languages we wish to support. Maintain a mapping of language codes (e.g. "fr", "de", "zh_CN") to arrays of those localized unit labels. Given a locale to use, look up its language subtag in our map. If not found, fall back to English.
 
-Pros: No work for clients.
+**Pros:** No work for clients.
 
-Cons: Only supports a fixed set of languages. Up to us to find accurate translations. Unsure if subtags other than the language (e.g. region) could be relevant to the translation.
+**Cons:** Only supports a fixed set of languages. Up to us to find accurate translations. Unsure if subtags other than the language (e.g. region) could be relevant to the translation.
 
 2. Use Nimble label provider. Add label tokens for the units, and rely on clients to provide translations.
 
-Pros: Supports any language a client cares to provide translations for.
+**Pros:** Supports any language a client cares to provide translations for.
 
-Cons: Less convenient for clients. Does not honor the `lang` setting on the page or on `nimble-theme-provider`.
+**Cons:** Less convenient for clients. Does not honor the `lang` setting on the page or on `nimble-theme-provider`.
 
-I suggest we go with option 1, primarily because I am hesitant to add so many additional label provider strings that clients are expected to localize.
+I suggest we go with option 1, primarily because I am hesitant to add twelve new label provider strings that clients are expected to localize. I suggest initially supporting the following languages:
+
+-   English ('en')
+-   German ('de')
+-   Spanish ('es')
+-   French ('fr')
+-   Italian ('it')
+-   Hebrew ('iw' or 'he')
+-   Russian ('ru')
+-   Turkish ('tr')
+-   Japanese ('ja')
+-   Chinese - simplified ('zh_CN')
+-   Chinese - traditional ('zh_TW')
 
 ### Security
 
@@ -255,7 +269,15 @@ None
 
 ### Test Plan
 
-_What is the plan for testing the component, if different from the normal path? Note that the normal plan includes unit tests for basic state/behavior as well as end-to-end tests to validate the specific user stories described above._
+Unit tests:
+
+-   standard component tests
+-   renders blank for invalid input values: `Inf`, `-Inf`, `NaN`, and non-number
+-   for an interesting range of values, value conversion results in correct values and units (using English `lang`)
+-   correct units used for both `unit-type`s
+-   standard cell text/group header text ellipsizing tests
+-   honors `lang` value and responds to changes to `lang` value
+-   uses English labels when unsupported locale is given
 
 ### Tooling
 
@@ -269,4 +291,4 @@ This component will be documented via a new story in Storybook.
 
 ## Open Issues
 
-_Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers being incorporated in the spec document._
+-   Is there a better name for this column type? E.g. `nimble-table-column-memory-size`.
