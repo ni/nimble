@@ -471,7 +471,7 @@ describe('Table Interactive Column Sizing', () => {
                 fractionalWidths: [1, 1, 1, 1],
                 pixelWidths: [85, undefined, undefined, undefined],
                 minPixelWidths: [50, 50, 45, 175],
-                expectedColumnWidths: [85, 70, 45, 205]
+                expectedColumnWidths: [85, 65, 45, 205]
             },
             {
                 name: 'sizing a column with the same fractional width as other columns, but larger minimum size, along with a fixed width column, does not result in different pixel widths for columns not resized',
