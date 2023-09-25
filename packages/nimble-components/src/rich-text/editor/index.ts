@@ -27,6 +27,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import Text from '@tiptap/extension-text';
 import HardBreak from '@tiptap/extension-hard-break';
+import type { EditorView } from 'prosemirror-view';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
@@ -371,6 +372,15 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             return templateElement.innerHTML;
         };
 
+        // Preventing pasting of files/images to the editor which is to avoid making any network requests
+        // ProseMirror handlePaste: https://prosemirror.net/docs/ref/#view.EditorProps.handlePaste
+        // The below function needs an update when the image support added
+        const handlePaste = (_view: EditorView, event: ClipboardEvent): void => {
+            if (event.clipboardData && event.clipboardData.files.length >= 1) {
+                event.preventDefault();
+            }
+        };
+
         /**
          * For more information on the extensions for the supported formatting options, refer to the links below.
          * Tiptap marks: https://tiptap.dev/api/marks
@@ -388,7 +398,8 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             editorProps: {
                 // Pasting rules need not to be transformed when hyperlink support added
                 // See: https://github.com/ni/nimble/issues/1527
-                transformPastedHTML
+                transformPastedHTML,
+                handlePaste
             },
             extensions: [
                 Document,
