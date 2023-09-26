@@ -27,8 +27,10 @@ The file size table column will provide a way to visualize numeric data that rep
 ### Prior Art/Examples
 
 Size column in [SLE Files grid](https://dev.lifecyclesolutions.ni.com/files/)
+![SLE Files grid](../spec-images/fileSizesSle.png)
 
 Windows explorer (details view)
+![Windows explorer](../spec-images/fileSizesWindows.png)
 
 ---
 
