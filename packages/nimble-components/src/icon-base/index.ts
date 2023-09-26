@@ -1,10 +1,5 @@
 import { attr } from '@microsoft/fast-element';
-import {
-    applyMixins,
-    ARIAGlobalStatesAndProperties,
-    DesignSystem,
-    FoundationElement
-} from '@microsoft/fast-foundation';
+import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { NimbleIcon } from '@ni/nimble-tokens/dist/icons/js';
 import { template } from './template';
 import { styles } from './styles';
