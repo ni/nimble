@@ -49,8 +49,7 @@ function localeAwareCaseSensitiveSortFunction<TData>(
 
 /**
  * A function to perform a basic sort of two rows from TanStack for a given column.
- * The function sorts `undefined` followed by `null` before all other values that are
- * ordered using the `>` operator.
+ * The function sorts `undefined` followed by `null` before all other values.
  */
 function basicSortFunction<TData>(
     rowA: TanStackRow<TData>,
@@ -60,7 +59,7 @@ function basicSortFunction<TData>(
     const valueA = rowA.getValue<TableFieldValue>(columnId);
     const valueB = rowB.getValue<TableFieldValue>(columnId);
 
-    if (valueA === valueB || (Number.isNaN(valueA) && Number.isNaN(valueB))) {
+    if (Object.is(valueA, valueB)) {
         return 0;
     }
     if (valueA === undefined) {
@@ -82,5 +81,9 @@ function basicSortFunction<TData>(
         return 1;
     }
 
+    if (valueA === 0 && valueB === 0) {
+        // Both values equal 0, but one is -0 and one is +0 because Object.is(valueA, valueB) returned false.
+        return Object.is(valueA, -0) ? -1 : 1;
+    }
     return valueA > valueB ? 1 : -1;
 }

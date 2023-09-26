@@ -31,6 +31,8 @@ describe('Sort Operations', () => {
                 Number.MIN_SAFE_INTEGER,
                 -9999,
                 -3,
+                -Number.EPSILON,
+                -0,
                 0,
                 Number.EPSILON,
                 3,
