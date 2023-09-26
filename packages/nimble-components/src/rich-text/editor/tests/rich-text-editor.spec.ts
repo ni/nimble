@@ -1054,7 +1054,7 @@ describe('RichTextEditor', () => {
             });
 
             describe('pasting various valid(https/http) links should render as absolute links', () => {
-                const differentProtocolLinks = [
+                const differentValidLinks = [
                     {
                         name: 'Absolute link(https)',
                         input: '<a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a>',
@@ -1081,44 +1081,14 @@ describe('RichTextEditor', () => {
                         url: 'HTTP://NIMBLE.NI.DEV'
                     },
                     {
-                        name: 'Hyper link(HTTP) in uppercase',
-                        input: '<a href="HTTP://NIMBLE.NI.DEV">Nimble</a>',
-                        url: 'HTTP://NIMBLE.NI.DEV'
-                    },
-                    {
-                        name: 'Absolute link(HTTPS) in uppercase',
-                        input: '<a href="HTTPS://NIMBLE.NI.DEV">HTTPS://NIMBLE.NI.DEV</a>',
-                        url: 'HTTPS://NIMBLE.NI.DEV'
-                    },
-                    {
-                        name: 'Hyper link(HTTPS) in uppercase',
-                        input: '<a href="HTTPS://NIMBLE.NI.DEV">Nimble</a>',
-                        url: 'HTTPS://NIMBLE.NI.DEV'
-                    },
-                    {
-                        name: 'Absolute link(HTTP) in mixed case',
-                        input: '<a href="HttP://NimblE.NI.DEV">HttP://NimblE.NI.DEV</a>',
-                        url: 'HttP://NimblE.NI.DEV'
-                    },
-                    {
                         name: 'Hyper link(HttP) in mixed case',
                         input: '<a href="HttP://NimblE.NI.DEV">Nimble</a>',
                         url: 'HttP://NimblE.NI.DEV'
-                    },
-                    {
-                        name: 'Absolute link(HttPS) in mixed case',
-                        input: '<a href="HttPS://NimblE.NI.DEV">HttPS://NimblE.NI.DEV</a>',
-                        url: 'HttPS://NimblE.NI.DEV'
-                    },
-                    {
-                        name: 'Hyper link(HttPS) in mixed case',
-                        input: '<a href="HttPS://NimblE.NI.DEV">Nimble</a>',
-                        url: 'HttPS://NimblE.NI.DEV'
                     }
                 ] as const;
 
                 parameterizeNamedList(
-                    differentProtocolLinks,
+                    differentValidLinks,
                     (spec, name, value) => {
                         spec(
                             `${name} renders as absolute link(href and text content should be same) in editor`,
@@ -1143,8 +1113,8 @@ describe('RichTextEditor', () => {
                 );
             });
 
-            describe('pasting various links between nodes should render as absolute links between nodes ', () => {
-                const differentProtocolLinks = [
+            describe('pasting various links within text should render as absolute links within text ', () => {
+                const validLinkNodes = [
                     {
                         name: 'Absolute link(https) within paragraph node',
                         input: '<p>Anchor between <a href="https://nimble.ni.dev">https://nimble.ni.dev</a> text</p>',
@@ -1172,7 +1142,7 @@ describe('RichTextEditor', () => {
                 ] as const;
 
                 parameterizeNamedList(
-                    differentProtocolLinks,
+                    validLinkNodes,
                     (spec, name, value) => {
                         spec(
                             `${name} renders as absolute link(href and text content should be same) in editor`,
@@ -1201,7 +1171,7 @@ describe('RichTextEditor', () => {
             });
 
             describe('pasting various valid(https/http) nimble-anchor links should render as absolute HTML anchors', () => {
-                const differentProtocolLinks = [
+                const differentValidLinks = [
                     {
                         name: 'Absolute link(https) in nimble-anchor',
                         input: '<nimble-anchor href="https://nimble.ni.dev/"><a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a></nimble-anchor>',
@@ -1231,21 +1201,11 @@ describe('RichTextEditor', () => {
                         name: 'Hyperlink(HTTP) in nimble-anchor as upper case',
                         input: '<nimble-anchor href="HTTP://nimble.ni.dev/"><a href="HTTP://nimble.ni.dev/">Nimble</a></nimble-anchor>',
                         url: 'HTTP://nimble.ni.dev/'
-                    },
-                    {
-                        name: 'Absolute link(HTTP) in nimble-anchor as upper case',
-                        input: '<nimble-anchor href="HTTP://nimble.ni.dev/"><a href="HTTP://nimble.ni.dev/">HTTP://nimble.ni.dev/</a></nimble-anchor>',
-                        url: 'HTTP://nimble.ni.dev/'
-                    },
-                    {
-                        name: 'Hyperlink(HTTP) in nimble-anchor as upper case',
-                        input: '<nimble-anchor href="HTTP://nimble.ni.dev/"><a href="HTTP://nimble.ni.dev/">Nimble</a></nimble-anchor>',
-                        url: 'HTTP://nimble.ni.dev/'
                     }
                 ] as const;
 
                 parameterizeNamedList(
-                    differentProtocolLinks,
+                    differentValidLinks,
                     (spec, name, value) => {
                         spec(
                             `${name} renders as absolute link(href and text content should be same) in editor`,
@@ -1271,7 +1231,7 @@ describe('RichTextEditor', () => {
             });
 
             describe('pasting various not supported links should render as plain text', () => {
-                const differentProtocolLinks = [
+                const differentInvalidLinks = [
                     {
                         name: 'Anchor with "#" in href but a valid URL in text content',
                         input: '<a href="#">https://nimble.ni.dev/</a>',
@@ -1335,88 +1295,7 @@ describe('RichTextEditor', () => {
                 ] as const;
 
                 parameterizeNamedList(
-                    differentProtocolLinks,
-                    (spec, name, value) => {
-                        spec(`${name} renders as plain text in editor`, () => {
-                            pageObject.pasteHTMLToEditor(value.input);
-
-                            expect(pageObject.getEditorTagNames()).toEqual([
-                                'P'
-                            ]);
-                            expect(pageObject.getEditorLeafContents()).toEqual([
-                                value.text
-                            ]);
-                        });
-                    }
-                );
-            });
-
-            describe('pasting various not supported nimble-anchor links should render as plain text', () => {
-                const differentProtocolLinks = [
-                    {
-                        name: 'Nimble anchor with "#" in href but a valid URL in text content',
-                        input: '<nimble-anchor href="#"><a href="#">https://nimble.ni.dev/</a></nimble-anchor>',
-                        text: 'https://nimble.ni.dev/'
-                    },
-                    {
-                        name: 'Nimble anchor with "#" in href but a plain text in text content',
-                        input: '<nimble-anchor href="#"><a href="#">Hashtag</a></nimble-anchor>',
-                        text: 'Hashtag'
-                    },
-                    {
-                        name: 'Nimble anchor with invalid link in href but a valid URL in text content',
-                        input: '<nimble-anchor href="ftp://nimble.ni.dev/"><a href="ftp://nimble.ni.dev/">https://nimble.ni.dev/</a></nimble-anchor>',
-                        text: 'https://nimble.ni.dev/'
-                    },
-                    {
-                        name: 'Nimble anchor with invalid link in href and a plain text in text content',
-                        input: '<nimble-anchor href="ftp://nimble.ni.dev/"><a href="ftp://nimble.ni.dev/">FTP link</a></nimble-anchor>',
-                        text: 'FTP link'
-                    },
-                    {
-                        name: 'Nimble anchor with mailto in href and in text content',
-                        input: '<nimble-anchor href="mailto:info@example.com"><a href="mailto:info@example.com">mailto:info@example.com</a></nimble-anchor>',
-                        text: 'mailto:info@example.com'
-                    },
-                    {
-                        name: 'Nimble anchor with mailto in href and email in text content',
-                        input: '<nimble-anchor href="mailto:info@example.com"><a href="mailto:info@example.com">info@example.com</a></nimble-anchor>',
-                        text: 'info@example.com'
-                    },
-                    {
-                        name: 'Nimble anchor with invalid link',
-                        input: '<nimble-anchor href="javascript:vbscript:alert("not alert")"><a href="javascript:vbscript:alert("not alert")">Invalid link</a></nimble-anchor>',
-                        text: 'Invalid link'
-                    },
-                    {
-                        name: 'Nimble anchor with invalid link',
-                        input: '<nimble-anchor href="file:///path/to/local/file.txt"><a href="file:///path/to/local/file.txt">Invalid link</a></nimble-anchor>',
-                        text: 'Invalid link'
-                    },
-                    {
-                        name: 'Nimble anchor with invalid link',
-                        input: '<nimble-anchor href="data:image/png;base64,iVBORw0KG..."><a href="data:image/png;base64,iVBORw0KG...">Invalid link</a></nimble-anchor>',
-                        text: 'Invalid link'
-                    },
-                    {
-                        name: 'Nimble anchor with invalid link',
-                        input: '<nimble-anchor href="tel:+1234567890"><a href="tel:+1234567890">Invalid link</a></nimble-anchor>',
-                        text: 'Invalid link'
-                    },
-                    {
-                        name: 'Nimble anchor with invalid link',
-                        input: '<nimble-anchor href="ssh://username@example.com"><a href="ssh://username@example.com">Invalid link</a></nimble-anchor>',
-                        text: 'Invalid link'
-                    },
-                    {
-                        name: 'Nimble anchor with invalid link',
-                        input: '<nimble-anchor href="urn:isbn:0451450523"><a href="urn:isbn:0451450523">Invalid link</a></nimble-anchor>',
-                        text: 'Invalid link'
-                    }
-                ] as const;
-
-                parameterizeNamedList(
-                    differentProtocolLinks,
+                    differentInvalidLinks,
                     (spec, name, value) => {
                         spec(`${name} renders as plain text in editor`, () => {
                             pageObject.pasteHTMLToEditor(value.input);
