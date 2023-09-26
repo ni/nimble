@@ -85,6 +85,8 @@ A Blazor wrapper will be created for the component.
 
 Will use same text styling as the `nimble-table-column-text`.
 
+Values will be left-aligned. Right-alignment is useful when numeric values have aligned decimal points and are given in the same units. In that case, right-alignment allows for quick scanning to determine relative magnitude. But our column will not use a consistent number of decimal digits, nor a consistent unit. This leaves no motivation for right-aligning the values, while left-aligning provides better association with the column header.
+
 ## Implementation
 
 Cell view will extend `TableColumnTextCellViewBase` and use its template.
