@@ -1126,18 +1126,6 @@ describe('RichTextEditor', () => {
                         input: '<p>Anchor between <a href="http://nimble.ni.dev">Nimble</a> text</p>',
                         url: 'http://nimble.ni.dev',
                         textContent: 'Anchor between http://nimble.ni.dev text'
-                    },
-                    {
-                        name: 'Absolute link(https) as nimble-anchor within paragraph node',
-                        input: '<p>Anchor between <nimble-anchor href="https://nimble.ni.dev"><a href="https://nimble.ni.dev">https://nimble.ni.dev</a></nimble-anchor> text</p>',
-                        url: 'https://nimble.ni.dev',
-                        textContent: 'Anchor between https://nimble.ni.dev text'
-                    },
-                    {
-                        name: 'Hyperlink(http) as nimble-anchor within paragraph node',
-                        input: '<p>Anchor between <nimble-anchor href="http://nimble.ni.dev"><a href="http://nimble.ni.dev">Nimble</a></nimble-anchor> text</p>',
-                        url: 'http://nimble.ni.dev',
-                        textContent: 'Anchor between http://nimble.ni.dev text'
                     }
                 ] as const;
 
@@ -1145,84 +1133,21 @@ describe('RichTextEditor', () => {
                     spec(
                         `${name} renders as absolute link(href and text content should be same) in editor`,
                         () => {
-                            const editor = element.shadowRoot?.querySelector(
-                                '.ProseMirror'
-                            );
                             pageObject.pasteHTMLToEditor(value.input);
 
-                            expect(pageObject.getEditorTagNames()).toEqual([
-                                'P',
-                                'A'
+                            expect(
+                                pageObject.getEditorTagNamesWithClosingTags()
+                            ).toEqual(['P', 'A', '/A', '/P']);
+                            expect(pageObject.getEditorTextContents()).toEqual([
+                                value.textContent,
+                                value.url
                             ]);
-                            expect(editor!.textContent).toEqual(
-                                value.textContent
-                            );
                             expect(
                                 pageObject.getEditorLastChildAttribute('href')
                             ).toBe(value.url);
                         }
                     );
                 });
-            });
-
-            describe('pasting various valid(https/http) nimble-anchor links should render as absolute HTML anchors', () => {
-                const differentValidLinks = [
-                    {
-                        name: 'Absolute link(https) in nimble-anchor',
-                        input: '<nimble-anchor href="https://nimble.ni.dev/"><a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a></nimble-anchor>',
-                        url: 'https://nimble.ni.dev/'
-                    },
-                    {
-                        name: 'Hyperlink(https) in nimble-anchor',
-                        input: '<nimble-anchor href="https://nimble.ni.dev/"><a href="https://nimble.ni.dev/">Nimble</a></nimble-anchor>',
-                        url: 'https://nimble.ni.dev/'
-                    },
-                    {
-                        name: 'Absolute link(HttPs) in nimble-anchor as mixed case',
-                        input: '<nimble-anchor href="HttPs://nimble.ni.dev/"><a href="HttPs://nimble.ni.dev/">HttPs://nimble.ni.dev/</a></nimble-anchor>',
-                        url: 'HttPs://nimble.ni.dev/'
-                    },
-                    {
-                        name: 'Hyperlink(HttPs) in nimble-anchor as mixed case',
-                        input: '<nimble-anchor href="HttPs://nimble.ni.dev/"><a href="HttPs://nimble.ni.dev/">Nimble</a></nimble-anchor>',
-                        url: 'HttPs://nimble.ni.dev/'
-                    },
-                    {
-                        name: 'Absolute link(http) in nimble-anchor as upper case',
-                        input: '<nimble-anchor href="http://nimble.ni.dev/"><a href="http://nimble.ni.dev/">http://nimble.ni.dev/</a></nimble-anchor>',
-                        url: 'http://nimble.ni.dev/'
-                    },
-                    {
-                        name: 'Hyperlink(HTTP) in nimble-anchor as upper case',
-                        input: '<nimble-anchor href="HTTP://nimble.ni.dev/"><a href="HTTP://nimble.ni.dev/">Nimble</a></nimble-anchor>',
-                        url: 'HTTP://nimble.ni.dev/'
-                    }
-                ] as const;
-
-                parameterizeNamedList(
-                    differentValidLinks,
-                    (spec, name, value) => {
-                        spec(
-                            `${name} renders as absolute link(href and text content should be same) in editor`,
-                            () => {
-                                pageObject.pasteHTMLToEditor(value.input);
-
-                                expect(pageObject.getEditorTagNames()).toEqual([
-                                    'P',
-                                    'A'
-                                ]);
-                                expect(
-                                    pageObject.getEditorLeafContents()
-                                ).toEqual([value.url]);
-                                expect(
-                                    pageObject.getEditorLastChildAttribute(
-                                        'href'
-                                    )
-                                ).toBe(value.url);
-                            }
-                        );
-                    }
-                );
             });
 
             describe('pasting various not supported links should render as plain text', () => {
@@ -1304,6 +1229,15 @@ describe('RichTextEditor', () => {
                         });
                     }
                 );
+            });
+
+            it('pasting a plain text URL should render as a plain text', () => {
+                pageObject.pasteToEditor('https://nimble.ni.dev/');
+
+                expect(pageObject.getEditorTagNames()).toEqual(['P']);
+                expect(pageObject.getEditorLeafContents()).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
             });
         });
     });

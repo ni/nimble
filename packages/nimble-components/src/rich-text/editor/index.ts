@@ -152,6 +152,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private updateScrollbarWidthQueued = false;
 
     private readonly xmlSerializer = new XMLSerializer();
+    private readonly validAbsoluteLinkRegex = /^https?:\/\//i;
 
     /**
      * @internal
@@ -334,46 +335,41 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         return editor;
     }
 
+    private readonly updateLinkNodes = (nodeArray: NodeObj[]): void => {
+        nodeArray.forEach((node: NodeObj) => {
+            if (node.type !== 'text' && node.content) {
+                this.updateLinkNodes(node.content);
+            } else {
+                node.marks?.forEach((mark, index: number) => {
+                    if (mark.type === 'link' && mark.attrs) {
+                        if (this.validAbsoluteLinkRegex.test(mark.attrs.href)) {
+                            // Updating the text content with the href should be removed when hyperlink support is added
+                            // See: https://github.com/ni/nimble/issues/1527
+                            node.text = mark.attrs.href;
+                        } else {
+                            node.marks!.splice(index, 1);
+                        }
+                    }
+                });
+            }
+        });
+    };
+
     private createTiptapEditor(): Editor {
         const customLink = this.getCustomLinkExtension();
-        const validAbsoluteLinkRegex = /^https?:\/\//i;
 
         /**
          * @param slice contains the Fragment of the copied content. If the content is a link, the slice contains anchor text node with link mark.
          * ProseMirror reference for `transformPasted`: https://prosemirror.net/docs/ref/#view.EditorProps.transformPasted
          */
         const transformPasted = (slice: Slice): Slice => {
-            const updateLinkNodes = (nodeArray: NodeObj[]): void => {
-                nodeArray.forEach((node: NodeObj) => {
-                    if (node.type !== 'text' && node.content) {
-                        updateLinkNodes(node.content);
-                    } else {
-                        node.marks?.forEach((mark, index: number) => {
-                            if (mark.type === 'link' && mark.attrs) {
-                                if (
-                                    validAbsoluteLinkRegex.test(mark.attrs.href)
-                                ) {
-                                    node.text = mark.attrs.href;
-                                } else {
-                                    node.marks!.splice(index, 1);
-                                }
-                            }
-                        });
-                    }
-                });
-            };
             const fragmentAsJson = (slice.content.toJSON() as NodeObj[]) ?? [];
-            updateLinkNodes(fragmentAsJson);
+            this.updateLinkNodes(fragmentAsJson);
             const modifiedFragment = Fragment.fromJSON(
                 this.tiptapEditor.schema,
                 fragmentAsJson
             );
-            const modifiedSlice = new Slice(
-                modifiedFragment,
-                slice.openStart,
-                slice.openEnd
-            );
-            return modifiedSlice;
+            return new Slice(modifiedFragment, slice.openStart, slice.openEnd);
         };
 
         /**
@@ -391,8 +387,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             // https://tiptap.dev/api/editor#enable-paste-rules
             enablePasteRules: false,
             editorProps: {
-                // Pasting rules need not to be transformed when hyperlink support added
-                // See: https://github.com/ni/nimble/issues/1527
+                // Validating whether the links in the pasted content belongs to the supported scheme (HTTPS/HTTP),
+                // and rendering it as a link in the editor. If not, rendering it as a plain text.
+                // Also, updating the link text content with its href as we support only the absolute link.
                 transformPasted
             },
             extensions: [
@@ -422,7 +419,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                     // linkOnPaste can be enabled when hyperlink support added
                     // See: https://github.com/ni/nimble/issues/1527
                     linkOnPaste: false,
-                    validate: href => validAbsoluteLinkRegex.test(href)
+                    validate: href => this.validAbsoluteLinkRegex.test(href)
                 })
             ]
         });
@@ -445,15 +442,14 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             // See: https://github.com/ni/nimble/issues/1527
             inclusive: false,
             parseHTML() {
-                // To load the `nimble-anchor` from the HTML parsed content by markdown-parser as links in the Tiptap editor, the `parseHTML`
-                // of Link extension should return nimble `anchorTag`.
-                // This is because the link mark schema in `markdown-parser.ts` file uses `<nimble-anchor>` as anchor tag and not `<a>`.
-                // ---
-                // `<a>` tag is added here to support when pasting a link from external source.
                 return [
+                    // To load the `nimble-anchor` from the HTML parsed content by markdown-parser as links in the Tiptap editor, the `parseHTML`
+                    // of Link extension should return nimble `anchorTag`.
+                    // This is because the link mark schema in `markdown-parser.ts` file uses `<nimble-anchor>` as anchor tag and not `<a>`.
                     {
                         tag: anchorTag
                     },
+                    // `<a>` tag is added here to support when pasting a link from external source.
                     {
                         tag: 'a'
                     }

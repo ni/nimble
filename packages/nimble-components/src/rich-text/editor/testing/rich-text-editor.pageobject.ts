@@ -171,6 +171,12 @@ export class RichTextEditorPageObject {
         return this.getTiptapEditor()?.firstElementChild?.textContent ?? '';
     }
 
+    public getEditorTextContents(): string[] {
+        return Array.from(this.getTiptapEditor()!.querySelectorAll('*')).map(
+            el => el.textContent || ''
+        );
+    }
+
     public getEditorTagNames(): string[] {
         return getTagsFromElement(this.getTiptapEditor() as HTMLElement);
     }
