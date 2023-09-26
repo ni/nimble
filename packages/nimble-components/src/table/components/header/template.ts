@@ -22,7 +22,7 @@ export const template = html<TableHeader>`
             <${iconArrowDownTag} class="sort-indicator" aria-hidden="true"></${iconArrowDownTag}>
         `)}
         ${when(x => x.isGrouped, html<TableHeader>`
-            <${iconTwoSquaresInBracketsTag} class="grouped-indicator" title="${x => tableColumnHeaderGroupedIndicatorLabel.getValueFor(x)}"></${iconTwoSquaresInBracketsTag}>
+            <${iconTwoSquaresInBracketsTag} class="grouped-indicator" title="${x => tableColumnHeaderGroupedIndicatorLabel.getValueFor(x)}" role="graphics-symbol"></${iconTwoSquaresInBracketsTag}>
         `)}
     </template>
 `;

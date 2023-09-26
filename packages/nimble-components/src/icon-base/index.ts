@@ -27,10 +27,6 @@ export class Icon extends FoundationElement {
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Icon extends ARIAGlobalStatesAndProperties {}
-applyMixins(Icon, ARIAGlobalStatesAndProperties);
-
 type IconClass = typeof Icon;
 
 export const registerIcon = (baseName: string, iconClass: IconClass): void => {
