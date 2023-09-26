@@ -54,13 +54,73 @@ export class NimbleLabelProviderTableDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'cellActionMenu', value);
     }
 
-    public get columnHeaderGroupedIndicator(): string | undefined {
-        return this.elementRef.nativeElement.columnHeaderGroupedIndicator;
+    public get columnHeaderGrouped(): string | undefined {
+        return this.elementRef.nativeElement.columnHeaderGrouped;
     }
 
     // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('column-header-grouped-indicator') public set columnHeaderGroupedIndicator(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'columnHeaderGroupedIndicator', value);
+    @Input('column-header-grouped') public set columnHeaderGrouped(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'columnHeaderGrouped', value);
+    }
+
+    public get columnHeaderSortedAscending(): string | undefined {
+        return this.elementRef.nativeElement.columnHeaderSortedAscending;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('column-header-sorted-ascending') public set columnHeaderSortedAscending(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'columnHeaderSortedAscending', value);
+    }
+
+    public get columnHeaderSortedDescending(): string | undefined {
+        return this.elementRef.nativeElement.columnHeaderSortedDescending;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('column-header-sorted-descending') public set columnHeaderSortedDescending(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'columnHeaderSortedDescending', value);
+    }
+
+    public get selectAll(): string | undefined {
+        return this.elementRef.nativeElement.selectAll;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('select-all') public set selectAll(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'selectAll', value);
+    }
+
+    public get groupSelectAll(): string | undefined {
+        return this.elementRef.nativeElement.groupSelectAll;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('group-select-all') public set groupSelectAll(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'groupSelectAll', value);
+    }
+
+    public get rowSelect(): string | undefined {
+        return this.elementRef.nativeElement.rowSelect;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('row-select') public set rowSelect(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'rowSelect', value);
+    }
+
+    public get rowOperationColumn(): string | undefined {
+        return this.elementRef.nativeElement.rowOperationColumn;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('row-operation-column') public set rowOperationColumn(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'rowOperationColumn', value);
     }
 }

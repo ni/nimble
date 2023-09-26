@@ -1,8 +1,73 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 15 Sep 2023 21:18:04 GMT and should not be manually modified.
+This log was last generated on Fri, 22 Sep 2023 14:24:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.5.3
+
+Fri, 22 Sep 2023 14:24:47 GMT
+
+### Patches
+
+- Add reusable css for styling an element as visually hidden while keeping it available to the accessibility tree ([ni/nimble@8486724](https://github.com/ni/nimble/commit/8486724cf68c66210de0a180496e75b347391352))
+
+## 20.5.2
+
+Fri, 22 Sep 2023 00:01:31 GMT
+
+### Patches
+
+- Clean-up dist folder of nimble-components to remove duplicated type hierarchy ([ni/nimble@908204e](https://github.com/ni/nimble/commit/908204e252ee75affeedc355a46d13a3005d6770))
+
+## 20.5.1
+
+Thu, 21 Sep 2023 13:07:38 GMT
+
+### Patches
+
+- Avoid converting markdown syntax characters like star (*) and underscore(_) to format the editor content automatically while typing ([ni/nimble@94188a3](https://github.com/ni/nimble/commit/94188a36031bfd9a88374d9e201c695eab8727ae))
+
+## 20.5.0
+
+Wed, 20 Sep 2023 18:55:59 GMT
+
+### Minor changes
+
+- New icons for indent and outdent list level ([ni/nimble@f12cbc5](https://github.com/ni/nimble/commit/f12cbc59d683ae048a85750990cc4ae174464590))
+- Bump @ni/nimble-tokens to v6.4.0
+
+## 20.4.3
+
+Wed, 20 Sep 2023 16:38:20 GMT
+
+### Patches
+
+- Add additional localized labels to sub-elements in the table to improve accessibility ([ni/nimble@60947ef](https://github.com/ni/nimble/commit/60947ef38e170552c614f1affcd8e1e385ba9177))
+
+## 20.4.2
+
+Wed, 20 Sep 2023 15:22:26 GMT
+
+### Patches
+
+- Fix bug in table when reordering columns ([ni/nimble@f4dc2ea](https://github.com/ni/nimble/commit/f4dc2eaa9724bee9cf82c28d17ac57422679a1f8))
+
+## 20.4.1
+
+Wed, 20 Sep 2023 02:57:31 GMT
+
+### Patches
+
+- Fixes keyboard closing when rich-text editor toolbar buttons are clicked in mobile iOS browsers ([ni/nimble@36b9611](https://github.com/ni/nimble/commit/36b9611c258f1b5e6aa5d24dc5ca288327382348))
+
+## 20.4.0
+
+Tue, 19 Sep 2023 23:12:45 GMT
+
+### Minor changes
+
+- Add medium padding token and document size ramp ([ni/nimble@b6baa04](https://github.com/ni/nimble/commit/b6baa04c34007f4fad4e546c78505fa820fff6d1))
 
 ## 20.3.2
 

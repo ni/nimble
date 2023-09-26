@@ -11,6 +11,7 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     smallDelay,
+    mediumPadding,
     standardPadding
 } from '../theme-provider/design-tokens';
 
@@ -52,8 +53,8 @@ export const styles = css`
 
     slot:not([name]) {
         display: block;
-        padding: calc(${standardPadding} / 2) ${standardPadding}
-            calc(${standardPadding} / 2 - ${borderWidth});
+        padding: ${mediumPadding} ${standardPadding}
+            calc(${mediumPadding} - ${borderWidth});
     }
 
     a::before {

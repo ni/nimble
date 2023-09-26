@@ -20,6 +20,7 @@ export const template = html<TableCell>`
                 @toggle="${(x, c) => x.onActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
                 @click="${(_, c) => c.event.stopPropagation()}"
                 class="action-menu"
+                title="${x => x.actionMenuLabel ?? tableCellActionMenuLabel.getValueFor(x)}"
             >
                 <${iconThreeDotsLineTag} slot="start"></${iconThreeDotsLineTag}>
                 ${x => x.actionMenuLabel ?? tableCellActionMenuLabel.getValueFor(x)}

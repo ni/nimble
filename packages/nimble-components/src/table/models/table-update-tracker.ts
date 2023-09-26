@@ -2,24 +2,12 @@ import { DOM } from '@microsoft/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import type { TableRecord } from '../types';
-import type { ColumnInternals } from '../../table-column/base/models/column-internals';
 import { UpdateTracker } from '../../utilities/models/update-tracker';
+import { isColumnInternalsProperty } from '../../table-column/base/models/column-internals';
 
 const isColumnProperty = (
     changedProperty: string,
     ...args: (keyof TableColumn)[]
-): boolean => {
-    for (const arg of args) {
-        if (changedProperty === arg) {
-            return true;
-        }
-    }
-    return false;
-};
-
-const isColumnInternalsProperty = (
-    changedProperty: string,
-    ...args: (keyof ColumnInternals<unknown>)[]
 ): boolean => {
     for (const arg of args) {
         if (changedProperty === arg) {

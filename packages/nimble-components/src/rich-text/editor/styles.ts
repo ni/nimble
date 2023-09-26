@@ -12,6 +12,7 @@ import {
     failColor,
     iconSize,
     smallDelay,
+    mediumPadding,
     standardPadding,
     linkFontColor
 } from '../../theme-provider/design-tokens';
@@ -250,16 +251,6 @@ export const styles = css`
         gap: ${standardPadding};
         place-items: center;
     }
-    ${
-        /**
-         * Restricting the pointer-events for the slot="start" where the icon is rendered.
-         * This can be removed after the below issue is fixed.
-         * https://github.com/ni/nimble/issues/1422
-         */ ''
-    }
-    nimble-toggle-button::part(start) {
-        pointer-events: none;
-    }
 
     :host([error-visible]) .error-icon {
         display: none;
@@ -268,7 +259,7 @@ export const styles = css`
     :host([error-visible]) .error-icon.scrollbar-width-calculated {
         display: inline-flex;
         position: absolute;
-        top: calc(${standardPadding} / 2);
+        top: ${mediumPadding};
         right: var(--ni-private-rich-text-editor-scrollbar-width);
     }
 `;

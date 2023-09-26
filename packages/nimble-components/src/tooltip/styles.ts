@@ -14,7 +14,7 @@ import {
     tooltipCaptionFont,
     tooltipCaptionFontColor,
     borderWidth,
-    standardPadding,
+    mediumPadding,
     smallPadding,
     elevation2BoxShadow
 } from '../theme-provider/design-tokens';
@@ -42,8 +42,8 @@ export const styles = css`
         border: ${borderWidth} solid var(--ni-private-tooltip-border-color);
         background-color: var(--ni-private-tooltip-background-color);
         padding-bottom: 6px;
-        padding-left: calc(${standardPadding} / 2);
-        padding-right: calc(${standardPadding} / 2);
+        padding-left: ${mediumPadding};
+        padding-right: ${mediumPadding};
         padding-top: ${smallPadding};
     }
 
