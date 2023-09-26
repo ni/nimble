@@ -27,15 +27,15 @@ import Placeholder from '@tiptap/extension-placeholder';
 import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import Text from '@tiptap/extension-text';
 import HardBreak from '@tiptap/extension-hard-break';
-import type { EditorView } from 'prosemirror-view';
+import { Slice, Fragment } from 'prosemirror-model';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
-import { TipTapNodeName } from './types';
+import { NodeObj, TipTapNodeName } from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
-import { Anchor, anchorTag } from '../../anchor';
+import { anchorTag } from '../../anchor';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -339,49 +339,41 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         const validAbsoluteLinkRegex = /^https?:\/\//i;
 
         /**
-         * @param htmlString contains the html string of the copied content. If the content is a link, the `htmlString` contains anchor tag and a href value.
-         * ProseMirror reference for `transformPastedHTML`: https://prosemirror.net/docs/ref/#view.EditorProps.transformPastedHTML
+         * @param slice contains the Fragment of the copied content. If the content is a link, the slice contains anchor text node with link mark.
+         * ProseMirror reference for `transformPasted`: https://prosemirror.net/docs/ref/#view.EditorProps.transformPasted
          */
-        const transformPastedHTML = (htmlString: string): string => {
-            const templateElement = document.createElement('template');
-            templateElement.innerHTML = htmlString;
-            const templateDocument = templateElement.content.ownerDocument;
-
-            templateElement.content
-                .querySelectorAll('a')
-                .forEach(anchorElement => {
-                    let tempAnchorElement: HTMLAnchorElement | Anchor = anchorElement;
-                    if (
-                        anchorElement.parentElement
-                        && anchorElement.parentElement.tagName === 'NIMBLE-ANCHOR'
-                    ) {
-                        tempAnchorElement = anchorElement.parentElement as Anchor;
-                    }
-                    const href = anchorElement.getAttribute('href');
-                    // When pasting a link, the `href` attribute of the anchor element should be a valid HTTPS/HTTP link;
-                    // else, simply rendered as a plain text in the same node by creating a span element and replace it with anchor element.
-                    if (href && validAbsoluteLinkRegex.test(href)) {
-                        tempAnchorElement.textContent = href; // Modifying the anchor element text content with its href
+        const transformPasted = (slice: Slice): Slice => {
+            const updateLinkNodes = (nodeArray: NodeObj[]): void => {
+                nodeArray.forEach((node: NodeObj) => {
+                    if (node.type !== 'text' && node.content) {
+                        updateLinkNodes(node.content);
                     } else {
-                        const spanElement = templateDocument.createElement('span');
-                        spanElement.textContent = tempAnchorElement.textContent;
-                        tempAnchorElement.replaceWith(spanElement);
+                        node.marks?.forEach((mark, index: number) => {
+                            if (mark.type === 'link' && mark.attrs) {
+                                if (
+                                    validAbsoluteLinkRegex.test(mark.attrs.href)
+                                ) {
+                                    node.text = mark.attrs.href;
+                                } else {
+                                    node.marks!.splice(index, 1);
+                                }
+                            }
+                        });
                     }
                 });
-
-            return templateElement.innerHTML;
-        };
-
-        // To prevent the pasting of files/images into the editor and avoid making any network requests.
-        // ProseMirror handlePaste: https://prosemirror.net/docs/ref/#view.EditorProps.handlePaste
-        // The below function needs an update when image support is added
-        const handlePaste = (
-            _view: EditorView,
-            event: ClipboardEvent
-        ): void => {
-            if (event.clipboardData && event.clipboardData.files.length >= 1) {
-                event.preventDefault();
-            }
+            };
+            const fragmentAsJson = (slice.content.toJSON() as NodeObj[]) ?? [];
+            updateLinkNodes(fragmentAsJson);
+            const modifiedFragment = Fragment.fromJSON(
+                this.tiptapEditor.schema,
+                fragmentAsJson
+            );
+            const modifiedSlice = new Slice(
+                modifiedFragment,
+                slice.openStart,
+                slice.openEnd
+            );
+            return modifiedSlice;
         };
 
         /**
@@ -401,8 +393,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             editorProps: {
                 // Pasting rules need not to be transformed when hyperlink support added
                 // See: https://github.com/ni/nimble/issues/1527
-                transformPastedHTML,
-                handlePaste
+                transformPasted
             },
             extensions: [
                 Document,
