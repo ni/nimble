@@ -1141,33 +1141,28 @@ describe('RichTextEditor', () => {
                     }
                 ] as const;
 
-                parameterizeNamedList(
-                    validLinkNodes,
-                    (spec, name, value) => {
-                        spec(
-                            `${name} renders as absolute link(href and text content should be same) in editor`,
-                            () => {
-                                const editor = element.shadowRoot?.querySelector(
-                                    '.ProseMirror'
-                                );
-                                pageObject.pasteHTMLToEditor(value.input);
+                parameterizeNamedList(validLinkNodes, (spec, name, value) => {
+                    spec(
+                        `${name} renders as absolute link(href and text content should be same) in editor`,
+                        () => {
+                            const editor = element.shadowRoot?.querySelector(
+                                '.ProseMirror'
+                            );
+                            pageObject.pasteHTMLToEditor(value.input);
 
-                                expect(pageObject.getEditorTagNames()).toEqual([
-                                    'P',
-                                    'A'
-                                ]);
-                                expect(editor!.textContent).toEqual(
-                                    value.textContent
-                                );
-                                expect(
-                                    pageObject.getEditorLastChildAttribute(
-                                        'href'
-                                    )
-                                ).toBe(value.url);
-                            }
-                        );
-                    }
-                );
+                            expect(pageObject.getEditorTagNames()).toEqual([
+                                'P',
+                                'A'
+                            ]);
+                            expect(editor!.textContent).toEqual(
+                                value.textContent
+                            );
+                            expect(
+                                pageObject.getEditorLastChildAttribute('href')
+                            ).toBe(value.url);
+                        }
+                    );
+                });
             });
 
             describe('pasting various valid(https/http) nimble-anchor links should render as absolute HTML anchors', () => {
