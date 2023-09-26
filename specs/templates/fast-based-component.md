@@ -33,6 +33,10 @@
 - *CSS Classes and Custom Properties that affect the component*
 - *Slots*
 
+### Third Party Library Considerations
+
+*When applicable provide a list of third party libraries that are either intended to be leveraged, or were considered but discounted. Provide any reasoning that supports either decision. If no third party libraries were considered, provide a quick note explaining why such an evaluation was unnecessary.*
+
 ### Angular integration 
 
 *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
