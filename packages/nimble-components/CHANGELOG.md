@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 22 Sep 2023 14:24:47 GMT and should not be manually modified.
+This log was last generated on Tue, 26 Sep 2023 21:18:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.5.4
+
+Tue, 26 Sep 2023 21:18:40 GMT
+
+### Patches
+
+- Fix bug where `undefined` and `null` were not sorted correctly when using the `basic` sort operation ([ni/nimble@d952598](https://github.com/ni/nimble/commit/d952598e0f68a4c7255c5c3aab818035002f7600))
 
 ## 20.5.3
 

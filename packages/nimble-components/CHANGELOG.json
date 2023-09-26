@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 26 Sep 2023 21:18:40 GMT",
+      "tag": "@ni/nimble-components_v20.5.4",
+      "version": "20.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d952598e0f68a4c7255c5c3aab818035002f7600",
+            "comment": "Fix bug where `undefined` and `null` were not sorted correctly when using the `basic` sort operation"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 22 Sep 2023 14:24:47 GMT",
       "tag": "@ni/nimble-components_v20.5.3",
       "version": "20.5.3",
