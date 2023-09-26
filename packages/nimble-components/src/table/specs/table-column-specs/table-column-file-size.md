@@ -27,22 +27,20 @@ The file size table column will provide a way to visualize numeric data that rep
 ### Prior Art/Examples
 
 Size column in [SLE Files grid](https://dev.lifecyclesolutions.ni.com/files/)
+
 ![SLE Files grid](../spec-images/fileSizesSle.png)
 
 Windows explorer (details view)
+
 ![Windows explorer](../spec-images/fileSizesWindows.png)
+
+Chrome Dev Tools Network tab
+
+![Chrome Dev Tools Network tab](../spec-images/fileSizeChromeDevTools.png)
 
 ---
 
 ## Design
-
-Below is an example of how the `nimble-table-column-file-size` would be used within a `nimble-table`:
-
-```HTML
-<nimble-table>
-    <nimble-table-column-file-size field-name="size">Size</nimble-table-column-file-size>
-</nimble-table>
-```
 
 ### API
 
@@ -52,6 +50,26 @@ Below is an example of how the `nimble-table-column-file-size` would be used wit
 -   `unit-type` - "binary" (KiB, MiB, GiB, TiB, PiB) or "decimal" (KB, MB, GB, TB, PB); defaults to "decimal"
 
 The component will extend `TableColumnTextBase`, thereby including the APIs for a **groupable** and **fractional-width** column.
+
+### Examples
+
+Given a data value of 2856 (bytes):
+
+```HTML
+<nimble-table>
+    <nimble-table-column-file-size field-name="size" unit-type="decimal">Size</nimble-table-column-file-size>
+</nimble-table>
+```
+
+![Decimal unit](../spec-images/fileSizeDecimal.png)
+
+```HTML
+<nimble-table>
+    <nimble-table-column-file-size field-name="size" unit-type="binary">Size</nimble-table-column-file-size>
+</nimble-table>
+```
+
+![Decimal unit](../spec-images/fileSizeBinary.png)
 
 ### Anatomy
 
@@ -69,66 +87,6 @@ Will use same text styling as the `nimble-table-column-text`.
 
 ## Implementation
 
-```ts
-class TableColumnFileSize extends TableColumnTextBase {
-    @attr({ attribute: 'unit-type' })
-    public unitType: FileSizeUnitType;
-
-    // Subscribes to changes in the lang design token, so
-    // that it can update the format as needed.
-    private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
-        handleChange: () => {
-            this.updateColumnConfig();
-        }
-    };
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        lang.subscribe(this.langSubscriber, this);
-        this.updateColumnConfig();
-    }
-
-    public override disconnectedCallback(): void {
-        super.disconnectedCallback();
-        lang.unsubscribe(this.langSubscriber, this);
-    }
-
-    public unitTypeChanged(): void {
-        this.updateColumnConfig();
-    }
-
-    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
-        return {
-            cellRecordFieldNames: ['value'],
-            cellViewTag: tableColumnFileSizeCellViewTag,
-            groupHeaderViewTag: tableColumnFileSizeGroupHeaderViewTag,
-            delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
-        };
-    }
-
-    private updateColumnConfig(): void {
-        const columnConfig: TableColumnFileSizeColumnConfig = {
-            formatter: this.createFormatter(),
-            unitStrings: getFileSizeUnitArray(
-                this.unitType,
-                lang.getValueFor(this)
-            ),
-            unitType: this.unitType
-        };
-        this.columnInternals.columnConfig = columnConfig;
-    }
-
-    private createFormatter(): Intl.NumberFormat {
-        return new Intl.NumberFormat(lang.getValueFor(this), {
-            maximumFractionDigits: 1,
-            minimumFractionDigits: 0,
-            useGrouping: true
-        });
-    }
-}
-```
-
 Cell view will extend `TableColumnTextCellViewBase` and use its template.
 
 ```ts
@@ -136,13 +94,7 @@ class TableColumnFileSizeCellView extends TableColumnTextCellViewBase<
     TableColumnFileSizeCellRecord,
     TableColumnFileSizeColumnConfig
 > {
-    private columnConfigChanged(): void {
-        this.updateText();
-    }
-
-    private cellRecordChanged(): void {
-        this.updateText();
-    }
+    ...
 
     private updateText(): void {
         if (this.columnConfig) {
@@ -180,34 +132,6 @@ function formatFileSize(
 ```
 
 Group header view will extend `TableColumnTextGroupHeaderViewBase` and use its template.
-
-```ts
-class TableColumnFileSizeGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
-    TableNumberFieldValue,
-    TableColumnFileSizeColumnConfig
-> {
-    private columnConfigChanged(): void {
-        this.updateText();
-    }
-
-    private groupHeaderValueChanged(): void {
-        this.updateText();
-    }
-
-    private updateText(): void {
-        if (this.columnConfig) {
-            this.text = formatFileSize(
-                this.columnConfig.formatter,
-                this.unitStrings,
-                this.columnConfig.unitType,
-                this.cellRecord?.value
-            );
-        } else {
-            this.text = '';
-        }
-    }
-}
-```
 
 ### States
 
