@@ -60,7 +60,7 @@ function basicSortFunction<TData>(
     const valueA = rowA.getValue<TableFieldValue>(columnId);
     const valueB = rowB.getValue<TableFieldValue>(columnId);
 
-    if (valueA === valueB) {
+    if ((valueA === valueB) || (Number.isNaN(valueA) && Number.isNaN(valueB))) {
         return 0;
     }
     if (valueA === undefined) {
@@ -73,6 +73,12 @@ function basicSortFunction<TData>(
         return -1;
     }
     if (valueB === null) {
+        return 1;
+    }
+    if (Number.isNaN(valueA)) {
+        return -1;
+    }
+    if (Number.isNaN(valueB)) {
         return 1;
     }
 

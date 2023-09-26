@@ -26,6 +26,7 @@ describe('Sort Operations', () => {
             expectedSortOrder: [
                 undefined,
                 null,
+                Number.NaN,
                 Number.NEGATIVE_INFINITY,
                 Number.MIN_SAFE_INTEGER,
                 -9999,
