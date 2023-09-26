@@ -853,30 +853,6 @@ export class Table<
         }
     }
 
-    // private organizeData(userData: TData[]): InternalTableRecord[] {
-    //     if (!this.idFieldName) {
-    //         return userData;
-    //     }
-    //     const updatedData: TData[] = [];
-    //     const parentRows: Map<TableFieldValue, { parent: InternalTableRecord, subRows: InternalTableRecord[] }> = new Map<TableFieldValue, { parent: InternalTableRecord, subRows: InternalTableRecord[] }>();
-    //     const unreadyRows: Map<string, InternalTableRecord[]> = new Map<string, InternalTableRecord[]>();
-    //     for (const record of userData) {
-    //         if (record.parentId === undefined) {
-    //             parentRows.set(record[this.idFieldName], { parent: record, subRows: [] });
-    //             updatedData.push(record);
-    //         } else if (parentRows.has(record.parentId)) {
-    //             const parentRow = parentRows.get((record.parentId));
-    //             if (parentRow!.subRows) {
-    //                 parentRow!.subRows.push(record);
-    //             } else {
-    //                 parentRow!.subRows = [record];
-    //             }
-    //         } else {
-    //             console.log('foo');
-    //         }
-    //     }
-    // }
-
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
 
@@ -1011,7 +987,7 @@ export class Table<
             return true;
         }
 
-        return false;
+        return expandedState === true;
     };
 
     private readonly handleRowSelectionChange: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
