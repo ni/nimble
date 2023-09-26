@@ -23,19 +23,25 @@ Users will provide hierarchical data as a flat list (just as they do for non-hie
 
 ### `Table` API
 
-The `Table` will provide an attribute that allows users to specify what field in the record will serve as the parentId (if set):
-
 ```ts
 public Table() {
     ...
+    // This attribute determines which field in the record specifies the id that is the
+    // parent row. If it is not set, the row has no parent.
     @attr({ attribute: 'parent-id-field-name' })
     public parentIdFieldName?: string;
 
     // This field would be an option for how we allow a user to specify the field
     // name where they will provide a value indicating whether or not that row
-    // is a parent row. See the below discussion on lazy-loading.
-    @attr({ attribute: 'is-parent-field-name' })
-    public isParentFieldName?: string;
+    // is a parent row. See the below discussion on lazy-loading. If it is not set,
+    // the row is presumed child-less (and thus will show no expand/collapse button).
+    @attr({ attribute: 'has-children-field-name' })
+    public hasChildrenFieldName?: string;
+
+    // This attribute will control the behavior of what happens when a user selects a parent
+    // row.
+    @attr({ attribute: 'parent-selects-children'})
+    public parentSelectsChildren?: boolean;
 }
 ```
 
@@ -48,61 +54,36 @@ interface TableRowExpandedEventDetail {
 }
 ```
 
-_Note: This event will \_not_ be emitted for group rows.\_
+Note: This event will _not_ be emitted for group rows.
 
-#### Lazy Loading API Open Question:
+### Lazy Loading
 
-What is the right API to allow a user to denote a particular row as a parent row, despite it not having any children represented in the data. Ultimately the table presentation will have to know if a particular row is meant to be a parent, so it can show the expand/collapse button on the row.
+The APIs noted above will enable the client to lazy load data into the `Table`. This will essentially be accomplished with the following steps:
 
-Option 1:
+1. Providing a field in a record of the table data that indicates whether that row of data is intended to be a parent row. Records that are intended to be parents must set the value of the field, whose name is specified by the `hasChildrenFieldName` attribute, to `true`.
+2. After providing the current data to the `Table` via the `setData` method, all rows that have a value of `true` in the field specified by the `hasChildrenFieldName` attribute will display and expand/collapse button.
+3. Users must register a handler for the `row-expand-toggle` event on the `Table` instance, and will receive that event upon clicking the expand/collapse button.
+4. The details of the handled event will include the id for the row that was expanded.
+5. The user must then create a set of data with rows where they provide a field with the name specified by the `parendIdFieldName` attribute that has the value of the `recordId` value supplied in the event details.
+6. The user then sets the data on the `Table` again with the `setData` method.
 
-Provide a documented convention that users will have to adopt where they provide a field in their record specifying this state (i.e. a field in the data called something like `niTableIsParentRow`).
+Notes:
 
-Pros:
-
--   Does not require client to spoof child rows in order for parent rows to show as a parent in the table
--   Allows the table to maintain its expected data shape of a flat list
-
-Cons:
-
--   It's a convention-based API, and thus less discoverable
--   Allows a user to improperly denote a row as a parent even though it will never have children in practice.
-
-Option 2:
-
-Document the strategy currently employed in SLE where the user provides dummy rows "under" the parent, so that the table knows to display the expand/collapse button, and then the user is expected to respond to the expand event to replace the dummy data with the appropriate child data.
-
-Pros:
-
--   No additional APIs needed either by convention, or explicitly on the `Table` API surface
-
-Cons:
-
--   Still not very discoverable
--   Requires user to jump through a bit of hoops to get lazy loading to work (maybe this is a reasonable concession in the face of not having to provide a convention-based API).
-
-Option 3:
-
-Make the datatype of data provided to the `Table` support hierarchy.
-
-Pros:
-
--   Does not require client to spoof child rows in order for parent rows to show as a parent in the table.
-
-Cons:
-
--   No clear way to type `TableRecord` in a strong way that supports having a field whose type is an array of `TableRecord`. This could mean that this is also a convention-based API and thus no different than Option 1. Prototyping suggests that their is no noticeable performance distinction between the two options as well.
--   Could result in more data manipulation on the client-side to organize it in the expected way
-
-Other?
+-   It is up to the user to manage whether or not the children of a row has already been loaded in order to avoid recreation of their data and calling `setData` on the `Table` unnecessarily.
 
 ### Translating flat list to Tanstack-understandable hierarchy
 
 Tanstack provides APIs for us to implement that allow it to return the rows in a hierarchical fashion where child rows are provided as a property on a row called `subRows`. For this to work as expected it is required that a flat list of data (that contains implicit hierarchy) be transformed into a hierarchical data structure.
 
-A third party library called [`performant-array-to-tree`](https://www.npmjs.com/package/performant-array-to-tree) offers an easy, and as the package says, performant means of doing this (in O(n) time). This utility was leveraged in the [`data-hierarchy-flat-list-prototype`](https://github.com/ni/nimble/tree/data-hierarchy-flat-list-prototype) branch. It comes with an MIT license, and is apparently fully tested, so it seems like it would be suitable to use for this purpose.
+A third party library called [`performant-array-to-tree`](https://www.npmjs.com/package/performant-array-to-tree) offers an easy, and as the package says, performant means of doing this (in O(n) time). It comes with an MIT license, and is apparently fully tested, so it seems like it would be suitable to use for this purpose.
 
-### Managing expanded state
+### Group rows with data hierarchy
+
+Tanstack allows limited support of data modeling where there is both grouping and parent-child row relationships. Essentially, when there is grouping present, only rows at the top-level of a hierarchical set of data will be grouped. All further child rows under the top-level parent row will not be grouped.
+
+I see no reason to explicitly disable this behavior. One behavior we will need to ensure, however, is that the count value we display in the group row, is _only_ the number of immediate children in the group row. It would be odd for the number to change just because a row was expanded (such as in the lazy loading case).
+
+#### Managing expanded state
 
 Currently, the `Table` defaults to expanding all rows by setting its Tanstack expanded state to the singleton `true`. This means that all group rows will be expanded by default. The Nimble `Table` also provides an implementation of `getIsRowExpanded` which is consumed by `TanStack` that will ultimately result in the per-row state of whether the row is expanded. It is in this implementation, where even if the Tanstack state is set to `true`, we can mark all parent rows, by default, as collapsed, which is required for the lazy-loading scenario.
 
@@ -114,11 +95,15 @@ Once _any_ row has been expanded or collapsed, we must update the Nimble `Table`
 
 After a user clicks on a parent row to expand it, and that parent does not have children yet, there could be a noticeable delay between when the user clicked the expand button, and when the children show up in the table. This could happen for a variety of reasons, but commonly might occur due to a slow network request.
 
-It would be helpful for the `Table` to visually represent the state that it is currently waiting on data to be loaded from the client. It can accomplish this fairly easily using existing state with no additional APIs or new components (see [prototype code](https://github.com/ni/nimble/commit/27c92c42f81076c0906e143808a3120962c660e9)).
+It would be helpful for the `Table` to visually represent the state that it is currently waiting on data to be loaded from the client. It can accomplish this fairly easily using existing state with no additional APIs or new components.
+
+Prototype visual:
+
+![Lazy Loading Spinner](./spec-images/LazyLoadingSpinner.gif)
 
 This ultimately may put the burden on the client to ensure that the `Table` is updated as needed to get rid of any displayed progress indicator, including in scenarios where the expansion of a parent row failed to load any children (possibly due to some client-side error). The `Table` may only guarantee that the progress indicator is shown when a parent row is expanded and it currently has no children, and that it will be removed once children are present.
 
-### ARIA guidance
+### ARIA
 
 A parent row would have the same ARIA expectations of any child row, with the additional need to supply the `aria-expanded` attribute when it is expanded.
 
@@ -133,4 +118,4 @@ By making the `TableRecord` support hierarchy in its structure, it seemed possib
 
 ## Open Issues
 
-See lazy loading open question above.
+None.
