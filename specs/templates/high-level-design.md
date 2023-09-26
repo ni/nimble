@@ -23,6 +23,11 @@
 
 *When applicable provide a list of third party libraries that are either intended to be leveraged, or were considered but discounted. Provide any reasoning that supports either decision. If no third party libraries were considered, provide a quick note explaining why such an evaluation was unnecessary.*
 
+*Information of interest regarding third party libraries includes:*
+    - *APIs we intend to use/considered using.*
+    - *Size of library.*
+    - *Licensing/Testing/Maturity/Stability/Security.*
+
 ## Alternative Implementations / Designs
 
 *Describe any design alternatives and discuss why they were rejected.*
