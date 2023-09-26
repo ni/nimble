@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Make tables in the Blazor and Angular example apps consistent with each other",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
