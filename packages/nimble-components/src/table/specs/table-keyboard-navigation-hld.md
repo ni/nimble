@@ -185,7 +185,7 @@ Assigning appropriate ARIA roles to the various elements inside the table is cri
 -   `role="columnheader"` : Provided to each `TableHeader` element as well as the container for the components responsible for various row actions like selection and collapse-all.
 -   `role="gridcell"` : Provided to each `TableCell` element. This is the recommended role for cells in a `treegrid`. This would also be applied to the container element at the front of each row that would host the row selection checkbox.
 
-_Note: For each `gridcell` in a row, there should be a corresponding `columnheader`
+\_Note: For each `gridcell` in a row, there should be a corresponding `columnheader`
 
 ## Alternative Implementations / Designs
 
