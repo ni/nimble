@@ -2,8 +2,7 @@ import { html, ref } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
-    createUserSelectedThemeStory,
-    incubatingWarning
+    createUserSelectedThemeStory
 } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
@@ -126,7 +125,7 @@ If a record does not exist in the table's data, it will not be selected. If mult
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
 const metadata: Meta<TableArgs> = {
-    title: 'Incubating/Table',
+    title: 'Components/Table',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
@@ -146,7 +145,6 @@ const metadata: Meta<TableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
-        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"

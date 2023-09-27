@@ -1,8 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
-    createUserSelectedThemeStory,
-    incubatingWarning
+    createUserSelectedThemeStory
 } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnIconTag } from '..';
@@ -52,7 +51,7 @@ const iconColumnDescription = `The \`nimble-table-column-icon\` column renders s
 ${columnOperationBehavior}`;
 
 const metadata: Meta<IconColumnTableArgs> = {
-    title: 'Incubating/Table Column - Icon',
+    title: 'Components/Table Column: Icon',
     parameters: {
         docs: {
             description: {
@@ -78,7 +77,6 @@ const validityDescription = `${sharedMappingValidityDescription}
 export const iconColumn: StoryObj<IconColumnTableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<IconColumnTableArgs>`
-        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
