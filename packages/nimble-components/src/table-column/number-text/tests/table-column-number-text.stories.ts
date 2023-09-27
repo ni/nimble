@@ -1,10 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import {
-    createUserSelectedThemeStory,
-    incubatingWarning
-} from '../../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnNumberTextTag } from '..';
 import {
@@ -51,7 +48,7 @@ const simpleData = [
 ];
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Incubating/Table Column - Number Text',
+    title: 'Components/Table Column: Number Text',
     decorators: [withActions],
     tags: ['autodocs'],
     parameters: {
@@ -136,10 +133,6 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<NumberTextColumnTableArgs>`
-        ${incubatingWarning({
-        componentName: 'table',
-        statusLink: 'https://github.com/orgs/ni/projects/7/views/21'
-    })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

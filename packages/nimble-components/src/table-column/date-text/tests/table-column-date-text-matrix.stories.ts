@@ -14,7 +14,7 @@ import {
 } from '../../../theme-provider/design-tokens';
 
 const metadata: Meta = {
-    title: 'Tests/Table Column - Date Text',
+    title: 'Tests/Table Column: Date Text',
     parameters: {
         ...sharedMatrixParameters()
     }
