@@ -85,7 +85,7 @@ A Blazor wrapper will be created for the component.
 
 Will use same text styling as the `nimble-table-column-text`.
 
-Values will be left-aligned. Right-alignment is useful when numeric values have aligned decimal points and are given in the same units. In that case, right-alignment allows for quick scanning to determine relative magnitude. But our column will not use a consistent number of decimal digits, nor a consistent unit. This leaves no motivation for right-aligning the values, while left-aligning provides better association with the column header.
+Values will be left-aligned. Right-alignment is useful when numeric values have aligned decimal points and are given in the same units. In that case, right-alignment allows for quick scanning to determine relative magnitude. But our column will not use a consistent number of decimal digits, nor a consistent unit. This leaves no clear motivation for right-aligning the values, while left-aligning provides better association with the column header. However, if we discover that there is value in right-aligning file sizes, we can easily make that change in a non-breaking way in the future.
 
 ## Implementation
 
