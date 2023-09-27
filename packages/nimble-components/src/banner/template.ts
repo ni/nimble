@@ -35,13 +35,13 @@ export const template = html<Banner>`
     >
         <div class="icon">
             ${when(x => x.severity === BannerSeverity.error, html`
-                <${iconExclamationMarkTag} role="graphics-symbol" aria-label="Error"></${iconExclamationMarkTag}>
+                <${iconExclamationMarkTag} role="img" aria-label="Error"></${iconExclamationMarkTag}>
             `)}
             ${when(x => x.severity === BannerSeverity.warning, html`
-                <${iconTriangleFilledTag} role="graphics-symbol" aria-label="Warning"></${iconTriangleFilledTag}>
+                <${iconTriangleFilledTag} role="img" aria-label="Warning"></${iconTriangleFilledTag}>
             `)}
             ${when(x => x.severity === BannerSeverity.information, html`
-                <${iconInfoTag} role="graphics-symbol" aria-label="Information"></${iconInfoTag}>
+                <${iconInfoTag} role="img" aria-label="Information"></${iconInfoTag}>
             `)}
         </div>
         <div class="text">
