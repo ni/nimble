@@ -1,8 +1,6 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory
-} from '../../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnEnumTextTag } from '..';
 import {
