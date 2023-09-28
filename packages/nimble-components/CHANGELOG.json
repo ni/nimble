@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 28 Sep 2023 22:20:40 GMT",
+      "tag": "@ni/nimble-components_v20.6.0",
+      "version": "20.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2b8788206af0718623968a736ab30cb8ec8766da",
+            "comment": "Hide icons from accessibility tree by default"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 28 Sep 2023 03:38:31 GMT",
       "tag": "@ni/nimble-components_v20.5.5",
       "version": "20.5.5",

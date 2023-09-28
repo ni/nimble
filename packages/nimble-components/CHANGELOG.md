@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 28 Sep 2023 03:38:31 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Sep 2023 22:20:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.6.0
+
+Thu, 28 Sep 2023 22:20:40 GMT
+
+### Minor changes
+
+- Hide icons from accessibility tree by default ([ni/nimble@2b87882](https://github.com/ni/nimble/commit/2b8788206af0718623968a736ab30cb8ec8766da))
 
 ## 20.5.5
 
