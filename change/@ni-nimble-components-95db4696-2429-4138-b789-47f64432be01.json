@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Support for pasting a hyperlink as an absolute link in the rich text editor",
-  "packageName": "@ni/nimble-components",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 26 Sep 2023 21:18:40 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Sep 2023 03:38:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.5.5
+
+Thu, 28 Sep 2023 03:38:31 GMT
+
+### Patches
+
+- Support for pasting a hyperlink as an absolute link in the rich text editor ([ni/nimble@3d5285d](https://github.com/ni/nimble/commit/3d5285dc230dc7d5c859d948993b67788e57365a))
 
 ## 20.5.4
 
