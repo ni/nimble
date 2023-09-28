@@ -348,32 +348,39 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
         fragment.forEach(node => {
             if (node.isText && node.marks.length > 0) {
-                let textNode = node;
-                node.marks.forEach(mark => {
-                    if (mark.type.name === 'link' && mark.attrs) {
-                        // Checks if the link is valid link or not
-                        if (
-                            this.validAbsoluteLinkRegex.test(
-                                mark.attrs.href as string
-                            )
-                        ) {
-                            // The below line of code is responsible for updating the text content with its href value and creates a new updated text node.
-                            // This code needs an update when the hyperlink support is added.
-                            // See: https://github.com/ni/nimble/issues/1527
-                            textNode = this.tiptapEditor.schema.text(
-                                mark.attrs.href as string,
+                const linkMark = node.marks.find(
+                    mark => mark.type.name === 'link' && mark.attrs
+                );
+                if (linkMark) {
+                    // Checks if the link is valid link or not
+                    // Needing to separately validate the link on paste is a workaround for a tiptap issue
+                    // See: https://github.com/ni/nimble/issues/1527
+                    if (
+                        this.validAbsoluteLinkRegex.test(
+                            linkMark.attrs.href as string
+                        )
+                    ) {
+                        // The below lines of code is responsible for updating the text content with its href value and creates a new updated text node.
+                        // This code needs an update when the hyperlink support is added.
+                        // See: https://github.com/ni/nimble/issues/1527
+                        updatedNodes.push(
+                            this.tiptapEditor.schema.text(
+                                linkMark.attrs.href as string,
                                 node.marks
-                            );
-                        } else {
-                            // If it is a invalid link, creates a new Text node with the same text content and without a Link mark.
-                            textNode = this.tiptapEditor.schema.text(
+                            )
+                        );
+                    } else {
+                        // If it is a invalid link, creates a new Text node with the same text content and without a Link mark.
+                        updatedNodes.push(
+                            this.tiptapEditor.schema.text(
                                 node.textContent,
-                                mark.removeFromSet(node.marks)
-                            );
-                        }
+                                linkMark.removeFromSet(node.marks)
+                            )
+                        );
                     }
-                });
-                updatedNodes.push(textNode);
+                } else {
+                    updatedNodes.push(node);
+                }
             } else {
                 const updatedContent = this.updateLinkNodes(node.content);
                 updatedNodes.push(node.copy(updatedContent));
