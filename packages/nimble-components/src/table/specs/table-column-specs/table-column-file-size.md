@@ -24,6 +24,8 @@ The file size table column will provide a way to visualize numeric data that rep
 
 ### Risks and Challenges
 
+The byte formatting pipe currently used in SLE converts using a factor of 1024, but uses unit labels KB/MB/GB. In order to avoid showing different values or units for the same file outside of an `sl-table`, we should modify the SLE pipe to be consistent with our implementation. If there are other clients that would have the same problem, they will just display the file sizes inconsistently.
+
 ### Prior Art/Examples
 
 Size column in [SLE Files grid](https://dev.lifecyclesolutions.ni.com/files/)
@@ -155,7 +157,15 @@ For this we will use `Intl.NumberFormat`, passing in the value of the `lang` des
 
 #### Localization of the unit label
 
-This is more difficult, as there does not seem to be any API for getting a file size unit string for a given locale. Options:
+This is more difficult, as there does not seem to be a great API for getting a file size unit string for a given locale. The only implemenation I've found is `Intl.NumberFormat`. This function can also do the numeric conversion, but we would not use it for that, because it only supports converting by using a factor of 1000, not 1024. We could instead do the number conversion ourselves and just ask `Intl.NumberFormat` to translate the unit string we need. However, we would have to work around several limitations:
+
+-   Does not have translations for KiB/MiB/etc.
+-   Does not translate plural "bytes".
+-   Throws error for locales with lang subtag `zh_CN` and `zh_TW` -- expects just `zh`.
+-   Requires creating separate `Intl.NumberFormat` instances for each unit we wish to translate.
+-   Missing translations for "byte" in French (gives "o" instead of "octet"), Japanese ("バイト"), Chinese ("字节" in simplified or "位元組" in traditional), Korean ("바이트"), Russian ("Б" instead of "байт"), and probably others.
+
+Options:
 
 1. Find translations of each of our unit labels ("byte", "bytes", "KB", "MB", "GB", "TB", "PB", "KiB", "MiB", "GiB", "TiB", "PiB") for a fixed set of languages we wish to support. Maintain a mapping of language codes (e.g. "fr", "de", "zh_CN") to arrays of those localized unit labels. Given a locale to use, look up its language subtag in our map. If not found, fall back to English.
 
@@ -169,19 +179,19 @@ This is more difficult, as there does not seem to be any API for getting a file 
 
 **Cons:** Less convenient for clients. Does not honor the `lang` setting on the page or on `nimble-theme-provider`.
 
-I suggest we go with option 1, primarily because I am hesitant to add twelve new label provider strings that clients are expected to localize. I suggest initially supporting the following languages:
+3. Use `Intl.NumberFormat` and drop support for units based on a factor of 1024.
 
--   English ('en')
--   German ('de')
--   Spanish ('es')
--   French ('fr')
--   Italian ('it')
--   Hebrew ('iw' or 'he')
--   Russian ('ru')
--   Turkish ('tr')
--   Japanese ('ja')
--   Chinese - simplified ('zh_CN')
--   Chinese - traditional ('zh_TW')
+**Pros:** No translation work for the client or Nimble team. Honors `lang` value.
+
+**Cons:** No support for 1024-based units. Shows "byte" unit even for multiple bytes. Missing several translations for "byte". Unclear if missing translations for other units (KB, MB, etc.).
+
+4. Use `Intl.NumberFormat` and support both 1024 or 1000 based conversions, but just always use KB/MB/GB/TB/PB as the units. There is precedent for this, so it may not be surprising to clients. This is what SLE's current implementation does.
+
+**Pros:** No translation work for the client or Nimble team. Honors `lang` value.
+
+**Cons:** Potentially misleading units label for 1024-based values. Shows "byte" unit even for multiple bytes. Missing several translations for "byte". Unclear if missing translations for other units (KB, MB, etc.).
+
+I suggest we go with option 2, because it results in the best unit labels, without giving up any functionality, and with translation accuracy being the concern of the client.
 
 ### Security
 
@@ -220,3 +230,5 @@ This component will be documented via a new story in Storybook.
 ## Open Issues
 
 -   Is there a better name for this column type? E.g. `nimble-table-column-memory-size`.
+-   Should we support grouping?
+-   What is our unit localization approach?
