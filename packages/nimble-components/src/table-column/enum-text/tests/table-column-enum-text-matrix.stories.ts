@@ -7,7 +7,7 @@ import { tableColumnEnumTextTag } from '..';
 import { mappingTextTag } from '../../../mapping/text';
 
 const metadata: Meta = {
-    title: 'Tests/Table Column - Enum Text',
+    title: 'Tests/Table Column: Enum Text',
     parameters: {
         ...sharedMatrixParameters()
     }
