@@ -10,11 +10,10 @@ The elapsed time table column will provide a way to visualize numeric data that 
 
 ### Non-goals
 
-- APIs to configure individual aspects of the display (i.e. fractional digits for seconds display)
-- APIs to format the elapsed time in a variety of ways
-    - Show elapsed time as digital display (00:01:20.323)
-    - Show elapsed time with symbols indicating a quantitative value (i.e. "< 1 sec")
-
+-   APIs to configure individual aspects of the display (i.e. fractional digits for seconds display)
+-   APIs to format the elapsed time in a variety of ways
+    -   Show elapsed time as digital display (00:01:20.323)
+    -   Show elapsed time with symbols indicating a quantitative value (i.e. "< 1 sec")
 
 ### Risks and Challenges
 
@@ -47,9 +46,10 @@ _*Props/Attrs*_
 This would result in a column whose value would only show up to the 'hours' unit. We would show up to two fractional digits as needed. Formatting to change slightly from what SLE offers now using "hr" instead of "h", and "sec" instead of "s".
 
 Examples:
-- "1 hr, 30 min, 2 sec"
-- "2 min, 3.55 sec"
-- "5,000 hr, 2 min, 1 sec"
+
+-   "1 hr, 30 min, 2 sec"
+-   "2 min, 3.55 sec"
+-   "5,000 hr, 2 min, 1 sec"
 
 ### Anatomy
 
@@ -94,18 +94,21 @@ _*Props/Attrs*_
 This would offer clients to display elapsed time in other forms, but not to intermix formats between the various parts.
 
 Examples:
-- "short": "1 hr, 30 min, 2 sec"
-- "narrow": "1h, 30m, 2s"
-- "long": "1 hour, 30 minutes, 20 seconds"
+
+-   "short": "1 hr, 30 min, 2 sec"
+-   "narrow": "1h, 30m, 2s"
+-   "long": "1 hour, 30 minutes, 20 seconds"
 
 Pros:
-- Offers a little more configuration
-- Not much extra cost to provide more display flexibility
-- Aligns with the `Intl.DurationFormat` API that is in development
+
+-   Offers a little more configuration
+-   Not much extra cost to provide more display flexibility
+-   Aligns with the `Intl.DurationFormat` API that is in development
 
 Cons:
-- No immediate need identified that would leverage the flexibility
-- Risk of introducing API that we ultimately would prefer not to use?
+
+-   No immediate need identified that would leverage the flexibility
+-   Risk of introducing API that we ultimately would prefer not to use?
 
 ### Full configuration
 
@@ -114,11 +117,13 @@ This option would be more akin to the [`TableColumnDateText` API](https://github
 Recommendation with this approach (if we decided to use this initially) would be to not support the `"digital"` `style` mode.
 
 Pros:
-- Offers greatest set of flexibility for clients including the ability to display 'days' and 'years'.
+
+-   Offers greatest set of flexibility for clients including the ability to display 'days' and 'years'.
 
 Cons:
-- Increases implementation cost
-- Higher risk of API ultimately not aligning with what we eventually want (particularly if `Intl.DurationFormat` is never formally adopted).
+
+-   Increases implementation cost
+-   Higher risk of API ultimately not aligning with what we eventually want (particularly if `Intl.DurationFormat` is never formally adopted).
 
 Neither of the above options seem critical to implement initially, as we can always add features as needed.
 
