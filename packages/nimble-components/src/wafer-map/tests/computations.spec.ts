@@ -1,7 +1,7 @@
 import type { WaferMap } from '..';
 import { Computations } from '../modules/computations';
 import { Margin, WaferMapOriginLocation } from '../types';
-import { getWaferMapDies } from './utilities';
+import { getWaferMapMockComputations, getWaferMapDies } from './utilities';
 
 describe('Wafermap Computations module', () => {
     let computationsModule: Computations;
@@ -14,20 +14,12 @@ describe('Wafermap Computations module', () => {
             left: 4
         };
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            | 'dies'
-            | 'originLocation'
-            | 'canvasWidth'
-            | 'canvasHeight'
-            | 'validity'
-            > = {
-                dies: getWaferMapDies(),
-                originLocation: WaferMapOriginLocation.topLeft,
-                canvasWidth: 100,
-                canvasHeight: 100,
-                validity: { invalidGridDimensions: false }
-            };
+            const waferMock = getWaferMapMockComputations(
+                getWaferMapDies(),
+                WaferMapOriginLocation.topLeft,
+                100,
+                100
+            );
             computationsModule = new Computations(waferMock as WaferMap);
             computationsModule.updateContainerDimensions();
         });
@@ -72,20 +64,12 @@ describe('Wafermap Computations module', () => {
 
     describe('with rectangular canvas', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            | 'dies'
-            | 'originLocation'
-            | 'canvasWidth'
-            | 'canvasHeight'
-            | 'validity'
-            > = {
-                dies: getWaferMapDies(),
-                originLocation: WaferMapOriginLocation.topLeft,
-                canvasWidth: 200,
-                canvasHeight: 100,
-                validity: { invalidGridDimensions: false }
-            };
+            const waferMock = getWaferMapMockComputations(
+                getWaferMapDies(),
+                WaferMapOriginLocation.topLeft,
+                200,
+                100
+            );
             computationsModule = new Computations(waferMock as WaferMap);
             computationsModule.updateContainerDimensions();
         });
@@ -124,20 +108,12 @@ describe('Wafermap Computations module', () => {
 
     describe('with top left originLocation', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            | 'dies'
-            | 'originLocation'
-            | 'canvasWidth'
-            | 'canvasHeight'
-            | 'validity'
-            > = {
-                dies: getWaferMapDies(),
-                originLocation: WaferMapOriginLocation.topLeft,
-                canvasWidth: 100,
-                canvasHeight: 100,
-                validity: { invalidGridDimensions: false }
-            };
+            const waferMock = getWaferMapMockComputations(
+                getWaferMapDies(),
+                WaferMapOriginLocation.topLeft,
+                100,
+                100
+            );
             computationsModule = new Computations(waferMock as WaferMap);
             computationsModule.updateContainerDimensions();
         });
@@ -154,20 +130,12 @@ describe('Wafermap Computations module', () => {
 
     describe('with top right originLocation', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            | 'dies'
-            | 'originLocation'
-            | 'canvasWidth'
-            | 'canvasHeight'
-            | 'validity'
-            > = {
-                dies: getWaferMapDies(),
-                originLocation: WaferMapOriginLocation.topRight,
-                canvasWidth: 100,
-                canvasHeight: 100,
-                validity: { invalidGridDimensions: false }
-            };
+            const waferMock = getWaferMapMockComputations(
+                getWaferMapDies(),
+                WaferMapOriginLocation.topRight,
+                100,
+                100
+            );
             computationsModule = new Computations(waferMock as WaferMap);
             computationsModule.updateContainerDimensions();
         });
@@ -184,20 +152,12 @@ describe('Wafermap Computations module', () => {
 
     describe('with bottom left originLocation', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            | 'dies'
-            | 'originLocation'
-            | 'canvasWidth'
-            | 'canvasHeight'
-            | 'validity'
-            > = {
-                dies: getWaferMapDies(),
-                originLocation: WaferMapOriginLocation.bottomLeft,
-                canvasWidth: 100,
-                canvasHeight: 100,
-                validity: { invalidGridDimensions: false }
-            };
+            const waferMock = getWaferMapMockComputations(
+                getWaferMapDies(),
+                WaferMapOriginLocation.bottomLeft,
+                100,
+                100
+            );
             computationsModule = new Computations(waferMock as WaferMap);
             computationsModule.updateContainerDimensions();
         });
@@ -214,20 +174,12 @@ describe('Wafermap Computations module', () => {
 
     describe('with bottom right originLocation', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            | 'dies'
-            | 'originLocation'
-            | 'canvasWidth'
-            | 'canvasHeight'
-            | 'validity'
-            > = {
-                dies: getWaferMapDies(),
-                originLocation: WaferMapOriginLocation.bottomRight,
-                canvasWidth: 100,
-                canvasHeight: 100,
-                validity: { invalidGridDimensions: false }
-            };
+            const waferMock = getWaferMapMockComputations(
+                getWaferMapDies(),
+                WaferMapOriginLocation.bottomRight,
+                100,
+                100
+            );
             computationsModule = new Computations(waferMock as WaferMap);
             computationsModule.updateContainerDimensions();
         });
