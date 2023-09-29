@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Flipped the vertical scale and created wafer map pocks for tests",
+  "packageName": "@ni/nimble-components",
+  "email": "33986780+munteannatan@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
