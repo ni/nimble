@@ -249,13 +249,15 @@ export class Computations {
             .paddingOuter(0)
             .align(0)
             .round(false);
+        // html canvas has top-left origin https://www.w3schools.com/graphics/canvas_coordinates.asp
+        // we need to flip the vertical scale
         if (
             originLocation === WaferMapOriginLocation.bottomLeft
             || originLocation === WaferMapOriginLocation.bottomRight
         ) {
-            return scale.range([0, containerHeight]);
+            return scale.range([containerHeight, 0]);
         }
-        return scale.range([containerHeight, 0]);
+        return scale.range([0, containerHeight]);
     }
 
     private createInvertedVerticalScale(
@@ -264,15 +266,17 @@ export class Computations {
         containerHeight: number
     ): ScaleQuantile<number, number> {
         const scale = scaleQuantile().domain([0, containerHeight]);
+        // html canvas has top-left origin https://www.w3schools.com/graphics/canvas_coordinates.asp
+        // we need to flip the inverted vertical scale
         if (
             originLocation === WaferMapOriginLocation.bottomLeft
             || originLocation === WaferMapOriginLocation.bottomRight
         ) {
-            return scale.range(range(grid.origin.y, grid.origin.y + grid.rows));
+            return scale.range(
+                range(grid.origin.y, grid.origin.y + grid.rows).reverse()
+            );
         }
-        return scale.range(
-            range(grid.origin.y, grid.origin.y + grid.rows).reverse()
-        );
+        return scale.range(range(grid.origin.y, grid.origin.y + grid.rows));
     }
 
     private calculateMarginAddition(

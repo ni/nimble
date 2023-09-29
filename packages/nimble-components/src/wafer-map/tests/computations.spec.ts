@@ -146,8 +146,9 @@ describe('Wafermap Computations module', () => {
             expect(computationsModule.horizontalScale.range()).toEqual([0, 92]);
         });
 
-        it('should have decreasing vertical range', () => {
-            expect(computationsModule.verticalScale.range()).toEqual([92, 0]);
+        it('should have increasing vertical range', () => {
+            // because the canvas has top-left origin location we need to flip the vertical scale
+            expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
         });
     });
 
@@ -175,8 +176,9 @@ describe('Wafermap Computations module', () => {
             expect(computationsModule.horizontalScale.range()).toEqual([92, 0]);
         });
 
-        it('should have decreasing vertical range', () => {
-            expect(computationsModule.verticalScale.range()).toEqual([92, 0]);
+        it('should have increasing vertical range', () => {
+            // because the canvas has top-left origin location we need to flip the vertical scale
+            expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
         });
     });
 
@@ -204,8 +206,9 @@ describe('Wafermap Computations module', () => {
             expect(computationsModule.horizontalScale.range()).toEqual([0, 92]);
         });
 
-        it('should have increasing vertical range', () => {
-            expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
+        it('should have decreasing vertical range', () => {
+            // because the canvas has top-left origin location we need to flip the vertical scale
+            expect(computationsModule.verticalScale.range()).toEqual([92, 0]);
         });
     });
 
@@ -233,8 +236,9 @@ describe('Wafermap Computations module', () => {
             expect(computationsModule.horizontalScale.range()).toEqual([92, 0]);
         });
 
-        it('should have increasing vertical range', () => {
-            expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
+        it('should have decreasing vertical range', () => {
+            // because the canvas has top-left origin location we need to flip the vertical scale
+            expect(computationsModule.verticalScale.range()).toEqual([92, 0]);
         });
     });
 });
