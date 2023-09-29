@@ -377,11 +377,8 @@ const components = [
         blazorStatus: ComponentFrameworkStatus.ready
     },
     {
-        componentName: 'Split Icon Button',
-        designHref:
-            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece',
-        designLabel: 'XD',
-        issueHref: 'https://github.com/ni/nimble/issues/298',
+        componentName: 'Split Button',
+        issueHref: 'https://github.com/ni/nimble/issues/1523',
         issueLabel: 'Issue',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
@@ -465,6 +462,17 @@ const components = [
             'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A68679&mode=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/513',
+        issueLabel: 'Issue',
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
+        componentName: 'Toggle Button Group',
+        designHref:
+            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece',
+        designLabel: 'XD',
+        issueHref: 'https://github.com/ni/nimble/issues/298',
         issueLabel: 'Issue',
         componentStatus: ComponentFrameworkStatus.doesNotExist,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
