@@ -16,7 +16,7 @@ The file size table column will provide a way to visualize numeric data that rep
 
 ### Features
 
--   Converts the byte value to largest unit (e.g. KB, MB, GB) that results in a value of >=1
+-   Converts the byte value to largest unit (e.g. KB, MB, GB) that results in a value with magnitude >=1
 -   Option to use 1024-based units (e.g. KiB) or 1000-based units (e.g. KB)
 -   Displays up to one decimal place
 -   Sorts/groups by numeric value (number of bytes) rather than display string
@@ -24,7 +24,7 @@ The file size table column will provide a way to visualize numeric data that rep
 
 ### Risks and Challenges
 
-The byte formatting pipe currently used in SLE converts using a factor of 1024, but uses unit labels KB/MB/GB. In order to avoid showing different values or units for the same file outside of an `sl-table`, we should modify the SLE pipe to be consistent with our implementation. If there are other clients that would have the same problem, they will just display the file sizes inconsistently.
+The byte formatting pipe currently used in SLE converts using a factor of 1024, but uses unit labels KB/MB/GB. In order to avoid showing different values or units for the same file outside of an `sl-table`, we should modify the SLE pipe to be consistent with our implementation. Other clients with the same problem would be encouraged to use consistent conversions across the app.
 
 ### Prior Art/Examples
 
@@ -46,7 +46,7 @@ Chrome Dev Tools Network tab
 
 ### API
 
-`nimble-table-column-file-size`
+`nimble-table-column-byte-text`
 
 -   `field-name` - name of the record field containing the data. Data must be a `number` byte count.
 -   `unit-type` - "binary" (KiB, MiB, GiB, TiB, PiB) or "decimal" (KB, MB, GB, TB, PB); defaults to "decimal"
@@ -59,7 +59,7 @@ Given a data value of 2856 (bytes):
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-file-size field-name="size" unit-type="decimal">Size</nimble-table-column-file-size>
+    <nimble-table-column-byte-text field-name="size" unit-type="decimal">Size</nimble-table-column-byte-text>
 </nimble-table>
 ```
 
@@ -67,7 +67,7 @@ Given a data value of 2856 (bytes):
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-file-size field-name="size" unit-type="binary">Size</nimble-table-column-file-size>
+    <nimble-table-column-byte-text field-name="size" unit-type="binary">Size</nimble-table-column-byte-text>
 </nimble-table>
 ```
 
@@ -94,15 +94,15 @@ Values will be left-aligned. Right-alignment is useful when numeric values have 
 Cell view will extend `TableColumnTextCellViewBase` and use its template.
 
 ```ts
-class TableColumnFileSizeCellView extends TableColumnTextCellViewBase<
-    TableColumnFileSizeCellRecord,
-    TableColumnFileSizeColumnConfig
+class TableColumnByteTextCellView extends TableColumnTextCellViewBase<
+    TableColumnByteTextCellRecord,
+    TableColumnByteTextColumnConfig
 > {
     ...
 
     private updateText(): void {
         if (this.columnConfig) {
-            this.text = formatFileSize(
+            this.text = formatSize(
                 this.columnConfig.formatter, // instance of Intl.NumberFormat
                 this.unitStrings, // either ['byte', 'bytes', 'KB', ...] or ['byte', 'bytes', 'KiB', ...]
                 this.columnConfig.unitType,
@@ -115,16 +115,16 @@ class TableColumnFileSizeCellView extends TableColumnTextCellViewBase<
 }
 
 // Shared function also used by group header view
-function formatFileSize(
+function formatSize(
     formatter: Intl.NumberFormat,
     unitStrings: string[],
-    unitType: FileSizeUnitType,
+    unitType: ByteUnitType,
     byteCount: number
 ): string {
     let currentSize = byteCount;
     let unitIndex = 0;
     if (currentSize !== 1) {
-        const divisor = unitType === FileSizeUnitType.binary ? 1024 : 1000;
+        const divisor = unitType === ByteUnitType.binary ? 1024 : 1000;
         while (currentSize >= divisor && unitIndex < unitStrings.length) {
             currentSize /= divisor;
             unitIndex += 1;
@@ -139,11 +139,11 @@ Group header view will extend `TableColumnTextGroupHeaderViewBase` and use its t
 
 ### States
 
-N/A
+There are no invalid states. The only configuration option is `unit-type`, which will be strongly typed to disallow invalid values. For invalid data values like `Inf`, we just show an empty cell rather than putting the whole column (and table) in an invalid state. We support negative numbers in case a client wants to use this column to represent some kind of size delta.
 
 ### Accessibility
 
-Accessibility of the cells rendered using the `nimble-table-column-file-size` are handled via the [`nimble-table-cell`](https://github.com/ni/nimble/blob/f663c38741e731bef91aa58e8fb2d1cec653b679/packages/nimble-components/src/table/components/cell/template.ts#L6) which has a `role` of [`cell`](https://w3c.github.io/aria/#cell).
+Accessibility of the cells rendered using the `nimble-table-column-byte-text` are handled via the [`nimble-table-cell`](https://github.com/ni/nimble/blob/f663c38741e731bef91aa58e8fb2d1cec653b679/packages/nimble-components/src/table/components/cell/template.ts#L6) which has a `role` of [`cell`](https://w3c.github.io/aria/#cell).
 
 ### Mobile
 
@@ -157,41 +157,41 @@ For this we will use `Intl.NumberFormat`, passing in the value of the `lang` des
 
 #### Localization of the unit label
 
-This is more difficult, as there does not seem to be a great API for getting a file size unit string for a given locale. The only implemenation I've found is `Intl.NumberFormat`. This function can also do the numeric conversion, but we would not use it for that, because it only supports converting by using a factor of 1000, not 1024. We could instead do the number conversion ourselves and just ask `Intl.NumberFormat` to translate the unit string we need. However, we would have to work around several limitations:
-
--   Does not have translations for KiB/MiB/etc.
--   Does not translate plural "bytes".
--   Throws error for locales with lang subtag `zh_CN` and `zh_TW` -- expects just `zh`.
--   Requires creating separate `Intl.NumberFormat` instances for each unit we wish to translate.
--   Missing translations for "byte" in French (gives "o" instead of "octet"), Japanese ("バイト"), Chinese ("字节" in simplified or "位元組" in traditional), Korean ("바이트"), Russian ("Б" instead of "байт"), and probably others.
+This is more difficult, as there does not seem to be a great API for getting a file size unit string for a given locale. The only implemenation I've found is `Intl.NumberFormat`. This function can also do the numeric conversion, but we would not use it for that, because it only supports converting by using a factor of 1000, not 1024. We could instead do the number conversion ourselves and just ask `Intl.NumberFormat` to translate the unit string we need. However, it does not support translations for KiB/MiB/etc.
 
 Options:
 
 1. Find translations of each of our unit labels ("byte", "bytes", "KB", "MB", "GB", "TB", "PB", "KiB", "MiB", "GiB", "TiB", "PiB") for a fixed set of languages we wish to support. Maintain a mapping of language codes (e.g. "fr", "de", "zh_CN") to arrays of those localized unit labels. Given a locale to use, look up its language subtag in our map. If not found, fall back to English.
 
-**Pros:** No work for clients.
+    **Pros:** No work for clients.
 
-**Cons:** Only supports a fixed set of languages. Up to us to find accurate translations. Unsure if subtags other than the language (e.g. region) could be relevant to the translation.
+    **Cons:** Only supports a fixed set of languages. Up to us to find accurate translations. In some cases, subtags other than the language (e.g. region) are relevant to the translation, e.g. `zh-CN` vs `zh-TW`.
 
 2. Use Nimble label provider. Add label tokens for the units, and rely on clients to provide translations.
 
-**Pros:** Supports any language a client cares to provide translations for.
+    **Pros:** Supports any language a client cares to provide translations for.
 
-**Cons:** Less convenient for clients. Does not honor the `lang` setting on the page or on `nimble-theme-provider`.
+    **Cons:** Less convenient for clients. Does not honor the `lang` setting on the page or on `nimble-theme-provider`.
 
-3. Use `Intl.NumberFormat` and drop support for units based on a factor of 1024.
+3. Use `Intl.NumberFormat` and drop support for units using a conversion factor of 1024.
 
-**Pros:** No translation work for the client or Nimble team. Honors `lang` value.
+    **Pros:** No translation work for the client or Nimble team. Honors `lang` value.
 
-**Cons:** No support for 1024-based units. Shows "byte" unit even for multiple bytes. Missing several translations for "byte". Unclear if missing translations for other units (KB, MB, etc.).
+    **Cons:** No support for 1024-based units.
 
 4. Use `Intl.NumberFormat` and support both 1024 or 1000 based conversions, but just always use KB/MB/GB/TB/PB as the units. There is precedent for this, so it may not be surprising to clients. This is what SLE's current implementation does.
 
-**Pros:** No translation work for the client or Nimble team. Honors `lang` value.
+    **Pros:** No translation work for the client or Nimble team. Honors `lang` value.
 
-**Cons:** Potentially misleading units label for 1024-based values. Shows "byte" unit even for multiple bytes. Missing several translations for "byte". Unclear if missing translations for other units (KB, MB, etc.).
+    **Cons:** Potentially misleading units label for 1024-based values.
 
-I suggest we go with option 2, because it results in the best unit labels, without giving up any functionality, and with translation accuracy being the concern of the client.
+5. Combination of options 1 and 3: use `Intl.NumberFormat` to translate the units it supports, and provide our own translations for KiB/MiB/GiB/TiB/PiB for a small number of languages.
+
+    **Pros:** No translation work for the client. Honors `lang` value.
+
+    **Cons:** For "binary" `unit-type`, only a small, fixed set of languages will have translations. Nimble team must provide translations. More disjoint/complex logic.
+
+I suggest we go with option 5, because it results in the best unit labels, without translation burden on the client, and without giving up any functionality.
 
 ### Security
 
@@ -229,6 +229,4 @@ This component will be documented via a new story in Storybook.
 
 ## Open Issues
 
--   Is there a better name for this column type? E.g. `nimble-table-column-memory-size`.
--   Should we support grouping?
 -   What is our unit localization approach?

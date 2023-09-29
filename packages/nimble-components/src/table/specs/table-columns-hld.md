@@ -86,6 +86,8 @@ Columns should follow the [Nimble components naming scheme](/packages/nimble-com
 -   the "presentation" describes the cell visual. For example, `text`, `anchor`, or `progress`
 -   the "variant" can be different configurations of those presentations. For example, `numeric-text` or `date-text`.
 
+Column names should always include the presentation. In the case where a column has an "implicit variant" (i.e. simple/primitive/intuitive type for a given presentation), the name may leave out the variant. For example, `nimble-table-column-progress` has a presentation "progress" and an implicit variant of "number".
+
 Some potential column names following this convention are listed below.
 
 ```
@@ -96,11 +98,9 @@ nimble-table-column-date-text
 nimble-table-column-progress
 nimble-table-column-text-field
 nimble-table-column-number-field
-nimble-table-column-mapping
+nimble-table-column-enum-text
 nimble-table-column-icon
 ```
-
-Note: Despite currently being presented as text, the mapping column is not `nimble-table-column-mapping-text` because it may render with alternate presentations in the future (e.g. icon + text) so "mapping" is considered the presentation.
 
 ### Framework Integration
 

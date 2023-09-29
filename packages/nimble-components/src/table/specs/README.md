@@ -108,7 +108,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   [Formatted Text Columns](table-column-specs/table-column-formatted-text.md)
         -   [TableColumnAnchor](table-column-specs/table-column-anchor-hld.md)
         -   [TableColumnEnumText/TableColumnIcon](table-column-specs/table-column-mapping.md)
-        -   [TableColumnFileSize](table-column-specs/table-column-file-size.md)
+        -   [TableColumnByteText](table-column-specs/table-column-file-size.md)
 -   Headers
     -   Define the anatomy of headers in the table DOM
         -   What is the component to use for interaction? Outline Button? Ghost button?
