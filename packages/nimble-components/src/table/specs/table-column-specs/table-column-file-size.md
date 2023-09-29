@@ -159,6 +159,8 @@ For this we will use `Intl.NumberFormat`, passing in the value of the `lang` des
 
 This is more difficult, as there does not seem to be a great API for getting a file size unit string for a given locale. The only implemenation I've found is `Intl.NumberFormat`. This function can also do the numeric conversion, but we would not use it for that, because it only supports converting by using a factor of 1000, not 1024. We could instead do the number conversion ourselves and just ask `Intl.NumberFormat` to translate the unit string we need. However, it does not support translations for KiB/MiB/etc.
 
+**Implementation note:** We must set `unitDisplay: "long"` when translating `unit: "byte"` in order to get proper pluralization and support for all languages.
+
 Options:
 
 1. Find translations of each of our unit labels ("byte", "bytes", "KB", "MB", "GB", "TB", "PB", "KiB", "MiB", "GiB", "TiB", "PiB") for a fixed set of languages we wish to support. Maintain a mapping of language codes (e.g. "fr", "de", "zh_CN") to arrays of those localized unit labels. Given a locale to use, look up its language subtag in our map. If not found, fall back to English.
@@ -230,3 +232,8 @@ This component will be documented via a new story in Storybook.
 ## Open Issues
 
 -   What is our unit localization approach?
+-   What is the default `unit-type`?
+-   Are we okay with left-aligning?
+-   Should we consider making this a more general "auto-unit-conversion" column, or even adding the functionality to the number column?
+-   Are SLE POs okay with changing file size units to "MiB" or would they rather we switch to a 1000-based conversion factor?
+-   Should we export a formatting function for clients to use elsewhere (for consistency). Should we allow them to provide their own?
