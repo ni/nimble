@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Emit event from anchored region when the target scrolls out of view and leverage it in the menu button to close the menu when the menu scrolls out of view",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
