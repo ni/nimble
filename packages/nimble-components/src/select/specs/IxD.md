@@ -36,7 +36,7 @@ When not to use:
 | Label        | Text that tells the end-user what to expect in the list of options      |
 | Field button | Click area that opens the menu and displays the current selected option |
 | Menu         | A list of options to choose from displayed as an _open_ state           |
-| Menu item    | A selection the end-user can make, shown with other options in the menu |
+| List option  | A selection the end-user can make, shown with other options in the menu |
 
 #### Label
 
@@ -50,19 +50,19 @@ In a form, use the label to indicate whether the select is optional or required 
 
 #### Field Button
 
-Selects can be empty by default or have a default selection from the menu. Empty selects should include placeholder text that propts the end-user to select an option from the menu. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Ellipses are not needed. Use sentence casing.
+Selects can be empty by default or have a default selection from the menu. Empty selects should include placeholder text that propts the end-user to select an option from the menu. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Ellipses are not needed for the placeholder (unless long enough to truncate). Use sentence casing for the placeholder.
 
 ![ ](spec-images/select-4.png)
 
-#### Menu & Menu Items
+#### Menu & List Options
 
-A list of options to select, displayed as an open state. Order menu items alphabetically by default, unless another ordering will provide value to the end-user. Keep the menu item text concise as possible, limited to a single line of text. Use sentence casing.
+A list of options to select, displayed as an open state. Order list options alphabetically by default, unless another ordering will provide value to the end-user. Keep the list option text concise as possible, limited to a single line of text. Use sentence casing.
 
 ![ ](spec-images/select-5.png)
 
 > NOTE: NEED VISUAL DESIGN GUIDANCE FOR ICON SIZES, WHAT CAN BE USED AS AN ICON, ETC.
 
-In addition to text, menu items can include an icon to the left of the text, which also appears in the field button when selected. Icons should only be used when they provide more immediate communication to the user than the text. Do not include icons unless all menu items have an icon.
+In addition to text, list options can include an icon to the left of the text, which also appears in the field button when selected. Icons should only be used when they provide more immediate communication to the user than the text. Do not include icons unless all list options have an icon.
 
 ![ ](spec-images/select-7.png)
 
@@ -74,9 +74,13 @@ To allow end-users to enter a custom value, use a [**combobox**](/packages/nimbl
 
 > NOTE: SEE FUTURE CONSIDERATIONS FOR MULTI-SELECTION
 
-To allow end-users to multi-select menu items, use a [**tag picker**](/packages/nimble-components/src/tag-picker/specs/IxD.md).
+To allow end-users to multi-select list options, use a [**tag picker**](/packages/nimble-components/src/tag-picker/specs/IxD.md).
 
 ![ ](spec-images/select-alternative-picker.png)
+
+To allow end-users to select less than three options, use a [**radio group**](/packages/nimble-components/src/radio-group/specs/IxD.md).
+
+To allow end-users to trigger an action instead of make a selection, use a [**menu button**](/packages/nimble-components/src/menu-button/specs/IxD.md).
 
 ## Design
 
@@ -92,15 +96,13 @@ The client-user should be able to specify whether they want the label to be posi
 
 #### Icons
 
-The client-user should be able to specify whether they want left icons on menu items or not. Icons show up in menu items to the left of text and are displayed as part of the value in the field button.
+The client-user should be able to specify whether they want left icons on list options or not. Icons show up in list options to the left of text and are displayed as part of the value in the field button.
 
 ![ ](spec-images/select-7.png)
 
 #### Groups
 
-> QUESTION: IS THE SL "VIEW" PICKER A SELECT (SHOULD IT BE)? WHAT ABOUT GROUPS WITHOUT LABELS, WHAT ABOUT A SELECTION GROUP VS. AN ACTION GROUP OF MENU ITEMS (A.K.A MEGA-MENUS)?
-
-The client-user should be able to create groups for menu items in the menu. Groups are not interactable. Filtering by group name should show all the options under that group, whether or not it is included in the option text.
+The client-user should be able to create groups for list options in the menu. Groups are not interactable. Filtering by group name should show all the options under that group, whether or not it is included in the option text.
 
 ![ ](spec-images/select-8.png)
 
@@ -108,7 +110,7 @@ The client-user should be able to create groups for menu items in the menu. Grou
 
 > NOTE: NEEDS VISUAL DESIGN
 
-The client-user should be able to specify whether they want secondary text on menu items or not.
+The client-user should be able to specify whether they want secondary text on list options or not. Filtering by secondary text should show all the options with that text.
 
 ![ ](spec-images/select-9.png)
 
@@ -126,7 +128,7 @@ The client-user should be able to specify whether they want to display selection
 
 #### Filter
 
-The client-user should be able to specify whether they want filtering available in the select component. The filter field appears in the menu.
+The client-user should be able to specify whether they want filtering available in the select component. The filter field appears in the menu. The filter applies to all list options, even ones that are on the server and aren't currently visible in the component.
 
 ![ ](spec-images/select-12.png)
 
@@ -136,13 +138,13 @@ The client-user should be able to specify whether they want filtering available 
 
 > NOTE: NEEDS DEV REVIEW
 
-The field button minimum width is three times the height of the component (to make components targetable on touch screens). The menu width is the same as the field button until reaching the minimum width (without truncating) of the longest string in the menu items.
+The field button minimum width is three times the height of the component (to make components targetable on touch screens). The menu width is the same as the field button until reaching the minimum width (without truncating) of the longest string in the list options.
 
 ![ ](spec-images/select-13.png)
 
 #### Menu Height
 
-The menu height should be enough to display five to seven menu items before overflowing with a vertical scrollbar (not pictured).
+The menu height should be enough to display five to seven list options before overflowing with a vertical scrollbar (not pictured).
 
 #### Overflow Text
 
@@ -156,13 +158,13 @@ All text in the select component should truncate, not wrap.
 
 > NOTE: HOW THIS (AND ANY) FEATURE IS INCLUDED IN IMPLEMENTATION IS UP TO DEVELOPERS
 
-When displaying menu items in the menu lags or is expected to take longer than normal, the menu should indicate that it's loading. The "Loading…" display is not interactive.
+When displaying list options in the menu lags or is expected to take longer than normal, the client-user should be able to indicate loading via a slot.
 
 ![ ](spec-images/select-15.png)
 
 > NOTE: IS THIS NEEDED? IF YES, NEEDS VISUAL DESIGN & TECH WRITER
 
-Menus with dynamically loading menu items may have a "Load more" button. Clicking the "Load more" button should resolve into the "Loading…" indication, then load more menu items and scroll the menu as needed.
+Menus with dynamically loading list options may have a "Load more" button. Clicking the "Load more" button should resolve into the "Loading…" indication, then load more list options and scroll the menu as needed.
 
 ![ ](spec-images/select-16.png)
 
@@ -182,19 +184,19 @@ Hovering over a field button indicates interactivity.
 
 ![ ](spec-images/select-19.png)
 
-Clicking anywhere on a field button opens (if closed) the menu. If the field button contains a valid value, selection is indicated on the associated menu item.
+Clicking anywhere on a field button opens (if closed) the menu. If the field button contains a valid value, selection is indicated on the associated list option.
 
 ![ ](spec-images/select-20.png)
 
-Hovering over a menu item in the menu indicates interactivity.
+Hovering over a list option in the menu indicates interactivity.
 
 ![ ](spec-images/select-21.png)
 
-Clicking anywhere on a menu item selects the item, displays the value in field button value, and closes the menu.
+Clicking anywhere on a list option selects the option, displays the value in field button value, and closes the menu.
 
 ![ ](spec-images/select-22.png)
 
-When the menu is open, clicking anywhere outside of a menu item (including the field button) closes the menu with no changes.
+When the menu is open, clicking anywhere outside of a list option (including the field button) closes the menu with no changes.
 
 ![ ](spec-images/select-23.png)
 
@@ -206,7 +208,7 @@ If the select component allows filtering, the filter bar has keyboard focus when
 
 > NOTE: NEEDS TECH WRITER FOR TEXT
 
-Typing into the filter bar filters the menu items in the menu (not pictured). The filter string can match anywhere in the text for each option. The menu should indicate when there are no matches found. The "No matches" indicator is not interactive.
+Typing into the filter bar filters the list options in the menu (not pictured). The filter string can match anywhere in the text for each option. The menu should indicate when there are no matches found. The "No matches" indicator is not interactive.
 
 ![ ](spec-images/select-25.png)
 
@@ -216,65 +218,67 @@ Typing into the filter bar filters the menu items in the menu (not pictured). Th
 
 #### Field Button
 
-| Key                    | Description                                                                                                                                                                       |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ENTER` or `SPACE`     | Opens the menu without moving focus or changing selection                                                                                                                         |
-| `DOWN ARROW`           | Opens the menu without moving focus or changing selection (DOM focus remains on the select)                                                                                       |
-| `ALT` + `DOWN ARROW`   | Opens the menu without moving focus or changing selection                                                                                                                         |
-| `UP ARROW`             | Opens the menu and moves visual focus to the first menu item (DOM focus remains on the select)                                                                                    |
-| `HOME`                 | Opens the menu and moves visual focus to the first menu item                                                                                                                      |
-| `END`                  | Opens the menu and moves visual focus to the last menu item                                                                                                                       |
-| _Printable characters_ | Opens the menu (if closed), moves visual focus to the filter input (if filterable) with the characters typed or to the first menu item that matches the typed character or string |
+| Key                    | Description                                                                                                                                                                         |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ENTER` or `SPACE`     | Opens the menu without moving focus or changing selection                                                                                                                           |
+| `DOWN ARROW`           | Opens the menu without moving focus or changing selection (DOM focus remains on the select)                                                                                         |
+| `ALT` + `DOWN ARROW`   | Opens the menu without moving focus or changing selection                                                                                                                           |
+| `UP ARROW`             | Opens the menu and moves visual focus to the first list option (DOM focus remains on the select)                                                                                    |
+| `HOME`                 | Opens the menu and moves visual focus to the first list option                                                                                                                      |
+| `END`                  | Opens the menu and moves visual focus to the last list option                                                                                                                       |
+| _Printable characters_ | Opens the menu (if closed), moves visual focus to the filter input (if filterable) with the characters typed or to the first list option that matches the typed character or string |
 
 `TAB` focuses the select component from the previous or next focusable element on the page.
 
 ![ ](spec-images/select-26.png)
 
-`ENTER` or `SPACE` on the focused component opens the menu and maintains current focus and (if applicable) menu item selection.
+`ENTER` or `SPACE` on the focused component opens the menu and maintains current focus and (if applicable) list option selection.
 
 ![ ](spec-images/select-27.png)
 
-`DOWN ARROW` on the focused component opens the menu and maintains current focus and (if applicable) menu item selection.
+`DOWN ARROW` on the focused component opens the menu and maintains current focus and (if applicable) list option selection.
 
 ![ ](spec-images/select-28.png)
 
 > NOTE: NEEDS DEV REVIEW & VISUAL DESIGN?
 
-`UP ARROW` on the focused component opens the menu and focuses (but does not select) the first or last menu item.
+`UP ARROW` on the focused component opens the menu and focuses (but does not select) the first or last list option.
 
 ![ ](spec-images/select-29.png)
 
 #### Menu
 
-> QUESTION: WHAT KEYBOARD SHORTCUT SHOULD BE USED TO FOCUS THE FIRST MENU ITEM AFTER THE FILTER BAR?
+> QUESTION: WHAT KEYBOARD SHORTCUT SHOULD BE USED TO FOCUS THE FIRST LIST OPTION AFTER THE FILTER BAR?
 
-| Key                        | Description                                                                                                                                                               |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ENTER` or `SPACE`         | Sets the value of the field button to the focused menu item, closes the menu, and moves focus to the select                                                               |
-| `DOWN ARROW` or `UP ARROW` | Moves visual focus to the next or previous menu item                                                                                                                      |
-| `ESC`                      | Closes the menu and moves visual focus to the select                                                                                                                      |
-| `HOME` or `END`            | Moves visual focus to the first or last menu item                                                                                                                         |
-| `PAGEUP` or `PAGEDOWN`     | Jumps visual focus up or down ten menu items (or to first or last menu item)                                                                                              |
-| _Printable characters_     | Moves visual focus to the filter input (if filterable) with the characters typed or to the first menu item (if not filterable) that matches the typed character or string |
+| Key                        | Description                                                                                                                                                                 |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ENTER` or `SPACE`         | Sets the value of the field button to the focused list option, closes the menu, and moves focus to the select                                                               |
+| `DOWN ARROW` or `UP ARROW` | Moves visual focus to the next or previous list option                                                                                                                      |
+| `ESC`                      | Closes the menu and moves visual focus to the select                                                                                                                        |
+| `HOME` or `END`            | Moves visual focus to the first or last list option                                                                                                                         |
+| `PAGEUP` or `PAGEDOWN`     | Jumps visual focus up or down ten list options (or to first or last list option)                                                                                            |
+| _Printable characters_     | Moves visual focus to the filter input (if filterable) with the characters typed or to the first list option (if not filterable) that matches the typed character or string |
 
-> NOTE: NEED VISUAL DESIGN TO DETERMINE WHETHER BOTH FOCUS AND SELECTION ARE VISUALLY INDICATED ON MENU ITEMS
+> NOTE: NEED VISUAL DESIGN TO DETERMINE WHETHER BOTH FOCUS AND SELECTION ARE VISUALLY INDICATED ON LIST OPTIONS
 
-From a focused menu item, `DOWN ARROW` moves focus and selects the next menu item. If the focused/selected menu item is the last in the menu, `DOWN ARROW` does nothing (not pictured).
+From a focused list option, `DOWN ARROW` moves focus and selects the next list option. If the focused/selected list option is the last in the menu, `DOWN ARROW` does nothing (not pictured).
 
 ![ ](spec-images/select-30.png)
 
-From a focused menu item, `UP ARROW` moves focus and selects the previous menu item. If the focused/selected menu item is the first in the menu, `UP ARROW` does nothing (not pictured).
+From a focused list option, `UP ARROW` moves focus and selects the previous list option. If the focused/selected list option is the first in the menu, `UP ARROW` does nothing (not pictured).
 
 ![ ](spec-images/select-31.png)
 
-`ENTER` on a focused/selected menu item commits the value, updates the field button, and closes the menu.
+`ENTER` on a focused/selected list option commits the value, updates the field button, and closes the menu.
 
 ![ ](spec-images/select-32.png)
 
-`ESC` on a focused/selected menu item cancels the value and closes the menu.
+`ESC` on a focused/selected list option cancels the value and closes the menu.
 
 ![ ](spec-images/select-33.png)
 
 ## Future Considerations
 
--   Helper text for input components (where it should be located, how it should be accessed).
+-   Helper text for input components (where it should be located, how it should be accessed)
+-   Mega-menus (combining static information, selectable options, action-based commands, etc.)
+-   Capturing usage guidelines/UI patterns for a "load more" experience in the menu
