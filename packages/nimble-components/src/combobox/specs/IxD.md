@@ -22,7 +22,8 @@ When to use:
 
 When not to use:
 
--   When text entry is not needed for selection
+-   When a value that is not in the list of options needs to be entered
+
 -   When there are fewer than three options
 -   For complex and/or hierarchical data
 -   For multi selection
@@ -45,7 +46,7 @@ Comboboxes should always have a label, unless approved by an interaction designe
 
 #### Field Input
 
-Comboboxes can be empty by default or have a default selection from the menu. Empty comboboxes should include placeholder text that propts the end-user to enter a custom value or select an option from the menu. Placeholder text should always follow the pattern "Enter or select [thing(s)]", for example "Enter or select address". Ellipses are not needed. Use sentence casing.
+Comboboxes can be empty by default or have a default selection from the menu. Empty comboboxes should include placeholder text that propts the end-user to enter a custom value or select an option from the menu. Placeholder text should always follow the pattern "Enter or select [thing(s)]", for example "Enter or select address". Ellipses are not needed for the placeholder. Use sentence casing for the placeholder.
 
 ![ ](spec-images/combobox-2.png)
 
@@ -62,6 +63,8 @@ To allow end-users to select a menu item but not enter a custom value, use a [**
 To allow end-users to multi-select menu items, use a [**tag picker**](/packages/nimble-components/src/tag-picker/specs/IxD.md).
 
 ![ ](spec-images/combobox-alternative-picker.png)
+
+To allow end-users to select less than three options, use a [**radio group**](/packages/nimble-components/src/radio-group/specs/IxD.md).
 
 ## Design
 
