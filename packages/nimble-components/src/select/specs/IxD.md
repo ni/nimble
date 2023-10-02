@@ -156,7 +156,7 @@ All text in the select component should truncate, not wrap.
 
 > NOTE: HOW THIS (AND ANY) FEATURE IS INCLUDED IN IMPLEMENTATION IS UP TO DEVELOPERS
 
-When displaying menu items in the menu lags or is expected to take longer than normal, the menu should indicate that it's loading. The "Loading…" display is not interactive.
+When displaying menu items and the menu lags or is expected to take longer than normal, the menu should indicate that it's loading. The "Loading…" display is not interactive.
 
 ![ ](spec-images/select-15.png)
 
