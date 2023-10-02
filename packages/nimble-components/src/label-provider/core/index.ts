@@ -4,7 +4,10 @@ import { DesignTokensFor, LabelProviderBase } from '../base';
 import {
     popupDismissLabel,
     numericDecrementLabel,
-    numericIncrementLabel
+    numericIncrementLabel,
+    errorIconLabel,
+    warningIconLabel,
+    informationIconLabel
 } from './label-tokens';
 
 declare global {
@@ -16,7 +19,10 @@ declare global {
 const supportedLabels = {
     popupDismiss: popupDismissLabel,
     numericDecrement: numericDecrementLabel,
-    numericIncrement: numericIncrementLabel
+    numericIncrement: numericIncrementLabel,
+    errorIcon: errorIconLabel,
+    warningIcon: warningIconLabel,
+    informationIcon: informationIconLabel
 } as const;
 
 /**
@@ -33,6 +39,15 @@ export class LabelProviderCore
 
     @attr({ attribute: 'numeric-increment' })
     public numericIncrement: string | undefined;
+
+    @attr({ attribute: 'error-icon' })
+    public errorIcon: string | undefined;
+
+    @attr({ attribute: 'warning-icon' })
+    public warningIcon: string | undefined;
+
+    @attr({ attribute: 'information-icon' })
+    public informationIcon: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }

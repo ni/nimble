@@ -6,7 +6,12 @@ import { iconInfoTag } from '../icons/info';
 import { iconTriangleFilledTag } from '../icons/triangle-filled';
 import { iconXmarkTag } from '../icons/xmark';
 import { BannerSeverity } from './types';
-import { popupDismissLabel } from '../label-provider/core/label-tokens';
+import {
+    errorIconLabel,
+    informationIconLabel,
+    popupDismissLabel,
+    warningIconLabel
+} from '../label-provider/core/label-tokens';
 
 // prettier-ignore
 export const template = html<Banner>`
@@ -34,14 +39,14 @@ export const template = html<Banner>`
         aria-roledescription="${x => x.ariaRoledescription}"
     >
         <div class="icon">
-            ${when(x => x.severity === BannerSeverity.error, html`
-                <${iconExclamationMarkTag}></${iconExclamationMarkTag}>
+            ${when(x => x.severity === BannerSeverity.error, html<Banner>`
+                <${iconExclamationMarkTag} role="img" aria-label="${x => errorIconLabel.getValueFor(x)}"></${iconExclamationMarkTag}>
             `)}
-            ${when(x => x.severity === BannerSeverity.warning, html`
-                <${iconTriangleFilledTag}></${iconTriangleFilledTag}>
+            ${when(x => x.severity === BannerSeverity.warning, html<Banner>`
+                <${iconTriangleFilledTag} role="img" aria-label="${x => warningIconLabel.getValueFor(x)}"></${iconTriangleFilledTag}>
             `)}
-            ${when(x => x.severity === BannerSeverity.information, html`
-                <${iconInfoTag}></${iconInfoTag}>
+            ${when(x => x.severity === BannerSeverity.information, html<Banner>`
+                <${iconInfoTag} role="img" aria-label="${x => informationIconLabel.getValueFor(x)}"></${iconInfoTag}>
             `)}
         </div>
         <div class="text">

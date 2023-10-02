@@ -1052,6 +1052,193 @@ describe('RichTextEditor', () => {
                     );
                 }
             });
+
+            describe('pasting various valid(https/http) links should render as absolute links', () => {
+                const differentValidLinks = [
+                    {
+                        name: 'Absolute link(https)',
+                        input: '<a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a>',
+                        url: 'https://nimble.ni.dev/'
+                    },
+                    {
+                        name: 'Hyper link(https)',
+                        input: '<a href="https://nimble.ni.dev/">Nimble</a>',
+                        url: 'https://nimble.ni.dev/'
+                    },
+                    {
+                        name: 'Absolute link(http)',
+                        input: '<a href="http://nimble.ni.dev/">http://nimble.ni.dev/</a>',
+                        url: 'http://nimble.ni.dev/'
+                    },
+                    {
+                        name: 'Hyper link(http)',
+                        input: '<a href="http://nimble.ni.dev/">Nimble</a>',
+                        url: 'http://nimble.ni.dev/'
+                    },
+                    {
+                        name: 'Absolute link(HTTP) in uppercase',
+                        input: '<a href="HTTP://NIMBLE.NI.DEV">HTTP://NIMBLE.NI.DEV</a>',
+                        url: 'HTTP://NIMBLE.NI.DEV'
+                    },
+                    {
+                        name: 'Hyper link(HttP) in mixed case',
+                        input: '<a href="HttP://NimblE.NI.DEV">Nimble</a>',
+                        url: 'HttP://NimblE.NI.DEV'
+                    }
+                ] as const;
+
+                parameterizeNamedList(
+                    differentValidLinks,
+                    (spec, name, value) => {
+                        spec(
+                            `${name} renders as absolute link(href and text content should be same) in editor`,
+                            () => {
+                                pageObject.pasteHTMLToEditor(value.input);
+
+                                expect(pageObject.getEditorTagNames()).toEqual([
+                                    'P',
+                                    'A'
+                                ]);
+                                expect(
+                                    pageObject.getEditorLeafContents()
+                                ).toEqual([value.url]);
+                                expect(
+                                    pageObject.getEditorLastChildAttribute(
+                                        'href'
+                                    )
+                                ).toBe(value.url);
+                            }
+                        );
+                    }
+                );
+            });
+
+            describe('pasting various links within text should render as absolute links within text ', () => {
+                const validLinkNodes = [
+                    {
+                        name: 'Absolute link(https) within paragraph node',
+                        input: '<p>Anchor between <a href="https://nimble.ni.dev">https://nimble.ni.dev</a> text</p>',
+                        url: 'https://nimble.ni.dev',
+                        textContent: 'Anchor between https://nimble.ni.dev text'
+                    },
+                    {
+                        name: 'Hyperlink(http) within paragraph node',
+                        input: '<p>Anchor between <a href="http://nimble.ni.dev">Nimble</a> text</p>',
+                        url: 'http://nimble.ni.dev',
+                        textContent: 'Anchor between http://nimble.ni.dev text'
+                    }
+                ] as const;
+
+                parameterizeNamedList(validLinkNodes, (spec, name, value) => {
+                    spec(
+                        `${name} renders as absolute link(href and text content should be same) in editor`,
+                        () => {
+                            pageObject.pasteHTMLToEditor(value.input);
+
+                            expect(
+                                pageObject.getEditorTagNamesWithClosingTags()
+                            ).toEqual(['P', 'A', '/A', '/P']);
+                            expect(pageObject.getEditorTextContents()).toEqual([
+                                value.textContent,
+                                value.url
+                            ]);
+                            expect(
+                                pageObject.getEditorLastChildAttribute('href')
+                            ).toBe(value.url);
+                        }
+                    );
+                });
+            });
+
+            describe('pasting various not supported links should render as plain text', () => {
+                const differentInvalidLinks = [
+                    {
+                        name: 'Anchor with "#" in href but a valid URL in text content',
+                        input: '<a href="#">https://nimble.ni.dev/</a>',
+                        text: 'https://nimble.ni.dev/'
+                    },
+                    {
+                        name: 'Anchor with "#" in href but a plain text in text content',
+                        input: '<a href="#">Hashtag</a>',
+                        text: 'Hashtag'
+                    },
+                    {
+                        name: 'Anchor with invalid link in href but a valid URL in text content',
+                        input: '<a href="ftp://nimble.ni.dev/">https://nimble.ni.dev/</a>',
+                        text: 'https://nimble.ni.dev/'
+                    },
+                    {
+                        name: 'Anchor with invalid link in href and a plain text in text content',
+                        input: '<a href="ftp://nimble.ni.dev/">FTP link</a>',
+                        text: 'FTP link'
+                    },
+                    {
+                        name: 'Anchor with mailto in href and in text content',
+                        input: '<a href="mailto:info@example.com">mailto:info@example.com</a>',
+                        text: 'mailto:info@example.com'
+                    },
+                    {
+                        name: 'Anchor with mailto in href and email in text content',
+                        input: '<a href="mailto:info@example.com">info@example.com</a>',
+                        text: 'info@example.com'
+                    },
+                    {
+                        name: 'Anchor with invalid link',
+                        input: '<a href="javascript:vbscript:alert("not alert")">Invalid link</a>',
+                        text: 'Invalid link'
+                    },
+                    {
+                        name: 'Anchor with invalid link',
+                        input: '<a href="file:///path/to/local/file.txt">Invalid link</a>',
+                        text: 'Invalid link'
+                    },
+                    {
+                        name: 'Anchor with invalid link',
+                        input: '<a href="data:image/png;base64,iVBORw0KG...">Invalid link</a>',
+                        text: 'Invalid link'
+                    },
+                    {
+                        name: 'Anchor with invalid link',
+                        input: '<a href="tel:+1234567890">Invalid link</a>',
+                        text: 'Invalid link'
+                    },
+                    {
+                        name: 'Anchor with invalid link',
+                        input: '<a href="ssh://username@example.com">Invalid link</a>',
+                        text: 'Invalid link'
+                    },
+                    {
+                        name: 'Anchor with invalid link',
+                        input: '<a href="urn:isbn:0451450523">Invalid link</a>',
+                        text: 'Invalid link'
+                    }
+                ] as const;
+
+                parameterizeNamedList(
+                    differentInvalidLinks,
+                    (spec, name, value) => {
+                        spec(`${name} renders as plain text in editor`, () => {
+                            pageObject.pasteHTMLToEditor(value.input);
+
+                            expect(pageObject.getEditorTagNames()).toEqual([
+                                'P'
+                            ]);
+                            expect(pageObject.getEditorLeafContents()).toEqual([
+                                value.text
+                            ]);
+                        });
+                    }
+                );
+            });
+
+            it('pasting a plain text URL should render as a plain text', () => {
+                pageObject.pasteToEditor('https://nimble.ni.dev/');
+
+                expect(pageObject.getEditorTagNames()).toEqual(['P']);
+                expect(pageObject.getEditorLeafContents()).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+            });
         });
     });
 

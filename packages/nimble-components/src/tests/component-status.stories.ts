@@ -409,15 +409,15 @@ const components = [
     },
     {
         componentName: 'Table',
-        componentHref: './?path=/docs/incubating-table--docs',
+        componentHref: './?path=/docs/components-table--docs',
         designHref:
             'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/',
         designLabel: 'XD',
         issueHref: 'https://github.com/orgs/ni/projects/11',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.incubating,
-        angularStatus: ComponentFrameworkStatus.incubating,
-        blazorStatus: ComponentFrameworkStatus.incubating
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Tabs',
@@ -518,8 +518,8 @@ const components = [
         issueHref: 'https://github.com/ni/nimble/issues/924',
         issueLabel: 'Issue',
         componentStatus: ComponentFrameworkStatus.incubating,
-        angularStatus: ComponentFrameworkStatus.incubating,
-        blazorStatus: ComponentFrameworkStatus.incubating
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist
     }
 ] as const;
 
