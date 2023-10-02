@@ -165,7 +165,7 @@ If the combobox allows autocomplete, typing in the field input will show menu it
 
 ![ ](spec-images/combobox-13.png)
 
-Typing text that does not match any existing menu items either allows the end-user to add a new menu item to the menu or not (see options).
+Typing text that does not match any existing menu items either allows the end-user to add a new menu item to the menu or not (see Future Considerations).
 
 ![ ](spec-images/combobox-16.png)
 
