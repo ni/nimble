@@ -141,7 +141,7 @@ N/A
 
 #### Localization
 
-Localization will be enabled through the `lang` setting provided by the `nimble-theme-provide`, which will then be used to pass as the `locale` to the JS native APIs (e.g. `Intl.NumberFormat`).
+Localization will be enabled through the `lang` setting provided by the `nimble-theme-provider` or root `<html>` element, which will then be passed as the `locale` to the JS native APIs (e.g. `Intl.NumberFormat`).
 
 ### Security
 
