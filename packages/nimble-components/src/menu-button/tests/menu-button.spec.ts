@@ -343,6 +343,11 @@ describe('MenuButton', () => {
 
             createAndSlotMenu(menuButton);
             await connect();
+
+            // Start with the menu open
+            const toggleListener = createEventListener(menuButton, 'toggle');
+            menuButton.open = true;
+            await toggleListener.promise;
         });
 
         afterEach(async () => {
@@ -359,37 +364,21 @@ describe('MenuButton', () => {
         }
 
         it('should not close menu when the button scrolls vertically without becoming off screen', async () => {
-            const toggleListener = createEventListener(menuButton, 'toggle');
-            menuButton.open = true;
-            await toggleListener.promise;
-
             await scrollParent({ top: 10 });
             expect(menuButton.open).toBeTrue();
         });
 
         it('should close menu when the button scrolls off screen vertically', async () => {
-            const toggleListener = createEventListener(menuButton, 'toggle');
-            menuButton.open = true;
-            await toggleListener.promise;
-
             await scrollParent({ top: 700 });
             expect(menuButton.open).toBeFalse();
         });
 
         it('should not close menu when the button scrolls horizontally without becoming off screen', async () => {
-            const toggleListener = createEventListener(menuButton, 'toggle');
-            menuButton.open = true;
-            await toggleListener.promise;
-
             await scrollParent({ left: 10 });
             expect(menuButton.open).toBeTrue();
         });
 
         it('should close menu when the button scrolls off screen vertically', async () => {
-            const toggleListener = createEventListener(menuButton, 'toggle');
-            menuButton.open = true;
-            await toggleListener.promise;
-
             await scrollParent({ left: 700 });
             expect(menuButton.open).toBeFalse();
         });
