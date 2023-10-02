@@ -42,6 +42,11 @@ public Table() {
     // row.
     @attr({ attribute: 'parent-selects-children'})
     public parentSelectsChildren?: boolean;
+
+    // The set of rows the user would like to toggle the expand/collapse state of
+    public async expandCollapseRows(rowIds: string[]): Promise<void> {
+        ...
+    }
 }
 ```
 
@@ -50,11 +55,16 @@ The `Table` will also provide a `row-expand-toggle` event for when a row is expa
 ```ts
 interface TableRowExpandedEventDetail {
     newState: boolean;
-    recordId?: string;
+    oldState:boolean;
+    recordId: string;
 }
 ```
 
 Note: This event will _not_ be emitted for group rows.
+
+### Validation
+
+Tha table will be invalid if the user has set the `parentIdFieldName` attribute but not the `idFieldName`. Additionally, the table will be invalid if the user has set the `hasChildrenFieldName` attribute but not the `parentIdFieldName`.
 
 ### Lazy Loading
 
@@ -77,11 +87,14 @@ Tanstack provides APIs for us to implement that allow it to return the rows in a
 
 A third party library called [`performant-array-to-tree`](https://www.npmjs.com/package/performant-array-to-tree) offers an easy, and as the package says, performant means of doing this (in O(n) time). It comes with an MIT license, and is apparently fully tested, so it seems like it would be suitable to use for this purpose.
 
+_Note: When creating the hierarchical data structure we should create a new field in the data structure that is not expected to conflict with any existing fields, such as with a prefix that we don't expect clients to be using (e.g. "nimble-hierarchical-data")._
+
 ### Group rows with data hierarchy
 
-Tanstack allows limited support of data modeling where there is both grouping and parent-child row relationships. Essentially, when there is grouping present, only rows at the top-level of a hierarchical set of data will be grouped. All further child rows under the top-level parent row will not be grouped.
+Tanstack allows limited support of data modeling where there is both grouping and parent-child row relationships. Essentially, when there is grouping present, only rows at the top-level of a hierarchical set of data will be grouped. Child rows will continue to be shown under their parent row rather than being grouped based on their own data.
 
-I see no reason to explicitly disable this behavior. One behavior we will need to ensure, however, is that the count value we display in the group row, is _only_ the number of immediate children in the group row. It would be odd for the number to change just because a row was expanded (such as in the lazy loading case).
+I see no reason to explicitly disable this behavior. One behavior we will need to ensure, however, is that the count value we display in the group row, is _only_ the number of immediate children in the group row. It would be odd for the number to change just because a row was expanded (such as in the 
+lazy loading case).
 
 #### Managing expanded state
 
@@ -90,6 +103,7 @@ Currently, the `Table` defaults to expanding all rows by setting its Tanstack ex
 This is achievable because the Nimble `Table` currently tracks when particular rows are collapsed by their row id, which both group and parent rows have. When the Tanstack state has the singleton value of `true` we know we are in a default expand/collapsed state (meaning the user hasn't interactively changed anything), as otherwise it will be a set of id values matched with a boolean state. This will allow us to implement a behavior in `getIsRowExpanded` that will denote group rows as expanded, but parent rows as collapsed, specifically when the TanStack expanded state is set to `true`.
 
 Once _any_ row has been expanded or collapsed, we must update the Nimble `Table` state where we track collapsed rows with _all_ rows that are currently collapsed. This will be a one-time cost. Prototyping suggests that the performance penalty isn't that noticeable.
+
 
 ### Showing a progress indicator for lazy loading
 
@@ -101,7 +115,27 @@ Prototype visual:
 
 ![Lazy Loading Spinner](./spec-images/LazyLoadingSpinner.gif)
 
-This ultimately may put the burden on the client to ensure that the `Table` is updated as needed to get rid of any displayed progress indicator, including in scenarios where the expansion of a parent row failed to load any children (possibly due to some client-side error). The `Table` may only guarantee that the progress indicator is shown when a parent row is expanded and it currently has no children, and that it will be removed once children are present.
+This ultimately may put the burden on the client to ensure that the `Table` is updated as needed to get rid of any displayed progress indicator, including in scenarios where the expansion of a parent row failed to load any children (possibly due to some client-side error). The `Table` will only guarantee that the progress indicator is shown when a parent row is expanded and it currently has no children, and that it will be removed once children are present.
+
+Expected user workflow:
+
+1. User loads data into table that specifies some rows as parents, but has no rows that indicate that row as a parent.
+2. User clicks on a parent row
+3. Row expands showing "row loading" indicator
+4. User handles event that row was expanded
+5. User sets data on table that has children for the row that was expanded
+6. "Row loading" indicator is removed and child rows are now displayed
+
+Error workflow:
+
+1. Same as steps 1-4 above
+2. Error occurs retrieving data for child rows
+3. User calls `expandCollapseRows(...)` on table instance passing parent row id that was previously expanded.
+4. Row is collapsed and "row loading" indicator is no longer displayed.
+
+### Sorting
+
+Tanstack will sort children within each parent row by the same column that the parent is being sorted by. So, it will not be possible to sort children by a different column value than the one its parent is sorted by.
 
 ### ARIA
 
