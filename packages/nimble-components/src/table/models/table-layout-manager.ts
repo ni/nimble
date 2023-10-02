@@ -226,7 +226,10 @@ export class TableLayoutManager<TData extends TableRecord> {
             return;
         }
 
-        const gridSizeColumnTotal = this.gridSizedColumns.reduce((sum, col) => sum + col.columnInternals.currentPixelWidth!, 0);
+        const gridSizeColumnTotal = this.gridSizedColumns.reduce(
+            (sum, col) => sum + col.columnInternals.currentPixelWidth!,
+            0
+        );
         const gridSizeColumnAverage = gridSizeColumnTotal / this.gridSizedColumns.length;
 
         let gridColumnIndex = 0;
