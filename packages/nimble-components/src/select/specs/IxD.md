@@ -158,7 +158,7 @@ All text in the select component should truncate, not wrap.
 
 > NOTE: HOW THIS (AND ANY) FEATURE IS INCLUDED IN IMPLEMENTATION IS UP TO DEVELOPERS
 
-When displaying list options in the menu lags or is expected to take longer than normal, the client-user should be able to indicate loading via a slot.
+When displaying list options and the menu lags or is expected to take longer than normal, the client-user should be able to indicate loading via a slot.
 
 ![ ](spec-images/select-15.png)
 
