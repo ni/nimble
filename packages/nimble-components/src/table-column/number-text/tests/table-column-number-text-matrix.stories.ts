@@ -15,7 +15,7 @@ import {
 import { NumberTextAlignment } from '../types';
 
 const metadata: Meta = {
-    title: 'Tests/Table Column - Number Text',
+    title: 'Tests/Table Column: Number Text',
     parameters: {
         ...sharedMatrixParameters()
     }
