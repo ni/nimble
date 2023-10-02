@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 21 Sep 2023 13:07:38 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Sep 2023 22:20:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.5.13
+
+Thu, 28 Sep 2023 22:20:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.6.0
+
+## 17.5.12
+
+Thu, 28 Sep 2023 03:38:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.5
+
+## 17.5.11
+
+Tue, 26 Sep 2023 21:18:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.4
+
+## 17.5.10
+
+Fri, 22 Sep 2023 17:41:22 GMT
+
+### Patches
+
+- Expose new table labels in Angular ([ni/nimble@091d06f](https://github.com/ni/nimble/commit/091d06f6b60ef214b9fcba021ff016fda72b009b))
+
+## 17.5.9
+
+Fri, 22 Sep 2023 14:24:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.3
 
 ## 17.5.8
 

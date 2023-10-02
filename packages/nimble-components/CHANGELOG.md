@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 21 Sep 2023 13:07:38 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Sep 2023 22:20:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.6.0
+
+Thu, 28 Sep 2023 22:20:40 GMT
+
+### Minor changes
+
+- Hide icons from accessibility tree by default ([ni/nimble@2b87882](https://github.com/ni/nimble/commit/2b8788206af0718623968a736ab30cb8ec8766da))
+
+## 20.5.5
+
+Thu, 28 Sep 2023 03:38:31 GMT
+
+### Patches
+
+- Support for pasting a hyperlink as an absolute link in the rich text editor ([ni/nimble@3d5285d](https://github.com/ni/nimble/commit/3d5285dc230dc7d5c859d948993b67788e57365a))
+
+## 20.5.4
+
+Tue, 26 Sep 2023 21:18:40 GMT
+
+### Patches
+
+- Fix bug where `undefined` and `null` were not sorted correctly when using the `basic` sort operation ([ni/nimble@d952598](https://github.com/ni/nimble/commit/d952598e0f68a4c7255c5c3aab818035002f7600))
+
+## 20.5.3
+
+Fri, 22 Sep 2023 14:24:47 GMT
+
+### Patches
+
+- Add reusable css for styling an element as visually hidden while keeping it available to the accessibility tree ([ni/nimble@8486724](https://github.com/ni/nimble/commit/8486724cf68c66210de0a180496e75b347391352))
+
+## 20.5.2
+
+Fri, 22 Sep 2023 00:01:31 GMT
+
+### Patches
+
+- Clean-up dist folder of nimble-components to remove duplicated type hierarchy ([ni/nimble@908204e](https://github.com/ni/nimble/commit/908204e252ee75affeedc355a46d13a3005d6770))
 
 ## 20.5.1
 

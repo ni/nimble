@@ -252,24 +252,6 @@ describe('Table sorting', () => {
         expect(getRenderedRecordIds()).toEqual(['4', '2', '3', '1']);
     });
 
-    it('performs case sensitive string sort', async () => {
-        const data: readonly SimpleTableRecord[] = [
-            { id: '1', stringData1: 'foo' },
-            { id: '2', stringData1: 'FOO' },
-            { id: '3', stringData1: 'fOO' },
-            { id: '4', stringData1: 'Foo' }
-        ] as const;
-
-        column1.fieldName = 'stringData1';
-        column1.sortDirection = TableColumnSortDirection.ascending;
-        column1.sortIndex = 0;
-        await element.setData(data);
-        await connect();
-        await waitForUpdatesAsync();
-
-        expect(getRenderedRecordIds()).toEqual(['1', '3', '4', '2']);
-    });
-
     it('removing sorting restores rows to default order based on data', async () => {
         const data: readonly SimpleTableRecord[] = [
             { id: '1', stringData1: 'foo' },
@@ -292,42 +274,6 @@ describe('Table sorting', () => {
         await waitForUpdatesAsync();
 
         expect(getRenderedRecordIds()).toEqual(['1', '2', '3', '4']);
-    });
-
-    it('can perform string sort with undefined value', async () => {
-        const data: readonly SimpleTableRecord[] = [
-            { id: '1', stringData1: undefined },
-            { id: '2', stringData1: 'abc' },
-            { id: '3', stringData1: 'zzz' },
-            { id: '4', stringData1: 'hello' }
-        ] as const;
-
-        column1.fieldName = 'stringData1';
-        column1.sortDirection = TableColumnSortDirection.ascending;
-        column1.sortIndex = 0;
-        await element.setData(data);
-        await connect();
-        await waitForUpdatesAsync();
-
-        expect(getRenderedRecordIds()).toEqual(['1', '2', '4', '3']);
-    });
-
-    it('can perform string sort with null value', async () => {
-        const data: readonly SimpleTableRecord[] = [
-            { id: '1', stringData1: null },
-            { id: '2', stringData1: 'abc' },
-            { id: '3', stringData1: 'zzz' },
-            { id: '4', stringData1: 'hello' }
-        ] as const;
-
-        column1.fieldName = 'stringData1';
-        column1.sortDirection = TableColumnSortDirection.ascending;
-        column1.sortIndex = 0;
-        await element.setData(data);
-        await connect();
-        await waitForUpdatesAsync();
-
-        expect(getRenderedRecordIds()).toEqual(['1', '2', '4', '3']);
     });
 
     it('can sort with have field names containing "."', async () => {
