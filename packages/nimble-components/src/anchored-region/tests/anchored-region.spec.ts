@@ -29,7 +29,7 @@ describe('Anchored Region', () => {
             source: ComponentReferences
         ): Promise<Fixture<HTMLDivElement>> {
             return fixture<HTMLDivElement>(
-                // Prettier-ignore
+                // prettier-ignore
                 html`
                 <div style="height: 100px; width: 100px; overflow: auto;">
                     <div style="height: 1000px; width: 1000px;">
