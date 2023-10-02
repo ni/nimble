@@ -43,7 +43,7 @@ _*Props/Attrs*_
 
 -   `field-name`: string
 
-This would result in a column whose value would only show up to the 'hours' unit. We would show up to two fractional digits as needed. Formatting to change slightly from what SLE offers now using "hr" instead of "h", and "sec" instead of "s".
+This API would result in a column whose value would only show up to the 'hours' unit (i.e. it would show hours, minutes, and seconds). We would show up to two fractional digits as needed. Formatting to change slightly from what SLE offers now using "hr" instead of "h", and "sec" instead of "s".
 
 Examples:
 
@@ -158,8 +158,9 @@ None
 ### Test Plan
 
 Standard unit testing. Test cases of interest:
-- unusual number values (NaN, -∞, ∞, negative values)
-- verifying locale update results in expected display update
+
+-   unusual number values (NaN, -∞, ∞, negative values)
+-   verifying locale update results in expected display update
 
 ### Tooling
 
@@ -172,3 +173,5 @@ This component will be documented via a new story in Storybook.
 ---
 
 ## Open Issues
+
+-   Should we expand set of displayed time units to include days and/or years? Without introducing an accompanying API (i.e. would show days and years as needed by default), this might result in a different display than what SLE currently results in.
