@@ -2,7 +2,7 @@
 
 ## Overview
 
-The elapsed time table column will provide a way to visualize numeric data that represents a timespan.
+The elapsed time table column will provide a way to visualize numeric data that represents a timespan. A 'timespan' is simply a numeric value representing a total number of seconds (i.e. a value of 5 means '5 seconds').
 
 ### Background
 
@@ -157,7 +157,9 @@ None
 
 ### Test Plan
 
-Standard unit testing.
+Standard unit testing. Test cases of interest:
+- unusual number values (NaN, -∞, ∞, negative values)
+- verifying locale update results in expected display update
 
 ### Tooling
 
