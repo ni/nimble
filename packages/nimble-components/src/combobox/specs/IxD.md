@@ -2,7 +2,7 @@
 
 ## Overview
 
-The combobox component is used to present a pre-defined list of options that end-users can choose from or type to create a custom value. Comboboxes combine the flexibility of text input with the efficiency of selection for more user-friendly interactions.
+The combobox component is used to present a pre-defined list of options that end-users can choose from or type to enter a custom value. Comboboxes combine the flexibility of text input with the efficiency of selection for more user-friendly interactions.
 
 > THE VISUAL DESIGN IN THIS DOCUMENT MAY NOT BE ACCURATE
 
