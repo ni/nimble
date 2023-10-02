@@ -55,7 +55,7 @@ The `Table` will also provide a `row-expand-toggle` event for when a row is expa
 ```ts
 interface TableRowExpandedEventDetail {
     newState: boolean;
-    oldState:boolean;
+    oldState: boolean;
     recordId: string;
 }
 ```
@@ -93,7 +93,7 @@ _Note: When creating the hierarchical data structure we should create a new fiel
 
 Tanstack allows limited support of data modeling where there is both grouping and parent-child row relationships. Essentially, when there is grouping present, only rows at the top-level of a hierarchical set of data will be grouped. Child rows will continue to be shown under their parent row rather than being grouped based on their own data.
 
-I see no reason to explicitly disable this behavior. One behavior we will need to ensure, however, is that the count value we display in the group row, is _only_ the number of immediate children in the group row. It would be odd for the number to change just because a row was expanded (such as in the 
+I see no reason to explicitly disable this behavior. One behavior we will need to ensure, however, is that the count value we display in the group row, is _only_ the number of immediate children in the group row. It would be odd for the number to change just because a row was expanded (such as in the
 lazy loading case).
 
 #### Managing expanded state
@@ -103,7 +103,6 @@ Currently, the `Table` defaults to expanding all rows by setting its Tanstack ex
 This is achievable because the Nimble `Table` currently tracks when particular rows are collapsed by their row id, which both group and parent rows have. When the Tanstack state has the singleton value of `true` we know we are in a default expand/collapsed state (meaning the user hasn't interactively changed anything), as otherwise it will be a set of id values matched with a boolean state. This will allow us to implement a behavior in `getIsRowExpanded` that will denote group rows as expanded, but parent rows as collapsed, specifically when the TanStack expanded state is set to `true`.
 
 Once _any_ row has been expanded or collapsed, we must update the Nimble `Table` state where we track collapsed rows with _all_ rows that are currently collapsed. This will be a one-time cost. Prototyping suggests that the performance penalty isn't that noticeable.
-
 
 ### Showing a progress indicator for lazy loading
 
@@ -115,7 +114,7 @@ Prototype visual:
 
 ![Lazy Loading Spinner](./spec-images/LazyLoadingSpinner.gif)
 
-This ultimately may put the burden on the client to ensure that the `Table` is updated as needed to get rid of any displayed progress indicator, including in scenarios where the expansion of a parent row failed to load any children (possibly due to some client-side error). The `Table` will only guarantee that the progress indicator is shown when a parent row is expanded and it currently has no children, and that it will be removed once children are present.
+This ultimately will put the burden on the client to ensure that the `Table` is updated as needed to get rid of any displayed progress indicator, including in scenarios where the expansion of a parent row failed to load any children (possibly due to some client-side error). The `Table` will only guarantee that the progress indicator is shown when a parent row is expanded and it currently has no children, and that it will be removed once children are present.
 
 Expected user workflow:
 
@@ -152,4 +151,4 @@ By making the `TableRecord` support hierarchy in its structure, it seemed possib
 
 ## Open Issues
 
-None.
+Need visual design for "row loading" indicator.
