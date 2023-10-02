@@ -136,6 +136,10 @@ Error workflow:
 
 Tanstack will sort children within each parent row by the same column that the parent is being sorted by. So, it will not be possible to sort children by a different column value than the one its parent is sorted by.
 
+### Selection
+
+One scenario worth calling out is the situation where a parent row is present with no children, and the user has a selection mode set such that selecting a parent should select its children. In such a scenario where the parent is selected, the children will _not_ be selected upon opening the parent. This is the same for when a group row is expanded and a user decided to use the toggle event to load even more data into the table that would introduce more rows under the group. The `Table` will make no attempt to decipher when and when not to select rows that have been introduced through another call to `setData`.
+
 ### ARIA
 
 A parent row would have the same ARIA expectations of any child row, with the additional need to supply the `aria-expanded` attribute when it is expanded.
