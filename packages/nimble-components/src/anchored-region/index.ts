@@ -3,8 +3,8 @@ import {
     AnchoredRegion as FoundationAnchoredRegion,
     anchoredRegionTemplate as template
 } from '@microsoft/fast-foundation';
-import { styles } from './styles';
 import { Notifier, Observable } from '@microsoft/fast-element';
+import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -60,15 +60,18 @@ export class AnchoredRegion extends FoundationAnchoredRegion {
             return;
         }
 
-        this.anchorElementIntersectionObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    this.$emit('target-out-of-view');
-                }
-            });
-        }, {
-            threshold: 0
-        });
+        this.anchorElementIntersectionObserver = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        this.$emit('target-out-of-view');
+                    }
+                });
+            },
+            {
+                threshold: 0
+            }
+        );
         this.anchorElementIntersectionObserver.observe(this.anchorElement);
     }
 

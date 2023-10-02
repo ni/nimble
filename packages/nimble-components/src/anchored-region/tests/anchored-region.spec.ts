@@ -25,8 +25,11 @@ describe('Anchored Region', () => {
             public anchoredRegion!: AnchoredRegion;
         }
 
-        async function setup(source: ComponentReferences): Promise<Fixture<HTMLDivElement>> {
+        async function setup(
+            source: ComponentReferences
+        ): Promise<Fixture<HTMLDivElement>> {
             return fixture<HTMLDivElement>(
+                // Prettier-ignore
                 html`
                 <div style="height: 100px; width: 100px; overflow: auto;">
                     <div style="height: 1000px; width: 1000px;">
@@ -43,7 +46,9 @@ describe('Anchored Region', () => {
             componentReferences = new ComponentReferences();
             let element: HTMLDivElement;
             let connect: () => Promise<void>;
-            ({ element, connect, disconnect } = await setup(componentReferences));
+            ({ element, connect, disconnect } = await setup(
+                componentReferences
+            ));
             scrollableElement = element;
             componentReferences.anchoredRegion.anchorElement = componentReferences.div1;
 
@@ -61,28 +66,40 @@ describe('Anchored Region', () => {
         }
 
         it('emits when the target scrolls completely out of view vertically', async () => {
-            const listener = createEventListener(componentReferences.anchoredRegion, 'target-out-of-view');
+            const listener = createEventListener(
+                componentReferences.anchoredRegion,
+                'target-out-of-view'
+            );
             await scrollParent({ top: 700 });
 
             expect(listener.spy).toHaveBeenCalled();
         });
 
         it('emits when the target scrolls completely out of view horizontally', async () => {
-            const listener = createEventListener(componentReferences.anchoredRegion, 'target-out-of-view');
+            const listener = createEventListener(
+                componentReferences.anchoredRegion,
+                'target-out-of-view'
+            );
             await scrollParent({ left: 700 });
 
             expect(listener.spy).toHaveBeenCalled();
         });
 
         it('does not emit when the target scrolls partly out of view', async () => {
-            const listener = createEventListener(componentReferences.anchoredRegion, 'target-out-of-view');
+            const listener = createEventListener(
+                componentReferences.anchoredRegion,
+                'target-out-of-view'
+            );
             await scrollParent({ left: 10 });
             expect(listener.spy).not.toHaveBeenCalled();
         });
 
         it('does not emit when previous target scrolls completely out of view', async () => {
             componentReferences.anchoredRegion.anchorElement = scrollableElement;
-            const listener = createEventListener(componentReferences.anchoredRegion, 'target-out-of-view');
+            const listener = createEventListener(
+                componentReferences.anchoredRegion,
+                'target-out-of-view'
+            );
             await scrollParent({ left: 700 });
             expect(listener.spy).not.toHaveBeenCalled();
         });
