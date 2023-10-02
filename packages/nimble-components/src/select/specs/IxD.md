@@ -277,5 +277,4 @@ From a focused menu item, `UP ARROW` moves focus and selects the previous menu i
 
 ## Future Considerations
 
--   Should the select component allow multi-selection? Users on touch-screen devices may see a truncated list of comma-separated selections in the field button, without the ability to hover for a tooltip.
 -   Helper text for input components (where it should be located, how it should be accessed).
