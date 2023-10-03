@@ -56,9 +56,9 @@ Examples:
 | English | German | French | Chinese |
 | ------- | ------ | ------ | ------- |
 | "1 hr, 30 min, 2 sec" | "1 Std., 30 Min., 2 Sek." | "1 h, 30 min, 2 s" | "1小时, 30分钟, 2秒" |
-| "2 hr, 3.55 sec" | "2 Std., 3.55 Sek." | "2 h, 3.55 s" | "2小时, "|
+| "2 hr, 3.55 sec" | "2 Std., 3,55 Sek." | "2 h, 3,55 s" | "2小时, 3.55分"|
 | "3 days, 23 hr, 2 min" | "3 Tg., 23 Std., 2 Min." | "3 j, 23 h, 2 min" | "3天, 23小时, 2分钟" | 
-| "2 sec" | "2 Sek." | "2 s"| "2秒" |
+| "0 sec" | "0 Sek." | "0 s"| "0秒" |
 
 #### `DurationFormatter`
 
