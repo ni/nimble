@@ -222,7 +222,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     private resetGridSizedColumns(): void {
-        if (!this.gridSizedColumns?.length) {
+        if (!this.gridSizedColumns || this.gridSizedColumns.length === 0) {
             return;
         }
 
