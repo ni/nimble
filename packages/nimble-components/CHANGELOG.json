@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 03 Oct 2023 14:34:50 GMT",
+      "version": "20.6.1",
+      "tag": "@ni/nimble-components_v20.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2c1247b7a9c46d7e10b36b9a53f3cff346e8d0d5",
+            "comment": "Column resize bug fix."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 28 Sep 2023 22:20:40 GMT",
+      "tag": "@ni/nimble-components_v20.6.0",
+      "version": "20.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2b8788206af0718623968a736ab30cb8ec8766da",
+            "comment": "Hide icons from accessibility tree by default"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 28 Sep 2023 03:38:31 GMT",
+      "tag": "@ni/nimble-components_v20.5.5",
+      "version": "20.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3d5285dc230dc7d5c859d948993b67788e57365a",
+            "comment": "Support for pasting a hyperlink as an absolute link in the rich text editor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Sep 2023 21:45:37 GMT",
+      "tag": "@ni/nimble-components_v20.5.4",
+      "version": "20.5.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4098cd25d77ea2f1b085e5d09432a5f74f9a790c",
+            "comment": "Move table out of incubating"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 Sep 2023 21:18:40 GMT",
+      "tag": "@ni/nimble-components_v20.5.4",
+      "version": "20.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d952598e0f68a4c7255c5c3aab818035002f7600",
+            "comment": "Fix bug where `undefined` and `null` were not sorted correctly when using the `basic` sort operation"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 22 Sep 2023 14:24:47 GMT",
       "tag": "@ni/nimble-components_v20.5.3",
       "version": "20.5.3",
