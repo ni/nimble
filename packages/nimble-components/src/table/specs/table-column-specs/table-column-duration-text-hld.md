@@ -1,8 +1,8 @@
-# Elapsed Time Table Column
+# Duration Table Column
 
 ## Overview
 
-The elapsed time table column will provide a way to visualize numeric data that represents a timespan. A 'timespan' is simply a numeric value representing a total number of seconds (i.e. a value of 5 means '5 seconds').
+The duration text table column will provide a way to visualize numeric data that represents a timespan. A "timespan" is simply a numeric value representing a total number of seconds (i.e. a value of 5 means '5 seconds').
 
 ### Background
 
@@ -11,13 +11,13 @@ The elapsed time table column will provide a way to visualize numeric data that 
 ### Non-goals
 
 -   APIs to configure individual aspects of the display (i.e. fractional digits for seconds display)
--   APIs to format the elapsed time in a variety of ways
-    -   Show elapsed time as digital display (00:01:20.323)
-    -   Show elapsed time with symbols indicating a quantitative value (i.e. "< 1 sec")
+-   APIs to format the duration in a variety of ways
+    -   Show duration as digital display (00:01:20.323)
+    -   Show duration with symbols indicating a quantitative value (i.e. "< 1 sec")
 
 ### Risks and Challenges
 
-Formatting the elapsed time units in the exact way that SLE presents them would require custom logic that differs from what the browser provides natively using APIs like `Intl.Numberformat.format()`. The preference here is to align with current browser behaviors for unit formatting, which includes localization.
+Formatting the duration units in the exact way that SLE presents them would require custom logic that differs from what the browser provides natively using APIs like `Intl.Numberformat.format()`. The preference here is to align with current browser behaviors for unit formatting, which includes localization.
 
 ### Prior Art/Examples
 
@@ -25,33 +25,54 @@ Formatting the elapsed time units in the exact way that SLE presents them would 
 
 ## Design
 
-Below is an example of how the `nimble-table-column-elapsed-time` would be used within a `nimble-table`:
+Below is an example of how the `nimble-table-column-duration-text` would be used within a `nimble-table`:
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-elapsed-time field-name="elapsedTime">Elapsed Time</nimble-table-column-elapsed-time>
+    <nimble-table-column-duration-text field-name="duration">Duration</nimble-table-column-duration-text>
 </nimble-table>
 ```
 
-The displayed value for elapsed time will always take the form of "\<hour display>, \<minute display>, \<second display>.\<fractional seconds>", where the commas are non-localized delimiters <sup>1</sup>.
+The displayed value for duration will always take the form of "\<days display>, \<hour display>, \<minute display>, \<second display>.\<fractional seconds>", where the commas are non-localized delimiters <sup>1</sup>.
 
-1. When and if we are able to adopt the `Intl.DurationFormat` to format values, we will no longer be hard-coding the commas in the string result as that object will produce the entirety of the display text, which may not match what we produce in our implementation.
+<sup>1.</sup> When and if we are able to adopt the `Intl.DurationFormat` to format values, we will no longer be hard-coding the commas in the string result as that object will produce the entirety of the display text, which may not match what we produce in our implementation.
 
 ### API
 
-_*Props/Attrs*_
+#### `TableColumnDurationText`
 
--   `field-name`: string
+The `TableColumnDurationText` implementation requires no additional API from what `TableColumnTextBase` provides:
 
-This API would result in a column whose value would only show up to the 'hours' unit (i.e. it would show hours, minutes, and seconds). We would show up to two fractional digits as needed. Formatting to change slightly from what SLE offers now using "hr" instead of "h", and "sec" instead of "s".
+```ts
+// inherits field-name attribute
+public class TableColumnDurationText : TableColumnTextBase { }
+
+```
+
+This API would result in a column whose value would only show up to the 'days' unit (i.e. it would show days, hours, minutes, and seconds). We would show up to two fractional digits as needed. Formatting to change slightly from what SLE offers now using "hr" instead of "h", and "sec" instead of "s".
 
 Examples:
 
--   "1 hr, 30 min, 2 sec"
--   "2 min, 3.55 sec"
--   "5,000 hr, 2 min, 1 sec"
+| English | German | French | Chinese |
+| ------- | ------ | ------ | ------- |
+| "1 hr, 30 min, 2 sec" | "1 Std., 30 Min., 2 Sek." | "1 h, 30 min, 2 s" | "1小时, 30分钟, 2秒" |
+| "2 hr, 3.55 sec" | "2 Std., 3.55 Sek." | "2 h, 3.55 s" | "2小时, "|
+| "3 days, 23 hr, 2 min" | "3 Tg., 23 Std., 2 Min." | "3 j, 23 h, 2 min" | "3天, 23小时, 2分钟" | 
+| "2 sec" | "2 Sek." | "2 s"| "2秒" |
 
-### Anatomy
+#### `DurationFormatter`
+
+We will export the class that is responsible for formatting the duration values so that we can use it for formatting values outside of the `Table` (a requirement in SLE).
+
+```ts
+export class DurationFormatter{
+    public constructor(private readonly lang: string) {}
+
+    // formats a value in the seconds domain into a localized display value that can 
+    // consist of days, hours, minutes, and seconds.
+    public format(value: TableNumberFieldValue): string {}
+}
+```
 
 ### Angular integration
 
@@ -93,7 +114,7 @@ _*Props/Attrs*_
 -   `field-name`: string
 -   `style`: `"short" | "narrow" | "long"`
 
-This would offer clients to display elapsed time in other forms, but not to intermix formats between the various parts.
+This would offer clients to display duration in other forms, but not to intermix formats between the various parts.
 
 Examples:
 
@@ -176,4 +197,4 @@ This component will be documented via a new story in Storybook.
 
 ## Open Issues
 
--   Should we expand set of displayed time units to include days and/or years? Without introducing an accompanying API (i.e. would show days and years as needed by default), this might result in a different display than what SLE currently results in.
+None.
