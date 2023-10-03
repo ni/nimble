@@ -6,7 +6,7 @@ The elapsed time table column will provide a way to visualize numeric data that 
 
 ### Background
 
-[Work Item](https://ni.visualstudio.com/DevCentral/_workitems/edit/2526116)
+[Work Item](https://github.com/ni/nimble/issues/1569)
 
 ### Non-goals
 
@@ -81,6 +81,8 @@ if (hours) {
 ```
 
 Other implementation details will conform to existing patterns all other table columns handle, such as `CellView` and `GroupHeaderView` implementations.
+
+_Note: For number values that can't be translated into a representable time (e.g. `NaN`, `∞`, `-∞`), we will simply show a blank cell._
 
 ## Alternative Implementations / Designs
 
