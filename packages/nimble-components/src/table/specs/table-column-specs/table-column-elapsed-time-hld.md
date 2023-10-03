@@ -82,7 +82,7 @@ if (hours) {
 
 Other implementation details will conform to existing patterns all other table columns handle, such as `CellView` and `GroupHeaderView` implementations.
 
-_Note: For number values that can't be translated into a representable time (e.g. `NaN`, `∞`, `-∞`), we will simply show a blank cell._
+_Note: For number values that can't be translated into a representable time (e.g. `NaN`, `∞`, `-∞`, negative values), we will simply show a blank cell._
 
 ## Alternative Implementations / Designs
 
