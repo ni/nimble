@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 28 Sep 2023 22:20:40 GMT and should not be manually modified.
+This log was last generated on Tue, 03 Oct 2023 14:34:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.6.1
+
+Tue, 03 Oct 2023 14:34:50 GMT
+
+### Patches
+
+- Column resize bug fix. ([ni/nimble@2c1247b](https://github.com/ni/nimble/commit/2c1247b7a9c46d7e10b36b9a53f3cff346e8d0d5))
 
 ## 20.6.0
 

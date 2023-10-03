@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 03 Oct 2023 14:34:50 GMT",
+      "version": "20.6.1",
+      "tag": "@ni/nimble-components_v20.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2c1247b7a9c46d7e10b36b9a53f3cff346e8d0d5",
+            "comment": "Column resize bug fix."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 28 Sep 2023 22:20:40 GMT",
       "tag": "@ni/nimble-components_v20.6.0",
       "version": "20.6.0",
