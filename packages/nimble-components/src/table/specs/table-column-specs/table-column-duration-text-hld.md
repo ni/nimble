@@ -76,11 +76,11 @@ export class DurationFormatter {
 
 ### Angular integration
 
-An Angular directive will be created for the component. The component will not have form association, so a `ControlValueAccessor` will not be created.
+An Angular directive will be created for the component. The component will not have form association, so a `ControlValueAccessor` will not be created. The `DurationFormatter` will be re-exported from Angular.
 
 ### Blazor integration
 
-A Blazor wrapper will be created for the component.
+A Blazor wrapper will be created for the component. Blazor will not provide a means to access the formatting function of the `DurationFormatter` until there is a client requirement for it.
 
 ### Visual Appearance
 
