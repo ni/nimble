@@ -162,6 +162,8 @@ N/A
 
 ### Globalization
 
+For now we do not intend to alter behavor for `ltr` vs `rtl` settings.
+
 #### Localization
 
 Localization will be enabled through the `lang` setting provided by the `nimble-theme-provider` or root `<html>` element, which will then be passed as the `locale` to the JS native APIs (e.g. `Intl.NumberFormat`).
