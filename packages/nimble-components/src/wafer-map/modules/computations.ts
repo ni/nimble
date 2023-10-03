@@ -249,7 +249,7 @@ export class Computations {
             .paddingOuter(0)
             .align(0)
             .round(false);
-        // html canvas has top-left origin https://www.w3schools.com/graphics/canvas_coordinates.asp
+        // html canvas has top-left origin https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#the_grid
         // we need to flip the vertical scale
         if (
             originLocation === WaferMapOriginLocation.bottomLeft
@@ -266,7 +266,7 @@ export class Computations {
         containerHeight: number
     ): ScaleQuantile<number, number> {
         const scale = scaleQuantile().domain([0, containerHeight]);
-        // html canvas has top-left origin https://www.w3schools.com/graphics/canvas_coordinates.asp
+        // html canvas has top-left origin https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#the_grid
         // we need to flip the inverted vertical scale
         if (
             originLocation === WaferMapOriginLocation.bottomLeft
