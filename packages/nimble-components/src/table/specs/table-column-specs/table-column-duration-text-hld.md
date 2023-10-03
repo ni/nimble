@@ -53,22 +53,22 @@ This API would result in a column whose value would only show up to the 'days' u
 
 Examples:
 
-| English | German | French | Chinese |
-| ------- | ------ | ------ | ------- |
-| "1 hr, 30 min, 2 sec" | "1 Std., 30 Min., 2 Sek." | "1 h, 30 min, 2 s" | "1小时, 30分钟, 2秒" |
-| "2 hr, 3.55 sec" | "2 Std., 3,55 Sek." | "2 h, 3,55 s" | "2小时, 3.55分"|
-| "3 days, 23 hr, 2 min" | "3 Tg., 23 Std., 2 Min." | "3 j, 23 h, 2 min" | "3天, 23小时, 2分钟" | 
-| "0 sec" | "0 Sek." | "0 s"| "0秒" |
+| English                | German                    | French             | Chinese                 |
+| ---------------------- | ------------------------- | ------------------ | ----------------------- |
+| "1 hr, 30 min, 2 sec"  | "1 Std., 30 Min., 2 Sek." | "1 h, 30 min, 2 s" | "1 小时, 30 分钟, 2 秒" |
+| "2 hr, 3.55 sec"       | "2 Std., 3,55 Sek."       | "2 h, 3,55 s"      | "2 小时, 3.55 分"       |
+| "3 days, 23 hr, 2 min" | "3 Tg., 23 Std., 2 Min."  | "3 j, 23 h, 2 min" | "3 天, 23 小时, 2 分钟" |
+| "0 sec"                | "0 Sek."                  | "0 s"              | "0 秒"                  |
 
 #### `DurationFormatter`
 
 We will export the class that is responsible for formatting the duration values so that we can use it for formatting values outside of the `Table` (a requirement in SLE).
 
 ```ts
-export class DurationFormatter{
+export class DurationFormatter {
     public constructor(private readonly lang: string) {}
 
-    // formats a value in the seconds domain into a localized display value that can 
+    // formats a value in the seconds domain into a localized display value that can
     // consist of days, hours, minutes, and seconds.
     public format(value: TableNumberFieldValue): string {}
 }
