@@ -2,6 +2,126 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 20 Sep 2023 18:55:59 GMT",
+      "tag": "@ni/nimble-tokens_v6.4.0",
+      "version": "6.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "f12cbc59d683ae048a85750990cc4ae174464590",
+            "comment": "New icons for indent and outdent list level"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 02 Aug 2023 19:10:45 GMT",
+      "tag": "@ni/nimble-tokens_v6.3.0",
+      "version": "6.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "3b37cf1deb3377b36c069e884d2b938b11048acd",
+            "comment": "Adding new DigitalGreenDark color tokens (105 and 110) for new button appearance variants (#663)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jul 2023 03:09:06 GMT",
+      "tag": "@ni/nimble-tokens_v6.2.1",
+      "version": "6.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "0541d6d412dd3b011756e07719656f30b20dc234",
+            "comment": "Lint disable without behavior change"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 14 Jul 2023 22:15:57 GMT",
+      "tag": "@ni/nimble-tokens_v6.2.1",
+      "version": "6.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "88248bc22d9b50da299331a87863c65fe3c25cdb",
+            "comment": "Changed button label font weight token from Regular to Semi-Bold"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 14 Jul 2023 20:57:32 GMT",
+      "tag": "@ni/nimble-tokens_v6.2.0",
+      "version": "6.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "448a0147ee38c0f1cbe0ece06ecd103e4e3f5788",
+            "comment": "New icon with a clock and exclamation mark to represent an expired state"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 20 Jun 2023 21:10:06 GMT",
+      "tag": "@ni/nimble-tokens_v6.1.0",
+      "version": "6.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "fc39bf054f4863d1a3380f0d62740ca78cee662d",
+            "comment": "Fix intermittent hang in tokens build"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 20 Jun 2023 14:17:25 GMT",
+      "tag": "@ni/nimble-tokens_v6.1.0",
+      "version": "6.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "d8a2f6933982381c2724f87737873b2f9374a706",
+            "comment": "New icons for bold, italic, and numbered list"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 May 2023 16:41:52 GMT",
+      "tag": "@ni/nimble-tokens_v6.0.0",
+      "version": "6.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "eb414bd845ad761e5270f7499473f29cf75bb664",
+            "comment": "Minor improvements to contributing docs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 12 May 2023 17:59:07 GMT",
       "tag": "@ni/nimble-tokens_v6.0.0",
       "version": "6.0.0",

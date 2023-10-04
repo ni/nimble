@@ -23,7 +23,7 @@ interface DialogArgs {
     openAndHandleResult: (
         dialogRef: Dialog<string>,
         textFieldRef: TextField
-    ) => Promise<void> | undefined;
+    ) => void;
 }
 
 const shortContent = html`
@@ -50,7 +50,7 @@ const content = {
 } as const;
 
 const metadata: Meta<DialogArgs> = {
-    title: 'Dialog',
+    title: 'Components/Dialog',
     tags: ['autodocs'],
     parameters: {
         docs: {
@@ -178,9 +178,11 @@ const metadata: Meta<DialogArgs> = {
         includeFooterButtons: true,
         preventDismiss: false,
         content: ExampleContentType.shortContent,
-        openAndHandleResult: async (dialogRef, textFieldRef) => {
-            const reason = await dialogRef.show();
-            textFieldRef.value = reason === UserDismissed ? 'ESC pressed' : reason;
+        openAndHandleResult: (dialogRef, textFieldRef) => {
+            void (async () => {
+                const reason = await dialogRef.show();
+                textFieldRef.value = reason === UserDismissed ? 'ESC pressed' : reason;
+            })();
         }
     }
 };

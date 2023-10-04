@@ -84,9 +84,41 @@ The steps to use components from Nimble Angular are similar to using components 
 
    Note: Nimble components are exposed in Angular as Angular Directives and have the suffix `Directive`.
 
+8. If your application is localized, also follow the steps in the "Localization" section below.
+
+### Localization (Optional)
+
+Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English.
+
+The standard way to use these in Angular (for localized apps using `@angular/localize`) is:
+1. Import the label provider module(s) from your app module:
+    - `NimbleLabelProviderCoreModule` from `@ni/nimble-angular/label-provider/core`: Used for labels for all components that do not have a dedicated label provider
+    - `NimbleLabelProviderRichTextModule` from `@ni/nimble-angular/label-provider/rich-text`: Used for labels for the rich text components
+    - `NimbleLabelProviderTableModule` from `@ni/nimble-angular/label-provider/table`: Used for labels for the table (and table sub-components / column types)
+2. To use the Nimble-provided strings (which are already declared with `$localize`), use the `NimbleLabelProvider[Core/Table/RichText]WithDefaultsDirective`:
+    ```html
+    <nimble-theme-provider theme="light">
+        <nimble-label-provider-core withDefaults></nimble-label-provider-core>
+        <!-- if using the Nimble rich text components: -->
+        <nimble-label-provider-rich-text withDefaults></nimble-label-provider-rich-text>
+        <!-- if using the Nimble table component: -->
+        <nimble-label-provider-table withDefaults></nimble-label-provider-table>
+        <router-outlet></router-outlet>
+    </nimble-theme-provider>
+    ```
+3. Follow [the standard Angular internationalization guidance](https://angular.io/guide/i18n-common-overview) to extract the localizable strings, translate them, and merge translations back into the application. 
+
 ### Learn more
 
 See the [README.md for the ni/nimble repository](/README.md) for documentation of individual components.
+
+### Using Nimble Element Tags
+
+Generally for normal Angular Templates the element tag should be used directly along with the associated directives. For example by importing the `NimbleThemeProviderModule` and using the `<nimble-theme-provider>` tag in an Angular Template.
+
+In some cases where you are manipulating HTML strings directly, such as writing custom pipes or writing selectors in test code, you may want to use the element tag as a string value outside of an Angular Template. For these use-cases you should leverage the associated tag constant exported by a directive. For example, the  `NimbleThemeProviderDirective` exports the `themeProviderTag` constant which contains the string `"nimble-theme-provider"`.
+
+By depending on the element tag constant, the name becomes a compile-time dependency providing protection against typos and ensuring that the underlying web component is properly defined in the deployed page.
 
 ### Using Nimble form controls
 

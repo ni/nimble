@@ -5,7 +5,7 @@
 <div class="content container">
     <p>
         Explore the components below to see the Nimble components in action. See the <a
-                href="https://ni.github.io/nimble/storybook/?path=/story/getting-started--page">Nimble
+                href="https://nimble.ni.dev/storybook/">Nimble
                 component docs</a> for additional usage details.
     </p>
     <div class="container">
@@ -112,7 +112,7 @@
             </NimbleDrawer>
         </div>
         <div class="sub-container">
-            <div class="container-label">Icons (subset - see <a href="https://ni.github.io/nimble/storybook/?path=/docs/icons--icons">
+            <div class="container-label">Icons (subset - see <a href="https://nimble.ni.dev/storybook/?path=/docs/components-icons--docs">
                 Icons Storybook page</a> for complete set)</div>
             <NimbleIconChartDiagram></NimbleIconChartDiagram>
             <NimbleIconSquareCheck Severity="IconSeverity.Success"></NimbleIconSquareCheck>
@@ -208,18 +208,38 @@
             <div class="container-label">Table</div>
             <NimbleTable IdFieldName="Id" @bind-Data="TableData" SelectionMode="TableRowSelectionMode.Multiple" class="table">
                 <NimbleTableColumnText
-                    FieldName="FirstName"
-                    Placeholder="no value"
-                    ColumnId="first-name-column"
+                    FieldName="StringValue1"
                     ActionMenuSlot="action-menu"
                     ActionMenuLabel="Action menu"
+                    FractionalWidth="2"
+                    MinPixelWidth="300"
                     SortDirection="TableColumnSortDirection.Ascending"
                     SortIndex="0"
                 >
-                    <NimbleIconKey title="First Name"></NimbleIconKey>
+                    <NimbleIconCheck title="String 1"></NimbleIconCheck>
                 </NimbleTableColumnText>
-                <NimbleTableColumnAnchor HrefFieldName="Href" LabelFieldName="LinkLabel" ColumnId="link-column" >Link</NimbleTableColumnAnchor>
-                <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" Placeholder="no value" GroupIndex="0">Last Name</NimbleTableColumnText>
+                <NimbleTableColumnAnchor HrefFieldName="Href" LabelFieldName="LinkLabel">Link</NimbleTableColumnAnchor>
+                <NimbleTableColumnDateText FieldName="Date">Date</NimbleTableColumnDateText>
+                <NimbleTableColumnEnumText FieldName="StatusCode" TKey="int">
+                    <NimbleMappingText Key="100" Text="Status message 1"></NimbleMappingText>
+                    <NimbleMappingText Key="101" Text="Status message 2"></NimbleMappingText>
+                    Status
+                </NimbleTableColumnEnumText>
+                <NimbleTableColumnIcon FieldName="Result" TKey="string">
+                    <NimbleMappingIcon
+                        Key=@("success")
+                        Text="Success"
+                        Icon="nimble-icon-check"
+                        Severity="IconSeverity.Success">
+                    </NimbleMappingIcon>
+                    <NimbleMappingSpinner
+                        Key=@("unknown")
+                        Text="Unknown">
+                    </NimbleMappingSpinner>
+                    Result
+                </NimbleTableColumnIcon>
+                <NimbleTableColumnNumberText FieldName="Number">Number</NimbleTableColumnNumberText>
+                <NimbleTableColumnText FieldName="StringValue2" MinPixelWidth="400" GroupIndex="0">String 2</NimbleTableColumnText>
 
                 <NimbleMenu slot="action-menu">
                     <NimbleMenuItem>Item 1</NimbleMenuItem>
@@ -227,8 +247,8 @@
                     <NimbleMenuItem>Item 3</NimbleMenuItem>
                 </NimbleMenu>
             </NimbleTable>
+            <NimbleButton class="table-update-button" @onclick=@(_ => AddTableRows(10))>Add rows</NimbleButton>
         </div>
-        <NimbleButton class="table-update-button" @onclick=@(_ => UpdateTableData(100))>Update Data</NimbleButton>
         <div class="sub-container">
             <div class="container-label">Tabs</div>
             <NimbleTabs @bind-ActiveId="@ActiveTabId">

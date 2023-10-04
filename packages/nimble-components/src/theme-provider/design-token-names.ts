@@ -13,10 +13,19 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     dividerBackgroundColor: 'divider-background-color',
     headerBackgroundColor: 'header-background-color',
     sectionBackgroundColor: 'section-background-color',
+    buttonFillPrimaryColor: 'button-fill-primary-color',
+    buttonPrimaryFontColor: 'button-primary-font-color',
+    buttonFillActivePrimaryColor: 'button-fill-active-primary-color',
+    buttonFillAccentColor: 'button-fill-accent-color',
+    buttonAccentBlockFontColor: 'button-accent-block-font-color',
+    buttonAccentOutlineFontColor: 'button-accent-outline-font-color',
+    buttonBorderAccentOutlineColor: 'button-border-accent-outline-color',
+    buttonFillAccentActiveColor: 'button-fill-accent-active-color',
     fillSelectedColor: 'fill-selected-color',
     fillSelectedRgbPartialColor: 'fill-selected-rgb-partial-color',
     fillHoverSelectedColor: 'fill-hover-selected-color',
     fillHoverColor: 'fill-hover-color',
+    fillHoverRgbPartialColor: 'fill-hover-rgb-partial-color',
     fillDownColor: 'fill-down-color',
     borderColor: 'border-color',
     borderRgbPartialColor: 'border-rgb-partial-color',
@@ -31,6 +40,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     controlHeight: 'control-height',
     controlSlimHeight: 'control-slim-height',
     smallPadding: 'small-padding',
+    mediumPadding: 'medium-padding',
     standardPadding: 'standard-padding',
     labelHeight: 'label-height',
     borderWidth: 'border-width',
@@ -210,7 +220,8 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     tableRowBorderColor: 'table-row-border-color',
     elevation1BoxShadow: 'elevation-1-box-shadow',
     elevation2BoxShadow: 'elevation-2-box-shadow',
-    elevation3BoxShadow: 'elevation-3-box-shadow'
+    elevation3BoxShadow: 'elevation-3-box-shadow',
+    graphGridlineColor: 'graph-gridline-color'
 };
 
 const prefix = 'ni-nimble';

@@ -91,7 +91,7 @@ Some potential column names following this convention are listed below.
 ```
 nimble-table-column-anchor
 nimble-table-column-text
-nimble-table-column-numeric-text
+nimble-table-column-number-text
 nimble-table-column-date-text
 nimble-table-column-progress
 nimble-table-column-text-field
@@ -124,10 +124,13 @@ This interface could possibly be expanded in the future to communicate relevant 
 
 This abstract class is what a column web component (i.e. a slotted column element) must extend. The attributes added to the `TableColumn` class are intended to be options configurable by client users.
 
-Column authors have additional configuration options to maintain that are configured via the `ColumnInternalsOptions` constructor parameter and the `TableColumn.columnInternals` reference.
+Column authors have additional configuration options to maintain that are configured via implementing the `getColumnInternalsOptions` abstract method and the `TableColumn.columnInternals` reference.
 
 ```TS
 abstract class TableColumn<TColumnConfig = {}> {
+    // @internal Configuration settings for column plugin authors
+    public readonly columnInternals = new ColumnInternals<TColumnConfig>(this.getColumnInternalsOptions());
+
     // An optional ID to associated with the column.
     @attr({ attribute: 'column-id' })
     columnId?: string;
@@ -151,13 +154,7 @@ abstract class TableColumn<TColumnConfig = {}> {
     @attr({ attribute: 'sort-direction' })
     public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
-    // @internal Configuration settings for column plugin authors
-    public readonly columnInternals: ColumnInternals<TColumnConfig>;
-
-    public constructor(options: ColumnInternalsOptions) {
-        super();
-        this.columnInternals = new ColumnInternals(options);
-    }
+    protected abstract getColumnInternalsOptions(): ColumnInternalsOptions;
 }
 ```
 
@@ -165,7 +162,7 @@ _Note: The `TableColumn` class may be updated to support other features not cove
 
 ### Column author internal configuration
 
-Column authors have a required `ColumnInternalsOptions` constructor parameter argument to define for static configuration and a `columnInternals` object that can be manipulated for dynamic configuration at runtime.
+Column authors have to implement a `getColumnInternalsOptions` method returning a `ColumnInternalsOptions` object for static configuration and a `columnInternals` object that can be manipulated for dynamic configuration at runtime.
 
 ```TS
 export interface ColumnInternalsOptions {
@@ -240,7 +237,7 @@ For example, the `TableColumn` implementation we could create for rendering data
 
 ```TS
 type TableColumnTextCellRecord = TableStringField<'value'>;
-type TableColumnTextColumnConfig = { placeholder: string };
+type TableColumnTextColumnConfig = {};
 
 public class TableColumnText extends TableColumn<TableColumnTextCellRecord, TableColumnTextColumnConfig> {
     ...
@@ -248,27 +245,20 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
     @attr
     public valueKey: string;
 
-    @attr
-    public placeholder: string;
-
     public valueKeyChanged(): void {
         this.columnInternals.dataRecordFieldNames = [this.valueKey];
     }
 
-    public placeholderChanged(): void {
-        this.columnInternals.columnConfig = { placeholder: this.placeholder };
-    }
-
-    constructor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellViewTag: 'nimble-table-cell-view-text',
             cellRecordFieldNames: ['value']
-        })
+        };
     }
 }
 ```
 
-In the above example, the column author is responsible for tracking changes to custom properties they add to the public api of the column, such as `valueKey` and `placeholder`, and notifying the table of those changes via the `this.columnInternals` reference.
+In the above example, the column author is responsible for tracking changes to custom properties they add to the public api of the column, such as `valueKey`, and notifying the table of those changes via the `this.columnInternals` reference.
 
 The corresponding cell element implementation would look like this:
 
@@ -287,7 +277,7 @@ TableColumnTextColumnConfig
     public get content(): string {
         return typeof this.cellRecord.value === 'string'
             ? this.cellRecord.value
-            : this.columnConfig.placeholder;
+            : '';
     }
 
     public textField!: TextField;
@@ -300,7 +290,6 @@ const textCellView = TextCellView.compose({
             ${ref('textField')}
             readonly="true"
             value="${x => x.cellRecord.value}"
-            placeholder="${x => x.columnConfig.placeholder}"
         >
         </nimble-text-field>`,
     styles: /* styling */
@@ -331,11 +320,11 @@ public class TableColumnNumberWithUnit extends TableColumn {
         this.columnInternals.dataRecordFieldNames = [this.valueKey, this.unitKey];
     }
 
-    constructor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellViewTag: 'nimble-table-cell-view-number-with-unit',
             cellRecordFieldNames: ['value', 'units']
-        })
+        };
     }
 }
 
@@ -377,12 +366,12 @@ export class ColumnInternals<TColumnConfig> {
     }
 }
 
-AnchorTableColumn extends TableColumn {
-    constructor() {
-        super({
+export class AnchorTableColumn extends TableColumn {
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             delegatedEvents: ['click'],
             ...
-        });
+        };
     }
     ...
 }
@@ -439,6 +428,89 @@ Clients should be allowed to use arbitrary content for the display part of a hea
     <nimble-table-column-text>
 </nimble-table>
 ```
+
+### Validation
+
+A table column's public validation API consists of a `checkValidity()` function and a `validity` property. The `checkValidity()` function simply returns the value of a `validConfiguration` flag from the column's internals which should be `true` when the column's configuration is valid, and `false` when it is not. The `validity` property's value is an object that describes the specific ways the configuration may be invalid. By default, it returns an empty object. If a column type has configuration which can be invalid, it should define a column validator object to manage this state. There is a base `ColumnValidator` type that manages the state of the `columnInternals.validConfiguration` flag. It also manages an object suitable to be returned by the `validity` property. It is up to the column author to override the `validity` accessor to return this object.
+
+```TS
+export class ColumnValidator<ValidityFlagNames extends readonly string[]> {
+    protected configValidity: ObjectFromList<ValidityFlagNames>;
+
+    public isValid(): boolean {
+        return Object.values(this.configValidity).every(x => !x);
+    }
+
+    public getValidity(): ValidityObject {
+        return {
+            ...this.configValidity
+        };
+    }
+
+    protected setConditionValue(
+        name: ValidityFlagNames extends readonly (infer U)[] ? U : never,
+        isInvalid: boolean
+    ): void {
+        this.configValidity[name] = isInvalid;
+        this.updateColumnInternalsFlag();
+    }
+```
+
+By deriving from this base type, a column can easily validate specific conditions of its validity:
+
+```TS
+const configValidity = [
+    'hasMultipleDefaultMappings',
+    'hasUnsupportedMappingTypes',
+    ...
+] as const;
+
+class TableColumnIconValidator extends ColumnValidator<typeof configValidity> {
+    public constructor(columnInternals: ColumnInternals<unknown>) {
+        super(columnInternals, configValidity);
+    }
+
+    public validateNoMultipleDefaultMappings(mappings: Mapping[]): void {
+        ...
+        this.setConditionValue('hasMultipleDefaultMappings', foundMultiple);
+    }
+
+    public validateNoUnsupportedMappingTypes(mappings: Mapping[]): void {
+        ...
+        this.setConditionValue('hasUnsupportedMappingTypes', foundUnsupported);
+    }
+    ...
+}
+```
+
+The column type will respond to changes in properties by calling the validator's validation functions:
+
+```TS
+private mappingsChanged(): void {
+    this.validator.validateNoMultipleDefaultMappings(this.mappings);
+    this.validator.validateNoUnsupportedMappingTypes(this.mappings);
+}
+```
+
+The table's validity object has a property to represent the validity of all of its columns:
+
+```TS
+export class TableValidator<TData extends TableRecord> {
+    private invalidColumnConfiguration: boolean; // true if one or more invalid columns
+    public isValid(): boolean {
+        ...
+        && !this.invalidColumnConfiguration
+        ...
+    }
+
+    public validateColumns(columns: TableColumn[]): boolean {
+        this.invalidColumnConfiguration = columns.some(x => !x.checkValidity());
+        return !this.invalidColumnConfiguration;
+    }
+}
+```
+
+The `validateColumns()` function is one of the multiple validation functions called from `validate()`, which in turn is called when a queued update is executed.
 
 ## Alternative Implementations / Designs
 

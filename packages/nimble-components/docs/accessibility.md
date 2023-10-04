@@ -24,7 +24,5 @@ export const template = html<CoolNewButton>`
 ## Setting ARIA attributes
 When setting [ARIA attributes](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes) on nimble components, avoid using id-based attributes, such as `aria-labelledby`. The id-based attributes may not behave as expected when used with Shadow DOM components, such as `nimble`.
 
-# Component-specific accessiblity notes
-
-## nimble-button
-When using the `nimble-button` with only an icon, `contentHidden` should be set to `true` and text content should be provided within the button even though it will not be visible on the screen. The button will use the text content to configure the appropriate ARIA attributes internally to ensure the button is adequately accessible with a screen reader.
+## Icons in components
+When a component includes an icon in the Shadow DOM, consider whether that icon has a meaning that is not otherwise communicated by its surrounding context. If so, then set its `role` to `img` and its `aria-label` to a descriptive label. Note that surrounding context includes ARIA attributes of its containing element. For example, it is not necessary to give an `aria-label` to the expand/collapse icon of a tree item, because that is communicated by setting `aria-expanded` on the item.

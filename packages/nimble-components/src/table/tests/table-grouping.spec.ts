@@ -17,8 +17,8 @@ interface SimpleTableRecord extends TableRecord {
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table id-field-name="id">
-            <nimble-table-column-text id="first-column" field-name="stringData1"></nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="stringData2"></nimble-table-column-text>
+            <nimble-table-column-text id="first-column" field-name="stringData1" column-id="column-1"></nimble-table-column-text>
+            <nimble-table-column-text id="second-column" field-name="stringData2" column-id="column-2"></nimble-table-column-text>
         </nimble-table>`
     );
 }
@@ -66,6 +66,7 @@ describe('Table grouping', () => {
         await connect();
         await waitForUpdatesAsync();
 
+        expect(pageObject.getGroupedColumns()).toEqual(['column-1']);
         expect(pageObject.getRenderedGroupRowCount()).toEqual(3);
     });
 
@@ -85,7 +86,29 @@ describe('Table grouping', () => {
         column1.groupIndex = 0;
         await waitForUpdatesAsync();
 
+        expect(pageObject.getGroupedColumns()).toEqual(['column-1']);
         expect(pageObject.getRenderedGroupRowCount()).toEqual(3);
+    });
+
+    it('shows correct child row counts on group rows', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo' },
+            { id: '2', stringData1: 'foo' },
+            { id: '3', stringData1: 'zzz' },
+            { id: '4', stringData1: 'hello' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        column1.groupIndex = 0;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getChildRowCountForGroup(0)).toBe(2);
+        expect(pageObject.getChildRowCountForGroup(1)).toBe(1);
+        expect(pageObject.getChildRowCountForGroup(2)).toBe(1);
     });
 
     it('changing column field updates rows', async () => {
@@ -108,6 +131,58 @@ describe('Table grouping', () => {
         await waitForUpdatesAsync();
 
         expect(getRenderedRecordIds()).toEqual(['1', '2', '4', '3']);
+    });
+
+    it('changing column field updates rows updates group row counts', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo', stringData2: 'elephant' },
+            { id: '2', stringData1: 'abc', stringData2: 'cat' },
+            { id: '3', stringData1: 'foo', stringData2: 'dog' },
+            { id: '4', stringData1: 'hello', stringData2: 'cat' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.groupIndex = 0;
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        column1.fieldName = 'stringData2';
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getChildRowCountForGroup(0)).toBe(1);
+        expect(pageObject.getChildRowCountForGroup(1)).toBe(2);
+        expect(pageObject.getChildRowCountForGroup(2)).toBe(1);
+    });
+
+    it('updating data updates group row counts', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo' },
+            { id: '2', stringData1: 'foo' },
+            { id: '3', stringData1: 'zzz' },
+            { id: '4', stringData1: 'hello' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.groupIndex = 0;
+        await waitForUpdatesAsync();
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        await element.setData([
+            ...data,
+            { id: '5', stringData1: 'foo' },
+            { id: '6', stringData1: 'hello' },
+            { id: '7', stringData1: 'zzz' },
+            { id: '8', stringData1: 'zzz' },
+            { id: '9', stringData1: 'foo' }
+        ]);
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getChildRowCountForGroup(0)).toBe(4);
+        expect(pageObject.getChildRowCountForGroup(1)).toBe(3);
+        expect(pageObject.getChildRowCountForGroup(2)).toBe(2);
     });
 
     it('removing grouping restores rows to default order based on data', async () => {
@@ -259,10 +334,14 @@ describe('Table grouping', () => {
         await connect();
         await waitForUpdatesAsync();
 
+        expect(pageObject.getGroupedColumns()).toEqual([
+            'column-2',
+            'column-1'
+        ]);
         expect(pageObject.getRenderedGroupRowCount()).toBe(6);
         expect(getRenderedRecordIds()).toEqual(['1', '4', '2', '3']);
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('world');
-        expect(pageObject.getRenderedGroupHeaderContent(1)).toBe('hello');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('world');
+        expect(pageObject.getRenderedGroupHeaderTextContent(1)).toBe('hello');
     });
 
     it('can update group index', async () => {
@@ -432,12 +511,14 @@ describe('Table grouping', () => {
         }
 
         async function addNewColumn(
+            columnId: string,
             fieldName: string,
             groupIndex?: number
         ): Promise<TableColumnText> {
             const newColumn = document.createElement(
                 'nimble-table-column-text'
             );
+            newColumn.columnId = columnId;
             newColumn.fieldName = fieldName;
             if (typeof groupIndex === 'number') {
                 newColumn.groupIndex = groupIndex;
@@ -502,13 +583,17 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedGroupHeaderContent(0)).toEqual('foo');
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toEqual(
+                'foo'
+            );
 
-            const newColumn = await addNewColumn('stringData3');
+            const newColumn = await addNewColumn('column-3', 'stringData3');
             newColumn.groupIndex = 0;
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedGroupHeaderContent(0)).toEqual('bar');
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toEqual(
+                'bar'
+            );
         });
 
         it('hidden column can still be grouped by', async () => {
@@ -526,7 +611,7 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+            expect(pageObject.getAllRenderedGroupHeaderTextContent()).toEqual([
                 'foo',
                 'abc',
                 'zzz',
@@ -555,7 +640,7 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+            expect(pageObject.getAllRenderedGroupHeaderTextContent()).toEqual([
                 'jupiter',
                 'moon',
                 'saturn',
@@ -582,7 +667,7 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+            expect(pageObject.getAllRenderedGroupHeaderTextContent()).toEqual([
                 'world',
                 'saturn',
                 'moon',
@@ -612,7 +697,7 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+            expect(pageObject.getAllRenderedGroupHeaderTextContent()).toEqual([
                 'world',
                 'good bye',
                 'hello',

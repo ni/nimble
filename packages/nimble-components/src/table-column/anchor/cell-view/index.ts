@@ -24,22 +24,20 @@ TableColumnAnchorColumnConfig
 > {
     /** @internal */
     @observable
-    public isValidContentAndHasOverflow = false;
+    public hasOverflow = false;
 
     /** @internal */
     public anchor?: Anchor;
-    /** @internal */
-    public textSpan?: HTMLSpanElement;
 
     @volatile
-    public get content(): string {
-        if (typeof this.cellRecord.label === 'string') {
+    public get text(): string {
+        if (typeof this.cellRecord?.label === 'string') {
             return this.cellRecord.label;
         }
-        if (typeof this.cellRecord.href === 'string') {
+        if (typeof this.cellRecord?.href === 'string') {
             return this.cellRecord.href;
         }
-        return this.columnConfig.placeholder;
+        return '';
     }
 
     public override focusedRecycleCallback(): void {

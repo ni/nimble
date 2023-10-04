@@ -2,7 +2,7 @@
 import { attr, customElement, html } from '@microsoft/fast-element';
 import { Table, tableTag } from '..';
 import { TableColumn } from '../../table-column/base';
-import { TableColumnText } from '../../table-column/text';
+import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
@@ -14,7 +14,12 @@ import {
 } from '../../utilities/tests/fixture';
 import { TableColumnSortDirection, TableRecord } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
-import { tableColumnEmptyGroupHeaderViewTag } from '../../table-column/base/tests/table-column.fixtures';
+import {
+    tableColumnEmptyGroupHeaderViewTag,
+    TableColumnValidationTest,
+    tableColumnValidationTestTag
+} from '../../table-column/base/tests/table-column.fixtures';
+import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -51,7 +56,7 @@ const largeTableData = Array.from(Array(500), (_, i) => {
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
+        html`<nimble-table style="width: 700px">
             <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
             <nimble-table-column-text id="second-column" field-name="moreStringData">
                 <nimble-icon-check></nimble-icon-check>
@@ -109,7 +114,10 @@ describe('Table', () => {
                         .dataRecordFieldNames[0]!;
                     const expectedCellData = visibleData[rowIndex]![dataKey]!;
                     expect(
-                        pageObject.getRenderedCellContent(rowIndex, columnIndex)
+                        pageObject.getRenderedCellTextContent(
+                            rowIndex,
+                            columnIndex
+                        )
                     ).toEqual(expectedCellData.toString());
                 }
             }
@@ -180,6 +188,41 @@ describe('Table', () => {
 
             headerContent = pageObject.getHeaderContent(0)!.firstChild;
             expect(headerContent?.textContent).toEqual('foo');
+        });
+
+        it('sets title when header text is ellipsized', async () => {
+            const headerContents = 'a very long value that should get ellipsized due to not fitting within the default header width';
+            await element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+            element.columns[0]!.textContent = headerContents;
+            pageObject.dispatchEventToHeader(0, new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(pageObject.getHeaderTitle(0)).toBe(headerContents);
+        });
+
+        it('does not set title when header text is fully visible', async () => {
+            const headerContents = 'short value';
+            await element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+            element.columns[0]!.textContent = headerContents;
+            pageObject.dispatchEventToHeader(0, new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(pageObject.getHeaderTitle(0)).toBe('');
+        });
+
+        it('removes title on mouseout of header', async () => {
+            const headerContents = 'a very long value that should get ellipsized due to not fitting within the default header width';
+            await element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+            element.columns[0]!.textContent = headerContents;
+            pageObject.dispatchEventToHeader(0, new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            pageObject.dispatchEventToHeader(0, new MouseEvent('mouseout'));
+            await waitForUpdatesAsync();
+            expect(pageObject.getHeaderTitle(0)).toBe('');
         });
 
         it('can set data before the element is connected', async () => {
@@ -322,7 +365,9 @@ describe('Table', () => {
             await element.setData(simpleTableData);
             await waitForUpdatesAsync();
 
-            const dateColumn = new TableColumnText();
+            const dateColumn = document.createElement(
+                tableColumnTextTag
+            ) as TableColumnText;
             dateColumn.fieldName = 'moreStringData';
 
             element.appendChild(dateColumn);
@@ -339,7 +384,9 @@ describe('Table', () => {
             await element.setData(simpleTableData);
             await waitForUpdatesAsync();
 
-            const dateColumn = new TableColumnText();
+            const dateColumn = document.createElement(
+                tableColumnTextTag
+            ) as TableColumnText;
             dateColumn.fieldName = 'moreStringData';
 
             element.insertBefore(dateColumn, element.columns[0]!);
@@ -547,7 +594,7 @@ describe('Table', () => {
             @customElement({
                 name: focusableCellViewName,
                 template: html<TestFocusableCellView>`<span tabindex="0"
-                    >${x => x.content}</span
+                    >${x => x.text}</span
                 >`
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -564,13 +611,13 @@ describe('Table', () => {
                 @attr({ attribute: 'field-name' })
                 public fieldName?: string;
 
-                public constructor() {
-                    super({
+                protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+                    return {
                         cellViewTag: focusableCellViewName,
                         cellRecordFieldNames: ['value'],
                         groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
                         delegatedEvents: []
-                    });
+                    };
                 }
             }
 
@@ -842,6 +889,59 @@ describe('Table', () => {
 
             expect(table.checkValidity()).toBeFalse();
             expect(table.validity.duplicateRecordId).toBeTrue();
+        });
+    });
+
+    describe('with validatable columns', () => {
+        let element: Table<SimpleTableRecord>;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+        let column1: TableColumnValidationTest;
+
+        // prettier-ignore
+        async function setupWithTestColumns(): Promise<Fixture<Table<SimpleTableRecord>>> {
+            return fixture<Table<SimpleTableRecord>>(
+                html`<nimble-table>
+                    <${tableColumnValidationTestTag} foo bar id="first-column" field-name="stringData">Col 1</${tableColumnValidationTestTag}>
+                    <${tableColumnValidationTestTag} foo bar id="second-column" field-name="moreStringData">Col 2</${tableColumnValidationTestTag}>
+                </nimble-table>`
+            );
+        }
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setupWithTestColumns());
+            column1 = element.querySelector<TableColumnValidationTest>(
+                '#first-column'
+            )!;
+            await connect();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('updates invalidColumnConfiguration and validity when column state changes', async () => {
+            expect(element.checkValidity()).toBeTrue();
+            expect(element.validity.invalidColumnConfiguration).toBeFalse();
+            column1.foo = false;
+            await waitForUpdatesAsync();
+            expect(element.checkValidity()).toBeFalse();
+            expect(element.validity.invalidColumnConfiguration).toBeTrue();
+            column1.foo = true;
+            await waitForUpdatesAsync();
+            expect(element.checkValidity()).toBeTrue();
+            expect(element.validity.invalidColumnConfiguration).toBeFalse();
+        });
+
+        it('updates invalidColumnConfiguration when invalid column removed', async () => {
+            column1.foo = false;
+            await waitForUpdatesAsync();
+            expect(element.checkValidity()).toBeFalse();
+            expect(element.validity.invalidColumnConfiguration).toBeTrue();
+            element.children[0]?.remove();
+            await waitForUpdatesAsync();
+            expect(element.checkValidity()).toBeTrue();
+            expect(element.validity.invalidColumnConfiguration).toBeFalse();
         });
     });
 });

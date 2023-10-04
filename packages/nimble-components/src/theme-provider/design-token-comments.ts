@@ -9,12 +9,30 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     dividerBackgroundColor: 'Divider background color',
     headerBackgroundColor: 'Background color for application headers',
     sectionBackgroundColor: 'Background color for sections',
+    buttonFillPrimaryColor:
+        'Control fill color for "primary" appearance-variant buttons',
+    buttonPrimaryFontColor:
+        'Font color for "primary" appearance-variant buttons',
+    buttonFillActivePrimaryColor:
+        'Active fill color for "primary" appearance-variant buttons',
+    buttonFillAccentColor:
+        'Control fill color for "accent" appearance-variant buttons',
+    buttonAccentBlockFontColor:
+        'Font color for "accent" appearance-variant block buttons',
+    buttonAccentOutlineFontColor:
+        'Font color for "accent" appearance-variant outline buttons',
+    buttonBorderAccentOutlineColor:
+        'Border color for "accent" appearance-variant outline buttons',
+    buttonFillAccentActiveColor:
+        'Active fill color for "accent" appearance-variant buttons',
     fillSelectedColor: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     fillHoverSelectedColor:
         'Control fill color when hovering a selected control',
     fillHoverColor: 'Control fill color when hovering component',
+    fillHoverRgbPartialColor:
+        'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     fillDownColor: 'Control fill color when mousedown event occurs',
     borderColor: 'Standard control outline or border color',
     borderRgbPartialColor:
@@ -34,8 +52,9 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
     controlSlimHeight:
         'Height of controls that are somewhat shorter than standard height.',
-    smallPadding: 'Small layout padding for components',
-    standardPadding: 'Standard layout padding for components',
+    smallPadding: 'Fixed 4px size ramp token for component layout',
+    mediumPadding: 'Fixed 8px size ramp token for component layout',
+    standardPadding: 'Fixed 16px size ramp token for component layout',
     labelHeight:
         'Standard label height for components. Set the label font rather than explicitly setting the height for a label.',
     borderWidth: 'Standard border width for most components',
@@ -264,5 +283,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     elevation2BoxShadow:
         'The box shadow for elevation 2. Used for components such as menus, banners, tooltips, error notifications, and scrolling.',
     elevation3BoxShadow:
-        'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.'
+        'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.',
+    graphGridlineColor: 'Gridline color for graphs'
 };

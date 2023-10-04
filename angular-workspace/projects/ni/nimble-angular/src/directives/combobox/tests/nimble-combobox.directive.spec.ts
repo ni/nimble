@@ -1,9 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ComboboxAutocomplete, DropdownAppearance } from '../../../public-api';
-import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
+import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
+import { FormsModule } from '@angular/forms';
+import { ComboboxAutocomplete, DropdownAppearance, NimbleListOptionModule } from '../../../public-api';
 import { Combobox, NimbleComboboxDirective } from '../nimble-combobox.directive';
 import { NimbleComboboxModule } from '../nimble-combobox.module';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 describe('Nimble combobox', () => {
     beforeEach(() => {
@@ -77,6 +79,17 @@ describe('Nimble combobox', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('has expected defaults for open', () => {
+            expect(directive.open).toBeFalse();
+            expect(nativeElement.open).toBeFalse();
+        });
+
+        it('can use the directive to set open', () => {
+            directive.open = true;
+            expect(directive.open).toBeTrue();
+            expect(nativeElement.open).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -89,6 +102,7 @@ describe('Nimble combobox', () => {
                     placeholder="Enter value:"
                     error-text="error text"
                     error-visible
+                    open
                 >
                 </nimble-combobox>`
         })
@@ -141,6 +155,11 @@ describe('Nimble combobox', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('will use template string values for open', () => {
+            expect(directive.open).toBeTrue();
+            expect(nativeElement.open).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -153,6 +172,7 @@ describe('Nimble combobox', () => {
                     [placeholder]="placeholder"
                     [error-text]="errorText"
                     [error-visible]="errorVisible"
+                    [open]="open"
                 >
                 </nimble-combobox>
             `
@@ -166,6 +186,7 @@ describe('Nimble combobox', () => {
             public errorText = 'initial value';
             public placeholder = 'Enter value:';
             public errorVisible = false;
+            public open = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -249,6 +270,17 @@ describe('Nimble combobox', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('can be configured with property binding for open', () => {
+            expect(directive.open).toBeFalse();
+            expect(nativeElement.open).toBeFalse();
+
+            fixture.componentInstance.open = true;
+            fixture.detectChanges();
+
+            expect(directive.open).toBeTrue();
+            expect(nativeElement.open).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -261,6 +293,7 @@ describe('Nimble combobox', () => {
                     [attr.placeholder]="placeholder"
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible"
+                    [attr.open]="open"
                 >
                 </nimble-combobox>
             `
@@ -274,6 +307,7 @@ describe('Nimble combobox', () => {
             public placeholder = 'Enter value:';
             public errorText = 'initial value';
             public errorVisible: BooleanValueOrAttribute = null;
+            public open: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -356,6 +390,100 @@ describe('Nimble combobox', () => {
 
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for open', () => {
+            expect(directive.open).toBeFalse();
+            expect(nativeElement.open).toBeFalse();
+
+            fixture.componentInstance.open = '';
+            fixture.detectChanges();
+
+            expect(directive.open).toBeTrue();
+            expect(nativeElement.open).toBeTrue();
+        });
+    });
+
+    describe('can access value through directive', () => {
+        interface TestModel {
+            name: string;
+            value: number;
+        }
+
+        @Component({
+            template: `
+                <nimble-combobox #combobox>
+                    <nimble-list-option *ngFor="let option of autoCompleteOptions" [ngValue]="option">{{ option.name }}</nimble-list-option>
+                </nimble-combobox>
+            `
+        })
+        class TestHostComponent {
+            @ViewChild('combobox', { read: NimbleComboboxDirective }) public directive: NimbleComboboxDirective;
+            @ViewChild('combobox', { read: ElementRef }) public elementRef: ElementRef<Combobox>;
+            public autoCompleteOptions: TestModel[] = [
+                { name: 'Zero', value: 0 },
+                { name: 'One', value: 1 },
+                { name: 'Two', value: 2 }
+            ];
+        }
+
+        let fixture: ComponentFixture<TestHostComponent>;
+        let directive: NimbleComboboxDirective;
+        let nativeElement: Combobox;
+
+        function typeValueInCombobox(value: string): void {
+            nativeElement.control.value = value;
+            const inputEvent = new InputEvent('input', { data: value, inputType: 'insertText' });
+            nativeElement.inputHandler(inputEvent);
+            nativeElement.dispatchEvent(inputEvent);
+        }
+
+        function clickComboboxOption(optionIndex: number): void {
+            nativeElement.dispatchEvent(new Event('click'));
+            nativeElement.options[optionIndex].dispatchEvent(new Event('click', { bubbles: true }));
+        }
+
+        beforeEach(async () => {
+            TestBed.configureTestingModule({
+                declarations: [TestHostComponent],
+                imports: [NimbleComboboxModule, NimbleListOptionModule, FormsModule]
+            });
+            fixture = TestBed.createComponent(TestHostComponent);
+            fixture.detectChanges();
+            // wait for combobox's 'options' property to be updated from slotted content
+            await waitForUpdatesAsync();
+            directive = fixture.componentInstance.directive;
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
+        });
+
+        it('before a value is set', () => {
+            expect(directive.value).toBe('');
+            expect(nativeElement.value).toBe('');
+        });
+
+        it('after typing a value not in the auto complete list', () => {
+            const typedText = 'hello world';
+            typeValueInCombobox(typedText);
+
+            expect(directive.value).toBe(typedText);
+            expect(nativeElement.value).toBe(typedText);
+        });
+
+        it('after typing a value in the auto complete list', () => {
+            const typedText = fixture.componentInstance.autoCompleteOptions[0].name;
+            typeValueInCombobox(typedText);
+
+            expect(directive.value).toBe(typedText);
+            expect(nativeElement.value).toBe(typedText);
+        });
+
+        it('after clicking a value in the auto complete list', () => {
+            const optionClickIndex = 1;
+            const option = fixture.componentInstance.autoCompleteOptions[optionClickIndex];
+            clickComboboxOption(optionClickIndex);
+
+            expect(directive.value).toBe(option.name);
+            expect(nativeElement.value).toBe(option.name);
         });
     });
 });

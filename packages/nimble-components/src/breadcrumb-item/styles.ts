@@ -57,14 +57,12 @@ export const styles = css`
         text-decoration: underline;
     }
 
-    .start,
-    .end {
-        display: flex;
-        align-items: center;
+    [part='start'] {
+        display: none;
     }
 
-    .start {
-        margin-inline-end: 4px;
+    [part='end'] {
+        display: none;
     }
 
     slot[name='separator'] {

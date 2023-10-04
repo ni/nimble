@@ -1,8 +1,9 @@
 import remarkGfm from 'remark-gfm';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 
+// All files participating in storybook should be in src
+// so that TypeScript and linters can track them correctly
 export const stories = [
-    '../docs/**/*.mdx',
     '../src/**/*.mdx',
     '../src/**/*.stories.ts'
 ];

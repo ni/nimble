@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "6.0.0",
+  "version": "6.4.0",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico && npm run build:generate-font-scss && npm run build:style-dictionary",
@@ -37,9 +37,10 @@
     "cross-env": "^7.0.3",
     "glob": "^8.1.0",
     "lodash": "^4.17.21",
+    "sharp": "^0.32.1",
     "style-dictionary": "3.7.2",
-    "svg-to-ico": "^1.0.11",
     "svg-to-ts": "^9.0.0",
+    "to-ico": "^1.1.5",
     "typescript": "~4.7.4"
   },
   "files": [

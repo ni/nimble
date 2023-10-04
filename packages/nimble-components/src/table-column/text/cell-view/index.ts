@@ -20,16 +20,10 @@ export class TableColumnTextCellView extends TableColumnTextCellViewBase<
 TableColumnTextCellRecord,
 TableColumnTextColumnConfig
 > {
-    public override get text(): string {
-        return this.cellRecord.value!;
-    }
-
-    public override get placeholder(): string {
-        return this.columnConfig.placeholder;
-    }
-
-    public override get shouldUsePlaceholder(): boolean {
-        return typeof this.cellRecord.value !== 'string';
+    private cellRecordChanged(): void {
+        this.text = typeof this.cellRecord?.value === 'string'
+            ? this.cellRecord.value
+            : '';
     }
 }
 

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "enabledManagers": ["npm"],
+  "rangeStrategy": "update-lockfile",
+  "schedule": [
+    "monthly"
+  ],
+  "vulnerabilityAlerts": {
+      "enabled": false
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["npm"],
+      "enabled": false
+    },
+    {
+      "groupName": "Dependencies",
+      "matchDepTypes": ["dependencies"],
+      "matchPackagePatterns":[
+        "^@microsoft/fast",
+        "^@tanstack/",
+        "^@tiptap/",
+        "@types/markdown-it",
+        "d3-",
+        "prosemirror-"
+      ],
+      "enabled": true
+    },
+    {
+      "groupName": "Dev Dependencies",
+      "matchDepTypes": ["devDependencies"],
+      "matchPackagePatterns":[
+        "^@ni/eslint-config",
+        "beachball",
+        "storybook"
+      ],
+      "enabled": true
+    }
+  ]
+}

@@ -1,7 +1,9 @@
 const path = require('path');
 const glob = require('glob');
 const fs = require('fs');
-const svgToIco = require('svg-to-ico');
+const fsp = require('fs/promises');
+const sharp = require('sharp');
+const toIcon = require('to-ico');
 
 const iconAssetDir = path.resolve(__dirname, '../dist/icons/svg/');
 const outputDir = path.resolve(__dirname, '../dist/icons/ico/');
@@ -28,6 +30,31 @@ if (iconAssetPaths.length <= 0) {
 
 console.log(`Number of icons found to convert: ${iconAssetPaths.length}`);
 
+// The following function is based on code from jtrauntvein/svg-to-ico:
+// https://github.com/jtrauntvein/svg-to-ico/blob/main/svg-to-ico.js
+// It has been modified to build each icon size serially to avoid inttermittent
+// hangs. See issue #1297
+async function svgToIco({
+    inputName,
+    outputName,
+    sizes
+}) {
+    const buffers = [];
+    for (const size of sizes) {
+        // Intentionally serializing each loop. Otherwise, we get mysteriously get hangs.
+        // eslint-disable-next-line no-await-in-loop
+        const buffer = await sharp(inputName)
+            .resize(size, size, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+            .png({ compressionLevel: 0 })
+            .toBuffer();
+        buffers.push(buffer);
+    }
+
+    await toIcon(buffers).then(outputBuffer => {
+        fsp.writeFile(outputName, outputBuffer);
+    });
+}
+
 (async () => {
     for (const iconAssetPath of iconAssetPaths) {
         // Print a simple marker to see progress of the icon generation
@@ -39,8 +66,8 @@ console.log(`Number of icons found to convert: ${iconAssetPaths.length}`);
         // Generate icons on disk one at a time
         // eslint-disable-next-line no-await-in-loop
         await svgToIco({
-            input_name: iconAssetPath,
-            output_name: icoPath,
+            inputName: iconAssetPath,
+            outputName: icoPath,
             sizes: [16, 32]
         });
     }

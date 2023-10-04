@@ -72,7 +72,7 @@ describe('Anchor Tree Item', () => {
             await connect();
             element.disabled = true;
             await waitForUpdatesAsync();
-            expect(element.control.href).toBe('');
+            expect(element.control!.href).toBe('');
         });
 
         const attributeNames: { name: string }[] = [
@@ -101,7 +101,7 @@ describe('Anchor Tree Item', () => {
                     element.setAttribute(attribute.name, 'foo');
                     await waitForUpdatesAsync();
 
-                    expect(element.control.getAttribute(attribute.name)).toBe(
+                    expect(element.control!.getAttribute(attribute.name)).toBe(
                         'foo'
                     );
                 });
@@ -114,15 +114,11 @@ describe('Anchor Tree Item', () => {
             expect(element.end.assignedElements()[0]).toBe(model.checkIcon);
         });
 
-        it('should set start and end slots visible', async () => {
+        it('should set start slot visible', async () => {
             await connect();
             expect(
                 getComputedStyle(element.start).display === 'none'
                     || getComputedStyle(element.startContainer).display === 'none'
-            ).toBeFalse();
-            expect(
-                getComputedStyle(element.end).display === 'none'
-                    || getComputedStyle(element.endContainer).display === 'none'
             ).toBeFalse();
         });
     });

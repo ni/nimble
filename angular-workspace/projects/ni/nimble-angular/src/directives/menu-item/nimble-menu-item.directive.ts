@@ -1,8 +1,9 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { MenuItem } from '@ni/nimble-components/dist/esm/menu-item';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+import { type MenuItem, menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { MenuItem };
+export { menuItemTag };
 
 /**
  * Directive to provide Angular integration for the menu.

@@ -2,7 +2,10 @@ import { html, ref } from '@microsoft/fast-element';
 import type { AutoUpdateMode } from '@microsoft/fast-foundation';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    incubatingWarning
+} from '../../utilities/tests/storybook';
 import {
     borderColor,
     bodyFont,
@@ -91,14 +94,14 @@ const complexContent = html<TooltipArgs>`
 `;
 
 const metadata: Meta<TooltipArgs> = {
-    title: 'Tooltip',
+    title: 'Incubating/Tooltip',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component:
-                    'Per [W3C](https://w3c.github.io/aria-practices/#tooltip) – A tooltip is a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. It typically appears after a small delay and disappears when Escape is pressed or on mouse out. <br><br> It is recommended to set up aria-describedby, an accessibility feature that sets the description of another element through ID references. To do this, the anchor element (button, text, icon, etc.) of the tooltip must have `aria-describedby= name` in its attributes. To call it, use `id= name` in the nimble-tooltip attributes. More information can be found in the [aria-describedby docs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby).'
+                    'Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) – A tooltip is a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. It typically appears after a small delay and disappears when Escape is pressed or on mouse out. <br><br> It is recommended to set up aria-describedby, an accessibility feature that sets the description of another element through ID references. To do this, the anchor element (button, text, icon, etc.) of the tooltip must have `aria-describedby= name` in its attributes. To call it, use `id= name` in the nimble-tooltip attributes. More information can be found in the [aria-describedby docs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby).'
             }
         },
         actions: {
@@ -106,10 +109,10 @@ const metadata: Meta<TooltipArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html<TooltipArgs>`
-        <div id="usage-warning">
-            WARNING - The tooltip is still in development and considered
-            experimental. It is not recommended for application use.
-        </div>
+        ${incubatingWarning({
+        componentName: 'tooltip',
+        statusLink: 'https://github.com/ni/nimble/issues/309'
+    })}
         <div ${ref('anchorRef')} id="${x => x.getUniqueId(x.anchorRef)}">
             Hover here to see ${x => x.content} tooltip
         </div>
@@ -130,10 +133,6 @@ const metadata: Meta<TooltipArgs> = {
                 color: var(${bodyFontColor.cssCustomProperty});
                 width: 80px;
                 height: 60px;
-            }
-            #usage-warning {
-                color: red;
-                font: var(${bodyFont.cssCustomProperty});
             }
         </style>
     `),

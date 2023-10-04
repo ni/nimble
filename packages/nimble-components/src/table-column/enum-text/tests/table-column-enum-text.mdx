@@ -1,0 +1,30 @@
+import {
+    DocsStory,
+    Meta,
+    Controls,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import * as tableColumnEnumTextStories from './table-column-enum-text.stories';
+import * as textMappingStories from '../../../mapping/text/tests/mapping-text.stories';
+
+<Meta of={tableColumnEnumTextStories} />
+
+<Title of={tableColumnEnumTextStories} />
+<Description of={tableColumnEnumTextStories} />
+
+<DocsStory of={tableColumnEnumTextStories.enumTextColumn} expanded={false} />
+<Controls of={tableColumnEnumTextStories.enumTextColumn} />
+
+# Usage Docs
+
+## Blazor Usage
+
+When setting a child mapping element's `Key` value to a string, you must wrap it in `@()` so that the compiler treats it as a string, e.g.
+`<NimbleMappingText Key=@("foo") ...>`
+
+# Text Mapping
+
+<Description of={textMappingStories} />
+<Controls of={textMappingStories.textMapping} />

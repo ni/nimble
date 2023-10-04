@@ -48,8 +48,8 @@ import {
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
-import { UpdateTracker } from './models/update-tracker';
-import { TableLayoutHelper } from './models/table-layout-helper';
+import { TableLayoutManager } from './models/table-layout-manager';
+import { TableUpdateTracker } from './models/table-update-tracker';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
@@ -139,6 +139,16 @@ export class Table<
     /**
      * @internal
      */
+    public get showRowOperationColumn(): boolean {
+        return (
+            this.selectionMode === TableRowSelectionMode.multiple
+            || this.showCollapseAll
+        );
+    }
+
+    /**
+     * @internal
+     */
     public readonly viewport!: HTMLElement;
 
     /**
@@ -156,12 +166,27 @@ export class Table<
     /**
      * @internal
      */
+    public readonly headerRowActionContainer!: HTMLElement;
+
+    /**
+     * @internal
+     */
     public readonly rowContainer!: HTMLElement;
 
     /**
      * @internal
      */
+    public readonly columnHeadersContainer!: Element;
+
+    /**
+     * @internal
+     */
     public readonly virtualizer: Virtualizer<TData>;
+
+    /**
+     * @internal
+     */
+    public readonly layoutManager: TableLayoutManager<TData>;
 
     /**
      * @internal
@@ -173,14 +198,26 @@ export class Table<
      * @internal
      */
     @observable
+    public visibleColumns: TableColumn[] = [];
+
+    /**
+     * @internal
+     * This value determines the size of the viewport area when a user has created horizontal scrollable
+     * space through a column resize operation.
+     */
+    @observable
+    public tableScrollableMinWidth = 0;
+
+    @observable
     public documentShiftKeyDown = false;
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
-    private readonly updateTracker = new UpdateTracker(this);
+    private readonly tableUpdateTracker = new TableUpdateTracker(this);
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private columnNotifiers: Notifier[] = [];
+    private readonly layoutManagerNotifier: Notifier;
     private isInitialized = false;
     private readonly collapsedRows = new Set<string>();
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
@@ -217,6 +254,9 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
+        this.layoutManager = new TableLayoutManager(this);
+        this.layoutManagerNotifier = Observable.getNotifier(this.layoutManager);
+        this.layoutManagerNotifier.subscribe(this, 'isColumnBeingSized');
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
             this.selectionMode
@@ -314,7 +354,19 @@ export class Table<
                 || source instanceof ColumnInternals)
             && typeof args === 'string'
         ) {
-            this.updateTracker.trackColumnPropertyChanged(args);
+            if (args === 'validConfiguration') {
+                this.tableValidator.validateColumnConfigurations(this.columns);
+            } else {
+                this.tableUpdateTracker.trackColumnPropertyChanged(args);
+            }
+        } else if (
+            source instanceof TableLayoutManager
+            && args === 'isColumnBeingSized'
+            && !this.layoutManager.isColumnBeingSized
+        ) {
+            // 'isColumnBeingSized' changing to 'false' indicates an interactive
+            // column sizing operation has been completed
+            this.emitColumnConfigurationChangeEvent();
         }
     }
 
@@ -391,6 +443,32 @@ export class Table<
     }
 
     /** @internal */
+    public onRightDividerMouseDown(
+        event: MouseEvent,
+        columnIndex: number
+    ): void {
+        if (event.button === 0) {
+            this.layoutManager.beginColumnInteractiveSize(
+                event.clientX,
+                columnIndex * 2
+            );
+        }
+    }
+
+    /** @internal */
+    public onLeftDividerMouseDown(
+        event: MouseEvent,
+        columnIndex: number
+    ): void {
+        if (event.button === 0) {
+            this.layoutManager.beginColumnInteractiveSize(
+                event.clientX,
+                columnIndex * 2 - 1
+            );
+        }
+    }
+
+    /** @internal */
     public handleGroupRowExpanded(rowIndex: number, event: Event): void {
         this.toggleGroupExpanded(rowIndex);
         event.stopPropagation();
@@ -451,19 +529,22 @@ export class Table<
      */
     public update(): void {
         this.validate();
-        if (this.updateTracker.requiresTanStackUpdate) {
+        if (this.tableUpdateTracker.requiresTanStackUpdate) {
             this.updateTanStack();
         }
 
-        if (this.updateTracker.updateActionMenuSlots) {
+        if (this.tableUpdateTracker.updateActionMenuSlots) {
             this.updateActionMenuSlots();
         }
 
-        if (this.updateTracker.updateColumnWidths) {
-            this.updateRowGridColumns();
+        if (this.tableUpdateTracker.updateColumnWidths) {
+            this.rowGridColumns = this.layoutManager.getGridTemplateColumns();
+            this.visibleColumns = this.columns.filter(
+                column => !column.columnHidden
+            );
         }
 
-        if (this.updateTracker.updateGroupRows) {
+        if (this.tableUpdateTracker.updateGroupRows) {
             this.showCollapseAll = this.getColumnsParticipatingInGrouping().length > 0;
         }
     }
@@ -479,6 +560,15 @@ export class Table<
         }
     }
 
+    /**
+     * @internal
+     */
+    public getHeaderContainerElements(): NodeListOf<Element> {
+        return this.columnHeadersContainer.querySelectorAll(
+            '.header-container'
+        );
+    }
+
     protected selectionModeChanged(
         _prev: string | undefined,
         _next: string | undefined
@@ -487,7 +577,7 @@ export class Table<
             return;
         }
 
-        this.updateTracker.trackSelectionModeChanged();
+        this.tableUpdateTracker.trackSelectionModeChanged();
     }
 
     protected idFieldNameChanged(
@@ -498,7 +588,7 @@ export class Table<
             return;
         }
 
-        this.updateTracker.trackIdFieldNameChanged();
+        this.tableUpdateTracker.trackIdFieldNameChanged();
     }
 
     protected columnsChanged(
@@ -510,7 +600,7 @@ export class Table<
         }
 
         this.observeColumns();
-        this.updateTracker.trackColumnInstancesChanged();
+        this.tableUpdateTracker.trackColumnInstancesChanged();
     }
 
     private async handleActionMenuBeforeToggleEvent(
@@ -583,7 +673,7 @@ export class Table<
         this.isInitialized = true;
         // Initialize the controller to ensure that FAST functionality such as Observables work as expected.
         this.$fastController.onConnectedCallback();
-        this.updateTracker.trackAllStateChanged();
+        this.tableUpdateTracker.trackAllStateChanged();
         this.observeColumns();
     }
 
@@ -591,7 +681,7 @@ export class Table<
         this.initialize();
         await DOM.nextUpdate();
 
-        if (this.updateTracker.hasPendingUpdates) {
+        if (this.tableUpdateTracker.hasPendingUpdates) {
             throw new Error('Expected pending updates to be resolved');
         }
     }
@@ -607,7 +697,7 @@ export class Table<
                 column.columnInternals
             );
             notifierInternals.subscribe(this);
-            this.columnNotifiers.push(notifier);
+            this.columnNotifiers.push(notifierInternals);
         }
     }
 
@@ -645,18 +735,18 @@ export class Table<
         const updatedOptions: Partial<TanStackTableOptionsResolved<TData>> = {};
         updatedOptions.state = {};
 
-        if (this.updateTracker.updateColumnSort) {
+        if (this.tableUpdateTracker.updateColumnSort) {
             updatedOptions.state.sorting = this.calculateTanStackSortState();
         }
-        if (this.updateTracker.updateColumnDefinition) {
+        if (this.tableUpdateTracker.updateColumnDefinition) {
             updatedOptions.columns = this.calculateTanStackColumns();
         }
-        if (this.updateTracker.updateRowIds) {
+        if (this.tableUpdateTracker.updateRowIds) {
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
             updatedOptions.state.rowSelection = {};
             this.selectionManager.handleSelectionReset();
         }
-        if (this.updateTracker.updateSelectionMode) {
+        if (this.tableUpdateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.state.rowSelection = {};
@@ -664,11 +754,11 @@ export class Table<
                 this.selectionMode
             );
         }
-        if (this.updateTracker.requiresTanStackDataReset) {
+        if (this.tableUpdateTracker.requiresTanStackDataReset) {
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
             updatedOptions.data = [...this.table.options.data];
         }
-        if (this.updateTracker.updateGroupRows) {
+        if (this.tableUpdateTracker.updateGroupRows) {
             updatedOptions.state.grouping = this.calculateTanStackGroupingState();
             updatedOptions.state.expanded = true;
             this.collapsedRows.clear();
@@ -685,12 +775,6 @@ export class Table<
             }
         }
         this.actionMenuSlots = Array.from(slots);
-    }
-
-    private updateRowGridColumns(): void {
-        this.rowGridColumns = TableLayoutHelper.getGridTemplateColumns(
-            this.columns
-        );
     }
 
     private validate(): void {
@@ -711,6 +795,7 @@ export class Table<
                 x => x.columnInternals.groupIndex!
             )
         );
+        this.tableValidator.validateColumnConfigurations(this.columns);
         this.validateWithData(this.table.options.data);
     }
 
@@ -974,7 +1059,8 @@ export class Table<
                 },
                 sortingFn: getTanStackSortingFunction(
                     column.columnInternals.sortOperation
-                )
+                ),
+                sortUndefined: false
             };
         });
     }

@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { WaferMapOrientation, WaferMapQuadrant } from '../types';
+import { WaferMapOrientation, WaferMapOriginLocation } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -12,7 +12,7 @@ import {
 import { waferMapTag } from '..';
 
 const metadata: Meta = {
-    title: 'Tests/WaferMap',
+    title: 'Tests/Wafer Map',
     parameters: {
         ...sharedMatrixParameters()
     }
@@ -28,13 +28,13 @@ const orientationStates = [
 ] as const;
 type OrientationState = (typeof orientationStates)[number];
 
-const dieOrientation = [
-    [WaferMapQuadrant.topLeft],
-    [WaferMapQuadrant.bottomLeft],
-    [WaferMapQuadrant.topRight],
-    [WaferMapQuadrant.bottomRight]
+const originLocationStates = [
+    [WaferMapOriginLocation.topLeft],
+    [WaferMapOriginLocation.bottomLeft],
+    [WaferMapOriginLocation.topRight],
+    [WaferMapOriginLocation.bottomRight]
 ] as const;
-type DieOrientation = (typeof dieOrientation)[number];
+type OriginLocationStates = (typeof originLocationStates)[number];
 
 const colorsScales = [
     [
@@ -78,13 +78,57 @@ const waferMapDie = [
 
 const waferMapSizes = [70, 200, 300, 400];
 
+const gridDimensions = [
+    [
+        {
+            gridMinX: undefined,
+            gridMaxX: undefined,
+            gridMinY: undefined,
+            gridMaxY: undefined
+        }
+    ],
+    [
+        {
+            gridMinX: 0,
+            gridMaxX: 0,
+            gridMinY: 0,
+            gridMaxY: 0
+        }
+    ],
+    [
+        {
+            gridMinX: 0,
+            gridMaxX: 4,
+            gridMinY: 0,
+            gridMaxY: 0
+        }
+    ],
+    [
+        {
+            gridMinX: 0,
+            gridMaxX: 0,
+            gridMinY: 0,
+            gridMaxY: 4
+        }
+    ],
+    [
+        {
+            gridMinX: 0,
+            gridMaxX: 4,
+            gridMinY: 0,
+            gridMaxY: 4
+        }
+    ]
+] as const;
+type GridDimensions = (typeof gridDimensions)[number];
+
 const simpleWaferWithDies = (): ViewTemplate => html`<${waferMapTag}
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
 </${waferMapTag}>`;
 
-const componentWaferWithDies = ([
+const componentWaferWithOrientation = ([
     orientation
 ]: OrientationState): ViewTemplate => html`<${waferMapTag}
     orientation="${() => orientation}"
@@ -103,10 +147,10 @@ const componentWaferWithHiddenDieLabel = (
 >
 </${waferMapTag}>`;
 
-const componentWaferWithDieOrientation = ([
-    orientation
-]: DieOrientation): ViewTemplate => html`<${waferMapTag}
-    quadrant="${() => orientation}"
+const componentWaferWithOriginLocation = ([
+    originLocation
+]: OriginLocationStates): ViewTemplate => html`<${waferMapTag}
+    :originLocation="${() => originLocation}"
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
@@ -121,12 +165,24 @@ const componentWaferResize = (
 >
 </${waferMapTag}> `;
 
+const componentWaferWithGridDimensions = ([
+    dimensions
+]: GridDimensions): ViewTemplate => html`<${waferMapTag}
+    :dies="${() => waferMapDie}"
+    :colorScale="${() => defaultColor}"
+    :gridMaxX=${() => dimensions.gridMaxX}
+    :gridMaxY=${() => dimensions.gridMaxY}
+    :gridMinX=${() => dimensions.gridMinX}
+    :gridMinY=${() => dimensions.gridMinY}
+>
+</${waferMapTag}>`;
+
 export const waferMapThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(simpleWaferWithDies)
 );
 
 export const waferMapDiesAndOrientationTest: StoryFn = createStory(
-    createMatrix(componentWaferWithDies, [orientationStates])
+    createMatrix(componentWaferWithOrientation, [orientationStates])
 );
 
 export const waferMapDieLabelAndColorScaleTest: StoryFn = createStory(
@@ -136,10 +192,14 @@ export const waferMapDieLabelAndColorScaleTest: StoryFn = createStory(
     ])
 );
 
-export const waferMapDieOrientationTest: StoryFn = createStory(
-    createMatrix(componentWaferWithDieOrientation, [dieOrientation])
+export const waferMapOriginLocationTest: StoryFn = createStory(
+    createMatrix(componentWaferWithOriginLocation, [originLocationStates])
 );
 
 export const waferMapResizeTest: StoryFn = createStory(
     createMatrix(componentWaferResize, [waferMapSizes])
+);
+
+export const waferMapGridDimensionsTest: StoryFn = createStory(
+    createMatrix(componentWaferWithGridDimensions, [gridDimensions])
 );

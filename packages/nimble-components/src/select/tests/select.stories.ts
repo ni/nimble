@@ -1,7 +1,10 @@
 import { html, repeat } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    disableStorybookZoomTransform
+} from '../../utilities/tests/storybook';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
 import { selectTag } from '..';
 import { listOptionTag } from '../../list-option';
@@ -22,7 +25,7 @@ interface OptionArgs {
 }
 
 const metadata: Meta<SelectArgs> = {
-    title: 'Select',
+    title: 'Components/Select',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
@@ -34,10 +37,14 @@ const metadata: Meta<SelectArgs> = {
         },
         actions: {
             handles: ['change']
+        },
+        toolbar: {
+            zoom: { hidden: true }
         }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+        ${disableStorybookZoomTransform}
         <${selectTag}
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"

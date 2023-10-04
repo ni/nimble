@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Button } from '@ni/nimble-components/dist/esm/button';
+import { type Button, buttonTag } from '@ni/nimble-components/dist/esm/button';
 import type { ButtonType, ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Button };
+export { buttonTag };
 export { ButtonType };
 
 /**

@@ -1,4 +1,10 @@
-import { attr, observable, volatile } from '@microsoft/fast-element';
+import {
+    Notifier,
+    Observable,
+    attr,
+    observable,
+    volatile
+} from '@microsoft/fast-element';
 import {
     Checkbox,
     DesignSystem,
@@ -16,17 +22,15 @@ import type {
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import { TableCell } from '../cell';
+import {
+    ColumnInternals,
+    isColumnInternalsProperty
+} from '../../../table-column/base/models/column-internals';
 
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-table-row': TableRow;
     }
-}
-
-export interface ColumnState {
-    column: TableColumn;
-    cellState: TableCellState;
-    cellIndentLevel: number;
 }
 
 /** Represents a single row (element) in the Table's data  */
@@ -55,6 +59,11 @@ export class TableRow<
     @observable
     public dataRecord?: TDataRecord;
 
+    /**
+     * @internal
+     * */
+    public columnNotifiers: Notifier[] = [];
+
     @observable
     public columns: TableColumn[] = [];
 
@@ -66,6 +75,25 @@ export class TableRow<
 
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
+
+    @attr({ attribute: 'row-operation-grid-cell-hidden', mode: 'boolean' })
+    public rowOperationGridCellHidden = false;
+
+    /**
+     * @internal
+     * An array that parallels the `columns` array and contains the indent
+     * level of each column's cell.
+     * */
+    @observable
+    public cellIndentLevels: number[] = [];
+
+    /**
+     * @internal
+     * An array that parallels the `columns` array and contains the cell state
+     * of each column's cell.
+     * */
+    @observable
+    public cellStates: (TableCellState | undefined)[] = [];
 
     /** @internal */
     @observable
@@ -81,37 +109,6 @@ export class TableRow<
     private ignoreSelectionChangeEvents = false;
 
     @volatile
-    public get columnStates(): ColumnState[] {
-        return this.columns.map((column, i) => {
-            const fieldNames = column.columnInternals.dataRecordFieldNames;
-            let cellState: TableCellState;
-            if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
-                const cellDataValues = fieldNames.map(
-                    field => this.dataRecord![field]
-                );
-                const cellRecord = Object.fromEntries(
-                    column.columnInternals.cellRecordFieldNames.map((k, j) => [
-                        k,
-                        cellDataValues[j]
-                    ])
-                );
-                const columnConfig = column.columnInternals.columnConfig ?? {};
-                cellState = {
-                    cellRecord,
-                    columnConfig
-                };
-            } else {
-                cellState = {
-                    cellRecord: {},
-                    columnConfig: {}
-                };
-            }
-            const cellIndentLevel = i === 0 && this.nestingLevel > 0 ? this.nestingLevel - 1 : 0;
-            return { column, cellState, cellIndentLevel };
-        });
-    }
-
-    @volatile
     public override get ariaSelected(): 'true' | 'false' | null {
         if (this.selectable) {
             return this.selected ? 'true' : 'false';
@@ -120,6 +117,7 @@ export class TableRow<
         return null;
     }
 
+    /** @internal */
     public onSelectionChange(event: CustomEvent): void {
         if (this.ignoreSelectionChangeEvents) {
             return;
@@ -135,6 +133,7 @@ export class TableRow<
         this.$emit('row-selection-toggle', detail);
     }
 
+    /** @internal */
     public onCellActionMenuBeforeToggle(
         event: CustomEvent<MenuButtonToggleEventDetail>,
         column: TableColumn
@@ -147,6 +146,7 @@ export class TableRow<
         );
     }
 
+    /** @internal */
     public onCellActionMenuToggle(
         event: CustomEvent<MenuButtonToggleEventDetail>,
         column: TableColumn
@@ -170,6 +170,18 @@ export class TableRow<
         }
     }
 
+    /** @internal */
+    public handleChange(source: unknown, args: unknown): void {
+        if (
+            source instanceof ColumnInternals
+            && typeof args === 'string'
+            && (isColumnInternalsProperty(args, 'columnConfig')
+                || isColumnInternalsProperty(args, 'dataRecordFieldNames'))
+        ) {
+            this.updateCellStates();
+        }
+    }
+
     private emitActionMenuToggleEvent(
         eventType: string,
         menuButtonEventDetail: MenuButtonToggleEventDetail,
@@ -182,6 +194,71 @@ export class TableRow<
             columnId: column.columnId
         };
         this.$emit(eventType, detail);
+    }
+
+    private columnsChanged(): void {
+        this.updateCellIndentLevels();
+        this.updateCellStates();
+
+        this.observeColumns();
+    }
+
+    private dataRecordChanged(): void {
+        this.updateCellStates();
+    }
+
+    private nestingLevelChanged(): void {
+        this.updateCellIndentLevels();
+    }
+
+    private updateCellIndentLevels(): void {
+        this.cellIndentLevels = this.columns.map((_, i) => {
+            if (i === 0 && this.nestingLevel > 0) {
+                return this.nestingLevel - 1;
+            }
+            return 0;
+        });
+    }
+
+    private removeColumnObservers(): void {
+        this.columnNotifiers.forEach(notifier => {
+            notifier.unsubscribe(this);
+        });
+        this.columnNotifiers = [];
+    }
+
+    private observeColumns(): void {
+        this.removeColumnObservers();
+
+        this.columnNotifiers = this.columns.map(column => {
+            const notifier = Observable.getNotifier(column.columnInternals);
+            notifier.subscribe(this);
+            return notifier;
+        });
+    }
+
+    private updateCellStates(): void {
+        this.cellStates = this.columns.map(column => {
+            const fieldNames = column.columnInternals.dataRecordFieldNames;
+            let cellState: TableCellState | undefined;
+            if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
+                const cellDataValues = fieldNames.map(
+                    field => this.dataRecord![field]
+                );
+                const cellRecord = Object.fromEntries(
+                    column.columnInternals.cellRecordFieldNames.map((k, j) => [
+                        k,
+                        cellDataValues[j]
+                    ])
+                );
+                const columnConfig = column.columnInternals.columnConfig;
+                cellState = {
+                    cellRecord,
+                    columnConfig
+                };
+            }
+            return cellState;
+        });
     }
 
     private hasValidFieldNames(

@@ -1,6 +1,6 @@
 <div class="content container">
     <p>Explore the components below to see the Nimble components in action. See the <a
-            href="https://ni.github.io/nimble/storybook/?path=/story/getting-started--page">Nimble
+            href="https://ni.github.io/nimble/storybook/">Nimble
             component docs</a> for additional usage details.</p>
     <div class="container">
         <div class="sub-container">
@@ -171,6 +171,20 @@
             </nimble-combobox>
         </div>
         <div class="sub-container">
+            <div class="container-label">Rich Text Editor</div>
+            <div class="rich-text-editor-container">
+                <nimble-rich-text-editor placeholder="Rich text editor" #editor>
+                    <nimble-button slot="footer-actions" (click)="loadRichTextEditorContent()">Load Content</nimble-button>
+                </nimble-rich-text-editor>
+            </div>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Rich Text Viewer</div>
+            <div class="rich-text-viewer-container">
+                <nimble-rich-text-viewer [markdown]="viewerMarkdownString"></nimble-rich-text-viewer>
+            </div>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Spinner</div>
             <nimble-spinner aria-label="Loading example content"></nimble-spinner>
         </div>
@@ -198,14 +212,45 @@
                     <nimble-icon-check title="String 1"></nimble-icon-check>
                 </nimble-table-column-text>
                 <nimble-table-column-anchor
-                    nimbleRouterLink
-                    [queryParams]="{ word: 'foo' }"
-                    queryParamsHandling="merge"
                     href-field-name="href"
                     label-field-name="linkLabel"
                 >
                     Link
                 </nimble-table-column-anchor>
+                <nimble-table-column-date-text
+                    field-name="date"
+                >
+                    Date
+                </nimble-table-column-date-text>
+                <nimble-table-column-enum-text
+                    field-name="statusCode"
+                    key-type="number"
+                >
+                    <nimble-mapping-text key="100" text="Status message 1"></nimble-mapping-text>
+                    <nimble-mapping-text key="101" text="Status message 2"></nimble-mapping-text>
+                    Status
+                </nimble-table-column-enum-text>
+                <nimble-table-column-icon
+                    field-name="result"
+                    key-type="string"
+                >
+                    <nimble-mapping-icon
+                        key="success"
+                        text="Success"
+                        icon="nimble-icon-check"
+                        severity="success">
+                    </nimble-mapping-icon>
+                    <nimble-mapping-spinner
+                        key="unknown"
+                        text="Unknown">
+                    </nimble-mapping-spinner>
+                    Result
+                </nimble-table-column-icon>
+                <nimble-table-column-number-text
+                    field-name="number"
+                >
+                    Number
+                </nimble-table-column-number-text>
                 <nimble-table-column-text field-name="stringValue2" min-pixel-width="400" group-index="0">String 2</nimble-table-column-text>
 
                 <nimble-menu slot="action-menu">
@@ -214,8 +259,7 @@
                     <nimble-menu-item>Item 3</nimble-menu-item>
                 </nimble-menu>
             </nimble-table>
-            <nimble-button class="add-table-row-button" (click)="onAddTableRow()">Add row</nimble-button>
-            <nimble-text-field class="query-param-word" readonly [ngModel]="(route.queryParams | async)!.word">Link Query Param Word</nimble-text-field>
+            <nimble-button class="add-table-row-button" (click)="addTableRows(10)">Add rows</nimble-button>
         </div>
         <div class="sub-container">
             <div class="container-label">Tabs</div>

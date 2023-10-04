@@ -76,14 +76,6 @@ export * from './directives/tab/nimble-tab.directive';
 export * from './directives/tab/nimble-tab.module';
 export * from './directives/tab-panel/nimble-tab-panel.directive';
 export * from './directives/tab-panel/nimble-tab-panel.module';
-export * from './directives/table/nimble-table.directive';
-export * from './directives/table/nimble-table.module';
-export * from './directives/table-column/anchor/nimble-table-column-anchor-router-link-with-href.directive';
-export * from './directives/table-column/anchor/nimble-table-column-anchor-router-link.directive';
-export * from './directives/table-column/anchor/nimble-table-column-anchor.directive';
-export * from './directives/table-column/anchor/nimble-table-column-anchor.module';
-export * from './directives/table-column/text/nimble-table-column-text.directive';
-export * from './directives/table-column/text/nimble-table-column-text.module';
 export * from './directives/tabs/nimble-tabs.directive';
 export * from './directives/tabs/nimble-tabs.module';
 export * from './directives/tabs-toolbar/nimble-tabs-toolbar.directive';
@@ -112,7 +104,8 @@ export * from './testing/async-helpers';
 // Export items that would otherwise be exported by multiple components just from here to avoid exporting them multiple times.
 // Can be cleaned up when switching to multiple entry points, see: https://github.com/ni/nimble/issues/172
 export { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/patterns/button/types';
+export { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 export { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 export { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
-export type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
+export { type ListOption, listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 export { UserDismissed } from '@ni/nimble-components/dist/esm/dialog';

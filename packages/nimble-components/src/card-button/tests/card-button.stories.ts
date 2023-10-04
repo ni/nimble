@@ -17,7 +17,7 @@ application. The \`nimble-card-button\` is intended to be larger and more promin
 Note: The styling for the "Color" theme is not complete.`;
 
 const metadata: Meta<CardButtonArgs> = {
-    title: 'Card Button',
+    title: 'Components/Card Button',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

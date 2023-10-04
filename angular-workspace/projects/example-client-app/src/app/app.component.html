@@ -1,4 +1,7 @@
 <nimble-theme-provider [theme]="theme">
+    <nimble-label-provider-core withDefaults></nimble-label-provider-core>
+    <nimble-label-provider-rich-text withDefaults></nimble-label-provider-rich-text>
+    <nimble-label-provider-table withDefaults></nimble-label-provider-table>
     <example-header [(theme)]="theme"></example-header>
     <div class="router-outlet-wrapper">
         <router-outlet></router-outlet>

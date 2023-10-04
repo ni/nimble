@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { TextArea } from '@ni/nimble-components/dist/esm/text-area';
+import { type TextArea, textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
 import { TextAreaAppearance, TextAreaResize } from '@ni/nimble-components/dist/esm/text-area/types';
-import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { TextArea };
+export { textAreaTag };
 export { TextAreaAppearance, TextAreaResize };
 
 /**

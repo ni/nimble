@@ -1,8 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { ThemeProvider } from '@ni/nimble-components/dist/esm/theme-provider';
+import { type ThemeProvider, themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
 import { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import type { ValidityObject } from '@ni/nimble-components/dist/esm/utilities/models/validator';
 
 export type { ThemeProvider };
+export { themeProviderTag };
 export { Theme };
 
 /**
@@ -20,5 +22,21 @@ export class NimbleThemeProviderDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'theme', value);
     }
 
+    public get lang(): string {
+        return this.elementRef.nativeElement.lang;
+    }
+
+    @Input() public set lang(value: string) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'lang', value);
+    }
+
+    public get validity(): ValidityObject {
+        return this.elementRef.nativeElement.validity;
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<ThemeProvider>) {}
+
+    public checkValidity(): boolean {
+        return this.elementRef.nativeElement.checkValidity();
+    }
 }

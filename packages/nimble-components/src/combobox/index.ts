@@ -2,8 +2,7 @@ import { attr, html, observable, ref } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Combobox as FoundationCombobox,
-    ComboboxOptions,
-    comboboxTemplate as template
+    ComboboxOptions
 } from '@microsoft/fast-foundation';
 import {
     keyArrowDown,
@@ -20,6 +19,8 @@ import { styles } from './styles';
 import type { ErrorPattern } from '../patterns/error/types';
 import type { DropdownPattern } from '../patterns/dropdown/types';
 import { DropdownAppearance } from '../patterns/dropdown/types';
+import type { AnchoredRegion } from '../anchored-region';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -56,6 +57,37 @@ export class Combobox
 
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
+
+    /**
+     * @internal
+     */
+    @observable
+    public region?: AnchoredRegion;
+
+    /**
+     * @internal
+     */
+    @observable
+    public controlWrapper?: HTMLElement;
+
+    public override get value(): string {
+        return super.value;
+    }
+
+    // This override is to work around an issue in FAST where an old filter value
+    // is used after programmatically setting the value property.
+    // See: https://github.com/microsoft/fast/issues/6749
+    public override set value(next: string) {
+        super.value = next;
+        // Workaround using index notation to manipulate private member
+        // Can remove when following resolved: https://github.com/microsoft/fast/issues/6749
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        this['filter'] = next;
+        this.filterOptions();
+        this.selectedIndex = this.options
+            .map(option => option.text)
+            .indexOf(this.value);
+    }
 
     private valueUpdatedByInput = false;
     private valueBeforeTextUpdate?: string;
@@ -130,8 +162,13 @@ export class Combobox
         if (!this.valueUpdatedByInput) {
             this.valueBeforeTextUpdate = this.value;
         }
-        this.value = this.control.value;
         this.valueUpdatedByInput = true;
+        // This is a workaround for this FAST issue: https://github.com/microsoft/fast/issues/6776
+        if (this.value !== this.control.value) {
+            this.focusAndScrollOptionIntoView();
+        }
+
+        this.value = this.control.value;
         return returnValue;
     }
 
@@ -173,9 +210,40 @@ export class Combobox
         }
     }
 
+    private regionChanged(
+        _prev: AnchoredRegion | undefined,
+        _next: AnchoredRegion | undefined
+    ): void {
+        if (this.region && this.controlWrapper) {
+            this.region.anchorElement = this.controlWrapper;
+        }
+    }
+
+    private controlWrapperChanged(
+        _prev: HTMLElement | undefined,
+        _next: HTMLElement | undefined
+    ): void {
+        if (this.region && this.controlWrapper) {
+            this.region.anchorElement = this.controlWrapper;
+        }
+    }
+
     // Workaround for https://github.com/microsoft/fast/issues/6041.
     private ariaLabelChanged(_oldValue: string, _newValue: string): void {
         this.updateInputAriaLabel();
+    }
+
+    private maxHeightChanged(): void {
+        this.updateListboxMaxHeightCssVariable();
+    }
+
+    private updateListboxMaxHeightCssVariable(): void {
+        if (this.listbox) {
+            this.listbox.style.setProperty(
+                '--ni-private-select-max-height',
+                `${this.maxHeight}px`
+            );
+        }
     }
 
     private updateInputAriaLabel(): void {

@@ -2,6 +2,306 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 26 Sep 2023 05:26:36 GMT",
+      "tag": "@ni/nimble-blazor_v12.3.8",
+      "version": "12.3.8",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e4e676f20d1c01a795edd0ea96a41ab0bf9512ce",
+            "comment": "Make tables in the Blazor and Angular example apps consistent with each other"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Sep 2023 16:10:42 GMT",
+      "tag": "@ni/nimble-blazor_v12.3.8",
+      "version": "12.3.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "59d65d5a4077679c0ad5756336f8b555a8d8a8b5",
+            "comment": "Expose new table labels in Blazor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 16:38:20 GMT",
+      "tag": "@ni/nimble-blazor_v12.3.4",
+      "version": "12.3.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "60947ef38e170552c614f1affcd8e1e385ba9177",
+            "comment": "Rename `ColumnHeaderGroupedIndicator` tabel label to `ColumnHeaderGroupedIndicator`"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 Sep 2023 19:08:39 GMT",
+      "tag": "@ni/nimble-blazor_v12.3.0",
+      "version": "12.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "944399b0ac13cf428ce2a0ef12f346315b1194fb",
+            "comment": "Blazor support for theme provider lang and validity functions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Sep 2023 20:36:47 GMT",
+      "tag": "@ni/nimble-blazor_v12.2.1",
+      "version": "12.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "2a987381442f5076ea40ea8e60010e2a839bca5a",
+            "comment": "Add Blazor support for the number-text column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Sep 2023 19:43:51 GMT",
+      "tag": "@ni/nimble-blazor_v12.2.0",
+      "version": "12.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "2314df2fff61db8fb20ca1fbddad9f4961957afa",
+            "comment": "Add API to hide step buttons on NumberField"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Aug 2023 21:41:33 GMT",
+      "tag": "@ni/nimble-blazor_v12.1.23",
+      "version": "12.1.23",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "49a4b98696681bcfc1bc8730de2fa9ef931da96a",
+            "comment": "Blazor support for icon table column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 21 Aug 2023 22:42:29 GMT",
+      "tag": "@ni/nimble-blazor_v12.1.14",
+      "version": "12.1.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "0ab6b4f5df8d01f6734c824d65e62e3c88546000",
+            "comment": "Blazor support for date text column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 15 Aug 2023 19:50:33 GMT",
+      "tag": "@ni/nimble-blazor_v12.1.10",
+      "version": "12.1.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "72fa5e6e16a1f8aa023febb8ff92577fff3afce1",
+            "comment": "Add Blazor support for enum-text table column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 02 Aug 2023 19:10:45 GMT",
+      "tag": "@ni/nimble-blazor_v12.1.0",
+      "version": "12.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "3b37cf1deb3377b36c069e884d2b938b11048acd",
+            "comment": "Blazor integration for primary and accent appearance-variant buttons (#663)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 25 Jul 2023 21:12:32 GMT",
+      "tag": "@ni/nimble-blazor_v12.0.0",
+      "version": "12.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "2c77e8e7b542572ca792c3d1aa00d8ac2010a888",
+            "comment": "Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 24 Jul 2023 19:42:55 GMT",
+      "tag": "@ni/nimble-blazor_v11.11.0",
+      "version": "11.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "2df1e989a3da722c233e49221952c48d63321c38",
+            "comment": "Blazor integration for label providers, doc updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jul 2023 16:23:00 GMT",
+      "tag": "@ni/nimble-blazor_v11.10.5",
+      "version": "11.10.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "a3180102e5798540621a0d60ef93ca827649a988",
+            "comment": "Remove placeholder support from table columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jul 2023 03:09:06 GMT",
+      "tag": "@ni/nimble-blazor_v11.10.4",
+      "version": "11.10.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "0541d6d412dd3b011756e07719656f30b20dc234",
+            "comment": "Pinned playwright devDep to latest nuget.org version"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 17 Jul 2023 17:19:39 GMT",
+      "tag": "@ni/nimble-blazor_v11.10.0",
+      "version": "11.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "9ecabb35fbca4f0c233eb2dd0c4adb78027e0add",
+            "comment": "Spinner Accent Appearance Implementation (#1298)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Jun 2023 22:52:49 GMT",
+      "tag": "@ni/nimble-blazor_v11.9.8",
+      "version": "11.9.8",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "13de07b6f7eac7e80862d5d3011b9288639b31f4",
+            "comment": "Update broken Storybook links"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 06 Jun 2023 14:41:27 GMT",
+      "tag": "@ni/nimble-blazor_v11.9.5",
+      "version": "11.9.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "717b586acc08f4cc956c1142ef5e16e62b88df01",
+            "comment": "Specify .NET 6 via global.json file; re-enable Blazor linting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 02 Jun 2023 20:21:14 GMT",
+      "tag": "@ni/nimble-blazor_v11.9.4",
+      "version": "11.9.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "0c8b846e24c52ef5f2fb0a832edacef06803d04b",
+            "comment": "Disable blazor linting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 May 2023 18:39:33 GMT",
+      "tag": "@ni/nimble-blazor_v11.9.0",
+      "version": "11.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c23fbe55a607508ecc94d7e9d475dc478629cf8a",
+            "comment": "Introduce column configuration validation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 May 2023 20:46:44 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.30",
+      "version": "11.8.30",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "3bcb03ff246b80b94005765d754465b9a1a2f34c",
+            "comment": "Acceptance/e2e tests for Nimble Blazor using Playwright (first pass)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 May 2023 21:33:40 GMT",
       "tag": "@ni/nimble-blazor_v11.8.30",
       "version": "11.8.30",

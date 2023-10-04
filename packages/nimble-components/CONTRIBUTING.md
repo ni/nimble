@@ -2,7 +2,7 @@
 
 ## Package overview
 
-This package contains a library of NI-styled web components.
+This package contains a library of NI-styled web components. Components are built using [custom elements](https://web.dev/custom-elements-v1/) and [Shadow DOM](https://web.dev/shadowdom-v1/) which are native features in modern browsers.
 
 The library is built on the open source [FAST Design System library](https://fast.design) created by Microsoft. This provides several useful starting points:
 
@@ -73,19 +73,37 @@ Before building a new component, 3 specification documents need to be created:
 
     `npm run change`
 
-7. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
+7. Update the [Component Status table](./src/tests/component-status.stories.ts) to reflect the new component state.
 
 ## Develop new components
 
-### Marking a component as in development
+### Marking a component as incubating
 
-If a component will require multiple pull requests before having a complete and stable API, it should be marked as "in-development" to indicate to clients that they shouldn't start using it yet. To do this:
+If a component is not ready for general use, it should be marked as "incubating" to indicate that status to clients. A component could be in this state if any of the following are true:
+
+-   It is still in development.
+-   It is currently experimental or application-specific and hasn't yet been generalized for broader use.
+-   It is missing important features like interaction design, visual design, or accessibility.
+
+Incubating contributions may compromise on the above capabilities but they still must abide by other repository requirements. For example:
+
+-   Start development with a spec describing the high level plan and what's in or out of scope
+-   Coding conventions (element naming, linting, code quality)
+-   Unit and Chromatic test coverage
+-   Storybook documentation
+
+To mark a component as incubating:
 
 1. In the component status table, set its status to ⚠️
-2. In the component Storybook documentation, add a red text banner to the page indicating that the component should not be used
-3. Consider placing the component implementation in a sub-folder named `experimental` so that it will be obvious when importing it that it is incomplete
+2. In the component Storybook documentation:
+    - add a red text banner to the page indicating that the component is not ready for general use
+    - start the Storybook name with "Incubating/" so that it appears in a separate section of the documentation page
+3. Add CODEOWNERS from both the contributing team and the Nimble team.
 
-Be sure to remove these warnings when the component is complete!
+To move a component out of incubating status:
+
+1. Have a conversation with the Nimble team to decide if it is sufficiently complete. The requirements listed at the top of this section must be met. Some feature gaps like framework integration may be OK as long as we don't anticipate that filling them would cause major breaking changes.
+2. Update the markings described above to indicate that it is now ready for general use!
 
 ### Folder structure
 
@@ -118,7 +136,11 @@ If Fast Foundation contains a component similar to what you're adding, create a 
 
 If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value.
 
-Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template).
+Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template). When copying over unit tests:
+
+1. Put the FAST tests in a separate file named `<component>.foundation.spec.ts`
+2. Update the code to follow NI coding conventions (i.e. linting and formatting)
+3. Add a comment at the top of the file that links to the original source in FAST
 
 Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
@@ -240,6 +262,19 @@ With an attribute defined there are several ways to react to updates. To minimiz
     This should NOT be done for style purposes and instead rely on CSS attribute selectors or behaviors as previously described.
 
     Some valid use cases are reflecting correct aria values based on the updated attribute or forwarding updates to child components.
+
+#### Don't throw exceptions when a component is misconfigured
+
+Components should be robust to having their properties and attributes configured in invalid ways and should typically not throw exceptions. This matches native element behavior and helps avoid situations where client code must be set component state in a specific order.
+
+Instead of throwing an exceptions, components should ignore invalid state and render in a predictable way. This could mean reverting to a default or empty state. This behavior should be covered by auto tests.
+
+Components can also consider exposing an API that checks the validity of the component configuration. Clients can use this to assert about the validity in their tests and to discover why a component is invalid when debugging. See the `nimble-table` for an example of this.
+
+It is acceptable to throw exceptions in production code in other situations. For example:
+
+-   when a case gets hit that should be impossible, like an invalid enum value.
+-   from a component method when it shouldn't be called in the component's current state, like `show()` on a dialog that is already open.
 
 #### Comments
 
@@ -405,6 +440,29 @@ Before disabling a test, you **must** have investigated the failure and attempte
 Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`).
 
 When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.
+
+## Localization
+
+Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English. An application can provide localized versions of these strings by using design tokens set on label provider elements.
+
+The current label providers:
+
+-   `nimble-label-provider-core`: Used for labels for all components without a dedicated label provider
+-   `nimble-label-provider-rich-text`: Used for labels for the rich text components
+-   `nimble-label-provider-table`: Used for labels for the table (and table sub-components / column types)
+
+The expected format for label token names is:
+
+-   element/type(s) to which the token applies, e.g. `number-field` or `table`
+    -   This may not be an exact element name, if this label applies to multiple elements or will be used in multiple contexts
+-   component part/category (optional), e.g. `column-header`
+-   specific functionality or sub-part, e.g. `decrement`
+-   the suffix `label` (will be omitted from the label-provider properties/attributes)
+
+Components using localized labels should document them in Storybook. To add a "Localizable Labels" section:
+
+-   Their story `Args` should extend `LabelUserArgs`
+-   Call `addLabelUseMetadata()` and pass their declared metadata object, the applicable label provider tag, and the label tokens that they're using
 
 ## Component naming
 

@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 12 May 2023 17:59:07 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Sep 2023 18:55:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.4.0
+
+Wed, 20 Sep 2023 18:55:59 GMT
+
+### Minor changes
+
+- New icons for indent and outdent list level ([ni/nimble@f12cbc5](https://github.com/ni/nimble/commit/f12cbc59d683ae048a85750990cc4ae174464590))
+
+## 6.3.0
+
+Wed, 02 Aug 2023 19:10:45 GMT
+
+### Minor changes
+
+- Adding new DigitalGreenDark color tokens (105 and 110) for new button appearance variants (#663) ([ni/nimble@3b37cf1](https://github.com/ni/nimble/commit/3b37cf1deb3377b36c069e884d2b938b11048acd))
+
+## 6.2.1
+
+Fri, 14 Jul 2023 22:15:57 GMT
+
+### Patches
+
+- Changed button label font weight token from Regular to Semi-Bold ([ni/nimble@88248bc](https://github.com/ni/nimble/commit/88248bc22d9b50da299331a87863c65fe3c25cdb))
+
+## 6.2.0
+
+Fri, 14 Jul 2023 20:57:32 GMT
+
+### Minor changes
+
+- New icon with a clock and exclamation mark to represent an expired state ([ni/nimble@448a014](https://github.com/ni/nimble/commit/448a0147ee38c0f1cbe0ece06ecd103e4e3f5788))
+
+## 6.1.0
+
+Tue, 20 Jun 2023 14:17:25 GMT
+
+### Minor changes
+
+- New icons for bold, italic, and numbered list ([ni/nimble@d8a2f69](https://github.com/ni/nimble/commit/d8a2f6933982381c2724f87737873b2f9374a706))
 
 ## 6.0.0
 
