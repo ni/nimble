@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Refactor Angular table columns to use mixins for fractional-width and groupable columns",
+  "packageName": "@ni/nimble-angular",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
