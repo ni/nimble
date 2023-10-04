@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 03 Oct 2023 23:41:24 GMT",
+      "version": "20.6.1",
+      "tag": "@ni/nimble-components_v20.6.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d7b49c626cce6bcc17f283e5daa47100e399321f",
+            "comment": "Documentation updates about incubating status"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 03 Oct 2023 21:41:50 GMT",
+      "version": "20.6.1",
+      "tag": "@ni/nimble-components_v20.6.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dbf3b231869813436236e49f9ddd09dd4752ecf7",
+            "comment": "Update component status table for split buttons"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 Oct 2023 14:34:50 GMT",
       "version": "20.6.1",
       "tag": "@ni/nimble-components_v20.6.1",
