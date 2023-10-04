@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 03 Oct 2023 14:34:50 GMT and should not be manually modified.
+This log was last generated on Wed, 04 Oct 2023 07:38:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.6.2
+
+Wed, 04 Oct 2023 07:38:20 GMT
+
+### Patches
+
+- Flipped the vertical scale and created wafer map mocks for tests ([ni/nimble@7063d3d](https://github.com/ni/nimble/commit/7063d3d5ae3d1b5e9e4d3e5952d10436b29788f4))
 
 ## 20.6.1
 
