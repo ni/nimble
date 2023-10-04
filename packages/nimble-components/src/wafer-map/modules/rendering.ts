@@ -11,16 +11,17 @@ export class RenderingModule {
     public constructor(private readonly wafermap: WaferMap) {}
 
     public updateSortedDiesAndDrawWafer(): void {
-        this.dies = this.wafermap.dataManager.diesRenderInfo.sort((a, b) => {
-            if (a.fillStyle > b.fillStyle) {
-                return 1;
-            }
-            if (b.fillStyle > a.fillStyle) {
-                return -1;
-            }
+        this.dies = this.wafermap.dataManager.diesRenderInfo;
+        // .sort((a, b) => {
+        //     if (a.fillStyle > b.fillStyle) {
+        //         return 1;
+        //     }
+        //     if (b.fillStyle > a.fillStyle) {
+        //         return -1;
+        //     }
 
-            return 0;
-        });
+        //     return 0;
+        // });
         this.drawWafer();
     }
 
