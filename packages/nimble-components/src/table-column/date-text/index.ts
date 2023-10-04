@@ -36,6 +36,8 @@ import { optionalBooleanConverter } from '../../utilities/models/converter';
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDateTextColumnConfig {
     formatter: Intl.DateTimeFormat;
+    shortFormatter: Intl.DateTimeFormat;
+    veryShortFormatter: Intl.DateTimeFormat;
 }
 
 declare global {
@@ -119,6 +121,8 @@ export class TableColumnDateText extends TableColumnTextBase {
             this.updateColumnConfig();
         }
     };
+
+    private readonly shortFormatter = new Intl.DateTimeFormat(undefined, )
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -227,10 +231,14 @@ export class TableColumnDateText extends TableColumnTextBase {
 
     private updateColumnConfig(): void {
         const formatter = this.createFormatter();
+        const shortFormatter = this.createShortFormatter();
+        const veryShortFormatter = this.createVeryShortFormatter();
 
         if (formatter) {
             const columnConfig: TableColumnDateTextColumnConfig = {
-                formatter
+                formatter,
+                shortFormatter,
+                veryShortFormatter
             };
             this.columnInternals.columnConfig = columnConfig;
             this.validator.setCustomOptionsValidity(true);
@@ -255,6 +263,21 @@ export class TableColumnDateText extends TableColumnTextBase {
         } catch (e) {
             return undefined;
         }
+    }
+
+    private createShortFormatter(): Intl.DateTimeFormat {
+        const options: Intl.DateTimeFormatOptions = {
+            dateStyle: 'short',
+            timeStyle: 'short'
+        };
+        return new Intl.DateTimeFormat(lang.getValueFor(this), options);
+    }
+
+    private createVeryShortFormatter(): Intl.DateTimeFormat {
+        const options: Intl.DateTimeFormatOptions = {
+            dateStyle: 'short'
+        };
+        return new Intl.DateTimeFormat(lang.getValueFor(this), options);
     }
 
     private getCustomFormattingOptions(): Intl.DateTimeFormatOptions {

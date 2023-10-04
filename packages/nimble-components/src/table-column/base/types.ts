@@ -14,6 +14,7 @@ export interface TableCellState<
 > {
     cellRecord?: TCellRecord;
     columnConfig?: TColumnConfig;
+    cellWidth?: number;
 }
 
 /**

@@ -12,7 +12,7 @@ export const template = html<TableColumnTextCellViewBase>`
     >
         <span
             ${overflow('hasOverflow')}
-            title=${x => (x.hasOverflow && x.text ? x.text : null)}
+            title=${x => ((x.additionalText || (x.hasOverflow && x.text)) ? (x.additionalText || x.text) : null)}
         >
             ${x => x.text}
         </span>

@@ -29,14 +29,38 @@ TableColumnDateTextColumnConfig
         this.updateText();
     }
 
+    private cellWidthChanged(): void {
+        if (this.cellWidth) {
+            this.updateText();
+        }
+    }
+
     private updateText(): void {
         if (this.columnConfig) {
-            this.text = formatNumericDate(
+            const requestedFormat = formatNumericDate(
                 this.columnConfig.formatter,
                 this.cellRecord?.value
             );
+
+            if (this.cellWidth && this.cellWidth < 175) {
+                this.text = formatNumericDate(
+                    this.columnConfig.veryShortFormatter,
+                    this.cellRecord?.value
+                );
+                this.additionalText = requestedFormat;
+            } else if (this.cellWidth && this.cellWidth < 300) {
+                this.text = formatNumericDate(
+                    this.columnConfig.shortFormatter,
+                    this.cellRecord?.value
+                );
+                this.additionalText = requestedFormat;
+            } else {
+                this.text = requestedFormat;
+                this.additionalText = '';
+            }
         } else {
             this.text = '';
+            this.additionalText = '';
         }
     }
 }

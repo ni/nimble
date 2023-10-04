@@ -17,6 +17,7 @@ export abstract class TableCellView<
 >
     extends FoundationElement
     implements TableCellState<TCellRecord, TColumnConfig> {
+
     @observable
     public cellRecord?: TCellRecord;
 
@@ -28,6 +29,9 @@ export abstract class TableCellView<
 
     @observable
     public recordId?: string;
+
+    @observable
+    public cellWidth?: number;
 
     private delegatedEvents: readonly string[] = [];
 

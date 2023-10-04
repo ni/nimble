@@ -20,6 +20,9 @@ export abstract class TableColumnTextCellViewBase<
     @observable
     public text = '';
 
+    @observable
+    public additionalText = '';
+
     /**
      * The alignment of the text within the cell.
      */

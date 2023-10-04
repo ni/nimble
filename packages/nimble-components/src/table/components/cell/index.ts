@@ -48,9 +48,40 @@ export class TableCell<
     public cellViewTemplate?: ViewTemplate<TableCell>;
 
     @observable
+    public cellWidth: number;
+
+    @observable
     public nestingLevel = 0;
 
     public readonly actionMenuButton?: MenuButton;
+    private readonly resizeObserver: ResizeObserver;
+
+    public constructor() {
+        super();
+
+        this.cellWidth = this.getBoundingClientRect().width;
+        this.resizeObserver = new ResizeObserver(entries => {
+            for (const entry of entries) {
+                if (entry.contentBoxSize) {
+                    const contentBoxSize = entry.contentBoxSize[0];
+                    if (contentBoxSize) {
+                        this.cellWidth = contentBoxSize.inlineSize;
+                    }
+                }
+            }
+        });
+    }
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.cellWidth = this.getBoundingClientRect().width;
+        this.resizeObserver.observe(this);
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.resizeObserver.unobserve(this);
+    }
 
     public onActionMenuBeforeToggle(
         event: CustomEvent<MenuButtonToggleEventDetail>
