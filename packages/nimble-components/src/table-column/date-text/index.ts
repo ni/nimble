@@ -122,8 +122,6 @@ export class TableColumnDateText extends TableColumnTextBase {
         }
     };
 
-    private readonly shortFormatter = new Intl.DateTimeFormat(undefined, )
-
     public override connectedCallback(): void {
         super.connectedCallback();
         lang.subscribe(this.langSubscriber, this);
