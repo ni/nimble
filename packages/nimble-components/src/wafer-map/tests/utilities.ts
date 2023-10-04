@@ -1,4 +1,4 @@
-import { ScaleBand, scaleBand } from 'd3-scale';
+import { ScaleLinear, scaleLinear } from 'd3-scale';
 import {
     Dimensions,
     Margin,
@@ -59,23 +59,23 @@ export function getHighlightedValues(): string[] {
 export function getScaleBand(
     domain: number[] = [],
     range: number[] = []
-): ScaleBand<number> {
-    return scaleBand<number>().domain(domain).range(range);
+): ScaleLinear<number, number> {
+    return scaleLinear<number, number>().domain(domain).range(range);
 }
 
-export const defaultHorizontalScale = scaleBand<number>()
+export const defaultHorizontalScale = scaleLinear<number, number>()
     .domain([2, 3, 4, 5, 6])
     .range([2, 7]);
 
-export const defaultVerticalScale = scaleBand<number>()
+export const defaultVerticalScale = scaleLinear<number, number>()
     .domain([1, 2, 3, 4, 5, 6])
     .range([1, 7]);
 
 export function getDataManagerMock(
     dieDimensions: Dimensions,
     margin: Margin,
-    horizontalScale: ScaleBand<number> = getScaleBand([], []),
-    verticalScale: ScaleBand<number> = getScaleBand([], [])
+    horizontalScale: ScaleLinear<number, number> = getScaleBand([], []),
+    verticalScale: ScaleLinear<number, number> = getScaleBand([], [])
 ): Pick<
     DataManager,
     'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'

@@ -1,5 +1,5 @@
 import { range } from 'd3-array';
-import { ScaleBand, scaleBand, scaleQuantile, ScaleQuantile } from 'd3-scale';
+import { ScaleBand, scaleBand, scaleQuantile, ScaleQuantile, scaleLinear, ScaleLinear } from 'd3-scale';
 import type { WaferMap } from '..';
 import type { WaferMapDie } from '../types';
 import { Dimensions, Margin, WaferMapOriginLocation } from '../types';
@@ -33,11 +33,11 @@ export class Computations {
         return this._margin;
     }
 
-    public get horizontalScale(): ScaleBand<number> {
+    public get horizontalScale(): ScaleLinear<number, number> {
         return this._horizontalScale;
     }
 
-    public get verticalScale(): ScaleBand<number> {
+    public get verticalScale(): ScaleLinear<number, number> {
         return this._verticalScale;
     }
 
@@ -53,8 +53,8 @@ export class Computations {
     private _dieDimensions!: Dimensions;
     private _radius!: number;
     private _margin!: Margin;
-    private _horizontalScale!: ScaleBand<number>;
-    private _verticalScale!: ScaleBand<number>;
+    private _horizontalScale!: ScaleLinear<number, number>;
+    private _verticalScale!: ScaleLinear<number, number>;
     private _invertedHorizontalScale!: ScaleQuantile<number, number>;
     private _invertedVerticalScale!: ScaleQuantile<number, number>;
     private readonly defaultPadding = 0;
@@ -128,9 +128,10 @@ export class Computations {
             containerDiameter
         );
         this._dieDimensions = {
-            width: this.horizontalScale.bandwidth(),
-            height: this.verticalScale.bandwidth()
+            width: Math.abs(this._horizontalScale(0) - this._horizontalScale(1)),
+            height: Math.abs(this._verticalScale(0) - this._verticalScale(1))
         };
+        console.log(this._dieDimensions);
     }
 
     private gridDimensionsValidAndDefined(): boolean {
@@ -205,13 +206,13 @@ export class Computations {
         originLocation: WaferMapOriginLocation,
         grid: GridDimensions,
         containerWidth: number
-    ): ScaleBand<number> {
-        const scale = scaleBand<number>()
-            .domain(range(grid.origin.x, grid.origin.x + grid.cols))
-            .paddingInner(0)
-            .paddingOuter(0)
-            .align(0)
-            .round(false);
+    ): ScaleLinear<number, number> {
+        const scale = scaleLinear<number, number>()
+            .domain([grid.origin.x, grid.origin.x + grid.cols]);
+            // .paddingInner(0)
+            // .paddingOuter(0)
+            // .align(0)
+            // .round(false);
         if (
             originLocation === WaferMapOriginLocation.bottomLeft
             || originLocation === WaferMapOriginLocation.topLeft
@@ -242,13 +243,13 @@ export class Computations {
         originLocation: WaferMapOriginLocation,
         grid: GridDimensions,
         containerHeight: number
-    ): ScaleBand<number> {
-        const scale = scaleBand<number>()
-            .domain(range(grid.origin.y, grid.origin.y + grid.rows))
-            .paddingInner(this.defaultPadding)
-            .paddingOuter(0)
-            .align(0)
-            .round(false);
+    ): ScaleLinear<number, number> {
+        const scale = scaleLinear<number, number>()
+            .domain([grid.origin.y, grid.origin.y + grid.rows]);
+            // .paddingInner(this.defaultPadding)
+            // .paddingOuter(0)
+            // .align(0)
+            // .round(false);
         // html canvas has top-left origin https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#the_grid
         // we need to flip the vertical scale
         if (

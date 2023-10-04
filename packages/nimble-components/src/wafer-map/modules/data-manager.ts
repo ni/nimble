@@ -1,4 +1,4 @@
-import type { ScaleBand, ScaleQuantile } from 'd3-scale';
+import type { ScaleLinear, ScaleQuantile } from 'd3-scale';
 import { Computations } from './computations';
 import { Prerendering } from './prerendering';
 import type { WaferMap } from '..';
@@ -30,7 +30,7 @@ export class DataManager {
         return this.computations.margin;
     }
 
-    public get horizontalScale(): ScaleBand<number> {
+    public get horizontalScale(): ScaleLinear<number, number> {
         return this.computations.horizontalScale;
     }
 
@@ -38,7 +38,7 @@ export class DataManager {
         return this.computations.invertedHorizontalScale;
     }
 
-    public get verticalScale(): ScaleBand<number> {
+    public get verticalScale(): ScaleLinear<number, number> {
         return this.computations.verticalScale;
     }
 
