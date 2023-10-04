@@ -1,20 +1,18 @@
 import type { WaferMap } from '..';
 import { WaferMapValidator } from '../modules/wafer-map-validator';
+import { getWaferMapMockValidator } from './utilities';
 
 describe('Wafermap Validator module', () => {
     let waferMapValidator: WaferMapValidator;
 
     describe('with undefined grid dimensions', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY'
-            > = {
-                gridMinX: undefined,
-                gridMaxX: undefined,
-                gridMinY: undefined,
-                gridMaxY: undefined
-            };
+            const waferMock = getWaferMapMockValidator(
+                undefined,
+                undefined,
+                undefined,
+                undefined
+            );
             waferMapValidator = new WaferMapValidator(waferMock as WaferMap);
             waferMapValidator.validateGridDimensions();
         });
@@ -26,15 +24,7 @@ describe('Wafermap Validator module', () => {
 
     describe('with equal grid dimensions', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY'
-            > = {
-                gridMinX: 0,
-                gridMaxX: 0,
-                gridMinY: 0,
-                gridMaxY: 0
-            };
+            const waferMock = getWaferMapMockValidator(0, 0, 0, 0);
             waferMapValidator = new WaferMapValidator(waferMock as WaferMap);
             waferMapValidator.validateGridDimensions();
         });
@@ -46,15 +36,7 @@ describe('Wafermap Validator module', () => {
 
     describe('with positive grid dimensions', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY'
-            > = {
-                gridMinX: 1,
-                gridMaxX: 2,
-                gridMinY: 1,
-                gridMaxY: 2
-            };
+            const waferMock = getWaferMapMockValidator(1, 2, 1, 2);
             waferMapValidator = new WaferMapValidator(waferMock as WaferMap);
             waferMapValidator.validateGridDimensions();
         });
@@ -66,15 +48,7 @@ describe('Wafermap Validator module', () => {
 
     describe('with negative grid dimensions', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY'
-            > = {
-                gridMinX: -2,
-                gridMaxX: -1,
-                gridMinY: -2,
-                gridMaxY: -1
-            };
+            const waferMock = getWaferMapMockValidator(-2, -1, -2, -1);
             waferMapValidator = new WaferMapValidator(waferMock as WaferMap);
             waferMapValidator.validateGridDimensions();
         });
@@ -86,15 +60,7 @@ describe('Wafermap Validator module', () => {
 
     describe('with one undefined grid dimension', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY'
-            > = {
-                gridMinX: 0,
-                gridMaxX: 0,
-                gridMinY: 0,
-                gridMaxY: undefined
-            };
+            const waferMock = getWaferMapMockValidator(0, 0, 0, undefined);
             waferMapValidator = new WaferMapValidator(waferMock as WaferMap);
             waferMapValidator.validateGridDimensions();
         });
@@ -106,15 +72,7 @@ describe('Wafermap Validator module', () => {
 
     describe('with impossible grid dimension', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY'
-            > = {
-                gridMinX: 1,
-                gridMaxX: -1,
-                gridMinY: 1,
-                gridMaxY: -1
-            };
+            const waferMock = getWaferMapMockValidator(1, -1, 1, -1);
             waferMapValidator = new WaferMapValidator(waferMock as WaferMap);
             waferMapValidator.validateGridDimensions();
         });
