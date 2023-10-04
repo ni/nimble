@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type TableColumnEnumText, tableColumnEnumTextTag } from '@ni/nimble-components/dist/esm/table-column/enum-text';
-import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTableColumnBaseDirective, mixinFractionalWidthColumnAPI, mixinGroupableColumnAPI } from '@ni/nimble-angular/table-column';
 import { MappingKeyType } from '@ni/nimble-components/dist/esm/table-column/enum-base/types';
 
