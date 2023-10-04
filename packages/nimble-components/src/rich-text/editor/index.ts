@@ -38,8 +38,8 @@ import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
-import type { ListOption } from '../list-option';
-import type { AnchoredRegion } from '../anchored-region';
+import type { ListOption } from '../../list-option';
+import type { AnchoredRegion } from '../../anchored-region';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -224,9 +224,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public slottedOptionsChanged(_prev: unknown, _next: unknown): void {
         this.slottedOptions.forEach(ele => {
             ele.hidden = false;
-            ele.addEventListener('click', () => {
-                this.mentionPropCommand.command({ id: ele.value, label: ele.value });
-            });
         });
     }
 
@@ -361,6 +358,26 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         // Don't bubble the 'change' event from the toggle button because
         // all the formatting button has its own 'toggle' event through 'click' and 'keydown'.
         event.stopPropagation();
+        return false;
+    }
+
+    public clickHandler(e: MouseEvent): boolean {
+        if (this.disabled) {
+            return false;
+        }
+
+        if (this.open) {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+            const captured = (e.target as HTMLElement).closest(
+                'option,[role=option]'
+            ) as ListOption | null;
+
+            if (!captured || captured.disabled) {
+                return false;
+            }
+            this.mentionPropCommand.command({ id: captured.value, label: captured.value });
+            return true;
+        }
         return false;
     }
 
@@ -521,7 +538,8 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                                 },
                             };
                         },
-                    },
+                    }
+                }),
                 HardBreak,
                 customLink.configure({
                     // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap

@@ -14,10 +14,12 @@ import {
     smallDelay,
     standardPadding,
     mediumPadding,
-    linkFontColor
-} from '../theme-provider/design-tokens';
-import { styles as dropdownStyles } from '../patterns/dropdown/styles';
-import { styles as errorStyles } from '../patterns/error/styles';
+    linkFontColor,
+    linkActiveFontColor,
+
+} from '../../theme-provider/design-tokens';
+import { styles as dropdownStyles } from '../../patterns/dropdown/styles';
+import { styles as errorStyles } from '../../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -264,4 +266,8 @@ export const styles = css`
         top: ${mediumPadding};
         right: var(--ni-private-rich-text-editor-scrollbar-width);
     }
+
+    span[data-type="mention"] {
+        color: ${linkActiveFontColor};
+      }
 `;

@@ -14,8 +14,8 @@ import {
 } from '../../label-provider/rich-text/label-tokens';
 import { errorTextTemplate } from '../../patterns/error/template';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
-import { anchoredRegionTag } from '../anchored-region';
-import { ListOption } from '../list-option';
+import { anchoredRegionTag } from '../../anchored-region';
+import { ListOption } from '../../list-option';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
@@ -100,7 +100,8 @@ export const template = html<RichTextEditor>`
             auto-update-mode="auto"
             vertical-positioning-mode="dynamic"
             horizontal-positioning-mode="dynamic"
-            ?hidden="${x => !x.open}">
+            ?hidden="${x => !x.open}"
+            @click= "${(x, c) => x.clickHandler(c.event as MouseEvent)}">
             <div
                 class="listbox"
                 part="listbox"

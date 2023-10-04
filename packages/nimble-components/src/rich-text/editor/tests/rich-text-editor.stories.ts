@@ -37,7 +37,7 @@ const exampleDataType = {
     markdownString: 'MarkdownString'
 } as const;
 
-const plainString = 'Plain text' as const;
+const plainString = 'Plain text @<1234> @<5678>' as const;
 
 const dataSets = {
     [exampleDataType.plainString]: plainString,
