@@ -35,6 +35,13 @@ export class RichTextMarkdownSerializer {
             });
         };
 
+        const mentionNode = function mention(
+            state: MarkdownSerializerState,
+            node: Node
+        ): void {
+            state.write(`@<${node.attrs.id as string}>`);
+        };
+
         /**
          * Internally Tiptap editor creates it own schema ( Nodes AND Marks ) based on the extensions ( Here Starter Kit is used for Bold, italic, orderedList and
          * bulletList extensions) and defaultMarkdownSerializer uses schema from prosemirror-markdown to serialize the markdown.
@@ -48,7 +55,8 @@ export class RichTextMarkdownSerializer {
             doc: defaultMarkdownSerializer.nodes.doc!,
             paragraph: defaultMarkdownSerializer.nodes.paragraph!,
             text: defaultMarkdownSerializer.nodes.text!,
-            hardBreak: defaultMarkdownSerializer.nodes.hard_break!
+            hardBreak: defaultMarkdownSerializer.nodes.hard_break!,
+            mention: mentionNode
         };
         const marks = {
             italic: defaultMarkdownSerializer.marks.em!,
