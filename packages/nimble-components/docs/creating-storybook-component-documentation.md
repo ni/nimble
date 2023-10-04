@@ -23,7 +23,7 @@ const metadata: Meta<ComponentArgs> = {
         ...
 ```
 
-If the component has a [W3C ARIA description](https://w3c.github.io/aria-practices/), consider using that to describe the component purpose.
+If the component has a [W3C ARIA description](https://www.w3.org/WAI/ARIA/apg/patterns/), consider using that to describe the component purpose.
 
 ### Markdown
 
@@ -46,5 +46,5 @@ All other Markdown formatting is supported. See any [Markdown Cheatsheet](https:
 
 When you run Storybook (See **Getting Started** above), you should see the component description within the **Docs** tab. E.g. 
 
-![DocsPage overview](/packages/nimble-components/docs/docsPage-overview.png)
+![Storybook DocsPage overview](/packages/nimble-components/docs/images/docs-page-overview.png)
 

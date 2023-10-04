@@ -8,7 +8,7 @@ import {
     controlSlimHeight,
     fillHoverColor,
     mediumDelay,
-    smallPadding,
+    mediumPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
@@ -62,7 +62,7 @@ export const styles = css`
 
     .expand-collapse-button {
         margin-left: calc(
-            ${smallPadding} * 2 + ${standardPadding} * 2 *
+            ${mediumPadding} + ${standardPadding} * 2 *
                 var(--ni-private-table-group-row-indent-level)
         );
         height: ${controlSlimHeight};
@@ -82,7 +82,7 @@ export const styles = css`
     }
 
     .group-header-view {
-        padding-left: calc(${standardPadding} / 2);
+        padding-left: ${mediumPadding};
         ${userSelectNone}
         overflow: hidden;
         display: flex;
@@ -90,7 +90,7 @@ export const styles = css`
 
     .group-row-child-count {
         padding-left: 2px;
-        padding-right: calc(${standardPadding} / 2);
+        padding-right: ${mediumPadding};
         pointer-events: none;
         ${userSelectNone}
     }

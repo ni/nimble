@@ -2,6 +2,96 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 26 Sep 2023 05:26:36 GMT",
+      "tag": "@ni/nimble-blazor_v12.3.8",
+      "version": "12.3.8",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e4e676f20d1c01a795edd0ea96a41ab0bf9512ce",
+            "comment": "Make tables in the Blazor and Angular example apps consistent with each other"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Sep 2023 16:10:42 GMT",
+      "tag": "@ni/nimble-blazor_v12.3.8",
+      "version": "12.3.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "59d65d5a4077679c0ad5756336f8b555a8d8a8b5",
+            "comment": "Expose new table labels in Blazor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 16:38:20 GMT",
+      "tag": "@ni/nimble-blazor_v12.3.4",
+      "version": "12.3.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "60947ef38e170552c614f1affcd8e1e385ba9177",
+            "comment": "Rename `ColumnHeaderGroupedIndicator` tabel label to `ColumnHeaderGroupedIndicator`"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 Sep 2023 19:08:39 GMT",
+      "tag": "@ni/nimble-blazor_v12.3.0",
+      "version": "12.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "944399b0ac13cf428ce2a0ef12f346315b1194fb",
+            "comment": "Blazor support for theme provider lang and validity functions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Sep 2023 20:36:47 GMT",
+      "tag": "@ni/nimble-blazor_v12.2.1",
+      "version": "12.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "2a987381442f5076ea40ea8e60010e2a839bca5a",
+            "comment": "Add Blazor support for the number-text column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Sep 2023 19:43:51 GMT",
+      "tag": "@ni/nimble-blazor_v12.2.0",
+      "version": "12.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "2314df2fff61db8fb20ca1fbddad9f4961957afa",
+            "comment": "Add API to hide step buttons on NumberField"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 31 Aug 2023 21:41:33 GMT",
       "tag": "@ni/nimble-blazor_v12.1.23",
       "version": "12.1.23",

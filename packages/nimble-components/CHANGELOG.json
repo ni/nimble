@@ -2,6 +2,717 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 04 Oct 2023 07:38:20 GMT",
+      "version": "20.6.2",
+      "tag": "@ni/nimble-components_v20.6.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7063d3d5ae3d1b5e9e4d3e5952d10436b29788f4",
+            "comment": "Flipped the vertical scale and created wafer map mocks for tests"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 03 Oct 2023 23:41:24 GMT",
+      "version": "20.6.1",
+      "tag": "@ni/nimble-components_v20.6.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d7b49c626cce6bcc17f283e5daa47100e399321f",
+            "comment": "Documentation updates about incubating status"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 03 Oct 2023 21:41:50 GMT",
+      "version": "20.6.1",
+      "tag": "@ni/nimble-components_v20.6.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dbf3b231869813436236e49f9ddd09dd4752ecf7",
+            "comment": "Update component status table for split buttons"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 03 Oct 2023 14:34:50 GMT",
+      "version": "20.6.1",
+      "tag": "@ni/nimble-components_v20.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2c1247b7a9c46d7e10b36b9a53f3cff346e8d0d5",
+            "comment": "Column resize bug fix."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 28 Sep 2023 22:20:40 GMT",
+      "tag": "@ni/nimble-components_v20.6.0",
+      "version": "20.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2b8788206af0718623968a736ab30cb8ec8766da",
+            "comment": "Hide icons from accessibility tree by default"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 28 Sep 2023 03:38:31 GMT",
+      "tag": "@ni/nimble-components_v20.5.5",
+      "version": "20.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3d5285dc230dc7d5c859d948993b67788e57365a",
+            "comment": "Support for pasting a hyperlink as an absolute link in the rich text editor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Sep 2023 21:45:37 GMT",
+      "tag": "@ni/nimble-components_v20.5.4",
+      "version": "20.5.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4098cd25d77ea2f1b085e5d09432a5f74f9a790c",
+            "comment": "Move table out of incubating"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 Sep 2023 21:18:40 GMT",
+      "tag": "@ni/nimble-components_v20.5.4",
+      "version": "20.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d952598e0f68a4c7255c5c3aab818035002f7600",
+            "comment": "Fix bug where `undefined` and `null` were not sorted correctly when using the `basic` sort operation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Sep 2023 14:24:47 GMT",
+      "tag": "@ni/nimble-components_v20.5.3",
+      "version": "20.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8486724cf68c66210de0a180496e75b347391352",
+            "comment": "Add reusable css for styling an element as visually hidden while keeping it available to the accessibility tree"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Sep 2023 00:01:31 GMT",
+      "tag": "@ni/nimble-components_v20.5.2",
+      "version": "20.5.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "908204e252ee75affeedc355a46d13a3005d6770",
+            "comment": "Clean-up dist folder of nimble-components to remove duplicated type hierarchy"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 21 Sep 2023 13:07:38 GMT",
+      "tag": "@ni/nimble-components_v20.5.1",
+      "version": "20.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "94188a36031bfd9a88374d9e201c695eab8727ae",
+            "comment": "Avoid converting markdown syntax characters like star (*) and underscore(_) to format the editor content automatically while typing"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 22:35:58 GMT",
+      "tag": "@ni/nimble-components_v20.5.0",
+      "version": "20.5.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cc797d79d1457f33aa9116de5a8e75ccc5d0546b",
+            "comment": "Update icon story to nimble-table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 18:55:59 GMT",
+      "tag": "@ni/nimble-components_v20.5.0",
+      "version": "20.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f12cbc59d683ae048a85750990cc4ae174464590",
+            "comment": "New icons for indent and outdent list level"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.4.0",
+            "commit": "f12cbc59d683ae048a85750990cc4ae174464590"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 16:38:20 GMT",
+      "tag": "@ni/nimble-components_v20.4.3",
+      "version": "20.4.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "60947ef38e170552c614f1affcd8e1e385ba9177",
+            "comment": "Add additional localized labels to sub-elements in the table to improve accessibility"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 15:22:26 GMT",
+      "tag": "@ni/nimble-components_v20.4.2",
+      "version": "20.4.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f4dc2eaa9724bee9cf82c28d17ac57422679a1f8",
+            "comment": "Fix bug in table when reordering columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 02:57:31 GMT",
+      "tag": "@ni/nimble-components_v20.4.1",
+      "version": "20.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "36b9611c258f1b5e6aa5d24dc5ca288327382348",
+            "comment": "Fixes keyboard closing when rich-text editor toolbar buttons are clicked in mobile iOS browsers"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 Sep 2023 23:12:45 GMT",
+      "tag": "@ni/nimble-components_v20.4.0",
+      "version": "20.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b6baa04c34007f4fad4e546c78505fa820fff6d1",
+            "comment": "Add medium padding token and document size ramp"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 19 Sep 2023 18:09:20 GMT",
+      "tag": "@ni/nimble-components_v20.3.2",
+      "version": "20.3.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "eadf3f27c7d8d649817910cb2da33406b6873ead",
+            "comment": "Parameterize test pattern"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Sep 2023 21:18:04 GMT",
+      "tag": "@ni/nimble-components_v20.3.2",
+      "version": "20.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "129af8084eab1d47df84d6ee7281fd28bbaef8ec",
+            "comment": "Shift/Ctrl/Cmd + Enter will add line break in editor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Sep 2023 20:36:47 GMT",
+      "tag": "@ni/nimble-components_v20.3.1",
+      "version": "20.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2a987381442f5076ea40ea8e60010e2a839bca5a",
+            "comment": "Import number-text column in all-components.ts"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Sep 2023 19:43:51 GMT",
+      "tag": "@ni/nimble-components_v20.3.0",
+      "version": "20.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2314df2fff61db8fb20ca1fbddad9f4961957afa",
+            "comment": "Document and test API to hide step buttons on number-field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Sep 2023 14:38:16 GMT",
+      "tag": "@ni/nimble-components_v20.3.0",
+      "version": "20.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "suriya.sadaiyappan@ni.com",
+            "package": "@ni/nimble-components",
+            "commit": "b03b880ff881d7046209e59cf4a9cbf74e2fcceb",
+            "comment": "Add partial token for fill hover color"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 14 Sep 2023 19:53:56 GMT",
+      "tag": "@ni/nimble-components_v20.2.16",
+      "version": "20.2.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b73a610e56ae33783ad662354ef28ef80ab38f70",
+            "comment": "Remove unexpected whitespace at start/end of anchor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 14 Sep 2023 17:13:47 GMT",
+      "tag": "@ni/nimble-components_v20.2.15",
+      "version": "20.2.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f5dfad6fbce2701e9fabab100c7e4ebf17e61f50",
+            "comment": "Support for absolute links in rich text components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 14 Sep 2023 14:47:46 GMT",
+      "tag": "@ni/nimble-components_v20.2.14",
+      "version": "20.2.14",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a5d50aa10fe63dac3fea271685453b5728c443bb",
+            "comment": "Remove ability to configure a parent in a test fixture"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 14 Sep 2023 13:22:30 GMT",
+      "tag": "@ni/nimble-components_v20.2.14",
+      "version": "20.2.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e50529159ae06c89b97e270f459b7f6095721bb1",
+            "comment": "Mixed bold and italics formatting corner cases fixed. Update dependency on prosemirror-markdown"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Sep 2023 20:54:15 GMT",
+      "tag": "@ni/nimble-components_v20.2.13",
+      "version": "20.2.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6bb30f55e68c85eac7225ee430920b0729c3feeb",
+            "comment": "Created new grid dimensions api for the wafer map component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Sep 2023 15:39:27 GMT",
+      "tag": "@ni/nimble-components_v20.2.12",
+      "version": "20.2.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f4427670abfdc441c69cf9c753877231c641b268",
+            "comment": "Remove roundToInteger format from number-text column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Sep 2023 13:01:33 GMT",
+      "tag": "@ni/nimble-components_v20.2.11",
+      "version": "20.2.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "123591928+saikrishnan-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3dc792f7f70d1732f645c309df0e2b3670b5eeda",
+            "comment": "Rich-text viewer should recognize escape characters in markdown"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Sep 2023 05:02:34 GMT",
+      "tag": "@ni/nimble-components_v20.2.10",
+      "version": "20.2.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "407e6e880ab4dd2122d5e9e203025492529d0b1a",
+            "comment": "Wrap long words to the next line in rich-text viewer"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Sep 2023 04:11:27 GMT",
+      "tag": "@ni/nimble-components_v20.2.9",
+      "version": "20.2.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0940f820436cf07df5a239dec50a1022c9c054ca",
+            "comment": "Update tabindex when clicking icon of a button in rich text editor toolbar."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Sep 2023 17:22:19 GMT",
+      "tag": "@ni/nimble-components_v20.2.8",
+      "version": "20.2.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b49755bcb4948910c5b896b7c11abb64c6aca2cf",
+            "comment": "Add locale support to number-text column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Sep 2023 16:10:47 GMT",
+      "tag": "@ni/nimble-components_v20.2.7",
+      "version": "20.2.7",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8102efedee1b6485c4b1305feb78f9f15c144509",
+            "comment": "Update number-text HLD to reflect new API decisions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Sep 2023 14:24:10 GMT",
+      "tag": "@ni/nimble-components_v20.2.7",
+      "version": "20.2.7",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5f38265dd29aea52058ee9aceeb0e296b96a2e05",
+            "comment": "Setting height for rich text editor component in storybook docs and tests"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 08 Sep 2023 23:00:33 GMT",
+      "tag": "@ni/nimble-components_v20.2.7",
+      "version": "20.2.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "123591928+saikrishnan-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fcbe79bafc733fd35a4fcae6ebc6aee88388d1ad",
+            "comment": "Refactored rich text components to use common models"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 08 Sep 2023 22:14:55 GMT",
+      "tag": "@ni/nimble-components_v20.2.6",
+      "version": "20.2.6",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b89919557a5e2b8927131ddf0781cecd70281f64",
+            "comment": "Update links to W3C ARIA patterns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Sep 2023 19:21:37 GMT",
+      "tag": "@ni/nimble-components_v20.2.6",
+      "version": "20.2.6",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4a306be70d04b0214eb1e58d08a27438bc0cde5b",
+            "comment": "Filter rollup d3 related warning messages"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Sep 2023 18:16:08 GMT",
+      "tag": "@ni/nimble-components_v20.2.6",
+      "version": "20.2.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3f637ad62b61475a9340c65e4923cb01e86de8ce",
+            "comment": "Update component rollup build configuration"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Sep 2023 13:01:15 GMT",
+      "tag": "@ni/nimble-components_v20.2.5",
+      "version": "20.2.5",
+      "comments": {
+        "none": [
+          {
+            "author": "123591928+saikrishnan-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "aa918007f59111fb3f5cd720471c08f7c49b08b2",
+            "comment": "Added test for different list types at same level in rich text editor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 06 Sep 2023 21:32:54 GMT",
+      "tag": "@ni/nimble-components_v20.2.5",
+      "version": "20.2.5",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "eb7b924a7e3da127f629c123bfea23d2d2ab62d8",
+            "comment": "Create and leverage shared doc string for column operation behavior"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 06 Sep 2023 20:42:14 GMT",
+      "tag": "@ni/nimble-components_v20.2.5",
+      "version": "20.2.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "97cc70d749dbca3251e3efc18920ada8b4cbdfee",
+            "comment": "Revamp folder structure for rich text components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 06 Sep 2023 19:47:09 GMT",
+      "tag": "@ni/nimble-components_v20.2.4",
+      "version": "20.2.4",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4742c036722d441e62b17f8acd81481fee36463b",
+            "comment": "Fix typo in hidden patterns docs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 06 Sep 2023 17:12:23 GMT",
+      "tag": "@ni/nimble-components_v20.2.4",
+      "version": "20.2.4",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "84e7de6c16fcfba0b50c173187f24920ce01b29e",
+            "comment": "Upgrade Storybook dev dependencies"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 06 Sep 2023 16:21:23 GMT",
+      "tag": "@ni/nimble-components_v20.2.4",
+      "version": "20.2.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1e44e9169c32bfbf7c4d69af57b2c848d4960b1d",
+            "comment": "Fix bug in number-text column when the value rounds to -0"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 06 Sep 2023 14:58:43 GMT",
+      "tag": "@ni/nimble-components_v20.2.3",
+      "version": "20.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ff093f4490485f0ffe0eca8733f6a16957ecda86",
+            "comment": "Revert firefox workaround for caret disappear"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 06 Sep 2023 05:43:09 GMT",
+      "tag": "@ni/nimble-components_v20.2.2",
+      "version": "20.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "75dcf394df02a54bf85c6d41cdaab40963d9ef3f",
+            "comment": "Add label provider for rich-text-editor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 05 Sep 2023 12:47:21 GMT",
+      "tag": "@ni/nimble-components_v20.2.1",
+      "version": "20.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "82d93d4ff53a3458c67011c7adae8e6c0178b85c",
+            "comment": "Spec update to include link support for rich text editor and viewer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 01 Sep 2023 20:47:01 GMT",
       "tag": "@ni/nimble-components_v20.2.1",
       "version": "20.2.1",

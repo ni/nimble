@@ -15,7 +15,7 @@ import {
 import { NumberTextAlignment } from '../types';
 
 const metadata: Meta = {
-    title: 'Tests/Table Column - Number Text',
+    title: 'Tests/Table Column: Number Text',
     parameters: {
         ...sharedMatrixParameters()
     }
@@ -56,14 +56,6 @@ const component = (
             alignment="${() => alignment}"
         >
             Default
-        </${tableColumnNumberTextTag}>
-        <${tableColumnNumberTextTag}
-            format="round-to-integer"
-            field-name="number"
-            group-index="1"
-            alignment="${() => alignment}"
-        >
-            Round to integer
         </${tableColumnNumberTextTag}>
         <${tableColumnNumberTextTag}
             format="decimal"

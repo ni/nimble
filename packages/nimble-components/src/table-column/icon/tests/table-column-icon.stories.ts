@@ -1,13 +1,11 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory,
-    incubatingWarning
-} from '../../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnIconTag } from '..';
 import {
     SharedTableArgs,
+    columnOperationBehavior,
     sharedTableArgTypes,
     sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
@@ -48,10 +46,10 @@ const simpleData = [
 
 const iconColumnDescription = `The \`nimble-table-column-icon\` column renders string, number, or boolean values as a Nimble icon or \`nimble-spinner\` in the \`nimble-table\`.
 
-When sorting or grouping the column, the raw data values are used, not the mapped visuals.`;
+${columnOperationBehavior}`;
 
 const metadata: Meta<IconColumnTableArgs> = {
-    title: 'Incubating/Table Column - Icon',
+    title: 'Components/Table Column: Icon',
     parameters: {
         docs: {
             description: {
@@ -77,7 +75,6 @@ const validityDescription = `${sharedMappingValidityDescription}
 export const iconColumn: StoryObj<IconColumnTableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<IconColumnTableArgs>`
-        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

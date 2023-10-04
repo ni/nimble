@@ -1,13 +1,11 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory,
-    incubatingWarning
-} from '../../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnEnumTextTag } from '..';
 import {
     SharedTableArgs,
+    columnOperationBehavior,
     sharedTableArgTypes,
     sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
@@ -40,10 +38,10 @@ const simpleData = [
 
 const enumTextColumnDescription = `The \`nimble-table-column-enum-text\` column renders string, number, or boolean values as mapped text in the \`nimble-table\`.
 
-When sorting or grouping the column, the raw data values are used, not the mapped text being displayed.`;
+${columnOperationBehavior}`;
 
 const metadata: Meta<EnumTextColumnTableArgs> = {
-    title: 'Incubating/Table Column - Enum Text',
+    title: 'Components/Table Column: Enum Text',
     parameters: {
         docs: {
             description: {
@@ -65,7 +63,6 @@ interface EnumTextColumnTableArgs extends SharedTableArgs {
 export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<EnumTextColumnTableArgs>`
-        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
