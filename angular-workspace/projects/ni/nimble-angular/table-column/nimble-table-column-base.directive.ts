@@ -71,7 +71,15 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
         this.renderer.setProperty(this.elementRef.nativeElement, 'sortIndex', toNullableNumberProperty(value));
     }
 
-    public constructor(public readonly renderer: Renderer2, public readonly elementRef: ElementRef<T>) {}
+    /** @internal */
+    public readonly renderer: Renderer2;
+    /** @internal */
+    public readonly elementRef: ElementRef<T>;
+
+    public constructor(renderer: Renderer2, elementRef: ElementRef<T>) {
+        this.renderer = renderer;
+        this.elementRef = elementRef;
+    }
 
     public checkValidity(): boolean {
         return this.elementRef.nativeElement.checkValidity();

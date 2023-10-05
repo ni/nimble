@@ -1,27 +1,22 @@
-/* eslint-disable max-classes-per-file */
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
+import type { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
+import type { NimbleTableColumnBaseDirective } from '../nimble-table-column-base.directive';
 
-export interface GroupableColumn {
-    groupingDisabled: boolean;
-    groupIndex?: number | null;
-}
-
-/**
- * TODO
- */
-export abstract class GroupableColumnDirectiveBase<T extends GroupableColumn> {
-    public renderer: Renderer2;
-    public elementRef: ElementRef<T>;
-}
+type GroupableColumn = TableColumn & {
+    groupingDisabled: boolean,
+    groupIndex?: number | null
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type GroupableColumnDirectiveBaseConstructor<T extends GroupableColumn> = abstract new (...args: any[]) => GroupableColumnDirectiveBase<T>;
+type GroupableColumnDirectiveConstructor<T extends GroupableColumn> = abstract new (...args: any[]) => NimbleTableColumnBaseDirective<T>;
 
+// As the returned class is internal to the function, we can't write a signature that uses is directly, so rely on inference
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
-export function mixinGroupableColumnAPI<TBase extends GroupableColumnDirectiveBaseConstructor<GroupableColumn>>(base: TBase) {
+export function mixinGroupableColumnAPI<TBase extends GroupableColumnDirectiveConstructor<GroupableColumn>>(base: TBase) {
     /**
-     * TODO
+     * The Mixin that provides a concrete column directive with the API to allow grouping
+     * by the values in that column.
      */
     @Directive()
     abstract class GroupableColumnDirective extends base {

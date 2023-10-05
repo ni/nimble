@@ -1,27 +1,22 @@
-/* eslint-disable max-classes-per-file */
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 import { NumberValueOrAttribute, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
+import type { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
+import type { NimbleTableColumnBaseDirective } from '../nimble-table-column-base.directive';
 
-export interface FractionalWidthColumn {
-    fractionalWidth?: number | null;
-    minPixelWidth?: number | null;
-}
-
-/**
- * TODO
- */
-export abstract class FractionalWidthColumnDirectiveBase<T extends FractionalWidthColumn> {
-    public renderer: Renderer2;
-    public elementRef: ElementRef<T>;
-}
+type FractionalWidthColumn = TableColumn & {
+    fractionalWidth?: number | null,
+    minPixelWidth?: number | null
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type FractionalWidthColumnDirectiveBaseConstructor<T extends FractionalWidthColumn> = abstract new (...args: any[]) => FractionalWidthColumnDirectiveBase<T>;
+type FractionalWidthColumnDirectiveConstructor<T extends FractionalWidthColumn> = abstract new (...args: any[]) => NimbleTableColumnBaseDirective<T>;
 
+// As the returned class is internal to the function, we can't write a signature that uses is directly, so rely on inference
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
-export function mixinFractionalWidthColumnAPI<TBase extends FractionalWidthColumnDirectiveBaseConstructor<FractionalWidthColumn>>(base: TBase) {
+export function mixinFractionalWidthColumnAPI<TBase extends FractionalWidthColumnDirectiveConstructor<FractionalWidthColumn>>(base: TBase) {
     /**
-     * TODO
+     * The Mixin that provides a concrete column directive with the API to support being resized
+     * proportionally within a Table.
      */
     @Directive()
     abstract class FractionalWidthColumnDirective extends base {
