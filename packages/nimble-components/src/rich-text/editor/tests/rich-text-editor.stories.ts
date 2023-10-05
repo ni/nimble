@@ -37,7 +37,7 @@ const exampleDataType = {
     markdownString: 'MarkdownString'
 } as const;
 
-const plainString = 'Plain text @<1234> @<5678>' as const;
+const plainString = 'Plain text @<1234> @<5678p> <https://google.com> *@<123h4>* dfgfg' as const;
 
 const dataSets = {
     [exampleDataType.plainString]: plainString,
@@ -87,12 +87,12 @@ const metadata: Meta<RichTextEditorArgs> = {
         ${when(x => x.footerActionButtons, html`
             <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>
             <${buttonTag} slot="footer-actions">OK</${buttonTag}>`)}
-            <nimble-list-option>Mary</nimble-list-option>
-            <nimble-list-option>Sue</nimble-list-option>
-            <nimble-list-option>Joaquin</nimble-list-option>
-            <nimble-list-option>Frank</nimble-list-option>
-            <nimble-list-option>Albert</nimble-list-option>
-            <nimble-list-option>Sue Ann</nimble-list-option>
+            <nimble-list-option value='12as3sd4s5'>Mary</nimble-list-option>
+            <nimble-list-option value='12as34s5'>super</nimble-list-option>
+            <nimble-list-option value='123asd4s5'>Joaquin</nimble-list-option>
+            <nimble-list-option value='123asd4s5'>Frank</nimble-list-option>
+            <nimble-list-option value='1234asds5'>Albert</nimble-list-option>
+            <nimble-list-option value='123asd45'>Sue Ann</nimble-list-option>
     </${richTextEditorTag}>
     `),
     argTypes: {

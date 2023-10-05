@@ -10,19 +10,24 @@ import { anchorTag } from '../../anchor';
  * Provides markdown parser for rich text components
  */
 export class RichTextMarkdownParser {
-    private static readonly updatedSchema = this.getSchemaWithLinkConfiguration();
+    private readonly updatedSchema = this.getSchemaWithLinkConfiguration();
 
-    private static readonly markdownParser = this.initializeMarkdownParser();
-    private static readonly domSerializer = DOMSerializer.fromSchema(
+    private readonly domSerializer = DOMSerializer.fromSchema(
         this.updatedSchema
     );
+
+    private readonly markdownParser;
+
+    public constructor(usersList: { id: string, name: string }[] = []) {
+        this.markdownParser = this.initializeMarkdownParser(usersList);
+    }
 
     /**
      * This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a
      * DOM structure using a DOMSerializer, and returns the serialized result.
      * If the markdown parser returns null, it will clear the viewer component by creating an empty document fragment.
      */
-    public static parseMarkdownToDOM(
+    public parseMarkdownToDOM(
         value: string
     ): HTMLElement | DocumentFragment {
         const parsedMarkdownContent = this.markdownParser.parse(value);
@@ -34,7 +39,7 @@ export class RichTextMarkdownParser {
         );
     }
 
-    private static initializeMarkdownParser(): MarkdownParser {
+    private initializeMarkdownParser(usersList: { id: string, name: string }[] = []): MarkdownParser {
         /**
          * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
          * The 'zero' preset is a configuration with no rules enabled by default to selectively enable specific rules.
@@ -54,10 +59,6 @@ export class RichTextMarkdownParser {
         ]);
 
         const getUserName = (userId: string): string => {
-            const usersList = [
-                { id: '1234', name: 'Aagash' },
-                { id: '5678', name: 'Vivin' },
-            ];
             return usersList.find(user => user.id === userId)?.name ?? '';
         };
 
@@ -83,6 +84,14 @@ export class RichTextMarkdownParser {
 
                     const userIdEnd = position;
                     const userId = state.src.slice(userIdStart, userIdEnd);
+                    if (usersList.length) {
+                        const userName = getUserName(userId);
+                        if (userName === '') {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
                     position += 1;
                     state.pos = position;
 
@@ -119,7 +128,6 @@ export class RichTextMarkdownParser {
             {
                 ...defaultMarkdownParser.tokens,
                 mention: {
-                    node: 'mention',
                     block: 'mention',
                     getAttrs: tok => ({
                         dataid: tok.attrGet('dataid'),
@@ -130,43 +138,33 @@ export class RichTextMarkdownParser {
         );
     }
 
-    private static getSchemaWithLinkConfiguration(): Schema {
+    private getSchemaWithLinkConfiguration(): Schema {
         return new Schema({
-            nodes: schema.spec.nodes.addToEnd('mention', {
-                attrs: {
-                    datatype: { default: 'mention' },
-                    dataid: { default: '' },
-                    datalabel: { default: '' },
-                    contentEditable: { default: false },
-                },
-                inline: true,
-                group: 'inline',
-                content: 'inline*',
-                toDOM(node) {
-                    const { dataid, datalabel } = node.attrs;
-                    return [
-                        'span',
-                        {
-                            'data-type': 'mention',
-                            'data-id': dataid as string,
-                            'data-label': datalabel as string,
-                            contentEditable: false
-                        },
-                        0,
-                    ];
-                },
-                parseDOM: [
-                    {
-                        tag: 'span',
-                        getAttrs: dom => ({
-                            datatype: (dom as HTMLElement).getAttribute('datatype'),
-                            dataid: (dom as HTMLElement).getAttribute('data-id'),
-                            datalabel: (dom as HTMLElement).getAttribute('data-label'),
-                        })
-
+            nodes: schema.spec.nodes.addToEnd(
+                'mention',
+                {
+                    attrs: {
+                        datatype: { default: 'mention' },
+                        dataid: { default: '' },
+                        datalabel: { default: '' },
                     },
-                ],
-            }),
+                    group: 'inline',
+                    inline: true,
+                    content: 'inline*',
+                    toDOM(node) {
+                        const { dataid, datalabel } = node.attrs;
+                        return [
+                            'span',
+                            {
+                                'data-type': 'mention',
+                                'data-id': dataid as string,
+                                'data-label': datalabel as string,
+                            },
+                            0,
+                        ];
+                    },
+                }
+            ),
             marks: {
                 link: {
                     attrs: {

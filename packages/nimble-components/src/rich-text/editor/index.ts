@@ -181,6 +181,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private updateScrollbarWidthQueued = false;
 
     private readonly xmlSerializer = new XMLSerializer();
+    private richTextMarkdownParser = new RichTextMarkdownParser();
     private readonly validAbsoluteLinkRegex = /^https?:\/\//i;
 
     /**
@@ -225,6 +226,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         this.slottedOptions.forEach(ele => {
             ele.hidden = false;
         });
+        this.richTextMarkdownParser = new RichTextMarkdownParser([
+            { id: '1234', name: 'Aagash' },
+            { id: '5678', name: 'Vivin' },
+        ]);
     }
 
     /**
@@ -258,6 +263,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     public boldButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleBold().run();
+        console.log(this.getMarkdown());
     }
 
     /**
@@ -375,7 +381,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             if (!captured || captured.disabled) {
                 return false;
             }
-            this.mentionPropCommand.command({ id: captured.value, label: captured.value });
+            this.mentionPropCommand.command({ id: captured.value, label: captured.textContent });
             return true;
         }
         return false;
@@ -498,6 +504,8 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                     renderLabel({ options, node }) {
                         return `${options.suggestion.char!}${node.attrs.label as string ?? node.attrs.id}`;
                     },
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    HTMLAttributes: { contentEditable: true },
                     suggestion: {
                         char: '@',
                         render: () => {
@@ -506,7 +514,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                                     this.mentionPropCommand = props;
                                     this.open = true;
                                     this.slottedOptions.forEach(ele => {
-                                        ele.hidden = false;
+                                        ele.hidden = !ele.text.toLowerCase().startsWith(props.text.slice(1).toLowerCase());
                                     });
                                     if (this.region) {
                                         this.region.anchorElement = props.decorationNode as HTMLElement;
@@ -517,7 +525,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                                 onUpdate: (props): void => {
                                     this.mentionPropCommand = props;
                                     this.slottedOptions.forEach(ele => {
-                                        ele.hidden = !ele.value.toLowerCase().startsWith(props.text.slice(1).toLowerCase());
+                                        ele.hidden = !ele.text.toLowerCase().startsWith(props.text.slice(1).toLowerCase());
                                     });
                                     if (this.region) {
                                         this.region.anchorElement = props.decorationNode as HTMLElement;
@@ -603,7 +611,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(markdown);
+        const documentFragment = this.richTextMarkdownParser.parseMarkdownToDOM(markdown);
         return this.xmlSerializer.serializeToString(documentFragment);
     }
 

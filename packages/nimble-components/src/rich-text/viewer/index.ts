@@ -45,14 +45,14 @@ export class RichTextViewer extends FoundationElement {
     }
 
     private updateView(): void {
-        if (this.markdown) {
-            const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
-                this.markdown
-            );
-            this.viewer.replaceChildren(serializedContent);
-        } else {
-            this.viewer.innerHTML = '';
-        }
+        // if (this.markdown) {
+        //     const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
+        //         this.markdown
+        //     );
+        //     this.viewer.replaceChildren(serializedContent);
+        // } else {
+        //     this.viewer.innerHTML = '';
+        // }
     }
 }
 
