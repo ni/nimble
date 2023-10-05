@@ -166,7 +166,7 @@ N/A
 
 ### Globalization
 
-For now we do not intend to alter behavor for `ltr` vs `rtl` settings.
+For now we do not intend to alter behavior for `ltr` vs `rtl` settings.
 
 #### Localization
 
