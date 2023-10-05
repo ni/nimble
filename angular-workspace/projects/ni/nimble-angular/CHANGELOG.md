@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 04 Oct 2023 07:38:20 GMT and should not be manually modified.
+This log was last generated on Thu, 05 Oct 2023 23:54:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.6.0
+
+Thu, 05 Oct 2023 23:54:35 GMT
+
+### Minor changes
+
+- Refactor Angular table columns to use mixins for fractional-width and groupable columns ([ni/nimble@c074575](https://github.com/ni/nimble/commit/c074575be1bd09e3d04b1747bfc3a782eefbbd09))
 
 ## 17.5.15
 
