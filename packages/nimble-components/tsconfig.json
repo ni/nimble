@@ -14,7 +14,7 @@
         "sourceMap": true,
         "lib": ["DOM", "ES2015", "ES2016.Array.Include", "ES2017.Object"],
         // Whitelist imported @types instead of using them all
-        "types": ["jasmine", "webpack-env"],
+        "types": ["jasmine", "webpack-env", "offscreencanvas"],
         // Require type only imports where possible
         // so imports with side-effects are explicit
         "importsNotUsedAsValues": "error",

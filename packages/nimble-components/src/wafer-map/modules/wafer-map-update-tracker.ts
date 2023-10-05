@@ -10,6 +10,7 @@ const trackedItems = [
     'gridMaxX',
     'gridMinY',
     'gridMaxY',
+    'dieMatrix',
     'dies',
     'maxCharacters',
     'colorScale',
@@ -40,6 +41,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('gridMaxX')
             || this.isTracked('gridMinY')
             || this.isTracked('gridMaxY')
+            || this.isTracked('dieMatrix')
             || this.isTracked('dies')
             || this.isTracked('maxCharacters')
             || this.isTracked('colorScale')
@@ -63,6 +65,19 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('gridMinY')
             || this.isTracked('gridMaxY')
             || this.isTracked('dies')
+        );
+    }
+
+    public get requiresMatrixUpdate(): boolean {
+        return (
+            this.isTracked('dieMatrix')
+            || this.isTracked('gridMinX')
+            || this.isTracked('gridMaxX')
+            || this.isTracked('gridMinY')
+            || this.isTracked('gridMaxY')
+            || this.isTracked('transform')
+            || this.isTracked('canvasWidth')
+            || this.isTracked('canvasHeight')
         );
     }
 

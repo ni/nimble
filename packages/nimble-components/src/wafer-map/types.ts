@@ -44,9 +44,21 @@ export interface WaferMapDie {
     metadata?: unknown;
 }
 
+export interface WaferMapRow {
+    xIndex: number;
+    yIndexes: Int32Array;
+    values: Float32Array | Int32Array;
+}
+
 export interface WaferMapColorScale {
     colors: string[];
     values: string[];
+}
+
+export interface WaferMapColorCategory {
+    color: string;
+    startValue: number;
+    endValue: number;
 }
 
 export interface HoverHandlerData {

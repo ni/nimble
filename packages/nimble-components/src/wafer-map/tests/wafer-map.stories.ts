@@ -10,7 +10,8 @@ import { goodValueGenerator, badValueGenerator } from './value-generator';
 import type {
     WaferMapDie,
     WaferMapColorScale,
-    WaferMapValidity
+    WaferMapValidity,
+    WaferMapRow
 } from '../types';
 import {
     WaferMapOriginLocation,
@@ -20,7 +21,8 @@ import {
 import {
     highLightedValueSets,
     wafermapDieSets,
-    waferMapColorScaleSets
+    waferMapColorScaleSets,
+    wafermapDieMatrix
 } from './sets';
 import { waferMapTag } from '..';
 
@@ -44,10 +46,10 @@ interface WaferMapArgs {
 
 const getDiesSet = (
     setName: string,
-    sets: WaferMapDie[][]
-): WaferMapDie[] | undefined => {
+    sets: WaferMapRow[][]
+): WaferMapRow[] => {
     const seed = 0.5;
-    let returnedValue: WaferMapDie[];
+    let returnedValue: WaferMapRow[];
     switch (setName) {
         case 'fixedDies10':
             returnedValue = sets[0]!;
@@ -62,7 +64,7 @@ const getDiesSet = (
             returnedValue = generateWaferData(10000, badValueGenerator(seed))!;
             break;
         default:
-            returnedValue = [] as WaferMapDie[];
+            returnedValue = [] as WaferMapRow[];
     }
     return returnedValue;
 };
@@ -125,7 +127,7 @@ const metadata: Meta<WaferMapArgs> = {
             grid-min-y=${x => x.gridMinY}
             grid-max-y=${x => x.gridMaxY}
             :colorScale="${x => x.colorScale}"
-            :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
+            :dieMatrix="${x => getDiesSet(x.dies, wafermapDieMatrix)}"
             :highlightedValues="${x => getHighLightedValueSets(
         x.highlightedValues,
         highLightedValueSets
@@ -149,10 +151,10 @@ const metadata: Meta<WaferMapArgs> = {
         maxCharacters: 4,
         orientation: WaferMapOrientation.left,
         originLocation: WaferMapOriginLocation.bottomLeft,
-        gridMinX: undefined,
-        gridMaxX: undefined,
-        gridMinY: undefined,
-        gridMaxY: undefined
+        gridMinX: 0,
+        gridMaxX: 4,
+        gridMinY: 0,
+        gridMaxY: 4
     },
     argTypes: {
         colorScale: {

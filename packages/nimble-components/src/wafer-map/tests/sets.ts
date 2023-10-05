@@ -1,10 +1,39 @@
-import type { WaferMapDie, WaferMapColorScale } from '../types';
+import type { WaferMapDie, WaferMapColorScale, WaferMapRow } from '../types';
 
 export const highLightedValueSets = [
     [],
     ['14.24', '67.93', '26.49', '52.90'],
     ['76.43', '72.71', '37.79', '98.50'],
     ['44.63', '79.04', '59.82', '62.80']
+];
+export const wafermapDieMatrix: WaferMapRow[][] = [
+    [
+        {
+            xIndex: 0,
+            yIndexes: Int32Array.from([2]),
+            values: Float32Array.from([14.24]),
+        },
+        {
+            xIndex: 1,
+            yIndexes: Int32Array.from([1, 2, 3]),
+            values: Float32Array.from([44.63, 76.43, 67.93]),
+        },
+        {
+            xIndex: 2,
+            yIndexes: Int32Array.from([0, 1, 2, 3, 4]),
+            values: Float32Array.from([44.63, 76.43, 67.93]),
+        },
+        {
+            xIndex: 3,
+            yIndexes: Int32Array.from([1, 2, 3]),
+            values: Float32Array.from([44.63, 76.43, 67.93]),
+        },
+        {
+            xIndex: 4,
+            yIndexes: Int32Array.from([2]),
+            values: Float32Array.from([44.63, 76.43, 67.93]),
+        },
+    ]
 ];
 
 export const wafermapDieSets: WaferMapDie[][] = [

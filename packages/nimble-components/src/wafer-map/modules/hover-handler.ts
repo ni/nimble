@@ -65,16 +65,16 @@ export class HoverHandler {
         wafermap: WaferMap,
         mousePosition: PointCoordinates
     ): boolean {
-        const rgba = wafermap.canvasContext.getImageData(
-            mousePosition.x,
-            mousePosition.y,
-            1,
-            1
-        ).data;
+        // const rgba = wafermap.canvasContext.getImageData(
+        //     mousePosition.x,
+        //     mousePosition.y,
+        //     1,
+        //     1
+        // ).data;
         let rgbaSum = 0;
-        for (const color of rgba) {
-            rgbaSum += color;
-        }
+        // for (const color of rgba) {
+        //     rgbaSum += color;
+        // }
         return rgbaSum > 0;
     }
 }

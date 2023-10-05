@@ -1,22 +1,22 @@
-import type { WaferMapDie } from '../types';
+import type { WaferMapDie, WaferMapRow } from '../types';
 import type { IValueGenerator } from './value-generator';
 
-const valueToString = (value: number): string => {
-    return value % 1 ? value.toFixed(2) : Math.trunc(value).toString();
-};
+// const valueToString = (value: number): string => {
+//     return value % 1 ? value.toFixed(2) : Math.trunc(value).toString();
+// };
 
-const generateStringValue = (
+const generateValue = (
     x: number,
     y: number,
     valueGenerator?: IValueGenerator
-): string => {
+): number => {
     let value: number;
     if (valueGenerator !== undefined) {
         value = valueGenerator(x, y);
     } else {
         value = Math.random() * 100;
     }
-    return valueToString(value);
+    return value;
 };
 
 export const generateDieContent = (
@@ -35,8 +35,8 @@ export const generateDieContent = (
 export const generateWaferData = (
     numDies: number,
     valueGenerator?: IValueGenerator
-): WaferMapDie[] => {
-    const diesSet: WaferMapDie[] = [];
+): WaferMapRow[] => {
+    const diesMatrix: WaferMapRow[] = [];
 
     if (numDies > 0) {
         // calculate the equivalent radius of a circle that would contain the <<<<numDies>>>> number of dies
@@ -46,7 +46,8 @@ export const generateWaferData = (
 
         // Generate dies values - start from the bottom and go up
         for (let i = centerY - radius; i <= centerY + radius; i++) {
-            let stringValue: string;
+            const values: number[] = [];
+            const yIndexes: number[] = [];
 
             // generate points left of centerX
             for (
@@ -55,9 +56,11 @@ export const generateWaferData = (
                 <= radius * radius;
                 j--
             ) {
-                stringValue = generateStringValue(i, j, valueGenerator);
-                diesSet.push(generateDieContent(i, j, stringValue));
+                yIndexes.push(j);
+                values.push(generateValue(i, j, valueGenerator));
             }
+            yIndexes.reverse();
+            values.reverse();
             // generate points right of centerX
             for (
                 let j = centerX + 1;
@@ -65,10 +68,15 @@ export const generateWaferData = (
                 <= radius * radius;
                 j++
             ) {
-                stringValue = generateStringValue(i, j, valueGenerator);
-                diesSet.push(generateDieContent(i, j, stringValue));
+                yIndexes.push(j);
+                values.push(generateValue(i, j, valueGenerator));
             }
+            diesMatrix.push({
+                xIndex: i,
+                yIndexes: Int32Array.from(yIndexes),
+                values: Float32Array.from(values),
+            });
         }
     }
-    return diesSet;
+    return diesMatrix;
 };

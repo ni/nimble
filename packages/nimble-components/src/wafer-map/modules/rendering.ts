@@ -26,12 +26,12 @@ export class RenderingModule {
     }
 
     public drawWafer(): void {
-        this.wafermap.canvasContext.save();
+        // this.wafermap.canvasContext.save();
         this.clearCanvas();
         this.scaleCanvas();
         this.renderDies();
         this.renderText();
-        this.wafermap.canvasContext.restore();
+        // this.wafermap.canvasContext.restore();
         this.renderHover();
     }
 
@@ -70,7 +70,7 @@ export class RenderingModule {
     }
 
     private renderDies(): void {
-        const context = this.wafermap.canvasContext;
+        // const context = this.wafermap.canvasContext;
         const dieWidth = this.wafermap.dataManager.dieDimensions.width;
         const dieHeight = this.wafermap.dataManager.dieDimensions.height;
         const transformedCanvasMinPoint = this.wafermap.transform.invert([
@@ -91,8 +91,8 @@ export class RenderingModule {
                     transformedCanvasMaxPoint
                 )
             ) {
-                context.fillStyle = die.fillStyle;
-                context.fillRect(die.x, die.y, dieWidth, dieHeight);
+                // context.fillStyle = die.fillStyle;
+                // context.fillRect(die.x, die.y, dieWidth, dieHeight);
             }
         }
     }
@@ -106,12 +106,12 @@ export class RenderingModule {
         const dieSize = dieWidth * dieHeight * (this.wafermap.transform.k || 1);
         if (dieSize >= this.minDieDim) {
             const fontsize = this.wafermap.dataManager.labelsFontSize;
-            const context = this.wafermap.canvasContext;
-            context.font = `${fontsize.toString()}px sans-serif`;
-            context.fillStyle = '#ffffff';
-            context.textAlign = 'center';
-            context.lineCap = 'butt';
-            const approximateTextHeight = context.measureText('M');
+            // const context = this.wafermap.canvasContext;
+            // context.font = `${fontsize.toString()}px sans-serif`;
+            // context.fillStyle = '#ffffff';
+            // context.textAlign = 'center';
+            // context.lineCap = 'butt';
+            // const approximateTextHeight = context.measureText('M');
 
             const transformedCanvasMinPoint = this.wafermap.transform.invert([
                 0, 0
@@ -131,35 +131,35 @@ export class RenderingModule {
                         transformedCanvasMaxPoint
                     )
                 ) {
-                    context.fillText(
-                        die.text,
-                        die.x + dieWidth / 2,
-                        die.y + dieHeight / 2 + approximateTextHeight.width / 2,
-                        dieWidth - (dieWidth / 100) * 20
-                    );
+                    // context.fillText(
+                    //     die.text,
+                    //     die.x + dieWidth / 2,
+                    //     die.y + dieHeight / 2 + approximateTextHeight.width / 2,
+                    //     dieWidth - (dieWidth / 100) * 20
+                    // );
                 }
             }
         }
     }
 
     private clearCanvas(): void {
-        this.wafermap.canvasContext.clearRect(
-            0,
-            0,
-            this.wafermap.canvas.width,
-            this.wafermap.canvas.height
-        );
+        // this.wafermap.canvasContext.clearRect(
+        //     0,
+        //     0,
+        //     this.wafermap.canvas.width,
+        //     this.wafermap.canvas.height
+        // );
     }
 
     private scaleCanvas(): void {
-        this.wafermap.canvasContext.translate(
-            this.wafermap.transform.x,
-            this.wafermap.transform.y
-        );
-        this.wafermap.canvasContext.scale(
-            this.wafermap.transform.k,
-            this.wafermap.transform.k
-        );
+        // this.wafermap.canvasContext.translate(
+        //     this.wafermap.transform.x,
+        //     this.wafermap.transform.y
+        // );
+        // this.wafermap.canvasContext.scale(
+        //     this.wafermap.transform.k,
+        //     this.wafermap.transform.k
+        // );
     }
 
     private isDieVisible(

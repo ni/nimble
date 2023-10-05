@@ -131,7 +131,6 @@ export class Computations {
             width: Math.abs(this._horizontalScale(0) - this._horizontalScale(1)),
             height: Math.abs(this._verticalScale(0) - this._verticalScale(1))
         };
-        console.log(this._dieDimensions);
     }
 
     private gridDimensionsValidAndDefined(): boolean {

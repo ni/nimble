@@ -17,10 +17,12 @@ import {
     WaferMapDie,
     WaferMapOrientation,
     WaferMapOriginLocation,
+    WaferMapRow,
     WaferMapValidity
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
+import { MatrixRenderer } from './modules/matrixRenderer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -73,10 +75,10 @@ export class WaferMap extends FoundationElement {
      */
     public readonly canvas!: HTMLCanvasElement;
 
-    /**
-     * @internal
-     */
-    public canvasContext!: CanvasRenderingContext2D;
+    // /**
+    //  * @internal
+    //  */
+    // public canvasContext!: CanvasRenderingContext2D;
 
     /**
      * @internal
@@ -91,6 +93,10 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     public readonly renderer = new RenderingModule(this);
+    /**
+     * @internal
+     */
+    public readonly matrixRenderer = new MatrixRenderer(this);
 
     /**
      * @internal
@@ -139,6 +145,7 @@ export class WaferMap extends FoundationElement {
 
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
+    @observable public dieMatrix: WaferMapRow[] = [];
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
@@ -154,9 +161,9 @@ export class WaferMap extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.canvasContext = this.canvas.getContext('2d', {
-            willReadFrequently: true
-        })!;
+        // this.canvasContext = this.canvas.getContext('2d', {
+        //     willReadFrequently: true
+        // })!;
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
     }
@@ -178,25 +185,28 @@ export class WaferMap extends FoundationElement {
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
             this.waferMapValidator.validateGridDimensions();
-            if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
-                this.dataManager.updateContainerDimensions();
-                this.renderer.updateSortedDiesAndDrawWafer();
-            } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
-                this.dataManager.updateScales();
-                this.renderer.updateSortedDiesAndDrawWafer();
-            } else if (
-                this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
-            ) {
-                this.dataManager.updateLabelsFontSize();
-                this.renderer.updateSortedDiesAndDrawWafer();
-            } else if (
-                this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
-            ) {
-                this.dataManager.updateDiesRenderInfo();
-                this.renderer.updateSortedDiesAndDrawWafer();
-            } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
-                this.renderer.drawWafer();
+            if (this.waferMapUpdateTracker.requiresMatrixUpdate) {
+                this.matrixRenderer.renderMatrix();
             }
+            // if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
+            //     this.dataManager.updateContainerDimensions();
+            //     this.renderer.updateSortedDiesAndDrawWafer();
+            // } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
+            //     this.dataManager.updateScales();
+            //     this.renderer.updateSortedDiesAndDrawWafer();
+            // } else if (
+            //     this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
+            // ) {
+            //     this.dataManager.updateLabelsFontSize();
+            //     this.renderer.updateSortedDiesAndDrawWafer();
+            // } else if (
+            //     this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
+            // ) {
+            //     this.dataManager.updateDiesRenderInfo();
+            //     this.renderer.updateSortedDiesAndDrawWafer();
+            // } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
+            //     this.renderer.drawWafer();
+            // }
             this.eventCoordinator.attachEvents();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
@@ -210,10 +220,10 @@ export class WaferMap extends FoundationElement {
                 return;
             }
             const { height, width } = entry.contentRect;
+
             // Updating the canvas size clears its contents so update it explicitly instead of
             // via template bindings so we can confirm that it happens before render
-            this.canvas.width = width;
-            this.canvas.height = height;
+            this.matrixRenderer.setCanvasDimensions(width, height);
             this.canvasWidth = width;
             this.canvasHeight = height;
         });
@@ -272,6 +282,11 @@ export class WaferMap extends FoundationElement {
 
     private diesChanged(): void {
         this.waferMapUpdateTracker.track('dies');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private dieMatrixChanged(): void {
+        this.waferMapUpdateTracker.track('dieMatrix');
         this.waferMapUpdateTracker.queueUpdate();
     }
 
