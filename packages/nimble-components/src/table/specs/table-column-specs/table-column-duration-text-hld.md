@@ -70,7 +70,7 @@ export class DurationFormatter {
 
     // formats a value in the seconds domain into a localized display value that can
     // consist of days, hours, minutes, and seconds.
-    public format(value: TableNumberFieldValue): string {}
+    public format(value: number): string {}
 }
 ```
 
@@ -104,6 +104,10 @@ if (hours) {
 Other implementation details will conform to existing patterns all other table columns handle, such as `CellView` and `GroupHeaderView` implementations.
 
 _Note: For number values that can't be translated into a representable time (e.g. `NaN`, `∞`, `-∞`, negative values), we will simply show a blank cell._
+
+### Considered Corner Cases
+
+Currently in SLE, there are corner cases that can result in a display of something like "25 min, 60 sec", which is non-ideal. This happens when the value being formatted has a large fractional value close to 1 (e.g. .999999997). The better behavior would be to either show a formatted value of "26 min", or even "25 min, 59.99 sec", though the former would be a more accurate representation if the value was 59.99999997.
 
 ## Alternative Implementations / Designs
 
