@@ -38,17 +38,27 @@ public Table() {
     @attr({ attribute: 'has-children-field-name' })
     public hasChildrenFieldName?: string;
 
-    // This attribute will control the behavior of what happens when a user selects a parent
-    // row.
-    @attr({ attribute: 'parent-selects-children'})
-    public parentSelectsChildren?: boolean;
-
     // The set of rows the user would like to toggle the expand/collapse state of
     public async expandCollapseRows(rowIds: string[]): Promise<void> {
         ...
     }
 }
 ```
+
+### `TableRowSelectionMode` API
+
+We need the ability for a client to configure what happens when a user selects a parent row, where it could either only select the parent or would select both the parent and all of its children.
+
+```ts
+export const TableRowSelectionMode = {
+    none: undefined,
+    single: 'single',
+    multiple: 'multiple',
+    multipleWithChildren: 'multipleWithChildren' // NEW MODE!!!
+} as const;
+```
+
+### `TableRowExpandedEventDetail` API
 
 The `Table` will also provide a `row-expand-toggle` event for when a row is expanded/collapsed that will provide details to the client including which row was expanded/collapsed, and what its new state is:
 

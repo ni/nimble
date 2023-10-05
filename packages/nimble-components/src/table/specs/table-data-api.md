@@ -135,7 +135,7 @@ The Blazor wrapper around the table will expose a `Data` property that internall
 
 ### Hierarchical Data
 
-There are no special data API considerations for hierarchical data. All data will be specified as a flat array. Parent/child relationships will be specified using IDs (likely the child having a reference to its parent's ID). The details of hierarchical data are out of scope of this spec.
+There are no special data API considerations for hierarchical data. All data will be specified as a flat array. Parent/child relationships will be specified using IDs (likely the child having a reference to its parent's ID). The details of hierarchical data are [located here](./data-hierarchy-hld.md).
 
 ### Data modification
 
