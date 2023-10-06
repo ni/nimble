@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 06 Oct 2023 16:58:56 GMT",
+      "version": "17.6.1",
+      "tag": "@ni/nimble-angular_v17.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "9ebd4e1db9fdcb67fcff8237e75c77537c862360",
+            "comment": "Revert \"Create Angular mixins for fractional-width columns and groupable columns (#1587)\""
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 05 Oct 2023 23:54:35 GMT",
       "version": "17.6.0",
       "tag": "@ni/nimble-angular_v17.6.0",
