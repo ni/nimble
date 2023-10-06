@@ -46,7 +46,7 @@ Comboboxes should always have a label, unless approved by an interaction designe
 
 #### Field Input
 
-Comboboxes can be empty by default or have a default selection from the dropdown. Empty comboboxes should include placeholder text that propts the end-user to enter a custom value or select an option from the dropdown. Placeholder text should always follow the pattern "Enter or select [thing(s)]", for example "Enter or select address". Ellipses are not needed for the placeholder. Use sentence casing for the placeholder.
+Comboboxes can be empty by default or have a default selection from the menu. Empty comboboxes should include placeholder text that propts the end-user to enter a custom value or select an option from the menu. Placeholder text should always follow the pattern "Enter or select [thing(s)]", for example "Enter or select address". Ellipses are not needed for the placeholder. Use sentence casing for the placeholder.
 
 ![ ](spec-images/combobox-2.png)
 
