@@ -2,7 +2,12 @@
 @namespace Demo.Shared.Pages
 @inherits LayoutComponentBase
 
-<div class="content container">
+<div class="content container" @ref="_elementRef">
+    <div class="root-header">
+        <p><strong>Nimble Blazor example</strong></p>
+        <p>Razor component received input: @InputString</p>
+        <NimbleButton @onclick="RaiseExampleEventAsync">Raise JS event</NimbleButton>
+    </div>
     <p>
         Explore the components below to see the Nimble components in action. See the <a
                 href="https://nimble.ni.dev/storybook/">Nimble

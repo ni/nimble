@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>BlazorWasmTest1</title>
+    <base href="/" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link href="_content/NimbleBlazor/nimble-tokens/css/fonts.css" rel="stylesheet" />
+    <link href="BlazorWasmTest1.styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nimbleblazorexample-components-demo input-string="Example input"></nimbleblazorexample-components-demo>
+
+    <script src="_content/NimbleBlazor/nimble-components/all-components-bundle.min.js"></script>
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+    <script>
+        Blazor.start({
+            loadBootResource: function (type, name, defaultUri, integrity) {
+                console.log('loadBootResource', type, name, defaultUri, integrity);
+                if (type == 'dotnetjs') {
+                    return null;
+                } else {
+                    return fetch(defaultUri, {
+                        cache: 'no-cache',
+                        integrity: integrity,
+                        headers: { }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

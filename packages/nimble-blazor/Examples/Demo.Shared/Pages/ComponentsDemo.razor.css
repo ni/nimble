@@ -13,9 +13,13 @@
     padding-bottom: var(--ni-nimble-standard-padding);
 }
 
-p, a {
+ p, a {
     color: var(--ni-nimble-control-label-font-color);
 }
+
+ .root-header p {
+     color: black;
+ }
 
 .container {
     background-color: var(--ni-nimble-application-background-color);

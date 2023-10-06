@@ -1,5 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Xml.Linq;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using NimbleBlazor;
 
 namespace Demo.Shared.Pages
@@ -18,6 +21,28 @@ namespace Demo.Shared.Pages
         private string? DrawerClosedReason { get; set; }
         private string? SelectedRadio { get; set; } = "2";
         private bool BannerOpen { get; set; }
+
+        /* -------- new for Blazor/Angular interop demo ---------- */
+        private ElementReference _elementRef;
+
+        [Inject]
+        private IJSRuntime? JSRuntime { get; set; }
+
+        [Parameter]
+        public string InputString { get; set; } = string.Empty;
+
+        [Parameter]
+        public EventCallback<string> ExampleEventRaised { get; set; }
+
+        [SuppressMessage("Design", "CA1030:Use events where appropriate", Justification = "demo code")]
+        public async Task RaiseExampleEventAsync()
+        {
+            await ExampleEventRaised.InvokeAsync("This example sentence is written in Blazor/C#.");
+
+            await JSRuntime!.InvokeVoidAsync("NimbleBlazorDemo.Events.raiseEvent", _elementRef, "example-event", "This example sentence is written in Blazor/C#.");
+        }
+
+        /* -------- END: new for Blazor/Angular interop demo ---------- */
 
         [NotNull]
         public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();
