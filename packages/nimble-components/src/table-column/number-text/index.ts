@@ -17,7 +17,7 @@ import { DefaultFormatter } from './models/default-formatter';
 import { DecimalFormatter } from './models/decimal-formatter';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
 import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
-import { lang } from '../../theme-provider';
+import { lang } from '../../theme-provider/configuration-tokens';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {

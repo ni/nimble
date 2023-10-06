@@ -7,7 +7,8 @@ import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { TableColumnDateTextPageObject } from '../testing/table-column-date-text.pageobject';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
-import { lang, themeProviderTag } from '../../../theme-provider';
+import { themeProviderTag } from '../../../theme-provider';
+import { lang } from '../../../theme-provider/configuration-tokens';
 
 interface SimpleTableRecord extends TableRecord {
     field?: number | null;

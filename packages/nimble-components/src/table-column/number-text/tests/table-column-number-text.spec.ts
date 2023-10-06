@@ -9,7 +9,8 @@ import { NumberTextAlignment, NumberTextFormat } from '../types';
 import type { TableColumnNumberTextCellView } from '../cell-view';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
-import { lang, themeProviderTag } from '../../../theme-provider';
+import { themeProviderTag } from '../../../theme-provider';
+import { lang } from '../../../theme-provider/configuration-tokens';
 
 interface SimpleTableRecord extends TableRecord {
     number1?: number | null;

@@ -1,13 +1,11 @@
-import { DesignSystem, DesignToken, FoundationElement } from '@microsoft/fast-foundation';
+import { DesignSystem } from '@microsoft/fast-foundation';
 import { Direction } from '@microsoft/fast-web-utilities';
-import { attr } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { ThemeBase } from '../theme-base';
-import { direction, theme } from './design-tokens-control';
+import { dir, theme, lang } from './configuration-tokens';
 import { Theme } from './types';
-import { documentElementLang } from '../utilities/models/document-element-lang';
-import type { ValidityObject } from '../utilities/models/validator';
+import { isValidLang } from '../utilities/models/document-element-observer';
 
 export { Direction };
 
@@ -17,48 +15,11 @@ declare global {
     }
 }
 
-function isValidLang(value: string): boolean {
-    try {
-        // We are relying on the Locale constructor to validate the value
-        // eslint-disable-next-line no-new
-        new Intl.Locale(value);
-        return true;
-    } catch (e) {
-        return false;
-    }
-}
-
-export const lang = DesignToken.create<string>({
-    name: 'lang',
-    cssCustomPropertyName: null
-}).withDefault((): string => (isValidLang(documentElementLang.lang) ? documentElementLang.lang : 'en-US'));
-
 /**
  * The ThemeProvider implementation. Add this component to the page and set its `theme` attribute to control
  * the values of design tokens that provide colors and fonts as CSS custom properties to any descendant components.
  */
-export class ThemeProvider extends FoundationElement {
-    @attr()
-    public override lang!: string;
-
-    @attr()
-    public direction?: Direction;
-
-    @attr()
-    public theme: Theme = Theme.light;
-
-    public get validity(): ValidityObject {
-        return {
-            invalidLang: this.langIsInvalid
-        };
-    }
-
-    private langIsInvalid = false;
-
-    public checkValidity(): boolean {
-        return !this.langIsInvalid;
-    }
-
+export class ThemeProvider extends ThemeBase {
     public langChanged(
         _prev: string | undefined | null,
         next: string | undefined | null
@@ -78,14 +39,20 @@ export class ThemeProvider extends FoundationElement {
         }
     }
 
-    public directionChanged(
+    public dirChanged(
         _prev: Direction | undefined | null,
         next: Direction | undefined | null
     ): void {
-        if (next && Direction[next]) {
-            direction.setValueFor(this, next);
+        if (next === null || next === undefined) {
+            lang.deleteValueFor(this);
+            return;
+        }
+
+        if (Direction[next]) {
+            dir.setValueFor(this, next);
         } else {
-            direction.deleteValueFor(this);
+            // TODO only support ltr and rtl, not auto
+            dir.deleteValueFor(this);
         }
     }
 
@@ -93,9 +60,15 @@ export class ThemeProvider extends FoundationElement {
         _prev: Theme | undefined | null,
         next: Theme | undefined | null
     ): void {
-        if (next && Theme[next]) {
+        if (next === null || next === undefined) {
+            theme.deleteValueFor(this);
+            return;
+        }
+
+        if (Theme[next]) {
             theme.setValueFor(this, next);
         } else {
+            // TODO user may set unexpected string value
             theme.deleteValueFor(this);
         }
     }

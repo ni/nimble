@@ -3,7 +3,8 @@ import { spinalCase } from '@microsoft/fast-web-utilities';
 import * as designTokensNamespace from '../design-tokens';
 import { tokenNames, suffixFromTokenName } from '../design-token-names';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
-import { ThemeProvider, lang, themeProviderTag } from '..';
+import { ThemeProvider, themeProviderTag } from '..';
+import { lang } from '../configuration-tokens';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 

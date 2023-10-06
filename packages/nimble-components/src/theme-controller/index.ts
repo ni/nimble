@@ -5,11 +5,11 @@ import { styles } from './styles';
 import { ThemeBase } from '../theme-base';
 import { Theme } from '../theme-provider/types';
 import {
-    direction,
-    directionDefault,
+    dir,
+    dirDefault,
     theme,
     themeDefault
-} from '../theme-provider/design-tokens-control';
+} from '../theme-provider/configuration-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -22,14 +22,14 @@ declare global {
  * the values of design tokens that provide colors and fonts as CSS custom properties to the root of the page.
  */
 export class ThemeController extends ThemeBase {
-    public directionChanged(
+    public dirChanged(
         _prev: Direction | undefined,
         next: Direction | undefined
     ): void {
         if (next && Direction[next]) {
-            direction.withDefault(next);
+            dir.withDefault(next);
         } else {
-            direction.withDefault(directionDefault);
+            dir.withDefault(dirDefault);
         }
     }
 

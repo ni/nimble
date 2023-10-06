@@ -30,7 +30,7 @@ import {
     WeekdayFormat
 } from './types';
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
-import { lang } from '../../theme-provider';
+import { lang } from '../../theme-provider/configuration-tokens';
 import { optionalBooleanConverter } from '../../utilities/models/converter';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;

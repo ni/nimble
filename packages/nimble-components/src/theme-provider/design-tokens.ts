@@ -100,7 +100,7 @@ import {
 } from './design-tokens-static';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
-import { theme } from './design-tokens-control';
+import { theme } from './configuration-tokens';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 
 // Register the root so design tokens are emitted when used standalone
