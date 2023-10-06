@@ -32,13 +32,13 @@ When not to use:
 
 ![ ](spec-images/combobox-1.png)
 
-| Element     | Description                                                             |
-| ----------- | ----------------------------------------------------------------------- |
-| Label       | Text that tells the end-user what to expect in the component            |
-| Field input | Input that displays the current selected or entered option              |
-| Menu button | Click area that opens the menu                                          |
-| Menu        | A list of options to choose from displayed as an _open_ state           |
-| Menu item   | A selection the end-user can make, shown with other options in the menu |
+| Element         | Description                                                                 |
+| --------------- | --------------------------------------------------------------------------- |
+| Label           | Text that tells the end-user what to expect in the component                |
+| Field input     | Input that displays the current selected or entered option                  |
+| Dropdown button | Click area that opens the dropdown                                          |
+| Dropdown        | A list of options to choose from displayed as an _open_ state               |
+| List item       | A selection the end-user can make, shown with other options in the dropdown |
 
 #### Label
 
@@ -46,21 +46,21 @@ Comboboxes should always have a label, unless approved by an interaction designe
 
 #### Field Input
 
-Comboboxes can be empty by default or have a default selection from the menu. Empty comboboxes should include placeholder text that propts the end-user to enter a custom value or select an option from the menu. Placeholder text should always follow the pattern "Enter or select [thing(s)]", for example "Enter or select address". Ellipses are not needed for the placeholder. Use sentence casing for the placeholder.
+Comboboxes can be empty by default or have a default selection from the dropdown. Empty comboboxes should include placeholder text that propts the end-user to enter a custom value or select an option from the dropdown. Placeholder text should always follow the pattern "Enter or select [thing(s)]", for example "Enter or select address". Ellipses are not needed for the placeholder. Use sentence casing for the placeholder.
 
 ![ ](spec-images/combobox-2.png)
 
-#### Menu & Menu Items
+#### Dropdown & List Items
 
 A list of options to select, displayed as an open state._See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
 
 ### Related Components
 
-To allow end-users to select a menu item but not enter a custom value, use a [**select**](/packages/nimble-components/src/select/specs/IxD.md).
+To allow end-users to select a list item but not enter a custom value, use a [**select**](/packages/nimble-components/src/select/specs/IxD.md).
 
 ![ ](spec-images/combobox-alternative-select.png)
 
-To allow end-users to multi-select menu items, use a [**tag picker**](/packages/nimble-components/src/tag-picker/specs/IxD.md).
+To allow end-users to multi-select list items, use a [**tag picker**](/packages/nimble-components/src/tag-picker/specs/IxD.md).
 
 ![ ](spec-images/combobox-alternative-picker.png)
 
@@ -76,21 +76,21 @@ The client-user should be able to specify where they want the label to be positi
 
 #### Icons
 
-The client-user should be able to specify whether they want left icons on menu items or not. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
+The client-user should be able to specify whether they want left icons on list items or not. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
 
 #### Groups
 
-The client-user should be able to create groups for menu items. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
+The client-user should be able to create groups for list items. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
 
 > NOTE: NEEDS VISUAL DESIGN
 
-The client should be able to specify whether they want the group name to be visible on the component when the menu is closed.
+The client should be able to specify whether they want the group name to be visible on the component when the dropdown is closed.
 
 ![ ](spec-images/combobox-26.png)
 
 #### Secondary Text
 
-The client-user should be able to specify whether they want secondary text on menu items or not. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
+The client-user should be able to specify whether they want secondary text on list items or not. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
 
 #### Prefix & Suffix
 
@@ -106,7 +106,7 @@ The client-user should be able to specify autocomplete behavior (inline, list, b
 
 > NOTE: WE SHOULD PROVIDE DOCUMENTED GUIDANCE THIS FOR CLIENTS
 
-When autocomplete is set to "list", it should filter menu options based on matching any text. When autocomplete is set to "inline" or "both", it should autocomplete (and filter) menu options based on matching the beginning of text.
+When autocomplete is set to "list", it should filter dropdown options based on matching any text. When autocomplete is set to "inline" or "both", it should autocomplete (and filter) dropdown options based on matching the beginning of text.
 
 ### Behavior
 
@@ -114,9 +114,9 @@ When autocomplete is set to "list", it should filter menu options based on match
 
 The comobox component minimum width is three times the component height. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
 
-#### Menu Height
+#### Dropdown Height
 
-The menu height should be enough to display five to seven menu items before overflowing with a vertical scrollbar (not pictured).
+The dropdown height should be enough to display five to seven list items before overflowing with a vertical scrollbar (not pictured).
 
 #### Overflow Text
 
@@ -124,7 +124,7 @@ All text should truncate, not wrap. _See [Select](/packages/nimble-components/sr
 
 #### Progress & Loading
 
-When displaying menu items in the menu lags or is expected to take longer than normal, the menu should indicate that it's loading. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
+When displaying list items in the dropdown lags or is expected to take longer than normal, the dropdown should indicate that it's loading. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
 
 #### Touch-Screen Devices
 
@@ -132,43 +132,43 @@ On touch-screen devices, the combobox field input should bring up the native key
 
 ![ ](spec-images/combobox-5.png)
 
-The combobox menu button should bring up the menu in a Nimble or native popover. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
+The combobox dropdown button should bring up the dropdown in a Nimble or native popover. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
 
 ### Mouse Interactions
 
-Field inputs are used to type and menu buttons are used to open the menu.
+Field inputs are used to type and dropdown buttons are used to open the dropdown.
 
 ![ ](spec-images/combobox-6.png)
 
-Hovering over the field input indicates interactivity. Hovering over the menu button indicates interactivity.
+Hovering over the field input indicates interactivity. Hovering over the dropdown button indicates interactivity.
 
 ![ ](spec-images/combobox-7.png)
 
-Clicking on the field input focuses the input and inserts a caret. If there is no current value in the field input or the user clicks at the beginning of the text string, the caret will be inserted to the far left. If there is a current value, the caret will be inserted into wherever in the text string was clicked. Clicking on the field input, regardless of whether there is a current value or not, should open the menu.
+Clicking on the field input focuses the input and inserts a caret. If there is no current value in the field input or the user clicks at the beginning of the text string, the caret will be inserted to the far left. If there is a current value, the caret will be inserted into wherever in the text string was clicked. Clicking on the field input, regardless of whether there is a current value or not, should open the dropdown.
 
 ![ ](spec-images/combobox-8.png)
 
-Clicking on the menu button opens (if closed) the menu. If the field input contains a value associated with a menu item, selection is indicated on the menu item (not pictured).
+Clicking on the dropdown button opens (if closed) the dropdown. If the field input contains a value associated with a list item, selection is indicated on the list item (not pictured).
 
 ![ ](spec-images/combobox-9.png)
 
-Hovering over a menu item in the menu indicates interactivity.
+Hovering over a list item in the dropdown indicates interactivity.
 
 ![ ](spec-images/combobox-10.png)
 
-Clicking anywhere on a menu item selects the item, sets the value, displays the value in field input, and closes the menu.
+Clicking anywhere on a list item selects the item, sets the value, displays the value in field input, and closes the dropdown.
 
 ![ ](spec-images/combobox-11.png)
 
-When the menu is open, clicking anywhere outside of a menu item and the text input closes the menu with no changes.
+When the dropdown is open, clicking anywhere outside of a list item and the text input closes the dropdown with no changes.
 
 ![ ](spec-images/combobox-12.png)
 
-If the combobox allows autocomplete, typing in the field input will show menu items matching the typed value in the field and/or in the menu. The input field autocompletes the first matching menu item. The menu indicates selection on the first matching menu item.
+If the combobox allows autocomplete, typing in the field input will show list items matching the typed value in the field and/or in the dropdown. The input field autocompletes the first matching list item. The dropdown indicates selection on the first matching list item.
 
 ![ ](spec-images/combobox-13.png)
 
-Typing text that does not match any existing menu items either allows the end-user to add a new menu item to the menu or not (see Future Considerations).
+Typing text that does not match any existing list items either allows the end-user to add a new list item to the dropdown or not (see Future Considerations).
 
 ![ ](spec-images/combobox-16.png)
 
@@ -178,27 +178,27 @@ Typing text that does not match any existing menu items either allows the end-us
 
 #### Field Input
 
-| Key                        | Description                                                                                              |
-| -------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `ENTER`                    | Commits a custom or autocompleted value                                                                  |
-| `DOWN ARROW` or `UP ARROW` | Opens the menu and moves visual focus to the first or last menu item (DOM focus remains on the combobox) |
-| `ALT` + `DOWN ARROW`       | Opens the menu without moving focus or changing selection                                                |
-| `ESC`                      | Clears the field input value                                                                             |
-| _Text editing keys_        | Behave as expected                                                                                       |
+| Key                        | Description                                                                                                  |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `ENTER`                    | Commits a custom or autocompleted value                                                                      |
+| `DOWN ARROW` or `UP ARROW` | Opens the dropdown and moves visual focus to the first or last list item (DOM focus remains on the combobox) |
+| `ALT` + `DOWN ARROW`       | Opens the dropdown without moving focus or changing selection                                                |
+| `ESC`                      | Clears the field input value                                                                                 |
+| _Text editing keys_        | Behave as expected                                                                                           |
 
 `TAB` focuses the combobox component from the previous or next focusable element on the page.
 
 ![ ](spec-images/combobox-17.png)
 
-`DOWN ARROW` or `UP ARROW` on the focused field input opens the menu and focuses (but does not select) the first or last menu item. If the component has inline autocomplete, the value of the focused menu item is populated in the input field. Otherwise, the field input does not change until commit (not pictured).
+`DOWN ARROW` or `UP ARROW` on the focused field input opens the dropdown and focuses (but does not select) the first or last list item. If the component has inline autocomplete, the value of the focused list item is populated in the input field. Otherwise, the field input does not change until commit (not pictured).
 
 ![ ](spec-images/combobox-18.png)
 
-`ALT` + `DOWN ARROW` on the focused field input opens the menu but does not move visual focus or change selection.
+`ALT` + `DOWN ARROW` on the focused field input opens the dropdown but does not move visual focus or change selection.
 
 ![ ](spec-images/combobox-19.png)
 
-`ENTER` on the focused input field commits the typed, autocompleted, or selected value and closes the menu (if open). The caret remains visible after commit.
+`ENTER` on the focused input field commits the typed, autocompleted, or selected value and closes the dropdown (if open). The caret remains visible after commit.
 
 ![ ](spec-images/combobox-20.png)
 
@@ -208,34 +208,34 @@ Typing text that does not match any existing menu items either allows the end-us
 
 Standard single line text editing keys, for example `DELETE` and `SHIFT` + `RIGHT ARROW`, should work when focus is in the field input (not pictured).
 
-#### Menu
+#### Dropdown
 
-| Key                           | Description                                                                                                                                    |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ENTER`                       | Sets the value of the field input to the focused menu item, closes the menu, and moves focus to the field input                                |
-| `DOWN ARROW` or `UP ARROW`    | Moves visual focus to the next or previous menu item                                                                                           |
-| `RIGHT ARROW` or `LEFT ARROW` | Moves visual focus to the field input and inserts the caret one character to the right or left                                                 |
-| `ESC`                         | Closes the menu and moves visual focus to the field input                                                                                      |
-| `HOME` or `END`               | Moves visual focus to the field input and inserts the caret at the beginning or end of the string                                              |
-| _Printable characters_        | Moves visual focus to the field input, types the character(s), opens the autocomplete menu and/or displays inline autocomplete (if applicable) |
+| Key                           | Description                                                                                                                                        |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ENTER`                       | Sets the value of the field input to the focused list item, closes the dropdown, and moves focus to the field input                                |
+| `DOWN ARROW` or `UP ARROW`    | Moves visual focus to the next or previous list item                                                                                               |
+| `RIGHT ARROW` or `LEFT ARROW` | Moves visual focus to the field input and inserts the caret one character to the right or left                                                     |
+| `ESC`                         | Closes the dropdown and moves visual focus to the field input                                                                                      |
+| `HOME` or `END`               | Moves visual focus to the field input and inserts the caret at the beginning or end of the string                                                  |
+| _Printable characters_        | Moves visual focus to the field input, types the character(s), opens the autocomplete dropdown and/or displays inline autocomplete (if applicable) |
 
-From a focused menu item, `DOWN ARROW` or `UP ARROW` moves focus and selects the next or previous menu item. If the focused/selected menu item is the first or last in the menu, `DOWN ARROW` or `UP ARROW` wraps to last or first menu item (not pictured).
+From a focused list item, `DOWN ARROW` or `UP ARROW` moves focus and selects the next or previous list item. If the focused/selected list item is the first or last in the dropdown, `DOWN ARROW` or `UP ARROW` wraps to last or first list item (not pictured).
 
 ![ ](spec-images/combobox-22.png)
 
-`ENTER` on a focused/selected menu item commits the value, updates the field input, and closes the menu.
+`ENTER` on a focused/selected list item commits the value, updates the field input, and closes the dropdown.
 
 ![ ](spec-images/combobox-23.png)
 
-`ESC` on a focused/selected menu item cancels the value, closes the menu, and moves visual focus to the field input.
+`ESC` on a focused/selected list item cancels the value, closes the dropdown, and moves visual focus to the field input.
 
 ![ ](spec-images/combobox-24.png)
 
-`RIGHT ARROW` or `LEFT ARROW` moves visual focus to the field input without closing the menu and moves the caret one character to the right or left.
+`RIGHT ARROW` or `LEFT ARROW` moves visual focus to the field input without closing the dropdown and moves the caret one character to the right or left.
 
 ![ ](spec-images/combobox-25.png)
 
 ## Future Considerations
 
 -   Helper text for input components (where it should be located, how it should be accessed).
--   Do clients want an "Add new" menu item option? Do we want to document how clients might show an "Add new" menu item indicator in the dropdown?
+-   Do clients want an "Add new" list item option? Do we want to document how clients might show an "Add new" list item indicator in the dropdown?
