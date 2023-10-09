@@ -7,12 +7,14 @@ export class DurationFormatter {
     private readonly hoursFormatter: Intl.NumberFormat;
     private readonly minutesFormatter: Intl.NumberFormat;
     private readonly secondsFormatter: Intl.NumberFormat;
+    private readonly scientificSecondsFormatter: Intl.NumberFormat;
 
     public constructor(private readonly lang: string) {
         this.daysFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'day' });
         this.hoursFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'hour' });
         this.minutesFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'minute' });
         this.secondsFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'second' });
+        this.scientificSecondsFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'second', notation: 'scientific', maximumFractionDigits: 2 });
     }
 
     public format(value: number | null | undefined): string {
@@ -21,13 +23,16 @@ export class DurationFormatter {
         }
 
         const result = [];
-        const days = Math.floor(value / 86400);
-        if (days) {
+        const fractionalDays = value / 86400;
+        const days = Math.floor(fractionalDays);
+        if (days < 100) {
             const formattedDays = this.daysFormatter.format(days);
             result.push(formattedDays);
+        } else {
+            return this.scientificSecondsFormatter.format(value);
         }
 
-        const hours = Math.floor((value / 86400) * 24);
+        const hours = Math.floor((value / 3600) % 24);
         if (hours) {
             const formattedHours = this.hoursFormatter.format(hours);
             result.push(formattedHours);
