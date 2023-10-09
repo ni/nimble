@@ -623,6 +623,11 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     private readonly updateUserLists = (props: SuggestionProps): void => {
         this.mentionPropCommand = props;
+        const twoWhiteSpaceRegex = /\s{2,}$/;
+        if (props.query && twoWhiteSpaceRegex.test(props.query)) {
+            this.open = false;
+            return;
+        }
         this.open = true;
         const filter = props.text.slice(1).toLowerCase();
         this.filteredOptions = this._options.filter(ele => ele.text.toLowerCase().startsWith(filter));
@@ -698,7 +703,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                         return `${options.suggestion.char!}${node.attrs.label as string ?? node.attrs.id}`;
                     },
                     suggestion: {
-                        char: '@',
+                        allowSpaces: true,
                         render: () => {
                             return {
                                 onStart: (props): void => {
