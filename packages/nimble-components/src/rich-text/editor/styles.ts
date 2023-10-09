@@ -256,6 +256,10 @@ export const styles = css`
         place-items: center;
     }
 
+    .listbox {
+        max-height: 160px;
+    }
+
     :host([error-visible]) .error-icon {
         display: none;
     }

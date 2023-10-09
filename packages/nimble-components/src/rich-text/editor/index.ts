@@ -487,8 +487,17 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private setSelectedOptions(): void {
         if (this.options?.length) {
             this.selectedOptions = [this.options[this.selectedIndex]!];
-            // this.ariaActiveDescendant = this.firstSelectedOption?.id ?? '';
-            // this.focusAndScrollOptionIntoView();
+            this.focusAndScrollOptionIntoView();
+        }
+    }
+
+    private focusAndScrollOptionIntoView(): void {
+        if (this.contains(document.activeElement)) {
+            if (this.firstSelectedOption) {
+                requestAnimationFrame(() => {
+                    this.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
+                });
+            }
         }
     }
 
