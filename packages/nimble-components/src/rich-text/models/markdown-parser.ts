@@ -10,26 +10,25 @@ import { anchorTag } from '../../anchor';
  * Provides markdown parser for rich text components
  */
 export class RichTextMarkdownParser {
-    private readonly updatedSchema = this.getSchemaWithLinkConfiguration();
+    private static readonly updatedSchema = this.getSchemaWithLinkConfiguration();
 
-    private readonly domSerializer = DOMSerializer.fromSchema(
+    private static markdownParser = this.initializeMarkdownParser();
+    private static readonly domSerializer = DOMSerializer.fromSchema(
         this.updatedSchema
     );
-
-    private readonly markdownParser;
-
-    public constructor(usersList: { id: string, name: string }[] = []) {
-        this.markdownParser = this.initializeMarkdownParser(usersList);
-    }
 
     /**
      * This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a
      * DOM structure using a DOMSerializer, and returns the serialized result.
      * If the markdown parser returns null, it will clear the viewer component by creating an empty document fragment.
      */
-    public parseMarkdownToDOM(
-        value: string
+    public static parseMarkdownToDOM(
+        value: string,
+        usersList: { id: string, name: string }[] = []
     ): HTMLElement | DocumentFragment {
+        if (usersList.length) {
+            this.markdownParser = this.initializeMarkdownParser(usersList);
+        }
         const parsedMarkdownContent = this.markdownParser.parse(value);
         if (parsedMarkdownContent === null) {
             return document.createDocumentFragment();
@@ -39,7 +38,7 @@ export class RichTextMarkdownParser {
         );
     }
 
-    private initializeMarkdownParser(usersList: { id: string, name: string }[] = []): MarkdownParser {
+    private static initializeMarkdownParser(usersList: { id: string, name: string }[] = []): MarkdownParser {
         /**
          * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
          * The 'zero' preset is a configuration with no rules enabled by default to selectively enable specific rules.
@@ -82,10 +81,14 @@ export class RichTextMarkdownParser {
                         }
                     }
 
+                    if (position === max && state.src.charCodeAt(position) !== 0x3e /* > */) {
+                        return false;
+                    }
+
                     const userIdEnd = position;
                     const userId = state.src.slice(userIdStart, userIdEnd);
+                    const userName = getUserName(userId);
                     if (usersList.length) {
-                        const userName = getUserName(userId);
                         if (userName === '') {
                             return false;
                         }
@@ -98,10 +101,10 @@ export class RichTextMarkdownParser {
                     let token = state.push('mention_open', 'span', 1);
                     token.attrs = [
                         ['dataid', userId],
-                        ['datalabel', getUserName(userId)],
+                        ['datalabel', userName],
                     ];
                     token = state.push('text', '', 0);
-                    token.content = `@${getUserName(userId)}`;
+                    token.content = `@${userName}`;
 
                     state.push('mention_close', 'span', -1);
                     return true;
@@ -138,7 +141,7 @@ export class RichTextMarkdownParser {
         );
     }
 
-    private getSchemaWithLinkConfiguration(): Schema {
+    private static getSchemaWithLinkConfiguration(): Schema {
         return new Schema({
             nodes: schema.spec.nodes.addToEnd(
                 'mention',

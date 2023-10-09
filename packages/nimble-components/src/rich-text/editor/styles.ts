@@ -278,5 +278,6 @@ export const styles = css`
 
     span[data-type="mention"] {
         color: ${linkActiveFontColor};
+        user-select: text;
     }
 `;

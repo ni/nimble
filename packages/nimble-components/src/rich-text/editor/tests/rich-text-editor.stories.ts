@@ -37,7 +37,7 @@ const exampleDataType = {
     markdownString: 'MarkdownString'
 } as const;
 
-const plainString = 'Plain text @<1234> @<5678p> <https://google.com> *@<123h4>* dfgfg' as const;
+const plainString = 'Plain text @<1> ***@<2>*** <https://google.com> *@<123h4>* dfgfg' as const;
 
 const dataSets = {
     [exampleDataType.plainString]: plainString,
@@ -90,15 +90,9 @@ const metadata: Meta<RichTextEditorArgs> = {
             <nimble-list-option value='1'>Mary</nimble-list-option>
             <nimble-list-option disabled value='2'>super</nimble-list-option>
             <nimble-list-option value='3'>Joaquin</nimble-list-option>
-            <nimble-list-option value='123asd4s5'>Frank</nimble-list-option>
-            <nimble-list-option value='1234asds5'>Albert</nimble-list-option>
-            <nimble-list-option value='123asd45'>Sue Ann</nimble-list-option>
-            <nimble-list-option value='12as3sd4ds5'>Mary</nimble-list-option>
-            <nimble-list-option disabled value='12as3d4s5'>super</nimble-list-option>
-            <nimble-list-option value='123asdd4s5'>Joaquin</nimble-list-option>
-            <nimble-list-option value='12d3asd4s5'>Frank</nimble-list-option>
-            <nimble-list-option value='1234asds5'>Albert</nimble-list-option>
-            <nimble-list-option value='123asdd45'>Sue Ann</nimble-list-option>
+            <nimble-list-option value='4'>Frank</nimble-list-option>
+            <nimble-list-option value='5'>Albert</nimble-list-option>
+            <nimble-list-option value='6'>Sue Ann</nimble-list-option>
     </${richTextEditorTag}>
     `),
     argTypes: {

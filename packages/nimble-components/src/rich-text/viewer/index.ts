@@ -3,6 +3,7 @@ import { observable } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
+import type { ListOption } from '../../list-option';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -30,6 +31,12 @@ export class RichTextViewer extends FoundationElement {
     /**
      * @internal
      */
+    @observable
+    public slottedOptions!: ListOption[];
+
+    /**
+     * @internal
+     */
     public override connectedCallback(): void {
         super.connectedCallback();
         this.updateView();
@@ -44,15 +51,34 @@ export class RichTextViewer extends FoundationElement {
         }
     }
 
+    /**
+     * @internal
+     */
+    public slottedOptionsChanged(): void {
+        if (this.$fastController.isConnected) {
+            this.updateView();
+        }
+    }
+
     private updateView(): void {
-        // if (this.markdown) {
-        //     const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
-        //         this.markdown
-        //     );
-        //     this.viewer.replaceChildren(serializedContent);
-        // } else {
-        //     this.viewer.innerHTML = '';
-        // }
+        if (this.markdown) {
+            const slottedOptionsList = this.getSlottedOptionsList();
+            const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
+                this.markdown,
+                slottedOptionsList
+            );
+            this.viewer.replaceChildren(serializedContent);
+        } else {
+            this.viewer.innerHTML = '';
+        }
+    }
+
+    private getSlottedOptionsList(): { id: string, name: string }[] {
+        const slottedOptionsList: { id: string, name: string }[] = [];
+        this.slottedOptions.forEach(ele => {
+            slottedOptionsList.push({ id: ele.value, name: ele.textContent ?? '' });
+        });
+        return slottedOptionsList;
     }
 }
 

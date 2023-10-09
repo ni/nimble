@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyFont, bodyFontColor } from '../../theme-provider/design-tokens';
+import { bodyFont, bodyFontColor, linkActiveFontColor } from '../../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
@@ -40,5 +40,9 @@ export const styles = css`
     }
     li > p:empty {
         display: none;
+    }
+
+    span[data-type="mention"] {
+        color: ${linkActiveFontColor};
     }
 `;

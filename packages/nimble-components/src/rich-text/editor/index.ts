@@ -192,7 +192,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private updateScrollbarWidthQueued = false;
 
     private readonly xmlSerializer = new XMLSerializer();
-    private richTextMarkdownParser = new RichTextMarkdownParser();
     private readonly validAbsoluteLinkRegex = /^https?:\/\//i;
 
     /**
@@ -248,10 +247,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             option.ariaPosInSet = `${index + 1}`;
             option.ariaSetSize = setSize;
         });
-        this.richTextMarkdownParser = new RichTextMarkdownParser([
-            { id: '1234', name: 'Aagash' },
-            { id: '5678', name: 'Vivin' },
-        ]);
     }
 
     /**
@@ -702,8 +697,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                     renderLabel({ options, node }) {
                         return `${options.suggestion.char!}${node.attrs.label as string ?? node.attrs.id}`;
                     },
-                    // eslint-disable-next-line @typescript-eslint/naming-convention
-                    // HTMLAttributes: { contentEditable: false },
                     suggestion: {
                         char: '@',
                         render: () => {
@@ -826,8 +819,17 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        const documentFragment = this.richTextMarkdownParser.parseMarkdownToDOM(markdown);
+        const slottedOptionsList = this.getSlottedOptionsList();
+        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(markdown, slottedOptionsList);
         return this.xmlSerializer.serializeToString(documentFragment);
+    }
+
+    private getSlottedOptionsList(): { id: string, name: string }[] {
+        const slottedOptionsList: { id: string, name: string }[] = [];
+        this.slottedOptions.forEach(ele => {
+            slottedOptionsList.push({ id: ele.value, name: ele.textContent ?? '' });
+        });
+        return slottedOptionsList;
     }
 
     /**
