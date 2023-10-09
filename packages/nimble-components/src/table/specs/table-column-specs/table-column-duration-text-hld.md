@@ -76,7 +76,7 @@ export class DurationFormatter {
 
 ### Angular integration
 
-An Angular directive will be created for the component. The component will not have form association, so a `ControlValueAccessor` will not be created. The `DurationFormatter` will be re-exported from Angular.
+An Angular directive will be created for the component. The component will not have form association, so a `ControlValueAccessor` will not be created. The `DurationFormatter` will be re-exported from Angular from a new `formatters` entrypoint.
 
 ### Blazor integration
 
@@ -107,7 +107,21 @@ _Note: For number values that can't be translated into a representable time (e.g
 
 ### Considered Corner Cases
 
-Currently in SLE, there are corner cases that can result in a display of something like "25 min, 60 sec", which is non-ideal. This happens when the value being formatted has a large fractional value close to 1 (e.g. .999999997). The better behavior would be to either show a formatted value of "26 min", or even "25 min, 59.99 sec", though the former would be a more accurate representation if the value was 59.99999997.
+#### Really large numbers
+
+At some point numbers that can be formatted as a duration become too large to be practically represented in such a way. We will have a cutoff value (in days) where when the value exceeds that limit, we will revert to displaying the duration as a scientific representation of the value in the seconds unit.
+
+#### Really small numbers
+
+Ultimately, we will expect to be able to configure a duration column to show values down to the nanoseconds unit once we can leverage `Intl.DurationFormat`, and we expose the right formatting APIs on the column. Until then, we should behave as we do for really large numbers, and if the value is below a particular threshold we will format the value in scientific in the seconds unit.
+
+#### Large fractional parts
+
+Currently in SLE, there are corner cases that can result in a display of something like "25 min, 60 sec", which is non-ideal. This happens when the value being formatted has a large fractional part close to 1 (e.g. .999999997). The better behavior would be to either show a formatted value of "26 min", or even "25 min, 59.99 sec", though the former would be a more accurate representation if the value was 59.99999997.
+
+#### Negative Zero
+
+`-0` will simply render as "0".
 
 ## Alternative Implementations / Designs
 
@@ -190,6 +204,7 @@ Standard unit testing. Test cases of interest:
 
 -   unusual number values (NaN, -∞, ∞, negative values)
 -   verifying locale update results in expected display update
+-   corner cases identified behave as described
 
 ### Tooling
 
