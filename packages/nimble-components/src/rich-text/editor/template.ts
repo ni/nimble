@@ -19,7 +19,9 @@ import { ListOption } from '../../list-option';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
-    <template>
+    <template
+    @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
+    >
         <div class="container">
             <section ${ref('editorContainer')} class="editor-container">
             </section>
@@ -98,8 +100,9 @@ export const template = html<RichTextEditor>`
             ${ref('region')}
             class="anchored-region"
             auto-update-mode="auto"
-            vertical-positioning-mode="dynamic"
-            horizontal-positioning-mode="dynamic"
+            vertical-positioning-mode="locktodefault"
+            horizontal-positioning-mode="locktodefault"
+            vertical-default-position="bottom"
             ?hidden="${x => !x.open}"
             @click= "${(x, c) => x.clickHandler(c.event as MouseEvent)}">
             <div

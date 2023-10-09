@@ -1,11 +1,12 @@
-import { observable, attr, DOM } from '@microsoft/fast-element';
+import { observable, attr, DOM, Observable } from '@microsoft/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
     DesignSystem,
-    FoundationElement
+    FoundationElement,
+    isListboxOption,
 } from '@microsoft/fast-foundation';
-import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
+import { keyArrowDown, keyArrowUp, keyEnter, keySpace, limit, uniqueId, keyTab, keyEscape } from '@microsoft/fast-web-utilities';
 import {
     Editor,
     findParentNode,
@@ -176,6 +177,16 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     public editorContainer!: HTMLDivElement;
 
+    private _options: ListOption[] = [];
+
+    @observable
+    private selectedIndex = 0;
+
+    @observable
+    private selectedOptions: ListOption[] = [];
+
+    private filteredOptions: ListOption[] = [];
+
     private resizeObserver?: ResizeObserver;
     private mentionPropCommand!: SuggestionProps;
     private updateScrollbarWidthQueued = false;
@@ -222,9 +233,20 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         );
     }
 
-    public slottedOptionsChanged(_prev: unknown, _next: unknown): void {
-        this.slottedOptions.forEach(ele => {
-            ele.hidden = false;
+    public slottedOptionsChanged(_prev: Element[], next: Element[]): void {
+        this.options = next.reduce<ListOption[]>((options, item) => {
+            if (isListboxOption(item)) {
+                options.push(item);
+            }
+            return options;
+        }, []);
+        const setSize = `${this.options.length}`;
+        this.options.forEach((option, index) => {
+            if (!option.id) {
+                option.id = uniqueId('option-');
+            }
+            option.ariaPosInSet = `${index + 1}`;
+            option.ariaSetSize = setSize;
         });
         this.richTextMarkdownParser = new RichTextMarkdownParser([
             { id: '1234', name: 'Aagash' },
@@ -247,6 +269,49 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     /**
+
+     * @internal
+     */
+    public selectedOptionsChanged(
+        _prev: ListOption[] | undefined,
+        next: ListOption[]
+    ): void {
+        if (this.$fastController.isConnected) {
+            this._options.forEach(o => {
+                o.selected = next.includes(o);
+            });
+        }
+    }
+
+    public selectedIndexChanged(prev: number | undefined, next: number): void {
+        if (this.$fastController.isConnected) {
+            const nextIndex = limit(-1, this.options.length - 1, next);
+
+            if (nextIndex !== this.selectedIndex) {
+                this.selectedIndex = nextIndex;
+                return;
+            }
+
+            if (!this.hasSelectableOptions) {
+                this.selectedIndex = -1;
+                return;
+            }
+
+            if (this.options[this.selectedIndex]?.disabled && typeof prev === 'number') {
+                const selectableIndex = this.getSelectableIndex(prev, nextIndex);
+                const newNext = selectableIndex > -1 ? selectableIndex : prev;
+                this.selectedIndex = newNext;
+                if (nextIndex === newNext) {
+                    this.selectedIndexChanged(nextIndex, newNext);
+                }
+                return;
+            }
+
+            this.setSelectedOptions();
+        }
+    }
+
+    /**
      * @internal
      */
     public ariaLabelChanged(): void {
@@ -263,7 +328,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     public boldButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleBold().run();
-        console.log(this.getMarkdown());
     }
 
     /**
@@ -387,6 +451,108 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         return false;
     }
 
+    public keydownHandler(e: Event & KeyboardEvent): boolean {
+        const key = e.key;
+        if (key === keyTab) {
+            if (!this.open) {
+                return true;
+            }
+            if (this.firstSelectedOption) {
+                this.mentionPropCommand.command({ id: this.firstSelectedOption?.value, label: this.firstSelectedOption?.textContent });
+            }
+            e.preventDefault();
+            this.open = false;
+        }
+        return true;
+    }
+
+    private get options(): ListOption[] {
+        Observable.track(this, 'options');
+        return this.filteredOptions?.length ? this.filteredOptions : this._options;
+    }
+
+    private set options(value: ListOption[]) {
+        this._options = value;
+        Observable.notify(this, 'options');
+    }
+
+    private get firstSelectedOption(): ListOption | null {
+        return this.selectedOptions[0] ?? null;
+    }
+
+    private get hasSelectableOptions(): boolean {
+        return this.options?.length > 0 && !this.options?.every(o => o.disabled);
+    }
+
+    private setSelectedOptions(): void {
+        if (this.options?.length) {
+            this.selectedOptions = [this.options[this.selectedIndex]!];
+            // this.ariaActiveDescendant = this.firstSelectedOption?.id ?? '';
+            // this.focusAndScrollOptionIntoView();
+        }
+    }
+
+    private getSelectableIndex(prev: number = this.selectedIndex, next: number): number {
+        // eslint-disable-next-line no-nested-ternary
+        const direction = prev > next ? -1 : prev < next ? 1 : 0;
+        const potentialDirection = prev + direction;
+
+        let nextSelectableOption!: ListOption;
+
+        switch (direction) {
+            case -1: {
+                nextSelectableOption = this.options.reduceRight(
+                    (previousValue, thisOption, index) => (!previousValue
+                        && !thisOption.disabled
+                        && index < potentialDirection
+                        ? thisOption
+                        : previousValue),
+                    nextSelectableOption
+                );
+                break;
+            }
+
+            case 1: {
+                nextSelectableOption = this.options.reduce(
+                    (previousValue, thisOption, index) => (!previousValue
+                        && !thisOption.disabled
+                        && index > potentialDirection
+                        ? thisOption
+                        : previousValue),
+                    nextSelectableOption
+                );
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        return this.options.indexOf(nextSelectableOption);
+    }
+
+    /**
+     * Moves focus to the next selectable option.
+     *
+     * @internal
+     */
+    private selectNextOption(): void {
+        if (!this.disabled && this.selectedIndex < this.options.length - 1) {
+            this.selectedIndex += 1;
+        }
+    }
+
+    /**
+     * Moves focus to the previous selectable option.
+     *
+     * @internal
+     */
+    private selectPreviousOption(): void {
+        if (!this.disabled && this.selectedIndex > 0) {
+            this.selectedIndex -= 1;
+        }
+    }
+
     private createEditor(): HTMLDivElement {
         const editor = document.createElement('div');
         editor.className = 'editor';
@@ -451,6 +617,29 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         return Fragment.fromArray(updatedNodes);
     };
 
+    private readonly updateUserLists = (props: SuggestionProps): void => {
+        this.mentionPropCommand = props;
+        this.open = true;
+        const filter = props.text.slice(1).toLowerCase();
+        this.filteredOptions = this._options.filter(ele => ele.text.toLowerCase().startsWith(filter));
+        if (!this.filteredOptions.length && !filter) {
+            this.filteredOptions = this._options;
+        }
+        this._options.forEach(o => {
+            o.hidden = !this.filteredOptions.includes(o);
+        });
+        if (this.filteredOptions.length) {
+            this.selectedOptions = [this.filteredOptions[0]!];
+            this.selectedIndex = this.options.indexOf(this.firstSelectedOption!);
+        } else {
+            this.selectedIndex = -1;
+        }
+        if (this.region) {
+            this.region.anchorElement = props.decorationNode as HTMLElement;
+            this.region.update();
+        }
+    };
+
     private createTiptapEditor(): Editor {
         const customLink = this.getCustomLinkExtension();
 
@@ -505,40 +694,57 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                         return `${options.suggestion.char!}${node.attrs.label as string ?? node.attrs.id}`;
                     },
                     // eslint-disable-next-line @typescript-eslint/naming-convention
-                    HTMLAttributes: { contentEditable: true },
+                    // HTMLAttributes: { contentEditable: false },
                     suggestion: {
                         char: '@',
                         render: () => {
                             return {
                                 onStart: (props): void => {
-                                    this.mentionPropCommand = props;
-                                    this.open = true;
-                                    this.slottedOptions.forEach(ele => {
-                                        ele.hidden = !ele.text.toLowerCase().startsWith(props.text.slice(1).toLowerCase());
-                                    });
-                                    if (this.region) {
-                                        this.region.anchorElement = props.decorationNode as HTMLElement;
-                                        this.region.update();
-                                    }
+                                    this.updateUserLists(props);
                                 },
 
                                 onUpdate: (props): void => {
-                                    this.mentionPropCommand = props;
-                                    this.slottedOptions.forEach(ele => {
-                                        ele.hidden = !ele.text.toLowerCase().startsWith(props.text.slice(1).toLowerCase());
-                                    });
-                                    if (this.region) {
-                                        this.region.anchorElement = props.decorationNode as HTMLElement;
-                                        this.region.update();
-                                    }
+                                    this.updateUserLists(props);
                                 },
 
                                 onKeyDown: (props): boolean => {
-                                    if (props.event.key === 'Escape') {
-                                        this.open = false;
-                                        return true;
+                                    const key = props.event.key;
+                                    if (!this.open) {
+                                        return false;
                                     }
-                                    return false;
+                                    switch (key) {
+                                        case keyEnter: {
+                                            if (this.firstSelectedOption) {
+                                                this.mentionPropCommand.command({ id: this.firstSelectedOption?.value, label: this.firstSelectedOption?.textContent });
+                                            }
+                                            this.open = false;
+                                            return true;
+                                        }
+
+                                        case keyEscape: {
+                                            this.open = false;
+                                            return true;
+                                        }
+                                        // Select the next selectable option
+                                        case keyArrowDown: {
+                                            if (!props.event.shiftKey) {
+                                                this.selectNextOption();
+                                            }
+                                            return true;
+                                        }
+
+                                        // Select the previous selectable option
+                                        case keyArrowUp: {
+                                            if (!props.event.shiftKey) {
+                                                this.selectPreviousOption();
+                                            }
+                                            return true;
+                                        }
+
+                                        default: {
+                                            return false;
+                                        }
+                                    }
                                 },
 
                                 onExit: (): void => {

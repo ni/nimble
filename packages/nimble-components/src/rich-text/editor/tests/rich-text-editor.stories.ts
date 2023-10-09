@@ -88,7 +88,7 @@ const metadata: Meta<RichTextEditorArgs> = {
             <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>
             <${buttonTag} slot="footer-actions">OK</${buttonTag}>`)}
             <nimble-list-option value='12as3sd4s5'>Mary</nimble-list-option>
-            <nimble-list-option value='12as34s5'>super</nimble-list-option>
+            <nimble-list-option disabled value='12as34s5'>super</nimble-list-option>
             <nimble-list-option value='123asd4s5'>Joaquin</nimble-list-option>
             <nimble-list-option value='123asd4s5'>Frank</nimble-list-option>
             <nimble-list-option value='1234asds5'>Albert</nimble-list-option>
