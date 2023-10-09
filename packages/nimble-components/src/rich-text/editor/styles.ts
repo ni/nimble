@@ -16,6 +16,7 @@ import {
     mediumPadding,
     linkFontColor,
     linkActiveFontColor,
+    linkActiveDisabledFontColor,
 
 } from '../../theme-provider/design-tokens';
 import { styles as dropdownStyles } from '../../patterns/dropdown/styles';
@@ -271,7 +272,11 @@ export const styles = css`
         right: var(--ni-private-rich-text-editor-scrollbar-width);
     }
 
+    :host([disabled]) span[data-type="mention"] {
+        color: ${linkActiveDisabledFontColor};
+    }
+
     span[data-type="mention"] {
         color: ${linkActiveFontColor};
-      }
+    }
 `;
