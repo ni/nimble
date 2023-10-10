@@ -409,12 +409,13 @@ follows to enable the desired `@mention` interactions,
     2. `render` - a function responsible for handling all the interactions within the dropdown. It returns an object with the following methods
        to achieve the desired outcome,
         1. `onStart` - to trigger the opening of the dropdown, displaying a list of names. It is also responsible for opening the dropdown
-           whenever the cursor is placed after the **"@"** symbol.
-        2. `onUpdate` - to update and filter the list in the dropdown based on the characters entered after **"@"** (similar to autocomplete
+           whenever the cursor is placed after the **"@"** symbol. This also adjusts the position of the anchored region by using the
+           `decorationNode` from the `SuggestionProps`.
+        3. `onUpdate` - to update and filter the list in the dropdown based on the characters entered after **"@"** (similar to autocomplete
            with `list` configuration in `nimble-combobox`).
-        3. `onKeydown` - to add the necessary keyboard interactions to the dropdown, such as `Enter` key to select the current option, pressing `Escape`
+        4. `onKeydown` - to add the necessary keyboard interactions to the dropdown, such as `Enter` key to select the current option, pressing `Escape`
            to close the dropdown, and using `Arrow Up` and `Arrow Down` to move the focus up and down the list of names in the dropdown.
-        4. `onExit` to close the dropdown when focused away from the **"@"** character in the editor.
+        5. `onExit` to close the dropdown when focused away from the **"@"** character in the editor.
 
 #### 2. _Defining schema and adding tokenizer rule in markdown parser_:
 
