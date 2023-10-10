@@ -37,7 +37,7 @@ export const styles = css`
         ${
             /** Initial height of rich text editor with one line space when the footer is visible. */ ''
         }
-        height: 200px;
+        height: 82px;
         --ni-private-rich-text-editor-footer-section-height: 40px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''

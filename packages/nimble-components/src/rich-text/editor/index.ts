@@ -691,6 +691,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         this.selectedIndex = -1;
         this.mentionPropCommand = props;
         this.open = true;
+        // props.query will provide the plain string obtained by excluding the '@' character after it has been typed
         const filter = props.query.toLowerCase();
         this.filteredOptions = this._options.filter(ele => ele.text.toLowerCase().startsWith(filter));
         if (!this.filteredOptions.length && !filter) {
