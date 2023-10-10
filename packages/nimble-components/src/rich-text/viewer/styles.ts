@@ -3,7 +3,7 @@ import { display } from '@microsoft/fast-foundation';
 import {
     bodyFont,
     bodyFontColor,
-    linkActiveFontColor
+    linkProminentFontColor
 } from '../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -47,6 +47,6 @@ export const styles = css`
     }
 
     span[data-type='mention'] {
-        color: ${linkActiveFontColor};
+        color: ${linkProminentFontColor};
     }
 `;

@@ -15,8 +15,8 @@ import {
     standardPadding,
     mediumPadding,
     linkFontColor,
-    linkActiveFontColor,
-    linkActiveDisabledFontColor
+    linkProminentDisabledFontColor,
+    linkProminentFontColor
 } from '../../theme-provider/design-tokens';
 import { styles as dropdownStyles } from '../../patterns/dropdown/styles';
 import { styles as errorStyles } from '../../patterns/error/styles';
@@ -273,11 +273,11 @@ export const styles = css`
     }
 
     :host([disabled]) span[data-type='mention'] {
-        color: ${linkActiveDisabledFontColor};
+        color: ${linkProminentDisabledFontColor};
     }
 
     span[data-type='mention'] {
-        color: ${linkActiveFontColor};
+        color: ${linkProminentFontColor};
         user-select: text;
     }
 `;

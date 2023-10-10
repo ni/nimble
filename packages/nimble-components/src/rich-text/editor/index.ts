@@ -1,4 +1,4 @@
-import { observable, attr, DOM, Observable } from '@microsoft/fast-element';
+import { observable, attr, DOM } from '@microsoft/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
@@ -196,7 +196,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private _options: ListOption[] = [];
 
     @observable
-    private selectedIndex = 0;
+    private selectedIndex = -1;
 
     @observable
     private selectedOptions: ListOption[] = [];
@@ -248,6 +248,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         );
     }
 
+    /**
+     * Update the list of option based on the slot (Filters element other than nimble-list-option and based on its hidden property)
+     */
     public slottedOptionsChanged(_prev: Element[], next: Element[]): void {
         this.options = next.reduce<ListOption[]>((options, item) => {
             if (isListboxOption(item)) {
@@ -280,7 +283,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     /**
-
+     * Toggles the selected state of option based on the user list option
      * @internal
      */
     public selectedOptionsChanged(
@@ -305,7 +308,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
             if (!this.hasSelectableOptions) {
                 this.selectedIndex = -1;
-                return;
             }
 
             if (
@@ -464,6 +466,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         return false;
     }
 
+    /**
+     * Insert mention node into editor when clicking user on popup
+     */
     public clickHandler(e: MouseEvent): boolean {
         if (this.disabled) {
             return false;
@@ -487,6 +492,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         return false;
     }
 
+    /**
+     * Insert mention node into editor on pressing tab
+     */
     public keydownHandler(e: Event & KeyboardEvent): boolean {
         const key = e.key;
         if (key === keyTab) {
@@ -506,15 +514,13 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     private get options(): ListOption[] {
-        Observable.track(this, 'options');
-        return this.filteredOptions?.length
+        return this.filteredOptions.length
             ? this.filteredOptions
             : this._options;
     }
 
     private set options(value: ListOption[]) {
         this._options = value;
-        Observable.notify(this, 'options');
     }
 
     private get firstSelectedOption(): ListOption | null {
@@ -675,6 +681,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     };
 
     private readonly updateUserLists = (props: SuggestionProps): void => {
+        this.selectedIndex = -1;
         this.mentionPropCommand = props;
         this.open = true;
         const filter = props.query.toLowerCase();
