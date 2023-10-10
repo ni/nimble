@@ -646,13 +646,8 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     private readonly updateUserLists = (props: SuggestionProps): void => {
         this.mentionPropCommand = props;
-        const twoWhiteSpaceRegex = /\s{2,}$/;
-        if (props.query && twoWhiteSpaceRegex.test(props.query)) {
-            this.open = false;
-            return;
-        }
         this.open = true;
-        const filter = props.text.slice(1).toLowerCase();
+        const filter = props.query.toLowerCase();
         this.filteredOptions = this._options.filter(ele => ele.text.toLowerCase().startsWith(filter));
         if (!this.filteredOptions.length && !filter) {
             this.filteredOptions = this._options;
@@ -665,6 +660,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             this.selectedIndex = this.options.indexOf(this.firstSelectedOption!);
         } else {
             this.selectedIndex = -1;
+            this.open = false;
         }
         if (this.region) {
             this.region.anchorElement = props.decorationNode as HTMLElement;

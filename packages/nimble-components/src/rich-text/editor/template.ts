@@ -1,4 +1,5 @@
 import { html, ref, slotted } from '@microsoft/fast-element';
+import { Listbox } from '@microsoft/fast-foundation';
 import type { RichTextEditor } from '.';
 import { toolbarTag } from '../../toolbar';
 import { toggleButtonTag } from '../../toggle-button';
@@ -15,7 +16,6 @@ import {
 import { errorTextTemplate } from '../../patterns/error/template';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 import { anchoredRegionTag } from '../../anchored-region';
-import { ListOption } from '../../list-option';
 import { buttonTag } from '../../button';
 
 // prettier-ignore
@@ -126,7 +126,7 @@ export const template = html<RichTextEditor>`
             >
                 <slot
                     ${slotted({
-        filter: (n: Node) => n instanceof ListOption,
+        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
         flatten: true,
         property: 'slottedOptions',
     })}

@@ -13,6 +13,7 @@ import {
 } from '../../../label-provider/base/tests/label-user-stories-utils';
 import { labelProviderRichTextTag } from '../../../label-provider/rich-text';
 import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
+import { listOptionTag } from '../../../list-option';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RichTextEditorArgs extends LabelUserArgs {
@@ -87,12 +88,12 @@ const metadata: Meta<RichTextEditorArgs> = {
         ${when(x => x.footerActionButtons, html`
             <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>
             <${buttonTag} slot="footer-actions">OK</${buttonTag}>`)}
-            <nimble-list-option value='1'>Mary</nimble-list-option>
-            <nimble-list-option disabled value='2'>super</nimble-list-option>
-            <nimble-list-option value='3'>Joaquin</nimble-list-option>
-            <nimble-list-option value='4'>Frank</nimble-list-option>
-            <nimble-list-option value='5'>Albert</nimble-list-option>
-            <nimble-list-option value='6'>Sue Ann</nimble-list-option>
+            <${listOptionTag} value='1'>Mary</${listOptionTag}>
+            <${listOptionTag} disabled value='2'>super</${listOptionTag}>
+            <${listOptionTag} value='3'>Joaquin</${listOptionTag}>
+            <${listOptionTag} value='4'>Frank</${listOptionTag}>
+            <${listOptionTag} value='5'>Albert</${listOptionTag}>
+            <${listOptionTag} value='6'>Sue Ann</${listOptionTag}>
     </${richTextEditorTag}>
     `),
     argTypes: {
