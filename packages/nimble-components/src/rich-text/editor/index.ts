@@ -283,7 +283,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     /**
-     * Toggles the selected state of option based on the user list option
+     * Toggles the selected state of the option
      * @internal
      */
     public selectedOptionsChanged(
@@ -540,6 +540,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         }
     }
 
+    /**
+     * Scroll to the respective options on keydown/up event
+     */
     private focusAndScrollOptionIntoView(): void {
         if (this.contains(document.activeElement)) {
             if (this.firstSelectedOption) {
@@ -680,6 +683,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         return Fragment.fromArray(updatedNodes);
     };
 
+    /**
+     * Modify the user list according to the filter and adjust the anchored region based on the
+     * presence of a decoration Node (Span node where the @mention is located)
+     */
     private readonly updateUserLists = (props: SuggestionProps): void => {
         this.selectedIndex = -1;
         this.mentionPropCommand = props;
@@ -701,6 +708,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             this.selectedIndex = -1;
             this.open = false;
         }
+        // Adjust the position of the anchored region in relation to the position of the mention node
         if (this.region) {
             this.region.anchorElement = props.decorationNode as HTMLElement;
             this.region.update();
