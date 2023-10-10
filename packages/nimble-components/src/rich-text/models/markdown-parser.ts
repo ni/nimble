@@ -38,7 +38,9 @@ export class RichTextMarkdownParser {
         );
     }
 
-    private static initializeMarkdownParser(usersList: { id: string, name: string }[] = []): MarkdownParser {
+    private static initializeMarkdownParser(
+        usersList: { id: string, name: string }[] = []
+    ): MarkdownParser {
         /**
          * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
          * The 'zero' preset is a configuration with no rules enabled by default to selectively enable specific rules.
@@ -63,52 +65,63 @@ export class RichTextMarkdownParser {
 
         supportedTokenizerRules.use(
             md => {
-                md.inline.ruler.before('emphasis', 'mention', (state, _silent) => {
-                    const max = state.posMax;
+                md.inline.ruler.before(
+                    'emphasis',
+                    'mention',
+                    (state, _silent) => {
+                        const max = state.posMax;
 
-                    if (state.src.charCodeAt(state.pos) !== 0x40 /* @ */) {
-                        return false;
-                    }
-                    if (state.src.charCodeAt(state.pos + 1) !== 0x3c /* < */) {
-                        return false;
-                    }
-                    let position = state.pos;
-                    const userIdStart = position + 2;
-
-                    for (; position < max; position++) {
-                        if (state.src.charCodeAt(position) === 0x3e /* > */) {
-                            break;
-                        }
-                    }
-
-                    if (position === max && state.src.charCodeAt(position) !== 0x3e /* > */) {
-                        return false;
-                    }
-
-                    const userIdEnd = position;
-                    const userId = state.src.slice(userIdStart, userIdEnd);
-                    const userName = getUserName(userId);
-                    if (usersList.length) {
-                        if (userName === '') {
+                        if (state.src.charCodeAt(state.pos) !== 0x40 /* @ */) {
                             return false;
                         }
-                    } else {
-                        return false;
+                        if (
+                            state.src.charCodeAt(state.pos + 1) !== 0x3c /* < */
+                        ) {
+                            return false;
+                        }
+                        let position = state.pos;
+                        const userIdStart = position + 2;
+
+                        for (; position < max; position++) {
+                            if (
+                                state.src.charCodeAt(position) === 0x3e /* > */
+                            ) {
+                                break;
+                            }
+                        }
+
+                        if (
+                            position === max
+                            && state.src.charCodeAt(position) !== 0x3e /* > */
+                        ) {
+                            return false;
+                        }
+
+                        const userIdEnd = position;
+                        const userId = state.src.slice(userIdStart, userIdEnd);
+                        const userName = getUserName(userId);
+                        if (usersList.length) {
+                            if (userName === '') {
+                                return false;
+                            }
+                        } else {
+                            return false;
+                        }
+                        position += 1;
+                        state.pos = position;
+
+                        let token = state.push('mention_open', 'span', 1);
+                        token.attrs = [
+                            ['dataid', userId],
+                            ['datalabel', userName]
+                        ];
+                        token = state.push('text', '', 0);
+                        token.content = `@${userName}`;
+
+                        state.push('mention_close', 'span', -1);
+                        return true;
                     }
-                    position += 1;
-                    state.pos = position;
-
-                    let token = state.push('mention_open', 'span', 1);
-                    token.attrs = [
-                        ['dataid', userId],
-                        ['datalabel', userName],
-                    ];
-                    token = state.push('text', '', 0);
-                    token.content = `@${userName}`;
-
-                    state.push('mention_close', 'span', -1);
-                    return true;
-                });
+                );
             },
             { prepend: true }
         );
@@ -125,49 +138,42 @@ export class RichTextMarkdownParser {
          */
         supportedTokenizerRules.normalizeLinkText = url => url;
 
-        return new MarkdownParser(
-            this.updatedSchema,
-            supportedTokenizerRules,
-            {
-                ...defaultMarkdownParser.tokens,
-                mention: {
-                    block: 'mention',
-                    getAttrs: tok => ({
-                        dataid: tok.attrGet('dataid'),
-                        datalabel: tok.attrGet('datalabel'),
-                    }),
-                }
+        return new MarkdownParser(this.updatedSchema, supportedTokenizerRules, {
+            ...defaultMarkdownParser.tokens,
+            mention: {
+                block: 'mention',
+                getAttrs: tok => ({
+                    dataid: tok.attrGet('dataid'),
+                    datalabel: tok.attrGet('datalabel')
+                })
             }
-        );
+        });
     }
 
     private static getSchemaWithLinkConfiguration(): Schema {
         return new Schema({
-            nodes: schema.spec.nodes.addToEnd(
-                'mention',
-                {
-                    attrs: {
-                        datatype: { default: 'mention' },
-                        dataid: { default: '' },
-                        datalabel: { default: '' },
-                    },
-                    group: 'inline',
-                    inline: true,
-                    content: 'inline*',
-                    toDOM(node) {
-                        const { dataid, datalabel } = node.attrs;
-                        return [
-                            'span',
-                            {
-                                'data-type': 'mention',
-                                'data-id': dataid as string,
-                                'data-label': datalabel as string,
-                            },
-                            0,
-                        ];
-                    },
+            nodes: schema.spec.nodes.addToEnd('mention', {
+                attrs: {
+                    datatype: { default: 'mention' },
+                    dataid: { default: '' },
+                    datalabel: { default: '' }
+                },
+                group: 'inline',
+                inline: true,
+                content: 'inline*',
+                toDOM(node) {
+                    const { dataid, datalabel } = node.attrs;
+                    return [
+                        'span',
+                        {
+                            'data-type': 'mention',
+                            'data-id': dataid as string,
+                            'data-label': datalabel as string
+                        },
+                        0
+                    ];
                 }
-            ),
+            }),
             marks: {
                 link: {
                     attrs: {

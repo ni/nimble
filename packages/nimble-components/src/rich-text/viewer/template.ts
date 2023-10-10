@@ -5,10 +5,13 @@ import { ListOption } from '../../list-option';
 export const template = html<RichTextViewer>`
     <template>
         <div ${ref('viewer')} class="viewer"></div>
-        <slot hidden ${slotted({
+        <slot
+            hidden
+            ${slotted({
         filter: (n: Node) => n instanceof ListOption,
         flatten: true,
-        property: 'slottedOptions',
-    })}></slot>
+        property: 'slottedOptions'
+    })}
+        ></slot>
     </template>
 `;

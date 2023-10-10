@@ -76,7 +76,10 @@ export class RichTextViewer extends FoundationElement {
     private getSlottedOptionsList(): { id: string, name: string }[] {
         const slottedOptionsList: { id: string, name: string }[] = [];
         this.slottedOptions.forEach(ele => {
-            slottedOptionsList.push({ id: ele.value, name: ele.textContent ?? '' });
+            slottedOptionsList.push({
+                id: ele.value,
+                name: ele.textContent ?? ''
+            });
         });
         return slottedOptionsList;
     }

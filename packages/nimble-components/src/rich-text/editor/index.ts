@@ -4,9 +4,18 @@ import {
     ARIAGlobalStatesAndProperties,
     DesignSystem,
     FoundationElement,
-    isListboxOption,
+    isListboxOption
 } from '@microsoft/fast-foundation';
-import { keyArrowDown, keyArrowUp, keyEnter, keySpace, limit, uniqueId, keyTab, keyEscape } from '@microsoft/fast-web-utilities';
+import {
+    keyArrowDown,
+    keyArrowUp,
+    keyEnter,
+    keySpace,
+    limit,
+    uniqueId,
+    keyTab,
+    keyEscape
+} from '@microsoft/fast-web-utilities';
 import {
     Editor,
     findParentNode,
@@ -299,8 +308,14 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 return;
             }
 
-            if (this.options[this.selectedIndex]?.disabled && typeof prev === 'number') {
-                const selectableIndex = this.getSelectableIndex(prev, nextIndex);
+            if (
+                this.options[this.selectedIndex]?.disabled
+                && typeof prev === 'number'
+            ) {
+                const selectableIndex = this.getSelectableIndex(
+                    prev,
+                    nextIndex
+                );
                 const newNext = selectableIndex > -1 ? selectableIndex : prev;
                 this.selectedIndex = newNext;
                 if (nextIndex === newNext) {
@@ -463,7 +478,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             if (!captured || captured.disabled) {
                 return false;
             }
-            this.mentionPropCommand.command({ id: captured.value, label: captured.textContent });
+            this.mentionPropCommand.command({
+                id: captured.value,
+                label: captured.textContent
+            });
             return true;
         }
         return false;
@@ -476,7 +494,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 return true;
             }
             if (this.firstSelectedOption) {
-                this.mentionPropCommand.command({ id: this.firstSelectedOption?.value, label: this.firstSelectedOption?.textContent });
+                this.mentionPropCommand.command({
+                    id: this.firstSelectedOption?.value,
+                    label: this.firstSelectedOption?.textContent
+                });
             }
             e.preventDefault();
             this.open = false;
@@ -486,7 +507,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     private get options(): ListOption[] {
         Observable.track(this, 'options');
-        return this.filteredOptions?.length ? this.filteredOptions : this._options;
+        return this.filteredOptions?.length
+            ? this.filteredOptions
+            : this._options;
     }
 
     private set options(value: ListOption[]) {
@@ -499,7 +522,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     private get hasSelectableOptions(): boolean {
-        return this.options?.length > 0 && !this.options?.every(o => o.disabled);
+        return (
+            this.options?.length > 0 && !this.options?.every(o => o.disabled)
+        );
     }
 
     private setSelectedOptions(): void {
@@ -513,13 +538,18 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         if (this.contains(document.activeElement)) {
             if (this.firstSelectedOption) {
                 requestAnimationFrame(() => {
-                    this.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
+                    this.firstSelectedOption?.scrollIntoView({
+                        block: 'nearest'
+                    });
                 });
             }
         }
     }
 
-    private getSelectableIndex(prev: number = this.selectedIndex, next: number): number {
+    private getSelectableIndex(
+        prev: number = this.selectedIndex,
+        next: number
+    ): number {
         // eslint-disable-next-line no-nested-ternary
         const direction = prev > next ? -1 : prev < next ? 1 : 0;
         const potentialDirection = prev + direction;
@@ -657,7 +687,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         });
         if (this.filteredOptions.length) {
             this.selectedOptions = [this.filteredOptions[0]!];
-            this.selectedIndex = this.options.indexOf(this.firstSelectedOption!);
+            this.selectedIndex = this.options.indexOf(
+                this.firstSelectedOption!
+            );
         } else {
             this.selectedIndex = -1;
             this.open = false;
@@ -719,7 +751,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 }),
                 Mention.configure({
                     renderLabel({ options, node }) {
-                        return `${options.suggestion.char!}${node.attrs.label as string ?? node.attrs.id}`;
+                        return `${options.suggestion.char!}${
+                            (node.attrs.label as string) ?? node.attrs.id
+                        }`;
                     },
                     suggestion: {
                         allowSpaces: true,
@@ -741,7 +775,16 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                                     switch (key) {
                                         case keyEnter: {
                                             if (this.firstSelectedOption) {
-                                                this.mentionPropCommand.command({ id: this.firstSelectedOption?.value, label: this.firstSelectedOption?.textContent });
+                                                this.mentionPropCommand.command(
+                                                    {
+                                                        id: this
+                                                            .firstSelectedOption
+                                                            ?.value,
+                                                        label: this
+                                                            .firstSelectedOption
+                                                            ?.textContent
+                                                    }
+                                                );
                                             }
                                             this.open = false;
                                             return true;
@@ -775,9 +818,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
                                 onExit: (): void => {
                                     this.open = false;
-                                },
+                                }
                             };
-                        },
+                        }
                     }
                 }),
                 HardBreak,
@@ -844,14 +887,20 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     private getHtmlContent(markdown: string): string {
         const slottedOptionsList = this.getSlottedOptionsList();
-        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(markdown, slottedOptionsList);
+        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(
+            markdown,
+            slottedOptionsList
+        );
         return this.xmlSerializer.serializeToString(documentFragment);
     }
 
     private getSlottedOptionsList(): { id: string, name: string }[] {
         const slottedOptionsList: { id: string, name: string }[] = [];
         this.slottedOptions.forEach(ele => {
-            slottedOptionsList.push({ id: ele.value, name: ele.textContent ?? '' });
+            slottedOptionsList.push({
+                id: ele.value,
+                name: ele.textContent ?? ''
+            });
         });
         return slottedOptionsList;
     }
