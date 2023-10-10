@@ -80,7 +80,7 @@ To allow end-users to multi-select list options, use a [**tag picker**](/package
 
 ![ ](spec-images/select-alternative-picker.png)
 
-To allow end-users to select less than three options, use a [**radio group**](/packages/nimble-components/src/radio-group/specs/IxD.md).
+To allow end-users to select from fewer than three options, use a [**radio group**](/packages/nimble-components/src/radio-group/specs/IxD.md).
 
 To allow end-users to trigger an action instead of make a selection, use a [**menu button**](/packages/nimble-components/src/menu-button/specs/IxD.md).
 
