@@ -13,13 +13,17 @@ The Comment Feature, designed for adding and viewing comments with rich text con
 Therefore, it is essential to develop web components that allow users to view and create rich text content, enabling their use in various scenarios,
 including Comments and other instances that necessitate rich text capabilities.
 
-[Nimble issue #1288](https://github.com/ni/nimble/issues/1288)
+_Rich Text Components_:
 
-Comments UI mockups - [Desktop view](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045&mode=design&t=aC5VQw42BYcOesm2-0) and [Mobile view](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=7258-115224&mode=design&t=aC5VQw42BYcOesm2-0)
+1. [Nimble issue #1288](https://github.com/ni/nimble/issues/1288)
+2. [Rich Text Editor FE Library Decision](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/docs/design-documents/Platform/Comments/Comments-FE-Library-Decision.md&version=GBmaster&_a=preview)
 
-[Comments Feature](https://dev.azure.com/ni/DevCentral/_backlogs/backlog/ASW%20SystemLink%20Platform/Initiatives/?workitem=2205215)
+_Comments Feature in SLE_:
 
-[Rich Text Editor FE Library Decision](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/docs/design-documents/Platform/Comments/Comments-FE-Library-Decision.md&version=GBmaster&_a=preview)
+1. [Comments Feature](https://dev.azure.com/ni/DevCentral/_backlogs/backlog/ASW%20SystemLink%20Platform/Initiatives/?workitem=2205215)
+2. Comments UI mockups - [Desktop view](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045&mode=design&t=aC5VQw42BYcOesm2-0) and [Mobile view](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=7258-115224&mode=design&t=aC5VQw42BYcOesm2-0)
+3. [Comments `@mention` mockup](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink-orig?type=design&node-id=7248-114254&mode=design&t=y3JtM3aT77Aw0xjK-0)
+4. [Mention users in comments - Requirement doc](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/docs/design-documents/Platform/Requirements/Mention-users-in-comments.md&_a=preview)
 
 ### Non-goals
 
@@ -42,6 +46,7 @@ Both components provide support for the following basic text formatting options:
     3. [Tiptap's link extension](https://tiptap.dev/api/marks/link) provides various configurations to
        [add/remove HTML attributes](https://tiptap.dev/api/marks/link#removing-and-overriding-existing-html-attributes) for links,
        [validate](https://tiptap.dev/api/marks/link#validate) URLs entered or pasted into the editor and more.
+6. Allow the user to tag or mention someone by entering **"@"** in the editor and selecting the user's name from the drop-down list.
 
 The `nimble-rich-text-editor` component will also offer APIs and interactive methods to format text in the following ways:
 
@@ -54,7 +59,6 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
 
 #### _Additional features out of scope of this spec_
 
--   Allowing the user to tag or mention by entering `@` in the editor and selecting the user name from the drop-down list.
 -   Support for adding images to the editor either by uploading or by pasting it.
 -   Support for adding hyperlinks to the existing text in the editor. This allows users to add links to existing text in the editor. When the
     link button in the formatting options is clicked, a dialog opens, providing a space to enter the hyperlink for the selected text.
@@ -94,8 +98,9 @@ _`nimble-rich-text-viewer`_
 
 The `nimble-rich-text-editor` will be divided into two sections namely an `editor` section and a `footer` section.
 
-1. `editor` section is the actual text area to add or update rich text content.
-2. `footer` section consists of `nimble-toggle-button` to control each text formatting functionalities like bold, italic, etc, and a
+1. The `editor` section is the actual text area to add or update rich text content. It also utilizes the default slot element, which contains the
+   list of options in `nimble-list-option`, for displaying the drop-down list for `@mention` in the editor.
+2. The `footer` section consists of `nimble-toggle-button` to control each text formatting functionalities like bold, italic, etc, and a
    `footer-actions` slot element which is typically used to add action buttons to the right bottom of the component.
 
 Example usage of the `nimble-rich-text-editor` in the application layer is as follows:
@@ -104,6 +109,12 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
 <nimble-rich-text-editor>
     <nimble-button slot="footer-actions">Cancel</nimble-button>
     <nimble-button slot="footer-actions">Add Comment</nimble-button>
+
+    <!-- Options to be displayed in the editor when "@" symbol is added -->
+    <nimble-list-option value="mary">Mary</nimble-list-option>
+    <nimble-list-option value="sue">Sue</nimble-list-option>
+    <nimble-list-option value="frank">Frank</nimble-list-option>
+    <nimble-list-option value="albert">Albert</nimble-list-option>
 </nimble-rich-text-editor>
 ```
 
@@ -215,10 +226,21 @@ _Shadow DOM template_
             <slot name="footer-actions"></slot>
         </section>
     </footer>
+    <nimble-anchored-region>
+        <div>
+            <slot></slot>
+        </div>
+    </nimble-anchored-region>
 </template>
 ```
 
 _Slot Names_
+
+-   _default_:
+
+    1. The list of options within `nimble-list-option` will be used for `@mentions` in the editor.
+    2. The `nimble-anchored-region` will be used to populate the list of options below at the position where the
+       **"@"** symbol entered into the editor.
 
 -   `footer-actions`:
     1. It is a container that allows a client to easily place buttons at the right bottom of the component to interact with the editor.
@@ -274,7 +296,7 @@ _CSS Classes and CSS Custom Properties that affect the component_
 
 _Slot Names_
 
--   none
+-   _default_: The list of options that is in `nimble-list-option` will be considered for the `@mention` in the viewer.
 
 _Host Classes_
 
@@ -323,7 +345,7 @@ document. Some of the highlighted points are mentioned below:
 4. Includes support to render the content of the editor with markdown input.
 5. Includes support to retrieve the content of the editor as HTML and Markdown output (using
    [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown)).
-6. Includes extensions to support [@mention](https://tiptap.dev/api/nodes/mention) functionality (Future scope).
+6. Includes extensions to support [@mention](https://tiptap.dev/api/nodes/mention) functionality.
 
 The `nimble-rich-text-editor` is initialized by creating an instance of the [Editor](https://tiptap.dev/api/editor#introduction) class from Tiptap's core
 library. With that, we have access to all the APIs exposed, by utilizing some of their extensions like
@@ -345,8 +367,119 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 -   Bulleted list - `* Bulleted list`
 -   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, see [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
 -   Hard line break - a backslash before the line ending `line1\\nline2` (For more details on the markdown syntax for Hard line breaks, see [Hard line breaks in CommanMark](https://spec.commonmark.org/0.30/#hard-line-breaks))
+-   `@mention` - a custom markdown format `@<user-id>`. Since there is no built-in syntax for mentioning or tagging users or individuals
+    using the **"@"** symbol in the [CommonMark](https://spec.commonmark.org/0.30/) flavor, we have decided to create a custom markdown format.
+    Here are the justifications for incorporating `@<user-id>` syntax for `@mention`,
+    1. This markdown syntax is distinctive and does not interfere with other formatting options in the
+       [CommonMark](https://spec.commonmark.org/0.30/) flavor.
+    2. This syntax ensures the easy identification of a `mention` node using the **"@"** and **"<"** symbols when parsing the entire markdown string.
+    3. The use of opening and closing **"<"** and **">"** symbols specifies the boundaries of the mention node's value within the markdown string,
+       allowing for the clear identification of where it starts and ends. This is especially important when the value contains whitespace,
+       as in the example `"@<Sue Ann>`, as without the **"<>"** symbols, it would be challenging to determine the precise end index of the value.
 
-_Configurations on Tiptap to support only absolute links_:
+### _Implementation details for supporting `@mention`_:
+
+After passing the names through the slot using either `nimble-list-option` or an element with `role="option"` they will appear in a
+dropdown list when the **"@"** character is added to the editor. It's important to note that styling the slot elements for the list option is not
+handled within the editor, and it's the client application's responsibility. It's generally advisable to use `nimble-list-option`
+for a consistent theme with the editor and taking advantage of the keyboard accessibility features outlined in the [Accessibility Section](#accessibility).
+
+The Tiptap [mention extension](https://tiptap.dev/api/nodes/mention) will render all the `@mention` nodes as a `<span>` element with custom data
+attribute values. These values serve a dual purpose: they determine what is displayed in the UI and represent the content stored in markdown format.
+For example, `@mention` is used primarily for tagging user, these values will typically include user-related information such as the username and userID.
+
+1. `data-id` - employed to store the value that is sent in the [value attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#:~:text=the%20selected%20attribute.-,value,-The%20content%20of)
+   of the option element. For example, the user ID is placed in the `value` attribute, while the user's name is included in the actual text content
+   for mentioning users. In situations where the value attribute is left out in the option element, this value is automatically derived from the text content.
+2. `data-label` - used to store the actual text content of the selected option element.
+3. `data-type` - defaults as `mention`.
+4. `contentEditable` - defaults as `false`. The `@mention` node is only enabled in the editor after selecting from the list of options. It is not possible
+   to edit the names within the node; either can delete the entire name or add a new one from the list of selections.
+
+#### 1. _Configurations on Tiptap_:
+
+Install the [mention extension](https://tiptap.dev/api/nodes/mention) from Tiptap and configure the extension's functionalities as
+follows to enable the desired `@mention` interactions,
+
+1. [`renderLabel`](https://tiptap.dev/api/nodes/mention#render-label) - to define how the `@mention` appears in the editor. In this case
+   `@label`(typically `label` represents user name or text content of the option). If a label is not available, the ID is displayed instead.
+2. [`suggestion`](https://tiptap.dev/api/utilities/suggestion) - to handle the interactions and implementation settings by setting the
+   key configurations as below,
+    1. `char` - character that user to trigger the dropdown list. Default value is **"@"**.
+    2. `render` - a function responsible for handling all the interactions within the dropdown. It returns an object with the following methods
+       to achieve the desired outcome,
+        1. `onStart` - to trigger the opening of the dropdown, displaying a list of names. It is also responsible for opening the dropdown
+           whenever the cursor is placed after the **"@"** symbol.
+        2. `onUpdate` - to update and filter the list in the dropdown based on the characters entered after **"@"** (similar to autocomplete
+           with `list` configuration in `nimble-combobox`).
+        3. `onKeydown` - to add the necessary keyboard interactions to the dropdown, such as `Enter` key to select the current option, pressing `Escape`
+           to close the dropdown, and using `Arrow Up` and `Arrow Down` to move the focus up and down the list of names in the dropdown.
+        4. `onExit` to close the dropdown when focused away from the **"@"** character in the editor.
+
+#### 2. _Defining schema and adding tokenizer rule in markdown parser_:
+
+As `@mention` is a custom markdown format uniquely created to support in the nimble rich text components, it is necessary to
+define the schema in `markdown-parser` to identify the markdown string in the format of `@<user-id>` as the `@mention` node.
+The below schema is added to the end of other nodes using ProseMirror's
+[addToEnd](https://prosemirror.net/docs/ref/#model.Fragment.addToEnd) method.
+
+`@mention` custom schema:
+
+```js
+mention: {
+    attrs: {
+        datatype: { default: 'mention' },
+        dataid: { default: '' },
+        datalabel: { default: '' },
+    },
+    group: 'inline',
+    inline: true,
+    content: 'inline*',
+    toDOM(node) {
+        const { dataid, datalabel } = node.attrs;
+        return [
+            'span',
+            {
+                'data-type': 'mention',
+                'data-id': dataid as string,
+                'data-label': datalabel as string,
+            },
+            0
+        ];
+    },
+}
+```
+
+Additionally, a custom tokenizer rule needs to be added to the `markdown-it` rules to handle the parser logic.
+This can be achieved by loading the customized `mention` plugin into the supported tokenizer rules using the
+[`use`](https://markdown-it.github.io/markdown-it/#MarkdownIt.use) method and identifying the value of the
+`option` that matches the text content. The `id` and `name` will then be generated as an object from the
+`nimble-list-option` slot elements, taking the `value` and `text content`, respectively.
+
+_Note_: If the `value` is not passed in the slotted options, the `value`(known here as `id`) will be same as `text content`.
+
+#### 3. _Defining node in markdown serializer_:
+
+The rendered `@mention` node will be constructed into a markdown string by extracting the `data-id` from
+the `span` element in the editor when the `getMarkdown()` method is called.
+
+The example markdown string constructed for the below DOM element rendered in the editor is `@<1234-5678>`.
+
+```html
+<span
+    data-type="mention"
+    data-id="1234-5678"
+    data-label="Mary"
+    contenteditable="false"
+    >@Mary</span
+>
+```
+
+_Note_: If the `value` is not passed in the slotted options, the `data-id` will be same as the `text-content`.
+
+### _Implementation details for supporting absolute link:_
+
+#### _Configurations on Tiptap to support only absolute links_:
 
 Install the [link extension](https://tiptap.dev/api/marks/link) mark from Tiptap and initialize the `Links` with the following configurations:
 
@@ -359,8 +492,6 @@ Install the [link extension](https://tiptap.dev/api/marks/link) mark from Tiptap
 
 The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
 `prosemirror-markdown` parser, which is then converted to HTML string and rendered into the component to view all rich text content.
-
-_Implementation details for supporting absolute link:_
 
 For the `nimble-rich-text-viewer` component, we will set up the `link` mark in the Prosemirror schema as below, allowing links in the component to open with default behavior (same tab).
 
@@ -425,6 +556,18 @@ text in the editor.
 
 ![Bold and Numbered Button State](./spec-images/button-state.png)
 
+_`@mention` State_
+
+When you add **"@"** into the editor, a dropdown will open with the first value as the selected option, indicated by a green overlay to the option
+if `nimble-list-option` is passed into the default slot element. Upon selecting an option from the list, it will be rendered as prominent green text
+in all themes. Below is a basic representation of `@mention` texts and dropdown lists in the default theme. If an option is disabled, it will be
+indicated as such, and it will not be selectable either by clicking or using keyboard interactions.
+
+![@mention State](./spec-images/mention-state.png)
+
+An **"@"** icon will be added to the formatting toolbar to insert the **"@"** character, and clicking the button will open a dropdown list of options.
+This button will not be highlighted like other buttons when the cursor is placed on the @mentions within the editor.
+
 ### Accessibility
 
 [Tiptap Accessibility](https://tiptap.dev/guide/accessibility)
@@ -442,6 +585,7 @@ _Focus_
 
 -   Focus state of the editor will be the same as the `nimble-text-area`.
 -   Focus state of the buttons will be the same as the `nimble-toggle-button`.
+-   Focus state of the list options for `@mention` will be the same as the `nimble-list-option`.
 
 _Keyboard accessibility and shortcuts for text formatting_
 
@@ -470,6 +614,14 @@ _Keyboard navigation with toolbar buttons focused_
 | Right/Left keys | To move the focus forward/backward in the formatting options toolbar menu      |
 | Tab             | To move the focus towards the footer action buttons                            |
 | Shift + Tab     | To move the focus back to the editor                                           |
+
+_Keyboard interactions when `@mention` popup is opened_
+
+| Key          | Behavior                                                 |
+| ------------ | -------------------------------------------------------- |
+| Enter, Tab   | To select the currently focused option from the list     |
+| Up/Down keys | To move the focus upward/downward in the list of options |
+| Escape       | To close the dropdown if it is opened                    |
 
 _Note_: All other keyboard interaction determined by the slotted element will not be defined in this document.
 
@@ -514,6 +666,7 @@ library. For the currently supported features, we will include the following lib
 -   [prosemirror-markdown](https://www.npmjs.com/package/prosemirror-markdown)
 -   [prosemirror-model](https://www.npmjs.com/package/prosemirror-model)
 -   [@tiptap/extension-link](https://www.npmjs.com/package/@tiptap/extension-link)
+-   [@tiptap/extension-mention](https://www.npmjs.com/package/@tiptap/extension-mention)
 
 These packages will add up to a total space of approximately 900 KB in the components bundle. For more info see
 [this discussion on Teams](https://teams.microsoft.com/l/message/19:b6a61b8a7ffd451696e0cbbb8976c03b@thread.skype/1686833093592?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1686833093592&teamName=ASW%20SystemLink&channelName=LIMS&createdTime=1686833093592).
