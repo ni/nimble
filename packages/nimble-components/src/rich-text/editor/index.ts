@@ -41,6 +41,7 @@ import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import type { ListOption } from '../../list-option';
 import type { AnchoredRegion } from '../../anchored-region';
+import type { Button } from '../../button';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -146,6 +147,12 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     @observable
     public numberedListButton!: ToggleButton;
+
+    /**
+     * @internal
+     */
+    @observable
+    public atMentionButton!: Button;
 
     /**
      * The width of the vertical scrollbar, if displayed.
@@ -392,6 +399,22 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public numberedListButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleOrderedList().run();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Insert @ character to the editor
+     * @internal
+     */
+    public atMentionButtonClick(): void {
+        this.tiptapEditor.chain().insertContent(' @').focus().run();
+    }
+
+    public atMentionButtonKeyDown(event: KeyboardEvent): boolean {
+        if (this.keyActivatesButton(event)) {
+            this.tiptapEditor.chain().insertContent(' @').focus().run();
             return false;
         }
         return true;

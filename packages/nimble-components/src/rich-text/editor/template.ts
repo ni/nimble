@@ -16,6 +16,7 @@ import { errorTextTemplate } from '../../patterns/error/template';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 import { anchoredRegionTag } from '../../anchored-region';
 import { ListOption } from '../../list-option';
+import { buttonTag } from '../../button';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
@@ -89,6 +90,18 @@ export const template = html<RichTextEditor>`
                         ${x => richTextToggleNumberedListLabel.getValueFor(x)}
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
                     </${toggleButtonTag}>
+                    <${buttonTag}
+                        ${ref('atMentionButton')}
+                        appearance="ghost"
+                        ?disabled="${x => x.disabled}"
+                        slot="start"
+                        @click=${x => x.atMentionButtonClick()}
+                        @change=${(x, c) => x.stopEventPropagation(c.event)}
+                        @keydown=${(x, c) => x.atMentionButtonKeyDown(c.event as KeyboardEvent)}
+                    >
+                        <!-- Icon yet to be added here -->
+                        @
+                    </${buttonTag}>
                 </${toolbarTag}>
                 <span class="footer-actions" part="footer-actions">
                     <slot name="footer-actions"></slot>
