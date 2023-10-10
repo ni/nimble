@@ -386,7 +386,7 @@ for a consistent theme with the editor and taking advantage of the keyboard acce
 
 The Tiptap [mention extension](https://tiptap.dev/api/nodes/mention) will render all the `@mention` nodes as a `<span>` element with custom data
 attribute values. These values serve a dual purpose: they determine what is displayed in the UI and represent the content stored in markdown format.
-For example, `@mention` is used primarily for tagging user, these values will typically include user-related information such as the username and userID.
+For example, `@mention` is used primarily for tagging users, these values will typically include user-related information such as the username and userID.
 
 1. `data-id` - employed to store the value that is sent in the [value attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#:~:text=the%20selected%20attribute.-,value,-The%20content%20of)
    of the option element. For example, the user ID is placed in the `value` attribute, while the user's name is included in the actual text content
@@ -402,18 +402,19 @@ Install the [mention extension](https://tiptap.dev/api/nodes/mention) from Tipta
 follows to enable the desired `@mention` interactions,
 
 1. [`renderLabel`](https://tiptap.dev/api/nodes/mention#render-label) - to define how the `@mention` appears in the editor. In this case
-   `@label`(typically `label` represents user name or text content of the option). If a label is not available, the ID is displayed instead.
+   `@label`(typically `label` represents the user name or text content of the option). If a label is not available, the ID is displayed instead.
 2. [`suggestion`](https://tiptap.dev/api/utilities/suggestion) - to handle the interactions and implementation settings by setting the
    key configurations as below,
-    1. `char` - character that user to trigger the dropdown list. Default value is **"@"**.
+    1. `char` - a character that the user to trigger the dropdown list. The default value is **"@"**.
     2. `render` - a function responsible for handling all the interactions within the dropdown. It returns an object with the following methods
        to achieve the desired outcome,
         1. `onStart` - to trigger the opening of the dropdown, displaying a list of names. It is also responsible for opening the dropdown
-           whenever the cursor is placed after the **"@"** symbol. This also adjusts the position of the anchored region by using the
-           `decorationNode` from the `SuggestionProps`.
+           whenever the cursor is placed after the **"@"** symbol. This also adjusts the position of the anchored region by updating the
+           [`anchorElement`](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/anchored-region/README.md#fields:~:text=to%20revaluate%20positioning-,anchorElement,-public)
+           from FAST with the `decorationNode` from the `SuggestionProps` in Tiptap. 
         3. `onUpdate` - to update and filter the list in the dropdown based on the characters entered after **"@"** (similar to autocomplete
            with `list` configuration in `nimble-combobox`).
-        4. `onKeydown` - to add the necessary keyboard interactions to the dropdown, such as `Enter` key to select the current option, pressing `Escape`
+        4. `onKeydown` - to add the necessary keyboard interactions to the dropdown, such as the `Enter` key to select the current option, pressing `Escape`
            to close the dropdown, and using `Arrow Up` and `Arrow Down` to move the focus up and down the list of names in the dropdown.
         5. `onExit` to close the dropdown when focused away from the **"@"** character in the editor.
 
