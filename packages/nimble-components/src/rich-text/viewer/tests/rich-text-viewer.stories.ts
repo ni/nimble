@@ -6,6 +6,7 @@ import {
 } from '../../../utilities/tests/storybook';
 import { richTextViewerTag } from '..';
 import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
+import { listOptionTag } from '../../../list-option';
 
 interface RichTextViewerArgs {
     markdown: string;
@@ -32,12 +33,12 @@ const metadata: Meta<RichTextViewerArgs> = {
     <${richTextViewerTag}
         :markdown="${x => x.markdown}"
     >
-        <nimble-list-option value='1'>Mary</nimble-list-option>
-        <nimble-list-option value='2'>super</nimble-list-option>
-        <nimble-list-option value='3'>Joaquin</nimble-list-option>
-        <nimble-list-option value='4'>Frank</nimble-list-option>
-        <nimble-list-option value='5'>Albert</nimble-list-option>
-        <nimble-list-option value='6'>Sue Ann</nimble-list-option>
+        <${listOptionTag} value='1'>Mary</${listOptionTag}>
+        <${listOptionTag} value='2'>super</${listOptionTag}>
+        <${listOptionTag} value='3'>Joaquin</${listOptionTag}>
+        <${listOptionTag} value='4'>Frank</${listOptionTag}>
+        <${listOptionTag} value='5'>Albert</${listOptionTag}>
+        <${listOptionTag} value='6'>Sue Ann</${listOptionTag}>
     </${richTextViewerTag}>
     `),
     argTypes: {

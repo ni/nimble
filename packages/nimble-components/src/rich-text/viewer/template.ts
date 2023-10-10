@@ -1,6 +1,6 @@
 import { html, ref, slotted } from '@microsoft/fast-element';
+import { Listbox } from '@microsoft/fast-foundation';
 import type { RichTextViewer } from '.';
-import { ListOption } from '../../list-option';
 
 export const template = html<RichTextViewer>`
     <template>
@@ -8,7 +8,7 @@ export const template = html<RichTextViewer>`
         <slot
             hidden
             ${slotted({
-        filter: (n: Node) => n instanceof ListOption,
+        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
         flatten: true,
         property: 'slottedOptions'
     })}
