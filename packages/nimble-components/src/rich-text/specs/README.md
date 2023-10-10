@@ -411,12 +411,12 @@ follows to enable the desired `@mention` interactions,
         1. `onStart` - to trigger the opening of the dropdown, displaying a list of names. It is also responsible for opening the dropdown
            whenever the cursor is placed after the **"@"** symbol. This also adjusts the position of the anchored region by updating the
            [`anchorElement`](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/anchored-region/README.md#fields:~:text=to%20revaluate%20positioning-,anchorElement,-public)
-           from FAST with the `decorationNode` from the `SuggestionProps` in Tiptap. 
-        3. `onUpdate` - to update and filter the list in the dropdown based on the characters entered after **"@"** (similar to autocomplete
+           from FAST with the `decorationNode` from the `SuggestionProps` in Tiptap.
+        2. `onUpdate` - to update and filter the list in the dropdown based on the characters entered after **"@"** (similar to autocomplete
            with `list` configuration in `nimble-combobox`).
-        4. `onKeydown` - to add the necessary keyboard interactions to the dropdown, such as the `Enter` key to select the current option, pressing `Escape`
+        3. `onKeydown` - to add the necessary keyboard interactions to the dropdown, such as the `Enter` key to select the current option, pressing `Escape`
            to close the dropdown, and using `Arrow Up` and `Arrow Down` to move the focus up and down the list of names in the dropdown.
-        5. `onExit` to close the dropdown when focused away from the **"@"** character in the editor.
+        4. `onExit` to close the dropdown when focused away from the **"@"** character in the editor.
 
 #### 2. _Defining schema and adding tokenizer rule in markdown parser_:
 
