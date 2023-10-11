@@ -275,8 +275,15 @@ Example usage of the `nimble-menu` slot element in the client application:
 </nimble-rich-text-editor>
 ```
 
-_Note_: The method described above has not been prototyped yet, and not sure of its working advantages and disadvantages in comparison
-to the current implementation.
+Here are the following reasons for not utilizing the `nimble-menu` and `nimble-menu-item` as a slot element for the dropdown list,
+1. The `nimble-menu` uses the `tabindex` value to receive focus on the list of options, which results in losing focus from the editor
+   when the dropdown is opened. Consequently, keyboard interactions are handled either for the editor or for the mention dropdown in the same time.
+   On the other hand, if we use `nimble-list-option`, we can handle keyboard navigation using the `selected` boolean attribute.
+   This way, both the editor and the dropdown have focus, resulting in the use of specified key events like arrow keys and the
+   enter key for the dropdown, while other keys like alphabet keys for the editor.
+2. The typical role of the mention popup is `listbox` which shows the list of users to select from and typing texts to filter the
+   dropdown similar to `combobox`. The `nimble-combobox` internally uses the `nimble-list-option` as a default slot element.
+
 
 _Host Classes_
 
