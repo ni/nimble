@@ -283,6 +283,8 @@ Here are the following reasons for not utilizing the `nimble-menu` and `nimble-m
    enter key for the dropdown, while other keys like alphabet keys for the editor.
 2. The typical role of the mention popup is `listbox` which shows the list of users to select from and typing texts to filter the
    dropdown similar to `combobox`. The `nimble-combobox` internally uses the `nimble-list-option` as a default slot element.
+3. In `nimble-list-option`, even if the `value` attribute is not specified, it considers the text content as its value,
+   whereas in the `nimble-menu`, we need to handle the `id` value if it is not passed from the client application in the slot elements.
 
 
 _Host Classes_
