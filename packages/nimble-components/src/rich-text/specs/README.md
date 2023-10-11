@@ -263,6 +263,7 @@ _Alternative Slot Elements for `@mention`_:
 
 Example usage of the `nimble-menu` slot element in the client application:
 
+```html
 <nimble-rich-text-editor>
     <!-- Options to be displayed in the editor when "@" symbol is added -->
     <nimble-menu slot="mention-menu">
@@ -272,6 +273,7 @@ Example usage of the `nimble-menu` slot element in the client application:
         <nimble-menu-item value="albert">Albert</nimble-menu-item>
     </nimble-menu>
 </nimble-rich-text-editor>
+```
 
 _Note_: The method described above has not been prototyped yet, and not sure of its working advantages and disadvantages in comparison
 to the current implementation.
