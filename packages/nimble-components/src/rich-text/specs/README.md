@@ -411,7 +411,7 @@ dropdown list when the **"@"** character is added to the editor. It's important 
 handled within the editor, and it's the client application's responsibility. It's generally advisable to use `nimble-list-option`
 for a consistent theme with the editor and taking advantage of the keyboard accessibility features outlined in the [Accessibility Section](#accessibility).
 
-The Tiptap [mention extension](https://tiptap.dev/api/nodes/mention) will render all the `@mention` nodes as a `<span>` element with custom data
+The Tiptap [mention extension](https://tiptap.dev/api/nodes/mention) will render all the `@mention` nodes as a `<>` element with custom data
 attribute values. These values serve a dual purpose: they determine what is displayed in the UI and represent the content stored in markdown format.
 For example, `@mention` is used primarily for tagging users, these values will typically include user-related information such as the username and userID.
 
@@ -495,13 +495,7 @@ the `span` element in the editor when the `getMarkdown()` method is called.
 The example markdown string constructed for the below DOM element rendered in the editor is `@<1234-5678>`.
 
 ```html
-<span
-    data-type="mention"
-    data-id="1234-5678"
-    data-label="Mary"
-    contenteditable="false"
-    >@Mary</span
->
+<span data-type="mention" data-id="1234-5678" data-label="Mary" contenteditable="false">@Mary</span>
 ```
 
 _Note_: If the `value` is not passed in the slotted options, the `data-id` will be same as the `text-content`.
