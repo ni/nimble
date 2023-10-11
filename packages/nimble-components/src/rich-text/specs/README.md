@@ -251,6 +251,31 @@ _Slot Names_
 
 _Note_: The positioning of these slot elements in the mobile view of the component has not yet been confirmed.
 
+_Alternative Slot Elements for `@mention`_:
+
+-   `mention-menu`:
+    1. The `nimble-menu` will be used to display the list of options when the user enters **"@"** into the editor.
+    2. The users list to be displayed in the `@mention` dropdown menu will be in the `nimble-menu-item` with the user name in the
+       actual `text content` and user ID in the `id` of each menu item. If the `id` is not provided by the client application,
+       then the `text content` of the item is considered as an `id`.
+    3. The same `nimble-anchored-region` will be used to populate the list of options below at the position where the
+       **"@"** symbol entered into the editor.
+
+Example usage of the `nimble-menu` slot element in the client application:
+
+<nimble-rich-text-editor>
+    <!-- Options to be displayed in the editor when "@" symbol is added -->
+    <nimble-menu slot="mention-menu">
+        <nimble-menu-item value="mary">Mary</nimble-menu-item>
+        <nimble-menu-item value="sue">Sue</nimble-menu-item>
+        <nimble-menu-item value="frank">Frank</nimble-menu-item>
+        <nimble-menu-item value="albert">Albert</nimble-menu-item>
+    </nimble-menu>
+</nimble-rich-text-editor>
+
+_Note_: The method described above has not been prototyped yet, and not sure of its working advantages and disadvantages in comparison
+to the current implementation.
+
 _Host Classes_
 
 -   none
