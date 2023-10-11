@@ -276,6 +276,7 @@ Example usage of the `nimble-menu` slot element in the client application:
 ```
 
 Here are the following reasons for not utilizing the `nimble-menu` and `nimble-menu-item` as a slot element for the dropdown list,
+
 1. The `nimble-menu` uses the `tabindex` value to receive focus on the list of options, which results in losing focus from the editor
    when the dropdown is opened. Consequently, keyboard interactions are handled either for the editor or for the mention dropdown in the same time.
    On the other hand, if we use `nimble-list-option`, we can handle keyboard navigation using the `selected` boolean attribute.
@@ -285,7 +286,6 @@ Here are the following reasons for not utilizing the `nimble-menu` and `nimble-m
    dropdown similar to `combobox`. The `nimble-combobox` internally uses the `nimble-list-option` as a default slot element.
 3. In `nimble-list-option`, even if the `value` attribute is not specified, it considers the text content as its value,
    whereas in the `nimble-menu`, we need to handle the `id` value if it is not passed from the client application in the slot elements.
-
 
 _Host Classes_
 
