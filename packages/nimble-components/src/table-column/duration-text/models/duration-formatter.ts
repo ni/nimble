@@ -14,41 +14,42 @@ export class DurationFormatter {
         this.hoursFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'hour' });
         this.minutesFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'minute' });
         this.secondsFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'second' });
-        this.scientificSecondsFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'second', notation: 'scientific', maximumFractionDigits: 2 });
+        this.scientificSecondsFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'second', notation: 'scientific', maximumFractionDigits: 3 });
     }
 
     public format(value: number | null | undefined): string {
-        if (value === null || value === undefined) {
+        if (value === null || value === undefined || value < 0 || !Number.isFinite(value)) {
             return '';
         }
 
         const result = [];
-        const fractionalDays = value / 86400;
+        const fractionalDays = value / 86400000;
         const days = Math.floor(fractionalDays);
-        if (days < 100) {
+        if (days < 100 && days > 0) {
             const formattedDays = this.daysFormatter.format(days);
             result.push(formattedDays);
-        } else {
-            return this.scientificSecondsFormatter.format(value);
+        } else if (days >= 100) {
+            return this.scientificSecondsFormatter.format(value / 1000);
         }
 
-        const hours = Math.floor((value / 3600) % 24);
+        const hours = Math.floor((value / 3600000) % 24);
         if (hours) {
             const formattedHours = this.hoursFormatter.format(hours);
             result.push(formattedHours);
         }
 
-        const secondsRemainingWithoutHours = (value % 3600);
-        const minutes = Math.floor(secondsRemainingWithoutHours / 60);
+        const minutes = Math.floor((value / 60000) % 60);
         if (minutes) {
             const formattedMinutes = this.minutesFormatter.format(minutes);
             result.push(formattedMinutes);
         }
 
-        const seconds = (secondsRemainingWithoutHours % 60);
-        if (seconds || value === 0) {
+        const seconds = ((value / 1000) % 60);
+        if (seconds || value === 0 || Object.is(value, -0)) {
             const formattedSeconds = this.secondsFormatter.format(seconds);
             result.push(formattedSeconds);
+        } else if (value > 0 && result.length === 0) {
+            return this.scientificSecondsFormatter.format(value / 1000);
         }
 
         return result.join(', ');

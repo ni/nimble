@@ -34,7 +34,7 @@ const simpleData = [
     {
         firstName: 'Maggie',
         lastName: 'Simpson',
-        birthday: 50000.5
+        birthday: 870000.5
     }
 ];
 
