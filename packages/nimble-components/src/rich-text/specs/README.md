@@ -495,7 +495,13 @@ the `span` element in the editor when the `getMarkdown()` method is called.
 The example markdown string constructed for the below DOM element rendered in the editor is `@<1234-5678>`.
 
 ```html
-<span data-type="mention" data-id="1234-5678" data-label="Mary" contenteditable="false">@Mary</span>
+<span
+    data-type="mention"
+    data-id="1234-5678"
+    data-label="Mary"
+    contenteditable="false"
+    >@Mary</span
+>
 ```
 
 _Note_: If the `value` is not passed in the slotted options, the `data-id` will be same as the `text-content`.
