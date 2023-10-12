@@ -2,7 +2,7 @@
 
 ## Overview
 
-The duration text table column will provide a way to visualize numeric data that represents a timespan. A "timespan" is simply a numeric value representing a total number of seconds (i.e. a value of 5 means '5 seconds').
+The duration text table column will provide a way to visualize numeric data that represents a timespan. A "timespan" is simply a numeric value representing a total number of milliseconds (i.e. a value of 5000 means '5 seconds').
 
 ### Background
 
@@ -49,7 +49,7 @@ public class TableColumnDurationText : TableColumnTextBase { }
 
 ```
 
-This API would result in a column whose value would only show up to the 'days' unit (i.e. it would show days, hours, minutes, and seconds). We would show up to two fractional digits as needed. Formatting to change slightly from what SLE offers now using "hr" instead of "h", and "sec" instead of "s".
+This API would result in a column whose value would only show up to the 'days' unit (i.e. it would show days, hours, minutes, and seconds). We will show up to three fractional digits as needed. Formatting will change slightly from what SLE offers now using "hr" instead of "h", and "sec" instead of "s".
 
 Examples:
 
@@ -77,6 +77,8 @@ export class DurationFormatter {
 ### Angular integration
 
 An Angular directive will be created for the component. The component will not have form association, so a `ControlValueAccessor` will not be created. The `DurationFormatter` will be re-exported from Angular from a new `formatters` entrypoint.
+
+We will also export a `DurationPipe` that will use the `DurationFormatter` under the hood.
 
 ### Blazor integration
 
@@ -121,7 +123,11 @@ Currently in SLE, there are corner cases that can result in a display of somethi
 
 #### Negative Zero
 
-`-0` will simply render as "0".
+`-0` will simply render as "0 sec".
+
+### Future Considerations
+
+If there ever develops a need to respond to changes in the locale of a page that is currently displaying a duration utilizing our `DurationFormatter`, we may want to create an Observer class (similar to ResizeObserver, or IntersectionObserver) that can allow clients to create the appropriate `DurationFormatter` instance.
 
 ## Alternative Implementations / Designs
 
