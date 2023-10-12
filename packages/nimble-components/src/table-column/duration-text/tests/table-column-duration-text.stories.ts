@@ -68,7 +68,7 @@ interface TextColumnTableArgs extends SharedTableArgs {
     validity: () => void;
 }
 
-const durationTextColumnDescription = 'The `nimble-table-column-duration-text` column is used to display duration-time fields as text in the `nimble-table`. The duration-time values must be of type `number` and represent the total number of milliseconds.';
+const durationTextColumnDescription = 'The `nimble-table-column-duration-text` column is used to display duration fields as text in the `nimble-table`. The duration values must be of type `number` and each represent a total number of milliseconds.';
 
 export const elapsedTimeTextColumn: StoryObj<TextColumnTableArgs> = {
     parameters: {
@@ -104,7 +104,7 @@ export const elapsedTimeTextColumn: StoryObj<TextColumnTableArgs> = {
         fieldName: {
             name: 'field-name',
             description:
-                'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the `Date` type.',
+                'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `number` and represent a total number of milliseconds.',
             control: { type: 'none' }
         },
     },
