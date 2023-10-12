@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using NimbleBlazor;
 
 namespace Demo.Shared.Pages
@@ -19,11 +20,11 @@ namespace Demo.Shared.Pages
         private bool BannerOpen { get; set; }
 
         [NotNull]
-        public IEnumerable<Person> TableData { get; set; } = Enumerable.Empty<Person>();
+        public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();
 
         public ComponentsDemo()
         {
-            UpdateTableData(10);
+            AddTableRows(10);
         }
 
         private string DrawerLocationAsString
@@ -56,57 +57,64 @@ namespace Demo.Shared.Pages
             await _drawer!.CloseAsync(reason);
         }
 
-        public void UpdateTableData(int numberOfRows)
+        public void AddTableRows(int numberOfRowsToAdd)
         {
-            var tableData = new Person[numberOfRows + 1];
-            for (int i = 0; i < numberOfRows; i++)
+            var tableData = new List<SimpleTableRecord>(TableData);
+
+            for (int i = 0; i < numberOfRowsToAdd; i++)
             {
-                tableData[i] = new Person(
-                    i.ToString(null, null),
-                    Faker.Name.First(),
-                    Faker.Name.Last(),
-                    "https://nimble.ni.dev",
+                int rowCount = tableData.Count;
+                string rowCountString = rowCount.ToString(CultureInfo.CurrentCulture);
+
+                tableData.Add(new SimpleTableRecord(
+                    rowCountString,
+                    $"new string {rowCountString}",
+                    $"bar {rowCountString}",
+                    "/",
                     "Link",
-                    i % 2 == 0 ? new DateTime(2023, 8, 16, 3, 56, 11, DateTimeKind.Local) : new DateTime(2022, 3, 7, 20, 28, 41, DateTimeKind.Local),
-                    i % 2 == 0 ? 100 : 101,
-                    (i % 2 == 0) ? "success" : "unknown");
+                    (rowCount % 2 == 0) ? new DateTime(2023, 8, 16, 2, 56, 11) : new DateTime(2022, 3, 7, 20, 28, 41),
+                    (rowCount % 2 == 0) ? 100 : 101,
+                    (rowCount % 2 == 0) ? "success" : "unknown",
+                    rowCount / 10.0));
             }
-            tableData[numberOfRows] = new Person(
-                numberOfRows.ToString(null, null),
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
 
             TableData = tableData;
         }
     }
 
-    public class Person
+    public class SimpleTableRecord
     {
-        public Person(string id, string? firstName, string? lastName, string? href, string? linkLabel, DateTime? date, int? statusCode, string? result)
+        public SimpleTableRecord(
+            string id,
+            string stringValue1,
+            string stringValue2,
+            string? href,
+            string? linkLabel,
+            DateTime date,
+            int statusCode,
+            string result,
+            double number)
         {
             Id = id;
-            FirstName = firstName;
-            LastName = lastName;
+            StringValue1 = stringValue1;
+            StringValue2 = stringValue2;
             Href = href;
             LinkLabel = linkLabel;
-            Date = (ulong?)(date - DateTime.UnixEpoch.ToLocalTime())?.TotalMilliseconds;
+            Date = (ulong)(date - DateTime.UnixEpoch.ToLocalTime()).TotalMilliseconds;
             StatusCode = statusCode;
             Result = result;
+            Number = number;
         }
 
         public string Id { get; }
-        public string? FirstName { get; }
-        public string? LastName { get; }
+        public string StringValue1 { get; }
+        public string StringValue2 { get; }
         public string? Href { get; }
         public string? LinkLabel { get; }
-        public ulong? Date { get; }
-        public int? StatusCode { get; }
-        public string? Result { get; }
+        public ulong Date { get; }
+        public int StatusCode { get; }
+        public string Result { get; }
+        public double Number { get; }
     }
 
     public enum DialogResult

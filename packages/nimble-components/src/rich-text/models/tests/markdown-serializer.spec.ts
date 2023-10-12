@@ -2,11 +2,13 @@ import { Editor } from '@tiptap/core';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
 import Document from '@tiptap/extension-document';
+import HardBreak from '@tiptap/extension-hard-break';
 import Italic from '@tiptap/extension-italic';
 import ListItem from '@tiptap/extension-list-item';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Paragraph from '@tiptap/extension-paragraph';
 import Text from '@tiptap/extension-text';
+import Link from '@tiptap/extension-link';
 import type { Node } from 'prosemirror-model';
 import { RichTextMarkdownSerializer } from '../markdown-serializer';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
@@ -22,7 +24,11 @@ describe('Markdown serializer', () => {
             OrderedList,
             ListItem,
             Bold,
-            Italic
+            Italic,
+            HardBreak,
+            Link.extend({
+                excludes: '_'
+            })
         ]
     });
 
@@ -52,9 +58,69 @@ describe('Markdown serializer', () => {
                 markdown: '*Italics*'
             },
             {
+                name: 'Link',
+                html: '<p><a href="https://nimble.ni.dev">https://nimble.ni.dev</a></p>',
+                markdown: '<https://nimble.ni.dev>'
+            },
+            {
                 name: 'Bold and Italics',
                 html: '<strong><em>Bold and Italics</em></strong>',
                 markdown: '***Bold and Italics***'
+            },
+            {
+                name: 'Link and Bold',
+                html: '<p><a href="https://nimble.ni.dev"><strong>https://nimble.ni.dev</strong></a></p>',
+                markdown: '<https://nimble.ni.dev>'
+            },
+            {
+                name: 'Link and Italics',
+                html: '<p><a href="https://nimble.ni.dev"><em>https://nimble.ni.dev</em></a></p>',
+                markdown: '<https://nimble.ni.dev>'
+            },
+            {
+                name: 'Link, Bold and Italics',
+                html: '<p><a href="https://nimble.ni.dev"><strong><em>https://nimble.ni.dev</em></strong></a></p>',
+                markdown: '<https://nimble.ni.dev>'
+            },
+            {
+                name: 'Italics without spaces in between bold texts',
+                html: '<strong>Bold<em>italics</em>bold</strong>',
+                markdown: '**Bold*italics*bold**'
+            },
+            {
+                name: 'Italics with leading and trailing spaces in between bold texts',
+                html: '<strong>Bold<em> italics </em>bold</strong>',
+                markdown: '**Bold *italics* bold**'
+            },
+            {
+                name: 'Bold and italics with leading and trailing spaces in italics with isolated italics at the end',
+                html: '<strong>Bold<em> italics </em></strong><em>italics</em>',
+                markdown: '**Bold *italics*** *italics*'
+            },
+            {
+                name: 'Bold and italics with leading and trailing spaces in bold with isolated italics at the end',
+                html: '<strong> Bold <em>italics</em> </strong><em>italics</em>',
+                markdown: '**Bold *italics*** *italics*'
+            },
+            {
+                name: 'Bold and italics with leading and trailing spaces in both',
+                html: '<strong>Bold <em>italics</em> bold <em>italics </em></strong><em>italics</em>',
+                markdown: '**Bold *italics* bold *italics*** *italics*'
+            },
+            {
+                name: 'Bold without spaces in between italics texts',
+                html: '<em>Italics</em><strong><em>bold</em></strong><em>italics</em>',
+                markdown: '*Italics**bold**italics*'
+            },
+            {
+                name: 'Bold with leading and trailing spaces in between italics texts',
+                html: '<em>Italics</em><strong><em> bold </em></strong><em>italics</em>',
+                markdown: '*Italics **bold** italics*'
+            },
+            {
+                name: 'Italics and bold with leading and trailing spaces in bold with isolated bold at the end',
+                html: '<em>Italics </em><strong><em>bold </em>bold</strong>',
+                markdown: '*Italics **bold*** **bold**'
             },
             {
                 name: 'Numbered list',
@@ -77,6 +143,11 @@ describe('Markdown serializer', () => {
                 markdown: '1. *Numbered list with italics*'
             },
             {
+                name: 'Numbered list with link',
+                html: '<ol><li><p><a href="https://nimble.ni.dev">https://nimble.ni.dev</a></p></li></ol>',
+                markdown: '1. <https://nimble.ni.dev>'
+            },
+            {
                 name: 'Bulleted list',
                 html: '<ul><li><p>Bulleted list</p></li></ul>',
                 markdown: '* Bulleted list'
@@ -95,6 +166,11 @@ describe('Markdown serializer', () => {
                 name: 'Bulleted list with italics',
                 html: '<ul><li><p><em>Bulleted list with italics</em></p></li></ul>',
                 markdown: '* *Bulleted list with italics*'
+            },
+            {
+                name: 'Bullet list with link',
+                html: '<ul><li><p><a href="https://nimble.ni.dev">https://nimble.ni.dev</a></p></li></ul>',
+                markdown: '* <https://nimble.ni.dev>'
             },
             {
                 name: 'Nested list with levels 1 - Bulleted list, 2 - Numbered list (Bold)',
@@ -198,11 +274,6 @@ describe('Markdown serializer', () => {
             },
             { name: 'Heading', html: '<h1>Heading</h1>', plainText: 'Heading' },
             {
-                name: 'HardBreak',
-                html: '<p>Hard<br>Break</p>',
-                plainText: 'Hard Break'
-            },
-            {
                 name: 'HorizontalRule',
                 html: '<p>Horizontal<hr>Rule</p>',
                 plainText: 'Horizontal\n\nRule'
@@ -212,7 +283,6 @@ describe('Markdown serializer', () => {
                 html: '<mark>Highlight</mark>',
                 plainText: 'Highlight'
             },
-            { name: 'Link', html: '<a href="#">Link</a>', plainText: 'Link' },
             {
                 name: 'Strikethrough',
                 html: '<s>Strikethrough</s>',
@@ -254,6 +324,90 @@ describe('Markdown serializer', () => {
                     expect(
                         RichTextMarkdownSerializer.serializeDOMToMarkdown(node)
                     ).toBe(value.plainText);
+                }
+            );
+        }
+    });
+
+    describe('HardBreak node should be serialized to back slash (hard break syntax) markdown output', () => {
+        const r = String.raw;
+        const supportedNodesMarks: {
+            name: string,
+            html: string,
+            markdown: string
+        }[] = [
+            {
+                name: 'Hard Break',
+                html: '<p>Hard<br>Break</p>',
+                markdown: r`Hard\
+Break`
+            },
+            {
+                name: 'Bold',
+                html: '<strong>Bold</strong><br><strong>Bold</strong>',
+                markdown: r`**Bold**\
+**Bold**`
+            },
+            {
+                name: 'Italics',
+                html: '<em>Italics</em><br><em>Italics</em>',
+                markdown: r`*Italics*\
+*Italics*`
+            },
+            {
+                name: 'Bold, Hard break and Italics',
+                html: '<strong>Bold</strong><br><em>Italics</em>',
+                markdown: r`**Bold**\
+*Italics*`
+            },
+            {
+                name: 'Numbered list',
+                html: '<ol><li><p>Numbered<br>list</p></li></ol>',
+                markdown: r`1. Numbered\
+   list`
+            },
+            {
+                name: 'Bulleted list',
+                html: '<ul><li><p>Bulleted<br>list</p></li></ul>',
+                markdown: r`* Bulleted\
+  list`
+            },
+            {
+                name: 'Nested Bulleted list and hard break',
+                html: '<ul><li><p>list<br>hard break content</p></li><li><p>list</p><ul><li><p>nested list<br>nested hard break content</p></li></ul></li></ul>',
+                markdown: r`* list\
+  hard break content
+
+* list
+
+  * nested list\
+    nested hard break content`
+            },
+            {
+                name: 'Nested Numbered list and hard break',
+                html: '<ol><li><p>list<br>hard break content</p></li><li><p>list</p><ol><li><p>nested list<br>nested hard break content</p></li></ol></li></ol>',
+                markdown: r`1. list\
+   hard break content
+
+2. list
+
+   1. nested list\
+      nested hard break content`
+            }
+        ];
+
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const value of supportedNodesMarks) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            specType(
+                `Should serialize ${value.name} to markdown`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                () => {
+                    const node = getNode(value.html);
+                    expect(
+                        RichTextMarkdownSerializer.serializeDOMToMarkdown(node)
+                    ).toBe(value.markdown);
                 }
             );
         }

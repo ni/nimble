@@ -160,6 +160,10 @@ export const fillHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillHoverColorForTheme(element), 0.1));
 
+export const fillHoverRgbPartialColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.fillHoverRgbPartialColor)
+).withDefault((element: HTMLElement) => hexToRgbPartial(getFillHoverColorForTheme(element)));
+
 export const fillDownColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillDownColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillDownColorForTheme(element), 0.15));
@@ -284,6 +288,9 @@ export const controlSlimHeight = DesignToken.create<string>(
 export const smallPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.smallPadding)
 ).withDefault('4px');
+export const mediumPadding = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.mediumPadding)
+).withDefault('8px');
 export const standardPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.standardPadding)
 ).withDefault('16px');

@@ -48,3 +48,12 @@ export const BannerSeverity = {
     information: 'information'
 } as const;
 ```
+
+## Use kebab case for class names
+
+When defining new class names in HTML, use kebab case.
+
+```html
+<div class="control-wrapper"> <!-- CORRECT -->
+<div class="controlWrapper"> <!-- INCORRECT -->
+```

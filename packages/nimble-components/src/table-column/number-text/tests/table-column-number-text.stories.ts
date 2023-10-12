@@ -1,10 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import {
-    createUserSelectedThemeStory,
-    incubatingWarning
-} from '../../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnNumberTextTag } from '..';
 import {
@@ -51,7 +48,7 @@ const simpleData = [
 ];
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Incubating/Table Column - Number Text',
+    title: 'Components/Table Column: Number Text',
     decorators: [withActions],
     tags: ['autodocs'],
     parameters: {
@@ -97,9 +94,8 @@ const formatDescription = `Configures the way that the numeric value is formatte
     <ul>
         <li>\`default\`: Integers are shown with no trailing zeros, the value is limited to 6 digits, and exponential notation is used for numbers that are large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude.
         </li>
-        <li>\`decimal\`: Values as are formatted as decimal values, always displaying \`decimal-digits\` digits after the separator and never displaying exponential notation.
-        </li>
-        <li>\`roundToInteger\`: Values are rounded to the nearest whole number. Exponential notation is never used. It can only safely represent integers up to the magnitude of \`MAX_SAFE_INTEGER\`.
+        <li>\`decimal\`: Values as are formatted as decimal values, always displaying \`decimal-digits\` digits after the separator and never displaying exponential notation. Setting \`decimal-digits\` to \`0\`
+        will display the value as an integer without a decimal separator.
         </li>
     </ul>
 </details>
@@ -123,8 +119,6 @@ To improve the ability for users to visually scan values, applications should se
         </li>
         <li>\`decimal\` format: Values are right-aligned.
         </li>
-        <li>\`roundToInteger\` format: Values are right-aligned.
-        </li>
     </ul>
 </details>
 `;
@@ -139,10 +133,6 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<NumberTextColumnTableArgs>`
-        ${incubatingWarning({
-        componentName: 'table',
-        statusLink: 'https://github.com/orgs/ni/projects/7/views/21'
-    })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

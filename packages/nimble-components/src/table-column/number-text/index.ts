@@ -13,7 +13,6 @@ import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { NumberTextAlignment, NumberTextFormat } from './types';
 import type { NumberFormatter } from './models/number-formatter';
-import { RoundToIntegerFormatter } from './models/round-to-integer-formatter';
 import { DefaultFormatter } from './models/default-formatter';
 import { DecimalFormatter } from './models/decimal-formatter';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
@@ -109,8 +108,6 @@ export class TableColumnNumberText extends TableColumnTextBase {
 
     private createFormatter(): NumberFormatter {
         switch (this.format) {
-            case NumberTextFormat.roundToInteger:
-                return new RoundToIntegerFormatter(lang.getValueFor(this));
             case NumberTextFormat.decimal:
                 return new DecimalFormatter(
                     lang.getValueFor(this),
@@ -131,10 +128,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
         }
 
         // Look at format to determine the default alignment
-        if (
-            this.format === NumberTextFormat.roundToInteger
-            || this.format === NumberTextFormat.decimal
-        ) {
+        if (this.format === NumberTextFormat.decimal) {
             return TextCellViewBaseAlignment.right;
         }
         return TextCellViewBaseAlignment.left;

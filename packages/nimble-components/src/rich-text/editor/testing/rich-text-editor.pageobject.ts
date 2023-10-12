@@ -5,7 +5,9 @@ import type { ToggleButton } from '../../../toggle-button';
 import type { ToolbarButton } from './types';
 import {
     getTagsFromElement,
-    getLeafContentsFromElement
+    getLeafContentsFromElement,
+    getLastChildElement,
+    getLastChildElementAttribute
 } from '../../models/testing/markdown-parser-utils';
 
 /**
@@ -50,6 +52,18 @@ export class RichTextEditorPageObject {
             cancelable: true
         });
         editor!.dispatchEvent(event);
+        await waitForUpdatesAsync();
+    }
+
+    public async pressShiftEnterKeysInEditor(): Promise<void> {
+        const editor = this.getTiptapEditor();
+        const shiftEnterEvent = new KeyboardEvent('keydown', {
+            key: keyEnter,
+            shiftKey: true,
+            bubbles: true,
+            cancelable: true
+        });
+        editor!.dispatchEvent(shiftEnterEvent);
         await waitForUpdatesAsync();
     }
 
@@ -108,14 +122,45 @@ export class RichTextEditorPageObject {
         toggleButton.control.dispatchEvent(event);
     }
 
-    public async setEditorTextContent(value: string): Promise<void> {
-        let lastElement = this.getTiptapEditor()?.lastElementChild;
+    public pasteToEditor(text: string): void {
+        const editor = this.getTiptapEditor();
+        const pasteEvent = new ClipboardEvent('paste', {
+            clipboardData: new DataTransfer()
+        });
+        pasteEvent.clipboardData?.setData('text/plain', text);
+        editor!.dispatchEvent(pasteEvent);
+    }
 
-        while (lastElement?.lastElementChild) {
-            lastElement = lastElement?.lastElementChild;
-        }
-        lastElement!.parentElement!.textContent = value;
+    // Simulate the actual pasting of content by passing the extracted HTML string as an argument and setting the format to 'text/html',
+    // as in the [DataFormat](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer) object.
+    // For example, when copying a link, the clipboard stores information that includes the anchor tag, href attribute value etc, and paste it as an HTML string
+    public pasteHTMLToEditor(htmlString: string): void {
+        const editor = this.getTiptapEditor();
+        const pasteEvent = new ClipboardEvent('paste', {
+            clipboardData: new DataTransfer()
+        });
+        pasteEvent.clipboardData?.setData('text/html', htmlString);
+        editor!.dispatchEvent(pasteEvent);
+    }
+
+    public async setEditorTextContent(value: string): Promise<void> {
+        const lastElement = this.getEditorLastChildElement();
+        const textNode = document.createTextNode(value);
+        lastElement.parentElement!.appendChild(textNode);
         await waitForUpdatesAsync();
+    }
+
+    public async replaceEditorContent(value: string): Promise<void> {
+        const lastElement = this.getEditorLastChildElement();
+        lastElement.parentElement!.textContent = value;
+        await waitForUpdatesAsync();
+    }
+
+    public getEditorLastChildAttribute(attribute: string): string {
+        return getLastChildElementAttribute(
+            attribute,
+            this.getTiptapEditor() as HTMLElement
+        );
     }
 
     public getEditorFirstChildTagName(): string {
@@ -126,6 +171,12 @@ export class RichTextEditorPageObject {
         return this.getTiptapEditor()?.firstElementChild?.textContent ?? '';
     }
 
+    public getEditorTextContents(): string[] {
+        return Array.from(this.getTiptapEditor()!.querySelectorAll('*')).map(
+            el => el.textContent || ''
+        );
+    }
+
     public getEditorTagNames(): string[] {
         return getTagsFromElement(this.getTiptapEditor() as HTMLElement);
     }
@@ -134,6 +185,28 @@ export class RichTextEditorPageObject {
         return getLeafContentsFromElement(
             this.getTiptapEditor() as HTMLElement
         );
+    }
+
+    public getEditorTagNamesWithClosingTags(): string[] {
+        const tagNames: string[] = [];
+        const tiptapEditor = this.getTiptapEditor();
+
+        const processNode = (node: Node): void => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                const el = node as Element;
+                tagNames.push(el.tagName);
+
+                el.childNodes.forEach(processNode);
+
+                tagNames.push(`/${el.tagName}`);
+            }
+        };
+
+        if (tiptapEditor) {
+            processNode(tiptapEditor);
+        }
+
+        return tagNames.slice(1, -1);
     }
 
     public getFormattingButtonTextContent(
@@ -216,5 +289,9 @@ export class RichTextEditorPageObject {
             'nimble-toggle-button'
         );
         return buttons[button];
+    }
+
+    private getEditorLastChildElement(): Element {
+        return getLastChildElement(this.getTiptapEditor() as HTMLElement)!;
     }
 }

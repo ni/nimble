@@ -101,7 +101,9 @@ export class Computations {
             this._containerDimensions.width,
             this._containerDimensions.height
         );
-        const gridDimensions = this.calculateGridDimensions(this.wafermap.dies);
+        const gridDimensions = this.gridDimensionsValidAndDefined()
+            ? this.calculateGridDimensionsFromBoundingBox()
+            : this.calculateGridDimensionsFromDies(this.wafermap.dies);
         // this scale is used for positioning the dies on the canvas
         const originLocation = this.wafermap.originLocation;
         this._horizontalScale = this.createHorizontalScale(
@@ -131,7 +133,33 @@ export class Computations {
         };
     }
 
-    private calculateGridDimensions(
+    private gridDimensionsValidAndDefined(): boolean {
+        return (
+            !this.wafermap.validity.invalidGridDimensions
+            && typeof this.wafermap.gridMinX === 'number'
+            && typeof this.wafermap.gridMinY === 'number'
+            && typeof this.wafermap.gridMaxX === 'number'
+            && typeof this.wafermap.gridMinX === 'number'
+        );
+    }
+
+    private calculateGridDimensionsFromBoundingBox(): GridDimensions {
+        const gridDimensions = { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
+        if (
+            typeof this.wafermap.gridMaxY === 'number'
+            && typeof this.wafermap.gridMinY === 'number'
+            && typeof this.wafermap.gridMaxX === 'number'
+            && typeof this.wafermap.gridMinX === 'number'
+        ) {
+            gridDimensions.origin.x = this.wafermap.gridMinX;
+            gridDimensions.origin.y = this.wafermap.gridMinY;
+            gridDimensions.rows = this.wafermap.gridMaxY - this.wafermap.gridMinY + 1;
+            gridDimensions.cols = this.wafermap.gridMaxX - this.wafermap.gridMinX + 1;
+        }
+        return gridDimensions;
+    }
+
+    private calculateGridDimensionsFromDies(
         dies: Readonly<Readonly<WaferMapDie>[]>
     ): GridDimensions {
         if (dies.length === 0 || dies[0] === undefined) {
@@ -221,13 +249,15 @@ export class Computations {
             .paddingOuter(0)
             .align(0)
             .round(false);
+        // html canvas has top-left origin https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#the_grid
+        // we need to flip the vertical scale
         if (
             originLocation === WaferMapOriginLocation.bottomLeft
             || originLocation === WaferMapOriginLocation.bottomRight
         ) {
-            return scale.range([0, containerHeight]);
+            return scale.range([containerHeight, 0]);
         }
-        return scale.range([containerHeight, 0]);
+        return scale.range([0, containerHeight]);
     }
 
     private createInvertedVerticalScale(
@@ -236,15 +266,17 @@ export class Computations {
         containerHeight: number
     ): ScaleQuantile<number, number> {
         const scale = scaleQuantile().domain([0, containerHeight]);
+        // html canvas has top-left origin https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#the_grid
+        // we need to flip the inverted vertical scale
         if (
             originLocation === WaferMapOriginLocation.bottomLeft
             || originLocation === WaferMapOriginLocation.bottomRight
         ) {
-            return scale.range(range(grid.origin.y, grid.origin.y + grid.rows));
+            return scale.range(
+                range(grid.origin.y, grid.origin.y + grid.rows).reverse()
+            );
         }
-        return scale.range(
-            range(grid.origin.y, grid.origin.y + grid.rows).reverse()
-        );
+        return scale.range(range(grid.origin.y, grid.origin.y + grid.rows));
     }
 
     private calculateMarginAddition(

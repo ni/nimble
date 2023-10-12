@@ -4,7 +4,7 @@ using Xunit;
 namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
-/// Tests for <see cref="NimbleButton"/>.
+/// Tests for <see cref="NimbleThemeProvider"/>.
 /// </summary>
 public class NimbleThemeProviderTests
 {
@@ -37,7 +37,8 @@ public class NimbleThemeProviderTests
     {
         var themeProvider = RenderNimbleThemeProvider(value);
 
-        Assert.Contains(expectedAttribute, themeProvider.Markup);
+        var expectedMarkup = $"theme=\"{expectedAttribute}\"";
+        Assert.Contains(expectedMarkup, themeProvider.Markup);
     }
 
     [Theory]
@@ -47,7 +48,25 @@ public class NimbleThemeProviderTests
     {
         var themeProvider = RenderNimbleThemeProvider(value);
 
-        Assert.Contains(expectedAttribute, themeProvider.Markup);
+        var expectedMarkup = $"direction=\"{expectedAttribute}\"";
+        Assert.Contains(expectedMarkup, themeProvider.Markup);
+    }
+
+    [Fact]
+    public async void NimbleThemeProvider_ValidLangIsSet()
+    {
+        var themeProvider = RenderNimbleThemeProvider("de-DE");
+
+        var expectedMarkup = $"lang=\"de-DE\"";
+        Assert.Contains(expectedMarkup, themeProvider.Markup);
+    }
+
+    [Fact]
+    public async void NimbleThemeProvider_NullLangIsSet()
+    {
+        var themeProvider = RenderNimbleThemeProvider(null);
+
+        Assert.DoesNotContain("lang", themeProvider.Markup);
     }
 
     private IRenderedComponent<NimbleThemeProvider> RenderNimbleThemeProvider(Theme theme)
@@ -62,5 +81,12 @@ public class NimbleThemeProviderTests
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         return context.RenderComponent<NimbleThemeProvider>(p => p.Add(x => x.Direction, direction));
+    }
+
+    private IRenderedComponent<NimbleThemeProvider> RenderNimbleThemeProvider(string lang)
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        return context.RenderComponent<NimbleThemeProvider>(p => p.Add(x => x.Lang, lang));
     }
 }

@@ -1,8 +1,201 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 12 Sep 2023 17:22:19 GMT and should not be manually modified.
+This log was last generated on Wed, 04 Oct 2023 07:38:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.6.2
+
+Wed, 04 Oct 2023 07:38:20 GMT
+
+### Patches
+
+- Flipped the vertical scale and created wafer map mocks for tests ([ni/nimble@7063d3d](https://github.com/ni/nimble/commit/7063d3d5ae3d1b5e9e4d3e5952d10436b29788f4))
+
+## 20.6.1
+
+Tue, 03 Oct 2023 14:34:50 GMT
+
+### Patches
+
+- Column resize bug fix. ([ni/nimble@2c1247b](https://github.com/ni/nimble/commit/2c1247b7a9c46d7e10b36b9a53f3cff346e8d0d5))
+
+## 20.6.0
+
+Thu, 28 Sep 2023 22:20:40 GMT
+
+### Minor changes
+
+- Hide icons from accessibility tree by default ([ni/nimble@2b87882](https://github.com/ni/nimble/commit/2b8788206af0718623968a736ab30cb8ec8766da))
+
+## 20.5.5
+
+Thu, 28 Sep 2023 03:38:31 GMT
+
+### Patches
+
+- Support for pasting a hyperlink as an absolute link in the rich text editor ([ni/nimble@3d5285d](https://github.com/ni/nimble/commit/3d5285dc230dc7d5c859d948993b67788e57365a))
+
+## 20.5.4
+
+Tue, 26 Sep 2023 21:18:40 GMT
+
+### Patches
+
+- Fix bug where `undefined` and `null` were not sorted correctly when using the `basic` sort operation ([ni/nimble@d952598](https://github.com/ni/nimble/commit/d952598e0f68a4c7255c5c3aab818035002f7600))
+
+## 20.5.3
+
+Fri, 22 Sep 2023 14:24:47 GMT
+
+### Patches
+
+- Add reusable css for styling an element as visually hidden while keeping it available to the accessibility tree ([ni/nimble@8486724](https://github.com/ni/nimble/commit/8486724cf68c66210de0a180496e75b347391352))
+
+## 20.5.2
+
+Fri, 22 Sep 2023 00:01:31 GMT
+
+### Patches
+
+- Clean-up dist folder of nimble-components to remove duplicated type hierarchy ([ni/nimble@908204e](https://github.com/ni/nimble/commit/908204e252ee75affeedc355a46d13a3005d6770))
+
+## 20.5.1
+
+Thu, 21 Sep 2023 13:07:38 GMT
+
+### Patches
+
+- Avoid converting markdown syntax characters like star (*) and underscore(_) to format the editor content automatically while typing ([ni/nimble@94188a3](https://github.com/ni/nimble/commit/94188a36031bfd9a88374d9e201c695eab8727ae))
+
+## 20.5.0
+
+Wed, 20 Sep 2023 18:55:59 GMT
+
+### Minor changes
+
+- New icons for indent and outdent list level ([ni/nimble@f12cbc5](https://github.com/ni/nimble/commit/f12cbc59d683ae048a85750990cc4ae174464590))
+- Bump @ni/nimble-tokens to v6.4.0
+
+## 20.4.3
+
+Wed, 20 Sep 2023 16:38:20 GMT
+
+### Patches
+
+- Add additional localized labels to sub-elements in the table to improve accessibility ([ni/nimble@60947ef](https://github.com/ni/nimble/commit/60947ef38e170552c614f1affcd8e1e385ba9177))
+
+## 20.4.2
+
+Wed, 20 Sep 2023 15:22:26 GMT
+
+### Patches
+
+- Fix bug in table when reordering columns ([ni/nimble@f4dc2ea](https://github.com/ni/nimble/commit/f4dc2eaa9724bee9cf82c28d17ac57422679a1f8))
+
+## 20.4.1
+
+Wed, 20 Sep 2023 02:57:31 GMT
+
+### Patches
+
+- Fixes keyboard closing when rich-text editor toolbar buttons are clicked in mobile iOS browsers ([ni/nimble@36b9611](https://github.com/ni/nimble/commit/36b9611c258f1b5e6aa5d24dc5ca288327382348))
+
+## 20.4.0
+
+Tue, 19 Sep 2023 23:12:45 GMT
+
+### Minor changes
+
+- Add medium padding token and document size ramp ([ni/nimble@b6baa04](https://github.com/ni/nimble/commit/b6baa04c34007f4fad4e546c78505fa820fff6d1))
+
+## 20.3.2
+
+Fri, 15 Sep 2023 21:18:04 GMT
+
+### Patches
+
+- Shift/Ctrl/Cmd + Enter will add line break in editor ([ni/nimble@129af80](https://github.com/ni/nimble/commit/129af8084eab1d47df84d6ee7281fd28bbaef8ec))
+
+## 20.3.1
+
+Fri, 15 Sep 2023 20:36:47 GMT
+
+### Patches
+
+- Import number-text column in all-components.ts ([ni/nimble@2a98738](https://github.com/ni/nimble/commit/2a987381442f5076ea40ea8e60010e2a839bca5a))
+
+## 20.3.0
+
+Fri, 15 Sep 2023 14:38:16 GMT
+
+### Minor changes
+
+- Add partial token for fill hover color ([ni/nimble@b03b880](https://github.com/ni/nimble/commit/b03b880ff881d7046209e59cf4a9cbf74e2fcceb))
+
+## 20.2.16
+
+Thu, 14 Sep 2023 19:53:56 GMT
+
+### Patches
+
+- Remove unexpected whitespace at start/end of anchor ([ni/nimble@b73a610](https://github.com/ni/nimble/commit/b73a610e56ae33783ad662354ef28ef80ab38f70))
+
+## 20.2.15
+
+Thu, 14 Sep 2023 17:13:47 GMT
+
+### Patches
+
+- Support for absolute links in rich text components ([ni/nimble@f5dfad6](https://github.com/ni/nimble/commit/f5dfad6fbce2701e9fabab100c7e4ebf17e61f50))
+
+## 20.2.14
+
+Thu, 14 Sep 2023 13:22:30 GMT
+
+### Patches
+
+- Mixed bold and italics formatting corner cases fixed. Update dependency on prosemirror-markdown ([ni/nimble@e505291](https://github.com/ni/nimble/commit/e50529159ae06c89b97e270f459b7f6095721bb1))
+
+## 20.2.13
+
+Wed, 13 Sep 2023 20:54:15 GMT
+
+### Patches
+
+- Created new grid dimensions api for the wafer map component ([ni/nimble@6bb30f5](https://github.com/ni/nimble/commit/6bb30f55e68c85eac7225ee430920b0729c3feeb))
+
+## 20.2.12
+
+Wed, 13 Sep 2023 15:39:27 GMT
+
+### Patches
+
+- Remove roundToInteger format from number-text column ([ni/nimble@f442767](https://github.com/ni/nimble/commit/f4427670abfdc441c69cf9c753877231c641b268))
+
+## 20.2.11
+
+Wed, 13 Sep 2023 13:01:33 GMT
+
+### Patches
+
+- Rich-text viewer should recognize escape characters in markdown ([ni/nimble@3dc792f](https://github.com/ni/nimble/commit/3dc792f7f70d1732f645c309df0e2b3670b5eeda))
+
+## 20.2.10
+
+Wed, 13 Sep 2023 05:02:34 GMT
+
+### Patches
+
+- Wrap long words to the next line in rich-text viewer ([ni/nimble@407e6e8](https://github.com/ni/nimble/commit/407e6e880ab4dd2122d5e9e203025492529d0b1a))
+
+## 20.2.9
+
+Wed, 13 Sep 2023 04:11:27 GMT
+
+### Patches
+
+- Update tabindex when clicking icon of a button in rich text editor toolbar. ([ni/nimble@0940f82](https://github.com/ni/nimble/commit/0940f820436cf07df5a239dec50a1022c9c054ca))
 
 ## 20.2.8
 

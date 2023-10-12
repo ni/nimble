@@ -12,7 +12,9 @@ import {
     failColor,
     iconSize,
     smallDelay,
-    standardPadding
+    mediumPadding,
+    standardPadding,
+    linkFontColor
 } from '../../theme-provider/design-tokens';
 import { styles as errorStyles } from '../../patterns/error/styles';
 
@@ -188,6 +190,37 @@ export const styles = css`
         color: ${controlLabelDisabledFontColor};
     }
 
+    ${
+        /**
+         * Custom anchor stylings can be removed once leveraging 'nimble-anchor' is supported.
+         * See: https://github.com/ni/nimble/issues/1516
+         */ ''
+    }
+    .ProseMirror a {
+        color: ${linkFontColor};
+        white-space: normal;
+        ${
+            /**
+             * Setting 'pointer-events: none;' to restrict the user from opening a link using the right-click context menu: If the user manually edits
+             * the link's text content, the 'href' attribute of the anchor tag will not be updated. If they attempt to open it using
+             * the right-click context menu with 'Open in new tab/window,' it will still navigate to the link specified
+             * in the 'href' attribute, which may create unnecessary confusion while trying to open the link.
+             *
+             * Using pointer-events: none to disable link interactions can be removed when hyperlink support is added.
+             * see: https://github.com/ni/nimble/issues/1527
+             */ ''
+        }
+        pointer-events: none;
+    }
+
+    :host([disabled]) .ProseMirror a {
+        color: ${bodyDisabledFontColor};
+        fill: currentcolor;
+        cursor: default;
+    }
+
+    ${/** End of anchor styles */ ''}
+
     .footer-section {
         display: flex;
         justify-content: space-between;
@@ -226,7 +259,7 @@ export const styles = css`
     :host([error-visible]) .error-icon.scrollbar-width-calculated {
         display: inline-flex;
         position: absolute;
-        top: calc(${standardPadding} / 2);
+        top: ${mediumPadding};
         right: var(--ni-private-rich-text-editor-scrollbar-width);
     }
 `;

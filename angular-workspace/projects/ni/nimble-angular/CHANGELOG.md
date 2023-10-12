@@ -1,8 +1,257 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 12 Sep 2023 17:22:19 GMT and should not be manually modified.
+This log was last generated on Fri, 06 Oct 2023 16:58:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.6.1
+
+Fri, 06 Oct 2023 16:58:56 GMT
+
+### Patches
+
+- Revert "Create Angular mixins for fractional-width columns and groupable columns (#1587)" ([ni/nimble@9ebd4e1](https://github.com/ni/nimble/commit/9ebd4e1db9fdcb67fcff8237e75c77537c862360))
+
+## 17.6.0
+
+Thu, 05 Oct 2023 23:54:35 GMT
+
+### Minor changes
+
+- Refactor Angular table columns to use mixins for fractional-width and groupable columns ([ni/nimble@c074575](https://github.com/ni/nimble/commit/c074575be1bd09e3d04b1747bfc3a782eefbbd09))
+
+## 17.5.15
+
+Wed, 04 Oct 2023 07:38:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.6.2
+
+## 17.5.14
+
+Tue, 03 Oct 2023 14:34:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.6.1
+
+## 17.5.13
+
+Thu, 28 Sep 2023 22:20:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.6.0
+
+## 17.5.12
+
+Thu, 28 Sep 2023 03:38:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.5
+
+## 17.5.11
+
+Tue, 26 Sep 2023 21:18:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.4
+
+## 17.5.10
+
+Fri, 22 Sep 2023 17:41:22 GMT
+
+### Patches
+
+- Expose new table labels in Angular ([ni/nimble@091d06f](https://github.com/ni/nimble/commit/091d06f6b60ef214b9fcba021ff016fda72b009b))
+
+## 17.5.9
+
+Fri, 22 Sep 2023 14:24:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.3
+
+## 17.5.8
+
+Thu, 21 Sep 2023 13:07:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.1
+
+## 17.5.7
+
+Wed, 20 Sep 2023 18:55:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.0
+
+## 17.5.6
+
+Wed, 20 Sep 2023 16:38:20 GMT
+
+### Patches
+
+- Rename `columnHeaderGroupedIndicator` table label to `columnHeaderGrouped` ([ni/nimble@60947ef](https://github.com/ni/nimble/commit/60947ef38e170552c614f1affcd8e1e385ba9177))
+- Bump @ni/nimble-components to v20.4.3
+
+## 17.5.5
+
+Wed, 20 Sep 2023 15:22:26 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.4.2
+
+## 17.5.4
+
+Wed, 20 Sep 2023 02:57:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.4.1
+
+## 17.5.3
+
+Tue, 19 Sep 2023 23:12:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.4.0
+
+## 17.5.2
+
+Fri, 15 Sep 2023 21:18:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.3.2
+
+## 17.5.1
+
+Fri, 15 Sep 2023 20:36:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.3.1
+
+## 17.5.0
+
+Fri, 15 Sep 2023 19:43:51 GMT
+
+### Minor changes
+
+- Add API to hide step buttons on number-field ([ni/nimble@2314df2](https://github.com/ni/nimble/commit/2314df2fff61db8fb20ca1fbddad9f4961957afa))
+
+## 17.4.6
+
+Fri, 15 Sep 2023 14:38:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.3.0
+
+## 17.4.5
+
+Thu, 14 Sep 2023 21:02:07 GMT
+
+### Patches
+
+- Add `alignment` to Angular directive for number-text table column ([ni/nimble@a288335](https://github.com/ni/nimble/commit/a28833512f2e7bf19338c4ffadc130a8fa02f5fd))
+
+## 17.4.4
+
+Thu, 14 Sep 2023 19:53:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.16
+
+## 17.4.3
+
+Thu, 14 Sep 2023 17:13:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.15
+
+## 17.4.2
+
+Thu, 14 Sep 2023 15:46:47 GMT
+
+### Patches
+
+- Support duplicate values in combobox. ([ni/nimble@8dd2768](https://github.com/ni/nimble/commit/8dd27681c0246ff98185e99529894d0899d8de5b))
+
+## 17.4.1
+
+Thu, 14 Sep 2023 13:22:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.14
+
+## 17.4.0
+
+Thu, 14 Sep 2023 01:19:15 GMT
+
+### Minor changes
+
+- Add open attribute to Combobox Angular directive. ([ni/nimble@df0bf79](https://github.com/ni/nimble/commit/df0bf79263e39f99d272a4b00692dbb25fe4f61a))
+
+## 17.3.1
+
+Wed, 13 Sep 2023 20:54:15 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.13
+
+## 17.3.0
+
+Wed, 13 Sep 2023 18:16:44 GMT
+
+### Minor changes
+
+- Expose lang and validity from NimbleThemeProviderDirective ([ni/nimble@03def10](https://github.com/ni/nimble/commit/03def10a994ead19e51aabd918476c0ef580c6ce))
+
+## 17.2.12
+
+Wed, 13 Sep 2023 15:39:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.12
+
+## 17.2.11
+
+Wed, 13 Sep 2023 13:01:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.11
+
+## 17.2.10
+
+Wed, 13 Sep 2023 05:02:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.10
+
+## 17.2.9
+
+Wed, 13 Sep 2023 04:11:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.9
 
 ## 17.2.8
 
