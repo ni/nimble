@@ -39,7 +39,7 @@ const simpleData = [
 ];
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Incubating/Table Column - Elapsed Time Text',
+    title: 'Incubating/Table Column - Duration Text',
     decorators: [withActions],
     parameters: {
         actions: {
@@ -68,13 +68,13 @@ interface TextColumnTableArgs extends SharedTableArgs {
     validity: () => void;
 }
 
-const dateTextColumnDescription = 'The `nimble-table-column-date-text` column is used to display date-time fields as text in the `nimble-table`. The date-time values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the [JavaScript `Date` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date). Dates are formatted in a locale-specific way based on the value of the `lang` token, which can be set via the [`nimble-theme-provider`](?path=/docs/tokens-theme-provider--docs).';
+const durationTextColumnDescription = 'The `nimble-table-column-duration-text` column is used to display duration-time fields as text in the `nimble-table`. The duration-time values must be of type `number` and represent the total number of milliseconds.';
 
 export const elapsedTimeTextColumn: StoryObj<TextColumnTableArgs> = {
     parameters: {
         docs: {
             description: {
-                story: dateTextColumnDescription
+                story: durationTextColumnDescription
             }
         }
     },

@@ -24,10 +24,12 @@ export class DurationFormatter {
 
         const result = [];
         const fractionalDays = value / 86400000;
+        let remainingTime = value;
         const days = Math.floor(fractionalDays);
         if (days < 100 && days > 0) {
             const formattedDays = this.daysFormatter.format(days);
             result.push(formattedDays);
+            remainingTime -= 86400000;
         } else if (days >= 100) {
             return this.scientificSecondsFormatter.format(value / 1000);
         }
@@ -36,20 +38,25 @@ export class DurationFormatter {
         if (hours) {
             const formattedHours = this.hoursFormatter.format(hours);
             result.push(formattedHours);
+            remainingTime -= 3600000;
         }
 
         const minutes = Math.floor((value / 60000) % 60);
         if (minutes) {
             const formattedMinutes = this.minutesFormatter.format(minutes);
             result.push(formattedMinutes);
+            remainingTime -= 60000;
         }
 
-        const seconds = ((value / 1000) % 60);
-        if (seconds || value === 0 || Object.is(value, -0)) {
+        const valueInSeconds = remainingTime / 1000;
+        const seconds = valueInSeconds === 0 ? 0 : valueInSeconds % 60;
+        if (value < 1 && valueInSeconds !== 0 && result.length === 0) {
+            return this.scientificSecondsFormatter.format(valueInSeconds);
+        }
+
+        if ((seconds >= 0.0005) || (seconds === 0 && result.length === 0)) {
             const formattedSeconds = this.secondsFormatter.format(seconds);
             result.push(formattedSeconds);
-        } else if (value > 0 && result.length === 0) {
-            return this.scientificSecondsFormatter.format(value / 1000);
         }
 
         return result.join(', ');

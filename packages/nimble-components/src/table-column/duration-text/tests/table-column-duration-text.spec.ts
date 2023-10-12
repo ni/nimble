@@ -110,19 +110,27 @@ describe('TableColumnDurationText', () => {
         });
     });
 
-    fdescribe('displays expected duration', () => {
+    describe('displays expected duration', () => {
         const goodValueData = [
             { name: '0d 1h 1m 1s', data: [{ field: 3661000 }], expected: '1 hr, 1 min, 1 sec' },
             { name: '1d 0h 1m 1s', data: [{ field: 86461000 }], expected: '1 day, 1 min, 1 sec' },
             { name: '1d 1h 0m 1s', data: [{ field: 90001000 }], expected: '1 day, 1 hr, 1 sec' },
             { name: '1d 1h 1m 0s', data: [{ field: 90060000 }], expected: '1 day, 1 hr, 1 min' },
+            { name: '1d 1h 1m 0.0005s', data: [{ field: 90060000.5 }], expected: '1 day, 1 hr, 1 min, 0.001 sec' },
+            { name: '1d 1h 1m 0.00049s', data: [{ field: 90060000.49 }], expected: '1 day, 1 hr, 1 min' },
             { name: '0s', data: [{ field: 0 }], expected: '0 sec' },
             { name: '-0s', data: [{ field: -0 }], expected: '0 sec' },
             { name: '1.5s', data: [{ field: 1500 }], expected: '1.5 sec' },
-            { name: '1.555s', data: [{ field: 1500 }], expected: '1.555 sec' },
-            { name: '1.5556s', data: [{ field: 1500 }], expected: '1.556 sec' },
-            { name: '1.5554s', data: [{ field: 1500 }], expected: '1.555 sec' },
-            { name: '101 days', data: [{ field: 8726400000 }], expected: '8.73E5 sec' }
+            { name: '1.555s', data: [{ field: 1555 }], expected: '1.555 sec' },
+            { name: '1.5556s', data: [{ field: 1555.6 }], expected: '1.556 sec' },
+            { name: '1.5554s', data: [{ field: 1555.4 }], expected: '1.555 sec' },
+            { name: '59999.9999999999997s', data: [{ field: 59999.9999999999997 }], expected: '1 min' },
+            { name: '101 days', data: [{ field: 8726500000 }], expected: '8.727E6 sec' },
+            { name: '1ms', data: [{ field: 1 }], expected: '0.001 sec' },
+            { name: '0.99ms', data: [{ field: 0.99 }], expected: '9.9E-4 sec' },
+            { name: 'MIN_VALUE', data: [{ field: Number.MIN_VALUE }], expected: '0 sec' },
+            { name: 'MIN_VALUE * 1000', data: [{ field: Number.MIN_VALUE * 1000 }], expected: '5E-324 sec' },
+            { name: 'MAX_VALUE', data: [{ field: Number.MAX_VALUE }], expected: '1.798E305 sec' }
         ];
 
         parameterizeNamedList(goodValueData, (spec, name, value) => {
