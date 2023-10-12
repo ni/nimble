@@ -161,7 +161,7 @@ Follows the [Column Type Philosophy](/packages/nimble-components/src/table/specs
 
 #### Number column
 
-Nimble will introduce `nimble-table-column-number-text` which formats a numeric field value and displays it as text. It will offer sufficient configuration to support use cases 1-4 above.
+Nimble will introduce `nimble-table-column-number-text` which formats a numeric field value and displays it as text. It will offer sufficient configuration to support use cases 1-4 above, as well partial support for 5.
 
 ##### API
 
@@ -169,13 +169,22 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
 -   `format` - a string which controls how the number is formatted for display. It can take one of the following values:
     -   `undefined` - use a default formatter that will display integers with no trailing zeros, limits to 6 digits, and exponential notation is used for numbers that are large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude. Will be displayed left-aligned by default (since numbers will display an inconsistent number of fractional digits).
     -   `'decimal'` - format all values as decimal values (e.g. 123.45), always displaying `decimal-digits` digits after the separator and never displaying exponential notation. If required, values will be rounded to reach the specified number of decimial digits. Configuring `decimal-digits` to `0` will round the value to the nearest integer and display it with no decimal places. Will be displayed right-aligned by default.
+    -   `'human-readable'` - convert values from a source unit (e.g. bytes) to the smallest related unit that can represent that value with a magnitude of >= 1 (e.g. KB, MB, etc). The "familiy" of related units must be specified in `human-readable-unit`. The converted value is formatted as a decimal with at most one digit after the decimal point, followed by the unit label. Exponential notation is used for converted numbers that are large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude. Because of variations in label length and number of decimals, values within the column will not always line up. Because of this, values will be displayed left-aligned.
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would be prefixed with the name of the format mode.
     -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887). The exception is that we will set `useGrouping: true` to achieve `1,000` rather than `1000` because this styles the values in a way that is more human readable.
 -   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2 if unspecified. Formats other than `decimal` ignore `decimal-digits`.
+-   `human-readable-unit` - tag name of an element representing a family of related units, e.g. `'nimble-unit-byte'`. These unit elements are not rendered but serve to allow selective loading of data for only the needed units. The source data for the column is expected to be given in the unit specified in the tag name, e.g. for `'nimble-unit-byte'`, a source value should be a number of bytes. Initially, we will only support:
+    -   `'nimble-unit-byte'` - Unit labels in this family are `byte`/`bytes`, `KB`, `MB`, `GB`, `TB`, `PB`
 
 This column will display a blank cell when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"∞"` and `"NaN"`.
 
 This column will trigger `invalidColumnConfiguration` on the table's validity state and will include flags in the column's validity state if its configuration can't be translated to a valid `Intl.NumberFormat` object. To provide better developer feedback about what's wrong with the configuration, the column could expose a public method like `createNumberFormat()` which would use the column's configuration to construct the formatter but allow any exceptions to be thrown.
+
+The `'human-readable'` format will rely on `Intl.NumberFormat` to translate unit strings (for the [units that it supports](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers)) and localize the number (for comma/decimal). We will include our own logic for converting between unit values. In the future, if we wish to add support for a family of units not supported by `Intl.NumberFormat`, we will come up with our own translations (for some subset of languages) and build them into Nimble. The translations for a given family of units will be defined in a `nimble-unit-<name>` element. If the client requests a translation for one of these units in a language we don't support, we will fall back to English.
+
+Other libraries considered for number conversion and/or unit label localization include [globalizejs](https://github.com/globalizejs/globalize), [convert](https://convert.js.org/), [convert-units](https://github.com/convert-units/convert-units), and [iLib](https://github.com/iLib-js/iLib). None of these provided sufficient functionality to justify including them as a dependency.
+
+We will use the `'human-readable'` formatting mode to display file sizes in SLE tables. Currently, SLE displays these values with the common `KB`/`MB`/`GB` unit labels, but uses a factor of 1024 to convert between units (which is not uncommon, but technically incorrect). Our formatting will use the same unit labels, but use a conversion factor of 1000. This will result in slightly different values being displayed. For SLE's internal consistency, we will also change their file size pipe to use a conversion factor of 1000 instead of 1024.
 
 ##### Examples
 
@@ -199,6 +208,14 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
         decimal-digits="1"
     >
         Temperature (°C)
+    </nimble-table-column-number-text>
+
+    <nimble-table-column-number-text
+        field-name="fileSize"
+        format="human-readable"
+        human-readable-unit="byte"
+    >
+        File Size
     </nimble-table-column-number-text>
 </nimble-table>
 ```
@@ -331,7 +348,7 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 
 ### Additional unit APIs
 
-We considered a few different options for displaying units within a cell, but it was unclear if any of them would satisfy the requirements of our clients. Because there are a number of open questions regarding the client requirements, we decided to defer any work involving units.
+We considered a few different options for displaying units within a cell, but it was unclear if any of them would satisfy the requirements of our clients. Because there are a number of open questions regarding the client requirements, we initially decided to defer any work involving units. Later, we revisited unit support as an alternative to implementing a separate file size column type.
 
 Some of the options considered are described below:
 
