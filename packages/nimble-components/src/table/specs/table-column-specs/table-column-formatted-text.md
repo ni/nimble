@@ -213,7 +213,7 @@ We will use the `'human-readable'` formatting mode to display file sizes in SLE 
     <nimble-table-column-number-text
         field-name="fileSize"
         format="human-readable"
-        human-readable-unit="byte"
+        human-readable-unit="nimble-unit-byte"
     >
         File Size
     </nimble-table-column-number-text>
