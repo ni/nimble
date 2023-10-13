@@ -207,8 +207,8 @@ describe('TableColumnDurationText', () => {
     it('changing fieldName updates display', async () => {
         await table.setData([
             {
-                field: 2,
-                anotherField: 1
+                field: 2000,
+                anotherField: 1000
             }
         ]);
         await waitForUpdatesAsync();
@@ -222,7 +222,7 @@ describe('TableColumnDurationText', () => {
     });
 
     it('changing data from value to null displays blank', async () => {
-        await table.setData([{ field: 2 }]);
+        await table.setData([{ field: 2000 }]);
         await waitForUpdatesAsync();
         expect(tablePageObject.getRenderedCellTextContent(0, 0)).toEqual(
             '2 sec'
@@ -241,7 +241,7 @@ describe('TableColumnDurationText', () => {
         await waitForUpdatesAsync();
         expect(tablePageObject.getRenderedCellTextContent(0, 0)).toEqual('');
 
-        await table.setData([{ field: 2 }]);
+        await table.setData([{ field: 2000 }]);
         await waitForUpdatesAsync();
 
         expect(tablePageObject.getRenderedCellTextContent(0, 0)).toEqual(
@@ -251,7 +251,7 @@ describe('TableColumnDurationText', () => {
 
     it('when no fieldName provided, nothing is displayed', async () => {
         column.fieldName = undefined;
-        await table.setData([{ field: 2 }]);
+        await table.setData([{ field: 2000 }]);
         await waitForUpdatesAsync();
 
         expect(tablePageObject.getRenderedCellTextContent(0, 0)).toEqual('');
@@ -259,7 +259,7 @@ describe('TableColumnDurationText', () => {
 
     it('sets title when cell text is ellipsized', async () => {
         table.style.width = '100px';
-        await table.setData([{ field: 8607022 }]);
+        await table.setData([{ field: 8607022000 }]);
         await waitForUpdatesAsync();
         tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
@@ -269,7 +269,7 @@ describe('TableColumnDurationText', () => {
     });
 
     it('does not set title when cell text is fully visible', async () => {
-        await table.setData([{ field: 8607022 }]);
+        await table.setData([{ field: 8607022000 }]);
         await waitForUpdatesAsync();
         tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
@@ -278,7 +278,7 @@ describe('TableColumnDurationText', () => {
 
     it('removes title on mouseout of cell', async () => {
         table.style.width = '200px';
-        await table.setData([{ field: 8607022 }]);
+        await table.setData([{ field: 8607022000 }]);
         await waitForUpdatesAsync();
         tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
@@ -288,7 +288,7 @@ describe('TableColumnDurationText', () => {
     });
 
     it('sets group header text to rendered date value', async () => {
-        await table.setData([{ field: 8607022 }]);
+        await table.setData([{ field: 8607022000 }]);
         await waitForUpdatesAsync();
         expect(tablePageObject.getRenderedGroupHeaderTextContent(0)).toBe(
             '99 days, 14 hr, 50 min, 22 sec'
@@ -296,7 +296,7 @@ describe('TableColumnDurationText', () => {
     });
 
     it('updates displayed date when lang token changes', async () => {
-        await table.setData([{ field: 8607022 }]);
+        await table.setData([{ field: 8607022000 }]);
         await waitForUpdatesAsync();
         expect(tablePageObject.getRenderedCellTextContent(0, 0)).toBe(
             '99 days, 14 hr, 50 min, 22 sec'
