@@ -164,6 +164,11 @@ describe('TableColumnDurationText', () => {
                 expected: '1 min'
             },
             {
+                name: '100 days',
+                data: [{ field: 8.64e9 }],
+                expected: '100 days'
+            },
+            {
                 name: '101 days',
                 data: [{ field: 8726500000 }],
                 expected: '8.727E6 sec'

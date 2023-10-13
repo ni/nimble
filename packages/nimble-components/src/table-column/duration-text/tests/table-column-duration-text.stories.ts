@@ -19,22 +19,27 @@ const simpleData = [
     {
         firstName: 'Homer',
         lastName: 'Simpson',
-        birthday: new Date(1984, 4, 12, 14, 34, 19, 377).valueOf() / 1000
+        swearWordCadence: 5400000
     },
     {
         firstName: 'Marge',
         lastName: 'Simpson',
-        birthday: new Date(1984, 2, 19, 7, 6, 48, 584).valueOf() / 1000
+        swearWordCadence: 2.59e9
     },
     {
         firstName: 'Bart',
         lastName: 'Simpson',
-        birthday: new Date(2013, 3, 1, 20, 4, 37, 975).valueOf() / 1000
+        swearWordCadence: 1800500
     },
     {
         firstName: 'Maggie',
         lastName: 'Simpson',
-        birthday: 870000.5
+        swearWordCadence: Number.NaN
+    },
+    {
+        firstName: 'Montgomery',
+        lastName: 'Burns',
+        swearWordCadence: 3.78e12
     }
 ];
 
@@ -68,7 +73,7 @@ interface TextColumnTableArgs extends SharedTableArgs {
     validity: () => void;
 }
 
-const durationTextColumnDescription = 'The `nimble-table-column-duration-text` column is used to display duration fields as text in the `nimble-table`. The duration values must be of type `number` and each represent a total number of milliseconds.';
+const durationTextColumnDescription = 'The `nimble-table-column-duration-text` column is used to display duration fields as text in the `nimble-table`. The duration values must be of type `number` and each represent a total number of milliseconds. Values that represent more than 100 days or less than a millisecond will be formatted in scientific notation as seconds only. All sub-second values will be represented with up to 3 digits of precision.';
 
 export const elapsedTimeTextColumn: StoryObj<TextColumnTableArgs> = {
     parameters: {
@@ -94,9 +99,9 @@ export const elapsedTimeTextColumn: StoryObj<TextColumnTableArgs> = {
             Name
             </${tableColumnTextTag}>
             <${tableColumnDurationTextTag}
-                field-name="birthday"
+                field-name="swearWordCadence"
             >
-            Birthday
+            Last swear word
             </${tableColumnDurationTextTag}>
         </${tableTag}>
     `),

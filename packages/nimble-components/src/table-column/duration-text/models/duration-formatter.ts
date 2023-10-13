@@ -48,7 +48,7 @@ export class DurationFormatter {
         const fractionalDays = value / 86400000;
         let remainingTime = value;
         const days = Math.floor(fractionalDays);
-        if (days < 100 && days > 0) {
+        if (days <= 100 && days > 0) {
             const formattedDays = this.daysFormatter.format(days);
             result.push(formattedDays);
             remainingTime -= 86400000;
