@@ -17,7 +17,7 @@ The duration text table column will provide a way to visualize numeric data that
 
 ### Risks and Challenges
 
-Formatting the duration units in the exact way that SLE presents them would require custom logic that differs from what the browser provides natively using APIs like `Intl.Numberformat.format()`. The preference here is to align with current browser behaviors for unit formatting, which includes localization.
+Formatting the duration units in the exact way that SLE presents them would require custom logic that differs from what the browser provides natively using APIs like `Intl.NumberFormat.format()`. The preference here is to align with current browser behaviors for unit formatting, which includes localization.
 
 ### Prior Art/Examples
 
@@ -68,7 +68,7 @@ We will export the class that is responsible for formatting the duration values 
 export class DurationFormatter {
     public constructor(private readonly lang: string) {}
 
-    // formats a value in the seconds domain into a localized display value that can
+    // formats a value in the milliseconds domain into a localized display value that can
     // consist of days, hours, minutes, and seconds.
     public format(value: number): string {}
 }
@@ -76,9 +76,9 @@ export class DurationFormatter {
 
 ### Angular integration
 
-An Angular directive will be created for the component. The component will not have form association, so a `ControlValueAccessor` will not be created. The `DurationFormatter` will be re-exported from Angular from a new `formatters` entrypoint.
+An Angular directive will be created for the component. The component will not have form association, so a `ControlValueAccessor` will not be created.
 
-We will also export a `DurationPipe` that will use the `DurationFormatter` under the hood.
+We will also create a `DurationPipe` that will use the `DurationFormatter` under the hood, which will be exported from a new `pipes` entrypoint.
 
 ### Blazor integration
 
