@@ -38,7 +38,7 @@ const exampleDataType = {
     markdownString: 'MarkdownString'
 } as const;
 
-const plainString = 'Plain text @<1> ***@<6>***' as const;
+const plainString = 'Plain text mention - <user:1>\n\n Bold & Italics mention - ***<user:3>***' as const;
 
 const dataSets = {
     [exampleDataType.plainString]: plainString,

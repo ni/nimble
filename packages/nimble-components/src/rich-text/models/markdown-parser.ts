@@ -66,21 +66,18 @@ export class RichTextMarkdownParser {
         supportedTokenizerRules.use(
             md => {
                 md.inline.ruler.before(
-                    'emphasis',
+                    'autolink',
                     'mention',
                     (state, _silent) => {
                         const max = state.posMax;
-
-                        if (state.src.charCodeAt(state.pos) !== 0x40 /* @ */) {
-                            return false;
-                        }
                         if (
-                            state.src.charCodeAt(state.pos + 1) !== 0x3c /* < */
+                            state.src.charCodeAt(state.pos) !== 0x3c /* < */
                         ) {
                             return false;
                         }
+
                         let position = state.pos;
-                        const userIdStart = position + 2;
+                        const mentionNode = position + 1;
 
                         for (; position < max; position++) {
                             if (
@@ -98,7 +95,14 @@ export class RichTextMarkdownParser {
                         }
 
                         const userIdEnd = position;
+                        const mentionText = state.src.slice(mentionNode, userIdEnd);
+
+                        if (!mentionText.startsWith('user:')) {
+                            return false;
+                        }
+                        const userIdStart = state.pos + 6;
                         const userId = state.src.slice(userIdStart, userIdEnd);
+
                         const userName = getUserName(userId);
                         if (usersList.length) {
                             if (userName === '') {

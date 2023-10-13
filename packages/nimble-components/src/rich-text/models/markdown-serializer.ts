@@ -39,7 +39,7 @@ export class RichTextMarkdownSerializer {
             state: MarkdownSerializerState,
             node: Node
         ): void {
-            state.write(`@<${node.attrs.id as string}>`);
+            state.write(`<user:${node.attrs.id as string}>`);
         };
 
         /**
