@@ -4,10 +4,14 @@ import type { TableRecord } from '../../table/types';
 /**
  * Page object for table columns that format their text for display.
  */
-export abstract class TableColumnFormattedTextPageObject<T extends TableRecord> {
+export abstract class TableColumnFormattedTextPageObject<
+    T extends TableRecord
+> {
     private readonly spaceUnicodeCharsRegEx = /\u202f|\u00a0/g;
 
-    public constructor(protected readonly tablePageObject: TablePageObject<T>) {}
+    public constructor(
+        protected readonly tablePageObject: TablePageObject<T>
+    ) {}
 
     public getRenderedCellContent(
         rowIndex: number,
@@ -31,5 +35,8 @@ export abstract class TableColumnFormattedTextPageObject<T extends TableRecord> 
             .replace(this.spaceUnicodeCharsRegEx, ' ');
     }
 
-    protected abstract verifyCellType(rowIndex: number, columnIndex: number): void;
+    protected abstract verifyCellType(
+        rowIndex: number,
+        columnIndex: number
+    ): void;
 }

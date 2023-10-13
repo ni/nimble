@@ -30,7 +30,8 @@ TableColumnDurationTextColumnConfig
 
     private updateText(): void {
         if (this.columnConfig) {
-            this.text = this.columnConfig.formatter.format(this.cellRecord?.value) ?? '';
+            this.text = this.columnConfig.formatter.format(this.cellRecord?.value)
+                ?? '';
         } else {
             this.text = '';
         }
@@ -42,7 +43,9 @@ const durationTextCellView = TableColumnDurationTextCellView.compose({
     template,
     styles
 });
-DesignSystem.getOrCreate().withPrefix('nimble').register(durationTextCellView());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(durationTextCellView());
 export const tableColumnDurationTextCellViewTag = DesignSystem.tagFor(
     TableColumnDurationTextCellView
 );

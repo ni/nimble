@@ -105,32 +105,86 @@ describe('TableColumnDurationText', () => {
                 await table.setData(value.data);
                 await waitForUpdatesAsync();
 
-                expect(tablePageObject.getRenderedCellTextContent(0, 0)).toEqual('');
+                expect(
+                    tablePageObject.getRenderedCellTextContent(0, 0)
+                ).toEqual('');
             });
         });
     });
 
     describe('displays expected duration', () => {
         const goodValueData = [
-            { name: '0d 1h 1m 1s', data: [{ field: 3661000 }], expected: '1 hr, 1 min, 1 sec' },
-            { name: '1d 0h 1m 1s', data: [{ field: 86461000 }], expected: '1 day, 1 min, 1 sec' },
-            { name: '1d 1h 0m 1s', data: [{ field: 90001000 }], expected: '1 day, 1 hr, 1 sec' },
-            { name: '1d 1h 1m 0s', data: [{ field: 90060000 }], expected: '1 day, 1 hr, 1 min' },
-            { name: '1d 1h 1m 0.0005s', data: [{ field: 90060000.5 }], expected: '1 day, 1 hr, 1 min, 0.001 sec' },
-            { name: '1d 1h 1m 0.00049s', data: [{ field: 90060000.49 }], expected: '1 day, 1 hr, 1 min' },
+            {
+                name: '0d 1h 1m 1s',
+                data: [{ field: 3661000 }],
+                expected: '1 hr, 1 min, 1 sec'
+            },
+            {
+                name: '1d 0h 1m 1s',
+                data: [{ field: 86461000 }],
+                expected: '1 day, 1 min, 1 sec'
+            },
+            {
+                name: '1d 1h 0m 1s',
+                data: [{ field: 90001000 }],
+                expected: '1 day, 1 hr, 1 sec'
+            },
+            {
+                name: '1d 1h 1m 0s',
+                data: [{ field: 90060000 }],
+                expected: '1 day, 1 hr, 1 min'
+            },
+            {
+                name: '1d 1h 1m 0.0005s',
+                data: [{ field: 90060000.5 }],
+                expected: '1 day, 1 hr, 1 min, 0.001 sec'
+            },
+            {
+                name: '1d 1h 1m 0.00049s',
+                data: [{ field: 90060000.49 }],
+                expected: '1 day, 1 hr, 1 min'
+            },
             { name: '0s', data: [{ field: 0 }], expected: '0 sec' },
             { name: '-0s', data: [{ field: -0 }], expected: '0 sec' },
             { name: '1.5s', data: [{ field: 1500 }], expected: '1.5 sec' },
             { name: '1.555s', data: [{ field: 1555 }], expected: '1.555 sec' },
-            { name: '1.5556s', data: [{ field: 1555.6 }], expected: '1.556 sec' },
-            { name: '1.5554s', data: [{ field: 1555.4 }], expected: '1.555 sec' },
-            { name: '59999.9999999999997s', data: [{ field: 59999.9999999999997 }], expected: '1 min' },
-            { name: '101 days', data: [{ field: 8726500000 }], expected: '8.727E6 sec' },
+            {
+                name: '1.5556s',
+                data: [{ field: 1555.6 }],
+                expected: '1.556 sec'
+            },
+            {
+                name: '1.5554s',
+                data: [{ field: 1555.4 }],
+                expected: '1.555 sec'
+            },
+            {
+                name: '59999.9999999999997s',
+                data: [{ field: 59999.9999999999997 }],
+                expected: '1 min'
+            },
+            {
+                name: '101 days',
+                data: [{ field: 8726500000 }],
+                expected: '8.727E6 sec'
+            },
             { name: '1ms', data: [{ field: 1 }], expected: '0.001 sec' },
             { name: '0.99ms', data: [{ field: 0.99 }], expected: '9.9E-4 sec' },
-            { name: 'MIN_VALUE', data: [{ field: Number.MIN_VALUE }], expected: '0 sec' },
-            { name: 'MIN_VALUE * 1000', data: [{ field: Number.MIN_VALUE * 1000 }], expected: '5E-324 sec' },
-            { name: 'MAX_VALUE', data: [{ field: Number.MAX_VALUE }], expected: '1.798E305 sec' }
+            {
+                name: 'MIN_VALUE',
+                data: [{ field: Number.MIN_VALUE }],
+                expected: '0 sec'
+            },
+            {
+                name: 'MIN_VALUE * 1000',
+                data: [{ field: Number.MIN_VALUE * 1000 }],
+                expected: '5E-324 sec'
+            },
+            {
+                name: 'MAX_VALUE',
+                data: [{ field: Number.MAX_VALUE }],
+                expected: '1.798E305 sec'
+            }
         ];
 
         parameterizeNamedList(goodValueData, (spec, name, value) => {
@@ -138,7 +192,9 @@ describe('TableColumnDurationText', () => {
                 await table.setData(value.data);
                 await waitForUpdatesAsync();
 
-                expect(tablePageObject.getRenderedCellTextContent(0, 0)).toEqual(value.expected);
+                expect(
+                    tablePageObject.getRenderedCellTextContent(0, 0)
+                ).toEqual(value.expected);
             });
         });
     });
@@ -161,9 +217,7 @@ describe('TableColumnDurationText', () => {
     });
 
     it('changing data from value to null displays blank', async () => {
-        await table.setData([
-            { field: 2 }
-        ]);
+        await table.setData([{ field: 2 }]);
         await waitForUpdatesAsync();
         expect(tablePageObject.getRenderedCellTextContent(0, 0)).toEqual(
             '2 sec'
@@ -182,9 +236,7 @@ describe('TableColumnDurationText', () => {
         await waitForUpdatesAsync();
         expect(tablePageObject.getRenderedCellTextContent(0, 0)).toEqual('');
 
-        await table.setData([
-            { field: 2 }
-        ]);
+        await table.setData([{ field: 2 }]);
         await waitForUpdatesAsync();
 
         expect(tablePageObject.getRenderedCellTextContent(0, 0)).toEqual(
@@ -194,9 +246,7 @@ describe('TableColumnDurationText', () => {
 
     it('when no fieldName provided, nothing is displayed', async () => {
         column.fieldName = undefined;
-        await table.setData([
-            { field: 2 }
-        ]);
+        await table.setData([{ field: 2 }]);
         await waitForUpdatesAsync();
 
         expect(tablePageObject.getRenderedCellTextContent(0, 0)).toEqual('');
@@ -204,15 +254,9 @@ describe('TableColumnDurationText', () => {
 
     it('sets title when cell text is ellipsized', async () => {
         table.style.width = '100px';
-        await table.setData([
-            { field: 8607022 }
-        ]);
+        await table.setData([{ field: 8607022 }]);
         await waitForUpdatesAsync();
-        tablePageObject.dispatchEventToCell(
-            0,
-            0,
-            new MouseEvent('mouseover')
-        );
+        tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
         expect(tablePageObject.getCellTitle(0, 0)).toEqual(
             '99 days, 14 hr, 50 min, 22 sec'
@@ -220,44 +264,26 @@ describe('TableColumnDurationText', () => {
     });
 
     it('does not set title when cell text is fully visible', async () => {
-        await table.setData([
-            { field: 8607022 }
-        ]);
+        await table.setData([{ field: 8607022 }]);
         await waitForUpdatesAsync();
-        tablePageObject.dispatchEventToCell(
-            0,
-            0,
-            new MouseEvent('mouseover')
-        );
+        tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
         expect(tablePageObject.getCellTitle(0, 0)).toEqual('');
     });
 
     it('removes title on mouseout of cell', async () => {
         table.style.width = '200px';
-        await table.setData([
-            { field: 8607022 }
-        ]);
+        await table.setData([{ field: 8607022 }]);
         await waitForUpdatesAsync();
-        tablePageObject.dispatchEventToCell(
-            0,
-            0,
-            new MouseEvent('mouseover')
-        );
+        tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
-        tablePageObject.dispatchEventToCell(
-            0,
-            0,
-            new MouseEvent('mouseout')
-        );
+        tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseout'));
         await waitForUpdatesAsync();
         expect(tablePageObject.getCellTitle(0, 0)).toEqual('');
     });
 
     it('sets group header text to rendered date value', async () => {
-        await table.setData([
-            { field: 8607022 }
-        ]);
+        await table.setData([{ field: 8607022 }]);
         await waitForUpdatesAsync();
         expect(tablePageObject.getRenderedGroupHeaderTextContent(0)).toBe(
             '99 days, 14 hr, 50 min, 22 sec'
@@ -265,9 +291,7 @@ describe('TableColumnDurationText', () => {
     });
 
     it('updates displayed date when lang token changes', async () => {
-        await table.setData([
-            { field: 8607022 }
-        ]);
+        await table.setData([{ field: 8607022 }]);
         await waitForUpdatesAsync();
         expect(tablePageObject.getRenderedCellTextContent(0, 0)).toBe(
             '99 days, 14 hr, 50 min, 22 sec'

@@ -5,8 +5,13 @@ import { TableColumnDateTextCellView } from '../cell-view';
 /**
  * Page object for date text table column.
  */
-export class TableColumnDateTextPageObject<T extends TableRecord> extends TableColumnFormattedTextPageObject<T> {
-    protected override verifyCellType(rowIndex: number, columnIndex: number): void {
+export class TableColumnDateTextPageObject<
+    T extends TableRecord
+> extends TableColumnFormattedTextPageObject<T> {
+    protected override verifyCellType(
+        rowIndex: number,
+        columnIndex: number
+    ): void {
         const cell = this.tablePageObject.getRenderedCellView(
             rowIndex,
             columnIndex

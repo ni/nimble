@@ -106,7 +106,7 @@ export const elapsedTimeTextColumn: StoryObj<TextColumnTableArgs> = {
             description:
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `number` and represent a total number of milliseconds.',
             control: { type: 'none' }
-        },
+        }
     },
     args: {
         fieldName: 'firstName',

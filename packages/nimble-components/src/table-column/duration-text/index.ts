@@ -86,4 +86,6 @@ const nimbleTableColumnDurationText = TableColumnDurationText.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleTableColumnDurationText());
-export const tableColumnDurationTextTag = DesignSystem.tagFor(TableColumnDurationText);
+export const tableColumnDurationTextTag = DesignSystem.tagFor(
+    TableColumnDurationText
+);

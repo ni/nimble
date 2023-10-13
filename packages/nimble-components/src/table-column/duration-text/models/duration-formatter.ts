@@ -10,15 +10,37 @@ export class DurationFormatter {
     private readonly scientificSecondsFormatter: Intl.NumberFormat;
 
     public constructor(private readonly lang: string) {
-        this.daysFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'day' });
-        this.hoursFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'hour' });
-        this.minutesFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'minute' });
-        this.secondsFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'second' });
-        this.scientificSecondsFormatter = new Intl.NumberFormat(this.lang, { style: 'unit', unit: 'second', notation: 'scientific', maximumFractionDigits: 3 });
+        this.daysFormatter = new Intl.NumberFormat(this.lang, {
+            style: 'unit',
+            unit: 'day'
+        });
+        this.hoursFormatter = new Intl.NumberFormat(this.lang, {
+            style: 'unit',
+            unit: 'hour'
+        });
+        this.minutesFormatter = new Intl.NumberFormat(this.lang, {
+            style: 'unit',
+            unit: 'minute'
+        });
+        this.secondsFormatter = new Intl.NumberFormat(this.lang, {
+            style: 'unit',
+            unit: 'second'
+        });
+        this.scientificSecondsFormatter = new Intl.NumberFormat(this.lang, {
+            style: 'unit',
+            unit: 'second',
+            notation: 'scientific',
+            maximumFractionDigits: 3
+        });
     }
 
     public format(value: number | null | undefined): string {
-        if (value === null || value === undefined || value < 0 || !Number.isFinite(value)) {
+        if (
+            value === null
+            || value === undefined
+            || value < 0
+            || !Number.isFinite(value)
+        ) {
             return '';
         }
 
@@ -54,7 +76,7 @@ export class DurationFormatter {
             return this.scientificSecondsFormatter.format(valueInSeconds);
         }
 
-        if ((seconds >= 0.0005) || (seconds === 0 && result.length === 0)) {
+        if (seconds >= 0.0005 || (seconds === 0 && result.length === 0)) {
             const formattedSeconds = this.secondsFormatter.format(seconds);
             result.push(formattedSeconds);
         }
