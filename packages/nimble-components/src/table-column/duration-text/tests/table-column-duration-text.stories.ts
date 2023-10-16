@@ -44,7 +44,7 @@ const simpleData = [
 ];
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Incubating/Table Column - Duration Text',
+    title: 'Components/Table Column: Duration Text',
     decorators: [withActions],
     tags: ['autodocs'],
     parameters: {
