@@ -96,7 +96,7 @@ export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
             <${tableColumnDurationTextTag}
                 field-name="swearWordCadence"
             >
-            Last swear word
+            Time since last swear word
             </${tableColumnDurationTextTag}>
         </${tableTag}>
     `),
