@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 16 Oct 2023 21:31:42 GMT",
+      "version": "6.4.1",
+      "tag": "@ni/nimble-tokens_v6.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "8a429164d4987cc1b932adb3c93727afdc8c5202",
+            "comment": "Update TypeScript dependency to 4.8"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 20 Sep 2023 18:55:59 GMT",
       "tag": "@ni/nimble-tokens_v6.4.0",
       "version": "6.4.0",
