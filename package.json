@@ -41,6 +41,7 @@
     "packages/site"
   ],
   "devDependencies": {
+    "@babel/traverse": "^7.23.2",
     "@lhci/cli": "^0.10.0",
     "beachball": "^2.31.0",
     "cross-env": "^7.0.3",
