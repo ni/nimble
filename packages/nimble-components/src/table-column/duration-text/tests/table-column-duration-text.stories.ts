@@ -44,7 +44,7 @@ const simpleData = [
 ];
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Incubating/Table Column - Duration Text',
+    title: 'Components/Table Column: Duration Text',
     decorators: [withActions],
     tags: ['autodocs'],
     parameters: {
@@ -70,8 +70,6 @@ export default metadata;
 
 interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
-    checkValidity: () => void;
-    validity: () => void;
 }
 
 const durationTextColumnDescription = 'The `nimble-table-column-duration-text` column is used to display duration fields as text in the `nimble-table`. The duration values must be of type `number` and each represent a positive total number of milliseconds. Values that represent more than 100 days or less than a millisecond will be formatted in scientific notation as seconds only. All sub-second values will be represented with up to 3 digits of precision.';
@@ -86,10 +84,6 @@ export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
-        ${incubatingWarning({
-        componentName: 'table',
-        statusLink: 'https://github.com/orgs/ni/projects/7/views/21'
-    })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -102,7 +96,7 @@ export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
             <${tableColumnDurationTextTag}
                 field-name="swearWordCadence"
             >
-            Last swear word
+            Time since last swear word
             </${tableColumnDurationTextTag}>
         </${tableTag}>
     `),
@@ -115,8 +109,6 @@ export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
         }
     },
     args: {
-        fieldName: 'firstName',
-        checkValidity: () => {},
-        validity: () => {}
+        fieldName: 'firstName'
     }
 };

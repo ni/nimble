@@ -14,7 +14,7 @@ declare global {
 }
 
 /**
- * A cell view for displaying date/time fields as text
+ * A cell view for displaying duration fields as text
  */
 export class TableColumnDurationTextCellView extends TableColumnTextCellViewBase<
 TableColumnDurationTextCellRecord,

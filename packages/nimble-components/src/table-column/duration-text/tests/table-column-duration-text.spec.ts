@@ -277,7 +277,7 @@ describe('TableColumnDurationText', () => {
     });
 
     it('removes title on mouseout of cell', async () => {
-        table.style.width = '200px';
+        table.style.width = '100px';
         await table.setData([{ field: 8607022000 }]);
         await waitForUpdatesAsync();
         tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));

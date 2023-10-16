@@ -44,7 +44,7 @@ const component = (): ViewTemplate => html`
             field-name="duration"
             group-index="0"
         >
-            <${iconUserTag}></${iconUserTag}>
+            Duration
         </${tableColumnDurationTextTag}>
     </${tableTag}>
 `;

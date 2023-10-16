@@ -11,7 +11,7 @@ declare global {
     }
 }
 /**
- * The group header view for displaying date/time fields as text.
+ * The group header view for displaying duration fields as text.
  */
 export class TableColumnDurationTextGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
 TableNumberFieldValue,
