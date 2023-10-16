@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 13 Oct 2023 18:56:31 GMT",
+      "version": "20.6.2",
+      "tag": "@ni/nimble-components_v20.6.2",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1d9af7769eabece5cbd1f4f72688c3a0a18da931",
+            "comment": "Duration Column HLD update"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 12 Oct 2023 17:18:07 GMT",
+      "version": "20.6.2",
+      "tag": "@ni/nimble-components_v20.6.2",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5669b234dae06efdee900a3db341b7dd3c8a6435",
+            "comment": "Duration Table Column HLD"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 Oct 2023 07:38:20 GMT",
       "version": "20.6.2",
       "tag": "@ni/nimble-components_v20.6.2",
