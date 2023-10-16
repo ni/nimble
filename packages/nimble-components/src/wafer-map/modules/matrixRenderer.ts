@@ -44,6 +44,7 @@ export class MatrixRenderer {
             this.setCanvas();
             this.canvasSet = true;
         }
+        this.setCanvasDimensions(this.wafermap.canvasWidth, this.wafermap.canvasHeight);
         this.saveContext();
         this.clearCanvas();
         this.scaleCanvas();
