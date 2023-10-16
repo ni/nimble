@@ -109,8 +109,6 @@ export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
         }
     },
     args: {
-        fieldName: 'firstName',
-        checkValidity: () => {},
-        validity: () => {}
+        fieldName: 'firstName'
     }
 };
