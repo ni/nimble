@@ -7,6 +7,10 @@ import type { TableRecord } from '../../table/types';
 export abstract class TableColumnFormattedTextPageObject<
     T extends TableRecord
 > {
+    // When text is localized to different languages, the space character
+    // can get changed to a different unicode variant. This regular expression
+    // matches both known unicode variants so we can change them back to a
+    // regular space to perform consistent checks for testing purposes.
     private readonly spaceUnicodeCharsRegEx = /\u202f|\u00a0/g;
 
     public constructor(

@@ -34,45 +34,49 @@ export class DurationFormatter {
         });
     }
 
-    public format(value: number | null | undefined): string {
+    public format(milliseconds: number | null | undefined): string {
         if (
-            value === null
-            || value === undefined
-            || value < 0
-            || !Number.isFinite(value)
+            milliseconds === null
+            || milliseconds === undefined
+            || milliseconds < 0
+            || !Number.isFinite(milliseconds)
         ) {
             return '';
         }
 
         const result = [];
-        const fractionalDays = value / 86400000;
-        let remainingTime = value;
+        const millisecondsPerDay = 86400000;
+        const fractionalDays = milliseconds / millisecondsPerDay;
+        let remainingTime = milliseconds;
         const days = Math.floor(fractionalDays);
         if (days <= 100 && days > 0) {
             const formattedDays = this.daysFormatter.format(days);
             result.push(formattedDays);
-            remainingTime -= 86400000;
+            remainingTime -= days * millisecondsPerDay;
         } else if (days >= 100) {
-            return this.scientificSecondsFormatter.format(value / 1000);
+            return this.scientificSecondsFormatter.format(milliseconds / 1000);
         }
 
-        const hours = Math.floor((value / 3600000) % 24);
+        const millisecondsPerHour = 3600000;
+        const hours = Math.floor((milliseconds / millisecondsPerHour) % 24);
+        remainingTime -= hours * millisecondsPerHour;
         if (hours) {
             const formattedHours = this.hoursFormatter.format(hours);
             result.push(formattedHours);
-            remainingTime -= 3600000;
         }
 
-        const minutes = Math.floor((value / 60000) % 60);
+        const millisecondsPerMinute = 60000;
+        const minutes = Math.floor((milliseconds / millisecondsPerMinute) % 60);
+        remainingTime -= minutes * millisecondsPerMinute;
         if (minutes) {
             const formattedMinutes = this.minutesFormatter.format(minutes);
             result.push(formattedMinutes);
-            remainingTime -= 60000;
         }
 
         const valueInSeconds = remainingTime / 1000;
+        // if -0, coerce to 0
         const seconds = valueInSeconds === 0 ? 0 : valueInSeconds % 60;
-        if (value < 1 && valueInSeconds !== 0 && result.length === 0) {
+        if (milliseconds < 1 && milliseconds !== 0) {
             return this.scientificSecondsFormatter.format(valueInSeconds);
         }
 

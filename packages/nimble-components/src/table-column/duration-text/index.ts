@@ -25,7 +25,7 @@ declare global {
 }
 
 /**
- * The table column for displaying dates/times as text.
+ * The table column for displaying a duration value as text.
  */
 export class TableColumnDurationText extends TableColumnTextBase {
     private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
@@ -55,12 +55,8 @@ export class TableColumnDurationText extends TableColumnTextBase {
         };
     }
 
-    protected formatChanged(): void {
-        this.updateColumnConfig();
-    }
-
     private updateColumnConfig(): void {
-        const formatter = this.createFormatter();
+        const formatter = new DurationFormatter(lang.getValueFor(this));
 
         if (formatter) {
             const columnConfig: TableColumnDurationTextColumnConfig = {
@@ -70,10 +66,6 @@ export class TableColumnDurationText extends TableColumnTextBase {
         } else {
             this.columnInternals.columnConfig = undefined;
         }
-    }
-
-    private createFormatter(): DurationFormatter {
-        return new DurationFormatter(lang.getValueFor(this));
     }
 }
 
