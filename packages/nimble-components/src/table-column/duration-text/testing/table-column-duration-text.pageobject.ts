@@ -3,7 +3,7 @@ import { TableColumnFormattedTextPageObject } from '../../testing/table-column-f
 import { TableColumnDurationTextCellView } from '../cell-view';
 
 /**
- * Page object for date text table column.
+ * Page object for duration text table column.
  */
 export class TableColumnDurationTextPageObject<
     T extends TableRecord
