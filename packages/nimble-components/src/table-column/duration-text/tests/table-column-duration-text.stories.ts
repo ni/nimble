@@ -84,10 +84,6 @@ export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
-        ${incubatingWarning({
-        componentName: 'table',
-        statusLink: 'https://github.com/orgs/ni/projects/7/views/21'
-    })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
