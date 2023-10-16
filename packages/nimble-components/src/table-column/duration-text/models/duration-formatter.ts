@@ -1,5 +1,5 @@
 /**
- * A class for formatting a numeric value in the unit of seconds into a display value representing its
+ * A class for formatting a numeric value in the unit of milliseconds into a display value representing its
  *  days, hours, minutes, and seconds.
  */
 export class DurationFormatter {
