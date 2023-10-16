@@ -98,7 +98,7 @@ _`nimble-rich-text-viewer`_
 
 The `nimble-rich-text-editor` will be divided into two sections namely an `editor` section and a `footer` section.
 
-1. The `editor` section is the actual text area to add or update rich text content. It also utilizes the default slot element, which contains the
+1. The `editor` section is the actual text area to add or update rich text content.
    list of options in `nimble-list-option`, for displaying the drop-down list for `@mention` in the editor.
 2. The `footer` section consists of `nimble-toggle-button` to control each text formatting functionalities like bold, italic, etc, and a
    `footer-actions` slot element which is typically used to add action buttons to the right bottom of the component.
@@ -109,14 +109,86 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
 <nimble-rich-text-editor>
     <nimble-button slot="footer-actions">Cancel</nimble-button>
     <nimble-button slot="footer-actions">Add Comment</nimble-button>
-
-    <!-- Options to be displayed in the editor when "@" symbol is added -->
-    <nimble-list-option value="mary">Mary</nimble-list-option>
-    <nimble-list-option value="sue">Sue</nimble-list-option>
-    <nimble-list-option value="frank">Frank</nimble-list-option>
-    <nimble-list-option value="albert">Albert</nimble-list-option>
 </nimble-rich-text-editor>
 ```
+
+Additionally, the rich text editor supports tagging or mentioning an user by adding a **"@"** character into the editor which
+opens a dropdown popup to select an user from the list. To let the rich text editor component know about the user names to be shown
+in the dropdown, user will be able to pass the user details like in the following markup configuration elements:
+
+```html
+<nimble-rich-text-editor>
+    <nimble-rich-text-mention-user>
+        <nimble-mapping-mention key="user-id-1" text="John Doe"></nimble-mapping-mention>
+        <nimble-mapping-mention key="user-id-2" text="Alice Smith"></nimble-mapping-mention>
+        <nimble-mapping-mention key="user-id-3" text="Bob Jones"></nimble-mapping-mention>
+    </nimble-rich-text-mention-user>
+</nimble-rich-text-editor>
+```
+
+The `nimble-rich-text-mention-user` is a configuration element containing mapping elements that define what to render in the dropdown
+list i.e., `text` and what should be stored in the markdown when we take the output from the editor i.e., `key`. This will then
+be translated into a map or an object to populate it in the shadow root for dropdown options.
+
+The `nimble-mapping-mention` extending from a base mapping class and utilize the same properties that base class offers.
+
+_Future Scope_:
+
+1. The `nimble-mapping-mention` can be used to get other user details like email, profile information etc., to display in the
+   dropdown list options.
+2. If there is a requirement to mention an issue (using **"#"**) or a pull requests (using **"!"**),
+a new configuration component can be created and added as a child to the rich text editor. Below is an example of how
+these elements would be used:
+
+```html
+<nimble-rich-text-editor>
+    <nimble-rich-text-mention-user>
+        <nimble-mapping-mention key="user-id-1" text="John Doe"></nimble-mapping-mention>
+        <nimble-mapping-mention key="user-id-2" text="Alice Smith"></nimble-mapping-mention>
+        <nimble-mapping-mention key="user-id-3" text="Bob Jones"></nimble-mapping-mention>
+    </nimble-rich-text-mention-user>
+
+    <nimble-rich-text-mention-issue>
+        <nimble-mapping-mention key="issue-id-1" text="Spec for rich text editor"></nimble-mapping-mention>
+        <nimble-mapping-mention key="issue-id-2" text="Mention support in rich text components"></nimble-mapping-mention>
+        <nimble-mapping-mention key="issue-id-3" text="Issue in pasting a link"></nimble-mapping-mention>
+    </nimble-rich-text-mention-issue>
+</nimble-rich-text-editor>
+```
+
+_Alternatives_:
+
+Slot based approach: All the user details will be passed within an `nimble-list-option` with user's ID in their `value` attribute and user's name in their
+text content and render the element as a dropdown list when the **"@"** is added into the editor.
+
+Pros:
+
+1. If the `value` attribute is not specified by the client and send the options without an user's ID, the value attribute is taken
+   from the content of the option.
+
+Cons:
+
+1. It is impossible to have multiple type of mentions when `nimble-list-option` is used in the default slot. If we use slot names
+   to differentiate between various type of mentions, the rich text editor needs to be aware of all the type of mentions like
+   user slot name, issue slot name etc, through an attribute value.
+2. The slot based approach is not configurable like if the user wants to configure with some arbitrary value for the entire user mention,
+   the only possible way is to send it in the options. But configuration based approach can be easily made it possible to send the
+   arbitrary values in the parent containing element.
+3. The UI of the list option is completely dependent on the client application.
+4. All the keyboard and mouse interactions within the dropdown list should be handled internally within the editor as `nimble-list-option`
+   does not support any.
+
+#### Client Usage Guidance on Filtered Users:
+
+Initially the list of users should sort based on the alphabetical order of the username and send only the first 20 user details
+in the `nimble-mapping-mention` to determine the key value pairs i.e., user ID and username.
+
+The `nimble-rich-text-editor` will emit an event with a text that is after the `@` character. For example, when user types `@` and
+adds `a`, the event will be emitted with the data consists of a value `@a`. The client should capture the event and filters the list that
+includes letter `a` from the list of users. The client should update the `nimble-mapping-mention` element dynamically based on the
+event data and sent at most twenty filtered options to the editor.
+
+_Note_: The editor will perform filtering the options once again to ensure the filtered options are proper and update the dropdown list.
 
 ### API
 
@@ -137,6 +209,8 @@ _Props/Attrs_
 -   `error-visible` - is a boolean attribute used to visually change the component's border color with the error exclamation at the top right, indicating that an error has occurred, as per the current
     [visual design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2482-82389&mode=design&t=KwADu9QRoL7QAuIW-0)
 -   `error-text` - is a string attribute that displays the error text at the bottom of the component when the `error-visible` is enabled.
+-   `validity` - is a readonly object of boolean values that represents the validity state that the `@mention` configuration can be. The object type
+    is `RichTextMentionValidity`.
 
 _Methods_
 
@@ -144,6 +218,7 @@ _Methods_
     [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/to_markdown.ts#L30).
 -   `setMarkdown(value)` - this will parse the input markdown string into a Node and load it back into the editor using
     [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
+-   `checkValidity()` - this returns `true` if the configuration of the `@mention` is valid and `false` otherwise.
 
 _Alternatives_
 
@@ -186,6 +261,18 @@ _Events_
     1. This event will fired for every input in the content of the editor, including text inputs, text formatting changes, and text removals.
     2. This event will not fire when there are no changes made to the content of the editor. For example, all mouse events, selecting the texts, state
        changes, etc,
+-   `mention-update`: This can be achieved through Tiptap's `onUpdate()` and `onStart()` methods in `render` function in [suggestion](https://tiptap.dev/api/utilities/suggestion#render) configurations.
+
+    This event fires with the `eventData` containing the current text that is added after the `@` character.
+
+    This event will fire when
+    1. User adds the character (say `@`) into the editor that triggers the mention popup
+    2. User adds or removes a text after adding the mention character into the editor
+    3. User moves the cursor between the texts that is added after the mention character
+
+    This event will not fire when
+    1. User moves the cursor away from the mention node when the popup is opened
+    2. User selects an option from the dropdown list
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
@@ -211,6 +298,68 @@ _CSS Classes and CSS Custom Properties that affect the component_
 
 _Note_: This initial component design serves as a starting point for implementation, and it may undergo changes once the visual design is completed.
 
+#### User mention element:
+
+This is a containing element of the mapping elements. It also serves as a configuration element to pass any arbitrary values specific to the
+`@mention` users in the rich text components.
+
+_Component Name_
+
+-   `nimble-rich-text-mention-user`
+
+_Content_
+
+-   One or more `nimble-mapping-mention` elements
+
+#### Mapping element (mention):
+
+This is a mapping element which is used to map the value displays in the mapping view with the corresponding value that
+is stores in the markdown string. For example, the `username` for `@mention` is in the `text` attribute used to display
+in the mention view and `user-id` is in the `key` attribute stores in the markdown string.
+
+_Component Name_
+
+-   `nimble-mapping-mention`
+
+_Props/Attrs_
+
+-   `key`: string | number | boolean
+-   `text`: string
+
+#### User mention view:
+
+This is a UI component used to render the `@mention` node in rich text editor and rich text viewer when parsed
+or added into the components. This holds the styling for the `@mention` nodes.
+
+_Component Name_
+
+-   `nimble-rich-text-user-mention-view`
+
+_Props/Attrs_
+
+-   `data-id`: string
+-   `data-label`: string
+-   `data-mention`: string
+
+_Content_
+
+-   `@` + mentioned user name(text)
+
+#### Mention popup:
+
+This is a containing element that holds the `nimble-list-option` generated from the map to display the
+`mention` options in a dropdown list when the mention character is added into the editor(say **"@"**).
+It is also responsible for all the key down handling for selecting the option, navigating using the
+up/down arrow keys etc., that is related to the list options.
+
+_Component Name_
+
+-   `nimble-rich-text-mention-list-box`
+
+_Content_
+
+-   One or more `nimble-list-option` elements
+
 ### Anatomy
 
 _Shadow DOM template_
@@ -227,20 +376,14 @@ _Shadow DOM template_
         </section>
     </footer>
     <nimble-anchored-region>
-        <div>
-            <slot></slot>
-        </div>
+        <nimble-rich-text-mention-list-box>
+            <nimble-list-option></nimble-list-option>
+        </nimble-rich-text-mention-list-box>
     </nimble-anchored-region>
 </template>
 ```
 
 _Slot Names_
-
--   _default_:
-
-    1. The list of options within `nimble-list-option` will be used for `@mentions` in the editor.
-    2. The `nimble-anchored-region` will be used to populate the list of options below at the position where the
-       **"@"** symbol entered into the editor.
 
 -   `footer-actions`:
     1. It is a container that allows a client to easily place buttons at the right bottom of the component to interact with the editor.
@@ -250,42 +393,6 @@ _Slot Names_
        there are additional elements beyond this limit, they will be positioned below within the same footer-actions container.
 
 _Note_: The positioning of these slot elements in the mobile view of the component has not yet been confirmed.
-
-_Alternative Slot Elements for `@mention`_:
-
--   `mention-menu`:
-    1. The `nimble-menu` will be used to display the list of options when the user enters **"@"** into the editor.
-    2. The users list to be displayed in the `@mention` dropdown menu will be in the `nimble-menu-item` with the user name in the
-       actual `text content` and user ID in the `id` of each menu item. If the `id` is not provided by the client application,
-       then the `text content` of the item is considered as an `id`.
-    3. The same `nimble-anchored-region` will be used to populate the list of options below at the position where the
-       **"@"** symbol entered into the editor.
-
-Example usage of the `nimble-menu` slot element in the client application:
-
-```html
-<nimble-rich-text-editor>
-    <!-- Options to be displayed in the editor when "@" symbol is added -->
-    <nimble-menu slot="mention-menu">
-        <nimble-menu-item value="mary">Mary</nimble-menu-item>
-        <nimble-menu-item value="sue">Sue</nimble-menu-item>
-        <nimble-menu-item value="frank">Frank</nimble-menu-item>
-        <nimble-menu-item value="albert">Albert</nimble-menu-item>
-    </nimble-menu>
-</nimble-rich-text-editor>
-```
-
-Here are the following reasons for not utilizing the `nimble-menu` and `nimble-menu-item` as a slot element for the dropdown list,
-
-1. The `nimble-menu` uses the `tabindex` value to receive focus on the list of options, which results in losing focus from the editor
-   when the dropdown is opened. Consequently, keyboard interactions are handled either for the editor or for the mention dropdown in the same time.
-   On the other hand, if we use `nimble-list-option`, we can handle keyboard navigation using the `selected` boolean attribute.
-   This way, both the editor and the dropdown have focus, resulting in the use of specified key events like arrow keys and the
-   enter key for the dropdown, while other keys like alphabet keys for the editor.
-2. The typical role of the mention popup is `listbox` which shows the list of users to select from and typing texts to filter the
-   dropdown similar to `combobox`. The `nimble-combobox` internally uses the `nimble-list-option` as a default slot element.
-3. In `nimble-list-option`, even if the `value` attribute is not specified, it considers the text content as its value,
-   whereas in the `nimble-menu`, we need to handle the `id` value if it is not passed from the client application in the slot elements.
 
 _Host Classes_
 
@@ -298,6 +405,39 @@ _Slotted Content/Slotted Classes_
 _CSS Parts_
 
 -   none
+
+#### `nimble-rich-text-mention-user`
+
+```html
+<template>
+    <slot
+        ${slotted('mappings')}
+        name="mapping">
+    </slot>
+</template>
+```
+
+#### `nimble-mapping-mention`
+
+```html
+<template slot="mapping"></template>
+```
+
+#### `nimble-rich-text-user-mention-view`
+
+```html
+<template>
+    <span></span>
+</template>
+```
+
+#### `nimble-rich-text-mention-list-box`
+
+```html
+<template>
+    <slot></slot>
+</template>
+```
 
 ### `nimble-rich-text-viewer`
 
@@ -403,34 +543,42 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 -   Bulleted list - `* Bulleted list`
 -   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, see [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
 -   Hard line break - a backslash before the line ending `line1\\nline2` (For more details on the markdown syntax for Hard line breaks, see [Hard line breaks in CommanMark](https://spec.commonmark.org/0.30/#hard-line-breaks))
--   `@mention` - a custom markdown format `@<user-id>`. Since there is no built-in syntax for mentioning or tagging users or individuals
-    using the **"@"** symbol in the [CommonMark](https://spec.commonmark.org/0.30/) flavor, we have decided to create a custom markdown format.
-    Here are the justifications for incorporating `@<user-id>` syntax for `@mention`,
-    1. This markdown syntax is distinctive and does not interfere with other formatting options in the
-       [CommonMark](https://spec.commonmark.org/0.30/) flavor.
-    2. This syntax ensures the easy identification of a `mention` node using the **"@"** and **"<"** symbols when parsing the entire markdown string.
-    3. The use of opening and closing **"<"** and **">"** symbols specifies the boundaries of the mention node's value within the markdown string,
-       allowing for the clear identification of where it starts and ends. This is especially important when the value contains whitespace,
-       as in the example `"@<Sue Ann>`, as without the **"<>"** symbols, it would be challenging to determine the precise end index of the value.
+-   `@mention` - `<user:user-id>`. Since there is no built-in syntax for mentioning or tagging users or individuals in the
+    [CommonMark](https://spec.commonmark.org/0.30/) flavor, we have decided to utilize the [Autolinks](https://spec.commonmark.org/0.30/#autolink)
+    format in `CommonMark` flavor.
+
+    1. This markdown syntax does not interfere with the current `AutoLink` formats as the scheme we support for absolute link is `http` and `https`,
+       whereas this is a unique scheme and yet follows the standard `CommonMark` markdown flavor
+    2. This syntax ensures the easy identification of a `mention` node using the `user` in place of `scheme` in autolink when parsing the
+       entire markdown string
+    3. The same syntax can be used when other mentions like issue mention by having a different `scheme` in the string like `<issue:issue-id>`
+
+_Alternatives_:
+
+`@mention` - a custom markdown format `@<user-id>`.
+
+Pros:
+
+1. This syntax ensures the easy identification of a `mention` node using the **"@"** and **"<"** symbols when parsing the entire markdown string.
+2. The use of opening and closing **"<"** and **">"** symbols specifies the boundaries of the mention node's value within the markdown string,
+    allowing for the clear identification of where it starts and ends. This is especially important when the value contains whitespace,
+    as in the example `"@<Sue Ann>`, as without the **"<>"** symbols, it would be challenging to determine the precise end index of the value.
+
+Cons:
+
+1. It does not follow [CommonMark](https://spec.commonmark.org/0.30/) flavor or any other standard markdown flavors.
 
 ### _Implementation details for supporting `@mention`_:
 
-After passing the names through the slot using either `nimble-list-option` or an element with `role="option"` they will appear in a
-dropdown list when the **"@"** character is added to the editor. It's important to note that styling the slot elements for the list option is not
-handled within the editor, and it's the client application's responsibility. It's generally advisable to use `nimble-list-option`
-for a consistent theme with the editor and taking advantage of the keyboard accessibility features outlined in the [Accessibility Section](#accessibility).
-
-The Tiptap [mention extension](https://tiptap.dev/api/nodes/mention) will render all the `@mention` nodes as a `<>` element with custom data
+The Tiptap [mention extension](https://tiptap.dev/api/nodes/mention) will render all the `@mention` nodes as a `<nimble-rich-text-user-mention-view>` element with custom data
 attribute values. These values serve a dual purpose: they determine what is displayed in the UI and represent the content stored in markdown format.
 For example, `@mention` is used primarily for tagging users, these values will typically include user-related information such as the username and userID.
 
-1. `data-id` - employed to store the value that is sent in the [value attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#:~:text=the%20selected%20attribute.-,value,-The%20content%20of)
-   of the option element. For example, the user ID is placed in the `value` attribute, while the user's name is included in the actual text content
-   for mentioning users. In situations where the value attribute is left out in the option element, this value is automatically derived from the text content.
-2. `data-label` - used to store the actual text content of the selected option element.
+1. `data-id` - employed to store the value that is sent in the `key` attribute of `nimble-mapping-mention`.
+2. `data-label` - used to store the actual `text` of the selected option.
 3. `data-type` - defaults as `mention`.
 4. `contentEditable` - defaults as `false`. The `@mention` node is only enabled in the editor after selecting from the list of options. It is not possible
-   to edit the names within the node; either can delete the entire name or add a new one from the list of selections.
+   to edit the names within the node; either can delete the entire name or select a new one from the list of options.
 
 #### 1. _Configurations on Tiptap_:
 
@@ -448,16 +596,16 @@ follows to enable the desired `@mention` interactions,
            whenever the cursor is placed after the **"@"** symbol. This also adjusts the position of the anchored region by updating the
            [`anchorElement`](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/anchored-region/README.md#fields:~:text=to%20revaluate%20positioning-,anchorElement,-public)
            from FAST with the `decorationNode` from the `SuggestionProps` in Tiptap.
-        2. `onUpdate` - to update and filter the list in the dropdown based on the characters entered after **"@"** (similar to autocomplete
-           with `list` configuration in `nimble-combobox`).
-        3. `onKeydown` - to add the necessary keyboard interactions to the dropdown, such as the `Enter` key to select the current option, pressing `Escape`
-           to close the dropdown, and using `Arrow Up` and `Arrow Down` to move the focus up and down the list of names in the dropdown.
-        4. `onExit` to close the dropdown when focused away from the **"@"** character in the editor.
+        2. `onUpdate` - to trigger the opening of the dropdown whenever the text after the **"@"** is updated.
+        3. `onKeydown` - to handle key down events when the dropdown list is opened. The `props`, a parameter of this method, containing
+           the keyboard event passed to the `nimble-rich-text-mention-list-box` component which has the `keyDownHandler()` method. This
+           method handles the necessary key down handlers and for the rest it returns `false` to retain the same behavior of editor key down events.
+        4. `onExit` - to close the dropdown when focused away from the **"@"** character in the editor.
 
 #### 2. _Defining schema and adding tokenizer rule in markdown parser_:
 
 As `@mention` is a custom markdown format uniquely created to support in the nimble rich text components, it is necessary to
-define the schema in `markdown-parser` to identify the markdown string in the format of `@<user-id>` as the `@mention` node.
+define the schema in `markdown-parser` to identify the markdown string in the format of `<user:user-id>` as the `@mention` node.
 The below schema is added to the end of other nodes using ProseMirror's
 [addToEnd](https://prosemirror.net/docs/ref/#model.Fragment.addToEnd) method.
 
@@ -491,10 +639,9 @@ mention: {
 Additionally, a custom tokenizer rule needs to be added to the `markdown-it` rules to handle the parser logic.
 This can be achieved by loading the customized `mention` plugin into the supported tokenizer rules using the
 [`use`](https://markdown-it.github.io/markdown-it/#MarkdownIt.use) method and identifying the value of the
-`option` that matches the text content. The `id` and `name` will then be generated as an object from the
-`nimble-list-option` slot elements, taking the `value` and `text content`, respectively.
-
-_Note_: If the `value` is not passed in the slotted options, the `value`(known here as `id`) will be same as `text content`.
+`key` that matches the `text`. The `id` and `name` will then be generated as an object from the
+`nimble-mapping-mention` elements, taking the `key` and `text` attributes, respectively. This custom node
+will be added `before` the `autolink` mark to give the highest precedence to the `mention` node.
 
 #### 3. _Defining node in markdown serializer_:
 
@@ -504,16 +651,76 @@ the `span` element in the editor when the `getMarkdown()` method is called.
 The example markdown string constructed for the below DOM element rendered in the editor is `@<1234-5678>`.
 
 ```html
-<span
+<nimble-rich-text-user-mention-view
     data-type="mention"
     data-id="1234-5678"
     data-label="Mary"
     contenteditable="false"
-    >@Mary</span
+    >@Mary</nimble-rich-text-user-mention-view
 >
 ```
 
-_Note_: If the `value` is not passed in the slotted options, the `data-id` will be same as the `text-content`.
+#### 4. _nimble-rich-text-mention-user_:
+
+There is a base abstract class `RichTextMention` for all the mention containing elements which will have the following properties,
+
+1. `character`: string - is a specific symbol to trigger the mention popup. For user mention, it is **"@"**.
+2. `icon`: string - is used to add it to the toolbar button.
+3. `md-scheme`: string - used as a prefix in the `autolink` scheme to store it in the markdown string. For example, `user` is
+   used as a scheme for user mention markdown format as `<user:user-id>`
+
+The `nimble-rich-text-mention-user` is a derived class from the base class and gives the necessary values to the above properties for
+user mentions. The above values will be maintained as part of the `RichTextMentionInternalsOptions` and will be used across the
+component which requires these values.
+
+The validation will also be part of the internals as a `validConfiguration` flag. It has a base class named `RichTextMentionValidator`
+which sets and gets the validation configuration through methods. This way it maintains the state of the valid and invalid values that is
+passed in the mapping element. The class gets the validity flag name to pass the information via a public API called `valididty`.
+
+By deriving from the base, the mention options can validate the following conditions for the `key` property in mapping element:
+
+1. `validateKeyValuesForType(keys, keyType)`
+2. `validateMappingTypes(mappings)`
+3. `validateUniqueKeys(keys, keyType)`
+4. `validateNoMissingKeys(mappings)`
+5. `validateNoMissingText(mappings)`
+
+_Note_: These are subject to change based on the property changes in the `nimble-mapping-mention` element.
+
+If any of the mention option is invalid as per the above validation, that particular option is ignored from the list.
+
+There are public API to determine the validity of the mention options and they are `checkValidity()` and `validity`.
+See the [API section](#api) for more details.
+
+#### 5. _nimble-rich-text-user-mention-view_:
+
+There is a base class called `nimble-rich-text-mention-view` which is a base configuration component for all the mention nodes that is rendered in the UI.
+This base class extends from a `FoundationElement` and the template has a `span` element with the necessary CSS formatting. This class has the attributes
+for the `data-id`, `data-label` and `data-type` and properties like `character` that is rendered along with mentioned users.
+
+The `nimble-rich-text-user-mention-view` is a derived view class extending the base class and utilizes the same template from the base class.
+It sets the `character` property of the base class to `@` to render the mention node prefixed with the character.
+
+The `Mention` node from Tiptap is extended and replace the `renderHTML` to render the element as `nimble-rich-text-user-mention-view`
+in place of default `span` element as in the
+[Tiptap code here](https://github.com/ueberdosis/tiptap/blob/42039c05f0894a2730a7b8f1b943ddb22d52a824/packages/extension-mention/src/mention.ts#L112).
+The attributes will remain the same and will be added to the rendered mention nodes.
+
+#### 6. _nimble-rich-text-mention-list-box_:
+
+It extends the FAST's `list-box` to get the necessary mouse and keyboard interactions within the dropdown list.
+In the default slot, it gets the `nimble-list-option` to populate the list with the given options.
+
+This updates the `options` property whenever the list of options are filtered from the parent component and in this
+case the parent component is the `nimble-rich-text-editor`. All the selected index value to set in the list of
+options were handled internally in the `list-box` if the `options` are updated. To leverage the key down handling,
+there is a public method called `keyDownHandler()` in `nimble-rich-text-mention-list-box` that is invoked in the
+`onKeyDown()` in Tiptap configuration as mentioned [above](#1-configurations-on-tiptap). The input to this method
+contains the keyboard event to perform necessary operations such as up/down arrow key to decrement/increment the
+selected index value of each option to move the selection up and down, enter to select the option etc.,
+
+The click handler is added to the `list-box` emit with the selected option data to the parent component which then
+will call the `mention.command` from Tiptap to render the mention node.
 
 ### _Implementation details for supporting absolute link:_
 
@@ -624,6 +831,7 @@ _Focus_
 -   Focus state of the editor will be the same as the `nimble-text-area`.
 -   Focus state of the buttons will be the same as the `nimble-toggle-button`.
 -   Focus state of the list options for `@mention` will be the same as the `nimble-list-option`.
+-   Focusing out from the editor will close the `@mention` popup if it is already open.
 
 _Keyboard accessibility and shortcuts for text formatting_
 
@@ -653,15 +861,44 @@ _Keyboard navigation with toolbar buttons focused_
 | Tab             | To move the focus towards the footer action buttons                            |
 | Shift + Tab     | To move the focus back to the editor                                           |
 
-_Keyboard interactions when `@mention` popup is opened_
-
-| Key          | Behavior                                                 |
-| ------------ | -------------------------------------------------------- |
-| Enter, Tab   | To select the currently focused option from the list     |
-| Up/Down keys | To move the focus upward/downward in the list of options |
-| Escape       | To close the dropdown if it is opened                    |
-
 _Note_: All other keyboard interaction determined by the slotted element will not be defined in this document.
+
+_Keyboard interactions for `@mention`_
+
+| Key                                     | Behavior                                                                                                                            |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `@`                                     | To open the list of options with the users list                                                                                     |
+| ------------------------------------------------------------------Keyboard interactions when popup is opened----------------------------------------------------------------- |
+| Any character                           | To show the filtered list of users for that specific character                                                                      |
+| Group of characters                     | To show the filtered list of users for the group characters                                                                         |
+| Group of characters(Not in any option)  | Close the dropdown list popup                                                                                                       |
+| Enter, Tab                              | To select the currently focused option from the list                                                                                |
+| Up/Down Arrow keys                      | To move the focus upward/downward in the list of options                                                                            |
+| Left/Right Arrow keys                   | To move the cursor in the editor leftward/rightward and filters the list for the characters from `@` to the current cursor position |
+| Escape                                  | To close the dropdown if it is opened                                                                                               |
+| ----------------------------------------------------------Keyboard interactions when user is selected from the list---------------------------------------------------------- |
+| Backspace                               | To remove the entire selected name and cursor in the `@` position                                                                   |
+| Shift + Arrow keys                      | To select the mention node                                                                                                          |
+
+_Note_: Once the user is selected and mention node is added to the DOM, it is not possible to edit the name, either user can remove the entire name or can add new name.
+
+_Mouse interactions for `@mention`_
+
+1. Hovering over each option in the `@mention` dropdown lists will show an indication of the option is selectable.
+2. Left clicking the option will select the hovered option from the list of users.
+3. Clicking outside the editor/Focusing out from the editor will close the popup if it is already open.
+
+_ARIA Roles/Properties for `@mention` components_
+
+The `nimble-rich-text-mention-list-box` will have the role as `listbox` and the `nimble-list-option` will have the role as `option` as in the other
+list option components like `nimble-select` and `nimble-combobox`. Both the components will respect the `aria-disabled` based on the parent element
+`nimble-rich-text-editor`.
+
+The `nimble-list-option` will have the following `aria-*` attributes value set based on the state of the option,
+
+1. `aria-selected` - set to `true` if the option is selected/focused from the list of options. Any one from the list will have the `true` value.
+2. `aria-posinset` - determines the current position of the list items.
+3. `aria-setsize` - determines the actual length of the current list options.
 
 ### Globalization
 
