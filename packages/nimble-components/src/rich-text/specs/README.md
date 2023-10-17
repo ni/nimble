@@ -985,7 +985,7 @@ _Note_: All other keyboard interaction determined by the slotted element will no
 _Keyboard interactions for `@mention`_
 
 | Key                                      | Behavior                                                                                                                            |
-| --------------------------------------   | ----------------------------------------------------------------------------------------------------------------------------------- |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `@`                                      | To open the list of options with the users list                                                                                     |
 |                                          | ----Below are the keyboard interactions when popup is opened----                                                                    |
 | Enter, Tab                               | To select the currently focused option from the list                                                                                |
