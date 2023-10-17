@@ -2,6 +2,42 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 16 Oct 2023 21:31:42 GMT",
+      "version": "20.6.3",
+      "tag": "@ni/nimble-components_v20.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8a429164d4987cc1b932adb3c93727afdc8c5202",
+            "comment": "Update TypeScript dependency to 4.8"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.4.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 13 Oct 2023 18:56:31 GMT",
+      "version": "20.6.2",
+      "tag": "@ni/nimble-components_v20.6.2",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1d9af7769eabece5cbd1f4f72688c3a0a18da931",
+            "comment": "Duration Column HLD update"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 12 Oct 2023 17:18:07 GMT",
       "version": "20.6.2",
       "tag": "@ni/nimble-components_v20.6.2",
