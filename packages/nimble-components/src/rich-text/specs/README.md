@@ -372,9 +372,9 @@ _Component Name_
 
 _Props/Attrs_
 
--   `data-id`: string
--   `data-label`: string
--   `data-mention`: string
+-   `data-id`: string - has the user ID of the mentioned user
+-   `data-label`: string - has the user name of the mentioned user
+-   `data-type`: string - has the type of the mentioned node, _default_ is `mention`
 
 _Content_
 
