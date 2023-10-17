@@ -251,9 +251,9 @@ We will use `nimble-unit-byte` to display file sizes in SLE tables. Currently, S
         field-name="fileSize"
         format="decimal"
         decimal-maximum-digits="1"
-        unit-family="nimble-unit-byte"
     >
         File Size
+        <nimble-unit-byte></nimble-unit-byte>
     </nimble-table-column-number-text>
 </nimble-table>
 ```
