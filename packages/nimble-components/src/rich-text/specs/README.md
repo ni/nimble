@@ -202,7 +202,43 @@ Cons:
 2. The slot-based approach is not configurable, meaning that if a user wishes to customize the entire user mention with
    some arbitrary value, the only viable option is to include it within the options. In contrast, the configuration-based
    approach readily allows for the inclusion of arbitrary values in the parent container element, making customization more
-   straightforward.
+   straightforward. For an example, in future if we are configuring the `character` to trigger the user mention from the client,
+   it is simply to add it like below,
+    ```html
+    <nimble-rich-text-mention-users character="@">
+        <nimble-mapping-mention-users
+            key="user-id-1"
+            text="username-1"
+        ></nimble-mapping-mention-users>
+        <nimble-mapping-mention-users
+            key="user-id-2"
+            text="username-2"
+        ></nimble-mapping-mention-users>
+        <nimble-mapping-mention-users
+            key="user-id-3"
+            text="username-3"
+        ></nimble-mapping-mention-users>
+    </nimble-rich-text-mention-users>
+    ```
+    If it is a slot based approach, it is required to provide the information to every options as we don't know that it is a user mention
+    or other mention
+    ```html
+    <nimble-mapping-mention-users
+        key="user-id-1"
+        text="username-1"
+        character="@"
+    ></nimble-mapping-mention-users>
+    <nimble-mapping-mention-users
+        key="user-id-2"
+        text="username-2"
+        character="@"
+    ></nimble-mapping-mention-users>
+    <nimble-mapping-mention-users
+        key="user-id-3"
+        text="username-3"
+        character="@"
+    ></nimble-mapping-mention-users>
+    ```
 3. The UI of the list option is completely dependent on the client application.
 4. All the keyboard and mouse interactions within the dropdown list should be handled internally within the editor as `nimble-list-option`
    does not support any.
@@ -210,9 +246,13 @@ Cons:
 #### Client Usage Guidance on Filtered Users:
 
 Initially, the client application need not provide any user list within the children of `nimble-rich-text-editor` and it can be empty.
-The editor component will emit an event whenever the `@` character is entered into the editor. By the time, the client
-can listen to the `mention-update` event and sort the users list in alphabetical order with respect to the usernames
-and provide the initial twenty user lists to the editor via the `nimble-mapping-mention-user`.
+The editor component will emit an event whenever the `@` character is entered into the editor. Client
+can listen to the `mention-update` event and provide the initial user lists.
+
+It is recommended to `sort` the usernames in alphabetical order and sent at most twenty users list at a time to reduce the number of elements
+in the DOM for a single page. This dynamic loading of users list will help us specifically in comments feature when there are lot of `@mention`
+happens in a single page and if the users list is huge, it may cause the page to load slower as the mapping mention element is provided
+for every editor.
 
 The `mention-update` event will also be triggered when the user types any character after `@`, containing that text following the `@` character.
 For instance, if a user types `@` and then adds `a` the event will be emitted with data that includes the value `@a`. The client will be
@@ -220,7 +260,9 @@ listening to this event, filter the list of users that includes the names contai
 `nimble-mapping-mention-user` element based on the filter data. Subsequently, a maximum of twenty filtered options should be transmitted to the
 editor.
 
-_Note_: The editor will also perform filtering the options once again to ensure the filtered options are proper and update the dropdown list.
+_Note_: The editor will also perform the same filtering once again to ensure the filtered options are proper and update the dropdown list in the UI.
+This helps to filter the list, regardless of whether the client is loading the list dynamically by listening to the event as mentioned above
+or statically providing user details at the start via `nimble-mapping-mention`.
 
 ### API
 
@@ -242,7 +284,9 @@ _Props/Attrs_
     [visual design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2482-82389&mode=design&t=KwADu9QRoL7QAuIW-0)
 -   `error-text` - is a string attribute that displays the error text at the bottom of the component when the `error-visible` is enabled.
 -   `validity` - is a readonly object of boolean values that represents the validity state that the `@mention` configuration can be. The object type
-    is `RichTextMentionValidity`.
+    is `RichTextMentionValidity`. The validation is especially for mapping the user details that is provided via the
+    `nimble-mapping-mention-user`. For example, if the client application provide the duplicate `key` values that stores the user ID, it will be an
+    issue in scenarios when parsing the mention user from just an user ID to username.
 
 _Methods_
 
@@ -306,8 +350,10 @@ _Events_
 
     Conversely, this event will not be fired when:
 
-    1. A user moves the cursor away from the mention node while the popup is open.
-    2. A user selects an option from the dropdown list.
+    1. A user moves the cursor away either using mouse or any key down events that moves the cursor from current position to outside of `@`
+       and characters after that with less than two white spaces while the popup is open.
+    2. A user selects an option from the dropdown list either using mouse click/pressing Enter or Tab.
+    3. A user adds two or more spaces after triggering the mention popup.
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
@@ -336,7 +382,8 @@ _Note_: This initial component design serves as a starting point for implementat
 #### User mention element:
 
 This element serves as a container for the mapping elements and additionally functions as a configuration element. It allows the transmission of
-arbitrary values that are specific to the `@mention` users within the rich text components.
+arbitrary values that are specific to the `@mention` users within the rich text components. Currently, this component do not have any
+configuration properties/attributes for user mentions and plays the role of containing element for the user mapping elements.
 
 _Component Name_
 
