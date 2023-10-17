@@ -2,8 +2,7 @@ import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import {
-    createUserSelectedThemeStory,
-    incubatingWarning
+    createUserSelectedThemeStory
 } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnDurationTextTag } from '..';

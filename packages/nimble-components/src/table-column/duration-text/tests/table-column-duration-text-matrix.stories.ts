@@ -6,7 +6,6 @@ import {
     sharedMatrixParameters
 } from '../../../utilities/tests/matrix';
 import { tableColumnDurationTextTag } from '..';
-import { iconUserTag } from '../../../icons/user';
 import { Table, tableTag } from '../../../table';
 import {
     controlLabelFont,
