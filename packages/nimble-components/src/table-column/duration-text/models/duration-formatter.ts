@@ -76,7 +76,7 @@ export class DurationFormatter {
         const valueInSeconds = remainingTime / 1000;
         // if -0, coerce to 0
         const seconds = valueInSeconds === 0 ? 0 : valueInSeconds % 60;
-        if (milliseconds < 1 && milliseconds !== 0) {
+        if (milliseconds < 1 && valueInSeconds !== 0) {
             return this.scientificSecondsFormatter.format(valueInSeconds);
         }
 
