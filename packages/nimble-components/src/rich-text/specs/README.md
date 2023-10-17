@@ -946,7 +946,7 @@ _Keyboard interactions for `@mention`_
 | Up/Down Arrow keys                     | To move the focus upward/downward in the list of options                                                                            |
 | Left/Right Arrow keys                  | To move the cursor in the editor leftward/rightward and filters the list for the characters from `@` to the current cursor position |
 | Escape                                 | To close the dropdown if it is opened                                                                                               |
-|                                        | ----Below are the keyboard interactions when user is selected from the listBelow are the ----                                       |
+|                                        | ----Below are the keyboard interactions when user is selected from the list----                                       |
 | Backspace                              | To remove the entire selected name and cursor in the `@` position                                                                   |
 | Shift + Arrow keys                     | To select the mention node                                                                                                          |
 
