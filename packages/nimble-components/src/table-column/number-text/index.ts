@@ -2,9 +2,13 @@ import {
     DesignSystem,
     DesignTokenSubscriber
 } from '@microsoft/fast-foundation';
-import { attr, nullableNumberConverter } from '@microsoft/fast-element';
+import {
+    attr,
+    nullableNumberConverter,
+    observable
+} from '@microsoft/fast-element';
 import { styles } from '../base/styles';
-import { template } from '../base/template';
+import { template } from './template';
 import type { TableNumberField } from '../../table/types';
 import { TableColumnTextBase } from '../text-base';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
@@ -18,6 +22,8 @@ import { DecimalFormatter } from './models/decimal-formatter';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
 import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
+import { UnitFamily } from '../../units/base/unit-family';
+import { unitFamilyNoneTag } from '../../units/none';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
@@ -54,6 +60,12 @@ export class TableColumnNumberText extends TableColumnTextBase {
         converter: nullableNumberConverter
     })
     public decimalMaximumDigits?: number;
+
+    /** @internal */
+    @observable
+    public unitElements!: Node[];
+
+    private unitFamily?: UnitFamily;
 
     private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
         handleChange: () => {
@@ -102,6 +114,13 @@ export class TableColumnNumberText extends TableColumnTextBase {
         this.updateColumnConfig();
     }
 
+    private unitElementsChanged(): void {
+        this.unitFamily = this.unitElements.find(
+            x => x instanceof UnitFamily
+        ) as UnitFamily;
+        this.updateColumnConfig();
+    }
+
     private updateColumnConfig(): void {
         this.validator.validateDecimalDigits(this.format, this.decimalDigits);
         this.validator.validateDecimalMaximumDigits(
@@ -126,23 +145,25 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private createFormatter(): NumberFormatter {
-        let minimumDigits;
-        let maximumDigits;
+        const unitFamily = this.unitFamily
+            ?? (document.createElement(unitFamilyNoneTag) as UnitFamily);
         switch (this.format) {
-            case NumberTextFormat.decimal:
-                minimumDigits = typeof this.decimalMaximumDigits === 'number'
+            case NumberTextFormat.decimal: {
+                const minimumDigits = typeof this.decimalMaximumDigits === 'number'
                     ? 0
                     : this.decimalDigits ?? defaultDecimalDigits;
-                maximumDigits = this.decimalMaximumDigits
+                const maximumDigits = this.decimalMaximumDigits
                     ?? this.decimalDigits
                     ?? defaultDecimalDigits;
                 return new DecimalFormatter(
                     lang.getValueFor(this),
+                    unitFamily,
                     minimumDigits,
                     maximumDigits
                 );
+            }
             default:
-                return new DefaultFormatter(lang.getValueFor(this));
+                return new DefaultFormatter(lang.getValueFor(this), unitFamily);
         }
     }
 
@@ -155,10 +176,11 @@ export class TableColumnNumberText extends TableColumnTextBase {
             return TextCellViewBaseAlignment.right;
         }
 
-        // Look at format and decimal max digits to determine the default alignment
+        // Look at format and decimal max digits and unit to determine the default alignment
         if (
             this.format === NumberTextFormat.decimal
             && typeof this.decimalMaximumDigits !== 'number'
+            && !this.unitFamily
         ) {
             return TextCellViewBaseAlignment.right;
         }

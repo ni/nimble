@@ -1,31 +1,39 @@
+import type { UnitFamily } from '../../../units/base/unit-family';
 import { NumberFormatter } from './number-formatter';
+import { UnitFormatter } from './unit-formatter';
 
 /**
  * The formatter for a number-text column whose format is configured to be 'decimal'.
  */
 export class DecimalFormatter extends NumberFormatter {
-    private readonly formatter: Intl.NumberFormat;
+    private readonly formatter: UnitFormatter;
     private readonly tenPowDecimalDigits: number;
 
     public constructor(
         locale: string,
+        unitFamily: UnitFamily,
         minimumFractionDigits: number,
         maximumFractionDigits: number
     ) {
         super();
-        this.formatter = new Intl.NumberFormat(locale, {
-            maximumFractionDigits,
-            minimumFractionDigits,
-            useGrouping: true
-        });
+        this.formatter = new UnitFormatter(
+            unitFamily.getSupportedUnits(locale, {
+                maximumFractionDigits,
+                minimumFractionDigits,
+                useGrouping: true
+            })
+        );
         this.tenPowDecimalDigits = 10 ** maximumFractionDigits;
     }
 
     protected format(number: number): string {
+        const convertedNumber = this.formatter.getValueForBestUnit(number);
         // The NumberFormat option of `signDisplay: "negative"` is not supported in all browsers nimble supports.
         // Because that option cannot be used to avoid rendering "-0", coerce the value -0 to 0 prior to formatting.
-        const valueToFormat = this.willRoundToZero(number) ? 0 : number;
-        return this.formatter.format(valueToFormat);
+        const valueToFormat = this.willRoundToZero(convertedNumber)
+            ? 0
+            : number;
+        return this.formatter.formatValue(valueToFormat);
     }
 
     private willRoundToZero(number: number): boolean {

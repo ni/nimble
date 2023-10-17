@@ -1,0 +1,33 @@
+import type { Unit } from './unit-family';
+
+/**
+ * TODO
+ */
+export class ManuallyTranslatedUnit implements Unit {
+    public constructor(
+        public conversionFactor: number,
+        private readonly formatter: Intl.NumberFormat,
+        private readonly pluralRules: Intl.PluralRules,
+        private readonly unitLabel: string,
+        private readonly singluarUnitLabel: string
+    ) {}
+
+    public format(value: number): string {
+        const formattedValue = this.formatter.format(value);
+        // Some languages have more than two forms (singular/plural) of cardinal
+        // numbers, but we are treating anything other than the 'one' form as plural.
+        // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules#description
+        //
+        // Because PluralRules.select() takes a number (not a string), it cannot differentiate
+        // between 1 and 1.0. When NumberFormat is configured to format with a set number
+        // of fractional digits, those fractional digits can have an effect on the pluralization
+        // of the unit. E.g. in English, it formats "1 byte" vs "1.0 bytes". Thus there is
+        // sometimes an inconsistency between unit pluralization for the same number, based
+        // on whether it's supported by NumberFormat, or manually translated.
+        const unitLabel = this.pluralRules.select(Number(formattedValue)) === 'one'
+            ? this.singluarUnitLabel
+            : this.unitLabel;
+        // TODO: should space be configurable? part of unitLabel? nbsp? short nbsp?
+        return `${formattedValue} ${unitLabel}`;
+    }
+}

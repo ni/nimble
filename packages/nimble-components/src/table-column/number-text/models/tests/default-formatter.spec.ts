@@ -1,3 +1,5 @@
+import type { UnitFamily } from '../../../../units/base/unit-family';
+import { unitFamilyNoneTag } from '../../../../units/none';
 import { getSpecTypeByNamedList } from '../../../../utilities/tests/parameterized';
 import { DefaultFormatter } from '../default-formatter';
 
@@ -227,7 +229,10 @@ describe('DefaultFormatter', () => {
                 `${testCase.name} with '${locale}' locale`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 () => {
-                    const formatter = new DefaultFormatter(locale);
+                    const formatter = new DefaultFormatter(
+                        locale,
+                        document.createElement(unitFamilyNoneTag) as UnitFamily
+                    );
                     const formattedValue = formatter.formatValue(
                         testCase.value
                     );

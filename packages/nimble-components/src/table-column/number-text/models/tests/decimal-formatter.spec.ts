@@ -1,3 +1,5 @@
+import type { UnitFamily } from '../../../../units/base/unit-family';
+import { unitFamilyNoneTag } from '../../../../units/none';
 import { getSpecTypeByNamedList } from '../../../../utilities/tests/parameterized';
 import { DecimalFormatter } from '../decimal-formatter';
 
@@ -141,6 +143,7 @@ describe('DecimalFormatter', () => {
                 () => {
                     const formatter = new DecimalFormatter(
                         locale,
+                        document.createElement(unitFamilyNoneTag) as UnitFamily,
                         testCase.minDigits,
                         testCase.maxDigits
                     );

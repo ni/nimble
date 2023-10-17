@@ -1,4 +1,6 @@
+import type { UnitFamily } from '../../../units/base/unit-family';
 import { NumberFormatter } from './number-formatter';
+import { UnitFormatter } from './unit-formatter';
 
 /**
  * The formatter for a number-text column whose format is configured to be 'default'.
@@ -17,42 +19,52 @@ export class DefaultFormatter extends NumberFormatter {
     private static readonly exponentialUpperBound = 999999.5;
 
     // Formatter to use by default. It renders the number with a maximum of 6 signficant digits.
-    private readonly defaultFormatter: Intl.NumberFormat;
+    private readonly defaultFormatter: UnitFormatter;
 
     // Formatter to use for numbers that have leading zeros. It limits the number of rendered
     // digits using 'maximumFractionDigits', which will result in less than 6 significant digits
     // in order to render no more than 6 total digits.
-    private readonly leadingZeroFormatter: Intl.NumberFormat;
+    private readonly leadingZeroFormatter: UnitFormatter;
 
     // Formatter for numbers that should be displayed in exponential notation. This should be used
     // for numbers with magintudes over 'exponentialUpperBound' or under 'exponentialLowerBound'.
-    private readonly exponentialFormatter: Intl.NumberFormat;
+    private readonly exponentialFormatter: UnitFormatter;
 
-    public constructor(locale: string) {
+    public constructor(locale: string, unitFamily: UnitFamily) {
         super();
-        this.defaultFormatter = new Intl.NumberFormat(locale, {
-            maximumSignificantDigits: DefaultFormatter.maximumDigits,
-            useGrouping: true
-        });
-        this.leadingZeroFormatter = new Intl.NumberFormat(locale, {
-            maximumFractionDigits: DefaultFormatter.maximumDigits - 1,
-            useGrouping: true
-        });
-        this.exponentialFormatter = new Intl.NumberFormat(locale, {
-            maximumSignificantDigits: DefaultFormatter.maximumDigits,
-            notation: 'scientific'
-        });
+        this.defaultFormatter = new UnitFormatter(
+            unitFamily.getSupportedUnits(locale, {
+                maximumSignificantDigits: DefaultFormatter.maximumDigits,
+                useGrouping: true
+            })
+        );
+        this.leadingZeroFormatter = new UnitFormatter(
+            unitFamily.getSupportedUnits(locale, {
+                maximumFractionDigits: DefaultFormatter.maximumDigits - 1,
+                useGrouping: true
+            })
+        );
+        this.exponentialFormatter = new UnitFormatter(
+            unitFamily
+                .getSupportedUnits(locale, {
+                    maximumSignificantDigits: DefaultFormatter.maximumDigits,
+                    notation: 'scientific'
+                })
+                .filter(x => x.conversionFactor === 1) // always use base unit for exponential formatting
+        );
     }
 
     protected format(number: number): string {
         // The NumberFormat option of `signDisplay: "negative"` is not supported in all browsers nimble supports.
         // Because that option cannot be used to avoid rendering "-0", coerce the value -0 to 0 prior to formatting.
         const valueToFormat = number === 0 ? 0 : number;
-        const formatter = this.getFormatterForNumber(valueToFormat);
-        return formatter.format(valueToFormat);
+        // we could use any of our formatters here, because they all support the same units
+        const convertedNumber = this.defaultFormatter.getValueForBestUnit(valueToFormat);
+        const formatter = this.getFormatterForNumber(convertedNumber);
+        return formatter.formatValue(valueToFormat);
     }
 
-    private getFormatterForNumber(number: number): Intl.NumberFormat {
+    private getFormatterForNumber(number: number): UnitFormatter {
         if (number === 0) {
             return this.defaultFormatter;
         }
