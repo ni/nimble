@@ -984,20 +984,22 @@ _Note_: All other keyboard interaction determined by the slotted element will no
 
 _Keyboard interactions for `@mention`_
 
-| Key                                    | Behavior                                                                                                                            |
-| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `@`                                    | To open the list of options with the users list                                                                                     |
-|                                        | ----Below are the keyboard interactions when popup is opened----                                                                    |
-| Any character                          | To show the filtered list of users for that specific character                                                                      |
-| Group of characters                    | To show the filtered list of users for the group characters                                                                         |
-| Group of characters(Not in any option) | Close the dropdown list popup                                                                                                       |
-| Enter, Tab                             | To select the currently focused option from the list                                                                                |
-| Up/Down Arrow keys                     | To move the focus upward/downward in the list of options                                                                            |
-| Left/Right Arrow keys                  | To move the cursor in the editor leftward/rightward and filters the list for the characters from `@` to the current cursor position |
-| Escape                                 | To close the dropdown if it is opened                                                                                               |
-|                                        | ----Below are the keyboard interactions when user is selected from the list----                                                     |
-| Backspace                              | To remove the entire selected name and cursor in the `@` position                                                                   |
-| Shift + Arrow keys                     | To select the mention node                                                                                                          |
+| Key                                      | Behavior                                                                                                                            |
+| --------------------------------------   | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `@`                                      | To open the list of options with the users list                                                                                     |
+|                                          | ----Below are the keyboard interactions when popup is opened----                                                                    |
+| Enter, Tab                               | To select the currently focused option from the list                                                                                |
+| Up/Down Arrow keys                       | To move the focus upward/downward in the list of options                                                                            |
+| Left/Right Arrow keys                    | To move the cursor in the editor leftward/rightward and filters the list for the characters from `@` to the current cursor position |
+| Escape                                   | To close the dropdown if it is opened                                                                                               |
+| Any character                            | To show the filtered list of users for that specific character                                                                      |
+| Space(One time between names)            | To show the filtered list of users that contains a single whitespace in their name                                                  |
+| Space(Two or more trailing white spaces) | Close the dropdown list popup                                                                                                       |
+| Group of characters                      | To show the filtered list of users for the group characters                                                                         |
+| Group of characters(Not in any option)   | Close the dropdown list popup                                                                                                       |
+|                                          | ----Below are the keyboard interactions when user is selected from the list----                                                     |
+| Backspace                                | To remove the entire selected name and cursor in the `@` position                                                                   |
+| Shift + Arrow keys                       | To select the mention node                                                                                                          |
 
 _Note_: The `@mention` node is immutable. For an instance, if the user is selected and mention node(`nimble-rich-text-user-mention-view`) is added to the DOM,
 the only option is to either remove the entire name or can add new name after removing the entire name. It is not possible to edit the name, like removing just
