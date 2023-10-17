@@ -342,11 +342,13 @@ _Events_
     [suggestion](https://tiptap.dev/api/utilities/suggestion#render) configurations. This event fires with the `eventData` containing the
     current text that is added after the `@` character.
 
-    This event will be triggered in the following scenarios:
+    This event will be triggered in the following scenarios to perform filtering in the client application:
 
     1. When a user inserts the character (e.g., `@`) into the editor, which activates the mention popup.
     2. When a user adds or removes text after inserting the mention character into the editor.
     3. When a user repositions the cursor between the text segments added after the mention character.
+
+    Refer the [accessibility](#accessibility) section to know more details about when it requires to emit the event for performing the filtering in the client application.
 
     Conversely, this event will not be fired when:
 
@@ -695,7 +697,7 @@ typically encompass user-related data, such as the username and userID.
 2. `data-label` - used to store the actual `text` of the selected option.
 3. `data-type` - defaults as `mention`.
 4. `contentEditable` - defaults as `false`. The `@mention` node is only enabled in the editor after selecting from the list of options. It is not possible
-   to edit the names within the node; either can delete the entire name or select a new one from the list of options.
+   to edit the names within the node; either can delete the entire name or select a new one from the list of options after deleting the entire name.
 
 #### 1. _Configurations on Tiptap_:
 
@@ -808,7 +810,7 @@ If any of the mention option is invalid as per the above validation, that partic
 option in the list. This indicates the client that some of the option is wrongly configured and identify the
 validation details using the public API `validity`.
 
-The public API to determine the validity of the mention options and they are `checkValidity()` and `validity`.
+The public API to determine the validity of the mention options are `checkValidity()` and `validity`.
 See the [API section](#api) for more details.
 
 #### 5. _nimble-rich-text-user-mention-view_:
@@ -997,7 +999,9 @@ _Keyboard interactions for `@mention`_
 | Backspace                              | To remove the entire selected name and cursor in the `@` position                                                                   |
 | Shift + Arrow keys                     | To select the mention node                                                                                                          |
 
-_Note_: Once the user is selected and mention node is added to the DOM, it is not possible to edit the name, either user can remove the entire name or can add new name.
+_Note_: The `@mention` node is immutable. For an instance, if the user is selected and mention node(`nimble-rich-text-user-mention-view`) is added to the DOM,
+the only option is to either remove the entire name or can add new name after removing the entire name. It is not possible to edit the name, like removing just
+the last name and keeping the first name.
 
 _Mouse interactions for `@mention`_
 
