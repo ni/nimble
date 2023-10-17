@@ -1,6 +1,5 @@
-import { html, ref, slotted } from '@microsoft/fast-element';
-import { Listbox } from '@microsoft/fast-foundation';
-import type { RichTextEditor } from '.';
+import { children, elements, html, ref, repeat } from '@microsoft/fast-element';
+import type { MentionDetail, RichTextEditor, UserList } from '.';
 import { toolbarTag } from '../../toolbar';
 import { toggleButtonTag } from '../../toggle-button';
 import { iconBoldBTag } from '../../icons/bold-b';
@@ -17,11 +16,13 @@ import { errorTextTemplate } from '../../patterns/error/template';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 import { anchoredRegionTag } from '../../anchored-region';
 import { buttonTag } from '../../button';
+import { listOptionTag } from '../../list-option';
+import { mentionBoxTag } from './mention-popup';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
     <template
-    @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
+    ${children({ property: 'childItems', filter: elements() })}
     >
         <div class="container">
             <section ${ref('editorContainer')} class="editor-container">
@@ -117,21 +118,16 @@ export const template = html<RichTextEditor>`
             horizontal-positioning-mode="locktodefault"
             vertical-default-position="bottom"
             ?hidden="${x => !x.open}"
-            @click= "${(x, c) => x.clickHandler(c.event as MouseEvent)}">
-            <div
-                class="listbox"
-                part="listbox"
-                role="listbox"
-                ?disabled="${x => x.disabled}"
             >
-                <slot
-                    ${slotted({
-        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
-        flatten: true,
-        property: 'slottedOptions',
-    })}
-                ></slot>
-            </div>
+            <${mentionBoxTag} 
+            ${ref('mentionBox')} 
+            filter="${x => x.filter}" 
+            @change=${(x, c) => x.mentionChange(c.event as CustomEvent<MentionDetail>)}
+            >
+            ${repeat(x => x.userList, html<UserList>`
+                    <${listOptionTag} value="${x => x.id}">${x => x.name}</${listOptionTag}>
+                    `)}
+            </${mentionBoxTag}>
         </${anchoredRegionTag}>
     </template>
 `;

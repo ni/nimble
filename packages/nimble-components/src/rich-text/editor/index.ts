@@ -4,17 +4,10 @@ import {
     ARIAGlobalStatesAndProperties,
     DesignSystem,
     FoundationElement,
-    isListboxOption
 } from '@microsoft/fast-foundation';
 import {
-    keyArrowDown,
-    keyArrowUp,
     keyEnter,
     keySpace,
-    limit,
-    uniqueId,
-    keyTab,
-    keyEscape
 } from '@microsoft/fast-web-utilities';
 import {
     Editor,
@@ -45,17 +38,28 @@ import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
 import { TipTapNodeName } from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
-import { RichTextMarkdownParser } from '../models/markdown-parser';
+// import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
-import type { ListOption } from '../../list-option';
+import { ListOption } from '../../list-option';
 import type { AnchoredRegion } from '../../anchored-region';
 import type { Button } from '../../button';
+import type { MentionBox } from './mention-popup';
 
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-rich-text-editor': RichTextEditor;
     }
+}
+
+export interface MentionDetail {
+    id: string;
+    name: string;
+}
+
+export interface UserList {
+    id: string;
+    name: string;
 }
 
 /**
@@ -131,7 +135,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @internal
      */
     @observable
-    public slottedOptions!: ListOption[];
+    public filter!: string;
 
     /**
      * @internal
@@ -188,20 +192,21 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     @observable
     public open?: boolean;
 
+    @observable
+    public userList!: UserList[];
+
+    @observable
+    public readonly childItems: Element[] = [];
+
     /**
      * @internal
      */
     public editorContainer!: HTMLDivElement;
 
-    private _options: ListOption[] = [];
-
-    @observable
-    private selectedIndex = -1;
-
-    @observable
-    private selectedOptions: ListOption[] = [];
-
-    private filteredOptions: ListOption[] = [];
+    /**
+     * @internal
+     */
+    public mentionBox!: MentionBox;
 
     private resizeObserver?: ResizeObserver;
     private mentionPropCommand!: SuggestionProps;
@@ -223,6 +228,24 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         this.stopNativeInputEventPropagation();
         this.resizeObserver = new ResizeObserver(() => this.onResize());
         this.resizeObserver.observe(this);
+    }
+
+    public childItemsChanged(): void {
+        this.updateColumnsFromChildItems();
+    }
+
+    public updateColumnsFromChildItems(): void {
+        // const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
+        //     ? customElements.whenDefined(item.localName)
+        //     : Promise.resolve()));
+        // await Promise.all(definedElements);
+        const mentionList = this.childItems.filter(
+            (x): x is ListOption => x instanceof ListOption
+        );
+        this.userList = [];
+        mentionList.forEach((option => {
+            this.userList.push({ id: option.id, name: option.textContent! });
+        }));
     }
 
     /**
@@ -249,26 +272,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     /**
-     * Update the list of option based on the slot (Filters element other than nimble-list-option and based on its hidden property)
-     */
-    public slottedOptionsChanged(_prev: Element[], next: Element[]): void {
-        this.options = next.reduce<ListOption[]>((options, item) => {
-            if (isListboxOption(item)) {
-                options.push(item);
-            }
-            return options;
-        }, []);
-        const setSize = `${this.options.length}`;
-        this.options.forEach((option, index) => {
-            if (!option.id) {
-                option.id = uniqueId('option-');
-            }
-            option.ariaPosInSet = `${index + 1}`;
-            option.ariaSetSize = setSize;
-        });
-    }
-
-    /**
      * Update the placeholder text and view of the editor.
      * @internal
      */
@@ -280,54 +283,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         this.tiptapEditor.view.dispatch(this.tiptapEditor.state.tr);
 
         this.queueUpdateScrollbarWidth();
-    }
-
-    /**
-     * Toggles the selected state of the option
-     * @internal
-     */
-    public selectedOptionsChanged(
-        _prev: ListOption[] | undefined,
-        next: ListOption[]
-    ): void {
-        if (this.$fastController.isConnected) {
-            this._options.forEach(o => {
-                o.selected = next.includes(o);
-            });
-        }
-    }
-
-    public selectedIndexChanged(prev: number | undefined, next: number): void {
-        if (this.$fastController.isConnected) {
-            const nextIndex = limit(-1, this.options.length - 1, next);
-
-            if (nextIndex !== this.selectedIndex) {
-                this.selectedIndex = nextIndex;
-                return;
-            }
-
-            if (!this.hasSelectableOptions) {
-                this.selectedIndex = -1;
-            }
-
-            if (
-                this.options[this.selectedIndex]?.disabled
-                && typeof prev === 'number'
-            ) {
-                const selectableIndex = this.getSelectableIndex(
-                    prev,
-                    nextIndex
-                );
-                const newNext = selectableIndex > -1 ? selectableIndex : prev;
-                this.selectedIndex = newNext;
-                if (nextIndex === newNext) {
-                    this.selectedIndexChanged(nextIndex, newNext);
-                }
-                return;
-            }
-
-            this.setSelectedOptions();
-        }
     }
 
     /**
@@ -466,157 +421,12 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         return false;
     }
 
-    /**
-     * Insert mention node into editor when clicking user on popup
-     */
-    public clickHandler(e: MouseEvent): boolean {
-        if (this.disabled) {
-            return false;
-        }
-
-        if (this.open) {
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-            const captured = (e.target as HTMLElement).closest(
-                'option,[role=option]'
-            ) as ListOption | null;
-
-            if (!captured || captured.disabled) {
-                return false;
-            }
-            this.mentionPropCommand.command({
-                id: captured.value,
-                label: captured.textContent
-            });
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Insert mention node into editor on pressing tab
-     */
-    public keydownHandler(e: Event & KeyboardEvent): boolean {
-        const key = e.key;
-        if (key === keyTab) {
-            if (!this.open) {
-                return true;
-            }
-            if (this.firstSelectedOption) {
-                this.mentionPropCommand.command({
-                    id: this.firstSelectedOption?.value,
-                    label: this.firstSelectedOption?.textContent
-                });
-            }
-            e.preventDefault();
-            this.open = false;
-        }
-        return true;
-    }
-
-    private get options(): ListOption[] {
-        return this.filteredOptions.length
-            ? this.filteredOptions
-            : this._options;
-    }
-
-    private set options(value: ListOption[]) {
-        this._options = value;
-    }
-
-    private get firstSelectedOption(): ListOption | null {
-        return this.selectedOptions[0] ?? null;
-    }
-
-    private get hasSelectableOptions(): boolean {
-        return (
-            this.options?.length > 0 && !this.options?.every(o => o.disabled)
-        );
-    }
-
-    private setSelectedOptions(): void {
-        if (this.options?.length) {
-            this.selectedOptions = [this.options[this.selectedIndex]!];
-            this.focusAndScrollOptionIntoView();
-        }
-    }
-
-    /**
-     * Scroll to the respective options on keydown/up event
-     */
-    private focusAndScrollOptionIntoView(): void {
-        if (this.contains(document.activeElement)) {
-            if (this.firstSelectedOption) {
-                requestAnimationFrame(() => {
-                    this.firstSelectedOption?.scrollIntoView({
-                        block: 'nearest'
-                    });
-                });
-            }
-        }
-    }
-
-    private getSelectableIndex(
-        prev: number = this.selectedIndex,
-        next: number
-    ): number {
-        // eslint-disable-next-line no-nested-ternary
-        const direction = prev > next ? -1 : prev < next ? 1 : 0;
-        const potentialDirection = prev + direction;
-
-        let nextSelectableOption!: ListOption;
-
-        switch (direction) {
-            case -1: {
-                nextSelectableOption = this.options.reduceRight(
-                    (previousValue, thisOption, index) => (!previousValue
-                        && !thisOption.disabled
-                        && index < potentialDirection
-                        ? thisOption
-                        : previousValue),
-                    nextSelectableOption
-                );
-                break;
-            }
-
-            case 1: {
-                nextSelectableOption = this.options.reduce(
-                    (previousValue, thisOption, index) => (!previousValue
-                        && !thisOption.disabled
-                        && index > potentialDirection
-                        ? thisOption
-                        : previousValue),
-                    nextSelectableOption
-                );
-                break;
-            }
-            default: {
-                break;
-            }
-        }
-
-        return this.options.indexOf(nextSelectableOption);
-    }
-
-    /**
-     * Moves focus to the next selectable option.
-     *
-     * @internal
-     */
-    private selectNextOption(): void {
-        if (!this.disabled && this.selectedIndex < this.options.length - 1) {
-            this.selectedIndex += 1;
-        }
-    }
-
-    /**
-     * Moves focus to the previous selectable option.
-     *
-     * @internal
-     */
-    private selectPreviousOption(): void {
-        if (!this.disabled && this.selectedIndex > 0) {
-            this.selectedIndex -= 1;
-        }
+    public mentionChange(e: CustomEvent<MentionDetail>): void {
+        this.mentionPropCommand.command({
+            id: e.detail.id,
+            label: e.detail.name
+        });
+        this.open = false;
     }
 
     private createEditor(): HTMLDivElement {
@@ -688,28 +498,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * presence of a decoration Node (Span node where the @mention is located)
      */
     private readonly updateUserLists = (props: SuggestionProps): void => {
-        this.selectedIndex = -1;
         this.mentionPropCommand = props;
         this.open = true;
-        // props.query will provide the plain string obtained by excluding the '@' character after it has been typed
-        const filter = props.query.toLowerCase();
-        this.filteredOptions = this._options.filter(ele => ele.text.toLowerCase().startsWith(filter));
-        if (!this.filteredOptions.length && !filter) {
-            this.filteredOptions = this._options;
-        }
-        this._options.forEach(o => {
-            o.hidden = !this.filteredOptions.includes(o);
-        });
-        if (this.filteredOptions.length) {
-            this.selectedOptions = [this.filteredOptions[0]!];
-            this.selectedIndex = this.options.indexOf(
-                this.firstSelectedOption!
-            );
-        } else {
-            this.selectedIndex = -1;
-            this.open = false;
-        }
-        // Adjust the position of the anchored region in relation to the position of the mention node
+        this.filter = props.query.toLowerCase();
         if (this.region) {
             this.region.anchorElement = props.decorationNode as HTMLElement;
             this.region.update();
@@ -784,52 +575,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                                 },
 
                                 onKeyDown: (props): boolean => {
-                                    const key = props.event.key;
                                     if (!this.open) {
                                         return false;
                                     }
-                                    switch (key) {
-                                        case keyEnter: {
-                                            if (this.firstSelectedOption) {
-                                                this.mentionPropCommand.command(
-                                                    {
-                                                        id: this
-                                                            .firstSelectedOption
-                                                            ?.value,
-                                                        label: this
-                                                            .firstSelectedOption
-                                                            ?.textContent
-                                                    }
-                                                );
-                                            }
-                                            this.open = false;
-                                            return true;
-                                        }
-
-                                        case keyEscape: {
-                                            this.open = false;
-                                            return true;
-                                        }
-                                        // Select the next selectable option
-                                        case keyArrowDown: {
-                                            if (!props.event.shiftKey) {
-                                                this.selectNextOption();
-                                            }
-                                            return true;
-                                        }
-
-                                        // Select the previous selectable option
-                                        case keyArrowUp: {
-                                            if (!props.event.shiftKey) {
-                                                this.selectPreviousOption();
-                                            }
-                                            return true;
-                                        }
-
-                                        default: {
-                                            return false;
-                                        }
-                                    }
+                                    return this.mentionBox.keydownHandler(props.event);
                                 },
 
                                 onExit: (): void => {
@@ -902,23 +651,13 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        const slottedOptionsList = this.getSlottedOptionsList();
-        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(
-            markdown,
-            slottedOptionsList
-        );
-        return this.xmlSerializer.serializeToString(documentFragment);
-    }
-
-    private getSlottedOptionsList(): { id: string, name: string }[] {
-        const slottedOptionsList: { id: string, name: string }[] = [];
-        this.slottedOptions.forEach(ele => {
-            slottedOptionsList.push({
-                id: ele.value,
-                name: ele.textContent ?? ''
-            });
-        });
-        return slottedOptionsList;
+        // const slottedOptionsList = this.getSlottedOptionsList();
+        // const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(
+        //     markdown,
+        //     slottedOptionsList
+        // );
+        // return this.xmlSerializer.serializeToString(documentFragment);
+        return '';
     }
 
     /**
