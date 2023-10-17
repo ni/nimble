@@ -111,39 +111,39 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
 </nimble-rich-text-editor>
 ```
 
-Additionally, the advanced text editor includes a feature for tagging or mentioning a user by inserting the **"@"** symbol within the editor.
+Additionally, this rich text editor also includes a feature for tagging or mentioning a user by inserting the **"@"** symbol within the editor.
 This action triggers a dropdown menu, allowing users to select a person from a list. To provide the rich text editor component with the
 necessary user information for populating this dropdown, users can pass user details through the configuration elements outlined below:
 
 ```html
 <nimble-rich-text-editor>
-    <nimble-rich-text-mention-user>
-        <nimble-mapping-mention
+    <nimble-rich-text-mention-users>
+        <nimble-mapping-mention-user
             key="user-id-1"
             text="John Doe"
-        ></nimble-mapping-mention>
-        <nimble-mapping-mention
+        ></nimble-mapping-mention-user>
+        <nimble-mapping-mention-user
             key="user-id-2"
             text="Alice Smith"
-        ></nimble-mapping-mention>
-        <nimble-mapping-mention
+        ></nimble-mapping-mention-user>
+        <nimble-mapping-mention-user
             key="user-id-3"
             text="Bob Jones"
-        ></nimble-mapping-mention>
-    </nimble-rich-text-mention-user>
+        ></nimble-mapping-mention-user>
+    </nimble-rich-text-mention-users>
 </nimble-rich-text-editor>
 ```
 
-The configuration element, `nimble-rich-text-mention-user`, consists of mapping elements that specify both the content to display
+The configuration element, `nimble-rich-text-mention-users`, consists of mapping elements that specify both the content to display
 in the dropdown list (i.e., the `text`) and the data to store in the markdown when extracting content from the editor (i.e., the `key`).
 These details are subsequently transformed into a map or an object, which is used to populate the options within the shadow root
 for the dropdown list of items.
 
-The `nimble-mapping-mention` extending from a base mapping class and utilize the same properties that base class offers.
+The `nimble-mapping-mention-user` extending from a base mapping class and utilize the same properties that base class offers.
 
 _Future Scope_:
 
-1. The `nimble-mapping-mention` can be used to get other user details like email, profile information etc., to display in the
+1. The `nimble-mapping-mention-user` can be used to get other user details like email, profile information etc., to display in the
    dropdown list options.
 2. If there is a requirement to mention an issue (using **"#"**) or a pull requests (using **"!"**),
    a new configuration component can be created and added as a child to the rich text editor. Below is an example of how
@@ -151,35 +151,35 @@ _Future Scope_:
 
 ```html
 <nimble-rich-text-editor>
-    <nimble-rich-text-mention-user>
-        <nimble-mapping-mention
+    <nimble-rich-text-mention-users>
+        <nimble-mapping-mention-user
             key="user-id-1"
             text="John Doe"
-        ></nimble-mapping-mention>
-        <nimble-mapping-mention
+        ></nimble-mapping-mention-user>
+        <nimble-mapping-mention-user
             key="user-id-2"
             text="Alice Smith"
-        ></nimble-mapping-mention>
-        <nimble-mapping-mention
+        ></nimble-mapping-mention-user>
+        <nimble-mapping-mention-user
             key="user-id-3"
             text="Bob Jones"
-        ></nimble-mapping-mention>
-    </nimble-rich-text-mention-user>
+        ></nimble-mapping-mention-user>
+    </nimble-rich-text-mention-users>
 
-    <nimble-rich-text-mention-issue>
-        <nimble-mapping-mention
+    <nimble-rich-text-mention-issues>
+        <nimble-mapping-mention-user
             key="issue-id-1"
             text="Spec for rich text editor"
-        ></nimble-mapping-mention>
-        <nimble-mapping-mention
+        ></nimble-mapping-mention-user>
+        <nimble-mapping-mention-user
             key="issue-id-2"
             text="Mention support in rich text components"
-        ></nimble-mapping-mention>
-        <nimble-mapping-mention
+        ></nimble-mapping-mention-user>
+        <nimble-mapping-mention-user
             key="issue-id-3"
             text="Issue in pasting a link"
-        ></nimble-mapping-mention>
-    </nimble-rich-text-mention-issue>
+        ></nimble-mapping-mention-user>
+    </nimble-rich-text-mention-issues>
 </nimble-rich-text-editor>
 ```
 
@@ -209,12 +209,14 @@ Cons:
 
 #### Client Usage Guidance on Filtered Users:
 
-Initially, the list of users can be sorted in alphabetical order based on their usernames. Then, within the `nimble-mapping-mention`,
-only the initial 20 user details should be transmitted. These details will be used to establish the key-value pairs, consisting of user ID and username.
+Initially, the client application need not provide any user list within the children of `nimble-rich-text-editor` and it can be empty.
+The editor component will emit an event whenever the `@` character is entered into the editor. By the time, the client
+can listen to the `mention-update` event and sort the users list in alphabetical order with respect to the usernames
+and provide the initial twenty user lists to the editor via the `nimble-mapping-mention-user`.
 
-The `nimble-rich-text-editor` will generate an event containing the text following the `@` character. For instance, if a user types
-`@` and then adds `a` the event will be emitted with data that includes the value `@a`. The client needs to capture this event,
-filter the list of users that includes the names containing the letter `a` and then dynamically update the `nimble-mapping-mention`
+The `mention-update` event will be containing the text following the `@` character. For instance, if a user types
+`@` and then adds `a` the event will be emitted with data that includes the value `@a`. The client will be listening to this event,
+filter the list of users that includes the names containing the letter `a` and then dynamically update the `nimble-mapping-mention-user`
 element based on this event data. Subsequently, a maximum of twenty filtered options should be transmitted to the editor.
 
 _Note_: The editor will also perform filtering the options once again to ensure the filtered options are proper and update the dropdown list.
@@ -337,11 +339,11 @@ arbitrary values that are specific to the `@mention` users within the rich text 
 
 _Component Name_
 
--   `nimble-rich-text-mention-user`
+-   `nimble-rich-text-mention-users`
 
 _Content_
 
--   One or more `nimble-mapping-mention` elements
+-   One or more `nimble-mapping-mention-user` elements
 
 #### Mapping element (mention):
 
@@ -351,7 +353,7 @@ view, while the user ID is contained in the `key` attribute which is used to sto
 
 _Component Name_
 
--   `nimble-mapping-mention`
+-   `nimble-mapping-mention-user`
 
 _Props/Attrs_
 
@@ -438,7 +440,7 @@ _CSS Parts_
 
 -   none
 
-#### `nimble-rich-text-mention-user`
+#### `nimble-rich-text-mention-users`
 
 ```html
 <template>
@@ -449,7 +451,7 @@ _CSS Parts_
 </template>
 ```
 
-#### `nimble-mapping-mention`
+#### `nimble-mapping-mention-user`
 
 ```html
 <template slot="mapping"></template>
@@ -475,6 +477,38 @@ _CSS Parts_
 
 The `nimble-rich-text-viewer` is used for viewing rich text content when a markdown string is passed to it. It performs the post-processing
 tasks to convert the markdown string to corresponding HTML nodes for each text formatting.
+
+Additionally the viewer also supports to show the mentioned users in the emphasized text with a different prominent color like in the
+interaction design linked in the [Background](#background) section above. So the markdown string that contains a `@mention` syntax should be
+identified by the viewer for mapping the user ID with the user name to display within a `nimble-rich-text-user-mention-view`.
+
+Below is an example of how the client application can be used to provide the `nimble-rich-text-viewer` with necessary user information:
+
+```html
+<nimble-rich-text-viewer>
+    <nimble-rich-text-mention-users>
+        <nimble-mapping-mention-user
+            key="user-id-1"
+            text="John Doe"
+        ></nimble-mapping-mention-user>
+        <nimble-mapping-mention-user
+            key="user-id-2"
+            text="Alice Smith"
+        ></nimble-mapping-mention-user>
+        <nimble-mapping-mention-user
+            key="user-id-3"
+            text="Bob Jones"
+        ></nimble-mapping-mention-user>
+    </nimble-rich-text-mention-users>
+</nimble-rich-text-viewer>
+```
+
+#### Client Usage Guidance on Filtered Users:
+
+The client application should parse the markdown string and get the user IDs that matches the string `<user:user-id>`. Once
+all the user IDs are identified from the markdown string, it is enough to provide the user details only for the identified
+user IDs through the `nimble-mapping-mention-user`. For example, if the markdown string is like `<user:user-id-1> <user:user-id-2>`,
+it is suggested to include `nimble-mapping-mention-user` only for `user-id-1` and `user-id-2`.
 
 ### API
 
@@ -506,7 +540,7 @@ _CSS Classes and CSS Custom Properties that affect the component_
 
 _Slot Names_
 
--   _default_: The list of options that is in `nimble-list-option` will be considered for the `@mention` in the viewer.
+-   none
 
 _Host Classes_
 
@@ -609,7 +643,7 @@ elements, each with custom data attribute values. These attributes play a dual r
 correspond to the information stored in markdown format. For instance, when `@mention` is primarily employed for user tagging, these attribute values
 typically encompass user-related data, such as the username and userID.
 
-1. `data-id` - employed to store the value that is sent in the `key` attribute of `nimble-mapping-mention`.
+1. `data-id` - employed to store the value that is sent in the `key` attribute of `nimble-mapping-mention-user`.
 2. `data-label` - used to store the actual `text` of the selected option.
 3. `data-type` - defaults as `mention`.
 4. `contentEditable` - defaults as `false`. The `@mention` node is only enabled in the editor after selecting from the list of options. It is not possible
@@ -675,7 +709,7 @@ Additionally, a custom tokenizer rule needs to be added to the `markdown-it` rul
 This can be achieved by loading the customized `mention` plugin into the supported tokenizer rules using the
 [`use`](https://markdown-it.github.io/markdown-it/#MarkdownIt.use) method and identifying the value of the
 `key` that matches the `text`. The `id` and `name` will then be generated as an object from the
-`nimble-mapping-mention` elements, taking the `key` and `text` attributes, respectively. This custom node
+`nimble-mapping-mention-user` elements, taking the `key` and `text` attributes, respectively. This custom node
 will be added `before` the `autolink` mark to give the highest precedence to the `mention` node.
 
 #### 3. _Defining node in markdown serializer_:
@@ -695,7 +729,7 @@ The example markdown string constructed for the below DOM element rendered in th
 >
 ```
 
-#### 4. _nimble-rich-text-mention-user_:
+#### 4. _nimble-rich-text-mention-users_:
 
 An abstract base class, `RichTextMention`, is defined as the parent for all elements that contain mentions, and it will possess the following properties:
 
@@ -704,7 +738,7 @@ An abstract base class, `RichTextMention`, is defined as the parent for all elem
 3. `md-scheme`: string - used as a scheme in the `autolink` format to store `@mention` in the markdown string. For example, `user` is
    used as a scheme for user mention markdown format as `<user:user-id>`
 
-The `nimble-rich-text-mention-user` is a subclass derived from the base class and provides the essential values for the properties mentioned above,
+The `nimble-rich-text-mention-users` is a subclass derived from the base class and provides the essential values for the properties mentioned above,
 specifically tailored for user mentions. These values are kept as part of the `RichTextMentionInternalsOptions` and will be utilized by various components that require access to these specific values.
 
 Validation will be integrated into the internal workings through a `validConfiguration` flag. There is a base class called `RichTextMentionValidator`
@@ -720,9 +754,11 @@ By deriving from the base, the mention options can validate the following condit
 4. `validateNoMissingKeys(mappings)`
 5. `validateNoMissingText(mappings)`
 
-_Note_: These are subject to change based on the property changes in the `nimble-mapping-mention` element.
+_Note_: These are subject to change based on the property changes in the `nimble-mapping-mention-user` element.
 
-If any of the mention option is invalid as per the above validation, that particular option is ignored from the list.
+If any of the mention option is invalid as per the above validation, that particular option will render as an empty
+option from the list. This indicates the client that some of the option is wrongly configured and identify the
+validation details using the public API `validity`.
 
 There are public API to determine the validity of the mention options and they are `checkValidity()` and `validity`.
 See the [API section](#api) for more details.
