@@ -98,8 +98,8 @@ _`nimble-rich-text-viewer`_
 
 The `nimble-rich-text-editor` will be divided into two sections namely an `editor` section and a `footer` section.
 
-1. The `editor` section is the actual text area to add or update the rich text content.
-2. The `footer` section consists of `nimble-toggle-button` to control each text formatting functionalities like bold, italic, etc, and a
+1. `editor` section is the actual text area to add or update rich text content.
+2. `footer` section consists of `nimble-toggle-button` to control each text formatting functionalities like bold, italic, etc, and a
    `footer-actions` slot element which is typically used to add action buttons to the right bottom of the component.
 
 Example usage of the `nimble-rich-text-editor` in the application layer is as follows:
@@ -112,8 +112,8 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
 ```
 
 Additionally, this rich text editor also includes a feature for tagging or mentioning a user by inserting the **"@"** symbol within the editor.
-This action triggers a dropdown menu, allowing users to select a person from a list. To provide the rich text editor component with the
-necessary user information for populating this dropdown, users can pass user details through the configuration elements outlined below:
+This action triggers a dropdown list, allowing users to select a person. To provide the rich text editor component with the
+necessary user information for populating this dropdown, users can pass the user details through the configuration elements outlined below:
 
 ```html
 <nimble-rich-text-editor>
@@ -214,10 +214,11 @@ The editor component will emit an event whenever the `@` character is entered in
 can listen to the `mention-update` event and sort the users list in alphabetical order with respect to the usernames
 and provide the initial twenty user lists to the editor via the `nimble-mapping-mention-user`.
 
-The `mention-update` event will be containing the text following the `@` character. For instance, if a user types
-`@` and then adds `a` the event will be emitted with data that includes the value `@a`. The client will be listening to this event,
-filter the list of users that includes the names containing the letter `a` and then dynamically update the `nimble-mapping-mention-user`
-element based on this event data. Subsequently, a maximum of twenty filtered options should be transmitted to the editor.
+The `mention-update` event will also be triggered when the user types any character after `@`, containing that text following the `@` character.
+For instance, if a user types `@` and then adds `a` the event will be emitted with data that includes the value `@a`. The client will be
+listening to this event, filter the list of users that includes the names containing the letter `a` and then dynamically update the
+`nimble-mapping-mention-user` element based on the filter data. Subsequently, a maximum of twenty filtered options should be transmitted to the
+editor.
 
 _Note_: The editor will also perform filtering the options once again to ensure the filtered options are proper and update the dropdown list.
 
@@ -293,7 +294,7 @@ _Events_
     2. This event will not fire when there are no changes made to the content of the editor. For example, all mouse events, selecting the texts, state
        changes, etc,
 
--   `mention-update`: This can be achieved through Tiptap's `onUpdate()` and `onStart()` methods in `render` function in
+-   `mention-update` - This can be achieved through Tiptap's `onUpdate()` and `onStart()` methods in `render` function in
     [suggestion](https://tiptap.dev/api/utilities/suggestion#render) configurations. This event fires with the `eventData` containing the
     current text that is added after the `@` character.
 
@@ -345,7 +346,7 @@ _Content_
 
 -   One or more `nimble-mapping-mention-user` elements
 
-#### Mapping element (mention):
+#### Mapping element (user mention):
 
 This mapping element is employed to establish a connection between the value displayed in the mapping view and the corresponding value stored within
 the markdown string. For instance, the username for an `@mention` is contained in the `text` attribute, which is used for display in the mention
@@ -693,7 +694,7 @@ mention: {
     toDOM(node) {
         const { dataid, datalabel } = node.attrs;
         return [
-            'span',
+            'nimble-rich-text-user-mention-view',
             {
                 'data-type': 'mention',
                 'data-id': dataid as string,
@@ -717,7 +718,7 @@ will be added `before` the `autolink` mark to give the highest precedence to the
 The rendered `@mention` node will be constructed into a markdown string by extracting the `data-id` from
 the `span` element in the editor when the `getMarkdown()` method is called.
 
-The example markdown string constructed for the below DOM element rendered in the editor is `@<1234-5678>`.
+The example markdown string constructed for the below DOM element rendered in the editor is `<user:1234-5678>`.
 
 ```html
 <nimble-rich-text-user-mention-view
@@ -757,10 +758,10 @@ By deriving from the base, the mention options can validate the following condit
 _Note_: These are subject to change based on the property changes in the `nimble-mapping-mention-user` element.
 
 If any of the mention option is invalid as per the above validation, that particular option will render as an empty
-option from the list. This indicates the client that some of the option is wrongly configured and identify the
+option in the list. This indicates the client that some of the option is wrongly configured and identify the
 validation details using the public API `validity`.
 
-There are public API to determine the validity of the mention options and they are `checkValidity()` and `validity`.
+The public API to determine the validity of the mention options and they are `checkValidity()` and `validity`.
 See the [API section](#api) for more details.
 
 #### 5. _nimble-rich-text-user-mention-view_:
@@ -769,8 +770,8 @@ The foundation for configuring the rendering of mention nodes in the UI is provi
 `FoundationElement`, and its template contains a `span` element with the required CSS styling. It is equipped with attributes such as `data-id`, `data-label`, and `data-type`,
 along with properties like `character`, which is included in the display alongside mentioned users.
 
-The `nimble-rich-text-user-mention-view` is a specialized view class that is derived from the base class and makes use of the template defined in the base class.
-It customizes the character property of the base class by setting it to **"@"** in order to render the mention node with the **"@"** symbol as a prefix.
+The `nimble-rich-text-user-mention-view` is a view class that is derived from the above base class and makes use of the template defined in the base class.
+It customizes the character property of the base class by setting it to **"@"** in order to render the mention node with the **"@"** symbol as a prefix in the text content of the node.
 
 The Mention node from Tiptap is extended, and the `renderHTML` method is overridden to render the element as a `nimble-rich-text-user-mention-view` instead of the default `span`
 element as shown in the [Tiptap code](https://github.com/ueberdosis/tiptap/blob/42039c05f0894a2730a7b8f1b943ddb22d52a824/packages/extension-mention/src/mention.ts#L112).
@@ -937,7 +938,7 @@ _Keyboard interactions for `@mention`_
 | Key                                    | Behavior                                                                                                                            |
 | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `@`                                    | To open the list of options with the users list                                                                                     |
-|                                        | ---------------------------------------------Keyboard interactions when popup is opened-------------------------------------------- |
+|                                        | ----Below are the keyboard interactions when popup is opened----                                                                    |
 | Any character                          | To show the filtered list of users for that specific character                                                                      |
 | Group of characters                    | To show the filtered list of users for the group characters                                                                         |
 | Group of characters(Not in any option) | Close the dropdown list popup                                                                                                       |
@@ -945,7 +946,7 @@ _Keyboard interactions for `@mention`_
 | Up/Down Arrow keys                     | To move the focus upward/downward in the list of options                                                                            |
 | Left/Right Arrow keys                  | To move the cursor in the editor leftward/rightward and filters the list for the characters from `@` to the current cursor position |
 | Escape                                 | To close the dropdown if it is opened                                                                                               |
-|                                        | -------------------------------------Keyboard interactions when user is selected from the list------------------------------------- |
+|                                        | ----Below are the keyboard interactions when user is selected from the listBelow are the ----                                       |
 | Backspace                              | To remove the entire selected name and cursor in the `@` position                                                                   |
 | Shift + Arrow keys                     | To select the mention node                                                                                                          |
 
