@@ -1,7 +1,11 @@
+import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { IntlNumberFormatUnit } from '../base/intl-number-format-unit';
-import { UnitFamily, type Unit } from '../base/unit-family';
+import type { Unit } from '../base/unit-family';
 import { template } from '../base/template';
+import { ManuallyTranslatedUnitFamily } from '../base/manually-translated-unit-family';
+import { UnitPrefix } from '../base/unit-prefix';
+import { UnitTranslation } from '../base/unit-translation';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -12,8 +16,38 @@ declare global {
 /**
  * TODO
  */
-export class UnitFamilyByte extends UnitFamily {
-    public getSupportedUnits(
+export class UnitFamilyByte extends ManuallyTranslatedUnitFamily {
+    @attr({ mode: 'boolean' })
+    public binary = false;
+
+    public override getSupportedUnits(
+        lang: string,
+        formatterOptions: Intl.NumberFormatOptions
+    ): Unit[] {
+        return this.binary
+            ? super.getSupportedUnits(lang, formatterOptions)
+            : this.getSupportedDecimalUnits(lang, formatterOptions);
+    }
+
+    protected override getUnitTranslations(): Map<string, UnitTranslation> {
+        const unitTranslations = new Map<string, UnitTranslation>();
+        unitTranslations.set('en', new UnitTranslation('byte', 'bytes', 'B'));
+        unitTranslations.set('fr', new UnitTranslation('octet', 'octets', 'o'));
+        unitTranslations.set('de', new UnitTranslation('Byte', 'Byte', 'V'));
+        return unitTranslations;
+    }
+
+    protected override getSupportedPrefixes(): UnitPrefix[] {
+        return [
+            new UnitPrefix(1024, 'Ki'),
+            new UnitPrefix(1024 ** 2, 'Mi'),
+            new UnitPrefix(1024 ** 3, 'Gi'),
+            new UnitPrefix(1024 ** 4, 'Ti'),
+            new UnitPrefix(1024 ** 5, 'Pi')
+        ];
+    }
+
+    private getSupportedDecimalUnits(
         lang: string,
         formatterOptions: Intl.NumberFormatOptions
     ): Unit[] {

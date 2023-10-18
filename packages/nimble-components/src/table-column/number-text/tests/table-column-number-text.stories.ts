@@ -15,7 +15,6 @@ import { tableColumnTextTag } from '../../text';
 import { NumberTextAlignment, NumberTextFormat } from '../types';
 import { unitFamilyByteTag } from '../../../units/byte';
 import { unitFamilyVoltTag } from '../../../units/volt';
-import { unitFamilyByte1024Tag } from '../../../units/byte1024';
 
 const simpleData = [
     {
@@ -164,7 +163,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             <${tableColumnNumberTextTag} field-name="measurement" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}">
                 Measurement
                 ${when(x => x.unit === 'byte', html`<${unitFamilyByteTag}></${unitFamilyByteTag}>`)}
-                ${when(x => x.unit === 'byte (1024)', html`<${unitFamilyByte1024Tag}></${unitFamilyByte1024Tag}>`)}
+                ${when(x => x.unit === 'byte (1024)', html`<${unitFamilyByteTag} binary></${unitFamilyByteTag}>`)}
                 ${when(x => x.unit === 'volt', html`<${unitFamilyVoltTag}></${unitFamilyVoltTag}>`)}
             </${tableColumnNumberTextTag}>
         </${tableTag}>

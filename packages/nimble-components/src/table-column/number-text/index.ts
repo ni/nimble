@@ -4,7 +4,9 @@ import {
 } from '@microsoft/fast-foundation';
 import {
     attr,
+    Notifier,
     nullableNumberConverter,
+    Observable,
     observable
 } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
@@ -67,6 +69,8 @@ export class TableColumnNumberText extends TableColumnTextBase {
 
     private unitFamily?: UnitFamily;
 
+    private unitNotifier?: Notifier;
+
     private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
         handleChange: () => {
             this.updateColumnConfig();
@@ -88,6 +92,15 @@ export class TableColumnNumberText extends TableColumnTextBase {
         return this.validator.getValidity();
     }
 
+    /**
+     * @internal
+     *
+     * Respond to any change in the unitFamily's observable properties by updating the column config
+     */
+    public handleChange(): void {
+        this.updateColumnConfig();
+    }
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
@@ -96,6 +109,19 @@ export class TableColumnNumberText extends TableColumnTextBase {
             delegatedEvents: [],
             sortOperation: TableColumnSortOperation.basic
         };
+    }
+
+    private observeUnit(): void {
+        if (this.unitNotifier) {
+            this.unitNotifier.unsubscribe(this);
+            this.unitNotifier = undefined;
+        }
+
+        if (this.unitFamily) {
+            const notifier = Observable.getNotifier(this.unitFamily);
+            notifier.subscribe(this);
+            this.unitNotifier = notifier;
+        }
     }
 
     private formatChanged(): void {
@@ -118,6 +144,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
         this.unitFamily = this.unitElements.find(
             x => x instanceof UnitFamily
         ) as UnitFamily;
+        this.observeUnit();
         this.updateColumnConfig();
     }
 
