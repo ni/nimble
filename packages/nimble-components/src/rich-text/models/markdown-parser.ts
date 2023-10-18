@@ -5,8 +5,8 @@ import {
 } from 'prosemirror-markdown';
 import { DOMSerializer, Schema } from 'prosemirror-model';
 import { anchorTag } from '../../anchor';
+import type { UserInfo } from '../editor/enum-text';
 import { userMentionViewTag } from '../mention-view/user-mention-view';
-import type { UserList } from '../editor';
 
 /**
  * Provides markdown parser for rich text components
@@ -26,7 +26,7 @@ export class RichTextMarkdownParser {
      */
     public static parseMarkdownToDOM(
         value: string,
-        usersList: UserList[] = []
+        usersList: UserInfo[] = []
     ): HTMLElement | DocumentFragment {
         if (usersList.length) {
             this.markdownParser = this.initializeMarkdownParser(usersList);
@@ -41,7 +41,7 @@ export class RichTextMarkdownParser {
     }
 
     private static initializeMarkdownParser(
-        usersList: UserList[] = []
+        usersList: UserInfo[] = []
     ): MarkdownParser {
         /**
          * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
@@ -62,7 +62,7 @@ export class RichTextMarkdownParser {
         ]);
 
         const getUserName = (userId: string): string => {
-            return usersList.find(user => user.id === userId)?.name ?? '';
+            return usersList.find(user => user.key === userId)?.value ?? '';
         };
 
         supportedTokenizerRules.use(

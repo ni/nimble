@@ -3,8 +3,7 @@ import { observable } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
-import { ListOption } from '../../list-option';
-import type { UserList } from '../editor';
+import { RichTextEnumMention, UserInfo } from '../editor/enum-text';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -36,7 +35,7 @@ export class RichTextViewer extends FoundationElement {
     public readonly childItems: Element[] = [];
 
     @observable
-    public userList!: UserList[];
+    public userList!: UserInfo[];
 
     /**
      * @internal
@@ -66,10 +65,10 @@ export class RichTextViewer extends FoundationElement {
 
     private updateView(): void {
         if (this.markdown) {
-            const slottedOptionsList = this.getSlottedOptionsList();
+            void this.getSlottedOptionsList();
             const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
                 this.markdown,
-                slottedOptionsList
+                this.userList
             );
             this.viewer.replaceChildren(serializedContent);
         } else {
@@ -77,15 +76,18 @@ export class RichTextViewer extends FoundationElement {
         }
     }
 
-    private getSlottedOptionsList(): UserList[] {
+    private async getSlottedOptionsList(): Promise<void> {
+        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
+            ? customElements.whenDefined(item.localName)
+            : Promise.resolve()));
+        await Promise.all(definedElements);
         const mentionList = this.childItems.filter(
-            (x): x is ListOption => x instanceof ListOption
+            (x): x is RichTextEnumMention => x instanceof RichTextEnumMention
         );
         this.userList = [];
-        mentionList.forEach((option => {
-            this.userList.push({ id: option.id, name: option.textContent! });
+        mentionList.forEach((list => {
+            this.userList = list.userInternals;
         }));
-        return this.userList;
     }
 }
 

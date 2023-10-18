@@ -42,11 +42,11 @@ import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
-import { ListOption } from '../../list-option';
 import type { AnchoredRegion } from '../../anchored-region';
 import type { Button } from '../../button';
 import type { MentionBox } from './mention-popup';
 import { userMentionViewTag } from '../mention-view/user-mention-view';
+import { RichTextEnumMention, UserInfo } from './enum-text';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -55,11 +55,6 @@ declare global {
 }
 
 export interface MentionDetail {
-    id: string;
-    name: string;
-}
-
-export interface UserList {
     id: string;
     name: string;
 }
@@ -77,6 +72,16 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @internal
      */
     public tiptapEditor = this.createTiptapEditor();
+
+    /** @internal */
+    @observable
+    public userList: UserInfo[] = [];
+
+    /**
+     * @internal
+     */
+    @observable
+    public readonly childItems: Element[] = [];
 
     /**
      * Whether to disable user from editing and interacting with toolbar buttons
@@ -194,12 +199,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     @observable
     public open?: boolean;
 
-    @observable
-    public userList!: UserList[];
-
-    @observable
-    public readonly childItems: Element[] = [];
-
     /**
      * @internal
      */
@@ -233,20 +232,20 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     public childItemsChanged(): void {
-        this.updateColumnsFromChildItems();
+        void this.updateColumnsFromChildItems();
     }
 
-    public updateColumnsFromChildItems(): void {
-        // const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
-        //     ? customElements.whenDefined(item.localName)
-        //     : Promise.resolve()));
-        // await Promise.all(definedElements);
+    public async updateColumnsFromChildItems(): Promise<void> {
+        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
+            ? customElements.whenDefined(item.localName)
+            : Promise.resolve()));
+        await Promise.all(definedElements);
         const mentionList = this.childItems.filter(
-            (x): x is ListOption => x instanceof ListOption
+            (x): x is RichTextEnumMention => x instanceof RichTextEnumMention
         );
         this.userList = [];
-        mentionList.forEach((option => {
-            this.userList.push({ id: option.id, name: option.textContent! });
+        mentionList.forEach((list => {
+            this.userList = list.userInternals;
         }));
     }
 
@@ -606,6 +605,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
                                     onKeyDown: (props): boolean => {
                                         if (!this.open) {
+                                            return false;
+                                        }
+                                        if (props.event.key === 'Escape') {
+                                            this.open = false;
                                             return false;
                                         }
                                         return this.mentionBox.keydownHandler(props.event);

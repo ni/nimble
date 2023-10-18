@@ -13,7 +13,8 @@ import {
 } from '../../../label-provider/base/tests/label-user-stories-utils';
 import { labelProviderRichTextTag } from '../../../label-provider/rich-text';
 import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
-import { listOptionTag } from '../../../list-option';
+import { richTextEnumMentionTextTag } from '../enum-text';
+import { mappingMentionTag } from '../../../mapping/mention';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RichTextEditorArgs extends LabelUserArgs {
@@ -88,12 +89,15 @@ const metadata: Meta<RichTextEditorArgs> = {
         ${when(x => x.footerActionButtons, html`
             <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>
             <${buttonTag} slot="footer-actions">OK</${buttonTag}>`)}
-            <${listOptionTag} id='1'>Mary</${listOptionTag}>
-            <${listOptionTag} id='2'>super</${listOptionTag}>
-            <${listOptionTag} id='3'>Joaquin</${listOptionTag}>
-            <${listOptionTag} id='4'>Frank</${listOptionTag}>
-            <${listOptionTag} id='5'>Albert</${listOptionTag}>
-            <${listOptionTag} id='6'>Sue Ann</${listOptionTag}>
+
+        <${richTextEnumMentionTextTag}>
+            <${mappingMentionTag} key="1" text="Aagash"></${mappingMentionTag}>
+            <${mappingMentionTag} key="2" text="vivin"></${mappingMentionTag}>
+            <${mappingMentionTag} key="3" text="susee"></${mappingMentionTag}>
+            <${mappingMentionTag} key="4" text="vikki"></${mappingMentionTag}>
+            <${mappingMentionTag} key="5" text="sue"></${mappingMentionTag}>
+            <${mappingMentionTag} key="6" text="sue ann"></${mappingMentionTag}>
+        </${richTextEnumMentionTextTag}>
     </${richTextEditorTag}>
     `),
     argTypes: {
