@@ -50,6 +50,12 @@ export class NimbleTableColumnNumberTextDirective extends NimbleTableColumnBaseD
         this.renderer.setProperty(this.elementRef.nativeElement, 'decimalDigits', toNullableNumberProperty(value));
     }
 
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('decimal-maximum-digits') public set decimalMaximumDigits(value: NumberValueOrAttribute | null | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'decimalMaximumDigits', toNullableNumberProperty(value));
+    }
+
     public get fractionalWidth(): number | null | undefined {
         return this.elementRef.nativeElement.fractionalWidth;
     }
