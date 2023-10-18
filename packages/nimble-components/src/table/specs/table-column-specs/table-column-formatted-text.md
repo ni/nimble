@@ -188,7 +188,7 @@ Supported metric prefixes are f (femto), p (pico), n (nano), μ (micro), m (mill
 
 If a value with a unit would be formatted with exponential notation, it will always be given in its base unit. E.g. instead of "1e6 PB", it would render as "1e21 bytes".
 
-When displaying units, `Intl.NumberFormat` will translate unit strings for the [units that it supports](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers) and localize the number (for comma/decimal). We will include our own logic for converting between unit values. For a family of units not supported by `Intl.NumberFormat`, we will provide our own translations (for some subset of languages) in a `nimble-unit-<name>` element. If the client requests a translation for one of these units in a language we don't support, we will fall back to English.
+When displaying units, `Intl.NumberFormat` will translate unit strings for the [units that it supports](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers) and localize the number (for comma/decimal). We will include our own logic for converting between unit values. For a family of units not supported by `Intl.NumberFormat`, we will provide our own translations (for French, German, Japanese, and Chinese) in a `nimble-unit-<name>` element. If the client requests a translation for one of these units in a language we don't support, we will fall back to English.
 
 Unit elements will be capable of enumerating the individual units supported. The enumerated unit objects will be capable of formatting a given number into a localized string including the unit label. Below is an example of the abstractions/APIs that might be used to implement this.
 
@@ -219,7 +219,9 @@ class UnitFamilyVolt extends FoundationElement implements UnitFamily {
 }
 ```
 
-We will use `nimble-unit-byte` to display file sizes in SLE tables. Currently, SLE displays these values with the common `KB`/`MB`/`GB` unit labels, but uses a factor of 1024 to convert between units (which is [not uncommon](https://en.wikipedia.org/wiki/JEDEC_memory_standards#Unit_prefixes_for_semiconductor_storage_capacity), but [technically incorrect](https://physics.nist.gov/cuu/Units/binary.html)). Our formatting will use the same unit labels, but use a conversion factor of 1000. This will result in slightly different values being displayed. For SLE's internal consistency, we will also change their file size pipe to use a conversion factor of 1000 instead of 1024. We will need to search for other places in the product where byte values are being converted and update them similarly.
+We will use `nimble-unit-byte` to display file sizes in SLE tables. Currently, SLE displays these values with the common `KB`/`MB`/`GB` unit labels, but uses a factor of 1024 to convert between units (which is [not uncommon](https://en.wikipedia.org/wiki/JEDEC_memory_standards#Unit_prefixes_for_semiconductor_storage_capacity), but [technically incorrect](https://physics.nist.gov/cuu/Units/binary.html)). Whether SLE chooses to standardize on the default 1000-based byte units or the 1024-based ones, it will be a change from the current behavior. To ensure consistency, we will update SLE's file size pipe and search for other places where byte values are being converted so they can be updated accordingly.
+
+To help SLE and other clients maintain consistent formatting of number strings in and out of the table, we will provide a static function on the number column that returns a configured formatter object. The formatter object will expose one function that takes a number and returns a formatted string. Details TBD.
 
 ##### Examples
 
