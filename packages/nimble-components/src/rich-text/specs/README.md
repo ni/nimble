@@ -924,8 +924,7 @@ _`@mention` State_
 
 When you add **"@"** into the editor, a dropdown will open with the first value as the selected option, indicated by a green overlay to the option
 if `nimble-list-option` is passed into the default slot element. Upon selecting an option from the list, it will be rendered as prominent green text
-in all themes. Below is a basic representation of `@mention` texts and dropdown lists in the default theme. If an option is disabled, it will be
-indicated as such, and it will not be selectable either by clicking or using keyboard interactions.
+with bold formatted by default in all themes. Below is a basic representation of `@mention` texts and dropdown lists in the default theme.
 
 ![@mention State](./spec-images/mention-state.png)
 
