@@ -507,11 +507,13 @@ _CSS Parts_
 <template slot="mapping"></template>
 ```
 
-#### `nimble-rich-text-user-mention-view`
+#### `nimble-rich-text-mention-view`
 
 ```html
 <template>
-    <span></span>
+    <span>
+        <slot></slot>
+    </span>
 </template>
 ```
 
