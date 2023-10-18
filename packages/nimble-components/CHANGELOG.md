@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 04 Oct 2023 07:38:20 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Oct 2023 21:31:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.6.3
+
+Mon, 16 Oct 2023 21:31:42 GMT
+
+### Patches
+
+- Update TypeScript dependency to 4.8 ([ni/nimble@8a42916](https://github.com/ni/nimble/commit/8a429164d4987cc1b932adb3c93727afdc8c5202))
+- Bump @ni/nimble-tokens to v6.4.1
 
 ## 20.6.2
 
