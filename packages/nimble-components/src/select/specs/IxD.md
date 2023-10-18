@@ -116,7 +116,7 @@ The client-user should be able to specify whether they want secondary text on li
 
 ![ ](spec-images/select-9.png)
 
-The client-user should be able to specify whether they want other information (including groups) displayed as secondary text in the field input.
+The client-user should be able to specify whether they want groups, secondary text, or neither in the field input.
 
 ![ ](spec-images/select-10.png)
 
