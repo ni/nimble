@@ -112,7 +112,7 @@ describe('Duration Formatter', () => {
                 name: 'value is not a number',
                 value: 'foo' as unknown as number
             }
-        ];
+        ] as const;
 
         parameterizeNamedList(badValueData, (spec, name, value) => {
             spec(name, () => {
