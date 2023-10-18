@@ -27,35 +27,28 @@ Users will provide hierarchical data as a flat list (just as they do for non-hie
 public Table() {
     ...
     // This attribute determines which field in the record specifies the id that is the
-    // parent row. If it is not set, the row has no parent.
+    // parent row. If it is not set, the data is presented without hierarchy as a flat list.
     @attr({ attribute: 'parent-id-field-name' })
     public parentIdFieldName?: string;
 
     // This field would be an option for how we allow a user to specify the field
     // name where they will provide a value indicating whether or not that row
-    // is a parent row. See the below discussion on lazy-loading. If it is not set,
-    // the row is presumed child-less (and thus will show no expand/collapse button).
-    @attr({ attribute: 'has-children-field-name' })
-    public hasChildrenFieldName?: string;
+    // should always contain an expand-collapse button.
+    @attr({ attribute: 'force-expand-collapse-field-name' })
+    public forceExpandCollapseFieldName?: string;
 
-    // The set of rows the user would like to toggle the expand/collapse state of
-    public async expandCollapseRows(rowIds: string[]): Promise<void> {
+    // The set of rows the user would like to expand. Pass 'true' for `expandChildren` if all
+    // children rows parented under any specified in rowIds should also be expanded.
+    public async expandRows(rowIds: string[], expandChildren?: boolean): Promise<void> {
+        ...
+    }
+
+    // The set of rows the user would like to collapse. Pass 'true' for `collapseChildren` if all
+    // children rows parented under any specified in rowIds should also be collapsed.
+    public async collapseRows(rowIds: string[], collapseChildren?: boolean) Promise<void> {
         ...
     }
 }
-```
-
-### `TableRowSelectionMode` API
-
-We need the ability for a client to configure what happens when a user selects a parent row, where it could either only select the parent or would select both the parent and all of its children.
-
-```ts
-export const TableRowSelectionMode = {
-    none: undefined,
-    single: 'single',
-    multiple: 'multiple',
-    multipleWithChildren: 'multipleWithChildren' // NEW MODE!!!
-} as const;
 ```
 
 ### `TableRowExpandedEventDetail` API
@@ -72,24 +65,30 @@ interface TableRowExpandedEventDetail {
 
 Note: This event will _not_ be emitted for group rows.
 
+### Interactions
+
+The following are various expected mouse and keyboard interactions related to parent rows:
+
+1. The collapse-all button in the header will also collapse parent rows.
+2. Clicking on a parent row (not on the expand/collapse button) will select the parent row. If the `selectionMode` has been set to `multipleWithChildren`, clicking the checkbox will select all children in addition to the parent, but clicking off the checkbox will only select the parent.
+3. Keyboard interactions are being defined as part of the [Table Keyboard Navigation HLD](https://github.com/ni/nimble/pull/1506).
+
 ### Validation
 
-Tha table will be invalid if the user has set the `parentIdFieldName` attribute but not the `idFieldName`. Additionally, the table will be invalid if the user has set the `hasChildrenFieldName` attribute but not the `parentIdFieldName`.
+Tha table will be invalid if the user has set the `parentIdFieldName` attribute but not the `idFieldName`. Additionally, the table will be invalid if the user has set the `forceExpandCollapseFieldName` attribute but not the `parentIdFieldName`.
 
 ### Lazy Loading
 
 The APIs noted above will enable the client to lazy load data into the `Table`. This will essentially be accomplished with the following steps:
 
-1. Providing a field in a record of the table data that indicates whether that row of data is intended to be a parent row. Records that are intended to be parents must set the value of the field, whose name is specified by the `hasChildrenFieldName` attribute, to `true`.
-2. After providing the current data to the `Table` via the `setData` method, all rows that have a value of `true` in the field specified by the `hasChildrenFieldName` attribute will display and expand/collapse button.
+1. Providing a field in a record of the table data that indicates whether that row of data is intended to be a parent row. Records that are intended to be parents must set the value of the field, whose name is specified by the `forceExpandCollapseFieldName` attribute, to `true`.
+2. After providing the current data to the `Table` via the `setData` method, all rows that have a value of `true` in the field specified by the `forceExpandCollapseFieldName` attribute will display and expand/collapse button.
 3. Users must register a handler for the `row-expand-toggle` event on the `Table` instance, and will receive that event upon clicking the expand/collapse button.
 4. The details of the handled event will include the id for the row that was expanded.
 5. The user must then create a set of data with rows where they provide a field with the name specified by the `parendIdFieldName` attribute that has the value of the `recordId` value supplied in the event details.
 6. The user then sets the data on the `Table` again with the `setData` method.
 
-Notes:
-
--   It is up to the user to manage whether or not the children of a row has already been loaded in order to avoid recreation of their data and calling `setData` on the `Table` unnecessarily.
+_Note: It is up to the user to manage whether or not the children of a row has already been loaded in order to avoid recreation of their data and calling `setData` on the `Table` unnecessarily._
 
 ### Translating flat list to Tanstack-understandable hierarchy
 
@@ -135,12 +134,15 @@ Expected user workflow:
 5. User sets data on table that has children for the row that was expanded
 6. "Row loading" indicator is removed and child rows are now displayed
 
+_Notes: When the new children are finally displayed, scroll position will be maintained in that the scroll index isn't adjusted. So a row that is currently displayed at the top of the table can be pushed down if new rows are added above it. Additionally, any previously expanded rows should remain expanded._
+
 Error workflow:
 
 1. Same as steps 1-4 above
 2. Error occurs retrieving data for child rows
-3. User calls `expandCollapseRows(...)` on table instance passing parent row id that was previously expanded.
+3. User calls `collapseRows(...)` on table instance passing parent row id that was previously expanded.
 4. Row is collapsed and "row loading" indicator is no longer displayed.
+5. Client should also provide appropriate error messaging within the application
 
 ### Sorting
 
@@ -148,11 +150,40 @@ Tanstack will sort children within each parent row by the same column that the p
 
 ### Selection
 
-One scenario worth calling out is the situation where a parent row is present with no children, and the user has a selection mode set such that selecting a parent should select its children. In such a scenario where the parent is selected, the children will _not_ be selected upon opening the parent. This is the same for when a group row is expanded and a user decided to use the toggle event to load even more data into the table that would introduce more rows under the group. The `Table` will make no attempt to decipher when and when not to select rows that have been introduced through another call to `setData`.
+Parent rows when selected, regardless of the selection mode that is set on the table, will _not_ select all of the children under that parent. That is, parent rows will behave in the exact same way as leaf rows with respect to selection. Thus, parents will _not_ show an indetermiate selection state if there are some children selected and some are not, as a parent's selection state is only determined by its own selection<sup>1</sup>.
+
+<sup>1</sup>_The "leaf-only" mode mentioned in the 'Future work' section presents a caveat to this, in which parent rows are explicitly configured to not support certain actions, but we still may allow a user to perform selection through._
 
 ### ARIA
 
 A parent row would have the same ARIA expectations of any child row, with the additional need to supply the `aria-expanded` attribute when it is expanded.
+
+Things to consider:
+
+-   Putting an appropriate label/title on the progress indicator for the lazy loaded row placeholder.
+-   Expand/collapse button attributes for the parent row. Likely should just match what is done for the group row.
+
+### Future work
+
+#### Leaf-only mode
+
+There are existing SLE grid variants (namely the Tags grid) that provide a type of hierarchical display that doesn't align exactly with either the proposed 'data hierarchy' outlined in this HLD, nor the grouping capability. Instead, while the parent rows may possibly be presented as a normal row (containing values in some subset of columns that the children have values for), they will not be able to be acted upon in the way child rows can, such as allowing an action menu to be defined on them, or being selected individually.
+
+It is expected that this mode will involve creating a new API on the table in order to fully enable, but it should be able to use the other APIs defined in this HLD to support it, and leverage capabilities such as lazy-loading.
+
+Here are a few of the considerations that were made with respect to this mode:
+
+-   grouping should group on leaf items, not parents (could be cumbersome to accomplish with Tanstack)
+-   action menu only on leafs
+-   single selection mode can only select leafs
+-   selection state (when set to `multiple`) of parents (if selected) should become indetermine when new rows loaded (e.g. via lazy loading)
+-   selection counts should ignore parents
+-   (maybe?) leaf-mode + multi-selection + lazy loading is considered an invalid confiuguration. This could mean that the Table API of `forceExpandCollapseFieldName` should be more semantically associated with lazy loading.
+    -   (alternative?): Could we instead just hide the selection checkbox for parent rows that have no children?
+
+#### Auto-expand-parent API
+
+Currently, the proposed default behavior of parent rows is that they will display as collapsed initially (unlike groups). This is primarily done to support the lazy-loading case where we never want a row that has no children to default to being expanded. We could add an API that allows a user to determine what the default state of parents should be, which would ultimately not apply to rows that have no children (i.e. rows with children could be auto expanded, but any parent rows without children would remain collapsed).
 
 ## Alternative Implementations / Designs
 
@@ -165,4 +196,4 @@ By making the `TableRecord` support hierarchy in its structure, it seemed possib
 
 ## Open Issues
 
-Need visual design for "row loading" indicator.
+-   Need visual design for "row loading" indicator.
