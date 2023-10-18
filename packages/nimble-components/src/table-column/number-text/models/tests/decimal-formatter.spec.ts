@@ -120,6 +120,7 @@ describe('DecimalFormatter', () => {
                 () => {
                     const formatter = new DecimalFormatter(
                         locale,
+                        testCase.decimalDigits,
                         testCase.decimalDigits
                     );
                     const formattedValue = formatter.formatValue(

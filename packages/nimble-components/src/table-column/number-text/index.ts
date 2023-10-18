@@ -49,6 +49,12 @@ export class TableColumnNumberText extends TableColumnTextBase {
     @attr({ attribute: 'decimal-digits', converter: nullableNumberConverter })
     public decimalDigits?: number;
 
+    @attr({
+        attribute: 'decimal-maximum-digits',
+        converter: nullableNumberConverter
+    })
+    public decimalMaximumDigits?: number;
+
     private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
         handleChange: () => {
             this.updateColumnConfig();
@@ -92,8 +98,21 @@ export class TableColumnNumberText extends TableColumnTextBase {
         this.updateColumnConfig();
     }
 
+    private decimalMaximumDigitsChanged(): void {
+        this.updateColumnConfig();
+    }
+
     private updateColumnConfig(): void {
         this.validator.validateDecimalDigits(this.format, this.decimalDigits);
+        this.validator.validateDecimalMaximumDigits(
+            this.format,
+            this.decimalMaximumDigits
+        );
+        this.validator.validateNoMutuallyExclusiveProperties(
+            this.format,
+            this.decimalDigits,
+            this.decimalMaximumDigits
+        );
 
         if (this.validator.isValid()) {
             const columnConfig: TableColumnNumberTextColumnConfig = {
@@ -111,7 +130,12 @@ export class TableColumnNumberText extends TableColumnTextBase {
             case NumberTextFormat.decimal:
                 return new DecimalFormatter(
                     lang.getValueFor(this),
-                    this.decimalDigits ?? defaultDecimalDigits
+                    typeof this.decimalMaximumDigits === 'number'
+                        ? 0
+                        : this.decimalDigits ?? defaultDecimalDigits,
+                    this.decimalMaximumDigits
+                        ?? this.decimalDigits
+                        ?? defaultDecimalDigits
                 );
             default:
                 return new DefaultFormatter(lang.getValueFor(this));
@@ -127,8 +151,11 @@ export class TableColumnNumberText extends TableColumnTextBase {
             return TextCellViewBaseAlignment.right;
         }
 
-        // Look at format to determine the default alignment
-        if (this.format === NumberTextFormat.decimal) {
+        // Look at format and decimal max digits to determine the default alignment
+        if (
+            this.format === NumberTextFormat.decimal
+            && typeof this.decimalMaximumDigits !== 'number'
+        ) {
             return TextCellViewBaseAlignment.right;
         }
         return TextCellViewBaseAlignment.left;
