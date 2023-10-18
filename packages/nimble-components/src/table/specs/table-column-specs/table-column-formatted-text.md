@@ -172,7 +172,7 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would be prefixed with the name of the format mode.
     -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887). The exception is that we will set `useGrouping: true` to achieve `1,000` rather than `1000` because this styles the values in a way that is more human readable.
 -   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2 unless `decimal-maximum-digits` is specified, in which case a number of digits between 0 and `decimal-maximum-digits` are shown. It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`. Formats other than `decimal` ignore `decimal-digits`.
--   `decimal-maximum-digits` - when format is `decimal`, a number that controls the maximum number of digits shown to the right of the decimal separator. Possible values are from 0 to 20. It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`. Formats other than `decimal` ignore `decimal-maximum-digits`.
+-   `decimal-maximum-digits` - when format is `decimal`, a number that controls the maximum number of digits shown to the right of the decimal separator. This has the same effect as `decimal-digits` except that trailing zeros are omitted. Possible values are from 0 to 20. It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`. Formats other than `decimal` ignore `decimal-maximum-digits`.
 
 This column will display a blank cell when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"∞"` and `"NaN"`.
 
@@ -181,16 +181,16 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
 A unit for the column may be configured by providing a `nimble-unit-<name>` element as content (in addition to the column label). Unit elements represent families of related units, e.g. `nimble-unit-byte` represents bytes, KB, MB, etc. Values are converted from a source unit (e.g. bytes) to the largest related unit (e.g. KB, MB, etc.) that can represent that value with magnitude >= 1. The source data for the column is expected to be given in the base unit specified in the tag name, e.g. for `nimble-unit-byte`, a source value should be a number of bytes. Note that unit family elements are not rendered but serve to allow selective loading of data for only the needed units. The initial set of unit elements are:
 
 -   `nimble-unit-byte` - Unit labels in this family are `byte`/`bytes`, `KB`, `MB`, `GB`, `TB`, `PB`
--   `nimble-unit-byte-1024` - Unit labels in this family are `byte`/`bytes`, `KiB`, `MiB`, `GiB`, `TiB`, `PiB`
+    -   `binary` - boolean attribute that indicates a binary conversion factor of 1024 should be used rather than 1000. The resulting unit labels are `byte`/`bytes`, `KiB`, `MiB`, `GiB`, `TiB`, `PiB`.
 -   `nimble-unit-volt` - Unit labels in this family are `volt`/`volts`, plus `V` prefixed by all supported metric prefixes.
 
-Supported metric prefixes are f (femto), p (pico), n (nano), μ (micro), m (milli), c (centi), d (deci), k (kilo), M (mega), G (giga), T (tera), P (peta), and E (exa).
+Supported metric prefixes are f (femto), p (pico), n (nano), μ (micro), m (milli), c (centi), d (deci), k (kilo), M (mega), G (giga), T (tera), P (peta), and E (exa). This set is intended to be suitable for other units we may support in the future (e.g. ohms, amps), but any particular unit family can diverge from this set as needed.
 
 If a value with a unit would be formatted with exponential notation, it will always be given in its base unit. E.g. instead of "1e6 PB", it would render as "1e21 bytes".
 
 When displaying units, `Intl.NumberFormat` will translate unit strings for the [units that it supports](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers) and localize the number (for comma/decimal). We will include our own logic for converting between unit values. For a family of units not supported by `Intl.NumberFormat`, we will provide our own translations (for some subset of languages) in a `nimble-unit-<name>` element. If the client requests a translation for one of these units in a language we don't support, we will fall back to English.
 
-Unit elements will be capable of enumerating the individual units supported. The enumerated unit objects will be capable of formatting a given number into a localized string including the unit label.
+Unit elements will be capable of enumerating the individual units supported. The enumerated unit objects will be capable of formatting a given number into a localized string including the unit label. Below is an example of the abstractions/APIs that might be used to implement this.
 
 ```TS
 // a specific unit, e.g. kilobyte, millivolt, etc.
@@ -218,8 +218,6 @@ class UnitFamilyVolt extends FoundationElement implements UnitFamily {
     }
 }
 ```
-
-Other libraries considered for number conversion and/or unit label localization include [globalizejs](https://github.com/globalizejs/globalize), [convert](https://convert.js.org/), [convert-units](https://github.com/convert-units/convert-units), and [iLib](https://github.com/iLib-js/iLib). None of these provided sufficient functionality to justify including them as a dependency.
 
 We will use `nimble-unit-byte` to display file sizes in SLE tables. Currently, SLE displays these values with the common `KB`/`MB`/`GB` unit labels, but uses a factor of 1024 to convert between units (which is [not uncommon](https://en.wikipedia.org/wiki/JEDEC_memory_standards#Unit_prefixes_for_semiconductor_storage_capacity), but [technically incorrect](https://physics.nist.gov/cuu/Units/binary.html)). Our formatting will use the same unit labels, but use a conversion factor of 1000. This will result in slightly different values being displayed. For SLE's internal consistency, we will also change their file size pipe to use a conversion factor of 1000 instead of 1024. We will need to search for other places in the product where byte values are being converted and update them similarly.
 
@@ -387,6 +385,10 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 ### Additional unit APIs
 
 We considered some alternative approaches for configuring units:
+
+#### Third-party libraries
+
+Other libraries considered for number conversion and/or unit label localization include [globalizejs](https://github.com/globalizejs/globalize), [convert](https://convert.js.org/), [convert-units](https://github.com/convert-units/convert-units), and [iLib](https://github.com/iLib-js/iLib). None of these provided sufficient functionality to justify including them as a dependency.
 
 #### Expose unit and unitDisplay from the Intl.NumberFormatter
 
