@@ -1,4 +1,4 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref, repeat, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../utilities/tests/storybook';
 import { Table, tableTag } from '../table';
@@ -11,11 +11,12 @@ import { iconXmarkTag } from '../icons/xmark';
 import { ComponentFrameworkStatus } from './types';
 
 const statusOptions = ['active', 'future'] as const;
+const tableTypeOptions = ['component', 'plain'] as const;
 
 interface TableArgs {
     tableRef: Table;
-    updateData: (args: TableArgs) => void;
     status: (typeof statusOptions)[number];
+    tableType: (typeof tableTypeOptions)[number];
 }
 
 const components = [
@@ -531,10 +532,110 @@ const components = [
     }
 ] as const;
 
+const isFuture = (
+    component: (typeof components)[number]
+): boolean => component.angularStatus
+        === ComponentFrameworkStatus.doesNotExist
+    && component.blazorStatus
+        === ComponentFrameworkStatus.doesNotExist
+    && component.componentStatus
+        === ComponentFrameworkStatus.doesNotExist;
+
+const updateData = (x: TableArgs): void => {
+    void (async () => {
+        // Safari workaround: the table element instance is made at this point
+        // but doesn't seem to be upgraded to a custom element yet
+        await customElements.whenDefined('nimble-table');
+
+        const data = components.filter(component => (x.status === 'future'
+            ? isFuture(component)
+            : !isFuture(component)));
+        await x.tableRef.setData(data);
+    })();
+};
+
 const iconMappings = html`
     <${mappingIconTag} key="${ComponentFrameworkStatus.ready}" text="Ready" icon="${iconCheckTag}" severity="success"></${mappingIconTag}>
     <${mappingIconTag} key="${ComponentFrameworkStatus.incubating}" text="Incubating" icon="${iconTriangleTag}" severity="warning"></${mappingIconTag}>
     <${mappingIconTag} key="${ComponentFrameworkStatus.doesNotExist}" text="Does not exist" icon="${iconXmarkTag}" severity="error"></${mappingIconTag}>
+`;
+
+const componentTable = html<TableArgs>`
+<${tableTag}
+    ${ref('tableRef')}
+    data-unused="${x => updateData(x)}"
+    ${/* Make the table big enough to remove vertical scrollbar */ ''}
+    style="height: ${x => (x.status === 'active' ? '1200px' : '600px')};"
+>
+    <${tableColumnAnchorTag} target="_top"
+        column-id="component-name-column"
+        label-field-name="componentName"
+        href-field-name="componentHref"
+        fractional-width=3
+    >
+        Component
+    </${tableColumnAnchorTag}>
+    <${tableColumnAnchorTag} target="_top"
+        column-id="design-column"
+        label-field-name="designLabel"
+        href-field-name="designHref"
+    >
+        Design
+    </${tableColumnAnchorTag}>
+    <${tableColumnAnchorTag} target="_top"
+        column-id="issue-column"
+        label-field-name="issueLabel"
+        href-field-name="issueHref"
+    >
+        Issue
+    </${tableColumnAnchorTag}>
+    <${tableColumnIconTag}
+        column-id="component-status-column"
+        field-name="componentStatus"
+        ?column-hidden="${x => x.status === 'future'}"
+    >
+        Web Component
+        ${iconMappings}
+    </${tableColumnIconTag}>
+    <${tableColumnIconTag}
+        column-id="angular-status-column"
+        field-name="angularStatus"
+        ?column-hidden="${x => x.status === 'future'}"
+    >
+        Angular
+        ${iconMappings}
+    </${tableColumnIconTag}>
+    <${tableColumnIconTag}
+        column-id="blazor-status-column"
+        field-name="blazorStatus"
+        ?column-hidden="${x => x.status === 'future'}"
+    >
+        Blazor
+        ${iconMappings}
+    </${tableColumnIconTag}>
+
+</${tableTag}>
+`;
+
+type Components = typeof components[1];
+
+const plainTable = html<TableArgs>`
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        ${repeat(x => components.filter(component => (x.status === 'future'
+        ? isFuture(component)
+        : !isFuture(component))), html<Components, TableArgs>`
+            <tr>
+                <td><a href="${x => x.componentHref}" target="_top">${x => x.componentName}</a></td>
+            </tr>
+        `)}
+    </tbody>
+</table>
 `;
 
 const metadata: Meta<TableArgs> = {
@@ -544,68 +645,10 @@ const metadata: Meta<TableArgs> = {
     parameters: {},
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
-        <${tableTag}
-            ${ref('tableRef')}
-            data-unused="${x => x.updateData(x)}"
-            ${/* Make the table big enough to remove vertical scrollbar */ ''}
-            style="height: ${x => (x.status === 'active' ? '1200px' : '600px')};"
-        >
-            <${tableColumnAnchorTag} target="_top"
-                column-id="component-name-column"
-                label-field-name="componentName"
-                href-field-name="componentHref"
-                fractional-width=3
-            >
-                Component
-            </${tableColumnAnchorTag}>
-            <${tableColumnAnchorTag} target="_top"
-                column-id="design-column"
-                label-field-name="designLabel"
-                href-field-name="designHref"
-            >
-                Design
-            </${tableColumnAnchorTag}>
-            <${tableColumnAnchorTag} target="_top"
-                column-id="issue-column"
-                label-field-name="issueLabel"
-                href-field-name="issueHref"
-            >
-                Issue
-            </${tableColumnAnchorTag}>
-            <${tableColumnIconTag}
-                column-id="component-status-column"
-                field-name="componentStatus"
-                ?column-hidden="${x => x.status === 'future'}"
-            >
-                Web Component
-                ${iconMappings}
-            </${tableColumnIconTag}>
-            <${tableColumnIconTag}
-                column-id="angular-status-column"
-                field-name="angularStatus"
-                ?column-hidden="${x => x.status === 'future'}"
-            >
-                Angular
-                ${iconMappings}
-            </${tableColumnIconTag}>
-            <${tableColumnIconTag}
-                column-id="blazor-status-column"
-                field-name="blazorStatus"
-                ?column-hidden="${x => x.status === 'future'}"
-            >
-                Blazor
-                ${iconMappings}
-            </${tableColumnIconTag}>
-
-        </${tableTag}>
+        ${when(x => x.tableType === 'plain', plainTable, componentTable)}
     `),
     argTypes: {
         tableRef: {
-            table: {
-                disable: true
-            }
-        },
-        updateData: {
             table: {
                 disable: true
             }
@@ -615,30 +658,18 @@ const metadata: Meta<TableArgs> = {
             control: {
                 type: 'radio'
             }
+        },
+        tableType: {
+            options: tableTypeOptions,
+            control: {
+                type: 'radio'
+            }
         }
     },
     args: {
         tableRef: undefined,
-        updateData: x => {
-            void (async () => {
-                // Safari workaround: the table element instance is made at this point
-                // but doesn't seem to be upgraded to a custom element yet
-                await customElements.whenDefined('nimble-table');
-                const isFuture = (
-                    component: (typeof components)[number]
-                ): boolean => component.angularStatus
-                        === ComponentFrameworkStatus.doesNotExist
-                    && component.blazorStatus
-                        === ComponentFrameworkStatus.doesNotExist
-                    && component.componentStatus
-                        === ComponentFrameworkStatus.doesNotExist;
-                const data = components.filter(component => (x.status === 'future'
-                    ? isFuture(component)
-                    : !isFuture(component)));
-                await x.tableRef.setData(data);
-            })();
-        },
-        status: statusOptions[0]
+        status: statusOptions[0],
+        tableType: tableTypeOptions[0]
     }
 };
 
