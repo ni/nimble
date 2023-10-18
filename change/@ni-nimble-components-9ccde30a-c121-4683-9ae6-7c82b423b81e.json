@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "add ni and systemlink logo icons",
-  "packageName": "@ni/nimble-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
