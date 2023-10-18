@@ -70,7 +70,7 @@ Note: This event will _not_ be emitted for group rows.
 The following are various expected mouse and keyboard interactions related to parent rows:
 
 1. The collapse-all button in the header will also collapse parent rows.
-2. Clicking on a parent row (not on the expand/collapse button) will select the parent row. If the `selectionMode` has been set to `multipleWithChildren`, clicking the checkbox will select all children in addition to the parent, but clicking off the checkbox will only select the parent.
+2. Clicking on a parent row (not on the expand/collapse button) will select the parent row. If the table `selectionMode` is set to `none`, then if a user clicks on a parent row that is _not_ on the expand/collapse button, nothing occurs.
 3. Keyboard interactions are being defined as part of the [Table Keyboard Navigation HLD](https://github.com/ni/nimble/pull/1506).
 
 ### Validation
