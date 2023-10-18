@@ -15,7 +15,8 @@ import {
     isList,
     AnyExtension,
     Extension,
-    Mark
+    Mark,
+    mergeAttributes
 } from '@tiptap/core';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
@@ -38,13 +39,14 @@ import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
 import { TipTapNodeName } from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
-// import { RichTextMarkdownParser } from '../models/markdown-parser';
+import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import { ListOption } from '../../list-option';
 import type { AnchoredRegion } from '../../anchored-region';
 import type { Button } from '../../button';
 import type { MentionBox } from './mention-popup';
+import { userMentionViewTag } from '../mention-view/user-mention-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -556,38 +558,66 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                     placeholder: '',
                     showOnlyWhenEditable: false
                 }),
-                Mention.configure({
-                    renderLabel({ options, node }) {
-                        return `${options.suggestion.char!}${
-                            (node.attrs.label as string) ?? node.attrs.id
-                        }`;
-                    },
-                    suggestion: {
-                        allowSpaces: true,
-                        render: () => {
-                            return {
-                                onStart: (props): void => {
-                                    this.updateUserLists(props);
-                                },
-
-                                onUpdate: (props): void => {
-                                    this.updateUserLists(props);
-                                },
-
-                                onKeyDown: (props): boolean => {
-                                    if (!this.open) {
-                                        return false;
-                                    }
-                                    return this.mentionBox.keydownHandler(props.event);
-                                },
-
-                                onExit: (): void => {
-                                    this.open = false;
+                Mention
+                    .extend({
+                        parseHTML() {
+                            return [
+                                {
+                                    tag: userMentionViewTag
                                 }
-                            };
+                            ];
+                        },
+                        // eslint-disable-next-line @typescript-eslint/naming-convention
+                        renderHTML({ node, HTMLAttributes }) {
+                            return [
+                                'strong',
+                                [
+                                    userMentionViewTag,
+                                    mergeAttributes(
+                                        { 'data-type': this.name },
+                                        this.options.HTMLAttributes,
+                                        HTMLAttributes
+                                    ),
+                                    `${this.options.renderLabel({
+                                        options: this.options,
+                                        node
+                                    })} `
+                                ]
+                            ];
                         }
-                    }
-                }),
+                    })
+                    .configure({
+                        renderLabel({ options, node }) {
+                            return `${options.suggestion.char!}${
+                                (node.attrs.label as string) ?? node.attrs.id
+                            }`;
+                        },
+                        suggestion: {
+                            allowSpaces: true,
+                            render: () => {
+                                return {
+                                    onStart: (props): void => {
+                                        this.updateUserLists(props);
+                                    },
+
+                                    onUpdate: (props): void => {
+                                        this.updateUserLists(props);
+                                    },
+
+                                    onKeyDown: (props): boolean => {
+                                        if (!this.open) {
+                                            return false;
+                                        }
+                                        return this.mentionBox.keydownHandler(props.event);
+                                    },
+
+                                    onExit: (): void => {
+                                        this.open = false;
+                                    }
+                                };
+                            }
+                        }
+                    }),
                 HardBreak,
                 customLink.configure({
                     // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
@@ -651,12 +681,11 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        // const slottedOptionsList = this.getSlottedOptionsList();
-        // const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(
-        //     markdown,
-        //     slottedOptionsList
-        // );
-        // return this.xmlSerializer.serializeToString(documentFragment);
+        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(
+            markdown,
+            this.userList
+        );
+        return this.xmlSerializer.serializeToString(documentFragment);
         return '';
     }
 

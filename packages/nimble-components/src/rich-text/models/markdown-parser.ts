@@ -5,6 +5,8 @@ import {
 } from 'prosemirror-markdown';
 import { DOMSerializer, Schema } from 'prosemirror-model';
 import { anchorTag } from '../../anchor';
+import { userMentionViewTag } from '../mention-view/user-mention-view';
+import type { UserList } from '../editor';
 
 /**
  * Provides markdown parser for rich text components
@@ -24,7 +26,7 @@ export class RichTextMarkdownParser {
      */
     public static parseMarkdownToDOM(
         value: string,
-        usersList: { id: string, name: string }[] = []
+        usersList: UserList[] = []
     ): HTMLElement | DocumentFragment {
         if (usersList.length) {
             this.markdownParser = this.initializeMarkdownParser(usersList);
@@ -39,7 +41,7 @@ export class RichTextMarkdownParser {
     }
 
     private static initializeMarkdownParser(
-        usersList: { id: string, name: string }[] = []
+        usersList: UserList[] = []
     ): MarkdownParser {
         /**
          * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
@@ -70,9 +72,7 @@ export class RichTextMarkdownParser {
                     'mention',
                     (state, _silent) => {
                         const max = state.posMax;
-                        if (
-                            state.src.charCodeAt(state.pos) !== 0x3c /* < */
-                        ) {
+                        if (state.src.charCodeAt(state.pos) !== 0x3c /* < */) {
                             return false;
                         }
 
@@ -95,7 +95,10 @@ export class RichTextMarkdownParser {
                         }
 
                         const userIdEnd = position;
-                        const mentionText = state.src.slice(mentionNode, userIdEnd);
+                        const mentionText = state.src.slice(
+                            mentionNode,
+                            userIdEnd
+                        );
 
                         if (!mentionText.startsWith('user:')) {
                             return false;
@@ -160,7 +163,8 @@ export class RichTextMarkdownParser {
                 attrs: {
                     datatype: { default: 'mention' },
                     dataid: { default: '' },
-                    datalabel: { default: '' }
+                    datalabel: { default: '' },
+                    contentEditable: { default: 'false' }
                 },
                 group: 'inline',
                 inline: true,
@@ -168,13 +172,17 @@ export class RichTextMarkdownParser {
                 toDOM(node) {
                     const { dataid, datalabel } = node.attrs;
                     return [
-                        'span',
-                        {
-                            'data-type': 'mention',
-                            'data-id': dataid as string,
-                            'data-label': datalabel as string
-                        },
-                        0
+                        'strong',
+                        [
+                            userMentionViewTag,
+                            {
+                                'data-type': 'mention',
+                                'data-id': dataid as string,
+                                'data-label': datalabel as string,
+                                contenteditable: 'false'
+                            },
+                            0
+                        ]
                     ];
                 }
             }),

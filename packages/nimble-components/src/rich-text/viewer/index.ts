@@ -3,7 +3,8 @@ import { observable } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
-import type { ListOption } from '../../list-option';
+import { ListOption } from '../../list-option';
+import type { UserList } from '../editor';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -32,7 +33,10 @@ export class RichTextViewer extends FoundationElement {
      * @internal
      */
     @observable
-    public slottedOptions!: ListOption[];
+    public readonly childItems: Element[] = [];
+
+    @observable
+    public userList!: UserList[];
 
     /**
      * @internal
@@ -54,7 +58,7 @@ export class RichTextViewer extends FoundationElement {
     /**
      * @internal
      */
-    public slottedOptionsChanged(): void {
+    public childItemsChanged(): void {
         if (this.$fastController.isConnected) {
             this.updateView();
         }
@@ -73,15 +77,15 @@ export class RichTextViewer extends FoundationElement {
         }
     }
 
-    private getSlottedOptionsList(): { id: string, name: string }[] {
-        const slottedOptionsList: { id: string, name: string }[] = [];
-        this.slottedOptions.forEach(ele => {
-            slottedOptionsList.push({
-                id: ele.value,
-                name: ele.textContent ?? ''
-            });
-        });
-        return slottedOptionsList;
+    private getSlottedOptionsList(): UserList[] {
+        const mentionList = this.childItems.filter(
+            (x): x is ListOption => x instanceof ListOption
+        );
+        this.userList = [];
+        mentionList.forEach((option => {
+            this.userList.push({ id: option.id, name: option.textContent! });
+        }));
+        return this.userList;
     }
 }
 

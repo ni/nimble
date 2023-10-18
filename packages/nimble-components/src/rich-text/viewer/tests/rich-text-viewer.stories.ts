@@ -33,12 +33,12 @@ const metadata: Meta<RichTextViewerArgs> = {
     <${richTextViewerTag}
         :markdown="${x => x.markdown}"
     >
-        <${listOptionTag} value='1'>Mary</${listOptionTag}>
-        <${listOptionTag} value='2'>super</${listOptionTag}>
-        <${listOptionTag} value='3'>Joaquin</${listOptionTag}>
-        <${listOptionTag} value='4'>Frank</${listOptionTag}>
-        <${listOptionTag} value='5'>Albert</${listOptionTag}>
-        <${listOptionTag} value='6'>Sue Ann</${listOptionTag}>
+        <${listOptionTag} id='1'>Mary</${listOptionTag}>
+        <${listOptionTag} id='2'>super</${listOptionTag}>
+        <${listOptionTag} id='3'>Joaquin</${listOptionTag}>
+        <${listOptionTag} id='4'>Frank</${listOptionTag}>
+        <${listOptionTag} id='5'>Albert</${listOptionTag}>
+        <${listOptionTag} id='6'>Sue Ann</${listOptionTag}>
     </${richTextViewerTag}>
     `),
     argTypes: {
