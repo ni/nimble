@@ -1,8 +1,115 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 20 Sep 2023 02:57:31 GMT and should not be manually modified.
+This log was last generated on Wed, 18 Oct 2023 18:51:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.7.0
+
+Wed, 18 Oct 2023 18:51:54 GMT
+
+### Minor changes
+
+- add ni and systemlink logo icons ([ni/nimble@2a79981](https://github.com/ni/nimble/commit/2a799815ee5117c3cf863fc522333497e50ff355))
+- Bump @ni/nimble-tokens to v6.5.0
+
+## 20.6.3
+
+Mon, 16 Oct 2023 21:31:42 GMT
+
+### Patches
+
+- Update TypeScript dependency to 4.8 ([ni/nimble@8a42916](https://github.com/ni/nimble/commit/8a429164d4987cc1b932adb3c93727afdc8c5202))
+- Bump @ni/nimble-tokens to v6.4.1
+
+## 20.6.2
+
+Wed, 04 Oct 2023 07:38:20 GMT
+
+### Patches
+
+- Flipped the vertical scale and created wafer map mocks for tests ([ni/nimble@7063d3d](https://github.com/ni/nimble/commit/7063d3d5ae3d1b5e9e4d3e5952d10436b29788f4))
+
+## 20.6.1
+
+Tue, 03 Oct 2023 14:34:50 GMT
+
+### Patches
+
+- Column resize bug fix. ([ni/nimble@2c1247b](https://github.com/ni/nimble/commit/2c1247b7a9c46d7e10b36b9a53f3cff346e8d0d5))
+
+## 20.6.0
+
+Thu, 28 Sep 2023 22:20:40 GMT
+
+### Minor changes
+
+- Hide icons from accessibility tree by default ([ni/nimble@2b87882](https://github.com/ni/nimble/commit/2b8788206af0718623968a736ab30cb8ec8766da))
+
+## 20.5.5
+
+Thu, 28 Sep 2023 03:38:31 GMT
+
+### Patches
+
+- Support for pasting a hyperlink as an absolute link in the rich text editor ([ni/nimble@3d5285d](https://github.com/ni/nimble/commit/3d5285dc230dc7d5c859d948993b67788e57365a))
+
+## 20.5.4
+
+Tue, 26 Sep 2023 21:18:40 GMT
+
+### Patches
+
+- Fix bug where `undefined` and `null` were not sorted correctly when using the `basic` sort operation ([ni/nimble@d952598](https://github.com/ni/nimble/commit/d952598e0f68a4c7255c5c3aab818035002f7600))
+
+## 20.5.3
+
+Fri, 22 Sep 2023 14:24:47 GMT
+
+### Patches
+
+- Add reusable css for styling an element as visually hidden while keeping it available to the accessibility tree ([ni/nimble@8486724](https://github.com/ni/nimble/commit/8486724cf68c66210de0a180496e75b347391352))
+
+## 20.5.2
+
+Fri, 22 Sep 2023 00:01:31 GMT
+
+### Patches
+
+- Clean-up dist folder of nimble-components to remove duplicated type hierarchy ([ni/nimble@908204e](https://github.com/ni/nimble/commit/908204e252ee75affeedc355a46d13a3005d6770))
+
+## 20.5.1
+
+Thu, 21 Sep 2023 13:07:38 GMT
+
+### Patches
+
+- Avoid converting markdown syntax characters like star (*) and underscore(_) to format the editor content automatically while typing ([ni/nimble@94188a3](https://github.com/ni/nimble/commit/94188a36031bfd9a88374d9e201c695eab8727ae))
+
+## 20.5.0
+
+Wed, 20 Sep 2023 18:55:59 GMT
+
+### Minor changes
+
+- New icons for indent and outdent list level ([ni/nimble@f12cbc5](https://github.com/ni/nimble/commit/f12cbc59d683ae048a85750990cc4ae174464590))
+- Bump @ni/nimble-tokens to v6.4.0
+
+## 20.4.3
+
+Wed, 20 Sep 2023 16:38:20 GMT
+
+### Patches
+
+- Add additional localized labels to sub-elements in the table to improve accessibility ([ni/nimble@60947ef](https://github.com/ni/nimble/commit/60947ef38e170552c614f1affcd8e1e385ba9177))
+
+## 20.4.2
+
+Wed, 20 Sep 2023 15:22:26 GMT
+
+### Patches
+
+- Fix bug in table when reordering columns ([ni/nimble@f4dc2ea](https://github.com/ni/nimble/commit/f4dc2eaa9724bee9cf82c28d17ac57422679a1f8))
 
 ## 20.4.1
 

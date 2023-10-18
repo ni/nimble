@@ -8,9 +8,6 @@
   "schedule": [
     "monthly"
   ],
-  "vulnerabilityAlerts": {
-      "enabled": false
-  },
   "packageRules": [
     {
       "matchManagers": ["npm"],

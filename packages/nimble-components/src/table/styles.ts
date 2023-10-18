@@ -15,6 +15,7 @@ import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
 import { userSelectNone } from '../utilities/style/user-select';
+import { accessiblyHidden } from '../utilities/style/accessibly-hidden';
 
 export const styles = css`
     ${display('flex')}
@@ -185,6 +186,10 @@ export const styles = css`
 
     .row {
         position: relative;
+    }
+
+    .accessibly-hidden {
+        ${accessiblyHidden}
     }
 `.withBehaviors(
     themeBehavior(

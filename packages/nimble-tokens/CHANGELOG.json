@@ -2,6 +2,51 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 18 Oct 2023 18:51:54 GMT",
+      "version": "6.5.0",
+      "tag": "@ni/nimble-tokens_v6.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "2a799815ee5117c3cf863fc522333497e50ff355",
+            "comment": "add ni and systemlink logo icons"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 16 Oct 2023 21:31:42 GMT",
+      "version": "6.4.1",
+      "tag": "@ni/nimble-tokens_v6.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "8a429164d4987cc1b932adb3c93727afdc8c5202",
+            "comment": "Update TypeScript dependency to 4.8"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 18:55:59 GMT",
+      "tag": "@ni/nimble-tokens_v6.4.0",
+      "version": "6.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "f12cbc59d683ae048a85750990cc4ae174464590",
+            "comment": "New icons for indent and outdent list level"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 02 Aug 2023 19:10:45 GMT",
       "tag": "@ni/nimble-tokens_v6.3.0",
       "version": "6.3.0",

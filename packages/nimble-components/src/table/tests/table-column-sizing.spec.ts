@@ -377,36 +377,54 @@ describe('Table Interactive Column Sizing', () => {
                 name: 'sizing right only affects adjacent right column with delta less than min width',
                 dragDeltas: [1],
                 columnDragIndex: 0,
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [50, 50, 50, 50],
                 expectedColumnWidths: [101, 99, 100, 100]
             },
             {
                 name: 'sizing right past the minimum size of adjacent right column cascades to next column',
                 dragDeltas: [51],
                 columnDragIndex: 0,
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [50, 50, 50, 50],
                 expectedColumnWidths: [151, 50, 99, 100]
             },
             {
                 name: 'sizing right past the minimum size of all columns to right shrinks all columns to minimum size, but allows left column to keep growing',
                 dragDeltas: [151],
                 columnDragIndex: 0,
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [50, 50, 50, 50],
                 expectedColumnWidths: [251, 50, 50, 50]
             },
             {
                 name: 'sizing left only affects adjacent left column with delta less than min width',
                 dragDeltas: [-1],
                 columnDragIndex: 2,
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [50, 50, 50, 50],
                 expectedColumnWidths: [100, 100, 99, 101]
             },
             {
                 name: 'sizing left past the minimum size of adjacent left column cascades to next column',
                 dragDeltas: [-51],
                 columnDragIndex: 2,
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [50, 50, 50, 50],
                 expectedColumnWidths: [100, 99, 50, 151]
             },
             {
                 name: 'sizing left past the minimum size of all columns to left shrinks all columns to minimum size, and stops growing right most column',
                 dragDeltas: [-151],
                 columnDragIndex: 2,
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [50, 50, 50, 50],
                 expectedColumnWidths: [50, 50, 50, 250]
             },
             {
@@ -414,19 +432,55 @@ describe('Table Interactive Column Sizing', () => {
                        and then moving cursor slightly to right causes no column width changes`,
                 dragDeltas: [-152, 1],
                 columnDragIndex: 2,
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [50, 50, 50, 50],
                 expectedColumnWidths: [50, 50, 50, 250]
             },
             {
                 name: 'sizing right causing cascade and then sizing left in same interaction reverts cascade effect',
                 dragDeltas: [100, -50],
                 columnDragIndex: 2,
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [50, 50, 50, 50],
                 expectedColumnWidths: [100, 100, 150, 50]
             },
             {
                 name: 'sizing left causing cascade and then sizing right in same interaction reverts cascade effect',
                 dragDeltas: [-50, 25],
                 columnDragIndex: 0,
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [50, 50, 50, 50],
                 expectedColumnWidths: [75, 125, 100, 100]
+            },
+            {
+                name: 'sizing a column with the same fractional width as other columns, but larger minimum size, does not result in different pixel widths for columns not resized',
+                dragDeltas: [-10],
+                columnDragIndex: 2,
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [50, 50, 50, 175],
+                expectedColumnWidths: [75, 75, 65, 185]
+            },
+            {
+                name: 'sizing a column with the same fractional width as other columns, but larger minimum size, with a fixed width column that is not interactively sized, does not result in different pixel widths for columns not resized',
+                dragDeltas: [-30],
+                columnDragIndex: 2,
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [85, undefined, undefined, undefined],
+                minPixelWidths: [50, 50, 45, 175],
+                expectedColumnWidths: [85, 65, 45, 205]
+            },
+            {
+                name: 'sizing a column with the same fractional width as other columns, but larger minimum size, along with a fixed width column, does not result in different pixel widths for columns not resized',
+                dragDeltas: [-25],
+                columnDragIndex: 2,
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, 75, undefined],
+                minPixelWidths: [50, 50, 50, 175],
+                expectedColumnWidths: [75, 75, 50, 200]
             }
         ];
         const focused: string[] = [];
@@ -441,6 +495,12 @@ describe('Table Interactive Column Sizing', () => {
                 `${columnSizeTest.name}`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
+                    element.columns.forEach((column, i) => {
+                        column.columnInternals.fractionalWidth = columnSizeTest.fractionalWidths[i]!;
+                        column.columnInternals.pixelWidth = columnSizeTest.pixelWidths[i]!;
+                        column.columnInternals.minPixelWidth = columnSizeTest.minPixelWidths[i]!;
+                    });
+                    await waitForUpdatesAsync();
                     pageObject.dragSizeColumnByRightDivider(
                         columnSizeTest.columnDragIndex,
                         columnSizeTest.dragDeltas
