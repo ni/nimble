@@ -45,7 +45,10 @@ export class DurationFormatter {
         }
 
         const result = [];
-        const millisecondsPerDay = 86400000;
+        const millisecondsPerSecond = 1000;
+        const millisecondsPerMinute = millisecondsPerSecond * 60;
+        const millisecondsPerHour = millisecondsPerMinute * 60;
+        const millisecondsPerDay = millisecondsPerHour * 24;
         const fractionalDays = milliseconds / millisecondsPerDay;
         let remainingTime = milliseconds;
         const days = Math.floor(fractionalDays);
@@ -53,11 +56,12 @@ export class DurationFormatter {
             const formattedDays = this.daysFormatter.format(days);
             result.push(formattedDays);
             remainingTime -= days * millisecondsPerDay;
-        } else if (days >= 100) {
-            return this.scientificSecondsFormatter.format(milliseconds / 1000);
+        } else if (days > 100) {
+            return this.scientificSecondsFormatter.format(
+                milliseconds / millisecondsPerSecond
+            );
         }
 
-        const millisecondsPerHour = 3600000;
         const hours = Math.floor((milliseconds / millisecondsPerHour) % 24);
         remainingTime -= hours * millisecondsPerHour;
         if (hours) {
@@ -65,7 +69,6 @@ export class DurationFormatter {
             result.push(formattedHours);
         }
 
-        const millisecondsPerMinute = 60000;
         const minutes = Math.floor((milliseconds / millisecondsPerMinute) % 60);
         remainingTime -= minutes * millisecondsPerMinute;
         if (minutes) {
@@ -73,7 +76,7 @@ export class DurationFormatter {
             result.push(formattedMinutes);
         }
 
-        const valueInSeconds = remainingTime / 1000;
+        const valueInSeconds = remainingTime / millisecondsPerSecond;
         // if -0, coerce to 0
         const seconds = valueInSeconds === 0 ? 0 : valueInSeconds % 60;
         if (milliseconds < 1 && valueInSeconds !== 0) {
