@@ -81,7 +81,7 @@ describe('Duration Formatter', () => {
                 value: Number.MAX_VALUE,
                 expected: '1.798E305 sec'
             }
-        ];
+        ] as const;
 
         parameterizeNamedList(goodValueData, (spec, name, value) => {
             spec(name, () => {
