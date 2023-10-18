@@ -29,12 +29,7 @@ TableColumnDurationTextColumnConfig
     }
 
     private updateText(): void {
-        if (this.columnConfig) {
-            this.text = this.columnConfig.formatter.format(this.cellRecord?.value)
-                ?? '';
-        } else {
-            this.text = '';
-        }
+        this.text = this.columnConfig?.formatter.format(this.cellRecord?.value) ?? '';
     }
 }
 

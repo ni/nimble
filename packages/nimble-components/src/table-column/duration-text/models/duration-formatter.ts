@@ -36,8 +36,7 @@ export class DurationFormatter {
 
     public format(milliseconds: number | null | undefined): string {
         if (
-            milliseconds === null
-            || milliseconds === undefined
+            typeof milliseconds !== 'number'
             || milliseconds < 0
             || !Number.isFinite(milliseconds)
         ) {
@@ -52,11 +51,11 @@ export class DurationFormatter {
         const fractionalDays = milliseconds / millisecondsPerDay;
         let remainingTime = milliseconds;
         const days = Math.floor(fractionalDays);
-        if (days <= 100 && days > 0) {
+        if (days <= 999 && days > 0) {
             const formattedDays = this.daysFormatter.format(days);
             result.push(formattedDays);
             remainingTime -= days * millisecondsPerDay;
-        } else if (days > 100) {
+        } else if (days > 999) {
             return this.scientificSecondsFormatter.format(
                 milliseconds / millisecondsPerSecond
             );

@@ -1,5 +1,5 @@
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
-import { DurationFormatter } from './duration-formatter';
+import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
+import { DurationFormatter } from '../duration-formatter';
 
 describe('Duration Formatter', () => {
     const formatter = new DurationFormatter('en-EN');
@@ -55,14 +55,14 @@ describe('Duration Formatter', () => {
                 expected: '1 min'
             },
             {
-                name: '100 days',
-                value: 8.64e9,
-                expected: '100 days'
+                name: '999 days',
+                value: 8.63136e10,
+                expected: '999 days'
             },
             {
-                name: '101 days',
-                value: 8726500000,
-                expected: '8.727E6 sec'
+                name: '1000 days',
+                value: 8.64e10,
+                expected: '8.64E7 sec'
             },
             { name: '1ms', value: 1, expected: '0.001 sec' },
             { name: '0.99ms', value: 0.99, expected: '9.9E-4 sec' },
