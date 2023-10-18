@@ -54,8 +54,14 @@ public partial class NimbleTableColumnNumberText : NimbleTableColumn, IFractiona
     public NumberTextAlignment? Alignment { get; set; }
 
     /// <summary>
-    /// The number of digits to display after the decimal place when the column's format is decimal.
+    /// The number of digits to display after the decimal place when the column's format is decimal. Mutually exclusive with DecimalMaximumDigits.
     /// </summary>
     [Parameter]
     public int? DecimalDigits { get; set; }
+
+    /// <summary>
+    /// The maximum number of digits to display after the decimal place when the column's format is decimal. Mutually exclusive with DecimalDigits.
+    /// </summary>
+    [Parameter]
+    public int? DecimalMaximumDigits { get; set; }
 }
