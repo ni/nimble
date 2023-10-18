@@ -165,10 +165,10 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
 
 ##### API
 
--   `alignment` - a string value matching `"left"`, `"right"`, or `undefined` (the default, meaning `"automatic"`) which controls whether values and column headers are left or right aligned within the column. If set to `undefined` Nimble will choose left or right based on the value of `format`. Clients should select `right` if it is known that the decimal separators of all values in the column will align in the given the `format`.
+-   `alignment` - a string value matching `"left"`, `"right"`, or `undefined` (the default, meaning `"automatic"`) which controls whether values and column headers are left or right aligned within the column. If set to `undefined` Nimble will choose left or right based on the value of other configuration. Clients should select `right` if it is known that the decimal separators of all values in the column will align in the given the `format`.
 -   `format` - a string which controls how the number is formatted for display. It can take one of the following values:
     -   `undefined` - use a default formatter that displays integers with no trailing zeros, limits to 6 digits, and uses exponential notation when the formatted value is large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude. Will be displayed left-aligned by default (since numbers will display an inconsistent number of fractional digits).
-    -   `'decimal'` - format all values as decimal values (e.g. 123.45) with a number of digits after the separator determined by `decimal-digits` or `decimal-maximum-digits`. Exponential notation is never used. If required, values will be rounded to reach the specified number of decimial digits. Configuring `decimal-digits` to `0` will round the value to the nearest integer and display it with no decimal places. Default alignment will left if either `decimal-maximum-digits` or `unit-family` is set, otherwise right (since the decimal separators should align in that case).
+    -   `'decimal'` - format all values as decimal values (e.g. 123.45) with a number of digits after the separator determined by `decimal-digits` or `decimal-maximum-digits`. Exponential notation is never used. If required, values will be rounded to reach the specified number of decimial digits. Configuring `decimal-digits` to `0` will round the value to the nearest integer and display it with no decimal places. Default alignment will be left if either `decimal-maximum-digits` or a unit is set, otherwise right (since the decimal separators should align in that case).
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would be prefixed with the name of the format mode.
     -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887). The exception is that we will set `useGrouping: true` to achieve `1,000` rather than `1000` because this styles the values in a way that is more human readable.
 -   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2 unless `decimal-maximum-digits` is specified, in which case a number of digits between 0 and `decimal-maximum-digits` are shown. It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`. Formats other than `decimal` ignore `decimal-digits`.
@@ -221,7 +221,7 @@ class UnitFamilyVolt extends FoundationElement implements UnitFamily {
 
 Other libraries considered for number conversion and/or unit label localization include [globalizejs](https://github.com/globalizejs/globalize), [convert](https://convert.js.org/), [convert-units](https://github.com/convert-units/convert-units), and [iLib](https://github.com/iLib-js/iLib). None of these provided sufficient functionality to justify including them as a dependency.
 
-We will use `nimble-unit-byte` to display file sizes in SLE tables. Currently, SLE displays these values with the common `KB`/`MB`/`GB` unit labels, but uses a factor of 1024 to convert between units (which is not uncommon, but technically incorrect). Our formatting will use the same unit labels, but use a conversion factor of 1000. This will result in slightly different values being displayed. For SLE's internal consistency, we will also change their file size pipe to use a conversion factor of 1000 instead of 1024. We will need to search for other places in the product where byte values are being converted and update them similarly.
+We will use `nimble-unit-byte` to display file sizes in SLE tables. Currently, SLE displays these values with the common `KB`/`MB`/`GB` unit labels, but uses a factor of 1024 to convert between units (which is [not uncommon](https://en.wikipedia.org/wiki/JEDEC_memory_standards#Unit_prefixes_for_semiconductor_storage_capacity), but [technically incorrect](https://physics.nist.gov/cuu/Units/binary.html)). Our formatting will use the same unit labels, but use a conversion factor of 1000. This will result in slightly different values being displayed. For SLE's internal consistency, we will also change their file size pipe to use a conversion factor of 1000 instead of 1024. We will need to search for other places in the product where byte values are being converted and update them similarly.
 
 ##### Examples
 
@@ -386,9 +386,7 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 
 ### Additional unit APIs
 
-We considered a few different options for displaying units within a cell, but it was unclear if any of them would satisfy the requirements of our clients. Because there are a number of open questions regarding the client requirements, we initially decided to defer any work involving units. Later, we revisited unit support as an alternative to implementing a separate file size column type.
-
-Some of the options considered are described below:
+We considered some alternative approaches for configuring units:
 
 #### Expose unit and unitDisplay from the Intl.NumberFormatter
 
