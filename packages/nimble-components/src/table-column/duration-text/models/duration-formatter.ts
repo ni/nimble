@@ -49,13 +49,14 @@ export class DurationFormatter {
         const millisecondsPerHour = millisecondsPerMinute * 60;
         const millisecondsPerDay = millisecondsPerHour * 24;
         const fractionalDays = milliseconds / millisecondsPerDay;
+        const maximumDays = 999;
         let remainingTime = milliseconds;
         const days = Math.floor(fractionalDays);
-        if (days <= 999 && days > 0) {
+        if (days <= maximumDays && days > 0) {
             const formattedDays = this.daysFormatter.format(days);
             result.push(formattedDays);
             remainingTime -= days * millisecondsPerDay;
-        } else if (days > 999) {
+        } else if (days > maximumDays) {
             return this.scientificSecondsFormatter.format(
                 milliseconds / millisecondsPerSecond
             );
