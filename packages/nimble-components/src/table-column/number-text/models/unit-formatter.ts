@@ -2,7 +2,7 @@ import type { Unit } from '../../../units/base/unit-family';
 import { NumberFormatter } from './number-formatter';
 
 /**
- * TODO
+ * A formatter for a number-text column that supports unit labels.
  */
 export class UnitFormatter extends NumberFormatter {
     private readonly baseUnit: Unit;

@@ -14,9 +14,10 @@ declare global {
 }
 
 /**
- * TODO
+ * Element representing units for bytes
  */
 export class UnitFamilyByte extends ManuallyTranslatedUnitFamily {
+    // If true, 1024-based units are used instead of 1000-based units
     @attr({ mode: 'boolean' })
     public binary = false;
 
@@ -33,7 +34,12 @@ export class UnitFamilyByte extends ManuallyTranslatedUnitFamily {
         const unitTranslations = new Map<string, UnitTranslation>();
         unitTranslations.set('en', new UnitTranslation('byte', 'bytes', 'B'));
         unitTranslations.set('fr', new UnitTranslation('octet', 'octets', 'o'));
-        unitTranslations.set('de', new UnitTranslation('Byte', 'Byte', 'V'));
+        unitTranslations.set('de', new UnitTranslation('Byte', 'Byte', 'B'));
+        unitTranslations.set(
+            'ja',
+            new UnitTranslation('バイト', 'バイト', 'B')
+        );
+        unitTranslations.set('zh', new UnitTranslation('字节', '字节', 'B'));
         return unitTranslations;
     }
 

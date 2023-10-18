@@ -6,7 +6,7 @@ export interface Unit {
 }
 
 /**
- * TODO
+ * An element representing a set of related units which could be used to represent the same value
  */
 export abstract class UnitFamily extends FoundationElement {
     public abstract getSupportedUnits(

@@ -1,7 +1,7 @@
 import type { Unit } from './unit-family';
 
 /**
- * TODO
+ * A unit that can be formatted/translated by Intl.NumberFormat
  */
 export class IntlNumberFormatUnit implements Unit {
     public constructor(

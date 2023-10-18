@@ -9,7 +9,7 @@ declare global {
 }
 
 /**
- * TODO
+ * Element representing no unit labels
  */
 export class UnitFamilyNone extends UnitFamily {
     public getSupportedUnits(

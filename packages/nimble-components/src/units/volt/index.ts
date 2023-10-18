@@ -11,7 +11,7 @@ declare global {
 }
 
 /**
- * TODO
+ * Element representing units for volts
  */
 export class UnitFamilyVolt extends ManuallyTranslatedUnitFamily {
     protected override getUnitTranslations(): Map<string, UnitTranslation> {
@@ -19,6 +19,11 @@ export class UnitFamilyVolt extends ManuallyTranslatedUnitFamily {
         unitTranslations.set('en', new UnitTranslation('volt', 'volts', 'V'));
         unitTranslations.set('fr', new UnitTranslation('volt', 'volts', 'V'));
         unitTranslations.set('de', new UnitTranslation('Volt', 'Volt', 'V'));
+        unitTranslations.set(
+            'ja',
+            new UnitTranslation('ボルト', 'ボルト', 'V')
+        );
+        unitTranslations.set('zh', new UnitTranslation('伏特', '伏特', 'V'));
         return unitTranslations;
     }
 

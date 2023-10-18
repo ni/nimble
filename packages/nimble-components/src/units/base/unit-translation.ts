@@ -1,5 +1,5 @@
 /**
- * TODO
+ * Representations of a base unit in a particular language
  */
 export class UnitTranslation {
     public constructor(

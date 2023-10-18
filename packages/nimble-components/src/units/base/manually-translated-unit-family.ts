@@ -4,7 +4,7 @@ import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
 
 /**
- * TODO
+ * A family of units that are not supported by Intl.NumberFormat and have translations hard-coded in Nimble
  */
 export abstract class ManuallyTranslatedUnitFamily extends UnitFamily {
     private readonly unitTranslations: Map<string, UnitTranslation>;

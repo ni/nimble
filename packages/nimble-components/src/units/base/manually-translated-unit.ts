@@ -1,7 +1,7 @@
 import type { Unit } from './unit-family';
 
 /**
- * TODO
+ * A unit that is not supported by Intl.NumberFormat and must have translations built into Nimble
  */
 export class ManuallyTranslatedUnit implements Unit {
     public constructor(

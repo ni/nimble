@@ -1,5 +1,5 @@
 /**
- * TODO
+ * A prefix that implies a scaling factor when applied to a base unit
  */
 export class UnitPrefix {
     public constructor(
