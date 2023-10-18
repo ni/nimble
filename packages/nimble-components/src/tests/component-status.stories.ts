@@ -532,14 +532,9 @@ const components = [
     }
 ] as const;
 
-const isFuture = (
-    component: (typeof components)[number]
-): boolean => component.angularStatus
-        === ComponentFrameworkStatus.doesNotExist
-    && component.blazorStatus
-        === ComponentFrameworkStatus.doesNotExist
-    && component.componentStatus
-        === ComponentFrameworkStatus.doesNotExist;
+const isFuture = (component: (typeof components)[number]): boolean => component.angularStatus === ComponentFrameworkStatus.doesNotExist
+    && component.blazorStatus === ComponentFrameworkStatus.doesNotExist
+    && component.componentStatus === ComponentFrameworkStatus.doesNotExist;
 
 const updateData = (x: TableArgs): void => {
     void (async () => {
@@ -547,9 +542,7 @@ const updateData = (x: TableArgs): void => {
         // but doesn't seem to be upgraded to a custom element yet
         await customElements.whenDefined('nimble-table');
 
-        const data = components.filter(component => (x.status === 'future'
-            ? isFuture(component)
-            : !isFuture(component)));
+        const data = components.filter(component => (x.status === 'future' ? isFuture(component) : !isFuture(component)));
         await x.tableRef.setData(data);
     })();
 };
@@ -617,25 +610,32 @@ const componentTable = html<TableArgs>`
 </${tableTag}>
 `;
 
-type Components = typeof components[1];
+type Components = (typeof components)[1];
 
 const plainTable = html<TableArgs>`
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        ${repeat(x => components.filter(component => (x.status === 'future'
-        ? isFuture(component)
-        : !isFuture(component))), html<Components, TableArgs>`
+    <table>
+        <thead>
             <tr>
-                <td><a href="${x => x.componentHref}" target="_top">${x => x.componentName}</a></td>
+                <th>Name</th>
             </tr>
-        `)}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            ${repeat(
+        x => components.filter(component => (x.status === 'future'
+            ? isFuture(component)
+            : !isFuture(component))),
+        html<Components, TableArgs>`
+                    <tr>
+                        <td>
+                            <a href="${x => x.componentHref}" target="_top"
+                                >${x => x.componentName}</a
+                            >
+                        </td>
+                    </tr>
+                `
+    )}
+        </tbody>
+    </table>
 `;
 
 const metadata: Meta<TableArgs> = {
