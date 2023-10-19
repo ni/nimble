@@ -98,13 +98,13 @@ Most accordions should fill 100% of the width of a parent container, and the par
 
 #### Minimum Height
 
-When the accordion height exceeds that of the viewport, the whole accordion should vertically scroll (not pictured). Content should never scroll vertically or horizontally inside individual panels.
+When the accordion height exceeds that of the viewport, the full accordion and /or the individual accordion panels should not become scrollable to try and fit in the viewport(not pictured). The accordion should always be tall enough to show all headers and panels and the panels should always be tall enough to show all their content. The surrounding content, for example the page itself, should scroll instead.
 
 #### Nested Accordions
 
 > NOTE: NEEDS VISUAL DESIGN & TECH WRITER?
 
-Accordion panels can have one level of nested accordions. If the client-user attempts to nest an accordion more than one level deep, the accordion component should indicate that limitation. Nested acccordions are always ghost style; the client-user should not be able to specify a block or outline appearance.
+Accordion panels can have one level of nested accordions. Nested accordions are always ghost style.
 
 ![ ](spec-images/accordion-9.png)
 
