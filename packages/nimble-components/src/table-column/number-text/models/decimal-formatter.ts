@@ -7,14 +7,18 @@ export class DecimalFormatter extends NumberFormatter {
     private readonly formatter: Intl.NumberFormat;
     private readonly tenPowDecimalDigits: number;
 
-    public constructor(locale: string, decimalsToDisplay: number) {
+    public constructor(
+        locale: string,
+        minimumFractionDigits: number,
+        maximumFractionDigits: number
+    ) {
         super();
         this.formatter = new Intl.NumberFormat(locale, {
-            maximumFractionDigits: decimalsToDisplay,
-            minimumFractionDigits: decimalsToDisplay,
+            maximumFractionDigits,
+            minimumFractionDigits,
             useGrouping: true
         });
-        this.tenPowDecimalDigits = 10 ** decimalsToDisplay;
+        this.tenPowDecimalDigits = 10 ** maximumFractionDigits;
     }
 
     protected format(number: number): string {

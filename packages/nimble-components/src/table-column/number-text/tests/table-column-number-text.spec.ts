@@ -309,6 +309,23 @@ describe('TableColumnNumberText', () => {
         expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('11.0123');
     });
 
+    it('uses decimal-maximum-digits applied before connection', async () => {
+        elementReferences.column1.format = NumberTextFormat.decimal;
+        elementReferences.column1.decimalMaximumDigits = 4;
+        await table.setData([{ number1: 11.01234567 }]);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('11.0123');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('11.0123');
+
+        await table.setData([{ number1: 11.0 }]);
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('11');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('11');
+    });
+
     describe('updating configuration after connection', () => {
         beforeEach(async () => {
             elementReferences.column1.format = NumberTextFormat.decimal;
@@ -348,6 +365,14 @@ describe('TableColumnNumberText', () => {
             );
         });
 
+        it('updating decimal-maximum-digits updates rendered value', async () => {
+            elementReferences.column1.decimalMaximumDigits = 5;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('11');
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('11');
+        });
+
         it('setting an invalid decimal-digits value makes the column invalid', async () => {
             elementReferences.column1.decimalDigits = -5;
             await waitForUpdatesAsync();
@@ -358,7 +383,7 @@ describe('TableColumnNumberText', () => {
             ).toBeTrue();
         });
 
-        it('changing format of invalid decimal column makes it valid', async () => {
+        it('changing format of decimal column with invalid decimal-digits makes it valid', async () => {
             elementReferences.column1.decimalDigits = -5;
             await waitForUpdatesAsync();
 
@@ -393,42 +418,162 @@ describe('TableColumnNumberText', () => {
                 elementReferences.column1.validity.invalidDecimalDigits
             ).toBeFalse();
         });
+
+        it('setting an invalid decimal-maximum-digits value makes the column invalid', async () => {
+            elementReferences.column1.decimalMaximumDigits = -5;
+            await waitForUpdatesAsync();
+
+            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(
+                elementReferences.column1.validity.invalidDecimalMaximumDigits
+            ).toBeTrue();
+        });
+
+        it('changing format of decimal column with invalid decimal-maximum-digits makes it valid', async () => {
+            elementReferences.column1.decimalMaximumDigits = -5;
+            await waitForUpdatesAsync();
+
+            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(
+                elementReferences.column1.validity.invalidDecimalMaximumDigits
+            ).toBeTrue();
+
+            elementReferences.column1.format = NumberTextFormat.default;
+            await waitForUpdatesAsync();
+
+            expect(elementReferences.column1.checkValidity()).toBeTrue();
+            expect(
+                elementReferences.column1.validity.invalidDecimalMaximumDigits
+            ).toBeFalse();
+        });
+
+        it('changing to a valid decimal-maximum-digits value makes an invalid column valid', async () => {
+            elementReferences.column1.decimalMaximumDigits = -5;
+            await waitForUpdatesAsync();
+
+            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(
+                elementReferences.column1.validity.invalidDecimalMaximumDigits
+            ).toBeTrue();
+
+            elementReferences.column1.decimalMaximumDigits = 1;
+            await waitForUpdatesAsync();
+
+            expect(elementReferences.column1.checkValidity()).toBeTrue();
+            expect(
+                elementReferences.column1.validity.invalidDecimalMaximumDigits
+            ).toBeFalse();
+        });
+
+        it('setting both decimal-digits and decimal-maximum-digits value makes the column invalid', async () => {
+            elementReferences.column1.decimalDigits = 1;
+            elementReferences.column1.decimalMaximumDigits = 1;
+            await waitForUpdatesAsync();
+
+            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(
+                elementReferences.column1.validity
+                    .decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits
+            ).toBeTrue();
+        });
+
+        it('changing format of decimal column with both decimal-digits and decimal-maximum-digits makes it valid', async () => {
+            elementReferences.column1.decimalDigits = 1;
+            elementReferences.column1.decimalMaximumDigits = 1;
+            await waitForUpdatesAsync();
+
+            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(
+                elementReferences.column1.validity
+                    .decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits
+            ).toBeTrue();
+
+            elementReferences.column1.format = NumberTextFormat.default;
+            await waitForUpdatesAsync();
+
+            expect(elementReferences.column1.checkValidity()).toBeTrue();
+            expect(
+                elementReferences.column1.validity
+                    .decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits
+            ).toBeFalse();
+        });
+
+        it('removing one of decimal-digits and decimal-maximum-digits makes an invalid column valid', async () => {
+            elementReferences.column1.decimalDigits = 1;
+            elementReferences.column1.decimalMaximumDigits = 1;
+            await waitForUpdatesAsync();
+
+            expect(elementReferences.column1.checkValidity()).toBeFalse();
+            expect(
+                elementReferences.column1.validity
+                    .decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits
+            ).toBeTrue();
+
+            elementReferences.column1.decimalDigits = undefined;
+            await waitForUpdatesAsync();
+
+            expect(elementReferences.column1.checkValidity()).toBeTrue();
+            expect(
+                elementReferences.column1.validity
+                    .decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits
+            ).toBeFalse();
+        });
     });
 
     const alignmentTestCases = [
         {
             name: 'with default format and default alignment',
             format: NumberTextFormat.default,
+            decimalMaximumDigits: undefined,
             configuredColumnAlignment: NumberTextAlignment.default,
             expectedCellViewAlignment: TextCellViewBaseAlignment.left
         },
         {
             name: 'with default format and left alignment',
             format: NumberTextFormat.default,
+            decimalMaximumDigits: undefined,
             configuredColumnAlignment: NumberTextAlignment.left,
             expectedCellViewAlignment: TextCellViewBaseAlignment.left
         },
         {
             name: 'with default format and right alignment',
             format: NumberTextFormat.default,
+            decimalMaximumDigits: undefined,
             configuredColumnAlignment: NumberTextAlignment.right,
             expectedCellViewAlignment: TextCellViewBaseAlignment.right
         },
         {
             name: 'with decimal format and default alignment',
             format: NumberTextFormat.decimal,
+            decimalMaximumDigits: undefined,
             configuredColumnAlignment: NumberTextAlignment.default,
             expectedCellViewAlignment: TextCellViewBaseAlignment.right
         },
         {
             name: 'with decimal format and left alignment',
             format: NumberTextFormat.decimal,
+            decimalMaximumDigits: undefined,
             configuredColumnAlignment: NumberTextAlignment.left,
             expectedCellViewAlignment: TextCellViewBaseAlignment.left
         },
         {
             name: 'with decimal format and right alignment',
             format: NumberTextFormat.decimal,
+            decimalMaximumDigits: undefined,
+            configuredColumnAlignment: NumberTextAlignment.right,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.right
+        },
+        {
+            name: 'with decimal format, default alignment, and decimalMaximumDigits',
+            format: NumberTextFormat.decimal,
+            decimalMaximumDigits: 1,
+            configuredColumnAlignment: NumberTextAlignment.default,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.left
+        },
+        {
+            name: 'with decimal format, right alignment, and decimalMaximumDigits',
+            format: NumberTextFormat.decimal,
+            decimalMaximumDigits: 1,
             configuredColumnAlignment: NumberTextAlignment.right,
             expectedCellViewAlignment: TextCellViewBaseAlignment.right
         }
@@ -446,6 +591,7 @@ describe('TableColumnNumberText', () => {
             specType(`${testCase.name}`, async () => {
                 await table.setData([{ number1: 10 }]);
                 elementReferences.column1.format = testCase.format;
+                elementReferences.column1.decimalMaximumDigits = testCase.decimalMaximumDigits;
                 elementReferences.column1.alignment = testCase.configuredColumnAlignment;
                 await connect();
                 await waitForUpdatesAsync();
@@ -487,6 +633,14 @@ describe('TableColumnNumberText', () => {
             elementReferences.column1.format = NumberTextFormat.decimal;
             await waitForUpdatesAsync();
             expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.right);
+        });
+
+        it('when format is decimal, alignment is set to "default", and decimalMaximumDigits becomes set', async () => {
+            elementReferences.column1.format = NumberTextFormat.decimal;
+            await waitForUpdatesAsync();
+            elementReferences.column1.decimalMaximumDigits = 1;
+            await waitForUpdatesAsync();
+            expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.left);
         });
     });
 });
