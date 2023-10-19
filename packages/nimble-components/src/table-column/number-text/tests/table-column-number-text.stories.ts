@@ -146,10 +146,10 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             <${tableColumnTextTag} field-name="lastName">
                 Last Name
             </${tableColumnTextTag}>
-            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}">
+            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
                 Age
             </${tableColumnNumberTextTag}>
-            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}">
+            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
                 Favorite Number
             </${tableColumnNumberTextTag}>
         </${tableTag}>
@@ -174,13 +174,16 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         decimalDigits: {
             name: 'decimal-digits',
             description:
-                "The number of decimal places to format values to when the column's `format` is configured to be `decimal`. If neither `decimal-digits` or `decimal-maximum-digits` are set, a default value of `2` is used. `decimal-digits` and `decimal-maximum-digits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive)."
+                "The number of decimal places to format values to when the column's `format` is configured to be `decimal`. If neither `decimal-digits` or `decimal-maximum-digits` are set, a default value of `2` is used. `decimal-digits` and `decimal-maximum-digits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).",
+            options: [undefined, 0, 1, 2, 3],
+            control: { type: 'select' }
         },
         decimalMaximumDigits: {
             name: 'decimal-maximum-digits',
             description:
                 "The maximum number of decimal places to format values to when the column's `format` is configured to be `decimal`. This differs from `decimal-digits` in that trailing zeros are omitted. `decimal-digits` and `decimal-maximum-digits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).",
-            control: { type: 'none' }
+            options: [undefined, 0, 1, 2, 3, 20],
+            control: { type: 'select' }
         },
         checkValidity: {
             name: 'checkValidity()',

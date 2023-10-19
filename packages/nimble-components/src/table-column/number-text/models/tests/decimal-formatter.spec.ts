@@ -5,7 +5,8 @@ describe('DecimalFormatter', () => {
     const locales = ['en', 'de'] as const;
     const testCases: readonly {
         name: string,
-        decimalDigits: number,
+        minDigits: number,
+        maxDigits: number,
         value: number,
         expectedFormattedValue: {
             en: string,
@@ -14,7 +15,8 @@ describe('DecimalFormatter', () => {
     }[] = [
         {
             name: 'NEGATIVE_INFINITY renders as -∞',
-            decimalDigits: 1,
+            minDigits: 1,
+            maxDigits: 1,
             value: Number.NEGATIVE_INFINITY,
             expectedFormattedValue: {
                 en: '-∞',
@@ -23,7 +25,8 @@ describe('DecimalFormatter', () => {
         },
         {
             name: 'POSITIVE_INFINITY renders as ∞',
-            decimalDigits: 1,
+            minDigits: 1,
+            maxDigits: 1,
             value: Number.POSITIVE_INFINITY,
             expectedFormattedValue: {
                 en: '∞',
@@ -32,7 +35,8 @@ describe('DecimalFormatter', () => {
         },
         {
             name: 'NaN renders as NaN',
-            decimalDigits: 1,
+            minDigits: 1,
+            maxDigits: 1,
             value: Number.NaN,
             expectedFormattedValue: {
                 en: 'NaN',
@@ -41,7 +45,8 @@ describe('DecimalFormatter', () => {
         },
         {
             name: '-0 renders without negative sign',
-            decimalDigits: 2,
+            minDigits: 2,
+            maxDigits: 2,
             value: -0,
             expectedFormattedValue: {
                 en: '0.00',
@@ -50,7 +55,8 @@ describe('DecimalFormatter', () => {
         },
         {
             name: 'does not round to -0',
-            decimalDigits: 2,
+            minDigits: 2,
+            maxDigits: 2,
             value: -0.00001,
             expectedFormattedValue: {
                 en: '0.00',
@@ -59,7 +65,8 @@ describe('DecimalFormatter', () => {
         },
         {
             name: '+0 renders without positive sign',
-            decimalDigits: 2,
+            minDigits: 2,
+            maxDigits: 2,
             value: 0,
             expectedFormattedValue: {
                 en: '0.00',
@@ -67,8 +74,9 @@ describe('DecimalFormatter', () => {
             }
         },
         {
-            name: 'limits to "decimal-digits" decimals with rounding up',
-            decimalDigits: 7,
+            name: 'limits to maxDigits decimals with rounding up',
+            minDigits: 0,
+            maxDigits: 7,
             value: 1.23456789,
             expectedFormattedValue: {
                 en: '1.2345679',
@@ -76,8 +84,9 @@ describe('DecimalFormatter', () => {
             }
         },
         {
-            name: 'limits to "decimal-digits" decimals with rounding down',
-            decimalDigits: 5,
+            name: 'limits to maxDigits decimals with rounding down',
+            minDigits: 0,
+            maxDigits: 5,
             value: 10.001122,
             expectedFormattedValue: {
                 en: '10.00112',
@@ -85,8 +94,9 @@ describe('DecimalFormatter', () => {
             }
         },
         {
-            name: 'adds zeros to reach "decimal-digits" decimals',
-            decimalDigits: 3,
+            name: 'adds zeros to reach minDigits decimals',
+            minDigits: 3,
+            maxDigits: 5,
             value: 16,
             expectedFormattedValue: {
                 en: '16.000',
@@ -94,8 +104,19 @@ describe('DecimalFormatter', () => {
             }
         },
         {
+            name: 'does not add zeros to reach maxDigits decimals',
+            minDigits: 3,
+            maxDigits: 5,
+            value: -0.0123,
+            expectedFormattedValue: {
+                en: '-0.0123',
+                de: '-0,0123'
+            }
+        },
+        {
             name: 'uses grouping',
-            decimalDigits: 3,
+            minDigits: 3,
+            maxDigits: 3,
             value: 123456.789,
             expectedFormattedValue: {
                 en: '123,456.789',
@@ -120,8 +141,8 @@ describe('DecimalFormatter', () => {
                 () => {
                     const formatter = new DecimalFormatter(
                         locale,
-                        testCase.decimalDigits,
-                        testCase.decimalDigits
+                        testCase.minDigits,
+                        testCase.maxDigits
                     );
                     const formattedValue = formatter.formatValue(
                         testCase.value
