@@ -392,6 +392,25 @@ We considered some alternative approaches for configuring units:
 
 Other libraries considered for number conversion and/or unit label localization include [globalizejs](https://github.com/globalizejs/globalize), [convert](https://convert.js.org/), [convert-units](https://github.com/convert-units/convert-units), and [iLib](https://github.com/iLib-js/iLib). None of these provided sufficient functionality to justify including them as a dependency.
 
+#### Attribute-based unit API
+
+An alternative to the `nimble-unit-<name>` element-based API is to just configure the unit through one or more attributes on the column:
+
+-   `unit` - `'byte'`, `'volt'`, or `undefined` (no unit)
+-   `unit-byte-binary` - (byte type only) boolean flag indicating to use 1024-based unit labels/conversions
+
+**Pros:**
+
+-   More discoverable
+-   Auto-complete support
+-   More compact
+
+**Cons:**
+
+-   All units' translated labels (for all languages) always loaded -- potential bloat
+-   Any unit-specific configuration now part of the column API rather than encapsulated by a unit element
+-   Clients cannot define their own custom types (though this was never a goal of this feature)
+
 #### Expose unit and unitDisplay from the Intl.NumberFormatter
 
 We could add attributes for `unit` and `unit-display` that mirror the `unit` and `unitDisplay` configuration options on the `Intl.NumberFormatter`.
