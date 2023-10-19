@@ -132,7 +132,7 @@ _Props/Attrs_
 -   `error-visible` - is a boolean attribute used to visually change the component's border color with the error exclamation at the top right, indicating that an error has occurred, as per the current
     [visual design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2482-82389&mode=design&t=KwADu9QRoL7QAuIW-0)
 -   `error-text` - is a string attribute that displays the error text at the bottom of the component when the `error-visible` is enabled.
--   `mentioned-users` - is a read-only property that returns an array of mentioned user IDs in the current state of the editor.
+-   `mentioned-users` - is a read-only property that returns an array of strings representing the mentioned user IDs in the current state of the editor.
 -   `validity` - is a readonly object of boolean values that represents the validity state that the `@mention` configuration can be. The object type
     is `RichTextMentionValidity`. The validation is especially for mapping the user details that is provided via the
     `nimble-mapping-mention-user`. For example, if the client application provide the duplicate `key` values that stores the user ID, it will be an
@@ -271,38 +271,7 @@ _CSS Parts_
 The `nimble-rich-text-viewer` is used for viewing rich text content when a markdown string is passed to it. It performs the post-processing
 tasks to convert the markdown string to corresponding HTML nodes for each text formatting.
 
-Additionally the viewer also supports to show the mentioned users in the emphasized text with a different prominent color like in the
-interaction design linked in the [Background](#background) section above. So the markdown string that contains a `@mention` syntax should be
-identified by the viewer for mapping the user ID with the user name to display within a `nimble-rich-text-user-mention-view`.
-
-Below is an example of how the client application can be used to provide the `nimble-rich-text-viewer` with necessary user information:
-
-```html
-<nimble-rich-text-viewer>
-    <nimble-rich-text-mention-users>
-        <nimble-mapping-mention-user
-            key="user-id-1"
-            text="John Doe"
-        ></nimble-mapping-mention-user>
-        <nimble-mapping-mention-user
-            key="user-id-2"
-            text="Alice Smith"
-        ></nimble-mapping-mention-user>
-        <nimble-mapping-mention-user
-            key="user-id-3"
-            text="Bob Jones"
-        ></nimble-mapping-mention-user>
-    </nimble-rich-text-mention-users>
-</nimble-rich-text-viewer>
-```
-
-#### Client Usage Guidance on Filtered Users:
-
-The client application should either parse the markdown string and get the user IDs that matches the string `<user:user-id>`
-or utilizes the `mentioned-users` read-only property from the editor to identify what are all the users in the markdown string. Once
-all the user IDs are identified, it is enough to provide the user details only for the identified
-user IDs through the `nimble-mapping-mention-user`. For example, if the markdown string is like `<user:user-id-1> <user:user-id-2>`,
-it is suggested to include `nimble-mapping-mention-user` only for `user-id-1` and `user-id-2`.
+[Design for `@mention` in Rich Text Viewer](./mention-hld.md#nimble-rich-text-viewer)
 
 ### API
 
@@ -409,7 +378,8 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 -   Bulleted list - `* Bulleted list`
 -   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, see [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
 -   Hard line break - a backslash before the line ending `line1\\nline2` (For more details on the markdown syntax for Hard line breaks, see [Hard line breaks in CommanMark](https://spec.commonmark.org/0.30/#hard-line-breaks))
--   `@mention` - `<user:user-id>`. For more details, see [Markdown Format for `@mention`](./mention-hld.md#2-markdown-format)
+-   `@mention` - `<user-id-url>` that follows [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink). For more details, see
+    [Markdown Format for `@mention`](./mention-hld.md#2-markdown-format)
 
 ### _Implementation details for supporting absolute link:_
 

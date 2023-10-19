@@ -9,14 +9,14 @@ mentioned in the editor, it should be loaded back to the viewer with the special
 
 1.  Notifying the mentioned users through an email in comments feature is part of the backend services
 2.  Adding a "Load More" or "Search Server" button to dynamically load more data in the `@mention` dropdown
-in editor.
+    in editor.
 
 ## Links To Relevant Work Items and Reference Material
 
 -   [Rich Text Editor and Viewer README](./README.md)
 -   [Comments `@mention` mockup](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink-orig?type=design&node-id=7248-114254&mode=design&t=y3JtM3aT77Aw0xjK-0)
 -   [Mention users in comments - Requirement doc](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/docs/design-documents/Platform/Requirements/Mention-users-in-comments.md&_a=preview)
--   [Work Item in AzDo](https://dev.azure.com/ni/DevCentral/_workitems/edit/2464517): Support for @mention in comments
+-   [Work Item for @mention in comments in AzDo](https://dev.azure.com/ni/DevCentral/_workitems/edit/2464517)
 
 ## Design
 
@@ -24,75 +24,82 @@ in editor.
 
 The rich text editor includes this feature for tagging or mentioning a user by inserting the **"@"** symbol within the editor.
 This action triggers a dropdown list, allowing users to select a user. To provide the rich text editor component with the
-necessary user information for populating this dropdown, users can pass the user details through the configuration elements outlined below:
+necessary user information for populating this dropdown, clients can pass the user details through the configuration elements outlined below:
 
 ```html
 <nimble-rich-text-editor>
-    <nimble-rich-text-mention-users>
+    <nimble-rich-text-mention-users pattern="http://users/.*">
         <nimble-mapping-mention-user
-            key="user-id-1"
-            text="John Doe"
+            url="http://users/user-id-1"
+            display-name="John Doe"
         ></nimble-mapping-mention-user>
         <nimble-mapping-mention-user
-            key="user-id-2"
-            text="Alice Smith"
+            url="http://users/user-id-2"
+            display-name="Alice Smith"
         ></nimble-mapping-mention-user>
         <nimble-mapping-mention-user
-            key="user-id-3"
-            text="Bob Jones"
+            url="http://users/user-id-3"
+            display-name="Bob Jones"
         ></nimble-mapping-mention-user>
     </nimble-rich-text-mention-users>
 </nimble-rich-text-editor>
 ```
 
 The configuration element, `nimble-rich-text-mention-users`, consists of mapping elements that specify both the content to display
-in the dropdown list (i.e., the `display-name`) and the data to store in the markdown when extracting content from the editor (i.e., the `key`).
+in the dropdown list (i.e., the `display-name`) and the data to store in the markdown when extracting content from the editor (i.e., the `url`).
 These details are subsequently transformed into a map or an object, which is used to populate the options within the shadow root
-for the dropdown list of items.
+for the dropdown list of items. This component uses the [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern)
+attribute to acquire the regular expression pattern that corresponds to the URLs of users within the specific domain of the client application.
 
-The `nimble-mapping-mention-user` extending from a base mapping class and utilize the same properties that base class offers.
+The `nimble-mapping-mention-user` element contains individual user information within its elements. Typically, the `url` attribute
+includes either the user ID or a value stored in the backend database. It's important that the `url` adheres to valid URL format,
+often used to link the user ID with the hosting domain. In cases where there's no specific URL for each user within the domain,
+they can alternatively insert the user ID in a valid URL format such as `user:user-id` and provide the appropriate pattern for it.
 
 #### Future Scope
 
-1. The `nimble-mapping-mention-user` can be used to get other user details like email, profile information etc., to display in the
-   dropdown list options.
-2. If there is a requirement to mention an issue (using **"#"**) or a pull requests (using **"!"**),
-   a new configuration component can be created and added as a child to the rich text editor. Below is an example of how
-   these elements would be used:
-
-```html
-<nimble-rich-text-editor>
-    <nimble-rich-text-mention-users>
-        <nimble-mapping-mention-user
-            key="user-id-1"
-            text="John Doe"
-        ></nimble-mapping-mention-user>
-        <nimble-mapping-mention-user
-            key="user-id-2"
-            text="Alice Smith"
-        ></nimble-mapping-mention-user>
-        <nimble-mapping-mention-user
-            key="user-id-3"
-            text="Bob Jones"
-        ></nimble-mapping-mention-user>
+1.  The `nimble-mapping-mention-user` can be used to get other user details like email, profile information etc., to display in the
+    dropdown list options.
+2.  If there is a requirement to mention an issue (using **"#"**) or a pull requests (using **"!"**),
+    a new configuration component can be created and added as a child to the rich text editor. Below is an example of how
+    these elements would be used:
+    ```html
+    <nimble-rich-text-editor>
+    <nimble-rich-text-mention-users pattern="http://users/.*">
+    <nimble-mapping-mention-user
+                    url="http://users/user-id-1"
+                    display-name="John Doe"
+                ></nimble-mapping-mention-user>
+    <nimble-mapping-mention-user
+                    url="http://users/user-id-1"
+                    display-name="Alice Smith"
+                ></nimble-mapping-mention-user>
+    <nimble-mapping-mention-user
+                    url="http://users/user-id-1"
+                    display-name="Bob Jones"
+                ></nimble-mapping-mention-user>
     </nimble-rich-text-mention-users>
 
-    <nimble-rich-text-mention-issues>
-        <nimble-mapping-mention-user
-            key="issue-id-1"
-            text="Spec for rich text editor"
-        ></nimble-mapping-mention-user>
-        <nimble-mapping-mention-user
-            key="issue-id-2"
-            text="Mention support in rich text components"
-        ></nimble-mapping-mention-user>
-        <nimble-mapping-mention-user
-            key="issue-id-3"
-            text="Issue in pasting a link"
-        ></nimble-mapping-mention-user>
-    </nimble-rich-text-mention-issues>
-</nimble-rich-text-editor>
-```
+            <nimble-rich-text-mention-issues pattern="http://issues/.*">
+                <nimble-mapping-mention-user
+                    url="http://issue/issue-id-1"
+                    display-name="Spec for rich text editor"
+                ></nimble-mapping-mention-user>
+                <nimble-mapping-mention-user
+                    url="http://issue/issue-id-2"
+                    display-name="Mention support in rich text components"
+                ></nimble-mapping-mention-user>
+                <nimble-mapping-mention-user
+                    url="http://issue/issue-id-3"
+                    display-name="Issue in pasting a link"
+                ></nimble-mapping-mention-user>
+            </nimble-rich-text-mention-issues>
+        </nimble-rich-text-editor>
+        ```
+
+3.  As the URLs are stored as absolute links within the markdown string, mentions of issues or systems, as described above,
+    initially appear as links. However, once we introduce support for mentioning issues or systems by matching the specified
+    pattern in the configuration element, even the absolute links will transform into `mention` nodes.
 
 #### Alternatives
 
@@ -227,7 +234,7 @@ _Content_
 
 This mapping element is employed to establish a connection between the value displayed in the mapping view and the corresponding value stored within
 the markdown string. For instance, the username for an `@mention` is contained in the `display-name` attribute, which is used for display in the
-mention view, while the user ID is contained in the `key` attribute which is used to store within the markdown string.
+mention view, while the user ID URL is contained in the `url` attribute which is used to store within the markdown string.
 
 _Component Name_
 
@@ -235,7 +242,7 @@ _Component Name_
 
 _Props/Attrs_
 
--   `key`: string
+-   `url`: string
 -   `display-name`: string
 
 #### User mention view (Visible UI element):
@@ -249,13 +256,13 @@ _Component Name_
 
 _Props/Attrs_
 
--   `mention-id`: string - has the user ID of the mentioned user
+-   `mention-url`: string - has the user ID URL of the mentioned user
 -   `mention-label`: string - has the user name of the mentioned user
 -   `type`: string - has the type of the mentioned node, _defaults_ as `mention`
 
 _Content_
 
--   `@` + mentioned user name(text)
+-   `@` + mentioned user name or display name
 
 #### Mention popup (Visible UI element):
 
@@ -313,23 +320,23 @@ _Content_
 
 The rich text viewer also supports to show the mentioned users in the emphasized text with a prominent color like in the
 interaction design linked in the [Background](./README.md#background) section above. So the markdown string that contains a `@mention` syntax should be
-identified by the viewer for mapping the user ID with the user name to display within a `nimble-rich-text-user-mention-view`.
+identified by the viewer for mapping the user ID URL with the user name to display within a `nimble-rich-text-user-mention-view`.
 
 Below is an example of how the client application can be used to provide the `nimble-rich-text-viewer` with necessary user information:
 
 ```html
 <nimble-rich-text-viewer>
-    <nimble-rich-text-mention-users>
+    <nimble-rich-text-mention-users pattern="http://users/.*">
         <nimble-mapping-mention-user
-            key="user-id-1"
+            url="http://users/user-id-1"
             text="John Doe"
         ></nimble-mapping-mention-user>
         <nimble-mapping-mention-user
-            key="user-id-2"
+            url="http://users/user-id-2"
             text="Alice Smith"
         ></nimble-mapping-mention-user>
         <nimble-mapping-mention-user
-            key="user-id-3"
+            url="http://users/user-id-3"
             text="Bob Jones"
         ></nimble-mapping-mention-user>
     </nimble-rich-text-mention-users>
@@ -338,16 +345,16 @@ Below is an example of how the client application can be used to provide the `ni
 
 #### Client Usage Guidance on Filtered Users:
 
-The client application should either parse the markdown string and get the user IDs that matches the string `<user:user-id>`
-or utilizes the `mentioned-users` read-only property from the editor to identify what are all the users in the markdown string. Once
-all the user IDs are identified, it is enough to provide the user details only for the identified
-user IDs through the `nimble-mapping-mention-user`. For example, if the markdown string is like `<user:user-id-1> <user:user-id-2>`,
-it is suggested to include `nimble-mapping-mention-user` only for `user-id-1` and `user-id-2`.
+The client application should either parse the markdown string and get the user ID URLs that matches the [markdown string of `@mention`](#2-markdown-format)
+or utilizes the `mentioned-users` read-only property from the editor to identify what are all the mentioned users in the markdown string. Once
+all the user IDs are identified, it is enough to provide the user details only for the identified users through the `nimble-mapping-mention-user`.
+For example, if the markdown string contains only two `@mention` users namely 'Bob Jones' and 'Alice Smith', it is necessary to include only
+`nimble-mapping-mention-user` only for 'Bob Jones' and 'Alice Smith'.
 
 ### API
 
-The following configuration and UI elements are employed to associate user IDs with names, and then present the corresponding mention nodes within
-the `nimble-rich-text-viewer`. The viewer similarly makes use of the shared components, thus connecting it to the above sections for the details.
+The following configuration and UI elements are employed to associate user ID URLs with names, and then present the corresponding mention nodes within
+the `nimble-rich-text-viewer`. The viewer similarly makes use of the shared components, thus linking it to the above sections for the details.
 
 1. [User mention element (Non-visible configuration element)](#user-mention-element-non-visible-configuration-element)
 1. [User mapping element (Non-visible configuration element)](#user-mapping-element-non-visible-configuration-element)
@@ -364,11 +371,11 @@ Shadow root template for the components that is used in the `nimble-rich-text-vi
 ## Implementation
 
 The Tiptap [mention extension](https://tiptap.dev/api/nodes/mention) will transform all the `@mention` nodes into `<nimble-rich-text-user-mention-view>`
-elements, each with custom data attribute values. These attributes play a dual role: they dictate the content displayed in the user interface and
+elements, each with custom attribute values. These attributes play a dual role: they dictate the content displayed in the user interface and
 correspond to the information stored in markdown format. For instance, when `@mention` is primarily employed for user tagging, these attribute values
 typically encompass user-related data, such as the username and userID.
 
-1. `mention-id` - employed to store the value that is sent in the `key` attribute of `nimble-mapping-mention-user`.
+1. `mention-url` - employed to store the value that is sent in the `url` attribute of `nimble-mapping-mention-user`.
 2. `mention-label` - used to store the actual `display-name` of the selected option.
 3. `mention-type` - defaults as `mention`.
 4. `contentEditable` - defaults as `false`. The `@mention` node is only enabled in the editor after selecting from the list of options. It is not possible
@@ -380,7 +387,7 @@ Install the [mention extension](https://tiptap.dev/api/nodes/mention) from Tipta
 follows to enable the desired `@mention` interactions,
 
 1. [`renderLabel`](https://tiptap.dev/api/nodes/mention#render-label) - to define how the `@mention` appears in the editor. In this case
-   `@label`(typically `label` represents the user name or text content of the option). If a label is not available, the ID is displayed instead.
+   `@username`(typically `username` represents the text content of the option). If a label is not available, the URL is displayed instead as a absolute link.
 2. [`suggestion`](https://tiptap.dev/api/utilities/suggestion) - to handle the interactions and implementation settings by setting the
    key configurations as below,
     1. `char` - a character that the user to trigger the dropdown list. The default value is **"@"**.
@@ -398,35 +405,51 @@ follows to enable the desired `@mention` interactions,
 
 #### 2. _Markdown Format_:
 
-`@mention` - `<user:user-id>`. Since there is no built-in syntax for mentioning or tagging users or individuals in the
+`@mention` - `<user-id-url>`. Since there is no built-in syntax for mentioning or tagging users or individuals in the
 [CommonMark](https://spec.commonmark.org/0.30/) flavor, we have decided to utilize the [Autolinks](https://spec.commonmark.org/0.30/#autolink)
-format in `CommonMark` flavor with a custom scheme to utilize for the `@mention`.
+format in `CommonMark` flavor with userID URLs can be utilized for the unique value of `@mention` users.
 
-1. This markdown syntax does not interfere with the current `AutoLink` formats as the scheme we support for absolute link is `http` and `https`,
-   whereas this is a unique scheme and yet follows the standard `CommonMark` markdown flavor
-2. This syntax ensures the easy identification of a `mention` node using the `user` in place of `scheme` in autolink when parsing the
-   entire markdown string
-3. The same syntax can be used when other mentions like issue mention by having a different `scheme` in the string like `<issue:issue-id>`
+1.  This markdown string offers the advantage of serving a dual purpose. Depending on the `pattern` specified in the configuration element,
+    it can be rendered as a `mention` node. In the absence of a specified `pattern`, it remains a valid markdown format and is displayed as an absolute link.
+2.  If we intend to enable interaction by clicking, passing a URL can be leveraged to navigate users to their intended destination. For instance,
+    when referencing an issue, clicking on it should direct the user to the issue page, and this functionality can be facilitated through the URL value.
+3.  Furthermore, this will not disrupt the operation of the `AutoLink` format since the `mention` node is evaluated before the autolink marker.
 
 _Alternatives_:
 
-`@mention` - a custom markdown format `@<user-id>`.
+1.  `@mention` - a custom scheme (`user`) in the autolink format of CommonMark flavor `<user:user-id>`.
 
-Pros:
+    Pros:
 
-1. This syntax ensures the easy identification of a `mention` node using the **"@"** and **"<"** symbols when parsing the entire markdown string.
-2. The use of opening and closing **"<"** and **">"** symbols specifies the boundaries of the mention node's value within the markdown string,
-   allowing for the clear identification of where it starts and ends. This is especially important when the value contains whitespace,
-   as in the example `"@<Sue Ann>`, as without the **"<>"** symbols, it would be challenging to determine the precise end index of the value.
+    1.  This markdown syntax does not interfere with the current `AutoLink` formats as the scheme we support for absolute link is `http` and `https`,
+        whereas this is a unique scheme and yet follows the standard `CommonMark` markdown flavor
+    2.  This syntax ensures the easy identification of a `mention` node using the `user` in place of `scheme` in autolink when parsing the
+        entire markdown string
+    3.  The same syntax can be used when other mentions like issue mention by having a different `scheme` in the string like `<issue:issue-id>`
 
-Cons:
+    Cons:
 
-1. It does not follow [CommonMark](https://spec.commonmark.org/0.30/) flavor or any other standard markdown flavors.
+    Creating a custom scheme allows the component to independently manage various scenarios. When parsing markdown, the tokenizer looks for the closing `>` tag,
+    recognizes the user ID, and saves it. However, if the user ID itself contains a `>`, it may mistakenly identify the wrong user ID. In valid absolute link URLs,
+    special characters like `>` are encoded and preserved, ensuring a unique absolute URL for retrieving data, storing it in markdown, and returning it.
+
+2.  `@mention` - a custom markdown format `@<user-id>`.
+
+    Pros:
+
+    1. This syntax ensures the easy identification of a `mention` node using the **"@"** and **"<"** symbols when parsing the entire markdown string.
+    2. The use of opening and closing **"<"** and **">"** symbols specifies the boundaries of the mention node's value within the markdown string,
+       allowing for the clear identification of where it starts and ends. This is especially important when the value contains whitespace,
+       as in the example `"@<Sue Ann>`, as without the **"<>"** symbols, it would be challenging to determine the precise end index of the value.
+
+    Cons:
+
+    1. It does not follow [CommonMark](https://spec.commonmark.org/0.30/) flavor or any other standard markdown flavors.
 
 #### 3. _Defining schema and adding tokenizer rule in markdown parser_:
 
 As `@mention` is a custom markdown format uniquely created to support in the nimble rich text components, it is necessary to
-define the schema in `markdown-parser` to identify the markdown string in the format of `<user:user-id>` as the `@mention` node.
+define the schema in `markdown-parser` to identify the markdown string in the format of `<user-id-url>` as the `@mention` node.
 The below schema is added to the end of other nodes using ProseMirror's
 [addToEnd](https://prosemirror.net/docs/ref/#model.Fragment.addToEnd) method.
 
@@ -435,21 +458,21 @@ The below schema is added to the end of other nodes using ProseMirror's
 ```js
 mention: {
     attrs: {
-        datatype: { default: 'mention' },
-        dataid: { default: '' },
-        datalabel: { default: '' },
+        type: { default: 'mention' },
+        mentionUrl: { default: '' },
+        mentionLabel: { default: '' },
     },
     group: 'inline',
     inline: true,
     content: 'inline*',
     toDOM(node) {
-        const { dataid, datalabel } = node.attrs;
+        const { mentionUrl, mentionLabel } = node.attrs;
         return [
             'nimble-rich-text-user-mention-view',
             {
                 'mention-type': 'mention',
-                'mention-id': dataid as string,
-                'mention-label': datalabel as string,
+                'mention-url': mentionUrl as string,
+                'mention-label': mentionLabel as string,
             },
             0
         ];
@@ -460,26 +483,30 @@ mention: {
 Additionally, a custom tokenizer rule needs to be added to the `markdown-it` rules to handle the parser logic.
 This can be achieved by loading the customized `mention` plugin into the supported tokenizer rules using the
 [`use`](https://markdown-it.github.io/markdown-it/#MarkdownIt.use) method and identifying the value of the
-`key` that matches the `display-name`. The `id` and `name` will then be generated as an object from the
-`nimble-mapping-mention-user` elements, taking the `key` and `display-name` attributes, respectively. This custom node
-will be added `before` the `autolink` mark to give the highest precedence to the `mention` node.
+`url` that matches the `display-name`. The `url` and `name` will then be generated as an object from the
+`nimble-mapping-mention-user` elements. This custom node will be added `before` the `autolink` mark to give
+the highest precedence to the `mention` node.
 
 #### 4. _Defining node in markdown serializer_:
 
-The rendered `@mention` node will be constructed into a markdown string by extracting the `mention-id` from
+The rendered `@mention` node will be constructed into a markdown string by extracting the `mention-url` from
 the `span` element in the editor when the `getMarkdown()` method is called.
 
-The example markdown string constructed for the below DOM element rendered in the editor is `<user:1234-5678>`.
+The example markdown string constructed for the below DOM element rendered in the editor is `<https://users/1234-5678>`.
 
 ```html
 <nimble-rich-text-user-mention-view
     mention-type="mention"
-    mention-id="1234-5678"
+    mention-url="https://users/1234-5678"
     mention-label="Mary"
     contenteditable="false"
     >@Mary</nimble-rich-text-user-mention-view
 >
 ```
+
+The `mentioned-users` read-only property, as described in the[API section of the editor](./README.md#api), will undergo an update within the
+mentionNode. This update involves extracting the user ID from the URL that matches the pattern specified in the configuration element and
+then adding these user IDs to an array.
 
 #### 5. _nimble-rich-text-mention-users_:
 
@@ -487,23 +514,23 @@ An abstract base class, `RichTextMention`, is defined as the parent for all elem
 
 1. `character`: string - is a specific symbol to trigger the mention popup. For user mention, it is **"@"**.
 2. `icon`: string - element name of the icon for the corresponding toolbar button.
-3. `markdown-scheme`: string - used as a scheme in the `autolink` format to store `@mention` in the markdown string. For example, `user` is
-   used as a scheme for user mention markdown format as `<user:user-id>`
 
 The `nimble-rich-text-mention-users` is a subclass derived from the base class and provides the essential values for the properties mentioned above,
-specifically tailored for user mentions. These values are kept as part of the `RichTextMentionInternalsOptions` and will be utilized by various components that require access to these specific values.
+specifically tailored for user mentions. These values are kept as part of the `RichTextMentionInternalsOptions` and will be utilized by various components
+that require access to these specific values.
 
 Validation will be integrated into the internal workings through a `validConfiguration` flag. There is a base class called `RichTextMentionValidator`
 responsible for handling validation, with methods for setting and retrieving the validation configuration. This approach ensures that the state of
 valid and invalid values passed within the mapping element is effectively managed. The class obtains the name of the validity flag to communicate this
 information via a public API called `validity`.
 
-By deriving from the base, the mention options can validate the following conditions for the `key` and `display-name` value in mapping element:
+By deriving from the base, the mention options can validate the following conditions for the `url` and `display-name` value in mapping element:
 
 1. `validateMappingTypes(mappings)`
-2. `validateUniqueKeys(keys, keyType)`
-3. `validateNoMissingKeys(mappings)`
-4. `validateNoMissingText(mappings)`
+2. `validateUniqueURL(URL, URLType)`
+3. `validateNoMissingURL(mappings)`
+4. `validateNoMissingURL(mappings)`
+5. `validateURL(mappings)`
 
 _Note_: These are subject to change based on the property changes in the `nimble-mapping-mention-user` element.
 
@@ -520,7 +547,7 @@ The foundation for configuring the rendering of mention nodes in the UI is provi
 `FoundationElement`.
 
 The `nimble-rich-text-user-mention-view` is a view class that is derived from the above base class, and its template contains a `span` element with the required CSS styling.
-They are equipped with attributes such as `mention-id`, `mention-label`, and `mention-type` to render the node as a `Mention` node in Tiptap editor.
+They are equipped with attributes such as `mention-url`, `mention-label`, and `mention-type` to render the node as a `Mention` node in Tiptap editor.
 It uses the default slot to render the same text content from the editor to the view element's shadow root.
 
 The Mention node from Tiptap is extended, and the [`renderHTML`](https://tiptap.dev/guide/custom-extensions/#render-html) method is overridden to render
