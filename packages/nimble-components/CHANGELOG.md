@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 19 Oct 2023 15:08:49 GMT and should not be manually modified.
+This log was last generated on Thu, 19 Oct 2023 23:50:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.9.0
+
+Thu, 19 Oct 2023 23:50:56 GMT
+
+### Minor changes
+
+- Add decimal-maximum-digits attr to number-text column ([ni/nimble@466d474](https://github.com/ni/nimble/commit/466d474d52d3eb8a0396a6e53365e32bfbbd2954))
 
 ## 20.8.0
 

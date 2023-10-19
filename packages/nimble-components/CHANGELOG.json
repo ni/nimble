@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 19 Oct 2023 23:50:56 GMT",
+      "version": "20.9.0",
+      "tag": "@ni/nimble-components_v20.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "466d474d52d3eb8a0396a6e53365e32bfbbd2954",
+            "comment": "Add decimal-maximum-digits attr to number-text column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 19 Oct 2023 15:08:49 GMT",
       "version": "20.8.0",
       "tag": "@ni/nimble-components_v20.8.0",

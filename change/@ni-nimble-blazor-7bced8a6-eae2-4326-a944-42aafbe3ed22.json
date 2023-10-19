@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add decimal-maximum-digits attr to number-text column",
-  "packageName": "@ni/nimble-blazor",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
