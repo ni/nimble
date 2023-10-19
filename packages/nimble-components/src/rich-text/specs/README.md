@@ -565,8 +565,9 @@ Below is an example of how the client application can be used to provide the `ni
 
 #### Client Usage Guidance on Filtered Users:
 
-The client application should parse the markdown string and get the user IDs that matches the string `<user:user-id>`. Once
-all the user IDs are identified from the markdown string, it is enough to provide the user details only for the identified
+The client application should either parse the markdown string and get the user IDs that matches the string `<user:user-id>`
+or utilizes the `mentioned-users` read-only property from the editor to identify what are all the users in the markdown string. Once
+all the user IDs are identified, it is enough to provide the user details only for the identified
 user IDs through the `nimble-mapping-mention-user`. For example, if the markdown string is like `<user:user-id-1> <user:user-id-2>`,
 it is suggested to include `nimble-mapping-mention-user` only for `user-id-1` and `user-id-2`.
 
