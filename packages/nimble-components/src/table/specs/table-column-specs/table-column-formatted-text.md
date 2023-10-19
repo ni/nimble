@@ -10,7 +10,7 @@ Clients will wish to display non-string data as text in table columns for use ca
 4. numeric values with a static unit string appended before or after (e.g. "$4.23" or "15%")
 5. numeric values with custom unit logic. Examples:
     - a file size column that could show the value 1000 as "1000 bytes" but the value 1024 as "1KB"
-    - an elapsed time column that could show 63 seconds as "00:01:03" or "1 minute, 3 seconds"
+    - a [duration column](./table-column-duration-text-hld.md) that could show 63 seconds as "00:01:03" or "1 min, 3 sec"
 6. date/time values formatted in various ways ("October 27", "yesterday", "2023-12-28 08:27")
 
 In all of the above cases:
