@@ -1,5 +1,6 @@
-import type { UnitFamily } from '../../../../units/base/unit-family';
+import { Unit, UnitFamily } from '../../../../units/base/unit-family';
 import { unitFamilyNoneTag } from '../../../../units/none';
+import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../../../utilities/tests/parameterized';
 import { DecimalFormatter } from '../decimal-formatter';
 
@@ -157,4 +158,38 @@ describe('DecimalFormatter', () => {
             );
         }
     }
+
+    describe('with unit', () => {
+        class TestUnitFamily extends UnitFamily {
+            public override getSupportedUnits(): Unit[] {
+                return [1, 2, 4].map(conversionFactor => {
+                    return {
+                        conversionFactor,
+                        format: x => {
+                            return `${x} x${conversionFactor}`;
+                        }
+                    };
+                });
+            }
+        }
+        const composedTestElement = TestUnitFamily.compose({
+            baseName: 'test-decimal-formatter-unit-family'
+        });
+
+        let element: TestUnitFamily;
+
+        async function setup(): Promise<Fixture<TestUnitFamily>> {
+            return fixture(composedTestElement());
+        }
+
+        beforeAll(async () => {
+            ({ element } = await setup());
+        });
+
+        it('does not double-convert the value when a unit is specified', () => {
+            const formatter = new DecimalFormatter('en', element, 2);
+            const formattedValue = formatter.formatValue(3);
+            expect(formattedValue).toEqual('1.5 x2');
+        });
+    });
 });

@@ -1,5 +1,6 @@
-import type { UnitFamily } from '../../../../units/base/unit-family';
+import { Unit, UnitFamily } from '../../../../units/base/unit-family';
 import { unitFamilyNoneTag } from '../../../../units/none';
+import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../../../utilities/tests/parameterized';
 import { DefaultFormatter } from '../default-formatter';
 
@@ -243,4 +244,56 @@ describe('DefaultFormatter', () => {
             );
         }
     }
+
+    describe('with unit', () => {
+        class TestUnitFamily extends UnitFamily {
+            public override getSupportedUnits(
+                lang: string,
+                formatterOptions: Intl.NumberFormatOptions
+            ): Unit[] {
+                const formatter = new Intl.NumberFormat(lang, formatterOptions);
+                return [1, 100, 1000].map(conversionFactor => {
+                    return {
+                        conversionFactor,
+                        format: x => {
+                            return `${formatter.format(
+                                x
+                            )} x${conversionFactor}`;
+                        }
+                    };
+                });
+            }
+        }
+        const composedTestElement = TestUnitFamily.compose({
+            baseName: 'test-default-formatter-unit-family'
+        });
+
+        let element: TestUnitFamily;
+
+        async function setup(): Promise<Fixture<TestUnitFamily>> {
+            return fixture(composedTestElement());
+        }
+
+        beforeAll(async () => {
+            ({ element } = await setup());
+        });
+
+        it('does not double-convert the value when a unit is specified', () => {
+            const formatter = new DefaultFormatter('en', element);
+            const formattedValue = formatter.formatValue(130);
+            expect(formattedValue).toEqual('1.3 x100');
+        });
+
+        it('uses unit-converted value when deciding whether to format in exponential notation', () => {
+            const formatter = new DefaultFormatter('en', element);
+            const formattedValue = formatter.formatValue(2000000);
+            expect(formattedValue).toEqual('2,000 x1000');
+        });
+
+        it('always uses base unit if exponential notation is used', () => {
+            const formatter = new DefaultFormatter('en', element);
+            const formattedValue = formatter.formatValue(2000000000);
+            expect(formattedValue).toEqual('2E9 x1'); // rather than '2E6 x1000'
+        });
+    });
 });
