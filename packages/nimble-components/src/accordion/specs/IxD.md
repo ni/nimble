@@ -87,7 +87,9 @@ The client-user should be able to specify whether only one content panel can be 
 
 #### Additional Header Options
 
-The client-user may need/want to have additional content in the header. For example, an expand button:  
+> NOTE:
+
+The client-user may need/want to have additional icon buttons, badge counts, or status indicators in the header. For example, an expand button:  
 ![ ](spec-images/accordion-8.png)
 
 ### Behavior
@@ -110,7 +112,7 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 
 #### Error State
 
-If a component in a panel is in an error state, the error state is visually indicated on the associated header button when closed (and may also be visually indicated when open).
+If a component in a panel is in an error state, the error state is visually indicated on the associated header button when both opened and closed.
 
 ![ ](spec-images/accordion-14.png)
 
@@ -155,7 +157,7 @@ The client-user can specify whether one panel or more than one panel can be open
 
 ![ ](spec-images/accordion-16.png)
 
-`TAB` focuses the next focusable element (and maybe also visually indicate the header button and/or the entire accordion) in each open panel. All focusable elements in the accordion are included in the `TAB` sequence.
+`TAB` focuses the next focusable element (and maybe also visually indicate the header button and/or the entire accordion). The next focusable element may be in the header itself (an icon button) or in the next open panel. All focusable elements in the accordion are included in the `TAB` sequence.
 
 ![ ](spec-images/accordion-17.png)
 
