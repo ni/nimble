@@ -135,7 +135,7 @@ necessary user information for populating this dropdown, users can pass the user
 ```
 
 The configuration element, `nimble-rich-text-mention-users`, consists of mapping elements that specify both the content to display
-in the dropdown list (i.e., the `text`) and the data to store in the markdown when extracting content from the editor (i.e., the `key`).
+in the dropdown list (i.e., the `display-name`) and the data to store in the markdown when extracting content from the editor (i.e., the `key`).
 These details are subsequently transformed into a map or an object, which is used to populate the options within the shadow root
 for the dropdown list of items.
 
@@ -283,6 +283,7 @@ _Props/Attrs_
 -   `error-visible` - is a boolean attribute used to visually change the component's border color with the error exclamation at the top right, indicating that an error has occurred, as per the current
     [visual design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2482-82389&mode=design&t=KwADu9QRoL7QAuIW-0)
 -   `error-text` - is a string attribute that displays the error text at the bottom of the component when the `error-visible` is enabled.
+-   `mentioned-users` - is a read-only property that returns an array of mentioned user IDs in the current state of the editor.
 -   `validity` - is a readonly object of boolean values that represents the validity state that the `@mention` configuration can be. The object type
     is `RichTextMentionValidity`. The validation is especially for mapping the user details that is provided via the
     `nimble-mapping-mention-user`. For example, if the client application provide the duplicate `key` values that stores the user ID, it will be an
@@ -347,6 +348,7 @@ _Events_
     1. When a user inserts the character (e.g., `@`) into the editor, which activates the mention popup.
     2. When a user adds or removes text after inserting the mention character into the editor.
     3. When a user repositions the cursor between the text segments added after the mention character.
+    4. When there is configuration element `nimble-rich-text-mention-users` but with no mapping elements.
 
     Refer the [accessibility](#accessibility) section to know more details about when it requires to emit the event for performing the filtering in the client application.
 
@@ -356,6 +358,7 @@ _Events_
        and characters after that with less than two white spaces while the popup is open.
     2. A user selects an option from the dropdown list either using mouse click/pressing Enter or Tab.
     3. A user adds two or more spaces after triggering the mention popup.
+    4. In the absence of `nimble-rich-text-mention-users` and no mapping elements.
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
@@ -381,11 +384,16 @@ _CSS Classes and CSS Custom Properties that affect the component_
 
 _Note_: This initial component design serves as a starting point for implementation, and it may undergo changes once the visual design is completed.
 
-#### User mention element:
+#### User mention element (Non-visible configuration element):
 
 This element serves as a container for the mapping elements and additionally functions as a configuration element. It allows the transmission of
-arbitrary values that are specific to the `@mention` users within the rich text components. Currently, this component do not have any
+arbitrary values that are specific to the `@mention` users within the rich text components. Currently, this component does not have any
 configuration properties/attributes for user mentions and plays the role of containing element for the user mapping elements.
+
+This component can be used as a feature flag to enable the support for `@mention` in the rich text editor and viewer.
+If this component is not present at the children of the rich text editor or viewer, the component will function the same without the support
+for `@mention` in any place like editor, viewer, markdown parser and markdown serializer and the toolbar button to add **"@"** in the editor
+will be hidden.
 
 _Component Name_
 
@@ -393,13 +401,13 @@ _Component Name_
 
 _Content_
 
--   One or more `nimble-mapping-mention-user` elements
+-   Zero or more `nimble-mapping-mention-user` elements
 
-#### Mapping element (user mention):
+#### User mapping element (Non-visible configuration element):
 
 This mapping element is employed to establish a connection between the value displayed in the mapping view and the corresponding value stored within
-the markdown string. For instance, the username for an `@mention` is contained in the `text` attribute, which is used for display in the mention
-view, while the user ID is contained in the `key` attribute which is used to store within the markdown string.
+the markdown string. For instance, the username for an `@mention` is contained in the `display-name` attribute, which is used for display in the
+mention view, while the user ID is contained in the `key` attribute which is used to store within the markdown string.
 
 _Component Name_
 
@@ -407,10 +415,10 @@ _Component Name_
 
 _Props/Attrs_
 
--   `key`: string | number | boolean
--   `text`: string
+-   `key`: string
+-   `display-name`: string
 
-#### User mention view:
+#### User mention view (Visible UI element):
 
 This is a UI component used to render the `@mention` node in rich text editor and rich text viewer when parsed or added into the components.
 This holds the styling for the `@mention` nodes.
@@ -421,15 +429,15 @@ _Component Name_
 
 _Props/Attrs_
 
--   `data-id`: string - has the user ID of the mentioned user
--   `data-label`: string - has the user name of the mentioned user
--   `data-type`: string - has the type of the mentioned node, _default_ is `mention`
+-   `mention-id`: string - has the user ID of the mentioned user
+-   `mention-label`: string - has the user name of the mentioned user
+-   `mention-type`: string - has the type of the mentioned node
 
 _Content_
 
 -   `@` + mentioned user name(text)
 
-#### Mention popup:
+#### Mention popup (Visible UI element):
 
 This container element is responsible for holding the `nimble-list-option` elements generated from the map. These elements are used to exhibit the
 mention options in a dropdown list when the mention character is introduced into the editor (e.g., **"@"**). Additionally, this container element
@@ -588,6 +596,13 @@ _CSS Classes and CSS Custom Properties that affect the component_
 -   The width of the component will be determined by the client. Reducing the width will cause the content to reflow, resulting in an increased height
     of the component or will enable the vertical scrollbar.
 
+The following configuration and UI elements are employed to associate user IDs with names, and then present the corresponding mention nodes within
+the `nimble-rich-text-viewer`:
+
+1. [User mention element (Non-visible configuration element)](#user-mention-element-non-visible-configuration-element)
+1. [ User mapping element (Non-visible configuration element)](#user-mapping-element-non-visible-configuration-element)
+1. [User mention view (Visible UI element)](#user-mention-view-visible-ui-element)
+
 ### Anatomy
 
 _Slot Names_
@@ -605,6 +620,12 @@ _Slotted Content/Slotted Classes_
 _CSS Parts_
 
 -   none
+
+Template for the components that is used in the `nimble-rich-text-viewer`:
+
+1. [`nimble-rich-text-mention-users`](#nimble-rich-text-mention-users)
+2. [`nimble-mapping-mention-user`](#nimble-mapping-mention-user)
+3. [`nimble-rich-text-mention-view`](#nimble-rich-text-mention-view)
 
 ### Angular integration
 
@@ -695,9 +716,9 @@ elements, each with custom data attribute values. These attributes play a dual r
 correspond to the information stored in markdown format. For instance, when `@mention` is primarily employed for user tagging, these attribute values
 typically encompass user-related data, such as the username and userID.
 
-1. `data-id` - employed to store the value that is sent in the `key` attribute of `nimble-mapping-mention-user`.
-2. `data-label` - used to store the actual `text` of the selected option.
-3. `data-type` - defaults as `mention`.
+1. `mention-id` - employed to store the value that is sent in the `key` attribute of `nimble-mapping-mention-user`.
+2. `mention-label` - used to store the actual `display-name` of the selected option.
+3. `mention-type` - defaults as `mention`.
 4. `contentEditable` - defaults as `false`. The `@mention` node is only enabled in the editor after selecting from the list of options. It is not possible
    to edit the names within the node; either can delete the entire name or select a new one from the list of options after deleting the entire name.
 
@@ -747,9 +768,9 @@ mention: {
         return [
             'nimble-rich-text-user-mention-view',
             {
-                'data-type': 'mention',
-                'data-id': dataid as string,
-                'data-label': datalabel as string,
+                'mention-type': 'mention',
+                'mention-id': dataid as string,
+                'mention-label': datalabel as string,
             },
             0
         ];
@@ -760,22 +781,22 @@ mention: {
 Additionally, a custom tokenizer rule needs to be added to the `markdown-it` rules to handle the parser logic.
 This can be achieved by loading the customized `mention` plugin into the supported tokenizer rules using the
 [`use`](https://markdown-it.github.io/markdown-it/#MarkdownIt.use) method and identifying the value of the
-`key` that matches the `text`. The `id` and `name` will then be generated as an object from the
-`nimble-mapping-mention-user` elements, taking the `key` and `text` attributes, respectively. This custom node
+`key` that matches the `display-name`. The `id` and `name` will then be generated as an object from the
+`nimble-mapping-mention-user` elements, taking the `key` and `display-name` attributes, respectively. This custom node
 will be added `before` the `autolink` mark to give the highest precedence to the `mention` node.
 
 #### 3. _Defining node in markdown serializer_:
 
-The rendered `@mention` node will be constructed into a markdown string by extracting the `data-id` from
+The rendered `@mention` node will be constructed into a markdown string by extracting the `mention-id` from
 the `span` element in the editor when the `getMarkdown()` method is called.
 
 The example markdown string constructed for the below DOM element rendered in the editor is `<user:1234-5678>`.
 
 ```html
 <nimble-rich-text-user-mention-view
-    data-type="mention"
-    data-id="1234-5678"
-    data-label="Mary"
+    mention-type="mention"
+    mention-id="1234-5678"
+    mention-label="Mary"
     contenteditable="false"
     >@Mary</nimble-rich-text-user-mention-view
 >
@@ -786,8 +807,8 @@ The example markdown string constructed for the below DOM element rendered in th
 An abstract base class, `RichTextMention`, is defined as the parent for all elements that contain mentions, and it will possess the following properties:
 
 1. `character`: string - is a specific symbol to trigger the mention popup. For user mention, it is **"@"**.
-2. `icon`: string - is used to add it to the toolbar button.
-3. `md-scheme`: string - used as a scheme in the `autolink` format to store `@mention` in the markdown string. For example, `user` is
+2. `icon`: string - element name of the icon for the corresponding toolbar button.
+3. `markdown-scheme`: string - used as a scheme in the `autolink` format to store `@mention` in the markdown string. For example, `user` is
    used as a scheme for user mention markdown format as `<user:user-id>`
 
 The `nimble-rich-text-mention-users` is a subclass derived from the base class and provides the essential values for the properties mentioned above,
@@ -798,13 +819,12 @@ responsible for handling validation, with methods for setting and retrieving the
 valid and invalid values passed within the mapping element is effectively managed. The class obtains the name of the validity flag to communicate this
 information via a public API called `validity`.
 
-By deriving from the base, the mention options can validate the following conditions for the `key` and `text` value in mapping element:
+By deriving from the base, the mention options can validate the following conditions for the `key` and `display-name` value in mapping element:
 
-1. `validateKeyValuesForType(keys, keyType)`
-2. `validateMappingTypes(mappings)`
-3. `validateUniqueKeys(keys, keyType)`
-4. `validateNoMissingKeys(mappings)`
-5. `validateNoMissingText(mappings)`
+1. `validateMappingTypes(mappings)`
+2. `validateUniqueKeys(keys, keyType)`
+3. `validateNoMissingKeys(mappings)`
+4. `validateNoMissingText(mappings)`
 
 _Note_: These are subject to change based on the property changes in the `nimble-mapping-mention-user` element.
 
@@ -818,15 +838,18 @@ See the [API section](#api) for more details.
 #### 5. _nimble-rich-text-user-mention-view_:
 
 The foundation for configuring the rendering of mention nodes in the UI is provided by a base class known as `nimble-rich-text-mention-view`. This base class is an extension of
-`FoundationElement`, and its template contains a `span` element with the required CSS styling. It is equipped with attributes such as `data-id`, `data-label`, and `data-type`,
-along with properties like `character`, which is included in the display alongside mentioned users.
+`FoundationElement`.
 
-The `nimble-rich-text-user-mention-view` is a view class that is derived from the above base class and makes use of the template defined in the base class.
-It customizes the character property of the base class by setting it to **"@"** in order to render the mention node with the **"@"** symbol as a prefix in the text content of the node.
+The `nimble-rich-text-user-mention-view` is a view class that is derived from the above base class, and its template contains a `span` element with the required CSS styling.
+They are equipped with attributes such as `mention-id`, `mention-label`, and `mention-type` to render the node as a `Mention` node in Tiptap editor.
+It uses the default slot to render the same text content from the editor to the view element's shadow root.
 
-The Mention node from Tiptap is extended, and the `renderHTML` method is overridden to render the element as a `nimble-rich-text-user-mention-view` instead of the default `span`
-element as shown in the [Tiptap code](https://github.com/ueberdosis/tiptap/blob/42039c05f0894a2730a7b8f1b943ddb22d52a824/packages/extension-mention/src/mention.ts#L112).
-The attributes will be retained and included in the rendered mention nodes.
+The Mention node from Tiptap is extended, and the [`renderHTML`](https://tiptap.dev/guide/custom-extensions/#render-html) method is overridden to render
+the element as a `nimble-rich-text-user-mention-view` instead of the default `span` element as shown in the
+[Tiptap code](https://github.com/ueberdosis/tiptap/blob/42039c05f0894a2730a7b8f1b943ddb22d52a824/packages/extension-mention/src/mention.ts#L112).
+The attributes will be retained and included in the rendered mention nodes. The [`parseHTML`](https://tiptap.dev/guide/custom-extensions/#parse-html)
+will also hold the `nimble-rich-text-user-mention-view` tag and `span` with type attribute mention to load the specified tags as mention node
+in the editor.
 
 #### 6. _nimble-rich-text-mention-list-box_:
 
@@ -985,22 +1008,24 @@ _Note_: All other keyboard interaction determined by the slotted element will no
 
 _Keyboard interactions for `@mention`_
 
-| Key                                      | Behavior                                                                                                                            |
-| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `@`                                      | To open the list of options with the users list                                                                                     |
-|                                          | ----Below are the keyboard interactions when popup is opened----                                                                    |
-| Enter, Tab                               | To select the currently focused option from the list                                                                                |
-| Up/Down Arrow keys                       | To move the focus upward/downward in the list of options                                                                            |
-| Left/Right Arrow keys                    | To move the cursor in the editor leftward/rightward and filters the list for the characters from `@` to the current cursor position |
-| Escape                                   | To close the dropdown if it is opened                                                                                               |
-| Any character                            | To show the filtered list of users for that specific character                                                                      |
-| Space(One time between names)            | To show the filtered list of users that contains a single whitespace in their name                                                  |
-| Space(Two or more trailing white spaces) | Close the dropdown list popup                                                                                                       |
-| Group of characters                      | To show the filtered list of users for the group characters                                                                         |
-| Group of characters(Not in any option)   | Close the dropdown list popup                                                                                                       |
-|                                          | ----Below are the keyboard interactions when user is selected from the list----                                                     |
-| Backspace                                | To remove the entire selected name and cursor in the `@` position                                                                   |
-| Shift + Arrow keys                       | To select the mention node                                                                                                          |
+| Key                                          | Behavior                                                                                                                            |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `@` (At least single whitespace before `@`)  | To open the list of options with the users list                                                                                     |
+| `@` (At the start of the paragraph)          | To open the list of options with the users list even without a preceding white space                                                |
+|                                              | ----Below are the keyboard interactions when popup is opened----                                                                    |
+| Enter, Tab                                   | To select the currently focused option from the list                                                                                |
+| Up/Down Arrow keys                           | To move the focus upward/downward in the list of options                                                                            |
+| Left/Right Arrow keys                        | To move the cursor in the editor leftward/rightward and filters the list for the characters from `@` to the current cursor position |
+| Left/Right Arrow keys (cursor away from `@`) | Close the dropdown list popup                                                                                                       |
+| Escape                                       | To close the dropdown if it is opened                                                                                               |
+| Any character                                | To show the filtered list of users for that specific character                                                                      |
+| Space(One time between names)                | To show the filtered list of users that contains a single whitespace in their name                                                  |
+| Space(Two or more trailing white spaces)     | Close the dropdown list popup                                                                                                       |
+| Group of characters                          | To show the filtered list of users for the group characters                                                                         |
+| Group of characters(Not in any option)       | Close the dropdown list popup                                                                                                       |
+|                                              | ----Below are the keyboard interactions when user is selected from the list----                                                     |
+| Backspace                                    | To remove the entire selected name and cursor in the `@` position                                                                   |
+| Shift + Arrow keys                           | To select the mention node                                                                                                          |
 
 _Note_: The `@mention` node is immutable. For an instance, if the user is selected and mention node(`nimble-rich-text-user-mention-view`) is added to the DOM,
 the only option is to either remove the entire name or can add new name after removing the entire name. It is not possible to edit the name, like removing just
