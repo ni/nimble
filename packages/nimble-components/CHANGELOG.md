@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 18 Oct 2023 18:51:54 GMT and should not be manually modified.
+This log was last generated on Thu, 19 Oct 2023 15:08:49 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.8.0
+
+Thu, 19 Oct 2023 15:08:49 GMT
+
+### Minor changes
+
+- Table Duration Column ([ni/nimble@f80db0b](https://github.com/ni/nimble/commit/f80db0b9334a11d4c76a57b0cc4850cea300f950))
 
 ## 20.7.0
 
