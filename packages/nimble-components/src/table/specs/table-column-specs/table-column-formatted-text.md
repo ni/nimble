@@ -221,8 +221,6 @@ class UnitFamilyVolt extends FoundationElement implements UnitFamily {
 
 We will use `nimble-unit-byte` to display file sizes in SLE tables. Currently, SLE displays these values with the common `KB`/`MB`/`GB` unit labels, but uses a factor of 1024 to convert between units (which is [not uncommon](https://en.wikipedia.org/wiki/JEDEC_memory_standards#Unit_prefixes_for_semiconductor_storage_capacity), but [technically incorrect](https://physics.nist.gov/cuu/Units/binary.html)). Whether SLE chooses to standardize on the default 1000-based byte units or the 1024-based ones, it will be a change from the current behavior. To ensure consistency, we will update SLE's file size pipe and search for other places where byte values are being converted so they can be updated accordingly.
 
-To help SLE and other clients maintain consistent formatting of number strings in and out of the table, we will provide a static function on the number column that returns a configured formatter object. The formatter object will expose one function that takes a number and returns a formatted string. Details TBD.
-
 ##### Examples
 
 ```html
@@ -496,3 +494,7 @@ Standard Storybook documentation for column APIs.
 ## Open Issues
 
 1. Visual design recommends that column header text alignment match data alignment. Once we prototype this we may hit implementation concerns (e.g. clash with proposed header menu button).
+
+2. Do we provide a way for clients to replicate the same formatting used in the number-text column, for use cases outside the table? Here is a possible direction:
+
+    To help SLE and other clients maintain consistent formatting of number strings in and out of the table, we will provide a static function on the number column that returns a configured formatter object. The formatter object will expose one function that takes a number and returns a formatted string. Details TBD.
