@@ -126,16 +126,20 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private createFormatter(): NumberFormatter {
+        let minimumDigits;
+        let maximumDigits;
         switch (this.format) {
             case NumberTextFormat.decimal:
+                minimumDigits = typeof this.decimalMaximumDigits === 'number'
+                    ? 0
+                    : this.decimalDigits ?? defaultDecimalDigits;
+                maximumDigits = this.decimalMaximumDigits
+                    ?? this.decimalDigits
+                    ?? defaultDecimalDigits;
                 return new DecimalFormatter(
                     lang.getValueFor(this),
-                    typeof this.decimalMaximumDigits === 'number'
-                        ? 0
-                        : this.decimalDigits ?? defaultDecimalDigits,
-                    this.decimalMaximumDigits
-                        ?? this.decimalDigits
-                        ?? defaultDecimalDigits
+                    minimumDigits,
+                    maximumDigits
                 );
             default:
                 return new DefaultFormatter(lang.getValueFor(this));
