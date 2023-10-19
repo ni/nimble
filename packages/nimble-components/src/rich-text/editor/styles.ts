@@ -272,11 +272,11 @@ export const styles = css`
         right: var(--ni-private-rich-text-editor-scrollbar-width);
     }
 
-    :host([disabled]) span[data-type='mention'] {
+    :host([disabled]) span[mention-type='mention'] {
         color: ${linkProminentDisabledFontColor};
     }
 
-    span[data-type='mention'] {
+    span[mention-type='mention'] {
         color: ${linkProminentFontColor};
         user-select: text;
     }

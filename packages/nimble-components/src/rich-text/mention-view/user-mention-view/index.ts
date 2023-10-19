@@ -1,16 +1,15 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
+import { attr } from '@microsoft/fast-element';
 import { MentionView } from '../base';
-import { template } from '../base/template';
-import { styles } from '../base/styles';
+import { template } from './template';
+import { styles } from './styles';
 
 /**
  * The base class for Mention View
  */
 export class UserMentionView extends MentionView {
-    public constructor() {
-        super();
-        this.setChar('@');
-    }
+    @attr({ attribute: 'char' })
+    public char?: string;
 }
 
 const mentionView = UserMentionView.compose({

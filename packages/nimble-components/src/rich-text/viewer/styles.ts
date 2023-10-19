@@ -46,7 +46,7 @@ export const styles = css`
         display: none;
     }
 
-    span[data-type='mention'] {
+    span[mention-type='mention'] {
         color: ${linkProminentFontColor};
     }
 `;

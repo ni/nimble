@@ -119,8 +119,8 @@ export class RichTextMarkdownParser {
 
                         let token = state.push('mention_open', 'span', 1);
                         token.attrs = [
-                            ['dataid', userId],
-                            ['datalabel', userName]
+                            ['mentionid', userId],
+                            ['mentionlabel', userName]
                         ];
                         token = state.push('text', '', 0);
                         token.content = `@${userName}`;
@@ -150,8 +150,8 @@ export class RichTextMarkdownParser {
             mention: {
                 block: 'mention',
                 getAttrs: tok => ({
-                    dataid: tok.attrGet('dataid'),
-                    datalabel: tok.attrGet('datalabel')
+                    mentionid: tok.attrGet('mentionid'),
+                    mentionlabel: tok.attrGet('mentionlabel')
                 })
             }
         });
@@ -162,23 +162,23 @@ export class RichTextMarkdownParser {
             nodes: schema.spec.nodes.addToEnd('mention', {
                 attrs: {
                     datatype: { default: 'mention' },
-                    dataid: { default: '' },
-                    datalabel: { default: '' },
+                    mentionid: { default: '' },
+                    mentionlabel: { default: '' },
                     contentEditable: { default: 'false' }
                 },
                 group: 'inline',
                 inline: true,
                 content: 'inline*',
                 toDOM(node) {
-                    const { dataid, datalabel } = node.attrs;
+                    const { mentionid, mentionlabel } = node.attrs;
                     return [
                         'strong',
                         [
                             userMentionViewTag,
                             {
                                 'data-type': 'mention',
-                                'data-id': dataid as string,
-                                'data-label': datalabel as string,
+                                'mention-id': mentionid as string,
+                                'mention-label': mentionlabel as string,
                                 contenteditable: 'false'
                             },
                             0

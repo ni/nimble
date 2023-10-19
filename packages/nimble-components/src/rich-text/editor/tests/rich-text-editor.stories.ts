@@ -86,9 +86,9 @@ const metadata: Meta<RichTextEditorArgs> = {
         error-text="${x => x.errorText}"
         placeholder="${x => x.placeholder}"
     >
-        ${when(x => x.footerActionButtons, html`
+        ${when(x => x.footerActionButtons, html<RichTextEditorArgs>`
             <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>
-            <${buttonTag} slot="footer-actions">OK</${buttonTag}>`)}
+            <${buttonTag} slot="footer-actions" @click="${x => x.editorRef.getMarkdown()}">OK</${buttonTag}>`)}
 
         <${richTextEnumMentionTextTag}>
             <${mappingMentionTag} key="1" text="Aagash"></${mappingMentionTag}>
@@ -158,7 +158,7 @@ const metadata: Meta<RichTextEditorArgs> = {
     },
     args: {
         data: exampleDataType.plainString,
-        footerActionButtons: false,
+        footerActionButtons: true,
         disabled: false,
         footerHidden: false,
         errorVisible: false,

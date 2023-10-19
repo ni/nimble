@@ -5,7 +5,7 @@ import { linkProminentFontColor } from '../../../theme-provider/design-tokens';
 export const styles = css`
     ${display('inline')}
 
-    span[data-type='mention'] {
+    span[mention-type='mention'] {
         color: ${linkProminentFontColor};
         user-select: text;
         display: inline-flex;

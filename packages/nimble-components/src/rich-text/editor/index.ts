@@ -139,6 +139,14 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     /**
+     * Get the mentioned users in a list.
+     * @public
+     */
+    public get mentionedUsers(): string[] {
+        return RichTextMarkdownSerializer.getMentionedUser(this.tiptapEditor.state.doc);
+    }
+
+    /**
      * @internal
      */
     @observable
@@ -407,6 +415,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @public
      */
     public getMarkdown(): string {
+        // eslint-disable-next-line no-console
+        console.log(RichTextMarkdownSerializer.serializeDOMToMarkdown(
+            this.tiptapEditor.state.doc
+        ));
         return RichTextMarkdownSerializer.serializeDOMToMarkdown(
             this.tiptapEditor.state.doc
         );
@@ -566,6 +578,39 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                                 }
                             ];
                         },
+                        addAttributes() {
+                            return {
+                                id: {
+                                    default: null,
+                                    parseHTML: element => element.getAttribute('mention-id'),
+                                    renderHTML: attributes => {
+                                        if (!attributes.id) {
+                                            return {};
+                                        }
+
+                                        return {
+                                            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                                            'mention-id': attributes.id,
+                                        };
+                                    },
+                                },
+
+                                label: {
+                                    default: null,
+                                    parseHTML: element => element.getAttribute('mention-label'),
+                                    renderHTML: attributes => {
+                                        if (!attributes.label) {
+                                            return {};
+                                        }
+
+                                        return {
+                                            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                                            'mention-label': attributes.label,
+                                        };
+                                    },
+                                },
+                            };
+                        },
                         // eslint-disable-next-line @typescript-eslint/naming-convention
                         renderHTML({ node, HTMLAttributes }) {
                             return [
@@ -573,7 +618,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                                 [
                                     userMentionViewTag,
                                     mergeAttributes(
-                                        { 'data-type': this.name },
+                                        { 'mention-type': this.name },
                                         this.options.HTMLAttributes,
                                         HTMLAttributes
                                     ),
