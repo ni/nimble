@@ -31,7 +31,11 @@ export class UnitFormatter extends NumberFormatter {
 
     private pickBestUnit(number: number): Unit {
         const magnitude = Math.abs(number);
-        if (magnitude === 0 || magnitude === Infinity) {
+        if (
+            magnitude === 0
+            || magnitude === Infinity
+            || Number.isNaN(magnitude)
+        ) {
             return this.baseUnit;
         }
         for (const unit of this.supportedUnits) {
