@@ -8,7 +8,8 @@ mentioned in the editor, it should be loaded back to the viewer with the special
 ### Out of Scope of this Spec
 
 1.  Notifying the mentioned users through an email in comments feature is part of the backend services
-2.  
+2.  Adding a "Load More" or "Search Server" button to dynamically load more data in the `@mention` dropdown
+in editor.
 
 ## Links To Relevant Work Items and Reference Material
 
@@ -402,9 +403,9 @@ follows to enable the desired `@mention` interactions,
 format in `CommonMark` flavor with a custom scheme to utilize for the `@mention`.
 
 1. This markdown syntax does not interfere with the current `AutoLink` formats as the scheme we support for absolute link is `http` and `https`,
-    whereas this is a unique scheme and yet follows the standard `CommonMark` markdown flavor
+   whereas this is a unique scheme and yet follows the standard `CommonMark` markdown flavor
 2. This syntax ensures the easy identification of a `mention` node using the `user` in place of `scheme` in autolink when parsing the
-    entire markdown string
+   entire markdown string
 3. The same syntax can be used when other mentions like issue mention by having a different `scheme` in the string like `<issue:issue-id>`
 
 _Alternatives_:
