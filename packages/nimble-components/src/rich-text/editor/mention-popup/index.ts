@@ -1,7 +1,5 @@
 import {
     AnchoredRegion,
-    applyMixins,
-    ARIAGlobalStatesAndProperties,
     DesignSystem,
     Listbox,
 } from '@microsoft/fast-foundation';
