@@ -431,7 +431,7 @@ _Props/Attrs_
 
 -   `mention-id`: string - has the user ID of the mentioned user
 -   `mention-label`: string - has the user name of the mentioned user
--   `mention-type`: string - has the type of the mentioned node
+-   `type`: string - has the type of the mentioned node, _defaults_ as `mention`
 
 _Content_
 
