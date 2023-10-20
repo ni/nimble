@@ -30,15 +30,15 @@ necessary user information for populating this dropdown, clients can pass the us
 <nimble-rich-text-editor>
     <nimble-rich-text-mention-users pattern="http://users/.*">
         <nimble-mapping-mention-user
-            url="http://users/user-id-1"
+            mention-url="http://users/user-id-1"
             display-name="John Doe"
         ></nimble-mapping-mention-user>
         <nimble-mapping-mention-user
-            url="http://users/user-id-2"
+            mention-url="http://users/user-id-2"
             display-name="Alice Smith"
         ></nimble-mapping-mention-user>
         <nimble-mapping-mention-user
-            url="http://users/user-id-3"
+            mention-url="http://users/user-id-3"
             display-name="Bob Jones"
         ></nimble-mapping-mention-user>
     </nimble-rich-text-mention-users>
@@ -46,13 +46,13 @@ necessary user information for populating this dropdown, clients can pass the us
 ```
 
 The configuration element, `nimble-rich-text-mention-users`, consists of mapping elements that specify both the content to display
-in the dropdown list (i.e., the `display-name`) and the data to store in the markdown when extracting content from the editor (i.e., the `url`).
+in the dropdown list (i.e., the `display-name`) and the data to store in the markdown when extracting content from the editor (i.e., the `mention-url`).
 These details are subsequently transformed into a map or an object, which is used to populate the options within the shadow root
 for the dropdown list of items. This component uses the [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern)
 attribute to acquire the regular expression pattern that corresponds to the URLs of users within the specific domain of the client application.
 
-The `nimble-mapping-mention-user` element contains individual user information within its elements. Typically, the `url` attribute
-includes either the user ID or a value stored in the backend database. It's important that the `url` adheres to valid URL format,
+The `nimble-mapping-mention-user` element contains individual user information within its elements. Typically, the `mention-url` attribute
+includes either the user ID or a value stored in the backend database. It's important that the `mention-url` adheres to valid URL format,
 often used to link the user ID with the hosting domain. In cases where there's no specific URL for each user within the domain,
 they can alternatively insert the user ID in a valid URL format such as `user:user-id` and provide the appropriate pattern for it.
 
@@ -67,30 +67,30 @@ they can alternatively insert the user ID in a valid URL format such as `user:us
     <nimble-rich-text-editor>
     <nimble-rich-text-mention-users pattern="http://users/.*">
     <nimble-mapping-mention-user
-                    url="http://users/user-id-1"
+                    mention-url="http://users/user-id-1"
                     display-name="John Doe"
                 ></nimble-mapping-mention-user>
     <nimble-mapping-mention-user
-                    url="http://users/user-id-1"
+                    mention-url="http://users/user-id-1"
                     display-name="Alice Smith"
                 ></nimble-mapping-mention-user>
     <nimble-mapping-mention-user
-                    url="http://users/user-id-1"
+                    mention-url="http://users/user-id-1"
                     display-name="Bob Jones"
                 ></nimble-mapping-mention-user>
     </nimble-rich-text-mention-users>
 
             <nimble-rich-text-mention-issues pattern="http://issues/.*">
                 <nimble-mapping-mention-user
-                    url="http://issue/issue-id-1"
+                    mention-url="http://issue/issue-id-1"
                     display-name="Spec for rich text editor"
                 ></nimble-mapping-mention-user>
                 <nimble-mapping-mention-user
-                    url="http://issue/issue-id-2"
+                    mention-url="http://issue/issue-id-2"
                     display-name="Mention support in rich text components"
                 ></nimble-mapping-mention-user>
                 <nimble-mapping-mention-user
-                    url="http://issue/issue-id-3"
+                    mention-url="http://issue/issue-id-3"
                     display-name="Issue in pasting a link"
                 ></nimble-mapping-mention-user>
             </nimble-rich-text-mention-issues>
@@ -178,6 +178,10 @@ listening to this event, filter the list of users that includes the names contai
 `nimble-mapping-mention-user` element based on the filter data. Subsequently, a maximum of twenty filtered options should be transmitted to the
 editor.
 
+Since the above event triggers for every key down events like to add/remove texts, move the text cursors after the `@` character which is quite
+expensive operation to perform for every keystroke so it is advisable to `debounce` the events if you're using network requests to perform the
+filtering operations. Like, allow at most one request per second to filter the list for each seconds instead of for each keystrokes.
+
 _Note_: The editor will also perform the same filtering once again to ensure the filtered options are proper and update the dropdown list in the UI.
 This helps to filter the list, regardless of whether the client is loading the list dynamically by listening to the event as mentioned above
 or statically providing user details at the start via `nimble-mapping-mention`.
@@ -190,12 +194,12 @@ or statically providing user details at the start via `nimble-mapping-mention`.
     [suggestion](https://tiptap.dev/api/utilities/suggestion#render) configurations. This event fires with the `eventData` containing the
     current text that is added after the `@` character.
 
-    This event will be triggered in the following scenarios to perform filtering in the client application:
+    This event will be triggered in the following scenarios to perform filtering in the client application. The below scenarios will also fire
+    when there is a configuration element `nimble-rich-text-mention-users` even without the mapping elements:
 
     1. When a user inserts the character (e.g., `@`) into the editor, which activates the mention popup.
     2. When a user adds or removes text after inserting the mention character into the editor.
     3. When a user repositions the cursor between the text segments added after the mention character.
-    4. When there is configuration element `nimble-rich-text-mention-users` but with no mapping elements.
 
     Refer the [accessibility](#accessibility) section to know more details about when it requires to emit the event for performing the filtering in the client application.
 
@@ -234,7 +238,7 @@ _Content_
 
 This mapping element is employed to establish a connection between the value displayed in the mapping view and the corresponding value stored within
 the markdown string. For instance, the username for an `@mention` is contained in the `display-name` attribute, which is used for display in the
-mention view, while the user ID URL is contained in the `url` attribute which is used to store within the markdown string.
+mention view, while the user ID URL is contained in the `mention-url` attribute which is used to store within the markdown string.
 
 _Component Name_
 
@@ -242,7 +246,7 @@ _Component Name_
 
 _Props/Attrs_
 
--   `url`: string
+-   `mention-url`: string
 -   `display-name`: string
 
 #### User mention view (Visible UI element):
@@ -256,9 +260,9 @@ _Component Name_
 
 _Props/Attrs_
 
--   `mention-url`: string - has the user ID URL of the mentioned user
--   `mention-label`: string - has the user name of the mentioned user
--   `type`: string - has the type of the mentioned node, _defaults_ as `mention`
+-   `mention-url`: string - the user ID URL of the mentioned user
+-   `mention-label`: string - the user name of the mentioned user
+-   `type`: string - the type of the mentioned node, _defaults_ as `mention`
 
 _Content_
 
@@ -328,15 +332,15 @@ Below is an example of how the client application can be used to provide the `ni
 <nimble-rich-text-viewer>
     <nimble-rich-text-mention-users pattern="http://users/.*">
         <nimble-mapping-mention-user
-            url="http://users/user-id-1"
+            mention-url="http://users/user-id-1"
             text="John Doe"
         ></nimble-mapping-mention-user>
         <nimble-mapping-mention-user
-            url="http://users/user-id-2"
+            mention-url="http://users/user-id-2"
             text="Alice Smith"
         ></nimble-mapping-mention-user>
         <nimble-mapping-mention-user
-            url="http://users/user-id-3"
+            mention-url="http://users/user-id-3"
             text="Bob Jones"
         ></nimble-mapping-mention-user>
     </nimble-rich-text-mention-users>
@@ -375,7 +379,7 @@ elements, each with custom attribute values. These attributes play a dual role: 
 correspond to the information stored in markdown format. For instance, when `@mention` is primarily employed for user tagging, these attribute values
 typically encompass user-related data, such as the username and userID.
 
-1. `mention-url` - employed to store the value that is sent in the `url` attribute of `nimble-mapping-mention-user`.
+1. `mention-url` - employed to store the value that is sent in the `mention-url` attribute of `nimble-mapping-mention-user`.
 2. `mention-label` - used to store the actual `display-name` of the selected option.
 3. `mention-type` - defaults as `mention`.
 4. `contentEditable` - defaults as `false`. The `@mention` node is only enabled in the editor after selecting from the list of options. It is not possible
@@ -483,7 +487,7 @@ mention: {
 Additionally, a custom tokenizer rule needs to be added to the `markdown-it` rules to handle the parser logic.
 This can be achieved by loading the customized `mention` plugin into the supported tokenizer rules using the
 [`use`](https://markdown-it.github.io/markdown-it/#MarkdownIt.use) method and identifying the value of the
-`url` that matches the `display-name`. The `url` and `name` will then be generated as an object from the
+`mention-url` that matches the `display-name`. The `mention-url` and `name` will then be generated as an object from the
 `nimble-mapping-mention-user` elements. This custom node will be added `before` the `autolink` mark to give
 the highest precedence to the `mention` node.
 
@@ -524,7 +528,7 @@ responsible for handling validation, with methods for setting and retrieving the
 valid and invalid values passed within the mapping element is effectively managed. The class obtains the name of the validity flag to communicate this
 information via a public API called `validity`.
 
-By deriving from the base, the mention options can validate the following conditions for the `url` and `display-name` value in mapping element:
+By deriving from the base, the mention options can validate the following conditions for the `mention-url` and `display-name` value in mapping element:
 
 1. `validateMappingTypes(mappings)`
 2. `validateUniqueURL(URL, URLType)`
