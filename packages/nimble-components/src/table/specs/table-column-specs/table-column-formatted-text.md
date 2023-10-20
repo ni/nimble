@@ -171,8 +171,12 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
     -   `'decimal'` - format all values as decimal values (e.g. 123.45) with a number of digits after the separator determined by `decimal-digits` or `decimal-maximum-digits`. Exponential notation is never used. If required, values will be rounded to reach the specified number of decimial digits. Configuring `decimal-digits` to `0` will round the value to the nearest integer and display it with no decimal places. Default alignment will be left if either `decimal-maximum-digits` or a unit is set, otherwise right (since the decimal separators should align in that case).
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would be prefixed with the name of the format mode.
     -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887). The exception is that we will set `useGrouping: true` to achieve `1,000` rather than `1000` because this styles the values in a way that is more human readable.
--   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2 unless `decimal-maximum-digits` is specified, in which case a number of digits between 0 and `decimal-maximum-digits` are shown. It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`. Formats other than `decimal` ignore `decimal-digits`.
--   `decimal-maximum-digits` - when format is `decimal`, a number that controls the maximum number of digits shown to the right of the decimal separator. This has the same effect as `decimal-digits` except that trailing zeros are omitted. Possible values are from 0 to 20. It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`. Formats other than `decimal` ignore `decimal-maximum-digits`.
+-   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Possible values are from 0 to 20. Defaults to 2 (unless `decimal-maximum-digits` is specified).
+    -   It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`.
+    -   Formats other than `decimal` ignore `decimal-digits`.
+-   `decimal-maximum-digits` - when format is `decimal`, a number that controls the maximum number of possible digits shown to the right of the decimal separator (i.e. omits trailing zeros). Possible values are from 0 to 20.
+    -   It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`.
+    -   Formats other than `decimal` ignore `decimal-maximum-digits`.
 
 This column will display a blank cell when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"∞"` and `"NaN"`.
 
@@ -180,43 +184,43 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
 
 ##### Units
 
-A unit for the column may be configured by providing a `nimble-unit-<name>` element as content (in addition to the column label). Unit elements represent families of related units, e.g. `nimble-unit-byte` represents bytes, KB, MB, etc. Values are converted from a source unit (e.g. bytes) to the largest related unit (e.g. KB, MB, etc.) that can represent that value with magnitude >= 1. The source data for the column is expected to be given in the base unit specified in the tag name, e.g. for `nimble-unit-byte`, a source value should be a number of bytes. Note that unit elements have no visual representation of their own. They are strictly configuration components, and by nature of being components, allow selective loading of translation data for only the needed units. The initial set of unit elements are:
+A unit for the column may be configured by providing a `nimble-unit-<name>` element as content (in addition to the column label). Unit elements represent a set of related, scaled units, e.g. `nimble-unit-byte` represents bytes, KB, MB, etc. Values are converted from a source unit (e.g. bytes) to the largest scaled unit (e.g. KB, MB, etc.) that can represent that value with magnitude >= 1. The source data for the column is expected to be given in the base unit specified in the tag name, e.g. for `nimble-unit-byte`, a source value should be a number of bytes. Note that unit elements have no visual representation of their own. They are strictly configuration components, and by nature of being components, allow selective loading of translation data for only the needed units. The initial set of unit elements are:
 
--   `nimble-unit-byte` - Unit labels in this family are `byte`/`bytes`, `KB`, `MB`, `GB`, `TB`, `PB`
+-   `nimble-unit-byte` - Labels in this unit scale are `byte`/`bytes`, `KB`, `MB`, `GB`, `TB`, `PB`
     -   `binary` - boolean attribute that indicates a binary conversion factor of 1024 should be used rather than 1000. The resulting unit labels are `byte`/`bytes`, `KiB`, `MiB`, `GiB`, `TiB`, `PiB`.
--   `nimble-unit-volt` - Unit labels in this family are `volt`/`volts`, plus `V` prefixed by all supported metric prefixes.
+-   `nimble-unit-volt` - Labels in this unit scale are `volt`/`volts`, plus `V` prefixed by all supported metric prefixes.
 
-Supported metric prefixes are f (femto), p (pico), n (nano), μ (micro), m (milli), c (centi), d (deci), k (kilo), M (mega), G (giga), T (tera), P (peta), and E (exa). This set is intended to be suitable for other units we may support in the future (e.g. ohms, amps), but any particular unit family can diverge from this set as needed.
+Supported metric prefixes are f (femto), p (pico), n (nano), μ (micro), m (milli), c (centi), d (deci), k (kilo), M (mega), G (giga), T (tera), P (peta), and E (exa). This set is intended to be suitable for other units we may support in the future (e.g. ohms, amps), but any particular unit scale can diverge from this set as needed.
 
 If a value with a unit would be formatted with exponential notation, it will always be given in its base unit. E.g. instead of "1e6 PB", it would render as "1e21 bytes".
 
-When displaying units, `Intl.NumberFormat` will translate unit strings for the [units that it supports](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers) and localize the number (for comma/decimal). We will include our own logic for converting between unit values. For a family of units not supported by `Intl.NumberFormat`, we will provide our own translations (for French, German, Japanese, and Chinese) in a `nimble-unit-<name>` element. If the client requests a translation for one of these units in a language we don't support, we will fall back to English.
+When displaying units, `Intl.NumberFormat` will translate unit strings for the [units that it supports](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers) and localize the number (for comma/decimal). We will include our own logic for converting between unit values. For a unit scale not supported by `Intl.NumberFormat`, we will provide our own translations (for French, German, Japanese, and Chinese) in a `nimble-unit-<name>` element. If the client requests a translation for one of these units in a language we don't support, we will fall back to English.
 
 Unit elements will be capable of enumerating the individual units supported. The enumerated unit objects will be capable of formatting a given number into a localized string including the unit label. Below is an example of the abstractions/APIs that might be used to implement this.
 
 ```TS
 // a specific unit, e.g. kilobyte, millivolt, etc.
-interface Unit {
+interface ScaledUnit {
     public conversionFactor: number;
     public format(value: number): string;
 }
 
 // a set of related units, e.g. {byte, kilobyte, megabyte, gigabyte, terabyte, petabyte}
-interface UnitFamily {
-    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): Unit[];
+interface UnitScale {
+    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): ScaledUnit[];
 }
 
-// unit family supported by Intl.NumberFormat
-class UnitFamilyByte extends FoundationElement implements UnitFamily {
-    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): Unit[] {
-        // returns implementations of Unit that wrap Intl.NumberFormat instances configured for a specific locale and a specific unit (e.g. 'fr-FR' and 'kilobyte')
+// unit scale supported by Intl.NumberFormat
+class UnitByte extends FoundationElement implements UnitScale {
+    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): ScaledUnit[] {
+        // returns implementations of ScaledUnit that wrap Intl.NumberFormat instances configured for a specific locale and a specific unit (e.g. 'fr-FR' and 'kilobyte')
     }
 }
 
-// unit family with Nimble-provided unit translations
-class UnitFamilyVolt extends FoundationElement implements UnitFamily {
-    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): Unit[] {
-        // returns implementations of Unit that contain a shared Intl.NumberFormat (for formatting the number) and a specific translated unit string to append
+// unit scale with Nimble-provided unit translations
+class UnitVolt extends FoundationElement implements UnitScale {
+    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): ScaledUnit[] {
+        // returns implementations of ScaledUnit that contain a shared Intl.NumberFormat (for formatting the number) and a specific translated unit string to append
     }
 }
 ```
@@ -409,7 +413,7 @@ An alternative to the `nimble-unit-<name>` element-based API is to just configur
 
 -   All units' translated labels (for all languages) always loaded -- potential bloat
 -   Any unit-specific configuration now part of the column API rather than encapsulated by a unit element
--   Clients cannot define their own custom types (though this was never a goal of this feature)
+-   Clients cannot define their own custom types
 
 #### Expose unit and unitDisplay from the Intl.NumberFormatter
 
