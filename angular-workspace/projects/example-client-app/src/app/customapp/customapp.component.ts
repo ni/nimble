@@ -143,6 +143,7 @@ export class CustomAppComponent {
     }
 
     public loadRichTextEditorContent(): void {
-        this.editor.setMarkdown(this.editorMarkdownString);
+        // this.editor.setMarkdown(this.editorMarkdownString);
+        console.log(this.editor.getMentionedUserList());
     }
 }

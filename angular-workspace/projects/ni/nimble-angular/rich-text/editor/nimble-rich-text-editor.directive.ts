@@ -66,6 +66,10 @@ export class NimbleRichTextEditorDirective {
         return this.elementRef.nativeElement.getMarkdown();
     }
 
+    public getMentionedUserList(): string[] {
+        return this.elementRef.nativeElement.mentionedUsers;
+    }
+
     public setMarkdown(value: string): void {
         this.elementRef.nativeElement.setMarkdown(value);
     }

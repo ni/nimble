@@ -1,4 +1,4 @@
-import { observable, attr, DOM } from '@microsoft/fast-element';
+import { observable, attr, DOM, Observable, Notifier } from '@microsoft/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
@@ -76,6 +76,13 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /** @internal */
     @observable
     public userList: UserInfo[] = [];
+
+    public mentionList: RichTextEnumMention[] = [];
+
+    /**
+     * @internal
+     * */
+    public userListNotifiers: Notifier[] = [];
 
     /**
      * @internal
@@ -248,11 +255,28 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             ? customElements.whenDefined(item.localName)
             : Promise.resolve()));
         await Promise.all(definedElements);
-        const mentionList = this.childItems.filter(
+        this.mentionList = this.childItems.filter(
             (x): x is RichTextEnumMention => x instanceof RichTextEnumMention
         );
+        for (const column of this.mentionList) {
+            const notifier = Observable.getNotifier(column);
+            notifier.subscribe(this);
+            this.userListNotifiers.push(notifier);
+            const notifierInternals = Observable.getNotifier(
+                column.userInternals
+            );
+            notifierInternals.subscribe(this);
+            this.userListNotifiers.push(notifierInternals);
+        }
         this.userList = [];
-        mentionList.forEach((list => {
+        this.mentionList.forEach((list => {
+            this.userList = list.userInternals;
+        }));
+    }
+
+    /** @internal */
+    public handleChange(_source: unknown, _args: unknown): void {
+        this.mentionList.forEach((list => {
             this.userList = list.userInternals;
         }));
     }

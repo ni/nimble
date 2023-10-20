@@ -25,6 +25,8 @@ import { NimbleTableColumnIconModule } from '@ni/nimble-angular/table-column/ico
 import { NimbleTableColumnNumberTextModule } from '@ni/nimble-angular/table-column/number-text';
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text/viewer';
 import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text/editor';
+import { NimbleTableColumnEnumMentionModule } from '@ni/nimble-angular/rich-text/enum-text';
+import { NimbleMappingMentionModule } from '@ni/nimble-angular/mapping/text copy';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { HeaderComponent } from './header/header.component';
@@ -90,6 +92,8 @@ import { HeaderComponent } from './header/header.component';
         NimbleBannerModule,
         NimbleRichTextViewerModule,
         NimbleRichTextEditorModule,
+        NimbleTableColumnEnumMentionModule,
+        NimbleMappingMentionModule,
         NimbleTableColumnIconModule,
         NimbleMappingIconModule,
         NimbleMappingSpinnerModule,
