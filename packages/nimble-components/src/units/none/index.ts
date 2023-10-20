@@ -1,21 +1,21 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { IntlNumberFormatUnit } from '../base/intl-number-format-unit';
-import { Unit, UnitFamily } from '../base/unit-family';
+import { ScaledUnit, UnitScale } from '../base/unit-scale';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-unit-none': UnitFamilyNone;
+        'nimble-unit-none': UnitNone;
     }
 }
 
 /**
  * Element representing no unit labels
  */
-export class UnitFamilyNone extends UnitFamily {
+export class UnitNone extends UnitScale {
     public getSupportedUnits(
         lang: string,
         formatterOptions: Intl.NumberFormatOptions
-    ): Unit[] {
+    ): ScaledUnit[] {
         return [
             new IntlNumberFormatUnit(
                 1,
@@ -25,11 +25,9 @@ export class UnitFamilyNone extends UnitFamily {
     }
 }
 
-const nimbleUnitFamilyNone = UnitFamilyNone.compose({
+const nimbleUnitNone = UnitNone.compose({
     baseName: 'unit-none'
 });
 
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleUnitFamilyNone());
-export const unitNoneTag = DesignSystem.tagFor(UnitFamilyNone);
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleUnitNone());
+export const unitNoneTag = DesignSystem.tagFor(UnitNone);

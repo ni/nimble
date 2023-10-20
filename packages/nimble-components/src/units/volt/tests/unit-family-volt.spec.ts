@@ -1,7 +1,7 @@
-import { UnitFamilyVolt, unitVoltTag } from '..';
-import type { Unit } from '../../base/unit-family';
+import { UnitVolt, unitVoltTag } from '..';
+import type { ScaledUnit } from '../../base/unit-scale';
 
-const compareConversionFactor = (a: Unit, b: Unit): number => {
+const compareConversionFactor = (a: ScaledUnit, b: ScaledUnit): number => {
     return a.conversionFactor < b.conversionFactor ? -1 : 1;
 };
 
@@ -12,7 +12,7 @@ describe('Volt unit', () => {
 
     it('can construct an element instance', () => {
         expect(document.createElement('nimble-unit-volt')).toBeInstanceOf(
-            UnitFamilyVolt
+            UnitVolt
         );
     });
 

@@ -1,4 +1,4 @@
-import type { UnitFamily } from '../../../units/base/unit-family';
+import type { UnitScale } from '../../../units/base/unit-scale';
 import { NumberFormatter } from './number-formatter';
 import { UnitFormatter } from './unit-formatter';
 
@@ -30,22 +30,22 @@ export class DefaultFormatter extends NumberFormatter {
     // for numbers with magintudes over 'exponentialUpperBound' or under 'exponentialLowerBound'.
     private readonly exponentialFormatter: UnitFormatter;
 
-    public constructor(locale: string, unitFamily: UnitFamily) {
+    public constructor(locale: string, unitScale: UnitScale) {
         super();
         this.defaultFormatter = new UnitFormatter(
-            unitFamily.getSupportedUnits(locale, {
+            unitScale.getSupportedUnits(locale, {
                 maximumSignificantDigits: DefaultFormatter.maximumDigits,
                 useGrouping: true
             })
         );
         this.leadingZeroFormatter = new UnitFormatter(
-            unitFamily.getSupportedUnits(locale, {
+            unitScale.getSupportedUnits(locale, {
                 maximumFractionDigits: DefaultFormatter.maximumDigits - 1,
                 useGrouping: true
             })
         );
         this.exponentialFormatter = new UnitFormatter(
-            unitFamily
+            unitScale
                 .getSupportedUnits(locale, {
                     maximumSignificantDigits: DefaultFormatter.maximumDigits,
                     notation: 'scientific'

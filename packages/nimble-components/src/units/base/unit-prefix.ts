@@ -1,5 +1,5 @@
 /**
- * A prefix that implies a scaling factor when applied to a base unit
+ * A prefix that represents a scaling factor when applied to a base unit
  */
 export class UnitPrefix {
     public constructor(
@@ -8,7 +8,7 @@ export class UnitPrefix {
     ) {}
 }
 
-// TODO: do these need translations, or are they the same in all languages (that we support)?
+// The same prefixes are used for English, French, German, Japanese, and Chinese (all currently supported languages).
 export const metricPrefixes: UnitPrefix[] = [
     new UnitPrefix(10 ** -15, 'f'),
     new UnitPrefix(10 ** -12, 'p'),

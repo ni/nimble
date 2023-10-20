@@ -1,22 +1,22 @@
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { IntlNumberFormatUnit } from '../base/intl-number-format-unit';
-import type { Unit } from '../base/unit-family';
+import type { ScaledUnit } from '../base/unit-scale';
 import { template } from '../base/template';
-import { ManuallyTranslatedUnitFamily } from '../base/manually-translated-unit-family';
+import { ManuallyTranslatedUnitScale } from '../base/manually-translated-unit-scale';
 import { UnitPrefix } from '../base/unit-prefix';
 import { UnitTranslation } from '../base/unit-translation';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-unit-byte': UnitFamilyByte;
+        'nimble-unit-byte': UnitByte;
     }
 }
 
 /**
  * Element representing units for bytes
  */
-export class UnitFamilyByte extends ManuallyTranslatedUnitFamily {
+export class UnitByte extends ManuallyTranslatedUnitScale {
     // If true, 1024-based units are used instead of 1000-based units
     @attr({ mode: 'boolean' })
     public binary = false;
@@ -24,7 +24,7 @@ export class UnitFamilyByte extends ManuallyTranslatedUnitFamily {
     public override getSupportedUnits(
         lang: string,
         formatterOptions: Intl.NumberFormatOptions
-    ): Unit[] {
+    ): ScaledUnit[] {
         return this.binary
             ? super.getSupportedUnits(lang, formatterOptions)
             : this.getSupportedDecimalUnits(lang, formatterOptions);
@@ -56,7 +56,7 @@ export class UnitFamilyByte extends ManuallyTranslatedUnitFamily {
     private getSupportedDecimalUnits(
         lang: string,
         formatterOptions: Intl.NumberFormatOptions
-    ): Unit[] {
+    ): ScaledUnit[] {
         return [
             new IntlNumberFormatUnit(
                 1,
@@ -116,12 +116,10 @@ export class UnitFamilyByte extends ManuallyTranslatedUnitFamily {
     }
 }
 
-const nimbleUnitFamilyByte = UnitFamilyByte.compose({
+const nimbleUnitByte = UnitByte.compose({
     baseName: 'unit-byte',
     template
 });
 
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleUnitFamilyByte());
-export const unitByteTag = DesignSystem.tagFor(UnitFamilyByte);
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleUnitByte());
+export const unitByteTag = DesignSystem.tagFor(UnitByte);

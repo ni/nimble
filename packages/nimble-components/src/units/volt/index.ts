@@ -1,19 +1,19 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { ManuallyTranslatedUnitFamily } from '../base/manually-translated-unit-family';
+import { ManuallyTranslatedUnitScale } from '../base/manually-translated-unit-scale';
 import { metricPrefixes, type UnitPrefix } from '../base/unit-prefix';
 import { UnitTranslation } from '../base/unit-translation';
 import { template } from '../base/template';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-unit-volt': UnitFamilyVolt;
+        'nimble-unit-volt': UnitVolt;
     }
 }
 
 /**
  * Element representing units for volts
  */
-export class UnitFamilyVolt extends ManuallyTranslatedUnitFamily {
+export class UnitVolt extends ManuallyTranslatedUnitScale {
     protected override getUnitTranslations(): Map<string, UnitTranslation> {
         const unitTranslations = new Map<string, UnitTranslation>();
         unitTranslations.set('en', new UnitTranslation('volt', 'volts', 'V'));
@@ -32,12 +32,10 @@ export class UnitFamilyVolt extends ManuallyTranslatedUnitFamily {
     }
 }
 
-const nimbleUnitFamilyVolt = UnitFamilyVolt.compose({
+const nimbleUnitVolt = UnitVolt.compose({
     baseName: 'unit-volt',
     template
 });
 
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleUnitFamilyVolt());
-export const unitVoltTag = DesignSystem.tagFor(UnitFamilyVolt);
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleUnitVolt());
+export const unitVoltTag = DesignSystem.tagFor(UnitVolt);

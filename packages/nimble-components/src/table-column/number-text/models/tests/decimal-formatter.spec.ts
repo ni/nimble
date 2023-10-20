@@ -1,4 +1,4 @@
-import { Unit, UnitFamily } from '../../../../units/base/unit-family';
+import { ScaledUnit, UnitScale } from '../../../../units/base/unit-scale';
 import { unitNoneTag } from '../../../../units/none';
 import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../../../utilities/tests/parameterized';
@@ -144,7 +144,7 @@ describe('DecimalFormatter', () => {
                 () => {
                     const formatter = new DecimalFormatter(
                         locale,
-                        document.createElement(unitNoneTag) as UnitFamily,
+                        document.createElement(unitNoneTag) as UnitScale,
                         testCase.minDigits,
                         testCase.maxDigits
                     );
@@ -160,8 +160,8 @@ describe('DecimalFormatter', () => {
     }
 
     describe('with unit', () => {
-        class TestUnitFamily extends UnitFamily {
-            public override getSupportedUnits(): Unit[] {
+        class TestUnitScale extends UnitScale {
+            public override getSupportedUnits(): ScaledUnit[] {
                 return [1, 2, 4].map(conversionFactor => {
                     return {
                         conversionFactor,
@@ -172,13 +172,13 @@ describe('DecimalFormatter', () => {
                 });
             }
         }
-        const composedTestElement = TestUnitFamily.compose({
-            baseName: 'test-decimal-formatter-unit-family'
+        const composedTestElement = TestUnitScale.compose({
+            baseName: 'test-decimal-formatter-unit-scale'
         });
 
-        let element: TestUnitFamily;
+        let element: TestUnitScale;
 
-        async function setup(): Promise<Fixture<TestUnitFamily>> {
+        async function setup(): Promise<Fixture<TestUnitScale>> {
             return fixture(composedTestElement());
         }
 

@@ -1,9 +1,9 @@
-import type { Unit } from './unit-family';
+import type { ScaledUnit } from './unit-scale';
 
 /**
  * A unit that is not supported by Intl.NumberFormat and must have translations built into Nimble
  */
-export class ManuallyTranslatedUnit implements Unit {
+export class ManuallyTranslatedScaledUnit implements ScaledUnit {
     public constructor(
         public conversionFactor: number,
         private readonly formatter: Intl.NumberFormat,
@@ -27,7 +27,6 @@ export class ManuallyTranslatedUnit implements Unit {
         const unitLabel = this.pluralRules.select(Number(formattedValue)) === 'one'
             ? this.singluarUnitLabel
             : this.unitLabel;
-        // TODO: should space be configurable? part of unitLabel? nbsp? short nbsp?
         return `${formattedValue} ${unitLabel}`;
     }
 }

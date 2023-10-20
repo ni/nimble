@@ -1,20 +1,20 @@
 import { html } from '@microsoft/fast-element';
-import { UnitFamilyByte, unitByteTag } from '..';
+import { UnitByte, unitByteTag } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import type { Unit } from '../../base/unit-family';
+import type { ScaledUnit } from '../../base/unit-scale';
 
-async function setup(binary: boolean): Promise<Fixture<UnitFamilyByte>> {
-    return fixture<UnitFamilyByte>(html`
+async function setup(binary: boolean): Promise<Fixture<UnitByte>> {
+    return fixture<UnitByte>(html`
         <${unitByteTag} ?binary="${() => binary}"></${unitByteTag}>
     `);
 }
 
-const compareConversionFactor = (a: Unit, b: Unit): number => {
+const compareConversionFactor = (a: ScaledUnit, b: ScaledUnit): number => {
     return a.conversionFactor < b.conversionFactor ? -1 : 1;
 };
 
 describe('Byte unit', () => {
-    let element: UnitFamilyByte;
+    let element: UnitByte;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
@@ -24,7 +24,7 @@ describe('Byte unit', () => {
 
     it('can construct an element instance', () => {
         expect(document.createElement('nimble-unit-byte')).toBeInstanceOf(
-            UnitFamilyByte
+            UnitByte
         );
     });
 

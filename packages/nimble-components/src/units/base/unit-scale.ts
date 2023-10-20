@@ -1,6 +1,6 @@
 import { FoundationElement } from '@microsoft/fast-foundation';
 
-export interface Unit {
+export interface ScaledUnit {
     conversionFactor: number;
     format(value: number): string;
 }
@@ -8,9 +8,9 @@ export interface Unit {
 /**
  * An element representing a set of related units which could be used to represent the same value
  */
-export abstract class UnitFamily extends FoundationElement {
+export abstract class UnitScale extends FoundationElement {
     public abstract getSupportedUnits(
         lang: string,
         formatterOptions: Intl.NumberFormatOptions
-    ): Unit[];
+    ): ScaledUnit[];
 }

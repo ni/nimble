@@ -1,10 +1,10 @@
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
-import { ManuallyTranslatedUnitFamily } from '../manually-translated-unit-family';
-import type { Unit } from '../unit-family';
+import { ManuallyTranslatedUnitScale } from '../manually-translated-unit-scale';
+import type { ScaledUnit } from '../unit-scale';
 import { UnitPrefix } from '../unit-prefix';
 import { UnitTranslation } from '../unit-translation';
 
-class TestManuallyTranslatedUnitFamily extends ManuallyTranslatedUnitFamily {
+class TestManuallyTranslatedUnitScale extends ManuallyTranslatedUnitScale {
     protected override getUnitTranslations(): Map<string, UnitTranslation> {
         const translations = new Map<string, UnitTranslation>();
         translations.set(
@@ -22,14 +22,14 @@ class TestManuallyTranslatedUnitFamily extends ManuallyTranslatedUnitFamily {
         return [new UnitPrefix(5, '5.'), new UnitPrefix(10, '10.')];
     }
 }
-const composedTestElement = TestManuallyTranslatedUnitFamily.compose({
-    baseName: 'test-manually-translated-unit-family'
+const composedTestElement = TestManuallyTranslatedUnitScale.compose({
+    baseName: 'test-manually-translated-unit-scale'
 });
 
-describe('ManuallyTranslatedUnitFamily', () => {
-    let element: TestManuallyTranslatedUnitFamily;
+describe('ManuallyTranslatedUnitScale', () => {
+    let element: TestManuallyTranslatedUnitScale;
 
-    async function setup(): Promise<Fixture<TestManuallyTranslatedUnitFamily>> {
+    async function setup(): Promise<Fixture<TestManuallyTranslatedUnitScale>> {
         return fixture(composedTestElement());
     }
 
@@ -37,7 +37,7 @@ describe('ManuallyTranslatedUnitFamily', () => {
         ({ element } = await setup());
     });
 
-    const compareConversionFactor = (a: Unit, b: Unit): number => {
+    const compareConversionFactor = (a: ScaledUnit, b: ScaledUnit): number => {
         return a.conversionFactor < b.conversionFactor ? -1 : 1;
     };
 

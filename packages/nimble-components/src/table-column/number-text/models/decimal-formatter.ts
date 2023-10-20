@@ -1,4 +1,4 @@
-import type { UnitFamily } from '../../../units/base/unit-family';
+import type { UnitScale } from '../../../units/base/unit-scale';
 import { NumberFormatter } from './number-formatter';
 import { UnitFormatter } from './unit-formatter';
 
@@ -11,13 +11,13 @@ export class DecimalFormatter extends NumberFormatter {
 
     public constructor(
         locale: string,
-        unitFamily: UnitFamily,
+        unitScale: UnitScale,
         minimumFractionDigits: number,
         maximumFractionDigits: number
     ) {
         super();
         this.formatter = new UnitFormatter(
-            unitFamily.getSupportedUnits(locale, {
+            unitScale.getSupportedUnits(locale, {
                 maximumFractionDigits,
                 minimumFractionDigits,
                 useGrouping: true

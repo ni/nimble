@@ -1,4 +1,4 @@
-import { Unit, UnitFamily } from '../../../../units/base/unit-family';
+import { ScaledUnit, UnitScale } from '../../../../units/base/unit-scale';
 import { unitNoneTag } from '../../../../units/none';
 import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../../../utilities/tests/parameterized';
@@ -232,7 +232,7 @@ describe('DefaultFormatter', () => {
                 () => {
                     const formatter = new DefaultFormatter(
                         locale,
-                        document.createElement(unitNoneTag) as UnitFamily
+                        document.createElement(unitNoneTag) as UnitScale
                     );
                     const formattedValue = formatter.formatValue(
                         testCase.value
@@ -246,11 +246,11 @@ describe('DefaultFormatter', () => {
     }
 
     describe('with unit', () => {
-        class TestUnitFamily extends UnitFamily {
+        class TestUnitScale extends UnitScale {
             public override getSupportedUnits(
                 lang: string,
                 formatterOptions: Intl.NumberFormatOptions
-            ): Unit[] {
+            ): ScaledUnit[] {
                 const formatter = new Intl.NumberFormat(lang, formatterOptions);
                 return [1, 100, 1000].map(conversionFactor => {
                     return {
@@ -264,13 +264,13 @@ describe('DefaultFormatter', () => {
                 });
             }
         }
-        const composedTestElement = TestUnitFamily.compose({
-            baseName: 'test-default-formatter-unit-family'
+        const composedTestElement = TestUnitScale.compose({
+            baseName: 'test-default-formatter-unit-scale'
         });
 
-        let element: TestUnitFamily;
+        let element: TestUnitScale;
 
-        async function setup(): Promise<Fixture<TestUnitFamily>> {
+        async function setup(): Promise<Fixture<TestUnitScale>> {
             return fixture(composedTestElement());
         }
 

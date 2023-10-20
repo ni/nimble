@@ -11,5 +11,5 @@ export const template = html<TableColumnNumberText>`<span
     title=${x => (x.hasOverflow && x.headerTextContent ? x.headerTextContent : null)}
 >
     <slot ${ref('contentSlot')}></slot>
-    <slot ${slotted('unitElements')} name="type"></slot>
+    <slot ${slotted('unitElements')} name="unit"></slot>
 </span>`;

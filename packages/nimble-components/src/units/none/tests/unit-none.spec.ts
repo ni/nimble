@@ -1,4 +1,4 @@
-import { UnitFamilyNone, unitNoneTag } from '..';
+import { UnitNone, unitNoneTag } from '..';
 
 describe('None unit', () => {
     it('should export its tag', () => {
@@ -7,7 +7,7 @@ describe('None unit', () => {
 
     it('can construct an element instance', () => {
         expect(document.createElement('nimble-unit-none')).toBeInstanceOf(
-            UnitFamilyNone
+            UnitNone
         );
     });
 

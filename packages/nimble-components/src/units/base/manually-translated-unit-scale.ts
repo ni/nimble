@@ -1,12 +1,12 @@
-import { ManuallyTranslatedUnit } from './manually-translated-unit';
-import { Unit, UnitFamily } from './unit-family';
+import { ManuallyTranslatedScaledUnit } from './manually-translated-scaled-unit';
+import { ScaledUnit, UnitScale } from './unit-scale';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
 
 /**
- * A family of units that are not supported by Intl.NumberFormat and have translations hard-coded in Nimble
+ * A unit scale that is not supported by Intl.NumberFormat and has translations hard-coded in Nimble
  */
-export abstract class ManuallyTranslatedUnitFamily extends UnitFamily {
+export abstract class ManuallyTranslatedUnitScale extends UnitScale {
     private readonly unitTranslations: Map<string, UnitTranslation>;
     private readonly supportedPrefixes: UnitPrefix[];
 
@@ -22,15 +22,15 @@ export abstract class ManuallyTranslatedUnitFamily extends UnitFamily {
     public getSupportedUnits(
         lang: string,
         formatterOptions: Intl.NumberFormatOptions
-    ): Unit[] {
+    ): ScaledUnit[] {
         const commonFormatter = new Intl.NumberFormat(lang, formatterOptions);
         const commonPluralRules = new Intl.PluralRules(lang);
         const language = new Intl.Locale(lang).language;
         const translations = this.unitTranslations.has(language)
             ? this.unitTranslations.get(language)!
             : this.unitTranslations.get('en')!;
-        const supportedUnits: Unit[] = [
-            new ManuallyTranslatedUnit(
+        const supportedUnits: ScaledUnit[] = [
+            new ManuallyTranslatedScaledUnit(
                 1,
                 commonFormatter,
                 commonPluralRules,
@@ -41,7 +41,7 @@ export abstract class ManuallyTranslatedUnitFamily extends UnitFamily {
         for (const prefix of this.supportedPrefixes) {
             const label = `${prefix.text}${translations.symbol}`;
             supportedUnits.push(
-                new ManuallyTranslatedUnit(
+                new ManuallyTranslatedScaledUnit(
                     prefix.factor,
                     commonFormatter,
                     commonPluralRules,

@@ -1,13 +1,13 @@
-import type { Unit } from '../../../units/base/unit-family';
+import type { ScaledUnit } from '../../../units/base/unit-scale';
 import { NumberFormatter } from './number-formatter';
 
 /**
  * A formatter for a number-text column that supports unit labels.
  */
 export class UnitFormatter extends NumberFormatter {
-    private readonly baseUnit: Unit;
+    private readonly baseUnit: ScaledUnit;
 
-    public constructor(private readonly supportedUnits: Unit[]) {
+    public constructor(private readonly supportedUnits: ScaledUnit[]) {
         super();
         this.baseUnit = supportedUnits.find(x => x.conversionFactor === 1)!;
         if (!this.baseUnit) {
@@ -29,7 +29,7 @@ export class UnitFormatter extends NumberFormatter {
         return unit.format(number / unit.conversionFactor);
     }
 
-    private pickBestUnit(number: number): Unit {
+    private pickBestUnit(number: number): ScaledUnit {
         const magnitude = Math.abs(number);
         if (
             magnitude === 0
