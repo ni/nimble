@@ -1,5 +1,5 @@
 import { Unit, UnitFamily } from '../../../../units/base/unit-family';
-import { unitFamilyNoneTag } from '../../../../units/none';
+import { unitNoneTag } from '../../../../units/none';
 import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../../../utilities/tests/parameterized';
 import { DefaultFormatter } from '../default-formatter';
@@ -232,7 +232,7 @@ describe('DefaultFormatter', () => {
                 () => {
                     const formatter = new DefaultFormatter(
                         locale,
-                        document.createElement(unitFamilyNoneTag) as UnitFamily
+                        document.createElement(unitNoneTag) as UnitFamily
                     );
                     const formattedValue = formatter.formatValue(
                         testCase.value

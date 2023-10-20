@@ -6,7 +6,7 @@ import { template } from '../base/template';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-unit-family-volt': UnitFamilyVolt;
+        'nimble-unit-volt': UnitFamilyVolt;
     }
 }
 
@@ -33,11 +33,11 @@ export class UnitFamilyVolt extends ManuallyTranslatedUnitFamily {
 }
 
 const nimbleUnitFamilyVolt = UnitFamilyVolt.compose({
-    baseName: 'unit-family-volt',
+    baseName: 'unit-volt',
     template
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleUnitFamilyVolt());
-export const unitFamilyVoltTag = DesignSystem.tagFor(UnitFamilyVolt);
+export const unitVoltTag = DesignSystem.tagFor(UnitFamilyVolt);

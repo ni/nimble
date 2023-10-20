@@ -4,7 +4,7 @@ import { Unit, UnitFamily } from '../base/unit-family';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-unit-family-none': UnitFamilyNone;
+        'nimble-unit-none': UnitFamilyNone;
     }
 }
 
@@ -26,10 +26,10 @@ export class UnitFamilyNone extends UnitFamily {
 }
 
 const nimbleUnitFamilyNone = UnitFamilyNone.compose({
-    baseName: 'unit-family-none'
+    baseName: 'unit-none'
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleUnitFamilyNone());
-export const unitFamilyNoneTag = DesignSystem.tagFor(UnitFamilyNone);
+export const unitNoneTag = DesignSystem.tagFor(UnitFamilyNone);

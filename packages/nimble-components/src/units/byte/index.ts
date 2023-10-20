@@ -9,7 +9,7 @@ import { UnitTranslation } from '../base/unit-translation';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-unit-family-byte': UnitFamilyByte;
+        'nimble-unit-byte': UnitFamilyByte;
     }
 }
 
@@ -117,11 +117,11 @@ export class UnitFamilyByte extends ManuallyTranslatedUnitFamily {
 }
 
 const nimbleUnitFamilyByte = UnitFamilyByte.compose({
-    baseName: 'unit-family-byte',
+    baseName: 'unit-byte',
     template
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleUnitFamilyByte());
-export const unitFamilyByteTag = DesignSystem.tagFor(UnitFamilyByte);
+export const unitByteTag = DesignSystem.tagFor(UnitFamilyByte);

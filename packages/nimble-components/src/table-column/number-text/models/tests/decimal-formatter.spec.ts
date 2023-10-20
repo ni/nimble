@@ -1,5 +1,5 @@
 import { Unit, UnitFamily } from '../../../../units/base/unit-family';
-import { unitFamilyNoneTag } from '../../../../units/none';
+import { unitNoneTag } from '../../../../units/none';
 import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../../../utilities/tests/parameterized';
 import { DecimalFormatter } from '../decimal-formatter';
@@ -144,7 +144,7 @@ describe('DecimalFormatter', () => {
                 () => {
                     const formatter = new DecimalFormatter(
                         locale,
-                        document.createElement(unitFamilyNoneTag) as UnitFamily,
+                        document.createElement(unitNoneTag) as UnitFamily,
                         testCase.minDigits,
                         testCase.maxDigits
                     );
@@ -187,7 +187,7 @@ describe('DecimalFormatter', () => {
         });
 
         it('does not double-convert the value when a unit is specified', () => {
-            const formatter = new DecimalFormatter('en', element, 2);
+            const formatter = new DecimalFormatter('en', element, 2, 2);
             const formattedValue = formatter.formatValue(3);
             expect(formattedValue).toEqual('1.5 x2');
         });
