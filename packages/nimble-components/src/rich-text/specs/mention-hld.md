@@ -63,39 +63,41 @@ they can alternatively insert the user ID in a valid URL format such as `user:us
 2.  If there is a requirement to mention an issue (using **"#"**) or a pull requests (using **"!"**),
     a new configuration component can be created and added as a child to the rich text editor. Below is an example of how
     these elements would be used:
-    ```html
-    <nimble-rich-text-editor>
-    <nimble-rich-text-mention-users pattern="http://users/.*">
-    <nimble-mapping-mention-user
-                    mention-url="http://users/user-id-1"
-                    display-name="John Doe"
-                ></nimble-mapping-mention-user>
-    <nimble-mapping-mention-user
-                    mention-url="http://users/user-id-1"
-                    display-name="Alice Smith"
-                ></nimble-mapping-mention-user>
-    <nimble-mapping-mention-user
-                    mention-url="http://users/user-id-1"
-                    display-name="Bob Jones"
-                ></nimble-mapping-mention-user>
-    </nimble-rich-text-mention-users>
 
-            <nimble-rich-text-mention-issues pattern="http://issues/.*">
-                <nimble-mapping-mention-user
-                    mention-url="http://issue/issue-id-1"
-                    display-name="Spec for rich text editor"
-                ></nimble-mapping-mention-user>
-                <nimble-mapping-mention-user
-                    mention-url="http://issue/issue-id-2"
-                    display-name="Mention support in rich text components"
-                ></nimble-mapping-mention-user>
-                <nimble-mapping-mention-user
-                    mention-url="http://issue/issue-id-3"
-                    display-name="Issue in pasting a link"
-                ></nimble-mapping-mention-user>
-            </nimble-rich-text-mention-issues>
-        </nimble-rich-text-editor>
-        ```
+    ````html
+    <nimble-rich-text-editor>
+        <nimble-rich-text-mention-users pattern="http://users/.*">
+            <nimble-mapping-mention-user
+                mention-url="http://users/user-id-1"
+                display-name="John Doe"
+            ></nimble-mapping-mention-user>
+            <nimble-mapping-mention-user
+                mention-url="http://users/user-id-1"
+                display-name="Alice Smith"
+            ></nimble-mapping-mention-user>
+            <nimble-mapping-mention-user
+                mention-url="http://users/user-id-1"
+                display-name="Bob Jones"
+            ></nimble-mapping-mention-user>
+        </nimble-rich-text-mention-users>
+
+        <nimble-rich-text-mention-issues pattern="http://issues/.*">
+            <nimble-mapping-mention-user
+                mention-url="http://issue/issue-id-1"
+                display-name="Spec for rich text editor"
+            ></nimble-mapping-mention-user>
+            <nimble-mapping-mention-user
+                mention-url="http://issue/issue-id-2"
+                display-name="Mention support in rich text components"
+            ></nimble-mapping-mention-user>
+            <nimble-mapping-mention-user
+                mention-url="http://issue/issue-id-3"
+                display-name="Issue in pasting a link"
+            ></nimble-mapping-mention-user>
+        </nimble-rich-text-mention-issues>
+    </nimble-rich-text-editor>
+    ```
+    ````
 
 3.  As the URLs are stored as absolute links within the markdown string, mentions of issues or systems, as described above,
     initially appear as links. However, once we introduce support for mentioning issues or systems by matching the specified
