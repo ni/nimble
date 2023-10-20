@@ -4,6 +4,7 @@ import {
     ARIAGlobalStatesAndProperties,
     DesignSystem,
     FoundationElement,
+    ListboxElement,
 } from '@microsoft/fast-foundation';
 import {
     keyEnter,
@@ -44,7 +45,6 @@ import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import type { AnchoredRegion } from '../../anchored-region';
 import type { Button } from '../../button';
-import type { MentionBox } from './mention-popup';
 import { userMentionViewTag } from '../mention-view/user-mention-view';
 import { RichTextEnumMention, UserInfo } from './enum-text';
 
@@ -222,7 +222,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /**
      * @internal
      */
-    public mentionBox!: MentionBox;
+    public listBox!: ListboxElement;
 
     private resizeObserver?: ResizeObserver;
     private mentionPropCommand!: SuggestionProps;
@@ -666,10 +666,12 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                                 return {
                                     onStart: (props): void => {
                                         this.updateUserLists(props);
+                                        this.listBox.selectFirstOption();
                                     },
 
                                     onUpdate: (props): void => {
                                         this.updateUserLists(props);
+                                        this.listBox.selectFirstOption();
                                     },
 
                                     onKeyDown: (props): boolean => {
@@ -680,7 +682,12 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                                             this.open = false;
                                             return false;
                                         }
-                                        return this.mentionBox.keydownHandler(props.event);
+                                        if (props.event.key === 'Enter') {
+                                            console.log(this.listBox.selectedOptions);
+                                            this.open = false;
+                                            return true;
+                                        }
+                                        return !this.listBox.keydownHandler(props.event);
                                     },
 
                                     onExit: (): void => {

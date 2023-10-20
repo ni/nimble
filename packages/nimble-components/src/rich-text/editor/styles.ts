@@ -257,7 +257,7 @@ export const styles = css`
     }
 
     .listbox {
-        max-height: 160px;
+       height: 160px;
         min-width: 100px;
     }
 
