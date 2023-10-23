@@ -88,7 +88,7 @@ The APIs noted above will enable the client to lazy load data into the `Table`. 
 5. The user must then create a set of data with rows where they provide a field with the name specified by the `parendIdFieldName` attribute that has the value of the `recordId` value supplied in the event details.
 6. The user then sets the data on the `Table` again with the `setData` method.
 
-_Note: It is up to the user to manage whether or not the children of a row has already been loaded in order to avoid recreation of their data and calling `setData` on the `Table` unnecessarily._
+_The client is responsible for checking if the row’s children have already been loaded. This can prevent unnecessary data recreation and `setData` calls on the `Table`.._
 
 ### Translating flat list to Tanstack-understandable hierarchy
 
