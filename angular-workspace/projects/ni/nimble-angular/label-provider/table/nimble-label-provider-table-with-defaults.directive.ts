@@ -16,6 +16,12 @@ export class NimbleLabelProviderTableWithDefaultsDirective {
         this.elementRef.nativeElement.groupExpand = $localize`:Nimble table - expand group|:Expand group`;
         this.elementRef.nativeElement.groupsCollapseAll = $localize`:Nimble table - collapse all groups|:Collapse all groups`;
         this.elementRef.nativeElement.cellActionMenu = $localize`:Nimble table - cell action menu|:Options`;
-        this.elementRef.nativeElement.columnHeaderGroupedIndicator = $localize`:Nimble table - column header grouped indicator|:Grouped`;
+        this.elementRef.nativeElement.columnHeaderGrouped = $localize`:Nimble table - column header grouped|:Grouped`;
+        this.elementRef.nativeElement.columnHeaderSortedAscending = $localize`:Nimble table - column header sorted ascending|:Sorted ascending`;
+        this.elementRef.nativeElement.columnHeaderSortedDescending = $localize`:Nimble table - column header sorted descending|:Sorted descending`;
+        this.elementRef.nativeElement.selectAll = $localize`:Nimble table - select all rows|:Select all rows`;
+        this.elementRef.nativeElement.groupSelectAll = $localize`:Nimble table - select all rows in group|:Select all rows in group`;
+        this.elementRef.nativeElement.rowSelect = $localize`:Nimble table - select row|:Select row`;
+        this.elementRef.nativeElement.rowOperationColumn = $localize`:Nimble table - row operation column|:Row operations`;
     }
 }

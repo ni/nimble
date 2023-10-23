@@ -1,10 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import {
-    createUserSelectedThemeStory,
-    incubatingWarning
-} from '../../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnDateTextTag } from '..';
 import {
@@ -57,8 +54,9 @@ const simpleData = [
 ];
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Incubating/Table Column - Date Text',
+    title: 'Components/Table Column: Date Text',
     decorators: [withActions],
+    tags: ['autodocs'],
     parameters: {
         actions: {
             handles: sharedTableActions
@@ -106,7 +104,7 @@ interface TextColumnTableArgs extends SharedTableArgs {
     validity: () => void;
 }
 
-const dateTextColumnDescription = 'The `nimble-table-column-date-text` column is used to display date-time fields as text in the `nimble-table`. The date-time values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the [JavaScript `Date` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).';
+const dateTextColumnDescription = 'The `nimble-table-column-date-text` column is used to display date-time fields as text in the `nimble-table`. The date-time values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the [JavaScript `Date` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date). Dates are formatted in a locale-specific way based on the value of the `lang` token, which can be set via the [`nimble-theme-provider`](?path=/docs/tokens-theme-provider--docs).';
 
 const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
 The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
@@ -123,10 +121,6 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
-        ${incubatingWarning({
-        componentName: 'table',
-        statusLink: 'https://github.com/orgs/ni/projects/7/views/21'
-    })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

@@ -1,7 +1,7 @@
 import type { WaferMap } from '..';
 import { Computations } from '../modules/computations';
-import { Margin, WaferMapQuadrant } from '../types';
-import { getWaferMapDies } from './utilities';
+import { Margin, WaferMapOriginLocation } from '../types';
+import { getWaferMapMockComputations, getWaferMapDies } from './utilities';
 
 describe('Wafermap Computations module', () => {
     let computationsModule: Computations;
@@ -14,15 +14,12 @@ describe('Wafermap Computations module', () => {
             left: 4
         };
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            'dies' | 'quadrant' | 'canvasWidth' | 'canvasHeight'
-            > = {
-                dies: getWaferMapDies(),
-                quadrant: WaferMapQuadrant.topLeft,
-                canvasWidth: 100,
-                canvasHeight: 100
-            };
+            const waferMock = getWaferMapMockComputations(
+                getWaferMapDies(),
+                WaferMapOriginLocation.topLeft,
+                100,
+                100
+            );
             computationsModule = new Computations(waferMock as WaferMap);
             computationsModule.updateContainerDimensions();
         });
@@ -67,15 +64,12 @@ describe('Wafermap Computations module', () => {
 
     describe('with rectangular canvas', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            'dies' | 'quadrant' | 'canvasWidth' | 'canvasHeight'
-            > = {
-                dies: getWaferMapDies(),
-                quadrant: WaferMapQuadrant.topLeft,
-                canvasWidth: 200,
-                canvasHeight: 100
-            };
+            const waferMock = getWaferMapMockComputations(
+                getWaferMapDies(),
+                WaferMapOriginLocation.topLeft,
+                200,
+                100
+            );
             computationsModule = new Computations(waferMock as WaferMap);
             computationsModule.updateContainerDimensions();
         });
@@ -112,17 +106,14 @@ describe('Wafermap Computations module', () => {
         });
     });
 
-    describe('with top left origin quadrant', () => {
+    describe('with top left originLocation', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            'dies' | 'quadrant' | 'canvasWidth' | 'canvasHeight'
-            > = {
-                dies: getWaferMapDies(),
-                quadrant: WaferMapQuadrant.topLeft,
-                canvasWidth: 100,
-                canvasHeight: 100
-            };
+            const waferMock = getWaferMapMockComputations(
+                getWaferMapDies(),
+                WaferMapOriginLocation.topLeft,
+                100,
+                100
+            );
             computationsModule = new Computations(waferMock as WaferMap);
             computationsModule.updateContainerDimensions();
         });
@@ -132,21 +123,19 @@ describe('Wafermap Computations module', () => {
         });
 
         it('should have increasing vertical range', () => {
+            // because the canvas has top-left origin location we need to flip the vertical scale
             expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
         });
     });
 
-    describe('with top right origin quadrant', () => {
+    describe('with top right originLocation', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            'dies' | 'quadrant' | 'canvasWidth' | 'canvasHeight'
-            > = {
-                dies: getWaferMapDies(),
-                quadrant: WaferMapQuadrant.topRight,
-                canvasWidth: 100,
-                canvasHeight: 100
-            };
+            const waferMock = getWaferMapMockComputations(
+                getWaferMapDies(),
+                WaferMapOriginLocation.topRight,
+                100,
+                100
+            );
             computationsModule = new Computations(waferMock as WaferMap);
             computationsModule.updateContainerDimensions();
         });
@@ -156,21 +145,19 @@ describe('Wafermap Computations module', () => {
         });
 
         it('should have increasing vertical range', () => {
+            // because the canvas has top-left origin location we need to flip the vertical scale
             expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
         });
     });
 
-    describe('with bottom left origin quadrant', () => {
+    describe('with bottom left originLocation', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            'dies' | 'quadrant' | 'canvasWidth' | 'canvasHeight'
-            > = {
-                dies: getWaferMapDies(),
-                quadrant: WaferMapQuadrant.bottomLeft,
-                canvasWidth: 100,
-                canvasHeight: 100
-            };
+            const waferMock = getWaferMapMockComputations(
+                getWaferMapDies(),
+                WaferMapOriginLocation.bottomLeft,
+                100,
+                100
+            );
             computationsModule = new Computations(waferMock as WaferMap);
             computationsModule.updateContainerDimensions();
         });
@@ -180,21 +167,19 @@ describe('Wafermap Computations module', () => {
         });
 
         it('should have decreasing vertical range', () => {
+            // because the canvas has top-left origin location we need to flip the vertical scale
             expect(computationsModule.verticalScale.range()).toEqual([92, 0]);
         });
     });
 
-    describe('with bottom right origin quadrant', () => {
+    describe('with bottom right originLocation', () => {
         beforeEach(() => {
-            const waferMock: Pick<
-            WaferMap,
-            'dies' | 'quadrant' | 'canvasWidth' | 'canvasHeight'
-            > = {
-                dies: getWaferMapDies(),
-                quadrant: WaferMapQuadrant.bottomRight,
-                canvasWidth: 100,
-                canvasHeight: 100
-            };
+            const waferMock = getWaferMapMockComputations(
+                getWaferMapDies(),
+                WaferMapOriginLocation.bottomRight,
+                100,
+                100
+            );
             computationsModule = new Computations(waferMock as WaferMap);
             computationsModule.updateContainerDimensions();
         });
@@ -204,6 +189,7 @@ describe('Wafermap Computations module', () => {
         });
 
         it('should have decreasing vertical range', () => {
+            // because the canvas has top-left origin location we need to flip the vertical scale
             expect(computationsModule.verticalScale.range()).toEqual([92, 0]);
         });
     });

@@ -14,7 +14,7 @@ import {
     bodyFont,
     controlLabelFontColor,
     controlLabelDisabledFontColor,
-    standardPadding,
+    mediumPadding,
     iconColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
@@ -63,7 +63,7 @@ export const styles = css`
         align-items: center;
         justify-content: center;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
-        gap: calc(${standardPadding} / 2);
+        gap: ${mediumPadding};
         padding: ${borderWidth};
     }
 

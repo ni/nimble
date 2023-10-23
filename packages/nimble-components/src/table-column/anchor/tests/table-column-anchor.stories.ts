@@ -1,10 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import {
-    createUserSelectedThemeStory,
-    incubatingWarning
-} from '../../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnAnchorTag } from '..';
 import {
@@ -17,7 +14,7 @@ import { tableColumnTextTag } from '../../text';
 import { AnchorAppearance } from '../../../anchor/types';
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Incubating/Table Column - Anchor',
+    title: 'Components/Table Column: Anchor',
     decorators: [withActions],
     parameters: {
         actions: {
@@ -86,7 +83,6 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<AnchorColumnTableArgs>`
-        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

@@ -6,7 +6,8 @@ import {
     borderRgbPartialColor,
     borderWidth,
     controlHeight,
-    standardPadding
+    mediumPadding,
+    smallPadding
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -25,6 +26,6 @@ export const styles = css`
         height: 24px;
         border-left: calc(${borderWidth} * 2) solid
             rgba(${borderRgbPartialColor}, 0.3);
-        margin: calc(${standardPadding} / 4) calc(${standardPadding} / 2);
+        margin: ${smallPadding} ${mediumPadding};
     }
 `;

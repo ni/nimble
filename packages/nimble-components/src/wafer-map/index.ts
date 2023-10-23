@@ -16,9 +16,11 @@ import {
     WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOrientation,
-    WaferMapQuadrant
+    WaferMapOriginLocation,
+    WaferMapValidity
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
+import { WaferMapValidator } from './modules/wafer-map-validator';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -36,32 +38,34 @@ export class WaferMap extends FoundationElement {
      */
     public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
 
-    @attr
-    public quadrant: WaferMapQuadrant = WaferMapQuadrant.topLeft;
+    @attr({ attribute: 'origin-location' })
+    public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
+
+    @attr({ attribute: 'grid-min-x', converter: nullableNumberConverter })
+    public gridMinX?: number = undefined;
+
+    @attr({ attribute: 'grid-max-x', converter: nullableNumberConverter })
+    public gridMaxX?: number = undefined;
+
+    @attr({ attribute: 'grid-min-y', converter: nullableNumberConverter })
+    public gridMinY?: number = undefined;
+
+    @attr({ attribute: 'grid-max-y', converter: nullableNumberConverter })
+    public gridMaxY?: number = undefined;
 
     @attr
     public orientation: WaferMapOrientation = WaferMapOrientation.top;
 
-    @attr({
-        attribute: 'max-characters',
-        converter: nullableNumberConverter
-    })
+    @attr({ attribute: 'max-characters', converter: nullableNumberConverter })
     public maxCharacters = 4;
 
-    @attr({
-        attribute: 'die-labels-hidden',
-        mode: 'boolean'
-    })
+    @attr({ attribute: 'die-labels-hidden', mode: 'boolean' })
     public dieLabelsHidden = false;
 
-    @attr({
-        attribute: 'die-labels-suffix'
-    })
+    @attr({ attribute: 'die-labels-suffix' })
     public dieLabelsSuffix = '';
 
-    @attr({
-        attribute: 'color-scale-mode'
-    })
+    @attr({ attribute: 'color-scale-mode' })
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     /**
@@ -142,6 +146,11 @@ export class WaferMap extends FoundationElement {
 
     private readonly eventCoordinator = new EventCoordinator(this);
     private readonly resizeObserver = this.createResizeObserver();
+    private readonly waferMapValidator = new WaferMapValidator(this);
+
+    public get validity(): WaferMapValidity {
+        return this.waferMapValidator.getValidity();
+    }
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -168,6 +177,7 @@ export class WaferMap extends FoundationElement {
     public update(): void {
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
+            this.waferMapValidator.validateGridDimensions();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -210,8 +220,28 @@ export class WaferMap extends FoundationElement {
         return resizeObserver;
     }
 
-    private quadrantChanged(): void {
-        this.waferMapUpdateTracker.track('quadrant');
+    private originLocationChanged(): void {
+        this.waferMapUpdateTracker.track('originLocation');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private gridMinXChanged(): void {
+        this.waferMapUpdateTracker.track('gridMinX');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private gridMaxXChanged(): void {
+        this.waferMapUpdateTracker.track('gridMaxX');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private gridMinYChanged(): void {
+        this.waferMapUpdateTracker.track('gridMinY');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private gridMaxYChanged(): void {
+        this.waferMapUpdateTracker.track('gridMaxY');
         this.waferMapUpdateTracker.queueUpdate();
     }
 

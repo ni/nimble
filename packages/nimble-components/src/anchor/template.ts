@@ -1,8 +1,7 @@
 import { html, ref, slotted, ViewTemplate } from '@microsoft/fast-element';
-import {
+import type {
     AnchorOptions,
-    FoundationElementTemplate,
-    startSlotTemplate
+    FoundationElementTemplate
 } from '@microsoft/fast-foundation';
 import type { Anchor } from '.';
 
@@ -10,8 +9,7 @@ import type { Anchor } from '.';
 export const template: FoundationElementTemplate<
 ViewTemplate<Anchor>,
 AnchorOptions
-> = (context, definition) => html<Anchor>`
-    <a
+> = (_context, definition) => html<Anchor>`<a
         class="control"
         part="control"
         download="${x => x.download}"
@@ -43,19 +41,37 @@ AnchorOptions
         aria-relevant="${x => x.ariaRelevant}"
         aria-roledescription="${x => x.ariaRoledescription}"
         ${ref('control')}
-    >
-        ${startSlotTemplate(context, definition)}
-        ${/* End slot template inlined to avoid extra whitespace.
-             See https://github.com/microsoft/fast/issues/6557 */ ''}
-        ${/* Whitespace intentionally avoided between tags for inline styles */ ''}
-        <span class="content" part="content"><slot ${slotted('defaultSlottedContent')}></slot></span
-        ><span
-            part="end"
-            ${ref('endContainer')}
-            class=${_x => (definition.end ? 'end' : null)}
-        >
-            <slot name="end" ${ref('end')} @slotchange="${x => x.handleEndContentChange()}">
-                ${definition.end || ''}
-            </slot>
-        </span></a>
-`;
+    >${
+    /* Start and End slot templates inlined to avoid extra whitespace.
+       See https://github.com/microsoft/fast/issues/6557
+
+       Whitespace intentionally avoided between tags for inline styles */ ''
+}<span
+        part="start"
+        ${ref('startContainer')}
+        class="${_x => (definition.start ? 'start' : null)}"
+        ><slot
+            name="start"
+            ${ref('start')}
+            @slotchange="${x => x.handleStartContentChange()}">
+            ${definition.start || ''}
+        </slot
+    ></span
+    ><span
+        class="content"
+        part="content"
+        ><slot
+            ${slotted('defaultSlottedContent')}
+        ></slot
+    ></span
+    ><span
+        part="end"
+        ${ref('endContainer')}
+        class=${_x => (definition.end ? 'end' : null)}
+        ><slot
+            name="end"
+            ${ref('end')}
+            @slotchange="${x => x.handleEndContentChange()}">
+            ${definition.end || ''}
+        </slot
+    ></span></a>`;

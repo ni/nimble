@@ -8,6 +8,7 @@ import {
     controlHeight,
     fillHoverColor,
     fillHoverSelectedColor,
+    mediumPadding,
     standardPadding,
     smallDelay,
     buttonLabelFont
@@ -56,8 +57,8 @@ export const styles = css`
 
     slot:not([name]) {
         display: block;
-        padding: calc(${standardPadding} / 2) ${standardPadding}
-            calc(${standardPadding} / 2 - ${borderWidth});
+        padding: ${mediumPadding} ${standardPadding}
+            calc(${mediumPadding} - ${borderWidth});
     }
 
     :host::before {

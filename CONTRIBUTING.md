@@ -11,18 +11,20 @@ This repository uses the following tooling. See below for more info.
 3. Testing via [Karma](http://karma-runner.github.io/6.3/index.html), [Jasmine](https://jasmine.github.io/), [bUnit](https://bunit.dev/), and [Playwright](https://playwright.dev/)
 4. Releases via [beachball](https://microsoft.github.io/beachball/)
 5. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
+6. Automated dependency updates via [Renovate](https://docs.renovatebot.com/)
 
 ### Helpful links
 
 - [Nimble architecture](/docs/Architecture.md)
 - [Nimble Components XD Library](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/)
 - [Nimble Components Figma Library](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A77205&mode=dev)
+- [Nimble technologies walkthrough video](https://nio365.sharepoint.com/:v:/s/SystemLinkDesignSystem/EY4c8IRUechPgBkomuIDwwEB2rl66Tg2CJxY0nfPsqSb8g?e=fWViGm) (NI internal)
 
 ## Getting started
 
 First step in development is to build the monorepo which requires the following to be installed:
 
-- Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
+- Node.js version 18+ (run `node --version`) and npm version 8+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
 - .NET 6 SDK (`6.0.202 <= version < 7`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
    - Run `dotnet --info` to verify the required version of the SDK is installed. A `v6` install is required, but it's fine if later versions are installed too.
 
@@ -174,6 +176,12 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 ```bash
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
+
+## Updating dependencies
+
+This repository uses [Renovate](https://docs.renovatebot.com/) to automatically create pull requests that bump the version of dependencies on a schedule. Renovate is configured via [`renovate.json`](./.github/renovate.json).
+
+Code owners are responsible for completing or rejecting Renovate PRs. Completing a PR currently requires manually adding a beachball change file to the branch. The change `type` will typically be `none` if only `package-lock.json` is changing and `patch` if any `package.json` is changing. The `comment` should summarize which set of dependencies are being updated.
 
 ## Handling intermittent test failures
 

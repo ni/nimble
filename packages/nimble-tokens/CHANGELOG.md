@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Wed, 02 Aug 2023 19:10:45 GMT and should not be manually modified.
+This log was last generated on Mon, 23 Oct 2023 14:17:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.6.0
+
+Mon, 23 Oct 2023 14:17:52 GMT
+
+### Minor changes
+
+- Add icon for Save As ([ni/nimble@62016ff](https://github.com/ni/nimble/commit/62016ff5a313a4c35f7850a2a4261251ceda51e0))
+
+## 6.5.0
+
+Wed, 18 Oct 2023 18:51:54 GMT
+
+### Minor changes
+
+- add ni and systemlink logo icons ([ni/nimble@2a79981](https://github.com/ni/nimble/commit/2a799815ee5117c3cf863fc522333497e50ff355))
+
+## 6.4.1
+
+Mon, 16 Oct 2023 21:31:42 GMT
+
+### Patches
+
+- Update TypeScript dependency to 4.8 ([ni/nimble@8a42916](https://github.com/ni/nimble/commit/8a429164d4987cc1b932adb3c93727afdc8c5202))
+
+## 6.4.0
+
+Wed, 20 Sep 2023 18:55:59 GMT
+
+### Minor changes
+
+- New icons for indent and outdent list level ([ni/nimble@f12cbc5](https://github.com/ni/nimble/commit/f12cbc59d683ae048a85750990cc4ae174464590))
 
 ## 6.3.0
 

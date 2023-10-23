@@ -57,6 +57,16 @@ export class NimbleNumberFieldDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'step', toNumberProperty(value));
     }
 
+    public get hideStep(): boolean {
+        return this.elementRef.nativeElement.hideStep;
+    }
+
+    // hideStep property maps to the hide-step attribute
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('hide-step') public set hideStep(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'hideStep', toBooleanProperty(value));
+    }
+
     public get placeholder(): string {
         return this.elementRef.nativeElement.placeholder;
     }
