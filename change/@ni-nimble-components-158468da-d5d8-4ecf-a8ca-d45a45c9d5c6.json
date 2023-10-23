@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add icon for Save As",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
