@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Add spec for nimble-card, no code changes yet",
+  "packageName": "@ni/nimble-components",
+  "email": "kelsey.johnson@ni.com",
+  "dependentChangeType": "none"
+}
