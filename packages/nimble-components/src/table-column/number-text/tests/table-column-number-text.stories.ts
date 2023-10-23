@@ -134,6 +134,23 @@ To improve the ability for users to visually scan values, applications should se
 </details>
 `;
 
+const unitDescription = `A unit for the column may be configured by providing a \`nimble-unit-<name>\` element as content (in addition to the column label). Unit elements represent a set of related, scaled units, e.g. \`nimble-unit-byte\` represents bytes, KB, MB, etc. Values are converted from a source unit (e.g. bytes) to the largest scaled unit (e.g. KB, MB, etc.) that can represent that value with magnitude >= 1. The source data for the column is expected to be given in the base unit specified in the tag name, e.g. for \`nimble-unit-byte\`, a source value should be a number of bytes.
+
+<details>
+    <summary>Unit Elements</summary>
+
+    <ul>
+        <li>\`nimble-unit-byte\`: Labels in this unit scale are \`byte\`/\`bytes\`, \`KB\`, \`MB\`, \`GB\`, \`TB\`, and \`PB\`.
+            <ul>
+                <li>\`binary\` - boolean attribute that indicates a binary conversion factor of 1024 should be used rather than 1000. The resulting unit labels are \`byte\`/\`bytes\`, \`KiB\`, \`MiB\`, \`GiB\`, \`TiB\`, and \`PiB\`.</li>
+            </ul>
+        </li>
+        <li>\`nimble-unit-volt\`: Labels in this unit scale are \`volt\`/\`volts\`, \`fV\`, \`pV\`, \`nV\`, \`μV\`, \`mV\`, \`cV\`, \`dV\`, \`kV\`, \`MV\`, \`GV\`, \`TV\`, \`PV\`, and \`EV\`.
+        </li>
+    </ul>
+</details>
+`;
+
 export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
     parameters: {
         docs: {
@@ -200,7 +217,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             control: { type: 'select' }
         },
         unit: {
-            description: 'TODO',
+            description: unitDescription,
             options: ['default', 'byte', 'byte (1024)', 'volt'],
             control: { type: 'radio' }
         },
