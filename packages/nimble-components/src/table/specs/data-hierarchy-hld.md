@@ -82,7 +82,7 @@ The table will be invalid if the user has set the `parentIdFieldName` attribute 
 The APIs noted above will enable the client to lazy load data into the `Table`. This will essentially be accomplished with the following steps:
 
 1. Providing a field in a record of the table data that indicates whether that row of data is intended to be a parent row. Records that are intended to be parents must set the value of the field, whose name is specified by the `forceExpandCollapseFieldName` attribute, to `true`.
-2. After providing the current data to the `Table` via the `setData` method, all rows that have a value of `true` in the field specified by the `forceExpandCollapseFieldName` attribute will display and expand/collapse button.
+2. After providing the current data to the `Table` via the `setData` method, all rows that have a value of `true` in the field specified by the `forceExpandCollapseFieldName` attribute will display an expand/collapse button.
 3. Users must register a handler for the `row-expand-toggle` event on the `Table` instance, and will receive that event upon clicking the expand/collapse button.
 4. The details of the handled event will include the id for the row that was expanded.
 5. The user must then create a set of data with rows where they provide a field with the name specified by the `parendIdFieldName` attribute that has the value of the `recordId` value supplied in the event details.
