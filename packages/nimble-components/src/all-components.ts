@@ -58,6 +58,5 @@ import './tooltip';
 import './tree-item';
 import './tree-view';
 import './units/byte';
-import './units/none';
 import './units/volt';
 import './wafer-map';

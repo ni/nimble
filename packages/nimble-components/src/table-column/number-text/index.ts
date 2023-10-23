@@ -25,7 +25,7 @@ import { TableColumnNumberTextValidator } from './models/table-column-number-tex
 import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
 import { UnitScale } from '../../units/base/unit-scale';
-import { unitNoneTag } from '../../units/none';
+import { NoUnitScaleFormatter } from './models/no-unit-scale-formatter';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
@@ -172,8 +172,9 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private createFormatter(): NumberFormatter {
-        const unitScale = this.unitScale
-            ?? (document.createElement(unitNoneTag) as UnitScale);
+        const unitScaleFormatter = this.unitScale
+            ? this.unitScale.getFormatter()
+            : NoUnitScaleFormatter;
         switch (this.format) {
             case NumberTextFormat.decimal: {
                 const minimumDigits = typeof this.decimalMaximumDigits === 'number'
@@ -184,13 +185,17 @@ export class TableColumnNumberText extends TableColumnTextBase {
                     ?? defaultDecimalDigits;
                 return new DecimalFormatter(
                     lang.getValueFor(this),
-                    unitScale,
+                    unitScaleFormatter,
                     minimumDigits,
                     maximumDigits
                 );
             }
-            default:
-                return new DefaultFormatter(lang.getValueFor(this), unitScale);
+            default: {
+                return new DefaultFormatter(
+                    lang.getValueFor(this),
+                    unitScaleFormatter
+                );
+            }
         }
     }
 

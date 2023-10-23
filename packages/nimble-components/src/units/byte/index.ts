@@ -1,11 +1,10 @@
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { IntlNumberFormatUnit } from '../base/intl-number-format-unit';
-import type { ScaledUnit } from '../base/unit-scale';
 import { template } from '../base/template';
-import { ManuallyTranslatedUnitScale } from '../base/manually-translated-unit-scale';
-import { UnitPrefix } from '../base/unit-prefix';
-import { UnitTranslation } from '../base/unit-translation';
+import type { UnitScaleFormatterContructor } from '../../table-column/number-text/models/unit-scale-formatter';
+import { Byte1024ScaleFormatter } from '../../table-column/number-text/models/byte-1024-scale-formatter';
+import { ByteScaleFormatter } from '../../table-column/number-text/models/byte-scale-formatter';
+import { UnitScale } from '../base/unit-scale';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,103 +15,13 @@ declare global {
 /**
  * Element representing units for bytes
  */
-export class UnitByte extends ManuallyTranslatedUnitScale {
+export class UnitByte extends UnitScale {
     // If true, 1024-based units are used instead of 1000-based units
     @attr({ mode: 'boolean' })
     public binary = false;
 
-    public override getSupportedUnits(
-        lang: string,
-        formatterOptions: Intl.NumberFormatOptions
-    ): ScaledUnit[] {
-        return this.binary
-            ? super.getSupportedUnits(lang, formatterOptions)
-            : this.getSupportedDecimalUnits(lang, formatterOptions);
-    }
-
-    protected override getUnitTranslations(): Map<string, UnitTranslation> {
-        const unitTranslations = new Map<string, UnitTranslation>();
-        unitTranslations.set('en', new UnitTranslation('byte', 'bytes', 'B'));
-        unitTranslations.set('fr', new UnitTranslation('octet', 'octets', 'o'));
-        unitTranslations.set('de', new UnitTranslation('Byte', 'Byte', 'B'));
-        unitTranslations.set(
-            'ja',
-            new UnitTranslation('バイト', 'バイト', 'B')
-        );
-        unitTranslations.set('zh', new UnitTranslation('字节', '字节', 'B'));
-        return unitTranslations;
-    }
-
-    protected override getSupportedPrefixes(): UnitPrefix[] {
-        return [
-            new UnitPrefix(1024, 'Ki'),
-            new UnitPrefix(1024 ** 2, 'Mi'),
-            new UnitPrefix(1024 ** 3, 'Gi'),
-            new UnitPrefix(1024 ** 4, 'Ti'),
-            new UnitPrefix(1024 ** 5, 'Pi')
-        ];
-    }
-
-    private getSupportedDecimalUnits(
-        lang: string,
-        formatterOptions: Intl.NumberFormatOptions
-    ): ScaledUnit[] {
-        return [
-            new IntlNumberFormatUnit(
-                1,
-                new Intl.NumberFormat(lang, {
-                    ...formatterOptions,
-                    style: 'unit',
-                    unit: 'byte',
-                    unitDisplay: 'long'
-                })
-            ),
-            new IntlNumberFormatUnit(
-                1000,
-                new Intl.NumberFormat(lang, {
-                    ...formatterOptions,
-                    style: 'unit',
-                    unit: 'kilobyte',
-                    unitDisplay: 'short'
-                })
-            ),
-            new IntlNumberFormatUnit(
-                10 ** 6,
-                new Intl.NumberFormat(lang, {
-                    ...formatterOptions,
-                    style: 'unit',
-                    unit: 'megabyte',
-                    unitDisplay: 'short'
-                })
-            ),
-            new IntlNumberFormatUnit(
-                10 ** 9,
-                new Intl.NumberFormat(lang, {
-                    ...formatterOptions,
-                    style: 'unit',
-                    unit: 'gigabyte',
-                    unitDisplay: 'short'
-                })
-            ),
-            new IntlNumberFormatUnit(
-                10 ** 12,
-                new Intl.NumberFormat(lang, {
-                    ...formatterOptions,
-                    style: 'unit',
-                    unit: 'terabyte',
-                    unitDisplay: 'short'
-                })
-            ),
-            new IntlNumberFormatUnit(
-                10 ** 15,
-                new Intl.NumberFormat(lang, {
-                    ...formatterOptions,
-                    style: 'unit',
-                    unit: 'petabyte',
-                    unitDisplay: 'short'
-                })
-            )
-        ];
+    public override getFormatter(): UnitScaleFormatterContructor {
+        return this.binary ? Byte1024ScaleFormatter : ByteScaleFormatter;
     }
 }
 

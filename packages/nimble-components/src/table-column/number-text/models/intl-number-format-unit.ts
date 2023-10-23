@@ -1,4 +1,4 @@
-import type { ScaledUnit } from './unit-scale';
+import type { ScaledUnit } from './scaled-unit';
 
 /**
  * A unit that can be formatted/translated by Intl.NumberFormat

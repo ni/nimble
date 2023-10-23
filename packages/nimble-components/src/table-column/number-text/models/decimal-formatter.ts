@@ -1,28 +1,29 @@
-import type { UnitScale } from '../../../units/base/unit-scale';
 import { NumberFormatter } from './number-formatter';
-import { UnitFormatter } from './unit-formatter';
+import type {
+    UnitScaleFormatter,
+    UnitScaleFormatterContructor
+} from './unit-scale-formatter';
 
 /**
  * The formatter for a number-text column whose format is configured to be 'decimal'.
  */
 export class DecimalFormatter extends NumberFormatter {
-    private readonly formatter: UnitFormatter;
+    private readonly formatter: UnitScaleFormatter;
     private readonly tenPowDecimalDigits: number;
 
     public constructor(
         locale: string,
-        unitScale: UnitScale,
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        UnitScaleFormatterContructor: UnitScaleFormatterContructor,
         minimumFractionDigits: number,
         maximumFractionDigits: number
     ) {
         super();
-        this.formatter = new UnitFormatter(
-            unitScale.getSupportedUnits(locale, {
-                maximumFractionDigits,
-                minimumFractionDigits,
-                useGrouping: true
-            })
-        );
+        this.formatter = new UnitScaleFormatterContructor(locale, {
+            minimumFractionDigits,
+            maximumFractionDigits,
+            useGrouping: true
+        });
         this.tenPowDecimalDigits = 10 ** maximumFractionDigits;
     }
 

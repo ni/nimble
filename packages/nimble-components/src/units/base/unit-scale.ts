@@ -1,16 +1,9 @@
 import { FoundationElement } from '@microsoft/fast-foundation';
-
-export interface ScaledUnit {
-    conversionFactor: number;
-    format(value: number): string;
-}
+import type { UnitScaleFormatterContructor } from '../../table-column/number-text/models/unit-scale-formatter';
 
 /**
  * An element representing a set of related units which could be used to represent the same value
  */
 export abstract class UnitScale extends FoundationElement {
-    public abstract getSupportedUnits(
-        lang: string,
-        formatterOptions: Intl.NumberFormatOptions
-    ): ScaledUnit[];
+    public abstract getFormatter(): UnitScaleFormatterContructor;
 }

@@ -1,8 +1,8 @@
-import { ScaledUnit, UnitScale } from '../../../../units/base/unit-scale';
-import { unitNoneTag } from '../../../../units/none';
-import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../../../utilities/tests/parameterized';
+import type { ScaledUnit } from '../scaled-unit';
+import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
 import { DefaultFormatter } from '../default-formatter';
+import { NoUnitScaleFormatter } from '../no-unit-scale-formatter';
+import { UnitScaleFormatter } from '../unit-scale-formatter';
 
 describe('DefaultFormatter', () => {
     const locales = ['en', 'de'] as const;
@@ -216,37 +216,23 @@ describe('DefaultFormatter', () => {
         }
     ] as const;
 
-    const focused: string[] = [];
-    const disabled: string[] = [];
     for (const locale of locales) {
-        for (const testCase of testCases) {
-            const specType = getSpecTypeByNamedList(
-                testCase,
-                focused,
-                disabled
-            );
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(
-                `${testCase.name} with '${locale}' locale`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                () => {
-                    const formatter = new DefaultFormatter(
-                        locale,
-                        document.createElement(unitNoneTag) as UnitScale
-                    );
-                    const formattedValue = formatter.formatValue(
-                        testCase.value
-                    );
-                    expect(formattedValue).toEqual(
-                        testCase.expectedFormattedValue[locale]
-                    );
-                }
-            );
-        }
+        parameterizeNamedList(testCases, (spec, name, value) => {
+            spec(`${name} with '${locale}' locale`, () => {
+                const formatter = new DefaultFormatter(
+                    locale,
+                    NoUnitScaleFormatter
+                );
+                const formattedValue = formatter.formatValue(value.value);
+                expect(formattedValue).toEqual(
+                    value.expectedFormattedValue[locale]
+                );
+            });
+        });
     }
 
     describe('with unit', () => {
-        class TestUnitScale extends UnitScale {
+        class TestUnitScaleFormatter extends UnitScaleFormatter {
             public override getSupportedUnits(
                 lang: string,
                 formatterOptions: Intl.NumberFormatOptions
@@ -264,34 +250,20 @@ describe('DefaultFormatter', () => {
                 });
             }
         }
-        const composedTestElement = TestUnitScale.compose({
-            baseName: 'test-default-formatter-unit-scale'
-        });
 
-        let element: TestUnitScale;
-
-        async function setup(): Promise<Fixture<TestUnitScale>> {
-            return fixture(composedTestElement());
-        }
-
-        beforeAll(async () => {
-            ({ element } = await setup());
-        });
+        const formatter = new DefaultFormatter('en', TestUnitScaleFormatter);
 
         it('does not double-convert the value when a unit is specified', () => {
-            const formatter = new DefaultFormatter('en', element);
             const formattedValue = formatter.formatValue(130);
             expect(formattedValue).toEqual('1.3 x100');
         });
 
         it('uses unit-converted value when deciding whether to format in exponential notation', () => {
-            const formatter = new DefaultFormatter('en', element);
             const formattedValue = formatter.formatValue(2000000);
             expect(formattedValue).toEqual('2,000 x1000');
         });
 
         it('always uses base unit if exponential notation is used', () => {
-            const formatter = new DefaultFormatter('en', element);
             const formattedValue = formatter.formatValue(2000000000);
             expect(formattedValue).toEqual('2E9 x1'); // rather than '2E6 x1000'
         });

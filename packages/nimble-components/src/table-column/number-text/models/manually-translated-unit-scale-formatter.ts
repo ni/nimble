@@ -1,17 +1,21 @@
 import { ManuallyTranslatedScaledUnit } from './manually-translated-scaled-unit';
-import { ScaledUnit, UnitScale } from './unit-scale';
+import type { ScaledUnit } from './scaled-unit';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
+import { UnitScaleFormatter } from './unit-scale-formatter';
 
 /**
  * A unit scale that is not supported by Intl.NumberFormat and has translations hard-coded in Nimble
  */
-export abstract class ManuallyTranslatedUnitScale extends UnitScale {
+export abstract class ManuallyTranslatedUnitScaleFormatter extends UnitScaleFormatter {
     private readonly unitTranslations: Map<string, UnitTranslation>;
     private readonly supportedPrefixes: UnitPrefix[];
 
-    public constructor() {
-        super();
+    public constructor(
+        lang: string,
+        formatterOptions: Intl.NumberFormatOptions
+    ) {
+        super(lang, formatterOptions);
         this.unitTranslations = this.getUnitTranslations();
         this.supportedPrefixes = this.getSupportedPrefixes();
         if (!this.unitTranslations.get('en')) {
@@ -19,7 +23,7 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
         }
     }
 
-    public getSupportedUnits(
+    protected override getSupportedUnits(
         lang: string,
         formatterOptions: Intl.NumberFormatOptions
     ): ScaledUnit[] {

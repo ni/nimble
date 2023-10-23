@@ -1,8 +1,8 @@
-import { ScaledUnit, UnitScale } from '../../../../units/base/unit-scale';
-import { unitNoneTag } from '../../../../units/none';
-import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../../../utilities/tests/parameterized';
+import type { ScaledUnit } from '../scaled-unit';
+import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
 import { DecimalFormatter } from '../decimal-formatter';
+import { NoUnitScaleFormatter } from '../no-unit-scale-formatter';
+import { UnitScaleFormatter } from '../unit-scale-formatter';
 
 describe('DecimalFormatter', () => {
     const locales = ['en', 'de'] as const;
@@ -128,39 +128,26 @@ describe('DecimalFormatter', () => {
         }
     ] as const;
 
-    const focused: string[] = [];
-    const disabled: string[] = [];
     for (const locale of locales) {
-        for (const testCase of testCases) {
-            const specType = getSpecTypeByNamedList(
-                testCase,
-                focused,
-                disabled
-            );
+        parameterizeNamedList(testCases, (spec, name, value) => {
             // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(
-                `${testCase.name} with '${locale}' locale`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                () => {
-                    const formatter = new DecimalFormatter(
-                        locale,
-                        document.createElement(unitNoneTag) as UnitScale,
-                        testCase.minDigits,
-                        testCase.maxDigits
-                    );
-                    const formattedValue = formatter.formatValue(
-                        testCase.value
-                    );
-                    expect(formattedValue).toEqual(
-                        testCase.expectedFormattedValue[locale]
-                    );
-                }
-            );
-        }
+            spec(`${name} with '${locale}' locale`, () => {
+                const formatter = new DecimalFormatter(
+                    locale,
+                    NoUnitScaleFormatter,
+                    value.minDigits,
+                    value.maxDigits
+                );
+                const formattedValue = formatter.formatValue(value.value);
+                expect(formattedValue).toEqual(
+                    value.expectedFormattedValue[locale]
+                );
+            });
+        });
     }
 
     describe('with unit', () => {
-        class TestUnitScale extends UnitScale {
+        class TestUnitScaleFormatter extends UnitScaleFormatter {
             public override getSupportedUnits(): ScaledUnit[] {
                 return [1, 2, 4].map(conversionFactor => {
                     return {
@@ -172,22 +159,14 @@ describe('DecimalFormatter', () => {
                 });
             }
         }
-        const composedTestElement = TestUnitScale.compose({
-            baseName: 'test-decimal-formatter-unit-scale'
-        });
-
-        let element: TestUnitScale;
-
-        async function setup(): Promise<Fixture<TestUnitScale>> {
-            return fixture(composedTestElement());
-        }
-
-        beforeAll(async () => {
-            ({ element } = await setup());
-        });
 
         it('does not double-convert the value when a unit is specified', () => {
-            const formatter = new DecimalFormatter('en', element, 2, 2);
+            const formatter = new DecimalFormatter(
+                'en',
+                TestUnitScaleFormatter,
+                2,
+                2
+            );
             const formattedValue = formatter.formatValue(3);
             expect(formattedValue).toEqual('1.5 x2');
         });

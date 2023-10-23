@@ -1,4 +1,4 @@
-import type { ScaledUnit } from './unit-scale';
+import type { ScaledUnit } from './scaled-unit';
 
 /**
  * A unit that is not supported by Intl.NumberFormat and must have translations built into Nimble

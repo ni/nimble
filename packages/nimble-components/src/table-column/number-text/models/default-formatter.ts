@@ -1,6 +1,8 @@
-import type { UnitScale } from '../../../units/base/unit-scale';
 import { NumberFormatter } from './number-formatter';
-import { UnitFormatter } from './unit-formatter';
+import type {
+    UnitScaleFormatter,
+    UnitScaleFormatterContructor
+} from './unit-scale-formatter';
 
 /**
  * The formatter for a number-text column whose format is configured to be 'default'.
@@ -19,39 +21,36 @@ export class DefaultFormatter extends NumberFormatter {
     private static readonly exponentialUpperBound = 999999.5;
 
     // Formatter to use by default. It renders the number with a maximum of 6 signficant digits.
-    private readonly defaultFormatter: UnitFormatter;
+    private readonly defaultFormatter: UnitScaleFormatter;
 
     // Formatter to use for numbers that have leading zeros. It limits the number of rendered
     // digits using 'maximumFractionDigits', which will result in less than 6 significant digits
     // in order to render no more than 6 total digits.
-    private readonly leadingZeroFormatter: UnitFormatter;
+    private readonly leadingZeroFormatter: UnitScaleFormatter;
 
     // Formatter for numbers that should be displayed in exponential notation. This should be used
     // for numbers with magintudes over 'exponentialUpperBound' or under 'exponentialLowerBound'.
-    private readonly exponentialFormatter: UnitFormatter;
+    private readonly exponentialFormatter: UnitScaleFormatter;
 
-    public constructor(locale: string, unitScale: UnitScale) {
+    public constructor(
+        locale: string,
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        UnitScaleFormatterContructor: UnitScaleFormatterContructor
+    ) {
         super();
-        this.defaultFormatter = new UnitFormatter(
-            unitScale.getSupportedUnits(locale, {
-                maximumSignificantDigits: DefaultFormatter.maximumDigits,
-                useGrouping: true
-            })
-        );
-        this.leadingZeroFormatter = new UnitFormatter(
-            unitScale.getSupportedUnits(locale, {
-                maximumFractionDigits: DefaultFormatter.maximumDigits - 1,
-                useGrouping: true
-            })
-        );
-        this.exponentialFormatter = new UnitFormatter(
-            unitScale
-                .getSupportedUnits(locale, {
-                    maximumSignificantDigits: DefaultFormatter.maximumDigits,
-                    notation: 'scientific'
-                })
-                .filter(x => x.conversionFactor === 1) // always use base unit for exponential formatting
-        );
+        this.defaultFormatter = new UnitScaleFormatterContructor(locale, {
+            maximumSignificantDigits: DefaultFormatter.maximumDigits,
+            useGrouping: true
+        });
+        this.leadingZeroFormatter = new UnitScaleFormatterContructor(locale, {
+            maximumFractionDigits: DefaultFormatter.maximumDigits - 1,
+            useGrouping: true
+        });
+        this.exponentialFormatter = new UnitScaleFormatterContructor(locale, {
+            maximumSignificantDigits: DefaultFormatter.maximumDigits,
+            notation: 'scientific'
+        });
+        this.exponentialFormatter.alwaysUseBaseUnit = true;
     }
 
     protected format(number: number): string {
@@ -64,7 +63,7 @@ export class DefaultFormatter extends NumberFormatter {
         return formatter.formatValue(valueToFormat);
     }
 
-    private getFormatterForNumber(number: number): UnitFormatter {
+    private getFormatterForNumber(number: number): UnitScaleFormatter {
         if (number === 0) {
             return this.defaultFormatter;
         }

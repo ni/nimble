@@ -1,7 +1,8 @@
+import type { ScaledUnit } from '../scaled-unit';
 import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
-import { UnitFormatter } from '../unit-formatter';
+import { UnitScaleFormatter } from '../unit-scale-formatter';
 
-describe('UnitFormatter', () => {
+describe('UnitScaleFormatter', () => {
     const testCases: readonly {
         name: string,
         value: number,
@@ -82,19 +83,25 @@ describe('UnitFormatter', () => {
         }
     ] as const;
 
-    const units = [0.5, 1, 5, 10].map(conversionFactor => {
-        return {
-            conversionFactor,
-            format: (value: number): string => {
-                return `${value} x${conversionFactor}`;
-            }
-        };
-    });
+    class TestUnitScaleFormatter extends UnitScaleFormatter {
+        private readonly units = [0.5, 1, 5, 10].map(conversionFactor => {
+            return {
+                conversionFactor,
+                format: (value: number): string => {
+                    return `${value} x${conversionFactor}`;
+                }
+            };
+        });
+
+        protected override getSupportedUnits(): ScaledUnit[] {
+            return this.units;
+        }
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-loop-func
     parameterizeNamedList(testCases, (spec, name, value) => {
         spec(`${name} (formatValue)`, () => {
-            const formatter = new UnitFormatter(units);
+            const formatter = new TestUnitScaleFormatter('', {});
             const formattedValue = formatter.formatValue(value.value);
             expect(formattedValue).toEqual(value.expectedFormattedValue);
         });
@@ -103,7 +110,7 @@ describe('UnitFormatter', () => {
     // eslint-disable-next-line @typescript-eslint/no-loop-func
     parameterizeNamedList(testCases, (spec, name, value) => {
         spec(`${name} (getValueForBestUnit)`, () => {
-            const formatter = new UnitFormatter(units);
+            const formatter = new TestUnitScaleFormatter('', {});
             const formattedValue = formatter.getValueForBestUnit(value.value);
             expect(formattedValue).toEqual(value.expectedConvertedValue);
         });
