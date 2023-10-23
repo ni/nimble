@@ -29,22 +29,22 @@ Since we're not providing any built-in content, the API surface area for the `ni
 contains only a slot, and there are no configurable properties on the component. Here is an example usage for
 the `nimble-card` component:
 
-```
+```html
 <nimble-card>
-    <div>
-        <h2>Heading</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        <nimble-button>Button</$nimble-button>
-    </div>
+    <h2>Heading</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <nimble-button>Button</$nimble-button>
 </nimble-card>
 ```
 
 While we don't have a finalized visual design spec, we expect the style will include a background color and a
-border, potentially with rounded corners. We will add design tokens for the background and border. The GitHub
-issue mentions several use cases for a card component that might call for different visual treatments, but we
-are only solving for the Routines use case at this time (grouping related configuration in a slide-out). To
-support other use cases in the future, we could potentially add appearance variants or make use of the `elevation`
-property of the component.
+border, potentially with rounded corners. The GitHub issue mentions several use cases for a card component
+that might call for different visual treatments, but we are only solving for the Routines use case at this
+time (grouping related configuration in a slide-out). To support other use cases in the future, we could
+potentially add appearance variants.
+
+We will hold off on adding new design tokens for the `nimble-card` until we get the visual design more settled,
+because we don't know if we will require different tokens from the existing components.
 
 ### API
 
@@ -59,10 +59,7 @@ property of the component.
 -   _Events_
     -   _(none)_
 -   _CSS Classes and Custom Properties that affect the component_
-    -   width
-    -   height
-    -   elevation
-        -   We don't currently plan to provide different styles based on elevation. This could be added in the future.
+    -   _(none)_
 -   _Slots_
     -   `(default)`
         -   Unchanged. Arbitrary content to be displayed in the `nimble-card``.
