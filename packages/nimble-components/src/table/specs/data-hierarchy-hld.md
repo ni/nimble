@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-There are scenarios where clients want to provide collapsible hierarchy to the rows being presented in the table, where both parent and children rows provide values in typically at least a subset of the same columns.
+There are scenarios where clients want to provide collapsible hierarchy to the rows being presented in the table, where both parent and children rows provide values in a common set of columns.
 
 For example, consider a table of geographic information that included location, population, flag, and possibly other location-related information. The location column could be either a continent, country, state, or any sub-regional construct. It would be reasonable to want to present this information in a way that allowed a user to collapse/expand any outer regional grouping, which itself would contain all rows whose locations existed inside it (e.g. 'United States' would be parent of all rows whose location was a U.S. state).
 
@@ -37,6 +37,12 @@ public Table() {
     @attr({ attribute: 'force-expandable-field-name' })
     public forceExpandableFieldName?: string;
 
+    // This attribute will determine the expand/collapse state of any parent row by default.
+    // Note that for parent rows that have no children yet, they will always default to 
+    // collapsed, regardless of the state of this attribute.
+    @attr({ attribute: 'auto-expand-parents' })
+    public autoExpandParents?: boolean;
+
     // The set of rows the user would like to expand. Pass 'true' for `expandChildren` if all
     // children rows parented under any specified in rowIds should also be expanded.
     public async expandRows(rowIds: string[], expandChildren?: boolean): Promise<void> {
@@ -51,12 +57,12 @@ public Table() {
 }
 ```
 
-### `TableRowExpandedEventDetail` API
+### `TableRowExpandToggleEventDetail` API
 
 The `Table` will also provide a `row-expand-toggle` event for when a row is expanded/collapsed that will provide details to the client including which row was expanded/collapsed, and what its new state is:
 
 ```ts
-interface TableRowExpandedEventDetail {
+interface TableRowExpandToggleEventDetail {
     newState: boolean;
     oldState: boolean;
     recordId: string;
@@ -75,24 +81,24 @@ The following are various expected mouse and keyboard interactions related to pa
 
 ### Validation
 
-Tha table will be invalid if the user has set the `parentIdFieldName` attribute but not the `idFieldName`. Additionally, the table will be invalid if the user has set the `forceExpandCollapseFieldName` attribute but not the `parentIdFieldName`.
+The table will be invalid if the user has set the `parentIdFieldName` attribute but not the `idFieldName`. Additionally, the table will be invalid if the user has set the `forceExpandCollapseFieldName` attribute but not the `parentIdFieldName`.
 
 ### Lazy Loading
 
 The APIs noted above will enable the client to lazy load data into the `Table`. This will essentially be accomplished with the following steps:
 
 1. Providing a field in a record of the table data that indicates whether that row of data is intended to be a parent row. Records that are intended to be parents must set the value of the field, whose name is specified by the `forceExpandCollapseFieldName` attribute, to `true`.
-2. After providing the current data to the `Table` via the `setData` method, all rows that have a value of `true` in the field specified by the `forceExpandCollapseFieldName` attribute will display and expand/collapse button.
+2. After providing the current data to the `Table` via the `setData` method, all rows that have a value of `true` in the field specified by the `forceExpandCollapseFieldName` attribute will display an expand/collapse button.
 3. Clients must register a handler for the `row-expand-toggle` event on the `Table` instance, and will receive that event upon clicking the expand/collapse button.
 4. The details of the handled event will include the id for the row that was expanded.
-5. The client must then create a set of data with rows where they provide a field with the name specified by the `parendIdFieldName` attribute that has the value of the `recordId` value supplied in the event details.
+5. The client must then add the child records (with their `parentIdFieldName` value set to the parent's recordId) to the data set and call `setData()` on the Table.
 6. The client then sets the data on the `Table` again with the `setData` method.
 
-_Note: It is up to the client to manage whether or not the children of a row has already been loaded in order to avoid recreation of their data and calling `setData` on the `Table` unnecessarily._
+_The client is responsible for checking if the row’s children have already been loaded. This can prevent unnecessary data recreation and `setData` calls on the `Table`._
 
 ### Translating flat list to Tanstack-understandable hierarchy
 
-Tanstack provides APIs for us to implement that allow it to return the rows in a hierarchical fashion where child rows are provided as a property on a row called `subRows`. For this to work as expected it is required that a flat list of data (that contains implicit hierarchy) be transformed into a hierarchical data structure.
+Tanstack provides the `getSubRows` API for us to implement that allows it to return the rows in a hierarchical fashion. To leverage this functionality, the flat list of data passed to the table via `setData()` will be transformed into a hierarchical data structure.
 
 A third party library called [`performant-array-to-tree`](https://www.npmjs.com/package/performant-array-to-tree) offers an easy, and as the package says, performant means of doing this (in O(n) time). It comes with an MIT license, and is apparently fully tested, so it seems like it would be suitable to use for this purpose.
 
@@ -147,6 +153,8 @@ Error workflow:
 ### Sorting
 
 Tanstack will sort children within each parent row by the same column that the parent is being sorted by. So, it will not be possible to sort children by a different column value than the one its parent is sorted by.
+
+Additionally, sorting has a lower precedence than data hierarchy. Thus, there is no guarantee that a "largest" value for a column will be sorted such that that row will be either the first or last row, as all leaf-level rows will be sorted within the context of their parent.
 
 ### Selection
 
