@@ -230,7 +230,22 @@
                     <nimble-mapping-text key="101" text="Status message 2"></nimble-mapping-text>
                     Status
                 </nimble-table-column-enum-text>
-
+                <nimble-table-column-icon
+                    field-name="result"
+                    key-type="string"
+                >
+                    <nimble-mapping-icon
+                        key="success"
+                        text="Success"
+                        icon="nimble-icon-check"
+                        severity="success">
+                    </nimble-mapping-icon>
+                    <nimble-mapping-spinner
+                        key="unknown"
+                        text="Unknown">
+                    </nimble-mapping-spinner>
+                    Result
+                </nimble-table-column-icon>
                 <nimble-table-column-number-text
                     field-name="number"
                 >
