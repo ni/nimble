@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 19 Oct 2023 23:50:56 GMT",
+      "version": "12.4.0",
+      "tag": "@ni/nimble-blazor_v12.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "466d474d52d3eb8a0396a6e53365e32bfbbd2954",
+            "comment": "Add decimal-maximum-digits attr to number-text column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 Sep 2023 05:26:36 GMT",
       "tag": "@ni/nimble-blazor_v12.3.8",
       "version": "12.3.8",
