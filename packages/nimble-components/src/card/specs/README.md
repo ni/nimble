@@ -7,18 +7,14 @@ application. The `nimble-card` is intended for grouping related content.
 
 ### Background
 
-_Relevant historical or background information_
-_Link to Visual Design spec_
-_Link to relevant work items, related existing issues, etc._
-
 [GitHub Issue #296: nimble-card component](https://github.com/ni/nimble/issues/296)
 
-An IxD and Visual Design spec for the `nimble-card` component have not been provided. We will add some preliminary
-styling in the interim.
+An IxD and Visual Design spec for the `nimble-card` component have not yet been provided. We will add some
+preliminary styling in the interim.
 
 The new Routines UX in SystemLink Enterprise calls for grouping related configuration in a slide-out in labeled
 containers. See [Figma: NorthStar Vision for SLE Routines](https://www.figma.com/file/VQ7WIi3qqRG3r19VXqVvem/Stratus-Routines?type=design&node-id=1%3A74129&mode=design&t=KfPTwy4IhHbt42LR-1).
-We are designing the `nimble-card` component to fit that use case.
+We are designing the `nimble-card` component to address that use case.
 
 ---
 
@@ -43,11 +39,12 @@ the `nimble-card` component:
 </nimble-card>
 ```
 
-While we don't have a finalized visual design spec, we expect the style will include a a background color and
-a border, potentially with rounded corners. The GitHub issue mentions several use cases for a card component that
-might call for different visual treatments, but we are only solving for the Routines use case at this time (grouping
-related configuration in a slide-out for configuration). To support other use cases in the future, we could potentially
-add appearance variants or make use of the `elevation` property of the component.
+While we don't have a finalized visual design spec, we expect the style will include a background color and a
+border, potentially with rounded corners. We will add design tokens for the background and border. The GitHub
+issue mentions several use cases for a card component that might call for different visual treatments, but we
+are only solving for the Routines use case at this time (grouping related configuration in a slide-out). To
+support other use cases in the future, we could potentially add appearance variants or make use of the `elevation`
+property of the component.
 
 ### API
 
