@@ -25,7 +25,9 @@ do provide a card component with built-in, pre-styled content or pre-styled chil
 component. See the [Angular Material `mat-card` component](https://v5.material.angular.io/components/card/overview)
 for an example. We could add similar content in the future, but it is not required at this time.
 
-Since we're not providing any built-in content, the API surface area for the `nimble-card` is very small. The template
+See [Open Issues](#open-issues) for more on the question of whether to add a built-in title.
+
+If we're not providing any built-in content, the API surface area for the `nimble-card` is very small. The template
 contains only a slot, and there are no configurable properties on the component. Here is an example usage for
 the `nimble-card` component:
 
@@ -87,8 +89,6 @@ so it will need a `ChildContent` parameter.
 -   _Tooling: Any new tools, updates to tools, code generation, etc?_
     -   No additional requirements
 -   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
-    -   We will set the ARIA role to `region`, based on the intended usage of the component. It may make sense to have clients set
-        different roles (such as `group`) based on the purpose of their specific `nimble-card` instance.
     -   No additional requirements, as long as we don't intend to include built-in content like headers/footers. The `nimble-card`
         itself does not receive keyboard focus and tabbing jumps to the first focusable component inside the `nimble-card`.
 -   _Mobile: small screens, touch interactions, mobile-specific integrations_
@@ -105,4 +105,12 @@ so it will need a `ChildContent` parameter.
 
 ## Open Issues
 
-None
+1.  The Routines UX use case calls for a title in each `nimble-card`. We could add a "title" slot to the template to
+    make it easy for clients to add a title with the correct styling and to enforce consistency across usages. Some
+    notes about this option:
+
+    -   This would require making our own copy of the `fast-card` component's template to add the additional slot.
+    -   We would want to make sure the title could be fully hidden for use cases that don't want to reserve space for the title.
+    -   We could follow the pattern used by the `nimble-banner`, which would involve adding a `title-hidden` attribute and using
+        the `accessibly-hidden` utility to allow the title to be set for accessibility but not be rendered visually. The
+        `nimble-dialog` also uses this pattern for its header and footer.
