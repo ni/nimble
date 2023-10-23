@@ -62,6 +62,10 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
         return this.supportedUnits[this.supportedUnits.length - 1]!;
     }
 
+    // This is an implemenation of lazy initialization.
+    // Ideally, we could initialize supportedUnits and baseUnit in the constructor,
+    // but they depend on an abstract method and potentially other state that isn't
+    // available until the derived class is finished being constructed.
     private setSupportedUnitsAndBaseUnit(): {
         supportedUnits: ScaledUnit[],
         baseUnit: ScaledUnit

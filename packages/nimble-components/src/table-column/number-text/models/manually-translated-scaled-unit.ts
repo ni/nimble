@@ -1,7 +1,7 @@
 import type { ScaledUnit } from './scaled-unit';
 
 /**
- * A unit that is not supported by Intl.NumberFormat and must have translations built into Nimble
+ * A scaled unit that is not supported by Intl.NumberFormat and must have translations built into Nimble
  */
 export class ManuallyTranslatedScaledUnit implements ScaledUnit {
     public constructor(

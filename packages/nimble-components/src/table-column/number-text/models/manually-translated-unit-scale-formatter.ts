@@ -5,7 +5,7 @@ import type { UnitTranslation } from './unit-translation';
 import { UnitScaleFormatter } from './unit-scale-formatter';
 
 /**
- * A unit scale that is not supported by Intl.NumberFormat and has translations hard-coded in Nimble
+ * A formatter for a unit scale that is not supported by Intl.NumberFormat and has translations built into Nimble
  */
 export abstract class ManuallyTranslatedUnitScaleFormatter extends UnitScaleFormatter {
     private readonly unitTranslations: Map<string, UnitTranslation>;

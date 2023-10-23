@@ -20,8 +20,8 @@ export class DecimalFormatter extends NumberFormatter {
     ) {
         super();
         this.formatter = new UnitScaleFormatterContructor(locale, {
-            minimumFractionDigits,
             maximumFractionDigits,
+            minimumFractionDigits,
             useGrouping: true
         });
         this.tenPowDecimalDigits = 10 ** maximumFractionDigits;

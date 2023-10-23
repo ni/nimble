@@ -1,9 +1,9 @@
 import type { ScaledUnit } from './scaled-unit';
 
 /**
- * A unit that can be formatted/translated by Intl.NumberFormat
+ * A scaled unit that can be formatted/translated by Intl.NumberFormat
  */
-export class IntlNumberFormatUnit implements ScaledUnit {
+export class IntlNumberFormatScaledUnit implements ScaledUnit {
     public constructor(
         public conversionFactor: number,
         private readonly formatter: Intl.NumberFormat

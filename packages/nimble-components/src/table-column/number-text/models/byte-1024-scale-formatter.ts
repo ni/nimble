@@ -1,19 +1,11 @@
 import { ManuallyTranslatedUnitScaleFormatter } from './manually-translated-unit-scale-formatter';
 import { UnitPrefix } from './unit-prefix';
-import type { ScaledUnit } from './scaled-unit';
 import { UnitTranslation } from './unit-translation';
 
 /**
  * Formatter for numbers with byte units (1024-based)
  */
 export class Byte1024ScaleFormatter extends ManuallyTranslatedUnitScaleFormatter {
-    protected override getSupportedUnits(
-        lang: string,
-        formatterOptions: Intl.NumberFormatOptions
-    ): ScaledUnit[] {
-        return super.getSupportedUnits(lang, formatterOptions);
-    }
-
     protected override getUnitTranslations(): Map<string, UnitTranslation> {
         const unitTranslations = new Map<string, UnitTranslation>();
         unitTranslations.set('en', new UnitTranslation('byte', 'bytes', 'B'));
