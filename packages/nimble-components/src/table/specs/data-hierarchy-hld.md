@@ -34,8 +34,8 @@ public Table() {
     // This field would be an option for how we allow a user to specify the field
     // name where they will provide a value indicating whether or not that row
     // should always contain an expand-collapse button.
-    @attr({ attribute: 'force-expand-collapse-field-name' })
-    public forceExpandCollapseFieldName?: string;
+    @attr({ attribute: 'force-expandable-field-name' })
+    public forceExpandableFieldName?: string;
 
     // The set of rows the user would like to expand. Pass 'true' for `expandChildren` if all
     // children rows parented under any specified in rowIds should also be expanded.
@@ -83,12 +83,12 @@ The APIs noted above will enable the client to lazy load data into the `Table`. 
 
 1. Providing a field in a record of the table data that indicates whether that row of data is intended to be a parent row. Records that are intended to be parents must set the value of the field, whose name is specified by the `forceExpandCollapseFieldName` attribute, to `true`.
 2. After providing the current data to the `Table` via the `setData` method, all rows that have a value of `true` in the field specified by the `forceExpandCollapseFieldName` attribute will display and expand/collapse button.
-3. Users must register a handler for the `row-expand-toggle` event on the `Table` instance, and will receive that event upon clicking the expand/collapse button.
+3. Clients must register a handler for the `row-expand-toggle` event on the `Table` instance, and will receive that event upon clicking the expand/collapse button.
 4. The details of the handled event will include the id for the row that was expanded.
-5. The user must then create a set of data with rows where they provide a field with the name specified by the `parendIdFieldName` attribute that has the value of the `recordId` value supplied in the event details.
-6. The user then sets the data on the `Table` again with the `setData` method.
+5. The client must then create a set of data with rows where they provide a field with the name specified by the `parendIdFieldName` attribute that has the value of the `recordId` value supplied in the event details.
+6. The client then sets the data on the `Table` again with the `setData` method.
 
-_Note: It is up to the user to manage whether or not the children of a row has already been loaded in order to avoid recreation of their data and calling `setData` on the `Table` unnecessarily._
+_Note: It is up to the client to manage whether or not the children of a row has already been loaded in order to avoid recreation of their data and calling `setData` on the `Table` unnecessarily._
 
 ### Translating flat list to Tanstack-understandable hierarchy
 
