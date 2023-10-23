@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 19 Oct 2023 15:08:49 GMT and should not be manually modified.
+This log was last generated on Mon, 23 Oct 2023 14:17:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.10.0
+
+Mon, 23 Oct 2023 14:17:52 GMT
+
+### Minor changes
+
+- Add icon for Save As ([ni/nimble@62016ff](https://github.com/ni/nimble/commit/62016ff5a313a4c35f7850a2a4261251ceda51e0))
+- Bump @ni/nimble-tokens to v6.6.0
+
+## 20.9.0
+
+Thu, 19 Oct 2023 23:50:56 GMT
+
+### Minor changes
+
+- Add decimal-maximum-digits attr to number-text column ([ni/nimble@466d474](https://github.com/ni/nimble/commit/466d474d52d3eb8a0396a6e53365e32bfbbd2954))
 
 ## 20.8.0
 
