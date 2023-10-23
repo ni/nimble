@@ -118,7 +118,6 @@ namespace Demo.Shared.Pages
         public int StatusCode { get; }
         public string Result { get; }
         public double Number { get; }
-
         public double Duration { get; }
     }
 

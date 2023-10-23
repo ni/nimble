@@ -15,15 +15,11 @@ export class DurationPipe implements PipeTransform {
     }
 
     public transform(timeInMilliseconds: string | number | null | undefined): string {
-        if (timeInMilliseconds == null) {
-            return '';
-        }
-
         const milliseconds = this.parseDuration(timeInMilliseconds);
         return this.durationFormatter.format(milliseconds);
     }
 
-    private parseDuration(duration: string | number): number {
-        return (typeof duration === 'string') ? parseFloat(duration) : duration;
+    private parseDuration(duration: string | number | null | undefined): number | null | undefined {
+        return typeof duration === 'string' ? parseFloat(duration) : duration;
     }
 }

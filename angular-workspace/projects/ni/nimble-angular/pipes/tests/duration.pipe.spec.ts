@@ -1,12 +1,8 @@
-import { DurationPipe } from './duration.pipe';
+import { DurationPipe } from '../duration.pipe';
 
 describe('DurationPipe', () => {
     describe('basic formatting (English)', () => {
-        let pipe: DurationPipe;
-
-        beforeEach(() => {
-            pipe = new DurationPipe('en');
-        });
+        const pipe = new DurationPipe('en');
 
         const testCases = [
             {
