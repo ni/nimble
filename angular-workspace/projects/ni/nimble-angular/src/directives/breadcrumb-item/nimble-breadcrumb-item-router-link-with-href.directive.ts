@@ -25,7 +25,7 @@ export class NimbleBreadcrumbItemRouterLinkWithHrefDirective extends RouterLink 
     }
 
     public constructor(
-        @Inject(Router) router: Router,
+    @Inject(Router) router: Router,
         @Inject(ActivatedRoute) route: ActivatedRoute,
         // eslint-disable-next-line @angular-eslint/no-attribute-decorator
         @Attribute('tabindex') tabIndexAttribute: string | null | undefined,
