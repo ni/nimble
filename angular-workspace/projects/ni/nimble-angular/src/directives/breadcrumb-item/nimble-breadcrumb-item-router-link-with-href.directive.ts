@@ -1,6 +1,6 @@
 import { LocationStrategy } from '@angular/common';
 import { Directive, ElementRef, HostListener, Injector, Input } from '@angular/core';
-import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import type { BreadcrumbItem } from '@ni/nimble-components/dist/esm/breadcrumb-item';
 
 /**
@@ -17,7 +17,7 @@ import type { BreadcrumbItem } from '@ni/nimble-components/dist/esm/breadcrumb-i
  * won't also be an active RouterLink directive incorrectly handling navigation.
  */
 @Directive({ selector: 'nimble-breadcrumb-item[nimbleRouterLink]' })
-export class NimbleBreadcrumbItemRouterLinkWithHrefDirective extends RouterLinkWithHref {
+export class NimbleBreadcrumbItemRouterLinkWithHrefDirective extends RouterLink {
     @Input()
     public set nimbleRouterLink(commands: never[] | string | null | undefined) {
         this.routerLink = commands;
