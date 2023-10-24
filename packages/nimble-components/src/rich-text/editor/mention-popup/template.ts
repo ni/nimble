@@ -1,24 +1,20 @@
-import { html, slotted } from '@microsoft/fast-element';
-import { Listbox } from '@microsoft/fast-foundation';
+import { children, elements, html, ref, repeat } from '@microsoft/fast-element';
 import type { MentionBox } from '.';
+import { ListOption, listOptionTag } from '../../../list-option';
+import { listBoxTag } from '../mention-popup copy';
 
 // prettier-ignore
 export const template = html<MentionBox>`
     <template
+    ${children({ property: 'childItems', filter: elements() })}
     >     
-            <div
-                class="listbox"
-                part="listbox"
-                role="listbox"
-                @click= "${(x, c) => x.clickHandler(c.event as MouseEvent)}"
-            >
-            <slot
-            ${slotted({
-        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
-        flatten: true,
-        property: 'slottedOptions',
-    })}
-                ></slot>
-            </div>
+    <${listBoxTag}
+            ${ref('listBox')} 
+            @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
+            >    
+            ${repeat(x => x.filteredOptions, html<ListOption>`
+                    <${listOptionTag} value="${x => x.value}">${x => x.textContent}</${listOptionTag}>
+                    `)}
+    </${listBoxTag}>
     </template>
 `;

@@ -1,5 +1,5 @@
 import { children, elements, html, ref, repeat } from '@microsoft/fast-element';
-import type { RichTextEditor } from '.';
+import type { MentionDetail, RichTextEditor } from '.';
 import { toolbarTag } from '../../toolbar';
 import { toggleButtonTag } from '../../toggle-button';
 import { iconBoldBTag } from '../../icons/bold-b';
@@ -18,7 +18,7 @@ import { anchoredRegionTag } from '../../anchored-region';
 import { buttonTag } from '../../button';
 import { listOptionTag } from '../../list-option';
 import type { UserInfo } from './enum-text';
-import { listBoxTag } from './mention-popup copy';
+import { mentionBoxTag } from './mention-popup';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
@@ -120,13 +120,15 @@ export const template = html<RichTextEditor>`
             vertical-default-position="bottom"
             ?hidden="${x => !x.open}"
             >
-            <${listBoxTag}
-            ${ref('listBox')} 
+            <${mentionBoxTag}
+            ${ref('mentionBox')} 
+            filter="${x => x.filter}"
+            @change=${(x, c) => x.mentionChange(c.event as CustomEvent<MentionDetail>)}
             >    
-            ${repeat(x => x.userList, html<UserInfo>`
-                    <${listOptionTag} value="${x => x.key}">${x => x.value}</${listOptionTag}>
-                    `)}
-    </${listBoxTag}>
+                ${repeat(x => x.userList, html<UserInfo>`
+                        <${listOptionTag} value="${x => x.key}">${x => x.value}</${listOptionTag}>
+                        `)}
+            </${mentionBoxTag}>
         </${anchoredRegionTag}>
     </template>
 `;

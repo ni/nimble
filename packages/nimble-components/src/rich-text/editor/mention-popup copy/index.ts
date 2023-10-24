@@ -3,7 +3,6 @@ import {
     ListboxElement,
     listboxTemplate as template
 } from '@microsoft/fast-foundation';
-import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -11,16 +10,9 @@ declare global {
     }
 }
 
-/**
- * A nimble styled Mention Box
- */
-// export class ListBox extends ListboxElement {
-// }
-
 const nimbleListBox = ListboxElement.compose({
     baseName: 'list-box',
-    template,
-    styles
+    template
 });
 
 DesignSystem.getOrCreate()

@@ -1,14 +1,14 @@
 import {
-    AnchoredRegion,
     DesignSystem,
+    FoundationElement,
     Listbox,
 } from '@microsoft/fast-foundation';
 
-import { attr } from '@microsoft/fast-element';
-import { keyArrowDown, keyArrowUp, keyEnter, keyEscape, keyTab, limit } from '@microsoft/fast-web-utilities';
+import { attr, observable } from '@microsoft/fast-element';
+import { keyArrowDown, keyArrowUp, keyEnter, keyTab } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
-import type { ListOption } from '../../../list-option';
+import { ListOption } from '../../../list-option';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,120 +19,65 @@ declare global {
 /**
  * A nimble styled Mention Box
  */
-export class MentionBox extends Listbox {
-    /**
-     * The collection of currently filtered options.
-     *
-     * @public
-     */
+export class MentionBox extends FoundationElement {
+    /** @internal */
+    @observable
     public filteredOptions: ListOption[] = [];
 
-    @attr
-    public filter = '';
+    public options: ListOption[] = [];
 
-    public override slottedOptionsChanged(prev: Element[] | undefined, next: Element[]): void {
-        super.slottedOptionsChanged(prev, next);
-        this.filterOptions();
+    /**
+     * @internal
+     */
+    public listBox!: Listbox | null;
+
+    @attr
+    public filter!: string;
+
+    /**
+     * @internal
+     */
+    @observable
+    public readonly childItems: Element[] = [];
+
+    public childItemsChanged(): void {
+        void this.updateUserListDetail();
+    }
+
+    public async updateUserListDetail(): Promise<void> {
+        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
+            ? customElements.whenDefined(item.localName)
+            : Promise.resolve()));
+        await Promise.all(definedElements);
+        this.options = this.childItems.filter(
+            (x): x is ListOption => x instanceof ListOption
+        );
+        this.filterUsers();
     }
 
     public filterChanged(_prev: string | undefined, next: string): void {
         this.filter = next;
-        this.filterOptions();
-        if (this.filteredOptions.length) {
-            this.selectedOptions = [this.filteredOptions[0]!];
-            this.selectedIndex = this.options.indexOf(
-                this.firstSelectedOption
-            );
+        this.filterUsers();
+    }
+
+    public filterUsers(): void {
+        if (this.filter) {
+            this.filteredOptions = this.options.filter(o => o.textContent!.toLowerCase().startsWith(this.filter.toLowerCase()));
         } else {
-            this.selectedIndex = -1;
-            const parentElement = this.parentElement as AnchoredRegion;
-            parentElement.hidden = true;
-            this.filter = 'reset';
+            this.filteredOptions = this.options;
         }
+        void this.selectFirstListOption();
     }
 
-    public override selectedIndexChanged(prev: number | undefined, next: number): void {
-        if (this.$fastController.isConnected) {
-            // eslint-disable-next-line no-param-reassign
-            next = limit(-1, this.options.length - 1, next);
-
-            // we only want to call the super method when the selectedIndex is in range
-            if (next !== this.selectedIndex) {
-                this.selectedIndex = next;
-                return;
-            }
-
-            super.selectedIndexChanged(prev, next);
-        }
+    public async selectFirstListOption(): Promise<void> {
+        const definedElements = [this.listBox?.matches(':not(:defined)')
+            ? customElements.whenDefined(this.listBox?.localName)
+            : Promise.resolve()];
+        await Promise.all(definedElements);
+        this.listBox?.selectFirstOption();
     }
 
-    /**
-     * Moves focus to the previous selectable option.
-     *
-     * @internal
-     */
-    public override selectPreviousOption(): void {
-        if (!this.disabled && this.selectedIndex > 0) {
-            this.selectedIndex -= 1;
-        }
-    }
-
-    public override get options(): ListOption[] {
-        return this.filteredOptions.length ? this.filteredOptions : this._options;
-    }
-
-    public override set options(value: ListOption[]) {
-        this._options = value;
-    }
-
-    /**
-     * Filter available options by text value.
-     *
-     * @public
-     */
-    public filterOptions(): void {
-        const filter = this.filter.toLowerCase();
-        const parentElement = this.parentElement as AnchoredRegion;
-        parentElement.hidden = false;
-        this.filteredOptions = this._options.filter(o => o.text.toLowerCase().startsWith(this.filter.toLowerCase()));
-        if (!this.filteredOptions.length && !filter) {
-            this.filteredOptions = this._options;
-        }
-
-        this._options.forEach(o => {
-            o.hidden = !this.filteredOptions.includes(o);
-        });
-    }
-
-    /**
-     * Toggles the selected state of the option
-     * @internal
-     */
-    public override selectedOptionsChanged(
-        _prev: ListOption[] | undefined,
-        next: ListOption[]
-    ): void {
-        if (this.$fastController.isConnected) {
-            this._options.forEach(o => {
-                o.selected = next.includes(o);
-            });
-        }
-    }
-
-    public override focusAndScrollOptionIntoView(): void {
-        if (this.contains(document.activeElement)) {
-            if (this.firstSelectedOption) {
-                requestAnimationFrame(() => {
-                    this.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
-                });
-            }
-        }
-    }
-
-    public override clickHandler(e: MouseEvent): boolean {
-        if (this.disabled) {
-            return false;
-        }
+    public clickHandler(e: MouseEvent): boolean {
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         const captured = (e.target as HTMLElement).closest(
             'option,[role=option]'
@@ -148,39 +93,28 @@ export class MentionBox extends Listbox {
         return true;
     }
 
-    public override keydownHandler(e: Event & KeyboardEvent): boolean {
+    public keydownHandler(e: Event & KeyboardEvent): boolean {
         const key = e.key;
         switch (key) {
             case keyTab:
             case keyEnter: {
-                if (this.firstSelectedOption) {
+                if (this.listBox?.firstSelectedOption) {
                     this.$emit('change', {
-                        id: this
-                            .firstSelectedOption
-                            ?.value,
-                        name: this
-                            .firstSelectedOption
-                            ?.textContent
+                        id: this.listBox?.firstSelectedOption?.value,
+                        name: this.listBox?.firstSelectedOption?.textContent
                     });
                 }
                 return true;
             }
-
-            case keyEscape: {
-                return true;
-            }
-            // Select the next selectable option
             case keyArrowDown: {
                 if (!e.shiftKey) {
-                    this.selectNextOption();
+                    this.listBox?.selectNextOption();
                 }
                 return true;
             }
-
-            // Select the previous selectable option
             case keyArrowUp: {
                 if (!e.shiftKey) {
-                    this.selectPreviousOption();
+                    this.listBox?.selectPreviousOption();
                 }
                 return true;
             }
@@ -191,9 +125,6 @@ export class MentionBox extends Listbox {
         }
     }
 }
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-// export interface MentionBox extends ARIAGlobalStatesAndProperties {}
-// applyMixins(MentionBox, ARIAGlobalStatesAndProperties);
 
 const nimbleMentionBox = MentionBox.compose({
     baseName: 'mention-box',
