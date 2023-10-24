@@ -38,20 +38,38 @@ public Table() {
     public forceExpandableFieldName?: string;
 
     // This attribute will determine the expand/collapse state of any parent row by default.
-    // Note that for parent rows that have no children yet, they will always default to 
+    // Note that for parent rows that have no children yet, they will always default to
     // collapsed, regardless of the state of this attribute.
+    @attr({ attribute: 'auto-expand-parents' })
+    public autoExpandParents?: boolean;
+
+    // This attribute determines whether a parent row will be expanded by default.
+    // For parents with no children, such as when the child rows will be lazily loaded,
+    // the parent row will default to collapsed, regardless of this attribute's setting.
     @attr({ attribute: 'auto-expand-parents' })
     public autoExpandParents?: boolean;
 
     // The set of rows the user would like to expand. Pass 'true' for `expandChildren` if all
     // children rows parented under any specified in rowIds should also be expanded.
-    public async expandRows(rowIds: string[], expandChildren?: boolean): Promise<void> {
+    public async expandRows(rowIds: string[], expandParents?: boolean, scrollIntoView?: boolean): Promise<void> {
         ...
     }
 
     // The set of rows the user would like to collapse. Pass 'true' for `collapseChildren` if all
     // children rows parented under any specified in rowIds should also be collapsed.
     public async collapseRows(rowIds: string[], collapseChildren?: boolean) Promise<void> {
+        ...
+    }
+
+    // This method allows a user to set some persistent state on a row that will be maintained,
+    // as long as that row is in the data. If a record is removed from the data, than any state
+    // associated with that record's rowId is discarded.
+    public setRowState(rowId: string, state: RowState): void {
+        ...
+    }
+
+    // This method clears all current state associated with rows.
+    public clearAllRowState(): void {
         ...
     }
 }
@@ -91,8 +109,10 @@ The APIs noted above will enable the client to lazy load data into the `Table`. 
 2. After providing the current data to the `Table` via the `setData` method, all rows that have a value of `true` in the field specified by the `forceExpandCollapseFieldName` attribute will display an expand/collapse button.
 3. Clients must register a handler for the `row-expand-toggle` event on the `Table` instance, and will receive that event upon clicking the expand/collapse button.
 4. The details of the handled event will include the id for the row that was expanded.
-5. The client must then add the child records (with their `parentIdFieldName` value set to the parent's recordId) to the data set and call `setData()` on the Table.
-6. The client then sets the data on the `Table` again with the `setData` method.
+5. The client should first call `setRowState()` in their event handler code flagging the relevant rows to be lazy loading (this will cause the lazy loading indicator to appear).
+6. The client must then add the child records (with their `parentIdFieldName` value set to the parent's recordId) to the data set and call `setData()` on the Table.
+7. The client then sets the data on the `Table` again with the `setData` method.
+8. Finally, the client should call `setRowState()` again on the relevant rows and unflag them as lazily loading (this will remove the lazy loading indicator).
 
 _The client is responsible for checking if the row’s children have already been loaded. This can prevent unnecessary data recreation and `setData` calls on the `Table`._
 
@@ -189,10 +209,6 @@ Here are a few of the considerations that were made with respect to this mode:
 -   (maybe?) leaf-mode + multi-selection + lazy loading is considered an invalid confiuguration. This could mean that the Table API of `forceExpandCollapseFieldName` should be more semantically associated with lazy loading.
     -   (alternative?): Could we instead just hide the selection checkbox for parent rows that have no children?
 
-#### Auto-expand-parent API
-
-Currently, the proposed default behavior of parent rows is that they will display as collapsed initially (unlike groups). This is primarily done to support the lazy-loading case where we never want a row that has no children to default to being expanded. We could add an API that allows a user to determine what the default state of parents should be, which would ultimately not apply to rows that have no children (i.e. rows with children could be auto expanded, but any parent rows without children would remain collapsed).
-
 ## Alternative Implementations / Designs
 
 ### `TableRecord` hierarchical data structure
@@ -205,3 +221,7 @@ By making the `TableRecord` support hierarchy in its structure, it seemed possib
 ## Open Issues
 
 -   Need visual design for "row loading" indicator.
+-   We should also consider interactive/visual designs for situations where the client failed to load data for a row that was supposed to lazy-load its data. Some questions we should try to answer are:
+    -   Should the table represent the error state visually, and if so how?
+    -   Should the table surface any UI to "refresh" a data retrieval attempt. If so, what should that look like?
+-   What does the API for `setRowState` really look like?
