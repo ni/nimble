@@ -18,7 +18,7 @@ import { anchoredRegionTag } from '../../anchored-region';
 import { buttonTag } from '../../button';
 import { listOptionTag } from '../../list-option';
 import type { UserInfo } from './enum-text';
-import { mentionBoxTag } from './mention-popup';
+import { mentionBoxTag } from './nimble-rich-text-mention-list-box';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`

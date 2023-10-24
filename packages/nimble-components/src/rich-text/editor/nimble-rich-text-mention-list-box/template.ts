@@ -1,7 +1,7 @@
 import { children, elements, html, ref, repeat } from '@microsoft/fast-element';
 import type { MentionBox } from '.';
 import { ListOption, listOptionTag } from '../../../list-option';
-import { listBoxTag } from '../mention-popup copy';
+import { listBoxTag } from '../nimble-list-box';
 
 // prettier-ignore
 export const template = html<MentionBox>`

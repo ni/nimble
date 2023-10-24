@@ -4,7 +4,6 @@ import {
     ARIAGlobalStatesAndProperties,
     DesignSystem,
     FoundationElement,
-    ListboxElement,
 } from '@microsoft/fast-foundation';
 import {
     keyEnter,
@@ -47,7 +46,7 @@ import type { AnchoredRegion } from '../../anchored-region';
 import type { Button } from '../../button';
 import { userMentionViewTag } from '../mention-view/user-mention-view';
 import { RichTextEnumMention, UserInfo } from './enum-text';
-import type { MentionBox } from './mention-popup';
+import type { MentionBox } from './nimble-rich-text-mention-list-box';
 
 declare global {
     interface HTMLElementTagNameMap {
