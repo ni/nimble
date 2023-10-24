@@ -63,6 +63,8 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
                 }
                 ${tableTag} {
                     height: auto;
+                    /* Set a min-height on the table to ensure the virtualizer
+                    detects that it has space to render rows */
                     min-height: 100px;
                 }
             </style>
