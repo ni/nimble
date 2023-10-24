@@ -40,6 +40,11 @@ export interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
 }
 
+export interface InternalTableRecord<TRecord extends TableRecord = TableRecord> {
+    subRows?: InternalTableRecord[];
+    data: TRecord;
+}
+
 export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: TableStringFieldValue;
 };
@@ -160,6 +165,7 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     isGrouped: boolean;
     groupRowValue?: unknown;
     isExpanded: boolean;
+    isParent: boolean;
     nestingLevel?: number;
     leafItemCount?: number;
     groupColumn?: TableColumn;

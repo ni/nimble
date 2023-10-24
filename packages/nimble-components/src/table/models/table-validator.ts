@@ -1,11 +1,11 @@
 import type { TableColumn } from '../../table-column/base';
-import { TableRecord, TableRowSelectionMode, TableValidity } from '../types';
+import { InternalTableRecord, TableRecord, TableRowSelectionMode, TableValidity } from '../types';
 
 /**
  * Helper class for the nimble-table to validate that the table's configuration
  * is valid and report which aspects of the configuration are valid or invalid.
  */
-export class TableValidator<TData extends TableRecord> {
+export class TableValidator<TData extends InternalTableRecord> {
     private duplicateRecordId = false;
     private missingRecordId = false;
     private invalidRecordId = false;
@@ -78,7 +78,7 @@ export class TableValidator<TData extends TableRecord> {
                 continue;
             }
 
-            const id = record[idFieldName];
+            const id = record.data[idFieldName];
             if (typeof id !== 'string') {
                 this.invalidRecordId = true;
                 continue;

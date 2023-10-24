@@ -73,6 +73,9 @@ export class TableRow<
     @observable
     public nestingLevel = 0;
 
+    @observable
+    public isParentRow = false;
+
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
 
