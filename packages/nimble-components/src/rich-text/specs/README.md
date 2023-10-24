@@ -132,11 +132,6 @@ _Props/Attrs_
 -   `error-visible` - is a boolean attribute used to visually change the component's border color with the error exclamation at the top right, indicating that an error has occurred, as per the current
     [visual design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2482-82389&mode=design&t=KwADu9QRoL7QAuIW-0)
 -   `error-text` - is a string attribute that displays the error text at the bottom of the component when the `error-visible` is enabled.
--   `mentioned-users` - is a read-only property that returns an array of strings representing the mentioned user IDs in the current state of the editor.
--   `validity` - is a readonly object of boolean values that represents the validity state that the `@mention` configuration can be. The object type
-    is `RichTextMentionValidity`. The validation is especially for mapping the user details that is provided via the
-    `nimble-mapping-mention-user`. For example, if the client application provide the duplicate `key` values that stores the user ID, it will be an
-    issue in scenarios when parsing the mention user from just an user ID to username.
 
 _Methods_
 
@@ -144,7 +139,6 @@ _Methods_
     [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/to_markdown.ts#L30).
 -   `setMarkdown(value)` - this will parse the input markdown string into a Node and load it back into the editor using
     [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
--   `checkValidity()` - this returns `true` if the configuration of the `@mention` mapping data is valid and `false` otherwise.
 
 _Alternatives_
 
@@ -188,10 +182,6 @@ _Events_
     2. This event will not fire when there are no changes made to the content of the editor. For example, all mouse events, selecting the texts, state
        changes, etc,
 
--   `mention-update` - This event fires when the `@` character added to the editor and for every character input after `@`.
-    This fires with the `eventData` containing the current text that is added after the `@` character. For more details, see
-    [Events for Mentions](./mention-hld.md#events)
-
 _CSS Classes and CSS Custom Properties that affect the component_
 
 -   The minimum height of the component will be set to show at least one line in the text area along with a footer section. If the content exceeds
@@ -216,7 +206,7 @@ _CSS Classes and CSS Custom Properties that affect the component_
 
 _Note_: This initial component design serves as a starting point for implementation, and it may undergo changes once the visual design is completed.
 
-[Other APIs for `@mention` in Rich Text Editor](./mention-hld.md#other-apis-for-mention)
+[Other APIs for `@mention` in Rich Text Editor](./mention-hld.md#api)
 
 ### Anatomy
 
@@ -280,12 +270,6 @@ _Props/Attrs_
 -   `markdown` - for retrieving and modifying the markdown value. If the client modifies the markdown value, it will be parsed into a Node using the
     [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
     The parsed node will then be rendered in the viewer component as rich text.
--   `validity` - is a readonly object of boolean values that represents the validity state that the `@mention` configuration can be. The object type
-    is `RichTextMentionValidity`.
-
-_Methods_
-
--   `checkValidity()` - this returns `true` if the configuration of the `@mention` mapping data is valid and `false` otherwise.
 
 _Events_
 

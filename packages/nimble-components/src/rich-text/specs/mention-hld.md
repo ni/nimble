@@ -165,9 +165,16 @@ Cons:
 
 #### Client Usage Guidance on Filtered Users:
 
-Initially, the client application need not provide any user list within the children of `nimble-rich-text-editor` and it can be empty.
-The editor component will emit an event whenever the `@` character is entered into the editor. Client
-can listen to the `mention-update` event and provide the initial user lists.
+Initially, the client application need not provide any user mapping elements within the children of `nimble-rich-text-mention-users`.
+It can be empty. However, if the editor loads with an initial markdown string that contains `mentionedUsers`, the client should then load those
+user mapping elements. This is to render the user IDs in the markdown string should load as an user name in the editor and mapping elements should remains
+there in the DOM through out the instance and should not filtered by the client. Basically, it is advisable to keep two lists, `filteredOptions` for
+dynamic filtering of users to populate in the `@mention` popup and `mentionedUsers` for storing the already mentioned users list which should not be
+dynamic loading by the client. However, the `mentionedUsers` will be filtered internally within the Nimble editor or configuration component whenever texts
+added after `@` in the editor.
+
+The `nimble-rich-text-mention-users` component will emit an event whenever the `@` character is entered into the editor. Client can listen to
+the `mention-update` event and provide the other initial user lists that are not mentioned already.
 
 It is recommended to `sort` the usernames in alphabetical order and sent at most twenty users list at a time to reduce the number of elements
 in the DOM for a single page. This dynamic loading of users list will help us specifically in comments feature when there are lot of `@mention`
@@ -190,31 +197,6 @@ or statically providing user details at the start via `nimble-mapping-mention`.
 
 ### API
 
-#### Events
-
--   `mention-update` - This can be achieved through Tiptap's `onUpdate()` and `onStart()` methods in `render` function in
-    [suggestion](https://tiptap.dev/api/utilities/suggestion#render) configurations. This event fires with the `eventData` containing the
-    current text that is added after the `@` character.
-
-    This event will be triggered in the following scenarios to perform filtering in the client application. The below scenarios will also fire
-    when there is a configuration element `nimble-rich-text-mention-users` even without the mapping elements:
-
-    1. When a user inserts the character (e.g., `@`) into the editor, which activates the mention popup.
-    2. When a user adds or removes text after inserting the mention character into the editor.
-    3. When a user repositions the cursor between the text segments added after the mention character.
-
-    Refer the [accessibility](#accessibility) section to know more details about when it requires to emit the event for performing the filtering in the client application.
-
-    Conversely, this event will not be fired when:
-
-    1. A user moves the cursor away either using mouse or any key down events that moves the cursor from current position to outside of `@`
-       and characters after that with less than two white spaces while the popup is open.
-    2. A user selects an option from the dropdown list either using mouse click/pressing Enter or Tab.
-    3. A user adds two or more spaces after triggering the mention popup.
-    4. In the absence of `nimble-rich-text-mention-users` and no mapping elements.
-
-#### Other APIs for `@mention`
-
 To support the `@mention`, the creation of the following configuration elements and UI elements is required for rich text components:
 
 #### User mention element (Non-visible configuration element):
@@ -235,6 +217,44 @@ _Component Name_
 _Content_
 
 -   Zero or more `nimble-mapping-mention-user` elements
+
+_Props/Attrs_
+
+-   `mentioned-users` - is a read-only property that returns an array of strings representing the mentioned user IDs in the current state of the editor.
+-   `validity` - is a readonly object of boolean values that represents the validity state that the `@mention` configuration can be. The object type
+    is `RichTextMentionValidity`. The validation is especially for mapping the user details that is provided via the
+    `nimble-mapping-mention-user`. For example, if the client application provide the duplicate `key` values that stores the user ID, it will be an
+    issue in scenarios when parsing the mention user from just an user ID to username.
+
+_Events_
+
+-   `mention-update` - This event fires when the `@` character added to the editor and for every character input after `@`.
+    This fires with the `eventData` containing the current text that is added after the `@` character.
+
+    This can be achieved through Tiptap's `onUpdate()` and `onStart()` methods in `render` function in
+    [suggestion](https://tiptap.dev/api/utilities/suggestion#render) configurations. This event fires with the `eventData` containing the
+    current text that is added after the `@` character.
+
+    This event will be triggered in the following scenarios to perform filtering in the client application. The below scenarios will also fire
+    when there is a configuration element `nimble-rich-text-mention-users` even without the mapping elements:
+
+    1. When a user inserts the character (e.g., `@`) into the editor, which activates the mention popup.
+    2. When a user adds or removes text after inserting the mention character into the editor.
+    3. When a user repositions the cursor between the text segments added after the mention character.
+
+    Refer the [accessibility](#accessibility) section to know more details about when it requires to emit the event for performing the filtering in the client application.
+
+    Conversely, this event will not be fired when:
+
+    1. A user moves the cursor away either using mouse or any key down events that moves the cursor from current position to outside of `@`
+       and characters after that with less than two white spaces while the popup is open.
+    2. A user selects an option from the dropdown list either using mouse click/pressing Enter or Tab.
+    3. A user adds two or more spaces after triggering the mention popup.
+    4. In the absence of `nimble-rich-text-mention-users` and no mapping elements.
+
+_Methods_
+
+-   `checkValidity()` - this returns `true` if the configuration of the `@mention` mapping data is valid and `false` otherwise.
 
 #### User mapping element (Non-visible configuration element):
 
@@ -272,9 +292,9 @@ _Content_
 
 #### Mention popup (Visible UI element):
 
-This container element is responsible for holding the `nimble-list-option` elements generated from the map. These elements are used to exhibit the
+This container element is responsible for holding the `nimble-list-box` and `nimble-list-option` elements generated from the map. These elements are used to exhibit the
 mention options in a dropdown list when the mention character is introduced into the editor (e.g., **"@"**). Additionally, this container element
-manages all the key down interactions, such as selecting options and navigating using the up and down arrow keys, that are associated with the list
+manages all the key down and mouse interactions within the dropdown, such as selecting options and navigating using the up and down arrow keys, that are associated with the list
 options.
 
 _Component Name_
@@ -284,6 +304,11 @@ _Component Name_
 _Content_
 
 -   One or more `nimble-list-option` elements
+
+_Events_
+
+-   `change` - this event is fired whenever a change happens within the dropdown either by clicking the options via mouse or selecting the options through key down events.
+    This is used by the `nimble-rich-text-editor` to make the Tiptap editor select the option and render as mention node using a command from `Mention` extension in Tiptap.
 
 ### Anatomy
 
@@ -304,7 +329,7 @@ _Content_
 <template slot="mapping"></template>
 ```
 
-#### `nimble-rich-text-mention-view`
+#### `nimble-rich-text-user-mention-view`
 
 ```html
 <template>
@@ -318,7 +343,9 @@ _Content_
 
 ```html
 <template>
-    <slot></slot>
+    <nimble-list-box>
+        <slot></slot>
+    </nimble-list-box>
 </template>
 ```
 
@@ -372,7 +399,7 @@ Shadow root template for the components that is used in the `nimble-rich-text-vi
 
 1. [`nimble-rich-text-mention-users`](#nimble-rich-text-mention-users)
 2. [`nimble-mapping-mention-user`](#nimble-mapping-mention-user)
-3. [`nimble-rich-text-mention-view`](#nimble-rich-text-mention-view)
+3. [`nimble-rich-text-user-mention-view`](#nimble-rich-text-user-mention-view)
 
 ## Implementation
 
@@ -493,6 +520,10 @@ This can be achieved by loading the customized `mention` plugin into the support
 `nimble-mapping-mention-user` elements. This custom node will be added `before` the `autolink` mark to give
 the highest precedence to the `mention` node.
 
+If the user is no longer a valid user or the mapping elements were not yet updated but the markdown string stores a valid
+user URL that matches the pattern, then the `@mention` node will parse as an user ID, instead of an user name as they are not
+mapped with any mapping elements.
+
 #### 4. _Defining node in markdown serializer_:
 
 The rendered `@mention` node will be constructed into a markdown string by extracting the `mention-url` from
@@ -545,7 +576,7 @@ option in the list. This indicates the client that some of the option is wrongly
 validation details using the public API `validity`.
 
 The public API to determine the validity of the mention options are `checkValidity()` and `validity`.
-See the [API section](./README.md#api) for more details.
+See the [API section](#user-mention-element-non-visible-configuration-element) for more details.
 
 #### 6. _nimble-rich-text-user-mention-view_:
 
@@ -565,18 +596,22 @@ in the editor.
 
 #### 7. _nimble-rich-text-mention-list-box_:
 
-This component extends FAST's `list-box` to inherit the essential mouse and keyboard interactions required within the dropdown list. Within the default slot, it gets
-`nimble-list-option` elements to populate the list with the provided options.
+This component has FAST's `list-box` in its template to inherit the essential mouse and keyboard interactions required within the dropdown list.
+To use the list box, a component named `nimble-list-box` will be created with just the styling changed from
+[FAST List Box](https://github.com/microsoft/fast/tree/master/packages/web-components/fast-foundation/src/listbox) to match the nimble theme.
+Within its default slot, it gets `nimble-list-option` elements which is used to populate the list with the provided options.
 
-This component is responsible for updating the options property when the list of options is filtered by the parent component, which in this context is the
+This component is responsible for updating the options property by filtering the list of options provided by the parent component, which in this context is the
 `nimble-rich-text-editor`. When the options are updated, the component internally handles setting the selected index values within the list-box.
 To facilitate keyboard interactions, a public method called `keyDownHandler()` is provided in `nimble-rich-text-mention-list-box`. This method is invoked in the
 `onKeyDown()` function in the Tiptap configuration, as described in the [configuration on Tiptap](#1-configurations-on-tiptap) section. The `keyDownHandler()`
 method takes the keyboard event as input and performs necessary operations, such as responding to up and down arrow key presses to decrement or increment the
 selected index value for each option, and handling `Enter` key presses for option selection, and so on.
 
-A click handler is attached to the `list-box`, and it emits the selected option data to the parent component. The parent component then invokes the `mention.command`
+A click handler is attached to the `nimble-list-box`, and it emits the selected option data to the parent component. The parent component then invokes the `mention.command`
 from Tiptap to render the mention node based on the selected option data.
+
+Both the click and key down handlers will emit a `change` event which is to be listened by the parent element to render the mention node based on selection in the editor.
 
 ### Angular integration
 
@@ -644,6 +679,9 @@ The `nimble-list-option` will have the following `aria-*` attributes value set b
 1. `aria-selected` - set to `true` if the option is selected/focused from the list of options. Any one from the list will have the `true` value.
 2. `aria-posinset` - determines the current position of the list items.
 3. `aria-setsize` - determines the actual length of the current list options.
+
+The `nimble-rich-text-user-mention-view` will have the `aria-label` attribute containing the name of the user that is stored as a text content
+in the same span element.
 
 ## Open Issues
 
