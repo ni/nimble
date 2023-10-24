@@ -63,6 +63,7 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
                 }
                 ${tableTag} {
                     height: auto;
+                    min-height: 100px;
                 }
             </style>
             ${x => createTemplate(x.labelProviderTag)}
