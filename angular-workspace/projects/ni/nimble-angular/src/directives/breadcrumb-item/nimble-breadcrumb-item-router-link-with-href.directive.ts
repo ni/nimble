@@ -1,7 +1,8 @@
 import { LocationStrategy } from '@angular/common';
 import { Attribute, Directive, ElementRef, HostListener, Inject, Input, Renderer2 } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import type { BreadcrumbItem } from '@ni/nimble-components/dist/esm/breadcrumb-item';
+import { RouterLink } from '../../thirdparty/directives/router_link';
 
 /**
  * Selectors used for built-in Angular RouterLink directives:
@@ -24,8 +25,8 @@ export class NimbleBreadcrumbItemRouterLinkWithHrefDirective extends RouterLink 
     }
 
     public constructor(
-        router: Router,
-        route: ActivatedRoute,
+        @Inject(Router) router: Router,
+        @Inject(ActivatedRoute) route: ActivatedRoute,
         // eslint-disable-next-line @angular-eslint/no-attribute-decorator
         @Attribute('tabindex') tabIndexAttribute: string | null | undefined,
         renderer: Renderer2,
