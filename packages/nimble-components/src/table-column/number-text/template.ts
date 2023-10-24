@@ -2,7 +2,7 @@ import { html, ref, slotted } from '@microsoft/fast-element';
 import { overflow } from '../../utilities/directive/overflow';
 import type { TableColumnNumberText } from '.';
 
-// Avoiding a wrapping <template> and be careful about starting and ending whitspace
+// Avoiding a wrapping <template> and be careful about starting and ending whitespace
 // so the template can be composed into other column header templates
 // prettier-ignore
 export const template = html<TableColumnNumberText>`<span

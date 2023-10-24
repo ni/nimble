@@ -3,7 +3,7 @@ import type { ScaledUnit } from './scaled-unit';
 import { UnitScaleFormatter } from './unit-scale-formatter';
 
 /**
- * Formatter for numbers with byte units
+ * Formatter for numbers with byte units (1000-based)
  */
 export class ByteScaleFormatter extends UnitScaleFormatter {
     protected override getSupportedUnits(
