@@ -95,6 +95,9 @@ export class MentionBox extends FoundationElement {
 
     public keydownHandler(e: Event & KeyboardEvent): boolean {
         const key = e.key;
+        if (!this.filteredOptions.length) {
+            return false;
+        }
         switch (key) {
             case keyTab:
             case keyEnter: {
