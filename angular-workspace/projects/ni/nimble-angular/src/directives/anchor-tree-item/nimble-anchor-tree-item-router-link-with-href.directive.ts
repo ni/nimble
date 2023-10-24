@@ -1,5 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink } from '../../thirdparty/directives/router_link';
 
 /**
  * Selectors used for built-in Angular RouterLink directives:

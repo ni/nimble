@@ -1,5 +1,6 @@
 import { Directive, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, CheckboxControlValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CheckboxControlValueAccessor } from '../../thirdparty/directives/checkbox_value_accessor';
 
 /**
  * Extension of Angular's CheckboxControlValueAccessor to target the Nimble switch control.

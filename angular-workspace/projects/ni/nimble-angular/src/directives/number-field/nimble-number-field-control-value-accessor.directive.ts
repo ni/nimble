@@ -1,5 +1,6 @@
 import { Directive, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, NumberValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NumberValueAccessor } from '../../thirdparty/directives/number_value_accessor';
 
 /**
  * Extension of Angular's NumberValueAccessor to target the number-based inputs.

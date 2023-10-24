@@ -1,5 +1,6 @@
 import { Directive, forwardRef } from '@angular/core';
-import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DefaultValueAccessor } from '../../thirdparty/directives/default_value_accessor';
 
 /**
  * Extension of Angular's DefaultValueAccessor to target the text-based inputs.
