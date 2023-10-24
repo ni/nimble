@@ -167,7 +167,7 @@ Cons:
 
 Initially, the client application need not provide any user mapping elements within the children of `nimble-rich-text-mention-users`.
 It can be empty. However, if the editor loads with an initial markdown string that contains `mentionedUsers`, the client should then load those
-user mapping elements. This is to render the user IDs in the markdown string should load as an user name in the editor and mapping elements should remains
+user mapping elements. This is to render the user IDs in the markdown string should load as a user name in the editor and mapping elements should remains
 there in the DOM through out the instance and should not filtered by the client. Basically, it is advisable to keep two lists, `filteredOptions` for
 dynamic filtering of users to populate in the `@mention` popup and `mentionedUsers` for storing the already mentioned users list which should not be
 dynamic loading by the client. However, the `mentionedUsers` will be filtered internally within the Nimble editor or configuration component whenever texts
@@ -224,7 +224,7 @@ _Props/Attrs_
 -   `validity` - is a readonly object of boolean values that represents the validity state that the `@mention` configuration can be. The object type
     is `RichTextMentionValidity`. The validation is especially for mapping the user details that is provided via the
     `nimble-mapping-mention-user`. For example, if the client application provide the duplicate `key` values that stores the user ID, it will be an
-    issue in scenarios when parsing the mention user from just an user ID to username.
+    issue in scenarios when parsing the mention user from just a user ID to username.
 
 _Events_
 
@@ -521,7 +521,7 @@ This can be achieved by loading the customized `mention` plugin into the support
 the highest precedence to the `mention` node.
 
 If the user is no longer a valid user or the mapping elements were not yet updated but the markdown string stores a valid
-user URL that matches the pattern, then the `@mention` node will parse as an user ID, instead of an user name as they are not
+user URL that matches the pattern, then the `@mention` node will parse as a user ID, instead of a user name as they are not
 mapped with any mapping elements.
 
 #### 4. _Defining node in markdown serializer_:
