@@ -13,18 +13,18 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, ElementRef, forwardRef, Provider} from '@angular/core';
+import {Directive} from '@angular/core';
 
-// [Nimble] Update imports
-// import {BuiltInControlValueAccessor, ControlValueAccessor, NG_VALUE_ACCESSOR} from './control_value_accessor';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { ControlValueAccessor } from '@angular/forms';
 import { BuiltInControlValueAccessor } from './control_value_accessor';
 
+/* [Nimble] Do not register as a value accessor provider
 const NUMBER_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => NumberValueAccessor),
   multi: true
 };
+*/
 
 /**
  * @description
@@ -50,13 +50,15 @@ const NUMBER_VALUE_ACCESSOR: Provider = {
  * @ngModule FormsModule
  * @publicApi
  */
+/* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
   selector:
       'input[type=number][formControlName],input[type=number][formControl],input[type=number][ngModel]',
   host: {'(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()'},
   providers: [NUMBER_VALUE_ACCESSOR]
 })
-// [Nimble] extend BaseControlValueAccessor rather than BuiltInControlValueAccessor
+*/
+@Directive()
 export class NumberValueAccessor extends BuiltInControlValueAccessor implements
     ControlValueAccessor {
   /**

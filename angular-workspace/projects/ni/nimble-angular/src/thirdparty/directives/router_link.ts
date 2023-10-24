@@ -15,21 +15,11 @@
  */
 
 import {LocationStrategy} from '@angular/common';
-// [Nimble] Remove private imports
-// import {Attribute, Directive, ElementRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges, ɵcoerceToBoolean as coerceToBoolean, ɵɵsanitizeUrlOrResourceUrl} from '@angular/core';
 import {Attribute, Directive, ElementRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges} from '@angular/core';
 import {Subject, Subscription} from 'rxjs';
 
-// [Nimble] Updating imports
-// import {Event, NavigationEnd} from '../events';
-// import {QueryParamsHandling} from '../models';
-// import {Router} from '../router';
-// import {ActivatedRoute} from '../router_state';
-// import {Params} from '../shared';
-// import {UrlTree} from '../url_tree';
 import { Event, Params, QueryParamsHandling, ActivatedRoute, Router, NavigationEnd, UrlTree } from '@angular/router';
 
-// [Nimble] Use forked imports to replace removed private imports
 import { coerceToBoolean } from '../utils/coercion';
 
 
@@ -130,10 +120,13 @@ import { coerceToBoolean } from '../utils/coercion';
  *
  * @publicApi
  */
+/* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
   selector: '[routerLink]',
   standalone: true,
 })
+*/
+@Directive()
 export class RouterLink implements OnChanges, OnDestroy {
   private _preserveFragment = false;
   private _skipLocationChange = false;

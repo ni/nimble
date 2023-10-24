@@ -12,20 +12,18 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-// [Nimble] Update imports
-// import {ɵgetDOM as getDOM} from '@angular/common';
-import {Directive, ElementRef, forwardRef, Inject, InjectionToken, Optional, Renderer2} from '@angular/core';
+import {Directive, ElementRef, Inject, Optional, Renderer2} from '@angular/core';
 
-// [Nimble] Update imports
-// import {BaseControlValueAccessor, ControlValueAccessor, NG_VALUE_ACCESSOR} from './control_value_accessor';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, COMPOSITION_BUFFER_MODE } from '@angular/forms';
 import { BaseControlValueAccessor } from './control_value_accessor';
 
+/* [Nimble] Do not register as a default value accessor provider
 export const DEFAULT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => DefaultValueAccessor),
   multi: true
 };
+*/
 
 /**
  * We must check whether the agent is Android because composition events
@@ -38,13 +36,15 @@ function _isAndroid(): boolean {
   return /android (\d+)/.test(userAgent.toLowerCase());
 }
 
+/* [Nimble] Pulled from Angular forms instead
 /**
  * @description
  * Provide this token to control if form directives buffer IME input until
  * the "compositionend" event occurs.
  * @publicApi
- */
+ *
 export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionEventMode');
+*/
 
 /**
  * The default `ControlValueAccessor` for writing a value and listening to changes on input
@@ -81,6 +81,7 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionE
  * @ngModule FormsModule
  * @publicApi
  */
+/* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
   selector:
       'input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]',
@@ -95,6 +96,8 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionE
   },
   providers: [DEFAULT_VALUE_ACCESSOR]
 })
+*/
+@Directive()
 export class DefaultValueAccessor extends BaseControlValueAccessor implements ControlValueAccessor {
   /** Whether the user is creating a composition string (IME events). */
   private _composing = false;

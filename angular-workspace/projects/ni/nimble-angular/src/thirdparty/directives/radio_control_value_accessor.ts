@@ -15,16 +15,18 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, ElementRef, forwardRef, Injectable, Injector, Input, NgModule, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {Directive, ElementRef, Injectable, Injector, Input, NgModule, OnDestroy, OnInit, Renderer2} from '@angular/core';
 
 import {BuiltInControlValueAccessor} from './control_value_accessor';
-import {ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {ControlValueAccessor, NgControl} from '@angular/forms';
 
+/* [Nimble] Do not register as a value accessor provider
 export const RADIO_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => RadioControlValueAccessor),
   multi: true
 };
+*/
 
 function throwNameError() {
   /* [Nimble] RuntimeErrorCode is not exported from @angular/forms in version 12; falling back to version 12 behavior
@@ -117,12 +119,15 @@ export class RadioControlRegistry {
  * @ngModule FormsModule
  * @publicApi
  */
+/* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
   selector:
       'input[type=radio][formControlName],input[type=radio][formControl],input[type=radio][ngModel]',
   host: {'(change)': 'onChange()', '(blur)': 'onTouched()'},
   providers: [RADIO_VALUE_ACCESSOR]
 })
+*/
+@Directive()
 export class RadioControlValueAccessor extends BuiltInControlValueAccessor implements
     ControlValueAccessor, OnDestroy, OnInit {
   /** @internal */

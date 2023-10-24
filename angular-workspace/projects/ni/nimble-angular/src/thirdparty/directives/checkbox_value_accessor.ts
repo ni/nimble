@@ -13,18 +13,18 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, forwardRef, Provider} from '@angular/core';
+import {Directive} from '@angular/core';
 
-// [Nimble] Update imports
-// import {BuiltInControlValueAccessor, ControlValueAccessor, NG_VALUE_ACCESSOR} from './control_value_accessor';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { ControlValueAccessor } from '@angular/forms';
 import { BuiltInControlValueAccessor } from './control_value_accessor';
 
+/* [Nimble] Do not register as a value accessor provider
 const CHECKBOX_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => CheckboxControlValueAccessor),
   multi: true,
 };
+*/
 
 /**
  * @description
@@ -49,12 +49,15 @@ const CHECKBOX_VALUE_ACCESSOR: Provider = {
  * @ngModule FormsModule
  * @publicApi
  */
+/* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
   selector:
       'input[type=checkbox][formControlName],input[type=checkbox][formControl],input[type=checkbox][ngModel]',
   host: {'(change)': 'onChange($event.target.checked)', '(blur)': 'onTouched()'},
   providers: [CHECKBOX_VALUE_ACCESSOR]
 })
+*/
+@Directive()
 export class CheckboxControlValueAccessor extends BuiltInControlValueAccessor implements
     ControlValueAccessor {
   /**

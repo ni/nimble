@@ -13,21 +13,18 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-// [Nimble] Update imports
-// import {Directive, ElementRef, forwardRef, Host, Input, OnDestroy, Optional, Provider, Renderer2, ɵRuntimeError as RuntimeError} from '@angular/core';
-// import {RuntimeErrorCode} from '../errors';
-import {Directive, ElementRef, forwardRef, Host, Input, OnDestroy, Optional, Provider, Renderer2, isDevMode} from '@angular/core';
+import {Directive, ElementRef, Host, Input, OnDestroy, Optional, Provider, Renderer2, isDevMode} from '@angular/core';
 
-// [Nimble] Update imports
-// import {BuiltInControlValueAccessor, ControlValueAccessor, NG_VALUE_ACCESSOR} from './control_value_accessor';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { ControlValueAccessor } from '@angular/forms';
 import { BuiltInControlValueAccessor } from './control_value_accessor';
 
+/* [Nimble] Do not register as a value accessor provider
 const SELECT_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SelectControlValueAccessor),
   multi: true
 };
+*/
 
 function _buildValueString(id: string|null, value: any): string {
   if (id == null) return `${value}`;
@@ -95,12 +92,15 @@ function _extractId(valueString: string): string {
  * @ngModule FormsModule
  * @publicApi
  */
+/* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
   selector:
       'select:not([multiple])[formControlName],select:not([multiple])[formControl],select:not([multiple])[ngModel]',
   host: {'(change)': 'onChange($event.target.value)', '(blur)': 'onTouched()'},
   providers: [SELECT_VALUE_ACCESSOR]
 })
+*/
+@Directive()
 export class SelectControlValueAccessor extends BuiltInControlValueAccessor implements
     ControlValueAccessor {
   /** @nodoc */
