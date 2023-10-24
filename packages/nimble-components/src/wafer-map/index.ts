@@ -223,7 +223,8 @@ export class WaferMap extends FoundationElement {
 
             // Updating the canvas size clears its contents so update it explicitly instead of
             // via template bindings so we can confirm that it happens before render
-            // this.matrixRenderer.setCanvasDimensions(width, height);
+            this.matrixRenderer.setCanvas();
+            this.matrixRenderer.setCanvasDimensions(width, height);
             this.canvasWidth = width;
             this.canvasHeight = height;
         });

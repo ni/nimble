@@ -40,11 +40,8 @@ export class MatrixRenderer {
     }
 
     public renderMatrix(): void {
-        if (!this.canvasSet) {
-            this.setCanvas();
-            this.canvasSet = true;
-        }
-        this.setCanvasDimensions(this.wafermap.canvasWidth, this.wafermap.canvasHeight);
+        // this.setCanvas();
+        // this.setCanvasDimensions(this.wafermap.canvasWidth, this.wafermap.canvasHeight);
         this.saveContext();
         this.clearCanvas();
         this.scaleCanvas();
@@ -53,6 +50,7 @@ export class MatrixRenderer {
     }
 
     public setCanvasDimensions(width: number, height: number): void {
+        console.log('setCanvasDimensions', width, height, this.canvasSet);
         if (this.canvasSet) {
             this.worker.postMessage(
                 {
@@ -64,18 +62,21 @@ export class MatrixRenderer {
         }
     }
 
-    private setCanvas(): void {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-        const offscreen = this.wafermap.canvas.transferControlToOffscreen();
-        this.worker.postMessage(
-            {
-                method: 'setCanvas',
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                canvas: offscreen
-            },
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-            [offscreen]
-        );
+    public setCanvas(): void {
+        if (!this.canvasSet) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+            const offscreen = this.wafermap.canvas.transferControlToOffscreen();
+            this.worker.postMessage(
+                {
+                    method: 'setCanvas',
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                    canvas: offscreen
+                },
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                [offscreen]
+            );
+            this.canvasSet = true;
+        }
     }
 
     private clearCanvas(): void {
@@ -90,6 +91,7 @@ export class MatrixRenderer {
 
     private scaleCanvas(): void {
         if (this.canvasSet) {
+            console.log('scaleCanvas', this.wafermap.transform);
             this.worker.postMessage(
                 {
                     method: 'scaleCanvas',
@@ -124,6 +126,7 @@ export class MatrixRenderer {
             width: this.wafermap.canvasWidth,
             height: this.wafermap.canvasHeight
         };
+        console.log('canvasDimensions', canvasDimensions);
         const canvasDiameter = Math.min(
             canvasDimensions.width,
             canvasDimensions.height
@@ -197,8 +200,8 @@ export class MatrixRenderer {
             0, 0
         ]);
         const transformedCanvasMaxPoint = this.wafermap.transform.invert([
-            this.wafermap.canvas.width,
-            this.wafermap.canvas.height
+            this.wafermap.canvasWidth,
+            this.wafermap.canvasHeight
         ]);
         transformedCanvasMinPoint[0] -= dieDimensions.width;
         transformedCanvasMinPoint[1] -= dieDimensions.height;
@@ -214,6 +217,8 @@ export class MatrixRenderer {
                 }
             }
         );
+        console.log('transformedCanvasMinPoint', transformedCanvasMinPoint);
+        console.log('transformedCanvasMaxPoint', transformedCanvasMaxPoint);
         const dieMatrix = this.wafermap.dieMatrix;
         for (const diesRow of dieMatrix) {
             const scaledX = horizontalScale.a + horizontalScale.b * diesRow.xIndex + margin.right;
