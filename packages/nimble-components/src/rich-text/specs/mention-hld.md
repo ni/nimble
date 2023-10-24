@@ -288,7 +288,7 @@ _Props/Attrs_
 
 _Content_
 
--   `@` + mentioned user name or display name or user ID if the `display-name` is not present in the mapping elements
+-   `@` + mentioned user name or display name or user ID if mapping element is not present for the particular user
 
 #### Mention popup (Visible UI element):
 
