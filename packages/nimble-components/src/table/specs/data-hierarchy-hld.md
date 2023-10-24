@@ -225,3 +225,4 @@ By making the `TableRecord` support hierarchy in its structure, it seemed possib
     -   Should the table represent the error state visually, and if so how?
     -   Should the table surface any UI to "refresh" a data retrieval attempt. If so, what should that look like?
 -   What does the API for `setRowState` really look like?
+-   The set of proposed APIs and behaviors described so far don't seem to cover the SLE Steps Grid use case. __Resolved: Ultimately, the Steps grid should likely be using a significantly different UX than what it currently has, and we are opting to not introduce features and capabilities into the Nimble table to support a sub-optimal UX.__
