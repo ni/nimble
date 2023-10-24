@@ -1,4 +1,4 @@
-import { html, ref, slotted } from '@microsoft/fast-element';
+import { elements, html, ref, slotted } from '@microsoft/fast-element';
 import { overflow } from '../../utilities/directive/overflow';
 import type { TableColumnNumberText } from '.';
 
@@ -11,5 +11,5 @@ export const template = html<TableColumnNumberText>`<span
     title=${x => (x.hasOverflow && x.headerTextContent ? x.headerTextContent : null)}
 >
     <slot ${ref('contentSlot')}></slot>
-    <slot ${slotted('unitElements')} name="unit"></slot>
+    <slot ${slotted({ property: 'unitElements', filter: elements() })} name="unit"></slot>
 </span>`;

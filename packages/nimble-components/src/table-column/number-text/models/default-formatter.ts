@@ -1,7 +1,7 @@
 import { NumberFormatter } from './number-formatter';
 import type {
     UnitScaleFormatter,
-    UnitScaleFormatterContructor
+    UnitScaleFormatterConstructor
 } from './unit-scale-formatter';
 
 /**
@@ -35,18 +35,18 @@ export class DefaultFormatter extends NumberFormatter {
     public constructor(
         locale: string,
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        UnitScaleFormatterContructor: UnitScaleFormatterContructor
+        UnitScaleFormatterConstructor: UnitScaleFormatterConstructor
     ) {
         super();
-        this.defaultFormatter = new UnitScaleFormatterContructor(locale, {
+        this.defaultFormatter = new UnitScaleFormatterConstructor(locale, {
             maximumSignificantDigits: DefaultFormatter.maximumDigits,
             useGrouping: true
         });
-        this.leadingZeroFormatter = new UnitScaleFormatterContructor(locale, {
+        this.leadingZeroFormatter = new UnitScaleFormatterConstructor(locale, {
             maximumFractionDigits: DefaultFormatter.maximumDigits - 1,
             useGrouping: true
         });
-        this.exponentialFormatter = new UnitScaleFormatterContructor(locale, {
+        this.exponentialFormatter = new UnitScaleFormatterConstructor(locale, {
             maximumSignificantDigits: DefaultFormatter.maximumDigits,
             notation: 'scientific'
         });

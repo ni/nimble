@@ -1,7 +1,7 @@
 import { NumberFormatter } from './number-formatter';
 import type {
     UnitScaleFormatter,
-    UnitScaleFormatterContructor
+    UnitScaleFormatterConstructor
 } from './unit-scale-formatter';
 
 /**
@@ -14,12 +14,12 @@ export class DecimalFormatter extends NumberFormatter {
     public constructor(
         locale: string,
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        UnitScaleFormatterContructor: UnitScaleFormatterContructor,
+        UnitScaleFormatterConstructor: UnitScaleFormatterConstructor,
         minimumFractionDigits: number,
         maximumFractionDigits: number
     ) {
         super();
-        this.formatter = new UnitScaleFormatterContructor(locale, {
+        this.formatter = new UnitScaleFormatterConstructor(locale, {
             maximumFractionDigits,
             minimumFractionDigits,
             useGrouping: true

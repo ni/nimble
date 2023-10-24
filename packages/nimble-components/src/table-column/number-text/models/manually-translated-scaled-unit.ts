@@ -9,7 +9,7 @@ export class ManuallyTranslatedScaledUnit implements ScaledUnit {
         private readonly formatter: Intl.NumberFormat,
         private readonly pluralRules: Intl.PluralRules,
         private readonly unitLabel: string,
-        private readonly singluarUnitLabel: string
+        private readonly singularUnitLabel: string
     ) {}
 
     public format(value: number): string {
@@ -25,7 +25,7 @@ export class ManuallyTranslatedScaledUnit implements ScaledUnit {
         // sometimes an inconsistency between unit pluralization for the same number, based
         // on whether it's supported by NumberFormat, or manually translated.
         const unitLabel = this.pluralRules.select(Number(formattedValue)) === 'one'
-            ? this.singluarUnitLabel
+            ? this.singularUnitLabel
             : this.unitLabel;
         return `${formattedValue} ${unitLabel}`;
     }

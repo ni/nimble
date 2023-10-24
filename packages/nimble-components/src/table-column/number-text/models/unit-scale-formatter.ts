@@ -1,7 +1,7 @@
 import type { ScaledUnit } from './scaled-unit';
 import { NumberFormatter } from './number-formatter';
 
-export type UnitScaleFormatterContructor = new (
+export type UnitScaleFormatterConstructor = new (
     lang: string,
     formatterOptions: Intl.NumberFormatOptions
 ) => UnitScaleFormatter;

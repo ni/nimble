@@ -65,7 +65,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
 
     /** @internal */
     @observable
-    public unitElements!: Node[];
+    public unitElements!: Element[];
 
     private unitScale?: UnitScale;
 
@@ -141,6 +141,14 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private unitElementsChanged(): void {
+        void this.updateColumnConfigFromUnitElements();
+    }
+
+    private async updateColumnConfigFromUnitElements(): Promise<void> {
+        const definedElements = this.unitElements.map(async item => (item.matches(':not(:defined)')
+            ? customElements.whenDefined(item.localName)
+            : Promise.resolve()));
+        await Promise.all(definedElements);
         this.unitScale = this.unitElements.find(
             x => x instanceof UnitScale
         ) as UnitScale;
