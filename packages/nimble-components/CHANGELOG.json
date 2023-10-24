@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 23 Oct 2023 20:09:52 GMT",
+      "version": "20.10.0",
+      "tag": "@ni/nimble-components_v20.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8ac678275c2b512513e7d3afeeedbc19e19da4d0",
+            "comment": "Update numeric column spec for unit support"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 23 Oct 2023 19:19:29 GMT",
+      "version": "20.10.0",
+      "tag": "@ni/nimble-components_v20.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "28602266+leslieab@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ef65323bcf924987b3dbafcb1d367205a45f2c9",
+            "comment": "Initial submission of accordion ixd spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 23 Oct 2023 14:17:52 GMT",
       "version": "20.10.0",
       "tag": "@ni/nimble-components_v20.10.0",
