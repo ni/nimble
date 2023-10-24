@@ -283,12 +283,12 @@ _Component Name_
 _Props/Attrs_
 
 -   `mention-url`: string - the user ID URL of the mentioned user
--   `mention-label`: string - the user name of the mentioned user
+-   `mention-label`: string - the user name of the mentioned user or the user ID if mapping element is not present for the particular user
 -   `type`: string - the type of the mentioned node, _defaults_ as `mention`
 
 _Content_
 
--   `@` + mentioned user name or display name
+-   `@` + mentioned user name or display name or user ID if the `display-name` is not present in the mapping elements
 
 #### Mention popup (Visible UI element):
 
