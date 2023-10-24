@@ -37,6 +37,15 @@ public class NimbleTableColumnNumberTextTests
         Assert.Contains(expectedMarkup, table.Markup);
     }
 
+    [Fact]
+    public void NimbleTableColumnNumberText_WithDecimalMaximumDigitsAttribute_HasTableMarkup()
+    {
+        var table = RenderWithPropertySet(x => x.DecimalMaximumDigits!, 5);
+
+        var expectedMarkup = @"decimal-maximum-digits=""5""";
+        Assert.Contains(expectedMarkup, table.Markup);
+    }
+
     [Theory]
     [InlineData(NumberTextFormat.Default, "<nimble-table-column-number-text((?!format).)*>")]
     [InlineData(NumberTextFormat.Decimal, @"format=""decimal""")]

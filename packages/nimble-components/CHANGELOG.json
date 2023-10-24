@@ -2,6 +2,87 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 23 Oct 2023 20:09:52 GMT",
+      "version": "20.10.0",
+      "tag": "@ni/nimble-components_v20.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8ac678275c2b512513e7d3afeeedbc19e19da4d0",
+            "comment": "Update numeric column spec for unit support"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 23 Oct 2023 19:19:29 GMT",
+      "version": "20.10.0",
+      "tag": "@ni/nimble-components_v20.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "28602266+leslieab@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ef65323bcf924987b3dbafcb1d367205a45f2c9",
+            "comment": "Initial submission of accordion ixd spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 23 Oct 2023 14:17:52 GMT",
+      "version": "20.10.0",
+      "tag": "@ni/nimble-components_v20.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "62016ff5a313a4c35f7850a2a4261251ceda51e0",
+            "comment": "Add icon for Save As"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.6.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 19 Oct 2023 23:50:56 GMT",
+      "version": "20.9.0",
+      "tag": "@ni/nimble-components_v20.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "466d474d52d3eb8a0396a6e53365e32bfbbd2954",
+            "comment": "Add decimal-maximum-digits attr to number-text column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 19 Oct 2023 15:08:49 GMT",
+      "version": "20.8.0",
+      "tag": "@ni/nimble-components_v20.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f80db0b9334a11d4c76a57b0cc4850cea300f950",
+            "comment": "Table Duration Column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 Oct 2023 18:51:54 GMT",
       "version": "20.7.0",
       "tag": "@ni/nimble-components_v20.7.0",
