@@ -10,6 +10,7 @@ mentioned in the editor, it should be loaded back to the viewer with the special
 1.  Notifying the mentioned users through an email in comments feature is part of the backend services
 2.  Adding a "Load More" or "Search Server" button to dynamically load more data in the `@mention` dropdown
     in editor.
+3.  Show a tooltip having more details of the user like email, profile information on clicking the mentioned users in the viewer.
 
 ## Links To Relevant Work Items and Reference Material
 
@@ -82,18 +83,18 @@ they can alternatively insert the user ID in a valid URL format such as `user:us
         </nimble-rich-text-mention-users>
 
         <nimble-rich-text-mention-issues pattern="http://issues/.*">
-            <nimble-mapping-mention-user
+            <nimble-mapping-mention-issue
                 mention-url="http://issue/issue-id-1"
                 display-name="Spec for rich text editor"
-            ></nimble-mapping-mention-user>
-            <nimble-mapping-mention-user
+            ></nimble-mapping-mention-issue>
+            <nimble-mapping-mention-issue
                 mention-url="http://issue/issue-id-2"
                 display-name="Mention support in rich text components"
-            ></nimble-mapping-mention-user>
-            <nimble-mapping-mention-user
+            ></nimble-mapping-mention-issue>
+            <nimble-mapping-mention-issue
                 mention-url="http://issue/issue-id-3"
                 display-name="Issue in pasting a link"
-            ></nimble-mapping-mention-user>
+            ></nimble-mapping-mention-issue>
         </nimble-rich-text-mention-issues>
     </nimble-rich-text-editor>
     ```
@@ -123,41 +124,41 @@ Cons:
    some arbitrary value, the only viable option is to include it within the options. In contrast, the configuration-based
    approach readily allows for the inclusion of arbitrary values in the parent container element, making customization more
    straightforward. For an example, in future if we are configuring the `character` to trigger the user mention from the client,
-   it is simply to add it like below,
+   it is simple to add it like below,
     ```html
-    <nimble-rich-text-mention-users character="@">
-        <nimble-mapping-mention-users
+    <nimble-rich-text-mention-user character="@">
+        <nimble-mapping-mention-user
             key="user-id-1"
             text="username-1"
-        ></nimble-mapping-mention-users>
-        <nimble-mapping-mention-users
+        ></nimble-mapping-mention-user>
+        <nimble-mapping-mention-user
             key="user-id-2"
             text="username-2"
-        ></nimble-mapping-mention-users>
-        <nimble-mapping-mention-users
+        ></nimble-mapping-mention-user>
+        <nimble-mapping-mention-user
             key="user-id-3"
             text="username-3"
-        ></nimble-mapping-mention-users>
-    </nimble-rich-text-mention-users>
+        ></nimble-mapping-mention-user>
+    </nimble-rich-text-mention-user>
     ```
     If it is a slot based approach, it is required to provide the information to every options as we don't know that it is a user mention
     or other mention
     ```html
-    <nimble-mapping-mention-users
+    <nimble-mapping-mention-user
         key="user-id-1"
         text="username-1"
         character="@"
-    ></nimble-mapping-mention-users>
-    <nimble-mapping-mention-users
+    ></nimble-mapping-mention-user>
+    <nimble-mapping-mention-user
         key="user-id-2"
         text="username-2"
         character="@"
-    ></nimble-mapping-mention-users>
-    <nimble-mapping-mention-users
+    ></nimble-mapping-mention-user>
+    <nimble-mapping-mention-user
         key="user-id-3"
         text="username-3"
         character="@"
-    ></nimble-mapping-mention-users>
+    ></nimble-mapping-mention-user>
     ```
 3. The UI of the list option is completely dependent on the client application.
 4. All the keyboard and mouse interactions within the dropdown list should be handled internally within the editor as `nimble-list-option`
@@ -166,17 +167,17 @@ Cons:
 #### Client Usage Guidance on Filtered Users:
 
 Initially, the client application need not provide any user mapping elements within the children of `nimble-rich-text-mention-users`.
-It can be empty. However, if the editor loads with an initial markdown string that contains `mentionedUsers`, the client should then load those
-user mapping elements. This is to render the user IDs in the markdown string should load as a user name in the editor and mapping elements should remains
-there in the DOM through out the instance and should not filtered by the client. Basically, it is advisable to keep two lists, `filteredOptions` for
-dynamic filtering of users to populate in the `@mention` popup and `mentionedUsers` for storing the already mentioned users list which should not be
-dynamic loading by the client. However, the `mentionedUsers` will be filtered internally within the Nimble editor or configuration component whenever texts
-added after `@` in the editor.
+It can be empty. However, if the editor loads with an initial markdown string that contains user mentions, then the client should load those
+user mapping elements. This is to load the user IDs in the markdown string and to render as a user name in the editor. The already mentioned
+user mapping elements should remain there in the DOM throughout the instance and should not filtered by the client dynamically. Therefore,
+it is advisable to keep two lists, `filteredOptions` for dynamic filtering of users to populate in the `@mention` popup and `mentionedUsers`
+for storing the already mentioned users which should not be dynamically loaded by the client. Later, the `mentionedUsers` will be filtered
+internally within the Nimble editor or configuration component to show the names in the popup whenever texts added after `@` in the editor.
 
 The `nimble-rich-text-mention-users` component will emit an event whenever the `@` character is entered into the editor. Client can listen to
 the `mention-update` event and provide the other initial user lists that are not mentioned already.
 
-It is recommended to `sort` the usernames in alphabetical order and sent at most twenty users list at a time to reduce the number of elements
+It is recommended to `sort` the usernames in alphabetical order and sent at most 20 users list at a time to reduce the number of elements
 in the DOM for a single page. This dynamic loading of users list will help us specifically in comments feature when there are lot of `@mention`
 happens in a single page and if the users list is huge, it may cause the page to load slower as the mapping mention element is provided
 for every editor.
@@ -184,7 +185,7 @@ for every editor.
 The `mention-update` event will also be triggered when the user types any character after `@`, containing that text following the `@` character.
 For instance, if a user types `@` and then adds `a` the event will be emitted with data that includes the value `@a`. The client will be
 listening to this event, filter the list of users that includes the names containing the letter `a` and then dynamically update the
-`nimble-mapping-mention-user` element based on the filter data. Subsequently, a maximum of twenty filtered options should be transmitted to the
+`nimble-mapping-mention-user` element based on the filter data. Subsequently, a maximum of 20 filtered options should be transmitted to the
 editor.
 
 Since the above event triggers for every key down events like to add/remove texts, move the text cursors after the `@` character which is quite
@@ -677,6 +678,8 @@ _Mouse interactions for `@mention`_
 
 _ARIA Roles/Properties for `@mention` components_
 
+_`nimble-rich-text-mention-list-box`_
+
 The `nimble-rich-text-mention-list-box` will have the role as `listbox` and the `nimble-list-option` will have the role as `option` as in the other
 list option components like `nimble-select` and `nimble-combobox`. Both the components will respect the `aria-disabled` based on the parent element
 `nimble-rich-text-editor`.
@@ -687,8 +690,16 @@ The `nimble-list-option` will have the following `aria-*` attributes value set b
 2. `aria-posinset` - determines the current position of the list items.
 3. `aria-setsize` - determines the actual length of the current list options.
 
-The `nimble-rich-text-user-mention-view` will have the `aria-label` attribute containing the name of the user that is stored as a text content
-in the same span element.
+_`nimble-rich-text-user-mention-view`_
+
+The `nimble-rich-text-user-mention-view` will not have any specific `roles` or `aria-*` attributes to differentiate `@mention` node with other
+texts in the editor or viewer.
+
+_Future Scope_:
+
+If the `nimble-rich-text-user-mention-view` has the ability to show more information about the user by showing a tooltip by clicking on the node,
+then it should probably use a `button` or `link` role to specify its difference from other nodes. Also, having ARIA attribute like `aria-labelledby`
+to mention the user detail which is not displayed in the UI when the feature to show a tooltip is enabled.
 
 ## Open Issues
 
