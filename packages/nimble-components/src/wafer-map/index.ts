@@ -7,8 +7,6 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { template } from './template';
 import { styles } from './styles';
-import { DataManager } from './modules/data-manager';
-import { RenderingModule } from './modules/rendering';
 import { EventCoordinator } from './modules/event-coordinator';
 import {
     HoverDieOpacity,
@@ -86,14 +84,14 @@ export class WaferMap extends FoundationElement {
      */
     public readonly zoomContainer!: HTMLElement;
 
-    /**
-     * @internal
-     */
-    public readonly dataManager = new DataManager(this);
-    /**
-     * @internal
-     */
-    public readonly renderer = new RenderingModule(this);
+    // /**
+    //  * @internal
+    //  */
+    // public readonly dataManager = new DataManager(this);
+    // /**
+    //  * @internal
+    //  */
+    // public readonly renderer = new RenderingModule(this);
     /**
      * @internal
      */

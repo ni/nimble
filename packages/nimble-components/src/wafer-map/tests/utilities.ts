@@ -8,7 +8,7 @@ import {
     WaferMapOriginLocation,
     WaferMapValidity
 } from '../types';
-import type { DataManager } from '../modules/data-manager';
+// import type { DataManager } from '../modules/data-manager';
 import type { WaferMap } from '..';
 
 export function getWaferMapDies(): WaferMapDie[] {
@@ -71,22 +71,22 @@ export const defaultVerticalScale = scaleLinear<number, number>()
     .domain([1, 2, 3, 4, 5, 6])
     .range([1, 7]);
 
-export function getDataManagerMock(
-    dieDimensions: Dimensions,
-    margin: Margin,
-    horizontalScale: ScaleLinear<number, number> = getScaleBand([], []),
-    verticalScale: ScaleLinear<number, number> = getScaleBand([], [])
-): Pick<
-    DataManager,
-    'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
-    > {
-    return {
-        horizontalScale,
-        verticalScale,
-        dieDimensions,
-        margin
-    };
-}
+// export function getDataManagerMock(
+//     dieDimensions: Dimensions,
+//     margin: Margin,
+//     horizontalScale: ScaleLinear<number, number> = getScaleBand([], []),
+//     verticalScale: ScaleLinear<number, number> = getScaleBand([], [])
+// ): Pick<
+//     DataManager,
+//     'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
+//     > {
+//     return {
+//         horizontalScale,
+//         verticalScale,
+//         dieDimensions,
+//         margin
+//     };
+// }
 
 export function getWaferMapMockPrerendering(
     dies: WaferMapDie[] = getWaferMapDies(),
