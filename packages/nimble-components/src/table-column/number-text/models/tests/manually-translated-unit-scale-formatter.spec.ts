@@ -34,6 +34,14 @@ describe('ManuallyTranslatedUnitScaleFormatter', () => {
         expect(formatter.formatValue(10)).toEqual('1 10.fr-abbrev');
     });
 
+    it('handles a locale that is only the language portion', () => {
+        const formatter = new TestManuallyTranslatedUnitScaleFormatter(
+            'fr',
+            {}
+        );
+        expect(formatter.formatValue(0)).toEqual('0 fr-singular');
+    });
+
     it('formats with English units for non-supported language', () => {
         const formatter = new TestManuallyTranslatedUnitScaleFormatter(
             'ru',
