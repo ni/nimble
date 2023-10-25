@@ -2,8 +2,8 @@ import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { template } from '../base/template';
 import type { UnitScaleFormatterConstructor } from '../../table-column/number-text/models/unit-scale-formatter';
-import { Byte1024ScaleFormatter } from '../../table-column/number-text/models/byte-1024-scale-formatter';
-import { ByteScaleFormatter } from '../../table-column/number-text/models/byte-scale-formatter';
+import { Byte1024UnitScaleFormatter } from './models/byte-1024-unit-scale-formatter';
+import { ByteUnitScaleFormatter } from './models/byte-unit-scale-formatter';
 import { UnitScale } from '../base/unit-scale';
 
 declare global {
@@ -21,7 +21,9 @@ export class UnitByte extends UnitScale {
     public binary = false;
 
     public override getFormatter(): UnitScaleFormatterConstructor {
-        return this.binary ? Byte1024ScaleFormatter : ByteScaleFormatter;
+        return this.binary
+            ? Byte1024UnitScaleFormatter
+            : ByteUnitScaleFormatter;
     }
 }
 

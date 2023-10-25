@@ -5,7 +5,7 @@ import { UnitScaleFormatter } from './unit-scale-formatter';
 /**
  * Degenerate UnitScaleFormatter for formatting without units
  */
-export class NoUnitScaleFormatter extends UnitScaleFormatter {
+export class EmptyUnitScaleFormatter extends UnitScaleFormatter {
     protected override getSupportedUnits(
         lang: string,
         formatterOptions: Intl.NumberFormatOptions

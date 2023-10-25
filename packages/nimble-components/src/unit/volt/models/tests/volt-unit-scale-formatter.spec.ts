@@ -1,8 +1,8 @@
-import { VoltScaleFormatter } from '../volt-scale-formatter';
+import { VoltUnitScaleFormatter } from '../volt-unit-scale-formatter';
 
-describe('VoltScaleFormatter', () => {
+describe('VoltUnitScaleFormatter', () => {
     it('formats using expected units (English)', () => {
-        const formatter = new VoltScaleFormatter('en', {});
+        const formatter = new VoltUnitScaleFormatter('en', {});
         expect(formatter.formatValue(10 ** -18)).toEqual('0.001 fV');
         expect(formatter.formatValue(10 ** -15)).toEqual('1 fV');
         expect(formatter.formatValue(10 ** -12)).toEqual('1 pV');
@@ -23,7 +23,7 @@ describe('VoltScaleFormatter', () => {
     });
 
     it('formats using expected units (French)', () => {
-        const formatter = new VoltScaleFormatter('fr', {});
+        const formatter = new VoltUnitScaleFormatter('fr', {});
         expect(formatter.formatValue(10 ** -18)).toEqual('0,001 fV');
         expect(formatter.formatValue(10 ** -15)).toEqual('1 fV');
         expect(formatter.formatValue(10 ** -12)).toEqual('1 pV');
@@ -44,7 +44,7 @@ describe('VoltScaleFormatter', () => {
     });
 
     it('formats using expected units (German)', () => {
-        const formatter = new VoltScaleFormatter('de', {});
+        const formatter = new VoltUnitScaleFormatter('de', {});
         expect(formatter.formatValue(10 ** -18)).toEqual('0,001 fV');
         expect(formatter.formatValue(10 ** -15)).toEqual('1 fV');
         expect(formatter.formatValue(10 ** -12)).toEqual('1 pV');
@@ -65,7 +65,7 @@ describe('VoltScaleFormatter', () => {
     });
 
     it('formats using expected units (Japanese)', () => {
-        const formatter = new VoltScaleFormatter('ja', {});
+        const formatter = new VoltUnitScaleFormatter('ja', {});
         expect(formatter.formatValue(10 ** -18)).toEqual('0.001 fV');
         expect(formatter.formatValue(10 ** -15)).toEqual('1 fV');
         expect(formatter.formatValue(10 ** -12)).toEqual('1 pV');
@@ -86,7 +86,7 @@ describe('VoltScaleFormatter', () => {
     });
 
     it('formats using expected units (Chinese)', () => {
-        const formatter = new VoltScaleFormatter('zh', {});
+        const formatter = new VoltUnitScaleFormatter('zh', {});
         expect(formatter.formatValue(10 ** -18)).toEqual('0.001 fV');
         expect(formatter.formatValue(10 ** -15)).toEqual('1 fV');
         expect(formatter.formatValue(10 ** -12)).toEqual('1 pV');

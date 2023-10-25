@@ -57,6 +57,6 @@ import './toolbar';
 import './tooltip';
 import './tree-item';
 import './tree-view';
-import './units/byte';
-import './units/volt';
+import './unit/byte';
+import './unit/volt';
 import './wafer-map';

@@ -1,11 +1,11 @@
-import { ManuallyTranslatedUnitScaleFormatter } from './manually-translated-unit-scale-formatter';
-import { UnitPrefix } from './unit-prefix';
-import { UnitTranslation } from './unit-translation';
+import { ManuallyTranslatedUnitScaleFormatter } from '../../../table-column/number-text/models/manually-translated-unit-scale-formatter';
+import { UnitPrefix } from '../../../table-column/number-text/models/unit-prefix';
+import { UnitTranslation } from '../../../table-column/number-text/models/unit-translation';
 
 /**
  * Formatter for numbers with byte units (1024-based)
  */
-export class Byte1024ScaleFormatter extends ManuallyTranslatedUnitScaleFormatter {
+export class Byte1024UnitScaleFormatter extends ManuallyTranslatedUnitScaleFormatter {
     protected override getUnitTranslations(): Map<string, UnitTranslation> {
         const unitTranslations = new Map<string, UnitTranslation>();
         unitTranslations.set('en', new UnitTranslation('byte', 'bytes', 'B'));

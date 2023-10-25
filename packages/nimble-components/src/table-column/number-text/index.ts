@@ -24,8 +24,8 @@ import { DecimalFormatter } from './models/decimal-formatter';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
 import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
-import { UnitScale } from '../../units/base/unit-scale';
-import { NoUnitScaleFormatter } from './models/no-unit-scale-formatter';
+import { UnitScale } from '../../unit/base/unit-scale';
+import { EmptyUnitScaleFormatter } from './models/empty-unit-scale-formatter';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
@@ -182,7 +182,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
     private createFormatter(): NumberFormatter {
         const unitScaleFormatter = this.unitScale
             ? this.unitScale.getFormatter()
-            : NoUnitScaleFormatter;
+            : EmptyUnitScaleFormatter;
         switch (this.format) {
             case NumberTextFormat.decimal: {
                 const minimumDigits = typeof this.decimalMaximumDigits === 'number'

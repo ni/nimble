@@ -13,8 +13,8 @@ import {
 } from '../../base/tests/table-column-stories-utils';
 import { tableColumnTextTag } from '../../text';
 import { NumberTextAlignment, NumberTextFormat } from '../types';
-import { unitByteTag } from '../../../units/byte';
-import { unitVoltTag } from '../../../units/volt';
+import { unitByteTag } from '../../../unit/byte';
+import { unitVoltTag } from '../../../unit/volt';
 
 const simpleData = [
     {

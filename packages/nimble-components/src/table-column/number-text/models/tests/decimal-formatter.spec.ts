@@ -1,7 +1,7 @@
 import type { ScaledUnit } from '../scaled-unit';
 import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
 import { DecimalFormatter } from '../decimal-formatter';
-import { NoUnitScaleFormatter } from '../no-unit-scale-formatter';
+import { EmptyUnitScaleFormatter } from '../empty-unit-scale-formatter';
 import { UnitScaleFormatter } from '../unit-scale-formatter';
 
 describe('DecimalFormatter', () => {
@@ -134,7 +134,7 @@ describe('DecimalFormatter', () => {
             spec(`${name} with '${locale}' locale`, () => {
                 const formatter = new DecimalFormatter(
                     locale,
-                    NoUnitScaleFormatter,
+                    EmptyUnitScaleFormatter,
                     value.minDigits,
                     value.maxDigits
                 );

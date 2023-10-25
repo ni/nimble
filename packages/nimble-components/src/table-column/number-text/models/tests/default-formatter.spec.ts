@@ -1,7 +1,7 @@
 import type { ScaledUnit } from '../scaled-unit';
 import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
 import { DefaultFormatter } from '../default-formatter';
-import { NoUnitScaleFormatter } from '../no-unit-scale-formatter';
+import { EmptyUnitScaleFormatter } from '../empty-unit-scale-formatter';
 import { UnitScaleFormatter } from '../unit-scale-formatter';
 
 describe('DefaultFormatter', () => {
@@ -221,7 +221,7 @@ describe('DefaultFormatter', () => {
             spec(`${name} with '${locale}' locale`, () => {
                 const formatter = new DefaultFormatter(
                     locale,
-                    NoUnitScaleFormatter
+                    EmptyUnitScaleFormatter
                 );
                 const formattedValue = formatter.formatValue(value.value);
                 expect(formattedValue).toEqual(

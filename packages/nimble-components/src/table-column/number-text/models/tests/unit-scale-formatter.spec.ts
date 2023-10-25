@@ -98,7 +98,6 @@ describe('UnitScaleFormatter', () => {
         }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-loop-func
     parameterizeNamedList(testCases, (spec, name, value) => {
         spec(`${name} (formatValue)`, () => {
             const formatter = new TestUnitScaleFormatter('', {});
@@ -107,7 +106,6 @@ describe('UnitScaleFormatter', () => {
         });
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-loop-func
     parameterizeNamedList(testCases, (spec, name, value) => {
         spec(`${name} (getValueForBestUnit)`, () => {
             const formatter = new TestUnitScaleFormatter('', {});

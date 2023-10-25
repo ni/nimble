@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { UnitByte, unitByteTag } from '..';
-import { Byte1024ScaleFormatter } from '../../../table-column/number-text/models/byte-1024-scale-formatter';
-import { ByteScaleFormatter } from '../../../table-column/number-text/models/byte-scale-formatter';
+import { Byte1024UnitScaleFormatter } from '../models/byte-1024-unit-scale-formatter';
+import { ByteUnitScaleFormatter } from '../models/byte-unit-scale-formatter';
 
 async function setup(): Promise<Fixture<UnitByte>> {
     return fixture<UnitByte>(html`
@@ -35,11 +35,11 @@ describe('Byte unit', () => {
     });
 
     it('honors "binary" attribute', () => {
-        expect(element.getFormatter()).toBe(Byte1024ScaleFormatter);
+        expect(element.getFormatter()).toBe(Byte1024UnitScaleFormatter);
     });
 
     it('returns ByteScaleFormatter when "binary" is false', () => {
         element.binary = false;
-        expect(element.getFormatter()).toBe(ByteScaleFormatter);
+        expect(element.getFormatter()).toBe(ByteUnitScaleFormatter);
     });
 });

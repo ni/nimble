@@ -11,15 +11,21 @@ export type UnitScaleFormatterConstructor = new (
  */
 export abstract class UnitScaleFormatter extends NumberFormatter {
     public alwaysUseBaseUnit = false;
+    private _supportedUnits: ScaledUnit[] = [];
+    private _baseUnit!: ScaledUnit;
 
     private get supportedUnits(): ScaledUnit[] {
-        const values = this.setSupportedUnitsAndBaseUnit();
-        return values.supportedUnits;
+        if (this._supportedUnits === undefined) {
+            this.setSupportedUnitsAndBaseUnit();
+        }
+        return this._supportedUnits;
     }
 
     private get baseUnit(): ScaledUnit {
-        const values = this.setSupportedUnitsAndBaseUnit();
-        return values.baseUnit;
+        if (this._baseUnit === undefined) {
+            this.setSupportedUnitsAndBaseUnit();
+        }
+        return this._baseUnit;
     }
 
     public constructor(
@@ -66,31 +72,20 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
     // Ideally, we could initialize supportedUnits and baseUnit in the constructor,
     // but they depend on an abstract method and potentially other state that isn't
     // available until the derived class is finished being constructed.
-    private setSupportedUnitsAndBaseUnit(): {
-        supportedUnits: ScaledUnit[],
-        baseUnit: ScaledUnit
-    } {
+    private setSupportedUnitsAndBaseUnit(): void {
         // sort from largest to smallest here so that pickBestUnit doesn't have to sort on every call
-        const supportedUnits = this.getSupportedUnits(
+        this._supportedUnits = this.getSupportedUnits(
             this.lang,
             this.formatterOptions
         ).sort((a, b) => (a.conversionFactor < b.conversionFactor ? 1 : -1));
-        const baseUnit = supportedUnits.find(x => x.conversionFactor === 1);
-        if (!baseUnit) {
+        const baseUnit = this._supportedUnits.find(
+            x => x.conversionFactor === 1
+        );
+        if (baseUnit) {
             throw new Error(
                 'Supported units must include a base unit (conversion factor=1)'
             );
         }
-        Object.defineProperty(this, 'supportedUnits', {
-            value: supportedUnits,
-            writable: false,
-            configurable: false
-        });
-        Object.defineProperty(this, 'baseUnit', {
-            value: baseUnit,
-            writable: false,
-            configurable: false
-        });
-        return { supportedUnits, baseUnit };
+        this._baseUnit = baseUnit!;
     }
 }

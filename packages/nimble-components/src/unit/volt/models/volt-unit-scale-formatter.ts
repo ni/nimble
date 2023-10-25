@@ -1,11 +1,14 @@
-import { ManuallyTranslatedUnitScaleFormatter } from './manually-translated-unit-scale-formatter';
-import { UnitPrefix, metricPrefixes } from './unit-prefix';
-import { UnitTranslation } from './unit-translation';
+import { ManuallyTranslatedUnitScaleFormatter } from '../../../table-column/number-text/models/manually-translated-unit-scale-formatter';
+import {
+    UnitPrefix,
+    metricPrefixes
+} from '../../../table-column/number-text/models/unit-prefix';
+import { UnitTranslation } from '../../../table-column/number-text/models/unit-translation';
 
 /**
  * Formatter for numbers with voltage units
  */
-export class VoltScaleFormatter extends ManuallyTranslatedUnitScaleFormatter {
+export class VoltUnitScaleFormatter extends ManuallyTranslatedUnitScaleFormatter {
     protected override getUnitTranslations(): Map<string, UnitTranslation> {
         const unitTranslations = new Map<string, UnitTranslation>();
         unitTranslations.set('en', new UnitTranslation('volt', 'volts', 'V'));
