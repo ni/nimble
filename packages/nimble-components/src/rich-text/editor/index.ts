@@ -666,7 +666,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                                 return {
                                     onStart: (props): void => {
                                         this.updateUserLists(props);
-                                        void this.mentionBox.selectFirstListOption();
+                                        this.mentionBox.selectFirstListOption();
                                     },
 
                                     onUpdate: (props): void => {

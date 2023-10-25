@@ -1,6 +1,6 @@
-import { children, elements, html, ref, repeat } from '@microsoft/fast-element';
+import { children, elements, html, ref, slotted } from '@microsoft/fast-element';
+import { Listbox } from '@microsoft/fast-foundation';
 import type { MentionBox } from '.';
-import { ListOption, listOptionTag } from '../../../list-option';
 import { listBoxTag } from '../nimble-list-box';
 
 // prettier-ignore
@@ -12,9 +12,13 @@ export const template = html<MentionBox>`
             ${ref('listBox')} 
             @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
             >    
-            ${repeat(x => x.filteredOptions, html<ListOption>`
-                    <${listOptionTag} value="${x => x.value}">${x => x.textContent}</${listOptionTag}>
-                    `)}
+            <slot
+                    ${slotted({
+        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
+        flatten: true,
+        property: 'slottedOptions',
+    })}
+                ></slot>
     </${listBoxTag}>
     </template>
 `;
