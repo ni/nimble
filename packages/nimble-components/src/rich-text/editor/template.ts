@@ -127,7 +127,7 @@ export const template = html<RichTextEditor>`
             >    
                 ${repeat(x => x.userList, html<UserInfo>`
                         <${listOptionTag} value="${x => x.key}">${x => x.value}</${listOptionTag}>
-                        `)}
+                        `, { recycle: false })}
             </${mentionBoxTag}>
         </${anchoredRegionTag}>
     </template>
