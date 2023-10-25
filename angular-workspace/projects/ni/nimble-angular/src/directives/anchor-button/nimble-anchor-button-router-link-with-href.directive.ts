@@ -16,7 +16,7 @@ import type { AnchorButton } from './nimble-anchor-button.directive';
  * Note: Clients need to use [nimbleRouterLink] instead of [routerLink], so that there
  * won't also be an active RouterLink directive incorrectly handling navigation.
  */
-@Directive({ selector: 'nimble-anchor-button[nimbleRouterLink]:not([disabled])' })
+@Directive({ selector: 'nimble-anchor-button[nimbleRouterLink]' })
 export class NimbleAnchorButtonRouterLinkWithHrefDirective extends RouterLinkWithHref {
     @Input()
     public set nimbleRouterLink(commands: never[] | string | null | undefined) {
