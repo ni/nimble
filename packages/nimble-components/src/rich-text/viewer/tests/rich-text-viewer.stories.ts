@@ -6,7 +6,8 @@ import {
 } from '../../../utilities/tests/storybook';
 import { richTextViewerTag } from '..';
 import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
-import { listOptionTag } from '../../../list-option';
+import { mappingMentionTag } from '../../../mapping/mention';
+import { richTextEnumMentionTextTag } from '../../editor/enum-text';
 
 interface RichTextViewerArgs {
     markdown: string;
@@ -33,12 +34,14 @@ const metadata: Meta<RichTextViewerArgs> = {
     <${richTextViewerTag}
         :markdown="${x => x.markdown}"
     >
-        <${listOptionTag} id='1'>Mary</${listOptionTag}>
-        <${listOptionTag} id='2'>super</${listOptionTag}>
-        <${listOptionTag} id='3'>Joaquin</${listOptionTag}>
-        <${listOptionTag} id='4'>Frank</${listOptionTag}>
-        <${listOptionTag} id='5'>Albert</${listOptionTag}>
-        <${listOptionTag} id='6'>Sue Ann</${listOptionTag}>
+        <${richTextEnumMentionTextTag}>
+            <${mappingMentionTag} key="1" text="Aagash"></${mappingMentionTag}>
+            <${mappingMentionTag} key="2" text="vivin"></${mappingMentionTag}>
+            <${mappingMentionTag} key="3" text="susee"></${mappingMentionTag}>
+            <${mappingMentionTag} key="4" text="vikki"></${mappingMentionTag}>
+            <${mappingMentionTag} key="5" text="sue"></${mappingMentionTag}>
+            <${mappingMentionTag} key="6" text="sue ann"></${mappingMentionTag}>
+        </${richTextEnumMentionTextTag}>
     </${richTextViewerTag}>
     `),
     argTypes: {

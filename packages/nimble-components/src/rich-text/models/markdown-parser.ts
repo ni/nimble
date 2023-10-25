@@ -176,7 +176,7 @@ export class RichTextMarkdownParser {
                         [
                             userMentionViewTag,
                             {
-                                'data-type': 'mention',
+                                'mention-type': 'mention',
                                 'mention-id': mentionid as string,
                                 'mention-label': mentionlabel as string,
                                 contenteditable: 'false'

@@ -42,7 +42,7 @@ export class RichTextViewer extends FoundationElement {
      */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.updateView();
+        void this.updateView();
     }
 
     /**
@@ -50,7 +50,7 @@ export class RichTextViewer extends FoundationElement {
      */
     public markdownChanged(): void {
         if (this.$fastController.isConnected) {
-            this.updateView();
+            void this.updateView();
         }
     }
 
@@ -59,13 +59,24 @@ export class RichTextViewer extends FoundationElement {
      */
     public childItemsChanged(): void {
         if (this.$fastController.isConnected) {
-            this.updateView();
+            void this.updateView();
         }
     }
 
-    private updateView(): void {
+    private async updateView(): Promise<void> {
         if (this.markdown) {
-            void this.getSlottedOptionsList();
+            const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
+                ? customElements.whenDefined(item.localName)
+                : Promise.resolve()));
+            await Promise.all(definedElements);
+            const mentionList = this.childItems.filter(
+                (x): x is RichTextEnumMention => x instanceof RichTextEnumMention
+            );
+            this.userList = [];
+            mentionList.forEach((list => {
+                this.userList = list.userInternals;
+            }));
+
             const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
                 this.markdown,
                 this.userList
@@ -74,20 +85,6 @@ export class RichTextViewer extends FoundationElement {
         } else {
             this.viewer.innerHTML = '';
         }
-    }
-
-    private async getSlottedOptionsList(): Promise<void> {
-        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
-            ? customElements.whenDefined(item.localName)
-            : Promise.resolve()));
-        await Promise.all(definedElements);
-        const mentionList = this.childItems.filter(
-            (x): x is RichTextEnumMention => x instanceof RichTextEnumMention
-        );
-        this.userList = [];
-        mentionList.forEach((list => {
-            this.userList = list.userInternals;
-        }));
     }
 }
 
