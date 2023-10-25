@@ -276,6 +276,13 @@ _Props/Attrs_
 This is a UI component used to render the `@mention` node in rich text editor and rich text viewer when parsed or added into the components.
 This holds the styling for the `@mention` nodes.
 
+Different copying and pasting behaviors of the user mention view node:
+
+1.  Copying an `@mention` name from the viewer and pasting it into the editor should result in the appearance of the same mention node.
+2.  When copying an `@mention` name from the editor and pasting it into the editor should result in the appearance of the same mention node.
+3.  If a portion of an `@mention` name from the viewer is copied and pasted into the editor, it should still render as a complete mention node with the entire name.
+4.  Copying only a portion of an `@mention` name from the editor is not possible, as the entire name will always be selected. The copy and paste behavior will be same as point 2.
+
 _Component Name_
 
 -   `nimble-rich-text-user-mention-view`
