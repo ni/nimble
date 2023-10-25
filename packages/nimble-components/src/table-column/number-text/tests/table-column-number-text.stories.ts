@@ -177,7 +177,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
                 Favorite Number
             </${tableColumnNumberTextTag}>
-            <${tableColumnNumberTextTag} field-name="measurement" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}">
+            <${tableColumnNumberTextTag} field-name="measurement" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
                 Measurement
                 ${when(x => x.unit === 'byte', html`<${unitByteTag}></${unitByteTag}>`)}
                 ${when(x => x.unit === 'byte (1024)', html`<${unitByteTag} binary></${unitByteTag}>`)}
