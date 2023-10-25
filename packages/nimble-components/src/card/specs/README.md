@@ -10,7 +10,8 @@ application. The `nimble-card` is intended for grouping related content.
 [GitHub Issue #296: nimble-card component](https://github.com/ni/nimble/issues/296)
 
 An IxD and Visual Design spec for the `nimble-card` component have not yet been provided. We will add some
-preliminary styling in the interim.
+preliminary styling in the interim. The component will remain "Incubating" until we get agreement on the
+interaction and visual design.
 
 The new Routines UX in SystemLink Enterprise calls for grouping related configuration in a slide-out in labeled
 containers. See [Figma: NorthStar Vision for SLE Routines](https://www.figma.com/file/VQ7WIi3qqRG3r19VXqVvem/Stratus-Routines?type=design&node-id=1%3A74129&mode=design&t=KfPTwy4IhHbt42LR-1).
