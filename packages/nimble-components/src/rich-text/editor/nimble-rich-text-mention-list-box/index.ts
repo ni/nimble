@@ -1,6 +1,7 @@
 import {
     DesignSystem,
     FoundationElement,
+    isListboxOption,
     Listbox,
 } from '@microsoft/fast-foundation';
 
@@ -8,7 +9,7 @@ import { attr, observable } from '@microsoft/fast-element';
 import { keyArrowDown, keyArrowUp, keyEnter, keyTab } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
-import { ListOption } from '../../../list-option';
+import type { ListOption } from '../../../list-option';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,12 +21,6 @@ declare global {
  * A nimble styled Mention Box
  */
 export class MentionBox extends FoundationElement {
-    /** @internal */
-    @observable
-    public filteredOptions: ListOption[] = [];
-
-    public options: ListOption[] = [];
-
     /**
      * @internal
      */
@@ -34,24 +29,32 @@ export class MentionBox extends FoundationElement {
     @attr
     public filter!: string;
 
+    @observable
+    public slottedOptions!: Element[];
+
     /**
      * @internal
      */
     @observable
     public readonly childItems: Element[] = [];
 
-    public childItemsChanged(): void {
-        void this.updateUserListDetail();
+    public get options(): ListOption[] {
+        return this._options;
     }
 
-    public async updateUserListDetail(): Promise<void> {
-        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
-            ? customElements.whenDefined(item.localName)
-            : Promise.resolve()));
-        await Promise.all(definedElements);
-        this.options = this.childItems.filter(
-            (x): x is ListOption => x instanceof ListOption
-        );
+    public set options(value: ListOption[]) {
+        this._options = value;
+    }
+
+    private _options: ListOption[] = [];
+
+    public slottedOptionsChanged(_prev: Element[] | undefined, next: Element[]): void {
+        this.options = next.reduce<ListOption[]>((options, item) => {
+            if (isListboxOption(item)) {
+                options.push(item);
+            }
+            return options;
+        }, []);
         this.filterUsers();
     }
 
@@ -61,19 +64,17 @@ export class MentionBox extends FoundationElement {
     }
 
     public filterUsers(): void {
-        if (this.filter) {
-            this.filteredOptions = this.options.filter(o => o.textContent!.toLowerCase().startsWith(this.filter.toLowerCase()));
-        } else {
-            this.filteredOptions = this.options;
+        if (this.filter !== undefined) {
+            this._options.forEach(o => {
+                const checkFlag = !o.text.toLowerCase().startsWith(this.filter.toLowerCase());
+                o.disabled = checkFlag;
+                o.hidden = checkFlag;
+            });
         }
-        void this.selectFirstListOption();
+        this.selectFirstListOption();
     }
 
-    public async selectFirstListOption(): Promise<void> {
-        const definedElements = [this.listBox?.matches(':not(:defined)')
-            ? customElements.whenDefined(this.listBox?.localName)
-            : Promise.resolve()];
-        await Promise.all(definedElements);
+    public selectFirstListOption(): void {
         this.listBox?.selectFirstOption();
     }
 
@@ -95,9 +96,6 @@ export class MentionBox extends FoundationElement {
 
     public keydownHandler(e: Event & KeyboardEvent): boolean {
         const key = e.key;
-        if (!this.filteredOptions.length) {
-            return false;
-        }
         switch (key) {
             case keyTab:
             case keyEnter: {
