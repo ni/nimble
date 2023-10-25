@@ -192,7 +192,11 @@ export class WaferMap extends FoundationElement {
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
             this.waferMapValidator.validateGridDimensions();
-            if (this.waferMapUpdateTracker.requiresMatrixUpdate) {
+            if (
+                this.waferMapUpdateTracker.requiresDiesPreparationUpdate
+            ) {
+                this.matrixRenderer.prepareDies();
+            } else if (this.waferMapUpdateTracker.requiresMatrixUpdate) {
                 this.matrixRenderer.renderMatrix();
             }
             // if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {

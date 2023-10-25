@@ -8,8 +8,6 @@ import {
 import { generateWaferData } from './data-generator';
 import { goodValueGenerator, badValueGenerator } from './value-generator';
 import type {
-    WaferMapDie,
-    WaferMapColorScale,
     WaferMapValidity,
     WaferMapRow,
     WaferMapColorCategory
@@ -21,7 +19,6 @@ import {
 } from '../types';
 import {
     highLightedValueSets,
-    wafermapDieSets,
     waferMapColorScaleSets,
     wafermapDieMatrix
 } from './sets';

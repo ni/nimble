@@ -1,4 +1,4 @@
-import type { WaferMapDie, WaferMapColorScale, WaferMapRow, WaferMapColorCategory } from '../types';
+import type { WaferMapDie, WaferMapRow, WaferMapColorCategory } from '../types';
 
 export const highLightedValueSets = [
     [],

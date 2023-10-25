@@ -68,17 +68,20 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         );
     }
 
-    public get requiresMatrixUpdate(): boolean {
+    public get requiresDiesPreparationUpdate(): boolean {
         return (
             this.isTracked('dieMatrix')
             || this.isTracked('gridMinX')
             || this.isTracked('gridMaxX')
             || this.isTracked('gridMinY')
             || this.isTracked('gridMaxY')
-            || this.isTracked('transform')
             || this.isTracked('canvasWidth')
             || this.isTracked('canvasHeight')
         );
+    }
+
+    public get requiresMatrixUpdate(): boolean {
+        return this.isTracked('transform');
     }
 
     public get requiresLabelsFontSizeUpdate(): boolean {

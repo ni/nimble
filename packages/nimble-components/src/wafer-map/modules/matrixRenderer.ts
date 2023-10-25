@@ -68,110 +68,7 @@ export class MatrixRenderer {
         return this._margin;
     }
 
-    public renderHover(): void {
-        this.wafermap.hoverWidth = this._dieDimensions.width
-            * this.wafermap.transform.k;
-        this.wafermap.hoverHeight = this._dieDimensions.height
-            * this.wafermap.transform.k;
-        this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
-            ? HoverDieOpacity.hide
-            : HoverDieOpacity.show;
-        this.wafermap.hoverTransform = this.calculateHoverTransform();
-    }
-
-    public renderMatrix(): void {
-        this.restoreContext();
-        this.saveContext();
-        this.clearCanvas();
-        this.scaleCanvas();
-        this.renderDiesFromMatrix();
-        this.renderHover();
-    }
-
-    public setCanvasDimensions(width: number, height: number): void {
-        if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'setCanvasDimensions',
-                    width,
-                    height
-                }
-            );
-        }
-    }
-
-    public setCanvas(): void {
-        if (!this.canvasSet) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-            const offscreen = this.wafermap.canvas.transferControlToOffscreen();
-            this.worker.postMessage(
-                {
-                    method: 'setCanvas',
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                    canvas: offscreen
-                },
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                [offscreen]
-            );
-            this.canvasSet = true;
-        }
-    }
-
-    private clearCanvas(): void {
-        if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'clearCanvas',
-                }
-            );
-        }
-    }
-
-    private calculateHoverTransform(): string {
-        if (this.wafermap.hoverDie !== undefined) {
-            const scaledX = this._horizontalScale.a + this._horizontalScale.b * this.wafermap.hoverDie.x;
-            const scaledY = this._verticalScale.a + this._verticalScale.b * this.wafermap.hoverDie.y;
-            const transformedPoint = this.wafermap.transform.apply([
-                scaledX + this._margin.left,
-                scaledY + this._margin.top
-            ]);
-            return `translate(${transformedPoint[0]}, ${transformedPoint[1]})`;
-        }
-        return '';
-    }
-
-    private scaleCanvas(): void {
-        if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'scaleCanvas',
-                    transform: this.wafermap.transform
-                }
-            );
-        }
-    }
-
-    private saveContext(): void {
-        if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'saveContext'
-                }
-            );
-        }
-    }
-
-    private restoreContext(): void {
-        if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'restoreContext'
-                }
-            );
-        }
-    }
-
-    private renderDiesFromMatrix(): void {
+    public prepareDies(): void {
         const canvasDimensions = {
             width: this.wafermap.canvasWidth,
             height: this.wafermap.canvasHeight
@@ -278,6 +175,113 @@ export class MatrixRenderer {
             width: Math.abs(this._horizontalScale.b),
             height: Math.abs(this._verticalScale.b)
         };
+        this.renderMatrix();
+    }
+
+    public renderMatrix(): void {
+        this.restoreContext();
+        this.saveContext();
+        this.clearCanvas();
+        this.scaleCanvas();
+        this.renderDiesFromMatrix();
+        this.renderHover();
+    }
+
+    public renderHover(): void {
+        this.wafermap.hoverWidth = this._dieDimensions.width
+            * this.wafermap.transform.k;
+        this.wafermap.hoverHeight = this._dieDimensions.height
+            * this.wafermap.transform.k;
+        this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
+            ? HoverDieOpacity.hide
+            : HoverDieOpacity.show;
+        this.wafermap.hoverTransform = this.calculateHoverTransform();
+    }
+
+    public setCanvasDimensions(width: number, height: number): void {
+        if (this.canvasSet) {
+            this.worker.postMessage(
+                {
+                    method: 'setCanvasDimensions',
+                    width,
+                    height
+                }
+            );
+        }
+    }
+
+    public setCanvas(): void {
+        if (!this.canvasSet) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+            const offscreen = this.wafermap.canvas.transferControlToOffscreen();
+            this.worker.postMessage(
+                {
+                    method: 'setCanvas',
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                    canvas: offscreen
+                },
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                [offscreen]
+            );
+            this.canvasSet = true;
+        }
+    }
+
+    private clearCanvas(): void {
+        if (this.canvasSet) {
+            this.worker.postMessage(
+                {
+                    method: 'clearCanvas',
+                }
+            );
+        }
+    }
+
+    private calculateHoverTransform(): string {
+        if (this.wafermap.hoverDie !== undefined) {
+            const scaledX = this._horizontalScale.a + this._horizontalScale.b * this.wafermap.hoverDie.x;
+            const scaledY = this._verticalScale.a + this._verticalScale.b * this.wafermap.hoverDie.y;
+            const transformedPoint = this.wafermap.transform.apply([
+                scaledX + this._margin.left,
+                scaledY + this._margin.top
+            ]);
+            return `translate(${transformedPoint[0]}, ${transformedPoint[1]})`;
+        }
+        return '';
+    }
+
+    private scaleCanvas(): void {
+        if (this.canvasSet) {
+            this.worker.postMessage(
+                {
+                    method: 'scaleCanvas',
+                    transform: this.wafermap.transform
+                }
+            );
+        }
+    }
+
+    private saveContext(): void {
+        if (this.canvasSet) {
+            this.worker.postMessage(
+                {
+                    method: 'saveContext'
+                }
+            );
+        }
+    }
+
+    private restoreContext(): void {
+        if (this.canvasSet) {
+            this.worker.postMessage(
+                {
+                    method: 'restoreContext'
+                }
+            );
+        }
+    }
+
+    private renderDiesFromMatrix(): void {
         const transformedCanvasMinPoint = this.wafermap.transform.invert([
             0, 0
         ]);
