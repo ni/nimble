@@ -11,21 +11,21 @@ export type UnitScaleFormatterConstructor = new (
  */
 export abstract class UnitScaleFormatter extends NumberFormatter {
     public alwaysUseBaseUnit = false;
-    private _supportedUnits: ScaledUnit[] = [];
-    private _baseUnit!: ScaledUnit;
+    private _supportedUnits?: ScaledUnit[];
+    private _baseUnit?: ScaledUnit;
 
     private get supportedUnits(): ScaledUnit[] {
         if (this._supportedUnits === undefined) {
             this.setSupportedUnitsAndBaseUnit();
         }
-        return this._supportedUnits;
+        return this._supportedUnits!;
     }
 
     private get baseUnit(): ScaledUnit {
         if (this._baseUnit === undefined) {
             this.setSupportedUnitsAndBaseUnit();
         }
-        return this._baseUnit;
+        return this._baseUnit!;
     }
 
     public constructor(
@@ -81,11 +81,11 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
         const baseUnit = this._supportedUnits.find(
             x => x.conversionFactor === 1
         );
-        if (baseUnit) {
+        if (!baseUnit) {
             throw new Error(
                 'Supported units must include a base unit (conversion factor=1)'
             );
         }
-        this._baseUnit = baseUnit!;
+        this._baseUnit = baseUnit;
     }
 }
