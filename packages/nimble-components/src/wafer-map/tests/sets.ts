@@ -1,4 +1,4 @@
-import type { WaferMapDie, WaferMapColorScale, WaferMapRow } from '../types';
+import type { WaferMapDie, WaferMapColorScale, WaferMapRow, WaferMapColorCategory } from '../types';
 
 export const highLightedValueSets = [
     [],
@@ -21,17 +21,17 @@ export const wafermapDieMatrix: WaferMapRow[][] = [
         {
             xIndex: 2,
             yIndexes: Int32Array.from([0, 1, 2, 3, 4]),
-            values: Float32Array.from([44.63, 76.43, 67.93]),
+            values: Float32Array.from([26.49, 79.04, 72.71, 37.79, 37.79]),
         },
         {
             xIndex: 3,
             yIndexes: Int32Array.from([1, 2, 3]),
-            values: Float32Array.from([44.63, 76.43, 67.93]),
+            values: Float32Array.from([98.50, 52.90, 20.83]),
         },
         {
             xIndex: 4,
             yIndexes: Int32Array.from([2]),
-            values: Float32Array.from([44.63, 76.43, 67.93]),
+            values: Float32Array.from([62.80]),
         },
     ]
 ];
@@ -119,9 +119,22 @@ export const wafermapDieSets: WaferMapDie[][] = [
     ]
 ];
 
-export const waferMapColorScaleSets: WaferMapColorScale[] = [
-    {
-        colors: ['red', 'orange', 'green'],
-        values: ['1', '50', '100']
-    }
+export const waferMapColorScaleSets: WaferMapColorCategory[][] = [
+    [
+        {
+            color: 'red',
+            startValue: 1,
+            endValue: 33
+        },
+        {
+            color: 'orange',
+            startValue: 33,
+            endValue: 66
+        },
+        {
+            color: 'green',
+            startValue: 66,
+            endValue: 100
+        }
+    ]
 ];

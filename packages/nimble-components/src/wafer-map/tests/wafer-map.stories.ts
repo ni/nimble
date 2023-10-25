@@ -11,7 +11,8 @@ import type {
     WaferMapDie,
     WaferMapColorScale,
     WaferMapValidity,
-    WaferMapRow
+    WaferMapRow,
+    WaferMapColorCategory
 } from '../types';
 import {
     WaferMapOriginLocation,
@@ -27,7 +28,7 @@ import {
 import { waferMapTag } from '..';
 
 interface WaferMapArgs {
-    colorScale: WaferMapColorScale;
+    colorScale: WaferMapColorCategory[];
     colorScaleMode: WaferMapColorScaleMode;
     dieLabelsHidden: boolean;
     dieLabelsSuffix: string;
@@ -126,7 +127,7 @@ const metadata: Meta<WaferMapArgs> = {
             grid-max-x=${x => x.gridMaxX}
             grid-min-y=${x => x.gridMinY}
             grid-max-y=${x => x.gridMaxY}
-            :colorScale="${x => x.colorScale}"
+            :colorCategories="${x => x.colorScale}"
             :dieMatrix="${x => getDiesSet(x.dies, wafermapDieMatrix)}"
             :highlightedValues="${x => getHighLightedValueSets(
         x.highlightedValues,

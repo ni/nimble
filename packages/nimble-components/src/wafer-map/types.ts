@@ -47,7 +47,7 @@ export interface WaferMapDie {
 export interface WaferMapRow {
     xIndex: number;
     yIndexes: Int32Array;
-    values: Float32Array | Int32Array;
+    values: Float32Array;
 }
 
 export interface WaferMapColorScale {
@@ -58,7 +58,7 @@ export interface WaferMapColorScale {
 export interface WaferMapColorCategory {
     color: string;
     startValue: number;
-    endValue: number;
+    endValue?: number;
 }
 
 export interface HoverHandlerData {

@@ -42,7 +42,7 @@ export class ZoomHandler {
                 ]
             ])
             .filter((event: Event) => {
-                const transform = zoomTransform(this.wafermap.canvas);
+                const transform = zoomTransform(this.wafermap);
                 const filterEval = transform.k >= this.minScale || event.type === 'wheel';
                 return filterEval;
             })
@@ -52,7 +52,7 @@ export class ZoomHandler {
                 this.rescale(event);
             });
 
-        this.zoomBehavior(select(this.wafermap.canvas as Element));
+        this.zoomBehavior(select(this.wafermap as Element));
     }
 
     private rescale(event: ZoomEvent): void {

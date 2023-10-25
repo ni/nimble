@@ -12,6 +12,7 @@ import { RenderingModule } from './modules/rendering';
 import { EventCoordinator } from './modules/event-coordinator';
 import {
     HoverDieOpacity,
+    WaferMapColorCategory,
     WaferMapColorScale,
     WaferMapColorScaleMode,
     WaferMapDie,
@@ -126,6 +127,11 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
+    @observable public reticleTransform = '';
+
+    /**
+     * @internal
+     */
     @observable public hoverOpacity: HoverDieOpacity = HoverDieOpacity.hide;
 
     /**
@@ -146,6 +152,7 @@ export class WaferMap extends FoundationElement {
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public dieMatrix: WaferMapRow[] = [];
+    @observable public colorCategories: WaferMapColorCategory[] = [];
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
