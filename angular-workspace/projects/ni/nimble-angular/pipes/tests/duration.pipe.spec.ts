@@ -21,6 +21,11 @@ describe('DurationPipe', () => {
                 expected: ''
             },
             {
+                name: '"abc" (non-numeric string value)',
+                value: 'abc',
+                expected: ''
+            },
+            {
                 name: '1d 2h 3m 4.56s (number)',
                 value: (4.56 + 3 * 60 + 2 * 3600 + 1 * 24 * 3600) * 1000,
                 expected: '1 day, 2 hr, 3 min, 4.56 sec'

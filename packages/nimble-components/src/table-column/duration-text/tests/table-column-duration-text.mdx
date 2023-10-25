@@ -12,7 +12,10 @@ import * as tableColumnDurationTextStories from './table-column-duration-text.st
 <Title of={tableColumnDurationTextStories} />
 <Description of={tableColumnDurationTextStories.durationTextColumn} />
 
-<DocsStory of={tableColumnDurationTextStories.durationTextColumn} expanded={false} />
+<DocsStory
+    of={tableColumnDurationTextStories.durationTextColumn}
+    expanded={false}
+/>
 <Controls of={tableColumnDurationTextStories.durationTextColumn} />
 
 # Usage Docs
@@ -24,5 +27,6 @@ import * as tableColumnDurationTextStories from './table-column-duration-text.st
 An Angular pipe is provided for formatting duration values into strings outside of the Nimble table. This pipe uses the same formatting rules (and localization) as the duration table column.
 
 To use it:
-- Import `DurationPipe` from `@ni/nimble-angular/pipes`
-- Pipe input should be duration values in milliseconds (`number` or `string` type)
+
+-   Import `DurationPipe` from `@ni/nimble-angular/pipes`
+-   Pipe input should be duration values in milliseconds (`number` or `string` type)
