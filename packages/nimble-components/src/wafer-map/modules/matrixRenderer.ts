@@ -209,17 +209,42 @@ export class MatrixRenderer {
             containerDimensions.width,
             containerDimensions.height
         );
+        let minPoint;
+        let maxPoint;
         // const radius = containerDiameter / 2;
         if (!(!this.wafermap.validity.invalidGridDimensions
             && typeof this.wafermap.gridMinX === 'number'
             && typeof this.wafermap.gridMinY === 'number'
             && typeof this.wafermap.gridMaxX === 'number'
             && typeof this.wafermap.gridMaxY === 'number')) {
-            return;
+            minPoint = { x: this.wafermap.dieMatrix[0]!.xIndex, y: this.wafermap.dieMatrix[0]!.yIndexes[0]! };
+            maxPoint = { x: this.wafermap.dieMatrix[0]!.xIndex, y: this.wafermap.dieMatrix[0]!.yIndexes[0]! };
+
+            for (const dieRow of this.wafermap.dieMatrix) {
+                if (dieRow.xIndex < minPoint.x) {
+                    minPoint.x = dieRow.xIndex;
+                }
+                if (dieRow.xIndex > maxPoint.x) {
+                    maxPoint.x = dieRow.xIndex;
+                }
+                // eslint-disable-next-line @typescript-eslint/prefer-for-of
+                for (let index = 0; index < dieRow.yIndexes.length; index++) {
+                    const y = dieRow.yIndexes[index]!;
+                    if (y < minPoint.y) {
+                        minPoint.y = y;
+                    }
+                    if (y > maxPoint.y) {
+                        maxPoint.y = y;
+                    }
+                }
+            }
+        } else {
+            minPoint = { x: this.wafermap.gridMinX, y: this.wafermap.gridMinY };
+            maxPoint = { x: this.wafermap.gridMaxX, y: this.wafermap.gridMaxY };
         }
         const range = {
-            x: this.wafermap.gridMinX,
-            y: (this.wafermap.gridMaxX + 1)
+            x: minPoint.x,
+            y: (maxPoint.x + 1)
         };
         const domain = {
             x: 0,
@@ -235,8 +260,8 @@ export class MatrixRenderer {
             a: -this._horizontalScale.a / this._horizontalScale.b,
             b: 1 / this._horizontalScale.b
         };
-        range.x = (this.wafermap.gridMinY - 1);
-        range.y = this.wafermap.gridMaxY;
+        range.x = (minPoint.y - 1);
+        range.y = maxPoint.y;
         domain.x = containerDiameter;
         domain.y = 0;
         this._verticalScale = {
