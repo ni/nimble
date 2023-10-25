@@ -1,5 +1,5 @@
 import type { WaferMap } from '..';
-import { PointCoordinates, WaferMapOriginLocation } from '../types';
+import { PointCoordinates, WaferMapDie, WaferMapOriginLocation } from '../types';
 
 /**
  * HoverHandler deals with user interactions and events like hovering
@@ -12,10 +12,6 @@ export class HoverHandler {
             y: event.offsetY
         };
 
-        if (!this.hoversOverDie(this.wafermap, mousePosition)) {
-            this.wafermap.hoverDie = undefined;
-            return;
-        }
         // get original mouse position in case we are in zoom.
         const invertedPoint = this.wafermap.transform.invert([
             mousePosition.x,
@@ -27,7 +23,7 @@ export class HoverHandler {
             y: invertedPoint[1]
         });
 
-        this.wafermap.hoverDie = this.wafermap.dataManager.getWaferMapDie(dieCoordinates);
+        this.wafermap.hoverDie = this.getWaferMapDie(dieCoordinates);
     }
 
     public mouseout(): void {
@@ -45,36 +41,37 @@ export class HoverHandler {
             : Math.ceil;
         const yRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
             || originLocation === WaferMapOriginLocation.bottomRight
-            ? Math.floor
-            : Math.ceil;
+            ? Math.ceil
+            : Math.floor;
         // go to x and y scale to get the x,y values of the die.
         const x = xRoundFunction(
-            wafermap.dataManager.invertedHorizontalScale(
-                mousePosition.x - wafermap.dataManager.margin.left
-            )
+            wafermap.matrixRenderer.invertedHorizontalScale.a
+            + wafermap.matrixRenderer.invertedHorizontalScale.b
+            * (mousePosition.x - wafermap.matrixRenderer.margin.left)
         );
         const y = yRoundFunction(
-            wafermap.dataManager.invertedVerticalScale(
-                mousePosition.y - wafermap.dataManager.margin.top
-            )
+            wafermap.matrixRenderer.invertedVerticalScale.a
+            + wafermap.matrixRenderer.invertedVerticalScale.b
+            * (mousePosition.y - wafermap.matrixRenderer.margin.top)
         );
         return { x, y };
     }
 
-    private hoversOverDie(
-        wafermap: WaferMap,
-        mousePosition: PointCoordinates
-    ): boolean {
-        // const rgba = wafermap.canvasContext.getImageData(
-        //     mousePosition.x,
-        //     mousePosition.y,
-        //     1,
-        //     1
-        // ).data;
-        let rgbaSum = 0;
-        // for (const color of rgba) {
-        //     rgbaSum += color;
-        // }
-        return rgbaSum > 0;
+    private getWaferMapDie(
+        dieCoordinates: PointCoordinates
+    ): WaferMapDie | undefined {
+        const diesRow = this.wafermap.dieMatrix.find(x => x.xIndex === dieCoordinates.x);
+        if (diesRow === undefined) {
+            return undefined;
+        }
+        const yIndex = diesRow.yIndexes.indexOf(dieCoordinates.y);
+        if (yIndex === -1) {
+            return undefined;
+        }
+        return {
+            x: dieCoordinates.x,
+            y: dieCoordinates.y,
+            value: `${diesRow.values[yIndex]!}`
+        };
     }
 }

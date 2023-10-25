@@ -11,7 +11,6 @@ export class RenderWorker {
     private limits: { min: number, max: number } = { min: 0, max: 0 };
 
     public setCanvasDimensions(data: { width: number, height: number }): void {
-        console.log('setCanvasDimensions', data);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         this.canvas.width = data.width;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -19,19 +18,16 @@ export class RenderWorker {
     }
 
     public saveContext(): void {
-        console.log('saveContext');
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         this.context.save();
     }
 
     public restoreContext(): void {
-        console.log('restoreContext');
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         this.context.restore();
     }
 
     public clearCanvas(): void {
-        console.log('clearCanvas');
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         this.context.clearRect(
             0,
@@ -44,7 +40,6 @@ export class RenderWorker {
     }
 
     public scaleCanvas(data: { transform: { k: number, x: number, y: number } }): void {
-        console.log('scaleCanvas', data);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         this.context.translate(
             data.transform.x,
@@ -58,7 +53,6 @@ export class RenderWorker {
     }
 
     public setCanvas(data: { canvas: OffscreenCanvas }): void {
-        console.log('setCanvas');
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         this.canvas = data.canvas;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call

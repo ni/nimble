@@ -209,7 +209,7 @@ export class WaferMap extends FoundationElement {
             // }
             this.eventCoordinator.attachEvents();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
-            this.renderer.renderHover();
+            this.matrixRenderer.renderHover();
         }
     }
 
