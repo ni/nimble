@@ -62,10 +62,8 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
                     font: var(${bodyFont.cssCustomProperty});
                 }
                 ${tableTag} {
-                    height: auto;
-                    /* Set a min-height on the table to ensure the virtualizer
-                    detects that it has space to render rows */
-                    min-height: 100px;
+                    ${/* Make the table big enough to remove vertical scrollbar */ ''}
+                    height: 450px;
                 }
             </style>
             ${x => createTemplate(x.labelProviderTag)}

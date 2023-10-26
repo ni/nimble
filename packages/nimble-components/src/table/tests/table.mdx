@@ -1,0 +1,24 @@
+import {
+    Controls,
+    DocsStory,
+    Meta,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import * as tableStories from './table.stories';
+
+<Meta of={tableStories} />
+
+<Title of={tableStories} />
+<Description of={tableStories} />
+
+<DocsStory of={tableStories.table} expanded={false} />
+<Controls of={tableStories.table} />
+
+# Usage Docs
+
+## Styling
+
+The `nimble-table` does not currently support being styled with `height: auto`. The ability to auto size the table is tracked with [issue 1624](https://github.com/ni/nimble/issues/1624).
+
