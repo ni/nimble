@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 26 Oct 2023 00:29:31 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Oct 2023 18:19:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.10.2
+
+Thu, 26 Oct 2023 18:19:11 GMT
+
+### Patches
+
+- Update dependencies on tanstack ([ni/nimble@7a9a966](https://github.com/ni/nimble/commit/7a9a966fd9e37713e95ea9c7574e621e2df38b33))
 
 ## 20.10.1
 
