@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 23 Oct 2023 14:17:52 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Oct 2023 00:29:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.8.0
+
+Thu, 26 Oct 2023 00:29:31 GMT
+
+### Minor changes
+
+- Angular integration for duration table column; add DurationPipe at 'pipes' entrypoint ([ni/nimble@244e2ca](https://github.com/ni/nimble/commit/244e2caca0117fae6448f7c130e3afd3771b03d5))
+- Bump @ni/nimble-components to v20.10.1
 
 ## 17.7.1
 
