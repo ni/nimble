@@ -58,6 +58,9 @@ export const iconMetadata: {
     IconArrowUp: {
         tags: ['sort', 'arrow', 'up', 'ascending']
     },
+    IconAt: {
+        tags: ['@', 'email', 'handle', 'mention']
+    },
     IconBars: {
         tags: ['hamburger menu']
     },
