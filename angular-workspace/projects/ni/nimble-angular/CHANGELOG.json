@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 26 Oct 2023 00:29:31 GMT",
+      "version": "17.8.0",
+      "tag": "@ni/nimble-angular_v17.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "244e2caca0117fae6448f7c130e3afd3771b03d5",
+            "comment": "Angular integration for duration table column; add DurationPipe at 'pipes' entrypoint"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.10.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 23 Oct 2023 14:17:52 GMT",
       "version": "17.7.1",
       "tag": "@ni/nimble-angular_v17.7.1",

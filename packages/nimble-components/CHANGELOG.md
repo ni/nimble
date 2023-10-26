@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 23 Oct 2023 14:17:52 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Oct 2023 00:29:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.10.1
+
+Thu, 26 Oct 2023 00:29:31 GMT
+
+### Patches
+
+- Add duration table column to all-components bundle ([ni/nimble@244e2ca](https://github.com/ni/nimble/commit/244e2caca0117fae6448f7c130e3afd3771b03d5))
 
 ## 20.10.0
 
