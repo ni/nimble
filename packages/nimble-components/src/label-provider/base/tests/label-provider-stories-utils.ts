@@ -62,7 +62,7 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
                     font: var(${bodyFont.cssCustomProperty});
                 }
                 ${tableTag} {
-                    ${/* Make the table big enough to remove vertical scrollbar */ ''}
+                    /* Make the table big enough to remove vertical scrollbar */
                     height: 450px;
                 }
             </style>
