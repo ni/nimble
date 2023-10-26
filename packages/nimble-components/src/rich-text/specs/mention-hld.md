@@ -221,7 +221,8 @@ _Content_
 
 _Props/Attrs_
 
--   `mentioned-users` - is a read-only property that returns an array of strings representing the mentioned user IDs in the current state of the editor.
+-   `mentioned-users` - is a read-only property that returns an array of strings representing the mentioned user URLs (`mention-url` property value of
+    the user mapping element) in the current state of the editor.
 -   `validity` - is a readonly object of boolean values that represents the validity state that the `@mention` configuration can be. The object type
     is `RichTextMentionValidity`. The validation is especially for mapping the user details that is provided via the
     `nimble-mapping-mention-user`. For example, if the client application provide the duplicate `key` values that stores the user ID, it will be an
