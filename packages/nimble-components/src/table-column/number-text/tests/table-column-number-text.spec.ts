@@ -536,7 +536,7 @@ describe('TableColumnNumberText', () => {
 
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('1024.00');
             expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
-                '1024.00'
+                '1,024.00'
             );
         });
 
@@ -561,7 +561,7 @@ describe('TableColumnNumberText', () => {
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
-                '11.0000 bytes'
+                '11 bytes'
             );
         });
     });

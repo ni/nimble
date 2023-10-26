@@ -148,12 +148,12 @@ describe('DecimalFormatter', () => {
 
     describe('with unit', () => {
         class TestUnitScaleFormatter extends UnitScaleFormatter {
-            public override getSupportedUnits(): ScaledUnit[] {
-                return [1, 2, 4].map(conversionFactor => {
+            public override getSupportedScaledUnits(): ScaledUnit[] {
+                return [1, 2, 4].map(scaleFactor => {
                     return {
-                        conversionFactor,
+                        scaleFactor,
                         format: x => {
-                            return `${x} x${conversionFactor}`;
+                            return `${x} x${scaleFactor}`;
                         }
                     };
                 });

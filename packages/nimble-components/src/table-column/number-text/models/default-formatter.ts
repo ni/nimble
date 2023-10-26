@@ -50,7 +50,7 @@ export class DefaultFormatter extends NumberFormatter {
             maximumSignificantDigits: DefaultFormatter.maximumDigits,
             notation: 'scientific'
         });
-        this.exponentialFormatter.alwaysUseBaseUnit = true;
+        this.exponentialFormatter.alwaysUseBaseScaledUnit = true;
     }
 
     protected format(number: number): string {
@@ -58,7 +58,7 @@ export class DefaultFormatter extends NumberFormatter {
         // Because that option cannot be used to avoid rendering "-0", coerce the value -0 to 0 prior to formatting.
         const valueToFormat = number === 0 ? 0 : number;
         // we could use any of our formatters here, because they all support the same units
-        const convertedNumber = this.defaultFormatter.getValueForBestUnit(valueToFormat);
+        const convertedNumber = this.defaultFormatter.getScaledNumber(valueToFormat);
         const formatter = this.getFormatterForNumber(convertedNumber);
         return formatter.formatValue(valueToFormat);
     }

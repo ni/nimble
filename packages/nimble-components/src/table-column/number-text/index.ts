@@ -24,8 +24,9 @@ import { DecimalFormatter } from './models/decimal-formatter';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
 import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
-import { UnitScale } from '../../unit/base/unit-scale';
+import { Unit } from '../../unit/base/unit';
 import { EmptyUnitScaleFormatter } from './models/empty-unit-scale-formatter';
+import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-custom-elements-defined-async';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
@@ -67,7 +68,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
     @observable
     public unitElements!: Element[];
 
-    private unitScale?: UnitScale;
+    private unit?: Unit;
 
     private unitNotifier?: Notifier;
 
@@ -117,8 +118,8 @@ export class TableColumnNumberText extends TableColumnTextBase {
             this.unitNotifier = undefined;
         }
 
-        if (this.unitScale) {
-            const notifier = Observable.getNotifier(this.unitScale);
+        if (this.unit) {
+            const notifier = Observable.getNotifier(this.unit);
             notifier.subscribe(this);
             this.unitNotifier = notifier;
         }
@@ -145,13 +146,8 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private async updateColumnConfigFromUnitElements(): Promise<void> {
-        const definedElements = this.unitElements.map(async item => (item.matches(':not(:defined)')
-            ? customElements.whenDefined(item.localName)
-            : Promise.resolve()));
-        await Promise.all(definedElements);
-        this.unitScale = this.unitElements.find(
-            x => x instanceof UnitScale
-        ) as UnitScale;
+        await waitUntilCustomElementsDefinedAsync(this.unitElements);
+        this.unit = this.unitElements.find(x => x instanceof Unit) as Unit;
         this.observeUnit();
         this.updateColumnConfig();
     }
@@ -167,6 +163,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
             this.decimalDigits,
             this.decimalMaximumDigits
         );
+        this.validator.validateAtMostOneUnit(this.unitElements);
 
         if (this.validator.isValid()) {
             const columnConfig: TableColumnNumberTextColumnConfig = {
@@ -180,8 +177,8 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private createFormatter(): NumberFormatter {
-        const unitScaleFormatter = this.unitScale
-            ? this.unitScale.getFormatter()
+        const unitScaleFormatter = this.unit
+            ? this.unit.getFormatter()
             : EmptyUnitScaleFormatter;
         switch (this.format) {
             case NumberTextFormat.decimal: {
@@ -220,7 +217,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
         if (
             this.format === NumberTextFormat.decimal
             && typeof this.decimalMaximumDigits !== 'number'
-            && !this.unitScale
+            && !this.unit
         ) {
             return TextCellViewBaseAlignment.right;
         }

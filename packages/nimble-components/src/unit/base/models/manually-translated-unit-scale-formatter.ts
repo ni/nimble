@@ -1,8 +1,8 @@
 import { ManuallyTranslatedScaledUnit } from './manually-translated-scaled-unit';
-import type { ScaledUnit } from './scaled-unit';
+import type { ScaledUnit } from '../../../table-column/number-text/models/scaled-unit';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
-import { UnitScaleFormatter } from './unit-scale-formatter';
+import { UnitScaleFormatter } from '../../../table-column/number-text/models/unit-scale-formatter';
 
 /**
  * A formatter for a unit scale that is not supported by Intl.NumberFormat and has translations built into Nimble
@@ -12,10 +12,10 @@ export abstract class ManuallyTranslatedUnitScaleFormatter extends UnitScaleForm
     private readonly supportedPrefixes: UnitPrefix[];
 
     public constructor(
-        lang: string,
+        locale: string,
         formatterOptions: Intl.NumberFormatOptions
     ) {
-        super(lang, formatterOptions);
+        super(locale, formatterOptions);
         this.unitTranslations = this.getUnitTranslations();
         this.supportedPrefixes = this.getSupportedPrefixes();
         if (!this.unitTranslations.get('en')) {
@@ -23,16 +23,19 @@ export abstract class ManuallyTranslatedUnitScaleFormatter extends UnitScaleForm
         }
     }
 
-    protected override getSupportedUnits(
-        lang: string,
+    protected override getSupportedScaledUnits(
+        locale: string,
         formatterOptions: Intl.NumberFormatOptions
     ): ScaledUnit[] {
-        const commonFormatter = new Intl.NumberFormat(lang, formatterOptions);
-        const commonPluralRules = new Intl.PluralRules(lang);
-        const language = new Intl.Locale(lang).language;
-        const translations = this.unitTranslations.has(language)
-            ? this.unitTranslations.get(language)!
-            : this.unitTranslations.get('en')!;
+        const commonFormatter = new Intl.NumberFormat(locale, formatterOptions);
+        const commonPluralRules = new Intl.PluralRules(locale);
+        const localeObject = new Intl.Locale(locale);
+        const language = localeObject.language;
+        const region = localeObject.region;
+        const languageAndRegion = `${language}-${region?.toUpperCase() ?? ''}`;
+        const translations = this.unitTranslations.get(languageAndRegion)
+            ?? this.unitTranslations.get(language)
+            ?? this.unitTranslations.get('en')!;
         const supportedUnits: ScaledUnit[] = [
             new ManuallyTranslatedScaledUnit(
                 1,

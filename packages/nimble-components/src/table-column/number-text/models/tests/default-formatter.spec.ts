@@ -233,18 +233,19 @@ describe('DefaultFormatter', () => {
 
     describe('with unit', () => {
         class TestUnitScaleFormatter extends UnitScaleFormatter {
-            public override getSupportedUnits(
-                lang: string,
+            public override getSupportedScaledUnits(
+                locale: string,
                 formatterOptions: Intl.NumberFormatOptions
             ): ScaledUnit[] {
-                const formatter = new Intl.NumberFormat(lang, formatterOptions);
-                return [1, 100, 1000].map(conversionFactor => {
+                const formatter = new Intl.NumberFormat(
+                    locale,
+                    formatterOptions
+                );
+                return [1, 100, 1000].map(scaleFactor => {
                     return {
-                        conversionFactor,
+                        scaleFactor,
                         format: x => {
-                            return `${formatter.format(
-                                x
-                            )} x${conversionFactor}`;
+                            return `${formatter.format(x)} x${scaleFactor}`;
                         }
                     };
                 });

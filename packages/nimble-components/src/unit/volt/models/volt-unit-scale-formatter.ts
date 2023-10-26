@@ -1,9 +1,6 @@
-import { ManuallyTranslatedUnitScaleFormatter } from '../../../table-column/number-text/models/manually-translated-unit-scale-formatter';
-import {
-    UnitPrefix,
-    metricPrefixes
-} from '../../../table-column/number-text/models/unit-prefix';
-import { UnitTranslation } from '../../../table-column/number-text/models/unit-translation';
+import { ManuallyTranslatedUnitScaleFormatter } from '../../base/models/manually-translated-unit-scale-formatter';
+import { UnitPrefix, metricPrefixes } from '../../base/models/unit-prefix';
+import { UnitTranslation } from '../../base/models/unit-translation';
 
 /**
  * Formatter for numbers with voltage units

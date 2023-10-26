@@ -4,7 +4,7 @@ import { template } from '../base/template';
 import type { UnitScaleFormatterConstructor } from '../../table-column/number-text/models/unit-scale-formatter';
 import { Byte1024UnitScaleFormatter } from './models/byte-1024-unit-scale-formatter';
 import { ByteUnitScaleFormatter } from './models/byte-unit-scale-formatter';
-import { UnitScale } from '../base/unit-scale';
+import { Unit } from '../base/unit';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -15,7 +15,7 @@ declare global {
 /**
  * Element representing units for bytes
  */
-export class UnitByte extends UnitScale {
+export class UnitByte extends Unit {
     // If true, 1024-based units are used instead of 1000-based units
     @attr({ mode: 'boolean' })
     public binary = false;

@@ -11,6 +11,7 @@ describe('Byte1024UnitScaleFormatter', () => {
         expect(formatter.formatValue(1024 ** 3)).toEqual('1 GiB');
         expect(formatter.formatValue(1024 ** 4)).toEqual('1 TiB');
         expect(formatter.formatValue(1024 ** 5)).toEqual('1 PiB');
+        expect(formatter.formatValue(1024 ** 6)).toEqual('1,024 PiB');
     });
 
     it('formats using expected units (French)', () => {
@@ -23,6 +24,7 @@ describe('Byte1024UnitScaleFormatter', () => {
         expect(formatter.formatValue(1024 ** 3)).toEqual('1 Gio');
         expect(formatter.formatValue(1024 ** 4)).toEqual('1 Tio');
         expect(formatter.formatValue(1024 ** 5)).toEqual('1 Pio');
+        expect(formatter.formatValue(1024 ** 6)).toEqual('1\u202f024 Pio');
     });
 
     it('formats using expected units (German)', () => {
@@ -35,6 +37,7 @@ describe('Byte1024UnitScaleFormatter', () => {
         expect(formatter.formatValue(1024 ** 3)).toEqual('1 GiB');
         expect(formatter.formatValue(1024 ** 4)).toEqual('1 TiB');
         expect(formatter.formatValue(1024 ** 5)).toEqual('1 PiB');
+        expect(formatter.formatValue(1024 ** 6)).toEqual('1.024 PiB');
     });
 
     it('formats using expected units (Japanese)', () => {
@@ -47,6 +50,7 @@ describe('Byte1024UnitScaleFormatter', () => {
         expect(formatter.formatValue(1024 ** 3)).toEqual('1 GiB');
         expect(formatter.formatValue(1024 ** 4)).toEqual('1 TiB');
         expect(formatter.formatValue(1024 ** 5)).toEqual('1 PiB');
+        expect(formatter.formatValue(1024 ** 6)).toEqual('1,024 PiB');
     });
 
     it('formats using expected units (Chinese)', () => {
@@ -59,5 +63,6 @@ describe('Byte1024UnitScaleFormatter', () => {
         expect(formatter.formatValue(1024 ** 3)).toEqual('1 GiB');
         expect(formatter.formatValue(1024 ** 4)).toEqual('1 TiB');
         expect(formatter.formatValue(1024 ** 5)).toEqual('1 PiB');
+        expect(formatter.formatValue(1024 ** 6)).toEqual('1,024 PiB');
     });
 });

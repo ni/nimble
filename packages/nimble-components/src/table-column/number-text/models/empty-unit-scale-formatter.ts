@@ -1,4 +1,4 @@
-import { IntlNumberFormatScaledUnit } from './intl-number-format-scaled-unit';
+import { EmptyScaledUnit } from './empty-scaled-unit';
 import type { ScaledUnit } from './scaled-unit';
 import { UnitScaleFormatter } from './unit-scale-formatter';
 
@@ -6,15 +6,12 @@ import { UnitScaleFormatter } from './unit-scale-formatter';
  * Degenerate UnitScaleFormatter for formatting without units
  */
 export class EmptyUnitScaleFormatter extends UnitScaleFormatter {
-    protected override getSupportedUnits(
-        lang: string,
+    protected override getSupportedScaledUnits(
+        locale: string,
         formatterOptions: Intl.NumberFormatOptions
     ): ScaledUnit[] {
         return [
-            new IntlNumberFormatScaledUnit(
-                1,
-                new Intl.NumberFormat(lang, formatterOptions)
-            )
+            new EmptyScaledUnit(new Intl.NumberFormat(locale, formatterOptions))
         ];
     }
 }

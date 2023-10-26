@@ -1,4 +1,4 @@
-import { IntlNumberFormatScaledUnit } from '../../../table-column/number-text/models/intl-number-format-scaled-unit';
+import { IntlNumberFormatScaledUnit } from '../../base/models/intl-number-format-scaled-unit';
 import type { ScaledUnit } from '../../../table-column/number-text/models/scaled-unit';
 import { UnitScaleFormatter } from '../../../table-column/number-text/models/unit-scale-formatter';
 
@@ -6,14 +6,14 @@ import { UnitScaleFormatter } from '../../../table-column/number-text/models/uni
  * Formatter for numbers with byte units (1000-based)
  */
 export class ByteUnitScaleFormatter extends UnitScaleFormatter {
-    protected override getSupportedUnits(
-        lang: string,
+    protected override getSupportedScaledUnits(
+        locale: string,
         formatterOptions: Intl.NumberFormatOptions
     ): ScaledUnit[] {
         return [
             new IntlNumberFormatScaledUnit(
                 1,
-                new Intl.NumberFormat(lang, {
+                new Intl.NumberFormat(locale, {
                     ...formatterOptions,
                     style: 'unit',
                     unit: 'byte',
@@ -22,7 +22,7 @@ export class ByteUnitScaleFormatter extends UnitScaleFormatter {
             ),
             new IntlNumberFormatScaledUnit(
                 1000,
-                new Intl.NumberFormat(lang, {
+                new Intl.NumberFormat(locale, {
                     ...formatterOptions,
                     style: 'unit',
                     unit: 'kilobyte',
@@ -31,7 +31,7 @@ export class ByteUnitScaleFormatter extends UnitScaleFormatter {
             ),
             new IntlNumberFormatScaledUnit(
                 10 ** 6,
-                new Intl.NumberFormat(lang, {
+                new Intl.NumberFormat(locale, {
                     ...formatterOptions,
                     style: 'unit',
                     unit: 'megabyte',
@@ -40,7 +40,7 @@ export class ByteUnitScaleFormatter extends UnitScaleFormatter {
             ),
             new IntlNumberFormatScaledUnit(
                 10 ** 9,
-                new Intl.NumberFormat(lang, {
+                new Intl.NumberFormat(locale, {
                     ...formatterOptions,
                     style: 'unit',
                     unit: 'gigabyte',
@@ -49,7 +49,7 @@ export class ByteUnitScaleFormatter extends UnitScaleFormatter {
             ),
             new IntlNumberFormatScaledUnit(
                 10 ** 12,
-                new Intl.NumberFormat(lang, {
+                new Intl.NumberFormat(locale, {
                     ...formatterOptions,
                     style: 'unit',
                     unit: 'terabyte',
@@ -58,7 +58,7 @@ export class ByteUnitScaleFormatter extends UnitScaleFormatter {
             ),
             new IntlNumberFormatScaledUnit(
                 10 ** 15,
-                new Intl.NumberFormat(lang, {
+                new Intl.NumberFormat(locale, {
                     ...formatterOptions,
                     style: 'unit',
                     unit: 'petabyte',

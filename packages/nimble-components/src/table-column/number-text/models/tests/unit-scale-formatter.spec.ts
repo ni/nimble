@@ -84,16 +84,16 @@ describe('UnitScaleFormatter', () => {
     ] as const;
 
     class TestUnitScaleFormatter extends UnitScaleFormatter {
-        private readonly units = [0.5, 1, 5, 10].map(conversionFactor => {
+        private readonly units = [0.5, 1, 5, 10].map(scaleFactor => {
             return {
-                conversionFactor,
+                scaleFactor,
                 format: (value: number): string => {
-                    return `${value} x${conversionFactor}`;
+                    return `${value} x${scaleFactor}`;
                 }
             };
         });
 
-        protected override getSupportedUnits(): ScaledUnit[] {
+        protected override getSupportedScaledUnits(): ScaledUnit[] {
             return this.units;
         }
     }
@@ -109,7 +109,7 @@ describe('UnitScaleFormatter', () => {
     parameterizeNamedList(testCases, (spec, name, value) => {
         spec(`${name} (getValueForBestUnit)`, () => {
             const formatter = new TestUnitScaleFormatter('', {});
-            const formattedValue = formatter.getValueForBestUnit(value.value);
+            const formattedValue = formatter.getScaledNumber(value.value);
             expect(formattedValue).toEqual(value.expectedConvertedValue);
         });
     });

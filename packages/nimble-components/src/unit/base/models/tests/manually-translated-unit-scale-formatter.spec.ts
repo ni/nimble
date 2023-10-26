@@ -13,6 +13,14 @@ class TestManuallyTranslatedUnitScaleFormatter extends ManuallyTranslatedUnitSca
             'fr',
             new UnitTranslation('fr-singular', 'fr-plural', 'fr-abbrev')
         );
+        translations.set(
+            'fr-CA',
+            new UnitTranslation(
+                'fr-CA-singular',
+                'fr-CA-plural',
+                'fr-CA-abbrev'
+            )
+        );
         return translations;
     }
 
@@ -22,7 +30,7 @@ class TestManuallyTranslatedUnitScaleFormatter extends ManuallyTranslatedUnitSca
 }
 
 describe('ManuallyTranslatedUnitScaleFormatter', () => {
-    it('formats with expected units for (non-English) language', () => {
+    it('formats for given language even when region does not match', () => {
         const formatter = new TestManuallyTranslatedUnitScaleFormatter(
             'fr-FR',
             {}
@@ -34,7 +42,23 @@ describe('ManuallyTranslatedUnitScaleFormatter', () => {
         expect(formatter.formatValue(10)).toEqual('1 10.fr-abbrev');
     });
 
-    it('handles a locale that is only the language portion', () => {
+    it('formats for given language and region when both match', () => {
+        const formatter = new TestManuallyTranslatedUnitScaleFormatter(
+            'fr-CA',
+            {}
+        );
+        expect(formatter.formatValue(0)).toEqual('0 fr-CA-singular');
+    });
+
+    it('formats for given language and region even with other subtags and lowercase', () => {
+        const formatter = new TestManuallyTranslatedUnitScaleFormatter(
+            'fr-Latn-ca-foo',
+            {}
+        );
+        expect(formatter.formatValue(0)).toEqual('0 fr-CA-singular');
+    });
+
+    it('formats for given language when no region given', () => {
         const formatter = new TestManuallyTranslatedUnitScaleFormatter(
             'fr',
             {}

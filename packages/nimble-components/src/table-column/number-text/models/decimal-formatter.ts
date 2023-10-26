@@ -28,7 +28,7 @@ export class DecimalFormatter extends NumberFormatter {
     }
 
     protected format(number: number): string {
-        const convertedNumber = this.formatter.getValueForBestUnit(number);
+        const convertedNumber = this.formatter.getScaledNumber(number);
         // The NumberFormat option of `signDisplay: "negative"` is not supported in all browsers nimble supports.
         // Because that option cannot be used to avoid rendering "-0", coerce the value -0 to 0 prior to formatting.
         const valueToFormat = this.willRoundToZero(convertedNumber)

@@ -2,7 +2,7 @@ import type { ScaledUnit } from './scaled-unit';
 import { NumberFormatter } from './number-formatter';
 
 export type UnitScaleFormatterConstructor = new (
-    lang: string,
+    locale: string,
     formatterOptions: Intl.NumberFormatOptions
 ) => UnitScaleFormatter;
 
@@ -10,82 +10,82 @@ export type UnitScaleFormatterConstructor = new (
  * A formatter for a number-text column that supports unit labels.
  */
 export abstract class UnitScaleFormatter extends NumberFormatter {
-    public alwaysUseBaseUnit = false;
-    private _supportedUnits?: ScaledUnit[];
-    private _baseUnit?: ScaledUnit;
+    public alwaysUseBaseScaledUnit = false;
+    private _supportedScaledUnits?: ScaledUnit[];
+    private _baseScaledUnit?: ScaledUnit;
 
-    private get supportedUnits(): ScaledUnit[] {
-        if (this._supportedUnits === undefined) {
-            this.setSupportedUnitsAndBaseUnit();
+    private get supportedScaledUnits(): ScaledUnit[] {
+        if (this._supportedScaledUnits === undefined) {
+            this.setSupportedScaledUnitsAndBaseScaledUnit();
         }
-        return this._supportedUnits!;
+        return this._supportedScaledUnits!;
     }
 
-    private get baseUnit(): ScaledUnit {
-        if (this._baseUnit === undefined) {
-            this.setSupportedUnitsAndBaseUnit();
+    private get baseScaledUnit(): ScaledUnit {
+        if (this._baseScaledUnit === undefined) {
+            this.setSupportedScaledUnitsAndBaseScaledUnit();
         }
-        return this._baseUnit!;
+        return this._baseScaledUnit!;
     }
 
     public constructor(
-        private readonly lang: string,
+        private readonly locale: string,
         private readonly formatterOptions: Intl.NumberFormatOptions
     ) {
         super();
     }
 
-    public getValueForBestUnit(number: number): number {
-        const unit = this.pickBestUnit(number);
-        return number / unit.conversionFactor;
+    public getScaledNumber(number: number): number {
+        const unit = this.pickBestScaledUnit(number);
+        return number / unit.scaleFactor;
     }
 
-    protected abstract getSupportedUnits(
-        lang: string,
+    protected abstract getSupportedScaledUnits(
+        locale: string,
         formatterOptions: Intl.NumberFormatOptions
     ): ScaledUnit[];
 
     protected override format(number: number): string {
-        const unit = this.pickBestUnit(number);
-        return unit.format(number / unit.conversionFactor);
+        const unit = this.pickBestScaledUnit(number);
+        return unit.format(number / unit.scaleFactor);
     }
 
-    private pickBestUnit(number: number): ScaledUnit {
+    private pickBestScaledUnit(number: number): ScaledUnit {
         const magnitude = Math.abs(number);
         if (
-            magnitude === 0
+            this.supportedScaledUnits.length === 1 // must be baseScaledUnit
+            || magnitude === 0
             || magnitude === Infinity
             || Number.isNaN(magnitude)
-            || this.alwaysUseBaseUnit
+            || this.alwaysUseBaseScaledUnit
         ) {
-            return this.baseUnit;
+            return this.baseScaledUnit;
         }
-        for (const unit of this.supportedUnits) {
-            if (magnitude >= unit.conversionFactor) {
+        for (const unit of this.supportedScaledUnits) {
+            if (magnitude >= unit.scaleFactor) {
                 return unit;
             }
         }
-        return this.supportedUnits[this.supportedUnits.length - 1]!;
+        return this.supportedScaledUnits[this.supportedScaledUnits.length - 1]!;
     }
 
-    // This is an implemenation of lazy initialization.
-    // Ideally, we could initialize supportedUnits and baseUnit in the constructor,
+    // Ideally, we could initialize supportedScaledUnits and baseScaledUnit in the constructor,
     // but they depend on an abstract method and potentially other state that isn't
     // available until the derived class is finished being constructed.
-    private setSupportedUnitsAndBaseUnit(): void {
+    private setSupportedScaledUnitsAndBaseScaledUnit(): void {
         // sort from largest to smallest here so that pickBestUnit doesn't have to sort on every call
-        this._supportedUnits = this.getSupportedUnits(
-            this.lang,
+        this._supportedScaledUnits = this.getSupportedScaledUnits(
+            this.locale,
             this.formatterOptions
-        ).sort((a, b) => (a.conversionFactor < b.conversionFactor ? 1 : -1));
-        const baseUnit = this._supportedUnits.find(
-            x => x.conversionFactor === 1
+        ).sort((a, b) => (a.scaleFactor < b.scaleFactor ? 1 : -1));
+        const baseScaledUnit = this._supportedScaledUnits.find(
+            x => x.scaleFactor === 1
         );
-        if (!baseUnit) {
+        if (!baseScaledUnit) {
             throw new Error(
-                'Supported units must include a base unit (conversion factor=1)'
+                'Supported scaled units must include a base scaled unit (scale factor=1)'
             );
         }
-        this._baseUnit = baseUnit;
+        this._baseScaledUnit = baseScaledUnit;
     }
 }

@@ -140,12 +140,12 @@ const unitDescription = `A unit for the column may be configured by providing a 
     <summary>Unit Elements</summary>
 
     <ul>
-        <li>\`nimble-unit-byte\`: Labels in this unit scale are \`byte\`/\`bytes\`, \`KB\`, \`MB\`, \`GB\`, \`TB\`, and \`PB\`.
+        <li>\`nimble-unit-byte\`: Labels in this unit scale are \`byte\`/\`bytes\`, \`KB\`, \`MB\`, \`GB\`, \`TB\`, and \`PB\`. Translations exist for all languages supported by the runtime environment.
             <ul>
-                <li>\`binary\` - boolean attribute that indicates a binary conversion factor of 1024 should be used rather than 1000. The resulting unit labels are \`byte\`/\`bytes\`, \`KiB\`, \`MiB\`, \`GiB\`, \`TiB\`, and \`PiB\`.</li>
+                <li>\`binary\` - boolean attribute that indicates a binary conversion factor of 1024 should be used rather than 1000. The resulting unit labels are \`byte\`/\`bytes\`, \`KiB\`, \`MiB\`, \`GiB\`, \`TiB\`, and \`PiB\`. Translations exist for English, French, German, Japanese, and Chinese.</li>
             </ul>
         </li>
-        <li>\`nimble-unit-volt\`: Labels in this unit scale are \`volt\`/\`volts\`, \`fV\`, \`pV\`, \`nV\`, \`μV\`, \`mV\`, \`cV\`, \`dV\`, \`kV\`, \`MV\`, \`GV\`, \`TV\`, \`PV\`, and \`EV\`.
+        <li>\`nimble-unit-volt\`: Labels in this unit scale are \`volt\`/\`volts\`, \`fV\`, \`pV\`, \`nV\`, \`μV\`, \`mV\`, \`cV\`, \`dV\`, \`kV\`, \`MV\`, \`GV\`, \`TV\`, \`PV\`, and \`EV\`. Translations exist for English, French, German, Japanese, and Chinese.
         </li>
     </ul>
 </details>

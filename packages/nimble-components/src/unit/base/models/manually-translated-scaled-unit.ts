@@ -1,16 +1,18 @@
-import type { ScaledUnit } from './scaled-unit';
+import { ScaledUnit } from '../../../table-column/number-text/models/scaled-unit';
 
 /**
  * A scaled unit that is not supported by Intl.NumberFormat and must have translations built into Nimble
  */
-export class ManuallyTranslatedScaledUnit implements ScaledUnit {
+export class ManuallyTranslatedScaledUnit extends ScaledUnit {
     public constructor(
-        public conversionFactor: number,
+        scaleFactor: number,
         private readonly formatter: Intl.NumberFormat,
         private readonly pluralRules: Intl.PluralRules,
         private readonly unitLabel: string,
         private readonly singularUnitLabel: string
-    ) {}
+    ) {
+        super(scaleFactor);
+    }
 
     public format(value: number): string {
         const formattedValue = this.formatter.format(value);
