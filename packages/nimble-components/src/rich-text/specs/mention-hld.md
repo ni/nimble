@@ -574,8 +574,9 @@ By deriving from the base, the mention options can validate the following condit
 1. `validateMappingTypes(mappings)`
 2. `validateUniqueURL(URL, URLType)`
 3. `validateNoMissingURL(mappings)`
-4. `validateNoMissingURL(mappings)`
+4. `validateNoMissingDisplayName(mappings)`
 5. `validateURL(mappings)`
+6. `validatePattern(pattern)`
 
 _Note_: These are subject to change based on the property changes in the `nimble-mapping-mention-user` element.
 
@@ -644,6 +645,12 @@ _Focus_
 
 -   Focus state of the list options for `@mention` will be the same as the `nimble-list-option`.
 -   Focusing out from the editor will close the `@mention` popup if it is already open.
+-   The `@mention` popup will open at the position where the `@` character is added into the editor. If the editor has the scrollbar enabled,
+    scrolling the editor up and down will not move the popup to the @ position; it will remain at the same position where it was originally opened.
+    However, if an option is selected from the list, the focus will return to the position where the text cursor is located, next to the mentioned
+    user view node, in the editor.
+-   If the `@mention` popup is opened, it will move along with the editor as you scroll the entire webpage, and it will hide when the
+    editor hides.
 
 _Keyboard interactions for `@mention`_
 
