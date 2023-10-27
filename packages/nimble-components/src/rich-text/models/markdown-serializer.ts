@@ -21,8 +21,6 @@ export class RichTextMarkdownSerializer {
     public static getMentionedUser(doc: Node): string[] {
         RichTextMarkdownSerializer.mentionedUsers = [];
         RichTextMarkdownSerializer.serializeDOMToMarkdown(doc);
-        // eslint-disable-next-line no-console
-        console.log(RichTextMarkdownSerializer.mentionedUsers);
         return RichTextMarkdownSerializer.mentionedUsers;
     }
 
