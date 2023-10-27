@@ -1,6 +1,8 @@
-import { html, observable, slotted } from '@microsoft/fast-element';
+import { html, observable, slotted, attr } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { Mapping } from '../../../mapping/base';
+import type { RichTextEditor } from '..';
+import { RichTextMarkdownSerializer } from '../../models/markdown-serializer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -11,7 +13,7 @@ declare global {
 // type MappingKey = string | number | boolean;
 
 export interface UserInfo {
-    key: string;
+    url: string;
     value: string;
 }
 
@@ -29,7 +31,18 @@ export class RichTextEnumMention extends FoundationElement {
     @observable
     public mappings: Mapping[] = [];
 
+    @attr
+    public pattern!: string;
+
     public userInternals!: UserInfo[];
+
+    public getMentionedUsers(): string[] {
+        const editor = this.parentElement as RichTextEditor;
+        const mentionedUsers = RichTextMarkdownSerializer.getMentionedUser(editor.tiptapEditor.state.doc);
+        // eslint-disable-next-line no-console
+        console.log(mentionedUsers);
+        return mentionedUsers;
+    }
 
     // public createColumnConfig(mappingConfigs: MappingConfigs): RichTextEnumMentionConfig {
     //     return {
@@ -56,7 +69,7 @@ export class RichTextEnumMention extends FoundationElement {
         this.mappings.forEach(mapping => {
             // const mappingConfig = this.createMappingConfig(mapping);
             // mappingConfigs.set(mapping.key!, mappingConfig);
-            mappingConfigs.push({ key: mapping.key! as string, value: mapping.text! });
+            mappingConfigs.push({ url: mapping.key! as string, value: mapping.text! });
         });
         return mappingConfigs;
     }

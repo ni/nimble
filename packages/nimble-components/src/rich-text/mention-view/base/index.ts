@@ -6,8 +6,8 @@ import { template } from '../user-mention-view/template';
  * The base class for Mention View
  */
 export class MentionView extends FoundationElement {
-    @attr({ attribute: 'mention-id' })
-    public mentionId?: string;
+    @attr({ attribute: 'mention-url' })
+    public mentionUrl?: string;
 
     @attr({ attribute: 'mention-type' })
     public mentionType?: string;

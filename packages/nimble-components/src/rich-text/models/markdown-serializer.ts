@@ -50,11 +50,11 @@ export class RichTextMarkdownSerializer {
             state: MarkdownSerializerState,
             node: Node
         ): void {
-            const id = node.attrs.id as string;
-            if (!RichTextMarkdownSerializer.mentionedUsers.includes(id)) {
-                RichTextMarkdownSerializer.mentionedUsers.push(id);
+            const url = node.attrs.url as string;
+            if (!RichTextMarkdownSerializer.mentionedUsers.includes(url)) {
+                RichTextMarkdownSerializer.mentionedUsers.push(url);
             }
-            state.write(`<user:${id}>`);
+            state.write(`<${url}>`);
         };
 
         /**

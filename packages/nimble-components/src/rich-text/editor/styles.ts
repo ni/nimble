@@ -217,6 +217,10 @@ export const styles = css`
         pointer-events: none;
     }
 
+    .ProseMirror [contenteditable="false"] {
+        white-space: normal;
+    }
+
     :host([disabled]) .ProseMirror a {
         color: ${bodyDisabledFontColor};
         fill: currentcolor;
