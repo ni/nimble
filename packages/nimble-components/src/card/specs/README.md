@@ -108,7 +108,7 @@ so it will need a `ChildContent` parameter.
     -   We will use a `section` element in the template, which will use `aria-labelledby` to set the label to the text of the `title` slot.
     -   The `nimble-card` itself does not receive keyboard focus and tabbing jumps to the first focusable component inside the `nimble-card`.
 -   _Mobile: small screens, touch interactions, mobile-specific integrations_
-    -   No additional requirements. By default, the `nimble-card` fits its height to its content and grows/shrinks horizontally to
+    -   No additional requirements. By default, the `nimble-card` will fit its height to its content and grow/shrink horizontally to
         fit its parent container. Other mobile-friendly considerations are up to the client and the settings on the child components.
 -   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
     -   No additional requirements
