@@ -2,6 +2,108 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 26 Oct 2023 18:19:11 GMT",
+      "version": "17.8.1",
+      "tag": "@ni/nimble-angular_v17.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.10.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Oct 2023 00:29:31 GMT",
+      "version": "17.8.0",
+      "tag": "@ni/nimble-angular_v17.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "244e2caca0117fae6448f7c130e3afd3771b03d5",
+            "comment": "Angular integration for duration table column; add DurationPipe at 'pipes' entrypoint"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.10.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 23 Oct 2023 14:17:52 GMT",
+      "version": "17.7.1",
+      "tag": "@ni/nimble-angular_v17.7.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.10.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 19 Oct 2023 23:50:56 GMT",
+      "version": "17.7.0",
+      "tag": "@ni/nimble-angular_v17.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "466d474d52d3eb8a0396a6e53365e32bfbbd2954",
+            "comment": "Add decimal-maximum-digits attr to number-text column"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.9.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 19 Oct 2023 15:08:49 GMT",
+      "version": "17.6.4",
+      "tag": "@ni/nimble-angular_v17.6.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.8.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 Oct 2023 18:51:54 GMT",
+      "version": "17.6.3",
+      "tag": "@ni/nimble-angular_v17.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.7.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Oct 2023 21:31:42 GMT",
       "version": "17.6.2",
       "tag": "@ni/nimble-angular_v17.6.2",
