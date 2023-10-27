@@ -1,7 +1,6 @@
-import { Directive, ElementRef, Injector, Input } from '@angular/core';
-import { LocationStrategy } from '@angular/common';
-import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
+import { Directive, Input } from '@angular/core';
 import type { AnchorTreeItem } from './nimble-anchor-tree-item.directive';
+import { DisableableRouterLinkWithHrefDirective } from '../anchor-base/disableable-router-link-with-href.directive';
 
 /**
  * Selectors used for built-in Angular RouterLink directives:
@@ -17,21 +16,9 @@ import type { AnchorTreeItem } from './nimble-anchor-tree-item.directive';
  * won't also be an active RouterLink directive incorrectly handling navigation.
  */
 @Directive({ selector: 'nimble-anchor-tree-item[nimbleRouterLink]' })
-export class NimbleAnchorTreeItemRouterLinkWithHrefDirective extends RouterLinkWithHref {
+export class NimbleAnchorTreeItemRouterLinkWithHrefDirective extends DisableableRouterLinkWithHrefDirective<AnchorTreeItem> {
     @Input()
     public set nimbleRouterLink(commands: never[] | string | null | undefined) {
         this.routerLink = commands;
-    }
-
-    public constructor(injector: Injector, private readonly elementRef: ElementRef<AnchorTreeItem>) {
-        super(injector.get(Router), injector.get(ActivatedRoute), injector.get(LocationStrategy));
-    }
-
-    public override onClick(button: number, ctrlKey: boolean, shiftKey: boolean, altKey: boolean, metaKey: boolean): boolean {
-        if (this.elementRef.nativeElement.disabled) {
-            return false;
-        }
-
-        return super.onClick(button, ctrlKey, shiftKey, altKey, metaKey);
     }
 }
