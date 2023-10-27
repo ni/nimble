@@ -28,21 +28,14 @@ import { accessiblyHidden } from '../utilities/style/accessibly-hidden';
 export const styles = css`
     ${display('grid')}
 
-    :host {
-        width: ${dialogSmallWidth};
-        height: fit-content;
-        max-height: ${dialogSmallMaxHeight};
-    }
-
     dialog {
         flex-direction: column;
         background-color: ${applicationBackgroundColor};
         border: none;
         box-shadow: ${elevation3BoxShadow};
         padding: 0px;
-        width: inherit;
-        height: inherit;
-        max-height: inherit;
+        width: ${dialogSmallWidth};
+        max-height: ${dialogSmallMaxHeight};
     }
 
     dialog[open] {

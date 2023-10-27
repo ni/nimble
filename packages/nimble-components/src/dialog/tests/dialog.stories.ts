@@ -123,17 +123,19 @@ const metadata: Meta<DialogArgs> = {
             .first-button {
                 margin-right: auto;
             }
+            ${dialogTag}::part(dialog) {
+                ${x => `
+                    width:${widths[x.width]};
+                    height:${heights[x.height]};
+                    max-height:${maxHeights[x.maxHeight]};
+                `}
+            }
         </style>
         <${dialogTag}
             ${ref('dialogRef')}
             ?prevent-dismiss="${x => x.preventDismiss}"
             ?header-hidden="${x => x.headerHidden}"
             ?footer-hidden="${x => x.footerHidden}"
-            style="${x => `
-                width:${widths[x.width]};
-                height:${heights[x.height]};
-                max-height:${maxHeights[x.maxHeight]};
-                `}"
         >
             <span slot="title">${x => x.title}</span>
             <span slot="subtitle">${x => x.subtitle}</span>

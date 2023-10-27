@@ -52,7 +52,14 @@ const dialogSizingTestCase = (
     <p style="font: var(${cssPropertyFromTokenName(
         tokenNames.bodyFont
     )}); margin-bottom: 0px;">${() => widthLabel}; ${() => heightLabel} ${() => maxHeightLabel}</p>
-    <${dialogTag} style="${() => widthStyle}; ${() => heightStyle}; ${() => maxHeightStyle};">
+    <style>
+        ${dialogTag}::part(dialog) {
+            ${() => widthStyle};
+            ${() => heightStyle};
+            ${() => maxHeightStyle};
+        }
+    </style>
+    <${dialogTag}>
     <span slot="title">This is my dialog's title. It is pretty long.</span>
         <span slot="subtitle">The dialog has a subtitle here.</span>
         <div>Here is the first piece of content in the dialog</div>
