@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 20 Sep 2023 16:38:20 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Oct 2023 00:29:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.5.0
+
+Thu, 26 Oct 2023 00:29:31 GMT
+
+### Minor changes
+
+- Blazor integration for duration table column ([ni/nimble@244e2ca](https://github.com/ni/nimble/commit/244e2caca0117fae6448f7c130e3afd3771b03d5))
+
+## 12.4.0
+
+Thu, 19 Oct 2023 23:50:56 GMT
+
+### Minor changes
+
+- Add decimal-maximum-digits attr to number-text column ([ni/nimble@466d474](https://github.com/ni/nimble/commit/466d474d52d3eb8a0396a6e53365e32bfbbd2954))
+
+## 12.3.8
+
+Fri, 22 Sep 2023 16:10:42 GMT
+
+### Patches
+
+- Expose new table labels in Blazor ([ni/nimble@59d65d5](https://github.com/ni/nimble/commit/59d65d5a4077679c0ad5756336f8b555a8d8a8b5))
 
 ## 12.3.4
 

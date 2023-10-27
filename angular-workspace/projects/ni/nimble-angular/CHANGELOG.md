@@ -1,8 +1,146 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 20 Sep 2023 18:55:59 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Oct 2023 18:19:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.8.1
+
+Thu, 26 Oct 2023 18:19:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.10.2
+
+## 17.8.0
+
+Thu, 26 Oct 2023 00:29:31 GMT
+
+### Minor changes
+
+- Angular integration for duration table column; add DurationPipe at 'pipes' entrypoint ([ni/nimble@244e2ca](https://github.com/ni/nimble/commit/244e2caca0117fae6448f7c130e3afd3771b03d5))
+- Bump @ni/nimble-components to v20.10.1
+
+## 17.7.1
+
+Mon, 23 Oct 2023 14:17:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.10.0
+
+## 17.7.0
+
+Thu, 19 Oct 2023 23:50:56 GMT
+
+### Minor changes
+
+- Add decimal-maximum-digits attr to number-text column ([ni/nimble@466d474](https://github.com/ni/nimble/commit/466d474d52d3eb8a0396a6e53365e32bfbbd2954))
+- Bump @ni/nimble-components to v20.9.0
+
+## 17.6.4
+
+Thu, 19 Oct 2023 15:08:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.8.0
+
+## 17.6.3
+
+Wed, 18 Oct 2023 18:51:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.7.0
+
+## 17.6.2
+
+Mon, 16 Oct 2023 21:31:42 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.6.3
+
+## 17.6.1
+
+Fri, 06 Oct 2023 16:58:56 GMT
+
+### Patches
+
+- Revert "Create Angular mixins for fractional-width columns and groupable columns (#1587)" ([ni/nimble@9ebd4e1](https://github.com/ni/nimble/commit/9ebd4e1db9fdcb67fcff8237e75c77537c862360))
+
+## 17.6.0
+
+Thu, 05 Oct 2023 23:54:35 GMT
+
+### Minor changes
+
+- Refactor Angular table columns to use mixins for fractional-width and groupable columns ([ni/nimble@c074575](https://github.com/ni/nimble/commit/c074575be1bd09e3d04b1747bfc3a782eefbbd09))
+
+## 17.5.15
+
+Wed, 04 Oct 2023 07:38:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.6.2
+
+## 17.5.14
+
+Tue, 03 Oct 2023 14:34:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.6.1
+
+## 17.5.13
+
+Thu, 28 Sep 2023 22:20:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.6.0
+
+## 17.5.12
+
+Thu, 28 Sep 2023 03:38:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.5
+
+## 17.5.11
+
+Tue, 26 Sep 2023 21:18:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.4
+
+## 17.5.10
+
+Fri, 22 Sep 2023 17:41:22 GMT
+
+### Patches
+
+- Expose new table labels in Angular ([ni/nimble@091d06f](https://github.com/ni/nimble/commit/091d06f6b60ef214b9fcba021ff016fda72b009b))
+
+## 17.5.9
+
+Fri, 22 Sep 2023 14:24:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.3
+
+## 17.5.8
+
+Thu, 21 Sep 2023 13:07:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.1
 
 ## 17.5.7
 

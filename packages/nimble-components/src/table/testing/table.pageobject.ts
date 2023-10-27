@@ -216,7 +216,7 @@ export class TablePageObject<T extends TableRecord> {
                 `Icon or Spinner not found at cell ${rowIndex},${columnIndex}`
             );
         }
-        return content.ariaLabel ?? '';
+        return content.getAttribute('aria-label') ?? '';
     }
 
     public getRenderedIconColumnCellIconTagName(

@@ -21,6 +21,7 @@ interface SimpleTableRecord extends TableRecord {
     statusCode: number;
     result: string;
     number: number;
+    duration: number;
 }
 
 @Component({
@@ -78,6 +79,8 @@ export class CustomAppComponent {
 
     public constructor(@Inject(ActivatedRoute) public readonly route: ActivatedRoute) {
         this.tableData$ = this.tableDataSubject.asObservable();
+        this.addTableRows(10);
+
         this.comboboxItems = [];
         for (let i = 0; i < 300; i++) {
             this.comboboxItems.push({
@@ -122,19 +125,22 @@ export class CustomAppComponent {
         alert('Tab toolbar button clicked');
     }
 
-    public onAddTableRow(): void {
+    public addTableRows(numberOfRowsToAdd: number): void {
         const tableData = this.tableDataSubject.value;
-        tableData.push({
-            id: tableData.length.toString(),
-            stringValue1: `new string ${tableData.length}`,
-            stringValue2: `bar ${tableData.length}`,
-            href: '/customapp',
-            linkLabel: 'Link',
-            date: (tableData.length % 2 === 0) ? new Date(2023, 7, 16, 3, 56, 11).valueOf() : new Date(2022, 2, 7, 20, 28, 41).valueOf(),
-            statusCode: (tableData.length % 2 === 0) ? 100 : 101,
-            result: (tableData.length % 2 === 0) ? 'success' : 'unknown',
-            number: tableData.length / 10
-        });
+        for (let i = 0; i < numberOfRowsToAdd; i++) {
+            tableData.push({
+                id: tableData.length.toString(),
+                stringValue1: `new string ${tableData.length}`,
+                stringValue2: `bar ${tableData.length}`,
+                href: '/customapp',
+                linkLabel: 'Link',
+                date: (tableData.length % 2 === 0) ? new Date(2023, 7, 16, 3, 56, 11).valueOf() : new Date(2022, 2, 7, 20, 28, 41).valueOf(),
+                statusCode: (tableData.length % 2 === 0) ? 100 : 101,
+                result: (tableData.length % 2 === 0) ? 'success' : 'unknown',
+                number: tableData.length / 10,
+                duration: tableData.length * 1000 * (1.1 + 2 * 60 + 3 * 3600)
+            });
+        }
         this.tableDataSubject.next(tableData);
     }
 

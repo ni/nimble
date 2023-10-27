@@ -251,6 +251,11 @@
                 >
                     Number
                 </nimble-table-column-number-text>
+                <nimble-table-column-duration-text
+                    field-name="duration"
+                >
+                    Duration
+                </nimble-table-column-duration-text>
                 <nimble-table-column-text field-name="stringValue2" min-pixel-width="400" group-index="0">String 2</nimble-table-column-text>
 
                 <nimble-menu slot="action-menu">
@@ -259,7 +264,7 @@
                     <nimble-menu-item>Item 3</nimble-menu-item>
                 </nimble-menu>
             </nimble-table>
-            <nimble-button class="add-table-row-button" (click)="onAddTableRow()">Add row</nimble-button>
+            <nimble-button class="add-table-row-button" (click)="addTableRows(10)">Add rows</nimble-button>
         </div>
         <div class="sub-container">
             <div class="container-label">Tabs</div>

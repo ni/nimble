@@ -46,5 +46,5 @@ All other Markdown formatting is supported. See any [Markdown Cheatsheet](https:
 
 When you run Storybook (See **Getting Started** above), you should see the component description within the **Docs** tab. E.g. 
 
-![DocsPage overview](/packages/nimble-components/docs/docsPage-overview.png)
+![Storybook DocsPage overview](/packages/nimble-components/docs/images/docs-page-overview.png)
 

@@ -23,6 +23,7 @@ import {
 } from '../theme-provider/design-tokens-static';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
+import { accessiblyHidden } from '../utilities/style/accessibly-hidden';
 
 export const styles = css`
     ${display('grid')}
@@ -58,23 +59,7 @@ export const styles = css`
     }
 
     :host([header-hidden]) header {
-        ${
-            /**
-             * Hide content visually while keeping it screen reader-accessible.
-             * Source: https://webaim.org/techniques/css/invisiblecontent/#techniques
-             * See discussion here: https://github.com/microsoft/fast/issues/5740#issuecomment-1068195035
-             */
-            ''
-        }
-        display: inline-block;
-        height: 1px;
-        width: 1px;
-        position: absolute;
-        margin: -1px;
-        clip: rect(1px, 1px, 1px, 1px);
-        clip-path: inset(50%);
-        overflow: hidden;
-        padding: 0;
+        ${accessiblyHidden}
     }
 
     .title {

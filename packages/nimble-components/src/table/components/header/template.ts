@@ -37,6 +37,7 @@ export const template = html<TableHeader>`
             <${iconTwoSquaresInBracketsTag}
                 class="grouped-indicator"
                 title="${x => tableColumnHeaderGroupedLabel.getValueFor(x)}"
+                role="img"
                 aria-label="${x => tableColumnHeaderGroupedLabel.getValueFor(x)}"
             ></${iconTwoSquaresInBracketsTag}>
         `)}

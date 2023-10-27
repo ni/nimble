@@ -10,7 +10,7 @@ import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { isChromatic } from '../../../utilities/tests/isChromatic';
 
 const metadata: Meta = {
-    title: 'Tests/Table Column - Icon',
+    title: 'Tests/Table Column: Icon',
     parameters: {
         ...sharedMatrixParameters()
     }

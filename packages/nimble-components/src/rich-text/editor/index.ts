@@ -27,6 +27,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import Text from '@tiptap/extension-text';
 import HardBreak from '@tiptap/extension-hard-break';
+import { Slice, Fragment, Node } from 'prosemirror-model';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
@@ -151,6 +152,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private updateScrollbarWidthQueued = false;
 
     private readonly xmlSerializer = new XMLSerializer();
+    private readonly validAbsoluteLinkRegex = /^https?:\/\//i;
 
     /**
      * @internal
@@ -333,8 +335,72 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         return editor;
     }
 
+    /**
+     * This method finds the Link mark in the pasted content and update its Text node.
+     * If there is no text node, pass the node's fragment recursively and updates only node containing Link mark.
+     * If the Text node does not contains Link mark, push the same node to `updatedNodes`.
+     *
+     * @param fragment Fragment containing the pasted content. [Fragment](https://prosemirror.net/docs/ref/#model.Fragment)
+     * @returns modified fragment from the `updatedNode` after updating the valid link text with its href value.
+     */
+    private readonly updateLinkNodes = (fragment: Fragment): Fragment => {
+        const updatedNodes: Node[] = [];
+
+        fragment.forEach(node => {
+            if (node.isText && node.marks.length > 0) {
+                const linkMark = node.marks.find(
+                    mark => mark.type.name === 'link' && mark.attrs
+                );
+                if (linkMark) {
+                    // Checks if the link is valid link or not
+                    // Needing to separately validate the link on paste is a workaround for a tiptap issue
+                    // See: https://github.com/ni/nimble/issues/1527
+                    if (
+                        this.validAbsoluteLinkRegex.test(
+                            linkMark.attrs.href as string
+                        )
+                    ) {
+                        // The below lines of code is responsible for updating the text content with its href value and creates a new updated text node.
+                        // This code needs an update when the hyperlink support is added.
+                        // See: https://github.com/ni/nimble/issues/1527
+                        updatedNodes.push(
+                            this.tiptapEditor.schema.text(
+                                linkMark.attrs.href as string,
+                                node.marks
+                            )
+                        );
+                    } else {
+                        // If it is a invalid link, creates a new Text node with the same text content and without a Link mark.
+                        updatedNodes.push(
+                            this.tiptapEditor.schema.text(
+                                node.textContent,
+                                linkMark.removeFromSet(node.marks)
+                            )
+                        );
+                    }
+                } else {
+                    updatedNodes.push(node);
+                }
+            } else {
+                const updatedContent = this.updateLinkNodes(node.content);
+                updatedNodes.push(node.copy(updatedContent));
+            }
+        });
+
+        return Fragment.fromArray(updatedNodes);
+    };
+
     private createTiptapEditor(): Editor {
         const customLink = this.getCustomLinkExtension();
+
+        /**
+         * @param slice contains the Fragment of the copied content. If the content is a link, the slice contains Text node with Link mark.
+         * ProseMirror reference for `transformPasted`: https://prosemirror.net/docs/ref/#view.EditorProps.transformPasted
+         */
+        const transformPasted = (slice: Slice): Slice => {
+            const modifiedFragment = this.updateLinkNodes(slice.content);
+            return new Slice(modifiedFragment, slice.openStart, slice.openEnd);
+        };
 
         /**
          * For more information on the extensions for the supported formatting options, refer to the links below.
@@ -343,6 +409,22 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
          */
         return new Editor({
             element: this.editor,
+            // The editor will detect markdown syntax for an input only for these items
+            // https://tiptap.dev/api/editor#enable-input-rules
+            enableInputRules: [BulletList, OrderedList],
+            // The editor will not detect markdown syntax when pasting content in any supported items
+            // Lists do not have any default paste rules, they have only input rules, so disabled paste rules
+            // https://tiptap.dev/api/editor#enable-paste-rules
+            enablePasteRules: false,
+            editorProps: {
+                // Validating whether the links in the pasted content belongs to the supported scheme (HTTPS/HTTP),
+                // and rendering it as a link in the editor. If not, rendering it as a plain text.
+                // Also, updating the link text content with its href as we support only the absolute link.
+
+                // `transformPasted` can be updated/removed when hyperlink support added
+                // See: https://github.com/ni/nimble/issues/1527
+                transformPasted
+            },
             extensions: [
                 Document,
                 Paragraph,
@@ -370,7 +452,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                     // linkOnPaste can be enabled when hyperlink support added
                     // See: https://github.com/ni/nimble/issues/1527
                     linkOnPaste: false,
-                    validate: href => /^https?:\/\//i.test(href)
+                    validate: href => this.validAbsoluteLinkRegex.test(href)
                 })
             ]
         });
@@ -393,10 +475,18 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             // See: https://github.com/ni/nimble/issues/1527
             inclusive: false,
             parseHTML() {
-                // To load the `nimble-anchor` from the HTML parsed content by markdown-parser as links in the
-                // Tiptap editor, the `parseHTML` of Link extension should return `anchorTag`. This is because the
-                // link mark schema in `markdown-parser.ts` file uses `<nimble-anchor>` as anchor tag and not `<a>`.
-                return [{ tag: anchorTag }];
+                return [
+                    // To load the `nimble-anchor` from the HTML parsed content by markdown-parser as links in the Tiptap editor, the `parseHTML`
+                    // of Link extension should return nimble `anchorTag`.
+                    // This is because the link mark schema in `markdown-parser.ts` file uses `<nimble-anchor>` as anchor tag and not `<a>`.
+                    {
+                        tag: anchorTag
+                    },
+                    // `<a>` tag is added here to support when pasting a link from external source.
+                    {
+                        tag: 'a'
+                    }
+                ];
             },
             // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
             // eslint-disable-next-line @typescript-eslint/naming-convention

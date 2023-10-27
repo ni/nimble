@@ -10,7 +10,7 @@ Clients will wish to display non-string data as text in table columns for use ca
 4. numeric values with a static unit string appended before or after (e.g. "$4.23" or "15%")
 5. numeric values with custom unit logic. Examples:
     - a file size column that could show the value 1000 as "1000 bytes" but the value 1024 as "1KB"
-    - an elapsed time column that could show 63 seconds as "00:01:03" or "1 minute, 3 seconds"
+    - a [duration column](./table-column-duration-text-hld.md) that could show 63 seconds as "00:01:03" or "1 min, 3 sec"
 6. date/time values formatted in various ways ("October 27", "yesterday", "2023-12-28 08:27")
 
 In all of the above cases:
@@ -161,21 +161,71 @@ Follows the [Column Type Philosophy](/packages/nimble-components/src/table/specs
 
 #### Number column
 
-Nimble will introduce `nimble-table-column-number-text` which formats a numeric field value and displays it as text. It will offer sufficient configuration to support use cases 1-4 above.
+Nimble will introduce `nimble-table-column-number-text` which formats a numeric field value and displays it as text. It will offer sufficient configuration to support use cases 1-4 above, as well partial support for 5.
 
 ##### API
 
--   `alignment` - a string value matching `"left"`, `"right"`, or `undefined` (the default, meaning `"automatic"`) which controls whether values and column headers are left or right aligned within the column. If set to `undefined` Nimble will choose left or right based on the value of `format`. Clients should select `right` if it is known that the decimal separators of all values in the column will align in the given the `format`.
+-   `alignment` - a string value matching `"left"`, `"right"`, or `undefined` (the default, meaning `"automatic"`) which controls whether values and column headers are left or right aligned within the column. If set to `undefined` Nimble will choose left or right based on the value of other configuration. Clients should select `right` if it is known that the decimal separators of all values in the column will align in the given the `format`.
 -   `format` - a string which controls how the number is formatted for display. It can take one of the following values:
-    -   `undefined` - use a default formatter that will display integers with no trailing zeros, limits to 6 digits, and exponential notation is used for numbers that are large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude. Will be displayed left-aligned by default (since numbers will display an inconsistent number of fractional digits).
-    -   `'decimal'` - format all values as decimal values (e.g. 123.45), always displaying `decimal-digits` digits after the separator and never displaying exponential notation. If required, values will be rounded to reach the specified number of decimial digits. Configuring `decimal-digits` to `0` will round the value to the nearest integer and display it with no decimal places. Will be displayed right-aligned by default.
+    -   `undefined` - use a default formatter that displays integers with no trailing zeros, limits to 6 digits, and uses exponential notation when the formatted value is large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude. Will be displayed left-aligned by default (since numbers will display an inconsistent number of fractional digits).
+    -   `'decimal'` - format all values as decimal values (e.g. 123.45) with a number of digits after the separator determined by `decimal-digits` or `decimal-maximum-digits`. Exponential notation is never used. If required, values will be rounded to reach the specified number of decimial digits. Configuring `decimal-digits` to `0` will round the value to the nearest integer and display it with no decimal places. Default alignment will be left if either `decimal-maximum-digits` or a unit is set, otherwise right (since the decimal separators should align in that case).
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would be prefixed with the name of the format mode.
     -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887). The exception is that we will set `useGrouping: true` to achieve `1,000` rather than `1000` because this styles the values in a way that is more human readable.
--   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2 if unspecified. Formats other than `decimal` ignore `decimal-digits`.
+-   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Possible values are from 0 to 20. Defaults to 2 (unless `decimal-maximum-digits` is specified).
+    -   It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`.
+    -   Formats other than `decimal` ignore `decimal-digits`.
+-   `decimal-maximum-digits` - when format is `decimal`, a number that controls the maximum number of possible digits shown to the right of the decimal separator (i.e. omits trailing zeros). Possible values are from 0 to 20.
+    -   It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`.
+    -   Formats other than `decimal` ignore `decimal-maximum-digits`.
 
 This column will display a blank cell when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"∞"` and `"NaN"`.
 
-This column will trigger `invalidColumnConfiguration` on the table's validity state and will include flags in the column's validity state if its configuration can't be translated to a valid `Intl.NumberFormat` object. To provide better developer feedback about what's wrong with the configuration, the column could expose a public method like `createNumberFormat()` which would use the column's configuration to construct the formatter but allow any exceptions to be thrown.
+This column will trigger `invalidColumnConfiguration` on the table's validity state and will include flags in the column's validity state if both `decimal-digits` and `decimal-maximum-digits` are specified, or its configuration can't be translated to a valid `Intl.NumberFormat` object. To provide better developer feedback about what's wrong with the configuration, the column could expose a public method like `createNumberFormat()` which would use the column's configuration to construct the formatter but allow any exceptions to be thrown.
+
+##### Units
+
+A unit for the column may be configured by providing a `nimble-unit-<name>` element as content (in addition to the column label). Unit elements represent a set of related, scaled units, e.g. `nimble-unit-byte` represents bytes, KB, MB, etc. Values are converted from a source unit (e.g. bytes) to the largest scaled unit (e.g. KB, MB, etc.) that can represent that value with magnitude >= 1. The source data for the column is expected to be given in the base unit specified in the tag name, e.g. for `nimble-unit-byte`, a source value should be a number of bytes. Note that unit elements have no visual representation of their own. They are strictly configuration components, and by nature of being components, allow selective loading of translation data for only the needed units. The initial set of unit elements are:
+
+-   `nimble-unit-byte` - Labels in this unit scale are `byte`/`bytes`, `KB`, `MB`, `GB`, `TB`, `PB`
+    -   `binary` - boolean attribute that indicates a binary conversion factor of 1024 should be used rather than 1000. The resulting unit labels are `byte`/`bytes`, `KiB`, `MiB`, `GiB`, `TiB`, `PiB`.
+-   `nimble-unit-volt` - Labels in this unit scale are `volt`/`volts`, plus `V` prefixed by all supported metric prefixes.
+
+Supported metric prefixes are f (femto), p (pico), n (nano), μ (micro), m (milli), c (centi), d (deci), k (kilo), M (mega), G (giga), T (tera), P (peta), and E (exa). This set is intended to be suitable for other units we may support in the future (e.g. ohms, amps), but any particular unit scale can diverge from this set as needed.
+
+If a value with a unit would be formatted with exponential notation, it will always be given in its base unit. E.g. instead of "1e6 PB", it would render as "1e21 bytes".
+
+When displaying units, `Intl.NumberFormat` will translate unit strings for the [units that it supports](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers) and localize the number (for comma/decimal). We will include our own logic for converting between unit values. For a unit scale not supported by `Intl.NumberFormat`, we will provide our own translations (for French, German, Japanese, and Chinese) in a `nimble-unit-<name>` element. If the client requests a translation for one of these units in a language we don't support, we will fall back to English.
+
+Unit elements will be capable of enumerating the individual units supported. The enumerated unit objects will be capable of formatting a given number into a localized string including the unit label. Below is an example of the abstractions/APIs that might be used to implement this.
+
+```TS
+// a specific unit, e.g. kilobyte, millivolt, etc.
+interface ScaledUnit {
+    public conversionFactor: number;
+    public format(value: number): string;
+}
+
+// a set of related units, e.g. {byte, kilobyte, megabyte, gigabyte, terabyte, petabyte}
+interface UnitScale {
+    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): ScaledUnit[];
+}
+
+// unit scale supported by Intl.NumberFormat
+class UnitByte extends FoundationElement implements UnitScale {
+    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): ScaledUnit[] {
+        // returns implementations of ScaledUnit that wrap Intl.NumberFormat instances configured for a specific locale and a specific unit (e.g. 'fr-FR' and 'kilobyte')
+    }
+}
+
+// unit scale with Nimble-provided unit translations
+class UnitVolt extends FoundationElement implements UnitScale {
+    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): ScaledUnit[] {
+        // returns implementations of ScaledUnit that contain a shared Intl.NumberFormat (for formatting the number) and a specific translated unit string to append
+    }
+}
+```
+
+We will use `nimble-unit-byte` to display file sizes in SLE tables. Currently, SLE displays these values with the common `KB`/`MB`/`GB` unit labels, but uses a factor of 1024 to convert between units (which is [not uncommon](https://en.wikipedia.org/wiki/JEDEC_memory_standards#Unit_prefixes_for_semiconductor_storage_capacity), but [technically incorrect](https://physics.nist.gov/cuu/Units/binary.html)). Whether SLE chooses to standardize on the default 1000-based byte units or the 1024-based ones, it will be a change from the current behavior. To ensure consistency, we will update SLE's file size pipe and search for other places where byte values are being converted so they can be updated accordingly.
 
 ##### Examples
 
@@ -199,6 +249,15 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
         decimal-digits="1"
     >
         Temperature (°C)
+    </nimble-table-column-number-text>
+
+    <nimble-table-column-number-text
+        field-name="fileSize"
+        format="decimal"
+        decimal-maximum-digits="1"
+    >
+        File Size
+        <nimble-unit-byte></nimble-unit-byte>
     </nimble-table-column-number-text>
 </nimble-table>
 ```
@@ -331,9 +390,30 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 
 ### Additional unit APIs
 
-We considered a few different options for displaying units within a cell, but it was unclear if any of them would satisfy the requirements of our clients. Because there are a number of open questions regarding the client requirements, we decided to defer any work involving units.
+We considered some alternative approaches for configuring units:
 
-Some of the options considered are described below:
+#### Third-party libraries
+
+Other libraries considered for number conversion and/or unit label localization include [globalizejs](https://github.com/globalizejs/globalize), [convert](https://convert.js.org/), [convert-units](https://github.com/convert-units/convert-units), and [iLib](https://github.com/iLib-js/iLib). None of these provided sufficient functionality to justify including them as a dependency.
+
+#### Attribute-based unit API
+
+An alternative to the `nimble-unit-<name>` element-based API is to just configure the unit through one or more attributes on the column:
+
+-   `unit` - `'byte'`, `'volt'`, or `undefined` (no unit)
+-   `unit-byte-binary` - (byte type only) boolean flag indicating to use 1024-based unit labels/conversions
+
+**Pros:**
+
+-   More discoverable
+-   Auto-complete support
+-   More compact
+
+**Cons:**
+
+-   All units' translated labels (for all languages) always loaded -- potential bloat
+-   Any unit-specific configuration now part of the column API rather than encapsulated by a unit element
+-   Clients cannot define their own custom types
 
 #### Expose unit and unitDisplay from the Intl.NumberFormatter
 
@@ -439,3 +519,7 @@ Standard Storybook documentation for column APIs.
 ## Open Issues
 
 1. Visual design recommends that column header text alignment match data alignment. Once we prototype this we may hit implementation concerns (e.g. clash with proposed header menu button).
+
+2. Do we provide a way for clients to replicate the same formatting used in the number-text column, for use cases outside the table? Here is a possible direction:
+
+    To help SLE and other clients maintain consistent formatting of number strings in and out of the table, we will provide a static function on the number column that returns a configured formatter object. The formatter object will expose one function that takes a number and returns a formatted string. Details TBD.

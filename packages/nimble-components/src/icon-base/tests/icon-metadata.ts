@@ -250,6 +250,9 @@ export const iconMetadata: {
     IconFloppyDiskCheckmark: {
         tags: ['save', 'no unsaved changed']
     },
+    IconFloppyDiskPen: {
+        tags: ['save as', 'pencil']
+    },
     IconFloppyDiskStarArrowRight: {
         tags: ['save', 'autosave']
     },
@@ -352,6 +355,9 @@ export const iconMetadata: {
     IconMobile: {
         tags: ['phone']
     },
+    IconNi: {
+        tags: ['National Instruments', 'logo', 'product']
+    },
     IconNotebook: {
         tags: []
     },
@@ -405,6 +411,9 @@ export const iconMetadata: {
     },
     IconSquareT: {
         tags: ['static text']
+    },
+    IconSystemlink: {
+        tags: ['logo', 'product']
     },
     IconT: {
         tags: ['text']
