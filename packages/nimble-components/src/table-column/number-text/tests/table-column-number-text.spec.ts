@@ -534,7 +534,9 @@ describe('TableColumnNumberText', () => {
             elementReferences.column1.removeChild(unitElement);
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('1024.00');
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                '1,024.00'
+            );
             expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
                 '1,024.00'
             );

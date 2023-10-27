@@ -52,7 +52,7 @@ describe('ManuallyTranslatedUnitScaleFormatter', () => {
 
     it('formats for given language and region even with other subtags and lowercase', () => {
         const formatter = new TestManuallyTranslatedUnitScaleFormatter(
-            'fr-Latn-ca-foo',
+            'fr-Latn-ca-hc-h12',
             {}
         );
         expect(formatter.formatValue(0)).toEqual('0 fr-CA-singular');

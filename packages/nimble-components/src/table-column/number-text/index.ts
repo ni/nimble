@@ -66,7 +66,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
 
     /** @internal */
     @observable
-    public unitElements!: Element[];
+    public unitElements?: Element[];
 
     private unit?: Unit;
 
@@ -146,8 +146,12 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private async updateColumnConfigFromUnitElements(): Promise<void> {
-        await waitUntilCustomElementsDefinedAsync(this.unitElements);
-        this.unit = this.unitElements.find(x => x instanceof Unit) as Unit;
+        if (this.unitElements) {
+            await waitUntilCustomElementsDefinedAsync(this.unitElements);
+        }
+        this.unit = this.unitElements
+            ? (this.unitElements.find(x => x instanceof Unit) as Unit)
+            : undefined;
         this.observeUnit();
         this.updateColumnConfig();
     }
@@ -163,7 +167,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
             this.decimalDigits,
             this.decimalMaximumDigits
         );
-        this.validator.validateAtMostOneUnit(this.unitElements);
+        this.validator.validateAtMostOneUnit(this.unitElements ?? []);
 
         if (this.validator.isValid()) {
             const columnConfig: TableColumnNumberTextColumnConfig = {
