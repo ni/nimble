@@ -1,4 +1,4 @@
-import { Directive, type ElementRef, type Injector } from '@angular/core';
+import { Directive, ElementRef, Injector } from '@angular/core';
 import { LocationStrategy } from '@angular/common';
 import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 
