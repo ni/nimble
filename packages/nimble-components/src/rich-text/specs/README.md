@@ -362,7 +362,7 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 -   Bulleted list - `* Bulleted list`
 -   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, see [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
 -   Hard line break - a backslash before the line ending `line1\\nline2` (For more details on the markdown syntax for Hard line breaks, see [Hard line breaks in CommanMark](https://spec.commonmark.org/0.30/#hard-line-breaks))
--   `@mention` - `<user-id-url>` that follows [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink). For more details, see
+-   `@mention` - `<mention-url>` that follows [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink). For more details, see
     [Markdown Format for `@mention`](./mention-hld.md#2-markdown-format)
 
 ### _Implementation details for supporting absolute link:_
