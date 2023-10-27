@@ -23,8 +23,22 @@ We are designing the `nimble-card` component to address that use case.
 
 The `nimble-card` will include a `default` slot to hold arbitrary content and a `title` slot to make it easy for
 clients to add a title with the correct styling and to enforce consistency across usages. Adding a `title` slot
-requires creating our own template rather than using the `fast-card` template. The `title` should be optional in
-the template, for use cases that don't want to reserve space for the title.
+requires creating our own template rather than using the `fast-card` template. For accessibility, we will use a
+`section` element in the template, which will use `aria-labelledby` to set the label to the text of the `title` slot.
+
+```html
+<section aria-labelledby="title">
+    <slot name="title" id="title"></slot>
+    <slot></slot>
+</section>
+```
+
+Since our target use case includes a title and we don't plan to provide styling for a non-title use case for now,
+the `title` slot should not be optional. If there is a use case for a card without a title in the future, we can
+follow the pattern used by the `nimble-banner`, which involves adding a `title-hidden` attribute and using the
+`accessibly-hidden` utility to allow the title to be set for accessibility but not be rendered visually. The storybook
+documentation for the title should indicate that it is required for accessibility reasons, similar to the existing
+`nimble-banner` documentation.
 
 Some component libraries provide a card component with additional built-in, pre-styled content or pre-styled child
 components to use inside the card component (header, footer, actions, etc.). See the [Angular Material `mat-card` component](https://v5.material.angular.io/components/card/overview)
@@ -91,6 +105,7 @@ so it will need a `ChildContent` parameter.
 -   _Tooling: Any new tools, updates to tools, code generation, etc?_
     -   No additional requirements
 -   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
+    -   We will use a `section` element in the template, which will use `aria-labelledby` to set the label to the text of the `title` slot.
     -   The `nimble-card` itself does not receive keyboard focus and tabbing jumps to the first focusable component inside the `nimble-card`.
 -   _Mobile: small screens, touch interactions, mobile-specific integrations_
     -   No additional requirements. By default, the `nimble-card` fits its height to its content and grows/shrinks horizontally to
