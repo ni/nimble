@@ -23,11 +23,8 @@ We are designing the `nimble-card` component to address that use case.
 
 The `nimble-card` will include a `default` slot to hold arbitrary content and a `title` slot to make it easy for
 clients to add a title with the correct styling and to enforce consistency across usages. Adding a `title` slot
-requires creating our own template rather than using the `fast-card` template.
-
-The `title` should be optional in the template, for use cases that don't want to reserve space for the title. We
-will follow the pattern used by the `nimble-banner`, which involves adding a `title-hidden` attribute and using
-the `accessibly-hidden` utility to allow the title to be set for accessibility but not be rendered visually.
+requires creating our own template rather than using the `fast-card` template. The `title` should be optional in
+the template, for use cases that don't want to reserve space for the title.
 
 Some component libraries provide a card component with additional built-in, pre-styled content or pre-styled child
 components to use inside the card component (header, footer, actions, etc.). See the [Angular Material `mat-card` component](https://v5.material.angular.io/components/card/overview)
@@ -58,8 +55,7 @@ because we don't know if we will require different tokens from the existing comp
 -   _Component Name_
     -   `nimble-card`
 -   _Properties/Attributes_
-    -   _`title-hidden`_
-        -   If set, hides the provided title.
+    -   _(none)_
 -   _Methods_
     -   _(none)_
 -   _Events_
@@ -95,7 +91,6 @@ so it will need a `ChildContent` parameter.
 -   _Tooling: Any new tools, updates to tools, code generation, etc?_
     -   No additional requirements
 -   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
-    -   If the user supplies a title, we will set `aria-label` to that value.
     -   The `nimble-card` itself does not receive keyboard focus and tabbing jumps to the first focusable component inside the `nimble-card`.
 -   _Mobile: small screens, touch interactions, mobile-specific integrations_
     -   No additional requirements. By default, the `nimble-card` fits its height to its content and grows/shrinks horizontally to
