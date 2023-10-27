@@ -75,7 +75,8 @@ namespace Demo.Shared.Pages
                     (rowCount % 2 == 0) ? new DateTime(2023, 8, 16, 2, 56, 11) : new DateTime(2022, 3, 7, 20, 28, 41),
                     (rowCount % 2 == 0) ? 100 : 101,
                     (rowCount % 2 == 0) ? "success" : "unknown",
-                    rowCount / 10.0));
+                    rowCount / 10.0,
+                    rowCount * 1000.0 * (1.1 + 2 * 60 + 3 * 3600)));
             }
 
             TableData = tableData;
@@ -93,7 +94,8 @@ namespace Demo.Shared.Pages
             DateTime date,
             int statusCode,
             string result,
-            double number)
+            double number,
+            double duration)
         {
             Id = id;
             StringValue1 = stringValue1;
@@ -104,6 +106,7 @@ namespace Demo.Shared.Pages
             StatusCode = statusCode;
             Result = result;
             Number = number;
+            Duration = duration;
         }
 
         public string Id { get; }
@@ -115,6 +118,7 @@ namespace Demo.Shared.Pages
         public int StatusCode { get; }
         public string Result { get; }
         public double Number { get; }
+        public double Duration { get; }
     }
 
     public enum DialogResult
