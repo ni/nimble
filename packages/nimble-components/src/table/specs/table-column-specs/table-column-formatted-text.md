@@ -227,6 +227,18 @@ class UnitVolt extends FoundationElement implements UnitScale {
 
 We will use `nimble-unit-byte` to display file sizes in SLE tables. Currently, SLE displays these values with the common `KB`/`MB`/`GB` unit labels, but uses a factor of 1024 to convert between units (which is [not uncommon](https://en.wikipedia.org/wiki/JEDEC_memory_standards#Unit_prefixes_for_semiconductor_storage_capacity), but [technically incorrect](https://physics.nist.gov/cuu/Units/binary.html)). Whether SLE chooses to standardize on the default 1000-based byte units or the 1024-based ones, it will be a change from the current behavior. To ensure consistency, we will update SLE's file size pipe and search for other places where byte values are being converted so they can be updated accordingly.
 
+##### Creating new units
+
+Supporting a new unit simply requires defining a new `nimble-unit-<name>` element and a new `UnitScaleFormatter`. Steps:
+
+1.  Define a new unit class under `src/unit/<name>` that extends `Unit`. It must implement the method `getFormatter()`, which should return your new formatter class. You also must add all the standard code for registering the element with FAST, exporting its tag name, etc. See any of the existing unit elmements for an example.
+
+2.  Your formatter class goes under `src/unit/<name>/models`. You must determine whether your unit is among [those supported by `Intl.NumberFormat`](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers).
+    -   If it is, your new formatter should extend `UnitScaleFormatter`, and you must implement the method `getSupportedScaledUnits()`. This should simply return an array of `IntlNumberFormatScaledUnit` instances. See `src/unit/byte/models/byte-unit-scale-formatter.ts` for an example.
+    -   If it is not, your formatter will be responsible for providing translated unit strings for a set of languages you choose to support. Your formatter should extend `ManuallyTranslatedUnitScaleFormatter`. You must implment `getUnitTranslations()`, which will return a `Map` of [language tags](https://en.wikipedia.org/wiki/IETF_language_tag) to `UnitTranslation` objects. If you need different translations for the same language, based on region (e.g. "meter" for `en-US` vs. "metre" for `en-CA`), you may provide a locale string that includes the region (e.g. `en-CA`) as a key into your `Map`. You must also implement `getSupportedPrefixes()`, which returns an array of `UnitPrefix`. These prefixes define which scaled units (e.g. "kg", "mm", "GB") your unit is capable of converting to/displaying. For a standard set of SI prefixes, you may return `metricPrefixes`. See `src/unit/volt/models/volt-unit-scale-formatter.ts` for an example.
+
+For Angular and Blazor support, directives/wrappers will have to be created for your new unit element.
+
 ##### Examples
 
 ```html

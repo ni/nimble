@@ -15,10 +15,6 @@ describe('Byte unit', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
-    afterEach(async () => {
-        await disconnect();
-    });
-
     it('should export its tag', () => {
         expect(unitByteTag).toBe('nimble-unit-byte');
     });
@@ -33,11 +29,13 @@ describe('Byte unit', () => {
         ({ element, connect, disconnect } = await setup(true));
         await connect();
         expect(element.getFormatter()).toBe(Byte1024UnitScaleFormatter);
+        await disconnect();
     });
 
     it('returns ByteScaleFormatter when "binary" attribute is unset', async () => {
         ({ element, connect, disconnect } = await setup(false));
         await connect();
         expect(element.getFormatter()).toBe(ByteUnitScaleFormatter);
+        await disconnect();
     });
 });

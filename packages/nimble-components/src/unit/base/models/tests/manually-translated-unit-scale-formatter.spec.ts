@@ -50,9 +50,9 @@ describe('ManuallyTranslatedUnitScaleFormatter', () => {
         expect(formatter.formatValue(0)).toEqual('0 fr-CA-singular');
     });
 
-    it('formats for given language and region even with other subtags and lowercase', () => {
+    it('formats for given language and region even with other subtags and lowercase region', () => {
         const formatter = new TestManuallyTranslatedUnitScaleFormatter(
-            'fr-Latn-ca-hc-h12',
+            'fr-Latn-ca-u-hc-h12',
             {}
         );
         expect(formatter.formatValue(0)).toEqual('0 fr-CA-singular');

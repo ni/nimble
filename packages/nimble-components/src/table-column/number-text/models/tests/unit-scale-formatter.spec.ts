@@ -113,4 +113,10 @@ describe('UnitScaleFormatter', () => {
             expect(formattedValue).toEqual(value.expectedConvertedValue);
         });
     });
+
+    it('returns blank for null and undefined', () => {
+        const formatter = new TestUnitScaleFormatter('', {});
+        expect(formatter.formatValue(null)).toEqual('');
+        expect(formatter.formatValue(undefined)).toEqual('');
+    });
 });
