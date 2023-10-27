@@ -1,7 +1,17 @@
-import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import type { StoryFn, Meta, StoryObj } from '@storybook/html';
+import {
+    ExecutionContext,
+    html,
+    ref,
+    repeat,
+    ViewTemplate,
+    when
+} from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
-import { createMatrixThemeStory } from '../../../utilities/tests/storybook';
+import {
+    createMatrixThemeStory,
+    createUserSelectedThemeStory
+} from '../../../utilities/tests/storybook';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -13,6 +23,13 @@ import {
     controlLabelFontColor
 } from '../../../theme-provider/design-tokens';
 import { NumberTextAlignment } from '../types';
+import {
+    SharedTableArgs,
+    sharedTableArgTypes,
+    sharedTableArgs
+} from '../../base/tests/table-column-stories-utils';
+import { unitByteTag } from '../../../unit/byte';
+import { unitVoltTag } from '../../../unit/volt';
 
 const metadata: Meta = {
     title: 'Tests/Table Column: Number Text',
@@ -81,4 +98,59 @@ tableColumnNumberTextThemeMatrix.play = async (): Promise<void> => {
             }
         )
     );
+};
+
+interface NumberTextColumnTableArgs extends SharedTableArgs {
+    unit: string;
+}
+
+interface KeyedObject {
+    [key: string]: number;
+}
+
+const largeData: KeyedObject[] = [];
+const rowsLargeData = 30;
+const columnsLargeData = 20;
+
+for (let i = 0; i < rowsLargeData; i++) {
+    const row: KeyedObject = {};
+    for (let j = 0; j < columnsLargeData; j++) {
+        row[`col${j}`] = i * j + j;
+    }
+    largeData.push(row);
+}
+
+export const largeTable: StoryObj<NumberTextColumnTableArgs> = {
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html<NumberTextColumnTableArgs>`
+        <${tableTag}
+            ${ref('tableRef')}
+            data-unused="${x => x.updateData(x)}"
+            style="height: 1100px"
+        >
+            ${repeat(() => Object.keys(largeData[0]!), html<string, NumberTextColumnTableArgs>`
+                <${tableColumnNumberTextTag} field-name="${(_x, c) => `col${c.index}`}" pixel-width="40">
+                    ${(_x, c) => `col_${c.index}`}
+                    ${when((_x, c: ExecutionContext<NumberTextColumnTableArgs>) => c.parent.unit === 'byte', html`<${unitByteTag}></${unitByteTag}>`)}
+                    ${when((_x, c: ExecutionContext<NumberTextColumnTableArgs>) => c.parent.unit === 'byte (1024)', html`<${unitByteTag} binary></${unitByteTag}>`)}
+                    ${when((_x, c: ExecutionContext<NumberTextColumnTableArgs>) => c.parent.unit === 'volt', html`<${unitVoltTag}></${unitVoltTag}>`)}
+                </${tableColumnNumberTextTag}>
+            `, { positioning: true })},
+        </${tableTag}>`),
+    argTypes: {
+        ...sharedTableArgTypes,
+        selectionMode: {
+            table: {
+                disable: true
+            }
+        },
+        unit: {
+            options: ['default', 'byte', 'byte (1024)', 'volt'],
+            control: { type: 'radio' }
+        }
+    },
+    args: {
+        ...sharedTableArgs(largeData),
+        unit: 'default'
+    }
 };
