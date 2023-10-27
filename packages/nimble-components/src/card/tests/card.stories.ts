@@ -1,5 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
@@ -28,7 +29,7 @@ const metadata: Meta = {
     })}
         <${cardTag}>
             <h2>Title</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maurisscelerisque varius ornare.</p>
+            <p>${loremIpsum}</p>
             <${buttonTag}>Button</${buttonTag}>
         </${cardTag}>
     `)
