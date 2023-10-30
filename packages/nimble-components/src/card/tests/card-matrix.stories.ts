@@ -6,9 +6,13 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { createMatrixThemeStory } from '../../utilities/tests/storybook';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import { buttonTag } from '../../button';
 import { cardTag } from '..';
+import { hiddenWrapper } from '../../utilities/tests/hidden';
 
 const metadata: Meta = {
     title: 'Tests/Card',
@@ -33,4 +37,8 @@ const component = (): ViewTemplate => html`
 
 export const cardThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component)
+);
+
+export const hiddenCard: StoryFn = createStory(
+    hiddenWrapper(html`<${cardTag} hidden>Hidden Card</${cardTag}>`)
 );
