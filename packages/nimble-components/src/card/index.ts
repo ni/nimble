@@ -1,4 +1,7 @@
-import { DesignSystem, Card as FastCard } from '@microsoft/fast-foundation';
+import {
+    DesignSystem,
+    Card as FoundationCard
+} from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -11,11 +14,11 @@ declare global {
 /**
  * A nimble-styled card
  */
-export class Card extends FastCard {}
+export class Card extends FoundationCard {}
 
 const nimbleCard = Card.compose({
     baseName: 'card',
-    baseClass: FastCard,
+    baseClass: FoundationCard,
     template,
     styles
 });

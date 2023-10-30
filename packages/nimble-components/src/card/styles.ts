@@ -9,7 +9,6 @@ import {
     sectionBackgroundColor
 } from '../theme-provider/design-tokens';
 
-// TODO AB#2542845 Replace placeholder style
 export const styles = css`
     ${display('block')}
 

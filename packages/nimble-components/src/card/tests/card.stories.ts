@@ -1,5 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import { standardPadding } from '../../theme-provider/design-tokens';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 import {
     createUserSelectedThemeStory,
@@ -27,9 +28,13 @@ const metadata: Meta = {
         componentName: 'card',
         statusLink: 'https://github.com/ni/nimble/issues/296'
     })}
+        <style>
+            .body {
+                margin-bottom: var(${standardPadding.cssCustomProperty});
+            }
+        </style>
         <${cardTag}>
-            <h2>Title</h2>
-            <p>${loremIpsum}</p>
+            <div class="body">${loremIpsum}</div>
             <${buttonTag}>Button</${buttonTag}>
         </${cardTag}>
     `)
