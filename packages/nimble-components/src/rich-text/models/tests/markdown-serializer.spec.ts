@@ -139,7 +139,7 @@ describe('Markdown serializer', () => {
 * list 2`,
                 outputMarkdown: r`* list 1
 
-* list 2`,
+* list 2`
             },
             {
                 name: 'Bulleted list with bold',
@@ -203,7 +203,7 @@ describe('Markdown serializer', () => {
 
    * list 1
 
-   * list 2`,
+   * list 2`
             },
             {
                 name: 'Nested list with levels 1- Bulleted list, level 2- Numbered list with multiple items',
@@ -277,14 +277,16 @@ describe('Markdown serializer', () => {
                 name: 'Strikethrough',
                 inputMarkdown: r`\~\~Strikethrough\~\~`,
                 outputMarkdown: r`\~\~Strikethrough\~\~`
-            },
+            }
         ];
 
         parameterizeNamedList(supportedNodesMarks, (spec, name, value) => {
             spec(`for ${name} markdown input to the editor`, () => {
                 element.setMarkdown(value.inputMarkdown);
                 expect(
-                    RichTextMarkdownSerializer.serializeDOMToMarkdown(element.tiptapEditor.state.doc)
+                    RichTextMarkdownSerializer.serializeDOMToMarkdown(
+                        element.tiptapEditor.state.doc
+                    )
                 ).toBe(value.outputMarkdown);
             });
         });
@@ -323,7 +325,9 @@ describe('Markdown serializer', () => {
             spec(`for ${name} markdown input to the editor`, () => {
                 element.tiptapEditor.commands.setContent(value.html);
                 expect(
-                    RichTextMarkdownSerializer.serializeDOMToMarkdown(element.tiptapEditor.state.doc)
+                    RichTextMarkdownSerializer.serializeDOMToMarkdown(
+                        element.tiptapEditor.state.doc
+                    )
                 ).toBe(value.plainText);
             });
         });
@@ -390,7 +394,11 @@ Break`
         parameterizeNamedList(hardBreakString, (spec, name, value) => {
             spec(`for ${name} markdown input to the editor`, () => {
                 element.setMarkdown(value.markdown);
-                expect(RichTextMarkdownSerializer.serializeDOMToMarkdown(element.tiptapEditor.state.doc)).toBe(value.markdown);
+                expect(
+                    RichTextMarkdownSerializer.serializeDOMToMarkdown(
+                        element.tiptapEditor.state.doc
+                    )
+                ).toBe(value.markdown);
             });
         });
     });
