@@ -50,7 +50,7 @@
 - *Methods*
 - *Events*
 - *CSS Classes and CSS Custom Properties that affect the component*
-- *Built-in CSS Properties that affect the component. In particular, how is it sized?*
+- *How native CSS Properties (height, width, etc.) affect the component*
 
 *Consider high and low-level APIs. Attempt to design a powerful and extensible low-level API with a high-level API for developer/designer ergonomics and simplicity.*
 
