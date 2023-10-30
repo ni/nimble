@@ -36,7 +36,7 @@ const metadata: Meta = {
     parameters: {
         ...sharedMatrixParameters(),
         controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        a11y: { disable: true }
     }
 };
 

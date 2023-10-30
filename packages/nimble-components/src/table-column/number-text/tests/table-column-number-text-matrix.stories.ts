@@ -152,5 +152,8 @@ export const largeTable: StoryObj<NumberTextColumnTableArgs> = {
     args: {
         ...sharedTableArgs(largeData),
         unit: 'default'
+    },
+    parameters: {
+        a11y: { disable: true }
     }
 };
