@@ -29,12 +29,12 @@ const metadata: Meta = {
         statusLink: 'https://github.com/ni/nimble/issues/296'
     })}
         <style>
-            .body {
+            .card-content {
                 margin-bottom: var(${standardPadding.cssCustomProperty});
             }
         </style>
         <${cardTag}>
-            <div class="body">${loremIpsum}</div>
+            <div class="card-content">${loremIpsum}</div>
             <${buttonTag}>Button</${buttonTag}>
         </${cardTag}>
     `)
