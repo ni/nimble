@@ -31,7 +31,7 @@
 - *Methods*
 - *Events*
 - *CSS Classes and Custom Properties that affect the component*
-- *Built-in CSS Properties that affect the component (e.g. width/max-width)*
+- *Built-in CSS Properties that affect the component. In particular, how is it sized?*
 - *Slots*
 
 ### Angular integration 
