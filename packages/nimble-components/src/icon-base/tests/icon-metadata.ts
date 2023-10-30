@@ -250,6 +250,9 @@ export const iconMetadata: {
     IconFloppyDiskCheckmark: {
         tags: ['save', 'no unsaved changed']
     },
+    IconFloppyDiskPen: {
+        tags: ['save as', 'pencil']
+    },
     IconFloppyDiskStarArrowRight: {
         tags: ['save', 'autosave']
     },

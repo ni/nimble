@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 23 Oct 2023 14:17:52 GMT",
+      "version": "6.6.0",
+      "tag": "@ni/nimble-tokens_v6.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "62016ff5a313a4c35f7850a2a4261251ceda51e0",
+            "comment": "Add icon for Save As"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 Oct 2023 18:51:54 GMT",
       "version": "6.5.0",
       "tag": "@ni/nimble-tokens_v6.5.0",
