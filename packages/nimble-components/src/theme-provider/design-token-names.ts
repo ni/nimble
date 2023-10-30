@@ -253,6 +253,7 @@ const tokenSuffixes = [
     'TextTransform',
     'FontFamily',
     'BoxShadow',
+    'MaxHeight',
     'Font',
     'Size',
     'Width',

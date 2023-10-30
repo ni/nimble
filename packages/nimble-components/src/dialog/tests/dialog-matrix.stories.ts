@@ -53,7 +53,7 @@ const dialogSizingTestCase = (
         tokenNames.bodyFont
     )}); margin-bottom: 0px;">${() => widthLabel}; ${() => heightLabel} ${() => maxHeightLabel}</p>
     <style>
-        ${dialogTag}::part(dialog) {
+        ${dialogTag}::part(control) {
             ${() => widthStyle};
             ${() => heightStyle};
             ${() => maxHeightStyle};

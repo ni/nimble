@@ -6,7 +6,7 @@ export const template = html<Dialog>`
         <dialog
             ${ref('dialogElement')}
             role="dialog"
-            part="dialog"
+            part="control"
             @cancel="${(x, c) => x.cancelHandler(c.event)}"
             aria-labelledby="header"
         >
