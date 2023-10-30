@@ -139,7 +139,6 @@
     "prettier": "^2.8.8",
     "prettier-eslint": "^15.0.1",
     "prettier-eslint-cli": "^7.1.0",
-    "puppeteer": "^10.1.0",
     "remark-gfm": "^3.0.1",
     "rollup": "^3.10.1",
     "rollup-plugin-polyfill-node": "^0.12.0",
