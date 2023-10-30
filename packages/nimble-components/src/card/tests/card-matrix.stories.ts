@@ -1,7 +1,6 @@
 import { ViewTemplate, html } from '@microsoft/fast-element';
 import type { Meta, StoryFn } from '@storybook/html';
 import { standardPadding } from '../../theme-provider/design-tokens';
-import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -10,9 +9,11 @@ import {
     createMatrixThemeStory,
     createStory
 } from '../../utilities/tests/storybook';
-import { buttonTag } from '../../button';
-import { cardTag } from '..';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import { listOptionTag } from '../../list-option';
+import { numberFieldTag } from '../../number-field';
+import { selectTag } from '../../select';
+import { cardTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Card',
@@ -24,15 +25,24 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (): ViewTemplate => html`
-    <style>
-        .body {
-            margin-bottom: var(${standardPadding.cssCustomProperty});
-        }
-    </style>
-    <${cardTag}>
-        <div class="body">${loremIpsum}</div>
-        <${buttonTag}>Button</${buttonTag}>
-    </${cardTag}>
+<style>
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: var(${standardPadding.cssCustomProperty});
+    }
+</style>
+<${cardTag}>
+    <div class="card-content">
+        <${numberFieldTag}>Numeric field 1</${numberFieldTag}>
+        <${numberFieldTag}>Numeric field 2</${numberFieldTag}>
+        <${selectTag}>
+            <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            <${listOptionTag} value="2">Option 2</${listOptionTag}>
+            <${listOptionTag} value="3">Option 3</${listOptionTag}>
+        </${selectTag}>
+    </div>
+</${cardTag}>
 `;
 
 export const cardThemeMatrix: StoryFn = createMatrixThemeStory(

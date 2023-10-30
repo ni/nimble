@@ -5,8 +5,8 @@ import {
     bodyFontColor,
     borderColor,
     borderWidth,
-    mediumPadding,
-    sectionBackgroundColor
+    sectionBackgroundColor,
+    standardPadding
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -17,6 +17,6 @@ export const styles = css`
         color: ${bodyFontColor};
         background-color: ${sectionBackgroundColor};
         border: ${borderWidth} solid ${borderColor};
-        padding: ${mediumPadding};
+        padding: ${standardPadding};
     }
 `;

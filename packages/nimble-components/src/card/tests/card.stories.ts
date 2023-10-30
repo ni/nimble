@@ -1,12 +1,13 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { standardPadding } from '../../theme-provider/design-tokens';
-import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
 } from '../../utilities/tests/storybook';
-import { buttonTag } from '../../button';
+import { listOptionTag } from '../../list-option';
+import { numberFieldTag } from '../../number-field';
+import { selectTag } from '../../select';
 import { cardTag } from '..';
 
 const overviewText = `The \`nimble-card\` is a container that is designed to contain arbitrary content that is specified by a client
@@ -30,12 +31,21 @@ const metadata: Meta = {
     })}
         <style>
             .card-content {
-                margin-bottom: var(${standardPadding.cssCustomProperty});
+                display: flex;
+                flex-direction: column;
+                gap: var(${standardPadding.cssCustomProperty});
             }
         </style>
         <${cardTag}>
-            <div class="card-content">${loremIpsum}</div>
-            <${buttonTag}>Button</${buttonTag}>
+            <div class="card-content">
+                <${numberFieldTag}>Numeric field 1</${numberFieldTag}>
+                <${numberFieldTag}>Numeric field 2</${numberFieldTag}>
+                <${selectTag}>
+                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
+                    <${listOptionTag} value="2">Option 2</${listOptionTag}>
+                    <${listOptionTag} value="3">Option 3</${listOptionTag}>
+                </${selectTag}>
+            </div>
         </${cardTag}>
     `)
 };
