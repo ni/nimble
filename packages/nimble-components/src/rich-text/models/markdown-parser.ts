@@ -26,11 +26,10 @@ export class RichTextMarkdownParser {
      */
     public static parseMarkdownToDOM(
         value: string,
-        usersList: UserInfo[] = []
+        usersList: UserInfo[] = [],
+        pattern = ''
     ): HTMLElement | DocumentFragment {
-        if (usersList.length) {
-            this.markdownParser = this.initializeMarkdownParser(usersList);
-        }
+        this.markdownParser = this.initializeMarkdownParser(usersList, pattern);
         const parsedMarkdownContent = this.markdownParser.parse(value);
         if (parsedMarkdownContent === null) {
             return document.createDocumentFragment();
@@ -41,7 +40,8 @@ export class RichTextMarkdownParser {
     }
 
     private static initializeMarkdownParser(
-        usersList: UserInfo[] = []
+        usersList: UserInfo[] = [],
+        pattern = ''
     ): MarkdownParser {
         /**
          * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
@@ -61,8 +61,8 @@ export class RichTextMarkdownParser {
             'newline'
         ]);
 
-        const getUserName = (userId: string): string => {
-            return usersList.find(user => user.key === userId)?.value ?? '';
+        const getUserName = (userUrl: string, userId: string): string => {
+            return usersList.find(user => user.url === userUrl)?.value ?? userId;
         };
 
         supportedTokenizerRules.use(
@@ -100,26 +100,23 @@ export class RichTextMarkdownParser {
                             userIdEnd
                         );
 
-                        if (!mentionText.startsWith('user:')) {
+                        const regexPattern = new RegExp(pattern);
+                        if (!regexPattern.test(mentionText)) {
                             return false;
                         }
-                        const userIdStart = state.pos + 6;
-                        const userId = state.src.slice(userIdStart, userIdEnd);
+                        const userIdStart = state.pos + 1;
+                        const userUrl = state.src.slice(userIdStart, userIdEnd);
 
-                        const userName = getUserName(userId);
-                        if (usersList.length) {
-                            if (userName === '') {
-                                return false;
-                            }
-                        } else {
-                            return false;
-                        }
+                        const extractIdPattern = pattern.replace('.*', '(.*)');
+                        const extractIdRegex = new RegExp(extractIdPattern);
+                        const userId = extractIdRegex.exec(userUrl)!;
+                        const userName = getUserName(userUrl, userId[1] ?? '');
                         position += 1;
                         state.pos = position;
 
                         let token = state.push('mention_open', 'span', 1);
                         token.attrs = [
-                            ['mentionid', userId],
+                            ['mentionurl', userUrl],
                             ['mentionlabel', userName]
                         ];
                         token = state.push('text', '', 0);
@@ -150,7 +147,7 @@ export class RichTextMarkdownParser {
             mention: {
                 block: 'mention',
                 getAttrs: tok => ({
-                    mentionid: tok.attrGet('mentionid'),
+                    mentionurl: tok.attrGet('mentionurl'),
                     mentionlabel: tok.attrGet('mentionlabel')
                 })
             }
@@ -162,7 +159,7 @@ export class RichTextMarkdownParser {
             nodes: schema.spec.nodes.addToEnd('mention', {
                 attrs: {
                     datatype: { default: 'mention' },
-                    mentionid: { default: '' },
+                    mentionurl: { default: '' },
                     mentionlabel: { default: '' },
                     contentEditable: { default: 'false' }
                 },
@@ -170,14 +167,14 @@ export class RichTextMarkdownParser {
                 inline: true,
                 content: 'inline*',
                 toDOM(node) {
-                    const { mentionid, mentionlabel } = node.attrs;
+                    const { mentionurl, mentionlabel } = node.attrs;
                     return [
                         'strong',
                         [
                             userMentionViewTag,
                             {
                                 'mention-type': 'mention',
-                                'mention-id': mentionid as string,
+                                'mention-url': mentionurl as string,
                                 'mention-label': mentionlabel as string,
                                 contenteditable: 'false'
                             },

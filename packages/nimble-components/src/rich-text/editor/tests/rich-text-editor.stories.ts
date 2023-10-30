@@ -13,7 +13,7 @@ import {
 } from '../../../label-provider/base/tests/label-user-stories-utils';
 import { labelProviderRichTextTag } from '../../../label-provider/rich-text';
 import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
-import { richTextEnumMentionTextTag } from '../enum-text';
+import { RichTextEnumMention, richTextEnumMentionTextTag } from '../enum-text';
 import { mappingMentionTag } from '../../../mapping/mention';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -22,6 +22,7 @@ interface RichTextEditorArgs extends LabelUserArgs {
     footerActionButtons: boolean;
     getMarkdown: undefined;
     editorRef: RichTextEditor;
+    configRef: RichTextEnumMention;
     setMarkdownData: (args: RichTextEditorArgs) => void;
     disabled: boolean;
     footerHidden: boolean;
@@ -39,7 +40,7 @@ const exampleDataType = {
     markdownString: 'MarkdownString'
 } as const;
 
-const plainString = 'Plain text mention - <user:1>\n\n Bold & Italics mention - ***<user:3>***' as const;
+const plainString = 'Plain text mention - <user:1>' as const;
 
 const dataSets = {
     [exampleDataType.plainString]: plainString,
@@ -87,16 +88,16 @@ const metadata: Meta<RichTextEditorArgs> = {
         placeholder="${x => x.placeholder}"
     >
         ${when(x => x.footerActionButtons, html<RichTextEditorArgs>`
-            <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>
-            <${buttonTag} slot="footer-actions" @click="${x => x.editorRef.getMarkdown()}">OK</${buttonTag}>`)}
+            <${buttonTag} appearance="ghost" slot="footer-actions" @click="${x => x.configRef.getMentionedUsers()}">mentionedUser</${buttonTag}>
+            <${buttonTag} slot="footer-actions" @click="${x => x.editorRef.getMarkdown()}">getMd</${buttonTag}>`)}
 
-        <${richTextEnumMentionTextTag}>
-            <${mappingMentionTag} key="1" text="Aagash"></${mappingMentionTag}>
-            <${mappingMentionTag} key="2" text="vivin"></${mappingMentionTag}>
-            <${mappingMentionTag} key="3" text="susee"></${mappingMentionTag}>
-            <${mappingMentionTag} key="4" text="vikki"></${mappingMentionTag}>
-            <${mappingMentionTag} key="5" text="sue"></${mappingMentionTag}>
-            <${mappingMentionTag} key="6" text="sue ann"></${mappingMentionTag}>
+        <${richTextEnumMentionTextTag} pattern="user:.*" ${ref('configRef')}>
+            <${mappingMentionTag} key="user:1" text="Aagash"></${mappingMentionTag}>
+            <${mappingMentionTag} key="user:2" text="vivin"></${mappingMentionTag}>
+            <${mappingMentionTag} key="user:3" text="susee"></${mappingMentionTag}>
+            <${mappingMentionTag} key="user:4" text="vikki"></${mappingMentionTag}>
+            <${mappingMentionTag} key="user:5" text="sue"></${mappingMentionTag}>
+            <${mappingMentionTag} key="user:6" text="sue ann"></${mappingMentionTag}>
         </${richTextEnumMentionTextTag}>
     </${richTextEditorTag}>
     `),

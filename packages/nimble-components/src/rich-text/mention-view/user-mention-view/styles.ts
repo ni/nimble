@@ -9,5 +9,6 @@ export const styles = css`
         color: ${linkProminentFontColor};
         user-select: text;
         display: inline-flex;
+        display: ruby;
     }
 `;

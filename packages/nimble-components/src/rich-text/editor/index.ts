@@ -77,6 +77,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     @observable
     public userList: UserInfo[] = [];
 
+    /** @internal */
+    @observable
+    public pattern!: string;
+
     public mentionList: RichTextEnumMention[] = [];
 
     /**
@@ -271,6 +275,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         this.userList = [];
         this.mentionList.forEach((list => {
             this.userList = list.userInternals;
+            this.pattern = list.pattern;
         }));
     }
 
@@ -460,7 +465,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     public mentionChange(e: CustomEvent<MentionDetail>): void {
         this.mentionPropCommand.command({
-            id: e.detail.id,
+            url: e.detail.id,
             label: e.detail.name
         });
         this.open = false;
@@ -599,22 +604,25 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                             return [
                                 {
                                     tag: userMentionViewTag
+                                },
+                                {
+                                    tag: `span[mention-type="${this.name}"]`
                                 }
                             ];
                         },
                         addAttributes() {
                             return {
-                                id: {
+                                url: {
                                     default: null,
-                                    parseHTML: element => element.getAttribute('mention-id'),
+                                    parseHTML: element => element.getAttribute('mention-url'),
                                     renderHTML: attributes => {
-                                        if (!attributes.id) {
+                                        if (!attributes.url) {
                                             return {};
                                         }
 
                                         return {
                                             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                                            'mention-id': attributes.id,
+                                            'mention-url': attributes.url,
                                         };
                                     },
                                 },
@@ -756,7 +764,8 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private getHtmlContent(markdown: string): string {
         const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(
             markdown,
-            this.userList
+            this.userList,
+            this.pattern
         );
         return this.xmlSerializer.serializeToString(documentFragment);
         return '';

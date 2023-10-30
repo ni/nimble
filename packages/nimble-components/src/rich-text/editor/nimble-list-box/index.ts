@@ -3,6 +3,7 @@ import {
     ListboxElement,
     listboxTemplate as template
 } from '@microsoft/fast-foundation';
+import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -12,7 +13,8 @@ declare global {
 
 const nimbleListBox = ListboxElement.compose({
     baseName: 'list-box',
-    template
+    template,
+    styles
 });
 
 DesignSystem.getOrCreate()

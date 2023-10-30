@@ -34,13 +34,13 @@ const metadata: Meta<RichTextViewerArgs> = {
     <${richTextViewerTag}
         :markdown="${x => x.markdown}"
     >
-        <${richTextEnumMentionTextTag}>
-            <${mappingMentionTag} key="1" text="Aagash"></${mappingMentionTag}>
-            <${mappingMentionTag} key="2" text="vivin"></${mappingMentionTag}>
-            <${mappingMentionTag} key="3" text="susee"></${mappingMentionTag}>
-            <${mappingMentionTag} key="4" text="vikki"></${mappingMentionTag}>
-            <${mappingMentionTag} key="5" text="sue"></${mappingMentionTag}>
-            <${mappingMentionTag} key="6" text="sue ann"></${mappingMentionTag}>
+        <${richTextEnumMentionTextTag} pattern="user:.*">
+            <${mappingMentionTag} key="user:1" text="Aagash"></${mappingMentionTag}>
+            <${mappingMentionTag} key="user:2" text="vivin"></${mappingMentionTag}>
+            <${mappingMentionTag} key="user:3" text="susee"></${mappingMentionTag}>
+            <${mappingMentionTag} key="user:4" text="vikki"></${mappingMentionTag}>
+            <${mappingMentionTag} key="user:5" text="sue"></${mappingMentionTag}>
+            <${mappingMentionTag} key="user:6" text="sue ann"></${mappingMentionTag}>
         </${richTextEnumMentionTextTag}>
     </${richTextViewerTag}>
     `),

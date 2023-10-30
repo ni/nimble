@@ -1,5 +1,5 @@
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import { observable } from '@microsoft/fast-element';
+import { Notifier, Observable, observable } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
@@ -30,6 +30,13 @@ export class RichTextViewer extends FoundationElement {
 
     /**
      * @internal
+     * */
+    public userListNotifiers: Notifier[] = [];
+
+    public mentionList: RichTextEnumMention[] = [];
+
+    /**
+     * @internal
      */
     @observable
     public readonly childItems: Element[] = [];
@@ -37,12 +44,15 @@ export class RichTextViewer extends FoundationElement {
     @observable
     public userList!: UserInfo[];
 
+    @observable
+    public pattern!: string;
+
     /**
      * @internal
      */
     public override connectedCallback(): void {
         super.connectedCallback();
-        void this.updateView();
+        this.updateView();
     }
 
     /**
@@ -50,7 +60,7 @@ export class RichTextViewer extends FoundationElement {
      */
     public markdownChanged(): void {
         if (this.$fastController.isConnected) {
-            void this.updateView();
+            this.updateView();
         }
     }
 
@@ -58,28 +68,49 @@ export class RichTextViewer extends FoundationElement {
      * @internal
      */
     public childItemsChanged(): void {
+        void this.updateColumnsFromChildItems();
+    }
+
+    public async updateColumnsFromChildItems(): Promise<void> {
+        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
+            ? customElements.whenDefined(item.localName)
+            : Promise.resolve()));
+        await Promise.all(definedElements);
+        this.mentionList = this.childItems.filter(
+            (x): x is RichTextEnumMention => x instanceof RichTextEnumMention
+        );
+        for (const column of this.mentionList) {
+            const notifier = Observable.getNotifier(column);
+            notifier.subscribe(this);
+            this.userListNotifiers.push(notifier);
+        }
+        this.userList = [];
+        this.mentionList.forEach((list => {
+            this.userList = list.userInternals;
+            this.pattern = list.pattern;
+        }));
         if (this.$fastController.isConnected) {
-            void this.updateView();
+            this.updateView();
         }
     }
 
-    private async updateView(): Promise<void> {
-        if (this.markdown) {
-            const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
-                ? customElements.whenDefined(item.localName)
-                : Promise.resolve()));
-            await Promise.all(definedElements);
-            const mentionList = this.childItems.filter(
-                (x): x is RichTextEnumMention => x instanceof RichTextEnumMention
-            );
-            this.userList = [];
-            mentionList.forEach((list => {
-                this.userList = list.userInternals;
-            }));
+    /** @internal */
+    public handleChange(_source: unknown, _args: unknown): void {
+        this.mentionList.forEach((list => {
+            this.userList = list.userInternals;
+            this.pattern = list.pattern;
+        }));
+        if (this.$fastController.isConnected) {
+            this.updateView();
+        }
+    }
 
+    private updateView(): void {
+        if (this.markdown) {
             const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
                 this.markdown,
-                this.userList
+                this.userList,
+                this.pattern
             );
             this.viewer.replaceChildren(serializedContent);
         } else {
