@@ -24,7 +24,7 @@ const metadata: Meta = {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-        ${incubatingWarning({
+    ${incubatingWarning({
         componentName: 'card',
         statusLink: 'https://github.com/ni/nimble/issues/296'
     })}

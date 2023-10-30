@@ -20,15 +20,15 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (): ViewTemplate => html`
-<style>
-    .body {
-        margin-bottom: var(${standardPadding.cssCustomProperty});
-    }
-</style>
-<${cardTag}>
-    <div class="body">${loremIpsum}</div>
-    <${buttonTag}>Button</${buttonTag}>
-</${cardTag}>
+    <style>
+        .body {
+            margin-bottom: var(${standardPadding.cssCustomProperty});
+        }
+    </style>
+    <${cardTag}>
+        <div class="body">${loremIpsum}</div>
+        <${buttonTag}>Button</${buttonTag}>
+    </${cardTag}>
 `;
 
 export const cardThemeMatrix: StoryFn = createMatrixThemeStory(
