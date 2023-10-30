@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 30 Oct 2023 15:28:27 GMT",
+      "version": "20.10.2",
+      "tag": "@ni/nimble-components_v20.10.2",
+      "comments": {
+        "none": [
+          {
+            "author": "35350751+kjohn1922@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "74646b8e180aaf2a84e8bb2b3c54b20c9c45dca2",
+            "comment": "Add spec for nimble-card"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Oct 2023 18:19:11 GMT",
       "version": "20.10.2",
       "tag": "@ni/nimble-components_v20.10.2",
