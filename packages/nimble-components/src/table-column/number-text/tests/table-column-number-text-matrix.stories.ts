@@ -28,6 +28,7 @@ import {
     sharedTableArgTypes,
     sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
+import { isChromatic } from '../../../utilities/tests/isChromatic';
 import { unitByteTag } from '../../../unit/byte';
 import { unitVoltTag } from '../../../unit/volt';
 
@@ -108,16 +109,20 @@ interface KeyedObject {
     [key: string]: number;
 }
 
-const largeData: KeyedObject[] = [];
+const largeDataSets: KeyedObject[][] = [[], []];
+let largeDataSetIndex = 0;
 const rowsLargeData = 30;
 const columnsLargeData = 20;
+let updateDataSetFunction: (() => Promise<void>) | null;
 
-for (let i = 0; i < rowsLargeData; i++) {
-    const row: KeyedObject = {};
-    for (let j = 0; j < columnsLargeData; j++) {
-        row[`col${j}`] = i * j + j;
+for (let set = 0; set < 2; set++) {
+    for (let i = 0; i < rowsLargeData; i++) {
+        const row: KeyedObject = {};
+        for (let j = 0; j < columnsLargeData; j++) {
+            row[`col${j}`] = i * j + j + set * 100;
+        }
+        largeDataSets[set]!.push(row);
     }
-    largeData.push(row);
 }
 
 export const largeTable: StoryObj<NumberTextColumnTableArgs> = {
@@ -125,10 +130,11 @@ export const largeTable: StoryObj<NumberTextColumnTableArgs> = {
     render: createUserSelectedThemeStory(html<NumberTextColumnTableArgs>`
         <${tableTag}
             ${ref('tableRef')}
+            class="large-data-number-text-table"
             data-unused="${x => x.updateData(x)}"
             style="height: 1100px"
         >
-            ${repeat(() => Object.keys(largeData[0]!), html<string, NumberTextColumnTableArgs>`
+            ${repeat(() => Object.keys(largeDataSets[0]![0]!), html<string, NumberTextColumnTableArgs>`
                 <${tableColumnNumberTextTag} field-name="${(_x, c) => `col${c.index}`}" pixel-width="40">
                     ${(_x, c) => `col_${c.index}`}
                     ${when((_x, c: ExecutionContext<NumberTextColumnTableArgs>) => c.parent.unit === 'byte', html`<${unitByteTag}></${unitByteTag}>`)}
@@ -150,10 +156,31 @@ export const largeTable: StoryObj<NumberTextColumnTableArgs> = {
         }
     },
     args: {
-        ...sharedTableArgs(largeData),
+        ...sharedTableArgs(largeDataSets[largeDataSetIndex]!),
         unit: 'default'
     },
     parameters: {
         a11y: { disable: true }
+    },
+    play: async (_context): Promise<void> => {
+        if (!updateDataSetFunction && !isChromatic()) {
+            updateDataSetFunction = async () => {
+                // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
+                const table = document.querySelector(
+                    'nimble-table.large-data-number-text-table'
+                ) as Table;
+                if (!table) {
+                    updateDataSetFunction = null;
+                    return;
+                }
+                largeDataSetIndex = (largeDataSetIndex + 1) % 2;
+                await table.setData(largeDataSets[largeDataSetIndex]!);
+                await new Promise(resolve => {
+                    setTimeout(resolve, 1000);
+                });
+                await updateDataSetFunction!();
+            };
+            await updateDataSetFunction();
+        }
     }
 };
