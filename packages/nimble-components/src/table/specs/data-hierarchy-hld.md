@@ -42,36 +42,6 @@ public Table() {
     // collapsed, regardless of the state of this attribute.
     @attr({ attribute: 'auto-expand-parents' })
     public autoExpandParents?: boolean;
-
-    // This attribute determines whether a parent row will be expanded by default.
-    // For parents with no children, such as when the child rows will be lazily loaded,
-    // the parent row will default to collapsed, regardless of this attribute's setting.
-    @attr({ attribute: 'auto-expand-parents' })
-    public autoExpandParents?: boolean;
-
-    // The set of rows the user would like to expand. Pass 'true' for `expandChildren` if all
-    // children rows parented under any specified in rowIds should also be expanded.
-    public async expandRows(rowIds: string[], expandParents?: boolean, scrollIntoView?: boolean): Promise<void> {
-        ...
-    }
-
-    // The set of rows the user would like to collapse. Pass 'true' for `collapseChildren` if all
-    // children rows parented under any specified in rowIds should also be collapsed.
-    public async collapseRows(rowIds: string[], collapseChildren?: boolean) Promise<void> {
-        ...
-    }
-
-    // This method allows a user to set some persistent state on a row that will be maintained,
-    // as long as that row is in the data. If a record is removed from the data, than any state
-    // associated with that record's rowId is discarded.
-    public setRowState(rowId: string, state: RowState): void {
-        ...
-    }
-
-    // This method clears all current state associated with rows.
-    public clearAllRowState(): void {
-        ...
-    }
 }
 ```
 
@@ -100,6 +70,8 @@ The following are various expected mouse and keyboard interactions related to pa
 ### Validation
 
 The table will be invalid if the user has set the `parentIdFieldName` attribute but not the `idFieldName`. Additionally, the table will be invalid if the user has set the `forceExpandCollapseFieldName` attribute but not the `parentIdFieldName`.
+
+Additionally, we will mark the table as invalid if the hierarchical representation of the data has less elements than the array that was transformed. This can happen if the incoming data either has specified parents for children that do not exist, or if there are circular child-parent relationships defined.
 
 ### Lazy Loading
 
@@ -151,24 +123,25 @@ Prototype visual:
 
 This ultimately will put the burden on the client to ensure that the `Table` is updated as needed to get rid of any displayed progress indicator, including in scenarios where the expansion of a parent row failed to load any children (possibly due to some client-side error). The `Table` will only guarantee that the progress indicator is shown when a parent row is expanded and it currently has no children, and that it will be removed once children are present.
 
-Expected user workflow:
+Expected workflow:
 
-1. User loads data into table that specifies some rows as parents, but has no rows that indicate that row as a parent.
-2. User clicks on a parent row
-3. Row expands showing "row loading" indicator
-4. User handles event that row was expanded
-5. User sets data on table that has children for the row that was expanded
-6. "Row loading" indicator is removed and child rows are now displayed
+1. Client loads data into table that specifies some rows as parents, but has no rows that indicate that row as a parent.
+2. User clicks on a parent row.
+3. Client handles event that row was expanded.
+4. In event handler, client calls API (tbd) on table to explicitly show the row loading indicator.
+5. Client sets data on table that has children for the row that was expanded.
+6. Client calls API (tbd) on table to explicitly hide the row loading indicator.
 
 _Notes: When the new children are finally displayed, scroll position will be maintained in that the scroll index isn't adjusted. So a row that is currently displayed at the top of the table can be pushed down if new rows are added above it. Additionally, any previously expanded rows should remain expanded._
 
 Error workflow:
 
-1. Same as steps 1-4 above
-2. Error occurs retrieving data for child rows
-3. User calls `collapseRows(...)` on table instance passing parent row id that was previously expanded.
-4. Row is collapsed and "row loading" indicator is no longer displayed.
-5. Client should also provide appropriate error messaging within the application
+1. Same as steps 1-4 above.
+2. Error occurs retrieving data for child rows.
+3. Client calls API on table to handle error case. The exact IxD/UX for this is TBD, but could possibly one or more of the following:
+    - An error message replaces the row loading indicator visual.
+    - The row is automatically collapsed, and the application reports an error somewhere outside of the table.
+    - UX is provided within the table that would allow a user to retry their data fetch attempt.
 
 ### Sorting
 
@@ -225,4 +198,4 @@ By making the `TableRecord` support hierarchy in its structure, it seemed possib
     -   Should the table represent the error state visually, and if so how?
     -   Should the table surface any UI to "refresh" a data retrieval attempt. If so, what should that look like?
 -   What does the API for `setRowState` really look like?
--   The set of proposed APIs and behaviors described so far don't seem to cover the SLE Steps Grid use case. __Resolved: Ultimately, the Steps grid should likely be using a significantly different UX than what it currently has, and we are opting to not introduce features and capabilities into the Nimble table to support a sub-optimal UX.__
+-   The set of proposed APIs and behaviors described so far don't seem to cover the SLE Steps Grid use case. **Resolved: Ultimately, the Steps grid should likely be using a significantly different UX than what it currently has, and we are opting to not introduce features and capabilities into the Nimble table to support a sub-optimal UX.**
