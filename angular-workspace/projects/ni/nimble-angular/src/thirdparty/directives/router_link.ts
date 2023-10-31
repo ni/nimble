@@ -204,7 +204,7 @@ export class RouterLink implements OnChanges, OnDestroy {
     // [Nimble] Hard-coding `isAnchorElement` to `true`
     // const tagName = el.nativeElement.tagName?.toLowerCase();
     // this.isAnchorElement = tagName === 'a' || tagName === 'area';
-   this.isAnchorElement = true;
+    this.isAnchorElement = true;
 
     if (this.isAnchorElement) {
       this.subscription = router.events.subscribe((s: Event) => {
