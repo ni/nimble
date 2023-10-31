@@ -424,7 +424,7 @@ typically encompass user-related data, such as the username and user URL.
 
 1. `mention-href` - employed to store the value that is sent in the `mention-href` attribute of `nimble-mapping-mention-user`.
 2. `mention-label` - used to store the actual `display-name` of the selected option.
-4. `contentEditable` - defaults as `false`. The `@mention` node is only enabled in the editor after selecting from the list of options. It is not possible
+3. `contentEditable` - defaults as `false`. The `@mention` node is only enabled in the editor after selecting from the list of options. It is not possible
    to edit the names within the node; either can delete the entire name or select a new one from the list of options after deleting the entire name.
 
 #### 1. _Configurations on Tiptap_:
