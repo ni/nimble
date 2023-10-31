@@ -22,7 +22,7 @@ When to use:
 
 When not to use:
 
--   When a value that is not in the list of options needs to be entered
+-   When all the allowed values can be included in the list of options
 
 -   When there are fewer than three options
 -   For complex and/or hierarchical data
