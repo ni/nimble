@@ -58,6 +58,8 @@ const content = {
 
 const sizeDescription = `
 Size of a nimble dialog.
+
+See the Sizing section below for information on controlling the size of the dialog.
 `;
 
 const widths = {
@@ -81,7 +83,6 @@ const maxHeights = {
 
 const metadata: Meta<DialogArgs> = {
     title: 'Components/Dialog',
-    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
