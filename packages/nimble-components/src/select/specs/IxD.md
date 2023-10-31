@@ -120,19 +120,17 @@ The client-user should be able to specify whether they want groups, secondary te
 
 ![ ](spec-images/select-10.png)
 
-#### Selection
-
-> NOTE: NOT SURE THIS IS A REAL USE CASE FOR SELECT COMPONENT, SEE FUTURE CONSIDERATIONS FOR MULTI-SELECTION
-
-The client-user should be able to specify whether they want to display selection with or without a check mark.
-
-![ ](spec-images/select-11.png)
-
 #### Filter
 
 The client-user should be able to specify whether they want filtering available in the select component. The filter field appears in the dropdown. The filter applies to all list options, even ones that are on the server and aren't currently visible in the component.
 
 ![ ](spec-images/select-12.png)
+
+#### Error State
+
+The client-user should be able to put the select component into an error state. The error state is visually indicated on the component, and includes the display of error text.
+
+![ ](spec-images/select-34.png)
 
 ### Behavior
 
@@ -163,18 +161,6 @@ All text in the select component should truncate, not wrap.
 When displaying list options and the dropdown lags or is expected to take longer than normal, the client-user should be able to indicate loading.
 
 ![ ](spec-images/select-15.png)
-
-> NOTE: IS THIS NEEDED? IF YES, NEEDS VISUAL DESIGN & TECH WRITER
-
-Dropdowns with dynamically loading list options may have a "Load more" button. Clicking the "Load more" button should resolve into the "Loading…" indication, then load more list options and scroll the dropdown as needed.
-
-![ ](spec-images/select-16.png)
-
-#### Touch-Screen Devices
-
-On touch-screen devices, the select component should bring up the dropdown in a Nimble or native popover.
-
-![ ](spec-images/select-17.png)
 
 ### Mouse Interactions
 
@@ -284,3 +270,6 @@ From a focused list option, `UP ARROW` moves focus and selects the previous list
 -   Helper text for input components (where it should be located, how it should be accessed)
 -   Mega-menus (combining static information, selectable options, action-based commands, etc.)
 -   Capturing usage guidelines/UI patterns for a "load more" experience in the dropdown
+-   Should the client-user be able to specify whether they want to display selection with or without a check mark?
+-   On touch-screen devices, it would be nice for the select component to bring up the dropdown in a Nimble or native popover. More exploration is needed to support all sets of features.
+-   Do we need to provide a "load more" UX pattern for clients to implement (we have decided not to implement anything related to this in the component, as it is overly prescriptive)
