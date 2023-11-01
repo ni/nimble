@@ -46,7 +46,7 @@ const metadata: Meta<CardArgs> = {
     argTypes: {
         title: {
             description:
-                'Text displayed as a title inside the card. Cards should **always include a title**. The title is used to provide an accessible name to assistive technologies.<br><br>Provide the title in an `inline` element such as `<span>` that is targeted to the `title` slot.'
+                'Text displayed as a title inside the card. Cards should **always include a title**. The title is used to provide an accessible name to assistive technologies.<br><br>Provide the title in an element targeted to the `title` slot.'
         }
     },
     args: {
