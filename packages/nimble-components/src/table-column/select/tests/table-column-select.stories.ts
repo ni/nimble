@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
-import { tableColumnAnchorTag } from '..';
+import { tableColumnSelectTag } from '..';
 import {
     sharedTableActions,
     SharedTableArgs,
@@ -11,10 +11,10 @@ import {
     sharedTableArgTypes
 } from '../../base/tests/table-column-stories-utils';
 import { tableColumnTextTag } from '../../text';
-import { AnchorAppearance } from '../../../anchor/types';
+import { SelectAppearance } from '../../../select/types';
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Components/Table Column: Anchor',
+    title: 'Components/Table Column: Select',
     decorators: [withActions],
     parameters: {
         actions: {
@@ -64,37 +64,37 @@ const simpleData = [
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface AnchorColumnTableArgs extends SharedTableArgs {
+interface SelectColumnTableArgs extends SharedTableArgs {
     labelFieldName: string;
     hrefFieldName: string;
-    appearance: keyof typeof AnchorAppearance;
+    appearance: keyof typeof SelectAppearance;
     underlineHidden: boolean;
 }
 
-const anchorColumnDescription = 'The `nimble-table-column-anchor` column is used to display string fields as links or text in the `nimble-table`. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.';
+const selectColumnDescription = 'The `nimble-table-column-select` column is used to display string fields as links or text in the `nimble-table`. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.';
 
-export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
+export const selectColumn: StoryObj<SelectColumnTableArgs> = {
     parameters: {
         docs: {
             description: {
-                story: anchorColumnDescription
+                story: selectColumnDescription
             }
         }
     },
     // prettier-ignore
-    render: createUserSelectedThemeStory(html<AnchorColumnTableArgs>`
+    render: createUserSelectedThemeStory(html<SelectColumnTableArgs>`
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
         >
-            <${tableColumnAnchorTag}
+            <${tableColumnSelectTag}
                 label-field-name="${x => x.labelFieldName}"
                 href-field-name="${x => x.hrefFieldName}"
                 appearance="${x => x.appearance}"
                 ?underline-hidden="${x => x.underlineHidden}"
             >
             Link Column
-            </${tableColumnAnchorTag}>
+            </${tableColumnSelectTag}>
             <${tableColumnTextTag}
                 field-name="lastName"
             >
@@ -117,10 +117,10 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             control: { type: 'none' }
         },
         appearance: {
-            options: Object.keys(AnchorAppearance),
+            options: Object.keys(SelectAppearance),
             control: { type: 'radio' },
             description:
-                'Set to `prominent` to make the anchor appear in a different color than normal text.'
+                'Set to `prominent` to make the select appear in a different color than normal text.'
         },
         underlineHidden: {
             name: 'underline-hidden',

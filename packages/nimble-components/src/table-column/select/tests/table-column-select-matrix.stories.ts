@@ -6,17 +6,17 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../../utilities/tests/matrix';
-import { tableColumnAnchorTag } from '..';
+import { tableColumnSelectTag } from '..';
 import { iconUserTag } from '../../../icons/user';
 import { Table, tableTag } from '../../../table';
-import { AnchorAppearance } from '../../../anchor/types';
+import { SelectAppearance } from '../../../select/types';
 import {
     controlLabelFont,
     controlLabelFontColor
 } from '../../../theme-provider/design-tokens';
 
 const metadata: Meta = {
-    title: 'Tests/Table Column: Anchor',
+    title: 'Tests/Table Column: Select',
     parameters: {
         ...sharedMatrixParameters()
     }
@@ -41,7 +41,7 @@ const data = [
 ] as const;
 
 const appearanceStates: [string, string | undefined][] = Object.entries(
-    AnchorAppearance
+    SelectAppearance
 ).map(([key, value]) => [pascalCase(key), value]);
 type AppearanceState = (typeof appearanceStates)[number];
 
@@ -56,9 +56,9 @@ const component = (
     [appearanceName, appearance]: AppearanceState,
     [underlineHiddenName, underlineHidden]: UnderlineHiddenState
 ): ViewTemplate => html`
-    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">${appearanceName} ${underlineHiddenName} Anchor Table Column</label>
+    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">${appearanceName} ${underlineHiddenName} Select Table Column</label>
     <${tableTag} id-field-name="id" style="height: 300px">
-        <${tableColumnAnchorTag}
+        <${tableColumnSelectTag}
             label-field-name="firstName"
             href-field-name="link"
             group-index="0"
@@ -66,15 +66,15 @@ const component = (
             underline-hidden="${() => underlineHidden}"
         >
             <${iconUserTag}></${iconUserTag}>
-        </${tableColumnAnchorTag}>
+        </${tableColumnSelectTag}>
     </${tableTag}>
 `;
 
-export const tableColumnAnchorThemeMatrix: StoryFn = createMatrixThemeStory(
+export const tableColumnSelectThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [appearanceStates, underlineHiddenStates])
 );
 
-tableColumnAnchorThemeMatrix.play = async (): Promise<void> => {
+tableColumnSelectThemeMatrix.play = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll<Table>('nimble-table')).map(
             async table => {
