@@ -51,7 +51,7 @@ const dialogSizingTestCase = (
 ): ViewTemplate => html`
     <p style="font: var(${cssPropertyFromTokenName(
         tokenNames.bodyFont
-    )});">${() => widthLabel}; ${() => heightLabel} ${() => maxHeightLabel}</p>
+    )}); padding-bottom: 1000px;">${() => widthLabel}; ${() => heightLabel} ${() => maxHeightLabel}</p>
     <style>
         ${dialogTag}::part(control) {
             ${() => widthStyle};
