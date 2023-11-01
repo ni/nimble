@@ -25,15 +25,7 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (): ViewTemplate => html`
-<style>
-    .card-content {
-        display: flex;
-        flex-direction: column;
-        gap: var(${standardPadding.cssCustomProperty});
-    }
-</style>
-<${cardTag}>
-    <div class="card-content">
+    <${cardTag}>
         <${numberFieldTag}>Numeric field 1</${numberFieldTag}>
         <${numberFieldTag}>Numeric field 2</${numberFieldTag}>
         <${selectTag}>
@@ -41,8 +33,7 @@ const component = (): ViewTemplate => html`
             <${listOptionTag} value="2">Option 2</${listOptionTag}>
             <${listOptionTag} value="3">Option 3</${listOptionTag}>
         </${selectTag}>
-    </div>
-</${cardTag}>
+    </${cardTag}>
 `;
 
 export const cardThemeMatrix: StoryFn = createMatrixThemeStory(

@@ -29,23 +29,14 @@ const metadata: Meta = {
         componentName: 'card',
         statusLink: 'https://github.com/ni/nimble/issues/296'
     })}
-        <style>
-            .card-content {
-                display: flex;
-                flex-direction: column;
-                gap: var(${standardPadding.cssCustomProperty});
-            }
-        </style>
         <${cardTag}>
-            <div class="card-content">
-                <${numberFieldTag}>Numeric field 1</${numberFieldTag}>
-                <${numberFieldTag}>Numeric field 2</${numberFieldTag}>
-                <${selectTag}>
-                    <${listOptionTag} value="1">Option 1</${listOptionTag}>
-                    <${listOptionTag} value="2">Option 2</${listOptionTag}>
-                    <${listOptionTag} value="3">Option 3</${listOptionTag}>
-                </${selectTag}>
-            </div>
+            <${numberFieldTag}>Numeric field 1</${numberFieldTag}>
+            <${numberFieldTag}>Numeric field 2</${numberFieldTag}>
+            <${selectTag}>
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+                <${listOptionTag} value="2">Option 2</${listOptionTag}>
+                <${listOptionTag} value="3">Option 3</${listOptionTag}>
+            </${selectTag}>
         </${cardTag}>
     `)
 };

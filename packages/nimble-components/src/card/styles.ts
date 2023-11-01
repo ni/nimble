@@ -10,13 +10,15 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('block')}
+    ${display('flex')}
 
     :host {
+        flex-direction: column;
+        gap: ${standardPadding};
+        padding: ${standardPadding};
+        border: ${borderWidth} solid ${borderColor};
         font: ${bodyFont};
         color: ${bodyFontColor};
         background-color: ${sectionBackgroundColor};
-        border: ${borderWidth} solid ${borderColor};
-        padding: ${standardPadding};
     }
 `;
