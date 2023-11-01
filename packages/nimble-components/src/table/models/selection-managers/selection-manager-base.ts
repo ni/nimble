@@ -48,7 +48,7 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
             // Manually deselect all leaf rows when a fully selected group is being deselected.
             this.deselectAllLeafRows(rowState.id);
         } else {
-            this.tanStackTable.getRow(rowState.id).toggleSelected(isSelecting);
+            this.tanStackTable.getRow(rowState.id).toggleSelected(isSelecting, { selectChildren: rowState.isGrouped });
         }
     }
 
@@ -101,7 +101,6 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
 
         return row
             .getLeafRows()
-            .filter(leafRow => leafRow.getLeafRows().length === 0)
             .map(leafRow => leafRow.id);
     }
 

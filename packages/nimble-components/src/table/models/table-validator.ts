@@ -15,6 +15,7 @@ export class TableValidator<TData extends InternalTableRecord> {
     private duplicateGroupIndex = false;
     private idFieldNameNotConfigured = false;
     private invalidColumnConfiguration = false;
+    private invalidParentIdConfiguration = false;
 
     private readonly recordIds = new Set<string>();
 
@@ -28,7 +29,8 @@ export class TableValidator<TData extends InternalTableRecord> {
             duplicateSortIndex: this.duplicateSortIndex,
             duplicateGroupIndex: this.duplicateGroupIndex,
             idFieldNameNotConfigured: this.idFieldNameNotConfigured,
-            invalidColumnConfiguration: this.invalidColumnConfiguration
+            invalidColumnConfiguration: this.invalidColumnConfiguration,
+            invalidParentIdConfiguration: this.invalidParentIdConfiguration
         };
     }
 
@@ -60,7 +62,8 @@ export class TableValidator<TData extends InternalTableRecord> {
 
     public validateRecordIds(
         data: TData[],
-        idFieldName: string | undefined
+        idFieldName: string | undefined,
+        parentIdFieldName?: string
     ): boolean {
         // Start off by assuming all IDs are valid.
         this.duplicateRecordId = false;
@@ -69,31 +72,38 @@ export class TableValidator<TData extends InternalTableRecord> {
         this.recordIds.clear();
 
         if (typeof idFieldName !== 'string') {
-            return true;
+            if (typeof parentIdFieldName !== 'string') {
+                return true;
+            }
+
+            this.idFieldNameNotConfigured = true;
         }
 
-        for (const record of data) {
-            if (!Object.prototype.hasOwnProperty.call(record, idFieldName)) {
-                this.missingRecordId = true;
-                continue;
-            }
+        if (typeof idFieldName === 'string' && !this.idFieldNameNotConfigured) {
+            for (const record of data) {
+                if (!Object.prototype.hasOwnProperty.call(record.data, idFieldName)) {
+                    this.missingRecordId = true;
+                    continue;
+                }
 
-            const id = record.data[idFieldName];
-            if (typeof id !== 'string') {
-                this.invalidRecordId = true;
-                continue;
-            }
+                const id = record.data[idFieldName];
+                if (typeof id !== 'string') {
+                    this.invalidRecordId = true;
+                    continue;
+                }
 
-            if (this.recordIds.has(id)) {
-                this.duplicateRecordId = true;
+                if (this.recordIds.has(id)) {
+                    this.duplicateRecordId = true;
+                }
+                this.recordIds.add(id);
             }
-            this.recordIds.add(id);
         }
 
         return (
             !this.missingRecordId
             && !this.invalidRecordId
             && !this.duplicateRecordId
+            && !this.idFieldNameNotConfigured
         );
     }
 
@@ -142,6 +152,10 @@ export class TableValidator<TData extends InternalTableRecord> {
 
     public getPresentRecordIds(requestedRecordIds: string[]): string[] {
         return requestedRecordIds.filter(id => this.recordIds.has(id));
+    }
+
+    public setInvalidParentIdConfiguration(): void {
+        this.invalidParentIdConfiguration = true;
     }
 
     private validateIndicesAreUnique(indices: number[]): boolean {

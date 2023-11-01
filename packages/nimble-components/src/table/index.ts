@@ -52,7 +52,7 @@ import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
 import { TableLayoutManager } from './models/table-layout-manager';
 import { TableUpdateTracker } from './models/table-update-tracker';
-import type { TableRow } from './components/row';
+import { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
 
@@ -244,6 +244,7 @@ export class Table<
             getGroupedRowModel: tanStackGetGroupedRowModel(),
             getExpandedRowModel: tanStackGetExpandedRowModel(),
             getIsRowExpanded: this.getIsRowExpanded,
+            getSubRows: r => r.subRows,
             columns: [],
             state: {
                 rowSelection: {},
@@ -272,10 +273,19 @@ export class Table<
     public async setData(newData: readonly TData[]): Promise<void> {
         await this.processPendingUpdates();
 
-        const data = newData.map(record => {
-            return { ...record };
-        });
-        this._data = arrayToTree(data, { childrenField: 'subRows' }) as unknown as InternalTableRecord<TData>[];
+        // The call to arrayToTree will perform a deep copy of the data, but it does allow a
+        // configuration that will do shallow copies, and thus it's signature doesn't support
+        // immutable arrays. Thus, we need to cast to a mutable type.
+        const data = newData as TData[];
+        if (this.idFieldName) {
+            try {
+                this._data = arrayToTree(data, { childrenField: 'subRows', id: this.idFieldName, parentId: this.parentIdFieldName, nestedIds: false, throwIfOrphans: true }) as unknown as InternalTableRecord<TData>[];
+            } catch {
+                this.tableValidator.setInvalidParentIdConfiguration();
+            }
+        } else {
+            this._data = this.convertDataWithNoId(data);
+        }
         const tanStackUpdates: Partial<TanStackTableOptionsResolved<InternalTableRecord<TData>>> = {
             data: this._data
         };
@@ -476,9 +486,8 @@ export class Table<
     }
 
     /** @internal */
-    public handleGroupRowExpanded(rowIndex: number, event: Event): void {
-        this.toggleGroupExpanded(rowIndex);
-        event.stopPropagation();
+    public handleRowExpanded(rowIndex: number): void {
+        this.toggleRowExpanded(rowIndex);
     }
 
     /**
@@ -608,6 +617,12 @@ export class Table<
 
         this.observeColumns();
         this.tableUpdateTracker.trackColumnInstancesChanged();
+    }
+
+    private convertDataWithNoId(data: TData[]): InternalTableRecord<TData>[] {
+        return data.map(record => {
+            return { data: { ...record } };
+        });
     }
 
     private async handleActionMenuBeforeToggleEvent(
@@ -807,7 +822,7 @@ export class Table<
     }
 
     private validateWithData(data: InternalTableRecord[]): void {
-        this.tableValidator.validateRecordIds(data, this.idFieldName);
+        this.tableValidator.validateRecordIds(data, this.idFieldName, this.parentIdFieldName);
         this.canRenderRows = this.checkValidity();
     }
 
@@ -863,15 +878,15 @@ export class Table<
                 selectionState: this.getRowSelectionState(row),
                 isGrouped: row.getIsGrouped(),
                 isExpanded: row.getIsExpanded(),
-                isParent: this.parentIdFieldName ? row.original.data[this.parentIdFieldName] === undefined : false,
+                isParent: this.parentIdFieldName
+                    ? (row.original.subRows !== undefined && row.original.subRows.length > 0)
+                    : false,
+                isTopLevelRow: row.depth === 0,
                 groupRowValue: row.getIsGrouped()
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
                 nestingLevel: row.depth,
-                leafItemCount: row
-                    .getLeafRows()
-                    .filter(leafRow => leafRow.getLeafRows().length === 0)
-                    .length,
+                immediateChildCount: row.subRows.length,
                 groupColumn: this.getGroupRowColumn(row)
             };
             return rowState;
@@ -904,10 +919,10 @@ export class Table<
     private getGroupedRowSelectionState(
         groupedRow: TanStackRow<InternalTableRecord<TData>>
     ): TableRowSelectionState {
-        const subRows = groupedRow.subRows ?? [];
+        const leafRows = groupedRow.getLeafRows() ?? [];
         let foundSelectedRow = false;
         let foundNotSelectedRow = false;
-        for (const row of subRows) {
+        for (const row of leafRows) {
             if (row.getIsGrouped()) {
                 const subGroupRowSelectionState = this.getGroupedRowSelectionState(row);
                 switch (subGroupRowSelectionState) {
@@ -962,21 +977,23 @@ export class Table<
     }
 
     private readonly getIsRowExpanded = (row: TanStackRow<InternalTableRecord<TData>>): boolean => {
-        if (!row.getIsGrouped()) {
+        if (!row.getIsGrouped() && !row.subRows.length) {
             return false;
         }
 
         const expandedState = this.table.options.state.expanded;
-
-        if (expandedState === true) {
+        if (expandedState === true && row.getIsGrouped()) {
             return true;
         }
 
+        if (this.collapsedRows.has(row.id)) {
+            return false;
+        }
         if (Object.keys(expandedState ?? {}).includes(row.id)) {
-            return expandedState![row.id]!;
+            return true;
         }
 
-        return !this.collapsedRows.has(row.id);
+        return false;
     };
 
     private readonly handleRowSelectionChange: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
@@ -1003,16 +1020,31 @@ export class Table<
         });
     };
 
-    private toggleGroupExpanded(rowIndex: number): void {
-        const row = this.table.getRowModel().rows[rowIndex]!;
+    private toggleRowExpanded(rowIndex: number): void {
+        const rows = this.table.getRowModel().rows;
+        const row = rows[rowIndex]!;
         const wasExpanded = row.getIsExpanded();
         // must update the collapsedRows before toggling expanded state
         if (wasExpanded) {
             this.collapsedRows.add(row.id);
         } else {
+            // if expanded is set to "true" this means that the table is in a default state
+            // so we need to go through each row and determine if it is really expanded or
+            // collapsed and update our internal state to match
+            if (this.table.options.state.expanded === true) {
+                for (const tanstackRow of rows) {
+                    if (!row.getIsExpanded()) {
+                        this.collapsedRows.add(tanstackRow.id);
+                    }
+                }
+                this.table.toggleAllRowsExpanded(false);
+            }
             this.collapsedRows.delete(row.id);
         }
         row.toggleExpanded();
+        if (row instanceof TableRow) {
+            this.$emit('rowExpanded');
+        }
     }
 
     private calculateTanStackSortState(): TanStackSortingState {
@@ -1058,12 +1090,12 @@ export class Table<
         return this.columns.map(column => {
             return {
                 id: column.columnInternals.uniqueId,
-                accessorFn: (data: TData): TableFieldValue => {
+                accessorFn: (data: InternalTableRecord<TData>): TableFieldValue => {
                     const fieldName = column.columnInternals.operandDataRecordFieldName;
                     if (typeof fieldName !== 'string') {
                         return undefined;
                     }
-                    return data[fieldName];
+                    return data.data[fieldName];
                 },
                 sortingFn: getTanStackSortingFunction(
                     column.columnInternals.sortOperation

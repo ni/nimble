@@ -30,7 +30,7 @@ export class TableGroupRow extends FoundationElement {
     public nestingLevel = 0;
 
     @observable
-    public leafItemCount?: number;
+    public immediateChildCount?: number;
 
     @observable
     public groupColumn?: TableColumn;

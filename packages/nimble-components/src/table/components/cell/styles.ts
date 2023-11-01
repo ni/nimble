@@ -2,7 +2,9 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     controlSlimHeight,
+    mediumDelay,
     mediumPadding,
+    smallPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 
@@ -20,6 +22,19 @@ export const styles = css`
         height: 100%;
         /* A default value that will be overridden by the row */
         --ni-private-table-cell-action-menu-display: block;
+    }
+
+    :host([expanded]) .animating,
+    :host .animating {
+        transition: ${mediumDelay} ease-in-out;
+    }
+
+    :host([expanded]) .expander-icon {
+        transform: rotate(90deg);
+    }
+
+    .expander-icon {
+        transform: rotate(0deg);
     }
 
     .cell-view {

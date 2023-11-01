@@ -157,7 +157,7 @@ export class TableGroupRow extends FoundationElement {
     public nestingLevel: number = 0;
 
     @observable
-    public leafItemCount?: number;
+    public immediateChildCount?: number;
 
     @observable
     public columnConfig?: unknown;
@@ -199,7 +199,7 @@ const tableGroupRowElement = TableGroupRow.compose({
             :rowGroupValue="${x => x.groupRowValue}"
             :columnConfig="${x => x.columnConfig}"
             >
-        </{x => x.rowGroupState.groupRowHeaderViewTag}> (${x => x.leafItemCount})
+        </{x => x.rowGroupState.groupRowHeaderViewTag}> (${x => x.immediateChildCount})
     </template>
     styles: /* styling */
 });

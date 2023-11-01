@@ -17,6 +17,7 @@ import type {
     TableActionMenuToggleEventDetail,
     TableFieldName,
     TableRecord,
+    TableRowExpandToggleEventDetail,
     TableRowSelectionToggleEventDetail
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
@@ -56,6 +57,9 @@ export class TableRow<
     @attr({ attribute: 'hide-selection', mode: 'boolean' })
     public hideSelection = false;
 
+    @attr({ mode: 'boolean' })
+    public expanded = false;
+
     @observable
     public dataRecord?: TDataRecord;
 
@@ -75,6 +79,9 @@ export class TableRow<
 
     @observable
     public isParentRow = false;
+
+    @observable
+    public isTopLevelRow = false;
 
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
@@ -104,6 +111,17 @@ export class TableRow<
 
     /** @internal */
     public readonly cellContainer!: HTMLSpanElement;
+
+    /**
+     * @internal
+     */
+    public readonly expandIcon?: HTMLElement;
+
+    /**
+     * @internal
+     */
+    @observable
+    public animationClass = '';
 
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
@@ -185,6 +203,35 @@ export class TableRow<
         }
     }
 
+    public onRowExpandToggle(event: Event): void {
+        const expandEventDetail: TableRowExpandToggleEventDetail = {
+            oldState: this.expanded,
+            newState: !this.expanded,
+            recordId: this.recordId
+        };
+        this.$emit('row-expand-toggle', expandEventDetail);
+        event.stopImmediatePropagation();
+        // To avoid a visual glitch with improper expand/collapse icons performing an
+        // animation, we apply a class to the appropriate group row such that we can have
+        // a more targeted CSS animation. We use the 'transitionend' event to remove the
+        // temporary class and register a function reference as the handler to avoid issues
+        // that may result from the 'transitionend' event not firing, as it will never result
+        // in multiple event listeners being registered.
+        this.animationClass = 'animating';
+        this.expandIcon?.addEventListener(
+            'transitionend',
+            this.removeAnimatingClass
+        );
+    }
+
+    private readonly removeAnimatingClass = (): void => {
+        this.animationClass = '';
+        this.expandIcon?.removeEventListener(
+            'transitionend',
+            this.removeAnimatingClass
+        );
+    };
+
     private emitActionMenuToggleEvent(
         eventType: string,
         menuButtonEventDetail: MenuButtonToggleEventDetail,
@@ -208,16 +255,25 @@ export class TableRow<
 
     private dataRecordChanged(): void {
         this.updateCellStates();
+        this.updateCellIndentLevels();
     }
 
     private nestingLevelChanged(): void {
         this.updateCellIndentLevels();
     }
 
+    private isParentRowChanged(): void {
+        this.updateCellIndentLevels();
+    }
+
+    private isTopLevelRowChanged(): void {
+        this.updateCellIndentLevels();
+    }
+
     private updateCellIndentLevels(): void {
         this.cellIndentLevels = this.columns.map((_, i) => {
             if (i === 0 && this.nestingLevel > 0) {
-                return this.nestingLevel - 1;
+                return this.isParentRow ? this.nestingLevel - 1 : this.nestingLevel;
             }
             return 0;
         });

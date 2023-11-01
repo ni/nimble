@@ -41,7 +41,7 @@ export interface TableRecord {
 }
 
 export interface InternalTableRecord<TRecord extends TableRecord = TableRecord> {
-    subRows?: InternalTableRecord[];
+    subRows?: InternalTableRecord<TRecord>[];
     data: TRecord;
 }
 
@@ -128,6 +128,12 @@ export interface TableRowSelectionEventDetail {
     selectedRecordIds: string[];
 }
 
+export interface TableRowExpandToggleEventDetail {
+    oldState: boolean;
+    newState: boolean;
+    recordId?: string;
+}
+
 /**
  * Event detail type for interactive column configuration changes.
  *
@@ -166,7 +172,8 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     groupRowValue?: unknown;
     isExpanded: boolean;
     isParent: boolean;
+    isTopLevelRow: boolean;
     nestingLevel?: number;
-    leafItemCount?: number;
+    immediateChildCount?: number;
     groupColumn?: TableColumn;
 }
