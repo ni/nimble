@@ -97,8 +97,9 @@ cityChanged(rowId, newValue) {
 
 Open questions:
 
-1. appearance modes
-1. error-visible and error-text
+1. VxD: appearance modes
+1. VxD: error-visible and error-text
+1. VxD: overflow
 1. disable per-row
 1. drop down position
 1. future select APIs like icons, filtering, virtualization
