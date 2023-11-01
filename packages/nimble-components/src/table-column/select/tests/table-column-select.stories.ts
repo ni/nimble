@@ -11,7 +11,6 @@ import {
     sharedTableArgTypes
 } from '../../base/tests/table-column-stories-utils';
 import { tableColumnTextTag } from '../../text';
-import { SelectAppearance } from '../../../select/types';
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Select',
@@ -64,12 +63,7 @@ const simpleData = [
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface SelectColumnTableArgs extends SharedTableArgs {
-    labelFieldName: string;
-    hrefFieldName: string;
-    appearance: keyof typeof SelectAppearance;
-    underlineHidden: boolean;
-}
+interface SelectColumnTableArgs extends SharedTableArgs {}
 
 const selectColumnDescription = 'The `nimble-table-column-select` column is used to display string fields as links or text in the `nimble-table`. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.';
 
@@ -88,10 +82,6 @@ export const selectColumn: StoryObj<SelectColumnTableArgs> = {
             data-unused="${x => x.updateData(x)}"
         >
             <${tableColumnSelectTag}
-                label-field-name="${x => x.labelFieldName}"
-                href-field-name="${x => x.hrefFieldName}"
-                appearance="${x => x.appearance}"
-                ?underline-hidden="${x => x.underlineHidden}"
             >
             Link Column
             </${tableColumnSelectTag}>
@@ -102,37 +92,8 @@ export const selectColumn: StoryObj<SelectColumnTableArgs> = {
             </${tableColumnTextTag}>
         </${tableTag}>
     `),
-    argTypes: {
-        labelFieldName: {
-            name: 'label-field-name',
-            description:
-                'Set this attribute to identify which field in the data record contains the visible text value for each cell in the column. The field values must be of type `string`. If a given row does not define a property with this name, that row will use the url as the label.',
-            options: ['firstName', 'lastName'],
-            control: { type: 'radio' }
-        },
-        hrefFieldName: {
-            name: 'href-field-name',
-            description:
-                'Set this attribute to identify which field in the data record contains the link url for each cell in the column. If the field is not defined in a particular record, that cell will be displayed as plain text instead of a link. The field values must be of type `string`.',
-            control: { type: 'none' }
-        },
-        appearance: {
-            options: Object.keys(SelectAppearance),
-            control: { type: 'radio' },
-            description:
-                'Set to `prominent` to make the select appear in a different color than normal text.'
-        },
-        underlineHidden: {
-            name: 'underline-hidden',
-            defaultValue: { summary: 'false' },
-            description: 'Causes the underline to be hidden except on hover.'
-        }
-    },
+    argTypes: {},
     args: {
-        labelFieldName: 'firstName',
-        hrefFieldName: 'url',
-        appearance: 'default',
-        underlineHidden: false,
         ...sharedTableArgs(simpleData)
     }
 };

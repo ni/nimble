@@ -16,33 +16,14 @@ declare global {
 }
 
 /**
- * A cell view for displaying links
+ * A cell view for displaying nimble-select
  */
 export class TableColumnSelectCellView extends TableCellView<
 TableColumnSelectCellRecord,
 TableColumnSelectColumnConfig
 > {
     /** @internal */
-    @observable
-    public hasOverflow = false;
-
-    /** @internal */
     public select?: Select;
-
-    @volatile
-    public get text(): string {
-        if (typeof this.cellRecord?.label === 'string') {
-            return this.cellRecord.label;
-        }
-        if (typeof this.cellRecord?.href === 'string') {
-            return this.cellRecord.href;
-        }
-        return '';
-    }
-
-    public override focusedRecycleCallback(): void {
-        this.select?.blur();
-    }
 }
 
 const selectCellView = TableColumnSelectCellView.compose({

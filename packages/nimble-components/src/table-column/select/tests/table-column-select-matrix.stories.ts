@@ -9,7 +9,6 @@ import {
 import { tableColumnSelectTag } from '..';
 import { iconUserTag } from '../../../icons/user';
 import { Table, tableTag } from '../../../table';
-import { SelectAppearance } from '../../../select/types';
 import {
     controlLabelFont,
     controlLabelFontColor
@@ -40,30 +39,12 @@ const data = [
     }
 ] as const;
 
-const appearanceStates: [string, string | undefined][] = Object.entries(
-    SelectAppearance
-).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = (typeof appearanceStates)[number];
-
-const underlineHiddenStates: [string, boolean | undefined][] = [
-    ['Underline Hidden', true],
-    ['', undefined]
-];
-type UnderlineHiddenState = (typeof underlineHiddenStates)[number];
-
 // prettier-ignore
-const component = (
-    [appearanceName, appearance]: AppearanceState,
-    [underlineHiddenName, underlineHidden]: UnderlineHiddenState
-): ViewTemplate => html`
-    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">${appearanceName} ${underlineHiddenName} Select Table Column</label>
+const component = (): ViewTemplate => html`
+    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">Select Table Column</label>
     <${tableTag} id-field-name="id" style="height: 300px">
         <${tableColumnSelectTag}
-            label-field-name="firstName"
-            href-field-name="link"
             group-index="0"
-            appearance="${() => appearance}"
-            underline-hidden="${() => underlineHidden}"
         >
             <${iconUserTag}></${iconUserTag}>
         </${tableColumnSelectTag}>
@@ -71,7 +52,7 @@ const component = (
 `;
 
 export const tableColumnSelectThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [appearanceStates, underlineHiddenStates])
+    createMatrix(component)
 );
 
 tableColumnSelectThemeMatrix.play = async (): Promise<void> => {
