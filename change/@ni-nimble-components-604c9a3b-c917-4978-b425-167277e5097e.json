@@ -1,5 +1,5 @@
 {
-  "type": "minor",
+  "type": "patch",
   "comment": "Add a title slot to the nimble-card",
   "packageName": "@ni/nimble-components",
   "email": "35350751+kjohn1922@users.noreply.github.com",
