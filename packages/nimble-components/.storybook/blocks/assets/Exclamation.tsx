@@ -1,4 +1,9 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+import React from 'react';
+interface ExclamationProps extends React.SVGAttributes<SVGElement> {
+  size?: string | number;
+}
+const Exclamation: React.FC<ExclamationProps> = ({ size, ...props }) => (
+  <svg width={size || '32'} height={ size || '32'} viewBox="0 0 32 32" fill="none"
     xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_1604_75286)">
         <path d="M12.7315 23.7454H19.2423V28H12.7315V23.7454ZM12.6201 4L13.3614 21.0849H18.6168L19.3581 4H12.6201Z" fill="#C4000C"/>
@@ -8,4 +13,7 @@
             <rect width="6.73798" height="24" fill="white" transform="translate(12.6201 4)"/>
         </clipPath>
     </defs>
-</svg>
+  </svg>
+);
+Exclamation.displayName = 'Exclamation';
+export default Exclamation;

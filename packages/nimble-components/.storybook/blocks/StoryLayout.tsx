@@ -1,7 +1,7 @@
 import React from 'react';
 import './story-layout.css';
-const checkSVG = './assets/check.svg';
-const exclamationSVG = './assets/exclamation.svg';
+import Check from './assets/Check';
+import Exclamation from './assets/Exclamation';
 
 export const Frame = ({ children }) => {
     return <div className="frame">{children}</div>;
@@ -20,7 +20,7 @@ export const Do = ({ children }) => {
     return (
         <Container>
             <Column size="fit">
-                <img src={checkSVG} width="32px" />
+                <Check size="24px" />
             </Column>
             <Column size="large">{children}</Column>
         </Container>
@@ -31,7 +31,7 @@ export const Dont = ({ children }) => {
     return (
         <Container>
             <Column size="fit">
-                <img src={exclamationSVG} width="32px" />
+                <Exclamation size="24px" />
             </Column>
             <Column size="large">{children}</Column>
         </Container>

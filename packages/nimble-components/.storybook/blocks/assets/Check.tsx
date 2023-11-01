@@ -1,0 +1,12 @@
+import React from 'react';
+interface CheckProps extends React.SVGAttributes<SVGElement> {
+  size?: string | number;
+}
+const Check: React.FC<CheckProps> = ({ size, ...props }) => (
+    <svg width={size || '32'} height={ size || '32'} viewBox="0 0 32 32" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M28 9.13502L11.636 25.501L4 17.863L7.272 14.599L11.772 19.099L24.864 5.99902L28 9.13502Z" fill="#00C12B"/>
+    </svg>
+);
+Check.displayName = 'Check';
+export default Check;
