@@ -77,6 +77,7 @@ describe('NimbleTableColumnNumberText', () => {
                         grouping-disabled
                         format="${NumberTextFormat.decimal}"
                         decimal-digits="6"
+                        decimal-maximum-digits="7"
                         alignment="${NumberTextAlignment.left}"
                     ></nimble-table-column-number-text>
                 </nimble-table>
@@ -171,6 +172,11 @@ describe('NimbleTableColumnNumberText', () => {
             expect(directive.decimalDigits).toBe(6);
             expect(nativeElement.decimalDigits).toBe(6);
         });
+
+        it('will use template string values for decimalMaximumDigits', () => {
+            expect(directive.decimalMaximumDigits).toBe(7);
+            expect(nativeElement.decimalMaximumDigits).toBe(7);
+        });
     });
 
     describe('with property bound values', () => {
@@ -192,6 +198,7 @@ describe('NimbleTableColumnNumberText', () => {
                         [grouping-disabled]="groupingDisabled"
                         [format]="format"
                         [decimal-digits]="decimalDigits"
+                        [decimal-maximum-digits]="decimalMaximumDigits"
                         [alignment]="alignment"
                     ></nimble-table-column-number-text>
                 </nimble-table>
@@ -213,6 +220,7 @@ describe('NimbleTableColumnNumberText', () => {
             public groupingDisabled = false;
             public format: NumberTextFormat = NumberTextFormat.decimal;
             public decimalDigits: number | null = 9;
+            public decimalMaximumDigits: number | null = 10;
             public alignment: NumberTextAlignment = NumberTextAlignment.left;
         }
 
@@ -439,6 +447,28 @@ describe('NimbleTableColumnNumberText', () => {
             expect(directive.decimalDigits).toBeNull();
             expect(nativeElement.decimalDigits).toBeNull();
         });
+
+        it('can be configured with property binding for decimalMaximumDigits', () => {
+            expect(directive.decimalMaximumDigits).toBe(10);
+            expect(nativeElement.decimalMaximumDigits).toBe(10);
+
+            fixture.componentInstance.decimalMaximumDigits = 7;
+            fixture.detectChanges();
+
+            expect(directive.decimalMaximumDigits).toBe(7);
+            expect(nativeElement.decimalMaximumDigits).toBe(7);
+        });
+
+        it('can be configured with property binding for decimalMaximumDigits updated to null', () => {
+            expect(directive.decimalMaximumDigits).toBe(10);
+            expect(nativeElement.decimalMaximumDigits).toBe(10);
+
+            fixture.componentInstance.decimalMaximumDigits = null;
+            fixture.detectChanges();
+
+            expect(directive.decimalMaximumDigits).toBeNull();
+            expect(nativeElement.decimalMaximumDigits).toBeNull();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -460,6 +490,7 @@ describe('NimbleTableColumnNumberText', () => {
                         [attr.grouping-disabled]="groupingDisabled"
                         [attr.format]="format"
                         [attr.decimal-digits]="decimalDigits"
+                        [attr.decimal-maximum-digits]="decimalMaximumDigits"
                         [attr.alignment]="alignment"
                     ></nimble-table-column-number-text>
                 </nimble-table>
@@ -481,6 +512,7 @@ describe('NimbleTableColumnNumberText', () => {
             public groupingDisabled = false;
             public format: NumberTextFormat = NumberTextFormat.decimal;
             public decimalDigits: number | null = 9;
+            public decimalMaximumDigits: number | null = 10;
             public alignment: NumberTextAlignment = NumberTextAlignment.left;
         }
 
@@ -704,11 +736,33 @@ describe('NimbleTableColumnNumberText', () => {
             expect(directive.decimalDigits).toBe(9);
             expect(nativeElement.decimalDigits).toBe(9);
 
-            fixture.componentInstance.decimalDigits = 7;
+            fixture.componentInstance.decimalDigits = null;
             fixture.detectChanges();
 
-            expect(directive.decimalDigits).toBe(7);
-            expect(nativeElement.decimalDigits).toBe(7);
+            expect(directive.decimalDigits).toBeNull();
+            expect(nativeElement.decimalDigits).toBeNull();
+        });
+
+        it('can be configured with property binding for decimalMaximumDigits', () => {
+            expect(directive.decimalMaximumDigits).toBe(10);
+            expect(nativeElement.decimalMaximumDigits).toBe(10);
+
+            fixture.componentInstance.decimalMaximumDigits = 7;
+            fixture.detectChanges();
+
+            expect(directive.decimalMaximumDigits).toBe(7);
+            expect(nativeElement.decimalMaximumDigits).toBe(7);
+        });
+
+        it('can be configured with property binding for decimalMaximumDigits updated to null', () => {
+            expect(directive.decimalMaximumDigits).toBe(10);
+            expect(nativeElement.decimalMaximumDigits).toBe(10);
+
+            fixture.componentInstance.decimalMaximumDigits = null;
+            fixture.detectChanges();
+
+            expect(directive.decimalMaximumDigits).toBeNull();
+            expect(nativeElement.decimalMaximumDigits).toBeNull();
         });
     });
 });

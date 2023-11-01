@@ -124,7 +124,6 @@ mode is \`single\`, only the first record that exists in the table's data will b
 
 const metadata: Meta<TableArgs> = {
     title: 'Components/Table',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
         docs: {

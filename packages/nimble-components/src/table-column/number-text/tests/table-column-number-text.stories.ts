@@ -77,6 +77,7 @@ interface NumberTextColumnTableArgs extends SharedTableArgs {
     format: keyof typeof NumberTextFormat;
     alignment: keyof typeof NumberTextAlignment;
     decimalDigits: number;
+    decimalMaximumDigits: number;
     checkValidity: () => void;
     validity: () => void;
 }
@@ -94,7 +95,7 @@ const formatDescription = `Configures the way that the numeric value is formatte
     <ul>
         <li>\`default\`: Integers are shown with no trailing zeros, the value is limited to 6 digits, and exponential notation is used for numbers that are large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude.
         </li>
-        <li>\`decimal\`: Values as are formatted as decimal values, always displaying \`decimal-digits\` digits after the separator and never displaying exponential notation. Setting \`decimal-digits\` to \`0\`
+        <li>\`decimal\`: Values as are formatted as decimal values, with a number of digits after the separator dictated by \`decimal-digits\` or \`decimal-maximum-digits\`, and never displaying exponential notation. Setting \`decimal-digits\` to \`0\`
         will display the value as an integer without a decimal separator.
         </li>
     </ul>
@@ -104,6 +105,8 @@ const formatDescription = `Configures the way that the numeric value is formatte
 const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
 The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
 -   \`invalidDecimalDigits\`: \`true\` when \`format\` is configured to \`decimal\` and \`decimal-digits\` is set to a number less than 0 or greater than 20.
+-   \`invalidDecimalMaximumDigits\`: \`true\` when \`format\` is configured to \`decimal\` and \`decimal-maximum-digits\` is set to a number less than 0 or greater than 20.
+-   \`decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits\`: \`true\` when \`format\` is configured to \`decimal\` and both \`decimal-digits\` and \`decimal-maximum-digits\` are set.
 `;
 
 const alignmentDescription = `Configures the alignment of the value within the column.
@@ -113,11 +116,11 @@ To improve the ability for users to visually scan values, applications should se
 <details>
     <summary>Default Alignment</summary>
 
-    The default alignment of the value depends on the column's format.
+    The default alignment of the value depends on the column's configuration.
     <ul>
         <li>\`default\` format: Values are left-aligned.
         </li>
-        <li>\`decimal\` format: Values are right-aligned.
+        <li>\`decimal\` format: Values are left-aligned if \`decimal-maximum-digits\` is set, otherwise right-aligned.
         </li>
     </ul>
 </details>
@@ -143,10 +146,10 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             <${tableColumnTextTag} field-name="lastName">
                 Last Name
             </${tableColumnTextTag}>
-            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}">
+            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
                 Age
             </${tableColumnNumberTextTag}>
-            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}">
+            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
                 Favorite Number
             </${tableColumnNumberTextTag}>
         </${tableTag}>
@@ -171,7 +174,16 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         decimalDigits: {
             name: 'decimal-digits',
             description:
-                "The number of decimal places to format values to when the column's `format` is configured to be `decimal`. When not configured, a default value of `2` is used. The value must be in the range 0 - 20 (inclusive)."
+                "The number of decimal places to format values to when the column's `format` is configured to be `decimal`. If neither `decimal-digits` or `decimal-maximum-digits` are set, a default value of `2` is used. `decimal-digits` and `decimal-maximum-digits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).",
+            options: [undefined, 0, 1, 2, 3],
+            control: { type: 'select' }
+        },
+        decimalMaximumDigits: {
+            name: 'decimal-maximum-digits',
+            description:
+                "The maximum number of decimal places to format values to when the column's `format` is configured to be `decimal`. This differs from `decimal-digits` in that trailing zeros are omitted. `decimal-digits` and `decimal-maximum-digits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).",
+            options: [undefined, 0, 1, 2, 3, 20],
+            control: { type: 'select' }
         },
         checkValidity: {
             name: 'checkValidity()',
@@ -183,8 +195,10 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         }
     },
     args: {
+        fieldName: undefined,
         format: 'default',
         alignment: 'default',
-        decimalDigits: 2
+        decimalDigits: 2,
+        decimalMaximumDigits: undefined
     }
 };
