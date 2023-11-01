@@ -23,7 +23,6 @@ When to use:
 When not to use:
 
 -   When all the allowed values can be included in the list of options
-
 -   When there are fewer than three options
 -   For complex and/or hierarchical data
 -   For multi selection
@@ -82,23 +81,9 @@ The client-user should be able to specify whether they want left icons on list o
 
 The client-user should be able to create groups for list options. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
 
-> NOTE: NEEDS VISUAL DESIGN
-
-The client should be able to specify whether they want the group name to be visible on the component when the dropdown is closed.
-
-![ ](spec-images/combobox-26.png)
-
 #### Secondary Text
 
 The client-user should be able to specify whether they want secondary text on list options or not. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
-
-#### Prefix & Suffix
-
-> NOTE: NEEDS VISUAL DESIGN
-
-The client-user should be able to specify a prefix and/or suffix that appears in the field.
-
-![ ](spec-images/combobox-3.png)
 
 #### Autocomplete
 
@@ -107,6 +92,10 @@ The client-user should be able to specify autocomplete behavior (inline, list, b
 > NOTE: WE SHOULD PROVIDE DOCUMENTED GUIDANCE THIS FOR CLIENTS
 
 When autocomplete is set to "list", it should filter dropdown options based on matching any text. When autocomplete is set to "inline" or "both", it should autocomplete (and filter) dropdown options based on matching the beginning of text.
+
+#### Error State
+
+The client-user should be able to put the select component into an error state. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
 
 ### Behavior
 
@@ -167,10 +156,6 @@ When the dropdown is open, clicking anywhere outside of a list option and the te
 If the combobox allows autocomplete, typing in the field input will show list options matching the typed value in the field and/or in the dropdown. The input field autocompletes the first matching list option. The dropdown indicates selection on the first matching list option.
 
 ![ ](spec-images/combobox-13.png)
-
-Typing text that does not match any existing list options either allows the end-user to add a new list option to the dropdown or not (see Future Considerations).
-
-![ ](spec-images/combobox-16.png)
 
 ### Keyboard Interactions
 
@@ -239,3 +224,4 @@ From a focused list option, `DOWN ARROW` or `UP ARROW` moves focus and selects t
 
 -   Helper text for input components (where it should be located, how it should be accessed).
 -   Do clients want an "Add new" list option option? Do we want to document how clients might show an "Add new" list option indicator in the dropdown?
+-   Does the client-user need to be able to specify a prefix and/or suffix that appears in the field?
