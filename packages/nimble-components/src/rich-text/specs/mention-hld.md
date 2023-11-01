@@ -226,8 +226,6 @@ _Props/Attrs_
 
 -   `pattern` - is a string attribute that gets the regex pattern to match the `mention-href` in the mapping element. Exactly similar to
     HTML attribute: [pattern](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern).
--   `mentioned-hrefs` - is a read-only property that returns an array of strings representing the mentioned user URL (`mention-href` property value of
-    the user mapping element) in the current state of the editor.
 -   `validity` - is a read-only object of boolean values that represents the validity state that the `@mention` configuration can be. The object type
     is `RichTextMentionValidity`. The validation is especially for mapping the user details that are provided via the
     `nimble-mapping-mention-user`. For example, if the client application provides the duplicate `mention-href` values that store the user ID, it will be an
@@ -263,6 +261,8 @@ _Events_
 _Methods_
 
 -   `checkValidity()` - this returns `true` if the configuration of the `@mention` mapping data is valid and `false` otherwise.
+-   `getMentionedHrefs()` - this returns an array of strings representing the mentioned user URL (`mention-href` property value of
+    the user mapping element) in the current state of the editor.
 
 #### User mapping element (Non-visible configuration element):
 
@@ -391,7 +391,7 @@ Below is an example of how the client application can be used to provide the `ni
 #### Client Usage Guidance on Filtered Users:
 
 The client application should either parse the markdown string and get the user Href that match the [markdown string of `@mention`](#2-markdown-format)
-to identify what are all the mentioned users or utilize the `mentioned-hrefs` read-only property in `nimble-rich-text-mention-users` that
+to identify what are all the mentioned users or utilize the `getMentionedHrefs()` method from `nimble-rich-text-mention-users` that
 stores the Href of the mentioned users in an array while creating a comment or adding a description in the editor to identify the mentioned users
 in the markdown string. Once all the user IDs are identified, it is enough to provide the user details only for the identified users
 through the `nimble-mapping-mention-user`. For example, if the markdown string contains only two `@mention` users namely 'Bob Jones'
@@ -554,7 +554,7 @@ The example markdown string constructed for the below DOM element rendered in th
 >
 ```
 
-The `mentioned-hrefs` read-only property, as described in the [API section of the editor](./README.md#api), will undergo an update within the
+The `getMentionedHrefs()` method, as described in the [API section of the editor](./README.md#api), will undergo an update within the
 mentionNode. This update involves extracting the hrefs that matches the pattern specified in the configuration element and
 then pushing them to an array.
 
@@ -565,7 +565,7 @@ An abstract base class, `RichTextMention`, is defined as the parent for all elem
 1. `character`: string - is a specific symbol to trigger the mention popup. For user mention, it is **"@"**.
 2. `icon`: string - element name of the icon for the corresponding toolbar button.
 
-The base class should also contain the `mentioned-hrefs` read-only property to get the mentioned users list in the current state of the editor.
+The base class should also contain the `getMentionedHrefs()` method to get the mentioned users list in the current state of the editor.
 
 The `nimble-rich-text-mention-users` is a subclass derived from the base class and provides the essential values for the properties mentioned above,
 specifically tailored for user mentions. These values are kept as part of the `MentionInternals` and will be utilized by various components
