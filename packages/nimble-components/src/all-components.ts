@@ -15,6 +15,7 @@ import './banner';
 import './breadcrumb';
 import './breadcrumb-item';
 import './button';
+import './card';
 import './card-button';
 import './checkbox';
 import './combobox';

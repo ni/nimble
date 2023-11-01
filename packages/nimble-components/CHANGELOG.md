@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 26 Oct 2023 18:19:11 GMT and should not be manually modified.
+This log was last generated on Wed, 01 Nov 2023 16:39:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.11.0
+
+Wed, 01 Nov 2023 16:39:22 GMT
+
+### Minor changes
+
+- Add an incubating `nimble-card` component ([ni/nimble@0049146](https://github.com/ni/nimble/commit/0049146975bb1b131394e2891fdafd40168d3ea4))
+
+## 20.10.3
+
+Wed, 01 Nov 2023 15:14:29 GMT
+
+### Patches
+
+- Update dependency @types/markdown-it to v13 ([ni/nimble@419b889](https://github.com/ni/nimble/commit/419b88960e85b0c666e7cbc57f0b78f712e2e5d4))
 
 ## 20.10.2
 
