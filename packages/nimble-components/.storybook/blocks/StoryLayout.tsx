@@ -1,8 +1,7 @@
-// .storybook/blocks/StoryName.jsx
 import React from 'react';
 import './story-layout.css';
-import checkSVG from './assets/check.svg';
-import exclamationSVG from './assets/exclamation.svg';
+const checkSVG = './assets/check.svg';
+const exclamationSVG = './assets/exclamation.svg';
 
 export const Frame = ({ children }) => {
     return <div className="frame">{children}</div>;
