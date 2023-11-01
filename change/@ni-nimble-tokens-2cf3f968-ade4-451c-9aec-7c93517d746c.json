@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "New icon for @mention",
+  "packageName": "@ni/nimble-tokens",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
