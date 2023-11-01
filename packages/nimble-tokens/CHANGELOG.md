@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Mon, 23 Oct 2023 14:17:52 GMT and should not be manually modified.
+This log was last generated on Wed, 01 Nov 2023 20:45:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.7.0
+
+Wed, 01 Nov 2023 20:45:20 GMT
+
+### Minor changes
+
+- New icon for @mention ([ni/nimble@5a8fe73](https://github.com/ni/nimble/commit/5a8fe731b494042bc8a5cf060338a05208e1075d))
 
 ## 6.6.0
 
