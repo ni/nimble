@@ -102,6 +102,8 @@ Open questions:
 1. disable per-row
 1. drop down position
 1. future select APIs like icons, filtering, virtualization
+1. row could move as a result of value change if it's being sorted/grouped
+1. grouping for display value case. OK to group same display value even if different options?
 
 _Describe the design of the component, thinking through several perspectives:_
 
