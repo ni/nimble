@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add an incubating `nimble-card` component",
-  "packageName": "@ni/nimble-components",
-  "email": "35350751+kjohn1922@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
