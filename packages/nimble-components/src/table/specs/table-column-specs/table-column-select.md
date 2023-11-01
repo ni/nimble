@@ -1,4 +1,4 @@
-# Nimble Component Name [Template]
+# Nimble Table Column Select
 
 ## Overview
 
@@ -30,6 +30,78 @@ _Screenshots and/or links to existing, canonical, or exemplary implementations o
 ---
 
 ## Design
+
+```html
+<nimble-table id-field-name="rowId">
+    <nimble-table-column-text field-name="name">Name</nimble-table-column-text>
+
+    <nimble-table-column-select
+        mode="static"
+        field-name="country"
+        onchange="countryChanged()"
+    >
+        Country
+        <nimble-list-option value="1">USA</nimble-list-option>
+        <nimble-list-option value="2">Canada</nimble-list-option>
+        <nimble-list-option value="3">Mexico</nimble-list-option>
+        <nimble-list-option value="4" disabled>N/A</nimble-list-option>
+    </nimble-table-column-select>
+
+    <nimble-table-column-select
+        mode="dynamic"
+        display-field-name="city"
+        is-selected-item-disabled-field-name="selectedItemDisabled"
+        beforeselectopen="populateCities()"
+        onchange="cityChanged()"
+    >
+        City
+    </nimble-table-column-select>
+</nimble-table>
+```
+
+```ts
+const data = [
+    { rowId=1, country: 1, city: 'Chicago' },
+    { rowId=2, country: 2, city: 'Winnipeg' },
+    { rowId=3, country: 1, city: 'Austin' },
+    { rowId=4, country: 3, city: 'Guadalajara' },
+];
+
+countryChanged(rowId, newValue) {
+    const rowIndex = this.data.findIndex(x => x.rowId === rowId);
+    this.data[rowIndex].country = newValue;
+    this.data[rowIndex].city = '';
+    this.table.setData(this.data);
+}
+
+populateOptions(rowId, select: NimbleSelect) {
+    const country = getCountryForRow(rowId);
+    let cities = [];
+    if (country === countries.USA) {
+        cities = ['Chicago', 'New York', 'Austin'];
+    } else if (country === countries.Canada) {
+        cities = ['Winnipeg', 'Victoria'];
+    } else if (country = countries.Mexico) {
+        cities = ['Guadalajara', 'Mexico City'];
+    }
+    createListOptionChildren(select, cities);
+}
+
+cityChanged(rowId, newValue) {
+    const rowIndex = this.data.findIndex(x => x.rowId === rowId);
+    this.data[rowIndex].city = newValue;
+    this.table.setData(this.data);
+}
+
+```
+
+Open questions:
+
+1. appearance modes
+1. error-visible and error-text
+1. disable per-row
+1. drop down position
+1. future select APIs like icons, filtering, virtualization
 
 _Describe the design of the component, thinking through several perspectives:_
 
