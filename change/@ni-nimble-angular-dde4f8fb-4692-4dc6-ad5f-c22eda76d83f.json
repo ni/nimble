@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Prevent navigation due to routerLink directive when host is disabled",
-  "packageName": "@ni/nimble-angular",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
