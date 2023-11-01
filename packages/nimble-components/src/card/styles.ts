@@ -6,7 +6,8 @@ import {
     borderColor,
     borderWidth,
     sectionBackgroundColor,
-    standardPadding
+    standardPadding,
+    titleFont
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -20,5 +21,13 @@ export const styles = css`
         font: ${bodyFont};
         color: ${bodyFontColor};
         background-color: ${sectionBackgroundColor};
+    }
+
+    ::slotted([slot='title']) {
+        font: ${titleFont};
+    }
+
+    section {
+        display: contents;
     }
 `;
