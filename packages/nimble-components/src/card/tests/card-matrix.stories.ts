@@ -1,6 +1,5 @@
 import { ViewTemplate, html } from '@microsoft/fast-element';
 import type { Meta, StoryFn } from '@storybook/html';
-import { standardPadding } from '../../theme-provider/design-tokens';
 import {
     createMatrix,
     sharedMatrixParameters
