@@ -1,33 +1,33 @@
 import { observable, volatile } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type {
-    TableColumnAnchorCellRecord,
-    TableColumnAnchorColumnConfig
+    TableColumnSelectCellRecord,
+    TableColumnSelectColumnConfig
 } from '..';
-import type { Anchor } from '../../../anchor';
+import type { Select } from '../../../select';
 import { TableCellView } from '../../base/cell-view';
 import { styles } from './styles';
 import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-anchor-cell-view': TableColumnAnchorCellView;
+        'nimble-table-column-select-cell-view': TableColumnSelectCellView;
     }
 }
 
 /**
  * A cell view for displaying links
  */
-export class TableColumnAnchorCellView extends TableCellView<
-TableColumnAnchorCellRecord,
-TableColumnAnchorColumnConfig
+export class TableColumnSelectCellView extends TableCellView<
+TableColumnSelectCellRecord,
+TableColumnSelectColumnConfig
 > {
     /** @internal */
     @observable
     public hasOverflow = false;
 
     /** @internal */
-    public anchor?: Anchor;
+    public select?: Select;
 
     @volatile
     public get text(): string {
@@ -41,16 +41,16 @@ TableColumnAnchorColumnConfig
     }
 
     public override focusedRecycleCallback(): void {
-        this.anchor?.blur();
+        this.select?.blur();
     }
 }
 
-const anchorCellView = TableColumnAnchorCellView.compose({
-    baseName: 'table-column-anchor-cell-view',
+const selectCellView = TableColumnSelectCellView.compose({
+    baseName: 'table-column-select-cell-view',
     template,
     styles
 });
-DesignSystem.getOrCreate().withPrefix('nimble').register(anchorCellView());
-export const tableColumnAnchorCellViewTag = DesignSystem.tagFor(
-    TableColumnAnchorCellView
+DesignSystem.getOrCreate().withPrefix('nimble').register(selectCellView());
+export const tableColumnSelectCellViewTag = DesignSystem.tagFor(
+    TableColumnSelectCellView
 );

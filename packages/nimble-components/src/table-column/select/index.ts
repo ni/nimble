@@ -7,14 +7,14 @@ import { TableColumnSortOperation } from '../base/types';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import type { TableStringField } from '../../table/types';
-import { tableColumnAnchorCellViewTag } from './cell-view';
+import { tableColumnSelectCellViewTag } from './cell-view';
 import { tableColumnTextGroupHeaderViewTag } from '../text/group-header-view';
-import type { AnchorAppearance } from '../../anchor/types';
+import type { SelectAppearance } from '../../select/types';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 
-export type TableColumnAnchorCellRecord = TableStringField<'label' | 'href'>;
-export interface TableColumnAnchorColumnConfig {
-    appearance: AnchorAppearance;
+export type TableColumnSelectCellRecord = TableStringField<'label' | 'href'>;
+export interface TableColumnSelectColumnConfig {
+    appearance: SelectAppearance;
     underlineHidden?: boolean;
     hreflang?: string;
     ping?: string;
@@ -27,15 +27,15 @@ export interface TableColumnAnchorColumnConfig {
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-anchor': TableColumnAnchor;
+        'nimble-table-column-select': TableColumnSelect;
     }
 }
 
 /**
- * A table column for displaying links.
+ * A table column for displaying a select allowing the user to choose between options.
  */
-export class TableColumnAnchor extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(TableColumn<TableColumnAnchorColumnConfig>)
+export class TableColumnSelect extends mixinGroupableColumnAPI(
+    mixinFractionalWidthColumnAPI(TableColumn<TableColumnSelectColumnConfig>)
 ) {
     @attr({ attribute: 'label-field-name' })
     public labelFieldName?: string;
@@ -44,7 +44,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     public hrefFieldName?: string;
 
     @attr
-    public appearance?: AnchorAppearance;
+    public appearance?: SelectAppearance;
 
     @attr({ attribute: 'underline-hidden', mode: 'boolean' })
     public underlineHidden = false;
@@ -73,7 +73,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['label', 'href'],
-            cellViewTag: tableColumnAnchorCellViewTag,
+            cellViewTag: tableColumnSelectCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: ['click'],
             sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
@@ -146,13 +146,13 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     }
 }
 
-const nimbleTableColumnAnchor = TableColumnAnchor.compose({
-    baseName: 'table-column-anchor',
+const nimbleTableColumnSelect = TableColumnSelect.compose({
+    baseName: 'table-column-select',
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
-    .register(nimbleTableColumnAnchor());
-export const tableColumnAnchorTag = DesignSystem.tagFor(TableColumnAnchor);
+    .register(nimbleTableColumnSelect());
+export const tableColumnSelectTag = DesignSystem.tagFor(TableColumnSelect);

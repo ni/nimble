@@ -9,7 +9,7 @@ export const styles = css`
         align-self: center;
     }
 
-    nimble-anchor {
+    nimble-select {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

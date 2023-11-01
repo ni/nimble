@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/indent */
 import { html, ref, when } from '@microsoft/fast-element';
-import type { TableColumnAnchorCellView } from '.';
-import { anchorTag } from '../../../anchor';
+import type { TableColumnSelectCellView } from '.';
+import { selectTag } from '../../../select';
 import { overflow } from '../../../utilities/directive/overflow';
 
 // prettier-ignore
-export const template = html<TableColumnAnchorCellView>`
+export const template = html<TableColumnSelectCellView>`
     <template
         @click="${(x, c) => {
             if (typeof x.cellRecord?.href === 'string') {
@@ -14,9 +14,9 @@ export const template = html<TableColumnAnchorCellView>`
             return true;
         }}"
     >
-        ${when(x => typeof x.cellRecord?.href === 'string', html<TableColumnAnchorCellView>`
-            <${anchorTag}
-                ${ref('anchor')}
+        ${when(x => typeof x.cellRecord?.href === 'string', html<TableColumnSelectCellView>`
+            <${selectTag}
+                ${ref('select')}
                 ${overflow('hasOverflow')}
                 href="${x => x.cellRecord?.href}"
                 hreflang="${x => x.columnConfig?.hreflang}"
@@ -31,8 +31,8 @@ export const template = html<TableColumnAnchorCellView>`
                 title=${x => (x.hasOverflow ? x.text : null)}
             >
                 ${x => x.text}
-            </${anchorTag}>`)}
-        ${when(x => typeof x.cellRecord?.href !== 'string', html<TableColumnAnchorCellView>`
+            </${selectTag}>`)}
+        ${when(x => typeof x.cellRecord?.href !== 'string', html<TableColumnSelectCellView>`
             <span
                 ${overflow('hasOverflow')}
                 title=${x => (x.hasOverflow ? x.text : null)}
