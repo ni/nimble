@@ -38,7 +38,8 @@ export const parameters = {
     docs: {
         source: {
             transform: transformSource
-        }
+        },
+        toc: { headingSelector: 'h1, h2, h3' }
     }
 };
 
