@@ -191,6 +191,11 @@ The client can listen to this event, filter the list of users that includes the 
 update the `nimble-mapping-mention-user` element based on the filter data. Subsequently, a maximum of 20 filtered options should be
 transmitted to the editor.
 
+The `mention-update` event will also be triggered when a user copies a mention node from the viewer/editor and pasting it in the editor,
+client should read the `getMentionedHrefs()` method to identify the user URL(s) are being pasted into the editor so that the mapping
+elements can be sent as a children. This is necessary because the corresponding name for the newly added user URL(s) is required to
+render as username(s) in the components so the client should send the mapping elements for all mentioned users.
+
 Since the above event triggers for every key down event like adding/removing texts, move the text cursors after the `@` character which is quite an
 expensive operation to perform for every keystroke so it is advisable to `debounce` the events if you're using network requests to perform the
 filtering operations. Like, allow at most one request per second to filter the list for each second instead of for each keystrokes.
@@ -247,6 +252,7 @@ _Events_
     1. When a user inserts the character (e.g., `@`) into the editor, which activates the mention popup.
     2. When a user adds or removes text after inserting the mention character into the editor.
     3. When a user repositions the cursor between the text segments added after the mention character.
+    4. When a user copies a rich text content containing mention nodes either from viewer or from editor and pastes it in editor.
 
     Refer the [accessibility](#accessibility) section to know more details about when it is required to emit the event for performing the filtering in the client application.
 
@@ -288,8 +294,10 @@ Different copying and pasting behaviors of the user mention view node:
 
 1.  Copying an `@mention` name from the viewer and pasting it into the editor should result in the appearance of the same mention node.
 2.  When copying an `@mention` name from the editor and pasting it into the editor should result in the appearance of the same mention node.
-3.  If a portion of an `@mention` name from the viewer is copied and pasted into the editor, it should still render as a complete mention node with the entire name.
+3.  If a portion of an `@mention` name from the viewer is copied and pasted into the editor, it should render only part of the text which was copied from mention node.
 4.  Copying only a portion of an `@mention` name from the editor is not possible, as the entire name will always be selected. The copy-and-paste behavior will be the same as point 2.
+5.  When copying an `@mention` node from viewer which has a different `pattern` or no configuration element available in the child when pasting into the editor, the corresponding URL will
+    rendered as links in the editor. Later, when config elements were added or `pattern` updates, links matching with the pattern will render as mention node.
 
 _Component Name_
 

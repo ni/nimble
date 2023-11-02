@@ -40,7 +40,8 @@ Both components provide support for the following basic text formatting options:
 4. Bulleted List
 5. Absolute URL links
     1. Supports only [absolute URI as per common mark spec](https://spec.commonmark.org/0.30/#absolute-uri) with valid [schemes](https://spec.commonmark.org/0.30/#scheme).
-    2. In the initial release, we will provide support for `HTTP` and `HTTPS` schemes only. Depending on future requirements, we may extend support to include other schemes as well. To summarize:
+    2. In the initial release, we will provide support for `HTTP` and `HTTPS` schemes only but in markdown will preserve as an
+    [autolink](https://spec.commonmark.org/0.30/#autolink). Depending on future requirements, we may extend support to include other schemes as well to render as links. To summarize:
         1. Supports `<https://www.ni.com>` as a valid markdown syntax for an absolute link
         2. Any other syntaxes like `https://www.ni.com` and `[NI Homepage](https://www.ni.com)` will not be supported for initial release
     3. [Tiptap's link extension](https://tiptap.dev/api/marks/link) provides various configurations to
@@ -371,11 +372,10 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 
 Install the [link extension](https://tiptap.dev/api/marks/link) mark from Tiptap and initialize the `Links` with the following configurations:
 
-1.  Set regular expression in [validate](https://tiptap.dev/api/marks/link#validate) field to support only `HTTP` and `HTTPS` absolute links in the editor.
-2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to `false` for the editor, to restrict the user from opening a link from the editor by clicking. Users can open the link only by
+1.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to `false` for the editor, to restrict the user from opening a link from the editor by clicking. Users can open the link only by
     `Right-click >> Open link in new tab` from the editor.
-3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to `true`, to add the valid link automatically when typing.
-4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to `false` which will attach the URL to current selected text in the editor, converting it into a hyperlink. If it is `true`,
+2.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to `true`, to add the valid link automatically when typing.
+3.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to `false` which will attach the URL to current selected text in the editor, converting it into a hyperlink. If it is `true`,
     pasting a link to the selection will add the link behind the word which is not supported for the initial pass.
 
 The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
@@ -383,7 +383,7 @@ The `nimble-rich-text-viewer` will be responsible for converting the input markd
 
 For the `nimble-rich-text-viewer` component, we will set up the `link` mark in the Prosemirror schema as below, allowing links in the component to open with default behavior (same tab).
 
-Only links with schema HTTP and HTTPS will be treated as links within `nimble-rich-text-editor` and `nimble-rich-text-viewer` and rest of the links with any other schemas will be rendered as plain text. Note that APIs `setMarkdown()` of editor and `markdown` of viewer will have necessary validation mechanisms to ensure this schema restriction.
+Only links with schema HTTP and HTTPS will be rendered as links within `nimble-rich-text-editor` and `nimble-rich-text-viewer` and rest of the links with any other schemas will be rendered as links but with no `href` attribute. Note that APIs `setMarkdown()` of editor and `markdown` of viewer will have necessary validation mechanisms to ensure this scheme restriction in rendering the link in editor and viewer.
 
 Here is the default [link configuration](https://github.com/ProseMirror/prosemirror-markdown/blob/b7c1fd2fb74c7564bfe5428c7c8141ded7ebdd9f/src/schema.ts#L138C5-L148C6)
 from the `prosemirror-markdown` package for comparison with the newly updated configuration.
