@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 01 Nov 2023 20:45:20 GMT and should not be manually modified.
+This log was last generated on Wed, 01 Nov 2023 22:35:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.8.5
+
+Wed, 01 Nov 2023 22:35:50 GMT
+
+### Patches
+
+- Prevent navigation due to routerLink directive when host is disabled ([ni/nimble@37fa96e](https://github.com/ni/nimble/commit/37fa96eb5b5512961aa272e3b3aada07a6ee39df))
 
 ## 17.8.4
 
