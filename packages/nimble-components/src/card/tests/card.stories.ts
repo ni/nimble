@@ -2,6 +2,7 @@ import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
+    disableStorybookZoomTransform,
     incubatingWarning
 } from '../../utilities/tests/storybook';
 import { listOptionTag } from '../../list-option';
@@ -28,6 +29,7 @@ const metadata: Meta<CardArgs> = {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
+    ${disableStorybookZoomTransform}
     ${incubatingWarning({
         componentName: 'card',
         statusLink: 'https://github.com/ni/nimble/issues/296'

@@ -24,12 +24,12 @@ export const styles = css`
         background-color: ${sectionBackgroundColor};
     }
 
+    section {
+        display: contents;
+    }
+
     ::slotted([slot='title']) {
         font: ${titleFont};
         color: ${titleFontColor};
-    }
-
-    section {
-        display: contents;
     }
 `;
