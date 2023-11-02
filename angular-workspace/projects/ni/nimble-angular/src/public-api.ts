@@ -34,8 +34,6 @@ export * from './directives/breadcrumb-item/nimble-breadcrumb-item.directive';
 export * from './directives/breadcrumb-item/nimble-breadcrumb-item.module';
 export * from './directives/button/nimble-button.directive';
 export * from './directives/button/nimble-button.module';
-export * from './directives/card/nimble-card.directive';
-export * from './directives/card/nimble-card.module';
 export * from './directives/card-button/nimble-card-button.directive';
 export * from './directives/card-button/nimble-card-button.module';
 export * from './directives/checkbox/nimble-checkbox-control-value-accessor.directive';
