@@ -1,4 +1,4 @@
-import { children, elements, html, ref, repeat } from '@microsoft/fast-element';
+import { children, elements, html, ref, repeat, ViewTemplate } from '@microsoft/fast-element';
 import type { MentionDetail, RichTextEditor } from '.';
 import { toolbarTag } from '../../toolbar';
 import { toggleButtonTag } from '../../toggle-button';
@@ -16,8 +16,7 @@ import { errorTextTemplate } from '../../patterns/error/template';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 import { anchoredRegionTag } from '../../anchored-region';
 import { buttonTag } from '../../button';
-import { listOptionTag } from '../../list-option';
-import type { UserInfo } from './enum-text';
+import type { ListOption } from '../../list-option';
 import { mentionBoxTag } from './nimble-rich-text-mention-list-box';
 
 // prettier-ignore
@@ -125,9 +124,7 @@ export const template = html<RichTextEditor>`
             filter="${x => x.filter}"
             @change=${(x, c) => x.mentionChange(c.event as CustomEvent<MentionDetail>)}
             >    
-                ${repeat(x => x.userList, html<UserInfo>`
-                        <${listOptionTag} value="${x => x.url}">${x => x.value}</${listOptionTag}>
-                        `)}
+                ${repeat(x => x.userList, html<ViewTemplate<ListOption>>`${x => x}`)}
             </${mentionBoxTag}>
         </${anchoredRegionTag}>
     </template>

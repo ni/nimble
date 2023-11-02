@@ -1,4 +1,4 @@
-import { observable, attr, DOM, Observable, Notifier } from '@microsoft/fast-element';
+import { observable, attr, DOM, Observable, Notifier, ViewTemplate } from '@microsoft/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
@@ -45,8 +45,9 @@ import { anchorTag } from '../../anchor';
 import type { AnchoredRegion } from '../../anchored-region';
 import type { Button } from '../../button';
 import { userMentionViewTag } from '../mention-view/user-mention-view';
-import { RichTextEnumMention, UserInfo } from './enum-text';
 import type { MentionBox } from './nimble-rich-text-mention-list-box';
+import { RichtextMentionUsers } from '../../rich-text-mention/mention-users';
+import type { ListOption } from '../../list-option';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -75,13 +76,13 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     /** @internal */
     @observable
-    public userList: UserInfo[] = [];
+    public userList: ViewTemplate<ListOption>[] = [];
 
     /** @internal */
     @observable
     public pattern!: string;
 
-    public mentionList: RichTextEnumMention[] = [];
+    public mentionList: RichtextMentionUsers[] = [];
 
     /**
      * @internal
@@ -260,21 +261,21 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             : Promise.resolve()));
         await Promise.all(definedElements);
         this.mentionList = this.childItems.filter(
-            (x): x is RichTextEnumMention => x instanceof RichTextEnumMention
+            (x): x is RichtextMentionUsers => x instanceof RichtextMentionUsers
         );
-        for (const column of this.mentionList) {
-            const notifier = Observable.getNotifier(column);
+        for (const mention of this.mentionList) {
+            const notifier = Observable.getNotifier(mention);
             notifier.subscribe(this);
             this.userListNotifiers.push(notifier);
             const notifierInternals = Observable.getNotifier(
-                column.userInternals
+                mention.mentionInternals
             );
             notifierInternals.subscribe(this);
             this.userListNotifiers.push(notifierInternals);
         }
         this.userList = [];
         this.mentionList.forEach((list => {
-            this.userList = list.userInternals;
+            this.userList = list.getListOptions();
             this.pattern = list.pattern;
         }));
     }
@@ -282,7 +283,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /** @internal */
     public handleChange(_source: unknown, _args: unknown): void {
         this.mentionList.forEach((list => {
-            this.userList = list.userInternals;
+            this.userList = list.getListOptions();
         }));
     }
 
@@ -762,12 +763,12 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(
-            markdown,
-            this.userList,
-            this.pattern
-        );
-        return this.xmlSerializer.serializeToString(documentFragment);
+        // const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(
+        //     markdown,
+        //     this.userList,
+        //     this.pattern
+        // );
+        // return this.xmlSerializer.serializeToString(documentFragment);
         return '';
     }
 

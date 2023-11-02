@@ -13,8 +13,9 @@ import {
 } from '../../../label-provider/base/tests/label-user-stories-utils';
 import { labelProviderRichTextTag } from '../../../label-provider/rich-text';
 import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
-import { RichTextEnumMention, richTextEnumMentionTextTag } from '../enum-text';
-import { mappingMentionTag } from '../../../mapping/mention';
+import type { RichTextEnumMention } from '../enum-text';
+import { richTextMentionUsersTag } from '../../../rich-text-mention/mention-users';
+import { mappingMentionFinalTag } from '../../../mapping/mention final';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RichTextEditorArgs extends LabelUserArgs {
@@ -91,14 +92,14 @@ const metadata: Meta<RichTextEditorArgs> = {
             <${buttonTag} appearance="ghost" slot="footer-actions" @click="${x => x.configRef.getMentionedUsers()}">mentionedUser</${buttonTag}>
             <${buttonTag} slot="footer-actions" @click="${x => x.editorRef.getMarkdown()}">getMd</${buttonTag}>`)}
 
-        <${richTextEnumMentionTextTag} pattern="user:.*" ${ref('configRef')}>
-            <${mappingMentionTag} key="user:1" text="Aagash"></${mappingMentionTag}>
-            <${mappingMentionTag} key="user:2" text="vivin"></${mappingMentionTag}>
-            <${mappingMentionTag} key="user:3" text="susee"></${mappingMentionTag}>
-            <${mappingMentionTag} key="user:4" text="vikki"></${mappingMentionTag}>
-            <${mappingMentionTag} key="user:5" text="sue"></${mappingMentionTag}>
-            <${mappingMentionTag} key="user:6" text="sue ann"></${mappingMentionTag}>
-        </${richTextEnumMentionTextTag}>
+        <${richTextMentionUsersTag} pattern="user:.*" ${ref('configRef')}>
+            <${mappingMentionFinalTag} mention-url="user:1" display-name="Aagash"></${mappingMentionFinalTag}>
+            <${mappingMentionFinalTag} mention-url="user:2" display-name="vivin"></${mappingMentionFinalTag}>
+            <${mappingMentionFinalTag} mention-url="user:3" display-name="susee"></${mappingMentionFinalTag}>
+            <${mappingMentionFinalTag} mention-url="user:4" display-name="vikki"></${mappingMentionFinalTag}>
+            <${mappingMentionFinalTag} mention-url="user:5" display-name="sue"></${mappingMentionFinalTag}>
+            <${mappingMentionFinalTag} mention-url="user:6" display-name="sue ann"></${mappingMentionFinalTag}>
+        </${richTextMentionUsersTag}>
     </${richTextEditorTag}>
     `),
     argTypes: {
