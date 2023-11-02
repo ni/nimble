@@ -158,7 +158,6 @@ export class RichTextMarkdownParser {
         return new Schema({
             nodes: schema.spec.nodes.addToEnd('mention', {
                 attrs: {
-                    datatype: { default: 'mention' },
                     mentionurl: { default: '' },
                     mentionlabel: { default: '' },
                     contentEditable: { default: 'false' }
@@ -169,17 +168,13 @@ export class RichTextMarkdownParser {
                 toDOM(node) {
                     const { mentionurl, mentionlabel } = node.attrs;
                     return [
-                        'strong',
-                        [
-                            userMentionViewTag,
-                            {
-                                'mention-type': 'mention',
-                                'mention-url': mentionurl as string,
-                                'mention-label': mentionlabel as string,
-                                contenteditable: 'false'
-                            },
-                            0
-                        ]
+                        userMentionViewTag,
+                        {
+                            'mention-url': mentionurl as string,
+                            'mention-label': mentionlabel as string,
+                            contenteditable: 'false'
+                        },
+                        0
                     ];
                 }
             }),

@@ -9,14 +9,8 @@ export class MentionView extends FoundationElement {
     @attr({ attribute: 'mention-url' })
     public mentionUrl?: string;
 
-    @attr({ attribute: 'mention-type' })
-    public mentionType?: string;
-
     @attr({ attribute: 'mention-label' })
     public mentionLabel?: string;
-
-    @attr({ attribute: 'contenteditable' })
-    public contenteditable?: string;
 }
 
 const mentionView = MentionView.compose({

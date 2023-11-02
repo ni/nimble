@@ -146,6 +146,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         // Tiptap [isEmpty](https://tiptap.dev/api/editor#is-empty) returns false even if the editor has only whitespace.
         // However, the expectation is to return true if the editor is empty or contains only whitespace.
         // Hence, by retrieving the current text content using Tiptap state docs and then trimming the string to determine whether it is empty or not.
+        if (this.tiptapEditor.state.doc.toString().includes('mention')) {
+            return this.tiptapEditor.isEmpty;
+        }
         return this.tiptapEditor.state.doc.textContent.trim().length === 0;
     }
 
@@ -222,6 +225,11 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @internal
      */
     public editorContainer!: HTMLDivElement;
+
+    /**
+     * @internal
+     */
+    public mentionUrlsInPasteNodes: string[] = [];
 
     /**
      * @internal
@@ -526,6 +534,24 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 } else {
                     updatedNodes.push(node);
                 }
+            } else if (node.type.name === 'mention') {
+                const url = node.attrs.url as string;
+                let attrs: { href: string | null };
+                const linkMark = this.tiptapEditor.schema.marks.link!;
+                this.mentionUrlsInPasteNodes.push(url);
+
+                if (this.validAbsoluteLinkRegex.test(url)) {
+                    attrs = { href: url };
+                } else {
+                    attrs = { href: null };
+                }
+
+                updatedNodes.push(
+                    this.tiptapEditor.schema.text(
+                        `${url}`,
+                        [linkMark.create(attrs)]
+                    )
+                );
             } else {
                 const updatedContent = this.updateLinkNodes(node.content);
                 updatedNodes.push(node.copy(updatedContent));
@@ -646,19 +672,15 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                         // eslint-disable-next-line @typescript-eslint/naming-convention
                         renderHTML({ node, HTMLAttributes }) {
                             return [
-                                'strong',
-                                [
-                                    userMentionViewTag,
-                                    mergeAttributes(
-                                        { 'mention-type': this.name },
-                                        this.options.HTMLAttributes,
-                                        HTMLAttributes
-                                    ),
-                                    `${this.options.renderLabel({
-                                        options: this.options,
-                                        node
-                                    })} `
-                                ]
+                                userMentionViewTag,
+                                mergeAttributes(
+                                    this.options.HTMLAttributes,
+                                    HTMLAttributes
+                                ),
+                                `${this.options.renderLabel({
+                                    options: this.options,
+                                    node
+                                })} `
                             ];
                         }
                     })
