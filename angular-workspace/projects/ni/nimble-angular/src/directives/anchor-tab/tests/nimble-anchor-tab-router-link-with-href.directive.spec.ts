@@ -79,6 +79,14 @@ describe('Nimble anchor tab RouterLinkWithHrefDirective', () => {
         expect(location.path()).toEqual(expectedDestinationUrl);
     }));
 
+    it('does not navigate when link is clicked if disabled', fakeAsync(() => {
+        anchorTab.disabled = true;
+        innerAnchor!.click();
+        tick();
+
+        expect(routerNavigateByUrlSpy).not.toHaveBeenCalled();
+    }));
+
     const secondaryClickTests: { testName: string, clickArgs: { [key: string]: unknown } }[] = [
         { testName: 'middle mouse click', clickArgs: { button: 1 } },
         { testName: 'Ctrl + left-click', clickArgs: { button: 0, ctrlKey: true } }
