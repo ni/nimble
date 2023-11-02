@@ -977,23 +977,21 @@ export class Table<
     }
 
     private readonly getIsRowExpanded = (row: TanStackRow<InternalTableRecord<TData>>): boolean => {
-        if (!row.getIsGrouped() && !row.subRows.length) {
+        const isGroupRow = row.getIsGrouped();
+        if (!isGroupRow && !row.subRows.length) {
             return false;
         }
 
         const expandedState = this.table.options.state.expanded;
-        if (expandedState === true && row.getIsGrouped()) {
+        if (expandedState === true && isGroupRow) {
             return true;
         }
 
-        if (this.collapsedRows.has(row.id)) {
-            return false;
-        }
         if (Object.keys(expandedState ?? {}).includes(row.id)) {
             return true;
         }
 
-        return false;
+        return isGroupRow ? !this.collapsedRows.has(row.id) : false;
     };
 
     private readonly handleRowSelectionChange: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
