@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><defs><style>.cls-1{fill:#161617;stroke-width:0px;}</style></defs><path class="cls-1" d="m9,6l1,2h-3v1h3l-1,2,5-2.5-5-2.5Z"/><path class="cls-1" d="m6,10v-3h2.36707c-.54333-1.03571-1.61633-1.75-2.86707-1.75-1.79492,0-3.25,1.45508-3.25,3.25s1.45508,3.25,3.25,3.25c1.25067,0,2.32367-.71436,2.86707-1.75h-2.36707Z"/></svg>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+    <defs>
+        <style>.cls-1{fill:#161617;stroke-width:0px;}</style>
+    </defs>
+    <path class="cls-1" d="m9,6l1,2h-3v1h3l-1,2,5-2.5-5-2.5Z" />
+    <path class="cls-1"
+        d="m6,10v-3h2.36707c-.54333-1.03571-1.61633-1.75-2.86707-1.75-1.79492,0-3.25,1.45508-3.25,3.25s1.45508,3.25,3.25,3.25c1.25067,0,2.32367-.71436,2.86707-1.75h-2.36707Z" />
+</svg>
