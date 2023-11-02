@@ -21,6 +21,7 @@ import './checkbox';
 import './combobox';
 import './dialog';
 import './drawer';
+import './graph';
 import './icons/all-icons';
 import './label-provider/core';
 import './label-provider/table';

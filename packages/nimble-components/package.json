@@ -68,6 +68,7 @@
     "@tiptap/extension-bold": "^2.1.6",
     "@tiptap/extension-bullet-list": "^2.1.6",
     "@tiptap/extension-document": "^2.1.6",
+    "@tiptap/extension-hard-break": "^2.1.6",
     "@tiptap/extension-history": "^2.1.6",
     "@tiptap/extension-italic": "^2.1.6",
     "@tiptap/extension-link": "^2.1.6",
@@ -76,7 +77,6 @@
     "@tiptap/extension-paragraph": "^2.1.6",
     "@tiptap/extension-placeholder": "^2.1.6",
     "@tiptap/extension-text": "^2.1.6",
-    "@tiptap/extension-hard-break": "^2.1.6",
     "@types/d3-array": "^3.0.4",
     "@types/d3-random": "^3.0.1",
     "@types/d3-scale": "^4.0.2",
@@ -88,6 +88,7 @@
     "d3-scale": "^4.0.2",
     "d3-selection": "^3.0.0",
     "d3-zoom": "^3.0.0",
+    "echarts": "^5.4.3",
     "prosemirror-markdown": "^1.11.2",
     "prosemirror-model": "^1.19.2",
     "tslib": "^2.2.0"
