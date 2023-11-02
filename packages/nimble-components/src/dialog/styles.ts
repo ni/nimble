@@ -14,6 +14,7 @@ import {
     subtitleFontColor,
     elevation3BoxShadow,
     dialogSmallWidth,
+    dialogSmallHeight,
     dialogSmallMaxHeight
 } from '../theme-provider/design-tokens';
 import {
@@ -35,6 +36,7 @@ export const styles = css`
         box-shadow: ${elevation3BoxShadow};
         padding: 0px;
         width: ${dialogSmallWidth};
+        height: ${dialogSmallHeight};
         max-height: ${dialogSmallMaxHeight};
     }
 

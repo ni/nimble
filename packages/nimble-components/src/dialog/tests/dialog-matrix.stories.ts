@@ -12,12 +12,11 @@ import { backgroundStates } from '../../utilities/tests/states';
 import { dialogTag } from '..';
 import { buttonTag } from '../../button';
 import {
-    cssPropertyFromTokenName,
-    tokenNames
-} from '../../theme-provider/design-token-names';
-import {
+    bodyFont,
     dialogLargeHeight,
+    dialogLargeMaxHeight,
     dialogLargeWidth,
+    dialogSmallHeight,
     dialogSmallMaxHeight,
     dialogSmallWidth
 } from '../../theme-provider/design-tokens';
@@ -49,14 +48,17 @@ const dialogSizingTestCase = (
     [heightLabel, heightStyle]: [string, string],
     [maxHeightLabel, maxHeightStyle]: [string, string]
 ): ViewTemplate => html`
-    <p style="font: var(${cssPropertyFromTokenName(
-        tokenNames.bodyFont
-    )}); padding-bottom: 1000px;">${() => widthLabel}; ${() => heightLabel} ${() => maxHeightLabel}</p>
+    <p class="spacer">${() => widthLabel}; ${() => heightLabel} ${() => maxHeightLabel}</p>
     <style>
         ${dialogTag}::part(control) {
             ${() => widthStyle};
             ${() => heightStyle};
             ${() => maxHeightStyle};
+        }
+
+        .spacer {
+            font: var(${bodyFont.cssCustomProperty});
+            padding-bottom: 1000px;
         }
     </style>
     <${dialogTag}>
@@ -108,15 +110,20 @@ export const smallDialogSizing: StoryFn = createStory(html`
     ${createMatrix(dialogSizingTestCase, [
         [
             [
-                `Width ${dialogSmallWidth.getValueFor(document.body)}`,
-                `width: ${dialogSmallWidth.getValueFor(document.body)}`
+                'Width Small Dialog',
+                `width: var(${dialogSmallWidth.cssCustomProperty})`
             ]
         ],
-        [['Height fit-content', 'height: fit-content']],
         [
             [
-                `Max height ${dialogSmallMaxHeight.getValueFor(document.body)}`,
-                `max-height: ${dialogSmallMaxHeight.getValueFor(document.body)}`
+                'Height Small Dialog',
+                `width: var(${dialogSmallHeight.cssCustomProperty})`
+            ]
+        ],
+        [
+            [
+                'Max Height Small Dialog',
+                `width: var(${dialogSmallMaxHeight.cssCustomProperty})`
             ]
         ]
     ])}
@@ -128,20 +135,20 @@ export const largeDialogSizing: StoryFn = createStory(html`
     ${createMatrix(dialogSizingTestCase, [
         [
             [
-                `Width ${dialogLargeWidth.getValueFor(document.body)}`,
-                `width: ${dialogLargeWidth.getValueFor(document.body)}`
+                'Width Large Dialog',
+                `width: var(${dialogLargeWidth.cssCustomProperty})`
             ]
         ],
         [
             [
-                `Height ${dialogLargeHeight.getValueFor(document.body)}`,
-                `height: ${dialogLargeHeight.getValueFor(document.body)}`
+                'Height Large Dialog',
+                `width: var(${dialogLargeHeight.cssCustomProperty})`
             ]
         ],
         [
             [
-                `Max height ${dialogLargeHeight.getValueFor(document.body)}`,
-                `max-height: ${dialogLargeHeight.getValueFor(document.body)}`
+                'Max Height Large Dialog',
+                `width: var(${dialogLargeMaxHeight.cssCustomProperty})`
             ]
         ]
     ])}

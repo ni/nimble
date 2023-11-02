@@ -63,10 +63,13 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     drawerWidth: 'TODO: delete when able',
     dialogSmallWidth:
         'Standard width for small dialogs like a confirmation dialog.',
+    dialogSmallHeight:
+        'Standard height for small dialogs like a confirmation dialog.',
     dialogSmallMaxHeight:
         'Standard maximum height for small dialogs like a confirmation dialog.',
     dialogLargeWidth: 'Standard width for large dialogs.',
     dialogLargeHeight: 'Standard height for large dialogs.',
+    dialogLargeMaxHeight: 'Standard maximum height for large dialogs.',
     bannerGapSize: 'Space between stacked banners',
     spinnerSmallHeight: 'Small height (16px) for a spinner component',
     spinnerMediumHeight: 'Medium height (32px) for a spinner component',

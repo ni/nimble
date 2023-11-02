@@ -9,7 +9,9 @@ import { buttonTag } from '../../button';
 import { checkboxTag } from '../../checkbox';
 import {
     dialogLargeHeight,
+    dialogLargeMaxHeight,
     dialogLargeWidth,
+    dialogSmallHeight,
     dialogSmallMaxHeight,
     dialogSmallWidth
 } from '../../theme-provider/design-tokens';
@@ -59,26 +61,22 @@ const content = {
 const sizeDescription = `
 Size of a nimble dialog.
 
-See the Sizing section below for information on controlling the size of the dialog.
+See the Sizing section of the Usage Docs for information on controlling the size of the dialog.
 `;
 
 const widths = {
-    [DialogSizeOptions.smallGrowable]: dialogSmallWidth.getValueFor(
-        document.body
-    ),
-    [DialogSizeOptions.largeFixed]: dialogLargeWidth.getValueFor(document.body)
+    [DialogSizeOptions.smallGrowable]: `var(${dialogSmallWidth.cssCustomProperty})`,
+    [DialogSizeOptions.largeFixed]: `var(${dialogLargeWidth.cssCustomProperty})`
 } as const;
 
 const heights = {
-    [DialogSizeOptions.smallGrowable]: 'fit-content',
-    [DialogSizeOptions.largeFixed]: dialogLargeHeight.getValueFor(document.body)
+    [DialogSizeOptions.smallGrowable]: `var(${dialogSmallHeight.cssCustomProperty})`,
+    [DialogSizeOptions.largeFixed]: `var(${dialogLargeHeight.cssCustomProperty})`
 } as const;
 
 const maxHeights = {
-    [DialogSizeOptions.smallGrowable]: dialogSmallMaxHeight.getValueFor(
-        document.body
-    ),
-    [DialogSizeOptions.largeFixed]: dialogLargeHeight.getValueFor(document.body)
+    [DialogSizeOptions.smallGrowable]: `var(${dialogSmallMaxHeight.cssCustomProperty})`,
+    [DialogSizeOptions.largeFixed]: `var(${dialogLargeMaxHeight.cssCustomProperty})`
 } as const;
 
 const metadata: Meta<DialogArgs> = {
@@ -199,7 +197,7 @@ const metadata: Meta<DialogArgs> = {
                 DialogSizeOptions.largeFixed
             ],
             control: {
-                type: 'select',
+                type: 'radio',
                 labels: {
                     [DialogSizeOptions.smallGrowable]: 'Small growable',
                     [DialogSizeOptions.largeFixed]: 'Large fixed'
