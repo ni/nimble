@@ -1,4 +1,3 @@
-import { observable, volatile } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type {
     TableColumnSelectCellRecord,
