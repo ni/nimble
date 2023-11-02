@@ -1,6 +1,6 @@
 {
-  "type": "patch",
-  "comment": "Add Angular support for the nimble-card component",
+  "type": "none",
+  "comment": "Update the Angular status of the nimble-card component",
   "packageName": "@ni/nimble-components",
   "email": "35350751+kjohn1922@users.noreply.github.com",
   "dependentChangeType": "patch"
