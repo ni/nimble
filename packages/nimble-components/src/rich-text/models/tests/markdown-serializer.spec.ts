@@ -292,6 +292,57 @@ describe('Markdown serializer', () => {
         });
     });
 
+    describe('Should serialize to same markdown output when re-loading the resulting markdown which has character addition', () => {
+        const r = String.raw;
+        const supportedNodesMarks: {
+            name: string,
+            inputMarkdown: string,
+            outputMarkdown: string
+        }[] = [
+            {
+                name: 'Markdown syntax strings <*>',
+                inputMarkdown: '* ',
+                outputMarkdown: '* '
+            },
+            {
+                name: 'Markdown syntax strings <**>',
+                inputMarkdown: r`\*\*`,
+                outputMarkdown: r`\*\*`
+            },
+            {
+                name: 'Markdown syntax strings <_>',
+                inputMarkdown: r`\_`,
+                outputMarkdown: r`\_`
+            },
+            {
+                name: 'Blockquote',
+                inputMarkdown: '\\> blockquote',
+                outputMarkdown: '\\> blockquote'
+            },
+            {
+                name: 'Code',
+                inputMarkdown: '\\`code\\`',
+                outputMarkdown: '\\`code\\`'
+            },
+            {
+                name: 'CodeBlock',
+                inputMarkdown: '\\`\\`\\` CodeBlock \\`\\`\\`',
+                outputMarkdown: '\\`\\`\\` CodeBlock \\`\\`\\`'
+            }
+        ];
+
+        parameterizeNamedList(supportedNodesMarks, (spec, name, value) => {
+            spec(`for ${name} markdown input to the editor`, () => {
+                element.setMarkdown(value.inputMarkdown);
+                expect(
+                    RichTextMarkdownSerializer.serializeDOMToMarkdown(
+                        element.tiptapEditor.state.doc
+                    )
+                ).toBe(value.outputMarkdown);
+            });
+        });
+    });
+
     describe('various not supported nodes should be serialized to a plain text', () => {
         const notSupportedNodesMarks: {
             name: string,
