@@ -5,6 +5,7 @@
   ],
   "enabledManagers": ["npm"],
   "rangeStrategy": "update-lockfile",
+  "rebaseWhen": "conflicted",
   "schedule": [
     "monthly"
   ],

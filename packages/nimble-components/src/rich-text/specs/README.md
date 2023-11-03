@@ -13,13 +13,17 @@ The Comment Feature, designed for adding and viewing comments with rich text con
 Therefore, it is essential to develop web components that allow users to view and create rich text content, enabling their use in various scenarios,
 including Comments and other instances that necessitate rich text capabilities.
 
-[Nimble issue #1288](https://github.com/ni/nimble/issues/1288)
+_Rich Text Components_:
 
-Comments UI mockups - [Desktop view](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045&mode=design&t=aC5VQw42BYcOesm2-0) and [Mobile view](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=7258-115224&mode=design&t=aC5VQw42BYcOesm2-0)
+1. [Nimble issue #1288](https://github.com/ni/nimble/issues/1288)
+2. [Rich Text Editor FE Library Decision](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/docs/design-documents/Platform/Comments/Comments-FE-Library-Decision.md&version=GBmaster&_a=preview)
 
-[Comments Feature](https://dev.azure.com/ni/DevCentral/_backlogs/backlog/ASW%20SystemLink%20Platform/Initiatives/?workitem=2205215)
+_Comments Feature in SLE_:
 
-[Rich Text Editor FE Library Decision](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/docs/design-documents/Platform/Comments/Comments-FE-Library-Decision.md&version=GBmaster&_a=preview)
+1. [Comments Feature](https://dev.azure.com/ni/DevCentral/_backlogs/backlog/ASW%20SystemLink%20Platform/Initiatives/?workitem=2205215)
+2. Comments UI mockups - [Desktop view](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045&mode=design&t=aC5VQw42BYcOesm2-0) and [Mobile view](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=7258-115224&mode=design&t=aC5VQw42BYcOesm2-0)
+3. [Comments `@mention` mockup](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink-orig?type=design&node-id=7248-114254&mode=design&t=y3JtM3aT77Aw0xjK-0)
+4. [Mention users in comments - Requirement doc](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/docs/design-documents/Platform/Requirements/Mention-users-in-comments.md&_a=preview)
 
 ### Non-goals
 
@@ -36,12 +40,12 @@ Both components provide support for the following basic text formatting options:
 4. Bulleted List
 5. Absolute URL links
     1. Supports only [absolute URI as per common mark spec](https://spec.commonmark.org/0.30/#absolute-uri) with valid [schemes](https://spec.commonmark.org/0.30/#scheme).
-    2. In the initial release, we will provide support for `HTTP` and `HTTPS` schemes only. Depending on future requirements, we may extend support to include other schemes as well. To summarize:
-        1. Supports `<https://www.ni.com>` as a valid markdown syntax for an absolute link
-        2. Any other syntaxes like `https://www.ni.com` and `[NI Homepage](https://www.ni.com)` will not be supported for initial release
+    2. In the initial release, we will provide support for `HTTP` and `HTTPS` schemes only but in markdown will preserve as an
+       [autolink](https://spec.commonmark.org/0.30/#autolink). Depending on future requirements, we may extend support to include other schemes as well to render as links. To summarize: 1. Supports `<https://www.ni.com>` as a valid markdown syntax for an absolute link 2. Any other syntaxes like `https://www.ni.com` and `[NI Homepage](https://www.ni.com)` will not be supported for initial release
     3. [Tiptap's link extension](https://tiptap.dev/api/marks/link) provides various configurations to
        [add/remove HTML attributes](https://tiptap.dev/api/marks/link#removing-and-overriding-existing-html-attributes) for links,
        [validate](https://tiptap.dev/api/marks/link#validate) URLs entered or pasted into the editor and more.
+6. Allow the user to tag or mention someone by entering **"@"** in the editor and selecting the user's name from the drop-down list.
 
 The `nimble-rich-text-editor` component will also offer APIs and interactive methods to format text in the following ways:
 
@@ -54,7 +58,6 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
 
 #### _Additional features out of scope of this spec_
 
--   Allowing the user to tag or mention by entering `@` in the editor and selecting the user name from the drop-down list.
 -   Support for adding images to the editor either by uploading or by pasting it.
 -   Support for adding hyperlinks to the existing text in the editor. This allows users to add links to existing text in the editor. When the
     link button in the formatting options is clicked, a dialog opens, providing a space to enter the hyperlink for the selected text.
@@ -106,6 +109,8 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
     <nimble-button slot="footer-actions">Add Comment</nimble-button>
 </nimble-rich-text-editor>
 ```
+
+[Design for `@mention` in Rich Text Editor](./mention-hld.md#nimble-rich-text-editor)
 
 ### API
 
@@ -200,6 +205,8 @@ _CSS Classes and CSS Custom Properties that affect the component_
 
 _Note_: This initial component design serves as a starting point for implementation, and it may undergo changes once the visual design is completed.
 
+[Other APIs for `@mention` in Rich Text Editor](./mention-hld.md#api)
+
 ### Anatomy
 
 _Shadow DOM template_
@@ -215,6 +222,11 @@ _Shadow DOM template_
             <slot name="footer-actions"></slot>
         </section>
     </footer>
+    <nimble-anchored-region>
+        <nimble-rich-text-mention-list-box>
+            <nimble-list-option></nimble-list-option>
+        </nimble-rich-text-mention-list-box>
+    </nimble-anchored-region>
 </template>
 ```
 
@@ -241,10 +253,14 @@ _CSS Parts_
 
 -   none
 
+[Shadow DOM Template for API Components](./mention-hld.md#anatomy)
+
 ### `nimble-rich-text-viewer`
 
 The `nimble-rich-text-viewer` is used for viewing rich text content when a markdown string is passed to it. It performs the post-processing
 tasks to convert the markdown string to corresponding HTML nodes for each text formatting.
+
+[Design for `@mention` in Rich Text Viewer](./mention-hld.md#nimble-rich-text-viewer)
 
 ### API
 
@@ -253,10 +269,6 @@ _Props/Attrs_
 -   `markdown` - for retrieving and modifying the markdown value. If the client modifies the markdown value, it will be parsed into a Node using the
     [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
     The parsed node will then be rendered in the viewer component as rich text.
-
-_Methods_
-
--   none
 
 _Events_
 
@@ -269,6 +281,8 @@ _CSS Classes and CSS Custom Properties that affect the component_
     enabled when there is overflow of content in the component.
 -   The width of the component will be determined by the client. Reducing the width will cause the content to reflow, resulting in an increased height
     of the component or will enable the vertical scrollbar.
+
+[APIs for `@mention` in Rich Text Viewer](./mention-hld.md#api-1)
 
 ### Anatomy
 
@@ -287,6 +301,8 @@ _Slotted Content/Slotted Classes_
 _CSS Parts_
 
 -   none
+
+[Shadow DOM Template for API Components](./mention-hld.md#anatomy-1)
 
 ### Angular integration
 
@@ -323,7 +339,7 @@ document. Some of the highlighted points are mentioned below:
 4. Includes support to render the content of the editor with markdown input.
 5. Includes support to retrieve the content of the editor as HTML and Markdown output (using
    [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown)).
-6. Includes extensions to support [@mention](https://tiptap.dev/api/nodes/mention) functionality (Future scope).
+6. Includes extensions to support [@mention](https://tiptap.dev/api/nodes/mention) functionality.
 
 The `nimble-rich-text-editor` is initialized by creating an instance of the [Editor](https://tiptap.dev/api/editor#introduction) class from Tiptap's core
 library. With that, we have access to all the APIs exposed, by utilizing some of their extensions like
@@ -345,26 +361,27 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 -   Bulleted list - `* Bulleted list`
 -   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, see [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
 -   Hard line break - a backslash before the line ending `line1\\nline2` (For more details on the markdown syntax for Hard line breaks, see [Hard line breaks in CommanMark](https://spec.commonmark.org/0.30/#hard-line-breaks))
+-   `@mention` - `<mention-url>` that follows [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink). For more details, see
+    [Markdown Format for `@mention`](./mention-hld.md#2-markdown-format)
 
-_Configurations on Tiptap to support only absolute links_:
+### _Implementation details for supporting absolute link:_
+
+#### _Configurations on Tiptap to support only absolute links_:
 
 Install the [link extension](https://tiptap.dev/api/marks/link) mark from Tiptap and initialize the `Links` with the following configurations:
 
-1.  Set regular expression in [validate](https://tiptap.dev/api/marks/link#validate) field to support only `HTTP` and `HTTPS` absolute links in the editor.
-2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to `false` for the editor, to restrict the user from opening a link from the editor by clicking. Users can open the link only by
+1.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to `false` for the editor, to restrict the user from opening a link from the editor by clicking. Users can open the link only by
     `Right-click >> Open link in new tab` from the editor.
-3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to `true`, to add the valid link automatically when typing.
-4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to `false` which will attach the URL to current selected text in the editor, converting it into a hyperlink. If it is `true`,
+2.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to `true`, to add the valid link automatically when typing.
+3.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to `false` which will attach the URL to current selected text in the editor, converting it into a hyperlink. If it is `true`,
     pasting a link to the selection will add the link behind the word which is not supported for the initial pass.
 
 The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
 `prosemirror-markdown` parser, which is then converted to HTML string and rendered into the component to view all rich text content.
 
-_Implementation details for supporting absolute link:_
-
 For the `nimble-rich-text-viewer` component, we will set up the `link` mark in the Prosemirror schema as below, allowing links in the component to open with default behavior (same tab).
 
-Only links with schema HTTP and HTTPS will be treated as links within `nimble-rich-text-editor` and `nimble-rich-text-viewer` and rest of the links with any other schemas will be rendered as plain text. Note that APIs `setMarkdown()` of editor and `markdown` of viewer will have necessary validation mechanisms to ensure this schema restriction.
+Only links with schema HTTP and HTTPS will be rendered as links within `nimble-rich-text-editor` and `nimble-rich-text-viewer` and rest of the links with any other schemas will be rendered as links but with no `href` attribute. Note that APIs `setMarkdown()` of editor and `markdown` of viewer will have necessary validation mechanisms to ensure this scheme restriction in rendering the link in editor and viewer.
 
 Here is the default [link configuration](https://github.com/ProseMirror/prosemirror-markdown/blob/b7c1fd2fb74c7564bfe5428c7c8141ded7ebdd9f/src/schema.ts#L138C5-L148C6)
 from the `prosemirror-markdown` package for comparison with the newly updated configuration.
@@ -397,6 +414,8 @@ We have observed that issues such as [#1412](https://github.com/ni/nimble/issues
 opening anchor elements in a new tab. Once the visual design is finalized and integrated the implementation into the `nimble-anchor`, we will update the above `link` mark schema,
 in case we are required to update any attributes for the `nimble-anchor` component.
 
+[Implementation Details For `@mention` Support](./mention-hld.md#implementation)
+
 ### Prototype
 
 [`Tiptap prototype in Stackblitz`](https://stackblitz.com/edit/typescript-g3yfmo?file=index.ts)
@@ -424,6 +443,8 @@ Below is the sample screenshot which shows the active state of the `nimble-toggl
 text in the editor.
 
 ![Bold and Numbered Button State](./spec-images/button-state.png)
+
+[_`@mention` State_](./mention-hld.md#states)
 
 ### Accessibility
 
@@ -473,6 +494,8 @@ _Keyboard navigation with toolbar buttons focused_
 
 _Note_: All other keyboard interaction determined by the slotted element will not be defined in this document.
 
+[Accessibility For `@mention` Feature](./mention-hld.md#accessibility)
+
 ### Globalization
 
 Localization: The `nimble-rich-text-editor` will use the `bold`, `italics`, `numberedList`, and `bulletedList` labels from `nimble-label-provider-rich-text` for the icons displayed in
@@ -514,6 +537,7 @@ library. For the currently supported features, we will include the following lib
 -   [prosemirror-markdown](https://www.npmjs.com/package/prosemirror-markdown)
 -   [prosemirror-model](https://www.npmjs.com/package/prosemirror-model)
 -   [@tiptap/extension-link](https://www.npmjs.com/package/@tiptap/extension-link)
+-   [@tiptap/extension-mention](https://www.npmjs.com/package/@tiptap/extension-mention)
 
 These packages will add up to a total space of approximately 900 KB in the components bundle. For more info see
 [this discussion on Teams](https://teams.microsoft.com/l/message/19:b6a61b8a7ffd451696e0cbbb8976c03b@thread.skype/1686833093592?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1686833093592&teamName=ASW%20SystemLink&channelName=LIMS&createdTime=1686833093592).

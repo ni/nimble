@@ -1,8 +1,70 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 23 Oct 2023 14:17:52 GMT and should not be manually modified.
+This log was last generated on Thu, 02 Nov 2023 18:26:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.13.0
+
+Thu, 02 Nov 2023 18:26:57 GMT
+
+### Minor changes
+
+- New icons for "move in" and "move out" ([ni/nimble@91d75d9](https://github.com/ni/nimble/commit/91d75d9c7ce2f493b3ac69fefd5457ae3b83d3f9))
+- Bump @ni/nimble-tokens to v6.8.0
+
+### Patches
+
+- Update fast-foundation dependency ([ni/nimble@6f571be](https://github.com/ni/nimble/commit/6f571beaf840af895e5561765ce3fd1500c50c80))
+
+## 20.12.1
+
+Thu, 02 Nov 2023 17:33:16 GMT
+
+### Patches
+
+- Add a title slot to the nimble-card ([ni/nimble@67a2e37](https://github.com/ni/nimble/commit/67a2e37033905d15c8f779b2f1c553d9b4e3cedb))
+
+## 20.12.0
+
+Wed, 01 Nov 2023 20:45:20 GMT
+
+### Minor changes
+
+- New icon for @mention ([ni/nimble@5a8fe73](https://github.com/ni/nimble/commit/5a8fe731b494042bc8a5cf060338a05208e1075d))
+- Bump @ni/nimble-tokens to v6.7.0
+
+## 20.11.0
+
+Wed, 01 Nov 2023 16:39:22 GMT
+
+### Minor changes
+
+- Add an incubating `nimble-card` component ([ni/nimble@0049146](https://github.com/ni/nimble/commit/0049146975bb1b131394e2891fdafd40168d3ea4))
+
+## 20.10.3
+
+Wed, 01 Nov 2023 15:14:29 GMT
+
+### Patches
+
+- Update dependency @types/markdown-it to v13 ([ni/nimble@419b889](https://github.com/ni/nimble/commit/419b88960e85b0c666e7cbc57f0b78f712e2e5d4))
+
+## 20.10.2
+
+Thu, 26 Oct 2023 18:19:11 GMT
+
+### Patches
+
+- Update dependencies on tanstack ([ni/nimble@7a9a966](https://github.com/ni/nimble/commit/7a9a966fd9e37713e95ea9c7574e621e2df38b33))
+
+## 20.10.1
+
+Thu, 26 Oct 2023 00:29:31 GMT
+
+### Patches
+
+- Add duration table column to all-components bundle ([ni/nimble@244e2ca](https://github.com/ni/nimble/commit/244e2caca0117fae6448f7c130e3afd3771b03d5))
 
 ## 20.10.0
 

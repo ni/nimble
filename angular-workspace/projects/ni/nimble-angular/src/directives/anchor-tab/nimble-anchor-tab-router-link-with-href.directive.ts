@@ -1,5 +1,6 @@
 import { Directive, Input } from '@angular/core';
-import { RouterLink } from '../../thirdparty/directives/router_link';
+import type { AnchorTab } from './nimble-anchor-tab.directive';
+import { DisableableRouterLinkWithHrefDirective } from '../anchor-base/disableable-router-link-with-href.directive';
 
 /**
  * Selectors used for built-in Angular RouterLink directives:
@@ -15,7 +16,7 @@ import { RouterLink } from '../../thirdparty/directives/router_link';
  * won't also be an active RouterLink directive incorrectly handling navigation.
  */
 @Directive({ selector: 'nimble-anchor-tab[nimbleRouterLink]' })
-export class NimbleAnchorTabRouterLinkWithHrefDirective extends RouterLink {
+export class NimbleAnchorTabRouterLinkWithHrefDirective extends DisableableRouterLinkWithHrefDirective<AnchorTab> {
     @Input()
     public set nimbleRouterLink(commands: never[] | string | null | undefined) {
         this.routerLink = commands;

@@ -92,6 +92,8 @@ export class RichTextEditorPageObject {
 
     public async clickFooterButton(button: ToolbarButton): Promise<void> {
         const toggleButton = this.getFormattingButton(button);
+        const event = new Event('mousedown', { bubbles: true });
+        toggleButton!.dispatchEvent(event);
         toggleButton!.click();
         await waitForUpdatesAsync();
     }

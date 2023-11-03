@@ -163,8 +163,8 @@ WARNING - The ${config.componentName} is still incubating. It is not recommended
 See the <a href="${config.statusLink}">incubating component status</a>.
 </div>`;
 
-// On Firefox, on the Docs page, there is a div with a scale(1) transform that causes the dropdown
-// to be confined to the div. We remove the transform to allow the dropdown to escape the div, but
+// On the Docs page, there is a div with a scale(1) transform that causes the dropdown to be
+// confined to the div. We remove the transform to allow the dropdown to escape the div, but
 // that also breaks zooming behavior, so we remove the zoom buttons on the docs page.
 export const disableStorybookZoomTransform = `
 <style class="code-hide">
