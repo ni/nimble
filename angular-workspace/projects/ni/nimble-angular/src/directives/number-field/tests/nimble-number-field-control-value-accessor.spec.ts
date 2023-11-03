@@ -22,7 +22,7 @@ describe('Nimble number field control value accessor', () => {
         public value = this.initialValue;
         public fieldDisabled = false;
 
-        public onModelValueChange(_value: number): void { debugger; }
+        public onModelValueChange(_value: number): void { }
     }
 
     let numberField: NumberField;
