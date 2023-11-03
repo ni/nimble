@@ -79,12 +79,6 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
     private roundIfNeeded(number: number): number {
         // Multiply the value by 10 raised to maximumFractionDigits so that Math.round
         // can be used to emulate rounding to maximumFractionDigits decimal places.
-        console.log(
-            `${number * this.tenPowMaximumFractionalDigits!} -> ${
-                Math.round(number * this.tenPowMaximumFractionalDigits!)
-                / this.tenPowMaximumFractionalDigits!
-            }`
-        );
         return this.tenPowMaximumFractionalDigits !== undefined
             ? Math.round(number * this.tenPowMaximumFractionalDigits)
                   / this.tenPowMaximumFractionalDigits
