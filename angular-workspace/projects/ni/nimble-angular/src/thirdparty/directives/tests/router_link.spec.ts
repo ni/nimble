@@ -32,7 +32,7 @@ class TestRouterLinkWithSelector extends RouterLink {
   }
 }
 
-fdescribe('RouterLink', () => {
+describe('RouterLink', () => {
   it('does not modify tabindex if already set on non-anchor element', () => {
     /* [Nimble] Update template to use [testRouterLink] rather than [routerLink]
     @Component({template: `<div [routerLink]="link" tabindex="1"></div>`})
