@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 02 Nov 2023 18:26:57 GMT and should not be manually modified.
+This log was last generated on Fri, 03 Nov 2023 23:30:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.14.0
+
+Fri, 03 Nov 2023 23:30:50 GMT
+
+### Minor changes
+
+- Expose width and height of nimble-dialog & add tokens ([ni/nimble@5207a2a](https://github.com/ni/nimble/commit/5207a2a24f7d383057b56a91add96e00e5c36d39))
 
 ## 20.13.0
 
