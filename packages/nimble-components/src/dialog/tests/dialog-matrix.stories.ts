@@ -1,13 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import {
-    createFixedThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
-import {
-    createMatrix,
-    sharedMatrixParameters
-} from '../../utilities/tests/matrix';
+import { createFixedThemeStory } from '../../utilities/tests/storybook';
+import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import { backgroundStates } from '../../utilities/tests/states';
 import { dialogTag } from '..';
 import { buttonTag } from '../../button';
@@ -30,6 +24,18 @@ const metadata: Meta = {
 
 export default metadata;
 
+const sizeStates = [
+    [
+        'small',
+        `width: var(${dialogSmallWidth.cssCustomProperty}); height: var(${dialogSmallHeight.cssCustomProperty}); max-height: var(${dialogSmallMaxHeight.cssCustomProperty});`
+    ],
+    [
+        'large',
+        `width: var(${dialogLargeWidth.cssCustomProperty}); height: var(${dialogLargeHeight.cssCustomProperty}); max-height: var(${dialogLargeMaxHeight.cssCustomProperty});`
+    ]
+] as const;
+type SizeState = (typeof sizeStates)[number];
+
 const component = html`
     <${dialogTag}>
         <span slot="title">This is my dialog's title. It is pretty long.</span>
@@ -43,17 +49,11 @@ const component = html`
     </${dialogTag}>
 `;
 
-const dialogSizingTestCase = (
-    [widthLabel, widthStyle]: [string, string],
-    [heightLabel, heightStyle]: [string, string],
-    [maxHeightLabel, maxHeightStyle]: [string, string]
-): ViewTemplate => html`
-    <p class="spacer">${() => widthLabel}; ${() => heightLabel} ${() => maxHeightLabel}</p>
+const dialogSizingTestCase = (size: SizeState): ViewTemplate => html`
+    <p class="spacer">${() => size};</p>
     <style>
         ${dialogTag}::part(control) {
-            ${() => widthStyle};
-            ${() => heightStyle};
-            ${() => maxHeightStyle};
+            ${() => size};
         }
 
         .spacer {
@@ -106,52 +106,16 @@ export const dialogDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
 
 dialogDarkThemeBlackBackground.play = playFunction;
 
-export const smallDialogSizing: StoryFn = createStory(html`
-    ${createMatrix(dialogSizingTestCase, [
-        [
-            [
-                'Width Small Dialog',
-                `width: var(${dialogSmallWidth.cssCustomProperty})`
-            ]
-        ],
-        [
-            [
-                'Height Small Dialog',
-                `width: var(${dialogSmallHeight.cssCustomProperty})`
-            ]
-        ],
-        [
-            [
-                'Max Height Small Dialog',
-                `width: var(${dialogSmallMaxHeight.cssCustomProperty})`
-            ]
-        ]
-    ])}
-`);
+export const dialogSmallSize: StoryFn = createFixedThemeStory(
+    dialogSizingTestCase(sizeStates[0]),
+    lightThemeWhiteBackground
+);
 
-smallDialogSizing.play = playFunction;
+dialogSmallSize.play = playFunction;
 
-export const largeDialogSizing: StoryFn = createStory(html`
-    ${createMatrix(dialogSizingTestCase, [
-        [
-            [
-                'Width Large Dialog',
-                `width: var(${dialogLargeWidth.cssCustomProperty})`
-            ]
-        ],
-        [
-            [
-                'Height Large Dialog',
-                `width: var(${dialogLargeHeight.cssCustomProperty})`
-            ]
-        ],
-        [
-            [
-                'Max Height Large Dialog',
-                `width: var(${dialogLargeMaxHeight.cssCustomProperty})`
-            ]
-        ]
-    ])}
-`);
+export const dialogLargeSize: StoryFn = createFixedThemeStory(
+    dialogSizingTestCase(sizeStates[1]),
+    lightThemeWhiteBackground
+);
 
-largeDialogSizing.play = playFunction;
+dialogLargeSize.play = playFunction;
