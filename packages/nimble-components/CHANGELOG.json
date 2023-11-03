@@ -2,6 +2,65 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 03 Nov 2023 05:55:21 GMT",
+      "version": "20.13.0",
+      "tag": "@ni/nimble-components_v20.13.0",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "df2690679d1218c18078c26abf78641675adf00c",
+            "comment": "Spec update to support @mention in rich text components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 Nov 2023 18:26:57 GMT",
+      "version": "20.13.0",
+      "tag": "@ni/nimble-components_v20.13.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6f571beaf840af895e5561765ce3fd1500c50c80",
+            "comment": "Update fast-foundation dependency"
+          }
+        ],
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "91d75d9c7ce2f493b3ac69fefd5457ae3b83d3f9",
+            "comment": "New icons for \"move in\" and \"move out\""
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.8.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 Nov 2023 17:33:16 GMT",
+      "version": "20.12.1",
+      "tag": "@ni/nimble-components_v20.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "35350751+kjohn1922@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "67a2e37033905d15c8f779b2f1c553d9b4e3cedb",
+            "comment": "Add a title slot to the nimble-card"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Nov 2023 20:45:20 GMT",
       "version": "20.12.0",
       "tag": "@ni/nimble-components_v20.12.0",

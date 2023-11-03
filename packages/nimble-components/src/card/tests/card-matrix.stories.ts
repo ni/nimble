@@ -25,6 +25,7 @@ export default metadata;
 
 const component = (): ViewTemplate => html`
     <${cardTag}>
+        <span slot="title">Title</span>
         <${numberFieldTag}>Numeric field 1</${numberFieldTag}>
         <${numberFieldTag}>Numeric field 2</${numberFieldTag}>
         <${selectTag}>
