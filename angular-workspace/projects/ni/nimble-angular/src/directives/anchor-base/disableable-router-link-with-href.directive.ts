@@ -1,14 +1,23 @@
-import { Directive, ElementRef, Injector } from '@angular/core';
+import { Attribute, Directive, ElementRef, Inject, Renderer2 } from '@angular/core';
 import { LocationStrategy } from '@angular/common';
-import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouterLink } from '../../thirdparty/directives/router_link';
 
 /**
  * Base class for Nimble router link directives that go on disableable elements
  */
 @Directive()
-export class DisableableRouterLinkWithHrefDirective<T extends { disabled: boolean }> extends RouterLinkWithHref {
-    public constructor(injector: Injector, private readonly elementRef: ElementRef<T>) {
-        super(injector.get(Router), injector.get(ActivatedRoute), injector.get(LocationStrategy));
+export class DisableableRouterLinkWithHrefDirective<T extends { disabled: boolean }> extends RouterLink {
+    public constructor(
+    @Inject(Router) router: Router,
+        @Inject(ActivatedRoute) route: ActivatedRoute,
+        // eslint-disable-next-line @angular-eslint/no-attribute-decorator
+        @Attribute('tabindex') tabIndexAttribute: string | null | undefined,
+        renderer: Renderer2,
+        private readonly elementRef: ElementRef<T>,
+        @Inject(LocationStrategy) locationStrategy?: LocationStrategy
+    ) {
+        super(router, route, tabIndexAttribute, renderer, elementRef, locationStrategy);
     }
 
     public override onClick(button: number, ctrlKey: boolean, shiftKey: boolean, altKey: boolean, metaKey: boolean): boolean {
