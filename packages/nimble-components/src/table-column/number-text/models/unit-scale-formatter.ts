@@ -13,6 +13,7 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
     public alwaysUseBaseScaledUnit = false;
     private _supportedScaledUnits?: ScaledUnit[];
     private _baseScaledUnit?: ScaledUnit;
+    private readonly tenPowMaximumFractionalDigits?: number;
 
     private get supportedScaledUnits(): ScaledUnit[] {
         if (this._supportedScaledUnits === undefined) {
@@ -33,6 +34,9 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
         private readonly formatterOptions: Intl.NumberFormatOptions
     ) {
         super();
+        if (this.formatterOptions.maximumFractionDigits !== undefined) {
+            this.tenPowMaximumFractionalDigits = 10 ** this.formatterOptions.maximumFractionDigits;
+        }
     }
 
     public getScaledNumber(number: number): number {
@@ -62,11 +66,29 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
             return this.baseScaledUnit;
         }
         for (const unit of this.supportedScaledUnits) {
-            if (magnitude >= unit.scaleFactor) {
+            if (this.roundIfNeeded(magnitude / unit.scaleFactor) >= 1) {
                 return unit;
             }
         }
-        return this.supportedScaledUnits[this.supportedScaledUnits.length - 1]!;
+        const smallestUnit = this.supportedScaledUnits[this.supportedScaledUnits.length - 1]!;
+        return this.roundIfNeeded(magnitude / smallestUnit.scaleFactor) === 0
+            ? this.baseScaledUnit
+            : smallestUnit;
+    }
+
+    private roundIfNeeded(number: number): number {
+        // Multiply the value by 10 raised to maximumFractionDigits so that Math.round
+        // can be used to emulate rounding to maximumFractionDigits decimal places.
+        console.log(
+            `${number * this.tenPowMaximumFractionalDigits!} -> ${
+                Math.round(number * this.tenPowMaximumFractionalDigits!)
+                / this.tenPowMaximumFractionalDigits!
+            }`
+        );
+        return this.tenPowMaximumFractionalDigits !== undefined
+            ? Math.round(number * this.tenPowMaximumFractionalDigits)
+                  / this.tenPowMaximumFractionalDigits
+            : number;
     }
 
     // Ideally, we could initialize supportedScaledUnits and baseScaledUnit in the constructor,

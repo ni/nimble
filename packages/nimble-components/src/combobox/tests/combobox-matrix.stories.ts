@@ -34,9 +34,7 @@ type ValueState = (typeof valueStates)[number];
 const metadata: Meta = {
     title: 'Tests/Combobox',
     parameters: {
-        ...sharedMatrixParameters(),
-        controls: { hideNoControlsWarning: true },
-        a11y: { disable: true }
+        ...sharedMatrixParameters()
     }
 };
 

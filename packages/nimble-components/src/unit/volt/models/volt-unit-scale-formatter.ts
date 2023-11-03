@@ -6,20 +6,24 @@ import { UnitTranslation } from '../../base/models/unit-translation';
  * Formatter for numbers with voltage units
  */
 export class VoltUnitScaleFormatter extends ManuallyTranslatedUnitScaleFormatter {
-    protected override getUnitTranslations(): Map<string, UnitTranslation> {
-        const unitTranslations = new Map<string, UnitTranslation>();
-        unitTranslations.set('en', new UnitTranslation('volt', 'volts', 'V'));
-        unitTranslations.set('fr', new UnitTranslation('volt', 'volts', 'V'));
-        unitTranslations.set('de', new UnitTranslation('Volt', 'Volt', 'V'));
-        unitTranslations.set(
-            'ja',
-            new UnitTranslation('ボルト', 'ボルト', 'V')
-        );
-        unitTranslations.set('zh', new UnitTranslation('伏特', '伏特', 'V'));
-        return unitTranslations;
+    private static readonly unitTranslations = new Map<string, UnitTranslation>(
+        [
+            ['en', new UnitTranslation('volt', 'volts', 'V')],
+            ['fr', new UnitTranslation('volt', 'volts', 'V')],
+            ['de', new UnitTranslation('Volt', 'Volt', 'V')],
+            ['ja', new UnitTranslation('ボルト', 'ボルト', 'V')],
+            ['zh', new UnitTranslation('伏特', '伏特', 'V')]
+        ]
+    );
+
+    protected override getUnitTranslations(): ReadonlyMap<
+    string,
+    UnitTranslation
+    > {
+        return VoltUnitScaleFormatter.unitTranslations;
     }
 
-    protected override getSupportedPrefixes(): UnitPrefix[] {
+    protected override getSupportedPrefixes(): readonly UnitPrefix[] {
         return metricPrefixes;
     }
 }

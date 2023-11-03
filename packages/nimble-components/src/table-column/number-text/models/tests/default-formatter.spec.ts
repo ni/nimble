@@ -6,14 +6,7 @@ import { UnitScaleFormatter } from '../unit-scale-formatter';
 
 describe('DefaultFormatter', () => {
     const locales = ['en', 'de'] as const;
-    const testCases: readonly {
-        name: string,
-        value: number,
-        expectedFormattedValue: {
-            en: string,
-            de: string
-        }
-    }[] = [
+    const testCases = [
         {
             name: 'NEGATIVE_INFINITY renders as -∞',
             value: Number.NEGATIVE_INFINITY,

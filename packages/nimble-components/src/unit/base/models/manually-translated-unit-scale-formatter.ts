@@ -8,8 +8,8 @@ import { UnitScaleFormatter } from '../../../table-column/number-text/models/uni
  * A formatter for a unit scale that is not supported by Intl.NumberFormat and has translations built into Nimble
  */
 export abstract class ManuallyTranslatedUnitScaleFormatter extends UnitScaleFormatter {
-    private readonly unitTranslations: Map<string, UnitTranslation>;
-    private readonly supportedPrefixes: UnitPrefix[];
+    private readonly unitTranslations: ReadonlyMap<string, UnitTranslation>;
+    private readonly supportedPrefixes: readonly UnitPrefix[];
 
     public constructor(
         locale: string,
@@ -60,6 +60,9 @@ export abstract class ManuallyTranslatedUnitScaleFormatter extends UnitScaleForm
         return supportedUnits;
     }
 
-    protected abstract getUnitTranslations(): Map<string, UnitTranslation>;
-    protected abstract getSupportedPrefixes(): UnitPrefix[];
+    protected abstract getUnitTranslations(): ReadonlyMap<
+    string,
+    UnitTranslation
+    >;
+    protected abstract getSupportedPrefixes(): readonly UnitPrefix[];
 }

@@ -9,7 +9,7 @@ export class UnitPrefix {
 }
 
 // The same prefixes are used for English, French, German, Japanese, and Chinese (all currently supported languages).
-export const metricPrefixes: UnitPrefix[] = [
+export const metricPrefixes = [
     new UnitPrefix(10 ** -15, 'f'),
     new UnitPrefix(10 ** -12, 'p'),
     new UnitPrefix(10 ** -9, 'n'),
@@ -23,4 +23,4 @@ export const metricPrefixes: UnitPrefix[] = [
     new UnitPrefix(10 ** 12, 'T'),
     new UnitPrefix(10 ** 15, 'P'),
     new UnitPrefix(10 ** 18, 'E')
-];
+] as const;
