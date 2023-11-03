@@ -306,6 +306,24 @@ export const iconSize = DesignToken.create<string>(
 export const drawerWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerWidth)
 ).withDefault('784px');
+export const dialogSmallWidth = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dialogSmallWidth)
+).withDefault('400px');
+export const dialogSmallHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dialogSmallHeight)
+).withDefault('fit-content');
+export const dialogSmallMaxHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dialogSmallMaxHeight)
+).withDefault('600px');
+export const dialogLargeWidth = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dialogLargeWidth)
+).withDefault('1024px');
+export const dialogLargeHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dialogLargeHeight)
+).withDefault('680px');
+export const dialogLargeMaxHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dialogLargeMaxHeight)
+).withDefault('680px');
 export const bannerGapSize = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerGapSize)
 ).withDefault('1px');
