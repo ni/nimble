@@ -15,6 +15,5 @@ export const styles = css`
 
     .control {
         color: ${atMentionFontColor};
-        user-select: text;
     }
 `;
