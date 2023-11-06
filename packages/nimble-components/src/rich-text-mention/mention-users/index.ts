@@ -11,7 +11,7 @@ import { MappingMentionUser } from '../../mapping/mention-user';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-rich-text-mention-users-final': RichtextMentionUsers;
+        'nimble-rich-text-mention-users': RichtextMentionUsers;
     }
 }
 
@@ -57,7 +57,7 @@ export class RichtextMentionUsers extends RichTextMentionBase<RichTextMentionCon
     }
 }
 const nimbleRichtextMentionUsers = RichtextMentionUsers.compose({
-    baseName: 'rich-text-mention-users-final',
+    baseName: 'rich-text-mention-users',
     template: html`<slot ${slotted('mappings')} name="mapping"></slot>`,
 });
 

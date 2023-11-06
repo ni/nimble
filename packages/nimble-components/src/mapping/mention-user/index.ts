@@ -19,4 +19,4 @@ const mentionMappingUser = MappingMentionUser.compose({
     template
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(mentionMappingUser());
-export const mappingMentionFinalTag = DesignSystem.tagFor(MappingMentionUser);
+export const mappingMentionUserTag = DesignSystem.tagFor(MappingMentionUser);
