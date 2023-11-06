@@ -39,13 +39,13 @@ const metadata: Meta<RichTextMentionUsersViewArgs> = {
             color: var(${bodyFontColor.cssCustomProperty});
         }
     </style>
-    <div class="mention-container">
+    <p class="mention-container">
         Tagging
         <${richTextMentionUsersViewTag} mention-href="${x => x.mentionHref}" mention-label="${x => x.mentionLabel}">
             @${x => x.mentionLabel}
         </${richTextMentionUsersViewTag}>
         in a comment
-    </div>
+    </p>
     `),
     argTypes: {
         mentionHref: {
