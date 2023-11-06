@@ -1,5 +1,4 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { html, slotted } from '@microsoft/fast-element';
 import type { MentionInternalsOptions } from '../base/models/mention-internals';
 import type { MappingMentionBase } from '../../mapping/mention-base';
 import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
@@ -12,6 +11,7 @@ import {
 import type { MappingConfig } from '../mention-base/models/mapping-config';
 import { MappingUserConfig } from '../mention-base/models/mapping-user-config';
 import { MappingMentionUser } from '../../mapping/mention-user';
+import { template } from '../mention-base/template';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -68,7 +68,7 @@ RichTextMentionUsersValidator
 }
 const nimbleRichtextMentionUsers = RichtextMentionUsers.compose({
     baseName: 'rich-text-mention-users',
-    template: html`<slot ${slotted('mappings')} name="mapping"></slot>`
+    template
 });
 
 DesignSystem.getOrCreate()
