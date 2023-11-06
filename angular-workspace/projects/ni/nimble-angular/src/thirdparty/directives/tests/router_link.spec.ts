@@ -32,6 +32,7 @@ describe('RouterLink', () => {
     class LinkComponent {
       link: string|null|undefined = '/';
     }
+    // [Nimble] Declare TestRouterLinkDirective
     TestBed.configureTestingModule({imports: [RouterTestingModule], declarations: [LinkComponent, TestRouterLinkDirective]});
     const fixture = TestBed.createComponent(LinkComponent);
     fixture.detectChanges();
@@ -55,6 +56,7 @@ describe('RouterLink', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [RouterTestingModule],
+        // [Nimble] Declare TestRouterLinkDirective
         declarations: [LinkComponent, TestRouterLinkDirective]
       });
       fixture = TestBed.createComponent(LinkComponent);
@@ -122,6 +124,7 @@ describe('RouterLink', () => {
       beforeEach(() => {
         TestBed.configureTestingModule({
           imports: [RouterTestingModule],
+          // [Nimble] Declare TestRouterLinkDirective
           declarations: [LinkComponent, TestRouterLinkDirective]
         });
         fixture = TestBed.createComponent(LinkComponent);
@@ -174,6 +177,7 @@ describe('RouterLink', () => {
 
       TestBed.configureTestingModule({
         imports: [RouterTestingModule],
+        // [Nimble] Declare TestRouterLinkDirective
         declarations: [LinkComponent, TestRouterLinkDirective]
       });
       const fixture = TestBed.createComponent(LinkComponent);
