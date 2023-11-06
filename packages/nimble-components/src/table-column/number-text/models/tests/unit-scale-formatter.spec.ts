@@ -128,22 +128,6 @@ describe('UnitScaleFormatter', () => {
             });
         }
     }
-    /*
-    class TestUnitScaleFormatter extends UnitScaleFormatter {
-        private readonly units = [0.5, 1, 5, 10].map(scaleFactor => {
-            return {
-                scaleFactor,
-                format: (value: number): string => {
-                    return `${value} x${scaleFactor}`;
-                }
-            };
-        });
-
-        protected override getSupportedScaledUnits(): ScaledUnit[] {
-            return this.units;
-        }
-    }
-    */
 
     parameterizeNamedList(testCases, (spec, name, value) => {
         spec(`${name} (formatValue)`, () => {

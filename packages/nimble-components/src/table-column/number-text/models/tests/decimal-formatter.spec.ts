@@ -121,7 +121,6 @@ describe('DecimalFormatter', () => {
 
     for (const locale of locales) {
         parameterizeNamedList(testCases, (spec, name, value) => {
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             spec(`${name} with '${locale}' locale`, () => {
                 const formatter = new DecimalFormatter(
                     locale,
