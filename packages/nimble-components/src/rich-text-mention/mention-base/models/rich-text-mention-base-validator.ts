@@ -1,6 +1,6 @@
 import type { MappingMentionBase } from '../../../mapping/mention base';
-import type { MentionInternals } from './mention-internals';
-import { MentionValidator } from './mention-validator';
+import type { MentionInternals } from '../../base/models/mention-internals';
+import { MentionValidator } from '../../base/models/mention-validator';
 
 export const baseValidityFlagNames = [
     'unsupportedMappingType',

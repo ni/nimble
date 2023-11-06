@@ -5,15 +5,16 @@ export interface MentionInternalsOptions{
     readonly character: string;
     readonly pattern: string;
 }
+
 /**
  * Internal mention state
  */
-export class MentionInternals<T> {
+export class MentionInternals<TMentionConfig> {
     /**
      * The relevant, static configuration a column requires its cell view to have access to.
      */
     @observable
-    public mentionConfig?: T;
+    public mentionConfig?: TMentionConfig;
 
     /**
      * Whether this column has a valid configuration.

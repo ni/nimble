@@ -1,13 +1,13 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { html, slotted } from '@microsoft/fast-element';
-import { MappingConfigs, RichTextMention, RichTextMentionConfig } from '../base';
 import type { MentionInternalsOptions } from '../base/models/mention-internals';
-import type { MappingConfig } from '../base/models/mapping-config';
 import { MappingMentionFinal } from '../../mapping/mention final';
-import { MappingUsersConfig } from '../base/models/mapping-users-config';
 import type { MappingMentionBase } from '../../mapping/mention base';
 import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
 import type { RichTextMentionValidity } from '../base/models/mention-validator';
+import { MappingConfigs, RichTextMentionBase, RichTextMentionConfig } from '../mention-base';
+import type { MappingConfig } from '../mention-base/models/mapping-config';
+import { MappingUsersConfig } from '../mention-base/models/mapping-users-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -18,7 +18,7 @@ declare global {
 /**
  * Rich Text Mention that will map user url and name
  */
-export class RichtextMentionUsers extends RichTextMention<RichTextMentionConfig, RichTextMentionUsersValidator> {
+export class RichtextMentionUsers extends RichTextMentionBase<RichTextMentionConfig, RichTextMentionUsersValidator> {
     private readonly character = '@';
 
     private readonly icon = '';

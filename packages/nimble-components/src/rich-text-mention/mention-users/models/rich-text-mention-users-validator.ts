@@ -1,6 +1,6 @@
 import { MappingMentionFinal } from '../../../mapping/mention final';
 import type { MentionInternals } from '../../base/models/mention-internals';
-import { baseValidityFlagNames, RichTextMentionBaseValidator } from '../../base/models/rich-text-mention-base-validator';
+import { baseValidityFlagNames, RichTextMentionBaseValidator } from '../../mention-base/models/rich-text-mention-base-validator';
 
 const usersValidityFlagNames = [...baseValidityFlagNames, 'missingDisplayNameValue'] as const;
 

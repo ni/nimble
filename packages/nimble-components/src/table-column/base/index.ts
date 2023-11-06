@@ -51,7 +51,7 @@ export abstract class TableColumn<
 
     /** @internal */
     public contentSlot!: HTMLSlotElement;
-
+ 
     public checkValidity(): boolean {
         return this.columnInternals.validConfiguration;
     }
