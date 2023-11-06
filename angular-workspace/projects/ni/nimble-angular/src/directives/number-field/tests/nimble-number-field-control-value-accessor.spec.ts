@@ -7,14 +7,12 @@ import { NimbleNumberFieldModule } from '../nimble-number-field.module';
 
 function setNumberFieldValue(numberField: NumberField, value: number): void {
     numberField.value = value.toString();
-    numberField.dispatchEvent(new Event('input'));
-    numberField.dispatchEvent(new Event('change'));
 }
 
 describe('Nimble number field control value accessor', () => {
     @Component({
         template: `
-            <nimble-number-field #numberField [(ngModel)]="value" [disabled]="fieldDisabled" [min]="0"></nimble-number-field>
+            <nimble-number-field #numberField [(ngModel)]="value" (ngModelChange)="onModelValueChange($event)" [disabled]="fieldDisabled" [min]="0"></nimble-number-field>
          `
     })
     class TestHostComponent {
@@ -23,6 +21,8 @@ describe('Nimble number field control value accessor', () => {
         public readonly initialValue = 123;
         public value = this.initialValue;
         public fieldDisabled = false;
+
+        public onModelValueChange(_value: number): void { }
     }
 
     let numberField: NumberField;
@@ -79,4 +79,12 @@ describe('Nimble number field control value accessor', () => {
         expect(numberField.getAttribute('disabled')).toBe('');
         expect(numberField.disabled).toBe(true);
     }));
+
+    it('fires ngModelChange one time with expected value', () => {
+        const ngModelChangeSpy = spyOn(testHostComponent, 'onModelValueChange').and.callThrough();
+        const newValue = 1;
+        setNumberFieldValue(numberField, newValue);
+        fixture.detectChanges();
+        expect(ngModelChangeSpy).toHaveBeenCalledOnceWith(newValue);
+    });
 });

@@ -1,8 +1,73 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 23 Oct 2023 14:17:52 GMT and should not be manually modified.
+This log was last generated on Thu, 02 Nov 2023 18:26:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.8.7
+
+Thu, 02 Nov 2023 18:26:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.13.0
+
+## 17.8.6
+
+Thu, 02 Nov 2023 17:33:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.12.1
+
+## 17.8.5
+
+Wed, 01 Nov 2023 22:35:50 GMT
+
+### Patches
+
+- Prevent navigation due to routerLink directive when host is disabled ([ni/nimble@37fa96e](https://github.com/ni/nimble/commit/37fa96eb5b5512961aa272e3b3aada07a6ee39df))
+
+## 17.8.4
+
+Wed, 01 Nov 2023 20:45:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.12.0
+
+## 17.8.3
+
+Wed, 01 Nov 2023 16:39:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.11.0
+
+## 17.8.2
+
+Wed, 01 Nov 2023 15:14:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.10.3
+
+## 17.8.1
+
+Thu, 26 Oct 2023 18:19:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.10.2
+
+## 17.8.0
+
+Thu, 26 Oct 2023 00:29:31 GMT
+
+### Minor changes
+
+- Angular integration for duration table column; add DurationPipe at 'pipes' entrypoint ([ni/nimble@244e2ca](https://github.com/ni/nimble/commit/244e2caca0117fae6448f7c130e3afd3771b03d5))
+- Bump @ni/nimble-components to v20.10.1
 
 ## 17.7.1
 

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 19 Oct 2023 23:50:56 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Oct 2023 00:29:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.5.0
+
+Thu, 26 Oct 2023 00:29:31 GMT
+
+### Minor changes
+
+- Blazor integration for duration table column ([ni/nimble@244e2ca](https://github.com/ni/nimble/commit/244e2caca0117fae6448f7c130e3afd3771b03d5))
 
 ## 12.4.0
 
