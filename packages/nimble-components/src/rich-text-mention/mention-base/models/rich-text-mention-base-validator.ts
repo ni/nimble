@@ -74,7 +74,7 @@ export abstract class RichTextMentionBaseValidator<
     ): void {
         const regexPattern = new RegExp(pattern!);
         const valid = mappings.some(href => (href ? regexPattern.test(href) : false));
-        this.setConditionValue('missingMentionHrefValue', !valid);
+        this.setConditionValue('unsupportedMentionHrefValue', !valid);
     }
 
     private validateNoMissingDisplayName(mappings: MappingMentionBase[]): void {
