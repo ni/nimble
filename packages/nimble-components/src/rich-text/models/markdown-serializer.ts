@@ -52,7 +52,7 @@ export class RichTextMarkdownSerializer {
             if (!RichTextMarkdownSerializer.mentionedUsers.includes(url)) {
                 RichTextMarkdownSerializer.mentionedUsers.push(url);
             }
-            state.write(`<${url}> `);
+            state.write(`<${url}>`);
         };
 
         /**
