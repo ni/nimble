@@ -16,9 +16,7 @@ export const baseValidityFlagNames = [
  */
 export abstract class RichTextMentionBaseValidator<
     ValidityFlagNames extends readonly string[]
-> extends MentionValidator<
-typeof baseValidityFlagNames | ValidityFlagNames
-    > {
+> extends MentionValidator<typeof baseValidityFlagNames | ValidityFlagNames> {
     public constructor(
         mentionInternals: MentionInternals<unknown>,
         configValidityKeys: ValidityFlagNames,
@@ -27,7 +25,10 @@ typeof baseValidityFlagNames | ValidityFlagNames
         super(mentionInternals, configValidityKeys);
     }
 
-    public validate(mappings: MappingMentionBase[], pattern: string | undefined): void {
+    public validate(
+        mappings: MappingMentionBase[],
+        pattern: string | undefined
+    ): void {
         this.untrackAll();
         const mentionHrefs = mappings.map(mapping => mapping.mentionHref);
         this.validateMappingTypes(mappings);
@@ -39,7 +40,10 @@ typeof baseValidityFlagNames | ValidityFlagNames
     }
 
     private validatePattern(pattern: string | undefined): void {
-        this.setConditionValue('missingPatternAttribute', pattern === undefined);
+        this.setConditionValue(
+            'missingPatternAttribute',
+            pattern === undefined
+        );
     }
 
     private validateMappingTypes(mappings: MappingMentionBase[]): void {
@@ -50,7 +54,7 @@ typeof baseValidityFlagNames | ValidityFlagNames
     }
 
     private validateUniqueMentionHref(
-        mentionHref: (string | undefined)[],
+        mentionHref: (string | undefined)[]
     ): void {
         const typedKeys = mentionHref.map(x => x?.toString() ?? undefined);
         const invalid = new Set(typedKeys).size !== typedKeys.length;
@@ -58,18 +62,25 @@ typeof baseValidityFlagNames | ValidityFlagNames
     }
 
     private validateNoMissingMentionHref(mappings: MappingMentionBase[]): void {
-        const invalid = mappings.some(mapping => mapping.mentionHref === undefined);
+        const invalid = mappings.some(
+            mapping => mapping.mentionHref === undefined
+        );
         this.setConditionValue('missingMentionHrefValue', invalid);
     }
 
-    private validateHref(mappings: (string | undefined)[], pattern: string | undefined): void {
+    private validateHref(
+        mappings: (string | undefined)[],
+        pattern: string | undefined
+    ): void {
         const regexPattern = new RegExp(pattern!);
         const valid = mappings.some(href => (href ? regexPattern.test(href) : false));
         this.setConditionValue('missingMentionHrefValue', !valid);
     }
 
     private validateNoMissingDisplayName(mappings: MappingMentionBase[]): void {
-        const invalid = mappings.some(mapping => mapping.displayName === undefined);
+        const invalid = mappings.some(
+            mapping => mapping.displayName === undefined
+        );
         this.setConditionValue('missingDisplayNameValue', invalid);
     }
 }

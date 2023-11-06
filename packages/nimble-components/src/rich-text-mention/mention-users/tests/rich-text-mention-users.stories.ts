@@ -1,7 +1,10 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { createUserSelectedThemeStory, incubatingWarning } from '../../../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    incubatingWarning
+} from '../../../utilities/tests/storybook';
 import { richTextMentionUsersTag } from '..';
 import { mappingMentionUserTag } from '../../../mapping/mention-user';
 import { richTextEditorTag } from '../../../rich-text/editor';
@@ -23,8 +26,7 @@ const metadata: Meta = {
             <${mappingMentionUserTag} mention-href="http://users/user-id-3" display-name="Bob Jones"></${mappingMentionUserTag}>
         </${richTextMentionUsersTag}>
     </${richTextEditorTag} style="height: 160px;">
-  `),
-
+  `)
 };
 
 export default metadata;

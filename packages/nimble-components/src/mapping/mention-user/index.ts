@@ -11,8 +11,7 @@ declare global {
 /**
  * Extended base class, as mentioning users requires only mentionHref and displayName
  */
-export class MappingMentionUser extends MappingMentionBase {
-}
+export class MappingMentionUser extends MappingMentionBase {}
 
 const mentionMappingUser = MappingMentionUser.compose({
     baseName: 'mapping-mention-user',

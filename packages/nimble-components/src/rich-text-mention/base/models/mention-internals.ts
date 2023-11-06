@@ -1,6 +1,6 @@
 import { observable } from '@microsoft/fast-element';
 
-export interface MentionInternalsOptions{
+export interface MentionInternalsOptions {
     readonly icon: string;
     readonly character: string;
     readonly pattern: string;

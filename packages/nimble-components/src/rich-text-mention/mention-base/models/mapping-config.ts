@@ -6,7 +6,10 @@ import type { ListOption } from '../../../list-option';
  */
 export abstract class MappingConfig {
     public readonly listView: ViewTemplate<ListOption> = this.createListView();
-    public constructor(public readonly mentionHref: string | undefined, public readonly displayName: string | undefined) {}
+    public constructor(
+        public readonly mentionHref: string | undefined,
+        public readonly displayName: string | undefined
+    ) {}
 
     public abstract createListView(): ViewTemplate<ListOption>;
 }

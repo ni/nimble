@@ -1,4 +1,10 @@
-import { Notifier, Observable, observable, Subscriber, ViewTemplate } from '@microsoft/fast-element';
+import {
+    Notifier,
+    Observable,
+    observable,
+    Subscriber,
+    ViewTemplate
+} from '@microsoft/fast-element';
 import type { MappingConfig } from './models/mapping-config';
 import { MappingMentionBase } from '../../mapping/mention-base';
 import type { RichTextMentionBaseValidator } from './models/rich-text-mention-base-validator';
@@ -14,7 +20,12 @@ export interface RichTextMentionConfig {
 /**
  * The base class for Mention mapping configuration
  */
-export abstract class RichTextMentionBase<TMentionConfig extends RichTextMentionConfig, TValidator extends RichTextMentionBaseValidator<[]>> extends RichTextMention<TMentionConfig> implements Subscriber {
+export abstract class RichTextMentionBase<
+    TMentionConfig extends RichTextMentionConfig,
+    TValidator extends RichTextMentionBaseValidator<[]>
+>
+    extends RichTextMention<TMentionConfig>
+    implements Subscriber {
     /** @internal */
     public validator = this.createValidator();
 
@@ -49,7 +60,9 @@ export abstract class RichTextMentionBase<TMentionConfig extends RichTextMention
         mappingConfigs: MappingConfigs
     ): TMentionConfig;
 
-    protected abstract createMappingConfig(mapping: MappingMentionBase): MappingConfig;
+    protected abstract createMappingConfig(
+        mapping: MappingMentionBase
+    ): MappingConfig;
 
     private getMappingConfigs(): MappingConfigs {
         const mappingConfigs = new Map<string, MappingConfig>();
@@ -68,7 +81,9 @@ export abstract class RichTextMentionBase<TMentionConfig extends RichTextMention
 
     private updateMentionConfig(): void {
         this.validator.validate(this.mappings, this.pattern);
-        this.mentionInternals.mentionConfig = this.validator.isValid() ? this.createMentionConfig(this.getMappingConfigs()) : undefined;
+        this.mentionInternals.mentionConfig = this.validator.isValid()
+            ? this.createMentionConfig(this.getMappingConfigs())
+            : undefined;
     }
 
     private mappingsChanged(): void {
