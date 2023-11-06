@@ -48,6 +48,7 @@ import { userMentionViewTag } from '../mention-view/user-mention-view';
 import type { MentionBox } from './nimble-rich-text-mention-list-box';
 import { RichtextMentionUsers } from '../../rich-text-mention/mention-users';
 import type { ListOption } from '../../list-option';
+import type { RichTextMention } from '../../rich-text-mention/base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -82,7 +83,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     @observable
     public pattern!: string;
 
-    public mentionList: RichtextMentionUsers[] = [];
+    public mentionList: RichTextMention[] = [];
 
     /**
      * @internal
@@ -275,15 +276,20 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         }
         this.userList = [];
         this.mentionList.forEach((list => {
-            this.userList = list.getListOptions();
-            this.pattern = list.pattern;
+            if (list instanceof RichtextMentionUsers) {
+                this.userList = list.getListOptions();
+                this.pattern = list.pattern;
+            }
         }));
     }
 
     /** @internal */
     public handleChange(_source: unknown, _args: unknown): void {
         this.mentionList.forEach((list => {
-            this.userList = list.getListOptions();
+            if (list instanceof RichtextMentionUsers) {
+                this.userList = list.getListOptions();
+                this.pattern = list.pattern;
+            }
         }));
     }
 
