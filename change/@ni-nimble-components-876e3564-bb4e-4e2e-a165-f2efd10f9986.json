@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add configuration component for @mention support",
+  "packageName": "@ni/nimble-components",
+  "email": "123377167+aagash-ni@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
