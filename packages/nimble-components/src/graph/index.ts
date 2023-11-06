@@ -21,6 +21,7 @@ export class Graph extends FoundationElement {
     public readonly graphContainer!: HTMLElement;
 
     private eChartsRef?: echarts.ECharts;
+    private resizeObserver?: ResizeObserver;
 
     public constructor() {
         super();
@@ -29,6 +30,8 @@ export class Graph extends FoundationElement {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.eChartsRef = echarts.init(this.graphContainer);
+        this.resizeObserver = new ResizeObserver(() => this.onResize());
+        this.resizeObserver.observe(this.graphContainer);
     }
 
     public override disconnectedCallback(): void {
@@ -75,6 +78,10 @@ export class Graph extends FoundationElement {
             }
         };
         this.eChartsRef?.setOption(options);
+    }
+
+    private onResize(): void {
+        this.eChartsRef?.resize({ width: this.graphContainer.clientWidth, height: this.graphContainer.clientHeight });
     }
 }
 
