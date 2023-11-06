@@ -10,5 +10,4 @@ export { cardTag };
 @Directive({
     selector: 'nimble-card'
 })
-
-export class NimbleCardDirective {}
+export class NimbleCardDirective { }
