@@ -31,8 +31,14 @@ export const iconMetadata: {
     IconArrowExpanderUp: {
         tags: []
     },
+    IconArrowInCircle: {
+        tags: ['move in']
+    },
     IconArrowLeftFromLine: {
         tags: ['logout']
+    },
+    IconArrowOutCircle: {
+        tags: ['move out']
     },
     IconArrowPartialRotateLeft: {
         tags: ['reset']
