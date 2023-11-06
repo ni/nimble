@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add NimblePipesModule in nimble-angular/pipes entrypoint (for DurationPipe)",
-  "packageName": "@ni/nimble-angular",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
