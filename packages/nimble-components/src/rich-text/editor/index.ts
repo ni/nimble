@@ -284,10 +284,8 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         }
         this.userList = [];
         this.mentionList.forEach((list => {
-            if (list instanceof RichtextMentionUsers) {
-                this.userList = list.getListOptions();
-                this.pattern = list.pattern;
-            }
+            this.userList = list.getListOptions();
+            this.pattern = list.pattern;
         }));
     }
 

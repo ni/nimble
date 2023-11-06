@@ -21,9 +21,6 @@ export abstract class RichTextMentionBase<TMentionConfig extends RichTextMention
     /** @internal */
     public mappingNotifiers: Notifier[] = [];
 
-    @attr
-    public pattern!: string;
-
     /** @internal */
     @observable
     public mappings: MappingMentionBase[] = [];
@@ -34,7 +31,7 @@ export abstract class RichTextMentionBase<TMentionConfig extends RichTextMention
         }
     }
 
-    public getListOptions(): ViewTemplate<ListOption>[] {
+    public override getListOptions(): ViewTemplate<ListOption>[] {
         const mappingConfigs = this.mentionInternals.mentionConfig?.mappingConfigs?.values();
         const listOptions = [];
         if (mappingConfigs === undefined) {
