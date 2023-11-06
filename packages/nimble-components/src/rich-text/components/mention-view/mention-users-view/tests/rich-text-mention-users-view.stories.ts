@@ -4,7 +4,7 @@ import {
     createUserSelectedThemeStory,
     incubatingWarning
 } from '../../../../../utilities/tests/storybook';
-import { mentionUsersViewTag } from '..';
+import { richTextMentionUsersViewTag } from '..';
 import {
     bodyFont,
     bodyFontColor
@@ -39,13 +39,13 @@ const metadata: Meta<RichTextMentionUsersViewArgs> = {
             color: var(${bodyFontColor.cssCustomProperty});
         }
     </style>
-    <p class="mention-container">
+    <div class="mention-container">
         Tagging
-        <${mentionUsersViewTag} mention-href="${x => x.mentionHref}" mention-label="${x => x.mentionLabel}">
+        <${richTextMentionUsersViewTag} mention-href="${x => x.mentionHref}" mention-label="${x => x.mentionLabel}">
             @${x => x.mentionLabel}
-        </${mentionUsersViewTag}>
+        </${richTextMentionUsersViewTag}>
         in a comment
-    </p>
+    </div>
     `),
     argTypes: {
         mentionHref: {

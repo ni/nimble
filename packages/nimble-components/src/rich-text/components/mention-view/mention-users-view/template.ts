@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
-import type { MentionUsersView } from '.';
+import type { RichTextMentionUsersView } from '.';
 
-export const template = html<MentionUsersView>`<span
+export const template = html<RichTextMentionUsersView>`<span
     class="control"
     part="control"
     mention-href="${x => x.mentionHref}"

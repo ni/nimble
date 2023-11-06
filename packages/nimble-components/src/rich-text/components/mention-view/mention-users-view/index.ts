@@ -1,14 +1,14 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { MentionView } from '../base';
+import { RichTextMentionView } from '../base';
 import { template } from './template';
 import { styles } from './styles';
 
 /**
  * A nimble styled rich text mention users view
  */
-export class MentionUsersView extends MentionView {}
+export class RichTextMentionUsersView extends RichTextMentionView {}
 
-const nimbleRichTextMentionUsersView = MentionUsersView.compose({
+const nimbleRichTextMentionUsersView = RichTextMentionUsersView.compose({
     baseName: 'rich-text-mention-users-view',
     template,
     styles
@@ -17,4 +17,4 @@ const nimbleRichTextMentionUsersView = MentionUsersView.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleRichTextMentionUsersView());
-export const mentionUsersViewTag = DesignSystem.tagFor(MentionUsersView);
+export const richTextMentionUsersViewTag = DesignSystem.tagFor(RichTextMentionUsersView);

@@ -4,7 +4,7 @@ import { attr } from '@microsoft/fast-element';
 /**
  * The base class for Mention View Node
  */
-export class MentionView extends FoundationElement {
+export class RichTextMentionView extends FoundationElement {
     /**
      * Stores the unique URL of the mentioned user matching the pattern
      *
