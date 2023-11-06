@@ -5,6 +5,10 @@ import {
     incubatingWarning
 } from '../../../../../utilities/tests/storybook';
 import { mentionUsersViewTag } from '..';
+import {
+    bodyFont,
+    bodyFontColor
+} from '../../../../../theme-provider/design-tokens';
 
 interface RichTextMentionUsersViewArgs {
     mentionHref: string;
@@ -29,21 +33,27 @@ const metadata: Meta<RichTextMentionUsersViewArgs> = {
         componentName: 'rich text mention users view',
         statusLink: 'https://github.com/ni/nimble/issues/1288'
     })}
-    <${mentionUsersViewTag}
-        mention-href="${x => x.mentionHref}"
-        mention-label="${x => x.mentionLabel}"
-    >
-        @John Doe
-    </${mentionUsersViewTag}>
+    <style class='code-hide'>
+        .mention-container {
+            font: var(${bodyFont.cssCustomProperty});
+            color: var(${bodyFontColor.cssCustomProperty});
+        }
+    </style>
+    <p class="mention-container">
+        Tagging
+        <${mentionUsersViewTag} mention-href="${x => x.mentionHref}" mention-label="${x => x.mentionLabel}">
+            @${x => x.mentionLabel}
+        </${mentionUsersViewTag}>
+        in a comment
+    </p>
     `),
     argTypes: {
         mentionHref: {
             description:
-                'User URL containing a user ID of the mentioned user'
+                'User URL containing a unique user ID of the mentioned user'
         },
         mentionLabel: {
-            description:
-                'Stores the value of the rendering label'
+            description: 'Stores the value of the rendering label'
         }
     },
     args: {
