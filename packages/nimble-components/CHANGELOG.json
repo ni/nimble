@@ -2,6 +2,65 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 03 Nov 2023 23:30:50 GMT",
+      "version": "20.14.0",
+      "tag": "@ni/nimble-components_v20.14.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "57374665+stefanc18@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5207a2a24f7d383057b56a91add96e00e5c36d39",
+            "comment": "Expose width and height of nimble-dialog & add tokens"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 03 Nov 2023 05:55:21 GMT",
+      "version": "20.13.0",
+      "tag": "@ni/nimble-components_v20.13.0",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "df2690679d1218c18078c26abf78641675adf00c",
+            "comment": "Spec update to support @mention in rich text components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 Nov 2023 18:26:57 GMT",
+      "version": "20.13.0",
+      "tag": "@ni/nimble-components_v20.13.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6f571beaf840af895e5561765ce3fd1500c50c80",
+            "comment": "Update fast-foundation dependency"
+          }
+        ],
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "91d75d9c7ce2f493b3ac69fefd5457ae3b83d3f9",
+            "comment": "New icons for \"move in\" and \"move out\""
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.8.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 Nov 2023 17:33:16 GMT",
       "version": "20.12.1",
       "tag": "@ni/nimble-components_v20.12.1",

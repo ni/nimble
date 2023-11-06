@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Wed, 01 Nov 2023 20:45:20 GMT and should not be manually modified.
+This log was last generated on Thu, 02 Nov 2023 18:26:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.8.0
+
+Thu, 02 Nov 2023 18:26:57 GMT
+
+### Minor changes
+
+- New icons for "move in" and "move out" ([ni/nimble@91d75d9](https://github.com/ni/nimble/commit/91d75d9c7ce2f493b3ac69fefd5457ae3b83d3f9))
 
 ## 6.7.0
 

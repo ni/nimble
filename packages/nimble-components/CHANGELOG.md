@@ -1,8 +1,29 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 02 Nov 2023 17:33:16 GMT and should not be manually modified.
+This log was last generated on Fri, 03 Nov 2023 23:30:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.14.0
+
+Fri, 03 Nov 2023 23:30:50 GMT
+
+### Minor changes
+
+- Expose width and height of nimble-dialog & add tokens ([ni/nimble@5207a2a](https://github.com/ni/nimble/commit/5207a2a24f7d383057b56a91add96e00e5c36d39))
+
+## 20.13.0
+
+Thu, 02 Nov 2023 18:26:57 GMT
+
+### Minor changes
+
+- New icons for "move in" and "move out" ([ni/nimble@91d75d9](https://github.com/ni/nimble/commit/91d75d9c7ce2f493b3ac69fefd5457ae3b83d3f9))
+- Bump @ni/nimble-tokens to v6.8.0
+
+### Patches
+
+- Update fast-foundation dependency ([ni/nimble@6f571be](https://github.com/ni/nimble/commit/6f571beaf840af895e5561765ce3fd1500c50c80))
 
 ## 20.12.1
 
