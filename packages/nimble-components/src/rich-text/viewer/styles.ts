@@ -3,6 +3,7 @@ import { display } from '@microsoft/fast-foundation';
 import {
     bodyFont,
     bodyFontColor,
+    linkFontColor,
     linkProminentFontColor
 } from '../../theme-provider/design-tokens';
 

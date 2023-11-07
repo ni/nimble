@@ -44,11 +44,12 @@ import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import type { AnchoredRegion } from '../../anchored-region';
 import type { Button } from '../../button';
-import { userMentionViewTag } from '../mention-view/user-mention-view';
+import { mentionUsersViewTag } from '../mention-view/user-mention-view';
 import type { MentionBox } from './nimble-rich-text-mention-list-box';
 import { RichtextMentionUsers } from '../../rich-text-mention/mention-users';
 import type { ListOption } from '../../list-option';
 import type { RichTextMention } from '../../rich-text-mention/base';
+import type { RichTextMentionConfig } from '../../rich-text-mention/mention-base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -78,6 +79,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /** @internal */
     @observable
     public userList: ViewTemplate<ListOption>[] = [];
+
+    /** @internal */
+    @observable
+    public userListMap!: RichTextMentionConfig;
 
     /** @internal */
     @observable
@@ -231,7 +236,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /**
      * @internal
      */
-    public mentionUrlsInPasteNodes: string[] = [];
+    public mentionhrefsInPasteNodes: string[] = [];
 
     /**
      * @internal
@@ -285,6 +290,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         this.userList = [];
         this.mentionList.forEach((list => {
             this.userList = list.getListOptions();
+            this.userListMap = list.mentionInternals.mentionConfig as RichTextMentionConfig;
             this.pattern = list.pattern;
         }));
     }
@@ -294,9 +300,12 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         this.mentionList.forEach((list => {
             if (list instanceof RichtextMentionUsers) {
                 this.userList = list.getListOptions();
+                this.userListMap = list.mentionInternals.mentionConfig as unknown as RichTextMentionConfig;
                 this.pattern = list.pattern;
             }
         }));
+        const markdown = this.getMarkdown();
+        this.setMarkdown(markdown);
     }
 
     /**
@@ -478,7 +487,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     public mentionChange(e: CustomEvent<MentionDetail>): void {
         this.mentionPropCommand.command({
-            url: e.detail.id,
+            href: e.detail.id,
             label: e.detail.name
         });
         this.open = false;
@@ -540,22 +549,25 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                     updatedNodes.push(node);
                 }
             } else if (node.type.name === 'mention') {
-                const url = node.attrs.url as string;
+                const href = node.attrs.href as string;
                 let attrs: { href: string | null };
                 const linkMark = this.tiptapEditor.schema.marks.link!;
-                this.mentionUrlsInPasteNodes.push(url);
+                this.mentionhrefsInPasteNodes.push(href);
 
-                if (this.validAbsoluteLinkRegex.test(url)) {
-                    attrs = { href: url };
+                if (this.validAbsoluteLinkRegex.test(href)) {
+                    attrs = { href };
                 } else {
                     attrs = { href: null };
                 }
 
                 updatedNodes.push(
                     this.tiptapEditor.schema.text(
-                        `${url}`,
+                        `${href}`,
                         [linkMark.create(attrs)]
                     )
+                );
+                updatedNodes.push(
+                    this.tiptapEditor.schema.text(' ')
                 );
             } else {
                 const updatedContent = this.updateLinkNodes(node.content);
@@ -588,7 +600,11 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
          * ProseMirror reference for `transformPasted`: https://prosemirror.net/docs/ref/#view.EditorProps.transformPasted
          */
         const transformPasted = (slice: Slice): Slice => {
+            this.mentionhrefsInPasteNodes = [];
             const modifiedFragment = this.updateLinkNodes(slice.content);
+            if (this.mentionhrefsInPasteNodes.length > 0) {
+                this.$emit('mention');
+            }
             return new Slice(modifiedFragment, slice.openStart, slice.openEnd);
         };
 
@@ -634,7 +650,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                         parseHTML() {
                             return [
                                 {
-                                    tag: userMentionViewTag
+                                    tag: mentionUsersViewTag
                                 },
                                 {
                                     tag: `span[mention-type="${this.name}"]`
@@ -643,17 +659,17 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                         },
                         addAttributes() {
                             return {
-                                url: {
+                                href: {
                                     default: null,
-                                    parseHTML: element => element.getAttribute('mention-url'),
+                                    parseHTML: element => element.getAttribute('mention-href'),
                                     renderHTML: attributes => {
-                                        if (!attributes.url) {
+                                        if (!attributes.href) {
                                             return {};
                                         }
 
                                         return {
                                             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                                            'mention-url': attributes.url,
+                                            'mention-href': attributes.href,
                                         };
                                     },
                                 },
@@ -675,26 +691,29 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                             };
                         },
                         // eslint-disable-next-line @typescript-eslint/naming-convention
-                        renderHTML({ node, HTMLAttributes }) {
+                        renderHTML({ HTMLAttributes }) {
                             return [
-                                userMentionViewTag,
+                                mentionUsersViewTag,
                                 mergeAttributes(
                                     this.options.HTMLAttributes,
                                     HTMLAttributes
                                 ),
-                                `${this.options.renderLabel({
-                                    options: this.options,
-                                    node
-                                })} `
+                                // `${this.options.renderLabel({
+                                //     options: this.options,
+                                //     node
+                                // })} `
                             ];
                         }
                     })
                     .configure({
-                        renderLabel({ options, node }) {
-                            return `${options.suggestion.char!}${
-                                (node.attrs.label as string) ?? node.attrs.id
-                            }`;
-                        },
+                        // renderLabel({ options, node }) {
+                        //     return `${options.suggestion.char!}${(node.attrs.label as string) ?? node.attrs.id
+                        //     }`;
+                        // },
+                        // eslint-disable-next-line @typescript-eslint/naming-convention
+                        // HTMLAttributes: {
+                        //     contenteditable: true
+                        // },
                         suggestion: {
                             allowSpaces: true,
                             render: () => {
@@ -789,13 +808,14 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        // const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(
-        //     markdown,
-        //     this.userList,
-        //     this.pattern
-        // );
-        // return this.xmlSerializer.serializeToString(documentFragment);
-        return '';
+        // this.mentionList[0].mentionInternals.mentionConfig.mappingConfigs
+        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(
+            markdown,
+            this.userListMap,
+            this.pattern
+        );
+        return this.xmlSerializer.serializeToString(documentFragment);
+        // return '';
     }
 
     /**
@@ -845,8 +865,14 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * https://tiptap.dev/api/events#update
      */
     private bindEditorUpdateEvent(): void {
+        let existingMentionedUSers: string[] = [];
         this.tiptapEditor.on('update', () => {
             this.$emit('input');
+            if (this.mentionhrefsInPasteNodes.length > 0 && this.mentionhrefsInPasteNodes !== existingMentionedUSers) {
+                const markdown = this.getMarkdown();
+                this.setMarkdown(markdown);
+            }
+            existingMentionedUSers = this.mentionhrefsInPasteNodes;
             this.queueUpdateScrollbarWidth();
         });
     }
@@ -866,7 +892,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     private unbindNativeInputEvent(): void {
-        this.tiptapEditor.view.dom.removeEventListener('input', () => {});
+        this.tiptapEditor.view.dom.removeEventListener('input', () => { });
     }
 
     private queueUpdateScrollbarWidth(): void {
@@ -910,7 +936,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface RichTextEditor extends ARIAGlobalStatesAndProperties {}
+export interface RichTextEditor extends ARIAGlobalStatesAndProperties { }
 applyMixins(RichTextEditor, ARIAGlobalStatesAndProperties);
 
 const nimbleRichTextEditor = RichTextEditor.compose({

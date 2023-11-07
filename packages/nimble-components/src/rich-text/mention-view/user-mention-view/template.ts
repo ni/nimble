@@ -1,9 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import type { MentionView } from '../base';
+import type { MentionUsersView } from '.';
 
-export const template = html<MentionView>`<span
-    mention-url="${x => x.mentionUrl}"
-    mention-label="${x => x.mentionLabel}"
->
-    <slot></slot>
-</span>`;
+export const template = html<MentionUsersView>`<span
+>@${x => x.mentionLabel}</span>`;

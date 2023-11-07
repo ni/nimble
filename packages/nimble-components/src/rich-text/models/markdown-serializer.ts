@@ -48,11 +48,11 @@ export class RichTextMarkdownSerializer {
             state: MarkdownSerializerState,
             node: Node
         ): void {
-            const url = node.attrs.url as string;
-            if (!RichTextMarkdownSerializer.mentionedUsers.includes(url)) {
-                RichTextMarkdownSerializer.mentionedUsers.push(url);
+            const href = node.attrs.href as string;
+            if (!RichTextMarkdownSerializer.mentionedUsers.includes(href)) {
+                RichTextMarkdownSerializer.mentionedUsers.push(href);
             }
-            state.write(`<${url}>`);
+            state.write(`<${href}>`);
         };
 
         /**

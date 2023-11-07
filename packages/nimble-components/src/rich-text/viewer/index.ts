@@ -84,11 +84,11 @@ export class RichTextViewer extends FoundationElement {
             notifier.subscribe(this);
             this.userListNotifiers.push(notifier);
         }
-        this.userList = [];
-        this.mentionList.forEach((list => {
-            this.userList = list.userInternals;
-            this.pattern = list.pattern;
-        }));
+        // this.userList = [];
+        // this.mentionList.forEach((list => {
+        //     this.userList = list.userInternals;
+        //     this.pattern = list.pattern;
+        // }));
         if (this.$fastController.isConnected) {
             this.updateView();
         }
@@ -96,10 +96,10 @@ export class RichTextViewer extends FoundationElement {
 
     /** @internal */
     public handleChange(_source: unknown, _args: unknown): void {
-        this.mentionList.forEach((list => {
-            this.userList = list.userInternals;
-            this.pattern = list.pattern;
-        }));
+        // this.mentionList.forEach((list => {
+        //     this.userList = list.userInternals;
+        //     this.pattern = list.pattern;
+        // }));
         if (this.$fastController.isConnected) {
             this.updateView();
         }
@@ -109,8 +109,8 @@ export class RichTextViewer extends FoundationElement {
         if (this.markdown) {
             const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
                 this.markdown,
-                this.userList,
-                this.pattern
+                // this.userList,
+                // this.pattern
             );
             this.viewer.replaceChildren(serializedContent);
         } else {

@@ -13,7 +13,7 @@ declare global {
 // type MappingKey = string | number | boolean;
 
 export interface UserInfo {
-    url: string;
+    href: string;
     value: string;
 }
 
@@ -69,7 +69,7 @@ export class RichTextEnumMention extends FoundationElement {
         this.mappings.forEach(mapping => {
             // const mappingConfig = this.createMappingConfig(mapping);
             // mappingConfigs.set(mapping.key!, mappingConfig);
-            mappingConfigs.push({ url: mapping.key! as string, value: mapping.text! });
+            mappingConfigs.push({ href: mapping.key! as string, value: mapping.text! });
         });
         return mappingConfigs;
     }

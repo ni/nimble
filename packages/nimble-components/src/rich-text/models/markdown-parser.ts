@@ -5,8 +5,8 @@ import {
 } from 'prosemirror-markdown';
 import { DOMSerializer, Schema } from 'prosemirror-model';
 import { anchorTag } from '../../anchor';
-import type { UserInfo } from '../editor/enum-text';
-import { userMentionViewTag } from '../mention-view/user-mention-view';
+import { mentionUsersViewTag } from '../mention-view/user-mention-view';
+import type { RichTextMentionConfig } from '../../rich-text-mention/mention-base';
 
 /**
  * Provides markdown parser for rich text components
@@ -26,7 +26,7 @@ export class RichTextMarkdownParser {
      */
     public static parseMarkdownToDOM(
         value: string,
-        usersList: UserInfo[] = [],
+        usersList?: RichTextMentionConfig,
         pattern = ''
     ): HTMLElement | DocumentFragment {
         this.markdownParser = this.initializeMarkdownParser(usersList, pattern);
@@ -40,7 +40,7 @@ export class RichTextMarkdownParser {
     }
 
     private static initializeMarkdownParser(
-        usersList: UserInfo[] = [],
+        usersList?: RichTextMentionConfig,
         pattern = ''
     ): MarkdownParser {
         /**
@@ -61,8 +61,10 @@ export class RichTextMarkdownParser {
             'newline'
         ]);
 
-        const getUserName = (userUrl: string, userId: string): string => {
-            return usersList.find(user => user.url === userUrl)?.value ?? userId;
+        const getUserName = (userHref: string, userId: string): string => {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+            const mappingConfig = usersList?.mappingConfigs!;
+            return mappingConfig.get(userHref)?.displayName ?? userId;
         };
 
         supportedTokenizerRules.use(
@@ -105,18 +107,18 @@ export class RichTextMarkdownParser {
                             return false;
                         }
                         const userIdStart = state.pos + 1;
-                        const userUrl = state.src.slice(userIdStart, userIdEnd);
+                        const userHref = state.src.slice(userIdStart, userIdEnd);
 
                         const extractIdPattern = pattern.replace('.*', '(.*)');
                         const extractIdRegex = new RegExp(extractIdPattern);
-                        const userId = extractIdRegex.exec(userUrl)!;
-                        const userName = getUserName(userUrl, userId[1] ?? '');
+                        const userId = extractIdRegex.exec(userHref)!;
+                        const userName = getUserName(userHref, userId[1] ?? '');
                         position += 1;
                         state.pos = position;
 
                         let token = state.push('mention_open', 'span', 1);
                         token.attrs = [
-                            ['mentionurl', userUrl],
+                            ['mentionhref', userHref],
                             ['mentionlabel', userName]
                         ];
                         token = state.push('text', '', 0);
@@ -130,7 +132,8 @@ export class RichTextMarkdownParser {
             { prepend: true }
         );
 
-        supportedTokenizerRules.validateLink = href => /^https?:\/\//i.test(href);
+        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+        // supportedTokenizerRules.validateLink = href => /^https?:\/\//i.test(href);
 
         /**
          * In order to display encoded characters, non-ASCII characters, emojis, and other special characters in their original form,
@@ -140,14 +143,14 @@ export class RichTextMarkdownParser {
          * We can use the default normalization once hyperlink support is added.
          * See: https://github.com/ni/nimble/issues/1527
          */
-        supportedTokenizerRules.normalizeLinkText = url => url;
+        supportedTokenizerRules.normalizeLinkText = href => href;
 
         return new MarkdownParser(this.updatedSchema, supportedTokenizerRules, {
             ...defaultMarkdownParser.tokens,
             mention: {
                 block: 'mention',
                 getAttrs: tok => ({
-                    mentionurl: tok.attrGet('mentionurl'),
+                    mentionhref: tok.attrGet('mentionhref'),
                     mentionlabel: tok.attrGet('mentionlabel')
                 })
             }
@@ -158,21 +161,19 @@ export class RichTextMarkdownParser {
         return new Schema({
             nodes: schema.spec.nodes.addToEnd('mention', {
                 attrs: {
-                    mentionurl: { default: '' },
-                    mentionlabel: { default: '' },
-                    contentEditable: { default: 'false' }
+                    mentionhref: { default: '' },
+                    mentionlabel: { default: '' }
                 },
                 group: 'inline',
                 inline: true,
                 content: 'inline*',
                 toDOM(node) {
-                    const { mentionurl, mentionlabel } = node.attrs;
+                    const { mentionhref, mentionlabel } = node.attrs;
                     return [
-                        userMentionViewTag,
+                        mentionUsersViewTag,
                         {
-                            'mention-url': mentionurl as string,
-                            'mention-label': mentionlabel as string,
-                            contenteditable: 'false'
+                            'mention-href': mentionhref as string,
+                            'mention-label': mentionlabel as string
                         },
                         0
                     ];
@@ -194,7 +195,7 @@ export class RichTextMarkdownParser {
                         return [
                             anchorTag,
                             {
-                                href: node.attrs.href as Attr,
+                                href: /^https?:\/\//i.test(node.attrs.href as string) ? node.attrs.href as Attr : null,
                                 rel: node.attrs.rel as Attr
                             }
                         ];

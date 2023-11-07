@@ -1,4 +1,4 @@
-import { attr, Notifier, Observable, observable, Subscriber, ViewTemplate } from '@microsoft/fast-element';
+import { Notifier, Observable, observable, Subscriber, ViewTemplate } from '@microsoft/fast-element';
 import type { MappingConfig } from './models/mapping-config';
 import { MappingMentionBase } from '../../mapping/mention base';
 import type { RichTextMentionBaseValidator } from './models/rich-text-mention-base-validator';

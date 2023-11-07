@@ -15,8 +15,7 @@ import {
     standardPadding,
     mediumPadding,
     linkFontColor,
-    linkProminentDisabledFontColor,
-    linkProminentFontColor
+    linkProminentDisabledFontColor
 } from '../../theme-provider/design-tokens';
 import { styles as dropdownStyles } from '../../patterns/dropdown/styles';
 import { styles as errorStyles } from '../../patterns/error/styles';
@@ -219,6 +218,13 @@ export const styles = css`
 
     .ProseMirror [contenteditable="false"] {
         white-space: normal;
+        user-select: text;
+    }
+
+    img.ProseMirror-separator {
+        display: inline !important;
+        border: none !important;
+        margin: 0 !important;
     }
 
     :host([disabled]) .ProseMirror a {
@@ -278,10 +284,5 @@ export const styles = css`
 
     :host([disabled]) span[mention-type='mention'] {
         color: ${linkProminentDisabledFontColor};
-    }
-
-    span[mention-type='mention'] {
-        color: ${linkProminentFontColor};
-        user-select: text;
     }
 `;

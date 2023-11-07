@@ -1,22 +1,25 @@
-import { FoundationElement, DesignSystem } from '@microsoft/fast-foundation';
+import { FoundationElement } from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
-import { template } from '../user-mention-view/template';
 
 /**
  * The base class for Mention View
  */
 export class MentionView extends FoundationElement {
-    @attr({ attribute: 'mention-url' })
-    public mentionUrl?: string;
+    /**
+     * Stores the unique value of the mentioned URL matching the pattern
+     *
+     * @public
+     * HTML Attribute: mention-href
+     */
+    @attr({ attribute: 'mention-href' })
+    public mentionHref?: string;
 
+    /**
+     * Stores the value of the rendering label and to get the markdown output
+     *
+     * @public
+     * HTML Attribute: mention-label
+     */
     @attr({ attribute: 'mention-label' })
     public mentionLabel?: string;
 }
-
-const mentionView = MentionView.compose({
-    baseName: 'rich-text-mention-view',
-    template
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(mentionView());
-export const mentionViewTag = DesignSystem.tagFor(MentionView);
