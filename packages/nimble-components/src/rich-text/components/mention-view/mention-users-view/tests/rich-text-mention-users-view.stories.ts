@@ -1,9 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory,
-    incubatingWarning
-} from '../../../../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../../../../utilities/tests/storybook';
 import { richTextMentionUsersViewTag } from '..';
 import {
     bodyFont,
@@ -29,10 +26,6 @@ const metadata: Meta<RichTextMentionUsersViewArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-    ${incubatingWarning({
-        componentName: 'rich text mention users view',
-        statusLink: 'https://github.com/ni/nimble/issues/1288'
-    })}
     <style class='code-hide'>
         .mention-container {
             font: var(${bodyFont.cssCustomProperty});

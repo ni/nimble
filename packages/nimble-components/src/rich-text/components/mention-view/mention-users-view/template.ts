@@ -4,4 +4,5 @@ import type { RichTextMentionUsersView } from '.';
 export const template = html<RichTextMentionUsersView>`<span
     class="control"
     part="control"
->@${x => x.mentionLabel}</span>`;
+    >@${x => x.mentionLabel}</span
+>`;
