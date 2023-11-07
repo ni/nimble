@@ -6,8 +6,8 @@ import {
 } from '../../../utilities/tests/storybook';
 import { richTextViewerTag } from '..';
 import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
-import { mappingMentionTag } from '../../../mapping/mention';
-import { richTextEnumMentionTextTag } from '../../editor/enum-text';
+import { mappingMentionFinalTag } from '../../../mapping/mention final';
+import { richTextMentionUsersTag } from '../../../rich-text-mention/mention-users';
 
 interface RichTextViewerArgs {
     markdown: string;
@@ -34,14 +34,14 @@ const metadata: Meta<RichTextViewerArgs> = {
     <${richTextViewerTag}
         :markdown="${x => x.markdown}"
     >
-        <${richTextEnumMentionTextTag} pattern="user:.*">
-            <${mappingMentionTag} key="user:1" text="Aagash"></${mappingMentionTag}>
-            <${mappingMentionTag} key="user:2" text="vivin"></${mappingMentionTag}>
-            <${mappingMentionTag} key="user:3" text="susee"></${mappingMentionTag}>
-            <${mappingMentionTag} key="user:4" text="vikki"></${mappingMentionTag}>
-            <${mappingMentionTag} key="user:5" text="sue"></${mappingMentionTag}>
-            <${mappingMentionTag} key="user:6" text="sue ann"></${mappingMentionTag}>
-        </${richTextEnumMentionTextTag}>
+        <${richTextMentionUsersTag} pattern="user:.*">
+            <${mappingMentionFinalTag} mention-url="user:1" display-name="Aagash"></${mappingMentionFinalTag}>
+            <${mappingMentionFinalTag} mention-url="user:2" display-name="vivin"></${mappingMentionFinalTag}>
+            <${mappingMentionFinalTag} mention-url="user:3" display-name="susee"></${mappingMentionFinalTag}>
+            <${mappingMentionFinalTag} mention-url="user:4" display-name="vikki"></${mappingMentionFinalTag}>
+            <${mappingMentionFinalTag} mention-url="user:5" display-name="sue"></${mappingMentionFinalTag}>
+            <${mappingMentionFinalTag} mention-url="user:6" display-name="sue ann"></${mappingMentionFinalTag}>
+        </${richTextMentionUsersTag}>
     </${richTextViewerTag}>
     `),
     argTypes: {

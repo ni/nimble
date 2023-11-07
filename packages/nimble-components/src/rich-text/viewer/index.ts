@@ -3,7 +3,9 @@ import { Notifier, Observable, observable } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
-import { RichTextEnumMention, UserInfo } from '../editor/enum-text';
+import type { RichTextMentionConfig } from '../../rich-text-mention/mention-base';
+import { RichtextMentionUsers } from '../../rich-text-mention/mention-users';
+import type { RichTextMention } from '../../rich-text-mention/base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -33,7 +35,7 @@ export class RichTextViewer extends FoundationElement {
      * */
     public userListNotifiers: Notifier[] = [];
 
-    public mentionList: RichTextEnumMention[] = [];
+    public mentionList: RichTextMention[] = [];
 
     /**
      * @internal
@@ -41,8 +43,9 @@ export class RichTextViewer extends FoundationElement {
     @observable
     public readonly childItems: Element[] = [];
 
+    /** @internal */
     @observable
-    public userList!: UserInfo[];
+    public userListMap!: RichTextMentionConfig;
 
     @observable
     public pattern!: string;
@@ -77,18 +80,17 @@ export class RichTextViewer extends FoundationElement {
             : Promise.resolve()));
         await Promise.all(definedElements);
         this.mentionList = this.childItems.filter(
-            (x): x is RichTextEnumMention => x instanceof RichTextEnumMention
+            (x): x is RichtextMentionUsers => x instanceof RichtextMentionUsers
         );
         for (const column of this.mentionList) {
             const notifier = Observable.getNotifier(column);
             notifier.subscribe(this);
             this.userListNotifiers.push(notifier);
         }
-        // this.userList = [];
-        // this.mentionList.forEach((list => {
-        //     this.userList = list.userInternals;
-        //     this.pattern = list.pattern;
-        // }));
+        this.mentionList.forEach((list => {
+            this.userListMap = list.mentionInternals.mentionConfig as RichTextMentionConfig;
+            this.pattern = list.pattern;
+        }));
         if (this.$fastController.isConnected) {
             this.updateView();
         }
@@ -96,10 +98,12 @@ export class RichTextViewer extends FoundationElement {
 
     /** @internal */
     public handleChange(_source: unknown, _args: unknown): void {
-        // this.mentionList.forEach((list => {
-        //     this.userList = list.userInternals;
-        //     this.pattern = list.pattern;
-        // }));
+        this.mentionList.forEach((list => {
+            if (list instanceof RichtextMentionUsers) {
+                this.userListMap = list.mentionInternals.mentionConfig as unknown as RichTextMentionConfig;
+                this.pattern = list.pattern;
+            }
+        }));
         if (this.$fastController.isConnected) {
             this.updateView();
         }
@@ -109,8 +113,8 @@ export class RichTextViewer extends FoundationElement {
         if (this.markdown) {
             const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
                 this.markdown,
-                // this.userList,
-                // this.pattern
+                this.userListMap,
+                this.pattern
             );
             this.viewer.replaceChildren(serializedContent);
         } else {

@@ -64,7 +64,10 @@ export class RichTextMarkdownParser {
         const getUserName = (userHref: string, userId: string): string => {
             // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
             const mappingConfig = usersList?.mappingConfigs!;
-            return mappingConfig.get(userHref)?.displayName ?? userId;
+            if (mappingConfig) {
+                return mappingConfig.get(userHref)?.displayName ?? userId;
+            }
+            return userId;
         };
 
         supportedTokenizerRules.use(
