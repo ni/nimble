@@ -2,7 +2,8 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     mentionFont,
-    mentionFontColor
+    mentionFontColor,
+    mentionDisabledFontColor
 } from '../../../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -15,5 +16,9 @@ export const styles = css`
 
     .control {
         color: ${mentionFontColor};
+    }
+
+    :host([disabled]) .control {
+        color: ${mentionDisabledFontColor};
     }
 `;
