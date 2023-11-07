@@ -115,7 +115,7 @@ const components = [
         issueLabel: 'Issue',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.incubating,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.incubating
     },
     {
         componentName: 'Card button',
