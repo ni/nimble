@@ -110,11 +110,12 @@ const components = [
     },
     {
         componentName: 'Card',
+        componentHref: './?path=/docs/incubating-card--docs',
         issueHref: 'https://github.com/ni/nimble/issues/296',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.incubating
     },
     {
         componentName: 'Card button',

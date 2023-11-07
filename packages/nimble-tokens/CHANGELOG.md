@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Mon, 16 Oct 2023 21:31:42 GMT and should not be manually modified.
+This log was last generated on Thu, 02 Nov 2023 18:26:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.8.0
+
+Thu, 02 Nov 2023 18:26:57 GMT
+
+### Minor changes
+
+- New icons for "move in" and "move out" ([ni/nimble@91d75d9](https://github.com/ni/nimble/commit/91d75d9c7ce2f493b3ac69fefd5457ae3b83d3f9))
+
+## 6.7.0
+
+Wed, 01 Nov 2023 20:45:20 GMT
+
+### Minor changes
+
+- New icon for @mention ([ni/nimble@5a8fe73](https://github.com/ni/nimble/commit/5a8fe731b494042bc8a5cf060338a05208e1075d))
+
+## 6.6.0
+
+Mon, 23 Oct 2023 14:17:52 GMT
+
+### Minor changes
+
+- Add icon for Save As ([ni/nimble@62016ff](https://github.com/ni/nimble/commit/62016ff5a313a4c35f7850a2a4261251ceda51e0))
+
+## 6.5.0
+
+Wed, 18 Oct 2023 18:51:54 GMT
+
+### Minor changes
+
+- add ni and systemlink logo icons ([ni/nimble@2a79981](https://github.com/ni/nimble/commit/2a799815ee5117c3cf863fc522333497e50ff355))
 
 ## 6.4.1
 

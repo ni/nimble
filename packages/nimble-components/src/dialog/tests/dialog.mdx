@@ -1,0 +1,46 @@
+import {
+    DocsStory,
+    Meta,
+    Controls,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import * as dialogStories from './dialog.stories';
+
+<Meta of={dialogStories} />
+
+<Title of={dialogStories} />
+<Description of={dialogStories} />
+
+<DocsStory of={dialogStories.dialog} expanded={false} />
+<Controls of={dialogStories.dialog} />
+
+# Usage Docs
+
+<br />
+
+## Sizing
+
+The dialog size can be customized by modyfing the width, height and max-height properties of `nimble-dialog::part(control)`.
+
+By default, the dialog is sized to be small and growable. This should be used for small dialogs like a confirmation dialog.
+This is equivalent of using the following style configuration:
+
+```scss
+nimble-dialog::part(control) {
+    width: $ni-nimble-dialog-small-width;
+    height: $ni-nimble-dialog-small-height;
+    max-height: $ni-nimble-dialog-small-max-height;
+}
+```
+
+For larger dialogs, for example a wizard-like dialog, the following style configuration should be used:
+
+```scss
+nimble-dialog::part(control) {
+    width: $ni-nimble-dialog-large-width;
+    height: $ni-nimble-dialog-large-height;
+    max-height: $ni-nimble-dialog-large-max-height;
+}
+```

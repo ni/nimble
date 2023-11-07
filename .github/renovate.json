@@ -5,12 +5,10 @@
   ],
   "enabledManagers": ["npm"],
   "rangeStrategy": "update-lockfile",
+  "rebaseWhen": "conflicted",
   "schedule": [
     "monthly"
   ],
-  "vulnerabilityAlerts": {
-      "enabled": false
-  },
   "packageRules": [
     {
       "matchManagers": ["npm"],
