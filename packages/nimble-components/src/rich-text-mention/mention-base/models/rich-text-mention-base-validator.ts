@@ -1,6 +1,9 @@
 import type { MappingMentionBase } from '../../../mapping/mention-base';
-import type { MentionInternals } from '../../base/models/mention-internals';
-import { MentionValidator } from '../../base/models/mention-validator';
+import { Validator, ValidityObject } from '../../../utilities/models/validator';
+import type { MentionInternals } from './mention-internals';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RichTextMentionValidity extends ValidityObject {}
 
 export const baseValidityFlagNames = [
     'unsupportedMappingType',
@@ -12,17 +15,17 @@ export const baseValidityFlagNames = [
 ] as const;
 
 /**
- * Validator for RichTextmentionBase
+ * Validator for RichTextMention
  */
-export abstract class RichTextMentionBaseValidator<
+export class RichTextMentionValidator<
     ValidityFlagNames extends readonly string[]
-> extends MentionValidator<typeof baseValidityFlagNames | ValidityFlagNames> {
+> extends Validator<typeof baseValidityFlagNames | ValidityFlagNames > {
     public constructor(
-        mentionInternals: MentionInternals<unknown>,
+        private readonly mentionInternals: MentionInternals<unknown>,
         configValidityKeys: ValidityFlagNames,
         private readonly supportedMappingElements: readonly (typeof MappingMentionBase)[]
     ) {
-        super(mentionInternals, configValidityKeys);
+        super(configValidityKeys);
     }
 
     public validate(
@@ -37,6 +40,32 @@ export abstract class RichTextMentionBaseValidator<
         this.validateUniqueMentionHref(mentionHrefs);
         this.validatePattern(pattern);
         this.validateHref(mentionHrefs, pattern);
+    }
+
+    /**
+     * @returns an object containing flags for various ways the configuation can be invalid
+     */
+    public getValidity(): RichTextMentionValidity {
+        return this.getValidationFlags();
+    }
+
+    /**
+     * Sets a particular validity condition flag's value, e.g. "hasInvalidFooValue" = true
+     */
+    protected setConditionValue(
+        name: typeof baseValidityFlagNames extends readonly (infer U)[] ? U : never | ValidityFlagNames extends readonly (infer U)[] ? U : never,
+        isInvalid: boolean
+    ): void {
+        if (isInvalid) {
+            this.track(name);
+        } else {
+            this.untrack(name);
+        }
+        this.updateMentionInternalsFlag();
+    }
+
+    private updateMentionInternalsFlag(): void {
+        this.mentionInternals.validConfiguration = this.isValid();
     }
 
     private validatePattern(pattern: string | undefined): void {
@@ -56,8 +85,7 @@ export abstract class RichTextMentionBaseValidator<
     private validateUniqueMentionHref(
         mentionHref: (string | undefined)[]
     ): void {
-        const typedKeys = mentionHref.map(x => x?.toString() ?? undefined);
-        const invalid = new Set(typedKeys).size !== typedKeys.length;
+        const invalid = new Set(mentionHref).size !== mentionHref.length;
         this.setConditionValue('duplicateMappingMentionHref', invalid);
     }
 
@@ -69,11 +97,11 @@ export abstract class RichTextMentionBaseValidator<
     }
 
     private validateHref(
-        mappings: (string | undefined)[],
+        mentionHrefs: (string | undefined)[],
         pattern: string | undefined
     ): void {
         const regexPattern = new RegExp(pattern!);
-        const valid = mappings.some(href => (href ? regexPattern.test(href) : false));
+        const valid = mentionHrefs.every(href => href === undefined || regexPattern.test(href));
         this.setConditionValue('unsupportedMentionHrefValue', !valid);
     }
 

@@ -1,17 +1,19 @@
 import {
+    attr,
     Notifier,
     Observable,
     observable,
     Subscriber,
     ViewTemplate
 } from '@microsoft/fast-element';
+import { FoundationElement } from '@microsoft/fast-foundation';
 import type { MappingConfig } from './models/mapping-config';
 import { MappingMentionBase } from '../../mapping/mention-base';
-import type { RichTextMentionBaseValidator } from './models/rich-text-mention-base-validator';
+import type { RichTextMentionValidator, RichTextMentionValidity } from './models/rich-text-mention-base-validator';
 import type { ListOption } from '../../list-option';
-import { RichTextMention } from '../base';
+import { MentionInternals, MentionInternalsOptions } from './models/mention-internals';
 
-export type MappingConfigs = Map<string, MappingConfig>;
+export type MappingConfigs = ReadonlyMap<string, MappingConfig>;
 
 export interface RichTextMentionConfig {
     mappingConfigs: MappingConfigs;
@@ -20,12 +22,17 @@ export interface RichTextMentionConfig {
 /**
  * The base class for Mention mapping configuration
  */
-export abstract class RichTextMentionBase<
+export abstract class RichTextMention<
     TMentionConfig extends RichTextMentionConfig,
-    TValidator extends RichTextMentionBaseValidator<[]>
+    TValidator extends RichTextMentionValidator<[]>
 >
-    extends RichTextMention<TMentionConfig>
+    extends FoundationElement
     implements Subscriber {
+    public readonly mentionInternals: MentionInternals<TMentionConfig> = new MentionInternals(this.getMentionInternalsOptions());
+
+    @attr
+    public pattern?: string;
+
     /** @internal */
     public validator = this.createValidator();
 
@@ -36,13 +43,24 @@ export abstract class RichTextMentionBase<
     @observable
     public mappings: MappingMentionBase[] = [];
 
+    public checkValidity(): boolean {
+        return this.mentionInternals.validConfiguration;
+    }
+
+    public get validity(): RichTextMentionValidity {
+        return this.validator.getValidity();
+    }
+
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof MappingMentionBase && typeof args === 'string') {
             this.updateMentionConfig();
         }
     }
 
-    public override getListOptions(): ViewTemplate<ListOption>[] {
+    /**
+     * Get the list of view item need to be populated in the mention popup
+     */
+    public getListOptions(): ViewTemplate<ListOption>[] {
         const mappingConfigs = this.mentionInternals.mentionConfig?.mappingConfigs?.values();
         const listOptions = [];
         if (mappingConfigs === undefined) {
@@ -55,6 +73,8 @@ export abstract class RichTextMentionBase<
     }
 
     public abstract createValidator(): TValidator;
+
+    protected abstract getMentionInternalsOptions(): MentionInternalsOptions;
 
     protected abstract createMentionConfig(
         mappingConfigs: MappingConfigs

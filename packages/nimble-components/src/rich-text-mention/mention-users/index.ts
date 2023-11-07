@@ -1,17 +1,17 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { MentionInternalsOptions } from '../base/models/mention-internals';
+import type { MentionInternalsOptions } from '../mention-base/models/mention-internals';
 import type { MappingMentionBase } from '../../mapping/mention-base';
-import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
-import type { RichTextMentionValidity } from '../base/models/mention-validator';
 import {
     MappingConfigs,
-    RichTextMentionBase,
+    RichTextMention,
     RichTextMentionConfig
 } from '../mention-base';
 import type { MappingConfig } from '../mention-base/models/mapping-config';
 import { MappingUserConfig } from '../mention-base/models/mapping-user-config';
 import { MappingMentionUser } from '../../mapping/mention-user';
 import { template } from '../mention-base/template';
+import { baseValidityFlagNames, RichTextMentionValidator } from '../mention-base/models/rich-text-mention-base-validator';
+import { iconAtTag } from '../../icons/at';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -22,20 +22,16 @@ declare global {
 /**
  * Rich Text Mention that will map user url and name
  */
-export class RichtextMentionUsers extends RichTextMentionBase<
+export class RichtextMentionUsers extends RichTextMention<
 RichTextMentionConfig,
-RichTextMentionUsersValidator
+RichTextMentionValidator<typeof baseValidityFlagNames>
 > {
     private readonly character = '@';
 
-    private readonly icon = '';
+    private readonly icon = iconAtTag;
 
-    public override createValidator(): RichTextMentionUsersValidator {
-        return new RichTextMentionUsersValidator(this.mentionInternals);
-    }
-
-    public override get validity(): RichTextMentionValidity {
-        return this.validator.getValidity();
+    public override createValidator(): RichTextMentionValidator<typeof baseValidityFlagNames> {
+        return new RichTextMentionValidator(this.mentionInternals, baseValidityFlagNames, [MappingMentionUser]);
     }
 
     protected override getMentionInternalsOptions(): MentionInternalsOptions {

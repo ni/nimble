@@ -6,13 +6,6 @@ import { MappingConfig } from './mapping-config';
  * Mapping configuration corresponding to a user mapping
  */
 export class MappingUserConfig extends MappingConfig {
-    public constructor(
-        mentionHref: string | undefined,
-        displayName: string | undefined
-    ) {
-        super(mentionHref, displayName);
-    }
-
     public override createListView(): ViewTemplate<ListOption> {
         return html`<${listOptionTag} value="${this.mentionHref ?? ''}">${
             this.displayName ?? ''
