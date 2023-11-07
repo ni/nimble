@@ -116,7 +116,7 @@ class TestNgSelectOption extends NgSelectOption {}
     AngularNgSelectOption
   ] as const;
 
-  fdescribe('value accessors', () => {
+  describe('value accessors', () => {
     function initTest<T>(component: Type<T>, ...directives: Type<any>[]): ComponentFixture<T> {
       TestBed.configureTestingModule(
           {
