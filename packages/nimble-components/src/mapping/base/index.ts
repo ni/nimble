@@ -1,16 +1,15 @@
 import { attr } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import type { MappingKey } from './types';
 
 /**
  * Base class for mapping configuration elements
  */
-export abstract class Mapping extends FoundationElement {
+export abstract class Mapping<T> extends FoundationElement {
     /**
      * The data value that is mapped to another representation
      */
     @attr()
-    public key?: MappingKey;
+    public key?: T;
 
     /**
      * In the case of a mapping that maps to text, this is that mapped text.

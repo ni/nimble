@@ -27,15 +27,15 @@ export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
     }
 
     public override validate(
-        mappings: Mapping[],
+        mappings: Mapping<unknown>[],
         keyType: MappingKeyType
     ): void {
         super.validate(mappings, keyType);
         this.validateIconNames(mappings);
     }
 
-    private validateIconNames(mappings: Mapping[]): void {
-        const isMappingIcon = (mapping: Mapping): mapping is MappingIcon => mapping instanceof MappingIcon;
+    private validateIconNames(mappings: Mapping<unknown>[]): void {
+        const isMappingIcon = (mapping: Mapping<unknown>): mapping is MappingIcon => mapping instanceof MappingIcon;
         const invalid = mappings
             .filter(isMappingIcon)
             .some(mappingIcon => mappingIcon.resolvedIcon === undefined);
