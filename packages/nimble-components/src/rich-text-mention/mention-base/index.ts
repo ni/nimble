@@ -9,9 +9,15 @@ import {
 import { FoundationElement } from '@microsoft/fast-foundation';
 import type { MappingConfig } from './models/mapping-config';
 import { MappingMentionBase } from '../../mapping/mention-base';
-import type { RichTextMentionValidator, RichTextMentionValidity } from './models/rich-text-mention-base-validator';
+import type {
+    RichTextMentionValidator,
+    RichTextMentionValidity
+} from './models/rich-text-mention-base-validator';
 import type { ListOption } from '../../list-option';
-import { MentionInternals, MentionInternalsOptions } from './models/mention-internals';
+import {
+    MentionInternals,
+    MentionInternalsOptions
+} from './models/mention-internals';
 
 export type MappingConfigs = ReadonlyMap<string, MappingConfig>;
 

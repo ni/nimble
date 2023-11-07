@@ -19,7 +19,7 @@ export const baseValidityFlagNames = [
  */
 export class RichTextMentionValidator<
     ValidityFlagNames extends readonly string[]
-> extends Validator<typeof baseValidityFlagNames | ValidityFlagNames > {
+> extends Validator<typeof baseValidityFlagNames | ValidityFlagNames> {
     public constructor(
         private readonly mentionInternals: MentionInternals<unknown>,
         configValidityKeys: ValidityFlagNames,
@@ -53,7 +53,11 @@ export class RichTextMentionValidator<
      * Sets a particular validity condition flag's value, e.g. "hasInvalidFooValue" = true
      */
     protected setConditionValue(
-        name: typeof baseValidityFlagNames extends readonly (infer U)[] ? U : never | ValidityFlagNames extends readonly (infer U)[] ? U : never,
+        name: typeof baseValidityFlagNames extends readonly (infer U)[]
+            ? U
+            : never | ValidityFlagNames extends readonly (infer U)[]
+                ? U
+                : never,
         isInvalid: boolean
     ): void {
         if (isInvalid) {
@@ -101,7 +105,9 @@ export class RichTextMentionValidator<
         pattern: string | undefined
     ): void {
         const regexPattern = new RegExp(pattern!);
-        const valid = mentionHrefs.every(href => href === undefined || regexPattern.test(href));
+        const valid = mentionHrefs.every(
+            href => href === undefined || regexPattern.test(href)
+        );
         this.setConditionValue('unsupportedMentionHrefValue', !valid);
     }
 

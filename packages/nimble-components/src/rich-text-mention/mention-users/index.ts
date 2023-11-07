@@ -10,7 +10,10 @@ import type { MappingConfig } from '../mention-base/models/mapping-config';
 import { MappingUserConfig } from '../mention-base/models/mapping-user-config';
 import { MappingMentionUser } from '../../mapping/mention-user';
 import { template } from '../mention-base/template';
-import { baseValidityFlagNames, RichTextMentionValidator } from '../mention-base/models/rich-text-mention-base-validator';
+import {
+    baseValidityFlagNames,
+    RichTextMentionValidator
+} from '../mention-base/models/rich-text-mention-base-validator';
 import { iconAtTag } from '../../icons/at';
 
 declare global {
@@ -30,8 +33,14 @@ RichTextMentionValidator<typeof baseValidityFlagNames>
 
     private readonly icon = iconAtTag;
 
-    public override createValidator(): RichTextMentionValidator<typeof baseValidityFlagNames> {
-        return new RichTextMentionValidator(this.mentionInternals, baseValidityFlagNames, [MappingMentionUser]);
+    public override createValidator(): RichTextMentionValidator<
+        typeof baseValidityFlagNames
+    > {
+        return new RichTextMentionValidator(
+            this.mentionInternals,
+            baseValidityFlagNames,
+            [MappingMentionUser]
+        );
     }
 
     protected override getMentionInternalsOptions(): MentionInternalsOptions {
