@@ -1,4 +1,8 @@
-import { InternalTableRecord, TableRowSelectionMode, TableValidity } from '../../types';
+import {
+    InternalTableRecord,
+    TableRowSelectionMode,
+    TableValidity
+} from '../../types';
 import { TableValidator } from '../table-validator';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import {
@@ -227,9 +231,21 @@ describe('TableValidator', () => {
         it('validation occurs when ID field name is an empty string', () => {
             const data = [
                 // eslint-disable-next-line @typescript-eslint/naming-convention
-                { data: { stringField: 'value-1', numberField: 10, '': 'empty-1' } },
+                {
+                    data: {
+                        stringField: 'value-1',
+                        numberField: 10,
+                        '': 'empty-1'
+                    }
+                },
                 // eslint-disable-next-line @typescript-eslint/naming-convention
-                { data: { stringField: 'value-2', numberField: 11, '': 'empty-1' } }
+                {
+                    data: {
+                        stringField: 'value-2',
+                        numberField: 11,
+                        '': 'empty-1'
+                    }
+                }
             ];
 
             const isValid = validator.validateRecordIds(data, '');
