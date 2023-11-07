@@ -1,6 +1,6 @@
 import { slotted, html } from '@microsoft/fast-element';
 import type { RichTextMention, RichTextMentionConfig } from '.';
-import type { RichTextMentionValidator } from './models/rich-text-mention-base-validator';
+import type { RichTextMentionValidator } from './models/rich-text-mention-validator';
 
 export const template = html<
 RichTextMention<RichTextMentionConfig, RichTextMentionValidator<[]>>

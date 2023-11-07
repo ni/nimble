@@ -1,19 +1,19 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { MentionInternalsOptions } from '../mention-base/models/mention-internals';
+import type { MentionInternalsOptions } from '../base/models/mention-internals';
 import type { MappingMentionBase } from '../../mapping/mention-base';
 import {
     MappingConfigs,
     RichTextMention,
     RichTextMentionConfig
-} from '../mention-base';
-import type { MappingConfig } from '../mention-base/models/mapping-config';
-import { MappingUserConfig } from '../mention-base/models/mapping-user-config';
+} from '../base';
+import type { MappingConfig } from '../base/models/mapping-config';
+import { MappingUserConfig } from '../base/models/mapping-user-config';
 import { MappingMentionUser } from '../../mapping/mention-user';
-import { template } from '../mention-base/template';
+import { template } from '../base/template';
 import {
     baseValidityFlagNames,
     RichTextMentionValidator
-} from '../mention-base/models/rich-text-mention-base-validator';
+} from '../base/models/rich-text-mention-validator';
 import { iconAtTag } from '../../icons/at';
 
 declare global {

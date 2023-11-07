@@ -12,7 +12,7 @@ import { MappingMentionBase } from '../../mapping/mention-base';
 import type {
     RichTextMentionValidator,
     RichTextMentionValidity
-} from './models/rich-text-mention-base-validator';
+} from './models/rich-text-mention-validator';
 import type { ListOption } from '../../list-option';
 import {
     MentionInternals,
