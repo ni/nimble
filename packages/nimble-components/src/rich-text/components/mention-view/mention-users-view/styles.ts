@@ -1,19 +1,19 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    atMentionFont,
-    atMentionFontColor
+    mentionFont,
+    mentionFontColor
 } from '../../../../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('inline')}
+    ${display('inline-block')}
 
     :host {
         box-sizing: border-box;
-        font: ${atMentionFont};
+        font: ${mentionFont};
     }
 
     .control {
-        color: ${atMentionFontColor};
+        color: ${mentionFontColor};
     }
 `;

@@ -18,7 +18,7 @@ interface RichTextMentionUsersViewArgs {
 const richTextMentionUsersViewDescription = 'The rich text mention users view component is used to render the at(@) mentioned users in the nimble rich text editor and nimble rich text viewer.';
 
 const metadata: Meta<RichTextMentionUsersViewArgs> = {
-    title: 'Incubating/Rich Text View: Mention Users Node',
+    title: 'Tests/Rich Text Mention: User',
     tags: ['autodocs'],
     parameters: {
         docs: {
@@ -42,7 +42,6 @@ const metadata: Meta<RichTextMentionUsersViewArgs> = {
     <p class="mention-container">
         Tagging
         <${richTextMentionUsersViewTag} mention-href="${x => x.mentionHref}" mention-label="${x => x.mentionLabel}">
-            @${x => x.mentionLabel}
         </${richTextMentionUsersViewTag}>
         in a comment
     </p>
