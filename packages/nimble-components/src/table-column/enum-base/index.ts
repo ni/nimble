@@ -71,7 +71,9 @@ export abstract class TableColumnEnumBase<
     /**
      * Implementations should throw an error if an invalid Mapping is passed.
      */
-    protected abstract createMappingConfig(mapping: Mapping<unknown>): MappingConfig;
+    protected abstract createMappingConfig(
+        mapping: Mapping<unknown>
+    ): MappingConfig;
 
     protected abstract createColumnConfig(
         mappingConfigs: MappingConfigs

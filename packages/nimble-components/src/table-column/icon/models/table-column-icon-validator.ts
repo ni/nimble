@@ -35,7 +35,9 @@ export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
     }
 
     private validateIconNames(mappings: Mapping<unknown>[]): void {
-        const isMappingIcon = (mapping: Mapping<unknown>): mapping is MappingIcon => mapping instanceof MappingIcon;
+        const isMappingIcon = (
+            mapping: Mapping<unknown>
+        ): mapping is MappingIcon => mapping instanceof MappingIcon;
         const invalid = mappings
             .filter(isMappingIcon)
             .some(mappingIcon => mappingIcon.resolvedIcon === undefined);

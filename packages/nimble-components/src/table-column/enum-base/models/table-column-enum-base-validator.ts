@@ -28,7 +28,10 @@ export abstract class TableColumnEnumBaseValidator<
         super(columnInternals, configValidityKeys);
     }
 
-    public validate(mappings: Mapping<unknown>[], keyType: MappingKeyType): void {
+    public validate(
+        mappings: Mapping<unknown>[],
+        keyType: MappingKeyType
+    ): void {
         this.untrackAll();
         const keys = mappings.map(mapping => mapping.key);
         this.validateKeyValuesForType(keys, keyType);
@@ -39,7 +42,7 @@ export abstract class TableColumnEnumBaseValidator<
     }
 
     private validateKeyValuesForType(
-        keys: (unknown)[],
+        keys: unknown[],
         keyType: MappingKeyType
     ): void {
         // Ignore undefined keys, because validateNoMissingKeys covers that case.
@@ -59,10 +62,7 @@ export abstract class TableColumnEnumBaseValidator<
         this.setConditionValue('unsupportedMappingType', !valid);
     }
 
-    private validateUniqueKeys(
-        keys: (unknown)[],
-        keyType: MappingKeyType
-    ): void {
+    private validateUniqueKeys(keys: unknown[], keyType: MappingKeyType): void {
         const typedKeys = keys.map(x => resolveKeyWithType(x, keyType));
         const invalid = new Set(typedKeys).size !== typedKeys.length;
         this.setConditionValue('duplicateMappingKey', invalid);
