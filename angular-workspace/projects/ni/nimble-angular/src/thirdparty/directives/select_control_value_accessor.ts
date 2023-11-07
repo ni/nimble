@@ -185,7 +185,10 @@ export class SelectControlValueAccessor extends BuiltInControlValueAccessor impl
  * @ngModule FormsModule
  * @publicApi
  */
+/* [Nimble] Remove all configuration from @Directive decorator
 @Directive({selector: 'option'})
+*/
+@Directive()
 export class NgSelectOption implements OnDestroy {
   /**
    * @description
