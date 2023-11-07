@@ -4,7 +4,6 @@ import {
     controlSlimHeight,
     mediumDelay,
     mediumPadding,
-    smallPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 
@@ -33,6 +32,15 @@ export const styles = css`
         transform: rotate(90deg);
     }
 
+    .expand-collapse-button {
+        margin-left: calc(
+            ${mediumPadding} + ${standardPadding} * 2 *
+                var(--ni-private-table-group-row-indent-level)
+        );
+        height: ${controlSlimHeight};
+        align-self: center;
+    }
+
     .expander-icon {
         transform: rotate(0deg);
     }
@@ -41,6 +49,7 @@ export const styles = css`
         overflow: hidden;
         display: flex;
         align-items: center;
+        padding-left: var(--ni-private-table-cell-view-padding);
     }
 
     .action-menu {

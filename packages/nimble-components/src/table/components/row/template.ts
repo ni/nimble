@@ -1,9 +1,16 @@
 import { html, ref, repeat, when } from '@microsoft/fast-element';
 import type { TableRow } from '.';
-import { ButtonAppearance, type MenuButtonToggleEventDetail } from '../../../menu-button/types';
+import {
+    ButtonAppearance,
+    type MenuButtonToggleEventDetail
+} from '../../../menu-button/types';
 import { tableCellTag } from '../cell';
 import { checkboxTag } from '../../../checkbox';
-import { tableGroupCollapseLabel, tableGroupExpandLabel, tableRowSelectLabel } from '../../../label-provider/table/label-tokens';
+import {
+    tableGroupCollapseLabel,
+    tableGroupExpandLabel,
+    tableRowSelectLabel
+} from '../../../label-provider/table/label-tokens';
 import type { TableColumn } from '../../../table-column/base';
 import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
@@ -32,7 +39,7 @@ export const template = html<TableRow>`
         `)}
         ${'' /* This is needed to help align the cell widths exactly with the column headers, due to the space reserved for
                 the collapse-all button in the header. */}
-        ${when(x => !x.isTopLevelRow || !x.isParentRow, html<TableRow>`
+        ${when(x => x.nestingLevel > 0 || (x.nestingLevel === 0 && !x.isParentRow), html<TableRow>`
             <span class="row-front-spacer"></span>
         `)}
         ${when(x => x.isParentRow && x.isTopLevelRow, html<TableRow>`
@@ -68,7 +75,7 @@ export const template = html<TableRow>`
                         action-menu-label="${x => x.actionMenuLabel}"
                         @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
                         @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
-                        :nestingLevel="${(_, c) => c.parent.cellIndentLevels[c.index]};"
+                        :nestingLevel="${(_, c) => c.parent.cellIndentLevels[c.index]}"
                     >
 
                         ${when((x, c) => ((c.parent as TableRow).currentActionMenuColumn === x) && x.actionMenuSlot, html<TableColumn, TableRow>`

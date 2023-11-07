@@ -279,14 +279,22 @@ export class Table<
         const data = newData as TData[];
         if (this.idFieldName) {
             try {
-                this._data = arrayToTree(data, { childrenField: 'subRows', id: this.idFieldName, parentId: this.parentIdFieldName, nestedIds: false, throwIfOrphans: true }) as unknown as InternalTableRecord<TData>[];
+                this._data = arrayToTree(data, {
+                    childrenField: 'subRows',
+                    id: this.idFieldName,
+                    parentId: this.parentIdFieldName,
+                    nestedIds: false,
+                    throwIfOrphans: true
+                }) as unknown as InternalTableRecord<TData>[];
             } catch {
                 this.tableValidator.setInvalidParentIdConfiguration();
             }
         } else {
             this._data = this.convertDataWithNoId(data);
         }
-        const tanStackUpdates: Partial<TanStackTableOptionsResolved<InternalTableRecord<TData>>> = {
+        const tanStackUpdates: Partial<
+        TanStackTableOptionsResolved<InternalTableRecord<TData>>
+        > = {
             data: this._data
         };
         this.validateWithData(this._data);
@@ -754,7 +762,9 @@ export class Table<
     }
 
     private updateTanStack(): void {
-        const updatedOptions: Partial<TanStackTableOptionsResolved<InternalTableRecord<TData>>> = {};
+        const updatedOptions: Partial<
+        TanStackTableOptionsResolved<InternalTableRecord<TData>>
+        > = {};
         updatedOptions.state = {};
 
         if (this.tableUpdateTracker.updateColumnSort) {
@@ -822,7 +832,11 @@ export class Table<
     }
 
     private validateWithData(data: InternalTableRecord[]): void {
-        this.tableValidator.validateRecordIds(data, this.idFieldName, this.parentIdFieldName);
+        this.tableValidator.validateRecordIds(
+            data,
+            this.idFieldName,
+            this.parentIdFieldName
+        );
         this.canRenderRows = this.checkValidity();
     }
 
@@ -872,17 +886,20 @@ export class Table<
 
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
+            const isGrouped = row.getIsGrouped();
+            const hasParentRow = !isGrouped ? row.getParentRow() : false;
             const rowState: TableRowState<TData> = {
                 record: row.original.data,
                 id: row.id,
                 selectionState: this.getRowSelectionState(row),
-                isGrouped: row.getIsGrouped(),
+                isGrouped,
                 isExpanded: row.getIsExpanded(),
                 isParent: this.parentIdFieldName
-                    ? (row.original.subRows !== undefined && row.original.subRows.length > 0)
+                    ? row.original.subRows !== undefined
+                      && row.original.subRows.length > 0
                     : false,
-                isTopLevelRow: row.depth === 0,
-                groupRowValue: row.getIsGrouped()
+                isTopLevelRow: !isGrouped && !hasParentRow,
+                groupRowValue: isGrouped
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
                 nestingLevel: row.depth,
@@ -965,7 +982,9 @@ export class Table<
     }
 
     private updateTableOptions(
-        updatedOptions: Partial<TanStackTableOptionsResolved<InternalTableRecord<TData>>>
+        updatedOptions: Partial<
+        TanStackTableOptionsResolved<InternalTableRecord<TData>>
+        >
     ): void {
         this.options = {
             ...this.options,
@@ -976,7 +995,9 @@ export class Table<
         this.refreshRows();
     }
 
-    private readonly getIsRowExpanded = (row: TanStackRow<InternalTableRecord<TData>>): boolean => {
+    private readonly getIsRowExpanded = (
+        row: TanStackRow<InternalTableRecord<TData>>
+    ): boolean => {
         const isGroupRow = row.getIsGrouped();
         if (!isGroupRow && !row.subRows.length) {
             return false;
@@ -1022,21 +1043,16 @@ export class Table<
         const rows = this.table.getRowModel().rows;
         const row = rows[rowIndex]!;
         const wasExpanded = row.getIsExpanded();
+        if (this.table.options.state.expanded === true) {
+            // if expanded is set to "true" this means that the table is in a default state
+            // so we need to go through each row and determine if it is really expanded or
+            // collapsed and update our internal state to match
+            this.updateExpandedStateToDefault();
+        }
         // must update the collapsedRows before toggling expanded state
         if (wasExpanded) {
             this.collapsedRows.add(row.id);
         } else {
-            // if expanded is set to "true" this means that the table is in a default state
-            // so we need to go through each row and determine if it is really expanded or
-            // collapsed and update our internal state to match
-            if (this.table.options.state.expanded === true) {
-                for (const tanstackRow of rows) {
-                    if (!row.getIsExpanded()) {
-                        this.collapsedRows.add(tanstackRow.id);
-                    }
-                }
-                this.table.toggleAllRowsExpanded(false);
-            }
             this.collapsedRows.delete(row.id);
         }
         row.toggleExpanded();
@@ -1084,11 +1100,15 @@ export class Table<
             : (record: InternalTableRecord<TData>) => record.data[this.idFieldName!] as string;
     }
 
-    private calculateTanStackColumns(): TanStackColumnDef<InternalTableRecord<TData>>[] {
+    private calculateTanStackColumns(): TanStackColumnDef<
+    InternalTableRecord<TData>
+    >[] {
         return this.columns.map(column => {
             return {
                 id: column.columnInternals.uniqueId,
-                accessorFn: (data: InternalTableRecord<TData>): TableFieldValue => {
+                accessorFn: (
+                    data: InternalTableRecord<TData>
+                ): TableFieldValue => {
                     const fieldName = column.columnInternals.operandDataRecordFieldName;
                     if (typeof fieldName !== 'string') {
                         return undefined;
@@ -1122,6 +1142,22 @@ export class Table<
         }
 
         return tanstackSelectionState;
+    }
+
+    private updateExpandedStateToDefault(): void {
+        const expandedState: { [key: string]: boolean } = {};
+        const allRows = this.table.getGroupedRowModel().flatRows;
+        for (const tanstackRow of allRows) {
+            if (tanstackRow.getIsGrouped()) {
+                expandedState[tanstackRow.id] = true;
+            }
+        }
+
+        this.updateTableOptions({
+            state: {
+                expanded: expandedState
+            }
+        });
     }
 }
 

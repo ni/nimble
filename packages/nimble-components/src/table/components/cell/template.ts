@@ -6,14 +6,22 @@ import {
     ButtonAppearance,
     MenuButtonToggleEventDetail
 } from '../../../menu-button/types';
-import { tableCellActionMenuLabel, tableGroupCollapseLabel, tableGroupExpandLabel } from '../../../label-provider/table/label-tokens';
+import {
+    tableCellActionMenuLabel,
+    tableGroupCollapseLabel,
+    tableGroupExpandLabel
+} from '../../../label-provider/table/label-tokens';
 import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
+import { mediumPadding } from '../../../theme-provider/design-tokens';
 
 // prettier-ignore
 export const template = html<TableCell>`
-    <template role="cell" style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel}">
-        ${when(x => x.isParentRow && x.isFirstCell && !x.isTopLevelRow, html<TableCell>`
+    <template role="cell" style="
+        --ni-private-table-cell-nesting-level: ${x => x.nestingLevel};
+        --ni-private-table-cell-view-padding: ${x => (x.isParentRow && x.isFirstCell ? mediumPadding.getValueFor(x) : '0px')};
+    ">
+        ${when(x => x.isParentRow && x.isFirstCell && (x.nestingLevel !== 0 || !x.isTopLevelRow), html<TableCell>`
             <${buttonTag}
                     appearance="${ButtonAppearance.ghost}"
                     content-hidden

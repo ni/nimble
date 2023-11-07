@@ -1,9 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory
-} from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
 import { TableRowSelectionMode } from '../types';
@@ -59,7 +57,7 @@ const hierarchicalData = [
         firstName: 'Jacqueline',
         lastName: 'Bouvier',
         age: 80,
-        quote: 'I have laryngitis. It hurts to talk, so I\'ll just say one thing. You never do anything right.',
+        quote: "I have laryngitis. It hurts to talk, so I'll just say one thing. You never do anything right.",
         id: '0',
         parentId: undefined
     },
@@ -67,7 +65,7 @@ const hierarchicalData = [
         firstName: 'Marge',
         lastName: 'Simpson',
         age: 35,
-        quote: 'Oh, I\'ve Always Wanted To Use Rosemary In Something!',
+        quote: "Oh, I've Always Wanted To Use Rosemary In Something!",
         id: '1',
         parentId: '0'
     },
@@ -99,14 +97,14 @@ const hierarchicalData = [
         firstName: 'Selma',
         lastName: 'Bouvier',
         age: 45,
-        quote: 'Hey relax. I\'ve told ya\' I\'ve got money. I bought stock in a mace company just before society crumbled.',
+        quote: "Hey relax. I've told ya' I've got money. I bought stock in a mace company just before society crumbled.",
         id: '5',
         parentId: '0'
     },
     {
         firstName: 'Patty',
         lastName: 'Bouvier',
-        quote: 'What do you know, he\'s wearing pants.',
+        quote: "What do you know, he's wearing pants.",
         age: 45,
         id: '6',
         parentId: '0'
@@ -115,14 +113,14 @@ const hierarchicalData = [
         firstName: 'Mona',
         lastName: 'Simpson',
         age: 77,
-        quote: 'Homer, if you\'re watching this, either I\'m dead, or you\'ve gone through my stuff',
+        quote: "Homer, if you're watching this, either I'm dead, or you've gone through my stuff",
         id: '7',
         parentId: undefined
     },
     {
         firstName: 'Homer',
         lastName: 'Simpson',
-        quote: 'D\'oh!',
+        quote: "D'oh!",
         age: 35,
         id: '8',
         parentId: '7'

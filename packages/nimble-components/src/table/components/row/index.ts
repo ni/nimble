@@ -273,7 +273,9 @@ export class TableRow<
     private updateCellIndentLevels(): void {
         this.cellIndentLevels = this.columns.map((_, i) => {
             if (i === 0 && this.nestingLevel > 0) {
-                return this.isParentRow ? this.nestingLevel - 1 : this.nestingLevel;
+                return this.isParentRow
+                    ? this.nestingLevel - 1
+                    : this.nestingLevel;
             }
             return 0;
         });

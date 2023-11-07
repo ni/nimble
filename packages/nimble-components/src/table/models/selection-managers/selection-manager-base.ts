@@ -16,7 +16,9 @@ import {
 export abstract class SelectionManagerBase<TData extends TableRecord> {
     protected tanStackTable: TanStackTable<InternalTableRecord<TData>>;
 
-    public constructor(tanStackTable: TanStackTable<InternalTableRecord<TData>>) {
+    public constructor(
+        tanStackTable: TanStackTable<InternalTableRecord<TData>>
+    ) {
         this.tanStackTable = tanStackTable;
     }
 
@@ -48,7 +50,11 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
             // Manually deselect all leaf rows when a fully selected group is being deselected.
             this.deselectAllLeafRows(rowState.id);
         } else {
-            this.tanStackTable.getRow(rowState.id).toggleSelected(isSelecting, { selectChildren: rowState.isGrouped });
+            this.tanStackTable
+                .getRow(rowState.id)
+                .toggleSelected(isSelecting, {
+                    selectChildren: rowState.isGrouped
+                });
         }
     }
 
@@ -99,9 +105,7 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
             return [];
         }
 
-        return row
-            .getLeafRows()
-            .map(leafRow => leafRow.id);
+        return row.getLeafRows().map(leafRow => leafRow.id);
     }
 
     protected getAllOrderedRows(): TanStackRow<InternalTableRecord<TData>>[] {

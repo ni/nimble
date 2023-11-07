@@ -1,5 +1,9 @@
 import type { TableColumn } from '../../table-column/base';
-import { InternalTableRecord, TableRecord, TableRowSelectionMode, TableValidity } from '../types';
+import {
+    InternalTableRecord,
+    TableRowSelectionMode,
+    TableValidity
+} from '../types';
 
 /**
  * Helper class for the nimble-table to validate that the table's configuration
@@ -81,7 +85,12 @@ export class TableValidator<TData extends InternalTableRecord> {
 
         if (typeof idFieldName === 'string' && !this.idFieldNameNotConfigured) {
             for (const record of data) {
-                if (!Object.prototype.hasOwnProperty.call(record.data, idFieldName)) {
+                if (
+                    !Object.prototype.hasOwnProperty.call(
+                        record.data,
+                        idFieldName
+                    )
+                ) {
                     this.missingRecordId = true;
                     continue;
                 }

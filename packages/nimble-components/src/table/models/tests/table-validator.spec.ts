@@ -1,4 +1,4 @@
-import { InternalTableRecord, TableRecord, TableRowSelectionMode, TableValidity } from '../../types';
+import { InternalTableRecord, TableRowSelectionMode, TableValidity } from '../../types';
 import { TableValidator } from '../table-validator';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import {
