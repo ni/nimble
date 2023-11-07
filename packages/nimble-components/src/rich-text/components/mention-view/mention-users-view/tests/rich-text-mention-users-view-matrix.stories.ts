@@ -6,8 +6,14 @@ import {
 } from '../../../../../utilities/tests/matrix';
 import { createMatrixThemeStory } from '../../../../../utilities/tests/storybook';
 import { richTextMentionUsersViewTag } from '..';
-import { disabledStates, type DisabledState } from '../../../../../utilities/tests/states';
-import { bodyFont, bodyFontColor } from '../../../../../theme-provider/design-tokens';
+import {
+    disabledStates,
+    type DisabledState
+} from '../../../../../utilities/tests/states';
+import {
+    bodyFont,
+    bodyFontColor
+} from '../../../../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Mention: User',
@@ -18,9 +24,10 @@ const metadata: Meta = {
 
 export default metadata;
 
-const component = (
-    [disabledName, disabled]: DisabledState,
-): ViewTemplate => html`
+const component = ([
+    disabledName,
+    disabled
+]: DisabledState): ViewTemplate => html`
     <style class='code-hide'>
         .mention-container {
             font: var(${bodyFont.cssCustomProperty});
@@ -35,7 +42,5 @@ const component = (
 `;
 
 export const richTextMentionUsersThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
-        disabledStates
-    ])
+    createMatrix(component, [disabledStates])
 );
