@@ -10,7 +10,8 @@ import type { MappingKeyType } from '../../enum-base/types';
 
 const iconValidityFlagNames = [
     ...enumBaseValidityFlagNames,
-    'invalidIconName'
+    'invalidIconName',
+    'missingTextValue'
 ] as const;
 
 /**
@@ -23,7 +24,13 @@ export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
         super(columnInternals, iconValidityFlagNames, [
             MappingIcon,
             MappingSpinner
-        ]);
+        ] as const);
+    }
+
+    private static isSupportedMappingElement(
+        mapping: Mapping<unknown>
+    ): mapping is MappingIcon {
+        return mapping instanceof MappingIcon;
     }
 
     public override validate(
@@ -32,15 +39,20 @@ export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
     ): void {
         super.validate(mappings, keyType);
         this.validateIconNames(mappings);
+        this.validateNoMissingText(mappings);
     }
 
     private validateIconNames(mappings: Mapping<unknown>[]): void {
-        const isMappingIcon = (
-            mapping: Mapping<unknown>
-        ): mapping is MappingIcon => mapping instanceof MappingIcon;
         const invalid = mappings
-            .filter(isMappingIcon)
+            .filter(TableColumnIconValidator.isSupportedMappingElement)
             .some(mappingIcon => mappingIcon.resolvedIcon === undefined);
         this.setConditionValue('invalidIconName', invalid);
+    }
+
+    private validateNoMissingText(mappings: Mapping<unknown>[]): void {
+        const invalid = mappings
+            .filter(TableColumnIconValidator.isSupportedMappingElement)
+            .some(mapping => mapping.text === undefined);
+        this.setConditionValue('missingTextValue', invalid);
     }
 }
