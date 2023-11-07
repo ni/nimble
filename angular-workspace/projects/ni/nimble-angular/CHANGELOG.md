@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 02 Nov 2023 18:26:57 GMT and should not be manually modified.
+This log was last generated on Mon, 06 Nov 2023 20:28:48 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.9.0
+
+Mon, 06 Nov 2023 20:28:48 GMT
+
+### Minor changes
+
+- Add NimblePipesModule in nimble-angular/pipes entrypoint (for DurationPipe) ([ni/nimble@e335f58](https://github.com/ni/nimble/commit/e335f58f38322eb0ba73f4222d4c40295eb4d501))
+
+## 17.8.8
+
+Fri, 03 Nov 2023 23:30:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.0
 
 ## 17.8.7
 
