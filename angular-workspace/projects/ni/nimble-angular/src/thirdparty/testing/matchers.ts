@@ -2,7 +2,8 @@
  * [Nimble]
  * Copied from https://github.com/angular/angular/blob/6070c9ddcff88d4ad4bcf73a2dd1874920661d93/packages/platform-browser/testing/src/matchers.ts
  * with the following modifications:
- * - import change
+ * - Comment out everything other than what is needed to use `toHaveText` matcher
+ * - Update `toHaveText` to not use `getDOM()` when determining the type of a Node
  */
 
 /**
@@ -14,13 +15,8 @@
  */
 
 
-import {ɵgetDOM as getDOM} from '@angular/common';
-// [Nimble] make type-only import
-import type {Type} from '@angular/core';
-import {ComponentFixture} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-
-import {childNodesAsList, hasClass, hasStyle, isCommentNode} from './browser_util';
+// [Nimble] Update imports
+import {childNodesAsList} from './browser_util';
 
 /**
  * Jasmine matchers that check Angular specific conditions.
@@ -38,45 +34,46 @@ export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
    */
   toHaveText(expected: string): boolean;
 
-  /**
-   * Expect the element to have the given CSS class.
-   *
-   * @usageNotes
-   * ### Example
-   *
-   * {@example testing/ts/matchers.ts region='toHaveCssClass'}
-   */
-  toHaveCssClass(expected: string): boolean;
+  // [Nimble] Comment out matchers that are not needed
+  // /**
+  //  * Expect the element to have the given CSS class.
+  //  *
+  //  * @usageNotes
+  //  * ### Example
+  //  *
+  //  * {@example testing/ts/matchers.ts region='toHaveCssClass'}
+  //  */
+  // toHaveCssClass(expected: string): boolean;
 
-  /**
-   * Expect the element to have the given CSS styles.
-   *
-   * @usageNotes
-   * ### Example
-   *
-   * {@example testing/ts/matchers.ts region='toHaveCssStyle'}
-   */
-  toHaveCssStyle(expected: {[k: string]: string}|string): boolean;
+  // /**
+  //  * Expect the element to have the given CSS styles.
+  //  *
+  //  * @usageNotes
+  //  * ### Example
+  //  *
+  //  * {@example testing/ts/matchers.ts region='toHaveCssStyle'}
+  //  */
+  // toHaveCssStyle(expected: {[k: string]: string}|string): boolean;
 
-  /**
-   * Expect a class to implement the interface of the given class.
-   *
-   * @usageNotes
-   * ### Example
-   *
-   * {@example testing/ts/matchers.ts region='toImplement'}
-   */
-  toImplement(expected: any): boolean;
+  // /**
+  //  * Expect a class to implement the interface of the given class.
+  //  *
+  //  * @usageNotes
+  //  * ### Example
+  //  *
+  //  * {@example testing/ts/matchers.ts region='toImplement'}
+  //  */
+  // toImplement(expected: any): boolean;
 
-  /**
-   * Expect a component of the given type to show.
-   */
-  toContainComponent(expectedComponentType: Type<any>, expectationFailOutput?: any): boolean;
+  // /**
+  //  * Expect a component of the given type to show.
+  //  */
+  // toContainComponent(expectedComponentType: Type<any>, expectationFailOutput?: any): boolean;
 
-  /**
-   * Invert the matchers.
-   */
-  not: NgMatchers<T>;
+  // /**
+  //  * Invert the matchers.
+  //  */
+  // not: NgMatchers<T>;
 }
 
 /**
@@ -105,6 +102,7 @@ beforeEach(function() {
       };
     },
 
+    /* [Nimble] Comment out matchers that are not needed
     toHaveCssClass: function() {
       return {compare: buildError(false), negativeCompare: buildError(true)};
 
@@ -190,6 +188,7 @@ beforeEach(function() {
         }
       };
     }
+    */
   });
 });
 
@@ -203,11 +202,15 @@ function elementText(n: any): string {
     return n.map(elementText).join('');
   }
 
-  if (isCommentNode(n)) {
+  // [Nimble] Update isCommentNode check to not require `getDom()` call
+  // if (isCommentNode(n)) {
+  if (n.nodeType === Node.COMMENT_NODE) {
     return '';
   }
 
-  if (getDOM().isElementNode(n)) {
+  // [Nimble] Update isElementNode check to not require `getDom()` call
+  // if (getDOM().isElementNode(n)) {
+  if (n.nodeType === Node.ELEMENT_NODE) {
     const tagName = (n as Element).tagName;
 
     if (tagName === 'CONTENT') {

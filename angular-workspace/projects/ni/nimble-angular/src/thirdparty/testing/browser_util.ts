@@ -1,7 +1,8 @@
 /**
  * [Nimble]
  * Copied from https://github.com/angular/angular/blob/6070c9ddcff88d4ad4bcf73a2dd1874920661d93/packages/platform-browser/testing/src/browser_util.ts
- * with no modifications.
+ * with the following modifications:
+ * - Comment out everything except childNodesAsList
  */
 
 /**
@@ -12,6 +13,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/* [Nimble] Comment out code that is not needed
 import {ɵgetDOM as getDOM} from '@angular/common';
 import {NgZone} from '@angular/core';
 
@@ -139,6 +149,7 @@ export function createTemplate(html: any): HTMLElement {
   t.innerHTML = html;
   return t;
 }
+*/
 
 export function childNodesAsList(el: Node): any[] {
   const childNodes = el.childNodes;

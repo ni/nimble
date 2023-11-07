@@ -15,28 +15,17 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {CommonModule, HashLocationStrategy, Location, LocationStrategy} from '@angular/common';
+// [Nimble] Update imports
+import {CommonModule, Location} from '@angular/common';
 import {provideLocationMocks, SpyLocation} from '@angular/common/testing';
-// [Nimble] add Directive import
-import {ChangeDetectionStrategy, Component, EnvironmentInjector, inject as coreInject, Inject, Injectable, InjectionToken, NgModule, NgModuleRef, NgZone, OnDestroy, QueryList, Type, ViewChild, ViewChildren, ɵConsole as Console, ɵNoopNgZone as NoopNgZone, Directive} from '@angular/core';
+import {Component, NgModule, QueryList, Type, ViewChildren, Directive} from '@angular/core';
 import {ComponentFixture, fakeAsync, inject, TestBed, tick} from '@angular/core/testing';
-//import {By} from '@angular/platform-browser/src/dom/debug/by';
-//import {expect} from '@angular/platform-browser/testing/src/matchers';
-// [Nimble] add provideRouter, remove RouterLink
-import {ActivatedRoute, ActivatedRouteSnapshot, ActivationEnd, ActivationStart, CanActivate, CanDeactivate, ChildActivationEnd, ChildActivationStart, DefaultUrlSerializer, DetachedRouteHandle, Event, GuardsCheckEnd, GuardsCheckStart, Navigation, NavigationCancel, NavigationCancellationCode, NavigationEnd, NavigationError, NavigationSkipped, NavigationStart, ParamMap, Params, PreloadAllModules, PreloadingStrategy, PRIMARY_OUTLET, provideRouter, Resolve, ResolveEnd, ResolveStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router, RouteReuseStrategy, RouterEvent, RouterLinkActive, RouterModule, RouterOutlet, RouterPreloader, RouterStateSnapshot, RoutesRecognized, RunGuardsAndResolvers, UrlHandlingStrategy, UrlSegment, UrlSegmentGroup, UrlSerializer, UrlTree} from '@angular/router';
-// [Nimble] import type only
-import type {concat, EMPTY, Observable, Observer, of, Subscription} from 'rxjs';
-import {delay, filter, first, last, map, mapTo, takeWhile, tap} from 'rxjs/operators';
-// [Nimble] use our forked RouterLink
+import {ActivatedRoute, Event, NavigationEnd, NavigationStart, ParamMap, Params, provideRouter, Router, RouterLinkActive, RouterModule, RouterOutlet, UrlSegment} from '@angular/router';
+import type {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 import { RouterLink } from '../router_link';
-// [Nimble] added import
 import { By } from '@angular/platform-browser';
 import '../../testing/matchers';
-
-//import {CanActivateChildFn, CanActivateFn, CanMatch, CanMatchFn, Data, ResolveFn} from '../src/models';
-//import {provideRouter, withNavigationErrorHandler, withRouterConfig} from '../src/provide_router';
-//import {forEach, wrapIntoObservable} from '../src/utils/collection';
-//import {getLoadedRoutes} from '../src/utils/config';
 
 // [Nimble] Defining test directive and module to use instead of RouterLink
 @Directive({ selector: '[routerLink]' })
@@ -50,20 +39,22 @@ class TestRouterLinkModule {
 const ROUTER_DIRECTIVES = [RouterLinkActive, RouterOutlet];
 
 describe('Integration', () => {
-  const noopConsole: Console = {log() {}, warn() {}};
+  // [Nimble] Remove noopConsole
+  // const noopConsole: Console = {log() {}, warn() {}};
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [...ROUTER_DIRECTIVES, TestModule, TestRouterLinkModule],
       providers: [
-        {provide: Console, useValue: noopConsole},
+        // [Nimble] Remove noopConsole
+        // {provide: Console, useValue: noopConsole},
         provideLocationMocks(),
-        provideRouter([{path: 'simple', component: SimpleCmp}]),
+        provideRouter([{path: 'simple', component: SimpleCmp}])
       ]
     });
   });
 
-  /*
+  /* [Nimble] Comment out tests that are not related to the RouterLink directive
   it('should navigate with a provided config',
      fakeAsync(inject([Router, Location], (router: Router, location: Location) => {
        const fixture = createRoot(router, RootCmp);
@@ -6553,7 +6544,9 @@ describe('Integration', () => {
              children: [
                {path: 'popup', outlet: 'secondary', component: RelativeLinkCmp},
              ]
-           }]), TestRouterLinkModule]
+           }]),
+           // [Nimble] Add import for TestRouterLinkModule
+           TestRouterLinkModule]
          })
          class LazyLoadedModule {
          }
