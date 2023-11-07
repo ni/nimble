@@ -2,6 +2,7 @@
  * [Nimble]
  * Copied from https://github.com/angular/angular/blob/14.2.6/packages/forms/src/directives/control_value_accessor.ts
  * with the following modifications:
+ * - Update imports
  * - Commented out ControlValueAccessor which is exported from @angular/forms
  * - Commented out NG_VALUE_ACCESSOR which is exported from @angular/forms
  */
@@ -14,7 +15,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, ElementRef, InjectionToken, Renderer2} from '@angular/core';
+import {Directive, ElementRef, Renderer2} from '@angular/core';
 
 /**
  * @description

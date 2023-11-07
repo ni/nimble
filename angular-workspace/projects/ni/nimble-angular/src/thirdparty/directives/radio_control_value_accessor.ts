@@ -5,6 +5,7 @@
  * - Changed throwNameError() to throw Error instead of RuntimeError. This makes the file compile with Angular version 12.
  * - Removed now-unused import for RuntimeErrorCode and RuntimeError
  * - Updated import of ControlValueAccessor, NgControl, and NG_VALUE_ACCESSOR to pull from package export
+ * - Remove all configuration from RadioControlValueAccessor's `@Directive` decorator
  */
 
 /**

@@ -2,7 +2,9 @@
  * [Nimble]
  * Copied from https://github.com/angular/angular/blob/035aee01089b9f9d4b5b6af66a74002e07723fba/packages/router/src/directives/router_link.ts
  * with the following modifications:
- * - hardcode `isAnchorElement` to `true` so that the directive will correctly set the `href` on elements within nimble that represent anchors
+ * - Hardcode `isAnchorElement` to `true` so that the directive will correctly set the `href` on elements within nimble that represent anchors
+ * - Make `href` a `@HostBindinding` to avoid using Angular's private sanitization APIs
+ * - Comment out uneccessary export of the deprecated `RouterLinkWithHref`
  */
 
 

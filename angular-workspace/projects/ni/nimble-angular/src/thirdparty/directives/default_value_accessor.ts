@@ -1,7 +1,10 @@
 /**
  * [Nimble]
  * Copied from https://github.com/angular/angular/blob/035aee01089b9f9d4b5b6af66a74002e07723fba/packages/forms/src/directives/default_value_accessor.ts
- * with minimal modifications.
+ * with the following modifications:
+ * - Update imports
+ * - Update implementation of `_isAndroid()` to not use private APIs
+ * - Remove all configuration from DefaultValueAccessor's `@Directive` decorator
  */
 
 /**

@@ -2,6 +2,10 @@
  * [Nimble]
  * Copied from https://github.com/angular/angular/blob/035aee01089b9f9d4b5b6af66a74002e07723fba/packages/forms/src/directives/select_control_value_accessor.ts
  * with the following modifications:
+ * - Update imports
+ * - Remove all configuration from SelectControlValueAccessor's `@Directive` decorator
+ * - Remove all configuration from NgSelectOption's `@Directive` decorator
+ * - Update validation within `compareWith` to use public APIs
  */
 
 
@@ -13,7 +17,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, ElementRef, Host, Input, OnDestroy, Optional, Provider, Renderer2, isDevMode} from '@angular/core';
+import {Directive, ElementRef, Host, Input, OnDestroy, Optional, Renderer2, isDevMode} from '@angular/core';
 
 import type { ControlValueAccessor } from '@angular/forms';
 import { BuiltInControlValueAccessor } from './control_value_accessor';

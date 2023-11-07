@@ -2,6 +2,7 @@
  * [Nimble]
  * Copied from https://github.com/angular/angular/blob/6070c9ddcff88d4ad4bcf73a2dd1874920661d93/packages/platform-browser/testing/src/matchers.ts
  * with the following modifications:
+ * - Update imports
  * - Comment out everything other than what is needed to use `toHaveText` matcher
  * - Update `toHaveText` to not use `getDOM()` when determining the type of a Node
  */
