@@ -4,7 +4,7 @@ import { iconAtTag } from '../../../../icons/at';
 
 export const template = html<RichTextMentionUsersView>`<template>
     ${when(
-        x => !x.editing,
+        x => x.disableEditing,
         html<RichTextMentionUsersView>`
     <span
         class="control"

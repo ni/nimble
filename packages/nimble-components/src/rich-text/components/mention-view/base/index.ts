@@ -27,8 +27,8 @@ export class RichTextMentionView extends FoundationElement {
      * Whether to render the mention node in view mode or in edit mode
      *
      * @public
-     * HTML Attribute: editing
+     * HTML Attribute: disable-editing
      */
-    @attr({ mode: 'boolean' })
-    public editing = false;
+    @attr({ mode: 'boolean', attribute: 'disable-editing' })
+    public disableEditing = false;
 }

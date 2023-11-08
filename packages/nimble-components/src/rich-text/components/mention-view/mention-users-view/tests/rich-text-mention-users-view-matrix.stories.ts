@@ -36,11 +36,29 @@ const component = ([
         }
     </style>
     <div class="mention-container">
-        <${richTextMentionUsersViewTag} mention-href="user:1" mention-label="John Doe" ?disabled="${() => disabled}">
+        <${richTextMentionUsersViewTag} mention-href="user:1" mention-label="John Doe" ?disabled="${() => disabled}" disable-editing>
             @John Doe
         </${richTextMentionUsersViewTag}> -
         Mention View ${() => disabledName}
     </div>
 `;
 
+const componentEditingMode = (): ViewTemplate => html`
+    <style class='code-hide'>
+        .mention-container {
+            font: var(${bodyFont.cssCustomProperty});
+            color: var(${bodyFontColor.cssCustomProperty});
+            margin: 4px;
+        }
+    </style>
+    <div class="mention-container">
+        <${richTextMentionUsersViewTag} mention-href="user:1" mention-label="John Doe">
+            @John Doe
+        </${richTextMentionUsersViewTag}> -
+        Mention View Enabled Editing
+    </div>
+`;
+
 export const richTextMentionUserViewThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component, [disabledStates]));
+
+export const richTextMentionUserViewEditEnabledThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(componentEditingMode));

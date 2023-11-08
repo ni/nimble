@@ -32,7 +32,7 @@ export const styles = css`
         vertical-align: bottom;
     }
 
-    :host(:not([editing])) slot {
+    :host([disable-editing]) slot {
         display: none;
     }
 `;
