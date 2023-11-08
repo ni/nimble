@@ -4,15 +4,15 @@
 
 The `nimble-toggle-button-group` is a component used to group related `nimble-toggle-button` options
 in the UI. Grouping a set of buttons allows us to apply group logic to the buttons and provide a
-selected value to clients, similar to a radio group. A toggle button group control is distinct from
-a radio group in that it allows deselection by the user after a selection has been made.
+selected value to clients, similar to a radio group. A toggle button group component is distinct
+from a radio group in that it allows deselection by the user after a selection has been made.
 
 ### Background
 
 [GitHub Issue #298: toggle-button-group Component](https://github.com/ni/nimble/issues/298)
 
 An IxD and Visual Design spec for the toggle button group component have not been provided. For the
-initial version of the control, we will not apply any additional styling to the toggle buttons
+initial version of the component, we will not apply any additional styling to the toggle buttons
 within the toggle button group. The component will remain "Incubating" until we get agreement on the
 interaction and visual design.
 
@@ -48,8 +48,9 @@ option by un-toggling the selected button."
     horizontal arrangement, fit-to-content vs stretch, line wrapping behavior and grid layout). In
     the future, it might make sense to provide built-in layout options for the most common layout
     choices, but with only one use case we don't want to guess at the most desirable options.
--   We do not plan to support multiselect. Similar controls in component libraries commonly support
-    multi-selection, but that capability can be added at a future time when we have a use case for it.
+-   We do not plan to support multiselect. Similar components in other control libraries commonly
+    support multi-selection, but that capability can be added at a future time when we have a use
+    case for it.
 -   We do not plan to support requiring a selection. This would be possible to add in the future.
     This could likely be added on the client side as well (see React MUI under
     [Prior Art/Examples](#prior-artexamples)), but for now our guidance should be to use a radio
@@ -59,7 +60,7 @@ option by un-toggling the selected button."
 
 The requirements for the Routines UI are as follows:
 
--   Exclusive selection. i.e. only one button can be checked at a time.
+-   Exclusive selection, i.e. only one button can be checked at a time.
 -   Deselection, i.e. no selection is required and the user can clear the selection by clicking the
     checked button.
     -   This is where the toggle button group is distinct from a radio group with toggle-button-styled
@@ -160,14 +161,14 @@ We will create an Angular `nimble-toggle-button-group` directive. The component 
 a custom implementation of `ControlValueAccessor`, because there is not an existing Angular
 `ControlValueAccessor` with the behavior we require.
 
-There are two options for form integration, and the choice will affect how the logic of the control
-is implemented.
+There are two options for form integration, and the choice will affect how the logic of the
+component is implemented.
 
 1.  Form integration at the level of the `nimble-toggle-button-group` itself
 
     -   In this approach, the client would bind to the value of the `nimble-toggle-button-group`.
     -   This is similar to the React MUI and Angular Material implementations for their button group
-        controls.
+        components.
     -   We would create a `ControlValueAccessor` directive with a selector to target
         `nimble-toggle-button-group`.
         -   We may be able to extend the `DefaultValueAccessor` for our directive, since the `value`
@@ -212,7 +213,7 @@ as used for existing Nimble components.
 ### Visual Appearance
 
 We do not intend to apply any custom visual appearance to the toggle buttons themselves within the
-toggle button group for the first iteration of this control. All of the existing toggle button
+toggle button group for the first iteration of this component. All of the existing toggle button
 visual states will be honored (see [States](#states)).
 
 We have guidance from interaction design on the desired layout of the buttons, which consists of a
@@ -260,24 +261,25 @@ group (checked, unchecked, disabled, hover, etc.).
 
 ### Accessibility
 
-The control itself will not be focusable. Instead, keyboard focus will go to the first button in the
-group when you tab to the control.
+The component itself will not be focusable. Instead, keyboard focus will go to the first button in
+the group when you tab to the component.
 
-The control will support using the `Enter` and `Space` keys to change the button selection for each
-of the child buttons. Enter and Space are already supported by the `nimble-toggle-button`, but the
-toggle button group will need logic to enforce `multiple` and `requires-selection` and to send the
-`selection-changed` event when the keyboard interactions are used.
+The component will support using the `Enter` and `Space` keys to change the button selection for
+each of the child buttons. Enter and Space are already supported by the `nimble-toggle-button`, but
+the toggle button group will need logic to enforce `multiple` and `requires-selection` and to send
+the `selection-changed` event when the keyboard interactions are used.
 
-The toggle button group will have an ARIA role of `group`, similar to the radio group component.
+The toggle button group will have an ARIA role of `group`, similar to the React MUI and Angular
+Material implementations of their button group controls.
 
 When the toggle button group is disabled, it will set `aria-disabled` on all child buttons. If a
 single toggle button is disabled within the group, tabbing will skip that button.
 
 ### Mobile
 
-The client may choose `flex` attributes to control the sizing and wrapping behavior of the button
-group, and should consider mobile behavior when choosing that behavior. The control itself does not
-have any mobile consideration.
+The client may choose `flex` attributes to component the sizing and wrapping behavior of the button
+group, and should consider mobile behavior when choosing that behavior. The component itself does
+not have any mobile consideration.
 
 ### Globalization
 
