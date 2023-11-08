@@ -1,23 +1,26 @@
 import {
     DesignSystem,
-    ListboxElement,
+    ListboxElement as FoundationListbox,
     listboxTemplate as template
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-list-box': ListboxElement;
+        'nimble-listbox': Listbox;
     }
 }
 
-const nimbleListBox = ListboxElement.compose({
-    baseName: 'list-box',
+/**
+ * A nimble-styled HTML list box
+ */
+export class Listbox extends FoundationListbox {}
+
+const nimbleListbox = Listbox.compose({
+    baseName: 'listbox',
     template,
     styles
 });
 
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleListBox());
-export const listBoxTag = DesignSystem.tagFor(ListboxElement);
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleListbox());
+export const listboxTag = DesignSystem.tagFor(Listbox);

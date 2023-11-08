@@ -5,7 +5,7 @@ import {
 } from 'prosemirror-markdown';
 import { DOMSerializer, Schema } from 'prosemirror-model';
 import { anchorTag } from '../../anchor';
-import { mentionUsersViewTag } from '../mention-view/user-mention-view';
+import { richTextMentionUsersViewTag } from '../mention-view/user-mention-view';
 import type { RichTextMentionConfig } from '../../rich-text-mention/mention-base';
 
 /**
@@ -165,18 +165,20 @@ export class RichTextMarkdownParser {
             nodes: schema.spec.nodes.addToEnd('mention', {
                 attrs: {
                     mentionhref: { default: '' },
-                    mentionlabel: { default: '' }
+                    mentionlabel: { default: '' },
+                    viewmode: { default: 'true' }
                 },
                 group: 'inline',
                 inline: true,
                 content: 'inline*',
                 toDOM(node) {
-                    const { mentionhref, mentionlabel } = node.attrs;
+                    const { mentionhref, mentionlabel, viewmode } = node.attrs;
                     return [
-                        mentionUsersViewTag,
+                        richTextMentionUsersViewTag,
                         {
                             'mention-href': mentionhref as string,
-                            'mention-label': mentionlabel as string
+                            'mention-label': mentionlabel as string,
+                            'view-mode': viewmode as string
                         },
                         0
                     ];

@@ -773,20 +773,20 @@ export const [
 );
 
 export const [
-    atMentionFont,
-    atMentionFontColor,
-    atMentionDisabledFontColor,
-    atMentionFontFamily,
-    atMentionFontWeight,
-    atMentionFontSize,
-    atMentionFontLineHeight,
-    atMentionFallbackFontFamily
+    mentionFont,
+    mentionFontColor,
+    mentionDisabledFontColor,
+    mentionFontFamily,
+    mentionFontWeight,
+    mentionFontSize,
+    mentionFontLineHeight,
+    mentionFallbackFontFamily
 ] = createFontTokens(
-    tokenNames.atMentionFont,
+    tokenNames.mentionFont,
     (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, PowerGreen),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     BodyFamily,
-    BodyWeight,
+    BodyEmphasizedWeight,
     BodySize,
     BodyLineHeight,
     BodyFallbackFontFamily

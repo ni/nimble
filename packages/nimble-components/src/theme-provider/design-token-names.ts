@@ -228,14 +228,14 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     elevation2BoxShadow: 'elevation-2-box-shadow',
     elevation3BoxShadow: 'elevation-3-box-shadow',
     graphGridlineColor: 'graph-gridline-color',
-    atMentionFont: 'at-mention-font',
-    atMentionFontColor: 'at-mention-font-color',
-    atMentionDisabledFontColor: 'at-mention-disabled-font-color',
-    atMentionFontFamily: 'at-mention-font-family',
-    atMentionFontSize: 'at-mention-font-size',
-    atMentionFontWeight: 'at-mention-font-weight',
-    atMentionFontLineHeight: 'at-mention-font-line-height',
-    atMentionFallbackFontFamily: 'at-mention-fallback-font-family'
+    mentionFont: 'at-mention-font',
+    mentionFontColor: 'at-mention-font-color',
+    mentionDisabledFontColor: 'at-mention-disabled-font-color',
+    mentionFontFamily: 'at-mention-font-family',
+    mentionFontSize: 'at-mention-font-size',
+    mentionFontWeight: 'at-mention-font-weight',
+    mentionFontLineHeight: 'at-mention-font-line-height',
+    mentionFallbackFontFamily: 'at-mention-fallback-font-family'
 };
 
 const prefix = 'ni-nimble';

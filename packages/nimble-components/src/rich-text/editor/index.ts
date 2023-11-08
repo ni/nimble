@@ -44,7 +44,7 @@ import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import type { AnchoredRegion } from '../../anchored-region';
 import type { Button } from '../../button';
-import { mentionUsersViewTag } from '../mention-view/user-mention-view';
+import { richTextMentionUsersViewTag } from '../mention-view/user-mention-view';
 import type { MentionBox } from './nimble-rich-text-mention-list-box';
 import { RichtextMentionUsers } from '../../rich-text-mention/mention-users';
 import type { ListOption } from '../../list-option';
@@ -585,6 +585,11 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private readonly updateUserLists = (props: SuggestionProps): void => {
         this.mentionPropCommand = props;
         this.open = true;
+        const twoWhiteSpaceRegex = /\s{2,}$/;
+        if (props.query && twoWhiteSpaceRegex.test(props.query)) {
+            this.open = false;
+            return;
+        }
         this.filter = props.query.toLowerCase();
         if (this.region) {
             this.region.anchorElement = props.decorationNode as HTMLElement;
@@ -650,7 +655,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                         parseHTML() {
                             return [
                                 {
-                                    tag: mentionUsersViewTag
+                                    tag: richTextMentionUsersViewTag
                                 },
                                 {
                                     tag: `span[mention-type="${this.name}"]`
@@ -691,30 +696,32 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                             };
                         },
                         // eslint-disable-next-line @typescript-eslint/naming-convention
-                        renderHTML({ HTMLAttributes }) {
+                        renderHTML({ node, HTMLAttributes }) {
                             return [
-                                mentionUsersViewTag,
+                                richTextMentionUsersViewTag,
                                 mergeAttributes(
                                     this.options.HTMLAttributes,
-                                    HTMLAttributes
+                                    HTMLAttributes,
+                                    { 'view-mode': true }
                                 ),
-                                // `${this.options.renderLabel({
-                                //     options: this.options,
-                                //     node
-                                // })} `
+                                `${this.options.renderLabel({
+                                    options: this.options,
+                                    node
+                                })} `
                             ];
                         }
                     })
                     .configure({
-                        // renderLabel({ options, node }) {
-                        //     return `${options.suggestion.char!}${(node.attrs.label as string) ?? node.attrs.id
-                        //     }`;
-                        // },
+                        renderLabel({ options, node }) {
+                            return `${options.suggestion.char!}${(node.attrs.label as string) ?? node.attrs.id
+                            }`;
+                        },
                         // eslint-disable-next-line @typescript-eslint/naming-convention
                         // HTMLAttributes: {
                         //     contenteditable: true
                         // },
                         suggestion: {
+                            decorationTag: richTextMentionUsersViewTag,
                             allowSpaces: true,
                             render: () => {
                                 return {

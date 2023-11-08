@@ -1,14 +1,14 @@
 import { children, elements, html, ref, slotted } from '@microsoft/fast-element';
 import { Listbox } from '@microsoft/fast-foundation';
 import type { MentionBox } from '.';
-import { listBoxTag } from '../nimble-list-box';
+import { listboxTag } from '../nimble-list-box';
 
 // prettier-ignore
 export const template = html<MentionBox>`
     <template
     ${children({ property: 'childItems', filter: elements() })}
     >     
-    <${listBoxTag}
+    <${listboxTag}
             ${ref('listBox')} 
             @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
             >    
@@ -19,6 +19,6 @@ export const template = html<MentionBox>`
         property: 'slottedOptions',
     })}
                 ></slot>
-    </${listBoxTag}>
+    </${listboxTag}>
     </template>
 `;
