@@ -12,7 +12,11 @@ import {
 } from '../../../../../utilities/tests/states';
 import {
     bodyFont,
-    bodyFontColor
+    bodyFontColor,
+    borderColor,
+    borderWidth,
+    mediumPadding,
+    smallPadding
 } from '../../../../../theme-provider/design-tokens';
 
 const metadata: Meta = {
@@ -32,14 +36,13 @@ const component = ([
         .mention-container {
             font: var(${bodyFont.cssCustomProperty});
             color: var(${bodyFontColor.cssCustomProperty});
-            margin: 4px;
+            margin: var(${smallPadding.cssCustomProperty});
         }
     </style>
     <div class="mention-container">
-        <${richTextMentionUsersViewTag} mention-href="user:1" mention-label="John Doe" ?disabled="${() => disabled}" disable-editing>
+        [Mention View]<${richTextMentionUsersViewTag} mention-href="user:1" mention-label="John Doe" ?disabled="${() => disabled}" disable-editing>
             @John Doe
-        </${richTextMentionUsersViewTag}> -
-        Mention View ${() => disabledName}
+        </${richTextMentionUsersViewTag}>[View ${() => disabledName}]
     </div>
 `;
 
@@ -48,14 +51,15 @@ const componentEditingMode = (): ViewTemplate => html`
         .mention-container {
             font: var(${bodyFont.cssCustomProperty});
             color: var(${bodyFontColor.cssCustomProperty});
-            margin: 4px;
+            margin: var(${smallPadding.cssCustomProperty});
+            padding: var(${mediumPadding.cssCustomProperty});
+            border: var(${borderWidth.cssCustomProperty}) solid var(${borderColor.cssCustomProperty});
         }
     </style>
-    <div class="mention-container">
-        <${richTextMentionUsersViewTag} mention-href="user:1" mention-label="John Doe">
+    <div class="mention-container" contenteditable="true">
+        [Mention View]<${richTextMentionUsersViewTag} mention-href="user:1" mention-label="John Doe">
             @John Doe
-        </${richTextMentionUsersViewTag}> -
-        Mention View Enabled Editing
+        </${richTextMentionUsersViewTag}>[Enabled Editing]
     </div>
 `;
 

@@ -3,9 +3,9 @@ import { display } from '@microsoft/fast-foundation';
 import {
     mentionFont,
     mentionFontColor,
-    mentionDisabledFontColor
+    mentionDisabledFontColor,
+    bodyEmphasizedFontColor
 } from '../../../../theme-provider/design-tokens';
-import { iconAtTag } from '../../../../icons/at';
 
 export const styles = css`
     ${display('inline-block')}
@@ -13,8 +13,13 @@ export const styles = css`
     :host {
         box-sizing: border-box;
         font: ${mentionFont};
+        color: ${bodyEmphasizedFontColor}
         white-space: normal;
         --ni-nimble-icon-color: ${mentionFontColor};
+    }
+
+    :host(:not([disable-editing])) .control {
+        display: none;
     }
 
     .control {
@@ -24,12 +29,6 @@ export const styles = css`
     :host([disabled]) .control {
         color: ${mentionDisabledFontColor};
         --ni-nimble-icon-color: ${mentionDisabledFontColor};
-    }
-
-    ${iconAtTag} {
-        position: relative;
-        right: -1.6px;
-        vertical-align: bottom;
     }
 
     :host([disable-editing]) slot {
