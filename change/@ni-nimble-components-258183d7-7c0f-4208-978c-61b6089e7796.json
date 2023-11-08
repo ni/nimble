@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Workaround for Lighthouse accessibility error in nimble-card. Update Angular status of nimble-card component.",
-  "packageName": "@ni/nimble-components",
-  "email": "35350751+kjohn1922@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

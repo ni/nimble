@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 08 Nov 2023 16:07:09 GMT",
+      "version": "20.14.1",
+      "tag": "@ni/nimble-components_v20.14.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "35350751+kjohn1922@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "57ee0e95855887e10034232f587be2e666c96414",
+            "comment": "Workaround for Lighthouse accessibility error in nimble-card. Update Angular status of nimble-card component."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 07 Nov 2023 22:48:12 GMT",
       "version": "20.14.0",
       "tag": "@ni/nimble-components_v20.14.0",
