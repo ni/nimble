@@ -36,7 +36,9 @@ export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
     private static isSupportedMappingElement(
         mapping: Mapping<unknown>
     ): mapping is MappingIcon | MappingSpinner {
-        return mapping instanceof MappingIcon || mapping instanceof MappingSpinner;
+        return (
+            mapping instanceof MappingIcon || mapping instanceof MappingSpinner
+        );
     }
 
     public override validate(
