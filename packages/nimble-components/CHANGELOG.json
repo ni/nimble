@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 07 Nov 2023 22:48:12 GMT",
+      "version": "20.14.0",
+      "tag": "@ni/nimble-components_v20.14.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "09a5fbfda1a401994e90ab1c00cb9cb7deb44278",
+            "comment": "Update radio button documentation for Angular difference"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 06 Nov 2023 23:03:00 GMT",
       "version": "20.14.0",
       "tag": "@ni/nimble-components_v20.14.0",
