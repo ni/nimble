@@ -32,9 +32,7 @@ RichTextMentionUsersValidator
     private readonly icon = iconAtTag;
 
     public override createValidator(): RichTextMentionUsersValidator {
-        return new RichTextMentionUsersValidator(
-            this.mentionInternals
-        );
+        return new RichTextMentionUsersValidator(this.mentionInternals);
     }
 
     protected override getMentionInternalsOptions(): MentionInternalsOptions {
@@ -53,12 +51,11 @@ RichTextMentionUsersValidator
         };
     }
 
-    protected createMappingConfig(mapping: Mapping<MentionHref>): MappingConfig {
+    protected createMappingConfig(
+        mapping: Mapping<MentionHref>
+    ): MappingConfig {
         if (mapping instanceof MappingMentionUser) {
-            return new MappingUserConfig(
-                mapping.key,
-                mapping.displayName
-            );
+            return new MappingUserConfig(mapping.key, mapping.displayName);
         }
         // Getting here would indicate a programming error, b/c validation will prevent
         // this function from running when there is an unsupported mapping.

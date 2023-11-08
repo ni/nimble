@@ -9,7 +9,7 @@ const metadata: Meta = {
         docs: {
             description: {
                 component:
-                'Add a `nimble-rich-text-mention-users` element as a child of the rich text component to enable using a toolbar button and `@` keystroke to mention a user. Add `nimble-mapping-mention-user` elements as its children to specify the users available to be mentioned.'
+                    'Add a `nimble-rich-text-mention-users` element as a child of the rich text component to enable using a toolbar button and `@` keystroke to mention a user. Add `nimble-mapping-mention-user` elements as its children to specify the users available to be mentioned.'
             }
         }
     }
@@ -22,11 +22,11 @@ export const richTextMentionUsers: StoryObj = {
     argTypes: {
         pattern: {
             description:
-            'A regex that is used to extract the user ID from user hrefs during the parsing and serializing of markdown in the editor.',
+                'A regex that is used to extract the user ID from user hrefs during the parsing and serializing of markdown in the editor.',
             control: { type: 'text' }
         }
     },
     args: {
-        pattern: ''
+        pattern: 'users:.*'
     }
 };

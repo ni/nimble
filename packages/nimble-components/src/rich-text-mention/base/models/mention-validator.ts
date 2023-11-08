@@ -90,9 +90,7 @@ export class RichTextMentionValidator<
     }
 
     private validateNoMissingMentionHref(mappings: Mapping<unknown>[]): void {
-        const invalid = mappings.some(
-            mapping => mapping.key === undefined
-        );
+        const invalid = mappings.some(mapping => mapping.key === undefined);
         this.setConditionValue('missingMentionHrefValue', invalid);
     }
 
@@ -102,7 +100,9 @@ export class RichTextMentionValidator<
     ): void {
         const regexPattern = new RegExp(pattern!);
         const valid = mentionHrefs.every(
-            href => href === undefined || typeof href !== 'string' || regexPattern.test(href)
+            href => href === undefined
+                || typeof href !== 'string'
+                || regexPattern.test(href)
         );
         this.setConditionValue('unsupportedMentionHrefValue', !valid);
     }
