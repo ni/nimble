@@ -2,6 +2,36 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 07 Nov 2023 22:48:12 GMT",
+      "version": "17.9.1",
+      "tag": "@ni/nimble-angular_v17.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "09a5fbfda1a401994e90ab1c00cb9cb7deb44278",
+            "comment": "Fix incorrect type on member in NimbleRadioDirective"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 Nov 2023 20:28:48 GMT",
+      "version": "17.9.0",
+      "tag": "@ni/nimble-angular_v17.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "e335f58f38322eb0ba73f4222d4c40295eb4d501",
+            "comment": "Add NimblePipesModule in nimble-angular/pipes entrypoint (for DurationPipe)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 03 Nov 2023 23:30:50 GMT",
       "version": "17.8.8",
       "tag": "@ni/nimble-angular_v17.8.8",
