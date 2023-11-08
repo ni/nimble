@@ -1,7 +1,6 @@
 import { ColumnValidator } from '../../base/models/column-validator';
 import type { ColumnInternals } from '../../base/models/column-internals';
 import type { Mapping } from '../../../mapping/base';
-import type { MappingKey } from '../../../mapping/base/types';
 import type { MappingKeyType } from '../types';
 import { resolveKeyWithType } from './mapping-key-resolver';
 
@@ -9,8 +8,7 @@ export const enumBaseValidityFlagNames = [
     'invalidMappingKeyValueForType',
     'unsupportedMappingType',
     'duplicateMappingKey',
-    'missingKeyValue',
-    'missingTextValue'
+    'missingKeyValue'
 ] as const;
 
 /**
@@ -24,23 +22,25 @@ export abstract class TableColumnEnumBaseValidator<
     public constructor(
         columnInternals: ColumnInternals<unknown>,
         configValidityKeys: ValidityFlagNames,
-        private readonly supportedMappingElements: readonly (typeof Mapping)[]
+        private readonly supportedMappingElements: readonly (typeof Mapping<unknown>)[]
     ) {
         super(columnInternals, configValidityKeys);
     }
 
-    public validate(mappings: Mapping[], keyType: MappingKeyType): void {
+    public validate(
+        mappings: Mapping<unknown>[],
+        keyType: MappingKeyType
+    ): void {
         this.untrackAll();
         const keys = mappings.map(mapping => mapping.key);
         this.validateKeyValuesForType(keys, keyType);
         this.validateMappingTypes(mappings);
         this.validateUniqueKeys(keys, keyType);
         this.validateNoMissingKeys(mappings);
-        this.validateNoMissingText(mappings);
     }
 
     private validateKeyValuesForType(
-        keys: (MappingKey | undefined)[],
+        keys: unknown[],
         keyType: MappingKeyType
     ): void {
         // Ignore undefined keys, because validateNoMissingKeys covers that case.
@@ -53,29 +53,21 @@ export abstract class TableColumnEnumBaseValidator<
         this.setConditionValue('invalidMappingKeyValueForType', invalid);
     }
 
-    private validateMappingTypes(mappings: Mapping[]): void {
+    private validateMappingTypes(mappings: Mapping<unknown>[]): void {
         const valid = mappings.every(mapping => this.supportedMappingElements.some(
             mappingClass => mapping instanceof mappingClass
         ));
         this.setConditionValue('unsupportedMappingType', !valid);
     }
 
-    private validateUniqueKeys(
-        keys: (MappingKey | undefined)[],
-        keyType: MappingKeyType
-    ): void {
+    private validateUniqueKeys(keys: unknown[], keyType: MappingKeyType): void {
         const typedKeys = keys.map(x => resolveKeyWithType(x, keyType));
         const invalid = new Set(typedKeys).size !== typedKeys.length;
         this.setConditionValue('duplicateMappingKey', invalid);
     }
 
-    private validateNoMissingKeys(mappings: Mapping[]): void {
+    private validateNoMissingKeys(mappings: Mapping<unknown>[]): void {
         const invalid = mappings.some(mapping => mapping.key === undefined);
         this.setConditionValue('missingKeyValue', invalid);
-    }
-
-    private validateNoMissingText(mappings: Mapping[]): void {
-        const invalid = mappings.some(mapping => mapping.text === undefined);
-        this.setConditionValue('missingTextValue', invalid);
     }
 }
