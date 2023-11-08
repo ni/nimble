@@ -4,12 +4,12 @@ import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook
 import { hiddenWrapper } from '../../../utilities/tests/hidden';
 
 const metadata: Meta = {
-    title: 'Internal/Rich Text',
+    title: 'Internal/Rich Text Mention Users',
     parameters: {
         docs: {
             description: {
                 component:
-                    'The `nimble-rich-text-mention-users` element will use the `nimble-mapping-mention-user` element as its user list content and utilize the pattern attribute to parse user href links, generating configuration for the mention list. This element will also include various validation checks to ensure the content format and pattern are correctly verified.'
+                'Add a `nimble-rich-text-mention-users` element as a child of the rich text component to enable using a toolbar button and `@` keystroke to mention a user. Add `nimble-mapping-mention-user` elements as its children to specify the users available to be mentioned.'
             }
         }
     }
@@ -22,9 +22,11 @@ export const richTextMentionUsers: StoryObj = {
     argTypes: {
         pattern: {
             description:
-                'Using this regex, the user ID will be extracted from the user href during the parsing and serializing of comments in the editor.',
-            control: { type: 'none' }
+            'A regex that is used to extract the user ID from user hrefs during the parsing and serializing of markdown in the editor.',
+            control: { type: 'text' }
         }
     },
-    args: {}
+    args: {
+        pattern: ''
+    }
 };

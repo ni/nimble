@@ -3,8 +3,7 @@ import {
     Notifier,
     Observable,
     observable,
-    Subscriber,
-    ViewTemplate
+    Subscriber
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import type { MappingConfig } from './models/mapping-config';
@@ -13,7 +12,6 @@ import type {
     RichTextMentionValidator,
     RichTextMentionValidity
 } from './models/rich-text-mention-validator';
-import type { ListOption } from '../../list-option';
 import {
     MentionInternals,
     MentionInternalsOptions
@@ -61,21 +59,6 @@ export abstract class RichTextMention<
         if (source instanceof MappingMentionBase && typeof args === 'string') {
             this.updateMentionConfig();
         }
-    }
-
-    /**
-     * Get the list of view item need to be populated in the mention popup
-     */
-    public getListOptions(): ViewTemplate<ListOption>[] {
-        const mappingConfigs = this.mentionInternals.mentionConfig?.mappingConfigs?.values();
-        const listOptions = [];
-        if (mappingConfigs === undefined) {
-            return [];
-        }
-        for (const value of mappingConfigs) {
-            listOptions.push(value.listView);
-        }
-        return listOptions;
     }
 
     public abstract createValidator(): TValidator;
