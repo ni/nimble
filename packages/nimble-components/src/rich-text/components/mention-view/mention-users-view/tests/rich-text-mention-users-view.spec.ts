@@ -8,7 +8,8 @@ async function setup(): Promise<Fixture<RichTextMentionUsersView>> {
         html`<nimble-rich-text-mention-users-view
             mention-href="users:1"
             mention-label="John Doe"
-        >@John Doe</nimble-rich-text-mention-users-view>`
+            >@John Doe</nimble-rich-text-mention-users-view
+        >`
     );
 }
 
