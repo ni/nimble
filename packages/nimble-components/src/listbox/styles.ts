@@ -7,7 +7,9 @@ import {
     popupBorderColor,
     elevation2BoxShadow,
     bodyFont,
-    bodyFontColor
+    bodyFontColor,
+    smallPadding,
+    menuMinWidth
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -17,7 +19,7 @@ export const styles = css`
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
-        min-width: 176px;
+        min-width: ${menuMinWidth};
         width: max-content;
         box-shadow: ${elevation2BoxShadow};
         color: ${bodyFontColor};
@@ -29,7 +31,7 @@ export const styles = css`
     }
 
     slot {
-        padding: 4px;
+        padding: ${smallPadding};
         display: block;
     }
 `;
