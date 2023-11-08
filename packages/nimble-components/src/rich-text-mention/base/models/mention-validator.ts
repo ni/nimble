@@ -1,16 +1,17 @@
-import type { MappingMentionBase } from '../../../mapping/mention-base';
+import type { Mapping } from '../../../mapping/base';
 import { Validator, ValidityObject } from '../../../utilities/models/validator';
 import type { MentionInternals } from './mention-internals';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface RichTextMentionValidity extends ValidityObject {}
 
+type FlagNames<T> = T extends readonly (infer U)[] ? U : never;
+
 export const baseValidityFlagNames = [
     'unsupportedMappingType',
     'duplicateMappingMentionHref',
     'missingMentionHrefValue',
     'unsupportedMentionHrefValue',
-    'missingDisplayNameValue',
     'missingPatternAttribute'
 ] as const;
 
@@ -23,19 +24,18 @@ export class RichTextMentionValidator<
     public constructor(
         private readonly mentionInternals: MentionInternals<unknown>,
         configValidityKeys: ValidityFlagNames,
-        private readonly supportedMappingElements: readonly (typeof MappingMentionBase)[]
+        private readonly supportedMappingElements: readonly (typeof Mapping<unknown>)[]
     ) {
         super(configValidityKeys);
     }
 
     public validate(
-        mappings: MappingMentionBase[],
+        mappings: Mapping<unknown>[],
         pattern: string | undefined
     ): void {
         this.untrackAll();
-        const mentionHrefs = mappings.map(mapping => mapping.mentionHref);
+        const mentionHrefs = mappings.map(mapping => mapping.key);
         this.validateMappingTypes(mappings);
-        this.validateNoMissingDisplayName(mappings);
         this.validateNoMissingMentionHref(mappings);
         this.validateUniqueMentionHref(mentionHrefs);
         this.validatePattern(pattern);
@@ -53,11 +53,7 @@ export class RichTextMentionValidator<
      * Sets a particular validity condition flag's value, e.g. "hasInvalidFooValue" = true
      */
     protected setConditionValue(
-        name: typeof baseValidityFlagNames extends readonly (infer U)[]
-            ? U
-            : never | ValidityFlagNames extends readonly (infer U)[]
-                ? U
-                : never,
+        name: FlagNames<typeof baseValidityFlagNames | ValidityFlagNames>,
         isInvalid: boolean
     ): void {
         if (isInvalid) {
@@ -79,7 +75,7 @@ export class RichTextMentionValidator<
         );
     }
 
-    private validateMappingTypes(mappings: MappingMentionBase[]): void {
+    private validateMappingTypes(mappings: Mapping<unknown>[]): void {
         const valid = mappings.every(mapping => this.supportedMappingElements.some(
             mappingClass => mapping instanceof mappingClass
         ));
@@ -87,34 +83,27 @@ export class RichTextMentionValidator<
     }
 
     private validateUniqueMentionHref(
-        mentionHref: (string | undefined)[]
+        mentionHref: (string | undefined | unknown)[]
     ): void {
         const invalid = new Set(mentionHref).size !== mentionHref.length;
         this.setConditionValue('duplicateMappingMentionHref', invalid);
     }
 
-    private validateNoMissingMentionHref(mappings: MappingMentionBase[]): void {
+    private validateNoMissingMentionHref(mappings: Mapping<unknown>[]): void {
         const invalid = mappings.some(
-            mapping => mapping.mentionHref === undefined
+            mapping => mapping.key === undefined
         );
         this.setConditionValue('missingMentionHrefValue', invalid);
     }
 
     private validateHref(
-        mentionHrefs: (string | undefined)[],
+        mentionHrefs: unknown[],
         pattern: string | undefined
     ): void {
         const regexPattern = new RegExp(pattern!);
         const valid = mentionHrefs.every(
-            href => href === undefined || regexPattern.test(href)
+            href => href === undefined || typeof href !== 'string' || regexPattern.test(href)
         );
         this.setConditionValue('unsupportedMentionHrefValue', !valid);
-    }
-
-    private validateNoMissingDisplayName(mappings: MappingMentionBase[]): void {
-        const invalid = mappings.some(
-            mapping => mapping.displayName === undefined
-        );
-        this.setConditionValue('missingDisplayNameValue', invalid);
     }
 }

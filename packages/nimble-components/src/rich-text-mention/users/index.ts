@@ -1,6 +1,5 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { MentionInternalsOptions } from '../base/models/mention-internals';
-import type { MappingMentionBase } from '../../mapping/mention-base';
 import {
     MappingConfigs,
     RichTextMention,
@@ -8,13 +7,12 @@ import {
 } from '../base';
 import type { MappingConfig } from '../base/models/mapping-config';
 import { MappingUserConfig } from '../base/models/mapping-user-config';
-import { MappingMentionUser } from '../../mapping/mention-user';
 import { template } from '../base/template';
-import {
-    baseValidityFlagNames,
-    RichTextMentionValidator
-} from '../base/models/rich-text-mention-validator';
 import { iconAtTag } from '../../icons/at';
+import { MappingMentionUser } from '../../mapping/mention-user';
+import type { Mapping } from '../../mapping/base';
+import type { MentionHref } from '../../mapping/base/types';
+import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,19 +25,15 @@ declare global {
  */
 export class RichtextMentionUsers extends RichTextMention<
 RichTextMentionConfig,
-RichTextMentionValidator<typeof baseValidityFlagNames>
+RichTextMentionUsersValidator
 > {
     private readonly character = '@';
 
     private readonly icon = iconAtTag;
 
-    public override createValidator(): RichTextMentionValidator<
-        typeof baseValidityFlagNames
-    > {
-        return new RichTextMentionValidator(
-            this.mentionInternals,
-            baseValidityFlagNames,
-            [MappingMentionUser]
+    public override createValidator(): RichTextMentionUsersValidator {
+        return new RichTextMentionUsersValidator(
+            this.mentionInternals
         );
     }
 
@@ -59,10 +53,10 @@ RichTextMentionValidator<typeof baseValidityFlagNames>
         };
     }
 
-    protected createMappingConfig(mapping: MappingMentionBase): MappingConfig {
+    protected createMappingConfig(mapping: Mapping<MentionHref>): MappingConfig {
         if (mapping instanceof MappingMentionUser) {
             return new MappingUserConfig(
-                mapping.mentionHref,
+                mapping.key,
                 mapping.displayName
             );
         }

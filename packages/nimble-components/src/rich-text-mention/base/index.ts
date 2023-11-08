@@ -7,15 +7,15 @@ import {
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import type { MappingConfig } from './models/mapping-config';
-import { MappingMentionBase } from '../../mapping/mention-base';
 import type {
     RichTextMentionValidator,
     RichTextMentionValidity
-} from './models/rich-text-mention-validator';
+} from './models/mention-validator';
 import {
     MentionInternals,
     MentionInternalsOptions
 } from './models/mention-internals';
+import { Mapping } from '../../mapping/base';
 
 export type MappingConfigs = ReadonlyMap<string, MappingConfig>;
 
@@ -45,7 +45,7 @@ export abstract class RichTextMention<
 
     /** @internal */
     @observable
-    public mappings: MappingMentionBase[] = [];
+    public mappings: Mapping<unknown>[] = [];
 
     public checkValidity(): boolean {
         return this.mentionInternals.validConfiguration;
@@ -56,7 +56,7 @@ export abstract class RichTextMention<
     }
 
     public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof MappingMentionBase && typeof args === 'string') {
+        if (source instanceof Mapping && typeof args === 'string') {
             this.updateMentionConfig();
         }
     }
@@ -70,14 +70,14 @@ export abstract class RichTextMention<
     ): TMentionConfig;
 
     protected abstract createMappingConfig(
-        mapping: MappingMentionBase
+        mapping: Mapping<unknown>
     ): MappingConfig;
 
     private getMappingConfigs(): MappingConfigs {
         const mappingConfigs = new Map<string, MappingConfig>();
         this.mappings.forEach(mapping => {
-            const href = mapping.mentionHref ?? undefined;
-            if (href === undefined) {
+            const href = mapping.key ?? undefined;
+            if (href === undefined || typeof href !== 'string') {
                 throw Error(
                     'mentionHref was invalid for type. Validation should have prevented this.'
                 );
