@@ -27,10 +27,16 @@ export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
         ] as const);
     }
 
-    private static isSupportedMappingElement(
+    private static isIconMappingElement(
         mapping: Mapping<unknown>
     ): mapping is MappingIcon {
         return mapping instanceof MappingIcon;
+    }
+
+    private static isSupportedMappingElement(
+        mapping: Mapping<unknown>
+    ): mapping is MappingIcon | MappingSpinner {
+        return mapping instanceof MappingIcon || mapping instanceof MappingSpinner;
     }
 
     public override validate(
@@ -44,7 +50,7 @@ export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
 
     private validateIconNames(mappings: Mapping<unknown>[]): void {
         const invalid = mappings
-            .filter(TableColumnIconValidator.isSupportedMappingElement)
+            .filter(TableColumnIconValidator.isIconMappingElement)
             .some(mappingIcon => mappingIcon.resolvedIcon === undefined);
         this.setConditionValue('invalidIconName', invalid);
     }
