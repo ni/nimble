@@ -8,7 +8,7 @@ async function setup(): Promise<Fixture<RichTextMentionUsersView>> {
         html`<nimble-rich-text-mention-users-view
             mention-href="users:1"
             mention-label="John Doe"
-        ></nimble-rich-text-mention-users-view>`
+        >@John Doe</nimble-rich-text-mention-users-view>`
     );
 }
 
@@ -54,13 +54,13 @@ describe('RichTextMentionUsersView', () => {
     it('should set the `mention-label` attribute to the internal control text content', async () => {
         await connect();
         expect(element.shadowRoot?.firstElementChild?.textContent).toBe(
-            '@John Doe'
+            'John Doe'
         );
         element.setAttribute('mention-label', 'Name Change');
 
         await waitForUpdatesAsync();
         expect(element.shadowRoot?.firstElementChild?.textContent).toBe(
-            '@Name Change'
+            'Name Change'
         );
     });
 });

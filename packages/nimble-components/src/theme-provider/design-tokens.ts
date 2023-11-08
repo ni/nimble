@@ -786,7 +786,7 @@ export const [
     (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, PowerGreen),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     BodyFamily,
-    BodyWeight,
+    BodyEmphasizedWeight,
     BodySize,
     BodyLineHeight,
     BodyFallbackFontFamily

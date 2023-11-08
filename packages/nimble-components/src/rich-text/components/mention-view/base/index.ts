@@ -22,4 +22,13 @@ export class RichTextMentionView extends FoundationElement {
      */
     @attr({ attribute: 'mention-label' })
     public mentionLabel?: string;
+
+    /**
+     * Whether to render the mention node in view mode or in edit mode
+     *
+     * @public
+     * HTML Attribute: editing
+     */
+    @attr({ mode: 'boolean' })
+    public editing = false;
 }

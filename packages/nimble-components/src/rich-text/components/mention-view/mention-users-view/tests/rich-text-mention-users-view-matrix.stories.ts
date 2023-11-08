@@ -32,15 +32,15 @@ const component = ([
         .mention-container {
             font: var(${bodyFont.cssCustomProperty});
             color: var(${bodyFontColor.cssCustomProperty});
+            margin: 4px;
         }
     </style>
     <div class="mention-container">
         <${richTextMentionUsersViewTag} mention-href="user:1" mention-label="John Doe" ?disabled="${() => disabled}">
+            @John Doe
         </${richTextMentionUsersViewTag}> -
         Mention View ${() => disabledName}
     </div>
 `;
 
-export const richTextMentionUsersThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [disabledStates])
-);
+export const richTextMentionUserViewThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component, [disabledStates]));
