@@ -21,12 +21,14 @@ export const userMentionMapping: StoryObj = {
     render: createUserSelectedThemeStory(hiddenWrapper(html`<style></style>`)),
     argTypes: {
         key: {
-            description: 'A URL for each user that maps with their username and results in the display of associated user in a list of mentions',
+            description:
+                'A URL for each user that maps with their username and results in the display of associated user in a list of mentions',
             control: { type: 'none' }
         },
         displayName: {
             name: 'display-name',
-            description: 'A string which renders the textual representation of user name in the mention list'
+            description:
+                'A string which renders the textual representation of user name in the mention list'
         }
     },
     args: {}

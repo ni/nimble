@@ -36,7 +36,7 @@ export class RichTextMentionValidator<
         this.untrackAll();
         const mentionHrefs = mappings.map(mapping => mapping.key);
         this.validateMappingTypes(mappings);
-        this.validateNoMissingMentionHref(mappings);
+        this.validateNoMissingMentionHref(mentionHrefs);
         this.validateUniqueMentionHref(mentionHrefs);
         this.validatePattern(pattern);
         this.validateHref(mentionHrefs, pattern);
@@ -89,8 +89,8 @@ export class RichTextMentionValidator<
         this.setConditionValue('duplicateMappingMentionHref', invalid);
     }
 
-    private validateNoMissingMentionHref(mappings: Mapping<unknown>[]): void {
-        const invalid = mappings.some(mapping => mapping.key === undefined);
+    private validateNoMissingMentionHref(mentionHrefs: unknown[]): void {
+        const invalid = mentionHrefs.some(href => href === undefined);
         this.setConditionValue('missingMentionHrefValue', invalid);
     }
 

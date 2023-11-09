@@ -13,7 +13,7 @@ const usersValidityFlagNames = [
 ] as const;
 
 /**
- * Validator for RichtextMentionUsers
+ * Validator for RichTextMentionUsers
  */
 export class RichTextMentionUsersValidator extends RichTextMentionValidator<
     typeof usersValidityFlagNames

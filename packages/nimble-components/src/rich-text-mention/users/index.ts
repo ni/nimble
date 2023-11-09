@@ -16,14 +16,14 @@ import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-rich-text-mention-users': RichtextMentionUsers;
+        'nimble-rich-text-mention-users': RichTextMentionUsers;
     }
 }
 
 /**
- * Rich Text Mention that will map user url and name
+ * Rich Text user mention configuration element which will have MappingMentionUser elements as children
  */
-export class RichtextMentionUsers extends RichTextMention<
+export class RichTextMentionUsers extends RichTextMention<
 RichTextMentionConfig,
 RichTextMentionUsersValidator
 > {
@@ -62,12 +62,12 @@ RichTextMentionUsersValidator
         throw new Error('Unsupported mapping');
     }
 }
-const nimbleRichtextMentionUsers = RichtextMentionUsers.compose({
+const nimbleRichTextMentionUsers = RichTextMentionUsers.compose({
     baseName: 'rich-text-mention-users',
     template
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
-    .register(nimbleRichtextMentionUsers());
-export const richTextMentionUsersTag = DesignSystem.tagFor(RichtextMentionUsers);
+    .register(nimbleRichTextMentionUsers());
+export const richTextMentionUsersTag = DesignSystem.tagFor(RichTextMentionUsers);
