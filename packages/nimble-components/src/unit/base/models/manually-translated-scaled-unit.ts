@@ -18,8 +18,7 @@ export class ManuallyTranslatedScaledUnit extends ScaledUnit {
 
     public format(value: number): FormattedNumber {
         const formatted = new IntlNumberFormatFormattedNumber(
-            this.formatter,
-            value
+            this.formatter.formatToParts(value)
         );
         // Some languages have more than two forms (singular/plural) of cardinal
         // numbers, but we are treating anything other than the 'one' form as plural.

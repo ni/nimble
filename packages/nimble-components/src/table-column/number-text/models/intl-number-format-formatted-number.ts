@@ -4,11 +4,10 @@ import { FormattedNumber } from './formatted-number';
  * Representation of a number formatted by an Intl.NumberFormatter
  */
 export class IntlNumberFormatFormattedNumber extends FormattedNumber {
-    public constructor(formatter: Intl.NumberFormat, number: number) {
-        const parts = formatter.formatToParts(number);
+    public constructor(formattedParts: Intl.NumberFormatPart[]) {
         super(
-            IntlNumberFormatFormattedNumber.parseFromParts(parts),
-            parts.map(x => x.value).join('')
+            IntlNumberFormatFormattedNumber.parseFromParts(formattedParts),
+            formattedParts.map(x => x.value).join('')
         );
     }
 

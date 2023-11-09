@@ -117,8 +117,7 @@ describe('UnitScaleFormatter', () => {
                     scaleFactor: item.factor,
                     format: x => {
                         const formatted = new IntlNumberFormatFormattedNumber(
-                            formatter,
-                            x
+                            formatter.formatToParts(x)
                         );
                         return new FormattedNumber(
                             formatted.number,
@@ -202,8 +201,7 @@ describe('UnitScaleFormatter', () => {
                     scaleFactor,
                     format: x => {
                         const formatted = new IntlNumberFormatFormattedNumber(
-                            formatter,
-                            x
+                            formatter.formatToParts(x)
                         );
                         return new FormattedNumber(
                             formatted.number,

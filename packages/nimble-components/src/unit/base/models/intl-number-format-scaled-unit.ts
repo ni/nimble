@@ -14,6 +14,8 @@ export class IntlNumberFormatScaledUnit extends ScaledUnit {
     }
 
     public format(value: number): FormattedNumber {
-        return new IntlNumberFormatFormattedNumber(this.formatter, value);
+        return new IntlNumberFormatFormattedNumber(
+            this.formatter.formatToParts(value)
+        );
     }
 }

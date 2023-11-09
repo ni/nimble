@@ -241,8 +241,7 @@ describe('DefaultFormatter', () => {
                         scaleFactor,
                         format: x => {
                             const formatted = new IntlNumberFormatFormattedNumber(
-                                formatter,
-                                x
+                                formatter.formatToParts(x)
                             );
                             return new FormattedNumber(
                                 formatted.number,
