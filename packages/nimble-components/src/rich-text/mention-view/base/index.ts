@@ -29,6 +29,6 @@ export class RichTextMentionView extends FoundationElement {
      * @public
      * HTML Attribute: mention-label
      */
-    @attr({ mode: 'boolean', attribute: 'view-mode' })
-    public viewMode = false;
+    @attr({ mode: 'boolean', attribute: 'disable-editing' })
+    public disableEditing = false;
 }

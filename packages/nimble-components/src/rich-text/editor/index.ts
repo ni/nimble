@@ -696,26 +696,26 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                             };
                         },
                         // eslint-disable-next-line @typescript-eslint/naming-convention
-                        renderHTML({ node, HTMLAttributes }) {
+                        renderHTML({ HTMLAttributes }) {
                             return [
                                 richTextMentionUsersViewTag,
                                 mergeAttributes(
                                     this.options.HTMLAttributes,
                                     HTMLAttributes,
-                                    { 'view-mode': true }
+                                    { 'disable-editing': true }
                                 ),
-                                `${this.options.renderLabel({
-                                    options: this.options,
-                                    node
-                                })} `
+                                // `${this.options.renderLabel({
+                                //     options: this.options,
+                                //     node
+                                // })} `
                             ];
                         }
                     })
                     .configure({
-                        renderLabel({ options, node }) {
-                            return `${options.suggestion.char!}${(node.attrs.label as string) ?? node.attrs.id
-                            }`;
-                        },
+                        // renderLabel({ options, node }) {
+                        //     return `${options.suggestion.char!}${(node.attrs.label as string) ?? node.attrs.id
+                        //     }`;
+                        // },
                         // eslint-disable-next-line @typescript-eslint/naming-convention
                         // HTMLAttributes: {
                         //     contenteditable: true

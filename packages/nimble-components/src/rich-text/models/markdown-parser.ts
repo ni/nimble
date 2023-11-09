@@ -166,19 +166,19 @@ export class RichTextMarkdownParser {
                 attrs: {
                     mentionhref: { default: '' },
                     mentionlabel: { default: '' },
-                    viewmode: { default: 'true' }
+                    disableEditing: { default: 'true' }
                 },
                 group: 'inline',
                 inline: true,
                 content: 'inline*',
                 toDOM(node) {
-                    const { mentionhref, mentionlabel, viewmode } = node.attrs;
+                    const { mentionhref, mentionlabel, disableEditing } = node.attrs;
                     return [
                         richTextMentionUsersViewTag,
                         {
                             'mention-href': mentionhref as string,
                             'mention-label': mentionlabel as string,
-                            'view-mode': viewmode as string
+                            'disable-editing': disableEditing as string
                         },
                         0
                     ];
