@@ -1,3 +1,4 @@
+import type { FormattedNumber } from './formatted-number';
 import { NumberFormatter } from './number-formatter';
 import type {
     UnitScaleFormatter,
@@ -9,7 +10,6 @@ import type {
  */
 export class DecimalFormatter extends NumberFormatter {
     private readonly formatter: UnitScaleFormatter;
-    private readonly tenPowDecimalDigits: number;
 
     public constructor(
         locale: string,
@@ -24,22 +24,14 @@ export class DecimalFormatter extends NumberFormatter {
             minimumFractionDigits,
             useGrouping: true
         });
-        this.tenPowDecimalDigits = 10 ** maximumFractionDigits;
     }
 
-    protected format(number: number): string {
-        const convertedNumber = this.formatter.getScaledNumber(number);
+    protected format(number: number): FormattedNumber {
+        const formatted = this.formatter.formatValue(number);
         // The NumberFormat option of `signDisplay: "negative"` is not supported in all browsers nimble supports.
         // Because that option cannot be used to avoid rendering "-0", coerce the value -0 to 0 prior to formatting.
-        const valueToFormat = this.willRoundToZero(convertedNumber)
-            ? 0
-            : number;
-        return this.formatter.formatValue(valueToFormat);
-    }
-
-    private willRoundToZero(number: number): boolean {
-        // Multiply the value by 10 raised to decimal-digits so that Math.round can be used to emulate rounding to
-        // decimal-digits decimal places. If that rounded value is 0, then the value will be rendered with only 0s.
-        return Math.round(number * this.tenPowDecimalDigits) === 0;
+        return formatted.number === 0 && 1 / formatted.number === -Infinity
+            ? this.formatter.formatValue(0)
+            : formatted;
     }
 }

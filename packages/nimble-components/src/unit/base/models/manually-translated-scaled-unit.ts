@@ -1,3 +1,5 @@
+import { FormattedNumber } from '../../../table-column/number-text/models/formatted-number';
+import { IntlNumberFormatFormattedNumber } from '../../../table-column/number-text/models/intl-number-format-formatted-number';
 import { ScaledUnit } from '../../../table-column/number-text/models/scaled-unit';
 
 /**
@@ -14,8 +16,11 @@ export class ManuallyTranslatedScaledUnit extends ScaledUnit {
         super(scaleFactor);
     }
 
-    public format(value: number): string {
-        const formattedValue = this.formatter.format(value);
+    public format(value: number): FormattedNumber {
+        const formatted = new IntlNumberFormatFormattedNumber(
+            this.formatter,
+            value
+        );
         // Some languages have more than two forms (singular/plural) of cardinal
         // numbers, but we are treating anything other than the 'one' form as plural.
         // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules#description
@@ -26,9 +31,12 @@ export class ManuallyTranslatedScaledUnit extends ScaledUnit {
         // of the unit. E.g. in English, it formats "1 byte" vs "1.0 bytes". Thus there is
         // sometimes an inconsistency between unit pluralization for the same number, based
         // on whether it's supported by NumberFormat, or manually translated.
-        const unitLabel = this.pluralRules.select(Number(formattedValue)) === 'one'
+        const unitLabel = this.pluralRules.select(formatted.number) === 'one'
             ? this.singularUnitLabel
             : this.unitLabel;
-        return `${formattedValue} ${unitLabel}`;
+        return new FormattedNumber(
+            formatted.number,
+            `${formatted.string} ${unitLabel}`
+        );
     }
 }

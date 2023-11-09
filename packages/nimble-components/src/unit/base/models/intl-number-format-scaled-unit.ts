@@ -1,3 +1,5 @@
+import type { FormattedNumber } from '../../../table-column/number-text/models/formatted-number';
+import { IntlNumberFormatFormattedNumber } from '../../../table-column/number-text/models/intl-number-format-formatted-number';
 import { ScaledUnit } from '../../../table-column/number-text/models/scaled-unit';
 
 /**
@@ -11,7 +13,7 @@ export class IntlNumberFormatScaledUnit extends ScaledUnit {
         super(scaleFactor);
     }
 
-    public format(value: number): string {
-        return this.formatter.format(value);
+    public format(value: number): FormattedNumber {
+        return new IntlNumberFormatFormattedNumber(this.formatter, value);
     }
 }

@@ -1,5 +1,6 @@
 import type { ScaledUnit } from './scaled-unit';
 import { NumberFormatter } from './number-formatter';
+import type { FormattedNumber } from './formatted-number';
 
 export type UnitScaleFormatterConstructor = new (
     locale: string,
@@ -13,7 +14,6 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
     public alwaysUseBaseScaledUnit = false;
     private _supportedScaledUnits?: ScaledUnit[];
     private _baseScaledUnit?: ScaledUnit;
-    private readonly tenPowMaximumFractionalDigits?: number;
 
     private get supportedScaledUnits(): ScaledUnit[] {
         if (this._supportedScaledUnits === undefined) {
@@ -34,14 +34,6 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
         private readonly formatterOptions: Intl.NumberFormatOptions
     ) {
         super();
-        if (this.formatterOptions.maximumFractionDigits !== undefined) {
-            this.tenPowMaximumFractionalDigits = 10 ** this.formatterOptions.maximumFractionDigits;
-        }
-    }
-
-    public getScaledNumber(number: number): number {
-        const unit = this.pickBestScaledUnit(number);
-        return number / unit.scaleFactor;
     }
 
     protected abstract getSupportedScaledUnits(
@@ -49,40 +41,52 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
         formatterOptions: Intl.NumberFormatOptions
     ): ScaledUnit[];
 
-    protected override format(number: number): string {
-        const unit = this.pickBestScaledUnit(number);
-        return unit.format(number / unit.scaleFactor);
-    }
-
-    private pickBestScaledUnit(number: number): ScaledUnit {
-        const magnitude = Math.abs(number);
+    protected override format(number: number): FormattedNumber {
         if (
             this.supportedScaledUnits.length === 1 // must be baseScaledUnit
-            || magnitude === 0
-            || magnitude === Infinity
-            || Number.isNaN(magnitude)
+            || number === 0
+            || number === Infinity
+            || number === -Infinity
+            || Number.isNaN(number)
             || this.alwaysUseBaseScaledUnit
         ) {
-            return this.baseScaledUnit;
+            return this.baseScaledUnit.format(number);
         }
-        for (const unit of this.supportedScaledUnits) {
-            if (this.roundIfNeeded(magnitude / unit.scaleFactor) >= 1) {
-                return unit;
+        for (let i = 0; i < this.supportedScaledUnits.length; i++) {
+            const unit = this.supportedScaledUnits[i]!;
+            const scaledNumber = number / unit.scaleFactor;
+            if (Math.abs(scaledNumber) >= 1) {
+                let formatted: FormattedNumber | undefined;
+                // rounding cannot reduce a number >=1 to <1, but it's
+                // possible that rounding up might let us use a larger unit.
+                for (let j = i - 1; j >= 0; j--) {
+                    const nextLargerUnit = this.supportedScaledUnits[j]!;
+                    const formattedByNextLargerUnit = nextLargerUnit.format(
+                        number / nextLargerUnit.scaleFactor
+                    );
+                    if (Math.abs(formattedByNextLargerUnit.number) >= 1) {
+                        // unit is a valid choice, but keep looking at larger units
+                        formatted = formattedByNextLargerUnit;
+                    } else {
+                        // not a valid choice, so stop looking
+                        break;
+                    }
+                }
+                if (formatted === undefined) {
+                    formatted = unit.format(scaledNumber);
+                }
+                return formatted;
             }
         }
+        // none of our units result in a formatted value >= 1
         const smallestUnit = this.supportedScaledUnits[this.supportedScaledUnits.length - 1]!;
-        return this.roundIfNeeded(magnitude / smallestUnit.scaleFactor) === 0
-            ? this.baseScaledUnit
-            : smallestUnit;
-    }
-
-    private roundIfNeeded(number: number): number {
-        // Multiply the value by 10 raised to maximumFractionDigits so that Math.round
-        // can be used to emulate rounding to maximumFractionDigits decimal places.
-        return this.tenPowMaximumFractionalDigits !== undefined
-            ? Math.round(number * this.tenPowMaximumFractionalDigits)
-                  / this.tenPowMaximumFractionalDigits
-            : number;
+        const formatted = smallestUnit.format(
+            number / smallestUnit.scaleFactor
+        );
+        // Use base unit (rather than smallest unit) for 0
+        return formatted.number === 0
+            ? this.baseScaledUnit.format(0)
+            : formatted;
     }
 
     // Ideally, we could initialize supportedScaledUnits and baseScaledUnit in the constructor,

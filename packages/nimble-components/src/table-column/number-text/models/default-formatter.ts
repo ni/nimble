@@ -1,3 +1,4 @@
+import type { FormattedNumber } from './formatted-number';
 import { NumberFormatter } from './number-formatter';
 import type {
     UnitScaleFormatter,
@@ -53,34 +54,29 @@ export class DefaultFormatter extends NumberFormatter {
         this.exponentialFormatter.alwaysUseBaseScaledUnit = true;
     }
 
-    protected format(number: number): string {
-        // The NumberFormat option of `signDisplay: "negative"` is not supported in all browsers nimble supports.
-        // Because that option cannot be used to avoid rendering "-0", coerce the value -0 to 0 prior to formatting.
-        const valueToFormat = number === 0 ? 0 : number;
-        // we could use any of our formatters here, because they all support the same units
-        const convertedNumber = this.defaultFormatter.getScaledNumber(valueToFormat);
-        const formatter = this.getFormatterForNumber(convertedNumber);
-        return formatter.formatValue(valueToFormat);
-    }
-
-    private getFormatterForNumber(number: number): UnitScaleFormatter {
-        if (number === 0) {
-            return this.defaultFormatter;
+    protected format(number: number): FormattedNumber {
+        const defaultFormatted = this.defaultFormatter.formatValue(number);
+        if (defaultFormatted.number === 0) {
+            // The NumberFormat option of `signDisplay: "negative"` is not supported in all browsers nimble supports.
+            // Because that option cannot be used to avoid rendering "-0", coerce the value -0 to 0 prior to formatting.
+            return 1 / defaultFormatted.number === -Infinity
+                ? this.defaultFormatter.formatValue(0)
+                : defaultFormatted;
         }
 
-        const absoluteValue = Math.abs(number);
+        const absoluteValue = Math.abs(defaultFormatted.number);
         if (
             absoluteValue >= DefaultFormatter.exponentialUpperBound
             || absoluteValue < DefaultFormatter.exponentialLowerBound
         ) {
-            return this.exponentialFormatter;
+            return this.exponentialFormatter.formatValue(number);
         }
         // Ideally, we could set 'roundingPriority: "lessPrecision"' with a formatter that has both 'maximumSignificantDigits' and
         // 'maximumFractionDigits' configured instead of having two different formatters that we conditionally choose between. However,
         // 'roundingPrioirty' is not supported yet in all browsers nimble supports.
         if (absoluteValue < 1) {
-            return this.leadingZeroFormatter;
+            return this.leadingZeroFormatter.formatValue(number);
         }
-        return this.defaultFormatter;
+        return defaultFormatted;
     }
 }
