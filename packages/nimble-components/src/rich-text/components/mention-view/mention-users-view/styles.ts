@@ -18,12 +18,13 @@ export const styles = css`
         --ni-nimble-icon-color: ${mentionFontColor};
     }
 
-    :host(:not([disable-editing])) .control {
+    .control {
+        color: ${mentionFontColor};
         display: none;
     }
 
-    .control {
-        color: ${mentionFontColor};
+    :host([disable-editing]) .control {
+        display: inline;
     }
 
     :host([disabled]) .control {

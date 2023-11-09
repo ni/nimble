@@ -42,13 +42,14 @@ const component = ([
     <div class="mention-container">
         [Mention View]<${richTextMentionUsersViewTag} mention-href="user:1" mention-label="John Doe" ?disabled="${() => disabled}" disable-editing>
             @John Doe
-        </${richTextMentionUsersViewTag}>[View ${() => disabledName}]
+        </${richTextMentionUsersViewTag}>[View${() => disabledName}]
     </div>
 `;
 
 const componentEditingMode = (): ViewTemplate => html`
     <style class='code-hide'>
         .mention-container {
+            display: inline-block;
             font: var(${bodyFont.cssCustomProperty});
             color: var(${bodyFontColor.cssCustomProperty});
             margin: var(${smallPadding.cssCustomProperty});
