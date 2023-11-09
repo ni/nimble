@@ -13,14 +13,14 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('grid')}
+    ${display('inline-flex')}
 
     :host {
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
+        flex-direction: column;
         margin: 0;
         min-width: ${menuMinWidth};
-        width: max-content;
         box-shadow: ${elevation2BoxShadow};
         color: ${bodyFontColor};
         font: ${bodyFont};

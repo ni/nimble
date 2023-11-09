@@ -4,7 +4,10 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import { createMatrixThemeStory, createStory } from '../../utilities/tests/storybook';
+import {
+    createMatrixThemeStory,
+    createStory
+} from '../../utilities/tests/storybook';
 import { listboxTag } from '..';
 import { listOptionTag } from '../../list-option';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -24,12 +27,11 @@ const playFunction = (): void => {
 };
 
 const component = (): ViewTemplate => html`
-    <${listboxTag}>
-        <${listOptionTag} value="1">Loooooooooooooooooooooooong Word</${listOptionTag}>
-        <${listOptionTag} value="2">Word</${listOptionTag}>
-        <${listOptionTag} value="3">Short Word</${listOptionTag}>
+    <${listboxTag} style="width: 240px">
+        <${listOptionTag} value="1">Selected Option</${listOptionTag}>
+        <${listOptionTag} value="3">Testing ellipsis text with a long sentence</${listOptionTag}>
         <${listOptionTag} value="4" disabled>Disabled</${listOptionTag}>
-        <${listOptionTag} value="5">Multiple words in a single option to test the width of the option it gets wrapped</${listOptionTag}>
+        <${listOptionTag} value="5">Option</${listOptionTag}>
     </${listboxTag}>
 `;
 
