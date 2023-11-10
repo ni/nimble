@@ -257,6 +257,7 @@ const tokenSuffixes = [
     'FontFamily',
     'BoxShadow',
     'MaxHeight',
+    'MinWidth',
     'Font',
     'Size',
     'Width',

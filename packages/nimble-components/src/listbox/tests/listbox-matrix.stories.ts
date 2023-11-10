@@ -27,11 +27,12 @@ const playFunction = (): void => {
 };
 
 const component = (): ViewTemplate => html`
-    <${listboxTag} style="width: 240px">
-        <${listOptionTag} value="1">Selected Option</${listOptionTag}>
-        <${listOptionTag} value="3">Testing ellipsis text with a long sentence</${listOptionTag}>
-        <${listOptionTag} value="4" disabled>Disabled</${listOptionTag}>
-        <${listOptionTag} value="5">Option</${listOptionTag}>
+    <${listboxTag}>
+        <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        <${listOptionTag} value="2">Option 2</${listOptionTag}>
+        <${listOptionTag} value="3" disabled>Option 3</${listOptionTag}>
+        <${listOptionTag} value="4">Option 4</${listOptionTag}>
+        <${listOptionTag} value="5" hidden>Option 5</${listOptionTag}>
     </${listboxTag}>
 `;
 
