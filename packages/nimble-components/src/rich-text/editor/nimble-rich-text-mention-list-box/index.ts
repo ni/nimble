@@ -70,6 +70,10 @@ export class MentionBox extends FoundationElement {
                 o.disabled = checkFlag;
                 o.hidden = checkFlag;
             });
+            const isFilteredListEmpty = this._options.every(o => !o.text.toLowerCase().startsWith(this.filter.toLowerCase()));
+            if (isFilteredListEmpty) {
+                this.$emit('change');
+            }
         }
         this.selectFirstListOption();
     }

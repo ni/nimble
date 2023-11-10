@@ -486,10 +486,12 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     public mentionChange(e: CustomEvent<MentionDetail>): void {
-        this.mentionPropCommand.command({
-            href: e.detail.id,
-            label: e.detail.name
-        });
+        if (e.detail?.id && e.detail.name) {
+            this.mentionPropCommand.command({
+                href: e.detail.id,
+                label: e.detail.name
+            });
+        }
         this.open = false;
     }
 
@@ -723,6 +725,14 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                         suggestion: {
                             decorationTag: richTextMentionUsersViewTag,
                             allowSpaces: true,
+                            allow: ({ range, state }) => {
+                                const twoWhiteSpaceRegex = /\s{2,}$/;
+                                const mentionChar = state.doc.textBetween(range.from, range.to);
+                                if (mentionChar && twoWhiteSpaceRegex.test(mentionChar)) {
+                                    return false;
+                                }
+                                return true;
+                            },
                             render: () => {
                                 return {
                                     onStart: (props): void => {
@@ -739,6 +749,22 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                                             return false;
                                         }
                                         if (props.event.key === 'Escape') {
+                                            // const text = this.tiptapEditor.state.doc.textBetween(props.range.from, props.range.to);
+                                            // const textNode = this.tiptapEditor.schema.text(text);
+                                            // const transaction = this.tiptapEditor.state.tr.replaceWith(props.range.from, props.range.to, textNode);
+                                            // this.tiptapEditor.view.dispatch(transaction);
+
+                                            // const state = {
+                                            //     active: false,
+                                            //     key: null,
+                                            //     range: {},
+                                            //     query: null,
+                                            //     text: null,
+                                            //     composing: false
+                                            // };
+                                            // this.tiptapEditor.view.dispatch(props.view.state.tr.setMeta(SuggestionPluginKey, state));
+
+                                            // When closing the decoration node should be removed. The above methods doesn't work. Need to tweak a bit to achieve
                                             this.open = false;
                                             return false;
                                         }
