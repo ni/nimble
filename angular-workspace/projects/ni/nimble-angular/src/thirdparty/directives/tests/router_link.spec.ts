@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/035aee01089b9f9d4b5b6af66a74002e07723fba/packages/router/test/router_link_spec.ts
+ * Copied from https://github.com/angular/angular/blob/15.2.0/packages/router/test/router_link_spec.ts
  * with the following modifications:
  * - replace import of Angular's RouterLink with our forked version
  * - define TestRouterLinkDirective to use in tests, and add it to declarations of testing modules

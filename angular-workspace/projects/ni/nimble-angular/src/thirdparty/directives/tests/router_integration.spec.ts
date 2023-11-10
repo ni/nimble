@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/035aee01089b9f9d4b5b6af66a74002e07723fba/packages/router/test/integration.spec.ts
+ * Copied from https://github.com/angular/angular/blob/15.2.0/packages/router/test/integration.spec.ts
  * with the following modifications:
  * - comment out all tests not involving RouterLink
  * - modify imports
