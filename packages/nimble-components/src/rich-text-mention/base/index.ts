@@ -112,6 +112,11 @@ export abstract class RichTextMention<
         this.observeMappings();
     }
 
+    private patternChanged(): void {
+        this.mentionInternals.pattern = this.pattern;
+        this.updateMentionConfig();
+    }
+
     private removeMappingObservers(): void {
         this.mappingNotifiers.forEach(notifier => {
             notifier.unsubscribe(this);

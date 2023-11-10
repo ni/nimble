@@ -27,19 +27,14 @@ export class RichTextMentionUsers extends RichTextMention<
 RichTextMentionConfig,
 RichTextMentionUsersValidator
 > {
-    private readonly character = '@';
-
-    private readonly icon = iconAtTag;
-
     protected override createValidator(): RichTextMentionUsersValidator {
         return new RichTextMentionUsersValidator(this.mentionInternals);
     }
 
     protected override getMentionInternalsOptions(): MentionInternalsOptions {
         return {
-            icon: this.icon,
-            character: this.character,
-            pattern: this.pattern ?? ''
+            icon: iconAtTag,
+            character: '@'
         };
     }
 

@@ -3,7 +3,6 @@ import { observable } from '@microsoft/fast-element';
 export interface MentionInternalsOptions {
     readonly icon: string;
     readonly character: string;
-    readonly pattern: string;
 }
 
 /**
@@ -23,6 +22,11 @@ export class MentionInternals<TMentionConfig> {
     public validConfiguration = true;
 
     /**
+     * Regex used to extract user ID from user key (url)
+     */
+    public pattern?: string;
+
+    /**
      * Icon to display on RichTextEditor Toolbar
      */
     public readonly icon: string;
@@ -32,14 +36,8 @@ export class MentionInternals<TMentionConfig> {
      */
     public readonly character: string;
 
-    /**
-     * Regex used to extract user ID from user key (url)
-     */
-    public readonly pattern: string;
-
     public constructor(options: MentionInternalsOptions) {
         this.icon = options.icon;
         this.character = options.character;
-        this.pattern = options.pattern;
     }
 }
