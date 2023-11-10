@@ -106,7 +106,7 @@ describe('Nimble anchor RouterLinkWithHrefDirective', () => {
         }));
     });
 
-    it('sanitizes href', () => {
+    it('sanitized initial href created from nimbleRouterLink', () => {
         expect(sanitizer.sanitize).toHaveBeenCalledWith(SecurityContext.URL, '/page1?param1=true');
     });
 });
