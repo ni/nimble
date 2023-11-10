@@ -42,6 +42,10 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
     ): ScaledUnit[];
 
     protected override format(number: number): FormattedNumber {
+        // Always format -0 as 0
+        if (number === 0) {
+            return this.baseScaledUnit.format(0);
+        }
         if (
             this.supportedScaledUnits.length === 1 // must be baseScaledUnit
             || number === 0

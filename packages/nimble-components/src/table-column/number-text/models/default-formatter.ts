@@ -57,11 +57,7 @@ export class DefaultFormatter extends NumberFormatter {
     protected format(number: number): FormattedNumber {
         const defaultFormatted = this.defaultFormatter.formatValue(number);
         if (defaultFormatted.number === 0) {
-            // The NumberFormat option of `signDisplay: "negative"` is not supported in all browsers nimble supports.
-            // Because that option cannot be used to avoid rendering "-0", coerce the value -0 to 0 prior to formatting.
-            return 1 / defaultFormatted.number === -Infinity
-                ? this.defaultFormatter.formatValue(0)
-                : defaultFormatted;
+            return defaultFormatted;
         }
 
         const absoluteValue = Math.abs(defaultFormatted.number);

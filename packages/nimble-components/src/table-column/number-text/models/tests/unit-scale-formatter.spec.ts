@@ -26,10 +26,10 @@ describe('UnitScaleFormatter', () => {
             expectedFormattedValue: 'NaN B'
         },
         {
-            name: '-0 uses base unit',
+            name: '-0 uses base unit and formats without minus sign',
             value: -0,
             formatterOptions: {},
-            expectedFormattedValue: '-0 B'
+            expectedFormattedValue: '0 B'
         },
         {
             name: '+0 uses base unit',
