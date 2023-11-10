@@ -4,8 +4,8 @@ import {
     mentionFont,
     mentionFontColor,
     mentionDisabledFontColor,
-    bodyEmphasizedFontColor
-} from '../../../../theme-provider/design-tokens';
+    bodyFontColor
+} from '../../../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('inline-block')}
@@ -13,9 +13,8 @@ export const styles = css`
     :host {
         box-sizing: border-box;
         font: ${mentionFont};
-        color: ${bodyEmphasizedFontColor}
+        color: ${bodyFontColor};
         white-space: normal;
-        --ni-nimble-icon-color: ${mentionFontColor};
     }
 
     .control {
@@ -29,7 +28,6 @@ export const styles = css`
 
     :host([disabled]) .control {
         color: ${mentionDisabledFontColor};
-        --ni-nimble-icon-color: ${mentionDisabledFontColor};
     }
 
     :host([disable-editing]) slot {

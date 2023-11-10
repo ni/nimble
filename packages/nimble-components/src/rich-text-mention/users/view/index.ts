@@ -1,5 +1,5 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { RichTextMentionView } from '../base';
+import { RichTextMentionView } from '../../base/view';
 import { template } from './template';
 import { styles } from './styles';
 

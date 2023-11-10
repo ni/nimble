@@ -1,7 +1,10 @@
 import { html } from '@microsoft/fast-element';
 import { RichTextMentionUsersView, richTextMentionUsersViewTag } from '..';
-import { type Fixture, fixture } from '../../../../../utilities/tests/fixture';
-import { waitForUpdatesAsync } from '../../../../../testing/async-helpers';
+import { type Fixture, fixture } from '../../../../utilities/tests/fixture';
+import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
+import { RichTextMentionUsersViewPageObject } from '../testing/rich-text-mention-users-view.pageobject';
+import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
+import { wackyStrings } from '../../../../utilities/tests/wacky-strings';
 
 async function setup(): Promise<Fixture<RichTextMentionUsersView>> {
     return fixture<RichTextMentionUsersView>(
@@ -18,9 +21,11 @@ describe('RichTextMentionUsersView', () => {
     let element: RichTextMentionUsersView;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
+    let pageObject: RichTextMentionUsersViewPageObject;
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
+        pageObject = new RichTextMentionUsersViewPageObject(element);
     });
 
     afterEach(async () => {
@@ -39,16 +44,24 @@ describe('RichTextMentionUsersView', () => {
         ).toBeInstanceOf(RichTextMentionUsersView);
     });
 
-    it('should set the `mention-label` attribute to the internal control text content', async () => {
+    it('should change the text content if the `mention-label` attribute updates', async () => {
         await connect();
-        expect(element.shadowRoot?.firstElementChild?.textContent).toBe(
-            '@John Doe'
-        );
+        expect(pageObject.getTextContent()).toBe('@John Doe');
         element.setAttribute('mention-label', 'Name Change');
 
         await waitForUpdatesAsync();
-        expect(element.shadowRoot?.firstElementChild?.textContent).toBe(
-            '@Name Change'
-        );
+        expect(pageObject.getTextContent()).toBe('@Name Change');
+    });
+
+    describe('various wacky strings should reflect the `mention-label` attribute value to its text content', () => {
+        parameterizeNamedList(wackyStrings, (spec, name, value) => {
+            spec(`for ${name}`, async () => {
+                await connect();
+                element.setAttribute('mention-label', value.name);
+
+                await waitForUpdatesAsync();
+                expect(pageObject.getTextContent()).toBe(`@${value.name}`);
+            });
+        });
     });
 });
