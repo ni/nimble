@@ -42,10 +42,6 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
     ): ScaledUnit[];
 
     protected override format(number: number): FormattedNumber {
-        // Always format -0 as 0
-        if (number === 0) {
-            return this.baseScaledUnit.format(0);
-        }
         if (
             this.supportedScaledUnits.length === 1 // must be baseScaledUnit
             || number === 0
@@ -54,7 +50,11 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
             || Number.isNaN(number)
             || this.alwaysUseBaseScaledUnit
         ) {
-            return this.baseScaledUnit.format(number);
+            const formatted = this.baseScaledUnit.format(number);
+            // Always format -0 as 0
+            return formatted.number === 0 && 1 / formatted.number === -Infinity
+                ? this.baseScaledUnit.format(0)
+                : formatted;
         }
         for (let i = 0; i < this.supportedScaledUnits.length; i++) {
             const unit = this.supportedScaledUnits[i]!;
