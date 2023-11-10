@@ -21,8 +21,7 @@ export const userMapping: StoryObj = {
     render: createUserSelectedThemeStory(hiddenWrapper(html`<style></style>`)),
     argTypes: {
         key: {
-            description:
-                'A key (url) for each user that maps to a user',
+            description: 'A key (url) for each user that maps to a user',
             control: { type: 'none' }
         },
         displayName: {

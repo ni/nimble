@@ -107,13 +107,16 @@ export class RichTextMentionValidator<
         mentionHrefs: unknown[],
         pattern: string | undefined
     ): void {
-        const invalid = this.isInvalidRegex(pattern!) ? true : mentionHrefs.some(
-            href => {
-                return href === undefined
-                || typeof href !== 'string'
-                || this.isInvalidUrl(href) || !RegExp(pattern!).test(href);
-            }
-        );
+        const invalid = this.isInvalidRegex(pattern!)
+            ? true
+            : mentionHrefs.some(href => {
+                return (
+                    href === undefined
+                      || typeof href !== 'string'
+                      || this.isInvalidUrl(href)
+                      || !RegExp(pattern!).test(href)
+                );
+            });
         this.setConditionValue('unsupportedMentionHrefValue', invalid);
     }
 
