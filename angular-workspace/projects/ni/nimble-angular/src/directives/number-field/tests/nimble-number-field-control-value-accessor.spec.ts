@@ -5,10 +5,6 @@ import { processUpdates } from '../../../testing/async-helpers';
 import type { NumberField } from '../nimble-number-field.directive';
 import { NimbleNumberFieldModule } from '../nimble-number-field.module';
 
-function setNumberFieldValue(numberField: NumberField, value: number): void {
-    numberField.value = value.toString();
-}
-
 describe('Nimble number field control value accessor', () => {
     @Component({
         template: `
@@ -64,7 +60,7 @@ describe('Nimble number field control value accessor', () => {
 
     it('updates bound property when value is changed', () => {
         const newValue = 1;
-        setNumberFieldValue(numberField, newValue);
+        numberField.value = newValue.toString();
         fixture.detectChanges();
 
         expect(testHostComponent.value).toBe(newValue);
@@ -83,7 +79,7 @@ describe('Nimble number field control value accessor', () => {
     it('fires ngModelChange one time with expected value', () => {
         const ngModelChangeSpy = spyOn(testHostComponent, 'onModelValueChange').and.callThrough();
         const newValue = 1;
-        setNumberFieldValue(numberField, newValue);
+        numberField.value = newValue.toString();
         fixture.detectChanges();
         expect(ngModelChangeSpy).toHaveBeenCalledOnceWith(newValue);
     });
