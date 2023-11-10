@@ -3,7 +3,8 @@
  * Copied from https://github.com/angular/angular/blob/6070c9ddcff88d4ad4bcf73a2dd1874920661d93/packages/platform-browser/testing/src/matchers.ts
  * with the following modifications:
  * - Update imports
- * - Comment out everything other than what is needed to use `toHaveText` matcher
+ * - Comment out everything other than what is needed to use `toHaveText` matcher because `toHaveText` is the only matcher required by the copied
+ *   tests and the other matchers need to be updated to not rely on private Angular APIs
  * - Update `toHaveText` to not use `getDOM()` when determining the type of a Node
  */
 
