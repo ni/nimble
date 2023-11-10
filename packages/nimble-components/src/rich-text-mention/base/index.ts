@@ -24,7 +24,7 @@ export interface RichTextMentionConfig {
 }
 
 /**
- * The base class for Mention mapping configuration
+ * The base class for Mention configuration
  */
 export abstract class RichTextMention<
     TMentionConfig extends RichTextMentionConfig,
@@ -32,13 +32,19 @@ export abstract class RichTextMention<
 >
     extends FoundationElement
     implements Subscriber {
+    /**
+     * @internal
+     */
     public readonly mentionInternals: MentionInternals<TMentionConfig> = new MentionInternals(this.getMentionInternalsOptions());
 
+    /** @internal */
+    public readonly validator = this.createValidator();
+
+    /**
+     * A regex used to extract user ID from user key (url) while parsing and serializing a markdown.
+     */
     @attr
     public pattern?: string;
-
-    /** @internal */
-    public validator = this.createValidator();
 
     /** @internal */
     public mappingNotifiers: Notifier[] = [];
@@ -55,13 +61,16 @@ export abstract class RichTextMention<
         return this.validator.getValidity();
     }
 
+    /**
+     * @internal
+     */
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof Mapping && typeof args === 'string') {
             this.updateMentionConfig();
         }
     }
 
-    public abstract createValidator(): TValidator;
+    protected abstract createValidator(): TValidator;
 
     protected abstract getMentionInternalsOptions(): MentionInternalsOptions;
 
@@ -88,6 +97,9 @@ export abstract class RichTextMention<
         return mappingConfigs;
     }
 
+    /**
+     * Called when any Mapping related state has changed.
+     */
     private updateMentionConfig(): void {
         this.validator.validate(this.mappings, this.pattern);
         this.mentionInternals.mentionConfig = this.validator.isValid()

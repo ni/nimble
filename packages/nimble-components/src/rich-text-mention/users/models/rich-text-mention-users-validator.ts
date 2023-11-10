@@ -1,6 +1,6 @@
 import type { Mapping } from '../../../mapping/base';
-import type { MentionHref } from '../../../mapping/base/types';
-import { MappingMentionUser } from '../../../mapping/mention-user';
+import type { MappingUserKey } from '../../../mapping/base/types';
+import { MappingUser } from '../../../mapping/user';
 import type { MentionInternals } from '../../base/models/mention-internals';
 import {
     baseValidityFlagNames,
@@ -19,18 +19,18 @@ export class RichTextMentionUsersValidator extends RichTextMentionValidator<
     typeof usersValidityFlagNames
 > {
     public constructor(columnInternals: MentionInternals<unknown>) {
-        super(columnInternals, usersValidityFlagNames, [MappingMentionUser]);
+        super(columnInternals, usersValidityFlagNames, [MappingUser]);
     }
 
     public override validate(
-        mappings: Mapping<MentionHref>[],
+        mappings: Mapping<MappingUserKey>[],
         pattern: string
     ): void {
         super.validate(mappings, pattern);
         this.validateNoMissingDisplayName(mappings);
     }
 
-    private validateNoMissingDisplayName(mappings: MappingMentionUser[]): void {
+    private validateNoMissingDisplayName(mappings: MappingUser[]): void {
         const invalid = mappings.some(
             mapping => mapping.displayName === undefined
         );

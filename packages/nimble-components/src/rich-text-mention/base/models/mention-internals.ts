@@ -11,7 +11,7 @@ export interface MentionInternalsOptions {
  */
 export class MentionInternals<TMentionConfig> {
     /**
-     * The relevant, static configuration which will hold mentioning info of view, character, icon and pattern
+     * Configuration which will hold mentioning info, character, icon and pattern
      */
     @observable
     public mentionConfig?: TMentionConfig;
@@ -22,10 +22,19 @@ export class MentionInternals<TMentionConfig> {
     @observable
     public validConfiguration = true;
 
+    /**
+     * Icon to display on RichTextEditor Toolbar
+     */
     public readonly icon: string;
 
+    /**
+     * Character to show respective mention list
+     */
     public readonly character: string;
 
+    /**
+     * Regex used to extract user ID from user key (url)
+     */
     public readonly pattern: string;
 
     public constructor(options: MentionInternalsOptions) {

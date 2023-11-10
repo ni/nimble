@@ -12,7 +12,8 @@ export const baseValidityFlagNames = [
     'duplicateMappingMentionHref',
     'missingMentionHrefValue',
     'unsupportedMentionHrefValue',
-    'missingPatternAttribute'
+    'missingPatternAttribute',
+    'unsupportedPatternValue'
 ] as const;
 
 /**
@@ -38,6 +39,7 @@ export class RichTextMentionValidator<
         this.validateMappingTypes(mappings);
         this.validateNoMissingMentionHref(mentionHrefs);
         this.validateUniqueMentionHref(mentionHrefs);
+        this.validateMissingPattern(pattern);
         this.validatePattern(pattern);
         this.validateHref(mentionHrefs, pattern);
     }
@@ -68,10 +70,17 @@ export class RichTextMentionValidator<
         this.mentionInternals.validConfiguration = this.isValid();
     }
 
-    private validatePattern(pattern: string | undefined): void {
+    private validateMissingPattern(pattern: string | undefined): void {
         this.setConditionValue(
             'missingPatternAttribute',
             pattern === undefined
+        );
+    }
+
+    private validatePattern(pattern: string | undefined): void {
+        this.setConditionValue(
+            'unsupportedPatternValue',
+            pattern === undefined || this.isInvalidRegex(pattern)
         );
     }
 
@@ -98,12 +107,32 @@ export class RichTextMentionValidator<
         mentionHrefs: unknown[],
         pattern: string | undefined
     ): void {
-        const regexPattern = new RegExp(pattern!);
-        const valid = mentionHrefs.every(
-            href => href === undefined
+        const invalid = this.isInvalidRegex(pattern!) ? true : mentionHrefs.some(
+            href => {
+                return href === undefined
                 || typeof href !== 'string'
-                || regexPattern.test(href)
+                || this.isInvalidUrl(href) || !RegExp(pattern!).test(href);
+            }
         );
-        this.setConditionValue('unsupportedMentionHrefValue', !valid);
+        this.setConditionValue('unsupportedMentionHrefValue', invalid);
+    }
+
+    private isInvalidUrl(url: string): boolean {
+        try {
+            // eslint-disable-next-line no-new
+            new URL(url);
+            return false;
+        } catch (error) {
+            return true;
+        }
+    }
+
+    private isInvalidRegex(pattern: string): boolean {
+        try {
+            RegExp(pattern);
+            return false;
+        } catch (error) {
+            return true;
+        }
     }
 }

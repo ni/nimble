@@ -9,7 +9,7 @@ const metadata: Meta = {
         docs: {
             description: {
                 component:
-                    'The `nimble-mapping-mention-user` element defines a mapping from a rich text user mention keys to the user name to display. It is meant to be used as content of the `nimble-rich-text-mention-users` element.'
+                    'The `nimble-mapping-user` element defines a mapping from a rich text user keys to the user name to display. It is meant to be used as content of the `nimble-rich-text-mention-users` element.'
             }
         }
     }
@@ -17,18 +17,18 @@ const metadata: Meta = {
 
 export default metadata;
 
-export const userMentionMapping: StoryObj = {
+export const userMapping: StoryObj = {
     render: createUserSelectedThemeStory(hiddenWrapper(html`<style></style>`)),
     argTypes: {
         key: {
             description:
-                'A URL for each user that maps with their username and results in the display of associated user in a list of mentions',
+                'A key (url) for each user that maps to a user',
             control: { type: 'none' }
         },
         displayName: {
             name: 'display-name',
             description:
-                'A string which renders the textual representation of user name in the mention list'
+                'A string which renders the textual representation of user name'
         }
     },
     args: {}
