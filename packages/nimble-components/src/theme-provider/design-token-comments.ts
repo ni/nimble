@@ -70,6 +70,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     dialogLargeWidth: 'Standard width for large dialogs.',
     dialogLargeHeight: 'Standard height for large dialogs.',
     dialogLargeMaxHeight: 'Standard maximum height for large dialogs.',
+    menuMinWidth: 'Standard menu min width for menu popup.',
     bannerGapSize: 'Space between stacked banners',
     spinnerSmallHeight: 'Small height (16px) for a spinner component',
     spinnerMediumHeight: 'Medium height (32px) for a spinner component',
