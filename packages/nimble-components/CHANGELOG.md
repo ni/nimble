@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 08 Nov 2023 16:07:09 GMT and should not be manually modified.
+This log was last generated on Sat, 11 Nov 2023 11:03:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.14.2
+
+Sat, 11 Nov 2023 11:03:03 GMT
+
+### Patches
+
+- Nimble list box component bring up ([ni/nimble@176130f](https://github.com/ni/nimble/commit/176130fee88b376f76c86b20294e9e44cca0c42f))
 
 ## 20.14.1
 
