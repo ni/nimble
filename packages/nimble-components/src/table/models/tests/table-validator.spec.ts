@@ -216,9 +216,21 @@ describe('TableValidator', () => {
         it('ID field name can be an empty string', () => {
             const data = [
                 // eslint-disable-next-line @typescript-eslint/naming-convention
-                { data: { stringField: 'value-1', numberField: 10, '': 'empty-1' } },
+                {
+                    data: {
+                        stringField: 'value-1',
+                        numberField: 10,
+                        '': 'empty-1'
+                    }
+                },
                 // eslint-disable-next-line @typescript-eslint/naming-convention
-                { data: { stringField: 'value-2', numberField: 11, '': 'empty-2' } }
+                {
+                    data: {
+                        stringField: 'value-2',
+                        numberField: 11,
+                        '': 'empty-2'
+                    }
+                }
             ];
 
             const isValid = validator.validateRecordIds(data, '');

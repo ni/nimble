@@ -25,6 +25,8 @@ interface SimpleTableRecord extends TableRecord {
     stringData: string;
     numericData: number;
     moreStringData: string;
+    id?: string;
+    parentId?: string;
 }
 
 const simpleTableData = [
@@ -134,6 +136,7 @@ describe('Table', () => {
 
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
             pageObject = new TablePageObject<SimpleTableRecord>(element);
             column1 = element.querySelector<TableColumn>('#first-column')!;
             column2 = element.querySelector<TableColumn>('#second-column')!;
@@ -862,6 +865,277 @@ describe('Table', () => {
                 verifyRecordIDs(sortedData.map(x => x.stringData));
                 // Verify the data is still sorted
                 verifyRenderedData(sortedData);
+            });
+        });
+
+        describe('hierarchical data', () => {
+            const hierarchicalData: SimpleTableRecord[] = [
+                {
+                    stringData: 'Parent 1',
+                    numericData: 0,
+                    moreStringData: 'foo',
+                    id: '0'
+                },
+                {
+                    stringData: 'Parent 1 Child',
+                    numericData: 0,
+                    moreStringData: 'foo',
+                    id: '1',
+                    parentId: '0'
+                },
+                {
+                    stringData: 'Parent 1 Grandchild',
+                    numericData: 0,
+                    moreStringData: 'foo',
+                    id: '2',
+                    parentId: '1'
+                },
+                {
+                    stringData: 'Top Level No Child',
+                    numericData: 0,
+                    moreStringData: 'foo',
+                    id: '3'
+                },
+                {
+                    stringData: 'Parent 2',
+                    numericData: 0,
+                    moreStringData: 'foo',
+                    id: '4'
+                },
+                {
+                    stringData: 'Parent 2 Child',
+                    numericData: 0,
+                    moreStringData: 'foo',
+                    id: '5',
+                    parentId: '4'
+                },
+                {
+                    stringData: 'Parent 1 Child 2',
+                    numericData: 0,
+                    moreStringData: 'foo',
+                    id: '6',
+                    parentId: '0'
+                }
+            ];
+            it('renders data hierarchically when parentId set after setData', async () => {
+                await connect();
+                element.idFieldName = 'id';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedRowCount()).toBe(7); // there are 7 total rows
+                element.parentIdFieldName = 'parentId';
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedRowCount()).toBe(3); // there are 3 top level rows
+            });
+
+            it('renders data hierarchically when id set after setData', async () => {
+                await connect();
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedRowCount()).toBe(0); // table in invalid state
+                element.idFieldName = 'id';
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedRowCount()).toBe(3); // there are 3 top level rows
+            });
+
+            it('renders data hierarchically when id and parentId set after setData', async () => {
+                await connect();
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedRowCount()).toBe(7); // there are 7 total rows
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedRowCount()).toBe(3); // there are 3 top level rows
+            });
+
+            it('expanding parent results in rendered child rows', async () => {
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+
+                pageObject.clickDataRowExpandCollapseButton(0); // parent has 2 children
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedRowCount()).toBe(5); // 3 rows initially, two more after expansion
+            });
+
+            it('collapsing parent hides children', async () => {
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+
+                pageObject.clickDataRowExpandCollapseButton(0); // expands parent
+                pageObject.clickDataRowExpandCollapseButton(0); // collapses parent
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedRowCount()).toBe(3);
+            });
+
+            it('maintains expanded state between data updates', async () => {
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+
+                pageObject.clickDataRowExpandCollapseButton(0); // first parent expanded
+                await waitForUpdatesAsync();
+                expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    true,
+                    false,
+                    false,
+                    false,
+                    false
+                ]);
+                const newData = [
+                    {
+                        stringData: 'Parent 3',
+                        numericData: 0,
+                        moreStringData: 'foo',
+                        id: '7'
+                    },
+                    {
+                        stringData: 'Parent 3 Child',
+                        numericData: 0,
+                        moreStringData: 'foo',
+                        id: '8',
+                        parentId: '7'
+                    },
+                    ...hierarchicalData
+                ];
+
+                await element.setData(newData);
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedRowCount()).toBe(6);
+                expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    false,
+                    true,
+                    false,
+                    false,
+                    false,
+                    false
+                ]);
+            });
+
+            it('table is invalid when data has circular parent child relationships', async () => {
+                const badData: SimpleTableRecord[] = [
+                    {
+                        stringData: 'foo',
+                        moreStringData: 'bar',
+                        numericData: 0,
+                        id: '0',
+                        parentId: '1'
+                    },
+                    {
+                        stringData: 'foo1',
+                        moreStringData: 'bar1',
+                        numericData: 0,
+                        id: '1',
+                        parentId: '0'
+                    }
+                ];
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(badData);
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBe(false);
+                expect(pageObject.getRenderedRowCount()).toBe(0);
+            });
+
+            it('table is invalid when invalid parentId set in data', async () => {
+                const badData: SimpleTableRecord[] = [
+                    {
+                        stringData: 'foo',
+                        moreStringData: 'bar',
+                        numericData: 0,
+                        id: '0',
+                        parentId: '1'
+                    },
+                    {
+                        stringData: 'foo1',
+                        moreStringData: 'bar1',
+                        numericData: 0,
+                        id: '1',
+                        parentId: '2'
+                    }
+                ];
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(badData);
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeFalse();
+                expect(pageObject.getRenderedRowCount()).toBe(0);
+            });
+
+            it('removing parentIdFieldName when data in invalid for hierarchy renders data as flat list', async () => {
+                const badData: SimpleTableRecord[] = [
+                    {
+                        stringData: 'foo',
+                        moreStringData: 'bar',
+                        numericData: 0,
+                        id: '0',
+                        parentId: '1'
+                    },
+                    {
+                        stringData: 'foo1',
+                        moreStringData: 'bar1',
+                        numericData: 0,
+                        id: '1',
+                        parentId: '2'
+                    }
+                ];
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(badData);
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedRowCount()).toBe(0);
+
+                element.parentIdFieldName = undefined;
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedRowCount()).toBe(2);
+            });
+
+            it('removing parentIdFieldName when data in valid for hierarchy renders data as flat list in given order', async () => {
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+
+                element.parentIdFieldName = undefined;
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedRowCount()).toBe(7);
+                hierarchicalData.forEach((record, i) => {
+                    expect(record.id).toBe(pageObject.getRecordId(i));
+                });
+            });
+
+            it('removing idFieldName when data in valid for hierarchy results in invalid table', async () => {
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+                expect(element.checkValidity()).toBeTrue();
+
+                element.idFieldName = undefined;
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedRowCount()).toBe(0);
+                expect(element.checkValidity()).toBeFalse();
             });
         });
     });

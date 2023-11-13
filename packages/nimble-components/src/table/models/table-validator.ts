@@ -163,8 +163,8 @@ export class TableValidator<TData extends InternalTableRecord> {
         return requestedRecordIds.filter(id => this.recordIds.has(id));
     }
 
-    public setInvalidParentIdConfiguration(): void {
-        this.invalidParentIdConfiguration = true;
+    public setInvalidParentIdConfiguration(valid: boolean): void {
+        this.invalidParentIdConfiguration = !valid;
     }
 
     private validateIndicesAreUnique(indices: number[]): boolean {

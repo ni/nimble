@@ -41,6 +41,7 @@ import {
     TableColumnSortDirection,
     TableFieldValue,
     TableRecord,
+    TableRowMetadata,
     TableRowSelectionEventDetail,
     TableRowSelectionMode,
     TableRowSelectionState,
@@ -218,6 +219,8 @@ export class Table<
 
     private readonly table: TanStackTable<InternalTableRecord<TData>>;
     private _data: InternalTableRecord<TData>[] = [];
+    private readonly _rowMetadata: Map<TableFieldValue, TableRowMetadata> = new Map<TableFieldValue, TableRowMetadata>();
+
     private options: TanStackTableOptionsResolved<InternalTableRecord<TData>>;
     private readonly tableValidator = new TableValidator();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
@@ -225,6 +228,7 @@ export class Table<
     private columnNotifiers: Notifier[] = [];
     private readonly layoutManagerNotifier: Notifier;
     private isInitialized = false;
+    private isDataOrdered = false;
     private readonly collapsedRows = new Set<string>();
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
@@ -272,61 +276,15 @@ export class Table<
 
     public async setData(newData: readonly TData[]): Promise<void> {
         await this.processPendingUpdates();
-
-        // The call to arrayToTree will perform a deep copy of the data, but it does allow a
-        // configuration that will do shallow copies, and thus it's signature doesn't support
-        // immutable arrays. Thus, we need to cast to a mutable type.
-        const data = newData as TData[];
-        if (this.idFieldName) {
-            try {
-                this._data = arrayToTree(data, {
-                    childrenField: 'subRows',
-                    id: this.idFieldName,
-                    parentId: this.parentIdFieldName,
-                    nestedIds: false,
-                    throwIfOrphans: true
-                }) as unknown as InternalTableRecord<TData>[];
-            } catch {
-                this.tableValidator.setInvalidParentIdConfiguration();
-            }
-        } else {
-            this._data = this.convertDataWithNoId(data);
-        }
-        const tanStackUpdates: Partial<
-        TanStackTableOptionsResolved<InternalTableRecord<TData>>
-        > = {
-            data: this._data
-        };
-        this.validateWithData(this._data);
-        if (this.tableValidator.areRecordIdsValid()) {
-            // Update the selection state to remove previously selected records that no longer exist in the
-            // data set while maintaining the selection state of records that still exist in the data set.
-            const previousSelection = await this.getSelectedRecordIds();
-            tanStackUpdates.state = {
-                rowSelection:
-                    this.calculateTanStackSelectionState(previousSelection)
-            };
-        }
-        this.updateTableOptions(tanStackUpdates);
+        this.trackFlatDataOrder(newData);
+        const tanstackUpdates = this.processFlatData(newData);
+        this.updateTableOptions(tanstackUpdates);
     }
 
     public async getSelectedRecordIds(): Promise<string[]> {
         await this.processPendingUpdates();
 
-        const tanStackSelectionState = this.options.state.rowSelection;
-        if (!tanStackSelectionState) {
-            return [];
-        }
-
-        const selectedRecordIds: string[] = [];
-        Object.entries(tanStackSelectionState).forEach(
-            ([recordId, isSelected]) => {
-                if (isSelected) {
-                    selectedRecordIds.push(recordId);
-                }
-            }
-        );
-        return selectedRecordIds;
+        return this.getCurrentSelectedRecordIds();
     }
 
     public async setSelectedRecordIds(recordIds: string[]): Promise<void> {
@@ -593,6 +551,32 @@ export class Table<
         );
     }
 
+    /**
+     * @internal
+     */
+    public processFlatData(
+        data: readonly TData[]
+    ): Partial<TanStackTableOptionsResolved<InternalTableRecord<TData>>> {
+        this._data = this.convertFlatDataToHierarchy(data) ?? [];
+        const tanStackUpdates: Partial<
+        TanStackTableOptionsResolved<InternalTableRecord<TData>>
+        > = {
+            data: this._data
+        };
+        this.validateWithData(this._data);
+        if (this.tableValidator.areRecordIdsValid()) {
+            // Update the selection state to remove previously selected records that no longer exist in the
+            // data set while maintaining the selection state of records that still exist in the data set.
+            const previousSelection = this.getCurrentSelectedRecordIds();
+            tanStackUpdates.state = {
+                rowSelection:
+                    this.calculateTanStackSelectionState(previousSelection)
+            };
+        }
+        this.updateTableOptions(tanStackUpdates);
+        return tanStackUpdates;
+    }
+
     protected selectionModeChanged(
         _prev: string | undefined,
         _next: string | undefined
@@ -615,6 +599,20 @@ export class Table<
         this.tableUpdateTracker.trackIdFieldNameChanged();
     }
 
+    protected parentIdFieldNameChanged(
+        _prev: string | undefined,
+        _next: string | undefined
+    ): void {
+        if (
+            !this.$fastController.isConnected
+            || this.table.options.data === undefined
+        ) {
+            return;
+        }
+
+        this.tableUpdateTracker.trackParentIdFieldNameChanged();
+    }
+
     protected columnsChanged(
         _prev: TableColumn[] | undefined,
         _next: TableColumn[]
@@ -627,9 +625,106 @@ export class Table<
         this.tableUpdateTracker.trackColumnInstancesChanged();
     }
 
-    private convertDataWithNoId(data: TData[]): InternalTableRecord<TData>[] {
-        return data.map(record => {
-            return { data: { ...record } };
+    private convertFlatDataToHierarchy(
+        flatData: readonly TData[]
+    ): InternalTableRecord<TData>[] {
+        let hierarchicalData: InternalTableRecord<TData>[];
+        if (this.idFieldName && this.parentIdFieldName) {
+            try {
+                // The call to arrayToTree will perform a deep copy of the data, but it does allow a
+                // configuration that will do shallow copies, and thus it's signature doesn't support
+                // immutable arrays. Thus, we need to cast to a mutable type.
+                const data = flatData as TData[];
+                hierarchicalData = arrayToTree(data, {
+                    childrenField: 'subRows',
+                    id: this.idFieldName,
+                    parentId: this.parentIdFieldName,
+                    nestedIds: false,
+                    throwIfOrphans: true
+                }) as unknown as InternalTableRecord<TData>[];
+                this.isDataOrdered = false;
+            } catch {
+                this.tableValidator.setInvalidParentIdConfiguration(false);
+                this.isDataOrdered = true;
+                return flatData.map(record => {
+                    return { data: { ...record } };
+                });
+            }
+        } else {
+            this.isDataOrdered = true;
+            hierarchicalData = flatData.map(record => {
+                return { data: { ...record } };
+            });
+        }
+
+        this.tableValidator.setInvalidParentIdConfiguration(true);
+        return hierarchicalData;
+    }
+
+    private getCurrentSelectedRecordIds(): string[] {
+        const tanStackSelectionState = this.options.state.rowSelection;
+        if (!tanStackSelectionState) {
+            return [];
+        }
+
+        const selectedRecordIds: string[] = [];
+        Object.entries(tanStackSelectionState).forEach(
+            ([recordId, isSelected]) => {
+                if (isSelected) {
+                    selectedRecordIds.push(recordId);
+                }
+            }
+        );
+        return selectedRecordIds;
+    }
+
+    private trackFlatDataOrder(data: readonly TData[]): void {
+        if (this.idFieldName) {
+            for (let i = 0; i < data.length; i++) {
+                this._rowMetadata.set(data[i]![this.idFieldName], {
+                    originalIndex: i
+                });
+            }
+        }
+    }
+
+    private convertHierarchicalDataToFlatList(): TData[] {
+        const flatData: TData[] = [];
+        const tanstackData = this.table.options.data;
+        tanstackData.forEach(record => {
+            this.convertRecordToFlatList(record, flatData);
+        });
+        if (this.idFieldName && !this.isDataOrdered) {
+            flatData.sort((a, b) => {
+                const leftRecordIndex = this._rowMetadata.get(
+                    a[this.idFieldName!]
+                )!.originalIndex;
+                const rightRecordIndex = this._rowMetadata.get(
+                    b[this.idFieldName!]
+                )!.originalIndex;
+
+                if (leftRecordIndex < rightRecordIndex) {
+                    return -1;
+                }
+
+                if (leftRecordIndex > rightRecordIndex) {
+                    return 1;
+                }
+
+                return 0;
+            });
+        }
+
+        return flatData;
+    }
+
+    private convertRecordToFlatList(
+        record: InternalTableRecord<TData>,
+        flatData: TData[]
+    ): void {
+        flatData.push(record.data);
+        record.subRows?.forEach(subRow => {
+            this.convertRecordToFlatList(subRow, flatData);
         });
     }
 
@@ -778,6 +873,12 @@ export class Table<
             updatedOptions.state.rowSelection = {};
             this.selectionManager.handleSelectionReset();
         }
+        if (this.tableUpdateTracker.updateRowParentIds) {
+            const flatList = this.convertHierarchicalDataToFlatList();
+            const tanstackUpdates = this.processFlatData(flatList);
+            updatedOptions.state.rowSelection = tanstackUpdates.state?.rowSelection;
+            updatedOptions.data = tanstackUpdates.data;
+        }
         if (this.tableUpdateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
@@ -787,8 +888,16 @@ export class Table<
             );
         }
         if (this.tableUpdateTracker.requiresTanStackDataReset) {
-            // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
-            updatedOptions.data = [...this.table.options.data];
+            if (!this.parentIdFieldName) {
+                // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
+                updatedOptions.data = [...this.table.options.data];
+            } else {
+                const flatList = this.convertHierarchicalDataToFlatList();
+                this.trackFlatDataOrder(flatList);
+                const tanstackUpdates = this.processFlatData(flatList);
+                updatedOptions.state.rowSelection = tanstackUpdates.state?.rowSelection;
+                updatedOptions.data = tanstackUpdates.data;
+            }
         }
         if (this.tableUpdateTracker.updateGroupRows) {
             updatedOptions.state.grouping = this.calculateTanStackGroupingState();

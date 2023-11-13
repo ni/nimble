@@ -166,6 +166,10 @@ export interface TableColumnConfiguration {
     pixelWidth?: number;
 }
 
+export interface TableRowMetadata {
+    originalIndex: number;
+}
+
 /**
  * @internal
  *

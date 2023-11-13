@@ -19,6 +19,7 @@ const isColumnProperty = (
 
 const trackedItems = [
     'rowIds',
+    'rowParentIds',
     'groupRows',
     'columnIds',
     'columnSort',
@@ -43,6 +44,10 @@ export class TableUpdateTracker<
 
     public get updateRowIds(): boolean {
         return this.isTracked('rowIds');
+    }
+
+    public get updateRowParentIds(): boolean {
+        return this.isTracked('rowParentIds');
     }
 
     public get updateGroupRows(): boolean {
@@ -76,6 +81,7 @@ export class TableUpdateTracker<
     public get requiresTanStackUpdate(): boolean {
         return (
             this.isTracked('rowIds')
+            || this.isTracked('rowParentIds')
             || this.isTracked('columnSort')
             || this.isTracked('columnDefinition')
             || this.isTracked('groupRows')
@@ -84,7 +90,10 @@ export class TableUpdateTracker<
     }
 
     public get requiresTanStackDataReset(): boolean {
-        return this.isTracked('rowIds') || this.isTracked('columnDefinition');
+        return (
+            (this.isTracked('rowIds') || this.isTracked('columnDefinition'))
+            && !this.isTracked('rowParentIds')
+        );
     }
 
     public trackAllStateChanged(): void {
@@ -154,6 +163,11 @@ export class TableUpdateTracker<
 
     public trackIdFieldNameChanged(): void {
         this.track('rowIds');
+        this.queueUpdate();
+    }
+
+    public trackParentIdFieldNameChanged(): void {
+        this.track('rowParentIds');
         this.queueUpdate();
     }
 
