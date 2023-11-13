@@ -17,21 +17,19 @@ describe('RichTextMentionUsers', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
+    // prettier-ignore
     async function setup(
         mappings: BasicUserMentionMapping[],
         pattern = ''
     ): Promise<Fixture<RichTextMentionUsers>> {
         return fixture<RichTextMentionUsers>(html`
             <${richTextMentionUsersTag} pattern="${pattern}">
-            ${repeat(
-        () => mappings,
-        html<BasicUserMentionMapping>`
-                        <${mappingUserTag}
-                            key="${x => x.key}"
-                            display-name="${x => x.displayName}">
-                        </${mappingUserTag}>
-                    `
-    )}
+                ${repeat(() => mappings, html<BasicUserMentionMapping>`
+                    <${mappingUserTag}
+                        key="${x => x.key}"
+                        display-name="${x => x.displayName}">
+                    </${mappingUserTag}>
+                `)}
             </${richTextMentionUsersTag}>`);
     }
 
