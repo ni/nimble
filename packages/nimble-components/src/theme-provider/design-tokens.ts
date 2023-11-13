@@ -956,3 +956,5 @@ function getModalBackdropForTheme(element: HTMLElement): string {
             return modalBackdropColorThemeLightStatic;
     }
 }
+
+DesignToken.registerRoot();

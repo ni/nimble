@@ -45,7 +45,9 @@ export const direction = DesignToken.create<Direction>({
 export const theme = DesignToken.create<Theme>({
     name: 'theme',
     cssCustomPropertyName: null
-}).withDefault(Theme.light);
+}).withDefault(() => Theme.light);
+
+window.themeToken = theme;
 
 /**
  * The ThemeProvider implementation. Add this component to the page and set its `theme` attribute to control
@@ -60,7 +62,7 @@ export class ThemeProvider extends FoundationElement {
     public direction?: Direction;
 
     @attr()
-    public theme: Theme = Theme.light;
+    public theme?: Theme;
 
     public get validity(): ValidityObject {
         return {
@@ -69,6 +71,16 @@ export class ThemeProvider extends FoundationElement {
     }
 
     private langIsInvalid = false;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        console.log(this.id, 'attach', 'prop', this.theme, 'calc', theme.getValueFor(this));
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        console.log(this.id, 'detach', 'prop', this.theme, 'calc', theme.getValueFor(this));
+    }
 
     public checkValidity(): boolean {
         return !this.langIsInvalid;
@@ -108,6 +120,7 @@ export class ThemeProvider extends FoundationElement {
         _prev: Theme | undefined | null,
         next: Theme | undefined | null
     ): void {
+        console.log(this.id, 'change', 'prev', _prev, 'next', next);
         if (next !== undefined && next !== null) {
             theme.setValueFor(this, next);
         } else {

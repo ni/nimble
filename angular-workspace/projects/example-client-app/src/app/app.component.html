@@ -1,9 +1,8 @@
-<nimble-theme-provider [theme]="theme">
-    <nimble-label-provider-core withDefaults></nimble-label-provider-core>
-    <nimble-label-provider-rich-text withDefaults></nimble-label-provider-rich-text>
-    <nimble-label-provider-table withDefaults></nimble-label-provider-table>
-    <example-header [(theme)]="theme"></example-header>
-    <div class="router-outlet-wrapper">
-        <router-outlet></router-outlet>
-    </div>
-</nimble-theme-provider>
+
+  <div>root - light</div>
+  <nimble-theme-provider id="outertheme" [theme]="'dark'">
+    <div>outer - dark</div>
+    <nimble-theme-provider id="innertheme" theme="light">
+      <div>inner - light</div>
+    </nimble-theme-provider>
+  </nimble-theme-provider>
