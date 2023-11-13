@@ -775,6 +775,26 @@ export const [
     GridHeaderFallbackFontFamily
 );
 
+export const [
+    mentionFont,
+    mentionFontColor,
+    mentionDisabledFontColor,
+    mentionFontFamily,
+    mentionFontWeight,
+    mentionFontSize,
+    mentionFontLineHeight,
+    mentionFallbackFontFamily
+] = createFontTokens(
+    tokenNames.mentionFont,
+    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, PowerGreen),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    BodyFamily,
+    BodyEmphasizedWeight,
+    BodySize,
+    BodyLineHeight,
+    BodyFallbackFontFamily
+);
+
 // Font Transform Tokens
 export const groupHeaderTextTransform = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.groupHeaderTextTransform)

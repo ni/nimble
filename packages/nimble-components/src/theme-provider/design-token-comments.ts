@@ -294,5 +294,13 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'The box shadow for elevation 2. Used for components such as menus, banners, tooltips, error notifications, and scrolling.',
     elevation3BoxShadow:
         'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.',
-    graphGridlineColor: 'Gridline color for graphs'
+    graphGridlineColor: 'Gridline color for graphs',
+    mentionFont: 'Font shorthand for mention views',
+    mentionFontColor: 'Font color for mention views',
+    mentionDisabledFontColor: 'Disabled font color for mention views',
+    mentionFontFamily: 'Font family for mention views',
+    mentionFontSize: 'Font size for mention views',
+    mentionFontWeight: 'Font weight for mention views',
+    mentionFontLineHeight: 'Font line height for mention views',
+    mentionFallbackFontFamily: 'Fallback font family for mention views'
 };
