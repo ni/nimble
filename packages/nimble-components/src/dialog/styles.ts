@@ -12,7 +12,10 @@ import {
     smallPadding,
     subtitleFont,
     subtitleFontColor,
-    elevation3BoxShadow
+    elevation3BoxShadow,
+    dialogSmallWidth,
+    dialogSmallHeight,
+    dialogSmallMaxHeight
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -32,8 +35,9 @@ export const styles = css`
         border: none;
         box-shadow: ${elevation3BoxShadow};
         padding: 0px;
-        width: 400px;
-        max-height: 600px;
+        width: ${dialogSmallWidth};
+        height: ${dialogSmallHeight};
+        max-height: ${dialogSmallMaxHeight};
     }
 
     dialog[open] {

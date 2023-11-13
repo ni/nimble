@@ -1,8 +1,78 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 01 Nov 2023 15:14:29 GMT and should not be manually modified.
+This log was last generated on Mon, 13 Nov 2023 17:03:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.14.3
+
+Mon, 13 Nov 2023 17:03:21 GMT
+
+### Patches
+
+- Nimble rich text mention users view component bring up ([ni/nimble@fac3e07](https://github.com/ni/nimble/commit/fac3e07a393880edccb9061778a15ba5e7597fcb))
+
+## 20.14.2
+
+Sat, 11 Nov 2023 11:03:03 GMT
+
+### Patches
+
+- Nimble list box component bring up ([ni/nimble@176130f](https://github.com/ni/nimble/commit/176130fee88b376f76c86b20294e9e44cca0c42f))
+
+## 20.14.1
+
+Wed, 08 Nov 2023 16:07:09 GMT
+
+### Patches
+
+- Workaround for Lighthouse accessibility error in nimble-card. Update Angular status of nimble-card component. ([ni/nimble@57ee0e9](https://github.com/ni/nimble/commit/57ee0e95855887e10034232f587be2e666c96414))
+
+## 20.14.0
+
+Fri, 03 Nov 2023 23:30:50 GMT
+
+### Minor changes
+
+- Expose width and height of nimble-dialog & add tokens ([ni/nimble@5207a2a](https://github.com/ni/nimble/commit/5207a2a24f7d383057b56a91add96e00e5c36d39))
+
+## 20.13.0
+
+Thu, 02 Nov 2023 18:26:57 GMT
+
+### Minor changes
+
+- New icons for "move in" and "move out" ([ni/nimble@91d75d9](https://github.com/ni/nimble/commit/91d75d9c7ce2f493b3ac69fefd5457ae3b83d3f9))
+- Bump @ni/nimble-tokens to v6.8.0
+
+### Patches
+
+- Update fast-foundation dependency ([ni/nimble@6f571be](https://github.com/ni/nimble/commit/6f571beaf840af895e5561765ce3fd1500c50c80))
+
+## 20.12.1
+
+Thu, 02 Nov 2023 17:33:16 GMT
+
+### Patches
+
+- Add a title slot to the nimble-card ([ni/nimble@67a2e37](https://github.com/ni/nimble/commit/67a2e37033905d15c8f779b2f1c553d9b4e3cedb))
+
+## 20.12.0
+
+Wed, 01 Nov 2023 20:45:20 GMT
+
+### Minor changes
+
+- New icon for @mention ([ni/nimble@5a8fe73](https://github.com/ni/nimble/commit/5a8fe731b494042bc8a5cf060338a05208e1075d))
+- Bump @ni/nimble-tokens to v6.7.0
+
+## 20.11.0
+
+Wed, 01 Nov 2023 16:39:22 GMT
+
+### Minor changes
+
+- Add an incubating `nimble-card` component ([ni/nimble@0049146](https://github.com/ni/nimble/commit/0049146975bb1b131394e2891fdafd40168d3ea4))
 
 ## 20.10.3
 
