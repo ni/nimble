@@ -7,8 +7,7 @@ import { SelectControlValueAccessor } from '../../thirdparty/directives/select_c
  *
  * @see NimbleSelectOptionDirective
  *
- * Directive decorator based on SelectControlValueAccessor decorator
- * https://github.com/angular/angular/blob/master/packages/forms/src/directives/select_control_value_accessor.ts#L85
+ * Directive decorator based on SelectControlValueAccessor decorator in thirdparty/directives/select_control_value_accessor
  */
 @Directive({
     selector:

@@ -5,8 +5,7 @@ import { NumberValueAccessor } from '../../thirdparty/directives/number_value_ac
 /**
  * Extension of Angular's NumberValueAccessor to target the number-based inputs.
  *
- * Directive decorator based on NumberValueAccessor decorator
- * https://github.com/angular/angular/blob/master/packages/forms/src/directives/number_value_accessor.ts#L43
+ * Directive decorator based on NumberValueAccessor decorator in thirdparty/directives/number_value_accessor
  */
 @Directive({
     selector:

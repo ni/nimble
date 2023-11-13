@@ -5,8 +5,7 @@ import { CheckboxControlValueAccessor } from '../../thirdparty/directives/checkb
 /**
  * Extension of Angular's CheckboxControlValueAccessor to target the Nimble toggle button control.
  *
- * Directive decorator based on CheckboxControlValueAccessor decorator
- * https://github.com/angular/angular/blob/bbababe5900ea8f4c8fccd88238f6fe08a2ceb63/packages/forms/src/directives/checkbox_value_accessor.ts#L42
+ * Directive decorator based on CheckboxControlValueAccessor decorator in thirdparty/directives/checkbox_value_accessor
  */
 @Directive({
     selector:
