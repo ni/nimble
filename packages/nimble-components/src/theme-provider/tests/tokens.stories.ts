@@ -109,6 +109,8 @@ const tokenTemplates: {
     TextTransform: stringValueTemplate,
     FontFamily: stringValueTemplate,
     BoxShadow: stringValueTemplate,
+    MaxHeight: stringValueTemplate,
+    MinWidth: stringValueTemplate,
     Font: fontTemplate,
     Size: stringValueTemplate,
     Width: stringValueTemplate,
