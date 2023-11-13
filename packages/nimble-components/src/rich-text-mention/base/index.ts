@@ -27,8 +27,10 @@ export interface RichTextMentionConfig {
  * The base class for Mention configuration
  */
 export abstract class RichTextMention<
-    TMentionConfig extends RichTextMentionConfig,
-    TValidator extends RichTextMentionValidator<[]>
+    TMentionConfig extends RichTextMentionConfig = RichTextMentionConfig,
+    TValidator extends RichTextMentionValidator<
+    []
+    > = RichTextMentionValidator<[]>
 >
     extends FoundationElement
     implements Subscriber {
