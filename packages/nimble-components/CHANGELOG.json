@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 13 Nov 2023 17:03:21 GMT",
+      "version": "20.14.3",
+      "tag": "@ni/nimble-components_v20.14.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fac3e07a393880edccb9061778a15ba5e7597fcb",
+            "comment": "Nimble rich text mention users view component bring up"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 11 Nov 2023 11:03:03 GMT",
       "version": "20.14.2",
       "tag": "@ni/nimble-components_v20.14.2",
