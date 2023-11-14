@@ -876,7 +876,6 @@ export class Table<
         if (this.tableUpdateTracker.updateRowParentIds) {
             const flatList = this.convertHierarchicalDataToFlatList();
             const tanstackUpdates = this.processFlatData(flatList);
-            updatedOptions.state.rowSelection = tanstackUpdates.state?.rowSelection;
             updatedOptions.data = tanstackUpdates.data;
         }
         if (this.tableUpdateTracker.updateSelectionMode) {
@@ -887,7 +886,7 @@ export class Table<
                 this.selectionMode
             );
         }
-        if (this.tableUpdateTracker.requiresTanStackDataReset) {
+        if (this.tableUpdateTracker.requiresTanStackDataReset && !this.tableUpdateTracker.updateRowParentIds) {
             if (!this.parentIdFieldName) {
                 // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
                 updatedOptions.data = [...this.table.options.data];
@@ -895,7 +894,6 @@ export class Table<
                 const flatList = this.convertHierarchicalDataToFlatList();
                 this.trackFlatDataOrder(flatList);
                 const tanstackUpdates = this.processFlatData(flatList);
-                updatedOptions.state.rowSelection = tanstackUpdates.state?.rowSelection;
                 updatedOptions.data = tanstackUpdates.data;
             }
         }
