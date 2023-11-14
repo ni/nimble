@@ -20,6 +20,7 @@ interface TableArgs extends LabelUserArgs {
     data: ExampleDataType;
     selectionMode: keyof typeof TableRowSelectionMode;
     idFieldName: undefined;
+    parentIdFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
     setSelectedRecordIds: undefined;
@@ -201,11 +202,15 @@ The attribute is invalid in the following conditions:
 -   A record was found that did not have a field with the name specified by \`id-field-name\`. This will cause \`validity.missingRecordId\` to be \`true\`.
 -   A record was found where \`id-field-name\` did not refer to a value of type \`string\`. This will cause \`validity.invalidRecordId\` to be \`true\`.`;
 
+const parentIdFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's parent ID, which,
+when used in combination with the \`idFieldName\` attribute, will display the table data in a hierarchical fashion. If the attribute is not specified, the
+data in the table will always be presented without hierarchy.`;
+
 const validityDescription = `Readonly object of boolean values that represents the validity states that the table's configuration can be in.
 The object's type is \`TableValidity\`, and it contains the following boolean properties:
 
 -   \`duplicateRecordId\`: \`true\` when multiple records were found with the same ID
--   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
+-   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`, or when \`parent-id-field-name\` is set but \`id-field-name\` is not
 -   \`invalidRecordId\`: \`true\` when a record was found where \`id-field-name\` did not refer to a value of type \`string\`
 -   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
 -   \`missingColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
@@ -328,6 +333,14 @@ const metadata: Meta<TableArgs> = {
                 defaultValue: { summary: 'undefined' }
             },
             description: idFieldNameDescription,
+            control: false
+        },
+        parentIdFieldName: {
+            name: 'parent-id-field-name',
+            table: {
+                defaultValue: { summary: 'undefined' }
+            },
+            description: parentIdFieldNameDescription,
             control: false
         },
         validity: {

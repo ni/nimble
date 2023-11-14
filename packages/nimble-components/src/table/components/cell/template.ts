@@ -19,7 +19,7 @@ import { mediumPadding } from '../../../theme-provider/design-tokens';
 export const template = html<TableCell>`
     <template role="cell" style="
         --ni-private-table-cell-nesting-level: ${x => x.nestingLevel};
-        --ni-private-table-cell-view-padding: ${x => (x.isParentRow && x.isFirstCell ? mediumPadding.getValueFor(x) : '0px')};
+        --ni-private-table-cell-view-padding: ${x => (x.isParentRow && x.isFirstCell && !x.isTopLevelRow ? mediumPadding.getValueFor(x) : '0px')};
     ">
         ${when(x => x.isParentRow && x.isFirstCell && (x.nestingLevel !== 0 || !x.isTopLevelRow), html<TableCell>`
             <${buttonTag}
