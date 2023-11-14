@@ -1008,7 +1008,7 @@ export class Table<
                     ? row.original.subRows !== undefined
                       && row.original.subRows.length > 0
                     : false,
-                isTopLevelRow: !isGrouped && !hasParentRow,
+                isTopLevelRow: !isGrouped && !hasParentRow && row.depth === 0,
                 groupRowValue: isGrouped
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
