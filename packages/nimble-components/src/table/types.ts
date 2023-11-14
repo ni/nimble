@@ -74,6 +74,7 @@ export interface TableValidity extends ValidityObject {
     readonly duplicateGroupIndex: boolean;
     readonly idFieldNameNotConfigured: boolean;
     readonly invalidColumnConfiguration: boolean;
+    readonly invalidParentIdConfiguration: boolean;
 }
 
 export interface TableActionMenuToggleEventDetail {
