@@ -74,21 +74,43 @@ export class RichTextMarkdownParser {
                         const mentionHref = this.getMentionHref(state);
 
                         if (mentionHref && mentionsMap?.size) {
-                            const currentMention = Array.from(mentionsMap.values()).find(mention => mention.validConfiguration && this.validateMentionPattern(mention, mentionHref));
+                            const currentMention = Array.from(
+                                mentionsMap.values()
+                            ).find(
+                                mention => mention.validConfiguration
+                                    && this.validateMentionPattern(
+                                        mention,
+                                        mentionHref
+                                    )
+                            );
 
                             if (currentMention) {
                                 this.viewElement = currentMention.viewElement;
-                                const mentionId = this.extractMentionId(currentMention, mentionHref);
-                                const displayName = this.getDisplayName(mentionHref, currentMention) ?? mentionId;
+                                const mentionId = this.extractMentionId(
+                                    currentMention,
+                                    mentionHref
+                                );
+                                const displayName = this.getDisplayName(
+                                    mentionHref,
+                                    currentMention
+                                ) ?? mentionId;
 
                                 state.pos += mentionHref.length + 2; // Ignoring '<' and '>' characters from the mention URL
 
-                                const token = state.push('mention_open', this.viewElement, 1);
+                                const token = state.push(
+                                    'mention_open',
+                                    this.viewElement,
+                                    1
+                                );
                                 token.attrs = [
                                     ['mentionHref', mentionHref],
                                     ['mentionLabel', displayName]
                                 ];
-                                state.push('mention_close', this.viewElement, -1);
+                                state.push(
+                                    'mention_close',
+                                    this.viewElement,
+                                    -1
+                                );
                                 return true;
                             }
                             return false;
@@ -130,7 +152,10 @@ export class RichTextMarkdownParser {
         return mentionMapping?.displayName;
     }
 
-    private static extractMentionId(mention: MentionInternals<RichTextMentionConfig>, mentionHref: string): string {
+    private static extractMentionId(
+        mention: MentionInternals<RichTextMentionConfig>,
+        mentionHref: string
+    ): string {
         if (!mention.validConfiguration) {
             return '';
         }
@@ -144,7 +169,10 @@ export class RichTextMarkdownParser {
     }
 
     // Validates the mention Href in the markdown string with the input configuration values
-    private static validateMentionPattern(mention: MentionInternals<RichTextMentionConfig>, mentionHref: string): boolean {
+    private static validateMentionPattern(
+        mention: MentionInternals<RichTextMentionConfig>,
+        mentionHref: string
+    ): boolean {
         const regexPattern = new RegExp(mention.pattern ?? '');
         return regexPattern.test(mentionHref);
     }
@@ -161,7 +189,10 @@ export class RichTextMarkdownParser {
 
         position = state.pos + 1;
 
-        while (position < max && state.src.charCodeAt(position) !== closingTag) {
+        while (
+            position < max
+            && state.src.charCodeAt(position) !== closingTag
+        ) {
             position += 1;
         }
 
@@ -213,7 +244,11 @@ export class RichTextMarkdownParser {
                             anchorTag,
                             {
                                 // Absolute links whose scheme is not HTTP/HTTPS, they will render as anchor tag without `href` attribute
-                                href: /^https?:\/\//i.test(node.attrs.href as string) ? node.attrs.href as Attr : null,
+                                href: /^https?:\/\//i.test(
+                                    node.attrs.href as string
+                                )
+                                    ? (node.attrs.href as Attr)
+                                    : null,
                                 rel: node.attrs.rel as Attr
                             }
                         ];

@@ -3,7 +3,10 @@ import { Notifier, Observable, observable } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
-import { RichTextMention, type RichTextMentionConfig } from '../../rich-text-mention/base';
+import {
+    RichTextMention,
+    type RichTextMentionConfig
+} from '../../rich-text-mention/base';
 import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 
 declare global {
@@ -68,7 +71,11 @@ export class RichTextViewer extends FoundationElement {
      * @internal
      */
     public handleChange(source: unknown, args: unknown): void {
-        if ((source instanceof RichTextMention || source instanceof MentionInternals) && typeof args === 'string') {
+        if (
+            (source instanceof RichTextMention
+                || source instanceof MentionInternals)
+            && typeof args === 'string'
+        ) {
             this.updateMentionsMap();
         }
     }
@@ -113,11 +120,17 @@ export class RichTextViewer extends FoundationElement {
     }
 
     private updateMentionsMap(): void {
-        this.mentions.forEach((mention => {
-            if (mention.mentionInternals.pattern && mention.mentionInternals.mentionConfig) {
-                this.mentionsMap.set(mention.mentionInternals.character, mention.mentionInternals);
+        this.mentions.forEach(mention => {
+            if (
+                mention.mentionInternals.pattern
+                && mention.mentionInternals.mentionConfig
+            ) {
+                this.mentionsMap.set(
+                    mention.mentionInternals.character,
+                    mention.mentionInternals
+                );
             }
-        }));
+        });
         if (this.$fastController.isConnected) {
             this.updateView();
         }

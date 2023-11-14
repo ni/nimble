@@ -1,8 +1,14 @@
 import { html, repeat } from '@microsoft/fast-element';
 import { mappingUserTag } from '../../../mapping/user';
-import { type RichTextMentionUsers, richTextMentionUsersTag } from '../../../rich-text-mention/users';
+import {
+    type RichTextMentionUsers,
+    richTextMentionUsersTag
+} from '../../../rich-text-mention/users';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import { getSpecTypeByNamedList, parameterizeNamedList } from '../../../utilities/tests/parameterized';
+import {
+    getSpecTypeByNamedList,
+    parameterizeNamedList
+} from '../../../utilities/tests/parameterized';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { RichTextMarkdownParser } from '../markdown-parser';
 import {
@@ -550,16 +556,20 @@ describe('Markdown parser', () => {
                     { name: '<test://test.com>' }
                 ] as const;
                 parameterizeNamedList(differentProtocolLinks, (spec, name) => {
-                    spec(`string "${name}" renders within nimble-anchor without 'href' attribute`, () => {
-                        const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                            name
-                        );
+                    spec(
+                        `string "${name}" renders within nimble-anchor without 'href' attribute`,
+                        () => {
+                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(name);
 
-                        expect(getTagsFromElement(doc)).toEqual(['P', 'NIMBLE-ANCHOR']);
-                        expect(
-                            lastChildElementHasAttribute('href', doc)
-                        ).toBeFalse();
-                    });
+                            expect(getTagsFromElement(doc)).toEqual([
+                                'P',
+                                'NIMBLE-ANCHOR'
+                            ]);
+                            expect(
+                                lastChildElementHasAttribute('href', doc)
+                            ).toBeFalse();
+                        }
+                    );
                 });
             });
 
@@ -575,18 +585,24 @@ describe('Markdown parser', () => {
                     { name: '<file:///path/to/local/file.txt>' },
                     { name: '<javascript:vbscript:alert("not alert")>' }
                 ];
-                parameterizeNamedList(notSupportedAbsoluteLink, (spec, name) => {
-                    spec(`string "${name}" renders as plain text within paragraph tag`, () => {
-                        const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                            name
-                        );
+                parameterizeNamedList(
+                    notSupportedAbsoluteLink,
+                    (spec, name) => {
+                        spec(
+                            `string "${name}" renders as plain text within paragraph tag`,
+                            () => {
+                                const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                    name
+                                );
 
-                        expect(getTagsFromElement(doc)).toEqual(['P']);
-                        expect(getLeafContentsFromElement(doc)).toEqual([
-                            name
-                        ]);
-                    });
-                });
+                                expect(getTagsFromElement(doc)).toEqual(['P']);
+                                expect(getLeafContentsFromElement(doc)).toEqual(
+                                    [name]
+                                );
+                            }
+                        );
+                    }
+                );
             });
         });
 
@@ -917,7 +933,10 @@ describe('Markdown parser', () => {
         let element: RichTextMentionUsers;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
-        const mentionsMap: Map<string, MentionInternals<RichTextMentionConfig>> = new Map();
+        const mentionsMap: Map<
+        string,
+        MentionInternals<RichTextMentionConfig>
+        > = new Map();
 
         // prettier-ignore
         async function setup(
@@ -948,11 +967,22 @@ describe('Markdown parser', () => {
                 '^user:.*'
             ));
             await connect();
-            mentionsMap.set(element.mentionInternals.character, element.mentionInternals);
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', mentionsMap);
+            mentionsMap.set(
+                element.mentionInternals.character,
+                element.mentionInternals
+            );
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1>',
+                mentionsMap
+            );
 
-            expect(getTagsFromElement(doc)).toEqual(['P', `${richTextMentionUsersViewTag}`.toUpperCase()]);
-            expect(getLastChildElementAttribute('mention-label', doc)).toEqual('username1');
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
+                'username1'
+            );
         });
 
         it('should show user ID when username not found where the pattern has a single grouping regex', async () => {
@@ -964,11 +994,22 @@ describe('Markdown parser', () => {
                 '^user:(.*)'
             ));
             await connect();
-            mentionsMap.set(element.mentionInternals.character, element.mentionInternals);
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1234-5678>', mentionsMap);
+            mentionsMap.set(
+                element.mentionInternals.character,
+                element.mentionInternals
+            );
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1234-5678>',
+                mentionsMap
+            );
 
-            expect(getTagsFromElement(doc)).toEqual(['P', `${richTextMentionUsersViewTag}`.toUpperCase()]);
-            expect(getLastChildElementAttribute('mention-label', doc)).toEqual('1234-5678');
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
+                '1234-5678'
+            );
         });
 
         it('should show user ID of first grouping pattern when username not found where the pattern has multiple grouping regex', async () => {
@@ -980,11 +1021,22 @@ describe('Markdown parser', () => {
                 '^user:(.*)\\.(com)'
             ));
             await connect();
-            mentionsMap.set(element.mentionInternals.character, element.mentionInternals);
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1234-5678.com>', mentionsMap);
+            mentionsMap.set(
+                element.mentionInternals.character,
+                element.mentionInternals
+            );
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1234-5678.com>',
+                mentionsMap
+            );
 
-            expect(getTagsFromElement(doc)).toEqual(['P', `${richTextMentionUsersViewTag}`.toUpperCase()]);
-            expect(getLastChildElementAttribute('mention-label', doc)).toEqual('1234-5678');
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
+                '1234-5678'
+            );
         });
 
         it('should show username where the pattern has multiple grouping regex', async () => {
@@ -996,24 +1048,43 @@ describe('Markdown parser', () => {
                 '^user:(.*)\\.(com)'
             ));
             await connect();
-            mentionsMap.set(element.mentionInternals.character, element.mentionInternals);
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1.com>', mentionsMap);
+            mentionsMap.set(
+                element.mentionInternals.character,
+                element.mentionInternals
+            );
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1.com>',
+                mentionsMap
+            );
 
-            expect(getTagsFromElement(doc)).toEqual(['P', `${richTextMentionUsersViewTag}`.toUpperCase()]);
-            expect(getLastChildElementAttribute('mention-label', doc)).toEqual('username1');
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
+                'username1'
+            );
         });
 
         it('should show user ID in the absence of mapping elements', async () => {
-            ({ element, connect, disconnect } = await setup(
-                [],
-                '^user:(.*)'
-            ));
+            ({ element, connect, disconnect } = await setup([], '^user:(.*)'));
             await connect();
-            mentionsMap.set(element.mentionInternals.character, element.mentionInternals);
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1234-5678>', mentionsMap);
+            mentionsMap.set(
+                element.mentionInternals.character,
+                element.mentionInternals
+            );
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1234-5678>',
+                mentionsMap
+            );
 
-            expect(getTagsFromElement(doc)).toEqual(['P', `${richTextMentionUsersViewTag}`.toUpperCase()]);
-            expect(getLastChildElementAttribute('mention-label', doc)).toEqual('1234-5678');
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
+                '1234-5678'
+            );
         });
 
         it('should show username along with other texts', async () => {
@@ -1025,28 +1096,48 @@ describe('Markdown parser', () => {
                 '^user:(.*)'
             ));
             await connect();
-            mentionsMap.set(element.mentionInternals.character, element.mentionInternals);
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('Some text <user:1.com>', mentionsMap);
+            mentionsMap.set(
+                element.mentionInternals.character,
+                element.mentionInternals
+            );
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                'Some text <user:1.com>',
+                mentionsMap
+            );
 
-            expect(getTagsFromElement(doc)).toEqual(['P', `${richTextMentionUsersViewTag}`.toUpperCase()]);
-            expect(getLastChildElementAttribute('mention-label', doc)).toEqual('username1');
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
+                'username1'
+            );
         });
 
         describe('various wacky strings should reflect the `mention-label` attribute value of user mention view', () => {
             parameterizeNamedList(wackyStrings, (spec, name) => {
                 spec(`for ${name}`, async () => {
                     ({ element, connect, disconnect } = await setup(
-                        [
-                            { key: 'user:1', displayName: name }
-                        ],
+                        [{ key: 'user:1', displayName: name }],
                         '^user:.*'
                     ));
                     await connect();
-                    mentionsMap.set(element.mentionInternals.character, element.mentionInternals);
-                    const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', mentionsMap);
+                    mentionsMap.set(
+                        element.mentionInternals.character,
+                        element.mentionInternals
+                    );
+                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                        '<user:1>',
+                        mentionsMap
+                    );
 
-                    expect(getTagsFromElement(doc)).toEqual(['P', `${richTextMentionUsersViewTag}`.toUpperCase()]);
-                    expect(getLastChildElementAttribute('mention-label', doc)).toEqual(name);
+                    expect(getTagsFromElement(doc)).toEqual([
+                        'P',
+                        `${richTextMentionUsersViewTag}`.toUpperCase()
+                    ]);
+                    expect(
+                        getLastChildElementAttribute('mention-label', doc)
+                    ).toEqual(name);
                 });
             });
         });
@@ -1060,26 +1151,43 @@ describe('Markdown parser', () => {
                 '^user:.*'
             ));
             await connect();
-            mentionsMap.set(element.mentionInternals.character, element.mentionInternals);
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<https://1>', mentionsMap);
+            mentionsMap.set(
+                element.mentionInternals.character,
+                element.mentionInternals
+            );
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<https://1>',
+                mentionsMap
+            );
 
-            expect(getTagsFromElement(doc)).toEqual(['P', `${anchorTag}`.toUpperCase()]);
-            expect(getLastChildElementAttribute('href', doc)).toEqual('https://1');
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('href', doc)).toEqual(
+                'https://1'
+            );
         });
 
         it('should get anchor element when display name is missing', async () => {
             ({ element, connect, disconnect } = await setup(
-                [
-                    { key: 'user:1' },
-                    { key: 'user:2' }
-                ],
+                [{ key: 'user:1' }, { key: 'user:2' }],
                 '^user:.*'
             ));
             await connect();
-            mentionsMap.set(element.mentionInternals.character, element.mentionInternals);
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', mentionsMap);
+            mentionsMap.set(
+                element.mentionInternals.character,
+                element.mentionInternals
+            );
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1>',
+                mentionsMap
+            );
 
-            expect(getTagsFromElement(doc)).toEqual(['P', `${anchorTag}`.toUpperCase()]);
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
             expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
         });
 
@@ -1092,10 +1200,19 @@ describe('Markdown parser', () => {
                 'abc'
             ));
             await connect();
-            mentionsMap.set(element.mentionInternals.character, element.mentionInternals);
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', mentionsMap);
+            mentionsMap.set(
+                element.mentionInternals.character,
+                element.mentionInternals
+            );
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1>',
+                mentionsMap
+            );
 
-            expect(getTagsFromElement(doc)).toEqual(['P', `${anchorTag}`.toUpperCase()]);
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
             expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
         });
 
@@ -1108,10 +1225,19 @@ describe('Markdown parser', () => {
                 '^user:.*'
             ));
             await connect();
-            mentionsMap.set(element.mentionInternals.character, element.mentionInternals);
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', mentionsMap);
+            mentionsMap.set(
+                element.mentionInternals.character,
+                element.mentionInternals
+            );
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1>',
+                mentionsMap
+            );
 
-            expect(getTagsFromElement(doc)).toEqual(['P', `${anchorTag}`.toUpperCase()]);
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
             expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
         });
     });
