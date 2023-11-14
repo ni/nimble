@@ -140,6 +140,42 @@ describe('TableValidator', () => {
             );
         });
 
+        it('setting data with parent IDs but no IDs is invalid', () => {
+            const data = [
+                { data: { parentId: 'value-1', numberField: 10 } },
+                { data: { parentId: 'value-2', numberField: 11 } }
+            ];
+
+            const isValid = validator.validateRecordIds(
+                data,
+                undefined,
+                'parentId'
+            );
+            expect(isValid).toBeFalse();
+            expect(validator.isValid()).toBeFalse();
+            expect(validator.areRecordIdsValid()).toBeFalse();
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents(['missingRecordId'])
+            );
+        });
+
+        it('setting data with IDs and parent IDs after invalid configuration results in valid configuration', () => {
+            const data = [
+                { data: { parentId: 'value-1', id: '1', numberField: 10 } },
+                { data: { parentId: 'value-2', id: '2', numberField: 11 } }
+            ];
+
+            let isValid = validator.validateRecordIds(
+                data,
+                undefined,
+                'parentId'
+            );
+            expect(isValid).toBeFalse();
+
+            isValid = validator.validateRecordIds(data, 'id', 'parentId');
+            expect(validator.isValid()).toBeTrue();
+        });
+
         it('multiple errors are reported during validation', () => {
             const data = [
                 { data: { stringField: 'value-1', numberField: 10 } },
@@ -215,8 +251,10 @@ describe('TableValidator', () => {
 
         it('ID field name can be an empty string', () => {
             const data = [
+                // prettier-ignore
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 { data: { stringField: 'value-1', numberField: 10, '': 'empty-1' } },
+                // prettier-ignore
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 { data: { stringField: 'value-2', numberField: 11, '': 'empty-2' } }
             ];
@@ -230,8 +268,10 @@ describe('TableValidator', () => {
 
         it('validation occurs when ID field name is an empty string', () => {
             const data = [
+                // prettier-ignore
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 { data: { stringField: 'value-1', numberField: 10, '': 'empty-1' } },
+                // prettier-ignore
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 { data: { stringField: 'value-2', numberField: 11, '': 'empty-1' } }
             ];

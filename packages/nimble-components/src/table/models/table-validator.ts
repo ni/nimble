@@ -80,10 +80,10 @@ export class TableValidator<TData extends InternalTableRecord> {
                 return true;
             }
 
-            this.idFieldNameNotConfigured = true;
+            this.missingRecordId = true;
         }
 
-        if (typeof idFieldName === 'string' && !this.idFieldNameNotConfigured) {
+        if (typeof idFieldName === 'string') {
             for (const record of data) {
                 if (
                     !Object.prototype.hasOwnProperty.call(
@@ -112,7 +112,6 @@ export class TableValidator<TData extends InternalTableRecord> {
             !this.missingRecordId
             && !this.invalidRecordId
             && !this.duplicateRecordId
-            && !this.idFieldNameNotConfigured
         );
     }
 
