@@ -4,6 +4,7 @@ import {
     MarkdownParser
 } from 'prosemirror-markdown';
 import { DOMSerializer, Schema } from 'prosemirror-model';
+import type StateInline from 'markdown-it/lib/rules_inline/state_inline';
 import { anchorTag } from '../../anchor';
 import type { RichTextMentionConfig } from '../../rich-text-mention/base';
 import type { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
@@ -70,65 +71,29 @@ export class RichTextMarkdownParser {
                     'autolink',
                     'mention',
                     (state, _silent) => {
-                        const max = state.posMax;
-                        if (state.src.charCodeAt(state.pos) !== 0x3c /* < */) {
-                            return false;
-                        }
+                        const mentionHref = this.getMentionHref(state);
 
-                        let position = state.pos;
-                        const mentionHrefStartPosition = position + 1;
+                        if (mentionHref && mentionsMap?.size) {
+                            const currentMention = Array.from(mentionsMap.values()).find(mention => mention.validConfiguration && this.validateMentionPattern(mention, mentionHref));
 
-                        for (; position < max; position++) {
-                            if (state.src.charCodeAt(position) === 0x3e /* > */) {
-                                break;
+                            if (currentMention) {
+                                this.viewElement = currentMention.viewElement;
+                                const mentionId = this.extractMentionId(currentMention, mentionHref);
+                                const displayName = this.getDisplayName(mentionHref, currentMention) ?? mentionId;
+
+                                state.pos += mentionHref.length + 2; // Ignoring '<' and '>' characters from the mention URL
+
+                                const token = state.push('mention_open', this.viewElement, 1);
+                                token.attrs = [
+                                    ['mentionHref', mentionHref],
+                                    ['mentionLabel', displayName]
+                                ];
+                                state.push('mention_close', this.viewElement, -1);
+                                return true;
                             }
-                        }
-
-                        if (position === max && state.src.charCodeAt(position) !== 0x3e /* > */) {
                             return false;
                         }
-
-                        const mentionHrefEndPosition = position;
-                        const mentionHref = state.src.slice(
-                            mentionHrefStartPosition,
-                            mentionHrefEndPosition
-                        );
-
-                        if (!mentionsMap?.size) {
-                            return false;
-                        }
-
-                        let currentMention = mentionsMap.entries().next().value as MentionInternals<RichTextMentionConfig>;
-                        let mentionId = '';
-
-                        for (const mention of mentionsMap.values()) {
-                            if (mention.validConfiguration && this.validateMentionPattern(mention, mentionHref)) {
-                                currentMention = mention;
-                                mentionId = this.extractMentionId(mention, mentionHref);
-                                this.viewElement = mention.viewElement;
-                                break;
-                            }
-                        }
-
-                        if (!mentionId) {
-                            return false;
-                        }
-
-                        // If the Href matches the valid pattern and couldn't match with any mapping elements,
-                        // then the mention ID will be displayed
-                        const displayName = this.getDisplayName(mentionHref, currentMention) ?? mentionId;
-
-                        position += 1;
-                        state.pos = position;
-
-                        const token = state.push('mention_open', this.viewElement, 1);
-                        token.attrs = [
-                            ['mentionHref', mentionHref],
-                            ['mentionLabel', displayName]
-                        ];
-
-                        state.push('mention_close', this.viewElement, -1);
-                        return true;
+                        return false;
                     }
                 );
             },
@@ -182,6 +147,29 @@ export class RichTextMarkdownParser {
     private static validateMentionPattern(mention: MentionInternals<RichTextMentionConfig>, mentionHref: string): boolean {
         const regexPattern = new RegExp(mention.pattern ?? '');
         return regexPattern.test(mentionHref);
+    }
+
+    private static getMentionHref(state: StateInline): string | undefined {
+        const max = state.posMax;
+        const openingTag = 0x3c; // '<'
+        const closingTag = 0x3e; // '>'
+        let position: number;
+
+        if (state.src.charCodeAt(state.pos) !== openingTag) {
+            return undefined;
+        }
+
+        position = state.pos + 1;
+
+        while (position < max && state.src.charCodeAt(position) !== closingTag) {
+            position += 1;
+        }
+
+        if (position === max && state.src.charCodeAt(position) !== closingTag) {
+            return undefined;
+        }
+
+        return state.src.slice(state.pos + 1, position);
     }
 
     private static getCustomSchemaConfiguration(): Schema {

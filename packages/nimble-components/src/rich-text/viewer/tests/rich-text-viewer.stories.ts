@@ -50,7 +50,7 @@ const metadata: Meta<RichTextViewerArgs> = {
         }
     },
     args: {
-        markdown: '<user:1>'
+        markdown: richTextMarkdownString
     }
 };
 

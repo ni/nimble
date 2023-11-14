@@ -118,7 +118,9 @@ export class RichTextViewer extends FoundationElement {
                 this.mentionsMap.set(mention.mentionInternals.character, mention.mentionInternals);
             }
         }));
-        this.updateView();
+        if (this.$fastController.isConnected) {
+            this.updateView();
+        }
     }
 
     private updateView(): void {

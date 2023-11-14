@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyFont, bodyFontColor } from '../../theme-provider/design-tokens';
+import { bodyFont, bodyFontColor, linkFontColor } from '../../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
@@ -40,5 +40,12 @@ export const styles = css`
     }
     li > p:empty {
         display: none;
+    }
+
+    ${
+        /* Forcing the font color of the anchor to be in the default link color irrespective of whether it has `href` attribute or not  */ ''
+    }
+    nimble-anchor::part(control) {
+        color: ${linkFontColor};
     }
 `;
