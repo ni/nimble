@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 07 Nov 2023 22:48:12 GMT and should not be manually modified.
+This log was last generated on Mon, 13 Nov 2023 17:03:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.9.4
+
+Mon, 13 Nov 2023 17:03:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.3
+
+## 17.9.3
+
+Sat, 11 Nov 2023 11:03:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.2
+
+## 17.9.2
+
+Wed, 08 Nov 2023 16:07:09 GMT
+
+### Patches
+
+- Add Angular support for the nimble-card component ([ni/nimble@57ee0e9](https://github.com/ni/nimble/commit/57ee0e95855887e10034232f587be2e666c96414))
+- Bump @ni/nimble-components to v20.14.1
 
 ## 17.9.1
 
