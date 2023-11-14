@@ -107,6 +107,12 @@ export class RichTextMentionValidator<
         mentionHrefs: unknown[],
         pattern: string | undefined
     ): void {
+        if (
+            this.getValidationFlags().unsupportedPatternValue
+            || this.getValidationFlags().missingPatternAttribute
+        ) {
+            return;
+        }
         const invalid = this.isInvalidRegex(pattern!)
             ? true
             : mentionHrefs.some(href => {

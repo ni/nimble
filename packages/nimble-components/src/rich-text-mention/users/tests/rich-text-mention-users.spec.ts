@@ -238,20 +238,6 @@ describe('RichTextMentionUsers', () => {
             expect(element.mentionInternals.mentionConfig).toBe(undefined);
         });
 
-        it('is invalid with mismatch pattern', async () => {
-            ({ element, connect, disconnect } = await setup(
-                [
-                    { key: 'user:1', displayName: 'user' },
-                    { key: 'user:2', displayName: 'user' }
-                ],
-                'invalidPattern'
-            ));
-            await connect();
-            expect(element.checkValidity()).toBeFalse();
-            expect(element.validity.unsupportedMentionHrefValue).toBeTrue();
-            expect(element.mentionInternals.mentionConfig).toBe(undefined);
-        });
-
         it('is invalid with invalid mismatching key', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
@@ -290,7 +276,6 @@ describe('RichTextMentionUsers', () => {
             await connect();
             expect(element.checkValidity()).toBeFalse();
             expect(element.validity.unsupportedPatternValue).toBeTrue();
-            expect(element.validity.unsupportedMentionHrefValue).toBeTrue();
             expect(element.mentionInternals.mentionConfig).toBe(undefined);
         });
 
