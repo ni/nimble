@@ -886,7 +886,10 @@ export class Table<
                 this.selectionMode
             );
         }
-        if (this.tableUpdateTracker.requiresTanStackDataReset && !this.tableUpdateTracker.updateRowParentIds) {
+        if (
+            this.tableUpdateTracker.requiresTanStackDataReset
+            && !this.tableUpdateTracker.updateRowParentIds
+        ) {
             if (!this.parentIdFieldName) {
                 // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
                 updatedOptions.data = [...this.table.options.data];
