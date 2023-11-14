@@ -21,7 +21,7 @@ export const template = html<TableCell>`
         --ni-private-table-cell-nesting-level: ${x => x.nestingLevel};
         --ni-private-table-cell-view-padding: ${x => (x.isParentRow && x.isFirstCell && !x.isTopLevelRow ? mediumPadding.getValueFor(x) : '0px')};
     ">
-        ${when(x => x.isParentRow && x.isFirstCell && (x.nestingLevel !== 0 || !x.isTopLevelRow), html<TableCell>`
+        ${when(x => x.isParentRow && x.isFirstCell && !x.isTopLevelRow, html<TableCell>`
             <${buttonTag}
                     appearance="${ButtonAppearance.ghost}"
                     content-hidden
