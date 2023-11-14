@@ -6,6 +6,8 @@ import {
 } from '../../../utilities/tests/storybook';
 import { richTextViewerTag } from '..';
 import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
+import { mappingUserTag } from '../../../mapping/user';
+import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 
 interface RichTextViewerArgs {
     markdown: string;
@@ -32,6 +34,13 @@ const metadata: Meta<RichTextViewerArgs> = {
     <${richTextViewerTag}
         :markdown="${x => x.markdown}"
     >
+        <${richTextMentionUsersTag} pattern="^user:(.*)">
+            <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
+            <${mappingUserTag} key="user:2" display-name="Mary Wilson"></${mappingUserTag}>
+            <${mappingUserTag} key="user:3" display-name="Sue Ann"></${mappingUserTag}>
+            <${mappingUserTag} key="user:4" display-name="Joseph George"></${mappingUserTag}>
+            <${mappingUserTag} key="user:5" display-name="David"></${mappingUserTag}>
+        </${richTextMentionUsersTag}>
     </${richTextViewerTag}>
     `),
     argTypes: {
@@ -41,7 +50,7 @@ const metadata: Meta<RichTextViewerArgs> = {
         }
     },
     args: {
-        markdown: richTextMarkdownString
+        markdown: '<user:1>'
     }
 };
 
