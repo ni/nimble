@@ -6,7 +6,6 @@ import { resolveKeyWithType } from './mapping-key-resolver';
 
 export const enumBaseValidityFlagNames = [
     'invalidMappingKeyValueForType',
-    'unsupportedMappingType',
     'duplicateMappingKey',
     'missingKeyValue'
 ] as const;
@@ -21,8 +20,7 @@ export abstract class TableColumnEnumBaseValidator<
     > {
     public constructor(
         columnInternals: ColumnInternals<unknown>,
-        configValidityKeys: ValidityFlagNames,
-        private readonly supportedMappingElements: readonly (typeof Mapping<unknown>)[]
+        configValidityKeys: ValidityFlagNames
     ) {
         super(columnInternals, configValidityKeys);
     }
@@ -34,7 +32,6 @@ export abstract class TableColumnEnumBaseValidator<
         this.untrackAll();
         const keys = mappings.map(mapping => mapping.key);
         this.validateKeyValuesForType(keys, keyType);
-        this.validateMappingTypes(mappings);
         this.validateUniqueKeys(keys, keyType);
         this.validateNoMissingKeys(mappings);
     }
@@ -51,13 +48,6 @@ export abstract class TableColumnEnumBaseValidator<
                 && resolveKeyWithType(key, keyType) === undefined
         );
         this.setConditionValue('invalidMappingKeyValueForType', invalid);
-    }
-
-    private validateMappingTypes(mappings: Mapping<unknown>[]): void {
-        const valid = mappings.every(mapping => this.supportedMappingElements.some(
-            mappingClass => mapping instanceof mappingClass
-        ));
-        this.setConditionValue('unsupportedMappingType', !valid);
     }
 
     private validateUniqueKeys(keys: unknown[], keyType: MappingKeyType): void {
