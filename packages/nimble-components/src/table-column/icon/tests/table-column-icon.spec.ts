@@ -15,6 +15,7 @@ import type { MappingKey } from '../../../mapping/base/types';
 import { IconSeverity } from '../../../icon-base/types';
 import { MappingKeyType } from '../../enum-base/types';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
+import { spinnerTag } from '../../../spinner';
 
 interface SimpleTableRecord extends TableRecord {
     field1?: MappingKey | undefined;
@@ -121,6 +122,28 @@ describe('TableColumnIcon', () => {
                 expect(
                     pageObject.getRenderedIconColumnCellIconTagName(0, 0)
                 ).toBe(iconXmarkTag);
+            });
+        }
+
+        for (const test of dataTypeTests) {
+            const specType = getSpecTypeByNamedList(test, focused, disabled);
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(`displays spinner mapped from ${test.name}`, async () => {
+                ({ element, connect, disconnect, model } = await setup(
+                    {
+                        keyType: test.name,
+                        iconMappings: [],
+                        spinnerMappings: [{ key: test.key, text: 'alpha' }]
+                    }
+                ));
+                pageObject = new TablePageObject<SimpleTableRecord>(element);
+                await element.setData([{ field1: test.key }]);
+                await connect();
+                await waitForUpdatesAsync();
+
+                expect(
+                    pageObject.getRenderedIconColumnCellIconTagName(0, 0)
+                ).toBe(spinnerTag);
             });
         }
     });
@@ -502,7 +525,7 @@ describe('TableColumnIcon', () => {
             expect(model.col1.validity.missingKeyValue).toBeTrue();
         });
 
-        it('is invalid with missing text value', async () => {
+        it('is invalid with missing icon text value', async () => {
             ({ element, connect, disconnect, model } = await setup({
                 keyType: MappingKeyType.string,
                 iconMappings: [
@@ -542,6 +565,18 @@ describe('TableColumnIcon', () => {
             await waitForUpdatesAsync();
             expect(model.col1.checkValidity()).toBeFalse();
             expect(model.col1.validity.invalidIconName).toBeTrue();
+        });
+
+        it('is invalid with missing spinner text value', async () => {
+            ({ element, connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.string,
+                iconMappings: [],
+                spinnerMappings: [{ key: 'a' }]
+            }));
+            await connect();
+            await waitForUpdatesAsync();
+            expect(model.col1.checkValidity()).toBeFalse();
+            expect(model.col1.validity.missingTextValue).toBeTrue();
         });
     });
 });
