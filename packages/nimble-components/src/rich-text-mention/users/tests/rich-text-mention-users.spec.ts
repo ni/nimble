@@ -5,12 +5,28 @@ import { MappingUser, mappingUserTag } from '../../../mapping/user';
 import { mappingTextTag } from '../../../mapping/text';
 import { Fixture, fixture } from '../../../utilities/tests/fixture';
 import { iconAtTag } from '../../../icons/at';
-import { MappingUserConfig } from '../../base/models/mapping-user-config';
-import type { MappingConfigs } from '../../base';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 interface BasicUserMentionMapping {
     key?: MappingUserKey;
     displayName?: string;
+}
+
+async function setUserMappingElements(
+    element: RichTextMentionUsers,
+    mappings: BasicUserMentionMapping[]
+): Promise<void> {
+    const newUserMappingElements: MappingUser[] = [];
+    mappings.forEach(mapping => {
+        const mappingUser = document.createElement(
+            mappingUserTag
+        ) as MappingUser;
+        mappingUser.key = mapping.key ?? '';
+        mappingUser.displayName = mapping.displayName ?? '';
+        newUserMappingElements.push(mappingUser);
+    });
+    element.replaceChildren(...newUserMappingElements);
+    await waitForUpdatesAsync();
 }
 
 describe('RichTextMentionUsers', () => {
@@ -32,30 +48,6 @@ describe('RichTextMentionUsers', () => {
                     </${mappingUserTag}>
                 `)}
             </${richTextMentionUsersTag}>`);
-    }
-
-    function getUserMappingElements(
-        mappings: BasicUserMentionMapping[]
-    ): MappingUser[] {
-        return mappings.map(mapping => {
-            const mappingUser = new MappingUser();
-            mappingUser.displayName = mapping.displayName;
-            mappingUser.key = mapping.key;
-            return mappingUser;
-        });
-    }
-
-    function getMappingConfig(
-        mappings: BasicUserMentionMapping[]
-    ): MappingConfigs {
-        const mappingConfig = new Map();
-        mappings.forEach(mapping => {
-            mappingConfig.set(
-                mapping.key,
-                new MappingUserConfig(mapping.key, mapping.displayName)
-            );
-        });
-        return mappingConfig;
     }
 
     afterEach(async () => {
@@ -95,35 +87,32 @@ describe('RichTextMentionUsers', () => {
         ];
         ({ element, connect, disconnect } = await setup(mappingData, 'user:'));
         await connect();
-        const mappingConfig = getMappingConfig(mappingData);
-        expect(element.mentionInternals.mentionConfig?.mappingConfigs).toEqual(
-            mappingConfig
-        );
+        const mappingConfigs = element.mentionInternals.mentionConfig!.mappingConfigs;
+        expect(mappingConfigs?.size).toEqual(2);
+        expect(Array.from(mappingConfigs.keys())).toEqual(['user:1', 'user:2']);
+        expect(mappingConfigs.get('user:1')?.displayName).toEqual('user');
+        expect(mappingConfigs.get('user:2')?.displayName).toEqual('user');
+        expect(mappingConfigs.get('user:1')?.mentionHref).toEqual('user:1');
+        expect(mappingConfigs.get('user:2')?.mentionHref).toEqual('user:2');
     });
 
     it('should update mappingConfigs when mapping elements changed', async () => {
-        const mappingData = [
-            { key: 'user:1', displayName: 'user' },
-            { key: 'user:2', displayName: 'user' }
-        ];
+        const mappingData = [{ key: 'user:1', displayName: 'user' }];
         ({ element, connect, disconnect } = await setup(mappingData, 'user:'));
         await connect();
-        let mappingConfig = getMappingConfig(mappingData);
+        let mappingConfigs = element.mentionInternals.mentionConfig!.mappingConfigs;
+        expect(mappingConfigs?.size).toEqual(1);
+        expect(Array.from(mappingConfigs.keys())).toEqual(['user:1']);
+        expect(mappingConfigs.get('user:1')?.displayName).toEqual('user');
+        expect(mappingConfigs.get('user:1')?.mentionHref).toEqual('user:1');
 
-        expect(element.mentionInternals.mentionConfig?.mappingConfigs).toEqual(
-            mappingConfig
-        );
-
-        const newMappingData = [
-            { key: 'user:3', displayName: 'user' },
-            { key: 'user:4', displayName: 'user' }
-        ];
-        element.mappings = getUserMappingElements(newMappingData);
-        mappingConfig = getMappingConfig(newMappingData);
-
-        expect(element.mentionInternals.mentionConfig?.mappingConfigs).toEqual(
-            mappingConfig
-        );
+        const newMappingData = [{ key: 'user:3', displayName: 'user-3' }];
+        await setUserMappingElements(element, newMappingData);
+        mappingConfigs = element.mentionInternals.mentionConfig!.mappingConfigs;
+        expect(mappingConfigs?.size).toEqual(1);
+        expect(Array.from(mappingConfigs.keys())).toEqual(['user:3']);
+        expect(mappingConfigs.get('user:3')?.displayName).toEqual('user-3');
+        expect(mappingConfigs.get('user:3')?.mentionHref).toEqual('user:3');
     });
 
     it('should have empty Map as mappingConfigs when there is no mappings', async () => {
@@ -135,42 +124,36 @@ describe('RichTextMentionUsers', () => {
         );
     });
 
-    it('Should have undefined mentionConfig when an invalid pattern is assigned', async () => {
-        const mappingData = [
-            { key: 'user:1', displayName: 'user' },
-            { key: 'user:2', displayName: 'user' }
-        ];
+    it('should have undefined mentionConfig when an invalid pattern is assigned', async () => {
+        const mappingData = [{ key: 'user:1', displayName: 'user' }];
         ({ element, connect, disconnect } = await setup(
             mappingData,
             'user:.*'
         ));
         await connect();
-        const mappingConfig = getMappingConfig(mappingData);
-        expect(element.mentionInternals.mentionConfig?.mappingConfigs).toEqual(
-            mappingConfig
-        );
+        const mappingConfigs = element.mentionInternals.mentionConfig!.mappingConfigs;
+        expect(mappingConfigs?.size).toEqual(1);
+        expect(Array.from(mappingConfigs.keys())).toEqual(['user:1']);
+        expect(mappingConfigs.get('user:1')?.displayName).toEqual('user');
+        expect(mappingConfigs.get('user:1')?.mentionHref).toEqual('user:1');
         element.pattern = 'invalid_pattern';
         expect(element.mentionInternals.mentionConfig).toEqual(undefined);
     });
 
     it('should have undefined mentionConfig when mapping elements with mismatch key (href) changed', async () => {
-        const mappingData = [
-            { key: 'user:1', displayName: 'user' },
-            { key: 'user:2', displayName: 'user' }
-        ];
+        const mappingData = [{ key: 'user:1', displayName: 'user' }];
         ({ element, connect, disconnect } = await setup(mappingData, 'user:'));
         await connect();
-        const mappingConfig = getMappingConfig(mappingData);
-
-        expect(element.mentionInternals.mentionConfig?.mappingConfigs).toEqual(
-            mappingConfig
-        );
-
+        const mappingConfigs = element.mentionInternals.mentionConfig!.mappingConfigs;
+        expect(mappingConfigs?.size).toEqual(1);
+        expect(Array.from(mappingConfigs.keys())).toEqual(['user:1']);
+        expect(mappingConfigs.get('user:1')?.displayName).toEqual('user');
+        expect(mappingConfigs.get('user:1')?.mentionHref).toEqual('user:1');
         const newMappingData = [
             { key: 'invalid_userkey', displayName: 'user' },
             { key: 'user:4', displayName: 'user' }
         ];
-        element.mappings = getUserMappingElements(newMappingData);
+        await setUserMappingElements(element, newMappingData);
         expect(element.mentionInternals.mentionConfig).toEqual(undefined);
     });
 
