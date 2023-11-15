@@ -104,7 +104,6 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     private handleVirtualizerChange(): void {
         this.notifyFocusedCellRecycling();
         const virtualizer = this.virtualizer!;
-        this.visibleItems = [];
         this.visibleItems = virtualizer.getVirtualItems();
         this.scrollHeight = virtualizer.getTotalSize();
         // We're using a separate div ('table-scroll') to represent the full height of all rows, and
