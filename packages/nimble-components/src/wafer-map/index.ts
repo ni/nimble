@@ -190,12 +190,10 @@ export class WaferMap extends FoundationElement {
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
             this.waferMapValidator.validateGridDimensions();
-            if (
-                this.waferMapUpdateTracker.requiresDiesPreparationUpdate
-            ) {
-                this.matrixRenderer.prepareDies();
-            } else if (this.waferMapUpdateTracker.requiresMatrixUpdate) {
+            if (this.waferMapUpdateTracker.requiresMatrixUpdate) {
                 this.matrixRenderer.renderMatrix();
+            } else if (this.waferMapUpdateTracker.requiresRerenderUpdate) {
+                this.matrixRenderer.rerenderMatrix();
             }
             // if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
             //     this.dataManager.updateContainerDimensions();

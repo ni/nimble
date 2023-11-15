@@ -71,7 +71,8 @@ export class HoverHandler {
         return {
             x: dieCoordinates.x,
             y: dieCoordinates.y,
-            value: `${diesRow.values[yIndex]!}`
+            value: `${diesRow.values[yIndex]!}`,
+            metadata: diesRow.metadata?.[yIndex]
         };
     }
 }

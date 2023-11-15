@@ -22,11 +22,10 @@ export class MatrixRenderer {
     };
 
     private canvasSet = false;
-    private matrixSent: { [key: number]: boolean } = {};
 
     private readonly workerCode = `
     ${RenderWorker.toString()}
-    const renderWorker = new RenderWorker();
+    const renderWorker = new ${RenderWorker.name}();
     self.onmessage = function(e) {
         if (renderWorker[e.data.method] !== undefined) {
             renderWorker[e.data.method](e.data);
@@ -68,7 +67,142 @@ export class MatrixRenderer {
         return this._margin;
     }
 
-    public prepareDies(): void {
+    public renderMatrix(): void {
+        this.restoreContext();
+        this.saveContext();
+        this.clearCanvas();
+        this.scaleCanvas();
+        this.prepareDies();
+        this.renderDiesFromMatrix();
+        this.rerenderText();
+        this.renderHover();
+    }
+
+    public rerenderMatrix(): void {
+        this.restoreContext();
+        this.saveContext();
+        this.clearCanvas();
+        this.scaleCanvas();
+        this.rerenderDies();
+        this.rerenderText();
+        this.renderHover();
+    }
+
+    public renderHover(): void {
+        this.wafermap.hoverWidth = this._dieDimensions.width
+            * this.wafermap.transform.k;
+        this.wafermap.hoverHeight = this._dieDimensions.height
+            * this.wafermap.transform.k;
+        this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
+            ? HoverDieOpacity.hide
+            : HoverDieOpacity.show;
+        this.wafermap.hoverTransform = this.calculateHoverTransform();
+    }
+
+    public setCanvasDimensions(width: number, height: number): void {
+        if (this.canvasSet) {
+            this.worker.postMessage(
+                {
+                    method: 'setCanvasDimensions',
+                    width,
+                    height
+                }
+            );
+        }
+    }
+
+    public setCanvas(): void {
+        if (!this.canvasSet) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+            const offscreen = this.wafermap.canvas.transferControlToOffscreen();
+            this.worker.postMessage(
+                {
+                    method: 'setCanvas',
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                    canvas: offscreen
+                },
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                [offscreen]
+            );
+            this.canvasSet = true;
+        }
+    }
+
+    private rerenderDies(): void {
+        if (this.canvasSet) {
+            this.worker.postMessage(
+                {
+                    method: 'rerenderDies',
+                }
+            );
+        }
+    }
+
+    private rerenderText(): void {
+        if (this.canvasSet) {
+            this.worker.postMessage(
+                {
+                    method: 'rerenderText'
+                }
+            );
+        }
+    }
+
+    private clearCanvas(): void {
+        if (this.canvasSet) {
+            this.worker.postMessage(
+                {
+                    method: 'clearCanvas',
+                }
+            );
+        }
+    }
+
+    private calculateHoverTransform(): string {
+        if (this.wafermap.hoverDie !== undefined) {
+            const scaledX = this._horizontalScale.a + this._horizontalScale.b * this.wafermap.hoverDie.x;
+            const scaledY = this._verticalScale.a + this._verticalScale.b * this.wafermap.hoverDie.y;
+            const transformedPoint = this.wafermap.transform.apply([
+                scaledX + this._margin.left,
+                scaledY + this._margin.top
+            ]);
+            return `translate(${transformedPoint[0]}, ${transformedPoint[1]})`;
+        }
+        return '';
+    }
+
+    private scaleCanvas(): void {
+        if (this.canvasSet) {
+            this.worker.postMessage(
+                {
+                    method: 'scaleCanvas',
+                    transform: this.wafermap.transform
+                }
+            );
+        }
+    }
+
+    private saveContext(): void {
+        if (this.canvasSet) {
+            this.worker.postMessage(
+                {
+                    method: 'saveContext'
+                }
+            );
+        }
+    }
+
+    private restoreContext(): void {
+        if (this.canvasSet) {
+            this.worker.postMessage(
+                {
+                    method: 'restoreContext'
+                }
+            );
+        }
+    }
+
+    private prepareDies(): void {
         const canvasDimensions = {
             width: this.wafermap.canvasWidth,
             height: this.wafermap.canvasHeight
@@ -175,110 +309,6 @@ export class MatrixRenderer {
             width: Math.abs(this._horizontalScale.b),
             height: Math.abs(this._verticalScale.b)
         };
-        this.renderMatrix();
-    }
-
-    public renderMatrix(): void {
-        this.restoreContext();
-        this.saveContext();
-        this.clearCanvas();
-        this.scaleCanvas();
-        this.renderDiesFromMatrix();
-        this.renderHover();
-    }
-
-    public renderHover(): void {
-        this.wafermap.hoverWidth = this._dieDimensions.width
-            * this.wafermap.transform.k;
-        this.wafermap.hoverHeight = this._dieDimensions.height
-            * this.wafermap.transform.k;
-        this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
-            ? HoverDieOpacity.hide
-            : HoverDieOpacity.show;
-        this.wafermap.hoverTransform = this.calculateHoverTransform();
-    }
-
-    public setCanvasDimensions(width: number, height: number): void {
-        if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'setCanvasDimensions',
-                    width,
-                    height
-                }
-            );
-        }
-    }
-
-    public setCanvas(): void {
-        if (!this.canvasSet) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-            const offscreen = this.wafermap.canvas.transferControlToOffscreen();
-            this.worker.postMessage(
-                {
-                    method: 'setCanvas',
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                    canvas: offscreen
-                },
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                [offscreen]
-            );
-            this.canvasSet = true;
-        }
-    }
-
-    private clearCanvas(): void {
-        if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'clearCanvas',
-                }
-            );
-        }
-    }
-
-    private calculateHoverTransform(): string {
-        if (this.wafermap.hoverDie !== undefined) {
-            const scaledX = this._horizontalScale.a + this._horizontalScale.b * this.wafermap.hoverDie.x;
-            const scaledY = this._verticalScale.a + this._verticalScale.b * this.wafermap.hoverDie.y;
-            const transformedPoint = this.wafermap.transform.apply([
-                scaledX + this._margin.left,
-                scaledY + this._margin.top
-            ]);
-            return `translate(${transformedPoint[0]}, ${transformedPoint[1]})`;
-        }
-        return '';
-    }
-
-    private scaleCanvas(): void {
-        if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'scaleCanvas',
-                    transform: this.wafermap.transform
-                }
-            );
-        }
-    }
-
-    private saveContext(): void {
-        if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'saveContext'
-                }
-            );
-        }
-    }
-
-    private restoreContext(): void {
-        if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'restoreContext'
-                }
-            );
-        }
     }
 
     private renderDiesFromMatrix(): void {
@@ -296,13 +326,23 @@ export class MatrixRenderer {
                 method: 'updateRenderConfig',
                 margin: this._margin,
                 verticalScale: this._verticalScale,
+                horizontalScale: this._horizontalScale,
                 dieDimensions: this._dieDimensions,
                 colorCategories: this.wafermap.colorCategories,
                 transform: this.wafermap.transform,
-                limits: {
+                yLimits: {
                     min: transformedCanvasMinPoint[1],
                     max: transformedCanvasMaxPoint[1]
+                },
+                xLimits: {
+                    min: transformedCanvasMinPoint[0],
+                    max: transformedCanvasMaxPoint[0]
                 }
+            }
+        );
+        this.worker.postMessage(
+            {
+                method: 'emptyMatrix'
             }
         );
         const dieMatrix = this.wafermap.dieMatrix;
@@ -316,27 +356,16 @@ export class MatrixRenderer {
                 yIndexes.set(diesRow.yIndexes);
                 const values = new Float32Array(diesRow.values.length);
                 values.set(diesRow.values);
-                if (this.matrixSent[diesRow.xIndex] === undefined) {
-                    this.worker.postMessage(
-                        {
-                            method: 'render',
-                            xIndex: diesRow.xIndex,
-                            scaledX,
-                            yBuffer: yIndexes,
-                            valueBuffer: values
-                        },
-                        [yIndexes.buffer, values.buffer]
-                    );
-                    this.matrixSent[diesRow.xIndex] = true;
-                } else {
-                    this.worker.postMessage(
-                        {
-                            method: 'render',
-                            xIndex: diesRow.xIndex,
-                            scaledX,
-                        },
-                    );
-                }
+                this.worker.postMessage(
+                    {
+                        method: 'renderDies',
+                        xIndex: diesRow.xIndex,
+                        scaledX,
+                        yBuffer: yIndexes,
+                        valueBuffer: values
+                    },
+                    [yIndexes.buffer, values.buffer]
+                );
             }
         }
     }

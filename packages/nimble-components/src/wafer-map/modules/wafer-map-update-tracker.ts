@@ -68,20 +68,24 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         );
     }
 
-    public get requiresDiesPreparationUpdate(): boolean {
+    public get requiresMatrixUpdate(): boolean {
         return (
-            this.isTracked('dieMatrix')
+            this.isTracked('canvasWidth')
+            || this.isTracked('canvasHeight')
+            || this.isTracked('originLocation')
             || this.isTracked('gridMinX')
             || this.isTracked('gridMaxX')
             || this.isTracked('gridMinY')
             || this.isTracked('gridMaxY')
-            || this.isTracked('canvasWidth')
-            || this.isTracked('canvasHeight')
+            || this.isTracked('dieMatrix')
+            || this.isTracked('dieMatrix')
+            || this.isTracked('maxCharacters')
+            || this.isTracked('colorScale')
+            || this.isTracked('colorScaleMode')
+            || this.isTracked('highlightedValues')
+            || this.isTracked('dieLabelsHidden')
+            || this.isTracked('dieLabelsSuffix')
         );
-    }
-
-    public get requiresMatrixUpdate(): boolean {
-        return this.isTracked('transform');
     }
 
     public get requiresLabelsFontSizeUpdate(): boolean {
@@ -98,7 +102,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         );
     }
 
-    public get requiresDrawnWaferUpdate(): boolean {
+    public get requiresRerenderUpdate(): boolean {
         return this.isTracked('transform');
     }
 

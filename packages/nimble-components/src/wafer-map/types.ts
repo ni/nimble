@@ -46,6 +46,7 @@ export interface WaferMapRow {
     xIndex: number;
     yIndexes: Int32Array;
     values: Float32Array;
+    metadata?: unknown[];
 }
 
 export interface WaferMapColorScale {
