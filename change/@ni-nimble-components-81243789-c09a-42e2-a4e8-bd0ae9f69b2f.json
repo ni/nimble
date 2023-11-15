@@ -1,6 +1,6 @@
 {
   "type": "none",
-  "comment": "Update serializer test cases",
+  "comment": "Update rich text component serializer test cases",
   "packageName": "@ni/nimble-components",
   "email": "123377167+aagash-ni@users.noreply.github.com",
   "dependentChangeType": "none"
