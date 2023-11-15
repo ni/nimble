@@ -10,7 +10,7 @@ import {
 } from '@tanstack/virtual-core';
 import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
-import type { TableRecord } from '../types';
+import type { InternalTableRecord, TableRecord } from '../types';
 import { TableCellView } from '../../table-column/base/cell-view';
 
 /**
@@ -32,13 +32,13 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public rowContainerYOffset = 0;
 
     private readonly table: Table<TData>;
-    private readonly tanStackTable: TanStackTable<TData>;
+    private readonly tanStackTable: TanStackTable<InternalTableRecord<TData>>;
     private readonly viewportResizeObserver: ResizeObserver;
     private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
 
     public constructor(
         table: Table<TData>,
-        tanStackTable: TanStackTable<TData>
+        tanStackTable: TanStackTable<InternalTableRecord<TData>>
     ) {
         this.table = table;
         this.tanStackTable = tanStackTable;
@@ -104,6 +104,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     private handleVirtualizerChange(): void {
         this.notifyFocusedCellRecycling();
         const virtualizer = this.virtualizer!;
+        this.visibleItems = [];
         this.visibleItems = virtualizer.getVirtualItems();
         this.scrollHeight = virtualizer.getTotalSize();
         // We're using a separate div ('table-scroll') to represent the full height of all rows, and

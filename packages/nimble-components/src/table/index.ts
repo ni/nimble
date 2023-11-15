@@ -34,6 +34,7 @@ import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import {
+    InternalTableRecord,
     TableActionMenuToggleEventDetail,
     TableColumnConfigurationChangeEventDetail,
     TableColumnSortDirection,
@@ -211,8 +212,8 @@ export class Table<
     @observable
     public documentShiftKeyDown = false;
 
-    private readonly table: TanStackTable<TData>;
-    private options: TanStackTableOptionsResolved<TData>;
+    private readonly table: TanStackTable<InternalTableRecord<TData>>;
+    private options: TanStackTableOptionsResolved<InternalTableRecord<TData>>;
     private readonly tableValidator = new TableValidator();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
     private readonly selectionManager: InteractiveSelectionManager<TData>;
@@ -267,9 +268,11 @@ export class Table<
         await this.processPendingUpdates();
 
         const data = newData.map(record => {
-            return { ...record };
+            return { data: { ...record } } as InternalTableRecord<TData>;
         });
-        const tanStackUpdates: Partial<TanStackTableOptionsResolved<TData>> = {
+        const tanStackUpdates: Partial<
+        TanStackTableOptionsResolved<InternalTableRecord<TData>>
+        > = {
             data
         };
         this.validateWithData(data);
@@ -732,7 +735,9 @@ export class Table<
     }
 
     private updateTanStack(): void {
-        const updatedOptions: Partial<TanStackTableOptionsResolved<TData>> = {};
+        const updatedOptions: Partial<
+        TanStackTableOptionsResolved<InternalTableRecord<TData>>
+        > = {};
         updatedOptions.state = {};
 
         if (this.tableUpdateTracker.updateColumnSort) {
@@ -799,7 +804,7 @@ export class Table<
         this.validateWithData(this.table.options.data);
     }
 
-    private validateWithData(data: TableRecord[]): void {
+    private validateWithData(data: InternalTableRecord[]): void {
         this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
     }
@@ -851,7 +856,7 @@ export class Table<
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
             const rowState: TableRowState<TData> = {
-                record: row.original,
+                record: row.original.data,
                 id: row.id,
                 selectionState: this.getRowSelectionState(row),
                 isGrouped: row.getIsGrouped(),
@@ -882,7 +887,7 @@ export class Table<
     }
 
     private getRowSelectionState(
-        row: TanStackRow<TData>
+        row: TanStackRow<InternalTableRecord<TData>>
     ): TableRowSelectionState {
         if (row.getIsGrouped()) {
             return this.getGroupedRowSelectionState(row);
@@ -894,7 +899,7 @@ export class Table<
     }
 
     private getGroupedRowSelectionState(
-        groupedRow: TanStackRow<TData>
+        groupedRow: TanStackRow<InternalTableRecord<TData>>
     ): TableRowSelectionState {
         const subRows = groupedRow.subRows ?? [];
         let foundSelectedRow = false;
@@ -929,7 +934,7 @@ export class Table<
     }
 
     private getGroupRowColumn(
-        row: TanStackRow<TData>
+        row: TanStackRow<InternalTableRecord<TData>>
     ): TableColumn | undefined {
         const groupedId = row.groupingColumnId;
         if (groupedId !== undefined) {
@@ -942,7 +947,9 @@ export class Table<
     }
 
     private updateTableOptions(
-        updatedOptions: Partial<TanStackTableOptionsResolved<TData>>
+        updatedOptions: Partial<
+        TanStackTableOptionsResolved<InternalTableRecord<TData>>
+        >
     ): void {
         this.options = {
             ...this.options,
@@ -953,7 +960,9 @@ export class Table<
         this.refreshRows();
     }
 
-    private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {
+    private readonly getIsRowExpanded = (
+        row: TanStackRow<InternalTableRecord<TData>>
+    ): boolean => {
         if (!row.getIsGrouped()) {
             return false;
         }
@@ -1036,26 +1045,30 @@ export class Table<
 
     private calculateTanStackRowIdFunction():
     | ((
-        originalRow: TData,
+        originalRow: InternalTableRecord<TData>,
         index: number,
-        parent?: TanStackRow<TData>
+        parent?: TanStackRow<InternalTableRecord<TData>>
     ) => string)
     | undefined {
         return this.idFieldName === null || this.idFieldName === undefined
             ? undefined
-            : (record: TData) => record[this.idFieldName!] as string;
+            : (record: InternalTableRecord<TData>) => record.data[this.idFieldName!] as string;
     }
 
-    private calculateTanStackColumns(): TanStackColumnDef<TData>[] {
+    private calculateTanStackColumns(): TanStackColumnDef<
+    InternalTableRecord<TData>
+    >[] {
         return this.columns.map(column => {
             return {
                 id: column.columnInternals.uniqueId,
-                accessorFn: (data: TData): TableFieldValue => {
+                accessorFn: (
+                    record: InternalTableRecord<TData>
+                ): TableFieldValue => {
                     const fieldName = column.columnInternals.operandDataRecordFieldName;
                     if (typeof fieldName !== 'string') {
                         return undefined;
                     }
-                    return data[fieldName];
+                    return record.data[fieldName];
                 },
                 sortingFn: getTanStackSortingFunction(
                     column.columnInternals.sortOperation

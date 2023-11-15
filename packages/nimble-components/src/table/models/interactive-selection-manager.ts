@@ -1,5 +1,10 @@
 import type { Table as TanStackTable } from '@tanstack/table-core';
-import { TableRecord, TableRowState, TableRowSelectionMode } from '../types';
+import {
+    TableRecord,
+    TableRowState,
+    TableRowSelectionMode,
+    InternalTableRecord
+} from '../types';
 import type { SelectionManagerBase } from './selection-managers/selection-manager-base';
 import { DisabledSelectionManager } from './selection-managers/disabled-selection-manager';
 import { MultiSelectionManager } from './selection-managers/multi-selection-manager';
@@ -10,11 +15,11 @@ import { SingleSelectionManager } from './selection-managers/single-selection-ma
  * handling when the selection mode of the table is changed.
  */
 export class InteractiveSelectionManager<TData extends TableRecord> {
-    private readonly tanStackTable: TanStackTable<TData>;
+    private readonly tanStackTable: TanStackTable<InternalTableRecord<TData>>;
     private selectionManager: SelectionManagerBase<TData>;
 
     public constructor(
-        tanStackTable: TanStackTable<TData>,
+        tanStackTable: TanStackTable<InternalTableRecord<TData>>,
         selectionMode: TableRowSelectionMode
     ) {
         this.tanStackTable = tanStackTable;

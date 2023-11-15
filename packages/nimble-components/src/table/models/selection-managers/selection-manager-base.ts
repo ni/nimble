@@ -4,6 +4,7 @@ import type {
     RowSelectionState as TanStackRowSelectionState
 } from '@tanstack/table-core';
 import {
+    InternalTableRecord,
     TableRecord,
     TableRowSelectionState,
     TableRowState
@@ -13,9 +14,11 @@ import {
  * Abstract base class for handling behavior associated with interactive row selection of the table.
  */
 export abstract class SelectionManagerBase<TData extends TableRecord> {
-    protected tanStackTable: TanStackTable<TData>;
+    protected tanStackTable: TanStackTable<InternalTableRecord<TData>>;
 
-    public constructor(tanStackTable: TanStackTable<TData>) {
+    public constructor(
+        tanStackTable: TanStackTable<InternalTableRecord<TData>>
+    ) {
         this.tanStackTable = tanStackTable;
     }
 
@@ -104,15 +107,15 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
             .map(leafRow => leafRow.id);
     }
 
-    protected getAllOrderedRows(): TanStackRow<TData>[] {
+    protected getAllOrderedRows(): TanStackRow<InternalTableRecord<TData>>[] {
         const topLevelRows = this.tanStackTable.getPreExpandedRowModel().rows;
         return this.getOrderedRows(topLevelRows);
     }
 
     private getOrderedRows(
-        topLevelRows: TanStackRow<TData>[]
-    ): TanStackRow<TData>[] {
-        const allRows: TanStackRow<TData>[] = [];
+        topLevelRows: TanStackRow<InternalTableRecord<TData>>[]
+    ): TanStackRow<InternalTableRecord<TData>>[] {
+        const allRows: TanStackRow<InternalTableRecord<TData>>[] = [];
         for (const row of topLevelRows) {
             allRows.push(row);
             if (row.subRows?.length) {
