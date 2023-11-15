@@ -1016,6 +1016,32 @@ describe('Markdown parser', () => {
             );
         });
 
+        it('should render anchor element when username not found and the pattern does not have a grouping regex', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ],
+                '^user:.*'
+            ));
+            await connect();
+            mentionsMap.set(
+                element.mentionInternals.character,
+                element.mentionInternals
+            );
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1234-5678>',
+                mentionsMap
+            );
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
+            expect(getLeafContentsFromElement(doc)).toEqual(['user:1234-5678']);
+        });
+
         it('should show username along with other texts', async () => {
             ({ element, connect, disconnect } = await setup(
                 [

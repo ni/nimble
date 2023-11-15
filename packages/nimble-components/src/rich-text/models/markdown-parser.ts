@@ -95,10 +95,16 @@ export class RichTextMarkdownParser {
                                 mentionHref,
                                 currentMention
                             );
-                            const displayName = this.getDisplayName(
+
+                            let displayName = this.getDisplayName(
                                 mentionHref,
                                 currentMention
-                            ) ?? mentionId;
+                            );
+
+                            if (!displayName && !mentionId) {
+                                return false;
+                            }
+                            displayName = displayName ?? mentionId;
 
                             state.pos += mentionHref.length + 2; // Ignoring '<' and '>' characters from the mention URL
 

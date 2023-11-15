@@ -17,7 +17,6 @@ const richTextViewerDescription = 'The rich text viewer component allows users t
 
 const metadata: Meta<RichTextViewerArgs> = {
     title: 'Incubating/Rich Text Viewer',
-    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
