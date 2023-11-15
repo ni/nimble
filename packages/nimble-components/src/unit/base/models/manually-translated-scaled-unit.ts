@@ -26,7 +26,7 @@ export class ManuallyTranslatedScaledUnit extends ScaledUnit {
         // of the unit. E.g. in English, it formats "1 byte" vs "1.0 bytes". Thus there is
         // sometimes an inconsistency between unit pluralization for the same number, based
         // on whether it's supported by NumberFormat, or manually translated.
-        const unitLabel = this.pluralRules.select(value) === 'one'
+        const unitLabel = this.pluralRules.select(Number(formatted)) === 'one'
             ? this.singularUnitLabel
             : this.unitLabel;
         return `${formatted} ${unitLabel}`;

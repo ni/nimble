@@ -36,7 +36,7 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
     }
 
     public getScaledValue(number: number): number {
-        const unit = this.pickBestUnit(number);
+        const unit = this.pickBestScaledUnit(number);
         return number / unit.scaleFactor;
     }
 
@@ -46,7 +46,7 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
     ): ScaledUnit[];
 
     protected override format(number: number): string {
-        const unit = this.pickBestUnit(number);
+        const unit = this.pickBestScaledUnit(number);
         return unit.format(number / unit.scaleFactor);
     }
 
@@ -57,7 +57,7 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
     // formatted with an unexpected unit. Examples:
     // - 999 bytes with two significant digits => "1000 bytes" (instead of "1 kB")
     // - 0.00000000000000001 volts (= 0.01 fV) with one fractional digit => "0 fV" (instead of "0 volts")
-    private pickBestUnit(number: number): ScaledUnit {
+    private pickBestScaledUnit(number: number): ScaledUnit {
         const magnitude = Math.abs(number);
         if (
             this.supportedScaledUnits.length === 1 // must be baseScaledUnit
