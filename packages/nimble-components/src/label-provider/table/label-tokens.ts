@@ -11,6 +11,16 @@ export const tableGroupExpandLabel = DesignToken.create<string>({
     cssCustomPropertyName: null
 }).withDefault(tableLabelDefaults.tableGroupExpandLabel);
 
+export const tableRowCollapseLabel = DesignToken.create<string>({
+    name: 'table-row-collapse-label',
+    cssCustomPropertyName: null
+}).withDefault(tableLabelDefaults.tableRowCollapseLabel);
+
+export const tableRowExpandLabel = DesignToken.create<string>({
+    name: 'table-row-expand-label',
+    cssCustomPropertyName: null
+}).withDefault(tableLabelDefaults.tableRowExpandLabel);
+
 export const tableGroupsCollapseAllLabel = DesignToken.create<string>({
     name: 'table-groups-collapse-all-label',
     cssCustomPropertyName: null

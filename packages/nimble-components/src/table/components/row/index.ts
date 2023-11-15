@@ -83,6 +83,9 @@ export class TableRow<
     @observable
     public isTopLevelRow = false;
 
+    @attr({ attribute: 'table-has-data-hierarchy', mode: 'boolean' })
+    public tableHasDataHierarchy = false;
+
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
 
@@ -270,10 +273,14 @@ export class TableRow<
         this.updateCellIndentLevels();
     }
 
+    private tableHasDataHierarchyChanged(): void {
+        this.updateCellIndentLevels();
+    }
+
     private updateCellIndentLevels(): void {
         this.cellIndentLevels = this.columns.map((_, i) => {
             if (i === 0 && this.nestingLevel > 0) {
-                return this.isParentRow
+                return this.isParentRow || !this.tableHasDataHierarchy
                     ? this.nestingLevel - 1
                     : this.nestingLevel;
             }

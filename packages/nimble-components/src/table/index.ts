@@ -142,6 +142,9 @@ export class Table<
         return this.tableValidator.getValidity();
     }
 
+    @observable
+    public hasDataHierarchy = false;
+
     /**
      * @internal
      */
@@ -998,16 +1001,17 @@ export class Table<
         this.tableData = rows.map(row => {
             const isGrouped = row.getIsGrouped();
             const hasParentRow = !isGrouped ? row.getParentRow() : false;
+            const isParent = this.parentIdFieldName
+                ? row.original.subRows !== undefined
+                    && row.original.subRows.length > 0
+                : false;
             const rowState: TableRowState<TData> = {
                 record: row.original.data,
                 id: row.id,
                 selectionState: this.getRowSelectionState(row),
                 isGrouped,
                 isExpanded: row.getIsExpanded(),
-                isParent: this.parentIdFieldName
-                    ? row.original.subRows !== undefined
-                      && row.original.subRows.length > 0
-                    : false,
+                isParent,
                 isTopLevelRow: !isGrouped && !hasParentRow && row.depth === 0,
                 groupRowValue: isGrouped
                     ? row.getValue(row.groupingColumnId!)
@@ -1016,6 +1020,7 @@ export class Table<
                 immediateChildCount: row.subRows.length,
                 groupColumn: this.getGroupRowColumn(row)
             };
+            this.hasDataHierarchy = this.hasDataHierarchy || isParent;
             return rowState;
         });
         this.virtualizer.dataChanged();
