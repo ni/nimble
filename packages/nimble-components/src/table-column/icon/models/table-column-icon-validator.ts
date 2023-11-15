@@ -64,7 +64,9 @@ export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
     }
 
     private validateMappingTypes(mappings: Mapping<unknown>[]): void {
-        const valid = mappings.every(TableColumnIconValidator.isSupportedMappingElement);
+        const valid = mappings.every(
+            TableColumnIconValidator.isSupportedMappingElement
+        );
         this.setConditionValue('unsupportedMappingType', !valid);
     }
 }

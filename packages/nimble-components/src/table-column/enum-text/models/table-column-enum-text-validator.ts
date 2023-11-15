@@ -46,7 +46,9 @@ export class TableColumnEnumTextValidator extends TableColumnEnumBaseValidator<
     }
 
     private validateMappingTypes(mappings: Mapping<unknown>[]): void {
-        const valid = mappings.every(TableColumnEnumTextValidator.isSupportedMappingElement);
+        const valid = mappings.every(
+            TableColumnEnumTextValidator.isSupportedMappingElement
+        );
         this.setConditionValue('unsupportedMappingType', !valid);
     }
 }
