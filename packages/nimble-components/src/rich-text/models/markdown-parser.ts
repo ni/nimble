@@ -224,11 +224,7 @@ export class RichTextMarkdownParser {
                 inline: true,
                 content: 'inline*',
                 toDOM(node) {
-                    const {
-                        mentionHref,
-                        mentionLabel,
-                        viewElement
-                    } = node.attrs;
+                    const { mentionHref, mentionLabel, viewElement } = node.attrs;
                     return [
                         // The view element is determined in the tokenizer rule just like other properties,
                         // where it identifies the type of mention to which the markdown input belongs.
