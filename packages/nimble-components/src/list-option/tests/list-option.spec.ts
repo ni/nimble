@@ -28,11 +28,17 @@ describe('ListboxOption', () => {
         }
 
         function dispatchEventToListOption(event: Event): boolean | undefined {
-            return element.shadowRoot!.querySelector('.content')!.dispatchEvent(event);
+            return element
+                .shadowRoot!.querySelector('.content')!
+                .dispatchEvent(event);
         }
 
         function getListOptionTitle(): string {
-            return element.shadowRoot!.querySelector('.content')!.getAttribute('title') ?? '';
+            return (
+                element
+                    .shadowRoot!.querySelector('.content')!
+                    .getAttribute('title') ?? ''
+            );
         }
 
         beforeEach(async () => {

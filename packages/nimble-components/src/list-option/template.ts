@@ -1,7 +1,12 @@
 // Based on template in FAST repo: https://github.com/microsoft/fast/blob/2ea80697bc3a5193e6123fb08ac3be2a76571aeb/packages/web-components/fast-foundation/src/listbox-option/listbox-option.template.ts
 import { html, ref, slotted } from '@microsoft/fast-element';
 import type { ViewTemplate } from '@microsoft/fast-element';
-import { startSlotTemplate, type FoundationElementTemplate, type ListboxOptionOptions, endSlotTemplate } from '@microsoft/fast-foundation';
+import {
+    startSlotTemplate,
+    type FoundationElementTemplate,
+    type ListboxOptionOptions,
+    endSlotTemplate
+} from '@microsoft/fast-foundation';
 import type { ListOption } from '.';
 import { overflow } from '../utilities/directive/overflow';
 
@@ -19,7 +24,11 @@ ListboxOptionOptions
         aria-posinset="${x => x.ariaPosInSet}"
         aria-selected="${x => x.ariaSelected}"
         aria-setsize="${x => x.ariaSetSize}"
-        class="${x => [x.checked && 'checked', x.selected && 'selected', x.disabled && 'disabled']
+        class="${x => [
+        x.checked && 'checked',
+        x.selected && 'selected',
+        x.disabled && 'disabled'
+    ]
         .filter(Boolean)
         .join(' ')}"
         role="option"
@@ -29,7 +38,9 @@ ListboxOptionOptions
             class="content"
             part="content"
             ${overflow('hasOverflow')}
-            title=${x => (x.hasOverflow && x.headerTextContent ? x.headerTextContent : null)}
+            title=${x => (x.hasOverflow && x.headerTextContent
+        ? x.headerTextContent
+        : null)}
         >
             <slot ${ref('contentSlot')} ${slotted('content')}></slot>
         </span>

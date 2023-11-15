@@ -7,7 +7,7 @@ import { template } from '../template';
 describe('ListboxOption', () => {
     const option = ListOption.compose({
         baseName: 'option',
-        template,
+        template
     });
 
     async function setup(): Promise<{
