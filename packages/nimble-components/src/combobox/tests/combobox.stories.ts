@@ -42,12 +42,23 @@ const simpleOptions: readonly OptionArgs[] = [
 ] as const;
 
 const wideOptions: readonly OptionArgs[] = [
-    { label: 'Option 1 that is too long to fit in the drop down width', disabled: false },
+    {
+        label: 'Option 1 that is too long to fit in the drop down width',
+        disabled: false
+    },
     { label: 'Option 2 that is also too long but disabled', disabled: true },
-    { label: 'Short', disabled: false },
+    { label: 'Short', disabled: false }
 ] as const;
 
-const names = ['Mary', 'Sue', 'Joaquin', 'Frank', 'Dracula', 'Albert', 'Sue Ann'];
+const names = [
+    'Mary',
+    'Sue',
+    'Joaquin',
+    'Frank',
+    'Dracula',
+    'Albert',
+    'Sue Ann'
+];
 const longOptions: OptionArgs[] = [];
 for (let i = 0; i < 100; i++) {
     longOptions.push({
@@ -128,7 +139,7 @@ const metadata: Meta<ComboboxArgs> = {
                 labels: {
                     [ExampleOptionsType.simpleOptions]: 'Simple options',
                     [ExampleOptionsType.longOptions]: 'Long options',
-                    [ExampleOptionsType.wideOptions]: 'Wide options',
+                    [ExampleOptionsType.wideOptions]: 'Wide options'
                 }
             }
         }

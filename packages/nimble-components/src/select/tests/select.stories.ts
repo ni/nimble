@@ -33,9 +33,17 @@ const simpleOptions: readonly OptionArgs[] = [
 ] as const;
 
 const wideOptions: readonly OptionArgs[] = [
-    { label: 'Option 1 that is too long to fit in the drop down width', value: '1', disabled: false },
-    { label: 'Option 2 that is also too long but disabled', value: '2', disabled: true },
-    { label: 'Short', value: '3', disabled: false },
+    {
+        label: 'Option 1 that is too long to fit in the drop down width',
+        value: '1',
+        disabled: false
+    },
+    {
+        label: 'Option 2 that is also too long but disabled',
+        value: '2',
+        disabled: true
+    },
+    { label: 'Short', value: '3', disabled: false }
 ] as const;
 
 const longOptions: OptionArgs[] = [];
@@ -115,7 +123,7 @@ const metadata: Meta<SelectArgs> = {
                 labels: {
                     [ExampleOptionsType.simpleOptions]: 'Simple options',
                     [ExampleOptionsType.longOptions]: 'Long options',
-                    [ExampleOptionsType.wideOptions]: 'Wide options',
+                    [ExampleOptionsType.wideOptions]: 'Wide options'
                 }
             }
         }
