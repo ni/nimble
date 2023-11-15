@@ -35,11 +35,11 @@ describe('ManuallyTranslatedUnitScaleFormatter', () => {
             'fr-FR',
             {}
         );
-        expect(formatter.formatValue(0).string).toEqual('0 fr-singular');
-        expect(formatter.formatValue(1).string).toEqual('1 fr-singular');
-        expect(formatter.formatValue(2).string).toEqual('2 fr-plural');
-        expect(formatter.formatValue(5).string).toEqual('1 5.fr-abbrev');
-        expect(formatter.formatValue(10).string).toEqual('1 10.fr-abbrev');
+        expect(formatter.formatValue(0)).toEqual('0 fr-singular');
+        expect(formatter.formatValue(1)).toEqual('1 fr-singular');
+        expect(formatter.formatValue(2)).toEqual('2 fr-plural');
+        expect(formatter.formatValue(5)).toEqual('1 5.fr-abbrev');
+        expect(formatter.formatValue(10)).toEqual('1 10.fr-abbrev');
     });
 
     it('formats for given language and region when both match', () => {
@@ -47,7 +47,7 @@ describe('ManuallyTranslatedUnitScaleFormatter', () => {
             'fr-CA',
             {}
         );
-        expect(formatter.formatValue(0).string).toEqual('0 fr-CA-singular');
+        expect(formatter.formatValue(0)).toEqual('0 fr-CA-singular');
     });
 
     it('formats for given language and region even with other subtags and lowercase region', () => {
@@ -55,7 +55,7 @@ describe('ManuallyTranslatedUnitScaleFormatter', () => {
             'fr-Latn-ca-u-hc-h12',
             {}
         );
-        expect(formatter.formatValue(0).string).toEqual('0 fr-CA-singular');
+        expect(formatter.formatValue(0)).toEqual('0 fr-CA-singular');
     });
 
     it('formats for given language when no region given', () => {
@@ -63,7 +63,7 @@ describe('ManuallyTranslatedUnitScaleFormatter', () => {
             'fr',
             {}
         );
-        expect(formatter.formatValue(0).string).toEqual('0 fr-singular');
+        expect(formatter.formatValue(0)).toEqual('0 fr-singular');
     });
 
     it('formats with English units for non-supported language', () => {
@@ -71,11 +71,11 @@ describe('ManuallyTranslatedUnitScaleFormatter', () => {
             'ru',
             {}
         );
-        expect(formatter.formatValue(0).string).toEqual('0 en-plural');
-        expect(formatter.formatValue(1).string).toEqual('1 en-singular');
-        expect(formatter.formatValue(2).string).toEqual('2 en-plural');
-        expect(formatter.formatValue(5).string).toEqual('1 5.en-abbrev');
-        expect(formatter.formatValue(10).string).toEqual('1 10.en-abbrev');
+        expect(formatter.formatValue(0)).toEqual('0 en-plural');
+        expect(formatter.formatValue(1)).toEqual('1 en-singular');
+        expect(formatter.formatValue(2)).toEqual('2 en-plural');
+        expect(formatter.formatValue(5)).toEqual('1 5.en-abbrev');
+        expect(formatter.formatValue(10)).toEqual('1 10.en-abbrev');
     });
 
     it('uses provided formatter options', () => {
@@ -85,6 +85,6 @@ describe('ManuallyTranslatedUnitScaleFormatter', () => {
                 minimumIntegerDigits: 3
             }
         );
-        expect(formatter.formatValue(1).string).toEqual('001 en-singular');
+        expect(formatter.formatValue(1)).toEqual('001 en-singular');
     });
 });

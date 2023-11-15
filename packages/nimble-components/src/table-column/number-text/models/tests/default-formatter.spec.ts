@@ -3,8 +3,6 @@ import { parameterizeNamedList } from '../../../../utilities/tests/parameterized
 import { DefaultFormatter } from '../default-formatter';
 import { EmptyUnitScaleFormatter } from '../empty-unit-scale-formatter';
 import { UnitScaleFormatter } from '../unit-scale-formatter';
-import { IntlNumberFormatFormattedNumber } from '../intl-number-format-formatted-number';
-import { FormattedNumber } from '../formatted-number';
 
 describe('DefaultFormatter', () => {
     const locales = ['en', 'de'] as const;
@@ -218,8 +216,7 @@ describe('DefaultFormatter', () => {
                     locale,
                     EmptyUnitScaleFormatter
                 );
-                const formattedValue = formatter.formatValue(value.value);
-                expect(formattedValue.string).toEqual(
+                expect(formatter.formatValue(value.value)).toEqual(
                     value.expectedFormattedValue[locale]
                 );
             });
@@ -239,15 +236,7 @@ describe('DefaultFormatter', () => {
                 return [1, 100, 1000].map(scaleFactor => {
                     return {
                         scaleFactor,
-                        format: x => {
-                            const formatted = new IntlNumberFormatFormattedNumber(
-                                formatter.formatToParts(x)
-                            );
-                            return new FormattedNumber(
-                                formatted.number,
-                                `${formatted.string} x${scaleFactor}`
-                            );
-                        }
+                        format: x => `${formatter.format(x)} x${scaleFactor}`
                     };
                 });
             }
@@ -256,18 +245,15 @@ describe('DefaultFormatter', () => {
         const formatter = new DefaultFormatter('en', TestUnitScaleFormatter);
 
         it('does not double-convert the value when a unit is specified', () => {
-            const formattedValue = formatter.formatValue(130);
-            expect(formattedValue.string).toEqual('1.3 x100');
+            expect(formatter.formatValue(130)).toEqual('1.3 x100');
         });
 
         it('uses unit-converted value when deciding whether to format in exponential notation', () => {
-            const formattedValue = formatter.formatValue(2000000);
-            expect(formattedValue.string).toEqual('2,000 x1000');
+            expect(formatter.formatValue(2000000)).toEqual('2,000 x1000');
         });
 
         it('always uses base unit if exponential notation is used', () => {
-            const formattedValue = formatter.formatValue(2000000000);
-            expect(formattedValue.string).toEqual('2E9 x1'); // rather than '2E6 x1000'
+            expect(formatter.formatValue(2000000000)).toEqual('2E9 x1'); // rather than '2E6 x1000'
         });
     });
 });

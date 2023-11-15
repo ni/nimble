@@ -1,4 +1,3 @@
-import type { FormattedNumber } from './formatted-number';
 import { NumberFormatter } from './number-formatter';
 import type {
     UnitScaleFormatter,
@@ -54,25 +53,33 @@ export class DefaultFormatter extends NumberFormatter {
         this.exponentialFormatter.alwaysUseBaseScaledUnit = true;
     }
 
-    protected format(number: number): FormattedNumber {
-        const defaultFormatted = this.defaultFormatter.formatValue(number);
-        if (defaultFormatted.number === 0) {
-            return defaultFormatted;
+    protected format(number: number): string {
+        // The NumberFormat option of `signDisplay: "negative"` is not supported in all browsers nimble supports.
+        // Because that option cannot be used to avoid rendering "-0", coerce the value -0 to 0 prior to formatting.
+        const valueToFormat = number === 0 ? 0 : number;
+        const scaledNumber = this.defaultFormatter.getScaledValue(valueToFormat);
+        const formatter = this.getFormatterForNumber(scaledNumber);
+        return formatter.formatValue(valueToFormat);
+    }
+
+    private getFormatterForNumber(number: number): UnitScaleFormatter {
+        if (number === 0) {
+            return this.defaultFormatter;
         }
 
-        const absoluteValue = Math.abs(defaultFormatted.number);
+        const absoluteValue = Math.abs(number);
         if (
             absoluteValue >= DefaultFormatter.exponentialUpperBound
             || absoluteValue < DefaultFormatter.exponentialLowerBound
         ) {
-            return this.exponentialFormatter.formatValue(number);
+            return this.exponentialFormatter;
         }
         // Ideally, we could set 'roundingPriority: "lessPrecision"' with a formatter that has both 'maximumSignificantDigits' and
         // 'maximumFractionDigits' configured instead of having two different formatters that we conditionally choose between. However,
         // 'roundingPrioirty' is not supported yet in all browsers nimble supports.
         if (absoluteValue < 1) {
-            return this.leadingZeroFormatter.formatValue(number);
+            return this.leadingZeroFormatter;
         }
-        return defaultFormatted;
+        return this.defaultFormatter;
     }
 }

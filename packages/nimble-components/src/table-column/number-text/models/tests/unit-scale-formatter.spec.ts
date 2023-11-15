@@ -2,8 +2,6 @@
 import type { ScaledUnit } from '../scaled-unit';
 import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
 import { UnitScaleFormatter } from '../unit-scale-formatter';
-import { FormattedNumber } from '../formatted-number';
-import { IntlNumberFormatFormattedNumber } from '../intl-number-format-formatted-number';
 
 describe('UnitScaleFormatter', () => {
     const byteTestCases = [
@@ -26,10 +24,10 @@ describe('UnitScaleFormatter', () => {
             expectedFormattedValue: 'NaN B'
         },
         {
-            name: '-0 uses base unit and formats without minus sign',
+            name: '-0 uses base unit',
             value: -0,
             formatterOptions: {},
-            expectedFormattedValue: '0 B'
+            expectedFormattedValue: '-0 B'
         },
         {
             name: '+0 uses base unit',
@@ -80,25 +78,19 @@ describe('UnitScaleFormatter', () => {
             expectedFormattedValue: '-20 kB'
         },
         {
-            name: 'rounds 950 up to 1 kB with 1 max fraction digit',
-            value: 950, // 0.95 kB
+            name: 'does not round 999 up to 1 kB with 1 max fraction digit',
+            value: 999,
             formatterOptions: { maximumFractionDigits: 1 },
-            expectedFormattedValue: '1 kB'
+            expectedFormattedValue: '999 B'
         },
         {
-            name: 'does not round 949 to kB with 1 max fraction digit',
-            value: 949, // 0.949 kB
-            formatterOptions: { maximumFractionDigits: 1 },
-            expectedFormattedValue: '949 B'
-        },
-        {
-            name: 'rounds 999 to 1E0 kB in scientific notation with 2 max significant digits',
+            name: 'rounds 999 to 1E3 B in scientific notation with 2 max significant digits',
             value: 999,
             formatterOptions: {
                 notation: 'scientific',
                 maximumSignificantDigits: 2
             },
-            expectedFormattedValue: '1E0 kB'
+            expectedFormattedValue: '1E3 B'
         }
     ] as const;
 
@@ -115,15 +107,7 @@ describe('UnitScaleFormatter', () => {
             ].map(item => {
                 return {
                     scaleFactor: item.factor,
-                    format: x => {
-                        const formatted = new IntlNumberFormatFormattedNumber(
-                            formatter.formatToParts(x)
-                        );
-                        return new FormattedNumber(
-                            formatted.number,
-                            `${formatted.string} ${item.unit}`
-                        );
-                    }
+                    format: x => `${formatter.format(x)} ${item.unit}`
                 };
             });
         }
@@ -135,58 +119,30 @@ describe('UnitScaleFormatter', () => {
                 'en',
                 value.formatterOptions
             );
-            const formattedValue = formatter.formatValue(value.value);
-            expect(formattedValue.string).toEqual(value.expectedFormattedValue);
+            expect(formatter.formatValue(value.value)).toEqual(
+                value.expectedFormattedValue
+            );
         });
     });
 
     const customScaleTestCases = [
         {
-            name: 'picks largest unit that can be rounded to based on max fraction digits (x10)',
-            value: 9.5, // 0.95 x10
-            formatterOptions: { maximumFractionDigits: 1 },
-            expectedFormattedValue: '1 x10'
+            name: 'picks largest unit, not taking rounding into account',
+            value: 9.5, // 1.9 x5
+            formatterOptions: { maximumFractionDigits: 0 },
+            expectedFormattedValue: '2 x5'
         },
         {
-            name: 'picks largest unit that can be rounded to based on max fraction digits (x5)',
-            value: 9.4,
-            formatterOptions: { maximumFractionDigits: 1 },
-            expectedFormattedValue: '1.9 x5'
-        },
-        {
-            name: 'uses base unit rather than smallest unit if would round to 0',
-            value: 0.02, // = 0.04 x0.5 (rounds to 0)
-            formatterOptions: { maximumFractionDigits: 1 },
+            name: 'uses base unit instead of smallest unit for 0',
+            value: 0,
+            formatterOptions: {},
             expectedFormattedValue: '0 x1'
         },
         {
-            name: 'handles roundingMode that rounds up when picking unit',
-            value: 1.9, // rounds to 2
-            formatterOptions: {
-                roundingMode: 'halfExpand',
-                maximumFractionDigits: 0
-            },
-            expectedFormattedValue: '1 x2'
-        },
-        {
-            // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-            name: 'handles roundingMode that rounds down when picking unit #SkipFirefox',
-            value: 1.9, // rounds to 1 instead of 2
-            formatterOptions: {
-                roundingMode: 'trunc',
-                maximumFractionDigits: 0
-            },
-            expectedFormattedValue: '1 x1'
-        },
-        {
-            // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-            name: 'picks largest unit when roundingMode=expand and max fraction digits is 0 #SkipFirefox',
-            value: 1, // 0.1 x10 rounds to 1 x10
-            formatterOptions: {
-                roundingMode: 'expand',
-                maximumFractionDigits: 0
-            },
-            expectedFormattedValue: '1 x10'
+            name: 'uses smallest unit even if would round to 0',
+            value: 0.02, // = 0.04 x0.5 (rounds to 0)
+            formatterOptions: { maximumFractionDigits: 1 },
+            expectedFormattedValue: '0 x0.5'
         }
     ] as const;
 
@@ -199,15 +155,7 @@ describe('UnitScaleFormatter', () => {
             return [0.5, 1, 2, 5, 10].map(scaleFactor => {
                 return {
                     scaleFactor,
-                    format: x => {
-                        const formatted = new IntlNumberFormatFormattedNumber(
-                            formatter.formatToParts(x)
-                        );
-                        return new FormattedNumber(
-                            formatted.number,
-                            `${formatted.string} x${scaleFactor}`
-                        );
-                    }
+                    format: x => `${formatter.format(x)} x${scaleFactor}`
                 };
             });
         }
@@ -219,14 +167,15 @@ describe('UnitScaleFormatter', () => {
                 'en',
                 value.formatterOptions
             );
-            const formattedValue = formatter.formatValue(value.value);
-            expect(formattedValue.string).toEqual(value.expectedFormattedValue);
+            expect(formatter.formatValue(value.value)).toEqual(
+                value.expectedFormattedValue
+            );
         });
     });
 
     it('returns blank for null and undefined', () => {
         const formatter = new TestUnitScaleFormatter('en', {});
-        expect(formatter.formatValue(null).string).toEqual('');
-        expect(formatter.formatValue(undefined).string).toEqual('');
+        expect(formatter.formatValue(null)).toEqual('');
+        expect(formatter.formatValue(undefined)).toEqual('');
     });
 });

@@ -27,7 +27,7 @@ TableColumnNumberTextColumnConfig
 
     private updateText(): void {
         this.text = this.columnConfig?.formatter?.formatValue(this.groupHeaderValue)
-            .string ?? '';
+            ?? '';
     }
 }
 

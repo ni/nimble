@@ -3,7 +3,6 @@ import { parameterizeNamedList } from '../../../../utilities/tests/parameterized
 import { DecimalFormatter } from '../decimal-formatter';
 import { EmptyUnitScaleFormatter } from '../empty-unit-scale-formatter';
 import { UnitScaleFormatter } from '../unit-scale-formatter';
-import { FormattedNumber } from '../formatted-number';
 
 describe('DecimalFormatter', () => {
     const locales = ['en', 'de'] as const;
@@ -129,8 +128,7 @@ describe('DecimalFormatter', () => {
                     value.minDigits,
                     value.maxDigits
                 );
-                const formattedValue = formatter.formatValue(value.value);
-                expect(formattedValue.string).toEqual(
+                expect(formatter.formatValue(value.value)).toEqual(
                     value.expectedFormattedValue[locale]
                 );
             });
@@ -143,12 +141,7 @@ describe('DecimalFormatter', () => {
                 return [1, 2, 4].map(scaleFactor => {
                     return {
                         scaleFactor,
-                        format: x => {
-                            return new FormattedNumber(
-                                x,
-                                `${x} x${scaleFactor}`
-                            );
-                        }
+                        format: x => `${x} x${scaleFactor}`
                     };
                 });
             }
@@ -161,8 +154,7 @@ describe('DecimalFormatter', () => {
                 2,
                 2
             );
-            const formattedValue = formatter.formatValue(3);
-            expect(formattedValue.string).toEqual('1.5 x2');
+            expect(formatter.formatValue(3)).toEqual('1.5 x2');
         });
     });
 });

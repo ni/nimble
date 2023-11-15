@@ -1,5 +1,3 @@
-import type { FormattedNumber } from './formatted-number';
-import { IntlNumberFormatFormattedNumber } from './intl-number-format-formatted-number';
 import { ScaledUnit } from './scaled-unit';
 
 /**
@@ -10,9 +8,7 @@ export class EmptyScaledUnit extends ScaledUnit {
         super(1);
     }
 
-    public format(value: number): FormattedNumber {
-        return new IntlNumberFormatFormattedNumber(
-            this.formatter.formatToParts(value)
-        );
+    public format(value: number): string {
+        return this.formatter.format(value);
     }
 }

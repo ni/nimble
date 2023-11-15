@@ -1,6 +1,5 @@
 import type { ScaledUnit } from './scaled-unit';
 import { NumberFormatter } from './number-formatter';
-import type { FormattedNumber } from './formatted-number';
 
 export type UnitScaleFormatterConstructor = new (
     locale: string,
@@ -36,61 +35,45 @@ export abstract class UnitScaleFormatter extends NumberFormatter {
         super();
     }
 
+    public getScaledValue(number: number): number {
+        const unit = this.pickBestUnit(number);
+        return number / unit.scaleFactor;
+    }
+
     protected abstract getSupportedScaledUnits(
         locale: string,
         formatterOptions: Intl.NumberFormatOptions
     ): ScaledUnit[];
 
-    protected override format(number: number): FormattedNumber {
+    protected override format(number: number): string {
+        const unit = this.pickBestUnit(number);
+        return unit.format(number / unit.scaleFactor);
+    }
+
+    // Note that for the sake of reducing complexity in the implementation,
+    // we do NOT consider the effects of rounding when picking the unit to
+    // use for a given value. This means that depending on the Intl.NumberFormatOptions
+    // passed into the constructor, rounding may result in a value being
+    // formatted with an unexpected unit. Examples:
+    // - 999 bytes with two significant digits => "1000 bytes" (instead of "1 kB")
+    // - 0.00000000000000001 volts (= 0.01 fV) with one fractional digit => "0 fV" (instead of "0 volts")
+    private pickBestUnit(number: number): ScaledUnit {
+        const magnitude = Math.abs(number);
         if (
             this.supportedScaledUnits.length === 1 // must be baseScaledUnit
-            || number === 0
-            || number === Infinity
-            || number === -Infinity
-            || Number.isNaN(number)
+            || magnitude === 0
+            || magnitude === Infinity
+            || Number.isNaN(magnitude)
             || this.alwaysUseBaseScaledUnit
         ) {
-            const formatted = this.baseScaledUnit.format(number);
-            // Always format -0 as 0
-            return formatted.number === 0 && 1 / formatted.number === -Infinity
-                ? this.baseScaledUnit.format(0)
-                : formatted;
+            return this.baseScaledUnit;
         }
-        for (let i = 0; i < this.supportedScaledUnits.length; i++) {
-            const unit = this.supportedScaledUnits[i]!;
-            const scaledNumber = number / unit.scaleFactor;
-            if (Math.abs(scaledNumber) >= 1) {
-                let formatted: FormattedNumber | undefined;
-                // rounding cannot reduce a number >=1 to <1, but it's
-                // possible that rounding up might let us use a larger unit.
-                for (let j = i - 1; j >= 0; j--) {
-                    const nextLargerUnit = this.supportedScaledUnits[j]!;
-                    const formattedByNextLargerUnit = nextLargerUnit.format(
-                        number / nextLargerUnit.scaleFactor
-                    );
-                    if (Math.abs(formattedByNextLargerUnit.number) >= 1) {
-                        // unit is a valid choice, but keep looking at larger units
-                        formatted = formattedByNextLargerUnit;
-                    } else {
-                        // not a valid choice, so stop looking
-                        break;
-                    }
-                }
-                if (formatted === undefined) {
-                    formatted = unit.format(scaledNumber);
-                }
-                return formatted;
+        for (const unit of this.supportedScaledUnits) {
+            if (magnitude / unit.scaleFactor >= 1) {
+                return unit;
             }
         }
-        // none of our units result in a formatted value >= 1
-        const smallestUnit = this.supportedScaledUnits[this.supportedScaledUnits.length - 1]!;
-        const formatted = smallestUnit.format(
-            number / smallestUnit.scaleFactor
-        );
-        // Use base unit (rather than smallest unit) for 0
-        return formatted.number === 0
-            ? this.baseScaledUnit.format(0)
-            : formatted;
+        return this.supportedScaledUnits[this.supportedScaledUnits.length - 1]!;
     }
 
     // Ideally, we could initialize supportedScaledUnits and baseScaledUnit in the constructor,
