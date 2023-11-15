@@ -14,6 +14,7 @@ import { overflow } from '../utilities/directive/overflow';
  * The template for the {@link @microsoft/fast-foundation#(ListboxOption:class)} component.
  * @public
  */
+// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<ListOption>,
 ListboxOptionOptions
@@ -24,11 +25,7 @@ ListboxOptionOptions
         aria-posinset="${x => x.ariaPosInSet}"
         aria-selected="${x => x.ariaSelected}"
         aria-setsize="${x => x.ariaSetSize}"
-        class="${x => [
-        x.checked && 'checked',
-        x.selected && 'selected',
-        x.disabled && 'disabled'
-    ]
+        class="${x => [x.checked && 'checked', x.selected && 'selected', x.disabled && 'disabled']
         .filter(Boolean)
         .join(' ')}"
         role="option"
@@ -38,9 +35,7 @@ ListboxOptionOptions
             class="content"
             part="content"
             ${overflow('hasOverflow')}
-            title=${x => (x.hasOverflow && x.headerTextContent
-        ? x.headerTextContent
-        : null)}
+            title=${x => (x.hasOverflow && x.headerTextContent ? x.headerTextContent : null)}
         >
             <slot ${ref('contentSlot')} ${slotted('content')}></slot>
         </span>
