@@ -12,12 +12,13 @@ import {
     DropdownPosition
 } from '../../patterns/dropdown/types';
 import { comboboxTag } from '..';
+import { ExampleOptionsType } from './types';
 
 interface ComboboxArgs {
     disabled: boolean;
     dropDownPosition: DropdownPosition;
     autocomplete: ComboboxAutocomplete;
-    options: OptionArgs[];
+    optionsType: ExampleOptionsType;
     errorVisible: boolean;
     errorText: string;
     currentValue: string;
@@ -29,6 +30,37 @@ interface OptionArgs {
     label: string;
     disabled: boolean;
 }
+
+const simpleOptions: readonly OptionArgs[] = [
+    { label: 'Mary', disabled: false },
+    { label: 'Sue', disabled: false },
+    { label: 'Joaquin', disabled: false },
+    { label: 'Frank', disabled: false },
+    { label: 'Dracula', disabled: true },
+    { label: 'Albert', disabled: false },
+    { label: 'Sue Ann', disabled: false }
+] as const;
+
+const wideOptions: readonly OptionArgs[] = [
+    { label: 'Option 1 that is too long to fit in the drop down width', disabled: false },
+    { label: 'Option 2 that is also too long but disabled', disabled: true },
+    { label: 'Short', disabled: false },
+] as const;
+
+const names = ['Mary', 'Sue', 'Joaquin', 'Frank', 'Dracula', 'Albert', 'Sue Ann'];
+const longOptions: OptionArgs[] = [];
+for (let i = 0; i < 100; i++) {
+    longOptions.push({
+        label: `${names[i % names.length]!} (${i})`,
+        disabled: false
+    });
+}
+
+const optionSets = {
+    [ExampleOptionsType.simpleOptions]: simpleOptions,
+    [ExampleOptionsType.wideOptions]: wideOptions,
+    [ExampleOptionsType.longOptions]: longOptions
+} as const;
 
 const metadata: Meta<ComboboxArgs> = {
     title: 'Components/Combobox',
@@ -60,8 +92,9 @@ const metadata: Meta<ComboboxArgs> = {
             appearance="${x => x.appearance}"
             value="${x => x.currentValue}"
             placeholder="${x => x.placeholder}"
+            style="width: 250px;"
         >
-            ${repeat(x => x.options, html<OptionArgs>`
+            ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
                 <${listOptionTag} ?disabled="${x => x.disabled}">${x => x.label}</${listOptionTag}>
             `)}
         </${comboboxTag}>
@@ -86,6 +119,18 @@ const metadata: Meta<ComboboxArgs> = {
         errorText: {
             description:
                 'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
+        },
+        optionsType: {
+            name: 'Options',
+            options: Object.values(ExampleOptionsType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleOptionsType.simpleOptions]: 'Simple options',
+                    [ExampleOptionsType.longOptions]: 'Long options',
+                    [ExampleOptionsType.wideOptions]: 'Wide options',
+                }
+            }
         }
     },
     args: {
@@ -96,15 +141,7 @@ const metadata: Meta<ComboboxArgs> = {
         errorText: 'Value is invalid',
         appearance: DropdownAppearance.underline,
         placeholder: 'Select value...',
-        options: [
-            { label: 'Mary', disabled: false },
-            { label: 'Sue', disabled: false },
-            { label: 'Joaquin', disabled: false },
-            { label: 'Frank', disabled: false },
-            { label: 'Dracula', disabled: true },
-            { label: 'Albert', disabled: false },
-            { label: 'Sue Ann', disabled: false }
-        ]
+        optionsType: ExampleOptionsType.simpleOptions
     }
 };
 
