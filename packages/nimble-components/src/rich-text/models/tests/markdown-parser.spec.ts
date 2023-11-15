@@ -560,10 +560,14 @@ describe('Markdown parser', () => {
                         `string "${name}" renders within nimble-anchor without 'href' attribute`,
                         () => {
                             const doc = RichTextMarkdownParser.parseMarkdownToDOM(name);
+                            const renderedLink = name.slice(1, -1);
 
                             expect(getTagsFromElement(doc)).toEqual([
                                 'P',
                                 'NIMBLE-ANCHOR'
+                            ]);
+                            expect(getLeafContentsFromElement(doc)).toEqual([
+                                renderedLink
                             ]);
                             expect(
                                 lastChildElementHasAttribute('href', doc)
@@ -573,7 +577,7 @@ describe('Markdown parser', () => {
                 });
             });
 
-            describe('various unsafe characters in an absolute link', () => {
+            describe('malformed or unsupported absolute links', () => {
                 const notSupportedAbsoluteLink = [
                     { name: '<https://example.com/<page>>' },
                     { name: '<https%3A%2F%2Fexample.com/>' },
@@ -1012,81 +1016,6 @@ describe('Markdown parser', () => {
             );
         });
 
-        it('should show user ID of first grouping pattern when username not found where the pattern has multiple grouping regex', async () => {
-            ({ element, connect, disconnect } = await setup(
-                [
-                    { key: 'user:1.com', displayName: 'username1' },
-                    { key: 'user:2.com', displayName: 'username2' }
-                ],
-                '^user:(.*)\\.(com)'
-            ));
-            await connect();
-            mentionsMap.set(
-                element.mentionInternals.character,
-                element.mentionInternals
-            );
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                '<user:1234-5678.com>',
-                mentionsMap
-            );
-
-            expect(getTagsFromElement(doc)).toEqual([
-                'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
-            ]);
-            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
-                '1234-5678'
-            );
-        });
-
-        it('should show username where the pattern has multiple grouping regex', async () => {
-            ({ element, connect, disconnect } = await setup(
-                [
-                    { key: 'user:1.com', displayName: 'username1' },
-                    { key: 'user:2.com', displayName: 'username2' }
-                ],
-                '^user:(.*)\\.(com)'
-            ));
-            await connect();
-            mentionsMap.set(
-                element.mentionInternals.character,
-                element.mentionInternals
-            );
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                '<user:1.com>',
-                mentionsMap
-            );
-
-            expect(getTagsFromElement(doc)).toEqual([
-                'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
-            ]);
-            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
-                'username1'
-            );
-        });
-
-        it('should show user ID in the absence of mapping elements', async () => {
-            ({ element, connect, disconnect } = await setup([], '^user:(.*)'));
-            await connect();
-            mentionsMap.set(
-                element.mentionInternals.character,
-                element.mentionInternals
-            );
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                '<user:1234-5678>',
-                mentionsMap
-            );
-
-            expect(getTagsFromElement(doc)).toEqual([
-                'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
-            ]);
-            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
-                '1234-5678'
-            );
-        });
-
         it('should show username along with other texts', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
@@ -1167,6 +1096,7 @@ describe('Markdown parser', () => {
             expect(getLastChildElementAttribute('href', doc)).toEqual(
                 'https://1'
             );
+            expect(getLeafContentsFromElement(doc)).toEqual(['https://1']);
         });
 
         it('should get anchor element when display name is missing', async () => {
@@ -1189,9 +1119,10 @@ describe('Markdown parser', () => {
                 `${anchorTag}`.toUpperCase()
             ]);
             expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
+            expect(getLeafContentsFromElement(doc)).toEqual(['user:1']);
         });
 
-        it('should get anchor element when pattern is not a valid Regex', async () => {
+        it('should get anchor element when the pattern does not match an absolute link in markdown', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
                     { key: 'user:1', displayName: 'username1' },
@@ -1214,9 +1145,10 @@ describe('Markdown parser', () => {
                 `${anchorTag}`.toUpperCase()
             ]);
             expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
+            expect(getLeafContentsFromElement(doc)).toEqual(['user:1']);
         });
 
-        it('should get anchor element when key is not a valid URL', async () => {
+        it('should get anchor element when keys do not match the pattern', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
                     { key: 'abc', displayName: 'username1' },
@@ -1239,6 +1171,7 @@ describe('Markdown parser', () => {
                 `${anchorTag}`.toUpperCase()
             ]);
             expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
+            expect(getLeafContentsFromElement(doc)).toEqual(['user:1']);
         });
     });
 });

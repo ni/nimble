@@ -120,6 +120,7 @@ export class RichTextViewer extends FoundationElement {
     }
 
     private updateMentionsMap(): void {
+        this.mentionsMap = new Map();
         this.mentions.forEach(mention => {
             if (
                 mention.mentionInternals.pattern

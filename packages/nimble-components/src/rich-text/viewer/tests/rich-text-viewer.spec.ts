@@ -17,6 +17,28 @@ async function setup(): Promise<Fixture<RichTextViewer>> {
     );
 }
 
+async function appendUserMentionConfiguration(
+    element: RichTextViewer,
+    userKey: string | undefined,
+    displayName: string | undefined
+): Promise<void> {
+    const userMention = document.createElement(
+        richTextMentionUsersTag
+    ) as RichTextMentionUsers;
+    userMention.pattern = '^user:(.*)';
+
+    if (userKey || displayName) {
+        const mappingUser = document.createElement(
+            mappingUserTag
+        ) as MappingUser;
+        mappingUser.key = userKey ?? '';
+        mappingUser.displayName = displayName ?? '';
+        userMention.appendChild(mappingUser);
+    }
+    element.appendChild(userMention);
+    await waitForUpdatesAsync();
+}
+
 describe('RichTextViewer', () => {
     let element: RichTextViewer;
     let connect: () => Promise<void>;
@@ -99,7 +121,7 @@ describe('RichTextViewer', () => {
             await disconnect();
         });
 
-        it('adding mention configuration converts the absolute like matching the scheme with pattern to mention node', async () => {
+        it('adding mention configuration converts the absolute link matching the pattern to mention node', async () => {
             element.markdown = '<user:1>';
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
@@ -109,15 +131,7 @@ describe('RichTextViewer', () => {
             expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
                 'user:1'
             );
-            await waitForUpdatesAsync();
-
-            const userMention = document.createElement(
-                richTextMentionUsersTag
-            ) as RichTextMentionUsers;
-            userMention.pattern = '^user:(.*)';
-
-            element.appendChild(userMention);
-            await waitForUpdatesAsync();
+            await appendUserMentionConfiguration(element, undefined, undefined);
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
@@ -132,30 +146,11 @@ describe('RichTextViewer', () => {
 
         it('adding mention mapping renders the mapped display name', async () => {
             element.markdown = '<user:1>';
-
-            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
-                'P',
-                `${anchorTag}`.toUpperCase()
-            ]);
-            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
-                'user:1'
+            await appendUserMentionConfiguration(
+                element,
+                'user:1',
+                'username1'
             );
-            await waitForUpdatesAsync();
-
-            const userMention = document.createElement(
-                richTextMentionUsersTag
-            ) as RichTextMentionUsers;
-            userMention.pattern = '^user:(.*)';
-
-            const mappingUser = document.createElement(
-                mappingUserTag
-            ) as MappingUser;
-            mappingUser.key = 'user:1';
-            mappingUser.displayName = 'username1';
-            userMention.appendChild(mappingUser);
-
-            element.appendChild(userMention);
-            await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
@@ -168,22 +163,38 @@ describe('RichTextViewer', () => {
             ).toEqual('username1');
         });
 
-        it('updating invalid `pattern` in mention configuration converts it to absolute like', async () => {
+        it('removing configuration element renders the mention node as absolute link', async () => {
             element.markdown = '<user:1>';
+            await appendUserMentionConfiguration(
+                element,
+                'user:1',
+                'username1'
+            );
 
-            const userMention = document.createElement(
-                richTextMentionUsersTag
-            ) as RichTextMentionUsers;
-            userMention.pattern = '^user:(.*)';
+            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+            element.removeChild(renderedUserMention);
+            await waitForUpdatesAsync();
 
-            const mappingUser = document.createElement(
-                mappingUserTag
-            ) as MappingUser;
-            mappingUser.key = 'user:1';
-            mappingUser.displayName = 'username1';
-            userMention.appendChild(mappingUser);
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'user:1'
+            );
+        });
 
-            element.appendChild(userMention);
+        it('removing mapping element renders the mention node with user ID', async () => {
+            element.markdown = '<user:1>';
+            await appendUserMentionConfiguration(
+                element,
+                'user:1',
+                'username1'
+            );
+
+            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+            const renderedMappingUser = renderedUserMention.firstElementChild as MappingUser;
+            renderedUserMention.removeChild(renderedMappingUser);
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
@@ -194,7 +205,16 @@ describe('RichTextViewer', () => {
                 pageObject.getRenderedMarkdownLastChildAttribute(
                     'mention-label'
                 )
-            ).toEqual('username1');
+            ).toEqual('1');
+        });
+
+        it('updating to invalid `pattern` in mention configuration converts it to absolute link', async () => {
+            element.markdown = '<user:1>';
+            await appendUserMentionConfiguration(
+                element,
+                'user:1',
+                'username1'
+            );
 
             (element.firstElementChild as RichTextMentionUsers).pattern = 'invalid';
             await waitForUpdatesAsync();
@@ -210,31 +230,11 @@ describe('RichTextViewer', () => {
 
         it('updating `display-name` in mapping mention should update the `mention-label` in view', async () => {
             element.markdown = '<user:1>';
-
-            const userMention = document.createElement(
-                richTextMentionUsersTag
-            ) as RichTextMentionUsers;
-            userMention.pattern = '^user:(.*)';
-
-            const mappingUser = document.createElement(
-                mappingUserTag
-            ) as MappingUser;
-            mappingUser.key = 'user:1';
-            mappingUser.displayName = 'username1';
-            userMention.appendChild(mappingUser);
-
-            element.appendChild(userMention);
-            await waitForUpdatesAsync();
-
-            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
-                'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
-            ]);
-            expect(
-                pageObject.getRenderedMarkdownLastChildAttribute(
-                    'mention-label'
-                )
-            ).toEqual('username1');
+            await appendUserMentionConfiguration(
+                element,
+                'user:1',
+                'username1'
+            );
 
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
             const renderedMappingUser = renderedUserMention.firstElementChild as MappingUser;
@@ -252,23 +252,13 @@ describe('RichTextViewer', () => {
             ).toEqual('updated-name');
         });
 
-        it('updating `key` in mapping mention should update it to mention view if is absolute link before', async () => {
+        it('updating valid `key` in mapping mention should update it to a mention view if is a absolute link before', async () => {
             element.markdown = '<user:2>';
-
-            const userMention = document.createElement(
-                richTextMentionUsersTag
-            ) as RichTextMentionUsers;
-            userMention.pattern = '^user:(.*)';
-
-            const mappingUser = document.createElement(
-                mappingUserTag
-            ) as MappingUser;
-            mappingUser.key = 'invalid';
-            mappingUser.displayName = 'username';
-            userMention.appendChild(mappingUser);
-
-            element.appendChild(userMention);
-            await waitForUpdatesAsync();
+            await appendUserMentionConfiguration(
+                element,
+                'invalid',
+                'username'
+            );
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',

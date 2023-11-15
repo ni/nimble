@@ -14,13 +14,9 @@ import type { MentionInternals } from '../../rich-text-mention/base/models/menti
  */
 export class RichTextMarkdownParser {
     private static readonly updatedSchema = this.getCustomSchemaConfiguration();
-
-    private static markdownParser = this.initializeMarkdownParser();
     private static readonly domSerializer = DOMSerializer.fromSchema(
         this.updatedSchema
     );
-
-    private static viewElement: string;
 
     /**
      * This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a
@@ -29,10 +25,13 @@ export class RichTextMarkdownParser {
      */
     public static parseMarkdownToDOM(
         value: string,
-        mentionsMap?: Map<string, MentionInternals<RichTextMentionConfig>>
+        mentionsMap?: ReadonlyMap<
+        string,
+        MentionInternals<RichTextMentionConfig>
+        >
     ): HTMLElement | DocumentFragment {
-        this.markdownParser = this.initializeMarkdownParser(mentionsMap);
-        const parsedMarkdownContent = this.markdownParser.parse(value);
+        const markdownParser = this.initializeMarkdownParser(mentionsMap);
+        const parsedMarkdownContent = markdownParser.parse(value);
         if (parsedMarkdownContent === null) {
             return document.createDocumentFragment();
         }
@@ -42,7 +41,10 @@ export class RichTextMarkdownParser {
     }
 
     private static initializeMarkdownParser(
-        mentionsMap?: Map<string, MentionInternals<RichTextMentionConfig>>
+        mentionsMap?: ReadonlyMap<
+        string,
+        MentionInternals<RichTextMentionConfig>
+        >
     ): MarkdownParser {
         /**
          * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
@@ -73,47 +75,45 @@ export class RichTextMarkdownParser {
                     (state, _silent) => {
                         const mentionHref = this.getMentionHref(state);
 
-                        if (mentionHref && mentionsMap?.size) {
-                            const currentMention = Array.from(
-                                mentionsMap.values()
-                            ).find(
-                                mention => mention.validConfiguration
-                                    && this.validateMentionPattern(
-                                        mention,
-                                        mentionHref
-                                    )
-                            );
-
-                            if (currentMention) {
-                                this.viewElement = currentMention.viewElement;
-                                const mentionId = this.extractMentionId(
-                                    currentMention,
-                                    mentionHref
-                                );
-                                const displayName = this.getDisplayName(
-                                    mentionHref,
-                                    currentMention
-                                ) ?? mentionId;
-
-                                state.pos += mentionHref.length + 2; // Ignoring '<' and '>' characters from the mention URL
-
-                                const token = state.push(
-                                    'mention_open',
-                                    this.viewElement,
-                                    1
-                                );
-                                token.attrs = [
-                                    ['mentionHref', mentionHref],
-                                    ['mentionLabel', displayName]
-                                ];
-                                state.push(
-                                    'mention_close',
-                                    this.viewElement,
-                                    -1
-                                );
-                                return true;
-                            }
+                        if (!mentionHref || !mentionsMap?.size) {
                             return false;
+                        }
+
+                        const currentMention = Array.from(
+                            mentionsMap.values()
+                        ).find(
+                            mention => mention.validConfiguration
+                                && this.validateMentionPattern(
+                                    mention,
+                                    mentionHref
+                                )
+                        );
+
+                        if (currentMention) {
+                            const viewElement = currentMention.viewElement;
+                            const mentionId = this.extractMentionId(
+                                mentionHref,
+                                currentMention
+                            );
+                            const displayName = this.getDisplayName(
+                                mentionHref,
+                                currentMention
+                            ) ?? mentionId;
+
+                            state.pos += mentionHref.length + 2; // Ignoring '<' and '>' characters from the mention URL
+
+                            const token = state.push(
+                                'mention_open',
+                                viewElement,
+                                1
+                            );
+                            token.attrs = [
+                                ['mentionHref', mentionHref],
+                                ['mentionLabel', displayName],
+                                ['viewElement', viewElement]
+                            ];
+                            state.push('mention_close', viewElement, -1);
+                            return true;
                         }
                         return false;
                     }
@@ -138,7 +138,8 @@ export class RichTextMarkdownParser {
                 block: 'mention',
                 getAttrs: token => ({
                     mentionHref: token.attrGet('mentionHref'),
-                    mentionLabel: token.attrGet('mentionLabel')
+                    mentionLabel: token.attrGet('mentionLabel'),
+                    viewElement: token.attrGet('viewElement')
                 })
             }
         });
@@ -153,8 +154,8 @@ export class RichTextMarkdownParser {
     }
 
     private static extractMentionId(
-        mention: MentionInternals<RichTextMentionConfig>,
-        mentionHref: string
+        mentionHref: string,
+        mention: MentionInternals<RichTextMentionConfig>
     ): string {
         if (!mention.validConfiguration) {
             return '';
@@ -173,7 +174,10 @@ export class RichTextMarkdownParser {
         mention: MentionInternals<RichTextMentionConfig>,
         mentionHref: string
     ): boolean {
-        const regexPattern = new RegExp(mention.pattern ?? '');
+        if (mention.pattern === undefined) {
+            return false;
+        }
+        const regexPattern = new RegExp(mention.pattern);
         return regexPattern.test(mentionHref);
     }
 
@@ -181,13 +185,12 @@ export class RichTextMarkdownParser {
         const max = state.posMax;
         const openingTag = 0x3c; // '<'
         const closingTag = 0x3e; // '>'
-        let position: number;
 
         if (state.src.charCodeAt(state.pos) !== openingTag) {
             return undefined;
         }
 
-        position = state.pos + 1;
+        let position = state.pos + 1;
 
         while (
             position < max
@@ -209,15 +212,23 @@ export class RichTextMarkdownParser {
                 attrs: {
                     mentionHref: { default: '' },
                     mentionLabel: { default: '' },
-                    disableEditing: { default: 'true' }
+                    disableEditing: { default: 'true' },
+                    viewElement: { default: '' }
                 },
                 group: 'inline',
                 inline: true,
                 content: 'inline*',
                 toDOM(node) {
-                    const { mentionHref, mentionLabel, disableEditing } = node.attrs;
+                    const {
+                        mentionHref,
+                        mentionLabel,
+                        disableEditing,
+                        viewElement
+                    } = node.attrs;
                     return [
-                        RichTextMarkdownParser.viewElement,
+                        // The view element is determined in the tokenizer rule just like other properties,
+                        // where it identifies the type of mention to which the markdown input belongs.
+                        viewElement,
                         {
                             'mention-href': mentionHref as string,
                             'mention-label': mentionLabel as string,
@@ -243,7 +254,7 @@ export class RichTextMarkdownParser {
                         return [
                             anchorTag,
                             {
-                                // Absolute links whose scheme is not HTTP/HTTPS, they will render as anchor tag without `href` attribute
+                                // Absolute links whose scheme is not HTTP/HTTPS will render as anchor tag without `href` attribute
                                 href: /^https?:\/\//i.test(
                                     node.attrs.href as string
                                 )
