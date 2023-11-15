@@ -89,39 +89,39 @@ export class RichTextMarkdownParser {
                                 )
                         );
 
-                        if (currentMention) {
-                            const viewElement = currentMention.viewElement;
-                            const mentionId = this.extractMentionId(
-                                mentionHref,
-                                currentMention
-                            );
-
-                            let displayName = this.getDisplayName(
-                                mentionHref,
-                                currentMention
-                            );
-
-                            if (!displayName && !mentionId) {
-                                return false;
-                            }
-                            displayName = displayName ?? mentionId;
-
-                            state.pos += mentionHref.length + 2; // Ignoring '<' and '>' characters from the mention URL
-
-                            const token = state.push(
-                                'mention_open',
-                                viewElement,
-                                1
-                            );
-                            token.attrs = [
-                                ['mentionHref', mentionHref],
-                                ['mentionLabel', displayName],
-                                ['viewElement', viewElement]
-                            ];
-                            state.push('mention_close', viewElement, -1);
-                            return true;
+                        if (!currentMention) {
+                            return false;
                         }
-                        return false;
+
+                        const mentionId = this.extractMentionId(
+                            mentionHref,
+                            currentMention
+                        );
+                        let displayName = this.getDisplayName(
+                            mentionHref,
+                            currentMention
+                        );
+
+                        if (!displayName && !mentionId) {
+                            return false;
+                        }
+                        displayName = displayName ?? mentionId;
+                        const viewElement = currentMention.viewElement;
+
+                        state.pos += mentionHref.length + 2; // Ignoring '<' and '>' characters from the mention URL
+
+                        const token = state.push(
+                            'mention_open',
+                            viewElement,
+                            1
+                        );
+                        token.attrs = [
+                            ['mentionHref', mentionHref],
+                            ['mentionLabel', displayName],
+                            ['viewElement', viewElement]
+                        ];
+                        state.push('mention_close', viewElement, -1);
+                        return true;
                     }
                 );
             },
@@ -218,7 +218,6 @@ export class RichTextMarkdownParser {
                 attrs: {
                     mentionHref: { default: '' },
                     mentionLabel: { default: '' },
-                    disableEditing: { default: 'true' },
                     viewElement: { default: '' }
                 },
                 group: 'inline',
@@ -228,7 +227,6 @@ export class RichTextMarkdownParser {
                     const {
                         mentionHref,
                         mentionLabel,
-                        disableEditing,
                         viewElement
                     } = node.attrs;
                     return [
@@ -238,7 +236,7 @@ export class RichTextMarkdownParser {
                         {
                             'mention-href': mentionHref as string,
                             'mention-label': mentionLabel as string,
-                            'disable-editing': disableEditing as string
+                            'disable-editing': 'true'
                         },
                         0
                     ];
