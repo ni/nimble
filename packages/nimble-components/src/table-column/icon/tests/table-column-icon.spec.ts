@@ -13,6 +13,8 @@ import { iconXmarkTag } from '../../../icons/xmark';
 import { iconCheckTag } from '../../../icons/check';
 import type { MappingKey } from '../../../mapping/base/types';
 import { IconSeverity } from '../../../icon-base/types';
+import { MappingKeyType } from '../../enum-base/types';
+import { mappingSpinnerTag } from '../../../mapping/spinner';
 
 interface SimpleTableRecord extends TableRecord {
     field1?: MappingKey | undefined;
@@ -23,6 +25,11 @@ interface BasicIconMapping {
     key?: MappingKey;
     text?: string;
     icon: string;
+}
+
+interface BasicSpinnerMapping {
+    key?: MappingKey;
+    text?: string;
 }
 
 class Model {
@@ -40,18 +47,28 @@ describe('TableColumnIcon', () => {
     let model: Model;
 
     // prettier-ignore
-    async function setup(mappings: BasicIconMapping[], keyType = 'string'): Promise<ModelFixture<Table<SimpleTableRecord>>> {
+    async function setup(options: {
+        keyType: MappingKeyType,
+        iconMappings: BasicIconMapping[],
+        spinnerMappings: BasicSpinnerMapping[]
+    }): Promise<ModelFixture<Table<SimpleTableRecord>>> {
         const source = new Model();
         const result = await fixture<Table<SimpleTableRecord>>(html<Model>`
             <${tableTag} style="width: 700px">
-                <${tableColumnIconTag} ${ref('col1')} field-name="field1" key-type="${keyType}">
+                <${tableColumnIconTag} ${ref('col1')} field-name="field1" key-type="${options.keyType}">
                     Column 1
-                    ${repeat(() => mappings, html<BasicIconMapping>`
+                    ${repeat(() => options.iconMappings, html<BasicIconMapping>`
                         <${mappingIconTag}
                             key="${x => x.key}"
                             text="${x => x.text}"
                             icon="${x => x.icon}">
                         </${mappingIconTag}>
+                    `)}
+                    ${repeat(() => options.spinnerMappings, html<BasicSpinnerMapping>`
+                    <${mappingSpinnerTag}
+                        key="${x => x.key}"
+                        text="${x => x.text}"
+                    </${mappingSpinnerTag}>
                     `)}
                 </${tableColumnIconTag}>
             </${tableTag}>`, { source });
@@ -79,9 +96,9 @@ describe('TableColumnIcon', () => {
 
     describe('various key types', () => {
         const dataTypeTests = [
-            { name: 'string', key: 'a' },
-            { name: 'number', key: 10 },
-            { name: 'boolean', key: true }
+            { name: MappingKeyType.string, key: 'a' },
+            { name: MappingKeyType.number, key: 10 },
+            { name: MappingKeyType.boolean, key: true }
         ];
         const focused: string[] = [];
         const disabled: string[] = [];
@@ -90,8 +107,11 @@ describe('TableColumnIcon', () => {
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(`displays icon mapped from ${test.name}`, async () => {
                 ({ element, connect, disconnect, model } = await setup(
-                    [{ key: test.key, text: 'alpha', icon: iconXmarkTag }],
-                    test.name
+                    {
+                        keyType: test.name,
+                        iconMappings: [{ key: test.key, text: 'alpha', icon: iconXmarkTag }],
+                        spinnerMappings: []
+                    }
                 ));
                 pageObject = new TablePageObject<SimpleTableRecord>(element);
                 await element.setData([{ field1: test.key }]);
@@ -106,9 +126,11 @@ describe('TableColumnIcon', () => {
     });
 
     it('displays blank when no matches', async () => {
-        ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: iconXmarkTag }
-        ]));
+        ({ element, connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            iconMappings: [{ key: 'a', text: 'alpha', icon: iconXmarkTag }],
+            spinnerMappings: []
+        }));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'no match' }]);
         await connect();
@@ -118,10 +140,14 @@ describe('TableColumnIcon', () => {
     });
 
     it('changing fieldName updates display', async () => {
-        ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: iconXmarkTag },
-            { key: 'b', text: 'bravo', icon: iconCheckTag }
-        ]));
+        ({ element, connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            iconMappings: [
+                { key: 'a', text: 'alpha', icon: iconXmarkTag },
+                { key: 'b', text: 'bravo', icon: iconCheckTag }
+            ],
+            spinnerMappings: []
+        }));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a', field2: 'b' }]);
         await connect();
@@ -136,9 +162,11 @@ describe('TableColumnIcon', () => {
     });
 
     it('changing mapping icon updates display', async () => {
-        ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: iconXmarkTag }
-        ]));
+        ({ element, connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            iconMappings: [{ key: 'a', text: 'alpha', icon: iconXmarkTag }],
+            spinnerMappings: []
+        }));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a' }]);
         await connect();
@@ -154,9 +182,11 @@ describe('TableColumnIcon', () => {
     });
 
     it('changing mapping severity updates display', async () => {
-        ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: iconXmarkTag }
-        ]));
+        ({ element, connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            iconMappings: [{ key: 'a', text: 'alpha', icon: iconXmarkTag }],
+            spinnerMappings: []
+        }));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a' }]);
         await connect();
@@ -172,9 +202,13 @@ describe('TableColumnIcon', () => {
     });
 
     it('changing mapping key updates display', async () => {
-        ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: iconXmarkTag }
-        ]));
+        ({ element, connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            iconMappings: [
+                { key: 'a', text: 'alpha', icon: iconXmarkTag }
+            ],
+            spinnerMappings: []
+        }));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'b' }]);
         await connect();
@@ -190,9 +224,13 @@ describe('TableColumnIcon', () => {
     });
 
     it('sets label as title of icon', async () => {
-        ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: iconXmarkTag }
-        ]));
+        ({ element, connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            iconMappings: [
+                { key: 'a', text: 'alpha', icon: iconXmarkTag }
+            ],
+            spinnerMappings: []
+        }));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a' }]);
         await connect();
@@ -201,9 +239,13 @@ describe('TableColumnIcon', () => {
     });
 
     it('sets label as aria-label of icon', async () => {
-        ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: iconXmarkTag }
-        ]));
+        ({ element, connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            iconMappings: [
+                { key: 'a', text: 'alpha', icon: iconXmarkTag }
+            ],
+            spinnerMappings: []
+        }));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a' }]);
         await connect();
@@ -223,13 +265,17 @@ describe('TableColumnIcon', () => {
                 `data "${value.name}" renders as "${value.name}"`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
-                    ({ element, connect, disconnect, model } = await setup([
-                        {
-                            key: 'a',
-                            text: value.name,
-                            icon: iconXmarkTag
-                        }
-                    ]));
+                    ({ element, connect, disconnect, model } = await setup({
+                        keyType: MappingKeyType.string,
+                        iconMappings: [
+                            {
+                                key: 'a',
+                                text: value.name,
+                                icon: iconXmarkTag
+                            }
+                        ],
+                        spinnerMappings: []
+                    }));
                     pageObject = new TablePageObject<SimpleTableRecord>(
                         element
                     );
@@ -248,9 +294,11 @@ describe('TableColumnIcon', () => {
     });
 
     it('sets group header text to blank when unmatched', async () => {
-        ({ element, connect, disconnect, model } = await setup([
-            { key: 'b', text: 'bravo', icon: iconXmarkTag }
-        ]));
+        ({ element, connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            iconMappings: [{ key: 'b', text: 'bravo', icon: iconXmarkTag }],
+            spinnerMappings: []
+        }));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'unmatched' }]);
         await connect();
@@ -262,9 +310,11 @@ describe('TableColumnIcon', () => {
     });
 
     it('clears cell when mappings removed', async () => {
-        ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: iconXmarkTag }
-        ]));
+        ({ element, connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            iconMappings: [{ key: 'a', text: 'alpha', icon: iconXmarkTag }],
+            spinnerMappings: []
+        }));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a' }]);
         await connect();
@@ -279,9 +329,11 @@ describe('TableColumnIcon', () => {
     });
 
     it('clears group header when mappings removed', async () => {
-        ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: iconXmarkTag }
-        ]));
+        ({ element, connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            iconMappings: [{ key: 'a', text: 'alpha', icon: iconXmarkTag }],
+            spinnerMappings: []
+        }));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a' }]);
         model.col1.groupIndex = 0;
@@ -298,10 +350,11 @@ describe('TableColumnIcon', () => {
 
     describe('validation', () => {
         it('is valid with no mappings', async () => {
-            ({ element, connect, disconnect, model } = await setup(
-                [],
-                'number'
-            ));
+            ({ element, connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.number,
+                iconMappings: [],
+                spinnerMappings: []
+            }));
             await connect();
             await waitForUpdatesAsync();
             const column = model.col1;
@@ -314,16 +367,17 @@ describe('TableColumnIcon', () => {
         });
 
         it('is valid with valid numeric key values', async () => {
-            ({ element, connect, disconnect, model } = await setup(
-                [
+            ({ element, connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.number,
+                iconMappings: [
                     { key: '0', text: 'alpha', icon: iconXmarkTag },
                     { key: '1', text: 'alpha', icon: iconXmarkTag },
                     { key: '1.01', text: 'alpha', icon: iconXmarkTag },
                     { key: '-1.01', text: 'alpha', icon: iconXmarkTag },
                     { key: '-1e3', text: 'alpha', icon: iconXmarkTag }
                 ],
-                'number'
-            ));
+                spinnerMappings: []
+            }));
             await connect();
             await waitForUpdatesAsync();
             expect(model.col1.checkValidity()).toBeTrue();
@@ -348,16 +402,17 @@ describe('TableColumnIcon', () => {
                 );
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 specType(` ${test.name}`, async () => {
-                    ({ element, connect, disconnect, model } = await setup(
-                        [
+                    ({ element, connect, disconnect, model } = await setup({
+                        keyType: MappingKeyType.boolean,
+                        iconMappings: [
                             {
                                 key: test.key,
                                 text: 'alpha',
                                 icon: iconXmarkTag
                             }
                         ],
-                        'boolean'
-                    ));
+                        spinnerMappings: []
+                    }));
                     await connect();
                     await waitForUpdatesAsync();
                     expect(model.col1.checkValidity()).toBeFalse();
@@ -369,10 +424,11 @@ describe('TableColumnIcon', () => {
         });
 
         it('is invalid with invalid numeric key values', async () => {
-            ({ element, connect, disconnect, model } = await setup(
-                [{ key: 'a', text: 'alpha', icon: iconXmarkTag }],
-                'number'
-            ));
+            ({ element, connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.number,
+                iconMappings: [{ key: 'a', text: 'alpha', icon: iconXmarkTag }],
+                spinnerMappings: []
+            }));
             await connect();
             await waitForUpdatesAsync();
             expect(model.col1.checkValidity()).toBeFalse();
@@ -403,10 +459,14 @@ describe('TableColumnIcon', () => {
         });
 
         it('is invalid with duplicate key values', async () => {
-            ({ element, connect, disconnect, model } = await setup([
-                { key: 'a', text: 'alpha', icon: iconXmarkTag },
-                { key: 'a', text: 'alpha', icon: iconXmarkTag }
-            ]));
+            ({ element, connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.string,
+                iconMappings: [
+                    { key: 'a', text: 'alpha', icon: iconXmarkTag },
+                    { key: 'a', text: 'alpha', icon: iconXmarkTag }
+                ],
+                spinnerMappings: []
+            }));
             await connect();
             await waitForUpdatesAsync();
             expect(model.col1.checkValidity()).toBeFalse();
@@ -414,13 +474,14 @@ describe('TableColumnIcon', () => {
         });
 
         it('is invalid with equivalent numeric key values', async () => {
-            ({ element, connect, disconnect, model } = await setup(
-                [
+            ({ element, connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.number,
+                iconMappings: [
                     { key: '0', text: 'alpha', icon: iconXmarkTag },
                     { key: '0.0', text: 'alpha', icon: iconXmarkTag }
                 ],
-                'number'
-            ));
+                spinnerMappings: []
+            }));
             await connect();
             await waitForUpdatesAsync();
             expect(model.col1.checkValidity()).toBeFalse();
@@ -428,9 +489,13 @@ describe('TableColumnIcon', () => {
         });
 
         it('is invalid with missing key value', async () => {
-            ({ element, connect, disconnect, model } = await setup([
-                { text: 'alpha', icon: iconXmarkTag }
-            ]));
+            ({ element, connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.string,
+                iconMappings: [
+                    { text: 'alpha', icon: iconXmarkTag }
+                ],
+                spinnerMappings: []
+            }));
             await connect();
             await waitForUpdatesAsync();
             expect(model.col1.checkValidity()).toBeFalse();
@@ -438,9 +503,13 @@ describe('TableColumnIcon', () => {
         });
 
         it('is invalid with missing text value', async () => {
-            ({ element, connect, disconnect, model } = await setup([
-                { key: 'a', icon: iconXmarkTag }
-            ]));
+            ({ element, connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.string,
+                iconMappings: [
+                    { key: 'a', icon: iconXmarkTag }
+                ],
+                spinnerMappings: []
+            }));
             await connect();
             await waitForUpdatesAsync();
             expect(model.col1.checkValidity()).toBeFalse();
@@ -448,9 +517,13 @@ describe('TableColumnIcon', () => {
         });
 
         it('is invalid with non-icon icon value', async () => {
-            ({ element, connect, disconnect, model } = await setup([
-                { key: 'a', text: 'alpha', icon: 'div' }
-            ]));
+            ({ element, connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.string,
+                iconMappings: [
+                    { key: 'a', text: 'alpha', icon: 'div' }
+                ],
+                spinnerMappings: []
+            }));
             await connect();
             await waitForUpdatesAsync();
             expect(model.col1.checkValidity()).toBeFalse();
@@ -458,9 +531,13 @@ describe('TableColumnIcon', () => {
         });
 
         it('is invalid with completely made up icon value', async () => {
-            ({ element, connect, disconnect, model } = await setup([
-                { key: 'a', text: 'alpha', icon: 'foo' }
-            ]));
+            ({ element, connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.string,
+                iconMappings: [
+                    { key: 'a', text: 'alpha', icon: 'foo' }
+                ],
+                spinnerMappings: []
+            }));
             await connect();
             await waitForUpdatesAsync();
             expect(model.col1.checkValidity()).toBeFalse();
