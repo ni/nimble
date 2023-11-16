@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update internal mapping base class to be generic",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
