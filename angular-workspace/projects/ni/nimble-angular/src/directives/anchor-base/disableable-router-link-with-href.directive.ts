@@ -1,4 +1,4 @@
-import { Attribute, Directive, ElementRef, Inject, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Inject, Renderer2 } from '@angular/core';
 import { LocationStrategy } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterLink } from '../../thirdparty/directives/router_link';
@@ -11,13 +11,11 @@ export class DisableableRouterLinkWithHrefDirective<T extends { disabled: boolea
     public constructor(
     @Inject(Router) router: Router,
         @Inject(ActivatedRoute) route: ActivatedRoute,
-        // eslint-disable-next-line @angular-eslint/no-attribute-decorator
-        @Attribute('tabindex') tabIndexAttribute: string | null | undefined,
         renderer: Renderer2,
         private readonly elementRef: ElementRef<T>,
         @Inject(LocationStrategy) locationStrategy?: LocationStrategy
     ) {
-        super(router, route, tabIndexAttribute, renderer, elementRef, locationStrategy);
+        super(router, route, undefined, renderer, elementRef, locationStrategy);
     }
 
     public override onClick(button: number, ctrlKey: boolean, shiftKey: boolean, altKey: boolean, metaKey: boolean): boolean {

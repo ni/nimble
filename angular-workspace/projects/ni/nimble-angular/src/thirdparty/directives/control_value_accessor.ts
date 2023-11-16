@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/14.2.6/packages/forms/src/directives/control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/15.2.0/packages/forms/src/directives/control_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Commented out ControlValueAccessor which is exported from @angular/forms
