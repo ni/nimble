@@ -47,9 +47,9 @@ const wideOptions: readonly OptionArgs[] = [
     { label: 'Short', value: '3', disabled: false }
 ] as const;
 
-const longOptions: OptionArgs[] = [];
+const manyOptions: OptionArgs[] = [];
 for (let i = 0; i < 100; i++) {
-    longOptions.push({
+    manyOptions.push({
         label: `Option ${i}`,
         value: `${i}`,
         disabled: false
@@ -59,7 +59,7 @@ for (let i = 0; i < 100; i++) {
 const optionSets = {
     [ExampleOptionsType.simpleOptions]: simpleOptions,
     [ExampleOptionsType.wideOptions]: wideOptions,
-    [ExampleOptionsType.longOptions]: longOptions
+    [ExampleOptionsType.manyOptions]: manyOptions
 } as const;
 
 const metadata: Meta<SelectArgs> = {
@@ -117,13 +117,13 @@ const metadata: Meta<SelectArgs> = {
             name: 'error-visible'
         },
         optionsType: {
-            name: 'Options',
+            name: 'options',
             options: Object.values(ExampleOptionsType),
             control: {
                 type: 'radio',
                 labels: {
                     [ExampleOptionsType.simpleOptions]: 'Simple options',
-                    [ExampleOptionsType.longOptions]: 'Long options',
+                    [ExampleOptionsType.manyOptions]: 'Many options',
                     [ExampleOptionsType.wideOptions]: 'Wide options'
                 }
             }

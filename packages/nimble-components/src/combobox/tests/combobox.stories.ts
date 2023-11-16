@@ -60,9 +60,9 @@ const names = [
     'Albert',
     'Sue Ann'
 ];
-const longOptions: OptionArgs[] = [];
+const manyOptions: OptionArgs[] = [];
 for (let i = 0; i < 100; i++) {
-    longOptions.push({
+    manyOptions.push({
         label: `${names[i % names.length]!} (${i})`,
         disabled: false
     });
@@ -71,7 +71,7 @@ for (let i = 0; i < 100; i++) {
 const optionSets = {
     [ExampleOptionsType.simpleOptions]: simpleOptions,
     [ExampleOptionsType.wideOptions]: wideOptions,
-    [ExampleOptionsType.longOptions]: longOptions
+    [ExampleOptionsType.manyOptions]: manyOptions
 } as const;
 
 const metadata: Meta<ComboboxArgs> = {
@@ -133,14 +133,14 @@ const metadata: Meta<ComboboxArgs> = {
                 'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
         },
         optionsType: {
-            name: 'Options',
+            name: 'options',
             options: Object.values(ExampleOptionsType),
             control: {
                 type: 'radio',
                 labels: {
                     [ExampleOptionsType.simpleOptions]: 'Simple options',
-                    [ExampleOptionsType.longOptions]: 'Long options',
-                    [ExampleOptionsType.wideOptions]: 'Wide options'
+                    [ExampleOptionsType.wideOptions]: 'Wide options',
+                    [ExampleOptionsType.manyOptions]: 'Many options'
                 }
             }
         }

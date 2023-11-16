@@ -1,7 +1,7 @@
 export const ExampleOptionsType = {
     simpleOptions: 'SimpleOptions',
     wideOptions: 'WideOptions',
-    longOptions: 'LongOptions'
+    manyOptions: 'ManyOptions'
 } as const;
 export type ExampleOptionsType =
     (typeof ExampleOptionsType)[keyof typeof ExampleOptionsType];
