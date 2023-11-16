@@ -14,16 +14,19 @@ import {
 import type { TableColumn } from '../../../table-column/base';
 import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
-import { controlSlimHeight, smallPadding } from '../../../theme-provider/design-tokens';
+import {
+    controlHeight,
+    mediumPadding
+} from '../../../theme-provider/design-tokens';
 
 // prettier-ignore
 export const template = html<TableRow>`
     <template 
         role="row"
         aria-selected=${x => x.ariaSelected}
-        style="--ni-private-table-row-spacer-width: ${x => x.nestingLevel > 0 || (x.nestingLevel === 0 && !x.isParentRow)
-                    ? controlSlimHeight.getValueFor(x)
-                    : smallPadding.getValueFor(x)};"
+        style="--ni-private-table-row-spacer-width: ${x => (x.nestingLevel > 0 || (x.nestingLevel === 0 && !x.isParentRow)
+        ? controlHeight.getValueFor(x)
+        : mediumPadding.getValueFor(x))};"
     >
         ${when(x => !x.rowOperationGridCellHidden, html<TableRow>`
             <span role="gridcell" class="row-operations-container">

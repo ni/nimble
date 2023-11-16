@@ -13,14 +13,12 @@ import {
 } from '../../../label-provider/table/label-tokens';
 import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
-import { mediumPadding } from '../../../theme-provider/design-tokens';
 
 // prettier-ignore
 export const template = html<TableCell>`
-    <template role="cell" style="
-        --ni-private-expand-collapse-button-indent-level: ${x => x.nestingLevel};
-        --ni-private-table-cell-view-padding: ${x => (x.isParentRow && x.isFirstCell && !x.isTopLevelRow ? mediumPadding.getValueFor(x) : '0px')};
-    ">
+    <template role="cell"
+        class="${x => (x.isTopLevelRow || !x.isParentRow || !x.isFirstCell ? 'no-padding' : '')}"
+        style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel};">
         ${when(x => x.isParentRow && x.isFirstCell && !x.isTopLevelRow, html<TableCell>`
             <${buttonTag}
                     appearance="${ButtonAppearance.ghost}"

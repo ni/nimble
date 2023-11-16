@@ -28,7 +28,11 @@ export const styles = css`
         overflow: hidden;
         display: flex;
         align-items: center;
-        padding-left: var(--ni-private-table-cell-view-padding);
+        padding-left: ${mediumPadding};
+    }
+
+    :host(.no-padding) .cell-view {
+        padding-left: 0px;
     }
 
     .action-menu {

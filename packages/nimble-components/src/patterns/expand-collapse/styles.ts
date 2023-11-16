@@ -1,5 +1,8 @@
-import { css } from "@microsoft/fast-element";
-import { controlSlimHeight, mediumDelay, mediumPadding, standardPadding } from "../../theme-provider/design-tokens";
+import { css } from '@microsoft/fast-element';
+import {
+    controlSlimHeight,
+    mediumDelay
+} from '../../theme-provider/design-tokens';
 
 export const styles = css`
     :host {
