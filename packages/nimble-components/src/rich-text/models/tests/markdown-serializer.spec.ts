@@ -71,8 +71,7 @@ describe('Markdown serializer', () => {
             await pageObject.setEditorTextContent('Bold ');
             await pageObject.clickFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('italics');
-            await pageObject.clickFooterButton(ToolbarButton.italics);
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics, true);
             await pageObject.setEditorTextContent(' bold');
             expect(element.getMarkdown()).toEqual('**Bold *italics* bold**');
         });
@@ -82,8 +81,7 @@ describe('Markdown serializer', () => {
             await pageObject.setEditorTextContent('Italics');
             await pageObject.clickFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('bold');
-            await pageObject.clickFooterButton(ToolbarButton.bold);
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold, true);
             await pageObject.setEditorTextContent('italics');
             expect(element.getMarkdown()).toEqual('*Italics**bold**italics*');
         });
@@ -93,8 +91,7 @@ describe('Markdown serializer', () => {
             await pageObject.setEditorTextContent('Italics ');
             await pageObject.clickFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('bold');
-            await pageObject.clickFooterButton(ToolbarButton.bold);
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold, true);
             await pageObject.setEditorTextContent(' italics');
             expect(element.getMarkdown()).toEqual('*Italics **bold** italics*');
         });
@@ -179,6 +176,34 @@ describe('Markdown serializer', () => {
             await pageObject.setEditorTextContent('https://nimble.ni.dev ');
             await pageObject.clickFooterButton(ToolbarButton.bulletList);
             expect(element.getMarkdown()).toEqual('* <https://nimble.ni.dev> ');
+        });
+
+        it('Toggling off Bulleted list with bold', async () => {
+            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.setEditorTextContent('List 1');
+            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.setEditorTextContent('list 2');
+            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.setEditorTextContent('plain text');
+            expect(element.getMarkdown()).toEqual(r`* **List 1**
+
+**list 2**plain text`);
+        });
+
+        it('Toggling off Numbered list with bold', async () => {
+            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.setEditorTextContent('List 1');
+            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.setEditorTextContent('list 2');
+            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.setEditorTextContent('plain text');
+            expect(element.getMarkdown()).toEqual(r`1. **List 1**
+
+**list 2**plain text`);
         });
 
         it('Nested list with levels 1 - Bulleted list, 2 - Numbered list (Bold)', async () => {
