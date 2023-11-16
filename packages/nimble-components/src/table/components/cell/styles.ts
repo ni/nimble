@@ -5,8 +5,10 @@ import {
     mediumPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
+import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
 
 export const styles = css`
+    ${expandCollapseStyles}
     ${display('flex')}
 
     :host {
@@ -26,6 +28,7 @@ export const styles = css`
         overflow: hidden;
         display: flex;
         align-items: center;
+        padding-left: var(--ni-private-table-cell-view-padding);
     }
 
     .action-menu {

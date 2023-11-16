@@ -13,8 +13,10 @@ import {
 import { Theme } from '../../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
+import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
 
 export const styles = css`
+    ${expandCollapseStyles}
     ${display('flex')}
 
     :host {
@@ -62,7 +64,7 @@ export const styles = css`
     }
 
     .row-front-spacer {
-        width: ${controlHeight};
+        width: var(--ni-private-table-row-spacer-width);
         flex: 0 0 auto;
     }
 
