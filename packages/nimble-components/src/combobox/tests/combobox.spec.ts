@@ -617,4 +617,61 @@ describe('Combobox', () => {
             await disconnect();
         });
     });
+
+    describe('title overflow', () => {
+        let element: Combobox;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+
+        function dispatchEventToSelectedValue(event: Event): boolean | undefined {
+            return element
+                .shadowRoot!.querySelector('.selected-value')!
+                .dispatchEvent(event);
+        }
+
+        function getSelectedValueTitle(): string {
+            return (
+                element
+                    .shadowRoot!.querySelector('.selected-value')!
+                    .getAttribute('title') ?? ''
+            );
+        }
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            element.style.width = '200px';
+            await connect();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('sets title when option text is ellipsized', async () => {
+            const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
+            updateComboboxWithText(element, optionContent);
+            await waitForUpdatesAsync();
+            dispatchEventToSelectedValue(new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(getSelectedValueTitle()).toBe(optionContent);
+        });
+
+        it('does not set title when option text is fully visible', async () => {
+            const optionContent = 'short value';
+            updateComboboxWithText(element, optionContent);
+            dispatchEventToSelectedValue(new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(getSelectedValueTitle()).toBe('');
+        });
+
+        it('removes title on mouseout of option', async () => {
+            const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
+            updateComboboxWithText(element, optionContent);
+            dispatchEventToSelectedValue(new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            dispatchEventToSelectedValue(new MouseEvent('mouseout'));
+            await waitForUpdatesAsync();
+            expect(getSelectedValueTitle()).toBe('');
+        });
+    });
 });

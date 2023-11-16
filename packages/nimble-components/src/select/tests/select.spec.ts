@@ -194,4 +194,66 @@ describe('Select', () => {
     it('can construct an element instance', () => {
         expect(document.createElement('nimble-select')).toBeInstanceOf(Select);
     });
+
+    describe('title overflow', () => {
+        let element: Select;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+
+        function dispatchEventToSelectedValue(event: Event): boolean | undefined {
+            return element
+                .shadowRoot!.querySelector('.selected-value')!
+                .dispatchEvent(event);
+        }
+
+        function getSelectedValueTitle(): string {
+            return (
+                element
+                    .shadowRoot!.querySelector('.selected-value')!
+                    .getAttribute('title') ?? ''
+            );
+        }
+
+        function setSelectedValueContent(value: string): void {
+            element.options[1]!.textContent = value;
+            element.value = 'two';
+        }
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            element.style.width = '200px';
+            await connect();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('sets title when option text is ellipsized', async () => {
+            const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
+            setSelectedValueContent(optionContent);
+            await waitForUpdatesAsync();
+            dispatchEventToSelectedValue(new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(getSelectedValueTitle()).toBe(optionContent);
+        });
+
+        it('does not set title when option text is fully visible', async () => {
+            const optionContent = 'short value';
+            setSelectedValueContent(optionContent);
+            dispatchEventToSelectedValue(new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(getSelectedValueTitle()).toBe('');
+        });
+
+        it('removes title on mouseout of option', async () => {
+            const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
+            setSelectedValueContent(optionContent);
+            dispatchEventToSelectedValue(new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            dispatchEventToSelectedValue(new MouseEvent('mouseout'));
+            await waitForUpdatesAsync();
+            expect(getSelectedValueTitle()).toBe('');
+        });
+    });
 });
