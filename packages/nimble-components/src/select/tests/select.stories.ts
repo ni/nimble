@@ -9,6 +9,7 @@ import { DropdownAppearance } from '../../patterns/dropdown/types';
 import { selectTag } from '..';
 import { listOptionTag } from '../../list-option';
 import { ExampleOptionsType } from './types';
+import { menuMinWidth } from '../../theme-provider/design-tokens';
 
 interface SelectArgs {
     disabled: boolean;
@@ -88,7 +89,7 @@ const metadata: Meta<SelectArgs> = {
             ?disabled="${x => x.disabled}"
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
-            style="width: 250px;"
+            style="width: var(${menuMinWidth.cssCustomProperty});"
         >
             ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
                 <${listOptionTag}

@@ -13,6 +13,7 @@ import {
 } from '../../patterns/dropdown/types';
 import { comboboxTag } from '..';
 import { ExampleOptionsType } from './types';
+import { menuMinWidth } from '../../theme-provider/design-tokens';
 
 interface ComboboxArgs {
     disabled: boolean;
@@ -103,7 +104,7 @@ const metadata: Meta<ComboboxArgs> = {
             appearance="${x => x.appearance}"
             value="${x => x.currentValue}"
             placeholder="${x => x.placeholder}"
-            style="width: 250px;"
+            style="width: var(${menuMinWidth.cssCustomProperty});"
         >
             ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
                 <${listOptionTag} ?disabled="${x => x.disabled}">${x => x.label}</${listOptionTag}>
