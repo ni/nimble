@@ -13,8 +13,8 @@ describe('Byte1024UnitScale', () => {
             number: 0.1,
             formatted: [
                 '0.1 bytes',
-                '0.1 octet',
-                '0.1 Byte',
+                '0,1 octet',
+                '0,1 Byte',
                 '0.1 バイト',
                 '0.1 字节'
             ]
@@ -29,8 +29,8 @@ describe('Byte1024UnitScale', () => {
             number: 1.5,
             formatted: [
                 '1.5 bytes',
-                '1.5 octet',
-                '1.5 Byte',
+                '1,5 octet',
+                '1,5 Byte',
                 '1.5 バイト',
                 '1.5 字节'
             ]
