@@ -1,5 +1,5 @@
 import { LocationStrategy } from '@angular/common';
-import { Attribute, Directive, ElementRef, HostListener, Inject, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Inject, Input, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import type { BreadcrumbItem } from '@ni/nimble-components/dist/esm/breadcrumb-item';
 import { RouterLink } from '../../thirdparty/directives/router_link';
@@ -27,13 +27,11 @@ export class NimbleBreadcrumbItemRouterLinkWithHrefDirective extends RouterLink 
     public constructor(
     @Inject(Router) router: Router,
         @Inject(ActivatedRoute) route: ActivatedRoute,
-        // eslint-disable-next-line @angular-eslint/no-attribute-decorator
-        @Attribute('tabindex') tabIndexAttribute: string | null | undefined,
         renderer: Renderer2,
         private readonly elementRef: ElementRef<BreadcrumbItem>,
         @Inject(LocationStrategy) locationStrategy?: LocationStrategy
     ) {
-        super(router, route, tabIndexAttribute, renderer, elementRef, locationStrategy);
+        super(router, route, undefined, renderer, elementRef, locationStrategy);
     }
 
     public override onClick(_button: number, _ctrlKey: boolean, _shiftKey: boolean, _altKey: boolean, _metaKey: boolean): boolean {
