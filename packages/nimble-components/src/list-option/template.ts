@@ -35,7 +35,7 @@ ListboxOptionOptions
             class="content"
             part="content"
             ${overflow('hasOverflow')}
-            title=${x => (x.hasOverflow && x.headerTextContent ? x.headerTextContent : null)}
+            title=${x => (x.hasOverflow && x.elementTextContent ? x.elementTextContent : null)}
         >
             <slot ${ref('contentSlot')} ${slotted('content')}></slot>
         </span>

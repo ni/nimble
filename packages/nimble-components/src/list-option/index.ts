@@ -24,7 +24,7 @@ export class ListOption extends FoundationListboxOption {
     public hasOverflow = false;
 
     /** @internal */
-    public get headerTextContent(): string {
+    public get elementTextContent(): string {
         return this.contentSlot
             .assignedNodes()
             .map(node => node.textContent?.trim())
