@@ -9,6 +9,7 @@ import type { MappingKeyType } from '../../enum-base/types';
 
 const enumTextValidityFlagNames = [
     ...enumBaseValidityFlagNames,
+    'unsupportedMappingType',
     'missingTextValue'
 ] as const;
 
@@ -19,7 +20,7 @@ export class TableColumnEnumTextValidator extends TableColumnEnumBaseValidator<
     typeof enumTextValidityFlagNames
 > {
     public constructor(columnInternals: ColumnInternals<unknown>) {
-        super(columnInternals, enumTextValidityFlagNames, [MappingText]);
+        super(columnInternals, enumTextValidityFlagNames);
     }
 
     private static isSupportedMappingElement(
@@ -33,6 +34,7 @@ export class TableColumnEnumTextValidator extends TableColumnEnumBaseValidator<
         keyType: MappingKeyType
     ): void {
         super.validate(mappings, keyType);
+        this.validateMappingTypes(mappings);
         this.validateNoMissingText(mappings);
     }
 
@@ -41,5 +43,12 @@ export class TableColumnEnumTextValidator extends TableColumnEnumBaseValidator<
             .filter(TableColumnEnumTextValidator.isSupportedMappingElement)
             .some(mapping => mapping.text === undefined);
         this.setConditionValue('missingTextValue', invalid);
+    }
+
+    private validateMappingTypes(mappings: Mapping<unknown>[]): void {
+        const valid = mappings.every(
+            TableColumnEnumTextValidator.isSupportedMappingElement
+        );
+        this.setConditionValue('unsupportedMappingType', !valid);
     }
 }
