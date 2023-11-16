@@ -200,7 +200,9 @@ describe('Select', () => {
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
 
-        function dispatchEventToSelectedValue(event: Event): boolean | undefined {
+        function dispatchEventToSelectedValue(
+            event: Event
+        ): boolean | undefined {
             return element
                 .shadowRoot!.querySelector('.selected-value')!
                 .dispatchEvent(event);

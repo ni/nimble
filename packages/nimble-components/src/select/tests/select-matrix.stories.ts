@@ -80,7 +80,12 @@ const component = (
 `;
 
 export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, appearanceStates, errorStates, valueStates])
+    createMatrix(component, [
+        disabledStates,
+        appearanceStates,
+        errorStates,
+        valueStates
+    ])
 );
 
 export const hiddenSelect: StoryFn = createStory(
