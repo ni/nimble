@@ -105,4 +105,8 @@ describe('UnitScale', () => {
             );
         });
     });
+
+    it('can return the base scaled unit', () => {
+        expect(new ByteUnitScale().baseScaledUnit).toBe(byteScaledUnit);
+    });
 });
