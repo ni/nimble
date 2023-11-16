@@ -1,11 +1,11 @@
-import { ManuallyTranslatedUnitScaleFormatter } from '../../base/models/manually-translated-unit-scale-formatter';
+import { ManuallyTranslatedUnitScale } from '../../base/models/manually-translated-unit-scale';
 import { UnitPrefix } from '../../base/models/unit-prefix';
 import { UnitTranslation } from '../../base/models/unit-translation';
 
 /**
- * Formatter for numbers with byte units (1024-based)
+ * Byte units (1024-based)
  */
-export class Byte1024UnitScaleFormatter extends ManuallyTranslatedUnitScaleFormatter {
+export class Byte1024UnitScale extends ManuallyTranslatedUnitScale {
     private static readonly unitTranslations = new Map<string, UnitTranslation>(
         [
             ['en', new UnitTranslation('byte', 'bytes', 'B')],
@@ -24,14 +24,22 @@ export class Byte1024UnitScaleFormatter extends ManuallyTranslatedUnitScaleForma
         new UnitPrefix(1024 ** 5, 'Pi')
     ] as const;
 
+    // Need unitTranslations and unitPrefixes to be initialized before construction
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    public static readonly instance = new Byte1024UnitScale();
+
+    private constructor() {
+        super();
+    }
+
     protected override getUnitTranslations(): ReadonlyMap<
     string,
     UnitTranslation
     > {
-        return Byte1024UnitScaleFormatter.unitTranslations;
+        return Byte1024UnitScale.unitTranslations;
     }
 
     protected override getSupportedPrefixes(): readonly UnitPrefix[] {
-        return Byte1024UnitScaleFormatter.unitPrefixes;
+        return Byte1024UnitScale.unitPrefixes;
     }
 }

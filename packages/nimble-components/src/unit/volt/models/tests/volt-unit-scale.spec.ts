@@ -1,0 +1,131 @@
+import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
+import { VoltUnitScale } from '../volt-unit-scale';
+
+describe('VoltUnitScale', () => {
+    const testCases = [
+        {
+            name: '10 ** -18',
+            number: 10 ** -18,
+            formatted: [
+                '0.001 fV',
+                '0,001 fV',
+                '0,001 fV',
+                '0.001 fV',
+                '0.001 fV'
+            ]
+        },
+        {
+            name: '10 ** -15',
+            number: 10 ** -15,
+            formatted: ['1 fV', '1 fV', '1 fV', '1 fV', '1 fV']
+        },
+        {
+            name: '10 ** -12',
+            number: 10 ** -12,
+            formatted: ['1 pV', '1 pV', '1 pV', '1 pV', '1 pV']
+        },
+        {
+            name: '10 ** -9',
+            number: 10 ** -9,
+            formatted: ['1 nV', '1 nV', '1 nV', '1 nV', '1 nV']
+        },
+        {
+            name: '10 ** -6',
+            number: 10 ** -6,
+            formatted: ['1 μV', '1 μV', '1 μV', '1 μV', '1 μV']
+        },
+        {
+            name: '10 ** -3',
+            number: 10 ** -3,
+            formatted: ['1 mV', '1 mV', '1 mV', '1 mV', '1 mV']
+        },
+        {
+            name: '10 ** -2',
+            number: 10 ** -2,
+            formatted: ['1 cV', '1 cV', '1 cV', '1 cV', '1 cV']
+        },
+        {
+            name: '10 ** -1',
+            number: 10 ** -1,
+            formatted: ['1 dV', '1 dV', '1 dV', '1 dV', '1 dV']
+        },
+        {
+            name: '1',
+            number: 1,
+            formatted: ['1 volt', '1 volt', '1 Volt', '1 ボルト', '1 伏特']
+        },
+        {
+            name: '2',
+            number: 2,
+            formatted: ['2 volts', '2 volts', '2 Volt', '2 ボルト', '2 伏特']
+        },
+        {
+            name: '10 ** 3',
+            number: 10 ** 3,
+            formatted: ['1 kV', '1 kV', '1 kV', '1 kV', '1 kV']
+        },
+        {
+            name: '10 ** 6',
+            number: 10 ** 6,
+            formatted: ['1 MV', '1 MV', '1 MV', '1 MV', '1 MV']
+        },
+        {
+            name: '10 ** 9',
+            number: 10 ** 9,
+            formatted: ['1 GV', '1 GV', '1 GV', '1 GV', '1 GV']
+        },
+        {
+            name: '10 ** 12',
+            number: 10 ** 12,
+            formatted: ['1 TV', '1 TV', '1 TV', '1 TV', '1 TV']
+        },
+        {
+            name: '10 ** 15',
+            number: 10 ** 15,
+            formatted: ['1 PV', '1 PV', '1 PV', '1 PV', '1 PV']
+        },
+        {
+            name: '10 ** 18',
+            number: 10 ** 18,
+            formatted: ['1 EV', '1 EV', '1 EV', '1 EV', '1 EV']
+        },
+        {
+            name: '10 ** 21',
+            number: 10 ** 21,
+            formatted: [
+                '1,000 EV',
+                '1\u202f000 EV',
+                '1.000 EV',
+                '1,000 EV',
+                '1,000 EV'
+            ]
+        }
+    ] as const;
+
+    parameterizeNamedList(testCases, (spec, _name, value) => {
+        spec(`gets expected unit for ${value.number}`, () => {
+            const unit = VoltUnitScale.instance.pickBestScaledUnit(
+                value.number
+            );
+            expect(unit.formatterOptions).toEqual({});
+            const scaledNumber = value.number / unit.scaleFactor;
+            for (const [index, locale] of [
+                'en',
+                'fr',
+                'de',
+                'ja',
+                'zh'
+            ].entries()) {
+                const formatter = new Intl.NumberFormat(locale);
+                expect(
+                    unit.appendUnitIfNeeded(
+                        formatter.format(scaledNumber),
+                        scaledNumber,
+                        locale,
+                        new Intl.PluralRules(locale)
+                    )
+                ).toEqual(value.formatted[index]!);
+            }
+        });
+    });
+});

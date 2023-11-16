@@ -1,8 +1,8 @@
+/* eslint-disable max-classes-per-file */
 import type { ScaledUnit } from '../scaled-unit';
 import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
 import { DefaultFormatter } from '../default-formatter';
-import { EmptyUnitScaleFormatter } from '../empty-unit-scale-formatter';
-import { UnitScaleFormatter } from '../unit-scale-formatter';
+import { UnitScale } from '../unit-scale';
 
 describe('DefaultFormatter', () => {
     const locales = ['en', 'de'] as const;
@@ -212,10 +212,7 @@ describe('DefaultFormatter', () => {
     for (const locale of locales) {
         parameterizeNamedList(testCases, (spec, name, value) => {
             spec(`${name} with '${locale}' locale`, () => {
-                const formatter = new DefaultFormatter(
-                    locale,
-                    EmptyUnitScaleFormatter
-                );
+                const formatter = new DefaultFormatter(locale);
                 expect(formatter.formatValue(value.value)).toEqual(
                     value.expectedFormattedValue[locale]
                 );
@@ -224,36 +221,105 @@ describe('DefaultFormatter', () => {
     }
 
     describe('with unit', () => {
-        class TestUnitScaleFormatter extends UnitScaleFormatter {
-            public override getSupportedScaledUnits(
-                locale: string,
-                formatterOptions: Intl.NumberFormatOptions
-            ): ScaledUnit[] {
-                const formatter = new Intl.NumberFormat(
-                    locale,
-                    formatterOptions
-                );
-                return [1, 100, 1000].map(scaleFactor => {
+        class TestAppendedLabelUnitScale extends UnitScale {
+            public override getSupportedScaledUnits(): ScaledUnit[] {
+                return [0.01, 1, 100, 1000].map(scaleFactor => {
                     return {
                         scaleFactor,
-                        format: x => `${formatter.format(x)} x${scaleFactor}`
+                        formatterOptions: {},
+                        appendUnitIfNeeded: (formatted: string) => `${formatted} x${scaleFactor}`
                     };
                 });
             }
         }
 
-        const formatter = new DefaultFormatter('en', TestUnitScaleFormatter);
+        const appendedLabelUnitTestCases = [
+            {
+                name: 'does not double-convert the value when a unit is specified',
+                value: 130,
+                expectedFormattedValue: '1.3 x100'
+            },
+            {
+                name: 'uses unit-scaled value when deciding whether to format in exponential notation',
+                value: 2000000,
+                expectedFormattedValue: '2,000 x1000'
+            },
+            {
+                name: 'uses unit-scaled value when deciding whether to format with leading-zero formatter',
+                value: 0.123456789,
+                expectedFormattedValue: '12.3457 x0.01' // rather than '12.34568 x0.01'
+            },
+            {
+                name: 'always uses base unit if exponential notation is used',
+                value: 2000000000,
+                expectedFormattedValue: '2E9 x1' // rather than '2E6 x1000'
+            }
+        ] as const;
 
-        it('does not double-convert the value when a unit is specified', () => {
-            expect(formatter.formatValue(130)).toEqual('1.3 x100');
-        });
+        const formatterForAppendedLabel = new DefaultFormatter(
+            'en',
+            new TestAppendedLabelUnitScale()
+        );
 
-        it('uses unit-converted value when deciding whether to format in exponential notation', () => {
-            expect(formatter.formatValue(2000000)).toEqual('2,000 x1000');
-        });
+        parameterizeNamedList(
+            appendedLabelUnitTestCases,
+            (spec, name, value) => {
+                spec(name, () => {
+                    expect(
+                        formatterForAppendedLabel.formatValue(value.value)
+                    ).toEqual(value.expectedFormattedValue);
+                });
+            }
+        );
 
-        it('always uses base unit if exponential notation is used', () => {
-            expect(formatter.formatValue(2000000000)).toEqual('2E9 x1'); // rather than '2E6 x1000'
-        });
+        class TestFormatterOptionsUnitScale extends UnitScale {
+            public override getSupportedScaledUnits(): ScaledUnit[] {
+                return [
+                    {
+                        scaleFactor: 1,
+                        formatterOptions: {
+                            style: 'unit',
+                            unit: 'byte',
+                            unitDisplay: 'short'
+                        },
+                        appendUnitIfNeeded: (formatted: string) => formatted
+                    }
+                ];
+            }
+        }
+
+        const formatterOptionsUnitTestCases = [
+            {
+                name: 'configures default formatter with unit options',
+                value: 0,
+                expectedFormattedValue: '0 byte'
+            },
+            {
+                name: 'configures leading-zero formatter with unit options',
+                value: 0.123456789,
+                expectedFormattedValue: '0.12346 byte'
+            },
+            {
+                name: 'configures exponential formatter with unit options',
+                value: 1000000,
+                expectedFormattedValue: '1E6 byte'
+            }
+        ] as const;
+
+        const formatterForFormatterOptions = new DefaultFormatter(
+            'en',
+            new TestFormatterOptionsUnitScale()
+        );
+
+        parameterizeNamedList(
+            formatterOptionsUnitTestCases,
+            (spec, name, value) => {
+                spec(name, () => {
+                    expect(
+                        formatterForFormatterOptions.formatValue(value.value)
+                    ).toEqual(value.expectedFormattedValue);
+                });
+            }
+        );
     });
 });

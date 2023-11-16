@@ -1,8 +1,8 @@
+/* eslint-disable max-classes-per-file */
 import type { ScaledUnit } from '../scaled-unit';
 import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
 import { DecimalFormatter } from '../decimal-formatter';
-import { EmptyUnitScaleFormatter } from '../empty-unit-scale-formatter';
-import { UnitScaleFormatter } from '../unit-scale-formatter';
+import { UnitScale } from '../unit-scale';
 
 describe('DecimalFormatter', () => {
     const locales = ['en', 'de'] as const;
@@ -124,7 +124,6 @@ describe('DecimalFormatter', () => {
             spec(`${name} with '${locale}' locale`, () => {
                 const formatter = new DecimalFormatter(
                     locale,
-                    EmptyUnitScaleFormatter,
                     value.minDigits,
                     value.maxDigits
                 );
@@ -136,25 +135,76 @@ describe('DecimalFormatter', () => {
     }
 
     describe('with unit', () => {
-        class TestUnitScaleFormatter extends UnitScaleFormatter {
+        class TestAppendedLabelUnitScale extends UnitScale {
             public override getSupportedScaledUnits(): ScaledUnit[] {
-                return [1, 2, 4].map(scaleFactor => {
+                return [0.001, 1, 2, 4].map(scaleFactor => {
                     return {
                         scaleFactor,
-                        format: x => `${x} x${scaleFactor}`
+                        formatterOptions: {},
+                        appendUnitIfNeeded: (formatted: string) => `${formatted} x${scaleFactor}`
                     };
                 });
             }
         }
 
-        it('does not double-convert the value when a unit is specified', () => {
+        const appendedLabelUnitTestCases = [
+            {
+                name: 'does not double-convert the value when a unit is specified',
+                minDigits: 2,
+                maxDigits: 2,
+                value: 3,
+                expectedFormattedValue: '1.50 x2'
+            },
+            {
+                name: 'checks for zero-rounding after scaling value',
+                minDigits: 2,
+                maxDigits: 2,
+                value: 0.001,
+                expectedFormattedValue: '1.00 x0.001'
+            }
+        ] as const;
+
+        parameterizeNamedList(
+            appendedLabelUnitTestCases,
+            (spec, name, value) => {
+                spec(name, () => {
+                    const formatter = new DecimalFormatter(
+                        'en',
+                        value.minDigits,
+                        value.maxDigits,
+                        new TestAppendedLabelUnitScale()
+                    );
+                    expect(formatter.formatValue(value.value)).toEqual(
+                        value.expectedFormattedValue
+                    );
+                });
+            }
+        );
+
+        class TestFormatterOptionsUnitScale extends UnitScale {
+            public override getSupportedScaledUnits(): ScaledUnit[] {
+                return [
+                    {
+                        scaleFactor: 1,
+                        formatterOptions: {
+                            style: 'unit',
+                            unit: 'byte',
+                            unitDisplay: 'long'
+                        },
+                        appendUnitIfNeeded: (formatted: string) => formatted
+                    }
+                ];
+            }
+        }
+
+        it('configures formatter with unit options', () => {
             const formatter = new DecimalFormatter(
                 'en',
-                TestUnitScaleFormatter,
                 2,
-                2
+                2,
+                new TestFormatterOptionsUnitScale()
             );
-            expect(formatter.formatValue(3)).toEqual('1.5 x2');
+            expect(formatter.formatValue(10)).toEqual('10.00 bytes');
         });
     });
 });

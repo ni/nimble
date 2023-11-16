@@ -1,5 +1,5 @@
 import { UnitVolt, unitVoltTag } from '..';
-import { VoltUnitScaleFormatter } from '../models/volt-unit-scale-formatter';
+import { VoltUnitScale } from '../models/volt-unit-scale';
 
 describe('Volt unit', () => {
     it('should export its tag', () => {
@@ -14,6 +14,6 @@ describe('Volt unit', () => {
 
     it('returns expected formatter', () => {
         const element = document.createElement('nimble-unit-volt');
-        expect(element.getFormatter()).toBe(VoltUnitScaleFormatter);
+        expect(element.getUnitScale()).toBe(VoltUnitScale.instance);
     });
 });

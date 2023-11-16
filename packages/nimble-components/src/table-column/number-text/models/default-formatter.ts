@@ -1,8 +1,5 @@
 import { NumberFormatter } from './number-formatter';
-import type {
-    UnitScaleFormatter,
-    UnitScaleFormatterConstructor
-} from './unit-scale-formatter';
+import type { UnitScale } from './unit-scale';
 
 /**
  * The formatter for a number-text column whose format is configured to be 'default'.
@@ -21,65 +18,109 @@ export class DefaultFormatter extends NumberFormatter {
     private static readonly exponentialUpperBound = 999999.5;
 
     // Formatter to use by default. It renders the number with a maximum of 6 signficant digits.
-    private readonly defaultFormatter: UnitScaleFormatter;
+    // Maps from a "unit" Intl.NumberFormat option to a Intl.NumberFormat instance.
+    // If the formatter is not configured with a unit, the key is `undefined`.
+    private readonly defaultFormatterCache = new Map<
+    string | undefined,
+    Intl.NumberFormat
+    >();
 
     // Formatter to use for numbers that have leading zeros. It limits the number of rendered
     // digits using 'maximumFractionDigits', which will result in less than 6 significant digits
     // in order to render no more than 6 total digits.
-    private readonly leadingZeroFormatter: UnitScaleFormatter;
+    // Maps from a "unit" Intl.NumberFormat option to a Intl.NumberFormat instance.
+    // If the formatter is not configured with a unit, the key is `undefined`.
+    private readonly leadingZeroFormatterCache = new Map<
+    string | undefined,
+    Intl.NumberFormat
+    >();
 
     // Formatter for numbers that should be displayed in exponential notation. This should be used
     // for numbers with magintudes over 'exponentialUpperBound' or under 'exponentialLowerBound'.
-    private readonly exponentialFormatter: UnitScaleFormatter;
+    private exponentialFormatter?: Intl.NumberFormat = undefined;
+
+    // Constructing this is costly enough to warrant caching it
+    private readonly pluralRules: Intl.PluralRules;
 
     public constructor(
-        locale: string,
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        UnitScaleFormatterConstructor: UnitScaleFormatterConstructor
+        private readonly locale: string,
+        private readonly unitScale?: UnitScale
     ) {
         super();
-        this.defaultFormatter = new UnitScaleFormatterConstructor(locale, {
-            maximumSignificantDigits: DefaultFormatter.maximumDigits,
-            useGrouping: true
-        });
-        this.leadingZeroFormatter = new UnitScaleFormatterConstructor(locale, {
-            maximumFractionDigits: DefaultFormatter.maximumDigits - 1,
-            useGrouping: true
-        });
-        this.exponentialFormatter = new UnitScaleFormatterConstructor(locale, {
-            maximumSignificantDigits: DefaultFormatter.maximumDigits,
-            notation: 'scientific'
-        });
-        this.exponentialFormatter.alwaysUseBaseScaledUnit = true;
+        this.pluralRules = new Intl.PluralRules(locale);
     }
 
     protected format(number: number): string {
         // The NumberFormat option of `signDisplay: "negative"` is not supported in all browsers nimble supports.
         // Because that option cannot be used to avoid rendering "-0", coerce the value -0 to 0 prior to formatting.
         const valueToFormat = number === 0 ? 0 : number;
-        const scaledNumber = this.defaultFormatter.getScaledValue(valueToFormat);
-        const formatter = this.getFormatterForNumber(scaledNumber);
-        return formatter.formatValue(valueToFormat);
-    }
+        let unit = this.unitScale?.pickBestScaledUnit(valueToFormat);
+        let scaledNumber = valueToFormat / (unit?.scaleFactor ?? 1);
+        let formatter;
 
-    private getFormatterForNumber(number: number): UnitScaleFormatter {
-        if (number === 0) {
-            return this.defaultFormatter;
+        if (scaledNumber !== 0) {
+            const absoluteValue = Math.abs(scaledNumber);
+            if (
+                absoluteValue >= DefaultFormatter.exponentialUpperBound
+                || absoluteValue < DefaultFormatter.exponentialLowerBound
+            ) {
+                // Always use the base unit when formatting in scientific notation.
+                unit = this.unitScale?.baseScaledUnit;
+                scaledNumber = valueToFormat;
+                if (!this.exponentialFormatter) {
+                    this.exponentialFormatter = new Intl.NumberFormat(
+                        this.locale,
+                        {
+                            ...unit?.formatterOptions,
+                            maximumSignificantDigits:
+                                DefaultFormatter.maximumDigits,
+                            notation: 'scientific'
+                        }
+                    );
+                }
+                formatter = this.exponentialFormatter;
+            } else if (absoluteValue < 1) {
+                // Ideally, we could set 'roundingPriority: "lessPrecision"' with a formatter that has both 'maximumSignificantDigits' and
+                // 'maximumFractionDigits' configured instead of having two different formatters that we conditionally choose between. However,
+                // 'roundingPrioirty' is not supported yet in all browsers nimble supports.
+                const unitFormatterOption = unit?.formatterOptions.unit;
+                if (!this.leadingZeroFormatterCache.has(unitFormatterOption)) {
+                    this.leadingZeroFormatterCache.set(
+                        unitFormatterOption,
+                        new Intl.NumberFormat(this.locale, {
+                            ...unit?.formatterOptions,
+                            maximumFractionDigits:
+                                DefaultFormatter.maximumDigits - 1,
+                            useGrouping: true
+                        })
+                    );
+                }
+                formatter = this.leadingZeroFormatterCache.get(unitFormatterOption)!;
+            }
         }
-
-        const absoluteValue = Math.abs(number);
-        if (
-            absoluteValue >= DefaultFormatter.exponentialUpperBound
-            || absoluteValue < DefaultFormatter.exponentialLowerBound
-        ) {
-            return this.exponentialFormatter;
+        if (!formatter) {
+            const unitFormatterOption = unit?.formatterOptions.unit;
+            if (!this.defaultFormatterCache.has(unitFormatterOption)) {
+                this.defaultFormatterCache.set(
+                    unitFormatterOption,
+                    new Intl.NumberFormat(this.locale, {
+                        ...unit?.formatterOptions,
+                        maximumSignificantDigits:
+                            DefaultFormatter.maximumDigits,
+                        useGrouping: true
+                    })
+                );
+            }
+            formatter = this.defaultFormatterCache.get(unitFormatterOption)!;
         }
-        // Ideally, we could set 'roundingPriority: "lessPrecision"' with a formatter that has both 'maximumSignificantDigits' and
-        // 'maximumFractionDigits' configured instead of having two different formatters that we conditionally choose between. However,
-        // 'roundingPrioirty' is not supported yet in all browsers nimble supports.
-        if (absoluteValue < 1) {
-            return this.leadingZeroFormatter;
-        }
-        return this.defaultFormatter;
+        const formatted = formatter.format(scaledNumber);
+        return (
+            unit?.appendUnitIfNeeded(
+                formatted,
+                scaledNumber,
+                this.locale,
+                this.pluralRules
+            ) ?? formatted
+        );
     }
 }

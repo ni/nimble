@@ -6,12 +6,12 @@ import { ScaledUnit } from '../../../table-column/number-text/models/scaled-unit
 export class IntlNumberFormatScaledUnit extends ScaledUnit {
     public constructor(
         scaleFactor: number,
-        private readonly formatter: Intl.NumberFormat
+        public readonly formatterOptions: Intl.NumberFormatOptions
     ) {
         super(scaleFactor);
     }
 
-    public format(value: number): string {
-        return this.formatter.format(value);
+    public override appendUnitIfNeeded(formattedNumber: string): string {
+        return formattedNumber;
     }
 }

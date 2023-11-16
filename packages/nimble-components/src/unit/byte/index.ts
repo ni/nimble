@@ -1,9 +1,9 @@
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { template } from '../base/template';
-import type { UnitScaleFormatterConstructor } from '../../table-column/number-text/models/unit-scale-formatter';
-import { Byte1024UnitScaleFormatter } from './models/byte-1024-unit-scale-formatter';
-import { ByteUnitScaleFormatter } from './models/byte-unit-scale-formatter';
+import type { UnitScale } from '../../table-column/number-text/models/unit-scale';
+import { Byte1024UnitScale } from './models/byte-1024-unit-scale';
+import { ByteUnitScale } from './models/byte-unit-scale';
 import { Unit } from '../base/unit';
 
 declare global {
@@ -20,10 +20,10 @@ export class UnitByte extends Unit {
     @attr({ mode: 'boolean' })
     public binary = false;
 
-    public override getFormatter(): UnitScaleFormatterConstructor {
+    public override getUnitScale(): UnitScale {
         return this.binary
-            ? Byte1024UnitScaleFormatter
-            : ByteUnitScaleFormatter;
+            ? Byte1024UnitScale.instance
+            : ByteUnitScale.instance;
     }
 }
 

@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { UnitByte, unitByteTag } from '..';
-import { Byte1024UnitScaleFormatter } from '../models/byte-1024-unit-scale-formatter';
-import { ByteUnitScaleFormatter } from '../models/byte-unit-scale-formatter';
+import { Byte1024UnitScale } from '../models/byte-1024-unit-scale';
+import { ByteUnitScale } from '../models/byte-unit-scale';
 
 async function setup(binary: boolean): Promise<Fixture<UnitByte>> {
     return fixture<UnitByte>(html`
@@ -25,17 +25,17 @@ describe('Byte unit', () => {
         );
     });
 
-    it('returns Byte1024UnitScaleFormatter when "binary" attribute is set', async () => {
+    it('returns Byte1024UnitScale when "binary" attribute is set', async () => {
         ({ element, connect, disconnect } = await setup(true));
         await connect();
-        expect(element.getFormatter()).toBe(Byte1024UnitScaleFormatter);
+        expect(element.getUnitScale()).toBe(Byte1024UnitScale.instance);
         await disconnect();
     });
 
-    it('returns ByteScaleFormatter when "binary" attribute is unset', async () => {
+    it('returns ByteScale when "binary" attribute is unset', async () => {
         ({ element, connect, disconnect } = await setup(false));
         await connect();
-        expect(element.getFormatter()).toBe(ByteUnitScaleFormatter);
+        expect(element.getUnitScale()).toBe(ByteUnitScale.instance);
         await disconnect();
     });
 });

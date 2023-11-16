@@ -1,8 +1,8 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
-import type { UnitScaleFormatterConstructor } from '../../table-column/number-text/models/unit-scale-formatter';
-import { VoltUnitScaleFormatter } from './models/volt-unit-scale-formatter';
+import type { UnitScale } from '../../table-column/number-text/models/unit-scale';
+import { VoltUnitScale } from './models/volt-unit-scale';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -14,8 +14,8 @@ declare global {
  * Element representing units for volts
  */
 export class UnitVolt extends Unit {
-    public override getFormatter(): UnitScaleFormatterConstructor {
-        return VoltUnitScaleFormatter;
+    public override getUnitScale(): UnitScale {
+        return VoltUnitScale.instance;
     }
 }
 
