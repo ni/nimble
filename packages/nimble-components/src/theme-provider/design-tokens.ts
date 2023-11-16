@@ -324,6 +324,9 @@ export const dialogLargeHeight = DesignToken.create<string>(
 export const dialogLargeMaxHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.dialogLargeMaxHeight)
 ).withDefault('680px');
+export const menuMinWidth = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.menuMinWidth)
+).withDefault('176px');
 export const bannerGapSize = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerGapSize)
 ).withDefault('1px');
@@ -770,6 +773,26 @@ export const [
     GridHeaderSize,
     TooltipCaptionLineHeight,
     GridHeaderFallbackFontFamily
+);
+
+export const [
+    mentionFont,
+    mentionFontColor,
+    mentionDisabledFontColor,
+    mentionFontFamily,
+    mentionFontWeight,
+    mentionFontSize,
+    mentionFontLineHeight,
+    mentionFallbackFontFamily
+] = createFontTokens(
+    tokenNames.mentionFont,
+    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, PowerGreen),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    BodyFamily,
+    BodyEmphasizedWeight,
+    BodySize,
+    BodyLineHeight,
+    BodyFallbackFontFamily
 );
 
 // Font Transform Tokens
