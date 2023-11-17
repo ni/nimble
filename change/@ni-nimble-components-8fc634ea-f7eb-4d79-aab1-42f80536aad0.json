@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix the drawer's footer's border to match the visual design spec",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
