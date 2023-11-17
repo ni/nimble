@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 17 Nov 2023 16:02:19 GMT",
+      "version": "20.14.6",
+      "tag": "@ni/nimble-components_v20.14.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "045bb0a6749a64df4af2b28da161b79802c5f12b",
+            "comment": "Add configuration component for rich text @mention support"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Nov 2023 01:11:32 GMT",
       "version": "20.14.5",
       "tag": "@ni/nimble-components_v20.14.5",

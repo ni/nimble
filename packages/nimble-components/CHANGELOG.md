@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 17 Nov 2023 01:11:32 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Nov 2023 16:02:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.14.6
+
+Fri, 17 Nov 2023 16:02:19 GMT
+
+### Patches
+
+- Add configuration component for rich text @mention support ([ni/nimble@045bb0a](https://github.com/ni/nimble/commit/045bb0a6749a64df4af2b28da161b79802c5f12b))
 
 ## 20.14.5
 
