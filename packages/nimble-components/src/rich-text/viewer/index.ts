@@ -62,9 +62,7 @@ export class RichTextViewer extends FoundationElement {
      * @internal
      */
     public markdownChanged(): void {
-        if (this.$fastController.isConnected) {
-            this.updateView();
-        }
+        this.updateView();
     }
 
     /**
@@ -124,12 +122,13 @@ export class RichTextViewer extends FoundationElement {
             }
         });
         this.mentionInternalsList = [...new Set(mentionList)];
-        if (this.$fastController.isConnected) {
-            this.updateView();
-        }
+        this.updateView();
     }
 
     private updateView(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
         if (this.markdown) {
             const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
                 this.markdown,

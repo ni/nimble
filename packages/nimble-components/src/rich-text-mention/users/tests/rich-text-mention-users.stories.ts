@@ -27,10 +27,7 @@ export const richTextMentionUsers: StoryObj = {
     argTypes: {
         pattern: {
             description: patternDescription,
-            control: { type: 'text' }
+            control: { type: 'none' }
         }
-    },
-    args: {
-        pattern: 'users:.*'
     }
 };
