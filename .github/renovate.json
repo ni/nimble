@@ -3,7 +3,7 @@
   "extends": [
     "config:base"
   ],
-  "enabledManagers": ["npm"],
+  "enabledManagers": ["npm", "nuget"],
   "rangeStrategy": "update-lockfile",
   "rebaseWhen": "conflicted",
   "schedule": [
@@ -15,7 +15,7 @@
       "enabled": false
     },
     {
-      "groupName": "Dependencies",
+      "groupName": "npm dependencies",
       "matchDepTypes": ["dependencies"],
       "matchPackagePatterns":[
         "^@microsoft/fast",
@@ -28,13 +28,18 @@
       "enabled": true
     },
     {
-      "groupName": "Dev Dependencies",
+      "groupName": "npm dev dependencies",
       "matchDepTypes": ["devDependencies"],
       "matchPackagePatterns":[
         "^@ni/eslint-config",
         "beachball",
         "storybook"
       ],
+      "enabled": true
+    },
+    {
+      "groupName": "Nuget dependencies",
+      "rangeStrategy": "auto",
       "enabled": true
     }
   ]
