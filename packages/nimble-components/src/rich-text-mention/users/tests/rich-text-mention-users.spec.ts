@@ -35,7 +35,10 @@ async function updateFirstUserMappingElement(
 ): Promise<void> {
     if (element.hasChildNodes()) {
         element.firstElementChild?.setAttribute('key', mapping.key!);
-        element.firstElementChild?.setAttribute('display-name', mapping.displayName!);
+        element.firstElementChild?.setAttribute(
+            'display-name',
+            mapping.displayName!
+        );
     }
     await waitForUpdatesAsync();
 }
