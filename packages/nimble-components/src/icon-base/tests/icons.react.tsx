@@ -1,22 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/naming-convention */
 import * as React from 'react';
 import { provideReactWrapper } from '@microsoft/fast-react-wrapper';
-
-import { Anchor } from '../../src/anchor';
-import { AnchorButton } from '../../src/anchor-button';
-import { AnchorMenuItem } from '../../src/anchor-menu-item';
-import { AnchorTab } from '../../src/anchor-tab';
-import { AnchorTabs } from '../../src/anchor-tabs';
-import { AnchorTreeItem } from '../../src/anchor-tree-item';
-import { AnchoredRegion } from '../../src/anchored-region';
-import { Banner } from '../../src/banner';
-import { Breadcrumb } from '../../src/breadcrumb';
-import { BreadcrumbItem } from '../../src/breadcrumb-item';
-import { Button } from '../../src/button';
-import { CardButton } from '../../src/card-button';
-import { Checkbox } from '../../src/checkbox';
-import { Combobox } from '../../src/combobox';
-import { Dialog } from '../../src/dialog';
-import { Drawer } from '../../src/drawer';
 import {
     IconAdd,
     IconArrowDown,
@@ -182,64 +167,10 @@ import {
     IconWrenchHammer,
     IconXmark,
     IconXmarkCheck
-} from '../../src/icons/all-icons';
-
-import { LabelProviderCore } from '../../src/label-provider/core';
-import { LabelProviderTable } from '../../src/label-provider/table';
-import { ListOption } from '../../src/list-option';
-import { MappingText } from '../../src/mapping/text';
-import { MappingIcon } from '../../src/mapping/icon';
-import { MappingSpinner } from '../../src/mapping/spinner';
-import { Menu } from '../../src/menu';
-import { MenuButton } from '../../src/menu-button';
-import { MenuItem } from '../../src/menu-item';
-import { NumberField } from '../../src/number-field';
-import { Radio } from '../../src/radio';
-import { RadioGroup } from '../../src/radio-group';
-import { RichTextEditor } from '../../src/rich-text/editor';
-import { RichTextViewer } from '../../src/rich-text/viewer';
-import { Select } from '../../src/select';
-import { Spinner } from '../../src/spinner';
-import { Switch } from '../../src/switch';
-import { Tab } from '../../src/tab';
-import { TabPanel } from '../../src/tab-panel';
-import { Table } from '../../src/table';
-import { TableColumnAnchor } from '../../src/table-column/anchor';
-import { TableColumnDateText } from '../../src/table-column/date-text';
-import { TableColumnEnumText } from '../../src/table-column/enum-text';
-import { TableColumnNumberText } from '../../src/table-column/number-text';
-import { TableColumnIcon } from '../../src/table-column/icon';
-import { TableColumnText } from '../../src/table-column/text';
-import { Tabs } from '../../src/tabs';
-import { TabsToolbar } from '../../src/tabs-toolbar';
-import { TextArea } from '../../src/text-area';
-import { TextField } from '../../src/text-field';
-import { ThemeProvider } from '../../src/theme-provider';
-import { ToggleButton } from '../../src/toggle-button';
-import { Toolbar } from '../../src/toolbar';
-import { Tooltip } from '../../src/tooltip';
-import { TreeItem } from '../../src/tree-item';
-import { TreeView } from '../../src/tree-view';
-import { WaferMap } from '../../src/wafer-map';
+} from '../../icons/all-icons';
 
 const { wrap } = provideReactWrapper(React);
 
-export const NimbleAnchor = wrap(Anchor);
-export const NimbleAnchorButton = wrap(AnchorButton);
-export const NimbleAnchorMenuItem = wrap(AnchorMenuItem);
-export const NimbleAnchorTab = wrap(AnchorTab);
-export const NimbleAnchorTabs = wrap(AnchorTabs);
-export const NimbleAnchorTreeItem = wrap(AnchorTreeItem);
-export const NimbleAnchoredRegion = wrap(AnchoredRegion);
-export const NimbleBanner = wrap(Banner);
-export const NimbleBreadcrumb = wrap(Breadcrumb);
-export const NimbleBreadcrumbItem = wrap(BreadcrumbItem);
-export const NimbleButton = wrap(Button);
-export const NimbleCardButton = wrap(CardButton);
-export const NimbleCheckbox = wrap(Checkbox);
-export const NimbleCombobox = wrap(Combobox);
-export const NimbleDialog = wrap(Dialog);
-export const NimbleDrawer = wrap(Drawer);
 export const NimbleIconAdd = wrap(IconAdd);
 export const NimbleIconArrowDown = wrap(IconArrowDown);
 export const NimbleIconArrowDownRightAndArrowUpLeft = wrap(
@@ -430,40 +361,3 @@ export const NimbleIconWindowText = wrap(IconWindowText);
 export const NimbleIconWrenchHammer = wrap(IconWrenchHammer);
 export const NimbleIconXmark = wrap(IconXmark);
 export const NimbleIconXmarkCheck = wrap(IconXmarkCheck);
-export const NimbleLabelProviderCore = wrap(LabelProviderCore);
-export const NimbleLabelProviderTable = wrap(LabelProviderTable);
-export const NimbleListOption = wrap(ListOption);
-export const NimbleMappingText = wrap(MappingText);
-export const NimbleMappingIcon = wrap(MappingIcon);
-export const NimbleMappingSpinner = wrap(MappingSpinner);
-export const NimbleMenu = wrap(Menu);
-export const NimbleMenuButton = wrap(MenuButton);
-export const NimbleMenuItem = wrap(MenuItem);
-export const NimbleNumberField = wrap(NumberField);
-export const NimbleRadio = wrap(Radio);
-export const NimbleRadioGroup = wrap(RadioGroup);
-export const NimbleRichTextEditor = wrap(RichTextEditor);
-export const NimbleRichTextViewer = wrap(RichTextViewer);
-export const NimbleSelect = wrap(Select);
-export const NimbleSpinner = wrap(Spinner);
-export const NimbleSwitch = wrap(Switch);
-export const NimbleTab = wrap(Tab);
-export const NimbleTabPanel = wrap(TabPanel);
-export const NimbleTable = wrap(Table);
-export const NimbleTableColumnAnchor = wrap(TableColumnAnchor);
-export const NimbleTableColumnDateText = wrap(TableColumnDateText);
-export const NimbleTableColumnEnumText = wrap(TableColumnEnumText);
-export const NimbleTableColumnNumberText = wrap(TableColumnNumberText);
-export const NimbleTableColumnIcon = wrap(TableColumnIcon);
-export const NimbleTableColumnText = wrap(TableColumnText);
-export const NimbleTabs = wrap(Tabs);
-export const NimbleTabsToolbar = wrap(TabsToolbar);
-export const NimbleTextArea = wrap(TextArea);
-export const NimbleTextField = wrap(TextField);
-export const NimbleThemeProvider = wrap(ThemeProvider);
-export const NimbleToggleButton = wrap(ToggleButton);
-export const NimbleToolbar = wrap(Toolbar);
-export const NimbleTooltip = wrap(Tooltip);
-export const NimbleTreeItem = wrap(TreeItem);
-export const NimbleTreeView = wrap(TreeView);
-export const NimbleWaferMap = wrap(WaferMap);

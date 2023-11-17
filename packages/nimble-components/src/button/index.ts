@@ -58,7 +58,7 @@ export class Button
  * Generates HTML Element: \<nimble-button\>
  *
  */
-const nimbleButton = Button.compose<ButtonOptions>({
+export const nimbleButton = Button.compose<ButtonOptions>({
     baseName: 'button',
     baseClass: FoundationButton,
     template,

@@ -7,33 +7,33 @@ export const Frame = ({ children }) => {
     return <div className="frame">{children}</div>;
 };
 
-export const Container = ({ children }) => {
-    return <div className="container">{children}</div>;
+export const Container = ({ children, config = '200px 1fr' }) => {
+    return <div className="container" style={{gridTemplateColumns: config}}>{children}</div>;
 };
 
-export const Column = ({ children, size = 'medium' }) => {
-    const cn = `column ${size}`;
+export const Column = ({ children, stylingClass = '' }) => {
+    const cn = `column ${stylingClass}`;
     return <div className={cn}>{children}</div>;
 };
 
 export const Do = ({ children }) => {
     return (
-        <Container>
-            <Column size="fit">
+        <Container config='48px 1fr'>
+            <Column>
                 <Check size="24px" />
             </Column>
-            <Column size="large">{children}</Column>
+            <Column>{children}</Column>
         </Container>
     );
 };
 
 export const Dont = ({ children }) => {
     return (
-        <Container>
-            <Column size="fit">
+        <Container config='48px 1fr'>
+            <Column>
                 <Exclamation size="24px" />
             </Column>
-            <Column size="large">{children}</Column>
+            <Column>{children}</Column>
         </Container>
     );
 };

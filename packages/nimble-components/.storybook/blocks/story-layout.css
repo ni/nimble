@@ -1,43 +1,27 @@
 @import url('@ni/nimble-tokens/dist/styledictionary/css/variables.css');
 
 .container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     align-items: center;
 }
 
 .container p {
     margin: 0%;
+    padding-top: var(--ni-nimble-medium-padding);
 }
 
 .column > * {
-    margin: var(--ni-nimble-medium-padding);
+    margin: var(--ni-nimble-small-padding);
 }
 
-.column.fit {
-    flex-shrink: 0;
+.column.controls {
     padding-left: var(--ni-nimble-medium-padding);
     padding-right: var(--ni-nimble-medium-padding);
-}
-
-.column.small {
-    flex: 0.5;
-}
-
-.column.medium {
-    flex: 1;
-    flex-grow: 1;
-    padding: var(--ni-nimble-medium-padding);
-}
-
-.column.large {
-    flex: 2;
-    flex-grow: 1;
-    padding: var(--ni-nimble-medium-padding);
 }
 
 .frame {
     border: 1px solid rgba(128, 128, 128, 0.2);
     border-radius: 4px;
     box-shadow: 0px 1px 4px rgba(128, 128, 128, 0.22);
+    padding: var(--ni-nimble-medium-padding);
 }
