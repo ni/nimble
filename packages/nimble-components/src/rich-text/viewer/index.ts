@@ -35,12 +35,12 @@ export class RichTextViewer extends FoundationElement {
     /**
      * @internal
      */
-    public mentions: RichTextMention[] = [];
+    public mentionElements: RichTextMention[] = [];
 
     /**
      * @internal
      */
-    public mentionsMap: Map<string, MentionInternals<RichTextMentionConfig>> = new Map();
+    public mentionInternalsList: MentionInternals<RichTextMentionConfig>[] = [];
 
     /**
      * @internal
@@ -48,7 +48,7 @@ export class RichTextViewer extends FoundationElement {
     @observable
     public readonly childItems: Element[] = [];
 
-    private mentionNotifiers: Notifier[] = [];
+    private mentionInternalsNotifiers: Notifier[] = [];
 
     /**
      * @internal
@@ -71,12 +71,8 @@ export class RichTextViewer extends FoundationElement {
      * @internal
      */
     public handleChange(source: unknown, args: unknown): void {
-        if (
-            (source instanceof RichTextMention
-                || source instanceof MentionInternals)
-            && typeof args === 'string'
-        ) {
-            this.updateMentionsMap();
+        if (source instanceof MentionInternals && typeof args === 'string') {
+            this.updateMentionInternalsList();
         }
     }
 
@@ -89,49 +85,45 @@ export class RichTextViewer extends FoundationElement {
             ? customElements.whenDefined(item.localName)
             : Promise.resolve()));
         await Promise.all(definedElements);
-        this.mentions = this.childItems.filter(
+        this.mentionElements = this.childItems.filter(
             (x): x is RichTextMention => x instanceof RichTextMention
         );
 
         this.observeMentions();
-        this.updateMentionsMap();
+        this.updateMentionInternalsList();
     }
 
     private observeMentions(): void {
         this.removeMentionObservers();
 
-        for (const mention of this.mentions) {
-            const notifier = Observable.getNotifier(mention);
-            notifier.subscribe(this);
-            this.mentionNotifiers.push(notifier);
+        for (const mention of this.mentionElements) {
             const notifierInternals = Observable.getNotifier(
                 mention.mentionInternals
             );
             notifierInternals.subscribe(this);
-            this.mentionNotifiers.push(notifierInternals);
+            this.mentionInternalsNotifiers.push(notifierInternals);
         }
     }
 
     private removeMentionObservers(): void {
-        this.mentionNotifiers.forEach(notifier => {
+        this.mentionInternalsNotifiers.forEach(notifier => {
             notifier.unsubscribe(this);
         });
-        this.mentionNotifiers = [];
+        this.mentionInternalsNotifiers = [];
     }
 
-    private updateMentionsMap(): void {
-        this.mentionsMap = new Map();
-        this.mentions.forEach(mention => {
+    private updateMentionInternalsList(): void {
+        this.mentionInternalsList = [];
+        const mentionList: MentionInternals<RichTextMentionConfig>[] = [];
+        this.mentionElements.forEach(mention => {
             if (
                 mention.mentionInternals.pattern
                 && mention.mentionInternals.mentionConfig
             ) {
-                this.mentionsMap.set(
-                    mention.mentionInternals.character,
-                    mention.mentionInternals
-                );
+                mentionList.push(mention.mentionInternals);
             }
         });
+        this.mentionInternalsList = [...new Set(mentionList)];
         if (this.$fastController.isConnected) {
             this.updateView();
         }
@@ -141,7 +133,7 @@ export class RichTextViewer extends FoundationElement {
         if (this.markdown) {
             const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
                 this.markdown,
-                this.mentionsMap
+                this.mentionInternalsList
             );
             this.viewer.replaceChildren(serializedContent);
         } else {

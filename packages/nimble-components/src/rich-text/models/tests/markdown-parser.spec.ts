@@ -18,8 +18,6 @@ import {
     lastChildElementHasAttribute
 } from '../testing/markdown-parser-utils';
 import type { MappingUserKey } from '../../../mapping/base/types';
-import type { MentionInternals } from '../../../rich-text-mention/base/models/mention-internals';
-import type { RichTextMentionConfig } from '../../../rich-text-mention/base';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import { anchorTag } from '../../../anchor';
 
@@ -937,10 +935,6 @@ describe('Markdown parser', () => {
         let element: RichTextMentionUsers;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
-        const mentionsMap: Map<
-        string,
-        MentionInternals<RichTextMentionConfig>
-        > = new Map();
 
         // prettier-ignore
         async function setup(
@@ -971,14 +965,9 @@ describe('Markdown parser', () => {
                 '^user:.*'
             ));
             await connect();
-            mentionsMap.set(
-                element.mentionInternals.character,
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
                 element.mentionInternals
-            );
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                '<user:1>',
-                mentionsMap
-            );
+            ]);
 
             expect(getTagsFromElement(doc)).toEqual([
                 'P',
@@ -998,13 +987,9 @@ describe('Markdown parser', () => {
                 '^user:(.*)'
             ));
             await connect();
-            mentionsMap.set(
-                element.mentionInternals.character,
-                element.mentionInternals
-            );
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '<user:1234-5678>',
-                mentionsMap
+                [element.mentionInternals]
             );
 
             expect(getTagsFromElement(doc)).toEqual([
@@ -1025,13 +1010,9 @@ describe('Markdown parser', () => {
                 '^user:.*'
             ));
             await connect();
-            mentionsMap.set(
-                element.mentionInternals.character,
-                element.mentionInternals
-            );
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '<user:1234-5678>',
-                mentionsMap
+                [element.mentionInternals]
             );
 
             expect(getTagsFromElement(doc)).toEqual([
@@ -1051,13 +1032,9 @@ describe('Markdown parser', () => {
                 '^user:(.*)'
             ));
             await connect();
-            mentionsMap.set(
-                element.mentionInternals.character,
-                element.mentionInternals
-            );
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 'Some text <user:1.com>',
-                mentionsMap
+                [element.mentionInternals]
             );
 
             expect(getTagsFromElement(doc)).toEqual([
@@ -1077,13 +1054,9 @@ describe('Markdown parser', () => {
                         '^user:.*'
                     ));
                     await connect();
-                    mentionsMap.set(
-                        element.mentionInternals.character,
-                        element.mentionInternals
-                    );
                     const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                         '<user:1>',
-                        mentionsMap
+                        [element.mentionInternals]
                     );
 
                     expect(getTagsFromElement(doc)).toEqual([
@@ -1106,13 +1079,9 @@ describe('Markdown parser', () => {
                 '^user:.*'
             ));
             await connect();
-            mentionsMap.set(
-                element.mentionInternals.character,
-                element.mentionInternals
-            );
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '<https://1>',
-                mentionsMap
+                [element.mentionInternals]
             );
 
             expect(getTagsFromElement(doc)).toEqual([
@@ -1131,14 +1100,9 @@ describe('Markdown parser', () => {
                 '^user:.*'
             ));
             await connect();
-            mentionsMap.set(
-                element.mentionInternals.character,
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
                 element.mentionInternals
-            );
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                '<user:1>',
-                mentionsMap
-            );
+            ]);
 
             expect(getTagsFromElement(doc)).toEqual([
                 'P',
@@ -1157,14 +1121,9 @@ describe('Markdown parser', () => {
                 'abc'
             ));
             await connect();
-            mentionsMap.set(
-                element.mentionInternals.character,
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
                 element.mentionInternals
-            );
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                '<user:1>',
-                mentionsMap
-            );
+            ]);
 
             expect(getTagsFromElement(doc)).toEqual([
                 'P',
@@ -1183,14 +1142,9 @@ describe('Markdown parser', () => {
                 '^user:.*'
             ));
             await connect();
-            mentionsMap.set(
-                element.mentionInternals.character,
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
                 element.mentionInternals
-            );
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                '<user:1>',
-                mentionsMap
-            );
+            ]);
 
             expect(getTagsFromElement(doc)).toEqual([
                 'P',

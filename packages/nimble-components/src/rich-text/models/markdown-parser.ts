@@ -25,12 +25,9 @@ export class RichTextMarkdownParser {
      */
     public static parseMarkdownToDOM(
         value: string,
-        mentionsMap?: ReadonlyMap<
-        string,
-        MentionInternals<RichTextMentionConfig>
-        >
+        mentionInternalsList?: MentionInternals<RichTextMentionConfig>[]
     ): HTMLElement | DocumentFragment {
-        const markdownParser = this.initializeMarkdownParser(mentionsMap);
+        const markdownParser = this.initializeMarkdownParser(mentionInternalsList);
         const parsedMarkdownContent = markdownParser.parse(value);
         if (parsedMarkdownContent === null) {
             return document.createDocumentFragment();
@@ -41,10 +38,7 @@ export class RichTextMarkdownParser {
     }
 
     private static initializeMarkdownParser(
-        mentionsMap?: ReadonlyMap<
-        string,
-        MentionInternals<RichTextMentionConfig>
-        >
+        mentionInternalsList?: MentionInternals<RichTextMentionConfig>[]
     ): MarkdownParser {
         /**
          * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
@@ -75,13 +69,11 @@ export class RichTextMarkdownParser {
                     (state, _silent) => {
                         const mentionHref = this.getMentionHref(state);
 
-                        if (!mentionHref || !mentionsMap?.size) {
+                        if (!mentionHref || !mentionInternalsList?.length) {
                             return false;
                         }
 
-                        const currentMention = Array.from(
-                            mentionsMap.values()
-                        ).find(
+                        const currentMention = mentionInternalsList.find(
                             mention => mention.validConfiguration
                                 && this.validateMentionPattern(
                                     mention,
