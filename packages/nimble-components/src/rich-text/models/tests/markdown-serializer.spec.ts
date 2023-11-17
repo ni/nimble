@@ -60,8 +60,7 @@ describe('Markdown serializer', () => {
             await pageObject.setEditorTextContent('Bold');
             await pageObject.clickFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('italics');
-            await pageObject.clickFooterButton(ToolbarButton.italics);
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics, false);
             await pageObject.setEditorTextContent('bold');
             expect(element.getMarkdown()).toEqual('**Bold*italics*bold**');
         });
@@ -71,7 +70,7 @@ describe('Markdown serializer', () => {
             await pageObject.setEditorTextContent('Bold ');
             await pageObject.clickFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('italics');
-            await pageObject.toggleFooterButton(ToolbarButton.italics, true);
+            await pageObject.toggleFooterButton(ToolbarButton.italics, false);
             await pageObject.setEditorTextContent(' bold');
             expect(element.getMarkdown()).toEqual('**Bold *italics* bold**');
         });
@@ -81,7 +80,7 @@ describe('Markdown serializer', () => {
             await pageObject.setEditorTextContent('Italics');
             await pageObject.clickFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('bold');
-            await pageObject.toggleFooterButton(ToolbarButton.bold, true);
+            await pageObject.toggleFooterButton(ToolbarButton.bold, false);
             await pageObject.setEditorTextContent('italics');
             expect(element.getMarkdown()).toEqual('*Italics**bold**italics*');
         });
@@ -91,7 +90,7 @@ describe('Markdown serializer', () => {
             await pageObject.setEditorTextContent('Italics ');
             await pageObject.clickFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('bold');
-            await pageObject.toggleFooterButton(ToolbarButton.bold, true);
+            await pageObject.toggleFooterButton(ToolbarButton.bold, false);
             await pageObject.setEditorTextContent(' italics');
             expect(element.getMarkdown()).toEqual('*Italics **bold** italics*');
         });
