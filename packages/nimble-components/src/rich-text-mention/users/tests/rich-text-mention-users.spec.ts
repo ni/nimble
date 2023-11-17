@@ -34,8 +34,8 @@ async function updateFirstUserMappingElement(
     mapping: BasicUserMentionMapping
 ): Promise<void> {
     if (element.hasChildNodes()) {
-        element.children[0]?.setAttribute('key', mapping.key!);
-        element.children[0]?.setAttribute('display-name', mapping.displayName!);
+        element.firstElementChild?.setAttribute('key', mapping.key!);
+        element.firstElementChild?.setAttribute('display-name', mapping.displayName!);
     }
     await waitForUpdatesAsync();
 }
