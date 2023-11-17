@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 17 Nov 2023 01:11:32 GMT",
+      "version": "20.14.5",
+      "tag": "@ni/nimble-components_v20.14.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ad97540875589785cfce251af5213237ecf5778a",
+            "comment": "Fix the drawer's footer's border to match the visual design spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 Nov 2023 16:52:07 GMT",
       "version": "20.14.4",
       "tag": "@ni/nimble-components_v20.14.4",
