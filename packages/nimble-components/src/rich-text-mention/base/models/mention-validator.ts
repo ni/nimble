@@ -11,7 +11,8 @@ export const baseValidityFlagNames = [
     'unsupportedMappingType',
     'duplicateMappingMentionHref',
     'missingMentionHrefValue',
-    'unsupportedMentionHrefValue',
+    'mentionHrefNotValidUrl',
+    'mentionHrefDoesNotMatchPattern',
     'missingPatternAttribute',
     'unsupportedPatternValue'
 ] as const;
@@ -41,7 +42,8 @@ export class RichTextMentionValidator<
         this.validateUniqueMentionHref(mentionHrefs);
         this.validateMissingPattern(pattern);
         this.validatePattern(pattern);
-        this.validateHref(mentionHrefs, pattern);
+        this.validateHrefForPattern(mentionHrefs, pattern);
+        this.validateHrefForUrl(mentionHrefs);
     }
 
     /**
@@ -103,27 +105,31 @@ export class RichTextMentionValidator<
         this.setConditionValue('missingMentionHrefValue', invalid);
     }
 
-    private validateHref(
+    private validateHrefForUrl(mentionHrefs: unknown[]): void {
+        const invalid = mentionHrefs.some(href => {
+            return (
+                href === undefined
+                || typeof href !== 'string'
+                || this.isInvalidUrl(href)
+            );
+        });
+        this.setConditionValue('mentionHrefNotValidUrl', invalid);
+    }
+
+    private validateHrefForPattern(
         mentionHrefs: unknown[],
         pattern: string | undefined
     ): void {
-        if (
-            this.getValidationFlags().unsupportedPatternValue
-            || this.getValidationFlags().missingPatternAttribute
-        ) {
-            return;
-        }
-        const invalid = this.isInvalidRegex(pattern!)
+        const invalid = pattern === undefined || this.isInvalidRegex(pattern)
             ? true
             : mentionHrefs.some(href => {
                 return (
                     href === undefined
-                      || typeof href !== 'string'
-                      || this.isInvalidUrl(href)
-                      || !RegExp(pattern!).test(href)
+                          || typeof href !== 'string'
+                          || !RegExp(pattern).test(href)
                 );
             });
-        this.setConditionValue('unsupportedMentionHrefValue', invalid);
+        this.setConditionValue('mentionHrefDoesNotMatchPattern', invalid);
     }
 
     private isInvalidUrl(url: string): boolean {
