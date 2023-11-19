@@ -51,25 +51,4 @@ export class TableColumnEnumTextValidator extends TableColumnEnumBaseValidator<
         );
         this.setConditionValue('unsupportedMappingType', !valid);
     }
-
-    private static isSupportedMappingElement(
-        mapping: Mapping<unknown>
-    ): mapping is MappingText {
-        return mapping instanceof MappingText;
-    }
-
-    public override validate(
-        mappings: Mapping<unknown>[],
-        keyType: MappingKeyType
-    ): void {
-        super.validate(mappings, keyType);
-        this.validateNoMissingText(mappings);
-    }
-
-    private validateNoMissingText(mappings: Mapping<unknown>[]): void {
-        const invalid = mappings
-            .filter(TableColumnEnumTextValidator.isSupportedMappingElement)
-            .some(mapping => mapping.text === undefined);
-        this.setConditionValue('missingTextValue', invalid);
-    }
 }
