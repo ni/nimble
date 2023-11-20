@@ -1,8 +1,64 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 02 Nov 2023 18:26:57 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Nov 2023 16:02:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.14.6
+
+Fri, 17 Nov 2023 16:02:19 GMT
+
+### Patches
+
+- Add configuration component for rich text @mention support ([ni/nimble@045bb0a](https://github.com/ni/nimble/commit/045bb0a6749a64df4af2b28da161b79802c5f12b))
+
+## 20.14.5
+
+Fri, 17 Nov 2023 01:11:32 GMT
+
+### Patches
+
+- Fix the drawer's footer's border to match the visual design spec ([ni/nimble@ad97540](https://github.com/ni/nimble/commit/ad97540875589785cfce251af5213237ecf5778a))
+
+## 20.14.4
+
+Wed, 15 Nov 2023 16:52:07 GMT
+
+### Patches
+
+- Update internal mapping base class to be generic ([ni/nimble@1eea68e](https://github.com/ni/nimble/commit/1eea68e85e2c284cd4ebad9b910ea57c5b3f929b))
+
+## 20.14.3
+
+Mon, 13 Nov 2023 17:03:21 GMT
+
+### Patches
+
+- Nimble rich text mention users view component bring up ([ni/nimble@fac3e07](https://github.com/ni/nimble/commit/fac3e07a393880edccb9061778a15ba5e7597fcb))
+
+## 20.14.2
+
+Sat, 11 Nov 2023 11:03:03 GMT
+
+### Patches
+
+- Nimble list box component bring up ([ni/nimble@176130f](https://github.com/ni/nimble/commit/176130fee88b376f76c86b20294e9e44cca0c42f))
+
+## 20.14.1
+
+Wed, 08 Nov 2023 16:07:09 GMT
+
+### Patches
+
+- Workaround for Lighthouse accessibility error in nimble-card. Update Angular status of nimble-card component. ([ni/nimble@57ee0e9](https://github.com/ni/nimble/commit/57ee0e95855887e10034232f587be2e666c96414))
+
+## 20.14.0
+
+Fri, 03 Nov 2023 23:30:50 GMT
+
+### Minor changes
+
+- Expose width and height of nimble-dialog & add tokens ([ni/nimble@5207a2a](https://github.com/ni/nimble/commit/5207a2a24f7d383057b56a91add96e00e5c36d39))
 
 ## 20.13.0
 

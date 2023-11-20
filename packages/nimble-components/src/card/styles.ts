@@ -28,7 +28,7 @@ export const styles = css`
         display: contents;
     }
 
-    ::slotted([slot='title']) {
+    slot[name='title'] {
         font: ${titleFont};
         color: ${titleFontColor};
     }

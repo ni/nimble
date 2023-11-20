@@ -47,6 +47,13 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     iconSize: 'icon-size',
     groupHeaderTextTransform: 'group-header-text-transform',
     drawerWidth: 'drawer-width',
+    dialogSmallWidth: 'dialog-small-width',
+    dialogSmallHeight: 'dialog-small-height',
+    dialogSmallMaxHeight: 'dialog-small-max-height',
+    dialogLargeWidth: 'dialog-large-width',
+    dialogLargeHeight: 'dialog-large-height',
+    dialogLargeMaxHeight: 'dialog-large-max-height',
+    menuMinWidth: 'menu-min-width',
     bannerGapSize: 'banner-gap-size',
     spinnerSmallHeight: 'spinner-small-height',
     spinnerMediumHeight: 'spinner-medium-height',
@@ -221,7 +228,15 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     elevation1BoxShadow: 'elevation-1-box-shadow',
     elevation2BoxShadow: 'elevation-2-box-shadow',
     elevation3BoxShadow: 'elevation-3-box-shadow',
-    graphGridlineColor: 'graph-gridline-color'
+    graphGridlineColor: 'graph-gridline-color',
+    mentionFont: 'mention-font',
+    mentionFontColor: 'mention-font-color',
+    mentionDisabledFontColor: 'mention-disabled-font-color',
+    mentionFontFamily: 'mention-font-family',
+    mentionFontSize: 'mention-font-size',
+    mentionFontWeight: 'mention-font-weight',
+    mentionFontLineHeight: 'mention-font-line-height',
+    mentionFallbackFontFamily: 'mention-fallback-font-family'
 };
 
 const prefix = 'ni-nimble';
@@ -249,6 +264,8 @@ const tokenSuffixes = [
     'TextTransform',
     'FontFamily',
     'BoxShadow',
+    'MaxHeight',
+    'MinWidth',
     'Font',
     'Size',
     'Width',
