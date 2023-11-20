@@ -97,7 +97,7 @@ export class RichTextMarkdownParser {
                     toDOM(node) {
                         const href = node.attrs.href as string;
                         const currentMention = RichTextMarkdownParser.mentionsConfig?.find(
-                            mention => mention.regexPattern.test(href)
+                            mention => mention.isValidMentionHref(href)
                         );
                         const displayName = currentMention?.getDisplayName(href);
 

@@ -9,9 +9,9 @@ import type { MentionInternals } from '../../rich-text-mention/base/models/menti
  * This object maintains the necessary internal values for handling mentions within the Markdown parser.
  */
 export class MarkdownParserMentionConfiguration {
-    public readonly regexPattern: RegExp;
     public readonly viewElement: string;
 
+    private readonly regexPattern: RegExp;
     private readonly mappingConfigs?: MappingConfigs;
 
     public constructor(
@@ -20,6 +20,10 @@ export class MarkdownParserMentionConfiguration {
         this.regexPattern = new RegExp(mentionInternals.pattern ?? '');
         this.mappingConfigs = mentionInternals.mentionConfig?.mappingConfigs;
         this.viewElement = mentionInternals.viewElement;
+    }
+
+    public isValidMentionHref(mentionHref: string): boolean {
+        return this.regexPattern.test(mentionHref);
     }
 
     public getDisplayName(mentionHref: string): string | undefined {
