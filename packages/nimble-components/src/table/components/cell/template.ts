@@ -8,8 +8,8 @@ import {
 } from '../../../menu-button/types';
 import {
     tableCellActionMenuLabel,
-    tableGroupCollapseLabel,
-    tableGroupExpandLabel
+    tableRowCollapseLabel,
+    tableRowExpandLabel
 } from '../../../label-provider/table/label-tokens';
 import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
@@ -28,7 +28,7 @@ export const template = html<TableCell>`
                     @click="${(x, c) => x.onRowExpandToggle(c.event)}"
                 >
                     <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
-                    ${x => (x.expanded ? tableGroupCollapseLabel.getValueFor(x) : tableGroupExpandLabel.getValueFor(x))}
+                    ${x => (x.expanded ? tableRowCollapseLabel.getValueFor(x) : tableRowExpandLabel.getValueFor(x))}
             </${buttonTag}>
         `)}
         ${x => x.cellViewTemplate}

@@ -7,8 +7,8 @@ import {
 import { tableCellTag } from '../cell';
 import { checkboxTag } from '../../../checkbox';
 import {
-    tableGroupCollapseLabel,
-    tableGroupExpandLabel,
+    tableRowCollapseLabel,
+    tableRowExpandLabel,
     tableRowSelectLabel
 } from '../../../label-provider/table/label-tokens';
 import type { TableColumn } from '../../../table-column/base';
@@ -53,7 +53,7 @@ export const template = html<TableRow>`
                     @click="${(x, c) => x.onRowExpandToggle(c.event)}"
                 >
                     <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
-                    ${x => (x.expanded ? tableGroupCollapseLabel.getValueFor(x) : tableGroupExpandLabel.getValueFor(x))}
+                    ${x => (x.expanded ? tableRowCollapseLabel.getValueFor(x) : tableRowExpandLabel.getValueFor(x))}
             </${buttonTag}>
         `)}
 
