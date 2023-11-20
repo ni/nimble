@@ -103,7 +103,7 @@ describe('RichTextEditor', () => {
             pageObject.getButtonCheckedState(ToolbarButton.numberedList)
         ).toBeFalse();
 
-        await pageObject.clickFooterButton(ToolbarButton.bulletList);
+        await pageObject.toggleFooterButton(ToolbarButton.bulletList);
         expect(
             pageObject.getButtonCheckedState(ToolbarButton.bulletList)
         ).toBeTrue();
@@ -111,7 +111,7 @@ describe('RichTextEditor', () => {
             pageObject.getButtonCheckedState(ToolbarButton.numberedList)
         ).toBeFalse();
 
-        await pageObject.clickFooterButton(ToolbarButton.numberedList);
+        await pageObject.toggleFooterButton(ToolbarButton.numberedList);
         expect(
             pageObject.getButtonCheckedState(ToolbarButton.bulletList)
         ).toBeFalse();
@@ -137,7 +137,7 @@ describe('RichTextEditor', () => {
 
     it('Should return editor as active element after clicking formatting button', async () => {
         await pageObject.setEditorTextContent('Sample Text');
-        await pageObject.clickFooterButton(ToolbarButton.bulletList);
+        await pageObject.toggleFooterButton(ToolbarButton.bulletList);
         expect(pageObject.isRichTextEditorActiveElement()).toBeTrue();
     });
 
@@ -194,7 +194,7 @@ describe('RichTextEditor', () => {
                         )
                     ).toBeFalse();
 
-                    await pageObject.clickFooterButton(
+                    await pageObject.toggleFooterButton(
                         value.toolbarButtonIndex
                     );
 
@@ -340,7 +340,7 @@ describe('RichTextEditor', () => {
         });
 
         it('should have "strong" tag name for bold button click', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('bold');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'STRONG']);
@@ -348,7 +348,7 @@ describe('RichTextEditor', () => {
         });
 
         it('should have br tag name when pressing shift + Enter with bold content', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('bold1');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('bold after hard break');
@@ -362,7 +362,7 @@ describe('RichTextEditor', () => {
         });
 
         it('should have "em" tag name for italics button click', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('italics');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'EM']);
@@ -370,7 +370,7 @@ describe('RichTextEditor', () => {
         });
 
         it('should have br tag name when pressing shift + Enter with Italics content', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('italics1');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('italics after hard break');
@@ -385,7 +385,7 @@ describe('RichTextEditor', () => {
 
         it('should have "ol" tag name for numbered list button click', async () => {
             await pageObject.setEditorTextContent('numbered list');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
 
             expect(pageObject.getEditorTagNames()).toEqual(['OL', 'LI', 'P']);
             expect(pageObject.getEditorLeafContents()).toEqual([
@@ -514,7 +514,7 @@ describe('RichTextEditor', () => {
 
         it('should have br tag name when pressing shift + Enter with numbered list content', async () => {
             await pageObject.setEditorTextContent('numbered list1');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent(
                 'Hard break in first level of numbered list'
@@ -530,7 +530,7 @@ describe('RichTextEditor', () => {
 
         it('should have multiple "ol" tag names for numbered list button click', async () => {
             await pageObject.setEditorTextContent('numbered list 1');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.setEditorTextContent('numbered list 2');
 
@@ -549,7 +549,7 @@ describe('RichTextEditor', () => {
 
         it('should have "ol" tag names for nested numbered lists when clicking "tab"', async () => {
             await pageObject.setEditorTextContent('List');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
             await pageObject.setEditorTextContent('Nested List');
@@ -573,7 +573,7 @@ describe('RichTextEditor', () => {
 
         it('should have br tag name when pressing shift + Enter with nested numbered lists content', async () => {
             await pageObject.setEditorTextContent('List');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
             await pageObject.pressShiftEnterKeysInEditor();
@@ -592,7 +592,7 @@ describe('RichTextEditor', () => {
 
         it('should have "ol" tag names for numbered lists when clicking "tab" to make it nested and "shift+Tab" to make it usual list', async () => {
             await pageObject.setEditorTextContent('List');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
             await pageObject.setEditorTextContent('Nested List');
@@ -626,10 +626,10 @@ describe('RichTextEditor', () => {
 
         it('should have "ol" tag name for numbered list and "ul" tag name for nested bullet list', async () => {
             await pageObject.setEditorTextContent('Numbered List');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.setEditorTextContent('Nested Bullet List');
 
             expect(pageObject.getEditorTagNames()).toEqual([
@@ -654,7 +654,7 @@ describe('RichTextEditor', () => {
 
         it('should have "ul" tag name for bullet list button click', async () => {
             await pageObject.setEditorTextContent('Bullet List');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
 
             expect(pageObject.getEditorTagNames()).toEqual(['UL', 'LI', 'P']);
             expect(pageObject.getEditorLeafContents()).toEqual(['Bullet List']);
@@ -662,7 +662,7 @@ describe('RichTextEditor', () => {
 
         it('should have br tag name when pressing shift + Enter with bulleted list content', async () => {
             await pageObject.setEditorTextContent('Bulleted List 1');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent(
                 'Hard break in first level of bulleted List'
@@ -678,7 +678,7 @@ describe('RichTextEditor', () => {
 
         it('should have multiple "ul" tag names for bullet list button click', async () => {
             await pageObject.setEditorTextContent('Bullet List 1');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.setEditorTextContent('Bullet List 2');
 
@@ -697,7 +697,7 @@ describe('RichTextEditor', () => {
 
         it('should have "ul" tag names for nested bullet lists when clicking "tab"', async () => {
             await pageObject.setEditorTextContent('List');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
             await pageObject.setEditorTextContent('Nested List');
@@ -721,7 +721,7 @@ describe('RichTextEditor', () => {
 
         it('should have br tag name when pressing shift + Enter with nested bulleted lists content', async () => {
             await pageObject.setEditorTextContent('List');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
             await pageObject.pressShiftEnterKeysInEditor();
@@ -740,10 +740,10 @@ describe('RichTextEditor', () => {
 
         it('should have "ul" tag name for bullet list and "ol" tag name for nested numbered list', async () => {
             await pageObject.setEditorTextContent('Bullet List');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.setEditorTextContent('Nested Numbered List');
 
             expect(pageObject.getEditorTagNames()).toEqual([
@@ -768,7 +768,7 @@ describe('RichTextEditor', () => {
 
         it('should have "ul" tag names for bullet lists when clicking "tab" to make it nested and "shift+Tab" to make it usual list', async () => {
             await pageObject.setEditorTextContent('List');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
             await pageObject.setEditorTextContent('Nested List');
@@ -801,8 +801,8 @@ describe('RichTextEditor', () => {
         });
 
         it('should have "strong" and "em" tag name for both bold and italics button clicks', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('bold and italics');
 
             expect(pageObject.getEditorTagNames()).toEqual([
@@ -816,12 +816,12 @@ describe('RichTextEditor', () => {
         });
 
         it('should have "strong", "em" and "ol" tag name for all bold, italics and numbered list button clicks', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent(
                 'bold, italics and numbered list'
             );
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -836,12 +836,12 @@ describe('RichTextEditor', () => {
         });
 
         it('should have "strong", "em" and "ul" tag name for all bold, italics and bullet list button clicks', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent(
                 'bold, italics and bullet list'
             );
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
@@ -931,7 +931,7 @@ describe('RichTextEditor', () => {
             });
 
             it('should not affect bold formatting on the link in editor', async () => {
-                await pageObject.clickFooterButton(ToolbarButton.bold);
+                await pageObject.toggleFooterButton(ToolbarButton.bold);
                 await pageObject.setEditorTextContent(
                     'https://nimble.ni.dev/ '
                 );
@@ -951,7 +951,7 @@ describe('RichTextEditor', () => {
             });
 
             it('should not affect italics formatting on the link in editor', async () => {
-                await pageObject.clickFooterButton(ToolbarButton.italics);
+                await pageObject.toggleFooterButton(ToolbarButton.italics);
                 await pageObject.setEditorTextContent(
                     'https://nimble.ni.dev/ '
                 );
@@ -974,7 +974,7 @@ describe('RichTextEditor', () => {
                 await pageObject.setEditorTextContent(
                     'https://nimble.ni.dev/ '
                 );
-                await pageObject.clickFooterButton(ToolbarButton.bulletList);
+                await pageObject.toggleFooterButton(ToolbarButton.bulletList);
 
                 expect(pageObject.getEditorTagNames()).toEqual([
                     'UL',
@@ -991,7 +991,7 @@ describe('RichTextEditor', () => {
                 await pageObject.setEditorTextContent(
                     'https://nimble.ni.dev/ '
                 );
-                await pageObject.clickFooterButton(ToolbarButton.numberedList);
+                await pageObject.toggleFooterButton(ToolbarButton.numberedList);
 
                 expect(pageObject.getEditorTagNames()).toEqual([
                     'OL',

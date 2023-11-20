@@ -91,17 +91,6 @@ export class RichTextEditorPageObject {
     }
 
     /**
-     * @deprecated switch to `toggleFooterButton` instead
-     */
-    public async clickFooterButton(button: ToolbarButton): Promise<void> {
-        const toggleButton = this.getFormattingButton(button);
-        const event = new Event('mousedown', { bubbles: true });
-        toggleButton!.dispatchEvent(event);
-        toggleButton!.click();
-        await waitForUpdatesAsync();
-    }
-
-    /**
      * In testing environment, when clicking on the footer button, it may not persist in the same state if any editor transaction occurs in between.
      * This behavior is likely due to dynamic modifications of formatting button states based on cursor positions during editor transactions.
      * Setting the "force" parameter to true activates the formatting button state; when set to false, it deactivates the state.

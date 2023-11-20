@@ -30,14 +30,14 @@ describe('Markdown serializer', () => {
         const r = String.raw;
 
         it('Bold', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('Bold');
 
             expect(element.getMarkdown()).toEqual('**Bold**');
         });
 
         it('Italics', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('Italics');
 
             expect(element.getMarkdown()).toEqual('*Italics*');
@@ -49,16 +49,16 @@ describe('Markdown serializer', () => {
         });
 
         it('Bold and Italics', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('Bold and Italics');
             expect(element.getMarkdown()).toEqual('***Bold and Italics***');
         });
 
         it('Italics without spaces in between bold texts', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('Bold');
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('italics');
             await pageObject.toggleFooterButton(ToolbarButton.italics, false);
             await pageObject.setEditorTextContent('bold');
@@ -66,9 +66,9 @@ describe('Markdown serializer', () => {
         });
 
         it('Italics with leading and trailing spaces in between bold texts', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('Bold ');
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('italics');
             await pageObject.toggleFooterButton(ToolbarButton.italics, false);
             await pageObject.setEditorTextContent(' bold');
@@ -76,9 +76,9 @@ describe('Markdown serializer', () => {
         });
 
         it('Bold without spaces in between italics texts', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('Italics');
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('bold');
             await pageObject.toggleFooterButton(ToolbarButton.bold, false);
             await pageObject.setEditorTextContent('italics');
@@ -86,9 +86,9 @@ describe('Markdown serializer', () => {
         });
 
         it('Bold with leading and trailing spaces in between italics texts', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('Italics ');
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('bold');
             await pageObject.toggleFooterButton(ToolbarButton.bold, false);
             await pageObject.setEditorTextContent(' italics');
@@ -97,13 +97,13 @@ describe('Markdown serializer', () => {
 
         it('Numbered list', async () => {
             await pageObject.setEditorTextContent('Numbered list');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             expect(element.getMarkdown()).toEqual('1. Numbered list');
         });
 
         it('Multiple Numbered list', async () => {
             await pageObject.setEditorTextContent('list 1');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.setEditorTextContent('list 2');
             expect(element.getMarkdown()).toEqual(r`1. list 1
@@ -112,18 +112,18 @@ describe('Markdown serializer', () => {
         });
 
         it('Numbered list with bold', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('Numbered list with bold');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             expect(element.getMarkdown()).toEqual(
                 '1. **Numbered list with bold**'
             );
         });
 
         it('Numbered list with italics', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('Numbered list with italics');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             expect(element.getMarkdown()).toEqual(
                 '1. *Numbered list with italics*'
             );
@@ -131,7 +131,7 @@ describe('Markdown serializer', () => {
 
         it('Numbered list with link', async () => {
             await pageObject.setEditorTextContent('https://nimble.ni.dev ');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             expect(element.getMarkdown()).toEqual(
                 '1. <https://nimble.ni.dev> '
             );
@@ -139,13 +139,13 @@ describe('Markdown serializer', () => {
 
         it('Bulleted list', async () => {
             await pageObject.setEditorTextContent('Bulleted list');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             expect(element.getMarkdown()).toEqual('* Bulleted list');
         });
 
         it('Multiple Bulleted list', async () => {
             await pageObject.setEditorTextContent('list 1');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.setEditorTextContent('list 2');
             expect(element.getMarkdown()).toEqual(r`* list 1
@@ -154,18 +154,18 @@ describe('Markdown serializer', () => {
         });
 
         it('Bulleted list with bold', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('Bulleted list with bold');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             expect(element.getMarkdown()).toEqual(
                 '* **Bulleted list with bold**'
             );
         });
 
         it('Bulleted list with italics', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('Bulleted list with italics');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             expect(element.getMarkdown()).toEqual(
                 '* *Bulleted list with italics*'
             );
@@ -173,18 +173,18 @@ describe('Markdown serializer', () => {
 
         it('Bulleted list with link', async () => {
             await pageObject.setEditorTextContent('https://nimble.ni.dev ');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             expect(element.getMarkdown()).toEqual('* <https://nimble.ni.dev> ');
         });
 
         it('Toggling off Bulleted list with bold', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('List 1');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.setEditorTextContent('list 2');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('plain text');
             expect(element.getMarkdown()).toEqual(r`* **List 1**
 
@@ -192,13 +192,13 @@ describe('Markdown serializer', () => {
         });
 
         it('Toggling off Numbered list with bold', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('List 1');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.setEditorTextContent('list 2');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('plain text');
             expect(element.getMarkdown()).toEqual(r`1. **List 1**
 
@@ -207,11 +207,11 @@ describe('Markdown serializer', () => {
 
         it('Nested list with levels 1 - Bulleted list, 2 - Numbered list (Bold)', async () => {
             await pageObject.setEditorTextContent('Bulleted list');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('Nested bold numbered list');
             expect(element.getMarkdown()).toEqual(r`* Bulleted list
 
@@ -220,11 +220,11 @@ describe('Markdown serializer', () => {
 
         it('Nested list with levels 1 - Bulleted list, 2 - Numbered list (Italics)', async () => {
             await pageObject.setEditorTextContent('Bulleted list');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent(
                 'Nested italics numbered list'
             );
@@ -234,12 +234,12 @@ describe('Markdown serializer', () => {
         });
 
         it('Nested list with levels 1- Numbered list (Bold), 2-Bulleted list', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('Numbered list bold');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.setEditorTextContent('Nested bulleted list');
             expect(element.getMarkdown()).toEqual(r`1. **Numbered list bold**
 
@@ -247,12 +247,12 @@ describe('Markdown serializer', () => {
         });
 
         it('Nested list with levels 1- Numbered list (Italics), 2-Bulleted list', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('Numbered list italics');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.setEditorTextContent('Nested bulleted list');
             expect(element.getMarkdown()).toEqual(r`1. *Numbered list italics*
 
@@ -271,7 +271,7 @@ Plain text 3`);
         });
 
         it('Hard break with bold', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('Bold');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('Bold');
@@ -280,7 +280,7 @@ Plain text 3`);
         });
 
         it('Hard break with italics', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('Italics');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('Italics');
@@ -290,7 +290,7 @@ Plain text 3`);
 
         it('Hard break with bulleted list', async () => {
             await pageObject.setEditorTextContent('Bulleted');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('list');
             expect(element.getMarkdown()).toEqual(r`* Bulleted\
@@ -299,7 +299,7 @@ Plain text 3`);
 
         it('Hard break with numbered list', async () => {
             await pageObject.setEditorTextContent('Numbered');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('list');
             expect(element.getMarkdown()).toEqual(r`1. Numbered\
@@ -309,20 +309,20 @@ Plain text 3`);
 
     describe('Excludes other marks in link while serializing', () => {
         it('Link and Bold', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('https://nimble.ni.dev ');
             expect(element.getMarkdown()).toEqual('<https://nimble.ni.dev> ');
         });
 
         it('Link and Italics', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('https://nimble.ni.dev ');
             expect(element.getMarkdown()).toEqual('<https://nimble.ni.dev> ');
         });
 
         it('Link, Bold and Italics', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bold);
-            await pageObject.clickFooterButton(ToolbarButton.italics);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('https://nimble.ni.dev ');
             expect(element.getMarkdown()).toEqual('<https://nimble.ni.dev> ');
         });
