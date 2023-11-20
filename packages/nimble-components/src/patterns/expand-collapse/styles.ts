@@ -18,7 +18,7 @@ export const styles = css`
         transform: rotate(90deg);
     }
 
-    .expand-collapse-button {0
+    .expand-collapse-button {
         height: ${controlSlimHeight};
         align-self: center;
     }
