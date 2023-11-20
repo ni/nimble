@@ -96,24 +96,14 @@ export class RichTextMarkdownParser {
                     excludes: '_',
                     toDOM(node) {
                         const href = node.attrs.href as string;
-                        let mentionId: string | undefined;
-                        let displayName: string | undefined;
-                        let viewElement: string | undefined;
-
                         const currentMention = RichTextMarkdownParser.mentionsConfig?.find(
                             mention => mention.regexPattern.test(href)
                         );
+                        const displayName = currentMention?.getDisplayName(href);
 
-                        if (currentMention) {
-                            mentionId = currentMention.extractMentionId(href);
-                            displayName = currentMention.getDisplayName(href);
-                            viewElement = currentMention.viewElement;
-                        }
-
-                        if (viewElement && (displayName || mentionId)) {
-                            displayName = displayName ?? mentionId;
+                        if (currentMention && displayName) {
                             return [
-                                viewElement,
+                                currentMention.viewElement,
                                 {
                                     'mention-href': href,
                                     'mention-label': displayName,
