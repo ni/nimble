@@ -2,7 +2,7 @@ import { keySpace, keyEnter, keyTab } from '@microsoft/fast-web-utilities';
 import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { ToggleButton } from '../../../toggle-button';
-import type { ToolbarButton } from './types';
+import { ToolbarButton, ToolbarButtonKey } from './types';
 import {
     getTagsFromElement,
     getLeafContentsFromElement,
@@ -90,11 +90,37 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
-    public async clickFooterButton(button: ToolbarButton): Promise<void> {
+    /**
+     * In testing environment, when clicking on the footer button, it may not persist in the same state if any editor transaction occurs in between.
+     * This behavior is likely due to dynamic modifications of formatting button states based on cursor positions during editor transactions.
+     * Setting the "force" parameter to true activates the formatting button state; when set to false, it deactivates the state.
+     * If unset, the state toggles by interacting with it once.
+     */
+    public async toggleFooterButton(
+        button: ToolbarButton,
+        force?: boolean
+    ): Promise<void> {
         const toggleButton = this.getFormattingButton(button);
         const event = new Event('mousedown', { bubbles: true });
         toggleButton!.dispatchEvent(event);
         toggleButton!.click();
+        let format = Object.keys(ToolbarButton).find(
+            key => ToolbarButton[key as ToolbarButtonKey] === button
+        );
+        // In the editor, the isActive() method expects the format name to be 'italic' instead of 'italics.'
+        // As it was consistently represent it as 'italics' elsewhere just updated it here
+        if (format === 'italics') {
+            format = 'italic';
+        }
+        if (force === true || force === false) {
+            if (
+                this.richTextEditorElement.tiptapEditor.isActive(format!)
+                !== force
+            ) {
+                toggleButton!.dispatchEvent(event);
+                toggleButton!.click();
+            }
+        }
         await waitForUpdatesAsync();
     }
 

@@ -11,3 +11,5 @@ export type LabelProvider =
     | 'toggleItalics'
     | 'toggleBulletedList'
     | 'toggleNumberedList';
+
+export type ToolbarButtonKey = keyof typeof ToolbarButton;
