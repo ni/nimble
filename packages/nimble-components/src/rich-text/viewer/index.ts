@@ -38,7 +38,7 @@ export class RichTextViewer extends FoundationElement {
     /**
      * @internal
      */
-    public mentionsConfiguration: MarkdownParserMentionConfiguration[] = [];
+    public mentionInternalsConfig: MarkdownParserMentionConfiguration[] = [];
 
     /**
      * @internal
@@ -68,7 +68,7 @@ export class RichTextViewer extends FoundationElement {
      */
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof MentionInternals && typeof args === 'string') {
-            this.updateMentionsConfiguration();
+            this.updateMentionInternalsConfig();
         }
     }
 
@@ -86,7 +86,7 @@ export class RichTextViewer extends FoundationElement {
         );
 
         this.observeMentions();
-        this.updateMentionsConfiguration();
+        this.updateMentionInternalsConfig();
     }
 
     private observeMentions(): void {
@@ -108,31 +108,35 @@ export class RichTextViewer extends FoundationElement {
         this.mentionInternalsNotifiers = [];
     }
 
-    private updateMentionsConfiguration(): void {
-        this.mentionsConfiguration = [];
-        if (!this.hasUniqueConfigurationElement()) {
+    private updateMentionInternalsConfig(): void {
+        this.mentionInternalsConfig = [];
+
+        if (this.hasDuplicateConfigurationElement()) {
+            this.updateView();
             return;
         }
-        this.mentionElements.forEach(mention => {
-            if (mention.mentionInternals.validConfiguration) {
-                const markdownParserMentionConfiguration = new MarkdownParserMentionConfiguration(
+
+        this.mentionInternalsConfig = this.mentionElements
+            .filter(mention => mention.mentionInternals.validConfiguration)
+            .map(
+                mention => new MarkdownParserMentionConfiguration(
                     mention.mentionInternals
-                );
-                this.mentionsConfiguration.push(
-                    markdownParserMentionConfiguration
-                );
-            }
-        });
+                )
+            );
+
         this.updateView();
     }
 
-    private hasUniqueConfigurationElement(): boolean {
-        const uniqueChars = new Set<string>();
+    private hasDuplicateConfigurationElement(): boolean {
+        const mentionChars = new Set<string>();
 
-        return this.mentionElements.every(
-            mention => !uniqueChars.has(mention.mentionInternals.character)
-                && uniqueChars.add(mention.mentionInternals.character)
-        );
+        return this.mentionElements.some(mention => {
+            const hasDuplicateMentionChar = mentionChars.has(
+                mention.mentionInternals.character
+            );
+            mentionChars.add(mention.mentionInternals.character);
+            return hasDuplicateMentionChar;
+        });
     }
 
     private updateView(): void {
@@ -142,7 +146,7 @@ export class RichTextViewer extends FoundationElement {
         if (this.markdown) {
             const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
                 this.markdown,
-                this.mentionsConfiguration
+                this.mentionInternalsConfig
             );
             this.viewer.replaceChildren(serializedContent);
         } else {

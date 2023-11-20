@@ -979,6 +979,60 @@ describe('Markdown parser', () => {
             );
         });
 
+        it('should get view element when scheme(HTTP) of autolink markdown format matches the pattern', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'http://user/1', displayName: 'username1' },
+                    { key: 'http://user/2', displayName: 'username2' }
+                ],
+                '^http://user/.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<http://user/1>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
+                'username1'
+            );
+        });
+
+        it('should get view element when scheme(HTTPS) of autolink markdown format matches the pattern', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'https://user/1', displayName: 'username1' },
+                    { key: 'https://user/2', displayName: 'username2' }
+                ],
+                '^https://user/.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<https://user/2>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
+                'username2'
+            );
+        });
+
         it('should show user ID when username not found where the pattern has a single grouping regex', async () => {
             ({ element, connect, disconnect } = await setup(
                 [

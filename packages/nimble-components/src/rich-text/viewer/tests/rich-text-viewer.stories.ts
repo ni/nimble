@@ -11,7 +11,23 @@ import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 
 interface RichTextViewerArgs {
     markdown: string;
+    data: ExampleDataType;
 }
+
+type ExampleDataType = (typeof exampleDataType)[keyof typeof exampleDataType];
+
+const exampleDataType = {
+    userPattern: 'UserPattern',
+    httpsPattern: 'HttpsPattern'
+} as const;
+
+const dataSets = {
+    [exampleDataType.userPattern]: { pattern: '^user:(.*)', href: 'user:' },
+    [exampleDataType.httpsPattern]: {
+        pattern: '^https://user/(.*)',
+        href: 'https://user/'
+    }
+} as const;
 
 const richTextViewerDescription = 'The rich text viewer component allows users to view text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The rich text to render is provided as a markdown string.\n\n See the [rich text editor](?path=/docs/incubating-rich-text-editor--docs) component to enable users to modify the markdown contents.';
 
@@ -33,12 +49,12 @@ const metadata: Meta<RichTextViewerArgs> = {
     <${richTextViewerTag}
         :markdown="${x => x.markdown}"
     >
-        <${richTextMentionUsersTag} pattern="^user:(.*)">
-            <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
-            <${mappingUserTag} key="user:2" display-name="Mary Wilson"></${mappingUserTag}>
-            <${mappingUserTag} key="user:3" display-name="Sue Ann"></${mappingUserTag}>
-            <${mappingUserTag} key="user:4" display-name="Joseph George"></${mappingUserTag}>
-            <${mappingUserTag} key="user:5" display-name="David"></${mappingUserTag}>
+        <${richTextMentionUsersTag} pattern="${x => dataSets[x.data].pattern}">
+            <${mappingUserTag} key="${x => dataSets[x.data].href}1" display-name="John Doe"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => dataSets[x.data].href}2" display-name="Mary Wilson"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => dataSets[x.data].href}3" display-name="Sue Ann"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => dataSets[x.data].href}4" display-name="Joseph George"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => dataSets[x.data].href}5" display-name="David"></${mappingUserTag}>
         </${richTextMentionUsersTag}>
     </${richTextViewerTag}>
     `),
@@ -46,10 +62,25 @@ const metadata: Meta<RichTextViewerArgs> = {
         markdown: {
             description:
                 'Input markdown string for the supported text formatting options in a [CommonMark](https://commonmark.org/) flavor.'
+        },
+        data: {
+            name: 'pattern',
+            description:
+                'Pattern and href selector for the user mention configuration element.',
+            options: Object.values(exampleDataType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [exampleDataType.userPattern]: 'User Pattern (user:.*)',
+                    [exampleDataType.httpsPattern]:
+                        'HTTPS Pattern (https:/user/.*)'
+                }
+            }
         }
     },
     args: {
-        markdown: richTextMarkdownString
+        markdown: richTextMarkdownString,
+        data: exampleDataType.userPattern
     }
 };
 

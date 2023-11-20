@@ -13,27 +13,41 @@ import { MappingUser, mappingUserTag } from '../../../mapping/user';
 
 async function setup(): Promise<Fixture<RichTextViewer>> {
     return fixture<RichTextViewer>(
-        html`<nimble-rich-text-viewer></nimble-rich-text-viewer>`
+        html`<${richTextViewerTag}></${richTextViewerTag}>`
+    );
+}
+
+async function setupMentionConfig(): Promise<Fixture<RichTextViewer>> {
+    return fixture<RichTextViewer>(
+        // prettier-ignore
+        html`<${richTextViewerTag}>
+            <${richTextMentionUsersTag} pattern="^user:(.*)">
+                <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
+                <${mappingUserTag} key="user:2" display-name="Mary Wilson"></${mappingUserTag}>
+                </${richTextMentionUsersTag}>
+        </${richTextViewerTag}>`
     );
 }
 
 async function appendUserMentionConfiguration(
     element: RichTextViewer,
-    userKey: string | undefined,
-    displayName: string | undefined
+    userKeys: string[] | undefined,
+    displayNames: string[] | undefined
 ): Promise<void> {
     const userMention = document.createElement(
         richTextMentionUsersTag
     ) as RichTextMentionUsers;
     userMention.pattern = '^user:(.*)';
 
-    if (userKey || displayName) {
-        const mappingUser = document.createElement(
-            mappingUserTag
-        ) as MappingUser;
-        mappingUser.key = userKey ?? '';
-        mappingUser.displayName = displayName ?? '';
-        userMention.appendChild(mappingUser);
+    if (userKeys || displayNames) {
+        userKeys?.forEach((userKey, index) => {
+            const mappingUser = document.createElement(
+                mappingUserTag
+            ) as MappingUser;
+            mappingUser.key = userKey ?? '';
+            mappingUser.displayName = displayNames?.[index] ?? '';
+            userMention.appendChild(mappingUser);
+        });
     }
     element.appendChild(userMention);
     await waitForUpdatesAsync();
@@ -51,9 +65,9 @@ describe('RichTextViewer', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-rich-text-viewer')
-        ).toBeInstanceOf(RichTextViewer);
+        expect(document.createElement(richTextViewerTag)).toBeInstanceOf(
+            RichTextViewer
+        );
     });
 
     it('should export its tag', () => {
@@ -112,8 +126,10 @@ describe('RichTextViewer', () => {
         await disconnect();
     });
 
-    describe('User mention', () => {
+    describe('user mention dynamic loading', () => {
         beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            pageObject = new RichTextViewerPageObject(element);
             await connect();
         });
 
@@ -144,12 +160,26 @@ describe('RichTextViewer', () => {
             ).toEqual('1');
         });
 
+        it('adding two mention configuration elements in the same viewer should render as absolute link', async () => {
+            element.markdown = '<user:1>';
+            await appendUserMentionConfiguration(element, undefined, undefined);
+            await appendUserMentionConfiguration(element, undefined, undefined);
+
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'user:1'
+            );
+        });
+
         it('adding mention mapping renders the mapped display name', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(
                 element,
-                'user:1',
-                'username1'
+                ['user:1'],
+                ['username1']
             );
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
@@ -163,12 +193,30 @@ describe('RichTextViewer', () => {
             ).toEqual('username1');
         });
 
+        it('adding two mention mappings renders the mapped display names', async () => {
+            element.markdown = '<user:1> <user:2>';
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1', 'user:2'],
+                ['username1', 'username2']
+            );
+
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase(),
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(
+                pageObject.getRenderedMarkdownAttributeValues('mention-label')
+            ).toEqual(['username1', 'username2']);
+        });
+
         it('removing configuration element renders the mention node as absolute link', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(
                 element,
-                'user:1',
-                'username1'
+                ['user:1'],
+                ['username1']
             );
 
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
@@ -188,8 +236,8 @@ describe('RichTextViewer', () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(
                 element,
-                'user:1',
-                'username1'
+                ['user:1'],
+                ['username1']
             );
 
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
@@ -212,8 +260,8 @@ describe('RichTextViewer', () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(
                 element,
-                'user:1',
-                'username1'
+                ['user:1'],
+                ['username1']
             );
 
             (element.firstElementChild as RichTextMentionUsers).pattern = 'invalid';
@@ -232,8 +280,8 @@ describe('RichTextViewer', () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(
                 element,
-                'user:1',
-                'username1'
+                ['user:1'],
+                ['username1']
             );
 
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
@@ -256,8 +304,8 @@ describe('RichTextViewer', () => {
             element.markdown = '<user:2>';
             await appendUserMentionConfiguration(
                 element,
-                'invalid',
-                'username'
+                ['invalid'],
+                ['username']
             );
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
@@ -282,6 +330,60 @@ describe('RichTextViewer', () => {
                     'mention-label'
                 )
             ).toEqual('username');
+        });
+    });
+
+    describe('user mention via template', () => {
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setupMentionConfig());
+            pageObject = new RichTextViewerPageObject(element);
+            await connect();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('should render as mention view element when the input markdown as matching mention string with pattern', async () => {
+            element.markdown = '<user:1>';
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(
+                pageObject.getRenderedMarkdownLastChildAttribute(
+                    'mention-label'
+                )
+            ).toEqual('John Doe');
+        });
+
+        it('should render as absolute link when the input markdown does not match with pattern', async () => {
+            element.markdown = '<https://user/1>';
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'https://user/1'
+            );
+        });
+
+        it('should render as mention view elements when multiple mention strings are passed in the markdown string', async () => {
+            element.markdown = '<user:1> <user:2>';
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase(),
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(
+                pageObject.getRenderedMarkdownAttributeValues('mention-label')
+            ).toEqual(['John Doe', 'Mary Wilson']);
         });
     });
 });

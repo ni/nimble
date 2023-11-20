@@ -107,7 +107,7 @@ export class RichTextMarkdownParser {
                                 {
                                     'mention-href': href,
                                     'mention-label': displayName,
-                                    'disable-editing': 'true'
+                                    'disable-editing': true
                                 }
                             ];
                         }
