@@ -77,10 +77,10 @@ export class TableRow<
     @observable
     public nestingLevel = 0;
 
-    @observable
+    @attr({ attribute: 'is-parent-row', mode: 'boolean' })
     public isParentRow = false;
 
-    @observable
+    @attr({ attribute: 'is-top-level-row', mode: 'boolean' })
     public isTopLevelRow = false;
 
     @attr({ attribute: 'menu-open', mode: 'boolean' })

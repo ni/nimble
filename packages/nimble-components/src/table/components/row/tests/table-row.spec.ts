@@ -320,6 +320,42 @@ describe('TableRow', () => {
             );
         });
 
+        it('row isParentRow state is passed to cells', async () => {
+            const renderedCells = pageObject.getRenderedCells();
+            row.isParentRow = true;
+            await waitForUpdatesAsync();
+            renderedCells.forEach(cell => {
+                expect(cell.isParentRow).toBeTrue();
+            });
+
+            row.isParentRow = false;
+            await waitForUpdatesAsync();
+            renderedCells.forEach(cell => {
+                expect(cell.isParentRow).toBeFalse();
+            });
+        });
+
+        it('row isTopLevelRow state is passed to cells', async () => {
+            const renderedCells = pageObject.getRenderedCells();
+            row.isTopLevelRow = true;
+            await waitForUpdatesAsync();
+            renderedCells.forEach(cell => {
+                expect(cell.isTopLevelRow).toBeTrue();
+            });
+
+            row.isTopLevelRow = false;
+            await waitForUpdatesAsync();
+            renderedCells.forEach(cell => {
+                expect(cell.isTopLevelRow).toBeFalse();
+            });
+        });
+
+        it('cell isFirstCell is only true for first cell', () => {
+            const renderedCells = pageObject.getRenderedCells();
+            expect(renderedCells[0]!.isFirstCell).toBeTrue();
+            expect(renderedCells[1]!.isFirstCell).toBeFalse();
+        });
+
         it('rendered cell gets cellState from column', () => {
             const cellStates = row.cellStates;
 

@@ -15,6 +15,14 @@ export class TableRowPageObject<T extends TableRecord = TableRecord> {
         )[columnIndex];
     }
 
+    public getRenderedCells(): TableCell[] {
+        return Array.from(
+            this.tableRowElement.shadowRoot!.querySelectorAll<TableCell>(
+                tableCellTag
+            )
+        );
+    }
+
     public getExpandCollapseButton(): HTMLElement | null {
         return this.tableRowElement.shadowRoot!.querySelector<HTMLElement>(
             '.expand-collapse-button'

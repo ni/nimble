@@ -33,13 +33,13 @@ export class TableCell<
     @observable
     public recordId?: string;
 
-    @observable
+    @attr({ attribute: 'is-top-level-row', mode: 'boolean' })
     public isTopLevelRow = false;
 
-    @observable
+    @attr({ attribute: 'is-parent-row', mode: 'boolean' })
     public isParentRow = false;
 
-    @observable
+    @attr({ attribute: 'is-first-cell', mode: 'boolean' })
     public isFirstCell = false;
 
     @attr({ mode: 'boolean' })
