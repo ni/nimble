@@ -20,6 +20,7 @@ import {
 import type { MappingUserKey } from '../../../mapping/base/types';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import { anchorTag } from '../../../anchor';
+import { MarkdownParserMentionConfiguration } from '../markdown-parser-mention-configuration';
 
 interface BasicUserMentionMapping {
     key?: MappingUserKey;
@@ -931,7 +932,7 @@ describe('Markdown parser', () => {
         }
     });
 
-    describe('User mention', () => {
+    describe('user mention', () => {
         let element: RichTextMentionUsers;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
@@ -966,7 +967,7 @@ describe('Markdown parser', () => {
             ));
             await connect();
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
-                element.mentionInternals
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
             ]);
 
             expect(getTagsFromElement(doc)).toEqual([
@@ -989,7 +990,11 @@ describe('Markdown parser', () => {
             await connect();
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '<user:1234-5678>',
-                [element.mentionInternals]
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
             );
 
             expect(getTagsFromElement(doc)).toEqual([
@@ -1012,7 +1017,11 @@ describe('Markdown parser', () => {
             await connect();
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '<user:1234-5678>',
-                [element.mentionInternals]
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
             );
 
             expect(getTagsFromElement(doc)).toEqual([
@@ -1034,7 +1043,11 @@ describe('Markdown parser', () => {
             await connect();
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 'Some text <user:1.com>',
-                [element.mentionInternals]
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
             );
 
             expect(getTagsFromElement(doc)).toEqual([
@@ -1056,7 +1069,11 @@ describe('Markdown parser', () => {
                     await connect();
                     const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                         '<user:1>',
-                        [element.mentionInternals]
+                        [
+                            new MarkdownParserMentionConfiguration(
+                                element.mentionInternals
+                            )
+                        ]
                     );
 
                     expect(getTagsFromElement(doc)).toEqual([
@@ -1081,7 +1098,11 @@ describe('Markdown parser', () => {
             await connect();
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '<https://1>',
-                [element.mentionInternals]
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
             );
 
             expect(getTagsFromElement(doc)).toEqual([
@@ -1101,7 +1122,7 @@ describe('Markdown parser', () => {
             ));
             await connect();
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
-                element.mentionInternals
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
             ]);
 
             expect(getTagsFromElement(doc)).toEqual([
@@ -1122,7 +1143,7 @@ describe('Markdown parser', () => {
             ));
             await connect();
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
-                element.mentionInternals
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
             ]);
 
             expect(getTagsFromElement(doc)).toEqual([
@@ -1143,7 +1164,7 @@ describe('Markdown parser', () => {
             ));
             await connect();
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
-                element.mentionInternals
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
             ]);
 
             expect(getTagsFromElement(doc)).toEqual([

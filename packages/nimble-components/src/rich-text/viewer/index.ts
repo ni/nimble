@@ -3,11 +3,9 @@ import { Notifier, Observable, observable } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
-import {
-    RichTextMention,
-    type RichTextMentionConfig
-} from '../../rich-text-mention/base';
+import { RichTextMention } from '../../rich-text-mention/base';
 import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
+import { MarkdownParserMentionConfiguration } from '../models/markdown-parser-mention-configuration';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -40,7 +38,7 @@ export class RichTextViewer extends FoundationElement {
     /**
      * @internal
      */
-    public mentionInternalsList: MentionInternals<RichTextMentionConfig>[] = [];
+    public mentionInternalsList: MarkdownParserMentionConfiguration[] = [];
 
     /**
      * @internal
@@ -112,16 +110,24 @@ export class RichTextViewer extends FoundationElement {
 
     private updateMentionInternalsList(): void {
         this.mentionInternalsList = [];
-        const mentionList: MentionInternals<RichTextMentionConfig>[] = [];
+        const markdownParserMentionsConfiguration: MarkdownParserMentionConfiguration[] = [];
         this.mentionElements.forEach(mention => {
             if (
                 mention.mentionInternals.pattern
                 && mention.mentionInternals.mentionConfig
+                && mention.mentionInternals.validConfiguration
             ) {
-                mentionList.push(mention.mentionInternals);
+                const markdownParserMentionConfiguration = new MarkdownParserMentionConfiguration(
+                    mention.mentionInternals
+                );
+                markdownParserMentionsConfiguration.push(
+                    markdownParserMentionConfiguration
+                );
             }
         });
-        this.mentionInternalsList = [...new Set(mentionList)];
+        this.mentionInternalsList = [
+            ...new Set(markdownParserMentionsConfiguration)
+        ];
         this.updateView();
     }
 
