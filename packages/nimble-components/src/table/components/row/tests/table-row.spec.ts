@@ -10,6 +10,7 @@ import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';
 import type {
     TableRecord,
+    TableRowExpandToggleEventDetail,
     TableRowSelectionToggleEventDetail
 } from '../../../types';
 import { TableRowPageObject } from './table-row.pageobject';
@@ -220,6 +221,49 @@ describe('TableRow', () => {
             await waitForUpdatesAsync();
 
             expect(listener.spy).not.toHaveBeenCalled();
+        });
+
+        it('shows expand-collapse button when isParent and isTopLevelRow are true', async () => {
+            const pageObject = new TableRowPageObject(element);
+            await connect();
+            element.isTopLevelRow = true;
+            element.isParentRow = true;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getExpandCollapseButton()).toBeDefined();
+        });
+
+        it('hides expand-collapse button when isParentRow is true and isTopLevelRow is false', async () => {
+            const pageObject = new TableRowPageObject(element);
+            await connect();
+            element.isParentRow = true;
+            element.isTopLevelRow = false;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getExpandCollapseButton()).toBeNull();
+        });
+
+        it('toggling expand-collapse button fires "row-expand-toggle" event', async () => {
+            const pageObject = new TableRowPageObject(element);
+            await connect();
+            element.isTopLevelRow = true;
+            element.isParentRow = true;
+            element.recordId = 'foo';
+            await waitForUpdatesAsync();
+            const expandCollapseButton = pageObject.getExpandCollapseButton();
+
+            const listener = createEventListener(element, 'row-expand-toggle');
+            expandCollapseButton!.click();
+            await listener.promise;
+
+            expect(listener.spy).toHaveBeenCalledTimes(1);
+            const expectedDetails: TableRowExpandToggleEventDetail = {
+                newState: true,
+                oldState: false,
+                recordId: 'foo'
+            };
+            const event = listener.spy.calls.first().args[0] as CustomEvent;
+            expect(event.detail).toEqual(expectedDetails);
         });
     });
 

@@ -22,4 +22,10 @@ export class TableCellPageObject<T extends TableCellRecord = TableCellRecord> {
     public getRenderedCellContent(): string {
         return this.getRenderedCellView().shadowRoot!.textContent?.trim() ?? '';
     }
+
+    public getExpandCollapseButton(): HTMLElement | null {
+        return this.tableCellElement.shadowRoot!.querySelector<HTMLElement>(
+            '.expand-collapse-button'
+        );
+    }
 }
