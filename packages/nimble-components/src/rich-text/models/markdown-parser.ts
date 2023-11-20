@@ -18,7 +18,7 @@ export class RichTextMarkdownParser {
         this.updatedSchema
     );
 
-    private static mentionsConfig?: MarkdownParserMentionConfiguration[];
+    private static mentionConfigs?: MarkdownParserMentionConfiguration[];
 
     /**
      * This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a
@@ -30,7 +30,7 @@ export class RichTextMarkdownParser {
         markdownParserMentionConfig?: MarkdownParserMentionConfiguration[]
     ): HTMLElement | DocumentFragment {
         try {
-            this.mentionsConfig = markdownParserMentionConfig;
+            this.mentionConfigs = markdownParserMentionConfig;
             const parsedMarkdownContent = this.markdownParser.parse(value);
             if (parsedMarkdownContent === null) {
                 return document.createDocumentFragment();
@@ -39,7 +39,7 @@ export class RichTextMarkdownParser {
                 parsedMarkdownContent.content
             );
         } finally {
-            this.mentionsConfig = undefined;
+            this.mentionConfigs = undefined;
         }
     }
 
@@ -96,7 +96,7 @@ export class RichTextMarkdownParser {
                     excludes: '_',
                     toDOM(node) {
                         const href = node.attrs.href as string;
-                        const currentMention = RichTextMarkdownParser.mentionsConfig?.find(
+                        const currentMention = RichTextMarkdownParser.mentionConfigs?.find(
                             mention => mention.isValidMentionHref(href)
                         );
                         const displayName = currentMention?.getDisplayName(href);

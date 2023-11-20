@@ -64,9 +64,9 @@ const metadata: Meta<RichTextViewerArgs> = {
                 'Input markdown string for the supported text formatting options in a [CommonMark](https://commonmark.org/) flavor.'
         },
         data: {
-            name: 'pattern',
+            name: 'pattern and href',
             description:
-                'Pattern and href selector for the user mention configuration element.',
+                'Pattern and href selector for the user mention configuration and mapping element(s).',
             options: Object.values(exampleDataType),
             control: {
                 type: 'radio',

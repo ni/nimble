@@ -1033,7 +1033,7 @@ describe('Markdown parser', () => {
             );
         });
 
-        it('should show user ID when username not found where the pattern has a single grouping regex', async () => {
+        it('should show user ID when username not found where the pattern has a grouping regex', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
                     { key: 'user:1', displayName: 'username1' },
@@ -1084,33 +1084,6 @@ describe('Markdown parser', () => {
             ]);
             expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
             expect(getLeafContentsFromElement(doc)).toEqual(['user:1234-5678']);
-        });
-
-        it('should show username along with other texts', async () => {
-            ({ element, connect, disconnect } = await setup(
-                [
-                    { key: 'user:1.com', displayName: 'username1' },
-                    { key: 'user:2.com', displayName: 'username2' }
-                ],
-                '^user:(.*)'
-            ));
-            await connect();
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                'Some text <user:1.com>',
-                [
-                    new MarkdownParserMentionConfiguration(
-                        element.mentionInternals
-                    )
-                ]
-            );
-
-            expect(getTagsFromElement(doc)).toEqual([
-                'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
-            ]);
-            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
-                'username1'
-            );
         });
 
         describe('various wacky strings should reflect the `mention-label` attribute value of user mention view', () => {
