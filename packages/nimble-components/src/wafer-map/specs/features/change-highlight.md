@@ -39,7 +39,7 @@ index.ts
 ```
 export class WaferMap extends FoundationElement{
    ...
-   public readonly highlightBy: HighlightBy;
+   public readonly highlightMode: HighlightMode;
    ...
 }
 ...
@@ -49,7 +49,7 @@ export class WaferMap extends FoundationElement{
 types.ts
 
 ```
-export enum HighlightBy{
+export enum HighlightMode{
    Nothing = 0,
    Value,
    Coordinates
