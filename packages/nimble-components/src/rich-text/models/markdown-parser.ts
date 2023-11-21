@@ -18,6 +18,11 @@ export class RichTextMarkdownParser {
         this.updatedSchema
     );
 
+    /**
+     * The markdown parser is static (shared across all rich text components) because it is expensive to create.
+     * To configure parse calls with the mention configurations which can be unique per component instance
+     * we store static configuration in this member and access it from Prosemirror callbacks.
+     */
     private static mentionConfigs?: MarkdownParserMentionConfiguration[];
 
     /**
@@ -115,7 +120,19 @@ export class RichTextMarkdownParser {
                         return [
                             anchorTag,
                             {
-                                // Absolute links whose scheme is not HTTP/HTTPS will render as anchor tag without `href` attribute
+                                /**
+                                 * Both mention and absolute link markdown share the autolink format in CommonMark flavor.
+                                 * However, absolute links without HTTPS/HTTP should render as plain text, while mentions are
+                                 * displayed as view elements.
+                                 *
+                                 * To achieve this, configuration elements matching already rendered absolute links in the rich
+                                 * text components should be converted to mention nodes. We should preserve markdown for
+                                 * absolute links without HTTPS/HTTP so that when `getMarkdown()` is called in the editor,
+                                 * the link appears as autolink. This allows for conversion to a mention node during
+                                 * `setMarkdown()`, ensuring proper rendering. If it's not an anchor tag, `getMarkdown()`
+                                 * won't return as autolink, preventing undesired changes when configuration elements
+                                 * dynamically added/changed.
+                                 */
                                 href: /^https?:\/\//i.test(href) ? href : null,
                                 rel: node.attrs.rel as Attr
                             }

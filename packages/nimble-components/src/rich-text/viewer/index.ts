@@ -85,6 +85,12 @@ export class RichTextViewer extends FoundationElement {
             (x): x is RichTextMention => x instanceof RichTextMention
         );
 
+        this.mentionInternalsConfig = [];
+        if (this.hasDuplicateConfigurationElement()) {
+            this.updateView();
+            return;
+        }
+
         this.observeMentions();
         this.updateMentionInternalsConfig();
     }
@@ -109,13 +115,6 @@ export class RichTextViewer extends FoundationElement {
     }
 
     private updateMentionInternalsConfig(): void {
-        this.mentionInternalsConfig = [];
-
-        if (this.hasDuplicateConfigurationElement()) {
-            this.updateView();
-            return;
-        }
-
         this.mentionInternalsConfig = this.mentionElements
             .filter(mention => mention.mentionInternals.validConfiguration)
             .map(
@@ -128,15 +127,11 @@ export class RichTextViewer extends FoundationElement {
     }
 
     private hasDuplicateConfigurationElement(): boolean {
-        const mentionChars = new Set<string>();
-
-        return this.mentionElements.some(mention => {
-            const hasDuplicateMentionChar = mentionChars.has(
-                mention.mentionInternals.character
-            );
-            mentionChars.add(mention.mentionInternals.character);
-            return hasDuplicateMentionChar;
-        });
+        const mentionChars = this.mentionElements.map(
+            mention => mention.mentionInternals.character
+        );
+        const uniqueMentionChars = new Set(mentionChars);
+        return mentionChars.length !== uniqueMentionChars.size;
     }
 
     private updateView(): void {

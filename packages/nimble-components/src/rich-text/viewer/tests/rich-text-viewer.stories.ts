@@ -64,16 +64,16 @@ const metadata: Meta<RichTextViewerArgs> = {
                 'Input markdown string for the supported text formatting options in a [CommonMark](https://commonmark.org/) flavor.'
         },
         data: {
-            name: 'pattern and href',
+            name: '@mention configuration',
             description:
-                'Pattern and href selector for the user mention configuration and mapping element(s).',
+                'Configure how mentions are detected and displayed. See documentation of the `pattern` attribute of the mention configuration element and the `key` attribute of mapping element(s).',
             options: Object.values(exampleDataType),
             control: {
                 type: 'radio',
                 labels: {
-                    [exampleDataType.userPattern]: 'User Pattern (user:.*)',
+                    [exampleDataType.userPattern]: 'User Pattern - user:(.*)',
                     [exampleDataType.httpsPattern]:
-                        'HTTPS Pattern (https:/user/.*)'
+                        'HTTPS Pattern - https://user/(.*)'
                 }
             }
         }

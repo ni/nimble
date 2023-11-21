@@ -24,7 +24,7 @@ async function setupMentionConfig(): Promise<Fixture<RichTextViewer>> {
             <${richTextMentionUsersTag} pattern="^user:(.*)">
                 <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
                 <${mappingUserTag} key="user:2" display-name="Mary Wilson"></${mappingUserTag}>
-                </${richTextMentionUsersTag}>
+            </${richTextMentionUsersTag}>
         </${richTextViewerTag}>`
     );
 }

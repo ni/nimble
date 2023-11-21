@@ -47,7 +47,16 @@ export const styles = css`
     }
 
     ${
-        /* Forcing the font color of the anchor to be in the default link color irrespective of whether it has `href` attribute or not  */ ''
+        /**
+         * When an absolute link is not HTTPS/HTTP, the anchor tag renders without an `href`, appearing as plain text.
+         * However, the `nimble-anchor` displays differently in color when the `href` attribute is absent.
+         * To ensure a consistent appearance, the font color is forced to the default link color regardless of the `href`
+         * attribute's presence.
+         *
+         * This visual consistency stems from the similarity between mention markdown and absolute links, with the distinction
+         * that mention markdown does not restrict the link scheme. When converting absolute links without HTTPS/HTTP to mention
+         * views, preserve the markdown in autolink format for proper rendering.
+         */ ''
     }
     nimble-anchor::part(control) {
         color: ${linkFontColor};

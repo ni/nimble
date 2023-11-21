@@ -3,9 +3,9 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../../utilities/tests/hidden';
 
-const patternDescription = `A regex serves purpose of validation against the input mention markdown string. It is also used to extract the user ID from user hrefs during the parsing of markdown in the rich text components. 
+const patternDescription = `A regex used for detecting, validating, and extracting information from mentions in the rich text markdown string.
 
-* To extract the user ID, the pattern should be grouped to render as mention view element if the user name is not identified in the mapping elements but matches the pattern. For example, the pattern should be \`user:(.*)\` to extract the user ID which is next to \`user:\`. If the pattern does not have grouping regex (\`user:.*\`), also if the mapping element for the particular user href is not found, the given input will render as plain text in the rich text components.
+* To extract the key, the pattern must include a group that matches the key portion of the mention link. For example, the pattern should be \`user:(.*)\` to extract the user key adjacent to \`user:\`. If the pattern doesn't have a grouping regex (e.g., \`user:.*\`) and the mapping element for a key doesn't contain a display name, the mention will render as plain text or, in some cases, as a link (if the href is HTTPS/HTTP) in rich text components. If no mapping element for the particular key is not found but has a grouping regex, the mention will render the key instead.
 `;
 
 const metadata: Meta = {
