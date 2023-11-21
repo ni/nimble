@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 21 Nov 2023 17:02:30 GMT and should not be manually modified.
+This log was last generated on Tue, 21 Nov 2023 19:16:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.14.8
+
+Tue, 21 Nov 2023 19:16:40 GMT
+
+### Patches
+
+- Hide inc/dec buttons on numeric from a11y tree ([ni/nimble@f74e259](https://github.com/ni/nimble/commit/f74e2591ec02b4a60c873e9308f82ad96ca51f40))
 
 ## 20.14.7
 
