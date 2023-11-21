@@ -34,7 +34,7 @@ import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import {
-    InternalTableRecord,
+    TableNode,
     TableActionMenuToggleEventDetail,
     TableColumnConfigurationChangeEventDetail,
     TableColumnSortDirection,
@@ -212,8 +212,8 @@ export class Table<
     @observable
     public documentShiftKeyDown = false;
 
-    private readonly table: TanStackTable<InternalTableRecord<TData>>;
-    private options: TanStackTableOptionsResolved<InternalTableRecord<TData>>;
+    private readonly table: TanStackTable<TableNode<TData>>;
+    private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly tableValidator = new TableValidator();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
     private readonly selectionManager: InteractiveSelectionManager<TData>;
@@ -268,10 +268,10 @@ export class Table<
         await this.processPendingUpdates();
 
         const data = newData.map(record => {
-            return { data: { ...record } } as InternalTableRecord<TData>;
+            return { clientRecord: { ...record } };
         });
         const tanStackUpdates: Partial<
-        TanStackTableOptionsResolved<InternalTableRecord<TData>>
+        TanStackTableOptionsResolved<TableNode<TData>>
         > = {
             data
         };
@@ -736,7 +736,7 @@ export class Table<
 
     private updateTanStack(): void {
         const updatedOptions: Partial<
-        TanStackTableOptionsResolved<InternalTableRecord<TData>>
+        TanStackTableOptionsResolved<TableNode<TData>>
         > = {};
         updatedOptions.state = {};
 
@@ -804,7 +804,7 @@ export class Table<
         this.validateWithData(this.table.options.data);
     }
 
-    private validateWithData(data: InternalTableRecord[]): void {
+    private validateWithData(data: TableNode[]): void {
         this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
     }
@@ -856,7 +856,7 @@ export class Table<
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
             const rowState: TableRowState<TData> = {
-                record: row.original.data,
+                record: row.original.clientRecord,
                 id: row.id,
                 selectionState: this.getRowSelectionState(row),
                 isGrouped: row.getIsGrouped(),
@@ -887,7 +887,7 @@ export class Table<
     }
 
     private getRowSelectionState(
-        row: TanStackRow<InternalTableRecord<TData>>
+        row: TanStackRow<TableNode<TData>>
     ): TableRowSelectionState {
         if (row.getIsGrouped()) {
             return this.getGroupedRowSelectionState(row);
@@ -899,7 +899,7 @@ export class Table<
     }
 
     private getGroupedRowSelectionState(
-        groupedRow: TanStackRow<InternalTableRecord<TData>>
+        groupedRow: TanStackRow<TableNode<TData>>
     ): TableRowSelectionState {
         const subRows = groupedRow.subRows ?? [];
         let foundSelectedRow = false;
@@ -934,7 +934,7 @@ export class Table<
     }
 
     private getGroupRowColumn(
-        row: TanStackRow<InternalTableRecord<TData>>
+        row: TanStackRow<TableNode<TData>>
     ): TableColumn | undefined {
         const groupedId = row.groupingColumnId;
         if (groupedId !== undefined) {
@@ -947,9 +947,7 @@ export class Table<
     }
 
     private updateTableOptions(
-        updatedOptions: Partial<
-        TanStackTableOptionsResolved<InternalTableRecord<TData>>
-        >
+        updatedOptions: Partial<TanStackTableOptionsResolved<TableNode<TData>>>
     ): void {
         this.options = {
             ...this.options,
@@ -961,7 +959,7 @@ export class Table<
     }
 
     private readonly getIsRowExpanded = (
-        row: TanStackRow<InternalTableRecord<TData>>
+        row: TanStackRow<TableNode<TData>>
     ): boolean => {
         if (!row.getIsGrouped()) {
             return false;
@@ -1045,30 +1043,26 @@ export class Table<
 
     private calculateTanStackRowIdFunction():
     | ((
-        originalRow: InternalTableRecord<TData>,
+        originalRow: TableNode<TData>,
         index: number,
-        parent?: TanStackRow<InternalTableRecord<TData>>
+        parent?: TanStackRow<TableNode<TData>>
     ) => string)
     | undefined {
         return this.idFieldName === null || this.idFieldName === undefined
             ? undefined
-            : (record: InternalTableRecord<TData>) => record.data[this.idFieldName!] as string;
+            : (record: TableNode<TData>) => record.clientRecord[this.idFieldName!] as string;
     }
 
-    private calculateTanStackColumns(): TanStackColumnDef<
-    InternalTableRecord<TData>
-    >[] {
+    private calculateTanStackColumns(): TanStackColumnDef<TableNode<TData>>[] {
         return this.columns.map(column => {
             return {
                 id: column.columnInternals.uniqueId,
-                accessorFn: (
-                    record: InternalTableRecord<TData>
-                ): TableFieldValue => {
+                accessorFn: (record: TableNode<TData>): TableFieldValue => {
                     const fieldName = column.columnInternals.operandDataRecordFieldName;
                     if (typeof fieldName !== 'string') {
                         return undefined;
                     }
-                    return record.data[fieldName];
+                    return record.clientRecord[fieldName];
                 },
                 sortingFn: getTanStackSortingFunction(
                     column.columnInternals.sortOperation

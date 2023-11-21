@@ -3,7 +3,7 @@ import {
     TableRecord,
     TableRowState,
     TableRowSelectionMode,
-    InternalTableRecord
+    TableNode
 } from '../types';
 import type { SelectionManagerBase } from './selection-managers/selection-manager-base';
 import { DisabledSelectionManager } from './selection-managers/disabled-selection-manager';
@@ -15,11 +15,11 @@ import { SingleSelectionManager } from './selection-managers/single-selection-ma
  * handling when the selection mode of the table is changed.
  */
 export class InteractiveSelectionManager<TData extends TableRecord> {
-    private readonly tanStackTable: TanStackTable<InternalTableRecord<TData>>;
+    private readonly tanStackTable: TanStackTable<TableNode<TData>>;
     private selectionManager: SelectionManagerBase<TData>;
 
     public constructor(
-        tanStackTable: TanStackTable<InternalTableRecord<TData>>,
+        tanStackTable: TanStackTable<TableNode<TData>>,
         selectionMode: TableRowSelectionMode
     ) {
         this.tanStackTable = tanStackTable;

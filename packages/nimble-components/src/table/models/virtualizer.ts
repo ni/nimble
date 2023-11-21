@@ -10,7 +10,7 @@ import {
 } from '@tanstack/virtual-core';
 import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
-import type { InternalTableRecord, TableRecord } from '../types';
+import type { TableNode, TableRecord } from '../types';
 import { TableCellView } from '../../table-column/base/cell-view';
 
 /**
@@ -32,13 +32,13 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public rowContainerYOffset = 0;
 
     private readonly table: Table<TData>;
-    private readonly tanStackTable: TanStackTable<InternalTableRecord<TData>>;
+    private readonly tanStackTable: TanStackTable<TableNode<TData>>;
     private readonly viewportResizeObserver: ResizeObserver;
     private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
 
     public constructor(
         table: Table<TData>,
-        tanStackTable: TanStackTable<InternalTableRecord<TData>>
+        tanStackTable: TanStackTable<TableNode<TData>>
     ) {
         this.table = table;
         this.tanStackTable = tanStackTable;
