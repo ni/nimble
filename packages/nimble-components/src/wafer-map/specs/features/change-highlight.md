@@ -2,11 +2,13 @@
 
 ## Problem Statement
 
-The wafer map receives an array of strings as the values that will be highlighted. 
+The wafer map receives an array of strings as the values that will be highlighted.
 
-![highlighted-code-values](./resources/highlighted-values.PNG)
+```
+@observable public highlightedValues: string[] = [];
+```
 
-In the following case the highlighted values are 2 and 3. 
+In the following case the highlighted values are 2 and 3.
 
 ![2-3 Highlighted Values](./resources/2-3-highlighted-values.PNG)
 
@@ -21,17 +23,38 @@ N\A
 The current highlight logic has the benefit of being simple and easy to use. We wish to build on top of how highlight is made.
 
 1. Add a boolean field on each die called "isHighlighted" this will be used when parsing the wafer to chose the color of the die.
-![isHighlighted](./resources/isHighlighted.PNG)
+
+```
+export interface WaferMapDie{
+...
+   isHighlighted?: boolean;
+...
+}
+```
 
 2. Add a field on the wafer map "HighlightBy", which will be used to decide if the highlight should be done by "Value" (current approach) or by "Coordinates" our proposal.
 
 index.ts
 
-![highlightBy](./resources/HighlightBy.PNG)
+```
+export class WaferMap extends FoundationElement{
+   ...
+   public readonly highlightBy: HighlightBy;
+   ...
+}
+...
+
+```
 
 types.ts
 
-![highlightByEnum](./resources/HighlightedByEnum.PNG)
+```
+export enum HighlightBy{
+   Nothing = 0,
+   Value,
+   Coordinates
+}
+```
 
 This approach will let us to highlight any die we want, without any restrictions. The logic that decides which dies should be highlight can be moved completely out of the wafer map component, leaving the component the duty of only highlighting the given dies using the "isHighlighted" field.
 
