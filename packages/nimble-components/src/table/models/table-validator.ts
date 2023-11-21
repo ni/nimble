@@ -1,11 +1,11 @@
 import type { TableColumn } from '../../table-column/base';
-import { TableRecord, TableRowSelectionMode, TableValidity } from '../types';
+import { TableNode, TableRowSelectionMode, TableValidity } from '../types';
 
 /**
  * Helper class for the nimble-table to validate that the table's configuration
  * is valid and report which aspects of the configuration are valid or invalid.
  */
-export class TableValidator<TData extends TableRecord> {
+export class TableValidator<TData extends TableNode> {
     private duplicateRecordId = false;
     private missingRecordId = false;
     private invalidRecordId = false;
@@ -73,12 +73,17 @@ export class TableValidator<TData extends TableRecord> {
         }
 
         for (const record of data) {
-            if (!Object.prototype.hasOwnProperty.call(record, idFieldName)) {
+            if (
+                !Object.prototype.hasOwnProperty.call(
+                    record.clientRecord,
+                    idFieldName
+                )
+            ) {
                 this.missingRecordId = true;
                 continue;
             }
 
-            const id = record[idFieldName];
+            const id = record.clientRecord[idFieldName];
             if (typeof id !== 'string') {
                 this.invalidRecordId = true;
                 continue;
