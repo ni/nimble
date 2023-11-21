@@ -39,6 +39,14 @@
         "storybook"
       ],
       "enabled": true
+    },
+    {
+      "groupName": "nuget bunit dependencies",
+      "matchManagers": ["nuget"],
+      "matchPackagePatterns":[
+        "^bunit"
+      ],
+      "enabled": true
     }
   ]
 }
