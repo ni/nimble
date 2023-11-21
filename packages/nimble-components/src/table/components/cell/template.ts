@@ -17,9 +17,10 @@ import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
 // prettier-ignore
 export const template = html<TableCell>`
     <template role="cell"
-        class="${x => (x.isTopLevelRow || !x.isParentRow || !x.isFirstCell ? 'no-padding' : '')}"
-        style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel};">
-        ${when(x => x.isParentRow && x.isFirstCell && !x.isTopLevelRow, html<TableCell>`
+        class="${x => (x.rowHierarchyLevel !== 'parent' ? 'no-padding' : '')}"
+        style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel};"
+    >
+        ${when(x => x.rowHierarchyLevel === 'parent' && x.isFirstCell, html<TableCell>`
             <${buttonTag}
                     appearance="${ButtonAppearance.ghost}"
                     content-hidden

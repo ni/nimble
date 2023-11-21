@@ -9,7 +9,10 @@ import type {
 } from '../../../table-column/base/types';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableRowExpandToggleEventDetail } from '../../types';
+import type {
+    TableRowExpandToggleEventDetail,
+    TableRowHierarchyLevel
+} from '../../types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -33,11 +36,8 @@ export class TableCell<
     @observable
     public recordId?: string;
 
-    @attr({ attribute: 'is-top-level-row', mode: 'boolean' })
-    public isTopLevelRow = false;
-
-    @attr({ attribute: 'is-parent-row', mode: 'boolean' })
-    public isParentRow = false;
+    @attr({ attribute: 'row-hierarchy-level' })
+    public rowHierarchyLevel?: TableRowHierarchyLevel;
 
     @attr({ attribute: 'is-first-cell', mode: 'boolean' })
     public isFirstCell = false;

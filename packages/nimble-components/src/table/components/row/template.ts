@@ -24,7 +24,7 @@ export const template = html<TableRow>`
     <template 
         role="row"
         aria-selected=${x => x.ariaSelected}
-        style="--ni-private-table-row-spacer-width: ${x => (x.nestingLevel > 0 || (x.nestingLevel === 0 && !x.isParentRow)
+        style="--ni-private-table-row-spacer-width: ${x => (x.nestingLevel > 0 || (x.nestingLevel === 0 && !(x.rowHierarchyLevel === 'parent' || x.rowHierarchyLevel === 'topLevelParent'))
         ? controlHeight.getValueFor(x)
         : mediumPadding.getValueFor(x))};"
     >
@@ -44,7 +44,7 @@ export const template = html<TableRow>`
             </span>
         `)}
         <span class="row-front-spacer"></span>
-        ${when(x => x.isParentRow && x.isTopLevelRow, html<TableRow>`
+        ${when(x => x.rowHierarchyLevel === 'topLevelParent', html<TableRow>`
             <${buttonTag}
                     appearance="${ButtonAppearance.ghost}"
                     content-hidden
@@ -71,9 +71,8 @@ export const template = html<TableRow>`
                         :recordId="${(_, c) => c.parent.recordId}"
                         ?has-action-menu="${x => !!x.actionMenuSlot}"
                         ?expanded="${(_, c) => c.parent.expanded}"
-                        ?is-parent-row="${(_, c) => c.parent.isParentRow}"
+                        row-hierarchy-level="${(_, c) => c.parent.rowHierarchyLevel}"
                         ?is-first-cell="${(_, c) => c.index === 0}"
-                        ?is-top-level-row="${(_, c) => c.parent.isTopLevelRow}"
                         action-menu-label="${x => x.actionMenuLabel}"
                         @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
                         @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"

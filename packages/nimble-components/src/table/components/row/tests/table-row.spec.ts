@@ -8,10 +8,11 @@ import {
 
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';
-import type {
-    TableRecord,
-    TableRowExpandToggleEventDetail,
-    TableRowSelectionToggleEventDetail
+import {
+    TableRowHierarchyLevel,
+    type TableRecord,
+    type TableRowExpandToggleEventDetail,
+    type TableRowSelectionToggleEventDetail
 } from '../../../types';
 import { TableRowPageObject } from './table-row.pageobject';
 import { createEventListener } from '../../../../utilities/tests/component';
@@ -223,21 +224,19 @@ describe('TableRow', () => {
             expect(listener.spy).not.toHaveBeenCalled();
         });
 
-        it('shows expand-collapse button when isParent and isTopLevelRow are true', async () => {
+        it('shows expand-collapse button when rowHierarchyLevel is "topLevelParent"', async () => {
             const pageObject = new TableRowPageObject(element);
             await connect();
-            element.isTopLevelRow = true;
-            element.isParentRow = true;
+            element.rowHierarchyLevel = TableRowHierarchyLevel.topLevelParent;
             await waitForUpdatesAsync();
 
             expect(pageObject.getExpandCollapseButton()).toBeDefined();
         });
 
-        it('hides expand-collapse button when isParentRow is true and isTopLevelRow is false', async () => {
+        it('hides expand-collapse button when rowHierarchyLevel is "parent"', async () => {
             const pageObject = new TableRowPageObject(element);
             await connect();
-            element.isParentRow = true;
-            element.isTopLevelRow = false;
+            element.rowHierarchyLevel = TableRowHierarchyLevel.parent;
             await waitForUpdatesAsync();
 
             expect(pageObject.getExpandCollapseButton()).toBeNull();
@@ -246,8 +245,7 @@ describe('TableRow', () => {
         it('toggling expand-collapse button fires "row-expand-toggle" event', async () => {
             const pageObject = new TableRowPageObject(element);
             await connect();
-            element.isTopLevelRow = true;
-            element.isParentRow = true;
+            element.rowHierarchyLevel = TableRowHierarchyLevel.topLevelParent;
             element.recordId = 'foo';
             await waitForUpdatesAsync();
             const expandCollapseButton = pageObject.getExpandCollapseButton();
@@ -320,33 +318,22 @@ describe('TableRow', () => {
             );
         });
 
-        it('row isParentRow state is passed to cells', async () => {
+        it('row rowHierarchyLevel state is passed to cells', async () => {
             const renderedCells = pageObject.getRenderedCells();
-            row.isParentRow = true;
+            row.rowHierarchyLevel = TableRowHierarchyLevel.parent;
             await waitForUpdatesAsync();
             renderedCells.forEach(cell => {
-                expect(cell.isParentRow).toBeTrue();
+                expect(cell.rowHierarchyLevel).toBe(
+                    TableRowHierarchyLevel.parent
+                );
             });
 
-            row.isParentRow = false;
+            row.rowHierarchyLevel = TableRowHierarchyLevel.topLevelParent;
             await waitForUpdatesAsync();
             renderedCells.forEach(cell => {
-                expect(cell.isParentRow).toBeFalse();
-            });
-        });
-
-        it('row isTopLevelRow state is passed to cells', async () => {
-            const renderedCells = pageObject.getRenderedCells();
-            row.isTopLevelRow = true;
-            await waitForUpdatesAsync();
-            renderedCells.forEach(cell => {
-                expect(cell.isTopLevelRow).toBeTrue();
-            });
-
-            row.isTopLevelRow = false;
-            await waitForUpdatesAsync();
-            renderedCells.forEach(cell => {
-                expect(cell.isTopLevelRow).toBeFalse();
+                expect(cell.rowHierarchyLevel).toBe(
+                    TableRowHierarchyLevel.topLevelParent
+                );
             });
         });
 

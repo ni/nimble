@@ -18,7 +18,8 @@ import type {
     TableFieldName,
     TableRecord,
     TableRowExpandToggleEventDetail,
-    TableRowSelectionToggleEventDetail
+    TableRowSelectionToggleEventDetail,
+    TableRowHierarchyLevel
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
@@ -77,11 +78,8 @@ export class TableRow<
     @observable
     public nestingLevel = 0;
 
-    @attr({ attribute: 'is-parent-row', mode: 'boolean' })
-    public isParentRow = false;
-
-    @attr({ attribute: 'is-top-level-row', mode: 'boolean' })
-    public isTopLevelRow = false;
+    @attr({ attribute: 'row-hierarchy-level' })
+    public rowHierarchyLevel?: TableRowHierarchyLevel;
 
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
@@ -273,7 +271,7 @@ export class TableRow<
     private updateCellIndentLevels(): void {
         this.cellIndentLevels = this.columns.map((_, i) => {
             if (i === 0 && this.nestingLevel > 0) {
-                return this.isParentRow
+                return this.rowHierarchyLevel !== 'leaf'
                     ? this.nestingLevel - 1
                     : this.nestingLevel;
             }

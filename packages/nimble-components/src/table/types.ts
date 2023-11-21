@@ -159,6 +159,17 @@ export interface TableColumnConfiguration {
 
 /**
  * @internal
+ */
+export const TableRowHierarchyLevel = {
+    topLevelParent: 'topLevelParent',
+    parent: 'parent',
+    leaf: 'leaf'
+} as const;
+export type TableRowHierarchyLevel =
+    (typeof TableRowHierarchyLevel)[keyof typeof TableRowHierarchyLevel];
+
+/**
+ * @internal
  *
  * Internal representation of a row in the table
  */
@@ -172,4 +183,5 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     nestingLevel?: number;
     leafItemCount?: number;
     groupColumn?: TableColumn;
+    rowType?: TableRowHierarchyLevel;
 }
