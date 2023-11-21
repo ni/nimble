@@ -10,7 +10,7 @@ The wafer map receives an array of strings as the values that will be highlighte
 
 In the following case the highlighted values are 2 and 3.
 
-![2-3 Highlighted Values](./resources/2-3-highlighted-values.PNG)
+![Highlighted Values](./resources/highlighted-values.png)
 
 The current approach is limited. We can either highlight all the dies having 2s and 3s or neither of them. The customer needs exceeds this approach. The customer may see an anomaly on the dies having DieX: 15 and Soft Bin: 2 and wishes to highlight all these values, but the current code is not capable of this.
 
