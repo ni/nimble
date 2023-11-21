@@ -57,8 +57,3 @@ export enum HighlightMode{
 ```
 
 This approach will let us to highlight any die we want, without any restrictions. The logic that decides which dies should be highlighted can be moved completely out of the wafer map component, leaving the component the duty of only highlighting the given dies using the "isHighlighted" field.
-
-## Alternative Implementation / Design
-
-1. Add a boolean field on each die called "isHighlighted" this will be used when parsing the wafer to choose the color of the die.
-2. Delete the current way of highlight.
