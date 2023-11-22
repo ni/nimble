@@ -58,26 +58,37 @@ export abstract class RichTextMention<
     public mappings: Mapping<unknown>[] = [];
 
     /**
+     * @internal
      * Implement a generator method responsible for generating hrefs for existing mentions in the editor/viewer.
      * The corresponding function implementation should reside within the rich text components.
      */
     public getMentionedHrefGenerator: HrefGenerator = () => [];
 
     /**
+     * @public
      * Returns hrefs for existing mentions in the editor/viewer.
      */
     public getMentionedHref(): string[] {
         return this.getMentionedHrefGenerator();
     }
 
+    /**
+     * @public
+     */
     public checkValidity(): boolean {
         return this.mentionInternals.validConfiguration;
     }
 
+    /**
+     * @internal
+     */
     public onMention(filter: string): void {
         this.$emit('mention', { filter });
     }
 
+    /**
+     * @public
+     */
     public get validity(): RichTextMentionValidity {
         return this.validator.getValidity();
     }
