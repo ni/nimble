@@ -174,7 +174,7 @@ describe('RichTextViewer', () => {
             );
         });
 
-        it('adding mention mapping renders the mapped display name', async () => {
+        it('adding mention mapping elements renders the mapped display name', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(
                 element,
@@ -193,7 +193,7 @@ describe('RichTextViewer', () => {
             ).toEqual('username1');
         });
 
-        it('adding two mention mappings renders the mapped display names', async () => {
+        it('adding two mention mapping elements renders the mapped display names', async () => {
             element.markdown = '<user:1> <user:2>';
             await appendUserMentionConfiguration(
                 element,
@@ -256,7 +256,7 @@ describe('RichTextViewer', () => {
             ).toEqual('1');
         });
 
-        it('updating to invalid `pattern` in mention configuration converts it to absolute link', async () => {
+        it('updating to the `pattern` in mention configuration converts the mention to absolute link', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(
                 element,
@@ -300,7 +300,7 @@ describe('RichTextViewer', () => {
             ).toEqual('updated-name');
         });
 
-        it('updating valid `key` in mapping mention should update it to a mention view if is a absolute link before', async () => {
+        it('updating valid `key` in mapping mention should update it to a mention view if it is a absolute link before', async () => {
             element.markdown = '<user:2>';
             await appendUserMentionConfiguration(
                 element,
@@ -344,7 +344,7 @@ describe('RichTextViewer', () => {
             await disconnect();
         });
 
-        it('should render as mention view element when the input markdown as matching mention string with pattern', async () => {
+        it('should render as mention view element when the input markdown matching the mention string with pattern', async () => {
             element.markdown = '<user:1>';
             await waitForUpdatesAsync();
 
