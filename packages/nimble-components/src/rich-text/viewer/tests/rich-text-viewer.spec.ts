@@ -408,12 +408,13 @@ describe('RichTextViewer', () => {
             expect(renderedUserMention.getMentionedHref()).toEqual(['user:1']);
         });
 
-        it('getMentionedHref() should be empty for duplicate mention configuration elements', async () => {
+        // TODO: Once the rich text validator added for duplicate configuration elements, below test case should be updated
+        it('getMentionedHref() should return the mentioned href for duplicate mention configuration elements', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element, undefined, undefined);
             await appendUserMentionConfiguration(element, undefined, undefined);
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHref()).toEqual([]);
+            expect(renderedUserMention.getMentionedHref()).toEqual(['user:1']);
         });
 
         it('getMentionedHref() method should return all the mentioned href', async () => {
