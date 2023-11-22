@@ -122,17 +122,10 @@ export class RichTextMarkdownParser {
                             {
                                 /**
                                  * Both mention and absolute link markdown share the autolink format in CommonMark flavor.
-                                 * However, absolute links without HTTPS/HTTP should render as plain text (anchor with no href),
-                                 * while mentions are displayed as view elements.
-                                 *
-                                 * Initially, when a Markdown with an autolink is provided as input without a configuration element
-                                 * (e.g., nimble-rich-text-mention-uses), it renders as plain text or URL. Later, when the
-                                 * configuration element is added dynamically, and the URL in the rich text components matches the pattern,
-                                 * should be converted to a mention node. Therefore, we need to preserve Markdown for absolute links,
-                                 * even if they are not HTTPS/HTTP. This ensures that when `getMarkdown()` is called in the editor,
-                                 * it returns a Markdown string with an autolink. This allows for conversion to a mention node during `setMarkdown()`,
-                                 * as it is an anchor with no href. If it's not an anchor tag, `getMarkdown()` won't return as an autolink,
-                                 * preventing undesired changes when configuration elements are dynamically added/changed.
+                                 * Absolute links with HTTP/HTTPS will be rendered as links. Absolute links that match the
+                                 * mention pattern will be rendered as mention view element. Absolute links without HTTP/HTTPS
+                                 * scheme and no matching mention pattern will be rendered as plain text (anchor with no href).
+                                 * With this, the user can click the links only when the scheme is HTTP/HTTPS
                                  */
                                 href: /^https?:\/\//i.test(href) ? href : null,
                                 rel: node.attrs.rel as Attr
