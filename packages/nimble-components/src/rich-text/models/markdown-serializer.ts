@@ -9,10 +9,19 @@ import type { Node } from 'prosemirror-model';
  * Provides markdown serializer for rich text components
  */
 export class RichTextMarkdownSerializer {
+    public static mentionedUsers: string[];
+
     private static readonly markdownSerializer = this.initializeMarkdownSerializerForTipTap();
 
     public static serializeDOMToMarkdown(doc: Node): string {
+        RichTextMarkdownSerializer.mentionedUsers = [];
         return this.markdownSerializer.serialize(doc);
+    }
+
+    public static getMentionedUser(doc: Node): string[] {
+        RichTextMarkdownSerializer.mentionedUsers = [];
+        RichTextMarkdownSerializer.serializeDOMToMarkdown(doc);
+        return RichTextMarkdownSerializer.mentionedUsers;
     }
 
     private static initializeMarkdownSerializerForTipTap(): MarkdownSerializer {
@@ -35,6 +44,17 @@ export class RichTextMarkdownSerializer {
             });
         };
 
+        const mentionNode = function mention(
+            state: MarkdownSerializerState,
+            node: Node
+        ): void {
+            const href = node.attrs.href as string;
+            if (!RichTextMarkdownSerializer.mentionedUsers.includes(href)) {
+                RichTextMarkdownSerializer.mentionedUsers.push(href);
+            }
+            state.write(`<${href}>`);
+        };
+
         /**
          * Internally Tiptap editor creates it own schema ( Nodes AND Marks ) based on the extensions ( Here Starter Kit is used for Bold, italic, orderedList and
          * bulletList extensions) and defaultMarkdownSerializer uses schema from prosemirror-markdown to serialize the markdown.
@@ -48,7 +68,8 @@ export class RichTextMarkdownSerializer {
             doc: defaultMarkdownSerializer.nodes.doc!,
             paragraph: defaultMarkdownSerializer.nodes.paragraph!,
             text: defaultMarkdownSerializer.nodes.text!,
-            hardBreak: defaultMarkdownSerializer.nodes.hard_break!
+            hardBreak: defaultMarkdownSerializer.nodes.hard_break!,
+            mention: mentionNode
         };
         const marks = {
             italic: defaultMarkdownSerializer.marks.em!,

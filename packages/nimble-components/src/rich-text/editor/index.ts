@@ -1,4 +1,4 @@
-import { observable, attr, DOM } from '@microsoft/fast-element';
+import { observable, attr, DOM, Notifier, Observable } from '@microsoft/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
@@ -12,7 +12,9 @@ import {
     isList,
     AnyExtension,
     Extension,
-    Mark
+    Mark,
+    Node,
+    mergeAttributes
 } from '@tiptap/core';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
@@ -26,8 +28,10 @@ import Paragraph from '@tiptap/extension-paragraph';
 import Placeholder from '@tiptap/extension-placeholder';
 import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import Text from '@tiptap/extension-text';
+import Mention, { MentionOptions } from '@tiptap/extension-mention';
 import HardBreak from '@tiptap/extension-hard-break';
-import { Slice, Fragment, Node } from 'prosemirror-model';
+import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
+import type { SuggestionProps } from '@tiptap/suggestion';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
@@ -36,6 +40,10 @@ import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
+import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
+import { RichTextMention } from '../../rich-text-mention/base';
+import { MarkdownParserMentionConfiguration } from '../models/markdown-parser-mention-configuration';
+import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -56,6 +64,22 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @internal
      */
     public tiptapEditor = this.createTiptapEditor();
+
+    /**
+     * @internal
+     */
+    public mentionElements: RichTextMention[] = [];
+
+    /**
+     * @internal
+     */
+    public mentionConfig: MarkdownParserMentionConfiguration[] = [];
+
+    /**
+     * @internal
+     */
+    @observable
+    public readonly childItems: Element[] = [];
 
     /**
      * Whether to disable user from editing and interacting with toolbar buttons
@@ -109,6 +133,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         // Tiptap [isEmpty](https://tiptap.dev/api/editor#is-empty) returns false even if the editor has only whitespace.
         // However, the expectation is to return true if the editor is empty or contains only whitespace.
         // Hence, by retrieving the current text content using Tiptap state docs and then trimming the string to determine whether it is empty or not.
+        if (this.tiptapEditor.state.doc.toString().includes('mention')) {
+            return this.tiptapEditor.isEmpty;
+        }
         return this.tiptapEditor.state.doc.textContent.trim().length === 0;
     }
 
@@ -150,6 +177,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
+    private mentionInternalsNotifiers: Notifier[] = [];
 
     private readonly xmlSerializer = new XMLSerializer();
     private readonly validAbsoluteLinkRegex = /^https?:\/\//i;
@@ -190,6 +218,15 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             'aria-disabled',
             this.disabled ? 'true' : 'false'
         );
+    }
+
+    /**
+     * @internal
+     */
+    public handleChange(source: unknown, args: unknown): void {
+        if (source instanceof MentionInternals && typeof args === 'string') {
+            this.updateMentionConfig();
+        }
     }
 
     /**
@@ -344,7 +381,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @returns modified fragment from the `updatedNode` after updating the valid link text with its href value.
      */
     private readonly updateLinkNodes = (fragment: Fragment): Fragment => {
-        const updatedNodes: Node[] = [];
+        const updatedNodes: FragmentNode[] = [];
 
         fragment.forEach(node => {
             if (node.isText && node.marks.length > 0) {
@@ -392,6 +429,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     private createTiptapEditor(): Editor {
         const customLink = this.getCustomLinkExtension();
+        const customUserMention = this.getCustomUserMentionExtension();
 
         /**
          * @param slice contains the Fragment of the copied content. If the content is a link, the slice contains Text node with Link mark.
@@ -453,9 +491,80 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                     // See: https://github.com/ni/nimble/issues/1527
                     linkOnPaste: false,
                     validate: href => this.validAbsoluteLinkRegex.test(href)
-                })
+                }),
+                customUserMention
             ]
         });
+    }
+
+    private childItemsChanged(): void {
+        void this.updateMentionsFromChildItems();
+    }
+
+    private async updateMentionsFromChildItems(): Promise<void> {
+        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
+            ? customElements.whenDefined(item.localName)
+            : Promise.resolve()));
+        await Promise.all(definedElements);
+        this.mentionElements = this.childItems.filter(
+            (x): x is RichTextMention => x instanceof RichTextMention
+        );
+        this.mentionConfig = [];
+        if (this.hasDuplicateConfigurationElement()) {
+            this.setMarkdown(this.getMarkdown());
+            return;
+        }
+        this.observeMentions();
+        this.updateMentionConfig();
+    }
+
+    private observeMentions(): void {
+        this.removeMentionObservers();
+
+        this.mentionElements.forEach(mention => {
+            const notifierInternals = Observable.getNotifier(
+                mention.mentionInternals
+            );
+            notifierInternals.subscribe(this);
+            this.mentionInternalsNotifiers.push(notifierInternals);
+        });
+    }
+
+    private removeMentionObservers(): void {
+        this.mentionInternalsNotifiers.forEach(notifier => {
+            notifier.unsubscribe(this);
+        });
+        this.mentionInternalsNotifiers = [];
+    }
+
+    private updateMentionConfig(): void {
+        this.mentionConfig = [];
+        this.mentionElements.forEach(mention => {
+            if (mention.mentionInternals.validConfiguration) {
+                const markdownParserMentionConfiguration = new MarkdownParserMentionConfiguration(
+                    mention.mentionInternals
+                );
+                this.mentionConfig.push(
+                    markdownParserMentionConfiguration
+                );
+
+                mention.getMentionedHrefGenerator = () => {
+                    const hrefs = RichTextMarkdownSerializer.getMentionedUser(this.tiptapEditor.state.doc);
+                    const regex = new RegExp(mention.pattern ?? '');
+                    const userHref = hrefs.filter(item => regex.test(item));
+                    return userHref;
+                };
+            }
+        });
+        this.setMarkdown(this.getMarkdown());
+    }
+
+    private hasDuplicateConfigurationElement(): boolean {
+        const mentionChars = this.mentionElements.map(
+            mention => mention.mentionInternals.character
+        );
+        const uniqueMentionChars = new Set(mentionChars);
+        return mentionChars.length !== uniqueMentionChars.size;
     }
 
     /**
@@ -498,11 +607,87 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         });
     }
 
+    private getCustomUserMentionExtension(): Node<MentionOptions> {
+        return Mention.extend({
+            parseHTML() {
+                return [
+                    {
+                        tag: richTextMentionUsersViewTag
+                    }
+                ];
+            },
+            addAttributes() {
+                return {
+                    href: {
+                        default: null,
+                        parseHTML: element => element.getAttribute('mention-href'),
+                        renderHTML: attributes => {
+                            if (!attributes.href) {
+                                return {};
+                            }
+                            return {
+                                'mention-href': attributes.href as string,
+                            };
+                        },
+                    },
+
+                    label: {
+                        default: null,
+                        parseHTML: element => element.getAttribute('mention-label'),
+                        renderHTML: attributes => {
+                            if (!attributes.label) {
+                                return {};
+                            }
+
+                            return {
+                                'mention-label': attributes.label as string,
+                            };
+                        },
+                    },
+                };
+            },
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            renderHTML({ HTMLAttributes }) {
+                return [
+                    richTextMentionUsersViewTag,
+                    mergeAttributes(
+                        this.options.HTMLAttributes,
+                        HTMLAttributes,
+                        { 'disable-editing': true }
+                    )
+                ];
+            }
+        }).configure({
+            suggestion: {
+                decorationTag: richTextMentionUsersViewTag,
+                allowSpaces: true,
+                render: () => {
+                    return {
+                        onStart: (props): void => {
+                            this.updateUserLists(props);
+                        },
+
+                        onUpdate: (props): void => {
+                            this.updateUserLists(props);
+                        },
+                    };
+                }
+            }
+        });
+    }
+
+    private updateUserLists(props: SuggestionProps): void {
+        if (!this.hasDuplicateConfigurationElement()) {
+            const validUserMentionElement = this.mentionElements.find(mention => mention.mentionInternals.validConfiguration && mention.mentionInternals.character === '@');
+            validUserMentionElement?.onMention(props.query);
+        }
+    }
+
     /**
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(markdown);
+        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(markdown, this.mentionConfig);
         return this.xmlSerializer.serializeToString(documentFragment);
     }
 

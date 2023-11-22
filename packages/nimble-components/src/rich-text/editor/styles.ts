@@ -14,9 +14,11 @@ import {
     smallDelay,
     mediumPadding,
     standardPadding,
-    linkFontColor
+    linkFontColor,
+    mentionDisabledFontColor
 } from '../../theme-provider/design-tokens';
 import { styles as errorStyles } from '../../patterns/error/styles';
+import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -211,6 +213,12 @@ export const styles = css`
              */ ''
         }
         pointer-events: none;
+    }
+
+    :host([disabled]) ${richTextMentionUsersViewTag}::part(control){
+        color: ${mentionDisabledFontColor};
+        fill: currentcolor;
+        cursor: default;
     }
 
     :host([disabled]) .ProseMirror a {

@@ -1,0 +1,35 @@
+import {
+    Controls,
+    DocsStory,
+    Meta,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import * as editorStories from './rich-text-editor.stories';
+import * as mentionUserStories from '../../../rich-text-mention/users/tests/rich-text-mention-users.stories';
+import * as userMappingStories from '../../../mapping/user/tests/mapping-user.stories';
+
+<Meta of={editorStories} />
+
+<Title of={editorStories} />
+<Description of={editorStories} />
+
+<DocsStory of={editorStories.richTextEditor} expanded={false} />
+<Controls of={editorStories.richTextEditor} />
+
+# Usage Docs
+
+## User Mention Usage
+
+To enable support for `@mention` in the `nimble-rich-text-editor` component, include the specified configuration and mapping components as children. These components facilitate the conversion of input markdown into a mention node, displaying a user's name. Additionally, ensure that each user mentioned in the markdown input has a corresponding user mapping. For more details, see [Client Usage Guidance on Filtered Users](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/rich-text/specs/mention-hld.md#client-usage-guidance-on-filtered-users-1).
+
+## User Configuration
+
+<Description of={mentionUserStories} />
+<Controls of={mentionUserStories.richTextMentionUsers} />
+
+## User Mapping
+
+<Description of={userMappingStories} />
+<Controls of={userMappingStories.userMapping} />

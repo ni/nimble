@@ -19,6 +19,8 @@ import { Mapping } from '../../mapping/base';
 
 export type MappingConfigs = ReadonlyMap<string, MappingConfig>;
 
+type HrefGenerator = () => string[];
+
 export interface RichTextMentionConfig {
     mappingConfigs: MappingConfigs;
 }
@@ -55,8 +57,18 @@ export abstract class RichTextMention<
     @observable
     public mappings: Mapping<unknown>[] = [];
 
+    public getMentionedHrefGenerator: HrefGenerator = () => [];
+
+    public getMentionedHref(): string[] {
+        return this.getMentionedHrefGenerator();
+    }
+
     public checkValidity(): boolean {
         return this.mentionInternals.validConfiguration;
+    }
+
+    public onMention(filter: string): void {
+        this.$emit('mention', { filter });
     }
 
     public get validity(): RichTextMentionValidity {

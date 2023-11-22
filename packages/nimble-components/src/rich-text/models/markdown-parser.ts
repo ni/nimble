@@ -11,6 +11,7 @@ import type { MarkdownParserMentionConfiguration } from './markdown-parser-menti
  * Provides markdown parser for rich text components
  */
 export class RichTextMarkdownParser {
+    public static mentionedUsers: string[];
     private static readonly updatedSchema = this.getCustomSchemaConfiguration();
 
     private static readonly markdownParser = this.initializeMarkdownParser();
@@ -34,6 +35,7 @@ export class RichTextMarkdownParser {
         value: string,
         markdownParserMentionConfig?: MarkdownParserMentionConfiguration[]
     ): HTMLElement | DocumentFragment {
+        RichTextMarkdownParser.mentionedUsers = [];
         try {
             this.mentionConfigs = markdownParserMentionConfig;
             const parsedMarkdownContent = this.markdownParser.parse(value);
@@ -107,6 +109,9 @@ export class RichTextMarkdownParser {
                         const displayName = currentMention?.getDisplayName(href);
 
                         if (currentMention && displayName) {
+                            if (!RichTextMarkdownParser.mentionedUsers.includes(href)) {
+                                RichTextMarkdownParser.mentionedUsers.push(href);
+                            }
                             return [
                                 currentMention.viewElement,
                                 {

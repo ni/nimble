@@ -9,6 +9,7 @@ import {
     getLastChildElement,
     getLastChildElementAttribute
 } from '../../models/testing/markdown-parser-utils';
+import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -189,6 +190,14 @@ export class RichTextEditorPageObject {
             attribute,
             this.getTiptapEditor() as HTMLElement
         );
+    }
+
+    public getEditorMentionViewAttributeValues(attribute: string): string[] {
+        return Array.from(
+            this.getTiptapEditor()!.querySelectorAll(richTextMentionUsersViewTag)
+        )
+            .filter((el, _) => el.children.length === 0)
+            .map(el => el.getAttribute(attribute) || '');
     }
 
     public getEditorFirstChildTagName(): string {
