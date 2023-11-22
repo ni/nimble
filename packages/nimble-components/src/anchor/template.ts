@@ -9,7 +9,10 @@ import type { Anchor } from '.';
 export const template: FoundationElementTemplate<
 ViewTemplate<Anchor>,
 AnchorOptions
-> = (_context, definition) => html<Anchor>`<a
+> = (_context, definition) => html<Anchor>`<div
+        ${ref('container')}
+        class="top-container"
+    ><a
         class="control"
         part="control"
         download="${x => x.download}"
@@ -40,6 +43,8 @@ AnchorOptions
         aria-owns="${x => x.ariaOwns}"
         aria-relevant="${x => x.ariaRelevant}"
         aria-roledescription="${x => x.ariaRoledescription}"
+        @mouseenter="${x => x.updateContentEditable()}"
+        @focus="${x => x.updateContentEditable()}"
         ${ref('control')}
     >${
     /* Start and End slot templates inlined to avoid extra whitespace.
@@ -74,4 +79,4 @@ AnchorOptions
             @slotchange="${x => x.handleEndContentChange()}">
             ${definition.end || ''}
         </slot
-    ></span></a>`;
+    ></span></a></div>`;
