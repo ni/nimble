@@ -1,8 +1,4 @@
-import {
-    observable,
-    attr,
-    DOM
-} from '@microsoft/fast-element';
+import { observable, attr, DOM } from '@microsoft/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
@@ -343,7 +339,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     protected getMentionedUser(): string[] {
-        return RichTextMarkdownSerializer.getMentionedUser(this.tiptapEditor.state.doc);
+        return RichTextMarkdownSerializer.getMentionedUser(
+            this.tiptapEditor.state.doc
+        );
     }
 
     private createEditor(): HTMLDivElement {
