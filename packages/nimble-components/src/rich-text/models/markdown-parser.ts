@@ -11,7 +11,7 @@ import type { MarkdownParserMentionConfiguration } from './markdown-parser-menti
  * Provides markdown parser for rich text components
  */
 export class RichTextMarkdownParser {
-    public static mentionedUsers: string[];
+    private static mentionedUsers: string[];
     private static readonly updatedSchema = this.getCustomSchemaConfiguration();
 
     private static readonly markdownParser = this.initializeMarkdownParser();
@@ -25,6 +25,10 @@ export class RichTextMarkdownParser {
      * we store static configuration in this member and access it from Prosemirror callbacks.
      */
     private static mentionConfigs?: MarkdownParserMentionConfiguration[];
+
+    public static getMentionedUser(): string[] {
+        return RichTextMarkdownParser.mentionedUsers;
+    }
 
     /**
      * This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a

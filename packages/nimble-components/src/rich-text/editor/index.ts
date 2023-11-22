@@ -1,15 +1,12 @@
 import {
     observable,
     attr,
-    DOM,
-    Notifier,
-    Observable
+    DOM
 } from '@microsoft/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
-    DesignSystem,
-    FoundationElement
+    DesignSystem
 } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import {
@@ -47,9 +44,7 @@ import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
-import { RichTextMention } from '../../rich-text-mention/base';
-import { MarkdownParserMentionConfiguration } from '../models/markdown-parser-mention-configuration';
-import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
+import { RichText } from '../base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -60,7 +55,7 @@ declare global {
 /**
  * A nimble styled rich text editor
  */
-export class RichTextEditor extends FoundationElement implements ErrorPattern {
+export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
@@ -70,22 +65,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @internal
      */
     public tiptapEditor = this.createTiptapEditor();
-
-    /**
-     * @internal
-     */
-    public mentionElements: RichTextMention[] = [];
-
-    /**
-     * @internal
-     */
-    public mentionConfig: MarkdownParserMentionConfiguration[] = [];
-
-    /**
-     * @internal
-     */
-    @observable
-    public readonly childItems: Element[] = [];
 
     /**
      * Whether to disable user from editing and interacting with toolbar buttons
@@ -183,7 +162,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
-    private mentionInternalsNotifiers: Notifier[] = [];
 
     private readonly xmlSerializer = new XMLSerializer();
     private readonly validAbsoluteLinkRegex = /^https?:\/\//i;
@@ -224,15 +202,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             'aria-disabled',
             this.disabled ? 'true' : 'false'
         );
-    }
-
-    /**
-     * @internal
-     */
-    public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof MentionInternals && typeof args === 'string') {
-            this.updateMentionConfig();
-        }
     }
 
     /**
@@ -369,6 +338,14 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         return false;
     }
 
+    protected updateView(): void {
+        this.setMarkdown(this.getMarkdown());
+    }
+
+    protected getMentionedUser(): string[] {
+        return RichTextMarkdownSerializer.getMentionedUser(this.tiptapEditor.state.doc);
+    }
+
     private createEditor(): HTMLDivElement {
         const editor = document.createElement('div');
         editor.className = 'editor';
@@ -501,76 +478,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 customUserMention
             ]
         });
-    }
-
-    private childItemsChanged(): void {
-        void this.updateMentionsFromChildItems();
-    }
-
-    private async updateMentionsFromChildItems(): Promise<void> {
-        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
-            ? customElements.whenDefined(item.localName)
-            : Promise.resolve()));
-        await Promise.all(definedElements);
-        this.mentionElements = this.childItems.filter(
-            (x): x is RichTextMention => x instanceof RichTextMention
-        );
-        this.mentionConfig = [];
-        if (this.hasDuplicateConfigurationElement()) {
-            this.setMarkdown(this.getMarkdown());
-            return;
-        }
-        this.observeMentions();
-        this.updateMentionConfig();
-    }
-
-    private observeMentions(): void {
-        this.removeMentionObservers();
-
-        this.mentionElements.forEach(mention => {
-            const notifierInternals = Observable.getNotifier(
-                mention.mentionInternals
-            );
-            notifierInternals.subscribe(this);
-            this.mentionInternalsNotifiers.push(notifierInternals);
-        });
-    }
-
-    private removeMentionObservers(): void {
-        this.mentionInternalsNotifiers.forEach(notifier => {
-            notifier.unsubscribe(this);
-        });
-        this.mentionInternalsNotifiers = [];
-    }
-
-    private updateMentionConfig(): void {
-        this.mentionConfig = [];
-        this.mentionElements.forEach(mention => {
-            if (mention.mentionInternals.validConfiguration) {
-                const markdownParserMentionConfiguration = new MarkdownParserMentionConfiguration(
-                    mention.mentionInternals
-                );
-                this.mentionConfig.push(markdownParserMentionConfiguration);
-
-                mention.getMentionedHrefGenerator = () => {
-                    const hrefs = RichTextMarkdownSerializer.getMentionedUser(
-                        this.tiptapEditor.state.doc
-                    );
-                    const regex = new RegExp(mention.pattern ?? '');
-                    const userHref = hrefs.filter(item => regex.test(item));
-                    return userHref;
-                };
-            }
-        });
-        this.setMarkdown(this.getMarkdown());
-    }
-
-    private hasDuplicateConfigurationElement(): boolean {
-        const mentionChars = this.mentionElements.map(
-            mention => mention.mentionInternals.character
-        );
-        const uniqueMentionChars = new Set(mentionChars);
-        return mentionChars.length !== uniqueMentionChars.size;
     }
 
     /**
