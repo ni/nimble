@@ -121,9 +121,7 @@ export class RichTextViewer extends FoundationElement {
                 const markdownParserMentionConfiguration = new MarkdownParserMentionConfiguration(
                     mention.mentionInternals
                 );
-                this.mentionConfig.push(
-                    markdownParserMentionConfiguration
-                );
+                this.mentionConfig.push(markdownParserMentionConfiguration);
 
                 mention.getMentionedHrefGenerator = () => {
                     const hrefs = RichTextMarkdownParser.mentionedUsers;

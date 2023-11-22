@@ -109,8 +109,14 @@ export class RichTextMarkdownParser {
                         const displayName = currentMention?.getDisplayName(href);
 
                         if (currentMention && displayName) {
-                            if (!RichTextMarkdownParser.mentionedUsers.includes(href)) {
-                                RichTextMarkdownParser.mentionedUsers.push(href);
+                            if (
+                                !RichTextMarkdownParser.mentionedUsers.includes(
+                                    href
+                                )
+                            ) {
+                                RichTextMarkdownParser.mentionedUsers.push(
+                                    href
+                                );
                             }
                             return [
                                 currentMention.viewElement,

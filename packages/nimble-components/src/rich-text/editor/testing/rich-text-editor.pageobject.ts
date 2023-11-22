@@ -194,7 +194,9 @@ export class RichTextEditorPageObject {
 
     public getEditorMentionViewAttributeValues(attribute: string): string[] {
         return Array.from(
-            this.getTiptapEditor()!.querySelectorAll(richTextMentionUsersViewTag)
+            this.getTiptapEditor()!.querySelectorAll(
+                richTextMentionUsersViewTag
+            )
         )
             .filter((el, _) => el.children.length === 0)
             .map(el => el.getAttribute(attribute) || '');

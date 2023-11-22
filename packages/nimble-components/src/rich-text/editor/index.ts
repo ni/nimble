@@ -1,4 +1,10 @@
-import { observable, attr, DOM, Notifier, Observable } from '@microsoft/fast-element';
+import {
+    observable,
+    attr,
+    DOM,
+    Notifier,
+    Observable
+} from '@microsoft/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
@@ -544,12 +550,12 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 const markdownParserMentionConfiguration = new MarkdownParserMentionConfiguration(
                     mention.mentionInternals
                 );
-                this.mentionConfig.push(
-                    markdownParserMentionConfiguration
-                );
+                this.mentionConfig.push(markdownParserMentionConfiguration);
 
                 mention.getMentionedHrefGenerator = () => {
-                    const hrefs = RichTextMarkdownSerializer.getMentionedUser(this.tiptapEditor.state.doc);
+                    const hrefs = RichTextMarkdownSerializer.getMentionedUser(
+                        this.tiptapEditor.state.doc
+                    );
                     const regex = new RegExp(mention.pattern ?? '');
                     const userHref = hrefs.filter(item => regex.test(item));
                     return userHref;
@@ -626,9 +632,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                                 return {};
                             }
                             return {
-                                'mention-href': attributes.href as string,
+                                'mention-href': attributes.href as string
                             };
-                        },
+                        }
                     },
 
                     label: {
@@ -640,10 +646,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                             }
 
                             return {
-                                'mention-label': attributes.label as string,
+                                'mention-label': attributes.label as string
                             };
-                        },
-                    },
+                        }
+                    }
                 };
             },
             // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -669,7 +675,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
                         onUpdate: (props): void => {
                             this.updateUserLists(props);
-                        },
+                        }
                     };
                 }
             }
@@ -678,7 +684,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     private updateUserLists(props: SuggestionProps): void {
         if (!this.hasDuplicateConfigurationElement()) {
-            const validUserMentionElement = this.mentionElements.find(mention => mention.mentionInternals.validConfiguration && mention.mentionInternals.character === '@');
+            const validUserMentionElement = this.mentionElements.find(
+                mention => mention.mentionInternals.validConfiguration
+                    && mention.mentionInternals.character === '@'
+            );
             validUserMentionElement?.onMention(props.query);
         }
     }
@@ -687,7 +696,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(markdown, this.mentionConfig);
+        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(
+            markdown,
+            this.mentionConfig
+        );
         return this.xmlSerializer.serializeToString(documentFragment);
     }
 

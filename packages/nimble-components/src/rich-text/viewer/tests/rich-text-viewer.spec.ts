@@ -402,9 +402,7 @@ describe('RichTextViewer', () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element, undefined, undefined);
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
-            expect(
-                renderedUserMention.getMentionedHref()
-            ).toEqual(['user:1']);
+            expect(renderedUserMention.getMentionedHref()).toEqual(['user:1']);
         });
 
         it('getMentionedHref() should be empty for duplicate mention configuration elements', async () => {
@@ -412,34 +410,32 @@ describe('RichTextViewer', () => {
             await appendUserMentionConfiguration(element, undefined, undefined);
             await appendUserMentionConfiguration(element, undefined, undefined);
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
-            expect(
-                renderedUserMention.getMentionedHref()
-            ).toEqual([]);
+            expect(renderedUserMention.getMentionedHref()).toEqual([]);
         });
 
         it('getMentionedHref() method should return all the mentioned href', async () => {
             element.markdown = '<user:1> <user:2>';
             await appendUserMentionConfiguration(element, undefined, undefined);
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
-            expect(
-                renderedUserMention.getMentionedHref()
-            ).toEqual(['user:1', 'user:2']);
+            expect(renderedUserMention.getMentionedHref()).toEqual([
+                'user:1',
+                'user:2'
+            ]);
         });
 
         it('getMentionedHref() method should return empty when removing configuration element in the same viewer', async () => {
             element.markdown = '<user:1> <user:2>';
             await appendUserMentionConfiguration(element, undefined, undefined);
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
-            expect(
-                renderedUserMention.getMentionedHref()
-            ).toEqual(['user:1', 'user:2']);
+            expect(renderedUserMention.getMentionedHref()).toEqual([
+                'user:1',
+                'user:2'
+            ]);
 
             element.removeChild(renderedUserMention);
             await waitForUpdatesAsync();
 
-            expect(
-                renderedUserMention.getMentionedHref()
-            ).toEqual([]);
+            expect(renderedUserMention.getMentionedHref()).toEqual([]);
         });
     });
 });

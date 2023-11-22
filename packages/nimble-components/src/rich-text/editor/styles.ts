@@ -215,7 +215,7 @@ export const styles = css`
         pointer-events: none;
     }
 
-    :host([disabled]) ${richTextMentionUsersViewTag}::part(control){
+    :host([disabled]) ${richTextMentionUsersViewTag}::part(control) {
         color: ${mentionDisabledFontColor};
         fill: currentcolor;
         cursor: default;
