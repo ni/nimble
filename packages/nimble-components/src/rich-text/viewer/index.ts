@@ -85,12 +85,6 @@ export class RichTextViewer extends FoundationElement {
             (x): x is RichTextMention => x instanceof RichTextMention
         );
 
-        this.mentionInternalsConfig = [];
-        if (this.hasDuplicateConfigurationElement()) {
-            this.updateView();
-            return;
-        }
-
         this.observeMentions();
         this.updateMentionInternalsConfig();
     }
@@ -115,6 +109,8 @@ export class RichTextViewer extends FoundationElement {
     }
 
     private updateMentionInternalsConfig(): void {
+        // TODO: Add a rich text validator to check if the `mentionElements` contains duplicate configuration element
+        // For example, having two `nimble-rich-text-mention-users` within the children of rich text viewer or editor is an invalid configuration
         this.mentionInternalsConfig = this.mentionElements
             .filter(mention => mention.mentionInternals.validConfiguration)
             .map(
@@ -124,14 +120,6 @@ export class RichTextViewer extends FoundationElement {
             );
 
         this.updateView();
-    }
-
-    private hasDuplicateConfigurationElement(): boolean {
-        const mentionChars = this.mentionElements.map(
-            mention => mention.mentionInternals.character
-        );
-        const uniqueMentionChars = new Set(mentionChars);
-        return mentionChars.length !== uniqueMentionChars.size;
     }
 
     private updateView(): void {

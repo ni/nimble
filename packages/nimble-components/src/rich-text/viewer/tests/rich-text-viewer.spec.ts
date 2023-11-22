@@ -160,18 +160,21 @@ describe('RichTextViewer', () => {
             ).toEqual('1');
         });
 
-        it('adding two mention configuration elements in the same viewer should render as absolute link', async () => {
+        // TODO: Once the rich text validator added for duplicate configuration elements, below test case should be updated
+        it('adding two mention configuration elements in the same viewer should render as mention view', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element, undefined, undefined);
             await appendUserMentionConfiguration(element, undefined, undefined);
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
-                `${anchorTag}`.toUpperCase()
+                `${richTextMentionUsersViewTag}`.toUpperCase()
             ]);
-            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
-                'user:1'
-            );
+            expect(
+                pageObject.getRenderedMarkdownLastChildAttribute(
+                    'mention-label'
+                )
+            ).toEqual('1');
         });
 
         it('adding mention mapping elements renders the mapped display name', async () => {
