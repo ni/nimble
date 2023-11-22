@@ -127,8 +127,8 @@ export class RichTextMarkdownParser {
                                  *
                                  * Initially, when a Markdown with an autolink is provided as input without a configuration element
                                  * (e.g., nimble-rich-text-mention-uses), it renders as plain text or URL. Later, when the
-                                 * configuration element is added dynamically, and an URL in the rich text components matches the pattern,
-                                 * it should be converted to a mention node. Therefore, we need to preserve Markdown for absolute links,
+                                 * configuration element is added dynamically, and the URL in the rich text components matches the pattern,
+                                 * should be converted to a mention node. Therefore, we need to preserve Markdown for absolute links,
                                  * even if they are not HTTPS/HTTP. This ensures that when `getMarkdown()` is called in the editor,
                                  * it returns a Markdown string with an autolink. This allows for conversion to a mention node during `setMarkdown()`,
                                  * as it is an anchor with no href. If it's not an anchor tag, `getMarkdown()` won't return as an autolink,
