@@ -957,13 +957,13 @@ describe('Markdown parser', () => {
             await disconnect();
         });
 
-        it('should get view element when scheme of autolink markdown format matches the pattern', async () => {
+        it('should get view element when autolink markdown string matches the pattern with group regex', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
                     { key: 'user:1', displayName: 'username1' },
                     { key: 'user:2', displayName: 'username2' }
                 ],
-                '^user:.*'
+                '^user:(.*)'
             ));
             await connect();
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
@@ -979,7 +979,7 @@ describe('Markdown parser', () => {
             );
         });
 
-        it('should get view element when scheme(HTTP) of autolink markdown format matches the pattern', async () => {
+        it('should get view element autolink markdown string with scheme as HTTP matches the pattern without group regex', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
                     { key: 'http://user/1', displayName: 'username1' },
@@ -1006,13 +1006,13 @@ describe('Markdown parser', () => {
             );
         });
 
-        it('should get view element when scheme(HTTPS) of autolink markdown format matches the pattern', async () => {
+        it('should get view element autolink markdown string with scheme as HTTPS matches the pattern without group regex', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
                     { key: 'https://user/1', displayName: 'username1' },
                     { key: 'https://user/2', displayName: 'username2' }
                 ],
-                '^https://user/.*'
+                '^https://user/(.*)'
             ));
             await connect();
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
@@ -1033,7 +1033,7 @@ describe('Markdown parser', () => {
             );
         });
 
-        it('should show user ID when username not found where the pattern has a grouping regex', async () => {
+        it('should show user ID when username was not found in mapping elements and the pattern includes a grouping regex', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
                     { key: 'user:1', displayName: 'username1' },
@@ -1060,7 +1060,7 @@ describe('Markdown parser', () => {
             );
         });
 
-        it('should render anchor element when username not found and the pattern does not have a grouping regex', async () => {
+        it('should render anchor element when username was not found in mapping elements and the pattern does not includes a grouping regex', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
                     { key: 'user:1', displayName: 'username1' },
@@ -1084,6 +1084,143 @@ describe('Markdown parser', () => {
             ]);
             expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
             expect(getLeafContentsFromElement(doc)).toEqual(['user:1234-5678']);
+        });
+
+        it('should get anchor element with no href when markdown input does not match with the pattern', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ],
+                '^user:.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<issue:1>', [
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
+            ]);
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
+            expect(getLeafContentsFromElement(doc)).toEqual(['issue:1']);
+        });
+
+        it('should get anchor element with no href when display name is missing', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [{ key: 'user:1' }, { key: 'user:2' }],
+                '^user:.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
+            ]);
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
+            expect(getLeafContentsFromElement(doc)).toEqual(['user:1']);
+        });
+
+        it('should get anchor element with no href when the pattern does not match the autolink in markdown', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username1' }
+                ],
+                'abc'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
+            ]);
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
+            expect(getLeafContentsFromElement(doc)).toEqual(['user:1']);
+        });
+
+        it('should get anchor element with no href when keys do not match the pattern', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'abc', displayName: 'username1' },
+                    { key: 'abc', displayName: 'username1' }
+                ],
+                '^user:.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
+            ]);
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
+            expect(getLeafContentsFromElement(doc)).toEqual(['user:1']);
+        });
+
+        it('should get anchor element with href when autolink markdown format is HTTP but does not match with the pattern', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ],
+                '^user:.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<http://user/1>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('href', doc)).toBe(
+                'http://user/1'
+            );
+            expect(getLeafContentsFromElement(doc)).toEqual(['http://user/1']);
+        });
+
+        it('should get anchor element with href when autolink markdown format is HTTPS but does not match with the pattern', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ],
+                '^user:.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<https://user/1>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('href', doc)).toBe(
+                'https://user/1'
+            );
+            expect(getLeafContentsFromElement(doc)).toEqual(['https://user/1']);
         });
 
         describe('various wacky strings should reflect the `mention-label` attribute value of user mention view', () => {
@@ -1112,94 +1249,6 @@ describe('Markdown parser', () => {
                     ).toEqual(name);
                 });
             });
-        });
-
-        it('should get anchor element when markdown input does not match with the pattern', async () => {
-            ({ element, connect, disconnect } = await setup(
-                [
-                    { key: 'user:1', displayName: 'username1' },
-                    { key: 'user:2', displayName: 'username2' }
-                ],
-                '^user:.*'
-            ));
-            await connect();
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                '<https://1>',
-                [
-                    new MarkdownParserMentionConfiguration(
-                        element.mentionInternals
-                    )
-                ]
-            );
-
-            expect(getTagsFromElement(doc)).toEqual([
-                'P',
-                `${anchorTag}`.toUpperCase()
-            ]);
-            expect(getLastChildElementAttribute('href', doc)).toEqual(
-                'https://1'
-            );
-            expect(getLeafContentsFromElement(doc)).toEqual(['https://1']);
-        });
-
-        it('should get anchor element when display name is missing', async () => {
-            ({ element, connect, disconnect } = await setup(
-                [{ key: 'user:1' }, { key: 'user:2' }],
-                '^user:.*'
-            ));
-            await connect();
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
-                new MarkdownParserMentionConfiguration(element.mentionInternals)
-            ]);
-
-            expect(getTagsFromElement(doc)).toEqual([
-                'P',
-                `${anchorTag}`.toUpperCase()
-            ]);
-            expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
-            expect(getLeafContentsFromElement(doc)).toEqual(['user:1']);
-        });
-
-        it('should get anchor element when the pattern does not match an absolute link in markdown', async () => {
-            ({ element, connect, disconnect } = await setup(
-                [
-                    { key: 'user:1', displayName: 'username1' },
-                    { key: 'user:2', displayName: 'username1' }
-                ],
-                'abc'
-            ));
-            await connect();
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
-                new MarkdownParserMentionConfiguration(element.mentionInternals)
-            ]);
-
-            expect(getTagsFromElement(doc)).toEqual([
-                'P',
-                `${anchorTag}`.toUpperCase()
-            ]);
-            expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
-            expect(getLeafContentsFromElement(doc)).toEqual(['user:1']);
-        });
-
-        it('should get anchor element when keys do not match the pattern', async () => {
-            ({ element, connect, disconnect } = await setup(
-                [
-                    { key: 'abc', displayName: 'username1' },
-                    { key: 'abc', displayName: 'username1' }
-                ],
-                '^user:.*'
-            ));
-            await connect();
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
-                new MarkdownParserMentionConfiguration(element.mentionInternals)
-            ]);
-
-            expect(getTagsFromElement(doc)).toEqual([
-                'P',
-                `${anchorTag}`.toUpperCase()
-            ]);
-            expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
-            expect(getLeafContentsFromElement(doc)).toEqual(['user:1']);
         });
     });
 });
