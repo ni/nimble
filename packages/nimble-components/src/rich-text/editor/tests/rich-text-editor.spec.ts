@@ -2111,13 +2111,20 @@ describe('RichTextEditor', () => {
             ).toEqual(['1']);
         });
 
-        it('adding two mention configuration elements in the same editor should render as absolute link', async () => {
+        // TODO: Once the rich text validator added for duplicate configuration elements, below test case should be updated
+        it('adding two mention configuration elements in the same editor should render as mention node', async () => {
             element.setMarkdown('<user:1>');
             await appendUserMentionConfiguration(element, undefined, undefined);
             await appendUserMentionConfiguration(element, undefined, undefined);
 
-            expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['user:1']);
+            expect(pageObject.getMarkdownImpactTagNames()).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase(),
+                'BR'
+            ]);
+            expect(
+                pageObject.getEditorMentionViewAttributeValues('mention-label')
+            ).toEqual(['1']);
         });
 
         it('adding mention mapping renders the mapped display name', async () => {
@@ -2279,12 +2286,13 @@ describe('RichTextEditor', () => {
             expect(renderedUserMention.getMentionedHref()).toEqual(['user:1']);
         });
 
-        it('getMentionedHref() should be empty for duplicate mention configuration elements', async () => {
+        // TODO: Once the rich text validator added for duplicate configuration elements, below test case should be updated
+        it('getMentionedHref() should return the mentioned href for duplicate mention configuration elements', async () => {
             element.setMarkdown('<user:1>');
             await appendUserMentionConfiguration(element, undefined, undefined);
             await appendUserMentionConfiguration(element, undefined, undefined);
             const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHref()).toEqual([]);
+            expect(renderedUserMention.getMentionedHref()).toEqual(['user:1']);
         });
 
         it('getMentionedHref() method should return all the mentioned href', async () => {

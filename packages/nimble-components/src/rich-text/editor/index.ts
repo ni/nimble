@@ -588,13 +588,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     private updateUserLists(props: SuggestionProps): void {
-        if (!this.hasDuplicateConfigurationElement()) {
-            const validUserMentionElement = this.mentionElements.find(
-                mention => mention.mentionInternals.validConfiguration
-                    && mention.mentionInternals.character === '@'
-            );
-            validUserMentionElement?.onMention(props.query);
-        }
+        const validUserMentionElement = this.mentionElements.find(
+            mention => mention.mentionInternals.validConfiguration
+                && mention.mentionInternals.character === '@'
+        );
+        validUserMentionElement?.onMention(props.query);
     }
 
     /**

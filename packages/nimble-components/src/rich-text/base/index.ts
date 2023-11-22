@@ -35,7 +35,13 @@ export abstract class RichText extends FoundationElement {
         }
     }
 
+    /**
+     * Create a MarkdownParserMentionConfiguration using the mention elements and implement the logic for the getMentionedHref() method
+     * which will be invoked in the RichTextMention base class from the client.
+     */
     public updateMentionConfig(): void {
+        // TODO: Add a rich text validator to check if the `mentionElements` contains duplicate configuration element
+        // For example, having two `nimble-rich-text-mention-users` within the children of rich text viewer or editor is an invalid configuration
         this.mentionConfig = [];
         this.mentionElements.forEach(mention => {
             if (mention.mentionInternals.validConfiguration) {
@@ -59,14 +65,6 @@ export abstract class RichText extends FoundationElement {
 
     protected abstract getMentionedUser(): string[];
 
-    protected hasDuplicateConfigurationElement(): boolean {
-        const mentionChars = this.mentionElements.map(
-            mention => mention.mentionInternals.character
-        );
-        const uniqueMentionChars = new Set(mentionChars);
-        return mentionChars.length !== uniqueMentionChars.size;
-    }
-
     private childItemsChanged(): void {
         void this.updateMentionsFromChildItems();
     }
@@ -79,13 +77,6 @@ export abstract class RichText extends FoundationElement {
         this.mentionElements = this.childItems.filter(
             (x): x is RichTextMention => x instanceof RichTextMention
         );
-
-        this.mentionConfig = [];
-        if (this.hasDuplicateConfigurationElement()) {
-            this.updateView();
-            return;
-        }
-
         this.observeMentions();
         this.updateMentionConfig();
     }
