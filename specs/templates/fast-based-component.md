@@ -34,6 +34,11 @@
 - *How native CSS Properties (height, width, etc.) affect the component*
 - *Slots*
 
+### Native form integration
+
+*Summarize the component's form integration. Is it built in to FAST, requiring custom development, or not necessary?*
+
+
 ### Angular integration 
 
 *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
