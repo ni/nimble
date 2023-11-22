@@ -47,6 +47,7 @@ export interface WaferMapDie{
         }
         ...
 ```
+
 ```
     ...
     private calculateFillStyle(
