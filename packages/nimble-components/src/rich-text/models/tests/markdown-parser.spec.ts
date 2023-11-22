@@ -1095,14 +1095,9 @@ describe('Markdown parser', () => {
                 '^user:.*'
             ));
             await connect();
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                '<issue:1>',
-                [
-                    new MarkdownParserMentionConfiguration(
-                        element.mentionInternals
-                    )
-                ]
-            );
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<issue:1>', [
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
+            ]);
 
             expect(getTagsFromElement(doc)).toEqual([
                 'P',
@@ -1194,7 +1189,9 @@ describe('Markdown parser', () => {
                 'P',
                 `${anchorTag}`.toUpperCase()
             ]);
-            expect(getLastChildElementAttribute('href', doc)).toBe('http://user/1');
+            expect(getLastChildElementAttribute('href', doc)).toBe(
+                'http://user/1'
+            );
             expect(getLeafContentsFromElement(doc)).toEqual(['http://user/1']);
         });
 
@@ -1220,7 +1217,9 @@ describe('Markdown parser', () => {
                 'P',
                 `${anchorTag}`.toUpperCase()
             ]);
-            expect(getLastChildElementAttribute('href', doc)).toBe('https://user/1');
+            expect(getLastChildElementAttribute('href', doc)).toBe(
+                'https://user/1'
+            );
             expect(getLeafContentsFromElement(doc)).toEqual(['https://user/1']);
         });
 
