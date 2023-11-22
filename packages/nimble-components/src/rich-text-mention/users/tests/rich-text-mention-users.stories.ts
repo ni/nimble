@@ -5,7 +5,7 @@ import { hiddenWrapper } from '../../../utilities/tests/hidden';
 
 const patternDescription = `A regex used for detecting, validating, and extracting information from mentions in the rich text markdown string.
 
-* To extract the key, the pattern must include a group that matches the key portion of the mention link. For example, the pattern should be \`user:(.*)\` to extract the user key adjacent to \`user:\`. If the pattern doesn't have a grouping regex (e.g., \`user:.*\`) and the mapping element for a key doesn't contain a display name, the mention will render as plain text or, in some cases, as a link (if the href is HTTPS/HTTP) in rich text components. If no mapping element for the particular key is not found but has a grouping regex, the mention will render the key instead.
+* To extract the key, the pattern must include a group that matches the key portion of the mention link. For example, the pattern should be \`user:(.*)\` to extract the user key adjacent to \`user:\`. If the pattern doesn't have a grouping regex (e.g., \`user:.*\`) and the mapping element for a key doesn't contain a display name, the mention will render as plain text or, in some cases, as a link (if the href is HTTPS/HTTP) in rich text components. If the pattern has a grouping regex but no mapping element for a particular key is found, the mention will render the key instead.
 `;
 
 const mappingUserValidityDescription = `Readonly object of boolean values that represents the validity states that the mention's configuration can be in.

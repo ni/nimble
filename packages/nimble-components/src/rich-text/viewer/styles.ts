@@ -53,9 +53,7 @@ export const styles = css`
          * To ensure a consistent appearance, the font color is forced to the default link color regardless of the `href`
          * attribute's presence.
          *
-         * This visual consistency stems from the similarity between mention markdown and absolute links, with the distinction
-         * that mention markdown does not restrict the link scheme. When converting absolute links without HTTPS/HTTP to mention
-         * views, preserve the markdown in autolink format for proper rendering.
+         * See models/markdown-parser.ts where link elements are emitted for more info.
          */ ''
     }
     nimble-anchor::part(control) {

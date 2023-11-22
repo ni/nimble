@@ -122,16 +122,17 @@ export class RichTextMarkdownParser {
                             {
                                 /**
                                  * Both mention and absolute link markdown share the autolink format in CommonMark flavor.
-                                 * However, absolute links without HTTPS/HTTP should render as plain text, while mentions are
-                                 * displayed as view elements.
+                                 * However, absolute links without HTTPS/HTTP should render as plain text (anchor with no href),
+                                 * while mentions are displayed as view elements.
                                  *
-                                 * To achieve this, configuration elements matching already rendered absolute links in the rich
-                                 * text components should be converted to mention nodes. We should preserve markdown for
-                                 * absolute links without HTTPS/HTTP so that when `getMarkdown()` is called in the editor,
-                                 * the link appears as autolink. This allows for conversion to a mention node during
-                                 * `setMarkdown()`, ensuring proper rendering. If it's not an anchor tag, `getMarkdown()`
-                                 * won't return as autolink, preventing undesired changes when configuration elements
-                                 * dynamically added/changed.
+                                 * Initially, when a Markdown with an autolink is provided as input without a configuration element
+                                 * (e.g., nimble-rich-text-mention-uses), it renders as plain text or URL. Later, when the
+                                 * configuration element is added dynamically, and an URL in the rich text components matches the pattern,
+                                 * it should be converted to a mention node. Therefore, we need to preserve Markdown for absolute links,
+                                 * even if they are not HTTPS/HTTP. This ensures that when `getMarkdown()` is called in the editor,
+                                 * it returns a Markdown string with an autolink. This allows for conversion to a mention node during `setMarkdown()`,
+                                 * as it is an anchor with no href. If it's not an anchor tag, `getMarkdown()` won't return as an autolink,
+                                 * preventing undesired changes when configuration elements are dynamically added/changed.
                                  */
                                 href: /^https?:\/\//i.test(href) ? href : null,
                                 rel: node.attrs.rel as Attr
