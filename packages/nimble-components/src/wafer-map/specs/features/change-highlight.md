@@ -20,40 +20,61 @@ N\A
 
 ## Implementation / Design
 
-The current highlight logic has the benefit of being simple and easy to use. We wish to build on top of how highlight is made.
-
-1. Add a boolean field on each die called "isHighlighted" this will be used when parsing the wafer to chose the color of the die.
+We will introduce a new logic of highlighting the wafer in parallel with current one.
 
 ```
 export interface WaferMapDie{
 ...
-   isHighlighted?: boolean;
+   🟢isHighlighted?: boolean;🟢
 ...
 }
 ```
 
-2. Add a field on the wafer map "HighlightBy", which will be used to decide if the highlight should be done by "Value" (current approach) or by "Coordinates" our proposal.
-
-index.ts
+```
+        ...
+        for (const die of this.wafermap.dies) {
+            ...
+            this._diesRenderInfo.push({
+                ...
+                fillStyle: this.calculateFillStyle(
+                    die.value,
+                    colorScaleMode,
+                    highlightedValues,
+                    🟢 die.isHighlighted🟢
+                ),
+                ...
+            });
+        }
+        ...
+```
+```
+    ...
+    private calculateFillStyle(
+        ...
+        🟢isHighlighted?: boolean🟢
+    ): string {
+        ...
+        rgbColor = new ColorRGBA64(
+            ...
+            this.calculateOpacity(value, highlightedValues, 🟢isHighlighted🟢)
+        );
+        ...
+    }
+    ...
+```
 
 ```
-export class WaferMap extends FoundationElement{
-   ...
-   public readonly highlightMode: HighlightMode;
-   ...
-}
-...
-
-```
-
-types.ts
-
-```
-export enum HighlightMode{
-   Nothing = 0,
-   Value,
-   Coordinates
-}
+    ...
+    private calculateOpacity(
+        ...
+        🟢isHighlighted?: boolean🟢
+    ): number {
+        return 🟢isHighlighted🟢 || (highlightedValues.length > 0
+            && !highlightedValues.some(dieValue => dieValue === selectedValue))
+            ? this.nonHighlightedOpacity
+            : 1;
+    }
+    ...
 ```
 
 This approach will let us to highlight any die we want, without any restrictions. The logic that decides which dies should be highlighted can be moved completely out of the wafer map component, leaving the component the duty of only highlighting the given dies using the "isHighlighted" field.
