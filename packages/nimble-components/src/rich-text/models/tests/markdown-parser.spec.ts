@@ -1195,6 +1195,36 @@ describe('Markdown parser', () => {
             expect(getLeafContentsFromElement(doc)).toEqual(['http://user/1']);
         });
 
+        it('should get anchor element with href when autolink markdown format is HTTPS but does not match the pattern with same scheme (HTTPS)', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'https://user/1', displayName: 'username1' },
+                    { key: 'http://user/2', displayName: 'username2' }
+                ],
+                '^https://user/(.*)'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<https://ni/user/1>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('href', doc)).toBe(
+                'https://ni/user/1'
+            );
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                'https://ni/user/1'
+            ]);
+        });
+
         it('should get anchor element with href when autolink markdown format is HTTPS but does not match with the pattern', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
