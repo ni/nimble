@@ -31,8 +31,8 @@ async function setupMentionConfig(): Promise<Fixture<RichTextViewer>> {
 
 async function appendUserMentionConfiguration(
     element: RichTextViewer,
-    userKeys: string[] | undefined,
-    displayNames: string[] | undefined
+    userKeys?: string[],
+    displayNames?: string[]
 ): Promise<void> {
     const userMention = document.createElement(
         richTextMentionUsersTag
@@ -128,8 +128,6 @@ describe('RichTextViewer', () => {
 
     describe('user mention dynamic loading', () => {
         beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
-            pageObject = new RichTextViewerPageObject(element);
             await connect();
         });
 
@@ -147,7 +145,7 @@ describe('RichTextViewer', () => {
             expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
                 'user:1'
             );
-            await appendUserMentionConfiguration(element, undefined, undefined);
+            await appendUserMentionConfiguration(element);
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
@@ -163,8 +161,8 @@ describe('RichTextViewer', () => {
         // TODO: Once the rich text validator added for duplicate configuration elements, below test case should be updated
         it('adding two mention configuration elements in the same viewer should render as mention view', async () => {
             element.markdown = '<user:1>';
-            await appendUserMentionConfiguration(element, undefined, undefined);
-            await appendUserMentionConfiguration(element, undefined, undefined);
+            await appendUserMentionConfiguration(element);
+            await appendUserMentionConfiguration(element);
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
@@ -333,6 +331,38 @@ describe('RichTextViewer', () => {
                     'mention-label'
                 )
             ).toEqual('username');
+        });
+
+        it('updating invalid `key` in mapping mention should update it to absolute link if it is a mention before', async () => {
+            element.markdown = '<user:2>';
+            await appendUserMentionConfiguration(
+                element,
+                ['user:2'],
+                ['username']
+            );
+
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(
+                pageObject.getRenderedMarkdownLastChildAttribute(
+                    'mention-label'
+                )
+            ).toEqual('username');
+
+            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+            const renderedMappingUser = renderedUserMention.firstElementChild as MappingUser;
+            renderedMappingUser.key = 'invalid';
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'user:2'
+            );
         });
     });
 
