@@ -564,7 +564,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             }
         }).configure({
             suggestion: {
-                decorationTag: richTextMentionUsersViewTag,
                 allowSpaces: true,
                 render: () => {
                     return {

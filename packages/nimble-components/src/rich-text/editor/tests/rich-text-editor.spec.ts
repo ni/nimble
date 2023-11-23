@@ -2307,7 +2307,7 @@ describe('RichTextEditor', () => {
         const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
         const mentionEventListener = createEventListener(
             renderedUserMention,
-            'mention'
+            'mention-update'
         );
         await pageObject.setEditorTextContent('@test');
         await mentionEventListener.promise;
@@ -2319,12 +2319,12 @@ describe('RichTextEditor', () => {
         const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
         const mentionEventListener = createEventListener(
             renderedUserMention,
-            'mention'
+            'mention-update'
         );
         await pageObject.setEditorTextContent('@test');
         await mentionEventListener.promise;
         expect(mentionEventListener.spy).toHaveBeenCalledOnceWith(
-            new CustomEvent('mention', {
+            new CustomEvent('mention-update', {
                 detail: { mention: '@text' }
             })
         );
@@ -2335,7 +2335,7 @@ describe('RichTextEditor', () => {
         const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
         const mentionEventListener = createEventListener(
             renderedUserMention,
-            'mention'
+            'mention-update'
         );
         await pageObject.setEditorTextContent('@test');
         await mentionEventListener.promise;
