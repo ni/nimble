@@ -3,6 +3,7 @@ import { observable } from '@microsoft/fast-element';
 export interface MentionInternalsOptions {
     readonly icon: string;
     readonly character: string;
+    readonly viewElement: string;
 }
 
 /**
@@ -36,8 +37,14 @@ export class MentionInternals<TMentionConfig> {
      */
     public readonly character: string;
 
+    /**
+     * Mention view element to render in rich text components
+     */
+    public readonly viewElement: string;
+
     public constructor(options: MentionInternalsOptions) {
         this.icon = options.icon;
         this.character = options.character;
+        this.viewElement = options.viewElement;
     }
 }
