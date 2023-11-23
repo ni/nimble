@@ -12,11 +12,11 @@ export { mappingUserTag };
     selector: 'nimble-mapping-user'
 })
 export class NimbleMappingUserDirective {
-    public get key(): string | undefined {
+    public get key(): MappingUserKey | undefined {
         return this.elementRef.nativeElement.key;
     }
 
-    @Input() public set key(value: string | undefined) {
+    @Input() public set key(value: MappingUserKey | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'key', value);
     }
 
