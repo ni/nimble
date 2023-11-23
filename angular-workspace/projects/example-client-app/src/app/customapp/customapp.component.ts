@@ -47,7 +47,7 @@ export class CustomAppComponent {
     public selectedRadio = 'mango';
     public activeTabId = 'tab-1';
     public activeAnchorTabId = 'a-tab-2';
-    public viewerMarkdownString = `Supported rich text formatting options:
+    public markdownString = `Supported rich text formatting options:
 1. **Bold**
 2. *Italics*
 3. Numbered lists
@@ -57,17 +57,7 @@ export class CustomAppComponent {
     * Option 1
     * Option 2
 5. Absolute link: <https://nimble.ni.dev/>
-`;
-
-    public editorMarkdownString = `Supported rich text formatting options:
-1. **Bold**
-2. *Italics*
-3. Numbered lists
-    1. Option 1
-    2. Option 2
-4. Bulleted lists
-    * Option 1
-    * Option 2
+6. @mention: <user:1>
 `;
 
     public readonly tableData$: Observable<SimpleTableRecord[]>;
@@ -145,6 +135,6 @@ export class CustomAppComponent {
     }
 
     public loadRichTextEditorContent(): void {
-        this.editor.setMarkdown(this.editorMarkdownString);
+        this.editor.setMarkdown(this.markdownString);
     }
 }
