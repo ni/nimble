@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 17 Nov 2023 16:02:19 GMT and should not be manually modified.
+This log was last generated on Tue, 21 Nov 2023 19:16:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.14.8
+
+Tue, 21 Nov 2023 19:16:40 GMT
+
+### Patches
+
+- Hide inc/dec buttons on numeric from a11y tree ([ni/nimble@f74e259](https://github.com/ni/nimble/commit/f74e2591ec02b4a60c873e9308f82ad96ca51f40))
+
+## 20.14.7
+
+Tue, 21 Nov 2023 17:02:30 GMT
+
+### Patches
+
+- Introduce table hierarchical datatype. ([ni/nimble@d268abf](https://github.com/ni/nimble/commit/d268abf77bd76a1fe7e707542f391e5bb4367291))
 
 ## 20.14.6
 

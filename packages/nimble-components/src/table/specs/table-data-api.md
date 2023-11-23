@@ -105,21 +105,36 @@ Note that the above is only an example of what is possible. The details of a tab
 
 Ideally, this typing can also be used to provide compile-time checking of templates. But, the feasibility and details associated with that are out of scope of this spec.
 
-### Data interaction to the TanStack table
+### Data interface with the TanStack table
 
-The data passed into the `nimble-table` will be passed into the TanStack Table library after making a shallow copy of the array to ensure that TanStack always detects that the data is being updated even when `setData()` is called multiple times with the same array instance. TanStack expects its `data` property to be provided as an array of some arbitrary type. The generic typing of the table allows the `nimble-table` to interface with the TanStack APIs using `TData` rather than `unknown` as shown below:
+The data passed into the `nimble-table` will be passed into the TanStack Table library after making a shallow copy of the array to ensure that TanStack always detects that the data is being updated even when `setData()` is called multiple times with the same array instance. TanStack expects its `data` property to be provided as an array of some arbitrary type.
+
+#### Handling hierarchy
+
+Tanstack supports hierachical data by providing a callback (`getSubRows`) where you can specify what the child rows of a particular row are. Additionally, the data structure provided to Tanstack should be hierarchical in shape, in order to prevent child rows from rendering multiple times (at multiple levels). To do this, we must convert each user-provided record into a `TableNode` whose interface provides the set of child rows associated with that record.
 
 ```ts
-private _options: TanstackOptionsResolved<TData>;
-
-this._options = {
-    get data(): TData[] { // instead of unknown[]
-        return [];  // TanStack starts with an empty array
-    }
+/**
+ * @internal
+*/
+interface TableNode<TableRecord> {
+    clientRecord: TableRecord;
+    subRows: TableNode<TableRecord>[];
 }
 
-public setData(data: TData[]) {
-    this._options.data = [...data];
+public class Table {
+    ...
+    private _options: TanstackOptionsResolved<TableNode<TableRecord>>;
+
+    this._options = {
+        data: [] // type is TableNode<TableRecord>,
+        getSubRows: r => r.subRows
+    }
+
+    public setData(data: TData[]) {
+        this._options.data = arrayToTree(data);
+    }
+    ...
 }
 ```
 
