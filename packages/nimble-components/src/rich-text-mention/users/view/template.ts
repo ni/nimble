@@ -7,6 +7,5 @@ import type { RichTextMentionUsersView } from '.';
 // See: https://github.com/ni/nimble/issues/1659
 export const template = html<RichTextMentionUsersView>`<span
         class="control"
-        part="control"
         >@${x => x.mentionLabel}</span
     ><slot contenteditable="true"></slot>`;

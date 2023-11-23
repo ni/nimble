@@ -49,8 +49,8 @@ async function setupMentionConfig(): Promise<Fixture<RichTextEditor>> {
 
 async function appendUserMentionConfiguration(
     element: RichTextEditor,
-    userKeys: string[] | undefined,
-    displayNames: string[] | undefined
+    userKeys?: string[],
+    displayNames?: string[]
 ): Promise<void> {
     const userMention = document.createElement(
         richTextMentionUsersTag
@@ -167,23 +167,6 @@ describe('RichTextEditor', () => {
         expect(
             pageObject.getButtonCheckedState(ToolbarButton.numberedList)
         ).toBeTrue();
-    });
-
-    it('clicking buttons in the slot element should call the click event once', async () => {
-        ({ element, connect } = await setupWithFooter());
-        await connect();
-        const cancelButton: Button = element.querySelector('#cancel')!;
-        const okButton: Button = element.querySelector('#ok')!;
-        const cancelButtonSpy = jasmine.createSpy();
-        const okButtonSpy = jasmine.createSpy();
-        cancelButton?.addEventListener('click', cancelButtonSpy);
-        okButton?.addEventListener('click', okButtonSpy);
-
-        cancelButton.click();
-        okButton.click();
-
-        expect(cancelButtonSpy).toHaveBeenCalledTimes(1);
-        expect(okButtonSpy).toHaveBeenCalledTimes(1);
     });
 
     it('Should return editor as active element after clicking formatting button', async () => {
@@ -1637,9 +1620,9 @@ describe('RichTextEditor', () => {
             );
         });
 
-        it('Should return same markdown when mention markdown string is assigned with valid comfiguration element', async () => {
+        it('Should return same markdown when mention markdown string is assigned with valid configuration element', async () => {
             element.setMarkdown('<user:1>');
-            await appendUserMentionConfiguration(element, undefined, undefined);
+            await appendUserMentionConfiguration(element);
             expect(element.getMarkdown()).toBe('<user:1>');
         });
 
@@ -1650,7 +1633,7 @@ describe('RichTextEditor', () => {
 
         it('Should return same markdown for assigned mention markdown when removing configuration element in the same editor', async () => {
             element.setMarkdown('<user:1>');
-            await appendUserMentionConfiguration(element, undefined, undefined);
+            await appendUserMentionConfiguration(element);
             expect(element.getMarkdown()).toBe('<user:1>');
 
             const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
@@ -2037,7 +2020,7 @@ describe('RichTextEditor', () => {
 
         element.setMarkdown('<user:1>');
 
-        await appendUserMentionConfiguration(element, undefined, undefined);
+        await appendUserMentionConfiguration(element);
         expect(element.empty).toBeFalse();
 
         element.setMarkdown('');
@@ -2084,22 +2067,12 @@ describe('RichTextEditor', () => {
     });
 
     describe('user mention dynamic loading', () => {
-        beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
-            pageObject = new RichTextEditorPageObject(element);
-            await connect();
-        });
-
-        afterEach(async () => {
-            await disconnect();
-        });
-
         it('adding mention configuration converts the absolute link matching the pattern to mention node', async () => {
             element.setMarkdown('<user:1>');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
             expect(pageObject.getEditorLeafContents()).toEqual(['user:1']);
-            await appendUserMentionConfiguration(element, undefined, undefined);
+            await appendUserMentionConfiguration(element);
 
             expect(pageObject.getMarkdownImpactTagNames()).toEqual([
                 'P',
@@ -2114,8 +2087,8 @@ describe('RichTextEditor', () => {
         // TODO: Once the rich text validator added for duplicate configuration elements, below test case should be updated
         it('adding two mention configuration elements in the same editor should render as mention node', async () => {
             element.setMarkdown('<user:1>');
-            await appendUserMentionConfiguration(element, undefined, undefined);
-            await appendUserMentionConfiguration(element, undefined, undefined);
+            await appendUserMentionConfiguration(element);
+            await appendUserMentionConfiguration(element);
 
             expect(pageObject.getMarkdownImpactTagNames()).toEqual([
                 'P',
@@ -2266,114 +2239,78 @@ describe('RichTextEditor', () => {
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
             ).toEqual(['username']);
         });
+
+        it('updating valid `key` in mapping mention should update it to absolute link if it is a mention before', async () => {
+            element.setMarkdown('<user:2>');
+            await appendUserMentionConfiguration(
+                element,
+                ['user:2'],
+                ['username']
+            );
+
+            expect(pageObject.getMarkdownImpactTagNames()).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase(),
+                'BR'
+            ]);
+            expect(
+                pageObject.getEditorMentionViewAttributeValues(
+                    'mention-label'
+                )
+            ).toEqual(['username']);
+
+            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+            const renderedMappingUser = renderedUserMention.firstElementChild as MappingUser;
+            renderedMappingUser.key = 'invalid';
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getEditorTagNames()).toEqual([
+                'P',
+                'A'
+            ]);
+            expect(pageObject.getEditorLeafContents()).toEqual(['user:2']);
+        });
     });
 
-    describe('getMentionedHref() for editor current mentions', () => {
-        beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
-            pageObject = new RichTextEditorPageObject(element);
-            await connect();
-        });
-
-        afterEach(async () => {
-            await disconnect();
-        });
-
-        it('getMentionedHref() method should return the mentioned href when it valid mention configuration matching the pattern to mention node', async () => {
+    describe('getMentionedHrefs() for editor current mentions', () => {
+        it('should return the mentioned href when it valid mention configuration matching the pattern to mention node', async () => {
             element.setMarkdown('<user:1>');
-            await appendUserMentionConfiguration(element, undefined, undefined);
+            await appendUserMentionConfiguration(element);
             const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHref()).toEqual(['user:1']);
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
         });
 
         // TODO: Once the rich text validator added for duplicate configuration elements, below test case should be updated
-        it('getMentionedHref() should return the mentioned href for duplicate mention configuration elements', async () => {
+        it('should return the mentioned href for duplicate mention configuration elements', async () => {
             element.setMarkdown('<user:1>');
-            await appendUserMentionConfiguration(element, undefined, undefined);
-            await appendUserMentionConfiguration(element, undefined, undefined);
+            await appendUserMentionConfiguration(element);
+            await appendUserMentionConfiguration(element);
             const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHref()).toEqual(['user:1']);
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
         });
 
-        it('getMentionedHref() method should return all the mentioned href', async () => {
-            element.setMarkdown('<user:1> <user:2>');
-            await appendUserMentionConfiguration(element, undefined, undefined);
+        it('should return unique mentioned href if same users mentioned twice', async () => {
+            element.setMarkdown('<user:1> <user:1>');
+            await appendUserMentionConfiguration(element);
             const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHref()).toEqual([
+            expect(renderedUserMention.getMentionedHrefs()).toEqual([
+                'user:1'
+            ]);
+        });
+
+        it('should return all the mentioned href', async () => {
+            element.setMarkdown('<user:1> <user:2>');
+            await appendUserMentionConfiguration(element);
+            const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
+            expect(renderedUserMention.getMentionedHrefs()).toEqual([
                 'user:1',
                 'user:2'
             ]);
-        });
-
-        it('getMentionedHref() method should return empty when removing configuration element in the same editor', async () => {
-            element.setMarkdown('<user:1> <user:2>');
-            await appendUserMentionConfiguration(element, undefined, undefined);
-            const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHref()).toEqual([
-                'user:1',
-                'user:2'
-            ]);
-
-            element.removeChild(renderedUserMention);
-            await waitForUpdatesAsync();
-
-            expect(renderedUserMention.getMentionedHref()).toEqual([]);
-        });
-    });
-
-    describe('user mention via template', () => {
-        beforeEach(async () => {
-            ({ element, connect, disconnect } = await setupMentionConfig());
-            pageObject = new RichTextEditorPageObject(element);
-            await connect();
-        });
-
-        afterEach(async () => {
-            await disconnect();
-        });
-
-        it('should render as mention view element when the input markdown as matching mention string with pattern', async () => {
-            element.setMarkdown('<user:1>');
-            await waitForUpdatesAsync();
-
-            expect(pageObject.getMarkdownImpactTagNames()).toEqual([
-                'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase(),
-                'BR'
-            ]);
-            expect(
-                pageObject.getEditorMentionViewAttributeValues('mention-label')
-            ).toEqual(['John Doe']);
-        });
-
-        it('should render as absolute link when the input markdown does not match with pattern', async () => {
-            element.setMarkdown('<https://user/1>');
-            await waitForUpdatesAsync();
-
-            expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
-            expect(pageObject.getEditorLeafContents()).toEqual([
-                'https://user/1'
-            ]);
-        });
-
-        it('should render as mention view elements when multiple mention strings are passed in the markdown string', async () => {
-            element.setMarkdown('<user:1> <user:2>');
-            await waitForUpdatesAsync();
-
-            expect(pageObject.getMarkdownImpactTagNames()).toEqual([
-                'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase(),
-                `${richTextMentionUsersViewTag}`.toUpperCase(),
-                'BR'
-            ]);
-            expect(
-                pageObject.getEditorMentionViewAttributeValues('mention-label')
-            ).toEqual(['John Doe', 'Mary Wilson']);
         });
     });
 
     it('should fire "mention" event from configuration elment when there is @mention in editor', async () => {
-        await appendUserMentionConfiguration(element, undefined, undefined);
+        await appendUserMentionConfiguration(element);
         const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
         const mentionEventListener = createEventListener(
             renderedUserMention,
@@ -2385,7 +2322,7 @@ describe('RichTextEditor', () => {
     });
 
     it('should fire "mention" event with filter details from configuration elment when there is @mention in editor', async () => {
-        await appendUserMentionConfiguration(element, undefined, undefined);
+        await appendUserMentionConfiguration(element);
         const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
         const mentionEventListener = createEventListener(
             renderedUserMention,
@@ -2401,7 +2338,7 @@ describe('RichTextEditor', () => {
     });
 
     it('should fire "mention" event from configuration elment when there is @mention in editor', async () => {
-        await appendUserMentionConfiguration(element, undefined, undefined);
+        await appendUserMentionConfiguration(element);
         const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
         const mentionEventListener = createEventListener(
             renderedUserMention,
@@ -2410,6 +2347,82 @@ describe('RichTextEditor', () => {
         await pageObject.setEditorTextContent('@test');
         await mentionEventListener.promise;
         expect(mentionEventListener.spy).toHaveBeenCalledTimes(1);
+    });
+});
+
+describe('RichTextEditor With Footer', () => {
+    it('clicking buttons in the slot element should call the click event once', async () => {
+        const { element, connect, disconnect } = await setupWithFooter();
+        await connect();
+        const cancelButton: Button = element.querySelector('#cancel')!;
+        const okButton: Button = element.querySelector('#ok')!;
+        const cancelButtonSpy = jasmine.createSpy();
+        const okButtonSpy = jasmine.createSpy();
+        cancelButton?.addEventListener('click', cancelButtonSpy);
+        okButton?.addEventListener('click', okButtonSpy);
+
+        cancelButton.click();
+        okButton.click();
+
+        expect(cancelButtonSpy).toHaveBeenCalledTimes(1);
+        expect(okButtonSpy).toHaveBeenCalledTimes(1);
+        await disconnect();
+    });
+});
+
+describe('RichTextEditor user mention via template', () => {
+    let element: RichTextEditor;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+    let pageObject: RichTextEditorPageObject;
+
+    beforeEach(async () => {
+        ({ element, connect, disconnect } = await setupMentionConfig());
+        pageObject = new RichTextEditorPageObject(element);
+        await connect();
+    });
+
+    afterEach(async () => {
+        await disconnect();
+    });
+
+    it('should render as mention view element when the input markdown as matching mention string with pattern', async () => {
+        element.setMarkdown('<user:1>');
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getMarkdownImpactTagNames()).toEqual([
+            'P',
+            `${richTextMentionUsersViewTag}`.toUpperCase(),
+            'BR'
+        ]);
+        expect(
+            pageObject.getEditorMentionViewAttributeValues('mention-label')
+        ).toEqual(['John Doe']);
+    });
+
+    it('should render as absolute link when the input markdown does not match with pattern', async () => {
+        element.setMarkdown('<https://user/1>');
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
+        expect(pageObject.getEditorLeafContents()).toEqual([
+            'https://user/1'
+        ]);
+    });
+
+    it('should render as mention view elements when multiple mention strings are passed in the markdown string', async () => {
+        element.setMarkdown('<user:1> <user:2>');
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getMarkdownImpactTagNames()).toEqual([
+            'P',
+            `${richTextMentionUsersViewTag}`.toUpperCase(),
+            `${richTextMentionUsersViewTag}`.toUpperCase(),
+            'BR'
+        ]);
+        expect(
+            pageObject.getEditorMentionViewAttributeValues('mention-label')
+        ).toEqual(['John Doe', 'Mary Wilson']);
     });
 });
 

@@ -9,18 +9,18 @@ import type { Node } from 'prosemirror-model';
  * Provides markdown serializer for rich text components
  */
 export class RichTextMarkdownSerializer {
-    private static mentionedUsers: string[];
+    private static mentionedHrefs: string[] = [];
 
     private static readonly markdownSerializer = this.initializeMarkdownSerializerForTipTap();
 
     public static serializeDOMToMarkdown(doc: Node): string {
-        RichTextMarkdownSerializer.mentionedUsers = [];
         return this.markdownSerializer.serialize(doc);
     }
 
-    public static getMentionedUser(doc: Node): string[] {
+    public static getMentionedHrefs(doc: Node): string[] {
+        RichTextMarkdownSerializer.mentionedHrefs = [];
         RichTextMarkdownSerializer.serializeDOMToMarkdown(doc);
-        return RichTextMarkdownSerializer.mentionedUsers;
+        return RichTextMarkdownSerializer.mentionedHrefs;
     }
 
     private static initializeMarkdownSerializerForTipTap(): MarkdownSerializer {
@@ -48,8 +48,8 @@ export class RichTextMarkdownSerializer {
             node: Node
         ): void {
             const href = node.attrs.href as string;
-            if (!RichTextMarkdownSerializer.mentionedUsers.includes(href)) {
-                RichTextMarkdownSerializer.mentionedUsers.push(href);
+            if (!RichTextMarkdownSerializer.mentionedHrefs.includes(href)) {
+                RichTextMarkdownSerializer.mentionedHrefs.push(href);
             }
             state.write(`<${href}>`);
         };

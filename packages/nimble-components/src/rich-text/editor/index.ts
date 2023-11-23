@@ -41,6 +41,7 @@ import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
 import { RichText } from '../base';
+import { RichTextMentionUsers } from '../../rich-text-mention/users';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -334,14 +335,14 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         return false;
     }
 
-    protected updateView(): void {
-        this.setMarkdown(this.getMarkdown());
-    }
-
-    protected getMentionedUser(): string[] {
-        return RichTextMarkdownSerializer.getMentionedUser(
+    public getMentionedHrefs(): string[] {
+        return RichTextMarkdownSerializer.getMentionedHrefs(
             this.tiptapEditor.state.doc
         );
+    }
+
+    protected updateView(): void {
+        this.setMarkdown(this.getMarkdown());
     }
 
     private createEditor(): HTMLDivElement {
@@ -459,20 +460,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                     showOnlyWhenEditable: false
                 }),
                 HardBreak,
-                customLink.configure({
-                    // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
-                    // eslint-disable-next-line @typescript-eslint/naming-convention
-                    HTMLAttributes: {
-                        rel: 'noopener noreferrer',
-                        target: null
-                    },
-                    autolink: true,
-                    openOnClick: false,
-                    // linkOnPaste can be enabled when hyperlink support added
-                    // See: https://github.com/ni/nimble/issues/1527
-                    linkOnPaste: false,
-                    validate: href => this.validAbsoluteLinkRegex.test(href)
-                }),
+                customLink,
                 customUserMention
             ]
         });
@@ -515,6 +503,19 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 // https://github.com/ni/nimble/issues/1516
                 return ['a', HTMLAttributes];
             }
+        }).configure({
+            // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            HTMLAttributes: {
+                rel: 'noopener noreferrer',
+                target: null
+            },
+            autolink: true,
+            openOnClick: false,
+            // linkOnPaste can be enabled when hyperlink support added
+            // See: https://github.com/ni/nimble/issues/1527
+            linkOnPaste: false,
+            validate: href => this.validAbsoluteLinkRegex.test(href)
         });
     }
 
@@ -533,9 +534,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                         default: null,
                         parseHTML: element => element.getAttribute('mention-href'),
                         renderHTML: attributes => {
-                            if (!attributes.href) {
-                                return {};
-                            }
                             return {
                                 'mention-href': attributes.href as string
                             };
@@ -546,10 +544,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                         default: null,
                         parseHTML: element => element.getAttribute('mention-label'),
                         renderHTML: attributes => {
-                            if (!attributes.label) {
-                                return {};
-                            }
-
                             return {
                                 'mention-label': attributes.label as string
                             };
@@ -575,11 +569,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 render: () => {
                     return {
                         onStart: (props): void => {
-                            this.updateUserLists(props);
+                            this.onMention(props);
                         },
 
                         onUpdate: (props): void => {
-                            this.updateUserLists(props);
+                            this.onMention(props);
                         }
                     };
                 }
@@ -587,10 +581,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         });
     }
 
-    private updateUserLists(props: SuggestionProps): void {
+    private onMention(props: SuggestionProps): void {
         const validUserMentionElement = this.mentionElements.find(
             mention => mention.mentionInternals.validConfiguration
-                && mention.mentionInternals.character === '@'
+                && mention instanceof RichTextMentionUsers
         );
         validUserMentionElement?.onMention(props.query);
     }

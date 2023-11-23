@@ -2,7 +2,6 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     mentionFont,
-    mentionFontColor,
     mentionDisabledFontColor,
     bodyFontColor
 } from '../../../theme-provider/design-tokens';
@@ -18,7 +17,7 @@ export const styles = css`
     }
 
     .control {
-        color: ${mentionFontColor};
+        color: var(--ni-nimble-private-mention-font-color);
         display: none;
     }
 

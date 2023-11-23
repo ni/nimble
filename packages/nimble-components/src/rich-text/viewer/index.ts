@@ -43,6 +43,10 @@ export class RichTextViewer extends RichText {
         this.updateView();
     }
 
+    public getMentionedHrefs(): string[] {
+        return RichTextMarkdownParser.getMentionedHrefs();
+    }
+
     protected updateView(): void {
         if (!this.$fastController.isConnected) {
             return;
@@ -56,10 +60,6 @@ export class RichTextViewer extends RichText {
         } else {
             this.viewer.innerHTML = '';
         }
-    }
-
-    protected getMentionedUser(): string[] {
-        return RichTextMarkdownParser.getMentionedUser();
     }
 }
 

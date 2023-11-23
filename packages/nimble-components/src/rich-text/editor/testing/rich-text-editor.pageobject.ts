@@ -197,9 +197,7 @@ export class RichTextEditorPageObject {
             this.getTiptapEditor()!.querySelectorAll(
                 richTextMentionUsersViewTag
             )
-        )
-            .filter((el, _) => el.children.length === 0)
-            .map(el => el.getAttribute(attribute) || '');
+        ).map(el => el.getAttribute(attribute) || '');
     }
 
     public getEditorFirstChildTagName(): string {

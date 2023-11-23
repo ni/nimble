@@ -28,6 +28,11 @@ export class RichTextMentionUsers extends RichTextMention<
 RichTextMentionConfig,
 RichTextMentionUsersValidator
 > {
+    public override getMentionedHrefs(): string[] {
+        const regex = new RegExp(this.pattern ?? '');
+        return this.richTextParent.getMentionedHrefs().filter(x => regex.test(x));
+    }
+
     protected override createValidator(): RichTextMentionUsersValidator {
         return new RichTextMentionUsersValidator(this.mentionInternals);
     }

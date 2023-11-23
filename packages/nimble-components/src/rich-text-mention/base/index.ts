@@ -16,10 +16,9 @@ import {
     MentionInternalsOptions
 } from './models/mention-internals';
 import { Mapping } from '../../mapping/base';
+import type { RichText } from '../../rich-text/base';
 
 export type MappingConfigs = ReadonlyMap<string, MappingConfig>;
-
-type HrefGenerator = () => string[];
 
 export interface RichTextMentionConfig {
     mappingConfigs: MappingConfigs;
@@ -58,19 +57,10 @@ export abstract class RichTextMention<
     public mappings: Mapping<unknown>[] = [];
 
     /**
-     * @internal
-     * Implement a generator method responsible for generating hrefs for existing mentions in the editor/viewer.
-     * The corresponding function implementation should reside within the rich text components.
-     */
-    public getMentionedHrefGenerator: HrefGenerator = () => [];
-
-    /**
      * @public
      * Returns hrefs for existing mentions in the editor/viewer.
      */
-    public getMentionedHref(): string[] {
-        return this.getMentionedHrefGenerator();
-    }
+    public abstract getMentionedHrefs(): string[];
 
     /**
      * @public
@@ -80,17 +70,17 @@ export abstract class RichTextMention<
     }
 
     /**
-     * @internal
-     */
-    public onMention(filter: string): void {
-        this.$emit('mention', { filter });
-    }
-
-    /**
      * @public
      */
     public get validity(): RichTextMentionValidity {
         return this.validator.getValidity();
+    }
+
+    /**
+     * @internal
+     */
+    public onMention(filter: string): void {
+        this.$emit('mention', { filter });
     }
 
     /**
@@ -113,6 +103,10 @@ export abstract class RichTextMention<
     protected abstract createMappingConfig(
         mapping: Mapping<unknown>
     ): MappingConfig;
+
+    protected get richTextParent(): RichText {
+        return this.parentElement as RichText;
+    }
 
     private getMappingConfigs(): MappingConfigs {
         const mappingConfigs = new Map<string, MappingConfig>();
