@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 21 Nov 2023 19:16:40 GMT and should not be manually modified.
+This log was last generated on Thu, 23 Nov 2023 08:11:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.14.9
+
+Thu, 23 Nov 2023 08:11:47 GMT
+
+### Patches
+
+- Add support for @mention in nimble-rich-text-viewer ([ni/nimble@c69a774](https://github.com/ni/nimble/commit/c69a7745d0a8223a479d79a2cabe6cdcd1e9ca1a))
 
 ## 20.14.8
 
