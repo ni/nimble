@@ -12,4 +12,4 @@ export { richTextMentionUsersTag };
     selector: 'nimble-rich-text-mention-users'
 })
 
-export class NimbleRichTextMentionUsersDirective extends NimbleRichTextMentionDirective {}
+export class NimbleRichTextMentionUsersDirective extends NimbleRichTextMentionDirective<RichTextMentionUsers> {}
