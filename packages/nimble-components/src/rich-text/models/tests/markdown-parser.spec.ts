@@ -1195,7 +1195,7 @@ describe('Markdown parser', () => {
             expect(getLeafContentsFromElement(doc)).toEqual(['http://user/1']);
         });
 
-        it('should get anchor element with href when autolink markdown format is HTTPS but does not match with the different HTTPS pattern', async () => {
+        it('should get anchor element with href when autolink markdown format is HTTPS but does not match the pattern with same scheme (HTTPS)', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
                     { key: 'https://user/1', displayName: 'username1' },
@@ -1220,7 +1220,9 @@ describe('Markdown parser', () => {
             expect(getLastChildElementAttribute('href', doc)).toBe(
                 'https://ni/user/1'
             );
-            expect(getLeafContentsFromElement(doc)).toEqual(['https://ni/user/1']);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                'https://ni/user/1'
+            ]);
         });
 
         it('should get anchor element with href when autolink markdown format is HTTPS but does not match with the pattern', async () => {
