@@ -449,9 +449,7 @@ describe('RichTextViewer', () => {
             element.markdown = '<user:1> <user:1>';
             await appendUserMentionConfiguration(element);
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual([
-                'user:1'
-            ]);
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
         });
 
         it('should return all the mentioned href', async () => {

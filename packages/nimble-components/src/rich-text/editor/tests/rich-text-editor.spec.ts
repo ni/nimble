@@ -2254,9 +2254,7 @@ describe('RichTextEditor', () => {
                 'BR'
             ]);
             expect(
-                pageObject.getEditorMentionViewAttributeValues(
-                    'mention-label'
-                )
+                pageObject.getEditorMentionViewAttributeValues('mention-label')
             ).toEqual(['username']);
 
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
@@ -2264,10 +2262,7 @@ describe('RichTextEditor', () => {
             renderedMappingUser.key = 'invalid';
             await waitForUpdatesAsync();
 
-            expect(pageObject.getEditorTagNames()).toEqual([
-                'P',
-                'A'
-            ]);
+            expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
             expect(pageObject.getEditorLeafContents()).toEqual(['user:2']);
         });
     });
@@ -2293,9 +2288,7 @@ describe('RichTextEditor', () => {
             element.setMarkdown('<user:1> <user:1>');
             await appendUserMentionConfiguration(element);
             const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual([
-                'user:1'
-            ]);
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
         });
 
         it('should return all the mentioned href', async () => {
@@ -2405,9 +2398,7 @@ describe('RichTextEditor user mention via template', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
-        expect(pageObject.getEditorLeafContents()).toEqual([
-            'https://user/1'
-        ]);
+        expect(pageObject.getEditorLeafContents()).toEqual(['https://user/1']);
     });
 
     it('should render as mention view elements when multiple mention strings are passed in the markdown string', async () => {

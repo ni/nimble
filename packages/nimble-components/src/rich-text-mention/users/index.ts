@@ -30,7 +30,9 @@ RichTextMentionUsersValidator
 > {
     public override getMentionedHrefs(): string[] {
         const regex = new RegExp(this.pattern ?? '');
-        return this.richTextParent.getMentionedHrefs().filter(x => regex.test(x));
+        return this.richTextParent
+            .getMentionedHrefs()
+            .filter(x => regex.test(x));
     }
 
     protected override createValidator(): RichTextMentionUsersValidator {
