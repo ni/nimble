@@ -80,7 +80,7 @@ export abstract class RichTextMention<
      * @internal
      */
     public onMention(filter: string): void {
-        this.$emit('mention', { filter });
+        this.$emit('mention-update', { filter });
     }
 
     /**

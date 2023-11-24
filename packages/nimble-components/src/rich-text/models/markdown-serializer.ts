@@ -14,11 +14,11 @@ export class RichTextMarkdownSerializer {
     private static readonly markdownSerializer = this.initializeMarkdownSerializerForTipTap();
 
     public static serializeDOMToMarkdown(doc: Node): string {
+        RichTextMarkdownSerializer.mentionedHrefs = [];
         return this.markdownSerializer.serialize(doc);
     }
 
     public static getMentionedHrefs(doc: Node): string[] {
-        RichTextMarkdownSerializer.mentionedHrefs = [];
         RichTextMarkdownSerializer.serializeDOMToMarkdown(doc);
         return RichTextMarkdownSerializer.mentionedHrefs;
     }
