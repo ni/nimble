@@ -158,21 +158,18 @@ describe('RichTextViewer', () => {
             ).toEqual('1');
         });
 
-        // TODO: Once the rich text validator added for duplicate configuration elements, below test case should be updated
-        it('adding two mention configuration elements in the same viewer should render as mention view', async () => {
+        it('adding two mention configuration elements in the same viewer should render as anchor element', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element);
             await appendUserMentionConfiguration(element);
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
+                `${anchorTag}`.toUpperCase()
             ]);
-            expect(
-                pageObject.getRenderedMarkdownLastChildAttribute(
-                    'mention-label'
-                )
-            ).toEqual('1');
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'user:1'
+            );
         });
 
         it('adding mention mapping elements renders the mapped display name', async () => {
@@ -436,13 +433,12 @@ describe('RichTextViewer', () => {
             expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
         });
 
-        // TODO: Once the rich text validator added for duplicate configuration elements, below test case should be updated
-        it('should return the mentioned href for duplicate mention configuration elements', async () => {
+        it('should return the empty mentioned href for duplicate mention configuration elements', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element);
             await appendUserMentionConfiguration(element);
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
+            expect(renderedUserMention.getMentionedHrefs()).toEqual([]);
         });
 
         it('should return unique mentioned href if same users exist twice', async () => {

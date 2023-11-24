@@ -1,8 +1,15 @@
-import { Observable, observable, type Notifier } from '@microsoft/fast-element';
+import {
+    Observable,
+    observable,
+    type Notifier,
+    DOM
+} from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { RichTextMention } from '../../rich-text-mention/base';
 import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 import { MarkdownParserMentionConfiguration } from '../models/markdown-parser-mention-configuration';
+import type { RichTextValidity } from './types';
+import { RichTextValidator } from './models/rich-text-validator';
 
 /**
  * Base class for rich text components
@@ -16,16 +23,39 @@ export abstract class RichText extends FoundationElement {
 
     protected mentionConfig: MarkdownParserMentionConfiguration[] = [];
 
+    @observable
     protected mentionElements: RichTextMention[] = [];
 
     private mentionInternalsNotifiers: Notifier[] = [];
+    private readonly richTextValidator = new RichTextValidator();
+    private updateQueued = false;
+
+    /**
+     * @public
+     */
+    public get validity(): RichTextValidity {
+        return this.richTextValidator.getValidity();
+    }
+
+    /**
+     * @public
+     */
+    public checkValidity(): boolean {
+        return this.richTextValidator.isValid();
+    }
 
     /**
      * @internal
      */
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof MentionInternals && typeof args === 'string') {
-            this.updateMentionConfig();
+            if (args === 'validConfiguration') {
+                this.richTextValidator.validateMentionConfigurations(
+                    this.mentionElements
+                );
+            } else {
+                this.queueUpdate();
+            }
         }
     }
 
@@ -36,22 +66,37 @@ export abstract class RichText extends FoundationElement {
 
     protected abstract updateView(): void;
 
+    protected mentionElementsChanged(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.richTextValidator.validateDuplicateMentionConfigurations(
+            this.mentionElements
+        );
+        this.observeMentions();
+        if (this.mentionElements.length) {
+            this.queueUpdate();
+        }
+    }
+
     /**
      * Create a MarkdownParserMentionConfiguration using the mention elements and implement the logic for the getMentionedHref() method
      * which will be invoked in the RichTextMention base class from the client.
      */
     private updateMentionConfig(): void {
-        // TODO: Add a rich text validator to check if the `mentionElements` contains duplicate configuration element
-        // For example, having two `nimble-rich-text-mention-users` within the children of rich text viewer or editor is an invalid configuration
+        this.richTextValidator.validateMentionConfigurations(
+            this.mentionElements
+        );
         this.mentionConfig = [];
-        this.mentionElements.forEach(mention => {
-            if (mention.mentionInternals.validConfiguration) {
+        if (this.richTextValidator.isValid()) {
+            this.mentionElements.forEach(mention => {
                 const markdownParserMentionConfiguration = new MarkdownParserMentionConfiguration(
                     mention.mentionInternals
                 );
                 this.mentionConfig.push(markdownParserMentionConfiguration);
-            }
-        });
+            });
+        }
         this.updateView();
     }
 
@@ -67,8 +112,6 @@ export abstract class RichText extends FoundationElement {
         this.mentionElements = this.childItems.filter(
             (x): x is RichTextMention => x instanceof RichTextMention
         );
-        this.observeMentions();
-        this.updateMentionConfig();
     }
 
     private observeMentions(): void {
@@ -88,5 +131,19 @@ export abstract class RichText extends FoundationElement {
             notifier.unsubscribe(this);
         });
         this.mentionInternalsNotifiers = [];
+    }
+
+    private queueUpdate(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        if (!this.updateQueued) {
+            this.updateQueued = true;
+            DOM.queueUpdate(() => {
+                this.updateMentionConfig();
+                this.updateQueued = false;
+            });
+        }
     }
 }

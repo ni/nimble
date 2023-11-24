@@ -1,8 +1,9 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import type { RichTextEditor } from '@ni/nimble-components/dist/esm/rich-text/editor';
 import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
+import type { RichTextValidity } from '@ni/nimble-components/dist/esm/rich-text/base/types';
 
-export type { RichTextEditor };
+export type { RichTextEditor, RichTextValidity };
 
 /**
  * Directive to provide Angular integration for the rich text editor element.
@@ -60,6 +61,10 @@ export class NimbleRichTextEditorDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
     }
 
+    public get validity(): RichTextValidity {
+        return this.elementRef.nativeElement.validity;
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<RichTextEditor>) { }
 
     public getMarkdown(): string {
@@ -72,6 +77,10 @@ export class NimbleRichTextEditorDirective {
 
     public get empty(): boolean {
         return this.elementRef.nativeElement.empty;
+    }
+
+    public checkValidity(): boolean {
+        return this.elementRef.nativeElement.checkValidity();
     }
 
     @HostListener('input', ['$event'])

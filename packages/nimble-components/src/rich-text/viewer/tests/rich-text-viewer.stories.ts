@@ -12,6 +12,8 @@ import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 interface RichTextViewerArgs {
     markdown: string;
     data: ExampleDataType;
+    validity: undefined;
+    checkValidity: undefined;
 }
 
 type ExampleDataType = (typeof exampleDataType)[keyof typeof exampleDataType];
@@ -30,6 +32,13 @@ const dataSets = {
 } as const;
 
 const richTextViewerDescription = 'The rich text viewer component allows users to view text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The rich text to render is provided as a markdown string.\n\n See the [rich text editor](?path=/docs/incubating-rich-text-editor--docs) component to enable users to modify the markdown contents.';
+
+const validityDescription = `Readonly object of boolean values that represents the validity states that the editor's configuration for mention can be in.
+The object's type is \`RichTextValidity\`, and it contains the following boolean properties:
+
+-   \`invalidMentionConfiguration\`: \`true\` when the mention have an invalid configuration. Call \`checkValidity()\` on mention component to see which configuration is invalid and read the \`validity\` property of a mention for more information about why it's invalid.
+-   \`duplicateMentionConfiguration\`: \`true\` if the same mention configuration is added two or more times
+`;
 
 const metadata: Meta<RichTextViewerArgs> = {
     title: 'Incubating/Rich Text Viewer',
@@ -76,11 +85,23 @@ const metadata: Meta<RichTextViewerArgs> = {
                         'HTTPS Pattern - https://user/(.*)'
                 }
             }
+        },
+        validity: {
+            description: validityDescription,
+            control: false
+        },
+        checkValidity: {
+            name: 'checkValidity()',
+            description:
+                'A function that returns `true` if the configuration of the rich text editor for mention is valid and `false` if the configuration is not valid.',
+            control: false
         }
     },
     args: {
         markdown: richTextMarkdownString,
-        data: exampleDataType.userPattern
+        data: exampleDataType.userPattern,
+        validity: undefined,
+        checkValidity: undefined
     }
 };
 

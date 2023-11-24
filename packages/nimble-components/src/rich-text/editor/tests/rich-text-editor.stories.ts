@@ -31,6 +31,8 @@ interface RichTextEditorArgs extends LabelUserArgs {
     input: unknown;
     empty: unknown;
     placeholder: string;
+    validity: undefined;
+    checkValidity: undefined;
 }
 
 type ExampleDataType = (typeof exampleDataType)[keyof typeof exampleDataType];
@@ -70,6 +72,13 @@ const footerActionButtonDescription = `To place content such as a button at the 
 Note: The content in the \`footer-actions\` slot will not adjust based on the state of the rich-text-editor (e.g. disabled). It is the responsibility of the
 client application to make any necessary adjustments. For example, if the buttons should be disabled when the rich-text-editor is disabled, the
 client application must implement that functionality.
+`;
+
+const validityDescription = `Readonly object of boolean values that represents the validity states that the editor's configuration for mention can be in.
+The object's type is \`RichTextValidity\`, and it contains the following boolean properties:
+
+-   \`invalidMentionConfiguration\`: \`true\` when the mention have an invalid configuration. Call \`checkValidity()\` on mention component to see which configuration is invalid and read the \`validity\` property of a mention for more information about why it's invalid.
+-   \`duplicateMentionConfiguration\`: \`true\` if the same mention configuration is added two or more times
 `;
 
 const metadata: Meta<RichTextEditorArgs> = {
@@ -181,6 +190,16 @@ const metadata: Meta<RichTextEditorArgs> = {
             description:
                 'This event is fired when there is a change in the content of the editor.',
             control: false
+        },
+        validity: {
+            description: validityDescription,
+            control: false
+        },
+        checkValidity: {
+            name: 'checkValidity()',
+            description:
+                'A function that returns `true` if the configuration of the rich text editor for mention is valid and `false` if the configuration is not valid.',
+            control: false
         }
     },
     args: {
@@ -200,7 +219,9 @@ const metadata: Meta<RichTextEditorArgs> = {
                 await customElements.whenDefined('nimble-rich-text-editor');
                 x.editorRef.setMarkdown(dataSets[x.data]);
             })();
-        }
+        },
+        validity: undefined,
+        checkValidity: undefined
     }
 };
 
