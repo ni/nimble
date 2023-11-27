@@ -9,3 +9,8 @@ export const TipTapNodeName = {
 
 export type TipTapNodeName =
     (typeof TipTapNodeName)[keyof typeof TipTapNodeName];
+
+export interface MentionDetail {
+    href: string;
+    displayName: string;
+}

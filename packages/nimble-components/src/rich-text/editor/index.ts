@@ -34,14 +34,17 @@ import type { SuggestionProps } from '@tiptap/suggestion';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
-import { TipTapNodeName } from './types';
+import { MentionDetail, TipTapNodeName } from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
 import { RichText } from '../base';
-import { RichTextMentionUsers } from '../../rich-text-mention/users';
+import type { MappingConfigs, RichTextMentionConfig } from '../../rich-text-mention/base';
+import type { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
+import type { AnchoredRegion } from '../../anchored-region';
+import type { RichTextMentionListBox } from '../mention-list-box';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -125,6 +128,35 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @internal
      */
     @observable
+    public region?: AnchoredRegion;
+
+    /**
+     * @internal
+     */
+    public mentionListBox?: RichTextMentionListBox;
+
+    /**
+     * @internal
+     */
+    @observable
+    public filter?: string;
+
+    /**
+     * @internal
+     */
+    @observable
+    public activeConfiguration?: MappingConfigs;
+
+    /**
+     * @internal
+     */
+    @observable
+    public open?: boolean;
+
+    /**
+     * @internal
+     */
+    @observable
     public boldButton!: ToggleButton;
 
     /**
@@ -156,6 +188,13 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @internal
      */
     public editorContainer!: HTMLDivElement;
+
+    private mentionPropCommand!: SuggestionProps;
+
+    @observable
+    private activeChar?: string;
+
+    private readonly mentionMap: Map<string, MentionInternals<RichTextMentionConfig>> = new Map();
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
@@ -341,8 +380,31 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         );
     }
 
+    public mentionChange(e: CustomEvent<MentionDetail>): void {
+        this.mentionPropCommand.command({
+            href: e.detail.href,
+            label: e.detail.displayName
+        });
+        this.open = false;
+    }
+
     protected updateView(): void {
         this.setMarkdown(this.getMarkdown());
+    }
+
+    protected override updateMentionConfig(): void {
+        super.updateMentionConfig();
+        this.mentionElements.forEach((element => {
+            this.mentionMap.clear();
+            if (element.mentionInternals.pattern && element.mentionInternals.mentionConfig) {
+                this.mentionMap.set(element.mentionInternals.character, element.mentionInternals);
+            }
+            this.activeConfiguration = this.activeChar ? this.mentionMap.get(this.activeChar)?.mentionConfig?.mappingConfigs : undefined;
+        }));
+    }
+
+    private activeCharChanged(_oldValue: string, newValue: string): void {
+        this.activeConfiguration = this.mentionMap.get(newValue)?.mentionConfig?.mappingConfigs;
     }
 
     private createEditor(): HTMLDivElement {
@@ -573,6 +635,21 @@ export class RichTextEditor extends RichText implements ErrorPattern {
 
                         onUpdate: (props): void => {
                             this.onMention(props);
+                        },
+
+                        onKeyDown: (props): boolean => {
+                            if (!this.open) {
+                                return false;
+                            }
+                            if (props.event.key === 'Escape') {
+                                this.open = false;
+                                return false;
+                            }
+                            return this.mentionListBox?.keydownHandler(props.event) ?? false;
+                        },
+
+                        onExit: (): void => {
+                            this.open = false;
                         }
                     };
                 }
@@ -581,11 +658,24 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     private onMention(props: SuggestionProps): void {
-        const validUserMentionElement = this.mentionElements.find(
+        this.triggerMentionEvent(props.text);
+        this.mentionPropCommand = props;
+        this.filter = props.query.toLowerCase();
+        this.open = true;
+        if (this.region) {
+            this.region.anchorElement = props.decorationNode as HTMLElement;
+            this.region.update();
+        }
+        void this.mentionListBox?.selectFirstListOption();
+    }
+
+    private triggerMentionEvent(filter: string): void {
+        const validMentionElement = this.mentionElements.find(
             mention => mention.mentionInternals.validConfiguration
-                && mention instanceof RichTextMentionUsers
+                && mention.mentionInternals.character === filter.slice(0, 1)
         );
-        validUserMentionElement?.onMention(props.query);
+        this.activeChar = validMentionElement?.mentionInternals.character;
+        validMentionElement?.onMention(filter.slice(1));
     }
 
     /**

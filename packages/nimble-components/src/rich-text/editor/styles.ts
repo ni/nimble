@@ -267,4 +267,8 @@ export const styles = css`
         top: ${mediumPadding};
         right: var(--ni-private-rich-text-editor-scrollbar-width);
     }
+
+    .anchored-region[hidden] {
+        visibility: hidden;
+    }
 `;

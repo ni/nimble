@@ -1,4 +1,4 @@
-import { children, elements, html, ref } from '@microsoft/fast-element';
+import { children, elements, html, ref, repeat } from '@microsoft/fast-element';
 import type { RichTextEditor } from '.';
 import { toolbarTag } from '../../toolbar';
 import { toggleButtonTag } from '../../toggle-button';
@@ -14,6 +14,11 @@ import {
 } from '../../label-provider/rich-text/label-tokens';
 import { errorTextTemplate } from '../../patterns/error/template';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
+import { anchoredRegionTag } from '../../anchored-region';
+import { richTextMentionListBoxTag } from '../mention-list-box';
+import type { MentionDetail } from './types';
+import type { MappingConfig } from '../../rich-text-mention/base/models/mapping-config';
+import { listOptionTag } from '../../list-option';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
@@ -91,5 +96,28 @@ export const template = html<RichTextEditor>`
             </section>
             ${errorTextTemplate}
         </div>
+        <${anchoredRegionTag}
+            ${ref('region')}
+            class="anchored-region"
+            auto-update-mode="auto"
+            vertical-positioning-mode="locktodefault"
+            horizontal-positioning-mode="locktodefault"
+            vertical-default-position="bottom"
+            ?hidden="${x => !x.open}"
+            >
+            <${richTextMentionListBoxTag}
+            ${ref('mentionListBox')}
+            filter="${x => x.filter}"
+            @change=${(x, c) => x.mentionChange(c.event as CustomEvent<MentionDetail>)}
+            >
+            ${repeat(
+        x => Array.from(x.activeConfiguration?.values() ?? []),
+        html<MappingConfig>`
+                        <${listOptionTag} value="${x => x.mentionHref}">${x => x.displayName}</${listOptionTag}>
+                        `,
+        { recycle: false }
+    )}
+            </${richTextMentionListBoxTag}>
+        </${anchoredRegionTag}>
     </template>
 `;
