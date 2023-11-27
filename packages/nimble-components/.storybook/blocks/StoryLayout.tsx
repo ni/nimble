@@ -22,7 +22,7 @@ export const Do = ({ children }) => {
             <Column>
                 <Check size="24px" />
             </Column>
-            <Column>{children}</Column>
+            <Column><p>{children}</p></Column>
         </Container>
     );
 };
@@ -33,7 +33,7 @@ export const Dont = ({ children }) => {
             <Column>
                 <Exclamation size="24px" />
             </Column>
-            <Column>{children}</Column>
+            <Column><p>{children}</p></Column>
         </Container>
     );
 };

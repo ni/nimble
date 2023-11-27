@@ -5,11 +5,6 @@
     align-items: center;
 }
 
-.container p {
-    margin: 0%;
-    padding-top: var(--ni-nimble-medium-padding);
-}
-
 .column > * {
     margin: var(--ni-nimble-small-padding);
 }
@@ -23,5 +18,5 @@
     border: 1px solid rgba(128, 128, 128, 0.2);
     border-radius: 4px;
     box-shadow: 0px 1px 4px rgba(128, 128, 128, 0.22);
-    padding: var(--ni-nimble-medium-padding);
+    padding: 16px;
 }
