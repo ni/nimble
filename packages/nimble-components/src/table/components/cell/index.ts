@@ -33,7 +33,7 @@ export class TableCell<
     public recordId?: string;
 
     @attr({ attribute: 'is-parent-row', mode: 'boolean' })
-    public isParentRow?: boolean;
+    public isParentRow = false;
 
     @attr({ attribute: 'is-first-cell', mode: 'boolean' })
     public isFirstCell = false;
