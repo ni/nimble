@@ -53,7 +53,10 @@ export const styles = css`
     }
 
     .expand-collapse-button {
-        padding-left: calc(${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) * ${controlHeight});
+        padding-left: calc(
+            ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
+                ${controlHeight}
+        );
     }
 
     .row-operations-container {
@@ -69,7 +72,7 @@ export const styles = css`
     }
 
     .row-front-spacer {
-        width: var(--ni-private-table-row-spacer-width);
+        width: ${controlHeight};
         flex: 0 0 auto;
     }
 
@@ -86,7 +89,9 @@ export const styles = css`
     }
 
     .cell-container.indented {
-        margin-left: calc((${controlHeight} * var(--ni-private-table-row-indent-level))* -1);
+        margin-left: calc(
+            (${controlHeight} * var(--ni-private-table-row-indent-level)) * -1
+        );
     }
 
     nimble-table-cell {

@@ -8,11 +8,10 @@ import {
 
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';
-import {
-    TableRowHierarchyLevel,
-    type TableRecord,
-    type TableRowExpandToggleEventDetail,
-    type TableRowSelectionToggleEventDetail
+import type {
+    TableRecord,
+    TableRowExpandToggleEventDetail,
+    TableRowSelectionToggleEventDetail
 } from '../../../types';
 import { TableRowPageObject } from './table-row.pageobject';
 import { createEventListener } from '../../../../utilities/tests/component';
@@ -224,28 +223,30 @@ describe('TableRow', () => {
             expect(listener.spy).not.toHaveBeenCalled();
         });
 
-        it('shows expand-collapse button when rowHierarchyLevel is "topLevelParent"', async () => {
+        it('shows expand-collapse button when isParentRow is true', async () => {
             const pageObject = new TableRowPageObject(element);
             await connect();
-            element.rowHierarchyLevel = TableRowHierarchyLevel.topLevelParent;
+            element.isParentRow = true;
             await waitForUpdatesAsync();
 
             expect(pageObject.getExpandCollapseButton()).toBeDefined();
         });
 
-        it('hides expand-collapse button when rowHierarchyLevel is "parent"', async () => {
+        it('hides expand-collapse button when isParentRow is false', async () => {
             const pageObject = new TableRowPageObject(element);
             await connect();
-            element.rowHierarchyLevel = TableRowHierarchyLevel.parent;
+            element.isParentRow = true;
             await waitForUpdatesAsync();
 
+            element.isParentRow = false;
+            await waitForUpdatesAsync();
             expect(pageObject.getExpandCollapseButton()).toBeNull();
         });
 
         it('toggling expand-collapse button fires "row-expand-toggle" event', async () => {
             const pageObject = new TableRowPageObject(element);
             await connect();
-            element.rowHierarchyLevel = TableRowHierarchyLevel.topLevelParent;
+            element.isParentRow = true;
             element.recordId = 'foo';
             await waitForUpdatesAsync();
             const expandCollapseButton = pageObject.getExpandCollapseButton();
@@ -318,22 +319,18 @@ describe('TableRow', () => {
             );
         });
 
-        it('row rowHierarchyLevel state is passed to cells', async () => {
+        it('row isParentRow state is passed to cells', async () => {
             const renderedCells = pageObject.getRenderedCells();
-            row.rowHierarchyLevel = TableRowHierarchyLevel.parent;
+            row.isParentRow = true;
             await waitForUpdatesAsync();
             renderedCells.forEach(cell => {
-                expect(cell.rowHierarchyLevel).toBe(
-                    TableRowHierarchyLevel.parent
-                );
+                expect(cell.isParentRow).toBeTrue();
             });
 
-            row.rowHierarchyLevel = TableRowHierarchyLevel.topLevelParent;
+            row.isParentRow = false;
             await waitForUpdatesAsync();
             renderedCells.forEach(cell => {
-                expect(cell.rowHierarchyLevel).toBe(
-                    TableRowHierarchyLevel.topLevelParent
-                );
+                expect(cell.isParentRow).toBeFalse();
             });
         });
 

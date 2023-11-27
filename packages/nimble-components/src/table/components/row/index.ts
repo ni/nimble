@@ -18,8 +18,7 @@ import type {
     TableFieldName,
     TableRecord,
     TableRowExpandToggleEventDetail,
-    TableRowSelectionToggleEventDetail,
-    TableRowHierarchyLevel
+    TableRowSelectionToggleEventDetail
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
@@ -78,8 +77,8 @@ export class TableRow<
     @observable
     public nestingLevel = 0;
 
-    @attr({ attribute: 'row-hierarchy-level' })
-    public rowHierarchyLevel?: TableRowHierarchyLevel;
+    @attr({ attribute: 'is-parent-row', mode: 'boolean' })
+    public isParentRow?: boolean;
 
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
@@ -210,11 +209,11 @@ export class TableRow<
         this.$emit('row-expand-toggle', expandEventDetail);
         event.stopImmediatePropagation();
         // To avoid a visual glitch with improper expand/collapse icons performing an
-        // animation, we apply a class to the appropriate group row such that we can have
-        // a more targeted CSS animation. We use the 'transitionend' event to remove the
-        // temporary class and register a function reference as the handler to avoid issues
-        // that may result from the 'transitionend' event not firing, as it will never result
-        // in multiple event listeners being registered.
+        // animation, we apply a class to the appropriate expand-collapse button icon such
+        // that we can have a more targeted CSS animation. We use the 'transitionend' event
+        // to remove the temporary class and register a function reference as the handler
+        // to avoid issues that may result from the 'transitionend' event not firing, as it
+        // will never result in multiple event listeners being registered.
         this.animationClass = 'animating';
         this.expandIcon?.addEventListener(
             'transitionend',
@@ -264,16 +263,10 @@ export class TableRow<
         this.updateCellIndentLevels();
     }
 
-    private isTopLevelRowChanged(): void {
-        this.updateCellIndentLevels();
-    }
-
     private updateCellIndentLevels(): void {
         this.cellIndentLevels = this.columns.map((_, i) => {
             if (i === 0 && this.nestingLevel > 0) {
-                return this.rowHierarchyLevel !== 'leaf'
-                    ? this.nestingLevel - 1
-                    : this.nestingLevel;
+                return this.nestingLevel;
             }
             return 0;
         });

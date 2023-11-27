@@ -13,10 +13,6 @@ export const styles = css`
         transition: ${mediumDelay} ease-in-out;
     }
 
-    :host([expanded]) .expander-icon {
-        transform: rotate(90deg);
-    }
-
     .expand-collapse-button {
         height: ${controlSlimHeight};
         align-self: center;
@@ -24,6 +20,10 @@ export const styles = css`
 
     .expander-icon {
         transform: rotate(0deg);
+    }
+
+    :host([expanded]) .expander-icon {
+        transform: rotate(90deg);
     }
 
     @media (prefers-reduced-motion) {

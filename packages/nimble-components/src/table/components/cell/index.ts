@@ -9,9 +9,6 @@ import type {
 } from '../../../table-column/base/types';
 import { styles } from './styles';
 import { template } from './template';
-import type {
-    TableRowHierarchyLevel
-} from '../../types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -35,8 +32,8 @@ export class TableCell<
     @observable
     public recordId?: string;
 
-    @attr({ attribute: 'row-hierarchy-level' })
-    public rowHierarchyLevel?: TableRowHierarchyLevel;
+    @attr({ attribute: 'is-parent-row', mode: 'boolean' })
+    public isParentRow?: boolean;
 
     @attr({ attribute: 'is-first-cell', mode: 'boolean' })
     public isFirstCell = false;

@@ -31,7 +31,7 @@ export const styles = css`
     :host(.parent) .cell-view {
         padding-left: calc(
             ${mediumPadding} + ${controlHeight} + ${controlHeight} *
-                var(--ni-private-table-cell-nesting-level)
+                (var(--ni-private-table-cell-nesting-level) - 1)
         );
     }
 

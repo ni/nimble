@@ -37,22 +37,22 @@ export const template = html<TableRow>`
                 `)}
             </span>
         `)}
-        <span class="row-front-spacer ${x => (x.rowHierarchyLevel === 'topLevelParent' ? 'top-level-parent' : '')}"></span>
-        ${when(x => x.rowHierarchyLevel === 'topLevelParent', html<TableRow>`
+        <span class="row-front-spacer ${x => (x.isParentRow && x.nestingLevel > 0 ? 'top-level-parent' : '')}"></span>
+        ${when(x => x.isParentRow, html<TableRow>`
             <${buttonTag}
-                    appearance="${ButtonAppearance.ghost}"
-                    content-hidden
-                    class="expand-collapse-button"
-                    tabindex="-1"
-                    @click="${(x, c) => x.onRowExpandToggle(c.event)}"
-                >
-                    <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
-                    ${x => (x.expanded ? tableRowCollapseLabel.getValueFor(x) : tableRowExpandLabel.getValueFor(x))}
+                appearance="${ButtonAppearance.ghost}"
+                content-hidden
+                class="expand-collapse-button"
+                tabindex="-1"
+                @click="${(x, c) => x.onRowExpandToggle(c.event)}"
+            >
+                <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
+                ${x => (x.expanded ? tableRowCollapseLabel.getValueFor(x) : tableRowExpandLabel.getValueFor(x))}
             </${buttonTag}>
         `)}
 
         <span ${ref('cellContainer')} 
-            class="cell-container ${x => (x.rowHierarchyLevel === 'parent' ? 'indented' : '')}"
+            class="cell-container ${x => (x.isParentRow && x.nestingLevel > 0 ? 'indented' : '')}"
         >
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
                 ${when(x => !x.columnHidden, html<TableColumn, TableRow>`
@@ -64,7 +64,7 @@ export const template = html<TableRow>`
                         column-id="${x => x.columnId}"
                         :recordId="${(_, c) => c.parent.recordId}"
                         ?has-action-menu="${x => !!x.actionMenuSlot}"
-                        row-hierarchy-level="${(_, c) => c.parent.rowHierarchyLevel}"
+                        ?is-parent-row="${(_, c) => c.parent.isParentRow}"
                         ?is-first-cell="${(_, c) => c.index === 0}"
                         action-menu-label="${x => x.actionMenuLabel}"
                         @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
