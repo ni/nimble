@@ -4,15 +4,15 @@ import Check from './assets/Check';
 import Exclamation from './assets/Exclamation';
 
 export const Frame = ({ children }) => {
-    return <div className="frame">{children}</div>;
+    return <div className="story-layout-frame">{children}</div>;
 };
 
 export const Container = ({ children, config = '200px 1fr' }) => {
-    return <div className="container" style={{gridTemplateColumns: config}}>{children}</div>;
+    return <div className="story-layout-container" style={{gridTemplateColumns: config}}>{children}</div>;
 };
 
 export const Column = ({ children, stylingClass = '' }) => {
-    const cn = `column ${stylingClass}`;
+    const cn = `story-layout-column ${stylingClass}`;
     return <div className={cn}>{children}</div>;
 };
 

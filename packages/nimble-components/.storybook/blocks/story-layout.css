@@ -1,20 +1,20 @@
 @import url('@ni/nimble-tokens/dist/styledictionary/css/variables.css');
 
-.container {
+.story-layout-container {
     display: grid;
     align-items: center;
 }
 
-.column > * {
+.story-layout-column > * {
     margin: var(--ni-nimble-small-padding);
 }
 
-.column.controls {
+.story-layout-column.controls {
     padding-left: var(--ni-nimble-medium-padding);
     padding-right: var(--ni-nimble-medium-padding);
 }
 
-.frame {
+.story-layout-frame {
     border: 1px solid rgba(128, 128, 128, 0.2);
     border-radius: 4px;
     box-shadow: 0px 1px 4px rgba(128, 128, 128, 0.22);
