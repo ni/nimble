@@ -568,11 +568,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 render: () => {
                     return {
                         onStart: (props): void => {
-                            this.onMention(props);
+                            this.triggerMentionEvent(props.text);
                         },
 
                         onUpdate: (props): void => {
-                            this.onMention(props);
+                            this.triggerMentionEvent(props.text);
                         }
                     };
                 }
@@ -580,12 +580,12 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         });
     }
 
-    private onMention(props: SuggestionProps): void {
+    private triggerMentionEvent(filter: string): void {
         const validUserMentionElement = this.mentionElements.find(
             mention => mention.mentionInternals.validConfiguration
-                && mention instanceof RichTextMentionUsers
+                && mention.mentionInternals.character === filter.slice(0, 1)
         );
-        validUserMentionElement?.onMention(props.query);
+        validUserMentionElement?.onMention(filter.slice(1));
     }
 
     /**
