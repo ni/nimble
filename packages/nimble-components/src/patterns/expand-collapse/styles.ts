@@ -9,7 +9,6 @@ export const styles = css`
         --ni-private-expand-collapse-button-indent-level: 0px;
     }
 
-    :host([expanded]) .animating,
     :host .animating {
         transition: ${mediumDelay} ease-in-out;
     }
@@ -28,8 +27,7 @@ export const styles = css`
     }
 
     @media (prefers-reduced-motion) {
-        :host .animating,
-        :host([expanded]) .animating {
+        :host .animating {
             transition-duration: 0s;
         }
     }

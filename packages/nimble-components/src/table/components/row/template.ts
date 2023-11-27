@@ -14,19 +14,13 @@ import {
 import type { TableColumn } from '../../../table-column/base';
 import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
-import {
-    controlHeight,
-    mediumPadding
-} from '../../../theme-provider/design-tokens';
 
 // prettier-ignore
 export const template = html<TableRow>`
     <template 
         role="row"
         aria-selected=${x => x.ariaSelected}
-        style="--ni-private-table-row-spacer-width: ${x => (x.nestingLevel > 0 || (x.nestingLevel === 0 && !(x.rowHierarchyLevel === 'parent' || x.rowHierarchyLevel === 'topLevelParent'))
-        ? controlHeight.getValueFor(x)
-        : mediumPadding.getValueFor(x))};"
+        style="--ni-private-table-row-indent-level: ${x => x.nestingLevel};"
     >
         ${when(x => !x.rowOperationGridCellHidden, html<TableRow>`
             <span role="gridcell" class="row-operations-container">
@@ -43,7 +37,7 @@ export const template = html<TableRow>`
                 `)}
             </span>
         `)}
-        <span class="row-front-spacer"></span>
+        <span class="row-front-spacer ${x => (x.rowHierarchyLevel === 'topLevelParent' ? 'top-level-parent' : '')}"></span>
         ${when(x => x.rowHierarchyLevel === 'topLevelParent', html<TableRow>`
             <${buttonTag}
                     appearance="${ButtonAppearance.ghost}"
@@ -58,7 +52,7 @@ export const template = html<TableRow>`
         `)}
 
         <span ${ref('cellContainer')} 
-            class="cell-container"
+            class="cell-container ${x => (x.rowHierarchyLevel === 'parent' ? 'indented' : '')}"
         >
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
                 ${when(x => !x.columnHidden, html<TableColumn, TableRow>`

@@ -8,6 +8,7 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
+    mediumPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
@@ -51,6 +52,10 @@ export const styles = css`
         background-color: ${fillHoverSelectedColor};
     }
 
+    .expand-collapse-button {
+        padding-left: calc(${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) * ${controlHeight});
+    }
+
     .row-operations-container {
         display: flex;
     }
@@ -68,12 +73,20 @@ export const styles = css`
         flex: 0 0 auto;
     }
 
+    .row-front-spacer.top-level-parent {
+        width: ${mediumPadding};
+    }
+
     .cell-container {
         display: grid;
         width: 100%;
         grid-auto-flow: column;
         grid-auto-columns: 1fr;
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+    }
+
+    .cell-container.indented {
+        margin-left: calc((${controlHeight} * var(--ni-private-table-row-indent-level))* -1);
     }
 
     nimble-table-cell {

@@ -7,31 +7,15 @@ import {
     MenuButtonToggleEventDetail
 } from '../../../menu-button/types';
 import {
-    tableCellActionMenuLabel,
-    tableRowCollapseLabel,
-    tableRowExpandLabel
+    tableCellActionMenuLabel
 } from '../../../label-provider/table/label-tokens';
-import { buttonTag } from '../../../button';
-import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
 
 // prettier-ignore
 export const template = html<TableCell>`
     <template role="cell"
-        class="${x => (x.rowHierarchyLevel !== 'parent' ? 'no-padding' : '')}"
+        class="${x => (x.rowHierarchyLevel === 'parent' && x.isFirstCell ? 'parent' : '')}"
         style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel};"
     >
-        ${when(x => x.rowHierarchyLevel === 'parent' && x.isFirstCell, html<TableCell>`
-            <${buttonTag}
-                    appearance="${ButtonAppearance.ghost}"
-                    content-hidden
-                    class="expand-collapse-button"
-                    tabindex="-1"
-                    @click="${(x, c) => x.onRowExpandToggle(c.event)}"
-                >
-                    <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
-                    ${x => (x.expanded ? tableRowCollapseLabel.getValueFor(x) : tableRowExpandLabel.getValueFor(x))}
-            </${buttonTag}>
-        `)}
         ${x => x.cellViewTemplate}
         ${when(x => x.hasActionMenu, html<TableCell>`
             <${menuButtonTag} ${ref('actionMenuButton')}

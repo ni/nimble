@@ -1,21 +1,19 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
+    controlHeight,
     controlSlimHeight,
-    mediumPadding,
-    standardPadding
+    mediumPadding
 } from '../../../theme-provider/design-tokens';
-import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
 
 export const styles = css`
-    ${expandCollapseStyles}
     ${display('flex')}
 
     :host {
         --ni-private-table-cell-nesting-level: 0;
         padding: 0px ${mediumPadding};
         padding-left: calc(
-            ${mediumPadding} + ${standardPadding} * 2 *
+            ${mediumPadding} + ${controlHeight} *
                 var(--ni-private-table-cell-nesting-level)
         );
         align-self: center;
@@ -28,11 +26,13 @@ export const styles = css`
         overflow: hidden;
         display: flex;
         align-items: center;
-        padding-left: ${mediumPadding};
     }
 
-    :host(.no-padding) .cell-view {
-        padding-left: 0px;
+    :host(.parent) .cell-view {
+        padding-left: calc(
+            ${mediumPadding} + ${controlHeight} + ${controlHeight} *
+                var(--ni-private-table-cell-nesting-level)
+        );
     }
 
     .action-menu {
