@@ -2,6 +2,81 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 23 Nov 2023 08:11:47 GMT",
+      "version": "17.9.10",
+      "tag": "@ni/nimble-angular_v17.9.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.14.9",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 21 Nov 2023 19:16:40 GMT",
+      "version": "17.9.9",
+      "tag": "@ni/nimble-angular_v17.9.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.14.8",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 21 Nov 2023 17:02:30 GMT",
+      "version": "17.9.8",
+      "tag": "@ni/nimble-angular_v17.9.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.14.7",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Nov 2023 16:02:19 GMT",
+      "version": "17.9.7",
+      "tag": "@ni/nimble-angular_v17.9.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.14.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Nov 2023 01:11:32 GMT",
+      "version": "17.9.6",
+      "tag": "@ni/nimble-angular_v17.9.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.14.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 Nov 2023 16:52:07 GMT",
       "version": "17.9.5",
       "tag": "@ni/nimble-angular_v17.9.5",

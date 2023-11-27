@@ -3,6 +3,7 @@ import type {
     RowSelectionState as TanStackRowSelectionState
 } from '@tanstack/table-core';
 import {
+    TableNode,
     TableRecord,
     TableRowSelectionState,
     TableRowState
@@ -108,7 +109,7 @@ export class MultiSelectionManager<
     private removePreviousRangeSelection(
         selection: TanStackRowSelectionState,
         shiftSelectStartRowIndex: number,
-        allRows: TanStackRow<TData>[]
+        allRows: TanStackRow<TableNode<TData>>[]
     ): void {
         const previousRangeEndIndex = this.getRowIndexForId(
             this.previousShiftSelectRowEndId,
@@ -127,7 +128,7 @@ export class MultiSelectionManager<
         selection: TanStackRowSelectionState,
         endRangeRowId: string,
         shiftSelectStartRowIndex: number,
-        allRows: TanStackRow<TData>[]
+        allRows: TanStackRow<TableNode<TData>>[]
     ): void {
         const newRangeEndIndex = this.getRowIndexForId(endRangeRowId, allRows);
         this.updateSelectionStateForRange(
@@ -143,7 +144,7 @@ export class MultiSelectionManager<
         selection: TanStackRowSelectionState,
         rangeStartIndex: number,
         rangeEndIndex: number,
-        allRows: TanStackRow<TData>[],
+        allRows: TanStackRow<TableNode<TData>>[],
         isSelecting: boolean
     ): void {
         if (rangeStartIndex === -1 || rangeEndIndex === -1) {
@@ -180,7 +181,7 @@ export class MultiSelectionManager<
 
     private getRowIndexForId(
         id: string | undefined,
-        rows: TanStackRow<TData>[]
+        rows: TanStackRow<TableNode<TData>>[]
     ): number {
         if (!id) {
             return -1;
