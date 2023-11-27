@@ -30,7 +30,6 @@ import Text from '@tiptap/extension-text';
 import Mention, { MentionOptions } from '@tiptap/extension-mention';
 import HardBreak from '@tiptap/extension-hard-break';
 import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
-import type { SuggestionProps } from '@tiptap/suggestion';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
@@ -41,7 +40,6 @@ import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
 import { RichText } from '../base';
-import { RichTextMentionUsers } from '../../rich-text-mention/users';
 
 declare global {
     interface HTMLElementTagNameMap {
