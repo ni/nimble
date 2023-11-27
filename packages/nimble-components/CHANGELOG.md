@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 23 Nov 2023 08:11:47 GMT and should not be manually modified.
+This log was last generated on Mon, 27 Nov 2023 16:11:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.14.10
+
+Mon, 27 Nov 2023 16:11:51 GMT
+
+### Patches
+
+- Fix overflow behavior of nimble-list-option ([ni/nimble@9047cd3](https://github.com/ni/nimble/commit/9047cd3f1c559b54f58d7bd9a4e3cf3ff401c0fb))
 
 ## 20.14.9
 

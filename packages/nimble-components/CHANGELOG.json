@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 27 Nov 2023 16:11:51 GMT",
+      "version": "20.14.10",
+      "tag": "@ni/nimble-components_v20.14.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9047cd3f1c559b54f58d7bd9a4e3cf3ff401c0fb",
+            "comment": "Fix overflow behavior of nimble-list-option"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 23 Nov 2023 08:11:47 GMT",
       "version": "20.14.9",
       "tag": "@ni/nimble-components_v20.14.9",
