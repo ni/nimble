@@ -53,6 +53,11 @@ export const richTextMentionUsers: StoryObj = {
         },
         validity: {
             description: mappingUserValidityDescription
+        },
+        getMentionedHrefs: {
+            name: 'getMentionedHrefs()',
+            description:
+                'Returns mentioned users list in the current state of the rich text components.'
         }
     }
 };
