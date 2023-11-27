@@ -37,6 +37,7 @@ export type WaferMapColorScaleMode =
     (typeof WaferMapColorScaleMode)[keyof typeof WaferMapColorScaleMode];
 
 export interface WaferMapDie {
+    isHighlighted?: boolean;
     value: string;
     x: number;
     y: number;

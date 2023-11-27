@@ -38,6 +38,9 @@ export class WaferMap extends FoundationElement {
      */
     public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
 
+    @attr({ attribute: 'is-wafer-highlighted', mode: 'boolean' })
+    public isWaferHighlighted = false;
+
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
 
@@ -218,6 +221,11 @@ export class WaferMap extends FoundationElement {
             this.canvasHeight = height;
         });
         return resizeObserver;
+    }
+
+    private isWaferHighlightedChanged(): void {
+        this.waferMapUpdateTracker.track('isWaferHighlighted');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private originLocationChanged(): void {

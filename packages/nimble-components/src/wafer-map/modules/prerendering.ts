@@ -57,6 +57,7 @@ export class Prerendering {
         const maxCharacters = this.wafermap.maxCharacters;
         const dieLabelsHidden = this.wafermap.dieLabelsHidden;
         const dieLabelsSuffix = this.wafermap.dieLabelsSuffix;
+        const isWaferHighlighted = this.wafermap.isWaferHighlighted;
         this._diesRenderInfo = [];
         for (const die of this.wafermap.dies) {
             const scaledX = horizontalScale(die.x);
@@ -73,7 +74,9 @@ export class Prerendering {
                 fillStyle: this.calculateFillStyle(
                     die.value,
                     colorScaleMode,
-                    highlightedValues
+                    highlightedValues,
+                    die.isHighlighted,
+                    isWaferHighlighted
                 ),
                 text: this.buildLabel(
                     die.value,
@@ -132,10 +135,12 @@ export class Prerendering {
 
     private calculateOpacity(
         selectedValue: string,
-        highlightedValues: Readonly<string[]>
+        highlightedValues: Readonly<string[]>,
+        isHighlighted?: boolean
     ): number {
-        return highlightedValues.length > 0
-            && !highlightedValues.some(dieValue => dieValue === selectedValue)
+        return isHighlighted === true
+            || (highlightedValues.length > 0
+                && !highlightedValues.some(dieValue => dieValue === selectedValue))
             ? this.nonHighlightedOpacity
             : 1;
     }
@@ -155,7 +160,9 @@ export class Prerendering {
     private calculateFillStyle(
         value: string,
         colorScaleMode: WaferMapColorScaleMode,
-        highlightedValues: Readonly<string[]>
+        highlightedValues: Readonly<string[]>,
+        isHighlighted?: boolean,
+        isWaferHighlighted?: boolean
     ): string {
         let colorValue: string = this.emptyDieColor;
         if (this.dieHasData(value)) {
@@ -178,7 +185,7 @@ export class Prerendering {
             rgbColor.r,
             rgbColor.g,
             rgbColor.b,
-            this.calculateOpacity(value, highlightedValues)
+            isWaferHighlighted ? this.calculateOpacity(value, highlightedValues, isHighlighted) : 1
         );
         return rgbColor.toStringWebRGBA();
     }

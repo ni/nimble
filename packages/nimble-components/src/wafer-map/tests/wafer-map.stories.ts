@@ -40,6 +40,8 @@ interface WaferMapArgs {
     gridMaxY: number | undefined;
     dieHover: unknown;
     validity: WaferMapValidity;
+    isWaferHighlighted: boolean;
+    diesList: WaferMapDie[] | undefined;
 }
 
 const getDiesSet = (
@@ -85,6 +87,9 @@ const getHighLightedValueSets = (
         case 'set4':
             returnedValue = sets[3]!;
             break;
+        case 'set5':
+            returnedValue = sets[0]!;
+            break;
         default:
             returnedValue = [] as string[];
             break;
@@ -112,15 +117,11 @@ const metadata: Meta<WaferMapArgs> = {
         componentName: 'wafer map',
         statusLink: 'https://github.com/ni/nimble/issues/924'
     })}
-        <${waferMapTag}
-            id="wafer-map"
-            colors-scale-mode="${x => x.colorScaleMode}"
-            ?die-labels-hidden="${x => x.dieLabelsHidden}"
-            die-labels-suffix="${x => x.dieLabelsSuffix}"
-            max-characters="${x => x.maxCharacters}"
-            orientation="${x => x.orientation}"
-            origin-location="${x => x.originLocation}"
-            grid-min-x=${x => x.gridMinX}
+        <${waferMapTag} id="wafer-map" colors-scale-mode="${x => x.colorScaleMode}"
+            ?die-labels-hidden="${x => x.dieLabelsHidden}" die-labels-suffix="${x => x.dieLabelsSuffix}"
+            max-characters="${x => x.maxCharacters}" orientation="${x => x.orientation}"
+            origin-location="${x => x.originLocation}" grid-min-x=${x => x.gridMinX}
+            :isWaferHighlighted="${x => x.isWaferHighlighted}"
             grid-max-x=${x => x.gridMaxX}
             grid-min-y=${x => x.gridMinY}
             grid-max-y=${x => x.gridMaxY}
@@ -129,8 +130,9 @@ const metadata: Meta<WaferMapArgs> = {
             :highlightedValues="${x => getHighLightedValueSets(
         x.highlightedValues,
         highLightedValueSets
-    )}"
-        >
+    )
+}"
+            >
         </${waferMapTag}>
         <style class="code-hide">
             #wafer-map {
@@ -152,7 +154,8 @@ const metadata: Meta<WaferMapArgs> = {
         gridMinX: undefined,
         gridMaxX: undefined,
         gridMinY: undefined,
-        gridMaxY: undefined
+        gridMaxY: undefined,
+        isWaferHighlighted: undefined
     },
     argTypes: {
         colorScale: {
@@ -219,6 +222,12 @@ const metadata: Meta<WaferMapArgs> = {
                 'Boolean value that determines if the dies labels in the wafer map view are shown or not. Default value is false.',
             control: { type: 'boolean' }
         },
+        isWaferHighlighted: {
+            name: 'is-wafer-highlighted',
+            description:
+                'Boolean value that determines if the wafer is highlighted.',
+            control: { type: 'boolean' }
+        },
         dieLabelsSuffix: {
             name: 'die-labels-suffix',
             description:
@@ -233,14 +242,15 @@ const metadata: Meta<WaferMapArgs> = {
     The \`highlightedValues\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
 </details>
                 `,
-            options: ['set1', 'set2', 'set3', 'set4'],
+            options: ['set1', 'set2', 'set3', 'set4', 'set5'],
             control: {
                 type: 'radio',
                 labels: {
                     set1: 'Set 1',
                     set2: 'Set 2',
                     set3: 'Set 3',
-                    set4: 'Set 4'
+                    set4: 'Set 4',
+                    set5: 'Set 5'
                 }
             },
             defaultValue: 'set1'
