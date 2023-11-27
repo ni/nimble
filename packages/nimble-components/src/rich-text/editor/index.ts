@@ -579,11 +579,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     private triggerMentionEvent(filter: string): void {
-        const validUserMentionElement = this.mentionElements.find(
+        const validMentionElement = this.mentionElements.find(
             mention => mention.mentionInternals.validConfiguration
                 && mention.mentionInternals.character === filter.slice(0, 1)
         );
-        validUserMentionElement?.onMention(filter.slice(1));
+        validMentionElement?.onMention(filter.slice(1));
     }
 
     /**
