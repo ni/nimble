@@ -860,7 +860,8 @@ export class Table<
                 groupRowValue: isGrouped
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
-                nestingLevel: !isGrouped && row.depth > 0 ? row.depth - 1 : row.depth,
+                nestingLevel:
+                    !isGrouped && row.depth > 0 ? row.depth - 1 : row.depth,
                 leafItemCount: row
                     .getLeafRows()
                     .filter(leafRow => leafRow.getLeafRows().length === 0)
