@@ -13,6 +13,7 @@ import { MappingUser } from '../../mapping/user';
 import type { Mapping } from '../../mapping/base';
 import type { MappingUserKey } from '../../mapping/base/types';
 import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
+import { richTextMentionUsersViewTag } from './view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -34,7 +35,8 @@ RichTextMentionUsersValidator
     protected override getMentionInternalsOptions(): MentionInternalsOptions {
         return {
             icon: iconAtTag,
-            character: '@'
+            character: '@',
+            viewElement: richTextMentionUsersViewTag
         };
     }
 
