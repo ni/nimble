@@ -78,7 +78,7 @@ export class TableRow<
     public nestingLevel = 0;
 
     @attr({ attribute: 'is-parent-row', mode: 'boolean' })
-    public isParentRow?: boolean;
+    public isParentRow = false;
 
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
