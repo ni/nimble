@@ -10,7 +10,9 @@ import type { MappingKeyType } from '../../enum-base/types';
 
 const iconValidityFlagNames = [
     ...enumBaseValidityFlagNames,
-    'invalidIconName'
+    'unsupportedMappingType',
+    'invalidIconName',
+    'missingTextValue'
 ] as const;
 
 /**
@@ -20,25 +22,51 @@ export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
     typeof iconValidityFlagNames
 > {
     public constructor(columnInternals: ColumnInternals<unknown>) {
-        super(columnInternals, iconValidityFlagNames, [
-            MappingIcon,
-            MappingSpinner
-        ]);
+        super(columnInternals, iconValidityFlagNames);
+    }
+
+    private static isIconMappingElement(
+        mapping: Mapping<unknown>
+    ): mapping is MappingIcon {
+        return mapping instanceof MappingIcon;
+    }
+
+    private static isSupportedMappingElement(
+        mapping: Mapping<unknown>
+    ): mapping is MappingIcon | MappingSpinner {
+        return (
+            mapping instanceof MappingIcon || mapping instanceof MappingSpinner
+        );
     }
 
     public override validate(
-        mappings: Mapping[],
+        mappings: Mapping<unknown>[],
         keyType: MappingKeyType
     ): void {
         super.validate(mappings, keyType);
+        this.validateMappingTypes(mappings);
         this.validateIconNames(mappings);
+        this.validateNoMissingText(mappings);
     }
 
-    private validateIconNames(mappings: Mapping[]): void {
-        const isMappingIcon = (mapping: Mapping): mapping is MappingIcon => mapping instanceof MappingIcon;
+    private validateIconNames(mappings: Mapping<unknown>[]): void {
         const invalid = mappings
-            .filter(isMappingIcon)
+            .filter(TableColumnIconValidator.isIconMappingElement)
             .some(mappingIcon => mappingIcon.resolvedIcon === undefined);
         this.setConditionValue('invalidIconName', invalid);
+    }
+
+    private validateNoMissingText(mappings: Mapping<unknown>[]): void {
+        const invalid = mappings
+            .filter(TableColumnIconValidator.isSupportedMappingElement)
+            .some(mapping => mapping.text === undefined);
+        this.setConditionValue('missingTextValue', invalid);
+    }
+
+    private validateMappingTypes(mappings: Mapping<unknown>[]): void {
+        const valid = mappings.every(
+            TableColumnIconValidator.isSupportedMappingElement
+        );
+        this.setConditionValue('unsupportedMappingType', !valid);
     }
 }

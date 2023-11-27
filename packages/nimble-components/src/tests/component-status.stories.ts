@@ -114,8 +114,8 @@ const components = [
         issueHref: 'https://github.com/ni/nimble/issues/296',
         issueLabel: 'Issue',
         componentStatus: ComponentFrameworkStatus.incubating,
-        angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        angularStatus: ComponentFrameworkStatus.incubating,
+        blazorStatus: ComponentFrameworkStatus.incubating
     },
     {
         componentName: 'Card button',

@@ -23,9 +23,31 @@ describe('NumberField', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-number-field')).toBeInstanceOf(
+        expect(document.createElement(numberFieldTag)).toBeInstanceOf(
             NumberField
         );
+    });
+
+    it('prevents inc/dec buttons from being focusable', () => {
+        const buttons = Array.from(
+            document
+                .createElement(numberFieldTag)
+                .shadowRoot!.querySelectorAll('.step-up-down-button')
+        );
+        expect(
+            buttons.every(x => (x as HTMLElement).tabIndex === -1)
+        ).toBeTrue();
+    });
+
+    it('hides inc/dec buttons from a11y tree', () => {
+        const buttons = Array.from(
+            document
+                .createElement(numberFieldTag)
+                .shadowRoot!.querySelectorAll('.step-up-down-button')
+        );
+        expect(
+            buttons.every(x => (x as HTMLElement).ariaHidden === 'true')
+        ).toBeTrue();
     });
 });
 
