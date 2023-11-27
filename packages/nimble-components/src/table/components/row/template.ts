@@ -45,9 +45,10 @@ export const template = html<TableRow>`
                 class="expand-collapse-button"
                 tabindex="-1"
                 @click="${(x, c) => x.onRowExpandToggle(c.event)}"
+                title="${x => (x.expanded ? tableRowCollapseLabel.getValueFor(x) : tableRowExpandLabel.getValueFor(x))}"
+                aria-hidden="true"
             >
                 <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
-                ${x => (x.expanded ? tableRowCollapseLabel.getValueFor(x) : tableRowExpandLabel.getValueFor(x))}
             </${buttonTag}>
         `)}
 

@@ -39,9 +39,9 @@ export const template = html<TableGroupRow>`
                 class="expand-collapse-button"
                 tabindex="-1"
                 title="${x => (x.expanded ? tableGroupCollapseLabel.getValueFor(x) : tableGroupExpandLabel.getValueFor(x))}"
+                aria-hidden="true"
             >
                 <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
-                ${x => (x.expanded ? tableGroupCollapseLabel.getValueFor(x) : tableGroupExpandLabel.getValueFor(x))}
             </${buttonTag}>
         </span>
 
