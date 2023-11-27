@@ -16,6 +16,10 @@ export const Column = ({ children, stylingClass = '' }) => {
     return <div className={cn}>{children}</div>;
 };
 
+export const Divider = () => {
+    return <hr/>;
+};
+
 export const Do = ({ children }) => {
     return (
         <Container config='48px 1fr'>

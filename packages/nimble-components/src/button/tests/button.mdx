@@ -9,13 +9,6 @@ import {
     Story
 } from '@storybook/blocks';
 import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
-import {
-    Container,
-    Column,
-    Do,
-    Dont,
-    Frame
-} from '../../../.storybook/blocks/StoryLayout';
 import { NimbleButton } from './button.react';
 import { NimbleIconKey } from '../../icon-base/tests/icons.react';
 import * as buttonStories from './button.stories';
@@ -145,44 +138,17 @@ Button appearance variants are mainly used when a button needs be distinguished 
 
 There are currently two available values for `appearance-variant`: `primary` and `accent`.
 
-#### Primary Button:
-
-<Frame>
-    <Container config="375px 1fr">
-        <Column stylingClass="controls">
-            <NimbleButton appearance="ghost">Ghost Button</NimbleButton>
-            <NimbleButton appearance="ghost">Ghost Button</NimbleButton>
-            <NimbleButton appearance="block" appearance-variant="primary">
-                {`Primary Button`}
-            </NimbleButton>
-        </Column>
-        <Column>
-            <Do>
-                Use only 1 primary button in a section. It should be used when
-                there is a conflict with color and its context.
-            </Do>
-            <Do>
-                <p>
-                    Use in combination with ghost buttons to create hierarchy.
-                </p>
-            </Do>
-            <Dont>
-                When using an outline button, do not use it with a block button
-                to create hierarchy.
-            </Dont>
-            <Dont>
-                When using a block button, do not use it with an outline button
-                to create hierarchy.
-            </Dont>
-        </Column>
-    </Container>
-</Frame>
-
 #### Accent Button:
 
 <Frame>
     <Container config="375px 1fr">
         <Column stylingClass="controls">
+            <NimbleButton appearance="ghost">Ghost Button</NimbleButton>
+            <NimbleButton appearance="ghost">Ghost Button</NimbleButton>
+            <NimbleButton appearance="outline" appearance-variant="accent">
+                {`Accent Button`}
+            </NimbleButton>
+            <Divider />
             <NimbleButton appearance="ghost">Ghost Button</NimbleButton>
             <NimbleButton appearance="ghost">Ghost Button</NimbleButton>
             <NimbleButton appearance="block" appearance-variant="accent">
@@ -202,21 +168,45 @@ There are currently two available values for `appearance-variant`: `primary` and
                 Use in situations that lack color and enthusiasm to help support
                 the brand.
             </Do>
-            <Do>
-                <p>
-                    Use in combination with ghost buttons to create hierarchy.
-                </p>
-            </Do>
+            <Do>Use in combination with ghost buttons to create hierarchy.</Do>
             <Dont>
-                When using an outline button, do not use it with a block button
-                to create hierarchy.
-            </Dont>
-            <Dont>
-                When using a block button, do not use it with an outline button
-                to create hierarchy.
+                Do not use an outline button with a block button to create
+                hierarchy.
             </Dont>
         </Column>
     </Container>
+</Frame>
+
+#### Primary Button:
+
+<Frame>
+    <Container config="375px 1fr">
+        <Column stylingClass="controls">
+            <NimbleButton appearance="ghost">Ghost Button</NimbleButton>
+            <NimbleButton appearance="ghost">Ghost Button</NimbleButton>
+            <NimbleButton appearance="outline" appearance-variant="primary">
+                {`Primary Button`}
+            </NimbleButton>
+            <Divider/>
+            <NimbleButton appearance="ghost">Ghost Button</NimbleButton>
+            <NimbleButton appearance="ghost">Ghost Button</NimbleButton>
+            <NimbleButton appearance="block" appearance-variant="primary">
+                {`Primary Button`}
+            </NimbleButton>
+        </Column>
+        <Column>
+            <Do>
+                Use only 1 primary button in a section. It should be used when
+                there is a conflict with color and its context.
+            </Do>
+            <Do>Use in combination with ghost buttons to create hierarchy.</Do>
+            <Dont>
+                Do not use an outline button with a block button to create
+                hierarchy.
+            </Dont>
+        </Column>
+    </Container>
+
 </Frame>
 
 #### Examples:
