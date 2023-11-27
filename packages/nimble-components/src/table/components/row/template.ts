@@ -64,7 +64,6 @@ export const template = html<TableRow>`
                         column-id="${x => x.columnId}"
                         :recordId="${(_, c) => c.parent.recordId}"
                         ?has-action-menu="${x => !!x.actionMenuSlot}"
-                        ?expanded="${(_, c) => c.parent.expanded}"
                         row-hierarchy-level="${(_, c) => c.parent.rowHierarchyLevel}"
                         ?is-first-cell="${(_, c) => c.index === 0}"
                         action-menu-label="${x => x.actionMenuLabel}"

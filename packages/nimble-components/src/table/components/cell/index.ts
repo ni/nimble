@@ -41,9 +41,6 @@ export class TableCell<
     @attr({ attribute: 'is-first-cell', mode: 'boolean' })
     public isFirstCell = false;
 
-    @attr({ mode: 'boolean' })
-    public expanded = false;
-
     @attr({ attribute: 'column-id' })
     public columnId?: string;
 
