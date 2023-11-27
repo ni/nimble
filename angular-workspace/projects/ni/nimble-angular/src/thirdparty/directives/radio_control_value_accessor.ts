@@ -20,7 +20,7 @@
 import {Directive, ElementRef, Injectable, Injector, Input, NgModule, OnDestroy, OnInit, Renderer2} from '@angular/core';
 
 import {BuiltInControlValueAccessor} from './control_value_accessor';
-import {ControlValueAccessor, NgControl} from '@angular/forms';
+import {ControlValueAccessor, NgControl, SetDisabledStateOption} from '@angular/forms';
 
 /* [Nimble] Do not register as a value accessor provider
 export const RADIO_VALUE_ACCESSOR: any = {
@@ -175,7 +175,7 @@ export class RadioControlValueAccessor extends BuiltInControlValueAccessor imple
   @Input() value: any;
 
   // [Nimble]: Can't override default behavior by injection token, because it is not exported. Inlining value of setDisabledStateDefault.
-  private callSetDisabledState = 'always';
+  private callSetDisabledState: SetDisabledStateOption = 'always';
       //inject(CALL_SET_DISABLED_STATE, {optional: true}) ?? setDisabledStateDefault;
 
   constructor(
