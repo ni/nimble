@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/15.2.0/packages/core/src/util/coercion.ts
+ * Copied from https://github.com/angular/angular/blob/15.2.10/packages/core/src/util/coercion.ts
  * with no modifications so that the `coerceToBoolean` function can be used by the forked directive
  * in `router_link.ts` without depending on private Angular APIs.
  */

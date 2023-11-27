@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/15.2.0/packages/platform-browser/testing/src/matchers.ts
+ * Copied from https://github.com/angular/angular/blob/15.2.10/packages/platform-browser/testing/src/matchers.ts
  * with the following modifications:
  * - Update imports
  * - Comment out everything other than what is needed to use `toHaveText` matcher because `toHaveText` is the only matcher required by the copied

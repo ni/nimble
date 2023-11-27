@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/15.2.0/packages/forms/src/directives/default_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/15.2.10/packages/forms/src/directives/default_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Update implementation of `_isAndroid()` to not use private APIs

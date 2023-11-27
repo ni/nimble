@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/15.2.0/packages/forms/src/directives/select_control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/15.2.10/packages/forms/src/directives/select_control_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Remove all configuration from SelectControlValueAccessor's `@Directive` decorator
