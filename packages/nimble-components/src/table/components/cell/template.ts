@@ -11,7 +11,7 @@ import { tableCellActionMenuLabel } from '../../../label-provider/table/label-to
 // prettier-ignore
 export const template = html<TableCell>`
     <template role="cell"
-        class="${x => (x.isParentRow && x.nestingLevel > 0 && x.isFirstCell ? 'parent' : '')}"
+        class="${x => (x.isParentRow && x.nestingLevel > 0 && x.isFirstCell ? 'nested-parent-row-first-cell' : '')}"
         style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel};"
     >
         ${x => x.cellViewTemplate}

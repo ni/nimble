@@ -28,7 +28,7 @@ export const styles = css`
         align-items: center;
     }
 
-    :host(.parent) .cell-view {
+    :host(.nested-parent-row-first-cell) .cell-view {
         padding-left: calc(
             ${mediumPadding} + ${controlHeight} + ${controlHeight} *
                 (var(--ni-private-table-cell-nesting-level) - 1)

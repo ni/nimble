@@ -88,7 +88,7 @@ export const styles = css`
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
     }
 
-    .cell-container.indented {
+    .cell-container.nested-parent {
         margin-left: calc(
             (${controlHeight} * var(--ni-private-table-row-indent-level)) * -1
         );
