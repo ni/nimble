@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 15 Nov 2023 16:52:07 GMT and should not be manually modified.
+This log was last generated on Mon, 27 Nov 2023 16:11:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.14.10
+
+Mon, 27 Nov 2023 16:11:51 GMT
+
+### Patches
+
+- Fix overflow behavior of nimble-list-option ([ni/nimble@9047cd3](https://github.com/ni/nimble/commit/9047cd3f1c559b54f58d7bd9a4e3cf3ff401c0fb))
+
+## 20.14.9
+
+Thu, 23 Nov 2023 08:11:47 GMT
+
+### Patches
+
+- Add support for @mention in nimble-rich-text-viewer ([ni/nimble@c69a774](https://github.com/ni/nimble/commit/c69a7745d0a8223a479d79a2cabe6cdcd1e9ca1a))
+
+## 20.14.8
+
+Tue, 21 Nov 2023 19:16:40 GMT
+
+### Patches
+
+- Hide inc/dec buttons on numeric from a11y tree ([ni/nimble@f74e259](https://github.com/ni/nimble/commit/f74e2591ec02b4a60c873e9308f82ad96ca51f40))
+
+## 20.14.7
+
+Tue, 21 Nov 2023 17:02:30 GMT
+
+### Patches
+
+- Introduce table hierarchical datatype. ([ni/nimble@d268abf](https://github.com/ni/nimble/commit/d268abf77bd76a1fe7e707542f391e5bb4367291))
+
+## 20.14.6
+
+Fri, 17 Nov 2023 16:02:19 GMT
+
+### Patches
+
+- Add configuration component for rich text @mention support ([ni/nimble@045bb0a](https://github.com/ni/nimble/commit/045bb0a6749a64df4af2b28da161b79802c5f12b))
+
+## 20.14.5
+
+Fri, 17 Nov 2023 01:11:32 GMT
+
+### Patches
+
+- Fix the drawer's footer's border to match the visual design spec ([ni/nimble@ad97540](https://github.com/ni/nimble/commit/ad97540875589785cfce251af5213237ecf5778a))
 
 ## 20.14.4
 

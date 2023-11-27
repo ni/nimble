@@ -74,6 +74,7 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
             appearance="ghost"
             content-hidden
             tabindex="-1"
+            aria-hidden="true"
         >
             ${x => numericDecrementLabel.getValueFor(x)}
             <${iconMinusWideTag}
@@ -88,6 +89,7 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
             appearance="ghost"
             content-hidden
             tabindex="-1"
+            aria-hidden="true"
         >
             ${x => numericIncrementLabel.getValueFor(x)}
             <${iconAddTag}
