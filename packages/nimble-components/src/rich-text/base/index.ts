@@ -48,11 +48,6 @@ export abstract class RichText extends FoundationElement {
      */
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof MentionInternals && typeof args === 'string') {
-            if (args === 'validConfiguration') {
-                this.richTextValidator.validateMentionConfigurations(
-                    this.mentionElements
-                );
-            }
             this.queueUpdate();
         }
     }
@@ -96,7 +91,9 @@ export abstract class RichText extends FoundationElement {
         );
 
         this.observeMentions();
-        this.queueUpdate();
+        if (this.mentionElements.length) {
+            this.queueUpdate();
+        }
     }
 
     private observeMentions(): void {
