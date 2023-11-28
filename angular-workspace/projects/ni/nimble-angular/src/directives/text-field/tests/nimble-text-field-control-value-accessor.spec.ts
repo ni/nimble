@@ -14,7 +14,7 @@ function setTextFieldValue(textField: TextField, value: string): void {
 describe('Nimble text field control value accessor', () => {
     @Component({
         template: `
-            <nimble-text-field #textField [(ngModel)]="value" [disabled]="fieldDisabled"></nimble-text-field>
+            <nimble-text-field #textField [(ngModel)]="value" (ngModelChange)="onModelValueChange($event)" [disabled]="fieldDisabled"></nimble-text-field>
          `
     })
     class TestHostComponent {
@@ -23,6 +23,8 @@ describe('Nimble text field control value accessor', () => {
         public readonly initialValue = 'initial value';
         public value = this.initialValue;
         public fieldDisabled = false;
+
+        public onModelValueChange(_value: string): void {}
     }
 
     let textField: TextField;
@@ -79,4 +81,12 @@ describe('Nimble text field control value accessor', () => {
         expect(textField.getAttribute('disabled')).toBe('');
         expect(textField.disabled).toBe(true);
     }));
+
+    it('fires ngModelChange one time with expected value', () => {
+        const ngModelChangeSpy = spyOn(testHostComponent, 'onModelValueChange');
+        const newValue = 'new value';
+        setTextFieldValue(textField, newValue);
+        fixture.detectChanges();
+        expect(ngModelChangeSpy).toHaveBeenCalledOnceWith(newValue);
+    });
 });
