@@ -18,6 +18,10 @@ import {
 import { MappingUser, mappingUserTag } from '../../../mapping/user';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
+import {
+    RichTextMentionTest,
+    richTextMentionTestTag
+} from '../../../rich-text-mention/base/tests/rich-text-mention.fixtures';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return fixture<RichTextEditor>(
@@ -68,6 +72,30 @@ async function appendUserMentionConfiguration(
         });
     }
     element.appendChild(userMention);
+    await waitForUpdatesAsync();
+}
+
+async function appendTestMentionConfiguration(
+    element: RichTextEditor,
+    userKeys?: string[],
+    displayNames?: string[]
+): Promise<void> {
+    const testMention = document.createElement(
+        richTextMentionTestTag
+    ) as RichTextMentionTest;
+    testMention.pattern = '^test:(.*)';
+
+    if (userKeys || displayNames) {
+        userKeys?.forEach((userKey, index) => {
+            const mappingUser = document.createElement(
+                mappingUserTag
+            ) as MappingUser;
+            mappingUser.key = userKey ?? '';
+            mappingUser.displayName = displayNames?.[index] ?? '';
+            testMention.appendChild(mappingUser);
+        });
+    }
+    element.appendChild(testMention);
     await waitForUpdatesAsync();
 }
 
@@ -2074,7 +2102,7 @@ describe('RichTextEditor', () => {
             expect(pageObject.getEditorLeafContents()).toEqual(['user:1']);
             await appendUserMentionConfiguration(element);
 
-            expect(pageObject.getMarkdownImpactTagNames()).toEqual([
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase(),
                 'BR'
@@ -2101,7 +2129,7 @@ describe('RichTextEditor', () => {
                 ['username1']
             );
 
-            expect(pageObject.getMarkdownImpactTagNames()).toEqual([
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase(),
                 'BR'
@@ -2119,7 +2147,7 @@ describe('RichTextEditor', () => {
                 ['username1', 'username2']
             );
 
-            expect(pageObject.getMarkdownImpactTagNames()).toEqual([
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase(),
                 `${richTextMentionUsersViewTag}`.toUpperCase(),
@@ -2159,7 +2187,7 @@ describe('RichTextEditor', () => {
             renderedUserMention.removeChild(renderedMappingUser);
             await waitForUpdatesAsync();
 
-            expect(pageObject.getMarkdownImpactTagNames()).toEqual([
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase(),
                 'BR'
@@ -2197,7 +2225,7 @@ describe('RichTextEditor', () => {
             renderedMappingUser.displayName = 'updated-name';
             await waitForUpdatesAsync();
 
-            expect(pageObject.getMarkdownImpactTagNames()).toEqual([
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase(),
                 'BR'
@@ -2223,7 +2251,7 @@ describe('RichTextEditor', () => {
             renderedMappingUser.key = 'user:2';
             await waitForUpdatesAsync();
 
-            expect(pageObject.getMarkdownImpactTagNames()).toEqual([
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase(),
                 'BR'
@@ -2241,7 +2269,7 @@ describe('RichTextEditor', () => {
                 ['username']
             );
 
-            expect(pageObject.getMarkdownImpactTagNames()).toEqual([
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase(),
                 'BR'
@@ -2291,6 +2319,65 @@ describe('RichTextEditor', () => {
                 'user:1',
                 'user:2'
             ]);
+        });
+
+        it('should return matched href from the respective mention configuration element', async () => {
+            element.setMarkdown('<user:1> <test:1> <https://nimble.ni.dev/>');
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+
+            (element.lastElementChild as RichTextMentionUsers).pattern = '^user:(.*)';
+            await appendTestMentionConfiguration(
+                element,
+                ['test:1'],
+                ['test1']
+            );
+
+            (element.lastElementChild as RichTextMentionTest).pattern = '^test:(.*)';
+            await waitForUpdatesAsync();
+            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
+            const renderedTestMention = element.lastElementChild as RichTextMentionTest;
+            expect(renderedTestMention.getMentionedHrefs()).toEqual(['test:1']);
+        });
+
+        it('should return updated href when mention configuration element pattern get updated', async () => {
+            element.setMarkdown('<user:1>');
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await waitForUpdatesAsync();
+            const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
+            renderedUserMention.pattern = 'invalid';
+            expect(renderedUserMention.getMentionedHrefs()).toEqual([]);
+        });
+
+        it('should return updated href when mention configuration element added dynamically', async () => {
+            element.setMarkdown('<user:1>');
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await waitForUpdatesAsync();
+            let renderedUserMention = element.lastElementChild as RichTextMentionUsers;
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
+            element.removeChild(renderedUserMention);
+            expect(element.children.length).toBe(0);
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await waitForUpdatesAsync();
+            renderedUserMention = element.lastElementChild as RichTextMentionUsers;
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
         });
     });
 
@@ -2375,7 +2462,7 @@ describe('RichTextEditor user mention via template', () => {
         element.setMarkdown('<user:1>');
         await waitForUpdatesAsync();
 
-        expect(pageObject.getMarkdownImpactTagNames()).toEqual([
+        expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
             'P',
             `${richTextMentionUsersViewTag}`.toUpperCase(),
             'BR'
@@ -2397,7 +2484,7 @@ describe('RichTextEditor user mention via template', () => {
         element.setMarkdown('<user:1> <user:2>');
         await waitForUpdatesAsync();
 
-        expect(pageObject.getMarkdownImpactTagNames()).toEqual([
+        expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
             'P',
             `${richTextMentionUsersViewTag}`.toUpperCase(),
             `${richTextMentionUsersViewTag}`.toUpperCase(),

@@ -220,7 +220,7 @@ export class RichTextEditorPageObject {
 
     // Return list of tags, excluding those such as 'IMG' (prosemirror-separator) that do not affect the UI or markdown output.
     // These tags are considered extraneous and are added by prosemirror.
-    public getMarkdownImpactTagNames(): string[] {
+    public getMarkdownRenderedTagNames(): string[] {
         return getTagsFromElement(this.getTiptapEditor() as HTMLElement).filter(
             tag => tag !== 'IMG'
         );

@@ -10,6 +10,10 @@ import {
 } from '../../../rich-text-mention/users';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import { MappingUser, mappingUserTag } from '../../../mapping/user';
+import {
+    RichTextMentionTest,
+    richTextMentionTestTag
+} from '../../../rich-text-mention/base/tests/rich-text-mention.fixtures';
 
 async function setup(): Promise<Fixture<RichTextViewer>> {
     return fixture<RichTextViewer>(
@@ -50,6 +54,30 @@ async function appendUserMentionConfiguration(
         });
     }
     element.appendChild(userMention);
+    await waitForUpdatesAsync();
+}
+
+async function appendTestMentionConfiguration(
+    element: RichTextViewer,
+    userKeys?: string[],
+    displayNames?: string[]
+): Promise<void> {
+    const testMention = document.createElement(
+        richTextMentionTestTag
+    ) as RichTextMentionTest;
+    testMention.pattern = '^test:(.*)';
+
+    if (userKeys || displayNames) {
+        userKeys?.forEach((userKey, index) => {
+            const mappingUser = document.createElement(
+                mappingUserTag
+            ) as MappingUser;
+            mappingUser.key = userKey ?? '';
+            mappingUser.displayName = displayNames?.[index] ?? '';
+            testMention.appendChild(mappingUser);
+        });
+    }
+    element.appendChild(testMention);
     await waitForUpdatesAsync();
 }
 
@@ -456,6 +484,61 @@ describe('RichTextViewer', () => {
                 'user:1',
                 'user:2'
             ]);
+        });
+
+        it('should return matched href from the respective mention configuration element', async () => {
+            element.markdown = '<user:1> <test:1> <https://nimble.ni.dev/>';
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await appendTestMentionConfiguration(
+                element,
+                ['test:1'],
+                ['test1']
+            );
+            await waitForUpdatesAsync();
+            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
+            const renderedTestMention = element.lastElementChild as RichTextMentionTest;
+            expect(renderedTestMention.getMentionedHrefs()).toEqual(['test:1']);
+        });
+
+        it('should return updated href when mention configuration element pattern get updated', async () => {
+            element.markdown = '<user:1>';
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await waitForUpdatesAsync();
+            const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
+            renderedUserMention.pattern = 'invalid';
+            expect(renderedUserMention.getMentionedHrefs()).toEqual([]);
+        });
+
+        it('should return updated href when mention configuration element added dynamically', async () => {
+            element.markdown = '<user:1>';
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await waitForUpdatesAsync();
+            let renderedUserMention = element.lastElementChild as RichTextMentionUsers;
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
+            element.removeChild(renderedUserMention);
+            expect(element.children.length).toBe(0);
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await waitForUpdatesAsync();
+            renderedUserMention = element.lastElementChild as RichTextMentionUsers;
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
         });
     });
 });
