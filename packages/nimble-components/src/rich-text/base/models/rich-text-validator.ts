@@ -20,6 +20,11 @@ export class RichTextValidator {
         return Object.values(this.getValidity()).every(x => x === false);
     }
 
+    public validate(mentions: RichTextMention[]): void {
+        this.validateDuplicateMentionConfigurations(mentions);
+        this.validateMentionConfigurations(mentions);
+    }
+
     public validateMentionConfigurations(mentions: RichTextMention[]): boolean {
         this.invalidMentionConfiguration = mentions.some(
             x => !x.mentionInternals.validConfiguration

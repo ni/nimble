@@ -2,7 +2,8 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { RichTextValidity } from '@ni/nimble-components/dist/esm/rich-text/base/types';
 import type { RichTextViewer } from '@ni/nimble-components/dist/esm/rich-text/viewer';
 
-export type { RichTextViewer, RichTextValidity };
+export type { RichTextViewer };
+export { RichTextValidity };
 
 /**
  * Directive to provide Angular integration for the rich text viewer element.

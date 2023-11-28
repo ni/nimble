@@ -23,7 +23,6 @@ export abstract class RichText extends FoundationElement {
 
     protected mentionConfig: MarkdownParserMentionConfiguration[] = [];
 
-    @observable
     protected mentionElements: RichTextMention[] = [];
 
     private mentionInternalsNotifiers: Notifier[] = [];
@@ -53,9 +52,8 @@ export abstract class RichText extends FoundationElement {
                 this.richTextValidator.validateMentionConfigurations(
                     this.mentionElements
                 );
-            } else {
-                this.queueUpdate();
             }
+            this.queueUpdate();
         }
     }
 
@@ -66,28 +64,12 @@ export abstract class RichText extends FoundationElement {
 
     protected abstract updateView(): void;
 
-    protected mentionElementsChanged(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
-
-        this.richTextValidator.validateDuplicateMentionConfigurations(
-            this.mentionElements
-        );
-        this.observeMentions();
-        if (this.mentionElements.length) {
-            this.queueUpdate();
-        }
-    }
-
     /**
      * Create a MarkdownParserMentionConfiguration using the mention elements and implement the logic for the getMentionedHref() method
      * which will be invoked in the RichTextMention base class from the client.
      */
     private updateMentionConfig(): void {
-        this.richTextValidator.validateMentionConfigurations(
-            this.mentionElements
-        );
+        this.richTextValidator.validate(this.mentionElements);
         this.mentionConfig = [];
         if (this.richTextValidator.isValid()) {
             this.mentionElements.forEach(mention => {
@@ -101,6 +83,10 @@ export abstract class RichText extends FoundationElement {
     }
 
     private childItemsChanged(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
         void this.updateMentionsFromChildItems();
     }
 
@@ -112,6 +98,9 @@ export abstract class RichText extends FoundationElement {
         this.mentionElements = this.childItems.filter(
             (x): x is RichTextMention => x instanceof RichTextMention
         );
+
+        this.observeMentions();
+        this.queueUpdate();
     }
 
     private observeMentions(): void {
@@ -134,10 +123,6 @@ export abstract class RichText extends FoundationElement {
     }
 
     private queueUpdate(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
-
         if (!this.updateQueued) {
             this.updateQueued = true;
             DOM.queueUpdate(() => {

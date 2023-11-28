@@ -2268,7 +2268,7 @@ describe('RichTextEditor', () => {
             expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
         });
 
-        it('should return the empty mentioned href for duplicate mention configuration elements', async () => {
+        it('should return no mentioned hrefs when there are duplicate mention configuration elements', async () => {
             element.setMarkdown('<user:1>');
             await appendUserMentionConfiguration(element);
             await appendUserMentionConfiguration(element);
