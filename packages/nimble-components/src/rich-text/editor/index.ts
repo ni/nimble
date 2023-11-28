@@ -30,7 +30,6 @@ import Text from '@tiptap/extension-text';
 import Mention, { MentionOptions } from '@tiptap/extension-mention';
 import HardBreak from '@tiptap/extension-hard-break';
 import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
-import type { SuggestionProps } from '@tiptap/suggestion';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
@@ -41,7 +40,6 @@ import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
 import { RichText } from '../base';
-import { RichTextMentionUsers } from '../../rich-text-mention/users';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -568,11 +566,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 render: () => {
                     return {
                         onStart: (props): void => {
-                            this.onMention(props);
+                            this.triggerMentionEvent(props.text);
                         },
 
                         onUpdate: (props): void => {
-                            this.onMention(props);
+                            this.triggerMentionEvent(props.text);
                         }
                     };
                 }
@@ -580,12 +578,12 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         });
     }
 
-    private onMention(props: SuggestionProps): void {
-        const validUserMentionElement = this.mentionElements.find(
+    private triggerMentionEvent(filter: string): void {
+        const validMentionElement = this.mentionElements.find(
             mention => mention.mentionInternals.validConfiguration
-                && mention instanceof RichTextMentionUsers
+                && mention.mentionInternals.character === filter.slice(0, 1)
         );
-        validUserMentionElement?.onMention(props.query);
+        validMentionElement?.onMention(filter.slice(1));
     }
 
     /**
