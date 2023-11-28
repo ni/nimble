@@ -30,8 +30,8 @@ export const styles = css`
 
     :host(.nested-parent-row-first-cell) .cell-view {
         padding-left: calc(
-            ${mediumPadding} + ${controlHeight} + ${controlHeight} *
-                (var(--ni-private-table-cell-nesting-level) - 1)
+            ${mediumPadding} + ${controlHeight} *
+                (var(--ni-private-table-cell-nesting-level))
         );
     }
 
