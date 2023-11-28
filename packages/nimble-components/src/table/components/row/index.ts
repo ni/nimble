@@ -252,14 +252,9 @@ export class TableRow<
 
     private dataRecordChanged(): void {
         this.updateCellStates();
-        this.updateCellIndentLevels();
     }
 
     private nestingLevelChanged(): void {
-        this.updateCellIndentLevels();
-    }
-
-    private isParentRowChanged(): void {
         this.updateCellIndentLevels();
     }
 
