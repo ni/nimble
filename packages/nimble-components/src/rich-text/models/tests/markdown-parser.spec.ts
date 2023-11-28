@@ -1253,6 +1253,61 @@ describe('Markdown parser', () => {
             expect(getLeafContentsFromElement(doc)).toEqual(['https://user/1']);
         });
 
+        it('should return markdownParserMentionConfig matching mentioned href list when getMentionedHrefs() called with valid mention markdown', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ],
+                '^user:(.*)'
+            ));
+            await connect();
+            const hrefs = RichTextMarkdownParser.getMentionedHrefs(
+                '<user:1234-5678> <user:135>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+            expect(hrefs).toEqual(['user:1234-5678', 'user:135']);
+        });
+
+        it('should return empty mentioned href list when getMentionedHrefs() called with invalid mention markdown', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ],
+                '^user:(.*)'
+            ));
+            await connect();
+            const hrefs = RichTextMarkdownParser.getMentionedHrefs(
+                '<invalid:1234-5678>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+            expect(hrefs).toEqual([]);
+        });
+
+        it('should return empty mentioned href list when getMentionedHrefs() called without markdownParserMentionConfig', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ],
+                '^user:(.*)'
+            ));
+            await connect();
+            const hrefs = RichTextMarkdownParser.getMentionedHrefs(
+                '<user:1234-5678>'
+            );
+            expect(hrefs).toEqual([]);
+        });
+
         describe('various wacky strings should reflect the `mention-label` attribute value of user mention view', () => {
             parameterizeNamedList(wackyStrings, (spec, name) => {
                 spec(`for ${name}`, async () => {

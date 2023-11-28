@@ -339,7 +339,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         );
     }
 
-    protected updateView(): void {
+    protected override updateView(): void {
         this.setMarkdown(this.getMarkdown());
     }
 
