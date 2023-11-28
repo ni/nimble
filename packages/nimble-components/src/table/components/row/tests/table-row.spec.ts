@@ -324,13 +324,13 @@ describe('TableRow', () => {
             row.isParentRow = true;
             await waitForUpdatesAsync();
             renderedCells.forEach(cell => {
-                expect(cell.isParentRow).toBeTrue();
+                expect(cell.inParentRow).toBeTrue();
             });
 
             row.isParentRow = false;
             await waitForUpdatesAsync();
             renderedCells.forEach(cell => {
-                expect(cell.isParentRow).toBeFalse();
+                expect(cell.inParentRow).toBeFalse();
             });
         });
 

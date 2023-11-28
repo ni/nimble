@@ -32,8 +32,8 @@ export class TableCell<
     @observable
     public recordId?: string;
 
-    @attr({ attribute: 'is-parent-row', mode: 'boolean' })
-    public isParentRow = false;
+    @attr({ attribute: 'in-parent-row', mode: 'boolean' })
+    public inParentRow = false;
 
     @attr({ attribute: 'is-first-cell', mode: 'boolean' })
     public isFirstCell = false;

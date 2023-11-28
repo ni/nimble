@@ -65,7 +65,7 @@ export const template = html<TableRow>`
                         column-id="${x => x.columnId}"
                         :recordId="${(_, c) => c.parent.recordId}"
                         ?has-action-menu="${x => !!x.actionMenuSlot}"
-                        ?is-parent-row="${(_, c) => c.parent.isParentRow}"
+                        ?in-parent-row="${(_, c) => c.parent.isParentRow}"
                         ?is-first-cell="${(_, c) => c.index === 0}"
                         action-menu-label="${x => x.actionMenuLabel}"
                         @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
