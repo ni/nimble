@@ -80,6 +80,7 @@ describe('RichTextEditor', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
+        await waitForUpdatesAsync();
         pageObject = new RichTextEditorPageObject(element);
     });
 

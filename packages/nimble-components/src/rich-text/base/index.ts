@@ -83,10 +83,6 @@ export abstract class RichText extends FoundationElement {
     }
 
     private childItemsChanged(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
-
         void this.updateMentionsFromChildItems();
     }
 
