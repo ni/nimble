@@ -31,7 +31,10 @@ export class RichTextMarkdownParser {
         markdownParserMentionConfig?: MarkdownParserMentionConfiguration[]
     ): string[] {
         RichTextMarkdownParser.mentionedHrefs = [];
-        RichTextMarkdownParser.parseMarkdownToDOM(value, markdownParserMentionConfig);
+        RichTextMarkdownParser.parseMarkdownToDOM(
+            value,
+            markdownParserMentionConfig
+        );
         return RichTextMarkdownParser.mentionedHrefs;
     }
 

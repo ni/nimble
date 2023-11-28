@@ -18,7 +18,10 @@ import {
 import { MappingUser, mappingUserTag } from '../../../mapping/user';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
-import { RichTextMentionTest, richTextMentionTestTag } from '../../../rich-text-mention/base/tests/rich-text-mention.fixtures';
+import {
+    RichTextMentionTest,
+    richTextMentionTestTag
+} from '../../../rich-text-mention/base/tests/rich-text-mention.fixtures';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return fixture<RichTextEditor>(
@@ -2344,13 +2347,9 @@ describe('RichTextEditor', () => {
             (element.lastElementChild as RichTextMentionTest).pattern = '^test:(.*)';
             await waitForUpdatesAsync();
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual([
-                'user:1'
-            ]);
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
             const renderedTestMention = element.lastElementChild as RichTextMentionTest;
-            expect(renderedTestMention.getMentionedHrefs()).toEqual([
-                'test:1'
-            ]);
+            expect(renderedTestMention.getMentionedHrefs()).toEqual(['test:1']);
         });
 
         it('should return updated href when mention configuration element pattern get updated', async () => {
@@ -2362,9 +2361,7 @@ describe('RichTextEditor', () => {
             );
             await waitForUpdatesAsync();
             const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual([
-                'user:1'
-            ]);
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
             renderedUserMention.pattern = 'invalid';
             expect(renderedUserMention.getMentionedHrefs()).toEqual([]);
         });
@@ -2378,9 +2375,7 @@ describe('RichTextEditor', () => {
             );
             await waitForUpdatesAsync();
             let renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual([
-                'user:1'
-            ]);
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
             element.removeChild(renderedUserMention);
             expect(element.children.length).toBe(0);
             await appendUserMentionConfiguration(
@@ -2390,9 +2385,7 @@ describe('RichTextEditor', () => {
             );
             await waitForUpdatesAsync();
             renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual([
-                'user:1'
-            ]);
+            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
         });
     });
 

@@ -5,7 +5,10 @@ import type { Mapping } from '../../../mapping/base';
 import { MappingUser } from '../../../mapping/user';
 import { richTextMentionUsersViewTag } from '../../users/view';
 import { MappingConfig } from '../models/mapping-config';
-import type { MentionInternals, MentionInternalsOptions } from '../models/mention-internals';
+import type {
+    MentionInternals,
+    MentionInternalsOptions
+} from '../models/mention-internals';
 import { RichTextMentionValidator } from '../models/mention-validator';
 
 export const richTextMentionTestTag = 'nimble-rich-text-test-mention';
@@ -58,9 +61,7 @@ export class RichTextMentionTest extends RichTextMention {
         };
     }
 
-    protected createMappingConfig(
-        mapping: Mapping<unknown>
-    ): MappingConfig {
+    protected createMappingConfig(mapping: Mapping<unknown>): MappingConfig {
         if (mapping instanceof MappingUser) {
             return new MappingTestConfig(mapping.key, mapping.displayName);
         }

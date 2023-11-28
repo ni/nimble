@@ -1302,9 +1302,7 @@ describe('Markdown parser', () => {
                 '^user:(.*)'
             ));
             await connect();
-            const hrefs = RichTextMarkdownParser.getMentionedHrefs(
-                '<user:1234-5678>'
-            );
+            const hrefs = RichTextMarkdownParser.getMentionedHrefs('<user:1234-5678>');
             expect(hrefs).toEqual([]);
         });
 
