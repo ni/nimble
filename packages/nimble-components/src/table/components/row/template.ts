@@ -37,7 +37,7 @@ export const template = html<TableRow>`
                 `)}
             </span>
         `)}
-        <span class="row-front-spacer ${x => (x.isParentRow && x.nestingLevel > 0 ? 'top-level-parent' : '')}"></span>
+        <span class="row-front-spacer ${x => (x.isParentRow && x.nestingLevel === 0 ? 'top-level-parent' : '')}"></span>
         ${when(x => x.isParentRow, html<TableRow>`
             <${buttonTag}
                 appearance="${ButtonAppearance.ghost}"
