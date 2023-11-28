@@ -77,8 +77,13 @@ export abstract class RichText extends FoundationElement {
         this.updateView();
     }
 
-    private childItemsChanged(): void {
-        void this.updateMentionsFromChildItems();
+    private childItemsChanged(
+        prev: string[] | undefined,
+        next: string[]
+    ): void {
+        if (prev?.length || next.length) {
+            void this.updateMentionsFromChildItems();
+        }
     }
 
     private async updateMentionsFromChildItems(): Promise<void> {
@@ -91,9 +96,7 @@ export abstract class RichText extends FoundationElement {
         );
 
         this.observeMentions();
-        if (this.mentionElements.length) {
-            this.queueUpdate();
-        }
+        this.queueUpdate();
     }
 
     private observeMentions(): void {
