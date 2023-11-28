@@ -160,6 +160,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
 
     private readonly xmlSerializer = new XMLSerializer();
     private readonly validAbsoluteLinkRegex = /^https?:\/\//i;
+    private pasteMap: Map<string, Set<string>> = new Map();
 
     /**
      * @internal
@@ -334,9 +335,15 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     public getMentionedHrefs(): string[] {
-        return RichTextMarkdownSerializer.getMentionedHrefs(
+        const currentMentionedHrefs = RichTextMarkdownSerializer.getMentionedHrefs(
             this.tiptapEditor.state.doc
         );
+        let mentionHrefsInPasteContent: string[] = [];
+
+        this.pasteMap.forEach(value => {
+            mentionHrefsInPasteContent = Array.from(value);
+        });
+        return [...mentionHrefsInPasteContent, ...currentMentionedHrefs];
     }
 
     protected updateView(): void {
@@ -369,35 +376,50 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                     mark => mark.type.name === 'link' && mark.attrs
                 );
                 if (linkMark) {
-                    // Checks if the link is valid link or not
-                    // Needing to separately validate the link on paste is a workaround for a tiptap issue
+                    // The below lines of code is responsible for updating the text content with its href value and creates a new updated text node.
+                    // This code needs an update when the hyperlink support is added.
                     // See: https://github.com/ni/nimble/issues/1527
-                    if (
-                        this.validAbsoluteLinkRegex.test(
-                            linkMark.attrs.href as string
+                    updatedNodes.push(
+                        this.tiptapEditor.schema.text(
+                            linkMark.attrs.href as string ?? node.textContent,
+                            node.marks
                         )
-                    ) {
-                        // The below lines of code is responsible for updating the text content with its href value and creates a new updated text node.
-                        // This code needs an update when the hyperlink support is added.
-                        // See: https://github.com/ni/nimble/issues/1527
-                        updatedNodes.push(
-                            this.tiptapEditor.schema.text(
-                                linkMark.attrs.href as string,
-                                node.marks
-                            )
-                        );
-                    } else {
-                        // If it is a invalid link, creates a new Text node with the same text content and without a Link mark.
-                        updatedNodes.push(
-                            this.tiptapEditor.schema.text(
-                                node.textContent,
-                                linkMark.removeFromSet(node.marks)
-                            )
-                        );
-                    }
+                    );
                 } else {
                     updatedNodes.push(node);
                 }
+            } else if (node.type.name === 'mention') {
+                // When pasting a mention node copied from either an editor or a viewer, it should render
+                // as link with its `mention-href` and not as mention node because the copied mention node
+                // might not be available in the current mention elements of the editor
+                const href = node.attrs.href as string;
+                let attrs: { href: string | null };
+                const linkMark = this.tiptapEditor.schema.marks.link!;
+
+                const validMentionElementChar = this.mentionElements.find(
+                    mention => mention.mentionInternals.pattern && new RegExp(mention.mentionInternals.pattern).test(href)
+                )?.mentionInternals.character;
+                if (validMentionElementChar && this.pasteMap.has(validMentionElementChar)) {
+                    this.pasteMap.get(validMentionElementChar)?.add(href);
+                } else if (validMentionElementChar) {
+                    this.pasteMap.set(validMentionElementChar, new Set([href]));
+                }
+
+                if (this.validAbsoluteLinkRegex.test(href)) {
+                    attrs = { href };
+                } else {
+                    attrs = { href: null };
+                }
+
+                updatedNodes.push(
+                    this.tiptapEditor.schema.text(
+                        `${href}`,
+                        [linkMark.create(attrs)]
+                    )
+                );
+                updatedNodes.push(
+                    this.tiptapEditor.schema.text(' ')
+                );
             } else {
                 const updatedContent = this.updateLinkNodes(node.content);
                 updatedNodes.push(node.copy(updatedContent));
@@ -417,6 +439,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
          */
         const transformPasted = (slice: Slice): Slice => {
             const modifiedFragment = this.updateLinkNodes(slice.content);
+            if (this.pasteMap.size) {
+                this.pasteMap.forEach((_value, key: string) => {
+                    this.triggerMentionEvent(key);
+                });
+            }
             return new Slice(modifiedFragment, slice.openStart, slice.openEnd);
         };
 
@@ -646,6 +673,14 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     private bindEditorUpdateEvent(): void {
         this.tiptapEditor.on('update', () => {
             this.$emit('input');
+            // Updating the view here will only be useful if the mapping element doe not change dynamically
+            // Because for the dynamic changes in the mapping element, this update is called before the handleChange in base class
+            // or emptying map before the getMentionedHrefs called which will not update the mapping elements dynamically
+            // TODO: The below code **should update/remove definitely** to handle dynamic case and find a better way to update view in static mode
+            if (this.pasteMap.size) {
+                this.updateView();
+                this.pasteMap = new Map();
+            }
             this.queueUpdateScrollbarWidth();
         });
     }
