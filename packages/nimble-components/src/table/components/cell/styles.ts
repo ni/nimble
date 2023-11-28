@@ -28,13 +28,6 @@ export const styles = css`
         align-items: center;
     }
 
-    :host(.nested-parent-row-first-cell) .cell-view {
-        padding-left: calc(
-            ${mediumPadding} + ${controlHeight} *
-                (var(--ni-private-table-cell-nesting-level))
-        );
-    }
-
     .action-menu {
         display: var(--ni-private-table-cell-action-menu-display);
         margin-left: auto;
