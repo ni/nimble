@@ -38,7 +38,7 @@ export class Anchor extends AnchorBase {
     /**
      * @internal
      */
-    public container?: HTMLElement;
+    public container!: HTMLElement;
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -58,9 +58,9 @@ export class Anchor extends AnchorBase {
      */
     public updateContentEditable(): void {
         if (this.isContentEditable) {
-            this.container!.setAttribute('contenteditable', '');
+            this.container.setAttribute('contenteditable', '');
         } else {
-            this.container!.removeAttribute('contenteditable');
+            this.container.removeAttribute('contenteditable');
         }
     }
 }
