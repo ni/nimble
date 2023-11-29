@@ -1204,10 +1204,10 @@ describe('RichTextEditor', () => {
                     }
                 ] as const;
 
-                parameterizeNamedList(validMentionNodes, (spec, name, value) => {
-                    spec(
-                        `${name} renders as plain text in editor`,
-                        () => {
+                parameterizeNamedList(
+                    validMentionNodes,
+                    (spec, name, value) => {
+                        spec(`${name} renders as plain text in editor`, () => {
                             pageObject.pasteHTMLToEditor(value.input);
 
                             expect(
@@ -1216,9 +1216,9 @@ describe('RichTextEditor', () => {
                             expect(pageObject.getEditorTextContents()).toEqual([
                                 value.textContent
                             ]);
-                        }
-                    );
-                });
+                        });
+                    }
+                );
             });
 
             describe('pasting various links within text should render as absolute links within text ', () => {

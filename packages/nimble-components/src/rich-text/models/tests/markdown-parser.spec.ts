@@ -58,14 +58,18 @@ describe('Markdown parser', () => {
         });
 
         it('numbered list markdown string("1.") to "ol" and "li" HTML tags', () => {
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('1. Numbered list').fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '1. Numbered list'
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['OL', 'LI', 'P']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Numbered list']);
         });
 
         it('numbered list markdown string("1)") to "ol" and "li" HTML tags', () => {
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('1) Numbered list').fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '1) Numbered list'
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['OL', 'LI', 'P']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Numbered list']);
@@ -90,7 +94,9 @@ describe('Markdown parser', () => {
         });
 
         it('multiple empty numbered lists markdown string("1.\n2.") to "ol" and "li" HTML tags', () => {
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('1.    \n 2.    ').fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '1.    \n 2.    '
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual([
                 'OL',
@@ -142,21 +148,27 @@ describe('Markdown parser', () => {
         });
 
         it('bulleted list markdown string("*") to "ul" and "li" HTML tags', () => {
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('* Bulleted list').fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '* Bulleted list'
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['UL', 'LI', 'P']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Bulleted list']);
         });
 
         it('bulleted list markdown string("-") to "ul" and "li" HTML tags', () => {
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('- Bulleted list').fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '- Bulleted list'
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['UL', 'LI', 'P']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Bulleted list']);
         });
 
         it('bulleted list markdown string("+") to "ul" and "li" HTML tags', () => {
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('+ Bulleted list').fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '+ Bulleted list'
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['UL', 'LI', 'P']);
             expect(getLeafContentsFromElement(doc)).toEqual(['Bulleted list']);
@@ -558,7 +570,9 @@ describe('Markdown parser', () => {
                     spec(
                         `string "${name}" renders within nimble-anchor without 'href' attribute`,
                         () => {
-                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(name).fragment;
+                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                name
+                            ).fragment;
                             const renderedLink = name.slice(1, -1);
 
                             expect(getTagsFromElement(doc)).toEqual([
@@ -731,14 +745,18 @@ describe('Markdown parser', () => {
         });
 
         it('\n backslash<n> should render a new line', () => {
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(r`\n`).fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                r`\n`
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['P']);
             expect(getLeafContentsFromElement(doc)).toEqual([r`\n`]);
         });
 
         it('\\ double backslash should render a single backslash', () => {
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(r`\\`).fragment;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                r`\\`
+            ).fragment;
 
             expect(getTagsFromElement(doc)).toEqual(['P']);
             expect(getLeafContentsFromElement(doc)).toEqual(['\\']);
@@ -966,17 +984,25 @@ describe('Markdown parser', () => {
                 '^user:(.*)'
             ));
             await connect();
-            const parserContent = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
-                new MarkdownParserMentionConfiguration(element.mentionInternals)
-            ]);
+            const parserContent = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
 
             expect(getTagsFromElement(parserContent.fragment)).toEqual([
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase()
             ]);
-            expect(getLastChildElementAttribute('mention-label', parserContent.fragment)).toEqual(
-                'username1'
-            );
+            expect(
+                getLastChildElementAttribute(
+                    'mention-label',
+                    parserContent.fragment
+                )
+            ).toEqual('username1');
             expect(parserContent.mentionedHrefs).toEqual(['user:1']);
         });
 
@@ -1002,9 +1028,12 @@ describe('Markdown parser', () => {
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase()
             ]);
-            expect(getLastChildElementAttribute('mention-label', parserContent.fragment)).toEqual(
-                'username1'
-            );
+            expect(
+                getLastChildElementAttribute(
+                    'mention-label',
+                    parserContent.fragment
+                )
+            ).toEqual('username1');
             expect(parserContent.mentionedHrefs).toEqual(['http://user/1']);
         });
 
@@ -1030,9 +1059,12 @@ describe('Markdown parser', () => {
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase()
             ]);
-            expect(getLastChildElementAttribute('mention-label', parserContent.fragment)).toEqual(
-                'username2'
-            );
+            expect(
+                getLastChildElementAttribute(
+                    'mention-label',
+                    parserContent.fragment
+                )
+            ).toEqual('username2');
             expect(parserContent.mentionedHrefs).toEqual(['https://user/2']);
         });
 
@@ -1058,9 +1090,12 @@ describe('Markdown parser', () => {
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase()
             ]);
-            expect(getLastChildElementAttribute('mention-label', parserContent.fragment)).toEqual(
-                '1234-5678'
-            );
+            expect(
+                getLastChildElementAttribute(
+                    'mention-label',
+                    parserContent.fragment
+                )
+            ).toEqual('1234-5678');
             expect(parserContent.mentionedHrefs).toEqual(['user:1234-5678']);
         });
 
@@ -1086,8 +1121,12 @@ describe('Markdown parser', () => {
                 'P',
                 `${anchorTag}`.toUpperCase()
             ]);
-            expect(lastChildElementHasAttribute('href', parserContent.fragment)).toBeFalse();
-            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual(['user:1234-5678']);
+            expect(
+                lastChildElementHasAttribute('href', parserContent.fragment)
+            ).toBeFalse();
+            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual([
+                'user:1234-5678'
+            ]);
             expect(parserContent.mentionedHrefs).toEqual([]);
         });
 
@@ -1100,16 +1139,25 @@ describe('Markdown parser', () => {
                 '^user:.*'
             ));
             await connect();
-            const parserContent = RichTextMarkdownParser.parseMarkdownToDOM('<issue:1>', [
-                new MarkdownParserMentionConfiguration(element.mentionInternals)
-            ]);
+            const parserContent = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<issue:1>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
 
             expect(getTagsFromElement(parserContent.fragment)).toEqual([
                 'P',
                 `${anchorTag}`.toUpperCase()
             ]);
-            expect(lastChildElementHasAttribute('href', parserContent.fragment)).toBeFalse();
-            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual(['issue:1']);
+            expect(
+                lastChildElementHasAttribute('href', parserContent.fragment)
+            ).toBeFalse();
+            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual([
+                'issue:1'
+            ]);
             expect(parserContent.mentionedHrefs).toEqual([]);
         });
 
@@ -1119,16 +1167,25 @@ describe('Markdown parser', () => {
                 '^user:.*'
             ));
             await connect();
-            const parserContent = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
-                new MarkdownParserMentionConfiguration(element.mentionInternals)
-            ]);
+            const parserContent = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
 
             expect(getTagsFromElement(parserContent.fragment)).toEqual([
                 'P',
                 `${anchorTag}`.toUpperCase()
             ]);
-            expect(lastChildElementHasAttribute('href', parserContent.fragment)).toBeFalse();
-            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual(['user:1']);
+            expect(
+                lastChildElementHasAttribute('href', parserContent.fragment)
+            ).toBeFalse();
+            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual([
+                'user:1'
+            ]);
             expect(parserContent.mentionedHrefs).toEqual([]);
         });
 
@@ -1141,16 +1198,25 @@ describe('Markdown parser', () => {
                 'abc'
             ));
             await connect();
-            const parserContent = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
-                new MarkdownParserMentionConfiguration(element.mentionInternals)
-            ]);
+            const parserContent = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
 
             expect(getTagsFromElement(parserContent.fragment)).toEqual([
                 'P',
                 `${anchorTag}`.toUpperCase()
             ]);
-            expect(lastChildElementHasAttribute('href', parserContent.fragment)).toBeFalse();
-            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual(['user:1']);
+            expect(
+                lastChildElementHasAttribute('href', parserContent.fragment)
+            ).toBeFalse();
+            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual([
+                'user:1'
+            ]);
             expect(parserContent.mentionedHrefs).toEqual([]);
         });
 
@@ -1163,16 +1229,25 @@ describe('Markdown parser', () => {
                 '^user:.*'
             ));
             await connect();
-            const parserContent = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
-                new MarkdownParserMentionConfiguration(element.mentionInternals)
-            ]);
+            const parserContent = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
 
             expect(getTagsFromElement(parserContent.fragment)).toEqual([
                 'P',
                 `${anchorTag}`.toUpperCase()
             ]);
-            expect(lastChildElementHasAttribute('href', parserContent.fragment)).toBeFalse();
-            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual(['user:1']);
+            expect(
+                lastChildElementHasAttribute('href', parserContent.fragment)
+            ).toBeFalse();
+            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual([
+                'user:1'
+            ]);
             expect(parserContent.mentionedHrefs).toEqual([]);
         });
 
@@ -1198,10 +1273,12 @@ describe('Markdown parser', () => {
                 'P',
                 `${anchorTag}`.toUpperCase()
             ]);
-            expect(getLastChildElementAttribute('href', parserContent.fragment)).toBe(
+            expect(
+                getLastChildElementAttribute('href', parserContent.fragment)
+            ).toBe('http://user/1');
+            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual([
                 'http://user/1'
-            );
-            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual(['http://user/1']);
+            ]);
             expect(parserContent.mentionedHrefs).toEqual([]);
         });
 
@@ -1227,9 +1304,9 @@ describe('Markdown parser', () => {
                 'P',
                 `${anchorTag}`.toUpperCase()
             ]);
-            expect(getLastChildElementAttribute('href', parserContent.fragment)).toBe(
-                'https://ni/user/1'
-            );
+            expect(
+                getLastChildElementAttribute('href', parserContent.fragment)
+            ).toBe('https://ni/user/1');
             expect(getLeafContentsFromElement(parserContent.fragment)).toEqual([
                 'https://ni/user/1'
             ]);
@@ -1258,10 +1335,12 @@ describe('Markdown parser', () => {
                 'P',
                 `${anchorTag}`.toUpperCase()
             ]);
-            expect(getLastChildElementAttribute('href', parserContent.fragment)).toBe(
+            expect(
+                getLastChildElementAttribute('href', parserContent.fragment)
+            ).toBe('https://user/1');
+            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual([
                 'https://user/1'
-            );
-            expect(getLeafContentsFromElement(parserContent.fragment)).toEqual(['https://user/1']);
+            ]);
             expect(parserContent.mentionedHrefs).toEqual([]);
         });
 
@@ -1282,7 +1361,10 @@ describe('Markdown parser', () => {
                     )
                 ]
             );
-            expect(parserContent.mentionedHrefs).toEqual(['user:1234-5678', 'user:135']);
+            expect(parserContent.mentionedHrefs).toEqual([
+                'user:1234-5678',
+                'user:135'
+            ]);
         });
 
         it('should return empty mentioned href list with invalid mention markdown', async () => {
@@ -1326,21 +1408,21 @@ describe('Markdown parser', () => {
                         '^user:.*'
                     ));
                     await connect();
-                    const parserContent = RichTextMarkdownParser.parseMarkdownToDOM(
-                        '<user:1>',
-                        [
-                            new MarkdownParserMentionConfiguration(
-                                element.mentionInternals
-                            )
-                        ]
-                    );
+                    const parserContent = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
+                        new MarkdownParserMentionConfiguration(
+                            element.mentionInternals
+                        )
+                    ]);
 
                     expect(getTagsFromElement(parserContent.fragment)).toEqual([
                         'P',
                         `${richTextMentionUsersViewTag}`.toUpperCase()
                     ]);
                     expect(
-                        getLastChildElementAttribute('mention-label', parserContent.fragment)
+                        getLastChildElementAttribute(
+                            'mention-label',
+                            parserContent.fragment
+                        )
                     ).toEqual(name);
                     expect(parserContent.mentionedHrefs).toEqual(['user:1']);
                 });

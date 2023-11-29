@@ -400,9 +400,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 }
             } else if (node.type.name === 'mention') {
                 updatedNodes.push(
-                    this.tiptapEditor.schema.text(
-                        node.attrs.label as string
-                    )
+                    this.tiptapEditor.schema.text(node.attrs.label as string)
                 );
             } else {
                 const updatedContent = this.updateLinkNodes(node.content);
