@@ -23,6 +23,7 @@ export abstract class RichText extends FoundationElement {
 
     protected mentionConfig: MarkdownParserMentionConfiguration[] = [];
 
+    @observable
     protected mentionElements: RichTextMention[] = [];
 
     private mentionInternalsNotifiers: Notifier[] = [];
@@ -77,12 +78,19 @@ export abstract class RichText extends FoundationElement {
         this.updateView();
     }
 
-    private childItemsChanged(
+    private childItemsChanged(): void {
+        void this.updateMentionsFromChildItems();
+    }
+
+    private mentionElementsChanged(
         prev: string[] | undefined,
         next: string[]
     ): void {
+        // Skips queuing the update when the value changes from undefined to an empty array
+        // as it refers that there are no mention configuration elements are added during initialization.
         if (prev?.length || next.length) {
-            void this.updateMentionsFromChildItems();
+            this.observeMentions();
+            this.queueUpdate();
         }
     }
 
@@ -94,9 +102,6 @@ export abstract class RichText extends FoundationElement {
         this.mentionElements = this.childItems.filter(
             (x): x is RichTextMention => x instanceof RichTextMention
         );
-
-        this.observeMentions();
-        this.queueUpdate();
     }
 
     private observeMentions(): void {
