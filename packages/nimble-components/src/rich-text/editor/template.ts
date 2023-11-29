@@ -103,7 +103,7 @@ export const template = html<RichTextEditor>`
             vertical-positioning-mode="locktodefault"
             horizontal-positioning-mode="locktodefault"
             vertical-default-position="bottom"
-            ?hidden="${x => !x.open}"
+            ?hidden="${x => !x.openMentionPopup}"
             >
             <${richTextMentionListBoxTag}
             ${ref('mentionListBox')}

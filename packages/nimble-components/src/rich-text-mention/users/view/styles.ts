@@ -3,7 +3,8 @@ import { display } from '@microsoft/fast-foundation';
 import {
     mentionFont,
     mentionDisabledFontColor,
-    bodyFontColor
+    bodyFontColor,
+    bodyFont
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -11,7 +12,7 @@ export const styles = css`
 
     :host {
         box-sizing: border-box;
-        font: ${mentionFont};
+        font: ${bodyFont};
         color: ${bodyFontColor};
         white-space: normal;
     }
@@ -31,5 +32,9 @@ export const styles = css`
 
     :host([disable-editing]) slot {
         display: none;
+    }
+
+    :host([disable-editing]) {
+        font: ${mentionFont};
     }
 `;

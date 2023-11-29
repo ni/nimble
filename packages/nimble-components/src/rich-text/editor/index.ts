@@ -151,7 +151,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @internal
      */
     @observable
-    public open?: boolean;
+    public openMentionPopup?: boolean;
 
     /**
      * @internal
@@ -385,7 +385,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             href: e.detail.href,
             label: e.detail.displayName
         });
-        this.open = false;
+        this.openMentionPopup = false;
     }
 
     protected updateView(): void {
@@ -626,30 +626,37 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             }
         }).configure({
             suggestion: {
+                decorationTag: richTextMentionUsersViewTag,
                 allowSpaces: true,
                 render: () => {
+                    let inSuggestionMode = false;
                     return {
                         onStart: (props): void => {
+                            inSuggestionMode = true;
                             this.onMention(props);
                         },
 
                         onUpdate: (props): void => {
+                            if (!inSuggestionMode) {
+                                return;
+                            }
                             this.onMention(props);
                         },
 
                         onKeyDown: (props): boolean => {
-                            if (!this.open) {
+                            if (!this.openMentionPopup) {
                                 return false;
                             }
                             if (props.event.key === 'Escape') {
-                                this.open = false;
+                                this.openMentionPopup = false;
+                                inSuggestionMode = false;
                                 return false;
                             }
                             return this.mentionListBox?.keydownHandler(props.event) ?? false;
                         },
 
                         onExit: (): void => {
-                            this.open = false;
+                            this.openMentionPopup = false;
                         }
                     };
                 }
@@ -661,7 +668,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         this.triggerMentionEvent(props.text);
         this.mentionPropCommand = props;
         this.filter = props.query.toLowerCase();
-        this.open = true;
+        this.openMentionPopup = true;
         if (this.region) {
             this.region.anchorElement = props.decorationNode as HTMLElement;
             this.region.update();

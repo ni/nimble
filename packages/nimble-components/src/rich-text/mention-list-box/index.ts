@@ -4,6 +4,7 @@ import { keyTab, keyEnter, keyArrowDown, keyArrowUp } from '@microsoft/fast-web-
 import type { ListOption } from '../../list-option';
 import type { Listbox } from '../../listbox';
 import type { MentionDetail } from '../editor/types';
+import { styles } from './styles';
 import { template } from './template';
 
 declare global {
@@ -13,7 +14,7 @@ declare global {
 }
 
 /**
- * A rich text mention list box which acts as a popup for @ mention support in editor
+ * A rich text mention list box which acts as a popup for "@mention" support in editor
  */
 export class RichTextMentionListBox extends FoundationElement {
     @attr
@@ -37,6 +38,8 @@ export class RichTextMentionListBox extends FoundationElement {
 
     private _options: ListOption[] = [];
 
+    private hasSelectableOptions = false;
+
     /**
      * @public
      */
@@ -45,7 +48,10 @@ export class RichTextMentionListBox extends FoundationElement {
             ? customElements.whenDefined(this.listBox.localName)
             : Promise.resolve()];
         await Promise.all(definedElements);
-        this.listBox?.selectFirstOption();
+        if (this.hasSelectableOptions) {
+            this.listBox?.selectFirstOption();
+            this.scrollOptionIntoView();
+        }
     }
 
     /**
@@ -56,27 +62,31 @@ export class RichTextMentionListBox extends FoundationElement {
         switch (key) {
             case keyTab:
             case keyEnter: {
-                if (this.listBox.firstSelectedOption) {
+                if (this.listBox.firstSelectedOption && this.hasSelectableOptions) {
                     this.$emit('change', {
                         href: this.listBox.firstSelectedOption.value,
                         displayName: this.listBox.firstSelectedOption.innerText
                     } as MentionDetail);
+                    return true;
                 }
-                return true;
+                return false;
             }
             case keyArrowDown: {
-                if (!e.shiftKey) {
+                if (!e.shiftKey && this.hasSelectableOptions) {
                     this.listBox.selectNextOption();
+                    this.scrollOptionIntoView();
+                    return true;
                 }
-                return true;
+                return false;
             }
             case keyArrowUp: {
-                if (!e.shiftKey) {
+                if (!e.shiftKey && this.hasSelectableOptions) {
                     this.listBox.selectPreviousOption();
+                    this.scrollOptionIntoView();
+                    return true;
                 }
-                return true;
+                return false;
             }
-
             default: {
                 return false;
             }
@@ -102,6 +112,10 @@ export class RichTextMentionListBox extends FoundationElement {
         return true;
     }
 
+    private scrollOptionIntoView(): void {
+        this.listBox?.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
+    }
+
     private slottedOptionsChanged(_prev: Element[] | undefined, next: Element[]): void {
         this.options = next.reduce<ListOption[]>((options, item) => {
             if (isListboxOption(item)) {
@@ -119,19 +133,32 @@ export class RichTextMentionListBox extends FoundationElement {
 
     private filterUsers(): void {
         if (this.filter !== undefined) {
+            const normalizedFilter = this.normalizeString(this.filter);
             this._options.forEach(o => {
-                const checkFlag = !o.text.toLowerCase().startsWith(this.filter!.toLowerCase());
+                const normalizedText = this.normalizeString(o.text);
+                const checkFlag = !normalizedText.includes(normalizedFilter);
                 o.disabled = checkFlag;
                 o.hidden = checkFlag;
             });
+            this.hasSelectableOptions = !this._options.every(list => list.disabled);
         }
         void this.selectFirstListOption();
+    }
+
+    private normalizeString(value: string): string {
+        // This implementation is based on the below reference.
+        // https://claritydev.net/blog/diacritic-insensitive-string-comparison-javascript
+        return value
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
     }
 }
 
 const nimbleRichTextMentionListBox = RichTextMentionListBox.compose({
     baseName: 'rich-text-mention-list-box',
-    template
+    template,
+    styles
 });
 
 DesignSystem.getOrCreate()
