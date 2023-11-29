@@ -20,62 +20,37 @@ N\A
 
 ## Implementation / Design
 
-We will introduce a new logic of highlighting the wafer in parallel with current one.
+We will replace the old logic, removing it completely, and add a new one.
+
+Each die will have an optional field called "tags", being optional in the cases when we don't use highlighting we can get rid of it.
 
 ```
 export interface WaferMapDie{
 ...
-   🟢isHighlighted?: boolean;🟢
+   tags?: string[];
 ...
 }
 ```
 
-```
-        ...
-        for (const die of this.wafermap.dies) {
-            ...
-            this._diesRenderInfo.push({
-                ...
-                fillStyle: this.calculateFillStyle(
-                    die.value,
-                    colorScaleMode,
-                    highlightedValues,
-                    🟢 die.isHighlighted🟢
-                ),
-                ...
-            });
-        }
-        ...
-```
+Example of tags:
 
 ```
-    ...
-    private calculateFillStyle(
-        ...
-        🟢isHighlighted?: boolean🟢
-    ): string {
-        ...
-        rgbColor = new ColorRGBA64(
-            ...
-            this.calculateOpacity(value, highlightedValues, 🟢isHighlighted🟢)
-        );
-        ...
-    }
-    ...
+{ 'sb1', 'hb2' }
 ```
 
+We will make the highlights based on this tags. The wafer will receive a list of highlightedTags
+
 ```
-    ...
-    private calculateOpacity(
-        ...
-        🟢isHighlighted?: boolean🟢
-    ): number {
-        return 🟢isHighlighted🟢 || (highlightedValues.length > 0
-            && !highlightedValues.some(dieValue => dieValue === selectedValue))
-            ? this.nonHighlightedOpacity
-            : 1;
-    }
-    ...
+@observable public highlightedTags: string[][]
 ```
 
-This approach will let us to highlight any die we want, without any restrictions. The logic that decides which dies should be highlighted can be moved completely out of the wafer map component, leaving the component the duty of only highlighting the given dies using the "isHighlighted" field.
+Example:
+
+```
+[
+    [{ 'sb2', 'hb3' }],
+    [{ 'sb1' }]
+]
+```
+
+in this case we would expect that all dies having sb 2 and hb 3 or having only sb 1 to be highlighted
