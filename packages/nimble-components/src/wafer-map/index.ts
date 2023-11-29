@@ -12,6 +12,7 @@ import { RenderingModule } from './modules/rendering';
 import { EventCoordinator } from './modules/event-coordinator';
 import {
     HoverDieOpacity,
+    Tag,
     WaferMapColorScale,
     WaferMapColorScaleMode,
     WaferMapDie,
@@ -141,7 +142,7 @@ export class WaferMap extends FoundationElement {
     @observable public hoverDie: WaferMapDie | undefined;
 
     @observable public highlightedValues: string[] = [];
-    @observable public tags: unknown[] = [];
+    @observable public highlightedTags: Tag[][] = [[]];
     @observable public dies: WaferMapDie[] = [];
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
@@ -279,8 +280,8 @@ export class WaferMap extends FoundationElement {
         this.waferMapUpdateTracker.queueUpdate();
     }
 
-    private tagsChanged(): void {
-        this.waferMapUpdateTracker.track('tags');
+    private highlightedTagsChanged(): void {
+        this.waferMapUpdateTracker.track('highlightedTags');
         this.waferMapUpdateTracker.queueUpdate();
     }
 

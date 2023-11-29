@@ -42,7 +42,12 @@ export interface WaferMapDie {
     y: number;
     // The metadata field is not used by the wafer-map and is only for optionally storing arbitrary metadata.
     metadata?: unknown;
-    tags?: unknown;
+    tags?: Tag[];
+}
+
+export interface Tag{
+    key: string;
+    value: string;
 }
 
 export interface WaferMapColorScale {

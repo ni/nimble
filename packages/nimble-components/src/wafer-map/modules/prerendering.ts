@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
 import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 import { WaferMapColorScaleMode } from '../types';
-import type { Dimensions, DieRenderInfo, WaferMapColorScale } from '../types';
+import type { Dimensions, DieRenderInfo, WaferMapColorScale, Tag } from '../types';
 import type { WaferMap } from '..';
 import type { DataManager } from './data-manager';
 
@@ -32,7 +33,7 @@ export class Prerendering {
     public constructor(
         private readonly wafermap: WaferMap,
         private readonly dataManager: Readonly<DataManager>
-    ) {}
+    ) { }
 
     public updateLabelsFontSize(): void {
         this._labelsFontSize = this.calculateLabelsFontSize(
@@ -52,8 +53,8 @@ export class Prerendering {
         const horizontalScale = this.dataManager.horizontalScale;
         const verticalScale = this.dataManager.verticalScale;
 
+        const highlightedTags = this.wafermap.highlightedTags;
         const colorScaleMode = this.wafermap.colorScaleMode;
-        const highlightedValues = this.wafermap.highlightedValues;
         const maxCharacters = this.wafermap.maxCharacters;
         const dieLabelsHidden = this.wafermap.dieLabelsHidden;
         const dieLabelsSuffix = this.wafermap.dieLabelsSuffix;
@@ -74,7 +75,8 @@ export class Prerendering {
                 fillStyle: this.calculateFillStyle(
                     die.value,
                     colorScaleMode,
-                    highlightedValues,
+                    highlightedTags,
+                    die.tags,
                     isWaferHighlighted
                 ),
                 text: this.buildLabel(
@@ -94,7 +96,7 @@ export class Prerendering {
         return Math.min(
             dieDimensions.height,
             (dieDimensions.width / (Math.max(2, maxCharacters) * 0.5))
-                * this.fontSizeFactor
+            * this.fontSizeFactor
         );
     }
 
@@ -133,13 +135,23 @@ export class Prerendering {
     }
 
     private calculateOpacity(
-        selectedValue: string,
-        highlightedValues: Readonly<string[]>
+        dieTags?: Tag[],
+        highlightedTags?: Tag[][]
     ): number {
-        return highlightedValues.length > 0
-                && !highlightedValues.some(dieValue => dieValue === selectedValue)
-            ? this.nonHighlightedOpacity
-            : 1;
+        if (!(dieTags && highlightedTags)) {
+            console.log(dieTags, highlightedTags);
+            return 1;
+        }
+        const tagsMatch = highlightedTags.some(tags => this.areTagsEqual(tags, dieTags));
+        return tagsMatch ? this.nonHighlightedOpacity : 1;
+    }
+
+    private areTagsEqual(tags1: Tag[], tags2: Tag[]): boolean {
+        if (tags1.length !== tags2.length) {
+            return false;
+        }
+        const tagsMatch = tags1.every(tag1 => tags2.some(tag2 => tag2.key === tag1.key));
+        return tagsMatch;
     }
 
     private isColorScaleLinear(
@@ -157,7 +169,8 @@ export class Prerendering {
     private calculateFillStyle(
         value: string,
         colorScaleMode: WaferMapColorScaleMode,
-        highlightedValues: Readonly<string[]>,
+        highlightedTags?: Tag[][],
+        dieTags?: Tag[],
         isWaferHighlighted?: boolean
     ): string {
         let colorValue: string = this.emptyDieColor;
@@ -177,11 +190,12 @@ export class Prerendering {
         if (rgbColor === null) {
             return this.emptyDieColor;
         }
+
         rgbColor = new ColorRGBA64(
             rgbColor.r,
             rgbColor.g,
             rgbColor.b,
-            isWaferHighlighted ? this.calculateOpacity(value, highlightedValues) : 1
+            isWaferHighlighted ? this.calculateOpacity(dieTags, highlightedTags) : 1
         );
         return rgbColor.toStringWebRGBA();
     }

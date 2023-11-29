@@ -10,7 +10,8 @@ import { goodValueGenerator, badValueGenerator } from './value-generator';
 import type {
     WaferMapDie,
     WaferMapColorScale,
-    WaferMapValidity
+    WaferMapValidity,
+    Tag
 } from '../types';
 import {
     WaferMapOriginLocation,
@@ -30,7 +31,6 @@ interface WaferMapArgs {
     dieLabelsHidden: boolean;
     dieLabelsSuffix: string;
     dies: string;
-    highlightedValues: string;
     maxCharacters: number;
     orientation: WaferMapOrientation;
     originLocation: WaferMapOriginLocation;
@@ -41,8 +41,7 @@ interface WaferMapArgs {
     dieHover: unknown;
     validity: WaferMapValidity;
     isWaferHighlighted: boolean;
-    diesList: WaferMapDie[] | undefined;
-    tags: unknown[];
+    highlightedTagsSet: string;
 }
 
 const getDiesSet = (
@@ -70,11 +69,11 @@ const getDiesSet = (
     return returnedValue;
 };
 
-const getHighLightedValueSets = (
+const getHighLightedTagsSets = (
     setName: string,
-    sets: string[][]
-): string[] => {
-    let returnedValue: string[];
+    sets: Tag[][]
+): Tag[] => {
+    let returnedValue: Tag[];
     switch (setName) {
         case 'set1':
             returnedValue = sets[0]!;
@@ -88,11 +87,8 @@ const getHighLightedValueSets = (
         case 'set4':
             returnedValue = sets[3]!;
             break;
-        case 'set5':
-            returnedValue = sets[0]!;
-            break;
         default:
-            returnedValue = [] as string[];
+            returnedValue = [] as Tag[];
             break;
     }
     return returnedValue;
@@ -127,13 +123,8 @@ const metadata: Meta<WaferMapArgs> = {
             grid-min-y=${x => x.gridMinY}
             grid-max-y=${x => x.gridMaxY}
             :colorScale="${x => x.colorScale}"
-            :tags="${x => x.tags}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
-            :highlightedValues="${x => getHighLightedValueSets(
-        x.highlightedValues,
-        highLightedValueSets
-    )
-}"
+            :highlightedTags="${x => getHighLightedTagsSets(x.highlightedTagsSet, highLightedValueSets)}"
             >
         </${waferMapTag}>
         <style class="code-hide">
@@ -149,7 +140,7 @@ const metadata: Meta<WaferMapArgs> = {
         dies: 'fixedDies10',
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
-        highlightedValues: 'set1',
+        highlightedTagsSet: 'set1',
         maxCharacters: 4,
         orientation: WaferMapOrientation.left,
         originLocation: WaferMapOriginLocation.bottomLeft,
@@ -157,8 +148,7 @@ const metadata: Meta<WaferMapArgs> = {
         gridMaxX: undefined,
         gridMinY: undefined,
         gridMaxY: undefined,
-        isWaferHighlighted: undefined,
-        tags: undefined
+        isWaferHighlighted: true
     },
     argTypes: {
         colorScale: {
@@ -237,7 +227,7 @@ const metadata: Meta<WaferMapArgs> = {
                 'String that can be added as a label at the end of each wafer map die value',
             control: { type: 'text' }
         },
-        highlightedValues: {
+        highlightedTagsSet: {
             description: `Represents an array of die indexes that will be highlighted in the wafer map view
 
 <details>
@@ -245,15 +235,14 @@ const metadata: Meta<WaferMapArgs> = {
     The \`highlightedValues\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
 </details>
                 `,
-            options: ['set1', 'set2', 'set3', 'set4', 'set5'],
+            options: ['set1', 'set2', 'set3', 'set4'],
             control: {
                 type: 'radio',
                 labels: {
                     set1: 'Set 1',
                     set2: 'Set 2',
                     set3: 'Set 3',
-                    set4: 'Set 4',
-                    set5: 'Set 5'
+                    set4: 'Set 4'
                 }
             },
             defaultValue: 'set1'

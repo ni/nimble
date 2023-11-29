@@ -1,10 +1,10 @@
-import type { WaferMapDie, WaferMapColorScale } from '../types';
+import type { WaferMapDie, WaferMapColorScale, Tag } from '../types';
 
-export const highLightedValueSets = [
+export const highLightedValueSets: Tag[][] = [
     [],
-    ['14.24', '67.93', '26.49', '52.90'],
-    ['76.43', '72.71', '37.79', '98.50'],
-    ['44.63', '79.04', '59.82', '62.80']
+    [{ key: 'sb', value: '1' }],
+    [{ key: 'sb', value: '3' }],
+    [{ key: 'hb', value: '2' }]
 ];
 
 export const wafermapDieSets: WaferMapDie[][] = [
@@ -14,7 +14,7 @@ export const wafermapDieSets: WaferMapDie[][] = [
             y: 2,
             value: '14.24',
             metadata: 'Placeholder metadata value for Die x: 0 y: 2',
-            tags: [{ sb: 1, hb: 2 }]
+            tags: [{ key: 'sb', value: '1' }, { key: 'hb', value: '2' }]
         },
         {
             x: 1,
@@ -27,7 +27,7 @@ export const wafermapDieSets: WaferMapDie[][] = [
             y: 1,
             value: '44.63',
             metadata: 'Placeholder metadata value for Die x: 1 y: 1',
-            tags: [{ sb: 3, hb: 2 }]
+            tags: [{ key: 'sb', value: '3' }, { key: 'hb', value: '2' }]
         },
         {
             x: 1,
@@ -40,7 +40,7 @@ export const wafermapDieSets: WaferMapDie[][] = [
             y: 2,
             value: '72.71',
             metadata: 'Placeholder metadata value for Die x: 2 y: 2',
-            tags: [{ sb: 1, hb: 2 }]
+            tags: [{ key: 'sb', value: '1' }, { key: 'hb', value: '2' }]
         },
         {
             x: 2,
