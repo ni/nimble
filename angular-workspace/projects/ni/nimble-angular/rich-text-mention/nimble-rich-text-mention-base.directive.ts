@@ -1,8 +1,10 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import type { RichTextMentionValidity } from '@ni/nimble-components/dist/esm/rich-text-mention/base/models/mention-validator';
+import type { MentionUpdateEventDetail } from '@ni/nimble-components/dist/esm/rich-text-mention/base/types';
 import type { RichTextMention } from '@ni/nimble-components/dist/esm/rich-text-mention/base';
 
 export { RichTextMentionValidity };
+export type { MentionUpdateEventDetail };
 
 /**
  * Base class for rich text mention directives
