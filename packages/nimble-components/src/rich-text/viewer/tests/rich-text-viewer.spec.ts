@@ -393,8 +393,12 @@ describe('RichTextViewer', () => {
         describe('validity', () => {
             it('should have valid states by default', () => {
                 expect(element.checkValidity()).toBeTrue();
-                expect(element.validity.invalidMentionConfiguration).toBeFalse();
-                expect(element.validity.duplicateMentionConfiguration).toBeFalse();
+                expect(
+                    element.validity.invalidMentionConfiguration
+                ).toBeFalse();
+                expect(
+                    element.validity.duplicateMentionConfiguration
+                ).toBeFalse();
             });
 
             it('should have valid states when there is no mapping elements but with a configuration element', async () => {
@@ -403,8 +407,12 @@ describe('RichTextViewer', () => {
                 await waitForUpdatesAsync();
 
                 expect(element.checkValidity()).toBeTrue();
-                expect(element.validity.invalidMentionConfiguration).toBeFalse();
-                expect(element.validity.duplicateMentionConfiguration).toBeFalse();
+                expect(
+                    element.validity.invalidMentionConfiguration
+                ).toBeFalse();
+                expect(
+                    element.validity.duplicateMentionConfiguration
+                ).toBeFalse();
             });
 
             it('should have invalid states when setting invalid `key` in mapping mention', async () => {
@@ -465,7 +473,9 @@ describe('RichTextViewer', () => {
                 await waitForUpdatesAsync();
 
                 expect(element.checkValidity()).toBeFalse();
-                expect(element.validity.duplicateMentionConfiguration).toBeTrue();
+                expect(
+                    element.validity.duplicateMentionConfiguration
+                ).toBeTrue();
             });
 
             it('should have valid states when the duplicate configuration element removed', async () => {
@@ -479,8 +489,12 @@ describe('RichTextViewer', () => {
                 await waitForUpdatesAsync();
 
                 expect(element.checkValidity()).toBeTrue();
-                expect(element.validity.duplicateMentionConfiguration).toBeFalse();
-                expect(element.validity.invalidMentionConfiguration).toBeFalse();
+                expect(
+                    element.validity.duplicateMentionConfiguration
+                ).toBeFalse();
+                expect(
+                    element.validity.invalidMentionConfiguration
+                ).toBeFalse();
             });
         });
     });
