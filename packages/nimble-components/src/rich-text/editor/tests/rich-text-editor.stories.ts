@@ -82,7 +82,7 @@ const metadata: Meta<RichTextEditorArgs> = {
             }
         },
         actions: {
-            handles: ['input']
+            handles: ['input', 'mention-update']
         }
     },
     // prettier-ignore

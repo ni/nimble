@@ -394,7 +394,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         this.openMentionPopup = false;
     }
 
-    protected updateView(): void {
+    protected override updateView(): void {
         this.setMarkdown(this.getMarkdown());
     }
 
@@ -441,7 +441,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @param fragment Fragment containing the pasted content. [Fragment](https://prosemirror.net/docs/ref/#model.Fragment)
      * @returns modified fragment from the `updatedNode` after updating the valid link text with its href value.
      */
-    private readonly updateLinkNodes = (fragment: Fragment): Fragment => {
+    private readonly updateLinkAndMentionNodes = (
+        fragment: Fragment
+    ): Fragment => {
         const updatedNodes: FragmentNode[] = [];
 
         fragment.forEach(node => {
@@ -479,8 +481,14 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 } else {
                     updatedNodes.push(node);
                 }
+            } else if (node.type.name === 'mention') {
+                updatedNodes.push(
+                    this.tiptapEditor.schema.text(node.attrs.label as string)
+                );
             } else {
-                const updatedContent = this.updateLinkNodes(node.content);
+                const updatedContent = this.updateLinkAndMentionNodes(
+                    node.content
+                );
                 updatedNodes.push(node.copy(updatedContent));
             }
         });
@@ -497,7 +505,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
          * ProseMirror reference for `transformPasted`: https://prosemirror.net/docs/ref/#view.EditorProps.transformPasted
          */
         const transformPasted = (slice: Slice): Slice => {
-            const modifiedFragment = this.updateLinkNodes(slice.content);
+            const modifiedFragment = this.updateLinkAndMentionNodes(
+                slice.content
+            );
             return new Slice(modifiedFragment, slice.openStart, slice.openEnd);
         };
 
@@ -710,11 +720,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(
+        const parserDetail = RichTextMarkdownParser.parseMarkdownToDOM(
             markdown,
             this.mentionConfig
         );
-        return this.xmlSerializer.serializeToString(documentFragment);
+        return this.xmlSerializer.serializeToString(parserDetail.fragment);
     }
 
     /**

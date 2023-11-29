@@ -7,11 +7,16 @@ import { DOMSerializer, Schema } from 'prosemirror-model';
 import { anchorTag } from '../../anchor';
 import type { MarkdownParserMentionConfiguration } from './markdown-parser-mention-configuration';
 
+export interface ParserDetail {
+    fragment: HTMLElement | DocumentFragment;
+    mentionedHrefs: string[];
+}
+
 /**
  * Provides markdown parser for rich text components
  */
 export class RichTextMarkdownParser {
-    private static mentionedHrefs: string[];
+    private static mentionedHrefs: string[] = [];
     private static readonly updatedSchema = this.getCustomSchemaConfiguration();
 
     private static readonly markdownParser = this.initializeMarkdownParser();
@@ -26,10 +31,6 @@ export class RichTextMarkdownParser {
      */
     private static mentionConfigs?: MarkdownParserMentionConfiguration[];
 
-    public static getMentionedHrefs(): string[] {
-        return RichTextMarkdownParser.mentionedHrefs;
-    }
-
     /**
      * This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a
      * DOM structure using a DOMSerializer, and returns the serialized result.
@@ -38,19 +39,25 @@ export class RichTextMarkdownParser {
     public static parseMarkdownToDOM(
         value: string,
         markdownParserMentionConfig?: MarkdownParserMentionConfiguration[]
-    ): HTMLElement | DocumentFragment {
-        RichTextMarkdownParser.mentionedHrefs = [];
+    ): ParserDetail {
         try {
             this.mentionConfigs = markdownParserMentionConfig;
             const parsedMarkdownContent = this.markdownParser.parse(value);
             if (parsedMarkdownContent === null) {
-                return document.createDocumentFragment();
+                return {
+                    fragment: document.createDocumentFragment(),
+                    mentionedHrefs: RichTextMarkdownParser.mentionedHrefs
+                };
             }
-            return this.domSerializer.serializeFragment(
-                parsedMarkdownContent.content
-            );
+            return {
+                fragment: this.domSerializer.serializeFragment(
+                    parsedMarkdownContent.content
+                ),
+                mentionedHrefs: RichTextMarkdownParser.mentionedHrefs
+            };
         } finally {
             this.mentionConfigs = undefined;
+            RichTextMarkdownParser.mentionedHrefs = [];
         }
     }
 
