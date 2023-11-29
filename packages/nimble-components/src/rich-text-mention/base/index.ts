@@ -17,6 +17,7 @@ import {
 } from './models/mention-internals';
 import { Mapping } from '../../mapping/base';
 import type { RichText } from '../../rich-text/base';
+import type { MentionUpdateEventDetail } from './types';
 
 export type MappingConfigs = ReadonlyMap<string, MappingConfig>;
 
@@ -80,7 +81,10 @@ export abstract class RichTextMention<
      * @internal
      */
     public onMention(filter: string): void {
-        this.$emit('mention-update', { filter });
+        const mentionUpdateEventDetails: MentionUpdateEventDetail = {
+            filter
+        };
+        this.$emit('mention-update', mentionUpdateEventDetails);
     }
 
     /**
