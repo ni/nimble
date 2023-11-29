@@ -28,6 +28,8 @@ export class RichTextViewer extends RichText {
      */
     public viewer!: HTMLDivElement;
 
+    private mentionedHrefs: string[] = [];
+
     /**
      * @internal
      */
@@ -44,10 +46,7 @@ export class RichTextViewer extends RichText {
     }
 
     public getMentionedHrefs(): string[] {
-        return RichTextMarkdownParser.getMentionedHrefs(
-            this.markdown,
-            this.mentionConfig
-        );
+        return this.mentionedHrefs;
     }
 
     protected override updateView(): void {
@@ -55,13 +54,15 @@ export class RichTextViewer extends RichText {
             return;
         }
         if (this.markdown) {
-            const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
+            const parserDetail = RichTextMarkdownParser.parseMarkdownToDOM(
                 this.markdown,
                 this.mentionConfig
             );
-            this.viewer.replaceChildren(serializedContent);
+            this.viewer.replaceChildren(parserDetail.fragment);
+            this.mentionedHrefs = parserDetail.mentionedHrefs;
         } else {
             this.viewer.innerHTML = '';
+            this.mentionedHrefs = [];
         }
     }
 }

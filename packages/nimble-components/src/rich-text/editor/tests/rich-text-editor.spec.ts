@@ -1175,6 +1175,52 @@ describe('RichTextEditor', () => {
                 );
             });
 
+            describe('pasting mention nodes should render as plain text', () => {
+                const validMentionNodes = [
+                    {
+                        name: 'Mention Node',
+                        input: '<nimble-rich-text-mention-users-view mention-href="user:1" mention-label="User" disable-editing="true"></nimble-rich-text-mention-users-view>',
+                        textContent: 'User'
+                    },
+                    {
+                        name: 'Mention Node within paragraph node',
+                        input: '<p>Mention nodes between <nimble-rich-text-mention-users-view mention-href="user:1" mention-label="User" disable-editing="true"></nimble-rich-text-mention-users-view> text</p>',
+                        textContent: 'Mention nodes between User text'
+                    },
+                    {
+                        name: 'Mention Node within strong node',
+                        input: '<strong><nimble-rich-text-mention-users-view mention-href="user:1" mention-label="User" disable-editing="true"></nimble-rich-text-mention-users-view></strong>',
+                        textContent: 'User'
+                    },
+                    {
+                        name: 'Mention Node within italics node',
+                        input: '<em><nimble-rich-text-mention-users-view mention-href="user:1" mention-label="User" disable-editing="true"></nimble-rich-text-mention-users-view></em>',
+                        textContent: 'User'
+                    },
+                    {
+                        name: 'Mention Node within strong and italics node',
+                        input: '<strong><em><nimble-rich-text-mention-users-view mention-href="user:1" mention-label="User" disable-editing="true"></nimble-rich-text-mention-users-view></em></strong>',
+                        textContent: 'User'
+                    }
+                ] as const;
+
+                parameterizeNamedList(validMentionNodes, (spec, name, value) => {
+                    spec(
+                        `${name} renders as plain text in editor`,
+                        () => {
+                            pageObject.pasteHTMLToEditor(value.input);
+
+                            expect(
+                                pageObject.getEditorTagNamesWithClosingTags()
+                            ).toEqual(['P', '/P']);
+                            expect(pageObject.getEditorTextContents()).toEqual([
+                                value.textContent
+                            ]);
+                        }
+                    );
+                });
+            });
+
             describe('pasting various links within text should render as absolute links within text ', () => {
                 const validLinkNodes = [
                     {

@@ -398,6 +398,12 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 } else {
                     updatedNodes.push(node);
                 }
+            } else if (node.type.name === 'mention') {
+                updatedNodes.push(
+                    this.tiptapEditor.schema.text(
+                        node.attrs.label as string
+                    )
+                );
             } else {
                 const updatedContent = this.updateLinkNodes(node.content);
                 updatedNodes.push(node.copy(updatedContent));
@@ -590,11 +596,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(
+        const parserDetail = RichTextMarkdownParser.parseMarkdownToDOM(
             markdown,
             this.mentionConfig
         );
-        return this.xmlSerializer.serializeToString(documentFragment);
+        return this.xmlSerializer.serializeToString(parserDetail.fragment);
     }
 
     /**
