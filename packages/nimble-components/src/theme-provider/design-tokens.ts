@@ -209,6 +209,10 @@ export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
 
+export const cardBorderColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.cardBorderColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.1));
+
 export const graphGridlineColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphGridlineColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.2));

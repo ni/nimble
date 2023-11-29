@@ -37,6 +37,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     iconColor: 'icon-color',
     modalBackdropColor: 'modal-backdrop-color',
     popupBorderColor: 'popup-border-color',
+    cardBorderColor: 'card-border-color',
     controlHeight: 'control-height',
     controlSlimHeight: 'control-slim-height',
     smallPadding: 'small-padding',

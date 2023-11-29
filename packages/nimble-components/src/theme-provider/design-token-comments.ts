@@ -48,6 +48,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     iconColor: 'Equivalent to the font color for icons',
     modalBackdropColor: 'Color of background overlay behind modal dialog boxes',
     popupBorderColor: 'Border color for menus and dialog boxes',
+    cardBorderColor: 'Border color for cards',
     controlHeight:
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
     controlSlimHeight:
