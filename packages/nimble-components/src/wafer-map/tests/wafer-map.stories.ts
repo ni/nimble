@@ -42,6 +42,7 @@ interface WaferMapArgs {
     validity: WaferMapValidity;
     isWaferHighlighted: boolean;
     diesList: WaferMapDie[] | undefined;
+    tags: unknown[];
 }
 
 const getDiesSet = (
@@ -126,6 +127,7 @@ const metadata: Meta<WaferMapArgs> = {
             grid-min-y=${x => x.gridMinY}
             grid-max-y=${x => x.gridMaxY}
             :colorScale="${x => x.colorScale}"
+            :tags="${x => x.tags}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
             :highlightedValues="${x => getHighLightedValueSets(
         x.highlightedValues,
@@ -155,7 +157,8 @@ const metadata: Meta<WaferMapArgs> = {
         gridMaxX: undefined,
         gridMinY: undefined,
         gridMaxY: undefined,
-        isWaferHighlighted: undefined
+        isWaferHighlighted: undefined,
+        tags: undefined
     },
     argTypes: {
         colorScale: {

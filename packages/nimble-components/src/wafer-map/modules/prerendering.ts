@@ -75,7 +75,6 @@ export class Prerendering {
                     die.value,
                     colorScaleMode,
                     highlightedValues,
-                    die.isHighlighted,
                     isWaferHighlighted
                 ),
                 text: this.buildLabel(
@@ -135,12 +134,10 @@ export class Prerendering {
 
     private calculateOpacity(
         selectedValue: string,
-        highlightedValues: Readonly<string[]>,
-        isHighlighted?: boolean
+        highlightedValues: Readonly<string[]>
     ): number {
-        return isHighlighted === true
-            || (highlightedValues.length > 0
-                && !highlightedValues.some(dieValue => dieValue === selectedValue))
+        return highlightedValues.length > 0
+                && !highlightedValues.some(dieValue => dieValue === selectedValue)
             ? this.nonHighlightedOpacity
             : 1;
     }
@@ -161,7 +158,6 @@ export class Prerendering {
         value: string,
         colorScaleMode: WaferMapColorScaleMode,
         highlightedValues: Readonly<string[]>,
-        isHighlighted?: boolean,
         isWaferHighlighted?: boolean
     ): string {
         let colorValue: string = this.emptyDieColor;
@@ -185,7 +181,7 @@ export class Prerendering {
             rgbColor.r,
             rgbColor.g,
             rgbColor.b,
-            isWaferHighlighted ? this.calculateOpacity(value, highlightedValues, isHighlighted) : 1
+            isWaferHighlighted ? this.calculateOpacity(value, highlightedValues) : 1
         );
         return rgbColor.toStringWebRGBA();
     }

@@ -37,12 +37,12 @@ export type WaferMapColorScaleMode =
     (typeof WaferMapColorScaleMode)[keyof typeof WaferMapColorScaleMode];
 
 export interface WaferMapDie {
-    isHighlighted?: boolean;
     value: string;
     x: number;
     y: number;
     // The metadata field is not used by the wafer-map and is only for optionally storing arbitrary metadata.
     metadata?: unknown;
+    tags?: unknown;
 }
 
 export interface WaferMapColorScale {

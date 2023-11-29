@@ -3,6 +3,7 @@ import type { WaferMap } from '..';
 import { UpdateTracker } from '../../utilities/models/update-tracker';
 
 const trackedItems = [
+    'tags',
     'isWaferHighlighted',
     'canvasWidth',
     'canvasHeight',
@@ -34,7 +35,8 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
 
     public get requiresEventsUpdate(): boolean {
         return (
-            this.isTracked('isWaferHighlighted')
+            this.isTracked('tags')
+            || this.isTracked('isWaferHighlighted')
             || this.isTracked('canvasWidth')
             || this.isTracked('canvasHeight')
             || this.isTracked('originLocation')

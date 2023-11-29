@@ -13,21 +13,21 @@ export const wafermapDieSets: WaferMapDie[][] = [
             x: 0,
             y: 2,
             value: '14.24',
-            metadata: 'Placeholder metadata value for Die x: 0 y: 2'
+            metadata: 'Placeholder metadata value for Die x: 0 y: 2',
+            tags: [{ sb: 1, hb: 2 }]
         },
         {
             x: 1,
             y: 2,
             value: '76.43',
             metadata: 'Placeholder metadata value for Die x: 1 y: 2',
-            isHighlighted: true
         },
         {
             x: 1,
             y: 1,
             value: '44.63',
             metadata: 'Placeholder metadata value for Die x: 1 y: 1',
-            isHighlighted: true
+            tags: [{ sb: 3, hb: 2 }]
         },
         {
             x: 1,
@@ -40,14 +40,13 @@ export const wafermapDieSets: WaferMapDie[][] = [
             y: 2,
             value: '72.71',
             metadata: 'Placeholder metadata value for Die x: 2 y: 2',
-            isHighlighted: true
+            tags: [{ sb: 1, hb: 2 }]
         },
         {
             x: 2,
             y: 1,
             value: '79.04',
             metadata: 'Placeholder metadata value for Die x: 2 y: 1',
-            isHighlighted: true
         },
         {
             x: 2,
@@ -72,14 +71,12 @@ export const wafermapDieSets: WaferMapDie[][] = [
             y: 2,
             value: '52.90',
             metadata: 'Placeholder metadata value for Die x: 3 y: 2',
-            isHighlighted: true
         },
         {
             x: 3,
             y: 1,
             value: '98.50',
             metadata: 'Placeholder metadata value for Die x: 3 y: 1',
-            isHighlighted: true
         },
         {
             x: 3,

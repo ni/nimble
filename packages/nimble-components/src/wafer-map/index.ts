@@ -141,6 +141,7 @@ export class WaferMap extends FoundationElement {
     @observable public hoverDie: WaferMapDie | undefined;
 
     @observable public highlightedValues: string[] = [];
+    @observable public tags: unknown[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
@@ -275,6 +276,11 @@ export class WaferMap extends FoundationElement {
 
     private highlightedValuesChanged(): void {
         this.waferMapUpdateTracker.track('highlightedValues');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private tagsChanged(): void {
+        this.waferMapUpdateTracker.track('tags');
         this.waferMapUpdateTracker.queueUpdate();
     }
 
