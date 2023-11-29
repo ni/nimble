@@ -44,10 +44,13 @@ export class RichTextViewer extends RichText {
     }
 
     public getMentionedHrefs(): string[] {
-        return RichTextMarkdownParser.getMentionedHrefs();
+        return RichTextMarkdownParser.getMentionedHrefs(
+            this.markdown,
+            this.mentionConfig
+        );
     }
 
-    protected updateView(): void {
+    protected override updateView(): void {
         if (!this.$fastController.isConnected) {
             return;
         }
