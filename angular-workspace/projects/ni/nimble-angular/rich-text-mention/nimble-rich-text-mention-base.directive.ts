@@ -2,7 +2,7 @@ import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Rende
 import type { RichTextMentionValidity } from '@ni/nimble-components/dist/esm/rich-text-mention/base/models/mention-validator';
 import type { RichTextMention } from '@ni/nimble-components/dist/esm/rich-text-mention/base';
 
-export type { RichTextMentionValidity };
+export { RichTextMentionValidity };
 
 /**
  * Base class for rich text mention directives

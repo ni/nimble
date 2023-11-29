@@ -45,7 +45,7 @@ describe('NimbleRichTextMentionUsers', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('will use template string values for pattern', () => {
+        it('has expected default for pattern', () => {
             expect(directive.pattern).toBeUndefined();
             expect(nativeElement.pattern).toBeUndefined();
         });
@@ -165,7 +165,7 @@ describe('NimbleRichTextMentionUsers', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with property binding for pattern', () => {
+        it('can be configured with attribute binding for pattern', () => {
             expect(directive.pattern).toBe('^user:(.*)');
             expect(nativeElement.pattern).toBe('^user:(.*)');
 

@@ -48,12 +48,12 @@ describe('NimbleMappingUser', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('will use template string values for key', () => {
+        it('has expected default for key', () => {
             expect(directive.key).toBeUndefined();
             expect(nativeElement.key).toBeUndefined();
         });
 
-        it('will use template string values for display name', () => {
+        it('has expected default for display name', () => {
             expect(directive.displayName).toBeUndefined();
             expect(nativeElement.displayName).toBeUndefined();
         });
