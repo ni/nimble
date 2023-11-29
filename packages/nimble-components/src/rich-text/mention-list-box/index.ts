@@ -1,6 +1,15 @@
 import { attr, observable } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement, isListboxOption } from '@microsoft/fast-foundation';
-import { keyTab, keyEnter, keyArrowDown, keyArrowUp } from '@microsoft/fast-web-utilities';
+import {
+    DesignSystem,
+    FoundationElement,
+    isListboxOption
+} from '@microsoft/fast-foundation';
+import {
+    keyTab,
+    keyEnter,
+    keyArrowDown,
+    keyArrowUp
+} from '@microsoft/fast-web-utilities';
 import type { ListOption } from '../../list-option';
 import type { Listbox } from '../../listbox';
 import type { MentionDetail } from '../editor/types';
@@ -44,9 +53,11 @@ export class RichTextMentionListBox extends FoundationElement {
      * @public
      */
     public async selectFirstListOption(): Promise<void> {
-        const definedElements = [this.listBox?.matches(':not(:defined)')
-            ? customElements.whenDefined(this.listBox.localName)
-            : Promise.resolve()];
+        const definedElements = [
+            this.listBox?.matches(':not(:defined)')
+                ? customElements.whenDefined(this.listBox.localName)
+                : Promise.resolve()
+        ];
         await Promise.all(definedElements);
         if (this.hasSelectableOptions) {
             this.listBox?.selectFirstOption();
@@ -62,7 +73,10 @@ export class RichTextMentionListBox extends FoundationElement {
         switch (key) {
             case keyTab:
             case keyEnter: {
-                if (this.listBox.firstSelectedOption && this.hasSelectableOptions) {
+                if (
+                    this.listBox.firstSelectedOption
+                    && this.hasSelectableOptions
+                ) {
                     this.$emit('change', {
                         href: this.listBox.firstSelectedOption.value,
                         displayName: this.listBox.firstSelectedOption.innerText
@@ -116,7 +130,10 @@ export class RichTextMentionListBox extends FoundationElement {
         this.listBox?.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
     }
 
-    private slottedOptionsChanged(_prev: Element[] | undefined, next: Element[]): void {
+    private slottedOptionsChanged(
+        _prev: Element[] | undefined,
+        next: Element[]
+    ): void {
         this.options = next.reduce<ListOption[]>((options, item) => {
             if (isListboxOption(item)) {
                 options.push(item);
@@ -140,7 +157,9 @@ export class RichTextMentionListBox extends FoundationElement {
                 o.disabled = checkFlag;
                 o.hidden = checkFlag;
             });
-            this.hasSelectableOptions = !this._options.every(list => list.disabled);
+            this.hasSelectableOptions = !this._options.every(
+                list => list.disabled
+            );
         }
         void this.selectFirstListOption();
     }
@@ -164,4 +183,6 @@ const nimbleRichTextMentionListBox = RichTextMentionListBox.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleRichTextMentionListBox());
-export const richTextMentionListBoxTag = DesignSystem.tagFor(RichTextMentionListBox);
+export const richTextMentionListBoxTag = DesignSystem.tagFor(
+    RichTextMentionListBox
+);

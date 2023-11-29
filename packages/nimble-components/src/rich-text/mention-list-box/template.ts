@@ -1,5 +1,5 @@
 /* eslint-disable */
-import {html, ref, slotted } from '@microsoft/fast-element';
+import { html, ref, slotted } from '@microsoft/fast-element';
 import type { RichTextMentionListBox } from '.';
 import { Listbox, listboxTag } from '../../listbox';
 

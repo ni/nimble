@@ -41,7 +41,10 @@ import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
 import { RichText } from '../base';
-import type { MappingConfigs, RichTextMentionConfig } from '../../rich-text-mention/base';
+import type {
+    MappingConfigs,
+    RichTextMentionConfig
+} from '../../rich-text-mention/base';
 import type { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 import type { AnchoredRegion } from '../../anchored-region';
 import type { RichTextMentionListBox } from '../mention-list-box';
@@ -194,7 +197,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     @observable
     private activeChar?: string;
 
-    private readonly mentionMap: Map<string, MentionInternals<RichTextMentionConfig>> = new Map();
+    private readonly mentionMap: Map<
+    string,
+    MentionInternals<RichTextMentionConfig>
+    > = new Map();
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
@@ -394,13 +400,22 @@ export class RichTextEditor extends RichText implements ErrorPattern {
 
     protected override updateMentionConfig(): void {
         super.updateMentionConfig();
-        this.mentionElements.forEach((element => {
+        this.mentionElements.forEach(element => {
             this.mentionMap.clear();
-            if (element.mentionInternals.pattern && element.mentionInternals.mentionConfig) {
-                this.mentionMap.set(element.mentionInternals.character, element.mentionInternals);
+            if (
+                element.mentionInternals.pattern
+                && element.mentionInternals.mentionConfig
+            ) {
+                this.mentionMap.set(
+                    element.mentionInternals.character,
+                    element.mentionInternals
+                );
             }
-            this.activeConfiguration = this.activeChar ? this.mentionMap.get(this.activeChar)?.mentionConfig?.mappingConfigs : undefined;
-        }));
+            this.activeConfiguration = this.activeChar
+                ? this.mentionMap.get(this.activeChar)?.mentionConfig
+                    ?.mappingConfigs
+                : undefined;
+        });
     }
 
     private activeCharChanged(_oldValue: string, newValue: string): void {
@@ -652,7 +667,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                                 inSuggestionMode = false;
                                 return false;
                             }
-                            return this.mentionListBox?.keydownHandler(props.event) ?? false;
+                            return (
+                                this.mentionListBox?.keydownHandler(
+                                    props.event
+                                ) ?? false
+                            );
                         },
 
                         onExit: (): void => {
