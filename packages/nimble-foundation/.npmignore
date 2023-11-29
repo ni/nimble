@@ -1,0 +1,9 @@
+*
+!/dist/*.*
+!/dist/esm/**
+/dist/esm/**/tests
+
+# The storybook build ends up making a duplicate
+# typescript build of nimble-components inside the dist folder
+# See https://github.com/ni/nimble/issues/568
+/dist/esm/nimble-foundation
