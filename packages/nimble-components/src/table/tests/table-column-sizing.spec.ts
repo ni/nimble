@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
+import type { TableColumn } from '@ni/nimble-foundation/dist/esm/table-column/base';
 import type { Table } from '..';
-import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import type {

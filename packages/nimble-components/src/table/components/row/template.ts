@@ -1,10 +1,10 @@
 import { html, ref, repeat, when } from '@microsoft/fast-element';
+import type { TableColumn } from '@ni/nimble-foundation/dist/esm/table-column/base';
 import type { TableRow } from '.';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import { tableCellTag } from '../cell';
 import { checkboxTag } from '../../../checkbox';
 import { tableRowSelectLabel } from '../../../label-provider/table/label-tokens';
-import type { TableColumn } from '../../../table-column/base';
 
 // prettier-ignore
 export const template = html<TableRow>`

@@ -1,5 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { customElement } from '@microsoft/fast-element';
+import { TableColumn } from '@ni/nimble-foundation/dist/esm/table-column/base';
+import { TableColumnSortDirection } from '@ni/nimble-foundation/dist/esm/table/types';
+import type { ColumnInternalsOptions } from '@ni/nimble-foundation/dist/esm/table-column/base/models/column-internals';
 import {
     fixture,
     Fixture,
@@ -11,9 +14,6 @@ import {
     tableColumnEmptyGroupHeaderViewTag,
     tableColumnEmptyTag
 } from './table-column.fixtures';
-import { TableColumn } from '..';
-import { TableColumnSortDirection } from '../../../table/types';
-import type { ColumnInternalsOptions } from '../models/column-internals';
 
 async function setup(): Promise<Fixture<TableColumnEmpty>> {
     return fixture(tableColumnEmptyTag);

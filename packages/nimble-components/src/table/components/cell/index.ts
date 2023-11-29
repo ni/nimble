@@ -1,14 +1,10 @@
-import { attr, observable, ViewTemplate } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import type { MenuButton } from '../../../menu-button';
-import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
-import type { TableColumn } from '../../../table-column/base';
+import { DesignSystem } from '@microsoft/fast-foundation';
+import { TableCell as NimbleTableCellBase } from '@ni/nimble-foundation/dist/esm/table/components/cell';
 import type {
-    TableCellRecord,
-    TableCellState
-} from '../../../table-column/base/types';
+    TableCellRecord
+} from '@ni/nimble-foundation/dist/esm/table-column/base/types';
+import { template } from '@ni/nimble-foundation/dist/esm/table/components/cell/template';
 import { styles } from './styles';
-import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -22,49 +18,7 @@ declare global {
  */
 export class TableCell<
     TCellRecord extends TableCellRecord = TableCellRecord
-> extends FoundationElement {
-    @observable
-    public cellState?: TableCellState<TCellRecord>;
-
-    @observable
-    public column?: TableColumn;
-
-    @observable
-    public recordId?: string;
-
-    @attr({ attribute: 'column-id' })
-    public columnId?: string;
-
-    @attr({ attribute: 'has-action-menu', mode: 'boolean' })
-    public hasActionMenu = false;
-
-    @attr({ attribute: 'menu-open', mode: 'boolean' })
-    public menuOpen = false;
-
-    @attr({ attribute: 'action-menu-label' })
-    public actionMenuLabel?: string;
-
-    @observable
-    public cellViewTemplate?: ViewTemplate<TableCell>;
-
-    @observable
-    public nestingLevel = 0;
-
-    public readonly actionMenuButton?: MenuButton;
-
-    public onActionMenuBeforeToggle(
-        event: CustomEvent<MenuButtonToggleEventDetail>
-    ): void {
-        this.$emit('cell-action-menu-beforetoggle', event.detail);
-    }
-
-    public onActionMenuToggle(
-        event: CustomEvent<MenuButtonToggleEventDetail>
-    ): void {
-        this.menuOpen = event.detail.newState;
-        this.$emit('cell-action-menu-toggle', event.detail);
-    }
-}
+> extends NimbleTableCellBase<TCellRecord> { }
 
 const nimbleTableCell = TableCell.compose({
     baseName: 'table-cell',

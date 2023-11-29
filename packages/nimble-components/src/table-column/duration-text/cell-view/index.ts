@@ -1,11 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { template } from '../../text-base/cell-view/template';
-import type {
-    TableColumnDurationTextCellRecord,
-    TableColumnDurationTextColumnConfig
-} from '..';
+import { TableColumnDurationTextCellView as NimbleTableColumnDurationTextCellViewBase } from '@ni/nimble-foundation/dist/esm/table-column/duration-text/cell-view';
+import { template } from '@ni/nimble-foundation/dist/esm/table-column/text-base/cell-view/template';
 import { styles } from '../../text-base/cell-view/styles';
-import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,22 +12,7 @@ declare global {
 /**
  * A cell view for displaying duration fields as text
  */
-export class TableColumnDurationTextCellView extends TableColumnTextCellViewBase<
-TableColumnDurationTextCellRecord,
-TableColumnDurationTextColumnConfig
-> {
-    private columnConfigChanged(): void {
-        this.updateText();
-    }
-
-    private cellRecordChanged(): void {
-        this.updateText();
-    }
-
-    private updateText(): void {
-        this.text = this.columnConfig?.formatter.format(this.cellRecord?.value) ?? '';
-    }
-}
+export class TableColumnDurationTextCellView extends NimbleTableColumnDurationTextCellViewBase { }
 
 const durationTextCellView = TableColumnDurationTextCellView.compose({
     baseName: 'table-column-duration-text-cell-view',

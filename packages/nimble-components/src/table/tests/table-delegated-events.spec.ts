@@ -1,7 +1,8 @@
 import { customElement, html } from '@microsoft/fast-element';
+import { TableColumn } from '@ni/nimble-foundation/dist/esm/table-column/base';
+import type { DelegatedEventEventDetails } from '@ni/nimble-foundation/dist/esm/table-column/base/types';
+import type { ColumnInternalsOptions } from '@ni/nimble-foundation/dist/esm/table-column/base/models/column-internals';
 import type { Table } from '..';
-import { TableColumn } from '../../table-column/base';
-import type { DelegatedEventEventDetails } from '../../table-column/base/types';
 import { tableColumnTextCellViewTag } from '../../table-column/text/cell-view';
 import { tableColumnTextGroupHeaderViewTag } from '../../table-column/text/group-header-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -12,7 +13,6 @@ import {
 } from '../../utilities/tests/fixture';
 import type { TableRecord } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
-import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
 
 interface SimpleTableRecord extends TableRecord {
     foo: string;

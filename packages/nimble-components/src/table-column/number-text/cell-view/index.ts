@@ -1,12 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { template } from '../../text-base/cell-view/template';
-import type {
-    TableColumnNumberTextCellRecord,
-    TableColumnNumberTextColumnConfig
-} from '..';
+import { TableColumnNumberTextCellView as NimbleTableColumnNumberTextCellViewBase } from '@ni/nimble-foundation/dist/esm/table-column/number-text/cell-view';
+import { template } from '@ni/nimble-foundation/dist/esm/table-column/text-base/cell-view/template';
 import { styles } from '../../text-base/cell-view/styles';
-import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
-import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -17,24 +12,7 @@ declare global {
 /**
  * A cell view for displaying number fields as text
  */
-export class TableColumnNumberTextCellView extends TableColumnTextCellViewBase<
-TableColumnNumberTextCellRecord,
-TableColumnNumberTextColumnConfig
-> {
-    private columnConfigChanged(): void {
-        this.updateText();
-        this.alignment = this.columnConfig?.alignment ?? TextCellViewBaseAlignment.left;
-    }
-
-    private cellRecordChanged(): void {
-        this.updateText();
-    }
-
-    private updateText(): void {
-        this.text = this.columnConfig?.formatter?.formatValue(this.cellRecord?.value)
-            ?? '';
-    }
-}
+export class TableColumnNumberTextCellView extends NimbleTableColumnNumberTextCellViewBase { }
 
 const numberTextCellView = TableColumnNumberTextCellView.compose({
     baseName: 'table-column-number-text-cell-view',

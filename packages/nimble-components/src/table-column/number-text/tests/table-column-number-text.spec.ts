@@ -1,4 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
+import { TextCellViewBaseAlignment } from '@ni/nimble-foundation/dist/esm/table-column/text-base/cell-view/types';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnNumberText, tableColumnNumberTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -8,7 +9,6 @@ import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { NumberTextAlignment, NumberTextFormat } from '../types';
 import type { TableColumnNumberTextCellView } from '../cell-view';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
-import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
 import { lang, themeProviderTag } from '../../../theme-provider';
 
 interface SimpleTableRecord extends TableRecord {

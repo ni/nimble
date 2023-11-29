@@ -1,16 +1,6 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
-import { tableTag } from '../../../table';
-import { tableColumnDateTextTag } from '..';
-import {
-    SharedTableArgs,
-    sharedTableActions,
-    sharedTableArgTypes,
-    sharedTableArgs
-} from '../../base/tests/table-column-stories-utils';
-import { tableColumnTextTag } from '../../text';
 import {
     DateTextFormat,
     DateStyle,
@@ -28,7 +18,17 @@ import {
     TimeStyle,
     TimeZoneNameFormat,
     WeekdayFormat
-} from '../types';
+} from '@ni/nimble-foundation/dist/esm/table-column/date-text/types';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
+import { tableTag } from '../../../table';
+import { tableColumnDateTextTag } from '..';
+import {
+    SharedTableArgs,
+    sharedTableActions,
+    sharedTableArgTypes,
+    sharedTableArgs
+} from '../../base/tests/table-column-stories-utils';
+import { tableColumnTextTag } from '../../text';
 
 const simpleData = [
     {

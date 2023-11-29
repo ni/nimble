@@ -1,14 +1,14 @@
 /* eslint-disable max-classes-per-file, @typescript-eslint/no-unused-vars */
 
 import { attr, customElement } from '@microsoft/fast-element';
-import { TableCellView } from '../cell-view';
-import { TableGroupHeaderView } from '../group-header-view';
-import { TableColumn } from '..';
+import { TableCellView } from '@ni/nimble-foundation/dist/esm/table-column/base/cell-view';
+import { TableGroupHeaderView } from '@ni/nimble-foundation/dist/esm/table-column/base/group-header-view';
+import { TableColumn } from '@ni/nimble-foundation/dist/esm/table-column/base/';
 import type {
     ColumnInternalsOptions,
     ColumnInternals
-} from '../models/column-internals';
-import { ColumnValidator } from '../models/column-validator';
+} from '@ni/nimble-foundation/dist/esm/table-column/base//models/column-internals';
+import { ColumnValidator } from '@ni/nimble-foundation/dist/esm/table-column/base/models/column-validator';
 
 export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
 /**

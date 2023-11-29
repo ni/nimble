@@ -1,4 +1,7 @@
 import { html, customElement } from '@microsoft/fast-element';
+import type { TableCellRecord } from '@ni/nimble-foundation/dist/esm/table-column/base/types';
+import { TableCellView } from '@ni/nimble-foundation/dist/esm/table-column/base/cell-view';
+import { createCellViewTemplate } from '@ni/nimble-foundation/dist/esm/table-column/base/cell-view/template';
 import { TableCell } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import {
@@ -6,10 +9,7 @@ import {
     uniqueElementName,
     type Fixture
 } from '../../../../utilities/tests/fixture';
-import type { TableCellRecord } from '../../../../table-column/base/types';
 import { TableCellPageObject } from './table-cell.pageobject';
-import { TableCellView } from '../../../../table-column/base/cell-view';
-import { createCellViewTemplate } from '../../../../table-column/base/cell-view/template';
 
 interface SimpleTableCellRecord extends TableCellRecord {
     stringData: string;

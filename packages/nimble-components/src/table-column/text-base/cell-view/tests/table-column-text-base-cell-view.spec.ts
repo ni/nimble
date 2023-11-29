@@ -1,14 +1,14 @@
 import { customElement } from '@microsoft/fast-element';
-import { TableColumnTextCellViewBase } from '..';
+import { TableColumnTextCellViewBase } from '@ni/nimble-foundation/dist/esm/table-column/text-base/cell-view';
+import { template as textBaseCellViewTemplate } from '@ni/nimble-foundation/dist/esm/table-column/text-base/cell-view/template';
+import { TextCellViewBaseAlignment } from '@ni/nimble-foundation/dist/esm/table-column/text-base/cell-view/types';
 import {
     uniqueElementName,
     type Fixture,
     fixture
 } from '../../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
-import { template as textBaseCellViewTemplate } from '../template';
 import { styles as textBaseCellViewStyles } from '../styles';
-import { TextCellViewBaseAlignment } from '../types';
 
 describe('TableColumnTextCellViewBase', () => {
     let element: TableColumnTextCellViewBase;

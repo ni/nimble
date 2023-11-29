@@ -1,10 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
+import { TableColumnEnumTextGroupHeaderView as NimbleTableColumnEnumTextGroupHeaderViewBase } from '@ni/nimble-foundation/dist/esm/table-column/enum-text/group-header-view';
+import { template } from '@ni/nimble-foundation/dist/esm/table-column/text-base/group-header-view/template';
 import { styles } from '../../text-base/group-header-view/styles';
-import { template } from '../../text-base/group-header-view/template';
-import type { TableColumnEnumColumnConfig } from '../../enum-base';
-import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
-import type { TableFieldValue } from '../../../table/types';
-import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -15,31 +12,7 @@ declare global {
 /**
  * A group header view for enum columns
  */
-export class TableColumnEnumTextGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
-TableFieldValue,
-TableColumnEnumColumnConfig
-> {
-    private columnConfigChanged(): void {
-        this.updateText();
-    }
-
-    private groupHeaderValueChanged(): void {
-        this.updateText();
-    }
-
-    private updateText(): void {
-        const value = this.groupHeaderValue;
-        if (value === undefined || value === null) {
-            this.text = '';
-            return;
-        }
-
-        const config = this.columnConfig?.mappingConfigs.get(value);
-        this.text = config instanceof MappingTextConfig && config.text
-            ? config.text
-            : '';
-    }
-}
+export class TableColumnEnumTextGroupHeaderView extends NimbleTableColumnEnumTextGroupHeaderViewBase { }
 
 const enumTextGroupHeaderView = TableColumnEnumTextGroupHeaderView.compose({
     baseName: 'table-column-enum-text-group-header-view',

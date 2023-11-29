@@ -1,4 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
+import type { TableColumnDateTextCellRecord } from '@ni/nimble-foundation/dist/esm/table-column/date-text';
 import { TableRow } from '..';
 import {
     tableColumnTextTag,
@@ -17,7 +18,6 @@ import { createEventListener } from '../../../../utilities/tests/component';
 import { tableTag, type Table } from '../../..';
 import {
     TableColumnDateText,
-    TableColumnDateTextCellRecord,
     tableColumnDateTextTag
 } from '../../../../table-column/date-text';
 

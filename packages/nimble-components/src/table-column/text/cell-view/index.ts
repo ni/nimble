@@ -1,11 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { template } from '../../text-base/cell-view/template';
-import type {
-    TableColumnTextCellRecord,
-    TableColumnTextColumnConfig
-} from '..';
+import { TableColumnTextCellView as NimbleTableColumnTextCellViewBase } from '@ni/nimble-foundation/dist/esm/table-column/text/cell-view';
+import { template } from '@ni/nimble-foundation/dist/esm/table-column/text-base/cell-view/template';
 import { styles } from '../../text-base/cell-view/styles';
-import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,16 +12,7 @@ declare global {
 /**
  * A cell view for displaying string fields as text
  */
-export class TableColumnTextCellView extends TableColumnTextCellViewBase<
-TableColumnTextCellRecord,
-TableColumnTextColumnConfig
-> {
-    private cellRecordChanged(): void {
-        this.text = typeof this.cellRecord?.value === 'string'
-            ? this.cellRecord.value
-            : '';
-    }
-}
+export class TableColumnTextCellView extends NimbleTableColumnTextCellViewBase { }
 
 const textCellView = TableColumnTextCellView.compose({
     baseName: 'table-column-text-cell-view',

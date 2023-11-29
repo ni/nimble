@@ -1,5 +1,7 @@
 import type { Checkbox } from '@microsoft/fast-foundation';
 import { keyShift } from '@microsoft/fast-web-utilities';
+import type { TableGroupHeaderView } from '@ni/nimble-foundation/dist/esm/table-column/base/group-header-view';
+import { TableCellView } from '@ni/nimble-foundation/dist/esm/table-column/base/cell-view';
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
 import {
@@ -10,8 +12,6 @@ import {
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
-import type { TableGroupHeaderView } from '../../table-column/base/group-header-view';
-import { TableCellView } from '../../table-column/base/cell-view';
 import type { TableRow } from '../components/row';
 import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';

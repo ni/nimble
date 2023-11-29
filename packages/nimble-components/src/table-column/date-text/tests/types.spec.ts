@@ -1,4 +1,4 @@
-import type { DateTextFormat } from '../types';
+import type { DateTextFormat } from '@ni/nimble-foundation/dist/esm/table-column/date-text/types';
 
 describe('Date-text column types', () => {
     it('DateTextFormat fails compile if assigning arbitrary string values', () => {

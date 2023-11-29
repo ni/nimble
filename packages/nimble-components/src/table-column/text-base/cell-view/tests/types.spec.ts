@@ -1,4 +1,4 @@
-import type { TextCellViewBaseAlignment } from '../types';
+import type { TextCellViewBaseAlignment } from '@ni/nimble-foundation/dist/esm/table-column/text-base/cell-view/types';
 
 describe('TableColumnTextCellViewBase types', () => {
     it('TextCellViewBaseAlignment fails compile if assigning arbitrary string values', () => {

@@ -1,12 +1,12 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { iconUserTag } from '@ni/nimble-foundation/dist/esm/icons/user';
 import { createMatrixThemeStory } from '../../../utilities/tests/storybook';
 import {
     createMatrix,
     sharedMatrixParameters
 } from '../../../utilities/tests/matrix';
 import { tableColumnDateTextTag } from '..';
-import { iconUserTag } from '../../../icons/user';
 import { Table, tableTag } from '../../../table';
 import {
     controlLabelFont,

@@ -5,8 +5,8 @@ import {
     keyArrowUp,
     keyEscape
 } from '@microsoft/fast-web-utilities';
+import type { TableColumn } from '@ni/nimble-foundation/dist/esm/table-column/base';
 import type { Table } from '..';
-import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';

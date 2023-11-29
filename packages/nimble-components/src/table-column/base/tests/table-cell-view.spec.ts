@@ -1,19 +1,19 @@
 import { customElement } from '@microsoft/fast-element';
-import { TableColumn } from '..';
+import { TableColumn } from '@ni/nimble-foundation/dist/esm/table-column/base';
+import type { TableCellView } from '@ni/nimble-foundation/dist/esm/table-column/base/cell-view';
+import type { DelegatedEventEventDetails } from '@ni/nimble-foundation/dist/esm/table-column/base/types';
+import type { ColumnInternalsOptions } from '@ni/nimble-foundation/dist/esm/table-column/base/models/column-internals';
 import {
     fixture,
     Fixture,
     uniqueElementName
 } from '../../../utilities/tests/fixture';
-import type { TableCellView } from '../cell-view';
-import type { DelegatedEventEventDetails } from '../types';
 import {
     tableColumnEmptyCellViewTag,
     TableColumnEmpty,
     tableColumnEmptyGroupHeaderViewTag,
     tableColumnEmptyTag
 } from './table-column.fixtures';
-import type { ColumnInternalsOptions } from '../models/column-internals';
 
 async function setup(): Promise<Fixture<TableCellView>> {
     return fixture(tableColumnEmptyCellViewTag);

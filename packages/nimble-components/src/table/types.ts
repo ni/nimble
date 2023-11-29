@@ -1,4 +1,4 @@
-import type { TableColumn } from '../table-column/base';
+import type { TableColumn } from '@ni/nimble-foundation/dist/esm/table-column/base';
 import type { ValidityObject } from '../utilities/models/validator';
 
 /**

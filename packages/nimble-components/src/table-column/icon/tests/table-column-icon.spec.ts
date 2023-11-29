@@ -1,4 +1,5 @@
 import { html, repeat, ref } from '@microsoft/fast-element';
+import { MappingKeyType } from '@ni/nimble-foundation/dist/esm/table-column/enum-base/types';
 import { Table, tableTag } from '../../../table';
 import { TableColumnIcon, tableColumnIconTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -13,7 +14,6 @@ import { iconXmarkTag } from '../../../icons/xmark';
 import { iconCheckTag } from '../../../icons/check';
 import type { MappingKey } from '../../../mapping/base/types';
 import { IconSeverity } from '../../../icon-base/types';
-import { MappingKeyType } from '../../enum-base/types';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { spinnerTag } from '../../../spinner';
 

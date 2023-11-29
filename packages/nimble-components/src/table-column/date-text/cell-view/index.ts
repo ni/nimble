@@ -1,12 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { template } from '../../text-base/cell-view/template';
-import type {
-    TableColumnDateTextCellRecord,
-    TableColumnDateTextColumnConfig
-} from '..';
+import { TableColumnDateTextCellView as NimbleTableColumnDateTextCellViewBase } from '@ni/nimble-foundation/dist/esm/table-column/date-text/cell-view';
+import { template } from '@ni/nimble-foundation/dist/esm/table-column/text-base/cell-view/template';
 import { styles } from '../../text-base/cell-view/styles';
-import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
-import { formatNumericDate } from '../models/format-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -17,29 +12,7 @@ declare global {
 /**
  * A cell view for displaying date/time fields as text
  */
-export class TableColumnDateTextCellView extends TableColumnTextCellViewBase<
-TableColumnDateTextCellRecord,
-TableColumnDateTextColumnConfig
-> {
-    private columnConfigChanged(): void {
-        this.updateText();
-    }
-
-    private cellRecordChanged(): void {
-        this.updateText();
-    }
-
-    private updateText(): void {
-        if (this.columnConfig) {
-            this.text = formatNumericDate(
-                this.columnConfig.formatter,
-                this.cellRecord?.value
-            );
-        } else {
-            this.text = '';
-        }
-    }
-}
+export class TableColumnDateTextCellView extends NimbleTableColumnDateTextCellViewBase { }
 
 const dateTextCellView = TableColumnDateTextCellView.compose({
     baseName: 'table-column-date-text-cell-view',

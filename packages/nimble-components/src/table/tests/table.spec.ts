@@ -1,7 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { attr, customElement, html } from '@microsoft/fast-element';
+import { TableColumn } from '@ni/nimble-foundation/dist/esm/table-column/base';
+import type { ColumnInternalsOptions } from '@ni/nimble-foundation/dist/esm/table-column/base/models/column-internals';
 import { Table, tableTag } from '..';
-import { TableColumn } from '../../table-column/base';
 import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -19,7 +20,6 @@ import {
     TableColumnValidationTest,
     tableColumnValidationTestTag
 } from '../../table-column/base/tests/table-column.fixtures';
-import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;

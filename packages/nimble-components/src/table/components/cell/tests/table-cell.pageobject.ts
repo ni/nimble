@@ -1,6 +1,6 @@
-import type { TableCell } from '..';
-import { TableCellView } from '../../../../table-column/base/cell-view';
-import type { TableCellRecord } from '../../../../table-column/base/types';
+import type { TableCell } from '@ni/nimble-foundation/dist/esm/table/components/cell';
+import { TableCellView } from '@ni/nimble-foundation/dist/esm/table-column/base/cell-view';
+import type { TableCellRecord } from '@ni/nimble-foundation/dist/esm/table-column/base/types';
 
 /**
  * Page object for the `nimble-table-cell` component to provide consistent ways
