@@ -360,7 +360,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @param fragment Fragment containing the pasted content. [Fragment](https://prosemirror.net/docs/ref/#model.Fragment)
      * @returns modified fragment from the `updatedNode` after updating the valid link text with its href value.
      */
-    private readonly updateLinkNodes = (fragment: Fragment): Fragment => {
+    private readonly updateLinkAndMentionNodes = (fragment: Fragment): Fragment => {
         const updatedNodes: FragmentNode[] = [];
 
         fragment.forEach(node => {
@@ -403,7 +403,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                     this.tiptapEditor.schema.text(node.attrs.label as string)
                 );
             } else {
-                const updatedContent = this.updateLinkNodes(node.content);
+                const updatedContent = this.updateLinkAndMentionNodes(node.content);
                 updatedNodes.push(node.copy(updatedContent));
             }
         });
@@ -420,7 +420,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
          * ProseMirror reference for `transformPasted`: https://prosemirror.net/docs/ref/#view.EditorProps.transformPasted
          */
         const transformPasted = (slice: Slice): Slice => {
-            const modifiedFragment = this.updateLinkNodes(slice.content);
+            const modifiedFragment = this.updateLinkAndMentionNodes(slice.content);
             return new Slice(modifiedFragment, slice.openStart, slice.openEnd);
         };
 
