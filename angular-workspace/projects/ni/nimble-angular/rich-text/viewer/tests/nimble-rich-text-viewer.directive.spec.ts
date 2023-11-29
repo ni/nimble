@@ -46,6 +46,16 @@ describe('Nimble Rich Text Viewer', () => {
             expect(directive.markdown).toBe('');
             expect(nativeElement.markdown).toBe('');
         });
+
+        it('has valid configuration by default', () => {
+            expect(directive.checkValidity()).toBeTrue();
+            expect(nativeElement.checkValidity()).toBeTrue();
+        });
+
+        it('has all invalid configurations set to false by default', () => {
+            expect(directive.validity.invalidMentionConfiguration).toBeFalse();
+            expect(nativeElement.validity.duplicateMentionConfiguration).toBeFalse();
+        });
     });
 
     describe('with template string values', () => {

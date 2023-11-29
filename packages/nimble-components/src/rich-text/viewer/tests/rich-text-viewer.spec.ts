@@ -389,6 +389,100 @@ describe('RichTextViewer', () => {
                 'user:2'
             );
         });
+
+        describe('validity', () => {
+            it('should have valid states by default', () => {
+                expect(element.checkValidity()).toBeTrue();
+                expect(element.validity.invalidMentionConfiguration).toBeFalse();
+                expect(element.validity.duplicateMentionConfiguration).toBeFalse();
+            });
+
+            it('should have valid states when there is no mapping elements but with a configuration element', async () => {
+                element.markdown = '<user:1>';
+                await appendUserMentionConfiguration(element);
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeTrue();
+                expect(element.validity.invalidMentionConfiguration).toBeFalse();
+                expect(element.validity.duplicateMentionConfiguration).toBeFalse();
+            });
+
+            it('should have invalid states when setting invalid `key` in mapping mention', async () => {
+                element.markdown = '<user:1>';
+                await appendUserMentionConfiguration(
+                    element,
+                    ['invalid'],
+                    ['username']
+                );
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeFalse();
+                expect(element.validity.invalidMentionConfiguration).toBeTrue();
+            });
+
+            it('should have invalid states when removing `pattern` from configuration element', async () => {
+                element.markdown = '<user:1>';
+                await appendUserMentionConfiguration(
+                    element,
+                    ['user:1'],
+                    ['username']
+                );
+                const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+                renderedUserMention.removeAttribute('pattern');
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeFalse();
+                expect(element.validity.invalidMentionConfiguration).toBeTrue();
+            });
+
+            it('should have invalid states when it is a invalid regex `pattern`', async () => {
+                element.markdown = '<user:1>';
+                await appendUserMentionConfiguration(
+                    element,
+                    ['user:1'],
+                    ['username']
+                );
+                const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+                renderedUserMention.pattern = '(invalid';
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeFalse();
+                expect(element.validity.invalidMentionConfiguration).toBeTrue();
+            });
+
+            it('should have invalid states when we have duplicate configuration element', async () => {
+                element.markdown = '<user:1>';
+                await appendUserMentionConfiguration(
+                    element,
+                    ['user:1'],
+                    ['username']
+                );
+                await appendUserMentionConfiguration(
+                    element,
+                    ['user:1'],
+                    ['username']
+                );
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeFalse();
+                expect(element.validity.duplicateMentionConfiguration).toBeTrue();
+            });
+
+            it('should have valid states when the duplicate configuration element removed', async () => {
+                element.markdown = '<user:1>';
+                await appendUserMentionConfiguration(element);
+                await appendUserMentionConfiguration(element);
+                await waitForUpdatesAsync();
+
+                const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+                element.removeChild(renderedUserMention);
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeTrue();
+                expect(element.validity.duplicateMentionConfiguration).toBeFalse();
+                expect(element.validity.invalidMentionConfiguration).toBeFalse();
+            });
+        });
     });
 
     describe('user mention via template', () => {
@@ -442,6 +536,12 @@ describe('RichTextViewer', () => {
             expect(
                 pageObject.getRenderedMarkdownAttributeValues('mention-label')
             ).toEqual(['John Doe', 'Mary Wilson']);
+        });
+
+        it('should have valid states for valid configurations', () => {
+            expect(element.checkValidity()).toBeTrue();
+            expect(element.validity.invalidMentionConfiguration).toBeFalse();
+            expect(element.validity.duplicateMentionConfiguration).toBeFalse();
         });
     });
 

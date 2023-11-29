@@ -77,6 +77,16 @@ describe('Nimble Rich Text Editor', () => {
             expect(directive.empty).toBeTrue();
             expect(nativeElement.empty).toBeTrue();
         });
+
+        it('has valid configuration by default', () => {
+            expect(directive.checkValidity()).toBeTrue();
+            expect(nativeElement.checkValidity()).toBeTrue();
+        });
+
+        it('has all invalid configurations set to false by default', () => {
+            expect(directive.validity.invalidMentionConfiguration).toBeFalse();
+            expect(nativeElement.validity.duplicateMentionConfiguration).toBeFalse();
+        });
     });
 
     describe('with template string values', () => {
