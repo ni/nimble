@@ -55,6 +55,10 @@ export class Anchor extends AnchorBase {
      * value has changed, so the best we can do is to re-sync on specific events.
      * This has shortcomings, e.g. if isContentEditable goes from true to false, our
      * anchor will remain un-tabable until a mouseenter triggers a re-sync.
+     *
+     * Ideally, proper support for contenteditable should come from FAST.
+     * I have filed bug https://github.com/microsoft/fast/issues/6870 to them.
+     * If/when it is fixed, we can remove our logic.
      */
     public updateContentEditable(): void {
         if (this.isContentEditable) {
