@@ -197,7 +197,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     @observable
     private activeChar?: string;
 
-    private readonly mentionMap: Map<
+    private readonly mentionInternalsMap: Map<
     string,
     MentionInternals<RichTextMentionConfig>
     > = new Map();
@@ -401,25 +401,27 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     protected override updateMentionConfig(): void {
         super.updateMentionConfig();
         this.mentionElements.forEach(element => {
-            this.mentionMap.clear();
+            this.mentionInternalsMap.clear();
             if (
                 element.mentionInternals.pattern
                 && element.mentionInternals.mentionConfig
             ) {
-                this.mentionMap.set(
+                this.mentionInternalsMap.set(
                     element.mentionInternals.character,
                     element.mentionInternals
                 );
             }
             this.activeConfiguration = this.activeChar
-                ? this.mentionMap.get(this.activeChar)?.mentionConfig
+                ? this.mentionInternalsMap.get(this.activeChar)?.mentionConfig
                     ?.mappingConfigs
                 : undefined;
         });
     }
 
     private activeCharChanged(_oldValue: string, newValue: string): void {
-        this.activeConfiguration = this.mentionMap.get(newValue)?.mentionConfig?.mappingConfigs;
+        this.activeConfiguration = this.mentionInternalsMap.get(
+            newValue
+        )?.mentionConfig?.mappingConfigs;
     }
 
     private createEditor(): HTMLDivElement {
