@@ -2,7 +2,6 @@ import { attr } from '@microsoft/fast-element';
 import {
     applyMixins,
     DelegatesARIAButton,
-    DesignSystem,
     StartEnd,
     Switch as FoundationSwitch
 } from '@microsoft/fast-foundation';
@@ -34,4 +33,3 @@ export class ToggleButton extends FoundationSwitch implements ButtonPattern {
 }
 applyMixins(ToggleButton, StartEnd, DelegatesARIAButton);
 export interface ToggleButton extends StartEnd, DelegatesARIAButton {}
-export const toggleButtonTag = DesignSystem.tagFor(ToggleButton);

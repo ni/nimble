@@ -1,5 +1,5 @@
 import { attr, observable } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { FoundationElement } from '@microsoft/fast-foundation';
 import {
     eventChange,
     keyArrowDown,
@@ -239,4 +239,3 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
         this.toggleButton!.focus();
     };
 }
-export const menuButtonTag = DesignSystem.tagFor(MenuButton);

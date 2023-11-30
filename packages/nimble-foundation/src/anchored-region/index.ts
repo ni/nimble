@@ -1,5 +1,4 @@
 import {
-    DesignSystem,
     AnchoredRegion as FoundationAnchoredRegion
 } from '@microsoft/fast-foundation';
 
@@ -15,4 +14,3 @@ import {
  * A nimble-styled anchored region control.
  */
 export class AnchoredRegion extends FoundationAnchoredRegion {}
-export const anchoredRegionTag = DesignSystem.tagFor(AnchoredRegion);
