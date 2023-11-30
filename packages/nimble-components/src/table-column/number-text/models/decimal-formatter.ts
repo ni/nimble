@@ -6,9 +6,7 @@ import type { UnitScale } from './unit-scale';
  * The formatter for a number-text column whose format is configured to be 'decimal'.
  */
 export class DecimalFormatter extends NumberFormatter {
-    private readonly formatterOptions: Intl.NumberFormatOptions;
-    private readonly formatterCache: UnitFormatterCache;
-
+    private readonly unitFormatterCache: UnitFormatterCache;
     private readonly tenPowDecimalDigits: number;
 
     public constructor(
@@ -18,22 +16,20 @@ export class DecimalFormatter extends NumberFormatter {
         private readonly unitScale: UnitScale
     ) {
         super();
-        this.formatterOptions = {
+        const decimalFormatterOptions = {
             maximumFractionDigits,
             minimumFractionDigits,
             useGrouping: true
         };
-        this.formatterCache = new UnitFormatterCache(locale, this.formatterOptions);
+        this.unitFormatterCache = new UnitFormatterCache(locale, decimalFormatterOptions);
         this.tenPowDecimalDigits = 10 ** maximumFractionDigits;
     }
 
     protected format(number: number): string {
-        const scaleInformation = this.unitScale.scaleNumber(number);
-        const scaledValue = scaleInformation.scaledValue;
-        const unit = scaleInformation.scaledUnit;
+        const { scaledValue, scaledUnit: unit } = this.unitScale.scaleNumber(number);
 
         const valueToFormat = this.willRoundToZero(scaledValue) ? 0 : scaledValue;
-        const formatter = this.formatterCache.getOrCreateUnitFormatter(unit.scaleFactor, unit.unitFormatterFactory);
+        const formatter = this.unitFormatterCache.getOrCreateUnitFormatter(unit.scaleFactor, unit.unitFormatterFactory);
         return formatter.format(valueToFormat);
     }
 

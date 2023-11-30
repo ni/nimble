@@ -6,6 +6,8 @@ import { UnitScale } from './unit-scale';
  * Degenerate UnitScaleFormatter for formatting without units
  */
 export class EmptyUnitScale extends UnitScale {
+    // TODO: create instance to use to match other unit scales?
+
     private static readonly supportedScaledUnits: ScaledUnit[] = [
         {
             scaleFactor: 1,
