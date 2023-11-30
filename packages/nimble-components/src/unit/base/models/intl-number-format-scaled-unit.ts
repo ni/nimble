@@ -3,7 +3,7 @@ import { UnitFormatter } from '../../../table-column/number-text/models/scaled-u
 /**
  * A scaled unit that can be formatted/translated by Intl.NumberFormat
  */
-export class IntlNumberFormatScaledUnit extends UnitFormatter {
+export class IntlNumberFormatScaledUnitFormatter extends UnitFormatter {
     private readonly formatter: Intl.NumberFormat;
 
     public constructor(

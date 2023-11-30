@@ -4,7 +4,7 @@ import type { UnitTranslation } from './unit-translation';
 /**
  * A scaled unit that is not supported by Intl.NumberFormat and must have translations built into Nimble
  */
-export class ManuallyTranslatedScaledUnit extends UnitFormatter {
+export class ManuallyTranslatedScaledUnitFormatter extends UnitFormatter {
     private readonly pluralRules: Intl.PluralRules;
     private readonly formatter: Intl.NumberFormat;
     private readonly unitTranslation: UnitTranslation;

@@ -1,4 +1,4 @@
-import { ManuallyTranslatedScaledUnit } from './manually-translated-scaled-unit';
+import { ManuallyTranslatedScaledUnitFormatter } from './manually-translated-scaled-unit';
 import type { ScaledUnit } from '../../../table-column/number-text/models/scaled-unit';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
@@ -25,7 +25,7 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
             {
                 scaleFactor: 1,
                 unitFormatterFactory: (locale: string, numberFormatOptions: Intl.NumberFormatOptions | undefined) => {
-                    return new ManuallyTranslatedScaledUnit(locale, numberFormatOptions, this.unitTranslations);
+                    return new ManuallyTranslatedScaledUnitFormatter(locale, numberFormatOptions, this.unitTranslations);
                 }
             }
         ];
@@ -34,7 +34,7 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
                 {
                     scaleFactor: prefix.factor,
                     unitFormatterFactory: (locale: string, numberFormatOptions: Intl.NumberFormatOptions | undefined) => {
-                        return new ManuallyTranslatedScaledUnit(locale, numberFormatOptions, this.unitTranslations, prefix.text);
+                        return new ManuallyTranslatedScaledUnitFormatter(locale, numberFormatOptions, this.unitTranslations, prefix.text);
                     }
                 }
             );

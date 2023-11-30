@@ -25,7 +25,6 @@ export class DefaultFormatter extends NumberFormatter {
         useGrouping: true
     };
 
-    private _defaultFormatter: Intl.NumberFormat | undefined;
     private readonly defaultFormatterCache: UnitFormatterCache;
 
     // Format options to use for numbers that have leading zeros. It limits the number of rendered
@@ -36,7 +35,6 @@ export class DefaultFormatter extends NumberFormatter {
         useGrouping: true
     };
 
-    private _leadingZeroFormatter: Intl.NumberFormat | undefined;
     private readonly leadingZeroFormatterCache: UnitFormatterCache;
 
     // Format options for numbers that should be displayed in exponential notation. This should be used
@@ -46,12 +44,11 @@ export class DefaultFormatter extends NumberFormatter {
         notation: 'scientific'
     };
 
-    private _exponentialFormatter: Intl.NumberFormat | undefined;
     private readonly exponentialFormatterCache: UnitFormatterCache;
 
     public constructor(
-        private readonly locale: string,
-        private readonly unitScale?: UnitScale
+        locale: string,
+        private readonly unitScale: UnitScale
     ) {
         super();
         this.defaultFormatterCache = new UnitFormatterCache(locale, this.defaultFormatterOptions);
@@ -62,38 +59,24 @@ export class DefaultFormatter extends NumberFormatter {
     protected format(number: number): string {
         const valueToFormat = number === 0 ? 0 : number;
 
-        if (this.unitScale) {
-            const scaleInformation = this.unitScale.scaleNumber(valueToFormat);
-            const scaledValue = scaleInformation.scaledValue;
-            const unit = scaleInformation.scaledUnit;
+        const scaleInformation = this.unitScale.scaleNumber(valueToFormat);
+        const scaledValue = scaleInformation.scaledValue;
+        const unit = scaleInformation.scaledUnit;
 
-            const formatter = this.getFormatterForNumber(scaledValue);
-            let unitFormatter: UnitFormatter;
-            switch (formatter) {
-                case 'default':
-                    unitFormatter = this.defaultFormatterCache.getOrCreateUnitFormatter(unit.scaleFactor, unit.unitFormatterFactory);
-                    return unitFormatter.format(scaledValue);
-                case 'leadingZero':
-                    unitFormatter = this.leadingZeroFormatterCache.getOrCreateUnitFormatter(unit.scaleFactor, unit.unitFormatterFactory);
-                    return unitFormatter.format(scaledValue);
-                case 'exponential':
-                    unitFormatter = this.exponentialFormatterCache.getOrCreateUnitFormatter(1, unit.unitFormatterFactory);
-                    return unitFormatter.format(valueToFormat);
-                default:
-                    throw new Error('what happened?');
-            }
-        } else {
-            const formatter = this.getFormatterForNumber(valueToFormat);
-            switch (formatter) {
-                case 'default':
-                    return this.defaultFormatter.format(valueToFormat);
-                case 'leadingZero':
-                    return this.leadingZeroFormatter.format(valueToFormat);
-                case 'exponential':
-                    return this.exponentialFormatter.format(valueToFormat);
-                default:
-                    throw new Error('what happened?');
-            }
+        const formatter = this.getFormatterForNumber(scaledValue);
+        let unitFormatter: UnitFormatter;
+        switch (formatter) {
+            case 'default':
+                unitFormatter = this.defaultFormatterCache.getOrCreateUnitFormatter(unit.scaleFactor, unit.unitFormatterFactory);
+                return unitFormatter.format(scaledValue);
+            case 'leadingZero':
+                unitFormatter = this.leadingZeroFormatterCache.getOrCreateUnitFormatter(unit.scaleFactor, unit.unitFormatterFactory);
+                return unitFormatter.format(scaledValue);
+            case 'exponential':
+                unitFormatter = this.exponentialFormatterCache.getOrCreateUnitFormatter(1, unit.unitFormatterFactory);
+                return unitFormatter.format(valueToFormat);
+            default:
+                throw new Error('what happened?');
         }
     }
 
@@ -116,32 +99,5 @@ export class DefaultFormatter extends NumberFormatter {
             return 'leadingZero';
         }
         return 'default';
-    }
-
-    private get defaultFormatter(): Intl.NumberFormat {
-        if (this._defaultFormatter) {
-            return this._defaultFormatter;
-        }
-
-        this._defaultFormatter = new Intl.NumberFormat(this.locale, this.defaultFormatterOptions);
-        return this._defaultFormatter;
-    }
-
-    private get exponentialFormatter(): Intl.NumberFormat {
-        if (this._exponentialFormatter) {
-            return this._exponentialFormatter;
-        }
-
-        this._exponentialFormatter = new Intl.NumberFormat(this.locale, this.exponentialFormatterOptions);
-        return this._exponentialFormatter;
-    }
-
-    private get leadingZeroFormatter(): Intl.NumberFormat {
-        if (this._leadingZeroFormatter) {
-            return this._leadingZeroFormatter;
-        }
-
-        this._leadingZeroFormatter = new Intl.NumberFormat(this.locale, this.leadingZeroFormatterOptions);
-        return this._leadingZeroFormatter;
     }
 }

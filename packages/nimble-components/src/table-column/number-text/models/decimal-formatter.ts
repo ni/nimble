@@ -7,16 +7,15 @@ import type { UnitScale } from './unit-scale';
  */
 export class DecimalFormatter extends NumberFormatter {
     private readonly formatterOptions: Intl.NumberFormatOptions;
-    private readonly formatter: Intl.NumberFormat;
     private readonly formatterCache: UnitFormatterCache;
 
     private readonly tenPowDecimalDigits: number;
 
     public constructor(
-        private readonly locale: string,
+        locale: string,
         minimumFractionDigits: number,
         maximumFractionDigits: number,
-        private readonly unitScale?: UnitScale
+        private readonly unitScale: UnitScale
     ) {
         super();
         this.formatterOptions = {
@@ -24,24 +23,18 @@ export class DecimalFormatter extends NumberFormatter {
             minimumFractionDigits,
             useGrouping: true
         };
-        this.formatter = new Intl.NumberFormat(locale, this.formatterOptions);
         this.formatterCache = new UnitFormatterCache(locale, this.formatterOptions);
         this.tenPowDecimalDigits = 10 ** maximumFractionDigits;
     }
 
     protected format(number: number): string {
-        if (this.unitScale) {
-            const scaleInformation = this.unitScale.scaleNumber(number);
-            const scaledValue = scaleInformation.scaledValue;
-            const unit = scaleInformation.scaledUnit;
+        const scaleInformation = this.unitScale.scaleNumber(number);
+        const scaledValue = scaleInformation.scaledValue;
+        const unit = scaleInformation.scaledUnit;
 
-            const valueToFormat = this.willRoundToZero(scaledValue) ? 0 : scaledValue;
-            const formatter = this.formatterCache.getOrCreateUnitFormatter(unit.scaleFactor, unit.unitFormatterFactory);
-            return formatter.format(valueToFormat);
-        } else {
-            const valueToFormat = this.willRoundToZero(number) ? 0 : number;
-            return this.formatter.format(valueToFormat);
-        }
+        const valueToFormat = this.willRoundToZero(scaledValue) ? 0 : scaledValue;
+        const formatter = this.formatterCache.getOrCreateUnitFormatter(unit.scaleFactor, unit.unitFormatterFactory);
+        return formatter.format(valueToFormat);
     }
 
     private willRoundToZero(number: number): boolean {

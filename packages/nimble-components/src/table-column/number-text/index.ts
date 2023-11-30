@@ -26,6 +26,7 @@ import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
 import { Unit } from '../../unit/base/unit';
 import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-custom-elements-defined-async';
+import { EmptyUnitScale } from './models/empty-unit-scale';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
@@ -180,6 +181,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private createFormatter(): NumberFormatter {
+        const unitScale = this.unit?.getUnitScale() ?? new EmptyUnitScale();
         switch (this.format) {
             case NumberTextFormat.decimal: {
                 const minimumDigits = typeof this.decimalMaximumDigits === 'number'
@@ -192,13 +194,13 @@ export class TableColumnNumberText extends TableColumnTextBase {
                     lang.getValueFor(this),
                     minimumDigits,
                     maximumDigits,
-                    this.unit?.getUnitScale()
+                    unitScale
                 );
             }
             default: {
                 return new DefaultFormatter(
                     lang.getValueFor(this),
-                    this.unit?.getUnitScale()
+                    unitScale
                 );
             }
         }
