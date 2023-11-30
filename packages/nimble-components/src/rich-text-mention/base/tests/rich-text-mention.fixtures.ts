@@ -1,6 +1,6 @@
 // eslint-disable-next-line max-classes-per-file
 import { customElement } from '@microsoft/fast-element';
-import { MappingConfigs, RichTextMention, RichTextMentionConfig } from '..';
+import { RichTextMention } from '..';
 import type { Mapping } from '../../../mapping/base';
 import { MappingUser } from '../../../mapping/user';
 import { richTextMentionUsersViewTag } from '../../users/view';
@@ -10,6 +10,7 @@ import type {
     MentionInternalsOptions
 } from '../models/mention-internals';
 import { RichTextMentionValidator } from '../models/mention-validator';
+import type { MappingConfigs, RichTextMentionConfig } from '../types';
 
 export const richTextMentionTestTag = 'nimble-rich-text-test-mention';
 
@@ -49,7 +50,9 @@ export class RichTextMentionTest extends RichTextMention {
         return {
             icon: '',
             character: '!',
-            viewElement: richTextMentionUsersViewTag
+            viewElement: richTextMentionUsersViewTag,
+            name: 'test',
+            key: 'test'
         };
     }
 

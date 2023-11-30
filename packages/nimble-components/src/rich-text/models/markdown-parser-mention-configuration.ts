@@ -1,7 +1,7 @@
 import type {
     MappingConfigs,
     RichTextMentionConfig
-} from '../../rich-text-mention/base';
+} from '../../rich-text-mention/base/types';
 import type { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 
 /**

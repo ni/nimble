@@ -3,6 +3,7 @@ import { FoundationElement } from '@microsoft/fast-foundation';
 import { RichTextMention } from '../../rich-text-mention/base';
 import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 import { MarkdownParserMentionConfiguration } from '../models/markdown-parser-mention-configuration';
+import { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 
 /**
  * Base class for rich text components
@@ -14,7 +15,11 @@ export abstract class RichText extends FoundationElement {
     @observable
     public readonly childItems: Element[] = [];
 
-    protected mentionConfig: MarkdownParserMentionConfiguration[] = [];
+    @observable
+    protected parserMentionConfig?: MarkdownParserMentionConfiguration[];
+
+    @observable
+    protected mentionExtensionConfig?: MentionExtensionConfiguration[];
 
     protected mentionElements: RichTextMention[] = [];
 
@@ -25,7 +30,7 @@ export abstract class RichText extends FoundationElement {
      */
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof MentionInternals && typeof args === 'string') {
-            this.updateMentionConfig();
+            this.updateMentionConfigs();
         }
     }
 
@@ -34,25 +39,31 @@ export abstract class RichText extends FoundationElement {
      */
     public abstract getMentionedHrefs(): string[];
 
-    protected abstract updateView(): void;
-
     /**
      * Create a MarkdownParserMentionConfiguration using the mention elements and implement the logic for the getMentionedHref() method
      * which will be invoked in the RichTextMention base class from the client.
      */
-    private updateMentionConfig(): void {
+    private updateMentionConfigs(): void {
         // TODO: Add a rich text validator to check if the `mentionElements` contains duplicate configuration element
         // For example, having two `nimble-rich-text-mention-users` within the children of rich text viewer or editor is an invalid configuration
-        this.mentionConfig = [];
-        this.mentionElements.forEach(mention => {
-            if (mention.mentionInternals.validConfiguration) {
-                const markdownParserMentionConfiguration = new MarkdownParserMentionConfiguration(
+        if (
+            this.mentionElements.every(
+                mention => mention.mentionInternals.validConfiguration
+            )
+        ) {
+            this.mentionExtensionConfig = this.mentionElements.map(
+                mention => new MentionExtensionConfiguration(mention.mentionInternals)
+            );
+            this.parserMentionConfig = this.mentionElements.map(
+                mention => new MarkdownParserMentionConfiguration(
                     mention.mentionInternals
-                );
-                this.mentionConfig.push(markdownParserMentionConfiguration);
-            }
-        });
-        this.updateView();
+                )
+            );
+
+            return;
+        }
+        this.parserMentionConfig = [];
+        this.mentionExtensionConfig = [];
     }
 
     private childItemsChanged(): void {
@@ -67,12 +78,12 @@ export abstract class RichText extends FoundationElement {
         this.mentionElements = this.childItems.filter(
             (x): x is RichTextMention => x instanceof RichTextMention
         );
-        this.observeMentions();
-        this.updateMentionConfig();
+        this.observeMentionInternals();
+        this.updateMentionConfigs();
     }
 
-    private observeMentions(): void {
-        this.removeMentionObservers();
+    private observeMentionInternals(): void {
+        this.removeMentionInternalsObservers();
 
         for (const mention of this.mentionElements) {
             const notifierInternals = Observable.getNotifier(
@@ -83,7 +94,7 @@ export abstract class RichText extends FoundationElement {
         }
     }
 
-    private removeMentionObservers(): void {
+    private removeMentionInternalsObservers(): void {
         this.mentionInternalsNotifiers.forEach(notifier => {
             notifier.unsubscribe(this);
         });

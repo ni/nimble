@@ -7,7 +7,7 @@ import { DOMSerializer, Schema } from 'prosemirror-model';
 import { anchorTag } from '../../anchor';
 import type { MarkdownParserMentionConfiguration } from './markdown-parser-mention-configuration';
 
-export interface ParserDetail {
+export interface ParseResult {
     fragment: HTMLElement | DocumentFragment;
     mentionedHrefs: string[];
 }
@@ -39,9 +39,9 @@ export class RichTextMarkdownParser {
     public static parseMarkdownToDOM(
         value: string,
         markdownParserMentionConfig?: MarkdownParserMentionConfiguration[]
-    ): ParserDetail {
+    ): ParseResult {
         try {
-            this.mentionConfigs = markdownParserMentionConfig;
+            RichTextMarkdownParser.mentionConfigs = markdownParserMentionConfig;
             const parsedMarkdownContent = this.markdownParser.parse(value);
             if (parsedMarkdownContent === null) {
                 return {
@@ -56,7 +56,7 @@ export class RichTextMarkdownParser {
                 mentionedHrefs: RichTextMarkdownParser.mentionedHrefs
             };
         } finally {
-            this.mentionConfigs = undefined;
+            RichTextMarkdownParser.mentionConfigs = undefined;
             RichTextMarkdownParser.mentionedHrefs = [];
         }
     }

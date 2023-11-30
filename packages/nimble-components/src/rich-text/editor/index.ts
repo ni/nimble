@@ -5,6 +5,8 @@ import {
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { PluginKey } from '@tiptap/pm/state';
 import {
     Editor,
     findParentNode,
@@ -33,13 +35,13 @@ import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
-import { TipTapNodeName } from './types';
+import { MentionExtensionConfig, TipTapNodeName } from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
-import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
 import { RichText } from '../base';
+import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -114,7 +116,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         // However, the expectation is to return true if the editor is empty or contains only whitespace.
         // Hence, by retrieving the current text content using Tiptap state docs and then trimming the string to determine whether it is empty or not.
         if (this.tiptapEditor.state.doc.toString().includes('mention')) {
-            return this.tiptapEditor.isEmpty;
+            return false;
         }
         return this.tiptapEditor.state.doc.textContent.trim().length === 0;
     }
@@ -154,6 +156,8 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @internal
      */
     public editorContainer!: HTMLDivElement;
+
+    private richTextMarkdownSerializer = new RichTextMarkdownSerializer();
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
@@ -222,6 +226,39 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         } else {
             this.editor.removeAttribute('aria-label');
         }
+    }
+
+    /**
+     * @internal
+     */
+    public parserMentionConfigChanged(): void {
+        this.setMarkdown(this.getMarkdown());
+    }
+
+    /**
+     * @internal
+     */
+    public mentionExtensionConfigChanged(
+        prev: MentionExtensionConfiguration[] | undefined,
+        next: MentionExtensionConfiguration[]
+    ): void {
+        const prevConfigCharacters = prev
+            ?.map(config => config.character)
+            .sort((a, b) => a.localeCompare(b))
+            .toString();
+        const nextConfigCharacters = next
+            .map(config => config.character)
+            .sort((a, b) => a.localeCompare(b))
+            .toString();
+        if (prevConfigCharacters === nextConfigCharacters) {
+            return;
+        }
+        const currentStateMarkdown = this.getMarkdown();
+        this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
+            this.getAllMentionExtensionNames()
+        );
+        this.initializeEditor();
+        this.setMarkdown(currentStateMarkdown);
     }
 
     /**
@@ -318,7 +355,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @public
      */
     public getMarkdown(): string {
-        return RichTextMarkdownSerializer.serializeDOMToMarkdown(
+        return this.richTextMarkdownSerializer.serializeDOMToMarkdown(
             this.tiptapEditor.state.doc
         );
     }
@@ -334,13 +371,15 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     public getMentionedHrefs(): string[] {
-        return RichTextMarkdownSerializer.getMentionedHrefs(
-            this.tiptapEditor.state.doc
-        );
-    }
-
-    protected override updateView(): void {
-        this.setMarkdown(this.getMarkdown());
+        const mentionedHrefs: string[] = [];
+        this.tiptapEditor.state.doc.descendants(node => {
+            if (this.getAllMentionExtensionNames().includes(node.type.name)) {
+                if (!mentionedHrefs.includes(node.attrs.href as string)) {
+                    mentionedHrefs.push(node.attrs.href as string);
+                }
+            }
+        });
+        return mentionedHrefs;
     }
 
     private createEditor(): HTMLDivElement {
@@ -400,7 +439,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 } else {
                     updatedNodes.push(node);
                 }
-            } else if (node.type.name === 'mention') {
+            } else if (
+                this.getAllMentionExtensionNames().includes(node.type.name)
+            ) {
                 updatedNodes.push(
                     this.tiptapEditor.schema.text(node.attrs.label as string)
                 );
@@ -417,7 +458,12 @@ export class RichTextEditor extends RichText implements ErrorPattern {
 
     private createTiptapEditor(): Editor {
         const customLink = this.getCustomLinkExtension();
-        const customUserMention = this.getCustomUserMentionExtension();
+        const mentionExtensions = this.mentionExtensionConfig?.map(config => this.getCustomMentionExtension({
+            name: config.name,
+            character: config.character,
+            key: config.key,
+            viewElement: config.viewElement
+        })) ?? [];
 
         /**
          * @param slice contains the Fragment of the copied content. If the content is a link, the slice contains Text node with Link mark.
@@ -469,9 +515,20 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 }),
                 HardBreak,
                 customLink,
-                customUserMention
+                ...mentionExtensions
             ]
         });
+    }
+
+    private initializeEditor(): void {
+        this.unbindEditorTransactionEvent();
+        this.unbindEditorUpdateEvent();
+        this.unbindNativeInputEvent();
+        this.tiptapEditor?.destroy();
+        this.tiptapEditor = this.createTiptapEditor();
+        this.bindEditorTransactionEvent();
+        this.bindEditorUpdateEvent();
+        this.stopNativeInputEventPropagation();
     }
 
     /**
@@ -527,12 +584,15 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         });
     }
 
-    private getCustomUserMentionExtension(): Node<MentionOptions> {
+    private getCustomMentionExtension(
+        config: MentionExtensionConfig
+    ): Node<MentionOptions> {
         return Mention.extend({
+            name: config.name,
             parseHTML() {
                 return [
                     {
-                        tag: richTextMentionUsersViewTag
+                        tag: config.viewElement
                     }
                 ];
             },
@@ -562,7 +622,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             renderHTML({ HTMLAttributes }) {
                 return [
-                    richTextMentionUsersViewTag,
+                    config.viewElement,
                     mergeAttributes(
                         this.options.HTMLAttributes,
                         HTMLAttributes,
@@ -572,6 +632,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             }
         }).configure({
             suggestion: {
+                char: config.character,
+                decorationTag: config.viewElement,
+                pluginKey: new PluginKey(config.key),
                 allowSpaces: true,
                 render: () => {
                     return {
@@ -600,11 +663,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        const parserDetail = RichTextMarkdownParser.parseMarkdownToDOM(
+        const parseResult = RichTextMarkdownParser.parseMarkdownToDOM(
             markdown,
-            this.mentionConfig
+            this.parserMentionConfig
         );
-        return this.xmlSerializer.serializeToString(parserDetail.fragment);
+        return this.xmlSerializer.serializeToString(parseResult.fragment);
     }
 
     /**
@@ -715,6 +778,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 }
             }
         });
+    }
+
+    private getAllMentionExtensionNames(): string[] {
+        return this.mentionExtensionConfig?.map(config => config.name) ?? [];
     }
 }
 

@@ -9,3 +9,10 @@ export const TipTapNodeName = {
 
 export type TipTapNodeName =
     (typeof TipTapNodeName)[keyof typeof TipTapNodeName];
+
+export interface MentionExtensionConfig {
+    name: string;
+    key: string;
+    character: string;
+    viewElement: string;
+}

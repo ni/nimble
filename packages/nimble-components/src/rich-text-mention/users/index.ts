@@ -1,12 +1,8 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { MentionInternalsOptions } from '../base/models/mention-internals';
-import {
-    MappingConfigs,
-    RichTextMention,
-    RichTextMentionConfig
-} from '../base';
+import { RichTextMention } from '../base';
 import type { MappingConfig } from '../base/models/mapping-config';
-import { MappingUserConfig } from '../base/models/mapping-user-config';
+import { MappingUserConfig } from './models/mapping-user-config';
 import { template } from '../base/template';
 import { iconAtTag } from '../../icons/at';
 import { MappingUser } from '../../mapping/user';
@@ -14,6 +10,8 @@ import type { Mapping } from '../../mapping/base';
 import type { MappingUserKey } from '../../mapping/base/types';
 import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
 import { richTextMentionUsersViewTag } from './view';
+import type { RichTextMentionUserConfig } from './types';
+import type { MappingConfigs, RichTextMentionConfig } from '../base/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -25,7 +23,7 @@ declare global {
  * Rich Text user mention configuration element which will have MappingMentionUser elements as children
  */
 export class RichTextMentionUsers extends RichTextMention<
-RichTextMentionConfig,
+RichTextMentionUserConfig,
 RichTextMentionUsersValidator
 > {
     public override getMentionedHrefs(): string[] {
@@ -43,7 +41,9 @@ RichTextMentionUsersValidator
         return {
             icon: iconAtTag,
             character: '@',
-            viewElement: richTextMentionUsersViewTag
+            viewElement: richTextMentionUsersViewTag,
+            name: 'user',
+            key: 'user'
         };
     }
 

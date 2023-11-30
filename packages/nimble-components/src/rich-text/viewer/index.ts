@@ -45,21 +45,28 @@ export class RichTextViewer extends RichText {
         this.updateView();
     }
 
+    /**
+     * @internal
+     */
+    public parserMentionConfigChanged(): void {
+        this.updateView();
+    }
+
     public getMentionedHrefs(): string[] {
         return this.mentionedHrefs;
     }
 
-    protected override updateView(): void {
+    private updateView(): void {
         if (!this.$fastController.isConnected) {
             return;
         }
         if (this.markdown) {
-            const parserDetail = RichTextMarkdownParser.parseMarkdownToDOM(
+            const parseResult = RichTextMarkdownParser.parseMarkdownToDOM(
                 this.markdown,
-                this.mentionConfig
+                this.parserMentionConfig
             );
-            this.viewer.replaceChildren(parserDetail.fragment);
-            this.mentionedHrefs = parserDetail.mentionedHrefs;
+            this.viewer.replaceChildren(parseResult.fragment);
+            this.mentionedHrefs = parseResult.mentionedHrefs;
         } else {
             this.viewer.innerHTML = '';
             this.mentionedHrefs = [];
