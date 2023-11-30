@@ -9,14 +9,14 @@ export abstract class UnitScale {
 
     private get supportedScaledUnits(): ScaledUnit[] {
         if (this._supportedScaledUnits === undefined) {
-            this.setSupportedScaledUnitsAndBaseScaledUnit();
+            this.initializeSupportedScaledUnitsAndBaseScaledUnit();
         }
         return this._supportedScaledUnits!;
     }
 
     public get baseScaledUnit(): ScaledUnit {
         if (this._baseScaledUnit === undefined) {
-            this.setSupportedScaledUnitsAndBaseScaledUnit();
+            this.initializeSupportedScaledUnitsAndBaseScaledUnit();
         }
         return this._baseScaledUnit!;
     }
@@ -27,7 +27,7 @@ export abstract class UnitScale {
     // may be shown with an unexpected unit. Examples:
     // - 999 bytes with two significant digits => "1000 bytes" (instead of "1 kB")
     // - 0.00000000000000001 volts (= 0.01 fV) with one fractional digit => "0 fV" (instead of "0 volts")
-    public pickBestScaledUnit(number: number): ScaledUnit {
+    public scaleNumber(number: number): { scaledValue: number, scaledUnit: ScaledUnit } {
         const magnitude = Math.abs(number);
         if (
             this.supportedScaledUnits.length === 1 // must be baseScaledUnit
@@ -35,14 +35,15 @@ export abstract class UnitScale {
             || magnitude === Infinity
             || Number.isNaN(magnitude)
         ) {
-            return this.baseScaledUnit;
+            return { scaledValue: number, scaledUnit: this.baseScaledUnit };
         }
         for (const unit of this.supportedScaledUnits) {
             if (magnitude / unit.scaleFactor >= 1) {
-                return unit;
+                return { scaledValue: number / unit.scaleFactor, scaledUnit: unit };
             }
         }
-        return this.supportedScaledUnits[this.supportedScaledUnits.length - 1]!;
+        const smallestUnit = this.supportedScaledUnits[this.supportedScaledUnits.length - 1]!;
+        return { scaledValue: number / smallestUnit.scaleFactor, scaledUnit: smallestUnit };
     }
 
     protected abstract getSupportedScaledUnits(): ScaledUnit[];
@@ -50,7 +51,7 @@ export abstract class UnitScale {
     // Ideally, we could initialize supportedScaledUnits and baseScaledUnit in the constructor,
     // but they depend on an abstract method and potentially other state that isn't
     // available until the derived class is finished being constructed.
-    private setSupportedScaledUnitsAndBaseScaledUnit(): void {
+    private initializeSupportedScaledUnitsAndBaseScaledUnit(): void {
         // sort from largest to smallest here so that pickBestUnit doesn't have to sort on every call
         this._supportedScaledUnits = this.getSupportedScaledUnits().sort(
             (a, b) => (a.scaleFactor < b.scaleFactor ? 1 : -1)

@@ -1,62 +1,47 @@
 import { NumberFormatter } from './number-formatter';
+import { UnitFormatterCache } from './unit-formatter-cache';
 import type { UnitScale } from './unit-scale';
 
 /**
  * The formatter for a number-text column whose format is configured to be 'decimal'.
  */
 export class DecimalFormatter extends NumberFormatter {
-    // Maps from a "unit" Intl.NumberFormat option to a Intl.NumberFormat instance.
-    // If the formatter is not configured with a unit, the key is `undefined`.
-    private readonly formatterCache = new Map<
-    string | undefined,
-    Intl.NumberFormat
-    >();
-
-    // Constructing this is costly enough to warrant caching it
-    private readonly pluralRules: Intl.PluralRules;
+    private readonly formatterOptions: Intl.NumberFormatOptions;
+    private readonly formatter: Intl.NumberFormat;
+    private readonly formatterCache: UnitFormatterCache;
 
     private readonly tenPowDecimalDigits: number;
 
     public constructor(
         private readonly locale: string,
-        private readonly minimumFractionDigits: number,
-        private readonly maximumFractionDigits: number,
+        minimumFractionDigits: number,
+        maximumFractionDigits: number,
         private readonly unitScale?: UnitScale
     ) {
         super();
-        this.pluralRules = new Intl.PluralRules(locale);
+        this.formatterOptions = {
+            maximumFractionDigits,
+            minimumFractionDigits,
+            useGrouping: true
+        };
+        this.formatter = new Intl.NumberFormat(locale, this.formatterOptions);
+        this.formatterCache = new UnitFormatterCache(locale, this.formatterOptions);
         this.tenPowDecimalDigits = 10 ** maximumFractionDigits;
     }
 
     protected format(number: number): string {
-        const unit = this.unitScale?.pickBestScaledUnit(number);
-        const unitFormatterOption = unit?.formatterOptions.unit;
-        if (!this.formatterCache.has(unitFormatterOption)) {
-            const formatter = new Intl.NumberFormat(this.locale, {
-                ...unit?.formatterOptions,
-                maximumFractionDigits: this.maximumFractionDigits,
-                minimumFractionDigits: this.minimumFractionDigits,
-                useGrouping: true
-            });
-            this.formatterCache.set(unitFormatterOption, formatter);
+        if (this.unitScale) {
+            const scaleInformation = this.unitScale.scaleNumber(number);
+            const scaledValue = scaleInformation.scaledValue;
+            const unit = scaleInformation.scaledUnit;
+
+            const valueToFormat = this.willRoundToZero(scaledValue) ? 0 : scaledValue;
+            const formatter = this.formatterCache.getOrCreateUnitFormatter(unit.scaleFactor, unit.unitFormatterFactory);
+            return formatter.format(valueToFormat);
+        } else {
+            const valueToFormat = this.willRoundToZero(number) ? 0 : number;
+            return this.formatter.format(valueToFormat);
         }
-        const scaledValue = number / (unit?.scaleFactor ?? 1);
-        // The NumberFormat option of `signDisplay: "negative"` is not supported in all browsers nimble supports.
-        // Because that option cannot be used to avoid rendering "-0", coerce the value -0 to 0 prior to formatting.
-        const valueToFormat = this.willRoundToZero(scaledValue)
-            ? 0
-            : scaledValue;
-        const formatted = this.formatterCache
-            .get(unitFormatterOption)!
-            .format(valueToFormat);
-        return (
-            unit?.appendUnitIfNeeded(
-                formatted,
-                valueToFormat,
-                this.locale,
-                this.pluralRules
-            ) ?? formatted
-        );
     }
 
     private willRoundToZero(number: number): boolean {

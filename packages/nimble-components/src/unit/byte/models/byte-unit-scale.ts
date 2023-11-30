@@ -8,37 +8,67 @@ import { UnitScale } from '../../../table-column/number-text/models/unit-scale';
 export class ByteUnitScale extends UnitScale {
     public static readonly instance = new ByteUnitScale();
 
-    private static readonly supportedScaledUnits = [
-        new IntlNumberFormatScaledUnit(1, {
-            style: 'unit',
-            unit: 'byte',
-            unitDisplay: 'long'
-        }),
-        new IntlNumberFormatScaledUnit(1000, {
-            style: 'unit',
-            unit: 'kilobyte',
-            unitDisplay: 'short'
-        }),
-        new IntlNumberFormatScaledUnit(10 ** 6, {
-            style: 'unit',
-            unit: 'megabyte',
-            unitDisplay: 'short'
-        }),
-        new IntlNumberFormatScaledUnit(10 ** 9, {
-            style: 'unit',
-            unit: 'gigabyte',
-            unitDisplay: 'short'
-        }),
-        new IntlNumberFormatScaledUnit(10 ** 12, {
-            style: 'unit',
-            unit: 'terabyte',
-            unitDisplay: 'short'
-        }),
-        new IntlNumberFormatScaledUnit(10 ** 15, {
-            style: 'unit',
-            unit: 'petabyte',
-            unitDisplay: 'short'
-        })
+    private static readonly supportedScaledUnits: ScaledUnit[] = [
+        {
+            scaleFactor: 1,
+            unitFormatterFactory: (locale: string, numberFormatOptions: Intl.NumberFormatOptions | undefined) => {
+                return new IntlNumberFormatScaledUnit(locale, numberFormatOptions, {
+                    style: 'unit',
+                    unit: 'byte',
+                    unitDisplay: 'long'
+                });
+            }
+        },
+        {
+            scaleFactor: 1000,
+            unitFormatterFactory: (locale: string, numberFormatOptions: Intl.NumberFormatOptions | undefined) => {
+                return new IntlNumberFormatScaledUnit(locale, numberFormatOptions, {
+                    style: 'unit',
+                    unit: 'kilobyte',
+                    unitDisplay: 'short'
+                });
+            }
+        },
+        {
+            scaleFactor: 10 ** 6,
+            unitFormatterFactory: (locale: string, numberFormatOptions: Intl.NumberFormatOptions | undefined) => {
+                return new IntlNumberFormatScaledUnit(locale, numberFormatOptions, {
+                    style: 'unit',
+                    unit: 'megabyte',
+                    unitDisplay: 'short'
+                });
+            }
+        },
+        {
+            scaleFactor: 10 ** 9,
+            unitFormatterFactory: (locale: string, numberFormatOptions: Intl.NumberFormatOptions | undefined) => {
+                return new IntlNumberFormatScaledUnit(locale, numberFormatOptions, {
+                    style: 'unit',
+                    unit: 'gigabyte',
+                    unitDisplay: 'short'
+                });
+            }
+        },
+        {
+            scaleFactor: 10 ** 12,
+            unitFormatterFactory: (locale: string, numberFormatOptions: Intl.NumberFormatOptions | undefined) => {
+                return new IntlNumberFormatScaledUnit(locale, numberFormatOptions, {
+                    style: 'unit',
+                    unit: 'terabyte',
+                    unitDisplay: 'short'
+                });
+            }
+        },
+        {
+            scaleFactor: 10 ** 15,
+            unitFormatterFactory: (locale: string, numberFormatOptions: Intl.NumberFormatOptions | undefined) => {
+                return new IntlNumberFormatScaledUnit(locale, numberFormatOptions, {
+                    style: 'unit',
+                    unit: 'petabyte',
+                    unitDisplay: 'short'
+                });
+            }
+        }
     ];
 
     private constructor() {

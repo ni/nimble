@@ -1,17 +1,24 @@
-import { ScaledUnit } from '../../../table-column/number-text/models/scaled-unit';
+import { UnitFormatter } from '../../../table-column/number-text/models/scaled-unit';
 
 /**
  * A scaled unit that can be formatted/translated by Intl.NumberFormat
  */
-export class IntlNumberFormatScaledUnit extends ScaledUnit {
+export class IntlNumberFormatScaledUnit extends UnitFormatter {
+    private readonly formatter: Intl.NumberFormat;
+
     public constructor(
-        scaleFactor: number,
-        public readonly formatterOptions: Intl.NumberFormatOptions
+        locale: string,
+        formatterOptions: Intl.NumberFormatOptions | undefined,
+        unitFormatterOptions: Intl.NumberFormatOptions
     ) {
-        super(scaleFactor);
+        super();
+        this.formatter = new Intl.NumberFormat(locale, {
+            ...unitFormatterOptions,
+            ...formatterOptions
+        });
     }
 
-    public override appendUnitIfNeeded(formattedNumber: string): string {
-        return formattedNumber;
+    public format(value: number): string {
+        return this.formatter.format(value);
     }
 }

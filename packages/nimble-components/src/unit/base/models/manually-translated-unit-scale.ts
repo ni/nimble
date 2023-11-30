@@ -22,15 +22,21 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
 
     protected override getSupportedScaledUnits(): ScaledUnit[] {
         const supportedUnits: ScaledUnit[] = [
-            new ManuallyTranslatedScaledUnit(1, this.unitTranslations)
+            {
+                scaleFactor: 1,
+                unitFormatterFactory: (locale: string, numberFormatOptions: Intl.NumberFormatOptions | undefined) => {
+                    return new ManuallyTranslatedScaledUnit(locale, numberFormatOptions, this.unitTranslations);
+                }
+            }
         ];
         for (const prefix of this.supportedPrefixes) {
             supportedUnits.push(
-                new ManuallyTranslatedScaledUnit(
-                    prefix.factor,
-                    this.unitTranslations,
-                    prefix.text
-                )
+                {
+                    scaleFactor: prefix.factor,
+                    unitFormatterFactory: (locale: string, numberFormatOptions: Intl.NumberFormatOptions | undefined) => {
+                        return new ManuallyTranslatedScaledUnit(locale, numberFormatOptions, this.unitTranslations, prefix.text);
+                    }
+                }
             );
         }
         return supportedUnits;

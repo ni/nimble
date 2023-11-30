@@ -1,30 +1,33 @@
-import { ScaledUnit } from '../../../table-column/number-text/models/scaled-unit';
+import { UnitFormatter } from '../../../table-column/number-text/models/scaled-unit';
 import type { UnitTranslation } from './unit-translation';
 
 /**
  * A scaled unit that is not supported by Intl.NumberFormat and must have translations built into Nimble
  */
-export class ManuallyTranslatedScaledUnit extends ScaledUnit {
-    public readonly formatterOptions: Intl.NumberFormatOptions = {};
+export class ManuallyTranslatedScaledUnit extends UnitFormatter {
+    private readonly pluralRules: Intl.PluralRules;
+    private readonly formatter: Intl.NumberFormat;
+    private readonly unitTranslation: UnitTranslation;
 
     public constructor(
-        scaleFactor: number,
+        locale: string,
+        formatterOptions: Intl.NumberFormatOptions | undefined,
         private readonly unitTranslations: ReadonlyMap<string, UnitTranslation>,
         private readonly unitPrefix: string | undefined = undefined
     ) {
-        super(scaleFactor);
+        super();
+
+        this.pluralRules = new Intl.PluralRules(locale);
+        this.formatter = new Intl.NumberFormat(locale, formatterOptions);
+        this.unitTranslation = this.getTranslationToUse(locale);
     }
 
-    public override appendUnitIfNeeded(
-        formattedNumber: string,
-        rawNumber: number,
-        locale: string,
-        pluralRules: Intl.PluralRules
-    ): string {
-        const translation = this.getTranslationToUse(locale);
+    public format(value: number): string {
+        const formatted = this.formatter.format(value);
         if (this.unitPrefix) {
-            return `${formattedNumber} ${this.unitPrefix}${translation.symbol}`;
+            return `${formatted} ${this.unitPrefix}${this.unitTranslation.symbol}`;
         }
+
         // Some languages have more than two forms (singular/plural) of cardinal
         // numbers, but we are treating anything other than the 'one' form as plural.
         // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules#description
@@ -35,13 +38,14 @@ export class ManuallyTranslatedScaledUnit extends ScaledUnit {
         // of the unit. E.g. in English, it formats "1 byte" vs "1.0 bytes". Thus there is
         // sometimes an inconsistency between unit pluralization for the same number, based
         // on whether it's supported by NumberFormat, or manually translated.
-        const singular = pluralRules.select(rawNumber) === 'one';
-        const toAppend = singular ? translation.singular : translation.plural;
-        return `${formattedNumber} ${toAppend}`;
+        const unitLabel = this.pluralRules.select(Number(formatted)) === 'one'
+            ? this.unitTranslation.singular
+            : this.unitTranslation.plural;
+        return `${formatted} ${unitLabel}`;
     }
 
     private getTranslationToUse(locale: string): UnitTranslation {
-        const localeObject = new Intl.Locale(locale);
+        const localeObject = new Intl.Locale(locale ?? '');
         const language = localeObject.language;
         const region = localeObject.region;
         const languageAndRegion = `${language}-${region?.toUpperCase() ?? ''}`;
