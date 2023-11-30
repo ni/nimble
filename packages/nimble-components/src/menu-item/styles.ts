@@ -43,7 +43,7 @@ export const styles = css`
     :host([expanded]) {
         background: ${fillHoverColor};
     }
-    :host(:hover) {
+    :host(.hovered) {
         background: ${fillHoverColor};
     }
     :host(:active:not([expanded])) {
@@ -54,7 +54,7 @@ export const styles = css`
         fill: currentcolor;
         cursor: default;
     }
-    :host([disabled]:hover) {
+    :host([disabled].hovered) {
         background: transparent;
     }
     :host(.indent-0[aria-haspopup='menu']) {
@@ -91,5 +91,13 @@ export const styles = css`
     }
     :host(.indent-1) .expand-collapse-glyph-container {
         grid-column: 3;
+    }
+
+    .triangle {
+        top: 0px;
+        left: 0px;
+        position: absolute;
+        pointer-events: none;
+        overflow: visible;
     }
 `;
