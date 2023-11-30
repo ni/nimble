@@ -61,7 +61,7 @@
     "@microsoft/fast-element": "^1.12.0",
     "@microsoft/fast-foundation": "^2.49.3",
     "@microsoft/fast-web-utilities": "^6.0.0",
-    "@ni/nimble-foundation": "file:ni-nimble-foundation-0.0.0.tgz",
+    "@ni/nimble-foundation": "*",
     "@ni/nimble-tokens": "^6.8.0",
     "@tanstack/table-core": "^8.10.7",
     "@tanstack/virtual-core": "^3.0.0-beta.68",

@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-foundation",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha",
   "description": "Unstyled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run build-components && npm run bundle-components && npm run build-storybook",
