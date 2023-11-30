@@ -36,37 +36,16 @@ export class Anchor extends AnchorBase {
     public appearance: AnchorAppearance;
 
     /**
-     * @internal
-     */
-    public container!: HTMLElement;
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        this.updateContentEditable();
-    }
-
-    /**
-     * @internal
-     * We want our anchor to behave like a native anchor when in a content-editable
-     * region, i.e. not operable or focusable. The most reliable way to achieve this is
-     * to synchronize our shadow DOM's content-editable state with that of the host.
-     * We must look at the host's read-only isContentEditable property, which factors
-     * in any inherited value. Unfortunately, there is no way for us to detect when its
-     * value has changed, so the best we can do is to re-sync on specific events.
-     * This has shortcomings, e.g. if isContentEditable goes from true to false, our
-     * anchor will remain un-tabable until a mouseenter triggers a re-sync.
+     * @public
+     * @remarks
+     * HTML Attribute: contenteditable
      *
      * Ideally, proper support for contenteditable should come from FAST.
      * I have filed bug https://github.com/microsoft/fast/issues/6870 to them.
-     * If/when it is fixed, we can remove our logic.
+     * If/when it is fixed, we can remove this workaround.
      */
-    public updateContentEditable(): void {
-        if (this.isContentEditable) {
-            this.container.setAttribute('contenteditable', '');
-        } else {
-            this.container.removeAttribute('contenteditable');
-        }
-    }
+    @attr({ mode: 'boolean' })
+    public contenteditable = false;
 }
 
 // FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.

@@ -10,8 +10,8 @@ export const template: FoundationElementTemplate<
 ViewTemplate<Anchor>,
 AnchorOptions
 > = (_context, definition) => html<Anchor>`<div
-        ${ref('container')}
         class="top-container"
+        ?contenteditable="${x => x.contenteditable}"
     ><a
         class="control"
         part="control"
@@ -43,8 +43,6 @@ AnchorOptions
         aria-owns="${x => x.ariaOwns}"
         aria-relevant="${x => x.ariaRelevant}"
         aria-roledescription="${x => x.ariaRoledescription}"
-        @mouseenter="${x => x.updateContentEditable()}"
-        @focus="${x => x.updateContentEditable()}"
         ${ref('control')}
     >${
     /* Start and End slot templates inlined to avoid extra whitespace.

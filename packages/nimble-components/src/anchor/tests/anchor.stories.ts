@@ -15,6 +15,7 @@ interface AnchorArgs {
     label: string;
     href: string;
     underlineHidden: boolean;
+    contenteditable: boolean;
     appearance: keyof typeof AnchorAppearance;
 }
 
@@ -39,6 +40,7 @@ const metadata: Meta<AnchorArgs> = {
         <span class="anchor-container">Click on the <${anchorTag}
             href=${x => (x.href !== '' ? x.href : null)}
             ?underline-hidden=${x => x.underlineHidden}
+            ?contenteditable=${x => x.contenteditable}
             appearance=${x => x.appearance}
         >${x => x.label}</${anchorTag}> to navigate.</span>
     `),
@@ -56,12 +58,17 @@ const metadata: Meta<AnchorArgs> = {
             control: { type: 'radio' },
             description:
                 'Set to `prominent` to make the anchor appear in a different color than normal text.'
+        },
+        contenteditable: {
+            description:
+                'Set this when the anchor is within an editable region (i.e. element/hierarchy with [contenteditable](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable)). Whereas native elements can automatically adapt their behavior when within a `contenteditable` element, the `nimble-anchor` requires this attribute be explicitly set. When set, the anchor cannot be focused or operated.'
         }
     },
     args: {
         label: 'link',
         href: 'https://nimble.ni.dev',
         underlineHidden: false,
+        contenteditable: false,
         appearance: 'default'
     }
 };

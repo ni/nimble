@@ -33,6 +33,16 @@ export class NimbleAnchorDirective extends NimbleAnchorBaseDirective<Anchor> {
         this.renderer.setProperty(this.elementRef.nativeElement, 'underlineHidden', toBooleanProperty(value));
     }
 
+    public get contentEditable(): boolean {
+        return this.elementRef.nativeElement.contenteditable;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('contenteditable') public set contentEditable(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'contenteditable', toBooleanProperty(value));
+    }
+
     public constructor(renderer: Renderer2, elementRef: ElementRef<Anchor>) {
         super(renderer, elementRef);
     }

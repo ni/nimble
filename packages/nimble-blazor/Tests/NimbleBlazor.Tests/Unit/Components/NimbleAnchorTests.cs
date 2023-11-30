@@ -41,6 +41,22 @@ public class NimbleAnchorTests : NimbleAnchorBaseTests<NimbleAnchor>
         Assert.Contains(expectedMarkup, anchor.Markup);
     }
 
+    [Fact]
+    public void AnchorContentEditable_AttributeIsSet()
+    {
+        var anchor = RenderWithPropertySet(x => x.ContentEditable, true);
+
+        Assert.Contains("contenteditable", anchor.Markup);
+    }
+
+    [Fact]
+    public void AnchorUnderlineHidden_AttributeIsSet()
+    {
+        var anchor = RenderWithPropertySet(x => x.UnderlineHidden, true);
+
+        Assert.Contains("underline-hidden", anchor.Markup);
+    }
+
     private IRenderedComponent<NimbleAnchor> RenderWithPropertySet<TProperty>(Expression<Func<NimbleAnchor, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();

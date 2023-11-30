@@ -4,7 +4,23 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
+async function setup(): Promise<Fixture<Anchor>> {
+    return fixture<Anchor>(html`<nimble-anchor></nimble-anchor>`);
+}
+
 describe('Anchor', () => {
+    let element: Anchor;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+
+    beforeEach(async () => {
+        ({ element, connect, disconnect } = await setup());
+    });
+
+    afterEach(async () => {
+        await disconnect();
+    });
+
     it('should export its tag', () => {
         expect(anchorTag).toBe('nimble-anchor');
     });
@@ -13,144 +29,85 @@ describe('Anchor', () => {
         expect(document.createElement('nimble-anchor')).toBeInstanceOf(Anchor);
     });
 
-    describe('element only', () => {
-        async function setup(): Promise<Fixture<Anchor>> {
-            return fixture<Anchor>(html`<nimble-anchor></nimble-anchor>`);
-        }
-        let element: Anchor;
-        let connect: () => Promise<void>;
-        let disconnect: () => Promise<void>;
+    it('should set the "control" class on the internal control', async () => {
+        await connect();
+        expect(element.control!.classList.contains('control')).toBe(true);
+    });
 
-        beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
-        });
+    it('should set the `part` attribute to "control" on the internal control', async () => {
+        await connect();
+        expect(element.control!.part.contains('control')).toBe(true);
+    });
 
-        afterEach(async () => {
-            await disconnect();
-        });
+    const attributeNames: { name: string }[] = [
+        { name: 'download' },
+        { name: 'href' },
+        { name: 'hreflang' },
+        { name: 'ping' },
+        { name: 'referrerpolicy' },
+        { name: 'rel' },
+        { name: 'target' },
+        { name: 'type' },
+        { name: 'aria-atomic' },
+        { name: 'aria-busy' },
+        { name: 'aria-controls' },
+        { name: 'aria-current' },
+        { name: 'aria-describedby' },
+        { name: 'aria-details' },
+        { name: 'aria-disabled' },
+        { name: 'aria-errormessage' },
+        { name: 'aria-expanded' },
+        { name: 'aria-flowto' },
+        { name: 'aria-haspopup' },
+        { name: 'aria-hidden' },
+        { name: 'aria-invalid' },
+        { name: 'aria-keyshortcuts' },
+        { name: 'aria-label' },
+        { name: 'aria-labelledby' },
+        { name: 'aria-live' },
+        { name: 'aria-owns' },
+        { name: 'aria-relevant' },
+        { name: 'aria-roledescription' }
+    ];
+    describe('should reflect value to the internal control', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const attribute of attributeNames) {
+            const specType = getSpecTypeByNamedList(
+                attribute,
+                focused,
+                disabled
+            );
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(`for attribute ${attribute.name}`, async () => {
+                await connect();
 
-        it('should set the "control" class on the internal control', async () => {
-            await connect();
-            expect(element.control!.classList.contains('control')).toBe(true);
-        });
+                element.setAttribute(attribute.name, 'foo');
+                await waitForUpdatesAsync();
 
-        it('should set the `part` attribute to "control" on the internal control', async () => {
-            await connect();
-            expect(element.control!.part.contains('control')).toBe(true);
-        });
-
-        const attributeNames: { name: string }[] = [
-            { name: 'download' },
-            { name: 'href' },
-            { name: 'hreflang' },
-            { name: 'ping' },
-            { name: 'referrerpolicy' },
-            { name: 'rel' },
-            { name: 'target' },
-            { name: 'type' },
-            { name: 'aria-atomic' },
-            { name: 'aria-busy' },
-            { name: 'aria-controls' },
-            { name: 'aria-current' },
-            { name: 'aria-describedby' },
-            { name: 'aria-details' },
-            { name: 'aria-disabled' },
-            { name: 'aria-errormessage' },
-            { name: 'aria-expanded' },
-            { name: 'aria-flowto' },
-            { name: 'aria-haspopup' },
-            { name: 'aria-hidden' },
-            { name: 'aria-invalid' },
-            { name: 'aria-keyshortcuts' },
-            { name: 'aria-label' },
-            { name: 'aria-labelledby' },
-            { name: 'aria-live' },
-            { name: 'aria-owns' },
-            { name: 'aria-relevant' },
-            { name: 'aria-roledescription' }
-        ];
-        describe('should reflect value to the internal control', () => {
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const attribute of attributeNames) {
-                const specType = getSpecTypeByNamedList(
-                    attribute,
-                    focused,
-                    disabled
+                expect(element.control!.getAttribute(attribute.name)).toBe(
+                    'foo'
                 );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(`for attribute ${attribute.name}`, async () => {
-                    await connect();
-
-                    element.setAttribute(attribute.name, 'foo');
-                    await waitForUpdatesAsync();
-
-                    expect(element.control!.getAttribute(attribute.name)).toBe(
-                        'foo'
-                    );
-                });
-            }
-        });
+            });
+        }
     });
 
     describe('inner anchor isContentEditable', () => {
-        async function setup(): Promise<Fixture<HTMLDivElement>> {
-            return fixture<HTMLDivElement>(
-                html`<div><nimble-anchor></nimble-anchor></div>`
-            );
-        }
-        let element: HTMLDivElement;
-        let anchor: Anchor;
-        let connect: () => Promise<void>;
-        let disconnect: () => Promise<void>;
+        let innerAnchor: HTMLAnchorElement;
 
         beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
-            anchor = element.firstElementChild as Anchor;
-        });
-
-        afterEach(async () => {
-            await disconnect();
-        });
-
-        it('is false by default', async () => {
             await connect();
-            const innerAnchor = anchor.shadowRoot!.querySelector('a')!;
+            innerAnchor = element.shadowRoot!.querySelector('a')!;
+        });
+
+        it('is false by default', () => {
             expect(innerAnchor.isContentEditable).toBeFalse();
         });
 
-        it('is true when container has contenteditable before connecting', async () => {
-            element.setAttribute('contenteditable', '');
-            await connect();
-            const innerAnchor = anchor.shadowRoot!.querySelector('a')!;
-            expect(innerAnchor.isContentEditable).toBeTrue();
-        });
-
-        it('is true when container gets contenteditable after connecting, then anchor gets mouseenter event', async () => {
-            await connect();
+        it('is true when contenteditable set on host element', async () => {
             element.setAttribute('contenteditable', '');
             await waitForUpdatesAsync();
-            const innerAnchor = anchor.shadowRoot!.querySelector('a')!;
-            innerAnchor.dispatchEvent(new MouseEvent('mouseenter'));
             expect(innerAnchor.isContentEditable).toBeTrue();
-        });
-
-        it('is true when container gets contenteditable after connecting, then anchor gets focus event', async () => {
-            await connect();
-            element.setAttribute('contenteditable', '');
-            await waitForUpdatesAsync();
-            const innerAnchor = anchor.shadowRoot!.querySelector('a')!;
-            innerAnchor.dispatchEvent(new Event('focus'));
-            expect(innerAnchor.isContentEditable).toBeTrue();
-        });
-
-        it('is false when container loses contenteditable, then anchor gets mouseenter event', async () => {
-            element.setAttribute('contenteditable', '');
-            await connect();
-            element.removeAttribute('contenteditable');
-            const innerAnchor = anchor.shadowRoot!.querySelector('a')!;
-            innerAnchor.dispatchEvent(new MouseEvent('mouseenter'));
-            expect(innerAnchor.isContentEditable).toBeFalse();
         });
     });
 });
