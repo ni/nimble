@@ -1,4 +1,4 @@
-import type { RichTextMentionConfig } from '../../rich-text-mention/base/types';
+import type { MappingConfigs, RichTextMentionConfig } from '../../rich-text-mention/base/types';
 import type { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 
 /**
@@ -10,6 +10,7 @@ export class MentionExtensionConfiguration {
     public readonly character: string;
     public readonly name: string;
     public readonly key: string;
+    public readonly mappingConfigs?: MappingConfigs;
 
     public constructor(
         mentionInternals: MentionInternals<RichTextMentionConfig>,
@@ -18,6 +19,7 @@ export class MentionExtensionConfiguration {
         // Name, Key and character should be unique for each mention plugin to be configured.
         this.viewElement = mentionInternals.viewElement;
         this.character = mentionInternals.character;
+        this.mappingConfigs = mentionInternals.mentionConfig?.mappingConfigs;
         this.name = key;
         this.key = key;
     }

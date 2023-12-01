@@ -43,7 +43,7 @@ export abstract class RichText extends FoundationElement {
      * Create a MarkdownParserMentionConfiguration using the mention elements and implement the logic for the getMentionedHref() method
      * which will be invoked in the RichTextMention base class from the client.
      */
-    protected updateMentionConfig(): void {
+    protected updateMentionConfigs(): void {
         // TODO: Add a rich text validator to check if the `mentionElements` contains duplicate configuration element
         // For example, having two `nimble-rich-text-mention-users` within the children of rich text viewer or editor is an invalid configuration
         if (

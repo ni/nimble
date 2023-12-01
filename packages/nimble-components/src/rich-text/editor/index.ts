@@ -31,22 +31,20 @@ import Mention, { MentionOptions } from '@tiptap/extension-mention';
 import HardBreak from '@tiptap/extension-hard-break';
 import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
 import type { SuggestionProps } from '@tiptap/suggestion';
+import { PluginKey } from 'prosemirror-state';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
-import { MentionDetail, TipTapNodeName } from './types';
+import { MentionDetail, MentionExtensionConfig, TipTapNodeName } from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import { RichText } from '../base';
-import type {
-    MappingConfigs,
-    RichTextMentionConfig
-} from '../../rich-text-mention/base';
-import type { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
+import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 import type { AnchoredRegion } from '../../anchored-region';
 import type { RichTextMentionListBox } from '../mention-list-box';
+import type { MappingConfigs } from '../../rich-text-mention/base/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -197,15 +195,12 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      */
     public editorContainer!: HTMLDivElement;
 
+    private richTextMarkdownSerializer = new RichTextMarkdownSerializer();
+
     private mentionPropCommand!: SuggestionProps;
 
     @observable
     private activeChar?: string;
-
-    private readonly mentionInternalsMap: Map<
-    string,
-    MentionInternals<RichTextMentionConfig>
-    > = new Map();
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
@@ -301,6 +296,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         );
         this.initializeEditor();
         this.setMarkdown(currentStateMarkdown);
+        this.setActiveConfiguration();
     }
 
     /**
@@ -413,9 +409,15 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     public getMentionedHrefs(): string[] {
-        return RichTextMarkdownSerializer.getMentionedHrefs(
-            this.tiptapEditor.state.doc
-        );
+        const mentionedHrefs: string[] = [];
+        this.tiptapEditor.state.doc.descendants(node => {
+            if (this.getAllMentionExtensionNames().includes(node.type.name)) {
+                if (!mentionedHrefs.includes(node.attrs.href as string)) {
+                    mentionedHrefs.push(node.attrs.href as string);
+                }
+            }
+        });
+        return mentionedHrefs;
     }
 
     public mentionChange(e: CustomEvent<MentionDetail>): void {
@@ -426,34 +428,8 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         this.openMentionPopup = false;
     }
 
-    protected override updateView(): void {
-        this.setMarkdown(this.getMarkdown());
-    }
-
-    protected override updateMentionConfig(): void {
-        super.updateMentionConfig();
-        this.mentionElements.forEach(element => {
-            this.mentionInternalsMap.clear();
-            if (
-                element.mentionInternals.pattern
-                && element.mentionInternals.mentionConfig
-            ) {
-                this.mentionInternalsMap.set(
-                    element.mentionInternals.character,
-                    element.mentionInternals
-                );
-            }
-            this.activeConfiguration = this.activeChar
-                ? this.mentionInternalsMap.get(this.activeChar)?.mentionConfig
-                    ?.mappingConfigs
-                : undefined;
-        });
-    }
-
-    private activeCharChanged(_oldValue: string, newValue: string): void {
-        this.activeConfiguration = this.mentionInternalsMap.get(
-            newValue
-        )?.mentionConfig?.mappingConfigs;
+    private activeCharChanged(_oldValue: string, _newValue: string): void {
+        this.setActiveConfiguration();
     }
 
     private createEditor(): HTMLDivElement {
@@ -463,6 +439,12 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         editor.setAttribute('role', 'textbox');
         editor.setAttribute('aria-disabled', 'false');
         return editor;
+    }
+
+    private setActiveConfiguration(): void {
+        this.activeConfiguration = this.activeChar
+            ? this.mentionExtensionConfig?.find(config => config.character === this.activeChar)?.mappingConfigs
+            : undefined;
     }
 
     /**
@@ -706,7 +688,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             }
         }).configure({
             suggestion: {
-                decorationTag: richTextMentionUsersViewTag,
+                char: config.character,
+                decorationTag: config.viewElement,
+                pluginKey: new PluginKey(config.key),
                 allowSpaces: true,
                 render: () => {
                     let inSuggestionMode = false;
