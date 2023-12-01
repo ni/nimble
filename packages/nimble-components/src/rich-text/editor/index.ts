@@ -40,7 +40,7 @@ import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import { RichText } from '../base';
-import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
+import { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -161,6 +161,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @internal
      */
     public editorContainer!: HTMLDivElement;
+
+    @observable
+    private mentionExtensionConfig?: MentionExtensionConfiguration[];
 
     private richTextMarkdownSerializer = new RichTextMarkdownSerializer();
 
@@ -379,6 +382,25 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             }
         });
         return mentionedHrefs;
+    }
+
+    protected override updateMentionConfig(): void {
+        super.updateMentionConfig();
+        if (
+            this.mentionElements.every(
+                mention => mention.mentionInternals.validConfiguration
+            )
+        ) {
+            this.mentionExtensionConfig = this.mentionElements.map(
+                (mention, index) => new MentionExtensionConfiguration(
+                    mention.mentionInternals,
+                    `mention-plugin-${index}`
+                )
+            );
+
+            return;
+        }
+        this.mentionExtensionConfig = [];
     }
 
     private createEditor(): HTMLDivElement {
