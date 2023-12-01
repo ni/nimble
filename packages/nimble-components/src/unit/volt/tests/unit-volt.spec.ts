@@ -1,5 +1,5 @@
 import { UnitVolt, unitVoltTag } from '..';
-import { VoltUnitScale } from '../models/volt-unit-scale';
+import { VoltUnitScale } from '../../../utilities/number-formatter/unit/volt-unit-scale';
 
 describe('Volt unit', () => {
     it('should export its tag', () => {

@@ -1,7 +1,7 @@
 import { NumberFormatter } from './number-formatter';
-import type { UnitFormatter } from './scaled-unit';
-import { UnitFormatterCache } from './unit-formatter-cache';
-import type { UnitScale } from './unit-scale';
+import type { UnitFormatter } from './unit/models/scaled-unit';
+import { UnitFormatterCache } from './unit/models/unit-formatter-cache';
+import type { UnitScale } from './unit/models/unit-scale';
 
 /**
  * The formatter for a number-text column whose format is configured to be 'default'.
@@ -46,14 +46,20 @@ export class DefaultFormatter extends NumberFormatter {
 
     private readonly exponentialFormatterCache: UnitFormatterCache;
 
-    public constructor(
-        locale: string,
-        private readonly unitScale: UnitScale
-    ) {
+    public constructor(locale: string, private readonly unitScale: UnitScale) {
         super();
-        this.defaultFormatterCache = new UnitFormatterCache(locale, this.defaultFormatterOptions);
-        this.leadingZeroFormatterCache = new UnitFormatterCache(locale, this.leadingZeroFormatterOptions);
-        this.exponentialFormatterCache = new UnitFormatterCache(locale, this.exponentialFormatterOptions);
+        this.defaultFormatterCache = new UnitFormatterCache(
+            locale,
+            this.defaultFormatterOptions
+        );
+        this.leadingZeroFormatterCache = new UnitFormatterCache(
+            locale,
+            this.leadingZeroFormatterOptions
+        );
+        this.exponentialFormatterCache = new UnitFormatterCache(
+            locale,
+            this.exponentialFormatterOptions
+        );
     }
 
     protected format(number: number): string {
@@ -65,20 +71,31 @@ export class DefaultFormatter extends NumberFormatter {
         let unitFormatter: UnitFormatter;
         switch (formatter) {
             case 'default':
-                unitFormatter = this.defaultFormatterCache.getOrCreateUnitFormatter(unit.scaleFactor, unit.unitFormatterFactory);
+                unitFormatter = this.defaultFormatterCache.getOrCreateUnitFormatter(
+                    unit.scaleFactor,
+                    unit.unitFormatterFactory
+                );
                 return unitFormatter.format(scaledValue);
             case 'leadingZero':
-                unitFormatter = this.leadingZeroFormatterCache.getOrCreateUnitFormatter(unit.scaleFactor, unit.unitFormatterFactory);
+                unitFormatter = this.leadingZeroFormatterCache.getOrCreateUnitFormatter(
+                    unit.scaleFactor,
+                    unit.unitFormatterFactory
+                );
                 return unitFormatter.format(scaledValue);
             case 'exponential':
-                unitFormatter = this.exponentialFormatterCache.getOrCreateUnitFormatter(1, unit.unitFormatterFactory);
+                unitFormatter = this.exponentialFormatterCache.getOrCreateUnitFormatter(
+                    1,
+                    unit.unitFormatterFactory
+                );
                 return unitFormatter.format(valueToFormat);
             default:
                 throw new Error('what happened?');
         }
     }
 
-    private getFormatterForNumber(number: number): 'default' | 'leadingZero' | 'exponential' {
+    private getFormatterForNumber(
+        number: number
+    ): 'default' | 'leadingZero' | 'exponential' {
         if (number === 0) {
             return 'default';
         }

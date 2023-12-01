@@ -18,15 +18,15 @@ import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { NumberTextAlignment, NumberTextFormat } from './types';
-import type { NumberFormatter } from './models/number-formatter';
-import { DefaultFormatter } from './models/default-formatter';
-import { DecimalFormatter } from './models/decimal-formatter';
+import type { NumberFormatter } from '../../utilities/number-formatter/number-formatter';
+import { DefaultFormatter } from '../../utilities/number-formatter/default-formatter';
+import { DecimalFormatter } from '../../utilities/number-formatter/decimal-formatter';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
 import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
 import { Unit } from '../../unit/base/unit';
 import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-custom-elements-defined-async';
-import { EmptyUnitScale } from './models/empty-unit-scale';
+import { EmptyUnitScale } from '../../utilities/number-formatter/unit/models/empty-unit-scale';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
@@ -198,10 +198,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
                 );
             }
             default: {
-                return new DefaultFormatter(
-                    lang.getValueFor(this),
-                    unitScale
-                );
+                return new DefaultFormatter(lang.getValueFor(this), unitScale);
             }
         }
     }

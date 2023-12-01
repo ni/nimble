@@ -1,8 +1,8 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
-import type { UnitScale } from '../../table-column/number-text/models/unit-scale';
-import { VoltUnitScale } from './models/volt-unit-scale';
+import type { UnitScale } from '../../utilities/number-formatter/unit/models/unit-scale';
+import { VoltUnitScale } from '../../utilities/number-formatter/unit/volt-unit-scale';
 
 declare global {
     interface HTMLElementTagNameMap {

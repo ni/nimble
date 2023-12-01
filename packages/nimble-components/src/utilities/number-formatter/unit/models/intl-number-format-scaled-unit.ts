@@ -1,4 +1,4 @@
-import { UnitFormatter } from '../../../table-column/number-text/models/scaled-unit';
+import { UnitFormatter } from './scaled-unit';
 
 /**
  * A scaled unit that can be formatted/translated by Intl.NumberFormat

@@ -1,9 +1,9 @@
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { template } from '../base/template';
-import type { UnitScale } from '../../table-column/number-text/models/unit-scale';
-import { Byte1024UnitScale } from './models/byte-1024-unit-scale';
-import { ByteUnitScale } from './models/byte-unit-scale';
+import type { UnitScale } from '../../utilities/number-formatter/unit/models/unit-scale';
+import { Byte1024UnitScale } from '../../utilities/number-formatter/unit/byte-1024-unit-scale';
+import { ByteUnitScale } from '../../utilities/number-formatter/unit/byte-unit-scale';
 import { Unit } from '../base/unit';
 
 declare global {

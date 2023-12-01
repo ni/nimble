@@ -1,6 +1,6 @@
 import { NumberFormatter } from './number-formatter';
-import { UnitFormatterCache } from './unit-formatter-cache';
-import type { UnitScale } from './unit-scale';
+import { UnitFormatterCache } from './unit/models/unit-formatter-cache';
+import type { UnitScale } from './unit/models/unit-scale';
 
 /**
  * The formatter for a number-text column whose format is configured to be 'decimal'.
@@ -21,15 +21,23 @@ export class DecimalFormatter extends NumberFormatter {
             minimumFractionDigits,
             useGrouping: true
         };
-        this.unitFormatterCache = new UnitFormatterCache(locale, decimalFormatterOptions);
+        this.unitFormatterCache = new UnitFormatterCache(
+            locale,
+            decimalFormatterOptions
+        );
         this.tenPowDecimalDigits = 10 ** maximumFractionDigits;
     }
 
     protected format(number: number): string {
         const { scaledValue, scaledUnit: unit } = this.unitScale.scaleNumber(number);
 
-        const valueToFormat = this.willRoundToZero(scaledValue) ? 0 : scaledValue;
-        const formatter = this.unitFormatterCache.getOrCreateUnitFormatter(unit.scaleFactor, unit.unitFormatterFactory);
+        const valueToFormat = this.willRoundToZero(scaledValue)
+            ? 0
+            : scaledValue;
+        const formatter = this.unitFormatterCache.getOrCreateUnitFormatter(
+            unit.scaleFactor,
+            unit.unitFormatterFactory
+        );
         return formatter.format(valueToFormat);
     }
 

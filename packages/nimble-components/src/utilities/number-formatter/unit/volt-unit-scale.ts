@@ -1,6 +1,6 @@
-import { ManuallyTranslatedUnitScale } from '../../base/models/manually-translated-unit-scale';
-import { UnitPrefix, metricPrefixes } from '../../base/models/unit-prefix';
-import { UnitTranslation } from '../../base/models/unit-translation';
+import { ManuallyTranslatedUnitScale } from './models/manually-translated-unit-scale';
+import { UnitPrefix, metricPrefixes } from './models/unit-prefix';
+import { UnitTranslation } from './models/unit-translation';
 
 /**
  * Voltage units

@@ -1,8 +1,8 @@
 import { ManuallyTranslatedScaledUnitFormatter } from './manually-translated-scaled-unit';
-import type { ScaledUnit } from '../../../table-column/number-text/models/scaled-unit';
+import type { ScaledUnit } from './scaled-unit';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
-import { UnitScale } from '../../../table-column/number-text/models/unit-scale';
+import { UnitScale } from './unit-scale';
 
 /**
  * A unit scale that is not supported by Intl.NumberFormat and has translations built into Nimble
@@ -24,20 +24,33 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
         const supportedUnits: ScaledUnit[] = [
             {
                 scaleFactor: 1,
-                unitFormatterFactory: (locale: string, numberFormatOptions: Intl.NumberFormatOptions | undefined) => {
-                    return new ManuallyTranslatedScaledUnitFormatter(locale, numberFormatOptions, this.unitTranslations);
+                unitFormatterFactory: (
+                    locale: string,
+                    numberFormatOptions: Intl.NumberFormatOptions | undefined
+                ) => {
+                    return new ManuallyTranslatedScaledUnitFormatter(
+                        locale,
+                        numberFormatOptions,
+                        this.unitTranslations
+                    );
                 }
             }
         ];
         for (const prefix of this.supportedPrefixes) {
-            supportedUnits.push(
-                {
-                    scaleFactor: prefix.factor,
-                    unitFormatterFactory: (locale: string, numberFormatOptions: Intl.NumberFormatOptions | undefined) => {
-                        return new ManuallyTranslatedScaledUnitFormatter(locale, numberFormatOptions, this.unitTranslations, prefix.text);
-                    }
+            supportedUnits.push({
+                scaleFactor: prefix.factor,
+                unitFormatterFactory: (
+                    locale: string,
+                    numberFormatOptions: Intl.NumberFormatOptions | undefined
+                ) => {
+                    return new ManuallyTranslatedScaledUnitFormatter(
+                        locale,
+                        numberFormatOptions,
+                        this.unitTranslations,
+                        prefix.text
+                    );
                 }
-            );
+            });
         }
         return supportedUnits;
     }
