@@ -5,6 +5,7 @@ import {
     bodyFont,
     bodyFontColor,
     cardBorderColor,
+    largePadding,
     subtitleFontColor,
     subtitlePlus1Font
 } from '../theme-provider/design-tokens';
@@ -14,8 +15,8 @@ export const styles = css`
 
     :host {
         flex-direction: column;
-        gap: 24px;
-        padding: 24px;
+        gap: ${largePadding};
+        padding: ${largePadding};
         border: 2px solid ${cardBorderColor};
         border-radius: 8px;
         font: ${bodyFont};

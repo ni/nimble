@@ -43,6 +43,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     smallPadding: 'small-padding',
     mediumPadding: 'medium-padding',
     standardPadding: 'standard-padding',
+    largePadding: 'large-padding',
     labelHeight: 'label-height',
     borderWidth: 'border-width',
     iconSize: 'icon-size',

@@ -298,6 +298,9 @@ export const mediumPadding = DesignToken.create<string>(
 export const standardPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.standardPadding)
 ).withDefault('16px');
+export const largePadding = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.largePadding)
+).withDefault('24px');
 export const labelHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.labelHeight)
 ).withDefault('16px');
