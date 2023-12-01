@@ -34,9 +34,9 @@ export class MappingTestConfig extends MappingConfig {}
 @customElement({
     name: richTextMentionTestTag,
     template: html<RichTextMention>`<slot
-    ${slotted('mappings')}
-    name="mapping"
-></slot>`
+        ${slotted('mappings')}
+        name="mapping"
+    ></slot>`
 })
 export class RichTextMentionTest extends RichTextMention {
     public override getMentionedHrefs(): string[] {

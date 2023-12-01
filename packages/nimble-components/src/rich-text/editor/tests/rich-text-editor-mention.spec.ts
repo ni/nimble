@@ -1,9 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import {
-    parameterizeNamedList
-} from '../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { createEventListener } from '../../../utilities/tests/component';
 import {
@@ -340,7 +338,10 @@ describe('RichTextEditorMention', () => {
             element.setMarkdown('<user:1> <test:2>');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'A', 'A']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['user:1', 'test:2']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'user:1',
+                'test:2'
+            ]);
             await appendUserMentionConfiguration(element);
             await appendTestMentionConfiguration(element);
 
@@ -359,9 +360,20 @@ describe('RichTextEditorMention', () => {
             element.setMarkdown('<user:1> <test:2>');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'A', 'A']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['user:1', 'test:2']);
-            await appendUserMentionConfiguration(element, ['user:1'], ['username1']);
-            await appendTestMentionConfiguration(element, ['test:2'], ['testname2']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'user:1',
+                'test:2'
+            ]);
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await appendTestMentionConfiguration(
+                element,
+                ['test:2'],
+                ['testname2']
+            );
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
@@ -378,8 +390,15 @@ describe('RichTextEditorMention', () => {
             element.setMarkdown('<user:1> <test:2>');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'A', 'A']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['user:1', 'test:2']);
-            await appendUserMentionConfiguration(element, ['user:1'], ['username1']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'user:1',
+                'test:2'
+            ]);
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
             await appendTestMentionConfiguration(element, [], []);
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -397,9 +416,20 @@ describe('RichTextEditorMention', () => {
             element.setMarkdown('<user:1> <test:2>');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'A', 'A']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['user:1', 'test:2']);
-            await appendUserMentionConfiguration(element, ['user:1'], ['username1']);
-            await appendTestMentionConfiguration(element, ['test:2'], ['testname2']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'user:1',
+                'test:2'
+            ]);
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await appendTestMentionConfiguration(
+                element,
+                ['test:2'],
+                ['testname2']
+            );
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
@@ -427,9 +457,20 @@ describe('RichTextEditorMention', () => {
             element.setMarkdown('<user:1> <test:2>');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'A', 'A']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['user:1', 'test:2']);
-            await appendUserMentionConfiguration(element, ['user:1'], ['username1']);
-            await appendTestMentionConfiguration(element, ['test:2'], ['testname2']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'user:1',
+                'test:2'
+            ]);
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await appendTestMentionConfiguration(
+                element,
+                ['test:2'],
+                ['testname2']
+            );
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
@@ -459,9 +500,20 @@ describe('RichTextEditorMention', () => {
             element.setMarkdown('<user:1> <test:2>');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'A', 'A']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['user:1', 'test:2']);
-            await appendUserMentionConfiguration(element, ['user:1'], ['username1']);
-            await appendTestMentionConfiguration(element, ['test:2'], ['testname2']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'user:1',
+                'test:2'
+            ]);
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await appendTestMentionConfiguration(
+                element,
+                ['test:2'],
+                ['testname2']
+            );
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
@@ -477,16 +529,30 @@ describe('RichTextEditorMention', () => {
             await waitForUpdatesAsync();
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'A', 'A']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['user:1', 'test:2']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'user:1',
+                'test:2'
+            ]);
         });
 
         it('Should update `mention-label` in respective view element when updating `display-name` in mapping mention of one configuration Element', async () => {
             element.setMarkdown('<user:1> <test:2>');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'A', 'A']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['user:1', 'test:2']);
-            await appendUserMentionConfiguration(element, ['user:1'], ['username1']);
-            await appendTestMentionConfiguration(element, ['test:2'], ['testname2']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'user:1',
+                'test:2'
+            ]);
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await appendTestMentionConfiguration(
+                element,
+                ['test:2'],
+                ['testname2']
+            );
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
@@ -510,11 +576,22 @@ describe('RichTextEditorMention', () => {
 
         it('updating valid `key` in mapping mention should update it to a mention view if is a absolute link before', async () => {
             element.setMarkdown('<user:1> <test:2>');
-            await appendUserMentionConfiguration(element, ['user:1'], ['username1']);
-            await appendTestMentionConfiguration(element, ['invalid'], ['testname2']);
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await appendTestMentionConfiguration(
+                element,
+                ['invalid'],
+                ['testname2']
+            );
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'A', 'A']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['user:1', 'test:2']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'user:1',
+                'test:2'
+            ]);
 
             const renderedUserMention = element.lastElementChild as RichTextMentionTest;
             const renderedMappingUser = renderedUserMention.firstElementChild as MappingUser;
@@ -534,8 +611,16 @@ describe('RichTextEditorMention', () => {
 
         it('updating valid `key` in mapping mention should update it to absolute link if it is a mention before', async () => {
             element.setMarkdown('<user:1> <test:2>');
-            await appendUserMentionConfiguration(element, ['user:1'], ['username1']);
-            await appendTestMentionConfiguration(element, ['test:2'], ['testname2']);
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await appendTestMentionConfiguration(
+                element,
+                ['test:2'],
+                ['testname2']
+            );
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
@@ -553,7 +638,10 @@ describe('RichTextEditorMention', () => {
             await waitForUpdatesAsync();
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'A', 'A']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['user:1', 'test:2']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'user:1',
+                'test:2'
+            ]);
         });
     });
 
@@ -720,24 +808,19 @@ describe('RichTextEditorMention', () => {
             }
         ] as const;
 
-        parameterizeNamedList(
-            validMentionNodes,
-            (spec, name, value) => {
-                spec(
-                    `${name} renders as plain text in editor`,
-                    async () => {
-                        await appendUserMentionConfiguration(element);
-                        pageObject.pasteHTMLToEditor(value.input);
-                        expect(
-                            pageObject.getEditorTagNamesWithClosingTags()
-                        ).toEqual(['P', '/P']);
-                        expect(
-                            pageObject.getEditorTextContents()
-                        ).toEqual([value.textContent]);
-                    }
-                );
-            }
-        );
+        parameterizeNamedList(validMentionNodes, (spec, name, value) => {
+            spec(`${name} renders as plain text in editor`, async () => {
+                await appendUserMentionConfiguration(element);
+                pageObject.pasteHTMLToEditor(value.input);
+                expect(pageObject.getEditorTagNamesWithClosingTags()).toEqual([
+                    'P',
+                    '/P'
+                ]);
+                expect(pageObject.getEditorTextContents()).toEqual([
+                    value.textContent
+                ]);
+            });
+        });
     });
 });
 

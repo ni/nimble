@@ -41,7 +41,7 @@ export class RichTextEditorPageObject {
             bubbles: true,
             cancelable: true
         });
-        editor!.dispatchEvent(event);
+        editor.dispatchEvent(event);
         await waitForUpdatesAsync();
     }
 
@@ -52,7 +52,7 @@ export class RichTextEditorPageObject {
             bubbles: true,
             cancelable: true
         });
-        editor!.dispatchEvent(event);
+        editor.dispatchEvent(event);
         await waitForUpdatesAsync();
     }
 
@@ -64,7 +64,7 @@ export class RichTextEditorPageObject {
             bubbles: true,
             cancelable: true
         });
-        editor!.dispatchEvent(shiftEnterEvent);
+        editor.dispatchEvent(shiftEnterEvent);
         await waitForUpdatesAsync();
     }
 
@@ -75,7 +75,7 @@ export class RichTextEditorPageObject {
             bubbles: true,
             cancelable: true
         });
-        editor!.dispatchEvent(event);
+        editor.dispatchEvent(event);
         await waitForUpdatesAsync();
     }
 
@@ -87,7 +87,7 @@ export class RichTextEditorPageObject {
             bubbles: true,
             cancelable: true
         });
-        editor!.dispatchEvent(shiftTabEvent);
+        editor.dispatchEvent(shiftTabEvent);
         await waitForUpdatesAsync();
     }
 
@@ -157,7 +157,7 @@ export class RichTextEditorPageObject {
             clipboardData: new DataTransfer()
         });
         pasteEvent.clipboardData?.setData('text/plain', text);
-        editor!.dispatchEvent(pasteEvent);
+        editor.dispatchEvent(pasteEvent);
     }
 
     // Simulate the actual pasting of content by passing the extracted HTML string as an argument and setting the format to 'text/html',
@@ -169,7 +169,7 @@ export class RichTextEditorPageObject {
             clipboardData: new DataTransfer()
         });
         pasteEvent.clipboardData?.setData('text/html', htmlString);
-        editor!.dispatchEvent(pasteEvent);
+        editor.dispatchEvent(pasteEvent);
     }
 
     public async setEditorTextContent(value: string): Promise<void> {
@@ -186,50 +186,43 @@ export class RichTextEditorPageObject {
     }
 
     public getEditorLastChildAttribute(attribute: string): string {
-        return getLastChildElementAttribute(
-            attribute,
-            this.getTiptapEditor() as HTMLElement
-        );
+        return getLastChildElementAttribute(attribute, this.getTiptapEditor());
     }
 
     public getEditorMentionViewAttributeValues(attribute: string): string[] {
         return Array.from(
-            this.getTiptapEditor()!.querySelectorAll(
-                richTextMentionUsersViewTag
-            )
+            this.getTiptapEditor().querySelectorAll(richTextMentionUsersViewTag)
         ).map(el => el.getAttribute(attribute) || '');
     }
 
     public getEditorFirstChildTagName(): string {
-        return this.getTiptapEditor()?.firstElementChild?.tagName ?? '';
+        return this.getTiptapEditor().firstElementChild?.tagName ?? '';
     }
 
     public getEditorFirstChildTextContent(): string {
-        return this.getTiptapEditor()?.firstElementChild?.textContent ?? '';
+        return this.getTiptapEditor().firstElementChild?.textContent ?? '';
     }
 
     public getEditorTextContents(): string[] {
-        return Array.from(this.getTiptapEditor()!.querySelectorAll('*')).map(
+        return Array.from(this.getTiptapEditor().querySelectorAll('*')).map(
             el => el.textContent || ''
         );
     }
 
     public getEditorTagNames(): string[] {
-        return getTagsFromElement(this.getTiptapEditor() as HTMLElement);
+        return getTagsFromElement(this.getTiptapEditor());
     }
 
     // Return list of tags, excluding those such as 'IMG' (prosemirror-separator) that do not affect the UI or markdown output.
     // These tags are considered extraneous and are added by prosemirror.
     public getMarkdownRenderedTagNames(): string[] {
-        return getTagsFromElement(this.getTiptapEditor() as HTMLElement).filter(
+        return getTagsFromElement(this.getTiptapEditor()).filter(
             tag => tag !== 'IMG'
         );
     }
 
     public getEditorLeafContents(): string[] {
-        return getLeafContentsFromElement(
-            this.getTiptapEditor() as HTMLElement
-        );
+        return getLeafContentsFromElement(this.getTiptapEditor());
     }
 
     public getEditorTagNamesWithClosingTags(): string[] {
@@ -275,7 +268,7 @@ export class RichTextEditorPageObject {
     }
 
     public getEditorTabIndex(): string {
-        return this.getTiptapEditor()?.getAttribute('tabindex') ?? '';
+        return this.getTiptapEditor().getAttribute('tabindex') ?? '';
     }
 
     public async setFooterHidden(footerHidden: boolean): Promise<void> {
@@ -307,7 +300,7 @@ export class RichTextEditorPageObject {
     }
 
     public getPlaceholderValue(): string {
-        const editor = this.getTiptapEditor()!;
+        const editor = this.getTiptapEditor();
         return editor.firstElementChild?.getAttribute('data-placeholder') ?? '';
     }
 
@@ -321,10 +314,10 @@ export class RichTextEditorPageObject {
         );
     }
 
-    private getTiptapEditor(): Element | null | undefined {
-        return this.richTextEditorElement.shadowRoot?.querySelector(
+    private getTiptapEditor(): HTMLDivElement {
+        return this.richTextEditorElement.shadowRoot!.querySelector<HTMLDivElement>(
             '.ProseMirror'
-        );
+        )!;
     }
 
     private getFormattingButton(
@@ -337,6 +330,6 @@ export class RichTextEditorPageObject {
     }
 
     private getEditorLastChildElement(): Element {
-        return getLastChildElement(this.getTiptapEditor() as HTMLElement)!;
+        return getLastChildElement(this.getTiptapEditor())!;
     }
 }
