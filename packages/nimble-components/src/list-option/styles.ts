@@ -28,6 +28,9 @@ export const styles = css`
 
     .content {
         padding: 8px 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     :host([aria-selected='true']) {

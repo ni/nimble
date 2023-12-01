@@ -4,12 +4,11 @@ import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
-    borderWidth,
-    popupBorderColor,
     standardPadding,
     titlePlus1Font,
     drawerWidth,
-    largeDelay
+    largeDelay,
+    actionRgbPartialColor
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -153,7 +152,7 @@ export const styles = css`
         flex: none;
         display: flex;
         justify-content: flex-end;
-        border-top: ${borderWidth} solid ${popupBorderColor};
+        border-top: 2px solid rgba(${actionRgbPartialColor}, 0.1);
     }
 `.withBehaviors(
     /*

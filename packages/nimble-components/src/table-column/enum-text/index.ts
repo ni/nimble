@@ -61,7 +61,7 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
         };
     }
 
-    protected createMappingConfig(mapping: Mapping): MappingConfig {
+    protected createMappingConfig(mapping: Mapping<unknown>): MappingConfig {
         if (mapping instanceof MappingText) {
             return new MappingTextConfig(mapping.text);
         }

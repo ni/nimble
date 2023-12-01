@@ -2,6 +2,171 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 28 Nov 2023 18:24:15 GMT",
+      "version": "20.14.11",
+      "tag": "@ni/nimble-components_v20.14.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bf1259004b9d362f0d04fa52695b0d430805cf99",
+            "comment": "Add explicit dev dependency on source-map-loader"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 27 Nov 2023 16:11:51 GMT",
+      "version": "20.14.10",
+      "tag": "@ni/nimble-components_v20.14.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9047cd3f1c559b54f58d7bd9a4e3cf3ff401c0fb",
+            "comment": "Fix overflow behavior of nimble-list-option"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Nov 2023 08:11:47 GMT",
+      "version": "20.14.9",
+      "tag": "@ni/nimble-components_v20.14.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c69a7745d0a8223a479d79a2cabe6cdcd1e9ca1a",
+            "comment": "Add support for @mention in nimble-rich-text-viewer"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 21 Nov 2023 19:16:40 GMT",
+      "version": "20.14.8",
+      "tag": "@ni/nimble-components_v20.14.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f74e2591ec02b4a60c873e9308f82ad96ca51f40",
+            "comment": "Hide inc/dec buttons on numeric from a11y tree"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 21 Nov 2023 17:02:30 GMT",
+      "version": "20.14.7",
+      "tag": "@ni/nimble-components_v20.14.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d268abf77bd76a1fe7e707542f391e5bb4367291",
+            "comment": "Introduce table hierarchical datatype."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Nov 2023 06:31:50 GMT",
+      "version": "20.14.6",
+      "tag": "@ni/nimble-components_v20.14.6",
+      "comments": {
+        "none": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fc25d8ce0c2a1cdad66aad1a7b50a193c9c0bf04",
+            "comment": "Update rich text component serializer test cases"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Nov 2023 16:02:19 GMT",
+      "version": "20.14.6",
+      "tag": "@ni/nimble-components_v20.14.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "045bb0a6749a64df4af2b28da161b79802c5f12b",
+            "comment": "Add configuration component for rich text @mention support"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Nov 2023 01:11:32 GMT",
+      "version": "20.14.5",
+      "tag": "@ni/nimble-components_v20.14.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ad97540875589785cfce251af5213237ecf5778a",
+            "comment": "Fix the drawer's footer's border to match the visual design spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Nov 2023 16:52:07 GMT",
+      "version": "20.14.4",
+      "tag": "@ni/nimble-components_v20.14.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1eea68e85e2c284cd4ebad9b910ea57c5b3f929b",
+            "comment": "Update internal mapping base class to be generic"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 13 Nov 2023 17:03:21 GMT",
+      "version": "20.14.3",
+      "tag": "@ni/nimble-components_v20.14.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fac3e07a393880edccb9061778a15ba5e7597fcb",
+            "comment": "Nimble rich text mention users view component bring up"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 11 Nov 2023 11:03:03 GMT",
+      "version": "20.14.2",
+      "tag": "@ni/nimble-components_v20.14.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "176130fee88b376f76c86b20294e9e44cca0c42f",
+            "comment": "Nimble list box component bring up"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 Nov 2023 16:07:09 GMT",
       "version": "20.14.1",
       "tag": "@ni/nimble-components_v20.14.1",
