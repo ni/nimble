@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { RichTextMentionValidity } from '@ni/nimble-components/dist/esm/rich-text-mention/base/models/mention-validator';
 import type { MentionUpdateEventDetail } from '@ni/nimble-components/dist/esm/rich-text-mention/base/types';
 import type { RichTextMention } from '@ni/nimble-components/dist/esm/rich-text-mention/base';
@@ -11,8 +11,6 @@ export type { MentionUpdateEventDetail };
  */
 @Directive()
 export class NimbleRichTextMentionDirective<T extends RichTextMention> {
-    @Output() public mentionUpdateEvent = new EventEmitter<boolean>();
-
     @Input() public set pattern(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'pattern', value);
     }
@@ -33,12 +31,5 @@ export class NimbleRichTextMentionDirective<T extends RichTextMention> {
 
     public get validity(): RichTextMentionValidity {
         return this.elementRef.nativeElement.validity;
-    }
-
-    @HostListener('mention-update', ['$event'])
-    public onMentionUpdate($event: Event): void {
-        if ($event.target === this.elementRef.nativeElement) {
-            this.mentionUpdateEvent.emit();
-        }
     }
 }
