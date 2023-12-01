@@ -31,8 +31,14 @@ export const iconMetadata: {
     IconArrowExpanderUp: {
         tags: []
     },
+    IconArrowInCircle: {
+        tags: ['move in']
+    },
     IconArrowLeftFromLine: {
         tags: ['logout']
+    },
+    IconArrowOutCircle: {
+        tags: ['move out']
     },
     IconArrowPartialRotateLeft: {
         tags: ['reset']
@@ -57,6 +63,9 @@ export const iconMetadata: {
     },
     IconArrowUp: {
         tags: ['sort', 'arrow', 'up', 'ascending']
+    },
+    IconAt: {
+        tags: ['@', 'email', 'handle', 'mention']
     },
     IconBars: {
         tags: ['hamburger menu']
