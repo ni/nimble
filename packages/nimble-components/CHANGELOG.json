@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 28 Nov 2023 18:24:15 GMT",
+      "version": "20.14.11",
+      "tag": "@ni/nimble-components_v20.14.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bf1259004b9d362f0d04fa52695b0d430805cf99",
+            "comment": "Add explicit dev dependency on source-map-loader"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 27 Nov 2023 16:11:51 GMT",
+      "version": "20.14.10",
+      "tag": "@ni/nimble-components_v20.14.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9047cd3f1c559b54f58d7bd9a4e3cf3ff401c0fb",
+            "comment": "Fix overflow behavior of nimble-list-option"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 23 Nov 2023 08:11:47 GMT",
       "version": "20.14.9",
       "tag": "@ni/nimble-components_v20.14.9",
