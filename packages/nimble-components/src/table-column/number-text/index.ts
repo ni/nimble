@@ -181,7 +181,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private createFormatter(): NumberFormatter {
-        const unitScale = this.unit?.getUnitScale() ?? new EmptyUnitScale();
+        const unitScale = this.unit?.getUnitScale() ?? EmptyUnitScale.instance;
         switch (this.format) {
             case NumberTextFormat.decimal: {
                 const minimumDigits = typeof this.decimalMaximumDigits === 'number'

@@ -1,21 +1,27 @@
-import { EmptyScaledUnitFormatter } from './empty-scaled-unit-formatter';
 import type { ScaledUnit } from './scaled-unit';
 import { UnitScale } from './unit-scale';
 
 /**
- * Degenerate UnitScaleFormatter for formatting without units
+ * Degenerate UnitScale for formatting without units
  */
 export class EmptyUnitScale extends UnitScale {
-    // TODO: create instance to use to match other unit scales?
+    public static readonly instance = new EmptyUnitScale();
 
     private static readonly supportedScaledUnits: ScaledUnit[] = [
         {
             scaleFactor: 1,
-            unitFormatterFactory: (locale: string, numberFormatOptions: Intl.NumberFormatOptions | undefined) => {
-                return new EmptyScaledUnitFormatter(locale, numberFormatOptions);
+            unitFormatterFactory: (
+                locale: string,
+                numberFormatOptions: Intl.NumberFormatOptions | undefined
+            ) => {
+                return new Intl.NumberFormat(locale, numberFormatOptions);
             }
         }
     ];
+
+    private constructor() {
+        super();
+    }
 
     protected override getSupportedScaledUnits(): ScaledUnit[] {
         return EmptyUnitScale.supportedScaledUnits;

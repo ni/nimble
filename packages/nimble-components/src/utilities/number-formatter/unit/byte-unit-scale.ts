@@ -113,6 +113,10 @@ export class ByteUnitScale extends UnitScale {
         }
     ];
 
+    private constructor() {
+        super();
+    }
+
     protected override getSupportedScaledUnits(): ScaledUnit[] {
         return ByteUnitScale.supportedScaledUnits;
     }
