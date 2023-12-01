@@ -41,7 +41,7 @@ export class RichTextMarkdownParser {
         markdownParserMentionConfig?: MarkdownParserMentionConfiguration[]
     ): ParseResult {
         try {
-            RichTextMarkdownParser.mentionConfigs = markdownParserMentionConfig;
+            RichTextMarkdownParser.setup(markdownParserMentionConfig);
             const parsedMarkdownContent = this.markdownParser.parse(value);
             if (parsedMarkdownContent === null) {
                 return {
@@ -56,8 +56,7 @@ export class RichTextMarkdownParser {
                 mentionedHrefs: RichTextMarkdownParser.mentionedHrefs
             };
         } finally {
-            RichTextMarkdownParser.mentionConfigs = undefined;
-            RichTextMarkdownParser.mentionedHrefs = [];
+            RichTextMarkdownParser.cleanup();
         }
     }
 
@@ -159,5 +158,15 @@ export class RichTextMarkdownParser {
                 strong: schema.spec.marks.get('strong')!
             }
         });
+    }
+
+    private static setup(markdownParserMentionConfig: MarkdownParserMentionConfiguration[] | undefined): void {
+        RichTextMarkdownParser.mentionConfigs = markdownParserMentionConfig;
+        RichTextMarkdownParser.mentionedHrefs = [];
+    }
+
+    private static cleanup(): void {
+        RichTextMarkdownParser.mentionConfigs = undefined;
+        RichTextMarkdownParser.mentionedHrefs = [];
     }
 }

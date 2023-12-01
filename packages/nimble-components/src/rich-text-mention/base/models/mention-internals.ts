@@ -4,8 +4,6 @@ export interface MentionInternalsOptions {
     readonly icon: string;
     readonly character: string;
     readonly viewElement: string;
-    readonly name: string;
-    readonly key: string;
 }
 
 /**
@@ -44,21 +42,9 @@ export class MentionInternals<TMentionConfig> {
      */
     public readonly viewElement: string;
 
-    /**
-     * Name for the mention plugin in editor
-     */
-    public readonly name: string;
-
-    /**
-     * Plugin key for mention extension in editor
-     */
-    public readonly key: string;
-
     public constructor(options: MentionInternalsOptions) {
         this.icon = options.icon;
         this.character = options.character;
         this.viewElement = options.viewElement;
-        this.name = options.name;
-        this.key = options.key;
     }
 }

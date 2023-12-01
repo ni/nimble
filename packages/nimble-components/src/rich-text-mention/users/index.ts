@@ -41,9 +41,7 @@ RichTextMentionUsersValidator
         return {
             icon: iconAtTag,
             character: '@',
-            viewElement: richTextMentionUsersViewTag,
-            name: 'user',
-            key: 'user'
+            viewElement: richTextMentionUsersViewTag
         };
     }
 

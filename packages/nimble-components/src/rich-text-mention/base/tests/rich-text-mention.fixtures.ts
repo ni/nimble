@@ -50,9 +50,7 @@ export class RichTextMentionTest extends RichTextMention {
         return {
             icon: '',
             character: '!',
-            viewElement: richTextMentionUsersViewTag,
-            name: 'test',
-            key: 'test'
+            viewElement: richTextMentionUsersViewTag
         };
     }
 

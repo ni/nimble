@@ -51,13 +51,13 @@ export abstract class RichText extends FoundationElement {
                 mention => mention.mentionInternals.validConfiguration
             )
         ) {
-            this.mentionExtensionConfig = this.mentionElements.map(
-                mention => new MentionExtensionConfiguration(mention.mentionInternals)
-            );
             this.parserMentionConfig = this.mentionElements.map(
                 mention => new MarkdownParserMentionConfiguration(
                     mention.mentionInternals
                 )
+            );
+            this.mentionExtensionConfig = this.mentionElements.map(
+                (mention, index) => new MentionExtensionConfiguration(mention.mentionInternals, `mention-plugin-${index}`)
             );
 
             return;

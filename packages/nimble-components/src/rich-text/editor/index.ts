@@ -5,8 +5,6 @@ import {
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { PluginKey } from '@tiptap/pm/state';
 import {
     Editor,
     findParentNode,
@@ -32,6 +30,7 @@ import Text from '@tiptap/extension-text';
 import Mention, { MentionOptions } from '@tiptap/extension-mention';
 import HardBreak from '@tiptap/extension-hard-break';
 import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
+import { PluginKey } from 'prosemirror-state';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
@@ -115,8 +114,14 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         // Tiptap [isEmpty](https://tiptap.dev/api/editor#is-empty) returns false even if the editor has only whitespace.
         // However, the expectation is to return true if the editor is empty or contains only whitespace.
         // Hence, by retrieving the current text content using Tiptap state docs and then trimming the string to determine whether it is empty or not.
-        if (this.tiptapEditor.state.doc.toString().includes('mention')) {
-            return false;
+        // Additionally, for mention nodes where the text content consists solely of white spaces, the name is displayed inside the view element template.
+        // Since the trimming method mentioned above will return true as there are only white spaces in mention nodes, an extra check has been implemented.
+        // This check ensures the presence of mention nodes within the editor document.
+        const editorContentInStringFormat = this.tiptapEditor.state.doc.toString();
+        for (const extensionName of this.getAllMentionExtensionNames()) {
+            if (editorContentInStringFormat.includes(extensionName)) {
+                return false;
+            }
         }
         return this.tiptapEditor.state.doc.textContent.trim().length === 0;
     }
@@ -231,13 +236,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public parserMentionConfigChanged(): void {
-        this.setMarkdown(this.getMarkdown());
-    }
-
-    /**
-     * @internal
-     */
     public mentionExtensionConfigChanged(
         prev: MentionExtensionConfiguration[] | undefined,
         next: MentionExtensionConfiguration[]
@@ -251,6 +249,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             .sort((a, b) => a.localeCompare(b))
             .toString();
         if (prevConfigCharacters === nextConfigCharacters) {
+            this.setMarkdown(this.getMarkdown());
             return;
         }
         const currentStateMarkdown = this.getMarkdown();
@@ -686,6 +685,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     private updateEditorButtonsState(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
         const { extensionManager, state } = this.tiptapEditor;
         const { extensions } = extensionManager;
         const { selection } = state;

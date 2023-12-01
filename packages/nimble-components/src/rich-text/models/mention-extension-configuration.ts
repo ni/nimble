@@ -11,12 +11,11 @@ export class MentionExtensionConfiguration {
     public readonly name: string;
     public readonly key: string;
 
-    public constructor(
-        mentionInternals: MentionInternals<RichTextMentionConfig>
-    ) {
+    public constructor(mentionInternals: MentionInternals<RichTextMentionConfig>, key: string) {
+        // Name, Key and character should be unique for each mention plugin to be configured.
         this.viewElement = mentionInternals.viewElement;
         this.character = mentionInternals.character;
-        this.name = mentionInternals.name;
-        this.key = mentionInternals.key;
+        this.name = key;
+        this.key = key;
     }
 }

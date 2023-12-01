@@ -91,6 +91,7 @@
     "d3-zoom": "^3.0.0",
     "prosemirror-markdown": "^1.11.2",
     "prosemirror-model": "^1.19.2",
+    "prosemirror-state": "^1.4.3",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
