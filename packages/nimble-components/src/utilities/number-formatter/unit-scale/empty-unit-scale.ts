@@ -1,4 +1,4 @@
-import type { ScaledUnit } from './scaled-unit';
+import type { ScaledUnit } from './models/scaled-unit';
 import { UnitScale } from './unit-scale';
 
 /**

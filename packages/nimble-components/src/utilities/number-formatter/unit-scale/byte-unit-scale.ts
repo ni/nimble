@@ -1,6 +1,6 @@
 import { IntlNumberFormatScaledUnitFormatter } from './models/intl-number-format-scaled-unit';
 import type { ScaledUnit } from './models/scaled-unit';
-import { UnitScale } from './models/unit-scale';
+import { UnitScale } from './unit-scale';
 
 /**
  * Byte units (1000-based)

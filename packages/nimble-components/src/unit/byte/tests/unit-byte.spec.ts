@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { UnitByte, unitByteTag } from '..';
-import { Byte1024UnitScale } from '../../../utilities/number-formatter/unit/byte-1024-unit-scale';
-import { ByteUnitScale } from '../../../utilities/number-formatter/unit/byte-unit-scale';
+import { Byte1024UnitScale } from '../../../utilities/number-formatter/unit-scale/byte-1024-unit-scale';
+import { ByteUnitScale } from '../../../utilities/number-formatter/unit-scale/byte-unit-scale';
 
 async function setup(binary: boolean): Promise<Fixture<UnitByte>> {
     return fixture<UnitByte>(html`

@@ -2,7 +2,7 @@ import { ManuallyTranslatedScaledUnitFormatter } from './manually-translated-sca
 import type { ScaledUnit } from './scaled-unit';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
-import { UnitScale } from './unit-scale';
+import { UnitScale } from '../unit-scale';
 
 /**
  * A unit scale that is not supported by Intl.NumberFormat and has translations built into Nimble

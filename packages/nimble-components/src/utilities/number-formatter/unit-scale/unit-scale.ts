@@ -1,4 +1,4 @@
-import type { ScaledUnit } from './scaled-unit';
+import type { ScaledUnit } from './models/scaled-unit';
 
 /**
  * A unit scale consisting of a set of scaled units.
