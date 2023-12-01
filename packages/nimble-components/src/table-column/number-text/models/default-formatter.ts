@@ -59,9 +59,7 @@ export class DefaultFormatter extends NumberFormatter {
     protected format(number: number): string {
         const valueToFormat = number === 0 ? 0 : number;
 
-        const scaleInformation = this.unitScale.scaleNumber(valueToFormat);
-        const scaledValue = scaleInformation.scaledValue;
-        const unit = scaleInformation.scaledUnit;
+        const { scaledValue, scaledUnit: unit } = this.unitScale.scaleNumber(valueToFormat);
 
         const formatter = this.getFormatterForNumber(scaledValue);
         let unitFormatter: UnitFormatter;
