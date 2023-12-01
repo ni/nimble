@@ -3,7 +3,6 @@ import { FoundationElement } from '@microsoft/fast-foundation';
 import { RichTextMention } from '../../rich-text-mention/base';
 import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 import { MarkdownParserMentionConfiguration } from '../models/markdown-parser-mention-configuration';
-import { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 
 /**
  * Base class for rich text components
@@ -18,9 +17,6 @@ export abstract class RichText extends FoundationElement {
     @observable
     protected parserMentionConfig?: MarkdownParserMentionConfiguration[];
 
-    @observable
-    protected mentionExtensionConfig?: MentionExtensionConfiguration[];
-
     protected mentionElements: RichTextMention[] = [];
 
     private mentionInternalsNotifiers: Notifier[] = [];
@@ -30,7 +26,7 @@ export abstract class RichText extends FoundationElement {
      */
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof MentionInternals && typeof args === 'string') {
-            this.updateMentionConfigs();
+            this.updateMentionConfig();
         }
     }
 
@@ -43,7 +39,7 @@ export abstract class RichText extends FoundationElement {
      * Create a MarkdownParserMentionConfiguration using the mention elements and implement the logic for the getMentionedHref() method
      * which will be invoked in the RichTextMention base class from the client.
      */
-    protected updateMentionConfigs(): void {
+    protected updateMentionConfig(): void {
         // TODO: Add a rich text validator to check if the `mentionElements` contains duplicate configuration element
         // For example, having two `nimble-rich-text-mention-users` within the children of rich text viewer or editor is an invalid configuration
         if (
@@ -56,17 +52,10 @@ export abstract class RichText extends FoundationElement {
                     mention.mentionInternals
                 )
             );
-            this.mentionExtensionConfig = this.mentionElements.map(
-                (mention, index) => new MentionExtensionConfiguration(
-                    mention.mentionInternals,
-                    `mention-plugin-${index}`
-                )
-            );
 
             return;
         }
         this.parserMentionConfig = [];
-        this.mentionExtensionConfig = [];
     }
 
     private childItemsChanged(): void {
@@ -82,7 +71,7 @@ export abstract class RichText extends FoundationElement {
             (x): x is RichTextMention => x instanceof RichTextMention
         );
         this.observeMentionInternals();
-        this.updateMentionConfigs();
+        this.updateMentionConfig();
     }
 
     private observeMentionInternals(): void {
