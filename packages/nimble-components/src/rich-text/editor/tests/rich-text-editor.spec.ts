@@ -1207,16 +1207,19 @@ describe('RichTextEditor', () => {
                 parameterizeNamedList(
                     validMentionNodes,
                     (spec, name, value) => {
-                        spec(`${name} renders as plain text in editor`, async () => {
-                            await appendUserMentionConfiguration(element);
-                            pageObject.pasteHTMLToEditor(value.input);
-                            expect(
-                                pageObject.getEditorTagNamesWithClosingTags()
-                            ).toEqual(['P', '/P']);
-                            expect(pageObject.getEditorTextContents()).toEqual([
-                                value.textContent
-                            ]);
-                        });
+                        spec(
+                            `${name} renders as plain text in editor`,
+                            async () => {
+                                await appendUserMentionConfiguration(element);
+                                pageObject.pasteHTMLToEditor(value.input);
+                                expect(
+                                    pageObject.getEditorTagNamesWithClosingTags()
+                                ).toEqual(['P', '/P']);
+                                expect(
+                                    pageObject.getEditorTextContents()
+                                ).toEqual([value.textContent]);
+                            }
+                        );
                     }
                 );
             });

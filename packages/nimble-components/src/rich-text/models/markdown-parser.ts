@@ -160,7 +160,11 @@ export class RichTextMarkdownParser {
         });
     }
 
-    private static setup(markdownParserMentionConfig: MarkdownParserMentionConfiguration[] | undefined): void {
+    private static setup(
+        markdownParserMentionConfig:
+        | MarkdownParserMentionConfiguration[]
+        | undefined
+    ): void {
         RichTextMarkdownParser.mentionConfigs = markdownParserMentionConfig;
         RichTextMarkdownParser.mentionedHrefs = [];
     }
