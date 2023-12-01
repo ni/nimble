@@ -1,6 +1,5 @@
 import { NumberFormatter } from './number-formatter';
 import type { UnitFormatter } from './unit/models/scaled-unit';
-import { UnitFormatterCache } from './unit/models/unit-formatter-cache';
 import type { UnitScale } from './unit/models/unit-scale';
 
 /**
@@ -25,7 +24,7 @@ export class DefaultFormatter extends NumberFormatter {
         useGrouping: true
     };
 
-    private readonly defaultFormatterCache: UnitFormatterCache;
+    private readonly defaultUnitFormatters = new Map<number, UnitFormatter>();
 
     // Format options to use for numbers that have leading zeros. It limits the number of rendered
     // digits using 'maximumFractionDigits', which will result in less than 6 significant digits
@@ -35,7 +34,10 @@ export class DefaultFormatter extends NumberFormatter {
         useGrouping: true
     };
 
-    private readonly leadingZeroFormatterCache: UnitFormatterCache;
+    private readonly leadingZeroUnitFormatters = new Map<
+    number,
+    UnitFormatter
+    >();
 
     // Format options for numbers that should be displayed in exponential notation. This should be used
     // for numbers with magintudes over 'exponentialUpperBound' or under 'exponentialLowerBound'.
@@ -44,19 +46,24 @@ export class DefaultFormatter extends NumberFormatter {
         notation: 'scientific'
     };
 
-    private readonly exponentialFormatterCache: UnitFormatterCache;
+    private readonly exponentialUnitFormatter: UnitFormatter;
 
     public constructor(locale: string, private readonly unitScale: UnitScale) {
         super();
-        this.defaultFormatterCache = new UnitFormatterCache(
-            locale,
-            this.defaultFormatterOptions
-        );
-        this.leadingZeroFormatterCache = new UnitFormatterCache(
-            locale,
-            this.leadingZeroFormatterOptions
-        );
-        this.exponentialFormatterCache = new UnitFormatterCache(
+        for (const unit of unitScale.supportedScaledUnits) {
+            this.defaultUnitFormatters.set(
+                unit.scaleFactor,
+                unit.unitFormatterFactory(locale, this.defaultFormatterOptions)
+            );
+            this.leadingZeroUnitFormatters.set(
+                unit.scaleFactor,
+                unit.unitFormatterFactory(
+                    locale,
+                    this.leadingZeroFormatterOptions
+                )
+            );
+        }
+        this.exponentialUnitFormatter = unitScale.baseScaledUnit.unitFormatterFactory(
             locale,
             this.exponentialFormatterOptions
         );
@@ -71,22 +78,17 @@ export class DefaultFormatter extends NumberFormatter {
         let unitFormatter: UnitFormatter;
         switch (formatter) {
             case 'default':
-                unitFormatter = this.defaultFormatterCache.getOrCreateUnitFormatter(
-                    unit.scaleFactor,
-                    unit.unitFormatterFactory
-                );
+                unitFormatter = this.defaultUnitFormatters.get(
+                    unit.scaleFactor
+                )!;
                 return unitFormatter.format(scaledValue);
             case 'leadingZero':
-                unitFormatter = this.leadingZeroFormatterCache.getOrCreateUnitFormatter(
-                    unit.scaleFactor,
-                    unit.unitFormatterFactory
-                );
+                unitFormatter = this.leadingZeroUnitFormatters.get(
+                    unit.scaleFactor
+                )!;
                 return unitFormatter.format(scaledValue);
             case 'exponential':
-                unitFormatter = this.exponentialFormatterCache.getOrCreateUnitFormatter(
-                    1,
-                    unit.unitFormatterFactory
-                );
+                unitFormatter = this.exponentialUnitFormatter;
                 return unitFormatter.format(valueToFormat);
             default:
                 throw new Error('what happened?');

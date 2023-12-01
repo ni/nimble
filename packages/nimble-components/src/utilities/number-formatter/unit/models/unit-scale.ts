@@ -7,7 +7,7 @@ export abstract class UnitScale {
     private _supportedScaledUnits?: ScaledUnit[];
     private _baseScaledUnit?: ScaledUnit;
 
-    private get supportedScaledUnits(): ScaledUnit[] {
+    public get supportedScaledUnits(): ScaledUnit[] {
         if (this._supportedScaledUnits === undefined) {
             this.initializeSupportedScaledUnitsAndBaseScaledUnit();
         }
@@ -27,7 +27,10 @@ export abstract class UnitScale {
     // may be shown with an unexpected unit. Examples:
     // - 999 bytes with two significant digits => "1000 bytes" (instead of "1 kB")
     // - 0.00000000000000001 volts (= 0.01 fV) with one fractional digit => "0 fV" (instead of "0 volts")
-    public scaleNumber(number: number): { scaledValue: number, scaledUnit: ScaledUnit } {
+    public scaleNumber(number: number): {
+        scaledValue: number,
+        scaledUnit: ScaledUnit
+    } {
         const magnitude = Math.abs(number);
         if (
             this.supportedScaledUnits.length === 1 // must be baseScaledUnit
@@ -39,11 +42,17 @@ export abstract class UnitScale {
         }
         for (const unit of this.supportedScaledUnits) {
             if (magnitude / unit.scaleFactor >= 1) {
-                return { scaledValue: number / unit.scaleFactor, scaledUnit: unit };
+                return {
+                    scaledValue: number / unit.scaleFactor,
+                    scaledUnit: unit
+                };
             }
         }
         const smallestUnit = this.supportedScaledUnits[this.supportedScaledUnits.length - 1]!;
-        return { scaledValue: number / smallestUnit.scaleFactor, scaledUnit: smallestUnit };
+        return {
+            scaledValue: number / smallestUnit.scaleFactor,
+            scaledUnit: smallestUnit
+        };
     }
 
     protected abstract getSupportedScaledUnits(): ScaledUnit[];

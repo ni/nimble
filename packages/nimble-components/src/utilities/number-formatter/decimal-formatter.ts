@@ -1,12 +1,12 @@
 import { NumberFormatter } from './number-formatter';
-import { UnitFormatterCache } from './unit/models/unit-formatter-cache';
+import type { UnitFormatter } from './unit/models/scaled-unit';
 import type { UnitScale } from './unit/models/unit-scale';
 
 /**
  * The formatter for a number-text column whose format is configured to be 'decimal'.
  */
 export class DecimalFormatter extends NumberFormatter {
-    private readonly unitFormatterCache: UnitFormatterCache;
+    private readonly unitFormatters = new Map<number, UnitFormatter>();
     private readonly tenPowDecimalDigits: number;
 
     public constructor(
@@ -21,10 +21,12 @@ export class DecimalFormatter extends NumberFormatter {
             minimumFractionDigits,
             useGrouping: true
         };
-        this.unitFormatterCache = new UnitFormatterCache(
-            locale,
-            decimalFormatterOptions
-        );
+        for (const unit of unitScale.supportedScaledUnits) {
+            this.unitFormatters.set(
+                unit.scaleFactor,
+                unit.unitFormatterFactory(locale, decimalFormatterOptions)
+            );
+        }
         this.tenPowDecimalDigits = 10 ** maximumFractionDigits;
     }
 
@@ -34,10 +36,7 @@ export class DecimalFormatter extends NumberFormatter {
         const valueToFormat = this.willRoundToZero(scaledValue)
             ? 0
             : scaledValue;
-        const formatter = this.unitFormatterCache.getOrCreateUnitFormatter(
-            unit.scaleFactor,
-            unit.unitFormatterFactory
-        );
+        const formatter = this.unitFormatters.get(unit.scaleFactor)!;
         return formatter.format(valueToFormat);
     }
 
