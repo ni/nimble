@@ -39,7 +39,6 @@ import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
-import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
 import { RichText } from '../base';
 import type {
     MappingConfigs,
@@ -121,8 +120,14 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         // Tiptap [isEmpty](https://tiptap.dev/api/editor#is-empty) returns false even if the editor has only whitespace.
         // However, the expectation is to return true if the editor is empty or contains only whitespace.
         // Hence, by retrieving the current text content using Tiptap state docs and then trimming the string to determine whether it is empty or not.
-        if (this.tiptapEditor.state.doc.toString().includes('mention')) {
-            return this.tiptapEditor.isEmpty;
+        // Additionally, for mention nodes where the text content consists solely of white spaces, the name is displayed inside the view element template.
+        // Since the trimming method mentioned above will return true as there are only white spaces in mention nodes, an extra check has been implemented.
+        // This check ensures the presence of mention nodes within the editor document.
+        const editorContentInStringFormat = this.tiptapEditor.state.doc.toString();
+        for (const extensionName of this.getAllMentionExtensionNames()) {
+            if (editorContentInStringFormat.includes(extensionName)) {
+                return false;
+            }
         }
         return this.tiptapEditor.state.doc.textContent.trim().length === 0;
     }
@@ -272,6 +277,33 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     /**
+     * @internal
+     */
+    public mentionExtensionConfigChanged(
+        prev: MentionExtensionConfiguration[] | undefined,
+        next: MentionExtensionConfiguration[]
+    ): void {
+        const prevConfigCharacters = prev
+            ?.map(config => config.character)
+            .sort((a, b) => a.localeCompare(b))
+            .toString();
+        const nextConfigCharacters = next
+            .map(config => config.character)
+            .sort((a, b) => a.localeCompare(b))
+            .toString();
+        if (prevConfigCharacters === nextConfigCharacters) {
+            this.setMarkdown(this.getMarkdown());
+            return;
+        }
+        const currentStateMarkdown = this.getMarkdown();
+        this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
+            this.getAllMentionExtensionNames()
+        );
+        this.initializeEditor();
+        this.setMarkdown(currentStateMarkdown);
+    }
+
+    /**
      * Toggle the bold mark and focus back to the editor
      * @internal
      */
@@ -365,7 +397,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @public
      */
     public getMarkdown(): string {
-        return RichTextMarkdownSerializer.serializeDOMToMarkdown(
+        return this.richTextMarkdownSerializer.serializeDOMToMarkdown(
             this.tiptapEditor.state.doc
         );
     }
@@ -481,7 +513,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 } else {
                     updatedNodes.push(node);
                 }
-            } else if (node.type.name === 'mention') {
+            } else if (
+                this.getAllMentionExtensionNames().includes(node.type.name)
+            ) {
                 updatedNodes.push(
                     this.tiptapEditor.schema.text(node.attrs.label as string)
                 );
@@ -498,7 +532,12 @@ export class RichTextEditor extends RichText implements ErrorPattern {
 
     private createTiptapEditor(): Editor {
         const customLink = this.getCustomLinkExtension();
-        const customUserMention = this.getCustomUserMentionExtension();
+        const mentionExtensions = this.mentionExtensionConfig?.map(config => this.getCustomMentionExtension({
+            name: config.name,
+            character: config.character,
+            key: config.key,
+            viewElement: config.viewElement
+        })) ?? [];
 
         /**
          * @param slice contains the Fragment of the copied content. If the content is a link, the slice contains Text node with Link mark.
@@ -550,9 +589,20 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 }),
                 HardBreak,
                 customLink,
-                customUserMention
+                ...mentionExtensions
             ]
         });
+    }
+
+    private initializeEditor(): void {
+        this.unbindEditorTransactionEvent();
+        this.unbindEditorUpdateEvent();
+        this.unbindNativeInputEvent();
+        this.tiptapEditor?.destroy();
+        this.tiptapEditor = this.createTiptapEditor();
+        this.bindEditorTransactionEvent();
+        this.bindEditorUpdateEvent();
+        this.stopNativeInputEventPropagation();
     }
 
     /**
@@ -608,12 +658,15 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         });
     }
 
-    private getCustomUserMentionExtension(): Node<MentionOptions> {
+    private getCustomMentionExtension(
+        config: MentionExtensionConfig
+    ): Node<MentionOptions> {
         return Mention.extend({
+            name: config.name,
             parseHTML() {
                 return [
                     {
-                        tag: richTextMentionUsersViewTag
+                        tag: config.viewElement
                     }
                 ];
             },
@@ -643,7 +696,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             renderHTML({ HTMLAttributes }) {
                 return [
-                    richTextMentionUsersViewTag,
+                    config.viewElement,
                     mergeAttributes(
                         this.options.HTMLAttributes,
                         HTMLAttributes,
@@ -720,11 +773,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        const parserDetail = RichTextMarkdownParser.parseMarkdownToDOM(
+        const parseResult = RichTextMarkdownParser.parseMarkdownToDOM(
             markdown,
-            this.mentionConfig
+            this.parserMentionConfig
         );
-        return this.xmlSerializer.serializeToString(parserDetail.fragment);
+        return this.xmlSerializer.serializeToString(parseResult.fragment);
     }
 
     /**
@@ -743,6 +796,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     private updateEditorButtonsState(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
         const { extensionManager, state } = this.tiptapEditor;
         const { extensions } = extensionManager;
         const { selection } = state;
@@ -835,6 +892,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 }
             }
         });
+    }
+
+    private getAllMentionExtensionNames(): string[] {
+        return this.mentionExtensionConfig?.map(config => config.name) ?? [];
     }
 }
 

@@ -17,13 +17,11 @@ import {
 } from './models/mention-internals';
 import { Mapping } from '../../mapping/base';
 import type { RichText } from '../../rich-text/base';
-import type { MentionUpdateEventDetail } from './types';
-
-export type MappingConfigs = ReadonlyMap<string, MappingConfig>;
-
-export interface RichTextMentionConfig {
-    mappingConfigs: MappingConfigs;
-}
+import type {
+    MappingConfigs,
+    MentionUpdateEventDetail,
+    RichTextMentionConfig
+} from './types';
 
 /**
  * The base class for Mention configuration
