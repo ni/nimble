@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-classes-per-file
-import { customElement } from '@microsoft/fast-element';
+import { customElement, html, slotted } from '@microsoft/fast-element';
 import { RichTextMention } from '..';
 import type { Mapping } from '../../../mapping/base';
 import { MappingUser } from '../../../mapping/user';
@@ -19,7 +19,7 @@ export const richTextMentionTestTag = 'nimble-rich-text-test-mention';
  */
 export class RichTextMentionTestValidator extends RichTextMentionValidator<[]> {
     public constructor(columnInternals: MentionInternals<unknown>) {
-        super(columnInternals, [], []);
+        super(columnInternals, [], [MappingUser]);
     }
 }
 
@@ -32,7 +32,11 @@ export class MappingTestConfig extends MappingConfig {}
  * Simple rich text mention for testing
  */
 @customElement({
-    name: richTextMentionTestTag
+    name: richTextMentionTestTag,
+    template: html<RichTextMention>`<slot
+    ${slotted('mappings')}
+    name="mapping"
+></slot>`
 })
 export class RichTextMentionTest extends RichTextMention {
     public override getMentionedHrefs(): string[] {
