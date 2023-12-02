@@ -92,7 +92,7 @@ export abstract class RichTextMention<
      */
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof Mapping && typeof args === 'string') {
-            this.updateMentionConfig();
+            this.updateMappingConfigs();
         }
     }
 
@@ -125,17 +125,20 @@ export abstract class RichTextMention<
         return mappingConfigs;
     }
 
-    private updateMentionConfig(): void {
+    private updateMappingConfigs(): void {
         this.validator.validate(this.mappingElements, this.pattern);
-        this.mentionInternals.mappingConfigs = this.getMappingConfigs();
+        this.mentionInternals.mappingConfigs = this.validator.isValid()
+            ? this.getMappingConfigs()
+            : undefined;
     }
 
     private mappingElementsChanged(): void {
-        this.updateMentionConfig();
+        this.updateMappingConfigs();
         this.observeMappingElements();
     }
 
     private patternChanged(): void {
+        this.validator.validate(this.mappingElements, this.pattern);
         this.mentionInternals.pattern = this.pattern;
     }
 

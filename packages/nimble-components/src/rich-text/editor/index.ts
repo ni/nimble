@@ -45,6 +45,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     public tiptapEditor = createTiptapEditor(this.editor, []);
 
     /**
+     * @internal
+     */
+    public richTextMarkdownSerializer = new RichTextMarkdownSerializer([]);
+
+    /**
      * Whether to disable user from editing and interacting with toolbar buttons
      *
      * @public
@@ -149,8 +154,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     @observable
     private mentionExtensionConfig?: MentionExtensionConfiguration[];
 
-    private richTextMarkdownSerializer = new RichTextMarkdownSerializer();
-
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
 
@@ -218,6 +221,23 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.editor.removeAttribute('aria-label');
         }
     }
+
+    /**
+     * @internal
+     */
+    public parserMentionConfigChanged(): void {
+        const cuurr = this.getMarkdown();
+        this.setMarkdown(cuurr);
+    }
+
+    // public parserMentionConfigChanged(): void {
+    //     const currentStateMarkdown = this.getMarkdown();
+    //     this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
+    //         (this.mentionExtensionConfig ?? []).map(config => config.name)
+    //     );
+    //     this.initializeEditor();
+    //     this.setMarkdown(currentStateMarkdown);
+    // }
 
     /**
      * @internal
@@ -317,6 +337,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      */
     public setMarkdown(markdown: string): void {
         const html = this.getHtmlContent(markdown);
+        // TODO calling setMarkdown when initial markdown <user:2> and then update mention nodes to match changes
+        // html representation from nimble-anchor to a mention view
+        // calling getmarkdown with the mention view causes the content to render as user:2
         this.tiptapEditor.commands.setContent(html);
     }
 
@@ -350,8 +373,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         return Array.from(mentionedHrefs);
     }
 
-    protected override mentionElementsChanged(): void {
-        super.mentionElementsChanged();
+    protected override mentionElementsChanged(old: unknown): void {
+        super.mentionElementsChanged(old);
+        if (old === undefined) {
+            return;
+        }
         this.updateMentionExtensionsConfig();
     }
 

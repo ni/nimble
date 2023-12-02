@@ -20,6 +20,9 @@ export abstract class RichText extends FoundationElement {
     @observable
     protected mentionElements: RichTextMention[] = [];
 
+    /**
+     * @internal
+     */
     private mentionInternalsNotifiers: Notifier[] = [];
 
     /**
@@ -36,7 +39,10 @@ export abstract class RichText extends FoundationElement {
         }
     }
 
-    protected mentionElementsChanged(): void {
+    protected mentionElementsChanged(old: unknown): void {
+        if (old === undefined) {
+            return;
+        }
         this.observeMentionInternals();
         this.updateParserMentionConfig();
     }
@@ -64,7 +70,10 @@ export abstract class RichText extends FoundationElement {
         this.parserMentionConfig = [];
     }
 
-    private childItemsChanged(): void {
+    private childItemsChanged(old: unknown): void {
+        if (old === undefined) {
+            return;
+        }
         void this.updateMentionElementsFromChildItems();
     }
 
