@@ -65,7 +65,7 @@ async function appendTestMentionConfiguration(
 ): Promise<void> {
     const testMention = document.createElement(
         richTextMentionTestTag
-    ) as RichTextMentionTest;
+    );
     testMention.pattern = '^test:(.*)';
 
     if (userKeys || displayNames) {

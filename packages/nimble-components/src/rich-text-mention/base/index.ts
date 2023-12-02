@@ -20,24 +20,26 @@ import type { RichText } from '../../rich-text/base';
 import type {
     MappingConfigs,
     MentionUpdateEventDetail,
-    RichTextMentionConfig
 } from './types';
+import type { MentionConfig } from './models/mention-config';
 
 /**
  * The base class for Mention configuration
  */
 export abstract class RichTextMention<
-    TMentionConfig extends RichTextMentionConfig = RichTextMentionConfig,
-    TValidator extends RichTextMentionValidator<
-    []
-    > = RichTextMentionValidator<[]>
+    TValidator extends RichTextMentionValidator = RichTextMentionValidator
 >
     extends FoundationElement
     implements Subscriber {
     /**
      * @internal
      */
-    public readonly mentionInternals: MentionInternals<TMentionConfig> = new MentionInternals(this.getMentionInternalsOptions());
+    public readonly mentionInternals: MentionInternals = new MentionInternals(
+        this.getMentionInternalsOptions(),
+        (filter: string): void => {
+            this.emitMentionUpdate(filter);
+        }
+    );
 
     /** @internal */
     public readonly validator = this.createValidator();
@@ -53,7 +55,7 @@ export abstract class RichTextMention<
 
     /** @internal */
     @observable
-    public mappings: Mapping<unknown>[] = [];
+    public mappingElements: Mapping<unknown>[] = [];
 
     /**
      * @public
@@ -78,7 +80,7 @@ export abstract class RichTextMention<
     /**
      * @internal
      */
-    public onMention(filter: string): void {
+    public emitMentionUpdate(filter: string): void {
         const mentionUpdateEventDetails: MentionUpdateEventDetail = {
             filter
         };
@@ -98,9 +100,7 @@ export abstract class RichTextMention<
 
     protected abstract getMentionInternalsOptions(): MentionInternalsOptions;
 
-    protected abstract createMentionConfig(
-        mappingConfigs: MappingConfigs
-    ): TMentionConfig;
+    protected abstract createMentionConfig(): MentionConfig;
 
     protected abstract createMappingConfig(
         mapping: Mapping<unknown>
@@ -112,7 +112,7 @@ export abstract class RichTextMention<
 
     private getMappingConfigs(): MappingConfigs {
         const mappingConfigs = new Map<string, MappingConfig>();
-        this.mappings.forEach(mapping => {
+        this.mappingElements.forEach(mapping => {
             const href = mapping.key ?? undefined;
             if (href === undefined || typeof href !== 'string') {
                 throw Error(
@@ -125,37 +125,31 @@ export abstract class RichTextMention<
         return mappingConfigs;
     }
 
-    /**
-     * Called when any Mapping related state has changed.
-     */
     private updateMentionConfig(): void {
-        this.validator.validate(this.mappings, this.pattern);
-        this.mentionInternals.mentionConfig = this.validator.isValid()
-            ? this.createMentionConfig(this.getMappingConfigs())
-            : undefined;
+        this.validator.validate(this.mappingElements, this.pattern);
+        this.mentionInternals.mappingConfigs = this.getMappingConfigs();
     }
 
-    private mappingsChanged(): void {
+    private mappingElementsChanged(): void {
         this.updateMentionConfig();
-        this.observeMappings();
+        this.observeMappingElements();
     }
 
     private patternChanged(): void {
         this.mentionInternals.pattern = this.pattern;
-        this.updateMentionConfig();
     }
 
-    private removeMappingObservers(): void {
+    private removeMappingElementObservers(): void {
         this.mappingNotifiers.forEach(notifier => {
             notifier.unsubscribe(this);
         });
         this.mappingNotifiers = [];
     }
 
-    private observeMappings(): void {
-        this.removeMappingObservers();
+    private observeMappingElements(): void {
+        this.removeMappingElementObservers();
 
-        for (const mapping of this.mappings) {
+        for (const mapping of this.mappingElements) {
             const notifier = Observable.getNotifier(mapping);
             notifier.subscribe(this);
             this.mappingNotifiers.push(notifier);

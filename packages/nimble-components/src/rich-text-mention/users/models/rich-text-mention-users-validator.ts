@@ -18,7 +18,7 @@ const usersValidityFlagNames = [
 export class RichTextMentionUsersValidator extends RichTextMentionValidator<
     typeof usersValidityFlagNames
 > {
-    public constructor(columnInternals: MentionInternals<unknown>) {
+    public constructor(columnInternals: MentionInternals) {
         super(columnInternals, usersValidityFlagNames, [MappingUser]);
     }
 

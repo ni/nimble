@@ -111,8 +111,8 @@ describe('RichTextMentionUsers', () => {
             pattern: 'user:'
         }));
         await connect();
-        const mappingConfigs = element.mentionInternals.mentionConfig!.mappingConfigs;
-        expect(mappingConfigs?.size).toEqual(2);
+        const mappingConfigs = element.mentionInternals.mappingConfigs!;
+        expect(mappingConfigs.size).toEqual(2);
         expect(Array.from(mappingConfigs.keys())).toEqual(['user:1', 'user:2']);
         expect(mappingConfigs.get('user:1')?.displayName).toEqual('user');
         expect(mappingConfigs.get('user:2')?.displayName).toEqual('user');
@@ -126,16 +126,16 @@ describe('RichTextMentionUsers', () => {
             pattern: 'user:'
         }));
         await connect();
-        let mappingConfigs = element.mentionInternals.mentionConfig!.mappingConfigs;
-        expect(mappingConfigs?.size).toEqual(1);
+        let mappingConfigs = element.mentionInternals.mappingConfigs!;
+        expect(mappingConfigs.size).toEqual(1);
         expect(Array.from(mappingConfigs.keys())).toEqual(['user:1']);
         expect(mappingConfigs.get('user:1')?.displayName).toEqual('user');
         expect(mappingConfigs.get('user:1')?.mentionHref).toEqual('user:1');
 
         const newMappingData = [{ key: 'user:3', displayName: 'user-3' }];
         await setUserMappingElements(element, newMappingData);
-        mappingConfigs = element.mentionInternals.mentionConfig!.mappingConfigs;
-        expect(mappingConfigs?.size).toEqual(1);
+        mappingConfigs = element.mentionInternals.mappingConfigs!;
+        expect(mappingConfigs.size).toEqual(1);
         expect(Array.from(mappingConfigs.keys())).toEqual(['user:3']);
         expect(mappingConfigs.get('user:3')?.displayName).toEqual('user-3');
         expect(mappingConfigs.get('user:3')?.mentionHref).toEqual('user:3');
@@ -147,16 +147,16 @@ describe('RichTextMentionUsers', () => {
             pattern: 'user:'
         }));
         await connect();
-        let mappingConfigs = element.mentionInternals.mentionConfig!.mappingConfigs;
-        expect(mappingConfigs?.size).toEqual(1);
+        let mappingConfigs = element.mentionInternals.mappingConfigs!;
+        expect(mappingConfigs.size).toEqual(1);
         expect(Array.from(mappingConfigs.keys())).toEqual(['user:1']);
         expect(mappingConfigs.get('user:1')?.displayName).toEqual('user');
         expect(mappingConfigs.get('user:1')?.mentionHref).toEqual('user:1');
 
         const newMappingData = { key: 'user:3', displayName: 'user-3' };
         await updateFirstUserMappingElement(element, newMappingData);
-        mappingConfigs = element.mentionInternals.mentionConfig!.mappingConfigs;
-        expect(mappingConfigs?.size).toEqual(1);
+        mappingConfigs = element.mentionInternals.mappingConfigs!;
+        expect(mappingConfigs.size).toEqual(1);
         expect(Array.from(mappingConfigs.keys())).toEqual(['user:3']);
         expect(mappingConfigs.get('user:3')?.displayName).toEqual('user-3');
         expect(mappingConfigs.get('user:3')?.mentionHref).toEqual('user:3');
@@ -168,8 +168,8 @@ describe('RichTextMentionUsers', () => {
             pattern: 'user:'
         }));
         await connect();
-        const mappingConfigs = element.mentionInternals.mentionConfig!.mappingConfigs;
-        expect(mappingConfigs?.size).toEqual(1);
+        const mappingConfigs = element.mentionInternals.mappingConfigs!;
+        expect(mappingConfigs.size).toEqual(1);
         expect(Array.from(mappingConfigs.keys())).toEqual(['user:1']);
         expect(mappingConfigs.get('user:1')?.displayName).toEqual('user');
         expect(mappingConfigs.get('user:1')?.mentionHref).toEqual('user:1');
@@ -186,7 +186,7 @@ describe('RichTextMentionUsers', () => {
         }));
         await connect();
         const mappingConfig = new Map([]);
-        expect(element.mentionInternals.mentionConfig?.mappingConfigs).toEqual(
+        expect(element.mentionInternals.mappingConfigs).toEqual(
             mappingConfig
         );
     });
@@ -197,8 +197,8 @@ describe('RichTextMentionUsers', () => {
             pattern: 'user:.*'
         }));
         await connect();
-        const mappingConfigs = element.mentionInternals.mentionConfig!.mappingConfigs;
-        expect(mappingConfigs?.size).toEqual(1);
+        const mappingConfigs = element.mentionInternals.mappingConfigs!;
+        expect(mappingConfigs.size).toEqual(1);
         expect(Array.from(mappingConfigs.keys())).toEqual(['user:1']);
         expect(mappingConfigs.get('user:1')?.displayName).toEqual('user');
         expect(mappingConfigs.get('user:1')?.mentionHref).toEqual('user:1');
@@ -212,8 +212,8 @@ describe('RichTextMentionUsers', () => {
             pattern: 'user:'
         }));
         await connect();
-        const mappingConfigs = element.mentionInternals.mentionConfig!.mappingConfigs;
-        expect(mappingConfigs?.size).toEqual(1);
+        const mappingConfigs = element.mentionInternals.mappingConfigs!;
+        expect(mappingConfigs.size).toEqual(1);
         expect(Array.from(mappingConfigs.keys())).toEqual(['user:1']);
         expect(mappingConfigs.get('user:1')?.displayName).toEqual('user');
         expect(mappingConfigs.get('user:1')?.mentionHref).toEqual('user:1');

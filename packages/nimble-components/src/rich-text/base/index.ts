@@ -17,6 +17,7 @@ export abstract class RichText extends FoundationElement {
     @observable
     protected parserMentionConfig?: MarkdownParserMentionConfiguration[];
 
+    @observable
     protected mentionElements: RichTextMention[] = [];
 
     private mentionInternalsNotifiers: Notifier[] = [];
@@ -24,22 +25,27 @@ export abstract class RichText extends FoundationElement {
     /**
      * @internal
      */
-    public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof MentionInternals && typeof args === 'string') {
-            this.updateMentionConfig();
-        }
-    }
+    public abstract getMentionedHrefs(): string[];
 
     /**
      * @internal
      */
-    public abstract getMentionedHrefs(): string[];
+    public handleChange(source: unknown, args: unknown): void {
+        if (source instanceof MentionInternals && MarkdownParserMentionConfiguration.isObservedMentionInternalsProperty(args)) {
+            this.updateParserMentionConfig();
+        }
+    }
+
+    protected mentionElementsChanged(): void {
+        this.observeMentionInternals();
+        this.updateParserMentionConfig();
+    }
 
     /**
      * Create a MarkdownParserMentionConfiguration using the mention elements and implement the logic for the getMentionedHref() method
      * which will be invoked in the RichTextMention base class from the client.
      */
-    protected updateMentionConfig(): void {
+    private updateParserMentionConfig(): void {
         // TODO: Add a rich text validator to check if the `mentionElements` contains duplicate configuration element
         // For example, having two `nimble-rich-text-mention-users` within the children of rich text viewer or editor is an invalid configuration
         if (
@@ -59,10 +65,10 @@ export abstract class RichText extends FoundationElement {
     }
 
     private childItemsChanged(): void {
-        void this.updateMentionsFromChildItems();
+        void this.updateMentionElementsFromChildItems();
     }
 
-    private async updateMentionsFromChildItems(): Promise<void> {
+    private async updateMentionElementsFromChildItems(): Promise<void> {
         const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
             ? customElements.whenDefined(item.localName)
             : Promise.resolve()));
@@ -70,8 +76,6 @@ export abstract class RichText extends FoundationElement {
         this.mentionElements = this.childItems.filter(
             (x): x is RichTextMention => x instanceof RichTextMention
         );
-        this.observeMentionInternals();
-        this.updateMentionConfig();
     }
 
     private observeMentionInternals(): void {

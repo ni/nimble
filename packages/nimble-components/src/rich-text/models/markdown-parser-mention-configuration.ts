@@ -1,6 +1,5 @@
 import type {
     MappingConfigs,
-    RichTextMentionConfig
 } from '../../rich-text-mention/base/types';
 import type { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 
@@ -15,11 +14,15 @@ export class MarkdownParserMentionConfiguration {
     private readonly mappingConfigs?: MappingConfigs;
 
     public constructor(
-        mentionInternals: MentionInternals<RichTextMentionConfig>
+        mentionInternals: MentionInternals
     ) {
         this.regexPattern = new RegExp(mentionInternals.pattern ?? '');
-        this.mappingConfigs = mentionInternals.mentionConfig?.mappingConfigs;
+        this.mappingConfigs = mentionInternals.mappingConfigs;
         this.viewElement = mentionInternals.viewElement;
+    }
+
+    public static isObservedMentionInternalsProperty(arg: unknown): boolean {
+        return typeof arg === 'string' && ['regexPattern', 'mappingConfigs'].includes(arg);
     }
 
     public isValidMentionHref(mentionHref: string): boolean {
