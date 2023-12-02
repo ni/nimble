@@ -1,4 +1,4 @@
-import { IntlNumberFormatScaledUnitFormatter } from './models/intl-number-format-scaled-unit';
+import { IntlNumberFormatScaledUnitFormatter } from './models/intl-number-format-scaled-unit-formatter';
 import type { ScaledUnit } from './models/scaled-unit';
 import { UnitScale } from './unit-scale';
 

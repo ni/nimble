@@ -1,4 +1,4 @@
-import { ManuallyTranslatedScaledUnitFormatter } from './manually-translated-scaled-unit';
+import { ManuallyTranslatedScaledUnitFormatter } from './manually-translated-scaled-unit-formatter';
 import type { ScaledUnit } from './scaled-unit';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
