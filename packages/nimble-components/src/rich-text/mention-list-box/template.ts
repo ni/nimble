@@ -1,22 +1,32 @@
 /* eslint-disable */
-import { html, ref, slotted } from '@microsoft/fast-element';
+import { children, elements, html, ref, repeat, when } from '@microsoft/fast-element';
 import type { RichTextMentionListBox } from '.';
 import { Listbox, listboxTag } from '../../listbox';
+import { anchoredRegionTag } from '../../anchored-region';
+import type { MappingConfig } from '../../rich-text-mention/base/models/mapping-config';
+import { listOptionTag } from '../../list-option';
 
 // prettier-ignore
 export const template = html<RichTextMentionListBox>`
-  <template>
-    <${listboxTag}
-            ${ref('listBox')}
-            @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
+  <template ?hidden="${x => !x.open}">
+    <${anchoredRegionTag}
+            ${ref('region')}
+            class="anchored-region"
+            auto-update-mode="auto"
+            vertical-positioning-mode="locktodefault"
+            horizontal-positioning-mode="locktodefault"
+            vertical-default-position="bottom"
             >
-        <slot
-          ${slotted({
-          filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
-          flatten: true,
-          property: 'slottedOptions',
-        })}>
-        </slot>
-    </${listboxTag}>
-  </template>
+            <${listboxTag}
+                ${ref('listBox')}
+                @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
+                ${children({ property: 'childItems', filter: elements() })}
+                >
+                ${repeat(
+                    x => Array.from(x.activeMappingConfigs?.values() ?? []),
+                    html<MappingConfig>`<${listOptionTag} value="${x => x.mentionHref}">${x => x.displayName}</${listOptionTag}>`
+                )}
+            </${listboxTag}>
+        </${anchoredRegionTag}>
+    </template>
 `;

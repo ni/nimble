@@ -35,16 +35,14 @@ import { PluginKey } from 'prosemirror-state';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
-import { MentionDetail, MentionExtensionConfig, TipTapNodeName } from './types';
+import { MentionExtensionConfig, TipTapNodeName } from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { anchorTag } from '../../anchor';
 import { RichText } from '../base';
-import { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
-import type { AnchoredRegion } from '../../anchored-region';
 import type { RichTextMentionListBox } from '../mention-list-box';
-import type { MappingConfigs } from '../../rich-text-mention/base/types';
+import { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -133,31 +131,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    @observable
-    public region?: AnchoredRegion;
-
-    /**
-     * @internal
-     */
     public mentionListBox?: RichTextMentionListBox;
-
-    /**
-     * @internal
-     */
-    @observable
-    public filter?: string;
-
-    /**
-     * @internal
-     */
-    @observable
-    public activeConfiguration?: MappingConfigs;
-
-    /**
-     * @internal
-     */
-    @observable
-    public openMentionPopup?: boolean;
 
     /**
      * @internal
@@ -199,11 +173,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     private mentionExtensionConfig?: MentionExtensionConfiguration[];
 
     private richTextMarkdownSerializer = new RichTextMarkdownSerializer();
-
-    private mentionPropCommand!: SuggestionProps;
-
-    @observable
-    private activeChar?: string;
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
@@ -299,7 +268,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         );
         this.initializeEditor();
         this.setMarkdown(currentStateMarkdown);
-        this.setActiveConfiguration();
     }
 
     /**
@@ -423,14 +391,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         return mentionedHrefs;
     }
 
-    public mentionChange(e: CustomEvent<MentionDetail>): void {
-        this.mentionPropCommand.command({
-            href: e.detail.href,
-            label: e.detail.displayName
-        });
-        this.openMentionPopup = false;
-    }
-
     protected override updateMentionConfig(): void {
         super.updateMentionConfig();
         if (
@@ -444,14 +404,16 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                     `mention-plugin-${index}`
                 )
             );
+            this.mentionListBox?.updateMentionExtensionConfig(this.mentionExtensionConfig);
 
             return;
         }
-        this.mentionExtensionConfig = [];
+        this.resetMentionExtensionConfig();
     }
 
-    private activeCharChanged(_oldValue: string, _newValue: string): void {
-        this.setActiveConfiguration();
+    private resetMentionExtensionConfig(): void {
+        this.mentionExtensionConfig = [];
+        this.mentionListBox?.updateMentionExtensionConfig([]);
     }
 
     private createEditor(): HTMLDivElement {
@@ -461,12 +423,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         editor.setAttribute('role', 'textbox');
         editor.setAttribute('aria-disabled', 'false');
         return editor;
-    }
-
-    private setActiveConfiguration(): void {
-        this.activeConfiguration = this.activeChar
-            ? this.mentionExtensionConfig?.find(config => config.character === this.activeChar)?.mappingConfigs
-            : undefined;
     }
 
     /**
@@ -730,13 +686,8 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                         },
 
                         onKeyDown: (props): boolean => {
-                            if (!this.openMentionPopup) {
-                                return false;
-                            }
                             if (props.event.key === 'Escape') {
-                                this.openMentionPopup = false;
                                 inSuggestionMode = false;
-                                return false;
                             }
                             return (
                                 this.mentionListBox?.keydownHandler(
@@ -746,7 +697,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                         },
 
                         onExit: (): void => {
-                            this.openMentionPopup = false;
+                            this.mentionListBox?.close();
                         }
                     };
                 }
@@ -755,24 +706,18 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     private onMention(props: SuggestionProps): void {
-        this.triggerMentionEvent(props.text);
-        this.mentionPropCommand = props;
-        this.filter = props.query.toLowerCase();
-        this.openMentionPopup = true;
-        if (this.region) {
-            this.region.anchorElement = props.decorationNode as HTMLElement;
-            this.region.update();
-        }
-        void this.mentionListBox?.selectFirstListOption();
+        this.triggerMentionEvent(props);
+        this.mentionListBox?.onMention(props);
     }
 
-    private triggerMentionEvent(filter: string): void {
+    private triggerMentionEvent(props: SuggestionProps): void {
+        const character = props.text.slice(0, 1);
+        const searchText = props.query;
         const validMentionElement = this.mentionElements.find(
             mention => mention.mentionInternals.validConfiguration
-                && mention.mentionInternals.character === filter.slice(0, 1)
+                && mention.mentionInternals.character === character
         );
-        this.activeChar = validMentionElement?.mentionInternals.character;
-        validMentionElement?.onMention(filter.slice(1));
+        validMentionElement?.onMention(searchText);
     }
 
     /**
