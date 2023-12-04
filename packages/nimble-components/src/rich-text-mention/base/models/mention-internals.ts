@@ -52,7 +52,7 @@ export class MentionInternals {
     public readonly viewElement: string;
 
     /**
-     * Funtion to invoke to emit a mention-update event
+     * Function to invoke to emit a mention-update event
      */
     public readonly mentionUpdateEmitter: MentionUpdateEmitter;
 
