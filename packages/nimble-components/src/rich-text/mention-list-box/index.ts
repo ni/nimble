@@ -164,7 +164,7 @@ export class RichTextMentionListBox extends FoundationElement {
     public updateMentionExtensionConfig(mentionExtensionConfig?: MentionExtensionConfiguration[]): void {
         this.mentionExtensionConfig = mentionExtensionConfig;
         this.setActiveMappingConfigs();
-        this.filterUsers();
+        this.filterOptions();
     }
 
     public onMention(props: SuggestionProps): void {
@@ -191,7 +191,7 @@ export class RichTextMentionListBox extends FoundationElement {
      * @internal
      */
     public filterChanged(): void {
-        this.filterUsers();
+        this.filterOptions();
     }
 
     private setActiveCharacter(activeCharacter: string): void {
@@ -213,7 +213,7 @@ export class RichTextMentionListBox extends FoundationElement {
         this.activeMappingConfigs = this.activeCharacter ? this.mentionExtensionConfig?.find(config => config.character === this.activeCharacter)?.mappingConfigs : undefined;
     }
 
-    private filterUsers(): void {
+    private filterOptions(): void {
         if (!this.childItems) {
             return;
         }
