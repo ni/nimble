@@ -65,30 +65,45 @@ export class RichTextMentionListBox extends FoundationElement {
      * @internal
      */
     @observable
-    public filter = '';
+    public filter?: string;
 
     /**
      * @internal
      */
     public listBox!: Listbox;
 
-    private hasSelectableOptions = true;
+    @observable
+    private anchorElement?: HTMLElement;
+
+    private hasAnySelectableOption = false;
 
     private mentionExtensionConfig?: MentionExtensionConfiguration[];
 
     private suggestionProps!: SuggestionProps;
 
+    private readonly intersectionObserver: IntersectionObserver = new IntersectionObserver(
+        entries => {
+            if (
+                !entries[0]?.isIntersecting
+            ) {
+                this.setOpen(false);
+            }
+        },
+        { threshold: 1.0, root: document }
+    );
+
     /**
      * @public
      */
-    public async selectFirstListOption(): Promise<void> {
+    public async selectFirstOptionIfValidOptionExists(): Promise<void> {
         const definedElements = [
             this.listBox?.matches(':not(:defined)')
                 ? customElements.whenDefined(this.listBox.localName)
                 : Promise.resolve()
         ];
         await Promise.all(definedElements);
-        if (this.hasSelectableOptions) {
+        this.updateSelectableOption();
+        if (this.hasAnySelectableOption) {
             this.listBox?.selectFirstOption();
             this.scrollOptionIntoView();
         }
@@ -106,7 +121,7 @@ export class RichTextMentionListBox extends FoundationElement {
             case keyEnter: {
                 if (
                     this.listBox.firstSelectedOption
-                    && this.hasSelectableOptions
+                    && this.hasAnySelectableOption
                 ) {
                     this.activateMention({
                         href: this.listBox.firstSelectedOption.value,
@@ -117,7 +132,7 @@ export class RichTextMentionListBox extends FoundationElement {
                 return false;
             }
             case keyArrowDown: {
-                if (!event.shiftKey && this.hasSelectableOptions) {
+                if (!event.shiftKey && this.hasAnySelectableOption) {
                     this.listBox.selectNextOption();
                     this.scrollOptionIntoView();
                     return true;
@@ -125,7 +140,7 @@ export class RichTextMentionListBox extends FoundationElement {
                 return false;
             }
             case keyArrowUp: {
-                if (!event.shiftKey && this.hasSelectableOptions) {
+                if (!event.shiftKey && this.hasAnySelectableOption) {
                     this.listBox.selectPreviousOption();
                     this.scrollOptionIntoView();
                     return true;
@@ -173,7 +188,7 @@ export class RichTextMentionListBox extends FoundationElement {
         this.filter = props.query;
         this.setAnchorElement(props.decorationNode as HTMLElement);
         this.setOpen(true);
-        void this.selectFirstListOption();
+        void this.selectFirstOptionIfValidOptionExists();
     }
 
     public close(): void {
@@ -194,15 +209,33 @@ export class RichTextMentionListBox extends FoundationElement {
         this.filterOptions();
     }
 
+    /**
+     * @internal
+     */
+    public childItemsChanged(): void {
+        void this.selectFirstOptionIfValidOptionExists();
+    }
+
+    /**
+     * @internal
+     */
+    public anchorElementChanged(prev: HTMLElement, next: HTMLElement): void {2
+        if (prev) {
+            this.intersectionObserver.unobserve(prev);
+        }
+        if (this.region && this.anchorElement) {
+            this.region.anchorElement = this.anchorElement;
+            this.region.update();
+            this.intersectionObserver.observe(next);
+        }
+    }
+
     private setActiveCharacter(activeCharacter: string): void {
         this.activeCharacter = activeCharacter;
     }
 
     private setAnchorElement(anchorElement: HTMLElement): void {
-        if (this.region) {
-            this.region.anchorElement = anchorElement;
-            this.region.update();
-        }
+        this.anchorElement = anchorElement;
     }
 
     private scrollOptionIntoView(): void {
@@ -214,7 +247,7 @@ export class RichTextMentionListBox extends FoundationElement {
     }
 
     private filterOptions(): void {
-        if (!this.childItems) {
+        if (!this.childItems || this.filter === undefined) {
             return;
         }
         const normalizedFilter = normalizeString(this.filter);
@@ -225,10 +258,7 @@ export class RichTextMentionListBox extends FoundationElement {
             listOption.disabled = checkFlag;
             listOption.hidden = checkFlag;
         });
-        this.hasSelectableOptions = !this.childItems.map(element => element as ListOption).every(
-            list => list.disabled
-        );
-        void this.selectFirstListOption();
+        void this.selectFirstOptionIfValidOptionExists();
     }
 
     private activateMention(mentionDetail: MentionDetail): void {
@@ -241,6 +271,12 @@ export class RichTextMentionListBox extends FoundationElement {
 
     private setOpen(value: boolean): void {
         this.open = value;
+    }
+
+    private updateSelectableOption(): void {
+        this.hasAnySelectableOption = !this.childItems.map(element => element as ListOption).every(
+            list => list.disabled
+        );
     }
 }
 

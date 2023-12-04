@@ -12,6 +12,7 @@ import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-
 import { richTextMentionUsersViewTag } from './view';
 import type { RichTextMentionUserConfig } from './types';
 import type { MappingConfigs, RichTextMentionConfig } from '../base/types';
+import { richTextMentionUserLabel } from '../../label-provider/rich-text/label-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -41,7 +42,8 @@ RichTextMentionUsersValidator
         return {
             icon: iconAtTag,
             character: '@',
-            viewElement: richTextMentionUsersViewTag
+            viewElement: richTextMentionUsersViewTag,
+            label: richTextMentionUserLabel.getValueFor(this)
         };
     }
 

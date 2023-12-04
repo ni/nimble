@@ -1,4 +1,4 @@
-import { children, elements, html, ref } from '@microsoft/fast-element';
+import { children, elements, html, ref, repeat } from '@microsoft/fast-element';
 import type { RichTextEditor } from '.';
 import { toolbarTag } from '../../toolbar';
 import { toggleButtonTag } from '../../toggle-button';
@@ -10,11 +10,13 @@ import {
     richTextToggleBoldLabel,
     richTextToggleItalicsLabel,
     richTextToggleBulletedListLabel,
-    richTextToggleNumberedListLabel
+    richTextToggleNumberedListLabel,
 } from '../../label-provider/rich-text/label-tokens';
 import { errorTextTemplate } from '../../patterns/error/template';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 import { richTextMentionListBoxTag } from '../mention-list-box';
+import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
+import { buttonTag } from '../../button';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
@@ -85,6 +87,21 @@ export const template = html<RichTextEditor>`
                         ${x => richTextToggleNumberedListLabel.getValueFor(x)}
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
                     </${toggleButtonTag}>
+                    ${repeat(
+        x => Array.from(x.mentionExtensionConfig ?? []),
+        html<MentionExtensionConfiguration>`<${buttonTag}
+                        appearance="ghost"
+                        content-hidden
+                        ?disabled="${x => x.richTextEditor.disabled}"
+                        slot="start"
+                        title=${x => x.label}
+                        @click=${x => x.richTextEditor.mentionButtonClick(x.character)}
+                        @keydown=${(x, c) => x.richTextEditor.mentionButtonKeyDown(c.event as KeyboardEvent, x.character)}
+                    >
+                        ${x => x.label}
+                        ${x => x.getIconTemplate()}
+                    </${buttonTag}>`
+    )}
                 </${toolbarTag}>
                 <span class="footer-actions" part="footer-actions">
                     <slot name="footer-actions"></slot>

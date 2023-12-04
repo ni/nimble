@@ -4,6 +4,7 @@ export interface MentionInternalsOptions {
     readonly icon: string;
     readonly character: string;
     readonly viewElement: string;
+    readonly label: string;
 }
 
 /**
@@ -42,9 +43,15 @@ export class MentionInternals<TMentionConfig> {
      */
     public readonly viewElement: string;
 
+    /**
+     * Mention label to render while hovering the rich text icon
+     */
+    public readonly label: string;
+
     public constructor(options: MentionInternalsOptions) {
         this.icon = options.icon;
         this.character = options.character;
         this.viewElement = options.viewElement;
+        this.label = options.label;
     }
 }

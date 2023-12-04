@@ -170,7 +170,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     public editorContainer!: HTMLDivElement;
 
     @observable
-    private mentionExtensionConfig?: MentionExtensionConfiguration[];
+    public mentionExtensionConfig?: MentionExtensionConfiguration[];
 
     private richTextMarkdownSerializer = new RichTextMarkdownSerializer();
 
@@ -351,6 +351,26 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     /**
+     * Toggle the mention node and focus back to the editor
+     * @internal
+     */
+    public mentionButtonClick(character: string): void {
+        this.tiptapEditor.chain().insertContent(` ${character}`).focus().run();
+    }
+
+    /**
+     * Toggle the mention node and focus back to the editor
+     * @internal
+     */
+    public mentionButtonKeyDown(event: KeyboardEvent, character: string): boolean {
+        if (this.keyActivatesButton(event)) {
+            this.tiptapEditor.chain().insertContent(` ${character}`).focus().run();
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * This function load tip tap editor with provided markdown content by parsing into html
      * @public
      */
@@ -401,7 +421,8 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.mentionExtensionConfig = this.mentionElements.map(
                 (mention, index) => new MentionExtensionConfiguration(
                     mention.mentionInternals,
-                    `mention-plugin-${index}`
+                    `mention-plugin-${index}`,
+                    this
                 )
             );
             this.mentionListBox?.updateMentionExtensionConfig(this.mentionExtensionConfig);

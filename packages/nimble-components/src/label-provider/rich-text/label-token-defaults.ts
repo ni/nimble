@@ -8,5 +8,6 @@ export const richTextLabelDefaults: {
     richTextToggleBoldLabel: 'Bold',
     richTextToggleItalicsLabel: 'Italics',
     richTextToggleBulletedListLabel: 'Bulleted List',
-    richTextToggleNumberedListLabel: 'Numbered List'
+    richTextToggleNumberedListLabel: 'Numbered List',
+    richTextMentionUserLabel: 'Mention User'
 };
