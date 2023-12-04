@@ -13,6 +13,7 @@ import { richTextMentionUsersViewTag } from './view';
 import type { RichTextMentionUserConfig } from './types';
 import type { MappingConfigs, RichTextMentionConfig } from '../base/types';
 import { richTextMentionUserLabel } from '../../label-provider/rich-text/label-tokens';
+import { UserMentionConfig } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -23,10 +24,12 @@ declare global {
 /**
  * Rich Text user mention configuration element which will have MappingMentionUser elements as children
  */
-export class RichTextMentionUsers extends RichTextMention<
-RichTextMentionUserConfig,
-RichTextMentionUsersValidator
-> {
+export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersValidator> {
+    // TODO this isn't a great way to do this. It's mixing configuration element state and parent state which are decoupled asynchronously from each other.
+    // I'd prefer to leave it out of nimble for now. The app can know when things have settled and so this themselves.
+    // I'm also now wondering how do multiple regexes that happen to match the same url behave...
+    // I'd expect it to match based on DOM order. So I don't think this is reliable.
+    // At the very very minimum this should be in the base class, it's not mention implementation specific, it should be something the editor knows
     public override getMentionedHrefs(): string[] {
         const regex = new RegExp(this.pattern ?? '');
         return this.richTextParent
@@ -47,12 +50,8 @@ RichTextMentionUsersValidator
         };
     }
 
-    protected override createMentionConfig(
-        mappingConfigs: MappingConfigs
-    ): RichTextMentionConfig {
-        return {
-            mappingConfigs
-        };
+    protected override createMentionConfig(): UserMentionConfig {
+        return new UserMentionConfig();
     }
 
     protected createMappingConfig(

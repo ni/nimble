@@ -21,10 +21,10 @@ export const baseValidityFlagNames = [
  * Validator for RichTextMention
  */
 export class RichTextMentionValidator<
-    ValidityFlagNames extends readonly string[]
+    ValidityFlagNames extends readonly string[] = typeof baseValidityFlagNames
 > extends Validator<typeof baseValidityFlagNames | ValidityFlagNames> {
     public constructor(
-        private readonly mentionInternals: MentionInternals<unknown>,
+        private readonly mentionInternals: MentionInternals,
         configValidityKeys: ValidityFlagNames,
         private readonly supportedMappingElements: readonly (typeof Mapping<unknown>)[]
     ) {
@@ -86,6 +86,7 @@ export class RichTextMentionValidator<
         );
     }
 
+    // TODO move this to child class like done for table
     private validateMappingTypes(mappings: Mapping<unknown>[]): void {
         const valid = mappings.every(mapping => this.supportedMappingElements.some(
             mappingClass => mapping instanceof mappingClass
@@ -126,7 +127,7 @@ export class RichTextMentionValidator<
                 return (
                     href === undefined
                           || typeof href !== 'string'
-                          || !RegExp(pattern).test(href)
+                          || !new RegExp(pattern).test(href)
                 );
             });
         this.setConditionValue('mentionHrefDoesNotMatchPattern', invalid);
@@ -144,7 +145,8 @@ export class RichTextMentionValidator<
 
     private isInvalidRegex(pattern: string): boolean {
         try {
-            RegExp(pattern);
+            // eslint-disable-next-line no-new
+            new RegExp(pattern);
             return false;
         } catch (error) {
             return true;

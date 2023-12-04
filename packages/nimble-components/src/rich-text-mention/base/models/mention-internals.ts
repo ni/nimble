@@ -1,4 +1,6 @@
 import { observable } from '@microsoft/fast-element';
+import type { MentionConfig } from './mention-config';
+import type { MappingConfigs, MentionUpdateEmitter } from '../types';
 
 export interface MentionInternalsOptions {
     readonly icon: string;
@@ -10,12 +12,18 @@ export interface MentionInternalsOptions {
 /**
  * Internal mention state
  */
-export class MentionInternals<TMentionConfig> {
+export class MentionInternals {
     /**
-     * Configuration which will hold mentioning info, character, icon and pattern
+     * Mention-specific configuration. Can be used to, for example, pass mention-specific configuration to views.
      */
     @observable
-    public mentionConfig?: TMentionConfig;
+    public mentionConfig?: MentionConfig;
+
+    /**
+     * Mappings configured for the mention node
+     */
+    @observable
+    public mappingConfigs?: MappingConfigs;
 
     /**
      * Whether this mention has a valid configuration.
@@ -26,6 +34,7 @@ export class MentionInternals<TMentionConfig> {
     /**
      * Regex used to extract user ID from user key (url)
      */
+    @observable
     public pattern?: string;
 
     /**
@@ -48,10 +57,13 @@ export class MentionInternals<TMentionConfig> {
      */
     public readonly label: string;
 
+    * Funtion to invoke to emit a mention-update event
+     */
+    public readonly mentionUpdateEmitter: MentionUpdateEmitter;
+
     public constructor(options: MentionInternalsOptions) {
         this.icon = options.icon;
         this.character = options.character;
         this.viewElement = options.viewElement;
-        this.label = options.label;
-    }
+        this.mentionUpdateEmitter = mentionUpdateEmitter;
 }

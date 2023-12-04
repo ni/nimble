@@ -12,7 +12,7 @@ function toggleCheckboxValue(checkbox: Checkbox): void {
 describe('Nimble checkbox control value accessor', () => {
     @Component({
         template: `
-            <nimble-checkbox #checkbox [(ngModel)]="value" [disabled]="fieldDisabled"></nimble-checkbox>
+            <nimble-checkbox #checkbox [(ngModel)]="value" (ngModelChange)="onModelValueChange($event)" [disabled]="fieldDisabled"></nimble-checkbox>
          `
     })
     class TestHostComponent {
@@ -21,6 +21,8 @@ describe('Nimble checkbox control value accessor', () => {
         public readonly initialValue = true;
         public value = this.initialValue;
         public fieldDisabled = false;
+
+        public onModelValueChange(_value: boolean): void {}
     }
 
     let checkbox: Checkbox;
@@ -76,4 +78,12 @@ describe('Nimble checkbox control value accessor', () => {
         expect(checkbox.getAttribute('disabled')).toBe('');
         expect(checkbox.disabled).toBe(true);
     }));
+
+    it('fires ngModelChange one time with expected value', () => {
+        const ngModelChangeSpy = spyOn(testHostComponent, 'onModelValueChange');
+        toggleCheckboxValue(checkbox);
+        fixture.detectChanges();
+
+        expect(ngModelChangeSpy).toHaveBeenCalledOnceWith(false);
+    });
 });

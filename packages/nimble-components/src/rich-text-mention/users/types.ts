@@ -1,3 +1,6 @@
-import type { RichTextMentionConfig } from '../base/types';
+import { MentionConfig } from '../base/models/mention-config';
 
-export type RichTextMentionUserConfig = RichTextMentionConfig;
+/**
+ * User Mention custom configuration
+ */
+export class UserMentionConfig extends MentionConfig {}

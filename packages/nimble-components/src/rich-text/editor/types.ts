@@ -21,3 +21,4 @@ export interface MentionDetail {
     href: string;
     displayName: string;
 }
+export const mentionPluginPrefix = 'mention-plugin-';

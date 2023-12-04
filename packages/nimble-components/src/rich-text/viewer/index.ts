@@ -48,7 +48,7 @@ export class RichTextViewer extends RichText {
     /**
      * @internal
      */
-    public parserMentionConfigChanged(): void {
+    public configurationChanged(): void {
         this.updateView();
     }
 
@@ -63,7 +63,7 @@ export class RichTextViewer extends RichText {
         if (this.markdown) {
             const parseResult = RichTextMarkdownParser.parseMarkdownToDOM(
                 this.markdown,
-                this.parserMentionConfig
+                this.configuration?.parserMentionConfig
             );
             this.viewer.replaceChildren(parseResult.fragment);
             this.mentionedHrefs = parseResult.mentionedHrefs;

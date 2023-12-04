@@ -20,7 +20,7 @@ interface Nodes {
 export class RichTextMarkdownSerializer {
     private readonly markdownSerializer: MarkdownSerializer;
 
-    public constructor(mentionList: string[] = []) {
+    public constructor(mentionList: string[]) {
         this.markdownSerializer = this.initializeMarkdownSerializerForTipTap(mentionList);
     }
 
