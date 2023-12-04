@@ -47,6 +47,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
+    public readonly xmlSerializer = new XMLSerializer();
+
+    /**
+     * @internal
+     */
     public richTextMarkdownSerializer = new RichTextMarkdownSerializer([]);
 
     /**
@@ -157,8 +162,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
 
-    private readonly xmlSerializer = new XMLSerializer();
-
     /**
      * @internal
      */
@@ -188,7 +191,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public disabledChanged(): void {
+    public disabledChanged(_prev: unknown, _next: unknown): void {
         this.tiptapEditor.setEditable(!this.disabled);
         this.setEditorTabIndex();
         this.editor.setAttribute(
@@ -201,7 +204,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * Update the placeholder text and view of the editor.
      * @internal
      */
-    public placeholderChanged(): void {
+    public placeholderChanged(_prev: unknown, _next: unknown): void {
         const placeholderExtension = this.getTipTapExtension(
             'placeholder'
         ) as Extension<PlaceholderOptions>;
@@ -214,7 +217,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public ariaLabelChanged(): void {
+    public ariaLabelChanged(_prev: unknown, _next: unknown): void {
         if (this.ariaLabel !== null && this.ariaLabel !== undefined) {
             this.editor.setAttribute('aria-label', this.ariaLabel);
         } else {
@@ -225,24 +228,15 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public parserMentionConfigChanged(): void {
+    public parserMentionConfigChanged(_prev: unknown, _next: unknown): void {
         const cuurr = this.getMarkdown();
         this.setMarkdown(cuurr);
     }
 
-    // public parserMentionConfigChanged(): void {
-    //     const currentStateMarkdown = this.getMarkdown();
-    //     this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
-    //         (this.mentionExtensionConfig ?? []).map(config => config.name)
-    //     );
-    //     this.initializeEditor();
-    //     this.setMarkdown(currentStateMarkdown);
-    // }
-
     /**
      * @internal
      */
-    public mentionExtensionConfigChanged(): void {
+    public mentionExtensionConfigChanged(_prev: unknown, _next: unknown): void {
         const currentStateMarkdown = this.getMarkdown();
         this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
             (this.mentionExtensionConfig ?? []).map(config => config.name)
@@ -373,11 +367,8 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         return Array.from(mentionedHrefs);
     }
 
-    protected override mentionElementsChanged(old: unknown): void {
-        super.mentionElementsChanged(old);
-        if (old === undefined) {
-            return;
-        }
+    protected override mentionElementsChanged(prev: unknown, next: unknown): void {
+        super.mentionElementsChanged(prev, next);
         this.updateMentionExtensionsConfig();
     }
 

@@ -184,7 +184,8 @@ function createCustomMentionExtension(
                 mergeAttributes(
                     this.options.HTMLAttributes,
                     HTMLAttributes,
-                    { 'disable-editing': true }
+                    // disable-editing is a boolean attribute
+                    { 'disable-editing': '' }
                 )
             ];
         }
