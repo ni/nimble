@@ -6,9 +6,7 @@ import {
 } from '../../../menu-button/types';
 import { tableCellTag } from '../cell';
 import { checkboxTag } from '../../../checkbox';
-import {
-    tableRowSelectLabel
-} from '../../../label-provider/table/label-tokens';
+import { tableRowSelectLabel } from '../../../label-provider/table/label-tokens';
 import type { TableColumn } from '../../../table-column/base';
 import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
