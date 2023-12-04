@@ -63,7 +63,7 @@ export class RichTextViewer extends RichText {
         if (this.markdown) {
             const parseResult = RichTextMarkdownParser.parseMarkdownToDOM(
                 this.markdown,
-                this.configuration.parserMentionConfig
+                this.configuration?.parserMentionConfig
             );
             this.viewer.replaceChildren(parseResult.fragment);
             this.mentionedHrefs = parseResult.mentionedHrefs;

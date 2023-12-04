@@ -23,7 +23,7 @@ export abstract class RichText<
     public readonly childItems: Element[] = [];
 
     @observable
-    protected configuration!: TConfiguration;
+    protected configuration?: TConfiguration;
 
     @observable
     protected mentionElements!: RichTextMention[];

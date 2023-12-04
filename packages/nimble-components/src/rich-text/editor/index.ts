@@ -231,9 +231,9 @@ export class RichTextEditor
         } else {
             const currentStateMarkdown = this.getMarkdown();
             this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
-                this.configuration.mentionExtensionConfig.map(
+                this.configuration?.mentionExtensionConfig.map(
                     config => config.name
-                )
+                ) ?? []
             );
             this.initializeEditor();
             this.setMarkdown(currentStateMarkdown);
@@ -394,7 +394,7 @@ export class RichTextEditor
         this.tiptapEditor?.destroy();
         this.tiptapEditor = createTiptapEditor(
             this.editor,
-            this.configuration.mentionExtensionConfig
+            this.configuration?.mentionExtensionConfig ?? []
         );
         this.bindEditorTransactionEvent();
         this.bindEditorUpdateEvent();
@@ -407,7 +407,7 @@ export class RichTextEditor
     private getHtmlContent(markdown: string): string {
         const parseResult = RichTextMarkdownParser.parseMarkdownToDOM(
             markdown,
-            this.configuration.parserMentionConfig
+            this.configuration?.parserMentionConfig
         );
         return this.xmlSerializer.serializeToString(parseResult.fragment);
     }
