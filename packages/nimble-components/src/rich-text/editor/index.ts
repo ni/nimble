@@ -16,8 +16,8 @@ import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { RichText } from '../base';
-import { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 import { createTiptapEditor } from './models/create-tiptap-editor';
+import { EditorConfiguration } from '../models/editor-configuration';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -28,7 +28,9 @@ declare global {
 /**
  * A nimble styled rich text editor
  */
-export class RichTextEditor extends RichText implements ErrorPattern {
+export class RichTextEditor
+    extends RichText<EditorConfiguration>
+    implements ErrorPattern {
     /**
      * @internal
      */
@@ -110,7 +112,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 const continueDescent = hasMention === false;
                 return continueDescent;
             });
-            return hasMention;
+            return !hasMention;
         }
         return false;
     }
@@ -150,9 +152,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @internal
      */
     public editorContainer!: HTMLDivElement;
-
-    @observable
-    private mentionExtensionConfig?: MentionExtensionConfiguration[];
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
@@ -223,21 +222,22 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public parserMentionConfigChanged(_prev: unknown, _next: unknown): void {
-        const currentStateMarkdown = this.getMarkdown();
-        this.setMarkdown(currentStateMarkdown);
-    }
-
-    /**
-     * @internal
-     */
-    public mentionExtensionConfigChanged(_prev: unknown, _next: unknown): void {
-        const currentStateMarkdown = this.getMarkdown();
-        this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
-            (this.mentionExtensionConfig ?? []).map(config => config.name)
-        );
-        this.initializeEditor();
-        this.setMarkdown(currentStateMarkdown);
+    public configurationChanged(
+        prev: EditorConfiguration | undefined,
+        next: EditorConfiguration
+    ): void {
+        if (this.isOnlyMentionInternalsChanged(prev, next)) {
+            this.setMarkdown(this.getMarkdown());
+        } else {
+            const currentStateMarkdown = this.getMarkdown();
+            this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
+                this.configuration.mentionExtensionConfig.map(
+                    config => config.name
+                )
+            );
+            this.initializeEditor();
+            this.setMarkdown(currentStateMarkdown);
+        }
     }
 
     /**
@@ -359,30 +359,23 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         return Array.from(mentionedHrefs);
     }
 
-    protected override mentionElementsChanged(
-        prev: unknown,
-        next: unknown
-    ): void {
-        super.mentionElementsChanged(prev, next);
-        this.updateMentionExtensionsConfig();
+    protected override createConfig(): EditorConfiguration {
+        return new EditorConfiguration(this.mentionElements);
     }
 
-    // Currently MentionExtensionConfiguration only depends on static properties on mention instances (non observable mentionInternal propeties)
-    // If MentionExtensionConfiguuration starts to rely on observable properties then override handleChange should be implemented to choose what to observe
-    private updateMentionExtensionsConfig(): void {
-        if (
-            this.mentionElements.every(
-                mention => mention.mentionInternals.validConfiguration
-            )
-        ) {
-            this.mentionExtensionConfig = this.mentionElements.map(
-                mentionElement => new MentionExtensionConfiguration(
-                    mentionElement.mentionInternals
-                )
-            );
-            return;
-        }
-        this.mentionExtensionConfig = [];
+    private isOnlyMentionInternalsChanged(
+        prev: EditorConfiguration | undefined,
+        next: EditorConfiguration
+    ): boolean {
+        const prevConfigCharacters = prev?.mentionExtensionConfig
+            .map(config => config.character)
+            .sort((a, b) => a.localeCompare(b))
+            .toString();
+        const nextConfigCharacters = next.mentionExtensionConfig
+            .map(config => config.character)
+            .sort((a, b) => a.localeCompare(b))
+            .toString();
+        return prevConfigCharacters === nextConfigCharacters;
     }
 
     private createEditor(): HTMLDivElement {
@@ -401,7 +394,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         this.tiptapEditor?.destroy();
         this.tiptapEditor = createTiptapEditor(
             this.editor,
-            this.mentionExtensionConfig ?? []
+            this.configuration.mentionExtensionConfig
         );
         this.bindEditorTransactionEvent();
         this.bindEditorUpdateEvent();
@@ -414,7 +407,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     private getHtmlContent(markdown: string): string {
         const parseResult = RichTextMarkdownParser.parseMarkdownToDOM(
             markdown,
-            this.parserMentionConfig
+            this.configuration.parserMentionConfig
         );
         return this.xmlSerializer.serializeToString(parseResult.fragment);
     }

@@ -20,7 +20,7 @@ export class MarkdownParserMentionConfiguration {
     public static isObservedMentionInternalsProperty(arg: unknown): boolean {
         return (
             typeof arg === 'string'
-            && ['regexPattern', 'mappingConfigs'].includes(arg)
+            && ['pattern', 'mappingConfigs'].includes(arg)
         );
     }
 
