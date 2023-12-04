@@ -126,10 +126,10 @@ dies[1][0] will be highlighted because it also contains 'a'
 dies[0][1] will not be be highlighted because it does not have any tag
 
 ```ts
-['b', 'ab'];
+['b', 'h'];
 ```
 
-dies[0][0] will not be highlighted because it does not contain 'b' neither 'ab'
+dies[0][0] will not be highlighted because it does not contain 'b' neither 'h'
 
 dies[1][0] will be highlighted because it contains 'b'
 
