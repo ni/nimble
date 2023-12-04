@@ -157,8 +157,20 @@ describe('TableValidator', () => {
 
         it('setting data with IDs and parent IDs after invalid configuration results in valid configuration', () => {
             const data = [
-                { clientRecord: { parentId: 'value-1', id: '1', numberField: 10 } },
-                { clientRecord: { parentId: 'value-2', id: '2', numberField: 11 } }
+                {
+                    clientRecord: {
+                        parentId: 'value-1',
+                        id: '1',
+                        numberField: 10
+                    }
+                },
+                {
+                    clientRecord: {
+                        parentId: 'value-2',
+                        id: '2',
+                        numberField: 11
+                    }
+                }
             ];
 
             let isValid = validator.validateRecordIds(

@@ -224,6 +224,7 @@ export class Table<
     private internalData: TableNode<TData>[] = [];
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly rowMetadata: Map<TableFieldValue, TableRowMetadata> = new Map<TableFieldValue, TableRowMetadata>();
+
     private readonly tableValidator = new TableValidator();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
     private readonly selectionManager: InteractiveSelectionManager<TData>;
