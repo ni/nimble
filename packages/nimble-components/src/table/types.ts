@@ -41,15 +41,13 @@ export interface TableRecord {
 }
 
 /**
- * InternalTableRecord describes a hierarchical data structure that is used for
+ * Describes a hierarchical data structure that is used for
  * the internal representation of the data, and allows us to represent data with
  * parent-child relationships within Tanstack.
  */
-export interface InternalTableRecord<
-    TRecord extends TableRecord = TableRecord
-> {
-    subRows?: InternalTableRecord<TRecord>[];
-    data: TRecord;
+export interface TableNode<TRecord extends TableRecord = TableRecord> {
+    subRows?: TableNode<TRecord>[];
+    clientRecord: TRecord;
 }
 
 export type TableStringField<FieldName extends TableFieldName> = {

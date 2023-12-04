@@ -4,6 +4,7 @@ import { Mapping } from '../base';
 import { template } from '../base/template';
 import type { IconSeverity } from '../../icon-base/types';
 import { Icon } from '../../icon-base';
+import type { MappingKey } from '../base/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,12 +21,15 @@ function isIconClass(elementClass: CustomElementConstructor): boolean {
  * One or more may be added as children of a nimble-table-column-icon element to define
  * how specific data values should be displayed as icons in that column's cells.
  */
-export class MappingIcon extends Mapping {
+export class MappingIcon extends Mapping<MappingKey> {
     @attr()
     public icon?: string;
 
     @attr()
     public severity: IconSeverity;
+
+    @attr()
+    public text?: string;
 
     /**
      * @internal
