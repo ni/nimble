@@ -9,7 +9,10 @@ import type {
     MentionInternals,
     MentionInternalsOptions
 } from '../models/mention-internals';
-import { RichTextMentionValidator, baseValidityFlagNames } from '../models/mention-validator';
+import {
+    RichTextMentionValidator,
+    baseValidityFlagNames
+} from '../models/mention-validator';
 import { MentionConfig } from '../models/mention-config';
 
 export const richTextMentionTestTag = 'nimble-rich-text-test-mention';

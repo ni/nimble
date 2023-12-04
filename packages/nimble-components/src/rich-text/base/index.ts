@@ -34,7 +34,12 @@ export abstract class RichText extends FoundationElement {
      * @internal
      */
     public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof MentionInternals && MarkdownParserMentionConfiguration.isObservedMentionInternalsProperty(args)) {
+        if (
+            source instanceof MentionInternals
+            && MarkdownParserMentionConfiguration.isObservedMentionInternalsProperty(
+                args
+            )
+        ) {
             this.updateParserMentionConfig();
         }
     }

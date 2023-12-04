@@ -17,10 +17,7 @@ import {
 } from './models/mention-internals';
 import { Mapping } from '../../mapping/base';
 import type { RichText } from '../../rich-text/base';
-import type {
-    MappingConfigs,
-    MentionUpdateEventDetail,
-} from './types';
+import type { MappingConfigs, MentionUpdateEventDetail } from './types';
 import type { MentionConfig } from './models/mention-config';
 
 /**

@@ -5,12 +5,7 @@ import {
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-import {
-    findParentNode,
-    isList,
-    AnyExtension,
-    Extension,
-} from '@tiptap/core';
+import { findParentNode, isList, AnyExtension, Extension } from '@tiptap/core';
 
 import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import { template } from './template';
@@ -229,8 +224,8 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @internal
      */
     public parserMentionConfigChanged(_prev: unknown, _next: unknown): void {
-        const cuurr = this.getMarkdown();
-        this.setMarkdown(cuurr);
+        const currentStateMarkdown = this.getMarkdown();
+        this.setMarkdown(currentStateMarkdown);
     }
 
     /**
@@ -331,9 +326,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      */
     public setMarkdown(markdown: string): void {
         const html = this.getHtmlContent(markdown);
-        // TODO calling setMarkdown when initial markdown <user:2> and then update mention nodes to match changes
-        // html representation from nimble-anchor to a mention view
-        // calling getmarkdown with the mention view causes the content to render as user:2
         this.tiptapEditor.commands.setContent(html);
     }
 
@@ -367,7 +359,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         return Array.from(mentionedHrefs);
     }
 
-    protected override mentionElementsChanged(prev: unknown, next: unknown): void {
+    protected override mentionElementsChanged(
+        prev: unknown,
+        next: unknown
+    ): void {
         super.mentionElementsChanged(prev, next);
         this.updateMentionExtensionsConfig();
     }
@@ -380,7 +375,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 mention => mention.mentionInternals.validConfiguration
             )
         ) {
-            this.mentionExtensionConfig = this.mentionElements.map(mentionElement => new MentionExtensionConfiguration(mentionElement.mentionInternals));
+            this.mentionExtensionConfig = this.mentionElements.map(
+                mentionElement => new MentionExtensionConfiguration(
+                    mentionElement.mentionInternals
+                )
+            );
             return;
         }
         this.mentionExtensionConfig = [];
@@ -400,7 +399,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         this.unbindEditorUpdateEvent();
         this.unbindNativeInputEvent();
         this.tiptapEditor?.destroy();
-        this.tiptapEditor = createTiptapEditor(this.editor, this.mentionExtensionConfig ?? []);
+        this.tiptapEditor = createTiptapEditor(
+            this.editor,
+            this.mentionExtensionConfig ?? []
+        );
         this.bindEditorTransactionEvent();
         this.bindEditorUpdateEvent();
         this.stopNativeInputEventPropagation();

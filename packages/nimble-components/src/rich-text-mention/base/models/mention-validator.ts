@@ -127,7 +127,7 @@ export class RichTextMentionValidator<
                 return (
                     href === undefined
                           || typeof href !== 'string'
-                          || !(new RegExp(pattern).test(href))
+                          || !new RegExp(pattern).test(href)
                 );
             });
         this.setConditionValue('mentionHrefDoesNotMatchPattern', invalid);

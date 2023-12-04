@@ -186,9 +186,7 @@ describe('RichTextMentionUsers', () => {
         }));
         await connect();
         const mappingConfig = new Map([]);
-        expect(element.mentionInternals.mappingConfigs).toEqual(
-            mappingConfig
-        );
+        expect(element.mentionInternals.mappingConfigs).toEqual(mappingConfig);
     });
 
     it('should have undefined mentionConfig when an invalid pattern is assigned', async () => {

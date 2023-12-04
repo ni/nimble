@@ -21,9 +21,7 @@ declare global {
 /**
  * Rich Text user mention configuration element which will have MappingMentionUser elements as children
  */
-export class RichTextMentionUsers extends RichTextMention<
-RichTextMentionUsersValidator
-> {
+export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersValidator> {
     // TODO this isn't a great way to do this. It's mixing configuration element state and parent state which are decoupled asynchronously from each other.
     // I'd prefer to leave it out of nimble for now. The app can know when things have settled and so this themselves.
     // I'm also now wondering how do multiple regexes that happen to match the same url behave...

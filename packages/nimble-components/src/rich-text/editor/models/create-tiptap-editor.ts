@@ -1,9 +1,4 @@
-import {
-    Editor,
-    Mark,
-    Node,
-    mergeAttributes
-} from '@tiptap/core';
+import { Editor, Mark, Node, mergeAttributes } from '@tiptap/core';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
 import Document from '@tiptap/extension-document';
@@ -27,7 +22,10 @@ import type { MentionExtensionConfiguration } from '../../models/mention-extensi
 
 const validAbsoluteLinkRegex = /^https?:\/\//i;
 
-export function createTiptapEditor(editor: HTMLDivElement, mentionExtensionConfig: MentionExtensionConfiguration[]): Editor {
+export function createTiptapEditor(
+    editor: HTMLDivElement,
+    mentionExtensionConfig: MentionExtensionConfiguration[]
+): Editor {
     const customLink = createCustomLinkExtension();
     const mentionExtensions = mentionExtensionConfig.map(config => createCustomMentionExtension(config));
 
@@ -234,9 +232,7 @@ function updateLinkAndMentionNodes(
                 // Needing to separately validate the link on paste is a workaround for a tiptap issue
                 // See: https://github.com/ni/nimble/issues/1527
                 if (
-                    validAbsoluteLinkRegex.test(
-                        linkMark.attrs.href as string
-                    )
+                    validAbsoluteLinkRegex.test(linkMark.attrs.href as string)
                 ) {
                     // The below lines of code is responsible for updating the text content with its href value and creates a new updated text node.
                     // This code needs an update when the hyperlink support is added.
@@ -259,9 +255,7 @@ function updateLinkAndMentionNodes(
             } else {
                 updatedNodes.push(node);
             }
-        } else if (
-            node.type.name.startsWith(mentionPluginPrefix)
-        ) {
+        } else if (node.type.name.startsWith(mentionPluginPrefix)) {
             updatedNodes.push(
                 tiptapEditor.schema.text(node.attrs.label as string)
             );

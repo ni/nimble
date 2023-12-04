@@ -15,9 +15,7 @@ export class MentionExtensionConfiguration {
     public readonly key: string;
     public readonly mentionUpdateEmitter: MentionUpdateEmitter;
 
-    public constructor(
-        mentionInternals: MentionInternals
-    ) {
+    public constructor(mentionInternals: MentionInternals) {
         MentionExtensionConfiguration.instance += 1;
         const key = `${mentionPluginPrefix}${MentionExtensionConfiguration.instance}`;
         this.name = key;

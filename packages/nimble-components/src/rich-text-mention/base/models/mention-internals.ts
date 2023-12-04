@@ -56,7 +56,10 @@ export class MentionInternals {
      */
     public readonly mentionUpdateEmitter: MentionUpdateEmitter;
 
-    public constructor(options: MentionInternalsOptions, mentionUpdateEmitter: MentionUpdateEmitter) {
+    public constructor(
+        options: MentionInternalsOptions,
+        mentionUpdateEmitter: MentionUpdateEmitter
+    ) {
         this.icon = options.icon;
         this.character = options.character;
         this.viewElement = options.viewElement;
