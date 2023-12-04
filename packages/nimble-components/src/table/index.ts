@@ -582,7 +582,6 @@ export class Table<
                     this.calculateTanStackSelectionState(previousSelection)
             };
         }
-        this.updateTableOptions(tanStackUpdates);
         return tanStackUpdates;
     }
 
@@ -928,6 +927,9 @@ export class Table<
                 const tanstackUpdates = this.processFlatData(flatList);
                 if (this.rowMetadata.size === 0) {
                     this.trackFlatDataOrder(flatList);
+                }
+                if (tanstackUpdates.state) {
+                    updatedOptions.state.rowSelection = tanstackUpdates.state.rowSelection;
                 }
                 updatedOptions.data = tanstackUpdates.data;
             }
