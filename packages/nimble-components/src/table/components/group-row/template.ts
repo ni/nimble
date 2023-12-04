@@ -16,6 +16,7 @@ export const template = html<TableGroupRow>`
     <template
         role="row"
         @click=${x => x.onGroupExpandToggle()}
+        aria-expanded=${x => x.expanded}
         style="--ni-private-table-group-row-indent-level: ${x => x.nestingLevel};"
     >
         ${when(x => x.selectable, html<TableGroupRow>`

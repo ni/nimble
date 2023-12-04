@@ -20,6 +20,7 @@ export const template = html<TableRow>`
     <template 
         role="row"
         aria-selected=${x => x.ariaSelected}
+        aria-expanded=${x => x.expanded}
         style="--ni-private-table-row-indent-level: ${x => x.nestingLevel};"
     >
         ${when(x => !x.rowOperationGridCellHidden, html<TableRow>`

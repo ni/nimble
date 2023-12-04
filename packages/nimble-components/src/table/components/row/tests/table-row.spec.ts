@@ -107,6 +107,20 @@ describe('TableRow', () => {
             expect(element.getAttribute('aria-selected')).toBe('true');
         });
 
+        it('has aria-expanded attribute set to "true" when it is expanded', async () => {
+            element.expanded = true;
+            await connect();
+
+            expect(element.getAttribute('aria-expanded')).toBe('true');
+        });
+
+        it('has aria-expanded attribute set to "false" when it is not expanded', async () => {
+            element.expanded = false;
+            await connect();
+
+            expect(element.getAttribute('aria-expanded')).toBe('false');
+        });
+
         it('shows selection checkbox when row is selectable and selection is not hidden', async () => {
             await connect();
             element.selectable = true;

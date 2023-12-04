@@ -5,10 +5,6 @@ import {
 } from '../../theme-provider/design-tokens';
 
 export const styles = css`
-    :host {
-        --ni-private-expand-collapse-button-indent-level: 0px;
-    }
-
     :host .animating {
         transition: ${mediumDelay} ease-in-out;
     }
