@@ -138,7 +138,7 @@ dies[0][1] will not be be highlighted because it does not have any tag
 If the highlightedTags equals
 
 ```ts
-[''];
+[];
 ```
 
 Nothing will be highlighted
