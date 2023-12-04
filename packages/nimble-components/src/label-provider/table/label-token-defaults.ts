@@ -5,8 +5,6 @@ type TokenName = keyof typeof TokensNamespace;
 export const tableLabelDefaults: { readonly [key in TokenName]: string } = {
     tableGroupCollapseLabel: 'Collapse group',
     tableGroupExpandLabel: 'Expand group',
-    tableRowCollapseLabel: 'Collapse row',
-    tableRowExpandLabel: 'Expand row',
     tableGroupsCollapseAllLabel: 'Collapse all groups',
     tableCellActionMenuLabel: 'Options',
     tableColumnHeaderGroupedLabel: 'Grouped',

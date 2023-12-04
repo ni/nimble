@@ -154,9 +154,9 @@ describe('Table', () => {
             );
         });
 
-        it('element has a role of "grid"', async () => {
+        it('element has a role of "treegrid"', async () => {
             await connect();
-            expect(element.getAttribute('role')).toBe('grid');
+            expect(element.getAttribute('role')).toBe('treegrid');
         });
 
         it('column header content should be the columns', async () => {
@@ -1104,6 +1104,23 @@ describe('Table', () => {
 
                 expect(element.checkValidity()).toBeFalse();
                 expect(pageObject.getRenderedRowCount()).toBe(0);
+            });
+
+            it('table is invalid when parentId is set but no id', async () => {
+                await connect();
+                element.parentIdFieldName = 'parentId';
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeFalse();
+            });
+
+            it('table is valid after setting id when parentId already set', async () => {
+                await connect();
+                element.parentIdFieldName = 'parentId';
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeFalse();
+                element.id = 'id';
             });
 
             it('removing parentIdFieldName when data in invalid for hierarchy renders data as flat list', async () => {
