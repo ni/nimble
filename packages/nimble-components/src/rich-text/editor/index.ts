@@ -110,7 +110,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 const continueDescent = hasMention === false;
                 return continueDescent;
             });
-            return hasMention;
+            return !hasMention;
         }
         return false;
     }
