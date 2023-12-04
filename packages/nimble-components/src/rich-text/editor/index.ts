@@ -4,7 +4,7 @@ import {
     ARIAGlobalStatesAndProperties,
     DesignSystem
 } from '@microsoft/fast-foundation';
-import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
+import { keyEnter, keyEscape, keySpace } from '@microsoft/fast-web-utilities';
 import {
     Editor,
     findParentNode,
@@ -686,7 +686,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                         },
 
                         onKeyDown: (props): boolean => {
-                            if (props.event.key === 'Escape') {
+                            if (props.event.key === keyEscape) {
                                 inSuggestionMode = false;
                             }
                             return (
