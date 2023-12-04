@@ -96,7 +96,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
     /**
      * @internal
      *
-     * Respond to any change in the unitScale's observable properties by updating the column config
+     * Respond to any change in the unit's observable properties by updating the column config
      */
     public handleChange(): void {
         this.updateColumnConfig();
