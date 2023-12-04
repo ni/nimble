@@ -19,6 +19,7 @@ import { template } from './template';
 import type { AnchoredRegion } from '../../anchored-region';
 import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 import type { MappingConfigs } from '../../rich-text-mention/base/types';
+import { normalizeString } from '../../utilities/models/string-normalizer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -35,6 +36,12 @@ export class RichTextMentionListBox extends FoundationElement {
      */
     @observable
     public region?: AnchoredRegion;
+
+    /**
+     * @internal
+     */
+    @observable
+    public activeCharacter?: string;
 
     /**
      * @internal
@@ -57,6 +64,7 @@ export class RichTextMentionListBox extends FoundationElement {
     /**
      * @internal
      */
+    @observable
     public filter = '';
 
     /**
@@ -155,14 +163,14 @@ export class RichTextMentionListBox extends FoundationElement {
 
     public updateMentionExtensionConfig(mentionExtensionConfig?: MentionExtensionConfiguration[]): void {
         this.mentionExtensionConfig = mentionExtensionConfig;
+        this.setActiveMappingConfigs();
         this.filterUsers();
     }
 
     public onMention(props: SuggestionProps): void {
         this.suggestionProps = props;
-        this.setActiveMappingConfigs(props);
+        this.setActiveCharacter(props.text.slice(0, 1));
         this.filter = props.query;
-        this.filterUsers();
         this.setAnchorElement(props.decorationNode as HTMLElement);
         this.setOpen(true);
         void this.selectFirstListOption();
@@ -170,6 +178,24 @@ export class RichTextMentionListBox extends FoundationElement {
 
     public close(): void {
         this.setOpen(false);
+    }
+
+    /**
+     * @internal
+     */
+    public activeCharacterChanged(): void {
+        this.setActiveMappingConfigs();
+    }
+
+    /**
+     * @internal
+     */
+    public filterChanged(): void {
+        this.filterUsers();
+    }
+
+    private setActiveCharacter(activeCharacter: string): void {
+        this.activeCharacter = activeCharacter;
     }
 
     private setAnchorElement(anchorElement: HTMLElement): void {
@@ -183,19 +209,18 @@ export class RichTextMentionListBox extends FoundationElement {
         this.listBox?.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
     }
 
-    private setActiveMappingConfigs(props: SuggestionProps): void {
-        const activeCharacter = props.text.slice(0, 1);
-        this.activeMappingConfigs = activeCharacter ? this.mentionExtensionConfig?.find(config => config.character === activeCharacter)?.mappingConfigs : undefined;
+    private setActiveMappingConfigs(): void {
+        this.activeMappingConfigs = this.activeCharacter ? this.mentionExtensionConfig?.find(config => config.character === this.activeCharacter)?.mappingConfigs : undefined;
     }
 
     private filterUsers(): void {
         if (!this.childItems) {
             return;
         }
-        const normalizedFilter = this.normalizeString(this.filter);
+        const normalizedFilter = normalizeString(this.filter);
         this.childItems.forEach(element => {
             const listOption = element as ListOption;
-            const normalizedText = this.normalizeString(listOption.text);
+            const normalizedText = normalizeString(listOption.text);
             const checkFlag = !normalizedText.includes(normalizedFilter);
             listOption.disabled = checkFlag;
             listOption.hidden = checkFlag;
@@ -216,15 +241,6 @@ export class RichTextMentionListBox extends FoundationElement {
 
     private setOpen(value: boolean): void {
         this.open = value;
-    }
-
-    private normalizeString(value: string): string {
-        // This implementation is based on the below reference.
-        // https://claritydev.net/blog/diacritic-insensitive-string-comparison-javascript
-        return value
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase();
     }
 }
 
