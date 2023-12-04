@@ -37,9 +37,9 @@ Metrics data is retrieved differently than attribute data. Instead of receiving 
 
 ![retrieved-metrics](resources/retrieved-metrics.PNG)
 
-You can see the IDs and the corresponding values of Wafer (B9IQ8...), DieX (90) and DieY (82) 
+You can see the IDs and the corresponding values of Wafer (B9IQ8...), DieX (90) and DieY (82)
 
-The component can highlight only based on the value that appears on the die. For example here: 
+The component can highlight only based on the value that appears on the die. For example here:
 
 ![dies-values](resources/dies-values.PNG)
 
@@ -64,22 +64,21 @@ export interface WaferMapDie{
 ...
 }
 ```
-How the tags looks like remain a choice of the user, they can either have a simplified form 
+
+How the tags looks like remain a choice of the user, they can either have a simplified form
 
 ```ts
-[ 'a', 'b', 'c' ]
+['a', 'b', 'c'];
 ```
 
 Or can be the id of the attributes
 
 ```ts
-[ 'h90;85C4BC04377947939B9B8E62A7AC9BA5', 'h530;208BD62A39A84D96825CEBF10B1E6179', 'h80;A1DEB28673CA4A2B8C8DE26461D2FFB7' ]
-```
-
-Or can be the id of the name of the attributes concatenated with the value of the attribute
-
-```ts
-[ 'DieX90', 'WaferB9IQ82-15D5', 'DieY80' ]
+[
+    'h90;85C4BC04377947939B9B8E62A7AC9BA5',
+    'h530;208BD62A39A84D96825CEBF10B1E6179',
+    'h80;A1DEB28673CA4A2B8C8DE26461D2FFB7'
+];
 ```
 
 We will make the highlights based on this tags. The wafer will receive a list of highlightedTags
@@ -91,81 +90,55 @@ We will make the highlights based on this tags. The wafer will receive a list of
 Example of flow :
 
 ```ts
-export const dies: WaferMapDie[][] = [
-    [
-        {
-            x: 0,
-            y: 0,
-            value: '14',
-            tags: 'a'
-        },
-        {
-            x: 1,
-            y: 0,
-            value: '76',
-            tags: 'a', 'b'
-        },
-        {
-            x: 0,
-            y: 1,
-            value: '44',
-            tags: 'c'
-        },
-        {
-            x: 1,
-            y: 1,
-            value: '72',
-        }
-    ]
+export const dies: WaferMapDie[] = [
+    {
+        x: 0,
+        y: 0,
+        value: '14',
+        tags: ['a']
+    },
+    {
+        x: 1,
+        y: 0,
+        value: '76',
+        tags: ['a', 'b']
+    },
+    {
+        x: 0,
+        y: 1,
+        value: '72'
+    }
+];
 ```
+
+A die will be highlighted if any of the die's tags equals at least one value in the highlightedTags
 
 If the highlightedTags equals
 
 ```ts
-[ 'a' ]
+['a'];
 ```
 
 dies[0][0] will be highlighted because it contains 'a'
 
 dies[1][0] will be highlighted because it also contains 'a'
 
-dies[0][1] will not be be highlighted because it does not contain 'a'
-
-dies[1][1] will not be be highlighted because it does not have any tag
-
-
-If the highlightedTags equals
+dies[0][1] will not be be highlighted because it does not have any tag
 
 ```ts
-[ 'ab' ]
+['b', 'ab'];
 ```
 
-dies[0][0] will not be highlighted because it does not contain 'a' and 'b'
+dies[0][0] will not be highlighted because it does not contain 'b' neither 'ab'
 
-dies[1][0] will be highlighted because it also contains 'a' and 'b'
+dies[1][0] will be highlighted because it contains 'b'
 
-dies[0][1] will not be be highlighted because it does not contain 'a' and 'b'
-
-dies[1][1] will not be be highlighted because it does not have any tag
+dies[0][1] will not be be highlighted because it does not have any tag
 
 If the highlightedTags equals
 
 ```ts
-[ 'ab', 'a', 'ac']
-```
-
-dies[0][0] will be highlighted because it contains 'a'
-
-dies[1][0] will be highlighted because it also contains 'a' and 'b'
-
-dies[0][1] will not be be highlighted because it does not contain 'a' and 'b' neither both 'a' and 'c'
-
-dies[1][1] will not be be highlighted because it does not have any tag
-
-If the highlightedTags equals
-
-```ts
-[ '' ]
+[''];
 ```
 
 Nothing will be highlighted
@@ -173,10 +146,12 @@ Nothing will be highlighted
 If the highlightedTags equals
 
 ```ts
-[ 'efg' ]
+['efg'];
 ```
 
-Nothing will be highlighted
+All dies will be faded
+
+Note: Besides the code changes we will also need to update the tests and nimble story book.
 
 ## Alternative Designs
 
@@ -187,17 +162,13 @@ Nothing will be highlighted
 the highlightedTags would look like
 
 ```ts
-[
-    ['B9IQ82-15D5', '19'],
-    ['531'],
-    ['6']
-]
+[['B9IQ82-15D5', '19'], ['531'], ['6']];
 ```
 
 despite the fact that this would give us great capabilities of highlighting the api that we use to get this values is limited, and it can't make the difference between 'B9IQ82-15D5' AND '19' compared to 'B9IQ82-15D5' OR '19'. As I said, in case of attributes, the api retrieves them one by one, not knowing the relation between them. Also if we would want to go in this direction we would need to develop a Set Theory for highlighting, which for now may be an overkill.
 
 2. Introduce a new logic of highlighting the wafer in parallel with current one
-   
+
 Each die will have an optional field 'isHighlighted' that will not be populated if no highlight is made
 
 ```ts
@@ -207,7 +178,6 @@ export interface WaferMapDie{
 ...
 }
 ```
-
 
 ```ts
         ...
@@ -257,4 +227,4 @@ export interface WaferMapDie{
 ...
 ```
 
-This approach will let us to highlight any die we want, without any restrictions. The logic that decides which dies should be highlighted can be moved completely out of the wafer map component, leaving the component the duty of only highlighting the given dies using the "isHighlighted" field. 
+This approach will let us to highlight any die we want, without any restrictions. The logic that decides which dies should be highlighted can be moved completely out of the wafer map component, leaving the component the duty of only highlighting the given dies using the "isHighlighted" field.
