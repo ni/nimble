@@ -183,9 +183,8 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     isGrouped: boolean;
     groupRowValue?: unknown;
     isExpanded: boolean;
-    isParent: boolean;
-    isTopLevelRow: boolean;
     nestingLevel?: number;
     immediateChildCount?: number;
     groupColumn?: TableColumn;
+    isParentRow: boolean;
 }

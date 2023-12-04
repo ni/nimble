@@ -149,12 +149,15 @@ const lastNames = ['Davidson', 'Johnson', 'Abraham', 'Wilson'];
 const ages = [16, 32, 48, 64];
 const largeData = [];
 for (let i = 0; i < 10000; i++) {
+    const possibleParent = Math.floor(Math.random() * 100);
+    const parentId = possibleParent < i ? possibleParent.toString() : undefined;
     largeData.push({
         id: i.toString(),
         firstName: firstNames[i % firstNames.length],
         lastName: lastNames[i % lastNames.length],
         age: ages[i % ages.length],
-        quote: `I'm number ${i + 1}!`
+        quote: `I'm number ${i + 1}!`,
+        parentId
     });
 }
 
@@ -238,7 +241,8 @@ const metadata: Meta<TableArgs> = {
                 'action-menu-beforetoggle',
                 'action-menu-toggle',
                 'selection-change',
-                'column-configuration-change'
+                'column-configuration-change',
+                'row-expand-toggle'
             ]
         }
     },

@@ -80,9 +80,6 @@ export class TableRow<
     @observable
     public isParentRow = false;
 
-    @observable
-    public isTopLevelRow = false;
-
     @attr({ attribute: 'table-has-data-hierarchy', mode: 'boolean' })
     public tableHasDataHierarchy = false;
 
@@ -258,31 +255,16 @@ export class TableRow<
 
     private dataRecordChanged(): void {
         this.updateCellStates();
-        this.updateCellIndentLevels();
     }
 
     private nestingLevelChanged(): void {
         this.updateCellIndentLevels();
     }
 
-    private isParentRowChanged(): void {
-        this.updateCellIndentLevels();
-    }
-
-    private isTopLevelRowChanged(): void {
-        this.updateCellIndentLevels();
-    }
-
-    private tableHasDataHierarchyChanged(): void {
-        this.updateCellIndentLevels();
-    }
-
     private updateCellIndentLevels(): void {
         this.cellIndentLevels = this.columns.map((_, i) => {
             if (i === 0 && this.nestingLevel > 0) {
-                return this.isParentRow || !this.tableHasDataHierarchy
-                    ? this.nestingLevel - 1
-                    : this.nestingLevel;
+                return this.nestingLevel;
             }
             return 0;
         });

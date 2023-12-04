@@ -10,7 +10,7 @@ import {
     fillHoverSelectedColor,
     fillSelectedColor,
     mediumDelay,
-    smallPadding,
+    mediumPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
@@ -58,12 +58,12 @@ export const styles = css`
     }
 
     .expand-collapse-button {
-        margin-left: calc(
-            ${smallPadding} * 2 + ${standardPadding} * 2 *
-                var(--ni-private-table-row-indent-level)
-        );
         height: ${controlSlimHeight};
         align-self: center;
+        padding-left: calc(
+            ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
+                ${controlHeight}
+        );
     }
 
     :host([expanded]) .expander-icon {
@@ -91,12 +91,22 @@ export const styles = css`
         flex: 0 0 auto;
     }
 
+    .row-front-spacer.top-level-parent {
+        width: ${mediumPadding};
+    }
+
     .cell-container {
         display: grid;
         width: 100%;
         grid-auto-flow: column;
         grid-auto-columns: 1fr;
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+    }
+
+    .cell-container.nested-parent {
+        margin-left: calc(
+            (${controlHeight} * var(--ni-private-table-row-indent-level)) * -1
+        );
     }
 
     @media (prefers-reduced-motion) {

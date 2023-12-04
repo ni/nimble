@@ -91,8 +91,9 @@ export class TableUpdateTracker<
 
     public get requiresTanStackDataReset(): boolean {
         return (
-            (this.isTracked('rowIds') || this.isTracked('columnDefinition'))
-            && !this.isTracked('rowParentIds')
+            this.isTracked('rowIds')
+            || this.isTracked('columnDefinition')
+            || this.isTracked('rowParentIds')
         );
     }
 

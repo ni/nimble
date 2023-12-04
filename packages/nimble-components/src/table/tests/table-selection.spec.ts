@@ -17,6 +17,7 @@ interface SimpleTableRecord extends TableRecord {
     id: string;
     stringData: string;
     stringData2: string;
+    parentId?: string;
 }
 
 const simpleTableData = [
@@ -28,17 +29,20 @@ const simpleTableData = [
     {
         id: '1',
         stringData: '1',
-        stringData2: 'b'
+        stringData2: 'b',
+        parentId: '0'
     },
     {
         id: '2',
         stringData: '2',
-        stringData2: 'c'
+        stringData2: 'c',
+        parentId: '0'
     },
     {
         id: '3',
         stringData: '3',
-        stringData2: 'd'
+        stringData2: 'd',
+        parentId: '1'
     },
     {
         id: '4',
@@ -76,17 +80,20 @@ const groupableTableData = [
     {
         id: 'green-dog-0',
         stringData: 'green',
-        stringData2: 'dog'
+        stringData2: 'dog',
+        parentId: 'blue-dog-0'
     },
     {
         id: 'green-cat-0',
         stringData: 'green',
-        stringData2: 'cat'
+        stringData2: 'cat',
+        parentId: 'blue-cat-0'
     },
     {
         id: 'green-cat-1',
         stringData: 'green',
-        stringData2: 'cat'
+        stringData2: 'cat',
+        parentId: 'blue-cat-0'
     },
     {
         id: 'blue-dog-0',
@@ -96,7 +103,8 @@ const groupableTableData = [
     {
         id: 'green-cat-2',
         stringData: 'green',
-        stringData2: 'cat'
+        stringData2: 'cat',
+        parentId: 'blue-cat-0'
     },
     {
         id: 'blue-cat-1',
@@ -106,12 +114,14 @@ const groupableTableData = [
     {
         id: 'purple-cat-0',
         stringData: 'purple',
-        stringData2: 'cat'
+        stringData2: 'cat',
+        parentId: 'green-cat-1'
     },
     {
         id: 'purple-dog-0',
         stringData: 'purple',
-        stringData2: 'dog'
+        stringData2: 'dog',
+        parentId: 'green-dog-0'
     }
 ] as const;
 

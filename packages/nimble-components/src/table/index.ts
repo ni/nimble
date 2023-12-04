@@ -53,7 +53,7 @@ import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
 import { TableLayoutManager } from './models/table-layout-manager';
 import { TableUpdateTracker } from './models/table-update-tracker';
-import { TableRow } from './components/row';
+import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
 
@@ -221,8 +221,8 @@ export class Table<
     public documentShiftKeyDown = false;
 
     private readonly table: TanStackTable<InternalTableRecord<TData>>;
-    private _data: InternalTableRecord<TData>[] = [];
-    private readonly _rowMetadata: Map<TableFieldValue, TableRowMetadata> = new Map<TableFieldValue, TableRowMetadata>();
+    private internalData: InternalTableRecord<TData>[] = [];
+    private readonly rowMetadata: Map<TableFieldValue, TableRowMetadata> = new Map<TableFieldValue, TableRowMetadata>();
 
     private options: TanStackTableOptionsResolved<InternalTableRecord<TData>>;
     private readonly tableValidator = new TableValidator();
@@ -455,6 +455,12 @@ export class Table<
     }
 
     /** @internal */
+    public handleGroupRowExpanded(rowIndex: number, event: Event): void {
+        this.toggleRowExpanded(rowIndex);
+        event.stopPropagation();
+    }
+
+    /** @internal */
     public handleRowExpanded(rowIndex: number): void {
         this.toggleRowExpanded(rowIndex);
     }
@@ -560,13 +566,13 @@ export class Table<
     public processFlatData(
         data: readonly TData[]
     ): Partial<TanStackTableOptionsResolved<InternalTableRecord<TData>>> {
-        this._data = this.convertFlatDataToHierarchy(data) ?? [];
+        this.internalData = this.convertFlatDataToHierarchy(data) ?? [];
         const tanStackUpdates: Partial<
         TanStackTableOptionsResolved<InternalTableRecord<TData>>
         > = {
-            data: this._data
+            data: this.internalData
         };
-        this.validateWithData(this._data);
+        this.validateWithData(this.internalData);
         if (this.tableValidator.areRecordIdsValid()) {
             // Update the selection state to remove previously selected records that no longer exist in the
             // data set while maintaining the selection state of records that still exist in the data set.
@@ -600,6 +606,11 @@ export class Table<
         }
 
         this.tableUpdateTracker.trackIdFieldNameChanged();
+        if (_prev !== undefined && _next !== undefined) {
+            this.refreshMetadata(_prev, _next);
+        } else if (_next === undefined) {
+            this.rowMetadata.clear();
+        }
     }
 
     protected parentIdFieldNameChanged(
@@ -611,6 +622,10 @@ export class Table<
             || this.table.options.data === undefined
         ) {
             return;
+        }
+
+        if (_next !== undefined && this.idFieldName === undefined) {
+            this.tableValidator.setInvalidParentIdConfiguration(false);
         }
 
         this.tableUpdateTracker.trackParentIdFieldNameChanged();
@@ -684,10 +699,27 @@ export class Table<
     private trackFlatDataOrder(data: readonly TData[]): void {
         if (this.idFieldName) {
             for (let i = 0; i < data.length; i++) {
-                this._rowMetadata.set(data[i]![this.idFieldName], {
+                this.rowMetadata.set(data[i]![this.idFieldName], {
                     originalIndex: i
                 });
             }
+        }
+    }
+
+    private refreshMetadata(oldId: string, newId: string): void {
+        const data = this.table.options.data;
+        if (data && this.rowMetadata.size !== 0) {
+            const flatData: TData[] = [];
+            data.forEach(record => {
+                this.convertRecordToFlatList(record, flatData);
+            });
+            flatData.forEach(record => {
+                const metadata = this.rowMetadata.get(record[oldId]);
+                if (metadata !== undefined) {
+                    this.rowMetadata.set(record[newId], metadata);
+                    this.rowMetadata.delete(record[oldId]);
+                }
+            });
         }
     }
 
@@ -699,10 +731,10 @@ export class Table<
         });
         if (this.idFieldName && !this.isDataOrdered) {
             flatData.sort((a, b) => {
-                const leftRecordIndex = this._rowMetadata.get(
+                const leftRecordIndex = this.rowMetadata.get(
                     a[this.idFieldName!]
                 )!.originalIndex;
-                const rightRecordIndex = this._rowMetadata.get(
+                const rightRecordIndex = this.rowMetadata.get(
                     b[this.idFieldName!]
                 )!.originalIndex;
 
@@ -876,11 +908,6 @@ export class Table<
             updatedOptions.state.rowSelection = {};
             this.selectionManager.handleSelectionReset();
         }
-        if (this.tableUpdateTracker.updateRowParentIds) {
-            const flatList = this.convertHierarchicalDataToFlatList();
-            const tanstackUpdates = this.processFlatData(flatList);
-            updatedOptions.data = tanstackUpdates.data;
-        }
         if (this.tableUpdateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
@@ -889,20 +916,23 @@ export class Table<
                 this.selectionMode
             );
         }
-        if (
-            this.tableUpdateTracker.requiresTanStackDataReset
-            && !this.tableUpdateTracker.updateRowParentIds
-        ) {
-            if (!this.parentIdFieldName) {
+        if (this.tableUpdateTracker.requiresTanStackDataReset) {
+            if (
+                !this.parentIdFieldName
+                && !this.tableUpdateTracker.updateRowParentIds
+            ) {
                 // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
                 updatedOptions.data = [...this.table.options.data];
             } else {
                 const flatList = this.convertHierarchicalDataToFlatList();
-                this.trackFlatDataOrder(flatList);
                 const tanstackUpdates = this.processFlatData(flatList);
+                if (this.rowMetadata.size === 0) {
+                    this.trackFlatDataOrder(flatList);
+                }
                 updatedOptions.data = tanstackUpdates.data;
             }
         }
+
         if (this.tableUpdateTracker.updateGroupRows) {
             updatedOptions.state.grouping = this.calculateTanStackGroupingState();
             updatedOptions.state.expanded = true;
@@ -1000,23 +1030,23 @@ export class Table<
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
             const isGrouped = row.getIsGrouped();
-            const hasParentRow = !isGrouped ? row.getParentRow() : false;
-            const isParent = this.parentIdFieldName
-                ? row.original.subRows !== undefined
-                    && row.original.subRows.length > 0
-                : false;
+            const hasParentRow = isGrouped ? false : row.getParentRow();
+            const isParent = row.original.subRows !== undefined
+                && row.original.subRows.length > 0;
             const rowState: TableRowState<TData> = {
                 record: row.original.data,
                 id: row.id,
                 selectionState: this.getRowSelectionState(row),
                 isGrouped,
                 isExpanded: row.getIsExpanded(),
-                isParent,
-                isTopLevelRow: !isGrouped && !hasParentRow && row.depth === 0,
                 groupRowValue: isGrouped
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
-                nestingLevel: row.depth,
+                nestingLevel:
+                    !isGrouped && !isParent && !hasParentRow && row.depth > 0
+                        ? row.depth - 1
+                        : row.depth,
+                isParentRow: isParent,
                 immediateChildCount: row.subRows.length,
                 groupColumn: this.getGroupRowColumn(row)
             };
@@ -1171,9 +1201,6 @@ export class Table<
             this.collapsedRows.delete(row.id);
         }
         row.toggleExpanded();
-        if (row instanceof TableRow) {
-            this.$emit('rowExpanded');
-        }
     }
 
     private calculateTanStackSortState(): TanStackSortingState {

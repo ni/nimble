@@ -32,7 +32,7 @@ import {
 // prettier-ignore
 export const template = html<Table>`
     <template
-        role="grid"
+        role="treegrid"
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ${children({ property: 'childItems', filter: elements() })}
     >
@@ -124,7 +124,7 @@ export const template = html<Table>`
                                         ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
                                         selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
                                         @group-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
-                                        @group-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index)}"
+                                        @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
                                     >
                                     </${tableGroupRowTag}>
                                 `)}
@@ -138,8 +138,7 @@ export const template = html<Table>`
                                         ?hide-selection="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.multiple}"
                                         :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                         :columns="${(_, c) => c.parent.columns}"
-                                        :isParentRow="${(x, c) => c.parent.tableData[x.index]?.isParent}"
-                                        :isTopLevelRow="${(x, c) => c.parent.tableData[x.index]?.isTopLevelRow}"
+                                        :isParentRow="${(x, c) => c.parent.tableData[x.index]?.isParentRow}"
                                         ?table-has-data-hierarchy="${(_, c) => c.parent.hasDataHierarchy}"
                                         :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                         ?row-operation-grid-cell-hidden="${(_, c) => !c.parent.showRowOperationColumn}"

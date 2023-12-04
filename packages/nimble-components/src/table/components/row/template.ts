@@ -20,7 +20,8 @@ export const template = html<TableRow>`
     <template 
         role="row"
         aria-selected=${x => x.ariaSelected}
-        style="--ni-private-table-row-indent-level: ${x => x.nestingLevel};"
+        style="
+        --ni-private-table-row-indent-level: ${x => x.nestingLevel};"
     >
         ${when(x => !x.rowOperationGridCellHidden, html<TableRow>`
             <span role="gridcell" class="row-operations-container">
@@ -37,26 +38,23 @@ export const template = html<TableRow>`
                 `)}
             </span>
         `)}
-        ${'' /* This is needed to help align the cell widths exactly with the column headers, due to the space reserved for
-                the collapse-all button in the header. */}
-        ${when(x => x.nestingLevel > 0 || (x.nestingLevel === 0 && !x.isParentRow), html<TableRow>`
-            <span class="row-front-spacer"></span>
-        `)}
-        ${when(x => x.isParentRow && x.isTopLevelRow, html<TableRow>`
+
+        <span class="row-front-spacer ${x => (x.isParentRow && x.nestingLevel === 0 ? 'top-level-parent' : '')}"></span>
+        ${when(x => x.isParentRow, html<TableRow>`
             <${buttonTag}
-                    appearance="${ButtonAppearance.ghost}"
-                    content-hidden
-                    class="expand-collapse-button"
-                    tabindex="-1"
-                    @click="${(x, c) => x.onRowExpandToggle(c.event)}"
-                >
-                    <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
-                    ${x => (x.expanded ? tableRowCollapseLabel.getValueFor(x) : tableRowExpandLabel.getValueFor(x))}
+                appearance="${ButtonAppearance.ghost}"
+                content-hidden
+                class="expand-collapse-button"
+                tabindex="-1"
+                @click="${(x, c) => x.onRowExpandToggle(c.event)}"
+            >
+                <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
+                ${x => (x.expanded ? tableRowCollapseLabel.getValueFor(x) : tableRowExpandLabel.getValueFor(x))}
             </${buttonTag}>
         `)}
 
         <span ${ref('cellContainer')} 
-            class="cell-container"
+            class="cell-container ${x => (x.isParentRow && x.nestingLevel > 0 ? 'nested-parent' : '')}"
         >
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
                 ${when(x => !x.columnHidden, html<TableColumn, TableRow>`
@@ -71,7 +69,6 @@ export const template = html<TableRow>`
                         ?expanded="${(_, c) => c.parent.expanded}"
                         :isParentRow="${(_, c) => c.parent.isParentRow}"
                         :isFirstCell="${(_, c) => c.index === 0}"
-                        :isTopLevelRow="${(_, c) => c.parent.isTopLevelRow}"
                         action-menu-label="${x => x.actionMenuLabel}"
                         @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
                         @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"

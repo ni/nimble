@@ -23,10 +23,12 @@ import type { ColumnInternalsOptions } from '../../table-column/base/models/colu
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
+    stringData2?: string;
     numericData: number;
     moreStringData: string;
     id?: string;
     parentId?: string;
+    parentId2?: string;
 }
 
 const simpleTableData = [
@@ -872,49 +874,60 @@ describe('Table', () => {
             const hierarchicalData: SimpleTableRecord[] = [
                 {
                     stringData: 'Parent 1',
+                    stringData2: 'Parent 1',
                     numericData: 0,
                     moreStringData: 'foo',
                     id: '0'
                 },
                 {
                     stringData: 'Parent 1 Child',
+                    stringData2: 'Parent 2 Child',
                     numericData: 0,
                     moreStringData: 'foo',
                     id: '1',
-                    parentId: '0'
+                    parentId: '0',
+                    parentId2: 'Parent 2'
                 },
                 {
                     stringData: 'Parent 1 Grandchild',
+                    stringData2: 'Parent 1 Grandchild',
                     numericData: 0,
                     moreStringData: 'foo',
                     id: '2',
-                    parentId: '1'
+                    parentId: '1',
+                    parentId2: 'Parent 1 Child'
                 },
                 {
                     stringData: 'Top Level No Child',
+                    stringData2: 'Top Level No Child',
                     numericData: 0,
                     moreStringData: 'foo',
                     id: '3'
                 },
                 {
                     stringData: 'Parent 2',
+                    stringData2: 'Parent 2',
                     numericData: 0,
                     moreStringData: 'foo',
                     id: '4'
                 },
                 {
                     stringData: 'Parent 2 Child',
+                    stringData2: 'Parent 1 Child',
                     numericData: 0,
                     moreStringData: 'foo',
                     id: '5',
-                    parentId: '4'
+                    parentId: '4',
+                    parentId2: 'Parent 1'
                 },
                 {
                     stringData: 'Parent 1 Child 2',
+                    stringData2: 'Parent 1 Child 2',
                     numericData: 0,
                     moreStringData: 'foo',
                     id: '6',
-                    parentId: '0'
+                    parentId: '0',
+                    parentId2: 'Parent 1'
                 }
             ];
             it('renders data hierarchically when parentId set after setData', async () => {
@@ -1026,6 +1039,19 @@ describe('Table', () => {
                 ]);
             });
 
+            it('table update when no parentId ever set does not reprocess data', async () => {
+                await connect();
+                element.idFieldName = 'id';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+
+                const processDataSpy = spyOn(element, 'processFlatData');
+                element.idFieldName = 'stringData'; // force tanstack data update
+                await waitForUpdatesAsync();
+
+                expect(processDataSpy.calls.count()).toBe(0);
+            });
+
             it('table is invalid when data has circular parent child relationships', async () => {
                 const badData: SimpleTableRecord[] = [
                     {
@@ -1109,7 +1135,7 @@ describe('Table', () => {
                 expect(pageObject.getRenderedRowCount()).toBe(2);
             });
 
-            it('removing parentIdFieldName when data in valid for hierarchy renders data as flat list in given order', async () => {
+            it('removing parentIdFieldName when data is valid for hierarchy renders data as flat list in given order', async () => {
                 await connect();
                 element.idFieldName = 'id';
                 element.parentIdFieldName = 'parentId';
@@ -1136,6 +1162,23 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
                 expect(pageObject.getRenderedRowCount()).toBe(0);
                 expect(element.checkValidity()).toBeFalse();
+            });
+
+            it('changing idFieldName when rendering hierarchical data, preserves original ordering after removing parentIdFieldName', async () => {
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+
+                element.idFieldName = 'stringData2';
+                await waitForUpdatesAsync();
+                element.parentIdFieldName = undefined;
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedRowCount()).toBe(7);
+                hierarchicalData.forEach((record, i) => {
+                    expect(record.stringData2).toBe(pageObject.getRecordId(i));
+                });
             });
         });
     });
