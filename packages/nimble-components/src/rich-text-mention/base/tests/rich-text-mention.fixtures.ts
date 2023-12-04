@@ -9,24 +9,32 @@ import type {
     MentionInternals,
     MentionInternalsOptions
 } from '../models/mention-internals';
-import { RichTextMentionValidator } from '../models/mention-validator';
-import type { MappingConfigs, RichTextMentionConfig } from '../types';
+import {
+    RichTextMentionValidator,
+    baseValidityFlagNames
+} from '../models/mention-validator';
+import { MentionConfig } from '../models/mention-config';
 
 export const richTextMentionTestTag = 'nimble-rich-text-test-mention';
 
 /**
  * validator for testing
  */
-export class RichTextMentionTestValidator extends RichTextMentionValidator<[]> {
-    public constructor(columnInternals: MentionInternals<unknown>) {
-        super(columnInternals, [], [MappingUser]);
+class RichTextMentionTestValidator extends RichTextMentionValidator {
+    public constructor(columnInternals: MentionInternals) {
+        super(columnInternals, baseValidityFlagNames, [MappingUser]);
     }
 }
 
 /**
+ * Mention config for testing
+ */
+class TestMentionConfig extends MentionConfig {}
+
+/**
  * Basic MappingConfig for testing
  */
-export class MappingTestConfig extends MappingConfig {}
+class MappingTestConfig extends MappingConfig {}
 
 /**
  * Simple rich text mention for testing
@@ -34,7 +42,7 @@ export class MappingTestConfig extends MappingConfig {}
 @customElement({
     name: richTextMentionTestTag,
     template: html<RichTextMention>`<slot
-        ${slotted('mappings')}
+        ${slotted('mappingElements')}
         name="mapping"
     ></slot>`
 })
@@ -58,12 +66,8 @@ export class RichTextMentionTest extends RichTextMention {
         };
     }
 
-    protected override createMentionConfig(
-        mappingConfigs: MappingConfigs
-    ): RichTextMentionConfig {
-        return {
-            mappingConfigs
-        };
+    protected override createMentionConfig(): TestMentionConfig {
+        return new TestMentionConfig();
     }
 
     protected createMappingConfig(mapping: Mapping<unknown>): MappingConfig {
@@ -71,5 +75,11 @@ export class RichTextMentionTest extends RichTextMention {
             return new MappingTestConfig(mapping.key, mapping.displayName);
         }
         throw new Error('Unsupported mapping');
+    }
+}
+
+declare global {
+    interface HTMLElementTagNameMap {
+        [richTextMentionTestTag]: RichTextMentionTest;
     }
 }

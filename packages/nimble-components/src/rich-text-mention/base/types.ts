@@ -10,6 +10,4 @@ export interface MentionUpdateEventDetail {
 
 export type MappingConfigs = ReadonlyMap<string, MappingConfig>;
 
-export interface RichTextMentionConfig {
-    mappingConfigs: MappingConfigs;
-}
+export type MentionUpdateEmitter = (filter: string) => void;
