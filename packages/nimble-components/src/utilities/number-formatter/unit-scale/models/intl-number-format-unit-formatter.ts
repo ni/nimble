@@ -1,9 +1,9 @@
-import { UnitFormatter } from './scaled-unit';
+import { UnitFormatter } from './unit-formatter';
 
 /**
- * A scaled unit that can be formatted/translated by Intl.NumberFormat
+ * A formatter for units that can be formatted/translated by Intl.NumberFormat
  */
-export class IntlNumberFormatScaledUnitFormatter extends UnitFormatter {
+export class IntlNumberFormatUnitFormatter extends UnitFormatter {
     private readonly formatter: Intl.NumberFormat;
 
     public constructor(

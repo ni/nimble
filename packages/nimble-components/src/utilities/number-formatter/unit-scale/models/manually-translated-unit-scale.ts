@@ -1,4 +1,4 @@
-import { ManuallyTranslatedScaledUnitFormatter } from './manually-translated-scaled-unit-formatter';
+import { ManuallyTranslatedUnitFormatter } from './manually-translated-unit-formatter';
 import type { ScaledUnit } from './scaled-unit';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
@@ -28,7 +28,7 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
                     locale: string,
                     numberFormatOptions: Intl.NumberFormatOptions | undefined
                 ) => {
-                    return new ManuallyTranslatedScaledUnitFormatter(
+                    return new ManuallyTranslatedUnitFormatter(
                         locale,
                         numberFormatOptions,
                         this.unitTranslations
@@ -43,7 +43,7 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
                     locale: string,
                     numberFormatOptions: Intl.NumberFormatOptions | undefined
                 ) => {
-                    return new ManuallyTranslatedScaledUnitFormatter(
+                    return new ManuallyTranslatedUnitFormatter(
                         locale,
                         numberFormatOptions,
                         this.unitTranslations,

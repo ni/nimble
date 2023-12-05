@@ -1,8 +1,8 @@
 import { parameterizeNamedList } from '../../../../tests/parameterized';
-import { ManuallyTranslatedScaledUnitFormatter } from '../manually-translated-scaled-unit-formatter';
+import { ManuallyTranslatedUnitFormatter } from '../manually-translated-unit-formatter';
 import { UnitTranslation } from '../unit-translation';
 
-describe('ManuallyTranslatedScaledUnitFormatter', () => {
+describe('ManuallyTranslatedUnitFormatter', () => {
     const translations = new Map<string, UnitTranslation>([
         ['en', new UnitTranslation('en-singular', 'en-plural', 'en-abbrev')],
         ['fr', new UnitTranslation('fr-singular', 'fr-plural', 'fr-abbrev')],
@@ -46,7 +46,7 @@ describe('ManuallyTranslatedScaledUnitFormatter', () => {
 
     parameterizeNamedList(translationTestCases, (spec, name, value) => {
         spec(name, () => {
-            const formatter = new ManuallyTranslatedScaledUnitFormatter(
+            const formatter = new ManuallyTranslatedUnitFormatter(
                 value.locale,
                 {},
                 translations
@@ -56,7 +56,7 @@ describe('ManuallyTranslatedScaledUnitFormatter', () => {
     });
 
     it('uses unit prefix and symbol whenever unit prefix is provided', () => {
-        const formatter = new ManuallyTranslatedScaledUnitFormatter(
+        const formatter = new ManuallyTranslatedUnitFormatter(
             'en',
             {},
             translations,
@@ -66,7 +66,7 @@ describe('ManuallyTranslatedScaledUnitFormatter', () => {
     });
 
     it('uses given formatter options', () => {
-        const formatter = new ManuallyTranslatedScaledUnitFormatter(
+        const formatter = new ManuallyTranslatedUnitFormatter(
             'en',
             { minimumFractionDigits: 5 },
             translations
@@ -165,7 +165,7 @@ describe('ManuallyTranslatedScaledUnitFormatter', () => {
         spec(
             `uses expected pluralization for ${value.formattedNumber} in ${name}`,
             () => {
-                const formatter = new ManuallyTranslatedScaledUnitFormatter(
+                const formatter = new ManuallyTranslatedUnitFormatter(
                     value.locale,
                     {},
                     translations

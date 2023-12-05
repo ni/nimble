@@ -1,4 +1,4 @@
-import { IntlNumberFormatScaledUnitFormatter } from './models/intl-number-format-scaled-unit-formatter';
+import { IntlNumberFormatUnitFormatter } from './models/intl-number-format-unit-formatter';
 import type { ScaledUnit } from './models/scaled-unit';
 import { UnitScale } from './unit-scale';
 
@@ -15,7 +15,7 @@ export class ByteUnitScale extends UnitScale {
                 locale: string,
                 numberFormatOptions: Intl.NumberFormatOptions | undefined
             ) => {
-                return new IntlNumberFormatScaledUnitFormatter(
+                return new IntlNumberFormatUnitFormatter(
                     locale,
                     numberFormatOptions,
                     {
@@ -32,7 +32,7 @@ export class ByteUnitScale extends UnitScale {
                 locale: string,
                 numberFormatOptions: Intl.NumberFormatOptions | undefined
             ) => {
-                return new IntlNumberFormatScaledUnitFormatter(
+                return new IntlNumberFormatUnitFormatter(
                     locale,
                     numberFormatOptions,
                     {
@@ -49,7 +49,7 @@ export class ByteUnitScale extends UnitScale {
                 locale: string,
                 numberFormatOptions: Intl.NumberFormatOptions | undefined
             ) => {
-                return new IntlNumberFormatScaledUnitFormatter(
+                return new IntlNumberFormatUnitFormatter(
                     locale,
                     numberFormatOptions,
                     {
@@ -66,7 +66,7 @@ export class ByteUnitScale extends UnitScale {
                 locale: string,
                 numberFormatOptions: Intl.NumberFormatOptions | undefined
             ) => {
-                return new IntlNumberFormatScaledUnitFormatter(
+                return new IntlNumberFormatUnitFormatter(
                     locale,
                     numberFormatOptions,
                     {
@@ -83,7 +83,7 @@ export class ByteUnitScale extends UnitScale {
                 locale: string,
                 numberFormatOptions: Intl.NumberFormatOptions | undefined
             ) => {
-                return new IntlNumberFormatScaledUnitFormatter(
+                return new IntlNumberFormatUnitFormatter(
                     locale,
                     numberFormatOptions,
                     {
@@ -100,7 +100,7 @@ export class ByteUnitScale extends UnitScale {
                 locale: string,
                 numberFormatOptions: Intl.NumberFormatOptions | undefined
             ) => {
-                return new IntlNumberFormatScaledUnitFormatter(
+                return new IntlNumberFormatUnitFormatter(
                     locale,
                     numberFormatOptions,
                     {

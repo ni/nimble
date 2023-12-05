@@ -1,10 +1,10 @@
-import { UnitFormatter } from './scaled-unit';
+import { UnitFormatter } from './unit-formatter';
 import type { UnitTranslation } from './unit-translation';
 
 /**
- * A scaled unit that is not supported by Intl.NumberFormat and must have translations built into Nimble
+ * A formatter for units that are not supported by Intl.NumberFormat and must have translations built into Nimble
  */
-export class ManuallyTranslatedScaledUnitFormatter extends UnitFormatter {
+export class ManuallyTranslatedUnitFormatter extends UnitFormatter {
     private readonly pluralRules: Intl.PluralRules;
     private readonly formatter: Intl.NumberFormat;
     private readonly unitTranslation: UnitTranslation;

@@ -112,7 +112,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
         };
     }
 
-    private observeUnit(): void {
+    private updateUnitObserver(): void {
         if (this.unitNotifier) {
             this.unitNotifier.unsubscribe(this);
             this.unitNotifier = undefined;
@@ -146,13 +146,12 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private async updateColumnConfigFromUnitElements(): Promise<void> {
+        this.unit = undefined;
         if (this.unitElements) {
             await waitUntilCustomElementsDefinedAsync(this.unitElements);
+            this.unit = this.unitElements.find(x => x instanceof Unit) as Unit;
         }
-        this.unit = this.unitElements
-            ? (this.unitElements.find(x => x instanceof Unit) as Unit)
-            : undefined;
-        this.observeUnit();
+        this.updateUnitObserver();
         this.updateColumnConfig();
     }
 
