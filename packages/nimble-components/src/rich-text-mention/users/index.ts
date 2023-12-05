@@ -10,8 +10,6 @@ import type { Mapping } from '../../mapping/base';
 import type { MappingUserKey } from '../../mapping/base/types';
 import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
 import { richTextMentionUsersViewTag } from './view';
-import type { RichTextMentionUserConfig } from './types';
-import type { MappingConfigs, RichTextMentionConfig } from '../base/types';
 import { richTextMentionUserLabel } from '../../label-provider/rich-text/label-tokens';
 import { UserMentionConfig } from './types';
 

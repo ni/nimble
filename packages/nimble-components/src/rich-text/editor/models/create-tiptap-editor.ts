@@ -19,15 +19,18 @@ import { mentionPluginPrefix } from '../types';
 
 import { anchorTag } from '../../../anchor';
 import type { MentionExtensionConfiguration } from '../../models/mention-extension-configuration';
+import type { RichTextMentionListBox } from '../../mention-list-box';
+import { keyEscape } from '@microsoft/fast-web-utilities';
 
 const validAbsoluteLinkRegex = /^https?:\/\//i;
 
 export function createTiptapEditor(
     editor: HTMLDivElement,
-    mentionExtensionConfig: MentionExtensionConfiguration[]
+    mentionExtensionConfig: MentionExtensionConfiguration[],
+    mentionListBox?: RichTextMentionListBox
 ): Editor {
     const customLink = createCustomLinkExtension();
-    const mentionExtensions = mentionExtensionConfig.map(config => createCustomMentionExtension(config));
+    const mentionExtensions = mentionExtensionConfig.map(config => createCustomMentionExtension(config, mentionListBox));
 
     /**
      * For more information on the extensions for the supported formatting options, refer to the links below.
@@ -141,7 +144,8 @@ function createCustomLinkExtension(): Mark<LinkOptions> {
 }
 
 function createCustomMentionExtension(
-    config: MentionExtensionConfiguration
+    config: MentionExtensionConfiguration,
+    mentionListBox?: RichTextMentionListBox
 ): Node<MentionOptions> {
     return Mention.extend({
         name: config.name,
@@ -194,13 +198,32 @@ function createCustomMentionExtension(
             pluginKey: new PluginKey(config.key),
             allowSpaces: true,
             render: () => {
+                let inSuggestionMode = false;
                 return {
                     onStart: (props): void => {
+                        inSuggestionMode = true;
                         config.mentionUpdateEmitter(props.text);
+                        mentionListBox?.onMention(props);
                     },
-
                     onUpdate: (props): void => {
+                        if (!inSuggestionMode) {
+                            return;
+                        }
                         config.mentionUpdateEmitter(props.text);
+                        mentionListBox?.onMention(props);
+                    },
+                    onKeyDown: (props): boolean => {
+                        if (props.event.key === keyEscape) {
+                            inSuggestionMode = false;
+                        }
+                        return (
+                            mentionListBox?.keydownHandler(
+                                props.event
+                            ) ?? false
+                        );
+                    },
+                    onExit: (): void => {
+                        mentionListBox?.close();
                     }
                 };
             }

@@ -53,17 +53,23 @@ export class MentionInternals {
     public readonly viewElement: string;
 
     /**
-     * Mention label to render while hovering the rich text icon
+    * Mention label to render while hovering the rich text icon
      */
     public readonly label: string;
 
-    * Funtion to invoke to emit a mention-update event
-     */
+    /**
+     * Function to invoke to emit a mention-update event
+    */
     public readonly mentionUpdateEmitter: MentionUpdateEmitter;
 
-    public constructor(options: MentionInternalsOptions) {
+    public constructor(
+        options: MentionInternalsOptions,
+        mentionUpdateEmitter: MentionUpdateEmitter
+    ) {
         this.icon = options.icon;
         this.character = options.character;
         this.viewElement = options.viewElement;
+        this.label = options.label;
         this.mentionUpdateEmitter = mentionUpdateEmitter;
+    }
 }

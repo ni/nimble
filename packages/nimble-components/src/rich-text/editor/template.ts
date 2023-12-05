@@ -88,18 +88,18 @@ export const template = html<RichTextEditor>`
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
                     </${toggleButtonTag}>
                     ${repeat(
-        x => Array.from(x.mentionExtensionConfig ?? []),
-        html<MentionExtensionConfiguration>`<${buttonTag}
+        x => Array.from(x.configuration?.mentionExtensionConfig ?? []),
+        html<MentionExtensionConfiguration, RichTextEditor>`<${buttonTag}
                         appearance="ghost"
                         content-hidden
-                        ?disabled="${x => x.richTextEditor.disabled}"
+                        ?disabled="${(_x, c) => c.parent.disabled}"
                         slot="start"
                         title=${x => x.label}
-                        @click=${x => x.richTextEditor.mentionButtonClick(x.character)}
-                        @keydown=${(x, c) => x.richTextEditor.mentionButtonKeyDown(c.event as KeyboardEvent, x.character)}
+                        @click=${(x, c) => c.parent.mentionButtonClick(x.character)}
+                        @keydown=${(x, c) => c.parent.mentionButtonKeyDown(c.event as KeyboardEvent, x.character)}
                     >
                         ${x => x.label}
-                        ${x => x.getIconTemplate()}
+                        ${x => x.iconTemplate}
                     </${buttonTag}>`
     )}
                 </${toolbarTag}>

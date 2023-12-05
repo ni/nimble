@@ -4,34 +4,6 @@ import {
     ARIAGlobalStatesAndProperties,
     DesignSystem
 } from '@microsoft/fast-foundation';
-import { keyEnter, keyEscape, keySpace } from '@microsoft/fast-web-utilities';
-import {
-    Editor,
-    findParentNode,
-    isList,
-    AnyExtension,
-    Extension,
-    Mark,
-    Node,
-    mergeAttributes
-} from '@tiptap/core';
-import Bold from '@tiptap/extension-bold';
-import BulletList from '@tiptap/extension-bullet-list';
-import Document from '@tiptap/extension-document';
-import History from '@tiptap/extension-history';
-import Italic from '@tiptap/extension-italic';
-import Link, { LinkOptions } from '@tiptap/extension-link';
-import ListItem from '@tiptap/extension-list-item';
-import OrderedList from '@tiptap/extension-ordered-list';
-import Paragraph from '@tiptap/extension-paragraph';
-import Placeholder from '@tiptap/extension-placeholder';
-import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
-import Text from '@tiptap/extension-text';
-import Mention, { MentionOptions } from '@tiptap/extension-mention';
-import HardBreak from '@tiptap/extension-hard-break';
-import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
-import type { SuggestionProps } from '@tiptap/suggestion';
-import { PluginKey } from 'prosemirror-state';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { findParentNode, isList, AnyExtension, Extension } from '@tiptap/core';
 
@@ -45,7 +17,6 @@ import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { RichText } from '../base';
 import type { RichTextMentionListBox } from '../mention-list-box';
-import { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 import { createTiptapEditor } from './models/create-tiptap-editor';
 import { EditorConfiguration } from '../models/editor-configuration';
 
@@ -69,7 +40,7 @@ export class RichTextEditor
     /**
      * @internal
      */
-    public tiptapEditor = createTiptapEditor(this.editor, []);
+    public tiptapEditor = createTiptapEditor(this.editor, [], this.mentionListBox);
 
     /**
      * @internal
@@ -188,11 +159,6 @@ export class RichTextEditor
      */
     public editorContainer!: HTMLDivElement;
 
-    @observable
-    public mentionExtensionConfig?: MentionExtensionConfiguration[];
-
-    private richTextMarkdownSerializer = new RichTextMarkdownSerializer();
-
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
 
@@ -266,6 +232,7 @@ export class RichTextEditor
         prev: EditorConfiguration | undefined,
         next: EditorConfiguration
     ): void {
+        this.mentionListBox?.updateMentionExtensionConfig(this.configuration?.mentionExtensionConfig);
         if (this.isOnlyMentionInternalsChanged(prev, next)) {
             this.setMarkdown(this.getMarkdown());
         } else {
@@ -419,32 +386,6 @@ export class RichTextEditor
         return Array.from(mentionedHrefs);
     }
 
-    protected override updateMentionConfig(): void {
-        super.updateMentionConfig();
-        if (
-            this.mentionElements.every(
-                mention => mention.mentionInternals.validConfiguration
-            )
-        ) {
-            this.mentionExtensionConfig = this.mentionElements.map(
-                (mention, index) => new MentionExtensionConfiguration(
-                    mention.mentionInternals,
-                    `mention-plugin-${index}`,
-                    this
-                )
-            );
-            this.mentionListBox?.updateMentionExtensionConfig(this.mentionExtensionConfig);
-
-            return;
-        }
-        this.resetMentionExtensionConfig();
-    }
-
-    private resetMentionExtensionConfig(): void {
-        this.mentionExtensionConfig = [];
-        this.mentionListBox?.updateMentionExtensionConfig([]);
-    }
-    
     protected override createConfig(): EditorConfiguration {
         return new EditorConfiguration(this.mentionElements);
     }
@@ -480,166 +421,12 @@ export class RichTextEditor
         this.tiptapEditor?.destroy();
         this.tiptapEditor = createTiptapEditor(
             this.editor,
-            this.configuration?.mentionExtensionConfig ?? []
+            this.configuration?.mentionExtensionConfig ?? [],
+            this.mentionListBox
         );
         this.bindEditorTransactionEvent();
         this.bindEditorUpdateEvent();
         this.stopNativeInputEventPropagation();
-    }
-
-    /**
-     * Extending the default link mark schema defined in the TipTap.
-     *
-     * "excludes": https://prosemirror.net/docs/ref/#model.MarkSpec.excludes
-     * "inclusive": https://prosemirror.net/docs/ref/#model.MarkSpec.inclusive
-     * "parseHTML": https://tiptap.dev/guide/custom-extensions#parse-html
-     * "renderHTML": https://tiptap.dev/guide/custom-extensions/#render-html
-     */
-    private getCustomLinkExtension(): Mark<LinkOptions> {
-        return Link.extend({
-            // Excludes can be removed/enabled when hyperlink support added
-            // See: https://github.com/ni/nimble/issues/1527
-            excludes: '_',
-            // Inclusive can be updated when hyperlink support added
-            // See: https://github.com/ni/nimble/issues/1527
-            inclusive: false,
-            parseHTML() {
-                return [
-                    // To load the `nimble-anchor` from the HTML parsed content by markdown-parser as links in the Tiptap editor, the `parseHTML`
-                    // of Link extension should return nimble `anchorTag`.
-                    // This is because the link mark schema in `markdown-parser.ts` file uses `<nimble-anchor>` as anchor tag and not `<a>`.
-                    {
-                        tag: anchorTag
-                    },
-                    // `<a>` tag is added here to support when pasting a link from external source.
-                    {
-                        tag: 'a'
-                    }
-                ];
-            },
-            // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            renderHTML({ HTMLAttributes }) {
-                // The below 'a' tag should be replaced with 'nimble-anchor' once the below issue is fixed.
-                // https://github.com/ni/nimble/issues/1516
-                return ['a', HTMLAttributes];
-            }
-        }).configure({
-            // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            HTMLAttributes: {
-                rel: 'noopener noreferrer',
-                target: null
-            },
-            autolink: true,
-            openOnClick: false,
-            // linkOnPaste can be enabled when hyperlink support added
-            // See: https://github.com/ni/nimble/issues/1527
-            linkOnPaste: false,
-            validate: href => this.validAbsoluteLinkRegex.test(href)
-        });
-    }
-
-    private getCustomMentionExtension(
-        config: MentionExtensionConfig
-    ): Node<MentionOptions> {
-        return Mention.extend({
-            name: config.name,
-            parseHTML() {
-                return [
-                    {
-                        tag: config.viewElement
-                    }
-                ];
-            },
-            addAttributes() {
-                return {
-                    href: {
-                        default: null,
-                        parseHTML: element => element.getAttribute('mention-href'),
-                        renderHTML: attributes => {
-                            return {
-                                'mention-href': attributes.href as string
-                            };
-                        }
-                    },
-
-                    label: {
-                        default: null,
-                        parseHTML: element => element.getAttribute('mention-label'),
-                        renderHTML: attributes => {
-                            return {
-                                'mention-label': attributes.label as string
-                            };
-                        }
-                    }
-                };
-            },
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            renderHTML({ HTMLAttributes }) {
-                return [
-                    config.viewElement,
-                    mergeAttributes(
-                        this.options.HTMLAttributes,
-                        HTMLAttributes,
-                        { 'disable-editing': true }
-                    )
-                ];
-            }
-        }).configure({
-            suggestion: {
-                char: config.character,
-                decorationTag: config.viewElement,
-                pluginKey: new PluginKey(config.key),
-                allowSpaces: true,
-                render: () => {
-                    let inSuggestionMode = false;
-                    return {
-                        onStart: (props): void => {
-                            inSuggestionMode = true;
-                            this.onMention(props);
-                        },
-
-                        onUpdate: (props): void => {
-                            if (!inSuggestionMode) {
-                                return;
-                            }
-                            this.onMention(props);
-                        },
-
-                        onKeyDown: (props): boolean => {
-                            if (props.event.key === keyEscape) {
-                                inSuggestionMode = false;
-                            }
-                            return (
-                                this.mentionListBox?.keydownHandler(
-                                    props.event
-                                ) ?? false
-                            );
-                        },
-
-                        onExit: (): void => {
-                            this.mentionListBox?.close();
-                        }
-                    };
-                }
-            }
-        });
-    }
-
-    private onMention(props: SuggestionProps): void {
-        this.triggerMentionEvent(props);
-        this.mentionListBox?.onMention(props);
-    }
-
-    private triggerMentionEvent(props: SuggestionProps): void {
-        const character = props.text.slice(0, 1);
-        const searchText = props.query;
-        const validMentionElement = this.mentionElements.find(
-            mention => mention.mentionInternals.validConfiguration
-                && mention.mentionInternals.character === character
-        );
-        validMentionElement?.onMention(searchText);
     }
 
     /**
