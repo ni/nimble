@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 28 Nov 2023 18:24:15 GMT and should not be manually modified.
+This log was last generated on Mon, 04 Dec 2023 21:56:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.14.12
+
+Mon, 04 Dec 2023 21:56:42 GMT
+
+### Patches
+
+- Update styling for incubating nimble-card ([ni/nimble@499b7e1](https://github.com/ni/nimble/commit/499b7e19fe8ddd6627cd36bae402b8c18a6feb10))
 
 ## 20.14.11
 
