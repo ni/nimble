@@ -272,6 +272,29 @@ describe('TableValidator', () => {
                 jasmine.arrayWithExactContents(['duplicateRecordId'])
             );
         });
+
+        it('validation considers IDs from all parts of the data hierarchy', () => {
+            const data = [
+                {
+                    clientRecord: { stringField: 'value-1', numberField: 10 },
+                    subRows: [
+                        { clientRecord: { stringField: 'value-1.1', numberField: 0 } },
+                        { clientRecord: { stringField: 'duplicate-value', numberField: 0 } }
+                    ]
+                },
+                {
+                    clientRecord: { stringField: 'duplicate-value', numberField: 11 }
+                }
+            ];
+
+            const isValid = validator.validateRecordIds(data, 'stringField');
+            expect(isValid).toBeFalse();
+            expect(validator.isValid()).toBeFalse();
+            expect(validator.areRecordIdsValid()).toBeFalse();
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents(['duplicateRecordId'])
+            );
+        });
     });
 
     describe('column config validation', () => {

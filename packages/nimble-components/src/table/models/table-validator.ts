@@ -1,5 +1,6 @@
 import type { TableColumn } from '../../table-column/base';
 import { TableNode, TableRowSelectionMode, TableValidity } from '../types';
+import { convertRecordsToUnorderFlatList } from './hierarchy-utilities';
 
 /**
  * Helper class for the nimble-table to validate that the table's configuration
@@ -83,11 +84,12 @@ export class TableValidator<TData extends TableNode> {
             return true;
         }
 
+        const allRecords = convertRecordsToUnorderFlatList(data);
         if (typeof idFieldName === 'string') {
-            for (const record of data) {
+            for (const record of allRecords) {
                 if (
                     !Object.prototype.hasOwnProperty.call(
-                        record.clientRecord,
+                        record,
                         idFieldName
                     )
                 ) {
@@ -95,7 +97,7 @@ export class TableValidator<TData extends TableNode> {
                     continue;
                 }
 
-                const id = record.clientRecord[idFieldName];
+                const id = record[idFieldName];
                 if (typeof id !== 'string') {
                     this.invalidRecordId = true;
                     continue;

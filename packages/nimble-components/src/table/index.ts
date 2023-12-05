@@ -56,6 +56,7 @@ import { TableUpdateTracker } from './models/table-update-tracker';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
+import { convertRecordToFlatList, convertRecordsToUnorderFlatList } from './models/hierarchy-utilities';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -714,7 +715,7 @@ export class Table<
         if (data && this.rowMetadata.size !== 0) {
             const flatData: TData[] = [];
             data.forEach(record => {
-                this.convertRecordToFlatList(record, flatData);
+                convertRecordToFlatList(record, flatData);
             });
             flatData.forEach(record => {
                 const metadata = this.rowMetadata.get(record[oldId]);
@@ -727,11 +728,7 @@ export class Table<
     }
 
     private convertHierarchicalDataToFlatList(): TData[] {
-        const flatData: TData[] = [];
-        const tanstackData = this.table.options.data;
-        tanstackData.forEach(record => {
-            this.convertRecordToFlatList(record, flatData);
-        });
+        const flatData = convertRecordsToUnorderFlatList(this.table.options.data);
         if (this.idFieldName && !this.isDataOrdered) {
             flatData.sort((a, b) => {
                 const leftRecordIndex = this.rowMetadata.get(
@@ -754,16 +751,6 @@ export class Table<
         }
 
         return flatData;
-    }
-
-    private convertRecordToFlatList(
-        record: TableNode<TData>,
-        flatData: TData[]
-    ): void {
-        flatData.push(record.clientRecord);
-        record.subRows?.forEach(subRow => {
-            this.convertRecordToFlatList(subRow, flatData);
-        });
     }
 
     private async handleActionMenuBeforeToggleEvent(
