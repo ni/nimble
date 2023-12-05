@@ -2,7 +2,7 @@
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
 import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 import { WaferMapColorScaleMode } from '../types';
-import type { Dimensions, DieRenderInfo, WaferMapColorScale, Tag } from '../types';
+import type { Dimensions, DieRenderInfo, WaferMapColorScale } from '../types';
 import type { WaferMap } from '..';
 import type { DataManager } from './data-manager';
 
@@ -135,23 +135,25 @@ export class Prerendering {
     }
 
     private calculateOpacity(
-        dieTags?: Tag[],
-        highlightedTags?: Tag[][]
+        dieTags?: string[],
+        highlightedTags?: string[]
     ): number {
         if (!(dieTags && highlightedTags)) {
             console.log(dieTags, highlightedTags);
             return 1;
         }
-        const tagsMatch = highlightedTags.some(tags => this.areTagsEqual(tags, dieTags));
+        const tagsMatch = this.isAnyDieTagPresent(dieTags, highlightedTags);
         return tagsMatch ? this.nonHighlightedOpacity : 1;
     }
 
-    private areTagsEqual(tags1: Tag[], tags2: Tag[]): boolean {
-        if (tags1.length !== tags2.length) {
+    private isAnyDieTagPresent(dieTags: string[] | undefined, highlightedTags: string[] | undefined): boolean {
+        if (!dieTags || !highlightedTags) {
+            // Handle the case where either dieTags or highlightedTags is undefined
             return false;
         }
-        const tagsMatch = tags1.every(tag1 => tags2.some(tag2 => tag2.key === tag1.key));
-        return tagsMatch;
+        console.log(dieTags, highlightedTags);
+        // Check if any element of dieTags is present in highlightedTags
+        return dieTags.some(dieTag => highlightedTags.some(highlightedTag => dieTag === highlightedTag));
     }
 
     private isColorScaleLinear(
@@ -169,8 +171,8 @@ export class Prerendering {
     private calculateFillStyle(
         value: string,
         colorScaleMode: WaferMapColorScaleMode,
-        highlightedTags?: Tag[][],
-        dieTags?: Tag[],
+        highlightedTags?: string[],
+        dieTags?: string[],
         isWaferHighlighted?: boolean
     ): string {
         let colorValue: string = this.emptyDieColor;

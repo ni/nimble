@@ -10,8 +10,7 @@ import { goodValueGenerator, badValueGenerator } from './value-generator';
 import type {
     WaferMapDie,
     WaferMapColorScale,
-    WaferMapValidity,
-    Tag
+    WaferMapValidity
 } from '../types';
 import {
     WaferMapOriginLocation,
@@ -71,9 +70,9 @@ const getDiesSet = (
 
 const getHighLightedTagsSets = (
     setName: string,
-    sets: Tag[][]
-): Tag[] => {
-    let returnedValue: Tag[];
+    sets: string[][]
+): string[] => {
+    let returnedValue: string[];
     switch (setName) {
         case 'set1':
             returnedValue = sets[0]!;
@@ -88,7 +87,7 @@ const getHighLightedTagsSets = (
             returnedValue = sets[3]!;
             break;
         default:
-            returnedValue = [] as Tag[];
+            returnedValue = [] as string[];
             break;
     }
     return returnedValue;

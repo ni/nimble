@@ -1,10 +1,10 @@
-import type { WaferMapDie, WaferMapColorScale, Tag } from '../types';
+import type { WaferMapDie, WaferMapColorScale } from '../types';
 
-export const highLightedValueSets: Tag[][] = [
-    [],
-    [{ key: 'sb', value: '1' }],
-    [{ key: 'sb', value: '3' }],
-    [{ key: 'hb', value: '2' }]
+export const highLightedValueSets: string[][] = [
+    [''],
+    ['c'],
+    ['g'],
+    ['a', 'b', 'c']
 ];
 
 export const wafermapDieSets: WaferMapDie[][] = [
@@ -14,45 +14,49 @@ export const wafermapDieSets: WaferMapDie[][] = [
             y: 2,
             value: '14.24',
             metadata: 'Placeholder metadata value for Die x: 0 y: 2',
-            tags: [{ key: 'sb', value: '1' }, { key: 'hb', value: '2' }]
+            tags: ['a', 'b']
         },
         {
             x: 1,
             y: 2,
             value: '76.43',
             metadata: 'Placeholder metadata value for Die x: 1 y: 2',
+            tags: ['b', 'c']
         },
         {
             x: 1,
             y: 1,
             value: '44.63',
             metadata: 'Placeholder metadata value for Die x: 1 y: 1',
-            tags: [{ key: 'sb', value: '3' }, { key: 'hb', value: '2' }]
+            tags: ['g']
         },
         {
             x: 1,
             y: 3,
             value: '67.93',
-            metadata: 'Placeholder metadata value for Die x: 1 y: 3'
+            metadata: 'Placeholder metadata value for Die x: 1 y: 3',
+            tags: ['a']
         },
         {
             x: 2,
             y: 2,
             value: '72.71',
             metadata: 'Placeholder metadata value for Die x: 2 y: 2',
-            tags: [{ key: 'sb', value: '1' }, { key: 'hb', value: '2' }]
+            tags: ['h', 'e']
         },
         {
             x: 2,
             y: 1,
             value: '79.04',
             metadata: 'Placeholder metadata value for Die x: 2 y: 1',
+            tags: ['b']
         },
         {
             x: 2,
             y: 0,
             value: '26.49',
-            metadata: 'Placeholder metadata value for Die x: 2 y: 0'
+            metadata: 'Placeholder metadata value for Die x: 2 y: 0',
+            tags: ['q']
         },
         {
             x: 2,
@@ -77,18 +81,21 @@ export const wafermapDieSets: WaferMapDie[][] = [
             y: 1,
             value: '98.50',
             metadata: 'Placeholder metadata value for Die x: 3 y: 1',
+            tags: ['g']
         },
         {
             x: 3,
             y: 3,
             value: '20.83',
-            metadata: 'Placeholder metadata value for Die x: 3 y: 3'
+            metadata: 'Placeholder metadata value for Die x: 3 y: 3',
+            tags: ['g']
         },
         {
             x: 4,
             y: 2,
             value: '62.80',
-            metadata: 'Placeholder metadata value for Die x: 4 y: 2'
+            metadata: 'Placeholder metadata value for Die x: 4 y: 2',
+            tags: ['g']
         }
     ]
 ];
