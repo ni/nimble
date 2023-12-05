@@ -192,7 +192,7 @@ const hierarchicalData = [
         id: '3',
         stringData: 'purple',
         stringData2: 'dog'
-    },
+    }
 ] as const;
 
 // prettier-ignore
@@ -2574,19 +2574,25 @@ describe('Table row selection', () => {
             it('can programmatically select parent row and its children', async () => {
                 await element.setSelectedRecordIds(['0', '0.0', '0.0.0']);
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(['0', '0.0', '0.0.0']));
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(['0', '0.0', '0.0.0'])
+                );
             });
 
             it('can programmatically select parent row and its leaf, skipping a level in the hierarchy', async () => {
                 await element.setSelectedRecordIds(['0', '0.0.0']);
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(['0', '0.0.0']));
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(['0', '0.0.0'])
+                );
             });
 
             it('can programmatically select rows at different levels of the heirarchy', async () => {
                 await element.setSelectedRecordIds(['0.0.1', '1', '2.0']);
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(['0.0.1', '1', '2.0']));
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(['0.0.1', '1', '2.0'])
+                );
             });
 
             it('can interactively select parent row', async () => {
@@ -2610,7 +2616,15 @@ describe('Table row selection', () => {
                 await pageObject.clickRow(endRowIndex, { shiftKey: true });
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(['0.0.1', '0.1', '0.2', '0.2.0', '1']));
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents([
+                        '0.0.1',
+                        '0.1',
+                        '0.2',
+                        '0.2.0',
+                        '1'
+                    ])
+                );
             });
 
             it('shift-selecting across collapsed parents selects children', async () => {
@@ -2625,7 +2639,15 @@ describe('Table row selection', () => {
                 await pageObject.clickRow(endRowIndex, { shiftKey: true });
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(['0.0.1', '0.1', '0.2', '0.2.0', '1']));
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents([
+                        '0.0.1',
+                        '0.1',
+                        '0.2',
+                        '0.2.0',
+                        '1'
+                    ])
+                );
             });
 
             it('can ctrl-select rows from different parts of the tree', async () => {
@@ -2635,7 +2657,9 @@ describe('Table row selection', () => {
                 await pageObject.clickRow(rowIndex1, { ctrlKey: true });
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(['0.0.1', '1']));
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(['0.0.1', '1'])
+                );
             });
 
             it('can ctrl-select parent row and a child', async () => {
@@ -2645,7 +2669,9 @@ describe('Table row selection', () => {
                 await pageObject.clickRow(rowIndex1, { ctrlKey: true });
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(['0.0', '0.0.1']));
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(['0.0', '0.0.1'])
+                );
             });
         });
 
@@ -2667,7 +2693,7 @@ describe('Table row selection', () => {
                  *   1
                  *   2
                  *     2.0
-                */
+                 */
                 column1.groupIndex = 0;
                 element.selectionMode = TableRowSelectionMode.multiple;
                 await waitForUpdatesAsync();
@@ -2678,28 +2704,63 @@ describe('Table row selection', () => {
                 await selectionChangeListener.promise;
 
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(['0', '0.0', '0.0.0', '0.0.1', '0.1', '0.2', '0.2.0', '3']));
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents([
+                        '0',
+                        '0.0',
+                        '0.0.0',
+                        '0.0.1',
+                        '0.1',
+                        '0.2',
+                        '0.2.0',
+                        '3'
+                    ])
+                );
             });
 
             it('selecting all children of a group marks the group as selected', async () => {
-                await element.setSelectedRecordIds(['0', '0.0', '0.0.0', '0.0.1', '0.1', '0.2', '0.2.0', '3']);
+                await element.setSelectedRecordIds([
+                    '0',
+                    '0.0',
+                    '0.0.0',
+                    '0.0.1',
+                    '0.1',
+                    '0.2',
+                    '0.2.0',
+                    '3'
+                ]);
                 await waitForUpdatesAsync();
-                expect(pageObject.getGroupRowSelectionState(0)).toBe(TableRowSelectionState.selected);
+                expect(pageObject.getGroupRowSelectionState(0)).toBe(
+                    TableRowSelectionState.selected
+                );
             });
 
             it('selecting single child of group marks the group as having indeterminate selection', async () => {
                 await element.setSelectedRecordIds(['0.0.1']);
                 await waitForUpdatesAsync();
-                expect(pageObject.getGroupRowSelectionState(0)).toBe(TableRowSelectionState.partiallySelected);
+                expect(pageObject.getGroupRowSelectionState(0)).toBe(
+                    TableRowSelectionState.partiallySelected
+                );
             });
 
             it('deselecting single child of group after selecting all marks the group as having indeterminate selection', async () => {
-                await element.setSelectedRecordIds(['0', '0.0', '0.0.0', '0.0.1', '0.1', '0.2', '0.2.0', '3']);
+                await element.setSelectedRecordIds([
+                    '0',
+                    '0.0',
+                    '0.0.0',
+                    '0.0.1',
+                    '0.1',
+                    '0.2',
+                    '0.2.0',
+                    '3'
+                ]);
                 await waitForUpdatesAsync();
                 pageObject.clickRowSelectionCheckbox(3);
                 await selectionChangeListener.promise;
 
-                expect(pageObject.getGroupRowSelectionState(0)).toBe(TableRowSelectionState.partiallySelected);
+                expect(pageObject.getGroupRowSelectionState(0)).toBe(
+                    TableRowSelectionState.partiallySelected
+                );
             });
         });
     });

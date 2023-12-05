@@ -56,7 +56,10 @@ import { TableUpdateTracker } from './models/table-update-tracker';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
-import { convertRecordToFlatList, convertRecordsToUnorderFlatList } from './models/hierarchy-utilities';
+import {
+    convertRecordToFlatList,
+    convertRecordsToUnorderFlatList
+} from './models/hierarchy-utilities';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -728,7 +731,9 @@ export class Table<
     }
 
     private convertHierarchicalDataToFlatList(): TData[] {
-        const flatData = convertRecordsToUnorderFlatList(this.table.options.data);
+        const flatData = convertRecordsToUnorderFlatList(
+            this.table.options.data
+        );
         if (this.idFieldName && !this.isDataOrdered) {
             flatData.sort((a, b) => {
                 const leftRecordIndex = this.rowMetadata.get(

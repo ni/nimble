@@ -278,12 +278,25 @@ describe('TableValidator', () => {
                 {
                     clientRecord: { stringField: 'value-1', numberField: 10 },
                     subRows: [
-                        { clientRecord: { stringField: 'value-1.1', numberField: 0 } },
-                        { clientRecord: { stringField: 'duplicate-value', numberField: 0 } }
+                        {
+                            clientRecord: {
+                                stringField: 'value-1.1',
+                                numberField: 0
+                            }
+                        },
+                        {
+                            clientRecord: {
+                                stringField: 'duplicate-value',
+                                numberField: 0
+                            }
+                        }
                     ]
                 },
                 {
-                    clientRecord: { stringField: 'duplicate-value', numberField: 11 }
+                    clientRecord: {
+                        stringField: 'duplicate-value',
+                        numberField: 11
+                    }
                 }
             ];
 

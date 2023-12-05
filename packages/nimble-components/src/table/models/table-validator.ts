@@ -88,10 +88,7 @@ export class TableValidator<TData extends TableNode> {
         if (typeof idFieldName === 'string') {
             for (const record of allRecords) {
                 if (
-                    !Object.prototype.hasOwnProperty.call(
-                        record,
-                        idFieldName
-                    )
+                    !Object.prototype.hasOwnProperty.call(record, idFieldName)
                 ) {
                     this.missingRecordId = true;
                     continue;
