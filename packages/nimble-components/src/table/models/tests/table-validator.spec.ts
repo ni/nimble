@@ -150,28 +150,18 @@ describe('TableValidator', () => {
         });
 
         it('setting data with IDs and parent IDs after invalid configuration results in valid configuration', () => {
-            const data = [
-                {
-                    clientRecord: {
-                        parentId: 'value-1',
-                        id: '1',
-                        numberField: 10
-                    }
-                },
-                {
-                    clientRecord: {
-                        parentId: 'value-2',
-                        id: '2',
-                        numberField: 11
-                    }
-                }
-            ];
-
-            let isValid = validator.validateRecordIds(data, undefined);
+            let isValid = validator.validateIdFieldConfiguration(
+                TableRowSelectionMode.none,
+                undefined,
+                'parentId'
+            );
             expect(isValid).toBeFalse();
-
-            isValid = validator.validateRecordIds(data, 'id');
-            expect(validator.isValid()).toBeTrue();
+            isValid = validator.validateIdFieldConfiguration(
+                TableRowSelectionMode.none,
+                'id',
+                'parentId'
+            );
+            expect(isValid).toBeTrue();
         });
 
         it('multiple errors are reported during validation', () => {

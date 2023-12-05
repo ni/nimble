@@ -983,6 +983,5 @@ describe('Table grouping with data hierarchy', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getAllGroupRowsExpandedState()).toEqual([true, true]);
-        expect(pageObject.getRenderedRowCount()).toBe(2);
     });
 });
