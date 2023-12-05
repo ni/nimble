@@ -1,11 +1,11 @@
 import { Directive, forwardRef } from '@angular/core';
-import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DefaultValueAccessor } from '../../thirdparty/directives/default_value_accessor';
 
 /**
  * Extension of Angular's DefaultValueAccessor to target the text-based inputs.
  *
- * Directive decorator based on DefaultValueAccessor decorator
- * https://github.com/angular/angular/blob/235bffc5f9a0faf00b9aeb4ef5f15c696ad4b522/packages/forms/src/directives/default_value_accessor.ts#L72
+ * Directive decorator based on DefaultValueAccessor decorator in thirdparty/directives/default_value_accessor
  */
 @Directive({
     selector:

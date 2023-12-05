@@ -1,6 +1,6 @@
 // eslint-disable-next-line max-classes-per-file
-import { customElement } from '@microsoft/fast-element';
-import { MappingConfigs, RichTextMention, RichTextMentionConfig } from '..';
+import { customElement, html, slotted } from '@microsoft/fast-element';
+import { RichTextMention } from '..';
 import type { Mapping } from '../../../mapping/base';
 import { MappingUser } from '../../../mapping/user';
 import { richTextMentionUsersViewTag } from '../../users/view';
@@ -9,38 +9,44 @@ import type {
     MentionInternals,
     MentionInternalsOptions
 } from '../models/mention-internals';
-import { RichTextMentionValidator } from '../models/mention-validator';
+import {
+    RichTextMentionValidator,
+    baseValidityFlagNames
+} from '../models/mention-validator';
+import { MentionConfig } from '../models/mention-config';
 
 export const richTextMentionTestTag = 'nimble-rich-text-test-mention';
 
 /**
  * validator for testing
  */
-export class RichTextMentionTestValidator extends RichTextMentionValidator<[]> {
-    public constructor(columnInternals: MentionInternals<unknown>) {
-        super(columnInternals, [], []);
+class RichTextMentionTestValidator extends RichTextMentionValidator {
+    public constructor(columnInternals: MentionInternals) {
+        super(columnInternals, baseValidityFlagNames);
     }
 }
 
 /**
+ * Mention config for testing
+ */
+class TestMentionConfig extends MentionConfig {}
+
+/**
  * Basic MappingConfig for testing
  */
-export class MappingTestConfig extends MappingConfig {}
+class MappingTestConfig extends MappingConfig {}
 
 /**
  * Simple rich text mention for testing
  */
 @customElement({
-    name: richTextMentionTestTag
+    name: richTextMentionTestTag,
+    template: html<RichTextMention>`<slot
+        ${slotted('mappingElements')}
+        name="mapping"
+    ></slot>`
 })
 export class RichTextMentionTest extends RichTextMention {
-    public override getMentionedHrefs(): string[] {
-        const regex = new RegExp(this.pattern ?? '');
-        return this.richTextParent
-            .getMentionedHrefs()
-            .filter(x => regex.test(x));
-    }
-
     protected override createValidator(): RichTextMentionTestValidator {
         return new RichTextMentionTestValidator(this.mentionInternals);
     }
@@ -53,12 +59,8 @@ export class RichTextMentionTest extends RichTextMention {
         };
     }
 
-    protected override createMentionConfig(
-        mappingConfigs: MappingConfigs
-    ): RichTextMentionConfig {
-        return {
-            mappingConfigs
-        };
+    protected override createMentionConfig(): TestMentionConfig {
+        return new TestMentionConfig();
     }
 
     protected createMappingConfig(mapping: Mapping<unknown>): MappingConfig {
@@ -66,5 +68,11 @@ export class RichTextMentionTest extends RichTextMention {
             return new MappingTestConfig(mapping.key, mapping.displayName);
         }
         throw new Error('Unsupported mapping');
+    }
+}
+
+declare global {
+    interface HTMLElementTagNameMap {
+        [richTextMentionTestTag]: RichTextMentionTest;
     }
 }

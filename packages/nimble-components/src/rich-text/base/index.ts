@@ -2,6 +2,7 @@ import { Observable, observable, type Notifier } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { RichTextMention } from '../../rich-text-mention/base';
 import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
+import { Configuration } from '../models/configuration';
 import { MarkdownParserMentionConfiguration } from '../models/markdown-parser-mention-configuration';
 
 /**
@@ -11,55 +12,53 @@ export abstract class RichText extends FoundationElement {
     /**
      * @internal
      */
-    @observable
-    public readonly childItems: Element[] = [];
-
-    protected mentionConfig: MarkdownParserMentionConfiguration[] = [];
-
-    protected mentionElements: RichTextMention[] = [];
-
-    private mentionInternalsNotifiers: Notifier[] = [];
+    public mentionInternalsNotifiers: Notifier[] = [];
 
     /**
      * @internal
      */
-    public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof MentionInternals && typeof args === 'string') {
-            this.updateMentionConfig();
-        }
-    }
+    @observable
+    public readonly childItems: Element[] = [];
+
+    @observable
+    protected configuration?: Configuration;
+
+    @observable
+    protected mentionElements!: RichTextMention[];
 
     /**
      * @internal
      */
     public abstract getMentionedHrefs(): string[];
 
-    protected abstract updateView(): void;
-
     /**
-     * Create a MarkdownParserMentionConfiguration using the mention elements and implement the logic for the getMentionedHref() method
-     * which will be invoked in the RichTextMention base class from the client.
+     * @internal
      */
-    private updateMentionConfig(): void {
-        // TODO: Add a rich text validator to check if the `mentionElements` contains duplicate configuration element
-        // For example, having two `nimble-rich-text-mention-users` within the children of rich text viewer or editor is an invalid configuration
-        this.mentionConfig = [];
-        this.mentionElements.forEach(mention => {
-            if (mention.mentionInternals.validConfiguration) {
-                const markdownParserMentionConfiguration = new MarkdownParserMentionConfiguration(
-                    mention.mentionInternals
-                );
-                this.mentionConfig.push(markdownParserMentionConfiguration);
-            }
-        });
-        this.updateView();
+    public handleChange(source: unknown, args: unknown): void {
+        if (
+            source instanceof MentionInternals
+            && MarkdownParserMentionConfiguration.isObservedMentionInternalsProperty(
+                args
+            )
+        ) {
+            this.configuration = this.createConfig();
+        }
     }
 
-    private childItemsChanged(): void {
-        void this.updateMentionsFromChildItems();
+    protected mentionElementsChanged(_old: unknown, _new: unknown): void {
+        this.observeMentionInternals();
+        this.configuration = this.createConfig();
     }
 
-    private async updateMentionsFromChildItems(): Promise<void> {
+    protected createConfig(): Configuration {
+        return new Configuration(this.mentionElements);
+    }
+
+    private childItemsChanged(_prev: unknown, _next: unknown): void {
+        void this.updateMentionElementsFromChildItems();
+    }
+
+    private async updateMentionElementsFromChildItems(): Promise<void> {
         const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
             ? customElements.whenDefined(item.localName)
             : Promise.resolve()));
@@ -67,12 +66,10 @@ export abstract class RichText extends FoundationElement {
         this.mentionElements = this.childItems.filter(
             (x): x is RichTextMention => x instanceof RichTextMention
         );
-        this.observeMentions();
-        this.updateMentionConfig();
     }
 
-    private observeMentions(): void {
-        this.removeMentionObservers();
+    private observeMentionInternals(): void {
+        this.removeMentionInternalsObservers();
 
         for (const mention of this.mentionElements) {
             const notifierInternals = Observable.getNotifier(
@@ -83,7 +80,7 @@ export abstract class RichText extends FoundationElement {
         }
     }
 
-    private removeMentionObservers(): void {
+    private removeMentionInternalsObservers(): void {
         this.mentionInternalsNotifiers.forEach(notifier => {
             notifier.unsubscribe(this);
         });
