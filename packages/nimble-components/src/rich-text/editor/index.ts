@@ -28,9 +28,7 @@ declare global {
 /**
  * A nimble styled rich text editor
  */
-export class RichTextEditor
-    extends RichText<EditorConfiguration>
-    implements ErrorPattern {
+export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
@@ -226,14 +224,16 @@ export class RichTextEditor
         prev: EditorConfiguration | undefined,
         next: EditorConfiguration
     ): void {
-        if (this.isOnlyMentionInternalsChanged(prev, next)) {
+        if (this.isMentionExtensionConfigUnchanged(prev, next)) {
             this.setMarkdown(this.getMarkdown());
         } else {
             const currentStateMarkdown = this.getMarkdown();
             this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
-                this.configuration?.mentionExtensionConfig.map(
-                    config => config.name
-                ) ?? []
+                this.configuration instanceof EditorConfiguration
+                    ? this.configuration.mentionExtensionConfig.map(
+                        config => config.name
+                    )
+                    : []
             );
             this.initializeEditor();
             this.setMarkdown(currentStateMarkdown);
@@ -363,7 +363,7 @@ export class RichTextEditor
         return new EditorConfiguration(this.mentionElements);
     }
 
-    private isOnlyMentionInternalsChanged(
+    private isMentionExtensionConfigUnchanged(
         prev: EditorConfiguration | undefined,
         next: EditorConfiguration
     ): boolean {
@@ -394,7 +394,9 @@ export class RichTextEditor
         this.tiptapEditor?.destroy();
         this.tiptapEditor = createTiptapEditor(
             this.editor,
-            this.configuration?.mentionExtensionConfig ?? []
+            this.configuration instanceof EditorConfiguration
+                ? this.configuration.mentionExtensionConfig
+                : []
         );
         this.bindEditorTransactionEvent();
         this.bindEditorUpdateEvent();

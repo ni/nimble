@@ -22,18 +22,6 @@ declare global {
  * Rich Text user mention configuration element which will have MappingMentionUser elements as children
  */
 export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersValidator> {
-    // TODO this isn't a great way to do this. It's mixing configuration element state and parent state which are decoupled asynchronously from each other.
-    // I'd prefer to leave it out of nimble for now. The app can know when things have settled and so this themselves.
-    // I'm also now wondering how do multiple regexes that happen to match the same url behave...
-    // I'd expect it to match based on DOM order. So I don't think this is reliable.
-    // At the very very minimum this should be in the base class, it's not mention implementation specific, it should be something the editor knows
-    public override getMentionedHrefs(): string[] {
-        const regex = new RegExp(this.pattern ?? '');
-        return this.richTextParent
-            .getMentionedHrefs()
-            .filter(x => regex.test(x));
-    }
-
     protected override createValidator(): RichTextMentionUsersValidator {
         return new RichTextMentionUsersValidator(this.mentionInternals);
     }

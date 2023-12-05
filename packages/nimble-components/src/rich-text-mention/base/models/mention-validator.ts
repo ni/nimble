@@ -8,7 +8,6 @@ export interface RichTextMentionValidity extends ValidityObject {}
 type FlagNames<T> = T extends readonly (infer U)[] ? U : never;
 
 export const baseValidityFlagNames = [
-    'unsupportedMappingType',
     'duplicateMappingMentionHref',
     'missingMentionHrefValue',
     'mentionHrefNotValidUrl',
@@ -25,8 +24,7 @@ export class RichTextMentionValidator<
 > extends Validator<typeof baseValidityFlagNames | ValidityFlagNames> {
     public constructor(
         private readonly mentionInternals: MentionInternals,
-        configValidityKeys: ValidityFlagNames,
-        private readonly supportedMappingElements: readonly (typeof Mapping<unknown>)[]
+        configValidityKeys: ValidityFlagNames
     ) {
         super(configValidityKeys);
     }
@@ -37,7 +35,6 @@ export class RichTextMentionValidator<
     ): void {
         this.untrackAll();
         const mentionHrefs = mappings.map(mapping => mapping.key);
-        this.validateMappingTypes(mappings);
         this.validateNoMissingMentionHref(mentionHrefs);
         this.validateUniqueMentionHref(mentionHrefs);
         this.validateMissingPattern(pattern);
@@ -86,14 +83,6 @@ export class RichTextMentionValidator<
         );
     }
 
-    // TODO move this to child class like done for table
-    private validateMappingTypes(mappings: Mapping<unknown>[]): void {
-        const valid = mappings.every(mapping => this.supportedMappingElements.some(
-            mappingClass => mapping instanceof mappingClass
-        ));
-        this.setConditionValue('unsupportedMappingType', !valid);
-    }
-
     private validateUniqueMentionHref(
         mentionHref: (string | undefined | unknown)[]
     ): void {
@@ -135,6 +124,7 @@ export class RichTextMentionValidator<
 
     private isInvalidUrl(url: string): boolean {
         try {
+            // Check whether the constructor throws an error for an Invalid URL.
             // eslint-disable-next-line no-new
             new URL(url);
             return false;
@@ -145,6 +135,7 @@ export class RichTextMentionValidator<
 
     private isInvalidRegex(pattern: string): boolean {
         try {
+            // Check whether the constructor throws an error when it cannot be parsed as a valid regular expression.
             // eslint-disable-next-line no-new
             new RegExp(pattern);
             return false;
