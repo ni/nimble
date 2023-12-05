@@ -202,14 +202,14 @@ function createCustomMentionExtension(
                 return {
                     onStart: (props): void => {
                         inSuggestionMode = true;
-                        config.mentionUpdateEmitter(props.text);
+                        config.mentionUpdateEmitter(props.query);
                         mentionListBox?.onMention(props);
                     },
                     onUpdate: (props): void => {
                         if (!inSuggestionMode) {
                             return;
                         }
-                        config.mentionUpdateEmitter(props.text);
+                        config.mentionUpdateEmitter(props.query);
                         mentionListBox?.onMention(props);
                     },
                     onKeyDown: (props): boolean => {
