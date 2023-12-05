@@ -14,7 +14,7 @@ function setTextAreaValue(textArea: TextArea, value: string): void {
 describe('Nimble text area control value accessor', () => {
     @Component({
         template: `
-            <nimble-text-area #textArea [(ngModel)]="value" [disabled]="fieldDisabled"></nimble-text-area>
+            <nimble-text-area #textArea [(ngModel)]="value" (ngModelChange)="onModelValueChange($event)" [disabled]="fieldDisabled"></nimble-text-area>
          `
     })
     class TestHostComponent {
@@ -23,6 +23,8 @@ describe('Nimble text area control value accessor', () => {
         public readonly initialValue = 'the initial value';
         public value = this.initialValue;
         public fieldDisabled = false;
+
+        public onModelValueChange(_value: string): void {}
     }
 
     let textArea: TextArea;
@@ -79,4 +81,12 @@ describe('Nimble text area control value accessor', () => {
         expect(textArea.getAttribute('disabled')).toBe('');
         expect(textArea.disabled).toBe(true);
     }));
+
+    it('fires ngModelChange one time with expected value', () => {
+        const ngModelChangeSpy = spyOn(testHostComponent, 'onModelValueChange');
+        const newValue = 'new value';
+        setTextAreaValue(textArea, newValue);
+        fixture.detectChanges();
+        expect(ngModelChangeSpy).toHaveBeenCalledOnceWith(newValue);
+    });
 });

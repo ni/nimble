@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 05 Dec 2023 11:06:30 GMT",
+      "version": "20.14.13",
+      "tag": "@ni/nimble-components_v20.14.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "110180309+Razvan1928@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "83fa07f9caf7ec7aca9d7eef9a45bf93c7f13b26",
+            "comment": "spec for wafer highlight"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 04 Dec 2023 21:56:42 GMT",
+      "version": "20.14.12",
+      "tag": "@ni/nimble-components_v20.14.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "35350751+kjohn1922@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "499b7e19fe8ddd6627cd36bae402b8c18a6feb10",
+            "comment": "Update styling for incubating nimble-card"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 28 Nov 2023 18:24:15 GMT",
+      "version": "20.14.11",
+      "tag": "@ni/nimble-components_v20.14.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bf1259004b9d362f0d04fa52695b0d430805cf99",
+            "comment": "Add explicit dev dependency on source-map-loader"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 27 Nov 2023 16:11:51 GMT",
+      "version": "20.14.10",
+      "tag": "@ni/nimble-components_v20.14.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9047cd3f1c559b54f58d7bd9a4e3cf3ff401c0fb",
+            "comment": "Fix overflow behavior of nimble-list-option"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 23 Nov 2023 08:11:47 GMT",
       "version": "20.14.9",
       "tag": "@ni/nimble-components_v20.14.9",
