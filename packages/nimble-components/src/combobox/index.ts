@@ -70,6 +70,10 @@ export class Combobox
     @observable
     public controlWrapper?: HTMLElement;
 
+    /** @internal */
+    @observable
+    public hasOverflow = false;
+
     public override get value(): string {
         return super.value;
     }

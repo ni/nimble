@@ -204,6 +204,16 @@ describe('Nimble combobox control value accessor', () => {
             expect(testHostComponent.callbackValue).toEqual(OPTION_NOT_FOUND);
         });
 
+        it('fires ngModelChange one time with expected value', () => {
+            const ngModelChangeSpy = spyOn(testHostComponent, 'onModelValueChange');
+
+            const optionToPick = 'Option 2';
+            updateComboboxWithText(combobox, optionToPick);
+            fixture.detectChanges();
+            const expectedSelectedModel = testHostComponent.selectOptions.find(x => x?.name === optionToPick)!;
+            expect(ngModelChangeSpy).toHaveBeenCalledOnceWith(expectedSelectedModel);
+        });
+
         it('list-option is removed followed by text of removed option entered as value, then \'testHostComponent.selectedOption\' is set to notFound', async () => {
             testHostComponent.selectOptions = testHostComponent.selectOptions.filter((_, i) => i !== 2);
             fixture.detectChanges();

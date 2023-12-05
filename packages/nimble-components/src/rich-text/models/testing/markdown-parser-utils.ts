@@ -23,6 +23,13 @@ export const getLastChildElementAttribute = (
     return getLastChildElement(doc)?.getAttribute(attribute) ?? '';
 };
 
+export const lastChildElementHasAttribute = (
+    attribute: string,
+    doc: DocumentFragment | HTMLElement
+): boolean => {
+    return getLastChildElement(doc)?.hasAttribute(attribute) ?? false;
+};
+
 export function getLastChildElement(
     doc: DocumentFragment | HTMLElement
 ): Element | null | undefined {
