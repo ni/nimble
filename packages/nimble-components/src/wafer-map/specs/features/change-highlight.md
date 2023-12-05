@@ -87,7 +87,7 @@ We will make the highlights based on this tags. The wafer will receive a list of
 @observable public highlightedTags: string[]
 ```
 
-Example of flow :
+### Use cases
 
 ```ts
 export const dies: WaferMapDie[] = [
@@ -118,8 +118,6 @@ export const dies: WaferMapDie[] = [
 ```
 
 A die will be highlighted if any of the die's tags equals at least one value in the highlightedTags
-
-## Use cases
 
 If the highlightedTags equals
 
