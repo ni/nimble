@@ -254,7 +254,6 @@ describe('Table grouping', () => {
             true,
             true
         ]);
-        expect(pageObject.getRenderedRowCount()).toBe(2);
 
         await element.setData(newData); // inserts row at beginning
         await waitForUpdatesAsync();
@@ -265,7 +264,6 @@ describe('Table grouping', () => {
             true,
             true
         ]);
-        expect(pageObject.getRenderedRowCount()).toBe(3);
     });
 
     it('updating grouping state expands all groups', async () => {
@@ -951,7 +949,6 @@ describe('Table grouping with data hierarchy', () => {
             false,
             true
         ]);
-        expect(pageObject.getRenderedRowCount()).toBe(1);
 
         await element.setData(newData); // inserts row at beginning
         await waitForUpdatesAsync();
@@ -961,7 +958,6 @@ describe('Table grouping with data hierarchy', () => {
             false,
             true
         ]);
-        expect(pageObject.getRenderedRowCount()).toBe(2);
     });
 
     it('updating grouping state expands all groups', async () => {

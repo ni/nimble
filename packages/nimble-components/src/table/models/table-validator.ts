@@ -47,9 +47,10 @@ export class TableValidator<TData extends TableNode> {
         );
     }
 
-    public validateSelectionMode(
+    public validateIdFieldConfiguration(
         selectionMode: TableRowSelectionMode,
-        idFieldName: string | undefined
+        idFieldName: string | undefined,
+        parentIdFieldName: string | undefined
     ): boolean {
         if (selectionMode === TableRowSelectionMode.none) {
             this.idFieldNameNotConfigured = false;
@@ -57,13 +58,20 @@ export class TableValidator<TData extends TableNode> {
             this.idFieldNameNotConfigured = typeof idFieldName !== 'string';
         }
 
+        if (
+            !this.idFieldNameNotConfigured
+            && parentIdFieldName !== undefined
+            && idFieldName === undefined
+        ) {
+            this.idFieldNameNotConfigured = true;
+        }
+
         return !this.idFieldNameNotConfigured;
     }
 
     public validateRecordIds(
         data: TData[],
-        idFieldName: string | undefined,
-        parentIdFieldName: string | undefined
+        idFieldName: string | undefined
     ): boolean {
         // Start off by assuming all IDs are valid.
         this.duplicateRecordId = false;
@@ -72,11 +80,7 @@ export class TableValidator<TData extends TableNode> {
         this.recordIds.clear();
 
         if (typeof idFieldName !== 'string') {
-            if (typeof parentIdFieldName !== 'string') {
-                return true;
-            }
-
-            this.missingRecordId = true;
+            return true;
         }
 
         if (typeof idFieldName === 'string') {

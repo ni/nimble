@@ -624,9 +624,11 @@ export class Table<
             return;
         }
 
-        if (_next !== undefined && this.idFieldName === undefined) {
-            this.tableValidator.setInvalidParentIdConfiguration(false);
-        }
+        this.tableValidator.validateIdFieldConfiguration(
+            this.selectionMode,
+            this.idFieldName,
+            this.parentIdFieldName
+        );
 
         this.tableUpdateTracker.trackParentIdFieldNameChanged();
     }
@@ -957,9 +959,10 @@ export class Table<
     }
 
     private validate(): void {
-        this.tableValidator.validateSelectionMode(
+        this.tableValidator.validateIdFieldConfiguration(
             this.selectionMode,
-            this.idFieldName
+            this.idFieldName,
+            this.parentIdFieldName
         );
         this.tableValidator.validateColumnIds(
             this.columns.map(x => x.columnId)
@@ -979,11 +982,7 @@ export class Table<
     }
 
     private validateWithData(data: TableNode[]): void {
-        this.tableValidator.validateRecordIds(
-            data,
-            this.idFieldName,
-            this.parentIdFieldName
-        );
+        this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
     }
 

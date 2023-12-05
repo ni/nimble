@@ -207,7 +207,12 @@ The attribute is invalid in the following conditions:
 
 const parentIdFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's parent ID, which,
 when used in combination with the \`idFieldName\` attribute, will display the table data in a hierarchical fashion. If the attribute is not specified, the
-data in the table will always be presented without hierarchy.`;
+data in the table will always be presented without hierarchy.
+
+The attribute is invalid in the following conditions:
+-   When this attribute is set, but \`id-field-name\` is unset. This will cause \`validity.idFieldNameNotConfigured\` to be \`true\`.
+-   When there are circular references between records discovered based on field values of \`parend-id-field-name\` for one record and \`id-field-name\` of another. This will cause \`validity.invalidParentIdConfiguration\` to be \`true\`.
+-   When an id specified by \`parent-id-field-name\` is not discovered in any record. This will cause \`validity.invalidParentIdConfiguration\` to be \`true\`.`;
 
 const validityDescription = `Readonly object of boolean values that represents the validity states that the table's configuration can be in.
 The object's type is \`TableValidity\`, and it contains the following boolean properties:
