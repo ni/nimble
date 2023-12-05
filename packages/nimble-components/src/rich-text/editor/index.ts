@@ -244,9 +244,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         } else {
             const currentStateMarkdown = this.getMarkdown();
             this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
-                mentionExtensionConfig.map(
-                    config => config.name
-                )
+                mentionExtensionConfig.map(config => config.name)
             );
             this.initializeEditor();
             this.setMarkdown(currentStateMarkdown);
@@ -400,7 +398,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     public getMentionExtensionConfig(): MentionExtensionConfiguration[] {
-        return this.configuration instanceof EditorConfiguration ? this.configuration.mentionExtensionConfig : [];
+        return this.configuration instanceof EditorConfiguration
+            ? this.configuration.mentionExtensionConfig
+            : [];
     }
 
     protected override createConfig(): EditorConfiguration {
