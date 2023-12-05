@@ -119,6 +119,8 @@ export const dies: WaferMapDie[] = [
 
 A die will be highlighted if any of the die's tags equals at least one value in the highlightedTags
 
+## Use cases
+
 If the highlightedTags equals
 
 ```ts
