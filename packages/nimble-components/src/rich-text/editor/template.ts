@@ -17,7 +17,6 @@ import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 import { richTextMentionListBoxTag } from '../mention-list-box';
 import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 import { buttonTag } from '../../button';
-import { EditorConfiguration } from '../models/editor-configuration';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`

@@ -400,7 +400,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     public getMentionExtensionConfig(): MentionExtensionConfiguration[] {
-        return this.configuration instanceof EditorConfiguration ? this.configuration.mentionExtensionConfig : []
+        return this.configuration instanceof EditorConfiguration ? this.configuration.mentionExtensionConfig : [];
     }
 
     protected override createConfig(): EditorConfiguration {
