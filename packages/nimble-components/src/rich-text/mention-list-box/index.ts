@@ -1,8 +1,5 @@
 import { observable } from '@microsoft/fast-element';
-import {
-    DesignSystem,
-    FoundationElement
-} from '@microsoft/fast-foundation';
+import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     keyTab,
     keyEnter,
@@ -83,9 +80,7 @@ export class RichTextMentionListBox extends FoundationElement {
 
     private readonly intersectionObserver: IntersectionObserver = new IntersectionObserver(
         entries => {
-            if (
-                !entries[0]?.isIntersecting
-            ) {
+            if (!entries[0]?.isIntersecting) {
                 this.setOpen(false);
             }
         },
@@ -176,7 +171,9 @@ export class RichTextMentionListBox extends FoundationElement {
         return true;
     }
 
-    public updateMentionExtensionConfig(mentionExtensionConfig?: MentionExtensionConfiguration[]): void {
+    public updateMentionExtensionConfig(
+        mentionExtensionConfig?: MentionExtensionConfiguration[]
+    ): void {
         this.mentionExtensionConfig = mentionExtensionConfig;
         this.setActiveMappingConfigs();
         this.filterOptions();
@@ -235,7 +232,11 @@ export class RichTextMentionListBox extends FoundationElement {
     }
 
     private setActiveMappingConfigs(): void {
-        this.activeMappingConfigs = this.activeCharacter ? this.mentionExtensionConfig?.find(config => config.character === this.activeCharacter)?.mappingConfigs : undefined;
+        this.activeMappingConfigs = this.activeCharacter
+            ? this.mentionExtensionConfig?.find(
+                config => config.character === this.activeCharacter
+            )?.mappingConfigs
+            : undefined;
     }
 
     private filterOptions(): void {
@@ -266,9 +267,9 @@ export class RichTextMentionListBox extends FoundationElement {
     }
 
     private updateSelectableOption(): void {
-        this.hasAnySelectableOption = !this.childItems.map(element => element as ListOption).every(
-            list => list.disabled
-        );
+        this.hasAnySelectableOption = !this.childItems
+            .map(element => element as ListOption)
+            .every(list => list.disabled);
     }
 }
 

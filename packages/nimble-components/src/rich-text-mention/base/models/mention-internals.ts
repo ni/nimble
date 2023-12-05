@@ -59,7 +59,7 @@ export class MentionInternals {
 
     /**
      * Function to invoke to emit a mention-update event
-    */
+     */
     public readonly mentionUpdateEmitter: MentionUpdateEmitter;
 
     public constructor(

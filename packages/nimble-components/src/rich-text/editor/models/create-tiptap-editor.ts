@@ -217,9 +217,7 @@ function createCustomMentionExtension(
                             inSuggestionMode = false;
                         }
                         return (
-                            mentionListBox?.keydownHandler(
-                                props.event
-                            ) ?? false
+                            mentionListBox?.keydownHandler(props.event) ?? false
                         );
                     },
                     onExit: (): void => {

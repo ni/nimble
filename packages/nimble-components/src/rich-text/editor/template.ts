@@ -17,6 +17,7 @@ import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 import { richTextMentionListBoxTag } from '../mention-list-box';
 import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 import { buttonTag } from '../../button';
+import { EditorConfiguration } from '../models/editor-configuration';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
@@ -88,7 +89,7 @@ export const template = html<RichTextEditor>`
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
                     </${toggleButtonTag}>
                     ${repeat(
-        x => Array.from(x.configuration?.mentionExtensionConfig ?? []),
+        x => Array.from(x.configuration instanceof EditorConfiguration ? x.configuration.mentionExtensionConfig : []),
         html<MentionExtensionConfiguration, RichTextEditor>`<${buttonTag}
                         appearance="ghost"
                         content-hidden

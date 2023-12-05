@@ -1,8 +1,10 @@
 import { ViewTemplate, html } from '@microsoft/fast-element';
 import type { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
-import type { RichTextEditor } from '../editor';
 import { mentionPluginPrefix } from '../editor/types';
-import type { MappingConfigs, MentionUpdateEmitter } from '../../rich-text-mention/base/types';
+import type {
+    MappingConfigs,
+    MentionUpdateEmitter
+} from '../../rich-text-mention/base/types';
 
 /**
  * A configuration object for a Mention extension, to be used by the editor for loading mention plugins in tiptap.

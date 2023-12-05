@@ -21,7 +21,7 @@ export abstract class RichText extends FoundationElement {
     public readonly childItems: Element[] = [];
 
     @observable
-    protected configuration?: Configuration;
+    public configuration?: Configuration;
 
     @observable
     protected mentionElements!: RichTextMention[];

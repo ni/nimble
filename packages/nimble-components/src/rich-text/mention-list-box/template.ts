@@ -1,5 +1,11 @@
 /* eslint-disable */
-import { children, elements, html, ref, repeat, when } from '@microsoft/fast-element';
+import {
+    children,
+    elements,
+    html,
+    ref,
+    repeat
+} from '@microsoft/fast-element';
 import type { RichTextMentionListBox } from '.';
 import { Listbox, listboxTag } from '../../listbox';
 import { anchoredRegionTag } from '../../anchored-region';

@@ -38,7 +38,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public tiptapEditor = createTiptapEditor(this.editor, [], this.mentionListBox);
+    public tiptapEditor = createTiptapEditor(
+        this.editor,
+        [],
+        this.mentionListBox
+    );
 
     /**
      * @internal
@@ -231,7 +235,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         next: EditorConfiguration
     ): void {
         const editorConfiguration = this.configuration as EditorConfiguration;
-        this.mentionListBox?.updateMentionExtensionConfig(editorConfiguration.mentionExtensionConfig);
+        this.mentionListBox?.updateMentionExtensionConfig(
+            editorConfiguration.mentionExtensionConfig
+        );
         if (this.isMentionExtensionConfigUnchanged(prev, next)) {
             this.setMarkdown(this.getMarkdown());
         } else {
@@ -340,9 +346,16 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * Toggle the mention node and focus back to the editor
      * @internal
      */
-    public mentionButtonKeyDown(event: KeyboardEvent, character: string): boolean {
+    public mentionButtonKeyDown(
+        event: KeyboardEvent,
+        character: string
+    ): boolean {
         if (this.keyActivatesButton(event)) {
-            this.tiptapEditor.chain().insertContent(` ${character}`).focus().run();
+            this.tiptapEditor
+                .chain()
+                .insertContent(` ${character}`)
+                .focus()
+                .run();
             return false;
         }
         return true;
