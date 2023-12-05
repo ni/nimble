@@ -22,7 +22,7 @@ export const richTextMentionTestTag = 'nimble-rich-text-test-mention';
  */
 class RichTextMentionTestValidator extends RichTextMentionValidator {
     public constructor(columnInternals: MentionInternals) {
-        super(columnInternals, baseValidityFlagNames, [MappingUser]);
+        super(columnInternals, baseValidityFlagNames);
     }
 }
 
@@ -47,13 +47,6 @@ class MappingTestConfig extends MappingConfig {}
     ></slot>`
 })
 export class RichTextMentionTest extends RichTextMention {
-    public override getMentionedHrefs(): string[] {
-        const regex = new RegExp(this.pattern ?? '');
-        return this.richTextParent
-            .getMentionedHrefs()
-            .filter(x => regex.test(x));
-    }
-
     protected override createValidator(): RichTextMentionTestValidator {
         return new RichTextMentionTestValidator(this.mentionInternals);
     }

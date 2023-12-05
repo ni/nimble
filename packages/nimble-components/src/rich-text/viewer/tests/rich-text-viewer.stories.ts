@@ -12,6 +12,7 @@ import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 interface RichTextViewerArgs {
     markdown: string;
     data: ExampleDataType;
+    getMentionedHrefs: undefined;
 }
 
 type ExampleDataType = (typeof exampleDataType)[keyof typeof exampleDataType];
@@ -76,6 +77,12 @@ const metadata: Meta<RichTextViewerArgs> = {
                         'HTTPS Pattern - https://user/(.*)'
                 }
             }
+        },
+        getMentionedHrefs: {
+            name: 'getMentionedHrefs()',
+            description:
+                'Returns an array of strings listing the hrefs of current mentions in the rich text components.',
+            control: false
         }
     },
     args: {

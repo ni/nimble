@@ -11,13 +11,13 @@ export class Configuration {
 
     public constructor(mentionElements: RichTextMention[]) {
         this.isValid = mentionElements.every(
-            mention => mention.mentionInternals.validConfiguration
+            mentionElement => mentionElement.mentionInternals.validConfiguration
         );
 
         this.parserMentionConfig = this.isValid
             ? mentionElements.map(
-                mention => new MarkdownParserMentionConfiguration(
-                    mention.mentionInternals
+                mentionElement => new MarkdownParserMentionConfiguration(
+                    mentionElement.mentionInternals
                 )
             )
             : [];
