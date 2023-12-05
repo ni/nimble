@@ -155,7 +155,8 @@ Note: Besides the code changes we will also need to update the tests and nimble 
 
 ## Alternative Designs
 
-1. Same as the main one but instead of using a strings array for highlighted tags use an matrix of strings. This will give us more flexibility and more highlight capabilities but it will also require more time and will increase the complexity of complexity of the highlighting. In this case:
+### Highlighted tags with a matrix of strings
+Same as the main one but instead of using a strings array for highlighted tags use a matrix of strings. This will give us more flexibility and more highlight capabilities but it will also require more time and will increase the complexity of the highlighting. In this case:
 
 ![corner-case](resources/corner-case.PNG)
 
@@ -167,7 +168,8 @@ the highlightedTags would look like
 
 despite the fact that this would give us great capabilities of highlighting the api that we use to get this values is limited, and it can't make the difference between 'B9IQ82-15D5' AND '19' compared to 'B9IQ82-15D5' OR '19'. As I said, in case of attributes, the api retrieves them one by one, not knowing the relation between them. Also if we would want to go in this direction we would need to develop a Set Theory for highlighting, which for now may be an overkill.
 
-2. Introduce a new logic of highlighting the wafer in parallel with current one
+### Add isHighlighted field to dies
+Introduce a new logic of highlighting the wafer in parallel with current one
 
 Each die will have an optional field 'isHighlighted' that will not be populated if no highlight is made
 
