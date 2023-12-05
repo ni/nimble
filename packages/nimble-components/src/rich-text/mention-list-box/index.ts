@@ -125,7 +125,7 @@ export class RichTextMentionListBox extends FoundationElement {
                 ) {
                     this.activateMention({
                         href: this.listBox.firstSelectedOption.value,
-                        displayName: this.listBox.firstSelectedOption.innerText
+                        displayName: this.listBox.firstSelectedOption.text
                     } as MentionDetail);
                     return true;
                 }
@@ -171,7 +171,7 @@ export class RichTextMentionListBox extends FoundationElement {
         }
         this.activateMention({
             href: captured.value,
-            displayName: captured.innerText
+            displayName: captured.text
         } as MentionDetail);
         return true;
     }
@@ -184,9 +184,9 @@ export class RichTextMentionListBox extends FoundationElement {
 
     public onMention(props: SuggestionProps): void {
         this.suggestionProps = props;
-        this.setActiveCharacter(props.text.slice(0, 1));
+        this.activeCharacter = props.text.slice(0, 1);
         this.filter = props.query;
-        this.setAnchorElement(props.decorationNode as HTMLElement);
+        this.anchorElement = props.decorationNode as HTMLElement;
         this.setOpen(true);
         void this.selectFirstOptionIfValidOptionExists();
     }
@@ -228,14 +228,6 @@ export class RichTextMentionListBox extends FoundationElement {
             this.region.update();
             this.intersectionObserver.observe(next);
         }
-    }
-
-    private setActiveCharacter(activeCharacter: string): void {
-        this.activeCharacter = activeCharacter;
-    }
-
-    private setAnchorElement(anchorElement: HTMLElement): void {
-        this.anchorElement = anchorElement;
     }
 
     private scrollOptionIntoView(): void {

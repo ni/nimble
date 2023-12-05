@@ -53,7 +53,7 @@ export class MentionInternals {
     public readonly viewElement: string;
 
     /**
-    * Mention label to render while hovering the rich text icon
+     * Label to use as accessible name and title of mention button
      */
     public readonly label: string;
 
