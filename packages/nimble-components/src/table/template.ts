@@ -139,7 +139,6 @@ export const template = html<Table>`
                                         :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                         :columns="${(_, c) => c.parent.columns}"
                                         :isParentRow="${(x, c) => c.parent.tableData[x.index]?.isParentRow}"
-                                        ?table-has-data-hierarchy="${(_, c) => c.parent.hasDataHierarchy}"
                                         :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                         ?row-operation-grid-cell-hidden="${(_, c) => !c.parent.showRowOperationColumn}"
                                         @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"

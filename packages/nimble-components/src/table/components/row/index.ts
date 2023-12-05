@@ -80,9 +80,6 @@ export class TableRow<
     @observable
     public isParentRow = false;
 
-    @attr({ attribute: 'table-has-data-hierarchy', mode: 'boolean' })
-    public tableHasDataHierarchy = false;
-
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
 
@@ -204,12 +201,14 @@ export class TableRow<
     }
 
     public onRowExpandToggle(event: Event): void {
-        const expandEventDetail: TableRowExpandToggleEventDetail = {
-            oldState: this.expanded,
-            newState: !this.expanded,
-            recordId: this.recordId
-        };
-        this.$emit('row-expand-toggle', expandEventDetail);
+        if (this.recordId) {
+            const expandEventDetail: TableRowExpandToggleEventDetail = {
+                oldState: this.expanded,
+                newState: !this.expanded,
+                recordId: this.recordId
+            };
+            this.$emit('row-expand-toggle', expandEventDetail);
+        }
         event.stopImmediatePropagation();
         // To avoid a visual glitch with improper expand/collapse icons performing an
         // animation, we apply a class to the appropriate group row such that we can have

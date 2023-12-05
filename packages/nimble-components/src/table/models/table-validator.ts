@@ -63,7 +63,7 @@ export class TableValidator<TData extends TableNode> {
     public validateRecordIds(
         data: TData[],
         idFieldName: string | undefined,
-        parentIdFieldName?: string
+        parentIdFieldName: string | undefined
     ): boolean {
         // Start off by assuming all IDs are valid.
         this.duplicateRecordId = false;

@@ -142,9 +142,6 @@ export class Table<
         return this.tableValidator.getValidity();
     }
 
-    @observable
-    public hasDataHierarchy = false;
-
     /**
      * @internal
      */
@@ -238,6 +235,7 @@ export class Table<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
+    private hasDataHierarchy = false;
 
     public constructor() {
         super();
@@ -278,6 +276,7 @@ export class Table<
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
+        this.hasDataHierarchy = false;
         await this.processPendingUpdates();
         this.trackFlatDataOrder(newData);
         const tanstackUpdates = this.processFlatData(newData);
@@ -423,7 +422,9 @@ export class Table<
         this.collapsedRows.clear();
         this.table
             .getRowModel()
-            .flatRows.filter(row => row.getIsGrouped())
+            .flatRows.filter(
+                row => row.getIsGrouped() || row.subRows.length > 0
+            )
             .forEach(row => this.collapsedRows.add(row.id));
         this.table.toggleAllRowsExpanded(false);
     }
@@ -536,7 +537,7 @@ export class Table<
         }
 
         if (this.tableUpdateTracker.updateGroupRows) {
-            this.showCollapseAll = this.getColumnsParticipatingInGrouping().length > 0;
+            this.refreshCollapseAllButtonVisibility();
         }
     }
 
@@ -1056,7 +1057,13 @@ export class Table<
             this.hasDataHierarchy = this.hasDataHierarchy || isParent;
             return rowState;
         });
+        this.refreshCollapseAllButtonVisibility();
         this.virtualizer.dataChanged();
+    }
+
+    private refreshCollapseAllButtonVisibility(): void {
+        this.showCollapseAll = this.hasDataHierarchy
+            || this.getColumnsParticipatingInGrouping().length > 0;
     }
 
     private getTableSelectionState(): TableRowSelectionState {
@@ -1150,15 +1157,11 @@ export class Table<
         }
 
         const expandedState = this.table.options.state.expanded;
-        if (expandedState === true && isGroupRow) {
+        if (expandedState === true) {
             return true;
         }
 
-        if (Object.keys(expandedState ?? {}).includes(row.id)) {
-            return true;
-        }
-
-        return isGroupRow ? !this.collapsedRows.has(row.id) : false;
+        return !this.collapsedRows.has(row.id);
     };
 
     private readonly handleRowSelectionChange: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
@@ -1287,9 +1290,7 @@ export class Table<
         const expandedState: { [key: string]: boolean } = {};
         const allRows = this.table.getGroupedRowModel().flatRows;
         for (const tanstackRow of allRows) {
-            if (tanstackRow.getIsGrouped()) {
-                expandedState[tanstackRow.id] = true;
-            }
+            expandedState[tanstackRow.id] = true;
         }
 
         this.updateTableOptions({

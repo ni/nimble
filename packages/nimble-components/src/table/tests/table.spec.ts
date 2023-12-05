@@ -930,6 +930,43 @@ describe('Table', () => {
                     parentId2: 'Parent 1'
                 }
             ];
+            it('shows collapse all button with hierarchical data', async () => {
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+                expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+            });
+
+            it('hides collapse all button when data no longer has hierarchy', async () => {
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+
+                const dataWithNoHierarchy = [
+                    {
+                        stringData: 'Parent 1',
+                        stringData2: '',
+                        numericData: 0,
+                        moreStringData: 'foo',
+                        id: '0'
+                    },
+                    {
+                        stringData: 'Parent 2',
+                        stringData2: '',
+                        numericData: 0,
+                        moreStringData: 'foo',
+                        id: '1'
+                    }
+                ];
+                await element.setData(dataWithNoHierarchy);
+                await waitForUpdatesAsync();
+                expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+            });
+
             it('renders data hierarchically when parentId set after setData', async () => {
                 await connect();
                 element.idFieldName = 'id';
@@ -937,6 +974,8 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
                 expect(pageObject.getRenderedRowCount()).toBe(7); // there are 7 total rows
                 element.parentIdFieldName = 'parentId';
+                await waitForUpdatesAsync();
+                pageObject.clickCollapseAllButton();
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedRowCount()).toBe(3); // there are 3 top level rows
@@ -950,6 +989,8 @@ describe('Table', () => {
                 expect(pageObject.getRenderedRowCount()).toBe(0); // table in invalid state
                 element.idFieldName = 'id';
                 await waitForUpdatesAsync();
+                pageObject.clickCollapseAllButton();
+                await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedRowCount()).toBe(3); // there are 3 top level rows
             });
@@ -962,6 +1003,8 @@ describe('Table', () => {
                 element.idFieldName = 'id';
                 element.parentIdFieldName = 'parentId';
                 await waitForUpdatesAsync();
+                pageObject.clickCollapseAllButton();
+                await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedRowCount()).toBe(3); // there are 3 top level rows
             });
@@ -971,6 +1014,8 @@ describe('Table', () => {
                 element.idFieldName = 'id';
                 element.parentIdFieldName = 'parentId';
                 await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+                pageObject.clickCollapseAllButton();
                 await waitForUpdatesAsync();
 
                 pageObject.clickDataRowExpandCollapseButton(0); // parent has 2 children
@@ -985,8 +1030,13 @@ describe('Table', () => {
                 element.parentIdFieldName = 'parentId';
                 await element.setData(hierarchicalData);
                 await waitForUpdatesAsync();
+                pageObject.clickCollapseAllButton();
+                await waitForUpdatesAsync();
 
                 pageObject.clickDataRowExpandCollapseButton(0); // expands parent
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedRowCount()).toBe(5);
+
                 pageObject.clickDataRowExpandCollapseButton(0); // collapses parent
                 await waitForUpdatesAsync();
 
@@ -998,6 +1048,8 @@ describe('Table', () => {
                 element.idFieldName = 'id';
                 element.parentIdFieldName = 'parentId';
                 await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+                pageObject.clickCollapseAllButton();
                 await waitForUpdatesAsync();
 
                 pageObject.clickDataRowExpandCollapseButton(0); // first parent expanded
@@ -1028,8 +1080,9 @@ describe('Table', () => {
 
                 await element.setData(newData);
                 await waitForUpdatesAsync();
-                expect(pageObject.getRenderedRowCount()).toBe(6);
+                expect(pageObject.getRenderedRowCount()).toBe(7);
                 expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    true,
                     false,
                     true,
                     false,

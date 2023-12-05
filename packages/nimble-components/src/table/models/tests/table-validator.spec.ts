@@ -28,7 +28,11 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-2', numberField: 11 } }
             ];
 
-            const isValid = validator.validateRecordIds(data, 'stringField');
+            const isValid = validator.validateRecordIds(
+                data,
+                'stringField',
+                undefined
+            );
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
             expect(validator.areRecordIdsValid()).toBeTrue();
@@ -41,7 +45,11 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-2', numberField: 11 } }
             ];
 
-            const isValid = validator.validateRecordIds(data, undefined);
+            const isValid = validator.validateRecordIds(
+                data,
+                undefined,
+                undefined
+            );
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
             expect(validator.areRecordIdsValid()).toBeTrue();
@@ -54,7 +62,11 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-1', numberField: 11 } }
             ];
 
-            const isValid = validator.validateRecordIds(data, 'stringField');
+            const isValid = validator.validateRecordIds(
+                data,
+                'stringField',
+                undefined
+            );
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
             expect(validator.areRecordIdsValid()).toBeFalse();
@@ -69,7 +81,11 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-2', numberField: 11 } }
             ];
 
-            const isValid = validator.validateRecordIds(data, 'numberField');
+            const isValid = validator.validateRecordIds(
+                data,
+                'numberField',
+                undefined
+            );
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
             expect(validator.areRecordIdsValid()).toBeFalse();
@@ -84,7 +100,11 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: '', numberField: 11 } }
             ];
 
-            const isValid = validator.validateRecordIds(data, 'stringField');
+            const isValid = validator.validateRecordIds(
+                data,
+                'stringField',
+                undefined
+            );
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
             expect(validator.areRecordIdsValid()).toBeTrue();
@@ -97,7 +117,11 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: undefined, numberField: 11 } }
             ];
 
-            const isValid = validator.validateRecordIds(data, 'stringField');
+            const isValid = validator.validateRecordIds(
+                data,
+                'stringField',
+                undefined
+            );
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
             expect(validator.areRecordIdsValid()).toBeFalse();
@@ -112,7 +136,11 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: undefined, numberField: 11 } }
             ];
 
-            const isValid = validator.validateRecordIds(data, 'stringField');
+            const isValid = validator.validateRecordIds(
+                data,
+                'stringField',
+                undefined
+            );
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
             expect(validator.areRecordIdsValid()).toBeFalse();
@@ -127,7 +155,11 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-2', numberField: 11 } }
             ];
 
-            const isValid = validator.validateRecordIds(data, 'missingField');
+            const isValid = validator.validateRecordIds(
+                data,
+                'missingField',
+                undefined
+            );
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
             expect(validator.areRecordIdsValid()).toBeFalse();
@@ -193,7 +225,11 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: true, numberField: 12 } }
             ];
 
-            const isValid = validator.validateRecordIds(data, 'stringField');
+            const isValid = validator.validateRecordIds(
+                data,
+                'stringField',
+                undefined
+            );
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
             expect(validator.areRecordIdsValid()).toBeFalse();
@@ -212,12 +248,16 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-2', numberField: 11 } }
             ];
 
-            let isValid = validator.validateRecordIds(data, 'missingField');
+            let isValid = validator.validateRecordIds(
+                data,
+                'missingField',
+                undefined
+            );
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
             expect(validator.areRecordIdsValid()).toBeFalse();
 
-            isValid = validator.validateRecordIds(data, undefined);
+            isValid = validator.validateRecordIds(data, undefined, undefined);
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
             expect(validator.areRecordIdsValid()).toBeTrue();
@@ -229,12 +269,20 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-2', numberField: 11 } }
             ];
 
-            let isValid = validator.validateRecordIds(data, 'missingField');
+            let isValid = validator.validateRecordIds(
+                data,
+                'missingField',
+                undefined
+            );
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
             expect(validator.areRecordIdsValid()).toBeFalse();
 
-            isValid = validator.validateRecordIds(data, 'stringField');
+            isValid = validator.validateRecordIds(
+                data,
+                'stringField',
+                undefined
+            );
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
             expect(validator.areRecordIdsValid()).toBeTrue();
@@ -246,12 +294,20 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-2', numberField: 11 } }
             ];
 
-            let isValid = validator.validateRecordIds(data, 'stringField');
+            let isValid = validator.validateRecordIds(
+                data,
+                'stringField',
+                undefined
+            );
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
             expect(validator.areRecordIdsValid()).toBeTrue();
 
-            isValid = validator.validateRecordIds(data, 'missingField');
+            isValid = validator.validateRecordIds(
+                data,
+                'missingField',
+                undefined
+            );
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
             expect(validator.areRecordIdsValid()).toBeFalse();
@@ -267,7 +323,7 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-2', numberField: 11, '': 'empty-2' } }
             ];
 
-            const isValid = validator.validateRecordIds(data, '');
+            const isValid = validator.validateRecordIds(data, '', undefined);
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
             expect(validator.areRecordIdsValid()).toBeTrue();
@@ -284,7 +340,7 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-2', numberField: 11, '': 'empty-1' } }
             ];
 
-            const isValid = validator.validateRecordIds(data, '');
+            const isValid = validator.validateRecordIds(data, '', undefined);
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
             expect(validator.areRecordIdsValid()).toBeFalse();
@@ -740,7 +796,7 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-1', numberField: 10 } },
                 { clientRecord: { stringField: 'value-2', numberField: 11 } }
             ];
-            validator.validateRecordIds(data, 'stringField');
+            validator.validateRecordIds(data, 'stringField', undefined);
 
             const presentRecordIds = validator.getPresentRecordIds([
                 'value-2',
@@ -756,7 +812,7 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-1', numberField: 10 } },
                 { clientRecord: { stringField: 'value-2', numberField: 11 } }
             ];
-            validator.validateRecordIds(data, 'stringField');
+            validator.validateRecordIds(data, 'stringField', undefined);
 
             const presentRecordIds = validator.getPresentRecordIds([
                 'value-2',
@@ -772,13 +828,13 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-1', numberField: 10 } },
                 { clientRecord: { stringField: 'value-2', numberField: 11 } }
             ];
-            validator.validateRecordIds(data, 'stringField');
+            validator.validateRecordIds(data, 'stringField', undefined);
 
             const newData = [
                 { clientRecord: { stringField: 'value-1', numberField: 10 } },
                 { clientRecord: { stringField: 'value-3', numberField: 11 } }
             ];
-            validator.validateRecordIds(newData, 'stringField');
+            validator.validateRecordIds(newData, 'stringField', undefined);
 
             const presentRecordIds = validator.getPresentRecordIds([
                 'value-2',
@@ -794,7 +850,7 @@ describe('TableValidator', () => {
                 { clientRecord: { stringField: 'value-1', numberField: 10 } },
                 { clientRecord: { stringField: 'value-2', numberField: 11 } }
             ];
-            validator.validateRecordIds(data, undefined);
+            validator.validateRecordIds(data, undefined, undefined);
 
             const presentRecordIds = validator.getPresentRecordIds([
                 'value-2',
@@ -818,7 +874,8 @@ describe('TableValidator', () => {
 
             const recordIdsAreValid = validator.validateRecordIds(
                 data,
-                'stringField'
+                'stringField',
+                undefined
             );
             expect(recordIdsAreValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
@@ -863,6 +920,7 @@ describe('TableValidator', () => {
 
             const recordIdsAreValid = validator.validateRecordIds(
                 [],
+                undefined,
                 undefined
             );
             expect(recordIdsAreValid).toBeTrue();

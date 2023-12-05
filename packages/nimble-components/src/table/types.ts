@@ -137,7 +137,7 @@ export interface TableRowSelectionEventDetail {
 export interface TableRowExpandToggleEventDetail {
     oldState: boolean;
     newState: boolean;
-    recordId?: string;
+    recordId: string;
 }
 
 /**
