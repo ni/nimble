@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 04 Dec 2023 21:56:42 GMT and should not be manually modified.
+This log was last generated on Tue, 05 Dec 2023 11:06:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.14.13
+
+Tue, 05 Dec 2023 11:06:30 GMT
+
+### Patches
+
+- spec for wafer highlight ([ni/nimble@83fa07f](https://github.com/ni/nimble/commit/83fa07f9caf7ec7aca9d7eef9a45bf93c7f13b26))
 
 ## 20.14.12
 
