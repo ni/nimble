@@ -15,12 +15,12 @@ import HardBreak from '@tiptap/extension-hard-break';
 import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
 import { PluginKey } from 'prosemirror-state';
 
+import { keyEscape } from '@microsoft/fast-web-utilities';
 import { mentionPluginPrefix } from '../types';
 
 import { anchorTag } from '../../../anchor';
 import type { MentionExtensionConfiguration } from '../../models/mention-extension-configuration';
 import type { RichTextMentionListBox } from '../../mention-list-box';
-import { keyEscape } from '@microsoft/fast-web-utilities';
 
 const validAbsoluteLinkRegex = /^https?:\/\//i;
 

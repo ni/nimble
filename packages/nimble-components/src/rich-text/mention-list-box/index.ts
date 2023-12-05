@@ -219,7 +219,7 @@ export class RichTextMentionListBox extends FoundationElement {
     /**
      * @internal
      */
-    public anchorElementChanged(prev: HTMLElement, next: HTMLElement): void {2
+    public anchorElementChanged(prev: HTMLElement, next: HTMLElement): void {
         if (prev) {
             this.intersectionObserver.unobserve(prev);
         }

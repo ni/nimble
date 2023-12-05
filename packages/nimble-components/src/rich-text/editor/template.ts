@@ -10,7 +10,7 @@ import {
     richTextToggleBoldLabel,
     richTextToggleItalicsLabel,
     richTextToggleBulletedListLabel,
-    richTextToggleNumberedListLabel,
+    richTextToggleNumberedListLabel
 } from '../../label-provider/rich-text/label-tokens';
 import { errorTextTemplate } from '../../patterns/error/template';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
