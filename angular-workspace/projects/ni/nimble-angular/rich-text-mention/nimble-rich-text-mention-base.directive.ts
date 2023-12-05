@@ -25,10 +25,6 @@ export class NimbleRichTextMentionDirective<T extends RichTextMention> {
         return this.elementRef.nativeElement.checkValidity();
     }
 
-    public getMentionedHrefs(): string[] {
-        return this.elementRef.nativeElement.getMentionedHrefs();
-    }
-
     public get validity(): RichTextMentionValidity {
         return this.elementRef.nativeElement.validity;
     }

@@ -88,11 +88,6 @@ describe('NimbleRichTextMentionUsers', () => {
             expect(directive.checkValidity()).toBeTrue();
             expect(nativeElement.checkValidity()).toBeTrue();
         });
-
-        it('has empty mentioned Hrefs array by default', () => {
-            expect(directive.getMentionedHrefs()).toEqual([]);
-            expect(nativeElement.getMentionedHrefs()).toEqual([]);
-        });
     });
 
     describe('with property bound values', () => {
