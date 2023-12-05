@@ -16,7 +16,6 @@ import {
     MentionInternalsOptions
 } from './models/mention-internals';
 import { Mapping } from '../../mapping/base';
-import type { RichText } from '../../rich-text/base';
 import type { MappingConfigs, MentionUpdateEventDetail } from './types';
 import type { MentionConfig } from './models/mention-config';
 
@@ -53,12 +52,6 @@ export abstract class RichTextMention<
     /** @internal */
     @observable
     public mappingElements: Mapping<unknown>[] = [];
-
-    /**
-     * @public
-     * Returns hrefs for existing mentions in the editor/viewer.
-     */
-    public abstract getMentionedHrefs(): string[];
 
     /**
      * @public
@@ -102,10 +95,6 @@ export abstract class RichTextMention<
     protected abstract createMappingConfig(
         mapping: Mapping<unknown>
     ): MappingConfig;
-
-    protected get richTextParent(): RichText {
-        return this.parentElement as RichText;
-    }
 
     private getMappingConfigs(): MappingConfigs {
         const mappingConfigs = new Map<string, MappingConfig>();

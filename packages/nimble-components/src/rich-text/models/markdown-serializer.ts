@@ -50,6 +50,10 @@ export class RichTextMarkdownSerializer {
             });
         };
 
+        /**
+         * Same as of auto link serialization https://github.com/ProseMirror/prosemirror-markdown/blob/3e5a5d02f7c1b9336744740149767ee1dc4e954d/src/to_markdown.ts#L136,
+         * href been extracted from the mention node and serialized it in between '<>' angular brackets.
+         */
         const mentionNode = function mention(
             state: MarkdownSerializerState,
             node: Node

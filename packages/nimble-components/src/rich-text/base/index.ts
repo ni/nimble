@@ -8,9 +8,7 @@ import { MarkdownParserMentionConfiguration } from '../models/markdown-parser-me
 /**
  * Base class for rich text components
  */
-export abstract class RichText<
-    TConfiguration extends Configuration = Configuration
-> extends FoundationElement {
+export abstract class RichText extends FoundationElement {
     /**
      * @internal
      */
@@ -23,7 +21,7 @@ export abstract class RichText<
     public readonly childItems: Element[] = [];
 
     @observable
-    public configuration?: TConfiguration;
+    protected configuration?: Configuration;
 
     @observable
     protected mentionElements!: RichTextMention[];
@@ -52,8 +50,8 @@ export abstract class RichText<
         this.configuration = this.createConfig();
     }
 
-    protected createConfig(): TConfiguration {
-        return new Configuration(this.mentionElements) as TConfiguration;
+    protected createConfig(): Configuration {
+        return new Configuration(this.mentionElements);
     }
 
     private childItemsChanged(_prev: unknown, _next: unknown): void {

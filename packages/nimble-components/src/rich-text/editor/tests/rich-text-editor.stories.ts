@@ -22,6 +22,7 @@ interface RichTextEditorArgs extends LabelUserArgs {
     mentionData: MentionDataType;
     footerActionButtons: boolean;
     getMarkdown: undefined;
+    getMentionedHrefs: undefined;
     editorRef: RichTextEditor;
     setMarkdownData: (args: RichTextEditorArgs) => void;
     disabled: boolean;
@@ -150,6 +151,12 @@ const metadata: Meta<RichTextEditorArgs> = {
         getMarkdown: {
             name: 'getMarkdown()',
             description: getMarkdownDescription,
+            control: false
+        },
+        getMentionedHrefs: {
+            name: 'getMentionedHrefs()',
+            description:
+                'Returns an array of strings listing the hrefs of current mentions in the rich text components.',
             control: false
         },
         editorRef: {
