@@ -63,11 +63,6 @@ export const richTextMentionUsers: StoryObj = {
         validity: {
             description: mappingUserValidityDescription
         },
-        getMentionedHrefs: {
-            name: 'getMentionedHrefs()',
-            description:
-                'Returns an array of strings listing the hrefs of the users currently mentioned in the rich text components.'
-        },
         mentionUpdate: {
             name: 'mention-update',
             description: mentionUpdateEventDescription

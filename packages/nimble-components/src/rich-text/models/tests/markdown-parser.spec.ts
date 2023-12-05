@@ -1387,8 +1387,17 @@ describe('Markdown parser', () => {
             expect(parserContent.mentionedHrefs).toEqual([]);
         });
 
-        it('should return empty mentioned href list called without markdownParserMentionConfig', () => {
-            const parserContent = RichTextMarkdownParser.parseMarkdownToDOM('<user:1234-5678>');
+        it('should return empty mentioned href list called without markdownParserMentionConfig', async () => {
+            ({ element, connect, disconnect } = await setup([]));
+            await connect();
+            const parserContent = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1234-5678>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
             expect(parserContent.mentionedHrefs).toEqual([]);
         });
 
