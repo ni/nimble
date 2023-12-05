@@ -196,11 +196,11 @@ function createCustomMentionExtension(
             render: () => {
                 return {
                     onStart: (props): void => {
-                        config.mentionUpdateEmitter(props.text);
+                        config.mentionUpdateEmitter(props.query);
                     },
 
                     onUpdate: (props): void => {
-                        config.mentionUpdateEmitter(props.text);
+                        config.mentionUpdateEmitter(props.query);
                     }
                 };
             }
