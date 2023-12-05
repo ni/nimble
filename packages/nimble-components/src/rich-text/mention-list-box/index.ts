@@ -1,4 +1,4 @@
-import { observable } from '@microsoft/fast-element';
+import { Notifier, Observable, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     keyTab,
@@ -9,7 +9,6 @@ import {
 } from '@microsoft/fast-web-utilities';
 import type { SuggestionProps } from '@tiptap/suggestion';
 import type { ListOption } from '../../list-option';
-import type { Listbox } from '../../listbox';
 import type { MentionDetail } from '../editor/types';
 import { styles } from './styles';
 import { template } from './template';
@@ -17,6 +16,7 @@ import type { AnchoredRegion } from '../../anchored-region';
 import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 import type { MappingConfigs } from '../../rich-text-mention/base/types';
 import { normalizeString } from '../../utilities/models/string-normalizer';
+import { Listbox } from '../../listbox';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -56,7 +56,7 @@ export class RichTextMentionListBox extends FoundationElement {
      * @internal
      */
     @observable
-    public readonly childItems: Element[] = [];
+    public readonly childItems: ListOption[] = [];
 
     /**
      * @internal
@@ -67,16 +67,17 @@ export class RichTextMentionListBox extends FoundationElement {
     /**
      * @internal
      */
+    @observable
     public listBox!: Listbox;
 
     @observable
     private anchorElement?: HTMLElement;
 
-    private hasAnySelectableOption = false;
-
     private mentionExtensionConfig?: MentionExtensionConfiguration[];
 
     private suggestionProps!: SuggestionProps;
+
+    private listBoxSelectionNotifier?: Notifier;
 
     private readonly intersectionObserver: IntersectionObserver = new IntersectionObserver(
         entries => {
@@ -88,24 +89,20 @@ export class RichTextMentionListBox extends FoundationElement {
     );
 
     /**
-     * @public
+     * @internal
      */
-    public async selectFirstOptionIfValidOptionExists(): Promise<void> {
+    public async selectFirstOption(): Promise<void> {
         const definedElements = [
             this.listBox?.matches(':not(:defined)')
                 ? customElements.whenDefined(this.listBox.localName)
                 : Promise.resolve()
         ];
         await Promise.all(definedElements);
-        this.updateSelectableOption();
-        if (this.hasAnySelectableOption) {
-            this.listBox?.selectFirstOption();
-            this.scrollOptionIntoView();
-        }
+        this.listBox?.selectFirstOption();
     }
 
     /**
-     * @public
+     * @internal
      */
     public keydownHandler(event: KeyboardEvent): boolean {
         if (!this.open) {
@@ -114,32 +111,21 @@ export class RichTextMentionListBox extends FoundationElement {
         switch (event.key) {
             case keyTab:
             case keyEnter: {
-                if (
-                    this.listBox.firstSelectedOption
-                    && this.hasAnySelectableOption
-                ) {
+                if (this.hasSelectableOptions) {
                     this.activateMention({
-                        href: this.listBox.firstSelectedOption.value,
-                        displayName: this.listBox.firstSelectedOption.text
+                        href: this.firstSelectedOption!.value,
+                        displayName: this.firstSelectedOption!.text
                     } as MentionDetail);
                     return true;
                 }
                 return false;
             }
             case keyArrowDown: {
-                if (!event.shiftKey && this.hasAnySelectableOption) {
-                    this.listBox.selectNextOption();
-                    this.scrollOptionIntoView();
-                    return true;
-                }
+                this.listBox.keydownHandler(event);
                 return false;
             }
             case keyArrowUp: {
-                if (!event.shiftKey && this.hasAnySelectableOption) {
-                    this.listBox.selectPreviousOption();
-                    this.scrollOptionIntoView();
-                    return true;
-                }
+                this.listBox.keydownHandler(event);
                 return false;
             }
             case keyEscape: {
@@ -153,7 +139,7 @@ export class RichTextMentionListBox extends FoundationElement {
     }
 
     /**
-     * @public
+     * @internal
      */
     public clickHandler(e: MouseEvent): boolean {
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
@@ -171,6 +157,9 @@ export class RichTextMentionListBox extends FoundationElement {
         return true;
     }
 
+    /**
+     * @internal
+     */
     public updateMentionExtensionConfig(
         mentionExtensionConfig?: MentionExtensionConfiguration[]
     ): void {
@@ -179,15 +168,21 @@ export class RichTextMentionListBox extends FoundationElement {
         this.filterOptions();
     }
 
+    /**
+     * @internal
+     */
     public onMention(props: SuggestionProps): void {
         this.suggestionProps = props;
         this.activeCharacter = props.text.slice(0, 1);
         this.filter = props.query;
         this.anchorElement = props.decorationNode as HTMLElement;
         this.setOpen(true);
-        void this.selectFirstOptionIfValidOptionExists();
+        void this.selectFirstOption();
     }
 
+    /**
+     * @internal
+     */
     public close(): void {
         this.setOpen(false);
     }
@@ -210,7 +205,7 @@ export class RichTextMentionListBox extends FoundationElement {
      * @internal
      */
     public childItemsChanged(): void {
-        void this.selectFirstOptionIfValidOptionExists();
+        void this.selectFirstOption();
     }
 
     /**
@@ -227,8 +222,42 @@ export class RichTextMentionListBox extends FoundationElement {
         }
     }
 
+    public listBoxChanged(): void {
+        if (this.listBoxSelectionNotifier) {
+            this.listBoxSelectionNotifier.unsubscribe(this);
+        }
+        this.listBoxSelectionNotifier = Observable.getNotifier(
+            this.listBox
+        );
+        this.listBoxSelectionNotifier.subscribe(this);
+    }
+
+    /**
+     * @internal
+     */
+    public handleChange(source: unknown, args: unknown): void {
+        if (
+            source instanceof Listbox
+            && typeof args === 'string'
+        ) {
+            if (args === 'selectedIndex') {
+                this.scrollOptionIntoView();
+            }
+        }
+    }
+
+    private get firstSelectedOption(): ListOption | null {
+        return this.listBox.selectedOptions[0] as ListOption ?? null;
+    }
+
+    private get hasSelectableOptions(): boolean {
+        return this.childItems.length > 0 && !this.childItems.every(o => o.disabled);
+    }
+
     private scrollOptionIntoView(): void {
-        this.listBox?.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
+        requestAnimationFrame(() => {
+            this.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
+        });
     }
 
     private setActiveMappingConfigs(): void {
@@ -244,14 +273,13 @@ export class RichTextMentionListBox extends FoundationElement {
             return;
         }
         const normalizedFilter = normalizeString(this.filter);
-        this.childItems.forEach(element => {
-            const listOption = element as ListOption;
+        this.childItems.forEach(listOption => {
             const normalizedText = normalizeString(listOption.text);
             const checkFlag = !normalizedText.includes(normalizedFilter);
             listOption.disabled = checkFlag;
             listOption.hidden = checkFlag;
         });
-        void this.selectFirstOptionIfValidOptionExists();
+        void this.selectFirstOption();
     }
 
     private activateMention(mentionDetail: MentionDetail): void {
@@ -264,12 +292,6 @@ export class RichTextMentionListBox extends FoundationElement {
 
     private setOpen(value: boolean): void {
         this.open = value;
-    }
-
-    private updateSelectableOption(): void {
-        this.hasAnySelectableOption = !this.childItems
-            .map(element => element as ListOption)
-            .every(list => list.disabled);
     }
 }
 
