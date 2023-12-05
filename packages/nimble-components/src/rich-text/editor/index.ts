@@ -19,6 +19,7 @@ import { RichText } from '../base';
 import type { RichTextMentionListBox } from '../mention-list-box';
 import { createTiptapEditor } from './models/create-tiptap-editor';
 import { EditorConfiguration } from '../models/editor-configuration';
+import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -234,20 +235,18 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         prev: EditorConfiguration | undefined,
         next: EditorConfiguration
     ): void {
-        const editorConfiguration = this.configuration as EditorConfiguration;
+        const mentionExtensionConfig = this.getMentionExtensionConfig();
         this.mentionListBox?.updateMentionExtensionConfig(
-            editorConfiguration.mentionExtensionConfig
+            mentionExtensionConfig
         );
         if (this.isMentionExtensionConfigUnchanged(prev, next)) {
             this.setMarkdown(this.getMarkdown());
         } else {
             const currentStateMarkdown = this.getMarkdown();
             this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
-                this.configuration instanceof EditorConfiguration
-                    ? this.configuration.mentionExtensionConfig.map(
-                        config => config.name
-                    )
-                    : []
+                mentionExtensionConfig.map(
+                    config => config.name
+                )
             );
             this.initializeEditor();
             this.setMarkdown(currentStateMarkdown);
@@ -398,6 +397,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             }
         });
         return Array.from(mentionedHrefs);
+    }
+
+    public getMentionExtensionConfig(): MentionExtensionConfiguration[] {
+        return this.configuration instanceof EditorConfiguration ? this.configuration.mentionExtensionConfig : []
     }
 
     protected override createConfig(): EditorConfiguration {

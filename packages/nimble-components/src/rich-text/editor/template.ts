@@ -89,7 +89,7 @@ export const template = html<RichTextEditor>`
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
                     </${toggleButtonTag}>
                     ${repeat(
-        x => Array.from(x.configuration instanceof EditorConfiguration ? x.configuration.mentionExtensionConfig : []),
+        x => Array.from(x.getMentionExtensionConfig()),
         html<MentionExtensionConfiguration, RichTextEditor>`<${buttonTag}
                         appearance="ghost"
                         content-hidden
