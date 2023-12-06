@@ -328,95 +328,93 @@ describe('Wafermap Prerendering module', () => {
             }
         });
     });
-});
+    describe('with highlighted dies', () => {
+        const dieDimensions = { width: 10, height: 10 };
+        const dieLabelsSuffix = '';
+        const dieLabelsHidden = true;
+        const maxCharacters = 2;
+        const highlightedTag = '';
+        const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-describe('with highlighted dies', () => {
-    const dieDimensions = { width: 10, height: 10 };
-    const dieLabelsSuffix = '';
-    const dieLabelsHidden = true;
-    const maxCharacters = 2;
-    const highlightedTag = '';
-    const margin = { top: 0, right: 0, bottom: 0, left: 0 };
-
-    beforeEach(() => {
-        const waferMock = getWaferMapMockPrerendering(
-            getWaferMapDies(),
-            { colors: ['red'], values: [] },
-            [highlightedTag],
-            WaferMapColorScaleMode.ordinal,
-            dieLabelsHidden,
-            dieLabelsSuffix,
-            maxCharacters
-        );
-        const dataManagerMock = getDataManagerMock(
-            dieDimensions,
-            margin,
-            defaultHorizontalScale,
-            defaultVerticalScale
-        );
-        prerenderingModule = new Prerendering(
-            waferMock as WaferMap,
-            dataManagerMock as DataManager
-        );
-        prerenderingModule.updateLabelsFontSize();
-    });
-
-    it('should have highlighted value with full opacity and the rest with expected opacity', () => {
-        const waferMapDies = getWaferMapDies();
-        const expectedValues = waferMapDies.map(x => {
-            if (!x.tags) {
-                return {
-                    fillStyle: 'rgba(255,0,0,0.3)'
-                };
-            }
-            const opacity = x.tags[0] === highlightedTag ? 1 : 0.3;
-            return {
-                fillStyle: `rgba(255,0,0,${opacity})`
-            };
-        });
-        for (let i = 0; i < waferMapDies.length; i += 1) {
-            expect(prerenderingModule.diesRenderInfo[i]!.fillStyle).toEqual(
-                expectedValues[i]!.fillStyle
+        beforeEach(() => {
+            const waferMock = getWaferMapMockPrerendering(
+                getWaferMapDies(),
+                { colors: ['red'], values: [] },
+                [highlightedTag],
+                WaferMapColorScaleMode.ordinal,
+                dieLabelsHidden,
+                dieLabelsSuffix,
+                maxCharacters
             );
-        }
-    });
-});
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                defaultHorizontalScale,
+                defaultVerticalScale
+            );
+            prerenderingModule = new Prerendering(
+                waferMock as WaferMap,
+                dataManagerMock as DataManager
+            );
+            prerenderingModule.updateLabelsFontSize();
+        });
 
-describe('without highlighted values but an empty string', () => {
-    const dieDimensions = { width: 10, height: 10 };
-    const dieLabelsSuffix = '';
-    const dieLabelsHidden = true;
-    const maxCharacters = 2;
-    const highlightedTags: string[] = [];
-    const margin = { top: 0, right: 0, bottom: 0, left: 0 };
-
-    beforeEach(() => {
-        const waferMock = getWaferMapMockPrerendering(
-            getWaferMapDies(),
-            { colors: ['red'], values: [] },
-            highlightedTags,
-            WaferMapColorScaleMode.ordinal,
-            dieLabelsHidden,
-            dieLabelsSuffix,
-            maxCharacters
-        );
-        const dataManagerMock = getDataManagerMock(
-            dieDimensions,
-            margin,
-            defaultHorizontalScale,
-            defaultVerticalScale
-        );
-        prerenderingModule = new Prerendering(
-            waferMock as WaferMap,
-            dataManagerMock as DataManager
-        );
-        prerenderingModule.updateLabelsFontSize();
+        it('should have highlighted value with full opacity and the rest with expected opacity', () => {
+            const waferMapDies = getWaferMapDies();
+            const expectedValues = waferMapDies.map(x => {
+                if (!x.tags) {
+                    return {
+                        fillStyle: 'rgba(255,0,0,0.3)'
+                    };
+                }
+                const opacity = x.tags[0] === highlightedTag ? 1 : 0.3;
+                return {
+                    fillStyle: `rgba(255,0,0,${opacity})`
+                };
+            });
+            for (let i = 0; i < waferMapDies.length; i += 1) {
+                expect(prerenderingModule.diesRenderInfo[i]!.fillStyle).toEqual(
+                    expectedValues[i]!.fillStyle
+                );
+            }
+        });
     });
 
-    it('should have all dies with full opacity', () => {
-        for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-            expect(dieRenderInfo.fillStyle).toEqual('rgba(255,0,0,1)');
-        }
+    describe('without highlighted values but an empty string', () => {
+        const dieDimensions = { width: 10, height: 10 };
+        const dieLabelsSuffix = '';
+        const dieLabelsHidden = true;
+        const maxCharacters = 2;
+        const highlightedTags: string[] = [];
+        const margin = { top: 0, right: 0, bottom: 0, left: 0 };
+
+        beforeEach(() => {
+            const waferMock = getWaferMapMockPrerendering(
+                getWaferMapDies(),
+                { colors: ['red'], values: [] },
+                highlightedTags,
+                WaferMapColorScaleMode.ordinal,
+                dieLabelsHidden,
+                dieLabelsSuffix,
+                maxCharacters
+            );
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                defaultHorizontalScale,
+                defaultVerticalScale
+            );
+            prerenderingModule = new Prerendering(
+                waferMock as WaferMap,
+                dataManagerMock as DataManager
+            );
+            prerenderingModule.updateLabelsFontSize();
+        });
+
+        it('should have all dies with full opacity', () => {
+            for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
+                expect(dieRenderInfo.fillStyle).toEqual('rgba(255,0,0,1)');
+            }
+        });
     });
-});
 });
