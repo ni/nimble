@@ -32,12 +32,6 @@ export class RichTextMentionListBox extends FoundationElement {
      * @internal
      */
     @observable
-    public region?: AnchoredRegion;
-
-    /**
-     * @internal
-     */
-    @observable
     public activeCharacter?: string;
 
     /**
@@ -45,6 +39,12 @@ export class RichTextMentionListBox extends FoundationElement {
      */
     @observable
     public activeMappingConfigs?: MappingConfigs;
+
+    /**
+     * @internal
+     */
+    @observable
+    public filter?: string;
 
     /**
      * @internal
@@ -62,13 +62,13 @@ export class RichTextMentionListBox extends FoundationElement {
      * @internal
      */
     @observable
-    public filter?: string;
+    public listBox!: Listbox;
 
     /**
      * @internal
      */
     @observable
-    public listBox!: Listbox;
+    public region?: AnchoredRegion;
 
     @observable
     private anchorElement?: HTMLElement;
@@ -113,14 +113,14 @@ export class RichTextMentionListBox extends FoundationElement {
         switch (event.key) {
             case keyTab:
             case keyEnter: {
-                if (this.hasSelectableOptions) {
-                    this.activateMention({
-                        href: this.firstSelectedOption!.value,
-                        displayName: this.firstSelectedOption!.text
-                    } as MentionDetail);
-                    return true;
+                if (!this.hasSelectableOptions) {
+                    return false;
                 }
-                return false;
+                this.activateMention({
+                    href: this.firstSelectedOption!.value,
+                    displayName: this.firstSelectedOption!.text
+                } as MentionDetail);
+                return true;
             }
             case keyArrowDown: {
                 this.listBox.keydownHandler(event);
@@ -165,9 +165,9 @@ export class RichTextMentionListBox extends FoundationElement {
     public updateMentionExtensionConfig(
         mentionExtensionConfig?: MentionExtensionConfiguration[]
     ): void {
+        this.listBox.selectedIndex = -1;
         this.mentionExtensionConfig = mentionExtensionConfig;
         this.setActiveMappingConfigs();
-        this.filterOptions();
     }
 
     /**
@@ -179,7 +179,7 @@ export class RichTextMentionListBox extends FoundationElement {
         this.filter = props.query;
         this.anchorElement = props.decorationNode as HTMLElement;
         this.setOpen(true);
-        void this.selectFirstOption();
+        this.filterOptionsAndSelectFirst();
     }
 
     /**
@@ -199,20 +199,6 @@ export class RichTextMentionListBox extends FoundationElement {
     /**
      * @internal
      */
-    public filterChanged(): void {
-        this.filterOptions();
-    }
-
-    /**
-     * @internal
-     */
-    public childItemsChanged(): void {
-        void this.selectFirstOption();
-    }
-
-    /**
-     * @internal
-     */
     public anchorElementChanged(prev: HTMLElement, next: HTMLElement): void {
         if (prev) {
             this.intersectionObserver.unobserve(prev);
@@ -224,6 +210,16 @@ export class RichTextMentionListBox extends FoundationElement {
         }
     }
 
+    /**
+     * @internal
+     */
+    public childItemsChanged(_prev: ListOption[], _next: ListOption[]): void {
+        this.filterOptionsAndSelectFirst();
+    }
+
+    /**
+     * @internal
+     */
     public listBoxChanged(): void {
         if (this.listBoxNotifier) {
             this.listBoxNotifier.unsubscribe(this);
@@ -234,6 +230,9 @@ export class RichTextMentionListBox extends FoundationElement {
         this.listBoxNotifier.subscribe(this);
     }
 
+    /**
+     * @internal
+     */
     public regionChanged(): void {
         if (this.regionNotifier) {
             this.regionNotifier.unsubscribe(this);
@@ -285,7 +284,7 @@ export class RichTextMentionListBox extends FoundationElement {
             : undefined;
     }
 
-    private filterOptions(): void {
+    private filterOptionsAndSelectFirst(): void {
         if (!this.childItems || this.filter === undefined) {
             return;
         }
@@ -294,7 +293,6 @@ export class RichTextMentionListBox extends FoundationElement {
             const normalizedText = normalizeString(listOption.text);
             const checkFlag = !normalizedText.includes(normalizedFilter);
             listOption.disabled = checkFlag;
-            listOption.hidden = checkFlag;
         });
         void this.selectFirstOption();
     }

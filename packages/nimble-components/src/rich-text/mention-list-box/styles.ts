@@ -8,4 +8,8 @@ export const styles = css`
         max-height: 168px;
         overflow: auto;
     }
+
+    nimble-list-option.disabled {
+        display: none;
+    }
 `;
