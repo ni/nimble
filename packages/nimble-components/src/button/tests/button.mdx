@@ -33,7 +33,6 @@ These appearances have the default styling of the nimble-button. Each should be 
     <Container>
         <Column stylingClass="controls">
         <NimbleStorybookButton appearance="ghost">{`Ghost Button`}</NimbleStorybookButton>
-
         <NimbleStorybookButton appearance="ghost" content-hidden>
             <NimbleStorybookIconKey slot="start"></NimbleStorybookIconKey>
             {`Ghost Button`}
@@ -64,9 +63,7 @@ These appearances have the default styling of the nimble-button. Each should be 
 <Frame>
     <Container>
         <Column stylingClass="controls">
-            <NimbleStorybookButton appearance="outline">
-                {`Outline Button`}
-            </NimbleStorybookButton>
+            <NimbleStorybookButton appearance="outline">{`Outline Button`}</NimbleStorybookButton>
             <NimbleStorybookButton appearance="outline" content-hidden>
                 <NimbleStorybookIconKey slot="start"></NimbleStorybookIconKey>
                 {`Outline Button`}
@@ -101,9 +98,7 @@ These appearances have the default styling of the nimble-button. Each should be 
 <Frame>
     <Container>
         <Column stylingClass="controls">
-            <NimbleStorybookButton appearance="block">
-                {`Block Button`}
-            </NimbleStorybookButton>
+            <NimbleStorybookButton appearance="block">{`Block Button`}</NimbleStorybookButton>
             <NimbleStorybookButton appearance="block" content-hidden>
                 <NimbleStorybookIconKey slot="start"></NimbleStorybookIconKey>
                 {`Block Button`}
@@ -147,31 +142,19 @@ There are currently two available values for `appearance-variant`: `primary` and
 <Frame>
     <Container config="375px 1fr">
         <Column stylingClass="controls">
-            <NimbleStorybookButton appearance="ghost">
-                {`Ghost Button`}
-            </NimbleStorybookButton>
-            <NimbleStorybookButton appearance="ghost">
-                {`Ghost Button`}
-            </NimbleStorybookButton>
+            <NimbleStorybookButton appearance="ghost">{`Ghost Button`}</NimbleStorybookButton>
+            <NimbleStorybookButton appearance="ghost">{`Ghost Button`}</NimbleStorybookButton>
             <NimbleStorybookButton
                 appearance="outline"
                 appearance-variant="accent"
-            >
-                {`Accent Button`}
-            </NimbleStorybookButton>
+            >{`Accent Button`}</NimbleStorybookButton>
             <Divider />
-            <NimbleStorybookButton appearance="ghost">
-                {`Ghost Button`}
-            </NimbleStorybookButton>
-            <NimbleStorybookButton appearance="ghost">
-                {`Ghost Button`}
-            </NimbleStorybookButton>
+            <NimbleStorybookButton appearance="ghost">{`Ghost Button`}</NimbleStorybookButton>
+            <NimbleStorybookButton appearance="ghost">{`Ghost Button`}</NimbleStorybookButton>
             <NimbleStorybookButton
                 appearance="block"
                 appearance-variant="accent"
-            >
-                {`Accent Button`}
-            </NimbleStorybookButton>
+            >{`Accent Button`}</NimbleStorybookButton>
         </Column>
         <Column>
             <Do>
@@ -203,7 +186,7 @@ There are currently two available values for `appearance-variant`: `primary` and
             <NimbleStorybookButton appearance="ghost">{`Ghost Button`}</NimbleStorybookButton>
             <NimbleStorybookButton appearance="ghost">{`Ghost Button`}</NimbleStorybookButton>
             <NimbleStorybookButton appearance="outline" appearance-variant="primary">
-            Primary Button
+            {`Primary Button`}
             </NimbleStorybookButton>
             <Divider/>
             <NimbleStorybookButton appearance="ghost">{`Ghost Button`}</NimbleStorybookButton>
