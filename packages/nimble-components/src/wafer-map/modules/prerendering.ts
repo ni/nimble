@@ -58,7 +58,6 @@ export class Prerendering {
         const maxCharacters = this.wafermap.maxCharacters;
         const dieLabelsHidden = this.wafermap.dieLabelsHidden;
         const dieLabelsSuffix = this.wafermap.dieLabelsSuffix;
-        const isWaferHighlighted = this.wafermap.isWaferHighlighted;
         this._diesRenderInfo = [];
         for (const die of this.wafermap.dies) {
             const scaledX = horizontalScale(die.x);
@@ -76,8 +75,7 @@ export class Prerendering {
                     die.value,
                     colorScaleMode,
                     highlightedTags,
-                    die.tags,
-                    isWaferHighlighted
+                    die.tags
                 ),
                 text: this.buildLabel(
                     die.value,
@@ -171,8 +169,7 @@ export class Prerendering {
         value: string,
         colorScaleMode: WaferMapColorScaleMode,
         highlightedTags?: string[],
-        dieTags?: string[],
-        isWaferHighlighted?: boolean
+        dieTags?: string[]
     ): string {
         let colorValue: string = this.emptyDieColor;
         if (this.dieHasData(value)) {
@@ -196,7 +193,7 @@ export class Prerendering {
             rgbColor.r,
             rgbColor.g,
             rgbColor.b,
-            isWaferHighlighted ? this.calculateOpacity(dieTags, highlightedTags) : 1
+            this.calculateOpacity(dieTags, highlightedTags)
         );
         return rgbColor.toStringWebRGBA();
     }

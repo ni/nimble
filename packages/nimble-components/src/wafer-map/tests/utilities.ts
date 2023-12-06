@@ -95,8 +95,7 @@ export function getWaferMapMockPrerendering(
     colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear,
     dieLabelsHidden = true,
     dieLabelsSuffix = '',
-    maxCharacters = 4,
-    isWaferHighlighted = false
+    maxCharacters = 4
 ): Pick<
     WaferMap,
     | 'dies'
@@ -106,7 +105,6 @@ export function getWaferMapMockPrerendering(
     | 'dieLabelsHidden'
     | 'dieLabelsSuffix'
     | 'maxCharacters'
-    | 'isWaferHighlighted'
     > {
     return {
         dies,
@@ -115,8 +113,7 @@ export function getWaferMapMockPrerendering(
         colorScaleMode,
         dieLabelsHidden,
         dieLabelsSuffix,
-        maxCharacters,
-        isWaferHighlighted
+        maxCharacters
     };
 }
 

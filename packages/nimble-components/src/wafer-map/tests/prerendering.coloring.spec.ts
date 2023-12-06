@@ -382,7 +382,6 @@ describe('Wafermap Prerendering module', () => {
         const dieLabelsHidden = true;
         const maxCharacters = 2;
         const highlightedValue = '';
-        const isWaferHighlighted = true;
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
         beforeEach(() => {
@@ -393,8 +392,7 @@ describe('Wafermap Prerendering module', () => {
                 WaferMapColorScaleMode.ordinal,
                 dieLabelsHidden,
                 dieLabelsSuffix,
-                maxCharacters,
-                isWaferHighlighted
+                maxCharacters
             );
             const dataManagerMock = getDataManagerMock(
                 dieDimensions,
