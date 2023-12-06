@@ -1,5 +1,5 @@
 import { NumberFormatter } from './number-formatter';
-import type { UnitFormatter } from './unit-formatter';
+import type { UnitFormatter } from './unit-scale/models/unit-formatter';
 import type { UnitScale } from './unit-scale/unit-scale';
 
 /**
