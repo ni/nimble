@@ -376,7 +376,7 @@ describe('Wafermap Prerendering module', () => {
         });
     });
 
-    describe('with highlighted dies', () => {
+    describe('with empty string highlighted tags', () => {
         const dieDimensions = { width: 10, height: 10 };
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
