@@ -44,12 +44,6 @@ export class RichTextMentionListBox extends FoundationElement {
      * @internal
      */
     @observable
-    public filter?: string;
-
-    /**
-     * @internal
-     */
-    @observable
     public open?: boolean;
 
     /**
@@ -69,6 +63,11 @@ export class RichTextMentionListBox extends FoundationElement {
      */
     @observable
     public region?: AnchoredRegion;
+
+    /**
+     * @internal
+     */
+    public filter?: string;
 
     @observable
     private anchorElement?: HTMLElement;
