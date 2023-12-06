@@ -13,7 +13,7 @@ import type { WaferMap } from '..';
 
 export function getWaferMapDies(): WaferMapDie[] {
     return [
-        { value: '1', x: 2, y: 3 },
+        { value: '1', x: 2, y: 3, tags: ['5'] },
         { value: '2', x: 2, y: 4 },
         { value: '3', x: 3, y: 2 },
         { value: '4', x: 3, y: 3 },
