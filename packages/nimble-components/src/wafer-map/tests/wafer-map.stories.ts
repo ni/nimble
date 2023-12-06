@@ -117,13 +117,13 @@ const metadata: Meta<WaferMapArgs> = {
             ?die-labels-hidden="${x => x.dieLabelsHidden}" die-labels-suffix="${x => x.dieLabelsSuffix}"
             max-characters="${x => x.maxCharacters}" orientation="${x => x.orientation}"
             origin-location="${x => x.originLocation}" grid-min-x=${x => x.gridMinX}
-            :isWaferHighlighted="${x => x.isWaferHighlighted}"
             grid-max-x=${x => x.gridMaxX}
             grid-min-y=${x => x.gridMinY}
             grid-max-y=${x => x.gridMaxY}
             :colorScale="${x => x.colorScale}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
             :highlightedTags="${x => getHighLightedTagsSets(x.highlightedTagsSet, highLightedValueSets)}"
+            :isWaferHighlighted="${x => x.isWaferHighlighted}"
             >
         </${waferMapTag}>
         <style class="code-hide">

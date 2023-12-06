@@ -16,7 +16,6 @@ const trackedItems = [
     'maxCharacters',
     'colorScale',
     'colorScaleMode',
-    'highlightedValues',
     'dieLabelsHidden',
     'dieLabelsSuffix',
     'transform',
@@ -48,7 +47,6 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('maxCharacters')
             || this.isTracked('colorScale')
             || this.isTracked('colorScaleMode')
-            || this.isTracked('highlightedValues')
             || this.isTracked('dieLabelsHidden')
             || this.isTracked('dieLabelsSuffix')
             || this.isTracked('transform')
@@ -80,7 +78,6 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('isWaferHighlighted')
             || this.isTracked('colorScale')
             || this.isTracked('colorScaleMode')
-            || this.isTracked('highlightedValues')
             || this.isTracked('dieLabelsHidden')
             || this.isTracked('dieLabelsSuffix')
         );

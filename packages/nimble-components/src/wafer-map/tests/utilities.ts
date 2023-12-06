@@ -91,7 +91,7 @@ export function getDataManagerMock(
 export function getWaferMapMockPrerendering(
     dies: WaferMapDie[] = getWaferMapDies(),
     colorScale: WaferMapColorScale = { colors: [], values: [] },
-    highlightedValues: string[] = [],
+    highlightedTags: string[] = [],
     colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear,
     dieLabelsHidden = true,
     dieLabelsSuffix = '',
@@ -101,7 +101,7 @@ export function getWaferMapMockPrerendering(
     WaferMap,
     | 'dies'
     | 'colorScale'
-    | 'highlightedValues'
+    | 'highlightedTags'
     | 'colorScaleMode'
     | 'dieLabelsHidden'
     | 'dieLabelsSuffix'
@@ -111,7 +111,7 @@ export function getWaferMapMockPrerendering(
     return {
         dies,
         colorScale,
-        highlightedValues,
+        highlightedTags,
         colorScaleMode,
         dieLabelsHidden,
         dieLabelsSuffix,

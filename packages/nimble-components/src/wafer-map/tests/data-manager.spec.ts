@@ -50,7 +50,7 @@ describe('Wafermap Data Manager', () => {
         element.dieLabelsHidden = false;
         element.maxCharacters = 3;
         element.colorScaleMode = WaferMapColorScaleMode.ordinal;
-        element.highlightedValues = getHighlightedValues();
+        element.highlightedTags = getHighlightedValues();
         element.canvasWidth = canvasWidth;
         element.canvasHeight = canvasHeight;
 
@@ -123,24 +123,24 @@ describe('Wafermap Data Manager', () => {
     });
 
     it('should have all dies with full opacity from the highlighted list', () => {
-        const highlightedValues = getHighlightedValues().map(
+        const highlightedTags = getHighlightedValues().map(
             value => value + dieLabelsSuffix
         );
         const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(',1)'));
         for (const dieRenderInfo of diesWithFullOpacity) {
-            expect(highlightedValues).toContain(dieRenderInfo.text);
+            expect(highlightedTags).toContain(dieRenderInfo.text);
         }
     });
 
     it('should not have any dies with partial opacity from the highlighted list', () => {
-        const highlightedValues = getHighlightedValues().map(
+        const highlightedTags = getHighlightedValues().map(
             value => value + dieLabelsSuffix
         );
         const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
             x => !x.fillStyle.endsWith(',1)')
         );
         for (const dieRenderInfo of diesWithPartialOpacity) {
-            expect(highlightedValues).not.toContain(dieRenderInfo.text);
+            expect(highlightedTags).not.toContain(dieRenderInfo.text);
         }
     });
 
