@@ -107,7 +107,7 @@ _The key elements of the component's public API surface:_
     -   `dieLabelsHidden` - a boolean value that determines if the die labels in the wafer map view are shown or not. Default value is false.
     -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value.
     -   `colorScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
-    -   `highlightedTags` - represent a list of strings of dies values that will be highlighted in the wafer map view
+    -   `highlightedTags` - represent a list of strings based on which the highlight will be done
     -   `disabled` - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed.
     -   `validity` - readonly object of boolean values that represents the validity states that the wafer map's configuration can be in. The object's type is `WaferMapValidity`, and it contains the following boolean properties:
         -   `invalidGridDimensions` : true when any of the `gridMinX`, `gridMinY`, `gridMaxX` or `gridMaxY` is `undefined`, but false when all of them are `undefined`.

@@ -135,14 +135,20 @@ export class Prerendering {
         dieTags?: string[],
         highlightedTags?: string[]
     ): number {
-        if (highlightedTags?.length === 1 && highlightedTags?.every(tag => tag === '')) {
+        if (
+            highlightedTags?.length === 1
+            && highlightedTags?.every(tag => tag === '')
+        ) {
             return this.nonHighlightedOpacity;
         }
         const tagsMatch = this.isAnyDieTagPresent(dieTags, highlightedTags);
         return tagsMatch ? this.nonHighlightedOpacity : 1;
     }
 
-    private isAnyDieTagPresent(dieTags: string[] | undefined, highlightedTags: string[] | undefined): boolean {
+    private isAnyDieTagPresent(
+        dieTags: string[] | undefined,
+        highlightedTags: string[] | undefined
+    ): boolean {
         if (!dieTags || !highlightedTags) {
             return false;
         }

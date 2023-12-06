@@ -121,7 +121,10 @@ const metadata: Meta<WaferMapArgs> = {
             grid-max-y=${x => x.gridMaxY}
             :colorScale="${x => x.colorScale}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
-            :highlightedTags="${x => getHighLightedTagsSets(x.highlightedTagsSet, highlightedTagsSets)}"
+            :highlightedTags="${x => getHighLightedTagsSets(
+        x.highlightedTagsSet,
+        highlightedTagsSets
+    )}"
             >
         </${waferMapTag}>
         <style class="code-hide">
