@@ -12,7 +12,7 @@ import type { ListOption } from '../../list-option';
 import type { MentionDetail } from '../editor/types';
 import { styles } from './styles';
 import { template } from './template';
-import type { AnchoredRegion } from '../../anchored-region';
+import { AnchoredRegion } from '../../anchored-region';
 import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 import type { MappingConfigs } from '../../rich-text-mention/base/types';
 import { normalizeString } from '../../utilities/models/string-normalizer';
@@ -77,7 +77,9 @@ export class RichTextMentionListBox extends FoundationElement {
 
     private suggestionProps!: SuggestionProps;
 
-    private listBoxSelectionNotifier?: Notifier;
+    private listBoxNotifier?: Notifier;
+
+    private regionNotifier?: Notifier;
 
     private readonly intersectionObserver: IntersectionObserver = new IntersectionObserver(
         entries => {
@@ -223,13 +225,23 @@ export class RichTextMentionListBox extends FoundationElement {
     }
 
     public listBoxChanged(): void {
-        if (this.listBoxSelectionNotifier) {
-            this.listBoxSelectionNotifier.unsubscribe(this);
+        if (this.listBoxNotifier) {
+            this.listBoxNotifier.unsubscribe(this);
         }
-        this.listBoxSelectionNotifier = Observable.getNotifier(
+        this.listBoxNotifier = Observable.getNotifier(
             this.listBox
         );
-        this.listBoxSelectionNotifier.subscribe(this);
+        this.listBoxNotifier.subscribe(this);
+    }
+
+    public regionChanged(): void {
+        if (this.regionNotifier) {
+            this.regionNotifier.unsubscribe(this);
+        }
+        this.regionNotifier = Observable.getNotifier(
+            this.region
+        );
+        this.regionNotifier.subscribe(this);
     }
 
     /**
@@ -241,6 +253,11 @@ export class RichTextMentionListBox extends FoundationElement {
             && typeof args === 'string'
         ) {
             if (args === 'selectedIndex') {
+                this.scrollOptionIntoView();
+            }
+        }
+        if (source instanceof AnchoredRegion) {
+            if (args === 'initialLayoutComplete') {
                 this.scrollOptionIntoView();
             }
         }
