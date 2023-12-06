@@ -158,9 +158,14 @@ describe('DecimalFormatter', () => {
                 expectedFormattedValue: '1.5 x2'
             },
             {
-                name: 'checks for zero-rounding after scaling value',
+                name: 'does not zero-round until after scaling value',
                 value: 0.001,
                 expectedFormattedValue: '1 x0.001'
+            },
+            {
+                name: 'does zero-rounding after scaling value',
+                value: -0.000004,
+                expectedFormattedValue: '0 x0.001'
             }
         ] as const;
 
