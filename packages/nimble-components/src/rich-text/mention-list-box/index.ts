@@ -144,17 +144,18 @@ export class RichTextMentionListBox extends FoundationElement {
      * @internal
      */
     public clickHandler(e: MouseEvent): boolean {
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-        const captured = (e.target as HTMLElement).closest(
+        const capturedElement = (e.target as HTMLElement).closest(
             'option,[role=option]'
-        ) as ListOption | null;
+        );
 
-        if (!captured || captured.disabled) {
+        const capturedListOption = capturedElement as ListOption | null;
+
+        if (!capturedListOption || capturedListOption.disabled) {
             return false;
         }
         this.activateMention({
-            href: captured.value,
-            displayName: captured.text
+            href: capturedListOption.value,
+            displayName: capturedListOption.text
         } as MentionDetail);
         return true;
     }
