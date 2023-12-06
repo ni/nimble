@@ -18,7 +18,7 @@ import {
     WaferMapColorScaleMode
 } from '../types';
 import {
-    highLightedValueSets,
+    highlightedTagsSets,
     wafermapDieSets,
     waferMapColorScaleSets
 } from './sets';
@@ -121,7 +121,7 @@ const metadata: Meta<WaferMapArgs> = {
             grid-max-y=${x => x.gridMaxY}
             :colorScale="${x => x.colorScale}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
-            :highlightedTags="${x => getHighLightedTagsSets(x.highlightedTagsSet, highLightedValueSets)}"
+            :highlightedTags="${x => getHighLightedTagsSets(x.highlightedTagsSet, highlightedTagsSets)}"
             >
         </${waferMapTag}>
         <style class="code-hide">

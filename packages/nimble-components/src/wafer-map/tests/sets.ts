@@ -1,6 +1,6 @@
 import type { WaferMapDie, WaferMapColorScale } from '../types';
 
-export const highLightedValueSets: string[][] = [
+export const highlightedTagsSets: string[][] = [
     [],
     ['c'],
     [''],

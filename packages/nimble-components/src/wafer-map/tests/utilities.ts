@@ -52,7 +52,7 @@ export function getColorScale(): WaferMapColorScale {
     return { colors: ['red', 'blue', 'green'], values: ['1', '2', '3'] };
 }
 
-export function getHighlightedValues(): string[] {
+export function getHighlightedTags(): string[] {
     return ['5', '10', '15'];
 }
 

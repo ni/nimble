@@ -334,14 +334,14 @@ describe('Wafermap Prerendering module', () => {
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
         const maxCharacters = 2;
-        const highlightedValue = '5';
+        const highlightedTag = '5';
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
         beforeEach(() => {
             const waferMock = getWaferMapMockPrerendering(
                 getWaferMapDies(),
                 { colors: ['red'], values: [] },
-                [highlightedValue],
+                [highlightedTag],
                 WaferMapColorScaleMode.ordinal,
                 dieLabelsHidden,
                 dieLabelsSuffix,
@@ -363,7 +363,7 @@ describe('Wafermap Prerendering module', () => {
         it('should have highlighted value with full opacity and the rest with expected opacity', () => {
             const waferMapDies = getWaferMapDies();
             const expectedValues = waferMapDies.map(x => {
-                const opacity = x.value === highlightedValue ? 1 : 0.3;
+                const opacity = x.value === highlightedTag ? 1 : 0.3;
                 return {
                     fillStyle: `rgba(255,0,0,${opacity})`
                 };
@@ -381,14 +381,14 @@ describe('Wafermap Prerendering module', () => {
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
         const maxCharacters = 2;
-        const highlightedValue = '';
+        const highlightedTag = '';
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
         beforeEach(() => {
             const waferMock = getWaferMapMockPrerendering(
                 getWaferMapDies(),
                 { colors: ['red'], values: [] },
-                [highlightedValue],
+                [highlightedTag],
                 WaferMapColorScaleMode.ordinal,
                 dieLabelsHidden,
                 dieLabelsSuffix,
@@ -410,7 +410,7 @@ describe('Wafermap Prerendering module', () => {
         it('should have highlighted value with full opacity and the rest with expected opacity', () => {
             const waferMapDies = getWaferMapDies();
             const expectedValues = waferMapDies.map(x => {
-                const opacity = x.value === highlightedValue ? 1 : 0.3;
+                const opacity = x.value === highlightedTag ? 1 : 0.3;
                 return {
                     fillStyle: `rgba(255,0,0,${opacity})`
                 };

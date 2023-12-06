@@ -32,7 +32,7 @@ export class Prerendering {
     public constructor(
         private readonly wafermap: WaferMap,
         private readonly dataManager: Readonly<DataManager>
-    ) { }
+    ) {}
 
     public updateLabelsFontSize(): void {
         this._labelsFontSize = this.calculateLabelsFontSize(
@@ -93,7 +93,7 @@ export class Prerendering {
         return Math.min(
             dieDimensions.height,
             (dieDimensions.width / (Math.max(2, maxCharacters) * 0.5))
-            * this.fontSizeFactor
+                * this.fontSizeFactor
         );
     }
 

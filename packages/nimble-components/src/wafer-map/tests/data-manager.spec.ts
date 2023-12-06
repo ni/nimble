@@ -12,7 +12,7 @@ import {
 } from '../types';
 import {
     getColorScale,
-    getHighlightedValues,
+    getHighlightedTags,
     getWaferMapDies
 } from './utilities';
 
@@ -50,7 +50,7 @@ describe('Wafermap Data Manager', () => {
         element.dieLabelsHidden = false;
         element.maxCharacters = 3;
         element.colorScaleMode = WaferMapColorScaleMode.ordinal;
-        element.highlightedTags = getHighlightedValues();
+        element.highlightedTags = getHighlightedTags();
         element.canvasWidth = canvasWidth;
         element.canvasHeight = canvasHeight;
 
@@ -123,7 +123,7 @@ describe('Wafermap Data Manager', () => {
     });
 
     it('should have all dies with full opacity from the highlighted list', () => {
-        const highlightedTags = getHighlightedValues().map(
+        const highlightedTags = getHighlightedTags().map(
             value => value + dieLabelsSuffix
         );
         const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(',1)'));
@@ -133,7 +133,7 @@ describe('Wafermap Data Manager', () => {
     });
 
     it('should not have any dies with partial opacity from the highlighted list', () => {
-        const highlightedTags = getHighlightedValues().map(
+        const highlightedTags = getHighlightedTags().map(
             value => value + dieLabelsSuffix
         );
         const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
