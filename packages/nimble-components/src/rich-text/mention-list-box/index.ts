@@ -213,14 +213,6 @@ export class RichTextMentionListBox extends FoundationElement {
     /**
      * @internal
      */
-    public childItemsChanged(_prev: ListOption[], _next: ListOption[]): void {
-        this.filterOptions();
-        void this.selectFirstOption();
-    }
-
-    /**
-     * @internal
-     */
     public listBoxChanged(): void {
         if (this.listBoxNotifier) {
             this.listBoxNotifier.unsubscribe(this);
@@ -254,6 +246,10 @@ export class RichTextMentionListBox extends FoundationElement {
         ) {
             if (args === 'selectedIndex') {
                 this.scrollOptionIntoView();
+            }
+            if (args === "options") {
+                this.filterOptions();
+                void this.selectFirstOption();
             }
         }
         if (source instanceof AnchoredRegion) {
@@ -294,6 +290,7 @@ export class RichTextMentionListBox extends FoundationElement {
             const normalizedOptionText = normalizeString(listOption.text.trim());
             const includesSearchString = normalizedOptionText.includes(normalizedFilter);
             listOption.disabled = !includesSearchString;
+            listOption.hidden = !includesSearchString;
         });
     }
 
