@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 04 Dec 2023 21:56:42 GMT",
+      "version": "20.14.12",
+      "tag": "@ni/nimble-components_v20.14.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "35350751+kjohn1922@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "499b7e19fe8ddd6627cd36bae402b8c18a6feb10",
+            "comment": "Update styling for incubating nimble-card"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 28 Nov 2023 18:24:15 GMT",
       "version": "20.14.11",
       "tag": "@ni/nimble-components_v20.14.11",

@@ -108,6 +108,9 @@ const metadata: Meta<RichTextEditorArgs> = {
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}3" display-name="Sue Ann"></${mappingUserTag}>
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}4" display-name="Joseph George"></${mappingUserTag}>
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}5" display-name="David"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}6" display-name="Ranchan"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}7" display-name="Aegar"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}8" display-name="Mitert"></${mappingUserTag}>
         </${richTextMentionUsersTag}>
         ${when(x => x.footerActionButtons, html`
             <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>

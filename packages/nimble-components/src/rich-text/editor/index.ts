@@ -16,8 +16,10 @@ import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { RichText } from '../base';
+import type { RichTextMentionListBox } from '../mention-list-box';
 import { createTiptapEditor } from './models/create-tiptap-editor';
 import { EditorConfiguration } from '../models/editor-configuration';
+import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -37,7 +39,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public tiptapEditor = createTiptapEditor(this.editor, []);
+    public tiptapEditor = createTiptapEditor(
+        this.editor,
+        [],
+        this.mentionListBox
+    );
 
     /**
      * @internal
@@ -114,6 +120,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         }
         return false;
     }
+
+    /**
+     * @internal
+     */
+    public mentionListBox?: RichTextMentionListBox;
 
     /**
      * @internal
@@ -224,16 +235,16 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         prev: EditorConfiguration | undefined,
         next: EditorConfiguration
     ): void {
+        const mentionExtensionConfig = this.getMentionExtensionConfig();
+        this.mentionListBox?.updateMentionExtensionConfig(
+            mentionExtensionConfig
+        );
         if (this.isMentionExtensionConfigUnchanged(prev, next)) {
             this.setMarkdown(this.getMarkdown());
         } else {
             const currentStateMarkdown = this.getMarkdown();
             this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
-                this.configuration instanceof EditorConfiguration
-                    ? this.configuration.mentionExtensionConfig.map(
-                        config => config.name
-                    )
-                    : []
+                mentionExtensionConfig.map(config => config.name)
             );
             this.initializeEditor();
             this.setMarkdown(currentStateMarkdown);
@@ -321,6 +332,33 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     /**
+     * Toggle the mention node and focus back to the editor
+     * @internal
+     */
+    public mentionButtonClick(character: string): void {
+        this.tiptapEditor.chain().insertContent(` ${character}`).focus().run();
+    }
+
+    /**
+     * Toggle the mention node and focus back to the editor
+     * @internal
+     */
+    public mentionButtonKeyDown(
+        event: KeyboardEvent,
+        character: string
+    ): boolean {
+        if (this.keyActivatesButton(event)) {
+            this.tiptapEditor
+                .chain()
+                .insertContent(` ${character}`)
+                .focus()
+                .run();
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * This function load tip tap editor with provided markdown content by parsing into html
      * @public
      */
@@ -357,6 +395,12 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             }
         });
         return Array.from(mentionedHrefs);
+    }
+
+    public getMentionExtensionConfig(): MentionExtensionConfiguration[] {
+        return this.configuration instanceof EditorConfiguration
+            ? this.configuration.mentionExtensionConfig
+            : [];
     }
 
     protected override createConfig(): EditorConfiguration {
@@ -396,7 +440,8 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.editor,
             this.configuration instanceof EditorConfiguration
                 ? this.configuration.mentionExtensionConfig
-                : []
+                : [],
+            this.mentionListBox
         );
         this.bindEditorTransactionEvent();
         this.bindEditorUpdateEvent();

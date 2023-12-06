@@ -658,29 +658,14 @@ describe('RichTextEditorMention', () => {
     it('should fire "mention" event with filter details from configuration elment when there is @mention in editor', async () => {
         await appendUserMentionConfiguration(element);
         const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-        const mentionEventListener = createEventListener(
-            renderedUserMention,
-            'mention-update'
-        );
+        const spy = jasmine.createSpy();
+        renderedUserMention.addEventListener('mention-update', spy);
         await pageObject.setEditorTextContent('@test');
-        await mentionEventListener.promise;
-        expect(mentionEventListener.spy).toHaveBeenCalledOnceWith(
-            new CustomEvent('mention-update', {
-                detail: { mention: '@text' }
+        expect(spy).toHaveBeenCalledOnceWith(
+            jasmine.objectContaining({
+                detail: { filter: 'test' }
             })
         );
-    });
-
-    it('should fire "mention" event from configuration elment when there is @mention in editor', async () => {
-        await appendUserMentionConfiguration(element);
-        const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-        const mentionEventListener = createEventListener(
-            renderedUserMention,
-            'mention-update'
-        );
-        await pageObject.setEditorTextContent('@test');
-        await mentionEventListener.promise;
-        expect(mentionEventListener.spy).toHaveBeenCalledTimes(1);
     });
 
     describe('getMentionedHrefs() for editor current mentions', () => {

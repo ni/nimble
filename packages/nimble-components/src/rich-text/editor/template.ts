@@ -1,4 +1,4 @@
-import { children, elements, html, ref } from '@microsoft/fast-element';
+import { children, elements, html, ref, repeat } from '@microsoft/fast-element';
 import type { RichTextEditor } from '.';
 import { toolbarTag } from '../../toolbar';
 import { toggleButtonTag } from '../../toggle-button';
@@ -14,6 +14,9 @@ import {
 } from '../../label-provider/rich-text/label-tokens';
 import { errorTextTemplate } from '../../patterns/error/template';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
+import { richTextMentionListBoxTag } from '../mention-list-box';
+import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
+import { buttonTag } from '../../button';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
@@ -84,6 +87,21 @@ export const template = html<RichTextEditor>`
                         ${x => richTextToggleNumberedListLabel.getValueFor(x)}
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
                     </${toggleButtonTag}>
+                    ${repeat(
+        x => Array.from(x.getMentionExtensionConfig()),
+        html<MentionExtensionConfiguration, RichTextEditor>`<${buttonTag}
+                        appearance="ghost"
+                        content-hidden
+                        ?disabled="${(_x, c) => c.parent.disabled}"
+                        slot="start"
+                        title=${x => x.label}
+                        @click=${(x, c) => c.parent.mentionButtonClick(x.character)}
+                        @keydown=${(x, c) => c.parent.mentionButtonKeyDown(c.event as KeyboardEvent, x.character)}
+                    >
+                        ${x => x.label}
+                        ${x => x.iconTemplate}
+                    </${buttonTag}>`
+    )}
                 </${toolbarTag}>
                 <span class="footer-actions" part="footer-actions">
                     <slot name="footer-actions"></slot>
@@ -91,5 +109,9 @@ export const template = html<RichTextEditor>`
             </section>
             ${errorTextTemplate}
         </div>
+        <${richTextMentionListBoxTag}
+            ${ref('mentionListBox')}
+            >
+        </${richTextMentionListBoxTag}>
     </template>
 `;

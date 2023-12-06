@@ -6,6 +6,7 @@ export interface MentionInternalsOptions {
     readonly icon: string;
     readonly character: string;
     readonly viewElement: string;
+    readonly label: string;
 }
 
 /**
@@ -52,6 +53,11 @@ export class MentionInternals {
     public readonly viewElement: string;
 
     /**
+     * Label to use as accessible name and title of mention button
+     */
+    public readonly label: string;
+
+    /**
      * Function to invoke to emit a mention-update event
      */
     public readonly mentionUpdateEmitter: MentionUpdateEmitter;
@@ -63,6 +69,7 @@ export class MentionInternals {
         this.icon = options.icon;
         this.character = options.character;
         this.viewElement = options.viewElement;
+        this.label = options.label;
         this.mentionUpdateEmitter = mentionUpdateEmitter;
     }
 }

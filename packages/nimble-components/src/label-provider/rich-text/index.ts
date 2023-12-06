@@ -5,7 +5,8 @@ import {
     richTextToggleBoldLabel,
     richTextToggleItalicsLabel,
     richTextToggleBulletedListLabel,
-    richTextToggleNumberedListLabel
+    richTextToggleNumberedListLabel,
+    richTextMentionUserLabel
 } from './label-tokens';
 
 declare global {
@@ -18,7 +19,8 @@ const supportedLabels = {
     toggleBold: richTextToggleBoldLabel,
     toggleItalics: richTextToggleItalicsLabel,
     toggleBulletedList: richTextToggleBulletedListLabel,
-    toggleNumberedList: richTextToggleNumberedListLabel
+    toggleNumberedList: richTextToggleNumberedListLabel,
+    mentionUserLabel: richTextMentionUserLabel
 } as const;
 
 /**
@@ -38,6 +40,9 @@ export class LabelProviderRichText
 
     @attr({ attribute: 'toggle-numbered-list' })
     public toggleNumberedList: string | undefined;
+
+    @attr({ attribute: 'mention-user-label' })
+    public mentionUserLabel: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }

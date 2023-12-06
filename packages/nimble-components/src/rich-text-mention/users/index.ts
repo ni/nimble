@@ -10,6 +10,7 @@ import type { Mapping } from '../../mapping/base';
 import type { MappingUserKey } from '../../mapping/base/types';
 import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
 import { richTextMentionUsersViewTag } from './view';
+import { richTextMentionUserLabel } from '../../label-provider/rich-text/label-tokens';
 import { UserMentionConfig } from './types';
 
 declare global {
@@ -30,7 +31,8 @@ export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersVa
         return {
             icon: iconAtTag,
             character: '@',
-            viewElement: richTextMentionUsersViewTag
+            viewElement: richTextMentionUsersViewTag,
+            label: richTextMentionUserLabel.getValueFor(this)
         };
     }
 
