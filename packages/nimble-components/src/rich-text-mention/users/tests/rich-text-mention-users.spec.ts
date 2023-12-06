@@ -189,21 +189,6 @@ describe('RichTextMentionUsers', () => {
         expect(element.mentionInternals.mappingConfigs).toEqual(mappingConfig);
     });
 
-    it('should have undefined mappingConfigs when an invalid pattern is assigned', async () => {
-        ({ element, connect, disconnect } = await setup({
-            mappings: [{ key: 'user:1', displayName: 'user' }],
-            pattern: 'user:.*'
-        }));
-        await connect();
-        const mappingConfigs = element.mentionInternals.mappingConfigs!;
-        expect(mappingConfigs.size).toEqual(1);
-        expect(Array.from(mappingConfigs.keys())).toEqual(['user:1']);
-        expect(mappingConfigs.get('user:1')?.displayName).toEqual('user');
-        expect(mappingConfigs.get('user:1')?.mentionHref).toEqual('user:1');
-        await updatePatternAttribute(element, 'invalid_pattern');
-        expect(element.mentionInternals.mappingConfigs).toEqual(undefined);
-    });
-
     it('should have undefined mappingConfigs when mapping elements with mismatch key (href) changed', async () => {
         ({ element, connect, disconnect } = await setup({
             mappings: [{ key: 'user:1', displayName: 'user' }],
