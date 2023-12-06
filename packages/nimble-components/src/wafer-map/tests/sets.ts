@@ -56,7 +56,7 @@ export const wafermapDieSets: WaferMapDie[][] = [
             y: 0,
             value: '26.49',
             metadata: 'Placeholder metadata value for Die x: 2 y: 0',
-            tags: ['q']
+            tags: ['c']
         },
         {
             x: 2,
@@ -88,7 +88,7 @@ export const wafermapDieSets: WaferMapDie[][] = [
             y: 3,
             value: '20.83',
             metadata: 'Placeholder metadata value for Die x: 3 y: 3',
-            tags: ['g']
+            tags: ['c']
         },
         {
             x: 4,
