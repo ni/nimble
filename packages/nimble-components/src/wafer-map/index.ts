@@ -220,11 +220,6 @@ export class WaferMap extends FoundationElement {
         return resizeObserver;
     }
 
-    private isWaferHighlightedChanged(): void {
-        this.waferMapUpdateTracker.track('isWaferHighlighted');
-        this.waferMapUpdateTracker.queueUpdate();
-    }
-
     private originLocationChanged(): void {
         this.waferMapUpdateTracker.track('originLocation');
         this.waferMapUpdateTracker.queueUpdate();

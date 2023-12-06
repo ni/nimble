@@ -4,7 +4,6 @@ import { UpdateTracker } from '../../utilities/models/update-tracker';
 
 const trackedItems = [
     'highlightedTags',
-    'isWaferHighlighted',
     'canvasWidth',
     'canvasHeight',
     'originLocation',
@@ -35,7 +34,6 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
     public get requiresEventsUpdate(): boolean {
         return (
             this.isTracked('highlightedTags')
-            || this.isTracked('isWaferHighlighted')
             || this.isTracked('canvasWidth')
             || this.isTracked('canvasHeight')
             || this.isTracked('originLocation')
@@ -75,7 +73,6 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
     public get requiresDiesRenderInfoUpdate(): boolean {
         return (
             this.isTracked('highlightedTags')
-            || this.isTracked('isWaferHighlighted')
             || this.isTracked('colorScale')
             || this.isTracked('colorScaleMode')
             || this.isTracked('dieLabelsHidden')
