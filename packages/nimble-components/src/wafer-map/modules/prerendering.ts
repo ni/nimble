@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
 import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 import { WaferMapColorScaleMode } from '../types';
@@ -145,11 +144,8 @@ export class Prerendering {
 
     private isAnyDieTagPresent(dieTags: string[] | undefined, highlightedTags: string[] | undefined): boolean {
         if (!dieTags || !highlightedTags) {
-            // Handle the case where either dieTags or highlightedTags is undefined
             return false;
         }
-        console.log(dieTags, highlightedTags);
-        // Check if any element of dieTags is present in highlightedTags
         return dieTags.some(dieTag => highlightedTags.some(highlightedTag => dieTag === highlightedTag));
     }
 
