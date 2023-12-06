@@ -328,12 +328,13 @@ describe('Wafermap Prerendering module', () => {
             }
         });
     });
-    describe('with highlighted dies', () => {
+
+    describe('with a highlighted value', () => {
         const dieDimensions = { width: 10, height: 10 };
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
         const maxCharacters = 2;
-        const highlightedTag = '';
+        const highlightedTag = '5';
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
         beforeEach(() => {
@@ -377,6 +378,38 @@ describe('Wafermap Prerendering module', () => {
                     expectedValues[i]!.fillStyle
                 );
             }
+        });
+    });
+
+    describe('with highlighted dies', () => {
+        const dieDimensions = { width: 10, height: 10 };
+        const dieLabelsSuffix = '';
+        const dieLabelsHidden = true;
+        const maxCharacters = 2;
+        const highlightedTag = '5';
+        const margin = { top: 0, right: 0, bottom: 0, left: 0 };
+
+        beforeEach(() => {
+            const waferMock = getWaferMapMockPrerendering(
+                getWaferMapDies(),
+                { colors: ['red'], values: [] },
+                [highlightedTag],
+                WaferMapColorScaleMode.ordinal,
+                dieLabelsHidden,
+                dieLabelsSuffix,
+                maxCharacters
+            );
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                defaultHorizontalScale,
+                defaultVerticalScale
+            );
+            prerenderingModule = new Prerendering(
+                waferMock as WaferMap,
+                dataManagerMock as DataManager
+            );
+            prerenderingModule.updateLabelsFontSize();
         });
     });
 
