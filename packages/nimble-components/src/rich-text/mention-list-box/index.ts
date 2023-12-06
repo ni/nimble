@@ -90,6 +90,36 @@ export class RichTextMentionListBox extends FoundationElement {
     );
 
     /**
+     * @public
+     */
+    public close(): void {
+        this.setOpen(false);
+    }
+
+    /**
+     * @public
+     */
+    public onMention(props: SuggestionProps): void {
+        this.suggestionProps = props;
+        this.activeCharacter = props.text.slice(0, 1);
+        this.filter = props.query;
+        this.anchorElement = props.decorationNode as HTMLElement;
+        this.setOpen(true);
+        this.filterOptions();
+        void this.selectFirstOption();
+    }
+
+    /**
+     * @public
+     */
+    public updateMentionExtensionConfig(
+        mentionExtensionConfig?: MentionExtensionConfiguration[]
+    ): void {
+        this.mentionExtensionConfig = mentionExtensionConfig;
+        this.setActiveMappingConfigs();
+    }
+
+    /**
      * @internal
      */
     public async selectFirstOption(): Promise<void> {
@@ -103,7 +133,7 @@ export class RichTextMentionListBox extends FoundationElement {
     }
 
     /**
-     * @internal
+     * @public
      */
     public keydownHandler(event: KeyboardEvent): boolean {
         if (!this.open) {
@@ -157,36 +187,6 @@ export class RichTextMentionListBox extends FoundationElement {
             displayName: capturedListOption.text
         } as MentionDetail);
         return true;
-    }
-
-    /**
-     * @internal
-     */
-    public updateMentionExtensionConfig(
-        mentionExtensionConfig?: MentionExtensionConfiguration[]
-    ): void {
-        this.mentionExtensionConfig = mentionExtensionConfig;
-        this.setActiveMappingConfigs();
-    }
-
-    /**
-     * @internal
-     */
-    public onMention(props: SuggestionProps): void {
-        this.suggestionProps = props;
-        this.activeCharacter = props.text.slice(0, 1);
-        this.filter = props.query;
-        this.anchorElement = props.decorationNode as HTMLElement;
-        this.setOpen(true);
-        this.filterOptions();
-        void this.selectFirstOption();
-    }
-
-    /**
-     * @internal
-     */
-    public close(): void {
-        this.setOpen(false);
     }
 
     /**
