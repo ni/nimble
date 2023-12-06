@@ -1,9 +1,7 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable @typescript-eslint/naming-convention */
 import * as React from 'react';
 import { provideReactWrapper } from '@microsoft/fast-react-wrapper';
 import { TreeItem } from '..';
 
 const { wrap } = provideReactWrapper(React);
 
-export const NimbleButton = wrap(TreeItem);
+export const NimbleStorybookTreeItem = wrap(TreeItem);

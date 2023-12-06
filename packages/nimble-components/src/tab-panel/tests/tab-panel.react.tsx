@@ -1,9 +1,7 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable @typescript-eslint/naming-convention */
 import * as React from 'react';
 import { provideReactWrapper } from '@microsoft/fast-react-wrapper';
 import { TabPanel } from '..';
 
 const { wrap } = provideReactWrapper(React);
 
-export const NimbleButton = wrap(TabPanel);
+export const NimbleStorybookTabPanel = wrap(TabPanel);

@@ -1,9 +1,7 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable @typescript-eslint/naming-convention */
 import * as React from 'react';
 import { provideReactWrapper } from '@microsoft/fast-react-wrapper';
 import { MappingSpinner } from '..';
 
 const { wrap } = provideReactWrapper(React);
 
-export const NimbleButton = wrap(MappingSpinner);
+export const NimbleStorybookMappingSpinner = wrap(MappingSpinner);
