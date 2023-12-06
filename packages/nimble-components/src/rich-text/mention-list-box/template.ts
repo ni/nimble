@@ -24,7 +24,7 @@ export const template = html<RichTextMentionListBox>`
                 >
                 ${repeat(
                     x => Array.from(x.activeMappingConfigs?.values() ?? []),
-                    html<MappingConfig>`<${listOptionTag} value="${x => x.mentionHref}">${x => x.displayName}</${listOptionTag}>`
+                    html<MappingConfig>`<${listOptionTag} value="${x => x.mentionHref}">${x => x.displayName}</${listOptionTag}>`,{ recycle: false }
                 )}
             </${listboxTag}>
         </${anchoredRegionTag}>

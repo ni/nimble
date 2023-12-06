@@ -122,16 +122,16 @@ export class RichTextMentionListBox extends FoundationElement {
                 } as MentionDetail);
                 return true;
             }
+            case keyEscape: {
+                this.setOpen(false);
+                return false;
+            }
             case keyArrowDown: {
                 this.listBox.keydownHandler(event);
                 return false;
             }
             case keyArrowUp: {
                 this.listBox.keydownHandler(event);
-                return false;
-            }
-            case keyEscape: {
-                this.setOpen(false);
                 return false;
             }
             default: {
@@ -165,7 +165,6 @@ export class RichTextMentionListBox extends FoundationElement {
     public updateMentionExtensionConfig(
         mentionExtensionConfig?: MentionExtensionConfiguration[]
     ): void {
-        this.listBox.selectedIndex = -1;
         this.mentionExtensionConfig = mentionExtensionConfig;
         this.setActiveMappingConfigs();
     }
@@ -179,7 +178,8 @@ export class RichTextMentionListBox extends FoundationElement {
         this.filter = props.query;
         this.anchorElement = props.decorationNode as HTMLElement;
         this.setOpen(true);
-        this.filterOptionsAndSelectFirst();
+        this.filterOptions();
+        void this.selectFirstOption();
     }
 
     /**
@@ -214,7 +214,8 @@ export class RichTextMentionListBox extends FoundationElement {
      * @internal
      */
     public childItemsChanged(_prev: ListOption[], _next: ListOption[]): void {
-        this.filterOptionsAndSelectFirst();
+        this.filterOptions();
+        void this.selectFirstOption();
     }
 
     /**
@@ -284,17 +285,16 @@ export class RichTextMentionListBox extends FoundationElement {
             : undefined;
     }
 
-    private filterOptionsAndSelectFirst(): void {
+    private filterOptions(): void {
         if (!this.childItems || this.filter === undefined) {
             return;
         }
-        const normalizedFilter = normalizeString(this.filter);
+        const normalizedFilter = normalizeString(this.filter.trim());
         this.childItems.forEach(listOption => {
-            const normalizedText = normalizeString(listOption.text);
-            const checkFlag = !normalizedText.includes(normalizedFilter);
-            listOption.disabled = checkFlag;
+            const normalizedOptionText = normalizeString(listOption.text.trim());
+            listOption.hidden = !normalizedOptionText.includes(normalizedFilter);
+            listOption.disabled = !normalizedOptionText.includes(normalizedFilter);
         });
-        void this.selectFirstOption();
     }
 
     private activateMention(mentionDetail: MentionDetail): void {
