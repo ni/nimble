@@ -1,9 +1,9 @@
 import type { WaferMapDie, WaferMapColorScale } from '../types';
 
 export const highLightedValueSets: string[][] = [
-    [''],
+    [],
     ['c'],
-    ['g'],
+    [''],
     ['a', 'b', 'c']
 ];
 

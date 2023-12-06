@@ -39,7 +39,6 @@ interface WaferMapArgs {
     gridMaxY: number | undefined;
     dieHover: unknown;
     validity: WaferMapValidity;
-    isWaferHighlighted: boolean;
     highlightedTagsSet: string;
 }
 
@@ -123,7 +122,6 @@ const metadata: Meta<WaferMapArgs> = {
             :colorScale="${x => x.colorScale}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
             :highlightedTags="${x => getHighLightedTagsSets(x.highlightedTagsSet, highLightedValueSets)}"
-            :isWaferHighlighted="${x => x.isWaferHighlighted}"
             >
         </${waferMapTag}>
         <style class="code-hide">
@@ -146,8 +144,7 @@ const metadata: Meta<WaferMapArgs> = {
         gridMinX: undefined,
         gridMaxX: undefined,
         gridMinY: undefined,
-        gridMaxY: undefined,
-        isWaferHighlighted: true
+        gridMaxY: undefined
     },
     argTypes: {
         colorScale: {
@@ -214,12 +211,6 @@ const metadata: Meta<WaferMapArgs> = {
                 'Boolean value that determines if the dies labels in the wafer map view are shown or not. Default value is false.',
             control: { type: 'boolean' }
         },
-        isWaferHighlighted: {
-            name: 'is-wafer-highlighted',
-            description:
-                'Boolean value that determines if the wafer is highlighted.',
-            control: { type: 'boolean' }
-        },
         dieLabelsSuffix: {
             name: 'die-labels-suffix',
             description:
@@ -231,7 +222,7 @@ const metadata: Meta<WaferMapArgs> = {
 
 <details>
     <summary>Usage details</summary>
-    The \`highlightedValues\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
+    The \`highlightedTags\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
 </details>
                 `,
             options: ['set1', 'set2', 'set3', 'set4'],

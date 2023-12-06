@@ -276,6 +276,12 @@ export class WaferMap extends FoundationElement {
     private highlightedTagsChanged(): void {
         this.waferMapUpdateTracker.track('highlightedTags');
         this.waferMapUpdateTracker.queueUpdate();
+        if (this.highlightedTags != null) {
+            this.isWaferHighlighted = true;
+        } else {
+            this.isWaferHighlighted = false;
+        }
+        this.isWaferHighlightedChanged();
     }
 
     private diesChanged(): void {

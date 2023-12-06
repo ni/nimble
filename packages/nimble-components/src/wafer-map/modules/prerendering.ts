@@ -138,9 +138,8 @@ export class Prerendering {
         dieTags?: string[],
         highlightedTags?: string[]
     ): number {
-        if (!(dieTags && highlightedTags)) {
-            console.log(dieTags, highlightedTags);
-            return 1;
+        if (highlightedTags?.length === 1 && highlightedTags?.every(tag => tag === '')) {
+            return this.nonHighlightedOpacity;
         }
         const tagsMatch = this.isAnyDieTagPresent(dieTags, highlightedTags);
         return tagsMatch ? this.nonHighlightedOpacity : 1;
