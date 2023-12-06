@@ -292,8 +292,8 @@ export class RichTextMentionListBox extends FoundationElement {
         const normalizedFilter = normalizeString(this.filter.trim());
         this.childItems.forEach(listOption => {
             const normalizedOptionText = normalizeString(listOption.text.trim());
-            listOption.hidden = !normalizedOptionText.includes(normalizedFilter);
-            listOption.disabled = !normalizedOptionText.includes(normalizedFilter);
+            const includesSearchString = normalizedOptionText.includes(normalizedFilter);
+            listOption.disabled = !includesSearchString;
         });
     }
 
