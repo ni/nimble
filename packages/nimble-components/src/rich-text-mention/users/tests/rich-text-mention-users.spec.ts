@@ -162,7 +162,7 @@ describe('RichTextMentionUsers', () => {
         expect(mappingConfigs.get('user:3')?.mentionHref).toEqual('user:3');
     });
 
-    it('should have undefined mentionConfig when its mapping element modified with invalid data', async () => {
+    it('should have undefined mappingConfigs when its mapping element modified with invalid data', async () => {
         ({ element, connect, disconnect } = await setup({
             mappings: [{ key: 'user:1', displayName: 'user' }],
             pattern: 'user:'
@@ -176,7 +176,7 @@ describe('RichTextMentionUsers', () => {
 
         const newMappingData = { key: '', displayName: 'user-3' };
         await updateFirstUserMappingElement(element, newMappingData);
-        expect(element.mentionInternals.mentionConfig).toEqual(undefined);
+        expect(element.mentionInternals.mappingConfigs).toEqual(undefined);
     });
 
     it('should have empty Map as mappingConfigs when there is no mappings', async () => {
@@ -189,7 +189,7 @@ describe('RichTextMentionUsers', () => {
         expect(element.mentionInternals.mappingConfigs).toEqual(mappingConfig);
     });
 
-    it('should have undefined mentionConfig when an invalid pattern is assigned', async () => {
+    it('should have undefined mappingConfigs when an invalid pattern is assigned', async () => {
         ({ element, connect, disconnect } = await setup({
             mappings: [{ key: 'user:1', displayName: 'user' }],
             pattern: 'user:.*'
@@ -201,10 +201,10 @@ describe('RichTextMentionUsers', () => {
         expect(mappingConfigs.get('user:1')?.displayName).toEqual('user');
         expect(mappingConfigs.get('user:1')?.mentionHref).toEqual('user:1');
         await updatePatternAttribute(element, 'invalid_pattern');
-        expect(element.mentionInternals.mentionConfig).toEqual(undefined);
+        expect(element.mentionInternals.mappingConfigs).toEqual(undefined);
     });
 
-    it('should have undefined mentionConfig when mapping elements with mismatch key (href) changed', async () => {
+    it('should have undefined mappingConfigs when mapping elements with mismatch key (href) changed', async () => {
         ({ element, connect, disconnect } = await setup({
             mappings: [{ key: 'user:1', displayName: 'user' }],
             pattern: 'user:'
@@ -220,7 +220,7 @@ describe('RichTextMentionUsers', () => {
             { key: 'user:4', displayName: 'user' }
         ];
         await setUserMappingElements(element, newMappingData);
-        expect(element.mentionInternals.mentionConfig).toEqual(undefined);
+        expect(element.mentionInternals.mappingConfigs).toEqual(undefined);
     });
 
     describe('validation', () => {
@@ -270,7 +270,7 @@ describe('RichTextMentionUsers', () => {
             await connect();
             expect(element.checkValidity()).toBeFalse();
             expect(element.validity.missingMentionHrefValue).toBeTrue();
-            expect(element.mentionInternals.mentionConfig).toBe(undefined);
+            expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
         it('is invalid with missing displayName', async () => {
@@ -284,7 +284,7 @@ describe('RichTextMentionUsers', () => {
             await connect();
             expect(element.checkValidity()).toBeFalse();
             expect(element.validity.missingDisplayNameValue).toBeTrue();
-            expect(element.mentionInternals.mentionConfig).toBe(undefined);
+            expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
         it('is invalid with duplicate key values', async () => {
@@ -298,7 +298,7 @@ describe('RichTextMentionUsers', () => {
             await connect();
             expect(element.checkValidity()).toBeFalse();
             expect(element.validity.duplicateMappingMentionHref).toBeTrue();
-            expect(element.mentionInternals.mentionConfig).toBe(undefined);
+            expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
         it('is invalid with mismatching key', async () => {
@@ -312,7 +312,7 @@ describe('RichTextMentionUsers', () => {
             await connect();
             expect(element.checkValidity()).toBeFalse();
             expect(element.validity.mentionHrefDoesNotMatchPattern).toBeTrue();
-            expect(element.mentionInternals.mentionConfig).toBe(undefined);
+            expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
         it('is invalid with invalid url key', async () => {
@@ -326,7 +326,7 @@ describe('RichTextMentionUsers', () => {
             await connect();
             expect(element.checkValidity()).toBeFalse();
             expect(element.validity.mentionHrefNotValidUrl).toBeTrue();
-            expect(element.mentionInternals.mentionConfig).toBe(undefined);
+            expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
         it('is valid with valid pattern', async () => {
@@ -354,7 +354,7 @@ describe('RichTextMentionUsers', () => {
             await connect();
             expect(element.checkValidity()).toBeFalse();
             expect(element.validity.unsupportedPatternValue).toBeTrue();
-            expect(element.mentionInternals.mentionConfig).toBe(undefined);
+            expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
         async function setupInvalidMappings(): Promise<
@@ -372,7 +372,7 @@ describe('RichTextMentionUsers', () => {
             await connect();
             expect(element.checkValidity()).toBeFalse();
             expect(element.validity.unsupportedMappingType).toBeTrue();
-            expect(element.mentionInternals.mentionConfig).toBe(undefined);
+            expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
         async function setupMissingPattern(): Promise<
@@ -389,7 +389,7 @@ describe('RichTextMentionUsers', () => {
             await connect();
             expect(element.checkValidity()).toBeFalse();
             expect(element.validity.missingPatternAttribute).toBeTrue();
-            expect(element.mentionInternals.mentionConfig).toBe(undefined);
+            expect(element.mentionInternals.mappingConfigs).toBe(undefined);
         });
 
         it('is valid when valid pattern is assigned', async () => {

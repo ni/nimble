@@ -37,7 +37,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public tiptapEditor = createTiptapEditor(this.editor, []);
+    public tiptapEditor = createTiptapEditor(this.editor, [], this.placeholder);
 
     /**
      * @internal
@@ -396,7 +396,8 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.editor,
             this.configuration instanceof EditorConfiguration
                 ? this.configuration.mentionExtensionConfig
-                : []
+                : [],
+            this.placeholder
         );
         this.bindEditorTransactionEvent();
         this.bindEditorUpdateEvent();

@@ -185,6 +185,16 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
+    public async sliceEditorContent(number: number): Promise<void> {
+        const lastElement = this.getEditorLastChildElement();
+        const text = lastElement.parentElement!.textContent!;
+        lastElement.parentElement!.textContent = text.substring(
+            0,
+            text.length - number
+        );
+        await waitForUpdatesAsync();
+    }
+
     public getEditorLastChildAttribute(attribute: string): string {
         return getLastChildElementAttribute(attribute, this.getTiptapEditor());
     }
