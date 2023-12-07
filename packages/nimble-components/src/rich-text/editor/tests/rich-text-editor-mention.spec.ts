@@ -622,6 +622,8 @@ describe('RichTextEditorMention', () => {
         expect(mentionUpdateSpy).toHaveBeenCalledTimes(1);
     });
 
+    // TODO: Replace with integration test that uses keyboard events to trigger mention-update
+    // https://github.com/ni/nimble/issues/1568
     it('should fire "mention-update" event when deleting an existing @mention in editor', async () => {
         await pageObject.setEditorTextContent('@test');
         const { userMentionElement } = await appendUserMentionConfiguration(
@@ -633,7 +635,9 @@ describe('RichTextEditorMention', () => {
         expect(mentionUpdateSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('should not fire "mention-update" event when @ get removed in editor', async () => {
+    // TODO: Replace with integration test that uses keyboard events to trigger mention-update
+    // https://github.com/ni/nimble/issues/1568
+    it('should fire "mention-update" event when deleting an existing @mention in editor', async () => {
         await pageObject.setEditorTextContent('@test');
         const { userMentionElement } = await appendUserMentionConfiguration(
             element
