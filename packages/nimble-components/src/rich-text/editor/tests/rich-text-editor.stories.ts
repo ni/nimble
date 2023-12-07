@@ -94,7 +94,7 @@ const metadata: Meta<RichTextEditorArgs> = {
     })}
     <${richTextEditorTag}
         ${ref('editorRef')}
-        style="height: 160px;"
+        style="height: 300px;"
         data-unused="${x => x.setMarkdownData(x)}"
         ?disabled="${x => x.disabled}"
         ?footer-hidden="${x => x.footerHidden}"
