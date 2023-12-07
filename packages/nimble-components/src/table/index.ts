@@ -661,7 +661,7 @@ export class Table<
                     parentId: this.parentIdFieldName,
                     nestedIds: false,
                     throwIfOrphans: true
-                }) as unknown as TableNode<TData>[];
+                }) as TableNode<TData>[];
                 this.isDataOrdered = false;
             } catch {
                 this.tableValidator.setInvalidParentIdConfiguration(false);
