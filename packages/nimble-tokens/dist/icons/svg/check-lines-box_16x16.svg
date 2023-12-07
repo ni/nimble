@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-    <defs>
-        <style>.cls-1,.cls-2{stroke-width:0px;}.cls-2{fill:#171718;}</style>
-    </defs>
     <path class="cls-2" d="m3,2v12h10V2H3Zm9,11H4V3h8v10Z" />
     <rect class="cls-2" x="5" y="9" width="6" height="1" />
     <rect class="cls-2" x="5" y="11" width="3" height="1" />
