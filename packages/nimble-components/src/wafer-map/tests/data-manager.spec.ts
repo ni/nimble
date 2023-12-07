@@ -132,18 +132,6 @@ describe('Wafermap Data Manager', () => {
         }
     });
 
-    it('should not have any dies with partial opacity from the highlighted list', () => {
-        const highlightedTags = getHighlightedTags().map(
-            value => value + dieLabelsSuffix
-        );
-        const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
-            x => !x.fillStyle.endsWith(',1)')
-        );
-        for (const dieRenderInfo of diesWithPartialOpacity) {
-            expect(highlightedTags).not.toContain(dieRenderInfo.text);
-        }
-    });
-
     it('should have all dies inside the canvas with margins', () => {
         for (const dieRenderInfo of dataManagerModule.diesRenderInfo) {
             expect(dieRenderInfo.x).toBeGreaterThanOrEqual(0);

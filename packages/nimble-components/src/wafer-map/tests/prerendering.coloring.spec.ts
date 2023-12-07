@@ -334,7 +334,7 @@ describe('Wafermap Prerendering module', () => {
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
         const maxCharacters = 2;
-        const highlightedTag = '5';
+        const highlightedTag = '4';
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
         beforeEach(() => {
@@ -365,10 +365,11 @@ describe('Wafermap Prerendering module', () => {
             const expectedValues = waferMapDies.map(x => {
                 if (!x.tags) {
                     return {
-                        fillStyle: 'rgba(255,0,0,1)'
+                        fillStyle: 'rgba(255,0,0,0.3)'
                     };
                 }
-                const opacity = x.tags[0] === highlightedTag ? 1 : 0.3;
+                const opacity = (x.tags[0] === highlightedTag ? 1 : 0.3);
+                expect(typeof highlightedTag).toEqual(typeof x.tags[0]);
                 return {
                     fillStyle: `rgba(255,0,0,${opacity})`
                 };
