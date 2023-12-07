@@ -1,7 +1,4 @@
-import * as React from 'react';
-import { provideReactWrapper } from '@microsoft/fast-react-wrapper';
 import { Tooltip } from '..';
+import { wrap } from '../../utilities/tests/react-wrapper';
 
-const { wrap } = provideReactWrapper(React);
-
-export const NimbleStorybookTooltip = wrap(Tooltip);
+export const NimbleTooltip = wrap(Tooltip);

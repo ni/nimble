@@ -149,8 +149,6 @@ module.exports = {
         {
             files: ['**/*.react.tsx'],
             rules: {
-                // The React component wrappers are only used in Storybook will not be in published package and are allowed to use devDependencies
-                'import/no-extraneous-dependencies': 'off',
                 // The React components should use PascalCase
                 '@typescript-eslint/naming-convention': [
                     'error',
