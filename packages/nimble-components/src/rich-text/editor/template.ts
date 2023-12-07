@@ -17,6 +17,8 @@ import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 import { richTextMentionListBoxTag } from '../mention-list-box';
 import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 import { buttonTag } from '../../button';
+import type { MappingConfig } from '../../rich-text-mention/base/models/mapping-config';
+import { listOptionTag } from '../../list-option';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
@@ -112,6 +114,12 @@ export const template = html<RichTextEditor>`
         <${richTextMentionListBoxTag}
             ${ref('mentionListBox')}
             >
+            ${repeat(
+        x => Array.from(x.activeMappingConfigs?.values() ?? []),
+        html<MappingConfig>`<${listOptionTag} value="${x => x.mentionHref}">${x => x.displayName}</${listOptionTag}>`,
+
+        { recycle: false }
+    )}
         </${richTextMentionListBoxTag}>
     </template>
 `;

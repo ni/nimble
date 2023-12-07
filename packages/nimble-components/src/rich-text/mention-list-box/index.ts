@@ -1,22 +1,13 @@
 import { Notifier, Observable, observable } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import {
-    keyTab,
-    keyEnter,
-    keyArrowDown,
-    keyArrowUp,
-    keyEscape
-} from '@microsoft/fast-web-utilities';
+import { DesignSystem, ListboxElement as FoundationListbox, ListboxOption } from '@microsoft/fast-foundation';
 import type { SuggestionProps } from '@tiptap/suggestion';
-import type { ListOption } from '../../list-option';
+import { keyArrowDown, keyArrowUp, keyEnter, keyEscape, keyTab } from '@microsoft/fast-web-utilities';
 import type { MentionDetail } from '../editor/types';
 import { styles } from './styles';
 import { template } from './template';
 import { AnchoredRegion } from '../../anchored-region';
-import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
-import type { MappingConfigs } from '../../rich-text-mention/base/types';
 import { normalizeString } from '../../utilities/models/string-normalizer';
-import { Listbox } from '../../listbox';
+import type { ListOption } from '../../list-option';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,19 +18,7 @@ declare global {
 /**
  * A rich text mention list box which acts as a popup for "@mention" support in editor
  */
-export class RichTextMentionListBox extends FoundationElement {
-    /**
-     * @internal
-     */
-    @observable
-    public activeCharacter?: string;
-
-    /**
-     * @internal
-     */
-    @observable
-    public activeMappingConfigs?: MappingConfigs;
-
+export class RichTextMentionListBox extends FoundationListbox {
     /**
      * @internal
      */
@@ -50,37 +29,29 @@ export class RichTextMentionListBox extends FoundationElement {
      * @internal
      */
     @observable
-    public readonly childItems: ListOption[] = [];
-
-    /**
-     * @internal
-     */
-    @observable
-    public listBox!: Listbox;
-
-    /**
-     * @internal
-     */
-    @observable
     public region?: AnchoredRegion;
 
     /**
      * @internal
      */
-    public filter?: string;
+    public filter = '';
+
+    /**
+     * The collection of currently filtered options.
+     * The approach is defined based on the `Combobox.filteredOptions` implementation.
+     *
+     * @internal
+     */
+    public filteredOptions: ListboxOption[] = [];
 
     @observable
     private anchorElement?: HTMLElement;
 
-    private mentionExtensionConfig?: MentionExtensionConfiguration[];
-
     private suggestionProps!: SuggestionProps;
-
-    private listBoxNotifier?: Notifier;
 
     private regionNotifier?: Notifier;
 
-    private readonly intersectionObserver: IntersectionObserver = new IntersectionObserver(
+    private readonly anchorElementIntersectionObserver: IntersectionObserver = new IntersectionObserver(
         entries => {
             if (!entries[0]?.isIntersecting) {
                 this.setOpen(false);
@@ -97,57 +68,56 @@ export class RichTextMentionListBox extends FoundationElement {
     }
 
     /**
+     * The list of options.
+     *
+     * @public
+     * @remarks
+     * Overrides `Listbox.options`.
+     */
+    public override get options(): ListboxOption[] {
+        Observable.track(this, 'options');
+        return this.filteredOptions?.length ? this.filteredOptions : this._options;
+    }
+
+    public override set options(value: ListboxOption[]) {
+        this._options = value;
+        Observable.notify(this, 'options');
+    }
+
+    /**
+     * Triggers when the mention plugin is activated upon pressing the `key`
+     *
      * @public
      */
     public onMention(props: SuggestionProps): void {
         this.suggestionProps = props;
-        this.activeCharacter = props.text.slice(0, 1);
         this.filter = props.query;
         this.anchorElement = props.decorationNode as HTMLElement;
         this.setOpen(true);
         this.filterOptions();
-        void this.selectFirstOption();
+        this.selectFirstElement();
     }
 
     /**
+     * Handle keydown actions for listbox navigation and selection.
+     *
+     * @param e - the keyboard event
      * @public
      */
-    public updateMentionExtensionConfig(
-        mentionExtensionConfig?: MentionExtensionConfiguration[]
-    ): void {
-        this.mentionExtensionConfig = mentionExtensionConfig;
-        this.setActiveMappingConfigs();
-    }
-
-    /**
-     * @internal
-     */
-    public async selectFirstOption(): Promise<void> {
-        const definedElements = [
-            this.listBox?.matches(':not(:defined)')
-                ? customElements.whenDefined(this.listBox.localName)
-                : Promise.resolve()
-        ];
-        await Promise.all(definedElements);
-        this.listBox?.selectFirstOption();
-    }
-
-    /**
-     * @public
-     */
-    public keydownHandler(event: KeyboardEvent): boolean {
+    public override keydownHandler(event: KeyboardEvent): boolean {
         if (!this.open) {
             return false;
         }
         switch (event.key) {
             case keyTab:
             case keyEnter: {
-                if (!this.hasSelectableOptions) {
+                // When there is no filter options, the code is returned.
+                if (this.filteredOptions.length === 0) {
                     return false;
                 }
                 this.activateMention({
-                    href: this.firstSelectedOption!.value,
-                    displayName: this.firstSelectedOption!.text
+                    href: this.firstSelectedOption.value,
+                    displayName: this.firstSelectedOption.text
                 } as MentionDetail);
                 return true;
             }
@@ -155,24 +125,59 @@ export class RichTextMentionListBox extends FoundationElement {
                 this.setOpen(false);
                 return false;
             }
-            case keyArrowDown: {
-                this.listBox.keydownHandler(event);
-                return false;
-            }
+            case keyArrowDown:
             case keyArrowUp: {
-                this.listBox.keydownHandler(event);
+                super.keydownHandler(event);
+                this.scrollOptionIntoView();
                 return false;
             }
             default: {
+                super.keydownHandler(event);
                 return false;
             }
         }
     }
 
     /**
+     * Filter available options by filter value.
+     * The method is defined based on the `Combobox.filterOptions` implementation.
+     *
      * @internal
      */
-    public clickHandler(e: MouseEvent): boolean {
+    public filterOptions(): void {
+        if (!this.filter) {
+            this.filteredOptions = this._options;
+        } else {
+            const normalizedFilter = normalizeString(this.filter);
+            this.filteredOptions = this._options.filter(o => normalizeString(o.text).includes(normalizedFilter));
+        }
+
+        this._options.forEach(o => {
+            o.hidden = !this.filteredOptions.includes(o);
+        });
+    }
+
+    /**
+     * Synchronize the form-associated proxy and update the value property of the element.
+     *
+     * @param prev - the previous collection of slotted option elements
+     * @param next - the next collection of slotted option elements
+     *
+     * @internal
+     */
+    public override slottedOptionsChanged(prev: Element[] | undefined, next: Element[]): void {
+        super.slottedOptionsChanged(prev, next);
+        this.filterOptions();
+        this.selectFirstElement();
+    }
+
+    /**
+     * Triggers the `suggestionProps` command to notify the tiptap editor to select the option.
+     * The method is defined based on the `Listbox.clickHandler` implementation.
+     *
+     * @internal
+     */
+    public override clickHandler(e: MouseEvent): boolean {
         const capturedElement = (e.target as HTMLElement).closest(
             'option,[role=option]'
         );
@@ -190,40 +195,25 @@ export class RichTextMentionListBox extends FoundationElement {
     }
 
     /**
-     * @internal
-     */
-    public activeCharacterChanged(): void {
-        this.setActiveMappingConfigs();
-    }
-
-    /**
+     * Observes the anchor element using intersection observer.
+     * Once the anchor element intersects, the anchor region will be closed.
+     *
      * @internal
      */
     public anchorElementChanged(prev: HTMLElement, next: HTMLElement): void {
         if (prev) {
-            this.intersectionObserver.unobserve(prev);
+            this.anchorElementIntersectionObserver.unobserve(prev);
         }
         if (this.region && this.anchorElement) {
             this.region.anchorElement = this.anchorElement;
             this.region.update();
-            this.intersectionObserver.observe(next);
+            this.anchorElementIntersectionObserver.observe(next);
         }
     }
 
     /**
-     * @internal
-     */
-    public listBoxChanged(): void {
-        if (this.listBoxNotifier) {
-            this.listBoxNotifier.unsubscribe(this);
-        }
-        this.listBoxNotifier = Observable.getNotifier(
-            this.listBox
-        );
-        this.listBoxNotifier.subscribe(this);
-    }
-
-    /**
+     * Observes the anchor region.
+     *
      * @internal
      */
     public regionChanged(): void {
@@ -237,60 +227,25 @@ export class RichTextMentionListBox extends FoundationElement {
     }
 
     /**
+     * Handles the events of the anchor region.
+     * Repositions the listbox scroll bar when the `initialLayoutComplete` event is triggered.
+     * Other events will be passed to the base class.
+     *
      * @internal
      */
-    public handleChange(source: unknown, args: unknown): void {
-        if (
-            source instanceof Listbox
-            && typeof args === 'string'
-        ) {
-            if (args === 'selectedIndex') {
-                this.scrollOptionIntoView();
-            }
-            if (args === "options") {
-                this.filterOptions();
-                void this.selectFirstOption();
-            }
-        }
+    public override handleChange(source: unknown, args: string): void {
         if (source instanceof AnchoredRegion) {
             if (args === 'initialLayoutComplete') {
                 this.scrollOptionIntoView();
             }
+        } else {
+            super.handleChange(source, args);
         }
-    }
-
-    private get firstSelectedOption(): ListOption | null {
-        return this.listBox.selectedOptions[0] as ListOption ?? null;
-    }
-
-    private get hasSelectableOptions(): boolean {
-        return this.childItems.length > 0 && !this.childItems.every(o => o.disabled);
     }
 
     private scrollOptionIntoView(): void {
         requestAnimationFrame(() => {
             this.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
-        });
-    }
-
-    private setActiveMappingConfigs(): void {
-        this.activeMappingConfigs = this.activeCharacter
-            ? this.mentionExtensionConfig?.find(
-                config => config.character === this.activeCharacter
-            )?.mappingConfigs
-            : undefined;
-    }
-
-    private filterOptions(): void {
-        if (!this.childItems || this.filter === undefined) {
-            return;
-        }
-        const normalizedFilter = normalizeString(this.filter.trim());
-        this.childItems.forEach(listOption => {
-            const normalizedOptionText = normalizeString(listOption.text.trim());
-            const includesSearchString = normalizedOptionText.includes(normalizedFilter);
-            listOption.disabled = !includesSearchString;
-            listOption.hidden = !includesSearchString;
         });
     }
 
@@ -304,6 +259,15 @@ export class RichTextMentionListBox extends FoundationElement {
 
     private setOpen(value: boolean): void {
         this.open = value;
+    }
+
+    private selectFirstElement(): void {
+        for (const option of this._options) {
+            if (option === this.filteredOptions[0]) {
+                option.selected = true;
+                break;
+            }
+        }
     }
 }
 

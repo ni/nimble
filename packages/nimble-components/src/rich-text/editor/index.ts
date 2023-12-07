@@ -19,6 +19,7 @@ import { RichText } from '../base';
 import type { RichTextMentionListBox } from '../mention-list-box';
 import { createTiptapEditor } from './models/create-tiptap-editor';
 import { EditorConfiguration } from '../models/editor-configuration';
+import type { MappingConfigs } from '../../rich-text-mention/base/types';
 import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 
 declare global {
@@ -40,7 +41,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @internal
      */
     public tiptapEditor = createTiptapEditor(
-        this.editor,
+        this,
         [],
         this.mentionListBox
     );
@@ -160,6 +161,18 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
+    @observable
+    public activeMentionCharacter?: string;
+
+    /**
+     * @internal
+     */
+    @observable
+    public activeMappingConfigs?: MappingConfigs;
+
+    /**
+     * @internal
+     */
     public editorContainer!: HTMLDivElement;
 
     private resizeObserver?: ResizeObserver;
@@ -236,9 +249,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         next: EditorConfiguration
     ): void {
         const mentionExtensionConfig = this.getMentionExtensionConfig();
-        this.mentionListBox?.updateMentionExtensionConfig(
-            mentionExtensionConfig
-        );
         if (this.isMentionExtensionConfigUnchanged(prev, next)) {
             this.setMarkdown(this.getMarkdown());
         } else {
@@ -249,6 +259,14 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.initializeEditor();
             this.setMarkdown(currentStateMarkdown);
         }
+        this.setActiveMappingConfigs();
+    }
+
+    /**
+     * @internal
+     */
+    public activeMentionCharacterChanged(): void {
+        this.setActiveMappingConfigs();
     }
 
     /**
@@ -437,7 +455,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         this.unbindNativeInputEvent();
         this.tiptapEditor?.destroy();
         this.tiptapEditor = createTiptapEditor(
-            this.editor,
+            this,
             this.configuration instanceof EditorConfiguration
                 ? this.configuration.mentionExtensionConfig
                 : [],
@@ -571,6 +589,14 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 }
             }
         });
+    }
+
+    private setActiveMappingConfigs(): void {
+        this.activeMappingConfigs = this.activeMentionCharacter
+            ? this.getMentionExtensionConfig().find(
+                config => config.character === this.activeMentionCharacter
+            )?.mappingConfigs
+            : undefined;
     }
 }
 

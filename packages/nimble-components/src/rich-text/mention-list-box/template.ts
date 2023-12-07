@@ -1,32 +1,38 @@
 /* eslint-disable */
-import { children, elements, html, ref, repeat } from '@microsoft/fast-element';
+import { html, ref, slotted } from '@microsoft/fast-element';
 import type { RichTextMentionListBox } from '.';
-import { listboxTag } from '../../listbox';
+import { Listbox } from '../../listbox';
 import { anchoredRegionTag } from '../../anchored-region';
-import type { MappingConfig } from '../../rich-text-mention/base/models/mapping-config';
-import { listOptionTag } from '../../list-option';
 
 // prettier-ignore
 export const template = html<RichTextMentionListBox>`
-  <template ?hidden="${x => !x.open}">
-    <${anchoredRegionTag}
+    <template>
+        <${anchoredRegionTag}
             ${ref('region')}
             class="anchored-region"
+            fixed-placement
             auto-update-mode="auto"
-            vertical-positioning-mode="locktodefault"
+            vertical-default-position="'bottom'"
+            vertical-positioning-mode="'locktodefault'"
+            horizontal-default-position="center"
             horizontal-positioning-mode="locktodefault"
-            vertical-default-position="bottom"
-            >
-            <${listboxTag}
-                ${ref('listBox')}
+            horizontal-scaling="anchor"
+            ?hidden="${x => !x.open}">
+            <div
+                class="listbox"
+                part="listbox"
+                role="listbox"
                 @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
-                ${children({ property: 'childItems', filter: elements() })}
-                >
-                ${repeat(
-                    x => Array.from(x.activeMappingConfigs?.values() ?? []),
-                    html<MappingConfig>`<${listOptionTag} value="${x => x.mentionHref}">${x => x.displayName}</${listOptionTag}>`, { recycle: false }
-                )}
-            </${listboxTag}>
-        </${anchoredRegionTag}>
+                ?disabled="${x => x.disabled}"
+            >
+                <slot
+                    ${slotted({
+            filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
+            flatten: true,
+            property: 'slottedOptions',
+            })}
+                ></slot>
+            </div>
+            </${anchoredRegionTag}>
     </template>
 `;

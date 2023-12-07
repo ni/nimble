@@ -21,16 +21,17 @@ import { mentionPluginPrefix } from '../types';
 import { anchorTag } from '../../../anchor';
 import type { MentionExtensionConfiguration } from '../../models/mention-extension-configuration';
 import type { RichTextMentionListBox } from '../../mention-list-box';
+import type { RichTextEditor } from '..';
 
 const validAbsoluteLinkRegex = /^https?:\/\//i;
 
 export function createTiptapEditor(
-    editor: HTMLDivElement,
+    richTextEditor: RichTextEditor,
     mentionExtensionConfig: MentionExtensionConfiguration[],
     mentionListBox?: RichTextMentionListBox
 ): Editor {
     const customLink = createCustomLinkExtension();
-    const mentionExtensions = mentionExtensionConfig.map(config => createCustomMentionExtension(config, mentionListBox));
+    const mentionExtensions = mentionExtensionConfig.map(config => createCustomMentionExtension(config, richTextEditor, mentionListBox));
 
     /**
      * For more information on the extensions for the supported formatting options, refer to the links below.
@@ -38,7 +39,7 @@ export function createTiptapEditor(
      * Tiptap nodes: https://tiptap.dev/api/nodes
      */
     const tipTapEditor = new Editor({
-        element: editor,
+        element: richTextEditor.editor,
         // The editor will detect markdown syntax for an input only for these items
         // https://tiptap.dev/api/editor#enable-input-rules
         enableInputRules: [BulletList, OrderedList],
@@ -145,6 +146,7 @@ function createCustomLinkExtension(): Mark<LinkOptions> {
 
 function createCustomMentionExtension(
     config: MentionExtensionConfiguration,
+    richTextEditor: RichTextEditor,
     mentionListBox?: RichTextMentionListBox
 ): Node<MentionOptions> {
     return Mention.extend({
@@ -203,6 +205,7 @@ function createCustomMentionExtension(
                     onStart: (props): void => {
                         inSuggestionMode = true;
                         config.mentionUpdateEmitter(props.query);
+                        richTextEditor.activeMentionCharacter = props.text.slice(0, 1);
                         mentionListBox?.onMention(props);
                     },
                     onUpdate: (props): void => {
