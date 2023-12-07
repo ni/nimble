@@ -1,1 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><defs><style>.cls-1{fill:#161617;stroke-width:0px;}</style></defs><path class="cls-1" d="m12,3v-1h-2v1h-4v-1h-2v1h-2v11h12V3h-2Zm1,10H3v-7h10v7Zm-7-4h-2v-2h2v2Z"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+    <defs>
+        <style>.cls-1{fill:#161617;stroke-width:0px;}</style>
+    </defs>
+    <path class="cls-1" d="m12,3v-1h-2v1h-4v-1h-2v1h-2v11h12V3h-2Zm1,10H3v-7h10v7Zm-7-4h-2v-2h2v2Z" />
+</svg>
