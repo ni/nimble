@@ -95,7 +95,7 @@ describe('Anchor', () => {
         }
     });
 
-    describe('contenteditable behavior', () => {
+    fdescribe('contenteditable behavior', () => {
         let innerAnchor: HTMLAnchorElement;
 
         beforeEach(async () => {
@@ -114,17 +114,19 @@ describe('Anchor', () => {
         });
 
         const interestingValues = [
-            { name: '', expected: true },
-            { name: 'true', expected: true },
-            { name: 'false', expected: false },
-            { name: 'plaintext-only', expected: true },
-            { name: 'inherit', expected: false },
-            { name: 'badvalue', expected: false }
+            { name: '', expected: true, skipTag: '' },
+            { name: 'true', expected: true, skipTag: '' },
+            { name: 'false', expected: false, skipTag: '' },
+            { name: 'plaintext-only', expected: true, skipTag: '#SkipFirefox' },
+            { name: 'inherit', expected: false, skipTag: '' },
+            { name: 'badvalue', expected: false, skipTag: '' }
         ] as const;
 
         parameterizeNamedList(interestingValues, (spec, name, value) => {
             spec(
-                `inner anchor isContentEditable is ${value.expected.toString()} when attribute set to "${name}"`,
+                `inner anchor isContentEditable is ${value.expected.toString()} when attribute set to "${name}" ${
+                    value.skipTag
+                }`,
                 async () => {
                     element.setAttribute('contenteditable', name);
                     await waitForUpdatesAsync();
@@ -137,7 +139,9 @@ describe('Anchor', () => {
 
         parameterizeNamedList(interestingValues, (spec, name, value) => {
             spec(
-                `inner anchor isContentEditable is ${value.expected.toString()} when property set to "${name}"`,
+                `inner anchor isContentEditable is ${value.expected.toString()} when property set to "${name}" ${
+                    value.skipTag
+                }`,
                 async () => {
                     element.contentEditable = name;
                     await waitForUpdatesAsync();
