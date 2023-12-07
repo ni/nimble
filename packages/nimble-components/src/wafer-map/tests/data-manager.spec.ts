@@ -124,7 +124,7 @@ describe('Wafermap Data Manager', () => {
 
     it('should have all dies with full opacity from the highlighted list', () => {
         const highlightedTags = getHighlightedTags().map(
-            value => value + dieLabelsSuffix
+            tag => tag + dieLabelsSuffix
         );
         const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(',1)'));
         for (const dieRenderInfo of diesWithFullOpacity) {

@@ -365,7 +365,7 @@ describe('Wafermap Prerendering module', () => {
             const expectedValues = waferMapDies.map(x => {
                 if (!x.tags) {
                     return {
-                        fillStyle: 'rgba(255,0,0,0.3)'
+                        fillStyle: 'rgba(255,0,0,1)'
                     };
                 }
                 const opacity = x.tags[0] === highlightedTag ? 1 : 0.3;
