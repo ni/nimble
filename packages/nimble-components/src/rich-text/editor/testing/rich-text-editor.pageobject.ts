@@ -10,6 +10,7 @@ import {
     getLastChildElementAttribute
 } from '../../models/testing/markdown-parser-utils';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
+import { RichTextMarkdownParser } from '../../models/markdown-parser';
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -312,6 +313,16 @@ export class RichTextEditorPageObject {
     public getPlaceholderValue(): string {
         const editor = this.getTiptapEditor();
         return editor.firstElementChild?.getAttribute('data-placeholder') ?? '';
+    }
+
+    public getParsedHtmlFromMarkdown(markdown: string): string {
+        const parseResult = RichTextMarkdownParser.parseMarkdownToDOM(
+            markdown,
+            this.richTextEditorElement.configuration?.parserMentionConfig
+        );
+        return this.richTextEditorElement.xmlSerializer.serializeToString(
+            parseResult.fragment
+        );
     }
 
     private getEditorSection(): Element | null | undefined {

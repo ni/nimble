@@ -56,13 +56,18 @@ const component = ([
     </div>
 `;
 
-const componentEditingMode = (): ViewTemplate => html`
+const componentEditingMode = ([
+    disabledName,
+    disabled
+]: DisabledState): ViewTemplate => html`
     <style class='code-hide'>
         .mention-container {
             display: inline-block;
             margin: var(${smallPadding.cssCustomProperty});
             padding: var(${mediumPadding.cssCustomProperty});
-            border: var(${borderWidth.cssCustomProperty}) solid var(${borderColor.cssCustomProperty});
+            border: var(${borderWidth.cssCustomProperty}) solid var(${
+    borderColor.cssCustomProperty
+});
         }
 
         .sample-text {
@@ -75,13 +80,16 @@ const componentEditingMode = (): ViewTemplate => html`
         <${richTextMentionUsersViewTag}
             mention-href="user:1"
             mention-label="John Doe"
+            ?disabled="${() => disabled}"
         >
             @John Doe
         </${richTextMentionUsersViewTag}>
-        <span class="sample-text">(Mention View Enabled Editing)</span>
+        <span class="sample-text">(Mention View Enabled Editing and ${() => disabledName})</span>
     </div>
 `;
 
 export const richTextMentionUserViewThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component, [disabledStates]));
 
-export const richTextMentionUserViewEditEnabledThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(componentEditingMode));
+export const richTextMentionUserViewEditEnabledThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(componentEditingMode, [disabledStates])
+);

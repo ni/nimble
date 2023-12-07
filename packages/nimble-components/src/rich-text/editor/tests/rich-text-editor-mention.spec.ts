@@ -601,6 +601,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event from configuration elment when there is update in @mention in editor', async () => {
+        await pageObject.setEditorTextContent('@test');
         const { userMentionElement } = await appendUserMentionConfiguration(
             element
         );
@@ -640,6 +641,29 @@ describe('RichTextEditorMention', () => {
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         await pageObject.sliceEditorContent(5);
+        expect(mentionUpdateSpy).toHaveBeenCalledTimes(0);
+    });
+
+    it('should not fire "mention-update" event when adding text near an existing @ mention', async () => {
+        const { userMentionElement } = await appendUserMentionConfiguration(
+            element
+        );
+        element.setMarkdown('<user:1>');
+        const mentionUpdateSpy = jasmine.createSpy('mention-update');
+        userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
+        await pageObject.setEditorTextContent('text');
+        expect(mentionUpdateSpy).toHaveBeenCalledTimes(0);
+    });
+
+    it('should not fire "mention-update" event when pasting a block of text that contains a @ mention in the middle', async () => {
+        const { userMentionElement } = await appendUserMentionConfiguration(
+            element,
+            [{ key: 'user:1', displayName: 'username1' }]
+        );
+        const htmlContent = pageObject.getParsedHtmlFromMarkdown('start <user:1> end');
+        const mentionUpdateSpy = jasmine.createSpy('mention-update');
+        userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
+        pageObject.pasteHTMLToEditor(htmlContent);
         expect(mentionUpdateSpy).toHaveBeenCalledTimes(0);
     });
 
@@ -728,41 +752,41 @@ describe('RichTextEditorMention', () => {
         const validMentionNodes = [
             {
                 name: 'Mention Node',
-                input: '<nimble-rich-text-mention-users-view mention-href="user:1" mention-label="User" disable-editing="true"></nimble-rich-text-mention-users-view>',
-                textContent: 'User'
-            },
-            {
-                name: 'Mention Node within paragraph node',
-                input: '<p>Mention nodes between <nimble-rich-text-mention-users-view mention-href="user:1" mention-label="User" disable-editing="true"></nimble-rich-text-mention-users-view> text</p>',
-                textContent: 'Mention nodes between User text'
+                input: '<user:1>',
+                content: 'User'
             },
             {
                 name: 'Mention Node within strong node',
-                input: '<strong><nimble-rich-text-mention-users-view mention-href="user:1" mention-label="User" disable-editing="true"></nimble-rich-text-mention-users-view></strong>',
-                textContent: 'User'
+                input: '**<user:1>**',
+                content: 'User'
             },
             {
                 name: 'Mention Node within italics node',
-                input: '<em><nimble-rich-text-mention-users-view mention-href="user:1" mention-label="User" disable-editing="true"></nimble-rich-text-mention-users-view></em>',
-                textContent: 'User'
+                input: '*<user:1>*',
+                content: 'User'
             },
             {
                 name: 'Mention Node within strong and italics node',
-                input: '<strong><em><nimble-rich-text-mention-users-view mention-href="user:1" mention-label="User" disable-editing="true"></nimble-rich-text-mention-users-view></em></strong>',
-                textContent: 'User'
+                input: '***<user:1>***',
+                content: 'User'
             }
         ] as const;
 
         parameterizeNamedList(validMentionNodes, (spec, name, value) => {
             spec(`${name} renders as plain text in editor`, async () => {
-                await appendUserMentionConfiguration(element);
-                pageObject.pasteHTMLToEditor(value.input);
+                await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: value.content }
+                ]);
+                const htmlContent = pageObject.getParsedHtmlFromMarkdown(
+                    value.input
+                );
+                pageObject.pasteHTMLToEditor(htmlContent);
                 expect(pageObject.getEditorTagNamesWithClosingTags()).toEqual([
                     'P',
                     '/P'
                 ]);
                 expect(pageObject.getEditorTextContents()).toEqual([
-                    value.textContent
+                    value.content
                 ]);
             });
         });

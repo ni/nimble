@@ -183,7 +183,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public disabledChanged(_prev: unknown, _next: unknown): void {
+    public disabledChanged(): void {
         this.tiptapEditor.setEditable(!this.disabled);
         this.setEditorTabIndex();
         this.editor.setAttribute(
@@ -399,6 +399,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 : [],
             this.placeholder
         );
+        this.disabledChanged();
         this.bindEditorTransactionEvent();
         this.bindEditorUpdateEvent();
         this.stopNativeInputEventPropagation();

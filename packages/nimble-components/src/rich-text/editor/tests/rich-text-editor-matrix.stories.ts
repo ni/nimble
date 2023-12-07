@@ -22,6 +22,9 @@ import {
     disabledStates,
     errorStates
 } from '../../../utilities/tests/states';
+import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
+import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
+import { mappingUserTag } from '../../../mapping/user';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Editor',
@@ -29,8 +32,6 @@ const metadata: Meta = {
         ...sharedMatrixParameters()
     }
 };
-
-const richTextMarkdownString = '1. <https://nimble.ni.dev>\n2. **Bold*Italics***';
 
 export default metadata;
 
@@ -70,6 +71,9 @@ const component = (
         error-text="${() => errorText}"
         placeholder="${() => placeholderText}"
     >
+        <${richTextMentionUsersTag} pattern="^user:(.*)">
+            <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
+        </${richTextMentionUsersTag}>
     </${richTextEditorTag}>
 `;
 
