@@ -1238,7 +1238,7 @@ describe('Table', () => {
             describe('changing idFieldName when rendering hierarchical data, preserves original ordering after removing parentIdFieldName', () => {
                 const maintainDataOrderTests = [
                     {
-                        name: 'typical',
+                        name: 'child first, parent second originally',
                         tableData: [
                             {
                                 id: 'child 1',
