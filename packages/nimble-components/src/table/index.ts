@@ -228,7 +228,7 @@ export class Table<
     private columnNotifiers: Notifier[] = [];
     private readonly layoutManagerNotifier: Notifier;
     private isInitialized = false;
-    private isDataOrdered = false;
+    private isTanStackDataFlat = false;
     private readonly collapsedRows = new Set<string>();
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
@@ -663,22 +663,22 @@ export class Table<
                     nestedIds: false,
                     throwIfOrphans: true
                 }) as unknown as TableNode<TData>[];
-                this.isDataOrdered = false;
+                this.isTanStackDataFlat = false;
             } catch {
-                this.tableValidator.setInvalidParentIdConfiguration(false);
-                this.isDataOrdered = true;
+                this.tableValidator.setParentIdConfigurationValidity(false);
+                this.isTanStackDataFlat = true;
                 return flatData.map(record => {
                     return { clientRecord: { ...record } };
                 });
             }
         } else {
-            this.isDataOrdered = true;
+            this.isTanStackDataFlat = true;
             hierarchicalData = flatData.map(record => {
                 return { clientRecord: { ...record } };
             });
         }
 
-        this.tableValidator.setInvalidParentIdConfiguration(true);
+        this.tableValidator.setParentIdConfigurationValidity(true);
         return hierarchicalData;
     }
 
@@ -716,11 +716,12 @@ export class Table<
             data.forEach(record => {
                 this.convertRecordToFlatList(record, flatData);
             });
+            const currentMetadata = new Map(this.rowMetadata);
+            this.rowMetadata.clear();
             flatData.forEach(record => {
-                const metadata = this.rowMetadata.get(record[oldId]);
+                const metadata = currentMetadata.get(record[oldId]);
                 if (metadata !== undefined) {
                     this.rowMetadata.set(record[newId], metadata);
-                    this.rowMetadata.delete(record[oldId]);
                 }
             });
         }
@@ -732,7 +733,7 @@ export class Table<
         tanstackData.forEach(record => {
             this.convertRecordToFlatList(record, flatData);
         });
-        if (this.idFieldName && !this.isDataOrdered) {
+        if (this.idFieldName && !this.isTanStackDataFlat) {
             flatData.sort((a, b) => {
                 const leftRecordIndex = this.rowMetadata.get(
                     a[this.idFieldName!]
@@ -1144,6 +1145,16 @@ export class Table<
             state: { ...this.options.state, ...updatedOptions.state }
         };
         this.table.setOptions(this.options);
+        if (updatedOptions.data) {
+            const rows = this.table.getRowModel().flatRows;
+            const currentCollapsedRows = new Set(this.collapsedRows);
+            this.collapsedRows.clear();
+            for (const row of rows) {
+                if (currentCollapsedRows.has(row.id)) {
+                    this.collapsedRows.add(row.id);
+                }
+            }
+        }
         this.refreshRows();
     }
 
@@ -1195,7 +1206,7 @@ export class Table<
             // if expanded is set to "true" this means that the table is in a default state
             // so we need to go through each row and determine if it is really expanded or
             // collapsed and update our internal state to match
-            this.updateExpandedStateToDefault();
+            this.inflateDefaultExpandedState();
         }
         // must update the collapsedRows before toggling expanded state
         if (wasExpanded) {
@@ -1285,7 +1296,7 @@ export class Table<
         return tanstackSelectionState;
     }
 
-    private updateExpandedStateToDefault(): void {
+    private inflateDefaultExpandedState(): void {
         const expandedState: { [key: string]: boolean } = {};
         const allRows = this.table.getGroupedRowModel().flatRows;
         for (const tanstackRow of allRows) {

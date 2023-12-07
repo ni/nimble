@@ -162,7 +162,7 @@ export class TableValidator<TData extends TableNode> {
         return requestedRecordIds.filter(id => this.recordIds.has(id));
     }
 
-    public setInvalidParentIdConfiguration(valid: boolean): void {
+    public setParentIdConfigurationValidity(valid: boolean): void {
         this.invalidParentIdConfiguration = !valid;
     }
 
