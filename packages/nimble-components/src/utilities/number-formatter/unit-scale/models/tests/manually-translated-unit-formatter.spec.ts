@@ -76,104 +76,87 @@ describe('ManuallyTranslatedUnitFormatter', () => {
 
     const pluralizationTestCases = [
         {
-            name: 'French',
+            name: '0 in French',
             locale: 'fr',
-            formattedNumber: '0',
             toFormat: 0,
-            appendedUnit: 'fr-singular'
+            expected: '0 fr-singular'
         },
         {
-            name: 'French',
+            name: '0.1 in French',
             locale: 'fr',
-            formattedNumber: '0,1',
             toFormat: 0.1,
-            appendedUnit: 'fr-singular'
+            expected: '0,1 fr-singular'
         },
         {
-            name: 'French',
+            name: '1 in French',
             locale: 'fr',
-            formattedNumber: '1',
             toFormat: 1,
-            appendedUnit: 'fr-singular'
+            expected: '1 fr-singular'
         },
         {
-            name: 'French',
+            name: '1.9 in French',
             locale: 'fr',
-            formattedNumber: '1,9',
             toFormat: 1.9,
-            appendedUnit: 'fr-singular'
+            expected: '1,9 fr-singular'
         },
         {
-            name: 'French',
+            name: '2 in French',
             locale: 'fr',
-            formattedNumber: '2',
             toFormat: 2,
-            appendedUnit: 'fr-plural'
+            expected: '2 fr-plural'
         },
         {
-            name: 'French',
+            name: '1000 in French',
             locale: 'fr',
-            formattedNumber: '1\u202f000',
             toFormat: 1000,
-            appendedUnit: 'fr-plural'
+            expected: '1\u202f000 fr-plural'
         },
         {
-            name: 'English',
+            name: '0 in English',
             locale: 'en',
-            formattedNumber: '0',
             toFormat: 0,
-            appendedUnit: 'en-plural'
+            expected: '0 en-plural'
         },
         {
-            name: 'English',
+            name: '0.1 in English',
             locale: 'en',
-            formattedNumber: '0.1',
             toFormat: 0.1,
-            appendedUnit: 'en-plural'
+            expected: '0.1 en-plural'
         },
         {
-            name: 'English',
+            name: '1 in English',
             locale: 'en',
-            formattedNumber: '1',
             toFormat: 1,
-            appendedUnit: 'en-singular'
+            expected: '1 en-singular'
         },
         {
-            name: 'English',
+            name: '1.9 in English',
             locale: 'en',
-            formattedNumber: '1,9',
             toFormat: 1.9,
-            appendedUnit: 'en-plural'
+            expected: '1.9 en-plural'
         },
         {
-            name: 'English',
+            name: '2 in English',
             locale: 'en',
-            formattedNumber: '2',
             toFormat: 2,
-            appendedUnit: 'en-plural'
+            expected: '2 en-plural'
         },
         {
-            name: 'English',
+            name: '1000 in English',
             locale: 'en',
-            formattedNumber: '1,000',
             toFormat: 1000,
-            appendedUnit: 'en-plural'
+            expected: '1,000 en-plural'
         }
     ] as const;
 
     parameterizeNamedList(pluralizationTestCases, (spec, name, value) => {
-        spec(
-            `uses expected pluralization for ${value.formattedNumber} in ${name}`,
-            () => {
-                const formatter = new ManuallyTranslatedUnitFormatter(
-                    value.locale,
-                    {},
-                    translations
-                );
-                expect(formatter.format(value.toFormat)).toEqual(
-                    `${value.formattedNumber} ${value.appendedUnit}`
-                );
-            }
-        );
+        spec(`uses expected pluralization for ${name}`, () => {
+            const formatter = new ManuallyTranslatedUnitFormatter(
+                value.locale,
+                {},
+                translations
+            );
+            expect(formatter.format(value.toFormat)).toEqual(value.expected);
+        });
     });
 });

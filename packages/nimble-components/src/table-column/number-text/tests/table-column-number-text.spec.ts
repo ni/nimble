@@ -553,6 +553,9 @@ describe('TableColumnNumberText', () => {
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
                 '1.00 KiB'
             );
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                '1.00 KiB'
+            );
         });
 
         it('uses configured unit in default formatting mode', async () => {
@@ -563,6 +566,9 @@ describe('TableColumnNumberText', () => {
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                '11 bytes'
+            );
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
                 '11 bytes'
             );
         });
