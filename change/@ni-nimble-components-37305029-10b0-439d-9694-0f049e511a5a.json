@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "New icons for calendars and test plans",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
