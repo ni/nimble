@@ -11,6 +11,8 @@ import {
 import { listboxTag } from '..';
 import { listOptionTag } from '../../list-option';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import { menuMinWidth } from '../../theme-provider/design-tokens';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const metadata: Meta = {
     title: 'Tests/Listbox',
@@ -27,12 +29,13 @@ const playFunction = (): void => {
 };
 
 const component = (): ViewTemplate => html`
-    <${listboxTag}>
+    <${listboxTag} style="width: var(${menuMinWidth.cssCustomProperty});">
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag} value="2">Option 2</${listOptionTag}>
         <${listOptionTag} value="3" disabled>Option 3</${listOptionTag}>
         <${listOptionTag} value="4">Option 4</${listOptionTag}>
         <${listOptionTag} value="5" hidden>Option 5</${listOptionTag}>
+        <${listOptionTag} value="6">${loremIpsum}</${listOptionTag}>
     </${listboxTag}>
 `;
 
