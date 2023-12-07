@@ -519,8 +519,14 @@ export class Table<
      */
     public update(): void {
         this.validate();
-        if (this.tableUpdateTracker.updateRowIds && this.tableValidator.areRecordIdsValid()) {
-            this.rowMetadataManager.handleRowIdUpdate(this.table.options.data, this.idFieldName);
+        if (
+            this.tableUpdateTracker.updateRowIds
+            && this.tableValidator.areRecordIdsValid()
+        ) {
+            this.rowMetadataManager.handleRowIdUpdate(
+                this.table.options.data,
+                this.idFieldName
+            );
         }
 
         if (this.tableUpdateTracker.requiresTanStackUpdate) {
@@ -855,7 +861,9 @@ export class Table<
             } else {
                 const flatList = this.isDataOrdered
                     ? convertRecordsToUnorderFlatList(this.table.options.data)
-                    : this.rowMetadataManager.getOrderedData(this.table.options.data);
+                    : this.rowMetadataManager.getOrderedData(
+                        this.table.options.data
+                    );
                 const tanstackUpdates = this.processFlatData(flatList, false);
                 if (tanstackUpdates.state) {
                     updatedOptions.state.rowSelection = tanstackUpdates.state.rowSelection;
@@ -903,7 +911,9 @@ export class Table<
             )
         );
         this.tableValidator.validateColumnConfigurations(this.columns);
-        this.validateWithData(convertRecordsToUnorderFlatList(this.table.options.data));
+        this.validateWithData(
+            convertRecordsToUnorderFlatList(this.table.options.data)
+        );
     }
 
     private validateWithData(data: readonly TData[]): void {

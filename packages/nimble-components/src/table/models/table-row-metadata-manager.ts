@@ -19,7 +19,10 @@ export class TableRowMetadataManager<TData extends TableRecord> {
 
         const updatedMetadata = new Map<string, TableRowMetadata>();
         for (let i = 0; i < orderedData.length; i++) {
-            const recordId = this.getRecordId(orderedData[i]!, this.idFieldName);
+            const recordId = this.getRecordId(
+                orderedData[i]!,
+                this.idFieldName
+            );
             const existingMetadataForRecord = this.metadata.get(recordId);
 
             let updatedMetadataForRecord: TableRowMetadata;
@@ -38,7 +41,10 @@ export class TableRowMetadataManager<TData extends TableRecord> {
         this.metadata = updatedMetadata;
     }
 
-    public handleRowIdUpdate(data: readonly TableNode<TData>[], newIdFieldName: string | undefined): void {
+    public handleRowIdUpdate(
+        data: readonly TableNode<TData>[],
+        newIdFieldName: string | undefined
+    ): void {
         const previousIdFieldName = this.idFieldName;
         this.idFieldName = newIdFieldName;
 
@@ -57,7 +63,10 @@ export class TableRowMetadataManager<TData extends TableRecord> {
 
         const updatedMetadata = new Map<string, TableRowMetadata>();
         for (const record of flatData) {
-            const previousRecordId = this.getRecordId(record, previousIdFieldName);
+            const previousRecordId = this.getRecordId(
+                record,
+                previousIdFieldName
+            );
             const newRecordId = this.getRecordId(record, newIdFieldName);
             const recordMetadata = this.metadata.get(previousRecordId)!;
             updatedMetadata.set(newRecordId, recordMetadata);
@@ -68,7 +77,6 @@ export class TableRowMetadataManager<TData extends TableRecord> {
     public getOrderedData(data: readonly TableNode<TData>[]): TData[] {
         const flatData = convertRecordsToUnorderFlatList(data);
 
-        // TODO: this used to check for isDataOrdered
         if (!isString(this.idFieldName)) {
             return flatData;
         }
@@ -98,7 +106,9 @@ export class TableRowMetadataManager<TData extends TableRecord> {
     private getRecordId(record: TData, idFieldName: string): string {
         const id = record[idFieldName];
         if (typeof id !== 'string') {
-            throw new Error('Invalid record id found. Data should be valid before updating the metadata.');
+            throw new Error(
+                'Invalid record id found. Data should be valid before updating the metadata.'
+            );
         }
         return id;
     }
