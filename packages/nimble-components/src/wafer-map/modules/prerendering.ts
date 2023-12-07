@@ -138,12 +138,6 @@ export class Prerendering {
         if (!highlightedTags || highlightedTags?.length === 0) {
             return 1;
         }
-        if (
-            highlightedTags?.length === 1
-            && highlightedTags?.every(tag => tag === '')
-        ) {
-            return this.nonHighlightedOpacity;
-        }
         const tagsMatch = dieTags?.some(dieTag => highlightedTags.some(highlightedTag => dieTag === highlightedTag));
         return tagsMatch ? 1 : this.nonHighlightedOpacity;
     }
