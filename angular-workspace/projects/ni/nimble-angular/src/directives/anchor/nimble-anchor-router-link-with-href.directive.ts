@@ -1,5 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { RouterLinkWithHref } from '@angular/router';
+import { RouterLink } from '../../thirdparty/directives/router_link';
 
 /**
  * Selectors used for built-in Angular RouterLink directives:
@@ -15,7 +15,7 @@ import { RouterLinkWithHref } from '@angular/router';
  * won't also be an active RouterLink directive incorrectly handling navigation.
  */
 @Directive({ selector: 'nimble-anchor[nimbleRouterLink]' })
-export class NimbleAnchorRouterLinkWithHrefDirective extends RouterLinkWithHref {
+export class NimbleAnchorRouterLinkWithHrefDirective extends RouterLink {
     @Input()
     public set nimbleRouterLink(commands: never[] | string | null | undefined) {
         this.routerLink = commands;

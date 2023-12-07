@@ -1,11 +1,31 @@
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import { html, repeat } from '@microsoft/fast-element';
+import { mappingUserTag } from '../../../mapping/user';
+import {
+    type RichTextMentionUsers,
+    richTextMentionUsersTag
+} from '../../../rich-text-mention/users';
+import { type Fixture, fixture } from '../../../utilities/tests/fixture';
+import {
+    getSpecTypeByNamedList,
+    parameterizeNamedList
+} from '../../../utilities/tests/parameterized';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { RichTextMarkdownParser } from '../markdown-parser';
 import {
     getLeafContentsFromElement,
     getTagsFromElement,
-    getLastChildElementAttribute
+    getLastChildElementAttribute,
+    lastChildElementHasAttribute
 } from '../testing/markdown-parser-utils';
+import type { MappingUserKey } from '../../../mapping/base/types';
+import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
+import { anchorTag } from '../../../anchor';
+import { MarkdownParserMentionConfiguration } from '../markdown-parser-mention-configuration';
+
+interface BasicUserMentionMapping {
+    key?: MappingUserKey;
+    displayName?: string;
+}
 
 describe('Markdown parser', () => {
     describe('supported rich text formatting options from markdown string to its respective HTML elements', () => {
@@ -518,12 +538,10 @@ describe('Markdown parser', () => {
             });
 
             describe('various absolute links with different protocols other than https/http should be render as unchanged strings', () => {
-                const differentProtocolLinks: { name: string }[] = [
+                const differentProtocolLinks = [
                     { name: '<ftp://example.com/files/document.pdf>' },
                     { name: '<mailto:info@example.com>' },
-                    { name: '<file:///path/to/local/file.txt>' },
                     { name: '<tel:+1234567890>' },
-                    { name: '<javascript:void(0)>' },
                     { name: '<data:image/png;base64,iVBORw0KG...>' },
                     { name: '<ftps://example.com/files/document.pdf>' },
                     { name: '<ssh://username@example.com>' },
@@ -534,70 +552,60 @@ describe('Markdown parser', () => {
                     {
                         name: '<bitcoin:1Hf1KqNPZzkFJ5Wv8VPop9uaF5RjKN3N9s?amount=0.001>'
                     },
-                    { name: '<javascript:vbscript:alert("not alert")>' },
                     { name: '<test://test.com>' }
-                ];
-
-                const focused: string[] = [];
-                const disabled: string[] = [];
-                for (const value of differentProtocolLinks) {
-                    const specType = getSpecTypeByNamedList(
-                        value,
-                        focused,
-                        disabled
-                    );
-                    specType(
-                        `string "${value.name}" renders as plain text within paragraph tag`,
-                        // eslint-disable-next-line @typescript-eslint/no-loop-func
+                ] as const;
+                parameterizeNamedList(differentProtocolLinks, (spec, name) => {
+                    spec(
+                        `string "${name}" renders within nimble-anchor without 'href' attribute`,
                         () => {
-                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                                value.name
-                            );
+                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(name);
+                            const renderedLink = name.slice(1, -1);
 
-                            expect(getTagsFromElement(doc)).toEqual(['P']);
-                            expect(getLeafContentsFromElement(doc)).toEqual([
-                                value.name
+                            expect(getTagsFromElement(doc)).toEqual([
+                                'P',
+                                'NIMBLE-ANCHOR'
                             ]);
+                            expect(getLeafContentsFromElement(doc)).toEqual([
+                                renderedLink
+                            ]);
+                            expect(
+                                lastChildElementHasAttribute('href', doc)
+                            ).toBeFalse();
                         }
                     );
-                }
+                });
             });
 
-            describe('various unsafe characters in an absolute link', () => {
-                const notSupportedAbsoluteLink: {
-                    name: string
-                }[] = [
+            describe('malformed or unsupported absolute links', () => {
+                const notSupportedAbsoluteLink = [
                     { name: '<https://example.com/<page>>' },
                     { name: '<https%3A%2F%2Fexample.com/>' },
                     { name: 'http://www.example.com/' },
                     { name: '<https:// example.com>' },
                     { name: '<https://example .com>' },
-                    { name: '<https://example.com' }
+                    { name: '<https://example.com' },
+                    { name: '<javascript:void(0)>' },
+                    { name: '<file:///path/to/local/file.txt>' },
+                    { name: '<javascript:vbscript:alert("not alert")>' }
                 ];
+                parameterizeNamedList(
+                    notSupportedAbsoluteLink,
+                    (spec, name) => {
+                        spec(
+                            `string "${name}" renders as plain text within paragraph tag`,
+                            () => {
+                                const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                    name
+                                );
 
-                const focused: string[] = [];
-                const disabled: string[] = [];
-                for (const value of notSupportedAbsoluteLink) {
-                    const specType = getSpecTypeByNamedList(
-                        value,
-                        focused,
-                        disabled
-                    );
-                    specType(
-                        `string "${value.name}" renders as plain text within paragraph tag`,
-                        // eslint-disable-next-line @typescript-eslint/no-loop-func
-                        () => {
-                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                                value.name
-                            );
-
-                            expect(getTagsFromElement(doc)).toEqual(['P']);
-                            expect(getLeafContentsFromElement(doc)).toEqual([
-                                value.name
-                            ]);
-                        }
-                    );
-                }
+                                expect(getTagsFromElement(doc)).toEqual(['P']);
+                                expect(getLeafContentsFromElement(doc)).toEqual(
+                                    [name]
+                                );
+                            }
+                        );
+                    }
+                );
             });
         });
 
@@ -922,5 +930,355 @@ describe('Markdown parser', () => {
                 }
             );
         }
+    });
+
+    describe('user mention', () => {
+        let element: RichTextMentionUsers;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+
+        // prettier-ignore
+        async function setup(
+            mappings: BasicUserMentionMapping[],
+            pattern = ''
+        ): Promise<Fixture<RichTextMentionUsers>> {
+            return fixture<RichTextMentionUsers>(html`
+                <${richTextMentionUsersTag} pattern="${pattern}">
+                    ${repeat(() => mappings, html<BasicUserMentionMapping>`
+                        <${mappingUserTag}
+                            key="${x => x.key}"
+                            display-name="${x => x.displayName}">
+                        </${mappingUserTag}>
+                    `)}
+                </${richTextMentionUsersTag}>`);
+        }
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('should get view element when autolink markdown string matches the pattern with group regex', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ],
+                '^user:(.*)'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
+            ]);
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
+                'username1'
+            );
+        });
+
+        it('should get view element autolink markdown string with scheme as HTTP matches the pattern without group regex', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'http://user/1', displayName: 'username1' },
+                    { key: 'http://user/2', displayName: 'username2' }
+                ],
+                '^http://user/.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<http://user/1>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
+                'username1'
+            );
+        });
+
+        it('should get view element autolink markdown string with scheme as HTTPS matches the pattern without group regex', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'https://user/1', displayName: 'username1' },
+                    { key: 'https://user/2', displayName: 'username2' }
+                ],
+                '^https://user/(.*)'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<https://user/2>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
+                'username2'
+            );
+        });
+
+        it('should show user ID when username was not found in mapping elements and the pattern includes a grouping regex', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ],
+                '^user:(.*)'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1234-5678>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('mention-label', doc)).toEqual(
+                '1234-5678'
+            );
+        });
+
+        it('should render anchor element when username was not found in mapping elements and the pattern does not includes a grouping regex', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ],
+                '^user:.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<user:1234-5678>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
+            expect(getLeafContentsFromElement(doc)).toEqual(['user:1234-5678']);
+        });
+
+        it('should get anchor element with no href when markdown input does not match with the pattern', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ],
+                '^user:.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<issue:1>', [
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
+            ]);
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
+            expect(getLeafContentsFromElement(doc)).toEqual(['issue:1']);
+        });
+
+        it('should get anchor element with no href when display name is missing', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [{ key: 'user:1' }, { key: 'user:2' }],
+                '^user:.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
+            ]);
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
+            expect(getLeafContentsFromElement(doc)).toEqual(['user:1']);
+        });
+
+        it('should get anchor element with no href when the pattern does not match the autolink in markdown', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username1' }
+                ],
+                'abc'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
+            ]);
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
+            expect(getLeafContentsFromElement(doc)).toEqual(['user:1']);
+        });
+
+        it('should get anchor element with no href when keys do not match the pattern', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'abc', displayName: 'username1' },
+                    { key: 'abc', displayName: 'username1' }
+                ],
+                '^user:.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('<user:1>', [
+                new MarkdownParserMentionConfiguration(element.mentionInternals)
+            ]);
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(lastChildElementHasAttribute('href', doc)).toBeFalse();
+            expect(getLeafContentsFromElement(doc)).toEqual(['user:1']);
+        });
+
+        it('should get anchor element with href when autolink markdown format is HTTP but does not match with the pattern', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ],
+                '^user:.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<http://user/1>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('href', doc)).toBe(
+                'http://user/1'
+            );
+            expect(getLeafContentsFromElement(doc)).toEqual(['http://user/1']);
+        });
+
+        it('should get anchor element with href when autolink markdown format is HTTPS but does not match the pattern with same scheme (HTTPS)', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'https://user/1', displayName: 'username1' },
+                    { key: 'http://user/2', displayName: 'username2' }
+                ],
+                '^https://user/(.*)'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<https://ni/user/1>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('href', doc)).toBe(
+                'https://ni/user/1'
+            );
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                'https://ni/user/1'
+            ]);
+        });
+
+        it('should get anchor element with href when autolink markdown format is HTTPS but does not match with the pattern', async () => {
+            ({ element, connect, disconnect } = await setup(
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ],
+                '^user:.*'
+            ));
+            await connect();
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                '<https://user/1>',
+                [
+                    new MarkdownParserMentionConfiguration(
+                        element.mentionInternals
+                    )
+                ]
+            );
+
+            expect(getTagsFromElement(doc)).toEqual([
+                'P',
+                `${anchorTag}`.toUpperCase()
+            ]);
+            expect(getLastChildElementAttribute('href', doc)).toBe(
+                'https://user/1'
+            );
+            expect(getLeafContentsFromElement(doc)).toEqual(['https://user/1']);
+        });
+
+        describe('various wacky strings should reflect the `mention-label` attribute value of user mention view', () => {
+            parameterizeNamedList(wackyStrings, (spec, name) => {
+                spec(`for ${name}`, async () => {
+                    ({ element, connect, disconnect } = await setup(
+                        [{ key: 'user:1', displayName: name }],
+                        '^user:.*'
+                    ));
+                    await connect();
+                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                        '<user:1>',
+                        [
+                            new MarkdownParserMentionConfiguration(
+                                element.mentionInternals
+                            )
+                        ]
+                    );
+
+                    expect(getTagsFromElement(doc)).toEqual([
+                        'P',
+                        `${richTextMentionUsersViewTag}`.toUpperCase()
+                    ]);
+                    expect(
+                        getLastChildElementAttribute('mention-label', doc)
+                    ).toEqual(name);
+                });
+            });
+        });
     });
 });

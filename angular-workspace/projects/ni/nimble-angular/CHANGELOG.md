@@ -1,8 +1,220 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 18 Oct 2023 18:51:54 GMT and should not be manually modified.
+This log was last generated on Tue, 05 Dec 2023 11:06:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.0.1
+
+Tue, 05 Dec 2023 11:06:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.13
+
+## 18.0.0
+
+Tue, 28 Nov 2023 18:24:15 GMT
+
+### Major changes
+
+- Update to Angular 15 ([ni/nimble@bf12590](https://github.com/ni/nimble/commit/bf1259004b9d362f0d04fa52695b0d430805cf99))
+- Bump @ni/nimble-components to v20.14.11
+
+## 17.9.11
+
+Mon, 27 Nov 2023 16:11:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.10
+
+## 17.9.10
+
+Thu, 23 Nov 2023 08:11:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.9
+
+## 17.9.9
+
+Tue, 21 Nov 2023 19:16:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.8
+
+## 17.9.8
+
+Tue, 21 Nov 2023 17:02:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.7
+
+## 17.9.7
+
+Fri, 17 Nov 2023 16:02:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.6
+
+## 17.9.6
+
+Fri, 17 Nov 2023 01:11:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.5
+
+## 17.9.5
+
+Wed, 15 Nov 2023 16:52:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.4
+
+## 17.9.4
+
+Mon, 13 Nov 2023 17:03:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.3
+
+## 17.9.3
+
+Sat, 11 Nov 2023 11:03:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.2
+
+## 17.9.2
+
+Wed, 08 Nov 2023 16:07:09 GMT
+
+### Patches
+
+- Add Angular support for the nimble-card component ([ni/nimble@57ee0e9](https://github.com/ni/nimble/commit/57ee0e95855887e10034232f587be2e666c96414))
+- Bump @ni/nimble-components to v20.14.1
+
+## 17.9.1
+
+Tue, 07 Nov 2023 22:48:12 GMT
+
+### Patches
+
+- Fix incorrect type on member in NimbleRadioDirective ([ni/nimble@09a5fbf](https://github.com/ni/nimble/commit/09a5fbfda1a401994e90ab1c00cb9cb7deb44278))
+
+## 17.9.0
+
+Mon, 06 Nov 2023 20:28:48 GMT
+
+### Minor changes
+
+- Add NimblePipesModule in nimble-angular/pipes entrypoint (for DurationPipe) ([ni/nimble@e335f58](https://github.com/ni/nimble/commit/e335f58f38322eb0ba73f4222d4c40295eb4d501))
+
+## 17.8.8
+
+Fri, 03 Nov 2023 23:30:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.0
+
+## 17.8.7
+
+Thu, 02 Nov 2023 18:26:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.13.0
+
+## 17.8.6
+
+Thu, 02 Nov 2023 17:33:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.12.1
+
+## 17.8.5
+
+Wed, 01 Nov 2023 22:35:50 GMT
+
+### Patches
+
+- Prevent navigation due to routerLink directive when host is disabled ([ni/nimble@37fa96e](https://github.com/ni/nimble/commit/37fa96eb5b5512961aa272e3b3aada07a6ee39df))
+
+## 17.8.4
+
+Wed, 01 Nov 2023 20:45:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.12.0
+
+## 17.8.3
+
+Wed, 01 Nov 2023 16:39:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.11.0
+
+## 17.8.2
+
+Wed, 01 Nov 2023 15:14:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.10.3
+
+## 17.8.1
+
+Thu, 26 Oct 2023 18:19:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.10.2
+
+## 17.8.0
+
+Thu, 26 Oct 2023 00:29:31 GMT
+
+### Minor changes
+
+- Angular integration for duration table column; add DurationPipe at 'pipes' entrypoint ([ni/nimble@244e2ca](https://github.com/ni/nimble/commit/244e2caca0117fae6448f7c130e3afd3771b03d5))
+- Bump @ni/nimble-components to v20.10.1
+
+## 17.7.1
+
+Mon, 23 Oct 2023 14:17:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.10.0
+
+## 17.7.0
+
+Thu, 19 Oct 2023 23:50:56 GMT
+
+### Minor changes
+
+- Add decimal-maximum-digits attr to number-text column ([ni/nimble@466d474](https://github.com/ni/nimble/commit/466d474d52d3eb8a0396a6e53365e32bfbbd2954))
+- Bump @ni/nimble-components to v20.9.0
+
+## 17.6.4
+
+Thu, 19 Oct 2023 15:08:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.8.0
 
 ## 17.6.3
 
