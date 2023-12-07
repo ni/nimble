@@ -41,15 +41,15 @@ This folder contains reusable React components used in Nimble component MDX docu
 Compose the components to create clear and attractive usage documentation.
 
 To use any Nimble components in MDX documentation, first import the Nimble React wrapper for the component.
-E.g. `import { NimbleStorybookButton } from './button.react';`
+E.g. `import { NimbleButton } from './button.react';`
 
 ```jsx
 <Frame>
     <Container config="375px 1fr">
         <Column stylingClass="controls">
-            <NimbleStorybookButton appearance="ghost">{`Ghost Button`}</NimbleStorybookButton>
+            <NimbleButton appearance="ghost">{`Ghost Button`}</NimbleButton>
             <Divider />
-            <NimbleStorybookButton appearance="ghost">{`Ghost Button`}</NimbleStorybookButton>
+            <NimbleButton appearance="ghost">{`Ghost Button`}</NimbleButton>
         </Column>
         <Column>
             <Do>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Do>
