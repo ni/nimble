@@ -184,12 +184,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @internal
      */
     public disabledChanged(): void {
-        this.tiptapEditor.setEditable(!this.disabled);
-        this.setEditorTabIndex();
-        this.editor.setAttribute(
-            'aria-disabled',
-            this.disabled ? 'true' : 'false'
-        );
+        this.disableEditor();
     }
 
     /**
@@ -399,7 +394,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 : [],
             this.placeholder
         );
-        this.disabledChanged();
+        this.disableEditor();
         this.bindEditorTransactionEvent();
         this.bindEditorUpdateEvent();
         this.stopNativeInputEventPropagation();
@@ -471,6 +466,15 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.$emit('input');
             this.queueUpdateScrollbarWidth();
         });
+    }
+
+    private disableEditor(): void {
+        this.tiptapEditor.setEditable(!this.disabled);
+        this.setEditorTabIndex();
+        this.editor.setAttribute(
+            'aria-disabled',
+            this.disabled ? 'true' : 'false'
+        );
     }
 
     /**

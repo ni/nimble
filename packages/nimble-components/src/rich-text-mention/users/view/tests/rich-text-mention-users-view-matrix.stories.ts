@@ -84,7 +84,7 @@ const componentEditingMode = ([
         >
             @John Doe
         </${richTextMentionUsersViewTag}>
-        <span class="sample-text">(Mention View Enabled Editing and ${() => disabledName})</span>
+        <span class="sample-text">(Mention View Enabled Editing ${() => disabledName})</span>
     </div>
 `;
 
