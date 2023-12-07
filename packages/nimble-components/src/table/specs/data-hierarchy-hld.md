@@ -34,23 +34,23 @@ public Table() {
     // This field would be an option for how we allow a user to specify the field
     // name where they will provide a value indicating whether or not that row
     // should always contain an expand-collapse button.
-    @attr({ attribute: 'force-expandable-field-name' })
-    public forceExpandableFieldName?: string;
+    @attr({ attribute: 'expansion-toggle-visible-field-name' })
+    public expansionToggleVisibleFieldName?: string;
 
     // This attribute will determine the expand/collapse state of any parent row by default.
     // Note that for parent rows that have no children yet, they will always default to
     // collapsed, regardless of the state of this attribute.
-    @attr({ attribute: 'auto-expand-parents' })
-    public autoExpandParents?: boolean;
+    @attr({ attribute: 'auto-parent-expansion' })
+    public autoParentExpansion?: boolean;
 }
 ```
 
-### `TableRowExpandToggleEventDetail` API
+### `TableRowExpansionToggleEventDetail` API
 
-The `Table` will also provide a `row-expand-toggle` event for when a row is expanded/collapsed that will provide details to the client including which row was expanded/collapsed, and what its new state is:
+The `Table` will also provide a `row-expansion-toggle` event for when a row is expanded/collapsed that will provide details to the client including which row was expanded/collapsed, and what its new state is:
 
 ```ts
-interface TableRowExpandToggleEventDetail {
+interface TableRowExpansionToggleEventDetail {
     newState: boolean;
     oldState: boolean;
     recordId: string;
@@ -83,8 +83,7 @@ The APIs noted above will enable the client to lazy load data into the `Table`. 
 4. The details of the handled event will include the id for the row that was expanded.
 5. The client should first call `setRowState()` in their event handler code flagging the relevant rows to be lazy loading (this will cause the lazy loading indicator to appear).
 6. The client must then add the child records (with their `parentIdFieldName` value set to the parent's recordId) to the data set and call `setData()` on the Table.
-7. The client then sets the data on the `Table` again with the `setData` method.
-8. Finally, the client should call `setRowState()` again on the relevant rows and unflag them as lazily loading (this will remove the lazy loading indicator).
+7. Finally, the client should call `setRowState()` again on the relevant rows and unflag them as lazily loading (this will remove the lazy loading indicator).
 
 _The client is responsible for checking if the row’s children have already been loaded. This can prevent unnecessary data recreation and `setData` calls on the `Table`._
 
