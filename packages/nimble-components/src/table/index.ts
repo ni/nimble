@@ -41,7 +41,6 @@ import {
     TableColumnSortDirection,
     TableFieldValue,
     TableRecord,
-    TableRowMetadata,
     TableRowSelectionEventDetail,
     TableRowSelectionMode,
     TableRowSelectionState,
@@ -56,10 +55,8 @@ import { TableUpdateTracker } from './models/table-update-tracker';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
-import {
-    convertRecordToFlatList,
-    convertRecordsToUnorderFlatList
-} from './models/hierarchy-utilities';
+import { TableRowMetadataManager } from './models/table-row-metadata-manager';
+import { convertRecordsToUnorderFlatList } from './models/hierarchy-utilities';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -222,9 +219,8 @@ export class Table<
     public documentShiftKeyDown = false;
 
     private readonly table: TanStackTable<TableNode<TData>>;
-    private internalData: TableNode<TData>[] = [];
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
-    private readonly rowMetadata: Map<TableFieldValue, TableRowMetadata> = new Map<TableFieldValue, TableRowMetadata>();
+    private readonly rowMetadataManager = new TableRowMetadataManager<TData>();
 
     private readonly tableValidator = new TableValidator();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
@@ -280,10 +276,8 @@ export class Table<
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
-        this.hasDataHierarchy = false;
         await this.processPendingUpdates();
-        this.trackFlatDataOrder(newData);
-        const tanstackUpdates = this.processFlatData(newData);
+        const tanstackUpdates = this.processFlatData(newData, true);
         this.updateTableOptions(tanstackUpdates);
     }
 
@@ -525,6 +519,10 @@ export class Table<
      */
     public update(): void {
         this.validate();
+        if (this.tableUpdateTracker.updateRowIds && this.tableValidator.areRecordIdsValid()) {
+            this.rowMetadataManager.handleRowIdUpdate(this.table.options.data, this.idFieldName);
+        }
+
         if (this.tableUpdateTracker.requiresTanStackUpdate) {
             this.updateTanStack();
         }
@@ -569,15 +567,16 @@ export class Table<
      * @internal
      */
     public processFlatData(
-        data: readonly TData[]
+        data: readonly TData[],
+        updateCachedRowOrder: boolean
     ): Partial<TanStackTableOptionsResolved<TableNode<TData>>> {
-        this.internalData = this.convertFlatDataToHierarchy(data) ?? [];
+        const internalData = this.convertFlatDataToHierarchy(data);
         const tanStackUpdates: Partial<
         TanStackTableOptionsResolved<TableNode<TData>>
         > = {
-            data: this.internalData
+            data: internalData
         };
-        this.validateWithData(this.internalData);
+        this.validateWithData(data);
         if (this.tableValidator.areRecordIdsValid()) {
             // Update the selection state to remove previously selected records that no longer exist in the
             // data set while maintaining the selection state of records that still exist in the data set.
@@ -586,6 +585,10 @@ export class Table<
                 rowSelection:
                     this.calculateTanStackSelectionState(previousSelection)
             };
+
+            if (updateCachedRowOrder) {
+                this.rowMetadataManager.handleDataUpdate(data);
+            }
         }
         return tanStackUpdates;
     }
@@ -610,29 +613,15 @@ export class Table<
         }
 
         this.tableUpdateTracker.trackIdFieldNameChanged();
-        if (_prev !== undefined && _next !== undefined) {
-            this.refreshMetadata(_prev, _next);
-        } else if (_next === undefined) {
-            this.rowMetadata.clear();
-        }
     }
 
     protected parentIdFieldNameChanged(
         _prev: string | undefined,
         _next: string | undefined
     ): void {
-        if (
-            !this.$fastController.isConnected
-            || this.table.options.data === undefined
-        ) {
+        if (!this.$fastController.isConnected) {
             return;
         }
-
-        this.tableValidator.validateIdFieldConfiguration(
-            this.selectionMode,
-            this.idFieldName,
-            this.parentIdFieldName
-        );
 
         this.tableUpdateTracker.trackParentIdFieldNameChanged();
     }
@@ -701,61 +690,6 @@ export class Table<
             }
         );
         return selectedRecordIds;
-    }
-
-    private trackFlatDataOrder(data: readonly TData[]): void {
-        if (this.idFieldName) {
-            for (let i = 0; i < data.length; i++) {
-                this.rowMetadata.set(data[i]![this.idFieldName], {
-                    originalIndex: i
-                });
-            }
-        }
-    }
-
-    private refreshMetadata(oldId: string, newId: string): void {
-        const data = this.table.options.data;
-        if (data && this.rowMetadata.size !== 0) {
-            const flatData: TData[] = [];
-            data.forEach(record => {
-                convertRecordToFlatList(record, flatData);
-            });
-            flatData.forEach(record => {
-                const metadata = this.rowMetadata.get(record[oldId]);
-                if (metadata !== undefined) {
-                    this.rowMetadata.set(record[newId], metadata);
-                    this.rowMetadata.delete(record[oldId]);
-                }
-            });
-        }
-    }
-
-    private convertHierarchicalDataToFlatList(): TData[] {
-        const flatData = convertRecordsToUnorderFlatList(
-            this.table.options.data
-        );
-        if (this.idFieldName && !this.isDataOrdered) {
-            flatData.sort((a, b) => {
-                const leftRecordIndex = this.rowMetadata.get(
-                    a[this.idFieldName!]
-                )!.originalIndex;
-                const rightRecordIndex = this.rowMetadata.get(
-                    b[this.idFieldName!]
-                )!.originalIndex;
-
-                if (leftRecordIndex < rightRecordIndex) {
-                    return -1;
-                }
-
-                if (leftRecordIndex > rightRecordIndex) {
-                    return 1;
-                }
-
-                return 0;
-            });
-        }
-
-        return flatData;
     }
 
     private async handleActionMenuBeforeToggleEvent(
@@ -919,11 +853,10 @@ export class Table<
                 // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
                 updatedOptions.data = [...this.table.options.data];
             } else {
-                const flatList = this.convertHierarchicalDataToFlatList();
-                const tanstackUpdates = this.processFlatData(flatList);
-                if (this.rowMetadata.size === 0) {
-                    this.trackFlatDataOrder(flatList);
-                }
+                const flatList = this.isDataOrdered
+                    ? convertRecordsToUnorderFlatList(this.table.options.data)
+                    : this.rowMetadataManager.getOrderedData(this.table.options.data);
+                const tanstackUpdates = this.processFlatData(flatList, false);
                 if (tanstackUpdates.state) {
                     updatedOptions.state.rowSelection = tanstackUpdates.state.rowSelection;
                 }
@@ -970,10 +903,10 @@ export class Table<
             )
         );
         this.tableValidator.validateColumnConfigurations(this.columns);
-        this.validateWithData(this.table.options.data);
+        this.validateWithData(convertRecordsToUnorderFlatList(this.table.options.data));
     }
 
-    private validateWithData(data: TableNode[]): void {
+    private validateWithData(data: readonly TData[]): void {
         this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
     }
@@ -1022,6 +955,7 @@ export class Table<
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
 
+        let hasHierarchy = false;
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
             const isGrouped = row.getIsGrouped();
@@ -1045,9 +979,10 @@ export class Table<
                 immediateChildCount: row.subRows.length,
                 groupColumn: this.getGroupRowColumn(row)
             };
-            this.hasDataHierarchy = this.hasDataHierarchy || isParent;
+            hasHierarchy = hasHierarchy || isParent;
             return rowState;
         });
+        this.hasDataHierarchy = hasHierarchy;
         this.refreshCollapseAllButtonVisibility();
         this.virtualizer.dataChanged();
     }

@@ -1,12 +1,11 @@
 import type { TableColumn } from '../../table-column/base';
-import { TableNode, TableRowSelectionMode, TableValidity } from '../types';
-import { convertRecordsToUnorderFlatList } from './hierarchy-utilities';
+import { TableRecord, TableRowSelectionMode, TableValidity } from '../types';
 
 /**
  * Helper class for the nimble-table to validate that the table's configuration
  * is valid and report which aspects of the configuration are valid or invalid.
  */
-export class TableValidator<TData extends TableNode> {
+export class TableValidator<TData extends TableRecord> {
     private duplicateRecordId = false;
     private missingRecordId = false;
     private invalidRecordId = false;
@@ -71,7 +70,7 @@ export class TableValidator<TData extends TableNode> {
     }
 
     public validateRecordIds(
-        data: TData[],
+        data: readonly TData[],
         idFieldName: string | undefined
     ): boolean {
         // Start off by assuming all IDs are valid.
@@ -84,9 +83,8 @@ export class TableValidator<TData extends TableNode> {
             return true;
         }
 
-        const allRecords = convertRecordsToUnorderFlatList(data);
         if (typeof idFieldName === 'string') {
-            for (const record of allRecords) {
+            for (const record of data) {
                 if (
                     !Object.prototype.hasOwnProperty.call(record, idFieldName)
                 ) {
