@@ -22,7 +22,6 @@ import {
     disabledStates,
     errorStates
 } from '../../../utilities/tests/states';
-import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
 import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 import { mappingUserTag } from '../../../mapping/user';
 
@@ -34,6 +33,8 @@ const metadata: Meta = {
 };
 
 export default metadata;
+
+const richTextMarkdownString = '1. **Bold** *Italics*\n2. Numbered lists\n   1. Option 1\n   \n3. Bulleted lists\n   * Option 1\n   \n4. Absolute link: <https://nimble.ni.dev/>\n 6. @mention:\n    1. User pattern: <user:1>';
 
 const footerHiddenStates = [
     ['Footer Visible', false],
@@ -64,7 +65,7 @@ const component = (
         ${() => footerHiddenName} ${() => errorStateName} ${() => placeholderName} ${() => disabledName} 
     </p>
     <${richTextEditorTag}
-        style="margin: 5px 0px; width: 500px; height: 300px;"
+        style="margin: 5px 0px; width: 500px; height: 200px;"
         ?disabled="${() => disabled}"
         ?footer-hidden="${() => footerHidden}"
         ?error-visible="${() => isError}"

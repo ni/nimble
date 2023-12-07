@@ -7,10 +7,6 @@ import {
 import { createMatrixThemeStory } from '../../../../utilities/tests/storybook';
 import { richTextMentionUsersViewTag } from '..';
 import {
-    disabledStates,
-    type DisabledState
-} from '../../../../utilities/tests/states';
-import {
     bodyFont,
     bodyFontColor,
     borderColor,
@@ -18,6 +14,15 @@ import {
     mediumPadding,
     smallPadding
 } from '../../../../theme-provider/design-tokens';
+
+const disableEditingStates = [
+    ['In View Mode', false, true],
+    ['In Edit mode', false, false],
+    ['Disabled - In Edit mode', true, false],
+    ['Disabled - In View Mode', true, true]
+] as const;
+
+type DisableEditingState = (typeof disableEditingStates)[number];
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Mention: User',
@@ -32,7 +37,7 @@ const component = ([
     name,
     disabled,
     disableEditing
-]: DisabledState): ViewTemplate => html`
+]: DisableEditingState): ViewTemplate => html`
     <style class='code-hide'>
         .mention-container {
             margin: var(${smallPadding.cssCustomProperty});
@@ -83,6 +88,6 @@ const componentEditingMode = (): ViewTemplate => html`
     </div>
 `;
 
-export const richTextMentionUserViewThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component, [disabledStates]));
+export const richTextMentionUserViewThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component, [disableEditingStates]));
 
 export const richTextMentionUserViewEditEnabledThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(componentEditingMode));
