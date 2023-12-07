@@ -20,8 +20,11 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 const sizeRampTokenNames = (({
     smallPadding,
     mediumPadding,
-    standardPadding
-}) => ({ smallPadding, mediumPadding, standardPadding }))(tokenNames);
+    standardPadding,
+    largePadding
+}) => ({ smallPadding, mediumPadding, standardPadding, largePadding }))(
+    tokenNames
+);
 
 type TokenName = keyof typeof sizeRampTokenNames;
 const tokenNameKeys = Object.keys(sizeRampTokenNames) as TokenName[];
