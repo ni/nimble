@@ -103,8 +103,8 @@ describe('Nimble anchor', () => {
         });
 
         it('has expected defaults for contentEditable', () => {
-            expect(directive.contentEditable).toEqual('inherit');
-            expect(nativeElement.contentEditable).toEqual('inherit');
+            expect(directive.contentEditable).toBeUndefined();
+            expect(nativeElement.contentEditable).toBeUndefined();
         });
     });
 

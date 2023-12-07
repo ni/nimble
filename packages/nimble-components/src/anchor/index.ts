@@ -46,7 +46,7 @@ export class Anchor extends AnchorBase {
      * If/when it is fixed, we can remove this workaround.
      */
     @attr({ attribute: 'contenteditable' })
-    public override contentEditable = 'inherit';
+    public override contentEditable!: string;
 }
 
 // FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.

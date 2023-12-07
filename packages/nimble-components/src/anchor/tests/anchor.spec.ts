@@ -103,14 +103,9 @@ describe('Anchor', () => {
             innerAnchor = element.shadowRoot!.querySelector('a')!;
         });
 
-        it('has property value "inherit" and inner anchor isContentEditable is false by default', () => {
-            expect(element.contentEditable).toEqual('inherit');
+        it('has undefined property value and inner anchor isContentEditable is false by default', () => {
+            expect(element.contentEditable).toBeUndefined();
             expect(innerAnchor.isContentEditable).toBeFalse();
-        });
-
-        it('has property value "inherit" by default before connecting', () => {
-            const anchor = document.createElement(anchorTag);
-            expect(anchor.contentEditable).toEqual('inherit');
         });
 
         const interestingValues = [
