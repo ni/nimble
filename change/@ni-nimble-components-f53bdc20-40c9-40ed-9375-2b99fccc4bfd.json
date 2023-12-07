@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "changes",
+  "packageName": "@ni/nimble-components",
+  "email": "razvan.nazare@ni.com",
+  "dependentChangeType": "patch"
+}
