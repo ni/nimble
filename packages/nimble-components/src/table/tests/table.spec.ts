@@ -1244,7 +1244,7 @@ describe('Table', () => {
                                 id: 'child 1',
                                 id2: 'bar',
                                 parentId: 'parent 1',
-                                stringData: 'bar',
+                                stringData: 'bar'
                             },
                             {
                                 id: 'parent 1',
@@ -1270,22 +1270,27 @@ describe('Table', () => {
                         ]
                     }
                 ];
-                parameterizeNamedList(maintainDataOrderTests, (spec, name, value) => {
-                    spec(name, async () => {
-                        await connect();
-                        element.idFieldName = 'id';
-                        element.parentIdFieldName = 'parentId';
-                        await element.setData(value.tableData);
-                        await waitForUpdatesAsync();
+                parameterizeNamedList(
+                    maintainDataOrderTests,
+                    (spec, name, value) => {
+                        spec(name, async () => {
+                            await connect();
+                            element.idFieldName = 'id';
+                            element.parentIdFieldName = 'parentId';
+                            await element.setData(value.tableData);
+                            await waitForUpdatesAsync();
 
-                        element.idFieldName = 'id2';
-                        element.parentIdFieldName = undefined;
-                        await waitForUpdatesAsync();
-                        value.tableData.forEach((record, i) => {
-                            expect(record.id2).toBe(pageObject.getRecordId(i)!);
+                            element.idFieldName = 'id2';
+                            element.parentIdFieldName = undefined;
+                            await waitForUpdatesAsync();
+                            value.tableData.forEach((record, i) => {
+                                expect(record.id2).toBe(
+                                    pageObject.getRecordId(i)!
+                                );
+                            });
                         });
-                    });
-                });
+                    }
+                );
             });
         });
     });
