@@ -11,7 +11,7 @@ ViewTemplate<Anchor>,
 AnchorOptions
 > = (_context, definition) => html<Anchor>`<div
         class="top-container"
-        ?contenteditable="${x => x.contenteditable}"
+        contenteditable="${x => x.contentEditable}"
     ><a
         class="control"
         part="control"

@@ -2,7 +2,10 @@ import { html } from '@microsoft/fast-element';
 import { Anchor, anchorTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import {
+    getSpecTypeByNamedList,
+    parameterizeNamedList
+} from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<Anchor>> {
     return fixture<Anchor>(html`<nimble-anchor></nimble-anchor>`);
@@ -92,7 +95,7 @@ describe('Anchor', () => {
         }
     });
 
-    describe('inner anchor isContentEditable', () => {
+    describe('contenteditable behavior', () => {
         let innerAnchor: HTMLAnchorElement;
 
         beforeEach(async () => {
@@ -100,13 +103,63 @@ describe('Anchor', () => {
             innerAnchor = element.shadowRoot!.querySelector('a')!;
         });
 
-        it('is false by default', () => {
+        it('has property value "inherit" and inner anchor isContentEditable is false by default', () => {
+            expect(element.contentEditable).toEqual('inherit');
             expect(innerAnchor.isContentEditable).toBeFalse();
         });
 
-        it('is true when contenteditable set on host element', async () => {
-            element.setAttribute('contenteditable', '');
-            await waitForUpdatesAsync();
+        it('has property value "inherit" by default before connecting', () => {
+            const anchor = document.createElement(anchorTag);
+            expect(anchor.contentEditable).toEqual('inherit');
+        });
+
+        const interestingValues = [
+            { name: '', expected: true },
+            { name: 'true', expected: true },
+            { name: 'false', expected: false },
+            { name: 'plaintext-only', expected: true },
+            { name: 'inherit', expected: false },
+            { name: 'badvalue', expected: false }
+        ] as const;
+
+        parameterizeNamedList(interestingValues, (spec, name, value) => {
+            spec(
+                `inner anchor isContentEditable is ${value.expected.toString()} when attribute set to "${name}"`,
+                async () => {
+                    element.setAttribute('contenteditable', name);
+                    await waitForUpdatesAsync();
+                    expect(innerAnchor.isContentEditable).toEqual(
+                        value.expected
+                    );
+                }
+            );
+        });
+
+        parameterizeNamedList(interestingValues, (spec, name, value) => {
+            spec(
+                `inner anchor isContentEditable is ${value.expected.toString()} when property set to "${name}"`,
+                async () => {
+                    element.contentEditable = name;
+                    await waitForUpdatesAsync();
+                    expect(innerAnchor.isContentEditable).toEqual(
+                        value.expected
+                    );
+                }
+            );
+        });
+    });
+
+    describe('with contenteditable without value', () => {
+        async function setupWithContenteditable(): Promise<Fixture<Anchor>> {
+            return fixture<Anchor>(
+                html`<nimble-anchor contenteditable></nimble-anchor>`
+            );
+        }
+
+        it('acts like value is "true"', async () => {
+            ({ element, connect, disconnect } = await setupWithContenteditable());
+            await connect();
+            const innerAnchor = element.shadowRoot!.querySelector('a')!;
             expect(innerAnchor.isContentEditable).toBeTrue();
         });
     });

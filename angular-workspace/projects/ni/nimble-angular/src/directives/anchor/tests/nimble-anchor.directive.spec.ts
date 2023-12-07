@@ -103,8 +103,8 @@ describe('Nimble anchor', () => {
         });
 
         it('has expected defaults for contentEditable', () => {
-            expect(directive.contentEditable).toBeFalse();
-            expect(nativeElement.contenteditable).toBeFalse();
+            expect(directive.contentEditable).toEqual('inherit');
+            expect(nativeElement.contentEditable).toEqual('inherit');
         });
     });
 
@@ -121,7 +121,7 @@ describe('Nimble anchor', () => {
                     type="${type1}"
                     appearance="prominent"
                     underline-hidden
-                    contenteditable
+                    contenteditable="true"
                     >
                 </nimble-anchor>
             `
@@ -192,8 +192,8 @@ describe('Nimble anchor', () => {
         });
 
         it('will use template string values for contentEditable', () => {
-            expect(directive.contentEditable).toBeTrue();
-            expect(nativeElement.contenteditable).toBeTrue();
+            expect(directive.contentEditable).toEqual('true');
+            expect(nativeElement.contentEditable).toEqual('true');
         });
     });
 
@@ -227,7 +227,7 @@ describe('Nimble anchor', () => {
             public type = type1;
             public appearance: AnchorAppearance = appearance1;
             public underlineHidden = true;
-            public contentEditable = true;
+            public contentEditable = 'true';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -345,14 +345,14 @@ describe('Nimble anchor', () => {
         });
 
         it('can be configured with property binding for contentEditable', () => {
-            expect(directive.contentEditable).toBeTrue();
-            expect(nativeElement.contenteditable).toBeTrue();
+            expect(directive.contentEditable).toEqual('true');
+            expect(nativeElement.contentEditable).toEqual('true');
 
-            fixture.componentInstance.contentEditable = false;
+            fixture.componentInstance.contentEditable = 'false';
             fixture.detectChanges();
 
-            expect(directive.contentEditable).toBeFalse();
-            expect(nativeElement.contenteditable).toBeFalse();
+            expect(directive.contentEditable).toEqual('false');
+            expect(nativeElement.contentEditable).toEqual('false');
         });
     });
 
@@ -386,7 +386,7 @@ describe('Nimble anchor', () => {
             public type = type1;
             public appearance: AnchorAppearance = appearance1;
             public underlineHidden = true;
-            public contentEditable = true;
+            public contentEditable = 'true';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -504,14 +504,14 @@ describe('Nimble anchor', () => {
         });
 
         it('can be configured with attribute binding for contentEditable', () => {
-            expect(directive.contentEditable).toBeTrue();
-            expect(nativeElement.contenteditable).toBeTrue();
+            expect(directive.contentEditable).toEqual('true');
+            expect(nativeElement.contentEditable).toEqual('true');
 
-            fixture.componentInstance.contentEditable = false;
+            fixture.componentInstance.contentEditable = 'false';
             fixture.detectChanges();
 
-            expect(directive.contentEditable).toBeFalse();
-            expect(nativeElement.contenteditable).toBeFalse();
+            expect(directive.contentEditable).toEqual('false');
+            expect(nativeElement.contentEditable).toEqual('false');
         });
     });
 });
