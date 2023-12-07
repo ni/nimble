@@ -368,7 +368,7 @@ describe('Wafermap Prerendering module', () => {
                         fillStyle: 'rgba(255,0,0,0.3)'
                     };
                 }
-                const opacity = (x.tags[0] === highlightedTag ? 1 : 0.3);
+                const opacity = x.tags[0] === highlightedTag ? 1 : 0.3;
                 expect(typeof highlightedTag).toEqual(typeof x.tags[0]);
                 return {
                     fillStyle: `rgba(255,0,0,${opacity})`
