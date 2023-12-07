@@ -95,7 +95,7 @@ describe('Anchor', () => {
         }
     });
 
-    fdescribe('contenteditable behavior', () => {
+    describe('contenteditable behavior', () => {
         let innerAnchor: HTMLAnchorElement;
 
         beforeEach(async () => {
