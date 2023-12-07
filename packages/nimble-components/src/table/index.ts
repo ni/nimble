@@ -29,7 +29,6 @@ import {
     OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
 import { keyShift } from '@microsoft/fast-web-utilities';
-import { arrayToTree } from 'performant-array-to-tree';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
@@ -57,6 +56,7 @@ import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
 import { TableRowMetadataManager } from './models/table-row-metadata-manager';
 import { convertRecordsToUnorderFlatList } from './models/hierarchy-utilities';
+import { arrayToTree } from '../utilities/thirdparty/performant-array-to-tree/arrayToTree';
 
 declare global {
     interface HTMLElementTagNameMap {
