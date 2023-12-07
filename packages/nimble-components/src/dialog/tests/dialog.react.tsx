@@ -1,5 +1,3 @@
-// template-folder-name -> dialog.js
-
 import { Dialog } from '..';
 import { wrap } from '../../utilities/tests/react-wrapper';
 

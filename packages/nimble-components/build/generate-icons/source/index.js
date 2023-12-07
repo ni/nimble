@@ -19,6 +19,7 @@ const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
 // See generation source in nimble-components/build/generate-icons\n`;
 
 const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
+const iconsTestDirectory = path.resolve(iconsDirectory, 'tests');
 
 if (fs.existsSync(iconsDirectory)) {
     console.log(`Deleting existing icons directory "${iconsDirectory}"`);
@@ -27,14 +28,12 @@ if (fs.existsSync(iconsDirectory)) {
 }
 console.log(`Creating icons directory "${iconsDirectory}"`);
 fs.mkdirSync(iconsDirectory);
+fs.mkdirSync(iconsTestDirectory);
+
 console.log('Finished creating icons directory');
 
 console.log('Writing icon component files');
 let allIconsFileContents = `${generatedFilePrefix}\n`;
-let allIconsReactFileImports = `${generatedFilePrefix}
-import { wrap } from '../utilities/tests/react-wrapper';
-import {\n`;
-let allIconsReactFileExports = '\n';
 
 let fileCount = 0;
 for (const key of Object.keys(icons)) {
@@ -76,8 +75,14 @@ export const ${tagName} = DesignSystem.tagFor(${className});
 
     allIconsFileContents = allIconsFileContents.concat(`export { ${className} } from './${fileName}';\n`);
 
-    allIconsReactFileImports = allIconsReactFileImports.concat(`    ${className},\n`);
-    allIconsReactFileExports = allIconsReactFileExports.concat(`export const Nimble${className} = wrap(${className});\n`);
+    const iconReactWrapperContent = `${generatedFilePrefix}
+import { wrap } from '../../utilities/tests/react-wrapper';
+import { ${className} } from '../${fileName}';
+
+export const Nimble${className} = wrap(${className});`;
+
+    const reactFilePath = path.resolve(iconsTestDirectory, `${fileName}.react.tsx`);
+    fs.writeFileSync(reactFilePath, iconReactWrapperContent, { encoding: 'utf-8' });
 }
 console.log(`Finshed writing ${fileCount} icon component files`);
 
@@ -85,11 +90,3 @@ const allIconsFilePath = path.resolve(iconsDirectory, 'all-icons.ts');
 console.log('Writing all-icons file');
 fs.writeFileSync(allIconsFilePath, allIconsFileContents, { encoding: 'utf-8' });
 console.log('Finished writing all-icons file');
-
-allIconsReactFileImports = allIconsReactFileImports.concat('} from \'./all-icons\';\n');
-const allIconsReactFileContents = allIconsReactFileImports.concat(allIconsReactFileExports);
-
-const allIconsReactFilePath = path.resolve(iconsDirectory, 'all-icons.react.tsx');
-console.log('Writing all-icons.react file');
-fs.writeFileSync(allIconsReactFilePath, allIconsReactFileContents, { encoding: 'utf-8' });
-console.log('Finished writing all-icons.react file');
