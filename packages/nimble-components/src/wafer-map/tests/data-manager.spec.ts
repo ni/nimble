@@ -126,7 +126,7 @@ describe('Wafermap Data Manager', () => {
         const highlightedTags = getHighlightedTags().map(
             tag => tag + dieLabelsSuffix
         );
-        const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(',1)'));
+        const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(waferMapDie => waferMapDie.fillStyle.endsWith(',1)'));
         for (const dieRenderInfo of diesWithFullOpacity) {
             expect(highlightedTags).toContain(dieRenderInfo.text);
         }

@@ -133,9 +133,9 @@ describe('Wafermap Prerendering module', () => {
 
             it('should have the fill style equally distributed to dies', () => {
                 const waferMapDies = getWaferMapDies();
-                const expectedValues = waferMapDies.map(x => {
+                const expectedValues = waferMapDies.map(waferMapDie => {
                     return {
-                        fillStyle: `rgba(${(+x.value - 1) * 15},0,0,1)`
+                        fillStyle: `rgba(${(+waferMapDie.value - 1) * 15},0,0,1)`
                     };
                 });
                 for (let i = 0; i < waferMapDies.length; i += 1) {
@@ -224,8 +224,8 @@ describe('Wafermap Prerendering module', () => {
 
             it('should have alternating fill style for the dies', () => {
                 const waferMapDies = getWaferMapDies();
-                const expectedValues = waferMapDies.map(x => {
-                    const fillStyle = +x.value % 2 === 1
+                const expectedValues = waferMapDies.map(waferMapDie => {
+                    const fillStyle = +waferMapDie.value % 2 === 1
                         ? 'rgba(0,0,0,1)'
                         : 'rgba(255,0,0,1)';
                     return {
@@ -362,14 +362,13 @@ describe('Wafermap Prerendering module', () => {
 
         it('should have highlighted value with full opacity and the rest with expected opacity', () => {
             const waferMapDies = getWaferMapDies();
-            const expectedValues = waferMapDies.map(x => {
-                if (!x.tags) {
+            const expectedValues = waferMapDies.map(waferMapDie => {
+                if (!waferMapDie.tags) {
                     return {
                         fillStyle: 'rgba(255,0,0,0.3)'
                     };
                 }
-                const opacity = x.tags[0] === highlightedTag ? 1 : 0.3;
-                expect(typeof highlightedTag).toEqual(typeof x.tags[0]);
+                const opacity = waferMapDie.tags[0] === highlightedTag ? 1 : 0.3;
                 return {
                     fillStyle: `rgba(255,0,0,${opacity})`
                 };

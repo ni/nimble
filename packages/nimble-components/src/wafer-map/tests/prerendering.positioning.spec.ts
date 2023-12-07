@@ -151,9 +151,9 @@ describe('Wafermap Prerendering module', () => {
 
         it('should have die horizontal position scaled', () => {
             const waferMapDies = getWaferMapDies();
-            const expectedValues = waferMapDies.map(x => {
+            const expectedValues = waferMapDies.map(waferMapDie => {
                 return {
-                    y: x.y * 10
+                    y: waferMapDie.y * 10
                 };
             });
             for (let i = 0; i < waferMapDies.length; i += 1) {
