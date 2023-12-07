@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+    <polygon class="cls-1"
+        points="6 9 3 9 3 3 13 3 13 6 14 6 14 3 14 2 13 2 3 2 2 2 2 3 2 10 3 10 6 10 6 9" />
+    <rect class="cls-1" x="4" y="11" width="2" height="1" />
+    <path class="cls-1" d="m13,8v-1h-1v1h-3v-1h-1v1h-1v6h7v-6h-1Zm0,5h-5v-3h5v3Z" />
+    <path class="cls-1"
+        d="m5.46548,8.05249l-1.74266-1.75782.76564-.74219.97036,1.00665,2.53744-2.50666.72656.75782-3.25734,3.24219Z" />
+    <rect class="cls-1" x="9.72282" y="5.05248" width="2" height="1" />
+</svg>
