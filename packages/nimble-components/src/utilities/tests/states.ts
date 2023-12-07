@@ -21,8 +21,10 @@ export const [defaultBackgroundState] = backgroundStates;
 export type BackgroundState = (typeof backgroundStates)[number];
 
 export const disabledStates = [
-    ['', false],
-    ['Disabled', true]
+    ['In View Mode', false, true],
+    ['In Edit mode', false, false],
+    ['Disabled - In Edit mode', true, false],
+    ['Disabled - In View Mode', true, true]
 ] as const;
 export type DisabledState = (typeof disabledStates)[number];
 

@@ -29,8 +29,9 @@ const metadata: Meta = {
 export default metadata;
 
 const component = ([
-    disabledName,
-    disabled
+    name,
+    disabled,
+    disableEditing
 ]: DisabledState): ViewTemplate => html`
     <style class='code-hide'>
         .mention-container {
@@ -48,26 +49,21 @@ const component = ([
             mention-href="user:1"
             mention-label="John Doe"
             ?disabled="${() => disabled}"
-            disable-editing
+            ?disable-editing= "${() => disableEditing}"
         >
             @John Doe
         </${richTextMentionUsersViewTag}>
-        <span class="sample-text">(Mention View ${() => disabledName})</span>
+        <span class="sample-text">(Mention View ${() => name})</span>
     </div>
 `;
 
-const componentEditingMode = ([
-    disabledName,
-    disabled
-]: DisabledState): ViewTemplate => html`
+const componentEditingMode = (): ViewTemplate => html`
     <style class='code-hide'>
         .mention-container {
             display: inline-block;
             margin: var(${smallPadding.cssCustomProperty});
             padding: var(${mediumPadding.cssCustomProperty});
-            border: var(${borderWidth.cssCustomProperty}) solid var(${
-    borderColor.cssCustomProperty
-});
+            border: var(${borderWidth.cssCustomProperty}) solid var(${borderColor.cssCustomProperty});
         }
 
         .sample-text {
@@ -80,16 +76,13 @@ const componentEditingMode = ([
         <${richTextMentionUsersViewTag}
             mention-href="user:1"
             mention-label="John Doe"
-            ?disabled="${() => disabled}"
         >
             @John Doe
         </${richTextMentionUsersViewTag}>
-        <span class="sample-text">(Mention View Enabled Editing ${() => disabledName})</span>
+        <span class="sample-text">(Mention View Enabled Editing)</span>
     </div>
 `;
 
 export const richTextMentionUserViewThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component, [disabledStates]));
 
-export const richTextMentionUserViewEditEnabledThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(componentEditingMode, [disabledStates])
-);
+export const richTextMentionUserViewEditEnabledThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(componentEditingMode));
