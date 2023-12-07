@@ -20,12 +20,13 @@ import {
     tableColumnValidationTestTag
 } from '../../table-column/base/tests/table-column.fixtures';
 import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
+import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
     stringData2?: string;
-    numericData: number;
-    moreStringData: string;
+    numericData?: number;
+    moreStringData?: string;
     id?: string;
     parentId?: string;
     parentId2?: string;
@@ -1234,21 +1235,62 @@ describe('Table', () => {
                 expect(element.checkValidity()).toBeFalse();
             });
 
-            it('changing idFieldName when rendering hierarchical data, preserves original ordering after removing parentIdFieldName', async () => {
-                await connect();
-                element.idFieldName = 'id';
-                element.parentIdFieldName = 'parentId';
-                await element.setData(hierarchicalData);
-                await waitForUpdatesAsync();
+            describe('changing idFieldName when rendering hierarchical data, preserves original ordering after removing parentIdFieldName', () => {
+                const maintainDataOrderTests = [
+                    {
+                        name: 'child first, parent second originally',
+                        tableData: [
+                            {
+                                id: 'child 1',
+                                id2: 'bar',
+                                parentId: 'parent 1',
+                                stringData: 'bar'
+                            },
+                            {
+                                id: 'parent 1',
+                                id2: 'foo',
+                                stringData: 'foo'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'swapped ids between records',
+                        tableData: [
+                            {
+                                id: 'foo',
+                                id2: 'bar',
+                                stringData: 'foo'
+                            },
+                            {
+                                id: 'bar',
+                                id2: 'foo',
+                                parentId: 'foo',
+                                stringData: 'foo'
+                            }
+                        ]
+                    }
+                ];
+                parameterizeNamedList(
+                    maintainDataOrderTests,
+                    (spec, name, value) => {
+                        spec(name, async () => {
+                            await connect();
+                            element.idFieldName = 'id';
+                            element.parentIdFieldName = 'parentId';
+                            await element.setData(value.tableData);
+                            await waitForUpdatesAsync();
 
-                element.idFieldName = 'stringData2';
-                await waitForUpdatesAsync();
-                element.parentIdFieldName = undefined;
-                await waitForUpdatesAsync();
-                expect(pageObject.getRenderedRowCount()).toBe(7);
-                hierarchicalData.forEach((record, i) => {
-                    expect(record.stringData2).toBe(pageObject.getRecordId(i));
-                });
+                            element.idFieldName = 'id2';
+                            element.parentIdFieldName = undefined;
+                            await waitForUpdatesAsync();
+                            value.tableData.forEach((record, i) => {
+                                expect(record.id2).toBe(
+                                    pageObject.getRecordId(i)!
+                                );
+                            });
+                        });
+                    }
+                );
             });
         });
     });
