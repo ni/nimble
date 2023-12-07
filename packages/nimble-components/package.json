@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "20.15.0",
+  "version": "20.15.1",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run build-components && npm run bundle-components && npm run generate-scss && npm run build-storybook",
@@ -72,6 +72,7 @@
     "@tiptap/extension-italic": "^2.1.6",
     "@tiptap/extension-link": "^2.1.6",
     "@tiptap/extension-list-item": "^2.1.6",
+    "@tiptap/extension-mention": "^2.1.6",
     "@tiptap/extension-ordered-list": "^2.1.6",
     "@tiptap/extension-paragraph": "^2.1.6",
     "@tiptap/extension-placeholder": "^2.1.6",
@@ -90,6 +91,7 @@
     "d3-zoom": "^3.0.0",
     "prosemirror-markdown": "^1.11.2",
     "prosemirror-model": "^1.19.2",
+    "prosemirror-state": "^1.4.3",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
