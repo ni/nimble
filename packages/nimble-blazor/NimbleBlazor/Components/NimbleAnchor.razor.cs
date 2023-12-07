@@ -14,7 +14,7 @@ public partial class NimbleAnchor : NimbleAnchorBase
     /// Whether the anchor should behave like it is in an editable region.
     /// </summary>
     [Parameter]
-    public bool? ContentEditable { get; set; }
+    public string? ContentEditable { get; set; }
 
     /// <summary>
     /// The appearance of the anchor.

@@ -44,9 +44,9 @@ public class NimbleAnchorTests : NimbleAnchorBaseTests<NimbleAnchor>
     [Fact]
     public void AnchorContentEditable_AttributeIsSet()
     {
-        var anchor = RenderWithPropertySet(x => x.ContentEditable, true);
+        var anchor = RenderWithPropertySet(x => x.ContentEditable, "true");
 
-        Assert.Contains("contenteditable", anchor.Markup);
+        Assert.Contains("contenteditable=\"true\"", anchor.Markup);
     }
 
     [Fact]
