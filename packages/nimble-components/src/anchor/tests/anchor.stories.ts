@@ -35,9 +35,10 @@ const metadata: Meta<AnchorArgs> = {
         <style class='code-hide'>
             .anchor-container {
                 font: var(${bodyFont.cssCustomProperty});
+                outline: none;
             }
         </style>
-        <span class="anchor-container">Click on the <${anchorTag}
+        <span class="anchor-container" contenteditable=${x => x.contenteditable}>Click on the <${anchorTag}
             href=${x => (x.href !== '' ? x.href : null)}
             ?underline-hidden=${x => x.underlineHidden}
             contenteditable=${x => x.contenteditable}
