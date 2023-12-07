@@ -14,11 +14,17 @@ import { createEventListener } from '../../../utilities/tests/component';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return fixture<RichTextEditor>(
+        html`<nimble-rich-text-editor></nimble-rich-text-editor>`
+    );
+}
+
+async function setupWithFooter(): Promise<Fixture<RichTextEditor>> {
+    return fixture<RichTextEditor>(
         // prettier-ignore
         html`<nimble-rich-text-editor>
-    <nimble-button slot="footer-actions" id="cancel">Cancel</nimble-button>
-    <nimble-button slot="footer-actions" id="ok">OK</nimble-button>
-</nimble-rich-text-editor>`
+            <nimble-button slot="footer-actions" id="cancel">Cancel</nimble-button>
+            <nimble-button slot="footer-actions" id="ok">OK</nimble-button>
+        </nimble-rich-text-editor>`
     );
 }
 
@@ -118,21 +124,6 @@ describe('RichTextEditor', () => {
         expect(
             pageObject.getButtonCheckedState(ToolbarButton.numberedList)
         ).toBeTrue();
-    });
-
-    it('clicking buttons in the slot element should call the click event once', () => {
-        const cancelButton: Button = element.querySelector('#cancel')!;
-        const okButton: Button = element.querySelector('#ok')!;
-        const cancelButtonSpy = jasmine.createSpy();
-        const okButtonSpy = jasmine.createSpy();
-        cancelButton?.addEventListener('click', cancelButtonSpy);
-        okButton?.addEventListener('click', okButtonSpy);
-
-        cancelButton.click();
-        okButton.click();
-
-        expect(cancelButtonSpy).toHaveBeenCalledTimes(1);
-        expect(okButtonSpy).toHaveBeenCalledTimes(1);
     });
 
     it('Should return editor as active element after clicking formatting button', async () => {
@@ -1996,6 +1987,26 @@ describe('RichTextEditor', () => {
         element.placeholder = '';
 
         expect(pageObject.getPlaceholderValue()).toBe('');
+    });
+});
+
+describe('RichTextEditor With Footer', () => {
+    it('clicking buttons in the slot element should call the click event once', async () => {
+        const { element, connect, disconnect } = await setupWithFooter();
+        await connect();
+        const cancelButton: Button = element.querySelector('#cancel')!;
+        const okButton: Button = element.querySelector('#ok')!;
+        const cancelButtonSpy = jasmine.createSpy();
+        const okButtonSpy = jasmine.createSpy();
+        cancelButton?.addEventListener('click', cancelButtonSpy);
+        okButton?.addEventListener('click', okButtonSpy);
+
+        cancelButton.click();
+        okButton.click();
+
+        expect(cancelButtonSpy).toHaveBeenCalledTimes(1);
+        expect(okButtonSpy).toHaveBeenCalledTimes(1);
+        await disconnect();
     });
 });
 
