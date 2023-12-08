@@ -9,3 +9,5 @@ export const TipTapNodeName = {
 
 export type TipTapNodeName =
     (typeof TipTapNodeName)[keyof typeof TipTapNodeName];
+
+export const mentionPluginPrefix = 'mention-plugin-';
