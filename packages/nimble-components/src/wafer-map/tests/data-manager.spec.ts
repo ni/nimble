@@ -146,13 +146,13 @@ describe('Wafermap Data Manager', () => {
             expect(dieRenderInfo.y).toBeGreaterThanOrEqual(0);
             expect(dieRenderInfo.x).toBeLessThanOrEqual(
                 canvasDimensions.width
-                    - dataManagerModule.dieDimensions.width
-                    - expectedMargin.left
+                - dataManagerModule.dieDimensions.width
+                - expectedMargin.left
             );
             expect(dieRenderInfo.y).toBeLessThanOrEqual(
                 canvasDimensions.height
-                    - dataManagerModule.dieDimensions.height
-                    - expectedMargin.bottom
+                - dataManagerModule.dieDimensions.height
+                - expectedMargin.bottom
             );
         }
     });
