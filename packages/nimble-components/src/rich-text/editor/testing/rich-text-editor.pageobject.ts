@@ -11,6 +11,8 @@ import {
 } from '../../models/testing/markdown-parser-utils';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import { RichTextMarkdownParser } from '../../models/markdown-parser';
+import type { Button } from '../../../button';
+import { richTextMentionListBoxTag } from '../../mention-list-box';
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -126,6 +128,12 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
+    public async clickUserMentionButton(): Promise<void> {
+        const userMentionButton = this.getUserMentionButton();
+        userMentionButton!.click();
+        await waitForUpdatesAsync();
+    }
+
     public getButtonCheckedState(button: ToolbarButton): boolean {
         const toggleButton = this.getFormattingButton(button);
         return toggleButton!.checked;
@@ -198,6 +206,13 @@ export class RichTextEditorPageObject {
 
     public getEditorLastChildAttribute(attribute: string): string {
         return getLastChildElementAttribute(attribute, this.getTiptapEditor());
+    }
+
+    public isMentionListBoxOpened(): boolean {
+        return (
+            this.getMentionListBox()?.firstElementChild?.tagName
+            === 'NIMBLE-LIST-OPTION'
+        );
     }
 
     public getEditorMentionViewAttributeValues(attribute: string): string[] {
@@ -348,6 +363,19 @@ export class RichTextEditorPageObject {
             'nimble-toggle-button'
         );
         return buttons[button];
+    }
+
+    private getUserMentionButton(): Button | null | undefined {
+        const buttons: NodeListOf<Button> = this.richTextEditorElement.shadowRoot!.querySelectorAll(
+            'nimble-button'
+        );
+        return Array.from(buttons).find(button => button.querySelector('nimble-icon-at'));
+    }
+
+    private getMentionListBox(): Element | null {
+        return this.richTextEditorElement.shadowRoot!.querySelector(
+            richTextMentionListBoxTag
+        );
     }
 
     private getEditorLastChildElement(): Element {

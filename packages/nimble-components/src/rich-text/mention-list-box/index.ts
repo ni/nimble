@@ -5,11 +5,7 @@ import {
     ListboxOption
 } from '@microsoft/fast-foundation';
 import type { SuggestionProps } from '@tiptap/suggestion';
-import {
-    keyEnter,
-    keyEscape,
-    keyTab
-} from '@microsoft/fast-web-utilities';
+import { keyEnter, keyEscape, keyTab } from '@microsoft/fast-web-utilities';
 import type { MentionDetail } from '../editor/types';
 import { styles } from './styles';
 import { template } from './template';
@@ -84,9 +80,7 @@ export class RichTextMentionListBox extends FoundationListbox {
      */
     public override get options(): ListboxOption[] {
         Observable.track(this, 'options');
-        return this.filteredOptions?.length
-            ? this.filteredOptions
-            : [];
+        return this.filteredOptions?.length ? this.filteredOptions : [];
     }
 
     public override set options(value: ListboxOption[]) {
@@ -150,8 +144,12 @@ export class RichTextMentionListBox extends FoundationListbox {
         if (!this.filter) {
             this.filteredOptions = this._options;
         } else {
-            const normalizedFilter = diacriticInsensitiveStringNormalizer(this.filter);
-            this.filteredOptions = this._options.filter(o => diacriticInsensitiveStringNormalizer(o.text).includes(normalizedFilter));
+            const normalizedFilter = diacriticInsensitiveStringNormalizer(
+                this.filter
+            );
+            this.filteredOptions = this._options.filter(o => diacriticInsensitiveStringNormalizer(o.text).includes(
+                normalizedFilter
+            ));
         }
 
         this._options.forEach(o => {

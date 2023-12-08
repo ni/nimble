@@ -8,6 +8,7 @@ import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { findParentNode, isList, AnyExtension, Extension } from '@tiptap/core';
 
 import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
+import HardBreak from '@tiptap/extension-hard-break';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
@@ -40,7 +41,12 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public tiptapEditor = createTiptapEditor(this, [], this.mentionListBox, this.placeholder);
+    public tiptapEditor = createTiptapEditor(
+        this,
+        [],
+        this.mentionListBox,
+        this.placeholder
+    );
 
     /**
      * @internal
@@ -341,15 +347,21 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     /**
-     * Toggle the mention node and focus back to the editor
+     * Inserts the mention character into the editor and focus back to the editor
      * @internal
      */
     public mentionButtonClick(character: string): void {
-        this.tiptapEditor.chain().insertContent(` ${character}`).focus().run();
+        this.tiptapEditor
+            .chain()
+            .insertContent(
+                this.shouldInsertSpace() ? ` ${character}` : character
+            )
+            .focus()
+            .run();
     }
 
     /**
-     * Toggle the mention node and focus back to the editor
+     * Inserts the mention character into the editor and focus back to the editor
      * @internal
      */
     public mentionButtonKeyDown(
@@ -359,7 +371,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor
                 .chain()
-                .insertContent(` ${character}`)
+                .insertContent(
+                    this.shouldInsertSpace() ? ` ${character}` : character
+                )
                 .focus()
                 .run();
             return false;
@@ -599,6 +613,21 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 config => config.character === this.activeMentionCharacter
             )?.mappingConfigs
             : undefined;
+    }
+
+    private shouldInsertSpace(): boolean {
+        const { $anchor, $head } = this.tiptapEditor.view.state.selection;
+
+        const isAtStartOfLine = $head.parentOffset === 0 || $anchor.parentOffset === 0;
+        const nodeBeforeSelection = $anchor.pos < $head.pos ? $anchor.nodeBefore : $head.nodeBefore;
+        const isHardBreakNode = nodeBeforeSelection?.type.name === HardBreak.name;
+        const hasWhitespaceBeforeCurrentPosition = nodeBeforeSelection?.textContent.endsWith(' ');
+
+        return (
+            !isAtStartOfLine
+            && !isHardBreakNode
+            && !hasWhitespaceBeforeCurrentPosition
+        );
     }
 }
 

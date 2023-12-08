@@ -849,4 +849,75 @@ describe('RichTextEditor user mention via template', () => {
             pageObject.getEditorMentionViewAttributeValues('mention-label')
         ).toEqual(['John Doe', 'Mary Wilson']);
     });
+
+    describe('user mention button', () => {
+        beforeEach(async () => {
+            await waitForUpdatesAsync();
+        });
+
+        it('should get `@` text without a preceding whitespace at the start of a line, when button clicked', async () => {
+            await pageObject.clickUserMentionButton();
+
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
+                'P',
+                RICH_TEXT_MENTION_USERS_VIEW_TAG
+            ]);
+            expect(element.getMarkdown()).toBe('@');
+        });
+
+        it('should get `@` text with a preceding whitespace after a word with space, when button clicked', async () => {
+            await pageObject.setEditorTextContent('User ');
+            await pageObject.clickUserMentionButton();
+
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
+                'P',
+                RICH_TEXT_MENTION_USERS_VIEW_TAG
+            ]);
+            expect(element.getMarkdown()).toBe('User @');
+        });
+
+        it('should get `@` text with a preceding whitespace after a word without space, when button clicked', async () => {
+            await pageObject.setEditorTextContent('User');
+            await pageObject.clickUserMentionButton();
+
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
+                'P',
+                RICH_TEXT_MENTION_USERS_VIEW_TAG
+            ]);
+            expect(element.getMarkdown()).toBe('User @');
+        });
+
+        it('should get `@` text without a preceding whitespace after a hard break, when button clicked', async () => {
+            await pageObject.setEditorTextContent('User ');
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.clickUserMentionButton();
+
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
+                'P',
+                'BR',
+                RICH_TEXT_MENTION_USERS_VIEW_TAG
+            ]);
+            expect(element.getMarkdown()).toBe('User \\\n@');
+        });
+
+        it('should get `@` text with a preceding whitespace after a hard break with a text, when button clicked', async () => {
+            await pageObject.setEditorTextContent('User');
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent('Text');
+            await pageObject.clickUserMentionButton();
+
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
+                'P',
+                'BR',
+                RICH_TEXT_MENTION_USERS_VIEW_TAG
+            ]);
+            expect(element.getMarkdown()).toBe('User\\\nText @');
+        });
+
+        it('should open mention popup, when button clicked', async () => {
+            await pageObject.clickUserMentionButton();
+
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
+        });
+    });
 });
