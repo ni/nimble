@@ -17,6 +17,8 @@ export interface Config {
   id: string;
   parentId: string;
   dataField: string | null;
+  // [Nimble] Add 'indexField' to the Config object
+  indexField: string | null;
   childrenField: string;
   throwIfOrphans: boolean;
   rootParentIds: { [rootParentId: string]: true }; // use an object here for fast lookups
@@ -28,6 +30,8 @@ const defaultConfig: Config = {
   id: "id",
   parentId: "parentId",
   dataField: "data",
+  // [Nimble] Add default value for 'indexField'
+  indexField: null,
   childrenField: "children",
   throwIfOrphans: false,
   rootParentIds: { "": true },
@@ -60,7 +64,9 @@ export function arrayToTree(
   // whenever an item has a parent, but the parent is not yet in the lookup object, we store a preliminary parent
   // in the lookup object and fill it with the data of the parent later
   // if an item has no parentId, add it as a root element to rootItems
-  for (const item of items) {
+  // [Nimble] Convert to a for-loop to have access to the item's index in the flat list
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i]!;
     const itemId = conf.nestedIds
       ? getNestedProperty(item, conf.id)
       : item[conf.id];
@@ -105,6 +111,11 @@ export function arrayToTree(
     }
 
     const treeItem = lookup[itemId]!;
+
+    // [Nimble] Add the index to the item
+    if (conf.indexField) {
+      treeItem[conf.indexField] = i;
+    }
 
     if (
       parentId === null ||

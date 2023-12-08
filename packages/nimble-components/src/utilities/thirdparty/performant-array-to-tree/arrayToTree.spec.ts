@@ -3,6 +3,7 @@
  * Copied from https://github.com/philipstanislaus/performant-array-to-tree/blob/ae56091b76de0065949bdf228096010e8c0117f7/src/arrayToTree.spec.ts
  * with the following changes:
  * - Use jasmine instead of chai
+ * - Add tests for "indexField" configuration option in arrayToTree function
  */
 
 import { arrayToTree, countNodes } from "./arrayToTree";
@@ -758,6 +759,40 @@ describe("arrayToTree", () => {
 
     expect(tree[0]!.__proto__).toEqual(Object.prototype);
     expect(tree[0]!.legs).toEqual(undefined);
+  });
+
+  // [Nimble] Add tests for "indexField" configuration option
+  describe("'indexField' configuration option", () => {
+    it("should set expected index when 'indexField' is set", () => {
+      expect(
+        arrayToTree(
+          [
+            { id: "4", parentId: null, custom: "abc" },
+            { id: "31", parentId: "4", custom: "12" },
+            { id: "1941", parentId: "418", custom: "de" },
+            { id: "1", parentId: "418", custom: "ZZZz" },
+            { id: "418", parentId: null, custom: "ü" },
+          ],
+          { indexField: 'originalIndex' }
+        )
+      ).toEqual([
+        {
+          data: { id: "4", parentId: null, custom: "abc" },
+          originalIndex: 0,
+          children: [
+            { data: { id: "31", parentId: "4", custom: "12" }, originalIndex: 1, children: [] },
+          ],
+        },
+        {
+          data: { id: "418", parentId: null, custom: "ü" },
+          originalIndex: 4,
+          children: [
+            { data: { id: "1941", parentId: "418", custom: "de" }, originalIndex: 2, children: [] },
+            { data: { id: "1", parentId: "418", custom: "ZZZz" }, originalIndex: 3, children: [] },
+          ],
+        },
+      ]);
+    });
   });
 });
 
