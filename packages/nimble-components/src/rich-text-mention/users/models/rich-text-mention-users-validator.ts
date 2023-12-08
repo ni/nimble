@@ -9,7 +9,8 @@ import {
 
 const usersValidityFlagNames = [
     ...baseValidityFlagNames,
-    'missingDisplayNameValue'
+    'missingDisplayNameValue',
+    'unsupportedMappingType'
 ] as const;
 
 /**
@@ -18,8 +19,14 @@ const usersValidityFlagNames = [
 export class RichTextMentionUsersValidator extends RichTextMentionValidator<
     typeof usersValidityFlagNames
 > {
-    public constructor(columnInternals: MentionInternals<unknown>) {
-        super(columnInternals, usersValidityFlagNames, [MappingUser]);
+    public constructor(columnInternals: MentionInternals) {
+        super(columnInternals, usersValidityFlagNames);
+    }
+
+    private static isSupportedMappingElement(
+        mapping: Mapping<unknown>
+    ): mapping is MappingUser {
+        return mapping instanceof MappingUser;
     }
 
     public override validate(
@@ -27,6 +34,7 @@ export class RichTextMentionUsersValidator extends RichTextMentionValidator<
         pattern: string
     ): void {
         super.validate(mappings, pattern);
+        this.validateMappingTypes(mappings);
         this.validateNoMissingDisplayName(mappings);
     }
 
@@ -35,5 +43,12 @@ export class RichTextMentionUsersValidator extends RichTextMentionValidator<
             mapping => mapping.displayName === undefined
         );
         this.setConditionValue('missingDisplayNameValue', invalid);
+    }
+
+    private validateMappingTypes(mappings: Mapping<unknown>[]): void {
+        const valid = mappings.every(
+            RichTextMentionUsersValidator.isSupportedMappingElement
+        );
+        this.setConditionValue('unsupportedMappingType', !valid);
     }
 }

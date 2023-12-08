@@ -92,7 +92,13 @@ export const iconMetadata: {
         tags: ['analyze']
     },
     IconCalendar: {
-        tags: []
+        tags: ['schedule']
+    },
+    IconCalendarCheckLines: {
+        tags: ['test', 'plan', 'schedule']
+    },
+    IconCalendarDay: {
+        tags: ['date', 'time', 'schedule']
     },
     IconChartDiagram: {
         tags: ['oidc']
@@ -388,8 +394,17 @@ export const iconMetadata: {
     IconQuestion: {
         tags: ['help']
     },
+    IconRectangleCheckLines: {
+        tags: ['test', 'plan']
+    },
     IconRunningArrow: {
         tags: ['status', 'running']
+    },
+    IconScreenCheckLines: {
+        tags: ['test', 'plan', 'monitor', 'desktop']
+    },
+    IconScreenCheckLinesCalendar: {
+        tags: ['test', 'plan', 'schedule', 'monitor', 'desktop']
     },
     IconServer: {
         tags: ['analysis', 'automation']

@@ -2,7 +2,6 @@ export const wackyStrings = [
     { name: '<button></button>' },
     { name: 'null' },
     { name: 'undefined' },
-    { name: 'null' },
     { name: 'NaN' },
     { name: '-Infinity' },
     { name: 'Infinity' },
