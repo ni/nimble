@@ -22,3 +22,8 @@ export interface MentionDetail {
     displayName: string;
 }
 export const mentionPluginPrefix = 'mention-plugin-';
+
+export type ActiveMentionDetailEmitter = (
+    character: string,
+    command?: (props: unknown) => void
+) => void;

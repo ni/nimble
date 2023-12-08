@@ -36,11 +36,11 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
-    :host([disable-editing]) slot {
-        display: none;
-    }
-
     :host([disable-editing]) {
         font: ${mentionFont};
+    }
+
+    :host([disable-editing]) slot {
+        display: none;
     }
 `;

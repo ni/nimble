@@ -1,4 +1,4 @@
-import type { ViewTemplate } from '@microsoft/fast-element';
+import { observable, ViewTemplate } from '@microsoft/fast-element';
 import type { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 import { mentionPluginPrefix } from '../editor/types';
 import type {
@@ -17,9 +17,20 @@ export class MentionExtensionConfiguration {
     public readonly character: string;
     public readonly name: string;
     public readonly key: string;
-    public readonly label: string;
     public readonly mappingConfigs?: MappingConfigs;
     public readonly mentionUpdateEmitter: MentionUpdateEmitter;
+
+    @observable
+    private _label = '';
+
+    @observable
+    public get label(): string {
+        return this._label;
+    }
+
+    public set label(value: string) {
+        this._label = value;
+    }
 
     public constructor(mentionInternals: MentionInternals) {
         MentionExtensionConfiguration.instance += 1;
@@ -31,7 +42,14 @@ export class MentionExtensionConfiguration {
         this.character = mentionInternals.character;
         this.mappingConfigs = mentionInternals.mappingConfigs;
         this.iconTemplate = mentionInternals.iconTemplate;
-        this.label = mentionInternals.label;
+        this.label = mentionInternals.buttonLabel ?? '';
         this.mentionUpdateEmitter = mentionInternals.mentionUpdateEmitter;
+    }
+
+    public static isObservedMentionInternalsProperty(arg: unknown): boolean {
+        return (
+            typeof arg === 'string'
+            && ['buttonLabel'].includes(arg)
+        );
     }
 }

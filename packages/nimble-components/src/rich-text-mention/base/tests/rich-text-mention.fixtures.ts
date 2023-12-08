@@ -49,9 +49,12 @@ export class RichTextMentionTest extends RichTextMention {
         return {
             icon: '',
             character: '!',
-            viewElement: richTextMentionUsersViewTag,
-            label: 'Test'
+            viewElement: richTextMentionUsersViewTag
         };
+    }
+
+    protected override getObservedMappingProperty(): string[] {
+        return ['key', 'displayName'];
     }
 
     protected createMappingConfig(mapping: Mapping<unknown>): MappingConfig {

@@ -16,23 +16,27 @@ import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
 import { PluginKey } from 'prosemirror-state';
 
 import { keyEscape } from '@microsoft/fast-web-utilities';
-import { mentionPluginPrefix } from '../types';
+import { ActiveMentionDetailEmitter, mentionPluginPrefix } from '../types';
 
 import { anchorTag } from '../../../anchor';
 import type { MentionExtensionConfiguration } from '../../models/mention-extension-configuration';
 import type { RichTextMentionListBox } from '../../mention-list-box';
-import type { RichTextEditor } from '..';
 
 const validAbsoluteLinkRegex = /^https?:\/\//i;
 
 export function createTiptapEditor(
-    richTextEditor: RichTextEditor,
+    activeMentionDetailEmitter: ActiveMentionDetailEmitter,
+    editor: HTMLDivElement,
     mentionExtensionConfig: MentionExtensionConfiguration[],
     mentionListBox?: RichTextMentionListBox,
     placeholder?: string
 ): Editor {
     const customLink = createCustomLinkExtension();
-    const mentionExtensions = mentionExtensionConfig.map(config => createCustomMentionExtension(config, richTextEditor, mentionListBox));
+    const mentionExtensions = mentionExtensionConfig.map(config => createCustomMentionExtension(
+        config,
+        activeMentionDetailEmitter,
+        mentionListBox
+    ));
 
     /**
      * For more information on the extensions for the supported formatting options, refer to the links below.
@@ -40,7 +44,7 @@ export function createTiptapEditor(
      * Tiptap nodes: https://tiptap.dev/api/nodes
      */
     const tipTapEditor = new Editor({
-        element: richTextEditor.editor,
+        element: editor,
         // The editor will detect markdown syntax for an input only for these items
         // https://tiptap.dev/api/editor#enable-input-rules
         enableInputRules: [BulletList, OrderedList],
@@ -147,7 +151,7 @@ function createCustomLinkExtension(): Mark<LinkOptions> {
 
 function createCustomMentionExtension(
     config: MentionExtensionConfiguration,
-    richTextEditor: RichTextEditor,
+    activeMentionDetailEmitter: ActiveMentionDetailEmitter,
     mentionListBox?: RichTextMentionListBox
 ): Node<MentionOptions> {
     return Mention.extend({
@@ -206,15 +210,24 @@ function createCustomMentionExtension(
                     onStart: (props): void => {
                         inSuggestionMode = true;
                         config.mentionUpdateEmitter(props.query);
-                        richTextEditor.activeMentionCharacter = props.text.slice(0, 1);
-                        mentionListBox?.onMention(props);
+                        activeMentionDetailEmitter(
+                            props.text.slice(0, 1),
+                            props.command
+                        );
+                        mentionListBox?.onMention({
+                            filter: props.query,
+                            anchorNode: props.decorationNode as HTMLElement
+                        });
                     },
                     onUpdate: (props): void => {
                         if (!inSuggestionMode) {
                             return;
                         }
                         config.mentionUpdateEmitter(props.query);
-                        mentionListBox?.onMention(props);
+                        mentionListBox?.onMention({
+                            filter: props.query,
+                            anchorNode: props.decorationNode as HTMLElement
+                        });
                     },
                     onKeyDown: (props): boolean => {
                         if (props.event.key === keyEscape) {
@@ -225,7 +238,7 @@ function createCustomMentionExtension(
                         );
                     },
                     onExit: (): void => {
-                        richTextEditor.activeMentionCharacter = '';
+                        activeMentionDetailEmitter('', undefined);
                         mentionListBox?.close();
                     }
                 };

@@ -19,6 +19,7 @@ import type { MentionExtensionConfiguration } from '../models/mention-extension-
 import { buttonTag } from '../../button';
 import type { MappingConfig } from '../../rich-text-mention/base/models/mapping-config';
 import { listOptionTag } from '../../list-option';
+import type { MentionDetail } from './types';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
@@ -98,7 +99,6 @@ export const template = html<RichTextEditor>`
                         slot="start"
                         title=${x => x.label}
                         @click=${(x, c) => c.parent.mentionButtonClick(x.character)}
-                        @keydown=${(x, c) => c.parent.mentionButtonKeyDown(c.event as KeyboardEvent, x.character)}
                     >
                         ${x => x.label}
                         ${x => x.iconTemplate}
@@ -113,6 +113,7 @@ export const template = html<RichTextEditor>`
         </div>
         <${richTextMentionListBoxTag}
             ${ref('mentionListBox')}
+            @activate-mention=${(x, c) => x.activateMention(c.event as CustomEvent<MentionDetail>)}
             >
             ${repeat(
         x => Array.from(x.activeMappingConfigs?.values() ?? []),

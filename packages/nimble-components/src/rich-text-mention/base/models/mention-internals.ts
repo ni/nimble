@@ -5,7 +5,6 @@ export interface MentionInternalsOptions {
     readonly icon: string;
     readonly character: string;
     readonly viewElement: string;
-    readonly label: string;
 }
 
 /**
@@ -31,6 +30,12 @@ export class MentionInternals {
     public pattern?: string;
 
     /**
+     * Label to use as accessible name and title of mention button
+     */
+    @observable
+    public buttonLabel?: string;
+
+    /**
      * Template of the Icon to display on RichTextEditor Toolbar
      */
     public readonly iconTemplate: ViewTemplate;
@@ -46,11 +51,6 @@ export class MentionInternals {
     public readonly viewElement: string;
 
     /**
-     * Label to use as accessible name and title of mention button
-     */
-    public readonly label: string;
-
-    /**
      * Function to invoke to emit a mention-update event
      */
     public readonly mentionUpdateEmitter: MentionUpdateEmitter;
@@ -62,7 +62,6 @@ export class MentionInternals {
         this.iconTemplate = html`<${options.icon} slot="start"></${options.icon}>`;
         this.character = options.character;
         this.viewElement = options.viewElement;
-        this.label = options.label;
         this.mentionUpdateEmitter = mentionUpdateEmitter;
     }
 }

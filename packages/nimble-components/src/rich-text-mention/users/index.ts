@@ -10,7 +10,6 @@ import type { Mapping } from '../../mapping/base';
 import type { MappingUserKey } from '../../mapping/base/types';
 import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
 import { richTextMentionUsersViewTag } from './view';
-import { richTextMentionUserLabel } from '../../label-provider/rich-text/label-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -30,9 +29,12 @@ export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersVa
         return {
             icon: iconAtTag,
             character: '@',
-            viewElement: richTextMentionUsersViewTag,
-            label: richTextMentionUserLabel.getValueFor(this)
+            viewElement: richTextMentionUsersViewTag
         };
+    }
+
+    protected override getObservedMappingProperty(): string[] {
+        return ['key', 'displayName'];
     }
 
     protected createMappingConfig(

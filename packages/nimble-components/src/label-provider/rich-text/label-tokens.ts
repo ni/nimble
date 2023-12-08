@@ -20,8 +20,3 @@ export const richTextToggleNumberedListLabel = DesignToken.create<string>({
     name: 'rich-text-toggle-numbered-list-label',
     cssCustomPropertyName: null
 }).withDefault(richTextLabelDefaults.richTextToggleNumberedListLabel);
-
-export const richTextMentionUserLabel = DesignToken.create<string>({
-    name: 'rich-text-mention-user-label',
-    cssCustomPropertyName: null
-}).withDefault(richTextLabelDefaults.richTextMentionUserLabel);

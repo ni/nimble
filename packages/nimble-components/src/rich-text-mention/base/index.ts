@@ -45,6 +45,9 @@ export abstract class RichTextMention<
     @attr
     public pattern?: string;
 
+    @observable
+    public buttonLabel?: string;
+
     /** @internal */
     public mappingNotifiers: Notifier[] = [];
 
@@ -80,12 +83,14 @@ export abstract class RichTextMention<
      * @internal
      */
     public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof Mapping && typeof args === 'string') {
+        if (source instanceof Mapping && typeof args === 'string' && this.getObservedMappingProperty().includes(args)) {
             this.updateMappingConfigs();
         }
     }
 
     protected abstract createValidator(): TValidator;
+
+    protected abstract getObservedMappingProperty(): string[];
 
     protected abstract getMentionInternalsOptions(): MentionInternalsOptions;
 
@@ -123,6 +128,10 @@ export abstract class RichTextMention<
     private patternChanged(): void {
         this.validator.validate(this.mappingElements, this.pattern);
         this.mentionInternals.pattern = this.pattern;
+    }
+
+    private buttonLabelChanged(): void {
+        this.mentionInternals.buttonLabel = this.buttonLabel;
     }
 
     private removeMappingElementObservers(): void {

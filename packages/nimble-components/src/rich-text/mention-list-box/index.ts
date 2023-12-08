@@ -4,7 +4,6 @@ import {
     ListboxElement as FoundationListbox,
     ListboxOption
 } from '@microsoft/fast-foundation';
-import type { SuggestionProps } from '@tiptap/suggestion';
 import { keyEnter, keyEscape, keyTab } from '@microsoft/fast-web-utilities';
 import type { MentionDetail } from '../editor/types';
 import { styles } from './styles';
@@ -12,6 +11,7 @@ import { template } from './template';
 import { AnchoredRegion } from '../../anchored-region';
 import { diacriticInsensitiveStringNormalizer } from '../../utilities/models/string-normalizers';
 import type { ListOption } from '../../list-option';
+import type { MentionParam } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -50,8 +50,6 @@ export class RichTextMentionListBox extends FoundationListbox {
 
     @observable
     private anchorElement?: HTMLElement;
-
-    private suggestionProps!: SuggestionProps;
 
     private regionNotifier?: Notifier;
 
@@ -93,10 +91,9 @@ export class RichTextMentionListBox extends FoundationListbox {
      *
      * @public
      */
-    public onMention(props: SuggestionProps): void {
-        this.suggestionProps = props;
-        this.filter = props.query;
-        this.anchorElement = props.decorationNode as HTMLElement;
+    public onMention(mentionParam: MentionParam): void {
+        this.filter = mentionParam.filter;
+        this.anchorElement = mentionParam.anchorNode;
         this.setOpen(true);
         this.filterOptions();
     }
@@ -269,10 +266,7 @@ export class RichTextMentionListBox extends FoundationListbox {
     }
 
     private activateMention(mentionDetail: MentionDetail): void {
-        this.suggestionProps.command({
-            href: mentionDetail.href,
-            label: mentionDetail.displayName
-        });
+        this.$emit('activate-mention', mentionDetail);
         this.setOpen(false);
     }
 

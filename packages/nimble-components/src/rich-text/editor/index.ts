@@ -12,16 +12,17 @@ import HardBreak from '@tiptap/extension-hard-break';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
-import { TipTapNodeName, mentionPluginPrefix } from './types';
+import { TipTapNodeName, mentionPluginPrefix, MentionDetail } from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { RichText } from '../base';
 import type { RichTextMentionListBox } from '../mention-list-box';
 import type { MappingConfigs } from '../../rich-text-mention/base/types';
-import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
+import { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 import { createTiptapEditor } from './models/create-tiptap-editor';
 import { EditorConfiguration } from '../models/editor-configuration';
+import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -42,7 +43,8 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @internal
      */
     public tiptapEditor = createTiptapEditor(
-        this,
+        () => {},
+        this.editor,
         [],
         this.mentionListBox,
         this.placeholder
@@ -171,6 +173,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      */
     @observable
     public activeMappingConfigs?: MappingConfigs;
+
+    /**
+     * @internal
+     */
+    public activeMentionCommand?: (props: unknown) => void;
 
     /**
      * @internal
@@ -361,27 +368,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     /**
-     * Inserts the mention character into the editor and focus back to the editor
-     * @internal
-     */
-    public mentionButtonKeyDown(
-        event: KeyboardEvent,
-        character: string
-    ): boolean {
-        if (this.keyActivatesButton(event)) {
-            this.tiptapEditor
-                .chain()
-                .insertContent(
-                    this.shouldInsertSpace() ? ` ${character}` : character
-                )
-                .focus()
-                .run();
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * This function load tip tap editor with provided markdown content by parsing into html
      * @public
      */
@@ -426,6 +412,34 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             : [];
     }
 
+    public activateMention(event: CustomEvent<MentionDetail>): void {
+        if (this.activeMentionCommand) {
+            this.activeMentionCommand({
+                href: event.detail.href,
+                label: event.detail.displayName
+            });
+        }
+    }
+
+    /**
+     * @internal
+     */
+    public override handleChange(source: unknown, args: unknown): void {
+        if (
+            source instanceof MentionInternals
+                && MentionExtensionConfiguration.isObservedMentionInternalsProperty(
+                    args
+                )
+        ) {
+            const mentionExtensionConfig = this.getMentionExtensionConfigFromCharacter(source.character);
+            if (mentionExtensionConfig) {
+                mentionExtensionConfig.label = source.buttonLabel ?? '';
+            }
+            return;
+        }
+        super.handleChange(source, args);
+    }
+
     protected override createConfig(): EditorConfiguration {
         return new EditorConfiguration(this.mentionElements);
     }
@@ -460,7 +474,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         this.unbindNativeInputEvent();
         this.tiptapEditor?.destroy();
         this.tiptapEditor = createTiptapEditor(
-            this,
+            (character, command) => {
+                this.activeMentionCharacter = character;
+                this.activeMentionCommand = command;
+            },
+            this.editor,
             this.configuration instanceof EditorConfiguration
                 ? this.configuration.mentionExtensionConfig
                 : [],
@@ -548,6 +566,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             'aria-disabled',
             this.disabled ? 'true' : 'false'
         );
+        if (this.disabled) {
+            this.mentionListBox?.close();
+        }
     }
 
     /**
@@ -609,9 +630,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
 
     private setActiveMappingConfigs(): void {
         this.activeMappingConfigs = this.activeMentionCharacter
-            ? this.getMentionExtensionConfig().find(
-                config => config.character === this.activeMentionCharacter
-            )?.mappingConfigs
+            ? this.getMentionExtensionConfigFromCharacter(this.activeMentionCharacter)?.mappingConfigs
             : undefined;
     }
 
@@ -626,7 +645,12 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         return (
             !isAtStartOfLine
             && !isHardBreakNode
-            && !hasWhitespaceBeforeCurrentPosition
+            && !hasWhitespaceBeforeCurrentPosition);
+    }
+
+    private getMentionExtensionConfigFromCharacter(character: string): MentionExtensionConfiguration | undefined {
+        return this.getMentionExtensionConfig().find(
+            config => config.character === character
         );
     }
 }
