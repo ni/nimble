@@ -22,13 +22,15 @@ const generateStringValue = (
 export const generateDieContent = (
     x: number,
     y: number,
-    value: string
+    value: string,
+    tags?: string[]
 ): WaferMapDie => {
     return {
         x,
         y,
         value,
-        metadata: `Placeholder metadata value for Die x: ${x} y: ${y}`
+        metadata: `Placeholder metadata value for Die x: ${x} y: ${y}`,
+        tags
     };
 };
 
@@ -56,7 +58,9 @@ export const generateWaferData = (
                 j--
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
-                diesSet.push(generateDieContent(i, j, stringValue));
+                // Math.random() * (max-min) + min) Generate a random number between two numbers
+                const randomLetter = String.fromCharCode(Math.floor(Math.random() * (122 - 97) + 97));
+                diesSet.push(generateDieContent(i, j, stringValue, [randomLetter]));
             }
             // generate points right of centerX
             for (
@@ -66,7 +70,9 @@ export const generateWaferData = (
                 j++
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
-                diesSet.push(generateDieContent(i, j, stringValue));
+                // Math.random() * (max-min) + min) Generate a random number between two numbers
+                const randomLetter = String.fromCharCode(Math.floor(Math.random() * (122 - 97) + 97));
+                diesSet.push(generateDieContent(i, j, stringValue, [randomLetter]));
             }
         }
     }
