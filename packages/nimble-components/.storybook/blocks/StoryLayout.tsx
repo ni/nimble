@@ -1,7 +1,7 @@
 import React from 'react';
 import './story-layout.css';
-import Check from './assets/Check';
-import Exclamation from './assets/Exclamation';
+import { NimbleIconCheck } from '../../src/icons/tests/check.react';
+import { NimbleIconExclamationMark } from '../../src/icons/tests/exclamation-mark.react';
 
 /**
  * Renders a frame to match visual design of existing Storybook Doc blocks.
@@ -41,7 +41,7 @@ export const Do = ({ children }) => {
     return (
         <Container config='48px 1fr'>
             <Column>
-                <Check size="24px" />
+                <NimbleIconCheck style={{width: '28px', height: '28px'}} severity='success'/>
             </Column>
             <Column><p>{children}</p></Column>
         </Container>
@@ -55,7 +55,7 @@ export const Dont = ({ children }) => {
     return (
         <Container config='48px 1fr'>
             <Column>
-                <Exclamation size="24px" />
+                <NimbleIconExclamationMark style={{width: '24px', height: '24px'}} severity='error'/>
             </Column>
             <Column><p>{children}</p></Column>
         </Container>
