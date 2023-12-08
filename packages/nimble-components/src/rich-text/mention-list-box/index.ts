@@ -204,7 +204,7 @@ export class RichTextMentionListBox extends FoundationListbox {
         this.activateMention({
             href: capturedListOption.value,
             displayName: capturedListOption.text
-        } as MentionDetail);
+        });
         return true;
     }
 
