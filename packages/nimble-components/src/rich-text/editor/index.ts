@@ -40,11 +40,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public tiptapEditor = createTiptapEditor(
-        this,
-        [],
-        this.mentionListBox
-    );
+    public tiptapEditor = createTiptapEditor(this, [], this.mentionListBox);
 
     /**
      * @internal

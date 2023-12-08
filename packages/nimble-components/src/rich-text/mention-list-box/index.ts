@@ -1,7 +1,17 @@
 import { Notifier, Observable, observable } from '@microsoft/fast-element';
-import { DesignSystem, ListboxElement as FoundationListbox, ListboxOption } from '@microsoft/fast-foundation';
+import {
+    DesignSystem,
+    ListboxElement as FoundationListbox,
+    ListboxOption
+} from '@microsoft/fast-foundation';
 import type { SuggestionProps } from '@tiptap/suggestion';
-import { keyArrowDown, keyArrowUp, keyEnter, keyEscape, keyTab } from '@microsoft/fast-web-utilities';
+import {
+    keyArrowDown,
+    keyArrowUp,
+    keyEnter,
+    keyEscape,
+    keyTab
+} from '@microsoft/fast-web-utilities';
 import type { MentionDetail } from '../editor/types';
 import { styles } from './styles';
 import { template } from './template';
@@ -76,7 +86,9 @@ export class RichTextMentionListBox extends FoundationListbox {
      */
     public override get options(): ListboxOption[] {
         Observable.track(this, 'options');
-        return this.filteredOptions?.length ? this.filteredOptions : this._options;
+        return this.filteredOptions?.length
+            ? this.filteredOptions
+            : this._options;
     }
 
     public override set options(value: ListboxOption[]) {
@@ -165,7 +177,10 @@ export class RichTextMentionListBox extends FoundationListbox {
      *
      * @internal
      */
-    public override slottedOptionsChanged(prev: Element[] | undefined, next: Element[]): void {
+    public override slottedOptionsChanged(
+        prev: Element[] | undefined,
+        next: Element[]
+    ): void {
         super.slottedOptionsChanged(prev, next);
         this.filterOptions();
         this.selectFirstElement();
@@ -220,9 +235,7 @@ export class RichTextMentionListBox extends FoundationListbox {
         if (this.regionNotifier) {
             this.regionNotifier.unsubscribe(this);
         }
-        this.regionNotifier = Observable.getNotifier(
-            this.region
-        );
+        this.regionNotifier = Observable.getNotifier(this.region);
         this.regionNotifier.subscribe(this);
     }
 
