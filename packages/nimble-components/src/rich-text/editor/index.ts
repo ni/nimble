@@ -427,9 +427,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     public override handleChange(source: unknown, args: unknown): void {
         if (
             source instanceof MentionInternals
-                && MentionExtensionConfiguration.isObservedMentionInternalsProperty(
-                    args
-                )
+            && MentionExtensionConfiguration.isObservedMentionInternalsProperty(
+                args
+            )
         ) {
             const mentionExtensionConfig = this.getMentionExtensionConfigFromCharacter(source.character);
             if (mentionExtensionConfig) {
@@ -630,7 +630,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
 
     private setActiveMappingConfigs(): void {
         this.activeMappingConfigs = this.activeMentionCharacter
-            ? this.getMentionExtensionConfigFromCharacter(this.activeMentionCharacter)?.mappingConfigs
+            ? this.getMentionExtensionConfigFromCharacter(
+                this.activeMentionCharacter
+            )?.mappingConfigs
             : undefined;
     }
 
@@ -645,10 +647,13 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         return (
             !isAtStartOfLine
             && !isHardBreakNode
-            && !hasWhitespaceBeforeCurrentPosition);
+            && !hasWhitespaceBeforeCurrentPosition
+        );
     }
 
-    private getMentionExtensionConfigFromCharacter(character: string): MentionExtensionConfiguration | undefined {
+    private getMentionExtensionConfigFromCharacter(
+        character: string
+    ): MentionExtensionConfiguration | undefined {
         return this.getMentionExtensionConfig().find(
             config => config.character === character
         );

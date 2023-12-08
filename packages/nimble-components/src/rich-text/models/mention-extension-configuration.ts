@@ -47,9 +47,6 @@ export class MentionExtensionConfiguration {
     }
 
     public static isObservedMentionInternalsProperty(arg: unknown): boolean {
-        return (
-            typeof arg === 'string'
-            && ['buttonLabel'].includes(arg)
-        );
+        return typeof arg === 'string' && ['buttonLabel'].includes(arg);
     }
 }

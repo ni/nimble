@@ -108,7 +108,7 @@ const metadata: Meta<RichTextEditorArgs> = {
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}1" display-name="John Doe😀"></${mappingUserTag}>
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}2" display-name="Mary Wilson😂"></${mappingUserTag}>
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}3" display-name="Sue Ann🤩"></${mappingUserTag}>
-            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}4" display-name="Joseph George"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}4" display-name="Joseph-George"></${mappingUserTag}>
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}5" display-name="David"></${mappingUserTag}>
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}6" display-name="Ranchan"></${mappingUserTag}>
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}7" display-name="Aegar"></${mappingUserTag}>

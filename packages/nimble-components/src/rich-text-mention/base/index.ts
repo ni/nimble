@@ -83,7 +83,11 @@ export abstract class RichTextMention<
      * @internal
      */
     public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof Mapping && typeof args === 'string' && this.getObservedMappingProperty().includes(args)) {
+        if (
+            source instanceof Mapping
+            && typeof args === 'string'
+            && this.getObservedMappingProperty().includes(args)
+        ) {
             this.updateMappingConfigs();
         }
     }
