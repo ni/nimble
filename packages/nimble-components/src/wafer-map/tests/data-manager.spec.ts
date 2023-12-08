@@ -133,7 +133,6 @@ describe('Wafermap Data Manager', () => {
                 x: dieRenderInfo.x,
                 y: dieRenderInfo.y
             } as PointCoordinates);
-            expect(die).toBeDefined();
             if (die?.tags) {
                 for (const dieTag of die.tags) {
                     expect(highlightedTags).toContain(dieTag);
@@ -152,7 +151,6 @@ describe('Wafermap Data Manager', () => {
                 x: dieRenderInfo.x,
                 y: dieRenderInfo.y
             } as PointCoordinates);
-            expect(die).toBeDefined();
             if (die?.tags) {
                 for (const dieTag of die.tags) {
                     expect(highlightedTags).not.toContain(dieTag);
