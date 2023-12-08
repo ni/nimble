@@ -58,7 +58,7 @@ export const generateWaferData = (
                 j--
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
-                // Math.random() * (max-min) + min) Generate a random number between two numbers
+                // Math.random() * (max-min) + min Generate a random number between two numbers
                 const randomLetter = String.fromCharCode(
                     Math.floor(Math.random() * (122 - 97) + 97)
                 );
@@ -74,7 +74,7 @@ export const generateWaferData = (
                 j++
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
-                // Math.random() * (max-min) + min) Generate a random number between two numbers
+                // Math.random() * (max-min) + min Generate a random number between two numbers
                 const randomLetter = String.fromCharCode(
                     Math.floor(Math.random() * (122 - 97) + 97)
                 );
