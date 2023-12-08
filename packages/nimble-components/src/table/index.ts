@@ -54,9 +54,7 @@ import { TableUpdateTracker } from './models/table-update-tracker';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
-import { TableRowMetadataManager } from './models/table-row-metadata-manager';
-import { convertRecordsToUnorderFlatList } from './models/hierarchy-utilities';
-import { arrayToTree } from '../utilities/thirdparty/performant-array-to-tree/arrayToTree';
+import { DataHierarchyManager } from './models/hierarchy-utilities';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -220,15 +218,14 @@ export class Table<
 
     private readonly table: TanStackTable<TableNode<TData>>;
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
-    private readonly rowMetadataManager = new TableRowMetadataManager<TData>();
 
-    private readonly tableValidator = new TableValidator();
+    private readonly tableValidator = new TableValidator<TData>();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
     private readonly selectionManager: InteractiveSelectionManager<TData>;
+    private readonly dataHierarchyManager: DataHierarchyManager<TData>;
     private columnNotifiers: Notifier[] = [];
     private readonly layoutManagerNotifier: Notifier;
     private isInitialized = false;
-    private isTanStackDataFlat = false;
     private readonly collapsedRows = new Set<string>();
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
@@ -273,11 +270,12 @@ export class Table<
             this.table,
             this.selectionMode
         );
+        this.dataHierarchyManager = new DataHierarchyManager(this.tableValidator);
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
         await this.processPendingUpdates();
-        const tanstackUpdates = this.processFlatData(newData, true);
+        const tanstackUpdates = this.processFlatData(newData);
         this.updateTableOptions(tanstackUpdates);
     }
 
@@ -519,16 +517,6 @@ export class Table<
      */
     public update(): void {
         this.validate();
-        if (
-            this.tableUpdateTracker.updateRowIds
-            && this.tableValidator.areRecordIdsValid()
-        ) {
-            this.rowMetadataManager.handleRowIdUpdate(
-                this.table.options.data,
-                this.idFieldName
-            );
-        }
-
         if (this.tableUpdateTracker.requiresTanStackUpdate) {
             this.updateTanStack();
         }
@@ -573,10 +561,9 @@ export class Table<
      * @internal
      */
     public processFlatData(
-        data: readonly TData[],
-        updateCachedRowOrder: boolean
+        data: readonly TData[]
     ): Partial<TanStackTableOptionsResolved<TableNode<TData>>> {
-        const internalData = this.convertFlatDataToHierarchy(data);
+        const internalData = this.dataHierarchyManager.getTableNodes(data, this.idFieldName, this.parentIdFieldName);
         const tanStackUpdates: Partial<
         TanStackTableOptionsResolved<TableNode<TData>>
         > = {
@@ -591,10 +578,6 @@ export class Table<
                 rowSelection:
                     this.calculateTanStackSelectionState(previousSelection)
             };
-
-            if (updateCachedRowOrder) {
-                this.rowMetadataManager.handleDataUpdate(data);
-            }
         }
         return tanStackUpdates;
     }
@@ -642,43 +625,6 @@ export class Table<
 
         this.observeColumns();
         this.tableUpdateTracker.trackColumnInstancesChanged();
-    }
-
-    private convertFlatDataToHierarchy(
-        flatData: readonly TData[]
-    ): TableNode<TData>[] {
-        let hierarchicalData: TableNode<TData>[];
-        if (this.idFieldName && this.parentIdFieldName) {
-            try {
-                // The call to arrayToTree will perform a deep copy of the data, but it does allow a
-                // configuration that will do shallow copies, and thus it's signature doesn't support
-                // immutable arrays. Thus, we need to cast to a mutable type.
-                const data = flatData as TData[];
-                hierarchicalData = arrayToTree(data, {
-                    dataField: 'clientRecord',
-                    childrenField: 'subRows',
-                    id: this.idFieldName,
-                    parentId: this.parentIdFieldName,
-                    nestedIds: false,
-                    throwIfOrphans: true
-                }) as TableNode<TData>[];
-                this.isTanStackDataFlat = false;
-            } catch {
-                this.tableValidator.setParentIdConfigurationValidity(false);
-                this.isTanStackDataFlat = true;
-                return flatData.map(record => {
-                    return { clientRecord: { ...record } };
-                });
-            }
-        } else {
-            this.isTanStackDataFlat = true;
-            hierarchicalData = flatData.map(record => {
-                return { clientRecord: { ...record } };
-            });
-        }
-
-        this.tableValidator.setParentIdConfigurationValidity(true);
-        return hierarchicalData;
     }
 
     private getCurrentSelectedRecordIds(): string[] {
@@ -859,12 +805,8 @@ export class Table<
                 // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
                 updatedOptions.data = [...this.table.options.data];
             } else {
-                const flatList = this.isTanStackDataFlat
-                    ? convertRecordsToUnorderFlatList(this.table.options.data)
-                    : this.rowMetadataManager.getOrderedData(
-                        this.table.options.data
-                    );
-                const tanstackUpdates = this.processFlatData(flatList, false);
+                const orderedRecords = this.dataHierarchyManager.getAllRecords(this.table.options.data, true);
+                const tanstackUpdates = this.processFlatData(orderedRecords);
                 if (tanstackUpdates.state) {
                     updatedOptions.state.rowSelection = tanstackUpdates.state.rowSelection;
                 }
@@ -912,7 +854,7 @@ export class Table<
         );
         this.tableValidator.validateColumnConfigurations(this.columns);
         this.validateWithData(
-            convertRecordsToUnorderFlatList(this.table.options.data)
+            this.dataHierarchyManager.getAllRecords(this.table.options.data)
         );
     }
 

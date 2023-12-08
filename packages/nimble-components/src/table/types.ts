@@ -47,6 +47,7 @@ export interface TableRecord {
  */
 export interface TableNode<TRecord extends TableRecord = TableRecord> {
     subRows?: TableNode<TRecord>[];
+    originalIndex: number;
     clientRecord: TRecord;
 }
 
