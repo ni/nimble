@@ -13,9 +13,16 @@ export class DataHierarchyManager<TData extends TableRecord> {
         private readonly tableValidator: TableValidator<TData>
     ) {}
 
-    public getTableNodes(records: readonly TData[], idFieldName: string | undefined, parentIdFieldName: string | undefined): TableNode<TData>[] {
+    public getTableNodes(
+        records: readonly TData[],
+        idFieldName: string | undefined,
+        parentIdFieldName: string | undefined
+    ): TableNode<TData>[] {
         let hierarchicalData: TableNode<TData>[];
-        if (typeof idFieldName === 'string' && typeof parentIdFieldName === 'string') {
+        if (
+            typeof idFieldName === 'string'
+            && typeof parentIdFieldName === 'string'
+        ) {
             try {
                 // The call to arrayToTree will perform a deep copy of the data, but it does allow a
                 // configuration that will do shallow copies, and thus it's signature doesn't support
@@ -35,7 +42,10 @@ export class DataHierarchyManager<TData extends TableRecord> {
                 this.tableValidator.setParentIdConfigurationValidity(false);
                 this.isDataFlat = true;
                 return records.map((record, index) => {
-                    return { clientRecord: { ...record }, originalIndex: index };
+                    return {
+                        clientRecord: { ...record },
+                        originalIndex: index
+                    };
                 });
             }
         } else {
@@ -49,7 +59,10 @@ export class DataHierarchyManager<TData extends TableRecord> {
         return hierarchicalData;
     }
 
-    public getAllRecords(tableNodes: readonly TableNode<TData>[], sort = false): TData[] {
+    public getAllRecords(
+        tableNodes: readonly TableNode<TData>[],
+        sort = false
+    ): TData[] {
         const allNodes: TableNode<TData>[] = [];
         this.getAllNodes(tableNodes, allNodes);
 
@@ -64,7 +77,10 @@ export class DataHierarchyManager<TData extends TableRecord> {
             .map(x => x.clientRecord);
     }
 
-    private getAllNodes(parentNodes: readonly TableNode<TData>[], allNodes: TableNode<TData>[]): void {
+    private getAllNodes(
+        parentNodes: readonly TableNode<TData>[],
+        allNodes: TableNode<TData>[]
+    ): void {
         for (const parentNode of parentNodes) {
             allNodes.push(parentNode);
             if (parentNode.subRows) {

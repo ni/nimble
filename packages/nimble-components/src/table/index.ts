@@ -270,7 +270,9 @@ export class Table<
             this.table,
             this.selectionMode
         );
-        this.dataHierarchyManager = new DataHierarchyManager(this.tableValidator);
+        this.dataHierarchyManager = new DataHierarchyManager(
+            this.tableValidator
+        );
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
@@ -563,7 +565,11 @@ export class Table<
     public processFlatData(
         data: readonly TData[]
     ): Partial<TanStackTableOptionsResolved<TableNode<TData>>> {
-        const internalData = this.dataHierarchyManager.getTableNodes(data, this.idFieldName, this.parentIdFieldName);
+        const internalData = this.dataHierarchyManager.getTableNodes(
+            data,
+            this.idFieldName,
+            this.parentIdFieldName
+        );
         const tanStackUpdates: Partial<
         TanStackTableOptionsResolved<TableNode<TData>>
         > = {
@@ -805,7 +811,10 @@ export class Table<
                 // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
                 updatedOptions.data = [...this.table.options.data];
             } else {
-                const orderedRecords = this.dataHierarchyManager.getAllRecords(this.table.options.data, true);
+                const orderedRecords = this.dataHierarchyManager.getAllRecords(
+                    this.table.options.data,
+                    true
+                );
                 const tanstackUpdates = this.processFlatData(orderedRecords);
                 if (tanstackUpdates.state) {
                     updatedOptions.state.rowSelection = tanstackUpdates.state.rowSelection;
