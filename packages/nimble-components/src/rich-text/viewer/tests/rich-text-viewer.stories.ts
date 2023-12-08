@@ -12,6 +12,7 @@ import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 interface RichTextViewerArgs {
     markdown: string;
     data: ExampleDataType;
+    getMentionedHrefs: undefined;
     validity: undefined;
     checkValidity: undefined;
 }
@@ -94,6 +95,12 @@ const metadata: Meta<RichTextViewerArgs> = {
             name: 'checkValidity()',
             description:
                 'A function that returns `true` if the configuration of the rich text viewer is valid and `false` if the configuration is not valid.',
+            control: false
+        },
+        getMentionedHrefs: {
+            name: 'getMentionedHrefs()',
+            description:
+                'Returns an array of strings listing the hrefs of current mentions in the rich text components.',
             control: false
         }
     },

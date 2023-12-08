@@ -10,10 +10,6 @@ import {
 } from '../../../rich-text-mention/users';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import { MappingUser, mappingUserTag } from '../../../mapping/user';
-import {
-    RichTextMentionTest,
-    richTextMentionTestTag
-} from '../../../rich-text-mention/base/tests/rich-text-mention.fixtures';
 
 async function setup(): Promise<Fixture<RichTextViewer>> {
     return fixture<RichTextViewer>(
@@ -54,30 +50,6 @@ async function appendUserMentionConfiguration(
         });
     }
     element.appendChild(userMention);
-    await waitForUpdatesAsync();
-}
-
-async function appendTestMentionConfiguration(
-    element: RichTextViewer,
-    userKeys?: string[],
-    displayNames?: string[]
-): Promise<void> {
-    const testMention = document.createElement(
-        richTextMentionTestTag
-    ) as RichTextMentionTest;
-    testMention.pattern = '^test:(.*)';
-
-    if (userKeys || displayNames) {
-        userKeys?.forEach((userKey, index) => {
-            const mappingUser = document.createElement(
-                mappingUserTag
-            ) as MappingUser;
-            mappingUser.key = userKey ?? '';
-            mappingUser.displayName = displayNames?.[index] ?? '';
-            testMention.appendChild(mappingUser);
-        });
-    }
-    element.appendChild(testMention);
     await waitForUpdatesAsync();
 }
 
@@ -186,7 +158,8 @@ describe('RichTextViewer', () => {
             ).toEqual('1');
         });
 
-        it('adding two mention configuration elements in the same viewer should render as anchor element', async () => {
+        // TODO: Once the rich text validator (https://github.com/ni/nimble/pull/1688) added for duplicate configuration elements, below test case should be updated
+        it('adding two mention configuration elements in the same viewer should render as mention view', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element);
             await appendUserMentionConfiguration(element);
@@ -568,55 +541,38 @@ describe('RichTextViewer', () => {
             await disconnect();
         });
 
+        it('should return different mentionedHrefs instance', async () => {
+            element.markdown = '<user:1>';
+            await appendUserMentionConfiguration(element);
+            const firstInstance = element.getMentionedHrefs();
+            const secondInstance = element.getMentionedHrefs();
+            expect(firstInstance === secondInstance).toBeFalse();
+        });
+
         it('should return the mentioned href when it valid mention configuration matching the pattern to mention node', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element);
-            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
+            expect(element.getMentionedHrefs()).toEqual(['user:1']);
         });
 
-        it('should return no mentioned hrefs when there are duplicate mention configuration elements', async () => {
+        // TODO: Once the rich text validator (https://github.com/ni/nimble/pull/1688) added for duplicate configuration elements, below test case should be updated
+        it('should return the mentioned href for duplicate mention configuration elements', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element);
             await appendUserMentionConfiguration(element);
-            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual([]);
+            expect(element.getMentionedHrefs()).toEqual(['user:1']);
         });
 
         it('should return unique mentioned href if same users exist twice', async () => {
             element.markdown = '<user:1> <user:1>';
             await appendUserMentionConfiguration(element);
-            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
+            expect(element.getMentionedHrefs()).toEqual(['user:1']);
         });
 
         it('should return all the mentioned href', async () => {
             element.markdown = '<user:1> <user:2>';
             await appendUserMentionConfiguration(element);
-            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual([
-                'user:1',
-                'user:2'
-            ]);
-        });
-
-        it('should return matched href from the respective mention configuration element', async () => {
-            element.markdown = '<user:1> <test:1> <https://nimble.ni.dev/>';
-            await appendUserMentionConfiguration(
-                element,
-                ['user:1'],
-                ['username1']
-            );
-            await appendTestMentionConfiguration(
-                element,
-                ['test:1'],
-                ['test1']
-            );
-            await waitForUpdatesAsync();
-            const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
-            const renderedTestMention = element.lastElementChild as RichTextMentionTest;
-            expect(renderedTestMention.getMentionedHrefs()).toEqual(['test:1']);
+            expect(element.getMentionedHrefs()).toEqual(['user:1', 'user:2']);
         });
 
         it('should return updated href when mention configuration element pattern get updated', async () => {
@@ -628,9 +584,9 @@ describe('RichTextViewer', () => {
             );
             await waitForUpdatesAsync();
             const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
+            expect(element.getMentionedHrefs()).toEqual(['user:1']);
             renderedUserMention.pattern = 'invalid';
-            expect(renderedUserMention.getMentionedHrefs()).toEqual([]);
+            expect(element.getMentionedHrefs()).toEqual([]);
         });
 
         it('should return updated href when mention configuration element added dynamically', async () => {
@@ -641,18 +597,19 @@ describe('RichTextViewer', () => {
                 ['username1']
             );
             await waitForUpdatesAsync();
-            let renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
+            const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
+            expect(element.getMentionedHrefs()).toEqual(['user:1']);
             element.removeChild(renderedUserMention);
+            await waitForUpdatesAsync();
             expect(element.children.length).toBe(0);
+            expect(element.getMentionedHrefs()).toEqual([]);
             await appendUserMentionConfiguration(
                 element,
                 ['user:1'],
                 ['username1']
             );
             await waitForUpdatesAsync();
-            renderedUserMention = element.lastElementChild as RichTextMentionUsers;
-            expect(renderedUserMention.getMentionedHrefs()).toEqual(['user:1']);
+            expect(element.getMentionedHrefs()).toEqual(['user:1']);
         });
     });
 });

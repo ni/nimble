@@ -1,12 +1,8 @@
-import {
-    Observable,
-    observable,
-    type Notifier,
-    DOM
-} from '@microsoft/fast-element';
+import { Observable, observable, type Notifier, DOM } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { RichTextMention } from '../../rich-text-mention/base';
 import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
+import { Configuration } from '../models/configuration';
 import { MarkdownParserMentionConfiguration } from '../models/markdown-parser-mention-configuration';
 import type { RichTextValidity } from './types';
 import { RichTextValidator } from './models/rich-text-validator';
@@ -18,17 +14,22 @@ export abstract class RichText extends FoundationElement {
     /**
      * @internal
      */
+    public mentionInternalsNotifiers: Notifier[] = [];
+
+    /**
+     * @internal
+     */
     @observable
     public readonly childItems: Element[] = [];
 
-    protected mentionConfig: MarkdownParserMentionConfiguration[] = [];
+    /**
+     * @internal
+     */
+    @observable
+    public configuration?: Configuration;
 
     @observable
-    protected mentionElements: RichTextMention[] = [];
-
-    private mentionInternalsNotifiers: Notifier[] = [];
-    private readonly richTextValidator = new RichTextValidator();
-    private updateQueued = false;
+    protected mentionElements!: RichTextMention[];
 
     /**
      * @public
@@ -36,6 +37,9 @@ export abstract class RichText extends FoundationElement {
     public get validity(): RichTextValidity {
         return this.richTextValidator.getValidity();
     }
+
+    private readonly richTextValidator = new RichTextValidator();
+    private updateQueued = false;
 
     /**
      * @public
@@ -47,54 +51,37 @@ export abstract class RichText extends FoundationElement {
     /**
      * @internal
      */
-    public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof MentionInternals && typeof args === 'string') {
-            this.queueUpdate();
-        }
-    }
+    public abstract getMentionedHrefs(): string[];
 
     /**
      * @internal
      */
-    public abstract getMentionedHrefs(): string[];
-
-    protected abstract updateView(): void;
-
-    /**
-     * Create a MarkdownParserMentionConfiguration using the mention elements and implement the logic for the getMentionedHref() method
-     * which will be invoked in the RichTextMention base class from the client.
-     */
-    private updateMentionConfig(): void {
-        this.richTextValidator.validate(this.mentionElements);
-        this.mentionConfig = [];
-        if (this.richTextValidator.isValid()) {
-            this.mentionElements.forEach(mention => {
-                const markdownParserMentionConfiguration = new MarkdownParserMentionConfiguration(
-                    mention.mentionInternals
-                );
-                this.mentionConfig.push(markdownParserMentionConfiguration);
-            });
-        }
-        this.updateView();
-    }
-
-    private childItemsChanged(): void {
-        void this.updateMentionsFromChildItems();
-    }
-
-    private mentionElementsChanged(
-        prev: string[] | undefined,
-        next: string[]
-    ): void {
-        // Skips queuing the update when the value changes from undefined to an empty array
-        // as it refers that there are no mention configuration elements are added during initialization.
-        if (prev?.length || next.length) {
-            this.observeMentions();
+    public handleChange(source: unknown, args: unknown): void {
+        if (source instanceof MentionInternals && typeof args === 'string' && MarkdownParserMentionConfiguration.isObservedMentionInternalsProperty(
+            args
+        )) {
             this.queueUpdate();
         }
     }
 
-    private async updateMentionsFromChildItems(): Promise<void> {
+    protected mentionElementsChanged(prev: string[] | undefined, next: string[]): void {
+        // Skips queuing the update when the value changes from undefined to an empty array
+        // as it refers that there are no mention configuration elements are added during initialization.
+        if (prev?.length || next.length) {
+            this.observeMentionInternals();
+            this.queueUpdate();
+        }
+    }
+
+    protected createConfig(): Configuration {
+        return new Configuration(this.mentionElements);
+    }
+
+    private childItemsChanged(_prev: unknown, _next: unknown): void {
+        void this.updateMentionElementsFromChildItems();
+    }
+
+    private async updateMentionElementsFromChildItems(): Promise<void> {
         const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
             ? customElements.whenDefined(item.localName)
             : Promise.resolve()));
@@ -104,8 +91,8 @@ export abstract class RichText extends FoundationElement {
         );
     }
 
-    private observeMentions(): void {
-        this.removeMentionObservers();
+    private observeMentionInternals(): void {
+        this.removeMentionInternalsObservers();
 
         for (const mention of this.mentionElements) {
             const notifierInternals = Observable.getNotifier(
@@ -116,7 +103,7 @@ export abstract class RichText extends FoundationElement {
         }
     }
 
-    private removeMentionObservers(): void {
+    private removeMentionInternalsObservers(): void {
         this.mentionInternalsNotifiers.forEach(notifier => {
             notifier.unsubscribe(this);
         });
@@ -127,7 +114,7 @@ export abstract class RichText extends FoundationElement {
         if (!this.updateQueued) {
             this.updateQueued = true;
             DOM.queueUpdate(() => {
-                this.updateMentionConfig();
+                this.configuration = this.createConfig();
                 this.updateQueued = false;
             });
         }

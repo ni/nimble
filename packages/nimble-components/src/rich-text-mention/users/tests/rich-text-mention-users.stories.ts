@@ -25,13 +25,15 @@ The object's type is \`RichTextMentionValidity\`, and it contains the following 
 -   \`missingDisplayNameValue\`: \`true\` when a mapping has no \`display-name\` value
 `;
 
-const mentionUpdateEventDescription = `This event will be fired on following action:
+const mentionUpdateEventDescription = `For the editor, This event will be fired on following action:
 
 - Whenever the \`@\` character is entered into the editor
 - When the user types any character after \`@\` into the editor
 
 This fires with the \`eventData\` containing the current text that is added after the \`@\` character and before the current position of the
     text cursor.
+
+For the viewer, this event will never be fired.
 `;
 
 const metadata: Meta = {
@@ -62,11 +64,6 @@ export const richTextMentionUsers: StoryObj = {
         },
         validity: {
             description: mappingUserValidityDescription
-        },
-        getMentionedHrefs: {
-            name: 'getMentionedHrefs()',
-            description:
-                'Returns an array of strings listing the hrefs of the users currently mentioned in the rich text components.'
         },
         mentionUpdate: {
             name: 'mention-update',

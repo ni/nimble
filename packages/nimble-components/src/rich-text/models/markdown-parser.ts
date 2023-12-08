@@ -7,11 +7,16 @@ import { DOMSerializer, Schema } from 'prosemirror-model';
 import { anchorTag } from '../../anchor';
 import type { MarkdownParserMentionConfiguration } from './markdown-parser-mention-configuration';
 
+export interface ParseResult {
+    fragment: HTMLElement | DocumentFragment;
+    mentionedHrefs: string[];
+}
+
 /**
  * Provides markdown parser for rich text components
  */
 export class RichTextMarkdownParser {
-    private static mentionedHrefs: string[] = [];
+    private static readonly mentionedHrefs: Set<string> = new Set();
     private static readonly updatedSchema = this.getCustomSchemaConfiguration();
 
     private static readonly markdownParser = this.initializeMarkdownParser();
@@ -26,18 +31,6 @@ export class RichTextMarkdownParser {
      */
     private static mentionConfigs?: MarkdownParserMentionConfiguration[];
 
-    public static getMentionedHrefs(
-        value: string,
-        markdownParserMentionConfig?: MarkdownParserMentionConfiguration[]
-    ): string[] {
-        RichTextMarkdownParser.mentionedHrefs = [];
-        RichTextMarkdownParser.parseMarkdownToDOM(
-            value,
-            markdownParserMentionConfig
-        );
-        return RichTextMarkdownParser.mentionedHrefs;
-    }
-
     /**
      * This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a
      * DOM structure using a DOMSerializer, and returns the serialized result.
@@ -46,18 +39,28 @@ export class RichTextMarkdownParser {
     public static parseMarkdownToDOM(
         value: string,
         markdownParserMentionConfig?: MarkdownParserMentionConfiguration[]
-    ): HTMLElement | DocumentFragment {
+    ): ParseResult {
         try {
-            this.mentionConfigs = markdownParserMentionConfig;
+            RichTextMarkdownParser.setup(markdownParserMentionConfig);
             const parsedMarkdownContent = this.markdownParser.parse(value);
             if (parsedMarkdownContent === null) {
-                return document.createDocumentFragment();
+                return {
+                    fragment: document.createDocumentFragment(),
+                    mentionedHrefs: Array.from(
+                        RichTextMarkdownParser.mentionedHrefs
+                    )
+                };
             }
-            return this.domSerializer.serializeFragment(
-                parsedMarkdownContent.content
-            );
+            return {
+                fragment: this.domSerializer.serializeFragment(
+                    parsedMarkdownContent.content
+                ),
+                mentionedHrefs: Array.from(
+                    RichTextMarkdownParser.mentionedHrefs
+                )
+            };
         } finally {
-            this.mentionConfigs = undefined;
+            RichTextMarkdownParser.cleanup();
         }
     }
 
@@ -120,15 +123,8 @@ export class RichTextMarkdownParser {
                         const displayName = currentMention?.getDisplayName(href);
 
                         if (currentMention && displayName) {
-                            if (
-                                !RichTextMarkdownParser.mentionedHrefs.includes(
-                                    href
-                                )
-                            ) {
-                                RichTextMarkdownParser.mentionedHrefs.push(
-                                    href
-                                );
-                            }
+                            RichTextMarkdownParser.mentionedHrefs.add(href);
+
                             return [
                                 currentMention.viewElement,
                                 {
@@ -159,5 +155,19 @@ export class RichTextMarkdownParser {
                 strong: schema.spec.marks.get('strong')!
             }
         });
+    }
+
+    private static setup(
+        markdownParserMentionConfig:
+        | MarkdownParserMentionConfiguration[]
+        | undefined
+    ): void {
+        RichTextMarkdownParser.mentionConfigs = markdownParserMentionConfig;
+        RichTextMarkdownParser.mentionedHrefs.clear();
+    }
+
+    private static cleanup(): void {
+        RichTextMarkdownParser.mentionConfigs = undefined;
+        RichTextMarkdownParser.mentionedHrefs.clear();
     }
 }

@@ -476,11 +476,11 @@ describe('RichTextEditor', () => {
 
         describe('should render as lists when its input rule is entered into the editor', () => {
             const markdownInput = [
-                { name: 'bullet list', input: '*', tagName: 'UL' },
-                { name: 'bullet list', input: '+', tagName: 'UL' },
-                { name: 'bullet list', input: '-', tagName: 'UL' },
-                { name: 'numbered list', input: '1.', tagName: 'OL' },
-                { name: 'numbered list', input: '5.', tagName: 'OL' }
+                { name: 'bullet list (*)', input: '*', tagName: 'UL' },
+                { name: 'bullet list (+)', input: '+', tagName: 'UL' },
+                { name: 'bullet list (-)', input: '-', tagName: 'UL' },
+                { name: 'numbered list (1.)', input: '1.', tagName: 'OL' },
+                { name: 'numbered list (5.)', input: '5.', tagName: 'OL' }
             ] as const;
             parameterizeNamedList(markdownInput, (spec, name, value) => {
                 spec(`for ${name} markdown input to the editor`, async () => {
@@ -1245,32 +1245,32 @@ describe('RichTextEditor', () => {
                         text: 'info@example.com'
                     },
                     {
-                        name: 'Anchor with invalid link',
+                        name: 'Anchor with invalid link (javascript)',
                         input: '<a href="javascript:vbscript:alert("not alert")">Invalid link</a>',
                         text: 'Invalid link'
                     },
                     {
-                        name: 'Anchor with invalid link',
+                        name: 'Anchor with invalid link (file)',
                         input: '<a href="file:///path/to/local/file.txt">Invalid link</a>',
                         text: 'Invalid link'
                     },
                     {
-                        name: 'Anchor with invalid link',
+                        name: 'Anchor with invalid link (data)',
                         input: '<a href="data:image/png;base64,iVBORw0KG...">Invalid link</a>',
                         text: 'Invalid link'
                     },
                     {
-                        name: 'Anchor with invalid link',
+                        name: 'Anchor with invalid link (tel)',
                         input: '<a href="tel:+1234567890">Invalid link</a>',
                         text: 'Invalid link'
                     },
                     {
-                        name: 'Anchor with invalid link',
+                        name: 'Anchor with invalid link (ssh)',
                         input: '<a href="ssh://username@example.com">Invalid link</a>',
                         text: 'Invalid link'
                     },
                     {
-                        name: 'Anchor with invalid link',
+                        name: 'Anchor with invalid link (urn)',
                         input: '<a href="urn:isbn:0451450523">Invalid link</a>',
                         text: 'Invalid link'
                     }
@@ -2607,6 +2607,26 @@ describe('RichTextEditor user mention via template', () => {
         expect(element.checkValidity()).toBeTrue();
         expect(element.validity.invalidMentionConfiguration).toBeFalse();
         expect(element.validity.duplicateMentionConfiguration).toBeFalse();
+    });
+});
+
+describe('RichTextEditor With Footer', () => {
+    it('clicking buttons in the slot element should call the click event once', async () => {
+        const { element, connect, disconnect } = await setupWithFooter();
+        await connect();
+        const cancelButton: Button = element.querySelector('#cancel')!;
+        const okButton: Button = element.querySelector('#ok')!;
+        const cancelButtonSpy = jasmine.createSpy();
+        const okButtonSpy = jasmine.createSpy();
+        cancelButton?.addEventListener('click', cancelButtonSpy);
+        okButton?.addEventListener('click', okButtonSpy);
+
+        cancelButton.click();
+        okButton.click();
+
+        expect(cancelButtonSpy).toHaveBeenCalledTimes(1);
+        expect(okButtonSpy).toHaveBeenCalledTimes(1);
+        await disconnect();
     });
 });
 
