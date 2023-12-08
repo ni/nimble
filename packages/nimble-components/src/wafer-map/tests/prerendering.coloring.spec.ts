@@ -135,7 +135,9 @@ describe('Wafermap Prerendering module', () => {
                 const waferMapDies = getWaferMapDies();
                 const expectedValues = waferMapDies.map(waferMapDie => {
                     return {
-                        fillStyle: `rgba(${(+waferMapDie.value - 1) * 15},0,0,1)`
+                        fillStyle: `rgba(${
+                            (+waferMapDie.value - 1) * 15
+                        },0,0,1)`
                     };
                 });
                 for (let i = 0; i < waferMapDies.length; i += 1) {

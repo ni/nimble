@@ -7,6 +7,7 @@ import type { WaferMap } from '..';
 import {
     Dimensions,
     Margin,
+    PointCoordinates,
     WaferMapColorScaleMode,
     WaferMapOriginLocation
 } from '../types';
@@ -126,9 +127,39 @@ describe('Wafermap Data Manager', () => {
         const highlightedTags = getHighlightedTags().map(
             tag => tag + dieLabelsSuffix
         );
-        const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(waferMapDie => waferMapDie.fillStyle.endsWith(',1)'));
+        const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(
+            waferMapDie => waferMapDie.fillStyle.endsWith(',1)')
+        );
         for (const dieRenderInfo of diesWithFullOpacity) {
-            expect(highlightedTags).toContain(dieRenderInfo.text);
+            const dieTags = dataManagerModule.getWaferMapDie({
+                x: dieRenderInfo.x,
+                y: dieRenderInfo.y
+            } as PointCoordinates)?.tags;
+            if (dieTags) {
+                for (const dieTag of dieTags) {
+                    expect(highlightedTags).toContain(dieTag);
+                }
+            }
+        }
+    });
+
+    it('should not have any dies with partial opacity from the highlighted list', () => {
+        const highlightedTags = getHighlightedTags().map(
+            tag => tag + dieLabelsSuffix
+        );
+        const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
+            x => !x.fillStyle.endsWith(',1)')
+        );
+        for (const dieRenderInfo of diesWithPartialOpacity) {
+            const dieTags = dataManagerModule.getWaferMapDie({
+                x: dieRenderInfo.x,
+                y: dieRenderInfo.y
+            } as PointCoordinates)?.tags;
+            if (dieTags) {
+                for (const dieTag of dieTags) {
+                    expect(highlightedTags).not.toContain(dieTag);
+                }
+            }
         }
     });
 
