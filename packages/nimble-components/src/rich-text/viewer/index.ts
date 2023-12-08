@@ -53,7 +53,7 @@ export class RichTextViewer extends RichText {
     }
 
     public getMentionedHrefs(): string[] {
-        return this.mentionedHrefs;
+        return Array.from(this.mentionedHrefs);
     }
 
     private updateView(): void {

@@ -13,7 +13,6 @@ import {
     RichTextMentionValidator,
     baseValidityFlagNames
 } from '../models/mention-validator';
-import { MentionConfig } from '../models/mention-config';
 
 export const richTextMentionTestTag = 'nimble-rich-text-test-mention';
 
@@ -25,11 +24,6 @@ class RichTextMentionTestValidator extends RichTextMentionValidator {
         super(columnInternals, baseValidityFlagNames);
     }
 }
-
-/**
- * Mention config for testing
- */
-class TestMentionConfig extends MentionConfig {}
 
 /**
  * Basic MappingConfig for testing
@@ -57,10 +51,6 @@ export class RichTextMentionTest extends RichTextMention {
             character: '!',
             viewElement: richTextMentionUsersViewTag
         };
-    }
-
-    protected override createMentionConfig(): TestMentionConfig {
-        return new TestMentionConfig();
     }
 
     protected createMappingConfig(mapping: Mapping<unknown>): MappingConfig {

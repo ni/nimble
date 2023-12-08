@@ -34,10 +34,6 @@ export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersVa
         };
     }
 
-    protected override createMentionConfig(): UserMentionConfig {
-        return new UserMentionConfig();
-    }
-
     protected createMappingConfig(
         mapping: Mapping<MappingUserKey>
     ): MappingConfig {

@@ -429,6 +429,14 @@ describe('RichTextViewer', () => {
             await disconnect();
         });
 
+        it('should return different mentionedHrefs instance', async () => {
+            element.markdown = '<user:1>';
+            await appendUserMentionConfiguration(element);
+            const firstInstance = element.getMentionedHrefs();
+            const secondInstance = element.getMentionedHrefs();
+            expect(firstInstance === secondInstance).toBeFalse();
+        });
+
         it('should return the mentioned href when it valid mention configuration matching the pattern to mention node', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element);
@@ -480,7 +488,9 @@ describe('RichTextViewer', () => {
             const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
             element.removeChild(renderedUserMention);
+            await waitForUpdatesAsync();
             expect(element.children.length).toBe(0);
+            expect(element.getMentionedHrefs()).toEqual([]);
             await appendUserMentionConfiguration(
                 element,
                 ['user:1'],
