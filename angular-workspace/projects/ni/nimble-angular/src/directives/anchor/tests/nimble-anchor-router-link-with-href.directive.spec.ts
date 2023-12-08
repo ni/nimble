@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
@@ -31,8 +31,12 @@ describe('Nimble anchor RouterLinkWithHrefDirective', () => {
     let innerAnchor: HTMLAnchorElement;
     let routerNavigateByUrlSpy: jasmine.Spy;
     let anchorClickHandlerSpy: jasmine.Spy;
+    let sanitizer: jasmine.SpyObj<Sanitizer>;
 
     beforeEach(() => {
+        sanitizer = jasmine.createSpyObj<Sanitizer>('Sanitizer', ['sanitize']);
+        sanitizer.sanitize.and.callFake((_, value: string) => value);
+
         TestBed.configureTestingModule({
             declarations: [TestHostComponent, BlankComponent],
             imports: [NimbleAnchorModule,
@@ -42,6 +46,9 @@ describe('Nimble anchor RouterLinkWithHrefDirective', () => {
                     { path: 'page1', component: BlankComponent },
                     { path: 'start', component: TestHostComponent }
                 ], { useHash: true })
+            ],
+            providers: [
+                { provide: Sanitizer, useValue: sanitizer }
             ]
         });
     });
@@ -97,5 +104,9 @@ describe('Nimble anchor RouterLinkWithHrefDirective', () => {
             expect(anchorClickHandlerSpy).toHaveBeenCalledTimes(1);
             expect(routerNavigateByUrlSpy).not.toHaveBeenCalled();
         }));
+    });
+
+    it('sanitized initial href created from nimbleRouterLink', () => {
+        expect(sanitizer.sanitize).toHaveBeenCalledWith(SecurityContext.URL, '/page1?param1=true');
     });
 });

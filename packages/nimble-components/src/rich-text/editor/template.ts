@@ -1,4 +1,4 @@
-import { html, ref } from '@microsoft/fast-element';
+import { children, elements, html, ref } from '@microsoft/fast-element';
 import type { RichTextEditor } from '.';
 import { toolbarTag } from '../../toolbar';
 import { toggleButtonTag } from '../../toggle-button';
@@ -17,7 +17,7 @@ import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
-    <template>
+    <template ${children({ property: 'childItems', filter: elements() })}>
         <div class="container">
             <section ${ref('editorContainer')} class="editor-container">
             </section>

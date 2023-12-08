@@ -3,7 +3,8 @@ import { display } from '@microsoft/fast-foundation';
 import {
     bodyFont,
     bodyFontColor,
-    linkFontColor
+    linkFontColor,
+    mentionFontColor
 } from '../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -16,6 +17,7 @@ export const styles = css`
         width: auto;
         overflow: auto;
         height: 100%;
+        --ni-nimble-private-mention-font-color: ${mentionFontColor};
     }
 
     .viewer {

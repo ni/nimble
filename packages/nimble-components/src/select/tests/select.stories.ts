@@ -8,13 +8,15 @@ import {
 import { DropdownAppearance } from '../../patterns/dropdown/types';
 import { selectTag } from '..';
 import { listOptionTag } from '../../list-option';
+import { ExampleOptionsType } from './types';
+import { menuMinWidth } from '../../theme-provider/design-tokens';
 
 interface SelectArgs {
     disabled: boolean;
     errorVisible: boolean;
     errorText: string;
     dropDownPosition: string;
-    options: OptionArgs[];
+    optionsType: ExampleOptionsType;
     appearance: string;
 }
 
@@ -23,6 +25,42 @@ interface OptionArgs {
     value: string;
     disabled: boolean;
 }
+
+const simpleOptions: readonly OptionArgs[] = [
+    { label: 'Option 1', value: '1', disabled: false },
+    { label: 'Option 2', value: '2', disabled: true },
+    { label: 'Option 3', value: '3', disabled: false },
+    { label: 'Option 4', value: '4', disabled: false }
+] as const;
+
+const wideOptions: readonly OptionArgs[] = [
+    {
+        label: 'Option 1 that is too long to fit in the drop down width',
+        value: '1',
+        disabled: false
+    },
+    {
+        label: 'Option 2 that is also too long but disabled',
+        value: '2',
+        disabled: true
+    },
+    { label: 'Short', value: '3', disabled: false }
+] as const;
+
+const manyOptions: OptionArgs[] = [];
+for (let i = 0; i < 100; i++) {
+    manyOptions.push({
+        label: `Option ${i}`,
+        value: `${i}`,
+        disabled: false
+    });
+}
+
+const optionSets = {
+    [ExampleOptionsType.simpleOptions]: simpleOptions,
+    [ExampleOptionsType.wideOptions]: wideOptions,
+    [ExampleOptionsType.manyOptions]: manyOptions
+} as const;
 
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
@@ -51,8 +89,9 @@ const metadata: Meta<SelectArgs> = {
             ?disabled="${x => x.disabled}"
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
+            style="width: var(${menuMinWidth.cssCustomProperty});"
         >
-            ${repeat(x => x.options, html<OptionArgs>`
+            ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
                 <${listOptionTag}
                     value="${x => x.value}"
                     ?disabled="${x => x.disabled}"
@@ -76,6 +115,18 @@ const metadata: Meta<SelectArgs> = {
         },
         errorVisible: {
             name: 'error-visible'
+        },
+        optionsType: {
+            name: 'options',
+            options: Object.values(ExampleOptionsType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleOptionsType.simpleOptions]: 'Simple options',
+                    [ExampleOptionsType.manyOptions]: 'Many options',
+                    [ExampleOptionsType.wideOptions]: 'Wide options'
+                }
+            }
         }
     },
     args: {
@@ -84,28 +135,7 @@ const metadata: Meta<SelectArgs> = {
         errorText: 'Value is invalid',
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
-        options: [
-            { label: 'Option 1', value: '1', disabled: false },
-            { label: 'Option 2', value: '2', disabled: true },
-            { label: 'Option 3', value: '3', disabled: false },
-            { label: 'Option 4', value: '4', disabled: false },
-            { label: 'Option 5', value: '5', disabled: false },
-            { label: 'Option 6', value: '6', disabled: false },
-            { label: 'Option 7', value: '7', disabled: false },
-            { label: 'Option 8', value: '8', disabled: false },
-            { label: 'Option 9', value: '9', disabled: false },
-            { label: 'Option 10', value: '10', disabled: false },
-            { label: 'Option 11', value: '11', disabled: false },
-            { label: 'Option 12', value: '12', disabled: false },
-            { label: 'Option 13', value: '13', disabled: false },
-            { label: 'Option 14', value: '14', disabled: false },
-            { label: 'Option 15', value: '15', disabled: false },
-            { label: 'Option 16', value: '16', disabled: false },
-            { label: 'Option 17', value: '17', disabled: false },
-            { label: 'Option 18', value: '18', disabled: false },
-            { label: 'Option 19', value: '19', disabled: false },
-            { label: 'Option 20', value: '20', disabled: false }
-        ]
+        optionsType: ExampleOptionsType.simpleOptions
     }
 };
 

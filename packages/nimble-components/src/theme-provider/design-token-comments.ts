@@ -48,6 +48,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     iconColor: 'Equivalent to the font color for icons',
     modalBackdropColor: 'Color of background overlay behind modal dialog boxes',
     popupBorderColor: 'Border color for menus and dialog boxes',
+    cardBorderColor: 'Border color for cards',
     controlHeight:
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
     controlSlimHeight:
@@ -55,6 +56,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     smallPadding: 'Fixed 4px size ramp token for component layout',
     mediumPadding: 'Fixed 8px size ramp token for component layout',
     standardPadding: 'Fixed 16px size ramp token for component layout',
+    largePadding: 'Fixed 24px size ramp token for component layout',
     labelHeight:
         'Standard label height for components. Set the label font rather than explicitly setting the height for a label.',
     borderWidth: 'Standard border width for most components',

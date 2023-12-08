@@ -15,7 +15,7 @@ describe('Nimble select control value accessor', () => {
     describe('when using option\'s [ngValue] binding', () => {
         @Component({
             template: `
-                <nimble-select #select [(ngModel)]="selectedOption" [compareWith]="compareWith" [disabled]="selectDisabled">
+                <nimble-select #select [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled">
                     <nimble-list-option *ngFor="let option of selectOptions"
                         [ngValue]="option">
                         {{ option.name }}
@@ -35,6 +35,8 @@ describe('Nimble select control value accessor', () => {
             public selectedOption = this.selectOptions[1];
 
             public selectDisabled = false;
+
+            public onModelValueChange(_value: { name: string, value: number }): void {}
 
             public compareWith(option1: { name: string, value: number } | null, option2: { name: string, value: number } | null): boolean {
                 return !!option1 && !!option2 && option1.value === option2.value;
@@ -104,6 +106,14 @@ describe('Nimble select control value accessor', () => {
             expect(select.getAttribute('disabled')).toBe('');
             expect(select.disabled).toBe(true);
         }));
+
+        it('fires ngModelChange one time with expected value', () => {
+            const ngModelChangeSpy = spyOn(testHostComponent, 'onModelValueChange');
+            const indexToSelect = 2;
+            setSelectValue(select, indexToSelect);
+            fixture.detectChanges();
+            expect(ngModelChangeSpy).toHaveBeenCalledOnceWith(testHostComponent.selectOptions[indexToSelect]);
+        });
     });
 
     describe('when using option\'s [value] binding', () => {
