@@ -86,7 +86,7 @@ export class RichTextMentionListBox extends FoundationListbox {
         Observable.track(this, 'options');
         return this.filteredOptions?.length
             ? this.filteredOptions
-            : this._options;
+            : [];
     }
 
     public override set options(value: ListboxOption[]) {
@@ -105,7 +105,6 @@ export class RichTextMentionListBox extends FoundationListbox {
         this.anchorElement = props.decorationNode as HTMLElement;
         this.setOpen(true);
         this.filterOptions();
-        this.selectFirstElement();
     }
 
     /**
@@ -121,8 +120,7 @@ export class RichTextMentionListBox extends FoundationListbox {
         switch (event.key) {
             case keyTab:
             case keyEnter: {
-                // When there is no filter options, the code is returned.
-                if (this.filteredOptions.length === 0) {
+                if (!this.hasSelectableOptions) {
                     return false;
                 }
                 this.activateMention({
@@ -144,7 +142,7 @@ export class RichTextMentionListBox extends FoundationListbox {
 
     /**
      * Filter available options by filter value.
-     * The method is defined based on the `Combobox.filterOptions` implementation.
+     * The method is defined based on the `Combobox.filterOptions` and `Combobox.inputHandler` implementation.
      *
      * @internal
      */
@@ -159,6 +157,16 @@ export class RichTextMentionListBox extends FoundationListbox {
         this._options.forEach(o => {
             o.hidden = !this.filteredOptions.includes(o);
         });
+
+        if (this.filteredOptions.length) {
+            this.selectedOptions = [this.filteredOptions[0]!];
+            this.selectedIndex = this.options.indexOf(this.firstSelectedOption);
+        } else {
+            this.selectedOptions = [];
+            this.selectedIndex = -1;
+        }
+
+        this.selectFirstOption();
     }
 
     /**
@@ -175,7 +183,6 @@ export class RichTextMentionListBox extends FoundationListbox {
     ): void {
         super.slottedOptionsChanged(prev, next);
         this.filterOptions();
-        this.selectFirstElement();
     }
 
     /**
@@ -273,15 +280,6 @@ export class RichTextMentionListBox extends FoundationListbox {
 
     private setOpen(value: boolean): void {
         this.open = value;
-    }
-
-    private selectFirstElement(): void {
-        for (const option of this._options) {
-            if (option === this.filteredOptions[0]) {
-                option.selected = true;
-                break;
-            }
-        }
     }
 }
 
