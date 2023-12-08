@@ -1,4 +1,4 @@
-import { ViewTemplate, html } from '@microsoft/fast-element';
+import type { ViewTemplate } from '@microsoft/fast-element';
 import type { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 import { mentionPluginPrefix } from '../editor/types';
 import type {
@@ -30,7 +30,7 @@ export class MentionExtensionConfiguration {
         this.viewElement = mentionInternals.viewElement;
         this.character = mentionInternals.character;
         this.mappingConfigs = mentionInternals.mappingConfigs;
-        this.iconTemplate = html`<${mentionInternals.icon} slot="start"></${mentionInternals.icon}>`;
+        this.iconTemplate = mentionInternals.iconTemplate;
         this.label = mentionInternals.label;
         this.mentionUpdateEmitter = mentionInternals.mentionUpdateEmitter;
     }

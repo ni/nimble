@@ -14,7 +14,7 @@ import type { MentionDetail } from '../editor/types';
 import { styles } from './styles';
 import { template } from './template';
 import { AnchoredRegion } from '../../anchored-region';
-import { normalizeString } from '../../utilities/models/string-normalizer';
+import { diacriticInsensitiveStringNormalizer } from '../../utilities/models/string-normalizers';
 import type { ListOption } from '../../list-option';
 
 declare global {
@@ -152,8 +152,8 @@ export class RichTextMentionListBox extends FoundationListbox {
         if (!this.filter) {
             this.filteredOptions = this._options;
         } else {
-            const normalizedFilter = normalizeString(this.filter);
-            this.filteredOptions = this._options.filter(o => normalizeString(o.text).includes(normalizedFilter));
+            const normalizedFilter = diacriticInsensitiveStringNormalizer(this.filter);
+            this.filteredOptions = this._options.filter(o => diacriticInsensitiveStringNormalizer(o.text).includes(normalizedFilter));
         }
 
         this._options.forEach(o => {

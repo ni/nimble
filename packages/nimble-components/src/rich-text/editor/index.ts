@@ -158,7 +158,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @internal
      */
     @observable
-    public activeMentionCharacter?: string;
+    public activeMentionCharacter = '';
 
     /**
      * @internal

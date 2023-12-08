@@ -225,6 +225,7 @@ function createCustomMentionExtension(
                         );
                     },
                     onExit: (): void => {
+                        richTextEditor.activeMentionCharacter = '';
                         mentionListBox?.close();
                     }
                 };
