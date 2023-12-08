@@ -17,10 +17,10 @@ import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { RichText } from '../base';
 import type { RichTextMentionListBox } from '../mention-list-box';
-import { createTiptapEditor } from './models/create-tiptap-editor';
-import { EditorConfiguration } from '../models/editor-configuration';
 import type { MappingConfigs } from '../../rich-text-mention/base/types';
 import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
+import { createTiptapEditor } from './models/create-tiptap-editor';
+import { EditorConfiguration } from '../models/editor-configuration';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -40,7 +40,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public tiptapEditor = createTiptapEditor(this, [], this.mentionListBox);
+    public tiptapEditor = createTiptapEditor(this, [], this.mentionListBox, this.placeholder);
 
     /**
      * @internal
@@ -203,13 +203,8 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public disabledChanged(_prev: unknown, _next: unknown): void {
-        this.tiptapEditor.setEditable(!this.disabled);
-        this.setEditorTabIndex();
-        this.editor.setAttribute(
-            'aria-disabled',
-            this.disabled ? 'true' : 'false'
-        );
+    public disabledChanged(): void {
+        this.disableEditor();
     }
 
     /**
@@ -244,10 +239,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         prev: EditorConfiguration | undefined,
         next: EditorConfiguration
     ): void {
-        const mentionExtensionConfig = this.getMentionExtensionConfig();
         if (this.isMentionExtensionConfigUnchanged(prev, next)) {
             this.setMarkdown(this.getMarkdown());
         } else {
+            const mentionExtensionConfig = this.getMentionExtensionConfig();
             const currentStateMarkdown = this.getMarkdown();
             this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
                 mentionExtensionConfig.map(config => config.name)
@@ -455,8 +450,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.configuration instanceof EditorConfiguration
                 ? this.configuration.mentionExtensionConfig
                 : [],
-            this.mentionListBox
+            this.mentionListBox,
+            this.placeholder
         );
+        this.disableEditor();
         this.bindEditorTransactionEvent();
         this.bindEditorUpdateEvent();
         this.stopNativeInputEventPropagation();
@@ -528,6 +525,15 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.$emit('input');
             this.queueUpdateScrollbarWidth();
         });
+    }
+
+    private disableEditor(): void {
+        this.tiptapEditor.setEditable(!this.disabled);
+        this.setEditorTabIndex();
+        this.editor.setAttribute(
+            'aria-disabled',
+            this.disabled ? 'true' : 'false'
+        );
     }
 
     /**

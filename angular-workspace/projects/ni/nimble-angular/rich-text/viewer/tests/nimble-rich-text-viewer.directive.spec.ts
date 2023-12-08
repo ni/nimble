@@ -46,6 +46,11 @@ describe('Nimble Rich Text Viewer', () => {
             expect(directive.markdown).toBe('');
             expect(nativeElement.markdown).toBe('');
         });
+
+        it('has empty mentioned Hrefs array by default', () => {
+            expect(directive.getMentionedHrefs()).toEqual([]);
+            expect(nativeElement.getMentionedHrefs()).toEqual([]);
+        });
     });
 
     describe('with template string values', () => {

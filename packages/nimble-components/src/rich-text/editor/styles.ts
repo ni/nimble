@@ -19,6 +19,7 @@ import {
     mentionFontColor
 } from '../../theme-provider/design-tokens';
 import { styles as errorStyles } from '../../patterns/error/styles';
+import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -82,6 +83,10 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
         --ni-nimble-private-mention-font-color: ${mentionDisabledFontColor};
+    }
+
+    :host([disabled]) ${richTextMentionUsersViewTag} {
+        color: ${bodyDisabledFontColor};
     }
 
     :host([error-visible]) .container {

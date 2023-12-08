@@ -16,7 +16,7 @@ export interface ParseResult {
  * Provides markdown parser for rich text components
  */
 export class RichTextMarkdownParser {
-    private static mentionedHrefs: string[] = [];
+    private static readonly mentionedHrefs: Set<string> = new Set();
     private static readonly updatedSchema = this.getCustomSchemaConfiguration();
 
     private static readonly markdownParser = this.initializeMarkdownParser();
@@ -46,14 +46,18 @@ export class RichTextMarkdownParser {
             if (parsedMarkdownContent === null) {
                 return {
                     fragment: document.createDocumentFragment(),
-                    mentionedHrefs: RichTextMarkdownParser.mentionedHrefs
+                    mentionedHrefs: Array.from(
+                        RichTextMarkdownParser.mentionedHrefs
+                    )
                 };
             }
             return {
                 fragment: this.domSerializer.serializeFragment(
                     parsedMarkdownContent.content
                 ),
-                mentionedHrefs: RichTextMarkdownParser.mentionedHrefs
+                mentionedHrefs: Array.from(
+                    RichTextMarkdownParser.mentionedHrefs
+                )
             };
         } finally {
             RichTextMarkdownParser.cleanup();
@@ -119,15 +123,8 @@ export class RichTextMarkdownParser {
                         const displayName = currentMention?.getDisplayName(href);
 
                         if (currentMention && displayName) {
-                            if (
-                                !RichTextMarkdownParser.mentionedHrefs.includes(
-                                    href
-                                )
-                            ) {
-                                RichTextMarkdownParser.mentionedHrefs.push(
-                                    href
-                                );
-                            }
+                            RichTextMarkdownParser.mentionedHrefs.add(href);
+
                             return [
                                 currentMention.viewElement,
                                 {
@@ -166,11 +163,11 @@ export class RichTextMarkdownParser {
         | undefined
     ): void {
         RichTextMarkdownParser.mentionConfigs = markdownParserMentionConfig;
-        RichTextMarkdownParser.mentionedHrefs = [];
+        RichTextMarkdownParser.mentionedHrefs.clear();
     }
 
     private static cleanup(): void {
         RichTextMarkdownParser.mentionConfigs = undefined;
-        RichTextMarkdownParser.mentionedHrefs = [];
+        RichTextMarkdownParser.mentionedHrefs.clear();
     }
 }

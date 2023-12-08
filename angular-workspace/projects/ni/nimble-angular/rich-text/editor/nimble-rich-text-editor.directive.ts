@@ -70,6 +70,10 @@ export class NimbleRichTextEditorDirective {
         this.elementRef.nativeElement.setMarkdown(value);
     }
 
+    public getMentionedHrefs(): string[] {
+        return this.elementRef.nativeElement.getMentionedHrefs();
+    }
+
     public get empty(): boolean {
         return this.elementRef.nativeElement.empty;
     }

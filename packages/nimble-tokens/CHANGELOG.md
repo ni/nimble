@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Thu, 02 Nov 2023 18:26:57 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Dec 2023 17:27:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.9.0
+
+Thu, 07 Dec 2023 17:27:04 GMT
+
+### Minor changes
+
+- New icons for calendars and test plans ([ni/nimble@f4a4453](https://github.com/ni/nimble/commit/f4a4453cc34b004f34d4ffed5a9c674427560597))
 
 ## 6.8.0
 

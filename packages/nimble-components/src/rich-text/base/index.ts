@@ -20,6 +20,9 @@ export abstract class RichText extends FoundationElement {
     @observable
     public readonly childItems: Element[] = [];
 
+    /**
+     * @internal
+     */
     @observable
     public configuration?: Configuration;
 

@@ -4,7 +4,8 @@ import {
     mentionFont,
     mentionDisabledFontColor,
     bodyFontColor,
-    bodyFont
+    bodyFont,
+    bodyDisabledFontColor
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -18,6 +19,7 @@ export const styles = css`
     }
 
     .control {
+        font: ${mentionFont};
         color: var(--ni-nimble-private-mention-font-color);
         display: none;
     }
@@ -28,6 +30,10 @@ export const styles = css`
 
     :host([disabled]) .control {
         color: ${mentionDisabledFontColor};
+    }
+
+    :host([disabled]) {
+        color: ${bodyDisabledFontColor};
     }
 
     :host([disable-editing]) slot {

@@ -28,7 +28,8 @@ const validAbsoluteLinkRegex = /^https?:\/\//i;
 export function createTiptapEditor(
     richTextEditor: RichTextEditor,
     mentionExtensionConfig: MentionExtensionConfiguration[],
-    mentionListBox?: RichTextMentionListBox
+    mentionListBox?: RichTextMentionListBox,
+    placeholder?: string
 ): Editor {
     const customLink = createCustomLinkExtension();
     const mentionExtensions = mentionExtensionConfig.map(config => createCustomMentionExtension(config, richTextEditor, mentionListBox));
@@ -67,7 +68,7 @@ export function createTiptapEditor(
             Italic,
             History,
             Placeholder.configure({
-                placeholder: '',
+                placeholder,
                 showOnlyWhenEditable: false
             }),
             HardBreak,
