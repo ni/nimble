@@ -7,7 +7,6 @@ import type { WaferMap } from '..';
 import {
     Dimensions,
     Margin,
-    PointCoordinates,
     WaferMapColorScaleMode,
     WaferMapOriginLocation
 } from '../types';
@@ -124,39 +123,21 @@ describe('Wafermap Data Manager', () => {
     });
 
     it('should have all dies with full opacity from the highlighted list', () => {
-        const highlightedTags = getHighlightedTags().map(tag => tag);
+        const highlightedTags = getHighlightedTags();
+        const dies = getWaferMapDies().filter(die => die.tags?.some(dieTag => highlightedTags.some(highlightedTag => dieTag === highlightedTag)));
         const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(
-            waferMapDie => waferMapDie.fillStyle.endsWith(',1)')
+            x => x.fillStyle.endsWith(',1)')
         );
-        for (const dieRenderInfo of diesWithFullOpacity) {
-            const die = dataManagerModule.getWaferMapDie({
-                x: dieRenderInfo.x,
-                y: dieRenderInfo.y
-            } as PointCoordinates);
-            if (die?.tags) {
-                for (const dieTag of die.tags) {
-                    expect(highlightedTags).toContain(dieTag);
-                }
-            }
-        }
+        expect(dies.length).toEqual(diesWithFullOpacity.length);
     });
 
     it('should not have any dies with partial opacity from the highlighted list', () => {
-        const highlightedTags = getHighlightedTags().map(tag => tag);
+        const highlightedTags = getHighlightedTags();
+        const dies = getWaferMapDies().filter(die => !die.tags?.some(dieTag => highlightedTags.some(highlightedTag => dieTag === highlightedTag)));
         const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
             x => !x.fillStyle.endsWith(',1)')
         );
-        for (const dieRenderInfo of diesWithPartialOpacity) {
-            const die = dataManagerModule.getWaferMapDie({
-                x: dieRenderInfo.x,
-                y: dieRenderInfo.y
-            } as PointCoordinates);
-            if (die?.tags) {
-                for (const dieTag of die.tags) {
-                    expect(highlightedTags).not.toContain(dieTag);
-                }
-            }
-        }
+        expect(dies.length).toEqual(diesWithPartialOpacity.length);
     });
 
     it('should have all dies inside the canvas with margins', () => {
