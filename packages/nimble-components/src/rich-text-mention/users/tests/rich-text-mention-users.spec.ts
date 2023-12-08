@@ -98,7 +98,7 @@ describe('RichTextMentionUsers', () => {
         }));
         await connect();
         expect(element.mentionInternals.character).toBe('@');
-        expect(element.mentionInternals.iconTemplate).toBe(
+        expect(element.mentionInternals.iconTemplate).toEqual(
             html`<${iconAtTag} slot="start"></${iconAtTag}>`
         );
         expect(element.mentionInternals.pattern).toBe('user:');
