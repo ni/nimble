@@ -270,7 +270,7 @@ export class Table<
             this.table,
             this.selectionMode
         );
-        this.dataHierarchyManager = new DataHierarchyManager(
+        this.dataHierarchyManager = new DataHierarchyManager<TData>(
             this.tableValidator
         );
     }
