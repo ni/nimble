@@ -16,6 +16,6 @@ export const styles = css`
 
     .listbox {
         min-width: ${menuMinWidth};
-        height: calc(5.5 * ${controlHeight});
+        max-height: calc(5.5 * ${controlHeight});
     }
 `;

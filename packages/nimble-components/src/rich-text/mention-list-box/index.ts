@@ -6,8 +6,6 @@ import {
 } from '@microsoft/fast-foundation';
 import type { SuggestionProps } from '@tiptap/suggestion';
 import {
-    keyArrowDown,
-    keyArrowUp,
     keyEnter,
     keyEscape,
     keyTab
@@ -137,12 +135,6 @@ export class RichTextMentionListBox extends FoundationListbox {
                 this.setOpen(false);
                 return false;
             }
-            case keyArrowDown:
-            case keyArrowUp: {
-                super.keydownHandler(event);
-                this.scrollOptionIntoView();
-                return false;
-            }
             default: {
                 super.keydownHandler(event);
                 return false;
@@ -249,17 +241,26 @@ export class RichTextMentionListBox extends FoundationListbox {
     public override handleChange(source: unknown, args: string): void {
         if (source instanceof AnchoredRegion) {
             if (args === 'initialLayoutComplete') {
-                this.scrollOptionIntoView();
+                this.focusAndScrollOptionIntoView();
             }
         } else {
             super.handleChange(source, args);
         }
     }
 
-    private scrollOptionIntoView(): void {
-        requestAnimationFrame(() => {
-            this.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
-        });
+    /**
+     * Focus the control and scroll the first selected option into view.
+     *
+     * @internal
+     * @remarks
+     * Overrides: `Listbox.focusAndScrollOptionIntoView`
+     */
+    protected override focusAndScrollOptionIntoView(): void {
+        if (this.firstSelectedOption) {
+            requestAnimationFrame(() => {
+                this.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
+            });
+        }
     }
 
     private activateMention(mentionDetail: MentionDetail): void {
