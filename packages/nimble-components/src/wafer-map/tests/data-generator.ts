@@ -59,8 +59,12 @@ export const generateWaferData = (
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
                 // Math.random() * (max-min) + min) Generate a random number between two numbers
-                const randomLetter = String.fromCharCode(Math.floor(Math.random() * (122 - 97) + 97));
-                diesSet.push(generateDieContent(i, j, stringValue, [randomLetter]));
+                const randomLetter = String.fromCharCode(
+                    Math.floor(Math.random() * (122 - 97) + 97)
+                );
+                diesSet.push(
+                    generateDieContent(i, j, stringValue, [randomLetter])
+                );
             }
             // generate points right of centerX
             for (
@@ -71,8 +75,12 @@ export const generateWaferData = (
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
                 // Math.random() * (max-min) + min) Generate a random number between two numbers
-                const randomLetter = String.fromCharCode(Math.floor(Math.random() * (122 - 97) + 97));
-                diesSet.push(generateDieContent(i, j, stringValue, [randomLetter]));
+                const randomLetter = String.fromCharCode(
+                    Math.floor(Math.random() * (122 - 97) + 97)
+                );
+                diesSet.push(
+                    generateDieContent(i, j, stringValue, [randomLetter])
+                );
             }
         }
     }
