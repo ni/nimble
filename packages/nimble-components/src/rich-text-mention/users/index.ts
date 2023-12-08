@@ -10,7 +10,6 @@ import type { Mapping } from '../../mapping/base';
 import type { MappingUserKey } from '../../mapping/base/types';
 import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
 import { richTextMentionUsersViewTag } from './view';
-import { UserMentionConfig } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
