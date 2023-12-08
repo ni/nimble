@@ -190,7 +190,7 @@ When the dropdown is open, clicking anywhere outside of a list option (including
 
 > NOTE: NEEDS VISUAL DESIGN FOR MULTIPLE FOCUS STATES?
 
-If the select component allows filtering, the filter bar has keyboard focus when the dropdown is opened.
+If the select component allows filtering, the filter bar has text cursor focus when the dropdown is open. The filter bar maintains this focus while the dropdown is open.
 
 ![ ](spec-images/select-24.png)
 
@@ -236,16 +236,16 @@ Typing into the filter bar filters the list options in the dropdown (not picture
 
 #### Dropdown
 
-> QUESTION: WHAT KEYBOARD SHORTCUT SHOULD BE USED TO FOCUS THE FIRST LIST OPTION AFTER THE FILTER BAR?
-
-| Key                        | Description                                                                                                                                                                 |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ENTER` or `SPACE`         | Sets the value of the field button to the focused list option, closes the dropdown, and moves focus to the select                                                           |
-| `DOWN ARROW` or `UP ARROW` | Moves visual focus to the next or previous list option                                                                                                                      |
-| `ESC`                      | Closes the dropdown and moves visual focus to the select                                                                                                                    |
-| `HOME` or `END`            | Moves visual focus to the first or last list option                                                                                                                         |
-| `PAGEUP` or `PAGEDOWN`     | Jumps visual focus up or down ten list options (or to first or last list option)                                                                                            |
-| _Printable characters_     | Moves visual focus to the filter input (if filterable) with the characters typed or to the first list option (if not filterable) that matches the typed character or string |
+| Key                        | Description                                                                                                                                                                                 |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| _Dropdown opened_          | Sets the visual focus of the list option to the current value of the select, or to the first list option (if no value is selected). Sets the text focus to the filter input (if filterable) |
+| `ENTER` or `SPACE`         | Sets the value of the field button to the focused list option, closes the dropdown, and moves focus to the select                                                                           |
+| `DOWN ARROW` or `UP ARROW` | Moves visual focus to the next or previous list option                                                                                                                                      |
+| `ALT` + `UP ARROW`         | Sets the value of the field button to the focused list option, closes the dropdown, and moves focus to the select                                                                           |
+| `ESC` or `TAB`             | Closes the dropdown and moves visual focus to the select without changing the value of the field button                                                                                     |
+| `HOME` or `END`            | Moves visual focus to the first or last list option                                                                                                                                         |
+| `PAGEUP` or `PAGEDOWN`     | Jumps visual focus up or down ten list options (or to first or last list option)                                                                                                            |
+| _Printable characters_     | Enters text into the filter input (if filterable) with the characters typed or to the first list option (if not filterable) that matches the typed character or string                      |
 
 > NOTE: NEED VISUAL DESIGN TO DETERMINE WHETHER BOTH FOCUS AND SELECTION ARE VISUALLY INDICATED ON LIST OPTIONS
 
