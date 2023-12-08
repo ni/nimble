@@ -135,7 +135,7 @@ export class Prerendering {
         dieTags?: string[],
         highlightedTags?: string[]
     ): number {
-        if (!highlightedTags || highlightedTags?.length === 0) {
+        if (!highlightedTags || highlightedTags.length === 0) {
             return 1;
         }
         const tagsMatch = dieTags?.some(dieTag => highlightedTags.some(highlightedTag => dieTag === highlightedTag));

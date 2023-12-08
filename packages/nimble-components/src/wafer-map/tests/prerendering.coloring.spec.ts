@@ -336,7 +336,7 @@ describe('Wafermap Prerendering module', () => {
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
         const maxCharacters = 2;
-        const highlightedTag = '4';
+        const highlightedTag = '5';
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
         beforeEach(() => {

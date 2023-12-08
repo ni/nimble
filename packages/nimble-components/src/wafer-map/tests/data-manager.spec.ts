@@ -125,18 +125,19 @@ describe('Wafermap Data Manager', () => {
 
     it('should have all dies with full opacity from the highlighted list', () => {
         const highlightedTags = getHighlightedTags().map(
-            tag => tag + dieLabelsSuffix
+            tag => tag
         );
         const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(
             waferMapDie => waferMapDie.fillStyle.endsWith(',1)')
         );
         for (const dieRenderInfo of diesWithFullOpacity) {
-            const dieTags = dataManagerModule.getWaferMapDie({
+            const die = dataManagerModule.getWaferMapDie({
                 x: dieRenderInfo.x,
                 y: dieRenderInfo.y
-            } as PointCoordinates)?.tags;
-            if (dieTags) {
-                for (const dieTag of dieTags) {
+            } as PointCoordinates);
+            expect(die).toBeDefined();
+            if (die?.tags) {
+                for (const dieTag of die.tags) {
                     expect(highlightedTags).toContain(dieTag);
                 }
             }
@@ -145,18 +146,19 @@ describe('Wafermap Data Manager', () => {
 
     it('should not have any dies with partial opacity from the highlighted list', () => {
         const highlightedTags = getHighlightedTags().map(
-            tag => tag + dieLabelsSuffix
+            tag => tag
         );
         const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
             x => !x.fillStyle.endsWith(',1)')
         );
         for (const dieRenderInfo of diesWithPartialOpacity) {
-            const dieTags = dataManagerModule.getWaferMapDie({
+            const die = dataManagerModule.getWaferMapDie({
                 x: dieRenderInfo.x,
                 y: dieRenderInfo.y
-            } as PointCoordinates)?.tags;
-            if (dieTags) {
-                for (const dieTag of dieTags) {
+            } as PointCoordinates);
+            expect(die).toBeDefined();
+            if (die?.tags) {
+                for (const dieTag of die.tags) {
                     expect(highlightedTags).not.toContain(dieTag);
                 }
             }
