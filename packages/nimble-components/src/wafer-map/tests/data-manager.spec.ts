@@ -124,9 +124,7 @@ describe('Wafermap Data Manager', () => {
     });
 
     it('should have all dies with full opacity from the highlighted list', () => {
-        const highlightedTags = getHighlightedTags().map(
-            tag => tag
-        );
+        const highlightedTags = getHighlightedTags().map(tag => tag);
         const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(
             waferMapDie => waferMapDie.fillStyle.endsWith(',1)')
         );
@@ -145,9 +143,7 @@ describe('Wafermap Data Manager', () => {
     });
 
     it('should not have any dies with partial opacity from the highlighted list', () => {
-        const highlightedTags = getHighlightedTags().map(
-            tag => tag
-        );
+        const highlightedTags = getHighlightedTags().map(tag => tag);
         const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
             x => !x.fillStyle.endsWith(',1)')
         );
