@@ -17,7 +17,6 @@ import {
 } from './models/mention-internals';
 import { Mapping } from '../../mapping/base';
 import type { MappingConfigs, MentionUpdateEventDetail } from './types';
-import type { MentionConfig } from './models/mention-config';
 
 /**
  * The base class for Mention configuration
@@ -89,8 +88,6 @@ export abstract class RichTextMention<
     protected abstract createValidator(): TValidator;
 
     protected abstract getMentionInternalsOptions(): MentionInternalsOptions;
-
-    protected abstract createMentionConfig(): MentionConfig;
 
     protected abstract createMappingConfig(
         mapping: Mapping<unknown>

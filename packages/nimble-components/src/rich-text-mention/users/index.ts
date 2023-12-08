@@ -11,7 +11,6 @@ import type { MappingUserKey } from '../../mapping/base/types';
 import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
 import { richTextMentionUsersViewTag } from './view';
 import { richTextMentionUserLabel } from '../../label-provider/rich-text/label-tokens';
-import { UserMentionConfig } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -34,10 +33,6 @@ export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersVa
             viewElement: richTextMentionUsersViewTag,
             label: richTextMentionUserLabel.getValueFor(this)
         };
-    }
-
-    protected override createMentionConfig(): UserMentionConfig {
-        return new UserMentionConfig();
     }
 
     protected createMappingConfig(

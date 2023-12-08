@@ -1,5 +1,4 @@
 import { observable } from '@microsoft/fast-element';
-import type { MentionConfig } from './mention-config';
 import type { MappingConfigs, MentionUpdateEmitter } from '../types';
 
 export interface MentionInternalsOptions {
@@ -13,12 +12,6 @@ export interface MentionInternalsOptions {
  * Internal mention state
  */
 export class MentionInternals {
-    /**
-     * Mention-specific configuration. Can be used to, for example, pass mention-specific configuration to views.
-     */
-    @observable
-    public mentionConfig?: MentionConfig;
-
     /**
      * Mappings configured for the mention node
      */
