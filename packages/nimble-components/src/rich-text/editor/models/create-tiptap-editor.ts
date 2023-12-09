@@ -210,6 +210,7 @@ function createCustomMentionExtension(
                     onStart: (props): void => {
                         inSuggestionMode = true;
                         config.mentionUpdateEmitter(props.query);
+                        // TODO: Consider splitting this into two callbacks.
                         activeMentionDetailEmitter(
                             props.text.slice(0, 1),
                             props.command
@@ -224,6 +225,10 @@ function createCustomMentionExtension(
                             return;
                         }
                         config.mentionUpdateEmitter(props.query);
+                        activeMentionDetailEmitter(
+                            props.text.slice(0, 1),
+                            props.command
+                        );
                         mentionListBox?.onMention({
                             filter: props.query,
                             anchorNode: props.decorationNode as HTMLElement
