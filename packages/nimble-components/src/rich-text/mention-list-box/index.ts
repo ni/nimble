@@ -8,10 +8,10 @@ import { keyEnter, keyEscape, keyTab } from '@microsoft/fast-web-utilities';
 import type { MentionDetail } from '../editor/types';
 import { styles } from './styles';
 import { template } from './template';
-import { AnchoredRegion } from '../../anchored-region';
+import type { AnchoredRegion } from '../../anchored-region';
 import { diacriticInsensitiveStringNormalizer } from '../../utilities/models/string-normalizers';
 import type { ListOption } from '../../list-option';
-import type { MentionParam } from './types';
+import type { MentionListBoxShowOptions } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -91,9 +91,9 @@ export class RichTextMentionListBox extends FoundationListbox {
      *
      * @public
      */
-    public onMention(mentionParam: MentionParam): void {
-        this.filter = mentionParam.filter;
-        this.anchorElement = mentionParam.anchorNode;
+    public show(options: MentionListBoxShowOptions): void {
+        this.filter = options.filter;
+        this.anchorElement = options.anchorNode;
         this.setOpen(true);
         this.filterOptions();
     }
@@ -114,10 +114,11 @@ export class RichTextMentionListBox extends FoundationListbox {
                 if (!this.hasSelectableOptions) {
                     return false;
                 }
-                this.activateMention({
+                const mentionDetail: MentionDetail = {
                     href: this.firstSelectedOption.value,
                     displayName: this.firstSelectedOption.text
-                } as MentionDetail);
+                };
+                this.emitMentionSelected(mentionDetail);
                 return true;
             }
             case keyEscape: {
@@ -196,10 +197,11 @@ export class RichTextMentionListBox extends FoundationListbox {
         if (!capturedListOption || capturedListOption.disabled) {
             return false;
         }
-        this.activateMention({
+        const mentionDetail: MentionDetail = {
             href: capturedListOption.value,
             displayName: capturedListOption.text
-        });
+        };
+        this.emitMentionSelected(mentionDetail);
         return true;
     }
 
@@ -241,12 +243,9 @@ export class RichTextMentionListBox extends FoundationListbox {
      * @internal
      */
     public override handleChange(source: unknown, args: string): void {
-        if (source instanceof AnchoredRegion) {
-            if (args === 'initialLayoutComplete') {
-                this.focusAndScrollOptionIntoView();
-            }
-        } else {
-            super.handleChange(source, args);
+        super.handleChange(source, args);
+        if (args === 'initialLayoutComplete') {
+            this.focusAndScrollOptionIntoView();
         }
     }
 
@@ -265,8 +264,8 @@ export class RichTextMentionListBox extends FoundationListbox {
         }
     }
 
-    private activateMention(mentionDetail: MentionDetail): void {
-        this.$emit('activate-mention', mentionDetail);
+    private emitMentionSelected(mentionDetail: MentionDetail): void {
+        this.$emit('mention-selected', mentionDetail);
         this.setOpen(false);
     }
 

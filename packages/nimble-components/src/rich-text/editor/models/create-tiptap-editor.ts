@@ -16,7 +16,11 @@ import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
 import { PluginKey } from 'prosemirror-state';
 
 import { keyEscape } from '@microsoft/fast-web-utilities';
-import { ActiveMentionDetailEmitter, mentionPluginPrefix } from '../types';
+import {
+    ActiveMentionCommandEmitter,
+    ActiveMentionCharacterEmitter,
+    mentionPluginPrefix
+} from '../types';
 
 import { anchorTag } from '../../../anchor';
 import type { MentionExtensionConfiguration } from '../../models/mention-extension-configuration';
@@ -25,7 +29,8 @@ import type { RichTextMentionListBox } from '../../mention-list-box';
 const validAbsoluteLinkRegex = /^https?:\/\//i;
 
 export function createTiptapEditor(
-    activeMentionDetailEmitter: ActiveMentionDetailEmitter,
+    activeMentionCharacterEmitter: ActiveMentionCharacterEmitter,
+    activeMentionCommandEmitter: ActiveMentionCommandEmitter,
     editor: HTMLDivElement,
     mentionExtensionConfig: MentionExtensionConfiguration[],
     mentionListBox?: RichTextMentionListBox,
@@ -34,7 +39,8 @@ export function createTiptapEditor(
     const customLink = createCustomLinkExtension();
     const mentionExtensions = mentionExtensionConfig.map(config => createCustomMentionExtension(
         config,
-        activeMentionDetailEmitter,
+        activeMentionCharacterEmitter,
+        activeMentionCommandEmitter,
         mentionListBox
     ));
 
@@ -151,7 +157,8 @@ function createCustomLinkExtension(): Mark<LinkOptions> {
 
 function createCustomMentionExtension(
     config: MentionExtensionConfiguration,
-    activeMentionDetailEmitter: ActiveMentionDetailEmitter,
+    activeMentionCharacterEmitter: ActiveMentionCharacterEmitter,
+    activeMentionCommandEmitter: ActiveMentionCommandEmitter,
     mentionListBox?: RichTextMentionListBox
 ): Node<MentionOptions> {
     return Mention.extend({
@@ -210,12 +217,9 @@ function createCustomMentionExtension(
                     onStart: (props): void => {
                         inSuggestionMode = true;
                         config.mentionUpdateEmitter(props.query);
-                        // TODO: Consider splitting this into two callbacks.
-                        activeMentionDetailEmitter(
-                            props.text.slice(0, 1),
-                            props.command
-                        );
-                        mentionListBox?.onMention({
+                        activeMentionCharacterEmitter(props.text.slice(0, 1));
+                        activeMentionCommandEmitter(props.command);
+                        mentionListBox?.show({
                             filter: props.query,
                             anchorNode: props.decorationNode as HTMLElement
                         });
@@ -225,11 +229,8 @@ function createCustomMentionExtension(
                             return;
                         }
                         config.mentionUpdateEmitter(props.query);
-                        activeMentionDetailEmitter(
-                            props.text.slice(0, 1),
-                            props.command
-                        );
-                        mentionListBox?.onMention({
+                        activeMentionCommandEmitter(props.command);
+                        mentionListBox?.show({
                             filter: props.query,
                             anchorNode: props.decorationNode as HTMLElement
                         });
@@ -243,7 +244,8 @@ function createCustomMentionExtension(
                         );
                     },
                     onExit: (): void => {
-                        activeMentionDetailEmitter('', undefined);
+                        activeMentionCharacterEmitter('');
+                        activeMentionCommandEmitter(undefined);
                         mentionListBox?.close();
                     }
                 };

@@ -9,6 +9,7 @@ import { findParentNode, isList, AnyExtension, Extension } from '@tiptap/core';
 
 import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import HardBreak from '@tiptap/extension-hard-break';
+import type { SuggestionProps } from '@tiptap/suggestion';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
@@ -43,6 +44,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @internal
      */
     public tiptapEditor = createTiptapEditor(
+        () => {},
         () => {},
         this.editor,
         [],
@@ -177,7 +179,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public activeMentionCommand?: (props: unknown) => void;
+    public activeMentionCommand?: SuggestionProps['command'];
 
     /**
      * @internal
@@ -373,7 +375,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      */
     public setMarkdown(markdown: string): void {
         const html = this.getHtmlContent(markdown);
+        const { from, to } = this.tiptapEditor.view.state.selection;
         this.tiptapEditor.commands.setContent(html);
+        // Restore the cursor selection after setting the editor content
+        this.tiptapEditor.chain().focus().setTextSelection({ from, to }).run();
     }
 
     /**
@@ -406,13 +411,19 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         return Array.from(mentionedHrefs);
     }
 
+    /**
+     * @internal
+     */
     public getMentionExtensionConfig(): MentionExtensionConfiguration[] {
         return this.configuration instanceof EditorConfiguration
             ? this.configuration.mentionExtensionConfig
             : [];
     }
 
-    public activateMention(event: CustomEvent<MentionDetail>): void {
+    /**
+     * @internal
+     */
+    public onMentionSelect(event: CustomEvent<MentionDetail>): void {
         if (this.activeMentionCommand) {
             this.activeMentionCommand({
                 href: event.detail.href,
@@ -431,13 +442,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
                 args
             )
         ) {
-            const mentionExtensionConfig = this.getMentionExtensionConfigFromCharacter(source.character);
-            if (mentionExtensionConfig) {
-                mentionExtensionConfig.label = source.buttonLabel ?? '';
-            }
-            return;
+            this.configuration = this.createConfig();
+        } else {
+            super.handleChange(source, args);
         }
-        super.handleChange(source, args);
     }
 
     protected override createConfig(): EditorConfiguration {
@@ -474,8 +482,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         this.unbindNativeInputEvent();
         this.tiptapEditor?.destroy();
         this.tiptapEditor = createTiptapEditor(
-            (character, command) => {
+            character => {
                 this.activeMentionCharacter = character;
+            },
+            command => {
                 this.activeMentionCommand = command;
             },
             this.editor,

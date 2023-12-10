@@ -590,7 +590,7 @@ describe('RichTextEditorMention', () => {
         });
     });
 
-    it('should fire "mention-update" event from configuration elment when there is @mention in editor', async () => {
+    it('should fire "mention-update" event from configuration element when there is @mention in editor', async () => {
         const { userMentionElement } = await appendUserMentionConfiguration(
             element
         );
@@ -600,18 +600,18 @@ describe('RichTextEditorMention', () => {
         expect(mentionUpdateSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('should fire "mention-update" event from configuration elment when there is update in @mention in editor', async () => {
-        await pageObject.setEditorTextContent('@test');
+    it('should fire "mention-update" event from configuration element when there is update in @mention in editor', async () => {
         const { userMentionElement } = await appendUserMentionConfiguration(
             element
         );
+        await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
-        await pageObject.setEditorTextContent('@test');
+        await pageObject.setEditorTextContent('update');
         expect(mentionUpdateSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('should fire "mention-update" event from configuration elment when pasting @ in editor', async () => {
+    it('should fire "mention-update" event from configuration element when pasting @ in editor', async () => {
         const { userMentionElement } = await appendUserMentionConfiguration(
             element
         );
@@ -624,11 +624,11 @@ describe('RichTextEditorMention', () => {
 
     // TODO: Replace with integration test that uses keyboard events to trigger mention-update
     // https://github.com/ni/nimble/issues/1568
-    it('should fire "mention-update" event when deleting an existing @mention in editor', async () => {
-        await pageObject.setEditorTextContent('@test');
+    it('should fire "mention-update" event when deleting an existing @mention partially in editor', async () => {
         const { userMentionElement } = await appendUserMentionConfiguration(
             element
         );
+        await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         await pageObject.sliceEditorContent(2);
@@ -637,11 +637,11 @@ describe('RichTextEditorMention', () => {
 
     // TODO: Replace with integration test that uses keyboard events to trigger mention-update
     // https://github.com/ni/nimble/issues/1568
-    it('should fire "mention-update" event when deleting an existing @mention in editor', async () => {
-        await pageObject.setEditorTextContent('@test');
+    it('should not fire "mention-update" event when deleting an existing @mention completely in editor', async () => {
         const { userMentionElement } = await appendUserMentionConfiguration(
             element
         );
+        await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         await pageObject.sliceEditorContent(5);
@@ -671,7 +671,7 @@ describe('RichTextEditorMention', () => {
         expect(mentionUpdateSpy).toHaveBeenCalledTimes(0);
     });
 
-    it('should fire "mention-update" event with specific filter details from configuration elment when there is @mention in editor', async () => {
+    it('should fire "mention-update" event with specific filter details from configuration element when there is @mention in editor', async () => {
         const { userMentionElement } = await appendUserMentionConfiguration(
             element
         );

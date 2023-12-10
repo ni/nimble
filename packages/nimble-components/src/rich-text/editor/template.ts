@@ -97,10 +97,10 @@ export const template = html<RichTextEditor>`
                         content-hidden
                         ?disabled="${(_x, c) => c.parent.disabled}"
                         slot="start"
-                        title=${x => x.label}
+                        title=${x => x.buttonLabel}
                         @click=${(x, c) => c.parent.mentionButtonClick(x.character)}
                     >
-                        ${x => x.label}
+                        ${x => x.buttonLabel}
                         ${x => x.iconTemplate}
                     </${buttonTag}>`
     )}
@@ -113,7 +113,7 @@ export const template = html<RichTextEditor>`
         </div>
         <${richTextMentionListBoxTag}
             ${ref('mentionListBox')}
-            @activate-mention=${(x, c) => x.activateMention(c.event as CustomEvent<MentionDetail>)}
+            @mention-selected=${(x, c) => x.onMentionSelect(c.event as CustomEvent<MentionDetail>)}
             >
             ${repeat(
         x => Array.from(x.activeMappingConfigs?.values() ?? []),

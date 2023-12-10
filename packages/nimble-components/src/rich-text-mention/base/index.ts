@@ -45,7 +45,7 @@ export abstract class RichTextMention<
     @attr
     public pattern?: string;
 
-    @observable
+    @attr({ attribute: 'button-label' })
     public buttonLabel?: string;
 
     /** @internal */

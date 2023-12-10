@@ -1,3 +1,5 @@
+import type { SuggestionProps } from '@tiptap/suggestion';
+
 /**
  * TipTap node types.
  * @public
@@ -21,9 +23,11 @@ export interface MentionDetail {
     href: string;
     displayName: string;
 }
+
 export const mentionPluginPrefix = 'mention-plugin-';
 
-export type ActiveMentionDetailEmitter = (
-    character: string,
-    command?: (props: unknown) => void
+export type ActiveMentionCommandEmitter = (
+    command?: SuggestionProps['command']
 ) => void;
+
+export type ActiveMentionCharacterEmitter = (character: string) => void;

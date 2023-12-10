@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { html, ref, slotted } from '@microsoft/fast-element';
 import type { RichTextMentionListBox } from '.';
 import { Listbox } from '../../listbox';
@@ -27,11 +26,12 @@ export const template = html<RichTextMentionListBox>`
             >
                 <slot
                     ${slotted({
-            filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
-            flatten: true,
-            property: 'slottedOptions',
-            })}
-                ></slot>
+        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
+        flatten: true,
+        property: 'slottedOptions'
+    })}
+                >
+                </slot>
             </div>
             </${anchoredRegionTag}>
     </template>
