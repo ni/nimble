@@ -25,11 +25,7 @@ export const template = html<RichTextMentionListBox>`
                 ?disabled="${x => x.disabled}"
             >
                 <slot
-                    ${slotted({
-        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
-        flatten: true,
-        property: 'slottedOptions'
-    })}
+                    ${slotted({ filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n), flatten: true, property: 'slottedOptions' })}
                 >
                 </slot>
             </div>

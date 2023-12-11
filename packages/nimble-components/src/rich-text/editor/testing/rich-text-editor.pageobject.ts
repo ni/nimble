@@ -182,9 +182,14 @@ export class RichTextEditorPageObject {
     }
 
     public async setEditorTextContent(value: string): Promise<void> {
-        const lastElement = this.getEditorLastChildElement();
-        const textNode = document.createTextNode(value);
-        lastElement.parentElement!.appendChild(textNode);
+        this.richTextEditorElement.tiptapEditor
+            .chain()
+            .focus()
+            .insertContent({
+                type: 'text',
+                text: value,
+            })
+            .run();
         await waitForUpdatesAsync();
     }
 
@@ -194,13 +199,12 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
-    public async sliceEditorContent(number: number): Promise<void> {
-        const lastElement = this.getEditorLastChildElement();
-        const text = lastElement.parentElement!.textContent!;
-        lastElement.parentElement!.textContent = text.substring(
-            0,
-            text.length - number
-        );
+    public async sliceEditorContent(from: number, to: number): Promise<void> {
+        this.richTextEditorElement.tiptapEditor
+            .chain()
+            .focus()
+            .deleteRange({ from, to })
+            .run();
         await waitForUpdatesAsync();
     }
 

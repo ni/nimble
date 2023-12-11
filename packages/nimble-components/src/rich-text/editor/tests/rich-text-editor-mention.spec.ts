@@ -631,7 +631,7 @@ describe('RichTextEditorMention', () => {
         await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
-        await pageObject.sliceEditorContent(2);
+        await pageObject.sliceEditorContent(2, 5);
         expect(mentionUpdateSpy).toHaveBeenCalledTimes(1);
     });
 
@@ -644,7 +644,7 @@ describe('RichTextEditorMention', () => {
         await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
-        await pageObject.sliceEditorContent(5);
+        await pageObject.sliceEditorContent(0, 5);
         expect(mentionUpdateSpy).toHaveBeenCalledTimes(0);
     });
 

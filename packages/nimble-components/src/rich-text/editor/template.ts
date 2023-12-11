@@ -93,20 +93,19 @@ export const template = html<RichTextEditor>`
                         ${x => richTextToggleNumberedListLabel.getValueFor(x)}
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
                     </${toggleButtonTag}>
-                    ${repeat(
-        x => x.getMentionExtensionConfig(),
-        html<MentionExtensionConfiguration, RichTextEditor>`<${buttonTag}
-                        appearance="ghost"
-                        content-hidden
-                        ?disabled="${(_x, c) => c.parent.disabled}"
-                        slot="start"
-                        title=${x => x.buttonLabel}
-                        @click=${(x, c) => c.parent.mentionButtonClick(x.character)}
-                    >
-                        ${x => x.buttonLabel}
-                        ${x => x.iconTemplate}
-                    </${buttonTag}>`
-    )}
+                    ${repeat(x => x.getMentionExtensionConfig(), html<MentionExtensionConfiguration, RichTextEditor>`
+                        <${buttonTag}
+                            appearance="ghost"
+                            content-hidden
+                            ?disabled="${(_x, c) => c.parent.disabled}"
+                            slot="start"
+                            title=${x => x.buttonLabel}
+                            @click=${(x, c) => c.parent.mentionButtonClick(x.character)}
+                        >
+                            ${x => x.buttonLabel}
+                            ${x => x.iconTemplate}
+                        </${buttonTag}>
+                    `)}
                 </${toolbarTag}>
                 <span class="footer-actions" part="footer-actions">
                     <slot name="footer-actions"></slot>
@@ -117,13 +116,10 @@ export const template = html<RichTextEditor>`
         <${richTextMentionListBoxTag}
             ${ref('mentionListBox')}
             @mention-selected=${(x, c) => x.onMentionSelect(c.event as CustomEvent<MentionDetail>)}
-            >
-            ${repeat(
-        x => Array.from(x.activeMappingConfigs?.values() ?? []),
-        html<MappingConfig>`<${listOptionTag} value="${x => x.mentionHref}">${x => x.displayName}</${listOptionTag}>`,
-
-        { recycle: false }
-    )}
+        >
+            ${repeat(x => Array.from(x.activeMappingConfigs?.values() ?? []), html<MappingConfig>`
+                <${listOptionTag} value="${x => x.mentionHref}">${x => x.displayName}</${listOptionTag}>
+            `, { recycle: false })}
         </${richTextMentionListBoxTag}>
     </template>
 `;

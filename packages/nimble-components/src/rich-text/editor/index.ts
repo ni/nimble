@@ -586,9 +586,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             'aria-disabled',
             this.disabled ? 'true' : 'false'
         );
-        if (this.disabled) {
-            this.mentionListBox?.close();
-        }
+        this.mentionListBox?.close();
     }
 
     /**
