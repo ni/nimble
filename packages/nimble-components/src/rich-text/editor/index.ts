@@ -676,17 +676,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
 
     // This method restore the cursor selection after setting the editor content when the editor is focused
     private refreshMarkdownContent(): void {
-        if (this.tiptapEditor.isFocused) {
-            const { from, to } = this.tiptapEditor.view.state.selection;
-            this.setMarkdown(this.getMarkdown());
-            this.tiptapEditor
-                .chain()
-                .focus()
-                .setTextSelection({ from, to })
-                .run();
-        } else {
-            this.setMarkdown(this.getMarkdown());
-        }
+        const { from, to } = this.tiptapEditor.view.state.selection;
+        this.setMarkdown(this.getMarkdown());
+        this.tiptapEditor
+            .commands
+            .setTextSelection({ from, to });
     }
 }
 
