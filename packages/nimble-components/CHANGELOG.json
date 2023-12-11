@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 11 Dec 2023 19:32:21 GMT",
+      "version": "20.16.1",
+      "tag": "@ni/nimble-components_v20.16.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "487c3440588f7b331ea2e90131e41bbf4d4d84f0",
+            "comment": "Make anchor behave like native anchor when contenteditable"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 11 Dec 2023 17:36:28 GMT",
       "version": "20.16.0",
       "tag": "@ni/nimble-components_v20.16.0",
