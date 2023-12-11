@@ -13,6 +13,8 @@ import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/vi
 import { RichTextMarkdownParser } from '../../models/markdown-parser';
 import type { Button } from '../../../button';
 import { richTextMentionListBoxTag } from '../../mention-list-box';
+import type { ListOption } from '../../../list-option';
+import { anchoredRegionTag } from '../../../anchored-region';
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -214,8 +216,9 @@ export class RichTextEditorPageObject {
 
     public isMentionListBoxOpened(): boolean {
         return (
-            this.getMentionListBox()?.firstElementChild?.tagName
-            === 'NIMBLE-LIST-OPTION'
+            !this.getMentionListBox()
+                ?.shadowRoot?.querySelector(anchoredRegionTag)
+                ?.hasAttribute('hidden') ?? false
         );
     }
 
@@ -344,6 +347,32 @@ export class RichTextEditorPageObject {
         );
     }
 
+    public getMentionListBoxItemsName(): string[] {
+        const listItemsName: string[] = [];
+        this.getAllListItemsInMentionBox().forEach(item => (item.hidden ? null : listItemsName.push(item.textContent!)));
+        return listItemsName;
+    }
+
+    public getSelectedoption(): string {
+        const nodeList = this.getAllListItemsInMentionBox();
+        return (
+            Array.from(nodeList).find(item => item.selected)?.textContent ?? ''
+        );
+    }
+
+    public async clickMentionListBoxOption(index: number): Promise<void> {
+        const listOption = this.getAllListItemsInMentionBox()[index];
+        this.addRange();
+        listOption?.click();
+        await waitForUpdatesAsync();
+    }
+
+    public addRange(): void {
+        const range = document.createRange();
+        const selection = window.getSelection();
+        selection?.addRange(range);
+    }
+
     private getEditorSection(): Element | null | undefined {
         return this.richTextEditorElement.shadowRoot?.querySelector('.editor');
     }
@@ -380,6 +409,10 @@ export class RichTextEditorPageObject {
         return this.richTextEditorElement.shadowRoot!.querySelector(
             richTextMentionListBoxTag
         );
+    }
+
+    private getAllListItemsInMentionBox(): NodeListOf<ListOption> {
+        return this.getMentionListBox()!.querySelectorAll('nimble-list-option');
     }
 
     private getEditorLastChildElement(): Element {
