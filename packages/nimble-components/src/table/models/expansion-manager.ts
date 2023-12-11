@@ -1,6 +1,4 @@
-import type {
-    Row as TanStackRow
-} from '@tanstack/table-core';
+import type { Row as TanStackRow } from '@tanstack/table-core';
 import type { TableNode, TableRecord } from '../types';
 
 /**
