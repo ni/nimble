@@ -3,19 +3,14 @@ import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
-import {
-    RichTextMentionUsers,
-    richTextMentionUsersTag
-} from '../../../rich-text-mention/users';
-import { MappingUser, mappingUserTag } from '../../../mapping/user';
+import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
+import { mappingUserTag } from '../../../mapping/user';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
-import { richTextMentionTestTag } from '../../../rich-text-mention/base/tests/rich-text-mention.fixtures';
-import type {
-    UserMentionElements,
-    TestMentionElements,
-    MappingConfiguration
-} from '../testing/types';
+import {
+    appendTestMentionConfiguration,
+    appendUserMentionConfiguration
+} from '../testing/rich-text-editor-utils';
 
 const RICH_TEXT_MENTION_USERS_VIEW_TAG = richTextMentionUsersViewTag.toUpperCase();
 
@@ -35,56 +30,6 @@ async function setupMentionConfig(): Promise<Fixture<RichTextEditor>> {
           </${richTextMentionUsersTag}>
       </${richTextEditorTag}>`
     );
-}
-
-async function appendUserMentionConfiguration(
-    element: RichTextEditor,
-    mappings?: MappingConfiguration[]
-): Promise<UserMentionElements> {
-    const userMentionElement = document.createElement(
-        richTextMentionUsersTag
-    ) as RichTextMentionUsers;
-    userMentionElement.pattern = '^user:(.*)';
-    const mappingElements: MappingUser[] = [];
-    mappings?.forEach(mapping => {
-        const mappingUser = document.createElement(
-            mappingUserTag
-        ) as MappingUser;
-        mappingUser.key = mapping.key ?? '';
-        mappingUser.displayName = mapping.displayName;
-        userMentionElement.appendChild(mappingUser);
-        mappingElements.push(mappingUser);
-    });
-    element.appendChild(userMentionElement);
-    await waitForUpdatesAsync();
-    return {
-        userMentionElement,
-        mappingElements
-    };
-}
-
-async function appendTestMentionConfiguration(
-    element: RichTextEditor,
-    mappings?: MappingConfiguration[]
-): Promise<TestMentionElements> {
-    const testMentionElement = document.createElement(richTextMentionTestTag);
-    testMentionElement.pattern = '^test:(.*)';
-    const mappingElements: MappingUser[] = [];
-    mappings?.forEach(mapping => {
-        const mappingUser = document.createElement(
-            mappingUserTag
-        ) as MappingUser;
-        mappingUser.key = mapping.key;
-        mappingUser.displayName = mapping.displayName;
-        testMentionElement.appendChild(mappingUser);
-        mappingElements.push(mappingUser);
-    });
-    element.appendChild(testMentionElement);
-    await waitForUpdatesAsync();
-    return {
-        testMentionElement,
-        mappingElements
-    };
 }
 
 describe('RichTextEditorMention', () => {
