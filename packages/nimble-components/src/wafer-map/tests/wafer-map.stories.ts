@@ -43,7 +43,7 @@ interface WaferMapArgs {
     gridMaxY: number | undefined;
     dieHover: unknown;
     validity: WaferMapValidity;
-    highlightedTagsSet: string;
+    highlightedTags: string;
 }
 
 const getDiesSet = (
@@ -83,7 +83,7 @@ const getDiesSet = (
     return returnedValue;
 };
 
-const getHighLightedTagsSets = (
+const getHighlightedTags = (
     setName: string,
     sets: string[][]
 ): string[] => {
@@ -137,8 +137,8 @@ const metadata: Meta<WaferMapArgs> = {
             grid-max-y=${x => x.gridMaxY}
             :colorScale="${x => x.colorScale}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
-            :highlightedTags="${x => getHighLightedTagsSets(
-        x.highlightedTagsSet,
+            :highlightedTags="${x => getHighlightedTags(
+        x.highlightedTags,
         highlightedTagsSets
     )}"
             >
@@ -156,7 +156,7 @@ const metadata: Meta<WaferMapArgs> = {
         dies: 'fixedDies10',
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
-        highlightedTagsSet: 'set1',
+        highlightedTags: 'set1',
         maxCharacters: 4,
         orientation: WaferMapOrientation.left,
         originLocation: WaferMapOriginLocation.bottomLeft,
@@ -236,8 +236,8 @@ const metadata: Meta<WaferMapArgs> = {
                 'String that can be added as a label at the end of each wafer map die value',
             control: { type: 'text' }
         },
-        highlightedTagsSet: {
-            description: `Represents an array of die indexes that will be highlighted in the wafer map view
+        highlightedTags: {
+            description: `Represent a list of strings that will be highlighted in the wafer map view. Each die has a tags?: string[] property, if at least one element of highlightedTags equals at least one element of die.tags the die will be highlighted.
 
 <details>
     <summary>Usage details</summary>
