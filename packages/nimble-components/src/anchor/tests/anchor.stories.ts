@@ -64,7 +64,7 @@ const metadata: Meta<AnchorArgs> = {
             options: ['false', 'true'],
             control: { type: 'radio' },
             description:
-                'Set this to the string "true" (or set the attribute without any value)  when the anchor is within an editable region (i.e. element/hierarchy with [contenteditable](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable)). Whereas native elements inherit their `contenteditable` value by default, the `nimble-anchor` requires this attribute be explicitly set. When set, the anchor cannot be focused or operated.'
+                'Set this to the string "true" (or set the attribute without any value)  when the anchor is within an editable region (i.e. element/hierarchy with [contenteditable](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable)). Whereas native elements inherit their `contenteditable` value by default, the `nimble-anchor` requires this attribute be explicitly set.'
         }
     },
     args: {
