@@ -5,19 +5,19 @@ import {
     applicationBackgroundColor,
     borderWidth,
     controlHeight,
-    controlSlimHeight,
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
-    mediumDelay,
     mediumPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
+import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
 
 export const styles = css`
+    ${expandCollapseStyles}
     ${display('flex')}
 
     :host {
@@ -52,26 +52,11 @@ export const styles = css`
         background-color: ${fillHoverSelectedColor};
     }
 
-    :host([expanded]) .animating,
-    :host .animating {
-        transition: ${mediumDelay} ease-in-out;
-    }
-
     .expand-collapse-button {
-        height: ${controlSlimHeight};
-        align-self: center;
         padding-left: calc(
             ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
                 ${controlHeight}
         );
-    }
-
-    :host([expanded]) .expander-icon {
-        transform: rotate(90deg);
-    }
-
-    .expander-icon {
-        transform: rotate(0deg);
     }
 
     .row-operations-container {
@@ -107,13 +92,6 @@ export const styles = css`
         margin-left: calc(
             (${controlHeight} * var(--ni-private-table-row-indent-level)) * -1
         );
-    }
-
-    @media (prefers-reduced-motion) {
-        :host .animating,
-        :host([expanded]) .animating {
-            transition-duration: 0s;
-        }
     }
 
     nimble-table-cell {

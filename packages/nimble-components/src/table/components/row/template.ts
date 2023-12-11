@@ -6,7 +6,11 @@ import {
 } from '../../../menu-button/types';
 import { tableCellTag } from '../cell';
 import { checkboxTag } from '../../../checkbox';
-import { tableRowSelectLabel } from '../../../label-provider/table/label-tokens';
+import {
+    tableRowCollapseLabel,
+    tableRowExpandLabel,
+    tableRowSelectLabel
+} from '../../../label-provider/table/label-tokens';
 import type { TableColumn } from '../../../table-column/base';
 import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
@@ -16,8 +20,8 @@ export const template = html<TableRow>`
     <template 
         role="row"
         aria-selected=${x => x.ariaSelected}
-        style="
-        --ni-private-table-row-indent-level: ${x => x.nestingLevel};"
+        aria-expanded=${x => x.expanded}
+        style="--ni-private-table-row-indent-level: ${x => x.nestingLevel};"
     >
         ${when(x => !x.rowOperationGridCellHidden, html<TableRow>`
             <span role="gridcell" class="row-operations-container">
@@ -34,7 +38,6 @@ export const template = html<TableRow>`
                 `)}
             </span>
         `)}
-
         <span class="row-front-spacer ${x => (x.isParentRow && x.nestingLevel === 0 ? 'top-level-parent' : '')}"></span>
         ${when(x => x.isParentRow, html<TableRow>`
             <${buttonTag}
@@ -43,6 +46,8 @@ export const template = html<TableRow>`
                 class="expand-collapse-button"
                 tabindex="-1"
                 @click="${(x, c) => x.onRowExpandToggle(c.event)}"
+                title="${x => (x.expanded ? tableRowCollapseLabel.getValueFor(x) : tableRowExpandLabel.getValueFor(x))}"
+                aria-hidden="true"
             >
                 <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
             </${buttonTag}>

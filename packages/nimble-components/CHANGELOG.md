@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 28 Nov 2023 18:24:15 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Dec 2023 21:49:16 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.15.1
+
+Thu, 07 Dec 2023 21:49:16 GMT
+
+### Patches
+
+- Add support for @mention in nimble-rich-text-editor ([ni/nimble@c69a774](https://github.com/ni/nimble/commit/c69a7745d0a8223a479d79a2cabe6cdcd1e9ca1a))
+
+## 20.15.0
+
+Thu, 07 Dec 2023 17:27:04 GMT
+
+### Minor changes
+
+- New icons for calendars and test plans ([ni/nimble@f4a4453](https://github.com/ni/nimble/commit/f4a4453cc34b004f34d4ffed5a9c674427560597))
+- Bump @ni/nimble-tokens to v6.9.0
+
+## 20.14.13
+
+Tue, 05 Dec 2023 11:06:30 GMT
+
+### Patches
+
+- spec for wafer highlight ([ni/nimble@83fa07f](https://github.com/ni/nimble/commit/83fa07f9caf7ec7aca9d7eef9a45bf93c7f13b26))
+
+## 20.14.12
+
+Mon, 04 Dec 2023 21:56:42 GMT
+
+### Patches
+
+- Update styling for incubating nimble-card ([ni/nimble@499b7e1](https://github.com/ni/nimble/commit/499b7e19fe8ddd6627cd36bae402b8c18a6feb10))
 
 ## 20.14.11
 

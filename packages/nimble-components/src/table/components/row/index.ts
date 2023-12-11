@@ -17,7 +17,7 @@ import type {
     TableActionMenuToggleEventDetail,
     TableFieldName,
     TableRecord,
-    TableRowExpandToggleEventDetail,
+    TableRowExpansionToggleEventDetail,
     TableRowSelectionToggleEventDetail
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
@@ -77,7 +77,7 @@ export class TableRow<
     @observable
     public nestingLevel = 0;
 
-    @observable
+    @attr({ attribute: 'is-parent-row', mode: 'boolean' })
     public isParentRow = false;
 
     @attr({ attribute: 'menu-open', mode: 'boolean' })
@@ -202,7 +202,7 @@ export class TableRow<
 
     public onRowExpandToggle(event: Event): void {
         if (this.recordId) {
-            const expandEventDetail: TableRowExpandToggleEventDetail = {
+            const expandEventDetail: TableRowExpansionToggleEventDetail = {
                 oldState: this.expanded,
                 newState: !this.expanded,
                 recordId: this.recordId

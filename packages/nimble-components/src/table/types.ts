@@ -135,7 +135,10 @@ export interface TableRowSelectionEventDetail {
     selectedRecordIds: string[];
 }
 
-export interface TableRowExpandToggleEventDetail {
+/**
+ * Event detail type for row toggle events in the table.
+ */
+export interface TableRowExpansionToggleEventDetail {
     oldState: boolean;
     newState: boolean;
     recordId: string;

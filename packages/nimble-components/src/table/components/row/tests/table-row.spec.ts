@@ -10,6 +10,7 @@ import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';
 import type {
     TableRecord,
+    TableRowExpansionToggleEventDetail,
     TableRowSelectionToggleEventDetail
 } from '../../../types';
 import { TableRowPageObject } from './table-row.pageobject';
@@ -104,6 +105,20 @@ describe('TableRow', () => {
             await waitForUpdatesAsync();
 
             expect(element.getAttribute('aria-selected')).toBe('true');
+        });
+
+        it('has aria-expanded attribute set to "true" when it is expanded', async () => {
+            element.expanded = true;
+            await connect();
+
+            expect(element.getAttribute('aria-expanded')).toBe('true');
+        });
+
+        it('has aria-expanded attribute set to "false" when it is not expanded', async () => {
+            element.expanded = false;
+            await connect();
+
+            expect(element.getAttribute('aria-expanded')).toBe('false');
         });
 
         it('shows selection checkbox when row is selectable and selection is not hidden', async () => {
@@ -220,6 +235,48 @@ describe('TableRow', () => {
             await waitForUpdatesAsync();
 
             expect(listener.spy).not.toHaveBeenCalled();
+        });
+
+        it('shows expand-collapse button when isParentRow is true', async () => {
+            const pageObject = new TableRowPageObject(element);
+            await connect();
+            element.isParentRow = true;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getExpandCollapseButton()).toBeDefined();
+        });
+
+        it('hides expand-collapse button when isParentRow is false', async () => {
+            const pageObject = new TableRowPageObject(element);
+            await connect();
+            element.isParentRow = true;
+            await waitForUpdatesAsync();
+
+            element.isParentRow = false;
+            await waitForUpdatesAsync();
+            expect(pageObject.getExpandCollapseButton()).toBeNull();
+        });
+
+        it('toggling expand-collapse button fires "row-expand-toggle" event', async () => {
+            const pageObject = new TableRowPageObject(element);
+            await connect();
+            element.isParentRow = true;
+            element.recordId = 'foo';
+            await waitForUpdatesAsync();
+            const expandCollapseButton = pageObject.getExpandCollapseButton();
+
+            const listener = createEventListener(element, 'row-expand-toggle');
+            expandCollapseButton!.click();
+            await listener.promise;
+
+            expect(listener.spy).toHaveBeenCalledTimes(1);
+            const expectedDetails: TableRowExpansionToggleEventDetail = {
+                newState: true,
+                oldState: false,
+                recordId: 'foo'
+            };
+            const event = listener.spy.calls.first().args[0] as CustomEvent;
+            expect(event.detail).toEqual(expectedDetails);
         });
     });
 

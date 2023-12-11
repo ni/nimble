@@ -20,4 +20,8 @@ export class NimbleRichTextViewerDirective {
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<RichTextViewer>) { }
+
+    public getMentionedHrefs(): string[] {
+        return this.elementRef.nativeElement.getMentionedHrefs();
+    }
 }
