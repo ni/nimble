@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 07 Dec 2023 21:49:16 GMT and should not be manually modified.
+This log was last generated on Mon, 11 Dec 2023 19:32:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.16.1
+
+Mon, 11 Dec 2023 19:32:21 GMT
+
+### Patches
+
+- Make anchor behave like native anchor when contenteditable ([ni/nimble@487c344](https://github.com/ni/nimble/commit/487c3440588f7b331ea2e90131e41bbf4d4d84f0))
+
+## 20.16.0
+
+Mon, 11 Dec 2023 17:36:28 GMT
+
+### Minor changes
+
+- Add expand-collapse button to Table Row and Cell ([ni/nimble@824e321](https://github.com/ni/nimble/commit/824e321a9235b0bb98b1fd49e1167d154749a08d))
 
 ## 20.15.1
 

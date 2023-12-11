@@ -10,6 +10,8 @@ import {
     tableGroupExpandLabel,
     tableGroupSelectAllLabel,
     tableGroupsCollapseAllLabel,
+    tableRowCollapseLabel,
+    tableRowExpandLabel,
     tableRowOperationColumnLabel,
     tableRowSelectLabel,
     tableSelectAllLabel
@@ -24,6 +26,8 @@ declare global {
 const supportedLabels = {
     groupCollapse: tableGroupCollapseLabel,
     groupExpand: tableGroupExpandLabel,
+    rowCollapse: tableRowCollapseLabel,
+    rowExpand: tableRowExpandLabel,
     groupsCollapseAll: tableGroupsCollapseAllLabel,
     cellActionMenu: tableCellActionMenuLabel,
     columnHeaderGrouped: tableColumnHeaderGroupedLabel,
@@ -46,6 +50,12 @@ export class LabelProviderTable
 
     @attr({ attribute: 'group-expand' })
     public groupExpand: string | undefined;
+
+    @attr({ attribute: 'row-collapse' })
+    public rowCollapse: string | undefined;
+
+    @attr({ attribute: 'row-expand' })
+    public rowExpand: string | undefined;
 
     @attr({ attribute: 'groups-collapse-all' })
     public groupsCollapseAll: string | undefined;
