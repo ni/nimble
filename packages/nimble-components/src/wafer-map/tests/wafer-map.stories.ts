@@ -83,10 +83,7 @@ const getDiesSet = (
     return returnedValue;
 };
 
-const getHighlightedTags = (
-    setName: string,
-    sets: string[][]
-): string[] => {
+const getHighlightedTags = (setName: string, sets: string[][]): string[] => {
     let returnedValue: string[];
     switch (setName) {
         case 'set1':
@@ -137,10 +134,7 @@ const metadata: Meta<WaferMapArgs> = {
             grid-max-y=${x => x.gridMaxY}
             :colorScale="${x => x.colorScale}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
-            :highlightedTags="${x => getHighlightedTags(
-        x.highlightedTags,
-        highlightedTagsSets
-    )}"
+            :highlightedTags="${x => getHighlightedTags(x.highlightedTags, highlightedTagsSets)}"
             >
         </${waferMapTag}>
         <style class="code-hide">
