@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 06 Nov 2023 23:03:00 GMT and should not be manually modified.
+This log was last generated on Mon, 11 Dec 2023 19:32:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.7.0
+
+Mon, 11 Dec 2023 19:32:21 GMT
+
+### Minor changes
+
+- Add ContentEditable property to anchor ([ni/nimble@487c344](https://github.com/ni/nimble/commit/487c3440588f7b331ea2e90131e41bbf4d4d84f0))
 
 ## 12.5.8
 
