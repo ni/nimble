@@ -22,7 +22,7 @@ This folder contains reusable React components used in Nimble component MDX docu
 
 ### Divider
 
--   Renders a simple divider to vertically separate the contents of a `<Column>`.
+-   Renders a simple horizontal divider to vertically separate the contents of a `<Column>`.
 
 ### Do
 
@@ -30,7 +30,7 @@ This folder contains reusable React components used in Nimble component MDX docu
 
 ### Dont
 
--   Renders a "Dont" section for MDX documentation.
+-   Renders a "Don't" section for MDX documentation.
 
 ### Frame
 
