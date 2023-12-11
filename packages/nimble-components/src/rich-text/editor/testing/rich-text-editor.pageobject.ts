@@ -2,7 +2,7 @@ import { keySpace, keyEnter, keyTab } from '@microsoft/fast-web-utilities';
 import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { ToggleButton } from '../../../toggle-button';
-import { ToolbarButton, ToolbarButtonKey } from './types';
+import { ArrowKeyButton, ToolbarButton, ToolbarButtonKey } from './types';
 import {
     getTagsFromElement,
     getLeafContentsFromElement,
@@ -11,10 +11,11 @@ import {
 } from '../../models/testing/markdown-parser-utils';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import { RichTextMarkdownParser } from '../../models/markdown-parser';
-import type { Button } from '../../../button';
+import { buttonTag, type Button } from '../../../button';
 import { richTextMentionListBoxTag } from '../../mention-list-box';
-import type { ListOption } from '../../../list-option';
+import { listOptionTag, type ListOption } from '../../../list-option';
 import { anchoredRegionTag } from '../../../anchored-region';
+import { iconAtTag } from '../../../icons/at';
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -54,6 +55,19 @@ export class RichTextEditorPageObject {
         const editor = this.getTiptapEditor();
         const event = new KeyboardEvent('keydown', {
             key: keyEnter,
+            bubbles: true,
+            cancelable: true
+        });
+        editor.dispatchEvent(event);
+        await waitForUpdatesAsync();
+    }
+
+    public async pressArrowKeyInEditor(
+        arrowButton: ArrowKeyButton
+    ): Promise<void> {
+        const editor = this.getTiptapEditor();
+        const event = new KeyboardEvent('keydown', {
+            key: arrowButton,
             bubbles: true,
             cancelable: true
         });
@@ -134,6 +148,21 @@ export class RichTextEditorPageObject {
         const userMentionButton = this.getUserMentionButton();
         userMentionButton!.click();
         await waitForUpdatesAsync();
+    }
+
+    public getMentionButtonIcon(buttonIndex: number): string | undefined {
+        const buttons: Button[] = this.getMentionButtons()!;
+        return buttons[buttonIndex]?.firstElementChild?.tagName;
+    }
+
+    public getMentionButtonTitle(buttonIndex: number): string {
+        const buttons: Button[] = this.getMentionButtons()!;
+        return buttons[buttonIndex]?.getAttribute('title') ?? '';
+    }
+
+    public getMentionButtonLabel(buttonIndex: number): string {
+        const buttons: Button[] = this.getMentionButtons()!;
+        return buttons[buttonIndex]?.innerText ?? '';
     }
 
     public getButtonCheckedState(button: ToolbarButton): boolean {
@@ -347,16 +376,24 @@ export class RichTextEditorPageObject {
         );
     }
 
+    public async focusOutEditor(): Promise<void> {
+        const focusout = new FocusEvent('focusout');
+        this.richTextEditorElement.dispatchEvent(focusout);
+        await waitForUpdatesAsync();
+    }
+
     public getMentionListBoxItemsName(): string[] {
         const listItemsName: string[] = [];
         this.getAllListItemsInMentionBox().forEach(item => (item.hidden ? null : listItemsName.push(item.textContent!)));
         return listItemsName;
     }
 
-    public getSelectedoption(): string {
+    public getSelectedOption(): string {
         const nodeList = this.getAllListItemsInMentionBox();
         return (
-            Array.from(nodeList).find(item => item.selected)?.textContent ?? ''
+            Array.from(nodeList).find(
+                item => item.selected && !item.hasAttribute('hidden')
+            )?.textContent ?? ''
         );
     }
 
@@ -396,10 +433,14 @@ export class RichTextEditorPageObject {
     }
 
     private getUserMentionButton(): Button | null | undefined {
-        const buttons: NodeListOf<Button> = this.richTextEditorElement.shadowRoot!.querySelectorAll(
-            'nimble-button'
+        const buttons: Button[] = this.getMentionButtons()!;
+        return buttons.find(button => button.querySelector(iconAtTag));
+    }
+
+    private getMentionButtons(): Button[] | null | undefined {
+        return Array.from(
+            this.richTextEditorElement.shadowRoot!.querySelectorAll(buttonTag)
         );
-        return Array.from(buttons).find(button => button.querySelector('nimble-icon-at'));
     }
 
     private getMentionListBox(): Element | null {
@@ -409,7 +450,7 @@ export class RichTextEditorPageObject {
     }
 
     private getAllListItemsInMentionBox(): NodeListOf<ListOption> {
-        return this.getMentionListBox()!.querySelectorAll('nimble-list-option');
+        return this.getMentionListBox()!.querySelectorAll(listOptionTag);
     }
 
     private getEditorLastChildElement(): Element {

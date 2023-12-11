@@ -12,6 +12,9 @@ import {
     replaceUserMappingElements,
     appendUserMentionConfiguration
 } from '../testing/rich-text-editor-utils';
+import { iconAtTag } from '../../../icons/at';
+import { ArrowKeyButton } from '../testing/types';
+import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 
 const RICH_TEXT_MENTION_USERS_VIEW_TAG = richTextMentionUsersViewTag.toUpperCase();
 
@@ -257,6 +260,36 @@ describe('RichTextEditorMention', () => {
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
             expect(pageObject.getEditorLeafContents()).toEqual(['user:2']);
+        });
+
+        describe('user mention button', () => {
+            it('should not have `at icon` button when no configuration element is given', () => {
+                expect(pageObject.getMentionButtonIcon(0)).toBeUndefined();
+            });
+
+            it('should have `at icon` button when user configuration element is given', async () => {
+                await appendUserMentionConfiguration(element);
+
+                expect(pageObject.getMentionButtonIcon(0)).toBe(
+                    iconAtTag.toUpperCase()
+                );
+            });
+
+            it('should have empty button title and text content as default', async () => {
+                await appendUserMentionConfiguration(element);
+
+                expect(pageObject.getMentionButtonTitle(0)).toBe('');
+                expect(pageObject.getMentionButtonLabel(0)).toBe('');
+            });
+
+            it('should have button title and text when `button-label` updated', async () => {
+                const { userMentionElement } = await appendUserMentionConfiguration(element);
+                userMentionElement.buttonLabel = 'at mention';
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getMentionButtonTitle(0)).toBe('at mention');
+                expect(pageObject.getMentionButtonLabel(0)).toBe('at mention');
+            });
         });
     });
 
@@ -534,6 +567,18 @@ describe('RichTextEditorMention', () => {
                 'test:2'
             ]);
         });
+
+        it('user mention button should have `at icon` buttons when user configuration and test elements are given', async () => {
+            await appendUserMentionConfiguration(element);
+            await appendTestMentionConfiguration(element);
+
+            expect(pageObject.getMentionButtonIcon(0)).toBe(
+                iconAtTag.toUpperCase()
+            );
+            expect(pageObject.getMentionButtonIcon(1)).toBe(
+                iconAtTag.toUpperCase()
+            );
+        });
     });
 
     it('should fire "mention-update" event from configuration element when there is @mention in editor', async () => {
@@ -801,6 +846,12 @@ describe('RichTextEditor user mention via template', () => {
             await waitForUpdatesAsync();
         });
 
+        it('should have `at icon` button', () => {
+            expect(pageObject.getMentionButtonIcon(0)).toBe(
+                iconAtTag.toUpperCase()
+            );
+        });
+
         it('should get `@` text without a preceding whitespace at the start of a line, when button clicked', async () => {
             await pageObject.clickUserMentionButton();
 
@@ -808,10 +859,10 @@ describe('RichTextEditor user mention via template', () => {
                 'P',
                 RICH_TEXT_MENTION_USERS_VIEW_TAG
             ]);
-            expect(element.getMarkdown()).toBe('@');
+            expect(pageObject.getEditorFirstChildTextContent()).toBe('@');
         });
 
-        it('should get `@` text with a preceding whitespace after a word with space, when button clicked', async () => {
+        it('should get `@` text with a single preceding whitespace after a word with space, when button clicked', async () => {
             await pageObject.setEditorTextContent('User ');
             await pageObject.clickUserMentionButton();
 
@@ -819,10 +870,10 @@ describe('RichTextEditor user mention via template', () => {
                 'P',
                 RICH_TEXT_MENTION_USERS_VIEW_TAG
             ]);
-            expect(element.getMarkdown()).toBe('User @');
+            expect(pageObject.getEditorFirstChildTextContent()).toBe('User @');
         });
 
-        it('should get `@` text with a preceding whitespace after a word without space, when button clicked', async () => {
+        it('should get `@` text with a single preceding whitespace after a word without space, when button clicked', async () => {
             await pageObject.setEditorTextContent('User');
             await pageObject.clickUserMentionButton();
 
@@ -830,11 +881,11 @@ describe('RichTextEditor user mention via template', () => {
                 'P',
                 RICH_TEXT_MENTION_USERS_VIEW_TAG
             ]);
-            expect(element.getMarkdown()).toBe('User @');
+            expect(pageObject.getEditorFirstChildTextContent()).toBe('User @');
         });
 
         it('should get `@` text without a preceding whitespace after a hard break, when button clicked', async () => {
-            await pageObject.setEditorTextContent('User ');
+            await pageObject.setEditorTextContent('User');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.clickUserMentionButton();
 
@@ -843,10 +894,10 @@ describe('RichTextEditor user mention via template', () => {
                 'BR',
                 RICH_TEXT_MENTION_USERS_VIEW_TAG
             ]);
-            expect(element.getMarkdown()).toBe('User \\\n@');
+            expect(pageObject.getEditorFirstChildTextContent()).toBe('User@');
         });
 
-        it('should get `@` text with a preceding whitespace after a hard break with a text, when button clicked', async () => {
+        it('should get `@` text with a single preceding whitespace after a hard break with a text, when button clicked', async () => {
             await pageObject.setEditorTextContent('User');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('Text');
@@ -857,7 +908,9 @@ describe('RichTextEditor user mention via template', () => {
                 'BR',
                 RICH_TEXT_MENTION_USERS_VIEW_TAG
             ]);
-            expect(element.getMarkdown()).toBe('User\\\nText @');
+            expect(pageObject.getEditorFirstChildTextContent()).toBe(
+                'UserText @'
+            );
         });
 
         it('should open mention popup, when button clicked', async () => {
@@ -868,7 +921,7 @@ describe('RichTextEditor user mention via template', () => {
     });
 });
 
-describe('RichTextEditorMention', () => {
+describe('RichTextEditorMentionListBox', () => {
     let element: RichTextEditor;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
@@ -884,17 +937,44 @@ describe('RichTextEditorMention', () => {
         await disconnect();
     });
 
-    describe('RichTextEditor user mention via mention list box', () => {
+    describe('user mention via mention list box', () => {
         it('should display list of mention items in the mention popup with respect to mapping', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
             ]);
             await pageObject.setEditorTextContent('@');
+
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
             expect(pageObject.getMentionListBoxItemsName()).toEqual([
                 'username1',
                 'username2'
             ]);
+        });
+
+        describe('various wacky strings should display as it is in the mention popup option', () => {
+            parameterizeNamedList(wackyStrings, (spec, name, value) => {
+                spec(`for ${name}`, async () => {
+                    await appendUserMentionConfiguration(element, [
+                        { key: 'user:1', displayName: value.name }
+                    ]);
+                    await pageObject.setEditorTextContent('@');
+
+                    expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                        value.name
+                    ]);
+                });
+            });
+        });
+
+        it('should get first option as selected', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            await pageObject.setEditorTextContent('@');
+
+            expect(pageObject.getSelectedOption()).toBe('username1');
         });
 
         it('should filter mention popup list based on the text after trigger character', async () => {
@@ -903,14 +983,32 @@ describe('RichTextEditorMention', () => {
                 { key: 'user:2', displayName: 'username2' }
             ]);
             await pageObject.setEditorTextContent('@');
+
             expect(pageObject.getMentionListBoxItemsName()).toEqual([
                 'username1',
                 'username2'
             ]);
+
             await pageObject.setEditorTextContent('username2');
+
             expect(pageObject.getMentionListBoxItemsName()).toEqual([
                 'username2'
             ]);
+            expect(pageObject.getSelectedOption()).toBe('username2');
+        });
+
+        it('should filter mention popup list when the entered text contains space', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'user1 name' },
+                { key: 'user:2', displayName: 'user2 name' }
+            ]);
+            await pageObject.setEditorTextContent('@');
+            await pageObject.setEditorTextContent('user2 n');
+
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'user2 name'
+            ]);
+            expect(pageObject.getSelectedOption()).toBe('user2 name');
         });
 
         it('should commit mention into the editor when clicked', async () => {
@@ -918,8 +1016,8 @@ describe('RichTextEditorMention', () => {
                 { key: 'user:1', displayName: 'username1' }
             ]);
             await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
             await pageObject.clickMentionListBoxOption(0);
+
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase()
@@ -935,9 +1033,8 @@ describe('RichTextEditorMention', () => {
                 { key: 'user:1', displayName: 'username1' }
             ]);
             await pageObject.setEditorTextContent('@');
-            await waitForUpdatesAsync();
-            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
             await pageObject.pressEnterKeyInEditor();
+
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase()
@@ -953,9 +1050,8 @@ describe('RichTextEditorMention', () => {
                 { key: 'user:1', displayName: 'username1' }
             ]);
             await pageObject.setEditorTextContent('@');
-            await waitForUpdatesAsync();
-            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
             await pageObject.pressTabKeyInEditor();
+
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 `${richTextMentionUsersViewTag}`.toUpperCase()
@@ -963,6 +1059,135 @@ describe('RichTextEditorMention', () => {
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
             ).toEqual(['username1']);
+            expect(pageObject.isMentionListBoxOpened()).toBeFalse();
+        });
+
+        it('should filter and commit first mention into the editor on Enter', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            await pageObject.setEditorTextContent('@username2');
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'username2'
+            ]);
+            await pageObject.pressEnterKeyInEditor();
+
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(
+                pageObject.getEditorMentionViewAttributeValues('mention-label')
+            ).toEqual(['username2']);
+        });
+
+        it('should filter and commit first mention into the editor on Tab', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            await pageObject.setEditorTextContent('@username2');
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'username2'
+            ]);
+            await pageObject.pressTabKeyInEditor();
+
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(
+                pageObject.getEditorMentionViewAttributeValues('mention-label')
+            ).toEqual(['username2']);
+        });
+
+        it('should get second option as selected on arrow key down', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            await pageObject.setEditorTextContent('@');
+            await pageObject.pressArrowKeyInEditor(ArrowKeyButton.down);
+
+            expect(pageObject.getSelectedOption()).toBe('username2');
+        });
+
+        it('should get first option as selected on arrow key down and up', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            await pageObject.setEditorTextContent('@');
+            await pageObject.pressArrowKeyInEditor(ArrowKeyButton.down);
+            await pageObject.pressArrowKeyInEditor(ArrowKeyButton.up);
+
+            expect(pageObject.getSelectedOption()).toBe('username1');
+        });
+
+        it('should commit second option on arrow key down and enter', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            await pageObject.setEditorTextContent('@');
+            await pageObject.pressArrowKeyInEditor(ArrowKeyButton.down);
+            await pageObject.pressEnterKeyInEditor();
+
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(
+                pageObject.getEditorMentionViewAttributeValues('mention-label')
+            ).toEqual(['username2']);
+            expect(pageObject.isMentionListBoxOpened()).toBeFalse();
+        });
+
+        it('should commit second option on arrow key down and tab', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            await pageObject.setEditorTextContent('@');
+            await pageObject.pressArrowKeyInEditor(ArrowKeyButton.down);
+            await pageObject.pressTabKeyInEditor();
+
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
+                'P',
+                `${richTextMentionUsersViewTag}`.toUpperCase()
+            ]);
+            expect(
+                pageObject.getEditorMentionViewAttributeValues('mention-label')
+            ).toEqual(['username2']);
+            expect(pageObject.isMentionListBoxOpened()).toBeFalse();
+        });
+
+        it('focus out from the editor should close the mention popup', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            await pageObject.setEditorTextContent('@');
+
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
+
+            await pageObject.focusOutEditor();
+
+            expect(pageObject.isMentionListBoxOpened()).toBeFalse();
+        });
+
+        it('setting `disabled` should close the mention popup', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            await pageObject.setEditorTextContent('@');
+
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
+
+            await pageObject.setDisabled(true);
+
             expect(pageObject.isMentionListBoxOpened()).toBeFalse();
         });
     });

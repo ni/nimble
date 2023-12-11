@@ -1,3 +1,9 @@
+import {
+    keyArrowDown,
+    keyArrowLeft,
+    keyArrowRight,
+    keyArrowUp
+} from '@microsoft/fast-web-utilities';
 import type { MappingUser } from '../../../mapping/user';
 import type { RichTextMentionTest } from '../../../rich-text-mention/base/tests/rich-text-mention.fixtures';
 import type { RichTextMentionUsers } from '../../../rich-text-mention/users';
@@ -9,6 +15,15 @@ export const ToolbarButton = {
     numberedList: 3
 } as const;
 export type ToolbarButton = (typeof ToolbarButton)[keyof typeof ToolbarButton];
+
+export const ArrowKeyButton = {
+    up: keyArrowUp,
+    down: keyArrowDown,
+    left: keyArrowLeft,
+    right: keyArrowRight
+} as const;
+export type ArrowKeyButton =
+    (typeof ArrowKeyButton)[keyof typeof ArrowKeyButton];
 
 export type LabelProvider =
     | 'toggleBold'
