@@ -70,15 +70,15 @@ const waferMapDie = [
     { x: 2, y: 0, value: '80', tags: ['b'] },
     { x: 2, y: 3, value: '99', tags: ['b', 'a'] },
     { x: 2, y: 4, value: '100', tags: ['b'] },
-    { x: 3, y: 2, value: '40', tags: ['c'] },
-    { x: 3, y: 1, value: '10', tags: ['c'] },
+    { x: 3, y: 2, value: '40' },
+    { x: 3, y: 1, value: '10' },
     { x: 3, y: 3, value: '15' },
     { x: 4, y: 2, value: '30' }
 ];
 
 const waferMapSizes = [70, 200, 300, 400];
 
-const highlightedTags = [['a'], ['b', 'a', 'c'], [], ['']];
+const highlightedTags = [['a'], ['b', 'a'], [], ['']];
 type HighlightedTags = string[];
 
 const gridDimensions = [
