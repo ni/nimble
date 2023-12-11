@@ -23,7 +23,10 @@ import type { MentionDetail } from './types';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
-    <template ${children({ property: 'childItems', filter: elements() })}>
+    <template
+        ${children({ property: 'childItems', filter: elements() })}
+        @focusout="${x => x.focusoutHandler()}"
+    >
         <div class="container">
             <section ${ref('editorContainer')} class="editor-container">
             </section>

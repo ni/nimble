@@ -448,6 +448,16 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         }
     }
 
+    /**
+     * @internal
+     */
+    public focusoutHandler(): void {
+        if (!this.mentionListBox?.open) {
+            return;
+        }
+        this.mentionListBox?.close();
+    }
+
     protected override createConfig(): EditorConfiguration {
         return new EditorConfiguration(this.mentionElements);
     }
@@ -677,7 +687,10 @@ applyMixins(RichTextEditor, ARIAGlobalStatesAndProperties);
 const nimbleRichTextEditor = RichTextEditor.compose({
     baseName: 'rich-text-editor',
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate()
