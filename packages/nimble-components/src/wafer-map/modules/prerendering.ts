@@ -137,8 +137,13 @@ export class Prerendering {
         if (!highlightedTags || highlightedTags.length === 0) {
             return 1;
         }
-        const tagsMatch = dieTags?.some(dieTag => highlightedTags.some(highlightedTag => dieTag === highlightedTag));
-        return tagsMatch ? 1 : this.nonHighlightedOpacity;
+        const highlightedSet = new Set(highlightedTags);
+
+        if (dieTags?.some(dieTag => highlightedSet.has(dieTag))) {
+            return 1;
+        }
+
+        return this.nonHighlightedOpacity;
     }
 
     private isColorScaleLinear(
