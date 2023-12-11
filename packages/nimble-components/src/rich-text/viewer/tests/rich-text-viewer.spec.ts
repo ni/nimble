@@ -158,7 +158,7 @@ describe('RichTextViewer', () => {
             ).toEqual('1');
         });
 
-        // TODO: Once the rich text validator added for duplicate configuration elements, below test case should be updated
+        // TODO: Once the rich text validator (https://github.com/ni/nimble/pull/1688) added for duplicate configuration elements, below test case should be updated
         it('adding two mention configuration elements in the same viewer should render as mention view', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element);
@@ -417,6 +417,87 @@ describe('RichTextViewer', () => {
             expect(
                 pageObject.getRenderedMarkdownAttributeValues('mention-label')
             ).toEqual(['John Doe', 'Mary Wilson']);
+        });
+    });
+
+    describe('getMentionedHref() for viewer mentions', () => {
+        beforeEach(async () => {
+            await connect();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('should return different mentionedHrefs instance', async () => {
+            element.markdown = '<user:1>';
+            await appendUserMentionConfiguration(element);
+            const firstInstance = element.getMentionedHrefs();
+            const secondInstance = element.getMentionedHrefs();
+            expect(firstInstance === secondInstance).toBeFalse();
+        });
+
+        it('should return the mentioned href when it valid mention configuration matching the pattern to mention node', async () => {
+            element.markdown = '<user:1>';
+            await appendUserMentionConfiguration(element);
+            expect(element.getMentionedHrefs()).toEqual(['user:1']);
+        });
+
+        // TODO: Once the rich text validator (https://github.com/ni/nimble/pull/1688) added for duplicate configuration elements, below test case should be updated
+        it('should return the mentioned href for duplicate mention configuration elements', async () => {
+            element.markdown = '<user:1>';
+            await appendUserMentionConfiguration(element);
+            await appendUserMentionConfiguration(element);
+            expect(element.getMentionedHrefs()).toEqual(['user:1']);
+        });
+
+        it('should return unique mentioned href if same users exist twice', async () => {
+            element.markdown = '<user:1> <user:1>';
+            await appendUserMentionConfiguration(element);
+            expect(element.getMentionedHrefs()).toEqual(['user:1']);
+        });
+
+        it('should return all the mentioned href', async () => {
+            element.markdown = '<user:1> <user:2>';
+            await appendUserMentionConfiguration(element);
+            expect(element.getMentionedHrefs()).toEqual(['user:1', 'user:2']);
+        });
+
+        it('should return updated href when mention configuration element pattern get updated', async () => {
+            element.markdown = '<user:1>';
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await waitForUpdatesAsync();
+            const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
+            expect(element.getMentionedHrefs()).toEqual(['user:1']);
+            renderedUserMention.pattern = 'invalid';
+            expect(element.getMentionedHrefs()).toEqual([]);
+        });
+
+        it('should return updated href when mention configuration element added dynamically', async () => {
+            element.markdown = '<user:1>';
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await waitForUpdatesAsync();
+            const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
+            expect(element.getMentionedHrefs()).toEqual(['user:1']);
+            element.removeChild(renderedUserMention);
+            await waitForUpdatesAsync();
+            expect(element.children.length).toBe(0);
+            expect(element.getMentionedHrefs()).toEqual([]);
+            await appendUserMentionConfiguration(
+                element,
+                ['user:1'],
+                ['username1']
+            );
+            await waitForUpdatesAsync();
+            expect(element.getMentionedHrefs()).toEqual(['user:1']);
         });
     });
 });

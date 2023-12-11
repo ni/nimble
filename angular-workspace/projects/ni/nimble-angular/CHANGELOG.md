@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 07 Dec 2023 17:27:04 GMT and should not be manually modified.
+This log was last generated on Mon, 11 Dec 2023 17:36:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.1.3
+
+Mon, 11 Dec 2023 17:36:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.16.0
+
+## 18.1.2
+
+Fri, 08 Dec 2023 05:30:46 GMT
+
+### Patches
+
+- Angular support for mention configuration and mapping user elements ([ni/nimble@0fef32a](https://github.com/ni/nimble/commit/0fef32ab58b286603588100a5c65906099915d98))
+
+## 18.1.1
+
+Thu, 07 Dec 2023 21:49:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.15.1
 
 ## 18.1.0
 
