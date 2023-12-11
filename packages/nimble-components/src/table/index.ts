@@ -55,6 +55,7 @@ import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
 import { DataHierarchyManager } from './models/hierarchy-utilities';
+import { ExpansionManager } from './models/expansion-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -223,10 +224,10 @@ export class Table<
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private readonly dataHierarchyManager: DataHierarchyManager<TData>;
+    private readonly expansionManager = new ExpansionManager<TData>();
     private columnNotifiers: Notifier[] = [];
     private readonly layoutManagerNotifier: Notifier;
     private isInitialized = false;
-    private readonly collapsedRows = new Set<string>();
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
     // the selection checkbox 'checked' value should be ingored.
@@ -417,13 +418,7 @@ export class Table<
 
     /** @internal */
     public handleCollapseAllGroupRows(): void {
-        this.collapsedRows.clear();
-        this.table
-            .getRowModel()
-            .flatRows.filter(
-                row => row.getIsGrouped() || row.subRows.length > 0
-            )
-            .forEach(row => this.collapsedRows.add(row.id));
+        this.expansionManager.collapseAll(this.table.getRowModel().flatRows);
         this.table.toggleAllRowsExpanded(false);
     }
 
@@ -582,7 +577,11 @@ export class Table<
             const previousSelection = this.getCurrentSelectedRecordIds();
             tanStackUpdates.state = {
                 rowSelection:
-                    this.calculateTanStackSelectionState(previousSelection)
+                    this.calculateTanStackSelectionState(previousSelection),
+                // Reset the TanStack expanded state to "true" to clear TanStack's cache of expanded state that may include
+                // rows that no longer exist in the table. The nimble table's expansion manager tracks the expanded
+                // state of each row, so no state is lost by reseting TanStack.
+                expanded: true
             };
         }
         return tanStackUpdates;
@@ -826,7 +825,7 @@ export class Table<
         if (this.tableUpdateTracker.updateGroupRows) {
             updatedOptions.state.grouping = this.calculateTanStackGroupingState();
             updatedOptions.state.expanded = true;
-            this.collapsedRows.clear();
+            this.expansionManager.reset();
         }
 
         this.updateTableOptions(updatedOptions);
@@ -1034,13 +1033,7 @@ export class Table<
         this.table.setOptions(this.options);
         if (updatedOptions.data) {
             const rows = this.table.getRowModel().flatRows;
-            const currentCollapsedRows = new Set(this.collapsedRows);
-            this.collapsedRows.clear();
-            for (const row of rows) {
-                if (currentCollapsedRows.has(row.id)) {
-                    this.collapsedRows.add(row.id);
-                }
-            }
+            this.expansionManager.processDataUpdate(rows);
         }
         this.refreshRows();
     }
@@ -1048,17 +1041,7 @@ export class Table<
     private readonly getIsRowExpanded = (
         row: TanStackRow<TableNode<TData>>
     ): boolean => {
-        const isGroupRow = row.getIsGrouped();
-        if (!isGroupRow && !row.subRows.length) {
-            return false;
-        }
-
-        const expandedState = this.table.options.state.expanded;
-        if (expandedState === true) {
-            return true;
-        }
-
-        return !this.collapsedRows.has(row.id);
+        return this.expansionManager.isRowExpanded(row);
     };
 
     private readonly handleRowSelectionChange: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
@@ -1088,19 +1071,8 @@ export class Table<
     private toggleRowExpanded(rowIndex: number): void {
         const rows = this.table.getRowModel().rows;
         const row = rows[rowIndex]!;
-        const wasExpanded = row.getIsExpanded();
-        if (this.table.options.state.expanded === true) {
-            // if expanded is set to "true" this means that the table is in a default state
-            // so we need to go through each row and determine if it is really expanded or
-            // collapsed and update our internal state to match
-            this.inflateDefaultExpandedState();
-        }
-        // must update the collapsedRows before toggling expanded state
-        if (wasExpanded) {
-            this.collapsedRows.add(row.id);
-        } else {
-            this.collapsedRows.delete(row.id);
-        }
+        // Must update the expansionManager before toggling expanded state
+        this.expansionManager.toggleRowExpansion(row);
         row.toggleExpanded();
     }
 
@@ -1181,20 +1153,6 @@ export class Table<
         }
 
         return tanstackSelectionState;
-    }
-
-    private inflateDefaultExpandedState(): void {
-        const expandedState: { [key: string]: boolean } = {};
-        const allRows = this.table.getGroupedRowModel().flatRows;
-        for (const tanstackRow of allRows) {
-            expandedState[tanstackRow.id] = true;
-        }
-
-        this.updateTableOptions({
-            state: {
-                expanded: expandedState
-            }
-        });
     }
 }
 
