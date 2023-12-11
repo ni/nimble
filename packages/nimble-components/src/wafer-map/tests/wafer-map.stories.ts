@@ -6,7 +6,11 @@ import {
     incubatingWarning
 } from '../../utilities/tests/storybook';
 import { generateWaferData } from './data-generator';
-import { goodValueGenerator, badValueGenerator } from './value-generator';
+import {
+    goodValueGenerator,
+    badValueGenerator,
+    highlightedValueGenerator
+} from './value-generator';
 import type {
     WaferMapDie,
     WaferMapColorScale,
@@ -53,13 +57,25 @@ const getDiesSet = (
             returnedValue = sets[0]!;
             break;
         case 'goodDies100':
-            returnedValue = generateWaferData(100, goodValueGenerator(seed));
+            returnedValue = generateWaferData(
+                100,
+                goodValueGenerator(seed),
+                highlightedValueGenerator(seed)
+            );
             break;
         case 'goodDies1000':
-            returnedValue = generateWaferData(1000, goodValueGenerator(seed))!;
+            returnedValue = generateWaferData(
+                1000,
+                goodValueGenerator(seed),
+                highlightedValueGenerator(seed)
+            )!;
             break;
         case 'badDies10000':
-            returnedValue = generateWaferData(10000, badValueGenerator(seed))!;
+            returnedValue = generateWaferData(
+                10000,
+                badValueGenerator(seed),
+                highlightedValueGenerator(seed)
+            )!;
             break;
         default:
             returnedValue = [] as WaferMapDie[];

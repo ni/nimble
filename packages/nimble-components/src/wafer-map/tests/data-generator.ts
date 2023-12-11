@@ -8,7 +8,7 @@ const valueToString = (value: number): string => {
 const generateStringValue = (
     x: number,
     y: number,
-    valueGenerator?: IValueGenerator
+    valueGenerator: IValueGenerator
 ): string => {
     let value: number;
     if (valueGenerator !== undefined) {
@@ -17,6 +17,16 @@ const generateStringValue = (
         value = Math.random() * 100;
     }
     return valueToString(value);
+};
+
+const generateTagValue = (valueGenerator: IValueGenerator): string => {
+    let value: string;
+    if (valueGenerator !== undefined) {
+        value = String.fromCharCode(Math.ceil(valueGenerator()));
+    } else {
+        value = String.fromCharCode(Math.random() * 100);
+    }
+    return value;
 };
 
 export const generateDieContent = (
@@ -36,7 +46,8 @@ export const generateDieContent = (
 
 export const generateWaferData = (
     numDies: number,
-    valueGenerator?: IValueGenerator
+    valueGenerator: IValueGenerator,
+    highlightedTagsGenerator: IValueGenerator
 ): WaferMapDie[] => {
     const diesSet: WaferMapDie[] = [];
 
@@ -59,9 +70,9 @@ export const generateWaferData = (
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
                 // Math.random() * (max-min) + min Generate a random number between two numbers
-                const randomLetter = String.fromCharCode(
-                    Math.floor(Math.random() * (122 - 97) + 97)
-                );
+                const randomLetter = generateTagValue(highlightedTagsGenerator);
+                // eslint-disable-next-line no-console
+                console.log('randomLetter', randomLetter);
                 diesSet.push(
                     generateDieContent(i, j, stringValue, [randomLetter])
                 );
@@ -75,9 +86,9 @@ export const generateWaferData = (
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
                 // Math.random() * (max-min) + min Generate a random number between two numbers
-                const randomLetter = String.fromCharCode(
-                    Math.floor(Math.random() * (122 - 97) + 97)
-                );
+                const randomLetter = generateTagValue(highlightedTagsGenerator);
+                // eslint-disable-next-line no-console
+                console.log('randomLetter', randomLetter);
                 diesSet.push(
                     generateDieContent(i, j, stringValue, [randomLetter])
                 );
