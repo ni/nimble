@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "We're making this change so that highlighting dies on the wafer map becomes more flexible. Currently dies can be highlighted based on only one value, the change makes it possible to highlight by multiple values, called tags",
+  "comment": "Adding tags option to wafermap dies and ability to highlight dies based on tags using highlightedTags. Breaking change as users should switch from the removed highlightedValues property to the highlightedTags feature",
   "packageName": "@ni/nimble-components",
   "email": "110180309+Razvan1928@users.noreply.github.com",
   "dependentChangeType": "patch"
