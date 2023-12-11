@@ -679,7 +679,11 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         if (this.tiptapEditor.isFocused) {
             const { from, to } = this.tiptapEditor.view.state.selection;
             this.setMarkdown(this.getMarkdown());
-            this.tiptapEditor.chain().focus().setTextSelection({ from, to }).run();
+            this.tiptapEditor
+                .chain()
+                .focus()
+                .setTextSelection({ from, to })
+                .run();
         } else {
             this.setMarkdown(this.getMarkdown());
         }

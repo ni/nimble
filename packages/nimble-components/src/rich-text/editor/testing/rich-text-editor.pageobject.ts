@@ -362,15 +362,8 @@ export class RichTextEditorPageObject {
 
     public async clickMentionListBoxOption(index: number): Promise<void> {
         const listOption = this.getAllListItemsInMentionBox()[index];
-        this.addRange();
         listOption?.click();
         await waitForUpdatesAsync();
-    }
-
-    public addRange(): void {
-        const range = document.createRange();
-        const selection = window.getSelection();
-        selection?.addRange(range);
     }
 
     private getEditorSection(): Element | null | undefined {

@@ -991,7 +991,6 @@ describe('RichTextEditorMention', () => {
             await pageObject.setEditorTextContent('@');
             await waitForUpdatesAsync();
             expect(pageObject.isMentionListBoxOpened()).toBeTrue();
-            pageObject.addRange();
             await pageObject.pressEnterKeyInEditor();
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
@@ -1010,7 +1009,6 @@ describe('RichTextEditorMention', () => {
             await pageObject.setEditorTextContent('@');
             await waitForUpdatesAsync();
             expect(pageObject.isMentionListBoxOpened()).toBeTrue();
-            pageObject.addRange();
             await pageObject.pressTabKeyInEditor();
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
