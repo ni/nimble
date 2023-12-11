@@ -17,6 +17,7 @@ import { ArrowKeyButton } from '../testing/types';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 
 const RICH_TEXT_MENTION_USERS_VIEW_TAG = richTextMentionUsersViewTag.toUpperCase();
+const ICON_AT_TAG = iconAtTag.toUpperCase();
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return fixture<RichTextEditor>(
@@ -270,9 +271,7 @@ describe('RichTextEditorMention', () => {
             it('should have `at icon` button when user configuration element is given', async () => {
                 await appendUserMentionConfiguration(element);
 
-                expect(pageObject.getMentionButtonIcon(0)).toBe(
-                    iconAtTag.toUpperCase()
-                );
+                expect(pageObject.getMentionButtonIcon(0)).toBe(ICON_AT_TAG);
             });
 
             it('should have empty button title and text content as default', async () => {
@@ -572,12 +571,8 @@ describe('RichTextEditorMention', () => {
             await appendUserMentionConfiguration(element);
             await appendTestMentionConfiguration(element);
 
-            expect(pageObject.getMentionButtonIcon(0)).toBe(
-                iconAtTag.toUpperCase()
-            );
-            expect(pageObject.getMentionButtonIcon(1)).toBe(
-                iconAtTag.toUpperCase()
-            );
+            expect(pageObject.getMentionButtonIcon(0)).toBe(ICON_AT_TAG);
+            expect(pageObject.getMentionButtonIcon(1)).toBe(ICON_AT_TAG);
         });
     });
 
@@ -847,9 +842,7 @@ describe('RichTextEditor user mention via template', () => {
         });
 
         it('should have `at icon` button', () => {
-            expect(pageObject.getMentionButtonIcon(0)).toBe(
-                iconAtTag.toUpperCase()
-            );
+            expect(pageObject.getMentionButtonIcon(0)).toBe(ICON_AT_TAG);
         });
 
         it('should get `@` text without a preceding whitespace at the start of a line, when button clicked', async () => {
@@ -943,8 +936,8 @@ describe('RichTextEditorMentionListBox', () => {
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
             ]);
+            expect(pageObject.isMentionListBoxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
-
             expect(pageObject.isMentionListBoxOpened()).toBeTrue();
             expect(pageObject.getMentionListBoxItemsName()).toEqual([
                 'username1',
@@ -982,8 +975,9 @@ describe('RichTextEditorMentionListBox', () => {
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
             ]);
+            expect(pageObject.isMentionListBoxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
-
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
             expect(pageObject.getMentionListBoxItemsName()).toEqual([
                 'username1',
                 'username2'
@@ -1015,12 +1009,14 @@ describe('RichTextEditorMentionListBox', () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
+            expect(pageObject.isMentionListBoxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
             await pageObject.clickMentionListBoxOption(0);
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
+                RICH_TEXT_MENTION_USERS_VIEW_TAG
             ]);
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
@@ -1032,12 +1028,14 @@ describe('RichTextEditorMentionListBox', () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
+            expect(pageObject.isMentionListBoxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
             await pageObject.pressEnterKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
+                RICH_TEXT_MENTION_USERS_VIEW_TAG
             ]);
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
@@ -1049,12 +1047,14 @@ describe('RichTextEditorMentionListBox', () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
+            expect(pageObject.isMentionListBoxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
             await pageObject.pressTabKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
+                RICH_TEXT_MENTION_USERS_VIEW_TAG
             ]);
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
@@ -1075,7 +1075,7 @@ describe('RichTextEditorMentionListBox', () => {
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
+                RICH_TEXT_MENTION_USERS_VIEW_TAG
             ]);
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
@@ -1095,7 +1095,7 @@ describe('RichTextEditorMentionListBox', () => {
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
+                RICH_TEXT_MENTION_USERS_VIEW_TAG
             ]);
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
@@ -1136,7 +1136,7 @@ describe('RichTextEditorMentionListBox', () => {
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
+                RICH_TEXT_MENTION_USERS_VIEW_TAG
             ]);
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
@@ -1155,7 +1155,7 @@ describe('RichTextEditorMentionListBox', () => {
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
+                RICH_TEXT_MENTION_USERS_VIEW_TAG
             ]);
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
@@ -1368,11 +1368,11 @@ describe('RichTextEditorMentionListBox', () => {
                 'username1',
                 'username2'
             ]);
+            await pageObject.clickMentionListBoxOption(0);
             await appendTestMentionConfiguration(element, [
                 { key: 'test:1', displayName: 'testname1' },
                 { key: 'test:2', displayName: 'testname2' }
             ]);
-            await pageObject.clickMentionListBoxOption(0);
             await pageObject.setEditorTextContent('!');
             expect(pageObject.isMentionListBoxOpened()).toBeTrue();
             expect(pageObject.getMentionListBoxItemsName()).toEqual([
