@@ -144,6 +144,11 @@ export const parameterizeNamedList = <T extends readonly { name: string }[]>(
 ): void => {
     const testCases = list.reduce<{ [key: string]: { name: string } }>(
         (result, entry) => {
+            if (result[entry.name]) {
+                throw new Error(
+                    `Duplicate name found in test case list: ${entry.name}. Make sure all test names are unique.`
+                );
+            }
             result[entry.name] = entry;
             return result;
         },

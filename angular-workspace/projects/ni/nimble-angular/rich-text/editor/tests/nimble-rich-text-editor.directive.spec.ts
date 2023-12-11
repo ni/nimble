@@ -77,6 +77,11 @@ describe('Nimble Rich Text Editor', () => {
             expect(directive.empty).toBeTrue();
             expect(nativeElement.empty).toBeTrue();
         });
+
+        it('has empty mentioned Hrefs array by default', () => {
+            expect(directive.getMentionedHrefs()).toEqual([]);
+            expect(nativeElement.getMentionedHrefs()).toEqual([]);
+        });
     });
 
     describe('with template string values', () => {
