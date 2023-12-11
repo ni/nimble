@@ -3,6 +3,11 @@ import type { RichTextEditor } from '../../editor';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { RichTextEditorPageObject } from '../../editor/testing/rich-text-editor.pageobject';
 import { ToolbarButton } from '../../editor/testing/types';
+import {
+    appendTestMentionConfiguration,
+    appendUserMentionConfiguration
+} from '../../editor/testing/rich-text-editor-utils';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return fixture<RichTextEditor>(
@@ -15,6 +20,14 @@ describe('Markdown serializer', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: RichTextEditorPageObject;
+
+    const commitFirstMentionBoxOptionIntoEditor = async function (
+        character: string
+    ): Promise<void> {
+        await pageObject.setEditorTextContent(character);
+        await waitForUpdatesAsync();
+        await pageObject.clickMentionListBoxOption(0);
+    };
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
@@ -304,6 +317,95 @@ Plain text 3`);
             await pageObject.setEditorTextContent('list');
             expect(element.getMarkdown()).toEqual(r`1. Numbered\
    list`);
+        });
+
+        it('Hard break with mention node', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await pageObject.pressShiftEnterKeysInEditor();
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            expect(element.getMarkdown()).toEqual(r`<user:1> \
+<user:1> `);
+        });
+
+        it('Mention node', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            expect(element.getMarkdown()).toEqual('<user:1> ');
+        });
+
+        it('Multiple Mention node of same type', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await pageObject.setEditorTextContent('@');
+            await waitForUpdatesAsync();
+            await pageObject.clickMentionListBoxOption(1);
+            expect(element.getMarkdown()).toEqual('<user:1> <user:2> ');
+        });
+
+        it('Multiple Mention node of differnt type', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await appendTestMentionConfiguration(element, [
+                { key: 'test:1', displayName: 'testname1' }
+            ]);
+            await commitFirstMentionBoxOptionIntoEditor('!');
+            expect(element.getMarkdown()).toEqual('<user:1><test:1> ');
+        });
+
+        it('Mention node between Bold text', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
+            await pageObject.setEditorTextContent('Bold ');
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
+            await pageObject.setEditorTextContent('Bold ');
+            expect(element.getMarkdown()).toEqual(
+                '**Bold** <user:1> **Bold** '
+            );
+        });
+
+        it('Mention node between Italics text', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
+            await pageObject.setEditorTextContent('Italics ');
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
+            await pageObject.setEditorTextContent('Italics ');
+            expect(element.getMarkdown()).toEqual(
+                '*Italics* <user:1> *Italics* '
+            );
+        });
+
+        it('Mention node under Numbered list', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
+            expect(element.getMarkdown()).toEqual('1. <user:1> ');
+        });
+
+        it('Mention node under Bulleted list', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
+            expect(element.getMarkdown()).toEqual('* <user:1> ');
         });
     });
 
