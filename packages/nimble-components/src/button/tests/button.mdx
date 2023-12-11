@@ -32,16 +32,16 @@ These appearances have the default styling of the nimble-button. Each should be 
 <Frame>
     <Container>
         <Column stylingClass="controls">
-        <NimbleButton appearance="ghost">{`Ghost Button`}</NimbleButton>
-        <NimbleButton appearance="ghost" content-hidden>
-            <NimbleIconKey slot="start"></NimbleIconKey>
-            {`Ghost Button`}
-        </NimbleButton>
+            <NimbleButton appearance="ghost">{`Ghost Button`}</NimbleButton>
+            <NimbleButton appearance="ghost" content-hidden>
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                {`Ghost Button`}
+            </NimbleButton>
 
         </Column>
         <Column>
             <ul>
-                <li>Ghost is the default style and should be the first consideration for use.</li>
+                <li>Ghost is the default appearance and should be the first considered for use.</li>
                 <li>
                     Use as the default and standard option to create a clean airy and open UI
                     feel. Ghost buttons fit comfortably in tight spaces and help control the
@@ -51,7 +51,7 @@ These appearances have the default styling of the nimble-button. Each should be 
                     Be careful when using that the surrounding context does not cause this
                     button to be confused for emphasized body text, tabs or a standalone links.
                 </li>
-                <li>Use in combination with a primary outline and primary block buttons to create a hierarchy of importance. There is no primary ghost button.</li>
+                <li>Use in combination with a primary outline or primary block buttons to create a hierarchy of importance. There is no primary ghost button.</li>
             </ul>
         </Column>
     </Container>
@@ -140,21 +140,21 @@ There are currently two available values for `appearance-variant`: `primary` and
 #### Accent Button:
 
 <Frame>
-    <Container config="375px 1fr">
+    <Container config="325px 1fr">
         <Column stylingClass="controls">
-            <NimbleButton appearance="ghost">{`Ghost Button`}</NimbleButton>
-            <NimbleButton appearance="ghost">{`Ghost Button`}</NimbleButton>
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
             <NimbleButton
                 appearance="outline"
                 appearance-variant="accent"
-            >{`Accent Button`}</NimbleButton>
+            >{`Outline Accent`}</NimbleButton>
             <Divider />
-            <NimbleButton appearance="ghost">{`Ghost Button`}</NimbleButton>
-            <NimbleButton appearance="ghost">{`Ghost Button`}</NimbleButton>
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
             <NimbleButton
                 appearance="block"
                 appearance-variant="accent"
-            >{`Accent Button`}</NimbleButton>
+            >{`Block Accent`}</NimbleButton>
         </Column>
         <Column>
             <Do>
@@ -181,18 +181,18 @@ There are currently two available values for `appearance-variant`: `primary` and
 #### Primary Button:
 
 <Frame>
-    <Container config="375px 1fr">
+    <Container config="325px 1fr">
         <Column stylingClass="controls">
-            <NimbleButton appearance="ghost">{`Ghost Button`}</NimbleButton>
-            <NimbleButton appearance="ghost">{`Ghost Button`}</NimbleButton>
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
             <NimbleButton appearance="outline" appearance-variant="primary">
-            {`Primary Button`}
+            {`Outline Primary`}
             </NimbleButton>
             <Divider/>
-            <NimbleButton appearance="ghost">{`Ghost Button`}</NimbleButton>
-            <NimbleButton appearance="ghost">{`Ghost Button`}</NimbleButton>
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
             <NimbleButton appearance="block" appearance-variant="primary">
-                {`Primary Button`}
+                {`Block Primary`}
             </NimbleButton>
         </Column>
         <Column>
