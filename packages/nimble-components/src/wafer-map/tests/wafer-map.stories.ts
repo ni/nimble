@@ -248,10 +248,10 @@ const metadata: Meta<WaferMapArgs> = {
             control: {
                 type: 'radio',
                 labels: {
-                    set1: 'Set 1',
-                    set2: 'Set 2',
-                    set3: 'Set 3',
-                    set4: 'Set 4'
+                    set1: 'No die is highlighted',
+                    set2: 'A few dies are highlighted',
+                    set3: 'All dies are faded',
+                    set4: 'Many dies are highlighted'
                 }
             },
             defaultValue: 'set1'
