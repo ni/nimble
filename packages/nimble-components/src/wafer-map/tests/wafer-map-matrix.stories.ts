@@ -62,13 +62,13 @@ type DieLabelHidden = (typeof dieLabelHidden)[number];
 
 const waferMapDie = [
     { x: 0, y: 2, value: '99', tags: ['a'] },
-    { x: 1, y: 2, value: '78', tags: ['a'] },
+    { x: 1, y: 2, value: '78', tags: ['a', 'b'] },
     { x: 1, y: 1, value: '88', tags: ['a'] },
     { x: 1, y: 3, value: '68' },
     { x: 2, y: 2, value: '99' },
     { x: 2, y: 1, value: '99' },
     { x: 2, y: 0, value: '80', tags: ['b'] },
-    { x: 2, y: 3, value: '99', tags: ['b'] },
+    { x: 2, y: 3, value: '99', tags: ['b', 'a'] },
     { x: 2, y: 4, value: '100', tags: ['b'] },
     { x: 3, y: 2, value: '40' },
     { x: 3, y: 1, value: '10' },
