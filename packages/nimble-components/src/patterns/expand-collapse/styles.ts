@@ -6,7 +6,7 @@ import {
 
 export const styles = css`
     :host .animating {
-        transition: ${mediumDelay} ease-in-out;
+        transition: ${mediumDelay} ease-in;
     }
 
     .expand-collapse-button {
