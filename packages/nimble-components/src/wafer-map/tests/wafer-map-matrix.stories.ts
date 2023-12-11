@@ -78,8 +78,8 @@ const waferMapDie = [
 
 const waferMapSizes = [70, 200, 300, 400];
 
-const highlightedTags = ['a', 'b', ''];
-type HighlightedTags = string;
+const highlightedTags = [['a'], ['b', 'a'], [], ['']];
+type HighlightedTags = string[];
 
 const gridDimensions = [
     [
