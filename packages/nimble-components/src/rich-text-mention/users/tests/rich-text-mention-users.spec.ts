@@ -412,5 +412,13 @@ describe('RichTextMentionUsers', () => {
             expect(element.checkValidity()).toBeFalse();
             expect(element.validity.unsupportedPatternValue).toBeTrue();
         });
+
+        it('Should update mentionInternals with updated buttonLabel', async () => {
+            ({ element, connect, disconnect } = await setupMissingPattern());
+            await connect();
+            expect(element.mentionInternals.buttonLabel).toBe(undefined);
+            element.buttonLabel = 'test-button';
+            expect(element.mentionInternals.buttonLabel).toBe('test-button');
+        });
     });
 });

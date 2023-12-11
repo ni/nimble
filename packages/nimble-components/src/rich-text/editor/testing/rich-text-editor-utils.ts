@@ -61,3 +61,20 @@ export async function appendTestMentionConfiguration(
         mappingElements
     };
 }
+
+export async function replaceUserMappingElements(
+    element: RichTextMentionUsers,
+    mappings: MappingConfiguration[]
+): Promise<void> {
+    const newUserMappingElements: MappingUser[] = [];
+    mappings.forEach(mapping => {
+        const mappingUser = document.createElement(
+            mappingUserTag
+        ) as MappingUser;
+        mappingUser.key = mapping.key ?? '';
+        mappingUser.displayName = mapping.displayName ?? '';
+        newUserMappingElements.push(mappingUser);
+    });
+    element.replaceChildren(...newUserMappingElements);
+    await waitForUpdatesAsync();
+}

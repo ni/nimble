@@ -366,6 +366,10 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
+    public moveCursorToStart(): void {
+        this.richTextEditorElement.tiptapEditor.commands.focus('start');
+    }
+
     private getEditorSection(): Element | null | undefined {
         return this.richTextEditorElement.shadowRoot?.querySelector('.editor');
     }

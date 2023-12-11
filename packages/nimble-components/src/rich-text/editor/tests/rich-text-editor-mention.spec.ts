@@ -9,6 +9,7 @@ import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import {
     appendTestMentionConfiguration,
+    replaceUserMappingElements,
     appendUserMentionConfiguration
 } from '../testing/rich-text-editor-utils';
 
@@ -963,6 +964,196 @@ describe('RichTextEditorMention', () => {
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
             ).toEqual(['username1']);
             expect(pageObject.isMentionListBoxOpened()).toBeFalse();
+        });
+    });
+
+    describe('Dynamically update mention popup items based on configuration changes', () => {
+        it('should close mention popup when removing configuration element', async () => {
+            const { userMentionElement } = await appendUserMentionConfiguration(
+                element,
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]
+            );
+            await pageObject.setEditorTextContent('@');
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'username1',
+                'username2'
+            ]);
+            element.removeChild(userMentionElement);
+            await waitForUpdatesAsync();
+            expect(pageObject.isMentionListBoxOpened()).toBeFalse();
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([]);
+        });
+
+        it('should update mention popup list when removing mapping element', async () => {
+            const { mappingElements, userMentionElement } = await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            await pageObject.setEditorTextContent('@');
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'username1',
+                'username2'
+            ]);
+            userMentionElement.removeChild(mappingElements[0]!);
+            await waitForUpdatesAsync();
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'username2'
+            ]);
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
+        });
+
+        it('should update mention popup list when mapping elements get replaced', async () => {
+            const { userMentionElement } = await appendUserMentionConfiguration(
+                element,
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]
+            );
+            await pageObject.setEditorTextContent('@');
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'username1',
+                'username2'
+            ]);
+            await replaceUserMappingElements(userMentionElement, [
+                { key: 'user:3', displayName: 'username3' },
+                { key: 'user:4', displayName: 'username4' }
+            ]);
+            await waitForUpdatesAsync();
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'username3',
+                'username4'
+            ]);
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
+        });
+
+        it('should close mention popup when updating to invalid `pattern`', async () => {
+            const { userMentionElement } = await appendUserMentionConfiguration(
+                element,
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]
+            );
+            await pageObject.setEditorTextContent('@');
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'username1',
+                'username2'
+            ]);
+            userMentionElement.pattern = 'invalid';
+            await waitForUpdatesAsync();
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([]);
+            expect(pageObject.isMentionListBoxOpened()).toBeFalse();
+        });
+
+        it('should update mention popup list when updating `display-name`', async () => {
+            const { mappingElements } = await appendUserMentionConfiguration(
+                element,
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]
+            );
+            await pageObject.setEditorTextContent('@');
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'username1',
+                'username2'
+            ]);
+            mappingElements[0]!.displayName = 'updated-name';
+            await waitForUpdatesAsync();
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'updated-name',
+                'username2'
+            ]);
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
+        });
+
+        it('should update mention popup list when updating valid `key`', async () => {
+            const { mappingElements } = await appendUserMentionConfiguration(
+                element,
+                [{ key: 'invalid', displayName: 'username1' }]
+            );
+            await pageObject.setEditorTextContent('@');
+            expect(pageObject.isMentionListBoxOpened()).toBeFalse();
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([]);
+            mappingElements[0]!.key = 'user:1';
+            await waitForUpdatesAsync();
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'username1'
+            ]);
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
+        });
+
+        it('should close mention popup when updating to invalid `key`', async () => {
+            const { mappingElements } = await appendUserMentionConfiguration(
+                element,
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]
+            );
+            await pageObject.setEditorTextContent('@');
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'username1',
+                'username2'
+            ]);
+            mappingElements[0]!.key = 'invalid';
+            await waitForUpdatesAsync();
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([]);
+            expect(pageObject.isMentionListBoxOpened()).toBeFalse();
+        });
+
+        it('should retain mention popup list position in the same cursor position when configuration got updated', async () => {
+            const { mappingElements } = await appendUserMentionConfiguration(
+                element,
+                [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]
+            );
+            await pageObject.setEditorTextContent('First Line');
+            pageObject.moveCursorToStart();
+            await pageObject.clickUserMentionButton();
+            await waitForUpdatesAsync();
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'username1',
+                'username2'
+            ]);
+            mappingElements[0]!.displayName = 'New user';
+            await waitForUpdatesAsync();
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'New user',
+                'username2'
+            ]);
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
+        });
+
+        it('should show mention popup for multiple mention configuration elements', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            await pageObject.setEditorTextContent('@');
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'username1',
+                'username2'
+            ]);
+            await appendTestMentionConfiguration(element, [
+                { key: 'test:1', displayName: 'testname1' },
+                { key: 'test:2', displayName: 'testname2' }
+            ]);
+            await pageObject.clickMentionListBoxOption(0);
+            await pageObject.setEditorTextContent('!');
+            expect(pageObject.isMentionListBoxOpened()).toBeTrue();
+            expect(pageObject.getMentionListBoxItemsName()).toEqual([
+                'testname1',
+                'testname2'
+            ]);
         });
     });
 });
