@@ -46,7 +46,7 @@ export abstract class TableColumnEnumBase<
 
     /** @internal */
     @observable
-    public mappings: Mapping[] = [];
+    public mappings: Mapping<unknown>[] = [];
 
     @attr({ attribute: 'field-name' })
     public fieldName?: string;
@@ -71,7 +71,9 @@ export abstract class TableColumnEnumBase<
     /**
      * Implementations should throw an error if an invalid Mapping is passed.
      */
-    protected abstract createMappingConfig(mapping: Mapping): MappingConfig;
+    protected abstract createMappingConfig(
+        mapping: Mapping<unknown>
+    ): MappingConfig;
 
     protected abstract createColumnConfig(
         mappingConfigs: MappingConfigs
@@ -79,7 +81,6 @@ export abstract class TableColumnEnumBase<
 
     /**
      * Called when any Mapping related state has changed.
-     * Implementations should run validation before updating the column config.
      */
     private updateColumnConfig(): void {
         this.validator.validate(this.mappings, this.keyType);

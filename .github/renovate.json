@@ -1,0 +1,52 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "enabledManagers": ["npm", "nuget"],
+  "rebaseWhen": "conflicted",
+  "schedule": [
+    "monthly"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["npm"],
+      "enabled": false
+    },
+    {
+      "groupName": "npm dependencies",
+      "matchManagers": ["npm"],
+      "rangeStrategy": "update-lockfile",
+      "matchDepTypes": ["dependencies"],
+      "matchPackagePatterns":[
+        "^@microsoft/fast",
+        "^@tanstack/",
+        "^@tiptap/",
+        "@types/markdown-it",
+        "d3-",
+        "prosemirror-"
+      ],
+      "enabled": true
+    },
+    {
+      "groupName": "npm dev dependencies",
+      "matchManagers": ["npm"],
+      "rangeStrategy": "update-lockfile",
+      "matchDepTypes": ["devDependencies"],
+      "matchPackagePatterns":[
+        "^@ni/eslint-config",
+        "beachball",
+        "storybook"
+      ],
+      "enabled": true
+    },
+    {
+      "groupName": "nuget bunit dependencies",
+      "matchManagers": ["nuget"],
+      "matchPackagePatterns":[
+        "^bunit"
+      ],
+      "enabled": true
+    }
+  ]
+}

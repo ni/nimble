@@ -3,10 +3,18 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { Dialog, dialogTag, UserDismissed } from '..';
 import { TextField, textFieldTag } from '../../text-field';
-import { ExampleContentType } from './types';
+import { DialogSizeOptions, ExampleContentType } from './types';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 import { buttonTag } from '../../button';
 import { checkboxTag } from '../../checkbox';
+import {
+    dialogLargeHeight,
+    dialogLargeMaxHeight,
+    dialogLargeWidth,
+    dialogSmallHeight,
+    dialogSmallMaxHeight,
+    dialogSmallWidth
+} from '../../theme-provider/design-tokens';
 
 interface DialogArgs {
     title: string;
@@ -16,6 +24,7 @@ interface DialogArgs {
     includeFooterButtons: boolean;
     preventDismiss: boolean;
     content: ExampleContentType;
+    size: DialogSizeOptions;
     show: undefined;
     close: undefined;
     dialogRef: Dialog<string>;
@@ -49,9 +58,29 @@ const content = {
     [ExampleContentType.longContent]: longContent
 } as const;
 
+const sizeDescription = `
+Size of a nimble dialog.
+
+See the Sizing section of the Usage Docs for information on controlling the size of the dialog.
+`;
+
+const widths = {
+    [DialogSizeOptions.smallGrowable]: `var(${dialogSmallWidth.cssCustomProperty})`,
+    [DialogSizeOptions.largeFixed]: `var(${dialogLargeWidth.cssCustomProperty})`
+} as const;
+
+const heights = {
+    [DialogSizeOptions.smallGrowable]: `var(${dialogSmallHeight.cssCustomProperty})`,
+    [DialogSizeOptions.largeFixed]: `var(${dialogLargeHeight.cssCustomProperty})`
+} as const;
+
+const maxHeights = {
+    [DialogSizeOptions.smallGrowable]: `var(${dialogSmallMaxHeight.cssCustomProperty})`,
+    [DialogSizeOptions.largeFixed]: `var(${dialogLargeMaxHeight.cssCustomProperty})`
+} as const;
+
 const metadata: Meta<DialogArgs> = {
     title: 'Components/Dialog',
-    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
@@ -64,6 +93,13 @@ const metadata: Meta<DialogArgs> = {
         <style class="code-hide">
             .first-button {
                 margin-right: auto;
+            }
+            ${dialogTag}::part(control) {
+                ${x => `
+                    width:${widths[x.size]};
+                    height:${heights[x.size]};
+                    max-height:${maxHeights[x.size]};
+                `}
             }
         </style>
         <${dialogTag}
@@ -154,6 +190,20 @@ const metadata: Meta<DialogArgs> = {
                 }
             }
         },
+        size: {
+            description: sizeDescription,
+            options: [
+                DialogSizeOptions.smallGrowable,
+                DialogSizeOptions.largeFixed
+            ],
+            control: {
+                type: 'radio',
+                labels: {
+                    [DialogSizeOptions.smallGrowable]: 'Small growable',
+                    [DialogSizeOptions.largeFixed]: 'Large fixed'
+                }
+            }
+        },
         show: {
             name: 'show()',
             description:
@@ -178,6 +228,7 @@ const metadata: Meta<DialogArgs> = {
         includeFooterButtons: true,
         preventDismiss: false,
         content: ExampleContentType.shortContent,
+        size: DialogSizeOptions.smallGrowable,
         openAndHandleResult: (dialogRef, textFieldRef) => {
             void (async () => {
                 const reason = await dialogRef.show();

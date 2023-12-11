@@ -1,13 +1,13 @@
 import { Directive, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, SelectControlValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { SelectControlValueAccessor } from '../../thirdparty/directives/select_control_value_accessor';
 
 /**
  * Extension of Angular's SelectControlValueAccessor to target the Nimble select control.
  *
  * @see NimbleSelectOptionDirective
  *
- * Directive decorator based on SelectControlValueAccessor decorator
- * https://github.com/angular/angular/blob/master/packages/forms/src/directives/select_control_value_accessor.ts#L85
+ * Directive decorator based on SelectControlValueAccessor decorator in thirdparty/directives/select_control_value_accessor
  */
 @Directive({
     selector:

@@ -36,9 +36,7 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
     )
 ) {
     public override createValidator(): TableColumnEnumTextValidator {
-        return new TableColumnEnumTextValidator(this.columnInternals, [
-            MappingText
-        ]);
+        return new TableColumnEnumTextValidator(this.columnInternals);
     }
 
     public override get validity(): TableColumnValidity {
@@ -63,9 +61,9 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
         };
     }
 
-    protected createMappingConfig(mapping: Mapping): MappingConfig {
+    protected createMappingConfig(mapping: Mapping<unknown>): MappingConfig {
         if (mapping instanceof MappingText) {
-            return new MappingTextConfig(mapping.text!);
+            return new MappingTextConfig(mapping.text);
         }
         // Getting here would indicate a programming error, b/c validation will prevent
         // this function from running when there is an unsupported mapping.

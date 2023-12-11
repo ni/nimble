@@ -73,7 +73,7 @@ Before building a new component, 3 specification documents need to be created:
 
     `npm run change`
 
-7. Update the [Component Status table](./docs/component-status.stories.ts) to reflect the new component state.
+7. Update the [Component Status table](./src/tests/component-status.stories.ts) to reflect the new component state.
 
 ## Develop new components
 
@@ -83,7 +83,7 @@ If a component is not ready for general use, it should be marked as "incubating"
 
 -   It is still in development.
 -   It is currently experimental or application-specific and hasn't yet been generalized for broader use.
--   It is missing important features like interaction design, visual design, accessibility, or framework integration.
+-   It is missing important features like interaction design, visual design, or accessibility.
 
 Incubating contributions may compromise on the above capabilities but they still must abide by other repository requirements. For example:
 
@@ -102,7 +102,7 @@ To mark a component as incubating:
 
 To move a component out of incubating status:
 
-1. Have a conversation with the Nimble team to decide if it is sufficiently complete.
+1. Have a conversation with the Nimble team to decide if it is sufficiently complete. The requirements listed at the top of this section must be met. Some feature gaps like framework integration may be OK as long as we don't anticipate that filling them would cause major breaking changes.
 2. Update the markings described above to indicate that it is now ready for general use!
 
 ### Folder structure
@@ -445,9 +445,10 @@ When creating a new component, create a `*-matrix.stories.ts` Storybook file to 
 
 Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English. An application can provide localized versions of these strings by using design tokens set on label provider elements.
 
-There are currently 2 label providers:
+The current label providers:
 
--   `nimble-label-provider-core`: Used for labels for all components besides the table
+-   `nimble-label-provider-core`: Used for labels for all components without a dedicated label provider
+-   `nimble-label-provider-rich-text`: Used for labels for the rich text components
 -   `nimble-label-provider-table`: Used for labels for the table (and table sub-components / column types)
 
 The expected format for label token names is:

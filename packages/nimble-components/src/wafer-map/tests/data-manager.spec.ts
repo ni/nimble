@@ -8,7 +8,7 @@ import {
     Dimensions,
     Margin,
     WaferMapColorScaleMode,
-    WaferMapQuadrant
+    WaferMapOriginLocation
 } from '../types';
 import {
     getColorScale,
@@ -45,7 +45,7 @@ describe('Wafermap Data Manager', () => {
         await connect();
         element.dies = getWaferMapDies();
         element.colorScale = getColorScale();
-        element.quadrant = WaferMapQuadrant.topLeft;
+        element.originLocation = WaferMapOriginLocation.bottomLeft;
         element.dieLabelsSuffix = dieLabelsSuffix;
         element.dieLabelsHidden = false;
         element.maxCharacters = 3;
@@ -93,8 +93,9 @@ describe('Wafermap Data Manager', () => {
         expect(dataManagerModule.horizontalScale.range()).toEqual([0, 92]);
     });
 
-    it('should have increasing vertical range', () => {
-        expect(dataManagerModule.verticalScale.range()).toEqual([0, 92]);
+    it('should have decreasing vertical range', () => {
+        // because the canvas has top-left origin location we need to flip the vertical scale
+        expect(dataManagerModule.verticalScale.range()).toEqual([92, 0]);
     });
 
     it('should not have labelsFontSize larger than the die height', () => {

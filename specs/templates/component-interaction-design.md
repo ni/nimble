@@ -1,35 +1,44 @@
-# Interaction Design (IxD) [Template]
+# Nimble Component (IxD) [Template]
 
 ## Overview
-
-*The name of the component, along with high-level description of what the design includes.*
+*The name of the component, along with high-level description of what the component is used for and its value to the end-user experience.*
 
 ### Background
-
 *Relevant historical or background information, including:*
-- *Additional client research that isn't captured in linked issues*
-- *Link to Interaction Design issue*
+- *Link to interaction design issue*
 - *Link to relevant work items, related existing issues, etc.*
+- *Link to visual design specification*
+- *Additional client research that isn't captured in linked issues*
 
 ## Usage
+- *When should client-users use this component?*
+- *When should client-users not use this component?*
 
-- *How, when, and where should you use this component?*
-- *Compare this component with other related components. How does it differ?*
-- *How should you decide between related components?*
-- *Should the component support alternate visual styles? (e.g. primary, outline, block, ghost, disabled)*
-- *When should you use alternate visual styles?*
+### Anatomy
+- *What parts make up this component?*
+- *How should client-users use the component parts?*
+
+### Related Components
+- *How does this component differ from other related components?*
+- *How should client-users decide between related components?*
 
 ## Design
+### Configuration
+*What types of options need to be available on the component to support client-user use cases?*
 
-- *Full description of the proposed interaction design.*
-- *Include links or embedded views of design in XD or Figma and provide any additional context.*
-- *Include accessibility considerations like keyboard interactions and ARIA role/states/properties*
+### Behavior
+*What types of behaviors need to be built in to the component to support end-user experience?*
 
-## Validation
+### Mouse Interactions
+*Full description of the proposed interaction design using a mouse.*
 
-- *Quote or link to feedback from design reviews. New interaction design patterns require broad support from design stakeholders (IxD, ViD, POs) before they can be adopted within Nimble.*
-- *Quote or link to feedback from user feedback. All interaction design patterns should be user tested with some combination of internal and external users. Consult with the User Research team for low-cost ways to validate your design.*
+### Non-Mouse Interactions
+- *Link to appropriate ARIA authoring guidelines*
+- *Full description of the proposed interaction design using a keyboard*
+- *Additional accessibility considerations like ARIA role/states/properties*
 
 ## Open Issues
+*Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers incorporated in this document.*
 
-*Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers being incorporated in the spec document.*
+## Future Considerations
+*List any open questions or future work for discussion not currently scoped to this document.*

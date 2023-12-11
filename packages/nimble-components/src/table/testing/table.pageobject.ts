@@ -16,6 +16,8 @@ import type { TableRow } from '../components/row';
 import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
+import { Icon } from '../../icon-base';
+import { Spinner } from '../../spinner';
 
 /**
  * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
@@ -158,7 +160,7 @@ export class TablePageObject<T extends TableRecord> {
         return cellView as TableCellView;
     }
 
-    public getRenderedCellContent(
+    public getRenderedCellTextContent(
         rowIndex: number,
         columnIndex: number
     ): string {
@@ -186,7 +188,71 @@ export class TablePageObject<T extends TableRecord> {
         return anchor as Anchor;
     }
 
-    public getRenderedGroupHeaderContent(groupRowIndex: number): string {
+    public getRenderedIconColumnCellIconSeverity(
+        rowIndex: number,
+        columnIndex: number
+    ): string {
+        const content = this.getRenderedCellView(rowIndex, columnIndex)
+            .shadowRoot!.firstElementChild;
+        if (!content || !(content instanceof Icon)) {
+            throw new Error(
+                `Icon not found at cell ${rowIndex},${columnIndex}`
+            );
+        }
+        return content.severity ?? '';
+    }
+
+    public getRenderedIconColumnCellIconAriaLabel(
+        rowIndex: number,
+        columnIndex: number
+    ): string {
+        const content = this.getRenderedCellView(rowIndex, columnIndex)
+            .shadowRoot!.firstElementChild;
+        if (
+            !content
+            || !(content instanceof Icon || content instanceof Spinner)
+        ) {
+            throw new Error(
+                `Icon or Spinner not found at cell ${rowIndex},${columnIndex}`
+            );
+        }
+        return content.getAttribute('aria-label') ?? '';
+    }
+
+    public getRenderedIconColumnCellIconTagName(
+        rowIndex: number,
+        columnIndex: number
+    ): string {
+        const content = this.getRenderedCellView(rowIndex, columnIndex)
+            .shadowRoot!.firstElementChild;
+        if (
+            !content
+            || !(content instanceof Icon || content instanceof Spinner)
+        ) {
+            throw new Error(
+                `Icon or Spinner not found at cell ${rowIndex},${columnIndex}`
+            );
+        }
+        return content.tagName.toLocaleLowerCase();
+    }
+
+    public getRenderedIconColumnGroupHeaderIconTagName(
+        groupRowIndex: number
+    ): string {
+        const content = this.getGroupRowHeaderView(groupRowIndex).shadowRoot!
+            .firstElementChild;
+        if (
+            !content
+            || !(content instanceof Icon || content instanceof Spinner)
+        ) {
+            throw new Error(
+                `Icon or Spinner not found at group header ${groupRowIndex}`
+            );
+        }
+        return content.tagName.toLocaleLowerCase();
+    }
+
+    public getRenderedGroupHeaderTextContent(groupRowIndex: number): string {
         return (
             this.getGroupRowHeaderView(
                 groupRowIndex
@@ -194,12 +260,12 @@ export class TablePageObject<T extends TableRecord> {
         );
     }
 
-    public getAllRenderedGroupHeaderContent(): string[] {
+    public getAllRenderedGroupHeaderTextContent(): string[] {
         const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-group-row'
         );
         return Array.from(groupRows).map((_, i) => {
-            return this.getRenderedGroupHeaderContent(i);
+            return this.getRenderedGroupHeaderTextContent(i);
         });
     }
 

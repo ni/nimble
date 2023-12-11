@@ -1,8 +1,16 @@
 # Change Log - @ni/xliff-to-json-converter
 
-This log was last generated on Wed, 05 Apr 2023 18:54:28 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Oct 2023 21:31:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.2
+
+Mon, 16 Oct 2023 21:31:42 GMT
+
+### Patches
+
+- Update TypeScript dependency to 4.8 ([ni/nimble@8a42916](https://github.com/ni/nimble/commit/8a429164d4987cc1b932adb3c93727afdc8c5202))
 
 ## 1.1.1
 

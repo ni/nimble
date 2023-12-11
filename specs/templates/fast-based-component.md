@@ -31,6 +31,7 @@
 - *Methods*
 - *Events*
 - *CSS Classes and Custom Properties that affect the component*
+- *How native CSS Properties (height, width, etc.) affect the component*
 - *Slots*
 
 ### Angular integration 
@@ -51,6 +52,7 @@
 - *Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?*
 - *Tooling: Any new tools, updates to tools, code generation, etc?*
 - *Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc.*
+- *Mobile: small screens, touch interactions, mobile-specific integrations*
 - *Globalization: special RTL handling, swapping of icons/visuals, localization, etc.*
 - *Performance: does the FAST component meet Nimble's performance requirements?*
 - *Security: Any requirements for security?*

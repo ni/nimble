@@ -7,9 +7,13 @@ import {
 } from '../../utilities/tests/storybook';
 import { generateWaferData } from './data-generator';
 import { goodValueGenerator, badValueGenerator } from './value-generator';
-import type { WaferMapDie, WaferMapColorScale } from '../types';
+import type {
+    WaferMapDie,
+    WaferMapColorScale,
+    WaferMapValidity
+} from '../types';
 import {
-    WaferMapQuadrant,
+    WaferMapOriginLocation,
     WaferMapOrientation,
     WaferMapColorScaleMode
 } from '../types';
@@ -29,8 +33,13 @@ interface WaferMapArgs {
     highlightedValues: string;
     maxCharacters: number;
     orientation: WaferMapOrientation;
-    quadrant: WaferMapQuadrant;
+    originLocation: WaferMapOriginLocation;
+    gridMinX: number | undefined;
+    gridMaxX: number | undefined;
+    gridMinY: number | undefined;
+    gridMaxY: number | undefined;
     dieHover: unknown;
+    validity: WaferMapValidity;
 }
 
 const getDiesSet = (
@@ -110,7 +119,11 @@ const metadata: Meta<WaferMapArgs> = {
             die-labels-suffix="${x => x.dieLabelsSuffix}"
             max-characters="${x => x.maxCharacters}"
             orientation="${x => x.orientation}"
-            quadrant="${x => x.quadrant}"
+            origin-location="${x => x.originLocation}"
+            grid-min-x=${x => x.gridMinX}
+            grid-max-x=${x => x.gridMaxX}
+            grid-min-y=${x => x.gridMinY}
+            grid-max-y=${x => x.gridMaxY}
             :colorScale="${x => x.colorScale}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
             :highlightedValues="${x => getHighLightedValueSets(
@@ -135,7 +148,11 @@ const metadata: Meta<WaferMapArgs> = {
         highlightedValues: 'set1',
         maxCharacters: 4,
         orientation: WaferMapOrientation.left,
-        quadrant: WaferMapQuadrant.bottomLeft
+        originLocation: WaferMapOriginLocation.bottomLeft,
+        gridMinX: undefined,
+        gridMaxX: undefined,
+        gridMinY: undefined,
+        gridMaxY: undefined
     },
     argTypes: {
         colorScale: {
@@ -247,24 +264,56 @@ const metadata: Meta<WaferMapArgs> = {
                 }
             }
         },
-        quadrant: {
+        originLocation: {
+            name: 'origin-location',
             description:
-                'Represents the orientation of the dies on the wafer map',
-            options: Object.values(WaferMapQuadrant),
+                'Represents the starting point and the direction of the two axes, X and Y, which are used for displaying the die grid on the wafer map canvas.',
+            options: Object.values(WaferMapOriginLocation),
             control: {
                 type: 'radio',
                 labels: {
-                    [WaferMapQuadrant.bottomLeft]: 'bottom-left',
-                    [WaferMapQuadrant.bottomRight]: 'bottom-right',
-                    [WaferMapQuadrant.topLeft]: 'top-left',
-                    [WaferMapQuadrant.topRight]: 'top-right'
+                    [WaferMapOriginLocation.bottomLeft]: 'bottom-left',
+                    [WaferMapOriginLocation.bottomRight]: 'bottom-right',
+                    [WaferMapOriginLocation.topLeft]: 'top-left',
+                    [WaferMapOriginLocation.topRight]: 'top-right'
                 }
             }
+        },
+        gridMinX: {
+            name: 'grid-min-x',
+            description:
+                'Represents the X coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum X value of the bounding box of the input dies coordinates.',
+            control: { type: 'number' }
+        },
+        gridMaxX: {
+            name: 'grid-max-x',
+            description:
+                'Represents the X coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum X value of the bounding box of the input dies coordinates.',
+            control: { type: 'number' }
+        },
+        gridMinY: {
+            name: 'grid-min-y',
+            description:
+                'Represents the Y coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum Y value of the bounding box of the input dies coordinates.',
+            control: { type: 'number' }
+        },
+        gridMaxY: {
+            name: 'grid-max-y',
+            description:
+                'Represents the Y coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum Y value of the bounding box of the input dies coordinates.',
+            control: { type: 'number' }
         },
         dieHover: {
             name: 'die-hover',
             description:
                 'The event is fired whenever the mouse enters or leaves a die. In the event data, `detail.currentDie` will be set to the `WaferMapDie` element of the `dies` array that is being hovered or `undefined` if the mouse is leaving a die.'
+        },
+        validity: {
+            description: `Readonly object of boolean values that represents the validity states that the wafer map's configuration can be in.
+The object's type is \`WaferMapValidity\`, and it contains the following boolean properties:
+
+-   \`invalidGridDimensions \`: \`true\` when some of the \`gridMinX\`, \`gridMinY\`, \`gridMaxX\` or \`gridMaxY\` are \`undefined\`, but \`false\` when all of them are provided or all of them are \`undefined\``,
+            control: false
         }
     }
 };
