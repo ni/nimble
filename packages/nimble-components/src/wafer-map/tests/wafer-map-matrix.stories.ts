@@ -180,9 +180,9 @@ const componentWaferWithGridDimensions = ([
 >
 </${waferMapTag}>`;
 
-const componentWaferWithHighlightedTags = ([
-    tags
-]: HighlightedTags): ViewTemplate => html`<${waferMapTag}
+const componentWaferWithHighlightedTags = (
+    tags: HighlightedTags
+): ViewTemplate => html`<${waferMapTag}
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
     :highlightedTags="${() => tags}"
