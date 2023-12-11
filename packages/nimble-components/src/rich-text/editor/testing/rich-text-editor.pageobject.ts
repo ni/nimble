@@ -187,7 +187,7 @@ export class RichTextEditorPageObject {
             .focus()
             .insertContent({
                 type: 'text',
-                text: value,
+                text: value
             })
             .run();
         await waitForUpdatesAsync();
