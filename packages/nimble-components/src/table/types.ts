@@ -1,4 +1,5 @@
 import type { TableColumn } from '../table-column/base';
+import type { ValidityObject } from '../utilities/models/validator';
 
 /**
  * TableFieldName describes the type associated with keys within
@@ -39,6 +40,16 @@ export interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
 }
 
+/**
+ * Describes a hierarchical data structure that is used for
+ * the internal representation of the data, and allows us to represent data with
+ * parent-child relationships within Tanstack.
+ */
+export interface TableNode<TRecord extends TableRecord = TableRecord> {
+    subRows?: TableNode<TRecord>[];
+    clientRecord: TRecord;
+}
+
 export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: TableStringFieldValue;
 };
@@ -50,10 +61,6 @@ export type TableBooleanField<FieldName extends TableFieldName> = {
 export type TableNumberField<FieldName extends TableFieldName> = {
     [name in FieldName]: TableNumberFieldValue;
 };
-
-export interface ValidityObject {
-    [key: string]: boolean;
-}
 
 export interface TableValidity extends ValidityObject {
     readonly duplicateRecordId: boolean;
@@ -124,6 +131,15 @@ export interface TableRowSelectionToggleEventDetail {
  */
 export interface TableRowSelectionEventDetail {
     selectedRecordIds: string[];
+}
+
+/**
+ * Event detail type for row toggle events in the table.
+ */
+export interface TableRowExpandToggleEventDetail {
+    oldState: boolean;
+    newState: boolean;
+    recordId: string;
 }
 
 /**

@@ -60,6 +60,19 @@
             </NimbleToggleButton>
         </div>
         <div class="sub-container">
+            <div class="container-label">Card</div>
+            <NimbleCard>
+                <span slot="title">Title of the card</span>
+                <NimbleNumberField>Numeric field 1</NimbleNumberField>
+                <NimbleNumberField>Numeric field 2</NimbleNumberField>
+                <NimbleSelect>
+                    <NimbleListOption Value="1">Option 1</NimbleListOption>
+                    <NimbleListOption Value="2">Option 2</NimbleListOption>
+                    <NimbleListOption Value="3">Option 3</NimbleListOption>
+                </NimbleSelect>
+            </NimbleCard>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Card Button</div>
             <NimbleCardButton>
                 <span class="card-button-content">Card Button</span>
@@ -208,22 +221,39 @@
             <div class="container-label">Table</div>
             <NimbleTable IdFieldName="Id" @bind-Data="TableData" SelectionMode="TableRowSelectionMode.Multiple" class="table">
                 <NimbleTableColumnText
-                    FieldName="FirstName"
-                    ColumnId="first-name-column"
+                    FieldName="StringValue1"
                     ActionMenuSlot="action-menu"
                     ActionMenuLabel="Action menu"
+                    FractionalWidth="2"
+                    MinPixelWidth="300"
                     SortDirection="TableColumnSortDirection.Ascending"
                     SortIndex="0"
                 >
-                    <NimbleIconKey title="First Name"></NimbleIconKey>
+                    <NimbleIconCheck title="String 1"></NimbleIconCheck>
                 </NimbleTableColumnText>
-                <NimbleTableColumnAnchor HrefFieldName="Href" LabelFieldName="LinkLabel" ColumnId="link-column" >Link</NimbleTableColumnAnchor>
-                <NimbleTableColumnEnumText FieldName="StatusCode" TKey="int" ColumnId="status-column">
+                <NimbleTableColumnAnchor HrefFieldName="Href" LabelFieldName="LinkLabel">Link</NimbleTableColumnAnchor>
+                <NimbleTableColumnDateText FieldName="Date">Date</NimbleTableColumnDateText>
+                <NimbleTableColumnEnumText FieldName="StatusCode" TKey="int">
                     <NimbleMappingText Key="100" Text="Status message 1"></NimbleMappingText>
                     <NimbleMappingText Key="101" Text="Status message 2"></NimbleMappingText>
                     Status
                 </NimbleTableColumnEnumText>
-                <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" GroupIndex="0">Last Name</NimbleTableColumnText>
+                <NimbleTableColumnIcon FieldName="Result" TKey="string">
+                    <NimbleMappingIcon
+                        Key=@("success")
+                        Text="Success"
+                        Icon="nimble-icon-check"
+                        Severity="IconSeverity.Success">
+                    </NimbleMappingIcon>
+                    <NimbleMappingSpinner
+                        Key=@("unknown")
+                        Text="Unknown">
+                    </NimbleMappingSpinner>
+                    Result
+                </NimbleTableColumnIcon>
+                <NimbleTableColumnNumberText FieldName="Number">Number</NimbleTableColumnNumberText>
+                <NimbleTableColumnDurationText FieldName="Duration">Duration</NimbleTableColumnDurationText>
+                <NimbleTableColumnText FieldName="StringValue2" MinPixelWidth="400" GroupIndex="0">String 2</NimbleTableColumnText>
 
                 <NimbleMenu slot="action-menu">
                     <NimbleMenuItem>Item 1</NimbleMenuItem>
@@ -231,8 +261,8 @@
                     <NimbleMenuItem>Item 3</NimbleMenuItem>
                 </NimbleMenu>
             </NimbleTable>
+            <NimbleButton class="table-update-button" @onclick=@(_ => AddTableRows(10))>Add rows</NimbleButton>
         </div>
-        <NimbleButton class="table-update-button" @onclick=@(_ => UpdateTableData(100))>Update Data</NimbleButton>
         <div class="sub-container">
             <div class="container-label">Tabs</div>
             <NimbleTabs @bind-ActiveId="@ActiveTabId">

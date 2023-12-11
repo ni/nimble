@@ -36,7 +36,7 @@ interface ItemArgs extends MenuItemArgs {
     type: 'nimble-menu-item' | 'header' | 'hr';
 }
 
-const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#menu) - A menu is a widget that offers a list of choices to the user,
+const overviewText = `Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/) - A menu is a widget that offers a list of choices to the user,
 such as a set of actions or functions. Menu widgets behave like native operating system menus, such as the menus that pull down from the
 menubars commonly found at the top of many desktop application windows. A menu is usually opened, or made visible, by activating a menu button,
 choosing an item in a menu that opens a sub menu, or by invoking a command, such as Shift + F10 in Windows, that opens a context specific menu.

@@ -8,7 +8,7 @@ import type { MappingKeyType } from '../types';
  * values in the table data.
  */
 export const resolveKeyWithType = (
-    key: MappingKey | undefined,
+    key: unknown,
     keyType: MappingKeyType
 ): MappingKey | undefined => {
     if (keyType === 'number') {

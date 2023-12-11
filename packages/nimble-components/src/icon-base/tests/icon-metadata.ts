@@ -11,7 +11,7 @@ export const iconMetadata: {
 } = {
     /* eslint-disable @typescript-eslint/naming-convention */
     IconAdd: {
-        tags: ['add-input-field']
+        tags: ['add input field']
     },
     IconArrowDown: {
         tags: ['sort', 'arrow', 'down', 'descending']
@@ -31,8 +31,14 @@ export const iconMetadata: {
     IconArrowExpanderUp: {
         tags: []
     },
+    IconArrowInCircle: {
+        tags: ['move in']
+    },
     IconArrowLeftFromLine: {
         tags: ['logout']
+    },
+    IconArrowOutCircle: {
+        tags: ['move out']
     },
     IconArrowPartialRotateLeft: {
         tags: ['reset']
@@ -58,8 +64,11 @@ export const iconMetadata: {
     IconArrowUp: {
         tags: ['sort', 'arrow', 'up', 'ascending']
     },
+    IconAt: {
+        tags: ['@', 'email', 'handle', 'mention']
+    },
     IconBars: {
-        tags: ['hamburger-menu']
+        tags: ['hamburger menu']
     },
     IconBell: {
         tags: ['status', 'alarm']
@@ -83,22 +92,28 @@ export const iconMetadata: {
         tags: ['analyze']
     },
     IconCalendar: {
-        tags: []
+        tags: ['schedule']
+    },
+    IconCalendarCheckLines: {
+        tags: ['test', 'plan', 'schedule']
+    },
+    IconCalendarDay: {
+        tags: ['date', 'time', 'schedule']
     },
     IconChartDiagram: {
         tags: ['oidc']
     },
     IconChartDiagramChildFocus: {
-        tags: ['managed-systems']
+        tags: ['managed systems']
     },
     IconChartDiagramParentFocus: {
-        tags: ['manager-asset']
+        tags: ['manager asset']
     },
     IconChartDiagramParentFocusTwoChild: {
         tags: ['assets']
     },
     IconCheck: {
-        tags: ['status', 'alarm-acknowledged']
+        tags: ['status', 'alarm acknowledged']
     },
     IconCheckDot: {
         tags: ['status', 'done']
@@ -119,7 +134,7 @@ export const iconMetadata: {
         tags: []
     },
     IconCirclePartialBroken: {
-        tags: ['status', 'partially-connected']
+        tags: ['status', 'partially connected']
     },
     IconCircleSlash: {
         tags: ['status', 'blocked']
@@ -134,13 +149,13 @@ export const iconMetadata: {
         tags: ['time']
     },
     IconClockCog: {
-        tags: ['time-settings']
+        tags: ['time settings']
     },
     IconClockExclamation: {
         tags: ['expire']
     },
     IconClockTriangle: {
-        tags: ['status', 'timed-out']
+        tags: ['status', 'timed out']
     },
     IconClone: {
         tags: ['duplicate']
@@ -152,7 +167,7 @@ export const iconMetadata: {
         tags: []
     },
     IconCloudWithArrow: {
-        tags: ['cloud-connector']
+        tags: ['cloud connector']
     },
     IconCog: {
         tags: ['details', 'settings']
@@ -164,16 +179,16 @@ export const iconMetadata: {
         tags: ['admin', 'administration']
     },
     IconCogSmallCog: {
-        tags: ['system-manager']
+        tags: ['system manager']
     },
     IconCogZoomed: {
-        tags: ['data-indexing']
+        tags: ['data indexing']
     },
     IconComment: {
-        tags: ['notes', 'alarm-notes', 'speech', 'bubble']
+        tags: ['notes', 'alarm notes', 'speech', 'bubble']
     },
     IconComputerAndMonitor: {
-        tags: ['devices-and-interfaces']
+        tags: ['devices and interfaces']
     },
     IconCopy: {
         tags: ['clipboard']
@@ -194,10 +209,10 @@ export const iconMetadata: {
         tags: []
     },
     IconDatabase: {
-        tags: ['measurement-data-analysis']
+        tags: ['measurement data analysis']
     },
     IconDatabaseCheck: {
-        tags: ['system-state-manager']
+        tags: ['system state manager']
     },
     IconDesktop: {
         tags: ['monitor']
@@ -218,7 +233,7 @@ export const iconMetadata: {
         tags: ['import']
     },
     IconElectronicChipZoomed: {
-        tags: ['data-preparation']
+        tags: ['data preparation']
     },
     IconExclamationMark: {
         tags: ['error', 'warning']
@@ -227,19 +242,19 @@ export const iconMetadata: {
         tags: ['details', 'view']
     },
     IconFancyA: {
-        tags: ['tdms-string-channel']
+        tags: ['tdms string channel']
     },
     IconFile: {
-        tags: ['file-tdms']
+        tags: ['file tdms']
     },
     IconFileArrowCurvedRight: {
         tags: ['export', 'extract']
     },
     IconFileDrawer: {
-        tags: ['box', 'repository-manager']
+        tags: ['box', 'repository manager']
     },
     IconFileSearch: {
-        tags: ['file-viewer']
+        tags: ['file viewer']
     },
     IconFilter: {
         tags: []
@@ -248,13 +263,16 @@ export const iconMetadata: {
         tags: ['save']
     },
     IconFloppyDiskCheckmark: {
-        tags: ['save', 'no-unsaved-changed']
+        tags: ['save', 'no unsaved changed']
+    },
+    IconFloppyDiskPen: {
+        tags: ['save as', 'pencil']
     },
     IconFloppyDiskStarArrowRight: {
         tags: ['save', 'autosave']
     },
     IconFloppyDiskThreeDots: {
-        tags: ['save', 'in-progress']
+        tags: ['save', 'in progress']
     },
     IconFolder: {
         tags: ['ldap']
@@ -269,7 +287,7 @@ export const iconMetadata: {
         tags: ['knurling']
     },
     IconFunction: {
-        tags: ['data-analyzer']
+        tags: ['data analyzer']
     },
     IconGaugeSimple: {
         tags: ['widget']
@@ -278,7 +296,7 @@ export const iconMetadata: {
         tags: ['chart']
     },
     IconGridTwoByTwo: {
-        tags: ['custom-applications']
+        tags: ['custom applications']
     },
     IconHammer: {
         tags: ['operation']
@@ -291,6 +309,9 @@ export const iconMetadata: {
     },
     IconHourglass: {
         tags: ['history', 'timer']
+    },
+    IconIndent: {
+        tags: ['increase list level', 'indent right']
     },
     IconIndeterminantCheckbox: {
         tags: ['selection']
@@ -305,7 +326,7 @@ export const iconMetadata: {
         tags: []
     },
     IconKey: {
-        tags: ['access-control', 'active-directory']
+        tags: ['access control', 'active directory']
     },
     IconLaptop: {
         tags: []
@@ -314,7 +335,7 @@ export const iconMetadata: {
         tags: ['jobs']
     },
     IconLightningBolt: {
-        tags: ['active-jobs']
+        tags: ['active jobs']
     },
     IconLink: {
         tags: []
@@ -323,13 +344,13 @@ export const iconMetadata: {
         tags: ['unlink']
     },
     IconList: {
-        tags: ['bullet', 'merged-view']
+        tags: ['bullet', 'merged view']
     },
     IconListTree: {
-        tags: ['tree-view']
+        tags: ['tree view']
     },
     IconListTreeDatabase: {
-        tags: ['measurement-data-analysis']
+        tags: ['measurement data analysis']
     },
     IconLock: {
         tags: ['security']
@@ -341,7 +362,7 @@ export const iconMetadata: {
         tags: []
     },
     IconMinus: {
-        tags: ['mixed-checkbox']
+        tags: ['mixed checkbox']
     },
     IconMinusWide: {
         tags: []
@@ -349,11 +370,17 @@ export const iconMetadata: {
     IconMobile: {
         tags: ['phone']
     },
+    IconNi: {
+        tags: ['National Instruments', 'logo', 'product']
+    },
     IconNotebook: {
         tags: []
     },
     IconNumberList: {
         tags: ['order']
+    },
+    IconOutdent: {
+        tags: ['decrease list level', 'indent left']
     },
     IconPaste: {
         tags: ['clipboard']
@@ -367,8 +394,17 @@ export const iconMetadata: {
     IconQuestion: {
         tags: ['help']
     },
+    IconRectangleCheckLines: {
+        tags: ['test', 'plan']
+    },
     IconRunningArrow: {
         tags: ['status', 'running']
+    },
+    IconScreenCheckLines: {
+        tags: ['test', 'plan', 'monitor', 'desktop']
+    },
+    IconScreenCheckLinesCalendar: {
+        tags: ['test', 'plan', 'schedule', 'monitor', 'desktop']
     },
     IconServer: {
         tags: ['analysis', 'automation']
@@ -383,7 +419,7 @@ export const iconMetadata: {
         tags: ['insecure']
     },
     IconSignalBars: {
-        tags: ['tdms-channel-group']
+        tags: ['tdms channel group']
     },
     IconSineGraph: {
         tags: ['graph']
@@ -392,13 +428,16 @@ export const iconMetadata: {
         tags: ['status', 'skipped']
     },
     IconSpinner: {
-        tags: ['in-progress']
+        tags: ['in progress']
     },
     IconSquareCheck: {
-        tags: ['test-insights']
+        tags: ['test insights']
     },
     IconSquareT: {
-        tags: ['static-text']
+        tags: ['static text']
+    },
+    IconSystemlink: {
+        tags: ['logo', 'product']
     },
     IconT: {
         tags: ['text']
@@ -410,13 +449,13 @@ export const iconMetadata: {
         tags: []
     },
     IconTags: {
-        tags: ['tag-query']
+        tags: ['tag query']
     },
     IconTargetCrosshairs: {
         tags: ['calibrate']
     },
     IconTargetCrosshairsProgress: {
-        tags: ['calibrate', 'self-calibrate']
+        tags: ['calibrate', 'self calibrate']
     },
     IconThreeDotsLine: {
         tags: ['ellipsis', 'options']
@@ -437,25 +476,25 @@ export const iconMetadata: {
         tags: ['clear', 'close', 'delete', 'remove', 'x']
     },
     IconTriangle: {
-        tags: ['status', 'alarm-active']
+        tags: ['status', 'alarm active']
     },
     IconTriangleFilled: {
         tags: ['status']
     },
     IconTrueFalseRectangle: {
-        tags: ['tdms-boolean-channel']
+        tags: ['tdms boolean channel']
     },
     IconTriangleTwoLinesHorizontal: {
-        tags: ['collapse-all']
+        tags: ['collapse all']
     },
     IconTwoSquaresInBrackets: {
-        tags: ['group-by']
+        tags: ['group by']
     },
     IconTwoTrianglesBetweenLines: {
-        tags: ['size-column-to-content']
+        tags: ['size column to content']
     },
     IconUnlink: {
-        tags: ['link-broken']
+        tags: ['link broken']
     },
     IconUnlock: {
         tags: []
@@ -473,7 +512,7 @@ export const iconMetadata: {
         tags: ['status', 'waiting']
     },
     IconWaveform: {
-        tags: ['tdms-waveform-channel']
+        tags: ['tdms waveform channel']
     },
     IconWebviCustom: {
         tags: ['gweb']
@@ -482,7 +521,7 @@ export const iconMetadata: {
         tags: ['gweb']
     },
     IconWindowCode: {
-        tags: ['http-api']
+        tags: ['http api']
     },
     IconWindowText: {
         tags: ['manual']
@@ -494,7 +533,7 @@ export const iconMetadata: {
         tags: ['status', 'fail']
     },
     IconXmarkCheck: {
-        tags: ['self-test']
+        tags: ['self test']
     }
     /* eslint-enable @typescript-eslint/naming-convention */
 };

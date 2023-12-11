@@ -23,15 +23,14 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2022",
     "module": "es2020",
     "lib": [
       "es2020",
       "dom"
     ],
-    // Require type only imports where possible
-    // so imports with side-effects are explicit
-    "importsNotUsedAsValues": "error"
+    "importsNotUsedAsValues": "error",
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

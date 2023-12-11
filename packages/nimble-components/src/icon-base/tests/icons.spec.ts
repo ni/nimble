@@ -41,7 +41,7 @@ describe('Icons', () => {
     describe('can be constructed', () => {
         type IconName = keyof typeof allIconsNamespace;
         const allIconNames = (Object.keys(allIconsNamespace) as IconName[]).map(
-            (x: IconName) => ({ name: x, klass: allIconsNamespace[x] })
+            (x: IconName) => ({ name: x, iconClass: allIconsNamespace[x] })
         );
 
         const focused: IconName[] = [];
@@ -50,11 +50,11 @@ describe('Icons', () => {
             const specType = getSpecTypeByNamedList(icon, focused, disabled);
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(`for icon ${icon.name}`, () => {
-                const tagName = DesignSystem.tagFor(icon.klass);
+                const tagName = DesignSystem.tagFor(icon.iconClass);
                 expect(typeof tagName).toBe('string');
                 expect(tagName.length).toBeGreaterThan(0);
                 expect(document.createElement(tagName)).toBeInstanceOf(
-                    icon.klass
+                    icon.iconClass
                 );
             });
         }
@@ -79,9 +79,7 @@ describe('Icons', () => {
 
     describe('Representative icon', () => {
         async function setup(): Promise<Fixture<IconAdd>> {
-            return fixture<IconAdd>(
-                html`<${iconAddTag} aria-label="initial aria label"></${iconAddTag}>`
-            );
+            return fixture<IconAdd>(html`<${iconAddTag}></${iconAddTag}>`);
         }
         let element: IconAdd;
         let connect: () => Promise<void>;
@@ -95,33 +93,10 @@ describe('Icons', () => {
             await disconnect();
         });
 
-        it('sets initial aria-label on inner SVG', async () => {
+        it('sets aria-hidden on inner div', async () => {
             await connect();
-            const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.getAttribute('aria-label')).toEqual(
-                'initial aria label'
-            );
-        });
-
-        it('supports setting blank aria-label on inner SVG', async () => {
-            await connect();
-            element.setAttribute('aria-label', '');
-            const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.getAttribute('aria-label')).toEqual('');
-        });
-
-        it('clears aria-label from inner SVG when removed from icon', async () => {
-            await connect();
-            element.removeAttribute('aria-label');
-            const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.hasAttribute('aria-label')).toBeFalse();
-        });
-
-        it('updates aria-label on inner SVG when changed on icon', async () => {
-            await connect();
-            element.setAttribute('aria-label', 'new aria label');
-            const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.getAttribute('aria-label')).toEqual('new aria label');
+            const div = element.shadowRoot!.querySelector('.icon');
+            expect(div?.getAttribute('aria-hidden')).toEqual('true');
         });
     });
 });

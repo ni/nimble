@@ -1,12 +1,9 @@
 import remarkGfm from 'remark-gfm';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 
-export const stories = [
-    '../docs/**/*.mdx',
-    '../docs/**/*.stories.ts',
-    '../src/**/*.mdx',
-    '../src/**/*.stories.ts'
-];
+// All files participating in storybook should be in src
+// so that TypeScript and linters can track them correctly
+export const stories = ['../src/**/*.mdx', '../src/**/*.stories.ts'];
 export const addons = [
     {
         name: '@storybook/addon-essentials',
@@ -50,5 +47,9 @@ export function webpackFinal(config) {
 export const staticDirs = ['public'];
 export const framework = {
     name: '@storybook/html-webpack5',
-    options: {}
+    options: {
+        builder: {
+            useSWC: true
+        }
+    }
 };

@@ -222,9 +222,15 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     private resetGridSizedColumns(): void {
-        if (!this.gridSizedColumns) {
+        if (!this.gridSizedColumns || this.gridSizedColumns.length === 0) {
             return;
         }
+
+        const gridSizeColumnTotal = this.gridSizedColumns.reduce(
+            (sum, col) => sum + col.columnInternals.currentPixelWidth!,
+            0
+        );
+        const gridSizeColumnAverage = gridSizeColumnTotal / this.gridSizedColumns.length;
 
         let gridColumnIndex = 0;
         for (
@@ -236,9 +242,8 @@ export class TableLayoutManager<TData extends TableRecord> {
             const column = this.visibleColumns[i]!;
             if (column === this.gridSizedColumns[gridColumnIndex]) {
                 gridColumnIndex += 1;
-                column.columnInternals.currentFractionalWidth = (column.columnInternals.currentPixelWidth!
-                        / this.initialColumnWidths[i]!.initialPixelWidth)
-                    * this.initialColumnWidths[i]!.initalColumnFractionalWidth;
+                column.columnInternals.currentFractionalWidth = column.columnInternals.currentPixelWidth!
+                    / gridSizeColumnAverage;
                 column.columnInternals.currentPixelWidth = undefined;
             }
         }

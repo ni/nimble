@@ -41,7 +41,7 @@
     "packages/site"
   ],
   "devDependencies": {
-    "@lhci/cli": "^0.10.0",
+    "@lhci/cli": "^0.12.0",
     "beachball": "^2.31.0",
     "cross-env": "^7.0.3",
     "patch-package": "^6.4.7"

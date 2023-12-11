@@ -14,7 +14,7 @@ import {
     smallDelay,
     smallPadding,
     borderRgbPartialColor,
-    standardPadding,
+    mediumPadding,
     failColor,
     elevation2BoxShadow
 } from '../../theme-provider/design-tokens';
@@ -185,7 +185,7 @@ export const styles = css`
         text-overflow: ellipsis;
         overflow: hidden;
         padding: 0px;
-        padding-left: calc(${standardPadding} / 2);
+        padding-left: ${mediumPadding};
     }
 
     .selected-value[disabled]::placeholder {

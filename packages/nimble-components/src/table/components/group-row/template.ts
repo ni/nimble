@@ -7,7 +7,8 @@ import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
 import { checkboxTag } from '../../../checkbox';
 import {
     tableGroupCollapseLabel,
-    tableGroupExpandLabel
+    tableGroupExpandLabel,
+    tableGroupSelectAllLabel
 } from '../../../label-provider/table/label-tokens';
 
 // prettier-ignore
@@ -15,6 +16,7 @@ export const template = html<TableGroupRow>`
     <template
         role="row"
         @click=${x => x.onGroupExpandToggle()}
+        aria-expanded=${x => x.expanded}
         style="--ni-private-table-group-row-indent-level: ${x => x.nestingLevel};"
     >
         ${when(x => x.selectable, html<TableGroupRow>`
@@ -24,6 +26,8 @@ export const template = html<TableGroupRow>`
                     class="selection-checkbox"
                     @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
                     @click="${(_, c) => c.event.stopPropagation()}"
+                    title="${x => tableGroupSelectAllLabel.getValueFor(x)}"
+                    aria-label="${x => tableGroupSelectAllLabel.getValueFor(x)}"
                 >
                 </${checkboxTag}>
             </span>
@@ -35,9 +39,10 @@ export const template = html<TableGroupRow>`
                 content-hidden
                 class="expand-collapse-button"
                 tabindex="-1"
+                title="${x => (x.expanded ? tableGroupCollapseLabel.getValueFor(x) : tableGroupExpandLabel.getValueFor(x))}"
+                aria-hidden="true"
             >
                 <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
-                ${x => (x.expanded ? tableGroupCollapseLabel.getValueFor(x) : tableGroupExpandLabel.getValueFor(x))}
             </${buttonTag}>
         </span>
 

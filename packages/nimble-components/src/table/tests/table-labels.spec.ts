@@ -75,7 +75,7 @@ describe('Table with LabelProviderTable', () => {
         labelProvider.groupsCollapseAll = 'Customized Collapse All';
         labelProvider.groupExpand = 'Customized Expand';
         labelProvider.groupCollapse = 'Customized Collapse';
-        labelProvider.columnHeaderGroupedIndicator = 'Customized Grouped';
+        labelProvider.columnHeaderGrouped = 'Customized Grouped';
         column1.groupIndex = 0;
         await waitForUpdatesAsync();
 
@@ -93,7 +93,8 @@ describe('Table with LabelProviderTable', () => {
         const firstGroupRow: HTMLElement = element.shadowRoot!.querySelector(tableGroupRowTag)!;
         const actualGroupCollapseLabel = firstGroupRow
             .shadowRoot!.querySelector('.expand-collapse-button')!
-            .textContent!.trim();
+            .getAttribute('title')
+            ?.trim();
         expect(actualGroupCollapseLabel).toBe('Customized Collapse');
 
         firstGroupRow.click();
@@ -101,7 +102,8 @@ describe('Table with LabelProviderTable', () => {
 
         const actualGroupExpandLabel = firstGroupRow
             .shadowRoot!.querySelector('.expand-collapse-button')!
-            .textContent!.trim();
+            .getAttribute('title')
+            ?.trim();
         expect(actualGroupExpandLabel).toBe('Customized Expand');
     });
 

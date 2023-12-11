@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Spinner, spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
+import { type Spinner, spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
 import type { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 
 export type { Spinner };

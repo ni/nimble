@@ -5,7 +5,11 @@ import { UpdateTracker } from '../../utilities/models/update-tracker';
 const trackedItems = [
     'canvasWidth',
     'canvasHeight',
-    'quadrant',
+    'originLocation',
+    'gridMinX',
+    'gridMaxX',
+    'gridMinY',
+    'gridMaxY',
     'dies',
     'maxCharacters',
     'colorScale',
@@ -31,7 +35,11 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         return (
             this.isTracked('canvasWidth')
             || this.isTracked('canvasHeight')
-            || this.isTracked('quadrant')
+            || this.isTracked('originLocation')
+            || this.isTracked('gridMinX')
+            || this.isTracked('gridMaxX')
+            || this.isTracked('gridMinY')
+            || this.isTracked('gridMaxY')
             || this.isTracked('dies')
             || this.isTracked('maxCharacters')
             || this.isTracked('colorScale')
@@ -48,7 +56,14 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
     }
 
     public get requiresScalesUpdate(): boolean {
-        return this.isTracked('quadrant') || this.isTracked('dies');
+        return (
+            this.isTracked('originLocation')
+            || this.isTracked('gridMinX')
+            || this.isTracked('gridMaxX')
+            || this.isTracked('gridMinY')
+            || this.isTracked('gridMaxY')
+            || this.isTracked('dies')
+        );
     }
 
     public get requiresLabelsFontSizeUpdate(): boolean {

@@ -1,10 +1,7 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import {
-    createUserSelectedThemeStory,
-    incubatingWarning
-} from '../../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import {
     ExampleColumnFractionalWidthType,
     ExampleGroupingDisabledType,
@@ -77,11 +74,12 @@ const simpleData = [
 ];
 
 const overviewText = `This page contains information about configuring the columns of a \`nimble-table\`. 
-See **Table** for information about configuring the table itself and **Table Column Types** for 
+See **Table** for information about configuring the table itself and the **Table Column** specific docs for 
 information about specific types of column.`;
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Incubating/Table Column Configuration',
+    title: 'Components/Table Column Configuration',
+    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
         docs: {
@@ -95,7 +93,6 @@ const metadata: Meta<SharedTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<SharedTableArgs>`
-    ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
     <${tableTag}
         ${ref('tableRef')}
         data-unused="${x => x.updateData(x)}"
@@ -169,7 +166,6 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<ColumnOrderTableArgs>`
-        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -242,7 +238,6 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<HeaderContentTableArgs>`
-        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -301,7 +296,6 @@ export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<CommonAttributesTableArgs>`
-        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -417,7 +411,6 @@ export const sorting: StoryObj<SortingTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<SortingTableArgs>`
-        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -585,7 +578,9 @@ function getGroupingDisabledData(
 }
 
 const groupedRowsDescription = `A column can be configured such that all values within that column that have the same value get parented under a collapsible row.
-There will be a collapsible row per unique value in a given column. When group-index is set on a column, that column will be grouped. If more than one column is configured with a group-index, the precedence is determined by the value of group-index on each column.`;
+There will be a collapsible row per unique value in a given column. When group-index is set on a column, that column will be grouped. If more than one column is
+configured with a group-index, the precedence is determined by the value of group-index on each column. Grouping is based on the underlying field values in the column,
+not the rendered values.`;
 
 const groupingDisabledDescription = 'A groupable column can disable its ability to be grouped through setting `grouping-disabled`.';
 
@@ -604,7 +599,6 @@ export const grouping: StoryObj<GroupingTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<GroupingTableArgs>`
-        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -729,7 +723,6 @@ export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<ColumnWidthTableArgs>`
-        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

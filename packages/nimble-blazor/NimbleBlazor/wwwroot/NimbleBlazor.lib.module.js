@@ -161,5 +161,13 @@ window.NimbleBlazor = window.NimbleBlazor ?? {
         getValidity: function (tableReference) {
             return tableReference.validity;
         }
+    },
+    ThemeProvider: {
+        checkValidity: function (themeProviderReference) {
+            return themeProviderReference.checkValidity();
+        },
+        getValidity: function (themeProviderReference) {
+            return themeProviderReference.validity;
+        }
     }
 };

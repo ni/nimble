@@ -37,6 +37,9 @@ const metadata: Meta = {
         docs: {
             description: {
                 component: overviewText
+            },
+            source: {
+                code: null
             }
         }
     }
@@ -106,6 +109,8 @@ const tokenTemplates: {
     TextTransform: stringValueTemplate,
     FontFamily: stringValueTemplate,
     BoxShadow: stringValueTemplate,
+    MaxHeight: stringValueTemplate,
+    MinWidth: stringValueTemplate,
     Font: fontTemplate,
     Size: stringValueTemplate,
     Width: stringValueTemplate,
