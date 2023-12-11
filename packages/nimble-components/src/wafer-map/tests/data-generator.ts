@@ -69,7 +69,6 @@ export const generateWaferData = (
                 j--
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
-                // Math.random() * (max-min) + min Generate a random number between two numbers
                 const randomLetter = generateTagValue(highlightedTagsGenerator);
                 diesSet.push(
                     generateDieContent(i, j, stringValue, [randomLetter])
@@ -83,7 +82,6 @@ export const generateWaferData = (
                 j++
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
-                // Math.random() * (max-min) + min Generate a random number between two numbers
                 const randomLetter = generateTagValue(highlightedTagsGenerator);
                 diesSet.push(
                     generateDieContent(i, j, stringValue, [randomLetter])
