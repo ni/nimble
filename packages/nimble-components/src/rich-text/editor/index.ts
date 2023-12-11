@@ -255,7 +255,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         next: EditorConfiguration
     ): void {
         if (this.isMentionExtensionConfigUnchanged(prev, next)) {
-            this.setMarkdown(this.getMarkdown());
+            this.refreshMarkdownContent();
         } else {
             const mentionExtensionConfig = this.getMentionExtensionConfig();
             const currentStateMarkdown = this.getMarkdown();
@@ -375,10 +375,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      */
     public setMarkdown(markdown: string): void {
         const html = this.getHtmlContent(markdown);
-        const { from, to } = this.tiptapEditor.view.state.selection;
         this.tiptapEditor.commands.setContent(html);
-        // Restore the cursor selection after setting the editor content
-        this.tiptapEditor.chain().focus().setTextSelection({ from, to }).run();
     }
 
     /**
@@ -675,6 +672,17 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         return this.getMentionExtensionConfig().find(
             config => config.character === character
         );
+    }
+
+    // This method restore the cursor selection after setting the editor content when the editor is focused
+    private refreshMarkdownContent(): void {
+        if (this.tiptapEditor.isFocused) {
+            const { from, to } = this.tiptapEditor.view.state.selection;
+            this.setMarkdown(this.getMarkdown());
+            this.tiptapEditor.chain().focus().setTextSelection({ from, to }).run();
+        } else {
+            this.setMarkdown(this.getMarkdown());
+        }
     }
 }
 
