@@ -211,11 +211,11 @@ export class TableRow<
         }
         event.stopImmediatePropagation();
         // To avoid a visual glitch with improper expand/collapse icons performing an
-        // animation, we apply a class to the appropriate group row such that we can have
-        // a more targeted CSS animation. We use the 'transitionend' event to remove the
-        // temporary class and register a function reference as the handler to avoid issues
-        // that may result from the 'transitionend' event not firing, as it will never result
-        // in multiple event listeners being registered.
+        // animation (due to visual re-use apparently), we apply a class to the
+        // contained expand-collapse button temporarily. We use the 'transitionend' event
+        // to remove the temporary class and register a function reference as the handler
+        // to avoid issues that may result from the 'transitionend' event not firing, as it
+        // will never result in multiple event listeners being registered.
         this.animationClass = 'animating';
         this.expandIcon?.addEventListener(
             'transitionend',
