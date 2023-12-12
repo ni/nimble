@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 11 Dec 2023 22:21:16 GMT",
+      "version": "20.16.1",
+      "tag": "@ni/nimble-components_v20.16.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c2b7801ad71fd734b3e55e27315cc0792edd13d8",
+            "comment": "Improve usage doc formatting"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 11 Dec 2023 19:32:21 GMT",
       "version": "20.16.1",
       "tag": "@ni/nimble-components_v20.16.1",
