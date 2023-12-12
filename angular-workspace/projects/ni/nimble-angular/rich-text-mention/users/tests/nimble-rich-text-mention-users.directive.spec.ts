@@ -90,8 +90,8 @@ describe('NimbleRichTextMentionUsers', () => {
         });
 
         it('will use template string values for button-label', () => {
-            expect(directive.buttonLabel).toBe('^user:(.*)');
-            expect(nativeElement.buttonLabel).toBe('^user:(.*)');
+            expect(directive.buttonLabel).toBe('Mention User');
+            expect(nativeElement.buttonLabel).toBe('Mention User');
         });
 
         it('has valid configuration by default', () => {
