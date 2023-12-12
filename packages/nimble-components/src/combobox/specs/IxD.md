@@ -45,13 +45,13 @@ Comboboxes should always have a label, unless approved by an interaction designe
 
 #### Field Input
 
-Comboboxes can be empty by default or have a default selection from the dropdown. Empty comboboxes should include placeholder text that propts the end-user to enter a custom value or select an option from the dropdown. Placeholder text should always follow the pattern "Enter or select [thing(s)]", for example "Enter or select address". Ellipses are not needed for the placeholder. Use sentence casing for the placeholder.
+Comboboxes can be empty by default or have a default selection from the dropdown. Empty comboboxes should include placeholder text that prompts the end-user to enter a custom value or select an option from the dropdown. Placeholder text should always follow the pattern "Enter or select [thing(s)]", for example "Enter or select address". Ellipses are not needed for the placeholder. Use sentence casing for the placeholder.
 
 ![ ](spec-images/combobox-2.png)
 
 #### Dropdown & list options
 
-A list of options to select, displayed as an open state._See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
+A list of options to select, displayed as an open state. _See [Select](/packages/nimble-components/src/select/specs/IxD.md) for more information._
 
 ### Related Components
 
@@ -87,11 +87,11 @@ The client-user should be able to specify whether they want secondary text on li
 
 #### Autocomplete
 
-The client-user should be able to specify autocomplete behavior (inline, list, both, none). Autocomplete is accessed via the field input (not pictured). _See [current implementation](https://nimble.ni.dev/storybook/?path=/docs/components-combobox--docs) for more information._
+The client-user should be able to specify autocomplete behavior (`none` or `list`). Autocomplete is accessed via the field input (not pictured). _See [current implementation](https://nimble.ni.dev/storybook/?path=/docs/components-combobox--docs) for more information._
 
 > NOTE: WE SHOULD PROVIDE DOCUMENTED GUIDANCE THIS FOR CLIENTS
 
-When autocomplete is set to "list", it should filter dropdown options based on matching any text. When autocomplete is set to "inline" or "both", it should autocomplete (and filter) dropdown options based on matching the beginning of text.
+When autocomplete is set to "list", it should filter dropdown options based on matching any text.
 
 #### Error State
 
