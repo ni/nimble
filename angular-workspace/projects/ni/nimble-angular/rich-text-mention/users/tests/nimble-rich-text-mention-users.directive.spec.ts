@@ -60,7 +60,7 @@ describe('NimbleRichTextMentionUsers', () => {
         @Component({
             template: `
                 <nimble-rich-text-editor>
-                    <nimble-rich-text-mention-users pattern="^user:(.*)" button-label="at-mention" #users></nimble-rich-text-mention-users>
+                    <nimble-rich-text-mention-users pattern="^user:(.*)" button-label="Mention User" #users></nimble-rich-text-mention-users>
                 </nimble-rich-text-editor>
             `
         })
@@ -112,7 +112,7 @@ describe('NimbleRichTextMentionUsers', () => {
             @ViewChild('users', { read: NimbleRichTextMentionUsersDirective }) public directive: NimbleRichTextMentionUsersDirective;
             @ViewChild('users', { read: ElementRef }) public elementRef: ElementRef<RichTextMentionUsers>;
             public pattern = '^user:(.*)';
-            public buttonLabel = 'at-mention';
+            public buttonLabel = 'Mention User';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -142,14 +142,14 @@ describe('NimbleRichTextMentionUsers', () => {
         });
 
         it('can be configured with property binding for button-label', () => {
-            expect(directive.buttonLabel).toBe('at-mention');
-            expect(nativeElement.buttonLabel).toBe('at-mention');
+            expect(directive.buttonLabel).toBe('Mention User');
+            expect(nativeElement.buttonLabel).toBe('Mention User');
 
-            fixture.componentInstance.buttonLabel = 'issue-mention';
+            fixture.componentInstance.buttonLabel = 'Mention Issue';
             fixture.detectChanges();
 
-            expect(directive.buttonLabel).toBe('issue-mention');
-            expect(nativeElement.buttonLabel).toBe('issue-mention');
+            expect(directive.buttonLabel).toBe('Mention Issue');
+            expect(nativeElement.buttonLabel).toBe('Mention Issue');
         });
     });
 
@@ -165,7 +165,7 @@ describe('NimbleRichTextMentionUsers', () => {
             @ViewChild('users', { read: NimbleRichTextMentionUsersDirective }) public directive: NimbleRichTextMentionUsersDirective;
             @ViewChild('users', { read: ElementRef }) public elementRef: ElementRef<RichTextMentionUsers>;
             public pattern = '^user:(.*)';
-            public buttonLabel = 'at-mention';
+            public buttonLabel = 'Mention User';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -195,14 +195,14 @@ describe('NimbleRichTextMentionUsers', () => {
         });
 
         it('can be configured with property binding for button-label', () => {
-            expect(directive.buttonLabel).toBe('at-mention');
-            expect(nativeElement.buttonLabel).toBe('at-mention');
+            expect(directive.buttonLabel).toBe('Mention User');
+            expect(nativeElement.buttonLabel).toBe('Mention User');
 
-            fixture.componentInstance.buttonLabel = 'issue-mention';
+            fixture.componentInstance.buttonLabel = 'Mention Issue';
             fixture.detectChanges();
 
-            expect(directive.buttonLabel).toBe('issue-mention');
-            expect(nativeElement.buttonLabel).toBe('issue-mention');
+            expect(directive.buttonLabel).toBe('Mention Issue');
+            expect(nativeElement.buttonLabel).toBe('Mention Issue');
         });
     });
 });
