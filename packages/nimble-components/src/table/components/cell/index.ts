@@ -32,9 +32,6 @@ export class TableCell<
     @observable
     public recordId?: string;
 
-    @attr({ mode: 'boolean' })
-    public expanded = false;
-
     @attr({ attribute: 'column-id' })
     public columnId?: string;
 
