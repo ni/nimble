@@ -240,6 +240,9 @@ function createCustomMentionExtension(
                         });
                     },
                     onKeyDown: (props): boolean => {
+                        if (!inSuggestionMode) {
+                            return false;
+                        }
                         if (props.event.key === keyEscape) {
                             inSuggestionMode = false;
                         }
