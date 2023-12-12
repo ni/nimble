@@ -234,7 +234,7 @@ export class RichTextMentionListbox extends FoundationListbox {
     }
 
     /**
-     * Handles the events of the anchor region.
+     * Handles the events of the anchored region.
      * Repositions the listbox scroll bar when the `initialLayoutComplete` event is triggered.
      * Other events will be passed to the base class.
      *
