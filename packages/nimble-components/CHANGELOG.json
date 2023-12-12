@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 12 Dec 2023 21:25:53 GMT",
+      "version": "20.16.1",
+      "tag": "@ni/nimble-components_v20.16.1",
+      "comments": {
+        "none": [
+          {
+            "author": "28602266+leslieab@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9b0ac1b1f95e616c100bfb8d9285d3a61c9fd686",
+            "comment": "\"Initial submission of select IxD spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 11 Dec 2023 22:21:16 GMT",
       "version": "20.16.1",
       "tag": "@ni/nimble-components_v20.16.1",
