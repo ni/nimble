@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 11 Dec 2023 22:21:16 GMT",
+      "version": "20.16.1",
+      "tag": "@ni/nimble-components_v20.16.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c2b7801ad71fd734b3e55e27315cc0792edd13d8",
+            "comment": "Improve usage doc formatting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 Dec 2023 19:32:21 GMT",
+      "version": "20.16.1",
+      "tag": "@ni/nimble-components_v20.16.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "487c3440588f7b331ea2e90131e41bbf4d4d84f0",
+            "comment": "Make anchor behave like native anchor when contenteditable"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 Dec 2023 17:36:28 GMT",
+      "version": "20.16.0",
+      "tag": "@ni/nimble-components_v20.16.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "824e321a9235b0bb98b1fd49e1167d154749a08d",
+            "comment": "Add expand-collapse button to Table Row and Cell"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 07 Dec 2023 23:03:47 GMT",
       "version": "20.15.1",
       "tag": "@ni/nimble-components_v20.15.1",

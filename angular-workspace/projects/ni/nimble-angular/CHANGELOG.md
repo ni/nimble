@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 08 Dec 2023 05:30:46 GMT and should not be manually modified.
+This log was last generated on Mon, 11 Dec 2023 19:32:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.2.0
+
+Mon, 11 Dec 2023 19:32:21 GMT
+
+### Minor changes
+
+- Add contentEditable property to anchor directive ([ni/nimble@487c344](https://github.com/ni/nimble/commit/487c3440588f7b331ea2e90131e41bbf4d4d84f0))
+- Bump @ni/nimble-components to v20.16.1
+
+## 18.1.3
+
+Mon, 11 Dec 2023 17:36:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.16.0
 
 ## 18.1.2
 
