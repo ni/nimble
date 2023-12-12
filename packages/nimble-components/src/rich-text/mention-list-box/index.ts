@@ -161,8 +161,6 @@ export class RichTextMentionListBox extends FoundationListbox {
             this.selectedOptions = [];
             this.selectedIndex = -1;
         }
-
-        this.selectFirstOption();
     }
 
     /**
