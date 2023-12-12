@@ -18,7 +18,7 @@ import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { RichText } from '../base';
-import type { RichTextMentionListBox } from '../mention-list-box';
+import type { RichTextMentionListbox } from '../mention-listbox';
 import type { MappingConfigs } from '../../rich-text-mention/base/types';
 import { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 import { createTiptapEditor } from './models/create-tiptap-editor';
@@ -48,7 +48,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         () => {},
         this.editor,
         [],
-        this.mentionListBox,
+        this.mentionListbox,
         this.placeholder
     );
 
@@ -131,7 +131,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public mentionListBox?: RichTextMentionListBox;
+    public mentionListbox?: RichTextMentionListbox;
 
     /**
      * @internal
@@ -449,10 +449,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      * @internal
      */
     public focusoutHandler(): void {
-        if (!this.mentionListBox?.open) {
+        if (!this.mentionListbox?.open) {
             return;
         }
-        this.mentionListBox?.close();
+        this.mentionListbox?.close();
     }
 
     protected override createConfig(): EditorConfiguration {
@@ -499,7 +499,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.configuration instanceof EditorConfiguration
                 ? this.configuration.mentionExtensionConfig
                 : [],
-            this.mentionListBox,
+            this.mentionListbox,
             this.placeholder
         );
         this.disableEditor();
@@ -583,7 +583,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             'aria-disabled',
             this.disabled ? 'true' : 'false'
         );
-        this.mentionListBox?.close();
+        this.mentionListbox?.close();
     }
 
     /**

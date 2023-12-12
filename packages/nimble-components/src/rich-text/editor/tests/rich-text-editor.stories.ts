@@ -104,7 +104,7 @@ const metadata: Meta<RichTextEditorArgs> = {
         error-text="${x => x.errorText}"
         placeholder="${x => x.placeholder}"
     >
-        <${richTextMentionUsersTag} pattern="${x => mentionDataSets[x.mentionData].pattern}">
+        <${richTextMentionUsersTag} pattern="${x => mentionDataSets[x.mentionData].pattern}" button-label="at-mention">
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}1" display-name="John Doe😀"></${mappingUserTag}>
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}2" display-name="Mary Wilson😂"></${mappingUserTag}>
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}3" display-name="Sue Ann🤩"></${mappingUserTag}>

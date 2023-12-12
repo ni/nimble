@@ -14,7 +14,7 @@ import {
 } from '../../label-provider/rich-text/label-tokens';
 import { errorTextTemplate } from '../../patterns/error/template';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
-import { richTextMentionListBoxTag } from '../mention-list-box';
+import { richTextMentionListboxTag } from '../mention-listbox';
 import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 import { buttonTag } from '../../button';
 import type { MappingConfig } from '../../rich-text-mention/base/models/mapping-config';
@@ -113,13 +113,13 @@ export const template = html<RichTextEditor>`
             </section>
             ${errorTextTemplate}
         </div>
-        <${richTextMentionListBoxTag}
-            ${ref('mentionListBox')}
+        <${richTextMentionListboxTag}
+            ${ref('mentionListbox')}
             @mention-selected=${(x, c) => x.onMentionSelect(c.event as CustomEvent<MentionDetail>)}
         >
             ${repeat(x => Array.from(x.activeMappingConfigs?.values() ?? []), html<MappingConfig>`
                 <${listOptionTag} value="${x => x.mentionHref}">${x => x.displayName}</${listOptionTag}>
             `, { recycle: false })}
-        </${richTextMentionListBoxTag}>
+        </${richTextMentionListboxTag}>
     </template>
 `;

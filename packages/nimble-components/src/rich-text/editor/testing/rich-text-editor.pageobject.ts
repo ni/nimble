@@ -12,7 +12,7 @@ import {
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import { RichTextMarkdownParser } from '../../models/markdown-parser';
 import { buttonTag, type Button } from '../../../button';
-import { richTextMentionListBoxTag } from '../../mention-list-box';
+import { richTextMentionListboxTag } from '../../mention-listbox';
 import { listOptionTag, type ListOption } from '../../../list-option';
 import { anchoredRegionTag } from '../../../anchored-region';
 import { iconAtTag } from '../../../icons/at';
@@ -243,9 +243,9 @@ export class RichTextEditorPageObject {
         return getLastChildElementAttribute(attribute, this.getTiptapEditor());
     }
 
-    public isMentionListBoxOpened(): boolean {
+    public isMentionListboxOpened(): boolean {
         return (
-            !this.getMentionListBox()
+            !this.getMentionListbox()
                 ?.shadowRoot?.querySelector(anchoredRegionTag)
                 ?.hasAttribute('hidden') ?? false
         );
@@ -382,7 +382,7 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
-    public getMentionListBoxItemsName(): string[] {
+    public getMentionListboxItemsName(): string[] {
         const listItemsName: string[] = [];
         this.getAllListItemsInMentionBox().forEach(item => (item.hidden ? null : listItemsName.push(item.textContent!)));
         return listItemsName;
@@ -397,7 +397,7 @@ export class RichTextEditorPageObject {
         );
     }
 
-    public async clickMentionListBoxOption(index: number): Promise<void> {
+    public async clickMentionListboxOption(index: number): Promise<void> {
         const listOption = this.getAllListItemsInMentionBox()[index];
         listOption?.click();
         await waitForUpdatesAsync();
@@ -443,14 +443,14 @@ export class RichTextEditorPageObject {
         );
     }
 
-    private getMentionListBox(): Element | null {
+    private getMentionListbox(): Element | null {
         return this.richTextEditorElement.shadowRoot!.querySelector(
-            richTextMentionListBoxTag
+            richTextMentionListboxTag
         );
     }
 
     private getAllListItemsInMentionBox(): NodeListOf<ListOption> {
-        return this.getMentionListBox()!.querySelectorAll(listOptionTag);
+        return this.getMentionListbox()!.querySelectorAll(listOptionTag);
     }
 
     private getEditorLastChildElement(): Element {

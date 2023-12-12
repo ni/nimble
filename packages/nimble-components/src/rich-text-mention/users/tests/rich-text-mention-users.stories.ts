@@ -68,6 +68,11 @@ export const richTextMentionUsers: StoryObj = {
         mentionUpdate: {
             name: 'mention-update',
             description: mentionUpdateEventDescription
+        },
+        buttonLabel: {
+            name: 'button-label',
+            description:
+                'Label and title text for the mention button in the footer toolbar.'
         }
     }
 };

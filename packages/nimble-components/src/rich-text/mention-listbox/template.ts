@@ -1,18 +1,18 @@
 import { html, ref, slotted } from '@microsoft/fast-element';
-import type { RichTextMentionListBox } from '.';
+import type { RichTextMentionListbox } from '.';
 import { Listbox } from '../../listbox';
 import { anchoredRegionTag } from '../../anchored-region';
 
 // prettier-ignore
-export const template = html<RichTextMentionListBox>`
+export const template = html<RichTextMentionListbox>`
     <template>
         <${anchoredRegionTag}
             ${ref('region')}
             class="anchored-region"
             fixed-placement
             auto-update-mode="auto"
-            vertical-default-position="'bottom'"
-            vertical-positioning-mode="'locktodefault'"
+            vertical-default-position="bottom"
+            vertical-positioning-mode="locktodefault"
             horizontal-default-position="center"
             horizontal-positioning-mode="locktodefault"
             horizontal-scaling="anchor"

@@ -11,18 +11,18 @@ import { template } from './template';
 import type { AnchoredRegion } from '../../anchored-region';
 import { diacriticInsensitiveStringNormalizer } from '../../utilities/models/string-normalizers';
 import type { ListOption } from '../../list-option';
-import type { MentionListBoxShowOptions } from './types';
+import type { MentionListboxShowOptions } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-rich-text-mention-list-box': RichTextMentionListBox;
+        'nimble-rich-text-mention-listbox': RichTextMentionListbox;
     }
 }
 
 /**
  * A rich text mention list box which acts as a popup for "@mention" support in editor
  */
-export class RichTextMentionListBox extends FoundationListbox {
+export class RichTextMentionListbox extends FoundationListbox {
     /**
      * @internal
      */
@@ -91,7 +91,7 @@ export class RichTextMentionListBox extends FoundationListbox {
      *
      * @public
      */
-    public show(options: MentionListBoxShowOptions): void {
+    public show(options: MentionListboxShowOptions): void {
         this.filter = options.filter;
         this.anchorElement = options.anchorNode;
         this.setOpen(true);
@@ -274,15 +274,15 @@ export class RichTextMentionListBox extends FoundationListbox {
     }
 }
 
-const nimbleRichTextMentionListBox = RichTextMentionListBox.compose({
-    baseName: 'rich-text-mention-list-box',
+const nimbleRichTextMentionListbox = RichTextMentionListbox.compose({
+    baseName: 'rich-text-mention-listbox',
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
-    .register(nimbleRichTextMentionListBox());
-export const richTextMentionListBoxTag = DesignSystem.tagFor(
-    RichTextMentionListBox
+    .register(nimbleRichTextMentionListbox());
+export const richTextMentionListboxTag = DesignSystem.tagFor(
+    RichTextMentionListbox
 );

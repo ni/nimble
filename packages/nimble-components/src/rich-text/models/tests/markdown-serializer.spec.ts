@@ -26,7 +26,7 @@ describe('Markdown serializer', () => {
     ): Promise<void> {
         await pageObject.setEditorTextContent(character);
         await waitForUpdatesAsync();
-        await pageObject.clickMentionListBoxOption(0);
+        await pageObject.clickMentionListboxOption(0);
     };
 
     beforeEach(async () => {
@@ -346,7 +346,7 @@ Plain text 3`);
             await commitFirstMentionBoxOptionIntoEditor('@');
             await pageObject.setEditorTextContent('@');
             await waitForUpdatesAsync();
-            await pageObject.clickMentionListBoxOption(1);
+            await pageObject.clickMentionListboxOption(1);
             expect(element.getMarkdown()).toEqual('<user:1> <user:2> ');
         });
 

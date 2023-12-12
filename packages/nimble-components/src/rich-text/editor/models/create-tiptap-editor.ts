@@ -24,7 +24,7 @@ import {
 
 import { anchorTag } from '../../../anchor';
 import type { MentionExtensionConfiguration } from '../../models/mention-extension-configuration';
-import type { RichTextMentionListBox } from '../../mention-list-box';
+import type { RichTextMentionListbox } from '../../mention-listbox';
 
 const validAbsoluteLinkRegex = /^https?:\/\//i;
 
@@ -33,7 +33,7 @@ export function createTiptapEditor(
     activeMentionCommandEmitter: ActiveMentionCommandEmitter,
     editor: HTMLDivElement,
     mentionExtensionConfig: MentionExtensionConfiguration[],
-    mentionListBox?: RichTextMentionListBox,
+    mentionListbox?: RichTextMentionListbox,
     placeholder?: string
 ): Editor {
     const customLink = createCustomLinkExtension();
@@ -41,7 +41,7 @@ export function createTiptapEditor(
         config,
         activeMentionCharacterEmitter,
         activeMentionCommandEmitter,
-        mentionListBox
+        mentionListbox
     ));
 
     /**
@@ -159,7 +159,7 @@ function createCustomMentionExtension(
     config: MentionExtensionConfiguration,
     activeMentionCharacterEmitter: ActiveMentionCharacterEmitter,
     activeMentionCommandEmitter: ActiveMentionCommandEmitter,
-    mentionListBox?: RichTextMentionListBox
+    mentionListbox?: RichTextMentionListbox
 ): Node<MentionOptions> {
     return Mention.extend({
         name: config.name,
@@ -194,7 +194,7 @@ function createCustomMentionExtension(
             };
         },
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        renderHTML({ HTMLAttributes }) {
+        renderHTML({ node, HTMLAttributes }) {
             return [
                 config.viewElement,
                 mergeAttributes(
@@ -202,7 +202,11 @@ function createCustomMentionExtension(
                     HTMLAttributes,
                     // disable-editing is a boolean attribute
                     { 'disable-editing': '' }
-                )
+                ),
+                this.options.renderLabel({
+                    options: this.options,
+                    node
+                })
             ];
         }
     }).configure({
@@ -219,7 +223,7 @@ function createCustomMentionExtension(
                         config.mentionUpdateEmitter(props.query);
                         activeMentionCharacterEmitter(props.text.slice(0, 1));
                         activeMentionCommandEmitter(props.command);
-                        mentionListBox?.show({
+                        mentionListbox?.show({
                             filter: props.query,
                             anchorNode: props.decorationNode as HTMLElement
                         });
@@ -230,7 +234,7 @@ function createCustomMentionExtension(
                         }
                         config.mentionUpdateEmitter(props.query);
                         activeMentionCommandEmitter(props.command);
-                        mentionListBox?.show({
+                        mentionListbox?.show({
                             filter: props.query,
                             anchorNode: props.decorationNode as HTMLElement
                         });
@@ -240,13 +244,13 @@ function createCustomMentionExtension(
                             inSuggestionMode = false;
                         }
                         return (
-                            mentionListBox?.keydownHandler(props.event) ?? false
+                            mentionListbox?.keydownHandler(props.event) ?? false
                         );
                     },
                     onExit: (): void => {
                         activeMentionCharacterEmitter('');
                         activeMentionCommandEmitter(undefined);
-                        mentionListBox?.close();
+                        mentionListbox?.close();
                     }
                 };
             }
