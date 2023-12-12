@@ -32,12 +32,6 @@ export class TableCell<
     @observable
     public recordId?: string;
 
-    @observable
-    public isParentRow = false;
-
-    @observable
-    public isFirstCell = false;
-
     @attr({ mode: 'boolean' })
     public expanded = false;
 
