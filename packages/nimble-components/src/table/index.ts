@@ -283,7 +283,6 @@ export class Table<
 
     public async getSelectedRecordIds(): Promise<string[]> {
         await this.processPendingUpdates();
-
         return this.getCurrentSelectedRecordIds();
     }
 
