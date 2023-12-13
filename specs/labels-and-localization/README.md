@@ -46,7 +46,7 @@ We will also create new `nimble-label-provider-*` elements with APIs for setting
     number-field-decrement="Decrement"
   ></nimble-label-provider-core>
   <nimble-label-provider-table
-    table-groups-collapse-all="Collapse all groups"
+    table-groups-collapse-all="Collapse all"
   ></nimble-label-provider-table>
 </nimble-theme-provider>
 ```
@@ -82,7 +82,7 @@ The current set of known labels for Nimble is shown below:
 |---------------------------------------|---------------------|
 | table-group-collapse                  | Collapse group      |
 | table-group-expand                    | Expand group        |
-| table-groups-collapse-all             | Collapse all groups |
+| table-groups-collapse-all             | Collapse all        |
 | table-cell-action-menu-label          | Options             |
 | table-column-header-menu              | Column options      |
 | table-column-header-grouped           | Grouped             |
