@@ -12,7 +12,7 @@ import {
 } from '../types';
 import {
     getColorScale,
-    getHighlightedValues,
+    getHighlightedTags,
     getWaferMapDies
 } from './utilities';
 
@@ -50,7 +50,7 @@ describe('Wafermap Data Manager', () => {
         element.dieLabelsHidden = false;
         element.maxCharacters = 3;
         element.colorScaleMode = WaferMapColorScaleMode.ordinal;
-        element.highlightedValues = getHighlightedValues();
+        element.highlightedTags = getHighlightedTags();
         element.canvasWidth = canvasWidth;
         element.canvasHeight = canvasHeight;
 
@@ -123,25 +123,25 @@ describe('Wafermap Data Manager', () => {
     });
 
     it('should have all dies with full opacity from the highlighted list', () => {
-        const highlightedValues = getHighlightedValues().map(
-            value => value + dieLabelsSuffix
-        );
+        const highlightedTags = getHighlightedTags();
+        const dies = getWaferMapDies().filter(die => die.tags?.some(dieTag => highlightedTags.some(
+            highlightedTag => dieTag === highlightedTag
+        )));
         const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(',1)'));
-        for (const dieRenderInfo of diesWithFullOpacity) {
-            expect(highlightedValues).toContain(dieRenderInfo.text);
-        }
+        expect(dies.length).toEqual(diesWithFullOpacity.length);
     });
 
     it('should not have any dies with partial opacity from the highlighted list', () => {
-        const highlightedValues = getHighlightedValues().map(
-            value => value + dieLabelsSuffix
+        const highlightedTags = getHighlightedTags();
+        const dies = getWaferMapDies().filter(
+            die => !die.tags?.some(dieTag => highlightedTags.some(
+                highlightedTag => dieTag === highlightedTag
+            ))
         );
         const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
             x => !x.fillStyle.endsWith(',1)')
         );
-        for (const dieRenderInfo of diesWithPartialOpacity) {
-            expect(highlightedValues).not.toContain(dieRenderInfo.text);
-        }
+        expect(dies.length).toEqual(diesWithPartialOpacity.length);
     });
 
     it('should have all dies inside the canvas with margins', () => {

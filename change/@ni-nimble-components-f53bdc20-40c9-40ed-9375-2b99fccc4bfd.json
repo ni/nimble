@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Adding tags option to wafermap dies and ability to highlight dies based on tags using highlightedTags. Breaking change as users should switch from the removed highlightedValues property to the highlightedTags feature",
+  "packageName": "@ni/nimble-components",
+  "email": "110180309+Razvan1928@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
