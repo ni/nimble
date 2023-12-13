@@ -8,7 +8,6 @@
         "rvest.vs-code-prettier-eslint",
         "silvenon.mdx",
         "ms-dotnettools.csharp",
-        "ms-dotnettools.blazorwasm-companion",
-        "lucono.karma-test-explorer"
+        "ms-dotnettools.blazorwasm-companion"
     ]
 }
