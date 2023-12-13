@@ -13,6 +13,7 @@ import { Table, tableTag } from '..';
 import { iconUserTag } from '../../icons/user';
 import { tableColumnTextTag } from '../../table-column/text';
 import { TableRowSelectionMode } from '../types';
+import { tableColumnNumberTextTag } from '../../table-column/number-text';
 
 const metadata: Meta = {
     title: 'Tests/Table',
@@ -28,13 +29,14 @@ const data = [
         id: '0',
         firstName: 'Ralph',
         lastName: 'Wiggum',
-        favoriteColor: 'Rainbow',
+        age: 11,
         quote: "I'm in danger!"
     },
     {
         id: '1',
         firstName: 'Milhouse',
         lastName: 'Van Houten',
+        age: 10,
         favoriteColor: 'Crimson',
         quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
     },
@@ -44,26 +46,73 @@ const data = [
         lastName: null,
         favoriteColor: null,
         quote: null
+    },
+    {
+        firstName: 'Jacqueline',
+        lastName: 'Bouvier',
+        age: 80,
+        quote: "I have laryngitis. It hurts to talk, so I'll just say one thing. You never do anything right.",
+        id: '3',
+        parentId: undefined
+    },
+    {
+        firstName: 'Selma',
+        lastName: 'Bouvier',
+        age: 45,
+        quote: "Hey relax. I've told ya' I've got money. I bought stock in a mace company just before society crumbled.",
+        id: '4',
+        parentId: '3'
+    },
+    {
+        firstName: 'Marge',
+        lastName: 'Simpson',
+        age: 35,
+        quote: "Oh, I've Always Wanted To Use Rosemary In Something!",
+        id: '6',
+        parentId: '3'
+    },
+    {
+        firstName: 'Bart',
+        lastName: 'Simpson',
+        age: 12,
+        quote: 'Cowabunga!',
+        id: '7',
+        parentId: '6'
     }
 ] as const;
 
 const selectionModeStates = Object.values(TableRowSelectionMode);
 type SelectionModeState = (typeof selectionModeStates)[number];
 
+const groupedStates = [
+    ['Grouped', true],
+    ['Ungrouped', false]
+] as const;
+type GroupedState = (typeof groupedStates)[number];
+
+const hierarchyStates = [
+    ['With Hierarchy', true],
+    ['Without Hierarchy', false]
+] as const;
+type HierarchyState = (typeof hierarchyStates)[number];
+
 // prettier-ignore
 const component = (
-    selectionMode: SelectionModeState
+    selectionMode: SelectionModeState,
+    [groupedStateName, groupedState]: GroupedState,
+    [hierarchyStateName, hierarchyState]: HierarchyState
 ): ViewTemplate => html`
-    <${tableTag} selection-mode="${() => selectionMode}"" id-field-name="id">
-        <${tableColumnTextTag} field-name="firstName" sort-direction="ascending" sort-index="0" group-index="0"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
+    <span>${() => `Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}`}, </span>
+    <${tableTag} selection-mode="${() => selectionMode}"" id-field-name="id" parent-id-field-name="${() => (hierarchyState ? 'parentId' : '')}">
+        <${tableColumnTextTag} field-name="firstName" sort-direction="ascending" sort-index="0" group-index="${() => (groupedState ? '0' : undefined)}"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
         <${tableColumnTextTag} field-name="lastName">Last Name</${tableColumnTextTag}>
-        <${tableColumnTextTag} field-name="favoriteColor" sort-direction="descending" sort-index="1" fractional-width=".5">Favorite Color</${tableColumnTextTag}>
+        <${tableColumnNumberTextTag} field-name="age" sort-direction="descending" sort-index="1" fractional-width=".5">Age</${tableColumnNumberTextTag}>
         <${tableColumnTextTag} field-name="quote" column-hidden>Hidden Quote</${tableColumnTextTag}>
     </${tableTag}>
 `;
 
 export const tableThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [selectionModeStates])
+    createMatrix(component, [selectionModeStates, groupedStates, hierarchyStates])
 );
 
 tableThemeMatrix.play = async (): Promise<void> => {
@@ -71,7 +120,7 @@ tableThemeMatrix.play = async (): Promise<void> => {
         Array.from(document.querySelectorAll<Table>('nimble-table')).map(
             async table => {
                 await table.setData(data);
-                await table.setSelectedRecordIds(['1', '2']);
+                await table.setSelectedRecordIds(['6', '2']);
             }
         )
     );

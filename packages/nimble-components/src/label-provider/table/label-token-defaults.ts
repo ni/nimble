@@ -7,7 +7,7 @@ export const tableLabelDefaults: { readonly [key in TokenName]: string } = {
     tableGroupExpandLabel: 'Expand group',
     tableRowCollapseLabel: 'Collapse row',
     tableRowExpandLabel: 'Expand row',
-    tableGroupsCollapseAllLabel: 'Collapse all groups',
+    tableGroupsCollapseAllLabel: 'Collapse all',
     tableCellActionMenuLabel: 'Options',
     tableColumnHeaderGroupedLabel: 'Grouped',
     tableColumnHeaderSortedAscendingLabel: 'Sorted ascending',
