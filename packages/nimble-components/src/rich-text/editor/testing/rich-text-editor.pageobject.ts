@@ -1,4 +1,9 @@
-import { keySpace, keyEnter, keyTab } from '@microsoft/fast-web-utilities';
+import {
+    keySpace,
+    keyEnter,
+    keyTab,
+    keyEscape
+} from '@microsoft/fast-web-utilities';
 import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { ToggleButton } from '../../../toggle-button';
@@ -55,6 +60,17 @@ export class RichTextEditorPageObject {
         const editor = this.getTiptapEditor();
         const event = new KeyboardEvent('keydown', {
             key: keyEnter,
+            bubbles: true,
+            cancelable: true
+        });
+        editor.dispatchEvent(event);
+        await waitForUpdatesAsync();
+    }
+
+    public async pressEscapeKeyInEditor(): Promise<void> {
+        const editor = this.getTiptapEditor();
+        const event = new KeyboardEvent('keydown', {
+            key: keyEscape,
             bubbles: true,
             cancelable: true
         });

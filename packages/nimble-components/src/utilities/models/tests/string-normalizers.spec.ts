@@ -2,7 +2,7 @@ import { parameterizeNamedList } from '../../tests/parameterized';
 import { diacriticInsensitiveStringNormalizer } from '../string-normalizers';
 
 // Wacky strings copied from '../../tests/wacky-strings.ts' and updated their corresponding normalized string output
-export const wackyStrings = [
+const wackyStrings = [
     { name: '<button></button>', output: '<button></button>' },
     { name: 'null', output: 'null' },
     { name: 'undefined', output: 'undefined' },
