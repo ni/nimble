@@ -1235,6 +1235,20 @@ describe('Table', () => {
                 expect(element.checkValidity()).toBeFalse();
             });
 
+            it('changing idFieldName when data is valid for hierarchy results in every row being expanded', async () => {
+                await connect();
+                element.idFieldName = 'stringData';
+                element.parentIdFieldName = 'parentId2';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+                pageObject.clickCollapseAllButton();
+                await waitForUpdatesAsync();
+
+                element.idFieldName = 'stringData2';
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedRowCount()).toBe(hierarchicalData.length);
+            });
+
             describe('changing idFieldName when rendering hierarchical data, preserves original ordering after removing parentIdFieldName', () => {
                 const maintainDataOrderTests = [
                     {

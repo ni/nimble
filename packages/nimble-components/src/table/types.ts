@@ -178,7 +178,7 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     record: TData;
     id: string;
     selectionState: TableRowSelectionState;
-    isGrouped: boolean;
+    isGroupRow: boolean;
     groupRowValue?: unknown;
     isExpanded: boolean;
     nestingLevel?: number;

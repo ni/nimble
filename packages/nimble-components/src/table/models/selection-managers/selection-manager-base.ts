@@ -41,7 +41,7 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
         isSelecting?: boolean
     ): void {
         if (
-            rowState.isGrouped
+            rowState.isGroupRow
             && rowState.selectionState === TableRowSelectionState.selected
         ) {
             // Work around for https://github.com/TanStack/table/issues/4759
@@ -49,13 +49,13 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
             this.deselectAllLeafRows(rowState.id);
         } else {
             this.tanStackTable.getRow(rowState.id).toggleSelected(isSelecting, {
-                selectChildren: rowState.isGrouped
+                selectChildren: rowState.isGroupRow
             });
         }
     }
 
     protected selectSingleRow(rowState: TableRowState): boolean {
-        if (rowState.isGrouped) {
+        if (rowState.isGroupRow) {
             throw new Error('function not intended to select grouped rows');
         }
 
@@ -101,7 +101,10 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
             return [];
         }
 
-        return row.getLeafRows().map(leafRow => leafRow.id);
+        return row
+            .getLeafRows()
+            .filter(leafRow => !leafRow.getIsGrouped())
+            .map(leafRow => leafRow.id);
     }
 
     protected getAllOrderedRows(): TanStackRow<TableNode<TData>>[] {

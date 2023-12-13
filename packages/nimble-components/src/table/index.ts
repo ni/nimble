@@ -232,7 +232,6 @@ export class Table<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
-    private hasDataHierarchy = false;
 
     public constructor() {
         super();
@@ -526,10 +525,6 @@ export class Table<
                 column => !column.columnHidden
             );
         }
-
-        if (this.tableUpdateTracker.updateGroupRows) {
-            this.refreshCollapseAllButtonVisibility();
-        }
     }
 
     public override get ariaMultiSelectable(): 'true' | 'false' | null {
@@ -558,7 +553,7 @@ export class Table<
     public processFlatData(
         data: readonly TData[]
     ): Partial<TanStackTableOptionsResolved<TableNode<TData>>> {
-        const internalData = this.dataHierarchyManager.getTableNodes(
+        const tableNodes = this.dataHierarchyManager.getTableNodes(
             data,
             this.idFieldName,
             this.parentIdFieldName
@@ -566,7 +561,7 @@ export class Table<
         const tanStackUpdates: Partial<
         TanStackTableOptionsResolved<TableNode<TData>>
         > = {
-            data: internalData
+            data: tableNodes
         };
         this.validateWithData(data);
         if (this.tableValidator.areRecordIdsValid()) {
@@ -822,6 +817,10 @@ export class Table<
 
         if (this.tableUpdateTracker.updateGroupRows) {
             updatedOptions.state.grouping = this.calculateTanStackGroupingState();
+        }
+
+        if (this.tableUpdateTracker.updateRowIds
+            || this.tableUpdateTracker.updateGroupRows) {
             updatedOptions.state.expanded = true;
             this.expansionManager.reset();
         }
@@ -913,45 +912,40 @@ export class Table<
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
 
-        let hasHierarchy = false;
+        let hasDataHierarchy = false;
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
-            const isGrouped = row.getIsGrouped();
-            const hasParentRow = isGrouped ? false : row.getParentRow();
+            const isGroupRow = row.getIsGrouped();
+            const hasParentRow = isGroupRow ? false : row.getParentRow();
             const isParent = row.original.subRows !== undefined
                 && row.original.subRows.length > 0;
+            const isGroupRowChildWithNoHierarchy = !isGroupRow
+                && !isParent
+                && !hasParentRow
+                && row.depth > 0
+                && !this.parentIdFieldName;
             const rowState: TableRowState<TData> = {
                 record: row.original.clientRecord,
                 id: row.id,
                 selectionState: this.getRowSelectionState(row),
-                isGrouped,
+                isGroupRow,
                 isExpanded: row.getIsExpanded(),
-                groupRowValue: isGrouped
+                groupRowValue: isGroupRow
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
-                nestingLevel:
-                    !isGrouped
-                    && !isParent
-                    && !hasParentRow
-                    && row.depth > 0
-                    && !this.parentIdFieldName
-                        ? row.depth - 1
-                        : row.depth,
+                nestingLevel: isGroupRowChildWithNoHierarchy
+                    ? row.depth - 1
+                    : row.depth,
                 isParentRow: isParent,
                 immediateChildCount: row.subRows.length,
                 groupColumn: this.getGroupRowColumn(row)
             };
-            hasHierarchy = hasHierarchy || isParent;
+            hasDataHierarchy = hasDataHierarchy || isParent;
             return rowState;
         });
-        this.hasDataHierarchy = hasHierarchy;
-        this.refreshCollapseAllButtonVisibility();
-        this.virtualizer.dataChanged();
-    }
-
-    private refreshCollapseAllButtonVisibility(): void {
-        this.showCollapseAll = this.hasDataHierarchy
+        this.showCollapseAll = hasDataHierarchy
             || this.getColumnsParticipatingInGrouping().length > 0;
+        this.virtualizer.dataChanged();
     }
 
     private getTableSelectionState(): TableRowSelectionState {
