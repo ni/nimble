@@ -9,7 +9,7 @@ import {
 export const styles = css`
     ${dropdownStyles}
 
-    :host{
+    :host {
         height: auto;
     }
 
