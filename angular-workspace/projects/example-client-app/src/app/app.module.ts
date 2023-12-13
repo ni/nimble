@@ -16,6 +16,7 @@ import { NimbleLabelProviderRichTextModule } from '@ni/nimble-angular/label-prov
 import { NimbleLabelProviderTableModule } from '@ni/nimble-angular/label-provider/table';
 import { NimbleMappingTextModule } from '@ni/nimble-angular/mapping/text';
 import { NimbleMappingIconModule } from '@ni/nimble-angular/mapping/icon';
+import { NimbleMappingUserModule } from '@ni/nimble-angular/mapping/user';
 import { NimbleMappingSpinnerModule } from '@ni/nimble-angular/mapping/spinner';
 import { NimbleTableModule } from '@ni/nimble-angular/table';
 import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
@@ -27,6 +28,7 @@ import { NimbleTableColumnNumberTextModule } from '@ni/nimble-angular/table-colu
 import { NimbleTableColumnDurationTextModule } from '@ni/nimble-angular/table-column/duration-text';
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text/viewer';
 import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text/editor';
+import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-mention/users';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { HeaderComponent } from './header/header.component';
@@ -96,6 +98,8 @@ import { HeaderComponent } from './header/header.component';
         NimbleRichTextEditorModule,
         NimbleTableColumnIconModule,
         NimbleMappingIconModule,
+        NimbleMappingUserModule,
+        NimbleRichTextMentionUsersModule,
         NimbleMappingSpinnerModule,
         RouterModule.forRoot(
             [

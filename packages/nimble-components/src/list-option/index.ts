@@ -1,9 +1,10 @@
 import {
     DesignSystem,
-    ListboxOption as FoundationListboxOption,
-    listboxOptionTemplate as template
+    ListboxOption as FoundationListboxOption
 } from '@microsoft/fast-foundation';
+import { observable } from '@microsoft/fast-element';
 import { styles } from './styles';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -15,23 +16,19 @@ declare global {
  * A nimble-styled HTML listbox option
  */
 export class ListOption extends FoundationListboxOption {
-    // Workaround for https://github.com/microsoft/fast/issues/5219
-    public override get value(): string {
-        return super.value;
-    }
+    /** @internal */
+    public contentSlot!: HTMLSlotElement;
 
-    public override set value(value: string) {
-        // Coerce value to string
-        super.value = `${value}`;
+    /** @internal */
+    @observable
+    public hasOverflow = false;
 
-        if (this.$fastController.isConnected) {
-            this.setAttribute('value', this.value);
-        }
-    }
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        this.setAttribute('value', this.value);
+    /** @internal */
+    public get elementTextContent(): string {
+        return this.contentSlot
+            .assignedNodes()
+            .map(node => node.textContent?.trim())
+            .join(' ');
     }
 }
 

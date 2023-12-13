@@ -73,8 +73,8 @@ describe('WaferMap', () => {
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will update once after highlightedValues change', () => {
-            element.highlightedValues = ['1'];
+        it('will update once after highlightedTags change', () => {
+            element.highlightedTags = ['1'];
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
         });
@@ -98,7 +98,7 @@ describe('WaferMap', () => {
             element.dieLabelsHidden = true;
             element.dieLabelsSuffix = '%';
             element.colorScaleMode = WaferMapColorScaleMode.ordinal;
-            element.highlightedValues = ['1'];
+            element.highlightedTags = ['1'];
             element.dies = [{ x: 1, y: 1, value: '1' }];
             element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
             processUpdates();

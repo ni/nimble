@@ -1,8 +1,146 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 13 Nov 2023 17:03:21 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Dec 2023 15:42:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.2.3
+
+Wed, 13 Dec 2023 15:42:56 GMT
+
+### Patches
+
+- Add button-label for mention configuration element  ([ni/nimble@28021f0](https://github.com/ni/nimble/commit/28021f000969ab66014f67cbd8a30a175de279f1))
+
+## 18.2.2
+
+Wed, 13 Dec 2023 14:06:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.16.3
+
+## 18.2.1
+
+Wed, 13 Dec 2023 13:27:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.16.2
+
+## 18.2.0
+
+Mon, 11 Dec 2023 19:32:21 GMT
+
+### Minor changes
+
+- Add contentEditable property to anchor directive ([ni/nimble@487c344](https://github.com/ni/nimble/commit/487c3440588f7b331ea2e90131e41bbf4d4d84f0))
+- Bump @ni/nimble-components to v20.16.1
+
+## 18.1.3
+
+Mon, 11 Dec 2023 17:36:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.16.0
+
+## 18.1.2
+
+Fri, 08 Dec 2023 05:30:46 GMT
+
+### Patches
+
+- Angular support for mention configuration and mapping user elements ([ni/nimble@0fef32a](https://github.com/ni/nimble/commit/0fef32ab58b286603588100a5c65906099915d98))
+
+## 18.1.1
+
+Thu, 07 Dec 2023 21:49:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.15.1
+
+## 18.1.0
+
+Thu, 07 Dec 2023 17:27:04 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v20.15.0
+
+## 18.0.1
+
+Tue, 05 Dec 2023 11:06:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.13
+
+## 18.0.0
+
+Tue, 28 Nov 2023 18:24:15 GMT
+
+### Major changes
+
+- Update to Angular 15 ([ni/nimble@bf12590](https://github.com/ni/nimble/commit/bf1259004b9d362f0d04fa52695b0d430805cf99))
+- Bump @ni/nimble-components to v20.14.11
+
+## 17.9.11
+
+Mon, 27 Nov 2023 16:11:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.10
+
+## 17.9.10
+
+Thu, 23 Nov 2023 08:11:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.9
+
+## 17.9.9
+
+Tue, 21 Nov 2023 19:16:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.8
+
+## 17.9.8
+
+Tue, 21 Nov 2023 17:02:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.7
+
+## 17.9.7
+
+Fri, 17 Nov 2023 16:02:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.6
+
+## 17.9.6
+
+Fri, 17 Nov 2023 01:11:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.5
+
+## 17.9.5
+
+Wed, 15 Nov 2023 16:52:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.4
 
 ## 17.9.4
 

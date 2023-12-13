@@ -1,8 +1,137 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 13 Nov 2023 17:03:21 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Dec 2023 14:06:08 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.16.3
+
+Wed, 13 Dec 2023 14:06:08 GMT
+
+### Patches
+
+- Add support for @mention in nimble-rich-text-editor ([ni/nimble@c69a774](https://github.com/ni/nimble/commit/c69a7745d0a8223a479d79a2cabe6cdcd1e9ca1a))
+
+## 20.16.2
+
+Wed, 13 Dec 2023 13:27:41 GMT
+
+### Patches
+
+- Adding tags option to wafermap dies and ability to highlight dies based on tags using highlightedTags. Breaking change as users should switch from the removed highlightedValues property to the highlightedTags feature ([ni/nimble@faec5a4](https://github.com/ni/nimble/commit/faec5a459b8c93b2e5c05722e767fb8331d65857))
+
+## 20.16.1
+
+Mon, 11 Dec 2023 19:32:21 GMT
+
+### Patches
+
+- Make anchor behave like native anchor when contenteditable ([ni/nimble@487c344](https://github.com/ni/nimble/commit/487c3440588f7b331ea2e90131e41bbf4d4d84f0))
+
+## 20.16.0
+
+Mon, 11 Dec 2023 17:36:28 GMT
+
+### Minor changes
+
+- Add expand-collapse button to Table Row and Cell ([ni/nimble@824e321](https://github.com/ni/nimble/commit/824e321a9235b0bb98b1fd49e1167d154749a08d))
+
+## 20.15.1
+
+Thu, 07 Dec 2023 21:49:16 GMT
+
+### Patches
+
+- Add support for @mention in nimble-rich-text-editor ([ni/nimble@c69a774](https://github.com/ni/nimble/commit/c69a7745d0a8223a479d79a2cabe6cdcd1e9ca1a))
+
+## 20.15.0
+
+Thu, 07 Dec 2023 17:27:04 GMT
+
+### Minor changes
+
+- New icons for calendars and test plans ([ni/nimble@f4a4453](https://github.com/ni/nimble/commit/f4a4453cc34b004f34d4ffed5a9c674427560597))
+- Bump @ni/nimble-tokens to v6.9.0
+
+## 20.14.13
+
+Tue, 05 Dec 2023 11:06:30 GMT
+
+### Patches
+
+- spec for wafer highlight ([ni/nimble@83fa07f](https://github.com/ni/nimble/commit/83fa07f9caf7ec7aca9d7eef9a45bf93c7f13b26))
+
+## 20.14.12
+
+Mon, 04 Dec 2023 21:56:42 GMT
+
+### Patches
+
+- Update styling for incubating nimble-card ([ni/nimble@499b7e1](https://github.com/ni/nimble/commit/499b7e19fe8ddd6627cd36bae402b8c18a6feb10))
+
+## 20.14.11
+
+Tue, 28 Nov 2023 18:24:15 GMT
+
+### Patches
+
+- Add explicit dev dependency on source-map-loader ([ni/nimble@bf12590](https://github.com/ni/nimble/commit/bf1259004b9d362f0d04fa52695b0d430805cf99))
+
+## 20.14.10
+
+Mon, 27 Nov 2023 16:11:51 GMT
+
+### Patches
+
+- Fix overflow behavior of nimble-list-option ([ni/nimble@9047cd3](https://github.com/ni/nimble/commit/9047cd3f1c559b54f58d7bd9a4e3cf3ff401c0fb))
+
+## 20.14.9
+
+Thu, 23 Nov 2023 08:11:47 GMT
+
+### Patches
+
+- Add support for @mention in nimble-rich-text-viewer ([ni/nimble@c69a774](https://github.com/ni/nimble/commit/c69a7745d0a8223a479d79a2cabe6cdcd1e9ca1a))
+
+## 20.14.8
+
+Tue, 21 Nov 2023 19:16:40 GMT
+
+### Patches
+
+- Hide inc/dec buttons on numeric from a11y tree ([ni/nimble@f74e259](https://github.com/ni/nimble/commit/f74e2591ec02b4a60c873e9308f82ad96ca51f40))
+
+## 20.14.7
+
+Tue, 21 Nov 2023 17:02:30 GMT
+
+### Patches
+
+- Introduce table hierarchical datatype. ([ni/nimble@d268abf](https://github.com/ni/nimble/commit/d268abf77bd76a1fe7e707542f391e5bb4367291))
+
+## 20.14.6
+
+Fri, 17 Nov 2023 16:02:19 GMT
+
+### Patches
+
+- Add configuration component for rich text @mention support ([ni/nimble@045bb0a](https://github.com/ni/nimble/commit/045bb0a6749a64df4af2b28da161b79802c5f12b))
+
+## 20.14.5
+
+Fri, 17 Nov 2023 01:11:32 GMT
+
+### Patches
+
+- Fix the drawer's footer's border to match the visual design spec ([ni/nimble@ad97540](https://github.com/ni/nimble/commit/ad97540875589785cfce251af5213237ecf5778a))
+
+## 20.14.4
+
+Wed, 15 Nov 2023 16:52:07 GMT
+
+### Patches
+
+- Update internal mapping base class to be generic ([ni/nimble@1eea68e](https://github.com/ni/nimble/commit/1eea68e85e2c284cd4ebad9b910ea57c5b3f929b))
 
 ## 20.14.3
 
