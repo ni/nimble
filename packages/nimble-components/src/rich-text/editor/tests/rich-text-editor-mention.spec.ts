@@ -13,11 +13,13 @@ import {
     appendUserMentionConfiguration
 } from '../testing/rich-text-editor-utils';
 import { iconAtTag } from '../../../icons/at';
+import { iconExclamationMarkTag } from '../../../icons/exclamation-mark';
 import { ArrowKeyButton } from '../testing/types';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 
 const RICH_TEXT_MENTION_USERS_VIEW_TAG = richTextMentionUsersViewTag.toUpperCase();
 const ICON_AT_TAG = iconAtTag.toUpperCase();
+const ICON_EXCLAMATION_TAG = iconExclamationMarkTag.toUpperCase();
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return fixture<RichTextEditor>(
@@ -287,12 +289,6 @@ describe('RichTextEditorMention', () => {
         describe('user mention button', () => {
             it('should not have `at icon` button when no configuration element is given', () => {
                 expect(pageObject.getMentionButtonIcon(0)).toBeUndefined();
-            });
-
-            it('should have `at icon` button when user configuration element is given', async () => {
-                await appendUserMentionConfiguration(element);
-
-                expect(pageObject.getMentionButtonIcon(0)).toBe(ICON_AT_TAG);
             });
 
             it('should have empty button title and text content as default', async () => {
@@ -593,7 +589,9 @@ describe('RichTextEditorMention', () => {
             await appendTestMentionConfiguration(element);
 
             expect(pageObject.getMentionButtonIcon(0)).toBe(ICON_AT_TAG);
-            expect(pageObject.getMentionButtonIcon(1)).toBe(ICON_AT_TAG);
+            expect(pageObject.getMentionButtonIcon(1)).toBe(
+                ICON_EXCLAMATION_TAG
+            );
         });
     });
 
@@ -858,10 +856,6 @@ describe('RichTextEditor user mention via template', () => {
             await waitForUpdatesAsync();
         });
 
-        it('should have `at icon` button', () => {
-            expect(pageObject.getMentionButtonIcon(0)).toBe(ICON_AT_TAG);
-        });
-
         it('should get `@` text without a preceding whitespace at the start of a line, when button clicked', async () => {
             await pageObject.clickUserMentionButton();
 
@@ -1076,6 +1070,18 @@ describe('RichTextEditorMentionListbox', () => {
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
             ).toEqual(['username1']);
+            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+        });
+
+        it('should close the popup when clicking Escape', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            await pageObject.setEditorTextContent('@');
+            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            await pageObject.pressEscapeKeyInEditor();
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
