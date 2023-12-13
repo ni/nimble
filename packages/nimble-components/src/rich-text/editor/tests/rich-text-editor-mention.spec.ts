@@ -665,7 +665,10 @@ describe('RichTextEditorMention', () => {
             element,
             [{ key: 'user:1', displayName: 'username1' }]
         );
-        const htmlContent = pageObject.getParsedHtmlFromMarkdown('start <user:1> end');
+        const htmlContent = pageObject.getParsedHtmlFromMarkdown(
+            'start <user:1> end',
+            [{ key: 'user:1', displayName: 'username1' }]
+        );
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         pageObject.pasteHTMLToEditor(htmlContent);
@@ -783,7 +786,8 @@ describe('RichTextEditorMention', () => {
                     { key: 'user:1', displayName: value.content }
                 ]);
                 const htmlContent = pageObject.getParsedHtmlFromMarkdown(
-                    value.input
+                    value.input,
+                    [{ key: 'user:1', displayName: value.content }]
                 );
                 pageObject.pasteHTMLToEditor(htmlContent);
                 expect(pageObject.getEditorTagNamesWithClosingTags()).toEqual([

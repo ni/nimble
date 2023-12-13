@@ -7,7 +7,12 @@ import {
 import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { ToggleButton } from '../../../toggle-button';
-import { ArrowKeyButton, ToolbarButton, ToolbarButtonKey } from './types';
+import {
+    ArrowKeyButton,
+    MappingConfiguration,
+    ToolbarButton,
+    ToolbarButtonKey
+} from './types';
 import {
     getTagsFromElement,
     getLeafContentsFromElement,
@@ -21,6 +26,9 @@ import { richTextMentionListboxTag } from '../../mention-listbox';
 import { listOptionTag, type ListOption } from '../../../list-option';
 import { anchoredRegionTag } from '../../../anchored-region';
 import { iconAtTag } from '../../../icons/at';
+import { MarkdownParserMentionConfiguration } from '../../models/markdown-parser-mention-configuration';
+import { MentionInternals } from '../../../rich-text-mention/base/models/mention-internals';
+import { MappingUserConfig } from '../../../rich-text-mention/users/models/mapping-user-config';
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -382,10 +390,14 @@ export class RichTextEditorPageObject {
         return editor.firstElementChild?.getAttribute('data-placeholder') ?? '';
     }
 
-    public getParsedHtmlFromMarkdown(markdown: string): string {
+    public getParsedHtmlFromMarkdown(
+        markdown: string,
+        mappings?: MappingConfiguration[]
+    ): string {
+        const parserMentionConfigForUser = this.getParserMentionConfigForUser(mappings);
         const parseResult = RichTextMarkdownParser.parseMarkdownToDOM(
             markdown,
-            this.richTextEditorElement.configuration?.parserMentionConfig
+            [parserMentionConfigForUser]
         );
         return this.richTextEditorElement.xmlSerializer.serializeToString(
             parseResult.fragment
@@ -471,5 +483,33 @@ export class RichTextEditorPageObject {
 
     private getEditorLastChildElement(): Element {
         return getLastChildElement(this.getTiptapEditor())!;
+    }
+
+    private getParserMentionConfigForUser(
+        mappings: MappingConfiguration[] = []
+    ): MarkdownParserMentionConfiguration {
+        const mentionInternals = new MentionInternals(
+            {
+                character: '',
+                icon: '',
+                viewElement: richTextMentionUsersViewTag
+            },
+            () => {}
+        );
+        mentionInternals.pattern = '^user:(.*)';
+        mappings.forEach(mapping => {
+            const mappingConfig = new MappingUserConfig(
+                mapping.key,
+                mapping.displayName
+            );
+            mentionInternals.mappingConfigs = new Map().set(
+                mapping.key,
+                mappingConfig
+            );
+        });
+        const parserMentionConfig = new MarkdownParserMentionConfiguration(
+            mentionInternals
+        );
+        return parserMentionConfig;
     }
 }
