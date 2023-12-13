@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 13 Dec 2023 15:42:56 GMT",
+      "version": "18.2.3",
+      "tag": "@ni/nimble-angular_v18.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "28021f000969ab66014f67cbd8a30a175de279f1",
+            "comment": "Add button-label for mention configuration element "
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Dec 2023 14:06:08 GMT",
       "version": "18.2.2",
       "tag": "@ni/nimble-angular_v18.2.2",

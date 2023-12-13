@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 13 Dec 2023 14:06:08 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Dec 2023 15:42:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.2.3
+
+Wed, 13 Dec 2023 15:42:56 GMT
+
+### Patches
+
+- Add button-label for mention configuration element  ([ni/nimble@28021f0](https://github.com/ni/nimble/commit/28021f000969ab66014f67cbd8a30a175de279f1))
 
 ## 18.2.2
 

@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add button-label for mention configuration element ",
-  "packageName": "@ni/nimble-angular",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
