@@ -104,7 +104,7 @@ describe('NimbleRichTextMentionUsers', () => {
         @Component({
             template: `
                 <nimble-rich-text-editor>
-                    <nimble-rich-text-mention-users [pattern]="pattern" [button-label]="buttonLabel" #users></nimble-rich-text-mention-users>
+                    <nimble-rich-text-mention-users [pattern]="pattern" [buttonLabel]="buttonLabel" #users></nimble-rich-text-mention-users>
                 </nimble-rich-text-editor>
             `
         })
