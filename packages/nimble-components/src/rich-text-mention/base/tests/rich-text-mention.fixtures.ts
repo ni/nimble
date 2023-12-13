@@ -47,10 +47,14 @@ export class RichTextMentionTest extends RichTextMention {
 
     protected override getMentionInternalsOptions(): MentionInternalsOptions {
         return {
-            icon: '',
+            icon: 'nimble-icon-exclamation-mark',
             character: '!',
             viewElement: richTextMentionUsersViewTag
         };
+    }
+
+    protected override getObservedMappingProperty(): string[] {
+        return ['key', 'displayName'];
     }
 
     protected createMappingConfig(mapping: Mapping<unknown>): MappingConfig {

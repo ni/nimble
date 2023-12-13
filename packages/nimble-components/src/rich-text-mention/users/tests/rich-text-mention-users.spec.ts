@@ -98,7 +98,9 @@ describe('RichTextMentionUsers', () => {
         }));
         await connect();
         expect(element.mentionInternals.character).toBe('@');
-        expect(element.mentionInternals.icon).toBe(iconAtTag);
+        expect(element.mentionInternals.iconTemplate).toEqual(
+            html`<${iconAtTag} slot="start"></${iconAtTag}>`
+        );
         expect(element.mentionInternals.pattern).toBe('user:');
     });
 
@@ -409,6 +411,14 @@ describe('RichTextMentionUsers', () => {
             await updatePatternAttribute(element, '(pattern');
             expect(element.checkValidity()).toBeFalse();
             expect(element.validity.unsupportedPatternValue).toBeTrue();
+        });
+
+        it('Should update mentionInternals with updated buttonLabel', async () => {
+            ({ element, connect, disconnect } = await setupMissingPattern());
+            await connect();
+            expect(element.mentionInternals.buttonLabel).toBe(undefined);
+            element.buttonLabel = 'test-button';
+            expect(element.mentionInternals.buttonLabel).toBe('test-button');
         });
     });
 });

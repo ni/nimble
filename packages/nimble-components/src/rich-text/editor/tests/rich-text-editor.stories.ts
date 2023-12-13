@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
+    disableStorybookZoomTransform,
     incubatingWarning
 } from '../../../utilities/tests/storybook';
 import { RichTextEditor, richTextEditorTag } from '..';
@@ -88,6 +89,7 @@ const metadata: Meta<RichTextEditorArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+    ${disableStorybookZoomTransform}
     ${incubatingWarning({
         componentName: 'rich text editor',
         statusLink: 'https://github.com/ni/nimble/issues/1288'
@@ -102,12 +104,15 @@ const metadata: Meta<RichTextEditorArgs> = {
         error-text="${x => x.errorText}"
         placeholder="${x => x.placeholder}"
     >
-        <${richTextMentionUsersTag} pattern="${x => mentionDataSets[x.mentionData].pattern}">
-            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}1" display-name="John Doe"></${mappingUserTag}>
-            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}2" display-name="Mary Wilson"></${mappingUserTag}>
-            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}3" display-name="Sue Ann"></${mappingUserTag}>
-            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}4" display-name="Joseph George"></${mappingUserTag}>
+        <${richTextMentionUsersTag} pattern="${x => mentionDataSets[x.mentionData].pattern}" button-label="Mention User">
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}1" display-name="John Doe😀"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}2" display-name="Mary Wilson😂"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}3" display-name="Sue Ann🤩"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}4" display-name="Joseph-George"></${mappingUserTag}>
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}5" display-name="David"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}6" display-name="Ranchan"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}7" display-name="Aegar"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}8" display-name="Mitert"></${mappingUserTag}>
         </${richTextMentionUsersTag}>
         ${when(x => x.footerActionButtons, html`
             <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>

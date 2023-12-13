@@ -33,6 +33,10 @@ export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersVa
         };
     }
 
+    protected override getObservedMappingProperty(): string[] {
+        return ['key', 'displayName'];
+    }
+
     protected createMappingConfig(
         mapping: Mapping<MappingUserKey>
     ): MappingConfig {
