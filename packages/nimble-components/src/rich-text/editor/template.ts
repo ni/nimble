@@ -1,4 +1,4 @@
-import { children, elements, html, ref } from '@microsoft/fast-element';
+import { children, elements, html, ref, repeat } from '@microsoft/fast-element';
 import type { RichTextEditor } from '.';
 import { toolbarTag } from '../../toolbar';
 import { toggleButtonTag } from '../../toggle-button';
@@ -14,10 +14,19 @@ import {
 } from '../../label-provider/rich-text/label-tokens';
 import { errorTextTemplate } from '../../patterns/error/template';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
+import { richTextMentionListboxTag } from '../mention-listbox';
+import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
+import { buttonTag } from '../../button';
+import type { MappingConfig } from '../../rich-text-mention/base/models/mapping-config';
+import { listOptionTag } from '../../list-option';
+import type { MentionDetail } from './types';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
-    <template ${children({ property: 'childItems', filter: elements() })}>
+    <template
+        ${children({ property: 'childItems', filter: elements() })}
+        @focusout="${x => x.focusoutHandler()}"
+    >
         <div class="container">
             <section ${ref('editorContainer')} class="editor-container">
             </section>
@@ -84,6 +93,19 @@ export const template = html<RichTextEditor>`
                         ${x => richTextToggleNumberedListLabel.getValueFor(x)}
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
                     </${toggleButtonTag}>
+                    ${repeat(x => x.getMentionExtensionConfig(), html<MentionExtensionConfiguration, RichTextEditor>`
+                        <${buttonTag}
+                            appearance="ghost"
+                            content-hidden
+                            ?disabled="${(_x, c) => c.parent.disabled}"
+                            slot="start"
+                            title=${x => x.buttonLabel}
+                            @click=${(x, c) => c.parent.mentionButtonClick(x.character)}
+                        >
+                            ${x => x.buttonLabel}
+                            ${x => x.iconTemplate}
+                        </${buttonTag}>
+                    `)}
                 </${toolbarTag}>
                 <span class="footer-actions" part="footer-actions">
                     <slot name="footer-actions"></slot>
@@ -91,5 +113,13 @@ export const template = html<RichTextEditor>`
             </section>
             ${errorTextTemplate}
         </div>
+        <${richTextMentionListboxTag}
+            ${ref('mentionListbox')}
+            @mention-selected=${(x, c) => x.onMentionSelect(c.event as CustomEvent<MentionDetail>)}
+        >
+            ${repeat(x => Array.from(x.activeMappingConfigs?.values() ?? []), html<MappingConfig>`
+                <${listOptionTag} value="${x => x.mentionHref}">${x => x.displayName}</${listOptionTag}>
+            `, { recycle: false })}
+        </${richTextMentionListboxTag}>
     </template>
 `;

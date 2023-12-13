@@ -1,4 +1,4 @@
-import { observable } from '@microsoft/fast-element';
+import { ViewTemplate, html, observable } from '@microsoft/fast-element';
 import type { MappingConfigs, MentionUpdateEmitter } from '../types';
 
 export interface MentionInternalsOptions {
@@ -30,9 +30,15 @@ export class MentionInternals {
     public pattern?: string;
 
     /**
-     * Icon to display on RichTextEditor Toolbar
+     * Label to use as accessible name and title of mention button
      */
-    public readonly icon: string;
+    @observable
+    public buttonLabel?: string;
+
+    /**
+     * Template of the Icon to display on RichTextEditor Toolbar
+     */
+    public readonly iconTemplate: ViewTemplate;
 
     /**
      * Character to show respective mention list
@@ -53,7 +59,7 @@ export class MentionInternals {
         options: MentionInternalsOptions,
         mentionUpdateEmitter: MentionUpdateEmitter
     ) {
-        this.icon = options.icon;
+        this.iconTemplate = html`<${options.icon} slot="start"></${options.icon}>`;
         this.character = options.character;
         this.viewElement = options.viewElement;
         this.mentionUpdateEmitter = mentionUpdateEmitter;
