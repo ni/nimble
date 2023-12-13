@@ -67,7 +67,7 @@ const hierarchicalData = [
         lastName: 'Simpson',
         age: 35,
         quote: "Oh, I've Always Wanted To Use Rosemary In Something!",
-        id: '',
+        id: '1',
         parentId: '0'
     },
     {
@@ -76,7 +76,7 @@ const hierarchicalData = [
         age: 12,
         quote: 'Cowabunga!',
         id: '2',
-        parentId: ''
+        parentId: '1'
     },
     {
         firstName: 'Lisa',
@@ -84,7 +84,7 @@ const hierarchicalData = [
         age: 10,
         quote: 'I Am The Lizard Queen!',
         id: '3',
-        parentId: ''
+        parentId: '1'
     },
     {
         firstName: 'Maggie',
@@ -92,7 +92,7 @@ const hierarchicalData = [
         age: 1,
         quote: '<pacifier noise>',
         id: '4',
-        parentId: ''
+        parentId: '1'
     },
     {
         firstName: 'Selma',
