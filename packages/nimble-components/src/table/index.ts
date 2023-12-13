@@ -932,7 +932,11 @@ export class Table<
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
                 nestingLevel:
-                    !isGrouped && !isParent && !hasParentRow && row.depth > 0 && !this.parentIdFieldName
+                    !isGrouped
+                    && !isParent
+                    && !hasParentRow
+                    && row.depth > 0
+                    && !this.parentIdFieldName
                         ? row.depth - 1
                         : row.depth,
                 isParentRow: isParent,

@@ -112,7 +112,11 @@ const component = (
 `;
 
 export const tableThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [selectionModeStates, groupedStates, hierarchyStates])
+    createMatrix(component, [
+        selectionModeStates,
+        groupedStates,
+        hierarchyStates
+    ])
 );
 
 tableThemeMatrix.play = async (): Promise<void> => {
