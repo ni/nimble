@@ -144,7 +144,11 @@ function createCustomLinkExtension(): Mark<LinkOptions> {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         HTMLAttributes: {
             rel: 'noopener noreferrer',
-            target: null
+            target: null,
+            // Adding `class` here is a workaround to render two mentions without a whitespace as display names
+            // This attribute can be removed when the below issue is resolved
+            // https://github.com/ni/nimble/issues/1707
+            class: ''
         },
         autolink: true,
         openOnClick: false,

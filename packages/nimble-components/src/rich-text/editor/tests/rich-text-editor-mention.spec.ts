@@ -263,6 +263,27 @@ describe('RichTextEditorMention', () => {
             expect(pageObject.getEditorLeafContents()).toEqual(['user:2']);
         });
 
+        it('should render as mention elements when two mentions without a space and configuration added dynamically', async () => {
+            element.setMarkdown('<user:1><user:2>');
+
+            expect(pageObject.getEditorTagNames()).toEqual(['P', 'A', 'A']);
+
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+
+            expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
+                'P',
+                RICH_TEXT_MENTION_USERS_VIEW_TAG,
+                RICH_TEXT_MENTION_USERS_VIEW_TAG,
+                'BR'
+            ]);
+            expect(
+                pageObject.getEditorMentionViewAttributeValues('mention-label')
+            ).toEqual(['username1', 'username2']);
+        });
+
         describe('user mention button', () => {
             it('should not have `at icon` button when no configuration element is given', () => {
                 expect(pageObject.getMentionButtonIcon(0)).toBeUndefined();
