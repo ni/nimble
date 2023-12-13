@@ -34,6 +34,19 @@ export class Anchor extends AnchorBase {
      */
     @attr
     public appearance: AnchorAppearance;
+
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: contenteditable
+     * See https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable
+     *
+     * Ideally, proper support for contenteditable should come from FAST.
+     * I have filed bug https://github.com/microsoft/fast/issues/6870 to them.
+     * If/when it is fixed, we can remove this workaround.
+     */
+    @attr({ attribute: 'contenteditable' })
+    public override contentEditable!: string;
 }
 
 // FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.

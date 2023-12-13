@@ -134,6 +134,15 @@ export interface TableRowSelectionEventDetail {
 }
 
 /**
+ * Event detail type for row toggle events in the table.
+ */
+export interface TableRowExpandToggleEventDetail {
+    oldState: boolean;
+    newState: boolean;
+    recordId: string;
+}
+
+/**
  * Event detail type for interactive column configuration changes.
  *
  * The column-configuration-change event is emitted when a column's configuration
