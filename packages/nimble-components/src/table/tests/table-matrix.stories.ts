@@ -68,7 +68,7 @@ const data = [
         lastName: 'Simpson',
         age: 35,
         quote: "Oh, I've Always Wanted To Use Rosemary In Something!",
-        id: '6',
+        id: '',
         parentId: '3'
     },
     {
@@ -77,7 +77,7 @@ const data = [
         age: 12,
         quote: 'Cowabunga!',
         id: '7',
-        parentId: '6'
+        parentId: ''
     }
 ] as const;
 

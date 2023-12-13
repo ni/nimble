@@ -201,7 +201,7 @@ export class TableRow<
     }
 
     public onRowExpandToggle(event: Event): void {
-        if (this.recordId) {
+        if (typeof this.recordId === 'string') {
             const expandEventDetail: TableRowExpansionToggleEventDetail = {
                 oldState: this.expanded,
                 newState: !this.expanded,

@@ -35,7 +35,8 @@ export class DataHierarchyManager<TData extends TableRecord> {
                     id: idFieldName,
                     parentId: parentIdFieldName,
                     nestedIds: false,
-                    throwIfOrphans: true
+                    throwIfOrphans: true,
+                    rootParentIds: {}
                 }) as TableNode<TData>[];
                 this.isDataFlat = false;
             } catch {
