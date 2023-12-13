@@ -1,8 +1,18 @@
-import { keySpace, keyEnter, keyTab } from '@microsoft/fast-web-utilities';
+import {
+    keySpace,
+    keyEnter,
+    keyTab,
+    keyEscape
+} from '@microsoft/fast-web-utilities';
 import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { ToggleButton } from '../../../toggle-button';
-import { ToolbarButton, ToolbarButtonKey } from './types';
+import {
+    ArrowKeyButton,
+    MappingConfiguration,
+    ToolbarButton,
+    ToolbarButtonKey
+} from './types';
 import {
     getTagsFromElement,
     getLeafContentsFromElement,
@@ -11,6 +21,14 @@ import {
 } from '../../models/testing/markdown-parser-utils';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import { RichTextMarkdownParser } from '../../models/markdown-parser';
+import { buttonTag, type Button } from '../../../button';
+import { richTextMentionListboxTag } from '../../mention-listbox';
+import { listOptionTag, type ListOption } from '../../../list-option';
+import { anchoredRegionTag } from '../../../anchored-region';
+import { iconAtTag } from '../../../icons/at';
+import { MarkdownParserMentionConfiguration } from '../../models/markdown-parser-mention-configuration';
+import { MentionInternals } from '../../../rich-text-mention/base/models/mention-internals';
+import { MappingUserConfig } from '../../../rich-text-mention/users/models/mapping-user-config';
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -50,6 +68,30 @@ export class RichTextEditorPageObject {
         const editor = this.getTiptapEditor();
         const event = new KeyboardEvent('keydown', {
             key: keyEnter,
+            bubbles: true,
+            cancelable: true
+        });
+        editor.dispatchEvent(event);
+        await waitForUpdatesAsync();
+    }
+
+    public async pressEscapeKeyInEditor(): Promise<void> {
+        const editor = this.getTiptapEditor();
+        const event = new KeyboardEvent('keydown', {
+            key: keyEscape,
+            bubbles: true,
+            cancelable: true
+        });
+        editor.dispatchEvent(event);
+        await waitForUpdatesAsync();
+    }
+
+    public async pressArrowKeyInEditor(
+        arrowButton: ArrowKeyButton
+    ): Promise<void> {
+        const editor = this.getTiptapEditor();
+        const event = new KeyboardEvent('keydown', {
+            key: arrowButton,
             bubbles: true,
             cancelable: true
         });
@@ -126,6 +168,27 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
+    public async clickUserMentionButton(): Promise<void> {
+        const userMentionButton = this.getUserMentionButton();
+        userMentionButton!.click();
+        await waitForUpdatesAsync();
+    }
+
+    public getMentionButtonIcon(buttonIndex: number): string | undefined {
+        const buttons: Button[] = this.getMentionButtons()!;
+        return buttons[buttonIndex]?.firstElementChild?.tagName;
+    }
+
+    public getMentionButtonTitle(buttonIndex: number): string {
+        const buttons: Button[] = this.getMentionButtons()!;
+        return buttons[buttonIndex]?.getAttribute('title') ?? '';
+    }
+
+    public getMentionButtonLabel(buttonIndex: number): string {
+        const buttons: Button[] = this.getMentionButtons()!;
+        return buttons[buttonIndex]?.innerText ?? '';
+    }
+
     public getButtonCheckedState(button: ToolbarButton): boolean {
         const toggleButton = this.getFormattingButton(button);
         return toggleButton!.checked;
@@ -174,9 +237,14 @@ export class RichTextEditorPageObject {
     }
 
     public async setEditorTextContent(value: string): Promise<void> {
-        const lastElement = this.getEditorLastChildElement();
-        const textNode = document.createTextNode(value);
-        lastElement.parentElement!.appendChild(textNode);
+        this.richTextEditorElement.tiptapEditor
+            .chain()
+            .focus()
+            .insertContent({
+                type: 'text',
+                text: value
+            })
+            .run();
         await waitForUpdatesAsync();
     }
 
@@ -186,18 +254,25 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
-    public async sliceEditorContent(number: number): Promise<void> {
-        const lastElement = this.getEditorLastChildElement();
-        const text = lastElement.parentElement!.textContent!;
-        lastElement.parentElement!.textContent = text.substring(
-            0,
-            text.length - number
-        );
+    public async sliceEditorContent(from: number, to: number): Promise<void> {
+        this.richTextEditorElement.tiptapEditor
+            .chain()
+            .focus()
+            .deleteRange({ from, to })
+            .run();
         await waitForUpdatesAsync();
     }
 
     public getEditorLastChildAttribute(attribute: string): string {
         return getLastChildElementAttribute(attribute, this.getTiptapEditor());
+    }
+
+    public isMentionListboxOpened(): boolean {
+        return (
+            !this.getMentionListbox()
+                ?.shadowRoot?.querySelector(anchoredRegionTag)
+                ?.hasAttribute('hidden') ?? false
+        );
     }
 
     public getEditorMentionViewAttributeValues(attribute: string): string[] {
@@ -315,14 +390,49 @@ export class RichTextEditorPageObject {
         return editor.firstElementChild?.getAttribute('data-placeholder') ?? '';
     }
 
-    public getParsedHtmlFromMarkdown(markdown: string): string {
+    public getParsedHtmlFromMarkdown(
+        markdown: string,
+        mappings?: MappingConfiguration[]
+    ): string {
+        const parserMentionConfigForUser = this.getParserMentionConfigForUser(mappings);
         const parseResult = RichTextMarkdownParser.parseMarkdownToDOM(
             markdown,
-            this.richTextEditorElement.configuration?.parserMentionConfig
+            [parserMentionConfigForUser]
         );
         return this.richTextEditorElement.xmlSerializer.serializeToString(
             parseResult.fragment
         );
+    }
+
+    public async focusOutEditor(): Promise<void> {
+        const focusout = new FocusEvent('focusout');
+        this.richTextEditorElement.dispatchEvent(focusout);
+        await waitForUpdatesAsync();
+    }
+
+    public getMentionListboxItemsName(): string[] {
+        const listItemsName: string[] = [];
+        this.getAllListItemsInMentionBox().forEach(item => (item.hidden ? null : listItemsName.push(item.textContent!)));
+        return listItemsName;
+    }
+
+    public getSelectedOption(): string {
+        const nodeList = this.getAllListItemsInMentionBox();
+        return (
+            Array.from(nodeList).find(
+                item => item.selected && !item.hasAttribute('hidden')
+            )?.textContent ?? ''
+        );
+    }
+
+    public async clickMentionListboxOption(index: number): Promise<void> {
+        const listOption = this.getAllListItemsInMentionBox()[index];
+        listOption?.click();
+        await waitForUpdatesAsync();
+    }
+
+    public moveCursorToStart(): void {
+        this.richTextEditorElement.tiptapEditor.commands.focus('start');
     }
 
     private getEditorSection(): Element | null | undefined {
@@ -350,7 +460,56 @@ export class RichTextEditorPageObject {
         return buttons[button];
     }
 
+    private getUserMentionButton(): Button | null | undefined {
+        const buttons: Button[] = this.getMentionButtons()!;
+        return buttons.find(button => button.querySelector(iconAtTag));
+    }
+
+    private getMentionButtons(): Button[] | null | undefined {
+        return Array.from(
+            this.richTextEditorElement.shadowRoot!.querySelectorAll(buttonTag)
+        );
+    }
+
+    private getMentionListbox(): Element | null {
+        return this.richTextEditorElement.shadowRoot!.querySelector(
+            richTextMentionListboxTag
+        );
+    }
+
+    private getAllListItemsInMentionBox(): NodeListOf<ListOption> {
+        return this.getMentionListbox()!.querySelectorAll(listOptionTag);
+    }
+
     private getEditorLastChildElement(): Element {
         return getLastChildElement(this.getTiptapEditor())!;
+    }
+
+    private getParserMentionConfigForUser(
+        mappings: MappingConfiguration[] = []
+    ): MarkdownParserMentionConfiguration {
+        const mentionInternals = new MentionInternals(
+            {
+                character: '',
+                icon: '',
+                viewElement: richTextMentionUsersViewTag
+            },
+            () => {}
+        );
+        mentionInternals.pattern = '^user:(.*)';
+        mappings.forEach(mapping => {
+            const mappingConfig = new MappingUserConfig(
+                mapping.key,
+                mapping.displayName
+            );
+            mentionInternals.mappingConfigs = new Map().set(
+                mapping.key,
+                mappingConfig
+            );
+        });
+        const parserMentionConfig = new MarkdownParserMentionConfiguration(
+            mentionInternals
+        );
+        return parserMentionConfig;
     }
 }

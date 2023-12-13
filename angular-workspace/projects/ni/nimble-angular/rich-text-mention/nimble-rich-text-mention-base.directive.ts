@@ -19,6 +19,16 @@ export class NimbleRichTextMentionDirective<T extends RichTextMention> {
         return this.elementRef.nativeElement.pattern;
     }
 
+    public get buttonLabel(): string | undefined {
+        return this.elementRef.nativeElement.buttonLabel;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('button-label') public set buttonLabel(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'buttonLabel', value);
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<T>) { }
 
     public checkValidity(): boolean {

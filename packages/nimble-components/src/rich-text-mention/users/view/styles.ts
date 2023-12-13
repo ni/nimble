@@ -1,10 +1,10 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
+    mentionFont,
     mentionDisabledFontColor,
     bodyFontColor,
     bodyFont,
-    mentionFont,
     bodyDisabledFontColor
 } from '../../../theme-provider/design-tokens';
 
@@ -34,6 +34,10 @@ export const styles = css`
 
     :host([disabled]) {
         color: ${bodyDisabledFontColor};
+    }
+
+    :host([disable-editing]) {
+        font: ${mentionFont};
     }
 
     :host([disable-editing]) slot {

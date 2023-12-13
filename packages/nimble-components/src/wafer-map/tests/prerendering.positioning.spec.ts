@@ -15,7 +15,7 @@ describe('Wafermap Prerendering module', () => {
     let prerenderingModule: Prerendering;
 
     describe('with die input and margin', () => {
-        const highlightedValues: string[] = [];
+        const highlightedTags: string[] = [];
         const dieDimensions = { width: 10, height: 1 };
         const dieLabelsSuffix = '';
         const dieLabelsHidden = false;
@@ -26,7 +26,7 @@ describe('Wafermap Prerendering module', () => {
             const waferMock = getWaferMapMockPrerendering(
                 getWaferMapDies(),
                 { colors: [], values: [] },
-                highlightedValues,
+                highlightedTags,
                 WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
@@ -74,13 +74,13 @@ describe('Wafermap Prerendering module', () => {
             [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
             [0, 100]
         );
-        const highlightedValues: string[] = [];
+        const highlightedTags: string[] = [];
 
         beforeEach(() => {
             const waferMock = getWaferMapMockPrerendering(
                 getWaferMapDies(),
                 { colors: [], values: [] },
-                highlightedValues,
+                highlightedTags,
                 WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
@@ -124,13 +124,13 @@ describe('Wafermap Prerendering module', () => {
             [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
             [0, 100]
         );
-        const highlightedValues: string[] = [];
+        const highlightedTags: string[] = [];
 
         beforeEach(() => {
             const waferMock = getWaferMapMockPrerendering(
                 getWaferMapDies(),
                 { colors: [], values: [] },
-                highlightedValues,
+                highlightedTags,
                 WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
@@ -151,9 +151,9 @@ describe('Wafermap Prerendering module', () => {
 
         it('should have die horizontal position scaled', () => {
             const waferMapDies = getWaferMapDies();
-            const expectedValues = waferMapDies.map(x => {
+            const expectedValues = waferMapDies.map(waferMapDie => {
                 return {
-                    y: x.y * 10
+                    y: waferMapDie.y * 10
                 };
             });
             for (let i = 0; i < waferMapDies.length; i += 1) {

@@ -15,20 +15,34 @@ import HardBreak from '@tiptap/extension-hard-break';
 import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
 import { PluginKey } from 'prosemirror-state';
 
-import { mentionPluginPrefix } from '../types';
+import { keyEscape } from '@microsoft/fast-web-utilities';
+import {
+    ActiveMentionCommandEmitter,
+    ActiveMentionCharacterEmitter,
+    mentionPluginPrefix
+} from '../types';
 
 import { anchorTag } from '../../../anchor';
 import type { MentionExtensionConfiguration } from '../../models/mention-extension-configuration';
+import type { RichTextMentionListbox } from '../../mention-listbox';
 
 const validAbsoluteLinkRegex = /^https?:\/\//i;
 
 export function createTiptapEditor(
+    activeMentionCharacterEmitter: ActiveMentionCharacterEmitter,
+    activeMentionCommandEmitter: ActiveMentionCommandEmitter,
     editor: HTMLDivElement,
     mentionExtensionConfig: MentionExtensionConfiguration[],
+    mentionListbox?: RichTextMentionListbox,
     placeholder?: string
 ): Editor {
     const customLink = createCustomLinkExtension();
-    const mentionExtensions = mentionExtensionConfig.map(config => createCustomMentionExtension(config));
+    const mentionExtensions = mentionExtensionConfig.map(config => createCustomMentionExtension(
+        config,
+        activeMentionCharacterEmitter,
+        activeMentionCommandEmitter,
+        mentionListbox
+    ));
 
     /**
      * For more information on the extensions for the supported formatting options, refer to the links below.
@@ -130,7 +144,11 @@ function createCustomLinkExtension(): Mark<LinkOptions> {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         HTMLAttributes: {
             rel: 'noopener noreferrer',
-            target: null
+            target: null,
+            // Adding `class` here is a workaround to render two mentions without a whitespace as display names
+            // This attribute can be removed when the below issue is resolved
+            // https://github.com/ni/nimble/issues/1707
+            class: ''
         },
         autolink: true,
         openOnClick: false,
@@ -142,7 +160,10 @@ function createCustomLinkExtension(): Mark<LinkOptions> {
 }
 
 function createCustomMentionExtension(
-    config: MentionExtensionConfiguration
+    config: MentionExtensionConfiguration,
+    activeMentionCharacterEmitter: ActiveMentionCharacterEmitter,
+    activeMentionCommandEmitter: ActiveMentionCommandEmitter,
+    mentionListbox?: RichTextMentionListbox
 ): Node<MentionOptions> {
     return Mention.extend({
         name: config.name,
@@ -177,7 +198,7 @@ function createCustomMentionExtension(
             };
         },
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        renderHTML({ HTMLAttributes }) {
+        renderHTML({ node, HTMLAttributes }) {
             return [
                 config.viewElement,
                 mergeAttributes(
@@ -185,7 +206,11 @@ function createCustomMentionExtension(
                     HTMLAttributes,
                     // disable-editing is a boolean attribute
                     { 'disable-editing': '' }
-                )
+                ),
+                this.options.renderLabel({
+                    options: this.options,
+                    node
+                })
             ];
         }
     }).configure({
@@ -195,13 +220,44 @@ function createCustomMentionExtension(
             pluginKey: new PluginKey(config.key),
             allowSpaces: true,
             render: () => {
+                let inSuggestionMode = false;
                 return {
                     onStart: (props): void => {
+                        inSuggestionMode = true;
                         config.mentionUpdateEmitter(props.query);
+                        activeMentionCharacterEmitter(props.text.slice(0, 1));
+                        activeMentionCommandEmitter(props.command);
+                        mentionListbox?.show({
+                            filter: props.query,
+                            anchorNode: props.decorationNode as HTMLElement
+                        });
                     },
-
                     onUpdate: (props): void => {
+                        if (!inSuggestionMode) {
+                            return;
+                        }
                         config.mentionUpdateEmitter(props.query);
+                        activeMentionCommandEmitter(props.command);
+                        mentionListbox?.show({
+                            filter: props.query,
+                            anchorNode: props.decorationNode as HTMLElement
+                        });
+                    },
+                    onKeyDown: (props): boolean => {
+                        if (!inSuggestionMode) {
+                            return false;
+                        }
+                        if (props.event.key === keyEscape) {
+                            inSuggestionMode = false;
+                        }
+                        return (
+                            mentionListbox?.keydownHandler(props.event) ?? false
+                        );
+                    },
+                    onExit: (): void => {
+                        activeMentionCharacterEmitter('');
+                        activeMentionCommandEmitter(undefined);
+                        mentionListbox?.close();
                     }
                 };
             }

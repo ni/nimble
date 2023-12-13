@@ -107,7 +107,11 @@ export class RichTextMarkdownParser {
                 link: {
                     attrs: {
                         href: {},
-                        rel: { default: 'noopener noreferrer' }
+                        rel: { default: 'noopener noreferrer' },
+                        // Adding `class` here is a workaround to render two mentions without a whitespace as display names
+                        // This attribute can be removed when the below issue is resolved
+                        // https://github.com/ni/nimble/issues/1707
+                        class: { default: '' }
                     },
                     // Inclusive can be updated when hyperlink support added
                     // See: https://github.com/ni/nimble/issues/1527
@@ -146,7 +150,11 @@ export class RichTextMarkdownParser {
                                  * With this, the user can click the links only when the scheme is HTTP/HTTPS
                                  */
                                 href: /^https?:\/\//i.test(href) ? href : null,
-                                rel: node.attrs.rel as Attr
+                                rel: node.attrs.rel as Attr,
+                                // Adding `class` here is a workaround to render two mentions without a whitespace as display names
+                                // This attribute can be removed when the below issue is resolved
+                                // https://github.com/ni/nimble/issues/1707
+                                class: href
                             }
                         ];
                     }
