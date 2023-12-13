@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 11 Dec 2023 22:21:16 GMT",
+      "version": "6.9.0",
+      "tag": "@ni/nimble-tokens_v6.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "c2b7801ad71fd734b3e55e27315cc0792edd13d8",
+            "comment": "Updated new icon process in CONTRIBUTING doc"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 07 Dec 2023 17:27:04 GMT",
       "version": "6.9.0",
       "tag": "@ni/nimble-tokens_v6.9.0",

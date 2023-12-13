@@ -47,7 +47,7 @@ export class RichTextMentionTest extends RichTextMention {
 
     protected override getMentionInternalsOptions(): MentionInternalsOptions {
         return {
-            icon: 'nimble-icon-at',
+            icon: 'nimble-icon-exclamation-mark',
             character: '!',
             viewElement: richTextMentionUsersViewTag
         };

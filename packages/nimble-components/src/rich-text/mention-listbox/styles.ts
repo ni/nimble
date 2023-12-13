@@ -9,6 +9,10 @@ import {
 export const styles = css`
     ${dropdownStyles}
 
+    :host {
+        height: auto;
+    }
+
     :host(:hover)::after,
     :host(${focusVisible})::after {
         width: auto;

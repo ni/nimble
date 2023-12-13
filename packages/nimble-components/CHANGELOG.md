@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 07 Dec 2023 21:49:16 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Dec 2023 13:27:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.16.2
+
+Wed, 13 Dec 2023 13:27:41 GMT
+
+### Patches
+
+- Adding tags option to wafermap dies and ability to highlight dies based on tags using highlightedTags. Breaking change as users should switch from the removed highlightedValues property to the highlightedTags feature ([ni/nimble@faec5a4](https://github.com/ni/nimble/commit/faec5a459b8c93b2e5c05722e767fb8331d65857))
+
+## 20.16.1
+
+Mon, 11 Dec 2023 19:32:21 GMT
+
+### Patches
+
+- Make anchor behave like native anchor when contenteditable ([ni/nimble@487c344](https://github.com/ni/nimble/commit/487c3440588f7b331ea2e90131e41bbf4d4d84f0))
+
+## 20.16.0
+
+Mon, 11 Dec 2023 17:36:28 GMT
+
+### Minor changes
+
+- Add expand-collapse button to Table Row and Cell ([ni/nimble@824e321](https://github.com/ni/nimble/commit/824e321a9235b0bb98b1fd49e1167d154749a08d))
 
 ## 20.15.1
 

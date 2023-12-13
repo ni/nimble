@@ -590,6 +590,44 @@ describe('Markdown parser', () => {
                 });
             });
 
+            // Adding `class` tests is test the current behavior of links
+            // This tests can be removed when the below issue is resolved
+            // https://github.com/ni/nimble/issues/1707
+            describe('various absolute links should render the anchor element with href value as its class name', () => {
+                const differentProtocolLinks = [
+                    { name: '<ftp://example.com/files/document.pdf>' },
+                    { name: '<mailto:info@example.com>' },
+                    { name: '<tel:+1234567890>' },
+                    { name: '<user:1>' },
+                    { name: '<https://nimble.ni.dev/>' },
+                    { name: '<http://nimble.ni.dev/>' },
+                    { name: '<issue:1>' },
+                    { name: '<system:12345-56789>' }
+                ] as const;
+                parameterizeNamedList(differentProtocolLinks, (spec, name) => {
+                    spec(
+                        `string "${name}" renders within nimble-anchor with 'class' attribute`,
+                        () => {
+                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                name
+                            ).fragment;
+                            const renderedLink = name.slice(1, -1);
+
+                            expect(getTagsFromElement(doc)).toEqual([
+                                'P',
+                                'NIMBLE-ANCHOR'
+                            ]);
+                            expect(getLeafContentsFromElement(doc)).toEqual([
+                                renderedLink
+                            ]);
+                            expect(
+                                getLastChildElementAttribute('class', doc)
+                            ).toBe(renderedLink);
+                        }
+                    );
+                });
+            });
+
             describe('malformed or unsupported absolute links', () => {
                 const notSupportedAbsoluteLink = [
                     { name: '<https://example.com/<page>>' },

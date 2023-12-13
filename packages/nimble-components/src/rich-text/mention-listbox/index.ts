@@ -20,7 +20,7 @@ declare global {
 }
 
 /**
- * A rich text mention list box which acts as a popup for "@mention" support in editor
+ * A rich text mention listbox which acts as a popup for "@mention" support in editor
  */
 export class RichTextMentionListbox extends FoundationListbox {
     /**
