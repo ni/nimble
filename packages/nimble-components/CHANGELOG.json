@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 13 Dec 2023 14:06:08 GMT",
+      "version": "20.16.3",
+      "tag": "@ni/nimble-components_v20.16.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c69a7745d0a8223a479d79a2cabe6cdcd1e9ca1a",
+            "comment": "Add support for @mention in nimble-rich-text-editor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Dec 2023 13:27:41 GMT",
       "version": "20.16.2",
       "tag": "@ni/nimble-components_v20.16.2",

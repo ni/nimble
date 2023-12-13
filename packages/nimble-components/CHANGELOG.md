@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 13 Dec 2023 13:27:41 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Dec 2023 14:06:08 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.16.3
+
+Wed, 13 Dec 2023 14:06:08 GMT
+
+### Patches
+
+- Add support for @mention in nimble-rich-text-editor ([ni/nimble@c69a774](https://github.com/ni/nimble/commit/c69a7745d0a8223a479d79a2cabe6cdcd1e9ca1a))
 
 ## 20.16.2
 
