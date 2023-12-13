@@ -61,15 +61,15 @@ const dieLabelHidden = [[true], [false]] as const;
 type DieLabelHidden = (typeof dieLabelHidden)[number];
 
 const waferMapDie = [
-    { x: 0, y: 2, value: '99' },
-    { x: 1, y: 2, value: '78' },
-    { x: 1, y: 1, value: '88' },
+    { x: 0, y: 2, value: '99', tags: ['a'] },
+    { x: 1, y: 2, value: '78', tags: ['a', 'b'] },
+    { x: 1, y: 1, value: '88', tags: ['a'] },
     { x: 1, y: 3, value: '68' },
     { x: 2, y: 2, value: '99' },
     { x: 2, y: 1, value: '99' },
-    { x: 2, y: 0, value: '80' },
-    { x: 2, y: 3, value: '99' },
-    { x: 2, y: 4, value: '100' },
+    { x: 2, y: 0, value: '80', tags: ['b'] },
+    { x: 2, y: 3, value: '99', tags: ['b', 'a'] },
+    { x: 2, y: 4, value: '100', tags: ['b'] },
     { x: 3, y: 2, value: '40' },
     { x: 3, y: 1, value: '10' },
     { x: 3, y: 3, value: '15' },
@@ -77,6 +77,9 @@ const waferMapDie = [
 ];
 
 const waferMapSizes = [70, 200, 300, 400];
+
+const highlightedTags = [['a'], ['b', 'a'], [], ['']];
+type HighlightedTags = string[];
 
 const gridDimensions = [
     [
@@ -177,6 +180,15 @@ const componentWaferWithGridDimensions = ([
 >
 </${waferMapTag}>`;
 
+const componentWaferWithHighlightedTags = (
+    tags: HighlightedTags
+): ViewTemplate => html`<${waferMapTag}
+    :dies="${() => waferMapDie}"
+    :colorScale="${() => defaultColor}"
+    :highlightedTags="${() => tags}"
+>
+</${waferMapTag}>`;
+
 export const waferMapThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(simpleWaferWithDies)
 );
@@ -202,4 +214,8 @@ export const waferMapResizeTest: StoryFn = createStory(
 
 export const waferMapGridDimensionsTest: StoryFn = createStory(
     createMatrix(componentWaferWithGridDimensions, [gridDimensions])
+);
+
+export const waferMapHighlightedTest: StoryFn = createStory(
+    createMatrix(componentWaferWithHighlightedTags, [highlightedTags])
 );
