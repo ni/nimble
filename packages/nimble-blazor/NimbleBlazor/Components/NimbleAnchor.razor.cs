@@ -11,6 +11,12 @@ public partial class NimbleAnchor : NimbleAnchorBase
     public bool? UnderlineHidden { get; set; }
 
     /// <summary>
+    /// Whether the anchor should behave like it is in an editable region.
+    /// </summary>
+    [Parameter]
+    public string? ContentEditable { get; set; }
+
+    /// <summary>
     /// The appearance of the anchor.
     /// </summary>
     [Parameter]

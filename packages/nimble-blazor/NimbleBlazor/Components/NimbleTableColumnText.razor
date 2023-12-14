@@ -4,7 +4,6 @@
 <nimble-table-column-text
     column-id="@ColumnId"
     field-name="@FieldName"
-    placeholder="@Placeholder"
     action-menu-slot="@ActionMenuSlot"
     action-menu-label="@ActionMenuLabel"
     column-hidden="@ColumnHidden"
@@ -14,6 +13,7 @@
     sort-index="@SortIndex"
     group-index="@GroupIndex"
     grouping-disabled="@GroupingDisabled"
+    @attributes="AdditionalAttributes"
 >
     @ChildContent
 </nimble-table-column-text>

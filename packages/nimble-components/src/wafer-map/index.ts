@@ -1,6 +1,5 @@
 import {
     attr,
-    DOM,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
@@ -17,8 +16,11 @@ import {
     WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOrientation,
-    WaferMapQuadrant
+    WaferMapOriginLocation,
+    WaferMapValidity
 } from './types';
+import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
+import { WaferMapValidator } from './modules/wafer-map-validator';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -30,32 +32,40 @@ declare global {
  * A nimble-styled WaferMap
  */
 export class WaferMap extends FoundationElement {
-    @attr
-    public quadrant: WaferMapQuadrant = WaferMapQuadrant.topLeft;
+    /**
+     * @internal
+     * needs to be initialized before the properties trigger changes
+     */
+    public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
+
+    @attr({ attribute: 'origin-location' })
+    public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
+
+    @attr({ attribute: 'grid-min-x', converter: nullableNumberConverter })
+    public gridMinX?: number = undefined;
+
+    @attr({ attribute: 'grid-max-x', converter: nullableNumberConverter })
+    public gridMaxX?: number = undefined;
+
+    @attr({ attribute: 'grid-min-y', converter: nullableNumberConverter })
+    public gridMinY?: number = undefined;
+
+    @attr({ attribute: 'grid-max-y', converter: nullableNumberConverter })
+    public gridMaxY?: number = undefined;
 
     @attr
     public orientation: WaferMapOrientation = WaferMapOrientation.top;
 
-    @attr({
-        attribute: 'max-characters',
-        converter: nullableNumberConverter
-    })
+    @attr({ attribute: 'max-characters', converter: nullableNumberConverter })
     public maxCharacters = 4;
 
-    @attr({
-        attribute: 'die-labels-hidden',
-        mode: 'boolean'
-    })
+    @attr({ attribute: 'die-labels-hidden', mode: 'boolean' })
     public dieLabelsHidden = false;
 
-    @attr({
-        attribute: 'die-labels-suffix'
-    })
+    @attr({ attribute: 'die-labels-suffix' })
     public dieLabelsSuffix = '';
 
-    @attr({
-        attribute: 'color-scale-mode'
-    })
+    @attr({ attribute: 'color-scale-mode' })
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     /**
@@ -76,11 +86,11 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public dataManager?: DataManager;
+    public readonly dataManager = new DataManager(this);
     /**
      * @internal
      */
-    public renderer?: RenderingModule;
+    public readonly renderer = new RenderingModule(this);
 
     /**
      * @internal
@@ -127,60 +137,70 @@ export class WaferMap extends FoundationElement {
      */
     @observable public hoverDie: WaferMapDie | undefined;
 
-    @observable public highlightedValues: string[] = [];
+    @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
     };
 
-    private eventCoordinator?: EventCoordinator;
-    private resizeObserver?: ResizeObserver;
+    private readonly eventCoordinator = new EventCoordinator(this);
+    private readonly resizeObserver = this.createResizeObserver();
+    private readonly waferMapValidator = new WaferMapValidator(this);
+
+    public get validity(): WaferMapValidity {
+        return this.waferMapValidator.getValidity();
+    }
 
     public override connectedCallback(): void {
         super.connectedCallback();
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
-        this.resizeObserver = this.createResizeObserver();
+        this.resizeObserver.observe(this);
+        this.waferMapUpdateTracker.trackAll();
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.resizeObserver!.unobserve(this);
+        this.resizeObserver.unobserve(this);
     }
 
     /**
      * @internal
+     * Update function called when an update is queued.
+     * It will check which updates are needed based on which properties have changed.
+     * Each update represents a different starting point of the same sequential update flow.
+     * The updates snowball one after the other, this function only choses the 'altitude'.
+     * The hover does not require an event update, but it's also the last update in the sequence.
      */
-    public render(): void {
-        this.renderQueued = false;
-        this.initializeInternalModules();
-        this.renderer?.drawWafer();
-    }
-
-    private queueRender(): void {
-        if (!this.$fastController.isConnected) {
-            return;
+    public update(): void {
+        if (this.waferMapUpdateTracker.requiresEventsUpdate) {
+            this.eventCoordinator.detachEvents();
+            this.waferMapValidator.validateGridDimensions();
+            if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
+                this.dataManager.updateContainerDimensions();
+                this.renderer.updateSortedDiesAndDrawWafer();
+            } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
+                this.dataManager.updateScales();
+                this.renderer.updateSortedDiesAndDrawWafer();
+            } else if (
+                this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
+            ) {
+                this.dataManager.updateLabelsFontSize();
+                this.renderer.updateSortedDiesAndDrawWafer();
+            } else if (
+                this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
+            ) {
+                this.dataManager.updateDiesRenderInfo();
+                this.renderer.updateSortedDiesAndDrawWafer();
+            } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
+                this.renderer.drawWafer();
+            }
+            this.eventCoordinator.attachEvents();
+        } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
+            this.renderer.renderHover();
         }
-        if (!this.renderQueued) {
-            this.renderQueued = true;
-            DOM.queueUpdate(() => this.render());
-        }
-    }
-
-    private queueRenderHover(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
-        DOM.queueUpdate(() => this.renderer?.renderHover());
-    }
-
-    private initializeInternalModules(): void {
-        this.eventCoordinator?.detachEvents();
-        this.dataManager = new DataManager(this);
-        this.renderer = new RenderingModule(this);
-        this.eventCoordinator = new EventCoordinator(this);
     }
 
     private createResizeObserver(): ResizeObserver {
@@ -197,61 +217,88 @@ export class WaferMap extends FoundationElement {
             this.canvasWidth = width;
             this.canvasHeight = height;
         });
-        resizeObserver.observe(this);
         return resizeObserver;
     }
 
-    private quadrantChanged(): void {
-        this.queueRender();
+    private originLocationChanged(): void {
+        this.waferMapUpdateTracker.track('originLocation');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
-    private orientationChanged(): void {
-        this.queueRender();
+    private gridMinXChanged(): void {
+        this.waferMapUpdateTracker.track('gridMinX');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private gridMaxXChanged(): void {
+        this.waferMapUpdateTracker.track('gridMaxX');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private gridMinYChanged(): void {
+        this.waferMapUpdateTracker.track('gridMinY');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private gridMaxYChanged(): void {
+        this.waferMapUpdateTracker.track('gridMaxY');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private maxCharactersChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('maxCharacters');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private dieLabelsHiddenChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('dieLabelsHidden');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private dieLabelsSuffixChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('dieLabelsSuffix');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private colorScaleModeChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('colorScaleMode');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
-    private highlightedValuesChanged(): void {
-        this.queueRender();
+    private highlightedTagsChanged(): void {
+        this.waferMapUpdateTracker.track('highlightedTags');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private diesChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('dies');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private colorScaleChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('colorScale');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private transformChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('transform');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private canvasWidthChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('canvasWidth');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private canvasHeightChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('canvasHeight');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
-        this.queueRenderHover();
+        this.waferMapUpdateTracker.track('hoverDie');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 }
 

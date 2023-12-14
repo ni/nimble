@@ -6,6 +6,14 @@ import {
     backgroundStates,
     defaultBackgroundState
 } from '../dist/esm/utilities/tests/states';
+import {
+    Container,
+    Column,
+    Do,
+    Dont,
+    Frame,
+    Divider
+} from './blocks/StoryLayout.tsx';
 
 export const parameters = {
     backgrounds: {
@@ -15,7 +23,21 @@ export const parameters = {
     options: {
         storySort: {
             method: 'alphabetical',
-            order: ['Getting Started']
+            // Items within arrays show the sort order for children of the category above
+            // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
+            order: [
+                'Getting Started',
+                'Components',
+                ['Status Table'],
+                'Incubating',
+                ['Docs'],
+                'Tokens',
+                ['Docs'],
+                'Tests',
+                ['Docs'],
+                'Internal',
+                ['Docs']
+            ]
         }
     },
     controls: {
@@ -24,6 +46,15 @@ export const parameters = {
     docs: {
         source: {
             transform: transformSource
+        },
+        toc: { headingSelector: 'h1, h2, h3' },
+        components: {
+            Container,
+            Column,
+            Do,
+            Dont,
+            Frame,
+            Divider
         }
     }
 };

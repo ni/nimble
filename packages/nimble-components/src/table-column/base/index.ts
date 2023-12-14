@@ -1,4 +1,8 @@
-import { attr, nullableNumberConverter } from '@microsoft/fast-element';
+import {
+    attr,
+    nullableNumberConverter,
+    observable
+} from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { TableColumnSortDirection } from '../../table/types';
 import {
@@ -41,12 +45,34 @@ export abstract class TableColumn<
     @attr({ attribute: 'sorting-disabled', mode: 'boolean' })
     public sortingDisabled = false;
 
+    /** @internal */
+    @observable
+    public hasOverflow = false;
+
+    /** @internal */
+    public contentSlot!: HTMLSlotElement;
+
     public checkValidity(): boolean {
         return this.columnInternals.validConfiguration;
     }
 
     public get validity(): TableColumnValidity {
         return {};
+    }
+
+    /** @internal */
+    public get headerTextContent(): string {
+        return this.contentSlot
+            .assignedNodes()
+            .map(node => node.textContent?.trim())
+            .join(' ');
+    }
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+
+        // Done here to enforce consistency across headers as they may have custom templates
+        this.setAttribute('slot', this.columnInternals.uniqueId);
     }
 
     protected abstract getColumnInternalsOptions(): ColumnInternalsOptions;

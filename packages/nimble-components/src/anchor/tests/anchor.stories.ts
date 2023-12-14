@@ -15,17 +15,17 @@ interface AnchorArgs {
     label: string;
     href: string;
     underlineHidden: boolean;
+    contenteditable: string;
     appearance: keyof typeof AnchorAppearance;
 }
 
 const metadata: Meta<AnchorArgs> = {
-    title: 'Anchor',
-    tags: ['autodocs'],
+    title: 'Components/Anchor',
     parameters: {
         docs: {
             description: {
                 component:
-                    'Per [W3C](https://w3c.github.io/aria-practices/#link), an anchor/link widget provides an interactive reference to a resource. The target resource can be either external or local, i.e., either outside or within the current page or application.'
+                    'Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/link/), an anchor/link widget provides an interactive reference to a resource. The target resource can be either external or local, i.e., either outside or within the current page or application.'
             }
         },
         actions: {}
@@ -33,15 +33,17 @@ const metadata: Meta<AnchorArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <style class='code-hide'>
-            * {
+            .anchor-container {
                 font: var(${bodyFont.cssCustomProperty});
+                outline: none;
             }
         </style>
-        Click on the <${anchorTag}
+        <span class="anchor-container" contenteditable=${x => x.contenteditable}>Click on the <${anchorTag}
             href=${x => (x.href !== '' ? x.href : null)}
             ?underline-hidden=${x => x.underlineHidden}
+            contenteditable=${x => x.contenteditable}
             appearance=${x => x.appearance}
-        >${x => x.label}</${anchorTag}> to navigate.
+        >${x => x.label}</${anchorTag}> to navigate.</span>
     `),
     argTypes: {
         href: {
@@ -57,12 +59,19 @@ const metadata: Meta<AnchorArgs> = {
             control: { type: 'radio' },
             description:
                 'Set to `prominent` to make the anchor appear in a different color than normal text.'
+        },
+        contenteditable: {
+            options: ['false', 'true'],
+            control: { type: 'radio' },
+            description:
+                'Set this to the string "true" (or set the attribute without any value)  when the anchor is within an editable region (i.e. element/hierarchy with [contenteditable](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable)). Whereas native elements inherit their `contenteditable` value by default, the `nimble-anchor` requires this attribute be explicitly set.'
         }
     },
     args: {
         label: 'link',
         href: 'https://nimble.ni.dev',
         underlineHidden: false,
+        contenteditable: 'false',
         appearance: 'default'
     }
 };

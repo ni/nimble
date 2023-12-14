@@ -6,6 +6,7 @@ import {
     ButtonAppearance,
     MenuButtonToggleEventDetail
 } from '../../../menu-button/types';
+import { tableCellActionMenuLabel } from '../../../label-provider/table/label-tokens';
 
 // prettier-ignore
 export const template = html<TableCell>`
@@ -19,9 +20,10 @@ export const template = html<TableCell>`
                 @toggle="${(x, c) => x.onActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
                 @click="${(_, c) => c.event.stopPropagation()}"
                 class="action-menu"
+                title="${x => x.actionMenuLabel ?? tableCellActionMenuLabel.getValueFor(x)}"
             >
                 <${iconThreeDotsLineTag} slot="start"></${iconThreeDotsLineTag}>
-                ${x => x.actionMenuLabel}
+                ${x => x.actionMenuLabel ?? tableCellActionMenuLabel.getValueFor(x)}
                 <slot name="cellActionMenu" slot="menu"></slot>
             </${menuButtonTag}>
         `)}

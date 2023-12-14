@@ -19,8 +19,7 @@ represents a different URL to navigate to. Use the standard tabs component when 
 tab panels hosted on the same page.`;
 
 const metadata: Meta<TabsArgs> = {
-    title: 'Anchor Tabs',
-    tags: ['autodocs'],
+    title: 'Components/Anchor Tabs',
     parameters: {
         docs: {
             description: {

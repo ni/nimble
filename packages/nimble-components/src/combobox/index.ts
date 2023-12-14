@@ -70,6 +70,29 @@ export class Combobox
     @observable
     public controlWrapper?: HTMLElement;
 
+    /** @internal */
+    @observable
+    public hasOverflow = false;
+
+    public override get value(): string {
+        return super.value;
+    }
+
+    // This override is to work around an issue in FAST where an old filter value
+    // is used after programmatically setting the value property.
+    // See: https://github.com/microsoft/fast/issues/6749
+    public override set value(next: string) {
+        super.value = next;
+        // Workaround using index notation to manipulate private member
+        // Can remove when following resolved: https://github.com/microsoft/fast/issues/6749
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        this['filter'] = next;
+        this.filterOptions();
+        this.selectedIndex = this.options
+            .map(option => option.text)
+            .indexOf(this.value);
+    }
+
     private valueUpdatedByInput = false;
     private valueBeforeTextUpdate?: string;
 
@@ -143,8 +166,13 @@ export class Combobox
         if (!this.valueUpdatedByInput) {
             this.valueBeforeTextUpdate = this.value;
         }
-        this.value = this.control.value;
         this.valueUpdatedByInput = true;
+        // This is a workaround for this FAST issue: https://github.com/microsoft/fast/issues/6776
+        if (this.value !== this.control.value) {
+            this.focusAndScrollOptionIntoView();
+        }
+
+        this.value = this.control.value;
         return returnValue;
     }
 

@@ -1,14 +1,12 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import type { TableColumnTextGroupHeaderViewBase } from '.';
+import { overflow } from '../../../utilities/directive/overflow';
 
 export const template = html<TableColumnTextGroupHeaderViewBase>`
     <span
-        ${ref('textSpan')}
-        class="${x => (x.shouldUsePlaceholder ? 'placeholder' : '')}"
-        @mouseover="${x => x.updateTitleOverflow()}"
-        @mouseout="${x => x.clearTitleOverflow()}"
-        title="${x => (x.hasOverflow && x.content ? x.content : undefined)}"
+        ${overflow('hasOverflow')}
+        title="${x => (x.hasOverflow && x.text ? x.text : null)}"
     >
-        ${x => x.content}
+        ${x => x.text}
     </span>
 `;

@@ -1,10 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory,
-    usageWarning
-} from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
 import { TableRowSelectionMode } from '../types';
@@ -12,8 +9,13 @@ import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 import { tableColumnTextTag } from '../../table-column/text';
+import {
+    addLabelUseMetadata,
+    type LabelUserArgs
+} from '../../label-provider/base/tests/label-user-stories-utils';
+import { labelProviderTableTag } from '../../label-provider/table';
 
-interface TableArgs {
+interface TableArgs extends LabelUserArgs {
     data: ExampleDataType;
     selectionMode: keyof typeof TableRowSelectionMode;
     idFieldName: undefined;
@@ -84,7 +86,8 @@ The table will not automatically update if the contents of the array change afte
     <summary>Framework specific considerations</summary>
     - Angular: In addition to exposing the \`setData()\` function in Angular, you can use the \`data$\` property to provide an
     \`Observable<TableRecord[]>\`. Nimble will automatically subscribe and unsubscribe to the provided \`Observable\` and call
-    \`setData()\` on the web component when new values are emitted.
+    \`setData()\` on the web component when new values are emitted. The \`data$\` \`Observable\` should only be used when an application
+    does not need to be in control of the timing of when \`setData()\` is called and when the returned \`Promise\` resolves.
     - Blazor: Blazor does not expose a \`setData()\` function. Use the \`Data\` property on the Blazor component to set new data on the table.
     Setting a new value on the property in Blazor will internally call \`setData()\` on the web component.
 </details>
@@ -108,7 +111,7 @@ The object's type is \`TableValidity\`, and it contains the following boolean pr
 -   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
 -   \`invalidRecordId\`: \`true\` when a record was found where \`id-field-name\` did not refer to a value of type \`string\`
 -   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
--   \`invalidColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
+-   \`missingColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
 -   \`invalidColumnConfiguration\`: \`true\` when one or more columns have an invalid configuration. Call \`checkValidity()\` on each column to see which configuration is invalid and read the \`validity\` property of a column for more information about why it's invalid.
 -   \`duplicateSortIndex\`: \`true\` when \`sort-index\` is specified as the same value for multiple columns that have \`sort-direction\` set to a value other than \`none\`
 -   \`duplicateGroupIndex\`: \`true\` when \`group-index\` is specified as the same value for multiple columns
@@ -120,8 +123,7 @@ If a record does not exist in the table's data, it will not be selected. If mult
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
 const metadata: Meta<TableArgs> = {
-    title: 'Table',
-    tags: ['autodocs'],
+    title: 'Components/Table',
     decorators: [withActions],
     parameters: {
         docs: {
@@ -140,7 +142,6 @@ const metadata: Meta<TableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
-        ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
@@ -149,27 +150,27 @@ const metadata: Meta<TableArgs> = {
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
-                field-name="firstName" placeholder="no value"
+                field-name="firstName"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
             >
                 <${iconUserTag} title="First Name"></${iconUserTag}>
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="last-name-column"
-                field-name="lastName" placeholder="no value"
+                field-name="lastName"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
             >
                 Last Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="favorite-color-column"
-                field-name="favoriteColor" placeholder="no value"
+                field-name="favoriteColor"
             >
                 Favorite Color
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="quote-column"
-                field-name="quote" placeholder="no value"
+                field-name="quote"
                 action-menu-slot="quote-menu" action-menu-label="Configure quote"
             >
                 Quote
@@ -268,6 +269,7 @@ const metadata: Meta<TableArgs> = {
         }
     }
 };
+addLabelUseMetadata(metadata, labelProviderTableTag);
 
 export default metadata;
 

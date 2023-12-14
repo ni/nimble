@@ -14,7 +14,7 @@ interface TabsArgs {
     tabDisabled: boolean;
 }
 
-const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#tabpanel) - Tabs are a set of layered
+const overviewText = `Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) - Tabs are a set of layered
 sections of content, known as tab panels, that display one panel of content at a time. Each tab panel has an
 associated tab element, that when activated, displays the panel. The list of tab elements is arranged along
 one edge of the currently displayed panel, most commonly the top edge.
@@ -25,7 +25,7 @@ horizontal scrolling. Content may be any height; the tab panel will display a ve
 If you want a sequence of tabs that navigate to different URLs, use the Anchor Tabs component instead.`;
 
 const metadata: Meta<TabsArgs> = {
-    title: 'Tabs',
+    title: 'Components/Tabs',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

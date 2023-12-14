@@ -2,7 +2,7 @@
 import { attr, customElement, html } from '@microsoft/fast-element';
 import { Table, tableTag } from '..';
 import { TableColumn } from '../../table-column/base';
-import { TableColumnText } from '../../table-column/text';
+import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
@@ -56,7 +56,7 @@ const largeTableData = Array.from(Array(500), (_, i) => {
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
+        html`<nimble-table style="width: 700px">
             <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
             <nimble-table-column-text id="second-column" field-name="moreStringData">
                 <nimble-icon-check></nimble-icon-check>
@@ -114,7 +114,10 @@ describe('Table', () => {
                         .dataRecordFieldNames[0]!;
                     const expectedCellData = visibleData[rowIndex]![dataKey]!;
                     expect(
-                        pageObject.getRenderedCellContent(rowIndex, columnIndex)
+                        pageObject.getRenderedCellTextContent(
+                            rowIndex,
+                            columnIndex
+                        )
                     ).toEqual(expectedCellData.toString());
                 }
             }
@@ -185,6 +188,41 @@ describe('Table', () => {
 
             headerContent = pageObject.getHeaderContent(0)!.firstChild;
             expect(headerContent?.textContent).toEqual('foo');
+        });
+
+        it('sets title when header text is ellipsized', async () => {
+            const headerContents = 'a very long value that should get ellipsized due to not fitting within the default header width';
+            await element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+            element.columns[0]!.textContent = headerContents;
+            pageObject.dispatchEventToHeader(0, new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(pageObject.getHeaderTitle(0)).toBe(headerContents);
+        });
+
+        it('does not set title when header text is fully visible', async () => {
+            const headerContents = 'short value';
+            await element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+            element.columns[0]!.textContent = headerContents;
+            pageObject.dispatchEventToHeader(0, new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(pageObject.getHeaderTitle(0)).toBe('');
+        });
+
+        it('removes title on mouseout of header', async () => {
+            const headerContents = 'a very long value that should get ellipsized due to not fitting within the default header width';
+            await element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+            element.columns[0]!.textContent = headerContents;
+            pageObject.dispatchEventToHeader(0, new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            pageObject.dispatchEventToHeader(0, new MouseEvent('mouseout'));
+            await waitForUpdatesAsync();
+            expect(pageObject.getHeaderTitle(0)).toBe('');
         });
 
         it('can set data before the element is connected', async () => {
@@ -327,7 +365,9 @@ describe('Table', () => {
             await element.setData(simpleTableData);
             await waitForUpdatesAsync();
 
-            const dateColumn = new TableColumnText();
+            const dateColumn = document.createElement(
+                tableColumnTextTag
+            ) as TableColumnText;
             dateColumn.fieldName = 'moreStringData';
 
             element.appendChild(dateColumn);
@@ -344,7 +384,9 @@ describe('Table', () => {
             await element.setData(simpleTableData);
             await waitForUpdatesAsync();
 
-            const dateColumn = new TableColumnText();
+            const dateColumn = document.createElement(
+                tableColumnTextTag
+            ) as TableColumnText;
             dateColumn.fieldName = 'moreStringData';
 
             element.insertBefore(dateColumn, element.columns[0]!);
@@ -552,7 +594,7 @@ describe('Table', () => {
             @customElement({
                 name: focusableCellViewName,
                 template: html<TestFocusableCellView>`<span tabindex="0"
-                    >${x => x.content}</span
+                    >${x => x.text}</span
                 >`
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars

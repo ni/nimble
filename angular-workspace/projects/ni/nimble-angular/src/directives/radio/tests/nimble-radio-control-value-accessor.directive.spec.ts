@@ -2,8 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NimbleRadioModule } from '../nimble-radio.module';
-import { processUpdates } from '../../../testing/async-helpers';
-import { waitTask } from '../../../async-test-utilities';
+import { processUpdates, waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { NimbleRadioGroupModule } from '../../radio-group/nimble-radio-group.module';
 import type { RadioGroup } from '../../radio-group/nimble-radio-group.directive';
 import type { Radio } from '../nimble-radio.directive';
@@ -17,7 +16,7 @@ describe('Nimble radio control value accessor', () => {
         @Component({
             template: `
                 <nimble-radio-group #radioGroup name="options">
-                    <nimble-radio *ngFor="let button of radios" [value]="button.value" [(ngModel)]="selectedRadio">
+                    <nimble-radio *ngFor="let button of radios" [value]="button.value" [(ngModel)]="selectedRadio" (ngModelChange)="onModelValueChange($event)">
                         {{ button.name }}
                     </nimble-radio>
                 </nimble-radio-group>
@@ -33,6 +32,8 @@ describe('Nimble radio control value accessor', () => {
             ];
 
             public selectedRadio: unknown = this.radios[1].value;
+
+            public onModelValueChange(_value: unknown): void {}
         }
 
         let radioGroup: RadioGroup;
@@ -51,7 +52,7 @@ describe('Nimble radio control value accessor', () => {
             testHostComponent = fixture.componentInstance;
             radioGroup = testHostComponent.radioGroup.nativeElement;
             fixture.detectChanges();
-            await waitTask();
+            await waitForUpdatesAsync();
         });
 
         afterEach(() => {
@@ -66,7 +67,7 @@ describe('Nimble radio control value accessor', () => {
             const secondRadio = radioGroup.children[1] as Radio;
             secondRadio.remove();
             fixture.detectChanges();
-            await waitTask();
+            await waitForUpdatesAsync();
 
             expect((radioGroup.children[0] as Radio).checked).toBeFalse();
             expect((radioGroup.children[1] as Radio).checked).toBeFalse();
@@ -74,7 +75,7 @@ describe('Nimble radio control value accessor', () => {
             secondRadio.checked = false;
             radioGroup.append(secondRadio);
             fixture.detectChanges();
-            await waitTask();
+            await waitForUpdatesAsync();
 
             expect((radioGroup.children[2] as Radio).checked).toBeTrue();
         });
@@ -95,6 +96,14 @@ describe('Nimble radio control value accessor', () => {
             fixture.detectChanges();
 
             expect(testHostComponent.selectedRadio).toBe(testHostComponent.radios[2].value);
+        });
+
+        it('fires ngModelChange one time with expected value', () => {
+            const ngModelChangeSpy = spyOn(testHostComponent, 'onModelValueChange');
+            const indexToSelect = 2;
+            setSelectedRadioIndex(radioGroup, indexToSelect);
+            fixture.detectChanges();
+            expect(ngModelChangeSpy).toHaveBeenCalledOnceWith(testHostComponent.radios[indexToSelect].value);
         });
     });
 
@@ -141,7 +150,7 @@ describe('Nimble radio control value accessor', () => {
             testHostComponent = fixture.componentInstance;
             radioGroup = testHostComponent.radioGroup.nativeElement;
             fixture.detectChanges();
-            await waitTask();
+            await waitForUpdatesAsync();
         });
 
         afterEach(() => {

@@ -1,9 +1,11 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { TableColumnAnchor } from '@ni/nimble-components/dist/esm/table-column/anchor';
+import { type TableColumnAnchor, tableColumnAnchorTag } from '@ni/nimble-components/dist/esm/table-column/anchor';
 import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
+import { NimbleTableColumnBaseDirective } from '@ni/nimble-angular/table-column';
 
 export type { TableColumnAnchor };
+export { tableColumnAnchorTag };
 export { AnchorAppearance };
 
 /**
@@ -12,7 +14,7 @@ export { AnchorAppearance };
 @Directive({
     selector: 'nimble-table-column-anchor'
 })
-export class NimbleTableColumnAnchorDirective {
+export class NimbleTableColumnAnchorDirective extends NimbleTableColumnBaseDirective<TableColumnAnchor> {
     public get labelFieldName(): string | undefined {
         return this.elementRef.nativeElement.labelFieldName;
     }
@@ -31,14 +33,6 @@ export class NimbleTableColumnAnchorDirective {
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('href-field-name') public set hrefFieldName(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'hrefFieldName', value);
-    }
-
-    public get placeholder(): string | undefined {
-        return this.elementRef.nativeElement.placeholder;
-    }
-
-    @Input() public set placeholder(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
     }
 
     public get appearance(): AnchorAppearance {
@@ -155,5 +149,7 @@ export class NimbleTableColumnAnchorDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'groupingDisabled', toBooleanProperty(value));
     }
 
-    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TableColumnAnchor>) {}
+    public constructor(renderer: Renderer2, elementRef: ElementRef<TableColumnAnchor>) {
+        super(renderer, elementRef);
+    }
 }

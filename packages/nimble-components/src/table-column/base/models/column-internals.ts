@@ -181,3 +181,15 @@ export class ColumnInternals<TColumnConfig> {
         this.currentPixelWidth = this.pixelWidth;
     }
 }
+
+export function isColumnInternalsProperty(
+    changedProperty: string,
+    ...args: (keyof ColumnInternals<unknown>)[]
+): boolean {
+    for (const arg of args) {
+        if (changedProperty === arg) {
+            return true;
+        }
+    }
+    return false;
+}

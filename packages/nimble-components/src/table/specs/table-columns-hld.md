@@ -91,7 +91,7 @@ Some potential column names following this convention are listed below.
 ```
 nimble-table-column-anchor
 nimble-table-column-text
-nimble-table-column-numeric-text
+nimble-table-column-number-text
 nimble-table-column-date-text
 nimble-table-column-progress
 nimble-table-column-text-field
@@ -237,7 +237,7 @@ For example, the `TableColumn` implementation we could create for rendering data
 
 ```TS
 type TableColumnTextCellRecord = TableStringField<'value'>;
-type TableColumnTextColumnConfig = { placeholder: string };
+type TableColumnTextColumnConfig = {};
 
 public class TableColumnText extends TableColumn<TableColumnTextCellRecord, TableColumnTextColumnConfig> {
     ...
@@ -245,15 +245,8 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
     @attr
     public valueKey: string;
 
-    @attr
-    public placeholder: string;
-
     public valueKeyChanged(): void {
         this.columnInternals.dataRecordFieldNames = [this.valueKey];
-    }
-
-    public placeholderChanged(): void {
-        this.columnInternals.columnConfig = { placeholder: this.placeholder };
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
@@ -265,7 +258,7 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
 }
 ```
 
-In the above example, the column author is responsible for tracking changes to custom properties they add to the public api of the column, such as `valueKey` and `placeholder`, and notifying the table of those changes via the `this.columnInternals` reference.
+In the above example, the column author is responsible for tracking changes to custom properties they add to the public api of the column, such as `valueKey`, and notifying the table of those changes via the `this.columnInternals` reference.
 
 The corresponding cell element implementation would look like this:
 
@@ -284,7 +277,7 @@ TableColumnTextColumnConfig
     public get content(): string {
         return typeof this.cellRecord.value === 'string'
             ? this.cellRecord.value
-            : this.columnConfig.placeholder;
+            : '';
     }
 
     public textField!: TextField;
@@ -297,7 +290,6 @@ const textCellView = TextCellView.compose({
             ${ref('textField')}
             readonly="true"
             value="${x => x.cellRecord.value}"
-            placeholder="${x => x.columnConfig.placeholder}"
         >
         </nimble-text-field>`,
     styles: /* styling */
@@ -436,6 +428,89 @@ Clients should be allowed to use arbitrary content for the display part of a hea
     <nimble-table-column-text>
 </nimble-table>
 ```
+
+### Validation
+
+A table column's public validation API consists of a `checkValidity()` function and a `validity` property. The `checkValidity()` function simply returns the value of a `validConfiguration` flag from the column's internals which should be `true` when the column's configuration is valid, and `false` when it is not. The `validity` property's value is an object that describes the specific ways the configuration may be invalid. By default, it returns an empty object. If a column type has configuration which can be invalid, it should define a column validator object to manage this state. There is a base `ColumnValidator` type that manages the state of the `columnInternals.validConfiguration` flag. It also manages an object suitable to be returned by the `validity` property. It is up to the column author to override the `validity` accessor to return this object.
+
+```TS
+export class ColumnValidator<ValidityFlagNames extends readonly string[]> {
+    protected configValidity: ObjectFromList<ValidityFlagNames>;
+
+    public isValid(): boolean {
+        return Object.values(this.configValidity).every(x => !x);
+    }
+
+    public getValidity(): ValidityObject {
+        return {
+            ...this.configValidity
+        };
+    }
+
+    protected setConditionValue(
+        name: ValidityFlagNames extends readonly (infer U)[] ? U : never,
+        isInvalid: boolean
+    ): void {
+        this.configValidity[name] = isInvalid;
+        this.updateColumnInternalsFlag();
+    }
+```
+
+By deriving from this base type, a column can easily validate specific conditions of its validity:
+
+```TS
+const configValidity = [
+    'hasMultipleDefaultMappings',
+    'hasUnsupportedMappingTypes',
+    ...
+] as const;
+
+class TableColumnIconValidator extends ColumnValidator<typeof configValidity> {
+    public constructor(columnInternals: ColumnInternals<unknown>) {
+        super(columnInternals, configValidity);
+    }
+
+    public validateNoMultipleDefaultMappings(mappings: Mapping[]): void {
+        ...
+        this.setConditionValue('hasMultipleDefaultMappings', foundMultiple);
+    }
+
+    public validateNoUnsupportedMappingTypes(mappings: Mapping[]): void {
+        ...
+        this.setConditionValue('hasUnsupportedMappingTypes', foundUnsupported);
+    }
+    ...
+}
+```
+
+The column type will respond to changes in properties by calling the validator's validation functions:
+
+```TS
+private mappingsChanged(): void {
+    this.validator.validateNoMultipleDefaultMappings(this.mappings);
+    this.validator.validateNoUnsupportedMappingTypes(this.mappings);
+}
+```
+
+The table's validity object has a property to represent the validity of all of its columns:
+
+```TS
+export class TableValidator<TData extends TableRecord> {
+    private invalidColumnConfiguration: boolean; // true if one or more invalid columns
+    public isValid(): boolean {
+        ...
+        && !this.invalidColumnConfiguration
+        ...
+    }
+
+    public validateColumns(columns: TableColumn[]): boolean {
+        this.invalidColumnConfiguration = columns.some(x => !x.checkValidity());
+        return !this.invalidColumnConfiguration;
+    }
+}
+```
+
+The `validateColumns()` function is one of the multiple validation functions called from `validate()`, which in turn is called when a queued update is executed.
 
 ## Alternative Implementations / Designs
 

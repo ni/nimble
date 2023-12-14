@@ -89,7 +89,9 @@ import {
     PowerGreen,
     GridHeaderFamily,
     GridHeaderWeight,
-    GridHeaderSize
+    GridHeaderSize,
+    DigitalGreenDark105,
+    DigitalGreenDark110
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -158,6 +160,10 @@ export const fillHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillHoverColorForTheme(element), 0.1));
 
+export const fillHoverRgbPartialColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.fillHoverRgbPartialColor)
+).withDefault((element: HTMLElement) => hexToRgbPartial(getFillHoverColorForTheme(element)));
+
 export const fillDownColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillDownColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillDownColorForTheme(element), 0.15));
@@ -188,7 +194,7 @@ export const informationColor = DesignToken.create<string>(
 
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, DigitalGreenLight, White));
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, PowerGreen, White));
 
 // Component Color Tokens
 export const iconColor = DesignToken.create<string>(
@@ -203,6 +209,14 @@ export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
 
+export const cardBorderColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.cardBorderColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.1));
+
+export const graphGridlineColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.graphGridlineColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.2));
+
 export const tooltipBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black85, ForestGreen));
@@ -210,6 +224,63 @@ export const tooltipBackgroundColor = DesignToken.create<string>(
 export const tableRowBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tableRowBorderColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
+
+export const buttonFillPrimaryColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonFillPrimaryColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(Black91, 0.75),
+    hexToRgbaCssColor(Black15, 0.3),
+    hexToRgbaCssColor(White, 0.3)
+));
+
+export const buttonPrimaryFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonPrimaryFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black15, White));
+
+export const buttonFillActivePrimaryColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonFillActivePrimaryColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(Black91, 0.85),
+    hexToRgbaCssColor(Black15, 0.2),
+    hexToRgbaCssColor(White, 0.2)
+));
+
+export const buttonFillAccentColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonFillAccentColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark,
+    DigitalGreenLight,
+    hexToRgbaCssColor(White, 0.1)
+));
+
+export const buttonAccentBlockFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonAccentBlockFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black15, White));
+
+export const buttonAccentOutlineFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonAccentOutlineFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, White));
+
+export const buttonBorderAccentOutlineColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonBorderAccentOutlineColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenLight,
+    PowerGreen,
+    hexToRgbaCssColor(White, 0.3)
+));
+
+export const buttonFillAccentActiveColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonFillAccentActiveColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark110,
+    DigitalGreenDark,
+    hexToRgbaCssColor(White, 0.2)
+));
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(
@@ -221,9 +292,15 @@ export const controlSlimHeight = DesignToken.create<string>(
 export const smallPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.smallPadding)
 ).withDefault('4px');
+export const mediumPadding = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.mediumPadding)
+).withDefault('8px');
 export const standardPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.standardPadding)
 ).withDefault('16px');
+export const largePadding = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.largePadding)
+).withDefault('24px');
 export const labelHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.labelHeight)
 ).withDefault('16px');
@@ -236,6 +313,27 @@ export const iconSize = DesignToken.create<string>(
 export const drawerWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerWidth)
 ).withDefault('784px');
+export const dialogSmallWidth = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dialogSmallWidth)
+).withDefault('400px');
+export const dialogSmallHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dialogSmallHeight)
+).withDefault('fit-content');
+export const dialogSmallMaxHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dialogSmallMaxHeight)
+).withDefault('600px');
+export const dialogLargeWidth = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dialogLargeWidth)
+).withDefault('1024px');
+export const dialogLargeHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dialogLargeHeight)
+).withDefault('680px');
+export const dialogLargeMaxHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dialogLargeMaxHeight)
+).withDefault('680px');
+export const menuMinWidth = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.menuMinWidth)
+).withDefault('176px');
 export const bannerGapSize = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerGapSize)
 ).withDefault('1px');
@@ -684,6 +782,26 @@ export const [
     GridHeaderFallbackFontFamily
 );
 
+export const [
+    mentionFont,
+    mentionFontColor,
+    mentionDisabledFontColor,
+    mentionFontFamily,
+    mentionFontWeight,
+    mentionFontSize,
+    mentionFontLineHeight,
+    mentionFallbackFontFamily
+] = createFontTokens(
+    tokenNames.mentionFont,
+    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, PowerGreen),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    BodyFamily,
+    BodyEmphasizedWeight,
+    BodySize,
+    BodyLineHeight,
+    BodyFallbackFontFamily
+);
+
 // Font Transform Tokens
 export const groupHeaderTextTransform = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.groupHeaderTextTransform)
@@ -845,12 +963,7 @@ function getDefaultFontColorForTheme(element: HTMLElement): string {
 }
 
 function getFillSelectedColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        DigitalGreenLight,
-        DigitalGreenLight,
-        White
-    );
+    return getColorForTheme(element, DigitalGreenLight, PowerGreen, White);
 }
 
 function getFillHoverColorForTheme(element: HTMLElement): string {

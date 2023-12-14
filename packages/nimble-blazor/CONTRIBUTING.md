@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-If not already done, download and install the .NET 6 SDK version 6.0.202+  (run `dotnet --version`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+If not already done, download and install the .NET SDK (see [the main contributing doc](/CONTRIBUTING.md) for the required version).
 
 Initialize and build the Nimble monorepo (`npm install` + `npm run build` from the root `nimble` directory) before working with the Blazor codebase.
 
@@ -101,7 +101,7 @@ Each Nimble Blazor component should also be showcased in the `Demo` example proj
 - There's no out-of-the-box support for SCSS. The Nimble tokens can still be used as CSS variables (`var(--ni-nimble-...)`)
 - In order to target Nimble Blazor components via CSS, you'll need to add `::deep` on the CSS selector. See [fast-blazor #125](https://github.com/microsoft/fast-blazor/issues/125) for more info.
 
-Visual Studio Code commands are included to build and run the example projects:
+Visual Studio Code commands are included to build and run the example projects. Run one of the following commands through Quick Open (`Ctrl+P`) by typing "task" followed by a `Space` and then the command name.
 - `blazor-server-example:build`: Build the `Demo.Server` project
 - `blazor-server-example:watch`: Run the `Demo.Server` project in watch mode (to automatically pick up code changes)
 - `blazor-wasm-example:build`: Build the `Demo.Client` project

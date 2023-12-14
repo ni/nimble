@@ -74,24 +74,20 @@ type BooleanField<FieldName extends string> = {
 
 ### Data type usage within column definitions
 
-The types shown above can be used by column providers to enforce the data types they require. For example, if a numeric column required a numeric value, a unit string, and a placeholder string, it could export a type similar to the following:
+The types shown above can be used by column providers to enforce the data types they require. For example, if a numeric column required a numeric value and a unit string, it could export a type similar to the following:
 
 ```ts
 type NumericColumnRecord<
     ValueFieldName extends string,
-    UnitsFieldName extends string,
-    PlaceholderFieldName extends string
-> = NumberData<ValueFieldName> &
-    StringData<UnitsFieldName> &
-    StringData<PlaceholderFieldName>;
+    UnitsFieldName extends string
+> = NumberData<ValueFieldName> & StringData<UnitsFieldName>;
 ```
 
 Using the column definition, the user of a table can type a reference to the table as:
 
 ```ts
 const tableRef: Table<
-    NumericColumnRecord<'value', 'units', 'placeholder'> &
-        BooleanField<'awesome'>
+    NumericColumnRecord<'value', 'units'> & BooleanField<'awesome'>
 >;
 
 // The field names and types in the array passed to setData()
@@ -100,7 +96,6 @@ tableRef.setData([
     {
         value: 3,
         units: 'a',
-        placeholder: 'b',
         awesome: true
     }
 ]);
@@ -110,21 +105,36 @@ Note that the above is only an example of what is possible. The details of a tab
 
 Ideally, this typing can also be used to provide compile-time checking of templates. But, the feasibility and details associated with that are out of scope of this spec.
 
-### Data interaction to the TanStack table
+### Data interface with the TanStack table
 
-The data passed into the `nimble-table` will be passed into the TanStack Table library after making a shallow copy of the array to ensure that TanStack always detects that the data is being updated even when `setData()` is called multiple times with the same array instance. TanStack expects its `data` property to be provided as an array of some arbitrary type. The generic typing of the table allows the `nimble-table` to interface with the TanStack APIs using `TData` rather than `unknown` as shown below:
+The data passed into the `nimble-table` will be passed into the TanStack Table library after making a shallow copy of the array to ensure that TanStack always detects that the data is being updated even when `setData()` is called multiple times with the same array instance. TanStack expects its `data` property to be provided as an array of some arbitrary type.
+
+#### Handling hierarchy
+
+Tanstack supports hierachical data by providing a callback (`getSubRows`) where you can specify what the child rows of a particular row are. Additionally, the data structure provided to Tanstack should be hierarchical in shape, in order to prevent child rows from rendering multiple times (at multiple levels). To do this, we must convert each user-provided record into a `TableNode` whose interface provides the set of child rows associated with that record.
 
 ```ts
-private _options: TanstackOptionsResolved<TData>;
-
-this._options = {
-    get data(): TData[] { // instead of unknown[]
-        return [];  // TanStack starts with an empty array
-    }
+/**
+ * @internal
+*/
+interface TableNode<TableRecord> {
+    clientRecord: TableRecord;
+    subRows: TableNode<TableRecord>[];
 }
 
-public setData(data: TData[]) {
-    this._options.data = [...data];
+public class Table {
+    ...
+    private _options: TanstackOptionsResolved<TableNode<TableRecord>>;
+
+    this._options = {
+        data: [] // type is TableNode<TableRecord>,
+        getSubRows: r => r.subRows
+    }
+
+    public setData(data: TData[]) {
+        this._options.data = arrayToTree(data);
+    }
+    ...
 }
 ```
 
@@ -140,7 +150,7 @@ The Blazor wrapper around the table will expose a `Data` property that internall
 
 ### Hierarchical Data
 
-There are no special data API considerations for hierarchical data. All data will be specified as a flat array. Parent/child relationships will be specified using IDs (likely the child having a reference to its parent's ID). The details of hierarchical data are out of scope of this spec.
+There are no special data API considerations for hierarchical data. All data will be specified as a flat array. Parent/child relationships will be specified using IDs (likely the child having a reference to its parent's ID). The details of hierarchical data are [located here](./data-hierarchy-hld.md).
 
 ### Data modification
 
