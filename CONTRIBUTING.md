@@ -63,10 +63,6 @@ Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages y
 
 This repo generally follows the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide). Some packages list additional conventions in their `CONTRIBUTING.md`.
 
-## Running tests
-
-It is recommended to use the VSCode extension [Karma Test Explorer](https://marketplace.visualstudio.com/items?itemName=lucono.karma-test-explorer) for running and debugging individual tests. This extension allows you to start running/debugging a test from the source code, without modifying the source to mark the test as focused (i.e. `fit` or `fdescribe`). Best of all, it allows debugging from inside VSCode, rather than in the browser.
-
 ## Pull request policies
 
 Each pull request should add a small increment of high-quality well-tested value to Nimble. To keep PRs small you can add functionality incrementally but each PR should contain appropriate tests for the functionality being added and shouldn't introduce technical debt to be fixed later.
