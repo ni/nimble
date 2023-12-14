@@ -248,6 +248,13 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
+    public async setCursorPosition(position: number): Promise<void> {
+        this.richTextEditorElement.tiptapEditor.commands.setTextSelection(
+            position
+        );
+        await waitForUpdatesAsync();
+    }
+
     public async replaceEditorContent(value: string): Promise<void> {
         const lastElement = this.getEditorLastChildElement();
         lastElement.parentElement!.textContent = value;

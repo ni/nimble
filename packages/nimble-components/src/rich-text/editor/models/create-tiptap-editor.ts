@@ -223,6 +223,14 @@ function createCustomMentionExtension(
                 let inSuggestionMode = false;
                 return {
                     onStart: (props): void => {
+                        /**
+                         * If the cursor position moves to the start of the mention and configuration element changes,
+                         * the setMarkdown() will trigger this `onStart` without a decoration node because the cursor
+                         * position is moved out of the suggestion decoration
+                         */
+                        if (props.decorationNode === null) {
+                            return;
+                        }
                         inSuggestionMode = true;
                         config.mentionUpdateEmitter(props.query);
                         activeMentionCharacterEmitter(props.text.slice(0, 1));
