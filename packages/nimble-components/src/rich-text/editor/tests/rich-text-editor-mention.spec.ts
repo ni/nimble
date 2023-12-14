@@ -89,6 +89,23 @@ describe('RichTextEditorMention', () => {
         expect(element.getMarkdown()).toBe('<user:1>');
     });
 
+    it('Should render mention node in between bold and italics content', async () => {
+        element.setMarkdown('***Bold <user:1> Italics***');
+        await appendUserMentionConfiguration(element, [
+            { key: 'user:1', displayName: 'username1' }
+        ]);
+        expect(element.getMarkdown()).toBe('***Bold <user:1> Italics***');
+        expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
+            'P',
+            'STRONG',
+            'EM',
+            RICH_TEXT_MENTION_USERS_VIEW_TAG
+        ]);
+        expect(
+            pageObject.getEditorMentionViewAttributeValues('mention-label')
+        ).toEqual(['username1']);
+    });
+
     describe('user mention dynamic loading', () => {
         it('adding mention configuration converts the absolute link matching the pattern to mention node', async () => {
             element.setMarkdown('<user:1>');
