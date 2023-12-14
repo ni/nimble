@@ -112,12 +112,16 @@ export function createTiptapEditor(
  */
 function createCustomLinkExtension(): Mark<LinkOptions> {
     return Link.extend({
-        // Excludes can be removed/enabled when hyperlink support added
-        // See: https://github.com/ni/nimble/issues/1527
-        excludes: '_',
         // Inclusive can be updated when hyperlink support added
         // See: https://github.com/ni/nimble/issues/1527
         inclusive: false,
+        /**
+         * Default priority values for every mark extension like bold, italics and link are set to 100
+         * Setting low for link will render anchor within strong if bold enabled for link
+         * which eventually gets the markdown output as **<https://link>** and not <**https://link**>
+         * See: https://tiptap.dev/guide/custom-extensions/#priority
+         */
+        priority: 50,
         parseHTML() {
             return [
                 // To load the `nimble-anchor` from the HTML parsed content by markdown-parser as links in the Tiptap editor, the `parseHTML`

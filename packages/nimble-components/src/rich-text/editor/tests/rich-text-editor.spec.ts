@@ -921,7 +921,7 @@ describe('RichTextEditor', () => {
                 );
             });
 
-            it('should not affect bold formatting on the link in editor', async () => {
+            it('should set bold formatting on the link in editor', async () => {
                 await pageObject.toggleFooterButton(ToolbarButton.bold);
                 await pageObject.setEditorTextContent(
                     'https://nimble.ni.dev/ '
@@ -929,19 +929,18 @@ describe('RichTextEditor', () => {
 
                 expect(pageObject.getEditorTagNamesWithClosingTags()).toEqual([
                     'P',
+                    'STRONG',
                     'A',
                     '/A',
-                    'STRONG',
                     '/STRONG',
                     '/P'
                 ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
-                    'https://nimble.ni.dev/',
-                    ' '
+                    'https://nimble.ni.dev/'
                 ]);
             });
 
-            it('should not affect italics formatting on the link in editor', async () => {
+            it('should set italics formatting on the link in editor', async () => {
                 await pageObject.toggleFooterButton(ToolbarButton.italics);
                 await pageObject.setEditorTextContent(
                     'https://nimble.ni.dev/ '
@@ -949,15 +948,14 @@ describe('RichTextEditor', () => {
 
                 expect(pageObject.getEditorTagNamesWithClosingTags()).toEqual([
                     'P',
+                    'EM',
                     'A',
                     '/A',
-                    'EM',
                     '/EM',
                     '/P'
                 ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
-                    'https://nimble.ni.dev/',
-                    ' '
+                    'https://nimble.ni.dev/'
                 ]);
             });
 
@@ -1324,10 +1322,14 @@ describe('RichTextEditor', () => {
                 );
             });
 
-            it('absolute links in bold markdown string should not be parsed to "strong" tag', () => {
+            it('absolute links in bold markdown string should be parsed to "strong" and "a" tag', () => {
                 element.setMarkdown('**<https://nimble.ni.dev/>**');
 
-                expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
+                expect(pageObject.getEditorTagNames()).toEqual([
+                    'P',
+                    'STRONG',
+                    'A'
+                ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
                 ]);
@@ -1336,10 +1338,14 @@ describe('RichTextEditor', () => {
                 );
             });
 
-            it('absolute links in italics markdown string should not be parsed to "em" tag', () => {
+            it('absolute links in italics markdown string should be parsed to "em" and "a" tag', () => {
                 element.setMarkdown('*<https://nimble.ni.dev/>*');
 
-                expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
+                expect(pageObject.getEditorTagNames()).toEqual([
+                    'P',
+                    'EM',
+                    'A'
+                ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
                 ]);
@@ -1348,10 +1354,19 @@ describe('RichTextEditor', () => {
                 );
             });
 
-            it('absolute links in both bold and italics markdown string should not be parsed to "strong" and "em" tag', () => {
+            it('absolute links in both bold and italics markdown string should be parsed to "strong", "em" and "a" tag', () => {
                 element.setMarkdown('___<https://nimble.ni.dev/>___');
 
-                expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
+                expect(pageObject.getEditorTagNamesWithClosingTags()).toEqual([
+                    'P',
+                    'STRONG',
+                    'EM',
+                    'A',
+                    '/A',
+                    '/EM',
+                    '/STRONG',
+                    '/P'
+                ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
                 ]);
@@ -1398,27 +1413,27 @@ describe('RichTextEditor', () => {
                 );
             });
 
-            it('absolute links in bold markdown string should not be serialized to link in bold markdown', () => {
+            it('absolute links in bold markdown string should be serialized to link in bold markdown', () => {
                 element.setMarkdown('**<https://nimble.ni.dev/>**');
 
                 expect(element.getMarkdown()).toEqual(
-                    '<https://nimble.ni.dev/>'
+                    '**<https://nimble.ni.dev/>**'
                 );
             });
 
-            it('absolute links in italics markdown string should not be serialized to link in italics markdown', () => {
+            it('absolute links in italics markdown string should be serialized to link in italics markdown', () => {
                 element.setMarkdown('*<https://nimble.ni.dev/>*');
 
                 expect(element.getMarkdown()).toEqual(
-                    '<https://nimble.ni.dev/>'
+                    '*<https://nimble.ni.dev/>*'
                 );
             });
 
-            it('absolute links in both bold and italics markdown string should not be serialized to link in bold and italics markdown', () => {
+            it('absolute links in both bold and italics markdown string should be serialized to link in bold and italics markdown', () => {
                 element.setMarkdown('___<https://nimble.ni.dev/>___');
 
                 expect(element.getMarkdown()).toEqual(
-                    '<https://nimble.ni.dev/>'
+                    '***<https://nimble.ni.dev/>***'
                 );
             });
 

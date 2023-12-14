@@ -507,12 +507,16 @@ describe('Markdown parser', () => {
                 );
             });
 
-            it('absolute links in bold markdown string should not be parsed to "strong" HTML tag', () => {
+            it('absolute links in bold markdown string should be parsed to "strong" and "a" tag', () => {
                 const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                     '**<https://nimble.ni.dev/>**'
                 ).fragment;
 
-                expect(getTagsFromElement(doc)).toEqual(['P', 'NIMBLE-ANCHOR']);
+                expect(getTagsFromElement(doc)).toEqual([
+                    'P',
+                    'STRONG',
+                    'NIMBLE-ANCHOR'
+                ]);
                 expect(getLeafContentsFromElement(doc)).toEqual([
                     'https://nimble.ni.dev/'
                 ]);
@@ -521,12 +525,16 @@ describe('Markdown parser', () => {
                 );
             });
 
-            it('absolute links in italics markdown string should not be parsed to "em" HTML tag', () => {
+            it('absolute links in italics markdown string should be parsed to "em" and "a" tag', () => {
                 const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                     '*<https://nimble.ni.dev/>*'
                 ).fragment;
 
-                expect(getTagsFromElement(doc)).toEqual(['P', 'NIMBLE-ANCHOR']);
+                expect(getTagsFromElement(doc)).toEqual([
+                    'P',
+                    'EM',
+                    'NIMBLE-ANCHOR'
+                ]);
                 expect(getLeafContentsFromElement(doc)).toEqual([
                     'https://nimble.ni.dev/'
                 ]);
@@ -535,12 +543,17 @@ describe('Markdown parser', () => {
                 );
             });
 
-            it('absolute links in both bold and italics markdown string should not be parsed to "strong" and "em" HTML tag', () => {
+            it('absolute links in both bold and italics markdown string should not be parsed to "strong", "em" and "a" HTML tag', () => {
                 const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                     '___<https://nimble.ni.dev/>___'
                 ).fragment;
 
-                expect(getTagsFromElement(doc)).toEqual(['P', 'NIMBLE-ANCHOR']);
+                expect(getTagsFromElement(doc)).toEqual([
+                    'P',
+                    'EM',
+                    'STRONG',
+                    'NIMBLE-ANCHOR'
+                ]);
                 expect(getLeafContentsFromElement(doc)).toEqual([
                     'https://nimble.ni.dev/'
                 ]);

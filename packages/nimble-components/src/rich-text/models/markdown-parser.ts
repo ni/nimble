@@ -104,6 +104,8 @@ export class RichTextMarkdownParser {
         return new Schema({
             nodes: schema.spec.nodes,
             marks: {
+                em: schema.spec.marks.get('em')!,
+                strong: schema.spec.marks.get('strong')!,
                 link: {
                     attrs: {
                         href: {},
@@ -116,9 +118,6 @@ export class RichTextMarkdownParser {
                     // Inclusive can be updated when hyperlink support added
                     // See: https://github.com/ni/nimble/issues/1527
                     inclusive: false,
-                    // Excludes can be removed/enabled when hyperlink support added
-                    // See: https://github.com/ni/nimble/issues/1527
-                    excludes: '_',
                     toDOM(node) {
                         const href = node.attrs.href as string;
                         const currentMention = RichTextMarkdownParser.mentionConfigs?.find(
@@ -158,9 +157,7 @@ export class RichTextMarkdownParser {
                             }
                         ];
                     }
-                },
-                em: schema.spec.marks.get('em')!,
-                strong: schema.spec.marks.get('strong')!
+                }
             }
         });
     }

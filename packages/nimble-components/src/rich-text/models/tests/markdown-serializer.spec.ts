@@ -409,24 +409,28 @@ Plain text 3`);
         });
     });
 
-    describe('Excludes other marks in link while serializing', () => {
+    describe('Includes other marks in link while serializing', () => {
         it('Link and Bold', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('https://nimble.ni.dev ');
-            expect(element.getMarkdown()).toEqual('<https://nimble.ni.dev> ');
+            expect(element.getMarkdown()).toEqual(
+                '**<https://nimble.ni.dev>** '
+            );
         });
 
         it('Link and Italics', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('https://nimble.ni.dev ');
-            expect(element.getMarkdown()).toEqual('<https://nimble.ni.dev> ');
+            expect(element.getMarkdown()).toEqual('*<https://nimble.ni.dev>* ');
         });
 
         it('Link, Bold and Italics', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('https://nimble.ni.dev ');
-            expect(element.getMarkdown()).toEqual('<https://nimble.ni.dev> ');
+            expect(element.getMarkdown()).toEqual(
+                '***<https://nimble.ni.dev>*** '
+            );
         });
     });
 });
