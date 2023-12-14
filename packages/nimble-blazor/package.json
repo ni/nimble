@@ -79,8 +79,8 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "cross-env": "^7.0.3",
     "glob": "^8.1.0",
-    "rimraf": "^3.0.2",
+    "rimraf": "^5.0.5",
     "rollup": "^3.10.1",
-    "wireit": "^0.9.5"
+    "wireit": "^0.14.1"
   }
 }

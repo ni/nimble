@@ -189,7 +189,7 @@
     "prettier-eslint-cli": "^7.1.0",
     "puppeteer": "^10.1.0",
     "remark-gfm": "^3.0.1",
-    "rimraf": "^3.0.2",
+    "rimraf": "^5.0.5",
     "rollup": "^3.10.1",
     "rollup-plugin-polyfill-node": "^0.12.0",
     "rollup-plugin-sourcemaps": "^0.6.3",
@@ -200,6 +200,6 @@
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-middleware": "^6.0.1",
-    "wireit": "^0.9.5"
+    "wireit": "^0.14.1"
   }
 }
