@@ -51,7 +51,7 @@ const simpleData = [
         lastName: 'Simpson',
         birthday: new Date(2022, 0, 12, 20, 4, 37, 975).valueOf()
     }
-];
+] as const;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Date Text',

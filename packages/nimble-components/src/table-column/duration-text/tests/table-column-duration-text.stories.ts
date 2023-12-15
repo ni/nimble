@@ -38,7 +38,7 @@ const simpleData = [
         lastName: 'Burns',
         swearWordCadence: 3.78e12
     }
-];
+] as const;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Duration Text',
