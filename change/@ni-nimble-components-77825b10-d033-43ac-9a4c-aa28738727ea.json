@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix mention listbox when configuration dynamically changes and when cursor position change",
-  "packageName": "@ni/nimble-components",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
