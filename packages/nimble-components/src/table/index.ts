@@ -819,8 +819,10 @@ export class Table<
             updatedOptions.state.grouping = this.calculateTanStackGroupingState();
         }
 
-        if (this.tableUpdateTracker.updateRowIds
-            || this.tableUpdateTracker.updateGroupRows) {
+        if (
+            this.tableUpdateTracker.updateRowIds
+            || this.tableUpdateTracker.updateGroupRows
+        ) {
             updatedOptions.state.expanded = true;
             this.expansionManager.reset();
         }

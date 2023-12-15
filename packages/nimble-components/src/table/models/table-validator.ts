@@ -83,26 +83,22 @@ export class TableValidator<TData extends TableRecord> {
             return true;
         }
 
-        if (typeof idFieldName === 'string') {
-            for (const record of data) {
-                if (
-                    !Object.prototype.hasOwnProperty.call(record, idFieldName)
-                ) {
-                    this.missingRecordId = true;
-                    continue;
-                }
-
-                const id = record[idFieldName];
-                if (typeof id !== 'string') {
-                    this.invalidRecordId = true;
-                    continue;
-                }
-
-                if (this.recordIds.has(id)) {
-                    this.duplicateRecordId = true;
-                }
-                this.recordIds.add(id);
+        for (const record of data) {
+            if (!Object.prototype.hasOwnProperty.call(record, idFieldName)) {
+                this.missingRecordId = true;
+                continue;
             }
+
+            const id = record[idFieldName];
+            if (typeof id !== 'string') {
+                this.invalidRecordId = true;
+                continue;
+            }
+
+            if (this.recordIds.has(id)) {
+                this.duplicateRecordId = true;
+            }
+            this.recordIds.add(id);
         }
 
         return (

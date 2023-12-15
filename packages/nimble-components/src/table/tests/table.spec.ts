@@ -1246,7 +1246,9 @@ describe('Table', () => {
 
                 element.idFieldName = 'stringData2';
                 await waitForUpdatesAsync();
-                expect(pageObject.getRenderedRowCount()).toBe(hierarchicalData.length);
+                expect(pageObject.getRenderedRowCount()).toBe(
+                    hierarchicalData.length
+                );
             });
 
             describe('changing idFieldName when rendering hierarchical data, preserves original ordering after removing parentIdFieldName', () => {
