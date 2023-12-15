@@ -1408,7 +1408,7 @@ describe('RichTextEditorMentionListbox', () => {
             ]);
         });
 
-        it('should close mention listbox when cursor position is moved to start and configuration dynamically changes', async () => {
+        it('mention listbox should be closed when cursor position is moved to start and configuration dynamically changes', async () => {
             const { mappingElements } = await appendUserMentionConfiguration(
                 element,
                 [{ key: 'user:1', displayName: 'user name1' }]
