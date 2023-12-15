@@ -9,7 +9,7 @@ import {
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('inline')}
+    ${display('inline-block')}
 
     :host {
         box-sizing: border-box;
