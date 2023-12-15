@@ -2190,6 +2190,19 @@ describe('Table row selection', () => {
 
             describe('group selection checkbox', () => {
                 const blueGroupIndex = 0;
+                const greenGroupIndex = 3;
+
+                fit('shift + select ending with top-level group does not track selection of subgroups', async () => {
+                    pageObject.clickGroupRowSelectionCheckbox(blueGroupIndex);
+                    pageObject.clickGroupRowSelectionCheckbox(greenGroupIndex, true);
+                    await waitForUpdatesAsync();
+
+                    const blueAndGreenRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-') || x.id.includes('green-'))
+                        .map(x => x.id);
+                    const selection = await element.getSelectedRecordIds();
+                    expect(selection).toEqual(jasmine.arrayWithExactContents(blueAndGreenRecordIds));
+                });
 
                 it('group selection checkbox default to not checked', () => {
                     expect(
