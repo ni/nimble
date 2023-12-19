@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 13 Dec 2023 14:06:08 GMT and should not be manually modified.
+This log was last generated on Fri, 15 Dec 2023 14:08:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.16.4
+
+Fri, 15 Dec 2023 14:08:18 GMT
+
+### Patches
+
+- Fix mention listbox when configuration dynamically changes and when cursor position change ([ni/nimble@abdb902](https://github.com/ni/nimble/commit/abdb902d39db785ec45d4aa14a9e9ce988a5d388))
 
 ## 20.16.3
 

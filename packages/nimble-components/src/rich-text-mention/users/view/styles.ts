@@ -12,7 +12,7 @@ export const styles = css`
         box-sizing: border-box;
         font: ${bodyFont};
         color: ${bodyFontColor};
-        white-space: normal;
+        white-space: pre-wrap;
     }
 
     .control {
