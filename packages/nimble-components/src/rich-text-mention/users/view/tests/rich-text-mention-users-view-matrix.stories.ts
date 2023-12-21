@@ -55,9 +55,7 @@ const component = ([
             mention-label="John Doe"
             ?disabled="${() => disabled}"
             ?disable-editing= "${() => disableEditing}"
-        >
-            @John Doe
-        </${richTextMentionUsersViewTag}>
+        >@John Doe</${richTextMentionUsersViewTag}>
         <span class="sample-text">(Mention View ${() => name})</span>
     </div>
 `;
@@ -81,9 +79,7 @@ const componentEditingMode = (): ViewTemplate => html`
         <${richTextMentionUsersViewTag}
             mention-href="user:1"
             mention-label="John Doe"
-        >
-            @John Doe
-        </${richTextMentionUsersViewTag}>
+        >@John Doe</${richTextMentionUsersViewTag}>
         <span class="sample-text">(Mention View Enabled Editing)</span>
     </div>
 `;

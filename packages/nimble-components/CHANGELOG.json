@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 15 Dec 2023 14:08:18 GMT",
+      "version": "20.16.4",
+      "tag": "@ni/nimble-components_v20.16.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "abdb902d39db785ec45d4aa14a9e9ce988a5d388",
+            "comment": "Fix mention listbox when configuration dynamically changes and when cursor position change"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Dec 2023 14:06:08 GMT",
       "version": "20.16.3",
       "tag": "@ni/nimble-components_v20.16.3",
