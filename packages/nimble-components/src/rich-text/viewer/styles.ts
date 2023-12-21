@@ -48,6 +48,10 @@ export const styles = css`
         display: none;
     }
 
+    nimble-anchor {
+        font: unset;
+    }
+
     ${
         /**
          * When an absolute link is not HTTPS/HTTP, the anchor tag renders without an `href`, appearing as plain text.
