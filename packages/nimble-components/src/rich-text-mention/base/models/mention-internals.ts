@@ -1,4 +1,5 @@
-import { observable } from '@microsoft/fast-element';
+import { ViewTemplate, html, observable } from '@microsoft/fast-element';
+import type { MappingConfigs, MentionUpdateEmitter } from '../types';
 
 export interface MentionInternalsOptions {
     readonly icon: string;
@@ -9,12 +10,12 @@ export interface MentionInternalsOptions {
 /**
  * Internal mention state
  */
-export class MentionInternals<TMentionConfig> {
+export class MentionInternals {
     /**
-     * Configuration which will hold mentioning info, character, icon and pattern
+     * Mappings configured for the mention node
      */
     @observable
-    public mentionConfig?: TMentionConfig;
+    public mappingConfigs?: MappingConfigs;
 
     /**
      * Whether this mention has a valid configuration.
@@ -25,12 +26,19 @@ export class MentionInternals<TMentionConfig> {
     /**
      * Regex used to extract user ID from user key (url)
      */
+    @observable
     public pattern?: string;
 
     /**
-     * Icon to display on RichTextEditor Toolbar
+     * Label to use as accessible name and title of mention button
      */
-    public readonly icon: string;
+    @observable
+    public buttonLabel?: string;
+
+    /**
+     * Template of the Icon to display on RichTextEditor Toolbar
+     */
+    public readonly iconTemplate: ViewTemplate;
 
     /**
      * Character to show respective mention list
@@ -42,9 +50,18 @@ export class MentionInternals<TMentionConfig> {
      */
     public readonly viewElement: string;
 
-    public constructor(options: MentionInternalsOptions) {
-        this.icon = options.icon;
+    /**
+     * Function to invoke to emit a mention-update event
+     */
+    public readonly mentionUpdateEmitter: MentionUpdateEmitter;
+
+    public constructor(
+        options: MentionInternalsOptions,
+        mentionUpdateEmitter: MentionUpdateEmitter
+    ) {
+        this.iconTemplate = html`<${options.icon} slot="start"></${options.icon}>`;
         this.character = options.character;
         this.viewElement = options.viewElement;
+        this.mentionUpdateEmitter = mentionUpdateEmitter;
     }
 }

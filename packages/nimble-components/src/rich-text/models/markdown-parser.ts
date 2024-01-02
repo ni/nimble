@@ -7,10 +7,16 @@ import { DOMSerializer, Schema } from 'prosemirror-model';
 import { anchorTag } from '../../anchor';
 import type { MarkdownParserMentionConfiguration } from './markdown-parser-mention-configuration';
 
+export interface ParseResult {
+    fragment: HTMLElement | DocumentFragment;
+    mentionedHrefs: string[];
+}
+
 /**
  * Provides markdown parser for rich text components
  */
 export class RichTextMarkdownParser {
+    private static readonly mentionedHrefs: Set<string> = new Set();
     private static readonly updatedSchema = this.getCustomSchemaConfiguration();
 
     private static readonly markdownParser = this.initializeMarkdownParser();
@@ -33,18 +39,28 @@ export class RichTextMarkdownParser {
     public static parseMarkdownToDOM(
         value: string,
         markdownParserMentionConfig?: MarkdownParserMentionConfiguration[]
-    ): HTMLElement | DocumentFragment {
+    ): ParseResult {
         try {
-            this.mentionConfigs = markdownParserMentionConfig;
+            RichTextMarkdownParser.setup(markdownParserMentionConfig);
             const parsedMarkdownContent = this.markdownParser.parse(value);
             if (parsedMarkdownContent === null) {
-                return document.createDocumentFragment();
+                return {
+                    fragment: document.createDocumentFragment(),
+                    mentionedHrefs: Array.from(
+                        RichTextMarkdownParser.mentionedHrefs
+                    )
+                };
             }
-            return this.domSerializer.serializeFragment(
-                parsedMarkdownContent.content
-            );
+            return {
+                fragment: this.domSerializer.serializeFragment(
+                    parsedMarkdownContent.content
+                ),
+                mentionedHrefs: Array.from(
+                    RichTextMarkdownParser.mentionedHrefs
+                )
+            };
         } finally {
-            this.mentionConfigs = undefined;
+            RichTextMarkdownParser.cleanup();
         }
     }
 
@@ -91,7 +107,11 @@ export class RichTextMarkdownParser {
                 link: {
                     attrs: {
                         href: {},
-                        rel: { default: 'noopener noreferrer' }
+                        rel: { default: 'noopener noreferrer' },
+                        // Adding `class` here is a workaround to render two mentions without a whitespace as display names
+                        // This attribute can be removed when the below issue is resolved
+                        // https://github.com/ni/nimble/issues/1707
+                        class: { default: '' }
                     },
                     // Inclusive can be updated when hyperlink support added
                     // See: https://github.com/ni/nimble/issues/1527
@@ -107,6 +127,8 @@ export class RichTextMarkdownParser {
                         const displayName = currentMention?.getDisplayName(href);
 
                         if (currentMention && displayName) {
+                            RichTextMarkdownParser.mentionedHrefs.add(href);
+
                             return [
                                 currentMention.viewElement,
                                 {
@@ -128,7 +150,11 @@ export class RichTextMarkdownParser {
                                  * With this, the user can click the links only when the scheme is HTTP/HTTPS
                                  */
                                 href: /^https?:\/\//i.test(href) ? href : null,
-                                rel: node.attrs.rel as Attr
+                                rel: node.attrs.rel as Attr,
+                                // Adding `class` here is a workaround to render two mentions without a whitespace as display names
+                                // This attribute can be removed when the below issue is resolved
+                                // https://github.com/ni/nimble/issues/1707
+                                class: href
                             }
                         ];
                     }
@@ -137,5 +163,19 @@ export class RichTextMarkdownParser {
                 strong: schema.spec.marks.get('strong')!
             }
         });
+    }
+
+    private static setup(
+        markdownParserMentionConfig:
+        | MarkdownParserMentionConfiguration[]
+        | undefined
+    ): void {
+        RichTextMarkdownParser.mentionConfigs = markdownParserMentionConfig;
+        RichTextMarkdownParser.mentionedHrefs.clear();
+    }
+
+    private static cleanup(): void {
+        RichTextMarkdownParser.mentionConfigs = undefined;
+        RichTextMarkdownParser.mentionedHrefs.clear();
     }
 }

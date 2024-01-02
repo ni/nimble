@@ -1,12 +1,8 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { MentionInternalsOptions } from '../base/models/mention-internals';
-import {
-    MappingConfigs,
-    RichTextMention,
-    RichTextMentionConfig
-} from '../base';
+import { RichTextMention } from '../base';
 import type { MappingConfig } from '../base/models/mapping-config';
-import { MappingUserConfig } from '../base/models/mapping-user-config';
+import { MappingUserConfig } from './models/mapping-user-config';
 import { template } from '../base/template';
 import { iconAtTag } from '../../icons/at';
 import { MappingUser } from '../../mapping/user';
@@ -24,10 +20,7 @@ declare global {
 /**
  * Rich Text user mention configuration element which will have MappingMentionUser elements as children
  */
-export class RichTextMentionUsers extends RichTextMention<
-RichTextMentionConfig,
-RichTextMentionUsersValidator
-> {
+export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersValidator> {
     protected override createValidator(): RichTextMentionUsersValidator {
         return new RichTextMentionUsersValidator(this.mentionInternals);
     }
@@ -40,12 +33,8 @@ RichTextMentionUsersValidator
         };
     }
 
-    protected override createMentionConfig(
-        mappingConfigs: MappingConfigs
-    ): RichTextMentionConfig {
-        return {
-            mappingConfigs
-        };
+    protected override getObservedMappingProperty(): string[] {
+        return ['key', 'displayName'];
     }
 
     protected createMappingConfig(

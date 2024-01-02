@@ -853,16 +853,18 @@ export class Table<
 
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
+            const isGrouped = row.getIsGrouped();
             const rowState: TableRowState<TData> = {
                 record: row.original.clientRecord,
                 id: row.id,
                 selectionState: this.getRowSelectionState(row),
-                isGrouped: row.getIsGrouped(),
+                isGrouped,
                 isExpanded: row.getIsExpanded(),
-                groupRowValue: row.getIsGrouped()
+                groupRowValue: isGrouped
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
-                nestingLevel: row.depth,
+                nestingLevel:
+                    !isGrouped && row.depth > 0 ? row.depth - 1 : row.depth,
                 leafItemCount: row
                     .getLeafRows()
                     .filter(leafRow => leafRow.getLeafRows().length === 0)

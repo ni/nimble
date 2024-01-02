@@ -6,6 +6,14 @@ import {
     backgroundStates,
     defaultBackgroundState
 } from '../dist/esm/utilities/tests/states';
+import {
+    Container,
+    Column,
+    Do,
+    Dont,
+    Frame,
+    Divider
+} from './blocks/StoryLayout.tsx';
 
 export const parameters = {
     backgrounds: {
@@ -38,6 +46,15 @@ export const parameters = {
     docs: {
         source: {
             transform: transformSource
+        },
+        toc: { headingSelector: 'h1, h2, h3' },
+        components: {
+            Container,
+            Column,
+            Do,
+            Dont,
+            Frame,
+            Divider
         }
     }
 };

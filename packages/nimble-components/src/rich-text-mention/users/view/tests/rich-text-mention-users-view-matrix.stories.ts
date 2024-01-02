@@ -7,10 +7,6 @@ import {
 import { createMatrixThemeStory } from '../../../../utilities/tests/storybook';
 import { richTextMentionUsersViewTag } from '..';
 import {
-    disabledStates,
-    type DisabledState
-} from '../../../../utilities/tests/states';
-import {
     bodyFont,
     bodyFontColor,
     borderColor,
@@ -18,6 +14,15 @@ import {
     mediumPadding,
     smallPadding
 } from '../../../../theme-provider/design-tokens';
+
+const disableEditingStates = [
+    ['In View Mode', false, true],
+    ['In Edit mode', false, false],
+    ['Disabled - In Edit mode', true, false],
+    ['Disabled - In View Mode', true, true]
+] as const;
+
+type DisableEditingState = (typeof disableEditingStates)[number];
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Mention: User',
@@ -29,9 +34,10 @@ const metadata: Meta = {
 export default metadata;
 
 const component = ([
-    disabledName,
-    disabled
-]: DisabledState): ViewTemplate => html`
+    name,
+    disabled,
+    disableEditing
+]: DisableEditingState): ViewTemplate => html`
     <style class='code-hide'>
         .mention-container {
             margin: var(${smallPadding.cssCustomProperty});
@@ -48,11 +54,9 @@ const component = ([
             mention-href="user:1"
             mention-label="John Doe"
             ?disabled="${() => disabled}"
-            disable-editing
-        >
-            @John Doe
-        </${richTextMentionUsersViewTag}>
-        <span class="sample-text">(Mention View ${() => disabledName})</span>
+            ?disable-editing= "${() => disableEditing}"
+        >@John Doe</${richTextMentionUsersViewTag}>
+        <span class="sample-text">(Mention View ${() => name})</span>
     </div>
 `;
 
@@ -75,13 +79,11 @@ const componentEditingMode = (): ViewTemplate => html`
         <${richTextMentionUsersViewTag}
             mention-href="user:1"
             mention-label="John Doe"
-        >
-            @John Doe
-        </${richTextMentionUsersViewTag}>
+        >@John Doe</${richTextMentionUsersViewTag}>
         <span class="sample-text">(Mention View Enabled Editing)</span>
     </div>
 `;
 
-export const richTextMentionUserViewThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component, [disabledStates]));
+export const richTextMentionUserViewThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component, [disableEditingStates]));
 
 export const richTextMentionUserViewEditEnabledThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(componentEditingMode));
