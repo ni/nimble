@@ -78,24 +78,23 @@ describe('TableColumnNumberText', () => {
     });
 
     const noValueData = [
-        { description: 'field not present', data: [{ unused: 'foo' }] },
-        { description: 'value is null', data: [{ number1: null }] },
-        { description: 'value is undefined', data: [{ number1: undefined }] },
+        { name: 'field not present', data: [{ unused: 'foo' }] },
+        { name: 'value is null', data: [{ number1: null }] },
+        { name: 'value is undefined', data: [{ number1: undefined }] },
         {
-            description: 'value is not a number',
+            name: 'value is not a number',
             data: [{ number1: 'hello world' as unknown as number }]
         }
     ];
-    for (const testData of noValueData) {
-        // eslint-disable-next-line @typescript-eslint/no-loop-func
-        it(`displays empty string when ${testData.description}`, async () => {
-            await table.setData(testData.data);
+    parameterizeNamedList(noValueData, (spec, name, value) => {
+        spec(`displays empty string when ${name}`, async () => {
+            await table.setData(value.data);
             await connect();
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
         });
-    }
+    });
 
     it('defaults to "default" format', () => {
         expect(elementReferences.column1.format).toBe(NumberTextFormat.default);

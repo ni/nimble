@@ -712,7 +712,6 @@ describe('Markdown parser', () => {
             }
         ];
 
-        
         parameterizeNamedList(testsWithEscapeCharacters, (spec, name, value) => {
             spec(
                 `"${name}"`,
@@ -810,18 +809,17 @@ describe('Markdown parser', () => {
             { name: '<script>alert("not alert")</script>' }
         ];
 
-        
-        parameterizeNamedList(notSupportedMarkdownStrings, (spec, name, value) => {
+        parameterizeNamedList(notSupportedMarkdownStrings, (spec, name) => {
             spec(
                 `string "${name}" renders as plain text "${name}" within paragraph tag`,
                 () => {
                     const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                        value.name
+                        name
                     ).fragment;
 
                     expect(getTagsFromElement(doc)).toEqual(['P']);
                     expect(getLeafContentsFromElement(doc)).toEqual([
-                        value.name
+                        name
                     ]);
                 }
             );
@@ -831,17 +829,17 @@ describe('Markdown parser', () => {
     describe('various wacky string values render as unchanged strings', () => {
         const wackyStringsToTest = wackyStrings.filter(value => value.name !== '\x00');
 
-        parameterizeNamedList(wackyStringsToTest, (spec, name, value) => {
+        parameterizeNamedList(wackyStringsToTest, (spec, name) => {
             spec(
                 `wacky string "${name}" that are unmodified when set the same "${name}" within paragraph tag`,
                 () => {
                     const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                        value.name
+                        name
                     ).fragment;
 
                     expect(getTagsFromElement(doc)).toEqual(['P']);
                     expect(getLeafContentsFromElement(doc)).toEqual([
-                        value.name
+                        name
                     ]);
                 }
             );
@@ -861,7 +859,6 @@ describe('Markdown parser', () => {
             { name: '\\r\\r', value: '\r\r', tags: ['P'], textContent: ['�'] }
         ];
 
-        
         parameterizeNamedList(modifiedWackyStrings, (spec, name, value) => {
             spec(
                 `wacky string "${name}" modified when rendered`,
@@ -938,7 +935,6 @@ describe('Markdown parser', () => {
             }
         ];
 
-        
         parameterizeNamedList(markdownStringWithHardBreak, (spec, name, value) => {
             spec(`should render br tag with "${name}"`, () => {
                 const doc = RichTextMarkdownParser.parseMarkdownToDOM(

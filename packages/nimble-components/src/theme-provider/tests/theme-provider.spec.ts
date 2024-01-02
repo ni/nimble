@@ -161,9 +161,9 @@ describe('Theme Provider', () => {
         );
         const tokenNameValues = Object.values(tokenNames);
 
-        parameterizeNamedList(propertyNames, (spec, name, value) => {
+        parameterizeNamedList(propertyNames, (spec, name) => {
             spec(`for token name ${name}`, () => {
-                const convertedTokenValue = spinalCase(value.name);
+                const convertedTokenValue = spinalCase(name);
                 expect(tokenNameValues).toContain(convertedTokenValue);
             });
         });
@@ -173,10 +173,10 @@ describe('Theme Provider', () => {
         const propertyNames = designTokenPropertyNames.map(
             (name: DesignTokenPropertyName) => ({ name })
         );
-        parameterizeNamedList(propertyNames, (spec, name, value) => {
+        parameterizeNamedList(propertyNames, (spec, name) => {
             spec(`for token name ${name}`, () => {
                 expect(
-                    suffixFromTokenName(value.name)
+                    suffixFromTokenName(name)
                 ).not.toBeUndefined();
             });
         });

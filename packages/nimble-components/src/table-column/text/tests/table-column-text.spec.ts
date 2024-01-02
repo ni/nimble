@@ -62,24 +62,23 @@ describe('TableColumnText', () => {
     });
 
     const noValueData = [
-        { description: 'field not present', data: [{ unused: 'foo' }] },
-        { description: 'value is null', data: [{ field: null }] },
-        { description: 'value is undefined', data: [{ field: undefined }] },
+        { name: 'field not present', data: [{ unused: 'foo' }] },
+        { name: 'value is null', data: [{ field: null }] },
+        { name: 'value is undefined', data: [{ field: undefined }] },
         {
-            description: 'value is not a string',
+            name: 'value is not a string',
             data: [{ field: 10 as unknown as string }]
         }
     ];
-    for (const testData of noValueData) {
-        // eslint-disable-next-line @typescript-eslint/no-loop-func
-        it(`displays empty string when ${testData.description}`, async () => {
-            await element.setData(testData.data);
+    parameterizeNamedList(noValueData, (spec, name, value) => {
+        spec(`displays empty string when ${name}`, async () => {
+            await element.setData(value.data);
             await connect();
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
         });
-    }
+    });
 
     it('changing fieldName updates display', async () => {
         await element.setData([{ field: 'foo', anotherField: 'bar' }]);
@@ -197,31 +196,31 @@ describe('TableColumnText', () => {
     });
 
     describe('various string values render as expected', () => {
-        parameterizeNamedList(wackyStrings, (spec, name, value) => {
+        parameterizeNamedList(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
                 await connect();
 
-                await element.setData([{ field: value.name }]);
+                await element.setData([{ field: name }]);
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
-                    value.name
+                    name
                 );
             });
         });
     });
 
     describe('various string values render in group header as expected', () => {
-        parameterizeNamedList(wackyStrings, (spec, name, value) => {
+        parameterizeNamedList(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
                 await connect();
 
-                await element.setData([{ field: value.name }]);
+                await element.setData([{ field: name }]);
                 await waitForUpdatesAsync();
 
                 expect(
                     pageObject.getRenderedGroupHeaderTextContent(0)
-                ).toContain(value.name);
+                ).toContain(name);
             });
         });
     });

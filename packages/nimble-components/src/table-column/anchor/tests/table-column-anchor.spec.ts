@@ -78,24 +78,23 @@ describe('TableColumnAnchor', () => {
 
     describe('with no href', () => {
         const noValueData = [
-            { description: 'field not present', data: [{ unused: 'foo' }] },
-            { description: 'value is null', data: [{ label: null }] },
-            { description: 'value is undefined', data: [{ label: undefined }] },
+            { name: 'field not present', data: [{ unused: 'foo' }] },
+            { name: 'value is null', data: [{ label: null }] },
+            { name: 'value is undefined', data: [{ label: undefined }] },
             {
-                description: 'value is not a string',
+                name: 'value is not a string',
                 data: [{ label: 10 as unknown as string }]
             }
         ];
-        for (const testData of noValueData) {
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            it(`displays empty string when label ${testData.description}`, async () => {
-                await element.setData(testData.data);
+        parameterizeNamedList(noValueData, (spec, name, value) => {
+            spec(`displays empty string when label ${name}`, async() => {
+                await element.setData(value.data);
                 await connect();
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
             });
-        }
+        });
 
         it('changing labelFieldName updates display', async () => {
             await element.setData([{ label: 'foo', otherLabel: 'bar' }]);
@@ -178,16 +177,16 @@ describe('TableColumnAnchor', () => {
         });
 
         describe('various string values render as expected', () => {
-            parameterizeNamedList(wackyStrings, (spec, name, value) => {
-                spec(`data "${value.name}" renders as "${value.name}"`, async () => {
+            parameterizeNamedList(wackyStrings, (spec, name) => {
+                spec(`data "${name}" renders correctly`, async () => {
                     await connect();
 
-                    await element.setData([{ label: value.name }]);
+                    await element.setData([{ label: name }]);
                     await waitForUpdatesAsync();
 
                     expect(
                         pageObject.getRenderedCellTextContent(0, 0)
-                    ).toBe(value.name);
+                    ).toBe(name);
                 });
             });
         });
@@ -252,18 +251,17 @@ describe('TableColumnAnchor', () => {
             { name: 'type', accessor: (x: Anchor) => x.type },
             { name: 'download', accessor: (x: Anchor) => x.download }
         ];
-        for (const option of linkOptionData) {
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            it(`sets ${option.name} on anchor`, async () => {
+        parameterizeNamedList(linkOptionData, (spec, name, value) => {
+            spec(`sets ${name} on anchor`, async () => {
                 await element.setData([{ link: 'foo' }]);
                 await connect();
                 await waitForUpdatesAsync();
 
                 expect(
-                    option.accessor(pageObject.getRenderedCellAnchor(0, 0))
-                ).toBe(`${option.name} value`);
-            });
-        }
+                    value.accessor(pageObject.getRenderedCellAnchor(0, 0))
+                ).toBe(`${value.name} value`);
+            })
+        });
 
         describe('with no label', () => {
             it('displays empty string when href is not string', async () => {
@@ -415,35 +413,35 @@ describe('TableColumnAnchor', () => {
         }
 
         describe('various string values render as expected', () => {
-            parameterizeNamedList(wackyStrings, (spec, name, value) => {
-                spec(`data "${name}" renders as "${name}"`, async () => {
+            parameterizeNamedList(wackyStrings, (spec, name) => {
+                spec(`data "${name}" renders correctly`, async () => {
                     await connect();
 
                     await element.setData([
-                        { label: value.name, link: 'url' }
+                        { label: name, link: 'url' }
                     ]);
                     await waitForUpdatesAsync();
 
                     expect(
                         pageObject.getRenderedCellTextContent(0, 0)
-                    ).toBe(value.name);
+                    ).toBe(name);
                 });
             });
         });
 
         describe('various string values render in group header as expected', () => {
-            parameterizeNamedList(wackyStrings, (spec, name, value) => {
-                spec(`data "${name}" renders as "${name}"`, async () => {
+            parameterizeNamedList(wackyStrings, (spec, name) => {
+                spec(`data "${name}" renders correctly`, async () => {
                     await connect();
 
                     await element.setData([
-                        { label: value.name, link: 'url' }
+                        { label: name, link: 'url' }
                     ]);
                     await waitForUpdatesAsync();
 
                     expect(
                         pageObject.getRenderedGroupHeaderTextContent(0)
-                    ).toContain(value.name);
+                    ).toContain(name);
                 });
             });
         });

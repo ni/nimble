@@ -38,7 +38,7 @@ describe('AnchorTab', () => {
         { name: 'type' }
     ];
     describe('should reflect value to the internal anchor element', () => {
-        parameterizeNamedList(attributeNames, (spec, name, _value) => {
+        parameterizeNamedList(attributeNames, (spec, name) => {
             spec(
                 `for attribute ${name}`,
                 async () => {

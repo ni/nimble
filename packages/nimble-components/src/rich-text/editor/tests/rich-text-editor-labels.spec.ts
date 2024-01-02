@@ -74,7 +74,8 @@ describe('Rich Text Editor with LabelProviderRichText', () => {
     });
 
     parameterizeNamedList(formattingButtons, (spec, name, value) => {
-        spec(`uses correct label for '${value.label}' for ${name} button`,
+        spec(
+            `uses correct label for '${value.label}' for ${name} button`,
             async () => {
                 labelProvider[value.property] = value.label;
                 await waitForUpdatesAsync();

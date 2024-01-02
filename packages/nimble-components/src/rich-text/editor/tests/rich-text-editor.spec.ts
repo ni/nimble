@@ -855,11 +855,11 @@ describe('RichTextEditor', () => {
                     { name: 'https://example.com/пример.html ' }
                 ];
 
-                parameterizeNamedList(supportedAbsoluteLink, (spec, name, value) => {
+                parameterizeNamedList(supportedAbsoluteLink, (spec, name) => {
                     spec(
                         `should change the ${name} to "a" tag when it is a valid absolute link`,
                         async () => {
-                            await pageObject.setEditorTextContent(value.name);
+                            await pageObject.setEditorTextContent(name);
 
                             expect(pageObject.getEditorTagNames()).toEqual([
                                 'P',
@@ -867,7 +867,7 @@ describe('RichTextEditor', () => {
                             ]);
                             expect(pageObject.getEditorLeafContents()).toEqual([
                                 // Name without the trailing space used by the editor to trigger conversion to a link
-                                value.name.slice(0, -1)
+                                name.slice(0, -1)
                             ]);
                         }
                     );
@@ -985,17 +985,17 @@ describe('RichTextEditor', () => {
                     { name: 'test://test.com ' }
                 ];
 
-                parameterizeNamedList(differentProtocolLinks, (spec, name, value) => {
+                parameterizeNamedList(differentProtocolLinks, (spec, name) => {
                     spec(
                         `string "${name}" renders as plain text "${name}" within paragraph tag`,
                         async () => {
-                            await pageObject.setEditorTextContent(value.name);
+                            await pageObject.setEditorTextContent(name);
 
                             expect(pageObject.getEditorTagNames()).toEqual([
                                 'P'
                             ]);
                             expect(pageObject.getEditorLeafContents()).toEqual([
-                                value.name
+                                name
                             ]);
                         }
                     );
@@ -1192,11 +1192,11 @@ describe('RichTextEditor', () => {
     });
 
     describe('various wacky string values input into the editor', () => {
-        parameterizeNamedList(wackyStrings, (spec, name, value) => {
+        parameterizeNamedList(wackyStrings, (spec, name) => {
             spec(
                 `wacky string "${name}" that are unmodified when rendered the same value within paragraph tag`,
                 async () => {
-                    await pageObject.setEditorTextContent(value.name);
+                    await pageObject.setEditorTextContent(name);
 
                     await connect();
 
@@ -1204,7 +1204,7 @@ describe('RichTextEditor', () => {
                         'P'
                     );
                     expect(pageObject.getEditorFirstChildTextContent()).toBe(
-                        value.name
+                        name
                     );
 
                     await disconnect();
@@ -1546,16 +1546,15 @@ describe('RichTextEditor', () => {
             { name: '<script>alert("not alert")</script>' }
         ];
 
-        parameterizeNamedList(notSupportedMarkdownStrings, (spec, name, value) => {
+        parameterizeNamedList(notSupportedMarkdownStrings, (spec, name) => {
             spec(
                 `markdown string "${name}" returns as plain text "${name}" without any change`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
-                    element.setMarkdown(value.name);
+                    element.setMarkdown(name);
 
                     await connect();
 
-                    expect(element.getMarkdown()).toBe(value.name);
+                    expect(element.getMarkdown()).toBe(name);
 
                     await disconnect();
                 }
@@ -1589,7 +1588,6 @@ describe('RichTextEditor', () => {
         parameterizeNamedList(specialMarkdownStrings, (spec, name, value) => {
             spec(
                 `special markdown string "${name}" returns as plain text "${value.value}" with added esacpe character`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     element.setMarkdown(value.name);
 
@@ -1671,15 +1669,15 @@ describe('RichTextEditor', () => {
                     && value.name !== '-2147483648/-1'
             );
 
-        parameterizeNamedList(wackyStringsToTest, (spec, name, value) => {
+        parameterizeNamedList(wackyStringsToTest, (spec, name) => {
             spec(
                 `wacky string "${name}" returns unmodified when set the same markdown string "${name}"`,
                 async () => {
-                    element.setMarkdown(value.name);
+                    element.setMarkdown(name);
 
                     await connect();
 
-                    expect(element.getMarkdown()).toBe(value.name);
+                    expect(element.getMarkdown()).toBe(name);
 
                     await disconnect();
                 }
@@ -1699,7 +1697,7 @@ describe('RichTextEditor', () => {
 
         parameterizeNamedList(wackyStringWithSpecialMarkdownCharacter, (spec, name, value) => {
             spec(
-                ` wacky string contains special markdown syntax "${name}" returns as plain text "${value}" with added escape character`,
+                ` wacky string contains special markdown syntax "${name}" returns as plain text "${value.value}" with added escape character`,
                 async () => {
                     element.setMarkdown(value.name);
 
@@ -1780,7 +1778,8 @@ describe('RichTextEditor', () => {
 
         describe('should reflect disabled value to the disabled and aria-disabled state of toggle buttons', () => {
             parameterizeNamedList(formattingButtons, (spec, name, value) => {
-                spec(`for "${name}" button`,
+                spec(
+                    `for "${name}" button`,
                     async () => {
                         expect(
                             pageObject.isButtonDisabled(

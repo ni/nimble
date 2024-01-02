@@ -81,7 +81,7 @@ describe('Anchor Menu Item', () => {
             { name: 'type' }
         ];
         describe('should reflect value to the internal control', () => {
-            parameterizeNamedList(attributeNames, (spec, name, _value) => {
+            parameterizeNamedList(attributeNames, (spec, name) => {
                 spec(
                     `for attribute ${name}`,
                     async () => {

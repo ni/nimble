@@ -164,10 +164,10 @@ describe('TableColumnEnumText', () => {
     });
 
     describe('various string values render as expected', () => {
-        parameterizeNamedList(wackyStrings, (spec, name, value) => {
+        parameterizeNamedList(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
                 ({ element, connect, disconnect, model } = await setup([
-                    { key: 'a', text: value.name }
+                    { key: 'a', text: name }
                 ]));
                 pageObject = new TablePageObject<SimpleTableRecord>(
                     element
@@ -177,32 +177,31 @@ describe('TableColumnEnumText', () => {
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
-                    value.name
+                    name
                 );
             });
         });
     });
 
     describe('various string values render in group header as expected', () => {
-        parameterizeNamedList(wackyStrings, (spec, name, value) => {
+        parameterizeNamedList(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
-                    ({ element, connect, disconnect, model } = await setup([
-                        { key: 'a', text: value.name }
-                    ]));
-                    pageObject = new TablePageObject<SimpleTableRecord>(
-                        element
-                    );
-                    await element.setData([{ field1: 'a' }]);
-                    await connect();
-                    await waitForUpdatesAsync();
-                    model.col1.groupIndex = 0;
-                    await waitForUpdatesAsync();
+                ({ element, connect, disconnect, model } = await setup([
+                    { key: 'a', text: name }
+                ]));
+                pageObject = new TablePageObject<SimpleTableRecord>(
+                    element
+                );
+                await element.setData([{ field1: 'a' }]);
+                await connect();
+                await waitForUpdatesAsync();
+                model.col1.groupIndex = 0;
+                await waitForUpdatesAsync();
 
-                    expect(
-                        pageObject.getRenderedGroupHeaderTextContent(0)
-                    ).toContain(value.name);
-                }
-            );
+                expect(
+                    pageObject.getRenderedGroupHeaderTextContent(0)
+                ).toContain(name);
+            });
         });
     });
 

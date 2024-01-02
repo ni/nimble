@@ -54,13 +54,13 @@ describe('RichTextMentionUsersView', () => {
     });
 
     describe('various wacky strings should reflect the `mention-label` attribute value to its text content', () => {
-        parameterizeNamedList(wackyStrings, (spec, name, value) => {
+        parameterizeNamedList(wackyStrings, (spec, name) => {
             spec(`for ${name}`, async () => {
                 await connect();
-                element.setAttribute('mention-label', value.name);
+                element.setAttribute('mention-label', name);
 
                 await waitForUpdatesAsync();
-                expect(pageObject.getTextContent()).toBe(`@${value.name}`);
+                expect(pageObject.getTextContent()).toBe(`@${name}`);
             });
         });
     });

@@ -265,14 +265,14 @@ describe('TableColumnIcon', () => {
     });
 
     describe('various string values render in group header as expected', () => {
-        parameterizeNamedList(wackyStrings, (spec, name, value) => {
+        parameterizeNamedList(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
                 ({ element, connect, disconnect, model } = await setup({
                     keyType: MappingKeyType.string,
                     iconMappings: [
                         {
                             key: 'a',
-                            text: value.name,
+                            text: name,
                             icon: iconXmarkTag
                         }
                     ],
@@ -289,7 +289,7 @@ describe('TableColumnIcon', () => {
 
                 expect(
                     pageObject.getRenderedGroupHeaderTextContent(0)
-                ).toContain(value.name);
+                ).toContain(name);
             });
         });
     });

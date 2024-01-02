@@ -1,5 +1,4 @@
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist/icons/js';
-import type { NimbleIconName } from '@ni/nimble-tokens/dist/icons/js';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
 import { parameterizeNamedList } from '../../utilities/tests/parameterized';
@@ -10,7 +9,6 @@ import { IconAdd, iconAddTag } from '../../icons/add';
 
 describe('Icons', () => {
     describe('should have correct SVG structure', () => {
-        // const nimbleIcons = Object.values(nimbleIconsMap) as { name: NimbleIconName, data: string }[];
         const nimbleIcons = Object.values(nimbleIconsMap);
         const getSVGElement = (htmlString: string): SVGElement => {
             const template = document.createElement('template');
