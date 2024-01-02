@@ -25,7 +25,6 @@ import { focusVisible } from '../../utilities/style/focus';
 import { themeBehavior } from '../../utilities/style/theme';
 import { DropdownAppearance } from './types';
 import { userSelectNone } from '../../utilities/style/user-select';
-import { ZIndexLevels } from '../../utilities/style/types';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -143,12 +142,10 @@ export const styles = css`
         box-sizing: border-box;
         display: inline-flex;
         flex-direction: column;
-        left: 0;
         overflow-y: auto;
         width: 100%;
         --ni-private-listbox-padding: ${smallPadding};
         max-height: calc(var(--ni-private-select-max-height) - ${smallPadding});
-        z-index: ${ZIndexLevels.justAboveDefault};
         box-shadow: ${elevation2BoxShadow};
         border: 1px solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};
