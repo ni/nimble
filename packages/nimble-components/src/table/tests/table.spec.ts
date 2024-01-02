@@ -1255,7 +1255,7 @@ describe('Table', () => {
                 );
             });
 
-            fit('changing parentIdFieldName when data is valid for hierarchy results in every row being expanded', async () => {
+            it('changing parentIdFieldName when data is valid for hierarchy results in every row being expanded', async () => {
                 await connect();
                 element.idFieldName = 'stringData';
                 element.parentIdFieldName = 'parentId2';
