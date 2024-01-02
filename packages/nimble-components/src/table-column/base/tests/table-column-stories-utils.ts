@@ -26,7 +26,7 @@ export const sharedTableArgTypes = {
 } as const;
 
 export const sharedTableArgs = (
-    data: TableRecord[]
+    data: readonly TableRecord[]
 ): {
         selectionMode: keyof typeof TableRowSelectionMode,
         tableRef: undefined,
