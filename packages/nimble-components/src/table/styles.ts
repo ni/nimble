@@ -16,6 +16,7 @@ import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
 import { userSelectNone } from '../utilities/style/user-select';
 import { accessiblyHidden } from '../utilities/style/accessibly-hidden';
+import { ZIndexLevels } from '../utilities/style/types';
 
 export const styles = css`
     ${display('flex')}
@@ -132,13 +133,13 @@ export const styles = css`
 
     .column-divider.active {
         display: block;
-        z-index: 1;
+        z-index: ${ZIndexLevels.justAboveDefault};
     }
 
     .header-container:hover .column-divider.left,
     .header-container:hover .column-divider.right {
         display: block;
-        z-index: 1;
+        z-index: ${ZIndexLevels.justAboveDefault};
     }
 
     .column-divider.left {
