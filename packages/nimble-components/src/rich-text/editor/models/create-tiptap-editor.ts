@@ -216,9 +216,13 @@ function createCustomMentionExtension(
     }).configure({
         suggestion: {
             char: config.character,
-            // When rendering the view element as a decoration tag for suggestions, it leads to the deletion of the entire suggested word in Safari.
-            // Refer to the following issue for commenting out the specified line of code as a workaround
-            // https://github.com/ni/nimble/issues/1716
+            /**
+             * When rendering the view element as a decoration tag for suggestions,
+             * it leads to the deletion of the entire suggested word in Safari when pressing backspace.
+             * Refer to the following issue for commenting the line of code as a workaround.
+             * https://github.com/ni/nimble/issues/1716
+             */
+
             // decorationTag: config.viewElement,
             pluginKey: new PluginKey(config.key),
             allowSpaces: true,
