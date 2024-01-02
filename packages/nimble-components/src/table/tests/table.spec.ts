@@ -887,7 +887,8 @@ describe('Table', () => {
                     moreStringData: 'foo',
                     id: '1',
                     parentId: '0',
-                    parentId2: 'Parent 2'
+                    parentId2: 'Parent 2',
+                    parentId3: 'Parent 1'
                 },
                 {
                     stringData: 'Parent 1 Grandchild',
@@ -896,7 +897,8 @@ describe('Table', () => {
                     moreStringData: 'foo',
                     id: '2',
                     parentId: '1',
-                    parentId2: 'Parent 1 Child'
+                    parentId2: 'Parent 1 Child',
+                    parentId3: 'Parent 2 Child'
                 },
                 {
                     stringData: 'Top Level No Child',
@@ -919,7 +921,8 @@ describe('Table', () => {
                     moreStringData: 'foo',
                     id: '5',
                     parentId: '4',
-                    parentId2: 'Parent 1'
+                    parentId2: 'Parent 1',
+                    parentId3: 'Parent 2'
                 },
                 {
                     stringData: 'Parent 1 Child 2',
@@ -928,7 +931,8 @@ describe('Table', () => {
                     moreStringData: 'foo',
                     id: '6',
                     parentId: '0',
-                    parentId2: 'Parent 1'
+                    parentId2: 'Parent 1',
+                    parentId3: 'Parent 2'
                 }
             ];
             it('shows collapse all button with hierarchical data', async () => {
@@ -1245,6 +1249,22 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 element.idFieldName = 'stringData2';
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedRowCount()).toBe(
+                    hierarchicalData.length
+                );
+            });
+
+            fit('changing parentIdFieldName when data is valid for hierarchy results in every row being expanded', async () => {
+                await connect();
+                element.idFieldName = 'stringData';
+                element.parentIdFieldName = 'parentId2';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+                pageObject.clickCollapseAllButton();
+                await waitForUpdatesAsync();
+
+                element.parentIdFieldName = 'parentId3';
                 await waitForUpdatesAsync();
                 expect(pageObject.getRenderedRowCount()).toBe(
                     hierarchicalData.length
