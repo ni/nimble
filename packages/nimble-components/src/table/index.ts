@@ -819,8 +819,11 @@ export class Table<
             updatedOptions.state.grouping = this.calculateTanStackGroupingState();
         }
 
-        if (this.tableUpdateTracker.updateRowIds
-            || this.tableUpdateTracker.updateGroupRows) {
+        if (
+            this.tableUpdateTracker.updateRowIds
+            || this.tableUpdateTracker.updateRowParentIds
+            || this.tableUpdateTracker.updateGroupRows
+        ) {
             updatedOptions.state.expanded = true;
             this.expansionManager.reset();
         }
@@ -917,6 +920,8 @@ export class Table<
         this.tableData = rows.map(row => {
             const isGroupRow = row.getIsGrouped();
             const hasParentRow = isGroupRow ? false : row.getParentRow();
+            // we check row.original.subRows below because row.subRows is populated for group rows
+            // which we don't want to include
             const isParent = row.original.subRows !== undefined
                 && row.original.subRows.length > 0;
             const isGroupRowChildWithNoHierarchy = !isGroupRow

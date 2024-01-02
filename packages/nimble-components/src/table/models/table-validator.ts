@@ -52,20 +52,13 @@ export class TableValidator<TData extends TableRecord> {
         idFieldName: string | undefined,
         parentIdFieldName: string | undefined
     ): boolean {
-        if (selectionMode === TableRowSelectionMode.none) {
-            this.idFieldNameNotConfigured = false;
-        } else {
+        const idFieldNameRequired = selectionMode !== TableRowSelectionMode.none
+            || typeof parentIdFieldName === 'string';
+        if (idFieldNameRequired) {
             this.idFieldNameNotConfigured = typeof idFieldName !== 'string';
+        } else {
+            this.idFieldNameNotConfigured = false;
         }
-
-        if (
-            !this.idFieldNameNotConfigured
-            && parentIdFieldName !== undefined
-            && idFieldName === undefined
-        ) {
-            this.idFieldNameNotConfigured = true;
-        }
-
         return !this.idFieldNameNotConfigured;
     }
 
