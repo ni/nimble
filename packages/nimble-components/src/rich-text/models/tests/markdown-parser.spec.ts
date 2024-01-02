@@ -6,7 +6,6 @@ import {
 } from '../../../rich-text-mention/users';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import {
-    getSpecTypeByNamedList,
     parameterizeNamedList
 } from '../../../utilities/tests/parameterized';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
@@ -316,18 +315,9 @@ describe('Markdown parser', () => {
                     }
                 ];
 
-                const focused: string[] = [];
-                const disabled: string[] = [];
-                for (const value of supportedAbsoluteLink) {
-                    const specType = getSpecTypeByNamedList(
-                        value,
-                        focused,
-                        disabled
-                    );
-                    specType(
-                        `${value.name} to "nimble-anchor" tags with the link as the text content`,
-                        // eslint-disable-next-line @typescript-eslint/no-loop-func
-                        () => {
+                describe('should reflect value to the internal control', () => {
+                    parameterizeNamedList(supportedAbsoluteLink, (spec, name, value) => {
+                        spec(`${name} to "nimble-anchor" tags with the link as the text content`, () => {
                             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                                 value.validLink
                             ).fragment;
@@ -343,9 +333,9 @@ describe('Markdown parser', () => {
                             expect(
                                 getLastChildElementAttribute('href', doc)
                             ).toBe(renderedLink);
-                        }
-                    );
-                }
+                        });
+                    });
+                });
             });
 
             describe('various absolute links with non-ASCII (IRI) characters within it', () => {
@@ -427,36 +417,30 @@ describe('Markdown parser', () => {
                     }
                 ];
 
-                const focused: string[] = [];
-                const disabled: string[] = [];
-                for (const value of supportedAbsoluteLink) {
-                    const specType = getSpecTypeByNamedList(
-                        value,
-                        focused,
-                        disabled
-                    );
-                    specType(
-                        `${value.name} to "nimble-anchor" tags with the non-ASCII characters as the text content and encoded as their href`,
-                        // eslint-disable-next-line @typescript-eslint/no-loop-func
-                        () => {
-                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                                value.validLink
-                            ).fragment;
-                            const renderedLink = value.validLink.slice(1, -1);
+                describe('should reflect value to the internal control', () => {
+                    parameterizeNamedList(supportedAbsoluteLink, (spec, name, value) => {
+                        spec(
+                            `${name} to "nimble-anchor" tags with the non-ASCII characters as the text content and encoded as their href`,
+                            () => {
+                                const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                    value.validLink
+                                ).fragment;
+                                const renderedLink = value.validLink.slice(1, -1);
 
-                            expect(getTagsFromElement(doc)).toEqual([
-                                'P',
-                                'NIMBLE-ANCHOR'
-                            ]);
-                            expect(getLeafContentsFromElement(doc)).toEqual([
-                                renderedLink
-                            ]);
-                            expect(
-                                getLastChildElementAttribute('href', doc)
-                            ).toBe(value.encodeURL);
-                        }
-                    );
-                }
+                                expect(getTagsFromElement(doc)).toEqual([
+                                    'P',
+                                    'NIMBLE-ANCHOR'
+                                ]);
+                                expect(getLeafContentsFromElement(doc)).toEqual([
+                                    renderedLink
+                                ]);
+                                expect(
+                                    getLastChildElementAttribute('href', doc)
+                                ).toBe(value.encodeURL);
+                            }
+                        );
+                    });
+                });
             });
 
             it('absolute link should add "rel" attribute', () => {
@@ -690,8 +674,6 @@ describe('Markdown parser', () => {
     });
 
     describe('escape backslashes should be ignored while parsing', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
         const r = String.raw;
         const testsWithEscapeCharacters = [
             { name: r`\*`, tags: ['P'], textContent: ['*'] },
@@ -730,11 +712,10 @@ describe('Markdown parser', () => {
             }
         ];
 
-        for (const value of testsWithEscapeCharacters) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `"${value.name}"`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        
+        parameterizeNamedList(testsWithEscapeCharacters, (spec, name, value) => {
+            spec(
+                `"${name}"`,
                 () => {
                     const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                         value.name
@@ -746,7 +727,7 @@ describe('Markdown parser', () => {
                     );
                 }
             );
-        }
+        });
 
         it('special character `.` should be parsed properly (number list test)', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
@@ -829,13 +810,10 @@ describe('Markdown parser', () => {
             { name: '<script>alert("not alert")</script>' }
         ];
 
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of notSupportedMarkdownStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `string "${value.name}" renders as plain text "${value.name}" within paragraph tag`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        
+        parameterizeNamedList(notSupportedMarkdownStrings, (spec, name, value) => {
+            spec(
+                `string "${name}" renders as plain text "${name}" within paragraph tag`,
                 () => {
                     const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                         value.name
@@ -847,60 +825,49 @@ describe('Markdown parser', () => {
                     ]);
                 }
             );
-        }
+        });
     });
 
     describe('various wacky string values render as unchanged strings', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
+        const wackyStringsToTest = wackyStrings.filter(value => value.name !== '\x00');
 
-        wackyStrings
-            .filter(value => value.name !== '\x00')
-            .forEach(value => {
-                const specType = getSpecTypeByNamedList(
-                    value,
-                    focused,
-                    disabled
-                );
-                specType(
-                    `wacky string "${value.name}" that are unmodified when set the same "${value.name}" within paragraph tag`,
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
-                    () => {
-                        const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                            value.name
-                        ).fragment;
-
-                        expect(getTagsFromElement(doc)).toEqual(['P']);
-                        expect(getLeafContentsFromElement(doc)).toEqual([
-                            value.name
-                        ]);
-                    }
-                );
-            });
-    });
-
-    describe('various wacky string values modified when rendered', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        const modifiedWackyStrings: {
-            name: string,
-            tags: string[],
-            textContent: string[]
-        }[] = [
-            { name: '\0', tags: ['P'], textContent: ['�'] },
-            { name: '\r\r', tags: ['P'], textContent: [''] },
-            { name: '\uFFFD', tags: ['P'], textContent: ['�'] },
-            { name: '\x00', tags: ['P'], textContent: ['�'] }
-        ];
-
-        for (const value of modifiedWackyStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `wacky string "${value.name}" modified when rendered`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeNamedList(wackyStringsToTest, (spec, name, value) => {
+            spec(
+                `wacky string "${name}" that are unmodified when set the same "${name}" within paragraph tag`,
                 () => {
                     const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                         value.name
+                    ).fragment;
+
+                    expect(getTagsFromElement(doc)).toEqual(['P']);
+                    expect(getLeafContentsFromElement(doc)).toEqual([
+                        value.name
+                    ]);
+                }
+            );
+        });
+    });
+
+    describe('various wacky string values modified when rendered', () => {
+        const modifiedWackyStrings: {
+            name: string,
+            value: string,
+            tags: string[],
+            textContent: string[]
+        }[] = [
+            { name: '\\0', value: '\0', tags: ['P'], textContent: ['�'] },
+            { name: '\\uFFFD', value: '\uFFFD', tags: ['P'], textContent: [''] },
+            { name: '\\x00', value: '\x00', tags: ['P'], textContent: ['�'] },
+            { name: '\\r\\r', value: '\r\r', tags: ['P'], textContent: ['�'] }
+        ];
+
+        
+        parameterizeNamedList(modifiedWackyStrings, (spec, name, value) => {
+            spec(
+                `wacky string "${name}" modified when rendered`,
+                () => {
+                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                        value.value
                     ).fragment;
 
                     expect(getTagsFromElement(doc)).toEqual(value.tags);
@@ -909,12 +876,10 @@ describe('Markdown parser', () => {
                     );
                 }
             );
-        }
+        });
     });
 
     describe('Markdown string with hard break should have respective br tag when rendered', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
         const r = String.raw;
         const markdownStringWithHardBreak: {
             name: string,
@@ -973,19 +938,15 @@ describe('Markdown parser', () => {
             }
         ];
 
-        for (const value of markdownStringWithHardBreak) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `should render br tag with "${value.name}"`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                () => {
-                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                        value.value
-                    ).fragment;
-                    expect(getTagsFromElement(doc)).toEqual(value.tags);
-                }
-            );
-        }
+        
+        parameterizeNamedList(markdownStringWithHardBreak, (spec, name, value) => {
+            spec(`should render br tag with "${name}"`, () => {
+                const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                    value.value
+                ).fragment;
+                expect(getTagsFromElement(doc)).toEqual(value.tags);
+            });
+        });
     });
 
     describe('user mention', () => {

@@ -2,7 +2,6 @@ import { html } from '@microsoft/fast-element';
 import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import {
-    getSpecTypeByNamedList,
     parameterizeNamedList
 } from '../../../utilities/tests/parameterized';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
@@ -170,14 +169,9 @@ describe('RichTextEditor', () => {
     ];
 
     describe('clicking buttons should update the checked state of the toggle button with focus', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-
-        for (const value of formattingButtons) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `"${value.name}" button click check`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeNamedList(formattingButtons, (spec, name, value) => {
+            spec(
+                `"${name}" button click check`,
                 async () => {
                     expect(
                         pageObject.getButtonCheckedState(
@@ -199,18 +193,13 @@ describe('RichTextEditor', () => {
                     ).toBe(0);
                 }
             );
-        }
+        });
     });
 
     describe('space key press should update the checked state of the buttons', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-
-        for (const value of formattingButtons) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `"${value.name}" button key press check`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeNamedList(formattingButtons, (spec, name, value) => {
+            spec(
+                `"${name}" button key press check`,
                 () => {
                     expect(
                         pageObject.getButtonCheckedState(
@@ -229,18 +218,13 @@ describe('RichTextEditor', () => {
                     ).toBeTrue();
                 }
             );
-        }
+        });
     });
 
     describe('enter key press should update the checked state of the buttons', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-
-        for (const value of formattingButtons) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `"${value.name}" button key press check`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeNamedList(formattingButtons, (spec, name, value) => {
+            spec(
+                `"${name}" button key press check`,
                 () => {
                     expect(
                         pageObject.getButtonCheckedState(
@@ -259,18 +243,13 @@ describe('RichTextEditor', () => {
                     ).toBeTrue();
                 }
             );
-        }
+        });
     });
 
     describe('keyboard shortcuts should update the checked state of the buttons', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-
-        for (const value of formattingButtons) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `"${value.name}" button keyboard shortcut check`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeNamedList(formattingButtons, (spec, name, value) => {
+            spec(
+                `"${name}" button keyboard shortcut check`,
                 async () => {
                     expect(
                         pageObject.getButtonCheckedState(
@@ -290,18 +269,13 @@ describe('RichTextEditor', () => {
                     ).toBeTrue();
                 }
             );
-        }
+        });
     });
 
     describe('should not leak change event through shadow DOM for buttons', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-
-        for (const value of formattingButtons) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `"${value.name}" button not propagate change event to parent element`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeNamedList(formattingButtons, (spec, name, value) => {
+            spec(
+                `"${name}" button not propagate change event to parent element`,
                 () => {
                     const buttons: NodeListOf<ToggleButton> = element.shadowRoot!.querySelectorAll(
                         'nimble-toggle-button'
@@ -317,7 +291,7 @@ describe('RichTextEditor', () => {
                     expect(spy).toHaveBeenCalledTimes(0);
                 }
             );
-        }
+        });
     });
 
     describe('rich text formatting options to its respective HTML elements', () => {
@@ -881,17 +855,9 @@ describe('RichTextEditor', () => {
                     { name: 'https://example.com/пример.html ' }
                 ];
 
-                const focused: string[] = [];
-                const disabled: string[] = [];
-                for (const value of supportedAbsoluteLink) {
-                    const specType = getSpecTypeByNamedList(
-                        value,
-                        focused,
-                        disabled
-                    );
-                    specType(
-                        `should change the ${value.name} to "a" tag when it is a valid absolute link`,
-                        // eslint-disable-next-line @typescript-eslint/no-loop-func
+                parameterizeNamedList(supportedAbsoluteLink, (spec, name, value) => {
+                    spec(
+                        `should change the ${name} to "a" tag when it is a valid absolute link`,
                         async () => {
                             await pageObject.setEditorTextContent(value.name);
 
@@ -905,7 +871,7 @@ describe('RichTextEditor', () => {
                             ]);
                         }
                     );
-                }
+                });
             });
 
             it('the "a" tag should have href and rel attributes', async () => {
@@ -1019,17 +985,9 @@ describe('RichTextEditor', () => {
                     { name: 'test://test.com ' }
                 ];
 
-                const focused: string[] = [];
-                const disabled: string[] = [];
-                for (const value of differentProtocolLinks) {
-                    const specType = getSpecTypeByNamedList(
-                        value,
-                        focused,
-                        disabled
-                    );
-                    specType(
-                        `string "${value.name}" renders as plain text "${value.name}" within paragraph tag`,
-                        // eslint-disable-next-line @typescript-eslint/no-loop-func
+                parameterizeNamedList(differentProtocolLinks, (spec, name, value) => {
+                    spec(
+                        `string "${name}" renders as plain text "${name}" within paragraph tag`,
                         async () => {
                             await pageObject.setEditorTextContent(value.name);
 
@@ -1041,7 +999,7 @@ describe('RichTextEditor', () => {
                             ]);
                         }
                     );
-                }
+                });
             });
 
             describe('pasting various valid(https/http) links should render as absolute links', () => {
@@ -1234,14 +1192,9 @@ describe('RichTextEditor', () => {
     });
 
     describe('various wacky string values input into the editor', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-
-        wackyStrings.forEach(value => {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `wacky string "${value.name}" that are unmodified when rendered the same value within paragraph tag`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeNamedList(wackyStrings, (spec, name, value) => {
+            spec(
+                `wacky string "${name}" that are unmodified when rendered the same value within paragraph tag`,
                 async () => {
                     await pageObject.setEditorTextContent(value.name);
 
@@ -1593,12 +1546,9 @@ describe('RichTextEditor', () => {
             { name: '<script>alert("not alert")</script>' }
         ];
 
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of notSupportedMarkdownStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `markdown string "${value.name}" returns as plain text "${value.name}" without any change`,
+        parameterizeNamedList(notSupportedMarkdownStrings, (spec, name, value) => {
+            spec(
+                `markdown string "${name}" returns as plain text "${name}" without any change`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     element.setMarkdown(value.name);
@@ -1610,7 +1560,7 @@ describe('RichTextEditor', () => {
                     await disconnect();
                 }
             );
-        }
+        });
     });
 
     describe('Should return markdown with escape character (back slash) when various special markdown syntax are assigned', () => {
@@ -1636,12 +1586,9 @@ describe('RichTextEditor', () => {
             { name: '-2147483648/-1', value: r`\-2147483648/-1` }
         ];
 
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of specialMarkdownStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `special markdown string "${value.name}" returns as plain text "${value.value}" with added esacpe character`,
+        parameterizeNamedList(specialMarkdownStrings, (spec, name, value) => {
+            spec(
+                `special markdown string "${name}" returns as plain text "${value.value}" with added esacpe character`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     element.setMarkdown(value.name);
@@ -1653,7 +1600,7 @@ describe('RichTextEditor', () => {
                     await disconnect();
                 }
             );
-        }
+        });
     });
 
     describe('`getMarkdown` with hard break backslashes should be same immediately after `setMarkdown`', () => {
@@ -1700,13 +1647,9 @@ describe('RichTextEditor', () => {
             }
         ];
 
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of hardBreakMarkdownStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `markdown string with hard break in "${value.name}" returns as same without any change`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeNamedList(hardBreakMarkdownStrings, (spec, name, value) => {
+            spec(
+                `markdown string with hard break in "${name}" returns as same without any change`,
                 async () => {
                     element.setMarkdown(value.value);
 
@@ -1717,39 +1660,31 @@ describe('RichTextEditor', () => {
                     await disconnect();
                 }
             );
-        }
+        });
     });
 
     describe('Should return markdown without any changes when various wacky string values are assigned', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-
-        wackyStrings
+        const wackyStringsToTest = wackyStrings
             .filter(
                 value => value.name !== '\x00'
                     && value.name !== '-Infinity'
                     && value.name !== '-2147483648/-1'
-            )
-            .forEach(value => {
-                const specType = getSpecTypeByNamedList(
-                    value,
-                    focused,
-                    disabled
-                );
-                specType(
-                    `wacky string "${value.name}" returns unmodified when set the same markdown string"${value.name}"`,
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
-                    async () => {
-                        element.setMarkdown(value.name);
+            );
 
-                        await connect();
+        parameterizeNamedList(wackyStringsToTest, (spec, name, value) => {
+            spec(
+                `wacky string "${name}" returns unmodified when set the same markdown string "${name}"`,
+                async () => {
+                    element.setMarkdown(value.name);
 
-                        expect(element.getMarkdown()).toBe(value.name);
+                    await connect();
 
-                        await disconnect();
-                    }
-                );
-            });
+                    expect(element.getMarkdown()).toBe(value.name);
+
+                    await disconnect();
+                }
+            );
+        });
     });
 
     describe('Should return markdown with escape character (back slash) when wacky string with special markdown syntax are assigned', () => {
@@ -1762,13 +1697,9 @@ describe('RichTextEditor', () => {
             { name: '-2147483648/-1', value: r`\-2147483648/-1` }
         ];
 
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of wackyStringWithSpecialMarkdownCharacter) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                ` wacky string contains special markdown syntax "${value.name}" returns as plain text "${value.value}" with added escape character`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeNamedList(wackyStringWithSpecialMarkdownCharacter, (spec, name, value) => {
+            spec(
+                ` wacky string contains special markdown syntax "${name}" returns as plain text "${value}" with added escape character`,
                 async () => {
                     element.setMarkdown(value.name);
 
@@ -1779,29 +1710,26 @@ describe('RichTextEditor', () => {
                     await disconnect();
                 }
             );
-        }
+        });
     });
 
     describe('Should return modified markdown when various wacky string values are assigned', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
         const modifiedWackyStrings: {
             name: string,
+            value: string,
             content: string
         }[] = [
-            { name: '\0', content: '�' },
-            { name: '\uFFFD', content: '�' },
-            { name: '\x00', content: '�' },
-            { name: '\r\r', content: '' }
+            { name: '\\0', value: '\0', content: '�' },
+            { name: '\\uFFFD', value: '\uFFFD', content: '�' },
+            { name: '\\x00', value: '\x00', content: '�' },
+            { name: '\\r\\r', value: '\r\r', content: '' }
         ];
 
-        for (const value of modifiedWackyStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `wacky string "${value.name}" returns modified when assigned`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeNamedList(modifiedWackyStrings, (spec, name, value) => {
+            spec(
+                `wacky string "${name}" returns modified when assigned`,
                 async () => {
-                    element.setMarkdown(value.name);
+                    element.setMarkdown(value.value);
 
                     await connect();
 
@@ -1810,7 +1738,7 @@ describe('RichTextEditor', () => {
                     await disconnect();
                 }
             );
-        }
+        });
     });
 
     describe('disabled state', () => {
@@ -1851,17 +1779,8 @@ describe('RichTextEditor', () => {
         });
 
         describe('should reflect disabled value to the disabled and aria-disabled state of toggle buttons', () => {
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const value of formattingButtons) {
-                const specType = getSpecTypeByNamedList(
-                    value,
-                    focused,
-                    disabled
-                );
-                specType(
-                    `for "${value.name}" button`,
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
+            parameterizeNamedList(formattingButtons, (spec, name, value) => {
+                spec(`for "${name}" button`,
                     async () => {
                         expect(
                             pageObject.isButtonDisabled(
@@ -1878,7 +1797,7 @@ describe('RichTextEditor', () => {
                         ).toBeTrue();
                     }
                 );
-            }
+            });
         });
     });
 

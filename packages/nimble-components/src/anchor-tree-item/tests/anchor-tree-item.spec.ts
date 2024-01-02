@@ -8,7 +8,7 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { TreeItem } from '../../tree-item';
 import type { TreeView } from '../../tree-view';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 @customElement('foundation-tree-item')
 export class TestTreeItem extends FoundationTreeItem {}
@@ -86,26 +86,21 @@ describe('Anchor Tree Item', () => {
             { name: 'type' }
         ];
         describe('should reflect value to the internal control', () => {
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const attribute of attributeNames) {
-                const specType = getSpecTypeByNamedList(
-                    attribute,
-                    focused,
-                    disabled
+            parameterizeNamedList(attributeNames, (spec, name, _value) => {
+                spec(
+                    `for attribute ${name}`,
+                    async () => {
+                        await connect();
+
+                        element.setAttribute(name, 'foo');
+                        await waitForUpdatesAsync();
+
+                        expect(element.control!.getAttribute(name)).toBe(
+                            'foo'
+                        );
+                    }
                 );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(`for attribute ${attribute.name}`, async () => {
-                    await connect();
-
-                    element.setAttribute(attribute.name, 'foo');
-                    await waitForUpdatesAsync();
-
-                    expect(element.control!.getAttribute(attribute.name)).toBe(
-                        'foo'
-                    );
-                });
-            }
+            });
         });
 
         it('should expose slotted content through properties', async () => {

@@ -6,7 +6,7 @@ import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { TableColumnDateTextPageObject } from '../testing/table-column-date-text.pageobject';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { lang, themeProviderTag } from '../../../theme-provider';
 
 interface SimpleTableRecord extends TableRecord {
@@ -109,22 +109,14 @@ describe('TableColumnDateText', () => {
                 }
             ];
 
-            for (const entry of badValueData) {
-                const focused: string[] = [];
-                const disabled: string[] = [];
-                const specType = getSpecTypeByNamedList(
-                    entry,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(entry.name, async () => {
-                    await table.setData(entry.data);
+            parameterizeNamedList(badValueData, (spec, name, value) => {
+                spec(name, async () => {
+                    await table.setData(value.data);
                     await waitForUpdatesAsync();
 
                     expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
                 });
-            }
+            });
         });
 
         it('changing fieldName updates display', async () => {

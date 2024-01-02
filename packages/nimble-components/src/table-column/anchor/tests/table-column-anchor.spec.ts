@@ -6,7 +6,7 @@ import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { TableColumnSortDirection, TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import type { Anchor } from '../../../anchor';
 
 interface SimpleTableRecord extends TableRecord {
@@ -178,30 +178,18 @@ describe('TableColumnAnchor', () => {
         });
 
         describe('various string values render as expected', () => {
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const value of wackyStrings) {
-                const specType = getSpecTypeByNamedList(
-                    value,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(
-                    `data "${value.name}" renders as "${value.name}"`,
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
-                    async () => {
-                        await connect();
+            parameterizeNamedList(wackyStrings, (spec, name, value) => {
+                spec(`data "${value.name}" renders as "${value.name}"`, async () => {
+                    await connect();
 
-                        await element.setData([{ label: value.name }]);
-                        await waitForUpdatesAsync();
+                    await element.setData([{ label: value.name }]);
+                    await waitForUpdatesAsync();
 
-                        expect(
-                            pageObject.getRenderedCellTextContent(0, 0)
-                        ).toBe(value.name);
-                    }
-                );
-            }
+                    expect(
+                        pageObject.getRenderedCellTextContent(0, 0)
+                    ).toBe(value.name);
+                });
+            });
         });
     });
 
@@ -427,61 +415,37 @@ describe('TableColumnAnchor', () => {
         }
 
         describe('various string values render as expected', () => {
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const value of wackyStrings) {
-                const specType = getSpecTypeByNamedList(
-                    value,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(
-                    `data "${value.name}" renders as "${value.name}"`,
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
-                    async () => {
-                        await connect();
+            parameterizeNamedList(wackyStrings, (spec, name, value) => {
+                spec(`data "${name}" renders as "${name}"`, async () => {
+                    await connect();
 
-                        await element.setData([
-                            { label: value.name, link: 'url' }
-                        ]);
-                        await waitForUpdatesAsync();
+                    await element.setData([
+                        { label: value.name, link: 'url' }
+                    ]);
+                    await waitForUpdatesAsync();
 
-                        expect(
-                            pageObject.getRenderedCellTextContent(0, 0)
-                        ).toBe(value.name);
-                    }
-                );
-            }
+                    expect(
+                        pageObject.getRenderedCellTextContent(0, 0)
+                    ).toBe(value.name);
+                });
+            });
         });
 
         describe('various string values render in group header as expected', () => {
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const value of wackyStrings) {
-                const specType = getSpecTypeByNamedList(
-                    value,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(
-                    `data "${value.name}" renders as "${value.name}"`,
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
-                    async () => {
-                        await connect();
+            parameterizeNamedList(wackyStrings, (spec, name, value) => {
+                spec(`data "${name}" renders as "${name}"`, async () => {
+                    await connect();
 
-                        await element.setData([
-                            { label: value.name, link: 'url' }
-                        ]);
-                        await waitForUpdatesAsync();
+                    await element.setData([
+                        { label: value.name, link: 'url' }
+                    ]);
+                    await waitForUpdatesAsync();
 
-                        expect(
-                            pageObject.getRenderedGroupHeaderTextContent(0)
-                        ).toContain(value.name);
-                    }
-                );
-            }
+                    expect(
+                        pageObject.getRenderedGroupHeaderTextContent(0)
+                    ).toContain(value.name);
+                });
+            });
         });
     });
 });

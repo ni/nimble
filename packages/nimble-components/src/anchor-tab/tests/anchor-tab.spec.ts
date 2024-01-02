@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import { AnchorTab } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { Fixture, fixture } from '../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<AnchorTab>> {
     return fixture<AnchorTab>(html`<nimble-anchor-tab></nimble-anchor-tab>`);
@@ -38,27 +38,22 @@ describe('AnchorTab', () => {
         { name: 'type' }
     ];
     describe('should reflect value to the internal anchor element', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const attribute of attributeNames) {
-            const specType = getSpecTypeByNamedList(
-                attribute,
-                focused,
-                disabled
+        parameterizeNamedList(attributeNames, (spec, name, _value) => {
+            spec(
+                `for attribute ${name}`,
+                async () => {
+                    await connect();
+
+                    element.setAttribute(name, 'foo');
+                    await waitForUpdatesAsync();
+
+                    expect(
+                        element
+                            .shadowRoot!.querySelector('a')!
+                            .getAttribute(name)
+                    ).toBe('foo');
+                }
             );
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(`for attribute ${attribute.name}`, async () => {
-                await connect();
-
-                element.setAttribute(attribute.name, 'foo');
-                await waitForUpdatesAsync();
-
-                expect(
-                    element
-                        .shadowRoot!.querySelector('a')!
-                        .getAttribute(attribute.name)
-                ).toBe('foo');
-            });
-        }
+        });
     });
 });

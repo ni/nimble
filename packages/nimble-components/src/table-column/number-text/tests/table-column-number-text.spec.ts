@@ -7,7 +7,7 @@ import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { NumberTextAlignment, NumberTextFormat } from '../types';
 import type { TableColumnNumberTextCellView } from '../cell-view';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
 import { lang, themeProviderTag } from '../../../theme-provider';
 
@@ -579,20 +579,12 @@ describe('TableColumnNumberText', () => {
         }
     ] as const;
     describe('sets the correct initial alignment on the cell', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const testCase of alignmentTestCases) {
-            const specType = getSpecTypeByNamedList(
-                testCase,
-                focused,
-                disabled
-            );
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(`${testCase.name}`, async () => {
+        parameterizeNamedList(alignmentTestCases, (spec, name, value) => {
+            spec(name, async () => {
                 await table.setData([{ number1: 10 }]);
-                elementReferences.column1.format = testCase.format;
-                elementReferences.column1.decimalMaximumDigits = testCase.decimalMaximumDigits;
-                elementReferences.column1.alignment = testCase.configuredColumnAlignment;
+                elementReferences.column1.format = value.format;
+                elementReferences.column1.decimalMaximumDigits = value.decimalMaximumDigits;
+                elementReferences.column1.alignment = value.configuredColumnAlignment;
                 await connect();
                 await waitForUpdatesAsync();
 
@@ -601,10 +593,10 @@ describe('TableColumnNumberText', () => {
                     0
                 ) as TableColumnNumberTextCellView;
                 expect(cellView.alignment).toEqual(
-                    testCase.expectedCellViewAlignment
+                    value.expectedCellViewAlignment
                 );
             });
-        }
+        });
     });
 
     describe('updates alignment', () => {
