@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "In anchor story, only emit contenteditable when set",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
