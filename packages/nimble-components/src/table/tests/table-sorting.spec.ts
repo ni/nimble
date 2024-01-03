@@ -1074,7 +1074,6 @@ describe('Table sorting', () => {
             '0.1', // tuna
             '2.0.0' // white
         ] as const;
-        /* eslint-enable no-multi-spaces */
 
         beforeEach(async () => {
             await element.setData(hierarchicalData);
