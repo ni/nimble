@@ -1,0 +1,275 @@
+@import '../../dist/tokens.scss';
+
+/*
+ * Fluent UI Web Components for Blazor Reboot v1.0.0 
+ * Copyright 2022 Microsoft
+ *  
+ * Normalization of HTML elements, copied and ajusted from Bootstrap's Reboot which is based on Normalize.css 
+ * Licensed under MIT (https://github.com/microsoft/fluentui-blazor/blob/main/LICENSE)
+ *   
+ * Normalize is licensed under MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md) 
+ * Bootstrap is licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
+
+* {
+	box-sizing: border-box;
+	&::before {
+		box-sizing: border-box;
+	}
+	&::after {
+		box-sizing: border-box;
+	}
+}
+html {
+	font-family: $ni-nimble-body-font-family;
+}
+body {
+	margin: 0;
+	font: $ni-nimble-body-font;
+	color: $ni-nimble-body-font-color;
+	background-color: $ni-nimble-application-background-color;
+	-webkit-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+h6 {
+	margin-top: 0;
+	margin-bottom: 0.75rem;
+	font: $ni-nimble-title-font;
+	font-size: 1em;
+	font-weight: 600;
+	color: $ni-nimble-title-font-color;
+}
+h5 {
+	margin-top: 0;
+	margin-bottom: 0.75rem;
+	font: $ni-nimble-title-font;
+	color: $ni-nimble-title-font-color;
+}
+h4 {
+	margin-top: 0;
+	margin-bottom: 0.75rem;
+	font: $ni-nimble-title-plus-1-font;
+	color: $ni-nimble-title-plus-1-font-color;
+}
+h3 {
+	margin-top: 0;
+	margin-bottom: 0.75rem;
+	font: $ni-nimble-title-plus-2-font;
+	color: $ni-nimble-title-plus-2-font-color;
+}
+h2 {
+	margin-top: 0;
+	margin-bottom: 0.75rem;
+	font: $ni-nimble-headline-font;
+	color: $ni-nimble-headline-font-color;
+}
+h1 {
+	margin-top: 0;
+	margin-bottom: 0.75rem;
+	font: $ni-nimble-headline-plus-1-font;
+	color: $ni-nimble-headline-plus-1-font-color;
+}
+p {
+	font: $ni-nimble-body-font;
+	color: $ni-nimble-body-font-color;
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+nimble-anchor {
+	font-size: inherit;
+}
+blockquote {
+	border-left: $ni-nimble-border-width solid $ni-nimble-popup-border-color;
+	border-right: none;
+	font-family: $ni-nimble-subtitle-plus-1-font-family;
+	font-weight: 300;
+	font-size: $ni-nimble-subtitle-plus-1-font-size;
+	font-style: italic;
+	padding: 2px 15px;
+}
+[dir='rtl'] {
+	blockquote {
+		border-left: none;
+		border-right: 5px solid $ni-nimble-card-border-color;
+	}
+}
+abbr[title] {
+	-webkit-text-decoration: underline dotted;
+	text-decoration: underline dotted;
+	cursor: help;
+	-webkit-text-decoration-skip-ink: none;
+	text-decoration-skip-ink: none;
+}
+address {
+	margin-bottom: 1rem;
+	font-style: normal;
+	line-height: inherit;
+}
+ol {
+	padding-left: 2rem;
+	margin-top: 0;
+	margin-bottom: 1rem;
+	font: $ni-nimble-body-font;
+	color: $ni-nimble-body-font-color;
+	ol, ul {
+		margin-bottom: 0;
+	}
+}
+ul {
+	padding-left: 2rem;
+	margin-top: 0;
+	margin-bottom: 1rem;
+	font: $ni-nimble-body-font;
+	color: $ni-nimble-body-font-color;
+	ul, ol {
+		margin-bottom: 0;
+	}
+}
+dl {
+	margin-top: 0;
+	margin-bottom: 1rem;
+	font: $ni-nimble-body-font;
+	color: $ni-nimble-body-font-color;
+}
+dt {
+	font-weight: 700;
+}
+dd {
+	margin-bottom: 0.5rem;
+	margin-left: 0;
+}
+b, strong {
+	font: $ni-nimble-body-emphasized-font;
+	color: $ni-nimble-body-emphasized-font-color;
+}
+small {
+	font: $ni-nimble-tooltip-caption-font;
+	color: $ni-nimble-tooltip-caption-font-color;
+}
+mark {
+	padding: 0;
+	background-color: $ni-nimble-fill-selected-color;
+	color: $ni-nimble-body-font-color;
+}
+sub {
+	position: relative;
+	font-size: 0.75em;
+	line-height: 0;
+	vertical-align: baseline;
+	bottom: -0.25em;
+}
+sup {
+	position: relative;
+	font-size: 0.75em;
+	line-height: 0;
+	vertical-align: baseline;
+	top: -0.5em;
+}
+pre, code, kbd, samp {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 1em;
+}
+pre {
+	display: block;
+	margin-top: 0;
+	margin-bottom: 1rem;
+	overflow: auto;
+	font-size: 0.875em;
+	code {
+		font-size: inherit;
+		color: inherit;
+		word-break: normal;
+	}
+}
+code {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 0.875em;
+	color: $ni-nimble-body-emphasized-font-color;
+	word-wrap: break-word;
+}
+kbd {
+	padding: 0.1875rem 0.375rem;
+	font-size: 0.875em;
+	color: $ni-nimble-body-font-color;
+	background-color: $ni-nimble-tooltip-background-color;
+	border-radius: 0.25rem;
+	kbd {
+		padding: 0;
+		font-size: 1em;
+	}
+}
+figure {
+	margin: 0 0 1rem;
+}
+figcaption {
+	font: $ni-nimble-body-font;
+	color: $ni-nimble-body-font-color;
+	font-size: 0.875em;
+}
+nimble-text-field,
+nimble-text-area,
+nimble-combobox,
+nimble-number-field,
+nimble-radio-group,
+nimble-checkbox {
+    display: block;
+    padding-block-end: $ni-nimble-standard-padding;
+}
+nimble-select {
+	display: block;
+}
+form {
+    flex-direction: column;
+	max-width: $ni-nimble-drawer-width;
+    padding-block-end: $ni-nimble-standard-padding;
+}
+
+label {
+	display: block;
+	font: $ni-nimble-control-label-font;
+	color: $ni-nimble-control-label-font-color
+}
+input {
+	margin: 0;
+	font-family: $ni-nimble-body-font-family;
+	color: $ni-nimble-body-font-color;
+	font-size: inherit;
+	line-height: inherit;
+	border: 0;
+	border-bottom: $ni-nimble-border-width solid $ni-nimble-border-color;
+	background-color: transparent;
+
+}
+fieldset {
+	min-width: 0;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	border-left: 2px solid $ni-nimble-card-border-color;
+	padding-left: $ni-nimble-large-padding;
+}
+legend {
+	float: left;
+	width: 100%;
+	padding: 0;
+	margin-left: calc(-1*$ni-nimble-standard-padding);
+	margin-bottom: 0.5rem;
+	font: $ni-nimble-button-label-font;
+	color: $ni-nimble-button-label-font-color;
+	line-height: inherit;
+	+ {
+		* {
+			clear: left;
+		}
+	}
+}
+iframe {
+	border: 0;
+}
+summary {
+	display: list-item;
+	cursor: pointer;
+}
+[hidden] {
+	display: none !important;
+}
