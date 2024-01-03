@@ -19,6 +19,11 @@ export interface MentionExtensionConfig {
     viewElement: string;
 }
 
+export interface FormatButtonsState {
+    bold: boolean;
+    italics: boolean;
+}
+
 export interface MentionDetail {
     href: string;
     displayName: string;
