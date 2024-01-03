@@ -1,9 +1,12 @@
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist/icons/js';
 import type { NimbleIconName } from '@ni/nimble-tokens/dist/icons/js';
 import { DesignSystem } from '@microsoft/fast-foundation';
+import { html } from '@microsoft/fast-element';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';
-import { iconMetadata } from '../icon-metadata';
+import { iconMetadata } from './icon-metadata';
+import { Fixture, fixture } from '../../utilities/tests/fixture';
+import { IconAdd, iconAddTag } from '../../icons/add';
 
 describe('Icons', () => {
     describe('should have correct SVG structure', () => {
@@ -38,7 +41,7 @@ describe('Icons', () => {
     describe('can be constructed', () => {
         type IconName = keyof typeof allIconsNamespace;
         const allIconNames = (Object.keys(allIconsNamespace) as IconName[]).map(
-            (x: IconName) => ({ name: x, klass: allIconsNamespace[x] })
+            (x: IconName) => ({ name: x, iconClass: allIconsNamespace[x] })
         );
 
         const focused: IconName[] = [];
@@ -47,11 +50,11 @@ describe('Icons', () => {
             const specType = getSpecTypeByNamedList(icon, focused, disabled);
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(`for icon ${icon.name}`, () => {
-                const tagName = DesignSystem.tagFor(icon.klass);
+                const tagName = DesignSystem.tagFor(icon.iconClass);
                 expect(typeof tagName).toBe('string');
                 expect(tagName.length).toBeGreaterThan(0);
                 expect(document.createElement(tagName)).toBeInstanceOf(
-                    icon.klass
+                    icon.iconClass
                 );
             });
         }
@@ -72,5 +75,28 @@ describe('Icons', () => {
                 expect(icon.metadata.tags).not.toContain('');
             });
         }
+    });
+
+    describe('Representative icon', () => {
+        async function setup(): Promise<Fixture<IconAdd>> {
+            return fixture<IconAdd>(html`<${iconAddTag}></${iconAddTag}>`);
+        }
+        let element: IconAdd;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('sets aria-hidden on inner div', async () => {
+            await connect();
+            const div = element.shadowRoot!.querySelector('.icon');
+            expect(div?.getAttribute('aria-hidden')).toEqual('true');
+        });
     });
 });

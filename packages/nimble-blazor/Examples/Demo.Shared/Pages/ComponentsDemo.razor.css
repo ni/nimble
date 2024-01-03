@@ -34,7 +34,7 @@ p, a {
 }
 
 ::deep .table-update-button {
-    width: 150px;
+    margin-top: var(--ni-nimble-small-padding);
 }
 
 .sub-container > * {

@@ -11,24 +11,27 @@ This repository uses the following tooling. See below for more info.
 3. Testing via [Karma](http://karma-runner.github.io/6.3/index.html), [Jasmine](https://jasmine.github.io/), [bUnit](https://bunit.dev/), and [Playwright](https://playwright.dev/)
 4. Releases via [beachball](https://microsoft.github.io/beachball/)
 5. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
+6. Automated dependency updates via [Renovate](https://docs.renovatebot.com/)
 
 ### Helpful links
 
 - [Nimble architecture](/docs/Architecture.md)
 - [Nimble Components XD Library](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/)
+- [Nimble Components Figma Library](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A77205&mode=dev)
+- [Nimble technologies walkthrough video](https://nio365.sharepoint.com/:v:/s/SystemLinkDesignSystem/EY4c8IRUechPgBkomuIDwwEB2rl66Tg2CJxY0nfPsqSb8g?e=fWViGm) (NI internal)
 
 ## Getting started
 
 First step in development is to build the monorepo which requires the following to be installed:
 
-- Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
+- Node.js version 18+ (run `node --version`) and npm version 8+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
 - .NET 6 SDK (`6.0.202 <= version < 7`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
    - Run `dotnet --info` to verify the required version of the SDK is installed. A `v6` install is required, but it's fine if later versions are installed too.
 
 From the `nimble` directory:
 
 1. Run `npm install`
-2. Run `npm run build` (Alernatively in Visual Studio Code **Terminal » Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
+2. Run `npm run build` (Alternatively in Visual Studio Code **Terminal » Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
 3. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
 
     **Note**: You will need to refresh your browser window to see style changes made in source.
@@ -97,8 +100,8 @@ If a fix for the vulnerability isn't available or if it isn't practical to uptak
 
 This repository uses [Chromatic](https://www.chromatic.com) to facilitate visual component review, and adds GitHub status checks to the build pipeline. The workflow is as follows:
 
-1. The `UI Tests` status check is designed to highlight any visual changes included in the changeset. The developer (that's you!) should review the `UI Tests` status check in Chromatic, and if all changes are intentional or expected, mark the components as **approved**.
-2. The `UI Review` status check is designed to collect feedback from UX and visual designers. Rather than blocking PR completion on this feedback, you can also approve this check by validating the story changes yourself. However, you should still demo your changes to relevant designers either in a team meeting or one-on-one. This can happen either before or after the PR completes, as long as designer feedback is addressed promptly. If you don't have access to a designer, please reach out to Nimble team members for help.
+1. The `UI Tests` status check is designed to highlight any visual changes included in the changeset. The developer (that's you!) should review the `UI Tests` status check in Chromatic, and if all changes are intentional or expected, mark the components as **approved**. If you approve an initial build and then make further changes to a snapshot, this check will show the difference between those revisions, not between main and the latest revision.
+2. The `UI Review` status check is designed to collect feedback from UX and visual designers. It shows the difference between the latest revision and main. Rather than blocking PR completion on this feedback, you can also approve this check by validating the story changes yourself. However, you should still demo your changes to relevant designers either in a team meeting or one-on-one. This can happen either before or after the PR completes, as long as designer feedback is addressed promptly. If you don't have access to a designer, please reach out to Nimble team members for help.
 
 The PR pipeline also generates a live Storybook site for each PR. Developers, designers, and PR reviewers can also use this to inspect component appearance and behavior.
 
@@ -128,9 +131,21 @@ You can also configure this task to execute via a keyboard shortcut by [configur
 }
 ```
 
-### Code owners
+### Code review
 
-Each file in a pull request requires the approval of at least one of its code owners (though in general for interesting changes we wait for everyone to review). Owners for different files are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
+This repo follows [the NI code submission workflow](https://ni.visualstudio.com/DevCentral/_wiki/wikis/AppCentral.wiki/15679/Code-Submission-Workflow#) (NI internal link) with some modifications. The general submission flow is:
+
+1. When your code is ready to submit, create a [Draft pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests#draft-pull-requests).
+2. Perform a self review of the changes. Ensure they follow conventions and that the status checks are passing.
+3. Add a local peer reviewer. If you are new to Nimble, also add the contact from the Nimble team who has been helping you get familiar with the repo.
+4. Once those reviewers have approved, mark the PR as "Ready for review". This will add owners to the review.
+5. Each file in a pull request requires the approval of at least one of its code owners (though in general for interesting changes we wait for everyone to review). Owners for different files are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
+
+If a PR requires significant refactoring at any point in this process, please move it back to Draft and re-do the steps before exiting draft.
+
+Some of these steps may be skipped for trivial changes; please use good judgement.
+
+Thanks for following this process! It helps reduce the burden on owners to catch smaller issues.
 
 ### Completing pull requests
 
@@ -161,6 +176,12 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 ```bash
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
+
+## Updating dependencies
+
+This repository uses [Renovate](https://docs.renovatebot.com/) to automatically create pull requests that bump the version of dependencies on a schedule. Renovate is configured via [`renovate.json`](./.github/renovate.json).
+
+Code owners are responsible for completing or rejecting Renovate PRs. Completing a PR may require manually adding a beachball change file to the branch. The change `type` will typically be `patch` if any `package.json` or `.csproj` is changing. The `comment` should summarize which set of dependencies are being updated. To complete a PR you may need to manually trigger a rebase by clicking the checkbox in the PR description. **Note:** prefer the checkbox over GitHub's "Update branch" button so that Renovate can remain in control of all commits to its branch.
 
 ## Handling intermittent test failures
 

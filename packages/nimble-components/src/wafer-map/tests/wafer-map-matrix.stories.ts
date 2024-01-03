@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { WaferMapOrientation, WaferMapQuadrant } from '../types';
+import { WaferMapOrientation, WaferMapOriginLocation } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -28,13 +28,13 @@ const orientationStates = [
 ] as const;
 type OrientationState = (typeof orientationStates)[number];
 
-const dieOrientation = [
-    [WaferMapQuadrant.topLeft],
-    [WaferMapQuadrant.bottomLeft],
-    [WaferMapQuadrant.topRight],
-    [WaferMapQuadrant.bottomRight]
+const originLocationStates = [
+    [WaferMapOriginLocation.topLeft],
+    [WaferMapOriginLocation.bottomLeft],
+    [WaferMapOriginLocation.topRight],
+    [WaferMapOriginLocation.bottomRight]
 ] as const;
-type DieOrientation = (typeof dieOrientation)[number];
+type OriginLocationStates = (typeof originLocationStates)[number];
 
 const colorsScales = [
     [
@@ -61,15 +61,15 @@ const dieLabelHidden = [[true], [false]] as const;
 type DieLabelHidden = (typeof dieLabelHidden)[number];
 
 const waferMapDie = [
-    { x: 0, y: 2, value: '99' },
-    { x: 1, y: 2, value: '78' },
-    { x: 1, y: 1, value: '88' },
+    { x: 0, y: 2, value: '99', tags: ['a'] },
+    { x: 1, y: 2, value: '78', tags: ['a', 'b'] },
+    { x: 1, y: 1, value: '88', tags: ['a'] },
     { x: 1, y: 3, value: '68' },
     { x: 2, y: 2, value: '99' },
     { x: 2, y: 1, value: '99' },
-    { x: 2, y: 0, value: '80' },
-    { x: 2, y: 3, value: '99' },
-    { x: 2, y: 4, value: '100' },
+    { x: 2, y: 0, value: '80', tags: ['b'] },
+    { x: 2, y: 3, value: '99', tags: ['b', 'a'] },
+    { x: 2, y: 4, value: '100', tags: ['b'] },
     { x: 3, y: 2, value: '40' },
     { x: 3, y: 1, value: '10' },
     { x: 3, y: 3, value: '15' },
@@ -78,13 +78,60 @@ const waferMapDie = [
 
 const waferMapSizes = [70, 200, 300, 400];
 
+const highlightedTags = [['a'], ['b', 'a'], [], ['']];
+type HighlightedTags = string[];
+
+const gridDimensions = [
+    [
+        {
+            gridMinX: undefined,
+            gridMaxX: undefined,
+            gridMinY: undefined,
+            gridMaxY: undefined
+        }
+    ],
+    [
+        {
+            gridMinX: 0,
+            gridMaxX: 0,
+            gridMinY: 0,
+            gridMaxY: 0
+        }
+    ],
+    [
+        {
+            gridMinX: 0,
+            gridMaxX: 4,
+            gridMinY: 0,
+            gridMaxY: 0
+        }
+    ],
+    [
+        {
+            gridMinX: 0,
+            gridMaxX: 0,
+            gridMinY: 0,
+            gridMaxY: 4
+        }
+    ],
+    [
+        {
+            gridMinX: 0,
+            gridMaxX: 4,
+            gridMinY: 0,
+            gridMaxY: 4
+        }
+    ]
+] as const;
+type GridDimensions = (typeof gridDimensions)[number];
+
 const simpleWaferWithDies = (): ViewTemplate => html`<${waferMapTag}
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
 </${waferMapTag}>`;
 
-const componentWaferWithDies = ([
+const componentWaferWithOrientation = ([
     orientation
 ]: OrientationState): ViewTemplate => html`<${waferMapTag}
     orientation="${() => orientation}"
@@ -103,10 +150,10 @@ const componentWaferWithHiddenDieLabel = (
 >
 </${waferMapTag}>`;
 
-const componentWaferWithDieOrientation = ([
-    orientation
-]: DieOrientation): ViewTemplate => html`<${waferMapTag}
-    quadrant="${() => orientation}"
+const componentWaferWithOriginLocation = ([
+    originLocation
+]: OriginLocationStates): ViewTemplate => html`<${waferMapTag}
+    :originLocation="${() => originLocation}"
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
@@ -121,12 +168,33 @@ const componentWaferResize = (
 >
 </${waferMapTag}> `;
 
+const componentWaferWithGridDimensions = ([
+    dimensions
+]: GridDimensions): ViewTemplate => html`<${waferMapTag}
+    :dies="${() => waferMapDie}"
+    :colorScale="${() => defaultColor}"
+    :gridMaxX=${() => dimensions.gridMaxX}
+    :gridMaxY=${() => dimensions.gridMaxY}
+    :gridMinX=${() => dimensions.gridMinX}
+    :gridMinY=${() => dimensions.gridMinY}
+>
+</${waferMapTag}>`;
+
+const componentWaferWithHighlightedTags = (
+    tags: HighlightedTags
+): ViewTemplate => html`<${waferMapTag}
+    :dies="${() => waferMapDie}"
+    :colorScale="${() => defaultColor}"
+    :highlightedTags="${() => tags}"
+>
+</${waferMapTag}>`;
+
 export const waferMapThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(simpleWaferWithDies)
 );
 
 export const waferMapDiesAndOrientationTest: StoryFn = createStory(
-    createMatrix(componentWaferWithDies, [orientationStates])
+    createMatrix(componentWaferWithOrientation, [orientationStates])
 );
 
 export const waferMapDieLabelAndColorScaleTest: StoryFn = createStory(
@@ -136,10 +204,18 @@ export const waferMapDieLabelAndColorScaleTest: StoryFn = createStory(
     ])
 );
 
-export const waferMapDieOrientationTest: StoryFn = createStory(
-    createMatrix(componentWaferWithDieOrientation, [dieOrientation])
+export const waferMapOriginLocationTest: StoryFn = createStory(
+    createMatrix(componentWaferWithOriginLocation, [originLocationStates])
 );
 
 export const waferMapResizeTest: StoryFn = createStory(
     createMatrix(componentWaferResize, [waferMapSizes])
+);
+
+export const waferMapGridDimensionsTest: StoryFn = createStory(
+    createMatrix(componentWaferWithGridDimensions, [gridDimensions])
+);
+
+export const waferMapHighlightedTest: StoryFn = createStory(
+    createMatrix(componentWaferWithHighlightedTags, [highlightedTags])
 );

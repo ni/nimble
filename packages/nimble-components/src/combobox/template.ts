@@ -9,6 +9,7 @@ import {
 import type { Combobox } from '.';
 import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';
+import { overflow } from '../utilities/directive/overflow';
 
 // prettier-ignore
 export const template: FoundationElementTemplate<
@@ -45,6 +46,8 @@ ComboboxOptions
                     @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
                     @keyup="${(x, c) => x.keyupHandler(c.event as KeyboardEvent)}"
                     ${ref('control')}
+                    ${overflow('hasOverflow')}
+                    title=${x => (x.hasOverflow && x.value ? x.value : null)}
                 />
                 <div class="indicator" part="indicator" aria-hidden="true">
                     <slot name="indicator">

@@ -3,6 +3,8 @@ import { display } from '@microsoft/fast-foundation';
 import {
     Black15,
     Black91,
+    DigitalGreenLight,
+    PowerGreen,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { spinnerSmallHeight } from '../theme-provider/design-tokens';
@@ -15,7 +17,6 @@ export const styles = css`
     :host {
         height: ${spinnerSmallHeight};
         aspect-ratio: 1 / 1;
-        --ni-private-spinner-animation-play-state: running;
     }
 
     div.container {
@@ -34,6 +35,10 @@ export const styles = css`
         opacity: 0.6;
     }
 
+    :host([appearance='accent']) div.container {
+        opacity: 1;
+    }
+
     div.bit1,
     div.bit2 {
         background: var(--ni-private-spinner-bits-background-color);
@@ -42,7 +47,10 @@ export const styles = css`
         margin: auto;
         animation-duration: 1600ms;
         animation-iteration-count: infinite;
-        animation-play-state: var(--ni-private-spinner-animation-play-state);
+        animation-play-state: var(
+            --ni-private-spinner-animation-play-state,
+            running
+        );
         animation-timing-function: cubic-bezier(0.65, 0, 0.35, 0);
     }
 
@@ -148,7 +156,11 @@ export const styles = css`
         Theme.light,
         css`
             :host {
-                --ni-private-spinner-bits-background-color: ${Black91}
+                --ni-private-spinner-bits-background-color: ${Black91};
+            }
+            :host([appearance='accent']) {
+                --ni-private-spinner-bits-background-color: ${DigitalGreenLight};
+            }
         `
     ),
     themeBehavior(
@@ -157,6 +169,9 @@ export const styles = css`
             :host {
                 --ni-private-spinner-bits-background-color: ${Black15};
             }
+            :host([appearance='accent']) {
+                --ni-private-spinner-bits-background-color: ${PowerGreen};
+            }
         `
     ),
     themeBehavior(
@@ -164,6 +179,9 @@ export const styles = css`
         css`
             :host {
                 --ni-private-spinner-bits-background-color: ${White};
+            }
+            :host([appearance='accent']) {
+                --ni-private-spinner-bits-background-color: ${PowerGreen};
             }
         `
     )

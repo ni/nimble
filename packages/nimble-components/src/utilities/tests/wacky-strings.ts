@@ -2,7 +2,6 @@ export const wackyStrings = [
     { name: '<button></button>' },
     { name: 'null' },
     { name: 'undefined' },
-    { name: 'null' },
     { name: 'NaN' },
     { name: '-Infinity' },
     { name: 'Infinity' },
@@ -12,6 +11,10 @@ export const wackyStrings = [
     { name: 'Ω' },
     { name: '( ͡° ͜ʖ ͡°)' },
     { name: '😍' },
+    { name: 'Français é, è, ê and ë (French characters)' },
+    { name: 'Doppelgänger ö, ü, ß (German characters)' },
+    { name: '日本語 (Japanese characters)' },
+    { name: '中文 (Chinese characters)' },
     { name: 'Iñtërnâtiônàlizætiøn☃💩' },
     { name: '１' }
 ];

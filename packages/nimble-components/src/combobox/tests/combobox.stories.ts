@@ -12,12 +12,14 @@ import {
     DropdownPosition
 } from '../../patterns/dropdown/types';
 import { comboboxTag } from '..';
+import { ExampleOptionsType } from './types';
+import { menuMinWidth } from '../../theme-provider/design-tokens';
 
 interface ComboboxArgs {
     disabled: boolean;
     dropDownPosition: DropdownPosition;
     autocomplete: ComboboxAutocomplete;
-    options: OptionArgs[];
+    optionsType: ExampleOptionsType;
     errorVisible: boolean;
     errorText: string;
     currentValue: string;
@@ -30,16 +32,57 @@ interface OptionArgs {
     disabled: boolean;
 }
 
+const simpleOptions: readonly OptionArgs[] = [
+    { label: 'Mary', disabled: false },
+    { label: 'Sue', disabled: false },
+    { label: 'Joaquin', disabled: false },
+    { label: 'Frank', disabled: false },
+    { label: 'Dracula', disabled: true },
+    { label: 'Albert', disabled: false },
+    { label: 'Sue Ann', disabled: false }
+] as const;
+
+const wideOptions: readonly OptionArgs[] = [
+    {
+        label: 'Option 1 that is too long to fit in the drop down width',
+        disabled: false
+    },
+    { label: 'Option 2 that is also too long but disabled', disabled: true },
+    { label: 'Short', disabled: false }
+] as const;
+
+const names = [
+    'Mary',
+    'Sue',
+    'Joaquin',
+    'Frank',
+    'Dracula',
+    'Albert',
+    'Sue Ann'
+];
+const manyOptions: OptionArgs[] = [];
+for (let i = 0; i < 100; i++) {
+    manyOptions.push({
+        label: `${names[i % names.length]!} (${i})`,
+        disabled: false
+    });
+}
+
+const optionSets = {
+    [ExampleOptionsType.simpleOptions]: simpleOptions,
+    [ExampleOptionsType.wideOptions]: wideOptions,
+    [ExampleOptionsType.manyOptions]: manyOptions
+} as const;
+
 const metadata: Meta<ComboboxArgs> = {
     title: 'Components/Combobox',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
         docs: {
             description: {
-                component: `Combobox is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user can enter aribtrary values in the input area.
-                     The combobox provides 'autocomplete' options that help finding and selecting a particular value. The value of the combobox comes from the text content of the selected list-option, or, if no matching
-                     list option is found, the user-entered text. Whereas with the \`nimble-select\` component, the value property of the list-option is always used for its value.`
+                component: `Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/), a combobox is an input widget that has an associated popup. The popup enables users to choose a value for the input from a collection.
+                The \`nimble-combobox\` provides 'autocomplete' options that can help a user find and select a particular value. Unlike with the \`nimble-select\` component, the \`nimble-combobox\` allows the user to enter
+                arbitrary values in the input area, not just those that exist as autocomplete options.`
             }
         },
         actions: {
@@ -61,8 +104,9 @@ const metadata: Meta<ComboboxArgs> = {
             appearance="${x => x.appearance}"
             value="${x => x.currentValue}"
             placeholder="${x => x.placeholder}"
+            style="width: var(${menuMinWidth.cssCustomProperty});"
         >
-            ${repeat(x => x.options, html<OptionArgs>`
+            ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
                 <${listOptionTag} ?disabled="${x => x.disabled}">${x => x.label}</${listOptionTag}>
             `)}
             <div slot="user-end">
@@ -90,6 +134,18 @@ const metadata: Meta<ComboboxArgs> = {
         errorText: {
             description:
                 'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
+        },
+        optionsType: {
+            name: 'options',
+            options: Object.values(ExampleOptionsType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleOptionsType.simpleOptions]: 'Simple options',
+                    [ExampleOptionsType.wideOptions]: 'Wide options',
+                    [ExampleOptionsType.manyOptions]: 'Many options'
+                }
+            }
         }
     },
     args: {
@@ -100,15 +156,7 @@ const metadata: Meta<ComboboxArgs> = {
         errorText: 'Value is invalid',
         appearance: DropdownAppearance.underline,
         placeholder: 'Select value...',
-        options: [
-            { label: 'Mary', disabled: false },
-            { label: 'Sue', disabled: false },
-            { label: 'Joaquin', disabled: false },
-            { label: 'Frank', disabled: false },
-            { label: 'Dracula', disabled: true },
-            { label: 'Albert', disabled: false },
-            { label: 'Sue Ann', disabled: false }
-        ]
+        optionsType: ExampleOptionsType.simpleOptions
     }
 };
 

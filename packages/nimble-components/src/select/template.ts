@@ -16,6 +16,7 @@ import type { Select } from '.';
 import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';
 import { textFieldTag } from '../text-field';
+import { overflow } from '../utilities/directive/overflow';
 
 // prettier-ignore
 export const template: FoundationElementTemplate<
@@ -57,7 +58,7 @@ SelectOptions
                 >
                     ${startSlotTemplate(context, definition)}
                     <slot name="button-container">
-                        <div class="selected-value" part="selected-value">
+                        <div class="selected-value" part="selected-value" ${overflow('hasOverflow')} title=${x => (x.hasOverflow && x.displayValue ? x.displayValue : null)}>
                             <slot name="selected-value">${x => x.displayValue}</slot>
                         </div>
                         <div aria-hidden="true" class="indicator" part="indicator">

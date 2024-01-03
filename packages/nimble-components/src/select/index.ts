@@ -3,6 +3,7 @@ import {
     AnchoredRegion,
     DesignSystem,
     Select as FoundationSelect,
+    ListboxOption,
     SelectOptions
 } from '@microsoft/fast-foundation';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
@@ -50,6 +51,10 @@ export class Select extends FoundationSelect implements ErrorPattern {
     @observable
     public region?: AnchoredRegion;
 
+    /** @internal */
+    @observable
+    public hasOverflow = false;
+
     private _filter = '';
     private filteredOptions: ListOption[] = [];
 
@@ -60,12 +65,12 @@ export class Select extends FoundationSelect implements ErrorPattern {
      * @remarks
      * Overrides `Listbox.options`.
      */
-    public override get options(): ListOption[] {
+    public override get options(): ListboxOption[] {
         Observable.track(this, 'options');
         return this.filteredOptions?.length ? this.filteredOptions : this._options;
     }
 
-    public override set options(value: ListOption[]) {
+    public override set options(value: ListboxOption[]) {
         this._options = value;
         Observable.notify(this, 'options');
     }

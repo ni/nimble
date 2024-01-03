@@ -25,7 +25,7 @@ export const styles = css`
         order: 2;
     }
 
-    .end {
+    [part='end'] {
         display: contents;
     }
 

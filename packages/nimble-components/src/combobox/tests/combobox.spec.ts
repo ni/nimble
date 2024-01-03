@@ -26,6 +26,23 @@ async function setup(
     return fixture<Combobox>(viewTemplate);
 }
 
+async function setupWithManyOptions(
+    autocomplete?: ComboboxAutocomplete
+): Promise<Fixture<Combobox>> {
+    // prettier-ignore
+    const viewTemplate = html`
+        <nimble-combobox
+            ${autocomplete !== undefined ? `autocomplete="${autocomplete}"` : ''}
+        >
+            ${repeat(() => [...Array(500).keys()], html<number>`
+                <nimble-list-option>${x => x}</nimble-list-option>
+            `)}
+            <nimble-list-option>1000</nimble-list-option>
+        </nimble-combobox>
+    `;
+    return fixture<Combobox>(viewTemplate);
+}
+
 function updateComboboxWithText(combobox: Combobox, text: string): void {
     combobox.control.value = text;
     const inputEvent = new InputEvent('input', {
@@ -531,6 +548,30 @@ describe('Combobox', () => {
         await disconnect();
     });
 
+    it('when typing in value with inline autocomplete, option at bottom of list scrolls into view', async () => {
+        const { element, connect, disconnect } = await setupWithManyOptions(
+            ComboboxAutocomplete.inline
+        );
+        await connect();
+        await waitForUpdatesAsync();
+
+        const lastOption = element.options[element.options.length - 1]!;
+        await clickAndWaitForOpen(element);
+        let optionIsVisible = await checkFullyInViewport(lastOption);
+        expect(optionIsVisible).toBeFalse();
+        updateComboboxWithText(element, '1');
+        await waitForUpdatesAsync();
+        // This second call seems necessary to allow the requestAnimationFrame in the FAST Combobox implementation
+        // time to run for the first update.
+        await waitForUpdatesAsync();
+        updateComboboxWithText(element, '1000'); // last option in set
+        await waitForUpdatesAsync();
+        optionIsVisible = await checkFullyInViewport(lastOption);
+        expect(optionIsVisible).toBeTrue();
+
+        await disconnect();
+    });
+
     const filterOptionTestData: { autocomplete: ComboboxAutocomplete }[] = [
         { autocomplete: ComboboxAutocomplete.inline },
         { autocomplete: ComboboxAutocomplete.both }
@@ -574,6 +615,65 @@ describe('Combobox', () => {
             expect(fullyVisible).toBe(true);
 
             await disconnect();
+        });
+    });
+
+    describe('title overflow', () => {
+        let element: Combobox;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+
+        function dispatchEventToSelectedValue(
+            event: Event
+        ): boolean | undefined {
+            return element
+                .shadowRoot!.querySelector('.selected-value')!
+                .dispatchEvent(event);
+        }
+
+        function getSelectedValueTitle(): string {
+            return (
+                element
+                    .shadowRoot!.querySelector('.selected-value')!
+                    .getAttribute('title') ?? ''
+            );
+        }
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            element.style.width = '200px';
+            await connect();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('sets title when option text is ellipsized', async () => {
+            const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
+            updateComboboxWithText(element, optionContent);
+            await waitForUpdatesAsync();
+            dispatchEventToSelectedValue(new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(getSelectedValueTitle()).toBe(optionContent);
+        });
+
+        it('does not set title when option text is fully visible', async () => {
+            const optionContent = 'short value';
+            updateComboboxWithText(element, optionContent);
+            dispatchEventToSelectedValue(new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(getSelectedValueTitle()).toBe('');
+        });
+
+        it('removes title on mouseout of option', async () => {
+            const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
+            updateComboboxWithText(element, optionContent);
+            dispatchEventToSelectedValue(new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            dispatchEventToSelectedValue(new MouseEvent('mouseout'));
+            await waitForUpdatesAsync();
+            expect(getSelectedValueTitle()).toBe('');
         });
     });
 });

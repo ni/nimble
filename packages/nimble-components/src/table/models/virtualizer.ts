@@ -10,7 +10,7 @@ import {
 } from '@tanstack/virtual-core';
 import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
-import type { TableRecord } from '../types';
+import type { TableNode, TableRecord } from '../types';
 import { TableCellView } from '../../table-column/base/cell-view';
 
 /**
@@ -23,7 +23,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public visibleItems: VirtualItem[] = [];
 
     @observable
-    public allRowsHeight = 0;
+    public scrollHeight = 0;
 
     @observable
     public headerContainerMarginRight = 0;
@@ -32,13 +32,13 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public rowContainerYOffset = 0;
 
     private readonly table: Table<TData>;
-    private readonly tanStackTable: TanStackTable<TData>;
+    private readonly tanStackTable: TanStackTable<TableNode<TData>>;
     private readonly viewportResizeObserver: ResizeObserver;
     private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
 
     public constructor(
         table: Table<TData>,
-        tanStackTable: TanStackTable<TData>
+        tanStackTable: TanStackTable<TableNode<TData>>
     ) {
         this.table = table;
         this.tanStackTable = tanStackTable;
@@ -105,7 +105,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         this.notifyFocusedCellRecycling();
         const virtualizer = this.virtualizer!;
         this.visibleItems = virtualizer.getVirtualItems();
-        this.allRowsHeight = virtualizer.getTotalSize();
+        this.scrollHeight = virtualizer.getTotalSize();
         // We're using a separate div ('table-scroll') to represent the full height of all rows, and
         // the row container's height is only big enough to hold the virtualized rows. So we don't
         // use the TanStackVirtual-provided 'start' offset (which is in terms of the full height)

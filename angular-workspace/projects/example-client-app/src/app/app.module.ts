@@ -10,9 +10,25 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule, NimbleSpinnerModule,
     NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule,
     NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule } from '@ni/nimble-angular';
+import { NimbleCardModule } from '@ni/nimble-angular/card';
+import { NimbleLabelProviderCoreModule } from '@ni/nimble-angular/label-provider/core';
+import { NimbleLabelProviderRichTextModule } from '@ni/nimble-angular/label-provider/rich-text';
+import { NimbleLabelProviderTableModule } from '@ni/nimble-angular/label-provider/table';
+import { NimbleMappingTextModule } from '@ni/nimble-angular/mapping/text';
+import { NimbleMappingIconModule } from '@ni/nimble-angular/mapping/icon';
+import { NimbleMappingUserModule } from '@ni/nimble-angular/mapping/user';
+import { NimbleMappingSpinnerModule } from '@ni/nimble-angular/mapping/spinner';
 import { NimbleTableModule } from '@ni/nimble-angular/table';
 import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
 import { NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table-column/anchor';
+import { NimbleTableColumnDateTextModule } from '@ni/nimble-angular/table-column/date-text';
+import { NimbleTableColumnEnumTextModule } from '@ni/nimble-angular/table-column/enum-text';
+import { NimbleTableColumnIconModule } from '@ni/nimble-angular/table-column/icon';
+import { NimbleTableColumnNumberTextModule } from '@ni/nimble-angular/table-column/number-text';
+import { NimbleTableColumnDurationTextModule } from '@ni/nimble-angular/table-column/duration-text';
+import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text/viewer';
+import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text/editor';
+import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-mention/users';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { HeaderComponent } from './header/header.component';
@@ -28,6 +44,9 @@ import { HeaderComponent } from './header/header.component';
         FormsModule,
         ReactiveFormsModule,
         NimbleThemeProviderModule,
+        NimbleLabelProviderCoreModule,
+        NimbleLabelProviderRichTextModule,
+        NimbleLabelProviderTableModule,
         NimbleTextAreaModule,
         NimbleTextFieldModule,
         NimbleNumberFieldModule,
@@ -56,6 +75,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleComboboxModule,
         NimbleMenuButtonModule,
         NimbleTooltipModule,
+        NimbleCardModule,
         NimbleCardButtonModule,
         NimbleDialogModule,
         NimbleRadioGroupModule,
@@ -68,7 +88,19 @@ import { HeaderComponent } from './header/header.component';
         NimbleTableModule,
         NimbleTableColumnTextModule,
         NimbleTableColumnAnchorModule,
+        NimbleTableColumnDateTextModule,
+        NimbleTableColumnEnumTextModule,
+        NimbleTableColumnNumberTextModule,
+        NimbleTableColumnDurationTextModule,
+        NimbleMappingTextModule,
         NimbleBannerModule,
+        NimbleRichTextViewerModule,
+        NimbleRichTextEditorModule,
+        NimbleTableColumnIconModule,
+        NimbleMappingIconModule,
+        NimbleMappingUserModule,
+        NimbleRichTextMentionUsersModule,
+        NimbleMappingSpinnerModule,
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },

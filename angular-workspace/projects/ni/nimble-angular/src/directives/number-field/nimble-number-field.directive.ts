@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { NumberField } from '@ni/nimble-components/dist/esm/number-field';
+import { type NumberField, numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
 import { NumberFieldAppearance } from '@ni/nimble-components/dist/esm/number-field/types';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { NumberField };
+export { numberFieldTag };
 export { NumberFieldAppearance };
 
 /**
@@ -54,6 +55,16 @@ export class NimbleNumberFieldDirective {
 
     @Input() public set step(value: NumberValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'step', toNumberProperty(value));
+    }
+
+    public get hideStep(): boolean {
+        return this.elementRef.nativeElement.hideStep;
+    }
+
+    // hideStep property maps to the hide-step attribute
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('hide-step') public set hideStep(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'hideStep', toBooleanProperty(value));
     }
 
     public get placeholder(): string {

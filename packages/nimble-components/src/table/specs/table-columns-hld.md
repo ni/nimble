@@ -91,7 +91,7 @@ Some potential column names following this convention are listed below.
 ```
 nimble-table-column-anchor
 nimble-table-column-text
-nimble-table-column-numeric-text
+nimble-table-column-number-text
 nimble-table-column-date-text
 nimble-table-column-progress
 nimble-table-column-text-field
@@ -237,7 +237,7 @@ For example, the `TableColumn` implementation we could create for rendering data
 
 ```TS
 type TableColumnTextCellRecord = TableStringField<'value'>;
-type TableColumnTextColumnConfig = { placeholder: string };
+type TableColumnTextColumnConfig = {};
 
 public class TableColumnText extends TableColumn<TableColumnTextCellRecord, TableColumnTextColumnConfig> {
     ...
@@ -245,15 +245,8 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
     @attr
     public valueKey: string;
 
-    @attr
-    public placeholder: string;
-
     public valueKeyChanged(): void {
         this.columnInternals.dataRecordFieldNames = [this.valueKey];
-    }
-
-    public placeholderChanged(): void {
-        this.columnInternals.columnConfig = { placeholder: this.placeholder };
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
@@ -265,7 +258,7 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
 }
 ```
 
-In the above example, the column author is responsible for tracking changes to custom properties they add to the public api of the column, such as `valueKey` and `placeholder`, and notifying the table of those changes via the `this.columnInternals` reference.
+In the above example, the column author is responsible for tracking changes to custom properties they add to the public api of the column, such as `valueKey`, and notifying the table of those changes via the `this.columnInternals` reference.
 
 The corresponding cell element implementation would look like this:
 
@@ -284,7 +277,7 @@ TableColumnTextColumnConfig
     public get content(): string {
         return typeof this.cellRecord.value === 'string'
             ? this.cellRecord.value
-            : this.columnConfig.placeholder;
+            : '';
     }
 
     public textField!: TextField;
@@ -297,7 +290,6 @@ const textCellView = TextCellView.compose({
             ${ref('textField')}
             readonly="true"
             value="${x => x.cellRecord.value}"
-            placeholder="${x => x.columnConfig.placeholder}"
         >
         </nimble-text-field>`,
     styles: /* styling */

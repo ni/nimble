@@ -73,7 +73,7 @@ Before building a new component, 3 specification documents need to be created:
 
     `npm run change`
 
-7. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
+7. Update the [Component Status table](./src/tests/component-status.stories.ts) to reflect the new component state.
 
 ## Develop new components
 
@@ -83,7 +83,7 @@ If a component is not ready for general use, it should be marked as "incubating"
 
 -   It is still in development.
 -   It is currently experimental or application-specific and hasn't yet been generalized for broader use.
--   It is missing important features like interaction design, visual design, accessibility, or framework integration.
+-   It is missing important features like interaction design, visual design, or accessibility.
 
 Incubating contributions may compromise on the above capabilities but they still must abide by other repository requirements. For example:
 
@@ -102,7 +102,7 @@ To mark a component as incubating:
 
 To move a component out of incubating status:
 
-1. Have a conversation with the Nimble team to decide if it is sufficiently complete.
+1. Have a conversation with the Nimble team to decide if it is sufficiently complete. The requirements listed at the top of this section must be met. Some feature gaps like framework integration may be OK as long as we don't anticipate that filling them would cause major breaking changes.
 2. Update the markings described above to indicate that it is now ready for general use!
 
 ### Folder structure
@@ -123,6 +123,7 @@ Create a new folder named after your component with some core files:
 | tests/component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing. In the future, this will also provide API documentation.                                                                                                      |
 | tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                                                                                        |
 | tests/component-name-docs.stories.ts   | Contains the Storybook documentation for this component. This should provide design guidance and usage information. See [Creating Storybook Component Documentation](/packages/nimble-components/docs/creating-storybook-component-documentation.md) for more information. |
+| tests/component-name.react.tsx         | Simple React wrapper for the component to be used in Storybook MDX documentation                                                                                                                                                                                           |
 
 ### Add to component bundle
 
@@ -262,6 +263,19 @@ With an attribute defined there are several ways to react to updates. To minimiz
     This should NOT be done for style purposes and instead rely on CSS attribute selectors or behaviors as previously described.
 
     Some valid use cases are reflecting correct aria values based on the updated attribute or forwarding updates to child components.
+
+#### Don't throw exceptions when a component is misconfigured
+
+Components should be robust to having their properties and attributes configured in invalid ways and should typically not throw exceptions. This matches native element behavior and helps avoid situations where client code must be set component state in a specific order.
+
+Instead of throwing an exceptions, components should ignore invalid state and render in a predictable way. This could mean reverting to a default or empty state. This behavior should be covered by auto tests.
+
+Components can also consider exposing an API that checks the validity of the component configuration. Clients can use this to assert about the validity in their tests and to discover why a component is invalid when debugging. See the `nimble-table` for an example of this.
+
+It is acceptable to throw exceptions in production code in other situations. For example:
+
+-   when a case gets hit that should be impossible, like an invalid enum value.
+-   from a component method when it shouldn't be called in the component's current state, like `show()` on a dialog that is already open.
 
 #### Comments
 
@@ -427,6 +441,29 @@ Before disabling a test, you **must** have investigated the failure and attempte
 Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`).
 
 When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.
+
+## Localization
+
+Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English. An application can provide localized versions of these strings by using design tokens set on label provider elements.
+
+The current label providers:
+
+-   `nimble-label-provider-core`: Used for labels for all components without a dedicated label provider
+-   `nimble-label-provider-rich-text`: Used for labels for the rich text components
+-   `nimble-label-provider-table`: Used for labels for the table (and table sub-components / column types)
+
+The expected format for label token names is:
+
+-   element/type(s) to which the token applies, e.g. `number-field` or `table`
+    -   This may not be an exact element name, if this label applies to multiple elements or will be used in multiple contexts
+-   component part/category (optional), e.g. `column-header`
+-   specific functionality or sub-part, e.g. `decrement`
+-   the suffix `label` (will be omitted from the label-provider properties/attributes)
+
+Components using localized labels should document them in Storybook. To add a "Localizable Labels" section:
+
+-   Their story `Args` should extend `LabelUserArgs`
+-   Call `addLabelUseMetadata()` and pass their declared metadata object, the applicable label provider tag, and the label tokens that they're using
 
 ## Component naming
 

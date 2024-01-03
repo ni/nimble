@@ -14,7 +14,7 @@ import {
     smallDelay,
     smallPadding,
     borderRgbPartialColor,
-    standardPadding,
+    mediumPadding,
     failColor,
     elevation2BoxShadow
 } from '../../theme-provider/design-tokens';
@@ -102,6 +102,10 @@ export const styles = css`
         width: 0px;
     }
 
+    [part='start'] {
+        display: none;
+    }
+
     .control {
         align-items: center;
         box-sizing: border-box;
@@ -181,7 +185,7 @@ export const styles = css`
         text-overflow: ellipsis;
         overflow: hidden;
         padding: 0px;
-        padding-left: calc(${standardPadding} / 2);
+        padding-left: ${mediumPadding};
     }
 
     .selected-value[disabled]::placeholder {
@@ -207,7 +211,7 @@ export const styles = css`
         fill: ${bodyDisabledFontColor};
     }
 
-    .end {
+    [part='end'] {
         margin-inline-start: auto;
     }
 

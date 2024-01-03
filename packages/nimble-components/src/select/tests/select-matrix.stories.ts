@@ -21,10 +21,12 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 import {
     controlLabelFont,
     controlLabelFontColor,
+    menuMinWidth,
     standardPadding
 } from '../../theme-provider/design-tokens';
 import { selectTag } from '..';
 import { listOptionTag } from '../../list-option';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const metadata: Meta = {
     title: 'Tests/Select',
@@ -41,11 +43,18 @@ const appearanceStates = Object.entries(DropdownAppearance).map(
 
 type AppearanceState = (typeof appearanceStates)[number];
 
+const valueStates = [
+    ['Short Value', 'Option 1'],
+    ['Long Value', loremIpsum]
+] as const;
+type ValueState = (typeof valueStates)[number];
+
 // prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
+    [valueName, valueValue]: ValueState,
 ): ViewTemplate => html`
     <div style="
         display: inline-flex;
@@ -54,14 +63,15 @@ const component = (
         font: var(${controlLabelFont.cssCustomProperty});
         color: var(${controlLabelFontColor.cssCustomProperty});"
     >
-        <label>${() => errorName} ${() => disabledName} ${() => appearanceName}</label>
+        <label>${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName}</label>
         <${selectTag}
             ?error-visible="${() => errorVisible}"
             error-text="${() => errorText}"
             ?disabled="${() => disabled}"
             appearance="${() => appearance}"
+            style="width: var(${menuMinWidth.cssCustomProperty});"
         >
-            <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            <${listOptionTag} value="1">${valueValue}</${listOptionTag}>
             <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
             <${listOptionTag} value="3">Option 3</${listOptionTag}>
             <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
@@ -70,7 +80,12 @@ const component = (
 `;
 
 export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, appearanceStates, errorStates])
+    createMatrix(component, [
+        disabledStates,
+        appearanceStates,
+        errorStates,
+        valueStates
+    ])
 );
 
 export const hiddenSelect: StoryFn = createStory(

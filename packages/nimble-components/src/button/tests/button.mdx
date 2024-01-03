@@ -1,18 +1,232 @@
 import {
-    Canvas,
+    DocsStory,
     Meta,
     Controls,
+    Primary,
     Stories,
     Title,
-    Description
+    Description,
+    Story
 } from '@storybook/blocks';
+import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
+import { NimbleButton } from './button.react';
+import { NimbleIconKey } from '../../icons/tests/key.react';
 import * as buttonStories from './button.stories';
 
 <Meta of={buttonStories} />
-
 <Title of={buttonStories} />
 <Description of={buttonStories} />
-
-<Canvas of={buttonStories.outlineButton} />
+<DocsStory of={buttonStories.outlineButton} expanded={false} />
 <Controls of={buttonStories.outlineButton} />
-<Stories of={buttonStories} />
+
+# Usage Docs
+
+## Styling
+
+### Appearances
+
+These appearances have the default styling of the nimble-button. Each should be considered for use before using appearance variant buttons.
+
+#### Ghost Button:
+
+<Frame>
+    <Container>
+        <Column stylingClass="controls">
+            <NimbleButton appearance="ghost">{`Ghost Button`}</NimbleButton>
+            <NimbleButton appearance="ghost" content-hidden>
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                {`Ghost Button`}
+            </NimbleButton>
+
+        </Column>
+        <Column>
+            <ul>
+                <li>Ghost is the default appearance and should be the first considered for use.</li>
+                <li>
+                    Use as the default and standard option to create a clean airy and open UI
+                    feel. Ghost buttons fit comfortably in tight spaces and help control the
+                    visual density of the UI.
+                </li>
+                <li>
+                    Be careful when using that the surrounding context does not cause this
+                    button to be confused for emphasized body text, tabs or a standalone links.
+                </li>
+                <li>Use in combination with a primary outline or primary block buttons to create a hierarchy of importance. There is no primary ghost button.</li>
+            </ul>
+        </Column>
+    </Container>
+
+</Frame>
+
+#### Outline Button:
+
+<Frame>
+    <Container>
+        <Column stylingClass="controls">
+            <NimbleButton appearance="outline">{`Outline Button`}</NimbleButton>
+            <NimbleButton appearance="outline" content-hidden>
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                {`Outline Button`}
+            </NimbleButton>
+        </Column>
+        <Column>
+            <ul>
+                <li>
+                    Outline is the secondary style and should be considered for
+                    use when ghost button is not sufficient.
+                </li>
+                <li>
+                    Use as an alternative standard button when a ghost button is
+                    not suitable. Use like a ghost button to create a clean,
+                    light and airy feel.
+                </li>
+                <li>
+                    The outline button is more visually direct about the
+                    control's functionality than a ghost button.
+                </li>
+                <li>
+                    Use in combination with ghost buttons (but not block
+                    buttons) to create hierarchy.
+                </li>
+            </ul>
+        </Column>
+    </Container>
+</Frame>
+
+#### Block Button:
+
+<Frame>
+    <Container>
+        <Column stylingClass="controls">
+            <NimbleButton appearance="block">{`Block Button`}</NimbleButton>
+            <NimbleButton appearance="block" content-hidden>
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                {`Block Button`}
+            </NimbleButton>
+        </Column>
+        <Column>
+            <ul>
+                <li>
+                    Block is the tertiary style used for creating the most eye
+                    catching and functionally direct button. Use in areas where
+                    controls are not often present or obvious, or when lots of
+                    busy information can cause an important control to be
+                    overlooked.
+                </li>
+                <li>
+                    Use as a standard button when the most visible solution is
+                    required. Use as an alternative to overly subtle button
+                    solutions when it is important to emphasize an action and
+                    the functionality of the control.
+                </li>
+                <li>
+                    Use in combination with ghost buttons (but not outline
+                    buttons) to create hierarchy.
+                </li>
+            </ul>
+        </Column>
+    </Container>
+</Frame>
+
+### Appearance Variants
+
+Button appearance variants are mainly used when a button needs be distinguished for one of the following reasons:
+
+-   To indicate the action that allows the user to accomplish their most common or important goal
+-   To indicate the action that allows the user to complete their task
+
+There are currently two available values for `appearance-variant`: `primary` and `accent`.
+
+#### Accent Button:
+
+<Frame>
+    <Container config="325px 1fr">
+        <Column stylingClass="controls">
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
+            <NimbleButton
+                appearance="outline"
+                appearance-variant="accent"
+            >{`Outline Accent`}</NimbleButton>
+            <Divider />
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
+            <NimbleButton
+                appearance="block"
+                appearance-variant="accent"
+            >{`Block Accent`}</NimbleButton>
+        </Column>
+        <Column>
+            <Do>
+                Use only 1 accent button in a section. It should be used when
+                trying to achieve the most prominent eye-catching approach.
+                Consider the contextual implications of using a green colored
+                button in relation to its name or metaphor. Remember that color
+                has accessibility constraints and the color alone should not be
+                relied on.
+            </Do>
+            <Do>
+                Use in situations that lack color and enthusiasm to help support
+                the brand.
+            </Do>
+            <Do>Use in combination with ghost buttons to create hierarchy.</Do>
+            <Dont>
+                Do not use an outline button with a block button to create
+                hierarchy.
+            </Dont>
+        </Column>
+    </Container>
+</Frame>
+
+#### Primary Button:
+
+<Frame>
+    <Container config="325px 1fr">
+        <Column stylingClass="controls">
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
+            <NimbleButton appearance="outline" appearance-variant="primary">
+            {`Outline Primary`}
+            </NimbleButton>
+            <Divider/>
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
+            <NimbleButton appearance="ghost">{`Ghost`}</NimbleButton>
+            <NimbleButton appearance="block" appearance-variant="primary">
+                {`Block Primary`}
+            </NimbleButton>
+        </Column>
+        <Column>
+            <Do>
+                Use only 1 primary button in a section. It should be used when
+                there is a conflict with color and its context.
+            </Do>
+            <Do>Use in combination with ghost buttons to create hierarchy.</Do>
+            <Dont>
+                Do not use an outline button with a block button to create
+                hierarchy.
+            </Dont>
+        </Column>
+    </Container>
+
+</Frame>
+
+#### Examples:
+
+To see more examples of appearance variant button hierarchy, see the nimble-button Figma docs for [Primary and Standard Actions](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1604-74603&mode=design&t=SQ3lyK83VHBUaOkg-0).
+
+## Sizing
+
+Nimble Buttons are currently always 32px tall. Designs exist for other sizes; if you need these in an application, please comment on [Configurable height for nimble controls (#610)](https://github.com/ni/nimble/issues/610).
+
+## Styling / Theme
+
+Use the Color UI version for backgrounds with color (e.g. purple, blue).
+
+See the usage details for more information on button styling / usage.
+
+## Accessibility
+
+Please work with your designer and ensure you have a 4.5:1
+contrast ratio text to background.
+
+<ContentHiddenDocs buttonElement="nimble-button" />

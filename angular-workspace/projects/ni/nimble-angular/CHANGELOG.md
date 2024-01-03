@@ -1,8 +1,1196 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 13 Jun 2023 14:50:08 GMT and should not be manually modified.
+This log was last generated on Fri, 15 Dec 2023 14:08:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.2.4
+
+Fri, 15 Dec 2023 14:08:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.16.4
+
+## 18.2.3
+
+Wed, 13 Dec 2023 15:42:56 GMT
+
+### Patches
+
+- Add button-label for mention configuration element  ([ni/nimble@28021f0](https://github.com/ni/nimble/commit/28021f000969ab66014f67cbd8a30a175de279f1))
+
+## 18.2.2
+
+Wed, 13 Dec 2023 14:06:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.16.3
+
+## 18.2.1
+
+Wed, 13 Dec 2023 13:27:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.16.2
+
+## 18.2.0
+
+Mon, 11 Dec 2023 19:32:21 GMT
+
+### Minor changes
+
+- Add contentEditable property to anchor directive ([ni/nimble@487c344](https://github.com/ni/nimble/commit/487c3440588f7b331ea2e90131e41bbf4d4d84f0))
+- Bump @ni/nimble-components to v20.16.1
+
+## 18.1.3
+
+Mon, 11 Dec 2023 17:36:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.16.0
+
+## 18.1.2
+
+Fri, 08 Dec 2023 05:30:46 GMT
+
+### Patches
+
+- Angular support for mention configuration and mapping user elements ([ni/nimble@0fef32a](https://github.com/ni/nimble/commit/0fef32ab58b286603588100a5c65906099915d98))
+
+## 18.1.1
+
+Thu, 07 Dec 2023 21:49:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.15.1
+
+## 18.1.0
+
+Thu, 07 Dec 2023 17:27:04 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v20.15.0
+
+## 18.0.1
+
+Tue, 05 Dec 2023 11:06:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.13
+
+## 18.0.0
+
+Tue, 28 Nov 2023 18:24:15 GMT
+
+### Major changes
+
+- Update to Angular 15 ([ni/nimble@bf12590](https://github.com/ni/nimble/commit/bf1259004b9d362f0d04fa52695b0d430805cf99))
+- Bump @ni/nimble-components to v20.14.11
+
+## 17.9.11
+
+Mon, 27 Nov 2023 16:11:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.10
+
+## 17.9.10
+
+Thu, 23 Nov 2023 08:11:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.9
+
+## 17.9.9
+
+Tue, 21 Nov 2023 19:16:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.8
+
+## 17.9.8
+
+Tue, 21 Nov 2023 17:02:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.7
+
+## 17.9.7
+
+Fri, 17 Nov 2023 16:02:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.6
+
+## 17.9.6
+
+Fri, 17 Nov 2023 01:11:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.5
+
+## 17.9.5
+
+Wed, 15 Nov 2023 16:52:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.4
+
+## 17.9.4
+
+Mon, 13 Nov 2023 17:03:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.3
+
+## 17.9.3
+
+Sat, 11 Nov 2023 11:03:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.2
+
+## 17.9.2
+
+Wed, 08 Nov 2023 16:07:09 GMT
+
+### Patches
+
+- Add Angular support for the nimble-card component ([ni/nimble@57ee0e9](https://github.com/ni/nimble/commit/57ee0e95855887e10034232f587be2e666c96414))
+- Bump @ni/nimble-components to v20.14.1
+
+## 17.9.1
+
+Tue, 07 Nov 2023 22:48:12 GMT
+
+### Patches
+
+- Fix incorrect type on member in NimbleRadioDirective ([ni/nimble@09a5fbf](https://github.com/ni/nimble/commit/09a5fbfda1a401994e90ab1c00cb9cb7deb44278))
+
+## 17.9.0
+
+Mon, 06 Nov 2023 20:28:48 GMT
+
+### Minor changes
+
+- Add NimblePipesModule in nimble-angular/pipes entrypoint (for DurationPipe) ([ni/nimble@e335f58](https://github.com/ni/nimble/commit/e335f58f38322eb0ba73f4222d4c40295eb4d501))
+
+## 17.8.8
+
+Fri, 03 Nov 2023 23:30:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.14.0
+
+## 17.8.7
+
+Thu, 02 Nov 2023 18:26:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.13.0
+
+## 17.8.6
+
+Thu, 02 Nov 2023 17:33:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.12.1
+
+## 17.8.5
+
+Wed, 01 Nov 2023 22:35:50 GMT
+
+### Patches
+
+- Prevent navigation due to routerLink directive when host is disabled ([ni/nimble@37fa96e](https://github.com/ni/nimble/commit/37fa96eb5b5512961aa272e3b3aada07a6ee39df))
+
+## 17.8.4
+
+Wed, 01 Nov 2023 20:45:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.12.0
+
+## 17.8.3
+
+Wed, 01 Nov 2023 16:39:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.11.0
+
+## 17.8.2
+
+Wed, 01 Nov 2023 15:14:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.10.3
+
+## 17.8.1
+
+Thu, 26 Oct 2023 18:19:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.10.2
+
+## 17.8.0
+
+Thu, 26 Oct 2023 00:29:31 GMT
+
+### Minor changes
+
+- Angular integration for duration table column; add DurationPipe at 'pipes' entrypoint ([ni/nimble@244e2ca](https://github.com/ni/nimble/commit/244e2caca0117fae6448f7c130e3afd3771b03d5))
+- Bump @ni/nimble-components to v20.10.1
+
+## 17.7.1
+
+Mon, 23 Oct 2023 14:17:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.10.0
+
+## 17.7.0
+
+Thu, 19 Oct 2023 23:50:56 GMT
+
+### Minor changes
+
+- Add decimal-maximum-digits attr to number-text column ([ni/nimble@466d474](https://github.com/ni/nimble/commit/466d474d52d3eb8a0396a6e53365e32bfbbd2954))
+- Bump @ni/nimble-components to v20.9.0
+
+## 17.6.4
+
+Thu, 19 Oct 2023 15:08:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.8.0
+
+## 17.6.3
+
+Wed, 18 Oct 2023 18:51:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.7.0
+
+## 17.6.2
+
+Mon, 16 Oct 2023 21:31:42 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.6.3
+
+## 17.6.1
+
+Fri, 06 Oct 2023 16:58:56 GMT
+
+### Patches
+
+- Revert "Create Angular mixins for fractional-width columns and groupable columns (#1587)" ([ni/nimble@9ebd4e1](https://github.com/ni/nimble/commit/9ebd4e1db9fdcb67fcff8237e75c77537c862360))
+
+## 17.6.0
+
+Thu, 05 Oct 2023 23:54:35 GMT
+
+### Minor changes
+
+- Refactor Angular table columns to use mixins for fractional-width and groupable columns ([ni/nimble@c074575](https://github.com/ni/nimble/commit/c074575be1bd09e3d04b1747bfc3a782eefbbd09))
+
+## 17.5.15
+
+Wed, 04 Oct 2023 07:38:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.6.2
+
+## 17.5.14
+
+Tue, 03 Oct 2023 14:34:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.6.1
+
+## 17.5.13
+
+Thu, 28 Sep 2023 22:20:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.6.0
+
+## 17.5.12
+
+Thu, 28 Sep 2023 03:38:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.5
+
+## 17.5.11
+
+Tue, 26 Sep 2023 21:18:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.4
+
+## 17.5.10
+
+Fri, 22 Sep 2023 17:41:22 GMT
+
+### Patches
+
+- Expose new table labels in Angular ([ni/nimble@091d06f](https://github.com/ni/nimble/commit/091d06f6b60ef214b9fcba021ff016fda72b009b))
+
+## 17.5.9
+
+Fri, 22 Sep 2023 14:24:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.3
+
+## 17.5.8
+
+Thu, 21 Sep 2023 13:07:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.1
+
+## 17.5.7
+
+Wed, 20 Sep 2023 18:55:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.5.0
+
+## 17.5.6
+
+Wed, 20 Sep 2023 16:38:20 GMT
+
+### Patches
+
+- Rename `columnHeaderGroupedIndicator` table label to `columnHeaderGrouped` ([ni/nimble@60947ef](https://github.com/ni/nimble/commit/60947ef38e170552c614f1affcd8e1e385ba9177))
+- Bump @ni/nimble-components to v20.4.3
+
+## 17.5.5
+
+Wed, 20 Sep 2023 15:22:26 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.4.2
+
+## 17.5.4
+
+Wed, 20 Sep 2023 02:57:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.4.1
+
+## 17.5.3
+
+Tue, 19 Sep 2023 23:12:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.4.0
+
+## 17.5.2
+
+Fri, 15 Sep 2023 21:18:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.3.2
+
+## 17.5.1
+
+Fri, 15 Sep 2023 20:36:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.3.1
+
+## 17.5.0
+
+Fri, 15 Sep 2023 19:43:51 GMT
+
+### Minor changes
+
+- Add API to hide step buttons on number-field ([ni/nimble@2314df2](https://github.com/ni/nimble/commit/2314df2fff61db8fb20ca1fbddad9f4961957afa))
+
+## 17.4.6
+
+Fri, 15 Sep 2023 14:38:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.3.0
+
+## 17.4.5
+
+Thu, 14 Sep 2023 21:02:07 GMT
+
+### Patches
+
+- Add `alignment` to Angular directive for number-text table column ([ni/nimble@a288335](https://github.com/ni/nimble/commit/a28833512f2e7bf19338c4ffadc130a8fa02f5fd))
+
+## 17.4.4
+
+Thu, 14 Sep 2023 19:53:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.16
+
+## 17.4.3
+
+Thu, 14 Sep 2023 17:13:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.15
+
+## 17.4.2
+
+Thu, 14 Sep 2023 15:46:47 GMT
+
+### Patches
+
+- Support duplicate values in combobox. ([ni/nimble@8dd2768](https://github.com/ni/nimble/commit/8dd27681c0246ff98185e99529894d0899d8de5b))
+
+## 17.4.1
+
+Thu, 14 Sep 2023 13:22:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.14
+
+## 17.4.0
+
+Thu, 14 Sep 2023 01:19:15 GMT
+
+### Minor changes
+
+- Add open attribute to Combobox Angular directive. ([ni/nimble@df0bf79](https://github.com/ni/nimble/commit/df0bf79263e39f99d272a4b00692dbb25fe4f61a))
+
+## 17.3.1
+
+Wed, 13 Sep 2023 20:54:15 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.13
+
+## 17.3.0
+
+Wed, 13 Sep 2023 18:16:44 GMT
+
+### Minor changes
+
+- Expose lang and validity from NimbleThemeProviderDirective ([ni/nimble@03def10](https://github.com/ni/nimble/commit/03def10a994ead19e51aabd918476c0ef580c6ce))
+
+## 17.2.12
+
+Wed, 13 Sep 2023 15:39:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.12
+
+## 17.2.11
+
+Wed, 13 Sep 2023 13:01:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.11
+
+## 17.2.10
+
+Wed, 13 Sep 2023 05:02:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.10
+
+## 17.2.9
+
+Wed, 13 Sep 2023 04:11:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.9
+
+## 17.2.8
+
+Tue, 12 Sep 2023 17:22:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.8
+
+## 17.2.7
+
+Fri, 08 Sep 2023 23:00:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.7
+
+## 17.2.6
+
+Thu, 07 Sep 2023 18:16:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.6
+
+## 17.2.5
+
+Wed, 06 Sep 2023 20:42:14 GMT
+
+### Patches
+
+- Revamp folder structure for rich text components ([ni/nimble@97cc70d](https://github.com/ni/nimble/commit/97cc70d749dbca3251e3efc18920ada8b4cbdfee))
+- Bump @ni/nimble-components to v20.2.5
+
+## 17.2.4
+
+Wed, 06 Sep 2023 19:06:56 GMT
+
+### Patches
+
+- Angular Integration for rich text label provider ([ni/nimble@27889e4](https://github.com/ni/nimble/commit/27889e4d8621fca72631e24fa8ae515a0911c7b7))
+
+## 17.2.3
+
+Wed, 06 Sep 2023 16:21:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.4
+
+## 17.2.2
+
+Wed, 06 Sep 2023 14:58:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.3
+
+## 17.2.1
+
+Wed, 06 Sep 2023 05:43:09 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.2
+
+## 17.2.0
+
+Tue, 05 Sep 2023 23:18:39 GMT
+
+### Minor changes
+
+- Fully export spinnerTag from nimble-angular ([ni/nimble@0ffafcf](https://github.com/ni/nimble/commit/0ffafcfe4acc742de0fff89e5db67f5825604e76))
+
+## 17.1.23
+
+Fri, 01 Sep 2023 20:47:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.1
+
+## 17.1.22
+
+Fri, 01 Sep 2023 19:43:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.0
+
+## 17.1.21
+
+Fri, 01 Sep 2023 07:27:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.22
+
+## 17.1.20
+
+Fri, 01 Sep 2023 06:00:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.21
+
+## 17.1.19
+
+Thu, 31 Aug 2023 23:28:43 GMT
+
+### Patches
+
+- Angular support for number-text table column ([ni/nimble@38a495f](https://github.com/ni/nimble/commit/38a495ff56b8fb86e292c6c2e8ea1ee04a7a4155))
+
+## 17.1.18
+
+Thu, 31 Aug 2023 22:45:50 GMT
+
+### Patches
+
+- Fix issue with large amount of options in Combobox in Angular causing endless recursion. ([ni/nimble@3020020](https://github.com/ni/nimble/commit/30200207363c7cb772c26bd0e74f10d9f6533037))
+
+## 17.1.17
+
+Thu, 31 Aug 2023 19:17:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.20
+
+## 17.1.16
+
+Thu, 31 Aug 2023 18:31:42 GMT
+
+### Patches
+
+- Angular integration for rich text editor component ([ni/nimble@8cc3101](https://github.com/ni/nimble/commit/8cc3101283de8f101c2c8dcb8874dabd6d5abdad))
+
+## 17.1.15
+
+Thu, 31 Aug 2023 17:09:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.19
+
+## 17.1.14
+
+Wed, 30 Aug 2023 18:22:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.18
+
+## 17.1.13
+
+Tue, 29 Aug 2023 16:32:09 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.17
+
+## 17.1.12
+
+Mon, 28 Aug 2023 21:12:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.16
+
+## 17.1.11
+
+Mon, 28 Aug 2023 20:03:32 GMT
+
+### Patches
+
+- Export MappingKeyType fully instead of just as type ([ni/nimble@f734040](https://github.com/ni/nimble/commit/f734040392806895f0b0ffcab2e88e5d11775148))
+
+## 17.1.10
+
+Thu, 24 Aug 2023 21:19:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.15
+
+## 17.1.9
+
+Thu, 24 Aug 2023 20:06:06 GMT
+
+### Patches
+
+- Angular support for icon table column ([ni/nimble@d3f5a24](https://github.com/ni/nimble/commit/d3f5a24b3f00a86f0c0abc0b271ea4b9bcee25b4))
+
+## 17.1.8
+
+Tue, 22 Aug 2023 12:48:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.14
+
+## 17.1.7
+
+Mon, 21 Aug 2023 23:23:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.13
+
+## 17.1.6
+
+Mon, 21 Aug 2023 22:42:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.12
+
+## 17.1.5
+
+Mon, 21 Aug 2023 21:38:56 GMT
+
+### Patches
+
+- Fully import date-text column types before exporting them ([ni/nimble@2a73240](https://github.com/ni/nimble/commit/2a73240f77e6c45cb0de13c5db4482bdc881d3ba))
+
+## 17.1.4
+
+Fri, 18 Aug 2023 11:34:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.11
+
+## 17.1.3
+
+Thu, 17 Aug 2023 22:37:05 GMT
+
+### Patches
+
+- Export date-text column enums fully ([ni/nimble@cf03fa3](https://github.com/ni/nimble/commit/cf03fa396190d1f6f28be670ed532018d5641d39))
+
+## 17.1.2
+
+Thu, 17 Aug 2023 21:57:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.10
+
+## 17.1.1
+
+Thu, 17 Aug 2023 00:10:58 GMT
+
+### Patches
+
+- Add support for date-text table column ([ni/nimble@d2ca08c](https://github.com/ni/nimble/commit/d2ca08cd621c10c0c8dbb13c4cc01c930d29392e))
+- Bump @ni/nimble-components to v20.1.9
+
+## 17.1.0
+
+Wed, 16 Aug 2023 18:45:15 GMT
+
+### Minor changes
+
+- enable reading the component value using the combobox directive ([ni/nimble@501e91b](https://github.com/ni/nimble/commit/501e91b66bc55a27c9acd7958fb3ab1545353dc0))
+
+## 17.0.17
+
+Tue, 15 Aug 2023 16:05:54 GMT
+
+### Patches
+
+- Improve typing for cell view ([ni/nimble@4fbf1bc](https://github.com/ni/nimble/commit/4fbf1bcf9644d9cf515ac4032c2bffb6e10b937d))
+- Bump @ni/nimble-components to v20.1.8
+
+## 17.0.16
+
+Mon, 14 Aug 2023 16:14:55 GMT
+
+### Patches
+
+- Angular support for enum-text table column ([ni/nimble@a8e29e5](https://github.com/ni/nimble/commit/a8e29e5042ddb9ad9258b09c4844f5c360844628))
+
+## 17.0.15
+
+Mon, 14 Aug 2023 14:35:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.7
+
+## 17.0.14
+
+Sat, 12 Aug 2023 08:35:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.6
+
+## 17.0.13
+
+Fri, 11 Aug 2023 22:00:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.5
+
+## 17.0.12
+
+Fri, 11 Aug 2023 15:22:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.4
+
+## 17.0.10
+
+Mon, 07 Aug 2023 22:54:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.3
+
+## 17.0.9
+
+Thu, 03 Aug 2023 22:50:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.2
+
+## 17.0.8
+
+Thu, 03 Aug 2023 16:47:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.1
+
+## 17.0.7
+
+Wed, 02 Aug 2023 19:10:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.0
+
+## 17.0.6
+
+Wed, 02 Aug 2023 00:19:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.0.6
+
+## 17.0.5
+
+Tue, 01 Aug 2023 20:43:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.0.5
+
+## 17.0.4
+
+Tue, 01 Aug 2023 19:55:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.0.4
+
+## 17.0.3
+
+Tue, 01 Aug 2023 16:43:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.0.3
+
+## 17.0.2
+
+Mon, 31 Jul 2023 22:52:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.0.2
+
+## 17.0.1
+
+Wed, 26 Jul 2023 21:12:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.0.1
+
+## 17.0.0
+
+Tue, 25 Jul 2023 21:12:32 GMT
+
+### Major changes
+
+- Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core) ([ni/nimble@2c77e8e](https://github.com/ni/nimble/commit/2c77e8e7b542572ca792c3d1aa00d8ac2010a888))
+- Bump @ni/nimble-components to v20.0.0
+
+## 16.9.3
+
+Tue, 25 Jul 2023 04:49:38 GMT
+
+### Patches
+
+- Update angular directive to support properties for nimble rich text viewer ([ni/nimble@6b33b03](https://github.com/ni/nimble/commit/6b33b032c63bcf2b5dc79bf4b648c0e118548959))
+
+## 16.9.2
+
+Tue, 25 Jul 2023 03:47:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.9.2
+
+## 16.9.1
+
+Mon, 24 Jul 2023 21:12:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.9.1
+
+## 16.9.0
+
+Mon, 24 Jul 2023 19:06:11 GMT
+
+### Minor changes
+
+- Angular integration for label providers (with secondary entry points) ([ni/nimble@238805c](https://github.com/ni/nimble/commit/238805ceedc7f12996b10a7571434830d6239a2b))
+
+## 16.8.9
+
+Mon, 24 Jul 2023 15:02:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.9.0
+
+## 16.8.8
+
+Fri, 21 Jul 2023 19:25:16 GMT
+
+### Patches
+
+- Switch to NavigationGuard directive for Anchor Columns ([ni/nimble@001c103](https://github.com/ni/nimble/commit/001c1039806ed2b009d3832ee2e33660e1bb4912))
+
+## 16.8.7
+
+Fri, 21 Jul 2023 17:06:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.5
+
+## 16.8.6
+
+Thu, 20 Jul 2023 16:23:00 GMT
+
+### Patches
+
+- Remove placeholder support from table columns ([ni/nimble@a318010](https://github.com/ni/nimble/commit/a3180102e5798540621a0d60ef93ca827649a988))
+- Bump @ni/nimble-components to v19.8.4
+
+## 16.8.5
+
+Thu, 20 Jul 2023 03:09:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.3
+
+## 16.8.4
+
+Wed, 19 Jul 2023 17:37:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.2
+
+## 16.8.3
+
+Tue, 18 Jul 2023 19:34:13 GMT
+
+### Patches
+
+- Use text property of ListOption instead of textContent for NimbleComboboxListOptionDirective to use for adding option values to parent combobox value accessor. ([ni/nimble@1f66ee7](https://github.com/ni/nimble/commit/1f66ee7a1b4bb66df177c96993803b46a2e055d7))
+
+## 16.8.2
+
+Tue, 18 Jul 2023 18:56:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.1
+
+## 16.8.1
+
+Tue, 18 Jul 2023 17:52:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.0
+
+## 16.8.0
+
+Mon, 17 Jul 2023 17:19:39 GMT
+
+### Minor changes
+
+- Spinner Accent Appearance Implementation (#1298) ([ni/nimble@9ecabb3](https://github.com/ni/nimble/commit/9ecabb35fbca4f0c233eb2dd0c4adb78027e0add))
+- Bump @ni/nimble-components to v19.7.0
+
+## 16.7.6
+
+Mon, 17 Jul 2023 16:19:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.6.3
+
+## 16.7.5
+
+Mon, 17 Jul 2023 15:05:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.6.2
+
+## 16.7.4
+
+Fri, 14 Jul 2023 22:15:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.6.1
+
+## 16.7.3
+
+Fri, 14 Jul 2023 20:57:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.6.0
+
+## 16.7.2
+
+Fri, 14 Jul 2023 00:21:50 GMT
+
+### Patches
+
+- Angular integration for nimble-rich-text-viewer component ([ni/nimble@8d55141](https://github.com/ni/nimble/commit/8d55141e3f1cd929d3efeea9fac02a449082b465))
+
+## 16.7.1
+
+Thu, 13 Jul 2023 23:41:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.5.0
+
+## 16.7.0
+
+Thu, 13 Jul 2023 20:10:27 GMT
+
+### Minor changes
+
+- Re-export tag names for all components from nimble-angular ([ni/nimble@b65a46e](https://github.com/ni/nimble/commit/b65a46edf67373feb04ab875b599d29233858fdc))
+
+## 16.6.14
+
+Thu, 13 Jul 2023 16:50:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.5
+
+## 16.6.13
+
+Fri, 30 Jun 2023 16:02:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.4
+
+## 16.6.12
+
+Wed, 28 Jun 2023 22:34:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.3
+
+## 16.6.11
+
+Wed, 28 Jun 2023 15:22:08 GMT
+
+### Patches
+
+- Update docs on when to use the data$ Observable on the Angular nimble-table ([ni/nimble@177774f](https://github.com/ni/nimble/commit/177774ff833f5f0a04a28d0f9bdf0ed5dfccd9b3))
+
+## 16.6.10
+
+Wed, 28 Jun 2023 13:37:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.2
+
+## 16.6.9
+
+Tue, 27 Jun 2023 19:05:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.1
+
+## 16.6.8
+
+Tue, 20 Jun 2023 14:17:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.0
+
+## 16.6.7
+
+Fri, 16 Jun 2023 19:24:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.3.0
 
 ## 16.6.6
 

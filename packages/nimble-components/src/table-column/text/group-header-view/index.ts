@@ -17,27 +17,21 @@ export class TableColumnTextGroupHeaderView extends TableColumnTextGroupHeaderVi
 TableStringFieldValue,
 TableColumnTextColumnConfig
 > {
-    public override get text(): string {
-        return this.groupHeaderValue!;
-    }
-
-    public override get placeholder(): string {
-        return this.columnConfig?.placeholder ?? '';
-    }
-
-    public override get shouldUsePlaceholder(): boolean {
-        return typeof this.groupHeaderValue !== 'string';
+    private groupHeaderValueChanged(): void {
+        this.text = typeof this.groupHeaderValue === 'string'
+            ? this.groupHeaderValue
+            : '';
     }
 }
 
 const tableColumnTextGroupHeaderView = TableColumnTextGroupHeaderView.compose({
-    baseName: 'table-column-text-group-header',
+    baseName: 'table-column-text-group-header-view',
     template,
     styles
 });
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(tableColumnTextGroupHeaderView());
-export const tableColumnTextGroupHeaderTag = DesignSystem.tagFor(
+export const tableColumnTextGroupHeaderViewTag = DesignSystem.tagFor(
     TableColumnTextGroupHeaderView
 );

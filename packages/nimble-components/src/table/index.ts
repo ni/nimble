@@ -34,6 +34,7 @@ import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import {
+    TableNode,
     TableActionMenuToggleEventDetail,
     TableColumnConfigurationChangeEventDetail,
     TableColumnSortDirection,
@@ -48,8 +49,8 @@ import {
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
+import { TableLayoutManager } from './models/table-layout-manager';
 import { TableUpdateTracker } from './models/table-update-tracker';
-import { TableLayoutHelper } from './models/table-layout-helper';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
@@ -139,6 +140,16 @@ export class Table<
     /**
      * @internal
      */
+    public get showRowOperationColumn(): boolean {
+        return (
+            this.selectionMode === TableRowSelectionMode.multiple
+            || this.showCollapseAll
+        );
+    }
+
+    /**
+     * @internal
+     */
     public readonly viewport!: HTMLElement;
 
     /**
@@ -156,12 +167,27 @@ export class Table<
     /**
      * @internal
      */
+    public readonly headerRowActionContainer!: HTMLElement;
+
+    /**
+     * @internal
+     */
     public readonly rowContainer!: HTMLElement;
 
     /**
      * @internal
      */
+    public readonly columnHeadersContainer!: Element;
+
+    /**
+     * @internal
+     */
     public readonly virtualizer: Virtualizer<TData>;
+
+    /**
+     * @internal
+     */
+    public readonly layoutManager: TableLayoutManager<TData>;
 
     /**
      * @internal
@@ -173,14 +199,26 @@ export class Table<
      * @internal
      */
     @observable
+    public visibleColumns: TableColumn[] = [];
+
+    /**
+     * @internal
+     * This value determines the size of the viewport area when a user has created horizontal scrollable
+     * space through a column resize operation.
+     */
+    @observable
+    public tableScrollableMinWidth = 0;
+
+    @observable
     public documentShiftKeyDown = false;
 
-    private readonly table: TanStackTable<TData>;
-    private options: TanStackTableOptionsResolved<TData>;
+    private readonly table: TanStackTable<TableNode<TData>>;
+    private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly tableValidator = new TableValidator();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private columnNotifiers: Notifier[] = [];
+    private readonly layoutManagerNotifier: Notifier;
     private isInitialized = false;
     private readonly collapsedRows = new Set<string>();
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
@@ -217,6 +255,9 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
+        this.layoutManager = new TableLayoutManager(this);
+        this.layoutManagerNotifier = Observable.getNotifier(this.layoutManager);
+        this.layoutManagerNotifier.subscribe(this, 'isColumnBeingSized');
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
             this.selectionMode
@@ -227,9 +268,11 @@ export class Table<
         await this.processPendingUpdates();
 
         const data = newData.map(record => {
-            return { ...record };
+            return { clientRecord: { ...record } };
         });
-        const tanStackUpdates: Partial<TanStackTableOptionsResolved<TData>> = {
+        const tanStackUpdates: Partial<
+        TanStackTableOptionsResolved<TableNode<TData>>
+        > = {
             data
         };
         this.validateWithData(data);
@@ -319,6 +362,14 @@ export class Table<
             } else {
                 this.tableUpdateTracker.trackColumnPropertyChanged(args);
             }
+        } else if (
+            source instanceof TableLayoutManager
+            && args === 'isColumnBeingSized'
+            && !this.layoutManager.isColumnBeingSized
+        ) {
+            // 'isColumnBeingSized' changing to 'false' indicates an interactive
+            // column sizing operation has been completed
+            this.emitColumnConfigurationChangeEvent();
         }
     }
 
@@ -395,6 +446,32 @@ export class Table<
     }
 
     /** @internal */
+    public onRightDividerMouseDown(
+        event: MouseEvent,
+        columnIndex: number
+    ): void {
+        if (event.button === 0) {
+            this.layoutManager.beginColumnInteractiveSize(
+                event.clientX,
+                columnIndex * 2
+            );
+        }
+    }
+
+    /** @internal */
+    public onLeftDividerMouseDown(
+        event: MouseEvent,
+        columnIndex: number
+    ): void {
+        if (event.button === 0) {
+            this.layoutManager.beginColumnInteractiveSize(
+                event.clientX,
+                columnIndex * 2 - 1
+            );
+        }
+    }
+
+    /** @internal */
     public handleGroupRowExpanded(rowIndex: number, event: Event): void {
         this.toggleGroupExpanded(rowIndex);
         event.stopPropagation();
@@ -464,7 +541,10 @@ export class Table<
         }
 
         if (this.tableUpdateTracker.updateColumnWidths) {
-            this.updateRowGridColumns();
+            this.rowGridColumns = this.layoutManager.getGridTemplateColumns();
+            this.visibleColumns = this.columns.filter(
+                column => !column.columnHidden
+            );
         }
 
         if (this.tableUpdateTracker.updateGroupRows) {
@@ -481,6 +561,15 @@ export class Table<
             default:
                 return null;
         }
+    }
+
+    /**
+     * @internal
+     */
+    public getHeaderContainerElements(): NodeListOf<Element> {
+        return this.columnHeadersContainer.querySelectorAll(
+            '.header-container'
+        );
     }
 
     protected selectionModeChanged(
@@ -611,7 +700,7 @@ export class Table<
                 column.columnInternals
             );
             notifierInternals.subscribe(this);
-            this.columnNotifiers.push(notifier);
+            this.columnNotifiers.push(notifierInternals);
         }
     }
 
@@ -646,7 +735,9 @@ export class Table<
     }
 
     private updateTanStack(): void {
-        const updatedOptions: Partial<TanStackTableOptionsResolved<TData>> = {};
+        const updatedOptions: Partial<
+        TanStackTableOptionsResolved<TableNode<TData>>
+        > = {};
         updatedOptions.state = {};
 
         if (this.tableUpdateTracker.updateColumnSort) {
@@ -691,12 +782,6 @@ export class Table<
         this.actionMenuSlots = Array.from(slots);
     }
 
-    private updateRowGridColumns(): void {
-        this.rowGridColumns = TableLayoutHelper.getGridTemplateColumns(
-            this.columns
-        );
-    }
-
     private validate(): void {
         this.tableValidator.validateSelectionMode(
             this.selectionMode,
@@ -719,7 +804,7 @@ export class Table<
         this.validateWithData(this.table.options.data);
     }
 
-    private validateWithData(data: TableRecord[]): void {
+    private validateWithData(data: TableNode[]): void {
         this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
     }
@@ -770,16 +855,18 @@ export class Table<
 
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
+            const isGrouped = row.getIsGrouped();
             const rowState: TableRowState<TData> = {
-                record: row.original,
+                record: row.original.clientRecord,
                 id: row.id,
                 selectionState: this.getRowSelectionState(row),
-                isGrouped: row.getIsGrouped(),
+                isGrouped,
                 isExpanded: row.getIsExpanded(),
-                groupRowValue: row.getIsGrouped()
+                groupRowValue: isGrouped
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
-                nestingLevel: row.depth,
+                nestingLevel:
+                    !isGrouped && row.depth > 0 ? row.depth - 1 : row.depth,
                 leafItemCount: row
                     .getLeafRows()
                     .filter(leafRow => leafRow.getLeafRows().length === 0)
@@ -802,7 +889,7 @@ export class Table<
     }
 
     private getRowSelectionState(
-        row: TanStackRow<TData>
+        row: TanStackRow<TableNode<TData>>
     ): TableRowSelectionState {
         if (row.getIsGrouped()) {
             return this.getGroupedRowSelectionState(row);
@@ -814,7 +901,7 @@ export class Table<
     }
 
     private getGroupedRowSelectionState(
-        groupedRow: TanStackRow<TData>
+        groupedRow: TanStackRow<TableNode<TData>>
     ): TableRowSelectionState {
         const subRows = groupedRow.subRows ?? [];
         let foundSelectedRow = false;
@@ -849,7 +936,7 @@ export class Table<
     }
 
     private getGroupRowColumn(
-        row: TanStackRow<TData>
+        row: TanStackRow<TableNode<TData>>
     ): TableColumn | undefined {
         const groupedId = row.groupingColumnId;
         if (groupedId !== undefined) {
@@ -862,7 +949,7 @@ export class Table<
     }
 
     private updateTableOptions(
-        updatedOptions: Partial<TanStackTableOptionsResolved<TData>>
+        updatedOptions: Partial<TanStackTableOptionsResolved<TableNode<TData>>>
     ): void {
         this.options = {
             ...this.options,
@@ -873,7 +960,9 @@ export class Table<
         this.refreshRows();
     }
 
-    private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {
+    private readonly getIsRowExpanded = (
+        row: TanStackRow<TableNode<TData>>
+    ): boolean => {
         if (!row.getIsGrouped()) {
             return false;
         }
@@ -956,30 +1045,31 @@ export class Table<
 
     private calculateTanStackRowIdFunction():
     | ((
-        originalRow: TData,
+        originalRow: TableNode<TData>,
         index: number,
-        parent?: TanStackRow<TData>
+        parent?: TanStackRow<TableNode<TData>>
     ) => string)
     | undefined {
         return this.idFieldName === null || this.idFieldName === undefined
             ? undefined
-            : (record: TData) => record[this.idFieldName!] as string;
+            : (record: TableNode<TData>) => record.clientRecord[this.idFieldName!] as string;
     }
 
-    private calculateTanStackColumns(): TanStackColumnDef<TData>[] {
+    private calculateTanStackColumns(): TanStackColumnDef<TableNode<TData>>[] {
         return this.columns.map(column => {
             return {
                 id: column.columnInternals.uniqueId,
-                accessorFn: (data: TData): TableFieldValue => {
+                accessorFn: (record: TableNode<TData>): TableFieldValue => {
                     const fieldName = column.columnInternals.operandDataRecordFieldName;
                     if (typeof fieldName !== 'string') {
                         return undefined;
                     }
-                    return data[fieldName];
+                    return record.clientRecord[fieldName];
                 },
                 sortingFn: getTanStackSortingFunction(
                     column.columnInternals.sortOperation
-                )
+                ),
+                sortUndefined: false
             };
         });
     }
