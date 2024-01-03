@@ -82,19 +82,14 @@ describe('Anchor Menu Item', () => {
         ];
         describe('should reflect value to the internal control', () => {
             parameterizeNamedList(attributeNames, (spec, name) => {
-                spec(
-                    `for attribute ${name}`,
-                    async () => {
-                        await connect();
+                spec(`for attribute ${name}`, async () => {
+                    await connect();
 
-                        element.setAttribute(name, 'foo');
-                        await waitForUpdatesAsync();
+                    element.setAttribute(name, 'foo');
+                    await waitForUpdatesAsync();
 
-                        expect(element.anchor.getAttribute(name)).toBe(
-                            'foo'
-                        );
-                    }
-                );
+                    expect(element.anchor.getAttribute(name)).toBe('foo');
+                });
             });
         });
 

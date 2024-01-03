@@ -278,9 +278,7 @@ describe('TableColumnIcon', () => {
                     ],
                     spinnerMappings: []
                 }));
-                pageObject = new TablePageObject<SimpleTableRecord>(
-                    element
-                );
+                pageObject = new TablePageObject<SimpleTableRecord>(element);
                 await element.setData([{ field1: 'a' }]);
                 await connect();
                 await waitForUpdatesAsync();

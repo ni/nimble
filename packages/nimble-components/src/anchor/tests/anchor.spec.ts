@@ -2,9 +2,7 @@ import { html } from '@microsoft/fast-element';
 import { Anchor, anchorTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import {
-    parameterizeNamedList
-} from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<Anchor>> {
     return fixture<Anchor>(html`<nimble-anchor></nimble-anchor>`);
@@ -73,19 +71,14 @@ describe('Anchor', () => {
     ];
     describe('should reflect value to the internal control', () => {
         parameterizeNamedList(attributeNames, (spec, name) => {
-            spec(
-                `for attribute ${name}`,
-                async () => {
-                    await connect();
+            spec(`for attribute ${name}`, async () => {
+                await connect();
 
-                    element.setAttribute(name, 'foo');
-                    await waitForUpdatesAsync();
+                element.setAttribute(name, 'foo');
+                await waitForUpdatesAsync();
 
-                    expect(element.control!.getAttribute(name)).toBe(
-                        'foo'
-                    );
-                }
-            );
+                expect(element.control!.getAttribute(name)).toBe('foo');
+            });
         });
     });
 

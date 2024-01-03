@@ -5,9 +5,7 @@ import {
     richTextMentionUsersTag
 } from '../../../rich-text-mention/users';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import {
-    parameterizeNamedList
-} from '../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { RichTextMarkdownParser } from '../markdown-parser';
 import {
@@ -316,25 +314,37 @@ describe('Markdown parser', () => {
                 ];
 
                 describe('should reflect value to the internal control', () => {
-                    parameterizeNamedList(supportedAbsoluteLink, (spec, name, value) => {
-                        spec(`${name} to "nimble-anchor" tags with the link as the text content`, () => {
-                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                                value.validLink
-                            ).fragment;
-                            const renderedLink = value.validLink.slice(1, -1);
+                    parameterizeNamedList(
+                        supportedAbsoluteLink,
+                        (spec, name, value) => {
+                            spec(
+                                `${name} to "nimble-anchor" tags with the link as the text content`,
+                                () => {
+                                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                        value.validLink
+                                    ).fragment;
+                                    const renderedLink = value.validLink.slice(
+                                        1,
+                                        -1
+                                    );
 
-                            expect(getTagsFromElement(doc)).toEqual([
-                                'P',
-                                'NIMBLE-ANCHOR'
-                            ]);
-                            expect(getLeafContentsFromElement(doc)).toEqual([
-                                renderedLink
-                            ]);
-                            expect(
-                                getLastChildElementAttribute('href', doc)
-                            ).toBe(renderedLink);
-                        });
-                    });
+                                    expect(getTagsFromElement(doc)).toEqual([
+                                        'P',
+                                        'NIMBLE-ANCHOR'
+                                    ]);
+                                    expect(
+                                        getLeafContentsFromElement(doc)
+                                    ).toEqual([renderedLink]);
+                                    expect(
+                                        getLastChildElementAttribute(
+                                            'href',
+                                            doc
+                                        )
+                                    ).toBe(renderedLink);
+                                }
+                            );
+                        }
+                    );
                 });
             });
 
@@ -418,28 +428,37 @@ describe('Markdown parser', () => {
                 ];
 
                 describe('should reflect value to the internal control', () => {
-                    parameterizeNamedList(supportedAbsoluteLink, (spec, name, value) => {
-                        spec(
-                            `${name} to "nimble-anchor" tags with the non-ASCII characters as the text content and encoded as their href`,
-                            () => {
-                                const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                                    value.validLink
-                                ).fragment;
-                                const renderedLink = value.validLink.slice(1, -1);
+                    parameterizeNamedList(
+                        supportedAbsoluteLink,
+                        (spec, name, value) => {
+                            spec(
+                                `${name} to "nimble-anchor" tags with the non-ASCII characters as the text content and encoded as their href`,
+                                () => {
+                                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                        value.validLink
+                                    ).fragment;
+                                    const renderedLink = value.validLink.slice(
+                                        1,
+                                        -1
+                                    );
 
-                                expect(getTagsFromElement(doc)).toEqual([
-                                    'P',
-                                    'NIMBLE-ANCHOR'
-                                ]);
-                                expect(getLeafContentsFromElement(doc)).toEqual([
-                                    renderedLink
-                                ]);
-                                expect(
-                                    getLastChildElementAttribute('href', doc)
-                                ).toBe(value.encodeURL);
-                            }
-                        );
-                    });
+                                    expect(getTagsFromElement(doc)).toEqual([
+                                        'P',
+                                        'NIMBLE-ANCHOR'
+                                    ]);
+                                    expect(
+                                        getLeafContentsFromElement(doc)
+                                    ).toEqual([renderedLink]);
+                                    expect(
+                                        getLastChildElementAttribute(
+                                            'href',
+                                            doc
+                                        )
+                                    ).toBe(value.encodeURL);
+                                }
+                            );
+                        }
+                    );
                 });
             });
 
@@ -712,10 +731,10 @@ describe('Markdown parser', () => {
             }
         ];
 
-        parameterizeNamedList(testsWithEscapeCharacters, (spec, name, value) => {
-            spec(
-                `"${name}"`,
-                () => {
+        parameterizeNamedList(
+            testsWithEscapeCharacters,
+            (spec, name, value) => {
+                spec(`"${name}"`, () => {
                     const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                         value.name
                     ).fragment;
@@ -724,9 +743,9 @@ describe('Markdown parser', () => {
                     expect(getLeafContentsFromElement(doc)).toEqual(
                         value.textContent
                     );
-                }
-            );
-        });
+                });
+            }
+        );
 
         it('special character `.` should be parsed properly (number list test)', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
@@ -818,16 +837,16 @@ describe('Markdown parser', () => {
                     ).fragment;
 
                     expect(getTagsFromElement(doc)).toEqual(['P']);
-                    expect(getLeafContentsFromElement(doc)).toEqual([
-                        name
-                    ]);
+                    expect(getLeafContentsFromElement(doc)).toEqual([name]);
                 }
             );
         });
     });
 
     describe('various wacky string values render as unchanged strings', () => {
-        const wackyStringsToTest = wackyStrings.filter(value => value.name !== '\x00');
+        const wackyStringsToTest = wackyStrings.filter(
+            value => value.name !== '\x00'
+        );
 
         parameterizeNamedList(wackyStringsToTest, (spec, name) => {
             spec(
@@ -838,9 +857,7 @@ describe('Markdown parser', () => {
                     ).fragment;
 
                     expect(getTagsFromElement(doc)).toEqual(['P']);
-                    expect(getLeafContentsFromElement(doc)).toEqual([
-                        name
-                    ]);
+                    expect(getLeafContentsFromElement(doc)).toEqual([name]);
                 }
             );
         });
@@ -854,25 +871,27 @@ describe('Markdown parser', () => {
             textContent: string[]
         }[] = [
             { name: '\\0', value: '\0', tags: ['P'], textContent: ['�'] },
-            { name: '\\uFFFD', value: '\uFFFD', tags: ['P'], textContent: [''] },
-            { name: '\\x00', value: '\x00', tags: ['P'], textContent: ['�'] },
-            { name: '\\r\\r', value: '\r\r', tags: ['P'], textContent: ['�'] }
+            { name: '\\r\\r', value: '\r\r', tags: ['P'], textContent: [''] },
+            {
+                name: '\\uFFFD',
+                value: '\uFFFD',
+                tags: ['P'],
+                textContent: ['�']
+            },
+            { name: '\\x00', value: '\x00', tags: ['P'], textContent: ['�'] }
         ];
 
         parameterizeNamedList(modifiedWackyStrings, (spec, name, value) => {
-            spec(
-                `wacky string "${name}" modified when rendered`,
-                () => {
-                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                        value.value
-                    ).fragment;
+            spec(`wacky string "${name}" modified when rendered`, () => {
+                const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                    value.value
+                ).fragment;
 
-                    expect(getTagsFromElement(doc)).toEqual(value.tags);
-                    expect(getLeafContentsFromElement(doc)).toEqual(
-                        value.textContent
-                    );
-                }
-            );
+                expect(getTagsFromElement(doc)).toEqual(value.tags);
+                expect(getLeafContentsFromElement(doc)).toEqual(
+                    value.textContent
+                );
+            });
         });
     });
 
@@ -935,14 +954,17 @@ describe('Markdown parser', () => {
             }
         ];
 
-        parameterizeNamedList(markdownStringWithHardBreak, (spec, name, value) => {
-            spec(`should render br tag with "${name}"`, () => {
-                const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                    value.value
-                ).fragment;
-                expect(getTagsFromElement(doc)).toEqual(value.tags);
-            });
-        });
+        parameterizeNamedList(
+            markdownStringWithHardBreak,
+            (spec, name, value) => {
+                spec(`should render br tag with "${name}"`, () => {
+                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                        value.value
+                    ).fragment;
+                    expect(getTagsFromElement(doc)).toEqual(value.tags);
+                });
+            }
+        );
     });
 
     describe('user mention', () => {

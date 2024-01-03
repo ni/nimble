@@ -133,9 +133,7 @@ describe('DecimalFormatter', () => {
                     value.minDigits,
                     value.maxDigits
                 );
-                const formattedValue = formatter.formatValue(
-                    value.value
-                );
+                const formattedValue = formatter.formatValue(value.value);
                 expect(formattedValue).toEqual(
                     value.expectedFormattedValue[locale]
                 );

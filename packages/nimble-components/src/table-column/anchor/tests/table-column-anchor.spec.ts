@@ -87,7 +87,7 @@ describe('TableColumnAnchor', () => {
             }
         ];
         parameterizeNamedList(noValueData, (spec, name, value) => {
-            spec(`displays empty string when label ${name}`, async() => {
+            spec(`displays empty string when label ${name}`, async () => {
                 await element.setData(value.data);
                 await connect();
                 await waitForUpdatesAsync();
@@ -184,9 +184,9 @@ describe('TableColumnAnchor', () => {
                     await element.setData([{ label: name }]);
                     await waitForUpdatesAsync();
 
-                    expect(
-                        pageObject.getRenderedCellTextContent(0, 0)
-                    ).toBe(name);
+                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                        name
+                    );
                 });
             });
         });
@@ -260,7 +260,7 @@ describe('TableColumnAnchor', () => {
                 expect(
                     value.accessor(pageObject.getRenderedCellAnchor(0, 0))
                 ).toBe(`${value.name} value`);
-            })
+            });
         });
 
         describe('with no label', () => {
@@ -417,14 +417,12 @@ describe('TableColumnAnchor', () => {
                 spec(`data "${name}" renders correctly`, async () => {
                     await connect();
 
-                    await element.setData([
-                        { label: name, link: 'url' }
-                    ]);
+                    await element.setData([{ label: name, link: 'url' }]);
                     await waitForUpdatesAsync();
 
-                    expect(
-                        pageObject.getRenderedCellTextContent(0, 0)
-                    ).toBe(name);
+                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                        name
+                    );
                 });
             });
         });
@@ -434,9 +432,7 @@ describe('TableColumnAnchor', () => {
                 spec(`data "${name}" renders correctly`, async () => {
                     await connect();
 
-                    await element.setData([
-                        { label: name, link: 'url' }
-                    ]);
+                    await element.setData([{ label: name, link: 'url' }]);
                     await waitForUpdatesAsync();
 
                     expect(

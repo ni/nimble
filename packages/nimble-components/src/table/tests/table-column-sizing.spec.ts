@@ -195,53 +195,52 @@ describe('Table Column Sizing', () => {
             }
         ];
         parameterizeNamedList(columnSizeTests, (spec, name, value) => {
-            spec(
-                name,
-                async () => {
-                    await connect();
-                    await pageObject.sizeTableToGivenRowWidth(
-                        value.rowWidth,
-                        element
-                    );
-                    await element.setData(simpleTableData);
-                    await connect();
-                    await waitForUpdatesAsync();
+            spec(name, async () => {
+                await connect();
+                await pageObject.sizeTableToGivenRowWidth(
+                    value.rowWidth,
+                    element
+                );
+                await element.setData(simpleTableData);
+                await connect();
+                await waitForUpdatesAsync();
 
-                    column1.columnInternals.fractionalWidth = value.column1FractionalWidth;
-                    column1.columnInternals.pixelWidth = value.column1PixelWidth;
-                    if (
-                        typeof value.column1MinPixelWidth === 'number'
-                    ) {
-                        column1.columnInternals.minPixelWidth = value.column1MinPixelWidth;
-                    }
-
-                    column2.columnInternals.fractionalWidth = value.column2FractionalWidth;
-                    column2.columnInternals.pixelWidth = value.column2PixelWidth;
-                    if (
-                        typeof value.column2MinPixelWidth === 'number'
-                    ) {
-                        column2.columnInternals.minPixelWidth = value.column2MinPixelWidth;
-                    }
-
-                    await waitForUpdatesAsync();
-                    const column1RenderedWidth = pageObject.getCellRenderedWidth(0, 0);
-                    const column2RenderedWidth = pageObject.getCellRenderedWidth(0, 1);
-                    const header1RenderedWidth = pageObject.getHeaderRenderedWidth(0);
-                    const header2RenderedWidth = pageObject.getHeaderRenderedWidth(1);
-                    expect(column1RenderedWidth).toBe(
-                        value.column1ExpectedRenderedWidth
-                    );
-                    expect(column2RenderedWidth).toBe(
-                        value.column2ExpectedRenderedWidth
-                    );
-                    expect(header1RenderedWidth).toBe(
-                        value.column1ExpectedRenderedWidth
-                    );
-                    expect(header2RenderedWidth).toBe(
-                        value.column2ExpectedRenderedWidth
-                    );
+                column1.columnInternals.fractionalWidth = value.column1FractionalWidth;
+                column1.columnInternals.pixelWidth = value.column1PixelWidth;
+                if (typeof value.column1MinPixelWidth === 'number') {
+                    column1.columnInternals.minPixelWidth = value.column1MinPixelWidth;
                 }
-            );
+
+                column2.columnInternals.fractionalWidth = value.column2FractionalWidth;
+                column2.columnInternals.pixelWidth = value.column2PixelWidth;
+                if (typeof value.column2MinPixelWidth === 'number') {
+                    column2.columnInternals.minPixelWidth = value.column2MinPixelWidth;
+                }
+
+                await waitForUpdatesAsync();
+                const column1RenderedWidth = pageObject.getCellRenderedWidth(
+                    0,
+                    0
+                );
+                const column2RenderedWidth = pageObject.getCellRenderedWidth(
+                    0,
+                    1
+                );
+                const header1RenderedWidth = pageObject.getHeaderRenderedWidth(0);
+                const header2RenderedWidth = pageObject.getHeaderRenderedWidth(1);
+                expect(column1RenderedWidth).toBe(
+                    value.column1ExpectedRenderedWidth
+                );
+                expect(column2RenderedWidth).toBe(
+                    value.column2ExpectedRenderedWidth
+                );
+                expect(header1RenderedWidth).toBe(
+                    value.column1ExpectedRenderedWidth
+                );
+                expect(header2RenderedWidth).toBe(
+                    value.column2ExpectedRenderedWidth
+                );
+            });
         });
 
         it('resizing table with fractionalWidth columns changes column rendered widths', async () => {
@@ -477,9 +476,7 @@ describe('Table Interactive Column Sizing', () => {
                     value.dragDeltas
                 );
                 await waitForUpdatesAsync();
-                value.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
-                    width
-                ));
+                value.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(width));
             });
         });
 
@@ -633,26 +630,29 @@ describe('Table Interactive Column Sizing', () => {
                 expectedColumnWidths: [100, 50, 150]
             }
         ];
-        parameterizeNamedList(hiddenColumDragRightDividerTests, (spec, name, value) => {
-            spec(name, async () => {
-                await pageObject.sizeTableToGivenRowWidth(
-                    value.tableWidth,
-                    element
-                );
-                value.hiddenColumns.forEach(columnIndex => {
-                    element.columns[columnIndex]!.columnHidden = true;
+        parameterizeNamedList(
+            hiddenColumDragRightDividerTests,
+            (spec, name, value) => {
+                spec(name, async () => {
+                    await pageObject.sizeTableToGivenRowWidth(
+                        value.tableWidth,
+                        element
+                    );
+                    value.hiddenColumns.forEach(columnIndex => {
+                        element.columns[columnIndex]!.columnHidden = true;
+                    });
+                    await waitForUpdatesAsync();
+                    pageObject.dragSizeColumnByRightDivider(
+                        value.dragColumnIndex,
+                        value.dragDeltas
+                    );
+                    await waitForUpdatesAsync();
+                    value.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
+                        width
+                    ));
                 });
-                await waitForUpdatesAsync();
-                pageObject.dragSizeColumnByRightDivider(
-                    value.dragColumnIndex,
-                    value.dragDeltas
-                );
-                await waitForUpdatesAsync();
-                value.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
-                    width
-                ));
-            });
-        });
+            }
+        );
     });
 
     describe('hidden column drag left divider tests ', () => {
@@ -722,26 +722,29 @@ describe('Table Interactive Column Sizing', () => {
                 expectedColumnWidths: [100, 50, 150]
             }
         ];
-        parameterizeNamedList(hiddenColumDragRightDividerTests, (spec, name, value) => {
-            spec(name, async () => {
-                await pageObject.sizeTableToGivenRowWidth(
-                    value.tableWidth,
-                    element
-                );
-                value.hiddenColumns.forEach(columnIndex => {
-                    element.columns[columnIndex]!.columnHidden = true;
+        parameterizeNamedList(
+            hiddenColumDragRightDividerTests,
+            (spec, name, value) => {
+                spec(name, async () => {
+                    await pageObject.sizeTableToGivenRowWidth(
+                        value.tableWidth,
+                        element
+                    );
+                    value.hiddenColumns.forEach(columnIndex => {
+                        element.columns[columnIndex]!.columnHidden = true;
+                    });
+                    await waitForUpdatesAsync();
+                    pageObject.dragSizeColumnByLeftDivider(
+                        value.dragColumnIndex,
+                        value.dragDeltas
+                    );
+                    await waitForUpdatesAsync();
+                    value.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
+                        width
+                    ));
                 });
-                await waitForUpdatesAsync();
-                pageObject.dragSizeColumnByLeftDivider(
-                    value.dragColumnIndex,
-                    value.dragDeltas
-                );
-                await waitForUpdatesAsync();
-                value.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
-                    width
-                ));
-            });
-        });
+            }
+        );
     });
 
     describe('active divider tests', () => {
@@ -799,9 +802,7 @@ describe('Table Interactive Column Sizing', () => {
                     }
                 }
                 document.dispatchEvent(mouseUpEvent); // clean up registered event handlers
-                expect(activeDividers).toEqual(
-                    value.expectedActiveIndexes
-                );
+                expect(activeDividers).toEqual(value.expectedActiveIndexes);
             });
         });
 

@@ -290,9 +290,7 @@ describe('TableValidator', () => {
                 );
 
                 expect(isValid).toBe(value.isValid);
-                expect(tableValidator.isValid()).toBe(
-                    value.isValid
-                );
+                expect(tableValidator.isValid()).toBe(value.isValid);
             });
         });
 
@@ -384,9 +382,7 @@ describe('TableValidator', () => {
                     value.invalidKeys.length === 0
                 );
                 expect(getInvalidKeys(tableValidator)).toEqual(
-                    jasmine.arrayWithExactContents(
-                        value.invalidKeys
-                    )
+                    jasmine.arrayWithExactContents(value.invalidKeys)
                 );
             });
         });
@@ -473,9 +469,7 @@ describe('TableValidator', () => {
                     value.invalidKeys.length === 0
                 );
                 expect(getInvalidKeys(tableValidator)).toEqual(
-                    jasmine.arrayWithExactContents(
-                        value.invalidKeys
-                    )
+                    jasmine.arrayWithExactContents(value.invalidKeys)
                 );
             });
         });
@@ -570,9 +564,7 @@ describe('TableValidator', () => {
                     value.invalidKeys.length === 0
                 );
                 expect(getInvalidKeys(tableValidator)).toEqual(
-                    jasmine.arrayWithExactContents(
-                        value.invalidKeys
-                    )
+                    jasmine.arrayWithExactContents(value.invalidKeys)
                 );
             });
         });
@@ -639,13 +631,9 @@ describe('TableValidator', () => {
                 );
 
                 expect(isValid).toBe(value.isValid);
-                expect(tableValidator.isValid()).toBe(
-                    value.isValid
-                );
+                expect(tableValidator.isValid()).toBe(value.isValid);
                 expect(getInvalidKeys(tableValidator)).toEqual(
-                    jasmine.arrayWithExactContents(
-                        value.invalidKeys
-                    )
+                    jasmine.arrayWithExactContents(value.invalidKeys)
                 );
             });
         });

@@ -39,21 +39,16 @@ describe('AnchorTab', () => {
     ];
     describe('should reflect value to the internal anchor element', () => {
         parameterizeNamedList(attributeNames, (spec, name) => {
-            spec(
-                `for attribute ${name}`,
-                async () => {
-                    await connect();
+            spec(`for attribute ${name}`, async () => {
+                await connect();
 
-                    element.setAttribute(name, 'foo');
-                    await waitForUpdatesAsync();
+                element.setAttribute(name, 'foo');
+                await waitForUpdatesAsync();
 
-                    expect(
-                        element
-                            .shadowRoot!.querySelector('a')!
-                            .getAttribute(name)
-                    ).toBe('foo');
-                }
-            );
+                expect(
+                    element.shadowRoot!.querySelector('a')!.getAttribute(name)
+                ).toBe('foo');
+            });
         });
     });
 });

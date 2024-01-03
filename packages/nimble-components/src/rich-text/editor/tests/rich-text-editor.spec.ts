@@ -1,9 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import {
-    parameterizeNamedList
-} from '../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import type { Button } from '../../../button';
@@ -170,105 +168,71 @@ describe('RichTextEditor', () => {
 
     describe('clicking buttons should update the checked state of the toggle button with focus', () => {
         parameterizeNamedList(formattingButtons, (spec, name, value) => {
-            spec(
-                `"${name}" button click check`,
-                async () => {
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeFalse();
+            spec(`"${name}" button click check`, async () => {
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeFalse();
 
-                    await pageObject.toggleFooterButton(
-                        value.toolbarButtonIndex
-                    );
+                await pageObject.toggleFooterButton(value.toolbarButtonIndex);
 
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeTrue();
-                    expect(
-                        pageObject.getButtonTabIndex(value.toolbarButtonIndex)
-                    ).toBe(0);
-                }
-            );
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeTrue();
+                expect(
+                    pageObject.getButtonTabIndex(value.toolbarButtonIndex)
+                ).toBe(0);
+            });
         });
     });
 
     describe('space key press should update the checked state of the buttons', () => {
         parameterizeNamedList(formattingButtons, (spec, name, value) => {
-            spec(
-                `"${name}" button key press check`,
-                () => {
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeFalse();
+            spec(`"${name}" button key press check`, () => {
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeFalse();
 
-                    pageObject.spaceKeyActivatesButton(
-                        value.toolbarButtonIndex
-                    );
+                pageObject.spaceKeyActivatesButton(value.toolbarButtonIndex);
 
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeTrue();
-                }
-            );
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeTrue();
+            });
         });
     });
 
     describe('enter key press should update the checked state of the buttons', () => {
         parameterizeNamedList(formattingButtons, (spec, name, value) => {
-            spec(
-                `"${name}" button key press check`,
-                () => {
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeFalse();
+            spec(`"${name}" button key press check`, () => {
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeFalse();
 
-                    pageObject.enterKeyActivatesButton(
-                        value.toolbarButtonIndex
-                    );
+                pageObject.enterKeyActivatesButton(value.toolbarButtonIndex);
 
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeTrue();
-                }
-            );
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeTrue();
+            });
         });
     });
 
     describe('keyboard shortcuts should update the checked state of the buttons', () => {
         parameterizeNamedList(formattingButtons, (spec, name, value) => {
-            spec(
-                `"${name}" button keyboard shortcut check`,
-                async () => {
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeFalse();
+            spec(`"${name}" button keyboard shortcut check`, async () => {
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeFalse();
 
-                    await pageObject.clickEditorShortcutKeys(
-                        value.shortcutKey,
-                        value.shiftKey
-                    );
+                await pageObject.clickEditorShortcutKeys(
+                    value.shortcutKey,
+                    value.shiftKey
+                );
 
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeTrue();
-                }
-            );
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeTrue();
+            });
         });
     });
 
@@ -1662,12 +1626,11 @@ describe('RichTextEditor', () => {
     });
 
     describe('Should return markdown without any changes when various wacky string values are assigned', () => {
-        const wackyStringsToTest = wackyStrings
-            .filter(
-                value => value.name !== '\x00'
-                    && value.name !== '-Infinity'
-                    && value.name !== '-2147483648/-1'
-            );
+        const wackyStringsToTest = wackyStrings.filter(
+            value => value.name !== '\x00'
+                && value.name !== '-Infinity'
+                && value.name !== '-2147483648/-1'
+        );
 
         parameterizeNamedList(wackyStringsToTest, (spec, name) => {
             spec(
@@ -1695,20 +1658,23 @@ describe('RichTextEditor', () => {
             { name: '-2147483648/-1', value: r`\-2147483648/-1` }
         ];
 
-        parameterizeNamedList(wackyStringWithSpecialMarkdownCharacter, (spec, name, value) => {
-            spec(
-                ` wacky string contains special markdown syntax "${name}" returns as plain text "${value.value}" with added escape character`,
-                async () => {
-                    element.setMarkdown(value.name);
+        parameterizeNamedList(
+            wackyStringWithSpecialMarkdownCharacter,
+            (spec, name, value) => {
+                spec(
+                    ` wacky string contains special markdown syntax "${name}" returns as plain text "${value.value}" with added escape character`,
+                    async () => {
+                        element.setMarkdown(value.name);
 
-                    await connect();
+                        await connect();
 
-                    expect(element.getMarkdown()).toBe(value.value);
+                        expect(element.getMarkdown()).toBe(value.value);
 
-                    await disconnect();
-                }
-            );
-        });
+                        await disconnect();
+                    }
+                );
+            }
+        );
     });
 
     describe('Should return modified markdown when various wacky string values are assigned', () => {
@@ -1778,24 +1744,17 @@ describe('RichTextEditor', () => {
 
         describe('should reflect disabled value to the disabled and aria-disabled state of toggle buttons', () => {
             parameterizeNamedList(formattingButtons, (spec, name, value) => {
-                spec(
-                    `for "${name}" button`,
-                    async () => {
-                        expect(
-                            pageObject.isButtonDisabled(
-                                value.toolbarButtonIndex
-                            )
-                        ).toBeFalse();
+                spec(`for "${name}" button`, async () => {
+                    expect(
+                        pageObject.isButtonDisabled(value.toolbarButtonIndex)
+                    ).toBeFalse();
 
-                        await pageObject.setDisabled(true);
+                    await pageObject.setDisabled(true);
 
-                        expect(
-                            pageObject.isButtonDisabled(
-                                value.toolbarButtonIndex
-                            )
-                        ).toBeTrue();
-                    }
-                );
+                    expect(
+                        pageObject.isButtonDisabled(value.toolbarButtonIndex)
+                    ).toBeTrue();
+                });
             });
         });
     });

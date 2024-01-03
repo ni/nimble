@@ -203,9 +203,7 @@ describe('TableColumnText', () => {
                 await element.setData([{ field: name }]);
                 await waitForUpdatesAsync();
 
-                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
-                    name
-                );
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(name);
             });
         });
     });

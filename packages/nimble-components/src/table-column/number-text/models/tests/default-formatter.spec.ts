@@ -217,9 +217,7 @@ describe('DefaultFormatter', () => {
         parameterizeNamedList(testCases, (spec, name, value) => {
             spec(`${name} with '${locale}' locale`, () => {
                 const formatter = new DefaultFormatter(locale);
-                const formattedValue = formatter.formatValue(
-                    value.value
-                );
+                const formattedValue = formatter.formatValue(value.value);
                 expect(formattedValue).toEqual(
                     value.expectedFormattedValue[locale]
                 );

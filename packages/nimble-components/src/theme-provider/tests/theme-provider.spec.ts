@@ -175,9 +175,7 @@ describe('Theme Provider', () => {
         );
         parameterizeNamedList(propertyNames, (spec, name) => {
             spec(`for token name ${name}`, () => {
-                expect(
-                    suffixFromTokenName(name)
-                ).not.toBeUndefined();
+                expect(suffixFromTokenName(name)).not.toBeUndefined();
             });
         });
     });

@@ -169,16 +169,12 @@ describe('TableColumnEnumText', () => {
                 ({ element, connect, disconnect, model } = await setup([
                     { key: 'a', text: name }
                 ]));
-                pageObject = new TablePageObject<SimpleTableRecord>(
-                    element
-                );
+                pageObject = new TablePageObject<SimpleTableRecord>(element);
                 await element.setData([{ field1: 'a' }]);
                 await connect();
                 await waitForUpdatesAsync();
 
-                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
-                    name
-                );
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(name);
             });
         });
     });
@@ -189,9 +185,7 @@ describe('TableColumnEnumText', () => {
                 ({ element, connect, disconnect, model } = await setup([
                     { key: 'a', text: name }
                 ]));
-                pageObject = new TablePageObject<SimpleTableRecord>(
-                    element
-                );
+                pageObject = new TablePageObject<SimpleTableRecord>(element);
                 await element.setData([{ field1: 'a' }]);
                 await connect();
                 await waitForUpdatesAsync();

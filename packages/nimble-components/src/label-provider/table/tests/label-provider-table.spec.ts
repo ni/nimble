@@ -72,10 +72,7 @@ describe('Label Provider Table', () => {
 
         parameterizeNamedList(tokenEntries, (spec, name, value) => {
             spec(`for token name ${name}`, () => {
-                const tokenName = removePrefixAndCamelCase(
-                    value.name,
-                    'table'
-                );
+                const tokenName = removePrefixAndCamelCase(value.name, 'table');
                 const expectedPropertyName = getPropertyName(tokenName);
                 const expectedAttributeName = getAttributeName(tokenName);
                 const attributeDefinition = element.$fastController.definition.attributes.find(
@@ -99,10 +96,7 @@ describe('Label Provider Table', () => {
 
         parameterizeNamedList(tokenEntries, (spec, name, value) => {
             spec(`for token name ${name}`, () => {
-                const tokenName = removePrefixAndCamelCase(
-                    value.name,
-                    'table'
-                );
+                const tokenName = removePrefixAndCamelCase(value.name, 'table');
                 const attributeName = getAttributeName(tokenName);
                 const updatedValue = `NewString-${tokenName}`;
                 element.setAttribute(attributeName, updatedValue);
