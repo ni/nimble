@@ -14,9 +14,7 @@ import {
     smallDelay,
     mediumPadding,
     standardPadding,
-    linkFontColor,
-    mentionDisabledFontColor,
-    mentionFontColor
+    linkFontColor
 } from '../../theme-provider/design-tokens';
 import { styles as errorStyles } from '../../patterns/error/styles';
 import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
@@ -33,7 +31,6 @@ export const styles = css`
         --ni-private-rich-text-editor-hover-indicator-width: calc(
             ${borderWidth} + 1px
         );
-        --ni-nimble-private-mention-font-color: ${mentionFontColor};
 
         ${
             /** Initial height of rich text editor with one line space when the footer is visible. */ ''
@@ -82,7 +79,6 @@ export const styles = css`
     :host([disabled]) .container {
         color: ${bodyDisabledFontColor};
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
-        --ni-nimble-private-mention-font-color: ${mentionDisabledFontColor};
     }
 
     :host([disabled]) ${richTextMentionUsersViewTag} {

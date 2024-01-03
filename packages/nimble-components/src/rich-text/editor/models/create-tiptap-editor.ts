@@ -185,13 +185,21 @@ function createCustomMentionExtension(
                         };
                     }
                 },
-
                 label: {
                     default: null,
                     parseHTML: element => element.getAttribute('mention-label'),
                     renderHTML: attributes => {
                         return {
                             'mention-label': attributes.label as string
+                        };
+                    }
+                },
+                disabled: {
+                    default: null,
+                    parseHTML: element => element.getAttribute('disabled'),
+                    renderHTML: attributes => {
+                        return {
+                            disabled: attributes.disabled as string
                         };
                     }
                 }
