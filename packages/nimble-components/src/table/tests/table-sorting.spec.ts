@@ -1041,7 +1041,6 @@ describe('Table sorting', () => {
             { id: '2.0.2', stringData1: 'black', parentId: '2.0' }
         ] as const;
 
-        /* eslint-disable no-multi-spaces */
         const hierarchicalAscendingSortOrder = [
             '1', // bear
             '1.2', // bear - grizzly
