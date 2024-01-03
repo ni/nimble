@@ -81,3 +81,11 @@ export const hiddenButton: StoryFn = createStory(
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(html`<${buttonTag}>Button</${buttonTag}>`)
 );
+
+export const inlineAlignment: StoryFn = createStory(
+    html`Text
+        <${buttonTag}>Button</${buttonTag}>
+        Text
+        <${buttonTag}><${iconKeyTag} slot="start"></${iconKeyTag}>Button</${buttonTag}>
+        <img src="https://github.com/ni/nimble/raw/main/docs/nimble-logo-icon.svg" width="50px" style="border: 1px black solid">`
+);
