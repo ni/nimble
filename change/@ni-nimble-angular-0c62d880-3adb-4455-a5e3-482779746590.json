@@ -1,6 +1,6 @@
 {
   "type": "none",
-  "comment": "Angular test file needed updating.",
+  "comment": "Update Angular test file with additional table validation entry",
   "packageName": "@ni/nimble-angular",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
   "dependentChangeType": "none"
