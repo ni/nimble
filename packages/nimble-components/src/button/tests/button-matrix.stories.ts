@@ -87,5 +87,5 @@ export const inlineAlignment: StoryFn = createStory(
         <${buttonTag}>Button</${buttonTag}>
         Text
         <${buttonTag}><${iconKeyTag} slot="start"></${iconKeyTag}>Button</${buttonTag}>
-        <img src="https://github.com/ni/nimble/raw/main/docs/nimble-logo-icon.svg" width="50px" style="border: 1px black solid">`
+        <div style="display:inline-block; width:50px; height:50px; border: 1px black solid;"></div>`
 );
