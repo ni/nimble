@@ -42,7 +42,7 @@ const simpleData = [
         status: 'success',
         isChild: true
     }
-];
+] as const;
 
 const iconColumnDescription = `The \`nimble-table-column-icon\` column renders string, number, or boolean values as a Nimble icon or \`nimble-spinner\` in the \`nimble-table\`.
 

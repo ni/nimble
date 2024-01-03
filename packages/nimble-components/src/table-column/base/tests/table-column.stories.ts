@@ -71,7 +71,7 @@ const simpleData = [
         lastName: 'Simpson',
         favoriteColor: 'Red'
     }
-];
+] as const;
 
 const overviewText = `This page contains information about configuring the columns of a \`nimble-table\`. 
 See **Table** for information about configuring the table itself and the **Table Column** specific docs for 

@@ -35,7 +35,7 @@ const simpleData = [
         lastName: 'Simpson',
         favoriteColor: 'Red'
     }
-];
+] as const;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Text',
