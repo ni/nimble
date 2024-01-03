@@ -1,9 +1,10 @@
 import { css } from '@microsoft/fast-element';
 import { styles as dropdownStyles } from '../patterns/dropdown/styles';
 import { styles as errorStyles } from '../patterns/error/styles';
-import { applicationBackgroundColor, borderWidth, elevation2BoxShadow, popupBorderColor, smallPadding } from '../theme-provider/design-tokens';
+import { applicationBackgroundColor, borderWidth, controlHeight, dividerBackgroundColor, elevation2BoxShadow, mediumPadding, placeholderDisabledFontColor, placeholderFontColor, popupBorderColor, smallPadding } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { DropdownAppearance } from './types';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${dropdownStyles}
@@ -48,6 +49,52 @@ export const styles = css`
         background-color: ${applicationBackgroundColor};
     }
 
+    .listbox {
+        border: 0px;
+    }
+
+    .listbox.inverted {
+        flex-flow: column-reverse;
+    }
+
+    .search-field {
+        display: flex;
+        flex-direction: row;
+        padding-left: ${smallPadding};
+        padding-right: ${smallPadding};
+        padding-top: ${mediumPadding};
+        padding-bottom: ${smallPadding};
+        align-items: center;
+    }
+
+    .search-field::after {
+        content: '';
+        position: absolute;
+        top: calc(${controlHeight} + ${smallPadding});
+        width: calc(100% - ${mediumPadding});
+        height: 0px;
+        border-bottom: ${dividerBackgroundColor}
+            var(--ni-private-hover-indicator-width) solid;
+    }
+
+    .search-field.inverted::after {
+        width: 0px;
+    }
+
+    .search-field::before {
+        content: '';
+        position: absolute;
+        bottom: calc(${controlHeight} + ${smallPadding});
+        width: 0px;
+        height: 0px;
+        border-bottom: ${dividerBackgroundColor}
+            var(--ni-private-hover-indicator-width) solid;
+    }
+
+    .search-field.inverted::before {
+        width: calc(100% - ${mediumPadding});
+    }
+
     .filter-input {
         -webkit-appearance: none;
         background: transparent;
@@ -59,8 +106,18 @@ export const styles = css`
         height: var(--ni-private-height-within-border);
     }
 
-    .listbox {
-        border: 0px;
+    .filter-input.empty {
+        color: ${placeholderFontColor};
+    }
+
+    .filter-input${focusVisible} {
+        outline: 0px;
+    }
+
+    .no-results-label {
+        padding-left: ${mediumPadding};
+        padding-bottom: ${mediumPadding};
+        color: ${placeholderDisabledFontColor};
     }
 `.withBehaviors(
     appearanceBehavior(

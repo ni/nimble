@@ -55,8 +55,18 @@ export class Select extends FoundationSelect implements ErrorPattern {
     @observable
     public hasOverflow = false;
 
-    private _filter = '';
-    private filteredOptions: ListOption[] = [];
+    @observable
+    public filteredOptions: ListboxOption[] = [];
+
+    @observable
+    public filter = '';
+
+    private committedSelectedOption: ListboxOption | undefined = undefined;
+
+    public constructor() {
+        super();
+        this.addEventListener('change', this.changeValueHandler);
+    }
 
     /**
      * The list of options.
@@ -67,11 +77,12 @@ export class Select extends FoundationSelect implements ErrorPattern {
      */
     public override get options(): ListboxOption[] {
         Observable.track(this, 'options');
-        return this.filteredOptions?.length ? this.filteredOptions : this._options;
+        return this.filteredOptions?.length ? this.filteredOptions : this._options as ListOption[];
     }
 
     public override set options(value: ListboxOption[]) {
         this._options = value;
+        this.committedSelectedOption = value.find(option => option.selected);
         Observable.notify(this, 'options');
     }
 
@@ -166,17 +177,24 @@ export class Select extends FoundationSelect implements ErrorPattern {
      * @internal
      */
     public inputHandler(e: InputEvent): boolean {
-        this._filter = this.input?.value ?? '';
+        this.filter = this.input?.value ?? '';
+        if (!this.committedSelectedOption) {
+            this.committedSelectedOption = this._options.find(option => option.selected);
+        }
         this.filterOptions();
-
-        const filteredOptionSelectedIndex = this.options
-            .map(option => option.text)
-            .indexOf((this.control as HTMLInputElement).value);
-        if (filteredOptionSelectedIndex >= 0) {
-            this.selectedIndex = filteredOptionSelectedIndex;
+        this.clearSelection();
+        if (this.committedSelectedOption) {
+            this.committedSelectedOption.selected = true;
         }
 
-        if (e.inputType.includes('deleteContent') || !this._filter.length) {
+        if (this.filteredOptions.length > 0
+            && this.committedSelectedOption
+            && !this.filteredOptions.includes(this.committedSelectedOption)) {
+            this.committedSelectedOption.selected = false;
+            this.filteredOptions[0]!.selected = true;
+        }
+
+        if (e.inputType.includes('deleteContent') || !this.filter.length) {
             return true;
         }
 
@@ -201,8 +219,23 @@ export class Select extends FoundationSelect implements ErrorPattern {
                 break;
             }
 
-            case 'Escape':
             case 'Enter': {
+                this.filteredOptions = [];
+                const selectedItem = this.options[this.selectedIndex];
+                if (selectedItem) {
+                    // translate selectedIndex for filtered list to selectedIndex for all items
+                    this.selectedIndex = this._options.indexOf(selectedItem);
+                }
+                super.keydownHandler(e);
+                this.focus();
+                break;
+            }
+            case 'Escape': {
+                this.filteredOptions = [];
+                if (this.committedSelectedOption) {
+                    this.clearSelection();
+                    this.selectedIndex = this._options.indexOf(this.committedSelectedOption);
+                }
                 super.keydownHandler(e);
                 this.focus();
                 break;
@@ -212,37 +245,6 @@ export class Select extends FoundationSelect implements ErrorPattern {
                 super.keydownHandler(e);
             }
         }
-        return true;
-    }
-
-    /**
-     * Handle keydown actions for listbox navigation.
-     *
-     * @param e - the keyboard event
-     * @internal
-     */
-    public inputKeydownHandler(e: Event & KeyboardEvent): boolean {
-        const key = e.key;
-
-        if (e.ctrlKey || e.shiftKey) {
-            return true;
-        }
-
-        switch (key) {
-            case 'ArrowUp':
-            case 'ArrowDown': {
-                if (this.filteredOptions.length > 0) {
-                    super.keydownHandler(e);
-                }
-
-                break;
-            }
-
-            default: {
-                return true;
-            }
-        }
-
         return true;
     }
 
@@ -259,8 +261,11 @@ export class Select extends FoundationSelect implements ErrorPattern {
                 });
             });
         }
-        this._filter = '';
+        this.filter = '';
         this.input!.value = '';
+        if (this.open && this.committedSelectedOption) {
+            this.committedSelectedOption.selected = true;
+        }
         this.filterOptions();
     }
 
@@ -270,9 +275,9 @@ export class Select extends FoundationSelect implements ErrorPattern {
      * @public
      */
     private filterOptions(): void {
-        const filter = this._filter.toLowerCase();
+        const filter = this.filter.toLowerCase();
 
-        this.filteredOptions = this._options.filter(o => o.text.toLowerCase().includes(this._filter.toLowerCase()));
+        this.filteredOptions = this._options.filter(o => o.text.toLowerCase().includes(this.filter.toLowerCase()));
 
         if (!this.filteredOptions.length && !filter) {
             this.filteredOptions = this._options;
@@ -280,6 +285,12 @@ export class Select extends FoundationSelect implements ErrorPattern {
 
         this._options.forEach(o => {
             o.hidden = !this.filteredOptions.includes(o);
+        });
+    }
+
+    private clearSelection(): void {
+        this._options.forEach(option => {
+            option.selected = false;
         });
     }
 
@@ -295,6 +306,10 @@ export class Select extends FoundationSelect implements ErrorPattern {
             );
         }
     }
+
+    private readonly changeValueHandler = (): void => {
+        this.committedSelectedOption = this.options.find(option => option.selected);
+    };
 }
 
 const nimbleSelect = Select.compose<SelectOptions>({

@@ -15,8 +15,8 @@ import {
 import type { Select } from '.';
 import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';
-import { textFieldTag } from '../text-field';
 import { overflow } from '../utilities/directive/overflow';
+import { iconMagnifyingGlassTag } from '../icons/magnifying-glass';
 
 // prettier-ignore
 export const template: FoundationElementTemplate<
@@ -82,33 +82,39 @@ SelectOptions
             horizontal-positioning-mode="locktodefault"
             horizontal-scaling="anchor"
             ?hidden="${x => (x.collapsible ? !x.open : false)}">
-            <div class="dropdown">
-                <${textFieldTag}
-                    aria-activedescendant="${x => (x.open ? x.ariaActiveDescendant : null)}"
-                    aria-autocomplete="${x => x.ariaAutoComplete}"
-                    class="filter-input"
-                    ?disabled="${x => x.disabled}"
-                    @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
-                    @click="${(x, c) => x.inputClickHandler(c.event as MouseEvent)}"
-                    appearance="ghost"
-                    ${ref('input')}
-                >
-                </${textFieldTag}>
+            <div class="listbox ${x => (x.position === 'above' ? 'inverted' : '')}">
+                <div class="search-field ${x => (x.position === 'above' ? 'inverted' : '')}">
+                    <${iconMagnifyingGlassTag}></${iconMagnifyingGlassTag}>
+                    <input
+                        class="filter-input ${x => (x.filter.length === 0 ? 'empty' : '')}"
+                        ?disabled="${x => x.disabled}"
+                        @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
+                        @click="${(x, c) => x.inputClickHandler(c.event as MouseEvent)}"
+                        ${ref('input')}
+                        placeholder="Search..."
+                    />
+                </div>
                 <div
-                    class="listbox"
+                    class="list"
                     id="${x => x.listboxId}"
                     part="listbox"
                     role="listbox"
                     ?disabled="${x => x.disabled}"
                     ${ref('listbox')}
                 >
-                <slot
-                    ${slotted({
+                    <slot
+                        ${slotted({
         filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
         flatten: true,
         property: 'slottedOptions',
     })}
-                ></slot>
+                    ></slot>
+                </div>
+                ${when(x => x.filteredOptions.length === 0, html`
+                    <span class="no-results-label">
+                        No Options Found
+                    </span>
+                `)}
             </div>
         </${anchoredRegionTag}>
     </template>
