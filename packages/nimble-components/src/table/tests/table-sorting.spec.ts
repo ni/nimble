@@ -1057,7 +1057,6 @@ describe('Table sorting', () => {
             '0.0', // fish - goldfish
             '0.1' // fish - tuna
         ] as const;
-        /* eslint-enable no-multi-spaces */
 
         /* eslint-disable no-multi-spaces */
         const flatAscendingSortOrder = [
