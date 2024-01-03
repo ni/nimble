@@ -5,6 +5,6 @@ export const styles = css`
     :host {
         contain: layout;
         display: block;
-        z-index: ${ZIndexLevels.higher};
+        z-index: ${ZIndexLevels.zIndex1000};
     }
 `;

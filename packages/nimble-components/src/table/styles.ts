@@ -133,13 +133,13 @@ export const styles = css`
 
     .column-divider.active {
         display: block;
-        z-index: ${ZIndexLevels.justAboveDefault};
+        z-index: ${ZIndexLevels.zIndex1};
     }
 
     .header-container:hover .column-divider.left,
     .header-container:hover .column-divider.right {
         display: block;
-        z-index: ${ZIndexLevels.justAboveDefault};
+        z-index: ${ZIndexLevels.zIndex1};
     }
 
     .column-divider.left {
