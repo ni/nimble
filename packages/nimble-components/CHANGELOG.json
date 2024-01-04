@@ -2,6 +2,42 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 04 Jan 2024 19:22:21 GMT",
+      "version": "20.16.6",
+      "tag": "@ni/nimble-components_v20.16.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "94f26ce2738e984870c6840fdc9557eff6e2b08f",
+            "comment": "Rich text editor fix for Safari browser issue in removing the suggestion text when pressing backspace"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Jan 2024 16:50:24 GMT",
+      "version": "20.16.5",
+      "tag": "@ni/nimble-components_v20.16.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "341146ceef057386cea20419277073bd793270ef",
+            "comment": "Upgrade dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.9.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 03 Jan 2024 20:14:14 GMT",
       "version": "20.16.4",
       "tag": "@ni/nimble-components_v20.16.4",
