@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { Anchor, processUpdates, waitForUpdatesAsync } from '@ni/nimble-angular';
+import { parameterizeNamedList } from '@ni/nimble-angular/testing';
 import { TablePageObject } from '@ni/nimble-angular/table/testing';
 import { NimbleTableModule, Table } from '@ni/nimble-angular/table';
 import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.module';
@@ -89,18 +90,18 @@ describe('Nimble anchor table column navigation guard', () => {
             expect(onClickSpy).toHaveBeenCalledOnceWith('1');
         }));
 
-        const secondaryClickTests: { testName: string, clickArgs: { [key: string]: unknown } }[] = [
-            { testName: 'middle mouse click', clickArgs: { button: 1 } },
-            { testName: 'Ctrl + left-click', clickArgs: { button: 0, ctrlKey: true } }
-        ];
-        secondaryClickTests.forEach(test => {
-            it(`does not call navigationGuard for non-primary-mouse link clicks for ${test.testName}`, fakeAsync(() => {
+        const secondaryClickTests = [
+            { name: 'middle mouse click', clickArgs: { button: 1 } },
+            { name: 'Ctrl + left-click', clickArgs: { button: 0, ctrlKey: true } }
+        ] as const;
+        parameterizeNamedList(secondaryClickTests, (spec, name, value) => {
+            spec(`does not call navigationGuard for non-primary-mouse link clicks for ${name}`, fakeAsync(() => {
                 innerAnchor.dispatchEvent(new MouseEvent('click', {
                     ...{
                         bubbles: true,
                         cancelable: true
                     },
-                    ...test.clickArgs
+                    ...value.clickArgs
                 }));
                 tick();
 
