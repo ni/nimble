@@ -107,7 +107,7 @@ describe('TableColumnDateText', () => {
                     name: 'value is not a number',
                     data: [{ field: 'foo' as unknown as number }]
                 }
-            ];
+            ] as const;
 
             parameterizeNamedList(badValueData, (spec, name, value) => {
                 spec(name, async () => {

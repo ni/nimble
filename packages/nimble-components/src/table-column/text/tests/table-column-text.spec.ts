@@ -69,7 +69,7 @@ describe('TableColumnText', () => {
             name: 'value is not a string',
             data: [{ field: 10 as unknown as string }]
         }
-    ];
+    ] as const;
     parameterizeNamedList(noValueData, (spec, name, value) => {
         spec(`displays empty string when ${name}`, async () => {
             await element.setData(value.data);

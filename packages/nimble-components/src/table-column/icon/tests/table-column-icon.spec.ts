@@ -100,7 +100,7 @@ describe('TableColumnIcon', () => {
             { name: MappingKeyType.string, key: 'a' },
             { name: MappingKeyType.number, key: 10 },
             { name: MappingKeyType.boolean, key: true }
-        ];
+        ] as const;
         parameterizeNamedList(dataTypeTests, (spec, name, value) => {
             spec(`displays icon mapped from ${name}`, async () => {
                 ({ element, connect, disconnect, model } = await setup({
@@ -390,7 +390,7 @@ describe('TableColumnIcon', () => {
                 { name: '(blank)', key: '' },
                 { name: 'FALSE', key: 'FALSE' },
                 { name: '0', key: 0 }
-            ];
+            ] as const;
             parameterizeNamedList(dataTypeTests, (spec, name, value) => {
                 spec(name, async () => {
                     ({ element, connect, disconnect, model } = await setup({

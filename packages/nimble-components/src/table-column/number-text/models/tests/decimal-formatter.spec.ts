@@ -3,16 +3,7 @@ import { DecimalFormatter } from '../decimal-formatter';
 
 describe('DecimalFormatter', () => {
     const locales = ['en', 'de'] as const;
-    const testCases: readonly {
-        name: string,
-        minDigits: number,
-        maxDigits: number,
-        value: number,
-        expectedFormattedValue: {
-            en: string,
-            de: string
-        }
-    }[] = [
+    const testCases = [
         {
             name: 'NEGATIVE_INFINITY renders as -∞',
             minDigits: 1,

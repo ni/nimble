@@ -83,7 +83,7 @@ describe('TableColumnEnumText', () => {
             { name: 'string', key: 'a' },
             { name: 'number', key: 10 },
             { name: 'boolean', key: true }
-        ];
+        ] as const;
         parameterizeNamedList(dataTypeTests, (spec, name, value) => {
             spec(`displays text mapped from ${name}`, async () => {
                 ({ element, connect, disconnect, model } = await setup(
@@ -330,7 +330,7 @@ describe('TableColumnEnumText', () => {
                 { name: '(blank)', key: '' },
                 { name: 'FALSE', key: 'FALSE' },
                 { name: '0', key: 0 }
-            ];
+            ] as const;
             parameterizeNamedList(dataTypeTests, (spec, name, value) => {
                 spec(name, async () => {
                     ({ element, connect, disconnect, model } = await setup(

@@ -242,10 +242,7 @@ describe('Markdown parser', () => {
 
         describe('Absolute link', () => {
             describe('various valid absolute links should render same as in the markdown', () => {
-                const supportedAbsoluteLink: {
-                    name: string,
-                    validLink: string
-                }[] = [
+                const supportedAbsoluteLink = [
                     {
                         name: 'Lowercase HTTPS URL',
                         validLink: '<https://nimble.ni.dev/>'
@@ -311,7 +308,7 @@ describe('Markdown parser', () => {
                         name: 'URL with Port Number',
                         validLink: '<http://www.example.com:8080/path/page>'
                     }
-                ];
+                ] as const;
 
                 describe('should reflect value to the internal control', () => {
                     parameterizeNamedList(
@@ -349,11 +346,7 @@ describe('Markdown parser', () => {
             });
 
             describe('various absolute links with non-ASCII (IRI) characters within it', () => {
-                const supportedAbsoluteLink: {
-                    name: string,
-                    validLink: string,
-                    encodeURL: string
-                }[] = [
+                const supportedAbsoluteLink = [
                     {
                         name: 'Emoji',
                         validLink: '<https://example.com/smiley😀.html>',
@@ -425,7 +418,7 @@ describe('Markdown parser', () => {
                         validLink: '<https://example.com/東京.html>',
                         encodeURL: 'https://example.com/%E6%9D%B1%E4%BA%AC.html'
                     }
-                ];
+                ] as const;
 
                 describe('should reflect value to the internal control', () => {
                     parameterizeNamedList(
@@ -642,7 +635,7 @@ describe('Markdown parser', () => {
                     { name: '<javascript:void(0)>' },
                     { name: '<file:///path/to/local/file.txt>' },
                     { name: '<javascript:vbscript:alert("not alert")>' }
-                ];
+                ] as const;
                 parameterizeNamedList(
                     notSupportedAbsoluteLink,
                     (spec, name) => {
@@ -729,7 +722,7 @@ describe('Markdown parser', () => {
                 tags: ['P'],
                 textContent: ['-2147483648/-1']
             }
-        ];
+        ] as const;
 
         parameterizeNamedList(
             testsWithEscapeCharacters,
@@ -801,7 +794,7 @@ describe('Markdown parser', () => {
     });
 
     describe('various not supported markdown string values render as unchanged strings', () => {
-        const notSupportedMarkdownStrings: { name: string }[] = [
+        const notSupportedMarkdownStrings = [
             { name: '> blockquote' },
             { name: '`code`' },
             { name: '```fence```' },
@@ -826,7 +819,7 @@ describe('Markdown parser', () => {
                 name: '<a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a>'
             },
             { name: '<script>alert("not alert")</script>' }
-        ];
+        ] as const;
 
         parameterizeNamedList(notSupportedMarkdownStrings, (spec, name) => {
             spec(
@@ -864,12 +857,7 @@ describe('Markdown parser', () => {
     });
 
     describe('various wacky string values modified when rendered', () => {
-        const modifiedWackyStrings: {
-            name: string,
-            value: string,
-            tags: string[],
-            textContent: string[]
-        }[] = [
+        const modifiedWackyStrings = [
             { name: '\\0', value: '\0', tags: ['P'], textContent: ['�'] },
             { name: '\\r\\r', value: '\r\r', tags: ['P'], textContent: [''] },
             {
@@ -879,7 +867,7 @@ describe('Markdown parser', () => {
                 textContent: ['�']
             },
             { name: '\\x00', value: '\x00', tags: ['P'], textContent: ['�'] }
-        ];
+        ] as const;
 
         parameterizeNamedList(modifiedWackyStrings, (spec, name, value) => {
             spec(`wacky string "${name}" modified when rendered`, () => {
@@ -897,11 +885,7 @@ describe('Markdown parser', () => {
 
     describe('Markdown string with hard break should have respective br tag when rendered', () => {
         const r = String.raw;
-        const markdownStringWithHardBreak: {
-            name: string,
-            value: string,
-            tags: string[]
-        }[] = [
+        const markdownStringWithHardBreak = [
             {
                 name: 'bold and italics',
                 value: r`**bold**\
@@ -952,7 +936,7 @@ describe('Markdown parser', () => {
       nested hard break content`,
                 tags: ['OL', 'LI', 'P', 'BR', 'LI', 'P', 'OL', 'LI', 'P', 'BR']
             }
-        ];
+        ] as const;
 
         parameterizeNamedList(
             markdownStringWithHardBreak,

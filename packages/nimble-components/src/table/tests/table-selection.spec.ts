@@ -644,16 +644,7 @@ describe('Table row selection', () => {
                 });
 
                 describe('interactions that modify the selection', () => {
-                    const configurations: {
-                        name: string,
-                        initialSelection: string[],
-                        rowToClick: number,
-                        clickModifiers: {
-                            shiftKey?: boolean,
-                            ctrlKey?: boolean
-                        },
-                        expectedSelection: string[]
-                    }[] = [
+                    const configurations = [
                         {
                             name: 'clicking a row with no previous selection selects the clicked row',
                             initialSelection: [],
@@ -696,7 +687,7 @@ describe('Table row selection', () => {
                             clickModifiers: { shiftKey: true },
                             expectedSelection: ['0']
                         }
-                    ];
+                    ] as const;
                     parameterizeNamedList(
                         configurations,
                         (spec, name, value) => {
@@ -732,15 +723,7 @@ describe('Table row selection', () => {
                 });
 
                 describe('interactions that do not modify the selection', () => {
-                    const configurations: {
-                        name: string,
-                        initialSelection: string[],
-                        rowToClick: number,
-                        clickModifiers: {
-                            shiftKey?: boolean,
-                            ctrlKey?: boolean
-                        }
-                    }[] = [
+                    const configurations = [
                         {
                             name: 'clicking the already selected row maintains its selection',
                             initialSelection: ['0'],
@@ -759,7 +742,7 @@ describe('Table row selection', () => {
                             rowToClick: 0,
                             clickModifiers: { shiftKey: true }
                         }
-                    ];
+                    ] as const;
                     parameterizeNamedList(
                         configurations,
                         (spec, name, value) => {
@@ -794,13 +777,7 @@ describe('Table row selection', () => {
                     await waitForUpdatesAsync();
                 });
 
-                const configurations: {
-                    name: string,
-                    initialSelection: string[],
-                    rowToClick: number,
-                    clickModifiers: { shiftKey?: boolean, ctrlKey?: boolean },
-                    expectedSelection: string[]
-                }[] = [
+                const configurations = [
                     {
                         name: 'clicking a row with no previous selection selects the clicked row',
                         initialSelection: [],
@@ -864,7 +841,7 @@ describe('Table row selection', () => {
                         clickModifiers: { ctrlKey: true },
                         expectedSelection: ['2']
                     }
-                ];
+                ] as const;
                 parameterizeNamedList(configurations, (spec, name, value) => {
                     spec(name, async () => {
                         await element.setSelectedRecordIds(

@@ -85,7 +85,7 @@ describe('TableColumnAnchor', () => {
                 name: 'value is not a string',
                 data: [{ label: 10 as unknown as string }]
             }
-        ];
+        ] as const;
         parameterizeNamedList(noValueData, (spec, name, value) => {
             spec(`displays empty string when label ${name}`, async () => {
                 await element.setData(value.data);
@@ -250,7 +250,7 @@ describe('TableColumnAnchor', () => {
             { name: 'target', accessor: (x: Anchor) => x.target },
             { name: 'type', accessor: (x: Anchor) => x.type },
             { name: 'download', accessor: (x: Anchor) => x.download }
-        ];
+        ] as const;
         parameterizeNamedList(linkOptionData, (spec, name, value) => {
             spec(`sets ${name} on anchor`, async () => {
                 await element.setData([{ link: 'foo' }]);

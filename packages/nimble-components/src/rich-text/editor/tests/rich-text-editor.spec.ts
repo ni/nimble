@@ -129,13 +129,7 @@ describe('RichTextEditor', () => {
         expect(pageObject.isRichTextEditorActiveElement()).toBeTrue();
     });
 
-    const formattingButtons: {
-        name: string,
-        toolbarButtonIndex: ToolbarButton,
-        iconName: string,
-        shortcutKey: string,
-        shiftKey: boolean
-    }[] = [
+    const formattingButtons = [
         {
             name: 'bold',
             toolbarButtonIndex: ToolbarButton.bold,
@@ -164,7 +158,7 @@ describe('RichTextEditor', () => {
             shortcutKey: '7',
             shiftKey: true
         }
-    ];
+    ] as const;
 
     describe('clicking buttons should update the checked state of the toggle button with focus', () => {
         parameterizeNamedList(formattingButtons, (spec, name, value) => {
@@ -803,7 +797,7 @@ describe('RichTextEditor', () => {
 
         describe('Absolute link interactions in the editor', () => {
             describe('various absolute links without other nodes and marks', () => {
-                const supportedAbsoluteLink: { name: string }[] = [
+                const supportedAbsoluteLink = [
                     { name: 'https://nimble.ni.dev/ ' },
                     { name: 'HTTPS://NIMBLE.NI.DEV ' },
                     { name: 'HttPS://NIMBLE.ni.DEV ' },
@@ -817,7 +811,7 @@ describe('RichTextEditor', () => {
                     { name: 'https://example.com/smiley😀.html ' },
                     { name: 'https://www.😀.com ' },
                     { name: 'https://example.com/пример.html ' }
-                ];
+                ] as const;
 
                 parameterizeNamedList(supportedAbsoluteLink, (spec, name) => {
                     spec(
@@ -926,7 +920,7 @@ describe('RichTextEditor', () => {
             });
 
             describe('various absolute links with different protocols other than https/http should be render as unchanged strings', () => {
-                const differentProtocolLinks: { name: string }[] = [
+                const differentProtocolLinks = [
                     { name: 'ftp://example.com/files/document.pdf ' },
                     { name: 'mailto:info@example.com ' },
                     { name: 'info@example.com ' },
@@ -947,7 +941,7 @@ describe('RichTextEditor', () => {
                     // eslint-disable-next-line no-script-url
                     { name: 'javascript:vbscript:alert("not alert") ' },
                     { name: 'test://test.com ' }
-                ];
+                ] as const;
 
                 parameterizeNamedList(differentProtocolLinks, (spec, name) => {
                     spec(
@@ -1496,7 +1490,7 @@ describe('RichTextEditor', () => {
     });
 
     describe('Should return markdown without any changes when various not supported markdown string values are assigned', () => {
-        const notSupportedMarkdownStrings: { name: string }[] = [
+        const notSupportedMarkdownStrings = [
             { name: '&nbsp;' },
             { name: '(c) (C) (r) (R) (tm) (TM) (p) (P) +-' },
             { name: '<div><p>text</p></div>' },
@@ -1508,7 +1502,7 @@ describe('RichTextEditor', () => {
                 name: '<a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a>'
             },
             { name: '<script>alert("not alert")</script>' }
-        ];
+        ] as const;
 
         parameterizeNamedList(notSupportedMarkdownStrings, (spec, name) => {
             spec(
@@ -1528,7 +1522,7 @@ describe('RichTextEditor', () => {
 
     describe('Should return markdown with escape character (back slash) when various special markdown syntax are assigned', () => {
         const r = String.raw;
-        const specialMarkdownStrings: { name: string, value: string }[] = [
+        const specialMarkdownStrings = [
             { name: '> blockquote', value: r`\> blockquote` },
             { name: '`code`', value: '\\`code\\`' },
             { name: '```fence```', value: '\\`\\`\\`fence\\`\\`\\`' },
@@ -1547,7 +1541,7 @@ describe('RichTextEditor', () => {
             { name: '___', value: r`\__\_` },
             { name: '-Infinity', value: r`\-Infinity` },
             { name: '-2147483648/-1', value: r`\-2147483648/-1` }
-        ];
+        ] as const;
 
         parameterizeNamedList(specialMarkdownStrings, (spec, name, value) => {
             spec(
@@ -1567,7 +1561,7 @@ describe('RichTextEditor', () => {
 
     describe('`getMarkdown` with hard break backslashes should be same immediately after `setMarkdown`', () => {
         const r = String.raw;
-        const hardBreakMarkdownStrings: { name: string, value: string }[] = [
+        const hardBreakMarkdownStrings = [
             {
                 name: 'bold and italics',
                 value: r`**bold**\
@@ -1607,7 +1601,7 @@ describe('RichTextEditor', () => {
    1. nested list\
       nested hard break content`
             }
-        ];
+        ] as const;
 
         parameterizeNamedList(hardBreakMarkdownStrings, (spec, name, value) => {
             spec(
@@ -1650,13 +1644,10 @@ describe('RichTextEditor', () => {
 
     describe('Should return markdown with escape character (back slash) when wacky string with special markdown syntax are assigned', () => {
         const r = String.raw;
-        const wackyStringWithSpecialMarkdownCharacter: {
-            name: string,
-            value: string
-        }[] = [
+        const wackyStringWithSpecialMarkdownCharacter = [
             { name: '-Infinity', value: r`\-Infinity` },
             { name: '-2147483648/-1', value: r`\-2147483648/-1` }
-        ];
+        ] as const;
 
         parameterizeNamedList(
             wackyStringWithSpecialMarkdownCharacter,
@@ -1678,16 +1669,12 @@ describe('RichTextEditor', () => {
     });
 
     describe('Should return modified markdown when various wacky string values are assigned', () => {
-        const modifiedWackyStrings: {
-            name: string,
-            value: string,
-            content: string
-        }[] = [
+        const modifiedWackyStrings = [
             { name: '\\0', value: '\0', content: '�' },
             { name: '\\uFFFD', value: '\uFFFD', content: '�' },
             { name: '\\x00', value: '\x00', content: '�' },
             { name: '\\r\\r', value: '\r\r', content: '' }
-        ];
+        ] as const;
 
         parameterizeNamedList(modifiedWackyStrings, (spec, name, value) => {
             spec(

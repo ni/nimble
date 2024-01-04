@@ -27,7 +27,7 @@ describe('AnchorTab', () => {
         );
     });
 
-    const attributeNames: { name: string }[] = [
+    const attributeNames = [
         { name: 'download' },
         { name: 'href' },
         { name: 'hreflang' },
@@ -36,7 +36,7 @@ describe('AnchorTab', () => {
         { name: 'rel' },
         { name: 'target' },
         { name: 'type' }
-    ];
+    ] as const;
     describe('should reflect value to the internal anchor element', () => {
         parameterizeNamedList(attributeNames, (spec, name) => {
             spec(`for attribute ${name}`, async () => {

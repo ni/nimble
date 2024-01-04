@@ -247,11 +247,7 @@ describe('TableValidator', () => {
     });
 
     describe('column config validation', () => {
-        const columnConfigurations: {
-            columns: TableColumnValidationTest[],
-            isValid: boolean,
-            name: string
-        }[] = [
+        const columnConfigurations = [
             {
                 columns: [
                     Object.assign(
@@ -280,7 +276,7 @@ describe('TableValidator', () => {
                 isValid: true,
                 name: 'is valid when all columns return true from checkValidity'
             }
-        ];
+        ] as const;
 
         parameterizeNamedList(columnConfigurations, (spec, name, value) => {
             spec(name, () => {
@@ -326,12 +322,7 @@ describe('TableValidator', () => {
     });
 
     describe('column ID validation', () => {
-        const columnConfigurations: {
-            columnIds: (string | undefined)[],
-            isValid: boolean,
-            invalidKeys: (keyof TableValidity)[],
-            name: string
-        }[] = [
+        const columnConfigurations = [
             {
                 columnIds: [undefined, ''],
                 isValid: true,
@@ -368,7 +359,7 @@ describe('TableValidator', () => {
                 invalidKeys: ['missingColumnId'],
                 name: 'does not allow empty string as a defined column ID'
             }
-        ];
+        ] as const;
 
         parameterizeNamedList(columnConfigurations, (spec, name, value) => {
             spec(name, () => {
@@ -389,12 +380,7 @@ describe('TableValidator', () => {
     });
 
     describe('column sort index validation', () => {
-        const columnConfigurations: {
-            sortIndices: number[],
-            isValid: boolean,
-            invalidKeys: (keyof TableValidity)[],
-            name: string
-        }[] = [
+        const columnConfigurations = [
             {
                 sortIndices: [1, 2, 3],
                 isValid: true,
@@ -455,7 +441,7 @@ describe('TableValidator', () => {
                 invalidKeys: [],
                 name: 'special numeric values are valid'
             }
-        ];
+        ] as const;
 
         parameterizeNamedList(columnConfigurations, (spec, name, value) => {
             spec(name, () => {
@@ -476,12 +462,7 @@ describe('TableValidator', () => {
     });
 
     describe('column group index validation', () => {
-        const columnConfigurations: {
-            groupIndices: number[],
-            isValid: boolean,
-            invalidKeys: (keyof TableValidity)[],
-            name: string
-        }[] = [
+        const columnConfigurations = [
             {
                 groupIndices: [1, 2, 3],
                 isValid: true,
@@ -550,7 +531,7 @@ describe('TableValidator', () => {
                 invalidKeys: [],
                 name: 'special numeric values are valid'
             }
-        ];
+        ] as const;
 
         parameterizeNamedList(columnConfigurations, (spec, name, value) => {
             spec(name, () => {
@@ -571,13 +552,7 @@ describe('TableValidator', () => {
     });
 
     describe('row selection mode validation', () => {
-        const selectionConfigurations: {
-            selectionMode: TableRowSelectionMode,
-            idFieldName: string | undefined,
-            isValid: boolean,
-            invalidKeys: (keyof TableValidity)[],
-            name: string
-        }[] = [
+        const selectionConfigurations = [
             {
                 selectionMode: TableRowSelectionMode.none,
                 idFieldName: 'my-id',
@@ -620,7 +595,7 @@ describe('TableValidator', () => {
                 invalidKeys: ['idFieldNameNotConfigured'],
                 name: 'selection mode of "multiple" without an id field name specified is invalid'
             }
-        ];
+        ] as const;
 
         parameterizeNamedList(selectionConfigurations, (spec, name, value) => {
             spec(name, () => {

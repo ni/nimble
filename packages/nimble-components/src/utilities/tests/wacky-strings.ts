@@ -17,4 +17,4 @@ export const wackyStrings = [
     { name: '中文 (Chinese characters)' },
     { name: 'Iñtërnâtiônàlizætiøn☃💩' },
     { name: '１' }
-];
+] as const;

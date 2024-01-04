@@ -193,7 +193,7 @@ describe('Table Column Sizing', () => {
                 column1ExpectedRenderedWidth: 350,
                 column2ExpectedRenderedWidth: 100
             }
-        ];
+        ] as const;
         parameterizeNamedList(columnSizeTests, (spec, name, value) => {
             spec(name, async () => {
                 await connect();
@@ -294,7 +294,7 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: null,
                 column2MinPixelWidth: null
             }
-        ];
+        ] as const;
         parameterizeNamedList(tests, (spec, name, value) => {
             spec(name, async () => {
                 await connect();
@@ -462,7 +462,7 @@ describe('Table Interactive Column Sizing', () => {
                 minPixelWidths: [50, 50, 50, 175],
                 expectedColumnWidths: [75, 75, 50, 200]
             }
-        ];
+        ] as const;
         parameterizeNamedList(columnSizeTests, (spec, name, value) => {
             spec(name, async () => {
                 element.columns.forEach((column, i) => {
@@ -629,7 +629,7 @@ describe('Table Interactive Column Sizing', () => {
                 dragDeltas: [-50],
                 expectedColumnWidths: [100, 50, 150]
             }
-        ];
+        ] as const;
         parameterizeNamedList(
             hiddenColumDragRightDividerTests,
             (spec, name, value) => {
@@ -721,7 +721,7 @@ describe('Table Interactive Column Sizing', () => {
                 dragDeltas: [-50],
                 expectedColumnWidths: [100, 50, 150]
             }
-        ];
+        ] as const;
         parameterizeNamedList(
             hiddenColumDragRightDividerTests,
             (spec, name, value) => {
@@ -780,7 +780,7 @@ describe('Table Interactive Column Sizing', () => {
                 dividerClickIndex: 5,
                 expectedActiveIndexes: [5]
             }
-        ];
+        ] as const;
         parameterizeNamedList(dividerActiveTests, (spec, name, value) => {
             spec(name, async () => {
                 const dividers = Array.from(

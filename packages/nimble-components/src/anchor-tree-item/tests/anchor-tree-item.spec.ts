@@ -75,7 +75,7 @@ describe('Anchor Tree Item', () => {
             expect(element.control!.href).toBe('');
         });
 
-        const attributeNames: { name: string }[] = [
+        const attributeNames = [
             { name: 'download' },
             { name: 'href' },
             { name: 'hreflang' },
@@ -84,7 +84,7 @@ describe('Anchor Tree Item', () => {
             { name: 'rel' },
             { name: 'target' },
             { name: 'type' }
-        ];
+        ] as const;
         describe('should reflect value to the internal control', () => {
             parameterizeNamedList(attributeNames, (spec, name) => {
                 spec(`for attribute ${name}`, async () => {

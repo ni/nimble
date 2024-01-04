@@ -21,12 +21,7 @@ async function setup(): Promise<Fixture<ThemeProvider>> {
     );
 }
 
-const formattingButtons: {
-    name: string,
-    property: LabelProvider,
-    label: string,
-    toolbarButton: ToolbarButton
-}[] = [
+const formattingButtons = [
     {
         name: 'Bold',
         property: 'toggleBold',
@@ -51,7 +46,7 @@ const formattingButtons: {
         label: 'Customized Numbered List Label',
         toolbarButton: ToolbarButton.numberedList
     }
-];
+] as const;
 
 describe('Rich Text Editor with LabelProviderRichText', () => {
     let element: RichTextEditor;

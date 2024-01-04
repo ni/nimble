@@ -41,7 +41,7 @@ describe('Text Area', () => {
         expect(element.control.part.contains('control')).toBe(true);
     });
 
-    const attributeNames: {
+    const attributeNames: readonly {
         name: string,
         value?: string,
         boolean?: boolean
@@ -77,7 +77,7 @@ describe('Text Area', () => {
         { name: 'aria-owns' },
         { name: 'aria-relevant' },
         { name: 'aria-roledescription' }
-    ];
+    ] as const;
     describe('should reflect value to the internal control', () => {
         parameterizeNamedList(attributeNames, (spec, name, value) => {
             spec(`for attribute ${name}`, async () => {

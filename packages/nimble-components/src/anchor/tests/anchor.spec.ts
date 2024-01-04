@@ -39,7 +39,7 @@ describe('Anchor', () => {
         expect(element.control!.part.contains('control')).toBe(true);
     });
 
-    const attributeNames: { name: string }[] = [
+    const attributeNames = [
         { name: 'download' },
         { name: 'href' },
         { name: 'hreflang' },
@@ -68,7 +68,7 @@ describe('Anchor', () => {
         { name: 'aria-owns' },
         { name: 'aria-relevant' },
         { name: 'aria-roledescription' }
-    ];
+    ] as const;
     describe('should reflect value to the internal control', () => {
         parameterizeNamedList(attributeNames, (spec, name) => {
             spec(`for attribute ${name}`, async () => {
