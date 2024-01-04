@@ -209,10 +209,7 @@ function createCustomMentionExtension(
         renderHTML({ node, HTMLAttributes }) {
             return [
                 config.viewElement,
-                mergeAttributes(
-                    this.options.HTMLAttributes,
-                    HTMLAttributes
-                ),
+                mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
                 this.options.renderLabel({
                     options: this.options,
                     node

@@ -80,9 +80,7 @@ export const styles = css`
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    ${
-        /* Shared styles for all mention views at edit time. */ ''
-    }
+    ${/* Shared styles for all mention views at edit time. */ ''}
     .nimble-mention-view-edit {
         color: ${bodyFontColor};
     }

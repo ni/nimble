@@ -11,7 +11,10 @@ import {
     bodyFontColor,
     smallPadding
 } from '../../../../theme-provider/design-tokens';
-import { type DisabledState, disabledStates } from '../../../../utilities/tests/states';
+import {
+    type DisabledState,
+    disabledStates
+} from '../../../../utilities/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Mention: User',
@@ -22,7 +25,10 @@ const metadata: Meta = {
 
 export default metadata;
 
-const component = ([disabledName, disabled]: DisabledState): ViewTemplate => html`
+const component = ([
+    disabledName,
+    disabled
+]: DisabledState): ViewTemplate => html`
     <style class='code-hide'>
         .mention-container {
             margin: var(${smallPadding.cssCustomProperty});
