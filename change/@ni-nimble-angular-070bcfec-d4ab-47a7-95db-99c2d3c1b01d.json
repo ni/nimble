@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add `testing` entry point that exports `parameterize` and `parameterizeNamedList` utilities; Update tests to use new utilities",
+  "packageName": "@ni/nimble-angular",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
