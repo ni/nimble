@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 15 Dec 2023 14:08:18 GMT and should not be manually modified.
+This log was last generated on Thu, 04 Jan 2024 16:50:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.16.5
+
+Thu, 04 Jan 2024 16:50:24 GMT
+
+### Patches
+
+- Upgrade dependencies ([ni/nimble@341146c](https://github.com/ni/nimble/commit/341146ceef057386cea20419277073bd793270ef))
+- Bump @ni/nimble-tokens to v6.9.1
 
 ## 20.16.4
 

@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 04 Jan 2024 16:50:24 GMT",
+      "version": "20.16.5",
+      "tag": "@ni/nimble-components_v20.16.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "341146ceef057386cea20419277073bd793270ef",
+            "comment": "Upgrade dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.9.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 03 Jan 2024 20:14:14 GMT",
       "version": "20.16.4",
       "tag": "@ni/nimble-components_v20.16.4",

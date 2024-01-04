@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Upgrade dependencies",
-  "packageName": "@ni/nimble-tokens",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
