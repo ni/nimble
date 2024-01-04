@@ -564,10 +564,10 @@ describe('Table Interactive Column Sizing', () => {
                 0,
                 1
             );
-            pageObject.dragSizeColumnByRightDivider(0, [50]);
+            pageObject.dragSizeColumnByRightDivider(0, [5]);
             await waitForUpdatesAsync();
             expect(pageObject.getCellRenderedWidth(0, 1)).toBe(
-                secondVisibleCellWidth - 50
+                secondVisibleCellWidth - 5
             );
         });
 
@@ -578,10 +578,10 @@ describe('Table Interactive Column Sizing', () => {
                 0,
                 1
             );
-            pageObject.dragSizeColumnByRightDivider(1, [-50]);
+            pageObject.dragSizeColumnByRightDivider(1, [-5]);
             await waitForUpdatesAsync();
             expect(pageObject.getCellRenderedWidth(0, 1)).toBe(
-                secondVisibleCellWidth - 50
+                secondVisibleCellWidth - 5
             );
         });
 
