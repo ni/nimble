@@ -265,19 +265,21 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         prev: EditorConfiguration | undefined,
         next: EditorConfiguration
     ): void {
+        const formatButtonsState = this.getButtonsState(this.tiptapEditor);
+        const { from, to } = this.tiptapEditor.view.state.selection;
         if (this.isMentionExtensionConfigUnchanged(prev, next)) {
-            this.refreshMarkdownContent();
+            this.setMarkdown(this.getMarkdown());
         } else {
             const mentionExtensionConfig = this.getMentionExtensionConfig();
             const currentStateMarkdown = this.getMarkdown();
             this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
                 mentionExtensionConfig.map(config => config.name)
             );
-            const formatButtonsState = this.getButtonsState(this.tiptapEditor);
             this.initializeEditor();
             this.setMarkdown(currentStateMarkdown);
-            this.resetEditorButtonsState(formatButtonsState);
         }
+        this.tiptapEditor.commands.setTextSelection({ from, to });
+        this.resetEditorButtonsState(formatButtonsState);
         this.setActiveMappingConfigs();
     }
 
@@ -688,7 +690,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     }
 
     private resetEditorButtonsState(
-        buttonsState: FormatButtonsState | null
+        buttonsState: FormatButtonsState | undefined
     ): void {
         if (buttonsState?.bold && !this.tiptapEditor.isActive('bold')) {
             this.tiptapEditor.chain().focus().toggleBold().run();
@@ -698,23 +700,16 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         }
     }
 
-    private getButtonsState(tiptapEditor: Editor): FormatButtonsState | null {
+    private getButtonsState(
+        tiptapEditor: Editor
+    ): FormatButtonsState | undefined {
         if (!this.$fastController.isConnected) {
-            return null;
+            return undefined;
         }
         return {
             bold: tiptapEditor.isActive('bold'),
             italics: tiptapEditor.isActive('italic')
         };
-    }
-
-    // This method restore the cursor selection and format button state after setting the editor content when the editor is focused
-    private refreshMarkdownContent(): void {
-        const formatButtonsState = this.getButtonsState(this.tiptapEditor);
-        const { from, to } = this.tiptapEditor.view.state.selection;
-        this.setMarkdown(this.getMarkdown());
-        this.tiptapEditor.commands.setTextSelection({ from, to });
-        this.resetEditorButtonsState(formatButtonsState);
     }
 }
 
