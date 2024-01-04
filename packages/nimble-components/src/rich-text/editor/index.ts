@@ -593,8 +593,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         this.tiptapEditor.state.doc.descendants((node, pos) => {
             if (node.type.name.startsWith(mentionPluginPrefix)) {
                 const updatedAttrs = {
-                    href: node.attrs.href as string,
-                    label: node.attrs.label as string,
+                    ...node.attrs,
                     disabled: this.disabled ? '' : null
                 };
                 const updatedNode = this.tiptapEditor.schema.node(

@@ -17,7 +17,6 @@ import {
     linkFontColor
 } from '../../theme-provider/design-tokens';
 import { styles as errorStyles } from '../../patterns/error/styles';
-import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -79,10 +78,6 @@ export const styles = css`
     :host([disabled]) .container {
         color: ${bodyDisabledFontColor};
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
-    }
-
-    :host([disabled]) ${richTextMentionUsersViewTag} {
-        color: ${bodyDisabledFontColor};
     }
 
     :host([error-visible]) .container {

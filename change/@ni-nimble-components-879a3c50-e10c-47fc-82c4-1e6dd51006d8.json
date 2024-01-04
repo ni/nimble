@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Fix for Safari browser issue in removing the suggestion text when pressing backspace",
+  "comment": "Rich text editor fix for Safari browser issue in removing the suggestion text when pressing backspace",
   "packageName": "@ni/nimble-components",
   "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
   "dependentChangeType": "patch"
