@@ -8,7 +8,7 @@ import {
 } from '../../../label-provider/rich-text';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { ToolbarButton } from '../testing/types';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../testing/parameterized';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<ThemeProvider>> {

@@ -2,7 +2,7 @@ import { spinalCase } from '@microsoft/fast-web-utilities';
 import { html } from '@microsoft/fast-element';
 import * as labelTokensNamespace from '../label-tokens';
 import { LabelProviderCore, labelProviderCoreTag } from '..';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../testing/parameterized';
 import {
     getAttributeName,
     getPropertyName

@@ -2,7 +2,7 @@ import type { Row as TanStackRow, SortingFn } from '@tanstack/table-core';
 import { TableColumnSortOperation } from '../../../table-column/base/types';
 import { getTanStackSortingFunction } from '../sort-operations';
 import type { TableFieldValue } from '../../types';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../testing/parameterized';
 
 describe('Sort Operations', () => {
     function createFakeRow(

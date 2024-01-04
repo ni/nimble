@@ -6,7 +6,7 @@ import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../testing/parameterized';
 import { mappingTextTag } from '../../../mapping/text';
 import { MappingIcon, mappingIconTag } from '../../../mapping/icon';
 import { iconXmarkTag } from '../../../icons/xmark';

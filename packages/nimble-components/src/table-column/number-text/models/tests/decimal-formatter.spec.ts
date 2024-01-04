@@ -1,4 +1,4 @@
-import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../../testing/parameterized';
 import { DecimalFormatter } from '../decimal-formatter';
 
 describe('DecimalFormatter', () => {

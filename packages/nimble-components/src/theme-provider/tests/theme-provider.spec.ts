@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import { spinalCase } from '@microsoft/fast-web-utilities';
 import * as designTokensNamespace from '../design-tokens';
 import { tokenNames, suffixFromTokenName } from '../design-token-names';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../testing/parameterized';
 import { ThemeProvider, lang, themeProviderTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';

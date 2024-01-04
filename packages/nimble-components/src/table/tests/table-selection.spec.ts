@@ -11,7 +11,7 @@ import {
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import type { TableColumnText } from '../../table-column/text';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../testing/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;

@@ -10,7 +10,7 @@ import { Menu, menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../testing/parameterized';
 
 @customElement('foundation-menu-item')
 export class TestMenuItem extends FoundationMenuItem {}

@@ -1,6 +1,6 @@
 import { TableNode, TableRowSelectionMode } from '../../types';
 import { TableValidator } from '../table-validator';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../testing/parameterized';
 import {
     TableColumnValidationTest,
     tableColumnValidationTestTag

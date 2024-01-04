@@ -8,7 +8,7 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { TreeItem } from '../../tree-item';
 import type { TreeView } from '../../tree-view';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../testing/parameterized';
 
 @customElement('foundation-tree-item')
 export class TestTreeItem extends FoundationTreeItem {}

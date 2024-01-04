@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import { AnchorTab } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { Fixture, fixture } from '../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../testing/parameterized';
 
 async function setup(): Promise<Fixture<AnchorTab>> {
     return fixture<AnchorTab>(html`<nimble-anchor-tab></nimble-anchor-tab>`);
