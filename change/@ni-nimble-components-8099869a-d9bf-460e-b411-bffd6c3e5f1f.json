@@ -1,5 +1,5 @@
 {
-  "type": "none",
+  "type": "minor",
   "comment": "Move `parameterized.ts` to `src\\testing` so it will be considered public",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
