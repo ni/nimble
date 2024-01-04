@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add tests for list-option, menu-item, tab, and tree-view Angular directives",
-  "packageName": "@ni/nimble-angular",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
