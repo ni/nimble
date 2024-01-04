@@ -47,7 +47,7 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@types/jasmine": "^4.3.1",
     "@types/node": "^18.11.18",
-    "eslint-plugin-jsdoc": "^39.6.8",
+    "eslint-plugin-jsdoc": "^46.8.2",
     "jasmine-core": "^4.5.0",
     "karma": "^6.3.0",
     "karma-chrome-launcher": "^3.1.0",
