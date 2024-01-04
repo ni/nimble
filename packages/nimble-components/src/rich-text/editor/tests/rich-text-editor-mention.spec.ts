@@ -865,7 +865,7 @@ describe('RichTextEditor user mention via template', () => {
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                RICH_TEXT_MENTION_USERS_VIEW_TAG
+                'SPAN'
             ]);
             expect(pageObject.getEditorFirstChildTextContent()).toBe('@');
         });
@@ -876,7 +876,7 @@ describe('RichTextEditor user mention via template', () => {
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                RICH_TEXT_MENTION_USERS_VIEW_TAG
+                'SPAN'
             ]);
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User @');
         });
@@ -887,7 +887,7 @@ describe('RichTextEditor user mention via template', () => {
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                RICH_TEXT_MENTION_USERS_VIEW_TAG
+                'SPAN'
             ]);
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User @');
         });
@@ -900,7 +900,7 @@ describe('RichTextEditor user mention via template', () => {
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 'BR',
-                RICH_TEXT_MENTION_USERS_VIEW_TAG
+                'SPAN'
             ]);
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User@');
         });
@@ -914,7 +914,7 @@ describe('RichTextEditor user mention via template', () => {
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 'BR',
-                RICH_TEXT_MENTION_USERS_VIEW_TAG
+                'SPAN'
             ]);
             expect(pageObject.getEditorFirstChildTextContent()).toBe(
                 'UserText @'
