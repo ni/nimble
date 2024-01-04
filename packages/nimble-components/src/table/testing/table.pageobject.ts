@@ -338,7 +338,7 @@ export class TablePageObject<T extends TableRecord> {
         const actualWidth = cell.getBoundingClientRect().width;
         // Round to one decimal place. This is to work around a bug in Chrome related to
         // fractional widths (e.g. '1fr') in grid layouts that results in some numerical
-        // precision issues.
+        // precision issues. See: https://bugs.chromium.org/p/chromium/issues/detail?id=1515685
         return Math.round(actualWidth * 10) / 10;
     }
 
