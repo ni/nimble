@@ -24,7 +24,7 @@ const simpleData = [
     {
         date: new Date(2022, 0, 12, 20, 4, 37, 975).valueOf()
     }
-];
+] as const;
 
 const metadata: Meta = {
     title: 'Tokens/Theme Provider',
