@@ -37,46 +37,44 @@ const data = [
         firstName: 'Milhouse',
         lastName: 'Van Houten',
         age: 10,
-        favoriteColor: 'Crimson',
         quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
     },
     {
         id: '2',
         firstName: null,
         lastName: null,
-        favoriteColor: null,
         quote: null
     },
     {
+        id: '3',
         firstName: 'Jacqueline',
         lastName: 'Bouvier',
         age: 80,
         quote: "I have laryngitis. It hurts to talk, so I'll just say one thing. You never do anything right.",
-        id: '3',
         parentId: undefined
     },
     {
+        id: '4',
         firstName: 'Selma',
         lastName: 'Bouvier',
         age: 45,
         quote: "Hey relax. I've told ya' I've got money. I bought stock in a mace company just before society crumbled.",
-        id: '4',
         parentId: '3'
     },
     {
+        id: '',
         firstName: 'Marge',
         lastName: 'Simpson',
         age: 35,
         quote: "Oh, I've Always Wanted To Use Rosemary In Something!",
-        id: '',
         parentId: '3'
     },
     {
+        id: '7',
         firstName: 'Bart',
         lastName: 'Simpson',
         age: 12,
         quote: 'Cowabunga!',
-        id: '7',
         parentId: ''
     }
 ] as const;
@@ -124,7 +122,7 @@ tableThemeMatrix.play = async (): Promise<void> => {
         Array.from(document.querySelectorAll<Table>('nimble-table')).map(
             async table => {
                 await table.setData(data);
-                await table.setSelectedRecordIds(['6', '2']);
+                await table.setSelectedRecordIds(['', '2']);
             }
         )
     );

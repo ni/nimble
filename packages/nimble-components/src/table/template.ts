@@ -24,7 +24,7 @@ import { ButtonAppearance } from '../button/types';
 import { iconTriangleTwoLinesHorizontalTag } from '../icons/triangle-two-lines-horizontal';
 import { checkboxTag } from '../checkbox';
 import {
-    tableGroupsCollapseAllLabel,
+    tableCollapseAllLabel,
     tableRowOperationColumnLabel,
     tableSelectAllLabel
 } from '../label-provider/table/label-tokens';
@@ -72,11 +72,11 @@ export const template = html<Table>`
                                 class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
                                 content-hidden
                                 appearance="${ButtonAppearance.ghost}"
-                                title="${x => tableGroupsCollapseAllLabel.getValueFor(x)}"
+                                title="${x => tableCollapseAllLabel.getValueFor(x)}"
                                 @click="${x => x.handleCollapseAllGroupRows()}"
                             >
                                 <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
-                                ${x => tableGroupsCollapseAllLabel.getValueFor(x)}
+                                ${x => tableCollapseAllLabel.getValueFor(x)}
                             </${buttonTag}>
                         </span>
                         <span class="column-headers-container" ${ref('columnHeadersContainer')}>

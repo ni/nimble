@@ -1103,7 +1103,7 @@ describe('Table', () => {
                 await element.setData(hierarchicalData);
                 await waitForUpdatesAsync();
 
-                const processDataSpy = spyOn(element, 'processFlatData');
+                const processDataSpy = spyOn(element, 'calculateTanStackData');
                 element.idFieldName = 'stringData'; // force tanstack data update
                 await waitForUpdatesAsync();
 

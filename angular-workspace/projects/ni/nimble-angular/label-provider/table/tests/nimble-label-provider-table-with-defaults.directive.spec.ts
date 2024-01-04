@@ -49,7 +49,7 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
     it('applies translated values for each label', () => {
         expect(labelProvider.groupCollapse).toBe('Translated collapse group');
         expect(labelProvider.groupExpand).toBe('Translated expand group');
-        expect(labelProvider.groupsCollapseAll).toBe('Translated collapse all');
+        expect(labelProvider.collapseAll).toBe('Translated collapse all');
         expect(labelProvider.cellActionMenu).toBe('Translated options');
         expect(labelProvider.columnHeaderGrouped).toBe('Translated grouped');
         expect(labelProvider.columnHeaderSortedAscending).toBe('Translated sorted ascending');

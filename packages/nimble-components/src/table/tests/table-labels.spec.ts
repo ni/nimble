@@ -68,11 +68,11 @@ describe('Table with LabelProviderTable', () => {
         await disconnect();
     });
 
-    it('uses correct labels when a column is grouped (groupCollapse/groupExpand/groupsCollapseAll/columnHeaderGroupedIndicator)', async () => {
+    it('uses correct labels when a column is grouped (groupCollapse/groupExpand/collapseAll/columnHeaderGroupedIndicator)', async () => {
         await element.setData(simpleTableData);
         await connect();
 
-        labelProvider.groupsCollapseAll = 'Customized Collapse All';
+        labelProvider.collapseAll = 'Customized Collapse All';
         labelProvider.groupExpand = 'Customized Expand';
         labelProvider.groupCollapse = 'Customized Collapse';
         labelProvider.columnHeaderGrouped = 'Customized Grouped';

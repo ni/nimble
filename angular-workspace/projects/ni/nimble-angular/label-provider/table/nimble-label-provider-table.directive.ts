@@ -34,14 +34,14 @@ export class NimbleLabelProviderTableDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'groupExpand', value);
     }
 
-    public get groupsCollapseAll(): string | undefined {
-        return this.elementRef.nativeElement.groupsCollapseAll;
+    public get collapseAll(): string | undefined {
+        return this.elementRef.nativeElement.collapseAll;
     }
 
     // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('groups-collapse-all') public set groupsCollapseAll(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'groupsCollapseAll', value);
+    @Input('collapse-all') public set collapseAll(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'collapseAll', value);
     }
 
     public get cellActionMenu(): string | undefined {

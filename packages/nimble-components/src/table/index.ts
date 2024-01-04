@@ -276,7 +276,7 @@ export class Table<
 
     public async setData(newData: readonly TData[]): Promise<void> {
         await this.processPendingUpdates();
-        const tanstackUpdates = this.processFlatData(newData);
+        const tanstackUpdates = this.calculateTanStackData(newData);
         this.updateTableOptions(tanstackUpdates);
     }
 
@@ -550,7 +550,7 @@ export class Table<
     /**
      * @internal
      */
-    public processFlatData(
+    public calculateTanStackData(
         data: readonly TData[]
     ): Partial<TanStackTableOptionsResolved<TableNode<TData>>> {
         const tableNodes = this.dataHierarchyManager.getTableNodes(
@@ -807,7 +807,7 @@ export class Table<
                     this.table.options.data,
                     true
                 );
-                const tanstackUpdates = this.processFlatData(orderedRecords);
+                const tanstackUpdates = this.calculateTanStackData(orderedRecords);
                 if (tanstackUpdates.state) {
                     updatedOptions.state.rowSelection = tanstackUpdates.state.rowSelection;
                 }
@@ -924,7 +924,7 @@ export class Table<
             // which we don't want to include
             const isParent = row.original.subRows !== undefined
                 && row.original.subRows.length > 0;
-            const isGroupRowChildWithNoHierarchy = !isGroupRow
+            const isChildOfGroupRowWithNoHierarchy = !isGroupRow
                 && !isParent
                 && !hasParentRow
                 && row.depth > 0
@@ -938,7 +938,7 @@ export class Table<
                 groupRowValue: isGroupRow
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
-                nestingLevel: isGroupRowChildWithNoHierarchy
+                nestingLevel: isChildOfGroupRowWithNoHierarchy
                     ? row.depth - 1
                     : row.depth,
                 isParentRow: isParent,
