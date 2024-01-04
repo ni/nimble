@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 04 Jan 2024 16:50:24 GMT and should not be manually modified.
+This log was last generated on Thu, 04 Jan 2024 19:22:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.16.6
+
+Thu, 04 Jan 2024 19:22:21 GMT
+
+### Patches
+
+- Rich text editor fix for Safari browser issue in removing the suggestion text when pressing backspace ([ni/nimble@94f26ce](https://github.com/ni/nimble/commit/94f26ce2738e984870c6840fdc9557eff6e2b08f))
 
 ## 20.16.5
 
