@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "- Update all tests to use `parameterizeNamedList` and delete deprecated `getSpecTypeByNamedList` function.\n- Update functions in the table page object and table validator to have `readonly` arrays as the parameters.",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "none"
+}

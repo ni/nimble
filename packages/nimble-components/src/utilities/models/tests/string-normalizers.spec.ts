@@ -30,7 +30,7 @@ const wackyStrings = [
     { name: '中文 (Chinese characters)', output: '中文 (chinese characters)' },
     { name: 'Iñtërnâtiônàlizætiøn☃💩', output: 'internationalizætiøn☃💩' },
     { name: '１', output: '１' }
-];
+] as const;
 
 describe('The string normalizer utility', () => {
     parameterizeNamedList(wackyStrings, (spec, name, value) => {

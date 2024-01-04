@@ -1,35 +1,3 @@
-// eslint-disable-next-line no-restricted-globals
-type SpecTypes = typeof fit | typeof xit | typeof it;
-/**
- * @deprecated switch to `parameterize` or `parameterizeNamedList` instead
- */
-const getSpecType = <T>(
-    value: T,
-    isFocused: (value: T) => boolean,
-    isDisabled: (value: T) => boolean
-): SpecTypes => {
-    if (isFocused(value)) {
-        // eslint-disable-next-line no-restricted-globals
-        return fit;
-    }
-    if (isDisabled(value)) {
-        return xit;
-    }
-    return it;
-};
-
-/**
- * @deprecated switch to `parameterize` or `parameterizeNamedList` instead
- */
-export const getSpecTypeByNamedList = <T extends { name: string }>(
-    value: T,
-    focusList: string[],
-    disabledList: string[]
-): SpecTypes => getSpecType(
-    value,
-    (x: T) => focusList.includes(x.name),
-    (x: T) => disabledList.includes(x.name)
-);
 // The following aliases are just to reduce the number
 // of eslint disables in this source file. In normal
 // test code use the globals directly so eslint can
