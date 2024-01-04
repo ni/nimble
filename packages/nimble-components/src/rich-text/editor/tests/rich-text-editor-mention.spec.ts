@@ -931,12 +931,11 @@ describe('RichTextEditor user mention via template', () => {
     it('should get `span` and expected class name when @ character is added into the editor', async () => {
         await pageObject.setEditorTextContent('@mention');
 
-        expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
-            'P',
-            'SPAN'
-        ]);
+        expect(pageObject.getMarkdownRenderedTagNames()).toEqual(['P', 'SPAN']);
         expect(pageObject.getEditorFirstChildTextContent()).toBe('@mention');
-        expect(pageObject.getEditorLastChildAttribute('class')).toBe('nimble-mention-view-edit');
+        expect(pageObject.getEditorLastChildAttribute('class')).toBe(
+            'nimble-mention-view-edit'
+        );
     });
 });
 
