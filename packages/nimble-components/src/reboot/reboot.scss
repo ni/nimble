@@ -1,15 +1,15 @@
-@import '../../dist/tokens.scss';
-
 /*
- * Fluent UI Web Components for Blazor Reboot v1.0.0 
- * Copyright 2022 Microsoft
+ * Nimble Reboot v1.0.0 
+ * Copyright 2022 NI
+ * Licensed under MIT (https://github.com/ni/nimble/blob/main/LICENSE)
  *  
- * Normalization of HTML elements, copied and ajusted from Bootstrap's Reboot which is based on Normalize.css 
- * Licensed under MIT (https://github.com/microsoft/fluentui-blazor/blob/main/LICENSE)
- *   
+ * Normalization of HTML elements, copied and adjusted from Microsoft's and Bootstrap's Reboot which is based on Normalize.css 
+ * Fluent UI Web Components for Blazor Reboot is licensed under MIT (https://github.com/microsoft/fluentui-blazor/blob/main/LICENSE)
  * Normalize is licensed under MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md) 
  * Bootstrap is licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+@import '../../dist/tokens.scss';
 
 * {
 	box-sizing: border-box;
@@ -82,6 +82,7 @@ blockquote {
 	border-left: $ni-nimble-border-width solid $ni-nimble-popup-border-color;
 	border-right: none;
 	font-family: $ni-nimble-subtitle-plus-1-font-family;
+	color: $ni-nimble-subtitle-plus-1-font-color;
 	font-weight: 300;
 	font-size: $ni-nimble-subtitle-plus-1-font-size;
 	font-style: italic;
@@ -175,6 +176,7 @@ pre {
 	margin-bottom: 1rem;
 	overflow: auto;
 	font-size: 0.875em;
+	color: $ni-nimble-body-font-color;
 	code {
 		font-size: inherit;
 		color: inherit;
@@ -223,7 +225,6 @@ form {
 	max-width: $ni-nimble-drawer-width;
     padding-block-end: $ni-nimble-standard-padding;
 }
-
 label {
 	display: block;
 	font: $ni-nimble-control-label-font;
@@ -236,10 +237,12 @@ input {
 	font-size: inherit;
 	line-height: inherit;
 	border: 0;
-	border-bottom: $ni-nimble-border-width solid $ni-nimble-border-color;
+	border-bottom: $ni-nimble-border-width solid rgba($ni-nimble-border-rgb-partial-color, 0.3);
 	background-color: transparent;
-
 }
+input::-webkit-calendar-picker-indicator {
+	display: none;
+  }
 fieldset {
 	min-width: 0;
 	padding: 0;
@@ -269,6 +272,7 @@ iframe {
 summary {
 	display: list-item;
 	cursor: pointer;
+	color: $ni-nimble-body-font-color;
 }
 [hidden] {
 	display: none !important;

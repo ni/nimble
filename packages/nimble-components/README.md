@@ -78,9 +78,15 @@ The theming system is composed of:
     @import '@ni/nimble-components/dist/fonts';
     ```
 
-3. As needed, add Nimble components as descendants of the theme provider and they will inherit the theme.
+3. Include one import in your styles to use the [Reboot](https://nimble.ni.dev/storybook/?path=/docs/tokens-reboot-css--docs) styles.
 
-4. As needed, import the theme-aware design tokens in each SCSS file that will leverage the tokens for other parts of your application (for colors, fonts, etc).
+    ```scss
+    @import '@ni/nimble-components/dist/reboot';
+    ```
+
+4. As needed, add Nimble components as descendants of the theme provider and they will inherit the theme.
+
+5. As needed, import the theme-aware design tokens in each SCSS file that will leverage the tokens for other parts of your application (for colors, fonts, etc).
 
     ```scss
     @import '@ni/nimble-components/dist/tokens';
