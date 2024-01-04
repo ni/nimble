@@ -3,15 +3,16 @@
 ## Problem Statement
 
 Our clients have a need of a filterable dropdown component that does not require arbitrary text as a value, but only values available in the dropdown. The filtering will have the following behaviors:
-- The filter text will match _any_ text within the `textContent` of each `ListOption`
-- Each time the dropdown is opened the filter text is cleared
-- While the dropdown is opened all keystrokes except `<ArrowUp>` and `<ArrowDown>` will apply to the filter.
-- Pressing `<Esc>` will close the dropdown and revert the value to what it was prior to opening dropdown.
+
+-   The filter text will match _any_ text within the `textContent` of each `ListOption`
+-   Each time the dropdown is opened the filter text is cleared
+-   While the dropdown is opened all keystrokes except `<ArrowUp>` and `<ArrowDown>` will apply to the filter.
+-   Pressing `<Esc>` will close the dropdown and revert the value to what it was prior to opening dropdown.
 
 ## Links To Relevant Work Items and Reference Material
 
-- [#1273: Filterable NimbleSelect](https://github.com/ni/nimble/issues/1273)
-- [Filterable Select IxD](./IxD.md#filter)
+-   [#1273: Filterable NimbleSelect](https://github.com/ni/nimble/issues/1273)
+-   [Filterable Select IxD](./IxD.md#filter)
 
 ## Implementation / Design
 
@@ -74,4 +75,4 @@ None
 
 ## Open Issues
 
-- When there are no matches to the filter I am proposing that we display localizable text below/above the filter text area, the English version of which would be "No items found".
+-   When there are no matches to the filter I am proposing that we display localizable text below/above the filter text area, the English version of which would be "No items found".
