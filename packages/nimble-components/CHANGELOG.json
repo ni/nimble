@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 03 Jan 2024 20:14:14 GMT",
+      "version": "20.16.4",
+      "tag": "@ni/nimble-components_v20.16.4",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fdc2bdca4c8c8f3b22b798ae38fd3d577a7a6431",
+            "comment": "In anchor story, only emit contenteditable when set"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 Jan 2024 23:04:39 GMT",
       "version": "20.16.4",
       "tag": "@ni/nimble-components_v20.16.4",
