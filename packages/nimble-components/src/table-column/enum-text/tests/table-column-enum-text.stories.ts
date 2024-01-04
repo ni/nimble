@@ -34,7 +34,7 @@ const simpleData = [
         lastName: 'Simpson',
         status: 'success'
     }
-];
+] as const;
 
 const enumTextColumnDescription = `The \`nimble-table-column-enum-text\` column renders string, number, or boolean values as mapped text in the \`nimble-table\`.
 

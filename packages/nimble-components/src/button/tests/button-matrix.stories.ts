@@ -16,6 +16,7 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 import { buttonTag } from '..';
 import { iconKeyTag } from '../../icons/key';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
+import { bodyFont } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Button',
@@ -80,4 +81,22 @@ export const hiddenButton: StoryFn = createStory(
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(html`<${buttonTag}>Button</${buttonTag}>`)
+);
+
+// The baseline of the elements should be aligned when positioned inline.
+export const inlineAlignment: StoryFn = createStory(
+    html`<span style="font: var(${bodyFont.cssCustomProperty});">
+        <span style="text-decoration: underline;">Text</span>
+        <${buttonTag}>
+            <span style="text-decoration: underline;">Button</span>
+        </${buttonTag}>
+        <span style="text-decoration: underline;">Text</span>
+        <${buttonTag}>
+            <${iconKeyTag} slot="start"></${iconKeyTag}>
+            <span style="text-decoration: underline;">Button</span>
+        </${buttonTag}>
+        <div
+            style="display:inline-block; width:50px; height:50px; border: 1px black solid;"
+        ></div>
+    </span>`
 );

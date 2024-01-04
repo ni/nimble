@@ -24,7 +24,7 @@ This repository uses the following tooling. See below for more info.
 
 First step in development is to build the monorepo which requires the following to be installed:
 
-- Node.js version 18+ (run `node --version`) and npm version 8+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
+- Node.js version 20+ (run `node --version`) and npm version 10+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
 - .NET 6 SDK (`6.0.202 <= version < 7`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
    - Run `dotnet --info` to verify the required version of the SDK is installed. A `v6` install is required, but it's fine if later versions are installed too.
 

@@ -5,7 +5,8 @@ import {
     mentionDisabledFontColor,
     bodyFontColor,
     bodyFont,
-    bodyDisabledFontColor
+    bodyDisabledFontColor,
+    mentionFontColor
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -20,7 +21,7 @@ export const styles = css`
 
     .control {
         font: ${mentionFont};
-        color: var(--ni-nimble-private-mention-font-color);
+        color: ${mentionFontColor};
         display: none;
     }
 

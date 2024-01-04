@@ -1,8 +1,34 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 15 Dec 2023 14:08:18 GMT and should not be manually modified.
+This log was last generated on Thu, 04 Jan 2024 21:21:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.17.0
+
+Thu, 04 Jan 2024 21:21:59 GMT
+
+### Minor changes
+
+- - Update all tests to use `parameterizeNamedList` and delete deprecated `getSpecTypeByNamedList` function.
+- Update functions in the table page object and table validator to have `readonly` arrays as the parameters. ([ni/nimble@85b29ec](https://github.com/ni/nimble/commit/85b29ec1836a8bb00b51797c42e4f4cfa058accb))
+
+## 20.16.6
+
+Thu, 04 Jan 2024 19:22:21 GMT
+
+### Patches
+
+- Rich text editor fix for Safari browser issue in removing the suggestion text when pressing backspace ([ni/nimble@94f26ce](https://github.com/ni/nimble/commit/94f26ce2738e984870c6840fdc9557eff6e2b08f))
+
+## 20.16.5
+
+Thu, 04 Jan 2024 16:50:24 GMT
+
+### Patches
+
+- Upgrade dependencies ([ni/nimble@341146c](https://github.com/ni/nimble/commit/341146ceef057386cea20419277073bd793270ef))
+- Bump @ni/nimble-tokens to v6.9.1
 
 ## 20.16.4
 
