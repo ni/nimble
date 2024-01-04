@@ -17,6 +17,8 @@ Our clients have a need of a filterable dropdown component that does not require
 
 ### API
 
+#### Select
+
 We will provide a means for clients to enable this feature with a new attribute:
 
 ```ts
@@ -26,6 +28,20 @@ export class Select() {
     public enableFilter = false;
     ...
 }
+```
+
+#### LabelProviderCore
+
+We will be showing text that will require localization as part of this feature. It seems reasonable to add these APIs to the existing `LabelProviderCore` class as opposed to creating a new provider:
+
+```ts
+export class LabelProviderCore
+    ...
+    @attr({ attribute: 'select-filter-search' })
+    public selectFilterSearch: string | undefined;
+
+    @attr({ attribute: 'select-filter-no-results' })
+    public selectFilterNoResults: string | undefined;
 ```
 
 ### Implementation details
