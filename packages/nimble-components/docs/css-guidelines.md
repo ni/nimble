@@ -217,4 +217,4 @@ This utility will generate the appropriate display style, as well as a style rul
 
 ## Stick to enumerated values for `z-index`
 
-To avoid an unnecessary proliferation of `z-index` values (which make the code more difficult to reason about), we define a `ZIndexLevels` enum with a fixed set of values to choose from. If possible, use one of the existing values. If you instead need to establish a new stacking position relative to the existing values, create a new enum value to use. When possible, pick a value that is a power of 10.
+To avoid an unnecessary proliferation of `z-index` values (which make the code more difficult to reason about), we define a `ZIndexLevels` enum with a fixed set of values to choose from. If possible, use one of the existing values. If you instead need to establish a new stacking position relative to the existing values, create a new enum value to use.
