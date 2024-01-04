@@ -1,8 +1,16 @@
 # Change Log - @ni/xliff-to-json-converter
 
-This log was last generated on Mon, 16 Oct 2023 21:31:42 GMT and should not be manually modified.
+This log was last generated on Thu, 04 Jan 2024 16:50:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.3
+
+Thu, 04 Jan 2024 16:50:24 GMT
+
+### Patches
+
+- Upgrade dependencies ([ni/nimble@341146c](https://github.com/ni/nimble/commit/341146ceef057386cea20419277073bd793270ef))
 
 ## 1.1.2
 

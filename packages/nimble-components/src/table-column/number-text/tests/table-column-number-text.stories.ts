@@ -45,7 +45,7 @@ const simpleData = [
         age: 14.1,
         favoriteNumber: -0.00000064532623
     }
-];
+] as const;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Number Text',
