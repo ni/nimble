@@ -11,7 +11,6 @@ async function setup(): Promise<Fixture<RichTextMentionUsersView>> {
         html`<${richTextMentionUsersViewTag}
             mention-href="users:1"
             mention-label="John Doe"
-            disable-editing
             >@John Doe</${richTextMentionUsersViewTag}
         >`
     );

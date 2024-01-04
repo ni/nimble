@@ -80,6 +80,17 @@ export const styles = css`
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
     }
 
+    ${
+        /* Shared styles for all mention views at edit time. */ ''
+    }
+    .nimble-mention-view-edit {
+        color: ${bodyFontColor};
+    }
+
+    :host([disabled]) .nimble-mention-view-edit {
+        color: ${bodyDisabledFontColor};
+    }
+
     :host([error-visible]) .container {
         border-bottom-color: ${failColor};
     }

@@ -211,9 +211,7 @@ function createCustomMentionExtension(
                 config.viewElement,
                 mergeAttributes(
                     this.options.HTMLAttributes,
-                    HTMLAttributes,
-                    // disable-editing is a boolean attribute
-                    { 'disable-editing': '' }
+                    HTMLAttributes
                 ),
                 this.options.renderLabel({
                     options: this.options,
@@ -224,13 +222,7 @@ function createCustomMentionExtension(
     }).configure({
         suggestion: {
             char: config.character,
-            /**
-             * When rendering the view element as a decoration tag for suggestions,
-             * it leads to the deletion of the entire suggested word in Safari when pressing backspace.
-             * See: https://github.com/ni/nimble/issues/1716
-             * When addressed, re-enable the view element as follows:
-             * decorationTag: config.viewElement,
-             */
+            decorationClass: 'nimble-mention-view-edit',
             pluginKey: new PluginKey(config.key),
             allowSpaces: true,
             render: () => {
