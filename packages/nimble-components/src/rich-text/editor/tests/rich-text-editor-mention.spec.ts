@@ -927,6 +927,17 @@ describe('RichTextEditor user mention via template', () => {
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
         });
     });
+
+    it('should get `span` and expected class name when @ character is added into the editor', async () => {
+        await pageObject.setEditorTextContent('@mention');
+
+        expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
+            'P',
+            'SPAN'
+        ]);
+        expect(pageObject.getEditorFirstChildTextContent()).toBe('@mention');
+        expect(pageObject.getEditorLastChildAttribute('class')).toBe('nimble-mention-view-edit');
+    });
 });
 
 describe('RichTextEditorMentionListbox', () => {
