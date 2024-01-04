@@ -1,16 +1,9 @@
-import { getSpecTypeByNamedList } from '../../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
 import { DefaultFormatter } from '../default-formatter';
 
 describe('DefaultFormatter', () => {
     const locales = ['en', 'de'] as const;
-    const testCases: readonly {
-        name: string,
-        value: number,
-        expectedFormattedValue: {
-            en: string,
-            de: string
-        }
-    }[] = [
+    const testCases = [
         {
             name: 'NEGATIVE_INFINITY renders as -∞',
             value: Number.NEGATIVE_INFINITY,
@@ -213,29 +206,15 @@ describe('DefaultFormatter', () => {
         }
     ] as const;
 
-    const focused: string[] = [];
-    const disabled: string[] = [];
     for (const locale of locales) {
-        for (const testCase of testCases) {
-            const specType = getSpecTypeByNamedList(
-                testCase,
-                focused,
-                disabled
-            );
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(
-                `${testCase.name} with '${locale}' locale`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                () => {
-                    const formatter = new DefaultFormatter(locale);
-                    const formattedValue = formatter.formatValue(
-                        testCase.value
-                    );
-                    expect(formattedValue).toEqual(
-                        testCase.expectedFormattedValue[locale]
-                    );
-                }
-            );
-        }
+        parameterizeNamedList(testCases, (spec, name, value) => {
+            spec(`${name} with '${locale}' locale`, () => {
+                const formatter = new DefaultFormatter(locale);
+                const formattedValue = formatter.formatValue(value.value);
+                expect(formattedValue).toEqual(
+                    value.expectedFormattedValue[locale]
+                );
+            });
+        });
     }
 });

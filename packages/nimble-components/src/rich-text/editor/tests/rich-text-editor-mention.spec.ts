@@ -961,15 +961,15 @@ describe('RichTextEditorMentionListbox', () => {
         });
 
         describe('various wacky strings should display as it is in the mention popup option', () => {
-            parameterizeNamedList(wackyStrings, (spec, name, value) => {
+            parameterizeNamedList(wackyStrings, (spec, name) => {
                 spec(`for ${name}`, async () => {
                     await appendUserMentionConfiguration(element, [
-                        { key: 'user:1', displayName: value.name }
+                        { key: 'user:1', displayName: name }
                     ]);
                     await pageObject.setEditorTextContent('@');
 
                     expect(pageObject.getMentionListboxItemsName()).toEqual([
-                        value.name
+                        name
                     ]);
                 });
             });
