@@ -1,7 +1,7 @@
 {
-  "type": "none",
-  "comment": "Update Angular test file with additional table validation entry",
+  "type": "major",
+  "comment": "Introducing data hierarchy for table which changed label provider APIs. Update test with additional validation entry.",
   "packageName": "@ni/nimble-angular",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
-  "dependentChangeType": "none"
+  "dependentChangeType": "major"
 }

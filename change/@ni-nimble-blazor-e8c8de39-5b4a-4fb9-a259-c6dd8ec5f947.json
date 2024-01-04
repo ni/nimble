@@ -3,5 +3,5 @@
   "comment": "Introducing data hierarchy for table which changed label provider APIs",
   "packageName": "@ni/nimble-blazor",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "major"
 }
