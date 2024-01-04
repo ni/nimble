@@ -1,4 +1,4 @@
-import { TableNode, TableRowSelectionMode, TableValidity } from '../../types';
+import { TableNode, TableRowSelectionMode } from '../../types';
 import { TableValidator } from '../table-validator';
 import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import {

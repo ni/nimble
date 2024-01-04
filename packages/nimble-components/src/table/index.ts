@@ -307,7 +307,9 @@ export class Table<
         return selectedRecordIds;
     }
 
-    public async setSelectedRecordIds(recordIds: readonly string[]): Promise<void> {
+    public async setSelectedRecordIds(
+        recordIds: readonly string[]
+    ): Promise<void> {
         await this.processPendingUpdates();
 
         if (this.selectionMode === TableRowSelectionMode.none) {

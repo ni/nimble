@@ -7,7 +7,7 @@ import {
     labelProviderRichTextTag
 } from '../../../label-provider/rich-text';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
-import { LabelProvider, ToolbarButton } from '../testing/types';
+import { ToolbarButton } from '../testing/types';
 import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
