@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 04 Jan 2024 23:39:35 GMT",
+      "version": "20.17.0",
+      "tag": "@ni/nimble-components_v20.17.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "441c8f5c3b452cb445005be9cd62c848729a657b",
+            "comment": "Add button alignment visual test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Jan 2024 21:21:59 GMT",
       "version": "20.17.0",
       "tag": "@ni/nimble-components_v20.17.0",
