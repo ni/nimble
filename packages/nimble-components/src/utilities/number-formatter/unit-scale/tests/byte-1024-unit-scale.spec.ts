@@ -81,17 +81,21 @@ describe('Byte1024UnitScale', () => {
     parameterizeNamedList(testCases, (spec, name, value) => {
         spec(`gets expected unit for ${name}`, () => {
             const { scaledValue, scaledUnit } = byte1024UnitScale.scaleNumber(value.number);
-            for (const [index, locale] of [
-                [0, 'en'],
-                [1, 'fr'],
-                [2, 'de'],
-                [3, 'ja'],
-                [4, 'zh']
-            ] as const) {
-                expect(
-                    scaledUnit.unitFormatterFactory(locale, {}).format(scaledValue)
-                ).toEqual(value.formatted[index]);
-            }
+            expect(
+                scaledUnit.unitFormatterFactory('en', {}).format(scaledValue)
+            ).toEqual(value.formatted[0]);
+            expect(
+                scaledUnit.unitFormatterFactory('fr', {}).format(scaledValue)
+            ).toEqual(value.formatted[1]);
+            expect(
+                scaledUnit.unitFormatterFactory('de', {}).format(scaledValue)
+            ).toEqual(value.formatted[2]);
+            expect(
+                scaledUnit.unitFormatterFactory('ja', {}).format(scaledValue)
+            ).toEqual(value.formatted[3]);
+            expect(
+                scaledUnit.unitFormatterFactory('zh', {}).format(scaledValue)
+            ).toEqual(value.formatted[4]);
         });
     });
 });

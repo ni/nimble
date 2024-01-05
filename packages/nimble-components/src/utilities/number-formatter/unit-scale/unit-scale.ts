@@ -48,7 +48,8 @@ export abstract class UnitScale {
         ) {
             return { scaledValue: number, scaledUnit: this.baseScaledUnit };
         }
-        for (const unit of this.supportedScaledUnits) {
+        for (let i = this.supportedScaledUnits.length - 1; i >= 0; i -= 1) {
+            const unit = this.supportedScaledUnits[i]!;
             if (magnitude / unit.scaleFactor >= 1) {
                 return {
                     scaledValue: number / unit.scaleFactor,
@@ -56,7 +57,7 @@ export abstract class UnitScale {
                 };
             }
         }
-        const smallestUnit = this.supportedScaledUnits[this.supportedScaledUnits.length - 1]!;
+        const smallestUnit = this.supportedScaledUnits[0]!;
         return {
             scaledValue: number / smallestUnit.scaleFactor,
             scaledUnit: smallestUnit
