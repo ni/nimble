@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Rich text editor fix for Safari browser issue in removing the suggestion text when pressing backspace",
+  "comment": "Removed disable-editing attribute from the rich text mention users view component for rendering @mention in editor and viewer",
   "packageName": "@ni/nimble-components",
   "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
   "dependentChangeType": "patch"
