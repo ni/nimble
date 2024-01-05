@@ -11,7 +11,7 @@ import {
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import type { TableColumnText } from '../../table-column/text';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;
@@ -644,16 +644,7 @@ describe('Table row selection', () => {
                 });
 
                 describe('interactions that modify the selection', () => {
-                    const configurations: {
-                        name: string,
-                        initialSelection: string[],
-                        rowToClick: number,
-                        clickModifiers: {
-                            shiftKey?: boolean,
-                            ctrlKey?: boolean
-                        },
-                        expectedSelection: string[]
-                    }[] = [
+                    const configurations = [
                         {
                             name: 'clicking a row with no previous selection selects the clicked row',
                             initialSelection: [],
@@ -696,56 +687,43 @@ describe('Table row selection', () => {
                             clickModifiers: { shiftKey: true },
                             expectedSelection: ['0']
                         }
-                    ];
-                    const focused: string[] = [];
-                    const disabled: string[] = [];
-                    for (const configuration of configurations) {
-                        const specType = getSpecTypeByNamedList(
-                            configuration,
-                            focused,
-                            disabled
-                        );
-                        // eslint-disable-next-line @typescript-eslint/no-loop-func
-                        specType(configuration.name, async () => {
-                            await element.setSelectedRecordIds(
-                                configuration.initialSelection
-                            );
-                            await pageObject.clickRow(
-                                configuration.rowToClick,
-                                configuration.clickModifiers
-                            );
+                    ] as const;
+                    parameterizeNamedList(
+                        configurations,
+                        (spec, name, value) => {
+                            spec(name, async () => {
+                                await element.setSelectedRecordIds(
+                                    value.initialSelection
+                                );
+                                await pageObject.clickRow(
+                                    value.rowToClick,
+                                    value.clickModifiers
+                                );
 
-                            const currentSelection = await element.getSelectedRecordIds();
-                            expect(currentSelection).toEqual(
-                                jasmine.arrayWithExactContents(
-                                    configuration.expectedSelection
-                                )
-                            );
-                            expect(
-                                selectionChangeListener.spy
-                            ).toHaveBeenCalledTimes(1);
-                            const emittedIds = getEmittedRecordIdsFromSpy(
-                                selectionChangeListener.spy
-                            );
-                            expect(emittedIds).toEqual(
-                                jasmine.arrayWithExactContents(
-                                    configuration.expectedSelection
-                                )
-                            );
-                        });
-                    }
+                                const currentSelection = await element.getSelectedRecordIds();
+                                expect(currentSelection).toEqual(
+                                    jasmine.arrayWithExactContents(
+                                        value.expectedSelection
+                                    )
+                                );
+                                expect(
+                                    selectionChangeListener.spy
+                                ).toHaveBeenCalledTimes(1);
+                                const emittedIds = getEmittedRecordIdsFromSpy(
+                                    selectionChangeListener.spy
+                                );
+                                expect(emittedIds).toEqual(
+                                    jasmine.arrayWithExactContents(
+                                        value.expectedSelection
+                                    )
+                                );
+                            });
+                        }
+                    );
                 });
 
                 describe('interactions that do not modify the selection', () => {
-                    const configurations: {
-                        name: string,
-                        initialSelection: string[],
-                        rowToClick: number,
-                        clickModifiers: {
-                            shiftKey?: boolean,
-                            ctrlKey?: boolean
-                        }
-                    }[] = [
+                    const configurations = [
                         {
                             name: 'clicking the already selected row maintains its selection',
                             initialSelection: ['0'],
@@ -764,36 +742,31 @@ describe('Table row selection', () => {
                             rowToClick: 0,
                             clickModifiers: { shiftKey: true }
                         }
-                    ];
-                    const focused: string[] = [];
-                    const disabled: string[] = [];
-                    for (const configuration of configurations) {
-                        const specType = getSpecTypeByNamedList(
-                            configuration,
-                            focused,
-                            disabled
-                        );
-                        // eslint-disable-next-line @typescript-eslint/no-loop-func
-                        specType(configuration.name, async () => {
-                            await element.setSelectedRecordIds(
-                                configuration.initialSelection
-                            );
-                            await pageObject.clickRow(
-                                configuration.rowToClick,
-                                configuration.clickModifiers
-                            );
+                    ] as const;
+                    parameterizeNamedList(
+                        configurations,
+                        (spec, name, value) => {
+                            spec(name, async () => {
+                                await element.setSelectedRecordIds(
+                                    value.initialSelection
+                                );
+                                await pageObject.clickRow(
+                                    value.rowToClick,
+                                    value.clickModifiers
+                                );
 
-                            const currentSelection = await element.getSelectedRecordIds();
-                            expect(currentSelection).toEqual(
-                                jasmine.arrayWithExactContents(
-                                    configuration.initialSelection
-                                )
-                            );
-                            expect(
-                                selectionChangeListener.spy
-                            ).not.toHaveBeenCalled();
-                        });
-                    }
+                                const currentSelection = await element.getSelectedRecordIds();
+                                expect(currentSelection).toEqual(
+                                    jasmine.arrayWithExactContents(
+                                        value.initialSelection
+                                    )
+                                );
+                                expect(
+                                    selectionChangeListener.spy
+                                ).not.toHaveBeenCalled();
+                            });
+                        }
+                    );
                 });
             });
 
@@ -804,13 +777,7 @@ describe('Table row selection', () => {
                     await waitForUpdatesAsync();
                 });
 
-                const configurations: {
-                    name: string,
-                    initialSelection: string[],
-                    rowToClick: number,
-                    clickModifiers: { shiftKey?: boolean, ctrlKey?: boolean },
-                    expectedSelection: string[]
-                }[] = [
+                const configurations = [
                     {
                         name: 'clicking a row with no previous selection selects the clicked row',
                         initialSelection: [],
@@ -874,29 +841,21 @@ describe('Table row selection', () => {
                         clickModifiers: { ctrlKey: true },
                         expectedSelection: ['2']
                     }
-                ];
-                const focused: string[] = [];
-                const disabled: string[] = [];
-                for (const configuration of configurations) {
-                    const specType = getSpecTypeByNamedList(
-                        configuration,
-                        focused,
-                        disabled
-                    );
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
-                    specType(configuration.name, async () => {
+                ] as const;
+                parameterizeNamedList(configurations, (spec, name, value) => {
+                    spec(name, async () => {
                         await element.setSelectedRecordIds(
-                            configuration.initialSelection
+                            value.initialSelection
                         );
                         await pageObject.clickRow(
-                            configuration.rowToClick,
-                            configuration.clickModifiers
+                            value.rowToClick,
+                            value.clickModifiers
                         );
 
                         const currentSelection = await element.getSelectedRecordIds();
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(
-                                configuration.expectedSelection
+                                value.expectedSelection
                             )
                         );
                         expect(
@@ -907,11 +866,11 @@ describe('Table row selection', () => {
                         );
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(
-                                configuration.expectedSelection
+                                value.expectedSelection
                             )
                         );
                     });
-                }
+                });
 
                 it('clicking the already selected row maintains its selection and does not emit an event', async () => {
                     await element.setSelectedRecordIds(['0']);

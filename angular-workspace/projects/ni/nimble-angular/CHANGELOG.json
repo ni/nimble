@@ -2,6 +2,81 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 05 Jan 2024 00:37:04 GMT",
+      "version": "18.2.8",
+      "tag": "@ni/nimble-angular_v18.2.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.17.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Jan 2024 22:40:39 GMT",
+      "version": "18.2.7",
+      "tag": "@ni/nimble-angular_v18.2.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "a08257989e9584bbd56956e7fa50d91e9aba4fae",
+            "comment": "Add tests for list-option, menu-item, tab, and tree-view Angular directives"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Jan 2024 21:21:59 GMT",
+      "version": "18.2.6",
+      "tag": "@ni/nimble-angular_v18.2.6",
+      "comments": {
+        "none": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.17.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Jan 2024 19:22:21 GMT",
+      "version": "18.2.6",
+      "tag": "@ni/nimble-angular_v18.2.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.16.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Jan 2024 16:50:24 GMT",
+      "version": "18.2.5",
+      "tag": "@ni/nimble-angular_v18.2.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.16.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 15 Dec 2023 14:08:18 GMT",
       "version": "18.2.4",
       "tag": "@ni/nimble-angular_v18.2.4",
