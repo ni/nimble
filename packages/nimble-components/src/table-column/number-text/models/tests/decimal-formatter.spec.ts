@@ -1,18 +1,9 @@
-import { getSpecTypeByNamedList } from '../../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
 import { DecimalFormatter } from '../decimal-formatter';
 
 describe('DecimalFormatter', () => {
     const locales = ['en', 'de'] as const;
-    const testCases: readonly {
-        name: string,
-        minDigits: number,
-        maxDigits: number,
-        value: number,
-        expectedFormattedValue: {
-            en: string,
-            de: string
-        }
-    }[] = [
+    const testCases = [
         {
             name: 'NEGATIVE_INFINITY renders as -∞',
             minDigits: 1,
@@ -125,33 +116,19 @@ describe('DecimalFormatter', () => {
         }
     ] as const;
 
-    const focused: string[] = [];
-    const disabled: string[] = [];
     for (const locale of locales) {
-        for (const testCase of testCases) {
-            const specType = getSpecTypeByNamedList(
-                testCase,
-                focused,
-                disabled
-            );
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(
-                `${testCase.name} with '${locale}' locale`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                () => {
-                    const formatter = new DecimalFormatter(
-                        locale,
-                        testCase.minDigits,
-                        testCase.maxDigits
-                    );
-                    const formattedValue = formatter.formatValue(
-                        testCase.value
-                    );
-                    expect(formattedValue).toEqual(
-                        testCase.expectedFormattedValue[locale]
-                    );
-                }
-            );
-        }
+        parameterizeNamedList(testCases, (spec, name, value) => {
+            spec(`${name} with '${locale}' locale`, () => {
+                const formatter = new DecimalFormatter(
+                    locale,
+                    value.minDigits,
+                    value.maxDigits
+                );
+                const formattedValue = formatter.formatValue(value.value);
+                expect(formattedValue).toEqual(
+                    value.expectedFormattedValue[locale]
+                );
+            });
+        });
     }
 });

@@ -185,13 +185,21 @@ function createCustomMentionExtension(
                         };
                     }
                 },
-
                 label: {
                     default: null,
                     parseHTML: element => element.getAttribute('mention-label'),
                     renderHTML: attributes => {
                         return {
                             'mention-label': attributes.label as string
+                        };
+                    }
+                },
+                disabled: {
+                    default: null,
+                    parseHTML: element => element.getAttribute('disabled'),
+                    renderHTML: attributes => {
+                        return {
+                            disabled: attributes.disabled as string
                         };
                     }
                 }
@@ -216,7 +224,13 @@ function createCustomMentionExtension(
     }).configure({
         suggestion: {
             char: config.character,
-            decorationTag: config.viewElement,
+            /**
+             * When rendering the view element as a decoration tag for suggestions,
+             * it leads to the deletion of the entire suggested word in Safari when pressing backspace.
+             * See: https://github.com/ni/nimble/issues/1716
+             * When addressed, re-enable the view element as follows:
+             * decorationTag: config.viewElement,
+             */
             pluginKey: new PluginKey(config.key),
             allowSpaces: true,
             render: () => {

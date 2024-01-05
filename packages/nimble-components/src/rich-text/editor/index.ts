@@ -231,6 +231,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      */
     public disabledChanged(): void {
         this.disableEditor();
+        this.disableMentionViewElement();
     }
 
     /**
@@ -391,6 +392,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     public setMarkdown(markdown: string): void {
         const html = this.getHtmlContent(markdown);
         this.tiptapEditor.commands.setContent(html);
+        this.disableMentionViewElement();
     }
 
     /**
@@ -518,6 +520,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.placeholder
         );
         this.disableEditor();
+        this.disableMentionViewElement();
         this.bindEditorTransactionEvent();
         this.bindEditorUpdateEvent();
         this.stopNativeInputEventPropagation();
@@ -599,6 +602,29 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.disabled ? 'true' : 'false'
         );
         this.mentionListbox?.close();
+    }
+
+    private disableMentionViewElement(): void {
+        this.tiptapEditor.state.doc.descendants((node, pos) => {
+            if (node.type.name.startsWith(mentionPluginPrefix)) {
+                const updatedAttrs = {
+                    ...node.attrs,
+                    disabled: this.disabled ? '' : null
+                };
+                const updatedNode = this.tiptapEditor.schema.node(
+                    node.type.name,
+                    updatedAttrs,
+                    node.content
+                );
+                const updatedTransaction = this.tiptapEditor.state.tr.replaceWith(
+                    pos,
+                    pos + node.nodeSize,
+                    updatedNode
+                );
+                this.tiptapEditor.view.dispatch(updatedTransaction);
+            }
+            return true;
+        });
     }
 
     /**

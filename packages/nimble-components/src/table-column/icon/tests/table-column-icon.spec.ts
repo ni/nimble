@@ -6,7 +6,7 @@ import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { mappingTextTag } from '../../../mapping/text';
 import { MappingIcon, mappingIconTag } from '../../../mapping/icon';
 import { iconXmarkTag } from '../../../icons/xmark';
@@ -100,22 +100,18 @@ describe('TableColumnIcon', () => {
             { name: MappingKeyType.string, key: 'a' },
             { name: MappingKeyType.number, key: 10 },
             { name: MappingKeyType.boolean, key: true }
-        ];
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const test of dataTypeTests) {
-            const specType = getSpecTypeByNamedList(test, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(`displays icon mapped from ${test.name}`, async () => {
+        ] as const;
+        parameterizeNamedList(dataTypeTests, (spec, name, value) => {
+            spec(`displays icon mapped from ${name}`, async () => {
                 ({ element, connect, disconnect, model } = await setup({
-                    keyType: test.name,
+                    keyType: value.name,
                     iconMappings: [
-                        { key: test.key, text: 'alpha', icon: iconXmarkTag }
+                        { key: value.key, text: 'alpha', icon: iconXmarkTag }
                     ],
                     spinnerMappings: []
                 }));
                 pageObject = new TablePageObject<SimpleTableRecord>(element);
-                await element.setData([{ field1: test.key }]);
+                await element.setData([{ field1: value.key }]);
                 await connect();
                 await waitForUpdatesAsync();
 
@@ -123,19 +119,17 @@ describe('TableColumnIcon', () => {
                     pageObject.getRenderedIconColumnCellIconTagName(0, 0)
                 ).toBe(iconXmarkTag);
             });
-        }
+        });
 
-        for (const test of dataTypeTests) {
-            const specType = getSpecTypeByNamedList(test, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(`displays spinner mapped from ${test.name}`, async () => {
+        parameterizeNamedList(dataTypeTests, (spec, name, value) => {
+            spec(`displays spinner mapped from ${name}`, async () => {
                 ({ element, connect, disconnect, model } = await setup({
-                    keyType: test.name,
+                    keyType: value.name,
                     iconMappings: [],
-                    spinnerMappings: [{ key: test.key, text: 'alpha' }]
+                    spinnerMappings: [{ key: value.key, text: 'alpha' }]
                 }));
                 pageObject = new TablePageObject<SimpleTableRecord>(element);
-                await element.setData([{ field1: test.key }]);
+                await element.setData([{ field1: value.key }]);
                 await connect();
                 await waitForUpdatesAsync();
 
@@ -143,7 +137,7 @@ describe('TableColumnIcon', () => {
                     pageObject.getRenderedIconColumnCellIconTagName(0, 0)
                 ).toBe(spinnerTag);
             });
-        }
+        });
     });
 
     it('displays blank when no matches', async () => {
@@ -271,41 +265,31 @@ describe('TableColumnIcon', () => {
     });
 
     describe('various string values render in group header as expected', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of wackyStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(
-                `data "${value.name}" renders as "${value.name}"`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    ({ element, connect, disconnect, model } = await setup({
-                        keyType: MappingKeyType.string,
-                        iconMappings: [
-                            {
-                                key: 'a',
-                                text: value.name,
-                                icon: iconXmarkTag
-                            }
-                        ],
-                        spinnerMappings: []
-                    }));
-                    pageObject = new TablePageObject<SimpleTableRecord>(
-                        element
-                    );
-                    await element.setData([{ field1: 'a' }]);
-                    await connect();
-                    await waitForUpdatesAsync();
-                    model.col1.groupIndex = 0;
-                    await waitForUpdatesAsync();
+        parameterizeNamedList(wackyStrings, (spec, name) => {
+            spec(`data "${name}" renders as "${name}"`, async () => {
+                ({ element, connect, disconnect, model } = await setup({
+                    keyType: MappingKeyType.string,
+                    iconMappings: [
+                        {
+                            key: 'a',
+                            text: name,
+                            icon: iconXmarkTag
+                        }
+                    ],
+                    spinnerMappings: []
+                }));
+                pageObject = new TablePageObject<SimpleTableRecord>(element);
+                await element.setData([{ field1: 'a' }]);
+                await connect();
+                await waitForUpdatesAsync();
+                model.col1.groupIndex = 0;
+                await waitForUpdatesAsync();
 
-                    expect(
-                        pageObject.getRenderedGroupHeaderTextContent(0)
-                    ).toContain(value.name);
-                }
-            );
-        }
+                expect(
+                    pageObject.getRenderedGroupHeaderTextContent(0)
+                ).toContain(name);
+            });
+        });
     });
 
     it('sets group header text to blank when unmatched', async () => {
@@ -406,22 +390,14 @@ describe('TableColumnIcon', () => {
                 { name: '(blank)', key: '' },
                 { name: 'FALSE', key: 'FALSE' },
                 { name: '0', key: 0 }
-            ];
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const test of dataTypeTests) {
-                const specType = getSpecTypeByNamedList(
-                    test,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(` ${test.name}`, async () => {
+            ] as const;
+            parameterizeNamedList(dataTypeTests, (spec, name, value) => {
+                spec(name, async () => {
                     ({ element, connect, disconnect, model } = await setup({
                         keyType: MappingKeyType.boolean,
                         iconMappings: [
                             {
-                                key: test.key,
+                                key: value.key,
                                 text: 'alpha',
                                 icon: iconXmarkTag
                             }
@@ -435,7 +411,7 @@ describe('TableColumnIcon', () => {
                         model.col1.validity.invalidMappingKeyValueForType
                     ).toBeTrue();
                 });
-            }
+            });
         });
 
         it('is invalid with invalid numeric key values', async () => {

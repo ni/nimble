@@ -927,7 +927,7 @@ describe('RichTextEditor user mention via template', () => {
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                RICH_TEXT_MENTION_USERS_VIEW_TAG
+                'SPAN'
             ]);
             expect(pageObject.getEditorFirstChildTextContent()).toBe('@');
         });
@@ -938,7 +938,7 @@ describe('RichTextEditor user mention via template', () => {
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                RICH_TEXT_MENTION_USERS_VIEW_TAG
+                'SPAN'
             ]);
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User @');
         });
@@ -949,7 +949,7 @@ describe('RichTextEditor user mention via template', () => {
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                RICH_TEXT_MENTION_USERS_VIEW_TAG
+                'SPAN'
             ]);
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User @');
         });
@@ -962,7 +962,7 @@ describe('RichTextEditor user mention via template', () => {
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 'BR',
-                RICH_TEXT_MENTION_USERS_VIEW_TAG
+                'SPAN'
             ]);
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User@');
         });
@@ -976,7 +976,7 @@ describe('RichTextEditor user mention via template', () => {
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
                 'BR',
-                RICH_TEXT_MENTION_USERS_VIEW_TAG
+                'SPAN'
             ]);
             expect(pageObject.getEditorFirstChildTextContent()).toBe(
                 'UserText @'
@@ -1023,15 +1023,15 @@ describe('RichTextEditorMentionListbox', () => {
         });
 
         describe('various wacky strings should display as it is in the mention popup option', () => {
-            parameterizeNamedList(wackyStrings, (spec, name, value) => {
+            parameterizeNamedList(wackyStrings, (spec, name) => {
                 spec(`for ${name}`, async () => {
                     await appendUserMentionConfiguration(element, [
-                        { key: 'user:1', displayName: value.name }
+                        { key: 'user:1', displayName: name }
                     ]);
                     await pageObject.setEditorTextContent('@');
 
                     expect(pageObject.getMentionListboxItemsName()).toEqual([
-                        value.name
+                        name
                     ]);
                 });
             });
