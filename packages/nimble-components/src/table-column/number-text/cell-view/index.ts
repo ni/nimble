@@ -31,8 +31,7 @@ TableColumnNumberTextColumnConfig
     }
 
     private updateText(): void {
-        this.text = this.columnConfig?.formatter?.format(this.cellRecord?.value)
-            ?? '';
+        this.text = this.columnConfig?.formatter?.format(this.cellRecord?.value) ?? '';
     }
 }
 

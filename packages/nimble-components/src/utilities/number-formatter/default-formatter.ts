@@ -50,11 +50,14 @@ export class DefaultFormatter extends NumberFormatter {
 
     private readonly exponentialUnitFormatter: UnitFormatter;
 
-    public constructor(locale: string, {
-        unitScale
-    }: {
-        unitScale: UnitScale
-    }) {
+    public constructor(
+        locale: string,
+        {
+            unitScale
+        }: {
+            unitScale: UnitScale
+        }
+    ) {
         super();
         this.unitScale = unitScale;
         for (const unit of unitScale.supportedScaledUnits) {
@@ -118,7 +121,7 @@ export class DefaultFormatter extends NumberFormatter {
         }
         // Ideally, we could set 'roundingPriority: "lessPrecision"' with a formatter that has both 'maximumSignificantDigits' and
         // 'maximumFractionDigits' configured instead of having two different formatters that we conditionally choose between. However,
-        // 'roundingPrioirty' is not supported yet in all browsers nimble supports.
+        // 'roundingPrioirty' is not supported yet in all major browsers.
         if (absoluteValue < 1) {
             return 'leadingZero';
         }

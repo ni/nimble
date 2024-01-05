@@ -122,14 +122,11 @@ describe('DecimalFormatter', () => {
     for (const locale of locales) {
         parameterizeNamedList(testCases, (spec, name, value) => {
             spec(`${name} with '${locale}' locale`, () => {
-                const formatter = new DecimalFormatter(
-                    locale,
-                    {
-                        minimumFractionDigits: value.minDigits,
-                        maximumFractionDigits: value.maxDigits,
-                        unitScale: passthroughUnitScale
-                    }
-                );
+                const formatter = new DecimalFormatter(locale, {
+                    minimumFractionDigits: value.minDigits,
+                    maximumFractionDigits: value.maxDigits,
+                    unitScale: passthroughUnitScale
+                });
                 expect(formatter.format(value.value)).toEqual(
                     value.expectedFormattedValue[locale]
                 );
@@ -172,14 +169,11 @@ describe('DecimalFormatter', () => {
             appendedLabelUnitTestCases,
             (spec, name, value) => {
                 spec(name, () => {
-                    const formatter = new DecimalFormatter(
-                        'en',
-                        {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                            unitScale: new TestUnitScale()
-                        }
-                    );
+                    const formatter = new DecimalFormatter('en', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                        unitScale: new TestUnitScale()
+                    });
                     expect(formatter.format(value.value)).toEqual(
                         value.expectedFormattedValue
                     );

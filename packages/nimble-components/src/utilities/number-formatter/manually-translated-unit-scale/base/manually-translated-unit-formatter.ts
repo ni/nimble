@@ -3,7 +3,7 @@ import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
 
 /**
- * A formatter for units that are not supported by Intl.NumberFormat and must have translations built into Nimble
+ * A formatter for units that are not supported by Intl.NumberFormat
  */
 export class ManuallyTranslatedUnitFormatter extends UnitFormatter {
     private readonly pluralRules: Intl.PluralRules;

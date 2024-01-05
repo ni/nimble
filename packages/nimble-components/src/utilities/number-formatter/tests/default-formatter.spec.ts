@@ -212,12 +212,9 @@ describe('DefaultFormatter', () => {
     for (const locale of locales) {
         parameterizeNamedList(testCases, (spec, name, value) => {
             spec(`${name} with '${locale}' locale`, () => {
-                const formatter = new DefaultFormatter(
-                    locale,
-                    {
-                        unitScale: passthroughUnitScale
-                    }
-                );
+                const formatter = new DefaultFormatter(locale, {
+                    unitScale: passthroughUnitScale
+                });
                 expect(formatter.format(value.value)).toEqual(
                     value.expectedFormattedValue[locale]
                 );
@@ -272,12 +269,9 @@ describe('DefaultFormatter', () => {
             }
         ] as const;
 
-        const formatterForAppendedLabel = new DefaultFormatter(
-            'en',
-            {
-                unitScale: new TestUnitScale()
-            }
-        );
+        const formatterForAppendedLabel = new DefaultFormatter('en', {
+            unitScale: new TestUnitScale()
+        });
 
         parameterizeNamedList(
             appendedLabelUnitTestCases,
