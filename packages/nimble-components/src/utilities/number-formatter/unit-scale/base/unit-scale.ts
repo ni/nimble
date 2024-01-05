@@ -51,11 +51,11 @@ export abstract class UnitScale {
             return { scaledValue: number, scaledUnit: this.baseScaledUnit };
         }
         for (let i = this.supportedScaledUnits.length - 1; i >= 0; i -= 1) {
-            const unit = this.supportedScaledUnits[i]!;
-            if (magnitude / unit.scaleFactor >= 1) {
+            const scaledUnit = this.supportedScaledUnits[i]!;
+            if (magnitude / scaledUnit.scaleFactor >= 1) {
                 return {
-                    scaledValue: number / unit.scaleFactor,
-                    scaledUnit: unit
+                    scaledValue: number / scaledUnit.scaleFactor,
+                    scaledUnit
                 };
             }
         }

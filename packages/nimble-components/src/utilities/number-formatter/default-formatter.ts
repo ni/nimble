@@ -82,19 +82,19 @@ export class DefaultFormatter extends NumberFormatter {
     protected tryFormat(number: number): string {
         const valueToFormat = number === 0 ? 0 : number;
 
-        const { scaledValue, scaledUnit: unit } = this.unitScale.scaleNumber(valueToFormat);
+        const { scaledValue, scaledUnit } = this.unitScale.scaleNumber(valueToFormat);
 
         const formatter = this.getFormatterForNumber(scaledValue);
         let unitFormatter: UnitFormatter;
         switch (formatter) {
             case 'default':
                 unitFormatter = this.defaultUnitFormatters.get(
-                    unit.scaleFactor
+                    scaledUnit.scaleFactor
                 )!;
                 return unitFormatter.format(scaledValue);
             case 'leadingZero':
                 unitFormatter = this.leadingZeroUnitFormatters.get(
-                    unit.scaleFactor
+                    scaledUnit.scaleFactor
                 )!;
                 return unitFormatter.format(scaledValue);
             case 'exponential':

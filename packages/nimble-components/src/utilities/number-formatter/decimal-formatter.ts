@@ -39,12 +39,12 @@ export class DecimalFormatter extends NumberFormatter {
     }
 
     protected tryFormat(number: number): string {
-        const { scaledValue, scaledUnit: unit } = this.unitScale.scaleNumber(number);
+        const { scaledValue, scaledUnit } = this.unitScale.scaleNumber(number);
 
         const valueToFormat = this.willRoundToZero(scaledValue)
             ? 0
             : scaledValue;
-        const formatter = this.unitFormatters.get(unit.scaleFactor)!;
+        const formatter = this.unitFormatters.get(scaledUnit.scaleFactor)!;
         return formatter.format(valueToFormat);
     }
 
