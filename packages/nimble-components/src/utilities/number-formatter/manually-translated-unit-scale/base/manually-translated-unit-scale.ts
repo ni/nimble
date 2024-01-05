@@ -1,8 +1,8 @@
 import { ManuallyTranslatedUnitFormatter } from './manually-translated-unit-formatter';
-import { ScaledUnit } from '../base/scaled-unit';
+import { ScaledUnit } from '../../unit-scale/base/scaled-unit';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
-import { UnitScale } from '../base/unit-scale';
+import { UnitScale } from '../../unit-scale/base/unit-scale';
 
 /**
  * A unit scale that is not supported by Intl.NumberFormat and has manually provided translation strings

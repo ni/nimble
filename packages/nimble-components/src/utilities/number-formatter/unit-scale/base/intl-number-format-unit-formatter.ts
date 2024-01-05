@@ -1,4 +1,4 @@
-import { UnitFormatter } from './unit-formatter';
+import { UnitFormatter } from '../../base/unit-formatter';
 
 /**
  * A formatter for units that can be formatted/translated by Intl.NumberFormat

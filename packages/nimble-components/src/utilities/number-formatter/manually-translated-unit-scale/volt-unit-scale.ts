@@ -1,6 +1,6 @@
-import { ManuallyTranslatedUnitScale } from './models/manually-translated-unit-scale';
-import { metricUnitPrefixes } from './models/metric-unit-prefixes';
-import { UnitTranslation } from './models/unit-translation';
+import { ManuallyTranslatedUnitScale } from './base/manually-translated-unit-scale';
+import { unitPrefixesMetric } from './base/unit-prefixes-metric';
+import { UnitTranslation } from './base/unit-translation';
 
 /**
  * Voltage unit scale
@@ -17,7 +17,7 @@ class VoltUnitScale extends ManuallyTranslatedUnitScale {
     );
 
     public constructor() {
-        super(VoltUnitScale.unitTranslations, metricUnitPrefixes);
+        super(VoltUnitScale.unitTranslations, unitPrefixesMetric);
     }
 }
 

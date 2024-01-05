@@ -1,4 +1,4 @@
-import type { UnitFormatter } from '../models/unit-formatter';
+import type { UnitFormatter } from '../../base/unit-formatter';
 
 type UnitFormatterFactoryFunction = (
     locale: string,

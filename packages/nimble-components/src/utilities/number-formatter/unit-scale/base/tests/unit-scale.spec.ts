@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
-import { parameterizeNamedList } from '../../../tests/parameterized';
-import { ScaledUnit } from '../base/scaled-unit';
-import { UnitScale } from '../base/unit-scale';
-import { UnitFormatter } from '../models/unit-formatter';
+import { parameterizeNamedList } from '../../../../tests/parameterized';
+import { ScaledUnit } from '../scaled-unit';
+import { UnitScale } from '../unit-scale';
+import { UnitFormatter } from '../../../base/unit-formatter';
 
 describe('UnitScale', () => {
     class EmptyUnitFormatter extends UnitFormatter {
@@ -15,6 +15,18 @@ describe('UnitScale', () => {
     const baseScaledUnit = new ScaledUnit(10 ** 0, () => new EmptyUnitFormatter());
     const kiloScaledUnit = new ScaledUnit(10 ** 3, () => new EmptyUnitFormatter());
     const megaScaledUnit = new ScaledUnit(10 ** 6, () => new EmptyUnitFormatter());
+
+    class TestUnitScale extends UnitScale {
+        public constructor() {
+            super([
+                milliScaledUnit,
+                baseScaledUnit,
+                kiloScaledUnit,
+                megaScaledUnit
+            ]);
+        }
+    }
+
     const testCases = [
         {
             name: 'NEGATIVE_INFINITY uses base unit',
@@ -77,17 +89,6 @@ describe('UnitScale', () => {
             expectedUnit: kiloScaledUnit
         }
     ] as const;
-
-    class TestUnitScale extends UnitScale {
-        public constructor() {
-            super([
-                milliScaledUnit,
-                baseScaledUnit,
-                kiloScaledUnit,
-                megaScaledUnit
-            ]);
-        }
-    }
 
     parameterizeNamedList(testCases, (spec, name, value) => {
         spec(name, () => {

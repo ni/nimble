@@ -1,7 +1,8 @@
 import { parameterizeNamedList } from '../../tests/parameterized';
 import { DecimalFormatter } from '../decimal-formatter';
+import { ScaledUnit } from '../unit-scale/base/scaled-unit';
 import { UnitScale } from '../unit-scale/base/unit-scale';
-import { emptyUnitScale } from '../unit-scale/empty-unit-scale';
+import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
 
 describe('DecimalFormatter', () => {
     const locales = ['en', 'de'] as const;
@@ -125,7 +126,7 @@ describe('DecimalFormatter', () => {
                     locale,
                     value.minDigits,
                     value.maxDigits,
-                    emptyUnitScale
+                    passthroughUnitScale
                 );
                 expect(formatter.formatValue(value.value)).toEqual(
                     value.expectedFormattedValue[locale]
@@ -138,12 +139,12 @@ describe('DecimalFormatter', () => {
         class TestUnitScale extends UnitScale {
             public constructor() {
                 super(
-                    [0.001, 1, 2, 4].map(scaleFactor => ({
+                    [0.001, 1, 2, 4].map(scaleFactor => new ScaledUnit(
                         scaleFactor,
-                        unitFormatterFactory: () => ({
+                        () => ({
                             format: (value: number) => `${value} x${scaleFactor}`
                         })
-                    }))
+                    ))
                 );
             }
         }

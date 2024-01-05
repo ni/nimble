@@ -1,6 +1,6 @@
 import type { ScaledUnit } from './scaled-unit';
 
-export interface ScaledNumber {
+interface ScaledNumber {
     readonly scaledValue: number;
     readonly scaledUnit: ScaledUnit;
 }

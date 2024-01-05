@@ -2,9 +2,9 @@ import { ScaledUnit } from './base/scaled-unit';
 import { UnitScale } from './base/unit-scale';
 
 /**
- * Degenerate UnitScale for formatting without units
+ * Unit scale that is used to passthrough a number without applying scaling or units
  */
-class EmptyUnitScale extends UnitScale {
+class PassthroughUnitScale extends UnitScale {
     public constructor() {
         super([
             new ScaledUnit(1, (
@@ -15,4 +15,4 @@ class EmptyUnitScale extends UnitScale {
     }
 }
 
-export const emptyUnitScale = new EmptyUnitScale();
+export const passthroughUnitScale = new PassthroughUnitScale();

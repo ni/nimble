@@ -1,4 +1,4 @@
-import { UnitFormatter } from './unit-formatter';
+import { UnitFormatter } from '../../base/unit-formatter';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
 

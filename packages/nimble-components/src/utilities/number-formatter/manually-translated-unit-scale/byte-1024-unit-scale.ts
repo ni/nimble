@@ -1,6 +1,6 @@
-import { ManuallyTranslatedUnitScale } from './models/manually-translated-unit-scale';
-import { UnitPrefix } from './models/unit-prefix';
-import { UnitTranslation } from './models/unit-translation';
+import { ManuallyTranslatedUnitScale } from './base/manually-translated-unit-scale';
+import { UnitPrefix } from './base/unit-prefix';
+import { UnitTranslation } from './base/unit-translation';
 
 /**
  * Byte units (1024-based)

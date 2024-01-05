@@ -3,7 +3,7 @@ import { UnitPrefix } from './unit-prefix';
 /**
  * The metric unit prefixes for at least English, French, German, Japanese, and Chinese.
  */
-export const metricUnitPrefixes = [
+export const unitPrefixesMetric = [
     new UnitPrefix(10 ** -15, 'f'),
     new UnitPrefix(10 ** -12, 'p'),
     new UnitPrefix(10 ** -9, 'n'),
