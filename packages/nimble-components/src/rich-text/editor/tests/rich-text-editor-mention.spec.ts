@@ -131,6 +131,27 @@ describe('RichTextEditorMention', () => {
             ).toBeTrue();
         });
 
+        it('should retain the cursor position when configuration added dynamically', async () => {
+            await pageObject.setEditorTextContent('test');
+            await pageObject.setCursorPosition(3);
+            expect(pageObject.getCursorPosition()).toBe(3);
+            await appendUserMentionConfiguration(element);
+            expect(pageObject.getCursorPosition()).toBe(3);
+        });
+
+        it('should retain the cursor position when configuration updated', async () => {
+            const { mappingElements } = await appendUserMentionConfiguration(
+                element,
+                [{ key: 'user:1', displayName: 'username1' }]
+            );
+            await pageObject.setEditorTextContent('test');
+            await pageObject.setCursorPosition(3);
+            expect(pageObject.getCursorPosition()).toBe(3);
+            mappingElements[0]!.displayName = 'updated-name';
+            await waitForUpdatesAsync();
+            expect(pageObject.getCursorPosition()).toBe(3);
+        });
+
         it('adding mention configuration converts the absolute link matching the pattern to mention node', async () => {
             element.setMarkdown('<user:1>');
 
