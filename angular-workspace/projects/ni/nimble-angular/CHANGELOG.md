@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 04 Jan 2024 19:22:21 GMT and should not be manually modified.
+This log was last generated on Fri, 05 Jan 2024 14:50:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.2.9
+
+Fri, 05 Jan 2024 14:50:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.2
+
+## 18.2.8
+
+Fri, 05 Jan 2024 00:37:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.1
+
+## 18.2.7
+
+Thu, 04 Jan 2024 22:40:39 GMT
+
+### Patches
+
+- Add tests for list-option, menu-item, tab, and tree-view Angular directives ([ni/nimble@a082579](https://github.com/ni/nimble/commit/a08257989e9584bbd56956e7fa50d91e9aba4fae))
 
 ## 18.2.6
 
