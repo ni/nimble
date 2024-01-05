@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-Our clients have a need of a filterable dropdown component that does not allow arbitrary text as a value, but only values available in the dropdown. The filtering will have the following behaviors:
+Our clients have a need of a filterable dropdown component that does not allow arbitrary text as a value, but only values available in the dropdown. The filtering will have the following behaviors (in the initial feature set):
 
 -   The filter text will match _any_ text within the `textContent` of each `ListOption` in a case insensitive way.
 -   Each time the dropdown is opened the filter text is cleared.
