@@ -6,13 +6,14 @@ import { UnitTranslation } from '../unit-translation';
 describe('ManuallyTranslatedUnitScale', () => {
     class TestManuallyTranslatedUnitScale extends ManuallyTranslatedUnitScale {
         public constructor() {
-            super(new Map([
-                ['en', new UnitTranslation('byte', 'bytes', 'B')]
-            ]), [
-                new UnitPrefix(1, ''),
-                new UnitPrefix(1000, 'k'),
-                new UnitPrefix(1000000, 'M')
-            ]);
+            super(
+                new Map([['en', new UnitTranslation('byte', 'bytes', 'B')]]),
+                [
+                    new UnitPrefix(1, ''),
+                    new UnitPrefix(1000, 'k'),
+                    new UnitPrefix(1000000, 'M')
+                ]
+            );
         }
     }
 
@@ -50,12 +51,17 @@ describe('ManuallyTranslatedUnitScale', () => {
     it('throws error if English translations not provided', () => {
         class BadManuallyTranslatedUnitScale extends ManuallyTranslatedUnitScale {
             public constructor() {
-                super(new Map([
-                    ['foo', new UnitTranslation('byte', 'bytes', 'B')]
-                ]), []);
+                super(
+                    new Map([
+                        ['foo', new UnitTranslation('byte', 'bytes', 'B')]
+                    ]),
+                    []
+                );
             }
         }
 
-        expect(() => new BadManuallyTranslatedUnitScale()).toThrowError(/English translations/);
+        expect(() => new BadManuallyTranslatedUnitScale()).toThrowError(
+            /English translations/
+        );
     });
 });

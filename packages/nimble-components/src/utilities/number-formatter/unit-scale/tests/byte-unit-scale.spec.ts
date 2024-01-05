@@ -52,7 +52,9 @@ describe('ByteUnitScale', () => {
 
     parameterizeNamedList(testCases, (spec, name, value) => {
         spec(`gets expected unit for ${name}`, () => {
-            const { scaledValue, scaledUnit } = byteUnitScale.scaleNumber(value.number);
+            const { scaledValue, scaledUnit } = byteUnitScale.scaleNumber(
+                value.number
+            );
             expect(
                 scaledUnit.unitFormatterFactory('en', {}).format(scaledValue)
             ).toEqual(value.formatted);

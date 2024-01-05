@@ -12,8 +12,12 @@ export abstract class UnitScale {
     public readonly baseScaledUnit: ScaledUnit;
 
     // TODO mraj make sure these cases are covered in test
-    public constructor(public readonly supportedScaledUnits: readonly ScaledUnit[]) {
-        const unitsSorted = supportedScaledUnits.every((curr, i, arr) => i === 0 || arr[i - 1]!.scaleFactor < curr.scaleFactor);
+    public constructor(
+        public readonly supportedScaledUnits: readonly ScaledUnit[]
+    ) {
+        const unitsSorted = supportedScaledUnits.every(
+            (curr, i, arr) => i === 0 || arr[i - 1]!.scaleFactor < curr.scaleFactor
+        );
         if (!unitsSorted) {
             throw new Error(
                 'Supported scaled units must have unique and ordered scale factors'

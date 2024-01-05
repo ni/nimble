@@ -8,7 +8,9 @@ export class UnitPrefix {
         public readonly text: string
     ) {
         if (factor === 1 && text !== '') {
-            throw new Error('Base factor of 1 has unused text and should be empty string');
+            throw new Error(
+                'Base factor of 1 has unused text and should be empty string'
+            );
         }
     }
 }

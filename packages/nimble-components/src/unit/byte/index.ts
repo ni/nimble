@@ -21,9 +21,7 @@ export class UnitByte extends Unit {
     public binary = false;
 
     public override getUnitScale(): UnitScale {
-        return this.binary
-            ? byte1024UnitScale
-            : byteUnitScale;
+        return this.binary ? byte1024UnitScale : byteUnitScale;
     }
 }
 

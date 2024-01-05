@@ -12,15 +12,23 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
         unitTranslations: ReadonlyMap<string, UnitTranslation>,
         supportedPrefixes: readonly UnitPrefix[]
     ) {
-        super(ManuallyTranslatedUnitScale.createSupportedScaledUnits(unitTranslations, supportedPrefixes));
+        super(
+            ManuallyTranslatedUnitScale.createSupportedScaledUnits(
+                unitTranslations,
+                supportedPrefixes
+            )
+        );
     }
 
-    private static createSupportedScaledUnits(unitTranslations: ReadonlyMap<string, UnitTranslation>, supportedPrefixes: readonly UnitPrefix[]): readonly ScaledUnit[] {
+    private static createSupportedScaledUnits(
+        unitTranslations: ReadonlyMap<string, UnitTranslation>,
+        supportedPrefixes: readonly UnitPrefix[]
+    ): readonly ScaledUnit[] {
         if (!unitTranslations.get('en')) {
             throw new Error('English translations must exist');
         }
-        const supportedUnits: readonly ScaledUnit[] = supportedPrefixes.map(prefix => (
-            {
+        const supportedUnits: readonly ScaledUnit[] = supportedPrefixes.map(
+            prefix => ({
                 scaleFactor: prefix.factor,
                 unitFormatterFactory: (
                     locale: string,
@@ -31,8 +39,8 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
                     unitTranslations,
                     prefix
                 )
-            }
-        ));
+            })
+        );
 
         return supportedUnits;
     }
