@@ -52,8 +52,9 @@ export class LabelProviderCore
 ```
 
 The English strings used for these labels will be:
-- selectFilterSearch: "Search"
-- selectFilterNoResults: "No items found"
+
+-   selectFilterSearch: "Search"
+-   selectFilterNoResults: "No items found"
 
 ### Implementation details
 
@@ -77,13 +78,17 @@ Since the input for the filter is devoid of interaction semantics we find in the
 
 #### Accessibility
 
-The accessibility tree will report that the search `input` element should have its own `focus` styling, however this should not be necessary, as the existence of the popup should provide the necessary focus hint to the user. Hiding the `input` from the accessibility tree using `aria-hidden` seems to be strongly discouraged, and setting its `role` to `presentation` is not allowed.
+The accessibility tree will report that the search `input` element should have its own `focus` styling, however this should not be necessary, as the existence of the popup should provide the necessary focus hint to the user. Hiding the `input` from the accessibility tree using `aria-hidden` is strongly discouraged, and setting its `role` to `presentation` is not allowed.
 
 ### Future considerations
 
 #### Grouping
 
-One feature that we intend to add to the `Select` is the ability to specify "groups" of options, where each group will have non-selectable header text followed by the options under that group. Ultimately, this feature will have to work nicely with filtering, but I don't believe there are aspects of this that would interfere with the current proposed API in this HLD of a single boolean attribute to enable filtering.
+One feature that we intend to add to the `Select` is the ability to specify "groups" of options, where each group will have non-selectable header text followed by the options under that group. Ultimately, this feature will have to work nicely with filtering, but I don't believe there are aspects of this that would interfere with the current proposed API in this HLD of a single attribute to enable filtering.
+
+#### More filter modes
+
+It may be desireable to have other filter modes in the future, such as case sensitive, or even regular expressions. By making the new API an enum, we can easily add new modes as needed.
 
 ## Alternative Implementations / Designs
 
