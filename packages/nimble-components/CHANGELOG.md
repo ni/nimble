@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 04 Jan 2024 21:21:59 GMT and should not be manually modified.
+This log was last generated on Fri, 05 Jan 2024 00:37:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.17.1
+
+Fri, 05 Jan 2024 00:37:04 GMT
+
+### Patches
+
+- Create enum for z-index values ([ni/nimble@fc2fd87](https://github.com/ni/nimble/commit/fc2fd8701eb880b1fad3bb7af641380311129fba))
 
 ## 20.17.0
 

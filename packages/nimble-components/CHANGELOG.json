@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 05 Jan 2024 00:37:04 GMT",
+      "version": "20.17.1",
+      "tag": "@ni/nimble-components_v20.17.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fc2fd8701eb880b1fad3bb7af641380311129fba",
+            "comment": "Create enum for z-index values"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Jan 2024 23:39:35 GMT",
       "version": "20.17.0",
       "tag": "@ni/nimble-components_v20.17.0",
