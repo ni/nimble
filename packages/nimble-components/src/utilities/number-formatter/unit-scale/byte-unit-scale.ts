@@ -1,14 +1,11 @@
 import { IntlNumberFormatUnitFormatter } from './models/intl-number-format-unit-formatter';
 import type { ScaledUnit } from './models/scaled-unit';
 import { UnitScale } from './unit-scale';
-
 /**
  * Byte units (1000-based)
  */
-export class ByteUnitScale extends UnitScale {
-    public static readonly instance = new ByteUnitScale();
-
-    private static readonly supportedScaledUnits: ScaledUnit[] = [
+class ByteUnitScale extends UnitScale {
+    private static readonly supportedScaledUnits: readonly ScaledUnit[] = [
         {
             scaleFactor: 1,
             unitFormatterFactory: (
@@ -111,13 +108,11 @@ export class ByteUnitScale extends UnitScale {
                 );
             }
         }
-    ];
+    ] as const;
 
-    private constructor() {
-        super();
-    }
-
-    protected override getSupportedScaledUnits(): ScaledUnit[] {
-        return ByteUnitScale.supportedScaledUnits;
+    public constructor() {
+        super(ByteUnitScale.supportedScaledUnits);
     }
 }
+
+export const byteUnitScale = new ByteUnitScale();

@@ -5,59 +5,35 @@ import type { UnitTranslation } from './unit-translation';
 import { UnitScale } from '../unit-scale';
 
 /**
- * A unit scale that is not supported by Intl.NumberFormat and has translations built into Nimble
+ * A unit scale that is not supported by Intl.NumberFormat and has manually provided translation strings
  */
 export abstract class ManuallyTranslatedUnitScale extends UnitScale {
-    private readonly unitTranslations: ReadonlyMap<string, UnitTranslation>;
-    private readonly supportedPrefixes: readonly UnitPrefix[];
-
-    public constructor() {
-        super();
-        this.unitTranslations = this.getUnitTranslations();
-        this.supportedPrefixes = this.getSupportedPrefixes();
-        if (!this.unitTranslations.get('en')) {
-            throw new Error('English translations must exist');
-        }
+    public constructor(
+        unitTranslations: ReadonlyMap<string, UnitTranslation>,
+        supportedPrefixes: readonly UnitPrefix[]
+    ) {
+        super(ManuallyTranslatedUnitScale.createSupportedScaledUnits(unitTranslations, supportedPrefixes));
     }
 
-    protected override getSupportedScaledUnits(): ScaledUnit[] {
-        const supportedUnits: ScaledUnit[] = [
+    private static createSupportedScaledUnits(unitTranslations: ReadonlyMap<string, UnitTranslation>, supportedPrefixes: readonly UnitPrefix[]): readonly ScaledUnit[] {
+        if (!unitTranslations.get('en')) {
+            throw new Error('English translations must exist');
+        }
+        const supportedUnits: readonly ScaledUnit[] = supportedPrefixes.map(prefix => (
             {
-                scaleFactor: 1,
-                unitFormatterFactory: (
-                    locale: string,
-                    numberFormatOptions: Intl.NumberFormatOptions | undefined
-                ) => {
-                    return new ManuallyTranslatedUnitFormatter(
-                        locale,
-                        numberFormatOptions,
-                        this.unitTranslations
-                    );
-                }
-            }
-        ];
-        for (const prefix of this.supportedPrefixes) {
-            supportedUnits.push({
                 scaleFactor: prefix.factor,
                 unitFormatterFactory: (
                     locale: string,
                     numberFormatOptions: Intl.NumberFormatOptions | undefined
-                ) => {
-                    return new ManuallyTranslatedUnitFormatter(
-                        locale,
-                        numberFormatOptions,
-                        this.unitTranslations,
-                        prefix.text
-                    );
-                }
-            });
-        }
+                ) => new ManuallyTranslatedUnitFormatter(
+                    locale,
+                    numberFormatOptions,
+                    unitTranslations,
+                    prefix
+                )
+            }
+        ));
+
         return supportedUnits;
     }
-
-    protected abstract getUnitTranslations(): ReadonlyMap<
-    string,
-    UnitTranslation
-    >;
-    protected abstract getSupportedPrefixes(): readonly UnitPrefix[];
 }

@@ -1,26 +1,14 @@
 /**
- * A prefix that represents a scaling factor when applied to a base unit
+ * A prefix that represents a scaling factor when applied to a base unit.
+ * A base unit is represented as factor 1 and empty text.
  */
 export class UnitPrefix {
     public constructor(
         public readonly factor: number,
         public readonly text: string
-    ) {}
+    ) {
+        if (factor === 1 && text !== '') {
+            throw new Error('Base factor of 1 has unused text and should be empty string');
+        }
+    }
 }
-
-// The same prefixes are used for English, French, German, Japanese, and Chinese (all currently supported languages).
-export const metricPrefixes = [
-    new UnitPrefix(10 ** -15, 'f'),
-    new UnitPrefix(10 ** -12, 'p'),
-    new UnitPrefix(10 ** -9, 'n'),
-    new UnitPrefix(10 ** -6, 'μ'),
-    new UnitPrefix(0.001, 'm'),
-    new UnitPrefix(0.01, 'c'),
-    new UnitPrefix(0.1, 'd'),
-    new UnitPrefix(1000, 'k'),
-    new UnitPrefix(10 ** 6, 'M'),
-    new UnitPrefix(10 ** 9, 'G'),
-    new UnitPrefix(10 ** 12, 'T'),
-    new UnitPrefix(10 ** 15, 'P'),
-    new UnitPrefix(10 ** 18, 'E')
-] as const;

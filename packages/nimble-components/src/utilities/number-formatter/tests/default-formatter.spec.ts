@@ -1,8 +1,7 @@
-import type { ScaledUnit } from '../unit-scale/models/scaled-unit';
 import { parameterizeNamedList } from '../../tests/parameterized';
 import { DefaultFormatter } from '../default-formatter';
 import { UnitScale } from '../unit-scale/unit-scale';
-import { EmptyUnitScale } from '../unit-scale/empty-unit-scale';
+import { emptyUnitScale } from '../unit-scale/empty-unit-scale';
 
 describe('DefaultFormatter', () => {
     const locales = ['en', 'de'] as const;
@@ -214,7 +213,7 @@ describe('DefaultFormatter', () => {
             spec(`${name} with '${locale}' locale`, () => {
                 const formatter = new DefaultFormatter(
                     locale,
-                    EmptyUnitScale.instance
+                    emptyUnitScale
                 );
                 expect(formatter.formatValue(value.value)).toEqual(
                     value.expectedFormattedValue[locale]
@@ -225,23 +224,19 @@ describe('DefaultFormatter', () => {
 
     describe('with unit', () => {
         class TestUnitScale extends UnitScale {
-            public override getSupportedScaledUnits(): ScaledUnit[] {
-                return [0.01, 1, 100, 1000].map(scaleFactor => {
-                    return {
-                        scaleFactor,
-                        unitFormatterFactory: (
-                            locale: string,
-                            options: Intl.NumberFormatOptions | undefined
-                        ) => {
-                            return {
-                                format: (value: number) => `${new Intl.NumberFormat(
-                                    locale,
-                                    options
-                                ).format(value)} x${scaleFactor}`
-                            };
-                        }
-                    };
-                });
+            public constructor() {
+                super([0.01, 1, 100, 1000].map(scaleFactor => ({
+                    scaleFactor,
+                    unitFormatterFactory: (
+                        locale: string,
+                        options: Intl.NumberFormatOptions | undefined
+                    ) => ({
+                        format: (value: number) => `${new Intl.NumberFormat(
+                            locale,
+                            options
+                        ).format(value)} x${scaleFactor}`
+                    })
+                })));
             }
         }
 

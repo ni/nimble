@@ -5,8 +5,8 @@ import { UnitTranslation } from './models/unit-translation';
 /**
  * Byte units (1024-based)
  */
-export class Byte1024UnitScale extends ManuallyTranslatedUnitScale {
-    private static readonly unitTranslations = new Map<string, UnitTranslation>(
+class Byte1024UnitScale extends ManuallyTranslatedUnitScale {
+    private static readonly unitTranslations: ReadonlyMap<string, UnitTranslation> = new Map(
         [
             ['en', new UnitTranslation('byte', 'bytes', 'B')],
             ['fr', new UnitTranslation('octet', 'octets', 'o')],
@@ -17,29 +17,17 @@ export class Byte1024UnitScale extends ManuallyTranslatedUnitScale {
     );
 
     private static readonly unitPrefixes = [
-        new UnitPrefix(1024, 'Ki'),
+        new UnitPrefix(1024 ** 0, ''),
+        new UnitPrefix(1024 ** 1, 'Ki'),
         new UnitPrefix(1024 ** 2, 'Mi'),
         new UnitPrefix(1024 ** 3, 'Gi'),
         new UnitPrefix(1024 ** 4, 'Ti'),
         new UnitPrefix(1024 ** 5, 'Pi')
     ] as const;
 
-    // Need unitTranslations and unitPrefixes to be initialized before construction
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    public static readonly instance = new Byte1024UnitScale();
-
-    private constructor() {
-        super();
-    }
-
-    protected override getUnitTranslations(): ReadonlyMap<
-    string,
-    UnitTranslation
-    > {
-        return Byte1024UnitScale.unitTranslations;
-    }
-
-    protected override getSupportedPrefixes(): readonly UnitPrefix[] {
-        return Byte1024UnitScale.unitPrefixes;
+    public constructor() {
+        super(Byte1024UnitScale.unitTranslations, Byte1024UnitScale.unitPrefixes);
     }
 }
+
+export const byte1024UnitScale = new Byte1024UnitScale();

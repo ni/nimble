@@ -1,24 +1,34 @@
 import type { ScaledUnit } from './models/scaled-unit';
 
+export interface ScaledNumber {
+    readonly scaledValue: number;
+    readonly scaledUnit: ScaledUnit;
+}
+
 /**
  * A unit scale consisting of a set of scaled units.
  */
 export abstract class UnitScale {
-    private _supportedScaledUnits?: ScaledUnit[];
-    private _baseScaledUnit?: ScaledUnit;
+    public readonly baseScaledUnit: ScaledUnit;
 
-    public get supportedScaledUnits(): ScaledUnit[] {
-        if (this._supportedScaledUnits === undefined) {
-            this.initializeSupportedScaledUnitsAndBaseScaledUnit();
+    // TODO mraj make sure these cases are covered in test
+    public constructor(public readonly supportedScaledUnits: readonly ScaledUnit[]) {
+        const unitsSorted = supportedScaledUnits.every((curr, i, arr) => i === 0 || arr[i - 1]!.scaleFactor < curr.scaleFactor);
+        if (!unitsSorted) {
+            throw new Error(
+                'Supported scaled units must have unique and ordered scale factors'
+            );
         }
-        return this._supportedScaledUnits!;
-    }
-
-    public get baseScaledUnit(): ScaledUnit {
-        if (this._baseScaledUnit === undefined) {
-            this.initializeSupportedScaledUnitsAndBaseScaledUnit();
+        const baseScaledUnit = supportedScaledUnits.find(
+            x => x.scaleFactor === 1
+        );
+        if (!baseScaledUnit) {
+            throw new Error(
+                'Supported scaled units must include a base scaled unit (scale factor=1)'
+            );
         }
-        return this._baseScaledUnit!;
+        this.supportedScaledUnits = supportedScaledUnits;
+        this.baseScaledUnit = baseScaledUnit;
     }
 
     // Note that for the sake of reducing complexity in the implementation,
@@ -27,13 +37,11 @@ export abstract class UnitScale {
     // may be shown with an unexpected unit. Examples:
     // - 999 bytes with two significant digits => "1000 bytes" (instead of "1 kB")
     // - 0.00000000000000001 volts (= 0.01 fV) with one fractional digit => "0 fV" (instead of "0 volts")
-    public scaleNumber(number: number): {
-        scaledValue: number,
-        scaledUnit: ScaledUnit
-    } {
+    public scaleNumber(number: number): ScaledNumber {
         const magnitude = Math.abs(number);
+        const onlyBaseScaledUnit = this.supportedScaledUnits.length === 1;
         if (
-            this.supportedScaledUnits.length === 1 // must be baseScaledUnit
+            onlyBaseScaledUnit
             || magnitude === 0
             || magnitude === Infinity
             || Number.isNaN(magnitude)
@@ -53,26 +61,5 @@ export abstract class UnitScale {
             scaledValue: number / smallestUnit.scaleFactor,
             scaledUnit: smallestUnit
         };
-    }
-
-    protected abstract getSupportedScaledUnits(): ScaledUnit[];
-
-    // Ideally, we could initialize supportedScaledUnits and baseScaledUnit in the constructor,
-    // but they depend on an abstract method and potentially other state that isn't
-    // available until the derived class is finished being constructed.
-    private initializeSupportedScaledUnitsAndBaseScaledUnit(): void {
-        // sort from largest to smallest here so that pickBestUnit doesn't have to sort on every call
-        this._supportedScaledUnits = this.getSupportedScaledUnits().sort(
-            (a, b) => (a.scaleFactor < b.scaleFactor ? 1 : -1)
-        );
-        const baseScaledUnit = this._supportedScaledUnits.find(
-            x => x.scaleFactor === 1
-        );
-        if (!baseScaledUnit) {
-            throw new Error(
-                'Supported scaled units must include a base scaled unit (scale factor=1)'
-            );
-        }
-        this._baseScaledUnit = baseScaledUnit;
     }
 }

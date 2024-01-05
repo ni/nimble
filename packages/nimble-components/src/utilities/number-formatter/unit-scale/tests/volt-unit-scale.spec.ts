@@ -1,5 +1,5 @@
 import { parameterizeNamedList } from '../../../tests/parameterized';
-import { VoltUnitScale } from '../volt-unit-scale';
+import { voltUnitScale } from '../volt-unit-scale';
 
 describe('VoltUnitScale', () => {
     const testCases = [
@@ -11,7 +11,7 @@ describe('VoltUnitScale', () => {
                 '0,001 fV',
                 '0,001 fV',
                 '0.001 fV',
-                '0.001 fV'
+                '0.001 fV',
             ]
         },
         {
@@ -104,17 +104,17 @@ describe('VoltUnitScale', () => {
 
     parameterizeNamedList(testCases, (spec, _name, value) => {
         spec(`gets expected unit for ${value.number}`, () => {
-            const { scaledValue, scaledUnit: unit } = VoltUnitScale.instance.scaleNumber(value.number);
+            const { scaledValue, scaledUnit } = voltUnitScale.scaleNumber(value.number);
             for (const [index, locale] of [
-                'en',
-                'fr',
-                'de',
-                'ja',
-                'zh'
-            ].entries()) {
+                [0, 'en'],
+                [1, 'fr'],
+                [2, 'de'],
+                [3, 'ja'],
+                [4, 'zh']
+            ] as const) {
                 expect(
-                    unit.unitFormatterFactory(locale, {}).format(scaledValue)
-                ).toEqual(value.formatted[index]!);
+                    scaledUnit.unitFormatterFactory(locale, {}).format(scaledValue)
+                ).toEqual(value.formatted[index]);
             }
         });
     });

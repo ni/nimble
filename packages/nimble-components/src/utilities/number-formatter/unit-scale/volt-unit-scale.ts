@@ -1,11 +1,11 @@
 import { ManuallyTranslatedUnitScale } from './models/manually-translated-unit-scale';
-import { UnitPrefix, metricPrefixes } from './models/unit-prefix';
+import { metricUnitPrefixes } from './models/metric-unit-prefixes';
 import { UnitTranslation } from './models/unit-translation';
 
 /**
- * Voltage units
+ * Voltage unit scale
  */
-export class VoltUnitScale extends ManuallyTranslatedUnitScale {
+class VoltUnitScale extends ManuallyTranslatedUnitScale {
     private static readonly unitTranslations = new Map<string, UnitTranslation>(
         [
             ['en', new UnitTranslation('volt', 'volts', 'V')],
@@ -16,22 +16,9 @@ export class VoltUnitScale extends ManuallyTranslatedUnitScale {
         ]
     );
 
-    // Need unitTranslations to be initialized before construction
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    public static readonly instance = new VoltUnitScale();
-
-    private constructor() {
-        super();
-    }
-
-    protected override getUnitTranslations(): ReadonlyMap<
-    string,
-    UnitTranslation
-    > {
-        return VoltUnitScale.unitTranslations;
-    }
-
-    protected override getSupportedPrefixes(): readonly UnitPrefix[] {
-        return metricPrefixes;
+    public constructor() {
+        super(VoltUnitScale.unitTranslations, metricUnitPrefixes);
     }
 }
+
+export const voltUnitScale = new VoltUnitScale();

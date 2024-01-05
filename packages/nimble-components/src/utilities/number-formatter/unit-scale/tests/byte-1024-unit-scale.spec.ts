@@ -1,5 +1,5 @@
 import { parameterizeNamedList } from '../../../tests/parameterized';
-import { Byte1024UnitScale } from '../byte-1024-unit-scale';
+import { byte1024UnitScale } from '../byte-1024-unit-scale';
 
 describe('Byte1024UnitScale', () => {
     const testCases = [
@@ -80,17 +80,17 @@ describe('Byte1024UnitScale', () => {
 
     parameterizeNamedList(testCases, (spec, name, value) => {
         spec(`gets expected unit for ${name}`, () => {
-            const { scaledValue, scaledUnit: unit } = Byte1024UnitScale.instance.scaleNumber(value.number);
+            const { scaledValue, scaledUnit } = byte1024UnitScale.scaleNumber(value.number);
             for (const [index, locale] of [
-                'en',
-                'fr',
-                'de',
-                'ja',
-                'zh'
-            ].entries()) {
+                [0, 'en'],
+                [1, 'fr'],
+                [2, 'de'],
+                [3, 'ja'],
+                [4, 'zh']
+            ] as const) {
                 expect(
-                    unit.unitFormatterFactory(locale, {}).format(scaledValue)
-                ).toEqual(value.formatted[index]!);
+                    scaledUnit.unitFormatterFactory(locale, {}).format(scaledValue)
+                ).toEqual(value.formatted[index]);
             }
         });
     });

@@ -1,5 +1,5 @@
 import { parameterizeNamedList } from '../../../tests/parameterized';
-import { ByteUnitScale } from '../byte-unit-scale';
+import { byteUnitScale } from '../byte-unit-scale';
 
 describe('ByteUnitScale', () => {
     const testCases = [
@@ -52,7 +52,7 @@ describe('ByteUnitScale', () => {
 
     parameterizeNamedList(testCases, (spec, name, value) => {
         spec(`gets expected unit for ${name}`, () => {
-            const { scaledValue, scaledUnit } = ByteUnitScale.instance.scaleNumber(value.number);
+            const { scaledValue, scaledUnit } = byteUnitScale.scaleNumber(value.number);
             expect(
                 scaledUnit.unitFormatterFactory('en', {}).format(scaledValue)
             ).toEqual(value.formatted);

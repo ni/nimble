@@ -1,6 +1,6 @@
 import type { UnitFormatter } from './unit-formatter';
 
-export type UnitFormatterFactoryFunction = (
+type UnitFormatterFactoryFunction = (
     locale: string,
     numberFormatOptions: Intl.NumberFormatOptions | undefined
 ) => UnitFormatter;
@@ -9,6 +9,6 @@ export type UnitFormatterFactoryFunction = (
  * A unit that represents a scaled version of a base unit.
  */
 export interface ScaledUnit {
-    scaleFactor: number;
-    unitFormatterFactory: UnitFormatterFactoryFunction;
+    readonly scaleFactor: number;
+    readonly unitFormatterFactory: UnitFormatterFactoryFunction;
 }

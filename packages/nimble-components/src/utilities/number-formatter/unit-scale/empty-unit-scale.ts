@@ -4,10 +4,8 @@ import { UnitScale } from './unit-scale';
 /**
  * Degenerate UnitScale for formatting without units
  */
-export class EmptyUnitScale extends UnitScale {
-    public static readonly instance = new EmptyUnitScale();
-
-    private static readonly supportedScaledUnits: ScaledUnit[] = [
+class EmptyUnitScale extends UnitScale {
+    private static readonly supportedScaledUnits: readonly ScaledUnit[] = [
         {
             scaleFactor: 1,
             unitFormatterFactory: (
@@ -19,11 +17,9 @@ export class EmptyUnitScale extends UnitScale {
         }
     ];
 
-    private constructor() {
-        super();
-    }
-
-    protected override getSupportedScaledUnits(): ScaledUnit[] {
-        return EmptyUnitScale.supportedScaledUnits;
+    public constructor() {
+        super(EmptyUnitScale.supportedScaledUnits);
     }
 }
+
+export const emptyUnitScale = new EmptyUnitScale();

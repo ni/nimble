@@ -1,109 +1,108 @@
-import type { ScaledUnit } from '../unit-scale/models/scaled-unit';
 import { parameterizeNamedList } from '../../tests/parameterized';
 import { UnitScale } from '../unit-scale/unit-scale';
 
 describe('UnitScale', () => {
-    const millibyteScaledUnit = {
-        scaleFactor: 0.001,
+    const milliScaledUnit = {
+        scaleFactor: 10 ** -3,
         unitFormatterFactory: () => {
             return { format: () => '' };
         }
-    };
-    const byteScaledUnit = {
-        scaleFactor: 1,
+    } as const;
+    const baseScaledUnit = {
+        scaleFactor: 10 ** 0,
         unitFormatterFactory: () => {
             return { format: () => '' };
         }
-    };
-    const kilobyteScaledUnit = {
+    } as const;
+    const kiloScaledUnit = {
         scaleFactor: 10 ** 3,
         unitFormatterFactory: () => {
             return { format: () => '' };
         }
-    };
-    const megabyteScaledUnit = {
+    } as const;
+    const megaScaledUnit = {
         scaleFactor: 10 ** 6,
         unitFormatterFactory: () => {
             return { format: () => '' };
         }
-    };
-    const byteTestCases = [
+    } as const;
+    const testCases = [
         {
             name: 'NEGATIVE_INFINITY uses base unit',
             value: Number.NEGATIVE_INFINITY,
-            expectedUnit: byteScaledUnit
+            expectedUnit: baseScaledUnit
         },
         {
             name: 'POSITIVE_INFINITY uses base unit',
             value: Number.POSITIVE_INFINITY,
-            expectedUnit: byteScaledUnit
+            expectedUnit: baseScaledUnit
         },
         {
             name: 'NaN uses base unit',
             value: Number.NaN,
-            expectedUnit: byteScaledUnit
+            expectedUnit: baseScaledUnit
         },
         {
             name: '-0 uses base unit',
             value: -0,
-            expectedUnit: byteScaledUnit
+            expectedUnit: baseScaledUnit
         },
         {
             name: '+0 uses base unit',
             value: 0,
-            expectedUnit: byteScaledUnit
+            expectedUnit: baseScaledUnit
         },
         {
-            name: 'smaller than smallest unit uses smallest unit',
+            name: 'smaller than smallest unit uses smallest unit to pick milli unit',
             value: 0.0001,
-            expectedUnit: millibyteScaledUnit
+            expectedUnit: milliScaledUnit
         },
         {
-            name: 'exactly smallest unit uses smallest unit',
+            name: 'exactly smallest unit uses smallest unit to pick milli unit',
             value: 0.001,
-            expectedUnit: millibyteScaledUnit
+            expectedUnit: milliScaledUnit
         },
         {
-            name: '100 uses B unit',
+            name: '100 uses base unit',
             value: 100,
-            expectedUnit: byteScaledUnit
+            expectedUnit: baseScaledUnit
         },
         {
-            name: '500000 uses kB unit',
+            name: '500000 uses kilo unit',
             value: 500000,
-            expectedUnit: kilobyteScaledUnit
+            expectedUnit: kiloScaledUnit
         },
         {
-            name: '1000000 uses MB unit',
+            name: '1000000 uses mega unit',
             value: 1000000,
-            expectedUnit: megabyteScaledUnit
+            expectedUnit: megaScaledUnit
         },
         {
-            name: '5000000 uses MB unit',
+            name: '5000000 uses mega unit',
             value: 5000000,
-            expectedUnit: megabyteScaledUnit
+            expectedUnit: megaScaledUnit
         },
         {
-            name: 'negative values pick unit by magnitude',
+            name: 'negative values uses magnitude to pick kilo unit',
             value: -20000,
-            expectedUnit: kilobyteScaledUnit
+            expectedUnit: kiloScaledUnit
         }
     ] as const;
 
-    class ByteUnitScale extends UnitScale {
-        protected override getSupportedScaledUnits(): ScaledUnit[] {
-            return [
-                millibyteScaledUnit,
-                byteScaledUnit,
-                kilobyteScaledUnit,
-                megabyteScaledUnit
-            ];
+    class TestUnitScale extends UnitScale {
+        public constructor() {
+            super([
+                milliScaledUnit,
+                baseScaledUnit,
+                kiloScaledUnit,
+                megaScaledUnit
+            ]);
         }
     }
-    const formatter = new ByteUnitScale();
 
-    parameterizeNamedList(byteTestCases, (spec, name, value) => {
+    parameterizeNamedList(testCases, (spec, name, value) => {
         spec(name, () => {
+            const formatter = new TestUnitScale();
             const { scaledValue, scaledUnit } = formatter.scaleNumber(
                 value.value
             );
@@ -115,6 +114,6 @@ describe('UnitScale', () => {
     });
 
     it('can return the base scaled unit', () => {
-        expect(new ByteUnitScale().baseScaledUnit).toBe(byteScaledUnit);
+        expect(new TestUnitScale().baseScaledUnit).toBe(baseScaledUnit);
     });
 });

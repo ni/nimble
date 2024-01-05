@@ -1,5 +1,6 @@
 import { parameterizeNamedList } from '../../../../tests/parameterized';
 import { ManuallyTranslatedUnitFormatter } from '../manually-translated-unit-formatter';
+import { UnitPrefix } from '../unit-prefix';
 import { UnitTranslation } from '../unit-translation';
 
 describe('ManuallyTranslatedUnitFormatter', () => {
@@ -44,12 +45,15 @@ describe('ManuallyTranslatedUnitFormatter', () => {
         }
     ] as const;
 
+    const baseUnitPrefix = new UnitPrefix(1, '');
+
     parameterizeNamedList(translationTestCases, (spec, name, value) => {
         spec(name, () => {
             const formatter = new ManuallyTranslatedUnitFormatter(
                 value.locale,
                 {},
-                translations
+                translations,
+                baseUnitPrefix
             );
             expect(formatter.format(5)).toEqual(`5 ${value.appendedUnit}`);
         });
@@ -60,7 +64,7 @@ describe('ManuallyTranslatedUnitFormatter', () => {
             'en',
             {},
             translations,
-            '1.'
+            new UnitPrefix(2, '1.')
         );
         expect(formatter.format(5)).toEqual('5 1.en-abbrev');
     });
@@ -69,7 +73,8 @@ describe('ManuallyTranslatedUnitFormatter', () => {
         const formatter = new ManuallyTranslatedUnitFormatter(
             'en',
             { minimumFractionDigits: 5 },
-            translations
+            translations,
+            baseUnitPrefix
         );
         expect(formatter.format(5)).toEqual('5.00000 en-plural');
     });
@@ -154,7 +159,8 @@ describe('ManuallyTranslatedUnitFormatter', () => {
             const formatter = new ManuallyTranslatedUnitFormatter(
                 value.locale,
                 {},
-                translations
+                translations,
+                baseUnitPrefix
             );
             expect(formatter.format(value.toFormat)).toEqual(value.expected);
         });

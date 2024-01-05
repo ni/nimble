@@ -1,4 +1,5 @@
 import { UnitFormatter } from './unit-formatter';
+import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
 
 /**
@@ -13,7 +14,7 @@ export class ManuallyTranslatedUnitFormatter extends UnitFormatter {
         locale: string,
         formatterOptions: Intl.NumberFormatOptions | undefined,
         private readonly unitTranslations: ReadonlyMap<string, UnitTranslation>,
-        private readonly unitPrefix: string | undefined = undefined
+        private readonly unitPrefix: UnitPrefix
     ) {
         super();
 
@@ -24,8 +25,8 @@ export class ManuallyTranslatedUnitFormatter extends UnitFormatter {
 
     public format(value: number): string {
         const formatted = this.formatter.format(value);
-        if (this.unitPrefix) {
-            return `${formatted} ${this.unitPrefix}${this.unitTranslation.symbol}`;
+        if (this.unitPrefix.factor !== 1) {
+            return `${formatted} ${this.unitPrefix.text}${this.unitTranslation.symbol}`;
         }
 
         // Some languages have more than two forms (singular/plural) of cardinal
