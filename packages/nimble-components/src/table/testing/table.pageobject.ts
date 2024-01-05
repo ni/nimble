@@ -549,7 +549,7 @@ export class TablePageObject<T extends TableRecord> {
      */
     public dragSizeColumnByRightDivider(
         columnIndex: number,
-        deltas: number[]
+        deltas: readonly number[]
     ): void {
         const divider = this.getColumnRightDivider(columnIndex);
         if (!divider) {
@@ -584,7 +584,7 @@ export class TablePageObject<T extends TableRecord> {
      */
     public dragSizeColumnByLeftDivider(
         columnIndex: number,
-        deltas: number[]
+        deltas: readonly number[]
     ): void {
         const divider = this.getColumnLeftDivider(columnIndex);
         if (!divider) {

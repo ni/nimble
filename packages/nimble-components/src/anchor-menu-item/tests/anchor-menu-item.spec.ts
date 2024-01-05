@@ -10,7 +10,7 @@ import { Menu, menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 @customElement('foundation-menu-item')
 export class TestMenuItem extends FoundationMenuItem {}
@@ -70,7 +70,7 @@ describe('Anchor Menu Item', () => {
             expect(element.ariaDisabled).toBe('true');
         });
 
-        const attributeNames: { name: string }[] = [
+        const attributeNames = [
             { name: 'download' },
             { name: 'href' },
             { name: 'hreflang' },
@@ -79,28 +79,18 @@ describe('Anchor Menu Item', () => {
             { name: 'rel' },
             { name: 'target' },
             { name: 'type' }
-        ];
+        ] as const;
         describe('should reflect value to the internal control', () => {
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const attribute of attributeNames) {
-                const specType = getSpecTypeByNamedList(
-                    attribute,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(`for attribute ${attribute.name}`, async () => {
+            parameterizeNamedList(attributeNames, (spec, name) => {
+                spec(`for attribute ${name}`, async () => {
                     await connect();
 
-                    element.setAttribute(attribute.name, 'foo');
+                    element.setAttribute(name, 'foo');
                     await waitForUpdatesAsync();
 
-                    expect(element.anchor.getAttribute(attribute.name)).toBe(
-                        'foo'
-                    );
+                    expect(element.anchor.getAttribute(name)).toBe('foo');
                 });
-            }
+            });
         });
 
         it('should expose slotted content through properties', async () => {

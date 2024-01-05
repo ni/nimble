@@ -285,7 +285,9 @@ export class Table<
         return this.getCurrentSelectedRecordIds();
     }
 
-    public async setSelectedRecordIds(recordIds: string[]): Promise<void> {
+    public async setSelectedRecordIds(
+        recordIds: readonly string[]
+    ): Promise<void> {
         await this.processPendingUpdates();
 
         if (this.selectionMode === TableRowSelectionMode.none) {
@@ -1136,7 +1138,7 @@ export class Table<
     }
 
     private calculateTanStackSelectionState(
-        recordIdsToSelect: string[]
+        recordIdsToSelect: readonly string[]
     ): TanStackRowSelectionState {
         if (this.selectionMode === TableRowSelectionMode.none) {
             return {};

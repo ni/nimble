@@ -101,7 +101,9 @@ export class TableValidator<TData extends TableRecord> {
         );
     }
 
-    public validateColumnIds(columnIds: (string | undefined)[]): boolean {
+    public validateColumnIds(
+        columnIds: readonly (string | undefined)[]
+    ): boolean {
         this.missingColumnId = false;
         this.duplicateColumnId = false;
 
@@ -127,24 +129,30 @@ export class TableValidator<TData extends TableRecord> {
         return !this.missingColumnId && !this.duplicateColumnId;
     }
 
-    public validateColumnSortIndices(sortIndices: number[]): boolean {
+    public validateColumnSortIndices(sortIndices: readonly number[]): boolean {
         this.duplicateSortIndex = !this.validateIndicesAreUnique(sortIndices);
         return !this.duplicateSortIndex;
     }
 
-    public validateColumnGroupIndices(groupIndices: number[]): boolean {
+    public validateColumnGroupIndices(
+        groupIndices: readonly number[]
+    ): boolean {
         this.duplicateGroupIndex = !this.validateIndicesAreUnique(groupIndices);
         return !this.duplicateGroupIndex;
     }
 
-    public validateColumnConfigurations(columns: TableColumn[]): boolean {
+    public validateColumnConfigurations(
+        columns: readonly TableColumn[]
+    ): boolean {
         this.invalidColumnConfiguration = columns.some(
             x => !x.columnInternals.validConfiguration
         );
         return !this.invalidColumnConfiguration;
     }
 
-    public getPresentRecordIds(requestedRecordIds: string[]): string[] {
+    public getPresentRecordIds(
+        requestedRecordIds: readonly string[]
+    ): string[] {
         return requestedRecordIds.filter(id => this.recordIds.has(id));
     }
 
@@ -152,7 +160,7 @@ export class TableValidator<TData extends TableRecord> {
         this.invalidParentIdConfiguration = !valid;
     }
 
-    private validateIndicesAreUnique(indices: number[]): boolean {
+    private validateIndicesAreUnique(indices: readonly number[]): boolean {
         const numberSet = new Set<number>(indices);
         return numberSet.size === indices.length;
     }

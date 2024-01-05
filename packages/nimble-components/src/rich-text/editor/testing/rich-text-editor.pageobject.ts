@@ -442,6 +442,10 @@ export class RichTextEditorPageObject {
         this.richTextEditorElement.tiptapEditor.commands.focus('start');
     }
 
+    public getCursorPosition(): number {
+        return this.richTextEditorElement.tiptapEditor.state.selection.anchor;
+    }
+
     private getEditorSection(): Element | null | undefined {
         return this.richTextEditorElement.shadowRoot?.querySelector('.editor');
     }
