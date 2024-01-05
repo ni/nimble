@@ -4,9 +4,9 @@
 
 Our clients have a need of a filterable dropdown component that does not require arbitrary text as a value, but only values available in the dropdown. The filtering will have the following behaviors:
 
--   The filter text will match _any_ text within the `textContent` of each `ListOption`
--   Each time the dropdown is opened the filter text is cleared
--   While the dropdown is opened all keystrokes except `<ArrowUp>` and `<ArrowDown>` will apply to the filter.
+-   The filter text will match _any_ text within the `textContent` of each `ListOption` in a case insensitive way.
+-   Each time the dropdown is opened the filter text is cleared.
+-   While the dropdown is opened all keystrokes except `<ArrowUp>`. `<ArrowDown>`, `<Home>` and `<End>` will apply to the filter.
 -   Pressing `<Esc>` will close the dropdown and revert the value to what it was prior to opening dropdown.
 
 ## Links To Relevant Work Items and Reference Material
@@ -25,10 +25,16 @@ We will provide a means for clients to enable this feature with a new attribute:
 ```ts
 export class Select() {
     ...
-    @attr({ attribute: 'enable-filter', mode: 'boolean' })
-    public enableFilter = false;
+    @attr({ attribute: 'filter-mode' })
+    public filterMode = FilterMode.none;
     ...
 }
+
+// Provide enum for filterMode to allow for future modes
+export const FilterMode  = {
+    none: 'none';
+    caseInsensitive: 'caseInsensitive';
+} as const;
 ```
 
 #### LabelProviderCore
@@ -44,6 +50,10 @@ export class LabelProviderCore
     @attr({ attribute: 'select-filter-no-results' })
     public selectFilterNoResults: string | undefined;
 ```
+
+The English strings used for these labels will be:
+- selectFilterSearch: "Search"
+- selectFilterNoResults: "No items found"
 
 ### Implementation details
 
@@ -65,7 +75,13 @@ public override set options(value: ListboxOption[]) {
 
 Since the input for the filter is devoid of interaction semantics we find in the `NimbleTextField` (notably no green underline that appears on hover/focus), we will instead use a minimally styled native `input` element.
 
+#### Accessibility
+
+The accessibility tree will report that the search `input` element should have its own `focus` styling, however this should not be necessary, as the existence of the popup should provide the necessary focus hint to the user. Hiding the `input` from the accessibility tree using `aria-hidden` seems to be strongly discouraged, and setting its `role` to `presentation` is not allowed.
+
 ### Future considerations
+
+#### Grouping
 
 One feature that we intend to add to the `Select` is the ability to specify "groups" of options, where each group will have non-selectable header text followed by the options under that group. Ultimately, this feature will have to work nicely with filtering, but I don't believe there are aspects of this that would interfere with the current proposed API in this HLD of a single boolean attribute to enable filtering.
 
@@ -74,5 +90,3 @@ One feature that we intend to add to the `Select` is the ability to specify "gro
 None
 
 ## Open Issues
-
--   When there are no matches to the filter I am proposing that we display localizable text below/above the filter text area, the English version of which would be "No items found".
