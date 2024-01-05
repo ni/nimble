@@ -1,4 +1,4 @@
-import type { ScaledUnit } from './models/scaled-unit';
+import type { ScaledUnit } from './scaled-unit';
 
 export interface ScaledNumber {
     readonly scaledValue: number;
@@ -24,7 +24,7 @@ export abstract class UnitScale {
             );
         }
         const baseScaledUnit = supportedScaledUnits.find(
-            x => x.scaleFactor === 1
+            x => x.isBase()
         );
         if (!baseScaledUnit) {
             throw new Error(

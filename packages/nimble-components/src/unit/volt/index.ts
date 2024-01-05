@@ -1,7 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
-import type { UnitScale } from '../../utilities/number-formatter/unit-scale/unit-scale';
+import type { UnitScale } from '../../utilities/number-formatter/unit-scale/base/unit-scale';
 import { voltUnitScale } from '../../utilities/number-formatter/unit-scale/volt-unit-scale';
 
 declare global {

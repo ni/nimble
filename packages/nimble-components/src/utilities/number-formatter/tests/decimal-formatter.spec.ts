@@ -1,6 +1,6 @@
 import { parameterizeNamedList } from '../../tests/parameterized';
 import { DecimalFormatter } from '../decimal-formatter';
-import { UnitScale } from '../unit-scale/unit-scale';
+import { UnitScale } from '../unit-scale/base/unit-scale';
 import { emptyUnitScale } from '../unit-scale/empty-unit-scale';
 
 describe('DecimalFormatter', () => {

@@ -18,7 +18,7 @@ import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { NumberTextAlignment, NumberTextFormat } from './types';
-import type { NumberFormatter } from '../../utilities/number-formatter/number-formatter';
+import type { NumberFormatter } from '../../utilities/number-formatter/base/number-formatter';
 import { DefaultFormatter } from '../../utilities/number-formatter/default-formatter';
 import { DecimalFormatter } from '../../utilities/number-formatter/decimal-formatter';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';

@@ -1,8 +1,8 @@
 import { ManuallyTranslatedUnitFormatter } from './manually-translated-unit-formatter';
-import type { ScaledUnit } from './scaled-unit';
+import { ScaledUnit } from '../base/scaled-unit';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
-import { UnitScale } from '../unit-scale';
+import { UnitScale } from '../base/unit-scale';
 
 /**
  * A unit scale that is not supported by Intl.NumberFormat and has manually provided translation strings
@@ -27,10 +27,10 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
         if (!unitTranslations.get('en')) {
             throw new Error('English translations must exist');
         }
-        const supportedUnits: readonly ScaledUnit[] = supportedPrefixes.map(
-            prefix => ({
-                scaleFactor: prefix.factor,
-                unitFormatterFactory: (
+        const supportedUnits = supportedPrefixes.map(
+            prefix => new ScaledUnit(
+                prefix.factor,
+                (
                     locale: string,
                     numberFormatOptions: Intl.NumberFormatOptions | undefined
                 ) => new ManuallyTranslatedUnitFormatter(
@@ -39,7 +39,7 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
                     unitTranslations,
                     prefix
                 )
-            })
+            )
         );
 
         return supportedUnits;

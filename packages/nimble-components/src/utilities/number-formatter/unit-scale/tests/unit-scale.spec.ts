@@ -1,31 +1,20 @@
-import { parameterizeNamedList } from '../../tests/parameterized';
-import { UnitScale } from '../unit-scale/unit-scale';
+/* eslint-disable max-classes-per-file */
+import { parameterizeNamedList } from '../../../tests/parameterized';
+import { ScaledUnit } from '../base/scaled-unit';
+import { UnitScale } from '../base/unit-scale';
+import { UnitFormatter } from '../models/unit-formatter';
 
 describe('UnitScale', () => {
-    const milliScaledUnit = {
-        scaleFactor: 10 ** -3,
-        unitFormatterFactory: () => {
-            return { format: () => '' };
+    class EmptyUnitFormatter extends UnitFormatter {
+        public override format(): string {
+            return '';
         }
-    } as const;
-    const baseScaledUnit = {
-        scaleFactor: 10 ** 0,
-        unitFormatterFactory: () => {
-            return { format: () => '' };
-        }
-    } as const;
-    const kiloScaledUnit = {
-        scaleFactor: 10 ** 3,
-        unitFormatterFactory: () => {
-            return { format: () => '' };
-        }
-    } as const;
-    const megaScaledUnit = {
-        scaleFactor: 10 ** 6,
-        unitFormatterFactory: () => {
-            return { format: () => '' };
-        }
-    } as const;
+    }
+
+    const milliScaledUnit = new ScaledUnit(10 ** -3, () => new EmptyUnitFormatter());
+    const baseScaledUnit = new ScaledUnit(10 ** 0, () => new EmptyUnitFormatter());
+    const kiloScaledUnit = new ScaledUnit(10 ** 3, () => new EmptyUnitFormatter());
+    const megaScaledUnit = new ScaledUnit(10 ** 6, () => new EmptyUnitFormatter());
     const testCases = [
         {
             name: 'NEGATIVE_INFINITY uses base unit',

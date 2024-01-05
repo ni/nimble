@@ -1,6 +1,6 @@
-import { NumberFormatter } from './number-formatter';
+import { NumberFormatter } from './base/number-formatter';
 import type { UnitFormatter } from './unit-scale/models/unit-formatter';
-import type { UnitScale } from './unit-scale/unit-scale';
+import type { UnitScale } from './unit-scale/base/unit-scale';
 
 /**
  * The formatter for a number-text column whose format is configured to be 'decimal'.
