@@ -12,8 +12,7 @@ export class ScaledUnit {
     public constructor(
         public readonly scaleFactor: number,
         public readonly unitFormatterFactory: UnitFormatterFactoryFunction
-    ) {
-    }
+    ) {}
 
     public isBase(): boolean {
         return this.scaleFactor === 1;

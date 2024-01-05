@@ -139,12 +139,11 @@ describe('DecimalFormatter', () => {
         class TestUnitScale extends UnitScale {
             public constructor() {
                 super(
-                    [0.001, 1, 2, 4].map(scaleFactor => new ScaledUnit(
-                        scaleFactor,
-                        () => ({
+                    [0.001, 1, 2, 4].map(
+                        scaleFactor => new ScaledUnit(scaleFactor, () => ({
                             format: (value: number) => `${value} x${scaleFactor}`
-                        })
-                    ))
+                        }))
+                    )
                 );
             }
         }

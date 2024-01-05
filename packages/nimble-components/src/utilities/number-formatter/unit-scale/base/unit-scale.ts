@@ -23,9 +23,7 @@ export abstract class UnitScale {
                 'Supported scaled units must have unique and ordered scale factors'
             );
         }
-        const baseScaledUnit = supportedScaledUnits.find(
-            x => x.isBase()
-        );
+        const baseScaledUnit = supportedScaledUnits.find(x => x.isBase());
         if (!baseScaledUnit) {
             throw new Error(
                 'Supported scaled units must include a base scaled unit (scale factor=1)'

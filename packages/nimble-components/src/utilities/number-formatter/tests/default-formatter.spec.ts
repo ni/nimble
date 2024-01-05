@@ -212,7 +212,10 @@ describe('DefaultFormatter', () => {
     for (const locale of locales) {
         parameterizeNamedList(testCases, (spec, name, value) => {
             spec(`${name} with '${locale}' locale`, () => {
-                const formatter = new DefaultFormatter(locale, passthroughUnitScale);
+                const formatter = new DefaultFormatter(
+                    locale,
+                    passthroughUnitScale
+                );
                 expect(formatter.formatValue(value.value)).toEqual(
                     value.expectedFormattedValue[locale]
                 );
@@ -224,18 +227,22 @@ describe('DefaultFormatter', () => {
         class TestUnitScale extends UnitScale {
             public constructor() {
                 super(
-                    [0.01, 1, 100, 1000].map(scaleFactor => new ScaledUnit(
-                        scaleFactor,
-                        (
-                            locale: string,
-                            options: Intl.NumberFormatOptions | undefined
-                        ) => ({
-                            format: (value: number) => `${new Intl.NumberFormat(
-                                locale,
-                                options
-                            ).format(value)} x${scaleFactor}`
-                        })
-                    ))
+                    [0.01, 1, 100, 1000].map(
+                        scaleFactor => new ScaledUnit(
+                            scaleFactor,
+                            (
+                                locale: string,
+                                options:
+                                | Intl.NumberFormatOptions
+                                | undefined
+                            ) => ({
+                                format: (value: number) => `${new Intl.NumberFormat(
+                                    locale,
+                                    options
+                                ).format(value)} x${scaleFactor}`
+                            })
+                        )
+                    )
                 );
             }
         }

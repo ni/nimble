@@ -11,10 +11,22 @@ describe('UnitScale', () => {
         }
     }
 
-    const milliScaledUnit = new ScaledUnit(10 ** -3, () => new EmptyUnitFormatter());
-    const baseScaledUnit = new ScaledUnit(10 ** 0, () => new EmptyUnitFormatter());
-    const kiloScaledUnit = new ScaledUnit(10 ** 3, () => new EmptyUnitFormatter());
-    const megaScaledUnit = new ScaledUnit(10 ** 6, () => new EmptyUnitFormatter());
+    const milliScaledUnit = new ScaledUnit(
+        10 ** -3,
+        () => new EmptyUnitFormatter()
+    );
+    const baseScaledUnit = new ScaledUnit(
+        10 ** 0,
+        () => new EmptyUnitFormatter()
+    );
+    const kiloScaledUnit = new ScaledUnit(
+        10 ** 3,
+        () => new EmptyUnitFormatter()
+    );
+    const megaScaledUnit = new ScaledUnit(
+        10 ** 6,
+        () => new EmptyUnitFormatter()
+    );
 
     class TestUnitScale extends UnitScale {
         public constructor() {

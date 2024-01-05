@@ -7,10 +7,13 @@ import { UnitScale } from './base/unit-scale';
 class PassthroughUnitScale extends UnitScale {
     public constructor() {
         super([
-            new ScaledUnit(1, (
-                locale: string,
-                numberFormatOptions: Intl.NumberFormatOptions | undefined
-            ) => new Intl.NumberFormat(locale, numberFormatOptions))
+            new ScaledUnit(
+                1,
+                (
+                    locale: string,
+                    numberFormatOptions: Intl.NumberFormatOptions | undefined
+                ) => new Intl.NumberFormat(locale, numberFormatOptions)
+            )
         ]);
     }
 }

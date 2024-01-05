@@ -32,7 +32,9 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
                 prefix.factor,
                 (
                     locale: string,
-                    numberFormatOptions: Intl.NumberFormatOptions | undefined
+                    numberFormatOptions:
+                    | Intl.NumberFormatOptions
+                    | undefined
                 ) => new ManuallyTranslatedUnitFormatter(
                     locale,
                     numberFormatOptions,
