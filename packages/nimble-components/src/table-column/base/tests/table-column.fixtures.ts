@@ -54,8 +54,8 @@ const configValidity = ['invalidFoo', 'invalidBar'] as const;
 export class TestColumnValidator extends ColumnValidator<
     typeof configValidity
 > {
-    public constructor(columnInternals: ColumnInternals<unknown>) {
-        super(columnInternals, configValidity);
+    public constructor() {
+        super(configValidity);
     }
 
     public validateFoo(isValid: boolean): void {
@@ -82,9 +82,6 @@ export const tableColumnValidationTestTag = 'nimble-test-table-column-validation
     name: tableColumnValidationTestTag
 })
 export class TableColumnValidationTest extends TableColumn {
-    /* @internal */
-    public readonly validator = new TestColumnValidator(this.columnInternals);
-
     @attr({ mode: 'boolean' })
     public foo = false;
 
@@ -96,8 +93,13 @@ export class TableColumnValidationTest extends TableColumn {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: []
+            delegatedEvents: [],
+            validator: new TestColumnValidator()
         };
+    }
+
+    private get validator(): TestColumnValidator {
+        return this.columnInternals.validator as TestColumnValidator;
     }
 
     private fooChanged(): void {

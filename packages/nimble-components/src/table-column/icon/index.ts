@@ -32,26 +32,18 @@ declare global {
 export class TableColumnIcon extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
         TableColumnEnumBase<
-        TableColumnEnumColumnConfig,
-        TableColumnIconValidator
+        TableColumnEnumColumnConfig
         >
     )
 ) {
-    public override createValidator(): TableColumnIconValidator {
-        return new TableColumnIconValidator(this.columnInternals);
-    }
-
-    public override get validity(): TableColumnValidity {
-        return this.validator.getValidity();
-    }
-
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnIconCellViewTag,
             groupHeaderViewTag: tableColumnIconGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
+            sortOperation: TableColumnSortOperation.basic,
+            validator: new TableColumnIconValidator()
         };
     }
 

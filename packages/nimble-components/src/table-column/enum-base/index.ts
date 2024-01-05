@@ -16,7 +16,7 @@ import type { MappingKeyType } from './types';
 import type { MappingConfig } from './models/mapping-config';
 import type { MappingKey } from '../../mapping/base/types';
 import { resolveKeyWithType } from './models/mapping-key-resolver';
-import type { TableColumnEnumBaseValidator } from './models/table-column-enum-base-validator';
+import { TableColumnEnumBaseValidator } from './models/table-column-enum-base-validator';
 
 export type TableColumnEnumCellRecord =
     | TableStringField<'value'>
@@ -31,16 +31,10 @@ export interface TableColumnEnumColumnConfig {
  * Base class for table columns that map values to content (e.g. nimble-table-column-enum-text and nimble-table-column-icon)
  */
 export abstract class TableColumnEnumBase<
-    TColumnConfig extends TableColumnEnumColumnConfig,
-    TEnumValidator extends TableColumnEnumBaseValidator<[]>
+    TColumnConfig extends TableColumnEnumColumnConfig
 >
     extends TableColumn<TColumnConfig>
     implements Subscriber {
-    // To ensure the validator is available when other properties get initialized
-    // (which can trigger validation), declare the validator first.
-    /** @internal */
-    public validator = this.createValidator();
-
     /** @internal */
     public mappingNotifiers: Notifier[] = [];
 
@@ -66,8 +60,6 @@ export abstract class TableColumnEnumBase<
         }
     }
 
-    public abstract createValidator(): TEnumValidator;
-
     /**
      * Implementations should throw an error if an invalid Mapping is passed.
      */
@@ -78,6 +70,14 @@ export abstract class TableColumnEnumBase<
     protected abstract createColumnConfig(
         mappingConfigs: MappingConfigs
     ): TColumnConfig;
+
+    private get validator(): TableColumnEnumBaseValidator<[]> {
+        if (this.columnInternals.validator instanceof TableColumnEnumBaseValidator) {
+            return this.columnInternals.validator;
+        }
+
+        throw new Error('');
+    }
 
     /**
      * Called when any Mapping related state has changed.

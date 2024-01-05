@@ -1,6 +1,5 @@
 import type { Mapping } from '../../../mapping/base';
 import { MappingText } from '../../../mapping/text';
-import type { ColumnInternals } from '../../base/models/column-internals';
 import {
     TableColumnEnumBaseValidator,
     enumBaseValidityFlagNames
@@ -19,8 +18,8 @@ const enumTextValidityFlagNames = [
 export class TableColumnEnumTextValidator extends TableColumnEnumBaseValidator<
     typeof enumTextValidityFlagNames
 > {
-    public constructor(columnInternals: ColumnInternals<unknown>) {
-        super(columnInternals, enumTextValidityFlagNames);
+    public constructor() {
+        super(enumTextValidityFlagNames);
     }
 
     private static isSupportedMappingElement(

@@ -7,7 +7,7 @@ import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
 import { TableColumnTextBase } from '../text-base';
-import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
+import { TableColumnSortOperation } from '../base/types';
 import { tableColumnDateTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnDateTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
@@ -48,9 +48,6 @@ declare global {
  * The table column for displaying dates/times as text.
  */
 export class TableColumnDateText extends TableColumnTextBase {
-    /** @internal */
-    public validator = new TableColumnDateTextValidator(this.columnInternals);
-
     @attr
     public format: DateTextFormat;
 
@@ -131,17 +128,14 @@ export class TableColumnDateText extends TableColumnTextBase {
         lang.unsubscribe(this.langSubscriber, this);
     }
 
-    public override get validity(): TableColumnValidity {
-        return this.validator.getValidity();
-    }
-
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnDateTextCellViewTag,
             groupHeaderViewTag: tableColumnDateTextGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
+            sortOperation: TableColumnSortOperation.basic,
+            validator: new TableColumnDateTextValidator()
         };
     }
 
@@ -223,6 +217,13 @@ export class TableColumnDateText extends TableColumnTextBase {
 
     protected customHourCycleChanged(): void {
         this.updateColumnConfig();
+    }
+
+    private get validator(): TableColumnDateTextValidator {
+        if (this.columnInternals.validator instanceof TableColumnDateTextValidator) {
+            return this.columnInternals.validator;
+        }
+        throw new Error('Unexpected column validator type found');
     }
 
     private updateColumnConfig(): void {

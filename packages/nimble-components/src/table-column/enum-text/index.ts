@@ -6,7 +6,7 @@ import {
 } from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
-import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
+import { TableColumnSortOperation } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { MappingText } from '../../mapping/text';
@@ -30,26 +30,18 @@ declare global {
 export class TableColumnEnumText extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
         TableColumnEnumBase<
-        TableColumnEnumColumnConfig,
-        TableColumnEnumTextValidator
+        TableColumnEnumColumnConfig
         >
     )
 ) {
-    public override createValidator(): TableColumnEnumTextValidator {
-        return new TableColumnEnumTextValidator(this.columnInternals);
-    }
-
-    public override get validity(): TableColumnValidity {
-        return this.validator.getValidity();
-    }
-
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnEnumTextCellViewTag,
             groupHeaderViewTag: tableColumnEnumTextGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
+            sortOperation: TableColumnSortOperation.basic,
+            validator: new TableColumnEnumTextValidator()
         };
     }
 

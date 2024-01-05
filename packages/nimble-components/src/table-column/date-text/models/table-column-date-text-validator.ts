@@ -1,4 +1,3 @@
-import type { ColumnInternals } from '../../base/models/column-internals';
 import { ColumnValidator } from '../../base/models/column-validator';
 
 const dateTextValidityFlagNames = ['invalidCustomOptionsCombination'] as const;
@@ -9,8 +8,8 @@ const dateTextValidityFlagNames = ['invalidCustomOptionsCombination'] as const;
 export class TableColumnDateTextValidator extends ColumnValidator<
     typeof dateTextValidityFlagNames
 > {
-    public constructor(columnInternals: ColumnInternals<unknown>) {
-        super(columnInternals, dateTextValidityFlagNames);
+    public constructor() {
+        super(dateTextValidityFlagNames);
     }
 
     public setCustomOptionsValidity(valid: boolean): void {

@@ -37,9 +37,6 @@ const defaultDecimalDigits = 2;
  * The table column for displaying numbers as text.
  */
 export class TableColumnNumberText extends TableColumnTextBase {
-    /** @internal */
-    public validator = new TableColumnNumberTextValidator(this.columnInternals);
-
     @attr
     public format: NumberTextFormat;
 
@@ -72,18 +69,19 @@ export class TableColumnNumberText extends TableColumnTextBase {
         lang.unsubscribe(this.langSubscriber, this);
     }
 
-    public override get validity(): TableColumnValidity {
-        return this.validator.getValidity();
-    }
-
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnNumberTextCellViewTag,
             groupHeaderViewTag: tableColumnNumberTextGroupHeaderTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
+            sortOperation: TableColumnSortOperation.basic,
+            validator: new TableColumnNumberTextValidator()
         };
+    }
+
+    private get validator(): TableColumnNumberTextValidator {
+        return this.columnInternals.validator as TableColumnNumberTextValidator;
     }
 
     private formatChanged(): void {
