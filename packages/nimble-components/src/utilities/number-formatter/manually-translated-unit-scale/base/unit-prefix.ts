@@ -13,4 +13,8 @@ export class UnitPrefix {
             );
         }
     }
+
+    public isBase(): boolean {
+        return this.factor === 1;
+    }
 }

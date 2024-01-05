@@ -214,9 +214,11 @@ describe('DefaultFormatter', () => {
             spec(`${name} with '${locale}' locale`, () => {
                 const formatter = new DefaultFormatter(
                     locale,
-                    passthroughUnitScale
+                    {
+                        unitScale: passthroughUnitScale
+                    }
                 );
-                expect(formatter.formatValue(value.value)).toEqual(
+                expect(formatter.format(value.value)).toEqual(
                     value.expectedFormattedValue[locale]
                 );
             });
@@ -272,7 +274,9 @@ describe('DefaultFormatter', () => {
 
         const formatterForAppendedLabel = new DefaultFormatter(
             'en',
-            new TestUnitScale()
+            {
+                unitScale: new TestUnitScale()
+            }
         );
 
         parameterizeNamedList(
@@ -280,7 +284,7 @@ describe('DefaultFormatter', () => {
             (spec, name, value) => {
                 spec(name, () => {
                     expect(
-                        formatterForAppendedLabel.formatValue(value.value)
+                        formatterForAppendedLabel.format(value.value)
                     ).toEqual(value.expectedFormattedValue);
                 });
             }

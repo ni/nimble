@@ -183,21 +183,22 @@ export class TableColumnNumberText extends TableColumnTextBase {
         const unitScale = this.unit?.getUnitScale() ?? passthroughUnitScale;
         switch (this.format) {
             case NumberTextFormat.decimal: {
-                const minimumDigits = typeof this.decimalMaximumDigits === 'number'
+                const minimumFractionDigits = typeof this.decimalMaximumDigits === 'number'
                     ? 0
                     : this.decimalDigits ?? defaultDecimalDigits;
-                const maximumDigits = this.decimalMaximumDigits
+                const maximumFractionDigits = this.decimalMaximumDigits
                     ?? this.decimalDigits
                     ?? defaultDecimalDigits;
-                return new DecimalFormatter(
-                    lang.getValueFor(this),
-                    minimumDigits,
-                    maximumDigits,
+                return new DecimalFormatter(lang.getValueFor(this), {
+                    minimumFractionDigits,
+                    maximumFractionDigits,
                     unitScale
-                );
+                });
             }
             default: {
-                return new DefaultFormatter(lang.getValueFor(this), unitScale);
+                return new DefaultFormatter(lang.getValueFor(this), {
+                    unitScale
+                });
             }
         }
     }

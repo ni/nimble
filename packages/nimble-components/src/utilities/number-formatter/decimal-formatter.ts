@@ -8,14 +8,22 @@ import type { UnitScale } from './unit-scale/base/unit-scale';
 export class DecimalFormatter extends NumberFormatter {
     private readonly unitFormatters = new Map<number, UnitFormatter>();
     private readonly tenPowDecimalDigits: number;
+    private readonly unitScale: UnitScale;
 
     public constructor(
         locale: string,
-        minimumFractionDigits: number,
-        maximumFractionDigits: number,
-        private readonly unitScale: UnitScale
+        {
+            minimumFractionDigits,
+            maximumFractionDigits,
+            unitScale
+        }: {
+            minimumFractionDigits: number,
+            maximumFractionDigits: number,
+            unitScale: UnitScale
+        }
     ) {
         super();
+        this.unitScale = unitScale;
         const decimalFormatterOptions = {
             maximumFractionDigits,
             minimumFractionDigits,
@@ -30,7 +38,7 @@ export class DecimalFormatter extends NumberFormatter {
         this.tenPowDecimalDigits = 10 ** maximumFractionDigits;
     }
 
-    protected format(number: number): string {
+    protected tryFormat(number: number): string {
         const { scaledValue, scaledUnit: unit } = this.unitScale.scaleNumber(number);
 
         const valueToFormat = this.willRoundToZero(scaledValue)

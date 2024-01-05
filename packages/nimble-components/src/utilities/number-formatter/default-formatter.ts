@@ -46,10 +46,17 @@ export class DefaultFormatter extends NumberFormatter {
         notation: 'scientific'
     };
 
+    private readonly unitScale: UnitScale;
+
     private readonly exponentialUnitFormatter: UnitFormatter;
 
-    public constructor(locale: string, private readonly unitScale: UnitScale) {
+    public constructor(locale: string, {
+        unitScale
+    }: {
+        unitScale: UnitScale
+    }) {
         super();
+        this.unitScale = unitScale;
         for (const unit of unitScale.supportedScaledUnits) {
             this.defaultUnitFormatters.set(
                 unit.scaleFactor,
@@ -69,7 +76,7 @@ export class DefaultFormatter extends NumberFormatter {
         );
     }
 
-    protected format(number: number): string {
+    protected tryFormat(number: number): string {
         const valueToFormat = number === 0 ? 0 : number;
 
         const { scaledValue, scaledUnit: unit } = this.unitScale.scaleNumber(valueToFormat);

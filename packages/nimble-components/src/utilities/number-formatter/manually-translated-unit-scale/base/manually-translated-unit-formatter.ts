@@ -25,7 +25,7 @@ export class ManuallyTranslatedUnitFormatter extends UnitFormatter {
 
     public format(value: number): string {
         const formatted = this.formatter.format(value);
-        if (this.unitPrefix.factor !== 1) {
+        if (!this.unitPrefix.isBase()) {
             return `${formatted} ${this.unitPrefix.text}${this.unitTranslation.symbol}`;
         }
 

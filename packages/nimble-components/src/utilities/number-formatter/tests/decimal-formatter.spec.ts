@@ -124,11 +124,13 @@ describe('DecimalFormatter', () => {
             spec(`${name} with '${locale}' locale`, () => {
                 const formatter = new DecimalFormatter(
                     locale,
-                    value.minDigits,
-                    value.maxDigits,
-                    passthroughUnitScale
+                    {
+                        minimumFractionDigits: value.minDigits,
+                        maximumFractionDigits: value.maxDigits,
+                        unitScale: passthroughUnitScale
+                    }
                 );
-                expect(formatter.formatValue(value.value)).toEqual(
+                expect(formatter.format(value.value)).toEqual(
                     value.expectedFormattedValue[locale]
                 );
             });
@@ -172,11 +174,13 @@ describe('DecimalFormatter', () => {
                 spec(name, () => {
                     const formatter = new DecimalFormatter(
                         'en',
-                        2,
-                        2,
-                        new TestUnitScale()
+                        {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                            unitScale: new TestUnitScale()
+                        }
                     );
-                    expect(formatter.formatValue(value.value)).toEqual(
+                    expect(formatter.format(value.value)).toEqual(
                         value.expectedFormattedValue
                     );
                 });

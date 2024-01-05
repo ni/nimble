@@ -3,20 +3,20 @@
  */
 export abstract class NumberFormatter {
     /**
-     * Tries to format the passed value using the `format()` function implemented by a concrete implementation of the class.
-     * Returns an empty string if the value is not a number or if `format()` throws an error.
+     * Formats a number value to a string.
+     * For nullish values or values that result in an exception being thrown, empty string is returned
      */
-    public formatValue(value: number | undefined | null): string {
+    public format(value: number | undefined | null): string {
         if (typeof value !== 'number') {
             return '';
         }
 
         try {
-            return this.format(value);
+            return this.tryFormat(value);
         } catch {
             return '';
         }
     }
 
-    protected abstract format(number: number): string;
+    protected abstract tryFormat(number: number): string;
 }
