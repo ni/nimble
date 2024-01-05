@@ -220,7 +220,10 @@ export class TableColumnDateText extends TableColumnTextBase {
     }
 
     private get validator(): TableColumnDateTextValidator {
-        if (this.columnInternals.validator instanceof TableColumnDateTextValidator) {
+        if (
+            this.columnInternals.validator
+            instanceof TableColumnDateTextValidator
+        ) {
             return this.columnInternals.validator;
         }
         throw new Error('Unexpected column validator type found');

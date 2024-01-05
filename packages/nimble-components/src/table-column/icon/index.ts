@@ -6,7 +6,7 @@ import {
 } from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
-import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
+import { TableColumnSortOperation } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { MappingSpinner } from '../../mapping/spinner';
@@ -31,9 +31,7 @@ declare global {
  */
 export class TableColumnIcon extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
-        TableColumnEnumBase<
-        TableColumnEnumColumnConfig
-        >
+        TableColumnEnumBase<TableColumnEnumColumnConfig>
     )
 ) {
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {

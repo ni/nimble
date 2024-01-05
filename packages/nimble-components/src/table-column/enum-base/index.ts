@@ -72,7 +72,10 @@ export abstract class TableColumnEnumBase<
     ): TColumnConfig;
 
     private get validator(): TableColumnEnumBaseValidator<[]> {
-        if (this.columnInternals.validator instanceof TableColumnEnumBaseValidator) {
+        if (
+            this.columnInternals.validator
+            instanceof TableColumnEnumBaseValidator
+        ) {
             return this.columnInternals.validator;
         }
 

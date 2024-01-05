@@ -29,9 +29,7 @@ declare global {
  */
 export class TableColumnEnumText extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
-        TableColumnEnumBase<
-        TableColumnEnumColumnConfig
-        >
+        TableColumnEnumBase<TableColumnEnumColumnConfig>
     )
 ) {
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {

@@ -7,7 +7,7 @@ import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
 import { TableColumnTextBase } from '../text-base';
-import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
+import { TableColumnSortOperation } from '../base/types';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';

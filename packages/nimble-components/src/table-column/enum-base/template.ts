@@ -3,7 +3,5 @@ import { template as baseTemplate } from '../base/template';
 import type { TableColumnEnumBase, TableColumnEnumColumnConfig } from '.';
 
 export const template = html<
-TableColumnEnumBase<
-TableColumnEnumColumnConfig
->
+TableColumnEnumBase<TableColumnEnumColumnConfig>
 >`${baseTemplate}<slot ${slotted('mappings')} name="mapping"></slot>`;
