@@ -7,7 +7,7 @@ import { UnitScale } from './base/unit-scale';
 class ByteUnitScale extends UnitScale {
     private static readonly supportedScaledUnits: readonly ScaledUnit[] = [
         new ScaledUnit(
-            10 ** 1,
+            10 ** 0,
             (
                 locale: string,
                 numberFormatOptions: Intl.NumberFormatOptions | undefined
