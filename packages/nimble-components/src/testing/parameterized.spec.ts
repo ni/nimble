@@ -1,7 +1,7 @@
 import {
     parameterize,
     parameterizeNamedList
-} from '../../../testing/parameterized';
+} from './parameterized';
 
 // The following aliases are just to reduce the number
 // of eslint disables in this test file. In normal
