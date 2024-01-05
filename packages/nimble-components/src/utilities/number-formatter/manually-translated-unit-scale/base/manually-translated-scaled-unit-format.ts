@@ -1,25 +1,25 @@
-import { UnitFormatter } from '../../base/unit-formatter';
+import { ScaledUnitFormat } from '../../unit-scale/base/scaled-unit-format';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
 
 /**
  * A formatter for units that are not supported by Intl.NumberFormat
  */
-export class ManuallyTranslatedUnitFormatter extends UnitFormatter {
+export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
     private readonly pluralRules: Intl.PluralRules;
     private readonly formatter: Intl.NumberFormat;
     private readonly unitTranslation: UnitTranslation;
 
     public constructor(
         locale: string,
-        formatterOptions: Intl.NumberFormatOptions | undefined,
+        intlNumberFormatOptions: Intl.NumberFormatOptions | undefined,
         private readonly unitTranslations: ReadonlyMap<string, UnitTranslation>,
         private readonly unitPrefix: UnitPrefix
     ) {
         super();
 
         this.pluralRules = new Intl.PluralRules(locale);
-        this.formatter = new Intl.NumberFormat(locale, formatterOptions);
+        this.formatter = new Intl.NumberFormat(locale, intlNumberFormatOptions);
         this.unitTranslation = this.getTranslationToUse(locale);
     }
 

@@ -1,31 +1,28 @@
-/* eslint-disable max-classes-per-file */
 import { parameterizeNamedList } from '../../../../tests/parameterized';
 import { ScaledUnit } from '../scaled-unit';
 import { UnitScale } from '../unit-scale';
-import { UnitFormatter } from '../../../base/unit-formatter';
+import type { ScaledUnitFormat } from '../scaled-unit-format';
 
 describe('UnitScale', () => {
-    class EmptyUnitFormatter extends UnitFormatter {
-        public override format(): string {
-            return '';
-        }
-    }
+    const noopScaledUnitFormatFactory = (): ScaledUnitFormat => {
+        throw Error('Formatter factory not used for scale lookup tests');
+    };
 
     const milliScaledUnit = new ScaledUnit(
         10 ** -3,
-        () => new EmptyUnitFormatter()
+        noopScaledUnitFormatFactory
     );
     const baseScaledUnit = new ScaledUnit(
         10 ** 0,
-        () => new EmptyUnitFormatter()
+        noopScaledUnitFormatFactory
     );
     const kiloScaledUnit = new ScaledUnit(
         10 ** 3,
-        () => new EmptyUnitFormatter()
+        noopScaledUnitFormatFactory
     );
     const megaScaledUnit = new ScaledUnit(
         10 ** 6,
-        () => new EmptyUnitFormatter()
+        noopScaledUnitFormatFactory
     );
 
     class TestUnitScale extends UnitScale {
@@ -104,8 +101,8 @@ describe('UnitScale', () => {
 
     parameterizeNamedList(testCases, (spec, name, value) => {
         spec(name, () => {
-            const formatter = new TestUnitScale();
-            const { scaledValue, scaledUnit } = formatter.scaleNumber(
+            const unitScale = new TestUnitScale();
+            const { scaledValue, scaledUnit } = unitScale.scaleNumber(
                 value.value
             );
             expect(scaledUnit).toEqual(value.expectedUnit);

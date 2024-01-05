@@ -1,5 +1,5 @@
 import { parameterizeNamedList } from '../../tests/parameterized';
-import { DefaultFormatter } from '../default-formatter';
+import { DefaultUnitFormat } from '../default-unit-format';
 import { ScaledUnit } from '../unit-scale/base/scaled-unit';
 import { UnitScale } from '../unit-scale/base/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
@@ -212,7 +212,7 @@ describe('DefaultFormatter', () => {
     for (const locale of locales) {
         parameterizeNamedList(testCases, (spec, name, value) => {
             spec(`${name} with '${locale}' locale`, () => {
-                const formatter = new DefaultFormatter(locale, {
+                const formatter = new DefaultUnitFormat(locale, {
                     unitScale: passthroughUnitScale
                 });
                 expect(formatter.format(value.value)).toEqual(
@@ -231,13 +231,13 @@ describe('DefaultFormatter', () => {
                             scaleFactor,
                             (
                                 locale: string,
-                                options:
+                                intlNumberFormatOptions:
                                 | Intl.NumberFormatOptions
                                 | undefined
                             ) => ({
                                 format: (value: number) => `${new Intl.NumberFormat(
                                     locale,
-                                    options
+                                    intlNumberFormatOptions
                                 ).format(value)} x${scaleFactor}`
                             })
                         )
@@ -269,7 +269,7 @@ describe('DefaultFormatter', () => {
             }
         ] as const;
 
-        const formatterForAppendedLabel = new DefaultFormatter('en', {
+        const formatterForAppendedLabel = new DefaultUnitFormat('en', {
             unitScale: new TestUnitScale()
         });
 

@@ -1,4 +1,4 @@
-import { ManuallyTranslatedUnitFormatter } from './manually-translated-unit-formatter';
+import { ManuallyTranslatedScaledUnitFormat } from './manually-translated-scaled-unit-format';
 import { ScaledUnit } from '../../unit-scale/base/scaled-unit';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
@@ -32,12 +32,12 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
                 prefix.factor,
                 (
                     locale: string,
-                    numberFormatOptions:
+                    intlNumberFormatOptions:
                     | Intl.NumberFormatOptions
                     | undefined
-                ) => new ManuallyTranslatedUnitFormatter(
+                ) => new ManuallyTranslatedScaledUnitFormat(
                     locale,
-                    numberFormatOptions,
+                    intlNumberFormatOptions,
                     unitTranslations,
                     prefix
                 )

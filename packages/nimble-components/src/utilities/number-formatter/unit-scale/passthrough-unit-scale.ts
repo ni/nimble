@@ -1,3 +1,4 @@
+import { IntlNumberFormatScaledUnitFormat } from './base/intl-number-format-scaled-unit-format';
 import { ScaledUnit } from './base/scaled-unit';
 import { UnitScale } from './base/unit-scale';
 
@@ -8,11 +9,11 @@ class PassthroughUnitScale extends UnitScale {
     public constructor() {
         super([
             new ScaledUnit(
-                1,
+                10 ** 0,
                 (
                     locale: string,
-                    numberFormatOptions: Intl.NumberFormatOptions | undefined
-                ) => new Intl.NumberFormat(locale, numberFormatOptions)
+                    intlNumberFormatOptions?: Intl.NumberFormatOptions
+                ) => new IntlNumberFormatScaledUnitFormat(locale, intlNumberFormatOptions)
             )
         ]);
     }

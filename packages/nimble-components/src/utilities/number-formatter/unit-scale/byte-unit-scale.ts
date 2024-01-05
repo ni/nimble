@@ -1,4 +1,4 @@
-import { IntlNumberFormatUnitFormatter } from './base/intl-number-format-unit-formatter';
+import { IntlNumberFormatScaledUnitFormat } from './base/intl-number-format-scaled-unit-format';
 import { ScaledUnit } from './base/scaled-unit';
 import { UnitScale } from './base/unit-scale';
 /**
@@ -10,8 +10,8 @@ class ByteUnitScale extends UnitScale {
             10 ** 0,
             (
                 locale: string,
-                numberFormatOptions: Intl.NumberFormatOptions | undefined
-            ) => new IntlNumberFormatUnitFormatter(locale, numberFormatOptions, {
+                intlNumberFormatOptions?: Intl.NumberFormatOptions
+            ) => new IntlNumberFormatScaledUnitFormat(locale, intlNumberFormatOptions, {
                 style: 'unit',
                 unit: 'byte',
                 unitDisplay: 'long'
@@ -21,8 +21,8 @@ class ByteUnitScale extends UnitScale {
             10 ** 3,
             (
                 locale: string,
-                numberFormatOptions: Intl.NumberFormatOptions | undefined
-            ) => new IntlNumberFormatUnitFormatter(locale, numberFormatOptions, {
+                intlNumberFormatOptions?: Intl.NumberFormatOptions
+            ) => new IntlNumberFormatScaledUnitFormat(locale, intlNumberFormatOptions, {
                 style: 'unit',
                 unit: 'kilobyte',
                 unitDisplay: 'short'
@@ -32,8 +32,8 @@ class ByteUnitScale extends UnitScale {
             10 ** 6,
             (
                 locale: string,
-                numberFormatOptions: Intl.NumberFormatOptions | undefined
-            ) => new IntlNumberFormatUnitFormatter(locale, numberFormatOptions, {
+                intlNumberFormatOptions?: Intl.NumberFormatOptions
+            ) => new IntlNumberFormatScaledUnitFormat(locale, intlNumberFormatOptions, {
                 style: 'unit',
                 unit: 'megabyte',
                 unitDisplay: 'short'
@@ -43,8 +43,8 @@ class ByteUnitScale extends UnitScale {
             10 ** 9,
             (
                 locale: string,
-                numberFormatOptions: Intl.NumberFormatOptions | undefined
-            ) => new IntlNumberFormatUnitFormatter(locale, numberFormatOptions, {
+                intlNumberFormatOptions?: Intl.NumberFormatOptions
+            ) => new IntlNumberFormatScaledUnitFormat(locale, intlNumberFormatOptions, {
                 style: 'unit',
                 unit: 'gigabyte',
                 unitDisplay: 'short'
@@ -54,8 +54,8 @@ class ByteUnitScale extends UnitScale {
             10 ** 12,
             (
                 locale: string,
-                numberFormatOptions: Intl.NumberFormatOptions | undefined
-            ) => new IntlNumberFormatUnitFormatter(locale, numberFormatOptions, {
+                intlNumberFormatOptions?: Intl.NumberFormatOptions
+            ) => new IntlNumberFormatScaledUnitFormat(locale, intlNumberFormatOptions, {
                 style: 'unit',
                 unit: 'terabyte',
                 unitDisplay: 'short'
@@ -65,8 +65,8 @@ class ByteUnitScale extends UnitScale {
             10 ** 15,
             (
                 locale: string,
-                numberFormatOptions: Intl.NumberFormatOptions | undefined
-            ) => new IntlNumberFormatUnitFormatter(locale, numberFormatOptions, {
+                intlNumberFormatOptions?: Intl.NumberFormatOptions
+            ) => new IntlNumberFormatScaledUnitFormat(locale, intlNumberFormatOptions, {
                 style: 'unit',
                 unit: 'petabyte',
                 unitDisplay: 'short'

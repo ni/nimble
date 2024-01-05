@@ -1,20 +1,20 @@
-import { UnitFormatter } from '../../base/unit-formatter';
+import { ScaledUnitFormat } from './scaled-unit-format';
 
 /**
  * A formatter for units that can be formatted/translated by Intl.NumberFormat
  */
-export class IntlNumberFormatUnitFormatter extends UnitFormatter {
+export class IntlNumberFormatScaledUnitFormat extends ScaledUnitFormat {
     private readonly formatter: Intl.NumberFormat;
 
     public constructor(
         locale: string,
-        formatterOptions: Intl.NumberFormatOptions | undefined,
-        unitFormatterOptions: Intl.NumberFormatOptions
+        intlNumberFormatOptions: Intl.NumberFormatOptions | undefined,
+        unitSpecificIntlNumberFormatOptions: Intl.NumberFormatOptions = {}
     ) {
         super();
         this.formatter = new Intl.NumberFormat(locale, {
-            ...unitFormatterOptions,
-            ...formatterOptions
+            ...unitSpecificIntlNumberFormatOptions,
+            ...intlNumberFormatOptions
         });
     }
 

@@ -1,5 +1,5 @@
 import { parameterizeNamedList } from '../../tests/parameterized';
-import { DecimalFormatter } from '../decimal-formatter';
+import { DecimalUnitFormat } from '../decimal-unit-format';
 import { ScaledUnit } from '../unit-scale/base/scaled-unit';
 import { UnitScale } from '../unit-scale/base/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
@@ -122,7 +122,7 @@ describe('DecimalFormatter', () => {
     for (const locale of locales) {
         parameterizeNamedList(testCases, (spec, name, value) => {
             spec(`${name} with '${locale}' locale`, () => {
-                const formatter = new DecimalFormatter(locale, {
+                const formatter = new DecimalUnitFormat(locale, {
                     minimumFractionDigits: value.minDigits,
                     maximumFractionDigits: value.maxDigits,
                     unitScale: passthroughUnitScale
@@ -169,7 +169,7 @@ describe('DecimalFormatter', () => {
             appendedLabelUnitTestCases,
             (spec, name, value) => {
                 spec(name, () => {
-                    const formatter = new DecimalFormatter('en', {
+                    const formatter = new DecimalUnitFormat('en', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                         unitScale: new TestUnitScale()

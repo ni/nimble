@@ -1,9 +1,9 @@
-import type { UnitFormatter } from '../../base/unit-formatter';
+import type { ScaledUnitFormat } from './scaled-unit-format';
 
-type UnitFormatterFactoryFunction = (
+type ScaledUnitFormatFactory = (
     locale: string,
-    numberFormatOptions: Intl.NumberFormatOptions | undefined
-) => UnitFormatter;
+    intlNumberFormatOptions?: Intl.NumberFormatOptions
+) => ScaledUnitFormat;
 
 /**
  * A unit that represents a scaled version of a base unit.
@@ -11,7 +11,7 @@ type UnitFormatterFactoryFunction = (
 export class ScaledUnit {
     public constructor(
         public readonly scaleFactor: number,
-        public readonly unitFormatterFactory: UnitFormatterFactoryFunction
+        public readonly scaledUnitFormatFactory: ScaledUnitFormatFactory
     ) {}
 
     public isBase(): boolean {

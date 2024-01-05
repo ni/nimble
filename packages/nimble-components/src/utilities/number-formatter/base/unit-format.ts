@@ -1,7 +1,7 @@
 /**
- * The base class for number formatters used by the number-text column.
+ * The base class for unit formats.
  */
-export abstract class NumberFormatter {
+export abstract class UnitFormat {
     /**
      * Formats a number value to a string.
      * For nullish values or values that result in an exception being thrown, empty string is returned

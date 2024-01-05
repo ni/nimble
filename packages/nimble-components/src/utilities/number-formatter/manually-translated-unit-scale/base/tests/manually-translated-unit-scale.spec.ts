@@ -25,25 +25,25 @@ describe('ManuallyTranslatedUnitScale', () => {
 
     it('creates expected units from prefixes', () => {
         const unitScale = new TestManuallyTranslatedUnitScale();
-        const units = unitScale.supportedScaledUnits;
+        const scaledUnits = unitScale.supportedScaledUnits;
 
-        expect(units.length).toBe(3);
-        expect(units[0]!.scaleFactor).toBe(1);
+        expect(scaledUnits.length).toBe(3);
+        expect(scaledUnits[0]!.scaleFactor).toBe(1);
         expect(
-            units[0]!
-                .unitFormatterFactory('en', { minimumFractionDigits: 1 })
+            scaledUnits[0]!
+                .scaledUnitFormatFactory('en', { minimumFractionDigits: 1 })
                 .format(1)
         ).toEqual('1.0 byte');
-        expect(units[1]!.scaleFactor).toBe(1000);
+        expect(scaledUnits[1]!.scaleFactor).toBe(1000);
         expect(
-            units[1]!
-                .unitFormatterFactory('en', { minimumFractionDigits: 1 })
+            scaledUnits[1]!
+                .scaledUnitFormatFactory('en', { minimumFractionDigits: 1 })
                 .format(1)
         ).toEqual('1.0 kB');
-        expect(units[2]!.scaleFactor).toBe(1000000);
+        expect(scaledUnits[2]!.scaleFactor).toBe(1000000);
         expect(
-            units[2]!
-                .unitFormatterFactory('en', { minimumFractionDigits: 1 })
+            scaledUnits[2]!
+                .scaledUnitFormatFactory('en', { minimumFractionDigits: 1 })
                 .format(1)
         ).toEqual('1.0 MB');
     });

@@ -1,5 +1,5 @@
 import { parameterizeNamedList } from '../../../../tests/parameterized';
-import { ManuallyTranslatedUnitFormatter } from '../manually-translated-unit-formatter';
+import { ManuallyTranslatedScaledUnitFormat } from '../manually-translated-scaled-unit-format';
 import { UnitPrefix } from '../unit-prefix';
 import { UnitTranslation } from '../unit-translation';
 
@@ -49,7 +49,7 @@ describe('ManuallyTranslatedUnitFormatter', () => {
 
     parameterizeNamedList(translationTestCases, (spec, name, value) => {
         spec(name, () => {
-            const formatter = new ManuallyTranslatedUnitFormatter(
+            const formatter = new ManuallyTranslatedScaledUnitFormat(
                 value.locale,
                 {},
                 translations,
@@ -60,7 +60,7 @@ describe('ManuallyTranslatedUnitFormatter', () => {
     });
 
     it('uses unit prefix and symbol whenever unit prefix is provided', () => {
-        const formatter = new ManuallyTranslatedUnitFormatter(
+        const formatter = new ManuallyTranslatedScaledUnitFormat(
             'en',
             {},
             translations,
@@ -70,7 +70,7 @@ describe('ManuallyTranslatedUnitFormatter', () => {
     });
 
     it('uses given formatter options', () => {
-        const formatter = new ManuallyTranslatedUnitFormatter(
+        const formatter = new ManuallyTranslatedScaledUnitFormat(
             'en',
             { minimumFractionDigits: 5 },
             translations,
@@ -156,7 +156,7 @@ describe('ManuallyTranslatedUnitFormatter', () => {
 
     parameterizeNamedList(pluralizationTestCases, (spec, name, value) => {
         spec(`uses expected pluralization for ${name}`, () => {
-            const formatter = new ManuallyTranslatedUnitFormatter(
+            const formatter = new ManuallyTranslatedScaledUnitFormat(
                 value.locale,
                 {},
                 translations,

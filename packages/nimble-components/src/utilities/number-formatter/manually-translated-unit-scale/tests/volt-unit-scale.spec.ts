@@ -108,19 +108,19 @@ describe('VoltUnitScale', () => {
                 value.number
             );
             expect(
-                scaledUnit.unitFormatterFactory('en', {}).format(scaledValue)
+                scaledUnit.scaledUnitFormatFactory('en').format(scaledValue)
             ).toEqual(value.formatted[0]);
             expect(
-                scaledUnit.unitFormatterFactory('fr', {}).format(scaledValue)
+                scaledUnit.scaledUnitFormatFactory('fr').format(scaledValue)
             ).toEqual(value.formatted[1]);
             expect(
-                scaledUnit.unitFormatterFactory('de', {}).format(scaledValue)
+                scaledUnit.scaledUnitFormatFactory('de').format(scaledValue)
             ).toEqual(value.formatted[2]);
             expect(
-                scaledUnit.unitFormatterFactory('ja', {}).format(scaledValue)
+                scaledUnit.scaledUnitFormatFactory('ja').format(scaledValue)
             ).toEqual(value.formatted[3]);
             expect(
-                scaledUnit.unitFormatterFactory('zh', {}).format(scaledValue)
+                scaledUnit.scaledUnitFormatFactory('zh').format(scaledValue)
             ).toEqual(value.formatted[4]);
         });
     });

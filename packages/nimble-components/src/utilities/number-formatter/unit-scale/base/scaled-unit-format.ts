@@ -1,6 +1,6 @@
 /**
  * A class that knows how to format a numeric value as a string that includes units.
  */
-export abstract class UnitFormatter {
+export abstract class ScaledUnitFormat {
     public abstract format(value: number): string;
 }

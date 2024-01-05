@@ -18,19 +18,18 @@ import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { NumberTextAlignment, NumberTextFormat } from './types';
-import type { NumberFormatter } from '../../utilities/number-formatter/base/number-formatter';
-import { DefaultFormatter } from '../../utilities/number-formatter/default-formatter';
-import { DecimalFormatter } from '../../utilities/number-formatter/decimal-formatter';
+import type { UnitFormat } from '../../utilities/number-formatter/base/unit-format';
+import { DefaultUnitFormat } from '../../utilities/number-formatter/default-unit-format';
+import { DecimalUnitFormat } from '../../utilities/number-formatter/decimal-unit-format';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
 import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
 import { Unit } from '../../unit/base/unit';
 import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-custom-elements-defined-async';
-import { passthroughUnitScale } from '../../utilities/number-formatter/unit-scale/passthrough-unit-scale';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
-    formatter: NumberFormatter;
+    formatter: UnitFormat;
     alignment: TextCellViewBaseAlignment;
 }
 
@@ -179,8 +178,8 @@ export class TableColumnNumberText extends TableColumnTextBase {
         }
     }
 
-    private createFormatter(): NumberFormatter {
-        const unitScale = this.unit?.getUnitScale() ?? passthroughUnitScale;
+    private createFormatter(): UnitFormat {
+        const unitScale = this.unit?.getUnitScale();
         switch (this.format) {
             case NumberTextFormat.decimal: {
                 const minimumFractionDigits = typeof this.decimalMaximumDigits === 'number'
@@ -189,14 +188,14 @@ export class TableColumnNumberText extends TableColumnTextBase {
                 const maximumFractionDigits = this.decimalMaximumDigits
                     ?? this.decimalDigits
                     ?? defaultDecimalDigits;
-                return new DecimalFormatter(lang.getValueFor(this), {
+                return new DecimalUnitFormat(lang.getValueFor(this), {
                     minimumFractionDigits,
                     maximumFractionDigits,
                     unitScale
                 });
             }
             default: {
-                return new DefaultFormatter(lang.getValueFor(this), {
+                return new DefaultUnitFormat(lang.getValueFor(this), {
                     unitScale
                 });
             }
