@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 04 Jan 2024 16:50:24 GMT",
+      "version": "6.9.1",
+      "tag": "@ni/nimble-tokens_v6.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "341146ceef057386cea20419277073bd793270ef",
+            "comment": "Upgrade dependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 11 Dec 2023 22:21:16 GMT",
       "version": "6.9.0",
       "tag": "@ni/nimble-tokens_v6.9.0",

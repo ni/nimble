@@ -5,7 +5,13 @@ import {
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-import { findParentNode, isList, AnyExtension, Extension } from '@tiptap/core';
+import {
+    findParentNode,
+    isList,
+    AnyExtension,
+    Extension,
+    Editor
+} from '@tiptap/core';
 
 import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import HardBreak from '@tiptap/extension-hard-break';
@@ -13,7 +19,12 @@ import type { SuggestionProps } from '@tiptap/suggestion';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
-import { TipTapNodeName, mentionPluginPrefix, MentionDetail } from './types';
+import {
+    TipTapNodeName,
+    mentionPluginPrefix,
+    MentionDetail,
+    FormatButtonsState
+} from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
@@ -220,6 +231,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      */
     public disabledChanged(): void {
         this.disableEditor();
+        this.disableMentionViewElement();
     }
 
     /**
@@ -254,8 +266,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         prev: EditorConfiguration | undefined,
         next: EditorConfiguration
     ): void {
+        const formatButtonsState = this.getButtonsState(this.tiptapEditor);
+        const { from, to } = this.tiptapEditor.view.state.selection;
         if (this.isMentionExtensionConfigUnchanged(prev, next)) {
-            this.refreshMarkdownContent();
+            this.setMarkdown(this.getMarkdown());
         } else {
             const mentionExtensionConfig = this.getMentionExtensionConfig();
             const currentStateMarkdown = this.getMarkdown();
@@ -265,6 +279,8 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.initializeEditor();
             this.setMarkdown(currentStateMarkdown);
         }
+        this.tiptapEditor.commands.setTextSelection({ from, to });
+        this.resetEditorButtonsState(formatButtonsState);
         this.setActiveMappingConfigs();
     }
 
@@ -376,6 +392,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     public setMarkdown(markdown: string): void {
         const html = this.getHtmlContent(markdown);
         this.tiptapEditor.commands.setContent(html);
+        this.disableMentionViewElement();
     }
 
     /**
@@ -503,6 +520,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.placeholder
         );
         this.disableEditor();
+        this.disableMentionViewElement();
         this.bindEditorTransactionEvent();
         this.bindEditorUpdateEvent();
         this.stopNativeInputEventPropagation();
@@ -584,6 +602,29 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             this.disabled ? 'true' : 'false'
         );
         this.mentionListbox?.close();
+    }
+
+    private disableMentionViewElement(): void {
+        this.tiptapEditor.state.doc.descendants((node, pos) => {
+            if (node.type.name.startsWith(mentionPluginPrefix)) {
+                const updatedAttrs = {
+                    ...node.attrs,
+                    disabled: this.disabled ? '' : null
+                };
+                const updatedNode = this.tiptapEditor.schema.node(
+                    node.type.name,
+                    updatedAttrs,
+                    node.content
+                );
+                const updatedTransaction = this.tiptapEditor.state.tr.replaceWith(
+                    pos,
+                    pos + node.nodeSize,
+                    updatedNode
+                );
+                this.tiptapEditor.view.dispatch(updatedTransaction);
+            }
+            return true;
+        });
     }
 
     /**
@@ -674,11 +715,27 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         );
     }
 
-    // This method restore the cursor selection after setting the editor content when the editor is focused
-    private refreshMarkdownContent(): void {
-        const { from, to } = this.tiptapEditor.view.state.selection;
-        this.setMarkdown(this.getMarkdown());
-        this.tiptapEditor.commands.setTextSelection({ from, to });
+    private resetEditorButtonsState(
+        buttonsState: FormatButtonsState | undefined
+    ): void {
+        if (buttonsState?.bold && !this.tiptapEditor.isActive('bold')) {
+            this.tiptapEditor.chain().focus().toggleBold().run();
+        }
+        if (buttonsState?.italics && !this.tiptapEditor.isActive('italic')) {
+            this.tiptapEditor.chain().focus().toggleItalic().run();
+        }
+    }
+
+    private getButtonsState(
+        tiptapEditor: Editor
+    ): FormatButtonsState | undefined {
+        if (!this.$fastController.isConnected) {
+            return undefined;
+        }
+        return {
+            bold: tiptapEditor.isActive('bold'),
+            italics: tiptapEditor.isActive('italic')
+        };
     }
 }
 

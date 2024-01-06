@@ -1,8 +1,7 @@
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist/icons/js';
-import type { NimbleIconName } from '@ni/nimble-tokens/dist/icons/js';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';
 import { iconMetadata } from './icon-metadata';
 import { Fixture, fixture } from '../../utilities/tests/fixture';
@@ -19,12 +18,9 @@ describe('Icons', () => {
         };
         const getPaths = (svg: SVGElement): SVGPathElement[] => Array.from(svg.querySelectorAll('path'));
 
-        const focused: NimbleIconName[] = [];
-        const disabled: NimbleIconName[] = [];
-        for (const icon of nimbleIcons) {
-            const specType = getSpecTypeByNamedList(icon, focused, disabled);
-            specType(`for icon ${icon.name}`, () => {
-                const svg = getSVGElement(icon.data);
+        parameterizeNamedList(nimbleIcons, (spec, name, value) => {
+            spec(`for icon ${name}`, () => {
+                const svg = getSVGElement(value.data);
                 const paths = getPaths(svg);
                 expect(svg).toBeTruthy();
                 expect(svg.getAttribute('viewBox')).toBeTruthy();
@@ -35,7 +31,7 @@ describe('Icons', () => {
                     expect(path.getAttribute('style')).toBeNull();
                 }
             });
-        }
+        });
     });
 
     describe('can be constructed', () => {
@@ -44,20 +40,16 @@ describe('Icons', () => {
             (x: IconName) => ({ name: x, iconClass: allIconsNamespace[x] })
         );
 
-        const focused: IconName[] = [];
-        const disabled: IconName[] = [];
-        for (const icon of allIconNames) {
-            const specType = getSpecTypeByNamedList(icon, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(`for icon ${icon.name}`, () => {
-                const tagName = DesignSystem.tagFor(icon.iconClass);
+        parameterizeNamedList(allIconNames, (spec, name, value) => {
+            spec(`for icon ${name}`, () => {
+                const tagName = DesignSystem.tagFor(value.iconClass);
                 expect(typeof tagName).toBe('string');
                 expect(tagName.length).toBeGreaterThan(0);
                 expect(document.createElement(tagName)).toBeInstanceOf(
-                    icon.iconClass
+                    value.iconClass
                 );
             });
-        }
+        });
     });
 
     describe('should have valid metadata', () => {
@@ -67,14 +59,11 @@ describe('Icons', () => {
             metadata: iconMetadata[name]
         }));
 
-        const focused: IconName[] = [];
-        const disabled: IconName[] = [];
-        for (const icon of icons) {
-            const specType = getSpecTypeByNamedList(icon, focused, disabled);
-            specType(`for icon ${icon.name}`, () => {
-                expect(icon.metadata.tags).not.toContain('');
+        parameterizeNamedList(icons, (spec, name, value) => {
+            spec(`for icon ${name}`, () => {
+                expect(value.metadata.tags).not.toContain('');
             });
-        }
+        });
     });
 
     describe('Representative icon', () => {

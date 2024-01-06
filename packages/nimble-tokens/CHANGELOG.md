@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Thu, 07 Dec 2023 17:27:04 GMT and should not be manually modified.
+This log was last generated on Thu, 04 Jan 2024 16:50:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.9.1
+
+Thu, 04 Jan 2024 16:50:24 GMT
+
+### Patches
+
+- Upgrade dependencies ([ni/nimble@341146c](https://github.com/ni/nimble/commit/341146ceef057386cea20419277073bd793270ef))
 
 ## 6.9.0
 
