@@ -28,7 +28,10 @@ export class DefaultUnitFormat extends UnitFormat {
         useGrouping: true
     };
 
-    private readonly defaultScaledUnitFormatters = new Map<number, ScaledUnitFormat>();
+    private readonly defaultScaledUnitFormatters = new Map<
+    number,
+    ScaledUnitFormat
+    >();
 
     // Format options to use for numbers that have leading zeros. It limits the number of rendered
     // digits using 'maximumFractionDigits', which will result in less than 6 significant digits
@@ -69,7 +72,10 @@ export class DefaultUnitFormat extends UnitFormat {
         for (const unit of unitScale.supportedScaledUnits) {
             this.defaultScaledUnitFormatters.set(
                 unit.scaleFactor,
-                unit.scaledUnitFormatFactory(locale, this.defaultIntlNumberFormatOptions)
+                unit.scaledUnitFormatFactory(
+                    locale,
+                    this.defaultIntlNumberFormatOptions
+                )
             );
             this.leadingZeroScaledUnitFormatters.set(
                 unit.scaleFactor,
@@ -114,9 +120,7 @@ export class DefaultUnitFormat extends UnitFormat {
         }
     }
 
-    private resolveNumberStyle(
-        number: number
-    ): NumberStyle {
+    private resolveNumberStyle(number: number): NumberStyle {
         if (number === 0) {
             return 'default';
         }

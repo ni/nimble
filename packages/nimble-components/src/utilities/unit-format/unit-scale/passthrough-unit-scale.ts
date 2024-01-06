@@ -13,7 +13,10 @@ class PassthroughUnitScale extends UnitScale {
                 (
                     locale: string,
                     intlNumberFormatOptions?: Intl.NumberFormatOptions
-                ) => new IntlNumberFormatScaledUnitFormat(locale, intlNumberFormatOptions)
+                ) => new IntlNumberFormatScaledUnitFormat(
+                    locale,
+                    intlNumberFormatOptions
+                )
             )
         ]);
     }

@@ -39,7 +39,10 @@ export class DecimalUnitFormat extends UnitFormat {
         for (const scaledUnit of unitScale.supportedScaledUnits) {
             this.scaledUnitFormatters.set(
                 scaledUnit.scaleFactor,
-                scaledUnit.scaledUnitFormatFactory(locale, intlNumberFormatOptions)
+                scaledUnit.scaledUnitFormatFactory(
+                    locale,
+                    intlNumberFormatOptions
+                )
             );
         }
         this.tenPowDecimalDigits = 10 ** maximumFractionDigits;
@@ -51,7 +54,9 @@ export class DecimalUnitFormat extends UnitFormat {
         const numberNormalized = this.willRoundToZero(scaledValue)
             ? 0
             : scaledValue;
-        const scaledUnitFormatter = this.scaledUnitFormatters.get(scaledUnit.scaleFactor)!;
+        const scaledUnitFormatter = this.scaledUnitFormatters.get(
+            scaledUnit.scaleFactor
+        )!;
         return scaledUnitFormatter.format(numberNormalized);
     }
 

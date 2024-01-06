@@ -12,18 +12,9 @@ describe('UnitScale', () => {
         10 ** -3,
         noopScaledUnitFormatFactory
     );
-    const baseScaledUnit = new ScaledUnit(
-        10 ** 0,
-        noopScaledUnitFormatFactory
-    );
-    const kiloScaledUnit = new ScaledUnit(
-        10 ** 3,
-        noopScaledUnitFormatFactory
-    );
-    const megaScaledUnit = new ScaledUnit(
-        10 ** 6,
-        noopScaledUnitFormatFactory
-    );
+    const baseScaledUnit = new ScaledUnit(10 ** 0, noopScaledUnitFormatFactory);
+    const kiloScaledUnit = new ScaledUnit(10 ** 3, noopScaledUnitFormatFactory);
+    const megaScaledUnit = new ScaledUnit(10 ** 6, noopScaledUnitFormatFactory);
 
     class TestUnitScale extends UnitScale {
         public constructor() {
