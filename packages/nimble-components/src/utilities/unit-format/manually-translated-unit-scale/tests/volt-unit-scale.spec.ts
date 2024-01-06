@@ -117,7 +117,7 @@ describe('VoltUnitScale', () => {
                 scaledUnit.scaledUnitFormatFactory({ locale: 'de' }).format(scaledValue)
             ).toEqual(value.formatted[2]);
             expect(
-                scaledUnit.scaledUnitFormatFactory({ locale: 'js' }).format(scaledValue)
+                scaledUnit.scaledUnitFormatFactory({ locale: 'ja' }).format(scaledValue)
             ).toEqual(value.formatted[3]);
             expect(
                 scaledUnit.scaledUnitFormatFactory({ locale: 'zh' }).format(scaledValue)
