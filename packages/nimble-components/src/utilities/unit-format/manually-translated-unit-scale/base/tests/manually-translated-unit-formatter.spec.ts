@@ -51,7 +51,7 @@ describe('ManuallyTranslatedUnitFormatter', () => {
         spec(name, () => {
             const formatter = new ManuallyTranslatedScaledUnitFormat(
                 {
-                    locale: value.locale,
+                    locale: value.locale
                 },
                 translations,
                 baseUnitPrefix

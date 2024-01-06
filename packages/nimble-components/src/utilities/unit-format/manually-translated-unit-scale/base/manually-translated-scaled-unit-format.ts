@@ -18,10 +18,7 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
     ) {
         super();
 
-        const {
-            locale,
-            intlNumberFormatOptions
-        } = scaledUnitFormatFactoryOptions;
+        const { locale, intlNumberFormatOptions } = scaledUnitFormatFactoryOptions;
         this.pluralRules = new Intl.PluralRules(locale);
         this.formatter = new Intl.NumberFormat(locale, intlNumberFormatOptions);
         this.unitTranslation = this.getTranslationToUse(locale);

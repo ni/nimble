@@ -12,10 +12,7 @@ export class IntlNumberFormatScaledUnitFormat extends ScaledUnitFormat {
         unitSpecificIntlNumberFormatOptions: Intl.NumberFormatOptions = {}
     ) {
         super();
-        const {
-            locale,
-            intlNumberFormatOptions
-        } = scaledUnitFormatFactoryOptions;
+        const { locale, intlNumberFormatOptions } = scaledUnitFormatFactoryOptions;
         this.formatter = new Intl.NumberFormat(locale, {
             ...unitSpecificIntlNumberFormatOptions,
             ...intlNumberFormatOptions

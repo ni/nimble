@@ -56,7 +56,9 @@ describe('ByteUnitScale', () => {
                 value.number
             );
             expect(
-                scaledUnit.scaledUnitFormatFactory({ locale: 'en' }).format(scaledValue)
+                scaledUnit
+                    .scaledUnitFormatFactory({ locale: 'en' })
+                    .format(scaledValue)
             ).toEqual(value.formatted);
         });
     });

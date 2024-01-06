@@ -10,7 +10,9 @@ class PassthroughUnitScale extends UnitScale {
         super([
             new ScaledUnit(
                 10 ** 0,
-                scaledUnitFormatFactoryOptions => new IntlNumberFormatScaledUnitFormat(scaledUnitFormatFactoryOptions)
+                scaledUnitFormatFactoryOptions => new IntlNumberFormatScaledUnitFormat(
+                    scaledUnitFormatFactoryOptions
+                )
             )
         ]);
     }

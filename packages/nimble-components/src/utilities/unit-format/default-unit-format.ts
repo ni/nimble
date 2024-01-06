@@ -81,7 +81,8 @@ export class DefaultUnitFormat extends UnitFormat {
                 unit.scaleFactor,
                 unit.scaledUnitFormatFactory({
                     locale,
-                    intlNumberFormatOptions: this.leadingZeroIntlNumberFormatOptions
+                    intlNumberFormatOptions:
+                        this.leadingZeroIntlNumberFormatOptions
                 })
             );
         }
