@@ -30,14 +30,8 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
         const supportedUnits = supportedPrefixes.map(
             prefix => new ScaledUnit(
                 prefix.factor,
-                (
-                    locale: string,
-                    intlNumberFormatOptions:
-                    | Intl.NumberFormatOptions
-                    | undefined
-                ) => new ManuallyTranslatedScaledUnitFormat(
-                    locale,
-                    intlNumberFormatOptions,
+                scaledUnitFormatFactoryOptions => new ManuallyTranslatedScaledUnitFormat(
+                    scaledUnitFormatFactoryOptions,
                     unitTranslations,
                     prefix
                 )

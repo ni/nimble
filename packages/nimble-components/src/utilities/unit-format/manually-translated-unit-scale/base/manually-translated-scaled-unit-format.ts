@@ -1,3 +1,4 @@
+import type { ScaledUnitFormatFactoryOptions } from '../../unit-scale/base/scaled-unit';
 import { ScaledUnitFormat } from '../../unit-scale/base/scaled-unit-format';
 import type { UnitPrefix } from './unit-prefix';
 import type { UnitTranslation } from './unit-translation';
@@ -11,13 +12,16 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
     private readonly unitTranslation: UnitTranslation;
 
     public constructor(
-        locale: string,
-        intlNumberFormatOptions: Intl.NumberFormatOptions | undefined,
+        scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
         private readonly unitTranslations: ReadonlyMap<string, UnitTranslation>,
         private readonly unitPrefix: UnitPrefix
     ) {
         super();
 
+        const {
+            locale,
+            intlNumberFormatOptions
+        } = scaledUnitFormatFactoryOptions;
         this.pluralRules = new Intl.PluralRules(locale);
         this.formatter = new Intl.NumberFormat(locale, intlNumberFormatOptions);
         this.unitTranslation = this.getTranslationToUse(locale);

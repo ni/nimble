@@ -229,12 +229,7 @@ describe('DefaultFormatter', () => {
                     [0.01, 1, 100, 1000].map(
                         scaleFactor => new ScaledUnit(
                             scaleFactor,
-                            (
-                                locale: string,
-                                intlNumberFormatOptions:
-                                | Intl.NumberFormatOptions
-                                | undefined
-                            ) => ({
+                            ({ locale, intlNumberFormatOptions }) => ({
                                 format: (value: number) => `${new Intl.NumberFormat(
                                     locale,
                                     intlNumberFormatOptions

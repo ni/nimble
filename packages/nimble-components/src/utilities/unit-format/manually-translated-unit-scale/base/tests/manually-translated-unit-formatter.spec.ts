@@ -50,8 +50,9 @@ describe('ManuallyTranslatedUnitFormatter', () => {
     parameterizeNamedList(translationTestCases, (spec, name, value) => {
         spec(name, () => {
             const formatter = new ManuallyTranslatedScaledUnitFormat(
-                value.locale,
-                {},
+                {
+                    locale: value.locale,
+                },
                 translations,
                 baseUnitPrefix
             );
@@ -61,8 +62,9 @@ describe('ManuallyTranslatedUnitFormatter', () => {
 
     it('uses unit prefix and symbol whenever unit prefix is provided', () => {
         const formatter = new ManuallyTranslatedScaledUnitFormat(
-            'en',
-            {},
+            {
+                locale: 'en'
+            },
             translations,
             new UnitPrefix(2, '1.')
         );
@@ -71,8 +73,10 @@ describe('ManuallyTranslatedUnitFormatter', () => {
 
     it('uses given formatter options', () => {
         const formatter = new ManuallyTranslatedScaledUnitFormat(
-            'en',
-            { minimumFractionDigits: 5 },
+            {
+                locale: 'en',
+                intlNumberFormatOptions: { minimumFractionDigits: 5 }
+            },
             translations,
             baseUnitPrefix
         );
@@ -157,8 +161,9 @@ describe('ManuallyTranslatedUnitFormatter', () => {
     parameterizeNamedList(pluralizationTestCases, (spec, name, value) => {
         spec(`uses expected pluralization for ${name}`, () => {
             const formatter = new ManuallyTranslatedScaledUnitFormat(
-                value.locale,
-                {},
+                {
+                    locale: value.locale
+                },
                 translations,
                 baseUnitPrefix
             );

@@ -72,23 +72,23 @@ export class DefaultUnitFormat extends UnitFormat {
         for (const unit of unitScale.supportedScaledUnits) {
             this.defaultScaledUnitFormatters.set(
                 unit.scaleFactor,
-                unit.scaledUnitFormatFactory(
+                unit.scaledUnitFormatFactory({
                     locale,
-                    this.defaultIntlNumberFormatOptions
-                )
+                    intlNumberFormatOptions: this.defaultIntlNumberFormatOptions
+                })
             );
             this.leadingZeroScaledUnitFormatters.set(
                 unit.scaleFactor,
-                unit.scaledUnitFormatFactory(
+                unit.scaledUnitFormatFactory({
                     locale,
-                    this.leadingZeroIntlNumberFormatOptions
-                )
+                    intlNumberFormatOptions: this.leadingZeroIntlNumberFormatOptions
+                })
             );
         }
-        this.exponentialScaledUnitFormatter = unitScale.baseScaledUnit.scaledUnitFormatFactory(
+        this.exponentialScaledUnitFormatter = unitScale.baseScaledUnit.scaledUnitFormatFactory({
             locale,
-            this.exponentialIntlNumberFormatOptions
-        );
+            intlNumberFormatOptions: this.exponentialIntlNumberFormatOptions
+        });
     }
 
     protected tryFormat(number: number): string {

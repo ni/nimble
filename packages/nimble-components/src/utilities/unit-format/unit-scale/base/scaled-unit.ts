@@ -1,8 +1,12 @@
 import type { ScaledUnitFormat } from './scaled-unit-format';
 
+export interface ScaledUnitFormatFactoryOptions {
+    readonly locale: string;
+    readonly intlNumberFormatOptions?: Intl.NumberFormatOptions;
+}
+
 type ScaledUnitFormatFactory = (
-    locale: string,
-    intlNumberFormatOptions?: Intl.NumberFormatOptions
+    scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
 ) => ScaledUnitFormat;
 
 /**
