@@ -18,8 +18,12 @@ export class IntlNumberFormatScaledUnitFormat extends ScaledUnitFormat {
         });
     }
 
-    public static createFactory(unitSpecificIntlNumberFormatOptions: Intl.NumberFormatOptions = {}) {
-        return (scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions): IntlNumberFormatScaledUnitFormat => new IntlNumberFormatScaledUnitFormat(
+    public static createFactory(
+        unitSpecificIntlNumberFormatOptions: Intl.NumberFormatOptions = {}
+    ) {
+        return (
+            scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
+        ): IntlNumberFormatScaledUnitFormat => new IntlNumberFormatScaledUnitFormat(
             scaledUnitFormatFactoryOptions,
             unitSpecificIntlNumberFormatOptions
         );

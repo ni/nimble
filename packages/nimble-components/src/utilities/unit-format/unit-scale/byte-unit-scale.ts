@@ -8,63 +8,51 @@ class ByteUnitScale extends UnitScale {
     private static readonly supportedScaledUnits: readonly ScaledUnit[] = [
         new ScaledUnit(
             10 ** 0,
-            IntlNumberFormatScaledUnitFormat.createFactory(
-                {
-                    style: 'unit',
-                    unit: 'byte',
-                    unitDisplay: 'long'
-                }
-            )
+            IntlNumberFormatScaledUnitFormat.createFactory({
+                style: 'unit',
+                unit: 'byte',
+                unitDisplay: 'long'
+            })
         ),
         new ScaledUnit(
             10 ** 3,
-            IntlNumberFormatScaledUnitFormat.createFactory(
-                {
-                    style: 'unit',
-                    unit: 'kilobyte',
-                    unitDisplay: 'short'
-                }
-            )
+            IntlNumberFormatScaledUnitFormat.createFactory({
+                style: 'unit',
+                unit: 'kilobyte',
+                unitDisplay: 'short'
+            })
         ),
         new ScaledUnit(
             10 ** 6,
-            IntlNumberFormatScaledUnitFormat.createFactory(
-                {
-                    style: 'unit',
-                    unit: 'megabyte',
-                    unitDisplay: 'short'
-                }
-            )
+            IntlNumberFormatScaledUnitFormat.createFactory({
+                style: 'unit',
+                unit: 'megabyte',
+                unitDisplay: 'short'
+            })
         ),
         new ScaledUnit(
             10 ** 9,
-            IntlNumberFormatScaledUnitFormat.createFactory(
-                {
-                    style: 'unit',
-                    unit: 'gigabyte',
-                    unitDisplay: 'short'
-                }
-            )
+            IntlNumberFormatScaledUnitFormat.createFactory({
+                style: 'unit',
+                unit: 'gigabyte',
+                unitDisplay: 'short'
+            })
         ),
         new ScaledUnit(
             10 ** 12,
-            IntlNumberFormatScaledUnitFormat.createFactory(
-                {
-                    style: 'unit',
-                    unit: 'terabyte',
-                    unitDisplay: 'short'
-                }
-            )
+            IntlNumberFormatScaledUnitFormat.createFactory({
+                style: 'unit',
+                unit: 'terabyte',
+                unitDisplay: 'short'
+            })
         ),
         new ScaledUnit(
             10 ** 15,
-            IntlNumberFormatScaledUnitFormat.createFactory(
-                {
-                    style: 'unit',
-                    unit: 'petabyte',
-                    unitDisplay: 'short'
-                }
-            )
+            IntlNumberFormatScaledUnitFormat.createFactory({
+                style: 'unit',
+                unit: 'petabyte',
+                unitDisplay: 'short'
+            })
         )
     ] as const;
 

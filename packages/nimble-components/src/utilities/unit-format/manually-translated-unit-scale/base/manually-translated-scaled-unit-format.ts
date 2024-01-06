@@ -18,7 +18,10 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
     ) {
         super(scaledUnitFormatFactoryOptions);
         this.pluralRules = new Intl.PluralRules(this.locale);
-        this.formatter = new Intl.NumberFormat(this.locale, this.intlNumberFormatOptions);
+        this.formatter = new Intl.NumberFormat(
+            this.locale,
+            this.intlNumberFormatOptions
+        );
         this.unitTranslation = this.getTranslationToUse(this.locale);
     }
 
@@ -26,7 +29,9 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
         unitTranslations: ReadonlyMap<string, UnitTranslation>,
         unitPrefix: UnitPrefix
     ) {
-        return (scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions): ManuallyTranslatedScaledUnitFormat => new ManuallyTranslatedScaledUnitFormat(
+        return (
+            scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
+        ): ManuallyTranslatedScaledUnitFormat => new ManuallyTranslatedScaledUnitFormat(
             scaledUnitFormatFactoryOptions,
             unitTranslations,
             unitPrefix

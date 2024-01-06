@@ -7,7 +7,9 @@ export abstract class ScaledUnitFormat {
     protected readonly locale: string;
     protected readonly intlNumberFormatOptions?: Intl.NumberFormatOptions;
 
-    protected constructor(scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions) {
+    protected constructor(
+        scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
+    ) {
         this.locale = scaledUnitFormatFactoryOptions.locale;
         this.intlNumberFormatOptions = scaledUnitFormatFactoryOptions.intlNumberFormatOptions;
     }

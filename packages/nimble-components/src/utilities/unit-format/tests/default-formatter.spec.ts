@@ -2,7 +2,10 @@
 import { parameterizeNamedList } from '../../tests/parameterized';
 import { DefaultUnitFormat } from '../default-unit-format';
 import { IntlNumberFormatScaledUnitFormat } from '../unit-scale/base/intl-number-format-scaled-unit-format';
-import { ScaledUnit, ScaledUnitFormatFactoryOptions } from '../unit-scale/base/scaled-unit';
+import {
+    ScaledUnit,
+    ScaledUnitFormatFactoryOptions
+} from '../unit-scale/base/scaled-unit';
 import { UnitScale } from '../unit-scale/base/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
 
@@ -234,7 +237,9 @@ describe('DefaultFormatter', () => {
             }
 
             public static createTestFactory(scaleFactor: number) {
-                return (scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions): TestScaledUnitFormat => new TestScaledUnitFormat(
+                return (
+                    scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
+                ): TestScaledUnitFormat => new TestScaledUnitFormat(
                     scaledUnitFormatFactoryOptions,
                     scaleFactor
                 );
@@ -251,7 +256,9 @@ describe('DefaultFormatter', () => {
                     [0.01, 1, 100, 1000].map(
                         scaleFactor => new ScaledUnit(
                             scaleFactor,
-                            TestScaledUnitFormat.createTestFactory(scaleFactor)
+                            TestScaledUnitFormat.createTestFactory(
+                                scaleFactor
+                            )
                         )
                     )
                 );

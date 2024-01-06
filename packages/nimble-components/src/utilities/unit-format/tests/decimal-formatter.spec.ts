@@ -138,9 +138,7 @@ describe('DecimalFormatter', () => {
 
     describe('with unit', () => {
         class TestScaledUnitFormat extends ScaledUnitFormat {
-            public constructor(
-                private readonly scaleFactor: number
-            ) {
+            public constructor(private readonly scaleFactor: number) {
                 super({ locale: '' });
             }
 
