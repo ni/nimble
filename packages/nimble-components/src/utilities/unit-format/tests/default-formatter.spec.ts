@@ -1,6 +1,8 @@
+/* eslint-disable max-classes-per-file */
 import { parameterizeNamedList } from '../../tests/parameterized';
 import { DefaultUnitFormat } from '../default-unit-format';
-import { ScaledUnit } from '../unit-scale/base/scaled-unit';
+import { IntlNumberFormatScaledUnitFormat } from '../unit-scale/base/intl-number-format-scaled-unit-format';
+import { ScaledUnit, ScaledUnitFormatFactoryOptions } from '../unit-scale/base/scaled-unit';
 import { UnitScale } from '../unit-scale/base/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
 
@@ -223,18 +225,33 @@ describe('DefaultFormatter', () => {
     }
 
     describe('with unit', () => {
+        class TestScaledUnitFormat extends IntlNumberFormatScaledUnitFormat {
+            public constructor(
+                scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
+                private readonly scaleFactor: number
+            ) {
+                super(scaledUnitFormatFactoryOptions);
+            }
+
+            public static createTestFactory(scaleFactor: number) {
+                return (scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions): TestScaledUnitFormat => new TestScaledUnitFormat(
+                    scaledUnitFormatFactoryOptions,
+                    scaleFactor
+                );
+            }
+
+            public override format(value: number): string {
+                return `${super.format(value)} x${this.scaleFactor}`;
+            }
+        }
+
         class TestUnitScale extends UnitScale {
             public constructor() {
                 super(
                     [0.01, 1, 100, 1000].map(
                         scaleFactor => new ScaledUnit(
                             scaleFactor,
-                            ({ locale, intlNumberFormatOptions }) => ({
-                                format: (value: number) => `${new Intl.NumberFormat(
-                                    locale,
-                                    intlNumberFormatOptions
-                                ).format(value)} x${scaleFactor}`
-                            })
+                            TestScaledUnitFormat.createTestFactory(scaleFactor)
                         )
                     )
                 );

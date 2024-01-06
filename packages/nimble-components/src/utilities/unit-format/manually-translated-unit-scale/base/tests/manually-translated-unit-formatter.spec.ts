@@ -49,37 +49,34 @@ describe('ManuallyTranslatedUnitFormatter', () => {
 
     parameterizeNamedList(translationTestCases, (spec, name, value) => {
         spec(name, () => {
-            const formatter = new ManuallyTranslatedScaledUnitFormat(
-                {
-                    locale: value.locale
-                },
+            const formatter = ManuallyTranslatedScaledUnitFormat.createFactory(
                 translations,
                 baseUnitPrefix
-            );
+            )({
+                locale: value.locale
+            });
             expect(formatter.format(5)).toEqual(`5 ${value.appendedUnit}`);
         });
     });
 
     it('uses unit prefix and symbol whenever unit prefix is provided', () => {
-        const formatter = new ManuallyTranslatedScaledUnitFormat(
-            {
-                locale: 'en'
-            },
+        const formatter = ManuallyTranslatedScaledUnitFormat.createFactory(
             translations,
             new UnitPrefix(2, '1.')
-        );
+        )({
+            locale: 'en'
+        });
         expect(formatter.format(5)).toEqual('5 1.en-abbrev');
     });
 
     it('uses given formatter options', () => {
-        const formatter = new ManuallyTranslatedScaledUnitFormat(
-            {
-                locale: 'en',
-                intlNumberFormatOptions: { minimumFractionDigits: 5 }
-            },
+        const formatter = ManuallyTranslatedScaledUnitFormat.createFactory(
             translations,
             baseUnitPrefix
-        );
+        )({
+            locale: 'en',
+            intlNumberFormatOptions: { minimumFractionDigits: 5 }
+        });
         expect(formatter.format(5)).toEqual('5.00000 en-plural');
     });
 
@@ -160,13 +157,12 @@ describe('ManuallyTranslatedUnitFormatter', () => {
 
     parameterizeNamedList(pluralizationTestCases, (spec, name, value) => {
         spec(`uses expected pluralization for ${name}`, () => {
-            const formatter = new ManuallyTranslatedScaledUnitFormat(
-                {
-                    locale: value.locale
-                },
+            const formatter = ManuallyTranslatedScaledUnitFormat.createFactory(
                 translations,
                 baseUnitPrefix
-            );
+            )({
+                locale: value.locale
+            });
             expect(formatter.format(value.toFormat)).toEqual(value.expected);
         });
     });

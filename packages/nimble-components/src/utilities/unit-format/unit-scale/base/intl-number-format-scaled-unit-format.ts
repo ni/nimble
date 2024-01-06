@@ -7,16 +7,22 @@ import { ScaledUnitFormat } from './scaled-unit-format';
 export class IntlNumberFormatScaledUnitFormat extends ScaledUnitFormat {
     private readonly formatter: Intl.NumberFormat;
 
-    public constructor(
+    protected constructor(
         scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
         unitSpecificIntlNumberFormatOptions: Intl.NumberFormatOptions = {}
     ) {
-        super();
-        const { locale, intlNumberFormatOptions } = scaledUnitFormatFactoryOptions;
-        this.formatter = new Intl.NumberFormat(locale, {
+        super(scaledUnitFormatFactoryOptions);
+        this.formatter = new Intl.NumberFormat(this.locale, {
             ...unitSpecificIntlNumberFormatOptions,
-            ...intlNumberFormatOptions
+            ...this.intlNumberFormatOptions
         });
+    }
+
+    public static createFactory(unitSpecificIntlNumberFormatOptions: Intl.NumberFormatOptions = {}) {
+        return (scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions): IntlNumberFormatScaledUnitFormat => new IntlNumberFormatScaledUnitFormat(
+            scaledUnitFormatFactoryOptions,
+            unitSpecificIntlNumberFormatOptions
+        );
     }
 
     public format(value: number): string {

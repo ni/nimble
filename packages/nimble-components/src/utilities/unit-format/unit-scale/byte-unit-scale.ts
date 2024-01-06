@@ -8,8 +8,7 @@ class ByteUnitScale extends UnitScale {
     private static readonly supportedScaledUnits: readonly ScaledUnit[] = [
         new ScaledUnit(
             10 ** 0,
-            scaledUnitFormatFactoryOptions => new IntlNumberFormatScaledUnitFormat(
-                scaledUnitFormatFactoryOptions,
+            IntlNumberFormatScaledUnitFormat.createFactory(
                 {
                     style: 'unit',
                     unit: 'byte',
@@ -19,8 +18,7 @@ class ByteUnitScale extends UnitScale {
         ),
         new ScaledUnit(
             10 ** 3,
-            scaledUnitFormatFactoryOptions => new IntlNumberFormatScaledUnitFormat(
-                scaledUnitFormatFactoryOptions,
+            IntlNumberFormatScaledUnitFormat.createFactory(
                 {
                     style: 'unit',
                     unit: 'kilobyte',
@@ -30,8 +28,7 @@ class ByteUnitScale extends UnitScale {
         ),
         new ScaledUnit(
             10 ** 6,
-            scaledUnitFormatFactoryOptions => new IntlNumberFormatScaledUnitFormat(
-                scaledUnitFormatFactoryOptions,
+            IntlNumberFormatScaledUnitFormat.createFactory(
                 {
                     style: 'unit',
                     unit: 'megabyte',
@@ -41,8 +38,7 @@ class ByteUnitScale extends UnitScale {
         ),
         new ScaledUnit(
             10 ** 9,
-            scaledUnitFormatFactoryOptions => new IntlNumberFormatScaledUnitFormat(
-                scaledUnitFormatFactoryOptions,
+            IntlNumberFormatScaledUnitFormat.createFactory(
                 {
                     style: 'unit',
                     unit: 'gigabyte',
@@ -52,8 +48,7 @@ class ByteUnitScale extends UnitScale {
         ),
         new ScaledUnit(
             10 ** 12,
-            scaledUnitFormatFactoryOptions => new IntlNumberFormatScaledUnitFormat(
-                scaledUnitFormatFactoryOptions,
+            IntlNumberFormatScaledUnitFormat.createFactory(
                 {
                     style: 'unit',
                     unit: 'terabyte',
@@ -63,8 +58,7 @@ class ByteUnitScale extends UnitScale {
         ),
         new ScaledUnit(
             10 ** 15,
-            scaledUnitFormatFactoryOptions => new IntlNumberFormatScaledUnitFormat(
-                scaledUnitFormatFactoryOptions,
+            IntlNumberFormatScaledUnitFormat.createFactory(
                 {
                     style: 'unit',
                     unit: 'petabyte',

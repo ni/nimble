@@ -11,17 +11,26 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
     private readonly formatter: Intl.NumberFormat;
     private readonly unitTranslation: UnitTranslation;
 
-    public constructor(
+    protected constructor(
         scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
         private readonly unitTranslations: ReadonlyMap<string, UnitTranslation>,
         private readonly unitPrefix: UnitPrefix
     ) {
-        super();
+        super(scaledUnitFormatFactoryOptions);
+        this.pluralRules = new Intl.PluralRules(this.locale);
+        this.formatter = new Intl.NumberFormat(this.locale, this.intlNumberFormatOptions);
+        this.unitTranslation = this.getTranslationToUse(this.locale);
+    }
 
-        const { locale, intlNumberFormatOptions } = scaledUnitFormatFactoryOptions;
-        this.pluralRules = new Intl.PluralRules(locale);
-        this.formatter = new Intl.NumberFormat(locale, intlNumberFormatOptions);
-        this.unitTranslation = this.getTranslationToUse(locale);
+    public static createFactory(
+        unitTranslations: ReadonlyMap<string, UnitTranslation>,
+        unitPrefix: UnitPrefix
+    ) {
+        return (scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions): ManuallyTranslatedScaledUnitFormat => new ManuallyTranslatedScaledUnitFormat(
+            scaledUnitFormatFactoryOptions,
+            unitTranslations,
+            unitPrefix
+        );
     }
 
     public format(value: number): string {

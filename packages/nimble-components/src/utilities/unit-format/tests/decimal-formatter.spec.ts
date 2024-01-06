@@ -1,6 +1,8 @@
+/* eslint-disable max-classes-per-file */
 import { parameterizeNamedList } from '../../tests/parameterized';
 import { DecimalUnitFormat } from '../decimal-unit-format';
 import { ScaledUnit } from '../unit-scale/base/scaled-unit';
+import { ScaledUnitFormat } from '../unit-scale/base/scaled-unit-format';
 import { UnitScale } from '../unit-scale/base/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
 
@@ -135,13 +137,30 @@ describe('DecimalFormatter', () => {
     }
 
     describe('with unit', () => {
+        class TestScaledUnitFormat extends ScaledUnitFormat {
+            public constructor(
+                private readonly scaleFactor: number
+            ) {
+                super({ locale: '' });
+            }
+
+            public static createFactory(scaleFactor: number) {
+                return () => new TestScaledUnitFormat(scaleFactor);
+            }
+
+            public format(value: number): string {
+                return `${value} x${this.scaleFactor}`;
+            }
+        }
+
         class TestUnitScale extends UnitScale {
             public constructor() {
                 super(
                     [0.001, 1, 2, 4].map(
-                        scaleFactor => new ScaledUnit(scaleFactor, () => ({
-                            format: (value: number) => `${value} x${scaleFactor}`
-                        }))
+                        scaleFactor => new ScaledUnit(
+                            scaleFactor,
+                            TestScaledUnitFormat.createFactory(scaleFactor)
+                        )
                     )
                 );
             }
