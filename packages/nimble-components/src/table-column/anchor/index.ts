@@ -25,7 +25,8 @@ export interface TableColumnAnchorColumnConfig {
     download?: string;
 }
 
-export const tableColumnAnchorTag = 'nimble-table-column-anchor';
+const baseName = 'table-column-anchor';
+export const tableColumnAnchorTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnAnchorTag]: TableColumnAnchor;
@@ -148,9 +149,9 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
 }
 
 const nimbleTableColumnAnchor = TableColumnAnchor.compose({
-    baseName: tableColumnAnchorTag,
+    baseName,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleTableColumnAnchor());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableColumnAnchor());

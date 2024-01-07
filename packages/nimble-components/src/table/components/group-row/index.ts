@@ -12,7 +12,8 @@ import {
     TableRowSelectionToggleEventDetail
 } from '../../types';
 
-export const tableGroupRowTag = 'nimble-table-group-row';
+const baseName = 'table-group-row';
+export const tableGroupRowTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableGroupRowTag]: TableGroupRow;
@@ -129,9 +130,9 @@ export class TableGroupRow extends FoundationElement {
 }
 
 const nimbleTableGroupRow = TableGroupRow.compose({
-    baseName: tableGroupRowTag,
+    baseName,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleTableGroupRow());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableGroupRow());

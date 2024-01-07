@@ -9,7 +9,8 @@ import { styles } from './styles';
 import { template } from './template';
 import { BannerSeverity, BannerToggleEventDetail } from './types';
 
-export const bannerTag = 'nimble-banner';
+const baseName = 'banner';
+export const bannerTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [bannerTag]: Banner;
@@ -76,9 +77,9 @@ export interface Banner extends ARIAGlobalStatesAndProperties {}
 applyMixins(Banner, ARIAGlobalStatesAndProperties);
 
 const nimbleBanner = Banner.compose({
-    baseName: bannerTag,
+    baseName,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleBanner());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleBanner());

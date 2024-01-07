@@ -8,7 +8,8 @@ import {
 import { arrowExpanderUp16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
-export const treeItemTag = 'nimble-tree-item';
+const baseName = 'tree-item';
+export const treeItemTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [treeItemTag]: TreeItem;
@@ -34,11 +35,11 @@ export class TreeItem extends FoundationTreeItem {
 }
 
 const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
-    baseName: treeItemTag,
+    baseName,
     baseClass: FoundationTreeItem,
     template,
     styles,
     expandCollapseGlyph: arrowExpanderUp16X16.data
 });
 
-DesignSystem.getOrCreate().register(nimbleTreeItem());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeItem());

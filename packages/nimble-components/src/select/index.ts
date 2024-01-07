@@ -13,7 +13,8 @@ import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { template } from './template';
 
-export const selectTag = 'nimble-select';
+const baseName = 'select';
+export const selectTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [selectTag]: Select;
@@ -106,7 +107,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
 }
 
 const nimbleSelect = Select.compose<SelectOptions>({
-    baseName: selectTag,
+    baseName,
     baseClass: FoundationSelect,
     template,
     styles,
@@ -120,4 +121,4 @@ const nimbleSelect = Select.compose<SelectOptions>({
     `
 });
 
-DesignSystem.getOrCreate().register(nimbleSelect());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSelect());

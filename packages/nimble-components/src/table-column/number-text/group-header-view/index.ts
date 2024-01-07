@@ -5,7 +5,8 @@ import { template } from '../../text-base/group-header-view/template';
 import { styles } from '../../text-base/group-header-view/styles';
 import type { TableColumnNumberTextColumnConfig } from '..';
 
-export const tableColumnNumberTextGroupHeaderTag = 'nimble-table-column-number-text-group-header';
+const baseName = 'table-column-number-text-group-header';
+export const tableColumnNumberTextGroupHeaderTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnNumberTextGroupHeaderTag]: TableColumnNumberTextGroupHeaderView;
@@ -33,8 +34,8 @@ TableColumnNumberTextColumnConfig
 }
 
 const tableColumnNumberTextGroupHeaderView = TableColumnNumberTextGroupHeaderView.compose({
-    baseName: tableColumnNumberTextGroupHeaderTag,
+    baseName,
     template,
     styles
 });
-DesignSystem.getOrCreate().register(tableColumnNumberTextGroupHeaderView());
+DesignSystem.getOrCreate().withPrefix('nimble').register(tableColumnNumberTextGroupHeaderView());

@@ -9,7 +9,8 @@ import { styles } from './styles';
 // Register anchored region explicitly to make sure it is defined for the template
 import '../anchored-region';
 
-export const menuTag = 'nimble-menu';
+const baseName = 'menu';
+export const menuTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [menuTag]: Menu;
@@ -31,10 +32,10 @@ export class Menu extends FoundationMenu {}
  *
  */
 const nimbleMenu = Menu.compose({
-    baseName: menuTag,
+    baseName,
     baseClass: FoundationMenu,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleMenu());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenu());

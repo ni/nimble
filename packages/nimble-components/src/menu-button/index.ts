@@ -14,7 +14,8 @@ import { MenuButtonToggleEventDetail, MenuButtonPosition } from './types';
 import type { ButtonPattern } from '../patterns/button/types';
 import type { AnchoredRegion } from '../anchored-region';
 
-export const menuButtonTag = 'nimble-menu-button';
+const baseName = 'menu-button';
+export const menuButtonTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [menuButtonTag]: MenuButton;
@@ -250,7 +251,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
 }
 
 const nimbleMenuButton = MenuButton.compose({
-    baseName: menuButtonTag,
+    baseName,
     template,
     styles,
     shadowOptions: {
@@ -258,4 +259,4 @@ const nimbleMenuButton = MenuButton.compose({
     }
 });
 
-DesignSystem.getOrCreate().register(nimbleMenuButton());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenuButton());

@@ -6,7 +6,8 @@ import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header
 import type { TableFieldValue } from '../../../table/types';
 import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 
-export const tableColumnEnumTextGroupHeaderViewTag = 'nimble-table-column-enum-text-group-header-view';
+const baseName = 'table-column-enum-text-group-header-view';
+export const tableColumnEnumTextGroupHeaderViewTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnEnumTextGroupHeaderViewTag]: TableColumnEnumTextGroupHeaderView;
@@ -43,8 +44,8 @@ TableColumnEnumColumnConfig
 }
 
 const enumTextGroupHeaderView = TableColumnEnumTextGroupHeaderView.compose({
-    baseName: tableColumnEnumTextGroupHeaderViewTag,
+    baseName,
     template,
     styles
 });
-DesignSystem.getOrCreate().register(enumTextGroupHeaderView());
+DesignSystem.getOrCreate().withPrefix('nimble').register(enumTextGroupHeaderView());

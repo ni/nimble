@@ -132,7 +132,7 @@ TableColumnTextColumnConfig
 }
 
 const tableColumnTextGroupHeaderView = TableColumnTextGroupHeaderView.compose({
-    baseName: 'nimble-table-column-text-group-header',
+    baseName: 'table-column-text-group-header',
     template: html<TableColumnTextGroupHeaderView>`
         <nimble-text-field
             readonly="true"
@@ -141,7 +141,7 @@ const tableColumnTextGroupHeaderView = TableColumnTextGroupHeaderView.compose({
         </nimble-text-field>`,
     styles: /* styling */
 });
-DesignSystem.getOrCreate().register(tableColumnTextGroupHeaderView());
+DesignSystem.getOrCreate().withPrefix('nimble').register(tableColumnTextGroupHeaderView());
 ```
 
 ### Rendering the row group
@@ -203,7 +203,7 @@ const tableGroupRowElement = TableGroupRow.compose({
     </template>
     styles: /* styling */
 });
-DesignSystem.getOrCreate().register(tableGroupRowElement());
+DesignSystem.getOrCreate().withPrefix('nimble').register(tableGroupRowElement());
 ```
 
 Grouped rows are provided alongside ungrouped rows through the TanStack function `getRowModel().rows`, which is already used for retrieving the rows to render. We can then provide all of the necessary state to render a `TableGroupRow` alongside the existing state in `TableRowState`. So to render the `TableGroupRows`, the template can make a simple change similar to this:

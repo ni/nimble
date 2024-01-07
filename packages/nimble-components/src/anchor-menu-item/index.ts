@@ -10,7 +10,8 @@ import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';
 
-export const anchorMenuItemTag = 'nimble-anchor-menu-item';
+const baseName = 'anchor-menu-item';
+export const anchorMenuItemTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [anchorMenuItemTag]: AnchorMenuItem;
@@ -97,7 +98,7 @@ export class AnchorMenuItem extends AnchorBase {
 // FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
 
 const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
-    baseName: anchorMenuItemTag,
+    baseName,
     template,
     styles,
     shadowOptions: {
@@ -105,7 +106,7 @@ const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
     }
 });
 
-DesignSystem.getOrCreate().register(nimbleAnchorMenuItem());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorMenuItem());
 
 // This is a workaround for the fact that FAST's menu uses `instanceof MenuItem`
 // in their logic for indenting menu items. Since our AnchorMenuItem derives from

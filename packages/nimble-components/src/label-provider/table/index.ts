@@ -17,7 +17,8 @@ import {
     tableSelectAllLabel
 } from './label-tokens';
 
-export const labelProviderTableTag = 'nimble-label-provider-table';
+const baseName = 'label-provider-table';
+export const labelProviderTableTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [labelProviderTableTag]: LabelProviderTable;
@@ -89,7 +90,7 @@ export class LabelProviderTable
 }
 
 const nimbleLabelProviderTable = LabelProviderTable.compose({
-    baseName: labelProviderTableTag
+    baseName
 });
 
-DesignSystem.getOrCreate().register(nimbleLabelProviderTable());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleLabelProviderTable());

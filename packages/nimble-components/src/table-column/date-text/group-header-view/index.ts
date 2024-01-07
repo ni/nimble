@@ -6,7 +6,8 @@ import { styles } from '../../text-base/group-header-view/styles';
 import type { TableColumnDateTextColumnConfig } from '..';
 import { formatNumericDate } from '../models/format-helper';
 
-export const tableColumnDateTextGroupHeaderViewTag = 'nimble-table-column-date-text-group-header';
+const baseName = 'table-column-date-text-group-header';
+export const tableColumnDateTextGroupHeaderViewTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnDateTextGroupHeaderViewTag]: TableColumnDateTextGroupHeaderView;
@@ -40,8 +41,8 @@ TableColumnDateTextColumnConfig
 }
 
 const tableColumnDateTextGroupHeaderView = TableColumnDateTextGroupHeaderView.compose({
-    baseName: tableColumnDateTextGroupHeaderViewTag,
+    baseName,
     template,
     styles
 });
-DesignSystem.getOrCreate().register(tableColumnDateTextGroupHeaderView());
+DesignSystem.getOrCreate().withPrefix('nimble').register(tableColumnDateTextGroupHeaderView());

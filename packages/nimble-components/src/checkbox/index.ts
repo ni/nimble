@@ -7,7 +7,8 @@ import {
 import { check16X16, minus16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
-export const checkboxTag = 'nimble-checkbox';
+const baseName = 'checkbox';
+export const checkboxTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [checkboxTag]: Checkbox;
@@ -20,7 +21,7 @@ declare global {
 export class Checkbox extends FoundationCheckbox {}
 
 const nimbleCheckbox = Checkbox.compose<CheckboxOptions>({
-    baseName: checkboxTag,
+    baseName,
     baseClass: FoundationCheckbox,
     template,
     styles,
@@ -28,4 +29,4 @@ const nimbleCheckbox = Checkbox.compose<CheckboxOptions>({
     indeterminateIndicator: minus16X16.data
 });
 
-DesignSystem.getOrCreate().register(nimbleCheckbox());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCheckbox());

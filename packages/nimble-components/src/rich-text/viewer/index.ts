@@ -5,7 +5,8 @@ import { styles } from './styles';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichText } from '../base';
 
-export const richTextViewerTag = 'nimble-rich-text-viewer';
+const baseName = 'rich-text-viewer';
+export const richTextViewerTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [richTextViewerTag]: RichTextViewer;
@@ -76,9 +77,9 @@ export class RichTextViewer extends RichText {
 }
 
 const nimbleRichTextViewer = RichTextViewer.compose({
-    baseName: richTextViewerTag,
+    baseName,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleRichTextViewer());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleRichTextViewer());

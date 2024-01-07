@@ -14,7 +14,8 @@ import { DrawerLocation } from './types';
 
 export { UserDismissed };
 
-export const drawerTag = 'nimble-drawer';
+const baseName = 'drawer';
+export const drawerTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [drawerTag]: Drawer;
@@ -138,8 +139,8 @@ export interface Drawer extends ARIAGlobalStatesAndProperties {}
 applyMixins(Drawer, ARIAGlobalStatesAndProperties);
 
 const nimbleDrawer = Drawer.compose({
-    baseName: drawerTag,
+    baseName,
     template,
     styles
 });
-DesignSystem.getOrCreate().register(nimbleDrawer());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleDrawer());

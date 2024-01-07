@@ -18,7 +18,8 @@ import type { Mapping } from '../../mapping/base';
 import type { MappingConfig } from '../enum-base/models/mapping-config';
 import { MappingTextConfig } from '../enum-base/models/mapping-text-config';
 
-export const tableColumnEnumTextTag = 'nimble-table-column-enum-text';
+const baseName = 'table-column-enum-text';
+export const tableColumnEnumTextTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnEnumTextTag]: TableColumnEnumText;
@@ -73,9 +74,9 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
 }
 
 const nimbleTableColumnEnumText = TableColumnEnumText.compose({
-    baseName: tableColumnEnumTextTag,
+    baseName,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleTableColumnEnumText());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableColumnEnumText());

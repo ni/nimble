@@ -6,7 +6,8 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
-export const cardButtonTag = 'nimble-card-button';
+const baseName = 'card-button';
+export const cardButtonTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [cardButtonTag]: CardButton;
@@ -36,7 +37,7 @@ export class CardButton extends FoundationButton {
  *
  */
 const nimbleCardButton = CardButton.compose({
-    baseName: cardButtonTag,
+    baseName,
     template,
     styles,
     shadowOptions: {
@@ -44,4 +45,4 @@ const nimbleCardButton = CardButton.compose({
     }
 });
 
-DesignSystem.getOrCreate().register(nimbleCardButton());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCardButton());

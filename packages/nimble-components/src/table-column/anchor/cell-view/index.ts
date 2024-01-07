@@ -9,7 +9,8 @@ import { TableCellView } from '../../base/cell-view';
 import { styles } from './styles';
 import { template } from './template';
 
-export const tableColumnAnchorCellViewTag = 'nimble-table-column-anchor-cell-view';
+const baseName = 'table-column-anchor-cell-view';
+export const tableColumnAnchorCellViewTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnAnchorCellViewTag]: TableColumnAnchorCellView;
@@ -47,8 +48,8 @@ TableColumnAnchorColumnConfig
 }
 
 const anchorCellView = TableColumnAnchorCellView.compose({
-    baseName: tableColumnAnchorCellViewTag,
+    baseName,
     template,
     styles
 });
-DesignSystem.getOrCreate().register(anchorCellView());
+DesignSystem.getOrCreate().withPrefix('nimble').register(anchorCellView());

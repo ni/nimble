@@ -10,7 +10,8 @@ import {
     informationIconLabel
 } from './label-tokens';
 
-export const labelProviderCoreTag = 'nimble-label-provider-core';
+const baseName = 'label-provider-core';
+export const labelProviderCoreTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [labelProviderCoreTag]: LabelProviderCore;
@@ -54,7 +55,7 @@ export class LabelProviderCore
 }
 
 const nimbleLabelProviderCore = LabelProviderCore.compose({
-    baseName: labelProviderCoreTag
+    baseName
 });
 
-DesignSystem.getOrCreate().register(nimbleLabelProviderCore());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleLabelProviderCore());

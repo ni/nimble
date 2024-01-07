@@ -10,7 +10,8 @@ import type {
 import { styles } from './styles';
 import { template } from './template';
 
-export const tableCellTag = 'nimble-table-cell';
+const baseName = 'table-cell';
+export const tableCellTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableCellTag]: TableCell;
@@ -68,9 +69,9 @@ export class TableCell<
 }
 
 const nimbleTableCell = TableCell.compose({
-    baseName: tableCellTag,
+    baseName,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleTableCell());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableCell());

@@ -5,7 +5,8 @@ import {
 import { styles } from './styles';
 import { template } from './template';
 
-export const cardTag = 'nimble-card';
+const baseName = 'card';
+export const cardTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [cardTag]: Card;
@@ -18,10 +19,10 @@ declare global {
 export class Card extends FoundationCard {}
 
 const nimbleCard = Card.compose({
-    baseName: cardTag,
+    baseName,
     baseClass: FoundationCard,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleCard());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCard());

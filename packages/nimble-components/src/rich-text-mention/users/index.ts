@@ -11,7 +11,8 @@ import type { MappingUserKey } from '../../mapping/base/types';
 import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
 import { richTextMentionUsersViewTag } from './view';
 
-export const richTextMentionUsersTag = 'nimble-rich-text-mention-users';
+const baseName = 'rich-text-mention-users';
+export const richTextMentionUsersTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [richTextMentionUsersTag]: RichTextMentionUsers;
@@ -50,8 +51,8 @@ export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersVa
     }
 }
 const nimbleRichTextMentionUsers = RichTextMentionUsers.compose({
-    baseName: richTextMentionUsersTag,
+    baseName,
     template
 });
 
-DesignSystem.getOrCreate().register(nimbleRichTextMentionUsers());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleRichTextMentionUsers());

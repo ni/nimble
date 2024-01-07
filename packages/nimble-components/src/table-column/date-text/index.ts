@@ -38,7 +38,8 @@ export interface TableColumnDateTextColumnConfig {
     formatter: Intl.DateTimeFormat;
 }
 
-export const tableColumnDateTextTag = 'nimble-table-column-date-text';
+const baseName = 'table-column-date-text';
+export const tableColumnDateTextTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnDateTextTag]: TableColumnDateText;
@@ -288,9 +289,9 @@ export class TableColumnDateText extends TableColumnTextBase {
 }
 
 const nimbleTableColumnDateText = TableColumnDateText.compose({
-    baseName: tableColumnDateTextTag,
+    baseName,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleTableColumnDateText());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableColumnDateText());

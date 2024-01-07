@@ -8,7 +8,8 @@ import type {
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 
-export const tableColumnEnumTextCellViewTag = 'nimble-table-column-enum-text-cell-view';
+const baseName = 'table-column-enum-text-cell-view';
+export const tableColumnEnumTextCellViewTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnEnumTextCellViewTag]: TableColumnEnumTextCellView;
@@ -45,8 +46,8 @@ TableColumnEnumColumnConfig
 }
 
 const enumTextCellView = TableColumnEnumTextCellView.compose({
-    baseName: tableColumnEnumTextCellViewTag,
+    baseName,
     template,
     styles
 });
-DesignSystem.getOrCreate().register(enumTextCellView());
+DesignSystem.getOrCreate().withPrefix('nimble').register(enumTextCellView());

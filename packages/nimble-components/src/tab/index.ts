@@ -5,7 +5,8 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
-export const tabTag = 'nimble-tab';
+const baseName = 'tab';
+export const tabTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tabTag]: Tab;
@@ -18,10 +19,10 @@ declare global {
 export class Tab extends FoundationTab {}
 
 const nimbleTab = Tab.compose({
-    baseName: tabTag,
+    baseName,
     baseClass: FoundationTab,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleTab());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTab());

@@ -18,7 +18,8 @@ import {
     numericIncrementLabel
 } from '../label-provider/core/label-tokens';
 
-export const numberFieldTag = 'nimble-number-field';
+const baseName = 'number-field';
+export const numberFieldTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [numberFieldTag]: NumberField;
@@ -62,7 +63,7 @@ export class NumberField extends FoundationNumberField implements ErrorPattern {
  *
  */
 const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
-    baseName: numberFieldTag,
+    baseName,
     baseClass: FoundationNumberField,
     template,
     styles,
@@ -107,4 +108,4 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     `
 });
 
-DesignSystem.getOrCreate().register(nimbleNumberField());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());

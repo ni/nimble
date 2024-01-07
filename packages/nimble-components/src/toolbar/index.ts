@@ -6,7 +6,8 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
-export const toolbarTag = 'nimble-toolbar';
+const baseName = 'toolbar';
+export const toolbarTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [toolbarTag]: Toolbar;
@@ -19,7 +20,7 @@ declare global {
 export class Toolbar extends FoundationToolbar {}
 
 const nimbleToolbar = Toolbar.compose<ToolbarOptions>({
-    baseName: toolbarTag,
+    baseName,
     baseClass: FoundationToolbar,
     template,
     styles,
@@ -28,4 +29,4 @@ const nimbleToolbar = Toolbar.compose<ToolbarOptions>({
     }
 });
 
-DesignSystem.getOrCreate().register(nimbleToolbar());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleToolbar());

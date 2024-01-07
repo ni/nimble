@@ -8,7 +8,8 @@ import { styles } from '../../text-base/cell-view/styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 import { formatNumericDate } from '../models/format-helper';
 
-export const tableColumnDateTextCellViewTag = 'nimble-table-column-date-text-cell-view';
+const baseName = 'table-column-date-text-cell-view';
+export const tableColumnDateTextCellViewTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnDateTextCellViewTag]: TableColumnDateTextCellView;
@@ -43,8 +44,8 @@ TableColumnDateTextColumnConfig
 }
 
 const dateTextCellView = TableColumnDateTextCellView.compose({
-    baseName: tableColumnDateTextCellViewTag,
+    baseName,
     template,
     styles
 });
-DesignSystem.getOrCreate().register(dateTextCellView());
+DesignSystem.getOrCreate().withPrefix('nimble').register(dateTextCellView());

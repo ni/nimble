@@ -8,7 +8,8 @@ import { styles } from './styles';
 import { template } from './template';
 import { TextAreaAppearance } from './types';
 
-export const textAreaTag = 'nimble-text-area';
+const baseName = 'text-area';
+export const textAreaTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [textAreaTag]: TextArea;
@@ -128,7 +129,7 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
 }
 
 const nimbleTextArea = TextArea.compose({
-    baseName: textAreaTag,
+    baseName,
     baseClass: FoundationTextArea,
     template,
     styles,
@@ -137,4 +138,4 @@ const nimbleTextArea = TextArea.compose({
     }
 });
 
-DesignSystem.getOrCreate().register(nimbleTextArea());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTextArea());

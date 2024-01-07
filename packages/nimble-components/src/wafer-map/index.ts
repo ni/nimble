@@ -22,7 +22,8 @@ import {
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
 
-export const waferMapTag = 'nimble-wafer-map';
+const baseName = 'wafer-map';
+export const waferMapTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [waferMapTag]: WaferMap;
@@ -304,9 +305,9 @@ export class WaferMap extends FoundationElement {
 }
 
 const nimbleWaferMap = WaferMap.compose({
-    baseName: waferMapTag,
+    baseName,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleWaferMap());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleWaferMap());

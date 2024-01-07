@@ -7,7 +7,8 @@ import type {
 import { styles } from '../../text-base/cell-view/styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 
-export const tableColumnDurationTextCellViewTag = 'nimble-table-column-duration-text-cell-view';
+const baseName = 'table-column-duration-text-cell-view';
+export const tableColumnDurationTextCellViewTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnDurationTextCellViewTag]: TableColumnDurationTextCellView;
@@ -35,8 +36,8 @@ TableColumnDurationTextColumnConfig
 }
 
 const durationTextCellView = TableColumnDurationTextCellView.compose({
-    baseName: tableColumnDurationTextCellViewTag,
+    baseName,
     template,
     styles
 });
-DesignSystem.getOrCreate().register(durationTextCellView());
+DesignSystem.getOrCreate().withPrefix('nimble').register(durationTextCellView());

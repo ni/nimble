@@ -12,7 +12,8 @@ import {
 } from '../../enum-base/models/mapping-icon-config';
 import { MappingSpinnerConfig } from '../../enum-base/models/mapping-spinner-config';
 
-export const tableColumnIconGroupHeaderViewTag = 'nimble-table-column-icon-group-header-view';
+const baseName = 'table-column-icon-group-header-view';
+export const tableColumnIconGroupHeaderViewTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnIconGroupHeaderViewTag]: TableColumnIconGroupHeaderView;
@@ -68,8 +69,8 @@ export class TableColumnIconGroupHeaderView
 }
 
 const iconGroupHeaderView = TableColumnIconGroupHeaderView.compose({
-    baseName: tableColumnIconGroupHeaderViewTag,
+    baseName,
     template,
     styles
 });
-DesignSystem.getOrCreate().register(iconGroupHeaderView());
+DesignSystem.getOrCreate().withPrefix('nimble').register(iconGroupHeaderView());

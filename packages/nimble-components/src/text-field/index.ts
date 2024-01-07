@@ -11,7 +11,8 @@ import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
-export const textFieldTag = 'nimble-text-field';
+const baseName = 'text-field';
+export const textFieldTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [textFieldTag]: TextField;
@@ -50,7 +51,7 @@ export class TextField extends FoundationTextField implements ErrorPattern {
 }
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({
-    baseName: textFieldTag,
+    baseName,
     baseClass: FoundationTextField,
     template,
     styles,
@@ -69,4 +70,4 @@ const nimbleTextField = TextField.compose<TextFieldOptions>({
     `
 });
 
-DesignSystem.getOrCreate().register(nimbleTextField());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTextField());

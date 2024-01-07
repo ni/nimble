@@ -12,7 +12,8 @@ export type TableColumnTextCellRecord = TableStringField<'value'>;
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TableColumnTextColumnConfig {}
 
-export const tableColumnTextTag = 'nimble-table-column-text';
+const baseName = 'table-column-text';
+export const tableColumnTextTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnTextTag]: TableColumnText;
@@ -35,9 +36,9 @@ export class TableColumnText extends TableColumnTextBase {
 }
 
 const nimbleTableColumnText = TableColumnText.compose({
-    baseName: tableColumnTextTag,
+    baseName,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleTableColumnText());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableColumnText());

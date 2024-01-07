@@ -13,7 +13,8 @@ import {
 import type { IconSeverity } from '../../../icon-base/types';
 import { MappingSpinnerConfig } from '../../enum-base/models/mapping-spinner-config';
 
-export const tableColumnIconCellViewTag = 'nimble-table-column-icon-cell-view';
+const baseName = 'table-column-icon-cell-view';
+export const tableColumnIconCellViewTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnIconCellViewTag]: TableColumnIconCellView;
@@ -72,7 +73,7 @@ export class TableColumnIconCellView
 }
 
 const iconCellView = TableColumnIconCellView.compose({
-    baseName: tableColumnIconCellViewTag,
+    baseName,
     template
 });
-DesignSystem.getOrCreate().register(iconCellView());
+DesignSystem.getOrCreate().withPrefix('nimble').register(iconCellView());

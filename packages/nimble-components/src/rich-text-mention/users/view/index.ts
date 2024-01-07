@@ -3,7 +3,8 @@ import { RichTextMentionView } from '../../base/view';
 import { template } from './template';
 import { styles } from './styles';
 
-export const richTextMentionUsersViewTag = 'nimble-rich-text-mention-users-view';
+const baseName = 'rich-text-mention-users-view';
+export const richTextMentionUsersViewTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [richTextMentionUsersViewTag]: RichTextMentionUsersView;
@@ -16,9 +17,9 @@ declare global {
 export class RichTextMentionUsersView extends RichTextMentionView {}
 
 const nimbleRichTextMentionUsersView = RichTextMentionUsersView.compose({
-    baseName: richTextMentionUsersViewTag,
+    baseName,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleRichTextMentionUsersView());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleRichTextMentionUsersView());

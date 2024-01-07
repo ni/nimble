@@ -28,7 +28,8 @@ import {
     isColumnInternalsProperty
 } from '../../../table-column/base/models/column-internals';
 
-export const tableRowTag = 'nimble-table-row';
+const baseName = 'table-row';
+export const tableRowTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableRowTag]: TableRow;
@@ -330,9 +331,9 @@ export class TableRow<
 }
 
 const nimbleTableRow = TableRow.compose({
-    baseName: tableRowTag,
+    baseName,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleTableRow());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableRow());

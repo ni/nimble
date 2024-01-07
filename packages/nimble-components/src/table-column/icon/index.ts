@@ -20,7 +20,8 @@ import type { MappingConfig } from '../enum-base/models/mapping-config';
 import { MappingIconConfig } from '../enum-base/models/mapping-icon-config';
 import { MappingSpinnerConfig } from '../enum-base/models/mapping-spinner-config';
 
-export const tableColumnIconTag = 'nimble-table-column-icon';
+const baseName = 'table-column-icon';
+export const tableColumnIconTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [tableColumnIconTag]: TableColumnIcon;
@@ -85,9 +86,9 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
 }
 
 const nimbleTableColumnIcon = TableColumnIcon.compose({
-    baseName: tableColumnIconTag,
+    baseName,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleTableColumnIcon());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableColumnIcon());

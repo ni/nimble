@@ -13,7 +13,8 @@ import { diacriticInsensitiveStringNormalizer } from '../../utilities/models/str
 import type { ListOption } from '../../list-option';
 import type { MentionListboxShowOptions } from './types';
 
-export const richTextMentionListboxTag = 'nimble-rich-text-mention-listbox';
+const baseName = 'rich-text-mention-listbox';
+export const richTextMentionListboxTag = `nimble-${baseName}`;
 declare global {
     interface HTMLElementTagNameMap {
         [richTextMentionListboxTag]: RichTextMentionListbox;
@@ -274,9 +275,9 @@ export class RichTextMentionListbox extends FoundationListbox {
 }
 
 const nimbleRichTextMentionListbox = RichTextMentionListbox.compose({
-    baseName: richTextMentionListboxTag,
+    baseName,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().register(nimbleRichTextMentionListbox());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleRichTextMentionListbox());

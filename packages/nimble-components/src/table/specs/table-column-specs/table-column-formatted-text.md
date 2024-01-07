@@ -104,12 +104,12 @@ export class MyAppProgressColumn extends TableColumnTextBase {
 }
 
 const myAppProgressColumn = MyAppProgressColumn.compose({
-    baseName: 'table-column-progress',
+    baseName: 'nimble-table-column-progress',
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('my-app').register(myAppProgressColumn());
+DesignSystem.getOrCreate().withPrefix('nimble').withPrefix('my-app').register(myAppProgressColumn());
 export const myAppProgressColumnTag = DesignSystem.tagFor(MyAppProgressColumn);
 ```
 
