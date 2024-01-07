@@ -71,9 +71,7 @@ describe('TableCellView', () => {
             }
         });
         // Configure column that delegates no events
-        const emptyColumn = document.createElement(
-            tableColumnEmptyTag
-        );
+        const emptyColumn = document.createElement(tableColumnEmptyTag);
         let gotClickOnEmptyColumn = false;
         let gotKeydownOnEmptyColumn = false;
         let gotOtherEventOnEmptyColumn = false;
