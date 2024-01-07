@@ -81,5 +81,4 @@ const nimbleRichTextViewer = RichTextViewer.compose({
     styles
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleRichTextViewer());
+DesignSystem.getOrCreate().register(nimbleRichTextViewer());

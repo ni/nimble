@@ -47,5 +47,4 @@ const enumTextGroupHeaderView = TableColumnEnumTextGroupHeaderView.compose({
     template,
     styles
 });
-DesignSystem.getOrCreate()
-    .register(enumTextGroupHeaderView());
+DesignSystem.getOrCreate().register(enumTextGroupHeaderView());

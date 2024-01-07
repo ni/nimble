@@ -92,5 +92,4 @@ const nimbleLabelProviderTable = LabelProviderTable.compose({
     baseName: labelProviderTableTag
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleLabelProviderTable());
+DesignSystem.getOrCreate().register(nimbleLabelProviderTable());

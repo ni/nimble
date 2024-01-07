@@ -42,5 +42,4 @@ const tableColumnDurationTextGroupHeaderView = TableColumnDurationTextGroupHeade
     template,
     styles
 });
-DesignSystem.getOrCreate()
-    .register(tableColumnDurationTextGroupHeaderView());
+DesignSystem.getOrCreate().register(tableColumnDurationTextGroupHeaderView());

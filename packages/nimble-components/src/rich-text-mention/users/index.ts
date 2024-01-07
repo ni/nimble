@@ -54,5 +54,4 @@ const nimbleRichTextMentionUsers = RichTextMentionUsers.compose({
     template
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleRichTextMentionUsers());
+DesignSystem.getOrCreate().register(nimbleRichTextMentionUsers());

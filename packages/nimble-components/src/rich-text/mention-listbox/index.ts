@@ -279,5 +279,4 @@ const nimbleRichTextMentionListbox = RichTextMentionListbox.compose({
     styles
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleRichTextMentionListbox());
+DesignSystem.getOrCreate().register(nimbleRichTextMentionListbox());

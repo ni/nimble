@@ -753,5 +753,4 @@ const nimbleRichTextEditor = RichTextEditor.compose({
     }
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleRichTextEditor());
+DesignSystem.getOrCreate().register(nimbleRichTextEditor());

@@ -123,5 +123,4 @@ const nimbleDesignSystemProvider = ThemeProvider.compose({
     template
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleDesignSystemProvider());
+DesignSystem.getOrCreate().register(nimbleDesignSystemProvider());

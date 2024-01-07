@@ -47,5 +47,4 @@ const nimbleLabelProviderRichText = LabelProviderRichText.compose({
     baseName: labelProviderRichTextTag
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleLabelProviderRichText());
+DesignSystem.getOrCreate().register(nimbleLabelProviderRichText());

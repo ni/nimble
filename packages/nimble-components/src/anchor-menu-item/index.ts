@@ -105,8 +105,7 @@ const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
     }
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleAnchorMenuItem());
+DesignSystem.getOrCreate().register(nimbleAnchorMenuItem());
 
 // This is a workaround for the fact that FAST's menu uses `instanceof MenuItem`
 // in their logic for indenting menu items. Since our AnchorMenuItem derives from

@@ -40,5 +40,4 @@ const nimbleTableColumnText = TableColumnText.compose({
     styles
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleTableColumnText());
+DesignSystem.getOrCreate().register(nimbleTableColumnText());

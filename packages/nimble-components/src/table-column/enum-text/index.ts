@@ -78,5 +78,4 @@ const nimbleTableColumnEnumText = TableColumnEnumText.compose({
     styles
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleTableColumnEnumText());
+DesignSystem.getOrCreate().register(nimbleTableColumnEnumText());

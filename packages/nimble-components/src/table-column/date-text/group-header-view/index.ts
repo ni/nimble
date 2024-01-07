@@ -44,5 +44,4 @@ const tableColumnDateTextGroupHeaderView = TableColumnDateTextGroupHeaderView.co
     template,
     styles
 });
-DesignSystem.getOrCreate()
-    .register(tableColumnDateTextGroupHeaderView());
+DesignSystem.getOrCreate().register(tableColumnDateTextGroupHeaderView());

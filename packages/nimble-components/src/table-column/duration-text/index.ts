@@ -76,5 +76,4 @@ const nimbleTableColumnDurationText = TableColumnDurationText.compose({
     styles
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleTableColumnDurationText());
+DesignSystem.getOrCreate().register(nimbleTableColumnDurationText());

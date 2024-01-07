@@ -173,5 +173,4 @@ const nimbleTableColumnNumberText = TableColumnNumberText.compose({
     styles
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleTableColumnNumberText());
+DesignSystem.getOrCreate().register(nimbleTableColumnNumberText());

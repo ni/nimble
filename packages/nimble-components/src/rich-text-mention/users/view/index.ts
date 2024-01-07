@@ -21,5 +21,4 @@ const nimbleRichTextMentionUsersView = RichTextMentionUsersView.compose({
     styles
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleRichTextMentionUsersView());
+DesignSystem.getOrCreate().register(nimbleRichTextMentionUsersView());

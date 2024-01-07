@@ -90,5 +90,4 @@ const nimbleTableColumnIcon = TableColumnIcon.compose({
     styles
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleTableColumnIcon());
+DesignSystem.getOrCreate().register(nimbleTableColumnIcon());

@@ -153,5 +153,4 @@ const nimbleTableColumnAnchor = TableColumnAnchor.compose({
     styles
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleTableColumnAnchor());
+DesignSystem.getOrCreate().register(nimbleTableColumnAnchor());

@@ -293,5 +293,4 @@ const nimbleTableColumnDateText = TableColumnDateText.compose({
     styles
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleTableColumnDateText());
+DesignSystem.getOrCreate().register(nimbleTableColumnDateText());

@@ -128,5 +128,4 @@ const nimbleAnchorTreeItem = AnchorTreeItem.compose<AnchorOptions>({
     }
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleAnchorTreeItem());
+DesignSystem.getOrCreate().register(nimbleAnchorTreeItem());

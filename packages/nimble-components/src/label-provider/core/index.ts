@@ -57,5 +57,4 @@ const nimbleLabelProviderCore = LabelProviderCore.compose({
     baseName: labelProviderCoreTag
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleLabelProviderCore());
+DesignSystem.getOrCreate().register(nimbleLabelProviderCore());

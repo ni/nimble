@@ -27,5 +27,4 @@ const nimbleBreadcrumbItem = BreadcrumbItem.compose<BreadcrumbItemOptions>({
     separator: forwardSlash16X16.data
 });
 
-DesignSystem.getOrCreate()
-    .register(nimbleBreadcrumbItem());
+DesignSystem.getOrCreate().register(nimbleBreadcrumbItem());

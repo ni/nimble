@@ -30,5 +30,4 @@ const tableColumnTextGroupHeaderView = TableColumnTextGroupHeaderView.compose({
     template,
     styles
 });
-DesignSystem.getOrCreate()
-    .register(tableColumnTextGroupHeaderView());
+DesignSystem.getOrCreate().register(tableColumnTextGroupHeaderView());

@@ -39,5 +39,4 @@ const durationTextCellView = TableColumnDurationTextCellView.compose({
     template,
     styles
 });
-DesignSystem.getOrCreate()
-    .register(durationTextCellView());
+DesignSystem.getOrCreate().register(durationTextCellView());

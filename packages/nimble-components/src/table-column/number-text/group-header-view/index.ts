@@ -37,5 +37,4 @@ const tableColumnNumberTextGroupHeaderView = TableColumnNumberTextGroupHeaderVie
     template,
     styles
 });
-DesignSystem.getOrCreate()
-    .register(tableColumnNumberTextGroupHeaderView());
+DesignSystem.getOrCreate().register(tableColumnNumberTextGroupHeaderView());
