@@ -47,7 +47,6 @@ for (const key of Object.keys(icons)) {
 
     const componentFileContents = `${generatedFilePrefix}
 import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
