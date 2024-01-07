@@ -1,6 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { customElement, html, ref } from '@microsoft/fast-element';
-import { TreeItem as FoundationTreeItem } from '@microsoft/fast-foundation';
+import { html, ref } from '@microsoft/fast-element';
 import { AnchorTreeItem } from '..';
 import type { IconCheck } from '../../icons/check';
 import type { IconXmark } from '../../icons/xmark';
@@ -9,9 +8,6 @@ import type { TreeItem } from '../../tree-item';
 import type { TreeView } from '../../tree-view';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { parameterizeNamedList } from '../../utilities/tests/parameterized';
-
-@customElement('foundation-tree-item')
-export class TestTreeItem extends FoundationTreeItem {}
 
 describe('Anchor Tree Item', () => {
     describe('standalone', () => {
