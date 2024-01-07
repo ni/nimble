@@ -14,7 +14,7 @@ import {
 } from '../testing/rich-text-editor-utils';
 import { iconAtTag } from '../../../icons/at';
 import { iconExclamationMarkTag } from '../../../icons/exclamation-mark';
-import { ArrowKeyButton } from '../testing/types';
+import { ArrowKeyButton, ToolbarButton } from '../testing/types';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 
 const RICH_TEXT_MENTION_USERS_VIEW_TAG = richTextMentionUsersViewTag.toUpperCase();
@@ -90,6 +90,68 @@ describe('RichTextEditorMention', () => {
     });
 
     describe('user mention dynamic loading', () => {
+        it('should retain the checked state of the format buttons when configuration added dynamically', async () => {
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
+            expect(
+                pageObject.getButtonCheckedState(ToolbarButton.bold)
+            ).toBeTrue();
+            expect(
+                pageObject.getButtonCheckedState(ToolbarButton.italics)
+            ).toBeTrue();
+            await appendUserMentionConfiguration(element);
+            expect(
+                pageObject.getButtonCheckedState(ToolbarButton.bold)
+            ).toBeTrue();
+            expect(
+                pageObject.getButtonCheckedState(ToolbarButton.italics)
+            ).toBeTrue();
+        });
+
+        it('should retain the checked state of the format buttons when configuration updated', async () => {
+            const { mappingElements } = await appendUserMentionConfiguration(
+                element,
+                [{ key: 'user:1', displayName: 'username1' }]
+            );
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
+            expect(
+                pageObject.getButtonCheckedState(ToolbarButton.bold)
+            ).toBeTrue();
+            expect(
+                pageObject.getButtonCheckedState(ToolbarButton.italics)
+            ).toBeTrue();
+            mappingElements[0]!.displayName = 'updated-name';
+            await waitForUpdatesAsync();
+            expect(
+                pageObject.getButtonCheckedState(ToolbarButton.bold)
+            ).toBeTrue();
+            expect(
+                pageObject.getButtonCheckedState(ToolbarButton.italics)
+            ).toBeTrue();
+        });
+
+        it('should retain the cursor position when configuration added dynamically', async () => {
+            await pageObject.setEditorTextContent('test');
+            await pageObject.setCursorPosition(3);
+            expect(pageObject.getCursorPosition()).toBe(3);
+            await appendUserMentionConfiguration(element);
+            expect(pageObject.getCursorPosition()).toBe(3);
+        });
+
+        it('should retain the cursor position when configuration updated', async () => {
+            const { mappingElements } = await appendUserMentionConfiguration(
+                element,
+                [{ key: 'user:1', displayName: 'username1' }]
+            );
+            await pageObject.setEditorTextContent('test');
+            await pageObject.setCursorPosition(3);
+            expect(pageObject.getCursorPosition()).toBe(3);
+            mappingElements[0]!.displayName = 'updated-name';
+            await waitForUpdatesAsync();
+            expect(pageObject.getCursorPosition()).toBe(3);
+        });
+
         it('adding mention configuration converts the absolute link matching the pattern to mention node', async () => {
             element.setMarkdown('<user:1>');
 

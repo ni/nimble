@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 05 Jan 2024 00:37:04 GMT and should not be manually modified.
+This log was last generated on Fri, 05 Jan 2024 14:50:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.17.2
+
+Fri, 05 Jan 2024 14:50:44 GMT
+
+### Patches
+
+- Add fix to retain rich text editor format button state when user configuration gets dynamically updated ([ni/nimble@8501f8f](https://github.com/ni/nimble/commit/8501f8f3c8283cb79926422aec253a967e5a9755))
 
 ## 20.17.1
 
