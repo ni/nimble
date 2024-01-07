@@ -66,7 +66,7 @@ export class ${className} extends Icon {
 }
 
 registerIcon('${elementBaseName}', ${className});
-export const ${tagName} = DesignSystem.tagFor(${className});
+export const ${tagName} = '${elementName}';
 `;
 
     const filePath = path.resolve(iconsDirectory, `${fileName}.ts`);

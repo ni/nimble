@@ -109,8 +109,8 @@ const myAppProgressColumn = MyAppProgressColumn.compose({
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('my-app').register(myAppProgressColumn());
-export const myAppProgressColumnTag = DesignSystem.tagFor(MyAppProgressColumn);
+DesignSystem.getOrCreate().withPrefix('nimble').register(myAppProgressColumn());
+export const myAppProgressColumnTag = 'nimble-table-column-progress';
 ```
 
 **Specify formatting of cells and group headers in their custom elements**

@@ -41,4 +41,4 @@ const nimbleTreeItem = TreeItem.compose<TreeItemOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeItem());
-export const treeItemTag = DesignSystem.tagFor(TreeItem);
+export const treeItemTag = 'nimble-tree-item';
