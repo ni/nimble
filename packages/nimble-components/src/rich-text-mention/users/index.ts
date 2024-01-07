@@ -11,9 +11,10 @@ import type { MappingUserKey } from '../../mapping/base/types';
 import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
 import { richTextMentionUsersViewTag } from './view';
 
+export const richTextMentionUsersTag = 'nimble-rich-text-mention-users';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-rich-text-mention-users': RichTextMentionUsers;
+        [richTextMentionUsersTag]: RichTextMentionUsers;
     }
 }
 
@@ -49,11 +50,9 @@ export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersVa
     }
 }
 const nimbleRichTextMentionUsers = RichTextMentionUsers.compose({
-    baseName: 'rich-text-mention-users',
+    baseName: richTextMentionUsersTag,
     template
 });
 
 DesignSystem.getOrCreate()
-    .withPrefix('nimble')
     .register(nimbleRichTextMentionUsers());
-export const richTextMentionUsersTag = DesignSystem.tagFor(RichTextMentionUsers);

@@ -7,9 +7,10 @@ import {
 import { circleFilled16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
+export const radioTag = 'nimble-radio';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-radio': Radio;
+        [radioTag]: Radio;
     }
 }
 
@@ -19,12 +20,11 @@ declare global {
 export class Radio extends FoundationRadio {}
 
 const nimbleRadio = Radio.compose<RadioOptions>({
-    baseName: 'radio',
+    baseName: radioTag,
     baseClass: FoundationRadio,
     template,
     styles,
     checkedIndicator: circleFilled16X16.data
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleRadio());
-export const radioTag = DesignSystem.tagFor(Radio);
+DesignSystem.getOrCreate().register(nimbleRadio());

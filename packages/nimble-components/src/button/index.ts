@@ -12,9 +12,10 @@ import type {
 import { styles } from './styles';
 import { ButtonAppearance, ButtonAppearanceVariant } from './types';
 
+export const buttonTag = 'nimble-button';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-button': Button;
+        [buttonTag]: Button;
     }
 }
 
@@ -59,7 +60,7 @@ export class Button
  *
  */
 const nimbleButton = Button.compose<ButtonOptions>({
-    baseName: 'button',
+    baseName: buttonTag,
     baseClass: FoundationButton,
     template,
     styles,
@@ -68,5 +69,4 @@ const nimbleButton = Button.compose<ButtonOptions>({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());
-export const buttonTag = DesignSystem.tagFor(Button);
+DesignSystem.getOrCreate().register(nimbleButton());

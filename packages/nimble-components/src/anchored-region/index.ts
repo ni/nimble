@@ -5,9 +5,10 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
+export const anchoredRegionTag = 'nimble-anchored-region';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-anchored-region': AnchoredRegion;
+        [anchoredRegionTag]: AnchoredRegion;
     }
 }
 
@@ -25,13 +26,11 @@ declare global {
 export class AnchoredRegion extends FoundationAnchoredRegion {}
 
 const nimbleAnchoredRegion = AnchoredRegion.compose({
-    baseName: 'anchored-region',
+    baseName: anchoredRegionTag,
     baseClass: FoundationAnchoredRegion,
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
-    .withPrefix('nimble')
     .register(nimbleAnchoredRegion());
-export const anchoredRegionTag = DesignSystem.tagFor(AnchoredRegion);

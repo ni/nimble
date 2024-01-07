@@ -6,9 +6,10 @@ import { observable } from '@microsoft/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 
+export const listOptionTag = 'nimble-list-option';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-list-option': ListOption;
+        [listOptionTag]: ListOption;
     }
 }
 
@@ -33,11 +34,10 @@ export class ListOption extends FoundationListboxOption {
 }
 
 const nimbleListOption = ListOption.compose({
-    baseName: 'list-option',
+    baseName: listOptionTag,
     baseClass: FoundationListboxOption,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleListOption());
-export const listOptionTag = DesignSystem.tagFor(ListOption);
+DesignSystem.getOrCreate().register(nimbleListOption());

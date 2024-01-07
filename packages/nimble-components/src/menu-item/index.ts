@@ -7,9 +7,10 @@ import {
 import { arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
+export const menuItemTag = 'nimble-menu-item';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-menu-item': MenuItem;
+        [menuItemTag]: MenuItem;
     }
 }
 
@@ -28,12 +29,11 @@ export class MenuItem extends FoundationMenuItem {}
  *
  */
 const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
-    baseName: 'menu-item',
+    baseName: menuItemTag,
     baseClass: FoundationMenuItem,
     template,
     styles,
     expandCollapseGlyph: arrowExpanderRight16X16.data
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenuItem());
-export const menuItemTag = DesignSystem.tagFor(MenuItem);
+DesignSystem.getOrCreate().register(nimbleMenuItem());

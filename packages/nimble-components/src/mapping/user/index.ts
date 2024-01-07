@@ -4,9 +4,10 @@ import { Mapping } from '../base';
 import type { MappingUserKey } from '../base/types';
 import { template } from '../base/template';
 
+export const mappingUserTag = 'nimble-mapping-user';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-mapping-user': MappingUser;
+        [mappingUserTag]: MappingUser;
     }
 }
 /**
@@ -18,8 +19,7 @@ export class MappingUser extends Mapping<MappingUserKey> {
     public displayName?: string;
 }
 const mappingUser = MappingUser.compose({
-    baseName: 'mapping-user',
+    baseName: mappingUserTag,
     template
 });
-DesignSystem.getOrCreate().withPrefix('nimble').register(mappingUser());
-export const mappingUserTag = DesignSystem.tagFor(MappingUser);
+DesignSystem.getOrCreate().register(mappingUser());

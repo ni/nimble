@@ -6,9 +6,10 @@ import type { IconSeverity } from '../../icon-base/types';
 import { Icon } from '../../icon-base';
 import type { MappingKey } from '../base/types';
 
+export const mappingIconTag = 'nimble-mapping-icon';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-mapping-icon': MappingIcon;
+        [mappingIconTag]: MappingIcon;
     }
 }
 
@@ -79,8 +80,7 @@ export class MappingIcon extends Mapping<MappingKey> {
 }
 
 const iconMapping = MappingIcon.compose({
-    baseName: 'mapping-icon',
+    baseName: mappingIconTag,
     template
 });
-DesignSystem.getOrCreate().withPrefix('nimble').register(iconMapping());
-export const mappingIconTag = DesignSystem.tagFor(MappingIcon);
+DesignSystem.getOrCreate().register(iconMapping());

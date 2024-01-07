@@ -11,9 +11,10 @@ import { template } from './template';
 
 export { UserDismissed };
 
+export const dialogTag = 'nimble-dialog';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-dialog': Dialog;
+        [dialogTag]: Dialog;
     }
 }
 
@@ -137,11 +138,10 @@ export interface Dialog extends ARIAGlobalStatesAndProperties {}
 applyMixins(Dialog, ARIAGlobalStatesAndProperties);
 
 const nimbleDialog = Dialog.compose({
-    baseName: 'dialog',
+    baseName: dialogTag,
     template,
     styles,
     baseClass: Dialog
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleDialog());
-export const dialogTag = DesignSystem.tagFor(Dialog);
+DesignSystem.getOrCreate().register(nimbleDialog());

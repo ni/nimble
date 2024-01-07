@@ -5,9 +5,10 @@ import {
 import { styles } from './styles';
 import { template } from './template';
 
+export const cardTag = 'nimble-card';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-card': Card;
+        [cardTag]: Card;
     }
 }
 
@@ -17,11 +18,10 @@ declare global {
 export class Card extends FoundationCard {}
 
 const nimbleCard = Card.compose({
-    baseName: 'card',
+    baseName: cardTag,
     baseClass: FoundationCard,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCard());
-export const cardTag = DesignSystem.tagFor(Card);
+DesignSystem.getOrCreate().register(nimbleCard());

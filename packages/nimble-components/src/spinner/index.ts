@@ -4,9 +4,10 @@ import { styles } from './styles';
 import { template } from './template';
 import { SpinnerAppearance } from './types';
 
+export const spinnerTag = 'nimble-spinner';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-spinner': Spinner;
+        [spinnerTag]: Spinner;
     }
 }
 
@@ -25,9 +26,8 @@ export class Spinner extends FoundationElement {
 }
 
 const nimbleSpinner = Spinner.compose({
-    baseName: 'spinner',
+    baseName: spinnerTag,
     template,
     styles
 });
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSpinner());
-export const spinnerTag = DesignSystem.tagFor(Spinner);
+DesignSystem.getOrCreate().register(nimbleSpinner());

@@ -2,9 +2,10 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 
+export const tabsToolbarTag = 'nimble-tabs-toolbar';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-tabs-toolbar': TabsToolbar;
+        [tabsToolbarTag]: TabsToolbar;
     }
 }
 
@@ -14,10 +15,9 @@ declare global {
 export class TabsToolbar extends FoundationElement {}
 
 const nimbleTabsToolbar = TabsToolbar.compose({
-    baseName: 'tabs-toolbar',
+    baseName: tabsToolbarTag,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTabsToolbar());
-export const tabsToolbarTag = DesignSystem.tagFor(TabsToolbar);
+DesignSystem.getOrCreate().register(nimbleTabsToolbar());

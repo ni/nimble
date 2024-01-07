@@ -9,9 +9,10 @@ import { styles } from './styles';
 import { template } from './template';
 import type { AnchorAppearance } from './types';
 
+export const anchorTag = 'nimble-anchor';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-anchor': Anchor;
+        [anchorTag]: Anchor;
     }
 }
 
@@ -52,7 +53,7 @@ export class Anchor extends AnchorBase {
 // FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
 
 const nimbleAnchor = Anchor.compose<AnchorOptions>({
-    baseName: 'anchor',
+    baseName: anchorTag,
     baseClass: FoundationAnchor,
     template,
     styles,
@@ -61,5 +62,4 @@ const nimbleAnchor = Anchor.compose<AnchorOptions>({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchor());
-export const anchorTag = DesignSystem.tagFor(Anchor);
+DesignSystem.getOrCreate().register(nimbleAnchor());

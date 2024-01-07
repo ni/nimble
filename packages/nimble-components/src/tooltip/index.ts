@@ -7,9 +7,10 @@ import { styles } from './styles';
 import { template } from './template';
 import type { TooltipSeverity } from './types';
 
+export const tooltipTag = 'nimble-tooltip';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-tooltip': Tooltip;
+        [tooltipTag]: Tooltip;
     }
 }
 
@@ -30,11 +31,10 @@ export class Tooltip extends FoundationTooltip {
 }
 
 const nimbleTooltip = Tooltip.compose({
-    baseName: 'tooltip',
+    baseName: tooltipTag,
     baseClass: FoundationTooltip,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTooltip());
-export const tooltipTag = DesignSystem.tagFor(Tooltip);
+DesignSystem.getOrCreate().register(nimbleTooltip());

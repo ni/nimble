@@ -5,9 +5,10 @@ import { template } from '../../text-base/group-header-view/template';
 import { styles } from '../../text-base/group-header-view/styles';
 import type { TableColumnNumberTextColumnConfig } from '..';
 
+export const tableColumnNumberTextGroupHeaderTag = 'nimble-table-column-number-text-group-header';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-number-text-group-header': TableColumnNumberTextGroupHeaderView;
+        [tableColumnNumberTextGroupHeaderTag]: TableColumnNumberTextGroupHeaderView;
     }
 }
 /**
@@ -32,13 +33,9 @@ TableColumnNumberTextColumnConfig
 }
 
 const tableColumnNumberTextGroupHeaderView = TableColumnNumberTextGroupHeaderView.compose({
-    baseName: 'table-column-number-text-group-header-view',
+    baseName: tableColumnNumberTextGroupHeaderTag,
     template,
     styles
 });
 DesignSystem.getOrCreate()
-    .withPrefix('nimble')
     .register(tableColumnNumberTextGroupHeaderView());
-export const tableColumnNumberTextGroupHeaderTag = DesignSystem.tagFor(
-    TableColumnNumberTextGroupHeaderView
-);

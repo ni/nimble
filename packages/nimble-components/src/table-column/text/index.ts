@@ -12,9 +12,10 @@ export type TableColumnTextCellRecord = TableStringField<'value'>;
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TableColumnTextColumnConfig {}
 
+export const tableColumnTextTag = 'nimble-table-column-text';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-text': TableColumnText;
+        [tableColumnTextTag]: TableColumnText;
     }
 }
 
@@ -34,12 +35,10 @@ export class TableColumnText extends TableColumnTextBase {
 }
 
 const nimbleTableColumnText = TableColumnText.compose({
-    baseName: 'table-column-text',
+    baseName: tableColumnTextTag,
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
-    .withPrefix('nimble')
     .register(nimbleTableColumnText());
-export const tableColumnTextTag = DesignSystem.tagFor(TableColumnText);

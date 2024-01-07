@@ -18,9 +18,10 @@ export interface TableColumnDurationTextColumnConfig {
     formatter: DurationFormatter;
 }
 
+export const tableColumnDurationTextTag = 'nimble-table-column-duration-text';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-duration-text': TableColumnDurationText;
+        [tableColumnDurationTextTag]: TableColumnDurationText;
     }
 }
 
@@ -70,14 +71,10 @@ export class TableColumnDurationText extends TableColumnTextBase {
 }
 
 const nimbleTableColumnDurationText = TableColumnDurationText.compose({
-    baseName: 'table-column-duration-text',
+    baseName: tableColumnDurationTextTag,
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
-    .withPrefix('nimble')
     .register(nimbleTableColumnDurationText());
-export const tableColumnDurationTextTag = DesignSystem.tagFor(
-    TableColumnDurationText
-);

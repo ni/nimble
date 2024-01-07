@@ -4,9 +4,10 @@ import { Mapping } from '../base';
 import { template } from '../base/template';
 import type { MappingKey } from '../base/types';
 
+export const mappingTextTag = 'nimble-mapping-text';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-mapping-text': MappingText;
+        [mappingTextTag]: MappingText;
     }
 }
 
@@ -21,8 +22,7 @@ export class MappingText extends Mapping<MappingKey> {
 }
 
 const textMapping = MappingText.compose({
-    baseName: 'mapping-text',
+    baseName: mappingTextTag,
     template
 });
-DesignSystem.getOrCreate().withPrefix('nimble').register(textMapping());
-export const mappingTextTag = DesignSystem.tagFor(MappingText);
+DesignSystem.getOrCreate().register(textMapping());

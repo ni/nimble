@@ -17,9 +17,10 @@ import {
     tableSelectAllLabel
 } from './label-tokens';
 
+export const labelProviderTableTag = 'nimble-label-provider-table';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-label-provider-table': LabelProviderTable;
+        [labelProviderTableTag]: LabelProviderTable;
     }
 }
 
@@ -88,10 +89,8 @@ export class LabelProviderTable
 }
 
 const nimbleLabelProviderTable = LabelProviderTable.compose({
-    baseName: 'label-provider-table'
+    baseName: labelProviderTableTag
 });
 
 DesignSystem.getOrCreate()
-    .withPrefix('nimble')
     .register(nimbleLabelProviderTable());
-export const labelProviderTableTag = DesignSystem.tagFor(LabelProviderTable);

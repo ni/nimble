@@ -8,9 +8,10 @@ import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';
 
+export const anchorTabTag = 'nimble-anchor-tab';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-anchor-tab': AnchorTab;
+        [anchorTabTag]: AnchorTab;
     }
 }
 
@@ -42,9 +43,8 @@ export class AnchorTab extends AnchorBase {
 }
 
 // FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
-
 const nimbleAnchorTab = AnchorTab.compose({
-    baseName: 'anchor-tab',
+    baseName: anchorTabTag,
     template,
     styles,
     shadowOptions: {
@@ -52,5 +52,4 @@ const nimbleAnchorTab = AnchorTab.compose({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorTab());
-export const anchorTabTag = DesignSystem.tagFor(AnchorTab);
+DesignSystem.getOrCreate().register(nimbleAnchorTab());

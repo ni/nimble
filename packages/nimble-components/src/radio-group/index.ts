@@ -6,9 +6,10 @@ import {
 import { Orientation } from '@microsoft/fast-web-utilities';
 import { styles } from './styles';
 
+export const radioGroupTag = 'nimble-radio-group';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-radio-group': RadioGroup;
+        [radioGroupTag]: RadioGroup;
     }
 }
 
@@ -20,7 +21,7 @@ export { Orientation };
 export class RadioGroup extends FoundationRadioGroup {}
 
 const nimbleRadioGroup = RadioGroup.compose({
-    baseName: 'radio-group',
+    baseName: radioGroupTag,
     baseClass: FoundationRadioGroup,
     template,
     styles,
@@ -29,5 +30,4 @@ const nimbleRadioGroup = RadioGroup.compose({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleRadioGroup());
-export const radioGroupTag = DesignSystem.tagFor(RadioGroup);
+DesignSystem.getOrCreate().register(nimbleRadioGroup());

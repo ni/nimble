@@ -22,9 +22,10 @@ import {
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
 
+export const waferMapTag = 'nimble-wafer-map';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-wafer-map': WaferMap;
+        [waferMapTag]: WaferMap;
     }
 }
 
@@ -303,10 +304,9 @@ export class WaferMap extends FoundationElement {
 }
 
 const nimbleWaferMap = WaferMap.compose({
-    baseName: 'wafer-map',
+    baseName: waferMapTag,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleWaferMap());
-export const waferMapTag = DesignSystem.tagFor(WaferMap);
+DesignSystem.getOrCreate().register(nimbleWaferMap());

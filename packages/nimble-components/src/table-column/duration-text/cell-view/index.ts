@@ -7,9 +7,10 @@ import type {
 import { styles } from '../../text-base/cell-view/styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 
+export const tableColumnDurationTextCellViewTag = 'nimble-table-column-duration-text-cell-view';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-duration-text-cell-view': TableColumnDurationTextCellView;
+        [tableColumnDurationTextCellViewTag]: TableColumnDurationTextCellView;
     }
 }
 
@@ -34,13 +35,9 @@ TableColumnDurationTextColumnConfig
 }
 
 const durationTextCellView = TableColumnDurationTextCellView.compose({
-    baseName: 'table-column-duration-text-cell-view',
+    baseName: tableColumnDurationTextCellViewTag,
     template,
     styles
 });
 DesignSystem.getOrCreate()
-    .withPrefix('nimble')
     .register(durationTextCellView());
-export const tableColumnDurationTextCellViewTag = DesignSystem.tagFor(
-    TableColumnDurationTextCellView
-);

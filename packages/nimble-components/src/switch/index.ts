@@ -6,9 +6,10 @@ import {
 import { styles } from './styles';
 import { template } from './template';
 
+export const switchTag = 'nimble-switch';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-switch': Switch;
+        [switchTag]: Switch;
     }
 }
 
@@ -18,11 +19,10 @@ declare global {
 export class Switch extends FoundationSwitch {}
 
 const nimbleSwitch = Switch.compose<SwitchOptions>({
+    baseName: switchTag,
     baseClass: FoundationSwitch,
-    baseName: 'switch',
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSwitch());
-export const switchTag = DesignSystem.tagFor(Switch);
+DesignSystem.getOrCreate().register(nimbleSwitch());

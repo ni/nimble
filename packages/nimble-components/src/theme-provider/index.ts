@@ -13,9 +13,10 @@ import type { ValidityObject } from '../utilities/models/validator';
 
 export { Direction };
 
+export const themeProviderTag = 'nimble-theme-provider';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-theme-provider': ThemeProvider;
+        [themeProviderTag]: ThemeProvider;
     }
 }
 
@@ -117,12 +118,10 @@ export class ThemeProvider extends FoundationElement {
 }
 
 const nimbleDesignSystemProvider = ThemeProvider.compose({
-    baseName: 'theme-provider',
+    baseName: themeProviderTag,
     styles,
     template
 });
 
 DesignSystem.getOrCreate()
-    .withPrefix('nimble')
     .register(nimbleDesignSystemProvider());
-export const themeProviderTag = DesignSystem.tagFor(ThemeProvider);

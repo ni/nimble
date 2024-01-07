@@ -50,6 +50,7 @@ import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Icon, registerIcon } from '../icon-base';
 
+export const ${tagName} = '${elementName}';
 declare global {
     interface HTMLElementTagNameMap {
         '${elementName}': ${className};
@@ -66,7 +67,6 @@ export class ${className} extends Icon {
 }
 
 registerIcon('${elementBaseName}', ${className});
-export const ${tagName} = DesignSystem.tagFor(${className});
 `;
 
     const filePath = path.resolve(iconsDirectory, `${fileName}.ts`);

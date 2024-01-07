@@ -22,9 +22,10 @@ import { DropdownAppearance } from '../patterns/dropdown/types';
 import type { AnchoredRegion } from '../anchored-region';
 import { template } from './template';
 
+export const comboboxTag = 'nimble-combobox';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-combobox': Combobox;
+        [comboboxTag]: Combobox;
     }
 }
 
@@ -281,7 +282,7 @@ export class Combobox
 }
 
 const nimbleCombobox = Combobox.compose<ComboboxOptions>({
-    baseName: 'combobox',
+    baseName: comboboxTag,
     baseClass: FoundationCombobox,
     template,
     styles,
@@ -321,5 +322,4 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
     `
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCombobox());
-export const comboboxTag = DesignSystem.tagFor(Combobox);
+DesignSystem.getOrCreate().register(nimbleCombobox());

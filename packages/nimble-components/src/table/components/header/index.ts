@@ -4,9 +4,10 @@ import { TableColumnSortDirection } from '../../types';
 import { styles } from './styles';
 import { template } from './template';
 
+export const tableHeaderTag = 'nimble-table-header';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-header': TableHeader;
+        [tableHeaderTag]: TableHeader;
     }
 }
 
@@ -53,10 +54,9 @@ export class TableHeader extends FoundationElement {
 }
 
 const nimbleTableHeader = TableHeader.compose({
-    baseName: 'table-header',
+    baseName: tableHeaderTag,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableHeader());
-export const tableHeaderTag = DesignSystem.tagFor(TableHeader);
+DesignSystem.getOrCreate().register(nimbleTableHeader());

@@ -10,9 +10,10 @@ import {
 import { styles } from './styles';
 import { template } from './template';
 
+export const anchorButtonTag = 'nimble-anchor-button';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-anchor-button': AnchorButton;
+        [anchorButtonTag]: AnchorButton;
     }
 }
 
@@ -56,7 +57,7 @@ export class AnchorButton
 }
 
 const nimbleAnchorButton = AnchorButton.compose<AnchorOptions>({
-    baseName: 'anchor-button',
+    baseName: anchorButtonTag,
     template,
     styles,
     shadowOptions: {
@@ -64,5 +65,4 @@ const nimbleAnchorButton = AnchorButton.compose<AnchorOptions>({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorButton());
-export const anchorButtonTag = DesignSystem.tagFor(AnchorButton);
+DesignSystem.getOrCreate().register(nimbleAnchorButton());

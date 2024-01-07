@@ -30,9 +30,10 @@ import { styles } from './styles';
 import { template } from './template';
 import type { AnchorTab } from '../anchor-tab';
 
+export const anchorTabsTag = 'nimble-anchor-tabs';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-anchor-tabs': AnchorTabs;
+        [anchorTabsTag]: AnchorTabs;
     }
 }
 
@@ -286,7 +287,7 @@ export class AnchorTabs extends FoundationElement {
 applyMixins(AnchorTabs, StartEnd);
 
 const nimbleAnchorTabs = AnchorTabs.compose<TabsOptions>({
-    baseName: 'anchor-tabs',
+    baseName: anchorTabsTag,
     template,
     styles,
     shadowOptions: {
@@ -294,5 +295,4 @@ const nimbleAnchorTabs = AnchorTabs.compose<TabsOptions>({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorTabs());
-export const anchorTabsTag = DesignSystem.tagFor(AnchorTabs);
+DesignSystem.getOrCreate().register(nimbleAnchorTabs());

@@ -25,9 +25,10 @@ export interface TableColumnNumberTextColumnConfig {
     alignment: TextCellViewBaseAlignment;
 }
 
+export const tableColumnNumberTextTag = 'nimble-table-column-number-text';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-number-text': TableColumnNumberText;
+        [tableColumnNumberTextTag]: TableColumnNumberText;
     }
 }
 
@@ -167,14 +168,10 @@ export class TableColumnNumberText extends TableColumnTextBase {
 }
 
 const nimbleTableColumnNumberText = TableColumnNumberText.compose({
-    baseName: 'table-column-number-text',
+    baseName: tableColumnNumberTextTag,
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
-    .withPrefix('nimble')
     .register(nimbleTableColumnNumberText());
-export const tableColumnNumberTextTag = DesignSystem.tagFor(
-    TableColumnNumberText
-);

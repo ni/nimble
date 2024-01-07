@@ -7,9 +7,10 @@ import {
 import { styles } from './styles';
 import type { BreadcrumbAppearance } from './types';
 
+export const breadcrumbTag = 'nimble-breadcrumb';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-breadcrumb': Breadcrumb;
+        [breadcrumbTag]: Breadcrumb;
     }
 }
 
@@ -22,11 +23,10 @@ export class Breadcrumb extends FoundationBreadcrumb {
 }
 
 const nimbleBreadcrumb = Breadcrumb.compose({
-    baseName: 'breadcrumb',
+    baseName: breadcrumbTag,
     baseClass: FoundationBreadcrumb,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleBreadcrumb());
-export const breadcrumbTag = DesignSystem.tagFor(Breadcrumb);
+DesignSystem.getOrCreate().register(nimbleBreadcrumb());

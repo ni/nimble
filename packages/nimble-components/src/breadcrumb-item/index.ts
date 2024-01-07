@@ -7,9 +7,10 @@ import {
 import { forwardSlash16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
+export const breadcrumbItemTag = 'nimble-breadcrumb-item';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-breadcrumb-item': BreadcrumbItem;
+        [breadcrumbItemTag]: BreadcrumbItem;
     }
 }
 
@@ -19,7 +20,7 @@ declare global {
 export class BreadcrumbItem extends FoundationBreadcrumbItem {}
 
 const nimbleBreadcrumbItem = BreadcrumbItem.compose<BreadcrumbItemOptions>({
-    baseName: 'breadcrumb-item',
+    baseName: breadcrumbItemTag,
     baseClass: FoundationBreadcrumbItem,
     template,
     styles,
@@ -27,6 +28,4 @@ const nimbleBreadcrumbItem = BreadcrumbItem.compose<BreadcrumbItemOptions>({
 });
 
 DesignSystem.getOrCreate()
-    .withPrefix('nimble')
     .register(nimbleBreadcrumbItem());
-export const breadcrumbItemTag = DesignSystem.tagFor(BreadcrumbItem);

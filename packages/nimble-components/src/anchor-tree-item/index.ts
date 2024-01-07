@@ -10,9 +10,10 @@ import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';
 
+export const anchorTreeItemTag = 'nimble-anchor-tree-item';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-anchor-tree-item': AnchorTreeItem;
+        [anchorTreeItemTag]: AnchorTreeItem;
     }
 }
 
@@ -119,7 +120,7 @@ export class AnchorTreeItem extends AnchorBase {
 // FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
 
 const nimbleAnchorTreeItem = AnchorTreeItem.compose<AnchorOptions>({
-    baseName: 'anchor-tree-item',
+    baseName: anchorTreeItemTag,
     template,
     styles,
     shadowOptions: {
@@ -128,6 +129,4 @@ const nimbleAnchorTreeItem = AnchorTreeItem.compose<AnchorOptions>({
 });
 
 DesignSystem.getOrCreate()
-    .withPrefix('nimble')
     .register(nimbleAnchorTreeItem());
-export const anchorTreeItemTag = DesignSystem.tagFor(AnchorTreeItem);

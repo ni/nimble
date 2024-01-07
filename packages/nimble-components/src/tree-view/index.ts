@@ -9,9 +9,10 @@ import { styles } from './styles';
 import { template } from './template';
 import { TreeViewSelectionMode } from './types';
 
+export const treeViewTag = 'nimble-tree-view';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-tree-view': TreeView;
+        [treeViewTag]: TreeView;
     }
 }
 
@@ -96,11 +97,10 @@ export class TreeView extends FoundationTreeView {
 }
 
 const nimbleTreeView = TreeView.compose({
-    baseName: 'tree-view',
+    baseName: treeViewTag,
     baseClass: FoundationTreeView,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeView());
-export const treeViewTag = DesignSystem.tagFor(TreeView);
+DesignSystem.getOrCreate().register(nimbleTreeView());

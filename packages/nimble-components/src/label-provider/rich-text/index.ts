@@ -8,9 +8,10 @@ import {
     richTextToggleNumberedListLabel
 } from './label-tokens';
 
+export const labelProviderRichTextTag = 'nimble-label-provider-rich-text';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-label-provider-rich-text': LabelProviderRichText;
+        [labelProviderRichTextTag]: LabelProviderRichText;
     }
 }
 
@@ -43,12 +44,8 @@ export class LabelProviderRichText
 }
 
 const nimbleLabelProviderRichText = LabelProviderRichText.compose({
-    baseName: 'label-provider-rich-text'
+    baseName: labelProviderRichTextTag
 });
 
 DesignSystem.getOrCreate()
-    .withPrefix('nimble')
     .register(nimbleLabelProviderRichText());
-export const labelProviderRichTextTag = DesignSystem.tagFor(
-    LabelProviderRichText
-);

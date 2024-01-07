@@ -4,9 +4,10 @@ import { Mapping } from '../base';
 import { template } from '../base/template';
 import type { MappingKey } from '../base/types';
 
+export const mappingSpinnerTag = 'nimble-mapping-spinner';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-mapping-spinner': MappingSpinner;
+        [mappingSpinnerTag]: MappingSpinner;
     }
 }
 
@@ -21,8 +22,7 @@ export class MappingSpinner extends Mapping<MappingKey> {
 }
 
 const spinnerMapping = MappingSpinner.compose({
-    baseName: 'mapping-spinner',
+    baseName: mappingSpinnerTag,
     template
 });
-DesignSystem.getOrCreate().withPrefix('nimble').register(spinnerMapping());
-export const mappingSpinnerTag = DesignSystem.tagFor(MappingSpinner);
+DesignSystem.getOrCreate().register(spinnerMapping());

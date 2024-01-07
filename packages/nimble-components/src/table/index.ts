@@ -55,9 +55,10 @@ import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
 
+export const tableTag = 'nimble-table';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table': Table;
+        [tableTag]: Table;
     }
 }
 
@@ -1099,10 +1100,9 @@ export class Table<
 }
 
 const nimbleTable = Table.compose({
-    baseName: 'table',
+    baseName: tableTag,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTable());
-export const tableTag = DesignSystem.tagFor(Table);
+DesignSystem.getOrCreate().register(nimbleTable());

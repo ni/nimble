@@ -8,9 +8,10 @@ import { styles } from '../../text-base/cell-view/styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
 
+export const tableColumnNumberTextCellViewTag = 'nimble-table-column-number-text-cell-view';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-number-text-cell-view': TableColumnNumberTextCellView;
+        [tableColumnNumberTextCellViewTag]: TableColumnNumberTextCellView;
     }
 }
 
@@ -37,11 +38,8 @@ TableColumnNumberTextColumnConfig
 }
 
 const numberTextCellView = TableColumnNumberTextCellView.compose({
-    baseName: 'table-column-number-text-cell-view',
+    baseName: tableColumnNumberTextCellViewTag,
     template,
     styles
 });
-DesignSystem.getOrCreate().withPrefix('nimble').register(numberTextCellView());
-export const tableColumnNumberTextCellViewTag = DesignSystem.tagFor(
-    TableColumnNumberTextCellView
-);
+DesignSystem.getOrCreate().register(numberTextCellView());

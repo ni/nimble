@@ -12,9 +12,10 @@ import { template } from './template';
 import type { ButtonPattern } from '../patterns/button/types';
 import { ButtonAppearance } from './types';
 
+export const toggleButtonTag = 'nimble-toggle-button';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-toggle-button': ToggleButton;
+        [toggleButtonTag]: ToggleButton;
     }
 }
 
@@ -45,7 +46,7 @@ applyMixins(ToggleButton, StartEnd, DelegatesARIAButton);
 export interface ToggleButton extends StartEnd, DelegatesARIAButton {}
 
 const nimbleToggleButton = ToggleButton.compose<ButtonOptions>({
-    baseName: 'toggle-button',
+    baseName: toggleButtonTag,
     template,
     styles,
     shadowOptions: {
@@ -53,5 +54,4 @@ const nimbleToggleButton = ToggleButton.compose<ButtonOptions>({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleToggleButton());
-export const toggleButtonTag = DesignSystem.tagFor(ToggleButton);
+DesignSystem.getOrCreate().register(nimbleToggleButton());

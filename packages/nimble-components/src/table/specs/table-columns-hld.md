@@ -284,7 +284,7 @@ TableColumnTextColumnConfig
 }
 
 const textCellView = TextCellView.compose({
-    baseName: 'table-cell-view-text',
+    baseName: 'nimble-table-cell-view-text',
     template: html<TextCellView>`
         <nimble-text-field
             ${ref('textField')}
@@ -294,7 +294,7 @@ const textCellView = TextCellView.compose({
         </nimble-text-field>`,
     styles: /* styling */
 });
-DesignSystem.getOrCreate().withPrefix('nimble').register(textCellView());
+DesignSystem.getOrCreate().register(textCellView());
 ```
 
 #### Accessing multiple data record fields

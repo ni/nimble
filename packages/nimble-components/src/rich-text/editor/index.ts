@@ -36,9 +36,10 @@ import { createTiptapEditor } from './models/create-tiptap-editor';
 import { EditorConfiguration } from '../models/editor-configuration';
 import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 
+export const richTextEditorTag = 'nimble-rich-text-editor';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-rich-text-editor': RichTextEditor;
+        [richTextEditorTag]: RichTextEditor;
     }
 }
 
@@ -744,7 +745,7 @@ export interface RichTextEditor extends ARIAGlobalStatesAndProperties {}
 applyMixins(RichTextEditor, ARIAGlobalStatesAndProperties);
 
 const nimbleRichTextEditor = RichTextEditor.compose({
-    baseName: 'rich-text-editor',
+    baseName: richTextEditorTag,
     template,
     styles,
     shadowOptions: {
@@ -753,6 +754,4 @@ const nimbleRichTextEditor = RichTextEditor.compose({
 });
 
 DesignSystem.getOrCreate()
-    .withPrefix('nimble')
     .register(nimbleRichTextEditor());
-export const richTextEditorTag = DesignSystem.tagFor(RichTextEditor);

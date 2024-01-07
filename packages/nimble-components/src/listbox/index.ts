@@ -5,9 +5,10 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
+export const listboxTag = 'nimble-listbox';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-listbox': Listbox;
+        [listboxTag]: Listbox;
     }
 }
 
@@ -17,10 +18,9 @@ declare global {
 export class Listbox extends FoundationListbox {}
 
 const nimbleListbox = Listbox.compose({
-    baseName: 'listbox',
+    baseName: listboxTag,
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleListbox());
-export const listboxTag = DesignSystem.tagFor(Listbox);
+DesignSystem.getOrCreate().register(nimbleListbox());
