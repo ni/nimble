@@ -75,7 +75,9 @@ export abstract class TableColumnEnumBase<
      * Called when any Mapping related state has changed.
      */
     private updateColumnConfig(): void {
-        const validator = this.getTypedValidator(TableColumnEnumBaseValidator<[]>);
+        const validator = this.getTypedValidator(
+            TableColumnEnumBaseValidator<[]>
+        );
         validator.validate(this.mappings, this.keyType);
         this.columnInternals.columnConfig = validator.isValid()
             ? this.createColumnConfig(this.getMappingConfigs())

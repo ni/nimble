@@ -13,7 +13,9 @@ import type { TableColumnValidity } from './types';
 import type { ColumnValidator } from './models/column-validator';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ColumnValidatorConstructor<T extends ColumnValidator<[]>> = abstract new (...args: any[]) => T;
+type ColumnValidatorConstructor<T extends ColumnValidator<[]>> = abstract new (
+    ...args: any[]
+) => T;
 
 /**
  * The base class for table columns
@@ -103,11 +105,10 @@ export abstract class TableColumn<
         }
     }
 
-    protected getTypedValidator<T extends ColumnValidator<[]>>(requiredType: ColumnValidatorConstructor<T>): T {
-        if (
-            this.columnInternals.validator
-            instanceof requiredType
-        ) {
+    protected getTypedValidator<T extends ColumnValidator<[]>>(
+        requiredType: ColumnValidatorConstructor<T>
+    ): T {
+        if (this.columnInternals.validator instanceof requiredType) {
             return this.columnInternals.validator;
         }
 

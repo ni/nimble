@@ -97,7 +97,9 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private updateColumnConfig(): void {
-        const validator = this.getTypedValidator(TableColumnNumberTextValidator);
+        const validator = this.getTypedValidator(
+            TableColumnNumberTextValidator
+        );
 
         validator.validateDecimalDigits(this.format, this.decimalDigits);
         validator.validateDecimalMaximumDigits(
