@@ -40,7 +40,7 @@ export const FilterMode  = {
 -   The `standard` filterMode will result in case-insensitive, diacritic filtering.
 -   `filterMode` will default to `none` so as not to affect existing clients.
 
-_Note: The `filterMode` isn't meant to mirror the `Combobox` `autocomplete` API, as they do serve slightly different purposes: The `autocomplete` for the `Combobox` ultimately helps set the actual value of the `Combobox` as the user types, and isn't necessarily performing any filtering (e.g. the `inline` mode). One possible concern, however, is that we are presenting an API that will allow different types of filter behaviors (i.e. case sensitive) that the `Combobox` does not support. Additionally, I am proposing diacritic insenitive filtering, which the `Combobox` also does not currently support, but I feel this is quite likely a better default experience._
+_Note: The `filterMode` isn't meant to mirror the `Combobox` `autocomplete` API, as they do serve slightly different purposes: The `autocomplete` for the `Combobox` ultimately helps set the actual value of the `Combobox` as the user types, and isn't necessarily performing any filtering (e.g. the `inline` mode). One possible concern, however, is that we are presenting an API that will allow different types of filter behaviors (i.e. case sensitive) that the `Combobox` does not support. Additionally, I am proposing diacritic insensitive filtering, which the `Combobox` also does not currently support, but I feel this is quite likely a better default experience._
 
 #### LabelProviderCore
 
