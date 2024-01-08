@@ -1,11 +1,11 @@
 import { html, repeat } from '@microsoft/fast-element';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { mappingUserTag } from '../../../mapping/user';
 import {
     type RichTextMentionUsers,
     richTextMentionUsersTag
 } from '../../../rich-text-mention/users';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { RichTextMarkdownParser } from '../markdown-parser';
 import {

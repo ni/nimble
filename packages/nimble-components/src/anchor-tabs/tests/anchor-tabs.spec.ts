@@ -8,12 +8,12 @@ import {
     keySpace,
     keyTab
 } from '@microsoft/fast-web-utilities';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { AnchorTabs } from '..';
 import '../../anchor-tab';
 import type { AnchorTab } from '../../anchor-tab';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 describe('AnchorTabs', () => {
     let element: AnchorTabs;

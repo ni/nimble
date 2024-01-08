@@ -1,4 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnNumberText, tableColumnNumberTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -7,7 +8,6 @@ import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { NumberTextAlignment, NumberTextFormat } from '../types';
 import type { TableColumnNumberTextCellView } from '../cell-view';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
 import { lang, themeProviderTag } from '../../../theme-provider';
 

@@ -1,8 +1,8 @@
 import { spinalCase } from '@microsoft/fast-web-utilities';
 import { html } from '@microsoft/fast-element';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import * as labelTokensNamespace from '../label-tokens';
 import { LabelProviderTable, labelProviderTableTag } from '..';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import {
     getAttributeName,
     getPropertyName,

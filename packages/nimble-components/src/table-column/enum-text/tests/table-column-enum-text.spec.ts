@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { html, ref, repeat } from '@microsoft/fast-element';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { Table, tableTag } from '../../../table';
 import { TableColumnEnumText, tableColumnEnumTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -7,7 +8,6 @@ import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { MappingText, mappingTextTag } from '../../../mapping/text';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { mappingIconTag } from '../../../mapping/icon';

@@ -1,7 +1,7 @@
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist/icons/js';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';
 import { iconMetadata } from './icon-metadata';
 import { Fixture, fixture } from '../../utilities/tests/fixture';

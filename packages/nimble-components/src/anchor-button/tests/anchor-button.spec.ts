@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { AnchorButton } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<AnchorButton>> {
     return fixture<AnchorButton>(

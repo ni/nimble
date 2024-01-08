@@ -1,9 +1,9 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { RichTextMentionUsersView, richTextMentionUsersViewTag } from '..';
 import { type Fixture, fixture } from '../../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { RichTextMentionUsersViewPageObject } from '../testing/rich-text-mention-users-view.pageobject';
-import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
 import { wackyStrings } from '../../../../utilities/tests/wacky-strings';
 
 async function setup(): Promise<Fixture<RichTextMentionUsersView>> {

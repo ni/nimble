@@ -1,4 +1,5 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -8,7 +9,6 @@ import type {
     TableRecord
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 import { createEventListener } from '../../utilities/tests/component';
 
 interface SimpleTableRecord extends TableRecord {

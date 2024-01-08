@@ -3,6 +3,7 @@
       "target": "ES2020",
       "moduleResolution": "node",
       "outDir": "./dist",
+      "declaration": true,
       "importHelpers": false,
       "esModuleInterop": true,
       "forceConsistentCasingInFileNames": true,

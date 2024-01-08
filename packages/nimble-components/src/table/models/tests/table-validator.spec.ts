@@ -1,6 +1,6 @@
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { TableNode, TableRowSelectionMode } from '../../types';
 import { TableValidator } from '../table-validator';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import {
     TableColumnValidationTest,
     tableColumnValidationTestTag

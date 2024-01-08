@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
 import { spinalCase } from '@microsoft/fast-web-utilities';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import * as designTokensNamespace from '../design-tokens';
 import { tokenNames, suffixFromTokenName } from '../design-token-names';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 import { ThemeProvider, lang, themeProviderTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';

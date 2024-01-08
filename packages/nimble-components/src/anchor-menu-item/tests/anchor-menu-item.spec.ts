@@ -1,6 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { customElement, html, ref } from '@microsoft/fast-element';
 import { MenuItem as FoundationMenuItem } from '@microsoft/fast-foundation';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { AnchorMenuItem, anchorMenuItemTag } from '..';
 import { anchorTag } from '../../anchor';
 import { buttonTag } from '../../button';
@@ -10,7 +11,6 @@ import { Menu, menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 @customElement('foundation-menu-item')
 export class TestMenuItem extends FoundationMenuItem {}

@@ -1,8 +1,8 @@
 import type { Row as TanStackRow, SortingFn } from '@tanstack/table-core';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { TableColumnSortOperation } from '../../../table-column/base/types';
 import { getTanStackSortingFunction } from '../sort-operations';
 import type { TableFieldValue } from '../../types';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 
 describe('Sort Operations', () => {
     function createFakeRow(

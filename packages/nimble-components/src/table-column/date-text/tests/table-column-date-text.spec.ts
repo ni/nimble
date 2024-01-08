@@ -1,4 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnDateText, tableColumnDateTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -6,7 +7,6 @@ import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { TableColumnDateTextPageObject } from '../testing/table-column-date-text.pageobject';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { lang, themeProviderTag } from '../../../theme-provider';
 
 interface SimpleTableRecord extends TableRecord {

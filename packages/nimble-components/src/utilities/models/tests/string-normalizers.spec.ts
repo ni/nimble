@@ -1,4 +1,4 @@
-import { parameterizeNamedList } from '../../tests/parameterized';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { diacriticInsensitiveStringNormalizer } from '../string-normalizers';
 
 // Wacky strings copied from '../../tests/wacky-strings.ts' and updated their corresponding normalized string output

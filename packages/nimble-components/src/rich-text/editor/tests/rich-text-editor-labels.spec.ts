@@ -1,4 +1,5 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { richTextEditorTag, type RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { themeProviderTag, type ThemeProvider } from '../../../theme-provider';
@@ -8,7 +9,6 @@ import {
 } from '../../../label-provider/rich-text';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { ToolbarButton } from '../testing/types';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<ThemeProvider>> {

@@ -1,4 +1,5 @@
 import { html, repeat, ref } from '@microsoft/fast-element';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { Table, tableTag } from '../../../table';
 import { TableColumnIcon, tableColumnIconTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -6,7 +7,6 @@ import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { mappingTextTag } from '../../../mapping/text';
 import { MappingIcon, mappingIconTag } from '../../../mapping/icon';
 import { iconXmarkTag } from '../../../icons/xmark';

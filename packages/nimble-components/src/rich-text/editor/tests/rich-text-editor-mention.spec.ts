@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 import { mappingUserTag } from '../../../mapping/user';
