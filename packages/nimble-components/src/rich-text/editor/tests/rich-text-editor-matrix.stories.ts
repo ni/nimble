@@ -90,6 +90,7 @@ const longTextPlayFunction = (): void => {
     ));
 };
 
+// prettier-ignore
 const editorSizingTestCase = (
     [widthLabel, widthStyle]: [string, string],
     [heightLabel, heightStyle]: [string, string]
@@ -99,8 +100,18 @@ const editorSizingTestCase = (
     )}); margin-bottom: 0px;">${() => widthLabel}; ${() => heightLabel}</p>
     <div style="width: 500px; height: 180px; outline: 1px dotted black;">
         <${richTextEditorTag} style="${() => widthStyle}; ${() => heightStyle};">
-            <${buttonTag} slot="footer-actions" appearance="ghost">Cancel</${buttonTag}>
-            <${buttonTag} slot="footer-actions" appearance="outline">Ok</${buttonTag}>
+            <${richTextMentionUsersTag} pattern="^user:(.*)">
+                <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
+            </${richTextMentionUsersTag}>
+            <${buttonTag}
+                style="height: var(${cssPropertyFromTokenName(tokenNames.controlSlimHeight)}); width: 72px;"
+                slot="footer-actions"
+                appearance="ghost"
+            >Cancel</${buttonTag}>
+            <${buttonTag}
+                style="height: var(${cssPropertyFromTokenName(tokenNames.controlSlimHeight)}); width: 72px;"
+                slot="footer-actions"
+            >Ok</${buttonTag}>
         </${richTextEditorTag}>
     </div>
 `;
@@ -149,10 +160,21 @@ export const richTextEditorSizing: StoryFn = createStory(html`
     ])}
 `);
 
+// prettier-ignore
 const mobileWidthComponent = html`
-    <${richTextEditorTag} style="padding: 20px; width: 300px; height: 250px;">
-        <${buttonTag} slot="footer-actions" appearance="ghost">Cancel</${buttonTag}>
-        <${buttonTag} slot="footer-actions" appearance="outline">Ok</${buttonTag}>
+    <${richTextEditorTag} style="width: 360px; height: 250px;">
+        <${richTextMentionUsersTag} pattern="^user:(.*)">
+            <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
+        </${richTextMentionUsersTag}>
+        <${buttonTag}
+            style="height: var(${cssPropertyFromTokenName(tokenNames.controlSlimHeight)}); width: 72px;"
+            slot="footer-actions"
+            appearance="ghost"
+        >Cancel</${buttonTag}>
+        <${buttonTag}
+            style="height: var(${cssPropertyFromTokenName(tokenNames.controlSlimHeight)}); width: 72px;"
+            slot="footer-actions"
+        >Ok</${buttonTag}>
     </${richTextEditorTag}>
 `;
 

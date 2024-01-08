@@ -16,6 +16,10 @@ import { labelProviderRichTextTag } from '../../../label-provider/rich-text';
 import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
 import { mappingUserTag } from '../../../mapping/user';
 import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
+import {
+    cssPropertyFromTokenName,
+    tokenNames
+} from '../../../theme-provider/design-token-names';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RichTextEditorArgs extends LabelUserArgs {
@@ -69,6 +73,8 @@ const setMarkdownDescription = 'A function that sets content in the editor with 
 const getMarkdownDescription = 'A function that serializes the current data in the editor and returns the markdown string.';
 const footerActionButtonDescription = `To place content such as a button at the far-right of the footer section, set \`slot="footer-actions"\`.
 
+It is recommended to set the height of the buttons to \`24px\` or use \`$ni-nimble-control-slim-height\` token.
+
 Note: The content in the \`footer-actions\` slot will not adjust based on the state of the rich-text-editor (e.g. disabled). It is the responsibility of the
 client application to make any necessary adjustments. For example, if the buttons should be disabled when the rich-text-editor is disabled, the
 client application must implement that functionality.
@@ -115,8 +121,15 @@ const metadata: Meta<RichTextEditorArgs> = {
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}8" display-name="Mitert"></${mappingUserTag}>
         </${richTextMentionUsersTag}>
         ${when(x => x.footerActionButtons, html`
-            <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>
-            <${buttonTag} slot="footer-actions">OK</${buttonTag}>`)}
+            <${buttonTag}
+                style="height: var(${cssPropertyFromTokenName(tokenNames.controlSlimHeight)}); min-width: 72px;"
+                appearance="ghost"
+                slot="footer-actions"
+            >Cancel</${buttonTag}>
+            <${buttonTag}
+                style="height: var(${cssPropertyFromTokenName(tokenNames.controlSlimHeight)}); min-width: 72px;"
+                slot="footer-actions"
+            >OK</${buttonTag}>`)}
     </${richTextEditorTag}>
     `),
     argTypes: {

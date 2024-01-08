@@ -14,7 +14,8 @@ import {
     smallDelay,
     mediumPadding,
     standardPadding,
-    linkFontColor
+    linkFontColor,
+    controlSlimHeight
 } from '../../theme-provider/design-tokens';
 import { styles as errorStyles } from '../../patterns/error/styles';
 
@@ -36,6 +37,7 @@ export const styles = css`
         }
         height: 82px;
         --ni-private-rich-text-editor-footer-section-height: 40px;
+        --ni-private-rich-text-editor-footer-section-border-top-width: 2px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''
         }
@@ -226,8 +228,11 @@ export const styles = css`
         display: flex;
         justify-content: space-between;
         flex-shrink: 0;
-        border: ${borderWidth} solid transparent;
-        border-top-color: rgba(${borderRgbPartialColor}, 0.1);
+        border: 0px;
+        border-top: var(
+                --ni-private-rich-text-editor-footer-section-border-top-width
+            )
+            solid rgba(${borderRgbPartialColor}, 0.1);
         height: var(--ni-private-rich-text-editor-footer-section-height);
         overflow: hidden;
     }
@@ -239,10 +244,21 @@ export const styles = css`
     nimble-toolbar::part(positioning-region) {
         background: transparent;
         padding-right: 8px;
+        box-sizing: border-box;
+        gap: 0px;
+        height: var(--ni-private-rich-text-editor-footer-section-height);
     }
 
     nimble-toolbar::part(start) {
         gap: 8px;
+    }
+
+    nimble-toggle-button {
+        height: ${controlSlimHeight};
+    }
+
+    nimble-button {
+        height: ${controlSlimHeight};
     }
 
     .footer-actions {
