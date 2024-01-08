@@ -36,8 +36,9 @@ export const FilterMode  = {
     standard: 'standard';
 } as const;
 ```
-- The `standard` filterMode will result in case-insensitive, diacritic filtering.
-- `filterMode` will default to `none` so as not to affect existing clients.
+
+-   The `standard` filterMode will result in case-insensitive, diacritic filtering.
+-   `filterMode` will default to `none` so as not to affect existing clients.
 
 _Note: The `filterMode` isn't meant to mirror the `Combobox` `autocomplete` API, as they do serve slightly different purposes: The `autocomplete` for the `Combobox` ultimately helps set the actual value of the `Combobox` as the user types, and isn't necessarily performing any filtering (e.g. the `inline` mode). One possible concern, however, is that we are presenting an API that will allow different types of filter behaviors (i.e. case sensitive) that the `Combobox` does not support. Additionally, I am proposing diacritic insenitive filtering, which the `Combobox` also does not currently support, but I feel this is quite likely a better default experience._
 
@@ -75,7 +76,8 @@ public override set options(value: ListboxOption[]) {
     Observable.notify(this, 'options');
 }
 ```
-As the `Select` will closely mirror the `Combobox` 
+
+As the `Select` will closely mirror the `Combobox`
 
 #### Filter Template
 
@@ -102,9 +104,10 @@ It may be desireable to have other filter modes in the future, such as case sens
 We know that there is a use-case with the `Combobox` to dynamically fetch options from a server that match the pattern provided in the input field, and so it isn't a stretch that a client might want the same capability in the `Select`. However, this is currently accomplished through turning off the `Combobox` `autocomplete` mode, and essentially having the client provide a custom behavior.
 
 The `Select` presents its own challenges for providing a similar ability:
-- Should the `Combobox` and `Select` provide mirrored APIs for this? Currently, this doesn't seem possible in Angular as the `Combobox` relies on users accessing its `value` property from the `nativeElement` to use for the filter, in combination with listening to native `input` events. The `Select` would either need to work differently, or the `Combobox` would have to be updated.
-- Would this feature be enabled through another mode on the `filterMode` enum (i.e. a `dynamic` or `custom` mode), or is it orthogonal to the `filterMode` API?
-- Are there challenges in having the filter work against local options in addition to retrieving new ones?
+
+-   Should the `Combobox` and `Select` provide mirrored APIs for this? Currently, this doesn't seem possible in Angular as the `Combobox` relies on users accessing its `value` property from the `nativeElement` to use for the filter, in combination with listening to native `input` events. The `Select` would either need to work differently, or the `Combobox` would have to be updated.
+-   Would this feature be enabled through another mode on the `filterMode` enum (i.e. a `dynamic` or `custom` mode), or is it orthogonal to the `filterMode` API?
+-   Are there challenges in having the filter work against local options in addition to retrieving new ones?
 
 ## Alternative Implementations / Designs
 
