@@ -81,4 +81,4 @@ const nimbleBanner = Banner.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleBanner());
-export const bannerTag = DesignSystem.tagFor(Banner);
+export const bannerTag = 'nimble-banner';

@@ -33,6 +33,4 @@ const textCellView = TableColumnTextCellView.compose({
     styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(textCellView());
-export const tableColumnTextCellViewTag = DesignSystem.tagFor(
-    TableColumnTextCellView
-);
+export const tableColumnTextCellViewTag = 'nimble-table-column-text-cell-view';

@@ -175,6 +175,4 @@ const nimbleTableColumnNumberText = TableColumnNumberText.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleTableColumnNumberText());
-export const tableColumnNumberTextTag = DesignSystem.tagFor(
-    TableColumnNumberText
-);
+export const tableColumnNumberTextTag = 'nimble-table-column-number-text';

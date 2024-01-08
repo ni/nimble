@@ -62,4 +62,4 @@ const nimbleAnchor = Anchor.compose<AnchorOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchor());
-export const anchorTag = DesignSystem.tagFor(Anchor);
+export const anchorTag = 'nimble-anchor';
