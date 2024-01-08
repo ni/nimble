@@ -258,4 +258,4 @@ const nimbleMenuButton = MenuButton.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenuButton());
-export const menuButtonTag = DesignSystem.tagFor(MenuButton);
+export const menuButtonTag = 'nimble-menu-button';

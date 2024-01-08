@@ -75,6 +75,4 @@ const iconCellView = TableColumnIconCellView.compose({
     template
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(iconCellView());
-export const tableColumnIconCellViewTag = DesignSystem.tagFor(
-    TableColumnIconCellView
-);
+export const tableColumnIconCellViewTag = 'nimble-table-column-icon-cell-view';
