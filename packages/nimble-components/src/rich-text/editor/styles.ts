@@ -18,6 +18,9 @@ import {
     controlSlimHeight
 } from '../../theme-provider/design-tokens';
 import { styles as errorStyles } from '../../patterns/error/styles';
+import { toolbarTag } from '../../toolbar';
+import { toggleButtonTag } from '../../toggle-button';
+import { buttonTag } from '../../button';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -241,7 +244,7 @@ export const styles = css`
         display: none;
     }
 
-    nimble-toolbar::part(positioning-region) {
+    ${toolbarTag}::part(positioning-region) {
         background: transparent;
         padding-right: 8px;
         box-sizing: border-box;
@@ -249,15 +252,15 @@ export const styles = css`
         height: var(--ni-private-rich-text-editor-footer-section-height);
     }
 
-    nimble-toolbar::part(start) {
+    ${toolbarTag}::part(start) {
         gap: 8px;
     }
 
-    nimble-toggle-button {
+    ${toggleButtonTag} {
         height: ${controlSlimHeight};
     }
 
-    nimble-button {
+    ${buttonTag} {
         height: ${controlSlimHeight};
     }
 
