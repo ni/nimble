@@ -1,0 +1,5 @@
+*
+!/dist/commonjs/**
+!/dist/esm/**
+*.spec.*
+*.tsbuildinfo
