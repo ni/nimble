@@ -70,4 +70,4 @@ const nimbleTableColumnEnumText = TableColumnEnumText.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleTableColumnEnumText());
-export const tableColumnEnumTextTag = DesignSystem.tagFor(TableColumnEnumText);
+export const tableColumnEnumTextTag = 'nimble-table-column-enum-text';

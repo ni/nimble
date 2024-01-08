@@ -82,4 +82,4 @@ const nimbleTableColumnIcon = TableColumnIcon.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleTableColumnIcon());
-export const tableColumnIconTag = DesignSystem.tagFor(TableColumnIcon);
+export const tableColumnIconTag = 'nimble-table-column-icon';

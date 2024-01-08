@@ -281,6 +281,4 @@ const nimbleRichTextMentionListbox = RichTextMentionListbox.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleRichTextMentionListbox());
-export const richTextMentionListboxTag = DesignSystem.tagFor(
-    RichTextMentionListbox
-);
+export const richTextMentionListboxTag = 'nimble-rich-text-mention-listbox';

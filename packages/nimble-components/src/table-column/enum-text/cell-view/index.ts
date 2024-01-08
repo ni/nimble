@@ -49,6 +49,4 @@ const enumTextCellView = TableColumnEnumTextCellView.compose({
     styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(enumTextCellView());
-export const tableColumnEnumTextCellViewTag = DesignSystem.tagFor(
-    TableColumnEnumTextCellView
-);
+export const tableColumnEnumTextCellViewTag = 'nimble-table-column-enum-text-cell-view';

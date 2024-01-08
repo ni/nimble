@@ -57,7 +57,7 @@ describe('Table with LabelProviderTable', () => {
     beforeEach(async () => {
         let themeProvider: ThemeProvider;
         ({ element: themeProvider, connect, disconnect } = await setup());
-        element = themeProvider.querySelector(tableTag)!;
+        element = themeProvider.querySelector<Table<SimpleTableRecord>>(tableTag)!;
         labelProvider = themeProvider.querySelector(labelProviderTableTag)!;
 
         pageObject = new TablePageObject<SimpleTableRecord>(element);

@@ -18,9 +18,7 @@ async function setUserMappingElements(
 ): Promise<void> {
     const newUserMappingElements: MappingUser[] = [];
     mappings.forEach(mapping => {
-        const mappingUser = document.createElement(
-            mappingUserTag
-        ) as MappingUser;
+        const mappingUser = document.createElement(mappingUserTag);
         mappingUser.key = mapping.key ?? '';
         mappingUser.displayName = mapping.displayName ?? '';
         newUserMappingElements.push(mappingUser);

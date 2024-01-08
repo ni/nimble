@@ -47,7 +47,6 @@ for (const key of Object.keys(icons)) {
 
     const componentFileContents = `${generatedFilePrefix}
 import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -66,7 +65,7 @@ export class ${className} extends Icon {
 }
 
 registerIcon('${elementBaseName}', ${className});
-export const ${tagName} = DesignSystem.tagFor(${className});
+export const ${tagName} = '${elementName}';
 `;
 
     const filePath = path.resolve(iconsDirectory, `${fileName}.ts`);
