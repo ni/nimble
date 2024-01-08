@@ -6,7 +6,7 @@ import { ScaledUnitFormat } from '../unit-scale/base/scaled-unit-format';
 import { UnitScale } from '../unit-scale/base/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
 
-describe('DecimalFormatter', () => {
+describe('DecimalUntFormat', () => {
     const locales = ['en', 'de'] as const;
     const testCases = [
         {

@@ -3,7 +3,7 @@ import { ManuallyTranslatedScaledUnitFormat } from '../manually-translated-scale
 import { UnitPrefix } from '../unit-prefix';
 import { UnitTranslation } from '../unit-translation';
 
-describe('ManuallyTranslatedUnitFormatter', () => {
+describe('ManuallyTranslatedScaledUnitFormat', () => {
     const translations = new Map<string, UnitTranslation>([
         ['en', new UnitTranslation('en-singular', 'en-plural', 'en-abbrev')],
         ['fr', new UnitTranslation('fr-singular', 'fr-plural', 'fr-abbrev')],

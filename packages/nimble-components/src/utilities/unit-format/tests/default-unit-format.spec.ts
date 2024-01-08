@@ -9,7 +9,7 @@ import {
 import { UnitScale } from '../unit-scale/base/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
 
-describe('DefaultFormatter', () => {
+describe('DefaultUnitFormat', () => {
     const locales = ['en', 'de'] as const;
     const testCases = [
         {
