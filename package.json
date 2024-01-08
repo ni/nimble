@@ -4,7 +4,8 @@
   "private": true,
   "description": "The NI Nimble Design System Monorepo",
   "scripts": {
-    "postinstall": "patch-package",
+    "postinstall": "patch-package && npm run playwright:setup",
+    "playwright:setup": "playwright install --with-deps",
     "build": "npm run build --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "format": "npm run format --workspaces --if-present",
