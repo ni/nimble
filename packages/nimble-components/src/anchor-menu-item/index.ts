@@ -66,16 +66,6 @@ export class AnchorMenuItem extends AnchorBase {
         }
         return true;
     }
-
-    // This is part of the bug workaround described above (in setAttribute)
-    public override get tabIndex(): number {
-        return this.anchor.tabIndex;
-    }
-
-    // This is part of the bug workaround described above (in setAttribute)
-    public override set tabIndex(value: number) {
-        this.anchor.tabIndex = value;
-    }
 }
 
 // FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
