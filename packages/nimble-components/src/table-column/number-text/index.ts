@@ -80,10 +80,6 @@ export class TableColumnNumberText extends TableColumnTextBase {
         };
     }
 
-    private get validator(): TableColumnNumberTextValidator {
-        return this.columnInternals.validator as TableColumnNumberTextValidator;
-    }
-
     private formatChanged(): void {
         this.updateColumnConfig();
     }
@@ -101,18 +97,20 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private updateColumnConfig(): void {
-        this.validator.validateDecimalDigits(this.format, this.decimalDigits);
-        this.validator.validateDecimalMaximumDigits(
+        const validator = this.getTypedValidator(TableColumnNumberTextValidator);
+
+        validator.validateDecimalDigits(this.format, this.decimalDigits);
+        validator.validateDecimalMaximumDigits(
             this.format,
             this.decimalMaximumDigits
         );
-        this.validator.validateNoMutuallyExclusiveProperties(
+        validator.validateNoMutuallyExclusiveProperties(
             this.format,
             this.decimalDigits,
             this.decimalMaximumDigits
         );
 
-        if (this.validator.isValid()) {
+        if (validator.isValid()) {
             const columnConfig: TableColumnNumberTextColumnConfig = {
                 formatter: this.createFormatter(),
                 alignment: this.determineCellContentAlignment()

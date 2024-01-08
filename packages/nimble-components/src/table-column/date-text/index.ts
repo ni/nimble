@@ -219,28 +219,19 @@ export class TableColumnDateText extends TableColumnTextBase {
         this.updateColumnConfig();
     }
 
-    private get validator(): TableColumnDateTextValidator {
-        if (
-            this.columnInternals.validator
-            instanceof TableColumnDateTextValidator
-        ) {
-            return this.columnInternals.validator;
-        }
-        throw new Error('Unexpected column validator type found');
-    }
-
     private updateColumnConfig(): void {
         const formatter = this.createFormatter();
+        const validator = this.getTypedValidator(TableColumnDateTextValidator);
 
         if (formatter) {
             const columnConfig: TableColumnDateTextColumnConfig = {
                 formatter
             };
             this.columnInternals.columnConfig = columnConfig;
-            this.validator.setCustomOptionsValidity(true);
+            validator.setCustomOptionsValidity(true);
         } else {
             this.columnInternals.columnConfig = undefined;
-            this.validator.setCustomOptionsValidity(false);
+            validator.setCustomOptionsValidity(false);
         }
     }
 

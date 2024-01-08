@@ -71,23 +71,13 @@ export abstract class TableColumnEnumBase<
         mappingConfigs: MappingConfigs
     ): TColumnConfig;
 
-    private get validator(): TableColumnEnumBaseValidator<[]> {
-        if (
-            this.columnInternals.validator
-            instanceof TableColumnEnumBaseValidator
-        ) {
-            return this.columnInternals.validator;
-        }
-
-        throw new Error('');
-    }
-
     /**
      * Called when any Mapping related state has changed.
      */
     private updateColumnConfig(): void {
-        this.validator.validate(this.mappings, this.keyType);
-        this.columnInternals.columnConfig = this.validator.isValid()
+        const validator = this.getTypedValidator(TableColumnEnumBaseValidator<[]>);
+        validator.validate(this.mappings, this.keyType);
+        this.columnInternals.columnConfig = validator.isValid()
             ? this.createColumnConfig(this.getMappingConfigs())
             : undefined;
     }

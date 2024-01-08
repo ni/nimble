@@ -10,6 +10,10 @@ import {
     ColumnInternalsOptions
 } from './models/column-internals';
 import type { TableColumnValidity } from './types';
+import type { ColumnValidator } from './models/column-validator';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ColumnValidatorConstructor<T extends ColumnValidator<[]>> = abstract new (...args: any[]) => T;
 
 /**
  * The base class for table columns
@@ -97,5 +101,16 @@ export abstract class TableColumn<
             this.columnInternals.currentSortDirection = this.sortDirection;
             this.columnInternals.currentSortIndex = this.sortIndex;
         }
+    }
+
+    protected getTypedValidator<T extends ColumnValidator<[]>>(requiredType: ColumnValidatorConstructor<T>): T {
+        if (
+            this.columnInternals.validator
+            instanceof requiredType
+        ) {
+            return this.columnInternals.validator;
+        }
+
+        throw new Error('Unexpected column validator type found');
     }
 }

@@ -112,15 +112,13 @@ export class TableColumnValidationTest extends TableColumn {
         };
     }
 
-    private get validator(): TestColumnValidator {
-        return this.columnInternals.validator as TestColumnValidator;
-    }
-
     private fooChanged(): void {
-        this.validator.validateFoo(this.foo);
+        const validator = this.getTypedValidator(TestColumnValidator);
+        validator.validateFoo(this.foo);
     }
 
     private barChanged(): void {
-        this.validator.validateBar(this.bar);
+        const validator = this.getTypedValidator(TestColumnValidator);
+        validator.validateBar(this.bar);
     }
 }
