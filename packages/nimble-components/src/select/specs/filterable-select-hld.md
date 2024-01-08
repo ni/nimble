@@ -6,7 +6,7 @@ Our clients have a need of a filterable dropdown component that does not allow a
 
 -   The filter text will match _any_ text within the `textContent` of each `ListOption` in a case insensitive way. Specifically, the filter text will match wholly against the target (e.g. filter text of "ad" will match "Add", but not "abcd").
 -   Each time the dropdown is opened the filter text is cleared.
--   While the dropdown is opened all keystrokes except `<ArrowUp>`. `<ArrowDown>`, `<Home>` and `<End>` will apply to the filter.
+-   While the dropdown is opened all keystrokes except `<ArrowUp>`. `<ArrowDown>`, `<Enter>`, `<Home>` and `<End>` will apply to the filter.
 -   Pressing `<Esc>` will close the dropdown and revert the value to what it was prior to opening dropdown.
 
 ## Links To Relevant Work Items and Reference Material
