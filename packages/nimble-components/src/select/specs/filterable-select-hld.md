@@ -4,7 +4,7 @@
 
 Our clients have a need of a filterable dropdown component that does not allow arbitrary text as a value, but only values available in the dropdown. The filtering will have the following behaviors (in the initial feature set):
 
--   The filter text will match _any_ text within the `textContent` of each `ListOption` in a case insensitive way.
+-   The filter text will match _any_ text within the `textContent` of each `ListOption` in a case insensitive way. Specifically, the filter text will match wholly against the target (e.g. filter text of "ad" will match "Add", but not "abcd").
 -   Each time the dropdown is opened the filter text is cleared.
 -   While the dropdown is opened all keystrokes except `<ArrowUp>`. `<ArrowDown>`, `<Home>` and `<End>` will apply to the filter.
 -   Pressing `<Esc>` will close the dropdown and revert the value to what it was prior to opening dropdown.
@@ -33,9 +33,11 @@ export class Select() {
 // Provide enum for filterMode to allow for future modes
 export const FilterMode  = {
     none: 'none';
-    caseInsensitive: 'caseInsensitive';
+    standard: 'standard';
 } as const;
 ```
+- The `standard` filterMode will result in case-insensitive, diacritic filtering.
+- `filterMode` will default to `none` so as not to affect existing clients.
 
 #### LabelProviderCore
 
@@ -71,6 +73,7 @@ public override set options(value: ListboxOption[]) {
     Observable.notify(this, 'options');
 }
 ```
+As the `Select` will closely mirror the `Combobox` 
 
 #### Filter Template
 
@@ -82,13 +85,24 @@ The accessibility tree will report that the search `input` element should have i
 
 ### Future considerations
 
-#### Grouping
+#### Grouping/Metadata
 
-One feature that we intend to add to the `Select` is the ability to specify "groups" of options, where each group will have non-selectable header text followed by the options under that group. Ultimately, this feature will have to work nicely with filtering, but I don't believe there are aspects of this that would interfere with the current proposed API in this HLD of a single attribute to enable filtering.
+One feature that we intend to add to the `Select` is the ability to specify "groups" of options, where each group will have non-selectable header text followed by the options under that group. Ultimately, this feature will have to work nicely with filtering, but I don't believe there are aspects of this that would interfere with the current proposed API in this HLD of a single attribute that specifies how the filter text is applied to a target.
+
+There is also a desire to allow the [`ListOption` to contain complex content](https://github.com/ni/nimble/issues/1135). This could include content that also supplies some metadata that _could_ be used for filtering purposes. The current proposed API is meant to infrom _how_ the filter text is applied to a target, not _what_ the target is, so I suspect if we ever need to provide a means to the client to change what the target for the filter is, then that would be a different API.
 
 #### More filter modes
 
 It may be desireable to have other filter modes in the future, such as case sensitive, or even regular expressions. By making the new API an enum, we can easily add new modes as needed.
+
+#### Dynamic fetching of options
+
+We know that there is a use-case with the `Combobox` to dynamically fetch options from a server that match the pattern provided in the input field, and so it isn't a stretch that a client might want the same capability in the `Select`. However, this is currently accomplished through turning off the `Combobox` `autocomplete` mode, and essentially having the client provide a custom behavior.
+
+The `Select` presents its own challenges for providing a similar ability:
+- Should the `Combobox` and `Select` provide mirrored APIs for this? Currently, this doesn't seem possible in Angular as the `Combobox` relies on users accessing its `value` property from the `nativeElement` to use for the filter, in combination with listening to native `input` events. The `Select` would either need to work differently, or the `Combobox` would have to be updated.
+- Would this feature be enabled through another mode on the `filterMode` enum (i.e. a `dynamic` or `custom` mode), or is it orthogonal to the `filterMode` API?
+- Are there challenges in having the filter work against local options in addition to retrieving new ones?
 
 ## Alternative Implementations / Designs
 
