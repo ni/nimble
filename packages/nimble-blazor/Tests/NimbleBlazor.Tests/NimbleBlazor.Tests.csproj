@@ -4,8 +4,10 @@
     <TargetFramework>net6.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
+	<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+	<DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
 
-    <RootNamespace>NimbleBlazor.Tests</RootNamespace>
+	<RootNamespace>NimbleBlazor.Tests</RootNamespace>
 
     <AssemblyName>NimbleBlazor.Tests</AssemblyName>
   </PropertyGroup>
