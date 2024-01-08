@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Create jasmine-parameterized workspace",
+  "packageName": "@ni/jasmine-parameterized",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
