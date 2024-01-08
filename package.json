@@ -46,6 +46,6 @@
     "beachball": "^2.31.0",
     "cross-env": "^7.0.3",
     "patch-package": "^6.4.7",
-    "playwright": "1.40.1"
+    "playwright": "1.40.0"
   }
 }
