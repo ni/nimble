@@ -186,8 +186,8 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
 
 A unit for the column may be configured by providing a `nimble-unit-<name>` element as content (in addition to the column label). Unit elements represent a set of related, scaled units, e.g. `nimble-unit-byte` represents bytes, KB, MB, etc. Values are converted from a source unit (e.g. bytes) to the largest scaled unit (e.g. KB, MB, etc.) that can represent that value with magnitude >= 1. The source data for the column is expected to be given in the base unit specified in the tag name, e.g. for `nimble-unit-byte`, a source value should be a number of bytes. Note that unit elements have no visual representation of their own. They are strictly configuration components, and by nature of being components, allow selective loading of translation data for only the needed units. The initial set of unit elements are:
 
--   `nimble-unit-byte` - Labels in this unit scale are `byte`/`bytes`, `KB`, `MB`, `GB`, `TB`, `PB`
-    -   `binary` - boolean attribute that indicates a binary conversion factor of 1024 should be used rather than 1000. The resulting unit labels are `byte`/`bytes`, `KiB`, `MiB`, `GiB`, `TiB`, `PiB`.
+-   `nimble-unit-byte` - Labels in this unit scale are base-10/metric `byte`/`bytes`, `KB`, `MB`, `GB`, `TB`, `PB`
+    -   `binary` - boolean attribute that indicates a base-2/binary conversion scale resulting in unit labels `byte`/`bytes`, `KiB`, `MiB`, `GiB`, `TiB`, `PiB`.
 -   `nimble-unit-volt` - Labels in this unit scale are `volt`/`volts`, plus `V` prefixed by all supported metric prefixes.
 
 Supported metric prefixes are f (femto), p (pico), n (nano), μ (micro), m (milli), c (centi), d (deci), k (kilo), M (mega), G (giga), T (tera), P (peta), and E (exa). This set is intended to be suitable for other units we may support in the future (e.g. ohms, amps), but any particular unit scale can diverge from this set as needed.
@@ -196,48 +196,9 @@ If a value with a unit would be formatted with exponential notation, it will alw
 
 When displaying units, `Intl.NumberFormat` will translate unit strings for the [units that it supports](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers) and localize the number (for comma/decimal). We will include our own logic for converting between unit values. For a unit scale not supported by `Intl.NumberFormat`, we will provide our own translations (for French, German, Japanese, and Chinese) in a `nimble-unit-<name>` element. If the client requests a translation for one of these units in a language we don't support, we will fall back to English.
 
-Unit elements will be capable of enumerating the individual units supported. The enumerated unit objects will be capable of formatting a given number into a localized string including the unit label. Below is an example of the abstractions/APIs that might be used to implement this.
+We will use `nimble-unit-byte` to display file sizes in SLE tables. Currently, SLE displays these values with the common `KB`/`MB`/`GB` unit labels, but uses a factor of 1024 to convert between units (which is [not uncommon](https://en.wikipedia.org/wiki/JEDEC_memory_standards#Unit_prefixes_for_semiconductor_storage_capacity), but [technically incorrect](https://physics.nist.gov/cuu/Units/binary.html)). In [ADR33: Byte Representation in Stratus](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/docs/architecture-decisions/adr0033-byte-representation-in-Stratus.md&_a=preview&version=GBmaster) it was decided that SLE will migrate to base 10 byte prefixes.
 
-```TS
-// a specific unit, e.g. kilobyte, millivolt, etc.
-interface ScaledUnit {
-    public conversionFactor: number;
-    public format(value: number): string;
-}
-
-// a set of related units, e.g. {byte, kilobyte, megabyte, gigabyte, terabyte, petabyte}
-interface UnitScale {
-    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): ScaledUnit[];
-}
-
-// unit scale supported by Intl.NumberFormat
-class UnitByte extends FoundationElement implements UnitScale {
-    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): ScaledUnit[] {
-        // returns implementations of ScaledUnit that wrap Intl.NumberFormat instances configured for a specific locale and a specific unit (e.g. 'fr-FR' and 'kilobyte')
-    }
-}
-
-// unit scale with Nimble-provided unit translations
-class UnitVolt extends FoundationElement implements UnitScale {
-    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): ScaledUnit[] {
-        // returns implementations of ScaledUnit that contain a shared Intl.NumberFormat (for formatting the number) and a specific translated unit string to append
-    }
-}
-```
-
-We will use `nimble-unit-byte` to display file sizes in SLE tables. Currently, SLE displays these values with the common `KB`/`MB`/`GB` unit labels, but uses a factor of 1024 to convert between units (which is [not uncommon](https://en.wikipedia.org/wiki/JEDEC_memory_standards#Unit_prefixes_for_semiconductor_storage_capacity), but [technically incorrect](https://physics.nist.gov/cuu/Units/binary.html)). Whether SLE chooses to standardize on the default 1000-based byte units or the 1024-based ones, it will be a change from the current behavior. To ensure consistency, we will update SLE's file size pipe and search for other places where byte values are being converted so they can be updated accordingly.
-
-##### Creating new units
-
-Supporting a new unit requires defining a new `nimble-unit-<name>` element and a new `UnitScale`. Steps:
-
-1.  Define a new unit class under `src/unit/<name>` that extends `Unit`. It must implement the method `getUnitScale()`, which should return the singleton instance of your new `UnitScale` class. You also must add all the standard code for registering the element with FAST, exporting its tag name, etc. See any of the existing unit elmements for an example.
-
-2.  Your `UnitScale` class goes under `src/utilities/unit-format/unit-scale`. You must determine whether your unit is among [those supported by `Intl.NumberFormat`](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers).
-    -   If it is, your new class should extend `UnitScale`, and you must implement the method `getSupportedScaledUnits()`. This should return an array of `IntlNumberFormatScaledUnitFormatter` instances. See `src/utilities/unit-format/unit-scale/byte-unit-scale.ts` for an example.
-    -   If it is not, your class will be responsible for providing translated unit strings for a set of languages you choose to support. Your class should extend `ManuallyTranslatedUnitScale`. You must implement `getUnitTranslations()`, which will return a `ReadonlyMap` of [language tags](https://en.wikipedia.org/wiki/IETF_language_tag) to `UnitTranslation` objects. If you need different translations for the same language, based on region (e.g. "meter" for `en-US` vs. "metre" for `en-CA`), you may provide a locale string that includes the region (e.g. `en-CA`) as a key into your `ReadonlyMap`. You must also implement `getSupportedPrefixes()`, which returns an array of `UnitPrefix`. These prefixes define which scaled units (e.g. "kg", "mm", "GB") your unit is capable of converting to/displaying. For a standard set of SI prefixes, you may return `metricPrefixes`. See `src/utilities/unit-format/unit-scale/volt-unit-scale.ts` for an example.
-
-For Angular and Blazor support, directives/wrappers will have to be created for your new unit element.
+For Angular and Blazor support, directives/wrappers will have to be created for unit elements.
 
 ##### Examples
 
