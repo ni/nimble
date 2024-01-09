@@ -12,8 +12,8 @@ import {
 import type { TableColumnValidity } from './types';
 import type { ColumnValidator } from './models/column-validator';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ColumnValidatorConstructor<T extends ColumnValidator<[]>> = abstract new (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ...args: any[]
 ) => T;
 
