@@ -1,4 +1,4 @@
-# Jamine Parameterized
+# Jasmine Parameterized
 
 The `@ni/jasmine-parameterized` library provides utility functions for writing jasmine parameterized tests.
 
