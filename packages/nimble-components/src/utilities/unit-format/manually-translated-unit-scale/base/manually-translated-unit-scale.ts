@@ -29,7 +29,7 @@ export abstract class ManuallyTranslatedUnitScale extends UnitScale {
         }
         const supportedUnits = supportedUnitPrefixes.map(
             unitPrefix => new ScaledUnit(
-                unitPrefix.factor,
+                unitPrefix.scaleFactor,
                 ManuallyTranslatedScaledUnitFormat.createFactory(
                     unitTranslations,
                     unitPrefix
