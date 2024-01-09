@@ -259,27 +259,19 @@ describe('DefaultUnitFormat', () => {
                 super([
                     new ScaledUnit(
                         0.01,
-                        TestScaledUnitFormat.createTestFactory(
-                            0.01
-                        )
+                        TestScaledUnitFormat.createTestFactory(0.01)
                     ),
                     new ScaledUnit(
                         1,
-                        TestScaledUnitFormat.createTestFactory(
-                            1
-                        )
+                        TestScaledUnitFormat.createTestFactory(1)
                     ),
                     new ScaledUnit(
                         100,
-                        TestScaledUnitFormat.createTestFactory(
-                            100
-                        )
+                        TestScaledUnitFormat.createTestFactory(100)
                     ),
                     new ScaledUnit(
                         1000,
-                        TestScaledUnitFormat.createTestFactory(
-                            1000
-                        )
+                        TestScaledUnitFormat.createTestFactory(1000)
                     )
                 ]);
             }
@@ -324,9 +316,12 @@ describe('DefaultUnitFormat', () => {
             appendedLabelUnitTestCases,
             (spec, name, value) => {
                 spec(name, () => {
-                    const formatterForAppendedLabel = new DefaultUnitFormat('en', {
-                        unitScale: new TestUnitScale()
-                    });
+                    const formatterForAppendedLabel = new DefaultUnitFormat(
+                        'en',
+                        {
+                            unitScale: new TestUnitScale()
+                        }
+                    );
                     expect(
                         formatterForAppendedLabel.format(value.value)
                     ).toEqual(value.expectedFormattedValue);

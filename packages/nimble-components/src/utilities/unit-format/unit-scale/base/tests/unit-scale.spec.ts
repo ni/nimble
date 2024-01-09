@@ -112,39 +112,34 @@ describe('UnitScale', () => {
         it('out of order', () => {
             class TestOutOfOrderUnitScale extends UnitScale {
                 public constructor() {
-                    super([
-                        baseScaledUnit,
-                        milliScaledUnit
-                    ]);
+                    super([baseScaledUnit, milliScaledUnit]);
                 }
             }
-            expect(() => new TestOutOfOrderUnitScale()).toThrowError(/must have unique and ordered scale factors/);
+            expect(() => new TestOutOfOrderUnitScale()).toThrowError(
+                /must have unique and ordered scale factors/
+            );
         });
 
         it('duplicated', () => {
-            class TestOutOfOrderUnitScale extends UnitScale {
+            class TestDuplicateUnitScale extends UnitScale {
                 public constructor() {
-                    super([
-                        milliScaledUnit,
-                        milliScaledUnit,
-                        baseScaledUnit
-                    ]);
+                    super([milliScaledUnit, milliScaledUnit, baseScaledUnit]);
                 }
             }
-            expect(() => new TestOutOfOrderUnitScale()).toThrowError(/must have unique and ordered scale factors/);
+            expect(() => new TestDuplicateUnitScale()).toThrowError(
+                /must have unique and ordered scale factors/
+            );
         });
 
         it('missing base unit', () => {
-            class TestOutOfOrderUnitScale extends UnitScale {
+            class TestNoBaseUnitScale extends UnitScale {
                 public constructor() {
-                    super([
-                        milliScaledUnit,
-                        kiloScaledUnit,
-                        megaScaledUnit
-                    ]);
+                    super([milliScaledUnit, kiloScaledUnit, megaScaledUnit]);
                 }
             }
-            expect(() => new TestOutOfOrderUnitScale()).toThrowError(/must include a base scaled unit/);
+            expect(() => new TestNoBaseUnitScale()).toThrowError(
+                /must include a base scaled unit/
+            );
         });
     });
 });

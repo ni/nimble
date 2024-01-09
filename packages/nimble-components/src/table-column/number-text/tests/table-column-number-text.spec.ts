@@ -10,7 +10,7 @@ import type { TableColumnNumberTextCellView } from '../cell-view';
 import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
 import { lang, themeProviderTag } from '../../../theme-provider';
-import { UnitByte, unitByteTag } from '../../../unit/byte';
+import { unitByteTag } from '../../../unit/byte';
 
 interface SimpleTableRecord extends TableRecord {
     number1?: number | null;
@@ -543,7 +543,7 @@ describe('TableColumnNumberText', () => {
 
         it('updates format when unit element attribute changes', async () => {
             await table.setData([{ number1: 1024 }]);
-            const unitElement = document.createElement(unitByteTag) as UnitByte;
+            const unitElement = document.createElement(unitByteTag);
             elementReferences.column1.appendChild(unitElement);
             await waitForUpdatesAsync();
             unitElement.binary = true;

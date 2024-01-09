@@ -1,7 +1,10 @@
 /* eslint-disable max-classes-per-file */
 import { parameterizeNamedList } from '../../tests/parameterized';
 import { DecimalUnitFormat } from '../decimal-unit-format';
-import { ScaledUnit, ScaledUnitFormatFactoryOptions } from '../unit-scale/base/scaled-unit';
+import {
+    ScaledUnit,
+    ScaledUnitFormatFactoryOptions
+} from '../unit-scale/base/scaled-unit';
 import { ScaledUnitFormat } from '../unit-scale/base/scaled-unit-format';
 import { UnitScale } from '../unit-scale/base/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
@@ -152,7 +155,10 @@ describe('DecimalUntFormat', () => {
             public static createFactory(scaleFactor: number) {
                 return (
                     scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
-                ) => new TestScaledUnitFormat(scaledUnitFormatFactoryOptions, scaleFactor);
+                ) => new TestScaledUnitFormat(
+                    scaledUnitFormatFactoryOptions,
+                    scaleFactor
+                );
             }
 
             public format(value: number): string {
@@ -167,18 +173,9 @@ describe('DecimalUntFormat', () => {
                         0.001,
                         TestScaledUnitFormat.createFactory(0.001)
                     ),
-                    new ScaledUnit(
-                        1,
-                        TestScaledUnitFormat.createFactory(1)
-                    ),
-                    new ScaledUnit(
-                        2,
-                        TestScaledUnitFormat.createFactory(2)
-                    ),
-                    new ScaledUnit(
-                        4,
-                        TestScaledUnitFormat.createFactory(4)
-                    ),
+                    new ScaledUnit(1, TestScaledUnitFormat.createFactory(1)),
+                    new ScaledUnit(2, TestScaledUnitFormat.createFactory(2)),
+                    new ScaledUnit(4, TestScaledUnitFormat.createFactory(4))
                 ]);
             }
         }
