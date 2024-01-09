@@ -31,4 +31,4 @@ const nimbleUnitByte = UnitByte.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleUnitByte());
-export const unitByteTag = DesignSystem.tagFor(UnitByte);
+export const unitByteTag = 'nimble-unit-byte';

@@ -25,4 +25,4 @@ const nimbleUnitVolt = UnitVolt.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleUnitVolt());
-export const unitVoltTag = DesignSystem.tagFor(UnitVolt);
+export const unitVoltTag = 'nimble-unit-volt';
