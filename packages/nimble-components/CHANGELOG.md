@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 05 Jan 2024 14:50:44 GMT and should not be manually modified.
+This log was last generated on Mon, 08 Jan 2024 17:18:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.17.3
+
+Mon, 08 Jan 2024 17:18:14 GMT
+
+### Patches
+
+- Export tag names as literals to improve type inferencing ([ni/nimble@f45fdf7](https://github.com/ni/nimble/commit/f45fdf7826fb528ee131ace1802a02e94a8db411))
 
 ## 20.17.2
 
