@@ -11,7 +11,6 @@ interface ScaledNumber {
 export abstract class UnitScale {
     public readonly baseScaledUnit: ScaledUnit;
 
-    // TODO mraj make sure these cases are covered in test
     public constructor(
         public readonly supportedScaledUnits: readonly ScaledUnit[]
     ) {

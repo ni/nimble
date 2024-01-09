@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { parameterizeNamedList } from '../../../../tests/parameterized';
 import { ScaledUnit } from '../scaled-unit';
 import { UnitScale } from '../unit-scale';
@@ -105,5 +106,45 @@ describe('UnitScale', () => {
 
     it('can return the base scaled unit', () => {
         expect(new TestUnitScale().baseScaledUnit).toBe(baseScaledUnit);
+    });
+
+    describe('with incorrect ScaledUnits', () => {
+        it('out of order', () => {
+            class TestOutOfOrderUnitScale extends UnitScale {
+                public constructor() {
+                    super([
+                        baseScaledUnit,
+                        milliScaledUnit
+                    ]);
+                }
+            }
+            expect(() => new TestOutOfOrderUnitScale()).toThrowError(/must have unique and ordered scale factors/);
+        });
+
+        it('duplicated', () => {
+            class TestOutOfOrderUnitScale extends UnitScale {
+                public constructor() {
+                    super([
+                        milliScaledUnit,
+                        milliScaledUnit,
+                        baseScaledUnit
+                    ]);
+                }
+            }
+            expect(() => new TestOutOfOrderUnitScale()).toThrowError(/must have unique and ordered scale factors/);
+        });
+
+        it('missing base unit', () => {
+            class TestOutOfOrderUnitScale extends UnitScale {
+                public constructor() {
+                    super([
+                        milliScaledUnit,
+                        kiloScaledUnit,
+                        megaScaledUnit
+                    ]);
+                }
+            }
+            expect(() => new TestOutOfOrderUnitScale()).toThrowError(/must include a base scaled unit/);
+        });
     });
 });

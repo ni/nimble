@@ -14,6 +14,7 @@ export class IntlNumberFormatScaledUnitFormat extends ScaledUnitFormat {
         super(scaledUnitFormatFactoryOptions);
         this.formatter = new Intl.NumberFormat(this.locale, {
             ...unitSpecificIntlNumberFormatOptions,
+            // Application configured options override unit specific options
             ...this.intlNumberFormatOptions
         });
     }

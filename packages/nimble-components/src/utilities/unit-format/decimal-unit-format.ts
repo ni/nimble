@@ -7,15 +7,21 @@ import { passthroughUnitScale } from './unit-scale/passthrough-unit-scale';
  * Format for decimal numbers with units.
  */
 export class DecimalUnitFormat extends UnitFormat {
+    /** Resolved UnitScale */
+    public readonly unitScale: UnitScale;
+
+    /** Resolved minimumFractionDigits */
+    public readonly minimumFractionDigits: number;
+
+    /** Resolved maximumFractionDigits */
+    public readonly maximumFractionDigits: number;
+
     private readonly scaledUnitFormatters = new Map<number, ScaledUnitFormat>();
     private readonly tenPowDecimalDigits: number;
-    private readonly unitScale: UnitScale;
 
     public constructor(
         locale: string,
         {
-            // TODO mraj test the new defaults behavior
-            // Emulating defaults of Intl.NumberFormat
             minimumFractionDigits = 0,
             maximumFractionDigits = Math.max(3, minimumFractionDigits),
             unitScale = passthroughUnitScale
@@ -30,7 +36,6 @@ export class DecimalUnitFormat extends UnitFormat {
         }
     ) {
         super();
-        this.unitScale = unitScale;
         const intlNumberFormatOptions = {
             maximumFractionDigits,
             minimumFractionDigits,
@@ -46,6 +51,9 @@ export class DecimalUnitFormat extends UnitFormat {
             );
         }
         this.tenPowDecimalDigits = 10 ** maximumFractionDigits;
+        this.unitScale = unitScale;
+        this.minimumFractionDigits = minimumFractionDigits;
+        this.maximumFractionDigits = maximumFractionDigits;
     }
 
     protected tryFormat(number: number): string {

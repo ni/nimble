@@ -1,13 +1,12 @@
 /* eslint-disable max-classes-per-file */
 import { parameterizeNamedList } from '../../tests/parameterized';
 import { DecimalUnitFormat } from '../decimal-unit-format';
-import { ScaledUnit } from '../unit-scale/base/scaled-unit';
+import { ScaledUnit, ScaledUnitFormatFactoryOptions } from '../unit-scale/base/scaled-unit';
 import { ScaledUnitFormat } from '../unit-scale/base/scaled-unit-format';
 import { UnitScale } from '../unit-scale/base/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
 
 describe('DecimalUntFormat', () => {
-    const locales = ['en', 'de'] as const;
     const testCases = [
         {
             name: 'NEGATIVE_INFINITY renders as -∞',
@@ -121,29 +120,39 @@ describe('DecimalUntFormat', () => {
         }
     ] as const;
 
-    for (const locale of locales) {
-        parameterizeNamedList(testCases, (spec, name, value) => {
-            spec(`${name} with '${locale}' locale`, () => {
-                const formatter = new DecimalUnitFormat(locale, {
-                    minimumFractionDigits: value.minDigits,
-                    maximumFractionDigits: value.maxDigits,
-                    unitScale: passthroughUnitScale
-                });
-                expect(formatter.format(value.value)).toEqual(
-                    value.expectedFormattedValue[locale]
-                );
-            });
+    parameterizeNamedList(testCases, (spec, name, value) => {
+        spec(name, () => {
+            const options = {
+                minimumFractionDigits: value.minDigits,
+                maximumFractionDigits: value.maxDigits,
+                unitScale: passthroughUnitScale
+            } as const;
+
+            const formatterEn = new DecimalUnitFormat('en', options);
+            expect(formatterEn.format(value.value)).toEqual(
+                value.expectedFormattedValue.en
+            );
+
+            const formatterDe = new DecimalUnitFormat('De', options);
+            expect(formatterDe.format(value.value)).toEqual(
+                value.expectedFormattedValue.de
+            );
         });
-    }
+    });
 
     describe('with unit', () => {
         class TestScaledUnitFormat extends ScaledUnitFormat {
-            public constructor(private readonly scaleFactor: number) {
-                super({ locale: '' });
+            public constructor(
+                scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
+                private readonly scaleFactor: number
+            ) {
+                super(scaledUnitFormatFactoryOptions);
             }
 
             public static createFactory(scaleFactor: number) {
-                return () => new TestScaledUnitFormat(scaleFactor);
+                return (
+                    scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
+                ) => new TestScaledUnitFormat(scaledUnitFormatFactoryOptions, scaleFactor);
             }
 
             public format(value: number): string {
@@ -153,16 +162,65 @@ describe('DecimalUntFormat', () => {
 
         class TestUnitScale extends UnitScale {
             public constructor() {
-                super(
-                    [0.001, 1, 2, 4].map(
-                        scaleFactor => new ScaledUnit(
-                            scaleFactor,
-                            TestScaledUnitFormat.createFactory(scaleFactor)
-                        )
-                    )
-                );
+                super([
+                    new ScaledUnit(
+                        0.001,
+                        TestScaledUnitFormat.createFactory(0.001)
+                    ),
+                    new ScaledUnit(
+                        1,
+                        TestScaledUnitFormat.createFactory(1)
+                    ),
+                    new ScaledUnit(
+                        2,
+                        TestScaledUnitFormat.createFactory(2)
+                    ),
+                    new ScaledUnit(
+                        4,
+                        TestScaledUnitFormat.createFactory(4)
+                    ),
+                ]);
             }
         }
+
+        describe('and default values', () => {
+            it('unconfigured', () => {
+                const formatter = new DecimalUnitFormat('en');
+                expect(formatter.minimumFractionDigits).toBe(0);
+                expect(formatter.maximumFractionDigits).toBe(3);
+                expect(formatter.unitScale).toBe(passthroughUnitScale);
+            });
+
+            it('minimum configured less than max default', () => {
+                const formatter = new DecimalUnitFormat('en', {
+                    minimumFractionDigits: 1
+                });
+                expect(formatter.minimumFractionDigits).toBe(1);
+                expect(formatter.maximumFractionDigits).toBe(3);
+                expect(formatter.unitScale).toBe(passthroughUnitScale);
+            });
+
+            it('minimum configured greater than max default', () => {
+                const formatter = new DecimalUnitFormat('en', {
+                    minimumFractionDigits: 10
+                });
+                expect(formatter.minimumFractionDigits).toBe(10);
+                expect(formatter.maximumFractionDigits).toBe(10);
+                expect(formatter.unitScale).toBe(passthroughUnitScale);
+            });
+
+            it('all configured', () => {
+                const unitScale = new TestUnitScale();
+                const formatter = new DecimalUnitFormat('en', {
+                    minimumFractionDigits: 20,
+                    maximumFractionDigits: 30,
+                    unitScale
+                });
+                expect(formatter.minimumFractionDigits).toBe(20);
+                expect(formatter.maximumFractionDigits).toBe(30);
+                expect(formatter.unitScale).toBe(unitScale);
+            });
+        });
 
         const appendedLabelUnitTestCases = [
             {
@@ -181,7 +239,6 @@ describe('DecimalUntFormat', () => {
                 expectedFormattedValue: '0 x0.001'
             }
         ] as const;
-
         parameterizeNamedList(
             appendedLabelUnitTestCases,
             (spec, name, value) => {

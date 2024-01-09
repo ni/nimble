@@ -10,7 +10,6 @@ import { UnitScale } from '../unit-scale/base/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
 
 describe('DefaultUnitFormat', () => {
-    const locales = ['en', 'de'] as const;
     const testCases = [
         {
             name: 'NEGATIVE_INFINITY renders as -∞',
@@ -214,18 +213,23 @@ describe('DefaultUnitFormat', () => {
         }
     ] as const;
 
-    for (const locale of locales) {
-        parameterizeNamedList(testCases, (spec, name, value) => {
-            spec(`${name} with '${locale}' locale`, () => {
-                const formatter = new DefaultUnitFormat(locale, {
-                    unitScale: passthroughUnitScale
-                });
-                expect(formatter.format(value.value)).toEqual(
-                    value.expectedFormattedValue[locale]
-                );
-            });
+    parameterizeNamedList(testCases, (spec, name, value) => {
+        spec(name, () => {
+            const options = {
+                unitScale: passthroughUnitScale
+            } as const;
+
+            const formatterEn = new DefaultUnitFormat('en', options);
+            expect(formatterEn.format(value.value)).toEqual(
+                value.expectedFormattedValue.en
+            );
+
+            const formatterDe = new DefaultUnitFormat('de', options);
+            expect(formatterDe.format(value.value)).toEqual(
+                value.expectedFormattedValue.de
+            );
         });
-    }
+    });
 
     describe('with unit', () => {
         class TestScaledUnitFormat extends IntlNumberFormatScaledUnitFormat {
@@ -252,19 +256,48 @@ describe('DefaultUnitFormat', () => {
 
         class TestUnitScale extends UnitScale {
             public constructor() {
-                super(
-                    [0.01, 1, 100, 1000].map(
-                        scaleFactor => new ScaledUnit(
-                            scaleFactor,
-                            TestScaledUnitFormat.createTestFactory(
-                                scaleFactor
-                            )
+                super([
+                    new ScaledUnit(
+                        0.01,
+                        TestScaledUnitFormat.createTestFactory(
+                            0.01
+                        )
+                    ),
+                    new ScaledUnit(
+                        1,
+                        TestScaledUnitFormat.createTestFactory(
+                            1
+                        )
+                    ),
+                    new ScaledUnit(
+                        100,
+                        TestScaledUnitFormat.createTestFactory(
+                            100
+                        )
+                    ),
+                    new ScaledUnit(
+                        1000,
+                        TestScaledUnitFormat.createTestFactory(
+                            1000
                         )
                     )
-                );
+                ]);
             }
         }
 
+        describe('and default values', () => {
+            it('unconfigured', () => {
+                const formatter = new DefaultUnitFormat('en');
+                expect(formatter.unitScale).toBe(passthroughUnitScale);
+            });
+            it('unconfigured', () => {
+                const unitScale = new TestUnitScale();
+                const formatter = new DefaultUnitFormat('en', {
+                    unitScale
+                });
+                expect(formatter.unitScale).toBe(unitScale);
+            });
+        });
         const appendedLabelUnitTestCases = [
             {
                 name: 'does not double-convert the value when a unit is specified',
@@ -287,15 +320,13 @@ describe('DefaultUnitFormat', () => {
                 expectedFormattedValue: '2E9 x1' // rather than '2E6 x1000'
             }
         ] as const;
-
-        const formatterForAppendedLabel = new DefaultUnitFormat('en', {
-            unitScale: new TestUnitScale()
-        });
-
         parameterizeNamedList(
             appendedLabelUnitTestCases,
             (spec, name, value) => {
                 spec(name, () => {
+                    const formatterForAppendedLabel = new DefaultUnitFormat('en', {
+                        unitScale: new TestUnitScale()
+                    });
                     expect(
                         formatterForAppendedLabel.format(value.value)
                     ).toEqual(value.expectedFormattedValue);

@@ -22,6 +22,9 @@ export class DefaultUnitFormat extends UnitFormat {
     // with 6 digits or less.
     private static readonly exponentialUpperBound = 999999.5;
 
+    /** Resolved UnitScale */
+    public readonly unitScale: UnitScale;
+
     // Format options to use by default. It renders the number with a maximum of 6 signficant digits.
     private readonly defaultIntlNumberFormatOptions: Intl.NumberFormatOptions = {
         maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
@@ -53,8 +56,6 @@ export class DefaultUnitFormat extends UnitFormat {
         notation: 'scientific'
     };
 
-    private readonly unitScale: UnitScale;
-
     private readonly exponentialScaledUnitFormatter: ScaledUnitFormat;
 
     public constructor(
@@ -68,7 +69,6 @@ export class DefaultUnitFormat extends UnitFormat {
         }
     ) {
         super();
-        this.unitScale = unitScale;
         for (const unit of unitScale.supportedScaledUnits) {
             this.defaultScaledUnitFormatters.set(
                 unit.scaleFactor,
@@ -90,6 +90,7 @@ export class DefaultUnitFormat extends UnitFormat {
             locale,
             intlNumberFormatOptions: this.exponentialIntlNumberFormatOptions
         });
+        this.unitScale = unitScale;
     }
 
     protected tryFormat(number: number): string {
