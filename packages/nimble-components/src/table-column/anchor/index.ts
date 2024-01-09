@@ -155,4 +155,4 @@ const nimbleTableColumnAnchor = TableColumnAnchor.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleTableColumnAnchor());
-export const tableColumnAnchorTag = DesignSystem.tagFor(TableColumnAnchor);
+export const tableColumnAnchorTag = 'nimble-table-column-anchor';

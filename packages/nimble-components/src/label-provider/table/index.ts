@@ -94,4 +94,4 @@ const nimbleLabelProviderTable = LabelProviderTable.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleLabelProviderTable());
-export const labelProviderTableTag = DesignSystem.tagFor(LabelProviderTable);
+export const labelProviderTableTag = 'nimble-label-provider-table';
