@@ -34,10 +34,6 @@ export class ColumnValidator<
         } else {
             this.untrack(name);
         }
-        this.updateIsColumnValidFlag();
-    }
-
-    private updateIsColumnValidFlag(): void {
         this.isColumnValid = this.isValid();
     }
 }
