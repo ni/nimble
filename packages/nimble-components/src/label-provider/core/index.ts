@@ -59,4 +59,4 @@ const nimbleLabelProviderCore = LabelProviderCore.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleLabelProviderCore());
-export const labelProviderCoreTag = DesignSystem.tagFor(LabelProviderCore);
+export const labelProviderCoreTag = 'nimble-label-provider-core';

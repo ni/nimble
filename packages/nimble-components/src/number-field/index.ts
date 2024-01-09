@@ -107,4 +107,4 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());
-export const numberFieldTag = DesignSystem.tagFor(NumberField);
+export const numberFieldTag = 'nimble-number-field';

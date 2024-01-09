@@ -25,4 +25,4 @@ const textMapping = MappingText.compose({
     template
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(textMapping());
-export const mappingTextTag = DesignSystem.tagFor(MappingText);
+export const mappingTextTag = 'nimble-mapping-text';

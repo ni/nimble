@@ -38,6 +38,4 @@ const tableColumnNumberTextGroupHeaderView = TableColumnNumberTextGroupHeaderVie
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(tableColumnNumberTextGroupHeaderView());
-export const tableColumnNumberTextGroupHeaderTag = DesignSystem.tagFor(
-    TableColumnNumberTextGroupHeaderView
-);
+export const tableColumnNumberTextGroupHeaderTag = 'nimble-table-column-number-text-group-header-view';

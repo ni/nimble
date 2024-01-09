@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 08 Jan 2024 17:18:14 GMT",
+      "version": "20.17.3",
+      "tag": "@ni/nimble-components_v20.17.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f45fdf7826fb528ee131ace1802a02e94a8db411",
+            "comment": "Export tag names as literals to improve type inferencing"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 05 Jan 2024 14:50:44 GMT",
       "version": "20.17.2",
       "tag": "@ni/nimble-components_v20.17.2",
