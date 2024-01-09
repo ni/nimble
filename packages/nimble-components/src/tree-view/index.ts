@@ -103,4 +103,4 @@ const nimbleTreeView = TreeView.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeView());
-export const treeViewTag = DesignSystem.tagFor(TreeView);
+export const treeViewTag = 'nimble-tree-view';

@@ -83,4 +83,4 @@ const iconMapping = MappingIcon.compose({
     template
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(iconMapping());
-export const mappingIconTag = DesignSystem.tagFor(MappingIcon);
+export const mappingIconTag = 'nimble-mapping-icon';

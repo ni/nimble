@@ -295,4 +295,4 @@ const nimbleTableColumnDateText = TableColumnDateText.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleTableColumnDateText());
-export const tableColumnDateTextTag = DesignSystem.tagFor(TableColumnDateText);
+export const tableColumnDateTextTag = 'nimble-table-column-date-text';

@@ -16,15 +16,11 @@ export async function appendUserMentionConfiguration(
     element: RichTextEditor,
     mappings?: MappingConfiguration[]
 ): Promise<UserMentionElements> {
-    const userMentionElement = document.createElement(
-        richTextMentionUsersTag
-    ) as RichTextMentionUsers;
+    const userMentionElement = document.createElement(richTextMentionUsersTag);
     userMentionElement.pattern = '^user:(.*)';
     const mappingElements: MappingUser[] = [];
     mappings?.forEach(mapping => {
-        const mappingUser = document.createElement(
-            mappingUserTag
-        ) as MappingUser;
+        const mappingUser = document.createElement(mappingUserTag);
         mappingUser.key = mapping.key ?? '';
         mappingUser.displayName = mapping.displayName;
         userMentionElement.appendChild(mappingUser);
@@ -46,9 +42,7 @@ export async function appendTestMentionConfiguration(
     testMentionElement.pattern = '^test:(.*)';
     const mappingElements: MappingUser[] = [];
     mappings?.forEach(mapping => {
-        const mappingUser = document.createElement(
-            mappingUserTag
-        ) as MappingUser;
+        const mappingUser = document.createElement(mappingUserTag);
         mappingUser.key = mapping.key;
         mappingUser.displayName = mapping.displayName;
         testMentionElement.appendChild(mappingUser);
@@ -68,9 +62,7 @@ export async function replaceUserMappingElements(
 ): Promise<void> {
     const newUserMappingElements: MappingUser[] = [];
     mappings.forEach(mapping => {
-        const mappingUser = document.createElement(
-            mappingUserTag
-        ) as MappingUser;
+        const mappingUser = document.createElement(mappingUserTag);
         mappingUser.key = mapping.key ?? '';
         mappingUser.displayName = mapping.displayName ?? '';
         newUserMappingElements.push(mappingUser);
