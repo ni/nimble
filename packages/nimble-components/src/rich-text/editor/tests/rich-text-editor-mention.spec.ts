@@ -169,20 +169,15 @@ describe('RichTextEditorMention', () => {
             ).toEqual(['1']);
         });
 
-        // TODO: Once the rich text validator (https://github.com/ni/nimble/pull/1688) added for duplicate configuration elements, below test case should be updated
-        it('adding two mention configuration elements in the same editor should render as mention node', async () => {
+        it('adding duplicate mention configuration elements in the same editor should not render as mention node', async () => {
             element.setMarkdown('<user:1>');
             await appendUserMentionConfiguration(element);
             await appendUserMentionConfiguration(element);
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
                 'P',
-                RICH_TEXT_MENTION_USERS_VIEW_TAG,
-                'BR'
+                'A'
             ]);
-            expect(
-                pageObject.getEditorMentionViewAttributeValues('mention-label')
-            ).toEqual(['1']);
         });
 
         it('adding mention mapping renders the mapped display name', async () => {
@@ -367,6 +362,99 @@ describe('RichTextEditorMention', () => {
 
                 expect(pageObject.getMentionButtonTitle(0)).toBe('at mention');
                 expect(pageObject.getMentionButtonLabel(0)).toBe('at mention');
+            });
+        });
+
+        describe('validity', () => {
+            it('should have valid states by default', () => {
+                expect(element.checkValidity()).toBeTrue();
+                expect(
+                    element.validity.invalidMentionConfiguration
+                ).toBeFalse();
+                expect(
+                    element.validity.duplicateMentionConfiguration
+                ).toBeFalse();
+            });
+
+            it('should have valid states when there is no mapping elements but with a configuration element', async () => {
+                element.setMarkdown('<user:1>');
+                await appendUserMentionConfiguration(element);
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeTrue();
+                expect(
+                    element.validity.invalidMentionConfiguration
+                ).toBeFalse();
+                expect(
+                    element.validity.duplicateMentionConfiguration
+                ).toBeFalse();
+            });
+
+            it('should have invalid states when setting invalid `key` in mapping mention', async () => {
+                element.setMarkdown('<user:1>');
+                await appendUserMentionConfiguration(element, [
+                    { key: 'invalid', displayName: 'username' }
+                ]);
+
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeFalse();
+                expect(element.validity.invalidMentionConfiguration).toBeTrue();
+            });
+
+            it('should have invalid states when removing `pattern` from configuration element', async () => {
+                element.setMarkdown('<user:1>');
+                const { userMentionElement } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username' }
+                ]);
+                userMentionElement.removeAttribute('pattern');
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeFalse();
+                expect(element.validity.invalidMentionConfiguration).toBeTrue();
+            });
+
+            it('should have invalid states when it is a invalid regex `pattern`', async () => {
+                element.setMarkdown('<user:1>');
+                const { userMentionElement } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username' }
+                ]);
+                userMentionElement.pattern = '(invalid';
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeFalse();
+                expect(element.validity.invalidMentionConfiguration).toBeTrue();
+            });
+
+            it('should have invalid states when we have duplicate configuration element', async () => {
+                element.setMarkdown('<user:1>');
+                await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username' }
+                ]);
+                await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username' }
+                ]);
+                expect(element.checkValidity()).toBeFalse();
+                expect(
+                    element.validity.duplicateMentionConfiguration
+                ).toBeTrue();
+            });
+
+            it('should have valid states when the duplicate configuration element removed', async () => {
+                element.setMarkdown('<user:1>');
+                const { userMentionElement } = await appendUserMentionConfiguration(element);
+                await appendUserMentionConfiguration(element);
+                await waitForUpdatesAsync();
+                element.removeChild(userMentionElement);
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeTrue();
+                expect(
+                    element.validity.duplicateMentionConfiguration
+                ).toBeFalse();
+                expect(
+                    element.validity.invalidMentionConfiguration
+                ).toBeFalse();
             });
         });
     });
@@ -766,12 +854,11 @@ describe('RichTextEditorMention', () => {
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
         });
 
-        // TODO: Once the rich text validator (https://github.com/ni/nimble/pull/1688) added for duplicate configuration elements, below test case should be updated
-        it('should return the mentioned href for duplicate mention configuration elements', async () => {
+        it('should return empty mentioned href for duplicate mention configuration elements', async () => {
             element.setMarkdown('<user:1>');
             await appendUserMentionConfiguration(element);
             await appendUserMentionConfiguration(element);
-            expect(element.getMentionedHrefs()).toEqual(['user:1']);
+            expect(element.getMentionedHrefs()).toEqual([]);
         });
 
         it('should return unique mentioned href if same users mentioned twice', async () => {
@@ -795,6 +882,7 @@ describe('RichTextEditorMention', () => {
             await waitForUpdatesAsync();
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
             userMentionElement.pattern = 'invalid';
+            await waitForUpdatesAsync();
             expect(element.getMentionedHrefs()).toEqual([]);
         });
 
@@ -815,6 +903,12 @@ describe('RichTextEditorMention', () => {
             ]);
             await waitForUpdatesAsync();
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
+        });
+
+        it('should have valid states for valid configurations', () => {
+            expect(element.checkValidity()).toBeTrue();
+            expect(element.validity.invalidMentionConfiguration).toBeFalse();
+            expect(element.validity.duplicateMentionConfiguration).toBeFalse();
         });
     });
 

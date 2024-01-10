@@ -56,18 +56,15 @@ export abstract class RichText extends FoundationElement {
      */
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof MentionInternals && typeof args === 'string') {
-            if (args === 'validConfiguration') {
-                this.richTextValidator.validateMentionConfigurations(
-                    this.mentionElements
-                );
-            } else {
-                this.richTextUpdateTracker.trackMentionInternalsPropertyChanged(
-                    args
-                );
-            }
+            this.richTextUpdateTracker.trackMentionInternalsPropertyChanged(
+                args
+            );
         }
     }
 
+    /**
+     * @internal
+     */
     public createConfig(): void {
         this.validate();
         if (this.richTextValidator.isValid()) {
@@ -96,8 +93,13 @@ export abstract class RichText extends FoundationElement {
         );
     }
 
-    private childItemsChanged(_prev: unknown, _next: unknown): void {
-        void this.updateMentionElementsFromChildItems();
+    private childItemsChanged(
+        prev: Element[] | undefined,
+        next: Element[]
+    ): void {
+        if (prev?.length || next.length) {
+            void this.updateMentionElementsFromChildItems();
+        }
     }
 
     private async updateMentionElementsFromChildItems(): Promise<void> {

@@ -46,12 +46,17 @@ export class RichTextUpdateTracker extends UpdateTracker<typeof trackedItems> {
         if (
             isMentionInternalsProperty(
                 changedMentionInternalsProperty,
-                'mappingConfigs',
+                'mappingConfigs'
+            )
+        ) {
+            this.track('mappingConfigs');
+        } else if (
+            isMentionInternalsProperty(
+                changedMentionInternalsProperty,
                 'pattern'
             )
         ) {
             this.track('pattern');
-            this.track('mappingConfigs');
         } else if (
             isMentionInternalsProperty(
                 changedMentionInternalsProperty,
