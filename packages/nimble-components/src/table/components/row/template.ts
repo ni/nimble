@@ -65,7 +65,7 @@ export const template = html<TableRow>`
                         :column="${x => x}"
                         column-id="${x => x.columnId}"
                         :recordId="${(_, c) => c.parent.recordId}"
-                        ?has-action-menu="${x => !!x.actionMenuSlot}"
+                        ?has-action-menu="${(x, c) => !c.parent.actsLikeGroup && !!x.actionMenuSlot}"
                         action-menu-label="${x => x.actionMenuLabel}"
                         @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
                         @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"

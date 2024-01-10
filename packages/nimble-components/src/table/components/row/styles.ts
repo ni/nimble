@@ -40,15 +40,15 @@ export const styles = css`
         position: absolute;
     }
 
-    :host([selectable]:not([selected]):hover)::before {
+    :host([selection-state="selected"]:not([selection-state="selected"]):hover)::before {
         background-color: ${fillHoverColor};
     }
 
-    :host([selected])::before {
+    :host([selection-state="selected"])::before {
         background-color: ${fillSelectedColor};
     }
 
-    :host([selected]:hover)::before {
+    :host([selection-state="selected"]:hover)::before {
         background-color: ${fillHoverSelectedColor};
     }
 
@@ -106,22 +106,22 @@ export const styles = css`
         --ni-private-table-cell-action-menu-display: block;
     }
 
-    :host([selected]) nimble-table-cell {
+    :host([selection-state="selected"]) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
 `.withBehaviors(
     themeBehavior(
         Theme.color,
         css`
-            :host([selectable]:not([selected]):hover)::before {
+            :host([selectable]:not([selection-state="selected"]):hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.05)};
             }
 
-            :host([selected])::before {
+            :host([selection-state="selected"])::before {
                 background-color: ${hexToRgbaCssColor(White, 0.25)};
             }
 
-            :host([selected]:hover)::before {
+            :host([selection-state="selected"]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.2)};
             }
         `

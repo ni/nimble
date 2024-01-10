@@ -26,7 +26,8 @@ const trackedItems = [
     'columnWidths',
     'columnDefinition',
     'actionMenuSlots',
-    'selectionMode'
+    'selectionMode',
+    'leafMode'
 ] as const;
 
 /**
@@ -78,6 +79,10 @@ export class TableUpdateTracker<
         return this.isTracked('selectionMode');
     }
 
+    public get updateLeafMode(): boolean {
+        return this.isTracked('leafMode');
+    }
+
     public get requiresTanStackUpdate(): boolean {
         return (
             this.isTracked('rowIds')
@@ -86,6 +91,7 @@ export class TableUpdateTracker<
             || this.isTracked('columnDefinition')
             || this.isTracked('groupRows')
             || this.isTracked('selectionMode')
+            || this.isTracked('leafMode')
         );
     }
 
@@ -174,6 +180,11 @@ export class TableUpdateTracker<
 
     public trackSelectionModeChanged(): void {
         this.track('selectionMode');
+        this.queueUpdate();
+    }
+
+    public trackLeafModeChanged(): void {
+        this.track('leafMode');
         this.queueUpdate();
     }
 

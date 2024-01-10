@@ -15,7 +15,6 @@ import {
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
     TableRowSelectionMode,
-    TableRowSelectionState,
     TableRowSelectionToggleEventDetail
 } from './types';
 import { tableGroupRowTag } from './components/group-row';
@@ -133,7 +132,7 @@ export const template = html<Table>`
                                         class="row"
                                         record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                         ?selectable="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.none}"
-                                        ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
+                                        selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
                                         ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
                                         ?hide-selection="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.multiple}"
                                         :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
@@ -147,6 +146,7 @@ export const template = html<Table>`
                                         @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                         @row-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index)}"
                                         :dataIndex="${x => x.index}"
+                                        ?acts-like-group="${(x, c) => c.parent.leafMode && c.parent.tableData[x.index]?.isParentRow}"
                                     >
                                     ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
                                         ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`

@@ -43,6 +43,10 @@ export class MultiSelectionManager<
         shiftKey: boolean,
         ctrlKey: boolean
     ): boolean {
+        if (this.actsLikeGroupRow(rowState)) {
+            return this.handleRowSelectionToggle(rowState, rowState.selectionState !== TableRowSelectionState.selected, shiftKey);
+        }
+
         if (ctrlKey) {
             this.shiftSelectStartRowId = rowState.id;
             this.previousShiftSelectRowEndId = undefined;

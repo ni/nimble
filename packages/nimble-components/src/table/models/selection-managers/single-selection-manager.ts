@@ -22,6 +22,10 @@ export class SingleSelectionManager<
         _shiftKey: boolean,
         _ctrlKey: boolean
     ): boolean {
+        if (this.actsLikeGroupRow(rowState)) {
+            return false;
+        }
+
         return this.selectSingleRow(rowState);
     }
 

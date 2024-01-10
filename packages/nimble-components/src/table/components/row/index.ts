@@ -13,11 +13,12 @@ import {
 import { styles } from './styles';
 import { template } from './template';
 import type { TableCellState } from '../../../table-column/base/types';
-import type {
+import {
     TableActionMenuToggleEventDetail,
     TableFieldName,
     TableRecord,
     TableRowExpansionToggleEventDetail,
+    TableRowSelectionState,
     TableRowSelectionToggleEventDetail
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
@@ -51,8 +52,8 @@ export class TableRow<
     @attr({ mode: 'boolean' })
     public selectable = false;
 
-    @attr({ mode: 'boolean' })
-    public selected = false;
+    @attr({ attribute: 'selection-state' })
+    public selectionState: TableRowSelectionState = TableRowSelectionState.notSelected;
 
     @attr({ attribute: 'hide-selection', mode: 'boolean' })
     public hideSelection = false;
@@ -85,6 +86,9 @@ export class TableRow<
 
     @attr({ attribute: 'row-operation-grid-cell-hidden', mode: 'boolean' })
     public rowOperationGridCellHidden = false;
+
+    @attr({ attribute: 'acts-like-group', mode: 'boolean' })
+    public actsLikeGroup = false;
 
     /**
      * @internal
@@ -129,7 +133,7 @@ export class TableRow<
     @volatile
     public override get ariaSelected(): 'true' | 'false' | null {
         if (this.selectable) {
-            return this.selected ? 'true' : 'false';
+            return this.selectionState === TableRowSelectionState.selected ? 'true' : 'false';
         }
 
         return null;
@@ -143,7 +147,9 @@ export class TableRow<
 
         const checkbox = event.target as Checkbox;
         const checked = checkbox.checked;
-        this.selected = checked;
+        this.selectionState = checked
+            ? TableRowSelectionState.selected
+            : TableRowSelectionState.notSelected;
         const detail: TableRowSelectionToggleEventDetail = {
             oldState: !checked,
             newState: checked
@@ -313,7 +319,7 @@ export class TableRow<
         return keys.every(key => key !== undefined);
     }
 
-    private selectedChanged(): void {
+    private selectionStateChanged(): void {
         this.setSelectionCheckboxState();
     }
 
@@ -324,7 +330,9 @@ export class TableRow<
     private setSelectionCheckboxState(): void {
         if (this.selectionCheckbox) {
             this.ignoreSelectionChangeEvents = true;
-            this.selectionCheckbox.checked = this.selected;
+            this.selectionCheckbox.checked = this.selectionState === TableRowSelectionState.selected;
+            this.selectionCheckbox.indeterminate = this.selectionState
+                === TableRowSelectionState.partiallySelected;
             this.ignoreSelectionChangeEvents = false;
         }
     }

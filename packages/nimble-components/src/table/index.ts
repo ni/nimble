@@ -78,6 +78,9 @@ export class Table<
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TableRowSelectionMode = TableRowSelectionMode.none;
 
+    @attr({ attribute: 'leaf-mode', mode: 'boolean' })
+    public leafMode = false;
+
     /**
      * @internal
      */
@@ -267,7 +270,8 @@ export class Table<
         this.layoutManagerNotifier.subscribe(this, 'isColumnBeingSized');
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
-            this.selectionMode
+            this.selectionMode,
+            this.leafMode
         );
         this.dataHierarchyManager = new DataHierarchyManager<TData>(
             this.tableValidator
@@ -394,7 +398,20 @@ export class Table<
             return;
         }
 
-        this.table.toggleAllRowsSelected(this.selectionCheckbox!.checked);
+        const updatedRowSelection: { [id: string]: boolean } = {};
+        if (this.selectionCheckbox!.checked) {
+            const allRows = this.table.getRowModel().rows;
+            for (const row of allRows) {
+                if (this.isRowSelectable(row)) {
+                    updatedRowSelection[row.id] = true;
+                }
+            }
+        }
+        this.updateTableOptions({
+            state: {
+                rowSelection: updatedRowSelection
+            }
+        });
         void this.emitSelectionChangeEvent();
     }
 
@@ -593,6 +610,17 @@ export class Table<
         this.tableUpdateTracker.trackSelectionModeChanged();
     }
 
+    protected leafModeChanged(
+        _prev: string | undefined,
+        _next: string | undefined
+    ): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.tableUpdateTracker.trackLeafModeChanged();
+    }
+
     protected idFieldNameChanged(
         _prev: string | undefined,
         _next: string | undefined
@@ -789,12 +817,13 @@ export class Table<
             updatedOptions.state.rowSelection = {};
             this.selectionManager.handleSelectionReset();
         }
-        if (this.tableUpdateTracker.updateSelectionMode) {
+        if (this.tableUpdateTracker.updateSelectionMode || this.tableUpdateTracker.updateLeafMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.state.rowSelection = {};
-            this.selectionManager.handleSelectionModeChanged(
-                this.selectionMode
+            this.selectionManager.handleConfigurationChanged(
+                this.selectionMode,
+                this.leafMode
             );
         }
         if (this.tableUpdateTracker.requiresTanStackDataReset) {
@@ -956,13 +985,34 @@ export class Table<
     }
 
     private getTableSelectionState(): TableRowSelectionState {
-        if (this.table.getIsAllRowsSelected()) {
+        if (this.isAllRowsSelected()) {
             return TableRowSelectionState.selected;
         }
         if (this.table.getIsSomeRowsSelected()) {
             return TableRowSelectionState.partiallySelected;
         }
         return TableRowSelectionState.notSelected;
+    }
+
+    private isAllRowsSelected(): boolean {
+        const selectionState = this.table.options.state.rowSelection ?? {};
+        for (const row of this.table.getRowModel().flatRows) {
+            if (this.isRowSelectable(row) && !selectionState[row.id]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private isRowSelectable(row: TanStackRow<TableNode<TData>>): boolean {
+        if (row.getIsGrouped()) {
+            return false;
+        }
+        if (!this.leafMode || row.subRows.length === 0) {
+            return true;
+        }
+        return false;
     }
 
     private getRowSelectionState(
@@ -972,7 +1022,38 @@ export class Table<
             return this.getGroupedRowSelectionState(row);
         }
 
+        if (this.leafMode && row.subRows.length !== 0) {
+            return this.getParentRowSelectionState(row);
+        }
+
         return row.getIsSelected()
+            ? TableRowSelectionState.selected
+            : TableRowSelectionState.notSelected;
+    }
+
+    private getParentRowSelectionState(
+        parentRow: TanStackRow<TableNode<TData>>
+    ): TableRowSelectionState {
+        const leafRows = parentRow.getLeafRows() ?? [];
+        let foundSelectedRow = false;
+        let foundNotSelectedRow = false;
+        for (const row of leafRows) {
+            if (row.subRows.length !== 0) {
+                continue;
+            }
+
+            if (row.getIsSelected()) {
+                foundSelectedRow = true;
+            } else {
+                foundNotSelectedRow = true;
+            }
+
+            if (foundSelectedRow && foundNotSelectedRow) {
+                return TableRowSelectionState.partiallySelected;
+            }
+        }
+
+        return foundSelectedRow
             ? TableRowSelectionState.selected
             : TableRowSelectionState.notSelected;
     }

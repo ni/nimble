@@ -14,11 +14,11 @@ import {
     type LabelUserArgs
 } from '../../label-provider/base/tests/label-user-stories-utils';
 import { labelProviderTableTag } from '../../label-provider/table';
-import { tableColumnNumberTextTag } from '../../table-column/number-text';
 
 interface TableArgs extends LabelUserArgs {
     data: ExampleDataType;
     selectionMode: keyof typeof TableRowSelectionMode;
+    leafMode: boolean;
     idFieldName: undefined;
     parentIdFieldName: undefined;
     validity: undefined;
@@ -144,6 +144,141 @@ const hierarchicalData = [
     }
 ];
 
+const leafHierarchicalData = [
+    {
+        firstName: 'Health',
+        id: 'Health',
+        parentId: undefined
+    },
+    {
+        firstName: 'CPU',
+        id: 'Health.CPU',
+        parentId: 'Health'
+    },
+    {
+        firstName: '0.UsePercentage',
+        lastName: 'Double',
+        quote: '21.1%',
+        id: 'Health.CPU.0.UsePercentage',
+        parentId: 'Health.CPU'
+    },
+    {
+        firstName: '1.UsePercentage',
+        lastName: 'Double',
+        quote: '15.6%',
+        id: 'Health.CPU.1.UsePercentage',
+        parentId: 'Health.CPU'
+    },
+    {
+        firstName: '2.UsePercentage',
+        lastName: 'Double',
+        quote: '29.7%',
+        id: 'Health.CPU.2.UsePercentage',
+        parentId: 'Health.CPU'
+    },
+    {
+        firstName: '3.UsePercentage',
+        lastName: 'Double',
+        quote: '18%',
+        id: 'Health.CPU.3.UsePercentage',
+        parentId: 'Health.CPU'
+    },
+    {
+        firstName: 'Count',
+        lastName: 'Integer',
+        quote: '4',
+        id: 'Health.CPU.Count',
+        parentId: 'Health.CPU'
+    },
+    {
+        firstName: 'MeanUsePercentage',
+        lastName: 'Double',
+        quote: '21.1%',
+        id: 'Health.CPU.MeanUsePercentage',
+        parentId: 'Health.CPU'
+    },
+    {
+        firstName: 'Disk',
+        id: 'Health.Disk',
+        parentId: 'Health'
+    },
+    {
+        firstName: 'Free',
+        lastName: 'Double',
+        quote: '400.5 GB',
+        id: 'Health.Disk.Free',
+        parentId: 'Health.Disk'
+    },
+    {
+        firstName: 'Total',
+        lastName: 'Double',
+        quote: '499.5 GB',
+        id: 'Health.Disk.Total',
+        parentId: 'Health.Disk'
+    },
+    {
+        firstName: 'UsePercentage',
+        lastName: 'Double',
+        quote: '19.81%',
+        id: 'Health.Disk.UsePercentage',
+        parentId: 'Health.Disk'
+    },
+    {
+        firstName: 'Used',
+        lastName: 'Double',
+        quote: '99.0 GB',
+        id: 'Health.Disk.Used',
+        parentId: 'Health.Disk'
+    },
+    {
+        firstName: 'Memory',
+        id: 'Health.Memory',
+        parentId: 'Health'
+    },
+    {
+        firstName: 'Available',
+        lastName: 'Double',
+        quote: '2.2 GB',
+        id: 'Health.Memory.Available',
+        parentId: 'Health.Memory'
+    },
+    {
+        firstName: 'Free',
+        lastName: 'Double',
+        quote: '2.2 GB',
+        id: 'Health.Memory.Free',
+        parentId: 'Health.Memory'
+    },
+    {
+        firstName: 'Total',
+        lastName: 'Double',
+        quote: '8.5 GB',
+        id: 'Health.Memory.Total',
+        parentId: 'Health.Memory'
+    },
+    {
+        firstName: 'UsePercentage',
+        lastName: 'Double',
+        quote: '74.2 %',
+        id: 'Health.Memory.UsePercentage',
+        parentId: 'Health.Memory'
+    },
+    {
+        firstName: 'Used',
+        lastName: 'Double',
+        quote: '6.3 GB',
+        id: 'Health.Memory.Used',
+        parentId: 'Health.Memory'
+    },
+    {
+        firstName: 'TestMonitor.0.Status',
+        lastName: 'String',
+        quote: 'Passed',
+        id: 'TestMonitor.0.Status',
+        parentId: undefined
+    },
+];
+
 const firstNames = ['John', 'Sally', 'Joe', 'Michael', 'Sam'];
 const lastNames = ['Davidson', 'Johnson', 'Abraham', 'Wilson'];
 const ages = [16, 32, 48, 64];
@@ -164,13 +299,15 @@ for (let i = 0; i < 10000; i++) {
 const dataSets = {
     [ExampleDataType.simpleData]: simpleData,
     [ExampleDataType.largeDataSet]: largeData,
-    [ExampleDataType.hierarchicalDataSet]: hierarchicalData
+    [ExampleDataType.hierarchicalDataSet]: hierarchicalData,
+    [ExampleDataType.leafHierarchicalDataSet]: leafHierarchicalData
 } as const;
 
 const dataSetIdFieldNames = {
     [ExampleDataType.simpleData]: 'firstName',
     [ExampleDataType.largeDataSet]: 'id',
-    [ExampleDataType.hierarchicalDataSet]: 'id'
+    [ExampleDataType.hierarchicalDataSet]: 'id',
+    [ExampleDataType.leafHierarchicalDataSet]: 'id'
 } as const;
 
 const overviewText = `The \`nimble-table\` is a component that offers a way to render tabular data in a variety of ways in each column.
@@ -259,46 +396,33 @@ const metadata: Meta<TableArgs> = {
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
+            ?leaf-mode="${x => x.leafMode}"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
                 field-name="firstName"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
             >
-                <${iconUserTag} title="First Name"></${iconUserTag}>
+                Relative path
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                column-id="quote-column"
+                field-name="quote"
+            >
+                Value
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="last-name-column"
                 field-name="lastName"
-                action-menu-slot="name-menu" action-menu-label="Configure name"
             >
-                Last Name
-            </${tableColumnTextTag}>
-            <${tableColumnNumberTextTag}
-                column-id="age-column"
-                field-name="age"
-            >
-                Age
-            </${tableColumnNumberTextTag}>
-            <${tableColumnTextTag}
-                column-id="quote-column"
-                field-name="quote"
-                action-menu-slot="quote-menu" action-menu-label="Configure quote"
-            >
-                Quote
+                Type
             </${tableColumnTextTag}>
 
             <${menuTag} slot="name-menu">
-                <${menuItemTag}>Edit name</${menuItemTag}>
-                <${menuItemTag}>Delete person</${menuItemTag}>
-                <${menuItemTag}>Archive person</${menuItemTag}>
-                <${menuItemTag}>Duplicate person</${menuItemTag}>
-            </${menuTag}>
-
-            <${menuTag} slot="quote-menu">
-                <${menuItemTag}>Edit quote</${menuItemTag}>
-                <${menuItemTag}>Delete quote</${menuItemTag}>
-                <${menuItemTag}>Do something else with the quote</${menuItemTag}>
+                <${menuItemTag}>Copy path</${menuItemTag}>
+                <${menuItemTag}>Copy relative path</${menuItemTag}>
+                <${menuItemTag}>Visualize</${menuItemTag}>
+                <${menuItemTag}>Delete</${menuItemTag}>
             </${menuTag}>
         </${tableTag}>
     `),
@@ -374,8 +498,8 @@ const metadata: Meta<TableArgs> = {
         }
     },
     args: {
-        data: ExampleDataType.simpleData,
-        selectionMode: TableRowSelectionMode.single,
+        data: ExampleDataType.leafHierarchicalDataSet,
+        selectionMode: TableRowSelectionMode.multiple,
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
@@ -387,7 +511,8 @@ const metadata: Meta<TableArgs> = {
                 await customElements.whenDefined('nimble-table');
                 await x.tableRef.setData(dataSets[x.data]);
             })();
-        }
+        },
+        leafMode: true
     }
 };
 addLabelUseMetadata(metadata, labelProviderTableTag);

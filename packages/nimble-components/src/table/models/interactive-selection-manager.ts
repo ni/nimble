@@ -20,10 +20,11 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
 
     public constructor(
         tanStackTable: TanStackTable<TableNode<TData>>,
-        selectionMode: TableRowSelectionMode
+        selectionMode: TableRowSelectionMode,
+        leafMode: boolean
     ) {
         this.tanStackTable = tanStackTable;
-        this.selectionManager = this.createSelectionManager(selectionMode);
+        this.selectionManager = this.createSelectionManager(selectionMode, leafMode);
     }
 
     public handleRowSelectionToggle(
@@ -68,10 +69,11 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
         return this.selectionManager.handleActionMenuOpening(rowState);
     }
 
-    public handleSelectionModeChanged(
-        selectionMode: TableRowSelectionMode
+    public handleConfigurationChanged(
+        selectionMode: TableRowSelectionMode,
+        leafMode: boolean
     ): void {
-        this.selectionManager = this.createSelectionManager(selectionMode);
+        this.selectionManager = this.createSelectionManager(selectionMode, leafMode);
     }
 
     public handleSelectionReset(): void {
@@ -79,15 +81,16 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
     }
 
     private createSelectionManager(
-        selectionMode: TableRowSelectionMode
+        selectionMode: TableRowSelectionMode,
+        leafMode: boolean
     ): SelectionManagerBase<TData> {
         switch (selectionMode) {
             case TableRowSelectionMode.multiple:
-                return new MultiSelectionManager(this.tanStackTable);
+                return new MultiSelectionManager(this.tanStackTable, leafMode);
             case TableRowSelectionMode.single:
-                return new SingleSelectionManager(this.tanStackTable);
+                return new SingleSelectionManager(this.tanStackTable, leafMode);
             case TableRowSelectionMode.none:
-                return new DisabledSelectionManager(this.tanStackTable);
+                return new DisabledSelectionManager(this.tanStackTable, leafMode);
             default:
                 throw new Error('unknown selection mode found');
         }

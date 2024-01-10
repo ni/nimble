@@ -432,7 +432,7 @@ export class TablePageObject<T extends TableRecord> {
 
     public getIsRowSelected(rowIndex: number): boolean {
         const row = this.getRow(rowIndex);
-        return row.selected;
+        return row.selectionState === TableRowSelectionState.selected;
     }
 
     public toggleGroupRowExpandedState(groupRowIndex: number): void {
