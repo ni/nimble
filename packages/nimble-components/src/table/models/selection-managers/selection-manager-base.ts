@@ -45,7 +45,7 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
                 this.selectAllLeafRows(rowState.id);
             }
         } else {
-            this.tanStackTable.getRow(rowState.id).toggleSelected(isSelecting);
+            this.tanStackTable.getRow(rowState.id).toggleSelected(isSelecting, { selectChildren: false });
         }
     }
 
