@@ -18,7 +18,7 @@ async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
 }
 
 describe('NumberField', () => {
-    it('should export its tag', () => {
+    it('should export its tag #WebkitTest', () => {
         expect(numberFieldTag).toBe('nimble-number-field');
     });
 

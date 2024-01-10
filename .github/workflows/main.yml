@@ -93,6 +93,7 @@ jobs:
 
       # Test
       - run: npm run test
+        timeout-minutes: 15
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
