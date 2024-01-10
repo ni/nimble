@@ -142,14 +142,14 @@ interface ColumnOrderTableArgs extends SharedTableArgs {
     columnOrder: ColumnOrderOption;
 }
 
-const columnOrderDescription = `Configure columns by adding column elements as children of the table. 
+const addingColumnsDescription = `Configure columns by adding column elements as children of the table. 
 The order of the elements controls the order that columns will appear in the table.`;
 
-export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
+export const addingColumns: StoryObj<ColumnOrderTableArgs> = {
     parameters: {
         docs: {
             description: {
-                story: columnOrderDescription
+                story: addingColumnsDescription
             }
         }
     },
@@ -192,7 +192,7 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
     argTypes: {
         columnOrder: {
             name: 'Column order',
-            description: columnOrderDescription,
+            description: addingColumnsDescription,
             options: ['FirstName, LastName', 'LastName, FirstName'],
             control: { type: 'radio' }
         }
@@ -700,18 +700,18 @@ const fractionalWidthOptions = {
     ]
 } as const;
 
-const fractionalWidthDescription = `Configure each column's width relative to the other columns with the \`fractional-width\` property. For example, a column with a \`fractional-width\` set to 2 will be twice as wide as a column with a \`fractional-width\` set to 1. 
+const widthDescription = `Configure each column's width relative to the other columns with the \`fractional-width\` property. For example, a column with a \`fractional-width\` set to 2 will be twice as wide as a column with a \`fractional-width\` set to 1. 
 The default value for \`fractional-width\` is 1, and columns that don't support \`fractional-width\` explicitly, or another API responsible for managing the width of the column, will also behave as if they have a \`fractional-width\` of 1. This value only serves
 as an initial state for a column. Once a column has been manually resized the column will use a fractional width calculated by the table from the resize.`;
 
 const minPixelWidthDescription = `Table columns that support having a \`fractional-width\` can also be configured to have a minimum width such that its width
 will never shrink below the specified pixel width. This applies to both when a table is resized as well as when a column is interactively resized.`;
 
-export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
+export const width: StoryObj<ColumnWidthTableArgs> = {
     parameters: {
         docs: {
             description: {
-                story: fractionalWidthDescription
+                story: widthDescription
             }
         }
     },
@@ -757,7 +757,7 @@ export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
     argTypes: {
         fractionalWidth: {
             name: 'Fractional width configuration',
-            description: fractionalWidthDescription,
+            description: widthDescription,
             options: Object.values(ExampleColumnFractionalWidthType),
             control: {
                 type: 'radio',
