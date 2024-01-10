@@ -63,10 +63,7 @@ export const textElements: StoryObj = {
 
         <p>
             You'll shoot your eye out with that
-            <abbr
-                title="Light amplification by stimulated emission of radiation"
-                >LASER</abbr
-            >, kid.
+            <abbr title="Light amplification by stimulated emission of radiation">LASER</abbr>, kid.
         </p>
 
         <dl>
@@ -79,14 +76,14 @@ export const textElements: StoryObj = {
         </dl>
 
         <pre>
-▄▄    ▄ ▄▄▄ ▄▄   ▄▄ ▄▄▄▄▄▄▄ ▄▄▄     ▄▄▄▄▄▄▄ 
-█  █  █ █   █  █▄█  █  ▄    █   █   █       █
-█   █▄█ █   █       █ █▄█   █   █   █    ▄▄▄█
-█       █   █       █       █   █   █   █▄▄▄ 
-█  ▄    █   █       █  ▄   ██   █▄▄▄█    ▄▄▄█
-█ █ █   █   █ ██▄██ █ █▄█   █       █   █▄▄▄ 
-█▄█  █▄▄█▄▄▄█▄█   █▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█
-</pre>
+        ▄▄    ▄ ▄▄▄ ▄▄   ▄▄ ▄▄▄▄▄▄▄ ▄▄▄     ▄▄▄▄▄▄▄ 
+        █  █  █ █   █  █▄█  █  ▄    █   █   █       █
+        █   █▄█ █   █       █ █▄█   █   █   █    ▄▄▄█
+        █       █   █       █       █   █   █   █▄▄▄ 
+        █  ▄    █   █       █  ▄   ██   █▄▄▄█    ▄▄▄█
+        █ █ █   █   █ ██▄██ █ █▄█   █       █   █▄▄▄ 
+        █▄█  █▄▄█▄▄▄█▄█   █▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█
+        </pre>
 
         <p>Some <b>bold</b> and <strong>strong</strong> text.</p>
         <p>
@@ -141,11 +138,7 @@ export const formElements: StoryObj = {
 <form>
     <fieldset>
         <legend>Choose your favorite fruit</legend>
-        <${radioGroupTag}
-            orientation="vertical"
-            name="fruit"
-            value="none"
-        >
+        <${radioGroupTag} orientation="vertical" name="fruit" value="none">
             <label slot="label">Fruit</label>
             <${radioTag} value="apple">Apple</${radioTag}>
             <${radioTag} value="mango">Mango</${radioTag}>
@@ -154,64 +147,39 @@ export const formElements: StoryObj = {
     </fieldset>
 </form>
 <form>
-    <${textFieldTag}
-        label="Text Input"
-        placeholder="Enter text"
-    ></${textFieldTag}>
-    <${textFieldTag}
-        label="Email Input"
-        placeholder="Enter email"
-    ></${textFieldTag}>
-    <${textFieldTag}
-        label="Password Input"
-        placeholder="Enter password"
-        type="password"
-    ></${textFieldTag}>
-    <${numberFieldTag}
-        label="Number Input"
-        placeholder="Enter number"
-    ></${numberFieldTag}>
+    <${textFieldTag} placeholder="Example text input">Text Input</${textFieldTag}>
+    <${textFieldTag} placeholder="john.doe@ni.com" type="email">Email Input</${textFieldTag}>
+    <${textFieldTag} placeholder="Enter password" type="password">Password Input</${textFieldTag}>
+    <${numberFieldTag} placeholder="123.123" type="number">Number Input</${numberFieldTag}>
 
-    <label for="date-input">Date Input:</label>
+    <label for="date-input">Date Input</label>
     <input type="date" id="date-input" name="date-input" />
 
     <br /><br />
-    <label for="datetime-input">Date/Time Input:</label>
-    <input
-        type="datetime-local"
-        id="datetime-input"
-        name="datetime-input"
-    />
+    <label for="datetime-input">Date/Time Input</label>
+    <input type="datetime-local" id="datetime-input" name="datetime-input" />
     <br /><br />
 
-    <label for="time-input">Time Input:</label>
+    <label for="time-input">Time Input</label>
     <input type="time" id="time-input" name="time-input" />
     <br /><br />
 
-    <label for="week-input">Week Input:</label>
+    <label for="week-input">Week Input</label>
     <input type="week" id="week-input" name="week-input" />
     <br /><br />
 
     <${checkboxTag}>Checkbox</${checkboxTag}>
     <${checkboxTag}>Checkbox</${checkboxTag}>
 
+    <label>Select Input</label>
     <${selectTag}>
-        <${listOptionTag} value="option1"
-            >Option 1</${listOptionTag}
-        >
-        <${listOptionTag} value="option2"
-            >Option 2</${listOptionTag}
-        >
-        <${listOptionTag} value="option3"
-            >Option 3</${listOptionTag}
-        >
+        <${listOptionTag} value="option1">Option 1</${listOptionTag}>
+        <${listOptionTag} value="option2">Option 2</${listOptionTag}>
+        <${listOptionTag} value="option3">Option 3</${listOptionTag}>
     </${selectTag}>
     <br />
 
-    <${textAreaTag}
-        label="Textarea Input"
-        placeholder="Enter text"
-    ></${textAreaTag}>
+    <${textAreaTag} placeholder="Enter text">Textarea Input</${textAreaTag}>
     <${buttonTag}>Submit</${buttonTag}>
 </form>
 `)
