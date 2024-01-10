@@ -31,10 +31,9 @@ import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { RichText } from '../base';
 import type { RichTextMentionListbox } from '../mention-listbox';
 import type { MappingConfigs } from '../../rich-text-mention/base/types';
-import { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
+import type { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
 import { createTiptapEditor } from './models/create-tiptap-editor';
 import { EditorConfiguration } from '../models/editor-configuration';
-import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -449,22 +448,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
-    public override handleChange(source: unknown, args: unknown): void {
-        if (
-            source instanceof MentionInternals
-            && MentionExtensionConfiguration.isObservedMentionInternalsProperty(
-                args
-            )
-        ) {
-            this.configuration = this.createConfig();
-        } else {
-            super.handleChange(source, args);
-        }
-    }
-
-    /**
-     * @internal
-     */
     public focusoutHandler(): void {
         if (!this.mentionListbox?.open) {
             return;
@@ -472,19 +455,32 @@ export class RichTextEditor extends RichText implements ErrorPattern {
         this.mentionListbox?.close();
     }
 
-    protected override createConfig(): EditorConfiguration {
-        return new EditorConfiguration(this.mentionElements);
+    public override createConfig(): void {
+        this.validate();
+        if (this.richTextValidator.isValid()) {
+            if (
+                this.richTextUpdateTracker.updateButtonLabel
+                || this.richTextUpdateTracker.updateMappingConfigs
+                || this.richTextUpdateTracker.updatePattern
+            ) {
+                this.configuration = new EditorConfiguration(
+                    this.mentionElements
+                );
+            }
+        } else {
+            this.configuration = undefined;
+        }
     }
 
     private isMentionExtensionConfigUnchanged(
         prev: EditorConfiguration | undefined,
-        next: EditorConfiguration
+        next: EditorConfiguration | undefined
     ): boolean {
         const prevConfigCharacters = prev?.mentionExtensionConfig
             .map(config => config.character)
             .sort((a, b) => a.localeCompare(b))
             .toString();
-        const nextConfigCharacters = next.mentionExtensionConfig
+        const nextConfigCharacters = next?.mentionExtensionConfig
             .map(config => config.character)
             .sort((a, b) => a.localeCompare(b))
             .toString();

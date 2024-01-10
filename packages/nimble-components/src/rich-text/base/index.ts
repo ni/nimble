@@ -3,7 +3,9 @@ import { FoundationElement } from '@microsoft/fast-foundation';
 import { RichTextMention } from '../../rich-text-mention/base';
 import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 import { Configuration } from '../models/configuration';
-import { MarkdownParserMentionConfiguration } from '../models/markdown-parser-mention-configuration';
+import { RichTextUpdateTracker } from '../models/rich-text-tracker';
+import { RichTextValidator } from '../models/rich-text-validator';
+import type { RichTextValidity } from './types';
 
 /**
  * Base class for rich text components
@@ -26,6 +28,24 @@ export abstract class RichText extends FoundationElement {
     @observable
     protected configuration?: Configuration;
 
+    protected readonly richTextUpdateTracker = new RichTextUpdateTracker(this);
+
+    protected readonly richTextValidator = new RichTextValidator();
+
+    /**
+     * @public
+     */
+    public get validity(): RichTextValidity {
+        return this.richTextValidator.getValidity();
+    }
+
+    /**
+     * @public
+     */
+    public checkValidity(): boolean {
+        return this.richTextValidator.isValid();
+    }
+
     /**
      * @internal
      */
@@ -35,23 +55,45 @@ export abstract class RichText extends FoundationElement {
      * @internal
      */
     public handleChange(source: unknown, args: unknown): void {
-        if (
-            source instanceof MentionInternals
-            && MarkdownParserMentionConfiguration.isObservedMentionInternalsProperty(
-                args
-            )
-        ) {
-            this.configuration = this.createConfig();
+        if (source instanceof MentionInternals && typeof args === 'string') {
+            if (args === 'validConfiguration') {
+                this.richTextValidator.validateMentionConfigurations(
+                    this.mentionElements
+                );
+            } else {
+                this.richTextUpdateTracker.trackMentionInternalsPropertyChanged(
+                    args
+                );
+            }
+        }
+    }
+
+    public createConfig(): void {
+        this.validate();
+        if (this.richTextValidator.isValid()) {
+            if (
+                this.richTextUpdateTracker.updateMappingConfigs
+                || this.richTextUpdateTracker.updatePattern
+            ) {
+                this.configuration = new Configuration(this.mentionElements);
+            }
+        } else {
+            this.configuration = undefined;
         }
     }
 
     protected mentionElementsChanged(_old: unknown, _new: unknown): void {
         this.observeMentionInternals();
-        this.configuration = this.createConfig();
+        this.richTextUpdateTracker.trackMentionElementsInstancesChanged();
     }
 
-    protected createConfig(): Configuration {
-        return new Configuration(this.mentionElements);
+    protected validate(): void {
+        this.richTextValidator.validateMentionConfigurations(
+            this.mentionElements
+        );
+        this.richTextValidator.validateDuplicateMentionConfigurations(
+            this.mentionElements
+        );
     }
 
     private childItemsChanged(_prev: unknown, _next: unknown): void {
