@@ -37,4 +37,4 @@ const nimbleMenu = Menu.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenu());
-export const menuTag = DesignSystem.tagFor(Menu);
+export const menuTag = 'nimble-menu';
