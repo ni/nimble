@@ -79,7 +79,6 @@ information about specific types of column.`;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column Configuration',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
         docs: {
@@ -122,7 +121,12 @@ const metadata: Meta<SharedTableArgs> = {
     </${tableTag}>
     `),
     argTypes: {
-        ...sharedTableArgTypes
+        ...sharedTableArgTypes,
+        selectionMode: {
+            table: {
+                disable: true
+            }
+        },
     },
     args: {
         ...sharedTableArgs(simpleData)
@@ -130,22 +134,6 @@ const metadata: Meta<SharedTableArgs> = {
 };
 
 export default metadata;
-
-interface DefaultColumnConfigTableArgs extends SharedTableArgs {
-    columns: string;
-}
-
-// In the Docs tab, Storybook doesn't render the title of the first story
-// This is a placeholder to get the useful ones to render
-export const columns: StoryObj<DefaultColumnConfigTableArgs> = {
-    argTypes: {
-        columns: {
-            name: 'Default column configuration',
-            description:
-                'This example shows columns in their default configuration.'
-        }
-    }
-};
 
 type ColumnOrderOption = 'FirstName, LastName' | 'LastName, FirstName';
 
@@ -578,8 +566,8 @@ function getGroupingDisabledData(
 }
 
 const groupedRowsDescription = `A column can be configured such that all values within that column that have the same value get parented under a collapsible row.
-There will be a collapsible row per unique value in a given column. When group-index is set on a column, that column will be grouped. If more than one column is
-configured with a group-index, the precedence is determined by the value of group-index on each column. Grouping is based on the underlying field values in the column,
+There will be a collapsible row per unique value in a given column. When \`group-index\` is set on a column, that column will be grouped. If more than one column is
+configured with a \`group-index\`, the precedence is determined by the value of \`group-index\` on each column. Grouping is based on the underlying field values in the column,
 not the rendered values.`;
 
 const groupingDisabledDescription = 'A groupable column can disable its ability to be grouped through setting `grouping-disabled`.';

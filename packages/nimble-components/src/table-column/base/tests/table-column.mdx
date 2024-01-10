@@ -1,0 +1,50 @@
+import {
+    Controls,
+    DocsStory,
+    Meta,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import * as tableColumnStories from './table-column.stories';
+
+<Meta of={tableColumnStories} />
+
+<Title of={tableColumnStories} />
+<Description of={tableColumnStories} />
+
+## Adding columns to a table
+
+<Description of={tableColumnStories.columnOrder} />
+<DocsStory of={tableColumnStories.columnOrder} expanded={false} />
+<Controls of={tableColumnStories.columnOrder} />
+
+## Setting header content
+
+<Description of={tableColumnStories.headerContent} />
+<DocsStory of={tableColumnStories.headerContent} expanded={false} />
+<Controls of={tableColumnStories.headerContent} />
+
+## Configuring common attributes
+
+<Description of={tableColumnStories.commonAttributes} />
+<DocsStory of={tableColumnStories.commonAttributes} expanded={false} />
+<Controls of={tableColumnStories.commonAttributes} />
+
+## Sorting
+
+<Description of={tableColumnStories.sorting} />
+<DocsStory of={tableColumnStories.sorting} expanded={false} />
+<Controls of={tableColumnStories.sorting} />
+
+## Grouping
+
+<Description of={tableColumnStories.grouping} />
+<DocsStory of={tableColumnStories.grouping} expanded={false} />
+<Controls of={tableColumnStories.grouping} />
+
+## Column Width
+
+<Description of={tableColumnStories.fractionalWidthColumn} />
+<DocsStory of={tableColumnStories.fractionalWidthColumn} expanded={false} />
+<Controls of={tableColumnStories.fractionalWidthColumn} />
