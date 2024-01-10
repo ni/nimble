@@ -127,7 +127,7 @@ const metadata: Meta<SharedTableArgs> = {
             table: {
                 disable: true
             }
-        },
+        }
     },
     args: {
         ...sharedTableArgs(simpleData)
