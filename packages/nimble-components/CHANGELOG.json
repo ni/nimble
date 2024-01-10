@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 10 Jan 2024 13:47:05 GMT",
+      "version": "20.17.4",
+      "tag": "@ni/nimble-components_v20.17.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "98c97d44a092e9fbbfe7710f381da77fe73ada1a",
+            "comment": "Removed disable-editing attribute from the rich text mention users view component for rendering @mention in editor and viewer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 08 Jan 2024 17:18:14 GMT",
       "version": "20.17.3",
       "tag": "@ni/nimble-components_v20.17.3",
