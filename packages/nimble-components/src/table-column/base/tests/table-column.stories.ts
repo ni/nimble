@@ -96,7 +96,8 @@ const metadata: Meta<SharedTableArgs> = {
         ${ref('tableRef')}
         data-unused="${x => x.updateData(x)}"
         id-field-name="firstName"
-        selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
+        style="height: 320px"
+        selection-mode="${x => TableRowSelectionMode[x.selectionMode]}
     >
         <${tableColumnTextTag}
             field-name="firstName"
@@ -158,6 +159,7 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             id-field-name="firstName"
+            style="height: 320px"
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             ${when(x => x.columnOrder === 'FirstName, LastName', html`
@@ -230,6 +232,7 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             id-field-name="firstName"
+            style="height: 320px"
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
@@ -288,6 +291,7 @@ export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             id-field-name="firstName"
+            style="height: 320px"
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
@@ -403,6 +407,7 @@ export const sorting: StoryObj<SortingTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             id-field-name="firstName"
+            style="height: 320px"
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
@@ -591,6 +596,7 @@ export const grouping: StoryObj<GroupingTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             id-field-name="firstName"
+            style="height: 320px"
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
@@ -715,6 +721,7 @@ export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             id-field-name="firstName"
+            style="height: 320px"
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
            <${tableColumnTextTag}
