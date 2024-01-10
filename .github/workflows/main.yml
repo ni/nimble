@@ -41,6 +41,7 @@ jobs:
       # See: https://github.com/actions/setup-node/issues/529
       - run: npm i -g npm@9
       - run: npm ci
+      - run: npx playwright install --with-deps
 
       # print a log of outdated npm dependencies
       # only informational so swallow error codes
