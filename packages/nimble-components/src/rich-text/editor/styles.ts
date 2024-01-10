@@ -80,15 +80,6 @@ export const styles = css`
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    ${/* Shared styles for all mention views at edit time. */ ''}
-    .nimble-mention-view-edit {
-        color: ${bodyFontColor};
-    }
-
-    :host([disabled]) .nimble-mention-view-edit {
-        color: ${bodyDisabledFontColor};
-    }
-
     :host([error-visible]) .container {
         border-bottom-color: ${failColor};
     }
@@ -177,7 +168,7 @@ export const styles = css`
         margin-block-end: 0;
     }
 
-    li > p {
+    .ProseMirror li > p {
         margin-block: 0;
     }
 
@@ -230,6 +221,15 @@ export const styles = css`
     }
 
     ${/** End of anchor styles */ ''}
+
+    ${/* Shared styles for all mention views at edit time. */ ''}
+    .ProseMirror .nimble-mention-view-edit {
+        color: ${bodyFontColor};
+    }
+
+    :host([disabled]) .ProseMirror .nimble-mention-view-edit {
+        color: ${bodyDisabledFontColor};
+    }
 
     .footer-section {
         display: flex;
