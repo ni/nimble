@@ -168,7 +168,7 @@ export const styles = css`
         margin-block-end: 0;
     }
 
-    li > p {
+    .ProseMirror li > p {
         margin-block: 0;
     }
 
@@ -221,6 +221,15 @@ export const styles = css`
     }
 
     ${/** End of anchor styles */ ''}
+
+    ${/* Shared styles for all mention views at edit time. */ ''}
+    .ProseMirror .nimble-mention-view-edit {
+        color: ${bodyFontColor};
+    }
+
+    :host([disabled]) .ProseMirror .nimble-mention-view-edit {
+        color: ${bodyDisabledFontColor};
+    }
 
     .footer-section {
         display: flex;
