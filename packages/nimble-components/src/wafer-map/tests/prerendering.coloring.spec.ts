@@ -243,7 +243,10 @@ describe('Wafermap Prerendering module', () => {
         });
     });
 
-    describe('with non numeric values', () => {
+    // Test disabled as it currently does not have expect statements
+    // that run to perform any useful validation
+    // See: https://github.com/ni/nimble/issues/1746
+    xdescribe('with non numeric values', () => {
         const dieDimensions = { width: 10, height: 10 };
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
@@ -287,7 +290,10 @@ describe('Wafermap Prerendering module', () => {
         });
     });
 
-    describe('with undefined values', () => {
+    // Test disabled as it currently does not have expect statements
+    // that run to perform any useful validation
+    // See: https://github.com/ni/nimble/issues/1746
+    xdescribe('with undefined values', () => {
         const dieDimensions = { width: 10, height: 10 };
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
