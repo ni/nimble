@@ -226,6 +226,7 @@ The object's type is \`TableValidity\`, and it contains the following boolean pr
 -   \`duplicateSortIndex\`: \`true\` when \`sort-index\` is specified as the same value for multiple columns that have \`sort-direction\` set to a value other than \`none\`
 -   \`duplicateGroupIndex\`: \`true\` when \`group-index\` is specified as the same value for multiple columns
 -   \`idFieldNameNotConfigured\`: \`true\` when a feature that requires \`id-field-name\` to be configured, such as row selection, is enabled but an \`id-field-name\` is not set
+-   \`invalidParentIdConfiguration\`: \`true\` when the field specified by \`parent-id-field-name\` is not found in any record, or when there are circular references between field values in a record specified by \`id-field-name\` and \`parent-id-field-name\`.
 `;
 
 const setSelectedRecordIdsDescription = `A function that makes the rows associated with the provided record IDs selected in the table.

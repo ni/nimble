@@ -257,7 +257,7 @@ describe('TableRow', () => {
             expect(pageObject.getExpandCollapseButton()).toBeNull();
         });
 
-        it('toggling expand-collapse button fires "row-expand-toggle" event', async () => {
+        it('clicking collapsed row fires "row-expand-toggle" event with expanded details', async () => {
             const pageObject = new TableRowPageObject(element);
             await connect();
             element.isParentRow = true;
@@ -270,13 +270,35 @@ describe('TableRow', () => {
             await listener.promise;
 
             expect(listener.spy).toHaveBeenCalledTimes(1);
-            const expectedDetails: TableRowExpansionToggleEventDetail = {
+            const expandDetails: TableRowExpansionToggleEventDetail = {
                 newState: true,
                 oldState: false,
                 recordId: 'foo'
             };
             const event = listener.spy.calls.first().args[0] as CustomEvent;
-            expect(event.detail).toEqual(expectedDetails);
+            expect(event.detail).toEqual(expandDetails);
+        });
+
+        it('clicking expanded row fires "row-expand-toggle" event with collapsed details', async () => {
+            const pageObject = new TableRowPageObject(element);
+            await connect();
+            element.isParentRow = true;
+            element.recordId = 'foo';
+            await waitForUpdatesAsync();
+            const expandCollapseButton = pageObject.getExpandCollapseButton();
+
+            const listener = createEventListener(element, 'row-expand-toggle');
+            element.expanded = true;
+            expandCollapseButton!.click();
+            await listener.promise;
+            expect(listener.spy).toHaveBeenCalledTimes(1);
+            const collapseDetails: TableRowExpansionToggleEventDetail = {
+                newState: false,
+                oldState: true,
+                recordId: 'foo'
+            };
+            const event = listener.spy.calls.first().args[0] as CustomEvent;
+            expect(event.detail).toEqual(collapseDetails);
         });
     });
 

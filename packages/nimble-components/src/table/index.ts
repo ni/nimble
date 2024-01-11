@@ -416,7 +416,7 @@ export class Table<
     }
 
     /** @internal */
-    public handleCollapseAllGroupRows(): void {
+    public handleCollapseAllRows(): void {
         this.expansionManager.collapseAll(this.table.getRowModel().flatRows);
         this.table.toggleAllRowsExpanded(false);
     }

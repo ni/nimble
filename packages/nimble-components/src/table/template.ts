@@ -73,7 +73,7 @@ export const template = html<Table>`
                                 content-hidden
                                 appearance="${ButtonAppearance.ghost}"
                                 title="${x => tableCollapseAllLabel.getValueFor(x)}"
-                                @click="${x => x.handleCollapseAllGroupRows()}"
+                                @click="${x => x.handleCollapseAllRows()}"
                             >
                                 <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
                                 ${x => tableCollapseAllLabel.getValueFor(x)}

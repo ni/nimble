@@ -944,6 +944,21 @@ describe('Table', () => {
                 expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
             });
 
+            it('clicking collapse all button hides all child rows', async () => {
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+                pageObject.clickCollapseAllButton();
+                await waitForUpdatesAsync();
+                expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    false,
+                    false,
+                    false
+                ]);
+            });
+
             it('hides collapse all button when data no longer has hierarchy', async () => {
                 await connect();
                 element.idFieldName = 'id';
@@ -1093,6 +1108,38 @@ describe('Table', () => {
                     false,
                     false,
                     false,
+                    false
+                ]);
+            });
+
+            it('record that was removed from data and then re-added does not maintain expanded state', async () => {
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+                pageObject.clickDataRowExpandCollapseButton(0); // first parent collapsed
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    false,
+                    false,
+                    true,
+                    false
+                ]);
+
+                const newData = hierarchicalData.slice(1);
+                await element.setData(newData);
+                await waitForUpdatesAsync();
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+                expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    true,
+                    true,
+                    false,
+                    false,
+                    false,
+                    true,
                     false
                 ]);
             });

@@ -134,7 +134,8 @@ const hierarchicalData = [
     {
         id: '0',
         stringData: 'purple',
-        stringData2: 'dog'
+        stringData2: 'dog',
+        parentId: undefined
     },
     {
         id: '0.0',
@@ -175,12 +176,14 @@ const hierarchicalData = [
     {
         id: '1',
         stringData: 'green',
-        stringData2: 'dog'
+        stringData2: 'dog',
+        parentId: undefined
     },
     {
         id: '2',
         stringData: 'green',
-        stringData2: 'cat'
+        stringData2: 'cat',
+        parentId: undefined
     },
     {
         id: '2.0',
@@ -191,7 +194,8 @@ const hierarchicalData = [
     {
         id: '3',
         stringData: 'purple',
-        stringData2: 'dog'
+        stringData2: 'dog',
+        parentId: undefined
     }
 ] as const;
 
@@ -2651,6 +2655,32 @@ describe('Table row selection', () => {
                 const currentSelection = await element.getSelectedRecordIds();
                 expect(currentSelection).toEqual(
                     jasmine.arrayWithExactContents(['0.0', '0.0.1'])
+                );
+            });
+
+            it('table selection checkbox is indeterminate when only parent rows are selected', async () => {
+                // Select all records in the "Green" group
+                const allTopLevelRecordIds = hierarchicalData
+                    .filter(x => x.parentId === undefined)
+                    .map(x => x.id);
+                await element.setSelectedRecordIds(allTopLevelRecordIds);
+
+                expect(pageObject.getTableSelectionState()).toBe(
+                    TableRowSelectionState.partiallySelected
+                );
+            });
+
+            it('clicking table selection checkbox selects/deselects all rows', async () => {
+                pageObject.clickTableSelectionCheckbox();
+                await waitForUpdatesAsync();
+                expect(pageObject.getTableSelectionState()).toBe(
+                    TableRowSelectionState.selected
+                );
+
+                pageObject.clickTableSelectionCheckbox();
+                await waitForUpdatesAsync();
+                expect(pageObject.getTableSelectionState()).toBe(
+                    TableRowSelectionState.notSelected
                 );
             });
         });
