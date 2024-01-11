@@ -8,5 +8,7 @@ export const coreLabelDefaults: { readonly [key in TokenName]: string } = {
     numericDecrementLabel: 'Decrement',
     errorIconLabel: 'Error',
     warningIconLabel: 'Warning',
-    informationIconLabel: 'Information'
+    informationIconLabel: 'Information',
+    selectFilterSearchLabel: 'Search',
+    selectFilterNoResultsLabel: 'No items found'
 };

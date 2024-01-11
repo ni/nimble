@@ -17,6 +17,11 @@ import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';
 import { overflow } from '../utilities/directive/overflow';
 import { iconMagnifyingGlassTag } from '../icons/magnifying-glass';
+import {
+    selectFilterNoResultsLabel,
+    selectFilterSearchLabel
+} from '../label-provider/core/label-tokens';
+import { FilterMode } from './types';
 
 // prettier-ignore
 export const template: FoundationElementTemplate<
@@ -82,37 +87,42 @@ SelectOptions
             horizontal-positioning-mode="locktodefault"
             horizontal-scaling="anchor"
             ?hidden="${x => (x.collapsible ? !x.open : false)}">
-            <div class="listbox ${x => (x.position === 'above' ? 'inverted' : '')}">
-                <div class="search-field ${x => (x.position === 'above' ? 'inverted' : '')}">
-                    <${iconMagnifyingGlassTag}></${iconMagnifyingGlassTag}>
-                    <input
-                        class="filter-input ${x => (x.filter.length === 0 ? 'empty' : '')}"
-                        ?disabled="${x => x.disabled}"
-                        @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
-                        @click="${(x, c) => x.inputClickHandler(c.event as MouseEvent)}"
-                        ${ref('input')}
-                        placeholder="Search..."
-                    />
-                </div>
-                <div
-                    class="list"
-                    id="${x => x.listboxId}"
-                    part="listbox"
-                    role="listbox"
-                    ?disabled="${x => x.disabled}"
-                    ${ref('listbox')}
-                >
-                    <slot
-                        ${slotted({
+            <div
+                class="
+                    listbox 
+                    ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}
+                    ${x => x.positionAttribute}
+                "
+                id="${x => x.listboxId}"
+                part="listbox"
+                role="listbox"
+                ?disabled="${x => x.disabled}"
+                ${ref('listbox')}
+            >
+                ${when(x => x.filterMode !== FilterMode.none, html<Select>`
+                    <div class="search-field ${x => x.position}">
+                        <${iconMagnifyingGlassTag}></${iconMagnifyingGlassTag}>
+                        <input
+                            class="filter-input ${x => (x.filter.length === 0 ? 'empty' : '')}"
+                            ?disabled="${x => x.disabled}"
+                            @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
+                            @click="${(x, c) => x.inputClickHandler(c.event as MouseEvent)}"
+                            ${ref('input')}
+                            placeholder="${x => selectFilterSearchLabel.getValueFor(x)}..."
+                        />
+                    </div>
+                `)}
+                <slot ${ref('scrollableElement')}
+                    class="${x => (x.scrollbarIsVisible ? 'scrollbar' : '')}"
+                    ${slotted({
         filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
         flatten: true,
         property: 'slottedOptions',
     })}
-                    ></slot>
-                </div>
-                ${when(x => x.filteredOptions.length === 0, html`
+                ></slot>
+                ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0), html<Select>`
                     <span class="no-results-label">
-                        No Options Found
+                        ${x => selectFilterNoResultsLabel.getValueFor(x)}
                     </span>
                 `)}
             </div>

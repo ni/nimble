@@ -7,7 +7,9 @@ import {
     numericIncrementLabel,
     errorIconLabel,
     warningIconLabel,
-    informationIconLabel
+    informationIconLabel,
+    selectFilterSearchLabel,
+    selectFilterNoResultsLabel
 } from './label-tokens';
 
 declare global {
@@ -22,7 +24,9 @@ const supportedLabels = {
     numericIncrement: numericIncrementLabel,
     errorIcon: errorIconLabel,
     warningIcon: warningIconLabel,
-    informationIcon: informationIconLabel
+    informationIcon: informationIconLabel,
+    selectFilterSearch: selectFilterSearchLabel,
+    selectFilterNoResults: selectFilterNoResultsLabel
 } as const;
 
 /**
@@ -48,6 +52,12 @@ export class LabelProviderCore
 
     @attr({ attribute: 'information-icon' })
     public informationIcon: string | undefined;
+
+    @attr({ attribute: 'select-filter-search' })
+    public selectFilterSearch: string | undefined;
+
+    @attr({ attribute: 'select-filter-no-results' })
+    public selectFilterNoResults: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }

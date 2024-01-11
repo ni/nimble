@@ -1,10 +1,21 @@
 import { css } from '@microsoft/fast-element';
+import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { styles as dropdownStyles } from '../patterns/dropdown/styles';
 import { styles as errorStyles } from '../patterns/error/styles';
-import { applicationBackgroundColor, borderWidth, controlHeight, dividerBackgroundColor, elevation2BoxShadow, mediumPadding, placeholderDisabledFontColor, placeholderFontColor, popupBorderColor, smallPadding } from '../theme-provider/design-tokens';
+import {
+    borderRgbPartialColor,
+    borderWidth,
+    controlHeight,
+    mediumPadding,
+    placeholderFontColor,
+    smallPadding
+} from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { DropdownAppearance } from './types';
 import { focusVisible } from '../utilities/style/focus';
+import { themeBehavior } from '../utilities/style/theme';
+import { Theme } from '../theme-provider/types';
+import { hexToRgbaCssColor } from '../utilities/style/colors';
 
 export const styles = css`
     ${dropdownStyles}
@@ -17,7 +28,7 @@ export const styles = css`
     [part='selected-value'] {
         order: 1;
     }
-    
+
     [part='indicator'] {
         order: 3;
     }
@@ -30,84 +41,81 @@ export const styles = css`
         display: contents;
     }
 
-    .dropdown {
-        box-sizing: border-box;
-        display: inline-flex;
-        flex-direction: column;
-        left: 0;
-        overflow-y: auto;
-        position: absolute;
-        width: 100%;
-        --ni-private-listbox-padding: ${smallPadding};
-        max-height: calc(
-            var(--ni-private-select-max-height) - 2 *
-                var(--ni-private-listbox-padding)
-        );
-        z-index: 1;
-        box-shadow: ${elevation2BoxShadow};
-        border: 1px solid ${popupBorderColor};
-        background-color: ${applicationBackgroundColor};
-    }
-
     .listbox {
-        border: 0px;
+        overflow: clip;
+        padding: ${smallPadding};
     }
 
-    .listbox.inverted {
+    .listbox slot {
+        overflow: auto;
+        padding: 0px;
+    }
+
+    .listbox slot.scrollbar {
+        padding-right: ${smallPadding};
+    }
+
+    .listbox.empty slot {
+        display: none;
+    }
+
+    .listbox.above {
         flex-flow: column-reverse;
     }
 
     .search-field {
         display: flex;
         flex-direction: row;
-        padding-left: ${smallPadding};
-        padding-right: ${smallPadding};
-        padding-top: ${mediumPadding};
-        padding-bottom: ${smallPadding};
         align-items: center;
+        height: ${controlHeight};
+        background: transparent;
+    }
+
+    .search-field.above {
+        padding-top: ${mediumPadding};
+    }
+
+    .search-field.below {
+        padding-bottom: ${mediumPadding};
     }
 
     .search-field::after {
         content: '';
         position: absolute;
-        top: calc(${controlHeight} + ${smallPadding});
-        width: calc(100% - ${mediumPadding});
+        top: calc(${controlHeight} + ${mediumPadding} + (2 * ${borderWidth}));
+        width: calc(100% - ${mediumPadding} - (2 * ${borderWidth}));
         height: 0px;
-        border-bottom: ${dividerBackgroundColor}
+        border-bottom: rgba(${borderRgbPartialColor}, 0.15)
             var(--ni-private-hover-indicator-width) solid;
     }
 
-    .search-field.inverted::after {
+    .search-field.above::after {
         width: 0px;
     }
 
     .search-field::before {
         content: '';
         position: absolute;
-        bottom: calc(${controlHeight} + ${smallPadding});
+        bottom: calc(
+            ${controlHeight} + ${mediumPadding} + (2 * ${borderWidth})
+        );
         width: 0px;
         height: 0px;
-        border-bottom: ${dividerBackgroundColor}
+        border-bottom: rgba(${borderRgbPartialColor}, 0.15)
             var(--ni-private-hover-indicator-width) solid;
     }
 
-    .search-field.inverted::before {
-        width: calc(100% - ${mediumPadding});
+    .search-field.above::before {
+        width: calc(100% - ${mediumPadding} - (2 * ${borderWidth}));
     }
 
     .filter-input {
-        -webkit-appearance: none;
         background: transparent;
         border: none;
         color: inherit;
-        margin: auto 0;
-        width: 100%;
         font: inherit;
-        height: var(--ni-private-height-within-border);
-    }
-
-    .filter-input.empty {
-        color: ${placeholderFontColor};
+        height: var(--ni-nimble-control-height);
+        padding-left: ${mediumPadding};
     }
 
     .filter-input${focusVisible} {
@@ -115,9 +123,11 @@ export const styles = css`
     }
 
     .no-results-label {
-        padding-left: ${mediumPadding};
-        padding-bottom: ${mediumPadding};
-        color: ${placeholderDisabledFontColor};
+        padding: 0 ${smallPadding} 0 ${smallPadding};
+        color: ${placeholderFontColor};
+        height: ${controlHeight};
+        display: inline-flex;
+        align-items: center;
     }
 `.withBehaviors(
     appearanceBehavior(
@@ -126,6 +136,18 @@ export const styles = css`
             :host([error-visible]) .control {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
+            .search-field {
+                background: ${hexToRgbaCssColor(White, 0.15)};
+            }
+
+            .no-results-label {
+                background: ${hexToRgbaCssColor(White, 0.15)};
             }
         `
     )

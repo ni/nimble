@@ -10,6 +10,8 @@ import { selectTag } from '..';
 import { listOptionTag } from '../../list-option';
 import { ExampleOptionsType } from './types';
 import { menuMinWidth } from '../../theme-provider/design-tokens';
+import { FilterMode } from '../types';
+import { filterModeDescription } from './doc-strings';
 
 interface SelectArgs {
     disabled: boolean;
@@ -18,6 +20,7 @@ interface SelectArgs {
     dropDownPosition: string;
     optionsType: ExampleOptionsType;
     appearance: string;
+    filterMode: keyof typeof FilterMode;
 }
 
 interface OptionArgs {
@@ -30,7 +33,8 @@ const simpleOptions: readonly OptionArgs[] = [
     { label: 'Option 1', value: '1', disabled: false },
     { label: 'Option 2', value: '2', disabled: true },
     { label: 'Option 3', value: '3', disabled: false },
-    { label: 'Option 4', value: '4', disabled: false }
+    { label: 'Option 4', value: '4', disabled: false },
+    { label: 'Zürich', value: '5', disabled: false }
 ] as const;
 
 const wideOptions: readonly OptionArgs[] = [
@@ -74,7 +78,7 @@ const metadata: Meta<SelectArgs> = {
             }
         },
         actions: {
-            handles: ['change']
+            handles: ['change', 'input']
         },
         toolbar: {
             zoom: { hidden: true }
@@ -89,6 +93,7 @@ const metadata: Meta<SelectArgs> = {
             ?disabled="${x => x.disabled}"
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
+            filter-mode="${x => x.filterMode}"
             style="width: var(${menuMinWidth.cssCustomProperty});"
         >
             ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
@@ -109,6 +114,11 @@ const metadata: Meta<SelectArgs> = {
         appearance: {
             options: Object.values(DropdownAppearance),
             control: { type: 'radio' }
+        },
+        filterMode: {
+            options: Object.keys(FilterMode),
+            control: { type: 'radio' },
+            description: filterModeDescription
         },
         errorText: {
             name: 'error-text'
@@ -133,6 +143,7 @@ const metadata: Meta<SelectArgs> = {
         disabled: false,
         errorVisible: false,
         errorText: 'Value is invalid',
+        filterMode: FilterMode.none,
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions

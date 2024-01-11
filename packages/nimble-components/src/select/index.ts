@@ -1,4 +1,10 @@
-import { attr, html, observable, Observable, DOM } from '@microsoft/fast-element';
+import {
+    attr,
+    html,
+    observable,
+    Observable,
+    DOM
+} from '@microsoft/fast-element';
 import {
     AnchoredRegion,
     DesignSystem,
@@ -15,6 +21,8 @@ import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { template } from './template';
 import type { ListOption } from '../list-option';
 import type { TextField } from '../text-field';
+import { FilterMode } from './types';
+import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -42,12 +50,30 @@ export class Select extends FoundationSelect implements ErrorPattern {
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
 
+    @attr({ attribute: 'filter-mode' })
+    public filterMode = FilterMode.none;
+
+    /**
+     * @internal
+     */
     @observable
     public controlWrapper?: HTMLElement;
 
+    /**
+     * @internal
+     */
+    @observable
+    public scrollableElement!: HTMLElement;
+
+    /**
+     * @internal
+     */
     @observable
     public input?: TextField;
 
+    /**
+     * @internal
+     */
     @observable
     public region?: AnchoredRegion;
 
@@ -55,17 +81,30 @@ export class Select extends FoundationSelect implements ErrorPattern {
     @observable
     public hasOverflow = false;
 
+    /**
+     * @internal
+     */
     @observable
     public filteredOptions: ListboxOption[] = [];
 
+    /**
+     * @internal
+     */
     @observable
     public filter = '';
+
+    /**
+     * @internal
+     */
+    @observable
+    public scrollbarIsVisible = false;
 
     private committedSelectedOption: ListboxOption | undefined = undefined;
 
     public constructor() {
         super();
         this.addEventListener('change', this.changeValueHandler);
+        this.addEventListener('focusout', this.focusoutHander);
     }
 
     /**
@@ -77,7 +116,9 @@ export class Select extends FoundationSelect implements ErrorPattern {
      */
     public override get options(): ListboxOption[] {
         Observable.track(this, 'options');
-        return this.filteredOptions?.length ? this.filteredOptions : this._options as ListOption[];
+        return this.filteredOptions?.length
+            ? this.filteredOptions
+            : (this._options as ListOption[]);
     }
 
     public override set options(value: ListboxOption[]) {
@@ -102,11 +143,16 @@ export class Select extends FoundationSelect implements ErrorPattern {
         let newValue = next;
 
         if (this.options?.length) {
-            const selectedIndex = this.options.findIndex(el => el.value === newValue);
+            const selectedIndex = this.options.findIndex(
+                el => el.value === newValue
+            );
             const prevSelectedValue = this.options[this.selectedIndex]?.value ?? null;
             const nextSelectedValue = this.options[selectedIndex]?.value ?? null;
 
-            if (selectedIndex === -1 || prevSelectedValue !== nextSelectedValue) {
+            if (
+                selectedIndex === -1
+                || prevSelectedValue !== nextSelectedValue
+            ) {
                 newValue = '';
                 this.selectedIndex = selectedIndex;
             }
@@ -179,7 +225,9 @@ export class Select extends FoundationSelect implements ErrorPattern {
     public inputHandler(e: InputEvent): boolean {
         this.filter = this.input?.value ?? '';
         if (!this.committedSelectedOption) {
-            this.committedSelectedOption = this._options.find(option => option.selected);
+            this.committedSelectedOption = this._options.find(
+                option => option.selected
+            );
         }
         this.filterOptions();
         this.clearSelection();
@@ -187,9 +235,11 @@ export class Select extends FoundationSelect implements ErrorPattern {
             this.committedSelectedOption.selected = true;
         }
 
-        if (this.filteredOptions.length > 0
+        if (
+            this.filteredOptions.length > 0
             && this.committedSelectedOption
-            && !this.filteredOptions.includes(this.committedSelectedOption)) {
+            && !this.filteredOptions.includes(this.committedSelectedOption)
+        ) {
             this.committedSelectedOption.selected = false;
             this.filteredOptions[0]!.selected = true;
         }
@@ -205,8 +255,12 @@ export class Select extends FoundationSelect implements ErrorPattern {
     }
 
     public override keydownHandler(e: KeyboardEvent): boolean {
-        const key = e.key;
+        if (this.filterMode === FilterMode.none) {
+            super.keydownHandler(e);
+            return true;
+        }
 
+        const key = e.key;
         if (e.ctrlKey || e.shiftKey) {
             return true;
         }
@@ -220,12 +274,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
             }
 
             case 'Enter': {
-                this.filteredOptions = [];
-                const selectedItem = this.options[this.selectedIndex];
-                if (selectedItem) {
-                    // translate selectedIndex for filtered list to selectedIndex for all items
-                    this.selectedIndex = this._options.indexOf(selectedItem);
-                }
+                this.updateSelectedIndexFromFilteredSet();
                 super.keydownHandler(e);
                 this.focus();
                 break;
@@ -234,7 +283,9 @@ export class Select extends FoundationSelect implements ErrorPattern {
                 this.filteredOptions = [];
                 if (this.committedSelectedOption) {
                     this.clearSelection();
-                    this.selectedIndex = this._options.indexOf(this.committedSelectedOption);
+                    this.selectedIndex = this._options.indexOf(
+                        this.committedSelectedOption
+                    );
                 }
                 super.keydownHandler(e);
                 this.focus();
@@ -248,25 +299,31 @@ export class Select extends FoundationSelect implements ErrorPattern {
         return true;
     }
 
-    protected override openChanged(prev: boolean | undefined, next: boolean): void {
+    protected override openChanged(
+        prev: boolean | undefined,
+        next: boolean
+    ): void {
+        this.filter = '';
+        this.filterOptions();
+        super.openChanged(prev, next);
         if (!this.$fastController.isConnected) {
             return;
         }
 
-        super.openChanged(prev, next);
         if (this.open) {
             DOM.queueUpdate(() => {
                 window.requestAnimationFrame(() => {
                     this.input?.focus();
+                    this.scrollbarIsVisible = this.scrollableElement.clientHeight < this.scrollableElement.scrollHeight;
                 });
             });
         }
-        this.filter = '';
-        this.input!.value = '';
+        if (this.input) {
+            this.input.value = '';
+        }
         if (this.open && this.committedSelectedOption) {
             this.committedSelectedOption.selected = true;
         }
-        this.filterOptions();
     }
 
     /**
@@ -277,7 +334,11 @@ export class Select extends FoundationSelect implements ErrorPattern {
     private filterOptions(): void {
         const filter = this.filter.toLowerCase();
 
-        this.filteredOptions = this._options.filter(o => o.text.toLowerCase().includes(this.filter.toLowerCase()));
+        this.filteredOptions = this._options.filter(option => {
+            return diacriticInsensitiveStringNormalizer(option.text).includes(
+                diacriticInsensitiveStringNormalizer(filter)
+            );
+        });
 
         if (!this.filteredOptions.length && !filter) {
             this.filteredOptions = this._options;
@@ -307,8 +368,26 @@ export class Select extends FoundationSelect implements ErrorPattern {
         }
     }
 
+    private updateSelectedIndexFromFilteredSet(): void {
+        const selectedItem = this.options[this.selectedIndex];
+        // Clear filter and re-filter options so any logic resolving against 'this.options'
+        // resolves against all options, since selectedIndex should be relative to entire set.
+        this.filter = '';
+        this.filterOptions();
+        if (selectedItem) {
+            // translate selectedIndex for filtered list to selectedIndex for all items
+            this.selectedIndex = this._options.indexOf(selectedItem);
+        }
+    }
+
     private readonly changeValueHandler = (): void => {
-        this.committedSelectedOption = this.options.find(option => option.selected);
+        this.committedSelectedOption = this.options.find(
+            option => option.selected
+        );
+    };
+
+    private readonly focusoutHander = (): void => {
+        this.updateSelectedIndexFromFilteredSet();
     };
 }
 
