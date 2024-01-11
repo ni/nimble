@@ -94,7 +94,15 @@ jobs:
 
       # Test
       - run: npm run test
-        timeout-minutes: 15
+        env:
+          DEBUG: pw:*
+          DEBUG_FILE: pw-log.txt
+        timeout-minutes: 10
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: Playwright Logs
+          path: pw-log.txt
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
