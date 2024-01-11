@@ -100,7 +100,7 @@ const component = (
     [groupedStateName, groupedState]: GroupedState,
     [hierarchyStateName, hierarchyState]: HierarchyState
 ): ViewTemplate => html`
-    <span>${() => `Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}`}, </span>
+    <span>${() => `Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}`} </span>
     <${tableTag} selection-mode="${() => selectionMode}"" id-field-name="id" parent-id-field-name="${() => (hierarchyState ? 'parentId' : '')}">
         <${tableColumnTextTag} field-name="firstName" sort-direction="ascending" sort-index="0" group-index="${() => (groupedState ? '0' : undefined)}"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
         <${tableColumnTextTag} field-name="lastName">Last Name</${tableColumnTextTag}>
@@ -109,15 +109,7 @@ const component = (
     </${tableTag}>
 `;
 
-export const tableThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
-        selectionModeStates,
-        groupedStates,
-        hierarchyStates
-    ])
-);
-
-tableThemeMatrix.play = async (): Promise<void> => {
+const playFunction = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll<Table>('nimble-table')).map(
             async table => {
@@ -127,6 +119,21 @@ tableThemeMatrix.play = async (): Promise<void> => {
         )
     );
 };
+
+export const tableNoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [[undefined], groupedStates, hierarchyStates])
+);
+tableNoSelectionThemeMatrix.play = playFunction;
+
+export const tableSingleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [['single'], groupedStates, hierarchyStates])
+);
+tableSingleSelectionThemeMatrix.play = playFunction;
+
+export const tableMultipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [['multiple'], groupedStates, hierarchyStates])
+);
+tableMultipleSelectionThemeMatrix.play = playFunction;
 
 export const hiddenTable: StoryFn = createStory(
     hiddenWrapper(html`<${tableTag} hidden></${tableTag}>`)
