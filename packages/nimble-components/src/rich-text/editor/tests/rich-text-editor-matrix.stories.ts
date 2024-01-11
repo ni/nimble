@@ -10,10 +10,6 @@ import {
 } from '../../../utilities/tests/matrix';
 import { hiddenWrapper } from '../../../utilities/tests/hidden';
 import { richTextEditorTag } from '..';
-import {
-    cssPropertyFromTokenName,
-    tokenNames
-} from '../../../theme-provider/design-token-names';
 import { buttonTag } from '../../../button';
 import { loremIpsum } from '../../../utilities/tests/lorem-ipsum';
 import {
@@ -24,6 +20,7 @@ import {
 } from '../../../utilities/tests/states';
 import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 import { mappingUserTag } from '../../../mapping/user';
+import { bodyFont, bodyFontColor } from '../../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Editor',
@@ -57,8 +54,8 @@ const component = (
 ): ViewTemplate => html`
     <p 
         style="
-        font: var(${cssPropertyFromTokenName(tokenNames.bodyFont)});
-        color: var(${cssPropertyFromTokenName(tokenNames.bodyFontColor)});
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
         margin-bottom: 0px;
         "
     >
@@ -95,21 +92,19 @@ const editorSizingTestCase = (
     [widthLabel, widthStyle]: [string, string],
     [heightLabel, heightStyle]: [string, string]
 ): ViewTemplate => html`
-    <p style="font: var(${cssPropertyFromTokenName(
-        tokenNames.bodyFont
-    )}); margin-bottom: 0px;">${() => widthLabel}; ${() => heightLabel}</p>
+    <p style="font: var(${bodyFont.cssCustomProperty}); margin-bottom: 0px;">${() => widthLabel}; ${() => heightLabel}</p>
     <div style="width: 500px; height: 180px; outline: 1px dotted black;">
         <${richTextEditorTag} style="${() => widthStyle}; ${() => heightStyle};">
             <${richTextMentionUsersTag} pattern="^user:(.*)">
                 <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
             </${richTextMentionUsersTag}>
             <${buttonTag}
-                style="height: var(${cssPropertyFromTokenName(tokenNames.controlSlimHeight)}); width: 72px;"
+                style="width: 72px;"
                 slot="footer-actions"
                 appearance="ghost"
             >Cancel</${buttonTag}>
             <${buttonTag}
-                style="height: var(${cssPropertyFromTokenName(tokenNames.controlSlimHeight)}); width: 72px;"
+                style="width: 72px;"
                 slot="footer-actions"
             >Ok</${buttonTag}>
         </${richTextEditorTag}>
@@ -167,12 +162,12 @@ const mobileWidthComponent = html`
             <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
         </${richTextMentionUsersTag}>
         <${buttonTag}
-            style="height: var(${cssPropertyFromTokenName(tokenNames.controlSlimHeight)}); width: 72px;"
+            style="width: 72px;"
             slot="footer-actions"
             appearance="ghost"
         >Cancel</${buttonTag}>
         <${buttonTag}
-            style="height: var(${cssPropertyFromTokenName(tokenNames.controlSlimHeight)}); width: 72px;"
+            style="width: 72px;"
             slot="footer-actions"
         >Ok</${buttonTag}>
     </${richTextEditorTag}>

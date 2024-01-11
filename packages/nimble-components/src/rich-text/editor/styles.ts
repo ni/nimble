@@ -256,11 +256,8 @@ export const styles = css`
         gap: 8px;
     }
 
+    ${buttonTag},
     ${toggleButtonTag} {
-        height: ${controlSlimHeight};
-    }
-
-    ${buttonTag} {
         height: ${controlSlimHeight};
     }
 
@@ -270,6 +267,10 @@ export const styles = css`
         margin-inline-end: ${standardPadding};
         gap: ${standardPadding};
         place-items: center;
+    }
+
+    slot[name='footer-actions']::slotted(*) {
+        height: ${controlSlimHeight};
     }
 
     :host([error-visible]) .error-icon {
