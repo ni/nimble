@@ -42,6 +42,7 @@ export const styles = css`
     .control {
         display: flex;
         text-decoration: none;
+        color: currentcolor;
     }
 
     .control${focusVisible} {
