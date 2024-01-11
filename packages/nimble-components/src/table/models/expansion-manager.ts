@@ -7,13 +7,17 @@ import type { TableNode, TableRecord } from '../types';
 export class ExpansionManager<TData extends TableRecord> {
     private isInDefaultState = true;
     private collapsedRows = new Set<string>();
+    private expansionToggleVisibleFieldName: string | undefined;
 
     public isRowExpanded(row: TanStackRow<TableNode<TData>>): boolean {
         if (!this.isRowExpandable(row)) {
             return false;
         }
 
-        return this.isInDefaultState || !this.collapsedRows.has(row.id);
+        if (this.isInDefaultState) {
+            return this.getDefaultExpansionState(row);
+        }
+        return !this.collapsedRows.has(row.id);
     }
 
     public toggleRowExpansion(row: TanStackRow<TableNode<TData>>): void {
@@ -62,7 +66,26 @@ export class ExpansionManager<TData extends TableRecord> {
         this.collapsedRows = updatedCollapsedRows;
     }
 
-    private isRowExpandable(row: TanStackRow<TableNode<TData>>): boolean {
-        return row.getIsGrouped() || row.subRows.length > 0;
+    public isRowExpandable(row: TanStackRow<TableNode<TData>>): boolean {
+        if (row.subRows.length !== 0) {
+            return true;
+        }
+
+        if (typeof this.expansionToggleVisibleFieldName === 'string') {
+            // Return whether or not the value associated with `expansionToggleVisibleFieldName` is truthy
+            return !!row.original.clientRecord[this.expansionToggleVisibleFieldName];
+        }
+        return false;
+    }
+
+    public setExpansionToggleVisibleFieldName(expansionToggleVisibleFieldName: string | undefined): void {
+        this.expansionToggleVisibleFieldName = expansionToggleVisibleFieldName;
+    }
+
+    private getDefaultExpansionState(row: TanStackRow<TableNode<TData>>): boolean {
+        // Rows with children (group rows and parent rows with populated children)
+        // default to expanded. Other rows (parent rows with lazy-loaded children)
+        // default to collapsed.
+        return row.subRows.length !== 0;
     }
 }

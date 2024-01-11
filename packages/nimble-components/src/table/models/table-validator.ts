@@ -16,6 +16,7 @@ export class TableValidator<TData extends TableRecord> {
     private idFieldNameNotConfigured = false;
     private invalidColumnConfiguration = false;
     private invalidParentIdConfiguration = false;
+    private parentIdFieldNameNotConfigured = false;
 
     private readonly recordIds = new Set<string>();
 
@@ -30,7 +31,8 @@ export class TableValidator<TData extends TableRecord> {
             duplicateGroupIndex: this.duplicateGroupIndex,
             idFieldNameNotConfigured: this.idFieldNameNotConfigured,
             invalidColumnConfiguration: this.invalidColumnConfiguration,
-            invalidParentIdConfiguration: this.invalidParentIdConfiguration
+            invalidParentIdConfiguration: this.invalidParentIdConfiguration,
+            parentIdFieldNameNotConfigured: this.parentIdFieldNameNotConfigured
         };
     }
 
@@ -60,6 +62,15 @@ export class TableValidator<TData extends TableRecord> {
             this.idFieldNameNotConfigured = false;
         }
         return !this.idFieldNameNotConfigured;
+    }
+
+    public validateParentIdFieldNameConfiguration(
+        parentIdFieldName: string | undefined,
+        expansionToggleVisibleFieldName: string | undefined
+    ): boolean {
+        this.parentIdFieldNameNotConfigured = typeof parentIdFieldName !== 'string' && typeof expansionToggleVisibleFieldName === 'string';
+
+        return !this.parentIdFieldNameNotConfigured;
     }
 
     public validateRecordIds(

@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
-import { TableRowSelectionMode } from '../types';
+import { TableRowExpansionToggleEventDetail, TableRowSelectionMode } from '../types';
 import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
@@ -21,12 +21,14 @@ interface TableArgs extends LabelUserArgs {
     selectionMode: keyof typeof TableRowSelectionMode;
     idFieldName: undefined;
     parentIdFieldName: undefined;
+    expansionToggleVisibleFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
     setSelectedRecordIds: undefined;
     getSelectedRecordIds: undefined;
     tableRef: Table;
     updateData: (args: TableArgs) => void;
+    addDynamicChildrenIfNeeded: (args: TableArgs, event: CustomEvent<TableRowExpansionToggleEventDetail>) => void;
 }
 
 const simpleData = [
@@ -140,7 +142,8 @@ const hierarchicalData = [
         quote: 'Isn’t it nice we hate the same things?',
         age: 42,
         id: '10',
-        parentId: '9'
+        parentId: '9',
+        forceExpandable: true
     }
 ];
 
@@ -214,6 +217,13 @@ The attribute is invalid in the following conditions:
 -   When there are circular references between records discovered based on field values of \`parent-id-field-name\` for one record and \`id-field-name\` of another. This will cause \`validity.invalidParentIdConfiguration\` to be \`true\`.
 -   When an id specified by \`parent-id-field-name\` is not discovered in any record. This will cause \`validity.invalidParentIdConfiguration\` to be \`true\`.`;
 
+const expansionToggleVisibleFieldNameDescription = `An optional string attribute that indicates that the row associated with a given record would be marked as
+expandable even though it currently has no children. A row will be marked as expandable if its record has a truthy value set for the field associated with
+\`expansionToggleVisibleFieldName\`.
+
+The attribute is invalid in the following conditions:
+-   When this attribute is set, but \`parent-id-field-name\` is unset. This will cause \`validity.parentIdFieldNameNotConfigured\` to be \`true\`.`;
+
 const validityDescription = `Readonly object of boolean values that represents the validity states that the table's configuration can be in.
 The object's type is \`TableValidity\`, and it contains the following boolean properties:
 
@@ -227,6 +237,7 @@ The object's type is \`TableValidity\`, and it contains the following boolean pr
 -   \`duplicateGroupIndex\`: \`true\` when \`group-index\` is specified as the same value for multiple columns
 -   \`idFieldNameNotConfigured\`: \`true\` when a feature that requires \`id-field-name\` to be configured, such as row selection, is enabled but an \`id-field-name\` is not set
 -   \`invalidParentIdConfiguration\`: \`true\` when the field specified by \`parent-id-field-name\` is not found in any record, or when there are circular references between field values in a record specified by \`id-field-name\` and \`parent-id-field-name\`.
+-   \`parentIdFieldNameNotConfigured\`: \`true\` when \`expansion-toggle-visible-field-name\` is configured but \`parent-id-field-name\` is not configured.
 `;
 
 const setSelectedRecordIdsDescription = `A function that makes the rows associated with the provided record IDs selected in the table.
@@ -260,6 +271,8 @@ const metadata: Meta<TableArgs> = {
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
+            expansion-toggle-visible-field-name="forceExpandable"
+            @row-expand-toggle="${(x, c) => x.addDynamicChildrenIfNeeded(x, c.event as CustomEvent<TableRowExpansionToggleEventDetail>)}"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
@@ -353,6 +366,14 @@ const metadata: Meta<TableArgs> = {
             description: parentIdFieldNameDescription,
             control: false
         },
+        expansionToggleVisibleFieldName: {
+            name: 'expansion-toggle-visible-field-name',
+            table: {
+                defaultValue: { summary: 'undefined' }
+            },
+            description: expansionToggleVisibleFieldNameDescription,
+            control: false
+        },
         validity: {
             description: validityDescription,
             control: false
@@ -388,6 +409,27 @@ const metadata: Meta<TableArgs> = {
                 await customElements.whenDefined('nimble-table');
                 await x.tableRef.setData(dataSets[x.data]);
             })();
+        },
+        addDynamicChildrenIfNeeded: (x, e) => {
+            if (x.data !== ExampleDataType.hierarchicalDataSet) {
+                return;
+            }
+
+            if (e.detail.recordId !== '10' || e.detail.newState !== true) {
+                return;
+            }
+
+            const newData = [...dataSets[x.data], {
+                firstName: 'Seymour - 2',
+                lastName: 'Skinner',
+                quote: 'Not sure what to put here',
+                age: 0,
+                id: '11',
+                parentId: '10'
+            }];
+            setTimeout(() => {
+                void x.tableRef.setData(newData);
+            }, 1500);
         }
     }
 };

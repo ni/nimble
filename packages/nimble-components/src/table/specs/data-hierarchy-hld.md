@@ -69,7 +69,7 @@ The following are various expected mouse and keyboard interactions related to pa
 
 ### Validation
 
-The table will be invalid if the user has set the `parentIdFieldName` attribute but not the `idFieldName`. Additionally, the table will be invalid if the user has set the `forceExpandCollapseFieldName` attribute but not the `parentIdFieldName`.
+The table will be invalid if the user has set the `parentIdFieldName` attribute but not the `idFieldName`. Additionally, the table will be invalid if the user has set the `expansionToggleVisibleFieldName` attribute but not the `parentIdFieldName`.
 
 Additionally, we will mark the table as invalid if the hierarchical representation of the data has less elements than the array that was transformed. This can happen if the incoming data either has specified parents for children that do not exist, or if there are circular child-parent relationships defined.
 
@@ -77,8 +77,8 @@ Additionally, we will mark the table as invalid if the hierarchical representati
 
 The APIs noted above will enable the client to lazy load data into the `Table`. This will essentially be accomplished with the following steps:
 
-1. Providing a field in a record of the table data that indicates whether that row of data is intended to be a parent row. Records that are intended to be parents must set the value of the field, whose name is specified by the `forceExpandCollapseFieldName` attribute, to `true`.
-2. After providing the current data to the `Table` via the `setData` method, all rows that have a value of `true` in the field specified by the `forceExpandCollapseFieldName` attribute will display an expand/collapse button.
+1. Providing a field in a record of the table data that indicates whether that row of data is intended to be a parent row. Records that are intended to be parents must set the value of the field, whose name is specified by the `expansionToggleVisibleFieldName` attribute, to `true`.
+2. After providing the current data to the `Table` via the `setData` method, all rows that have a value of `true` in the field specified by the `expansionToggleVisibleFieldName` attribute will display an expand/collapse button.
 3. Clients must register a handler for the `row-expand-toggle` event on the `Table` instance, and will receive that event upon clicking the expand/collapse button.
 4. The details of the handled event will include the id for the row that was expanded.
 5. The client should first call `setRowState()` in their event handler code flagging the relevant rows to be lazy loading (this will cause the lazy loading indicator to appear).
@@ -178,7 +178,7 @@ Here are a few of the considerations that were made with respect to this mode:
 -   single selection mode can only select leafs
 -   selection state (when set to `multiple`) of parents (if selected) should become indetermine when new rows loaded (e.g. via lazy loading)
 -   selection counts should ignore parents
--   (maybe?) leaf-mode + multi-selection + lazy loading is considered an invalid confiuguration. This could mean that the Table API of `forceExpandCollapseFieldName` should be more semantically associated with lazy loading.
+-   (maybe?) leaf-mode + multi-selection + lazy loading is considered an invalid confiuguration. This could mean that the Table API of `expansionToggleVisibleFieldName` should be more semantically associated with lazy loading.
     -   (alternative?): Could we instead just hide the selection checkbox for parent rows that have no children?
 
 ## Alternative Implementations / Designs

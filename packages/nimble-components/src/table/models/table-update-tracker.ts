@@ -26,7 +26,8 @@ const trackedItems = [
     'columnWidths',
     'columnDefinition',
     'actionMenuSlots',
-    'selectionMode'
+    'selectionMode',
+    'expansionToggleVisibleFieldName'
 ] as const;
 
 /**
@@ -48,6 +49,10 @@ export class TableUpdateTracker<
 
     public get updateRowParentIds(): boolean {
         return this.isTracked('rowParentIds');
+    }
+
+    public get updateExpansionToggleVisibleFieldName(): boolean {
+        return this.isTracked('expansionToggleVisibleFieldName');
     }
 
     public get updateGroupRows(): boolean {
@@ -169,6 +174,11 @@ export class TableUpdateTracker<
 
     public trackParentIdFieldNameChanged(): void {
         this.track('rowParentIds');
+        this.queueUpdate();
+    }
+
+    public trackExpansionToggleVisibleFieldNamedChanged(): void {
+        this.track('expansionToggleVisibleFieldName');
         this.queueUpdate();
     }
 

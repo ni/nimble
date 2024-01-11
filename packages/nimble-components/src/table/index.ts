@@ -75,6 +75,9 @@ export class Table<
     @attr({ attribute: 'parent-id-field-name' })
     public parentIdFieldName?: string;
 
+    @attr({ attribute: 'expansion-toggle-visible-field-name' })
+    public expansionToggleVisibleFieldName?: string;
+
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TableRowSelectionMode = TableRowSelectionMode.none;
 
@@ -245,6 +248,7 @@ export class Table<
             getGroupedRowModel: tanStackGetGroupedRowModel(),
             getExpandedRowModel: tanStackGetExpandedRowModel(),
             getIsRowExpanded: this.getIsRowExpanded,
+            getRowCanExpand: this.getRowCanExpand,
             getSubRows: r => r.subRows,
             columns: [],
             state: {
@@ -513,6 +517,11 @@ export class Table<
      */
     public update(): void {
         this.validate();
+
+        if (this.tableUpdateTracker.updateExpansionToggleVisibleFieldName) {
+            this.expansionManager.setExpansionToggleVisibleFieldName(this.expansionToggleVisibleFieldName);
+        }
+
         if (this.tableUpdateTracker.requiresTanStackUpdate) {
             this.updateTanStack();
         }
@@ -613,6 +622,17 @@ export class Table<
         }
 
         this.tableUpdateTracker.trackParentIdFieldNameChanged();
+    }
+
+    protected expansionToggleVisibleFieldNameChanged(
+        _prev: string | undefined,
+        _next: string | undefined
+    ): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.tableUpdateTracker.trackExpansionToggleVisibleFieldNamedChanged();
     }
 
     protected columnsChanged(
@@ -849,6 +869,10 @@ export class Table<
             this.idFieldName,
             this.parentIdFieldName
         );
+        this.tableValidator.validateParentIdFieldNameConfiguration(
+            this.parentIdFieldName,
+            this.expansionToggleVisibleFieldName
+        );
         this.tableValidator.validateColumnIds(
             this.columns.map(x => x.columnId)
         );
@@ -922,10 +946,7 @@ export class Table<
         this.tableData = rows.map(row => {
             const isGroupRow = row.getIsGrouped();
             const hasParentRow = isGroupRow ? false : row.getParentRow();
-            // we check row.original.subRows below because row.subRows is populated for group rows
-            // which we don't want to include
-            const isParent = row.original.subRows !== undefined
-                && row.original.subRows.length > 0;
+            const isParent = !isGroupRow && this.getRowCanExpand(row);
             const isChildOfGroupRowWithNoHierarchy = !isGroupRow
                 && !isParent
                 && !hasParentRow
@@ -1045,6 +1066,12 @@ export class Table<
         row: TanStackRow<TableNode<TData>>
     ): boolean => {
         return this.expansionManager.isRowExpanded(row);
+    };
+
+    private readonly getRowCanExpand = (
+        row: TanStackRow<TableNode<TData>>
+    ): boolean => {
+        return this.expansionManager.isRowExpandable(row);
     };
 
     private readonly handleRowSelectionChange: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
