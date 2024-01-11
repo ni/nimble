@@ -19,7 +19,6 @@ export class NimbleLabelProviderRichTextDirective {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('toggle-bold') public set toggleBold(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'toggleBold', value);
     }
@@ -29,7 +28,6 @@ export class NimbleLabelProviderRichTextDirective {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('toggle-italics') public set toggleItalics(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'toggleItalics', value);
     }
@@ -39,7 +37,6 @@ export class NimbleLabelProviderRichTextDirective {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('toggle-bulleted-list') public set toggleBulletedList(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'toggleBulletedList', value);
     }
@@ -49,7 +46,6 @@ export class NimbleLabelProviderRichTextDirective {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('toggle-numbered-list') public set toggleNumberedList(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'toggleNumberedList', value);
     }

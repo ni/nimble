@@ -28,7 +28,6 @@ export class NimbleNumberFieldDirective {
 
     // readOnly property maps to the readonly attribute
     // https://github.com/microsoft/fast/blob/46bb6d9aab2c37105f4434db3795e176c2354a4f/packages/web-components/fast-foundation/src/number-field/number-field.ts#L38
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('readonly') public set readOnly(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'readOnly', toBooleanProperty(value));
     }
@@ -62,7 +61,6 @@ export class NimbleNumberFieldDirective {
     }
 
     // hideStep property maps to the hide-step attribute
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('hide-step') public set hideStep(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'hideStep', toBooleanProperty(value));
     }
@@ -80,7 +78,6 @@ export class NimbleNumberFieldDirective {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('error-text') public set errorText(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
     }
@@ -90,7 +87,6 @@ export class NimbleNumberFieldDirective {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
     }

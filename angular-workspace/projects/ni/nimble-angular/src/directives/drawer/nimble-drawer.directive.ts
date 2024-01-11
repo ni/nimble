@@ -34,7 +34,6 @@ export class NimbleDrawerDirective<CloseReason = void> {
     }
 
     // preventDismiss property intentionally maps to the prevent-dismiss attribute
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('prevent-dismiss') public set preventDismiss(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'preventDismiss', toBooleanProperty(value));
     }
@@ -44,7 +43,6 @@ export class NimbleDrawerDirective<CloseReason = void> {
     }
 
     // ariaLabel property intentionally maps to the aria-label attribute
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('aria-label') public set ariaLabel(value: string | null) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'ariaLabel', value);
     }

@@ -25,7 +25,6 @@ export class NimbleMappingUserDirective {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('display-name') public set displayName(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'displayName', value);
     }

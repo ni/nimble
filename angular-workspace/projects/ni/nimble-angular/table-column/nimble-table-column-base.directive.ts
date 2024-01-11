@@ -16,7 +16,6 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('column-id') public set columnId(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'columnId', value);
     }
@@ -26,7 +25,6 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('action-menu-slot') public set actionMenuSlot(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'actionMenuSlot', value);
     }
@@ -36,7 +34,6 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('action-menu-label') public set actionMenuLabel(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'actionMenuLabel', value);
     }
@@ -46,7 +43,6 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('column-hidden') public set columnHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'columnHidden', toBooleanProperty(value));
     }
@@ -56,7 +52,6 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('sort-direction') public set sortDirection(value: TableColumnSortDirection) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'sortDirection', value);
     }
@@ -66,7 +61,6 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
     }
 
     // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('sort-index') public set sortIndex(value: NumberValueOrAttribute | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'sortIndex', toNullableNumberProperty(value));
     }
