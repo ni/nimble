@@ -23,7 +23,6 @@ export class NimbleDialogDirective<CloseReason = void> {
         return this.elementRef.nativeElement.preventDismiss;
     }
 
-    // preventDismiss property intentionally maps to the prevent-dismiss attribute
     @Input('prevent-dismiss') public set preventDismiss(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'preventDismiss', toBooleanProperty(value));
     }

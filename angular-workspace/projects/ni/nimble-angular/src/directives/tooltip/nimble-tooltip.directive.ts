@@ -42,7 +42,6 @@ export class NimbleTooltipDirective {
         return this.elementRef.nativeElement.iconVisible;
     }
 
-    // iconVisible property intentionally maps to the icon-visible attribute
     @Input('icon-visible') public set iconVisible(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'iconVisible', toBooleanProperty(value));
     }

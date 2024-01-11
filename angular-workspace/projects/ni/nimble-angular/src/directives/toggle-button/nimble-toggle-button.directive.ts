@@ -33,7 +33,6 @@ export class NimbleToggleButtonDirective {
         return this.elementRef.nativeElement.contentHidden;
     }
 
-    // contentHidden property intentionally maps to the content-hidden attribute
     @Input('content-hidden') public set contentHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'contentHidden', toBooleanProperty(value));
     }
