@@ -4,6 +4,7 @@
 // https://github.com/webpack-contrib/istanbul-instrumenter-loader/issues/110
 
 const playwright = require('playwright');
+const karmaWebkitLauncherCustom = require('./karma-webkit-launcher-custom');
 
 process.env.WEBKIT_HEADLESS_BIN = playwright.webkit.executablePath();
 process.env.WEBKIT_BIN = playwright.webkit.executablePath();
@@ -63,7 +64,8 @@ module.exports = config => {
             'karma-sourcemap-loader',
             'karma-chrome-launcher',
             'karma-firefox-launcher',
-            'karma-webkit-launcher'
+            // 'karma-webkit-launcher',
+            karmaWebkitLauncherCustom
         ],
         files: ['dist/esm/utilities/tests/setup.js'],
         preprocessors: {
@@ -136,8 +138,8 @@ module.exports = config => {
                 base: 'Firefox',
                 debug: true
             },
-            WebkitDebugging: {
-                base: 'Webkit',
+            CustomWebkitDebugging: {
+                base: 'CustomWebkit',
                 debug: true
             }
         },
