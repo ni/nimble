@@ -206,7 +206,7 @@ The attribute is invalid in the following conditions:
 -   A record was found where \`id-field-name\` did not refer to a value of type \`string\`. This will cause \`validity.invalidRecordId\` to be \`true\`.`;
 
 const parentIdFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's parent ID, which,
-when used in combination with the \`idFieldName\` attribute, will display the table data in a hierarchical fashion. If the attribute is not specified, the
+when used in combination with the \`id-field-name\` attribute, will display the table data in a hierarchical fashion. If the attribute is not specified, the
 data in the table will always be presented without hierarchy.
 
 The attribute is invalid in the following conditions:

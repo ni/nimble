@@ -25,7 +25,7 @@ export class DataHierarchyManager<TData extends TableRecord> {
         ) {
             try {
                 // The call to arrayToTree will perform a deep copy of the data, but it does allow a
-                // configuration that will do shallow copies, and thus it's signature doesn't support
+                // configuration that will do shallow copies, and thus its signature doesn't support
                 // immutable arrays. Thus, we need to cast to a mutable type.
                 const data = records as TData[];
                 hierarchicalData = arrayToTree(data, {
