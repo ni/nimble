@@ -255,7 +255,7 @@ export class Table<
                 grouping: [],
                 expanded: true // Workaround until we can apply a fix to TanStack regarding leveraging our getIsRowExpanded implementation
             },
-            enableRowSelection: row => !row.getIsGrouped(),
+            enableRowSelection: this.isRowSelectable,
             enableMultiRowSelection: false,
             enableSubRowSelection: false,
             enableSorting: true,
@@ -398,20 +398,7 @@ export class Table<
             return;
         }
 
-        const updatedRowSelection: { [id: string]: boolean } = {};
-        if (this.selectionCheckbox!.checked) {
-            const allRows = this.table.getRowModel().rows;
-            for (const row of allRows) {
-                if (this.isRowSelectable(row)) {
-                    updatedRowSelection[row.id] = true;
-                }
-            }
-        }
-        this.updateTableOptions({
-            state: {
-                rowSelection: updatedRowSelection
-            }
-        });
+        this.table.toggleAllRowsSelected(this.selectionCheckbox!.checked);
         void this.emitSelectionChangeEvent();
     }
 
@@ -985,34 +972,13 @@ export class Table<
     }
 
     private getTableSelectionState(): TableRowSelectionState {
-        if (this.isAllRowsSelected()) {
+        if (this.table.getIsAllRowsSelected()) {
             return TableRowSelectionState.selected;
         }
         if (this.table.getIsSomeRowsSelected()) {
             return TableRowSelectionState.partiallySelected;
         }
         return TableRowSelectionState.notSelected;
-    }
-
-    private isAllRowsSelected(): boolean {
-        const selectionState = this.table.options.state.rowSelection ?? {};
-        for (const row of this.table.getRowModel().flatRows) {
-            if (this.isRowSelectable(row) && !selectionState[row.id]) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private isRowSelectable(row: TanStackRow<TableNode<TData>>): boolean {
-        if (row.getIsGrouped()) {
-            return false;
-        }
-        if (!this.leafMode || row.subRows.length === 0) {
-            return true;
-        }
-        return false;
     }
 
     private getRowSelectionState(
@@ -1126,6 +1092,16 @@ export class Table<
         row: TanStackRow<TableNode<TData>>
     ): boolean => {
         return this.expansionManager.isRowExpanded(row);
+    };
+
+    private readonly isRowSelectable = (row: TanStackRow<TableNode<TData>>): boolean => {
+        if (row.getIsGrouped()) {
+            return false;
+        }
+        if (!this.leafMode || row.subRows.length === 0) {
+            return true;
+        }
+        return false;
     };
 
     private readonly handleRowSelectionChange: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {

@@ -159,14 +159,14 @@ export class MultiSelectionManager<
         const lastRowIndex = Math.max(rangeStartIndex, rangeEndIndex);
         for (let i = firstRowIndex; i <= lastRowIndex; i++) {
             const row = allRows[i]!;
-            if (row.getIsGrouped()) {
+            if (this.actsLikeGroupRow2(row)) {
                 continue;
             }
             this.updateSelectionStateForRow(selection, row.id, isSelecting);
         }
 
         const endRangeRow = allRows[rangeEndIndex]!;
-        if (endRangeRow.getIsGrouped()) {
+        if (this.actsLikeGroupRow2(endRangeRow)) {
             this.getAllLeafRowIds(endRangeRow.id).forEach(id => this.updateSelectionStateForRow(selection, id, isSelecting));
         }
     }

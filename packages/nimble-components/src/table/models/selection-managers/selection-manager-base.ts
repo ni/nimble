@@ -36,16 +36,18 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
         rowState: TableRowState,
         isSelecting?: boolean
     ): void {
-        if (this.actsLikeGroupRow(rowState)) {
-            if (rowState.selectionState === TableRowSelectionState.selected) {
-                // Work around for https://github.com/TanStack/table/issues/4759
-                // Manually deselect all leaf rows when a fully selected group is being deselected.
-                this.deselectAllLeafRows(rowState.id);
-            } else {
-                this.selectAllLeafRows(rowState.id);
-            }
+        const actsLikeGroupRow = this.actsLikeGroupRow(rowState);
+        if (
+            actsLikeGroupRow
+            && rowState.selectionState === TableRowSelectionState.selected
+        ) {
+            // Work around for https://github.com/TanStack/table/issues/4759
+            // Manually deselect all leaf rows when a fully selected group is being deselected.
+            this.deselectAllLeafRows(rowState.id);
         } else {
-            this.tanStackTable.getRow(rowState.id).toggleSelected(isSelecting, { selectChildren: false });
+            this.tanStackTable.getRow(rowState.id).toggleSelected(isSelecting, {
+                selectChildren: actsLikeGroupRow
+            });
         }
     }
 
@@ -82,6 +84,18 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
         }
 
         if (this.leafMode && rowState.isParentRow) {
+            return true;
+        }
+
+        return false;
+    }
+
+    protected actsLikeGroupRow2(row: TanStackRow<TableNode<TData>>): boolean {
+        if (row.getIsGrouped()) {
+            return true;
+        }
+
+        if (this.leafMode && row.subRows.length !== 0) {
             return true;
         }
 
