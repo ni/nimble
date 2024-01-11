@@ -60,7 +60,6 @@ export class NimbleTextAreaDirective {
         return this.elementRef.nativeElement.errorVisible;
     }
 
-    // errorVisible property maps to the error-visible attribute
     @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
     }
@@ -69,7 +68,6 @@ export class NimbleTextAreaDirective {
         return this.elementRef.nativeElement.errorText;
     }
 
-    // errorText property maps to the error-text attribute
     @Input('error-text') public set errorText(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
     }

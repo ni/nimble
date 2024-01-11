@@ -60,7 +60,6 @@ export class NimbleNumberFieldDirective {
         return this.elementRef.nativeElement.hideStep;
     }
 
-    // hideStep property maps to the hide-step attribute
     @Input('hide-step') public set hideStep(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'hideStep', toBooleanProperty(value));
     }
