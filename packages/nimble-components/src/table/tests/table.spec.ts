@@ -2,7 +2,7 @@
 import { attr, customElement, html } from '@microsoft/fast-element';
 import { Table, tableTag } from '..';
 import { TableColumn } from '../../table-column/base';
-import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
+import { tableColumnTextTag } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
@@ -371,9 +371,7 @@ describe('Table', () => {
             await element.setData(simpleTableData);
             await waitForUpdatesAsync();
 
-            const dateColumn = document.createElement(
-                tableColumnTextTag
-            ) as TableColumnText;
+            const dateColumn = document.createElement(tableColumnTextTag);
             dateColumn.fieldName = 'moreStringData';
 
             element.appendChild(dateColumn);
@@ -390,9 +388,7 @@ describe('Table', () => {
             await element.setData(simpleTableData);
             await waitForUpdatesAsync();
 
-            const dateColumn = document.createElement(
-                tableColumnTextTag
-            ) as TableColumnText;
+            const dateColumn = document.createElement(tableColumnTextTag);
             dateColumn.fieldName = 'moreStringData';
 
             element.insertBefore(dateColumn, element.columns[0]!);

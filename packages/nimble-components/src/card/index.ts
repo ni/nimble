@@ -24,4 +24,4 @@ const nimbleCard = Card.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCard());
-export const cardTag = DesignSystem.tagFor(Card);
+export const cardTag = 'nimble-card';

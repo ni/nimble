@@ -190,7 +190,7 @@ export class TablePageObject<T extends TableRecord> {
                 `Anchor not found at cell ${rowIndex},${columnIndex}`
             );
         }
-        return anchor as Anchor;
+        return anchor;
     }
 
     public getRenderedIconColumnCellIconSeverity(

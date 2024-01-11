@@ -144,4 +144,4 @@ const nimbleDialog = Dialog.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleDialog());
-export const dialogTag = DesignSystem.tagFor(Dialog);
+export const dialogTag = 'nimble-dialog';

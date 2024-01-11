@@ -56,4 +56,4 @@ const nimbleRichTextMentionUsers = RichTextMentionUsers.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleRichTextMentionUsers());
-export const richTextMentionUsersTag = DesignSystem.tagFor(RichTextMentionUsers);
+export const richTextMentionUsersTag = 'nimble-rich-text-mention-users';
