@@ -26,7 +26,6 @@ export class NimbleRichTextEditorDirective {
         return this.elementRef.nativeElement.footerHidden;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('footer-hidden') public set footerHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'footerHidden', toBooleanProperty(value));
     }
@@ -35,7 +34,6 @@ export class NimbleRichTextEditorDirective {
         return this.elementRef.nativeElement.errorVisible;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
     }
@@ -44,7 +42,6 @@ export class NimbleRichTextEditorDirective {
         return this.elementRef.nativeElement.errorText;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('error-text') public set errorText(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
     }

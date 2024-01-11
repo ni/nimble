@@ -32,7 +32,6 @@ export class NimbleDialogDirective<CloseReason = void> {
         return this.elementRef.nativeElement.headerHidden;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('header-hidden') public set headerHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'headerHidden', toBooleanProperty(value));
     }
@@ -41,7 +40,6 @@ export class NimbleDialogDirective<CloseReason = void> {
         return this.elementRef.nativeElement.footerHidden;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('footer-hidden') public set footerHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'footerHidden', toBooleanProperty(value));
     }

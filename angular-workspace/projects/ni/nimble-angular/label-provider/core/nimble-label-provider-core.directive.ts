@@ -18,7 +18,6 @@ export class NimbleLabelProviderCoreDirective {
         return this.elementRef.nativeElement.popupDismiss;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('popup-dismiss') public set popupDismiss(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'popupDismiss', value);
     }
@@ -27,7 +26,6 @@ export class NimbleLabelProviderCoreDirective {
         return this.elementRef.nativeElement.numericDecrement;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('numeric-decrement') public set numericDecrement(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'numericDecrement', value);
     }
@@ -36,7 +34,6 @@ export class NimbleLabelProviderCoreDirective {
         return this.elementRef.nativeElement.numericIncrement;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('numeric-increment') public set numericIncrement(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'numericIncrement', value);
     }

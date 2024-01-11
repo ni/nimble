@@ -24,7 +24,6 @@ export class NimbleMappingUserDirective {
         return this.elementRef.nativeElement.displayName;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('display-name') public set displayName(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'displayName', value);
     }

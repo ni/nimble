@@ -37,7 +37,6 @@ export class NimbleBannerDirective {
         return this.elementRef.nativeElement.titleHidden;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('title-hidden') public set titleHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'titleHidden', toBooleanProperty(value));
     }
@@ -46,7 +45,6 @@ export class NimbleBannerDirective {
         return this.elementRef.nativeElement.preventDismiss;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('prevent-dismiss') public set preventDismiss(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'preventDismiss', toBooleanProperty(value));
     }

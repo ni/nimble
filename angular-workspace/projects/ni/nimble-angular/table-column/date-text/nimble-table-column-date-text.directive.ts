@@ -51,7 +51,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.fieldName;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('field-name') public set fieldName(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'fieldName', value);
     }
@@ -68,7 +67,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customLocaleMatcher;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-locale-matcher') public set customLocaleMatcher(value: LocaleMatcherAlgorithm) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customLocaleMatcher', value);
     }
@@ -77,7 +75,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customWeekday;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-weekday') public set customWeekday(value: WeekdayFormat) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customWeekday', value);
     }
@@ -86,7 +83,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customEra;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-era') public set customEra(value: EraFormat) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customEra', value);
     }
@@ -95,7 +91,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customYear;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-year') public set customYear(value: YearFormat) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customYear', value);
     }
@@ -104,7 +99,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customMonth;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-month') public set customMonth(value: MonthFormat) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customMonth', value);
     }
@@ -113,7 +107,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customDay;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-day') public set customDay(value: DayFormat) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customDay', value);
     }
@@ -122,7 +115,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customHour;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-hour') public set customHour(value: HourFormat) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customHour', value);
     }
@@ -131,7 +123,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customMinute;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-minute') public set customMinute(value: MinuteFormat) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customMinute', value);
     }
@@ -140,7 +131,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customSecond;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-second') public set customSecond(value: SecondFormat) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customSecond', value);
     }
@@ -149,7 +139,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customTimeZoneName;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-time-zone-name') public set customTimeZoneName(value: TimeZoneNameFormat) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customTimeZoneName', value);
     }
@@ -158,7 +147,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customFormatMatcher;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-format-matcher') public set customFormatMatcher(value: FormatMatcherAlgorithm) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customFormatMatcher', value);
     }
@@ -167,7 +155,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customHour12;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-hour12') public set customHour12(value: boolean | 'true' | 'false' | undefined) {
         let convertedValue;
         if (typeof value === 'boolean') {
@@ -184,7 +171,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customTimeZone;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-time-zone') public set customTimeZone(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customTimeZone', value);
     }
@@ -193,7 +179,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customCalendar;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-calendar') public set customCalendar(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customCalendar', value);
     }
@@ -202,7 +187,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customDayPeriod;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-day-period') public set customDayPeriod(value: DayPeriodFormat) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customDayPeriod', value);
     }
@@ -211,7 +195,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customNumberingSystem;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-numbering-system') public set customNumberingSystem(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customNumberingSystem', value);
     }
@@ -220,7 +203,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customDateStyle;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-date-style') public set customDateStyle(value: DateStyle) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customDateStyle', value);
     }
@@ -229,7 +211,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customTimeStyle;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-time-style') public set customTimeStyle(value: TimeStyle) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customTimeStyle', value);
     }
@@ -238,7 +219,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.customHourCycle;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('custom-hour-cycle') public set customHourCycle(value: HourCycleFormat) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customHourCycle', value);
     }
@@ -247,7 +227,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.fractionalWidth;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('fractional-width') public set fractionalWidth(value: NumberValueOrAttribute | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'fractionalWidth', toNullableNumberProperty(value));
     }
@@ -256,7 +235,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.minPixelWidth;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('min-pixel-width') public set minPixelWidth(value: NumberValueOrAttribute | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'minPixelWidth', toNullableNumberProperty(value));
     }
@@ -265,7 +243,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.groupIndex;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('group-index') public set groupIndex(value: NumberValueOrAttribute | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'groupIndex', toNullableNumberProperty(value));
     }
@@ -274,7 +251,6 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.groupingDisabled;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('grouping-disabled') public set groupingDisabled(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'groupingDisabled', toBooleanProperty(value));
     }

@@ -26,7 +26,6 @@ export class NimbleButtonDirective {
         return this.elementRef.nativeElement.appearanceVariant;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('appearance-variant') public set appearanceVariant(value: ButtonAppearanceVariant) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearanceVariant', value);
     }
@@ -51,7 +50,6 @@ export class NimbleButtonDirective {
         return this.elementRef.nativeElement.contentHidden;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('content-hidden') public set contentHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'contentHidden', toBooleanProperty(value));
     }

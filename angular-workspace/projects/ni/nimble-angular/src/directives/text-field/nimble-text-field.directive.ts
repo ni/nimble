@@ -100,7 +100,6 @@ export class NimbleTextFieldDirective {
         return this.elementRef.nativeElement.errorText;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('error-text') public set errorText(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
     }
@@ -109,7 +108,6 @@ export class NimbleTextFieldDirective {
         return this.elementRef.nativeElement.errorVisible;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
     }
@@ -134,7 +132,6 @@ export class NimbleTextFieldDirective {
         return this.elementRef.nativeElement.fullBleed;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('full-bleed') public set fullBleed(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'fullBleed', toBooleanProperty(value));
     }

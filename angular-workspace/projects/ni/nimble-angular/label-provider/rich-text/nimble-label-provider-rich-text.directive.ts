@@ -18,7 +18,6 @@ export class NimbleLabelProviderRichTextDirective {
         return this.elementRef.nativeElement.toggleBold;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('toggle-bold') public set toggleBold(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'toggleBold', value);
     }
@@ -27,7 +26,6 @@ export class NimbleLabelProviderRichTextDirective {
         return this.elementRef.nativeElement.toggleItalics;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('toggle-italics') public set toggleItalics(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'toggleItalics', value);
     }
@@ -36,7 +34,6 @@ export class NimbleLabelProviderRichTextDirective {
         return this.elementRef.nativeElement.toggleBulletedList;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('toggle-bulleted-list') public set toggleBulletedList(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'toggleBulletedList', value);
     }
@@ -45,7 +42,6 @@ export class NimbleLabelProviderRichTextDirective {
         return this.elementRef.nativeElement.toggleNumberedList;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('toggle-numbered-list') public set toggleNumberedList(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'toggleNumberedList', value);
     }

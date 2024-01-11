@@ -18,7 +18,6 @@ export class NimbleTableColumnIconDirective extends NimbleTableColumnBaseDirecti
         return this.elementRef.nativeElement.fieldName;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('field-name') public set fieldName(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'fieldName', value);
     }
@@ -27,7 +26,6 @@ export class NimbleTableColumnIconDirective extends NimbleTableColumnBaseDirecti
         return this.elementRef.nativeElement.keyType;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('key-type') public set keyType(value: MappingKeyType) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'keyType', value);
     }
@@ -36,7 +34,6 @@ export class NimbleTableColumnIconDirective extends NimbleTableColumnBaseDirecti
         return this.elementRef.nativeElement.fractionalWidth;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('fractional-width') public set fractionalWidth(value: NumberValueOrAttribute | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'fractionalWidth', toNullableNumberProperty(value));
     }
@@ -45,7 +42,6 @@ export class NimbleTableColumnIconDirective extends NimbleTableColumnBaseDirecti
         return this.elementRef.nativeElement.minPixelWidth;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('min-pixel-width') public set minPixelWidth(value: NumberValueOrAttribute | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'minPixelWidth', toNullableNumberProperty(value));
     }
@@ -54,7 +50,6 @@ export class NimbleTableColumnIconDirective extends NimbleTableColumnBaseDirecti
         return this.elementRef.nativeElement.groupIndex;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('group-index') public set groupIndex(value: NumberValueOrAttribute | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'groupIndex', toNullableNumberProperty(value));
     }
@@ -63,7 +58,6 @@ export class NimbleTableColumnIconDirective extends NimbleTableColumnBaseDirecti
         return this.elementRef.nativeElement.groupingDisabled;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
     @Input('grouping-disabled') public set groupingDisabled(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'groupingDisabled', toBooleanProperty(value));
     }
