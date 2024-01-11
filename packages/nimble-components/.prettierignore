@@ -29,3 +29,4 @@ src/utilities/tests/fixture.ts
 src/utilities/style/direction.ts
 src/icons/**/*.ts
 build/transform-fragments.js
+karma-webkit-launcher-custom.js

@@ -261,6 +261,7 @@ const childProcessCleanup = function (task_id, callback) {
     }
 
     // Find all related child process for playwright based on the task id.
+    console.log('Looking for Playwright child processes');
     const findChildProcesses = `ps | grep -i "playwright" | grep -i "id=${task_id}"`;
     child_process.exec(findChildProcesses, (error, stdout) => {
         // Ignore error from killed karma processes.

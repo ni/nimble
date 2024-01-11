@@ -8,7 +8,8 @@ module.exports = {
         // Force inclusion of storybook dot file hidden folder
         '!/.storybook',
         'node_modules',
-        'dist'
+        'dist',
+        'karma-webkit-launcher-custom.js'
     ],
     rules: {
         // Enabled to prevent accidental usage of async-await
