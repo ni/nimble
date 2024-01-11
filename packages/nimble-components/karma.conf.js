@@ -4,7 +4,6 @@
 // https://github.com/webpack-contrib/istanbul-instrumenter-loader/issues/110
 
 const playwright = require('playwright');
-const karmaWebkitLauncherCustom = require('./karma-webkit-launcher-custom');
 
 process.env.WEBKIT_HEADLESS_BIN = playwright.webkit.executablePath();
 process.env.WEBKIT_BIN = playwright.webkit.executablePath();
@@ -13,6 +12,8 @@ process.env.CHROME_BIN = playwright.chromium.executablePath();
 
 const path = require('path');
 const webpack = require('webpack');
+
+const karmaWebkitLauncherCustom = require('./karma-webkit-launcher-custom');
 
 const basePath = path.resolve(__dirname);
 const commonChromeFlags = [

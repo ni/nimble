@@ -4,7 +4,8 @@ module.exports = {
         'node_modules',
         'dist',
         'src/icons',
-        'src/wafer-map/workers'
+        'src/wafer-map/workers',
+        'karma-webkit-launcher-custom.js'
     ],
     overrides: [
         {
