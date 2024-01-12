@@ -1,6 +1,6 @@
 # Jasmine Parameterized
 
-The `@ni/jasmine-parameterized` library provides utility functions for writing jasmine parameterized tests.
+The `@ni/jasmine-parameterized` library provides utility functions for writing [Jasmine](https://jasmine.github.io/) parameterized tests.
 
 # Usage
 
