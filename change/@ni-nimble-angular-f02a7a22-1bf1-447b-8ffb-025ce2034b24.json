@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Disable @angular-eslint/no-input-rename for nimble angular",
-  "packageName": "@ni/nimble-angular",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
