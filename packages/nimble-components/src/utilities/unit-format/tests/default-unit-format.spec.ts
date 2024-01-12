@@ -280,14 +280,16 @@ describe('DefaultUnitFormat', () => {
         describe('and default values', () => {
             it('unconfigured', () => {
                 const formatter = new DefaultUnitFormat('en');
-                expect(formatter.unitScale).toBe(passthroughUnitScale);
+                const resolvedOptions = formatter.resolvedOptions();
+                expect(resolvedOptions.unitScale).toBe(passthroughUnitScale);
             });
             it('unconfigured', () => {
                 const unitScale = new TestUnitScale();
                 const formatter = new DefaultUnitFormat('en', {
                     unitScale
                 });
-                expect(formatter.unitScale).toBe(unitScale);
+                const resolvedOptions = formatter.resolvedOptions();
+                expect(resolvedOptions.unitScale).toBe(unitScale);
             });
         });
         const appendedLabelUnitTestCases = [

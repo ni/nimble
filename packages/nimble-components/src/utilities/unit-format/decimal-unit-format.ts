@@ -1,20 +1,21 @@
-import { UnitFormat } from './base/unit-format';
+import { UnitFormat, UnitFormatOptions } from './base/unit-format';
 import type { ScaledUnitFormat } from './unit-scale/base/scaled-unit-format';
 import type { UnitScale } from './unit-scale/base/unit-scale';
 import { passthroughUnitScale } from './unit-scale/passthrough-unit-scale';
 
+interface DecimalUnitFormatOptions extends UnitFormatOptions {
+    minimumFractionDigits?: number;
+    maximumFractionDigits?: number;
+    unitScale?: UnitScale;
+}
+
 /**
  * Format for decimal numbers with units.
  */
-export class DecimalUnitFormat extends UnitFormat {
-    /** Resolved UnitScale */
-    public readonly unitScale: UnitScale;
-
-    /** Resolved minimumFractionDigits */
-    public readonly minimumFractionDigits: number;
-
-    /** Resolved maximumFractionDigits */
-    public readonly maximumFractionDigits: number;
+export class DecimalUnitFormat extends UnitFormat<DecimalUnitFormatOptions> {
+    private readonly unitScale: UnitScale;
+    private readonly minimumFractionDigits: number;
+    private readonly maximumFractionDigits: number;
 
     private readonly scaledUnitFormatters = new Map<number, ScaledUnitFormat>();
     private readonly tenPowDecimalDigits: number;
@@ -25,11 +26,7 @@ export class DecimalUnitFormat extends UnitFormat {
             minimumFractionDigits = 0,
             maximumFractionDigits = Math.max(3, minimumFractionDigits),
             unitScale = passthroughUnitScale
-        }: {
-            minimumFractionDigits?: number,
-            maximumFractionDigits?: number,
-            unitScale?: UnitScale
-        } = {
+        }: DecimalUnitFormatOptions = {
             minimumFractionDigits: 0,
             maximumFractionDigits: 3,
             unitScale: passthroughUnitScale
@@ -54,6 +51,14 @@ export class DecimalUnitFormat extends UnitFormat {
         this.unitScale = unitScale;
         this.minimumFractionDigits = minimumFractionDigits;
         this.maximumFractionDigits = maximumFractionDigits;
+    }
+
+    public override resolvedOptions(): Required<DecimalUnitFormatOptions> {
+        return {
+            unitScale: this.unitScale,
+            maximumFractionDigits: this.maximumFractionDigits,
+            minimumFractionDigits: this.minimumFractionDigits
+        };
     }
 
     protected tryFormat(number: number): string {

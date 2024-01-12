@@ -1,7 +1,13 @@
+import type { UnitScale } from '../unit-scale/base/unit-scale';
+
+export interface UnitFormatOptions {
+    unitScale?: UnitScale;
+}
+
 /**
  * The base class for unit formats.
  */
-export abstract class UnitFormat {
+export abstract class UnitFormat<Options extends UnitFormatOptions = UnitFormatOptions> {
     /**
      * Formats a number value to a string.
      * For nullish values or values that result in an exception being thrown, empty string is returned
@@ -17,6 +23,8 @@ export abstract class UnitFormat {
             return '';
         }
     }
+
+    public abstract resolvedOptions(): Required<Options>;
 
     protected abstract tryFormat(number: number): string;
 }

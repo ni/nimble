@@ -4,7 +4,7 @@
 
 The `UnitFormat` library provides a way to format numbers with units. The library:
 
--   Provides opionated number formatters that are well-suited for:
+-   Provides opinionated number formatters that are well-suited for:
     -   numbers that can appear in large ranges (very small or very large)
     -   numbers that are always decimal with a configurable number of digits
 -   Can scale number values on a unit scale, for example, a metric scale of voltage.
@@ -27,9 +27,15 @@ console.log(formatter.format(1000));
 
 ### UnitFormat
 
-There are multiple `UnitFormat`s that represent different configurations for formatting numbers. These represent wrappers around `Intl.NumberFormat` with opionated configurations. For example, the `DefaultUnitFormat` will represent "very large" and "very small" numbers with an exponential notation and numbers between those ranges as decimal. The different `UnitFormat`s take an optional `unitScale` that provides units and automatic conversions of numbers for that unit scale.
+There are multiple `UnitFormat`s that represent different configurations for formatting numbers. These represent wrappers around `Intl.NumberFormat` with opinionated configurations.
+
+For example, the `DefaultUnitFormat` will represent "very large" and "very small" numbers with an exponential notation and numbers between those ranges as decimal. The different `UnitFormat`s take an optional `unitScale` that provides units and automatic conversions of numbers for that unit scale.
 
 ### UnitScale
+
+There are two main types of `UnitScale`s:
+- the unit scales that extend `UnitScale` directly which are generally a unit scale where each individual unit can be translated by [`Intl.NumberFormat`](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers).
+- unit scales extending the helper class `ManuallyTranslatedUnitScale` where each unit is given manually translated strings for the set of supported languages via `UnitTranslatation` and `UnitPrefix` string collection objects.
 
 A `UnitScale` represents a collection of `ScaledUnits` where a scale factor is used to define each scaled unit. Each `UnitScale` must have a "base" `ScaledUnit` with scale factor 1. For example, a byte `UnitScale` may contain:
 
@@ -50,7 +56,3 @@ new ScaledUnit(
     })
 ),
 ```
-
-The default `UnitScale` is generally useful for creating scales with units that are supported by the `Intl.NumberFormat` APIs.
-
-A helper class called `ManuallyTranslatedUnitScale` makes it easier to create `UnitScale`s created from manually provided strings via the `UnitTranslatation` and `UnitPrefix` string collection objects.

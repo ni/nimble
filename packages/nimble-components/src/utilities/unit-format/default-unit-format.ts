@@ -1,4 +1,4 @@
-import { UnitFormat } from './base/unit-format';
+import { UnitFormat, UnitFormatOptions } from './base/unit-format';
 import type { ScaledUnitFormat } from './unit-scale/base/scaled-unit-format';
 import type { UnitScale } from './unit-scale/base/unit-scale';
 import { passthroughUnitScale } from './unit-scale/passthrough-unit-scale';
@@ -22,8 +22,7 @@ export class DefaultUnitFormat extends UnitFormat {
     // with 6 digits or less.
     private static readonly exponentialUpperBound = 999999.5;
 
-    /** Resolved UnitScale */
-    public readonly unitScale: UnitScale;
+    private readonly unitScale: UnitScale;
 
     // Format options to use by default. It renders the number with a maximum of 6 signficant digits.
     private readonly defaultIntlNumberFormatOptions: Intl.NumberFormatOptions = {
@@ -62,9 +61,7 @@ export class DefaultUnitFormat extends UnitFormat {
         locale: string,
         {
             unitScale = passthroughUnitScale
-        }: {
-            unitScale?: UnitScale
-        } = {
+        }: UnitFormatOptions = {
             unitScale: passthroughUnitScale
         }
     ) {
@@ -93,6 +90,12 @@ export class DefaultUnitFormat extends UnitFormat {
         this.unitScale = unitScale;
     }
 
+    public override resolvedOptions(): Required<UnitFormatOptions> {
+        return {
+            unitScale: this.unitScale
+        };
+    }
+
     protected tryFormat(number: number): string {
         // Normalize +0 / -0 --> +0
         const numberNormalized = number === 0 ? 0 : number;
@@ -118,7 +121,7 @@ export class DefaultUnitFormat extends UnitFormat {
                 return scaledUnitFormatter.format(numberNormalized);
             }
             default:
-                throw new Error('Unexpected nuumber format style');
+                throw new Error('Unexpected number format style');
         }
     }
 

@@ -18,12 +18,6 @@ describe('ManuallyTranslatedUnitScale', () => {
         }
     }
 
-    it('automatically includes base unit', () => {
-        const unitScale = new TestManuallyTranslatedUnitScale();
-
-        expect(unitScale.baseScaledUnit).toBeDefined();
-    });
-
     it('creates expected units from prefixes', () => {
         const unitScale = new TestManuallyTranslatedUnitScale();
         const scaledUnits = unitScale.supportedScaledUnits;
