@@ -42,12 +42,10 @@ export class DataHierarchyManager<TData extends TableRecord> {
             } catch {
                 this.tableValidator.setParentIdConfigurationValidity(false);
                 this.isDataFlat = true;
-                return records.map((record, index) => {
-                    return {
-                        clientRecord: { ...record },
-                        originalIndex: index
-                    };
-                });
+                return records.map((record, index) => ({
+                    clientRecord: { ...record },
+                    originalIndex: index
+                }));
             }
         } else {
             this.isDataFlat = true;
