@@ -314,7 +314,8 @@ export class Select extends FoundationSelect implements ErrorPattern {
             DOM.queueUpdate(() => {
                 window.requestAnimationFrame(() => {
                     this.input?.focus();
-                    this.scrollbarIsVisible = this.scrollableElement.clientHeight < this.scrollableElement.scrollHeight;
+                    this.scrollbarIsVisible = this.scrollableElement.clientHeight
+                        < this.scrollableElement.scrollHeight;
                 });
             });
         }
