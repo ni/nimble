@@ -30,6 +30,7 @@ interface SimpleTableRecord extends TableRecord {
     id?: string;
     parentId?: string;
     parentId2?: string;
+    booleanValue?: boolean;
 }
 
 const simpleTableData = [
@@ -1370,6 +1371,85 @@ describe('Table', () => {
                         });
                     }
                 );
+            });
+        });
+
+        describe('lazy loaded hierarchical data', () => {
+            const hierarchicalData: SimpleTableRecord[] = [
+                {
+                    id: '0',
+                    stringData: 'hello',
+                    parentId: undefined
+                },
+                {
+                    id: '1',
+                    stringData: 'world',
+                    parentId: undefined
+                },
+                {
+                    id: '2',
+                    stringData: 'foo',
+                    parentId: undefined
+                },
+                {
+                    id: '3',
+                    stringData: 'bar',
+                    booleanValue: true
+                }
+            ];
+
+            beforeEach(async () => {
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                element.expansionToggleVisibleFieldName = 'booleanValue';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+            });
+
+            it('shows collapse all button with no current children but with `expansionToggleVisibleFieldName` set', () => {
+                expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+            });
+
+            it('clearing `expansionToggleVisibleFieldName` with no children hides the collapse all button', async () => {
+                element.expansionToggleVisibleFieldName = undefined;
+                await waitForUpdatesAsync();
+
+                expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+            });
+
+            it('row with no children but a visible expansion toggle button initializes to collapsed', () => {
+                expect(pageObject.isDataRowExpandCollapseButtonVisible(0)).toBeFalse();
+                expect(pageObject.isDataRowExpandCollapseButtonVisible(1)).toBeFalse();
+                expect(pageObject.isDataRowExpandCollapseButtonVisible(2)).toBeFalse();
+                expect(pageObject.isDataRowExpandCollapseButtonVisible(3)).toBeTrue();
+                expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    false,
+                    false,
+                    false,
+                    false
+                ]);
+            });
+
+            it('clearing `expansionToggleVisibleFieldName` removes the expansion toggle button', async () => {
+                element.expansionToggleVisibleFieldName = undefined;
+                await waitForUpdatesAsync();
+
+                expect(pageObject.isDataRowExpandCollapseButtonVisible(3)).toBeFalse();
+            });
+
+            it('can expand a row with no children but a visible expansion toggle button', async () => {
+                expect(pageObject.getRenderedRowCount()).toBe(4);
+                pageObject.clickDataRowExpandCollapseButton(3);
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedRowCount()).toBe(4); // still has 4 rows
+                expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    false,
+                    false,
+                    false,
+                    true
+                ]);
             });
         });
     });

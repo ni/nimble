@@ -274,6 +274,50 @@ describe('TableValidator', () => {
         });
     });
 
+    describe('parent ID validation', () => {
+        const testCases = [
+            {
+                name: 'is valid when parentIdFieldName and expansionToggleVisibleFieldName are both set',
+                parentIdFieldName: 'my-parent-id-field',
+                expansionToggleVisibleFieldName: 'expansion-toggle-visible-field-name',
+                isValid: true
+            },
+            {
+                name: 'is valid when niether parentIdFieldName nor expansionToggleVisibleFieldName are set',
+                parentIdFieldName: undefined,
+                expansionToggleVisibleFieldName: undefined,
+                isValid: true
+            },
+            {
+                name: 'is valid when parentIdFieldName is set without expansionToggleVisibleFieldName being set',
+                parentIdFieldName: 'my-parent-id-field',
+                expansionToggleVisibleFieldName: undefined,
+                isValid: true
+            },
+            {
+                name: 'is valid when parentIdFieldName an empty string without expansionToggleVisibleFieldName being set',
+                parentIdFieldName: '',
+                expansionToggleVisibleFieldName: undefined,
+                isValid: true
+            },
+            {
+                name: 'is invalid when is parentIdFieldName undefined when expansionToggleVisibleFieldName is set',
+                parentIdFieldName: undefined,
+                expansionToggleVisibleFieldName: 'expansion-toggle-visible-field-name',
+                isValid: false
+            }
+        ] as const;
+
+        parameterizeNamedList(testCases, (spec, name, value) => {
+            spec(name, () => {
+                const isValid = validator.validateParentIdFieldNameConfiguration(value.parentIdFieldName, value.expansionToggleVisibleFieldName);
+                expect(isValid).toEqual(value.isValid);
+                expect(validator.getValidity().parentIdFieldNameNotConfigured).toEqual(!value.isValid);
+                expect(validator.isValid()).toEqual(value.isValid);
+            });
+        });
+    });
+
     describe('column config validation', () => {
         const columnConfigurations = [
             {

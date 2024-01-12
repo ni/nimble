@@ -520,6 +520,10 @@ export class Table<
 
         if (this.tableUpdateTracker.updateExpansionToggleVisibleFieldName) {
             this.expansionManager.setExpansionToggleVisibleFieldName(this.expansionToggleVisibleFieldName);
+
+            if (!this.tableUpdateTracker.requiresTanStackUpdate) {
+                this.refreshRows();
+            }
         }
 
         if (this.tableUpdateTracker.requiresTanStackUpdate) {
