@@ -27,8 +27,6 @@ export class NimbleAnchorDirective extends NimbleAnchorBaseDirective<Anchor> {
         return this.elementRef.nativeElement.underlineHidden;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('underline-hidden') public set underlineHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'underlineHidden', toBooleanProperty(value));
     }
@@ -37,8 +35,6 @@ export class NimbleAnchorDirective extends NimbleAnchorBaseDirective<Anchor> {
         return this.elementRef.nativeElement.contentEditable;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('contenteditable') public set contentEditable(value: string) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'contentEditable', value);
     }
