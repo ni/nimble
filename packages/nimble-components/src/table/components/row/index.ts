@@ -18,7 +18,8 @@ import type {
     TableFieldName,
     TableRecord,
     TableRowExpansionToggleEventDetail,
-    TableRowSelectionToggleEventDetail
+    TableRowSelectionToggleEventDetail,
+    TableRowState2
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
@@ -62,6 +63,9 @@ export class TableRow<
 
     @observable
     public dataRecord?: TDataRecord;
+
+    @observable
+    public rowState?: TableRowState2;
 
     /**
      * @internal

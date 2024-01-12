@@ -63,6 +63,10 @@ export type TableNumberField<FieldName extends TableFieldName> = {
     [name in FieldName]: TableNumberFieldValue;
 };
 
+export interface TableRowState2 {
+    loading: boolean;
+}
+
 export interface TableValidity extends ValidityObject {
     readonly duplicateRecordId: boolean;
     readonly missingRecordId: boolean;
@@ -186,4 +190,5 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     immediateChildCount?: number;
     groupColumn?: TableColumn;
     isParentRow: boolean;
+    rowState: TableRowState2;
 }

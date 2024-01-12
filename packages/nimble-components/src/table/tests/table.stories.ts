@@ -427,8 +427,10 @@ const metadata: Meta<TableArgs> = {
                 id: '11',
                 parentId: '10'
             }];
+            x.tableRef.setRowState('10', { loading: true });
             setTimeout(() => {
                 void x.tableRef.setData(newData);
+                // x.tableRef.setRowState('10', { loading: false });
             }, 1500);
         }
     }

@@ -45,7 +45,8 @@ import {
     TableRowSelectionState,
     TableRowSelectionToggleEventDetail,
     TableRowState,
-    TableValidity
+    TableValidity,
+    TableRowState2
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -56,6 +57,7 @@ import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
 import { DataHierarchyManager } from './models/data-hierarchy-manager';
 import { ExpansionManager } from './models/expansion-manager';
+import { RowStateManager } from './models/row-state-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -227,6 +229,7 @@ export class Table<
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private readonly dataHierarchyManager: DataHierarchyManager<TData>;
     private readonly expansionManager = new ExpansionManager<TData>();
+    private readonly rowStateManager = new RowStateManager();
     private columnNotifiers: Notifier[] = [];
     private readonly layoutManagerNotifier: Notifier;
     private isInitialized = false;
@@ -303,6 +306,12 @@ export class Table<
                 rowSelection: this.calculateTanStackSelectionState(recordIds)
             }
         });
+    }
+
+    public setRowState(id: string, rowState: TableRowState2): void {
+        // mkreis TODO: validate that ID is in the data? validate that idFieldName is configured?
+        this.rowStateManager.setRowState(id, rowState);
+        this.refreshRows();
     }
 
     public override connectedCallback(): void {
@@ -970,7 +979,8 @@ export class Table<
                     : row.depth,
                 isParentRow: isParent,
                 immediateChildCount: row.subRows.length,
-                groupColumn: this.getGroupRowColumn(row)
+                groupColumn: this.getGroupRowColumn(row),
+                rowState: this.rowStateManager.getRowState(row.id)
             };
             hasDataHierarchy = hasDataHierarchy || isParent;
             return rowState;
@@ -1062,6 +1072,8 @@ export class Table<
         if (updatedOptions.data) {
             const rows = this.table.getRowModel().flatRows;
             this.expansionManager.processDataUpdate(rows);
+            // mkreis TODO: only do this when using row IDs
+            this.rowStateManager.handleDataUpdate(rows.map(r => r.id));
         }
         this.refreshRows();
     }

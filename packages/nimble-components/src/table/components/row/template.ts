@@ -14,6 +14,8 @@ import {
 import type { TableColumn } from '../../../table-column/base';
 import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
+import { spinnerTag } from '../../../spinner';
+import { SpinnerAppearance } from '../../../spinner/types';
 
 // prettier-ignore
 export const template = html<TableRow>`
@@ -22,6 +24,7 @@ export const template = html<TableRow>`
         aria-selected=${x => x.ariaSelected}
         aria-expanded=${x => x.expanded}
         style="--ni-private-table-row-indent-level: ${x => x.nestingLevel};"
+        class="${x => (x.rowState?.loading ? 'loading' : '')}"
     >
         ${when(x => !x.rowOperationGridCellHidden, html<TableRow>`
             <span role="gridcell" class="row-operations-container">
@@ -82,5 +85,12 @@ export const template = html<TableRow>`
                 `)}
             `, { recycle: false, positioning: true })}
         </span>
+
+        
+        ${when(x => x.rowState?.loading ?? false, html<TableRow>`
+            <div class="loading-indicator">
+                <${spinnerTag} appearance="${SpinnerAppearance.accent}"></${spinnerTag}}>
+            </div>
+        `)}
     </template>
 `;
