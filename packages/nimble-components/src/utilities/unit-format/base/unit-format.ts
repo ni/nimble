@@ -7,7 +7,9 @@ export interface UnitFormatOptions {
 /**
  * The base class for unit formats.
  */
-export abstract class UnitFormat<Options extends UnitFormatOptions = UnitFormatOptions> {
+export abstract class UnitFormat<
+    Options extends UnitFormatOptions = UnitFormatOptions
+> {
     /**
      * Formats a number value to a string.
      * For nullish values or values that result in an exception being thrown, empty string is returned

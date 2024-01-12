@@ -59,9 +59,7 @@ export class DefaultUnitFormat extends UnitFormat {
 
     public constructor(
         locale: string,
-        {
-            unitScale = passthroughUnitScale
-        }: UnitFormatOptions = {
+        { unitScale = passthroughUnitScale }: UnitFormatOptions = {
             unitScale: passthroughUnitScale
         }
     ) {

@@ -34,8 +34,9 @@ For example, the `DefaultUnitFormat` will represent "very large" and "very small
 ### UnitScale
 
 There are two main types of `UnitScale`s:
-- the unit scales that extend `UnitScale` directly which are generally a unit scale where each individual unit can be translated by [`Intl.NumberFormat`](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers).
-- unit scales extending the helper class `ManuallyTranslatedUnitScale` where each unit is given manually translated strings for the set of supported languages via `UnitTranslatation` and `UnitPrefix` string collection objects.
+
+-   the unit scales that extend `UnitScale` directly which are generally a unit scale where each individual unit can be translated by [`Intl.NumberFormat`](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers).
+-   unit scales extending the helper class `ManuallyTranslatedUnitScale` where each unit is given manually translated strings for the set of supported languages via `UnitTranslatation` and `UnitPrefix` string collection objects.
 
 A `UnitScale` represents a collection of `ScaledUnits` where a scale factor is used to define each scaled unit. Each `UnitScale` must have a "base" `ScaledUnit` with scale factor 1. For example, a byte `UnitScale` may contain:
 
