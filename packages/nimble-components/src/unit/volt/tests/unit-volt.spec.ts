@@ -14,6 +14,6 @@ describe('Volt unit', () => {
 
     it('returns expected formatter', () => {
         const element = document.createElement('nimble-unit-volt');
-        expect(element.getUnitScale()).toBe(voltUnitScale);
+        expect(element.resolvedUnitScale).toBe(voltUnitScale);
     });
 });

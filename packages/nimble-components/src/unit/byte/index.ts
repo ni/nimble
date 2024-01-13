@@ -1,7 +1,6 @@
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { template } from '../base/template';
-import type { UnitScale } from '../../utilities/unit-format/unit-scale/base/unit-scale';
 import { byte1024UnitScale } from '../../utilities/unit-format/manually-translated-unit-scale/byte-1024-unit-scale';
 import { byteUnitScale } from '../../utilities/unit-format/unit-scale/byte-unit-scale';
 import { Unit } from '../base/unit';
@@ -13,15 +12,25 @@ declare global {
 }
 
 /**
- * Element representing units for bytes
+ * Element that provides a unit scale for conversion of bytes
  */
 export class UnitByte extends Unit {
-    // If true, 1024-based units are used instead of 1000-based units
+    /**
+     * Use binary (base 1024 scale with binary prefixes) instead of
+     * the default of decimal (base 1000 scale with metric prefixes)
+     */
     @attr({ mode: 'boolean' })
     public binary = false;
 
-    public override getUnitScale(): UnitScale {
-        return this.binary ? byte1024UnitScale : byteUnitScale;
+    public constructor() {
+        super();
+        this.resolvedUnitScale = byteUnitScale;
+    }
+
+    private binaryChanged(): void {
+        this.resolvedUnitScale = this.binary
+            ? byte1024UnitScale
+            : byteUnitScale;
     }
 }
 

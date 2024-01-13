@@ -28,14 +28,14 @@ describe('Byte unit', () => {
     it('returns Byte1024UnitScale when "binary" attribute is set', async () => {
         ({ element, connect, disconnect } = await setup(true));
         await connect();
-        expect(element.getUnitScale()).toBe(byte1024UnitScale);
+        expect(element.resolvedUnitScale).toBe(byte1024UnitScale);
         await disconnect();
     });
 
     it('returns ByteScale when "binary" attribute is unset', async () => {
         ({ element, connect, disconnect } = await setup(false));
         await connect();
-        expect(element.getUnitScale()).toBe(byteUnitScale);
+        expect(element.resolvedUnitScale).toBe(byteUnitScale);
         await disconnect();
     });
 });

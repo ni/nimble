@@ -1,9 +1,12 @@
+import { observable } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import type { UnitScale } from '../../utilities/unit-format/unit-scale/base/unit-scale';
 
 /**
- * An element representing a set of related units which could be used to represent the same value
+ * The base class for an element that provides a unit scale for scaled unit conversions
  */
 export abstract class Unit extends FoundationElement {
-    public abstract getUnitScale(): UnitScale;
+    /** @internal */
+    @observable
+    public resolvedUnitScale?: UnitScale;
 }

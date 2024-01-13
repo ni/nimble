@@ -7,7 +7,8 @@ import {
     Notifier,
     nullableNumberConverter,
     Observable,
-    observable
+    observable,
+    Subscriber
 } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from './template';
@@ -67,11 +68,18 @@ export class TableColumnNumberText extends TableColumnTextBase {
     @observable
     public unitElements?: Element[];
 
+    @observable
     private unit?: Unit;
 
     private unitNotifier?: Notifier;
 
     private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
+        handleChange: () => {
+            this.updateColumnConfig();
+        }
+    };
+
+    private readonly unitSubscriber: Subscriber = {
         handleChange: () => {
             this.updateColumnConfig();
         }
@@ -92,15 +100,6 @@ export class TableColumnNumberText extends TableColumnTextBase {
         return this.validator.getValidity();
     }
 
-    /**
-     * @internal
-     *
-     * Respond to any change in the unit's observable properties by updating the column config
-     */
-    public handleChange(): void {
-        this.updateColumnConfig();
-    }
-
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
@@ -111,15 +110,15 @@ export class TableColumnNumberText extends TableColumnTextBase {
         };
     }
 
-    private updateUnitObserver(): void {
+    private updateUnitNotifier(): void {
         if (this.unitNotifier) {
-            this.unitNotifier.unsubscribe(this);
+            this.unitNotifier.unsubscribe(this.unitSubscriber);
             this.unitNotifier = undefined;
         }
 
         if (this.unit) {
             const notifier = Observable.getNotifier(this.unit);
-            notifier.subscribe(this);
+            notifier.subscribe(this.unitSubscriber, 'resolvedUnitScale');
             this.unitNotifier = notifier;
         }
     }
@@ -141,16 +140,21 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private unitElementsChanged(): void {
-        void this.updateColumnConfigFromUnitElements();
+        void this.updateUnit();
     }
 
-    private async updateColumnConfigFromUnitElements(): Promise<void> {
+    private async updateUnit(): Promise<void> {
         this.unit = undefined;
         if (this.unitElements) {
             await waitUntilCustomElementsDefinedAsync(this.unitElements);
-            this.unit = this.unitElements.find(x => x instanceof Unit) as Unit;
+            this.unit = this.unitElements.find(
+                (x): x is Unit => x instanceof Unit
+            );
         }
-        this.updateUnitObserver();
+        this.updateUnitNotifier();
+    }
+
+    private unitChanged(): void {
         this.updateColumnConfig();
     }
 
@@ -179,7 +183,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private createFormatter(): UnitFormat {
-        const unitScale = this.unit?.getUnitScale();
+        const unitScale = this.unit?.resolvedUnitScale;
         switch (this.format) {
             case NumberTextFormat.decimal: {
                 const minimumFractionDigits = typeof this.decimalMaximumDigits === 'number'
