@@ -24,4 +24,4 @@ const nimbleTab = Tab.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTab());
-export const tabTag = DesignSystem.tagFor(Tab);
+export const tabTag = 'nimble-tab';

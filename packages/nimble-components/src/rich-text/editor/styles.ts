@@ -14,12 +14,9 @@ import {
     smallDelay,
     mediumPadding,
     standardPadding,
-    linkFontColor,
-    mentionDisabledFontColor,
-    mentionFontColor
+    linkFontColor
 } from '../../theme-provider/design-tokens';
 import { styles as errorStyles } from '../../patterns/error/styles';
-import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -33,7 +30,6 @@ export const styles = css`
         --ni-private-rich-text-editor-hover-indicator-width: calc(
             ${borderWidth} + 1px
         );
-        --ni-nimble-private-mention-font-color: ${mentionFontColor};
 
         ${
             /** Initial height of rich text editor with one line space when the footer is visible. */ ''
@@ -82,11 +78,6 @@ export const styles = css`
     :host([disabled]) .container {
         color: ${bodyDisabledFontColor};
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
-        --ni-nimble-private-mention-font-color: ${mentionDisabledFontColor};
-    }
-
-    :host([disabled]) ${richTextMentionUsersViewTag} {
-        color: ${bodyDisabledFontColor};
     }
 
     :host([error-visible]) .container {
@@ -177,7 +168,7 @@ export const styles = css`
         margin-block-end: 0;
     }
 
-    li > p {
+    .ProseMirror li > p {
         margin-block: 0;
     }
 
@@ -230,6 +221,15 @@ export const styles = css`
     }
 
     ${/** End of anchor styles */ ''}
+
+    ${/* Shared styles for all mention views at edit time. */ ''}
+    .ProseMirror .nimble-mention-view-edit {
+        color: ${bodyFontColor};
+    }
+
+    :host([disabled]) .ProseMirror .nimble-mention-view-edit {
+        color: ${bodyDisabledFontColor};
+    }
 
     .footer-section {
         display: flex;

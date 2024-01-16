@@ -185,7 +185,7 @@ export class TablePageObject<T extends TableRecord> {
                 `Anchor not found at cell ${rowIndex},${columnIndex}`
             );
         }
-        return anchor as Anchor;
+        return anchor;
     }
 
     public getRenderedIconColumnCellIconSeverity(
@@ -532,7 +532,7 @@ export class TablePageObject<T extends TableRecord> {
      */
     public dragSizeColumnByRightDivider(
         columnIndex: number,
-        deltas: number[]
+        deltas: readonly number[]
     ): void {
         const divider = this.getColumnRightDivider(columnIndex);
         if (!divider) {
@@ -567,7 +567,7 @@ export class TablePageObject<T extends TableRecord> {
      */
     public dragSizeColumnByLeftDivider(
         columnIndex: number,
-        deltas: number[]
+        deltas: readonly number[]
     ): void {
         const divider = this.getColumnLeftDivider(columnIndex);
         if (!divider) {

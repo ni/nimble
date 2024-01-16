@@ -34,16 +34,12 @@ async function appendUserMentionConfiguration(
     userKeys?: string[],
     displayNames?: string[]
 ): Promise<void> {
-    const userMention = document.createElement(
-        richTextMentionUsersTag
-    ) as RichTextMentionUsers;
+    const userMention = document.createElement(richTextMentionUsersTag);
     userMention.pattern = '^user:(.*)';
 
     if (userKeys || displayNames) {
         userKeys?.forEach((userKey, index) => {
-            const mappingUser = document.createElement(
-                mappingUserTag
-            ) as MappingUser;
+            const mappingUser = document.createElement(mappingUserTag);
             mappingUser.key = userKey ?? '';
             mappingUser.displayName = displayNames?.[index] ?? '';
             userMention.appendChild(mappingUser);

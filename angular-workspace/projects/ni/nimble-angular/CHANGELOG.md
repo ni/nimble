@@ -1,8 +1,88 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 15 Dec 2023 14:08:18 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Jan 2024 21:49:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.2.14
+
+Tue, 16 Jan 2024 21:49:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.6
+
+## 18.2.13
+
+Tue, 16 Jan 2024 21:01:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.5
+
+## 18.2.12
+
+Fri, 12 Jan 2024 21:50:53 GMT
+
+### Patches
+
+- Disable @angular-eslint/no-input-rename for nimble angular ([ni/nimble@eb5066d](https://github.com/ni/nimble/commit/eb5066d27fa8c4be20bd0e08efd26ca4b05e0be8))
+
+## 18.2.11
+
+Wed, 10 Jan 2024 13:47:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.4
+
+## 18.2.10
+
+Mon, 08 Jan 2024 17:18:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.3
+
+## 18.2.9
+
+Fri, 05 Jan 2024 14:50:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.2
+
+## 18.2.8
+
+Fri, 05 Jan 2024 00:37:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.1
+
+## 18.2.7
+
+Thu, 04 Jan 2024 22:40:39 GMT
+
+### Patches
+
+- Add tests for list-option, menu-item, tab, and tree-view Angular directives ([ni/nimble@a082579](https://github.com/ni/nimble/commit/a08257989e9584bbd56956e7fa50d91e9aba4fae))
+
+## 18.2.6
+
+Thu, 04 Jan 2024 19:22:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.16.6
+
+## 18.2.5
+
+Thu, 04 Jan 2024 16:50:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.16.5
 
 ## 18.2.4
 
