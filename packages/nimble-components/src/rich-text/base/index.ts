@@ -23,10 +23,9 @@ export abstract class RichText extends FoundationElement {
     public readonly childItems: Element[] = [];
 
     @observable
-    protected mentionElements!: RichTextMention[];
-
-    @observable
     protected configuration?: Configuration;
+
+    protected mentionElements!: RichTextMention[];
 
     protected readonly richTextUpdateTracker = new RichTextUpdateTracker(this);
 
@@ -79,11 +78,6 @@ export abstract class RichText extends FoundationElement {
         }
     }
 
-    protected mentionElementsChanged(_old: unknown, _new: unknown): void {
-        this.observeMentionInternals();
-        this.richTextUpdateTracker.trackMentionElementsInstancesChanged();
-    }
-
     protected validate(): void {
         this.richTextValidator.validateMentionConfigurations(
             this.mentionElements
@@ -110,6 +104,8 @@ export abstract class RichText extends FoundationElement {
         this.mentionElements = this.childItems.filter(
             (x): x is RichTextMention => x instanceof RichTextMention
         );
+        this.observeMentionInternals();
+        this.richTextUpdateTracker.trackMentionElementsInstancesChanged();
     }
 
     private observeMentionInternals(): void {

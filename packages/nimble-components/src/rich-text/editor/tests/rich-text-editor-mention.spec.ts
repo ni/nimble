@@ -1490,6 +1490,7 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.getMentionListboxItemsName()).toEqual([]);
             mappingElements[0]!.key = 'user:1';
             await waitForUpdatesAsync();
+            await waitForUpdatesAsync();
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username1'
             ]);
