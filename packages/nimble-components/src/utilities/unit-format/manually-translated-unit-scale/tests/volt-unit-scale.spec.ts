@@ -134,4 +134,18 @@ describe('VoltUnitScale', () => {
             ).toEqual(value.formatted[4]);
         });
     });
+
+    it('uses femtovolts unit instead of volts if number would round down to 0', () => {
+        const { scaledValue, scaledUnit } = voltUnitScale.scaleNumber(
+            10 ** -17
+        );
+        expect(
+            scaledUnit
+                .scaledUnitFormatFactory({
+                    locale: 'en',
+                    intlNumberFormatOptions: { maximumFractionDigits: 1 }
+                })
+                .format(scaledValue)
+        ).toEqual('0 fV');
+    });
 });
