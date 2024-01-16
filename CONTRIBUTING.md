@@ -8,10 +8,11 @@ This repository uses the following tooling. See below for more info.
 
 1. A monorepo containing multiple packages managed via [NPM workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
 2. Linting via [ESLint](https://eslint.org/) following the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide)
-3. Testing via [Karma](http://karma-runner.github.io/6.3/index.html), [Jasmine](https://jasmine.github.io/), [bUnit](https://bunit.dev/), and [Playwright](https://playwright.dev/)
-4. Releases via [beachball](https://microsoft.github.io/beachball/)
-5. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
-6. Automated dependency updates via [Renovate](https://docs.renovatebot.com/)
+3. Build via [Wireit](https://github.com/google/wireit)
+4. Testing via [Karma](http://karma-runner.github.io/6.3/index.html), [Jasmine](https://jasmine.github.io/), [bUnit](https://bunit.dev/), and [Playwright](https://playwright.dev/)
+5. Releases via [beachball](https://microsoft.github.io/beachball/)
+6. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
+7. Automated dependency updates via [Renovate](https://docs.renovatebot.com/)
 
 ### Helpful links
 
@@ -176,6 +177,12 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 ```bash
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
+
+## Local repo maintenance
+
+The Wireit tool used for building the repo will slowly accumulate build caches that grow unbounded. To reclaim disk space, you can delete these caches by running `npm run clear-cache --workspaces --if-present` from the root. Alternatively, if you periodically run `git clean -fdx`, this will also clear the `.wireit` directories along with all other files not tracked by git.
+
+Clearing the Wireit caches will not necessarily force a rebuild. To force a rebuild, run `npm clear-wireit`.
 
 ## Updating dependencies
 

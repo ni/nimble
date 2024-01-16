@@ -5,20 +5,48 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "npm run build:library && npm run build:application",
-    "build:library": "npm run generate-icons && ng build @ni/nimble-angular",
+    "build": "wireit",
+    "build:library": "wireit",
     "watch:library": "npm run generate-icons && ng build @ni/nimble-angular --watch",
-    "build:application": "ng build example-client-app",
-    "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
-    "generate-icons:bundle": "rollup --bundleConfigAsCjs --config projects/ni/nimble-angular/build/generate-icons/rollup.config.js",
-    "generate-icons:run": "node projects/ni/nimble-angular/build/generate-icons/dist/index.js",
+    "build:application": "wireit",
+    "generate-icons": "wireit",
     "pack": "npm run pack:library && npm run pack:application",
     "pack:library": "cd dist/ni/nimble-angular && npm pack",
     "pack:application": "cd dist/example-client-app && npm pack",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch=false",
     "lint": "ng lint",
-    "format": "ng lint --fix"
+    "format": "ng lint --fix",
+    "clear-cache": "rimraf .wireit/*/cache",
+    "clear-wireit": "rimraf .wireit"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": ["build:library", "build:application"]
+    },
+    "build:application": {
+      "command": "ng build example-client-app",
+      "dependencies": ["build:library"],
+      "files": ["projects/example-client-app", "angular.json", "tsconfig.json"],
+      "output": ["dist/example-client-app"]
+    },
+    "build:library": {
+      "command": "ng build @ni/nimble-angular",
+      "dependencies": ["generate-icons"],
+      "files": ["projects/ni/nimble-angular", "angular.json", "tsconfig.json"],
+      "output": ["dist/ni/nimble-angular"]
+    },
+    "generate-icons": {
+      "command": "node projects/ni/nimble-angular/build/generate-icons/dist/index.js",
+      "dependencies": ["generate-icons:bundle"],
+      "files": ["projects/ni/nimble-angular/build/generate-icons/dist/index.js"],
+      "output": ["projects/ni/nimble-angular/src/directives/icons"]
+    },
+    "generate-icons:bundle": {
+      "command": "rollup --bundleConfigAsCjs --config projects/ni/nimble-angular/build/generate-icons/rollup.config.js",
+      "files": ["projects/ni/nimble-angular/build/generate-icons/rollup.config.js", "projects/ni/nimble-angular/build/generate-icons/source/index.js"],
+      "output": ["projects/ni/nimble-angular/build/generate-icons/dist/index.js"]
+    }
   },
   "dependencies": {
     "@angular/animations": "^15.2.10",
@@ -56,7 +84,9 @@
     "karma-jasmine-html-reporter": "^2.0.0",
     "ng-packagr": "^15.2.2",
     "playwright": "^1.30.0",
+    "rimraf": "^5.0.5",
     "rollup": "^3.10.1",
-    "typescript": "~4.8.2"
+    "typescript": "~4.8.2",
+    "wireit": "^0.14.1"
   }
 }

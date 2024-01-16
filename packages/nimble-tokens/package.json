@@ -3,12 +3,7 @@
   "version": "6.9.1",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
-    "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico && npm run build:generate-font-scss && npm run build:style-dictionary",
-    "build:svg-to-ts": "svg-to-ts-constants --config build/svg-to-ts-config.js",
-    "build:svg-to-ico": "node build/svg-to-ico.js",
-    "build:generate-font-scss": "node build/generate-font-scss.js",
-    "build:style-dictionary": "cd source/styledictionary && node build.js",
-    "build:ts": "tsc -p ./tsconfig.json",
+    "build": "wireit",
     "build:ts:watch": "tsc -p ./tsconfig.json -w",
     "format": "eslint . --fix",
     "lint": "eslint .",
@@ -17,7 +12,40 @@
     "pack:nuget": "cross-env-shell dotnet pack ./NimbleTokens --configuration Release -p:PackageVersion=$npm_package_version",
     "invoke-publish": "npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"NimbleTokens/bin/Release/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
-    "invoke-publish:npm": "npm publish"
+    "invoke-publish:npm": "npm publish",
+    "clear-cache": "rimraf .wireit/*/cache",
+    "clear-wireit": "rimraf .wireit"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": ["build:ts", "build:svg-to-ico", "build:generate-font-scss", "build:style-dictionary"]
+    },
+    "build:svg-to-ts": {
+      "command": "svg-to-ts-constants --config build/svg-to-ts-config.js",
+      "files": ["build/svg-to-ts-config.js", "dist/icons/svg/*.svg"],
+      "output": ["dist/icons/ts/index.ts"]
+    },
+    "build:svg-to-ico": {
+      "command": "node build/svg-to-ico.js",
+      "files": ["node build/svg-to-ico.js", "dist/icons/svg/*.svg"],
+      "output": ["dist/icons/icon/*.ico"]
+    },
+    "build:generate-font-scss": {
+      "command": "node build/generate-font-scss.js",
+      "files": ["build/generate-font-scss.js", "dist/fonts/css/fonts.css"],
+      "output": ["dist/fonts/scss/fonts.scss"]
+    },
+    "build:style-dictionary": {
+      "command": "cd source/styledictionary && node build.js",
+      "files": ["source/styledictionary"],
+      "output": ["dist/styledictionary"]
+    },
+    "build:ts": {
+      "command": "tsc -p ./tsconfig.json",
+      "dependencies": ["build:svg-to-ts"],
+      "files": ["dist/icons/ts/index.ts", "tsconfig.json"],
+      "output": ["dist/icons/js"]
+    }
   },
   "repository": {
     "type": "git",
@@ -37,11 +65,13 @@
     "cross-env": "^7.0.3",
     "glob": "^8.1.0",
     "lodash": "^4.17.21",
+    "rimraf": "^5.0.5",
     "sharp": "^0.32.1",
     "style-dictionary": "3.7.2",
     "svg-to-ts": "^10.1.0",
     "to-ico": "^1.1.5",
-    "typescript": "~4.8.2"
+    "typescript": "~4.8.2",
+    "wireit": "^0.14.1"
   },
   "files": [
     "dist/styledictionary/css/**",

@@ -3,7 +3,7 @@
   "version": "20.17.6",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
-    "build": "npm run generate-icons && npm run build-components && npm run bundle-components && npm run generate-scss && npm run build-storybook",
+    "build": "wireit",
     "lint": "npm run eslint && npm run prettier",
     "format": "npm run eslint-fix && npm run prettier-fix",
     "eslint": "eslint .",
@@ -13,17 +13,13 @@
     "pack": "npm pack",
     "invoke-publish": "npm publish",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o dist/storybook --webpack-stats-json",
+    "build-storybook": "wireit",
     "storybook-open-webkit": "playwright wk http://localhost:6006",
-    "build-components": "tsc -p ./tsconfig.json",
+    "build-components": "wireit",
     "build-components:watch": "tsc -p ./tsconfig.json -w",
-    "bundle-components": "rollup --bundleConfigAsCjs --config",
-    "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
-    "generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
-    "generate-icons:run": "node build/generate-icons/dist/index.js",
-    "generate-scss": "npm run generate-scss:bundle && npm run generate-scss:run",
-    "generate-scss:bundle": "rollup --bundleConfigAsCjs --config build/generate-scss/rollup.config.js",
-    "generate-scss:run": "node build/generate-scss/dist/index.js",
+    "bundle-components": "wireit",
+    "generate-icons": "wireit",
+    "generate-scss": "wireit",
     "tdd": "npm run build-components && npm run test-chrome",
     "tdd:watch": "npm run build-components:watch & npm run test-chrome:watch",
     "tdd-firefox": "npm run build-components && npm run test-firefox",
@@ -42,7 +38,56 @@
     "test-webkit:verbose": "karma start karma.conf.verbose.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
     "test-webkit": "karma start karma.conf.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
-    "test": "npm run test-chrome:verbose && npm run test-firefox:verbose"
+    "test": "npm run test-chrome:verbose && npm run test-firefox:verbose",
+    "clear-cache": "rimraf .wireit/*/cache",
+    "clear-wireit": "rimraf .wireit"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": ["../nimble-tokens:build", "bundle-components", "generate-scss", "build-storybook"]
+    },
+    "generate-icons": {
+      "command": "node build/generate-icons/dist/index.js",
+      "dependencies": ["generate-icons:bundle"],
+      "files": ["build/generate-icons/dist/index.js", "../nimble-tokens/dist"],
+      "output": ["src/icons/*.ts"]
+    },
+    "generate-icons:bundle": {
+      "command": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
+      "files": ["build/generate-icons/source/index.js", "build/generate-icons/rollup.config.js"],
+      "output": ["build/generate-icons/dist/index.js"]
+    },
+    "build-components": {
+      "command": "tsc --build --pretty ./tsconfig.json",
+      "clean": "if-file-deleted",
+      "dependencies": ["generate-icons"],
+      "files": ["src/**/*.ts", "tsconfig.json"],
+      "output": ["dist/esm"]
+    },
+    "bundle-components": {
+      "command": "rollup --bundleConfigAsCjs --config",
+      "dependencies": ["build-components"],
+      "files": ["dist/esm"],
+      "output": ["dist/all-components-bundle.*"]
+    },
+    "generate-scss": {
+      "command": "node build/generate-scss/dist/index.js",
+      "dependencies": ["generate-scss:bundle"],
+      "files": ["build/generate-scss/dist/index.js"],
+      "output": ["dist/fonts.scss", "dist/tokens.scss", "dist/tokens-internal.scss"]
+    },
+    "generate-scss:bundle": {
+      "command": "rollup --bundleConfigAsCjs --config build/generate-scss/rollup.config.js",
+      "dependencies": ["build-components"],
+      "files": ["build/generate-scss/rollup.config.js, build/generate-scss/source/index.js, dist/esm/theme-provider/design-token-names.js", "dist/esm/theme-provider/design-token-comments.js"],
+      "output": ["build/generate-scss/dist/index.js"]
+    },
+    "build-storybook": {
+      "command": "storybook build -o dist/storybook --webpack-stats-json --quiet",
+      "dependencies": ["build-components"],
+      "files": ["src"],
+      "output": ["dist/storybook"]
+    }
   },
   "repository": {
     "type": "git",
@@ -143,6 +188,7 @@
     "prettier-eslint": "^15.0.1",
     "prettier-eslint-cli": "^7.1.0",
     "remark-gfm": "^3.0.1",
+    "rimraf": "^5.0.5",
     "rollup": "^3.10.1",
     "rollup-plugin-polyfill-node": "^0.12.0",
     "rollup-plugin-sourcemaps": "^0.6.3",
@@ -152,6 +198,7 @@
     "typescript": "~4.8.2",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-middleware": "^6.0.1"
+    "webpack-dev-middleware": "^6.0.1",
+    "wireit": "^0.14.1"
   }
 }
