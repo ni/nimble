@@ -236,6 +236,6 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         alignment: 'default',
         decimalDigits: 2,
         decimalMaximumDigits: undefined,
-        unit: 'default'
+        unit: 'volt'
     }
 };

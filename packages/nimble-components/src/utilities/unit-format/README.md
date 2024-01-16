@@ -5,9 +5,10 @@
 The `UnitFormat` library provides a way to format numbers with units. The library:
 
 -   Provides opinionated number formatters that are well-suited for:
-    -   numbers that can appear in large ranges (very small or very large)
-    -   numbers that are always decimal with a configurable number of digits
+    -   numbers that can appear in large ranges (very small or very large).
+    -   numbers that are always decimal with a configurable number of digits.
 -   Can scale number values on a unit scale, for example, a metric scale of voltage.
+-   Provides internationalized number formatting and unit strings.
 
 The library is intended to align well with the [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) API to make it relatively straightforward to swap in.
 

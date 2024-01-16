@@ -136,7 +136,7 @@ describe('DecimalUnitFormat', () => {
                 value.expectedFormattedValue.en
             );
 
-            const formatterDe = new DecimalUnitFormat('De', options);
+            const formatterDe = new DecimalUnitFormat('de', options);
             expect(formatterDe.format(value.value)).toEqual(
                 value.expectedFormattedValue.de
             );
