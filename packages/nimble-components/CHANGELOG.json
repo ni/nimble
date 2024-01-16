@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 10 Jan 2024 22:04:55 GMT",
+      "version": "20.17.4",
+      "tag": "@ni/nimble-components_v20.17.4",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6d065b6842c4cdea4d65a1a0faea7bb5df2d8981",
+            "comment": "Change documented justification for anchor menu item tabindex logic"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Jan 2024 13:47:05 GMT",
       "version": "20.17.4",
       "tag": "@ni/nimble-components_v20.17.4",
