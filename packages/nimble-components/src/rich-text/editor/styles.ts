@@ -21,6 +21,8 @@ import { styles as errorStyles } from '../../patterns/error/styles';
 import { toolbarTag } from '../../toolbar';
 import { toggleButtonTag } from '../../toggle-button';
 import { buttonTag } from '../../button';
+import { anchorButtonTag } from '../../anchor-button';
+import { menuButtonTag } from '../../menu-button';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -278,7 +280,10 @@ export const styles = css`
         place-items: center;
     }
 
-    slot[name='footer-actions']::slotted(*) {
+    ::slotted(${buttonTag}),
+    ::slotted(${toggleButtonTag}),
+    ::slotted(${anchorButtonTag}),
+    ::slotted(${menuButtonTag}) {
         height: ${controlSlimHeight};
     }
 

@@ -21,6 +21,9 @@ import {
 import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 import { mappingUserTag } from '../../../mapping/user';
 import { bodyFont, bodyFontColor } from '../../../theme-provider/design-tokens';
+import { toggleButtonTag } from '../../../toggle-button';
+import { menuButtonTag } from '../../../menu-button';
+import { anchorButtonTag } from '../../../anchor-button';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Editor',
@@ -44,6 +47,14 @@ const placeholderValueStates = [
     ['Placeholder', 'Placeholder text']
 ] as const;
 type PlaceholderValueStates = (typeof placeholderValueStates)[number];
+
+const slotButtons = [
+    buttonTag,
+    toggleButtonTag,
+    menuButtonTag,
+    anchorButtonTag
+] as const;
+type SlotButtons = (typeof slotButtons)[number];
 
 // prettier-ignore
 const component = (
@@ -111,6 +122,19 @@ const editorSizingTestCase = (
     </div>
 `;
 
+// prettier-ignore
+const slotButtonsTextCase = (
+    slotButton: SlotButtons
+): ViewTemplate => html`
+    <p style="font: var(${bodyFont.cssCustomProperty}); margin-bottom: 0px;">${() => slotButton}</p>
+    <${richTextEditorTag}>
+        <${slotButton}
+            style="width: 72px;"
+            slot="footer-actions"
+        >Ok</${slotButton}>
+    </${richTextEditorTag}>
+`;
+
 export const richTextEditorThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
@@ -153,6 +177,10 @@ export const richTextEditorSizing: StoryFn = createStory(html`
             ['Height 100%', 'height: 100%']
         ]
     ])}
+`);
+
+export const richTextEditorSlotButtons: StoryFn = createStory(html`
+    ${createMatrix(slotButtonsTextCase, [slotButtons])}
 `);
 
 // prettier-ignore
