@@ -76,7 +76,7 @@ client application to make any necessary adjustments. For example, if the button
 client application must implement that functionality.
 `;
 
-const validityDescription = `Readonly object of boolean values that represents the validity states that the editor's configuration  can be in.
+const validityDescription = `Readonly object of boolean values that represents the validity states that the editor's configuration can be in.
 The object's type is \`RichTextValidity\`, and it contains the following boolean properties:
 -   \`invalidMentionConfiguration\`: \`true\` when a mention configuration is invalid. Call \`checkValidity()\` on each mention component to see which configuration is invalid, and read the \`validity\` property of that mention for details about why it's invalid.
 -   \`duplicateMentionConfiguration\`: \`true\` if more than one of the same type of mention configuration element is provided
