@@ -62,9 +62,12 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
 
     private getTranslationToUse(locale: string): UnitTranslation {
         const localeObject = new Intl.Locale(locale ?? 'en');
+        const language = localeObject.language;
+        const region = localeObject.region;
+        const languageAndRegion = `${language}-${region ?? ''}`; // do not include any other subtags that might be in the given locale string
         return (
-            this.unitTranslations.get(localeObject.toLocaleString())
-            ?? this.unitTranslations.get(localeObject.language)
+            this.unitTranslations.get(languageAndRegion)
+            ?? this.unitTranslations.get(language)
             ?? this.unitTranslations.get('en')!
         );
     }
