@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Elevate console warn and error in tests",
-  "packageName": "@ni/nimble-angular",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

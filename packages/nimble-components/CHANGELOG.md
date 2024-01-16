@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 10 Jan 2024 13:47:05 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Jan 2024 21:01:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.17.5
+
+Tue, 16 Jan 2024 21:01:12 GMT
+
+### Patches
+
+- Make lifecycle callbacks in components call base class consistently ([ni/nimble@87f54f7](https://github.com/ni/nimble/commit/87f54f799117992b88b3b03c258d3d242e16bc34))
 
 ## 20.17.4
 
