@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 16 Jan 2024 21:49:14 GMT",
+      "version": "20.17.6",
+      "tag": "@ni/nimble-components_v20.17.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1596be39b8d3b495a2de713b0c0b3f355bf77897",
+            "comment": "Fix disabled styling of tree items"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 16 Jan 2024 21:01:12 GMT",
       "version": "20.17.5",
       "tag": "@ni/nimble-components_v20.17.5",

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 16 Jan 2024 21:01:12 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Jan 2024 21:49:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.17.6
+
+Tue, 16 Jan 2024 21:49:14 GMT
+
+### Patches
+
+- Fix disabled styling of tree items ([ni/nimble@1596be3](https://github.com/ni/nimble/commit/1596be39b8d3b495a2de713b0c0b3f355bf77897))
 
 ## 20.17.5
 
