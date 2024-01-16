@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 12 Jan 2024 21:50:53 GMT",
+      "version": "18.2.12",
+      "tag": "@ni/nimble-angular_v18.2.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "eb5066d27fa8c4be20bd0e08efd26ca4b05e0be8",
+            "comment": "Disable @angular-eslint/no-input-rename for nimble angular"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Jan 2024 13:47:05 GMT",
       "version": "18.2.11",
       "tag": "@ni/nimble-angular_v18.2.11",
