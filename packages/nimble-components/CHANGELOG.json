@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 16 Jan 2024 23:43:26 GMT",
+      "version": "20.17.6",
+      "tag": "@ni/nimble-components_v20.17.6",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "762a3cb1944836ddf9dc5fdff48892c1650c1f8d",
+            "comment": "Update Playwright version"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 16 Jan 2024 21:49:14 GMT",
       "version": "20.17.6",
       "tag": "@ni/nimble-components_v20.17.6",
