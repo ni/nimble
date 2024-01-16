@@ -46,8 +46,6 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
         return this.elementRef.nativeElement.idFieldName;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('id-field-name') public set idFieldName(value: string | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'idFieldName', value);
     }
@@ -56,8 +54,6 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
         return this.elementRef.nativeElement.selectionMode;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('selection-mode') public set selectionMode(value: TableRowSelectionMode) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'selectionMode', value);
     }

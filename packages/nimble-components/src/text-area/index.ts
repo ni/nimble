@@ -71,6 +71,7 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
      * @internal
      */
     public override disconnectedCallback(): void {
+        super.disconnectedCallback();
         this.resizeObserver?.disconnect();
     }
 
