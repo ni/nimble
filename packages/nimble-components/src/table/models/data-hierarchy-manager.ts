@@ -1,69 +1,60 @@
-import { arrayToTree } from '../../utilities/thirdparty/performant-array-to-tree/arrayToTree';
+import { arrayToTree } from '../../utilities/models/array-to-tree';
 import type { TableNode, TableRecord } from '../types';
-import type { TableValidator } from './table-validator';
 
 /**
  * Manages data hierarchy within the table, including converting between a flat list of
  * data and hierarchical data.
  */
 export class DataHierarchyManager<TData extends TableRecord> {
-    private isDataFlat = false;
+    private readonly isDataFlat: boolean = false;
+    private readonly _hierarchicalData: TableNode<TData>[];
+    private readonly _parentIdConfigurationValid: boolean;
 
     public constructor(
-        private readonly tableValidator: TableValidator<TData>
-    ) {}
-
-    public getTableNodes(
         records: readonly TData[],
         idFieldName: string | undefined,
         parentIdFieldName: string | undefined
-    ): TableNode<TData>[] {
-        let hierarchicalData: TableNode<TData>[];
+    ) {
         if (
             typeof idFieldName === 'string'
             && typeof parentIdFieldName === 'string'
         ) {
             try {
-                // The call to arrayToTree will perform a deep copy of the data, but it does allow a
-                // configuration that will do shallow copies, and thus its signature doesn't support
-                // immutable arrays. Thus, we need to cast to a mutable type.
-                const data = records as TData[];
-                hierarchicalData = arrayToTree(data, {
-                    dataField: 'clientRecord',
-                    childrenField: 'subRows',
-                    indexField: 'originalIndex',
+                this._hierarchicalData = arrayToTree<TData>(records, {
                     id: idFieldName,
-                    parentId: parentIdFieldName,
-                    nestedIds: false,
-                    throwIfOrphans: true,
-                    rootParentIds: {}
+                    parentId: parentIdFieldName
                 }) as TableNode<TData>[];
                 this.isDataFlat = false;
+                this._parentIdConfigurationValid = true;
             } catch {
-                this.tableValidator.setParentIdConfigurationValidity(false);
                 this.isDataFlat = true;
-                return records.map((record, index) => ({
+                this._hierarchicalData = records.map((record, index) => ({
                     clientRecord: { ...record },
                     originalIndex: index
                 }));
+                this._parentIdConfigurationValid = false;
             }
         } else {
             this.isDataFlat = true;
-            hierarchicalData = records.map((record, index) => {
-                return { clientRecord: { ...record }, originalIndex: index };
-            });
+            this._hierarchicalData = records.map((record, index) => ({
+                clientRecord: { ...record },
+                originalIndex: index
+            }));
+            this._parentIdConfigurationValid = true;
         }
-
-        this.tableValidator.setParentIdConfigurationValidity(true);
-        return hierarchicalData;
     }
 
-    public getAllRecords(
-        tableNodes: readonly TableNode<TData>[],
-        sort = false
-    ): TData[] {
+    public get hierarchicalData(): TableNode<TData>[] {
+        return this._hierarchicalData;
+    }
+
+    public get parentIdConfigurationValid(): boolean {
+        return this._parentIdConfigurationValid;
+    }
+
+    public getAllRecords(sort = false): TData[] {
         const allNodes: TableNode<TData>[] = [];
-        this.getAllNodes(tableNodes, allNodes);
+        this.getAllNodes(this._hierarchicalData, allNodes);
 
         if (this.isDataFlat || !sort) {
             // If the data is flat, then it was never reordered to support hierarchy.

@@ -113,33 +113,33 @@ export const template = html<Table>`
                         role="rowgroup">
                         ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                             ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
-                                ${when((x, c) => (c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
+                                ${when((x, c) => ((c.parent as Table).tableData[x.index]?.isGroupRow === true), html<VirtualItem, Table>`
                                     <${tableGroupRowTag}
                                         class="group-row"
-                                        :groupRowValue="${(x, c) => c.parent.tableData[x.index]?.groupRowValue}"
-                                        ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
-                                        :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
-                                        :immediateChildCount="${(x, c) => c.parent.tableData[x.index]?.immediateChildCount}"
-                                        :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
+                                        :groupRowValue="${(x, c) => c.parent.tableData[x.index]!.groupRowValue}"
+                                        ?expanded="${(x, c) => c.parent.tableData[x.index]!.isExpanded}"
+                                        :nestingLevel="${(x, c) => c.parent.tableData[x.index]!.nestingLevel}"
+                                        :immediateChildCount="${(x, c) => c.parent.tableData[x.index]!.immediateChildCount}"
+                                        :groupColumn="${(x, c) => c.parent.tableData[x.index]!.groupColumn}"
                                         ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
-                                        selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
+                                        selection-state="${(x, c) => c.parent.tableData[x.index]!.selectionState}"
                                         @group-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
                                     >
                                     </${tableGroupRowTag}>
                                 `)}
-                                ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
+                                ${when((x, c) => ((c.parent as Table).tableData[x.index]?.isGroupRow === false), html<VirtualItem, Table>`
                                     <${tableRowTag}
                                         class="row"
-                                        record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
+                                        record-id="${(x, c) => c.parent.tableData[x.index]!.id}"
                                         ?selectable="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.none}"
-                                        ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
-                                        ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
+                                        ?selected="${(x, c) => c.parent.tableData[x.index]!.selectionState === TableRowSelectionState.selected}"
+                                        ?expanded="${(x, c) => c.parent.tableData[x.index]!.isExpanded}"
                                         ?hide-selection="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.multiple}"
-                                        :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
+                                        :dataRecord="${(x, c) => c.parent.tableData[x.index]!.record}"
                                         :columns="${(_, c) => c.parent.columns}"
-                                        :isParentRow="${(x, c) => c.parent.tableData[x.index]?.isParentRow}"
-                                        :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
+                                        :isParentRow="${(x, c) => c.parent.tableData[x.index]!.isParentRow}"
+                                        :nestingLevel="${(x, c) => c.parent.tableData[x.index]!.nestingLevel}"
                                         ?row-operation-grid-cell-hidden="${(_, c) => !c.parent.showRowOperationColumn}"
                                         @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"
                                         @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"

@@ -222,8 +222,8 @@ export class Table<
     private readonly tableValidator = new TableValidator<TData>();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
     private readonly selectionManager: InteractiveSelectionManager<TData>;
-    private readonly dataHierarchyManager: DataHierarchyManager<TData>;
-    private readonly expansionManager = new ExpansionManager<TData>();
+    private dataHierarchyManager?: DataHierarchyManager<TData>;
+    private readonly expansionManager: ExpansionManager<TData>;
     private columnNotifiers: Notifier[] = [];
     private readonly layoutManagerNotifier: Notifier;
     private isInitialized = false;
@@ -269,9 +269,7 @@ export class Table<
             this.table,
             this.selectionMode
         );
-        this.dataHierarchyManager = new DataHierarchyManager<TData>(
-            this.tableValidator
-        );
+        this.expansionManager = new ExpansionManager();
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
@@ -555,10 +553,14 @@ export class Table<
     public calculateTanStackData(
         data: readonly TData[]
     ): Partial<TanStackTableOptionsResolved<TableNode<TData>>> {
-        const tableNodes = this.dataHierarchyManager.getTableNodes(
+        this.dataHierarchyManager = new DataHierarchyManager(
             data,
             this.idFieldName,
             this.parentIdFieldName
+        );
+        const tableNodes = this.dataHierarchyManager.hierarchicalData;
+        this.tableValidator.setParentIdConfigurationValidity(
+            this.dataHierarchyManager.parentIdConfigurationValid
         );
         const tanStackUpdates: Partial<
         TanStackTableOptionsResolved<TableNode<TData>>
@@ -575,7 +577,7 @@ export class Table<
                     this.calculateTanStackSelectionState(previousSelection),
                 // Reset the TanStack expanded state to "true" to clear TanStack's cache of expanded state that may include
                 // rows that no longer exist in the table. The nimble table's expansion manager tracks the expanded
-                // state of each row, so no state is lost by reseting TanStack.
+                // state of each row, so no state is lost by resetting TanStack.
                 expanded: true
             };
         }
@@ -797,7 +799,10 @@ export class Table<
                 this.selectionMode
             );
         }
-        if (this.tableUpdateTracker.requiresTanStackDataReset) {
+        if (
+            this.dataHierarchyManager
+            && this.tableUpdateTracker.requiresTanStackDataReset
+        ) {
             if (
                 !this.parentIdFieldName
                 && !this.tableUpdateTracker.updateRowParentIds
@@ -805,10 +810,7 @@ export class Table<
                 // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
                 updatedOptions.data = [...this.table.options.data];
             } else {
-                const orderedRecords = this.dataHierarchyManager.getAllRecords(
-                    this.table.options.data,
-                    true
-                );
+                const orderedRecords = this.dataHierarchyManager.getAllRecords(true);
                 const tanstackUpdates = this.calculateTanStackData(orderedRecords);
                 if (tanstackUpdates.state) {
                     updatedOptions.state.rowSelection = tanstackUpdates.state.rowSelection;
@@ -863,9 +865,9 @@ export class Table<
             )
         );
         this.tableValidator.validateColumnConfigurations(this.columns);
-        this.validateWithData(
-            this.dataHierarchyManager.getAllRecords(this.table.options.data)
-        );
+        if (this.dataHierarchyManager) {
+            this.validateWithData(this.dataHierarchyManager.getAllRecords());
+        }
     }
 
     private validateWithData(data: readonly TData[]): void {
@@ -1074,9 +1076,7 @@ export class Table<
     private toggleRowExpanded(rowIndex: number): void {
         const rows = this.table.getRowModel().rows;
         const row = rows[rowIndex]!;
-        // Must update the expansionManager before toggling expanded state
         this.expansionManager.toggleRowExpansion(row);
-        row.toggleExpanded();
     }
 
     private calculateTanStackSortState(): TanStackSortingState {

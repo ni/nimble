@@ -1,0 +1,124 @@
+/**
+ * [Nimble]
+ * Copied from https://github.com/philipstanislaus/performant-array-to-tree/blob/ae56091b76de0065949bdf228096010e8c0117f7/src/arrayToTree.ts
+ * with the following changes:
+ * - Add support for include the original data index in the tree's data items
+ */
+
+export interface TreeItem<Item> {
+    clientRecord: Item | undefined;
+    subRows: TreeItem<Item>[];
+    originalIndex: number | undefined;
+}
+
+export interface Config<Item> {
+    id: keyof Item;
+    parentId: keyof Item;
+}
+
+/**
+ * Unflattens an array to a tree with runtime O(n)
+ */
+export function arrayToTree<Item>(
+    items: readonly Item[],
+    config: Config<Item>
+): TreeItem<Item>[] {
+    const conf = config;
+
+    // the resulting unflattened tree
+    const rootItems: TreeItem<Item>[] = [];
+
+    // stores all already processed items with their ids as key so we can easily look them up
+    const lookup: { [id: string]: TreeItem<Item> } = {};
+
+    // stores all item ids that have not been added to the resulting unflattened tree yet
+    // this is an opt-in property, since it has a slight runtime overhead
+    const orphanIds: null | Set<string | number> = new Set();
+
+    // idea of this loop:
+    // whenever an item has a parent, but the parent is not yet in the lookup object, we store a preliminary parent
+    // in the lookup object and fill it with the data of the parent later
+    // if an item has no parentId, add it as a root element to rootItems
+    // [Nimble] Convert to a for-loop to have access to the item's index in the flat list
+    for (let i = 0; i < items.length; i++) {
+        const item = items[i]!;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const itemId = item[conf.id] as string;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const parentId = item[conf.parentId] as string | undefined | null;
+
+        // look whether item already exists in the lookup table
+        if (!Object.prototype.hasOwnProperty.call(lookup, itemId)) {
+            // item is not yet there, so add a preliminary item (its data will be added later)
+            lookup[itemId] = {
+                subRows: [],
+                clientRecord: undefined,
+                originalIndex: undefined
+            };
+        }
+
+        // if we track orphans, delete this item from the orphan set if it is in it
+        if (orphanIds) {
+            orphanIds.delete(itemId);
+        }
+
+        // add the current item's data to the item in the lookup table
+        lookup[itemId]!.clientRecord = item;
+        const treeItem = lookup[itemId]!;
+
+        // [Nimble] Add the index to the item
+        treeItem.originalIndex = i;
+
+        if (parentId === null || parentId === undefined) {
+            // is a root item
+            rootItems.push(treeItem);
+        } else {
+            // has a parent
+
+            // look whether the parent already exists in the lookup table
+            if (!Object.prototype.hasOwnProperty.call(lookup, parentId)) {
+                // parent is not yet there, so add a preliminary parent (its data will be added later)
+                lookup[parentId] = {
+                    subRows: [],
+                    clientRecord: undefined,
+                    originalIndex: undefined
+                };
+
+                // if we track orphans, add the generated parent to the orphan list
+                if (orphanIds) {
+                    orphanIds.add(parentId);
+                }
+            }
+
+            // add the current item to the parent
+            lookup[parentId]!.subRows.push(treeItem);
+        }
+    }
+
+    if (orphanIds?.size) {
+        const orphans = Array.from(orphanIds.values()).join(',');
+        throw new Error(
+            `The items array contains orphans that point to the following parentIds: [${orphans}]. These parentIds do not exist in the items array. Hint: prevent orphans to result in an error by passing the following option: { throwIfOrphans: false }`
+        );
+    }
+
+    if (countNodes(rootItems) < Object.keys(lookup).length) {
+        throw new Error(
+            'The items array contains nodes with a circular parent/child relationship.'
+        );
+    }
+
+    return rootItems;
+}
+
+/**
+ * Returns the number of nodes in a tree in a recursive way
+ * @param tree An array of nodes (tree items), each having a field `childrenField` that contains an array of nodes
+ * @returns Number of nodes in the tree
+ */
+export function countNodes<Item>(tree: TreeItem<Item>[]): number {
+    return tree.reduce(
+        (sum, n) => sum + 1 + (n.subRows && countNodes(n.subRows)),
+        0
+    );
+}

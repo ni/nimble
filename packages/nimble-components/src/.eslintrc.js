@@ -69,8 +69,7 @@ module.exports = {
         '@typescript-eslint/require-await': 'error'
     },
     ignorePatterns: [
-        '.eslintrc.js',
-        'utilities/thirdparty'
+        '.eslintrc.js'
     ],
     overrides: [
         {

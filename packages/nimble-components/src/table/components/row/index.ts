@@ -120,6 +120,11 @@ export class TableRow<
     @observable
     public animationClass = '';
 
+    @volatile
+    public get isTopLevelParentRow(): boolean {
+        return this.isParentRow && this.nestingLevel === 0;
+    }
+
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
     // the selection checkbox 'checked' value should be ingored.
