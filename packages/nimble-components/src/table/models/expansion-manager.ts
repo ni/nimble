@@ -11,7 +11,8 @@ import type { TableNode, TableRecord } from '../types';
  * expanded state independent of TanStack.
  */
 export class ExpansionManager<TData extends TableRecord> {
-    private allRowsExpanded = true;
+    // this field represents whether or not the expanded state of all rows is in the default state or not.
+    private isInDefaultState = true;
     private collapsedRows = new Set<string>();
 
     public isRowExpanded(row: TanStackRow<TableNode<TData>>): boolean {
@@ -19,7 +20,7 @@ export class ExpansionManager<TData extends TableRecord> {
             return false;
         }
 
-        return this.allRowsExpanded || !this.collapsedRows.has(row.id);
+        return this.isInDefaultState || !this.collapsedRows.has(row.id);
     }
 
     public toggleRowExpansion(row: TanStackRow<TableNode<TData>>): void {
@@ -28,7 +29,7 @@ export class ExpansionManager<TData extends TableRecord> {
         }
 
         const wasExpanded = this.isRowExpanded(row);
-        this.allRowsExpanded = false;
+        this.isInDefaultState = false;
         if (wasExpanded) {
             this.collapsedRows.add(row.id);
         } else {
@@ -41,7 +42,7 @@ export class ExpansionManager<TData extends TableRecord> {
     public collapseAll(rows: TanStackRow<TableNode<TData>>[]): void {
         this.reset();
 
-        this.allRowsExpanded = false;
+        this.isInDefaultState = false;
         for (const row of rows) {
             if (this.isRowExpandable(row)) {
                 this.collapsedRows.add(row.id);
@@ -51,11 +52,11 @@ export class ExpansionManager<TData extends TableRecord> {
 
     public reset(): void {
         this.collapsedRows.clear();
-        this.allRowsExpanded = true;
+        this.isInDefaultState = true;
     }
 
     public processDataUpdate(rows: TanStackRow<TableNode<TData>>[]): void {
-        if (this.allRowsExpanded) {
+        if (this.isInDefaultState) {
             return;
         }
 
