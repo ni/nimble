@@ -32,7 +32,7 @@ export class Select() {
 
 // Provide enum for filterMode to allow for future modes
 export const FilterMode  = {
-    none: 'none';
+    none: undefined;
     standard: 'standard';
 } as const;
 ```
