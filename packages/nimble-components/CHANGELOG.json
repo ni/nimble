@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 17 Jan 2024 14:23:42 GMT",
+      "version": "20.18.0",
+      "tag": "@ni/nimble-components_v20.18.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3710e7e150786220099816fdea608b10b378956c",
+            "comment": "Unit support for number-text table column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Jan 2024 00:48:57 GMT",
       "version": "20.17.7",
       "tag": "@ni/nimble-components_v20.17.7",
