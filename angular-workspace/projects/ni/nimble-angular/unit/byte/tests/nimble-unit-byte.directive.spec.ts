@@ -16,6 +16,38 @@ describe('Nimble byte unit', () => {
         });
     });
 
+    describe('with no values in template', () => {
+        @Component({
+            template: `
+                <nimble-unit-byte #unit></nimble-unit-byte>
+            `
+        })
+        class TestHostComponent {
+            @ViewChild('unit', { read: NimbleUnitByteDirective }) public directive: NimbleUnitByteDirective;
+            @ViewChild('unit', { read: ElementRef }) public elementRef: ElementRef<UnitByte>;
+        }
+
+        let fixture: ComponentFixture<TestHostComponent>;
+        let directive: NimbleUnitByteDirective;
+        let nativeElement: UnitByte;
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestHostComponent],
+                imports: [NimbleUnitByteModule]
+            });
+
+            fixture = TestBed.createComponent(TestHostComponent);
+            fixture.detectChanges();
+            directive = fixture.componentInstance.directive;
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
+        });
+
+        it('has expected default for binary', () => {
+            expect(directive.binary).toBeFalse();
+            expect(nativeElement.binary).toBeFalse();
+        });
+    });
+
     describe('with template values', () => {
         @Component({
             template: `
