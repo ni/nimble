@@ -54,6 +54,7 @@ import { TableUpdateTracker } from './models/table-update-tracker';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
+import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -727,10 +728,7 @@ export class Table<
     }
 
     private async updateColumnsFromChildItems(): Promise<void> {
-        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
-            ? customElements.whenDefined(item.localName)
-            : Promise.resolve()));
-        await Promise.all(definedElements);
+        await waitUntilCustomElementsDefinedAsync(this.childItems);
         this.columns = this.childItems.filter(
             (x): x is TableColumn => x instanceof TableColumn
         );
