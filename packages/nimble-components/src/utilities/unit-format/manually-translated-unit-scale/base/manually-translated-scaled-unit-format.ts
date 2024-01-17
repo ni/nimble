@@ -64,9 +64,11 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
         const localeObject = new Intl.Locale(locale ?? 'en');
         const language = localeObject.language;
         const region = localeObject.region;
-        const languageAndRegion = `${language}-${region ?? ''}`; // do not include any other subtags that might be in the given locale string
+        const regionSpecificMatchedTranslations = region
+            ? this.unitTranslations.get(`${language}-${region}`) // do not include any other subtags that might be in the given locale string
+            : null;
         return (
-            this.unitTranslations.get(languageAndRegion)
+            regionSpecificMatchedTranslations
             ?? this.unitTranslations.get(language)
             ?? this.unitTranslations.get('en')!
         );
