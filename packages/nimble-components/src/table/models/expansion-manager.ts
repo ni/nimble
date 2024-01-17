@@ -5,16 +5,16 @@ import type {
 import type { TableNode, TableRecord } from '../types';
 
 /**
-* Manages the expanded/collapsed state of rows in the table.
-*
-* We must track the expansion state separately from TanStack because:
-*   1. TanStack does not support having a different initial expansion state per row unless explicitly
-*      specified for each row by ID. This causes problems in the nimble-table because we could have
-*      a different initial expansion state for group rows, parent rows, and parent rows with lazy
-*      loaded children.
-*   2. TanStack does not remove entries from its expanded state when those rows are no longer present
-*      in the data. This is not ideal because the object maintaining the expansion state can grow unbounded.
-*/
+ * Manages the expanded/collapsed state of rows in the table.
+ *
+ * We must track the expansion state separately from TanStack because:
+ *   1. TanStack does not support having a different initial expansion state per row unless explicitly
+ *      specified for each row by ID. This causes problems in the nimble-table because we could have
+ *      a different initial expansion state for group rows, parent rows, and parent rows with lazy
+ *      loaded children.
+ *   2. TanStack does not remove entries from its expanded state when those rows are no longer present
+ *      in the data. This is not ideal because the object maintaining the expansion state can grow unbounded.
+ */
 export class ExpansionManager<TData extends TableRecord> {
     // This field represents whether or not the expanded state of **all** rows is in the default expanded
     // state or not. Note that the default expanded state for a particular row type (group vs parent) can
@@ -22,7 +22,9 @@ export class ExpansionManager<TData extends TableRecord> {
     private isInDefaultState = true;
     private collapsedRows = new Set<string>();
 
-    public constructor(private readonly table: TanStackTable<TableNode<TData>>) { }
+    public constructor(
+        private readonly table: TanStackTable<TableNode<TData>>
+    ) {}
 
     public isRowExpanded(row: TanStackRow<TableNode<TData>>): boolean {
         if (!this.isRowExpandable(row)) {
