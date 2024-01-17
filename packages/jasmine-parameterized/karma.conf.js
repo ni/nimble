@@ -39,10 +39,10 @@ module.exports = config => {
             'karma-sourcemap-loader',
             'karma-chrome-launcher'
         ],
-        files: ['./dist/**/tests/**/*.spec.js'],
+        files: ['./dist/esm/tests/**/*.spec.js'],
         preprocessors: {
             // add webpack as preprocessor
-            './dist/**/tests/**/*.spec.js': ['webpack']
+            './dist/esm/tests/**/*.spec.js': ['webpack']
         },
         webpackMiddleware: {
             // webpack-dev-middleware configuration

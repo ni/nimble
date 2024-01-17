@@ -4,22 +4,26 @@
     "description": "A utility to write parameterized jasmine tests",
     "scripts": {
         "build": "npm run compile",
-        "compile": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json",
+        "compile": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json",
         "lint": "eslint .",
         "format": "eslint . --fix",
         "pack": "npm pack",
         "invoke-publish": "npm publish",
         "tdd": "npm run build && npm run test",
-        "test": "karma start karma.conf.js --browsers=ChromeHeadlessOpt --single-run"
+        "test": "npm run test:commonjs && npm run test:esm",
+        "test:commonjs": "jasmine",
+        "test:esm": "karma start karma.conf.js --browsers=ChromeHeadlessOpt --single-run"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/ni/nimble.git",
         "directory": "packages/jasmine-parameterized"
     },
-    "main": "./dist/esm/parameterized.js",
-    "types": "./dist/esm/parameterized.d.ts",
-    "type": "module",
+    "types": "./dist/types/parameterized.d.ts",
+    "exports": {
+        "import": "./dist/esm/parameterized.js",
+        "require": "./dist/commonjs/parameterized.js"
+    },
     "author": "National Instruments",
     "license": "MIT",
     "devDependencies": {
