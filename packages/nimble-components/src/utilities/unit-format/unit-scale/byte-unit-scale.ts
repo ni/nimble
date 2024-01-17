@@ -1,61 +1,29 @@
-import { IntlNumberFormatScaledUnitFormat } from './base/intl-number-format-scaled-unit-format';
-import { ScaledUnit } from './base/scaled-unit';
-import { UnitScale } from './base/unit-scale';
+import { IntlNumberFormatScaledUnitFormat } from '../scaled-unit-format/intl-number-format-scaled-unit-format';
+import { ScaledUnit } from '../scaled-unit/scaled-unit';
+import { UnitScale } from './unit-scale';
+
+const byteUnitScaleOptions = [
+    [10 ** 0, 'byte', 'long'],
+    [10 ** 3, 'kilobyte', 'short'],
+    [10 ** 6, 'megabyte', 'short'],
+    [10 ** 9, 'gigabyte', 'short'],
+    [10 ** 12, 'terabyte', 'short'],
+    [10 ** 15, 'petabyte', 'short'],
+] as const;
+
 /**
  * Byte units (1000-based)
  */
 class ByteUnitScale extends UnitScale {
     public constructor() {
-        super([
-            new ScaledUnit(
-                10 ** 0,
-                IntlNumberFormatScaledUnitFormat.createFactory({
-                    style: 'unit',
-                    unit: 'byte',
-                    unitDisplay: 'long'
-                })
-            ),
-            new ScaledUnit(
-                10 ** 3,
-                IntlNumberFormatScaledUnitFormat.createFactory({
-                    style: 'unit',
-                    unit: 'kilobyte',
-                    unitDisplay: 'short'
-                })
-            ),
-            new ScaledUnit(
-                10 ** 6,
-                IntlNumberFormatScaledUnitFormat.createFactory({
-                    style: 'unit',
-                    unit: 'megabyte',
-                    unitDisplay: 'short'
-                })
-            ),
-            new ScaledUnit(
-                10 ** 9,
-                IntlNumberFormatScaledUnitFormat.createFactory({
-                    style: 'unit',
-                    unit: 'gigabyte',
-                    unitDisplay: 'short'
-                })
-            ),
-            new ScaledUnit(
-                10 ** 12,
-                IntlNumberFormatScaledUnitFormat.createFactory({
-                    style: 'unit',
-                    unit: 'terabyte',
-                    unitDisplay: 'short'
-                })
-            ),
-            new ScaledUnit(
-                10 ** 15,
-                IntlNumberFormatScaledUnitFormat.createFactory({
-                    style: 'unit',
-                    unit: 'petabyte',
-                    unitDisplay: 'short'
-                })
-            )
-        ]);
+        super(byteUnitScaleOptions.map(([scaleFactor, unit, unitDisplay]) => new ScaledUnit(
+            scaleFactor,
+            IntlNumberFormatScaledUnitFormat.createFactory({
+                style: 'unit',
+                unit,
+                unitDisplay
+            })
+        )));
     }
 }
 

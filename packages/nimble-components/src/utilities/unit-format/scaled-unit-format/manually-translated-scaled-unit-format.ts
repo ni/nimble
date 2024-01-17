@@ -1,7 +1,36 @@
-import type { ScaledUnitFormatFactoryOptions } from '../../unit-scale/base/scaled-unit';
-import { ScaledUnitFormat } from '../../unit-scale/base/scaled-unit-format';
-import type { UnitPrefix } from './unit-prefix';
-import type { UnitTranslation } from './unit-translation';
+/* eslint-disable max-classes-per-file */
+import type { ScaledUnitFormatFactoryOptions } from '../scaled-unit/scaled-unit';
+import { ScaledUnitFormat } from './scaled-unit-format';
+
+/**
+ * Representations of a unit in a particular language
+ */
+export class UnitTranslation {
+    public constructor(
+        public readonly singular: string,
+        public readonly plural: string,
+        public readonly symbol: string
+    ) { }
+}
+/**
+ * A map of locales of string format "[lang]" or "[lang]-[region]", for example "en" and / or "en-us", to UnitTranslation objects
+ */
+export type UnitTranslations = ReadonlyMap<string, UnitTranslation>;
+export interface ManuallyTranslatedScaledUnitFormatOptions {
+    /**
+     * Translations for the unit by locale string.
+     * The locale strings must be of the form [lang] or [lang]-[region], for example "en" and / or "en-us".
+     * Other subtags besides lang and region are not supported.
+     * Translations for "en" must be provided.
+     */
+    readonly unitTranslations: UnitTranslations;
+    /**
+     * String for prefix of this scaled unit, for example "k" (for kilo-).
+     * Assumed the same across languages.
+     * Base unit must use "", i.e. empty string, as the scaled prefix text.
+     */
+    readonly scaledPrefixText: string;
+}
 
 /**
  * A formatter for units that are not supported by Intl.NumberFormat
@@ -10,38 +39,41 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
     private readonly pluralRules: Intl.PluralRules;
     private readonly formatter: Intl.NumberFormat;
     private readonly unitTranslation: UnitTranslation;
+    private readonly scaledPrefixText: string;
 
     protected constructor(
         scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
-        private readonly unitTranslations: ReadonlyMap<string, UnitTranslation>,
-        private readonly unitPrefix: UnitPrefix
+        { unitTranslations, scaledPrefixText }: ManuallyTranslatedScaledUnitFormatOptions
     ) {
         super(scaledUnitFormatFactoryOptions);
+        if (!unitTranslations.get('en')) {
+            throw new Error('English translations must exist with locale string "en"');
+        }
         this.pluralRules = new Intl.PluralRules(this.locale);
         this.formatter = new Intl.NumberFormat(
             this.locale,
             this.intlNumberFormatOptions
         );
-        this.unitTranslation = this.getTranslationToUse(this.locale);
+        this.unitTranslation = this.getTranslationToUse(unitTranslations, this.locale);
+        this.scaledPrefixText = scaledPrefixText;
     }
 
     public static createFactory(
-        unitTranslations: ReadonlyMap<string, UnitTranslation>,
-        unitPrefix: UnitPrefix
+        manuallyTranslatedScaledUnitFormatOptions: ManuallyTranslatedScaledUnitFormatOptions
     ) {
         return (
             scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
         ): ManuallyTranslatedScaledUnitFormat => new ManuallyTranslatedScaledUnitFormat(
             scaledUnitFormatFactoryOptions,
-            unitTranslations,
-            unitPrefix
+            manuallyTranslatedScaledUnitFormatOptions
         );
     }
 
     public format(value: number): string {
         const formatted = this.formatter.format(value);
-        if (!this.unitPrefix.isBase()) {
-            return `${formatted} ${this.unitPrefix.text}${this.unitTranslation.symbol}`;
+        // The base unit has text of empty string
+        if (this.scaledPrefixText === '') {
+            return `${formatted} ${this.scaledPrefixText}${this.unitTranslation.symbol}`;
         }
 
         // Some languages have more than two forms (singular/plural) of cardinal
@@ -60,17 +92,17 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
         return `${formatted} ${unitLabel}`;
     }
 
-    private getTranslationToUse(locale: string): UnitTranslation {
+    private getTranslationToUse(unitTranslations: UnitTranslations, locale: string): UnitTranslation {
         const localeObject = new Intl.Locale(locale ?? 'en');
         const language = localeObject.language;
         const region = localeObject.region;
         const regionSpecificMatchedTranslations = region
-            ? this.unitTranslations.get(`${language}-${region}`) // do not include any other subtags that might be in the given locale string
-            : null;
+            ? unitTranslations.get(`${language}-${region}`)
+            : undefined;
         return (
             regionSpecificMatchedTranslations
-            ?? this.unitTranslations.get(language)
-            ?? this.unitTranslations.get('en')!
+            ?? unitTranslations.get(language)
+            ?? unitTranslations.get('en')!
         );
     }
 }

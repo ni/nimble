@@ -1,10 +1,8 @@
-import { parameterizeNamedList } from '../../../../tests/parameterized';
-import { ManuallyTranslatedScaledUnitFormat } from '../manually-translated-scaled-unit-format';
-import { UnitPrefix } from '../unit-prefix';
-import { UnitTranslation } from '../unit-translation';
+import { parameterizeNamedList } from '../../../tests/parameterized';
+import { ManuallyTranslatedScaledUnitFormat, UnitTranslation } from '../manually-translated-scaled-unit-format';
 
 describe('ManuallyTranslatedScaledUnitFormat', () => {
-    const translations = new Map<string, UnitTranslation>([
+    const unitTranslations = new Map<string, UnitTranslation>([
         ['en', new UnitTranslation('en-singular', 'en-plural', 'en-abbrev')],
         ['fr', new UnitTranslation('fr-singular', 'fr-plural', 'fr-abbrev')],
         [
@@ -45,14 +43,14 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
         }
     ] as const;
 
-    const baseUnitPrefix = new UnitPrefix(1, '');
+    const scaledPrefixText = '';
 
     parameterizeNamedList(translationTestCases, (spec, name, value) => {
         spec(name, () => {
-            const formatter = ManuallyTranslatedScaledUnitFormat.createFactory(
-                translations,
-                baseUnitPrefix
-            )({
+            const formatter = ManuallyTranslatedScaledUnitFormat.createFactory({
+                unitTranslations,
+                scaledPrefixText
+            })({
                 locale: value.locale
             });
             expect(formatter.format(5)).toEqual(`5 ${value.appendedUnit}`);
@@ -60,24 +58,36 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
     });
 
     it('uses unit prefix and symbol whenever unit prefix is provided', () => {
-        const formatter = ManuallyTranslatedScaledUnitFormat.createFactory(
-            translations,
-            new UnitPrefix(2, '1.')
-        )({
+        const formatter = ManuallyTranslatedScaledUnitFormat.createFactory({
+            unitTranslations,
+            scaledPrefixText: '1.'
+        })({
             locale: 'en'
         });
         expect(formatter.format(5)).toEqual('5 1.en-abbrev');
     });
 
     it('uses given formatter options', () => {
-        const formatter = ManuallyTranslatedScaledUnitFormat.createFactory(
-            translations,
-            baseUnitPrefix
-        )({
+        const formatter = ManuallyTranslatedScaledUnitFormat.createFactory({
+            unitTranslations,
+            scaledPrefixText
+        })({
             locale: 'en',
             intlNumberFormatOptions: { minimumFractionDigits: 5 }
         });
         expect(formatter.format(5)).toEqual('5.00000 en-plural');
+    });
+
+    it('throws with incorrect unit translations', () => {
+        const unitTranslationsMissingEn = new Map<string, UnitTranslation>([
+            ['foo', new UnitTranslation('byte', 'bytes', 'B')]
+        ]);
+        expect(() => ManuallyTranslatedScaledUnitFormat.createFactory({
+            unitTranslations: unitTranslationsMissingEn,
+            scaledPrefixText
+        })).toThrowError(
+            /English translations/
+        );
     });
 
     const pluralizationTestCases = [
@@ -157,10 +167,10 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
 
     parameterizeNamedList(pluralizationTestCases, (spec, name, value) => {
         spec(`uses expected pluralization for ${name}`, () => {
-            const formatter = ManuallyTranslatedScaledUnitFormat.createFactory(
-                translations,
-                baseUnitPrefix
-            )({
+            const formatter = ManuallyTranslatedScaledUnitFormat.createFactory({
+                unitTranslations,
+                scaledPrefixText
+            })({
                 locale: value.locale
             });
             expect(formatter.format(value.toFormat)).toEqual(value.expected);

@@ -4,9 +4,9 @@ import { DecimalUnitFormat } from '../decimal-unit-format';
 import {
     ScaledUnit,
     ScaledUnitFormatFactoryOptions
-} from '../unit-scale/base/scaled-unit';
-import { ScaledUnitFormat } from '../unit-scale/base/scaled-unit-format';
-import { UnitScale } from '../unit-scale/base/unit-scale';
+} from '../scaled-unit/scaled-unit';
+import { ScaledUnitFormat } from '../scaled-unit-format/scaled-unit-format';
+import { UnitScale } from '../unit-scale/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
 
 describe('DecimalUnitFormat', () => {
