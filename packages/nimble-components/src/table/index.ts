@@ -269,7 +269,7 @@ export class Table<
             this.table,
             this.selectionMode
         );
-        this.expansionManager = new ExpansionManager();
+        this.expansionManager = new ExpansionManager(this.table);
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
@@ -415,8 +415,7 @@ export class Table<
 
     /** @internal */
     public handleCollapseAllRows(): void {
-        this.expansionManager.collapseAll(this.table.getRowModel().flatRows);
-        this.table.toggleAllRowsExpanded(false);
+        this.expansionManager.collapseAll();
     }
 
     /** @internal */
