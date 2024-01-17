@@ -16,7 +16,9 @@ import type { TableNode, TableRecord } from '../types';
 *      in the data. This is not ideal because the object maintaining the expansion state can grow unbounded.
 */
 export class ExpansionManager<TData extends TableRecord> {
-    // this field represents whether or not the expanded state of all rows is in the default state or not.
+    // This field represents whether or not the expanded state of **all** rows is in the default expanded
+    // state or not. Note that the default expanded state for a particular row type (group vs parent) can
+    // potentially be different (e.g. expanded for groups and collapsed for parent rows).
     private isInDefaultState = true;
     private collapsedRows = new Set<string>();
 
