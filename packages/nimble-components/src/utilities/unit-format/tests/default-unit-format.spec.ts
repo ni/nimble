@@ -1,8 +1,15 @@
+/* eslint-disable max-classes-per-file */
 import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
 import { DefaultFormatter } from '../default-formatter';
+import { IntlNumberFormatScaledUnitFormat } from '../unit-scale/base/intl-number-format-scaled-unit-format';
+import {
+    ScaledUnit,
+    ScaledUnitFormatFactoryOptions
+} from '../unit-scale/base/scaled-unit';
+import { UnitScale } from '../unit-scale/base/unit-scale';
+import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
 
-describe('DefaultFormatter', () => {
-    const locales = ['en', 'de'] as const;
+describe('DefaultUnitFormat', () => {
     const testCases = [
         {
             name: 'NEGATIVE_INFINITY renders as -∞',
@@ -206,15 +213,122 @@ describe('DefaultFormatter', () => {
         }
     ] as const;
 
-    for (const locale of locales) {
-        parameterizeNamedList(testCases, (spec, name, value) => {
-            spec(`${name} with '${locale}' locale`, () => {
-                const formatter = new DefaultFormatter(locale);
-                const formattedValue = formatter.formatValue(value.value);
-                expect(formattedValue).toEqual(
-                    value.expectedFormattedValue[locale]
+    parameterizeNamedList(testCases, (spec, name, value) => {
+        spec(name, () => {
+            const options = {
+                unitScale: passthroughUnitScale
+            } as const;
+
+            const formatterEn = new DefaultUnitFormat('en', options);
+            expect(formatterEn.format(value.value)).toEqual(
+                value.expectedFormattedValue.en
+            );
+
+            const formatterDe = new DefaultUnitFormat('de', options);
+            expect(formatterDe.format(value.value)).toEqual(
+                value.expectedFormattedValue.de
+            );
+        });
+    });
+
+    describe('with unit', () => {
+        class TestScaledUnitFormat extends IntlNumberFormatScaledUnitFormat {
+            public constructor(
+                scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
+                private readonly scaleFactor: number
+            ) {
+                super(scaledUnitFormatFactoryOptions);
+            }
+
+            public static createTestFactory(scaleFactor: number) {
+                return (
+                    scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
+                ): TestScaledUnitFormat => new TestScaledUnitFormat(
+                    scaledUnitFormatFactoryOptions,
+                    scaleFactor
                 );
+            }
+
+            public override format(value: number): string {
+                return `${super.format(value)} x${this.scaleFactor}`;
+            }
+        }
+
+        class TestUnitScale extends UnitScale {
+            public constructor() {
+                super([
+                    new ScaledUnit(
+                        0.01,
+                        TestScaledUnitFormat.createTestFactory(0.01)
+                    ),
+                    new ScaledUnit(
+                        1,
+                        TestScaledUnitFormat.createTestFactory(1)
+                    ),
+                    new ScaledUnit(
+                        100,
+                        TestScaledUnitFormat.createTestFactory(100)
+                    ),
+                    new ScaledUnit(
+                        1000,
+                        TestScaledUnitFormat.createTestFactory(1000)
+                    )
+                ]);
+            }
+        }
+
+        describe('and default values', () => {
+            it('unconfigured', () => {
+                const formatter = new DefaultUnitFormat('en');
+                const resolvedOptions = formatter.resolvedOptions();
+                expect(resolvedOptions.unitScale).toBe(passthroughUnitScale);
+            });
+            it('unconfigured', () => {
+                const unitScale = new TestUnitScale();
+                const formatter = new DefaultUnitFormat('en', {
+                    unitScale
+                });
+                const resolvedOptions = formatter.resolvedOptions();
+                expect(resolvedOptions.unitScale).toBe(unitScale);
             });
         });
-    }
+        const appendedLabelUnitTestCases = [
+            {
+                name: 'does not double-convert the value when a unit is specified',
+                value: 130,
+                expectedFormattedValue: '1.3 x100'
+            },
+            {
+                name: 'uses unit-scaled value when deciding whether to format in exponential notation',
+                value: 2000000,
+                expectedFormattedValue: '2,000 x1000'
+            },
+            {
+                name: 'uses unit-scaled value when deciding whether to format with leading-zero formatter',
+                value: 0.123456789,
+                expectedFormattedValue: '12.3457 x0.01' // rather than '12.34568 x0.01'
+            },
+            {
+                name: 'always uses base unit if exponential notation is used',
+                value: 2000000000,
+                expectedFormattedValue: '2E9 x1' // rather than '2E6 x1000'
+            }
+        ] as const;
+        parameterizeNamedList(
+            appendedLabelUnitTestCases,
+            (spec, name, value) => {
+                spec(name, () => {
+                    const formatterForAppendedLabel = new DefaultUnitFormat(
+                        'en',
+                        {
+                            unitScale: new TestUnitScale()
+                        }
+                    );
+                    expect(
+                        formatterForAppendedLabel.format(value.value)
+                    ).toEqual(value.expectedFormattedValue);
+                });
+            }
+        );
+    });
 });

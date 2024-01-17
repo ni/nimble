@@ -4,7 +4,8 @@
   "private": true,
   "description": "The NI Nimble Design System Monorepo",
   "scripts": {
-    "postinstall": "patch-package",
+    "postinstall": "patch-package && npm run playwright:setup",
+    "playwright:setup": "playwright install --with-deps",
     "build": "npm run build --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "format": "npm run format --workspaces --if-present",
@@ -45,6 +46,7 @@
     "@lhci/cli": "^0.12.0",
     "beachball": "^2.31.0",
     "cross-env": "^7.0.3",
-    "patch-package": "^6.4.7"
+    "patch-package": "^6.4.7",
+    "playwright": "1.40.0"
   }
 }

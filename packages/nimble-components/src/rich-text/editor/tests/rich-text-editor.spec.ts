@@ -1788,7 +1788,7 @@ describe('RichTextEditor', () => {
 
         expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
 
-        await pageObject.setEditorTextContent('');
+        await pageObject.replaceEditorContent('');
         await inputEventListener.promise;
 
         expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
