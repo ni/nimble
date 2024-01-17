@@ -7,7 +7,7 @@ import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
 import { TableColumnTextBase } from '../text-base';
-import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
+import { TableColumnSortOperation } from '../base/types';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
@@ -37,9 +37,6 @@ const defaultDecimalDigits = 2;
  * The table column for displaying numbers as text.
  */
 export class TableColumnNumberText extends TableColumnTextBase {
-    /** @internal */
-    public validator = new TableColumnNumberTextValidator(this.columnInternals);
-
     @attr
     public format: NumberTextFormat;
 
@@ -72,17 +69,14 @@ export class TableColumnNumberText extends TableColumnTextBase {
         lang.unsubscribe(this.langSubscriber, this);
     }
 
-    public override get validity(): TableColumnValidity {
-        return this.validator.getValidity();
-    }
-
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnNumberTextCellViewTag,
             groupHeaderViewTag: tableColumnNumberTextGroupHeaderTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
+            sortOperation: TableColumnSortOperation.basic,
+            validator: new TableColumnNumberTextValidator()
         };
     }
 
@@ -103,18 +97,22 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private updateColumnConfig(): void {
-        this.validator.validateDecimalDigits(this.format, this.decimalDigits);
-        this.validator.validateDecimalMaximumDigits(
+        const validator = this.getTypedValidator(
+            TableColumnNumberTextValidator
+        );
+
+        validator.validateDecimalDigits(this.format, this.decimalDigits);
+        validator.validateDecimalMaximumDigits(
             this.format,
             this.decimalMaximumDigits
         );
-        this.validator.validateNoMutuallyExclusiveProperties(
+        validator.validateNoMutuallyExclusiveProperties(
             this.format,
             this.decimalDigits,
             this.decimalMaximumDigits
         );
 
-        if (this.validator.isValid()) {
+        if (validator.isValid()) {
             const columnConfig: TableColumnNumberTextColumnConfig = {
                 formatter: this.createFormatter(),
                 alignment: this.determineCellContentAlignment()

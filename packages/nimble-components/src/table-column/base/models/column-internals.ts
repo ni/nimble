@@ -1,5 +1,5 @@
 import { uniqueId } from '@microsoft/fast-web-utilities';
-import { ViewTemplate, observable } from '@microsoft/fast-element';
+import { Observable, ViewTemplate, observable } from '@microsoft/fast-element';
 import { TableColumnSortDirection, TableFieldName } from '../../../table/types';
 import type { TableCell } from '../../../table/components/cell';
 import {
@@ -10,6 +10,7 @@ import {
 import type { TableGroupRow } from '../../../table/components/group-row';
 import { createGroupHeaderViewTemplate } from '../group-header-view/template';
 import { createCellViewTemplate } from '../cell-view/template';
+import { ColumnValidator } from './column-validator';
 
 export interface ColumnInternalsOptions {
     /**
@@ -39,6 +40,11 @@ export interface ColumnInternalsOptions {
      * The sort operation to use for the column (defaults to TableColumnSortOperation.basic)
      */
     readonly sortOperation?: TableColumnSortOperation;
+
+    /**
+     * The validator for the column
+     */
+    readonly validator?: ColumnValidator<[]>;
 }
 
 /**
@@ -163,6 +169,8 @@ export class ColumnInternals<TColumnConfig> {
     @observable
     public currentSortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
+    public readonly validator: ColumnValidator<[]>;
+
     public constructor(options: ColumnInternalsOptions) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;
         this.cellViewTemplate = createCellViewTemplate(options.cellViewTag);
@@ -171,6 +179,17 @@ export class ColumnInternals<TColumnConfig> {
         );
         this.delegatedEvents = options.delegatedEvents;
         this.sortOperation = options.sortOperation ?? TableColumnSortOperation.basic;
+        this.validator = options.validator ?? new ColumnValidator<[]>([]);
+
+        const notifier = Observable.getNotifier(this.validator);
+        notifier.subscribe(this);
+    }
+
+    /** @internal */
+    public handleChange(source: unknown, args: unknown): void {
+        if (source instanceof ColumnValidator && args === 'isColumnValid') {
+            this.validConfiguration = this.validator.isColumnValid;
+        }
     }
 
     protected fractionalWidthChanged(): void {

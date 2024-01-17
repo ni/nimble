@@ -69,8 +69,8 @@ const configValidity = ['invalidFoo', 'invalidBar'] as const;
 export class TestColumnValidator extends ColumnValidator<
     typeof configValidity
 > {
-    public constructor(columnInternals: ColumnInternals<unknown>) {
-        super(columnInternals, configValidity);
+    public constructor() {
+        super(configValidity);
     }
 
     public validateFoo(isValid: boolean): void {
@@ -96,9 +96,6 @@ declare global {
     name: tableColumnValidationTestTag
 })
 export class TableColumnValidationTest extends TableColumn {
-    /* @internal */
-    public readonly validator = new TestColumnValidator(this.columnInternals);
-
     @attr({ mode: 'boolean' })
     public foo = false;
 
@@ -110,15 +107,18 @@ export class TableColumnValidationTest extends TableColumn {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: []
+            delegatedEvents: [],
+            validator: new TestColumnValidator()
         };
     }
 
     private fooChanged(): void {
-        this.validator.validateFoo(this.foo);
+        const validator = this.getTypedValidator(TestColumnValidator);
+        validator.validateFoo(this.foo);
     }
 
     private barChanged(): void {
-        this.validator.validateBar(this.bar);
+        const validator = this.getTypedValidator(TestColumnValidator);
+        validator.validateBar(this.bar);
     }
 }
