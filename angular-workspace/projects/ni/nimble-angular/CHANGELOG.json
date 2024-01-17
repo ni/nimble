@@ -2,6 +2,89 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 17 Jan 2024 14:23:42 GMT",
+      "version": "18.2.16",
+      "tag": "@ni/nimble-angular_v18.2.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.18.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Jan 2024 00:48:57 GMT",
+      "version": "18.2.15",
+      "tag": "@ni/nimble-angular_v18.2.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.17.7",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Jan 2024 21:49:14 GMT",
+      "version": "18.2.14",
+      "tag": "@ni/nimble-angular_v18.2.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.17.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Jan 2024 21:01:11 GMT",
+      "version": "18.2.13",
+      "tag": "@ni/nimble-angular_v18.2.13",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "87f54f799117992b88b3b03c258d3d242e16bc34",
+            "comment": "Elevate console warn and error in tests"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.17.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 12 Jan 2024 21:50:53 GMT",
+      "version": "18.2.12",
+      "tag": "@ni/nimble-angular_v18.2.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "eb5066d27fa8c4be20bd0e08efd26ca4b05e0be8",
+            "comment": "Disable @angular-eslint/no-input-rename for nimble angular"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Jan 2024 13:47:05 GMT",
       "version": "18.2.11",
       "tag": "@ni/nimble-angular_v18.2.11",

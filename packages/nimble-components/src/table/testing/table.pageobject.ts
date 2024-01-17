@@ -340,7 +340,11 @@ export class TablePageObject<T extends TableRecord> {
 
     public getCellRenderedWidth(rowIndex: number, columnIndex: number): number {
         const cell = this.getCell(rowIndex, columnIndex);
-        return cell.getBoundingClientRect().width;
+        const actualWidth = cell.getBoundingClientRect().width;
+        // Round to one decimal place. This is to work around a bug in Chrome related to
+        // fractional widths (e.g. '1fr') in grid layouts that results in some numerical
+        // precision issues. See: https://bugs.chromium.org/p/chromium/issues/detail?id=1515685
+        return Math.round(actualWidth * 10) / 10;
     }
 
     public getTotalCellRenderedWidth(): number {
@@ -634,17 +638,17 @@ export class TablePageObject<T extends TableRecord> {
         return headerContainers[index]!.querySelector('.column-divider.left');
     }
 
-    public isHorizontalScrollbarVisible(): boolean {
+    public isVerticalScrollbarVisible(): boolean {
         return (
             this.tableElement.viewport.clientHeight
-            !== this.tableElement.viewport.getBoundingClientRect().height
+            < this.tableElement.viewport.scrollHeight
         );
     }
 
-    public isVerticalScrollbarVisible(): boolean {
+    public isHorizontalScrollbarVisible(): boolean {
         return (
             this.tableElement.viewport.clientWidth
-            !== this.tableElement.viewport.getBoundingClientRect().width
+            < this.tableElement.viewport.scrollWidth
         );
     }
 

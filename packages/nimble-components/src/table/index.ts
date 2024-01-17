@@ -56,6 +56,7 @@ import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
 import { DataHierarchyManager } from './models/data-hierarchy-manager';
 import { ExpansionManager } from './models/expansion-manager';
+import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -302,7 +303,7 @@ export class Table<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.initialize();
-        this.virtualizer.connectedCallback();
+        this.virtualizer.connect();
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
@@ -312,7 +313,7 @@ export class Table<
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.virtualizer.disconnectedCallback();
+        this.virtualizer.disconnect();
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
         document.removeEventListener('keydown', this.onKeyDown);
         document.removeEventListener('keyup', this.onKeyUp);
@@ -764,10 +765,7 @@ export class Table<
     }
 
     private async updateColumnsFromChildItems(): Promise<void> {
-        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
-            ? customElements.whenDefined(item.localName)
-            : Promise.resolve()));
-        await Promise.all(definedElements);
+        await waitUntilCustomElementsDefinedAsync(this.childItems);
         this.columns = this.childItems.filter(
             (x): x is TableColumn => x instanceof TableColumn
         );
