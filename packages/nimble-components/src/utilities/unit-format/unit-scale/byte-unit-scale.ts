@@ -8,7 +8,7 @@ const byteUnitScaleOptions = [
     [10 ** 6, 'megabyte', 'short'],
     [10 ** 9, 'gigabyte', 'short'],
     [10 ** 12, 'terabyte', 'short'],
-    [10 ** 15, 'petabyte', 'short'],
+    [10 ** 15, 'petabyte', 'short']
 ] as const;
 
 /**
@@ -16,14 +16,18 @@ const byteUnitScaleOptions = [
  */
 class ByteUnitScale extends UnitScale {
     public constructor() {
-        super(byteUnitScaleOptions.map(([scaleFactor, unit, unitDisplay]) => new ScaledUnit(
-            scaleFactor,
-            IntlNumberFormatScaledUnitFormat.createFactory({
-                style: 'unit',
-                unit,
-                unitDisplay
-            })
-        )));
+        super(
+            byteUnitScaleOptions.map(
+                ([scaleFactor, unit, unitDisplay]) => new ScaledUnit(
+                    scaleFactor,
+                    IntlNumberFormatScaledUnitFormat.createFactory({
+                        style: 'unit',
+                        unit,
+                        unitDisplay
+                    })
+                )
+            )
+        );
     }
 }
 

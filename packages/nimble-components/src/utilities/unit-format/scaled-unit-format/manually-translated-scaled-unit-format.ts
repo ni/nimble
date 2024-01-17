@@ -10,7 +10,7 @@ export class UnitTranslation {
         public readonly singular: string,
         public readonly plural: string,
         public readonly symbol: string
-    ) { }
+    ) {}
 }
 /**
  * A map of locales of string format "[lang]" or "[lang]-[region]", for example "en" and / or "en-us", to UnitTranslation objects
@@ -43,18 +43,26 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
 
     protected constructor(
         scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
-        { unitTranslations, scaledPrefixText }: ManuallyTranslatedScaledUnitFormatOptions
+        {
+            unitTranslations,
+            scaledPrefixText
+        }: ManuallyTranslatedScaledUnitFormatOptions
     ) {
         super(scaledUnitFormatFactoryOptions);
         if (!unitTranslations.get('en')) {
-            throw new Error('English translations must exist with locale string "en"');
+            throw new Error(
+                'English translations must exist with locale string "en"'
+            );
         }
         this.pluralRules = new Intl.PluralRules(this.locale);
         this.formatter = new Intl.NumberFormat(
             this.locale,
             this.intlNumberFormatOptions
         );
-        this.unitTranslation = this.getTranslationToUse(unitTranslations, this.locale);
+        this.unitTranslation = this.getTranslationToUse(
+            unitTranslations,
+            this.locale
+        );
         this.scaledPrefixText = scaledPrefixText;
     }
 
@@ -71,8 +79,8 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
 
     public format(value: number): string {
         const formatted = this.formatter.format(value);
-        // The base unit has text of empty string
-        if (this.scaledPrefixText === '') {
+        // For non-base units (which are a scaled prefix text of empty string)
+        if (this.scaledPrefixText !== '') {
             return `${formatted} ${this.scaledPrefixText}${this.unitTranslation.symbol}`;
         }
 
@@ -92,7 +100,10 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
         return `${formatted} ${unitLabel}`;
     }
 
-    private getTranslationToUse(unitTranslations: UnitTranslations, locale: string): UnitTranslation {
+    private getTranslationToUse(
+        unitTranslations: UnitTranslations,
+        locale: string
+    ): UnitTranslation {
         const localeObject = new Intl.Locale(locale ?? 'en');
         const language = localeObject.language;
         const region = localeObject.region;

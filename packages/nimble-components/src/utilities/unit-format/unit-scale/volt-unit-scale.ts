@@ -1,7 +1,11 @@
 import { ScaledUnit } from '../scaled-unit/scaled-unit';
 import { UnitScale } from './unit-scale';
 import { metricPrefixes } from './utilities/metrix-prefixes';
-import { ManuallyTranslatedScaledUnitFormat, UnitTranslations, UnitTranslation } from '../scaled-unit-format/manually-translated-scaled-unit-format';
+import {
+    ManuallyTranslatedScaledUnitFormat,
+    UnitTranslations,
+    UnitTranslation
+} from '../scaled-unit-format/manually-translated-scaled-unit-format';
 
 const unitTranslations: UnitTranslations = new Map([
     ['en', new UnitTranslation('volt', 'volts', 'V')],
@@ -17,13 +21,15 @@ const unitTranslations: UnitTranslations = new Map([
 class VoltUnitScale extends UnitScale {
     public constructor() {
         super(
-            metricPrefixes.map(([scaleFactor, scaledPrefixText]) => new ScaledUnit(
-                scaleFactor,
-                ManuallyTranslatedScaledUnitFormat.createFactory({
-                    unitTranslations,
-                    scaledPrefixText
-                })
-            ))
+            metricPrefixes.map(
+                ([scaleFactor, scaledPrefixText]) => new ScaledUnit(
+                    scaleFactor,
+                    ManuallyTranslatedScaledUnitFormat.createFactory({
+                        unitTranslations,
+                        scaledPrefixText
+                    })
+                )
+            )
         );
     }
 }

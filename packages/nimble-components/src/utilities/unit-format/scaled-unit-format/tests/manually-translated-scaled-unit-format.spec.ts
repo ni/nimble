@@ -1,5 +1,8 @@
 import { parameterizeNamedList } from '../../../tests/parameterized';
-import { ManuallyTranslatedScaledUnitFormat, UnitTranslation } from '../manually-translated-scaled-unit-format';
+import {
+    ManuallyTranslatedScaledUnitFormat,
+    UnitTranslation
+} from '../manually-translated-scaled-unit-format';
 
 describe('ManuallyTranslatedScaledUnitFormat', () => {
     const unitTranslations = new Map<string, UnitTranslation>([
@@ -47,47 +50,50 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
 
     parameterizeNamedList(translationTestCases, (spec, name, value) => {
         spec(name, () => {
-            const formatter = ManuallyTranslatedScaledUnitFormat.createFactory({
+            const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
                 unitTranslations,
                 scaledPrefixText
             })({
                 locale: value.locale
             });
-            expect(formatter.format(5)).toEqual(`5 ${value.appendedUnit}`);
+            expect(scaledUnitFormatter.format(5)).toEqual(
+                `5 ${value.appendedUnit}`
+            );
         });
     });
 
     it('uses unit prefix and symbol whenever unit prefix is provided', () => {
-        const formatter = ManuallyTranslatedScaledUnitFormat.createFactory({
+        const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
             unitTranslations,
             scaledPrefixText: '1.'
         })({
             locale: 'en'
         });
-        expect(formatter.format(5)).toEqual('5 1.en-abbrev');
+        expect(scaledUnitFormatter.format(5)).toEqual('5 1.en-abbrev');
     });
 
     it('uses given formatter options', () => {
-        const formatter = ManuallyTranslatedScaledUnitFormat.createFactory({
+        const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
             unitTranslations,
             scaledPrefixText
         })({
             locale: 'en',
             intlNumberFormatOptions: { minimumFractionDigits: 5 }
         });
-        expect(formatter.format(5)).toEqual('5.00000 en-plural');
+        expect(scaledUnitFormatter.format(5)).toEqual('5.00000 en-plural');
     });
 
     it('throws with incorrect unit translations', () => {
         const unitTranslationsMissingEn = new Map<string, UnitTranslation>([
             ['foo', new UnitTranslation('byte', 'bytes', 'B')]
         ]);
-        expect(() => ManuallyTranslatedScaledUnitFormat.createFactory({
+        const scaledUnitFormatterFactory = ManuallyTranslatedScaledUnitFormat.createFactory({
             unitTranslations: unitTranslationsMissingEn,
             scaledPrefixText
-        })).toThrowError(
-            /English translations/
-        );
+        });
+        expect(() => scaledUnitFormatterFactory({
+            locale: 'en'
+        })).toThrowError(/English translations/);
     });
 
     const pluralizationTestCases = [
@@ -167,13 +173,15 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
 
     parameterizeNamedList(pluralizationTestCases, (spec, name, value) => {
         spec(`uses expected pluralization for ${name}`, () => {
-            const formatter = ManuallyTranslatedScaledUnitFormat.createFactory({
+            const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
                 unitTranslations,
                 scaledPrefixText
             })({
                 locale: value.locale
             });
-            expect(formatter.format(value.toFormat)).toEqual(value.expected);
+            expect(scaledUnitFormatter.format(value.toFormat)).toEqual(
+                value.expected
+            );
         });
     });
 });

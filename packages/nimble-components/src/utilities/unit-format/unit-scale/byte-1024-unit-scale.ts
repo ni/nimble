@@ -1,6 +1,10 @@
 import { ScaledUnit } from '../scaled-unit/scaled-unit';
 import { UnitScale } from './unit-scale';
-import { ManuallyTranslatedScaledUnitFormat, UnitTranslations, UnitTranslation } from '../scaled-unit-format/manually-translated-scaled-unit-format';
+import {
+    ManuallyTranslatedScaledUnitFormat,
+    UnitTranslations,
+    UnitTranslation
+} from '../scaled-unit-format/manually-translated-scaled-unit-format';
 
 const unitTranslations: UnitTranslations = new Map([
     ['en', new UnitTranslation('byte', 'bytes', 'B')],
@@ -16,7 +20,7 @@ const byte1024Prefixes = [
     [1024 ** 2, 'Mi'],
     [1024 ** 3, 'Gi'],
     [1024 ** 4, 'Ti'],
-    [1024 ** 5, 'Pi'],
+    [1024 ** 5, 'Pi']
 ] as const;
 
 /**
@@ -25,13 +29,15 @@ const byte1024Prefixes = [
 class Byte1024UnitScale extends UnitScale {
     public constructor() {
         super(
-            byte1024Prefixes.map(([scaleFactor, scaledPrefixText]) => new ScaledUnit(
-                scaleFactor,
-                ManuallyTranslatedScaledUnitFormat.createFactory({
-                    unitTranslations,
-                    scaledPrefixText
-                })
-            ))
+            byte1024Prefixes.map(
+                ([scaleFactor, scaledPrefixText]) => new ScaledUnit(
+                    scaleFactor,
+                    ManuallyTranslatedScaledUnitFormat.createFactory({
+                        unitTranslations,
+                        scaledPrefixText
+                    })
+                )
+            )
         );
     }
 }
