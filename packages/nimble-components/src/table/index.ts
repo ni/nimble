@@ -327,7 +327,7 @@ export class Table<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.initialize();
-        this.virtualizer.connectedCallback();
+        this.virtualizer.connect();
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
@@ -337,7 +337,7 @@ export class Table<
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.virtualizer.disconnectedCallback();
+        this.virtualizer.disconnect();
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
         document.removeEventListener('keydown', this.onKeyDown);
         document.removeEventListener('keyup', this.onKeyUp);

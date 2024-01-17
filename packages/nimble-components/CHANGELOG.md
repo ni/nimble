@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 08 Jan 2024 17:18:14 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Jan 2024 21:49:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.17.6
+
+Tue, 16 Jan 2024 21:49:14 GMT
+
+### Patches
+
+- Fix disabled styling of tree items ([ni/nimble@1596be3](https://github.com/ni/nimble/commit/1596be39b8d3b495a2de713b0c0b3f355bf77897))
+
+## 20.17.5
+
+Tue, 16 Jan 2024 21:01:12 GMT
+
+### Patches
+
+- Make lifecycle callbacks in components call base class consistently ([ni/nimble@87f54f7](https://github.com/ni/nimble/commit/87f54f799117992b88b3b03c258d3d242e16bc34))
+
+## 20.17.4
+
+Wed, 10 Jan 2024 13:47:05 GMT
+
+### Patches
+
+- Removed disable-editing attribute from the rich text mention users view component for rendering @mention in editor and viewer ([ni/nimble@98c97d4](https://github.com/ni/nimble/commit/98c97d44a092e9fbbfe7710f381da77fe73ada1a))
 
 ## 20.17.3
 

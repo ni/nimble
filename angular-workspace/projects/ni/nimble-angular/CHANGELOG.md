@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 08 Jan 2024 17:18:14 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Jan 2024 21:49:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.2.14
+
+Tue, 16 Jan 2024 21:49:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.6
+
+## 18.2.13
+
+Tue, 16 Jan 2024 21:01:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.5
+
+## 18.2.12
+
+Fri, 12 Jan 2024 21:50:53 GMT
+
+### Patches
+
+- Disable @angular-eslint/no-input-rename for nimble angular ([ni/nimble@eb5066d](https://github.com/ni/nimble/commit/eb5066d27fa8c4be20bd0e08efd26ca4b05e0be8))
+
+## 18.2.11
+
+Wed, 10 Jan 2024 13:47:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.4
 
 ## 18.2.10
 
