@@ -206,14 +206,12 @@ export class TableRow<
     }
 
     public onRowExpandToggle(event: Event): void {
-        if (typeof this.recordId === 'string') {
-            const expandEventDetail: TableRowExpansionToggleEventDetail = {
-                oldState: this.expanded,
-                newState: !this.expanded,
-                recordId: this.recordId
-            };
-            this.$emit('row-expand-toggle', expandEventDetail);
-        }
+        const expandEventDetail: TableRowExpansionToggleEventDetail = {
+            oldState: this.expanded,
+            newState: !this.expanded,
+            recordId: this.recordId!
+        };
+        this.$emit('row-expand-toggle', expandEventDetail);
         event.stopImmediatePropagation();
         // To avoid a visual glitch with improper expand/collapse icons performing an
         // animation (due to visual re-use apparently), we apply a class to the

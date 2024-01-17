@@ -1,9 +1,6 @@
-/**
- * [Nimble]
- * Copied from https://github.com/philipstanislaus/performant-array-to-tree/blob/ae56091b76de0065949bdf228096010e8c0117f7/src/arrayToTree.ts
- * with the following changes:
- * - Add support for include the original data index in the tree's data items
- */
+// Modified from https://github.com/philipstanislaus/performant-array-to-tree/blob/v1.11.0/src/arrayToTree.ts
+// Copyright (c) 2022 philipstanislaus
+// SPDX-License-Identifier: MIT
 
 export interface TreeItem<Item> {
     clientRecord: Item | undefined;
