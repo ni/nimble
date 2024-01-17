@@ -1,5 +1,5 @@
 import { html, repeat } from '@microsoft/fast-element';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { mappingUserTag } from '../../../mapping/user';
 import {
     type RichTextMentionUsers,
@@ -311,7 +311,7 @@ describe('Markdown parser', () => {
                 ] as const;
 
                 describe('should reflect value to the internal control', () => {
-                    parameterizeNamedList(
+                    parameterizeSpec(
                         supportedAbsoluteLink,
                         (spec, name, value) => {
                             spec(
@@ -421,7 +421,7 @@ describe('Markdown parser', () => {
                 ] as const;
 
                 describe('should reflect value to the internal control', () => {
-                    parameterizeNamedList(
+                    parameterizeSpec(
                         supportedAbsoluteLink,
                         (spec, name, value) => {
                             spec(
@@ -562,7 +562,7 @@ describe('Markdown parser', () => {
                     },
                     { name: '<test://test.com>' }
                 ] as const;
-                parameterizeNamedList(differentProtocolLinks, (spec, name) => {
+                parameterizeSpec(differentProtocolLinks, (spec, name) => {
                     spec(
                         `string "${name}" renders within nimble-anchor without 'href' attribute`,
                         () => {
@@ -600,7 +600,7 @@ describe('Markdown parser', () => {
                     { name: '<issue:1>' },
                     { name: '<system:12345-56789>' }
                 ] as const;
-                parameterizeNamedList(differentProtocolLinks, (spec, name) => {
+                parameterizeSpec(differentProtocolLinks, (spec, name) => {
                     spec(
                         `string "${name}" renders within nimble-anchor with 'class' attribute`,
                         () => {
@@ -636,7 +636,7 @@ describe('Markdown parser', () => {
                     { name: '<file:///path/to/local/file.txt>' },
                     { name: '<javascript:vbscript:alert("not alert")>' }
                 ] as const;
-                parameterizeNamedList(
+                parameterizeSpec(
                     notSupportedAbsoluteLink,
                     (spec, name) => {
                         spec(
@@ -724,7 +724,7 @@ describe('Markdown parser', () => {
             }
         ] as const;
 
-        parameterizeNamedList(
+        parameterizeSpec(
             testsWithEscapeCharacters,
             (spec, name, value) => {
                 spec(`"${name}"`, () => {
@@ -821,7 +821,7 @@ describe('Markdown parser', () => {
             { name: '<script>alert("not alert")</script>' }
         ] as const;
 
-        parameterizeNamedList(notSupportedMarkdownStrings, (spec, name) => {
+        parameterizeSpec(notSupportedMarkdownStrings, (spec, name) => {
             spec(
                 `string "${name}" renders as plain text "${name}" within paragraph tag`,
                 () => {
@@ -841,7 +841,7 @@ describe('Markdown parser', () => {
             value => value.name !== '\x00'
         );
 
-        parameterizeNamedList(wackyStringsToTest, (spec, name) => {
+        parameterizeSpec(wackyStringsToTest, (spec, name) => {
             spec(
                 `wacky string "${name}" that are unmodified when set the same "${name}" within paragraph tag`,
                 () => {
@@ -869,7 +869,7 @@ describe('Markdown parser', () => {
             { name: '\\x00', value: '\x00', tags: ['P'], textContent: ['�'] }
         ] as const;
 
-        parameterizeNamedList(modifiedWackyStrings, (spec, name, value) => {
+        parameterizeSpec(modifiedWackyStrings, (spec, name, value) => {
             spec(`wacky string "${name}" modified when rendered`, () => {
                 const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                     value.value
@@ -938,7 +938,7 @@ describe('Markdown parser', () => {
             }
         ] as const;
 
-        parameterizeNamedList(
+        parameterizeSpec(
             markdownStringWithHardBreak,
             (spec, name, value) => {
                 spec(`should render br tag with "${name}"`, () => {
@@ -1403,7 +1403,7 @@ describe('Markdown parser', () => {
         });
 
         describe('various wacky strings should reflect the `mention-label` attribute value of user mention view', () => {
-            parameterizeNamedList(wackyStrings, (spec, name) => {
+            parameterizeSpec(wackyStrings, (spec, name) => {
                 spec(`for ${name}`, async () => {
                     ({ element, connect, disconnect } = await setup(
                         [{ key: 'user:1', displayName: name }],

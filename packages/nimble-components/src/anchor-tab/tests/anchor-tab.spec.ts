@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorTab } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { Fixture, fixture } from '../../utilities/tests/fixture';
@@ -38,7 +38,7 @@ describe('AnchorTab', () => {
         { name: 'type' }
     ] as const;
     describe('should reflect value to the internal anchor element', () => {
-        parameterizeNamedList(attributeNames, (spec, name) => {
+        parameterizeSpec(attributeNames, (spec, name) => {
             spec(`for attribute ${name}`, async () => {
                 await connect();
 

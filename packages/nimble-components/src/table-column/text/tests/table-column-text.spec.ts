@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import type { Table } from '../../../table';
 import { TableColumnText, tableColumnTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -70,7 +70,7 @@ describe('TableColumnText', () => {
             data: [{ field: 10 as unknown as string }]
         }
     ] as const;
-    parameterizeNamedList(noValueData, (spec, name, value) => {
+    parameterizeSpec(noValueData, (spec, name, value) => {
         spec(`displays empty string when ${name}`, async () => {
             await element.setData(value.data);
             await connect();
@@ -196,7 +196,7 @@ describe('TableColumnText', () => {
     });
 
     describe('various string values render as expected', () => {
-        parameterizeNamedList(wackyStrings, (spec, name) => {
+        parameterizeSpec(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
                 await connect();
 
@@ -209,7 +209,7 @@ describe('TableColumnText', () => {
     });
 
     describe('various string values render in group header as expected', () => {
-        parameterizeNamedList(wackyStrings, (spec, name) => {
+        parameterizeSpec(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
                 await connect();
 

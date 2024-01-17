@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
@@ -161,7 +161,7 @@ describe('RichTextEditor', () => {
     ] as const;
 
     describe('clicking buttons should update the checked state of the toggle button with focus', () => {
-        parameterizeNamedList(formattingButtons, (spec, name, value) => {
+        parameterizeSpec(formattingButtons, (spec, name, value) => {
             spec(`"${name}" button click check`, async () => {
                 expect(
                     pageObject.getButtonCheckedState(value.toolbarButtonIndex)
@@ -180,7 +180,7 @@ describe('RichTextEditor', () => {
     });
 
     describe('space key press should update the checked state of the buttons', () => {
-        parameterizeNamedList(formattingButtons, (spec, name, value) => {
+        parameterizeSpec(formattingButtons, (spec, name, value) => {
             spec(`"${name}" button key press check`, () => {
                 expect(
                     pageObject.getButtonCheckedState(value.toolbarButtonIndex)
@@ -196,7 +196,7 @@ describe('RichTextEditor', () => {
     });
 
     describe('enter key press should update the checked state of the buttons', () => {
-        parameterizeNamedList(formattingButtons, (spec, name, value) => {
+        parameterizeSpec(formattingButtons, (spec, name, value) => {
             spec(`"${name}" button key press check`, () => {
                 expect(
                     pageObject.getButtonCheckedState(value.toolbarButtonIndex)
@@ -212,7 +212,7 @@ describe('RichTextEditor', () => {
     });
 
     describe('keyboard shortcuts should update the checked state of the buttons', () => {
-        parameterizeNamedList(formattingButtons, (spec, name, value) => {
+        parameterizeSpec(formattingButtons, (spec, name, value) => {
             spec(`"${name}" button keyboard shortcut check`, async () => {
                 expect(
                     pageObject.getButtonCheckedState(value.toolbarButtonIndex)
@@ -231,7 +231,7 @@ describe('RichTextEditor', () => {
     });
 
     describe('should not leak change event through shadow DOM for buttons', () => {
-        parameterizeNamedList(formattingButtons, (spec, name, value) => {
+        parameterizeSpec(formattingButtons, (spec, name, value) => {
             spec(
                 `"${name}" button not propagate change event to parent element`,
                 () => {
@@ -323,7 +323,7 @@ describe('RichTextEditor', () => {
                 { name: 'italics(*)', input: '*italics*' },
                 { name: 'italics(_)', input: '_italics_' }
             ] as const;
-            parameterizeNamedList(markdownInput, (spec, name, value) => {
+            parameterizeSpec(markdownInput, (spec, name, value) => {
                 spec(`for ${name} markdown input to the editor`, async () => {
                     await pageObject.setEditorTextContent(value.input);
 
@@ -343,7 +343,7 @@ describe('RichTextEditor', () => {
                 { name: 'numbered list (1.)', input: '1.', tagName: 'OL' },
                 { name: 'numbered list (5.)', input: '5.', tagName: 'OL' }
             ] as const;
-            parameterizeNamedList(markdownInput, (spec, name, value) => {
+            parameterizeSpec(markdownInput, (spec, name, value) => {
                 spec(`for ${name} markdown input to the editor`, async () => {
                     await pageObject.setEditorTextContent(value.input);
                     await pageObject.pressEnterKeyInEditor();
@@ -423,7 +423,7 @@ describe('RichTextEditor', () => {
                     input: '<script>alert("not alert")</script>'
                 }
             ] as const;
-            parameterizeNamedList(markdownInput, (spec, name, value) => {
+            parameterizeSpec(markdownInput, (spec, name, value) => {
                 spec(`for ${name} markdown syntax to the editor`, () => {
                     pageObject.pasteToEditor(value.input);
 
@@ -813,7 +813,7 @@ describe('RichTextEditor', () => {
                     { name: 'https://example.com/пример.html ' }
                 ] as const;
 
-                parameterizeNamedList(supportedAbsoluteLink, (spec, name) => {
+                parameterizeSpec(supportedAbsoluteLink, (spec, name) => {
                     spec(
                         `should change the ${name} to "a" tag when it is a valid absolute link`,
                         async () => {
@@ -943,7 +943,7 @@ describe('RichTextEditor', () => {
                     { name: 'test://test.com ' }
                 ] as const;
 
-                parameterizeNamedList(differentProtocolLinks, (spec, name) => {
+                parameterizeSpec(differentProtocolLinks, (spec, name) => {
                     spec(
                         `string "${name}" renders as plain text "${name}" within paragraph tag`,
                         async () => {
@@ -994,7 +994,7 @@ describe('RichTextEditor', () => {
                     }
                 ] as const;
 
-                parameterizeNamedList(
+                parameterizeSpec(
                     differentValidLinks,
                     (spec, name, value) => {
                         spec(
@@ -1036,7 +1036,7 @@ describe('RichTextEditor', () => {
                     }
                 ] as const;
 
-                parameterizeNamedList(validLinkNodes, (spec, name, value) => {
+                parameterizeSpec(validLinkNodes, (spec, name, value) => {
                     spec(
                         `${name} renders as absolute link(href and text content should be same) in editor`,
                         () => {
@@ -1121,7 +1121,7 @@ describe('RichTextEditor', () => {
                     }
                 ] as const;
 
-                parameterizeNamedList(
+                parameterizeSpec(
                     differentInvalidLinks,
                     (spec, name, value) => {
                         spec(`${name} renders as plain text in editor`, () => {
@@ -1150,7 +1150,7 @@ describe('RichTextEditor', () => {
     });
 
     describe('various wacky string values input into the editor', () => {
-        parameterizeNamedList(wackyStrings, (spec, name) => {
+        parameterizeSpec(wackyStrings, (spec, name) => {
             spec(
                 `wacky string "${name}" that are unmodified when rendered the same value within paragraph tag`,
                 async () => {
@@ -1504,7 +1504,7 @@ describe('RichTextEditor', () => {
             { name: '<script>alert("not alert")</script>' }
         ] as const;
 
-        parameterizeNamedList(notSupportedMarkdownStrings, (spec, name) => {
+        parameterizeSpec(notSupportedMarkdownStrings, (spec, name) => {
             spec(
                 `markdown string "${name}" returns as plain text "${name}" without any change`,
                 async () => {
@@ -1543,7 +1543,7 @@ describe('RichTextEditor', () => {
             { name: '-2147483648/-1', value: r`\-2147483648/-1` }
         ] as const;
 
-        parameterizeNamedList(specialMarkdownStrings, (spec, name, value) => {
+        parameterizeSpec(specialMarkdownStrings, (spec, name, value) => {
             spec(
                 `special markdown string "${name}" returns as plain text "${value.value}" with added esacpe character`,
                 async () => {
@@ -1603,7 +1603,7 @@ describe('RichTextEditor', () => {
             }
         ] as const;
 
-        parameterizeNamedList(hardBreakMarkdownStrings, (spec, name, value) => {
+        parameterizeSpec(hardBreakMarkdownStrings, (spec, name, value) => {
             spec(
                 `markdown string with hard break in "${name}" returns as same without any change`,
                 async () => {
@@ -1626,7 +1626,7 @@ describe('RichTextEditor', () => {
                 && value.name !== '-2147483648/-1'
         );
 
-        parameterizeNamedList(wackyStringsToTest, (spec, name) => {
+        parameterizeSpec(wackyStringsToTest, (spec, name) => {
             spec(
                 `wacky string "${name}" returns unmodified when set the same markdown string "${name}"`,
                 async () => {
@@ -1649,7 +1649,7 @@ describe('RichTextEditor', () => {
             { name: '-2147483648/-1', value: r`\-2147483648/-1` }
         ] as const;
 
-        parameterizeNamedList(
+        parameterizeSpec(
             wackyStringWithSpecialMarkdownCharacter,
             (spec, name, value) => {
                 spec(
@@ -1676,7 +1676,7 @@ describe('RichTextEditor', () => {
             { name: '\\r\\r', value: '\r\r', content: '' }
         ] as const;
 
-        parameterizeNamedList(modifiedWackyStrings, (spec, name, value) => {
+        parameterizeSpec(modifiedWackyStrings, (spec, name, value) => {
             spec(
                 `wacky string "${name}" returns modified when assigned`,
                 async () => {
@@ -1730,7 +1730,7 @@ describe('RichTextEditor', () => {
         });
 
         describe('should reflect disabled value to the disabled and aria-disabled state of toggle buttons', () => {
-            parameterizeNamedList(formattingButtons, (spec, name, value) => {
+            parameterizeSpec(formattingButtons, (spec, name, value) => {
                 spec(`for "${name}" button`, async () => {
                     expect(
                         pageObject.isButtonDisabled(value.toolbarButtonIndex)

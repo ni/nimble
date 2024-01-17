@@ -1,5 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnNumberText, tableColumnNumberTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -87,7 +87,7 @@ describe('TableColumnNumberText', () => {
             data: [{ number1: 'hello world' as unknown as number }]
         }
     ] as const;
-    parameterizeNamedList(noValueData, (spec, name, value) => {
+    parameterizeSpec(noValueData, (spec, name, value) => {
         spec(`displays empty string when ${name}`, async () => {
             await table.setData(value.data);
             await connect();
@@ -656,7 +656,7 @@ describe('TableColumnNumberText', () => {
         }
     ] as const;
     describe('sets the correct initial alignment on the cell', () => {
-        parameterizeNamedList(alignmentTestCases, (spec, name, value) => {
+        parameterizeSpec(alignmentTestCases, (spec, name, value) => {
             spec(name, async () => {
                 await table.setData([{ number1: 10 }]);
                 elementReferences.column1.format = value.format;

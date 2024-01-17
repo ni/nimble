@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
-import { DefaultFormatter } from '../default-formatter';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { DefaultUnitFormat } from '../default-unit-format';
 import { IntlNumberFormatScaledUnitFormat } from '../unit-scale/base/intl-number-format-scaled-unit-format';
 import {
     ScaledUnit,
@@ -213,7 +213,7 @@ describe('DefaultUnitFormat', () => {
         }
     ] as const;
 
-    parameterizeNamedList(testCases, (spec, name, value) => {
+    parameterizeSpec(testCases, (spec, name, value) => {
         spec(name, () => {
             const options = {
                 unitScale: passthroughUnitScale
@@ -314,7 +314,7 @@ describe('DefaultUnitFormat', () => {
                 expectedFormattedValue: '2E9 x1' // rather than '2E6 x1000'
             }
         ] as const;
-        parameterizeNamedList(
+        parameterizeSpec(
             appendedLabelUnitTestCases,
             (spec, name, value) => {
                 spec(name, () => {

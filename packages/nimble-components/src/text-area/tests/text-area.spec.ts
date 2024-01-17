@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { TextArea, textAreaTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
@@ -79,7 +79,7 @@ describe('Text Area', () => {
         { name: 'aria-roledescription' }
     ] as const;
     describe('should reflect value to the internal control', () => {
-        parameterizeNamedList(attributeNames, (spec, name, value) => {
+        parameterizeSpec(attributeNames, (spec, name, value) => {
             spec(`for attribute ${name}`, async () => {
                 await connect();
 

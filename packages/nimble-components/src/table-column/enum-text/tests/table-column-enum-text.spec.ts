@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { html, ref, repeat } from '@microsoft/fast-element';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '../../../table';
 import { TableColumnEnumText, tableColumnEnumTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -84,7 +84,7 @@ describe('TableColumnEnumText', () => {
             { name: 'number', key: 10 },
             { name: 'boolean', key: true }
         ] as const;
-        parameterizeNamedList(dataTypeTests, (spec, name, value) => {
+        parameterizeSpec(dataTypeTests, (spec, name, value) => {
             spec(`displays text mapped from ${name}`, async () => {
                 ({ element, connect, disconnect, model } = await setup(
                     [{ key: value.key, text: 'alpha' }],
@@ -164,7 +164,7 @@ describe('TableColumnEnumText', () => {
     });
 
     describe('various string values render as expected', () => {
-        parameterizeNamedList(wackyStrings, (spec, name) => {
+        parameterizeSpec(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
                 ({ element, connect, disconnect, model } = await setup([
                     { key: 'a', text: name }
@@ -180,7 +180,7 @@ describe('TableColumnEnumText', () => {
     });
 
     describe('various string values render in group header as expected', () => {
-        parameterizeNamedList(wackyStrings, (spec, name) => {
+        parameterizeSpec(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
                 ({ element, connect, disconnect, model } = await setup([
                     { key: 'a', text: name }
@@ -331,7 +331,7 @@ describe('TableColumnEnumText', () => {
                 { name: 'FALSE', key: 'FALSE' },
                 { name: '0', key: 0 }
             ] as const;
-            parameterizeNamedList(dataTypeTests, (spec, name, value) => {
+            parameterizeSpec(dataTypeTests, (spec, name, value) => {
                 spec(name, async () => {
                     ({ element, connect, disconnect, model } = await setup(
                         [{ key: value.key, text: 'alpha' }],

@@ -8,7 +8,7 @@ import {
     keySpace,
     keyTab
 } from '@microsoft/fast-web-utilities';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorTabs } from '..';
 import '../../anchor-tab';
 import type { AnchorTab } from '../../anchor-tab';
@@ -329,7 +329,7 @@ describe('AnchorTabs', () => {
             }
         ] as const;
         describe('navigation', () => {
-            parameterizeNamedList(navigationTests, (spec, name, value) => {
+            parameterizeSpec(navigationTests, (spec, name, value) => {
                 spec(name, async () => {
                     await connect();
                     if (value.disabledIndex !== undefined) {

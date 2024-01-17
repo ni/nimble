@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { richTextEditorTag, type RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { themeProviderTag, type ThemeProvider } from '../../../theme-provider';
@@ -68,7 +68,7 @@ describe('Rich Text Editor with LabelProviderRichText', () => {
         await disconnect();
     });
 
-    parameterizeNamedList(formattingButtons, (spec, name, value) => {
+    parameterizeSpec(formattingButtons, (spec, name, value) => {
         spec(
             `uses correct label for '${value.label}' for ${name} button`,
             async () => {

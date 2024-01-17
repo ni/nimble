@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { customElement, html, ref } from '@microsoft/fast-element';
 import { TreeItem as FoundationTreeItem } from '@microsoft/fast-foundation';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorTreeItem } from '..';
 import type { IconCheck } from '../../icons/check';
 import type { IconXmark } from '../../icons/xmark';
@@ -86,7 +86,7 @@ describe('Anchor Tree Item', () => {
             { name: 'type' }
         ] as const;
         describe('should reflect value to the internal control', () => {
-            parameterizeNamedList(attributeNames, (spec, name) => {
+            parameterizeSpec(attributeNames, (spec, name) => {
                 spec(`for attribute ${name}`, async () => {
                     await connect();
 

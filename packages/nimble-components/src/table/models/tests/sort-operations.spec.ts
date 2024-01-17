@@ -1,5 +1,5 @@
 import type { Row as TanStackRow, SortingFn } from '@tanstack/table-core';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { TableColumnSortOperation } from '../../../table-column/base/types';
 import { getTanStackSortingFunction } from '../sort-operations';
 import type { TableFieldValue } from '../../types';
@@ -65,7 +65,7 @@ describe('Sort Operations', () => {
             ]
         }
     ] as const;
-    parameterizeNamedList(testCases, (spec, name, value) => {
+    parameterizeSpec(testCases, (spec, name, value) => {
         spec(name, () => {
             for (let i = 0; i < value.expectedSortOrder.length; i++) {
                 for (let j = 0; j < value.expectedSortOrder.length; j++) {

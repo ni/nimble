@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
@@ -688,7 +688,7 @@ describe('Table row selection', () => {
                             expectedSelection: ['0']
                         }
                     ] as const;
-                    parameterizeNamedList(
+                    parameterizeSpec(
                         configurations,
                         (spec, name, value) => {
                             spec(name, async () => {
@@ -743,7 +743,7 @@ describe('Table row selection', () => {
                             clickModifiers: { shiftKey: true }
                         }
                     ] as const;
-                    parameterizeNamedList(
+                    parameterizeSpec(
                         configurations,
                         (spec, name, value) => {
                             spec(name, async () => {
@@ -842,7 +842,7 @@ describe('Table row selection', () => {
                         expectedSelection: ['2']
                     }
                 ] as const;
-                parameterizeNamedList(configurations, (spec, name, value) => {
+                parameterizeSpec(configurations, (spec, name, value) => {
                     spec(name, async () => {
                         await element.setSelectedRecordIds(
                             value.initialSelection

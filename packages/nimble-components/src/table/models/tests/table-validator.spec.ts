@@ -1,4 +1,4 @@
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { TableNode, TableRowSelectionMode } from '../../types';
 import { TableValidator } from '../table-validator';
 import {
@@ -278,7 +278,7 @@ describe('TableValidator', () => {
             }
         ] as const;
 
-        parameterizeNamedList(columnConfigurations, (spec, name, value) => {
+        parameterizeSpec(columnConfigurations, (spec, name, value) => {
             spec(name, () => {
                 const tableValidator = new TableValidator();
                 const isValid = tableValidator.validateColumnConfigurations(
@@ -361,7 +361,7 @@ describe('TableValidator', () => {
             }
         ] as const;
 
-        parameterizeNamedList(columnConfigurations, (spec, name, value) => {
+        parameterizeSpec(columnConfigurations, (spec, name, value) => {
             spec(name, () => {
                 const tableValidator = new TableValidator();
                 const isValid = tableValidator.validateColumnIds(
@@ -443,7 +443,7 @@ describe('TableValidator', () => {
             }
         ] as const;
 
-        parameterizeNamedList(columnConfigurations, (spec, name, value) => {
+        parameterizeSpec(columnConfigurations, (spec, name, value) => {
             spec(name, () => {
                 const tableValidator = new TableValidator();
                 const isValid = tableValidator.validateColumnSortIndices(
@@ -533,7 +533,7 @@ describe('TableValidator', () => {
             }
         ] as const;
 
-        parameterizeNamedList(columnConfigurations, (spec, name, value) => {
+        parameterizeSpec(columnConfigurations, (spec, name, value) => {
             spec(name, () => {
                 const tableValidator = new TableValidator();
                 const isValid = tableValidator.validateColumnGroupIndices(
@@ -597,7 +597,7 @@ describe('TableValidator', () => {
             }
         ] as const;
 
-        parameterizeNamedList(selectionConfigurations, (spec, name, value) => {
+        parameterizeSpec(selectionConfigurations, (spec, name, value) => {
             spec(name, () => {
                 const tableValidator = new TableValidator();
                 const isValid = tableValidator.validateSelectionMode(

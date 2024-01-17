@@ -1,4 +1,4 @@
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { diacriticInsensitiveStringNormalizer } from '../string-normalizers';
 
 // Wacky strings copied from '../../tests/wacky-strings.ts' and updated their corresponding normalized string output
@@ -33,7 +33,7 @@ const wackyStrings = [
 ] as const;
 
 describe('The string normalizer utility', () => {
-    parameterizeNamedList(wackyStrings, (spec, name, value) => {
+    parameterizeSpec(wackyStrings, (spec, name, value) => {
         spec(`for ${name}`, () => {
             const normalizedString = diacriticInsensitiveStringNormalizer(
                 value.name

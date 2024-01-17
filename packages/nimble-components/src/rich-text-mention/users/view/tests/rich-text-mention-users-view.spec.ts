@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { RichTextMentionUsersView, richTextMentionUsersViewTag } from '..';
 import { type Fixture, fixture } from '../../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
@@ -53,7 +53,7 @@ describe('RichTextMentionUsersView', () => {
     });
 
     describe('various wacky strings should reflect the `mention-label` attribute value to its text content', () => {
-        parameterizeNamedList(wackyStrings, (spec, name) => {
+        parameterizeSpec(wackyStrings, (spec, name) => {
             spec(`for ${name}`, async () => {
                 await connect();
                 element.setAttribute('mention-label', name);

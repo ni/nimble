@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { parameterizeNamedList } from '@ni/jasmine-parameterized/dist/esm/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import type { Table } from '../../../table';
 import { TableColumnAnchor, tableColumnAnchorTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -86,7 +86,7 @@ describe('TableColumnAnchor', () => {
                 data: [{ label: 10 as unknown as string }]
             }
         ] as const;
-        parameterizeNamedList(noValueData, (spec, name, value) => {
+        parameterizeSpec(noValueData, (spec, name, value) => {
             spec(`displays empty string when label ${name}`, async () => {
                 await element.setData(value.data);
                 await connect();
@@ -177,7 +177,7 @@ describe('TableColumnAnchor', () => {
         });
 
         describe('various string values render as expected', () => {
-            parameterizeNamedList(wackyStrings, (spec, name) => {
+            parameterizeSpec(wackyStrings, (spec, name) => {
                 spec(`data "${name}" renders correctly`, async () => {
                     await connect();
 
@@ -251,7 +251,7 @@ describe('TableColumnAnchor', () => {
             { name: 'type', accessor: (x: Anchor) => x.type },
             { name: 'download', accessor: (x: Anchor) => x.download }
         ] as const;
-        parameterizeNamedList(linkOptionData, (spec, name, value) => {
+        parameterizeSpec(linkOptionData, (spec, name, value) => {
             spec(`sets ${name} on anchor`, async () => {
                 await element.setData([{ link: 'foo' }]);
                 await connect();
@@ -413,7 +413,7 @@ describe('TableColumnAnchor', () => {
         }
 
         describe('various string values render as expected', () => {
-            parameterizeNamedList(wackyStrings, (spec, name) => {
+            parameterizeSpec(wackyStrings, (spec, name) => {
                 spec(`data "${name}" renders correctly`, async () => {
                     await connect();
 
@@ -428,7 +428,7 @@ describe('TableColumnAnchor', () => {
         });
 
         describe('various string values render in group header as expected', () => {
-            parameterizeNamedList(wackyStrings, (spec, name) => {
+            parameterizeSpec(wackyStrings, (spec, name) => {
                 spec(`data "${name}" renders correctly`, async () => {
                     await connect();
 

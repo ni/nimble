@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { parameterizeNamedList } from '../../../../tests/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { ScaledUnit } from '../scaled-unit';
 import { UnitScale } from '../unit-scale';
 import type { ScaledUnitFormat } from '../scaled-unit-format';
@@ -91,7 +91,7 @@ describe('UnitScale', () => {
         }
     ] as const;
 
-    parameterizeNamedList(testCases, (spec, name, value) => {
+    parameterizeSpec(testCases, (spec, name, value) => {
         spec(name, () => {
             const unitScale = new TestUnitScale();
             const { scaledValue, scaledUnit } = unitScale.scaleNumber(
