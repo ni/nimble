@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 17 Jan 2024 00:48:57 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Jan 2024 14:23:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.18.0
+
+Wed, 17 Jan 2024 14:23:42 GMT
+
+### Minor changes
+
+- Unit support for number-text table column ([ni/nimble@3710e7e](https://github.com/ni/nimble/commit/3710e7e150786220099816fdea608b10b378956c))
 
 ## 20.17.7
 
