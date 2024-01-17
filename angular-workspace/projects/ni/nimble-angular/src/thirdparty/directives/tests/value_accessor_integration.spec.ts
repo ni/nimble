@@ -183,6 +183,8 @@ class TestNgSelectOption extends NgSelectOption {}
       input.nativeElement.value = 'updatedValue';
 
       dispatchEvent(input.nativeElement, 'change');
+      // [Nimble] Add a known empty expect to suppress warning
+      expect().nothing();
     });
 
     it('should support <textarea>', () => {
@@ -276,6 +278,8 @@ class TestNgSelectOption extends NgSelectOption {}
 
         input.nativeElement.value = '5';
         dispatchEvent(input.nativeElement, 'change');
+        // [Nimble] Add a known empty expect to suppress warning
+        expect().nothing();
       });
 
       it('when value is cleared programmatically', () => {

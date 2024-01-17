@@ -1,0 +1,50 @@
+import {
+    Controls,
+    DocsStory,
+    Meta,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import * as tableColumnStories from './table-column.stories';
+
+<Meta of={tableColumnStories} />
+
+<Title of={tableColumnStories} />
+<Description of={tableColumnStories} />
+
+## Adding columns
+
+<Description of={tableColumnStories.addingColumns} />
+<DocsStory of={tableColumnStories.addingColumns} expanded={false} />
+<Controls of={tableColumnStories.addingColumns} />
+
+## Setting header content
+
+<Description of={tableColumnStories.headerContent} />
+<DocsStory of={tableColumnStories.headerContent} expanded={false} />
+<Controls of={tableColumnStories.headerContent} />
+
+## Configuring common attributes
+
+<Description of={tableColumnStories.commonAttributes} />
+<DocsStory of={tableColumnStories.commonAttributes} expanded={false} />
+<Controls of={tableColumnStories.commonAttributes} />
+
+## Sorting
+
+<Description of={tableColumnStories.sorting} />
+<DocsStory of={tableColumnStories.sorting} expanded={false} />
+<Controls of={tableColumnStories.sorting} />
+
+## Grouping
+
+<Description of={tableColumnStories.grouping} />
+<DocsStory of={tableColumnStories.grouping} expanded={false} />
+<Controls of={tableColumnStories.grouping} />
+
+## Column Width
+
+<Description of={tableColumnStories.width} />
+<DocsStory of={tableColumnStories.width} expanded={false} />
+<Controls of={tableColumnStories.width} />
