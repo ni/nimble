@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 17 Jan 2024 00:48:57 GMT",
+      "version": "20.17.7",
+      "tag": "@ni/nimble-components_v20.17.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4e5d8771d3f06c03245638b2cde54b00eaa27d60",
+            "comment": "Visual design improvements for rich text editor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 16 Jan 2024 23:43:26 GMT",
       "version": "20.17.6",
       "tag": "@ni/nimble-components_v20.17.6",

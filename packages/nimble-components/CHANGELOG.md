@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 16 Jan 2024 21:49:14 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Jan 2024 00:48:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.17.7
+
+Wed, 17 Jan 2024 00:48:57 GMT
+
+### Patches
+
+- Visual design improvements for rich text editor ([ni/nimble@4e5d877](https://github.com/ni/nimble/commit/4e5d8771d3f06c03245638b2cde54b00eaa27d60))
 
 ## 20.17.6
 
