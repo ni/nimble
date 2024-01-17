@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type UnitByte, unitByteTag } from '@ni/nimble-components/dist/esm/unit/byte';
-import { toBooleanProperty, type BooleanValueOrAttribute } from '../../internal-utilities/template-value-helpers';
+import { toBooleanProperty, type BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 
 export type { UnitByte };
 export { unitByteTag };
