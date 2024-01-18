@@ -10,6 +10,7 @@ import type { TableColumnNumberTextCellView } from '../cell-view';
 import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
 import { lang, themeProviderTag } from '../../../theme-provider';
+import { unitByteTag } from '../../../unit/byte';
 
 interface SimpleTableRecord extends TableRecord {
     number1?: number | null;
@@ -517,6 +518,59 @@ describe('TableColumnNumberText', () => {
                     .decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits
             ).toBeFalse();
         });
+
+        it('updates format when unit element is added or removed', async () => {
+            await table.setData([{ number1: 1024 }]);
+            const unitElement = document.createElement(unitByteTag);
+            elementReferences.column1.appendChild(unitElement);
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('1.02 kB');
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                '1.02 kB'
+            );
+
+            elementReferences.column1.removeChild(unitElement);
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                '1,024.00'
+            );
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                '1,024.00'
+            );
+        });
+
+        it('updates format when unit element attribute changes', async () => {
+            await table.setData([{ number1: 1024 }]);
+            const unitElement = document.createElement(unitByteTag);
+            elementReferences.column1.appendChild(unitElement);
+            await waitForUpdatesAsync();
+            unitElement.binary = true;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                '1.00 KiB'
+            );
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                '1.00 KiB'
+            );
+        });
+
+        it('uses configured unit in default formatting mode', async () => {
+            elementReferences.column1.format = NumberTextFormat.default;
+            elementReferences.column1.appendChild(
+                document.createElement(unitByteTag)
+            );
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                '11 bytes'
+            );
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                '11 bytes'
+            );
+        });
     });
 
     const alignmentTestCases = [
@@ -524,6 +578,7 @@ describe('TableColumnNumberText', () => {
             name: 'with default format and default alignment',
             format: NumberTextFormat.default,
             decimalMaximumDigits: undefined,
+            unit: false,
             configuredColumnAlignment: NumberTextAlignment.default,
             expectedCellViewAlignment: TextCellViewBaseAlignment.left
         },
@@ -531,6 +586,7 @@ describe('TableColumnNumberText', () => {
             name: 'with default format and left alignment',
             format: NumberTextFormat.default,
             decimalMaximumDigits: undefined,
+            unit: false,
             configuredColumnAlignment: NumberTextAlignment.left,
             expectedCellViewAlignment: TextCellViewBaseAlignment.left
         },
@@ -538,13 +594,23 @@ describe('TableColumnNumberText', () => {
             name: 'with default format and right alignment',
             format: NumberTextFormat.default,
             decimalMaximumDigits: undefined,
+            unit: false,
             configuredColumnAlignment: NumberTextAlignment.right,
             expectedCellViewAlignment: TextCellViewBaseAlignment.right
+        },
+        {
+            name: 'with default format, default alignment, and unit',
+            format: NumberTextFormat.default,
+            decimalMaximumDigits: undefined,
+            unit: true,
+            configuredColumnAlignment: NumberTextAlignment.default,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.left
         },
         {
             name: 'with decimal format and default alignment',
             format: NumberTextFormat.decimal,
             decimalMaximumDigits: undefined,
+            unit: false,
             configuredColumnAlignment: NumberTextAlignment.default,
             expectedCellViewAlignment: TextCellViewBaseAlignment.right
         },
@@ -552,6 +618,7 @@ describe('TableColumnNumberText', () => {
             name: 'with decimal format and left alignment',
             format: NumberTextFormat.decimal,
             decimalMaximumDigits: undefined,
+            unit: false,
             configuredColumnAlignment: NumberTextAlignment.left,
             expectedCellViewAlignment: TextCellViewBaseAlignment.left
         },
@@ -559,6 +626,7 @@ describe('TableColumnNumberText', () => {
             name: 'with decimal format and right alignment',
             format: NumberTextFormat.decimal,
             decimalMaximumDigits: undefined,
+            unit: false,
             configuredColumnAlignment: NumberTextAlignment.right,
             expectedCellViewAlignment: TextCellViewBaseAlignment.right
         },
@@ -566,6 +634,7 @@ describe('TableColumnNumberText', () => {
             name: 'with decimal format, default alignment, and decimalMaximumDigits',
             format: NumberTextFormat.decimal,
             decimalMaximumDigits: 1,
+            unit: false,
             configuredColumnAlignment: NumberTextAlignment.default,
             expectedCellViewAlignment: TextCellViewBaseAlignment.left
         },
@@ -573,8 +642,17 @@ describe('TableColumnNumberText', () => {
             name: 'with decimal format, right alignment, and decimalMaximumDigits',
             format: NumberTextFormat.decimal,
             decimalMaximumDigits: 1,
+            unit: false,
             configuredColumnAlignment: NumberTextAlignment.right,
             expectedCellViewAlignment: TextCellViewBaseAlignment.right
+        },
+        {
+            name: 'with decimal format, default alignment, and unit',
+            format: NumberTextFormat.decimal,
+            decimalMaximumDigits: undefined,
+            unit: true,
+            configuredColumnAlignment: NumberTextAlignment.default,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.left
         }
     ] as const;
     describe('sets the correct initial alignment on the cell', () => {
@@ -584,6 +662,11 @@ describe('TableColumnNumberText', () => {
                 elementReferences.column1.format = value.format;
                 elementReferences.column1.decimalMaximumDigits = value.decimalMaximumDigits;
                 elementReferences.column1.alignment = value.configuredColumnAlignment;
+                if (value.unit) {
+                    elementReferences.column1.appendChild(
+                        document.createElement(unitByteTag)
+                    );
+                }
                 await connect();
                 await waitForUpdatesAsync();
 
@@ -630,6 +713,16 @@ describe('TableColumnNumberText', () => {
             elementReferences.column1.format = NumberTextFormat.decimal;
             await waitForUpdatesAsync();
             elementReferences.column1.decimalMaximumDigits = 1;
+            await waitForUpdatesAsync();
+            expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.left);
+        });
+
+        it('when format is decimal, alignment is set to "default", and unit element is appended', async () => {
+            elementReferences.column1.format = NumberTextFormat.decimal;
+            await waitForUpdatesAsync();
+            elementReferences.column1.appendChild(
+                document.createElement(unitByteTag)
+            );
             await waitForUpdatesAsync();
             expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.left);
         });

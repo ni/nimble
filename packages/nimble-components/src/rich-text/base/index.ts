@@ -6,6 +6,7 @@ import { Configuration } from '../models/configuration';
 import { RichTextUpdateTracker } from '../models/rich-text-tracker';
 import { RichTextValidator } from '../models/rich-text-validator';
 import type { RichTextValidity } from './types';
+import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-custom-elements-defined-async';
 
 /**
  * Base class for rich text components
@@ -97,10 +98,7 @@ export abstract class RichText extends FoundationElement {
     }
 
     private async updateMentionElementsFromChildItems(): Promise<void> {
-        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
-            ? customElements.whenDefined(item.localName)
-            : Promise.resolve()));
-        await Promise.all(definedElements);
+        await waitUntilCustomElementsDefinedAsync(this.childItems);
         this.mentionElements = this.childItems.filter(
             (x): x is RichTextMention => x instanceof RichTextMention
         );
