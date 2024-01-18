@@ -80,12 +80,7 @@ export abstract class RichText extends FoundationElement {
     }
 
     protected validate(): void {
-        this.richTextValidator.validateMentionConfigurations(
-            this.mentionElements
-        );
-        this.richTextValidator.validateDuplicateMentionConfigurations(
-            this.mentionElements
-        );
+        this.richTextValidator.validate(this.mentionElements);
     }
 
     private childItemsChanged(

@@ -1499,6 +1499,9 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
             expect(pageObject.getMentionListboxItemsName()).toEqual([]);
             mappingElements[0]!.key = 'user:1';
+            // After the first wait, `activeMappingConfigs` is updated,
+            // which is directly bound to the template for populating the `nimble-list-option`.
+            // But only after the second wait, `nimble-list-option` gets populated.
             await waitForUpdatesAsync();
             await waitForUpdatesAsync();
             expect(pageObject.getMentionListboxItemsName()).toEqual([

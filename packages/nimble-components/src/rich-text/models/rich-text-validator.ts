@@ -25,14 +25,14 @@ export class RichTextValidator {
         this.validateMentionConfigurations(mentions);
     }
 
-    public validateMentionConfigurations(mentions: RichTextMention[]): boolean {
+    private validateMentionConfigurations(mentions: RichTextMention[]): boolean {
         this.invalidMentionConfiguration = mentions.some(
             x => !x.mentionInternals.validConfiguration
         );
         return !this.invalidMentionConfiguration;
     }
 
-    public validateDuplicateMentionConfigurations(
+    private validateDuplicateMentionConfigurations(
         mentions: RichTextMention[]
     ): boolean {
         const mentionChars = mentions.map(

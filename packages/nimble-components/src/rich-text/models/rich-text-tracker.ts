@@ -1,19 +1,6 @@
 import { DOM } from '@microsoft/fast-element';
-import type { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 import { UpdateTracker } from '../../utilities/models/update-tracker';
 import type { RichText } from '../base';
-
-const isMentionInternalsProperty = (
-    changedProperty: string,
-    ...args: (keyof MentionInternals)[]
-): boolean => {
-    for (const arg of args) {
-        if (changedProperty === arg) {
-            return true;
-        }
-    }
-    return false;
-};
 
 const trackedItems = ['pattern', 'mappingConfigs', 'buttonLabel'] as const;
 
@@ -43,27 +30,18 @@ export class RichTextUpdateTracker extends UpdateTracker<typeof trackedItems> {
     public trackMentionInternalsPropertyChanged(
         changedMentionInternalsProperty: string
     ): void {
-        if (
-            isMentionInternalsProperty(
-                changedMentionInternalsProperty,
-                'mappingConfigs'
-            )
-        ) {
-            this.track('mappingConfigs');
-        } else if (
-            isMentionInternalsProperty(
-                changedMentionInternalsProperty,
-                'pattern'
-            )
-        ) {
-            this.track('pattern');
-        } else if (
-            isMentionInternalsProperty(
-                changedMentionInternalsProperty,
-                'buttonLabel'
-            )
-        ) {
-            this.track('buttonLabel');
+        switch (changedMentionInternalsProperty) {
+            case 'mappingConfigs':
+                this.track('mappingConfigs');
+                break;
+            case 'pattern':
+                this.track('pattern');
+                break;
+            case 'buttonLabel':
+                this.track('buttonLabel');
+                break;
+            default:
+                break;
         }
         this.queueUpdate();
     }

@@ -167,7 +167,7 @@ describe('RichTextViewer', () => {
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
-                'NIMBLE-ANCHOR'
+                `${anchorTag}`.toUpperCase()
             ]);
         });
 
@@ -346,12 +346,6 @@ describe('RichTextViewer', () => {
             );
         });
 
-        it('should have valid states for valid configurations', () => {
-            expect(element.checkValidity()).toBeTrue();
-            expect(element.validity.invalidMentionConfiguration).toBeFalse();
-            expect(element.validity.duplicateMentionConfiguration).toBeFalse();
-        });
-
         describe('validity', () => {
             it('should have valid states by default', () => {
                 expect(element.checkValidity()).toBeTrue();
@@ -366,7 +360,6 @@ describe('RichTextViewer', () => {
             it('should have valid states when there is no mapping elements but with a configuration element', async () => {
                 element.markdown = '<user:1>';
                 await appendUserMentionConfiguration(element);
-                await waitForUpdatesAsync();
 
                 expect(element.checkValidity()).toBeTrue();
                 expect(
@@ -382,7 +375,6 @@ describe('RichTextViewer', () => {
                 await appendUserMentionConfiguration(element, [
                     { key: 'invalid', displayName: 'username' }
                 ]);
-                await waitForUpdatesAsync();
 
                 expect(element.checkValidity()).toBeFalse();
                 expect(element.validity.invalidMentionConfiguration).toBeTrue();
@@ -430,7 +422,6 @@ describe('RichTextViewer', () => {
                 element.markdown = '<user:1>';
                 await appendUserMentionConfiguration(element);
                 await appendUserMentionConfiguration(element);
-                await waitForUpdatesAsync();
 
                 const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
                 element.removeChild(renderedUserMention);
@@ -560,7 +551,6 @@ describe('RichTextViewer', () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
-            await waitForUpdatesAsync();
             const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
             element.removeChild(renderedUserMention);
@@ -570,7 +560,6 @@ describe('RichTextViewer', () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
-            await waitForUpdatesAsync();
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
         });
     });
