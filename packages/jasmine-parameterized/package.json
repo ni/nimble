@@ -19,10 +19,10 @@
         "url": "git+https://github.com/ni/nimble.git",
         "directory": "packages/jasmine-parameterized"
     },
-    "types": "./dist/types/parameterized.d.ts",
+    "types": "./dist/types/index.d.ts",
     "exports": {
-        "import": "./dist/esm/parameterized.js",
-        "require": "./dist/commonjs/parameterized.js"
+        "import": "./dist/esm/index.js",
+        "require": "./dist/commonjs/index.js"
     },
     "author": "National Instruments",
     "license": "MIT",
