@@ -164,9 +164,7 @@ describe('Select', () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
             await clickAndWaitForOpen(element);
-            const fullyVisible = await checkFullyInViewport(
-                element.listbox
-            );
+            const fullyVisible = await checkFullyInViewport(element.listbox);
 
             expect(element.scrollableElement.scrollHeight).toBeGreaterThan(
                 window.innerHeight
