@@ -1,4 +1,4 @@
-import type { ScaledUnitFormatFactoryOptions } from './scaled-unit';
+import type { ScaledUnitFormatFactoryOptions } from '../scaled-unit/scaled-unit';
 import { ScaledUnitFormat } from './scaled-unit-format';
 
 /**
@@ -9,7 +9,7 @@ export class IntlNumberFormatScaledUnitFormat extends ScaledUnitFormat {
 
     protected constructor(
         scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
-        unitSpecificIntlNumberFormatOptions: Intl.NumberFormatOptions = {}
+        unitSpecificIntlNumberFormatOptions: Intl.NumberFormatOptions
     ) {
         super(scaledUnitFormatFactoryOptions);
         this.formatter = new Intl.NumberFormat(this.locale, {
@@ -20,7 +20,7 @@ export class IntlNumberFormatScaledUnitFormat extends ScaledUnitFormat {
     }
 
     public static createFactory(
-        unitSpecificIntlNumberFormatOptions: Intl.NumberFormatOptions = {}
+        unitSpecificIntlNumberFormatOptions: Intl.NumberFormatOptions
     ) {
         return (
             scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
