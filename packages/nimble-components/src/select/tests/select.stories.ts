@@ -78,7 +78,7 @@ const metadata: Meta<SelectArgs> = {
             }
         },
         actions: {
-            handles: ['change', 'input']
+            handles: ['change']
         },
         toolbar: {
             zoom: { hidden: true }
