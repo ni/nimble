@@ -17,8 +17,8 @@ By addressing these challenges, we aim to enhance the rendering capabilities of 
 
 ## Links To Relevant Work Items and Reference Material
 
-_Include links to the work items this design addresses._
-_Include links to any other meaningful reference material._
+[Feature 2391160: Faster Rendering of Large Wafer Maps](https://dev.azure.com/ni/DevCentral/_workitems/edit/2391160)
+[Faster Rendering of Large Wafer Maps HLD](https://ni.visualstudio.com/DevCentral/_git/Skyline?path=/docs/design-documents/Ozone/Requirements/Optimize-Wafer-Map-to-Handle-NXP-s-340k-die-per-wafer-data-set/Faster-rendering-of-Large-Wafer-Maps.md&version=GC00f8bb9e698a7310f68fa54395eee63a99cec368&_a=preview)
 
 ## Implementation / Design
 
