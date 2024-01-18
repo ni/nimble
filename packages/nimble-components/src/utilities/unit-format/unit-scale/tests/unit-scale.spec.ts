@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { ScaledUnit } from '../scaled-unit';
+import { ScaledUnit } from '../../scaled-unit/scaled-unit';
 import { UnitScale } from '../unit-scale';
-import type { ScaledUnitFormat } from '../scaled-unit-format';
+import type { ScaledUnitFormat } from '../../scaled-unit-format/scaled-unit-format';
 
 describe('UnitScale', () => {
     const noopScaledUnitFormatFactory = (): ScaledUnitFormat => {
