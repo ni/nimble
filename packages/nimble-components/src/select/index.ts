@@ -51,7 +51,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
     public errorVisible = false;
 
     @attr({ attribute: 'filter-mode' })
-    public filterMode = FilterMode.none;
+    public filterMode: FilterMode = FilterMode.none;
 
     /**
      * @internal
@@ -207,9 +207,16 @@ export class Select extends FoundationSelect implements ErrorPattern {
     ): void {
         const value = this.value;
         super.slottedOptionsChanged(prev, next);
+        this.filterOptions();
         if (value) {
             this.value = value;
         }
+    }
+
+    public override clickHandler(e: MouseEvent): boolean {
+        this.updateSelectedIndexFromFilteredSet();
+        super.clickHandler(e);
+        return true;
     }
 
     public inputClickHandler(e: MouseEvent): void {
@@ -248,8 +255,6 @@ export class Select extends FoundationSelect implements ErrorPattern {
             return true;
         }
 
-        this.open = true;
-
         e.stopPropagation();
         return true;
     }
@@ -267,6 +272,8 @@ export class Select extends FoundationSelect implements ErrorPattern {
 
         switch (key) {
             case ' ': {
+                // when dropdown is open allow user to enter a space for filter text
+                // (calling super method will close dropdown)
                 if (!this.open) {
                     super.keydownHandler(e);
                 }

@@ -143,7 +143,7 @@ const metadata: Meta<SelectArgs> = {
         disabled: false,
         errorVisible: false,
         errorText: 'Value is invalid',
-        filterMode: FilterMode.none,
+        filterMode: 'none',
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions

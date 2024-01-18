@@ -5,6 +5,7 @@ import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import { backgroundStates } from '../../utilities/tests/states';
 import { selectTag } from '..';
 import { listOptionTag } from '../../list-option';
+import { FilterMode } from '../types';
 
 const metadata: Meta = {
     title: 'Tests/Select',
@@ -17,16 +18,19 @@ export default metadata;
 
 const positionStates = [
     ['below', 'margin-bottom: 120px;'],
-    ['above', 'margin-top: 120px;']
+    ['above', 'margin-top: 180px;']
 ] as const;
 type PositionState = (typeof positionStates)[number];
 
+const filterModeStates = Object.values(FilterMode);
+type FilterModeState = (typeof filterModeStates)[number];
+
 // prettier-ignore
-const component = ([
-    position,
-    positionStyle
-]: PositionState): ViewTemplate => html`
-    <${selectTag} open position="${() => position}" style="${() => positionStyle}">
+const component = (
+    [position, positionStyle]: PositionState,
+    filterMode: FilterModeState
+): ViewTemplate => html`
+    <${selectTag} open position="${() => position}" style="${() => positionStyle}" filter-mode="${() => filterMode}">
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
         <${listOptionTag} value="3">Option 3</${listOptionTag}>
@@ -45,29 +49,62 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const selectBelowOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[0]),
-    lightThemeWhiteBackground
-);
-export const selectAboveOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[1]),
+export const selectBelowOpenNoFilterLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.none),
     lightThemeWhiteBackground
 );
 
-export const selectBelowOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[0]),
-    colorThemeDarkGreenBackground
+export const selectBelowOpenStandardFilterLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard),
+    lightThemeWhiteBackground
 );
-export const selectAboveOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[1]),
+
+export const selectAboveOpenNoFilterLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[1], FilterMode.none),
+    lightThemeWhiteBackground
+);
+
+export const selectAboveOpenStandardFilterLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[1], FilterMode.standard),
+    lightThemeWhiteBackground
+);
+
+export const selectBelowOpenColorNoFilterThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.none),
     colorThemeDarkGreenBackground
 );
 
-export const selectBelowOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[0]),
+export const selectBelowOpenColorStandardFilterThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard),
+    colorThemeDarkGreenBackground
+);
+
+export const selectAboveOpenNoFilterColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[1], FilterMode.none),
+    colorThemeDarkGreenBackground
+);
+
+export const selectAboveOpenStandardFilterColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[1], FilterMode.standard),
+    colorThemeDarkGreenBackground
+);
+
+export const selectBelowOpenNoFilterDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.none),
     darkThemeBlackBackground
 );
-export const selectAboveOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[1]),
+
+export const selectBelowOpenStandardFilterDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard),
+    darkThemeBlackBackground
+);
+
+export const selectAboveOpenNoFilterDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[1], FilterMode.none),
+    darkThemeBlackBackground
+);
+
+export const selectAboveOpenStandardFilterDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[1], FilterMode.standard),
     darkThemeBlackBackground
 );

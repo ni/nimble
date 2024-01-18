@@ -42,7 +42,7 @@ export const styles = css`
     }
 
     .listbox {
-        overflow: clip;
+        overflow-x: clip;
         padding: ${smallPadding};
     }
 
@@ -51,7 +51,7 @@ export const styles = css`
         padding: 0px;
     }
 
-    .listbox slot.scrollbar {
+    .listbox slot.scrollbarVisible {
         padding-right: ${smallPadding};
     }
 
@@ -76,17 +76,16 @@ export const styles = css`
     }
 
     .search-field.below {
-        padding-bottom: ${mediumPadding};
+        padding-bottom: ${smallPadding};
     }
 
     .search-field::after {
         content: '';
         position: absolute;
-        top: calc(${controlHeight} + ${mediumPadding} + (2 * ${borderWidth}));
+        top: calc(${controlHeight} + ${mediumPadding} - ${borderWidth});
         width: calc(100% - ${mediumPadding} - (2 * ${borderWidth}));
         height: 0px;
-        border-bottom: rgba(${borderRgbPartialColor}, 0.15)
-            var(--ni-private-hover-indicator-width) solid;
+        border-bottom: rgba(${borderRgbPartialColor}, 0.15) 2px solid;
     }
 
     .search-field.above::after {
@@ -101,8 +100,7 @@ export const styles = css`
         );
         width: 0px;
         height: 0px;
-        border-bottom: rgba(${borderRgbPartialColor}, 0.15)
-            var(--ni-private-hover-indicator-width) solid;
+        border-bottom: rgba(${borderRgbPartialColor}, 0.15) 2px solid;
     }
 
     .search-field.above::before {

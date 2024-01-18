@@ -99,8 +99,8 @@ SelectOptions
                 ?disabled="${x => x.disabled}"
                 ${ref('listbox')}
             >
-                ${when(x => x.filterMode !== FilterMode.none, html<Select>`
-                    <div class="search-field ${x => x.position}">
+                ${when(x => x.filterMode === FilterMode.standard, html<Select>`
+                    <div class="search-field ${x => x.positionAttribute}">
                         <${iconMagnifyingGlassTag}></${iconMagnifyingGlassTag}>
                         <input
                             class="filter-input ${x => (x.filter.length === 0 ? 'empty' : '')}"
@@ -113,14 +113,14 @@ SelectOptions
                     </div>
                 `)}
                 <slot ${ref('scrollableElement')}
-                    class="${x => (x.scrollbarIsVisible ? 'scrollbar' : '')}"
+                    class="${x => (x.scrollbarIsVisible ? 'scrollbarVisible' : '')}"
                     ${slotted({
         filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
         flatten: true,
         property: 'slottedOptions',
     })}
                 ></slot>
-                ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0), html<Select>`
+                ${when(x => (x.filterMode === FilterMode.standard && x.filteredOptions.length === 0), html<Select>`
                     <span class="no-results-label">
                         ${x => selectFilterNoResultsLabel.getValueFor(x)}
                     </span>
