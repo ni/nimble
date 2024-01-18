@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Unify unit scale types to single pattern",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
