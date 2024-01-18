@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Angular support for nimble-unit-byte and nimble-unit-volt, plus export new FormatDecimalPipe",
+  "comment": "Angular support for nimble-unit-byte and nimble-unit-volt",
   "packageName": "@ni/nimble-angular",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"

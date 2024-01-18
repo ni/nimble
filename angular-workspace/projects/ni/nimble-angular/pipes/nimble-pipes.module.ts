@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DurationPipe } from './duration.pipe';
-import { FormatDecimalPipe } from './format-decimal.pipe';
 
 @NgModule({
-    declarations: [DurationPipe, FormatDecimalPipe],
+    declarations: [DurationPipe],
     imports: [CommonModule],
-    exports: [DurationPipe, FormatDecimalPipe]
+    exports: [DurationPipe]
 })
 export class NimblePipesModule { }
