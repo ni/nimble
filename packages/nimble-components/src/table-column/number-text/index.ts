@@ -19,7 +19,7 @@ import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { NumberTextAlignment, NumberTextFormat } from './types';
-import type { UnitFormat } from '../../utilities/unit-format/base/unit-format';
+import type { UnitFormat } from '../../utilities/unit-format/unit-format';
 import { DefaultUnitFormat } from '../../utilities/unit-format/default-unit-format';
 import { DecimalUnitFormat } from '../../utilities/unit-format/decimal-unit-format';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';

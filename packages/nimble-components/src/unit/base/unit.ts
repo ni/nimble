@@ -1,6 +1,6 @@
 import { observable } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import type { UnitScale } from '../../utilities/unit-format/unit-scale/base/unit-scale';
+import type { UnitScale } from '../../utilities/unit-format/unit-scale/unit-scale';
 
 /**
  * The base class for an element that provides a unit scale for scaled unit conversions

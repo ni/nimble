@@ -1,6 +1,6 @@
-import { UnitFormat, UnitFormatOptions } from './base/unit-format';
-import type { ScaledUnitFormat } from './unit-scale/base/scaled-unit-format';
-import type { UnitScale } from './unit-scale/base/unit-scale';
+import { UnitFormat, UnitFormatOptions } from './unit-format';
+import type { ScaledUnitFormat } from './scaled-unit-format/scaled-unit-format';
+import type { UnitScale } from './unit-scale/unit-scale';
 import { passthroughUnitScale } from './unit-scale/passthrough-unit-scale';
 
 interface DecimalUnitFormatOptions extends UnitFormatOptions {

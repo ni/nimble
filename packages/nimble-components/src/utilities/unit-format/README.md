@@ -34,11 +34,6 @@ For example, the `DefaultUnitFormat` will represent "very large" and "very small
 
 ### UnitScale
 
-There are two main types of `UnitScale`s:
-
--   the unit scales that extend `UnitScale` directly which are generally a unit scale where each individual unit can be translated by [`Intl.NumberFormat`](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers).
--   unit scales extending the helper class `ManuallyTranslatedUnitScale` where each unit is given manually translated strings for the set of supported languages via `UnitTranslatation` and `UnitPrefix` string collection objects.
-
 A `UnitScale` represents a collection of `ScaledUnits` where a scale factor is used to define each scaled unit. Each `UnitScale` must have a "base" `ScaledUnit` with scale factor 1. For example, a byte `UnitScale` may contain:
 
 -   a `ScaledUnit` of scale factor 1 representing bytes (the base `ScaledUnit`)
@@ -46,7 +41,16 @@ A `UnitScale` represents a collection of `ScaledUnits` where a scale factor is u
 
 Each `ScaledUnit` represents a scale factor and a factory function for creating a `ScaledUnitFormat` instance. This system is used so that the top-level `UnitFormat` objects can pass configuration settings to individual `ScaledUnitFormat` instances.
 
-The different `ScaledUnitFormat` objects generally have a static function to assist with their factory creation, for example:
+## ScaledUnitFormat
+
+A `ScaledUnitFormat` is an object for formatting a particular `ScaledUnit` on the `UnitScale`.
+
+There are two main types of `ScaledUnitFormat`s:
+
+-   `IntlNumberFormatScaledUnitFormat` which are scaled units can be translated by [`Intl.NumberFormat`](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers).
+-   `ManuallyTranslatedScaledUnitFormat` which are scaled units manually translated for a set of supported languages via `UnitTranslation` string collections.
+
+The different `ScaledUnitFormat` objects have a static function to assist with their factory creation, for example:
 
 ```ts
 new ScaledUnit(

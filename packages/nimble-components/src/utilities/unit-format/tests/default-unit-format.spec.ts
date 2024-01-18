@@ -1,12 +1,12 @@
 /* eslint-disable max-classes-per-file */
 import { parameterizeNamedList } from '../../tests/parameterized';
 import { DefaultUnitFormat } from '../default-unit-format';
-import { IntlNumberFormatScaledUnitFormat } from '../unit-scale/base/intl-number-format-scaled-unit-format';
+import { IntlNumberFormatScaledUnitFormat } from '../scaled-unit-format/intl-number-format-scaled-unit-format';
 import {
     ScaledUnit,
     ScaledUnitFormatFactoryOptions
-} from '../unit-scale/base/scaled-unit';
-import { UnitScale } from '../unit-scale/base/unit-scale';
+} from '../scaled-unit/scaled-unit';
+import { UnitScale } from '../unit-scale/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
 
 describe('DefaultUnitFormat', () => {
@@ -237,7 +237,7 @@ describe('DefaultUnitFormat', () => {
                 scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
                 private readonly scaleFactor: number
             ) {
-                super(scaledUnitFormatFactoryOptions);
+                super(scaledUnitFormatFactoryOptions, {});
             }
 
             public static createTestFactory(scaleFactor: number) {
