@@ -33,8 +33,6 @@ export class NimbleToggleButtonDirective {
         return this.elementRef.nativeElement.contentHidden;
     }
 
-    // contentHidden property intentionally maps to the content-hidden attribute
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('content-hidden') public set contentHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'contentHidden', toBooleanProperty(value));
     }

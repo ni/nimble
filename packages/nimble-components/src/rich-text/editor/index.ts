@@ -755,4 +755,4 @@ const nimbleRichTextEditor = RichTextEditor.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleRichTextEditor());
-export const richTextEditorTag = DesignSystem.tagFor(RichTextEditor);
+export const richTextEditorTag = 'nimble-rich-text-editor';

@@ -109,8 +109,8 @@ const myAppProgressColumn = MyAppProgressColumn.compose({
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('my-app').register(myAppProgressColumn());
-export const myAppProgressColumnTag = DesignSystem.tagFor(MyAppProgressColumn);
+DesignSystem.getOrCreate().withPrefix('nimble').register(myAppProgressColumn());
+export const myAppProgressColumnTag = 'nimble-table-column-progress';
 ```
 
 **Specify formatting of cells and group headers in their custom elements**
@@ -186,8 +186,8 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
 
 A unit for the column may be configured by providing a `nimble-unit-<name>` element as content (in addition to the column label). Unit elements represent a set of related, scaled units, e.g. `nimble-unit-byte` represents bytes, KB, MB, etc. Values are converted from a source unit (e.g. bytes) to the largest scaled unit (e.g. KB, MB, etc.) that can represent that value with magnitude >= 1. The source data for the column is expected to be given in the base unit specified in the tag name, e.g. for `nimble-unit-byte`, a source value should be a number of bytes. Note that unit elements have no visual representation of their own. They are strictly configuration components, and by nature of being components, allow selective loading of translation data for only the needed units. The initial set of unit elements are:
 
--   `nimble-unit-byte` - Labels in this unit scale are `byte`/`bytes`, `KB`, `MB`, `GB`, `TB`, `PB`
-    -   `binary` - boolean attribute that indicates a binary conversion factor of 1024 should be used rather than 1000. The resulting unit labels are `byte`/`bytes`, `KiB`, `MiB`, `GiB`, `TiB`, `PiB`.
+-   `nimble-unit-byte` - Labels in this unit scale are base 1000 with metric prefixes `byte`/`bytes`, `KB`, `MB`, `GB`, `TB`, `PB`
+    -   `binary` - boolean attribute that indicates a base 1024 with binary prefixes resulting in unit labels `byte`/`bytes`, `KiB`, `MiB`, `GiB`, `TiB`, `PiB`.
 -   `nimble-unit-volt` - Labels in this unit scale are `volt`/`volts`, plus `V` prefixed by all supported metric prefixes.
 
 Supported metric prefixes are f (femto), p (pico), n (nano), μ (micro), m (milli), c (centi), d (deci), k (kilo), M (mega), G (giga), T (tera), P (peta), and E (exa). This set is intended to be suitable for other units we may support in the future (e.g. ohms, amps), but any particular unit scale can diverge from this set as needed.
@@ -196,36 +196,9 @@ If a value with a unit would be formatted with exponential notation, it will alw
 
 When displaying units, `Intl.NumberFormat` will translate unit strings for the [units that it supports](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers) and localize the number (for comma/decimal). We will include our own logic for converting between unit values. For a unit scale not supported by `Intl.NumberFormat`, we will provide our own translations (for French, German, Japanese, and Chinese) in a `nimble-unit-<name>` element. If the client requests a translation for one of these units in a language we don't support, we will fall back to English.
 
-Unit elements will be capable of enumerating the individual units supported. The enumerated unit objects will be capable of formatting a given number into a localized string including the unit label. Below is an example of the abstractions/APIs that might be used to implement this.
+We will use `nimble-unit-byte` to display file sizes in SLE tables. Currently, SLE displays these values as base 1024 with metric prefixes, i.e `1 KB` (1024 bytes) /`1 MB` (1024² bytes) / `1 GB` (1024³) unit labels, which is [not uncommon](https://en.wikipedia.org/wiki/JEDEC_memory_standards#Unit_prefixes_for_semiconductor_storage_capacity), but [technically incorrect](https://physics.nist.gov/cuu/Units/binary.html). In [ADR33: Byte Representation in Stratus](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/docs/architecture-decisions/adr0033-byte-representation-in-Stratus.md&_a=preview&version=GBmaster) it was decided that SLE will migrate to base 1000 with metric prefixes.
 
-```TS
-// a specific unit, e.g. kilobyte, millivolt, etc.
-interface ScaledUnit {
-    public conversionFactor: number;
-    public format(value: number): string;
-}
-
-// a set of related units, e.g. {byte, kilobyte, megabyte, gigabyte, terabyte, petabyte}
-interface UnitScale {
-    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): ScaledUnit[];
-}
-
-// unit scale supported by Intl.NumberFormat
-class UnitByte extends FoundationElement implements UnitScale {
-    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): ScaledUnit[] {
-        // returns implementations of ScaledUnit that wrap Intl.NumberFormat instances configured for a specific locale and a specific unit (e.g. 'fr-FR' and 'kilobyte')
-    }
-}
-
-// unit scale with Nimble-provided unit translations
-class UnitVolt extends FoundationElement implements UnitScale {
-    public getSupportedUnits(lang: string, formatterOptions: Intl.NumberFormatOptions): ScaledUnit[] {
-        // returns implementations of ScaledUnit that contain a shared Intl.NumberFormat (for formatting the number) and a specific translated unit string to append
-    }
-}
-```
-
-We will use `nimble-unit-byte` to display file sizes in SLE tables. Currently, SLE displays these values with the common `KB`/`MB`/`GB` unit labels, but uses a factor of 1024 to convert between units (which is [not uncommon](https://en.wikipedia.org/wiki/JEDEC_memory_standards#Unit_prefixes_for_semiconductor_storage_capacity), but [technically incorrect](https://physics.nist.gov/cuu/Units/binary.html)). Whether SLE chooses to standardize on the default 1000-based byte units or the 1024-based ones, it will be a change from the current behavior. To ensure consistency, we will update SLE's file size pipe and search for other places where byte values are being converted so they can be updated accordingly.
+For Angular and Blazor support, directives/wrappers will have to be created for unit elements.
 
 ##### Examples
 

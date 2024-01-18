@@ -53,12 +53,12 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         });
     }
 
-    public connectedCallback(): void {
+    public connect(): void {
         this.viewportResizeObserver.observe(this.table.viewport);
         this.updateVirtualizer();
     }
 
-    public disconnectedCallback(): void {
+    public disconnect(): void {
         this.viewportResizeObserver.disconnect();
     }
 

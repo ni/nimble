@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 05 Jan 2024 14:50:44 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Jan 2024 14:23:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.18.0
+
+Wed, 17 Jan 2024 14:23:42 GMT
+
+### Minor changes
+
+- Unit support for number-text table column ([ni/nimble@3710e7e](https://github.com/ni/nimble/commit/3710e7e150786220099816fdea608b10b378956c))
+
+## 20.17.7
+
+Wed, 17 Jan 2024 00:48:57 GMT
+
+### Patches
+
+- Visual design improvements for rich text editor ([ni/nimble@4e5d877](https://github.com/ni/nimble/commit/4e5d8771d3f06c03245638b2cde54b00eaa27d60))
+
+## 20.17.6
+
+Tue, 16 Jan 2024 21:49:14 GMT
+
+### Patches
+
+- Fix disabled styling of tree items ([ni/nimble@1596be3](https://github.com/ni/nimble/commit/1596be39b8d3b495a2de713b0c0b3f355bf77897))
+
+## 20.17.5
+
+Tue, 16 Jan 2024 21:01:12 GMT
+
+### Patches
+
+- Make lifecycle callbacks in components call base class consistently ([ni/nimble@87f54f7](https://github.com/ni/nimble/commit/87f54f799117992b88b3b03c258d3d242e16bc34))
+
+## 20.17.4
+
+Wed, 10 Jan 2024 13:47:05 GMT
+
+### Patches
+
+- Removed disable-editing attribute from the rich text mention users view component for rendering @mention in editor and viewer ([ni/nimble@98c97d4](https://github.com/ni/nimble/commit/98c97d44a092e9fbbfe7710f381da77fe73ada1a))
+
+## 20.17.3
+
+Mon, 08 Jan 2024 17:18:14 GMT
+
+### Patches
+
+- Export tag names as literals to improve type inferencing ([ni/nimble@f45fdf7](https://github.com/ni/nimble/commit/f45fdf7826fb528ee131ace1802a02e94a8db411))
 
 ## 20.17.2
 
