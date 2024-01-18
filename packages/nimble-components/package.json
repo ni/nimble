@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "20.17.3",
+  "version": "20.18.0",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run build-components && npm run bundle-components && npm run generate-scss && npm run build-storybook",
@@ -138,7 +138,7 @@
     "karma-spec-reporter": "^0.0.36",
     "karma-webkit-launcher": "^2.1.0",
     "karma-webpack": "^5.0.0",
-    "playwright": "^1.30.0",
+    "playwright": "1.40.0",
     "prettier": "^2.8.8",
     "prettier-eslint": "^15.0.1",
     "prettier-eslint-cli": "^7.1.0",

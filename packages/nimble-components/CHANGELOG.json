@@ -2,6 +2,141 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 18 Jan 2024 14:49:46 GMT",
+      "version": "20.18.0",
+      "tag": "@ni/nimble-components_v20.18.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "523a79084219cecf489ada9d5374fc7e03f41ecf",
+            "comment": "HLD for filterable Select"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Jan 2024 14:23:42 GMT",
+      "version": "20.18.0",
+      "tag": "@ni/nimble-components_v20.18.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3710e7e150786220099816fdea608b10b378956c",
+            "comment": "Unit support for number-text table column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Jan 2024 00:48:57 GMT",
+      "version": "20.17.7",
+      "tag": "@ni/nimble-components_v20.17.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4e5d8771d3f06c03245638b2cde54b00eaa27d60",
+            "comment": "Visual design improvements for rich text editor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Jan 2024 23:43:26 GMT",
+      "version": "20.17.6",
+      "tag": "@ni/nimble-components_v20.17.6",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "762a3cb1944836ddf9dc5fdff48892c1650c1f8d",
+            "comment": "Update Playwright version"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Jan 2024 21:49:14 GMT",
+      "version": "20.17.6",
+      "tag": "@ni/nimble-components_v20.17.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1596be39b8d3b495a2de713b0c0b3f355bf77897",
+            "comment": "Fix disabled styling of tree items"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Jan 2024 21:01:12 GMT",
+      "version": "20.17.5",
+      "tag": "@ni/nimble-components_v20.17.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "87f54f799117992b88b3b03c258d3d242e16bc34",
+            "comment": "Make lifecycle callbacks in components call base class consistently"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Jan 2024 19:18:34 GMT",
+      "version": "20.17.4",
+      "tag": "@ni/nimble-components_v20.17.4",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2e4ed725db017929e56d08086c33bb66b70726ab",
+            "comment": "Documentation improvements for table columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Jan 2024 22:04:55 GMT",
+      "version": "20.17.4",
+      "tag": "@ni/nimble-components_v20.17.4",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6d065b6842c4cdea4d65a1a0faea7bb5df2d8981",
+            "comment": "Change documented justification for anchor menu item tabindex logic"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Jan 2024 13:47:05 GMT",
+      "version": "20.17.4",
+      "tag": "@ni/nimble-components_v20.17.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "98c97d44a092e9fbbfe7710f381da77fe73ada1a",
+            "comment": "Removed disable-editing attribute from the rich text mention users view component for rendering @mention in editor and viewer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 08 Jan 2024 17:18:14 GMT",
       "version": "20.17.3",
       "tag": "@ni/nimble-components_v20.17.3",
