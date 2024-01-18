@@ -2,9 +2,9 @@ import { Inject, InjectionToken, LOCALE_ID, Optional, Pipe, PipeTransform } from
 import { DecimalUnitFormat } from '@ni/nimble-components/dist/esm/utilities/unit-format/decimal-unit-format';
 import { passthroughUnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/passthrough-unit-scale';
 import { byteUnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/byte-unit-scale';
-import { byte1024UnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/manually-translated-unit-scale/byte-1024-unit-scale';
-import { voltUnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/manually-translated-unit-scale/volt-unit-scale';
-import type { UnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/base/unit-scale';
+import { byte1024UnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/byte-1024-unit-scale';
+import { voltUnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/volt-unit-scale';
+import type { UnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/unit-scale';
 
 /**
  * Supported unit scales
