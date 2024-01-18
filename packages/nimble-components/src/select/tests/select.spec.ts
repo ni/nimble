@@ -162,11 +162,10 @@ describe('Select', () => {
 
         it('should limit dropdown height to viewport', async () => {
             const { element, connect, disconnect } = await setup500Options();
-            // const pageObject = new SelectPageObject(element);
             await connect();
             await clickAndWaitForOpen(element);
             const fullyVisible = await checkFullyInViewport(
-                element.scrollableElement
+                element.listbox
             );
 
             expect(element.scrollableElement.scrollHeight).toBeGreaterThan(
@@ -196,7 +195,7 @@ describe('Select', () => {
             const { element, connect, disconnect } = await setupInDiv();
             const select: Select = element.querySelector(selectTag)!;
             await connect();
-            await clickAndWaitForOpen(element);
+            await clickAndWaitForOpen(select);
             const fullyVisible = await checkFullyInViewport(select.listbox);
 
             expect(fullyVisible).toBe(true);
