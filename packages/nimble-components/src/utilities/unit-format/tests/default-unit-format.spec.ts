@@ -314,21 +314,15 @@ describe('DefaultUnitFormat', () => {
                 expectedFormattedValue: '2E9 x1' // rather than '2E6 x1000'
             }
         ] as const;
-        parameterizeSpec(
-            appendedLabelUnitTestCases,
-            (spec, name, value) => {
-                spec(name, () => {
-                    const formatterForAppendedLabel = new DefaultUnitFormat(
-                        'en',
-                        {
-                            unitScale: new TestUnitScale()
-                        }
-                    );
-                    expect(
-                        formatterForAppendedLabel.format(value.value)
-                    ).toEqual(value.expectedFormattedValue);
+        parameterizeSpec(appendedLabelUnitTestCases, (spec, name, value) => {
+            spec(name, () => {
+                const formatterForAppendedLabel = new DefaultUnitFormat('en', {
+                    unitScale: new TestUnitScale()
                 });
-            }
-        );
+                expect(formatterForAppendedLabel.format(value.value)).toEqual(
+                    value.expectedFormattedValue
+                );
+            });
+        });
     });
 });

@@ -994,30 +994,25 @@ describe('RichTextEditor', () => {
                     }
                 ] as const;
 
-                parameterizeSpec(
-                    differentValidLinks,
-                    (spec, name, value) => {
-                        spec(
-                            `${name} renders as absolute link(href and text content should be same) in editor`,
-                            () => {
-                                pageObject.pasteHTMLToEditor(value.input);
+                parameterizeSpec(differentValidLinks, (spec, name, value) => {
+                    spec(
+                        `${name} renders as absolute link(href and text content should be same) in editor`,
+                        () => {
+                            pageObject.pasteHTMLToEditor(value.input);
 
-                                expect(pageObject.getEditorTagNames()).toEqual([
-                                    'P',
-                                    'A'
-                                ]);
-                                expect(
-                                    pageObject.getEditorLeafContents()
-                                ).toEqual([value.url]);
-                                expect(
-                                    pageObject.getEditorLastChildAttribute(
-                                        'href'
-                                    )
-                                ).toBe(value.url);
-                            }
-                        );
-                    }
-                );
+                            expect(pageObject.getEditorTagNames()).toEqual([
+                                'P',
+                                'A'
+                            ]);
+                            expect(pageObject.getEditorLeafContents()).toEqual([
+                                value.url
+                            ]);
+                            expect(
+                                pageObject.getEditorLastChildAttribute('href')
+                            ).toBe(value.url);
+                        }
+                    );
+                });
             });
 
             describe('pasting various links within text should render as absolute links within text ', () => {
@@ -1121,21 +1116,16 @@ describe('RichTextEditor', () => {
                     }
                 ] as const;
 
-                parameterizeSpec(
-                    differentInvalidLinks,
-                    (spec, name, value) => {
-                        spec(`${name} renders as plain text in editor`, () => {
-                            pageObject.pasteHTMLToEditor(value.input);
+                parameterizeSpec(differentInvalidLinks, (spec, name, value) => {
+                    spec(`${name} renders as plain text in editor`, () => {
+                        pageObject.pasteHTMLToEditor(value.input);
 
-                            expect(pageObject.getEditorTagNames()).toEqual([
-                                'P'
-                            ]);
-                            expect(pageObject.getEditorLeafContents()).toEqual([
-                                value.text
-                            ]);
-                        });
-                    }
-                );
+                        expect(pageObject.getEditorTagNames()).toEqual(['P']);
+                        expect(pageObject.getEditorLeafContents()).toEqual([
+                            value.text
+                        ]);
+                    });
+                });
             });
 
             it('pasting a plain text URL should render as a plain text', () => {

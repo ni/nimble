@@ -240,20 +240,17 @@ describe('DecimalUnitFormat', () => {
                 expectedFormattedValue: '0 x0.001'
             }
         ] as const;
-        parameterizeSpec(
-            appendedLabelUnitTestCases,
-            (spec, name, value) => {
-                spec(name, () => {
-                    const formatter = new DecimalUnitFormat('en', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                        unitScale: new TestUnitScale()
-                    });
-                    expect(formatter.format(value.value)).toEqual(
-                        value.expectedFormattedValue
-                    );
+        parameterizeSpec(appendedLabelUnitTestCases, (spec, name, value) => {
+            spec(name, () => {
+                const formatter = new DecimalUnitFormat('en', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                    unitScale: new TestUnitScale()
                 });
-            }
-        );
+                expect(formatter.format(value.value)).toEqual(
+                    value.expectedFormattedValue
+                );
+            });
+        });
     });
 });
