@@ -1,4 +1,4 @@
-import type { ScaledUnitFormatFactoryOptions } from './scaled-unit';
+import type { ScaledUnitFormatFactoryOptions } from '../scaled-unit/scaled-unit';
 
 /**
  * A class that knows how to format a numeric value as a string that includes units.
