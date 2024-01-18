@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DurationPipe } from './duration.pipe';
-import { FormatBytesSizePipe } from './format-bytes-size.pipe';
+import { FormatDecimalPipe } from './format-decimal.pipe';
 
 @NgModule({
-    declarations: [DurationPipe, FormatBytesSizePipe],
+    declarations: [DurationPipe, FormatDecimalPipe],
     imports: [CommonModule],
-    exports: [DurationPipe, FormatBytesSizePipe]
+    exports: [DurationPipe, FormatDecimalPipe]
 })
 export class NimblePipesModule { }
