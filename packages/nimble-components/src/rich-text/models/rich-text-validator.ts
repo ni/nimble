@@ -25,7 +25,9 @@ export class RichTextValidator {
         this.validateMentionConfigurations(mentions);
     }
 
-    private validateMentionConfigurations(mentions: RichTextMention[]): boolean {
+    private validateMentionConfigurations(
+        mentions: RichTextMention[]
+    ): boolean {
         this.invalidMentionConfiguration = mentions.some(
             x => !x.mentionInternals.validConfiguration
         );
