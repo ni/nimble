@@ -2,31 +2,29 @@
 // Copyright (c) 2022 philipstanislaus
 // SPDX-License-Identifier: MIT
 
-export interface TreeItem<Item> {
-    clientRecord: Item | undefined;
-    subRows: TreeItem<Item>[];
-    originalIndex: number | undefined;
-}
+import type { TableNode, TableRecord } from '../types';
 
 export interface Config<Item> {
     id: keyof Item;
     parentId: keyof Item;
 }
 
+type TableNodePartial = Partial<TableNode>;
+
 /**
  * Unflattens an array to a tree with runtime O(n)
  */
-export function arrayToTree<Item>(
-    items: readonly Item[],
-    config: Config<Item>
-): TreeItem<Item>[] {
+export function arrayToTree<TData extends TableRecord>(
+    items: readonly TData[],
+    config: Config<TData>
+): TableNode<TData>[] {
     const conf = config;
 
     // the resulting unflattened tree
-    const rootItems: TreeItem<Item>[] = [];
+    const rootItems: TableNodePartial[] = [];
 
     // stores all already processed items with their ids as key so we can easily look them up
-    const lookup: { [id: string]: TreeItem<Item> } = {};
+    const lookup: { [id: string]: TableNodePartial } = {};
 
     // stores all item ids that have not been added to the resulting unflattened tree yet
     // this is an opt-in property, since it has a slight runtime overhead
@@ -86,7 +84,7 @@ export function arrayToTree<Item>(
             }
 
             // add the current item to the parent
-            lookup[parentId]!.subRows.push(treeItem);
+            lookup[parentId]!.subRows!.push(treeItem as TableNode<TData>);
         }
     }
 
@@ -103,7 +101,7 @@ export function arrayToTree<Item>(
         );
     }
 
-    return rootItems;
+    return rootItems as TableNode<TData>[];
 }
 
 /**
@@ -111,9 +109,9 @@ export function arrayToTree<Item>(
  * @param tree An array of nodes (tree items), each having a field `childrenField` that contains an array of nodes
  * @returns Number of nodes in the tree
  */
-export function countNodes<Item>(tree: TreeItem<Item>[]): number {
+export function countNodes(tree: TableNodePartial[]): number {
     return tree.reduce(
-        (sum, n) => sum + 1 + (n.subRows && countNodes(n.subRows)),
+        (sum, n) => sum + 1 + (n.subRows! && countNodes(n.subRows)),
         0
     );
 }

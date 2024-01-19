@@ -23,7 +23,7 @@ export class DataHierarchyManager<TData extends TableRecord> {
                 this._hierarchicalData = arrayToTree<TData>(records, {
                     id: idFieldName,
                     parentId: parentIdFieldName
-                }) as TableNode<TData>[];
+                });
                 this.isDataFlat = false;
                 this._parentIdConfigurationValid = true;
             } catch {
