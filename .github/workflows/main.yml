@@ -32,6 +32,7 @@ jobs:
           global-json-file: packages/nimble-blazor/global.json
           cache: true
           cache-dependency-path: '**/packages.lock.json'
+      - run: dotnet restore --force-evaluate
       - run: dotnet restore --locked-mode
         working-directory: packages/nimble-blazor/
       - run: dotnet --info
