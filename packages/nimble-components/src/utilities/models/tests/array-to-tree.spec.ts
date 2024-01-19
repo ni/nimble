@@ -5,7 +5,7 @@
  * - Use jasmine instead of chai
  */
 
-import { arrayToTree, countNodes } from '../array-to-tree';
+import { arrayToTree, countNodes } from '../../../table/models/array-to-tree';
 
 describe('arrayToTree', () => {
     it('should work with nested objects', () => {

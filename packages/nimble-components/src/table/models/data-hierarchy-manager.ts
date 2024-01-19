@@ -1,4 +1,4 @@
-import { arrayToTree } from '../../utilities/models/array-to-tree';
+import { arrayToTree } from './array-to-tree';
 import type { TableNode, TableRecord } from '../types';
 
 /**

@@ -36,12 +36,10 @@ export function arrayToTree<Item>(
     // whenever an item has a parent, but the parent is not yet in the lookup object, we store a preliminary parent
     // in the lookup object and fill it with the data of the parent later
     // if an item has no parentId, add it as a root element to rootItems
-    // [Nimble] Convert to a for-loop to have access to the item's index in the flat list
+    // Convert to a for-loop to have access to the item's index in the flat list
     for (let i = 0; i < items.length; i++) {
         const item = items[i]!;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const itemId = item[conf.id] as string;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const parentId = item[conf.parentId] as string | undefined | null;
 
         // look whether item already exists in the lookup table
@@ -63,7 +61,7 @@ export function arrayToTree<Item>(
         lookup[itemId]!.clientRecord = item;
         const treeItem = lookup[itemId]!;
 
-        // [Nimble] Add the index to the item
+        // Add the index to the item
         treeItem.originalIndex = i;
 
         if (parentId === null || parentId === undefined) {
@@ -95,7 +93,7 @@ export function arrayToTree<Item>(
     if (orphanIds?.size) {
         const orphans = Array.from(orphanIds.values()).join(',');
         throw new Error(
-            `The items array contains orphans that point to the following parentIds: [${orphans}]. These parentIds do not exist in the items array. Hint: prevent orphans to result in an error by passing the following option: { throwIfOrphans: false }`
+            `The items array contains orphans that point to the following parentIds: [${orphans}]. These parentIds do not exist in the items array.`
         );
     }
 

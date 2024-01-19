@@ -23,7 +23,7 @@ export class ExpansionManager<TData extends TableRecord> {
     private collapsedRows = new Set<string>();
 
     public constructor(
-        private readonly table: TanStackTable<TableNode<TData>>
+        private readonly tanStackTable: TanStackTable<TableNode<TData>>
     ) {}
 
     public isRowExpanded(row: TanStackRow<TableNode<TData>>): boolean {
@@ -54,13 +54,13 @@ export class ExpansionManager<TData extends TableRecord> {
         this.reset();
 
         this.isInDefaultState = false;
-        const rows = this.table.getRowModel().flatRows;
+        const rows = this.tanStackTable.getRowModel().flatRows;
         for (const row of rows) {
             if (this.isRowExpandable(row)) {
                 this.collapsedRows.add(row.id);
             }
         }
-        this.table.toggleAllRowsExpanded(false);
+        this.tanStackTable.toggleAllRowsExpanded(false);
     }
 
     public reset(): void {

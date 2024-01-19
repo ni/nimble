@@ -281,7 +281,7 @@ export class Table<
 
     public async getSelectedRecordIds(): Promise<string[]> {
         await this.processPendingUpdates();
-        return this.getCurrentSelectedRecordIds();
+        return this.selectionManager.getCurrentSelectedRecordIds();
     }
 
     public async setSelectedRecordIds(
@@ -571,7 +571,7 @@ export class Table<
         if (this.tableValidator.areRecordIdsValid()) {
             // Update the selection state to remove previously selected records that no longer exist in the
             // data set while maintaining the selection state of records that still exist in the data set.
-            const previousSelection = this.getCurrentSelectedRecordIds();
+            const previousSelection = this.selectionManager.getCurrentSelectedRecordIds();
             tanStackUpdates.state = {
                 rowSelection:
                     this.calculateTanStackSelectionState(previousSelection),
@@ -627,23 +627,6 @@ export class Table<
 
         this.observeColumns();
         this.tableUpdateTracker.trackColumnInstancesChanged();
-    }
-
-    private getCurrentSelectedRecordIds(): string[] {
-        const tanStackSelectionState = this.options.state.rowSelection;
-        if (!tanStackSelectionState) {
-            return [];
-        }
-
-        const selectedRecordIds: string[] = [];
-        Object.entries(tanStackSelectionState).forEach(
-            ([recordId, isSelected]) => {
-                if (isSelected) {
-                    selectedRecordIds.push(recordId);
-                }
-            }
-        );
-        return selectedRecordIds;
     }
 
     private async handleActionMenuBeforeToggleEvent(
