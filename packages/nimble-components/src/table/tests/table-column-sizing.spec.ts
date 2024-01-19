@@ -8,7 +8,7 @@ import type {
     TableRecord
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 import { createEventListener } from '../../utilities/tests/component';
 
 interface SimpleTableRecord extends TableRecord {
@@ -193,64 +193,55 @@ describe('Table Column Sizing', () => {
                 column1ExpectedRenderedWidth: 350,
                 column2ExpectedRenderedWidth: 100
             }
-        ];
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const columnSizeTest of columnSizeTests) {
-            const specType = getSpecTypeByNamedList(
-                columnSizeTest,
-                focused,
-                disabled
-            );
-            specType(
-                `${columnSizeTest.name}`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    await connect();
-                    await pageObject.sizeTableToGivenRowWidth(
-                        columnSizeTest.rowWidth,
-                        element
-                    );
-                    await element.setData(simpleTableData);
-                    await connect();
-                    await waitForUpdatesAsync();
+        ] as const;
+        parameterizeNamedList(columnSizeTests, (spec, name, value) => {
+            spec(name, async () => {
+                await connect();
+                await pageObject.sizeTableToGivenRowWidth(
+                    value.rowWidth,
+                    element
+                );
+                await element.setData(simpleTableData);
+                await connect();
+                await waitForUpdatesAsync();
 
-                    column1.columnInternals.fractionalWidth = columnSizeTest.column1FractionalWidth;
-                    column1.columnInternals.pixelWidth = columnSizeTest.column1PixelWidth;
-                    if (
-                        typeof columnSizeTest.column1MinPixelWidth === 'number'
-                    ) {
-                        column1.columnInternals.minPixelWidth = columnSizeTest.column1MinPixelWidth;
-                    }
-
-                    column2.columnInternals.fractionalWidth = columnSizeTest.column2FractionalWidth;
-                    column2.columnInternals.pixelWidth = columnSizeTest.column2PixelWidth;
-                    if (
-                        typeof columnSizeTest.column2MinPixelWidth === 'number'
-                    ) {
-                        column2.columnInternals.minPixelWidth = columnSizeTest.column2MinPixelWidth;
-                    }
-
-                    await waitForUpdatesAsync();
-                    const column1RenderedWidth = pageObject.getCellRenderedWidth(0, 0);
-                    const column2RenderedWidth = pageObject.getCellRenderedWidth(0, 1);
-                    const header1RenderedWidth = pageObject.getHeaderRenderedWidth(0);
-                    const header2RenderedWidth = pageObject.getHeaderRenderedWidth(1);
-                    expect(column1RenderedWidth).toBe(
-                        columnSizeTest.column1ExpectedRenderedWidth
-                    );
-                    expect(column2RenderedWidth).toBe(
-                        columnSizeTest.column2ExpectedRenderedWidth
-                    );
-                    expect(header1RenderedWidth).toBe(
-                        columnSizeTest.column1ExpectedRenderedWidth
-                    );
-                    expect(header2RenderedWidth).toBe(
-                        columnSizeTest.column2ExpectedRenderedWidth
-                    );
+                column1.columnInternals.fractionalWidth = value.column1FractionalWidth;
+                column1.columnInternals.pixelWidth = value.column1PixelWidth;
+                if (typeof value.column1MinPixelWidth === 'number') {
+                    column1.columnInternals.minPixelWidth = value.column1MinPixelWidth;
                 }
-            );
-        }
+
+                column2.columnInternals.fractionalWidth = value.column2FractionalWidth;
+                column2.columnInternals.pixelWidth = value.column2PixelWidth;
+                if (typeof value.column2MinPixelWidth === 'number') {
+                    column2.columnInternals.minPixelWidth = value.column2MinPixelWidth;
+                }
+
+                await waitForUpdatesAsync();
+                const column1RenderedWidth = pageObject.getCellRenderedWidth(
+                    0,
+                    0
+                );
+                const column2RenderedWidth = pageObject.getCellRenderedWidth(
+                    0,
+                    1
+                );
+                const header1RenderedWidth = pageObject.getHeaderRenderedWidth(0);
+                const header2RenderedWidth = pageObject.getHeaderRenderedWidth(1);
+                expect(column1RenderedWidth).toBe(
+                    value.column1ExpectedRenderedWidth
+                );
+                expect(column2RenderedWidth).toBe(
+                    value.column2ExpectedRenderedWidth
+                );
+                expect(header1RenderedWidth).toBe(
+                    value.column1ExpectedRenderedWidth
+                );
+                expect(header2RenderedWidth).toBe(
+                    value.column2ExpectedRenderedWidth
+                );
+            });
+        });
 
         it('resizing table with fractionalWidth columns changes column rendered widths', async () => {
             await connect();
@@ -303,52 +294,41 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: null,
                 column2MinPixelWidth: null
             }
-        ];
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const rowScrollTest of tests) {
-            const specType = getSpecTypeByNamedList(
-                rowScrollTest,
-                focused,
-                disabled
-            );
-            specType(
-                `${rowScrollTest.name}`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    await connect();
-                    await pageObject.sizeTableToGivenRowWidth(300, element);
-                    await element.setData(largeTableData);
-                    await connect();
-                    await waitForUpdatesAsync();
+        ] as const;
+        parameterizeNamedList(tests, (spec, name, value) => {
+            spec(name, async () => {
+                await connect();
+                await pageObject.sizeTableToGivenRowWidth(300, element);
+                await element.setData(largeTableData);
+                await connect();
+                await waitForUpdatesAsync();
 
-                    column1.columnInternals.fractionalWidth = rowScrollTest.column1FractionalWidth;
-                    if (rowScrollTest.column1MinPixelWidth !== null) {
-                        column1.columnInternals.minPixelWidth = rowScrollTest.column1MinPixelWidth;
-                    }
-
-                    column2.columnInternals.fractionalWidth = rowScrollTest.column2FractionalWidth;
-                    if (rowScrollTest.column2MinPixelWidth !== null) {
-                        column2.columnInternals.minPixelWidth = rowScrollTest.column2MinPixelWidth;
-                    }
-
-                    await waitForUpdatesAsync();
-                    const firstRowColumn1RenderedWidth = pageObject.getCellRenderedWidth(0, 0);
-                    const firstRowColumn2RenderedWidth = pageObject.getCellRenderedWidth(0, 1);
-                    await pageObject.scrollToLastRowAsync();
-                    const lastRowIndex = pageObject.getRenderedRowCount() - 1;
-                    const lastRowColumn1RenderedWidth = pageObject.getCellRenderedWidth(lastRowIndex, 0);
-                    const lastRowColumn2RenderedWidth = pageObject.getCellRenderedWidth(lastRowIndex, 1);
-
-                    expect(firstRowColumn1RenderedWidth).toBe(
-                        lastRowColumn1RenderedWidth
-                    );
-                    expect(firstRowColumn2RenderedWidth).toBe(
-                        lastRowColumn2RenderedWidth
-                    );
+                column1.columnInternals.fractionalWidth = value.column1FractionalWidth;
+                if (value.column1MinPixelWidth !== null) {
+                    column1.columnInternals.minPixelWidth = value.column1MinPixelWidth;
                 }
-            );
-        }
+
+                column2.columnInternals.fractionalWidth = value.column2FractionalWidth;
+                if (value.column2MinPixelWidth !== null) {
+                    column2.columnInternals.minPixelWidth = value.column2MinPixelWidth;
+                }
+
+                await waitForUpdatesAsync();
+                const firstRowColumn1RenderedWidth = pageObject.getCellRenderedWidth(0, 0);
+                const firstRowColumn2RenderedWidth = pageObject.getCellRenderedWidth(0, 1);
+                await pageObject.scrollToLastRowAsync();
+                const lastRowIndex = pageObject.getRenderedRowCount() - 1;
+                const lastRowColumn1RenderedWidth = pageObject.getCellRenderedWidth(lastRowIndex, 0);
+                const lastRowColumn2RenderedWidth = pageObject.getCellRenderedWidth(lastRowIndex, 1);
+
+                expect(firstRowColumn1RenderedWidth).toBe(
+                    lastRowColumn1RenderedWidth
+                );
+                expect(firstRowColumn2RenderedWidth).toBe(
+                    lastRowColumn2RenderedWidth
+                );
+            });
+        });
     });
 });
 
@@ -482,36 +462,23 @@ describe('Table Interactive Column Sizing', () => {
                 minPixelWidths: [50, 50, 50, 175],
                 expectedColumnWidths: [75, 75, 50, 200]
             }
-        ];
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const columnSizeTest of columnSizeTests) {
-            const specType = getSpecTypeByNamedList(
-                columnSizeTest,
-                focused,
-                disabled
-            );
-            specType(
-                `${columnSizeTest.name}`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    element.columns.forEach((column, i) => {
-                        column.columnInternals.fractionalWidth = columnSizeTest.fractionalWidths[i]!;
-                        column.columnInternals.pixelWidth = columnSizeTest.pixelWidths[i]!;
-                        column.columnInternals.minPixelWidth = columnSizeTest.minPixelWidths[i]!;
-                    });
-                    await waitForUpdatesAsync();
-                    pageObject.dragSizeColumnByRightDivider(
-                        columnSizeTest.columnDragIndex,
-                        columnSizeTest.dragDeltas
-                    );
-                    await waitForUpdatesAsync();
-                    columnSizeTest.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
-                        width
-                    ));
-                }
-            );
-        }
+        ] as const;
+        parameterizeNamedList(columnSizeTests, (spec, name, value) => {
+            spec(name, async () => {
+                element.columns.forEach((column, i) => {
+                    column.columnInternals.fractionalWidth = value.fractionalWidths[i]!;
+                    column.columnInternals.pixelWidth = value.pixelWidths[i]!;
+                    column.columnInternals.minPixelWidth = value.minPixelWidths[i]!;
+                });
+                await waitForUpdatesAsync();
+                pageObject.dragSizeColumnByRightDivider(
+                    value.columnDragIndex,
+                    value.dragDeltas
+                );
+                await waitForUpdatesAsync();
+                value.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(width));
+            });
+        });
 
         it('when table width is smaller than total column min width, dragging column still expands column', async () => {
             await pageObject.sizeTableToGivenRowWidth(100, element);
@@ -564,10 +531,10 @@ describe('Table Interactive Column Sizing', () => {
                 0,
                 1
             );
-            pageObject.dragSizeColumnByRightDivider(0, [50]);
+            pageObject.dragSizeColumnByRightDivider(0, [5]);
             await waitForUpdatesAsync();
             expect(pageObject.getCellRenderedWidth(0, 1)).toBe(
-                secondVisibleCellWidth - 50
+                secondVisibleCellWidth - 5
             );
         });
 
@@ -578,10 +545,10 @@ describe('Table Interactive Column Sizing', () => {
                 0,
                 1
             );
-            pageObject.dragSizeColumnByRightDivider(1, [-50]);
+            pageObject.dragSizeColumnByRightDivider(1, [-5]);
             await waitForUpdatesAsync();
             expect(pageObject.getCellRenderedWidth(0, 1)).toBe(
-                secondVisibleCellWidth - 50
+                secondVisibleCellWidth - 5
             );
         });
 
@@ -662,38 +629,30 @@ describe('Table Interactive Column Sizing', () => {
                 dragDeltas: [-50],
                 expectedColumnWidths: [100, 50, 150]
             }
-        ];
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const columnSizeTest of hiddenColumDragRightDividerTests) {
-            const specType = getSpecTypeByNamedList(
-                columnSizeTest,
-                focused,
-                disabled
-            );
-            specType(
-                `${columnSizeTest.name}`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
+        ] as const;
+        parameterizeNamedList(
+            hiddenColumDragRightDividerTests,
+            (spec, name, value) => {
+                spec(name, async () => {
                     await pageObject.sizeTableToGivenRowWidth(
-                        columnSizeTest.tableWidth,
+                        value.tableWidth,
                         element
                     );
-                    columnSizeTest.hiddenColumns.forEach(columnIndex => {
+                    value.hiddenColumns.forEach(columnIndex => {
                         element.columns[columnIndex]!.columnHidden = true;
                     });
                     await waitForUpdatesAsync();
                     pageObject.dragSizeColumnByRightDivider(
-                        columnSizeTest.dragColumnIndex,
-                        columnSizeTest.dragDeltas
+                        value.dragColumnIndex,
+                        value.dragDeltas
                     );
                     await waitForUpdatesAsync();
-                    columnSizeTest.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
+                    value.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
                         width
                     ));
-                }
-            );
-        }
+                });
+            }
+        );
     });
 
     describe('hidden column drag left divider tests ', () => {
@@ -762,38 +721,30 @@ describe('Table Interactive Column Sizing', () => {
                 dragDeltas: [-50],
                 expectedColumnWidths: [100, 50, 150]
             }
-        ];
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const columnSizeTest of hiddenColumDragRightDividerTests) {
-            const specType = getSpecTypeByNamedList(
-                columnSizeTest,
-                focused,
-                disabled
-            );
-            specType(
-                `${columnSizeTest.name}`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
+        ] as const;
+        parameterizeNamedList(
+            hiddenColumDragRightDividerTests,
+            (spec, name, value) => {
+                spec(name, async () => {
                     await pageObject.sizeTableToGivenRowWidth(
-                        columnSizeTest.tableWidth,
+                        value.tableWidth,
                         element
                     );
-                    columnSizeTest.hiddenColumns.forEach(columnIndex => {
+                    value.hiddenColumns.forEach(columnIndex => {
                         element.columns[columnIndex]!.columnHidden = true;
                     });
                     await waitForUpdatesAsync();
                     pageObject.dragSizeColumnByLeftDivider(
-                        columnSizeTest.dragColumnIndex,
-                        columnSizeTest.dragDeltas
+                        value.dragColumnIndex,
+                        value.dragDeltas
                     );
                     await waitForUpdatesAsync();
-                    columnSizeTest.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
+                    value.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
                         width
                     ));
-                }
-            );
-        }
+                });
+            }
+        );
     });
 
     describe('active divider tests', () => {
@@ -829,44 +780,31 @@ describe('Table Interactive Column Sizing', () => {
                 dividerClickIndex: 5,
                 expectedActiveIndexes: [5]
             }
-        ];
-        const focusedActiveDividerTests: string[] = [];
-        const disabledActiveDividerTests: string[] = [];
-        for (const dividerActiveTest of dividerActiveTests) {
-            const specType = getSpecTypeByNamedList(
-                dividerActiveTest,
-                focusedActiveDividerTests,
-                disabledActiveDividerTests
-            );
-            specType(
-                `${dividerActiveTest.name}`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    const dividers = Array.from(
-                        element.shadowRoot!.querySelectorAll('.column-divider')
-                    );
-                    const divider = dividers[dividerActiveTest.dividerClickIndex]!;
-                    const dividerRect = divider.getBoundingClientRect();
-                    const mouseDownEvent = new MouseEvent('mousedown', {
-                        clientX: (dividerRect.x + dividerRect.width) / 2,
-                        clientY: (dividerRect.y + dividerRect.height) / 2
-                    });
-                    const mouseUpEvent = new MouseEvent('mouseup');
-                    divider.dispatchEvent(mouseDownEvent);
-                    await waitForUpdatesAsync();
-                    const activeDividers = [];
-                    for (let i = 0; i < dividers.length; i++) {
-                        if (dividers[i]!.classList.contains('active')) {
-                            activeDividers.push(i);
-                        }
+        ] as const;
+        parameterizeNamedList(dividerActiveTests, (spec, name, value) => {
+            spec(name, async () => {
+                const dividers = Array.from(
+                    element.shadowRoot!.querySelectorAll('.column-divider')
+                );
+                const divider = dividers[value.dividerClickIndex]!;
+                const dividerRect = divider.getBoundingClientRect();
+                const mouseDownEvent = new MouseEvent('mousedown', {
+                    clientX: (dividerRect.x + dividerRect.width) / 2,
+                    clientY: (dividerRect.y + dividerRect.height) / 2
+                });
+                const mouseUpEvent = new MouseEvent('mouseup');
+                divider.dispatchEvent(mouseDownEvent);
+                await waitForUpdatesAsync();
+                const activeDividers = [];
+                for (let i = 0; i < dividers.length; i++) {
+                    if (dividers[i]!.classList.contains('active')) {
+                        activeDividers.push(i);
                     }
-                    document.dispatchEvent(mouseUpEvent); // clean up registered event handlers
-                    expect(activeDividers).toEqual(
-                        dividerActiveTest.expectedActiveIndexes
-                    );
                 }
-            );
-        }
+                document.dispatchEvent(mouseUpEvent); // clean up registered event handlers
+                expect(activeDividers).toEqual(value.expectedActiveIndexes);
+            });
+        });
 
         it('first column only has right divider', () => {
             const rightDivider = pageObject.getColumnRightDivider(0);

@@ -1,4 +1,4 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
@@ -13,39 +13,46 @@ import {
 } from '../../base/tests/table-column-stories-utils';
 import { tableColumnTextTag } from '../../text';
 import { NumberTextAlignment, NumberTextFormat } from '../types';
+import { unitByteTag } from '../../../unit/byte';
+import { unitVoltTag } from '../../../unit/volt';
 
 const simpleData = [
     {
         firstName: 'Homer',
         lastName: 'Simpson',
         age: 45.2358734623,
-        favoriteNumber: Math.PI
+        favoriteNumber: Math.PI,
+        measurement: 1
     },
     {
         firstName: 'Marge',
         lastName: 'Simpson',
         age: 42.918275125,
-        favoriteNumber: 28729375089724643
+        favoriteNumber: 28729375089724643,
+        measurement: 28729375089724643
     },
     {
         firstName: 'Bart',
         lastName: 'Simpson',
         age: 13.5689,
-        favoriteNumber: 1000
+        favoriteNumber: 1000,
+        measurement: 1000
     },
     {
         firstName: 'Maggie',
         lastName: 'Simpson',
         age: 1.238957645,
-        favoriteNumber: 0
+        favoriteNumber: 0,
+        measurement: 0
     },
     {
         firstName: 'Milhouse',
         lastName: 'Van Houten',
         age: 14.1,
-        favoriteNumber: -0.00000064532623
+        favoriteNumber: -0.00000064532623,
+        measurement: -0.00000064532623
     }
-];
+] as const;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Number Text',
@@ -78,6 +85,7 @@ interface NumberTextColumnTableArgs extends SharedTableArgs {
     alignment: keyof typeof NumberTextAlignment;
     decimalDigits: number;
     decimalMaximumDigits: number;
+    unit: string;
     checkValidity: () => void;
     validity: () => void;
 }
@@ -126,6 +134,23 @@ To improve the ability for users to visually scan values, applications should se
 </details>
 `;
 
+const unitDescription = `A unit for the column may be configured by providing a \`nimble-unit-<name>\` element as content (in addition to the column label). Unit elements represent a set of related, scaled units, e.g. \`nimble-unit-byte\` represents bytes, KB, MB, etc. Values are converted from a source unit (e.g. bytes) to the largest scaled unit (e.g. KB, MB, etc.) that can represent that value with magnitude >= 1. The source data for the column is expected to be given in the base unit specified in the tag name, e.g. for \`nimble-unit-byte\`, a source value should be a number of bytes.
+
+<details>
+    <summary>Unit Elements</summary>
+
+    <ul>
+        <li>\`nimble-unit-byte\`: Labels in this unit scale are \`byte\`/\`bytes\`, \`KB\`, \`MB\`, \`GB\`, \`TB\`, and \`PB\`. Translations exist for all languages supported by the runtime environment.
+            <ul>
+                <li>\`binary\` - boolean attribute that indicates a binary conversion factor of 1024 should be used rather than 1000. The resulting unit labels are \`byte\`/\`bytes\`, \`KiB\`, \`MiB\`, \`GiB\`, \`TiB\`, and \`PiB\`. Translations exist for English, French, German, Japanese, and Chinese.</li>
+            </ul>
+        </li>
+        <li>\`nimble-unit-volt\`: Labels in this unit scale are \`fV\`, \`pV\`, \`nV\`, \`μV\`, \`mV\`, \`cV\`, \`dV\`, \`volt\`/\`volts\`, \`kV\`, \`MV\`, \`GV\`, \`TV\`, \`PV\`, and \`EV\`. Translations exist for English, French, German, Japanese, and Chinese.
+        </li>
+    </ul>
+</details>
+`;
+
 export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
     parameters: {
         docs: {
@@ -151,6 +176,12 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             </${tableColumnNumberTextTag}>
             <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
                 Favorite Number
+            </${tableColumnNumberTextTag}>
+            <${tableColumnNumberTextTag} field-name="measurement" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
+                Measurement
+                ${when(x => x.unit === 'byte', html`<${unitByteTag}></${unitByteTag}>`)}
+                ${when(x => x.unit === 'byte (1024)', html`<${unitByteTag} binary></${unitByteTag}>`)}
+                ${when(x => x.unit === 'volt', html`<${unitVoltTag}></${unitVoltTag}>`)}
             </${tableColumnNumberTextTag}>
         </${tableTag}>
     `),
@@ -185,6 +216,11 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             options: [undefined, 0, 1, 2, 3, 20],
             control: { type: 'select' }
         },
+        unit: {
+            description: unitDescription,
+            options: ['default', 'byte', 'byte (1024)', 'volt'],
+            control: { type: 'radio' }
+        },
         checkValidity: {
             name: 'checkValidity()',
             description:
@@ -199,6 +235,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         format: 'default',
         alignment: 'default',
         decimalDigits: 2,
-        decimalMaximumDigits: undefined
+        decimalMaximumDigits: undefined,
+        unit: 'volt'
     }
 };

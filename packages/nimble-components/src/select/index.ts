@@ -409,4 +409,4 @@ const nimbleSelect = Select.compose<SelectOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSelect());
-export const selectTag = DesignSystem.tagFor(Select);
+export const selectTag = 'nimble-select';

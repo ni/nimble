@@ -1,8 +1,106 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 15 Dec 2023 14:08:18 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Jan 2024 17:21:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.18.1
+
+Thu, 18 Jan 2024 17:21:22 GMT
+
+### Patches
+
+- Unify unit scale types to single pattern ([ni/nimble@76dff67](https://github.com/ni/nimble/commit/76dff67e47387c2f938a324798f3ca29442360ec))
+
+## 20.18.0
+
+Wed, 17 Jan 2024 14:23:42 GMT
+
+### Minor changes
+
+- Unit support for number-text table column ([ni/nimble@3710e7e](https://github.com/ni/nimble/commit/3710e7e150786220099816fdea608b10b378956c))
+
+## 20.17.7
+
+Wed, 17 Jan 2024 00:48:57 GMT
+
+### Patches
+
+- Visual design improvements for rich text editor ([ni/nimble@4e5d877](https://github.com/ni/nimble/commit/4e5d8771d3f06c03245638b2cde54b00eaa27d60))
+
+## 20.17.6
+
+Tue, 16 Jan 2024 21:49:14 GMT
+
+### Patches
+
+- Fix disabled styling of tree items ([ni/nimble@1596be3](https://github.com/ni/nimble/commit/1596be39b8d3b495a2de713b0c0b3f355bf77897))
+
+## 20.17.5
+
+Tue, 16 Jan 2024 21:01:12 GMT
+
+### Patches
+
+- Make lifecycle callbacks in components call base class consistently ([ni/nimble@87f54f7](https://github.com/ni/nimble/commit/87f54f799117992b88b3b03c258d3d242e16bc34))
+
+## 20.17.4
+
+Wed, 10 Jan 2024 13:47:05 GMT
+
+### Patches
+
+- Removed disable-editing attribute from the rich text mention users view component for rendering @mention in editor and viewer ([ni/nimble@98c97d4](https://github.com/ni/nimble/commit/98c97d44a092e9fbbfe7710f381da77fe73ada1a))
+
+## 20.17.3
+
+Mon, 08 Jan 2024 17:18:14 GMT
+
+### Patches
+
+- Export tag names as literals to improve type inferencing ([ni/nimble@f45fdf7](https://github.com/ni/nimble/commit/f45fdf7826fb528ee131ace1802a02e94a8db411))
+
+## 20.17.2
+
+Fri, 05 Jan 2024 14:50:44 GMT
+
+### Patches
+
+- Add fix to retain rich text editor format button state when user configuration gets dynamically updated ([ni/nimble@8501f8f](https://github.com/ni/nimble/commit/8501f8f3c8283cb79926422aec253a967e5a9755))
+
+## 20.17.1
+
+Fri, 05 Jan 2024 00:37:04 GMT
+
+### Patches
+
+- Create enum for z-index values ([ni/nimble@fc2fd87](https://github.com/ni/nimble/commit/fc2fd8701eb880b1fad3bb7af641380311129fba))
+
+## 20.17.0
+
+Thu, 04 Jan 2024 21:21:59 GMT
+
+### Minor changes
+
+- - Update all tests to use `parameterizeNamedList` and delete deprecated `getSpecTypeByNamedList` function.
+- Update functions in the table page object and table validator to have `readonly` arrays as the parameters. ([ni/nimble@85b29ec](https://github.com/ni/nimble/commit/85b29ec1836a8bb00b51797c42e4f4cfa058accb))
+
+## 20.16.6
+
+Thu, 04 Jan 2024 19:22:21 GMT
+
+### Patches
+
+- Rich text editor fix for Safari browser issue in removing the suggestion text when pressing backspace ([ni/nimble@94f26ce](https://github.com/ni/nimble/commit/94f26ce2738e984870c6840fdc9557eff6e2b08f))
+
+## 20.16.5
+
+Thu, 04 Jan 2024 16:50:24 GMT
+
+### Patches
+
+- Upgrade dependencies ([ni/nimble@341146c](https://github.com/ni/nimble/commit/341146ceef057386cea20419277073bd793270ef))
+- Bump @ni/nimble-tokens to v6.9.1
 
 ## 20.16.4
 

@@ -54,6 +54,7 @@ import { TableUpdateTracker } from './models/table-update-tracker';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
+import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -307,7 +308,9 @@ export class Table<
         return selectedRecordIds;
     }
 
-    public async setSelectedRecordIds(recordIds: string[]): Promise<void> {
+    public async setSelectedRecordIds(
+        recordIds: readonly string[]
+    ): Promise<void> {
         await this.processPendingUpdates();
 
         if (this.selectionMode === TableRowSelectionMode.none) {
@@ -324,7 +327,7 @@ export class Table<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.initialize();
-        this.virtualizer.connectedCallback();
+        this.virtualizer.connect();
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
@@ -334,7 +337,7 @@ export class Table<
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.virtualizer.disconnectedCallback();
+        this.virtualizer.disconnect();
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
         document.removeEventListener('keydown', this.onKeyDown);
         document.removeEventListener('keyup', this.onKeyUp);
@@ -725,10 +728,7 @@ export class Table<
     }
 
     private async updateColumnsFromChildItems(): Promise<void> {
-        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
-            ? customElements.whenDefined(item.localName)
-            : Promise.resolve()));
-        await Promise.all(definedElements);
+        await waitUntilCustomElementsDefinedAsync(this.childItems);
         this.columns = this.childItems.filter(
             (x): x is TableColumn => x instanceof TableColumn
         );
@@ -1075,7 +1075,7 @@ export class Table<
     }
 
     private calculateTanStackSelectionState(
-        recordIdsToSelect: string[]
+        recordIdsToSelect: readonly string[]
     ): TanStackRowSelectionState {
         if (this.selectionMode === TableRowSelectionMode.none) {
             return {};
@@ -1103,4 +1103,4 @@ const nimbleTable = Table.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTable());
-export const tableTag = DesignSystem.tagFor(Table);
+export const tableTag = 'nimble-table';

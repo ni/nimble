@@ -49,6 +49,4 @@ const nimbleLabelProviderRichText = LabelProviderRichText.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleLabelProviderRichText());
-export const labelProviderRichTextTag = DesignSystem.tagFor(
-    LabelProviderRichText
-);
+export const labelProviderRichTextTag = 'nimble-label-provider-rich-text';

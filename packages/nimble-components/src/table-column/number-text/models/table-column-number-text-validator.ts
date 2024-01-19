@@ -5,7 +5,8 @@ import { NumberTextFormat } from '../types';
 const numberTextValidityFlagNames = [
     'invalidDecimalDigits',
     'invalidDecimalMaximumDigits',
-    'decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits'
+    'decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits',
+    'moreThanOneUnitSpecified'
 ] as const;
 
 // The maximum and minimum allowed configuration for 'maximumFractionDigits'
@@ -61,6 +62,11 @@ export class TableColumnNumberTextValidator extends ColumnValidator<
             'decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits',
             invalid
         );
+    }
+
+    public validateAtMostOneUnit(unitElements: Element[]): void {
+        const invalid = unitElements.length > 1;
+        this.setConditionValue('moreThanOneUnitSpecified', invalid);
     }
 
     private isInvalidDecimalDigitsValue(decimalDigits: number): boolean {

@@ -65,4 +65,4 @@ const nimbleAnchorButton = AnchorButton.compose<AnchorOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorButton());
-export const anchorButtonTag = DesignSystem.tagFor(AnchorButton);
+export const anchorButtonTag = 'nimble-anchor-button';

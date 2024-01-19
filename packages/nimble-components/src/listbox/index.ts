@@ -23,4 +23,4 @@ const nimbleListbox = Listbox.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleListbox());
-export const listboxTag = DesignSystem.tagFor(Listbox);
+export const listboxTag = 'nimble-listbox';
