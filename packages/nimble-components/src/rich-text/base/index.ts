@@ -4,6 +4,7 @@ import { RichTextMention } from '../../rich-text-mention/base';
 import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 import { Configuration } from '../models/configuration';
 import { MarkdownParserMentionConfiguration } from '../models/markdown-parser-mention-configuration';
+import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-custom-elements-defined-async';
 
 /**
  * Base class for rich text components
@@ -59,10 +60,7 @@ export abstract class RichText extends FoundationElement {
     }
 
     private async updateMentionElementsFromChildItems(): Promise<void> {
-        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
-            ? customElements.whenDefined(item.localName)
-            : Promise.resolve()));
-        await Promise.all(definedElements);
+        await waitUntilCustomElementsDefinedAsync(this.childItems);
         this.mentionElements = this.childItems.filter(
             (x): x is RichTextMention => x instanceof RichTextMention
         );

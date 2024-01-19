@@ -22,4 +22,4 @@ const mappingUser = MappingUser.compose({
     template
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(mappingUser());
-export const mappingUserTag = DesignSystem.tagFor(MappingUser);
+export const mappingUserTag = 'nimble-mapping-user';
