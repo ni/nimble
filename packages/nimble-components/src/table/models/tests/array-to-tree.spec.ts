@@ -5,7 +5,7 @@
  * - Use jasmine instead of chai
  */
 
-import { arrayToTree, countNodes } from '../../../table/models/array-to-tree';
+import { arrayToTree, countNodes } from '../array-to-tree';
 
 describe('arrayToTree', () => {
     it('should work with nested objects', () => {
@@ -144,7 +144,7 @@ describe('arrayToTree', () => {
             ],
             { id: 'id', parentId: 'parentId' }
         )).toThrowError(
-            'The items array contains orphans that point to the following parentIds: [6,7]. These parentIds do not exist in the items array. Hint: prevent orphans to result in an error by passing the following option: { throwIfOrphans: false }'
+            'The items array contains orphans that point to the following parentIds: [6,7]. These parentIds do not exist in the items array.'
         );
     });
 
