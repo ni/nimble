@@ -4,7 +4,7 @@ export const sharedMatrixParameters = () => ({
     controls: {
         hideNoControlsWarning: true
     },
-    a11y: { disabled: true },
+    a11y: { disable: true },
     docs: {
         source: {
             code: null

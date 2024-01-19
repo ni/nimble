@@ -337,7 +337,7 @@ The project uses a code generation build script to create a Nimble component for
 Every component should export its custom element tag (e.g. `nimble-button`) in a constant like this:
 
 ```ts
-export const buttonTag = DesignSystem.tagFor(Button);
+export const buttonTag = 'nimble-button';
 ```
 
 Client code can use this to refer to the component in an HTML template and having a dependency on the export will let a compiled application detect if a tag name changes.

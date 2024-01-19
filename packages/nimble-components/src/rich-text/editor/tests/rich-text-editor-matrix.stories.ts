@@ -10,10 +10,6 @@ import {
 } from '../../../utilities/tests/matrix';
 import { hiddenWrapper } from '../../../utilities/tests/hidden';
 import { richTextEditorTag } from '..';
-import {
-    cssPropertyFromTokenName,
-    tokenNames
-} from '../../../theme-provider/design-token-names';
 import { buttonTag } from '../../../button';
 import { loremIpsum } from '../../../utilities/tests/lorem-ipsum';
 import {
@@ -24,6 +20,10 @@ import {
 } from '../../../utilities/tests/states';
 import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 import { mappingUserTag } from '../../../mapping/user';
+import { bodyFont, bodyFontColor } from '../../../theme-provider/design-tokens';
+import { toggleButtonTag } from '../../../toggle-button';
+import { menuButtonTag } from '../../../menu-button';
+import { anchorButtonTag } from '../../../anchor-button';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Editor',
@@ -48,6 +48,14 @@ const placeholderValueStates = [
 ] as const;
 type PlaceholderValueStates = (typeof placeholderValueStates)[number];
 
+const slotButtons = [
+    buttonTag,
+    toggleButtonTag,
+    menuButtonTag,
+    anchorButtonTag
+] as const;
+type SlotButtons = (typeof slotButtons)[number];
+
 // prettier-ignore
 const component = (
     [disabledName, disabled]: DisabledState,
@@ -57,8 +65,8 @@ const component = (
 ): ViewTemplate => html`
     <p 
         style="
-        font: var(${cssPropertyFromTokenName(tokenNames.bodyFont)});
-        color: var(${cssPropertyFromTokenName(tokenNames.bodyFontColor)});
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
         margin-bottom: 0px;
         "
     >
@@ -90,19 +98,41 @@ const longTextPlayFunction = (): void => {
     ));
 };
 
+// prettier-ignore
 const editorSizingTestCase = (
     [widthLabel, widthStyle]: [string, string],
     [heightLabel, heightStyle]: [string, string]
 ): ViewTemplate => html`
-    <p style="font: var(${cssPropertyFromTokenName(
-        tokenNames.bodyFont
-    )}); margin-bottom: 0px;">${() => widthLabel}; ${() => heightLabel}</p>
+    <p style="font: var(${bodyFont.cssCustomProperty}); margin-bottom: 0px;">${() => widthLabel}; ${() => heightLabel}</p>
     <div style="width: 500px; height: 180px; outline: 1px dotted black;">
         <${richTextEditorTag} style="${() => widthStyle}; ${() => heightStyle};">
-            <${buttonTag} slot="footer-actions" appearance="ghost">Cancel</${buttonTag}>
-            <${buttonTag} slot="footer-actions" appearance="outline">Ok</${buttonTag}>
+            <${richTextMentionUsersTag} pattern="^user:(.*)">
+                <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
+            </${richTextMentionUsersTag}>
+            <${buttonTag}
+                style="width: 72px;"
+                slot="footer-actions"
+                appearance="ghost"
+            >Cancel</${buttonTag}>
+            <${buttonTag}
+                style="width: 72px;"
+                slot="footer-actions"
+            >Ok</${buttonTag}>
         </${richTextEditorTag}>
     </div>
+`;
+
+// prettier-ignore
+const slotButtonsTextCase = (
+    slotButton: SlotButtons
+): ViewTemplate => html`
+    <p style="font: var(${bodyFont.cssCustomProperty}); margin-bottom: 0px;">${() => slotButton}</p>
+    <${richTextEditorTag}>
+        <${slotButton}
+            style="width: 72px;"
+            slot="footer-actions"
+        >Ok</${slotButton}>
+    </${richTextEditorTag}>
 `;
 
 export const richTextEditorThemeMatrix: StoryFn = createMatrixThemeStory(
@@ -149,10 +179,25 @@ export const richTextEditorSizing: StoryFn = createStory(html`
     ])}
 `);
 
+export const richTextEditorSlotButtons: StoryFn = createStory(html`
+    ${createMatrix(slotButtonsTextCase, [slotButtons])}
+`);
+
+// prettier-ignore
 const mobileWidthComponent = html`
-    <${richTextEditorTag} style="padding: 20px; width: 300px; height: 250px;">
-        <${buttonTag} slot="footer-actions" appearance="ghost">Cancel</${buttonTag}>
-        <${buttonTag} slot="footer-actions" appearance="outline">Ok</${buttonTag}>
+    <${richTextEditorTag} style="padding: 20px; width: 360px; height: 250px;">
+        <${richTextMentionUsersTag} pattern="^user:(.*)">
+            <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
+        </${richTextMentionUsersTag}>
+        <${buttonTag}
+            style="width: 72px;"
+            slot="footer-actions"
+            appearance="ghost"
+        >Cancel</${buttonTag}>
+        <${buttonTag}
+            style="width: 72px;"
+            slot="footer-actions"
+        >Ok</${buttonTag}>
     </${richTextEditorTag}>
 `;
 

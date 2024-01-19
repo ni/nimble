@@ -185,13 +185,21 @@ function createCustomMentionExtension(
                         };
                     }
                 },
-
                 label: {
                     default: null,
                     parseHTML: element => element.getAttribute('mention-label'),
                     renderHTML: attributes => {
                         return {
                             'mention-label': attributes.label as string
+                        };
+                    }
+                },
+                disabled: {
+                    default: null,
+                    parseHTML: element => element.getAttribute('disabled'),
+                    renderHTML: attributes => {
+                        return {
+                            disabled: attributes.disabled as string
                         };
                     }
                 }
@@ -201,12 +209,7 @@ function createCustomMentionExtension(
         renderHTML({ node, HTMLAttributes }) {
             return [
                 config.viewElement,
-                mergeAttributes(
-                    this.options.HTMLAttributes,
-                    HTMLAttributes,
-                    // disable-editing is a boolean attribute
-                    { 'disable-editing': '' }
-                ),
+                mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
                 this.options.renderLabel({
                     options: this.options,
                     node
@@ -216,7 +219,7 @@ function createCustomMentionExtension(
     }).configure({
         suggestion: {
             char: config.character,
-            decorationTag: config.viewElement,
+            decorationClass: 'nimble-mention-view-edit',
             pluginKey: new PluginKey(config.key),
             allowSpaces: true,
             render: () => {

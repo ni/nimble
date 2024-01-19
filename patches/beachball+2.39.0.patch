@@ -1,5 +1,5 @@
 diff --git a/node_modules/beachball/lib/packageManager/npmArgs.js b/node_modules/beachball/lib/packageManager/npmArgs.js
-index cfa9bd7..877e953 100644
+index 21c6214..ef5dd35 100644
 --- a/node_modules/beachball/lib/packageManager/npmArgs.js
 +++ b/node_modules/beachball/lib/packageManager/npmArgs.js
 @@ -5,7 +5,9 @@ function getNpmPublishArgs(packageInfo, options) {

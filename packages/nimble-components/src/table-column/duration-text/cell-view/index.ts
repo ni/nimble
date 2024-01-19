@@ -41,6 +41,4 @@ const durationTextCellView = TableColumnDurationTextCellView.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(durationTextCellView());
-export const tableColumnDurationTextCellViewTag = DesignSystem.tagFor(
-    TableColumnDurationTextCellView
-);
+export const tableColumnDurationTextCellViewTag = 'nimble-table-column-duration-text-cell-view';

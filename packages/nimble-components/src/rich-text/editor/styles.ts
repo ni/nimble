@@ -15,11 +15,14 @@ import {
     mediumPadding,
     standardPadding,
     linkFontColor,
-    mentionDisabledFontColor,
-    mentionFontColor
+    controlSlimHeight
 } from '../../theme-provider/design-tokens';
 import { styles as errorStyles } from '../../patterns/error/styles';
-import { richTextMentionUsersViewTag } from '../../rich-text-mention/users/view';
+import { toolbarTag } from '../../toolbar';
+import { toggleButtonTag } from '../../toggle-button';
+import { buttonTag } from '../../button';
+import { anchorButtonTag } from '../../anchor-button';
+import { menuButtonTag } from '../../menu-button';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -33,13 +36,13 @@ export const styles = css`
         --ni-private-rich-text-editor-hover-indicator-width: calc(
             ${borderWidth} + 1px
         );
-        --ni-nimble-private-mention-font-color: ${mentionFontColor};
 
         ${
             /** Initial height of rich text editor with one line space when the footer is visible. */ ''
         }
         height: 82px;
         --ni-private-rich-text-editor-footer-section-height: 40px;
+        --ni-private-rich-text-editor-footer-section-border-top-width: 2px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''
         }
@@ -82,11 +85,6 @@ export const styles = css`
     :host([disabled]) .container {
         color: ${bodyDisabledFontColor};
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
-        --ni-nimble-private-mention-font-color: ${mentionDisabledFontColor};
-    }
-
-    :host([disabled]) ${richTextMentionUsersViewTag} {
-        color: ${bodyDisabledFontColor};
     }
 
     :host([error-visible]) .container {
@@ -177,7 +175,7 @@ export const styles = css`
         margin-block-end: 0;
     }
 
-    li > p {
+    .ProseMirror li > p {
         margin-block: 0;
     }
 
@@ -231,12 +229,24 @@ export const styles = css`
 
     ${/** End of anchor styles */ ''}
 
+    ${/* Shared styles for all mention views at edit time. */ ''}
+    .ProseMirror .nimble-mention-view-edit {
+        color: ${bodyFontColor};
+    }
+
+    :host([disabled]) .ProseMirror .nimble-mention-view-edit {
+        color: ${bodyDisabledFontColor};
+    }
+
     .footer-section {
         display: flex;
         justify-content: space-between;
         flex-shrink: 0;
-        border: ${borderWidth} solid transparent;
-        border-top-color: rgba(${borderRgbPartialColor}, 0.1);
+        border: 0px;
+        border-top: var(
+                --ni-private-rich-text-editor-footer-section-border-top-width
+            )
+            solid rgba(${borderRgbPartialColor}, 0.1);
         height: var(--ni-private-rich-text-editor-footer-section-height);
         overflow: hidden;
     }
@@ -245,13 +255,21 @@ export const styles = css`
         display: none;
     }
 
-    nimble-toolbar::part(positioning-region) {
+    ${toolbarTag}::part(positioning-region) {
         background: transparent;
         padding-right: 8px;
+        box-sizing: border-box;
+        gap: 0px;
+        height: var(--ni-private-rich-text-editor-footer-section-height);
     }
 
-    nimble-toolbar::part(start) {
+    ${toolbarTag}::part(start) {
         gap: 8px;
+    }
+
+    ${buttonTag},
+    ${toggleButtonTag} {
+        height: ${controlSlimHeight};
     }
 
     .footer-actions {
@@ -260,6 +278,13 @@ export const styles = css`
         margin-inline-end: ${standardPadding};
         gap: ${standardPadding};
         place-items: center;
+    }
+
+    ::slotted(${buttonTag}),
+    ::slotted(${toggleButtonTag}),
+    ::slotted(${anchorButtonTag}),
+    ::slotted(${menuButtonTag}) {
+        height: ${controlSlimHeight};
     }
 
     :host([error-visible]) .error-icon {
