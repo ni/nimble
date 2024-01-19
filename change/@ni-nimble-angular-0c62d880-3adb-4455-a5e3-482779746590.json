@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Introducing data hierarchy for table. Renamed 'groupCollapseAll' on table label provider to 'collapseAll'. Update test with additional validation entry.",
+  "packageName": "@ni/nimble-angular",
+  "email": "26874831+atmgrifter00@users.noreply.github.com",
+  "dependentChangeType": "major"
+}

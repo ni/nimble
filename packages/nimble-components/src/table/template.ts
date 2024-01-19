@@ -24,7 +24,7 @@ import { ButtonAppearance } from '../button/types';
 import { iconTriangleTwoLinesHorizontalTag } from '../icons/triangle-two-lines-horizontal';
 import { checkboxTag } from '../checkbox';
 import {
-    tableGroupsCollapseAllLabel,
+    tableCollapseAllLabel,
     tableRowOperationColumnLabel,
     tableSelectAllLabel
 } from '../label-provider/table/label-tokens';
@@ -32,7 +32,7 @@ import {
 // prettier-ignore
 export const template = html<Table>`
     <template
-        role="grid"
+        role="treegrid"
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ${children({ property: 'childItems', filter: elements() })}
     >
@@ -72,11 +72,11 @@ export const template = html<Table>`
                                 class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
                                 content-hidden
                                 appearance="${ButtonAppearance.ghost}"
-                                title="${x => tableGroupsCollapseAllLabel.getValueFor(x)}"
-                                @click="${x => x.handleCollapseAllGroupRows()}"
+                                title="${x => tableCollapseAllLabel.getValueFor(x)}"
+                                @click="${x => x.handleCollapseAllRows()}"
                             >
                                 <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
-                                ${x => tableGroupsCollapseAllLabel.getValueFor(x)}
+                                ${x => tableCollapseAllLabel.getValueFor(x)}
                             </${buttonTag}>
                         </span>
                         <span class="column-headers-container" ${ref('columnHeadersContainer')}>
@@ -113,13 +113,13 @@ export const template = html<Table>`
                         role="rowgroup">
                         ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                             ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
-                                ${when((x, c) => (c.parent as Table).tableData[x.index]?.isGrouped, html<VirtualItem, Table>`
+                                ${when((x, c) => (c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
                                     <${tableGroupRowTag}
                                         class="group-row"
                                         :groupRowValue="${(x, c) => c.parent.tableData[x.index]?.groupRowValue}"
                                         ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
                                         :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
-                                        :leafItemCount="${(x, c) => c.parent.tableData[x.index]?.leafItemCount}"
+                                        :immediateChildCount="${(x, c) => c.parent.tableData[x.index]?.immediateChildCount}"
                                         :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
                                         ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
                                         selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
@@ -128,21 +128,25 @@ export const template = html<Table>`
                                     >
                                     </${tableGroupRowTag}>
                                 `)}
-                                ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGrouped, html<VirtualItem, Table>`
+                                ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
                                     <${tableRowTag}
                                         class="row"
                                         record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                         ?selectable="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.none}"
                                         ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
+                                        ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
                                         ?hide-selection="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.multiple}"
                                         :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                         :columns="${(_, c) => c.parent.columns}"
+                                        :isParentRow="${(x, c) => c.parent.tableData[x.index]?.isParentRow}"
                                         :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                         ?row-operation-grid-cell-hidden="${(_, c) => !c.parent.showRowOperationColumn}"
                                         @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"
                                         @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                         @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                        @row-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index)}"
+                                        :dataIndex="${x => x.index}"
                                     >
                                     ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
                                         ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`
