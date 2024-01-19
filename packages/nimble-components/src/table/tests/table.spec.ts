@@ -139,7 +139,6 @@ describe('Table', () => {
 
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
-            jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
             pageObject = new TablePageObject<SimpleTableRecord>(element);
             column1 = element.querySelector<TableColumn>('#first-column')!;
             column2 = element.querySelector<TableColumn>('#second-column')!;
