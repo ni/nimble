@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Fri, 19 Jan 2024 22:22:02 GMT",
+      "version": "13.0.0",
+      "tag": "@ni/nimble-blazor_v13.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "398b7ab7e2be2597de26e15e0ee463df4a02f228",
+            "comment": "Introducing data hierarchy for table. Renamed 'groupCollapseAll' on table label provider to 'collapseAll'"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 16 Jan 2024 23:43:26 GMT",
       "version": "12.7.11",
       "tag": "@ni/nimble-blazor_v12.7.11",

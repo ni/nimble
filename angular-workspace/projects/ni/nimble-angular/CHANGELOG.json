@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 19 Jan 2024 22:22:02 GMT",
+      "version": "19.0.0",
+      "tag": "@ni/nimble-angular_v19.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "398b7ab7e2be2597de26e15e0ee463df4a02f228",
+            "comment": "Introducing data hierarchy for table. Renamed 'groupCollapseAll' on table label provider to 'collapseAll'. Update test with additional validation entry."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v21.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 18 Jan 2024 17:21:22 GMT",
       "version": "18.2.17",
       "tag": "@ni/nimble-angular_v18.2.17",
