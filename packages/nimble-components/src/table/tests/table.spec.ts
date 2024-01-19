@@ -1361,8 +1361,12 @@ describe('Table', () => {
                             element.idFieldName = 'id2';
                             element.parentIdFieldName = undefined;
                             await waitForUpdatesAsync();
-                            expect(value.tableData[0]!.id2).toBe(pageObject.getRecordId(0)!);
-                            expect(value.tableData[1]!.id2).toBe(pageObject.getRecordId(1)!);
+                            expect(value.tableData[0]!.id2).toBe(
+                                pageObject.getRecordId(0)!
+                            );
+                            expect(value.tableData[1]!.id2).toBe(
+                                pageObject.getRecordId(1)!
+                            );
                         });
                     }
                 );
