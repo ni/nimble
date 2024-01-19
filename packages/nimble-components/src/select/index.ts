@@ -57,12 +57,6 @@ export class Select extends FoundationSelect implements ErrorPattern {
      * @internal
      */
     @observable
-    public controlWrapper?: HTMLElement;
-
-    /**
-     * @internal
-     */
-    @observable
     public scrollableElement!: HTMLElement;
 
     /**
