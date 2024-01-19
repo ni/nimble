@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 19 Jan 2024 23:00:07 GMT",
+      "version": "19.1.0",
+      "tag": "@ni/nimble-angular_v19.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "07dfa53f1830b506e4a5f27c38ec879062d61eb1",
+            "comment": "Angular support for nimble-unit-byte and nimble-unit-volt"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 19 Jan 2024 22:22:02 GMT",
       "version": "19.0.0",
       "tag": "@ni/nimble-angular_v19.0.0",
