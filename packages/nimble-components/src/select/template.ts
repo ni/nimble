@@ -99,7 +99,7 @@ SelectOptions
                 ?disabled="${x => x.disabled}"
                 ${ref('listbox')}
             >
-                ${when(x => x.filterMode === FilterMode.standard, html<Select>`
+                ${when(x => x.filterMode !== FilterMode.none, html<Select>`
                     <div class="search-field ${x => x.positionAttribute}">
                         <${iconMagnifyingGlassTag}></${iconMagnifyingGlassTag}>
                         <input
@@ -120,7 +120,7 @@ SelectOptions
         property: 'slottedOptions',
     })}
                 ></slot>
-                ${when(x => (x.filterMode === FilterMode.standard && x.filteredOptions.length === 0), html<Select>`
+                ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0), html<Select>`
                     <span class="no-results-label">
                         ${x => selectFilterNoResultsLabel.getValueFor(x)}
                     </span>

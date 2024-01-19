@@ -93,7 +93,7 @@ const metadata: Meta<SelectArgs> = {
             ?disabled="${x => x.disabled}"
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
-            filter-mode="${x => x.filterMode}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             style="width: var(${menuMinWidth.cssCustomProperty});"
         >
             ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
