@@ -16,7 +16,6 @@ export { byteUnitScale, byte1024UnitScale, voltUnitScale };
     standalone: true
 })
 export class FormatNumberDecimalPipe implements PipeTransform {
-    private static instanceCount = 0;
     /**
      * @internal
      */
@@ -24,28 +23,21 @@ export class FormatNumberDecimalPipe implements PipeTransform {
     private minimumFractionDigits?: number;
     private maximumFractionDigits?: number;
     private unitScale?: UnitScale;
-    private readonly instanceNumber;
 
-    public constructor(@Inject(LOCALE_ID) private readonly locale: string) {
-        FormatNumberDecimalPipe.instanceCount += 1;
-        this.instanceNumber = FormatNumberDecimalPipe.instanceCount;
-    }
+    public constructor(@Inject(LOCALE_ID) private readonly locale: string) {}
 
     public transform(value: number, {
         minimumFractionDigits = 0,
         maximumFractionDigits = Math.max(1, minimumFractionDigits),
-        unitScale = passthroughUnitScale,
-        debugInstance = false
+        unitScale = passthroughUnitScale
     }: {
         minimumFractionDigits?: number,
         maximumFractionDigits?: number,
-        unitScale?: UnitScale,
-        debugInstance?: boolean
+        unitScale?: UnitScale
     } = {
         minimumFractionDigits: 0,
         maximumFractionDigits: 1,
-        unitScale: passthroughUnitScale,
-        debugInstance: false
+        unitScale: passthroughUnitScale
     }): string {
         if (!this.decimalUnitFormat
             || this.minimumFractionDigits !== minimumFractionDigits
@@ -60,6 +52,6 @@ export class FormatNumberDecimalPipe implements PipeTransform {
                 unitScale: this.unitScale
             });
         }
-        return `${debugInstance ? `${this.instanceNumber}@` : ''}${this.decimalUnitFormat.format(value)}`;
+        return this.decimalUnitFormat.format(value);
     }
 }

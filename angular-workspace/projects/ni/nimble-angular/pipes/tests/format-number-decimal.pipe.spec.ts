@@ -104,41 +104,4 @@ describe('FormatNumberDecimalPipe', () => {
         pipe.transform(1, args);
         expect(pipe.decimalUnitFormat).toBe(initialFormatter);
     });
-
-    describe('Angular pipe instantiation', () => {
-        @Component({
-            template: `
-            <div #div1>{{ value | formatNumberDecimal:{ minimumFractionDigits: 3, debugInstance: true } }}</div>
-            <div #div2>{{ value | formatNumberDecimal:{ minimumFractionDigits: 1, unitScale: unitScale, debugInstance: true } }}</div>
-            `
-        })
-        class TestHostComponent {
-            @ViewChild('div1') public div1Ref: ElementRef<HTMLDivElement>;
-            @ViewChild('div2') public div2Ref: ElementRef<HTMLDivElement>;
-            public value = 1;
-            public unitScale = byteUnitScale;
-        }
-        let fixture: ComponentFixture<TestHostComponent>;
-        let div1: HTMLDivElement;
-        let div2: HTMLDivElement;
-        beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestHostComponent],
-                imports: [FormatNumberDecimalPipe]
-            });
-
-            fixture = TestBed.createComponent(TestHostComponent);
-            fixture.detectChanges();
-            div1 = fixture.componentInstance.div1Ref.nativeElement;
-            div2 = fixture.componentInstance.div2Ref.nativeElement;
-        });
-
-        it('creates separate pipe instances for each use in component template', () => {
-            const [id1, formatted1] = div1.innerText.split('@');
-            const [id2, formatted2] = div2.innerText.split('@');
-            expect(formatted1).toEqual('1.000');
-            expect(formatted2).toEqual('1.0 bytes');
-            expect(id1).not.toEqual(id2);
-        });
-    });
 });
