@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 18 Jan 2024 17:21:22 GMT and should not be manually modified.
+This log was last generated on Fri, 19 Jan 2024 22:22:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.0.0
+
+Fri, 19 Jan 2024 22:22:02 GMT
+
+### Major changes
+
+- Introducing data hierarchy for table. Renamed 'groupCollapseAll' on table label provider to 'collapseAll'. Update test with additional validation entry. ([ni/nimble@398b7ab](https://github.com/ni/nimble/commit/398b7ab7e2be2597de26e15e0ee463df4a02f228))
+- Bump @ni/nimble-components to v21.0.0
 
 ## 18.2.17
 
