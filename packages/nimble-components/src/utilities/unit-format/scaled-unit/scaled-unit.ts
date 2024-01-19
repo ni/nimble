@@ -1,4 +1,4 @@
-import type { ScaledUnitFormat } from './scaled-unit-format';
+import type { ScaledUnitFormat } from '../scaled-unit-format/scaled-unit-format';
 
 export interface ScaledUnitFormatFactoryOptions {
     readonly locale: string;
