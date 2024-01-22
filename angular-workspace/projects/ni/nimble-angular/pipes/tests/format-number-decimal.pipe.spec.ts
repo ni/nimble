@@ -131,5 +131,5 @@ describe('FormatNumberDecimalPipe', () => {
         it('accepts proper parameters', () => {
             expect(div.innerText).toEqual('0.00000');
         });
-    })
+    });
 });
