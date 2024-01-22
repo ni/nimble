@@ -169,5 +169,10 @@ window.NimbleBlazor = window.NimbleBlazor ?? {
         getValidity: function (themeProviderReference) {
             return themeProviderReference.validity;
         }
+    },
+    WaferMap: {
+        getValidity: function (waferMapReference) {
+            return waferMapReference.validity;
+        }
     }
 };
