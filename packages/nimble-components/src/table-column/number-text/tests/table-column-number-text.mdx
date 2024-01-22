@@ -33,8 +33,8 @@ To use them:
 -   Use the pipe in your templates (pipe names are `formatNumberDefault` and `formatNumberDecimal`), or instantiate and use directly in your code
 -   `formatNumberDefault` optionally takes a `UnitScale` object as a parameter, which may be used to format with unit labels
 -   `formatNumberDecimal` optionally takes a configuration object as a parameter. The object may include any of the following properties:
-    -   `minimumFractionDigits` - the minimum number of decimal places to show (defaults to 0)
-    -   `maximumFractionDigits` - the maximum number of decimal places to show (defaults to 1)
-    -   `unitScale` - a `UnitScale` object defining the scale of units to use
+    -   `decimalDigits` - The number of decimal places to show. If neither `decimalDigits` or `maximumDecimalDigits` are set, a default value of 2 is used. `decimalDigits` and `maximumDecimalDigits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).
+    -   `maximumDecimalDigits` - The maximum number of decimal places to show. This differs from `decimalDigits` in that trailing zeros are omitted. `decimalDigits` and `maximumDecimalDigits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).
+    -   `unitScale` - A `UnitScale` object defining the scale of units to use
 
 Supported `UnitScale` values are `byteUnitScale`, `byte1024UnitScale`, and `voltUnitScale`, all of which are exported from both `@ni/nimble-angular/pipes/format-number-decimal` and `@ni/nimble-angular/pipes/format-number-default`.
