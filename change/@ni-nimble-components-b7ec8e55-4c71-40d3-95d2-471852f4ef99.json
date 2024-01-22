@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix bug where table rows are not rendered correctly when the table is reattached to the DOM",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
