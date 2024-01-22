@@ -18,11 +18,18 @@ By addressing these challenges, we aim to enhance the rendering capabilities of 
 ## Links To Relevant Work Items and Reference Material
 
 [Feature 2391160: Faster Rendering of Large Wafer Maps](https://dev.azure.com/ni/DevCentral/_workitems/edit/2391160)
+
 [Faster Rendering of Large Wafer Maps HLD](https://ni.visualstudio.com/DevCentral/_git/Skyline?path=/docs/design-documents/Ozone/Requirements/Optimize-Wafer-Map-to-Handle-NXP-s-340k-die-per-wafer-data-set/Faster-rendering-of-Large-Wafer-Maps.md&version=GC00f8bb9e698a7310f68fa54395eee63a99cec368&_a=preview)
+
+[Worker Rendering POC](https://github.com/ni/nimble/compare/main...users/munteannatan/scale_and_test_updates)
 
 ## Implementation / Design
 
-We will change the whole process of ingesting the data and rendering it in the canvas. The main changes are the data structures used and the process from single threaded to multi threaded.
+We will change the whole process of ingesting the data and rendering it in the canvas. The main changes are the data structures used and the process from single threaded to multi threaded. We expect that using better structured data we will gain access time which will improve the rendering and allow distributing the workload if necessary. Moreover, the adoption of thread based processing will free the main thread of the browser to handle user requests and other page events, while allowing us to scale in the future by parallel processing if the need arises.
+
+The detailed plan can be found in the azure HLD [Faster Rendering of Large Wafer Maps HLD](https://ni.visualstudio.com/DevCentral/_git/Skyline?path=/docs/design-documents/Ozone/Requirements/Optimize-Wafer-Map-to-Handle-NXP-s-340k-die-per-wafer-data-set/Faster-rendering-of-Large-Wafer-Maps.md&version=GC00f8bb9e698a7310f68fa54395eee63a99cec368&_a=preview).
+
+The POC is found in this branch [Worker Rendering POC](https://github.com/ni/nimble/compare/main...users/munteannatan/scale_and_test_updates).
 
 ### Data Structure and Interface
 
@@ -64,6 +71,45 @@ We will be using the [threads.js](https://threads.js.org/) library to spin up th
 The worker will function as a state automaton which will need some data after initialization, and it will render everything using an [OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas).
 
 The main thread will communicate with the worker by signaling any data changes or user events which will trigger full or partial renders.
+
+The strategy for improvement will be gradual. We will try to reuse the existing code as much as possible, but if the performance will not be met, we will improve the existing parsing methods and increase the number of workers.
+
+### Performance Testing
+
+We wish to measure functions performance of wafer map using the existing lighthouse setup paired with windows.performance tools.
+
+Example:
+
+```TS
+    const functionName = 'createWaferMap';
+    performance.mark(`${functionName}_start`);
+    const wafermap = document.createElement('nimble-wafer-map');
+    document.body.appendChild(wafermap);
+    performance.mark(`${functionName}_end`);
+    performance.measure(functionName, `${functionName}_start`, `${functionName}_end`);
+```
+
+The example shows how custom markers can be set in the tested code. The result of these user marks can be observed inside lighthouse like in the screenshot bellow.
+
+![User Timing and measures](./resources/user-timing-marks-and-measures.PNG)
+
+We wish to extend the existing lighthouse CI testing to include the wafermap component and record various metrics about the performance it has when rendering multiple generated data loads. They will include data ingestion, rendering time, rerendering when user events get triggered and data changes.
+
+Our target goals are:
+
+1. For wafers >200k and <1m die
+
+    1. Initial rendering: <1 second
+    1. Zoom/pan actions: <250ms
+    1. Configuration changes that don't modify the dataset (e.g. show labels):
+       <250ms
+    1. Configuration changes that modify the dataset (e.g. replace layers): <1 second
+
+1. For wafers >1m and <5m die
+    1. Initial rendering: <10 seconds
+    1. Zoom/pan actions: <250ms
+    1. Interactions that don't modify the dataset (e.g. show labels): <250ms
+    1. Interactions that modify the dataset (e.g. replace layers): <10 seconds
 
 ## Alternative Implementations / Designs
 
