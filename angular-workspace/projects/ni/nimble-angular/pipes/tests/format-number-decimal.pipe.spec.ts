@@ -108,7 +108,7 @@ describe('FormatNumberDecimalPipe', () => {
     describe('in component template', () => {
         @Component({
             template: `
-            <div #div>{{ value | formatNumberDecimal:{ decimalDigits: 4 } }}</div>
+            <div #div>{{ value | formatNumberDecimal:{ decimalDigits: 5 } }}</div>
             `
         })
         class TestHostComponent {
