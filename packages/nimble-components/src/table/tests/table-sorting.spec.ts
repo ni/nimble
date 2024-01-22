@@ -16,6 +16,7 @@ interface SimpleTableRecord extends TableRecord {
     stringData1?: string | null;
     stringData2?: string | null;
     stringData3?: string | null;
+    parentId?: string;
 }
 
 // prettier-ignore
@@ -1019,6 +1020,105 @@ describe('Table sorting', () => {
             await pageObject.clickColumnHeader(0);
 
             expect(listener.spy).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('with data hierarchy', () => {
+        const hierarchicalData: readonly SimpleTableRecord[] = [
+            { id: '0', stringData1: 'fish' },
+            { id: '1', stringData1: 'bear' },
+            { id: '2', stringData1: 'dog' },
+            { id: '0.0', stringData1: 'goldfish', parentId: '0' },
+            { id: '0.1', stringData1: 'tuna', parentId: '0' },
+            { id: '1.0', stringData1: 'polar', parentId: '1' },
+            { id: '1.1', stringData1: 'panda', parentId: '1' },
+            { id: '1.2', stringData1: 'grizzly', parentId: '1' },
+            { id: '2.0', stringData1: 'lab', parentId: '2' },
+            { id: '2.1', stringData1: 'dalmation', parentId: '2' },
+            { id: '2.2', stringData1: 'husky', parentId: '2' },
+            { id: '2.0.0', stringData1: 'white', parentId: '2.0' },
+            { id: '2.0.1', stringData1: 'chocolate', parentId: '2.0' },
+            { id: '2.0.2', stringData1: 'black', parentId: '2.0' }
+        ] as const;
+
+        const hierarchicalAscendingSortOrder = [
+            '1', // bear
+            '1.2', // bear - grizzly
+            '1.1', // bear - panda
+            '1.0', // bear - polar
+            '2', // dog
+            '2.1', // dog - dalmation
+            '2.2', // dog - husky
+            '2.0', // dog - lab
+            '2.0.2', // dog - lab - black
+            '2.0.1', // dog - lab - chocolate
+            '2.0.0', // dog - lab - white
+            '0', // fish
+            '0.0', // fish - goldfish
+            '0.1' // fish - tuna
+        ] as const;
+
+        const flatAscendingSortOrder = [
+            '1', // bear
+            '2.0.2', // black
+            '2.0.1', // chocolate
+            '2.1', // dalmation
+            '2', // dog
+            '0', // fish
+            '0.0', // goldfish
+            '1.2', // grizzly
+            '2.2', // husky
+            '2.0', // lab
+            '1.1', // panda
+            '1.0', // polar
+            '0.1', // tuna
+            '2.0.0' // white
+        ] as const;
+
+        beforeEach(async () => {
+            await element.setData(hierarchicalData);
+            await connect();
+            await waitForUpdatesAsync();
+        });
+
+        it('sorting hierarchical data sorts each level of the hierarchy independently', async () => {
+            element.parentIdFieldName = 'parentId';
+            column1.sortDirection = 'ascending';
+            column1.sortIndex = 0;
+            await waitForUpdatesAsync();
+
+            expect(getRenderedRecordIds()).toEqual(
+                hierarchicalAscendingSortOrder
+            );
+        });
+
+        it('configuring hierarchy on a sorted table results in sorted data at each level of the hierarchy', async () => {
+            column1.sortDirection = 'ascending';
+            column1.sortIndex = 0;
+            await waitForUpdatesAsync();
+            expect(getRenderedRecordIds()).toEqual(flatAscendingSortOrder);
+
+            element.parentIdFieldName = 'parentId';
+            await waitForUpdatesAsync();
+
+            expect(getRenderedRecordIds()).toEqual(
+                hierarchicalAscendingSortOrder
+            );
+        });
+
+        it('removing hierarchy on a sorted table results in a sorted flat list of rows', async () => {
+            element.parentIdFieldName = 'parentId';
+            column1.sortDirection = 'ascending';
+            column1.sortIndex = 0;
+            await waitForUpdatesAsync();
+            expect(getRenderedRecordIds()).toEqual(
+                hierarchicalAscendingSortOrder
+            );
+
+            element.parentIdFieldName = undefined;
+            await waitForUpdatesAsync();
+
+            expect(getRenderedRecordIds()).toEqual(flatAscendingSortOrder);
         });
     });
 });
