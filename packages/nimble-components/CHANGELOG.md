@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 17 Jan 2024 14:23:42 GMT and should not be manually modified.
+This log was last generated on Fri, 19 Jan 2024 22:22:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.0.0
+
+Fri, 19 Jan 2024 22:22:02 GMT
+
+### Major changes
+
+- Introducing data hierarchy to table. Renamed 'groupCollapseAll' on the table label provider to 'collapseAll'. ([ni/nimble@398b7ab](https://github.com/ni/nimble/commit/398b7ab7e2be2597de26e15e0ee463df4a02f228))
+
+## 20.18.1
+
+Thu, 18 Jan 2024 17:21:22 GMT
+
+### Patches
+
+- Unify unit scale types to single pattern ([ni/nimble@76dff67](https://github.com/ni/nimble/commit/76dff67e47387c2f938a324798f3ca29442360ec))
 
 ## 20.18.0
 

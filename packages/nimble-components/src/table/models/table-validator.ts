@@ -1,11 +1,11 @@
 import type { TableColumn } from '../../table-column/base';
-import { TableNode, TableRowSelectionMode, TableValidity } from '../types';
+import { TableRecord, TableRowSelectionMode, TableValidity } from '../types';
 
 /**
  * Helper class for the nimble-table to validate that the table's configuration
  * is valid and report which aspects of the configuration are valid or invalid.
  */
-export class TableValidator<TData extends TableNode> {
+export class TableValidator<TData extends TableRecord> {
     private duplicateRecordId = false;
     private missingRecordId = false;
     private invalidRecordId = false;
@@ -15,6 +15,7 @@ export class TableValidator<TData extends TableNode> {
     private duplicateGroupIndex = false;
     private idFieldNameNotConfigured = false;
     private invalidColumnConfiguration = false;
+    private invalidParentIdConfiguration = false;
 
     private readonly recordIds = new Set<string>();
 
@@ -28,7 +29,8 @@ export class TableValidator<TData extends TableNode> {
             duplicateSortIndex: this.duplicateSortIndex,
             duplicateGroupIndex: this.duplicateGroupIndex,
             idFieldNameNotConfigured: this.idFieldNameNotConfigured,
-            invalidColumnConfiguration: this.invalidColumnConfiguration
+            invalidColumnConfiguration: this.invalidColumnConfiguration,
+            invalidParentIdConfiguration: this.invalidParentIdConfiguration
         };
     }
 
@@ -45,16 +47,18 @@ export class TableValidator<TData extends TableNode> {
         );
     }
 
-    public validateSelectionMode(
+    public validateIdFieldConfiguration(
         selectionMode: TableRowSelectionMode,
-        idFieldName: string | undefined
+        idFieldName: string | undefined,
+        parentIdFieldName: string | undefined
     ): boolean {
-        if (selectionMode === TableRowSelectionMode.none) {
-            this.idFieldNameNotConfigured = false;
-        } else {
+        const idFieldNameRequired = selectionMode !== TableRowSelectionMode.none
+            || typeof parentIdFieldName === 'string';
+        if (idFieldNameRequired) {
             this.idFieldNameNotConfigured = typeof idFieldName !== 'string';
+        } else {
+            this.idFieldNameNotConfigured = false;
         }
-
         return !this.idFieldNameNotConfigured;
     }
 
@@ -73,17 +77,12 @@ export class TableValidator<TData extends TableNode> {
         }
 
         for (const record of data) {
-            if (
-                !Object.prototype.hasOwnProperty.call(
-                    record.clientRecord,
-                    idFieldName
-                )
-            ) {
+            if (!Object.prototype.hasOwnProperty.call(record, idFieldName)) {
                 this.missingRecordId = true;
                 continue;
             }
 
-            const id = record.clientRecord[idFieldName];
+            const id = record[idFieldName];
             if (typeof id !== 'string') {
                 this.invalidRecordId = true;
                 continue;
@@ -155,6 +154,10 @@ export class TableValidator<TData extends TableNode> {
         requestedRecordIds: readonly string[]
     ): string[] {
         return requestedRecordIds.filter(id => this.recordIds.has(id));
+    }
+
+    public setParentIdConfigurationValidity(valid: boolean): void {
+        this.invalidParentIdConfiguration = !valid;
     }
 
     private validateIndicesAreUnique(indices: readonly number[]): boolean {

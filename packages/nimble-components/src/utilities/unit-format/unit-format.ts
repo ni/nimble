@@ -1,4 +1,4 @@
-import type { UnitScale } from '../unit-scale/base/unit-scale';
+import type { UnitScale } from './unit-scale/unit-scale';
 
 export interface UnitFormatOptions {
     unitScale?: UnitScale;

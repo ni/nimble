@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 19 Jan 2024 22:22:02 GMT",
+      "version": "21.0.0",
+      "tag": "@ni/nimble-components_v21.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "398b7ab7e2be2597de26e15e0ee463df4a02f228",
+            "comment": "Introducing data hierarchy to table. Renamed 'groupCollapseAll' on the table label provider to 'collapseAll'."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 18 Jan 2024 17:21:22 GMT",
+      "version": "20.18.1",
+      "tag": "@ni/nimble-components_v20.18.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "76dff67e47387c2f938a324798f3ca29442360ec",
+            "comment": "Unify unit scale types to single pattern"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 18 Jan 2024 14:49:46 GMT",
+      "version": "20.18.0",
+      "tag": "@ni/nimble-components_v20.18.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "523a79084219cecf489ada9d5374fc7e03f41ecf",
+            "comment": "HLD for filterable Select"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Jan 2024 14:23:42 GMT",
       "version": "20.18.0",
       "tag": "@ni/nimble-components_v20.18.0",
