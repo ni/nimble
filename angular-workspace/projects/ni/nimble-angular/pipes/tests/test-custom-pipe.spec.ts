@@ -49,4 +49,15 @@ describe('Custom pipe instantiation', () => {
     it('creates separate pipe instances for each use in component template', () => {
         expect(div1.innerText).not.toEqual(div2.innerText);
     });
+
+    it('does not create new pipe instances when template is updated', () => {
+        const originalDiv1Value = div1.innerText;
+        const originalDiv2Value = div1.innerText;
+
+        fixture.componentInstance.value = 1;
+        fixture.detectChanges();
+
+        expect(div1.innerText).toEqual(originalDiv1Value);
+        expect(div2.innerText).toEqual(originalDiv2Value);
+    });
 });

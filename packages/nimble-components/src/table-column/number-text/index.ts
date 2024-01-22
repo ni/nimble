@@ -40,8 +40,6 @@ declare global {
     }
 }
 
-const defaultDecimalDigits = 2;
-
 /**
  * The table column for displaying numbers as text.
  */
@@ -186,12 +184,11 @@ export class TableColumnNumberText extends TableColumnTextBase {
         const unitScale = this.unit?.resolvedUnitScale;
         switch (this.format) {
             case NumberTextFormat.decimal: {
-                const minimumFractionDigits = typeof this.decimalMaximumDigits === 'number'
-                    ? 0
-                    : this.decimalDigits ?? defaultDecimalDigits;
-                const maximumFractionDigits = this.decimalMaximumDigits
-                    ?? this.decimalDigits
-                    ?? defaultDecimalDigits;
+                const { minimumFractionDigits, maximumFractionDigits } = DecimalUnitFormat.normalizeAndDefaultFractionDigitOptions(
+                    this.decimalDigits,
+                    undefined,
+                    this.decimalMaximumDigits
+                );
                 return new DecimalUnitFormat(lang.getValueFor(this), {
                     minimumFractionDigits,
                     maximumFractionDigits,

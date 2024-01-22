@@ -1,3 +1,5 @@
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormatNumberDecimalPipe, byteUnitScale } from '../format-number-decimal.pipe';
 
 describe('FormatNumberDecimalPipe', () => {
@@ -6,20 +8,20 @@ describe('FormatNumberDecimalPipe', () => {
             name: 'default formatting is as expected',
             options: {},
             value: 100,
-            expected: '100'
+            expected: '100.00'
         },
         {
-            name: 'honors the minimumFractionDigits value',
+            name: 'honors the decimalDigits value',
             options: {
-                minimumFractionDigits: 1
+                decimalDigits: 1
             },
             value: 100,
             expected: '100.0'
         },
         {
-            name: 'honors the maximumFractionDigits value',
+            name: 'honors the maximumDecimalDigits value',
             options: {
-                maximumFractionDigits: 1
+                maximumDecimalDigits: 1
             },
             value: 100.1234,
             expected: '100.1'
@@ -30,7 +32,7 @@ describe('FormatNumberDecimalPipe', () => {
                 unitScale: byteUnitScale
             },
             value: 3000,
-            expected: '3 kB'
+            expected: '3.00 kB'
         },
         {
             name: 'honors the locale value',
@@ -39,15 +41,7 @@ describe('FormatNumberDecimalPipe', () => {
                 unitScale: byteUnitScale
             },
             value: 300,
-            expected: '300 Byte'
-        },
-        {
-            name: 'defaults the maximumFractionDigits based on the minimumFractionDigits',
-            options: {
-                minimumFractionDigits: 5
-            },
-            value: 300.123456,
-            expected: '300.12346'
+            expected: '300,00 Byte'
         },
     ];
 
@@ -55,37 +49,46 @@ describe('FormatNumberDecimalPipe', () => {
         it(test.name, () => {
             const pipe = new FormatNumberDecimalPipe(test.options.locale ?? 'en');
             expect(pipe.transform(test.value, {
-                minimumFractionDigits: test.options.minimumFractionDigits,
-                maximumFractionDigits: test.options.maximumFractionDigits,
+                decimalDigits: test.options.decimalDigits,
+                maximumDecimalDigits: test.options.maximumDecimalDigits,
                 unitScale: test.options.unitScale
             })).toEqual(test.expected);
         });
     });
 
-    it('handles change to minimumFractionDigits argument in subsequent call to transform()', () => {
+    it('throws an error if both decimalDigits and maximumDecimalDigits are provided', () => {
         const pipe = new FormatNumberDecimalPipe('en');
-        expect(pipe.transform(100)).toEqual('100');
-        expect(pipe.transform(100, { minimumFractionDigits: 4 })).toEqual('100.0000');
+        expect(() => {
+            pipe.transform(1, {
+                decimalDigits: 1,
+                maximumDecimalDigits: 1
+            });
+        }).toThrowError(/decimalDigits and maximumDecimalDigits/g);
     });
 
-    it('handles change to maximumFractionDigits argument in subsequent call to transform()', () => {
+    it('handles change to decimalDigits argument in subsequent call to transform()', () => {
         const pipe = new FormatNumberDecimalPipe('en');
-        expect(pipe.transform(100.12345)).toEqual('100.1');
-        expect(pipe.transform(100.12345, { maximumFractionDigits: 2 })).toEqual('100.12');
+        expect(pipe.transform(100)).toEqual('100.00');
+        expect(pipe.transform(100, { decimalDigits: 4 })).toEqual('100.0000');
+    });
+
+    it('handles change to maximumDecimalDigits argument in subsequent call to transform()', () => {
+        const pipe = new FormatNumberDecimalPipe('en');
+        expect(pipe.transform(100.12345)).toEqual('100.12');
+        expect(pipe.transform(100.12345, { maximumDecimalDigits: 3 })).toEqual('100.123');
     });
 
     it('handles change to unitScale argument in subsequent call to transform()', () => {
         const pipe = new FormatNumberDecimalPipe('en');
-        expect(pipe.transform(100)).toEqual('100');
-        expect(pipe.transform(100, { unitScale: byteUnitScale })).toEqual('100 bytes');
+        expect(pipe.transform(100)).toEqual('100.00');
+        expect(pipe.transform(100, { unitScale: byteUnitScale })).toEqual('100.00 bytes');
     });
 
-    it('handles changes to all arguments in subsequent call to transform()', () => {
+    it('handles changes to multiple arguments in subsequent call to transform()', () => {
         const pipe = new FormatNumberDecimalPipe('en');
-        expect(pipe.transform(100.12345)).toEqual('100.1');
+        expect(pipe.transform(100.12345)).toEqual('100.12');
         expect(pipe.transform(100.12345, {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 3,
+            maximumDecimalDigits: 3,
             unitScale: byteUnitScale
         })).toEqual('100.123 bytes');
     });
@@ -93,8 +96,7 @@ describe('FormatNumberDecimalPipe', () => {
     it('reuses format object when same arguments are passed to transform()', () => {
         const pipe = new FormatNumberDecimalPipe('en');
         const args = {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 3,
+            maximumDecimalDigits: 3,
             unitScale: byteUnitScale
         };
         pipe.transform(1, args);
@@ -102,4 +104,32 @@ describe('FormatNumberDecimalPipe', () => {
         pipe.transform(1, args);
         expect(pipe.decimalUnitFormat).toBe(initialFormatter);
     });
+
+    describe('in component template', () => {
+        @Component({
+            template: `
+            <div #div>{{ value | formatNumberDecimal:{ decimalDigits: "x5" } }}</div>
+            `
+        })
+        class TestHostComponent {
+            @ViewChild('div') public divRef: ElementRef<HTMLDivElement>;
+            public value = 0;
+        }
+        let fixture: ComponentFixture<TestHostComponent>;
+        let div: HTMLDivElement;
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestHostComponent],
+                imports: [FormatNumberDecimalPipe]
+            });
+
+            fixture = TestBed.createComponent(TestHostComponent);
+            fixture.detectChanges();
+            div = fixture.componentInstance.divRef.nativeElement;
+        });
+
+        it('accepts proper parameters', () => {
+            expect(div.innerText).toEqual('0.00000');
+        });
+    })
 });

@@ -27,18 +27,24 @@ export class FormatNumberDecimalPipe implements PipeTransform {
     public constructor(@Inject(LOCALE_ID) private readonly locale: string) {}
 
     public transform(value: number, {
-        minimumFractionDigits = 0,
-        maximumFractionDigits = Math.max(1, minimumFractionDigits),
+        decimalDigits,
+        maximumDecimalDigits,
         unitScale = passthroughUnitScale
     }: {
-        minimumFractionDigits?: number,
-        maximumFractionDigits?: number,
+        decimalDigits?: number,
+        maximumDecimalDigits?: number,
         unitScale?: UnitScale
     } = {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 1,
         unitScale: passthroughUnitScale
     }): string {
+        if (decimalDigits !== undefined && maximumDecimalDigits !== undefined) {
+            throw new Error('Parameters decimalDigits and maximumDecimalDigits are mutually exclusive. Do not pass both.');
+        }
+        const { minimumFractionDigits, maximumFractionDigits } = DecimalUnitFormat.normalizeAndDefaultFractionDigitOptions(
+            decimalDigits,
+            undefined,
+            maximumDecimalDigits
+        );
         if (!this.decimalUnitFormat
             || this.minimumFractionDigits !== minimumFractionDigits
             || this.maximumFractionDigits !== maximumFractionDigits
