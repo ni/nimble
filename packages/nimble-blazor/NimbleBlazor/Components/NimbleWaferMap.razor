@@ -1,6 +1,18 @@
 ﻿@namespace NimbleBlazor
 <nimble-wafer-map
     @ref="_waferMap"
-    origin-location="@OriginLocation"
+    origin-location="@OriginLocation.ToAttributeValue()"
+    grid-min-x="@GridMinX"
+    grid-max-x="@GridMaxX"
+    grid-min-y="@GridMinY"
+    grid-max-y="@GridMaxY"
+    orientation="@Orientation.ToAttributeValue()"
+    max-characters="@MaxCharacters"
+    die-labels-hidden="@DieLabelsHidden"
+    die-labels-suffix="@DieLabelsSuffix"
+    color-scale-mode="@ColorScaleMode"
+    highlighted-tags="@HighlightedTags"
+    dies="@Dies"
+    color-scale="@ColorScale"
     @attributes="AdditionalAttributes">
 </nimble-wafer-map>
