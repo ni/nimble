@@ -1,5 +1,4 @@
 *
-!/dist/commonjs/**
+!/dist/*.*
 !/dist/esm/**
-*.spec.*
-*.tsbuildinfo
+/dist/esm/**/tests

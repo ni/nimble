@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
       "target": "ES2020",
-      "moduleResolution": "node",
-      "outDir": "./dist",
+      "module": "Node16",
+      "moduleResolution": "Node16",
+      "outDir": "./dist/esm",
       "importHelpers": false,
-      "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": true,
       "strict": true,
-      "skipLibCheck": true
+      "declaration": true,
+      "sourceMap": true,
+      "inlineSources": true
     },
     "include": [
       "src"

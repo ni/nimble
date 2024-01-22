@@ -28,10 +28,14 @@ module.exports = {
             }
         },
         {
-            files: ['*.js'],
+            files: ['*.js', '*.cjs'],
             extends: [
                 '@ni/eslint-config-javascript'
             ],
+            rules: {
+                // Configuration scripts will not be in published package and are allowed to use devDependencies
+                'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+            }
         }
     ],
     ignorePatterns: ['dist', 'node_modules']

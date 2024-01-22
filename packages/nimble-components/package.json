@@ -100,7 +100,7 @@
     "@microsoft/fast-react-wrapper": "^0.3.20",
     "@ni/eslint-config-javascript": "^4.2.0",
     "@ni/eslint-config-typescript": "^4.2.0",
-    "@ni/jasmine-parameterized": "^1.0.0",
+    "@ni/jasmine-parameterized": "^0.1.0",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
