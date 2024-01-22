@@ -44,6 +44,7 @@
     "@ni/eslint-config-javascript": "^4.2.0",
     "@ni/eslint-config-typescript": "^4.2.0",
     "@ni/nimble-tokens": "*",
+    "@ni/jasmine-parameterized": "*",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@types/jasmine": "^4.3.1",
     "@types/node": "^18.11.18",
