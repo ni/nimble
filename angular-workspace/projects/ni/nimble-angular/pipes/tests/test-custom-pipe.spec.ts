@@ -52,7 +52,7 @@ describe('Custom pipe instantiation', () => {
 
     it('does not create new pipe instances when template is updated', () => {
         const originalDiv1Value = div1.innerText;
-        const originalDiv2Value = div1.innerText;
+        const originalDiv2Value = div2.innerText;
 
         fixture.componentInstance.value = 1;
         fixture.detectChanges();

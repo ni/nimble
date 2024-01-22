@@ -62,21 +62,21 @@ export class DecimalUnitFormat extends UnitFormat<DecimalUnitFormatOptions> {
             minimumFractionDigits?: number,
             maximumFractionDigits?: number
         } {
+        const fractionDigitsHasValue = typeof fractionDigits === 'number';
+        const minimumFractionDigitsHasValue = typeof minimumFractionDigits === 'number';
+        const maximumFractionDigitsHasValue = typeof maximumFractionDigits === 'number';
         if (
-            fractionDigits !== undefined
-            && (maximumFractionDigits !== undefined
-                || minimumFractionDigits !== undefined)
+            fractionDigitsHasValue
+            && (minimumFractionDigitsHasValue || maximumFractionDigitsHasValue)
         ) {
             throw new Error(
                 'fractionDigits is mutually exclusive with minimumFractionDigits and maximumFractionDigits. Do not mix.'
             );
         }
-        const actualMinimumFractionDigits = maximumFractionDigits === undefined
-            && minimumFractionDigits === undefined
+        const actualMinimumFractionDigits = !maximumFractionDigitsHasValue && !minimumFractionDigitsHasValue
             ? fractionDigits ?? DecimalUnitFormat.defaultFractionDigits
             : minimumFractionDigits ?? 0;
-        const actualMaximumFractionDigits = maximumFractionDigits === undefined
-            && minimumFractionDigits === undefined
+        const actualMaximumFractionDigits = !maximumFractionDigitsHasValue && !minimumFractionDigitsHasValue
             ? fractionDigits ?? DecimalUnitFormat.defaultFractionDigits
             : maximumFractionDigits;
         return {
