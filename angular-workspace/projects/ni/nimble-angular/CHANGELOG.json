@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 22 Jan 2024 15:41:43 GMT",
+      "version": "19.2.0",
+      "tag": "@ni/nimble-angular_v19.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "e91fdcd3ece03166d22a148a291a72ce7a184c5d",
+            "comment": "Create base mapping class in Angular"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 19 Jan 2024 23:00:07 GMT",
       "version": "19.1.0",
       "tag": "@ni/nimble-angular_v19.1.0",

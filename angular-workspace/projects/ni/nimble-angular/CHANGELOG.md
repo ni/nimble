@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 19 Jan 2024 23:00:07 GMT and should not be manually modified.
+This log was last generated on Mon, 22 Jan 2024 15:41:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.2.0
+
+Mon, 22 Jan 2024 15:41:43 GMT
+
+### Minor changes
+
+- Create base mapping class in Angular ([ni/nimble@e91fdcd](https://github.com/ni/nimble/commit/e91fdcd3ece03166d22a148a291a72ce7a184c5d))
 
 ## 19.1.0
 

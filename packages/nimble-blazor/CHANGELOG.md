@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 19 Jan 2024 22:22:02 GMT and should not be manually modified.
+This log was last generated on Mon, 22 Jan 2024 15:41:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 13.0.1
+
+Mon, 22 Jan 2024 15:41:43 GMT
+
+### Patches
+
+- Update Blazor mapping base class ([ni/nimble@e91fdcd](https://github.com/ni/nimble/commit/e91fdcd3ece03166d22a148a291a72ce7a184c5d))
 
 ## 13.0.0
 
