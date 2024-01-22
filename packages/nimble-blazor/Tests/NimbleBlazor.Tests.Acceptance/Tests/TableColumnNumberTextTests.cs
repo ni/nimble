@@ -21,7 +21,7 @@ namespace NimbleBlazor.Tests.Acceptance
 
                 var unitByte = table.Locator("nimble-unit-byte");
                 await Assertions.Expect(unitByte).ToHaveCountAsync(1);
-                await Assertions.Expect(unitByte).ToHaveAttributeAsync("binary", "true");
+                await Assertions.Expect(unitByte).ToHaveAttributeAsync("binary", string.Empty);
             }
         }
     }
