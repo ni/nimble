@@ -1491,10 +1491,12 @@ describe('Table', () => {
             await pageObject.scrollToLastRowAsync();
         }
 
-        async function disconnectAndReconnect(updatesWhileDisconnected: {
-            data?: readonly SimpleTableRecord[],
-            height?: string
-        } = { data: undefined, height: undefined }): Promise<void> {
+        async function disconnectAndReconnect(
+            updatesWhileDisconnected: {
+                data?: readonly SimpleTableRecord[],
+                height?: string
+            } = { data: undefined, height: undefined }
+        ): Promise<void> {
             await disconnect();
             if (updatesWhileDisconnected.data !== undefined) {
                 await element.setData(updatesWhileDisconnected.data);
@@ -1570,7 +1572,9 @@ describe('Table', () => {
             await disconnectAndReconnect({ height: '700px' });
 
             const renderedRowCountAfterReconnect = pageObject.getRenderedRowCount();
-            expect(renderedRowCountAfterReconnect).toBeGreaterThan(renderedRowCountBeforeDisconnect);
+            expect(renderedRowCountAfterReconnect).toBeGreaterThan(
+                renderedRowCountBeforeDisconnect
+            );
         });
 
         it('adjusts the number of rendered rows when the table height decreases while not attached', async () => {
@@ -1582,7 +1586,9 @@ describe('Table', () => {
             await disconnectAndReconnect({ height: '200px' });
 
             const renderedRowCountAfterReconnect = pageObject.getRenderedRowCount();
-            expect(renderedRowCountAfterReconnect).toBeLessThan(renderedRowCountBeforeDisconnect);
+            expect(renderedRowCountAfterReconnect).toBeLessThan(
+                renderedRowCountBeforeDisconnect
+            );
         });
     });
 });
