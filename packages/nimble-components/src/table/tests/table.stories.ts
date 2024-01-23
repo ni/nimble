@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
-import { TableRowSelectionMode } from '../types';
+import { TableRowExpansionToggleEventDetail, TableRowSelectionMode } from '../types';
 import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
@@ -27,6 +27,8 @@ interface TableArgs extends LabelUserArgs {
     getSelectedRecordIds: undefined;
     tableRef: Table;
     updateData: (args: TableArgs) => void;
+    addDynamicChildrenIfNeeded: (args: TableArgs, event: CustomEvent<TableRowExpansionToggleEventDetail>) => void;
+    addedDynamicChildren: boolean;
 }
 
 const simpleData = [
@@ -260,6 +262,7 @@ const metadata: Meta<TableArgs> = {
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
+            @row-expand-toggle="${(x, c) => x.addDynamicChildrenIfNeeded(x, c.event as CustomEvent<TableRowExpansionToggleEventDetail>)}"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
@@ -387,7 +390,30 @@ const metadata: Meta<TableArgs> = {
                 // but doesn't seem to be upgraded to a custom element yet
                 await customElements.whenDefined('nimble-table');
                 await x.tableRef.setData(dataSets[x.data]);
+                await x.tableRef.setRowOptions([{ id: '10', options: { forceExpandable: true } }]);
             })();
+        },
+        addDynamicChildrenIfNeeded: (x, e) => {
+            if (x.data !== ExampleDataType.hierarchicalDataSet) {
+                return;
+            }
+
+            if (e.detail.recordId !== '10' || e.detail.newState !== true || x.addedDynamicChildren) {
+                return;
+            }
+
+            const newData = [...dataSets[x.data], {
+                firstName: 'Seymour - 2',
+                lastName: 'Skinner',
+                quote: 'Not sure what to put here',
+                age: 0,
+                id: '11',
+                parentId: '10'
+            }];
+            setTimeout(() => {
+                x.addedDynamicChildren = true;
+                void x.tableRef.setData(newData);
+            }, 3000);
         }
     }
 };

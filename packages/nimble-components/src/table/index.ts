@@ -45,7 +45,8 @@ import {
     TableRowSelectionState,
     TableRowSelectionToggleEventDetail,
     TableRowState,
-    TableValidity
+    TableValidity,
+    TableRowOptions
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -57,6 +58,7 @@ import { InteractiveSelectionManager } from './models/interactive-selection-mana
 import { DataHierarchyManager } from './models/data-hierarchy-manager';
 import { ExpansionManager } from './models/expansion-manager';
 import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
+import { RowOptionsManager } from './models/row-options-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -222,6 +224,7 @@ export class Table<
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly tableValidator = new TableValidator<TData>();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
+    private readonly rowOptionsManager = new RowOptionsManager();
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private dataHierarchyManager?: DataHierarchyManager<TData>;
     private readonly expansionManager: ExpansionManager<TData>;
@@ -245,6 +248,7 @@ export class Table<
             getSortedRowModel: tanStackGetSortedRowModel(),
             getGroupedRowModel: tanStackGetGroupedRowModel(),
             getExpandedRowModel: tanStackGetExpandedRowModel(),
+            getRowCanExpand: this.getRowCanExpand,
             getIsRowExpanded: this.getIsRowExpanded,
             getSubRows: r => r.subRows,
             columns: [],
@@ -270,11 +274,12 @@ export class Table<
             this.table,
             this.selectionMode
         );
-        this.expansionManager = new ExpansionManager(this.table);
+        this.expansionManager = new ExpansionManager(this.table, this.rowOptionsManager);
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
         await this.processPendingUpdates();
+        this.rowOptionsManager.reset();
         const tanstackUpdates = this.calculateTanStackData(newData);
         this.updateTableOptions(tanstackUpdates);
     }
@@ -298,6 +303,17 @@ export class Table<
                 rowSelection: this.calculateTanStackSelectionState(recordIds)
             }
         });
+    }
+
+    public async setRowOptions(rowOptions: { id: string, options: TableRowOptions }[]): Promise<void> {
+        await this.processPendingUpdates();
+
+        for (const { id, options } of rowOptions) {
+            if (this.tableValidator.isRecordIdPresent(id)) {
+                this.rowOptionsManager.setRowOptions(id, options);
+            }
+        }
+        this.refreshRows();
     }
 
     public override connectedCallback(): void {
@@ -770,6 +786,7 @@ export class Table<
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
             updatedOptions.state.rowSelection = {};
             this.selectionManager.handleSelectionReset();
+            this.rowOptionsManager.reset();
         }
         if (this.tableUpdateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
@@ -904,10 +921,7 @@ export class Table<
         this.tableData = rows.map(row => {
             const isGroupRow = row.getIsGrouped();
             const hasParentRow = isGroupRow ? false : row.getParentRow();
-            // we check row.original.subRows below because row.subRows is populated for group rows
-            // which we don't want to include
-            const isParent = row.original.subRows !== undefined
-                && row.original.subRows.length > 0;
+            const isParent = !isGroupRow && this.getRowCanExpand(row);
             const isChildOfGroupRowWithNoHierarchy = !isGroupRow
                 && !isParent
                 && !hasParentRow
@@ -1022,6 +1036,12 @@ export class Table<
         }
         this.refreshRows();
     }
+
+    private readonly getRowCanExpand = (
+        row: TanStackRow<TableNode<TData>>
+    ): boolean => {
+        return this.expansionManager.isRowExpandable(row);
+    };
 
     private readonly getIsRowExpanded = (
         row: TanStackRow<TableNode<TData>>

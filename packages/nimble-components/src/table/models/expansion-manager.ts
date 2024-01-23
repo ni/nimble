@@ -3,6 +3,7 @@ import type {
     Table as TanStackTable
 } from '@tanstack/table-core';
 import type { TableNode, TableRecord } from '../types';
+import type { RowOptionsManager } from './row-options-manager';
 
 /**
  * Manages the expanded/collapsed state of rows in the table.
@@ -23,7 +24,8 @@ export class ExpansionManager<TData extends TableRecord> {
     private collapsedRows = new Set<string>();
 
     public constructor(
-        private readonly tanStackTable: TanStackTable<TableNode<TData>>
+        private readonly tanStackTable: TanStackTable<TableNode<TData>>,
+        private readonly rowOptionsManager: RowOptionsManager
     ) {}
 
     public isRowExpanded(row: TanStackRow<TableNode<TData>>): boolean {
@@ -31,7 +33,10 @@ export class ExpansionManager<TData extends TableRecord> {
             return false;
         }
 
-        return this.isInDefaultState || !this.collapsedRows.has(row.id);
+        if (this.isInDefaultState) {
+            return this.getDefaultExpansionState(row);
+        }
+        return !this.collapsedRows.has(row.id);
     }
 
     public toggleRowExpansion(row: TanStackRow<TableNode<TData>>): void {
@@ -84,7 +89,14 @@ export class ExpansionManager<TData extends TableRecord> {
         this.collapsedRows = updatedCollapsedRows;
     }
 
-    private isRowExpandable(row: TanStackRow<TableNode<TData>>): boolean {
-        return row.getIsGrouped() || row.subRows.length > 0;
+    public isRowExpandable(row: TanStackRow<TableNode<TData>>): boolean {
+        return row.subRows.length > 0 || this.rowOptionsManager.isRowForceExpandable(row.id);
+    }
+
+    private getDefaultExpansionState(row: TanStackRow<TableNode<TData>>): boolean {
+        // Rows with children (group rows and parent rows with populated children)
+        // default to expanded. Other rows (parent rows with lazy-loaded children)
+        // default to collapsed.
+        return row.subRows.length !== 0;
     }
 }

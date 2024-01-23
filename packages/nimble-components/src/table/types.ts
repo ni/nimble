@@ -41,6 +41,8 @@ export interface TableRecord {
 }
 
 /**
+ * @internal
+ *
  * Describes a hierarchical data structure that is used for
  * the internal representation of the data, and allows us to represent data with
  * parent-child relationships within Tanstack.
@@ -74,6 +76,15 @@ export interface TableValidity extends ValidityObject {
     readonly idFieldNameNotConfigured: boolean;
     readonly invalidColumnConfiguration: boolean;
     readonly invalidParentIdConfiguration: boolean;
+}
+
+/**
+ * Describes the options that can be configured for a row in the table.
+ */
+export interface TableRowOptions {
+    // Specifies whether or not the row should show the expand-collapse button
+    // even if it does not have any children in the data.
+    forceExpandable: boolean;
 }
 
 export interface TableActionMenuToggleEventDetail {
