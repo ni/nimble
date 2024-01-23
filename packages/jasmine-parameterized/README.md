@@ -21,6 +21,7 @@ In the following example:
     - the test named `men` will run normally as it has no override
 
 ```ts
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 const rainTests = [
     { name: 'cats-and-dogs', type: 'idiom' },
     { name: 'frogs' type: 'idiom'},
