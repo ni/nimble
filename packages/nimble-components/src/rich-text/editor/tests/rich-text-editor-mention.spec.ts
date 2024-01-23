@@ -1111,6 +1111,7 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
+        /* Disabled due to intermittency. See: https://ni.visualstudio.com/DevCentral/_workitems/edit/2632606
         it('should commit mention into the editor on Enter', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
@@ -1129,6 +1130,7 @@ describe('RichTextEditorMentionListbox', () => {
             ).toEqual(['username1']);
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
+        */
 
         it('should commit mention into the editor on Tab', async () => {
             await appendUserMentionConfiguration(element, [
