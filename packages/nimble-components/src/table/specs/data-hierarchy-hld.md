@@ -19,9 +19,9 @@ In addition to just supporting data hierarchy with a fully provided set of data,
 
 ## Implementation / Design
 
-Users will provide hierarchical data as a flat list (just as they do for non-hierarchical data), but will have to include a field in their data that is representative of the "parent Id" for that record of data.
+Clients will provide hierarchical data as a flat list (just as they do for non-hierarchical data), but they will have to include a field in their data that is representative of the "parent Id" for that record of data.
 
-### `Table` API
+### `Table` API for specifying hierarchical data
 
 ```ts
 public Table() {
@@ -30,12 +30,6 @@ public Table() {
     // parent row. If it is not set, the data is presented without hierarchy as a flat list.
     @attr({ attribute: 'parent-id-field-name' })
     public parentIdFieldName?: string;
-
-    // This field would be an option for how we allow a user to specify the field
-    // name where they will provide a value indicating whether or not that row
-    // should always contain an expand-collapse button.
-    @attr({ attribute: 'expansion-toggle-visible-field-name' })
-    public expansionToggleVisibleFieldName?: string;
 
     // This attribute will determine the expand/collapse state of any parent row by default.
     // Note that for parent rows that have no children yet, they will always default to
@@ -59,6 +53,52 @@ interface TableRowExpansionToggleEventDetail {
 
 Note: This event will _not_ be emitted for group rows.
 
+### `Table` API for specifying lazy loaded hierarchical data
+
+In some cases, a client might know that a given row has children, but for performance reasons, that data hasn't been loaded from the backend and given to the table. To enable this use case, there will be an API on the table to specify that a given row should be expandable even if it has no children within the data and to specify that a row is loading its children. That API will look as follows:
+
+```ts
+interface TableRowOptions {
+    // Specifies whether or not the row should show the expand-collapse button
+    // even if it does not have any children in the data.
+    forceExpandable: boolean;
+
+    // Specifies whether or not the row should be in a state of loading its
+    // children.
+    loading: boolean;
+}
+    
+public Table() {
+    ...
+    // Sets the options for the rows specified by the passed IDs.
+    public async setRowOptions(rowOptions: { id: string, options: TableRowOptions }[]): Promise<void>;
+}
+```
+
+The loading state of a row will look as follows:
+
+![Lazy Loading Spinner](./spec-images/LazyLoadingSpinner.gif)
+
+Some notes about the `setRowOptions` API:
+- previously set row options will be cleared when `setData` is called
+- previously set row options will be cleared with the table's `idFieldName` changes
+- an option associated with a row ID that does not match a record in the data will be ignored
+- calling `setRowOptions` when row options have already been set on the table will have the following behavior:
+    - existing options not passed in the new `rowOptions` array will be left unmodified
+    - existing options passed in the new `rowOptions` array will be overwritten
+
+The expected usage of the dynamically loaded hierarchy is as follows:
+
+1. Call `setData` on the table with the records that are known
+1. Call `setRowOptions` with an option of `{ forceExpandable: true, loading: false }` for IDs associated with records that are known to have children that have not been loaded.
+1. Handle the `row-expansion-toggle` event on the table by doing the following for rows that need to dynamically load their data:
+    1. Start loading the data in the background.
+    1. Call `setRowOptions` on the table to update the state of the row whose data is being loaded to `{ forceExpandable: true, loading: true }`.
+1. When the dynamically loaded data has finished loading, call `setData` on the table with the new data.
+1. Call `setRowOptions` with the updated row state of each row that is either still loading or still has data that hasn't been loaded yet.
+
+_The client is responsible for checking if the row’s children have already been loaded. This can prevent unnecessary data recreation and `setData` calls on the `Table`._
+
 ### Interactions
 
 The following are various expected mouse and keyboard interactions related to parent rows:
@@ -69,23 +109,9 @@ The following are various expected mouse and keyboard interactions related to pa
 
 ### Validation
 
-The table will be invalid if the user has set the `parentIdFieldName` attribute but not the `idFieldName`. Additionally, the table will be invalid if the user has set the `forceExpandCollapseFieldName` attribute but not the `parentIdFieldName`.
+The table will be invalid if the user has set the `parentIdFieldName` attribute but not the `idFieldName`.
 
 Additionally, we will mark the table as invalid if the hierarchical representation of the data has less elements than the array that was transformed. This can happen if the incoming data either has specified parents for children that do not exist, or if there are circular child-parent relationships defined.
-
-### Lazy Loading
-
-The APIs noted above will enable the client to lazy load data into the `Table`. This will essentially be accomplished with the following steps:
-
-1. Providing a field in a record of the table data that indicates whether that row of data is intended to be a parent row. Records that are intended to be parents must set the value of the field, whose name is specified by the `forceExpandCollapseFieldName` attribute, to `true`.
-2. After providing the current data to the `Table` via the `setData` method, all rows that have a value of `true` in the field specified by the `forceExpandCollapseFieldName` attribute will display an expand/collapse button.
-3. Clients must register a handler for the `row-expand-toggle` event on the `Table` instance, and will receive that event upon clicking the expand/collapse button.
-4. The details of the handled event will include the id for the row that was expanded.
-5. The client should first call `setRowState()` in their event handler code flagging the relevant rows to be lazy loading (this will cause the lazy loading indicator to appear).
-6. The client must then add the child records (with their `parentIdFieldName` value set to the parent's recordId) to the data set and call `setData()` on the Table.
-7. Finally, the client should call `setRowState()` again on the relevant rows and unflag them as lazily loading (this will remove the lazy loading indicator).
-
-_The client is responsible for checking if the row’s children have already been loaded. This can prevent unnecessary data recreation and `setData` calls on the `Table`._
 
 ### Translating flat list to Tanstack-understandable hierarchy
 
@@ -109,38 +135,6 @@ Currently, the `Table` defaults to expanding all rows by setting its Tanstack ex
 This is achievable because the Nimble `Table` currently tracks when particular rows are collapsed by their row id, which both group and parent rows have. When the Tanstack state has the singleton value of `true` we know we are in a default expand/collapsed state (meaning the user hasn't interactively changed anything), as otherwise it will be a set of id values matched with a boolean state. This will allow us to implement a behavior in `getIsRowExpanded` that will denote group rows as expanded, but parent rows as collapsed, specifically when the TanStack expanded state is set to `true`.
 
 Once _any_ row has been expanded or collapsed, we must update the Nimble `Table` state where we track collapsed rows with _all_ rows that are currently collapsed. This will be a one-time cost. Prototyping suggests that the performance penalty isn't that noticeable.
-
-### Showing a progress indicator for lazy loading
-
-After a user clicks on a parent row to expand it, and that parent does not have children yet, there could be a noticeable delay between when the user clicked the expand button, and when the children show up in the table. This could happen for a variety of reasons, but commonly might occur due to a slow network request.
-
-It would be helpful for the `Table` to visually represent the state that it is currently waiting on data to be loaded from the client. It can accomplish this fairly easily using existing state with no additional APIs or new components.
-
-Prototype visual:
-
-![Lazy Loading Spinner](./spec-images/LazyLoadingSpinner.gif)
-
-This ultimately will put the burden on the client to ensure that the `Table` is updated as needed to get rid of any displayed progress indicator, including in scenarios where the expansion of a parent row failed to load any children (possibly due to some client-side error). The `Table` will only guarantee that the progress indicator is shown when a parent row is expanded and it currently has no children, and that it will be removed once children are present.
-
-Expected workflow:
-
-1. Client loads data into table that specifies some rows as parents, but has no rows that indicate that row as a parent.
-2. User clicks on a parent row.
-3. Client handles event that row was expanded.
-4. In event handler, client calls API (tbd) on table to explicitly show the row loading indicator.
-5. Client sets data on table that has children for the row that was expanded.
-6. Client calls API (tbd) on table to explicitly hide the row loading indicator.
-
-_Notes: When the new children are finally displayed, scroll position will be maintained in that the scroll index isn't adjusted. So a row that is currently displayed at the top of the table can be pushed down if new rows are added above it. Additionally, any previously expanded rows should remain expanded._
-
-Error workflow:
-
-1. Same as steps 1-4 above.
-2. Error occurs retrieving data for child rows.
-3. Client calls API on table to handle error case. The exact IxD/UX for this is TBD, but could possibly one or more of the following:
-    - An error message replaces the row loading indicator visual.
-    - The row is automatically collapsed, and the application reports an error somewhere outside of the table.
-    - UX is provided within the table that would allow a user to retry their data fetch attempt.
 
 ### Sorting
 
@@ -192,9 +186,7 @@ By making the `TableRecord` support hierarchy in its structure, it seemed possib
 
 ## Open Issues
 
--   Need visual design for "row loading" indicator.
 -   We should also consider interactive/visual designs for situations where the client failed to load data for a row that was supposed to lazy-load its data. Some questions we should try to answer are:
     -   Should the table represent the error state visually, and if so how?
     -   Should the table surface any UI to "refresh" a data retrieval attempt. If so, what should that look like?
--   What does the API for `setRowState` really look like?
 -   The set of proposed APIs and behaviors described so far don't seem to cover the SLE Steps Grid use case. **Resolved: Ultimately, the Steps grid should likely be using a significantly different UX than what it currently has, and we are opting to not introduce features and capabilities into the Nimble table to support a sub-optimal UX.**
