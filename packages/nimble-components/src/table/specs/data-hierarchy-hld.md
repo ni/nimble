@@ -67,7 +67,7 @@ interface TableRowOptions {
     // children.
     loading: boolean;
 }
-    
+
 public Table() {
     ...
     // Sets the options for the rows specified by the passed IDs.
@@ -80,12 +80,13 @@ The loading state of a row will look as follows:
 ![Lazy Loading Spinner](./spec-images/LazyLoadingSpinner.gif)
 
 Some notes about the `setRowOptions` API:
-- previously set row options will be cleared when `setData` is called
-- previously set row options will be cleared with the table's `idFieldName` changes
-- an option associated with a row ID that does not match a record in the data will be ignored
-- calling `setRowOptions` when row options have already been set on the table will have the following behavior:
-    - existing options not passed in the new `rowOptions` array will be left unmodified
-    - existing options passed in the new `rowOptions` array will be overwritten
+
+-   previously set row options will be cleared when `setData` is called
+-   previously set row options will be cleared with the table's `idFieldName` changes
+-   an option associated with a row ID that does not match a record in the data will be ignored
+-   calling `setRowOptions` when row options have already been set on the table will have the following behavior:
+    -   existing options not passed in the new `rowOptions` array will be left unmodified
+    -   existing options passed in the new `rowOptions` array will be overwritten
 
 The expected usage of the dynamically loaded hierarchy is as follows:
 
