@@ -132,6 +132,11 @@ export class TablePageObject<T extends TableRecord> {
         return Array.from(groupRows).map(row => row.expanded);
     }
 
+    public getAllDataRowsExpandedState(): boolean[] {
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        return Array.from(rows).map(row => row.expanded);
+    }
+
     public getRenderedCellView(
         rowIndex: number,
         columnIndex: number
@@ -335,7 +340,11 @@ export class TablePageObject<T extends TableRecord> {
 
     public getCellRenderedWidth(rowIndex: number, columnIndex: number): number {
         const cell = this.getCell(rowIndex, columnIndex);
-        return cell.getBoundingClientRect().width;
+        const actualWidth = cell.getBoundingClientRect().width;
+        // Round to one decimal place. This is to work around a bug in Chrome related to
+        // fractional widths (e.g. '1fr') in grid layouts that results in some numerical
+        // precision issues. See: https://bugs.chromium.org/p/chromium/issues/detail?id=1515685
+        return Math.round(actualWidth * 10) / 10;
     }
 
     public getTotalCellRenderedWidth(): number {
@@ -438,6 +447,17 @@ export class TablePageObject<T extends TableRecord> {
         this.getCollapseAllButton()?.click();
     }
 
+    public clickDataRowExpandCollapseButton(rowIndex: number): void {
+        const expandCollapseButton = this.getExpandCollapseButtonForRow(rowIndex);
+        if (!expandCollapseButton) {
+            throw new Error(
+                'The provided row index has no visible expand collapse button associated with it.'
+            );
+        }
+
+        expandCollapseButton.click();
+    }
+
     public isCollapseAllButtonVisible(): boolean {
         const collapseButton = this.getCollapseAllButton();
         if (collapseButton) {
@@ -446,6 +466,11 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
         return false;
+    }
+
+    public isDataRowExpandCollapseButtonVisible(rowIndex: number): boolean {
+        const expandCollapseButton = this.getExpandCollapseButtonForRow(rowIndex);
+        return expandCollapseButton !== null;
     }
 
     public isTableSelectionCheckboxVisible(): boolean {
@@ -613,17 +638,17 @@ export class TablePageObject<T extends TableRecord> {
         return headerContainers[index]!.querySelector('.column-divider.left');
     }
 
-    public isHorizontalScrollbarVisible(): boolean {
+    public isVerticalScrollbarVisible(): boolean {
         return (
             this.tableElement.viewport.clientHeight
-            !== this.tableElement.viewport.getBoundingClientRect().height
+            < this.tableElement.viewport.scrollHeight
         );
     }
 
-    public isVerticalScrollbarVisible(): boolean {
+    public isHorizontalScrollbarVisible(): boolean {
         return (
             this.tableElement.viewport.clientWidth
-            !== this.tableElement.viewport.getBoundingClientRect().width
+            < this.tableElement.viewport.scrollWidth
         );
     }
 
@@ -726,6 +751,21 @@ export class TablePageObject<T extends TableRecord> {
         return this.tableElement.shadowRoot!.querySelector<Button>(
             '.collapse-all-button'
         );
+    }
+
+    private getExpandCollapseButtonForRow(rowIndex: number): Button | null {
+        const row = this.getRow(rowIndex);
+        const rowExpandCollapseButton = row.shadowRoot!.querySelector<Button>(
+            '.expand-collapse-button'
+        );
+        if (!rowExpandCollapseButton) {
+            const firstCell = this.getCell(rowIndex, 0);
+            return firstCell?.shadowRoot!.querySelector<Button>(
+                '.expand-collapse-button'
+            );
+        }
+
+        return rowExpandCollapseButton;
     }
 
     private getSelectionCheckboxForRow(rowIndex: number): Checkbox | null {

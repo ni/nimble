@@ -78,6 +78,23 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
         this.selectionManager.reset();
     }
 
+    public getCurrentSelectedRecordIds(): string[] {
+        const tanStackSelectionState = this.tanStackTable.options.state.rowSelection;
+        if (!tanStackSelectionState) {
+            return [];
+        }
+
+        const selectedRecordIds: string[] = [];
+        Object.entries(tanStackSelectionState).forEach(
+            ([recordId, isSelected]) => {
+                if (isSelected) {
+                    selectedRecordIds.push(recordId);
+                }
+            }
+        );
+        return selectedRecordIds;
+    }
+
     private createSelectionManager(
         selectionMode: TableRowSelectionMode
     ): SelectionManagerBase<TData> {

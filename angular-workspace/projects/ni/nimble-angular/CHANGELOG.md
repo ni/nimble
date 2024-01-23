@@ -1,8 +1,97 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 08 Jan 2024 17:18:14 GMT and should not be manually modified.
+This log was last generated on Tue, 23 Jan 2024 16:01:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.2.1
+
+Tue, 23 Jan 2024 16:01:09 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.0.1
+
+## 19.2.0
+
+Mon, 22 Jan 2024 15:41:43 GMT
+
+### Minor changes
+
+- Create base mapping class in Angular ([ni/nimble@e91fdcd](https://github.com/ni/nimble/commit/e91fdcd3ece03166d22a148a291a72ce7a184c5d))
+
+## 19.1.0
+
+Fri, 19 Jan 2024 23:00:07 GMT
+
+### Minor changes
+
+- Angular support for nimble-unit-byte and nimble-unit-volt ([ni/nimble@07dfa53](https://github.com/ni/nimble/commit/07dfa53f1830b506e4a5f27c38ec879062d61eb1))
+
+## 19.0.0
+
+Fri, 19 Jan 2024 22:22:02 GMT
+
+### Major changes
+
+- Introducing data hierarchy for table. Renamed 'groupCollapseAll' on table label provider to 'collapseAll'. Update test with additional validation entry. ([ni/nimble@398b7ab](https://github.com/ni/nimble/commit/398b7ab7e2be2597de26e15e0ee463df4a02f228))
+- Bump @ni/nimble-components to v21.0.0
+
+## 18.2.17
+
+Thu, 18 Jan 2024 17:21:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.18.1
+
+## 18.2.16
+
+Wed, 17 Jan 2024 14:23:42 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.18.0
+
+## 18.2.15
+
+Wed, 17 Jan 2024 00:48:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.7
+
+## 18.2.14
+
+Tue, 16 Jan 2024 21:49:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.6
+
+## 18.2.13
+
+Tue, 16 Jan 2024 21:01:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.5
+
+## 18.2.12
+
+Fri, 12 Jan 2024 21:50:53 GMT
+
+### Patches
+
+- Disable @angular-eslint/no-input-rename for nimble angular ([ni/nimble@eb5066d](https://github.com/ni/nimble/commit/eb5066d27fa8c4be20bd0e08efd26ca4b05e0be8))
+
+## 18.2.11
+
+Wed, 10 Jan 2024 13:47:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.17.4
 
 ## 18.2.10
 

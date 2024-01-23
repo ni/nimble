@@ -14,7 +14,7 @@ public partial class NimbleLabelProviderTable : ComponentBase
     public string? GroupExpand { get; set; }
 
     [Parameter]
-    public string? GroupsCollapseAll { get; set; }
+    public string? CollapseAll { get; set; }
 
     [Parameter]
     public string? CellActionMenu { get; set; }

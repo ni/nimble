@@ -1,0 +1,20 @@
+{
+  "name": "@ni/jasmine-parameterized",
+  "entries": [
+    {
+      "date": "Tue, 23 Jan 2024 16:01:09 GMT",
+      "version": "0.2.0",
+      "tag": "@ni/jasmine-parameterized_v0.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "609265d5472b644adabb18b7aba6586b2df92aaa",
+            "comment": "Create jasmine-parameterized workspace"
+          }
+        ]
+      }
+    }
+  ]
+}

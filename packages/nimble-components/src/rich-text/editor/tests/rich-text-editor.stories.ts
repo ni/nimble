@@ -67,7 +67,9 @@ const mentionDataSets = {
 const richTextEditorDescription = 'The rich text editor component allows users to add/edit text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The editor generates markdown output and takes markdown as input. The markdown flavor used is [CommonMark](https://spec.commonmark.org/0.30/).\n\n See the [rich text viewer](?path=/docs/incubating-rich-text-viewer--docs) component to render markdown without allowing editing.';
 const setMarkdownDescription = 'A function that sets content in the editor with the provided markdown string.';
 const getMarkdownDescription = 'A function that serializes the current data in the editor and returns the markdown string.';
-const footerActionButtonDescription = `To place content such as a button at the far-right of the footer section, set \`slot="footer-actions"\`.
+const footerActionButtonDescription = `You can place a button or anchor button at the far-right of the footer section, set \`slot="footer-actions"\`.
+
+Nimble will set the height of the buttons to \`$ni-nimble-control-slim-height\`.
 
 Note: The content in the \`footer-actions\` slot will not adjust based on the state of the rich-text-editor (e.g. disabled). It is the responsibility of the
 client application to make any necessary adjustments. For example, if the buttons should be disabled when the rich-text-editor is disabled, the
@@ -115,8 +117,15 @@ const metadata: Meta<RichTextEditorArgs> = {
             <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}8" display-name="Mitert"></${mappingUserTag}>
         </${richTextMentionUsersTag}>
         ${when(x => x.footerActionButtons, html`
-            <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>
-            <${buttonTag} slot="footer-actions">OK</${buttonTag}>`)}
+            <${buttonTag}
+                style="min-width: 72px;"
+                appearance="ghost"
+                slot="footer-actions"
+            >Cancel</${buttonTag}>
+            <${buttonTag}
+                style="min-width: 72px;"
+                slot="footer-actions"
+            >OK</${buttonTag}>`)}
     </${richTextEditorTag}>
     `),
     argTypes: {

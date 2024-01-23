@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 11 Dec 2023 19:32:21 GMT and should not be manually modified.
+This log was last generated on Mon, 22 Jan 2024 21:39:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 13.1.0
+
+Mon, 22 Jan 2024 21:39:06 GMT
+
+### Minor changes
+
+- Blazor components for byte unit and volt unit ([ni/nimble@e3325a4](https://github.com/ni/nimble/commit/e3325a4b7847ef4b135321ada1ccc753a1006b35))
+
+## 13.0.1
+
+Mon, 22 Jan 2024 15:41:43 GMT
+
+### Patches
+
+- Update Blazor mapping base class ([ni/nimble@e91fdcd](https://github.com/ni/nimble/commit/e91fdcd3ece03166d22a148a291a72ce7a184c5d))
+
+## 13.0.0
+
+Fri, 19 Jan 2024 22:22:02 GMT
+
+### Major changes
+
+- Introducing data hierarchy for table. Renamed 'groupCollapseAll' on table label provider to 'collapseAll' ([ni/nimble@398b7ab](https://github.com/ni/nimble/commit/398b7ab7e2be2597de26e15e0ee463df4a02f228))
 
 ## 12.7.0
 

@@ -133,8 +133,7 @@ export class RichTextMarkdownParser {
                                 currentMention.viewElement,
                                 {
                                     'mention-href': href,
-                                    'mention-label': displayName,
-                                    'disable-editing': true
+                                    'mention-label': displayName
                                 }
                             ];
                         }

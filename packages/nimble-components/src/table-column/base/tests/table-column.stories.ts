@@ -79,7 +79,6 @@ information about specific types of column.`;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column Configuration',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
         docs: {
@@ -97,7 +96,8 @@ const metadata: Meta<SharedTableArgs> = {
         ${ref('tableRef')}
         data-unused="${x => x.updateData(x)}"
         id-field-name="firstName"
-        selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
+        style="height: 320px"
+        selection-mode="${x => TableRowSelectionMode[x.selectionMode]}
     >
         <${tableColumnTextTag}
             field-name="firstName"
@@ -122,7 +122,12 @@ const metadata: Meta<SharedTableArgs> = {
     </${tableTag}>
     `),
     argTypes: {
-        ...sharedTableArgTypes
+        ...sharedTableArgTypes,
+        selectionMode: {
+            table: {
+                disable: true
+            }
+        }
     },
     args: {
         ...sharedTableArgs(simpleData)
@@ -131,36 +136,20 @@ const metadata: Meta<SharedTableArgs> = {
 
 export default metadata;
 
-interface DefaultColumnConfigTableArgs extends SharedTableArgs {
-    columns: string;
-}
-
-// In the Docs tab, Storybook doesn't render the title of the first story
-// This is a placeholder to get the useful ones to render
-export const columns: StoryObj<DefaultColumnConfigTableArgs> = {
-    argTypes: {
-        columns: {
-            name: 'Default column configuration',
-            description:
-                'This example shows columns in their default configuration.'
-        }
-    }
-};
-
 type ColumnOrderOption = 'FirstName, LastName' | 'LastName, FirstName';
 
 interface ColumnOrderTableArgs extends SharedTableArgs {
     columnOrder: ColumnOrderOption;
 }
 
-const columnOrderDescription = `Configure columns by adding column elements as children of the table. 
+const addingColumnsDescription = `Configure columns by adding column elements as children of the table. 
 The order of the elements controls the order that columns will appear in the table.`;
 
-export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
+export const addingColumns: StoryObj<ColumnOrderTableArgs> = {
     parameters: {
         docs: {
             description: {
-                story: columnOrderDescription
+                story: addingColumnsDescription
             }
         }
     },
@@ -170,6 +159,7 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             id-field-name="firstName"
+            style="height: 320px"
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             ${when(x => x.columnOrder === 'FirstName, LastName', html`
@@ -202,7 +192,7 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
     argTypes: {
         columnOrder: {
             name: 'Column order',
-            description: columnOrderDescription,
+            description: addingColumnsDescription,
             options: ['FirstName, LastName', 'LastName, FirstName'],
             control: { type: 'radio' }
         }
@@ -242,6 +232,7 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             id-field-name="firstName"
+            style="height: 320px"
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
@@ -300,6 +291,7 @@ export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             id-field-name="firstName"
+            style="height: 320px"
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
@@ -415,6 +407,7 @@ export const sorting: StoryObj<SortingTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             id-field-name="firstName"
+            style="height: 320px"
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
@@ -578,8 +571,8 @@ function getGroupingDisabledData(
 }
 
 const groupedRowsDescription = `A column can be configured such that all values within that column that have the same value get parented under a collapsible row.
-There will be a collapsible row per unique value in a given column. When group-index is set on a column, that column will be grouped. If more than one column is
-configured with a group-index, the precedence is determined by the value of group-index on each column. Grouping is based on the underlying field values in the column,
+There will be a collapsible row per unique value in a given column. When \`group-index\` is set on a column, that column will be grouped. If more than one column is
+configured with a \`group-index\`, the precedence is determined by the value of \`group-index\` on each column. Grouping is based on the underlying field values in the column,
 not the rendered values.`;
 
 const groupingDisabledDescription = 'A groupable column can disable its ability to be grouped through setting `grouping-disabled`.';
@@ -603,6 +596,7 @@ export const grouping: StoryObj<GroupingTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             id-field-name="firstName"
+            style="height: 320px"
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
@@ -706,18 +700,18 @@ const fractionalWidthOptions = {
     ]
 } as const;
 
-const fractionalWidthDescription = `Configure each column's width relative to the other columns with the \`fractional-width\` property. For example, a column with a \`fractional-width\` set to 2 will be twice as wide as a column with a \`fractional-width\` set to 1. 
+const widthDescription = `Configure each column's width relative to the other columns with the \`fractional-width\` property. For example, a column with a \`fractional-width\` set to 2 will be twice as wide as a column with a \`fractional-width\` set to 1. 
 The default value for \`fractional-width\` is 1, and columns that don't support \`fractional-width\` explicitly, or another API responsible for managing the width of the column, will also behave as if they have a \`fractional-width\` of 1. This value only serves
 as an initial state for a column. Once a column has been manually resized the column will use a fractional width calculated by the table from the resize.`;
 
 const minPixelWidthDescription = `Table columns that support having a \`fractional-width\` can also be configured to have a minimum width such that its width
 will never shrink below the specified pixel width. This applies to both when a table is resized as well as when a column is interactively resized.`;
 
-export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
+export const width: StoryObj<ColumnWidthTableArgs> = {
     parameters: {
         docs: {
             description: {
-                story: fractionalWidthDescription
+                story: widthDescription
             }
         }
     },
@@ -727,6 +721,7 @@ export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
             id-field-name="firstName"
+            style="height: 320px"
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
            <${tableColumnTextTag}
@@ -762,7 +757,7 @@ export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
     argTypes: {
         fractionalWidth: {
             name: 'Fractional width configuration',
-            description: fractionalWidthDescription,
+            description: widthDescription,
             options: Object.values(ExampleColumnFractionalWidthType),
             control: {
                 type: 'radio',
