@@ -173,6 +173,18 @@ window.NimbleBlazor = window.NimbleBlazor ?? {
     WaferMap: {
         getValidity: function (waferMapReference) {
             return waferMapReference.validity;
+        },
+        setDies: function (waferMapReference, data) {
+            const diesObject = JSON.parse(data);
+            waferMapReference.dies = diesObject;
+        },
+        setColorScale: function (waferMapReference, data) {
+            const colorScaleObject = JSON.parse(data);
+            waferMapReference.colorScale = colorScaleObject;
+        },
+        setHighlightedTags: function (waferMapReference, data) {
+            const highlightedTagsObject = JSON.parse(data);
+            waferMapReference.highlightedTags = highlightedTagsObject;
         }
     }
 };

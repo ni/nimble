@@ -360,11 +360,13 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Wafer Map</div>
-            <NimbleWaferMap Orientation="WaferMapOrientation.Bottom"
+            <NimbleWaferMap @bind-Dies="Dies"
+                            @bind-ColorScale="ColorScale"
+                            Orientation="WaferMapOrientation.Bottom"
                             DieLabelsHidden="true">
             </NimbleWaferMap>
 
-            <NimbleButton>Hide Labels</NimbleButton>
+            <NimbleButton @onclick=@(_ => UpdateDies(100000))>Hide Labels</NimbleButton>
         </div>
     </div>
 </div>

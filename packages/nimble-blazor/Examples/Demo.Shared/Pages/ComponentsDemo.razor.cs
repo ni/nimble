@@ -21,10 +21,15 @@ namespace Demo.Shared.Pages
 
         [NotNull]
         public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();
+        [NotNull]
+        public IEnumerable<WaferMapDie> Dies { get; set; } = Enumerable.Empty<WaferMapDie>();
+        [NotNull]
+        public WaferMapColorScale ColorScale { get; set; } = new WaferMapColorScale(new List<string> { "red", "green" }, new List<string> { "0", "1" });
 
         public ComponentsDemo()
         {
             AddTableRows(10);
+            UpdateDies(5);
         }
 
         private string DrawerLocationAsString
@@ -80,6 +85,36 @@ namespace Demo.Shared.Pages
             }
 
             TableData = tableData;
+        }
+
+        public void UpdateDies(int numDies)
+        {
+            var dies = new List<WaferMapDie>();
+            int radius = (int)Math.Ceiling(Math.Sqrt(numDies / Math.PI));
+            var centerX = radius;
+            var centerY = radius;
+
+            for (var i = centerY - radius; i <= centerY + radius; i++)
+            {
+                for (
+                    var j = centerX;
+                    (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
+                    <= radius * radius;
+                    j--)
+                {
+                    dies.Add(new WaferMapDie(i, j, "0.5"));
+                }
+                // generate points right of centerX
+                for (
+                    var j = centerX + 1;
+                    (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
+                    <= radius * radius;
+                    j++)
+                {
+                    dies.Add(new WaferMapDie(i, j, "0.5"));
+                }
+            }
+            Dies = dies;
         }
     }
 
