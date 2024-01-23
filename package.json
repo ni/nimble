@@ -1,5 +1,5 @@
 {
-  "name": "@ni-private/nimble",
+  "name": "@ni-private/nimble", 
   "version": "1.0.0",
   "private": true,
   "description": "The NI Nimble Design System Monorepo",
