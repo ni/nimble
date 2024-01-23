@@ -2,6 +2,29 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 23 Jan 2024 16:01:09 GMT",
+      "version": "21.0.1",
+      "tag": "@ni/nimble-components_v21.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "609265d5472b644adabb18b7aba6586b2df92aaa",
+            "comment": "Use jasmine-parameterized in nimble-components"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v0.2.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 19 Jan 2024 22:22:02 GMT",
       "version": "21.0.0",
       "tag": "@ni/nimble-components_v21.0.0",

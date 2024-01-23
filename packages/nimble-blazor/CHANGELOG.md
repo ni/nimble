@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 22 Jan 2024 15:41:43 GMT and should not be manually modified.
+This log was last generated on Mon, 22 Jan 2024 21:39:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 13.1.0
+
+Mon, 22 Jan 2024 21:39:06 GMT
+
+### Minor changes
+
+- Blazor components for byte unit and volt unit ([ni/nimble@e3325a4](https://github.com/ni/nimble/commit/e3325a4b7847ef4b135321ada1ccc753a1006b35))
 
 ## 13.0.1
 

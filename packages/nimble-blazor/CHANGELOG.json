@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 22 Jan 2024 21:39:06 GMT",
+      "version": "13.1.0",
+      "tag": "@ni/nimble-blazor_v13.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e3325a4b7847ef4b135321ada1ccc753a1006b35",
+            "comment": "Blazor components for byte unit and volt unit"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 22 Jan 2024 15:41:43 GMT",
       "version": "13.0.1",
       "tag": "@ni/nimble-blazor_v13.0.1",
