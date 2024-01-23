@@ -9,7 +9,8 @@ public class WaferMapColorScale
     [JsonPropertyName("values")]
     public IEnumerable<string> Values { get; set; }
 
-    public WaferMapColorScale(IEnumerable<string> colors, IEnumerable<string> values) {
+    public WaferMapColorScale(IEnumerable<string> colors, IEnumerable<string> values)
+    {
         Colors = colors;
         Values = values;
     }

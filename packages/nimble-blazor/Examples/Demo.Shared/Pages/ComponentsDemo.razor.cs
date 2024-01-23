@@ -87,10 +87,10 @@ namespace Demo.Shared.Pages
             TableData = tableData;
         }
 
-        public void UpdateDies(int numDies)
+        public void UpdateDies(int numberOfDies)
         {
             var dies = new List<WaferMapDie>();
-            int radius = (int)Math.Ceiling(Math.Sqrt(numDies / Math.PI));
+            int radius = (int)Math.Ceiling(Math.Sqrt(numberOfDies / Math.PI));
             var centerX = radius;
             var centerY = radius;
 

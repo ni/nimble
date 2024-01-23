@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System.Diagnostics;
-using System.Text.Json;
-using System.Xml.Linq;
 
 namespace NimbleBlazor;
 
@@ -15,7 +11,7 @@ public partial class NimbleWaferMap : ComponentBase
 {
     private ElementReference _waferMap;
     private bool _diesUpdated = false;
-    private IEnumerable<WaferMapDie> _dies = Enumerable.Empty<WaferMapDie>();
+    private IEnumerable<WaferMapDie>? _dies = Enumerable.Empty<WaferMapDie>();
     private bool _colorScaleUpdated = false;
     private WaferMapColorScale? _colorScale;
     private bool _highlightedTagsUpdated = false;
@@ -83,6 +79,10 @@ public partial class NimbleWaferMap : ComponentBase
     [Parameter]
     public IEnumerable<string>? HighlightedTags
     {
+        get
+        {
+            return _highlightedTags;
+        }
         set
         {
             _highlightedTags = value;
@@ -93,7 +93,12 @@ public partial class NimbleWaferMap : ComponentBase
     /// <summary>
     /// </summary>
     [Parameter]
-    public IEnumerable<WaferMapDie>? Dies {
+    public IEnumerable<WaferMapDie>? Dies
+    {
+        get
+        {
+            return _dies;
+        }
         set
         {
             _dies = value;
@@ -106,6 +111,10 @@ public partial class NimbleWaferMap : ComponentBase
     [Parameter]
     public WaferMapColorScale? ColorScale
     {
+        get
+        {
+            return _colorScale;
+        }
         set
         {
             _colorScale = value;
