@@ -16,6 +16,7 @@ The `@ni/jasmine-parameterized` library provides utility functions for writing [
 Use `parameterizeSpec` to create a parameterized test using an array of tests with names.
 
 In the following example:
+
     - the test named `cats-and-dogs` is focused for debugging
     - the test named `frogs` is configured to always be disabled
     - the test named `men` will run normally as it has no override
