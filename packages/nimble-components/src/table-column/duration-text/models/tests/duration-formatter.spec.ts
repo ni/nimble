@@ -1,4 +1,4 @@
-import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { DurationFormatter } from '../duration-formatter';
 
 describe('Duration Formatter', () => {
@@ -83,7 +83,7 @@ describe('Duration Formatter', () => {
             }
         ] as const;
 
-        parameterizeNamedList(goodValueData, (spec, name, value) => {
+        parameterizeSpec(goodValueData, (spec, name, value) => {
             spec(name, () => {
                 const formattedValue = formatter.format(value.value);
                 expect(formattedValue).toBe(value.expected);
@@ -114,7 +114,7 @@ describe('Duration Formatter', () => {
             }
         ] as const;
 
-        parameterizeNamedList(badValueData, (spec, name, value) => {
+        parameterizeSpec(badValueData, (spec, name, value) => {
             spec(name, () => {
                 const formattedValue = formatter.format(value.value);
                 expect(formattedValue).toBe('');

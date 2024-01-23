@@ -1,4 +1,4 @@
-import { parameterize, parameterizeNamedList } from '../parameterized';
+import { parameterize, parameterizeSpec } from '../parameterized.js';
 
 // The following aliases are just to reduce the number
 // of eslint disables in this test file. In normal
@@ -155,12 +155,12 @@ const paramertizeListTestArgs = ([
     name
 } as ParameterizeListTestArgs);
 
-describe('Funtion parameterizeNamedList', () => {
+describe('Funtion parameterizeSpec', () => {
     describe('can parameterize simple lists', () => {
         it('with test enabled', () => {
             const testcases = [{ name: 'case1' }] as const;
             const spy = jasmine.createSpy();
-            parameterizeNamedList(testcases, spy);
+            parameterizeSpec(testcases, spy);
 
             expect(spy).toHaveBeenCalledTimes(1);
             const { spec, name } = paramertizeListTestArgs(
@@ -173,7 +173,7 @@ describe('Funtion parameterizeNamedList', () => {
         it('with test focused', () => {
             const testcases = [{ name: 'case1' }] as const;
             const spy = jasmine.createSpy();
-            parameterizeNamedList(testcases, spy, {
+            parameterizeSpec(testcases, spy, {
                 case1: FIT
             });
 
@@ -188,7 +188,7 @@ describe('Funtion parameterizeNamedList', () => {
         it('with test disabled', () => {
             const testcases = [{ name: 'case1' }] as const;
             const spy = jasmine.createSpy();
-            parameterizeNamedList(testcases, spy, {
+            parameterizeSpec(testcases, spy, {
                 case1: XIT
             });
 
@@ -207,7 +207,7 @@ describe('Funtion parameterizeNamedList', () => {
                 { name: 'case3' }
             ] as const;
             const spy = jasmine.createSpy();
-            parameterizeNamedList(testcases, spy, {
+            parameterizeSpec(testcases, spy, {
                 case2: XIT,
                 case3: FIT
             });
@@ -241,7 +241,7 @@ describe('Funtion parameterizeNamedList', () => {
             const testcases = [{ name: 'case1' }] as { name: string }[];
 
             expect(() => {
-                parameterizeNamedList(testcases, () => {}, {
+                parameterizeSpec(testcases, () => {}, {
                     unknown: XIT
                 });
             }).toThrowError(/override names must match test case name/);
@@ -250,7 +250,7 @@ describe('Funtion parameterizeNamedList', () => {
             const testcases = [{ name: 'case1' }] as const;
 
             expect(() => {
-                parameterizeNamedList(testcases, () => {}, {
+                parameterizeSpec(testcases, () => {}, {
                     case1: IT
                 });
             }).toThrowError(/jasmine spec functions: fit or xit/);
