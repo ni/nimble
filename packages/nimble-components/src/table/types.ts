@@ -47,6 +47,7 @@ export interface TableRecord {
  */
 export interface TableNode<TRecord extends TableRecord = TableRecord> {
     subRows?: TableNode<TRecord>[];
+    originalIndex: number;
     clientRecord: TRecord;
 }
 
@@ -72,6 +73,7 @@ export interface TableValidity extends ValidityObject {
     readonly duplicateGroupIndex: boolean;
     readonly idFieldNameNotConfigured: boolean;
     readonly invalidColumnConfiguration: boolean;
+    readonly invalidParentIdConfiguration: boolean;
 }
 
 export interface TableActionMenuToggleEventDetail {
@@ -136,7 +138,7 @@ export interface TableRowSelectionEventDetail {
 /**
  * Event detail type for row toggle events in the table.
  */
-export interface TableRowExpandToggleEventDetail {
+export interface TableRowExpansionToggleEventDetail {
     oldState: boolean;
     newState: boolean;
     recordId: string;
@@ -176,10 +178,11 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     record: TData;
     id: string;
     selectionState: TableRowSelectionState;
-    isGrouped: boolean;
+    isGroupRow: boolean;
     groupRowValue?: unknown;
     isExpanded: boolean;
     nestingLevel?: number;
-    leafItemCount?: number;
+    immediateChildCount?: number;
     groupColumn?: TableColumn;
+    isParentRow: boolean;
 }

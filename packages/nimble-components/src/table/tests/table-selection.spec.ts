@@ -17,6 +17,7 @@ interface SimpleTableRecord extends TableRecord {
     id: string;
     stringData: string;
     stringData2: string;
+    parentId?: string;
 }
 
 const simpleTableData = [
@@ -112,6 +113,89 @@ const groupableTableData = [
         id: 'purple-dog-0',
         stringData: 'purple',
         stringData2: 'dog'
+    }
+] as const;
+
+/**
+ * Hierarchical data that creates the following tree:
+ * 0 (purple dog)
+ *   0.0
+ *     0.0.0
+ *     0.0.1
+ *   0.1
+ *   0.2
+ *     0.2.0
+ * 1 (green dog)
+ * 2 (green cat)
+ *   2.0
+ * 3 (purple dog)
+ */
+const hierarchicalData = [
+    {
+        id: '0',
+        stringData: 'purple',
+        stringData2: 'dog',
+        parentId: undefined
+    },
+    {
+        id: '0.0',
+        stringData: 'red',
+        stringData2: 'llama',
+        parentId: '0'
+    },
+    {
+        id: '0.0.0',
+        stringData: 'yellow',
+        stringData2: 'dog',
+        parentId: '0.0'
+    },
+    {
+        id: '0.0.1',
+        stringData: 'purple',
+        stringData2: 'cat',
+        parentId: '0.0'
+    },
+    {
+        id: '0.1',
+        stringData: 'yellow',
+        stringData2: 'cat',
+        parentId: '0'
+    },
+    {
+        id: '0.2',
+        stringData: 'orange',
+        stringData2: 'ant',
+        parentId: '0'
+    },
+    {
+        id: '0.2.0',
+        stringData: 'blue',
+        stringData2: 'dog',
+        parentId: '0.2'
+    },
+    {
+        id: '1',
+        stringData: 'green',
+        stringData2: 'dog',
+        parentId: undefined
+    },
+    {
+        id: '2',
+        stringData: 'green',
+        stringData2: 'cat',
+        parentId: undefined
+    },
+    {
+        id: '2.0',
+        stringData: '2',
+        stringData2: 'c',
+        parentId: '2'
+    },
+    {
+        id: '3',
+        stringData: 'purple',
+        stringData2: 'dog',
+        parentId: undefined
     }
 ] as const;
 
@@ -2063,6 +2147,27 @@ describe('Table row selection', () => {
 
             describe('group selection checkbox', () => {
                 const blueGroupIndex = 0;
+                const greenGroupIndex = 3;
+
+                it('shift + select ending with top-level group does not track selection of subgroups', async () => {
+                    pageObject.clickGroupRowSelectionCheckbox(blueGroupIndex);
+                    pageObject.clickGroupRowSelectionCheckbox(
+                        greenGroupIndex,
+                        true
+                    );
+                    await waitForUpdatesAsync();
+
+                    const blueAndGreenRecordIds = groupableTableData
+                        .filter(
+                            x => x.id.includes('blue-')
+                                || x.id.includes('green-')
+                        )
+                        .map(x => x.id);
+                    const selection = await element.getSelectedRecordIds();
+                    expect(selection).toEqual(
+                        jasmine.arrayWithExactContents(blueAndGreenRecordIds)
+                    );
+                });
 
                 it('group selection checkbox default to not checked', () => {
                     expect(
@@ -2354,6 +2459,312 @@ describe('Table row selection', () => {
                         ).toBe(TableRowSelectionState.selected);
                     });
                 });
+            });
+        });
+    });
+
+    describe('with data hierarchy', () => {
+        let element: Table<SimpleTableRecord>;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+        let pageObject: TablePageObject<SimpleTableRecord>;
+        let selectionChangeListener: {
+            promise: Promise<void>,
+            spy: jasmine.Spy
+        };
+        let column1: TableColumnText;
+
+        function getUnsortedExpandedIndexOfRecord(id: string): number {
+            return hierarchicalData.findIndex(x => x.id === id);
+        }
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            element.idFieldName = 'id';
+            pageObject = new TablePageObject<SimpleTableRecord>(element);
+            column1 = element.querySelector<TableColumnText>('#column1')!;
+            element.parentIdFieldName = 'parentId';
+            selectionChangeListener = createEventListener(
+                element,
+                'selection-change'
+            );
+
+            await connect();
+            await element.setData(hierarchicalData);
+            await waitForUpdatesAsync();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        describe('with single selection', () => {
+            beforeEach(async () => {
+                element.selectionMode = TableRowSelectionMode.single;
+                await waitForUpdatesAsync();
+            });
+
+            it('can programmatically select parent row', async () => {
+                await element.setSelectedRecordIds(['0']);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(['0']);
+            });
+
+            it('can programmatically select leaf row', async () => {
+                await element.setSelectedRecordIds(['0.0.0']);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(['0.0.0']);
+            });
+
+            it('can interactively select parent row', async () => {
+                const rowIndex = getUnsortedExpandedIndexOfRecord('0');
+                await pageObject.clickRow(rowIndex);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(['0']);
+            });
+
+            it('can interactively select child row', async () => {
+                const rowIndex = getUnsortedExpandedIndexOfRecord('2.0');
+                await pageObject.clickRow(rowIndex);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(['2.0']);
+            });
+        });
+
+        describe('with multi-selection', () => {
+            beforeEach(async () => {
+                element.selectionMode = TableRowSelectionMode.multiple;
+                await waitForUpdatesAsync();
+            });
+
+            it('can programmatically select parent row', async () => {
+                await element.setSelectedRecordIds(['0']);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(['0']);
+            });
+
+            it('can programmatically select leaf row', async () => {
+                await element.setSelectedRecordIds(['0.0.0']);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(['0.0.0']);
+            });
+
+            it('can programmatically select parent row and its children', async () => {
+                await element.setSelectedRecordIds(['0', '0.0', '0.0.0']);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(['0', '0.0', '0.0.0'])
+                );
+            });
+
+            it('can programmatically select parent row and its leaf, skipping a level in the hierarchy', async () => {
+                await element.setSelectedRecordIds(['0', '0.0.0']);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(['0', '0.0.0'])
+                );
+            });
+
+            it('can programmatically select rows at different levels of the heirarchy', async () => {
+                await element.setSelectedRecordIds(['0.0.1', '1', '2.0']);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(['0.0.1', '1', '2.0'])
+                );
+            });
+
+            it('can interactively select parent row', async () => {
+                const rowIndex = getUnsortedExpandedIndexOfRecord('0');
+                await pageObject.clickRow(rowIndex);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(['0']);
+            });
+
+            it('can interactively select child row', async () => {
+                const rowIndex = getUnsortedExpandedIndexOfRecord('2.0');
+                await pageObject.clickRow(rowIndex);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(['2.0']);
+            });
+
+            it('shift-selecting across expanded parents selects children', async () => {
+                const startRowIndex = getUnsortedExpandedIndexOfRecord('0.0.1');
+                const endRowIndex = getUnsortedExpandedIndexOfRecord('1');
+                await pageObject.clickRow(startRowIndex);
+                await pageObject.clickRow(endRowIndex, { shiftKey: true });
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents([
+                        '0.0.1',
+                        '0.1',
+                        '0.2',
+                        '0.2.0',
+                        '1'
+                    ])
+                );
+            });
+
+            it('shift-selecting across collapsed parents selects children', async () => {
+                const rowIndexToCollapse = getUnsortedExpandedIndexOfRecord('0.2');
+                pageObject.clickDataRowExpandCollapseButton(rowIndexToCollapse);
+                await waitForUpdatesAsync();
+
+                const startRowIndex = getUnsortedExpandedIndexOfRecord('0.0.1');
+                // Subtract 1 because collapsing record 0.2 shifts all rows up by 1 since it has one child
+                const endRowIndex = getUnsortedExpandedIndexOfRecord('1') - 1;
+                await pageObject.clickRow(startRowIndex);
+                await pageObject.clickRow(endRowIndex, { shiftKey: true });
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents([
+                        '0.0.1',
+                        '0.1',
+                        '0.2',
+                        '0.2.0',
+                        '1'
+                    ])
+                );
+            });
+
+            it('can ctrl-select rows from different parts of the tree', async () => {
+                const rowIndex0 = getUnsortedExpandedIndexOfRecord('0.0.1');
+                const rowIndex1 = getUnsortedExpandedIndexOfRecord('1');
+                await pageObject.clickRow(rowIndex0);
+                await pageObject.clickRow(rowIndex1, { ctrlKey: true });
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(['0.0.1', '1'])
+                );
+            });
+
+            it('can ctrl-select parent row and a child', async () => {
+                const rowIndex0 = getUnsortedExpandedIndexOfRecord('0.0');
+                const rowIndex1 = getUnsortedExpandedIndexOfRecord('0.0.1');
+                await pageObject.clickRow(rowIndex0);
+                await pageObject.clickRow(rowIndex1, { ctrlKey: true });
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(['0.0', '0.0.1'])
+                );
+            });
+
+            it('table selection checkbox is indeterminate when only parent rows are selected', async () => {
+                // Select all records in the "Green" group
+                const allTopLevelRecordIds = hierarchicalData
+                    .filter(x => x.parentId === undefined)
+                    .map(x => x.id);
+                await element.setSelectedRecordIds(allTopLevelRecordIds);
+
+                expect(pageObject.getTableSelectionState()).toBe(
+                    TableRowSelectionState.partiallySelected
+                );
+            });
+
+            it('clicking table selection checkbox selects/deselects all rows', async () => {
+                pageObject.clickTableSelectionCheckbox();
+                await waitForUpdatesAsync();
+                expect(pageObject.getTableSelectionState()).toBe(
+                    TableRowSelectionState.selected
+                );
+
+                pageObject.clickTableSelectionCheckbox();
+                await waitForUpdatesAsync();
+                expect(pageObject.getTableSelectionState()).toBe(
+                    TableRowSelectionState.notSelected
+                );
+            });
+        });
+
+        describe('with grouping', () => {
+            beforeEach(async () => {
+                /**
+                 * With grouping, the expected table will be structured as follows:
+                 *
+                 * purple group row
+                 *   0
+                 *     0.0
+                 *       0.0.0
+                 *       0.0.1
+                 *     0.1
+                 *     0.2
+                 *       0.2.0
+                 *   3
+                 * green group row
+                 *   1
+                 *   2
+                 *     2.0
+                 */
+                column1.groupIndex = 0;
+                element.selectionMode = TableRowSelectionMode.multiple;
+                await waitForUpdatesAsync();
+            });
+
+            it('selecting group selects all children', async () => {
+                pageObject.clickGroupRowSelectionCheckbox(0);
+                await selectionChangeListener.promise;
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents([
+                        '0',
+                        '0.0',
+                        '0.0.0',
+                        '0.0.1',
+                        '0.1',
+                        '0.2',
+                        '0.2.0',
+                        '3'
+                    ])
+                );
+            });
+
+            it('selecting all children of a group marks the group as selected', async () => {
+                await element.setSelectedRecordIds([
+                    '0',
+                    '0.0',
+                    '0.0.0',
+                    '0.0.1',
+                    '0.1',
+                    '0.2',
+                    '0.2.0',
+                    '3'
+                ]);
+                await waitForUpdatesAsync();
+                expect(pageObject.getGroupRowSelectionState(0)).toBe(
+                    TableRowSelectionState.selected
+                );
+            });
+
+            it('selecting single child of group marks the group as having indeterminate selection', async () => {
+                await element.setSelectedRecordIds(['0.0.1']);
+                await waitForUpdatesAsync();
+                expect(pageObject.getGroupRowSelectionState(0)).toBe(
+                    TableRowSelectionState.partiallySelected
+                );
+            });
+
+            it('deselecting single child of group after selecting all marks the group as having indeterminate selection', async () => {
+                await element.setSelectedRecordIds([
+                    '0',
+                    '0.0',
+                    '0.0.0',
+                    '0.0.1',
+                    '0.1',
+                    '0.2',
+                    '0.2.0',
+                    '3'
+                ]);
+                await waitForUpdatesAsync();
+                pageObject.clickRowSelectionCheckbox(3);
+                await selectionChangeListener.promise;
+
+                expect(pageObject.getGroupRowSelectionState(0)).toBe(
+                    TableRowSelectionState.partiallySelected
+                );
             });
         });
     });
