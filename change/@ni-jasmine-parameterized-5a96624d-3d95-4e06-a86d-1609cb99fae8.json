@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix README markdown formatting",
+  "packageName": "@ni/jasmine-parameterized",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
