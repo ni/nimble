@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { attr, customElement, html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
 import { TableColumn } from '../../table-column/base';
 import { tableColumnTextTag } from '../../table-column/text';
@@ -20,7 +21,6 @@ import {
     tableColumnValidationTestTag
 } from '../../table-column/base/tests/table-column.fixtures';
 import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -1348,7 +1348,7 @@ describe('Table', () => {
                         ]
                     }
                 ];
-                parameterizeNamedList(
+                parameterizeSpec(
                     maintainDataOrderTests,
                     (spec, name, value) => {
                         spec(name, async () => {
