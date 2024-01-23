@@ -1491,12 +1491,16 @@ describe('Table', () => {
             await pageObject.scrollToLastRowAsync();
         }
 
-        async function disconnectAndReconnect(
-            dataToApplyWhileDisconnected?: readonly SimpleTableRecord[]
-        ): Promise<void> {
+        async function disconnectAndReconnect(updatesWhileDisconnected: {
+            data?: readonly SimpleTableRecord[],
+            height?: string
+        } = { data: undefined, height: undefined }): Promise<void> {
             await disconnect();
-            if (dataToApplyWhileDisconnected !== undefined) {
-                await element.setData(dataToApplyWhileDisconnected);
+            if (updatesWhileDisconnected.data !== undefined) {
+                await element.setData(updatesWhileDisconnected.data);
+            }
+            if (updatesWhileDisconnected.height) {
+                element.style.height = updatesWhileDisconnected.height;
             }
             await connect();
             await waitForUpdatesAsync();
@@ -1521,7 +1525,7 @@ describe('Table', () => {
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
             const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData400);
 
-            await disconnectAndReconnect(largeData200);
+            await disconnectAndReconnect({ data: largeData200 });
 
             expect(element.viewport.scrollTop).toBeGreaterThan(0);
             expect(element.viewport.scrollTop).toBeLessThan(
@@ -1539,7 +1543,7 @@ describe('Table', () => {
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
             const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData200);
 
-            await disconnectAndReconnect(largeData400);
+            await disconnectAndReconnect({ data: largeData400 });
 
             expect(element.viewport.scrollTop).toBe(scrollTopBeforeDisconnect);
             const firstRenderedRowAfterReconnect = getFirstRenderedRowDataIndex(largeData400);
@@ -1551,10 +1555,34 @@ describe('Table', () => {
         it('updates scroll position if data is cleared while not attached', async () => {
             await setDataAndScrollToBottom(largeData200);
 
-            await disconnectAndReconnect([]);
+            await disconnectAndReconnect({ data: [] });
 
             expect(element.viewport.scrollTop).toBe(0);
             expect(pageObject.getRenderedRowCount()).toBe(0);
+        });
+
+        it('adjusts the number of rendered rows when the table height increases while not attached', async () => {
+            element.style.height = '500px';
+            await element.setData(largeData200);
+            await waitForUpdatesAsync();
+            const renderedRowCountBeforeDisconnect = pageObject.getRenderedRowCount();
+
+            await disconnectAndReconnect({ height: '700px' });
+
+            const renderedRowCountAfterReconnect = pageObject.getRenderedRowCount();
+            expect(renderedRowCountAfterReconnect).toBeGreaterThan(renderedRowCountBeforeDisconnect);
+        });
+
+        it('adjusts the number of rendered rows when the table height decreases while not attached', async () => {
+            element.style.height = '500px';
+            await element.setData(largeData200);
+            await waitForUpdatesAsync();
+            const renderedRowCountBeforeDisconnect = pageObject.getRenderedRowCount();
+
+            await disconnectAndReconnect({ height: '200px' });
+
+            const renderedRowCountAfterReconnect = pageObject.getRenderedRowCount();
+            expect(renderedRowCountAfterReconnect).toBeLessThan(renderedRowCountBeforeDisconnect);
         });
     });
 });
