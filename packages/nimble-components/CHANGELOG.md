@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 18 Jan 2024 17:21:22 GMT and should not be manually modified.
+This log was last generated on Wed, 24 Jan 2024 00:18:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.0.3
+
+Wed, 24 Jan 2024 00:18:26 GMT
+
+### Patches
+
+- Fix bug where table rows are not rendered correctly when the table is reattached to the DOM ([ni/nimble@c3ba509](https://github.com/ni/nimble/commit/c3ba50940c9aa158b21f6c0d78056985f4a7c1c0))
+
+## 21.0.2
+
+Tue, 23 Jan 2024 22:00:33 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.1
+
+## 21.0.1
+
+Tue, 23 Jan 2024 16:01:09 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.0
+
+## 21.0.0
+
+Fri, 19 Jan 2024 22:22:02 GMT
+
+### Major changes
+
+- Introducing data hierarchy to table. Renamed 'groupCollapseAll' on the table label provider to 'collapseAll'. ([ni/nimble@398b7ab](https://github.com/ni/nimble/commit/398b7ab7e2be2597de26e15e0ee463df4a02f228))
 
 ## 20.18.1
 

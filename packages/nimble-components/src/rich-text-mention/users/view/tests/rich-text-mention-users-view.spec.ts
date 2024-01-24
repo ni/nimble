@@ -1,9 +1,9 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { RichTextMentionUsersView, richTextMentionUsersViewTag } from '..';
 import { type Fixture, fixture } from '../../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { RichTextMentionUsersViewPageObject } from '../testing/rich-text-mention-users-view.pageobject';
-import { parameterizeNamedList } from '../../../../utilities/tests/parameterized';
 import { wackyStrings } from '../../../../utilities/tests/wacky-strings';
 
 async function setup(): Promise<Fixture<RichTextMentionUsersView>> {
@@ -53,7 +53,7 @@ describe('RichTextMentionUsersView', () => {
     });
 
     describe('various wacky strings should reflect the `mention-label` attribute value to its text content', () => {
-        parameterizeNamedList(wackyStrings, (spec, name) => {
+        parameterizeSpec(wackyStrings, (spec, name) => {
             spec(`for ${name}`, async () => {
                 await connect();
                 element.setAttribute('mention-label', name);

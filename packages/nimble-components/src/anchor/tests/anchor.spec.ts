@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Anchor, anchorTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<Anchor>> {
     return fixture<Anchor>(html`<nimble-anchor></nimble-anchor>`);
@@ -70,7 +70,7 @@ describe('Anchor', () => {
         { name: 'aria-roledescription' }
     ] as const;
     describe('should reflect value to the internal control', () => {
-        parameterizeNamedList(attributeNames, (spec, name) => {
+        parameterizeSpec(attributeNames, (spec, name) => {
             spec(`for attribute ${name}`, async () => {
                 await connect();
 
@@ -104,7 +104,7 @@ describe('Anchor', () => {
             { name: 'badvalue', expected: false, skipTag: '' }
         ] as const;
 
-        parameterizeNamedList(interestingValues, (spec, name, value) => {
+        parameterizeSpec(interestingValues, (spec, name, value) => {
             spec(
                 `inner anchor isContentEditable is ${value.expected.toString()} when attribute set to "${name}" ${
                     value.skipTag
@@ -119,7 +119,7 @@ describe('Anchor', () => {
             );
         });
 
-        parameterizeNamedList(interestingValues, (spec, name, value) => {
+        parameterizeSpec(interestingValues, (spec, name, value) => {
             spec(
                 `inner anchor isContentEditable is ${value.expected.toString()} when property set to "${name}" ${
                     value.skipTag
