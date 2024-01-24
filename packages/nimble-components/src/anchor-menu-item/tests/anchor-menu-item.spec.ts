@@ -2,13 +2,10 @@
 import { customElement, html, ref } from '@microsoft/fast-element';
 import { MenuItem as FoundationMenuItem } from '@microsoft/fast-foundation';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { AnchorMenuItem, anchorMenuItemTag } from '..';
-import { anchorTag } from '../../anchor';
-import { buttonTag } from '../../button';
+import { AnchorMenuItem } from '..';
 import type { IconCheck } from '../../icons/check';
 import type { IconXmark } from '../../icons/xmark';
-import { Menu, menuTag } from '../../menu';
-import { menuItemTag } from '../../menu-item';
+import type { Menu } from '../../menu';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 
