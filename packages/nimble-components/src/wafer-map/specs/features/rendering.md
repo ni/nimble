@@ -15,6 +15,37 @@ The proposed design should consider the following factors:
 
 By addressing these challenges, we aim to enhance the rendering capabilities of our application and provide a smoother and more responsive user interface.
 
+### Observed Wafer Component Improvements
+
+The next table records the previous wafer implementation First Time Load with
+different dies set sizes:
+
+| FTL    | method      | memory space | attempt 1 | attempt 2 | attempt 3 | size      |
+| ------ | ----------- | ------------ | --------- | --------- | --------- | --------- |
+| before | queueUpdate | main         | 491ms     | 420ms     | 444ms     | 100k dies |
+|        | w/o sorting | main         | 308ms     | 248ms     | 256ms     | 100k dies |
+| before | queueUpdate | main         | 7059ms    | 7126ms    | 7469ms    | 1M dies   |
+|        | w/o sorting | main         | 3412ms    | 3326ms    | 3484ms    | 1M dies   |
+
+In this table all the computing is done in the main thread. The secondary
+records show the benchmarks without the time needed for sorting the dies.
+
+In the following table the benchmarks for the new component with all the
+improvements from the POC are recorded:
+
+| FTL   | method      | memory space | attempt 1 | attempt 2 | attempt 3 | size      |
+| ----- | ----------- | ------------ | --------- | --------- | --------- | --------- |
+| after | queueUpdate | main         | 5.6ms     | 3.5ms     | 4.0ms     | 100k dies |
+|       | renderDies  | worker       | 52.1ms    | 58.2ms    | 55.2ms    | 100k dies |
+| after | queueUpdate | main         | 20.3ms    | 16.0ms    | 36.0ms    | 1M dies   |
+|       | renderDies  | worker       | 490ms     | 476ms     | 511ms     | 1M dies   |
+| after | queueUpdate | main         | 126ms     | 104ms     | 124ms     | 10M dies  |
+|       | renderDies  | worker       | 3919ms    | 4135ms    | 4071ms    | 10M dies  |
+
+We can see a drastic increase in performance, moreover these benchmarks were
+made using a single worker thread, splitting the workload between 2 or 4 will
+increase this performance even further.
+
 ## Links To Relevant Work Items and Reference Material
 
 [Feature 2391160: Faster Rendering of Large Wafer Maps](https://dev.azure.com/ni/DevCentral/_workitems/edit/2391160)
@@ -74,6 +105,12 @@ The main thread will communicate with the worker by signaling any data changes o
 
 The strategy for improvement will be gradual. We will try to reuse the existing code as much as possible, but if the performance will not be met, we will improve the existing parsing methods and increase the number of workers.
 
+#### Size Limitations
+
+Because we are reaching out to support very large amounts of data, an issue that is popping out is the limits of the component's canvas size to the amount of displayed data. For example we could find ourselves in the situation to render more dies than there are pixels on the canvas, at least in the zoomed out state.
+
+The solution to this issue is creating a new validity warning or event which will signal this state to the user when the count of individual dies will overtake the size of the canvas. A heuristic which will calculate this based on the zoom level and the component height and width will be implemented and used during data validation.
+
 ### Performance Testing
 
 We wish to measure functions performance of wafer map using the existing lighthouse setup paired with windows.performance tools.
@@ -95,20 +132,22 @@ The example shows how custom markers can be set in the tested code. The result o
 
 We wish to extend the existing lighthouse CI testing to include the wafermap component and record various metrics about the performance it has when rendering multiple generated data loads. They will include data ingestion, rendering time, rerendering when user events get triggered and data changes.
 
+These records will be made in a separate web page from the existing performance tests to avoid polluting the results. They will not be preserved over time, each CI record being available for download after build.
+
 Our target goals are:
 
 1. For wafers >200k and <1m die
 
     1. Initial rendering: <1 second
-    1. Zoom/pan actions: <250ms
+    1. Zoom/pan actions: <500ms
     1. Configuration changes that don't modify the dataset (e.g. show labels):
-       <250ms
+       <500ms
     1. Configuration changes that modify the dataset (e.g. replace layers): <1 second
 
-1. For wafers >1m and <5m die
+1. For wafers >1m and <10m die
     1. Initial rendering: <10 seconds
-    1. Zoom/pan actions: <250ms
-    1. Interactions that don't modify the dataset (e.g. show labels): <250ms
+    1. Zoom/pan actions: <1 second
+    1. Interactions that don't modify the dataset (e.g. show labels): <1 second
     1. Interactions that modify the dataset (e.g. replace layers): <10 seconds
 
 ## Alternative Implementations / Designs
