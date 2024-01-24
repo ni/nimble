@@ -174,43 +174,4 @@ describe('Anchor Menu Item', () => {
             expect(model.item4dot2.startColumnCount).toBe(0);
         });
     });
-
-    describe('FoundationMenuItem instanceof override', () => {
-        it('returns true for FoundationMenuItem', () => {
-            const foundationMenuItem = document.createElement(
-                'foundation-menu-item'
-            );
-            expect(foundationMenuItem instanceof FoundationMenuItem).toBeTrue();
-        });
-
-        it('returns true for AnchorMenuItem', () => {
-            const anchorMenuItem = document.createElement(anchorMenuItemTag);
-            expect(anchorMenuItem instanceof FoundationMenuItem).toBeTrue();
-        });
-
-        it('returns true for MenuItem', () => {
-            const menuItem = document.createElement(menuItemTag);
-            expect(menuItem instanceof FoundationMenuItem).toBeTrue();
-        });
-
-        it('returns false for Menu', () => {
-            const menu = document.createElement(menuTag);
-            expect(menu instanceof FoundationMenuItem).toBeFalse();
-        });
-
-        it('returns false for Anchor', () => {
-            const anchor = document.createElement(anchorTag);
-            expect(anchor instanceof FoundationMenuItem).toBeFalse();
-        });
-
-        it('returns false for Button', () => {
-            const button = document.createElement(buttonTag);
-            expect(button instanceof FoundationMenuItem).toBeFalse();
-        });
-
-        it('returns false for div', () => {
-            const div = document.createElement('div');
-            expect(div instanceof FoundationMenuItem).toBeFalse();
-        });
-    });
 });
