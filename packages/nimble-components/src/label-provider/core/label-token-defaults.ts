@@ -9,6 +9,6 @@ export const coreLabelDefaults: { readonly [key in TokenName]: string } = {
     errorIconLabel: 'Error',
     warningIconLabel: 'Warning',
     informationIconLabel: 'Information',
-    selectFilterSearchLabel: 'Search',
-    selectFilterNoResultsLabel: 'No items found'
+    filterSearchLabel: 'Search',
+    filterNoResultsLabel: 'No items found'
 };

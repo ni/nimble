@@ -1,10 +1,4 @@
-import {
-    attr,
-    html,
-    observable,
-    Observable,
-    DOM
-} from '@microsoft/fast-element';
+import { attr, html, observable, Observable } from '@microsoft/fast-element';
 import {
     AnchoredRegion,
     DesignSystem,
@@ -12,6 +6,7 @@ import {
     ListboxOption,
     SelectOptions
 } from '@microsoft/fast-foundation';
+import { keyEnter, keyEscape, keySpace } from '@microsoft/fast-web-utilities';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import { DropdownAppearance } from '../patterns/dropdown/types';
@@ -20,7 +15,6 @@ import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { template } from './template';
 import type { ListOption } from '../list-option';
-import type { TextField } from '../text-field';
 import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 
@@ -63,7 +57,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
      * @internal
      */
     @observable
-    public input?: TextField;
+    public searchInput?: HTMLInputElement;
 
     /**
      * @internal
@@ -122,17 +116,13 @@ export class Select extends FoundationSelect implements ErrorPattern {
         Observable.notify(this, 'options');
     }
 
-    /**
-     * The value property.
-     *
-     * @public
-     */
-    public override get value(): string {
-        Observable.track(this, 'value');
-        // eslint-disable-next-line @typescript-eslint/dot-notation
-        return this['_value'] as string;
-    }
-
+    // This is copied directly from FAST's implemention of its Select component, with
+    // one main difference: we use 'options' (the filtered set of options) vs '_options'.
+    // This is needed because while the dropdown is open the current 'selectedIndex' (set
+    // within this implementation) needs to be relative to the filtered options. This
+    // results in the unfortunate hack where we have to set this['_value'], as '_value'
+    // is private. I have filed this issue to FAST to hopefully provide a better means
+    // of accomplishing this: https://github.com/microsoft/fast/issues/6896
     public override set value(next: string) {
         const prev = `${this.value}`;
         let newValue = next;
@@ -225,7 +215,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
      * @internal
      */
     public inputHandler(e: InputEvent): boolean {
-        this.filter = this.input?.value ?? '';
+        this.filter = this.searchInput?.value ?? '';
         if (!this.committedSelectedOption) {
             this.committedSelectedOption = this._options.find(
                 option => option.selected
@@ -254,10 +244,10 @@ export class Select extends FoundationSelect implements ErrorPattern {
         return true;
     }
 
-    public override keydownHandler(e: KeyboardEvent): boolean {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    public override keydownHandler(e: KeyboardEvent): boolean | void {
         if (this.filterMode === FilterMode.none) {
-            super.keydownHandler(e);
-            return true;
+            return super.keydownHandler(e);
         }
 
         const key = e.key;
@@ -266,7 +256,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
         }
 
         switch (key) {
-            case ' ': {
+            case keySpace: {
                 // when dropdown is open allow user to enter a space for filter text
                 // (calling super method will close dropdown)
                 if (!this.open) {
@@ -275,14 +265,13 @@ export class Select extends FoundationSelect implements ErrorPattern {
                 break;
             }
 
-            case 'Enter': {
+            case keyEnter: {
                 this.updateSelectedIndexFromFilteredSet();
                 super.keydownHandler(e);
                 this.focus();
                 break;
             }
-            case 'Escape': {
-                this.filteredOptions = [];
+            case keyEscape: {
                 if (this.committedSelectedOption) {
                     this.clearSelection();
                     this.selectedIndex = this._options.indexOf(
@@ -305,25 +294,23 @@ export class Select extends FoundationSelect implements ErrorPattern {
         prev: boolean | undefined,
         next: boolean
     ): void {
-        this.filter = '';
-        this.filterOptions();
         super.openChanged(prev, next);
         if (!this.$fastController.isConnected) {
             return;
         }
 
         if (this.open) {
-            DOM.queueUpdate(() => {
-                window.requestAnimationFrame(() => {
-                    this.input?.focus();
-                    this.scrollbarIsVisible = this.scrollableElement.clientHeight
-                        < this.scrollableElement.scrollHeight;
-                });
+            this.filterOptions();
+            window.requestAnimationFrame(() => {
+                this.searchInput?.focus();
             });
+        } else {
+            this.filter = '';
+            if (this.searchInput) {
+                this.searchInput.value = '';
+            }
         }
-        if (this.input) {
-            this.input.value = '';
-        }
+
         if (this.open && this.committedSelectedOption) {
             this.committedSelectedOption.selected = true;
         }
@@ -337,13 +324,13 @@ export class Select extends FoundationSelect implements ErrorPattern {
     private filterOptions(): void {
         const filter = this.filter.toLowerCase();
 
-        this.filteredOptions = this._options.filter(option => {
-            return diacriticInsensitiveStringNormalizer(option.text).includes(
-                diacriticInsensitiveStringNormalizer(filter)
-            );
-        });
-
-        if (!this.filteredOptions.length && !filter) {
+        if (filter) {
+            this.filteredOptions = this._options.filter(option => {
+                return diacriticInsensitiveStringNormalizer(
+                    option.text
+                ).includes(diacriticInsensitiveStringNormalizer(filter));
+            });
+        } else {
             this.filteredOptions = this._options;
         }
 
@@ -356,6 +343,10 @@ export class Select extends FoundationSelect implements ErrorPattern {
         this._options.forEach(option => {
             option.selected = false;
         });
+    }
+
+    private filterChanged(): void {
+        this.filterOptions();
     }
 
     private maxHeightChanged(): void {
@@ -372,15 +363,13 @@ export class Select extends FoundationSelect implements ErrorPattern {
     }
 
     private updateSelectedIndexFromFilteredSet(): void {
-        const selectedItem = this.options[this.selectedIndex];
+        const selectedItem = this.options[this.selectedIndex]!;
         // Clear filter and re-filter options so any logic resolving against 'this.options'
         // resolves against all options, since selectedIndex should be relative to entire set.
         this.filter = '';
         this.filterOptions();
-        if (selectedItem) {
-            // translate selectedIndex for filtered list to selectedIndex for all items
-            this.selectedIndex = this._options.indexOf(selectedItem);
-        }
+        // translate selectedIndex for filtered list to selectedIndex for all items
+        this.selectedIndex = this._options.indexOf(selectedItem);
     }
 
     private readonly changeValueHandler = (): void => {

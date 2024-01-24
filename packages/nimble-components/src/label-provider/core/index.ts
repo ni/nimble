@@ -8,8 +8,8 @@ import {
     errorIconLabel,
     warningIconLabel,
     informationIconLabel,
-    selectFilterSearchLabel,
-    selectFilterNoResultsLabel
+    filterSearchLabel,
+    filterNoResultsLabel
 } from './label-tokens';
 
 declare global {
@@ -25,8 +25,8 @@ const supportedLabels = {
     errorIcon: errorIconLabel,
     warningIcon: warningIconLabel,
     informationIcon: informationIconLabel,
-    selectFilterSearch: selectFilterSearchLabel,
-    selectFilterNoResults: selectFilterNoResultsLabel
+    filterSearch: filterSearchLabel,
+    filterNoResults: filterNoResultsLabel
 } as const;
 
 /**
@@ -53,11 +53,11 @@ export class LabelProviderCore
     @attr({ attribute: 'information-icon' })
     public informationIcon: string | undefined;
 
-    @attr({ attribute: 'select-filter-search' })
-    public selectFilterSearch: string | undefined;
+    @attr({ attribute: 'filter-search' })
+    public filterSearch: string | undefined;
 
-    @attr({ attribute: 'select-filter-no-results' })
-    public selectFilterNoResults: string | undefined;
+    @attr({ attribute: 'filter-no-results' })
+    public filterNoResults: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }

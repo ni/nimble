@@ -3,7 +3,7 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createFixedThemeStory } from '../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import { backgroundStates } from '../../utilities/tests/states';
-import { selectTag } from '..';
+import { Select, selectTag } from '..';
 import { listOptionTag } from '../../list-option';
 import { FilterMode } from '../types';
 
@@ -108,3 +108,50 @@ export const selectAboveOpenStandardFilterDarkThemeBlackBackground: StoryFn = cr
     component(positionStates[1], FilterMode.standard),
     darkThemeBlackBackground
 );
+
+const badFilterPlayFunction = (): void => {
+    const select = document.querySelector<Select>('nimble-select');
+    select!.filter = 'abc';
+};
+
+export const selectAboveOpenFilterNoMatchDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[1], FilterMode.standard),
+    darkThemeBlackBackground
+);
+
+selectAboveOpenFilterNoMatchDarkThemeBlackBackground.play = badFilterPlayFunction;
+
+export const selectAboveOpenFilterNoMatchLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[1], FilterMode.standard),
+    lightThemeWhiteBackground
+);
+
+selectAboveOpenFilterNoMatchLightThemeWhiteBackground.play = badFilterPlayFunction;
+
+export const selectAboveOpenFilterNoMatchColorThemeGreenBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[1], FilterMode.standard),
+    colorThemeDarkGreenBackground
+);
+
+selectAboveOpenFilterNoMatchColorThemeGreenBackground.play = badFilterPlayFunction;
+
+export const selectBelowOpenFilterNoMatchDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard),
+    darkThemeBlackBackground
+);
+
+selectBelowOpenFilterNoMatchDarkThemeBlackBackground.play = badFilterPlayFunction;
+
+export const selectBelowOpenFilterNoMatchLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard),
+    lightThemeWhiteBackground
+);
+
+selectBelowOpenFilterNoMatchLightThemeWhiteBackground.play = badFilterPlayFunction;
+
+export const selectBelowOpenFilterNoMatchColorThemeGreenBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard),
+    colorThemeDarkGreenBackground
+);
+
+selectBelowOpenFilterNoMatchColorThemeGreenBackground.play = badFilterPlayFunction;

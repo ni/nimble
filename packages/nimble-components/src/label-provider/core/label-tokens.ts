@@ -31,12 +31,12 @@ export const informationIconLabel = DesignToken.create<string>({
     cssCustomPropertyName: null
 }).withDefault(coreLabelDefaults.informationIconLabel);
 
-export const selectFilterSearchLabel = DesignToken.create<string>({
-    name: 'select-filter-search-label',
+export const filterSearchLabel = DesignToken.create<string>({
+    name: 'filter-search-label',
     cssCustomPropertyName: null
-}).withDefault(coreLabelDefaults.selectFilterSearchLabel);
+}).withDefault(coreLabelDefaults.filterSearchLabel);
 
-export const selectFilterNoResultsLabel = DesignToken.create<string>({
-    name: 'select-filter-no-results-label',
+export const filterNoResultsLabel = DesignToken.create<string>({
+    name: 'filter-no-results-label',
     cssCustomPropertyName: null
-}).withDefault(coreLabelDefaults.selectFilterNoResultsLabel);
+}).withDefault(coreLabelDefaults.filterNoResultsLabel);

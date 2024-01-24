@@ -43,16 +43,6 @@ export const styles = css`
 
     .listbox {
         overflow-x: clip;
-        padding: ${smallPadding};
-    }
-
-    .listbox slot {
-        overflow: auto;
-        padding: 0px;
-    }
-
-    .listbox slot.scrollbarVisible {
-        padding-right: ${smallPadding};
     }
 
     .listbox.empty slot {
@@ -71,40 +61,31 @@ export const styles = css`
         background: transparent;
     }
 
-    .search-field.above {
-        padding-top: ${mediumPadding};
+    .search-icon {
+        padding-left: ${smallPadding};
     }
 
-    .search-field.below {
-        padding-bottom: ${smallPadding};
-    }
-
-    .search-field::after {
-        content: '';
-        position: absolute;
-        top: calc(${controlHeight} + ${mediumPadding} - ${borderWidth});
-        width: calc(100% - ${mediumPadding} - (2 * ${borderWidth}));
-        height: 0px;
-        border-bottom: rgba(${borderRgbPartialColor}, 0.15) 2px solid;
-    }
-
-    .search-field.above::after {
-        width: 0px;
-    }
-
+    .search-field::after,
     .search-field::before {
         content: '';
         position: absolute;
-        bottom: calc(
-            ${controlHeight} + ${mediumPadding} + (2 * ${borderWidth})
-        );
-        width: 0px;
         height: 0px;
         border-bottom: rgba(${borderRgbPartialColor}, 0.15) 2px solid;
     }
 
+    .search-field::after {
+        top: calc(${controlHeight} + ${smallPadding} - ${borderWidth});
+    }
+
+    .search-field:before {
+        bottom: calc(
+            ${controlHeight} + ${smallPadding} + (2 * ${borderWidth})
+        );
+    }
+
+    .search-field:not(.above)::after,
     .search-field.above::before {
-        width: calc(100% - ${mediumPadding} - (2 * ${borderWidth}));
+        width: calc(100% - (2 * ${borderWidth}));
     }
 
     .filter-input {
@@ -113,11 +94,20 @@ export const styles = css`
         color: inherit;
         font: inherit;
         height: var(--ni-nimble-control-height);
-        padding-left: ${mediumPadding};
+        padding: 0 ${smallPadding} 0 ${mediumPadding};
+        width: 100%;
+    }
+
+    filter-input::placeholder {
+        color: ${placeholderFontColor};
     }
 
     .filter-input${focusVisible} {
         outline: 0px;
+    }
+
+    .scrollable-element {
+        overflow: auto;
     }
 
     .no-results-label {
@@ -140,10 +130,7 @@ export const styles = css`
     themeBehavior(
         Theme.color,
         css`
-            .search-field {
-                background: ${hexToRgbaCssColor(White, 0.15)};
-            }
-
+            .search-field,
             .no-results-label {
                 background: ${hexToRgbaCssColor(White, 0.15)};
             }

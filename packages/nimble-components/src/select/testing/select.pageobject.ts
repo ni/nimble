@@ -12,6 +12,11 @@ export class SelectPageObject {
     public constructor(private readonly selectElement: Select) {}
 
     public async openAndSetFilterText(filterText: string): Promise<void> {
+        if (this.selectElement.filterMode === FilterMode.none) {
+            throw new Error(
+                'Can not set filter text with filterMode set to "none".'
+            );
+        }
         await this.clickSelect();
         const filterInput = this.getFilterInput();
         if (filterInput) {

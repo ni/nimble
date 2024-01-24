@@ -18,8 +18,8 @@ import { DropdownPosition } from '../patterns/dropdown/types';
 import { overflow } from '../utilities/directive/overflow';
 import { iconMagnifyingGlassTag } from '../icons/magnifying-glass';
 import {
-    selectFilterNoResultsLabel,
-    selectFilterSearchLabel
+    filterNoResultsLabel,
+    filterSearchLabel
 } from '../label-provider/core/label-tokens';
 import { FilterMode } from './types';
 
@@ -87,44 +87,49 @@ SelectOptions
             horizontal-positioning-mode="locktodefault"
             horizontal-scaling="anchor"
             ?hidden="${x => (x.collapsible ? !x.open : false)}">
-            <div
-                class="
-                    listbox 
-                    ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}
-                    ${x => x.positionAttribute}
-                "
-                id="${x => x.listboxId}"
-                part="listbox"
-                role="listbox"
-                ?disabled="${x => x.disabled}"
-                ${ref('listbox')}
-            >
-                ${when(x => x.filterMode !== FilterMode.none, html<Select>`
-                    <div class="search-field ${x => x.positionAttribute}">
-                        <${iconMagnifyingGlassTag}></${iconMagnifyingGlassTag}>
-                        <input
-                            class="filter-input ${x => (x.filter.length === 0 ? 'empty' : '')}"
-                            ?disabled="${x => x.disabled}"
-                            @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
-                            @click="${(x, c) => x.inputClickHandler(c.event as MouseEvent)}"
-                            ${ref('input')}
-                            placeholder="${x => selectFilterSearchLabel.getValueFor(x)}..."
-                        />
-                    </div>
-                `)}
-                <slot ${ref('scrollableElement')}
-                    class="${x => (x.scrollbarIsVisible ? 'scrollbarVisible' : '')}"
-                    ${slotted({
+            <div class="listbox-background">
+                <div
+                    class="
+                        listbox 
+                        ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}
+                        ${x => x.positionAttribute}
+                    "
+                    id="${x => x.listboxId}"
+                    part="listbox"
+                    role="listbox"
+                    ?disabled="${x => x.disabled}"
+                    ${ref('listbox')}
+                >
+                    ${when(x => x.filterMode !== FilterMode.none, html<Select>`
+                        <div class="search-field ${x => x.positionAttribute}">
+                            <${iconMagnifyingGlassTag} class="search-icon"></${iconMagnifyingGlassTag}>
+                            <input
+                                class="filter-input"
+                                ?disabled="${x => x.disabled}"
+                                @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
+                                @click="${(x, c) => x.inputClickHandler(c.event as MouseEvent)}"
+                                ${ref('searchInput')}
+                                placeholder="${x => filterSearchLabel.getValueFor(x)}"
+                                value="${x => x.filter}"
+                            />
+                        </div>
+                    `)}
+                    <div ${ref('scrollableElement')}
+                        class="scrollable-element">
+                        <slot
+                            ${slotted({
         filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
         flatten: true,
         property: 'slottedOptions',
     })}
-                ></slot>
-                ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0), html<Select>`
-                    <span class="no-results-label">
-                        ${x => selectFilterNoResultsLabel.getValueFor(x)}
-                    </span>
-                `)}
+                        ></slot>
+                    </div>
+                    ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0), html<Select>`
+                        <span class="no-results-label ${x => x.positionAttribute}">
+                            ${x => filterNoResultsLabel.getValueFor(x)}
+                        </span>
+                    `)}
+                </div>
             </div>
         </${anchoredRegionTag}>
     </template>
