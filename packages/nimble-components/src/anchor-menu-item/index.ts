@@ -2,7 +2,6 @@ import { attr, observable } from '@microsoft/fast-element';
 import {
     DesignSystem,
     AnchorOptions,
-    MenuItem as FoundationMenuItem,
     MenuItemColumnCount
 } from '@microsoft/fast-foundation';
 import { keyEnter } from '@microsoft/fast-web-utilities';
