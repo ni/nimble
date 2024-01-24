@@ -1,3 +1,4 @@
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { FormatNumberDefaultPipe, byteUnitScale } from '../format-number-default.pipe';
 
 describe('FormatNumberDefaultPipe', () => {
@@ -25,12 +26,12 @@ describe('FormatNumberDefaultPipe', () => {
             value: 300,
             expected: '300 Byte'
         },
-    ];
+    ] as const;
 
-    testCases.forEach(test => {
-        it(test.name, () => {
-            const pipe = new FormatNumberDefaultPipe(test.options.locale ?? 'en');
-            expect(pipe.transform(test.value, test.options.unitScale)).toEqual(test.expected);
+    parameterizeSpec(testCases, (spec, name, value) => {
+        spec(name, () => {
+            const pipe = new FormatNumberDefaultPipe(value.options.locale ?? 'en');
+            expect(pipe.transform(value.value, value.options.unitScale)).toEqual(value.expected);
         });
     });
 

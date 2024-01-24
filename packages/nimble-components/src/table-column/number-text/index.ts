@@ -89,8 +89,8 @@ export class TableColumnNumberText extends TableColumnTextBase {
         decimalDigits?: number,
         maximumDecimalDigits?: number
     ): {
-            minimumFractionDigits?: number,
-            maximumFractionDigits?: number
+            minimumFractionDigits: number,
+            maximumFractionDigits: number
         } {
         const decimalDigitsHasValue = typeof decimalDigits === 'number';
         const maximumDecimalDigitsHasValue = typeof maximumDecimalDigits === 'number';

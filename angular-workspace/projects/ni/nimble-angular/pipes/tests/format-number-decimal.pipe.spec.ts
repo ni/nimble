@@ -36,7 +36,7 @@ describe('FormatNumberDecimalPipe', () => {
             value: 300,
             expected: '300,00 Byte'
         },
-    ];
+    ] as const;
 
     parameterizeSpec(testCases, (spec, name, value) => {
         spec(name, () => {

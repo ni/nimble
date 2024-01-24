@@ -1,6 +1,6 @@
 {
   "type": "major",
-  "comment": "Provide two number formatting pipes, and change existing DurationPipe to be a standalone component (removing NimblePipesModule)",
+  "comment": "Provide two number formatting pipes, and change existing DurationPipe to be a standalone pipe (removing NimblePipesModule)",
   "packageName": "@ni/nimble-angular",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"
