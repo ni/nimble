@@ -2,27 +2,28 @@ import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { FormatNumberDefaultPipe, byteUnitScale } from '../format-number-default.pipe';
 
 describe('FormatNumberDefaultPipe', () => {
-    const testCases = [
+    const testCases: readonly {
+        name: string,
+        locale?: string,
+        unitScale?: typeof byteUnitScale,
+        value: number,
+        expected: string
+    }[] = [
         {
             name: 'default formatting is as expected',
-            options: {},
             value: 1000000,
             expected: '1E6'
         },
         {
             name: 'honors the unitScale value',
-            options: {
-                unitScale: byteUnitScale
-            },
+            unitScale: byteUnitScale,
             value: 3000,
             expected: '3 kB'
         },
         {
             name: 'honors the locale value',
-            options: {
-                locale: 'de',
-                unitScale: byteUnitScale
-            },
+            locale: 'de',
+            unitScale: byteUnitScale,
             value: 300,
             expected: '300 Byte'
         },
@@ -30,8 +31,8 @@ describe('FormatNumberDefaultPipe', () => {
 
     parameterizeSpec(testCases, (spec, name, value) => {
         spec(name, () => {
-            const pipe = new FormatNumberDefaultPipe(value.options.locale ?? 'en');
-            expect(pipe.transform(value.value, value.options.unitScale)).toEqual(value.expected);
+            const pipe = new FormatNumberDefaultPipe(value.locale ?? 'en');
+            expect(pipe.transform(value.value, value.unitScale)).toEqual(value.expected);
         });
     });
 

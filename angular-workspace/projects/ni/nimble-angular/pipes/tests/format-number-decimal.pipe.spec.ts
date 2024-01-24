@@ -4,35 +4,35 @@ import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { FormatNumberDecimalPipe, byteUnitScale } from '../format-number-decimal.pipe';
 
 describe('FormatNumberDecimalPipe', () => {
-    const testCases = [
+    const testCases: readonly {
+        name: string,
+        locale?: string,
+        decimalDigits?: number,
+        unitScale?: typeof byteUnitScale,
+        value: number,
+        expected: string
+    }[] = [
         {
             name: 'default formatting is as expected',
-            options: {},
             value: 100,
             expected: '100.00'
         },
         {
             name: 'honors the decimalDigits value',
-            options: {
-                decimalDigits: 1
-            },
+            decimalDigits: 1,
             value: 100,
             expected: '100.0'
         },
         {
             name: 'honors the unitScale value',
-            options: {
-                unitScale: byteUnitScale
-            },
+            unitScale: byteUnitScale,
             value: 3000,
             expected: '3.00 kB'
         },
         {
             name: 'honors the locale value',
-            options: {
-                locale: 'de',
-                unitScale: byteUnitScale
-            },
+            locale: 'de',
+            unitScale: byteUnitScale,
             value: 300,
             expected: '300,00 Byte'
         },
@@ -40,10 +40,10 @@ describe('FormatNumberDecimalPipe', () => {
 
     parameterizeSpec(testCases, (spec, name, value) => {
         spec(name, () => {
-            const pipe = new FormatNumberDecimalPipe(value.options.locale ?? 'en');
+            const pipe = new FormatNumberDecimalPipe(value.locale ?? 'en');
             expect(pipe.transform(value.value, {
-                decimalDigits: value.options.decimalDigits,
-                unitScale: value.options.unitScale
+                decimalDigits: value.decimalDigits,
+                unitScale: value.unitScale
             })).toEqual(value.expected);
         });
     });
