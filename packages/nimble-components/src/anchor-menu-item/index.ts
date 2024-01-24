@@ -103,20 +103,3 @@ DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleAnchorMenuItem());
 export const anchorMenuItemTag = 'nimble-anchor-menu-item';
-
-// This is a workaround for the fact that FAST's menu uses `instanceof MenuItem`
-// in their logic for indenting menu items. Since our AnchorMenuItem derives from
-// AnchorBase and not FAST's MenuItem, we need to change their MenuItem's definition
-// of `hasInstance` so that it includes our AnchorMenuItem, too.
-//
-// If/when we change FAST to test for the presence of `startColumnCount` instead
-// of using `instanceof MenuItem`, we can remove this workaround. Here is the
-// PR into FAST: https://github.com/microsoft/fast/pull/6667
-const originalInstanceOf = FoundationMenuItem[Symbol.hasInstance].bind(FoundationMenuItem);
-Object.defineProperty(FoundationMenuItem, Symbol.hasInstance, {
-    value(instance: unknown) {
-        return (
-            originalInstanceOf(instance) || instance instanceof AnchorMenuItem
-        );
-    }
-});
