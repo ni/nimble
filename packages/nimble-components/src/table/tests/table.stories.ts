@@ -233,6 +233,22 @@ const setSelectedRecordIdsDescription = `A function that makes the rows associat
 If a record does not exist in the table's data, it will not be selected. If multiple record IDs are specified when the table's selection
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
+const setRowOptionsDescription = `A function to set options on a row. This information is provided as an array of recordId/\`TableRowOptions\` pairs.
+
+**Note:** The feature to lazy load child rows is still in development, so it should not be used yet in production. Specifically, the feature to
+show a loading indicator while the child rows are being loaded has not been implemented. Therefore, the user experience is not optimal.
+
+
+<details>
+    <summary>Behavior specifics</summary>
+    - previously set row options will be cleared when \`setData\` is called
+    - previously set row options will be cleared with the table's \`id-field-name\` changes
+    - an option associated with a row ID that does not match a record in the data will be ignored
+    - calling \`setRowOptions\` when row options have already been set on the table will have the following behavior:
+        - existing options not passed in the new \`rowOptions\` array will be left unmodified
+        - existing options passed in the new \`rowOptions\` array will be overwritten
+</details>`;
+
 const metadata: Meta<TableArgs> = {
     title: 'Components/Table',
     decorators: [withActions],
@@ -364,12 +380,22 @@ const metadata: Meta<TableArgs> = {
                 'A function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.',
             control: false
         },
+        addDynamicChildrenIfNeeded: {
+            name: 'setRowOptions()',
+            description: setRowOptionsDescription,
+            control: false
+        },
         tableRef: {
             table: {
                 disable: true
             }
         },
         updateData: {
+            table: {
+                disable: true
+            }
+        },
+        addedDynamicChildren: {
             table: {
                 disable: true
             }
