@@ -120,6 +120,10 @@ export class SelectPageObject {
         );
     }
 
+    public getFilterInputText(): string {
+        return this.getFilterInput()?.value ?? '';
+    }
+
     private getFilterInput(): HTMLInputElement | null | undefined {
         if (this.selectElement.filterMode === FilterMode.none) {
             throw new Error(

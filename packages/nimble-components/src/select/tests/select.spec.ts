@@ -393,6 +393,7 @@ describe('Select', () => {
             await pageObject.closeDropdown();
             await pageObject.clickSelect();
 
+            expect(pageObject.getFilterInputText()).toBe('');
             expect(pageObject.getFilteredOptions().length).toBe(5);
         });
 
