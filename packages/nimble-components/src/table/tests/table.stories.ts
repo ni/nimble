@@ -34,7 +34,7 @@ interface TableArgs extends LabelUserArgs {
         args: TableArgs,
         event: CustomEvent<TableRowExpansionToggleEventDetail>
     ) => void;
-    addedDynamicChildren: boolean;
+    processedDynamicParentExpansion: boolean;
 }
 
 const simpleData = [
@@ -395,7 +395,7 @@ const metadata: Meta<TableArgs> = {
                 disable: true
             }
         },
-        addedDynamicChildren: {
+        processedDynamicParentExpansion: {
             table: {
                 disable: true
             }
@@ -420,31 +420,28 @@ const metadata: Meta<TableArgs> = {
             })();
         },
         addDynamicChildrenIfNeeded: (x, e) => {
-            if (x.data !== ExampleDataType.hierarchicalDataSet) {
-                return;
-            }
-
-            if (
-                e.detail.recordId !== '9'
+            if (x.data !== ExampleDataType.hierarchicalDataSet
+                || e.detail.recordId !== '9'
                 || e.detail.newState !== true
-                || x.addedDynamicChildren
+                || x.processedDynamicParentExpansion
             ) {
                 return;
             }
 
-            const newData = [
-                ...dataSets[x.data],
-                {
-                    firstName: 'Seymour',
-                    lastName: 'Skinner',
-                    quote: 'Isn’t it nice we hate the same things?',
-                    age: 42,
-                    id: '10',
-                    parentId: '9'
-                }
-            ];
+            x.processedDynamicParentExpansion = true;
+
             setTimeout(() => {
-                x.addedDynamicChildren = true;
+                const newData = [
+                    ...dataSets[x.data],
+                    {
+                        firstName: 'Seymour',
+                        lastName: 'Skinner',
+                        quote: 'Isn’t it nice we hate the same things?',
+                        age: 42,
+                        id: '10',
+                        parentId: '9'
+                    }
+                ];
                 void x.tableRef.setData(newData);
             }, 500);
         }
