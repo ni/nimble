@@ -78,9 +78,7 @@ export const styles = css`
     }
 
     .search-field:before {
-        bottom: calc(
-            ${controlHeight} + ${smallPadding} + (2 * ${borderWidth})
-        );
+        bottom: calc(${controlHeight} + ${smallPadding} + (2 * ${borderWidth}));
     }
 
     .search-field:not(.above)::after,
