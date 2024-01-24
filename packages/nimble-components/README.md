@@ -2,7 +2,7 @@
     <p><b>ni | nimble | components</b></p>
 </div>
 
-# Nimble Components
+# Nimble Components Rocks!
 
 [![NPM Version](https://img.shields.io/npm/v/@ni/nimble-components.svg)](https://www.npmjs.com/package/@ni/nimble-components)
 
