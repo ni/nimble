@@ -56,6 +56,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public connect(): void {
         this.viewportResizeObserver.observe(this.table.viewport);
         this.updateVirtualizer();
+        this.table.viewport.scrollTo({ top: this.virtualizer!.scrollOffset });
     }
 
     public disconnect(): void {
