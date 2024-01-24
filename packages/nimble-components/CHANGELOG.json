@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 24 Jan 2024 00:18:26 GMT",
+      "version": "21.0.3",
+      "tag": "@ni/nimble-components_v21.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c3ba50940c9aa158b21f6c0d78056985f4a7c1c0",
+            "comment": "Fix bug where table rows are not rendered correctly when the table is reattached to the DOM"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 23 Jan 2024 23:07:45 GMT",
       "version": "21.0.2",
       "tag": "@ni/nimble-components_v21.0.2",
