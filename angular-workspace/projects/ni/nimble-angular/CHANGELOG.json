@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 24 Jan 2024 01:53:18 GMT",
+      "version": "19.2.3",
+      "tag": "@ni/nimble-angular_v19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "384f4d877752f8a8a4e482885f37ba141cdbd6a0",
+            "comment": "Use jasmine-parameterized in Angular tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 24 Jan 2024 00:18:26 GMT",
       "version": "19.2.3",
       "tag": "@ni/nimble-angular_v19.2.3",
