@@ -274,7 +274,10 @@ export class Table<
             this.table,
             this.selectionMode
         );
-        this.expansionManager = new ExpansionManager(this.table, this.rowOptionsManager);
+        this.expansionManager = new ExpansionManager(
+            this.table,
+            this.rowOptionsManager
+        );
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
@@ -305,7 +308,9 @@ export class Table<
         });
     }
 
-    public async setRowOptions(rowOptions: { id: string, options: TableRowOptions }[]): Promise<void> {
+    public async setRowOptions(
+        rowOptions: { id: string, options: TableRowOptions }[]
+    ): Promise<void> {
         await this.processPendingUpdates();
 
         for (const { id, options } of rowOptions) {

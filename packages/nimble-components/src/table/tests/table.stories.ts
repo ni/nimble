@@ -4,7 +4,10 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
-import { TableRowExpansionToggleEventDetail, TableRowSelectionMode } from '../types';
+import {
+    TableRowExpansionToggleEventDetail,
+    TableRowSelectionMode
+} from '../types';
 import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
@@ -27,7 +30,10 @@ interface TableArgs extends LabelUserArgs {
     getSelectedRecordIds: undefined;
     tableRef: Table;
     updateData: (args: TableArgs) => void;
-    addDynamicChildrenIfNeeded: (args: TableArgs, event: CustomEvent<TableRowExpansionToggleEventDetail>) => void;
+    addDynamicChildrenIfNeeded: (
+        args: TableArgs,
+        event: CustomEvent<TableRowExpansionToggleEventDetail>
+    ) => void;
     addedDynamicChildren: boolean;
 }
 
@@ -382,7 +388,9 @@ const metadata: Meta<TableArgs> = {
                 // but doesn't seem to be upgraded to a custom element yet
                 await customElements.whenDefined('nimble-table');
                 await x.tableRef.setData(dataSets[x.data]);
-                await x.tableRef.setRowOptions([{ id: '9', options: { forceExpandable: true } }]);
+                await x.tableRef.setRowOptions([
+                    { id: '9', options: { forceExpandable: true } }
+                ]);
             })();
         },
         addDynamicChildrenIfNeeded: (x, e) => {
@@ -390,18 +398,25 @@ const metadata: Meta<TableArgs> = {
                 return;
             }
 
-            if (e.detail.recordId !== '9' || e.detail.newState !== true || x.addedDynamicChildren) {
+            if (
+                e.detail.recordId !== '9'
+                || e.detail.newState !== true
+                || x.addedDynamicChildren
+            ) {
                 return;
             }
 
-            const newData = [...dataSets[x.data], {
-                firstName: 'Seymour',
-                lastName: 'Skinner',
-                quote: 'Isn’t it nice we hate the same things?',
-                age: 42,
-                id: '10',
-                parentId: '9'
-            }];
+            const newData = [
+                ...dataSets[x.data],
+                {
+                    firstName: 'Seymour',
+                    lastName: 'Skinner',
+                    quote: 'Isn’t it nice we hate the same things?',
+                    age: 42,
+                    id: '10',
+                    parentId: '9'
+                }
+            ];
             setTimeout(() => {
                 x.addedDynamicChildren = true;
                 void x.tableRef.setData(newData);
