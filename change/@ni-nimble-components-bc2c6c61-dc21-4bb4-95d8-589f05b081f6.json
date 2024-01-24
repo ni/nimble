@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Extend nimble-table API to allow specifying that a record has lazy loaded children",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
