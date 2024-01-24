@@ -13,7 +13,6 @@ interface DecimalUnitFormatOptions extends UnitFormatOptions {
  * Format for decimal numbers with units.
  */
 export class DecimalUnitFormat extends UnitFormat<DecimalUnitFormatOptions> {
-    private static readonly defaultFractionDigits = 2;
     private readonly unitScale: UnitScale;
     private readonly minimumFractionDigits: number;
     private readonly maximumFractionDigits: number;
@@ -52,37 +51,6 @@ export class DecimalUnitFormat extends UnitFormat<DecimalUnitFormatOptions> {
         this.unitScale = unitScale;
         this.minimumFractionDigits = minimumFractionDigits;
         this.maximumFractionDigits = maximumFractionDigits;
-    }
-
-    public static normalizeAndDefaultFractionDigitOptions(
-        fractionDigits?: number,
-        minimumFractionDigits?: number,
-        maximumFractionDigits?: number
-    ): {
-            minimumFractionDigits?: number,
-            maximumFractionDigits?: number
-        } {
-        const fractionDigitsHasValue = typeof fractionDigits === 'number';
-        const minimumFractionDigitsHasValue = typeof minimumFractionDigits === 'number';
-        const maximumFractionDigitsHasValue = typeof maximumFractionDigits === 'number';
-        if (
-            fractionDigitsHasValue
-            && (minimumFractionDigitsHasValue || maximumFractionDigitsHasValue)
-        ) {
-            throw new Error(
-                'fractionDigits is mutually exclusive with minimumFractionDigits and maximumFractionDigits. Do not mix.'
-            );
-        }
-        const actualMinimumFractionDigits = !maximumFractionDigitsHasValue && !minimumFractionDigitsHasValue
-            ? fractionDigits ?? DecimalUnitFormat.defaultFractionDigits
-            : minimumFractionDigits ?? 0;
-        const actualMaximumFractionDigits = !maximumFractionDigitsHasValue && !minimumFractionDigitsHasValue
-            ? fractionDigits ?? DecimalUnitFormat.defaultFractionDigits
-            : maximumFractionDigits;
-        return {
-            maximumFractionDigits: actualMaximumFractionDigits,
-            minimumFractionDigits: actualMinimumFractionDigits
-        };
     }
 
     public override resolvedOptions(): Required<DecimalUnitFormatOptions> {

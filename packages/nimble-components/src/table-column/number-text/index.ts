@@ -44,6 +44,8 @@ declare global {
  * The table column for displaying numbers as text.
  */
 export class TableColumnNumberText extends TableColumnTextBase {
+    private static readonly defaultDecimalDigits = 2;
+
     /** @internal */
     public validator = new TableColumnNumberTextValidator(this.columnInternals);
 
@@ -82,6 +84,32 @@ export class TableColumnNumberText extends TableColumnTextBase {
             this.updateColumnConfig();
         }
     };
+
+    public static convertDigitOptionsForDecimalUnitFormat(
+        decimalDigits?: number,
+        maximumDecimalDigits?: number
+    ): {
+            minimumFractionDigits?: number,
+            maximumFractionDigits?: number
+        } {
+        const decimalDigitsHasValue = typeof decimalDigits === 'number';
+        const maximumDecimalDigitsHasValue = typeof maximumDecimalDigits === 'number';
+        if (decimalDigitsHasValue && maximumDecimalDigitsHasValue) {
+            throw new Error(
+                'decimalDigits is mutually exclusive with maximumDecimalDigits. Do not specify both.'
+            );
+        }
+        const minimumFractionDigits = maximumDecimalDigitsHasValue
+            ? 0
+            : decimalDigits ?? TableColumnNumberText.defaultDecimalDigits;
+        const maximumFractionDigits = maximumDecimalDigits
+            ?? decimalDigits
+            ?? TableColumnNumberText.defaultDecimalDigits;
+        return {
+            minimumFractionDigits,
+            maximumFractionDigits
+        };
+    }
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -184,9 +212,8 @@ export class TableColumnNumberText extends TableColumnTextBase {
         const unitScale = this.unit?.resolvedUnitScale;
         switch (this.format) {
             case NumberTextFormat.decimal: {
-                const { minimumFractionDigits, maximumFractionDigits } = DecimalUnitFormat.normalizeAndDefaultFractionDigitOptions(
+                const { minimumFractionDigits, maximumFractionDigits } = TableColumnNumberText.convertDigitOptionsForDecimalUnitFormat(
                     this.decimalDigits,
-                    undefined,
                     this.decimalMaximumDigits
                 );
                 return new DecimalUnitFormat(lang.getValueFor(this), {

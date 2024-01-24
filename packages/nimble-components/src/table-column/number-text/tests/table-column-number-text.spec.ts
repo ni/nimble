@@ -727,4 +727,55 @@ describe('TableColumnNumberText', () => {
             expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.left);
         });
     });
+
+    describe('convertDigitOptionsForDecimalUnitFormat', () => {
+        const convertDigitOptionsTestCases = [
+            {
+                name: 'returns min=2 and max=2 when no values are passed',
+                decimalDigits: undefined,
+                maximumDecimalDigits: undefined,
+                expectedMinimumFractionDigits: 2,
+                expectedMaximumFractionDigits: 2
+            },
+            {
+                name: 'returns min=max=decimalDigits when only decimalDigits passed',
+                decimalDigits: 7,
+                maximumDecimalDigits: undefined,
+                expectedMinimumFractionDigits: 7,
+                expectedMaximumFractionDigits: 7
+            },
+            {
+                name: 'returns min=0 and max=maximumDecimalDigits when only maximumDecimalDigits passed',
+                decimalDigits: undefined,
+                maximumDecimalDigits: 4,
+                expectedMinimumFractionDigits: 0,
+                expectedMaximumFractionDigits: 4
+            }
+        ] as const;
+        parameterizeSpec(convertDigitOptionsTestCases, (spec, name, value) => {
+            spec(name, () => {
+                const { minimumFractionDigits, maximumFractionDigits } = TableColumnNumberText.convertDigitOptionsForDecimalUnitFormat(
+                    value.decimalDigits,
+                    value.maximumDecimalDigits
+                );
+                expect(minimumFractionDigits).toEqual(
+                    value.expectedMinimumFractionDigits
+                );
+                expect(maximumFractionDigits).toEqual(
+                    value.expectedMaximumFractionDigits
+                );
+            });
+        });
+
+        it('throws error when both decimalDigits and maximumDecimalDigits passed', () => {
+            expect(() => {
+                TableColumnNumberText.convertDigitOptionsForDecimalUnitFormat(
+                    0,
+                    0
+                );
+            }).toThrowError(
+                /decimalDigits is mutually exclusive with maximumDecimalDigits/g
+            );
+        });
+    });
 });

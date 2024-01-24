@@ -1,5 +1,6 @@
 import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 import { DecimalUnitFormat } from '@ni/nimble-components/dist/esm/utilities/unit-format/decimal-unit-format';
+import { TableColumnNumberText } from '@ni/nimble-components/dist/esm/table-column/number-text';
 import { passthroughUnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/passthrough-unit-scale';
 import { byteUnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/byte-unit-scale';
 import { byte1024UnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/byte-1024-unit-scale';
@@ -32,17 +33,17 @@ export class FormatNumberDecimalPipe implements PipeTransform {
         unitScale = passthroughUnitScale
     }: {
         decimalDigits?: number,
+        maximumDecimalDigits?: undefined,
+        unitScale?: UnitScale
+    } | {
+        decimalDigits?: undefined,
         maximumDecimalDigits?: number,
         unitScale?: UnitScale
     } = {
         unitScale: passthroughUnitScale
     }): string {
-        if (decimalDigits !== undefined && maximumDecimalDigits !== undefined) {
-            throw new Error('Parameters decimalDigits and maximumDecimalDigits are mutually exclusive. Do not pass both.');
-        }
-        const { minimumFractionDigits, maximumFractionDigits } = DecimalUnitFormat.normalizeAndDefaultFractionDigitOptions(
+        const { minimumFractionDigits, maximumFractionDigits } = TableColumnNumberText.convertDigitOptionsForDecimalUnitFormat(
             decimalDigits,
-            undefined,
             maximumDecimalDigits
         );
         if (!this.decimalUnitFormat
@@ -53,8 +54,8 @@ export class FormatNumberDecimalPipe implements PipeTransform {
             this.maximumFractionDigits = maximumFractionDigits;
             this.unitScale = unitScale;
             this.decimalUnitFormat = new DecimalUnitFormat(this.locale, {
-                minimumFractionDigits: this.minimumFractionDigits,
-                maximumFractionDigits: this.maximumFractionDigits,
+                minimumFractionDigits,
+                maximumFractionDigits,
                 unitScale: this.unitScale
             });
         }

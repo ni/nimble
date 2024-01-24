@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { FormatNumberDecimalPipe, byteUnitScale } from '../format-number-decimal.pipe';
 
 describe('FormatNumberDecimalPipe', () => {
@@ -17,14 +18,6 @@ describe('FormatNumberDecimalPipe', () => {
             },
             value: 100,
             expected: '100.0'
-        },
-        {
-            name: 'honors the maximumDecimalDigits value',
-            options: {
-                maximumDecimalDigits: 1
-            },
-            value: 100.1234,
-            expected: '100.1'
         },
         {
             name: 'honors the unitScale value',
@@ -45,25 +38,22 @@ describe('FormatNumberDecimalPipe', () => {
         },
     ];
 
-    testCases.forEach(test => {
-        it(test.name, () => {
-            const pipe = new FormatNumberDecimalPipe(test.options.locale ?? 'en');
-            expect(pipe.transform(test.value, {
-                decimalDigits: test.options.decimalDigits,
-                maximumDecimalDigits: test.options.maximumDecimalDigits,
-                unitScale: test.options.unitScale
-            })).toEqual(test.expected);
+    parameterizeSpec(testCases, (spec, name, value) => {
+        spec(name, () => {
+            const pipe = new FormatNumberDecimalPipe(value.options.locale ?? 'en');
+            expect(pipe.transform(value.value, {
+                decimalDigits: value.options.decimalDigits,
+                unitScale: value.options.unitScale
+            })).toEqual(value.expected);
         });
     });
 
-    it('throws an error if both decimalDigits and maximumDecimalDigits are provided', () => {
+    // cannot be part of testCases, because of typing limitations
+    it('honors the maximumDecimalDigits value', () => {
         const pipe = new FormatNumberDecimalPipe('en');
-        expect(() => {
-            pipe.transform(1, {
-                decimalDigits: 1,
-                maximumDecimalDigits: 1
-            });
-        }).toThrowError(/decimalDigits and maximumDecimalDigits/g);
+        expect(pipe.transform(100.1234, {
+            maximumDecimalDigits: 1
+        })).toEqual('100.1');
     });
 
     it('handles change to decimalDigits argument in subsequent call to transform()', () => {
