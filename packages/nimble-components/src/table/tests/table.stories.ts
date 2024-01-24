@@ -135,14 +135,6 @@ const hierarchicalData = [
         quote: 'See you in hell, Seymour.',
         id: '9',
         parentId: undefined
-    },
-    {
-        firstName: 'Seymour',
-        lastName: 'Skinner',
-        quote: 'Isn’t it nice we hate the same things?',
-        age: 42,
-        id: '10',
-        parentId: '9'
     }
 ];
 
@@ -390,7 +382,7 @@ const metadata: Meta<TableArgs> = {
                 // but doesn't seem to be upgraded to a custom element yet
                 await customElements.whenDefined('nimble-table');
                 await x.tableRef.setData(dataSets[x.data]);
-                await x.tableRef.setRowOptions([{ id: '10', options: { forceExpandable: true } }]);
+                await x.tableRef.setRowOptions([{ id: '9', options: { forceExpandable: true } }]);
             })();
         },
         addDynamicChildrenIfNeeded: (x, e) => {
@@ -398,22 +390,22 @@ const metadata: Meta<TableArgs> = {
                 return;
             }
 
-            if (e.detail.recordId !== '10' || e.detail.newState !== true || x.addedDynamicChildren) {
+            if (e.detail.recordId !== '9' || e.detail.newState !== true || x.addedDynamicChildren) {
                 return;
             }
 
             const newData = [...dataSets[x.data], {
-                firstName: 'Seymour - 2',
+                firstName: 'Seymour',
                 lastName: 'Skinner',
-                quote: 'Not sure what to put here',
-                age: 0,
-                id: '11',
-                parentId: '10'
+                quote: 'Isn’t it nice we hate the same things?',
+                age: 42,
+                id: '10',
+                parentId: '9'
             }];
             setTimeout(() => {
                 x.addedDynamicChildren = true;
                 void x.tableRef.setData(newData);
-            }, 3000);
+            }, 500);
         }
     }
 };

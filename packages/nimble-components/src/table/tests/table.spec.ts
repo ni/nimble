@@ -1372,6 +1372,128 @@ describe('Table', () => {
                 );
             });
         });
+
+        fdescribe('lazy loaded hierarchical data', () => {
+            const hierarchicalData: SimpleTableRecord[] = [
+                {
+                    id: '0',
+                    stringData: 'hello',
+                    parentId: undefined
+                },
+                {
+                    id: '1',
+                    stringData: 'world',
+                    parentId: undefined
+                },
+                {
+                    id: '2',
+                    stringData: 'foo',
+                    parentId: undefined
+                },
+                {
+                    id: '3',
+                    stringData: 'bar',
+                    parentId: undefined
+                }
+            ];
+
+            beforeEach(async () => {
+                await connect();
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+            });
+
+            it('updates collapse all button visiblity based on whether or not a row has lazy loaded children', async () => {
+                expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+
+                await element.setRowOptions([{ id: '0', options: { forceExpandable: true } }]);
+                await waitForUpdatesAsync();
+                expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+
+                await element.setRowOptions([{ id: '0', options: { forceExpandable: false } }]);
+                await waitForUpdatesAsync();
+                expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+            });
+
+            it('collapse all button remains visible when row options are updated but one row is still forceExpandable', async () => {
+                await element.setRowOptions([
+                    { id: '0', options: { forceExpandable: true } },
+                    { id: '1', options: { forceExpandable: true } },
+                    { id: '2', options: { forceExpandable: true } }
+                ]);
+                await waitForUpdatesAsync();
+                expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+
+                await element.setRowOptions([
+                    { id: '1', options: { forceExpandable: false } },
+                    { id: '2', options: { forceExpandable: false } }
+                ]);
+                await waitForUpdatesAsync();
+                expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+            });
+
+            it('row with no children but a visible expansion toggle button initializes to collapsed', async () => {
+                await element.setRowOptions([{ id: '0', options: { forceExpandable: true } }]);
+                await waitForUpdatesAsync();
+                expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    false,
+                    false,
+                    false,
+                    false
+                ]);
+            });
+
+            it('updating forceExpandable option for a row updates the visibility of the expand-collapse button', async () => {
+                expect(pageObject.isDataRowExpandCollapseButtonVisible(0)).toBeFalse();
+
+                await element.setRowOptions([{ id: '0', options: { forceExpandable: true } }]);
+                await waitForUpdatesAsync();
+                expect(pageObject.isDataRowExpandCollapseButtonVisible(0)).toBeTrue();
+
+                await element.setRowOptions([{ id: '0', options: { forceExpandable: false } }]);
+                await waitForUpdatesAsync();
+                expect(pageObject.isDataRowExpandCollapseButtonVisible(0)).toBeFalse();
+            });
+
+            it('can expand a row with no children but a visible expansion toggle button', async () => {
+                await element.setRowOptions([{ id: '3', options: { forceExpandable: true } }]);
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedRowCount()).toBe(4);
+                pageObject.clickDataRowExpandCollapseButton(3);
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedRowCount()).toBe(4);
+                expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    false,
+                    false,
+                    false,
+                    true
+                ]);
+            });
+
+            it('updating data clears configured row options', async () => {
+                await element.setRowOptions([{ id: '0', options: { forceExpandable: true } }]);
+                await waitForUpdatesAsync();
+                expect(pageObject.isDataRowExpandCollapseButtonVisible(0)).toBeTrue();
+
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+                expect(pageObject.isDataRowExpandCollapseButtonVisible(0)).toBeFalse();
+            });
+
+            it('updating idFieldName clears configured row options', async () => {
+                await element.setRowOptions([{ id: '0', options: { forceExpandable: true } }]);
+                await waitForUpdatesAsync();
+                expect(pageObject.isDataRowExpandCollapseButtonVisible(0)).toBeTrue();
+
+                element.idFieldName = 'stringData';
+                await waitForUpdatesAsync();
+                expect(pageObject.isDataRowExpandCollapseButtonVisible(0)).toBeFalse();
+            });
+        });
     });
 
     describe('without connection', () => {
