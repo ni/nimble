@@ -290,7 +290,7 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Tabs</div>
-            <nimble-tabs [(activeid)]="activeTabId">
+            <nimble-tabs [(activeid)]="activeTabId" (change)="onTabChange($event)">
                 <nimble-tab id="tab-1">Tab 1</nimble-tab>
                 <nimble-tab id="tab-2">Tab 2</nimble-tab>
                 <nimble-tab id="tab-3" disabled>Tab 3 (Disabled)</nimble-tab>
@@ -298,13 +298,10 @@
                     <nimble-button (click)="onTabToolbarButtonClick()">Toolbar button</nimble-button>
                 </nimble-tabs-toolbar>
                 <nimble-tab-panel>
-                    <div class="container-label">Tab 1 content</div>
                 </nimble-tab-panel>
                 <nimble-tab-panel>
-                    <div class="container-label">Tab 2 content</div>
                 </nimble-tab-panel>
                 <nimble-tab-panel>
-                    <div class="container-label">Tab 3 content</div>
                 </nimble-tab-panel>
             </nimble-tabs>
             <label id="activeTabLabel">
@@ -315,6 +312,9 @@
                 <nimble-list-option value="tab-2">Tab 2</nimble-list-option>
                 <nimble-list-option value="tab-3">Tab 3</nimble-list-option>
             </nimble-select>
+            <label id="tabInfo">
+                Active tab:
+            </label>
         </div>
         <div class="sub-container">
             <div class="container-label">Tabs - Anchor</div>

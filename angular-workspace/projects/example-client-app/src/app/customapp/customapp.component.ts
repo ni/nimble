@@ -115,6 +115,10 @@ export class CustomAppComponent {
         alert('Tab toolbar button clicked');
     }
 
+    public onTabChange(event: Event): void {
+        alert(`Tab changed to ${this.activeTabId}`);
+    }
+
     public addTableRows(numberOfRowsToAdd: number): void {
         const tableData = this.tableDataSubject.value;
         for (let i = 0; i < numberOfRowsToAdd; i++) {
