@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 25 Jan 2024 02:58:12 GMT",
+      "version": "21.0.4",
+      "tag": "@ni/nimble-components_v21.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d3f330a41625cfb3be92eff8fd150f4cac5e11e1",
+            "comment": "Pin fast-foundation version to avoid regression"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 24 Jan 2024 00:18:26 GMT",
       "version": "21.0.3",
       "tag": "@ni/nimble-components_v21.0.3",
