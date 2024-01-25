@@ -24,7 +24,9 @@ namespace Demo.Shared.Pages
         [NotNull]
         public IEnumerable<WaferMapDie> Dies { get; set; } = Enumerable.Empty<WaferMapDie>();
         [NotNull]
-        public WaferMapColorScale ColorScale { get; set; } = new WaferMapColorScale(new List<string> { "red", "green" }, new List<string> { "0", "1" });
+        public IEnumerable<string> HighlightedTags { get; set; } = Enumerable.Empty<string>();
+        [NotNull]
+        public WaferMapColorScale ColorScale { get; set; } = new WaferMapColorScale(new List<string> { "red", "green" }, new List<string> { "0", "100" });
 
         public ComponentsDemo()
         {
@@ -89,6 +91,10 @@ namespace Demo.Shared.Pages
 
         public void UpdateDies(int numberOfDies)
         {
+            if (numberOfDies < 0)
+            {
+                return;
+            }
             var dies = new List<WaferMapDie>();
             int radius = (int)Math.Ceiling(Math.Sqrt(numberOfDies / Math.PI));
             var centerX = radius;
@@ -102,7 +108,8 @@ namespace Demo.Shared.Pages
                     <= radius * radius;
                     j--)
                 {
-                    dies.Add(new WaferMapDie(i, j, "0.5"));
+                    var value = (i + j) % 100;
+                    dies.Add(new WaferMapDie(i, j, value.ToString(CultureInfo.CurrentCulture)));
                 }
                 // generate points right of centerX
                 for (
@@ -111,10 +118,19 @@ namespace Demo.Shared.Pages
                     <= radius * radius;
                     j++)
                 {
-                    dies.Add(new WaferMapDie(i, j, "0.5"));
+                    var value = (i + j) % 100;
+                    dies.Add(new WaferMapDie(i, j, value.ToString(CultureInfo.CurrentCulture)));
                 }
             }
             Dies = dies;
+        }
+        public void AddDiesToRadius(int numberOfDies)
+        {
+            UpdateDies(Dies.Count() + (int)(numberOfDies * numberOfDies * Math.PI));
+        }
+        public void RemoveDiesFromRadius(int numberOfDies)
+        {
+            UpdateDies(Dies.Count() - (int)(numberOfDies * numberOfDies * Math.PI));
         }
     }
 

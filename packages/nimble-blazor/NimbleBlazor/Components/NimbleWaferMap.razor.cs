@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 namespace NimbleBlazor;
 
 /// <summary>
-/// A banner component for displaying persistent messages
+/// A visualization widget which displays the location and color code of integrated circuits on a silicon wafer.
 /// </summary>
 public partial class NimbleWaferMap : ComponentBase
 {

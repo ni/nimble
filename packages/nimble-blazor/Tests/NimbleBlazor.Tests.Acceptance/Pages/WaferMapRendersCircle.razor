@@ -3,16 +3,25 @@
 @using System.Diagnostics.CodeAnalysis;
 @inherits LayoutComponentBase
 
-<NimbleWaferMap Orientation="WaferMapOrientation.Bottom" @bind-Dies="Dies" @bind-ColorScale="ColorScale">
+<NimbleWaferMap
+    OriginLocation="WaferMapOriginLocation.BottomLeft"
+    Orientation="WaferMapOrientation.Bottom"
+    MaxCharacters=2
+    DieLabelsHidden="false"
+    ColorScaleMode="WaferMapColorScaleMode.Linear"
+    @bind-Dies="Dies"
+    @bind-ColorScale="ColorScale"
+    @bind-HighlightedTags="HighlightedTags"
+>
 </NimbleWaferMap>
 
 @code {
     [NotNull]
     public IEnumerable<WaferMapDie> Dies { get; set; } = Enumerable.Empty<WaferMapDie>();
     [NotNull]
-    public WaferMapColorScale ColorScale { get; set; } = new WaferMapColorScale(new List<string> { "red", "green" }, new List<string> { "0", "1" });
-
-
+    public IEnumerable<string> HighlightedTags { get; set; } = Enumerable.Empty<string>();
+    [NotNull]
+    public WaferMapColorScale ColorScale { get; set; } = new WaferMapColorScale(new List<string> { "red", "green" }, new List<string> { "0", "6" });
 
     public WaferMapRendersCircle()
     {
@@ -29,13 +38,15 @@
 
         for (var i = centerY - radius; i <= centerY + radius; i++)
         {
+            // generate points left of centerX
             for (
                 var j = centerX;
                 (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
                 <= radius * radius;
                 j--)
             {
-                dies.Add(new WaferMapDie(i, j, "0.5"));
+                var value = (i + j) % 100;
+                dies.Add(new WaferMapDie(i, j, value.ToString()));
             }
             // generate points right of centerX
             for (
@@ -44,7 +55,8 @@
                 <= radius * radius;
                 j++)
             {
-                dies.Add(new WaferMapDie(i, j, "0.5"));
+                var value = (i + j) % 100;
+                dies.Add(new WaferMapDie(i, j, value.ToString()));
             }
         }
         Dies = dies;
