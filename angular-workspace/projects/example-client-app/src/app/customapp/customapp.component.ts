@@ -121,7 +121,7 @@ export class CustomAppComponent {
         for (let i = 0; i < numberOfRowsToAdd; i++) {
             tableData.push({
                 id: tableData.length.toString(),
-                parentId: (tableData.length > 4 ? ((tableData.length + i) % 4).toString() : undefined),
+                parentId: (tableData.length >= 4 ? (tableData.length % 4).toString() : undefined),
                 stringValue1: `new string ${tableData.length}`,
                 stringValue2: `bar ${tableData.length}`,
                 href: '/customapp',
