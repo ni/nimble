@@ -85,9 +85,9 @@ export abstract class RichText extends FoundationElement {
 
     private childItemsChanged(
         prev: Element[] | undefined,
-        next: Element[]
+        _next: Element[]
     ): void {
-        if (prev?.length || next.length) {
+        if (prev !== undefined) {
             void this.updateMentionElementsFromChildItems();
         }
     }

@@ -64,6 +64,12 @@ describe('RichTextViewer', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         pageObject = new RichTextViewerPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+    });
+
+    afterEach(async () => {
+        await disconnect();
     });
 
     it('can construct an element instance', () => {
@@ -77,38 +83,24 @@ describe('RichTextViewer', () => {
     });
 
     it('set the markdown attribute and ensure the markdown property is not modified', async () => {
-        await connect();
-
         element.setAttribute('markdown', '**markdown string**');
 
         expect(element.markdown).toBe('');
-
-        await disconnect();
     });
 
     it('set the markdown property and ensure there is no markdown attribute', async () => {
-        await connect();
-
         element.markdown = '**markdown string**';
 
         expect(element.hasAttribute('markdown')).toBeFalse();
-
-        await disconnect();
     });
 
     it('set the markdown property and ensure that getting the markdown property returns the same value', async () => {
-        await connect();
-
         element.markdown = '**markdown string**';
 
         expect(element.markdown).toBe('**markdown string**');
-
-        await disconnect();
     });
 
     it('set a empty string should clear a value in the viewer', async () => {
-        await connect();
-
         element.markdown = 'markdown string';
         expect(pageObject.getRenderedMarkdownTagNames()).toEqual(['P']);
         expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
@@ -124,19 +116,9 @@ describe('RichTextViewer', () => {
         expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
             'new markdown string'
         );
-
-        await disconnect();
     });
 
     describe('user mention dynamic loading', () => {
-        beforeEach(async () => {
-            await connect();
-        });
-
-        afterEach(async () => {
-            await disconnect();
-        });
-
         it('adding mention configuration converts the absolute link matching the pattern to mention node', async () => {
             element.markdown = '<user:1>';
 
@@ -443,6 +425,7 @@ describe('RichTextViewer', () => {
             ({ element, connect, disconnect } = await setupMentionConfig());
             pageObject = new RichTextViewerPageObject(element);
             await connect();
+            await waitForUpdatesAsync();
         });
 
         afterEach(async () => {
@@ -493,14 +476,6 @@ describe('RichTextViewer', () => {
     });
 
     describe('getMentionedHref() for viewer mentions', () => {
-        beforeEach(async () => {
-            await connect();
-        });
-
-        afterEach(async () => {
-            await disconnect();
-        });
-
         it('should return different mentionedHrefs instance', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element);
