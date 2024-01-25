@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 24 Jan 2024 00:18:26 GMT and should not be manually modified.
+This log was last generated on Thu, 25 Jan 2024 02:58:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.0.4
+
+Thu, 25 Jan 2024 02:58:12 GMT
+
+### Patches
+
+- Pin fast-foundation version to avoid regression ([ni/nimble@d3f330a](https://github.com/ni/nimble/commit/d3f330a41625cfb3be92eff8fd150f4cac5e11e1))
 
 ## 21.0.3
 
