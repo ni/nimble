@@ -25,6 +25,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="packages.lock.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="CodeAnalysisDictionary.xml" />
   </ItemGroup>
 
@@ -43,6 +47,10 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="packages.lock.json" />
   </ItemGroup>
 
   <Target Name="CopyNimbleResources" BeforeTargets="BeforeBuild">

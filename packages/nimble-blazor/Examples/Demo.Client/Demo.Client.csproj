@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="packages.lock.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.26" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.26" PrivateAssets="all" />
   </ItemGroup>
@@ -26,6 +30,9 @@
 
   <ItemGroup>
     <AdditionalFiles Include="..\..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
+    <None Include="packages.lock.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.4" />
   </ItemGroup>
 

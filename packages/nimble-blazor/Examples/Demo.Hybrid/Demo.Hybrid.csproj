@@ -19,11 +19,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="packages.lock.json" />
+  </ItemGroup>
+
+  <ItemGroup>
 	<AdditionalFiles Include="..\..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
 	<PackageReference Include="NI.CSharp.Analyzers" Version="2.0.4" />
   </ItemGroup>
 	
   <ItemGroup>
+    <None Include="packages.lock.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <None Include="wwwroot\index.html" />
   </ItemGroup>
 
