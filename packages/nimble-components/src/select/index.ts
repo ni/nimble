@@ -281,6 +281,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
                 break;
             }
             case keyEscape: {
+                this.filteredOptions = [];
                 if (this.committedSelectedOption) {
                     this.clearSelection();
                     this.selectedIndex = this._options.indexOf(
@@ -349,7 +350,6 @@ export class Select extends FoundationSelect implements ErrorPattern {
     }
 
     private clearSelection(): void {
-        this.filteredOptions = [];
         this._options.forEach(option => {
             option.selected = false;
         });
