@@ -68,6 +68,7 @@ namespace Demo.Shared.Pages
 
                 tableData.Add(new SimpleTableRecord(
                     rowCountString,
+                    tableData.Count > 4 ? ((tableData.Count + i) % 4).ToString(CultureInfo.CurrentCulture) : null,
                     $"new string {rowCountString}",
                     $"bar {rowCountString}",
                     "/",
@@ -87,6 +88,7 @@ namespace Demo.Shared.Pages
     {
         public SimpleTableRecord(
             string id,
+            string? parentId,
             string stringValue1,
             string stringValue2,
             string? href,
@@ -98,6 +100,7 @@ namespace Demo.Shared.Pages
             double duration)
         {
             Id = id;
+            ParentId = parentId;
             StringValue1 = stringValue1;
             StringValue2 = stringValue2;
             Href = href;
@@ -110,6 +113,7 @@ namespace Demo.Shared.Pages
         }
 
         public string Id { get; }
+        public string? ParentId { get; }
         public string StringValue1 { get; }
         public string StringValue2 { get; }
         public string? Href { get; }
