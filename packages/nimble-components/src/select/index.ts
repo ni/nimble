@@ -1,4 +1,4 @@
-import { attr, html, observable, Observable } from '@microsoft/fast-element';
+import { attr, DOM, html, observable, Observable } from '@microsoft/fast-element';
 import {
     AnchoredRegion,
     DesignSystem,
@@ -93,6 +93,10 @@ export class Select extends FoundationSelect implements ErrorPattern {
         super();
         this.addEventListener('change', this.changeValueHandler);
         this.addEventListener('focusout', this.focusoutHander);
+    }
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
     }
 
     /**
@@ -194,13 +198,16 @@ export class Select extends FoundationSelect implements ErrorPattern {
         this.updateListboxMaxHeightCssVariable();
     }
 
-    // Workaround for https://github.com/microsoft/fast/issues/5773
+    // Workaround for https://github.com/microsoft/fast/issues/5773d
+    // Additionally, we need to force an update to the filteredOptions observable
+    // (by calling 'filterOptions()) so that the template correctly updates.
     public override slottedOptionsChanged(
         prev: Element[],
         next: Element[]
     ): void {
         const value = this.value;
         super.slottedOptionsChanged(prev, next);
+        this.filterOptions();
         if (value) {
             this.value = value;
         }
@@ -313,8 +320,10 @@ export class Select extends FoundationSelect implements ErrorPattern {
 
         if (this.open) {
             this.filterOptions();
-            window.requestAnimationFrame(() => {
-                this.filterInputElement?.focus();
+            DOM.queueUpdate(() => {
+                window.requestAnimationFrame(() => {
+                    this.filterInputElement?.focus();
+                });
             });
         } else {
             this.filter = '';
