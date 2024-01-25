@@ -96,7 +96,7 @@ export const styles = css`
         width: 100%;
     }
 
-    filter-input::placeholder {
+    .filter-input::placeholder {
         color: ${placeholderFontColor};
     }
 
