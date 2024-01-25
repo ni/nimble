@@ -8,12 +8,12 @@ import {
     keySpace,
     keyTab
 } from '@microsoft/fast-web-utilities';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorTabs } from '..';
 import '../../anchor-tab';
 import type { AnchorTab } from '../../anchor-tab';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 describe('AnchorTabs', () => {
     let element: AnchorTabs;
@@ -329,7 +329,7 @@ describe('AnchorTabs', () => {
             }
         ] as const;
         describe('navigation', () => {
-            parameterizeNamedList(navigationTests, (spec, name, value) => {
+            parameterizeSpec(navigationTests, (spec, name, value) => {
                 spec(name, async () => {
                     await connect();
                     if (value.disabledIndex !== undefined) {

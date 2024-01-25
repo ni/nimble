@@ -72,9 +72,9 @@ describe('Nimble Label Provider Table', () => {
             expect(nativeElement.groupExpand).toBeUndefined();
         });
 
-        it('has expected defaults for groupsCollapseAll', () => {
-            expect(directive.groupsCollapseAll).toBeUndefined();
-            expect(nativeElement.groupsCollapseAll).toBeUndefined();
+        it('has expected defaults for collapseAll', () => {
+            expect(directive.collapseAll).toBeUndefined();
+            expect(nativeElement.collapseAll).toBeUndefined();
         });
 
         it('has expected defaults for columnHeaderSortedAscending', () => {
@@ -116,7 +116,7 @@ describe('Nimble Label Provider Table', () => {
                     column-header-grouped="${label2}"
                     group-collapse="${label3}"
                     group-expand="${label4}"
-                    groups-collapse-all="${label5}"
+                    collapse-all="${label5}"
                     column-header-sorted-ascending="${label6}"
                     column-header-sorted-descending="${label7}"
                     select-all="${label8}"
@@ -167,9 +167,9 @@ describe('Nimble Label Provider Table', () => {
             expect(nativeElement.groupExpand).toBe(label4);
         });
 
-        it('will use template string values for groupsCollapseAll', () => {
-            expect(directive.groupsCollapseAll).toBe(label5);
-            expect(nativeElement.groupsCollapseAll).toBe(label5);
+        it('will use template string values for collapseAll', () => {
+            expect(directive.collapseAll).toBe(label5);
+            expect(nativeElement.collapseAll).toBe(label5);
         });
 
         it('will use template string values for columnHeaderSortedAscending', () => {
@@ -211,7 +211,7 @@ describe('Nimble Label Provider Table', () => {
                     [columnHeaderGrouped]="columnHeaderGrouped"
                     [groupCollapse]="groupCollapse"
                     [groupExpand]="groupExpand"
-                    [groupsCollapseAll]="groupsCollapseAll"
+                    [collapseAll]="collapseAll"
                     [columnHeaderSortedAscending]="columnHeaderSortedAscending"
                     [columnHeaderSortedDescending]="columnHeaderSortedDescending"
                     [selectAll]="selectAll"
@@ -229,7 +229,7 @@ describe('Nimble Label Provider Table', () => {
             public columnHeaderGrouped = label1;
             public groupCollapse = label1;
             public groupExpand = label1;
-            public groupsCollapseAll = label1;
+            public collapseAll = label1;
             public columnHeaderSortedAscending = label1;
             public columnHeaderSortedDescending = label1;
             public selectAll = label1;
@@ -297,15 +297,15 @@ describe('Nimble Label Provider Table', () => {
             expect(nativeElement.groupExpand).toBe(label2);
         });
 
-        it('can be configured with property binding for groupsCollapseAll', () => {
-            expect(directive.groupsCollapseAll).toBe(label1);
-            expect(nativeElement.groupsCollapseAll).toBe(label1);
+        it('can be configured with property binding for collapseAll', () => {
+            expect(directive.collapseAll).toBe(label1);
+            expect(nativeElement.collapseAll).toBe(label1);
 
-            fixture.componentInstance.groupsCollapseAll = label2;
+            fixture.componentInstance.collapseAll = label2;
             fixture.detectChanges();
 
-            expect(directive.groupsCollapseAll).toBe(label2);
-            expect(nativeElement.groupsCollapseAll).toBe(label2);
+            expect(directive.collapseAll).toBe(label2);
+            expect(nativeElement.collapseAll).toBe(label2);
         });
 
         it('can be configured with property binding for columnHeaderSortedAscending', () => {
@@ -383,7 +383,7 @@ describe('Nimble Label Provider Table', () => {
                     [attr.column-header-grouped]="columnHeaderGrouped"
                     [attr.group-collapse]="groupCollapse"
                     [attr.group-expand]="groupExpand"
-                    [attr.groups-collapse-all]="groupsCollapseAll"
+                    [attr.collapse-all]="collapseAll"
                     [attr.column-header-sorted-ascending]="columnHeaderSortedAscending"
                     [attr.column-header-sorted-descending]="columnHeaderSortedDescending"
                     [attr.select-all]="selectAll"
@@ -401,7 +401,7 @@ describe('Nimble Label Provider Table', () => {
             public columnHeaderGrouped = label1;
             public groupCollapse = label1;
             public groupExpand = label1;
-            public groupsCollapseAll = label1;
+            public collapseAll = label1;
             public columnHeaderSortedAscending = label1;
             public columnHeaderSortedDescending = label1;
             public selectAll = label1;
@@ -469,15 +469,15 @@ describe('Nimble Label Provider Table', () => {
             expect(nativeElement.groupExpand).toBe(label2);
         });
 
-        it('can be configured with attribute binding for groupsCollapseAll', () => {
-            expect(directive.groupsCollapseAll).toBe(label1);
-            expect(nativeElement.groupsCollapseAll).toBe(label1);
+        it('can be configured with attribute binding for collapseAll', () => {
+            expect(directive.collapseAll).toBe(label1);
+            expect(nativeElement.collapseAll).toBe(label1);
 
-            fixture.componentInstance.groupsCollapseAll = label2;
+            fixture.componentInstance.collapseAll = label2;
             fixture.detectChanges();
 
-            expect(directive.groupsCollapseAll).toBe(label2);
-            expect(nativeElement.groupsCollapseAll).toBe(label2);
+            expect(directive.collapseAll).toBe(label2);
+            expect(nativeElement.collapseAll).toBe(label2);
         });
 
         it('can be configured with attribute binding for columnHeaderSortedAscending', () => {

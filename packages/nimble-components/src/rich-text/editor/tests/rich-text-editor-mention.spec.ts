@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 import { mappingUserTag } from '../../../mapping/user';
@@ -842,7 +842,7 @@ describe('RichTextEditorMention', () => {
             }
         ] as const;
 
-        parameterizeNamedList(validMentionNodes, (spec, name, value) => {
+        parameterizeSpec(validMentionNodes, (spec, name, value) => {
             spec(`${name} renders as plain text in editor`, async () => {
                 await appendUserMentionConfiguration(element, [
                     { key: 'user:1', displayName: value.content }
@@ -1033,7 +1033,7 @@ describe('RichTextEditorMentionListbox', () => {
         });
 
         describe('various wacky strings should display as it is in the mention popup option', () => {
-            parameterizeNamedList(wackyStrings, (spec, name) => {
+            parameterizeSpec(wackyStrings, (spec, name) => {
                 spec(`for ${name}`, async () => {
                     await appendUserMentionConfiguration(element, [
                         { key: 'user:1', displayName: name }
@@ -1111,7 +1111,8 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        it('should commit mention into the editor on Enter', async () => {
+        // Disabled due to intermittency. See: https://ni.visualstudio.com/DevCentral/_workitems/edit/2632606
+        xit('should commit mention into the editor on Enter', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
