@@ -57,7 +57,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
      * @internal
      */
     @observable
-    public searchInput?: HTMLInputElement;
+    public filterInputElement?: HTMLInputElement;
 
     /**
      * @internal
@@ -201,7 +201,6 @@ export class Select extends FoundationSelect implements ErrorPattern {
     ): void {
         const value = this.value;
         super.slottedOptionsChanged(prev, next);
-        this.filterOptions();
         if (value) {
             this.value = value;
         }
@@ -224,7 +223,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
      * @internal
      */
     public inputHandler(e: InputEvent): boolean {
-        this.filter = this.searchInput?.value ?? '';
+        this.filter = this.filterInputElement?.value ?? '';
         if (!this.committedSelectedOption) {
             this.committedSelectedOption = this._options.find(
                 option => option.selected
@@ -253,6 +252,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
         return true;
     }
 
+    // disabling linting since the override return type should match the parent class return type
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public override keydownHandler(e: KeyboardEvent): boolean | void {
         if (this.filterMode === FilterMode.none) {
@@ -314,12 +314,12 @@ export class Select extends FoundationSelect implements ErrorPattern {
         if (this.open) {
             this.filterOptions();
             window.requestAnimationFrame(() => {
-                this.searchInput?.focus();
+                this.filterInputElement?.focus();
             });
         } else {
             this.filter = '';
-            if (this.searchInput) {
-                this.searchInput.value = '';
+            if (this.filterInputElement) {
+                this.filterInputElement.value = '';
             }
         }
 

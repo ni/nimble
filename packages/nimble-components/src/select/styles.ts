@@ -70,7 +70,7 @@ export const styles = css`
         content: '';
         position: absolute;
         height: 0px;
-        border-bottom: rgba(${borderRgbPartialColor}, 0.15) 2px solid;
+        border-bottom: rgba(${borderRgbPartialColor}, 0.1) 2px solid;
     }
 
     .search-field::after {
@@ -96,7 +96,7 @@ export const styles = css`
         width: 100%;
     }
 
-    filter-input::placeholder {
+    .filter-input::placeholder {
         color: ${placeholderFontColor};
     }
 
@@ -109,7 +109,7 @@ export const styles = css`
     }
 
     .no-results-label {
-        padding: 0 ${smallPadding} 0 ${smallPadding};
+        padding: ${smallPadding} ${mediumPadding} 0 ${mediumPadding};
         color: ${placeholderFontColor};
         height: ${controlHeight};
         display: inline-flex;

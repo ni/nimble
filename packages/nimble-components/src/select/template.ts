@@ -108,7 +108,7 @@ SelectOptions
                                 ?disabled="${x => x.disabled}"
                                 @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
                                 @click="${(x, c) => x.inputClickHandler(c.event as MouseEvent)}"
-                                ${ref('searchInput')}
+                                ${ref('filterInputElement')}
                                 placeholder="${x => filterSearchLabel.getValueFor(x)}"
                                 value="${x => x.filter}"
                             />
