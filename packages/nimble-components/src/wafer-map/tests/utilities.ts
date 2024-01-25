@@ -1,24 +1,19 @@
 import { ScaleLinear, scaleLinear } from 'd3-scale';
-import {
-    Dimensions,
-    Margin,
+import type {
     WaferMapColorScale,
-    WaferMapColorScaleMode,
     WaferMapDie,
-    WaferMapOriginLocation,
-    WaferMapValidity
 } from '../types';
 // import type { DataManager } from '../modules/data-manager';
 import type { WaferMap } from '..';
 
 export function getWaferMapDies(): WaferMapDie[] {
     return [
-        { value: '1', x: 2, y: 3 },
-        { value: '2', x: 2, y: 4 },
-        { value: '3', x: 3, y: 2 },
-        { value: '4', x: 3, y: 3 },
+        { value: '1', x: 2, y: 3, tags: ['3'] },
+        { value: '2', x: 2, y: 4, tags: ['4'] },
+        { value: '3', x: 3, y: 2, tags: ['5'] },
+        { value: '4', x: 3, y: 3, tags: ['10'] },
         { value: '5', x: 3, y: 4 },
-        { value: '6', x: 3, y: 5 },
+        { value: '6', x: 3, y: 5, tags: ['15'] },
         { value: '7', x: 4, y: 1 },
         { value: '8', x: 4, y: 2 },
         { value: '9', x: 4, y: 3 },
@@ -52,7 +47,7 @@ export function getColorScale(): WaferMapColorScale {
     return { colors: ['red', 'blue', 'green'], values: ['1', '2', '3'] };
 }
 
-export function getHighlightedValues(): string[] {
+export function getHighlightedTags(): string[] {
     return ['5', '10', '15'];
 }
 
@@ -74,67 +69,20 @@ export const defaultVerticalScale = scaleLinear<number, number>()
 // export function getDataManagerMock(
 //     dieDimensions: Dimensions,
 //     margin: Margin,
-//     horizontalScale: ScaleLinear<number, number> = getScaleBand([], []),
-//     verticalScale: ScaleLinear<number, number> = getScaleBand([], [])
+//     horizontalScale: ScaleBand<number> = getScaleBand([], []),
+//     verticalScale: ScaleBand<number> = getScaleBand([], [])
 // ): Pick<
-//     DataManager,
-//     'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
+//     WaferMap,
+//     'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
 //     > {
 //     return {
-//         horizontalScale,
-//         verticalScale,
-//         dieDimensions,
-//         margin
+//         dies,
+//         originLocation,
+//         canvasWidth,
+//         canvasHeight,
+//         validity
 //     };
 // }
-
-export function getWaferMapMockPrerendering(
-    dies: WaferMapDie[] = getWaferMapDies(),
-    colorScale: WaferMapColorScale = { colors: [], values: [] },
-    highlightedValues: string[] = [],
-    colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear,
-    dieLabelsHidden = true,
-    dieLabelsSuffix = '',
-    maxCharacters = 4
-): Pick<
-    WaferMap,
-    | 'dies'
-    | 'colorScale'
-    | 'highlightedValues'
-    | 'colorScaleMode'
-    | 'dieLabelsHidden'
-    | 'dieLabelsSuffix'
-    | 'maxCharacters'
-    > {
-    return {
-        dies,
-        colorScale,
-        highlightedValues,
-        colorScaleMode,
-        dieLabelsHidden,
-        dieLabelsSuffix,
-        maxCharacters
-    };
-}
-
-export function getWaferMapMockComputations(
-    dies: WaferMapDie[] = getWaferMapDies(),
-    originLocation: WaferMapOriginLocation,
-    canvasWidth: number,
-    canvasHeight: number,
-    validity: WaferMapValidity = { invalidGridDimensions: false }
-): Pick<
-    WaferMap,
-    'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
-    > {
-    return {
-        dies,
-        originLocation,
-        canvasWidth,
-        canvasHeight,
-        validity
-    };
-}
 
 export function getWaferMapMockValidator(
     gridMinX: number | undefined,

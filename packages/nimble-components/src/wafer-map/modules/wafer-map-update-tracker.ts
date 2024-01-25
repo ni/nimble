@@ -3,6 +3,7 @@ import type { WaferMap } from '..';
 import { UpdateTracker } from '../../utilities/models/update-tracker';
 
 const trackedItems = [
+    'highlightedTags',
     'canvasWidth',
     'canvasHeight',
     'originLocation',
@@ -15,7 +16,6 @@ const trackedItems = [
     'maxCharacters',
     'colorScale',
     'colorScaleMode',
-    'highlightedValues',
     'dieLabelsHidden',
     'dieLabelsSuffix',
     'transform',
@@ -34,7 +34,8 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
 
     public get requiresEventsUpdate(): boolean {
         return (
-            this.isTracked('canvasWidth')
+            this.isTracked('highlightedTags')
+            || this.isTracked('canvasWidth')
             || this.isTracked('canvasHeight')
             || this.isTracked('originLocation')
             || this.isTracked('gridMinX')
@@ -46,7 +47,6 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('maxCharacters')
             || this.isTracked('colorScale')
             || this.isTracked('colorScaleMode')
-            || this.isTracked('highlightedValues')
             || this.isTracked('dieLabelsHidden')
             || this.isTracked('dieLabelsSuffix')
             || this.isTracked('transform')
@@ -82,7 +82,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('maxCharacters')
             || this.isTracked('colorScale')
             || this.isTracked('colorScaleMode')
-            || this.isTracked('highlightedValues')
+            || this.isTracked('highlightedTags')
             || this.isTracked('dieLabelsHidden')
             || this.isTracked('dieLabelsSuffix')
         );
@@ -94,9 +94,9 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
 
     public get requiresDiesRenderInfoUpdate(): boolean {
         return (
-            this.isTracked('colorScale')
+            this.isTracked('highlightedTags')
+            || this.isTracked('colorScale')
             || this.isTracked('colorScaleMode')
-            || this.isTracked('highlightedValues')
             || this.isTracked('dieLabelsHidden')
             || this.isTracked('dieLabelsSuffix')
         );

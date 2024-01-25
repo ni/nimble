@@ -1,8 +1,72 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 22 Sep 2023 16:10:42 GMT and should not be manually modified.
+This log was last generated on Wed, 24 Jan 2024 00:57:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 13.1.4
+
+Wed, 24 Jan 2024 00:57:02 GMT
+
+### Patches
+
+- Updating package versions ([ni/nimble@cb516b7](https://github.com/ni/nimble/commit/cb516b7b5b7334d2ef30319b8f8c483df214c81e))
+
+## 13.1.0
+
+Mon, 22 Jan 2024 21:39:06 GMT
+
+### Minor changes
+
+- Blazor components for byte unit and volt unit ([ni/nimble@e3325a4](https://github.com/ni/nimble/commit/e3325a4b7847ef4b135321ada1ccc753a1006b35))
+
+## 13.0.1
+
+Mon, 22 Jan 2024 15:41:43 GMT
+
+### Patches
+
+- Update Blazor mapping base class ([ni/nimble@e91fdcd](https://github.com/ni/nimble/commit/e91fdcd3ece03166d22a148a291a72ce7a184c5d))
+
+## 13.0.0
+
+Fri, 19 Jan 2024 22:22:02 GMT
+
+### Major changes
+
+- Introducing data hierarchy for table. Renamed 'groupCollapseAll' on table label provider to 'collapseAll' ([ni/nimble@398b7ab](https://github.com/ni/nimble/commit/398b7ab7e2be2597de26e15e0ee463df4a02f228))
+
+## 12.7.0
+
+Mon, 11 Dec 2023 19:32:21 GMT
+
+### Minor changes
+
+- Add ContentEditable property to anchor ([ni/nimble@487c344](https://github.com/ni/nimble/commit/487c3440588f7b331ea2e90131e41bbf4d4d84f0))
+
+## 12.5.8
+
+Mon, 06 Nov 2023 23:03:00 GMT
+
+### Patches
+
+- Add Blazor support for the nimble-card component ([ni/nimble@4ed966e](https://github.com/ni/nimble/commit/4ed966eb70e7a7c770327c0194be51e2091973d1))
+
+## 12.5.0
+
+Thu, 26 Oct 2023 00:29:31 GMT
+
+### Minor changes
+
+- Blazor integration for duration table column ([ni/nimble@244e2ca](https://github.com/ni/nimble/commit/244e2caca0117fae6448f7c130e3afd3771b03d5))
+
+## 12.4.0
+
+Thu, 19 Oct 2023 23:50:56 GMT
+
+### Minor changes
+
+- Add decimal-maximum-digits attr to number-text column ([ni/nimble@466d474](https://github.com/ni/nimble/commit/466d474d52d3eb8a0396a6e53365e32bfbbd2954))
 
 ## 12.3.8
 

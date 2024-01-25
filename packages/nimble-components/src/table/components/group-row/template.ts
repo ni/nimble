@@ -16,6 +16,7 @@ export const template = html<TableGroupRow>`
     <template
         role="row"
         @click=${x => x.onGroupExpandToggle()}
+        aria-expanded=${x => x.expanded}
         style="--ni-private-table-group-row-indent-level: ${x => x.nestingLevel};"
     >
         ${when(x => x.selectable, html<TableGroupRow>`
@@ -39,15 +40,15 @@ export const template = html<TableGroupRow>`
                 class="expand-collapse-button"
                 tabindex="-1"
                 title="${x => (x.expanded ? tableGroupCollapseLabel.getValueFor(x) : tableGroupExpandLabel.getValueFor(x))}"
+                aria-hidden="true"
             >
                 <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
-                ${x => (x.expanded ? tableGroupCollapseLabel.getValueFor(x) : tableGroupExpandLabel.getValueFor(x))}
             </${buttonTag}>
         </span>
 
         <div class="group-row-header-content">
             ${x => x.groupColumn?.columnInternals.groupHeaderViewTemplate}
-            <span class="group-row-child-count">(${x => x.leafItemCount})</span>
+            <span class="group-row-child-count">(${x => x.immediateChildCount})</span>
         </div>
     </template>
 `;

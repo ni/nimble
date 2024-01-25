@@ -2,6 +2,141 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 24 Jan 2024 00:57:02 GMT",
+      "version": "13.1.4",
+      "tag": "@ni/nimble-blazor_v13.1.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "cb516b7b5b7334d2ef30319b8f8c483df214c81e",
+            "comment": "Updating package versions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 Jan 2024 21:39:06 GMT",
+      "version": "13.1.0",
+      "tag": "@ni/nimble-blazor_v13.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e3325a4b7847ef4b135321ada1ccc753a1006b35",
+            "comment": "Blazor components for byte unit and volt unit"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 Jan 2024 15:41:43 GMT",
+      "version": "13.0.1",
+      "tag": "@ni/nimble-blazor_v13.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e91fdcd3ece03166d22a148a291a72ce7a184c5d",
+            "comment": "Update Blazor mapping base class"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 Jan 2024 22:22:02 GMT",
+      "version": "13.0.0",
+      "tag": "@ni/nimble-blazor_v13.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "398b7ab7e2be2597de26e15e0ee463df4a02f228",
+            "comment": "Introducing data hierarchy for table. Renamed 'groupCollapseAll' on table label provider to 'collapseAll'"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Jan 2024 23:43:26 GMT",
+      "version": "12.7.11",
+      "tag": "@ni/nimble-blazor_v12.7.11",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "762a3cb1944836ddf9dc5fdff48892c1650c1f8d",
+            "comment": "Update Playwright version"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 Dec 2023 19:32:21 GMT",
+      "version": "12.7.0",
+      "tag": "@ni/nimble-blazor_v12.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "487c3440588f7b331ea2e90131e41bbf4d4d84f0",
+            "comment": "Add ContentEditable property to anchor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 Nov 2023 23:03:00 GMT",
+      "version": "12.5.8",
+      "tag": "@ni/nimble-blazor_v12.5.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "35350751+kjohn1922@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "4ed966eb70e7a7c770327c0194be51e2091973d1",
+            "comment": "Add Blazor support for the nimble-card component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Oct 2023 00:29:31 GMT",
+      "version": "12.5.0",
+      "tag": "@ni/nimble-blazor_v12.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "244e2caca0117fae6448f7c130e3afd3771b03d5",
+            "comment": "Blazor integration for duration table column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 19 Oct 2023 23:50:56 GMT",
+      "version": "12.4.0",
+      "tag": "@ni/nimble-blazor_v12.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "466d474d52d3eb8a0396a6e53365e32bfbbd2954",
+            "comment": "Add decimal-maximum-digits attr to number-text column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 Sep 2023 05:26:36 GMT",
       "tag": "@ni/nimble-blazor_v12.3.8",
       "version": "12.3.8",

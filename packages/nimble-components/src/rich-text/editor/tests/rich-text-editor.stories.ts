@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
+    disableStorybookZoomTransform,
     incubatingWarning
 } from '../../../utilities/tests/storybook';
 import { RichTextEditor, richTextEditorTag } from '..';
@@ -13,12 +14,16 @@ import {
 } from '../../../label-provider/base/tests/label-user-stories-utils';
 import { labelProviderRichTextTag } from '../../../label-provider/rich-text';
 import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
+import { mappingUserTag } from '../../../mapping/user';
+import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RichTextEditorArgs extends LabelUserArgs {
     data: ExampleDataType;
+    mentionData: MentionDataType;
     footerActionButtons: boolean;
     getMarkdown: undefined;
+    getMentionedHrefs: undefined;
     editorRef: RichTextEditor;
     setMarkdownData: (args: RichTextEditorArgs) => void;
     disabled: boolean;
@@ -44,10 +49,27 @@ const dataSets = {
     [exampleDataType.markdownString]: richTextMarkdownString
 } as const;
 
+type MentionDataType = (typeof mentionDataType)[keyof typeof mentionDataType];
+
+const mentionDataType = {
+    userPattern: 'UserPattern',
+    httpsPattern: 'HttpsPattern'
+} as const;
+
+const mentionDataSets = {
+    [mentionDataType.userPattern]: { pattern: '^user:(.*)', href: 'user:' },
+    [mentionDataType.httpsPattern]: {
+        pattern: '^https://user/(.*)',
+        href: 'https://user/'
+    }
+} as const;
+
 const richTextEditorDescription = 'The rich text editor component allows users to add/edit text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The editor generates markdown output and takes markdown as input. The markdown flavor used is [CommonMark](https://spec.commonmark.org/0.30/).\n\n See the [rich text viewer](?path=/docs/incubating-rich-text-viewer--docs) component to render markdown without allowing editing.';
 const setMarkdownDescription = 'A function that sets content in the editor with the provided markdown string.';
 const getMarkdownDescription = 'A function that serializes the current data in the editor and returns the markdown string.';
-const footerActionButtonDescription = `To place content such as a button at the far-right of the footer section, set \`slot="footer-actions"\`.
+const footerActionButtonDescription = `You can place a button or anchor button at the far-right of the footer section, set \`slot="footer-actions"\`.
+
+Nimble will set the height of the buttons to \`$ni-nimble-control-slim-height\`.
 
 Note: The content in the \`footer-actions\` slot will not adjust based on the state of the rich-text-editor (e.g. disabled). It is the responsibility of the
 client application to make any necessary adjustments. For example, if the buttons should be disabled when the rich-text-editor is disabled, the
@@ -56,7 +78,6 @@ client application must implement that functionality.
 
 const metadata: Meta<RichTextEditorArgs> = {
     title: 'Incubating/Rich Text Editor',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
         docs: {
@@ -65,18 +86,19 @@ const metadata: Meta<RichTextEditorArgs> = {
             }
         },
         actions: {
-            handles: ['input']
+            handles: ['input', 'mention-update']
         }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+    ${disableStorybookZoomTransform}
     ${incubatingWarning({
         componentName: 'rich text editor',
         statusLink: 'https://github.com/ni/nimble/issues/1288'
     })}
     <${richTextEditorTag}
         ${ref('editorRef')}
-        style="height: 160px;"
+        style="height: 300px;"
         data-unused="${x => x.setMarkdownData(x)}"
         ?disabled="${x => x.disabled}"
         ?footer-hidden="${x => x.footerHidden}"
@@ -84,9 +106,26 @@ const metadata: Meta<RichTextEditorArgs> = {
         error-text="${x => x.errorText}"
         placeholder="${x => x.placeholder}"
     >
+        <${richTextMentionUsersTag} pattern="${x => mentionDataSets[x.mentionData].pattern}" button-label="Mention User">
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}1" display-name="John Doe😀"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}2" display-name="Mary Wilson😂"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}3" display-name="Sue Ann🤩"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}4" display-name="Joseph-George"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}5" display-name="David"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}6" display-name="Ranchan"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}7" display-name="Aegar"></${mappingUserTag}>
+            <${mappingUserTag} key="${x => mentionDataSets[x.mentionData].href}8" display-name="Mitert"></${mappingUserTag}>
+        </${richTextMentionUsersTag}>
         ${when(x => x.footerActionButtons, html`
-            <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>
-            <${buttonTag} slot="footer-actions">OK</${buttonTag}>`)}
+            <${buttonTag}
+                style="min-width: 72px;"
+                appearance="ghost"
+                slot="footer-actions"
+            >Cancel</${buttonTag}>
+            <${buttonTag}
+                style="min-width: 72px;"
+                slot="footer-actions"
+            >OK</${buttonTag}>`)}
     </${richTextEditorTag}>
     `),
     argTypes: {
@@ -103,12 +142,32 @@ const metadata: Meta<RichTextEditorArgs> = {
                 }
             }
         },
+        mentionData: {
+            name: '@mention configuration',
+            description:
+                'Configure how mentions are detected and displayed. See documentation of the `pattern` attribute of the mention configuration element and the `key` attribute of mapping element(s).',
+            options: Object.values(mentionDataType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [mentionDataType.userPattern]: 'User Pattern - user:(.*)',
+                    [mentionDataType.httpsPattern]:
+                        'HTTPS Pattern - https://user/(.*)'
+                }
+            }
+        },
         footerActionButtons: {
             description: footerActionButtonDescription
         },
         getMarkdown: {
             name: 'getMarkdown()',
             description: getMarkdownDescription,
+            control: false
+        },
+        getMentionedHrefs: {
+            name: 'getMentionedHrefs()',
+            description:
+                'Returns an array of strings listing the hrefs of current mentions in the rich text components.',
             control: false
         },
         editorRef: {
@@ -146,7 +205,8 @@ const metadata: Meta<RichTextEditorArgs> = {
         }
     },
     args: {
-        data: exampleDataType.plainString,
+        data: exampleDataType.markdownString,
+        mentionData: mentionDataType.userPattern,
         footerActionButtons: false,
         disabled: false,
         footerHidden: false,

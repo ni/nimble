@@ -24,7 +24,7 @@ This repository uses the following tooling. See below for more info.
 
 First step in development is to build the monorepo which requires the following to be installed:
 
-- Node.js version 18+ (run `node --version`) and npm version 8+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
+- Node.js version 20+ (run `node --version`) and npm version 10+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
 - .NET 6 SDK (`6.0.202 <= version < 7`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
    - Run `dotnet --info` to verify the required version of the SDK is installed. A `v6` install is required, but it's fine if later versions are installed too.
 
@@ -181,7 +181,7 @@ npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 
 This repository uses [Renovate](https://docs.renovatebot.com/) to automatically create pull requests that bump the version of dependencies on a schedule. Renovate is configured via [`renovate.json`](./.github/renovate.json).
 
-Code owners are responsible for completing or rejecting Renovate PRs. Completing a PR currently requires manually adding a beachball change file to the branch. The change `type` will typically be `none` if only `package-lock.json` is changing and `patch` if any `package.json` is changing. The `comment` should summarize which set of dependencies are being updated.
+Code owners are responsible for completing or rejecting Renovate PRs. Completing a PR may require manually adding a beachball change file to the branch. The change `type` will typically be `patch` if any `package.json` or `.csproj` is changing. The `comment` should summarize which set of dependencies are being updated. To complete a PR you may need to manually trigger a rebase by clicking the checkbox in the PR description. **Note:** prefer the checkbox over GitHub's "Update branch" button so that Renovate can remain in control of all commits to its branch.
 
 ## Handling intermittent test failures
 
@@ -192,7 +192,7 @@ The general policy is that intermittent failures that can fail a build, such as 
 Some resolutions for an intermittent test are:
 
 1. Immediately submit a PR to address the underlying issue causing the failure. This can be done if the change can be approved and merged by the end of the day that the issue was discovered and if there is high confidence in the change.
-2. If the underlying issue is not well-known or the fix does not give high confidence in resolving the intermittent test then the test should be disabled and a tech debt issue created to handle the intermittent test. The disabled test should include a comment linking to the corresponding issue. Then the new issue itself must be handled as follows.
+2. If the underlying issue is not well-known or the fix does not give high confidence in resolving the intermittent test then the test should be disabled with `xit` and a tech debt issue created to handle the intermittent test. The disabled test should include a comment linking to the corresponding issue. Then the new issue itself must be handled as follows.
 
 ### Handling new intermittent test tech debt issues
 

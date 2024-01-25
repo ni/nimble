@@ -22,19 +22,22 @@ const generateValue = (
 export const generateDieContent = (
     x: number,
     y: number,
-    value: string
+    value: string,
+    tags?: string[]
 ): WaferMapDie => {
     return {
         x,
         y,
         value,
-        metadata: `Placeholder metadata value for Die x: ${x} y: ${y}`
+        metadata: `Placeholder metadata value for Die x: ${x} y: ${y}`,
+        tags
     };
 };
 
 export const generateWaferData = (
     numDies: number,
-    valueGenerator?: IValueGenerator
+    valueGenerator?: IValueGenerator,
+    _highlightedTagsGenerator?: IValueGenerator
 ): WaferMapRow[] => {
     const diesMatrix: WaferMapRow[] = [];
 

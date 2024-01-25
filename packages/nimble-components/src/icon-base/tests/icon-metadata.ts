@@ -31,8 +31,14 @@ export const iconMetadata: {
     IconArrowExpanderUp: {
         tags: []
     },
+    IconArrowInCircle: {
+        tags: ['move in']
+    },
     IconArrowLeftFromLine: {
         tags: ['logout']
+    },
+    IconArrowOutCircle: {
+        tags: ['move out']
     },
     IconArrowPartialRotateLeft: {
         tags: ['reset']
@@ -57,6 +63,9 @@ export const iconMetadata: {
     },
     IconArrowUp: {
         tags: ['sort', 'arrow', 'up', 'ascending']
+    },
+    IconAt: {
+        tags: ['@', 'email', 'handle', 'mention']
     },
     IconBars: {
         tags: ['hamburger menu']
@@ -83,7 +92,13 @@ export const iconMetadata: {
         tags: ['analyze']
     },
     IconCalendar: {
-        tags: []
+        tags: ['schedule']
+    },
+    IconCalendarCheckLines: {
+        tags: ['test', 'plan', 'schedule']
+    },
+    IconCalendarDay: {
+        tags: ['date', 'time', 'schedule']
     },
     IconChartDiagram: {
         tags: ['oidc']
@@ -250,6 +265,9 @@ export const iconMetadata: {
     IconFloppyDiskCheckmark: {
         tags: ['save', 'no unsaved changed']
     },
+    IconFloppyDiskPen: {
+        tags: ['save as', 'pencil']
+    },
     IconFloppyDiskStarArrowRight: {
         tags: ['save', 'autosave']
     },
@@ -352,6 +370,9 @@ export const iconMetadata: {
     IconMobile: {
         tags: ['phone']
     },
+    IconNi: {
+        tags: ['National Instruments', 'logo', 'product']
+    },
     IconNotebook: {
         tags: []
     },
@@ -373,8 +394,17 @@ export const iconMetadata: {
     IconQuestion: {
         tags: ['help']
     },
+    IconRectangleCheckLines: {
+        tags: ['test', 'plan']
+    },
     IconRunningArrow: {
         tags: ['status', 'running']
+    },
+    IconScreenCheckLines: {
+        tags: ['test', 'plan', 'monitor', 'desktop']
+    },
+    IconScreenCheckLinesCalendar: {
+        tags: ['test', 'plan', 'schedule', 'monitor', 'desktop']
     },
     IconServer: {
         tags: ['analysis', 'automation']
@@ -405,6 +435,9 @@ export const iconMetadata: {
     },
     IconSquareT: {
         tags: ['static text']
+    },
+    IconSystemlink: {
+        tags: ['logo', 'product']
     },
     IconT: {
         tags: ['text']

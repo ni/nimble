@@ -2,40 +2,39 @@ import { observable, attr, DOM } from '@microsoft/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
-    DesignSystem,
-    FoundationElement
+    DesignSystem
 } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import {
-    Editor,
     findParentNode,
     isList,
     AnyExtension,
     Extension,
-    Mark
+    Editor
 } from '@tiptap/core';
-import Bold from '@tiptap/extension-bold';
-import BulletList from '@tiptap/extension-bullet-list';
-import Document from '@tiptap/extension-document';
-import History from '@tiptap/extension-history';
-import Italic from '@tiptap/extension-italic';
-import Link, { LinkOptions } from '@tiptap/extension-link';
-import ListItem from '@tiptap/extension-list-item';
-import OrderedList from '@tiptap/extension-ordered-list';
-import Paragraph from '@tiptap/extension-paragraph';
-import Placeholder from '@tiptap/extension-placeholder';
+
 import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
-import Text from '@tiptap/extension-text';
 import HardBreak from '@tiptap/extension-hard-break';
-import { Slice, Fragment, Node } from 'prosemirror-model';
+import type { SuggestionProps } from '@tiptap/suggestion';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
-import { TipTapNodeName } from './types';
+import {
+    TipTapNodeName,
+    mentionPluginPrefix,
+    MentionDetail,
+    FormatButtonsState
+} from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
-import { anchorTag } from '../../anchor';
+import { RichText } from '../base';
+import type { RichTextMentionListbox } from '../mention-listbox';
+import type { MappingConfigs } from '../../rich-text-mention/base/types';
+import { MentionExtensionConfiguration } from '../models/mention-extension-configuration';
+import { createTiptapEditor } from './models/create-tiptap-editor';
+import { EditorConfiguration } from '../models/editor-configuration';
+import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -46,7 +45,7 @@ declare global {
 /**
  * A nimble styled rich text editor
  */
-export class RichTextEditor extends FoundationElement implements ErrorPattern {
+export class RichTextEditor extends RichText implements ErrorPattern {
     /**
      * @internal
      */
@@ -55,7 +54,24 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /**
      * @internal
      */
-    public tiptapEditor = this.createTiptapEditor();
+    public tiptapEditor = createTiptapEditor(
+        () => {},
+        () => {},
+        this.editor,
+        [],
+        this.mentionListbox,
+        this.placeholder
+    );
+
+    /**
+     * @internal
+     */
+    public readonly xmlSerializer = new XMLSerializer();
+
+    /**
+     * @internal
+     */
+    public richTextMarkdownSerializer = new RichTextMarkdownSerializer([]);
 
     /**
      * Whether to disable user from editing and interacting with toolbar buttons
@@ -107,10 +123,26 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     public get empty(): boolean {
         // Tiptap [isEmpty](https://tiptap.dev/api/editor#is-empty) returns false even if the editor has only whitespace.
-        // However, the expectation is to return true if the editor is empty or contains only whitespace.
-        // Hence, by retrieving the current text content using Tiptap state docs and then trimming the string to determine whether it is empty or not.
-        return this.tiptapEditor.state.doc.textContent.trim().length === 0;
+        // Get the prose mirror textContent of all the nodes with whitespace trimmed to see if it is empty
+        // Mention nodes are formatted as empty text content, so if empty make sure there are no mention nodes remaining
+        if (this.tiptapEditor.state.doc.textContent.trim() === '') {
+            let hasMention = false;
+            this.tiptapEditor.state.doc.descendants(node => {
+                if (node.type.name.startsWith(mentionPluginPrefix)) {
+                    hasMention = true;
+                }
+                const continueDescent = hasMention === false;
+                return continueDescent;
+            });
+            return !hasMention;
+        }
+        return false;
     }
+
+    /**
+     * @internal
+     */
+    public mentionListbox?: RichTextMentionListbox;
 
     /**
      * @internal
@@ -146,13 +178,27 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /**
      * @internal
      */
+    @observable
+    public activeMentionCharacter = '';
+
+    /**
+     * @internal
+     */
+    @observable
+    public activeMappingConfigs?: MappingConfigs;
+
+    /**
+     * @internal
+     */
+    public activeMentionCommand?: SuggestionProps['command'];
+
+    /**
+     * @internal
+     */
     public editorContainer!: HTMLDivElement;
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
-
-    private readonly xmlSerializer = new XMLSerializer();
-    private readonly validAbsoluteLinkRegex = /^https?:\/\//i;
 
     /**
      * @internal
@@ -184,19 +230,15 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @internal
      */
     public disabledChanged(): void {
-        this.tiptapEditor.setEditable(!this.disabled);
-        this.setEditorTabIndex();
-        this.editor.setAttribute(
-            'aria-disabled',
-            this.disabled ? 'true' : 'false'
-        );
+        this.disableEditor();
+        this.disableMentionViewElement();
     }
 
     /**
      * Update the placeholder text and view of the editor.
      * @internal
      */
-    public placeholderChanged(): void {
+    public placeholderChanged(_prev: unknown, _next: unknown): void {
         const placeholderExtension = this.getTipTapExtension(
             'placeholder'
         ) as Extension<PlaceholderOptions>;
@@ -209,12 +251,44 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /**
      * @internal
      */
-    public ariaLabelChanged(): void {
+    public ariaLabelChanged(_prev: unknown, _next: unknown): void {
         if (this.ariaLabel !== null && this.ariaLabel !== undefined) {
             this.editor.setAttribute('aria-label', this.ariaLabel);
         } else {
             this.editor.removeAttribute('aria-label');
         }
+    }
+
+    /**
+     * @internal
+     */
+    public configurationChanged(
+        prev: EditorConfiguration | undefined,
+        next: EditorConfiguration
+    ): void {
+        const formatButtonsState = this.getButtonsState(this.tiptapEditor);
+        const { from, to } = this.tiptapEditor.view.state.selection;
+        if (this.isMentionExtensionConfigUnchanged(prev, next)) {
+            this.setMarkdown(this.getMarkdown());
+        } else {
+            const mentionExtensionConfig = this.getMentionExtensionConfig();
+            const currentStateMarkdown = this.getMarkdown();
+            this.richTextMarkdownSerializer = new RichTextMarkdownSerializer(
+                mentionExtensionConfig.map(config => config.name)
+            );
+            this.initializeEditor();
+            this.setMarkdown(currentStateMarkdown);
+        }
+        this.tiptapEditor.commands.setTextSelection({ from, to });
+        this.resetEditorButtonsState(formatButtonsState);
+        this.setActiveMappingConfigs();
+    }
+
+    /**
+     * @internal
+     */
+    public activeMentionCharacterChanged(): void {
+        this.setActiveMappingConfigs();
     }
 
     /**
@@ -298,12 +372,27 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     /**
+     * Inserts the mention character into the editor and focus back to the editor
+     * @internal
+     */
+    public mentionButtonClick(character: string): void {
+        this.tiptapEditor
+            .chain()
+            .insertContent(
+                this.shouldInsertSpace() ? ` ${character}` : character
+            )
+            .focus()
+            .run();
+    }
+
+    /**
      * This function load tip tap editor with provided markdown content by parsing into html
      * @public
      */
     public setMarkdown(markdown: string): void {
         const html = this.getHtmlContent(markdown);
         this.tiptapEditor.commands.setContent(html);
+        this.disableMentionViewElement();
     }
 
     /**
@@ -311,7 +400,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @public
      */
     public getMarkdown(): string {
-        return RichTextMarkdownSerializer.serializeDOMToMarkdown(
+        return this.richTextMarkdownSerializer.serializeDOMToMarkdown(
             this.tiptapEditor.state.doc
         );
     }
@@ -326,6 +415,82 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         return false;
     }
 
+    public getMentionedHrefs(): string[] {
+        const mentionedHrefs = new Set<string>();
+        this.tiptapEditor.state.doc.descendants(node => {
+            if (node.type.name.startsWith(mentionPluginPrefix)) {
+                mentionedHrefs.add(node.attrs.href as string);
+            }
+        });
+        return Array.from(mentionedHrefs);
+    }
+
+    /**
+     * @internal
+     */
+    public getMentionExtensionConfig(): MentionExtensionConfiguration[] {
+        return this.configuration instanceof EditorConfiguration
+            ? this.configuration.mentionExtensionConfig
+            : [];
+    }
+
+    /**
+     * @internal
+     */
+    public onMentionSelect(event: CustomEvent<MentionDetail>): void {
+        if (this.activeMentionCommand) {
+            this.activeMentionCommand({
+                href: event.detail.href,
+                label: event.detail.displayName
+            });
+        }
+    }
+
+    /**
+     * @internal
+     */
+    public override handleChange(source: unknown, args: unknown): void {
+        if (
+            source instanceof MentionInternals
+            && MentionExtensionConfiguration.isObservedMentionInternalsProperty(
+                args
+            )
+        ) {
+            this.configuration = this.createConfig();
+        } else {
+            super.handleChange(source, args);
+        }
+    }
+
+    /**
+     * @internal
+     */
+    public focusoutHandler(): void {
+        if (!this.mentionListbox?.open) {
+            return;
+        }
+        this.mentionListbox?.close();
+    }
+
+    protected override createConfig(): EditorConfiguration {
+        return new EditorConfiguration(this.mentionElements);
+    }
+
+    private isMentionExtensionConfigUnchanged(
+        prev: EditorConfiguration | undefined,
+        next: EditorConfiguration
+    ): boolean {
+        const prevConfigCharacters = prev?.mentionExtensionConfig
+            .map(config => config.character)
+            .sort((a, b) => a.localeCompare(b))
+            .toString();
+        const nextConfigCharacters = next.mentionExtensionConfig
+            .map(config => config.character)
+            .sort((a, b) => a.localeCompare(b))
+            .toString();
+        return prevConfigCharacters === nextConfigCharacters;
+    }
+
     private createEditor(): HTMLDivElement {
         const editor = document.createElement('div');
         editor.className = 'editor';
@@ -335,175 +500,41 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         return editor;
     }
 
-    /**
-     * This method finds the Link mark in the pasted content and update its Text node.
-     * If there is no text node, pass the node's fragment recursively and updates only node containing Link mark.
-     * If the Text node does not contains Link mark, push the same node to `updatedNodes`.
-     *
-     * @param fragment Fragment containing the pasted content. [Fragment](https://prosemirror.net/docs/ref/#model.Fragment)
-     * @returns modified fragment from the `updatedNode` after updating the valid link text with its href value.
-     */
-    private readonly updateLinkNodes = (fragment: Fragment): Fragment => {
-        const updatedNodes: Node[] = [];
-
-        fragment.forEach(node => {
-            if (node.isText && node.marks.length > 0) {
-                const linkMark = node.marks.find(
-                    mark => mark.type.name === 'link' && mark.attrs
-                );
-                if (linkMark) {
-                    // Checks if the link is valid link or not
-                    // Needing to separately validate the link on paste is a workaround for a tiptap issue
-                    // See: https://github.com/ni/nimble/issues/1527
-                    if (
-                        this.validAbsoluteLinkRegex.test(
-                            linkMark.attrs.href as string
-                        )
-                    ) {
-                        // The below lines of code is responsible for updating the text content with its href value and creates a new updated text node.
-                        // This code needs an update when the hyperlink support is added.
-                        // See: https://github.com/ni/nimble/issues/1527
-                        updatedNodes.push(
-                            this.tiptapEditor.schema.text(
-                                linkMark.attrs.href as string,
-                                node.marks
-                            )
-                        );
-                    } else {
-                        // If it is a invalid link, creates a new Text node with the same text content and without a Link mark.
-                        updatedNodes.push(
-                            this.tiptapEditor.schema.text(
-                                node.textContent,
-                                linkMark.removeFromSet(node.marks)
-                            )
-                        );
-                    }
-                } else {
-                    updatedNodes.push(node);
-                }
-            } else {
-                const updatedContent = this.updateLinkNodes(node.content);
-                updatedNodes.push(node.copy(updatedContent));
-            }
-        });
-
-        return Fragment.fromArray(updatedNodes);
-    };
-
-    private createTiptapEditor(): Editor {
-        const customLink = this.getCustomLinkExtension();
-
-        /**
-         * @param slice contains the Fragment of the copied content. If the content is a link, the slice contains Text node with Link mark.
-         * ProseMirror reference for `transformPasted`: https://prosemirror.net/docs/ref/#view.EditorProps.transformPasted
-         */
-        const transformPasted = (slice: Slice): Slice => {
-            const modifiedFragment = this.updateLinkNodes(slice.content);
-            return new Slice(modifiedFragment, slice.openStart, slice.openEnd);
-        };
-
-        /**
-         * For more information on the extensions for the supported formatting options, refer to the links below.
-         * Tiptap marks: https://tiptap.dev/api/marks
-         * Tiptap nodes: https://tiptap.dev/api/nodes
-         */
-        return new Editor({
-            element: this.editor,
-            // The editor will detect markdown syntax for an input only for these items
-            // https://tiptap.dev/api/editor#enable-input-rules
-            enableInputRules: [BulletList, OrderedList],
-            // The editor will not detect markdown syntax when pasting content in any supported items
-            // Lists do not have any default paste rules, they have only input rules, so disabled paste rules
-            // https://tiptap.dev/api/editor#enable-paste-rules
-            enablePasteRules: false,
-            editorProps: {
-                // Validating whether the links in the pasted content belongs to the supported scheme (HTTPS/HTTP),
-                // and rendering it as a link in the editor. If not, rendering it as a plain text.
-                // Also, updating the link text content with its href as we support only the absolute link.
-
-                // `transformPasted` can be updated/removed when hyperlink support added
-                // See: https://github.com/ni/nimble/issues/1527
-                transformPasted
+    private initializeEditor(): void {
+        this.unbindEditorTransactionEvent();
+        this.unbindEditorUpdateEvent();
+        this.unbindNativeInputEvent();
+        this.tiptapEditor?.destroy();
+        this.tiptapEditor = createTiptapEditor(
+            character => {
+                this.activeMentionCharacter = character;
             },
-            extensions: [
-                Document,
-                Paragraph,
-                Text,
-                BulletList,
-                OrderedList,
-                ListItem,
-                Bold,
-                Italic,
-                History,
-                Placeholder.configure({
-                    placeholder: '',
-                    showOnlyWhenEditable: false
-                }),
-                HardBreak,
-                customLink.configure({
-                    // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
-                    // eslint-disable-next-line @typescript-eslint/naming-convention
-                    HTMLAttributes: {
-                        rel: 'noopener noreferrer',
-                        target: null
-                    },
-                    autolink: true,
-                    openOnClick: false,
-                    // linkOnPaste can be enabled when hyperlink support added
-                    // See: https://github.com/ni/nimble/issues/1527
-                    linkOnPaste: false,
-                    validate: href => this.validAbsoluteLinkRegex.test(href)
-                })
-            ]
-        });
-    }
-
-    /**
-     * Extending the default link mark schema defined in the TipTap.
-     *
-     * "excludes": https://prosemirror.net/docs/ref/#model.MarkSpec.excludes
-     * "inclusive": https://prosemirror.net/docs/ref/#model.MarkSpec.inclusive
-     * "parseHTML": https://tiptap.dev/guide/custom-extensions#parse-html
-     * "renderHTML": https://tiptap.dev/guide/custom-extensions/#render-html
-     */
-    private getCustomLinkExtension(): Mark<LinkOptions> {
-        return Link.extend({
-            // Excludes can be removed/enabled when hyperlink support added
-            // See: https://github.com/ni/nimble/issues/1527
-            excludes: '_',
-            // Inclusive can be updated when hyperlink support added
-            // See: https://github.com/ni/nimble/issues/1527
-            inclusive: false,
-            parseHTML() {
-                return [
-                    // To load the `nimble-anchor` from the HTML parsed content by markdown-parser as links in the Tiptap editor, the `parseHTML`
-                    // of Link extension should return nimble `anchorTag`.
-                    // This is because the link mark schema in `markdown-parser.ts` file uses `<nimble-anchor>` as anchor tag and not `<a>`.
-                    {
-                        tag: anchorTag
-                    },
-                    // `<a>` tag is added here to support when pasting a link from external source.
-                    {
-                        tag: 'a'
-                    }
-                ];
+            command => {
+                this.activeMentionCommand = command;
             },
-            // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            renderHTML({ HTMLAttributes }) {
-                // The below 'a' tag should be replaced with 'nimble-anchor' once the below issue is fixed.
-                // https://github.com/ni/nimble/issues/1516
-                return ['a', HTMLAttributes];
-            }
-        });
+            this.editor,
+            this.configuration instanceof EditorConfiguration
+                ? this.configuration.mentionExtensionConfig
+                : [],
+            this.mentionListbox,
+            this.placeholder
+        );
+        this.disableEditor();
+        this.disableMentionViewElement();
+        this.bindEditorTransactionEvent();
+        this.bindEditorUpdateEvent();
+        this.stopNativeInputEventPropagation();
     }
 
     /**
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(markdown);
-        return this.xmlSerializer.serializeToString(documentFragment);
+        const parseResult = RichTextMarkdownParser.parseMarkdownToDOM(
+            markdown,
+            this.configuration?.parserMentionConfig
+        );
+        return this.xmlSerializer.serializeToString(parseResult.fragment);
     }
 
     /**
@@ -522,6 +553,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     private updateEditorButtonsState(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
         const { extensionManager, state } = this.tiptapEditor;
         const { extensions } = extensionManager;
         const { selection } = state;
@@ -556,6 +591,39 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         this.tiptapEditor.on('update', () => {
             this.$emit('input');
             this.queueUpdateScrollbarWidth();
+        });
+    }
+
+    private disableEditor(): void {
+        this.tiptapEditor.setEditable(!this.disabled);
+        this.setEditorTabIndex();
+        this.editor.setAttribute(
+            'aria-disabled',
+            this.disabled ? 'true' : 'false'
+        );
+        this.mentionListbox?.close();
+    }
+
+    private disableMentionViewElement(): void {
+        this.tiptapEditor.state.doc.descendants((node, pos) => {
+            if (node.type.name.startsWith(mentionPluginPrefix)) {
+                const updatedAttrs = {
+                    ...node.attrs,
+                    disabled: this.disabled ? '' : null
+                };
+                const updatedNode = this.tiptapEditor.schema.node(
+                    node.type.name,
+                    updatedAttrs,
+                    node.content
+                );
+                const updatedTransaction = this.tiptapEditor.state.tr.replaceWith(
+                    pos,
+                    pos + node.nodeSize,
+                    updatedNode
+                );
+                this.tiptapEditor.view.dispatch(updatedTransaction);
+            }
+            return true;
         });
     }
 
@@ -615,6 +683,60 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             }
         });
     }
+
+    private setActiveMappingConfigs(): void {
+        this.activeMappingConfigs = this.activeMentionCharacter
+            ? this.getMentionExtensionConfigFromCharacter(
+                this.activeMentionCharacter
+            )?.mappingConfigs
+            : undefined;
+    }
+
+    private shouldInsertSpace(): boolean {
+        const { $anchor, $head } = this.tiptapEditor.view.state.selection;
+
+        const isAtStartOfLine = $head.parentOffset === 0 || $anchor.parentOffset === 0;
+        const nodeBeforeSelection = $anchor.pos < $head.pos ? $anchor.nodeBefore : $head.nodeBefore;
+        const isHardBreakNode = nodeBeforeSelection?.type.name === HardBreak.name;
+        const hasWhitespaceBeforeCurrentPosition = nodeBeforeSelection?.textContent.endsWith(' ');
+
+        return (
+            !isAtStartOfLine
+            && !isHardBreakNode
+            && !hasWhitespaceBeforeCurrentPosition
+        );
+    }
+
+    private getMentionExtensionConfigFromCharacter(
+        character: string
+    ): MentionExtensionConfiguration | undefined {
+        return this.getMentionExtensionConfig().find(
+            config => config.character === character
+        );
+    }
+
+    private resetEditorButtonsState(
+        buttonsState: FormatButtonsState | undefined
+    ): void {
+        if (buttonsState?.bold && !this.tiptapEditor.isActive('bold')) {
+            this.tiptapEditor.chain().focus().toggleBold().run();
+        }
+        if (buttonsState?.italics && !this.tiptapEditor.isActive('italic')) {
+            this.tiptapEditor.chain().focus().toggleItalic().run();
+        }
+    }
+
+    private getButtonsState(
+        tiptapEditor: Editor
+    ): FormatButtonsState | undefined {
+        if (!this.$fastController.isConnected) {
+            return undefined;
+        }
+        return {
+            bold: tiptapEditor.isActive('bold'),
+            italics: tiptapEditor.isActive('italic')
+        };
+    }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -624,10 +746,13 @@ applyMixins(RichTextEditor, ARIAGlobalStatesAndProperties);
 const nimbleRichTextEditor = RichTextEditor.compose({
     baseName: 'rich-text-editor',
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleRichTextEditor());
-export const richTextEditorTag = DesignSystem.tagFor(RichTextEditor);
+export const richTextEditorTag = 'nimble-rich-text-editor';

@@ -14,11 +14,13 @@ import {
     type LabelUserArgs
 } from '../../label-provider/base/tests/label-user-stories-utils';
 import { labelProviderTableTag } from '../../label-provider/table';
+import { tableColumnNumberTextTag } from '../../table-column/number-text';
 
 interface TableArgs extends LabelUserArgs {
     data: ExampleDataType;
     selectionMode: keyof typeof TableRowSelectionMode;
     idFieldName: undefined;
+    parentIdFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
     setSelectedRecordIds: undefined;
@@ -31,45 +33,144 @@ const simpleData = [
     {
         firstName: 'Ralph',
         lastName: 'Wiggum',
-        favoriteColor: 'Rainbow',
-        quote: "I'm in danger!"
+        age: 12,
+        quote: "I'm in danger!",
+        parentId: undefined
     },
     {
         firstName: 'Milhouse',
         lastName: 'Van Houten',
-        favoriteColor: 'Crimson',
-        quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
+        age: 12,
+        quote: "Not only am I not learning, I'm forgetting stuff I used to know!",
+        parentId: undefined
     },
     {
         firstName: 'Ned',
         lastName: 'Flanders',
-        favoriteColor: 'Taupe',
-        quote: 'Hi diddly-ho neighbor!'
+        age: 34,
+        quote: 'Hi diddly-ho neighbor!',
+        parentId: undefined
     }
 ] as const;
 
+const hierarchicalData = [
+    {
+        firstName: 'Jacqueline',
+        lastName: 'Bouvier',
+        age: 80,
+        quote: "I have laryngitis. It hurts to talk, so I'll just say one thing. You never do anything right.",
+        id: '0',
+        parentId: undefined
+    },
+    {
+        firstName: 'Marge',
+        lastName: 'Simpson',
+        age: 35,
+        quote: "Oh, I've Always Wanted To Use Rosemary In Something!",
+        id: '',
+        parentId: '0'
+    },
+    {
+        firstName: 'Bart',
+        lastName: 'Simpson',
+        age: 12,
+        quote: 'Cowabunga!',
+        id: '2',
+        parentId: ''
+    },
+    {
+        firstName: 'Lisa',
+        lastName: 'Simpson',
+        age: 10,
+        quote: 'I Am The Lizard Queen!',
+        id: '3',
+        parentId: ''
+    },
+    {
+        firstName: 'Maggie',
+        lastName: 'Simpson',
+        age: 1,
+        quote: '<pacifier noise>',
+        id: '4',
+        parentId: ''
+    },
+    {
+        firstName: 'Selma',
+        lastName: 'Bouvier',
+        age: 45,
+        quote: "Hey relax. I've told ya' I've got money. I bought stock in a mace company just before society crumbled.",
+        id: '5',
+        parentId: '0'
+    },
+    {
+        firstName: 'Patty',
+        lastName: 'Bouvier',
+        quote: "What do you know, he's wearing pants.",
+        age: 45,
+        id: '6',
+        parentId: '0'
+    },
+    {
+        firstName: 'Mona',
+        lastName: 'Simpson',
+        age: 77,
+        quote: "Homer, if you're watching this, either I'm dead, or you've gone through my stuff",
+        id: '7',
+        parentId: undefined
+    },
+    {
+        firstName: 'Homer',
+        lastName: 'Simpson',
+        quote: "D'oh!",
+        age: 35,
+        id: '8',
+        parentId: '7'
+    },
+    {
+        firstName: 'Agnes',
+        lastName: 'Skinner',
+        age: 88,
+        quote: 'See you in hell, Seymour.',
+        id: '9',
+        parentId: undefined
+    },
+    {
+        firstName: 'Seymour',
+        lastName: 'Skinner',
+        quote: 'Isn’t it nice we hate the same things?',
+        age: 42,
+        id: '10',
+        parentId: '9'
+    }
+];
+
 const firstNames = ['John', 'Sally', 'Joe', 'Michael', 'Sam'];
 const lastNames = ['Davidson', 'Johnson', 'Abraham', 'Wilson'];
-const colors = ['Red', 'Blue', 'Green', 'Yellow'];
+const ages = [16, 32, 48, 64];
 const largeData = [];
 for (let i = 0; i < 10000; i++) {
+    const possibleParent = Math.floor(Math.random() * 100);
+    const parentId = possibleParent < i ? possibleParent.toString() : undefined;
     largeData.push({
         id: i.toString(),
         firstName: firstNames[i % firstNames.length],
         lastName: lastNames[i % lastNames.length],
-        favoriteColor: colors[i % colors.length],
-        quote: `I'm number ${i + 1}!`
+        age: ages[i % ages.length],
+        quote: `I'm number ${i + 1}!`,
+        parentId
     });
 }
 
 const dataSets = {
     [ExampleDataType.simpleData]: simpleData,
-    [ExampleDataType.largeDataSet]: largeData
+    [ExampleDataType.largeDataSet]: largeData,
+    [ExampleDataType.hierarchicalDataSet]: hierarchicalData
 } as const;
 
 const dataSetIdFieldNames = {
     [ExampleDataType.simpleData]: 'firstName',
-    [ExampleDataType.largeDataSet]: 'id'
+    [ExampleDataType.largeDataSet]: 'id',
+    [ExampleDataType.hierarchicalDataSet]: 'id'
 } as const;
 
 const overviewText = `The \`nimble-table\` is a component that offers a way to render tabular data in a variety of ways in each column.
@@ -104,11 +205,20 @@ The attribute is invalid in the following conditions:
 -   A record was found that did not have a field with the name specified by \`id-field-name\`. This will cause \`validity.missingRecordId\` to be \`true\`.
 -   A record was found where \`id-field-name\` did not refer to a value of type \`string\`. This will cause \`validity.invalidRecordId\` to be \`true\`.`;
 
+const parentIdFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's parent ID, which,
+when used in combination with the \`id-field-name\` attribute, will display the table data in a hierarchical fashion. If the attribute is not specified, the
+data in the table will always be presented without hierarchy.
+
+The attribute is invalid in the following conditions:
+-   When this attribute is set, but \`id-field-name\` is unset. This will cause \`validity.idFieldNameNotConfigured\` to be \`true\`.
+-   When there are circular references between records discovered based on field values of \`parent-id-field-name\` for one record and \`id-field-name\` of another. This will cause \`validity.invalidParentIdConfiguration\` to be \`true\`.
+-   When an id specified by \`parent-id-field-name\` is not discovered in any record. This will cause \`validity.invalidParentIdConfiguration\` to be \`true\`.`;
+
 const validityDescription = `Readonly object of boolean values that represents the validity states that the table's configuration can be in.
 The object's type is \`TableValidity\`, and it contains the following boolean properties:
 
 -   \`duplicateRecordId\`: \`true\` when multiple records were found with the same ID
--   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
+-   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`, or when \`parent-id-field-name\` is set but \`id-field-name\` is not
 -   \`invalidRecordId\`: \`true\` when a record was found where \`id-field-name\` did not refer to a value of type \`string\`
 -   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
 -   \`missingColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
@@ -116,6 +226,7 @@ The object's type is \`TableValidity\`, and it contains the following boolean pr
 -   \`duplicateSortIndex\`: \`true\` when \`sort-index\` is specified as the same value for multiple columns that have \`sort-direction\` set to a value other than \`none\`
 -   \`duplicateGroupIndex\`: \`true\` when \`group-index\` is specified as the same value for multiple columns
 -   \`idFieldNameNotConfigured\`: \`true\` when a feature that requires \`id-field-name\` to be configured, such as row selection, is enabled but an \`id-field-name\` is not set
+-   \`invalidParentIdConfiguration\`: \`true\` when the field specified by \`parent-id-field-name\` is not found in any record, or when there are circular references between field values in a record specified by \`id-field-name\` and \`parent-id-field-name\`.
 `;
 
 const setSelectedRecordIdsDescription = `A function that makes the rows associated with the provided record IDs selected in the table.
@@ -124,7 +235,6 @@ mode is \`single\`, only the first record that exists in the table's data will b
 
 const metadata: Meta<TableArgs> = {
     title: 'Components/Table',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
         docs: {
@@ -137,7 +247,8 @@ const metadata: Meta<TableArgs> = {
                 'action-menu-beforetoggle',
                 'action-menu-toggle',
                 'selection-change',
-                'column-configuration-change'
+                'column-configuration-change',
+                'row-expand-toggle'
             ]
         }
     },
@@ -148,6 +259,7 @@ const metadata: Meta<TableArgs> = {
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
+            parent-id-field-name="parentId"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
@@ -163,12 +275,12 @@ const metadata: Meta<TableArgs> = {
             >
                 Last Name
             </${tableColumnTextTag}>
-            <${tableColumnTextTag}
-                column-id="favorite-color-column"
-                field-name="favoriteColor"
+            <${tableColumnNumberTextTag}
+                column-id="age-column"
+                field-name="age"
             >
-                Favorite Color
-            </${tableColumnTextTag}>
+                Age
+            </${tableColumnNumberTextTag}>
             <${tableColumnTextTag}
                 column-id="quote-column"
                 field-name="quote"
@@ -200,7 +312,8 @@ const metadata: Meta<TableArgs> = {
                 type: 'radio',
                 labels: {
                     [ExampleDataType.simpleData]: 'Simple data',
-                    [ExampleDataType.largeDataSet]: 'Large data set (10k rows)'
+                    [ExampleDataType.largeDataSet]: 'Large data set (10k rows)',
+                    [ExampleDataType.hierarchicalDataSet]: 'Hierarchical data'
                 }
             }
         },
@@ -230,6 +343,14 @@ const metadata: Meta<TableArgs> = {
                 defaultValue: { summary: 'undefined' }
             },
             description: idFieldNameDescription,
+            control: false
+        },
+        parentIdFieldName: {
+            name: 'parent-id-field-name',
+            table: {
+                defaultValue: { summary: 'undefined' }
+            },
+            description: parentIdFieldNameDescription,
             control: false
         },
         validity: {

@@ -40,6 +40,17 @@ export interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
 }
 
+/**
+ * Describes a hierarchical data structure that is used for
+ * the internal representation of the data, and allows us to represent data with
+ * parent-child relationships within Tanstack.
+ */
+export interface TableNode<TRecord extends TableRecord = TableRecord> {
+    subRows?: TableNode<TRecord>[];
+    originalIndex: number;
+    clientRecord: TRecord;
+}
+
 export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: TableStringFieldValue;
 };
@@ -62,6 +73,7 @@ export interface TableValidity extends ValidityObject {
     readonly duplicateGroupIndex: boolean;
     readonly idFieldNameNotConfigured: boolean;
     readonly invalidColumnConfiguration: boolean;
+    readonly invalidParentIdConfiguration: boolean;
 }
 
 export interface TableActionMenuToggleEventDetail {
@@ -124,6 +136,15 @@ export interface TableRowSelectionEventDetail {
 }
 
 /**
+ * Event detail type for row toggle events in the table.
+ */
+export interface TableRowExpansionToggleEventDetail {
+    oldState: boolean;
+    newState: boolean;
+    recordId: string;
+}
+
+/**
  * Event detail type for interactive column configuration changes.
  *
  * The column-configuration-change event is emitted when a column's configuration
@@ -157,10 +178,11 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     record: TData;
     id: string;
     selectionState: TableRowSelectionState;
-    isGrouped: boolean;
+    isGroupRow: boolean;
     groupRowValue?: unknown;
     isExpanded: boolean;
     nestingLevel?: number;
-    leafItemCount?: number;
+    immediateChildCount?: number;
     groupColumn?: TableColumn;
+    isParentRow: boolean;
 }

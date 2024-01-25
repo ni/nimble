@@ -16,7 +16,6 @@ interface RadioGroupArgs {
 
 const metadata: Meta<RadioGroupArgs> = {
     title: 'Components/Radio Group',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
         docs: {
@@ -75,7 +74,7 @@ const metadata: Meta<RadioGroupArgs> = {
         },
         name: {
             description:
-                'Radio buttons whose values are mutually exclusive should set the same `name` attribute. Setting the name on the group sets it on all child radio buttons.'
+                'Radio buttons whose values are mutually exclusive should set the same `name` attribute. Setting the name on the group sets it on all child radio buttons. When using radio buttons in an Angular form, you must explicitly set either `name` or `formControlName` on each radio button. In that scenario, setting `name` on the group is ineffective.'
         }
     }
 };

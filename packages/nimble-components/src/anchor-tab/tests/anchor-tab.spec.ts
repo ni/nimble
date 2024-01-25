@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorTab } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { Fixture, fixture } from '../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<AnchorTab>> {
     return fixture<AnchorTab>(html`<nimble-anchor-tab></nimble-anchor-tab>`);
@@ -27,7 +27,7 @@ describe('AnchorTab', () => {
         );
     });
 
-    const attributeNames: { name: string }[] = [
+    const attributeNames = [
         { name: 'download' },
         { name: 'href' },
         { name: 'hreflang' },
@@ -36,29 +36,19 @@ describe('AnchorTab', () => {
         { name: 'rel' },
         { name: 'target' },
         { name: 'type' }
-    ];
+    ] as const;
     describe('should reflect value to the internal anchor element', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const attribute of attributeNames) {
-            const specType = getSpecTypeByNamedList(
-                attribute,
-                focused,
-                disabled
-            );
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(`for attribute ${attribute.name}`, async () => {
+        parameterizeSpec(attributeNames, (spec, name) => {
+            spec(`for attribute ${name}`, async () => {
                 await connect();
 
-                element.setAttribute(attribute.name, 'foo');
+                element.setAttribute(name, 'foo');
                 await waitForUpdatesAsync();
 
                 expect(
-                    element
-                        .shadowRoot!.querySelector('a')!
-                        .getAttribute(attribute.name)
+                    element.shadowRoot!.querySelector('a')!.getAttribute(name)
                 ).toBe('foo');
             });
-        }
+        });
     });
 });

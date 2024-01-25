@@ -21,6 +21,7 @@ interface SimpleTableRecord extends TableRecord {
     statusCode: number;
     result: string;
     number: number;
+    duration: number;
 }
 
 @Component({
@@ -46,7 +47,7 @@ export class CustomAppComponent {
     public selectedRadio = 'mango';
     public activeTabId = 'tab-1';
     public activeAnchorTabId = 'a-tab-2';
-    public viewerMarkdownString = `Supported rich text formatting options:
+    public markdownString = `Supported rich text formatting options:
 1. **Bold**
 2. *Italics*
 3. Numbered lists
@@ -56,17 +57,7 @@ export class CustomAppComponent {
     * Option 1
     * Option 2
 5. Absolute link: <https://nimble.ni.dev/>
-`;
-
-    public editorMarkdownString = `Supported rich text formatting options:
-1. **Bold**
-2. *Italics*
-3. Numbered lists
-    1. Option 1
-    2. Option 2
-4. Bulleted lists
-    * Option 1
-    * Option 2
+6. @mention: <user:1>
 `;
 
     public readonly tableData$: Observable<SimpleTableRecord[]>;
@@ -136,13 +127,14 @@ export class CustomAppComponent {
                 date: (tableData.length % 2 === 0) ? new Date(2023, 7, 16, 3, 56, 11).valueOf() : new Date(2022, 2, 7, 20, 28, 41).valueOf(),
                 statusCode: (tableData.length % 2 === 0) ? 100 : 101,
                 result: (tableData.length % 2 === 0) ? 'success' : 'unknown',
-                number: tableData.length / 10
+                number: tableData.length / 10,
+                duration: tableData.length * 1000 * (1.1 + 2 * 60 + 3 * 3600)
             });
         }
         this.tableDataSubject.next(tableData);
     }
 
     public loadRichTextEditorContent(): void {
-        this.editor.setMarkdown(this.editorMarkdownString);
+        this.editor.setMarkdown(this.markdownString);
     }
 }

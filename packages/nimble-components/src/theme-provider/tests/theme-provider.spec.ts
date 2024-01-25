@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
 import { spinalCase } from '@microsoft/fast-web-utilities';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as designTokensNamespace from '../design-tokens';
 import { tokenNames, suffixFromTokenName } from '../design-token-names';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 import { ThemeProvider, lang, themeProviderTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
@@ -147,19 +147,12 @@ describe('Theme Provider', () => {
         );
         const tokenNameValues = Object.values(tokenNames);
 
-        for (const tokenEntry of tokenEntries) {
-            const focused: DesignTokenPropertyName[] = [];
-            const disabled: DesignTokenPropertyName[] = [];
-            const specType = getSpecTypeByNamedList(
-                tokenEntry,
-                focused,
-                disabled
-            );
-            specType(`for token name ${tokenEntry.name}`, () => {
-                const tokenValue = tokenEntry.cssDesignToken.name.split('ni-nimble-')[1]!;
+        parameterizeSpec(tokenEntries, (spec, name, value) => {
+            spec(`for token name ${name}`, () => {
+                const tokenValue = value.cssDesignToken.name.split('ni-nimble-')[1]!;
                 expect(tokenNameValues).toContain(tokenValue);
             });
-        }
+        });
     });
 
     describe('design token should match JS key', () => {
@@ -168,38 +161,22 @@ describe('Theme Provider', () => {
         );
         const tokenNameValues = Object.values(tokenNames);
 
-        for (const propertyName of propertyNames) {
-            const focused: DesignTokenPropertyName[] = [];
-            const disabled: DesignTokenPropertyName[] = [];
-            const specType = getSpecTypeByNamedList(
-                propertyName,
-                focused,
-                disabled
-            );
-            specType(`for token name ${propertyName.name}`, () => {
-                const convertedTokenValue = spinalCase(propertyName.name);
+        parameterizeSpec(propertyNames, (spec, name) => {
+            spec(`for token name ${name}`, () => {
+                const convertedTokenValue = spinalCase(name);
                 expect(tokenNameValues).toContain(convertedTokenValue);
             });
-        }
+        });
     });
 
     describe('design token has approved suffix', () => {
         const propertyNames = designTokenPropertyNames.map(
             (name: DesignTokenPropertyName) => ({ name })
         );
-        for (const propertyName of propertyNames) {
-            const focused: DesignTokenPropertyName[] = [];
-            const disabled: DesignTokenPropertyName[] = [];
-            const specType = getSpecTypeByNamedList(
-                propertyName,
-                focused,
-                disabled
-            );
-            specType(`for token name ${propertyName.name}`, () => {
-                expect(
-                    suffixFromTokenName(propertyName.name)
-                ).not.toBeUndefined();
+        parameterizeSpec(propertyNames, (spec, name) => {
+            spec(`for token name ${name}`, () => {
+                expect(suffixFromTokenName(name)).not.toBeUndefined();
             });
-        }
+        });
     });
 });

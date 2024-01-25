@@ -57,7 +57,7 @@ describe('Table with LabelProviderTable', () => {
     beforeEach(async () => {
         let themeProvider: ThemeProvider;
         ({ element: themeProvider, connect, disconnect } = await setup());
-        element = themeProvider.querySelector(tableTag)!;
+        element = themeProvider.querySelector<Table<SimpleTableRecord>>(tableTag)!;
         labelProvider = themeProvider.querySelector(labelProviderTableTag)!;
 
         pageObject = new TablePageObject<SimpleTableRecord>(element);
@@ -68,11 +68,11 @@ describe('Table with LabelProviderTable', () => {
         await disconnect();
     });
 
-    it('uses correct labels when a column is grouped (groupCollapse/groupExpand/groupsCollapseAll/columnHeaderGroupedIndicator)', async () => {
+    it('uses correct labels when a column is grouped (groupCollapse/groupExpand/collapseAll/columnHeaderGroupedIndicator)', async () => {
         await element.setData(simpleTableData);
         await connect();
 
-        labelProvider.groupsCollapseAll = 'Customized Collapse All';
+        labelProvider.collapseAll = 'Customized Collapse All';
         labelProvider.groupExpand = 'Customized Expand';
         labelProvider.groupCollapse = 'Customized Collapse';
         labelProvider.columnHeaderGrouped = 'Customized Grouped';
@@ -93,7 +93,8 @@ describe('Table with LabelProviderTable', () => {
         const firstGroupRow: HTMLElement = element.shadowRoot!.querySelector(tableGroupRowTag)!;
         const actualGroupCollapseLabel = firstGroupRow
             .shadowRoot!.querySelector('.expand-collapse-button')!
-            .textContent!.trim();
+            .getAttribute('title')
+            ?.trim();
         expect(actualGroupCollapseLabel).toBe('Customized Collapse');
 
         firstGroupRow.click();
@@ -101,7 +102,8 @@ describe('Table with LabelProviderTable', () => {
 
         const actualGroupExpandLabel = firstGroupRow
             .shadowRoot!.querySelector('.expand-collapse-button')!
-            .textContent!.trim();
+            .getAttribute('title')
+            ?.trim();
         expect(actualGroupExpandLabel).toBe('Customized Expand');
     });
 

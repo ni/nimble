@@ -30,7 +30,7 @@ export class TableGroupRow extends FoundationElement {
     public nestingLevel = 0;
 
     @observable
-    public leafItemCount?: number;
+    public immediateChildCount?: number;
 
     @observable
     public groupColumn?: TableColumn;
@@ -134,4 +134,4 @@ const nimbleTableGroupRow = TableGroupRow.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableGroupRow());
-export const tableGroupRowTag = DesignSystem.tagFor(TableGroupRow);
+export const tableGroupRowTag = 'nimble-table-group-row';

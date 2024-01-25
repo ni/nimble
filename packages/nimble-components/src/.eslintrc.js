@@ -1,4 +1,4 @@
-const restrictedImportsPaths = () => ([
+const restrictedImportsPaths = () => [
     {
         name: '@microsoft/fast-foundation',
         importNames: ['focusVisible'],
@@ -10,7 +10,7 @@ const restrictedImportsPaths = () => ([
         message:
             'It is not expected to leverage @microsoft/fast-components directly as they are coupled to FAST design tokens.'
     }
-]);
+];
 
 module.exports = {
     root: true,
@@ -40,10 +40,14 @@ module.exports = {
             { contexts: ['ClassDeclaration'] }
         ],
 
-        'no-restricted-syntax': ['error', {
-            selector: 'TSEnumDeclaration',
-            message: 'Use a const object instead of an enum. See other types.ts files for examples.'
-        }],
+        'no-restricted-syntax': [
+            'error',
+            {
+                selector: 'TSEnumDeclaration',
+                message:
+                    'Use a const object instead of an enum. See other types.ts files for examples.'
+            }
+        ],
 
         // Rules enabled due to strictNullChecks
         '@typescript-eslint/no-non-null-assertion': 'off',
@@ -96,11 +100,17 @@ module.exports = {
                             {
                                 name: '@microsoft/fast-element',
                                 importNames: ['DOM'],
-                                message: 'For tests, please use functions from src/testing/async-helpers instead.'
+                                message:
+                                    'For tests, please use functions from src/testing/async-helpers instead.'
                             }
                         ]
                     }
                 ],
+                // test files will not be in published package and are allowed to use devDependencies
+                'import/no-extraneous-dependencies': [
+                    'error',
+                    { devDependencies: true }
+                ]
             }
         },
         {
@@ -122,23 +132,36 @@ module.exports = {
                     'error',
                     {
                         selector: 'objectLiteralProperty',
-                        format: ['camelCase'],
+                        format: ['camelCase']
                     },
                     {
                         selector: 'variable',
-                        format: ['camelCase', 'PascalCase'],
+                        format: ['camelCase', 'PascalCase']
                     },
                     {
                         selector: 'typeLike',
-                        format: ['PascalCase'],
+                        format: ['PascalCase']
                     },
                     {
                         selector: 'default',
                         format: ['camelCase'],
                         leadingUnderscore: 'allow',
-                        trailingUnderscore: 'allow',
-                    },
-                ],
+                        trailingUnderscore: 'allow'
+                    }
+                ]
+            }
+        },
+        {
+            files: ['**/*.react.tsx'],
+            rules: {
+                // The React components should use PascalCase
+                '@typescript-eslint/naming-convention': [
+                    'error',
+                    {
+                        selector: 'objectLiteralProperty',
+                        format: ['PascalCase']
+                    }
+                ]
             }
         }
     ]

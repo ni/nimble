@@ -70,7 +70,6 @@ nimble-drawer {
 }
 
 nimble-table {
-    height: auto;
     max-height: 480px;
 }
 
@@ -86,6 +85,10 @@ nimble-table {
 
 .rich-text-editor-container {
     padding: $ni-nimble-small-padding;
+}
+
+.rich-text-editor {
+    height: 280px;
 }
 
 .add-table-row-button {

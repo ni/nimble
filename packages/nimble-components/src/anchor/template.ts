@@ -9,7 +9,14 @@ import type { Anchor } from '.';
 export const template: FoundationElementTemplate<
 ViewTemplate<Anchor>,
 AnchorOptions
-> = (_context, definition) => html<Anchor>`<a
+> = (_context, definition) => html<Anchor>`${
+    /* top-container div is necessary because setting contenteditable directly on the native anchor instead
+       leaves it focusable, unlike the behavior you get when the anchor is _within_ a contenteditable element.
+    */ ''
+}<div
+        class="top-container"
+        contenteditable="${x => x.contentEditable}"
+    ><a
         class="control"
         part="control"
         download="${x => x.download}"
@@ -74,4 +81,4 @@ AnchorOptions
             @slotchange="${x => x.handleEndContentChange()}">
             ${definition.end || ''}
         </slot
-    ></span></a>`;
+    ></span></a></div>`;

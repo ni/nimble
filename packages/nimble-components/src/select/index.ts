@@ -45,6 +45,10 @@ export class Select extends FoundationSelect implements ErrorPattern {
     @observable
     public region?: AnchoredRegion;
 
+    /** @internal */
+    @observable
+    public hasOverflow = false;
+
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
         if (!this.$fastController.isConnected) {
@@ -116,4 +120,4 @@ const nimbleSelect = Select.compose<SelectOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSelect());
-export const selectTag = DesignSystem.tagFor(Select);
+export const selectTag = 'nimble-select';

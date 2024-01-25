@@ -17,6 +17,7 @@ import type {
     TableActionMenuToggleEventDetail,
     TableFieldName,
     TableRecord,
+    TableRowExpansionToggleEventDetail,
     TableRowSelectionToggleEventDetail
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
@@ -56,6 +57,9 @@ export class TableRow<
     @attr({ attribute: 'hide-selection', mode: 'boolean' })
     public hideSelection = false;
 
+    @attr({ mode: 'boolean' })
+    public expanded = false;
+
     @observable
     public dataRecord?: TDataRecord;
 
@@ -72,6 +76,9 @@ export class TableRow<
 
     @observable
     public nestingLevel = 0;
+
+    @attr({ attribute: 'is-parent-row', mode: 'boolean' })
+    public isParentRow = false;
 
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
@@ -101,6 +108,22 @@ export class TableRow<
 
     /** @internal */
     public readonly cellContainer!: HTMLSpanElement;
+
+    /**
+     * @internal
+     */
+    public readonly expandIcon?: HTMLElement;
+
+    /**
+     * @internal
+     */
+    @observable
+    public animationClass = '';
+
+    @volatile
+    public get isTopLevelParentRow(): boolean {
+        return this.isParentRow && this.nestingLevel === 0;
+    }
 
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
@@ -182,6 +205,35 @@ export class TableRow<
         }
     }
 
+    public onRowExpandToggle(event: Event): void {
+        const expandEventDetail: TableRowExpansionToggleEventDetail = {
+            oldState: this.expanded,
+            newState: !this.expanded,
+            recordId: this.recordId!
+        };
+        this.$emit('row-expand-toggle', expandEventDetail);
+        event.stopImmediatePropagation();
+        // To avoid a visual glitch with improper expand/collapse icons performing an
+        // animation (due to visual re-use apparently), we apply a class to the
+        // contained expand-collapse button temporarily. We use the 'transitionend' event
+        // to remove the temporary class and register a function reference as the handler
+        // to avoid issues that may result from the 'transitionend' event not firing, as it
+        // will never result in multiple event listeners being registered.
+        this.animationClass = 'animating';
+        this.expandIcon?.addEventListener(
+            'transitionend',
+            this.removeAnimatingClass
+        );
+    }
+
+    private readonly removeAnimatingClass = (): void => {
+        this.animationClass = '';
+        this.expandIcon?.removeEventListener(
+            'transitionend',
+            this.removeAnimatingClass
+        );
+    };
+
     private emitActionMenuToggleEvent(
         eventType: string,
         menuButtonEventDetail: MenuButtonToggleEventDetail,
@@ -213,10 +265,7 @@ export class TableRow<
 
     private updateCellIndentLevels(): void {
         this.cellIndentLevels = this.columns.map((_, i) => {
-            if (i === 0 && this.nestingLevel > 0) {
-                return this.nestingLevel - 1;
-            }
-            return 0;
+            return i === 0 ? this.nestingLevel : 0;
         });
     }
 
@@ -291,4 +340,4 @@ const nimbleTableRow = TableRow.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableRow());
-export const tableRowTag = DesignSystem.tagFor(TableRow);
+export const tableRowTag = 'nimble-table-row';

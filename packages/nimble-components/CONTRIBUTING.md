@@ -83,7 +83,7 @@ If a component is not ready for general use, it should be marked as "incubating"
 
 -   It is still in development.
 -   It is currently experimental or application-specific and hasn't yet been generalized for broader use.
--   It is missing important features like interaction design, visual design, accessibility, or framework integration.
+-   It is missing important features like interaction design, visual design, or accessibility.
 
 Incubating contributions may compromise on the above capabilities but they still must abide by other repository requirements. For example:
 
@@ -102,7 +102,7 @@ To mark a component as incubating:
 
 To move a component out of incubating status:
 
-1. Have a conversation with the Nimble team to decide if it is sufficiently complete.
+1. Have a conversation with the Nimble team to decide if it is sufficiently complete. The requirements listed at the top of this section must be met. Some feature gaps like framework integration may be OK as long as we don't anticipate that filling them would cause major breaking changes.
 2. Update the markings described above to indicate that it is now ready for general use!
 
 ### Folder structure
@@ -123,6 +123,7 @@ Create a new folder named after your component with some core files:
 | tests/component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing. In the future, this will also provide API documentation.                                                                                                      |
 | tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                                                                                        |
 | tests/component-name-docs.stories.ts   | Contains the Storybook documentation for this component. This should provide design guidance and usage information. See [Creating Storybook Component Documentation](/packages/nimble-components/docs/creating-storybook-component-documentation.md) for more information. |
+| tests/component-name.react.tsx         | Simple React wrapper for the component to be used in Storybook MDX documentation                                                                                                                                                                                           |
 
 ### Add to component bundle
 
@@ -336,7 +337,7 @@ The project uses a code generation build script to create a Nimble component for
 Every component should export its custom element tag (e.g. `nimble-button`) in a constant like this:
 
 ```ts
-export const buttonTag = DesignSystem.tagFor(Button);
+export const buttonTag = 'nimble-button';
 ```
 
 Client code can use this to refer to the component in an HTML template and having a dependency on the export will let a compiled application detect if a tag name changes.

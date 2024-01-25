@@ -147,7 +147,7 @@ export class WaferMap extends FoundationElement {
      */
     @observable public hoverDie: WaferMapDie | undefined;
 
-    @observable public highlightedValues: string[] = [];
+    @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public dieMatrix: WaferMapRow[] = [];
     @observable public colorCategories: WaferMapColorCategory[] = [];
@@ -283,8 +283,8 @@ export class WaferMap extends FoundationElement {
         this.waferMapUpdateTracker.queueUpdate();
     }
 
-    private highlightedValuesChanged(): void {
-        this.waferMapUpdateTracker.track('highlightedValues');
+    private highlightedTagsChanged(): void {
+        this.waferMapUpdateTracker.track('highlightedTags');
         this.waferMapUpdateTracker.queueUpdate();
     }
 
@@ -332,4 +332,4 @@ const nimbleWaferMap = WaferMap.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleWaferMap());
-export const waferMapTag = DesignSystem.tagFor(WaferMap);
+export const waferMapTag = 'nimble-wafer-map';
