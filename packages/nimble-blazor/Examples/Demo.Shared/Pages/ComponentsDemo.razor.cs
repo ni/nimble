@@ -68,7 +68,7 @@ namespace Demo.Shared.Pages
 
                 tableData.Add(new SimpleTableRecord(
                     rowCountString,
-                    tableData.Count > 4 ? ((tableData.Count + i) % 4).ToString(CultureInfo.CurrentCulture) : null,
+                    tableData.Count >= 4 ? (tableData.Count % 4).ToString(CultureInfo.CurrentCulture) : null,
                     $"new string {rowCountString}",
                     $"bar {rowCountString}",
                     "/",
