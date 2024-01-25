@@ -116,6 +116,15 @@ export class Select extends FoundationSelect implements ErrorPattern {
         Observable.notify(this, 'options');
     }
 
+    // See comment for 'set value' below. Despite the implementation for 'get value'
+    // being an exact copy of the FAST Select one, without replicating it here, we
+    // would see test errors.
+    public override get value(): string {
+        Observable.track(this, 'value');
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        return this['_value'] as string;
+    }
+
     // This is copied directly from FAST's implemention of its Select component, with
     // one main difference: we use 'options' (the filtered set of options) vs '_options'.
     // This is needed because while the dropdown is open the current 'selectedIndex' (set
@@ -340,6 +349,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
     }
 
     private clearSelection(): void {
+        this.filteredOptions = [];
         this._options.forEach(option => {
             option.selected = false;
         });
