@@ -82,25 +82,25 @@ describe('RichTextViewer', () => {
         expect(richTextViewerTag).toBe('nimble-rich-text-viewer');
     });
 
-    it('set the markdown attribute and ensure the markdown property is not modified', async () => {
+    it('set the markdown attribute and ensure the markdown property is not modified', () => {
         element.setAttribute('markdown', '**markdown string**');
 
         expect(element.markdown).toBe('');
     });
 
-    it('set the markdown property and ensure there is no markdown attribute', async () => {
+    it('set the markdown property and ensure there is no markdown attribute', () => {
         element.markdown = '**markdown string**';
 
         expect(element.hasAttribute('markdown')).toBeFalse();
     });
 
-    it('set the markdown property and ensure that getting the markdown property returns the same value', async () => {
+    it('set the markdown property and ensure that getting the markdown property returns the same value', () => {
         element.markdown = '**markdown string**';
 
         expect(element.markdown).toBe('**markdown string**');
     });
 
-    it('set a empty string should clear a value in the viewer', async () => {
+    it('set a empty string should clear a value in the viewer', () => {
         element.markdown = 'markdown string';
         expect(pageObject.getRenderedMarkdownTagNames()).toEqual(['P']);
         expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
