@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Fix for intermittent test failure in rich test component for mention support",
+  "packageName": "@ni/nimble-components",
+  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
