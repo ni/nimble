@@ -281,8 +281,10 @@ export class Select extends FoundationSelect implements ErrorPattern {
                 break;
             }
             case keyEscape: {
-                this.filteredOptions = [];
                 if (this.committedSelectedOption) {
+                    // clear filteredOptions as call to `super.keydownHandler` will process
+                    // "options" and not "_options"
+                    this.filteredOptions = [];
                     this.clearSelection();
                     this.selectedIndex = this._options.indexOf(
                         this.committedSelectedOption
