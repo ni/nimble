@@ -1,8 +1,8 @@
 import { spinalCase } from '@microsoft/fast-web-utilities';
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as labelTokensNamespace from '../label-tokens';
 import { LabelProviderRichText, labelProviderRichTextTag } from '..';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import {
     getAttributeName,
     getPropertyName,
@@ -54,7 +54,7 @@ describe('Label Provider Rich Text', () => {
             })
         );
 
-        parameterizeNamedList(tokenEntries, (spec, name, value) => {
+        parameterizeSpec(tokenEntries, (spec, name, value) => {
             spec(`for token name ${name}`, () => {
                 const convertedTokenValue = spinalCase(value.name);
                 expect(value.labelToken.name).toBe(convertedTokenValue);
@@ -70,7 +70,7 @@ describe('Label Provider Rich Text', () => {
             })
         );
 
-        parameterizeNamedList(tokenEntries, (spec, name, value) => {
+        parameterizeSpec(tokenEntries, (spec, name, value) => {
             spec(`for token name ${name}`, () => {
                 const tokenName = removePrefixAndCamelCase(
                     value.name,
@@ -97,7 +97,7 @@ describe('Label Provider Rich Text', () => {
             })
         );
 
-        parameterizeNamedList(tokenEntries, (spec, name, value) => {
+        parameterizeSpec(tokenEntries, (spec, name, value) => {
             spec(`for token name ${name}`, () => {
                 const tokenName = removePrefixAndCamelCase(
                     value.name,

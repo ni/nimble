@@ -2,6 +2,111 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 25 Jan 2024 02:58:12 GMT",
+      "version": "19.2.4",
+      "tag": "@ni/nimble-angular_v19.2.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v21.0.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 24 Jan 2024 01:53:18 GMT",
+      "version": "19.2.3",
+      "tag": "@ni/nimble-angular_v19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "384f4d877752f8a8a4e482885f37ba141cdbd6a0",
+            "comment": "Use jasmine-parameterized in Angular tests"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 24 Jan 2024 00:18:26 GMT",
+      "version": "19.2.3",
+      "tag": "@ni/nimble-angular_v19.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v21.0.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 Jan 2024 22:00:33 GMT",
+      "version": "19.2.2",
+      "tag": "@ni/nimble-angular_v19.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v21.0.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 Jan 2024 16:01:09 GMT",
+      "version": "19.2.1",
+      "tag": "@ni/nimble-angular_v19.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v21.0.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 Jan 2024 15:41:43 GMT",
+      "version": "19.2.0",
+      "tag": "@ni/nimble-angular_v19.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "e91fdcd3ece03166d22a148a291a72ce7a184c5d",
+            "comment": "Create base mapping class in Angular"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 Jan 2024 23:00:07 GMT",
+      "version": "19.1.0",
+      "tag": "@ni/nimble-angular_v19.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "07dfa53f1830b506e4a5f27c38ec879062d61eb1",
+            "comment": "Angular support for nimble-unit-byte and nimble-unit-volt"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 19 Jan 2024 22:22:02 GMT",
       "version": "19.0.0",
       "tag": "@ni/nimble-angular_v19.0.0",

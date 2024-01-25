@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 19 Jan 2024 22:22:02 GMT and should not be manually modified.
+This log was last generated on Thu, 25 Jan 2024 02:58:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.2.4
+
+Thu, 25 Jan 2024 02:58:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.0.4
+
+## 19.2.3
+
+Wed, 24 Jan 2024 00:18:26 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.0.3
+
+## 19.2.2
+
+Tue, 23 Jan 2024 22:00:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.0.2
+
+## 19.2.1
+
+Tue, 23 Jan 2024 16:01:09 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.0.1
+
+## 19.2.0
+
+Mon, 22 Jan 2024 15:41:43 GMT
+
+### Minor changes
+
+- Create base mapping class in Angular ([ni/nimble@e91fdcd](https://github.com/ni/nimble/commit/e91fdcd3ece03166d22a148a291a72ce7a184c5d))
+
+## 19.1.0
+
+Fri, 19 Jan 2024 23:00:07 GMT
+
+### Minor changes
+
+- Angular support for nimble-unit-byte and nimble-unit-volt ([ni/nimble@07dfa53](https://github.com/ni/nimble/commit/07dfa53f1830b506e4a5f27c38ec879062d61eb1))
 
 ## 19.0.0
 

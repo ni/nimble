@@ -1,4 +1,4 @@
-import { parameterizeNamedList } from '../../../tests/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { voltUnitScale } from '../volt-unit-scale';
 
 describe('VoltUnitScale', () => {
@@ -102,7 +102,7 @@ describe('VoltUnitScale', () => {
         }
     ] as const;
 
-    parameterizeNamedList(testCases, (spec, name, value) => {
+    parameterizeSpec(testCases, (spec, name, value) => {
         spec(`gets expected unit for ${name}`, () => {
             const { scaledValue, scaledUnit } = voltUnitScale.scaleNumber(
                 value.number

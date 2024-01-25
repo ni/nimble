@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 19 Jan 2024 22:22:02 GMT and should not be manually modified.
+This log was last generated on Wed, 24 Jan 2024 00:57:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 13.1.4
+
+Wed, 24 Jan 2024 00:57:02 GMT
+
+### Patches
+
+- Updating package versions ([ni/nimble@cb516b7](https://github.com/ni/nimble/commit/cb516b7b5b7334d2ef30319b8f8c483df214c81e))
+
+## 13.1.0
+
+Mon, 22 Jan 2024 21:39:06 GMT
+
+### Minor changes
+
+- Blazor components for byte unit and volt unit ([ni/nimble@e3325a4](https://github.com/ni/nimble/commit/e3325a4b7847ef4b135321ada1ccc753a1006b35))
+
+## 13.0.1
+
+Mon, 22 Jan 2024 15:41:43 GMT
+
+### Patches
+
+- Update Blazor mapping base class ([ni/nimble@e91fdcd](https://github.com/ni/nimble/commit/e91fdcd3ece03166d22a148a291a72ce7a184c5d))
 
 ## 13.0.0
 
