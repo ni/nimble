@@ -423,7 +423,7 @@ describe('Select', () => {
             expect(pageObject.getFilteredOptions().length).toBe(3);
         });
 
-        it('filtering to only disbled item, then pressing <Enter> reverts selection', async () => {
+        it('filtering to only disabled item, then pressing <Enter> reverts selection', async () => {
             await pageObject.openAndSetFilterText('Disabled');
             pageObject.pressEnter();
             const currentSelection = pageObject.getSelectedOption();
