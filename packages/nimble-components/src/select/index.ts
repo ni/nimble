@@ -1,10 +1,4 @@
-import {
-    attr,
-    DOM,
-    html,
-    observable,
-    Observable
-} from '@microsoft/fast-element';
+import { attr, html, observable, Observable } from '@microsoft/fast-element';
 import {
     AnchoredRegion,
     DesignSystem,
@@ -326,10 +320,8 @@ export class Select extends FoundationSelect implements ErrorPattern {
 
         if (this.open) {
             this.filterOptions();
-            DOM.queueUpdate(() => {
-                window.requestAnimationFrame(() => {
-                    this.filterInputElement?.focus();
-                });
+            window.requestAnimationFrame(() => {
+                this.filterInputElement?.focus();
             });
         } else {
             this.filter = '';
