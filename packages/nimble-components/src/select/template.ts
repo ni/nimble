@@ -101,8 +101,8 @@ SelectOptions
                     ${ref('listbox')}
                 >
                     ${when(x => x.filterMode !== FilterMode.none, html<Select>`
-                        <div class="search-field ${x => x.positionAttribute}">
-                            <${iconMagnifyingGlassTag} class="search-icon"></${iconMagnifyingGlassTag}>
+                        <div class="filter-field ${x => x.positionAttribute}">
+                            <${iconMagnifyingGlassTag} class="filter-icon"></${iconMagnifyingGlassTag}>
                             <input
                                 class="filter-input"
                                 ?disabled="${x => x.disabled}"

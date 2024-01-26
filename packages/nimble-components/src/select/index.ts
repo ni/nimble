@@ -116,7 +116,6 @@ export class Select extends FoundationSelect implements ErrorPattern {
 
     public override set options(value: ListboxOption[]) {
         this._options = value;
-        this.committedSelectedOption = value.find(option => option.selected);
         Observable.notify(this, 'options');
     }
 
@@ -213,10 +212,17 @@ export class Select extends FoundationSelect implements ErrorPattern {
         }
     }
 
-    public override clickHandler(e: MouseEvent): boolean {
-        this.updateSelectedIndexFromFilteredSet();
-        super.clickHandler(e);
-        return true;
+    // disabling linting since the override return type should match the parent class return type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    public override clickHandler(e: MouseEvent): boolean | void {
+        const captured = (e.target as HTMLElement).closest<ListOption>(
+            'option,[role=option]'
+        );
+
+        if (!captured?.disabled) {
+            this.updateSelectedIndexFromFilteredSet();
+        }
+        return super.clickHandler(e);
     }
 
     public inputClickHandler(e: MouseEvent): void {
@@ -236,11 +242,8 @@ export class Select extends FoundationSelect implements ErrorPattern {
                 option => option.selected
             );
         }
-        this.filterOptions();
         this.clearSelection();
-        if (this.committedSelectedOption) {
-            this.committedSelectedOption.selected = true;
-        }
+        this.filterOptions();
 
         if (
             this.filteredOptions.length > 0
@@ -248,7 +251,13 @@ export class Select extends FoundationSelect implements ErrorPattern {
             && !this.filteredOptions.includes(this.committedSelectedOption)
         ) {
             this.committedSelectedOption.selected = false;
-            this.filteredOptions[0]!.selected = true;
+            if (!this.filteredOptions[0]!.disabled) {
+                this.filteredOptions[0]!.selected = true;
+            } else {
+                this.selectedOptions = [];
+            }
+        } else if (this.committedSelectedOption) {
+            this.committedSelectedOption.selected = true;
         }
 
         if (e.inputType.includes('deleteContent') || !this.filter.length) {
@@ -291,8 +300,8 @@ export class Select extends FoundationSelect implements ErrorPattern {
                 if (this.committedSelectedOption) {
                     // clear filteredOptions as call to `super.keydownHandler` will process
                     // "options" and not "_options"
-                    this.filteredOptions = [];
                     this.clearSelection();
+                    this.filteredOptions = [];
                     this.selectedIndex = this._options.indexOf(
                         this.committedSelectedOption
                     );
@@ -359,7 +368,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
     }
 
     private clearSelection(): void {
-        this._options.forEach(option => {
+        this.options.forEach(option => {
             option.selected = false;
         });
     }
@@ -382,7 +391,14 @@ export class Select extends FoundationSelect implements ErrorPattern {
     }
 
     private updateSelectedIndexFromFilteredSet(): void {
-        const selectedItem = this.options[this.selectedIndex]!;
+        if (
+            !this.options[this.selectedIndex]
+            && !this.committedSelectedOption
+        ) {
+            return;
+        }
+
+        const selectedItem = this.options[this.selectedIndex] ?? this.committedSelectedOption!;
         // Clear filter and re-filter options so any logic resolving against 'this.options'
         // resolves against all options, since selectedIndex should be relative to entire set.
         this.filter = '';

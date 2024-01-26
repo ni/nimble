@@ -20,6 +20,9 @@ async function setup(
             <nimble-list-option value="one">One</nimble-list-option>
             <nimble-list-option value="two">Two</nimble-list-option>
             <nimble-list-option value="three">Three</nimble-list-option>
+            <nimble-list-option disabled value="t-disabled"
+                >T Disabled</nimble-list-option
+            >
             <nimble-list-option value="zürich">Zürich</nimble-list-option>
             <nimble-list-option value="has space">Has Space</nimble-list-option>
         </nimble-select>
@@ -315,31 +318,31 @@ describe('Select', () => {
 
         it('filtering out current selected item changes selected item but not value', async () => {
             let currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection.text).toBe('One');
+            expect(currentSelection?.text).toBe('One');
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
             currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection.text).toBe('Two');
+            expect(currentSelection?.text).toBe('Two');
             expect(element.value).toBe('one');
         });
 
         it('filtering out current selected item and then pressing <Esc> does not change value, reverts selected item and closes popup', async () => {
             let currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection.text).toBe('One');
+            expect(currentSelection?.text).toBe('One');
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
             pageObject.pressEscape();
             currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection.text).toBe('One');
+            expect(currentSelection?.text).toBe('One');
             expect(element.value).toBe('one');
             expect(element.open).toBeFalse();
         });
 
         it('filtering out current selected item and then pressing <Enter> changes value and closes popup', async () => {
             const currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection.text).toBe('One');
+            expect(currentSelection?.text).toBe('One');
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
@@ -350,7 +353,7 @@ describe('Select', () => {
 
         it('filtering out current selected item and then clicking selected option changes value and closes popup', async () => {
             const currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection.text).toBe('One');
+            expect(currentSelection?.text).toBe('One');
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
@@ -361,7 +364,7 @@ describe('Select', () => {
 
         it('filtering out current selected item and then clicking non-selected option changes value and closes popup', async () => {
             const currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection.text).toBe('One');
+            expect(currentSelection?.text).toBe('One');
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
@@ -372,7 +375,7 @@ describe('Select', () => {
 
         it('filtering out current selected item and then losing focus changes value and closes popup', async () => {
             const currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection.text).toBe('One');
+            expect(currentSelection?.text).toBe('One');
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
@@ -384,7 +387,7 @@ describe('Select', () => {
         it('allows <Space> to be used as part of filter text', async () => {
             await pageObject.openAndSetFilterText(' '); // Matches 'Has Space'
             const currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection.text).toBe('Has Space');
+            expect(currentSelection?.text).toBe('Has Space');
             expect(element.open).toBeTrue();
         });
 
@@ -394,7 +397,7 @@ describe('Select', () => {
             await pageObject.clickSelect();
 
             expect(pageObject.getFilterInputText()).toBe('');
-            expect(pageObject.getFilteredOptions().length).toBe(5);
+            expect(pageObject.getFilteredOptions().length).toBe(6);
         });
 
         it('entering filter text with no match results in "no items found" element', async () => {
@@ -410,6 +413,33 @@ describe('Select', () => {
         it('opening dropdown with no filter does not display "not items found" element', async () => {
             await pageObject.clickSelect();
             expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
+        it('clicking disabled option does not cause filtered options to reappear', async () => {
+            await pageObject.openAndSetFilterText('T');
+            expect(pageObject.getFilteredOptions().length).toBe(3);
+            pageObject.clickOption(2); // click disabled option
+
+            expect(pageObject.getFilteredOptions().length).toBe(3);
+        });
+
+        it('filtering to only disbled item, then pressing <Enter> reverts selection', async () => {
+            await pageObject.openAndSetFilterText('Disabled');
+            pageObject.pressEnter();
+            const currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('one');
+        });
+
+        it('filtering to only disbled item, then clicking away reverts selection', async () => {
+            await pageObject.openAndSetFilterText('Disabled');
+            await pageObject.clickAway();
+            const currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('one');
+        });
+
+        it('filtering to only disabled item does not select item', async () => {
+            await pageObject.openAndSetFilterText('Disabled');
+            expect(pageObject.getSelectedOption()).toBeNull();
         });
     });
 });

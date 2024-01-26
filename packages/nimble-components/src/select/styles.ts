@@ -53,7 +53,7 @@ export const styles = css`
         flex-flow: column-reverse;
     }
 
-    .search-field {
+    .filter-field {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -61,28 +61,28 @@ export const styles = css`
         background: transparent;
     }
 
-    .search-icon {
+    .filter-icon {
         padding-left: ${smallPadding};
     }
 
-    .search-field::after,
-    .search-field::before {
+    .filter-field::after,
+    .filter-field::before {
         content: '';
         position: absolute;
         height: 0px;
         border-bottom: rgba(${borderRgbPartialColor}, 0.1) 2px solid;
     }
 
-    .search-field::after {
+    .filter-field::after {
         top: calc(${controlHeight} + ${smallPadding} - ${borderWidth});
     }
 
-    .search-field:before {
+    .filter-field:before {
         bottom: calc(${controlHeight} + ${smallPadding} + (2 * ${borderWidth}));
     }
 
-    .search-field:not(.above)::after,
-    .search-field.above::before {
+    .filter-field:not(.above)::after,
+    .filter-field.above::before {
         width: calc(100% - (2 * ${borderWidth}));
     }
 
@@ -128,7 +128,7 @@ export const styles = css`
     themeBehavior(
         Theme.color,
         css`
-            .search-field,
+            .filter-field,
             .no-results-label {
                 background: ${hexToRgbaCssColor(White, 0.15)};
             }

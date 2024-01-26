@@ -38,11 +38,8 @@ export class SelectPageObject {
         return this.selectElement.filteredOptions as ListOption[];
     }
 
-    public getSelectedOption(): ListOption {
-        if (this.selectElement.selectedOptions.length === 0) {
-            throw new Error('Select has no options.');
-        }
-        return this.selectElement.selectedOptions[0]! as ListOption;
+    public getSelectedOption(): ListOption | null {
+        return (this.selectElement.selectedOptions[0] as ListOption) ?? null;
     }
 
     /**
@@ -107,7 +104,7 @@ export class SelectPageObject {
 
     public isFilterInputVisible(): boolean {
         return (
-            this.selectElement.shadowRoot?.querySelector('.search-field')
+            this.selectElement.shadowRoot?.querySelector('.filter-field')
             !== null
         );
     }
