@@ -1,4 +1,10 @@
-import { attr, DOM, html, observable, Observable } from '@microsoft/fast-element';
+import {
+    attr,
+    DOM,
+    html,
+    observable,
+    Observable
+} from '@microsoft/fast-element';
 import {
     AnchoredRegion,
     DesignSystem,
