@@ -209,10 +209,10 @@ Each record passed to the table could have a boolean field that indicates whethe
 
 The table could have a generic `setRowOptions` function instead of `setRowHierarchyOptions`. The options set through that function could include delayed hierarchy information but also be extended easily in the future to include additional options. `setRowHierarchyOptions` was chosen over a more generic `setRowOptions` function for the following reasons:
 
-- Hierarchy options should be cleared when `parentIdFieldName` changes, but it doesn't make sense to clear non-hierarchical options in that case.
-- Hierarchy options should not be configurable without `parentIdFieldName` set, but it would be more complex to prevent a client from trying to configure hierarchy options if they are coupled with other row options.
-- Clients that are not using hierarchy in their table should be able to easily ignore the hierarchy options. Therefore, they shouldn't need to worry about setting default values for hierarchy state when configuring other row options.
-- `setRowOptions` can be added in the future, if desired, and it can contain more generic row options.
+-   Hierarchy options should be cleared when `parentIdFieldName` changes, but it doesn't make sense to clear non-hierarchical options in that case.
+-   Hierarchy options should not be configurable without `parentIdFieldName` set, but it would be more complex to prevent a client from trying to configure hierarchy options if they are coupled with other row options.
+-   Clients that are not using hierarchy in their table should be able to easily ignore the hierarchy options. Therefore, they shouldn't need to worry about setting default values for hierarchy state when configuring other row options.
+-   `setRowOptions` can be added in the future, if desired, and it can contain more generic row options.
 
 ## Open Issues
 
