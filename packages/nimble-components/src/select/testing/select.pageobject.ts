@@ -5,7 +5,7 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { FilterMode } from '../types';
 
 /**
- * Page object for the `nimble-table-cell` component to provide consistent ways
+ * Page object for the `nimble-select` component to provide consistent ways
  * of querying and interacting with the component during tests.
  */
 export class SelectPageObject {
