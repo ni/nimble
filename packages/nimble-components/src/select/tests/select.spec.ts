@@ -430,7 +430,7 @@ describe('Select', () => {
             expect(currentSelection?.value).toBe('one');
         });
 
-        it('filtering to only disbled item, then clicking away reverts selection', async () => {
+        it('filtering to only disabled item, then clicking away reverts selection', async () => {
             await pageObject.openAndSetFilterText('Disabled');
             await pageObject.clickAway();
             const currentSelection = pageObject.getSelectedOption();
