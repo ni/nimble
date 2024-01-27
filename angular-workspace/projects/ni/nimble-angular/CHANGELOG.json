@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Sat, 27 Jan 2024 17:56:18 GMT",
+      "version": "19.3.0",
+      "tag": "@ni/nimble-angular_v19.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "39bd1f821cd5394c75187abbcf3c3dcc9b3a1572",
+            "comment": "Adding Angular support for table data hierarchy"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 25 Jan 2024 02:58:12 GMT",
       "version": "19.2.4",
       "tag": "@ni/nimble-angular_v19.2.4",
