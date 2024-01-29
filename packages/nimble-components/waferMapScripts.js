@@ -30,5 +30,4 @@ async function fetchAndCreateWaferMap(file) {
 async function main() {
     await createWaferMap('smallWafer.json', 'smallWafer');
     await createWaferMap('mediumWafer.json', 'mediumWafer');
-    await createWaferMap('bigWafer.json', 'bigWafer');
 }
