@@ -28,7 +28,7 @@ async function main() {
 
 function generateDies(diesCount) {
     const wafermapDieSet = [];
-    const sideLength = Math.floor(Math.sqrt(diesCount / Math.PI) * 2); // Calculate the side length of the square
+    const sideLength = Math.floor(Math.sqrt(diesCount / Math.PI) * 2);
     const radius = sideLength / 2;
     const centerX = Math.floor(sideLength / 2);
     const centerY = centerX;
