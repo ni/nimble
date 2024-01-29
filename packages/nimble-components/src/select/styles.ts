@@ -109,11 +109,18 @@ export const styles = css`
     }
 
     .no-results-label {
-        padding: ${smallPadding} ${mediumPadding} 0 ${mediumPadding};
         color: ${placeholderFontColor};
         height: ${controlHeight};
         display: inline-flex;
         align-items: center;
+    }
+
+    .no-results-label.below {
+        padding: ${smallPadding} ${mediumPadding} 0 ${mediumPadding};
+    }
+
+    .no-results-label.above {
+        padding: 0 ${mediumPadding} ${smallPadding} ${mediumPadding};
     }
 `.withBehaviors(
     appearanceBehavior(
