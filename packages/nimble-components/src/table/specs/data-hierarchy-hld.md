@@ -58,28 +58,28 @@ Note: This event will _not_ be emitted for group rows.
 In some cases, a client might know that a given row has children, but for performance reasons, that data hasn't been loaded from the backend and given to the table. To enable this use case, there will be an API on the table to specify that a given row should be expandable even if it has no children within the data and to specify that a row is loading its children. That API will look as follows:
 
 ```ts
-interface TableRowHierarchyOptions {
+interface TableRecordHierarchyOptions {
     // The state of the row with respect to delayed hierarchy.
     //
     // The state can be one of the following:
     // 1. none - There is no additional data about the hierarchy of the row beyond what is included in the table's data.
     // 2. canLoadChildren - The row has children that haven't been loaded.
     // 3. loadingChildren - The client application is loading the children of the row.
-    delayedHierarchyState: TableRowDelayedHierarchyState;
+    delayedHierarchyState: TableRecordDelayedHierarchyState;
 }
 
-export const TableRowDelayedHierarchyState = {
+export const TableRecordDelayedHierarchyState = {
     none: undefined,
     canLoadChildren: 'canLoadChildren',
     loadingChildren: 'loadingChildren'
 } as const;
-export type TableRowDelayedHierarchyState =
-    (typeof TableRowDelayedHierarchyState)[keyof typeof TableRowDelayedHierarchyState];
+export type TableRecordDelayedHierarchyState =
+    (typeof TableRecordDelayedHierarchyState)[keyof typeof TableRecordDelayedHierarchyState];
 
 public Table() {
     ...
     // Sets the hierarchy options for the rows specified by the passed IDs.
-    public async setRowHierarchyOptions(rowHierarchyOptions: { id: string, options: TableRowHierarchyOptions }[]): Promise<void>;
+    public async setRecordHierarchyOptions(rowHierarchyOptions: { id: string, options: TableRecordHierarchyOptions }[]): Promise<void>;
 }
 ```
 
@@ -87,11 +87,11 @@ The loading state of a row will look as follows:
 
 ![Delayed Loading Spinner](./spec-images/LazyLoadingSpinner.gif)
 
-Some notes about the `setRowHierarchyOptions` API:
+Some notes about the `setRecordHierarchyOptions` API:
 
 -   all options will be cleared when the table's `idFieldName` changes
--   an option passed to `setRowHierarchyOptions` with an ID that does not match a record in the data will be ignored
--   the options passed to `setRowHierarchyOptions` will override any options previously set to become the complete set of options configured on the table
+-   an option passed to `setRecordHierarchyOptions` with an ID that does not match a record in the data will be ignored
+-   the options passed to `setRecordHierarchyOptions` will override any options previously set to become the complete set of options configured on the table
 -   all options will be ignored if `parentIdFieldName` is not configured on the table
 -   the table will not render delayed hierarchy state (loading or expandable) if the table's `parentIdFieldName` is not configured; however, the options will remain cached within the table if the `parentIdFieldName` becomes `undefined`, and that cached configuration will render in the table if the table's `parentIdFieldName` is changed back to a non-`undefined` value
 -   calling `setData` will clear options associated with IDs that are no longer present in the data
@@ -99,18 +99,18 @@ Some notes about the `setRowHierarchyOptions` API:
 The expected usage of the dynamically loaded hierarchy is as follows:
 
 1. Call `setData` on the table with the records that are known
-1. Call `setRowHierarchyOptions` with an option of `{ delayedHierarchyState: TableRowDelayedHierarchyState.canLoadChildren }` for IDs associated with records that are known to have children that have not been loaded.
+1. Call `setRecordHierarchyOptions` with an option of `{ delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren }` for IDs associated with records that are known to have children that have not been loaded.
 1. Handle the `row-expansion-toggle` event on the table by doing the following for rows that need to dynamically load their data:
     1. Start loading the data in the background.
-    1. Call `setRowHierarchyOptions` on the table to update the state of the row whose data is being loaded to `{ delayedHierarchyState: TableRowDelayedHierarchyState.loadingChildren }`. This call must include the current state of any records not in the default state.
+    1. Call `setRecordHierarchyOptions` on the table to update the state of the row whose data is being loaded to `{ delayedHierarchyState: TableRecordDelayedHierarchyState.loadingChildren }`. This call must include the current state of any records not in the default state.
 1. When the dynamically loaded data has finished loading, do the following based on the result of loading data:
     - If loading the data succeeds:
         1. Call `setData` on the table with the new data
-        1. Call `setRowHierarchyOptions` with the current row options for each row that is either still loading or still has data that hasn't been loaded yet.
+        1. Call `setRecordHierarchyOptions` with the current row options for each row that is either still loading or still has data that hasn't been loaded yet.
     - If loading the data fails but can be tried again:
-        1. Call `setRowHierarchyOptions` to change the row state back to `{ delayedHierarchyState: TableRowDelayedHierarchyState.canLoadChildren }`. This call must include the current state of any records not in the default state.
+        1. Call `setRecordHierarchyOptions` to change the row state back to `{ delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren }`. This call must include the current state of any records not in the default state.
     - If loading the data determines that the row doesn't actually have children:
-        1. Call `setRowHierarchyOptions` to change the row state to `{ delayedHierarchyState: TableRowDelayedHierarchyState.none }`. This call must include the current state of any records not in the default state.
+        1. Call `setRecordHierarchyOptions` to change the row state to `{ delayedHierarchyState: TableRecordDelayedHierarchyState.none }`. This call must include the current state of any records not in the default state.
 
 _The client is responsible for checking if the row’s children have already been loaded. This can prevent unnecessary data recreation and `setData` calls on the `Table`._
 
@@ -204,7 +204,7 @@ Each record passed to the table could have a boolean field that indicates whethe
 
 ### Create a generic `setRowOptions` API that includes the hierarchy state
 
-The table could have a generic `setRowOptions` function instead of `setRowHierarchyOptions`. The options set through that function could include delayed hierarchy information but also be extended easily in the future to include additional options. `setRowHierarchyOptions` was chosen over a more generic `setRowOptions` function for the following reasons:
+The table could have a generic `setRowOptions` function instead of `setRecordHierarchyOptions`. The options set through that function could include delayed hierarchy information but also be extended easily in the future to include additional options. `setRecordHierarchyOptions` was chosen over a more generic `setRowOptions` function for the following reasons:
 
 -   Hierarchy options should be cleared when `parentIdFieldName` changes, but it doesn't make sense to clear non-hierarchical options in that case.
 -   Hierarchy options should not be configurable without `parentIdFieldName` set, but it would be more complex to prevent a client from trying to configure hierarchy options if they are coupled with other row options.
