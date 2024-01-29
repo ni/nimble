@@ -20,10 +20,10 @@ function createWaferMap(functionName, dieCount) {
     performance.clearMarks(`${functionName}_end`);
 }
 
-async function main() {
-    await createWaferMap('smallWafer', 10 ** 4);
-    await createWaferMap('mediumWafer', 10 ** 5);
-    await createWaferMap('largeWafer', 10 ** 6);
+function main() {
+    createWaferMap('smallWafer', 10 ** 4);
+    createWaferMap('mediumWafer', 10 ** 5);
+    createWaferMap('largeWafer', 10 ** 6);
 }
 
 function generateDies(diesCount) {
