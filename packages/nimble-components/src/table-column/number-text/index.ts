@@ -20,8 +20,7 @@ import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { NumberTextAlignment, NumberTextFormat } from './types';
 import type { UnitFormat } from '../../utilities/unit-format/unit-format';
-import { DefaultUnitFormat } from '../../utilities/unit-format/default-unit-format';
-import { DecimalUnitFormat } from '../../utilities/unit-format/decimal-unit-format';
+import { NumberTextUnitFormat } from './models/number-text-unit-format';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
 import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
@@ -44,8 +43,6 @@ declare global {
  * The table column for displaying numbers as text.
  */
 export class TableColumnNumberText extends TableColumnTextBase {
-    private static readonly defaultDecimalDigits = 2;
-
     /** @internal */
     public validator = new TableColumnNumberTextValidator(this.columnInternals);
 
@@ -84,32 +81,6 @@ export class TableColumnNumberText extends TableColumnTextBase {
             this.updateColumnConfig();
         }
     };
-
-    public static convertDigitOptionsForDecimalUnitFormat(
-        decimalDigits?: number,
-        maximumDecimalDigits?: number
-    ): {
-            minimumFractionDigits: number,
-            maximumFractionDigits: number
-        } {
-        const decimalDigitsHasValue = typeof decimalDigits === 'number';
-        const maximumDecimalDigitsHasValue = typeof maximumDecimalDigits === 'number';
-        if (decimalDigitsHasValue && maximumDecimalDigitsHasValue) {
-            throw new Error(
-                'decimalDigits is mutually exclusive with maximumDecimalDigits. Do not specify both.'
-            );
-        }
-        const minimumFractionDigits = maximumDecimalDigitsHasValue
-            ? 0
-            : decimalDigits ?? TableColumnNumberText.defaultDecimalDigits;
-        const maximumFractionDigits = maximumDecimalDigits
-            ?? decimalDigits
-            ?? TableColumnNumberText.defaultDecimalDigits;
-        return {
-            minimumFractionDigits,
-            maximumFractionDigits
-        };
-    }
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -210,24 +181,12 @@ export class TableColumnNumberText extends TableColumnTextBase {
 
     private createFormatter(): UnitFormat {
         const unitScale = this.unit?.resolvedUnitScale;
-        switch (this.format) {
-            case NumberTextFormat.decimal: {
-                const { minimumFractionDigits, maximumFractionDigits } = TableColumnNumberText.convertDigitOptionsForDecimalUnitFormat(
-                    this.decimalDigits,
-                    this.decimalMaximumDigits
-                );
-                return new DecimalUnitFormat(lang.getValueFor(this), {
-                    minimumFractionDigits,
-                    maximumFractionDigits,
-                    unitScale
-                });
-            }
-            default: {
-                return new DefaultUnitFormat(lang.getValueFor(this), {
-                    unitScale
-                });
-            }
-        }
+        return new NumberTextUnitFormat(lang.getValueFor(this), {
+            numberTextFormat: this.format,
+            decimalDigits: this.decimalDigits,
+            decimalMaximumDigits: this.decimalMaximumDigits,
+            unitScale
+        });
     }
 
     private determineCellContentAlignment(): TextCellViewBaseAlignment {
