@@ -301,16 +301,22 @@ export class Select extends FoundationSelect implements ErrorPattern {
                 break;
             }
             case keyEscape: {
+                // clear filteredOptions as call to `super.keydownHandler` will process
+                // "options" and not "_options"
                 this.filteredOptions = [];
                 if (this.committedSelectedOption) {
-                    // clear filteredOptions as call to `super.keydownHandler` will process
-                    // "options" and not "_options"
                     this.clearSelection();
                     this.selectedIndex = this._options.indexOf(
                         this.committedSelectedOption
                     );
                 }
                 super.keydownHandler(e);
+                // reset 'selected' state after super.keydownHandler is called, otherwise
+                // the selected state doesn't stick.
+                const selectedOption = this._options[this.selectedIndex];
+                if (selectedOption) {
+                    selectedOption.selected = true;
+                }
                 this.focus();
                 break;
             }
@@ -343,9 +349,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
         }
 
         if (this.open) {
-            this.committedSelectedOption = this.options.find(
-                option => option.selected
-            );
+            this.committedSelectedOption = this._options[this.selectedIndex];
             this.filterOptions();
             window.requestAnimationFrame(() => {
                 this.filterInputElement?.focus();
@@ -355,10 +359,6 @@ export class Select extends FoundationSelect implements ErrorPattern {
             if (this.filterInputElement) {
                 this.filterInputElement.value = '';
             }
-        }
-
-        if (this.open && this.committedSelectedOption) {
-            this.committedSelectedOption.selected = true;
         }
     }
 

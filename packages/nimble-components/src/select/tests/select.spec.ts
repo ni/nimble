@@ -356,6 +356,19 @@ describe('Select', () => {
             expect(element.open).toBeFalse();
         });
 
+        it('opening popup shows correct selected element after cancelling previous selection', async () => {
+            let currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.text).toBe('One');
+            expect(element.value).toBe('one');
+
+            await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
+            pageObject.pressEscape();
+
+            await pageObject.clickSelect();
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.selected).toBeTrue();
+        });
+
         it('filtering out current selected item and then pressing <Enter> changes value and closes popup', async () => {
             const currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.text).toBe('One');
