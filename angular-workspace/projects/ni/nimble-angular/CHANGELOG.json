@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 29 Jan 2024 11:31:46 GMT",
+      "version": "19.3.1",
+      "tag": "@ni/nimble-angular_v19.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ec2e0ddef1d910d44097ccb2a976ad2343dbac63",
+            "comment": "Add validator APIs to rich text editor and viewer components"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v21.0.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 27 Jan 2024 17:56:18 GMT",
       "version": "19.3.0",
       "tag": "@ni/nimble-angular_v19.3.0",
