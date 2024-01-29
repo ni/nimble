@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 25 Jan 2024 02:58:12 GMT and should not be manually modified.
+This log was last generated on Mon, 29 Jan 2024 11:31:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.3.1
+
+Mon, 29 Jan 2024 11:31:46 GMT
+
+### Patches
+
+- Add validator APIs to rich text editor and viewer components ([ni/nimble@ec2e0dd](https://github.com/ni/nimble/commit/ec2e0ddef1d910d44097ccb2a976ad2343dbac63))
+- Bump @ni/nimble-components to v21.0.5
+
+## 19.3.0
+
+Sat, 27 Jan 2024 17:56:18 GMT
+
+### Minor changes
+
+- Adding Angular support for table data hierarchy ([ni/nimble@39bd1f8](https://github.com/ni/nimble/commit/39bd1f821cd5394c75187abbcf3c3dcc9b3a1572))
 
 ## 19.2.4
 

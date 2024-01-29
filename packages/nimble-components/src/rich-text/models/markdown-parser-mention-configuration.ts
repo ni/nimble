@@ -17,13 +17,6 @@ export class MarkdownParserMentionConfiguration {
         this.viewElement = mentionInternals.viewElement;
     }
 
-    public static isObservedMentionInternalsProperty(arg: unknown): boolean {
-        return (
-            typeof arg === 'string'
-            && ['pattern', 'mappingConfigs'].includes(arg)
-        );
-    }
-
     public isValidMentionHref(mentionHref: string): boolean {
         return this.regexPattern.test(mentionHref);
     }
