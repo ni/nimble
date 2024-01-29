@@ -1,4 +1,4 @@
-import { keyEnter, keyEscape } from '@microsoft/fast-web-utilities';
+import { keyEnter, keyEscape, keyArrowDown } from '@microsoft/fast-web-utilities';
 import type { Select } from '..';
 import type { ListOption } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -93,6 +93,12 @@ export class SelectPageObject {
     public pressEscape(): void {
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyEscape })
+        );
+    }
+
+    public pressArrowDown(): void {
+        this.selectElement.dispatchEvent(
+            new KeyboardEvent('keydown', { key: keyArrowDown })
         );
     }
 

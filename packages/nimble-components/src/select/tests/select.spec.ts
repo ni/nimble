@@ -151,6 +151,22 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('pressing Esc after navigating to new option in dropdown reverts to original selected option', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const pageObject = new SelectPageObject(element);
+        await pageObject.clickSelect();
+        pageObject.pressArrowDown();
+        await waitForUpdatesAsync();
+        expect(element.selectedIndex).toBe(1);
+
+        pageObject.pressEscape();
+        await waitForUpdatesAsync();
+
+        expect(element.value).toBe('one');
+        await disconnect();
+    });
+
     describe('with 500 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             // prettier-ignore
@@ -415,12 +431,14 @@ describe('Select', () => {
             expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
         });
 
-        it('clicking disabled option does not cause filtered options to reappear', async () => {
+        it('clicking disabled option does not cause select to change state', async () => {
             await pageObject.openAndSetFilterText('T');
-            expect(pageObject.getFilteredOptions().length).toBe(3);
+            const currentFilteredOptions = pageObject.getFilteredOptions();
             pageObject.clickOption(2); // click disabled option
 
-            expect(pageObject.getFilteredOptions().length).toBe(3);
+            expect(pageObject.getFilteredOptions()).toEqual(currentFilteredOptions);
+            expect(element.open).toBeTrue();
+            expect(pageObject.getSelectedOption()?.text).toBe('Two');
         });
 
         it('filtering to only disbled item, then pressing <Enter> reverts selection', async () => {

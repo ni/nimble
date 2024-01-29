@@ -251,10 +251,16 @@ export class Select extends FoundationSelect implements ErrorPattern {
             && !this.filteredOptions.includes(this.committedSelectedOption)
         ) {
             this.committedSelectedOption.selected = false;
-            if (!this.filteredOptions[0]!.disabled) {
-                this.filteredOptions[0]!.selected = true;
+            const enabledOptions = this.filteredOptions.filter(
+                o => !o.disabled
+            );
+            if (enabledOptions.length > 0) {
+                enabledOptions[0]!.selected = true;
             } else {
+                // only filtered option is disabled
                 this.selectedOptions = [];
+                this.selectedIndex = -1;
+                this.filteredOptions[0]!.selected = false;
             }
         } else if (this.committedSelectedOption) {
             this.committedSelectedOption.selected = true;
@@ -271,10 +277,6 @@ export class Select extends FoundationSelect implements ErrorPattern {
     // disabling linting since the override return type should match the parent class return type
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public override keydownHandler(e: KeyboardEvent): boolean | void {
-        if (this.filterMode === FilterMode.none) {
-            return super.keydownHandler(e);
-        }
-
         const key = e.key;
         if (e.ctrlKey || e.shiftKey) {
             return true;
@@ -282,6 +284,9 @@ export class Select extends FoundationSelect implements ErrorPattern {
 
         switch (key) {
             case keySpace: {
+                if (this.filterMode === FilterMode.none) {
+                    return super.keydownHandler(e);
+                }
                 // when dropdown is open allow user to enter a space for filter text
                 // (calling super method will close dropdown)
                 if (!this.open) {
@@ -297,11 +302,11 @@ export class Select extends FoundationSelect implements ErrorPattern {
                 break;
             }
             case keyEscape: {
+                this.filteredOptions = [];
                 if (this.committedSelectedOption) {
                     // clear filteredOptions as call to `super.keydownHandler` will process
                     // "options" and not "_options"
                     this.clearSelection();
-                    this.filteredOptions = [];
                     this.selectedIndex = this._options.indexOf(
                         this.committedSelectedOption
                     );
@@ -318,6 +323,17 @@ export class Select extends FoundationSelect implements ErrorPattern {
         return true;
     }
 
+    // Prevents parent classes from resetting selectedIndex to a positive
+    // value while filtering, which can result in a disabled option being
+    // selected.
+    protected override setSelectedOptions(): void {
+        if (this.open && this.selectedIndex === -1) {
+            return;
+        }
+
+        super.setSelectedOptions();
+    }
+
     protected override openChanged(
         prev: boolean | undefined,
         next: boolean
@@ -328,6 +344,9 @@ export class Select extends FoundationSelect implements ErrorPattern {
         }
 
         if (this.open) {
+            this.committedSelectedOption = this.options.find(
+                option => option.selected
+            );
             this.filterOptions();
             window.requestAnimationFrame(() => {
                 this.filterInputElement?.focus();
