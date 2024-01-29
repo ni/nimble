@@ -6,7 +6,7 @@ There are scenarios where clients want to provide collapsible hierarchy to the r
 
 For example, consider a table of geographic information that included location, population, flag, and possibly other location-related information. The location column could be either a continent, country, state, or any sub-regional construct. It would be reasonable to want to present this information in a way that allowed a user to collapse/expand any outer regional grouping, which itself would contain all rows whose locations existed inside it (e.g. 'United States' would be parent of all rows whose location was a U.S. state).
 
-### Lazy Loading
+### Delayed Loading of Child Rows
 
 In addition to just supporting data hierarchy with a fully provided set of data, we also need to support the scenario where a row is presented as a parent, but none of its children are currently represented in the data. Upon expanding the row, the client is then expected to load all of the data for that parent and provide it to the table (via the standard `setData` method).
 
@@ -53,7 +53,7 @@ interface TableRowExpansionToggleEventDetail {
 
 Note: This event will _not_ be emitted for group rows.
 
-### `Table` API for specifying lazy loaded hierarchical data
+### `Table` API for specifying delayed hierarchical data
 
 In some cases, a client might know that a given row has children, but for performance reasons, that data hasn't been loaded from the backend and given to the table. To enable this use case, there will be an API on the table to specify that a given row should be expandable even if it has no children within the data and to specify that a row is loading its children. That API will look as follows:
 
@@ -85,7 +85,7 @@ public Table() {
 
 The loading state of a row will look as follows:
 
-![Lazy Loading Spinner](./spec-images/LazyLoadingSpinner.gif)
+![Delayed Loading Spinner](./spec-images/LazyLoadingSpinner.gif)
 
 Some notes about the `setRowHierarchyOptions` API:
 
@@ -142,12 +142,11 @@ _Note: When creating the hierarchical data structure we should create a new fiel
 
 Tanstack allows limited support of data modeling where there is both grouping and parent-child row relationships. Essentially, when there is grouping present, only rows at the top-level of a hierarchical set of data will be grouped. Child rows will continue to be shown under their parent row rather than being grouped based on their own data.
 
-I see no reason to explicitly disable this behavior. One behavior we will need to ensure, however, is that the count value we display in the group row, is _only_ the number of immediate children in the group row. It would be odd for the number to change just because a row was expanded (such as in the
-lazy loading case).
+I see no reason to explicitly disable this behavior. One behavior we will need to ensure, however, is that the count value we display in the group row, is _only_ the number of immediate children in the group row. It would be odd for the number to change just because a row was expanded (such as in the delayed loading case).
 
 #### Managing expanded state
 
-Currently, the `Table` defaults to expanding all rows by setting its Tanstack expanded state to the singleton `true`. This means that all group rows will be expanded by default. The Nimble `Table` also provides an implementation of `getIsRowExpanded` which is consumed by `TanStack` that will ultimately result in the per-row state of whether the row is expanded. It is in this implementation, where even if the Tanstack state is set to `true`, we can mark all parent rows, by default, as collapsed, which is required for the lazy-loading scenario.
+Currently, the `Table` defaults to expanding all rows by setting its Tanstack expanded state to the singleton `true`. This means that all group rows will be expanded by default. The Nimble `Table` also provides an implementation of `getIsRowExpanded` which is consumed by `TanStack` that will ultimately result in the per-row state of whether the row is expanded. It is in this implementation, where even if the Tanstack state is set to `true`, we can mark all parent rows, by default, as collapsed, which is required for the delayed loading scenario.
 
 This is achievable because the Nimble `Table` currently tracks when particular rows are collapsed by their row id, which both group and parent rows have. When the Tanstack state has the singleton value of `true` we know we are in a default expand/collapsed state (meaning the user hasn't interactively changed anything), as otherwise it will be a set of id values matched with a boolean state. This will allow us to implement a behavior in `getIsRowExpanded` that will denote group rows as expanded, but parent rows as collapsed, specifically when the TanStack expanded state is set to `true`.
 
@@ -171,7 +170,7 @@ A parent row would have the same ARIA expectations of any child row, with the ad
 
 Things to consider:
 
--   Putting an appropriate label/title on the progress indicator for the lazy loaded row placeholder.
+-   Putting an appropriate label/title on the progress indicator for a row that is loading its children.
 -   Expand/collapse button attributes for the parent row. Likely should just match what is done for the group row.
 
 ### Future work
@@ -180,16 +179,16 @@ Things to consider:
 
 There are existing SLE grid variants (namely the Tags grid) that provide a type of hierarchical display that doesn't align exactly with either the proposed 'data hierarchy' outlined in this HLD, nor the grouping capability. Instead, while the parent rows may possibly be presented as a normal row (containing values in some subset of columns that the children have values for), they will not be able to be acted upon in the way child rows can, such as allowing an action menu to be defined on them, or being selected individually.
 
-It is expected that this mode will involve creating a new API on the table in order to fully enable, but it should be able to use the other APIs defined in this HLD to support it, and leverage capabilities such as lazy-loading.
+It is expected that this mode will involve creating a new API on the table in order to fully enable, but it should be able to use the other APIs defined in this HLD to support it, and leverage capabilities such as delayed loading.
 
 Here are a few of the considerations that were made with respect to this mode:
 
 -   grouping should group on leaf items, not parents (could be cumbersome to accomplish with Tanstack)
 -   action menu only on leafs
 -   single selection mode can only select leafs
--   selection state (when set to `multiple`) of parents (if selected) should become indetermine when new rows loaded (e.g. via lazy loading)
+-   selection state (when set to `multiple`) of parents (if selected) should become indetermine when new rows loaded (e.g. via delayed loading)
 -   selection counts should ignore parents
--   (maybe?) leaf-mode + multi-selection + lazy loading is considered an invalid confiuguration. This could mean that the Table API of `forceExpandCollapseFieldName` should be more semantically associated with lazy loading.
+-   (maybe?) leaf-mode + multi-selection + delayed loading is considered an invalid confiuguration. This could mean that the Table API of `forceExpandCollapseFieldName` should be more semantically associated with delayed loading.
     -   (alternative?): Could we instead just hide the selection checkbox for parent rows that have no children?
 
 ## Alternative Implementations / Designs
@@ -201,9 +200,9 @@ By making the `TableRecord` support hierarchy in its structure, it seemed possib
 -   There is no clear way to provide a strong type for `TableRecord` that would have a reserved field name of something like `subRows` that itself would be typed to an array of `TableRecord`.
 -   The performance profile between the prototypes of a hierarchical data structure, and a flat list were pretty close with one another.
 
-### Specify whether or not a row has lazy loaded children through the data records
+### Specify whether or not a row has delayed loaded children through the data records
 
-Each record passed to the table could have a boolean field that indicates whether or not it has lazy loaded data. The table then could have an attribute named `expansion-toggle-visible-field-name` that specifies the name of that field. The downside to this approach, however, is that it doesn't extend well to showing a loading indicator on the row. Specifically, we want to be able to toggle the loading state of a row without having to call `setData` on the table. Therefore, this approach would lead to two different APIs for specifying whether a row has delayed children and whether those children are currently being loaded.
+Each record passed to the table could have a boolean field that indicates whether or not it has delayed loaded data. The table then could have an attribute named `expansion-toggle-visible-field-name` that specifies the name of that field. The downside to this approach, however, is that it doesn't extend well to showing a loading indicator on the row. Specifically, we want to be able to toggle the loading state of a row without having to call `setData` on the table. Therefore, this approach would lead to two different APIs for specifying whether a row has delayed children and whether those children are currently being loaded.
 
 ### Create a generic `setRowOptions` API that includes the hierarchy state
 
@@ -216,7 +215,7 @@ The table could have a generic `setRowOptions` function instead of `setRowHierar
 
 ## Open Issues
 
--   We should also consider interactive/visual designs for situations where the client failed to load data for a row that was supposed to lazy-load its data. Some questions we should try to answer are:
+-   We should also consider interactive/visual designs for situations where the client failed to load data for a row that was supposed to load its data when it expands. Some questions we should try to answer are:
     -   Should the table represent the error state visually, and if so how?
     -   Should the table surface any UI to "refresh" a data retrieval attempt. If so, what should that look like?
 -   The set of proposed APIs and behaviors described so far don't seem to cover the SLE Steps Grid use case. **Resolved: Ultimately, the Steps grid should likely be using a significantly different UX than what it currently has, and we are opting to not introduce features and capabilities into the Nimble table to support a sub-optimal UX.**
