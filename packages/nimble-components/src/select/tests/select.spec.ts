@@ -441,14 +441,14 @@ describe('Select', () => {
             expect(pageObject.getSelectedOption()?.text).toBe('Two');
         });
 
-        it('filtering to only disbled item, then pressing <Enter> reverts selection', async () => {
+        it('filtering to only disabled item, then pressing <Enter> reverts selection', async () => {
             await pageObject.openAndSetFilterText('Disabled');
             pageObject.pressEnter();
             const currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.value).toBe('one');
         });
 
-        it('filtering to only disbled item, then clicking away reverts selection', async () => {
+        it('filtering to only disabled item, then clicking away reverts selection', async () => {
             await pageObject.openAndSetFilterText('Disabled');
             await pageObject.clickAway();
             const currentSelection = pageObject.getSelectedOption();
