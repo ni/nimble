@@ -119,9 +119,8 @@ export class Select extends FoundationSelect implements ErrorPattern {
         Observable.notify(this, 'options');
     }
 
-    // See comment for 'set value' below. Despite the implementation for 'get value'
-    // being an exact copy of the FAST Select one, without replicating it here, we
-    // would see test errors.
+    // NOTE: This is a copy of the parent implementation. When providing an override
+    //  for a property setter, you must also provide its corresponding getter.
     public override get value(): string {
         Observable.track(this, 'value');
         // eslint-disable-next-line @typescript-eslint/dot-notation

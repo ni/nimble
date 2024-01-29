@@ -1,4 +1,8 @@
-import { keyEnter, keyEscape, keyArrowDown } from '@microsoft/fast-web-utilities';
+import {
+    keyEnter,
+    keyEscape,
+    keyArrowDown
+} from '@microsoft/fast-web-utilities';
 import type { Select } from '..';
 import type { ListOption } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';

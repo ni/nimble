@@ -436,7 +436,9 @@ describe('Select', () => {
             const currentFilteredOptions = pageObject.getFilteredOptions();
             pageObject.clickOption(2); // click disabled option
 
-            expect(pageObject.getFilteredOptions()).toEqual(currentFilteredOptions);
+            expect(pageObject.getFilteredOptions()).toEqual(
+                currentFilteredOptions
+            );
             expect(element.open).toBeTrue();
             expect(pageObject.getSelectedOption()?.text).toBe('Two');
         });
