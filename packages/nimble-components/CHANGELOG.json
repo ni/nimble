@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 29 Jan 2024 11:31:46 GMT",
+      "version": "21.0.5",
+      "tag": "@ni/nimble-components_v21.0.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ec2e0ddef1d910d44097ccb2a976ad2343dbac63",
+            "comment": "Add validator, tracker and batch updates in rich text components for mention configuration"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 25 Jan 2024 02:58:12 GMT",
       "version": "21.0.4",
       "tag": "@ni/nimble-components_v21.0.4",

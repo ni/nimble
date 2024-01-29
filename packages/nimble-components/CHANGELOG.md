@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 25 Jan 2024 02:58:12 GMT and should not be manually modified.
+This log was last generated on Mon, 29 Jan 2024 11:31:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.0.5
+
+Mon, 29 Jan 2024 11:31:46 GMT
+
+### Patches
+
+- Add validator, tracker and batch updates in rich text components for mention configuration ([ni/nimble@ec2e0dd](https://github.com/ni/nimble/commit/ec2e0ddef1d910d44097ccb2a976ad2343dbac63))
 
 ## 21.0.4
 
