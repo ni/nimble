@@ -98,6 +98,7 @@ Some notes about the `setRecordHierarchyOptions` API:
 
 The expected usage of the dynamically loaded hierarchy is as follows:
 
+1. Configure `idFieldName` and `parentIdFieldName` on the table
 1. Call `setData` on the table with the records that are known
 1. Call `setRecordHierarchyOptions` with an option of `{ delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren }` for IDs associated with records that are known to have children that have not been loaded.
 1. Handle the `row-expansion-toggle` event on the table by doing the following for rows that need to dynamically load their data:
