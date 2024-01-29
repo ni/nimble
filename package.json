@@ -15,7 +15,8 @@
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
     "validate": "npm run build && npm run lint && npm run test",
-    "performance": "lhci autorun"
+    "performance": "lhci autorun",
+    "wafer-performance": "lhci autorun --config='./wafermaplighthouserc.js'"
   },
   "repository": {
     "type": "git",
@@ -47,5 +48,10 @@
     "cross-env": "^7.0.3",
     "patch-package": "^6.4.7",
     "playwright": "1.40.0"
+  },
+  "dependencies": {
+    "@angular/common": "^17.1.0",
+    "@angular/core": "^17.1.0",
+    "@ni/nimble-angular": "^18.2.17"
   }
 }
