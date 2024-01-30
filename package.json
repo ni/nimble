@@ -16,7 +16,7 @@
     "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
     "validate": "npm run build && npm run lint && npm run test",
     "performance": "lhci autorun",
-    "wafer-performance": "lhci autorun --collect.staticDistDir='./packages' --collect.numberOfRuns=1 --collect.url='http://localhost:58452/performance/index.html'"
+    "wafer-performance": "lhci autorun --collect.staticDistDir='./packages/nimble-components' --collect.numberOfRuns=1 --collect.url='http://localhost:58452/performance/index.html'"
   },
   "repository": {
     "type": "git",
