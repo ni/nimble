@@ -12,7 +12,8 @@ export interface NumberTextUnitFormatOptions extends UnitFormatOptions {
     decimalDigits?: number;
     decimalMaximumDigits?: number;
 }
-type ResolvedNumberTextUnitFormatOptions = NumberTextUnitFormatOptions & Required<UnitFormatOptions>;
+type ResolvedNumberTextUnitFormatOptions = NumberTextUnitFormatOptions &
+Required<UnitFormatOptions>;
 
 /**
  * Format for numbers (with optional units) in a number-text table column.
@@ -22,13 +23,13 @@ export class NumberTextUnitFormat extends UnitFormat {
     private readonly resolvedUnitFormat: DefaultUnitFormat | DecimalUnitFormat;
     private readonly _resolvedOptions: ResolvedNumberTextUnitFormatOptions;
 
-    public constructor(
-        locale: string,
-        options?: NumberTextUnitFormatOptions
-    ) {
+    public constructor(locale: string, options?: NumberTextUnitFormatOptions) {
         super();
         this._resolvedOptions = this.resolveOptions(options);
-        this.resolvedUnitFormat = this.resolveUnitFormat(locale, this._resolvedOptions);
+        this.resolvedUnitFormat = this.resolveUnitFormat(
+            locale,
+            this._resolvedOptions
+        );
     }
 
     public override resolvedOptions(): ResolvedNumberTextUnitFormatOptions {
@@ -37,18 +38,31 @@ export class NumberTextUnitFormat extends UnitFormat {
 
     public optionsMatch(targetOptions?: NumberTextUnitFormatOptions): boolean {
         const targetResolvedOptions = this.resolveOptions(targetOptions);
-        return this._resolvedOptions.decimalDigits === targetResolvedOptions.decimalDigits
-            && this._resolvedOptions.decimalMaximumDigits === targetResolvedOptions.decimalMaximumDigits
-            && this._resolvedOptions.numberTextFormat === targetResolvedOptions.numberTextFormat
-            && this._resolvedOptions.unitScale === targetResolvedOptions.unitScale;
+        return (
+            this._resolvedOptions.decimalDigits
+                === targetResolvedOptions.decimalDigits
+            && this._resolvedOptions.decimalMaximumDigits
+                === targetResolvedOptions.decimalMaximumDigits
+            && this._resolvedOptions.numberTextFormat
+                === targetResolvedOptions.numberTextFormat
+            && this._resolvedOptions.unitScale === targetResolvedOptions.unitScale
+        );
     }
 
     protected override tryFormat(number: number): string {
         return this.resolvedUnitFormat.format(number);
     }
 
-    private resolveUnitFormat(locale: string, options: ResolvedNumberTextUnitFormatOptions): DefaultUnitFormat | DecimalUnitFormat {
-        const { numberTextFormat, decimalMaximumDigits, decimalDigits, unitScale } = options;
+    private resolveUnitFormat(
+        locale: string,
+        options: ResolvedNumberTextUnitFormatOptions
+    ): DefaultUnitFormat | DecimalUnitFormat {
+        const {
+            numberTextFormat,
+            decimalMaximumDigits,
+            decimalDigits,
+            unitScale
+        } = options;
 
         if (numberTextFormat === NumberTextFormat.default) {
             return new DefaultUnitFormat(locale, {
@@ -69,7 +83,9 @@ export class NumberTextUnitFormat extends UnitFormat {
         });
     }
 
-    private resolveOptions(options?: NumberTextUnitFormatOptions): ResolvedNumberTextUnitFormatOptions {
+    private resolveOptions(
+        options?: NumberTextUnitFormatOptions
+    ): ResolvedNumberTextUnitFormatOptions {
         if (!options || options.numberTextFormat === NumberTextFormat.default) {
             return {
                 numberTextFormat: NumberTextFormat.default,
