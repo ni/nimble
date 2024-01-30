@@ -14,9 +14,10 @@
         };
 
         function createWaferMap(functionName, dieCount) {
+            waferMapDies = generateDies(dieCount).wafermapDieSet;
             performance.mark(`${functionName}_start`);
             const waferMap = document.createElement('nimble-wafer-map');
-            waferMap.dies = generateDies(dieCount).wafermapDieSet;
+            waferMap.dies = waferMapDies
             waferMap.colorScale = colorScales;
             document.body.appendChild(waferMap);
             performance.mark(`${functionName}_end`);
