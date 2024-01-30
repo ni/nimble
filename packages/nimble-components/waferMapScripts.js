@@ -11,7 +11,7 @@ function createWaferMap(functionName, dieCount) {
     // eslint-disable-next-line no-undef
     const waferMap = document.createElement('nimble-wafer-map');
     waferMap.dies = generateDies(dieCount).wafermapDieSet;
-    waferMap.colorScales = colorScales;
+    waferMap.colorScale = colorScales;
     // eslint-disable-next-line no-undef
     document.body.appendChild(waferMap);
     performance.mark(`${functionName}_end`);
