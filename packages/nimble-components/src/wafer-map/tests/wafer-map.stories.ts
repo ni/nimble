@@ -46,10 +46,7 @@ interface WaferMapArgs {
     highlightedTags: string;
 }
 
-const getDiesSet = (
-    setName: string,
-    sets: WaferMapRow[][]
-): WaferMapRow[] => {
+const getDiesSet = (setName: string, sets: WaferMapRow[][]): WaferMapRow[] => {
     const seed = 0.5;
     let returnedValue: WaferMapRow[];
     switch (setName) {

@@ -77,7 +77,7 @@ export const generateWaferData = (
             diesMatrix.push({
                 xIndex: i,
                 yIndexes: Int32Array.from(yIndexes),
-                values: Float32Array.from(values),
+                values: Float32Array.from(values)
             });
         }
     }

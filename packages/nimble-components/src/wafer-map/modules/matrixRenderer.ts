@@ -1,6 +1,6 @@
 import type { WaferMap } from '..';
 import { HoverDieOpacity } from '../types';
-import { RenderWorker } from './renderWorker';
+import { workerCode } from '../workers/renderWorker';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
@@ -23,21 +23,10 @@ export class MatrixRenderer {
 
     private canvasSet = false;
 
-    private readonly workerCode = `
-    ${RenderWorker.toString()}
-    const renderWorker = new ${RenderWorker.name}();
-    self.onmessage = function(e) {
-        if (renderWorker[e.data.method] !== undefined) {
-            renderWorker[e.data.method](e.data);
-        } else {
-            console.log('unknown method: ' + e.data.method);
-        }
-    };`;
-
     private readonly worker: Worker;
 
     public constructor(private readonly wafermap: WaferMap) {
-        const blob = new Blob([this.workerCode], { type: 'text/javascript' });
+        const blob = new Blob([workerCode], { type: 'text/javascript' });
         const url = URL.createObjectURL(blob);
         this.worker = new Worker(url);
     }
@@ -89,10 +78,8 @@ export class MatrixRenderer {
     }
 
     public renderHover(): void {
-        this.wafermap.hoverWidth = this._dieDimensions.width
-            * this.wafermap.transform.k;
-        this.wafermap.hoverHeight = this._dieDimensions.height
-            * this.wafermap.transform.k;
+        this.wafermap.hoverWidth = this._dieDimensions.width * this.wafermap.transform.k;
+        this.wafermap.hoverHeight = this._dieDimensions.height * this.wafermap.transform.k;
         this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
             ? HoverDieOpacity.hide
             : HoverDieOpacity.show;
@@ -101,13 +88,11 @@ export class MatrixRenderer {
 
     public setCanvasDimensions(width: number, height: number): void {
         if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'setCanvasDimensions',
-                    width,
-                    height
-                }
-            );
+            this.worker.postMessage({
+                method: 'setCanvasDimensions',
+                width,
+                height
+            });
         }
     }
 
@@ -130,38 +115,34 @@ export class MatrixRenderer {
 
     private rerenderDies(): void {
         if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'rerenderDies',
-                }
-            );
+            this.worker.postMessage({
+                method: 'rerenderDies'
+            });
         }
     }
 
     private rerenderText(): void {
         if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'rerenderText'
-                }
-            );
+            this.worker.postMessage({
+                method: 'rerenderText'
+            });
         }
     }
 
     private clearCanvas(): void {
         if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'clearCanvas',
-                }
-            );
+            this.worker.postMessage({
+                method: 'clearCanvas'
+            });
         }
     }
 
     private calculateHoverTransform(): string {
         if (this.wafermap.hoverDie !== undefined) {
-            const scaledX = this._horizontalScale.a + this._horizontalScale.b * this.wafermap.hoverDie.x;
-            const scaledY = this._verticalScale.a + this._verticalScale.b * this.wafermap.hoverDie.y;
+            const scaledX = this._horizontalScale.a
+                + this._horizontalScale.b * this.wafermap.hoverDie.x;
+            const scaledY = this._verticalScale.a
+                + this._verticalScale.b * this.wafermap.hoverDie.y;
             const transformedPoint = this.wafermap.transform.apply([
                 scaledX + this._margin.left,
                 scaledY + this._margin.top
@@ -173,32 +154,26 @@ export class MatrixRenderer {
 
     private scaleCanvas(): void {
         if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'scaleCanvas',
-                    transform: this.wafermap.transform
-                }
-            );
+            this.worker.postMessage({
+                method: 'scaleCanvas',
+                transform: this.wafermap.transform
+            });
         }
     }
 
     private saveContext(): void {
         if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'saveContext'
-                }
-            );
+            this.worker.postMessage({
+                method: 'saveContext'
+            });
         }
     }
 
     private restoreContext(): void {
         if (this.canvasSet) {
-            this.worker.postMessage(
-                {
-                    method: 'restoreContext'
-                }
-            );
+            this.worker.postMessage({
+                method: 'restoreContext'
+            });
         }
     }
 
@@ -230,8 +205,10 @@ export class MatrixRenderer {
             left: baseMargin.left + canvasMargin.left
         };
         const containerDimensions = {
-            width: canvasDimensions.width - this._margin.left - this._margin.right,
-            height: canvasDimensions.height - this._margin.top - this._margin.bottom
+            width:
+                canvasDimensions.width - this._margin.left - this._margin.right,
+            height:
+                canvasDimensions.height - this._margin.top - this._margin.bottom
         };
         this._containerHeight = containerDimensions.height;
         this._containerWidth = containerDimensions.width;
@@ -243,13 +220,23 @@ export class MatrixRenderer {
         let minPoint;
         let maxPoint;
         // const radius = containerDiameter / 2;
-        if (!(!this.wafermap.validity.invalidGridDimensions
-            && typeof this.wafermap.gridMinX === 'number'
-            && typeof this.wafermap.gridMinY === 'number'
-            && typeof this.wafermap.gridMaxX === 'number'
-            && typeof this.wafermap.gridMaxY === 'number')) {
-            minPoint = { x: this.wafermap.dieMatrix[0]!.xIndex, y: this.wafermap.dieMatrix[0]!.yIndexes[0]! };
-            maxPoint = { x: this.wafermap.dieMatrix[0]!.xIndex, y: this.wafermap.dieMatrix[0]!.yIndexes[0]! };
+        if (
+            !(
+                !this.wafermap.validity.invalidGridDimensions
+                && typeof this.wafermap.gridMinX === 'number'
+                && typeof this.wafermap.gridMinY === 'number'
+                && typeof this.wafermap.gridMaxX === 'number'
+                && typeof this.wafermap.gridMaxY === 'number'
+            )
+        ) {
+            minPoint = {
+                x: this.wafermap.dieMatrix[0]!.xIndex,
+                y: this.wafermap.dieMatrix[0]!.yIndexes[0]!
+            };
+            maxPoint = {
+                x: this.wafermap.dieMatrix[0]!.xIndex,
+                y: this.wafermap.dieMatrix[0]!.yIndexes[0]!
+            };
 
             for (const dieRow of this.wafermap.dieMatrix) {
                 if (dieRow.xIndex < minPoint.x) {
@@ -275,31 +262,27 @@ export class MatrixRenderer {
         }
         const range = {
             x: minPoint.x,
-            y: (maxPoint.x + 1)
+            y: maxPoint.x + 1
         };
         const domain = {
             x: 0,
             y: containerDiameter
         };
         this._horizontalScale = {
-            a: (range.x * domain.y - range.y * domain.x)
-                / (range.x - range.y),
-            b: (domain.x - domain.y)
-                / (range.x - range.y)
+            a: (range.x * domain.y - range.y * domain.x) / (range.x - range.y),
+            b: (domain.x - domain.y) / (range.x - range.y)
         };
         this._invertedHorizontalScale = {
             a: -this._horizontalScale.a / this._horizontalScale.b,
             b: 1 / this._horizontalScale.b
         };
-        range.x = (minPoint.y - 1);
+        range.x = minPoint.y - 1;
         range.y = maxPoint.y;
         domain.x = containerDiameter;
         domain.y = 0;
         this._verticalScale = {
-            a: (range.x * domain.y - range.y * domain.x)
-                / (range.x - range.y),
-            b: (domain.x - domain.y)
-                / (range.x - range.y)
+            a: (range.x * domain.y - range.y * domain.x) / (range.x - range.y),
+            b: (domain.x - domain.y) / (range.x - range.y)
         };
         this._invertedVerticalScale = {
             a: -this._verticalScale.a / this._verticalScale.b,
@@ -321,33 +304,31 @@ export class MatrixRenderer {
         ]);
         transformedCanvasMinPoint[0] -= this._dieDimensions.width;
         transformedCanvasMinPoint[1] -= this._dieDimensions.height;
-        this.worker.postMessage(
-            {
-                method: 'updateRenderConfig',
-                margin: this._margin,
-                verticalScale: this._verticalScale,
-                horizontalScale: this._horizontalScale,
-                dieDimensions: this._dieDimensions,
-                colorCategories: this.wafermap.colorCategories,
-                transform: this.wafermap.transform,
-                yLimits: {
-                    min: transformedCanvasMinPoint[1],
-                    max: transformedCanvasMaxPoint[1]
-                },
-                xLimits: {
-                    min: transformedCanvasMinPoint[0],
-                    max: transformedCanvasMaxPoint[0]
-                }
+        this.worker.postMessage({
+            method: 'updateRenderConfig',
+            margin: this._margin,
+            verticalScale: this._verticalScale,
+            horizontalScale: this._horizontalScale,
+            dieDimensions: this._dieDimensions,
+            colorCategories: this.wafermap.colorCategories,
+            transform: this.wafermap.transform,
+            yLimits: {
+                min: transformedCanvasMinPoint[1],
+                max: transformedCanvasMaxPoint[1]
+            },
+            xLimits: {
+                min: transformedCanvasMinPoint[0],
+                max: transformedCanvasMaxPoint[0]
             }
-        );
-        this.worker.postMessage(
-            {
-                method: 'emptyMatrix'
-            }
-        );
+        });
+        this.worker.postMessage({
+            method: 'emptyMatrix'
+        });
         const dieMatrix = this.wafermap.dieMatrix;
         for (const diesRow of dieMatrix) {
-            const scaledX = this._horizontalScale.a + this._horizontalScale.b * diesRow.xIndex + this._margin.right;
+            const scaledX = this._horizontalScale.a
+                + this._horizontalScale.b * diesRow.xIndex
+                + this._margin.right;
             if (
                 scaledX >= transformedCanvasMinPoint[0]
                 && scaledX < transformedCanvasMaxPoint[0]

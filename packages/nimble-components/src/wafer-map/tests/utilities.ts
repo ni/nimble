@@ -1,8 +1,5 @@
 import { ScaleLinear, scaleLinear } from 'd3-scale';
-import type {
-    WaferMapColorScale,
-    WaferMapDie,
-} from '../types';
+import type { WaferMapColorScale, WaferMapDie } from '../types';
 // import type { DataManager } from '../modules/data-manager';
 import type { WaferMap } from '..';
 

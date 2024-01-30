@@ -1,1 +1,4 @@
 src/icons
+
+# Generated worker code
+src/wafer-map/workers

@@ -1,5 +1,9 @@
 import type { WaferMap } from '..';
-import { PointCoordinates, WaferMapDie, WaferMapOriginLocation } from '../types';
+import {
+    PointCoordinates,
+    WaferMapDie,
+    WaferMapOriginLocation
+} from '../types';
 
 /**
  * HoverHandler deals with user interactions and events like hovering
@@ -46,13 +50,13 @@ export class HoverHandler {
         // go to x and y scale to get the x,y values of the die.
         const x = xRoundFunction(
             wafermap.matrixRenderer.invertedHorizontalScale.a
-            + wafermap.matrixRenderer.invertedHorizontalScale.b
-            * (mousePosition.x - wafermap.matrixRenderer.margin.left)
+                + wafermap.matrixRenderer.invertedHorizontalScale.b
+                    * (mousePosition.x - wafermap.matrixRenderer.margin.left)
         );
         const y = yRoundFunction(
             wafermap.matrixRenderer.invertedVerticalScale.a
-            + wafermap.matrixRenderer.invertedVerticalScale.b
-            * (mousePosition.y - wafermap.matrixRenderer.margin.top)
+                + wafermap.matrixRenderer.invertedVerticalScale.b
+                    * (mousePosition.y - wafermap.matrixRenderer.margin.top)
         );
         return { x, y };
     }
@@ -60,7 +64,9 @@ export class HoverHandler {
     private getWaferMapDie(
         dieCoordinates: PointCoordinates
     ): WaferMapDie | undefined {
-        const diesRow = this.wafermap.dieMatrix.find(x => x.xIndex === dieCoordinates.x);
+        const diesRow = this.wafermap.dieMatrix.find(
+            x => x.xIndex === dieCoordinates.x
+        );
         if (diesRow === undefined) {
             return undefined;
         }
