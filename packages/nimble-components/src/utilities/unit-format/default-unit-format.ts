@@ -25,9 +25,9 @@ export class DefaultUnitFormat extends UnitFormat {
     private readonly unitScale: UnitScale;
 
     // Format options to use by default. It renders the number with a maximum of 6 signficant digits.
-    private readonly defaultIntlNumberFormatOptions: Intl.NumberFormatOptions = {
+    private readonly defaultIntlNumberFormatOptions = {
         maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
-        useGrouping: true
+        signDisplay: 'negative'
     };
 
     private readonly defaultScaledUnitFormatters = new Map<
@@ -38,9 +38,9 @@ export class DefaultUnitFormat extends UnitFormat {
     // Format options to use for numbers that have leading zeros. It limits the number of rendered
     // digits using 'maximumFractionDigits', which will result in less than 6 significant digits
     // in order to render no more than 6 total digits.
-    private readonly leadingZeroIntlNumberFormatOptions: Intl.NumberFormatOptions = {
+    private readonly leadingZeroIntlNumberFormatOptions = {
         maximumFractionDigits: DefaultUnitFormat.maximumDigits - 1,
-        useGrouping: true
+        signDisplay: 'negative'
     };
 
     private readonly leadingZeroScaledUnitFormatters = new Map<
@@ -50,9 +50,10 @@ export class DefaultUnitFormat extends UnitFormat {
 
     // Format options for numbers that should be displayed in exponential notation. This should be used
     // for numbers with magintudes over 'exponentialUpperBound' or under 'exponentialLowerBound'.
-    private readonly exponentialIntlNumberFormatOptions: Intl.NumberFormatOptions = {
+    private readonly exponentialIntlNumberFormatOptions = {
         maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
-        notation: 'scientific'
+        notation: 'scientific',
+        signDisplay: 'negative'
     };
 
     private readonly exponentialScaledUnitFormatter: ScaledUnitFormat;
@@ -69,21 +70,28 @@ export class DefaultUnitFormat extends UnitFormat {
                 unit.scaleFactor,
                 unit.scaledUnitFormatFactory({
                     locale,
-                    intlNumberFormatOptions: this.defaultIntlNumberFormatOptions
+                    // Hack to avoid a ts error about signDisplay not accepting the value 'negative'.
+                    // The value has been supported by browsers since 11/22, but TypeScript still hasn't
+                    // added it to the type definitions.
+                    intlNumberFormatOptions: this
+                        .defaultIntlNumberFormatOptions as Intl.NumberFormatOptions
                 })
             );
             this.leadingZeroScaledUnitFormatters.set(
                 unit.scaleFactor,
                 unit.scaledUnitFormatFactory({
                     locale,
-                    intlNumberFormatOptions:
-                        this.leadingZeroIntlNumberFormatOptions
+                    // Same as above comment
+                    intlNumberFormatOptions: this
+                        .leadingZeroIntlNumberFormatOptions as Intl.NumberFormatOptions
                 })
             );
         }
         this.exponentialScaledUnitFormatter = unitScale.baseScaledUnit.scaledUnitFormatFactory({
             locale,
-            intlNumberFormatOptions: this.exponentialIntlNumberFormatOptions
+            // Same as above comment
+            intlNumberFormatOptions: this
+                .exponentialIntlNumberFormatOptions as Intl.NumberFormatOptions
         });
         this.unitScale = unitScale;
     }
@@ -95,10 +103,7 @@ export class DefaultUnitFormat extends UnitFormat {
     }
 
     protected tryFormat(number: number): string {
-        // Normalize +0 / -0 --> +0
-        const numberNormalized = number === 0 ? 0 : number;
-
-        const { scaledValue, scaledUnit } = this.unitScale.scaleNumber(numberNormalized);
+        const { scaledValue, scaledUnit } = this.unitScale.scaleNumber(number);
 
         const numberStyle = this.resolveNumberStyle(scaledValue);
         switch (numberStyle) {
@@ -116,7 +121,7 @@ export class DefaultUnitFormat extends UnitFormat {
             }
             case 'exponential': {
                 const scaledUnitFormatter = this.exponentialScaledUnitFormatter;
-                return scaledUnitFormatter.format(numberNormalized);
+                return scaledUnitFormatter.format(number);
             }
             default:
                 throw new Error('Unexpected number format style');

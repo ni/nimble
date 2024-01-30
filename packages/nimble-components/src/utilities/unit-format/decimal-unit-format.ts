@@ -18,7 +18,6 @@ export class DecimalUnitFormat extends UnitFormat<DecimalUnitFormatOptions> {
     private readonly maximumFractionDigits: number;
 
     private readonly scaledUnitFormatters = new Map<number, ScaledUnitFormat>();
-    private readonly tenPowDecimalDigits: number;
 
     public constructor(
         locale: string,
@@ -36,18 +35,21 @@ export class DecimalUnitFormat extends UnitFormat<DecimalUnitFormatOptions> {
         const intlNumberFormatOptions = {
             maximumFractionDigits,
             minimumFractionDigits,
-            useGrouping: true
+            signDisplay: 'negative'
         };
         for (const scaledUnit of unitScale.supportedScaledUnits) {
             this.scaledUnitFormatters.set(
                 scaledUnit.scaleFactor,
                 scaledUnit.scaledUnitFormatFactory({
                     locale,
-                    intlNumberFormatOptions
+                    // Hack to avoid a ts error about signDisplay not accepting the value 'negative'.
+                    // The value has been supported by browsers since 11/22, but TypeScript still hasn't
+                    // added it to the type definitions.
+                    intlNumberFormatOptions:
+                        intlNumberFormatOptions as Intl.NumberFormatOptions
                 })
             );
         }
-        this.tenPowDecimalDigits = 10 ** maximumFractionDigits;
         this.unitScale = unitScale;
         this.minimumFractionDigits = minimumFractionDigits;
         this.maximumFractionDigits = maximumFractionDigits;
@@ -63,19 +65,9 @@ export class DecimalUnitFormat extends UnitFormat<DecimalUnitFormatOptions> {
 
     protected tryFormat(number: number): string {
         const { scaledValue, scaledUnit } = this.unitScale.scaleNumber(number);
-
-        const numberNormalized = this.willRoundToZero(scaledValue)
-            ? 0
-            : scaledValue;
         const scaledUnitFormatter = this.scaledUnitFormatters.get(
             scaledUnit.scaleFactor
         )!;
-        return scaledUnitFormatter.format(numberNormalized);
-    }
-
-    private willRoundToZero(number: number): boolean {
-        // Multiply the value by 10 raised to maximumFractionDigits so that Math.round can be used to emulate rounding to
-        // maximumFractionDigits decimal places. If that rounded value is 0, then the value will be rendered with only 0s.
-        return Math.round(number * this.tenPowDecimalDigits) === 0;
+        return scaledUnitFormatter.format(scaledValue);
     }
 }

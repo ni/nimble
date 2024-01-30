@@ -145,11 +145,16 @@ describe('DecimalUnitFormat', () => {
 
     describe('with unit', () => {
         class TestScaledUnitFormat extends ScaledUnitFormat {
+            private readonly formatter: Intl.NumberFormat;
             public constructor(
                 scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
                 private readonly scaleFactor: number
             ) {
                 super(scaledUnitFormatFactoryOptions);
+                this.formatter = new Intl.NumberFormat(
+                    this.locale,
+                    this.intlNumberFormatOptions
+                );
             }
 
             public static createFactory(scaleFactor: number) {
@@ -162,7 +167,7 @@ describe('DecimalUnitFormat', () => {
             }
 
             public format(value: number): string {
-                return `${value} x${this.scaleFactor}`;
+                return `${this.formatter.format(value)} x${this.scaleFactor}`;
             }
         }
 
@@ -227,17 +232,17 @@ describe('DecimalUnitFormat', () => {
             {
                 name: 'does not double-convert the value when a unit is specified',
                 value: 3,
-                expectedFormattedValue: '1.5 x2'
+                expectedFormattedValue: '1.50 x2'
             },
             {
-                name: 'does not zero-round until after scaling value',
+                name: 'does not zero-round before scaling value',
                 value: 0.001,
-                expectedFormattedValue: '1 x0.001'
+                expectedFormattedValue: '1.00 x0.001'
             },
             {
                 name: 'does zero-rounding after scaling value',
                 value: -0.000004,
-                expectedFormattedValue: '0 x0.001'
+                expectedFormattedValue: '0.00 x0.001'
             }
         ] as const;
         parameterizeSpec(appendedLabelUnitTestCases, (spec, name, value) => {
