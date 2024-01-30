@@ -28,6 +28,9 @@ public partial class NimbleTable<TData> : ComponentBase
     public string? IdFieldName { get; set; }
 
     [Parameter]
+    public string? ParentIdFieldName { get; set; }
+
+    [Parameter]
     public TableRowSelectionMode? SelectionMode { get; set; }
 
     [Parameter]

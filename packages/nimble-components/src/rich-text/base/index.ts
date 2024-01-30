@@ -3,7 +3,9 @@ import { FoundationElement } from '@microsoft/fast-foundation';
 import { RichTextMention } from '../../rich-text-mention/base';
 import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 import { Configuration } from '../models/configuration';
-import { MarkdownParserMentionConfiguration } from '../models/markdown-parser-mention-configuration';
+import { RichTextUpdateTracker } from '../models/rich-text-tracker';
+import { RichTextValidator } from '../models/rich-text-validator';
+import type { RichTextValidity } from './types';
 import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-custom-elements-defined-async';
 
 /**
@@ -22,10 +24,27 @@ export abstract class RichText extends FoundationElement {
     public readonly childItems: Element[] = [];
 
     @observable
+    protected configuration?: Configuration;
+
     protected mentionElements!: RichTextMention[];
 
-    @observable
-    protected configuration?: Configuration;
+    protected readonly richTextUpdateTracker = new RichTextUpdateTracker(this);
+
+    protected readonly richTextValidator = new RichTextValidator();
+
+    /**
+     * @public
+     */
+    public get validity(): RichTextValidity {
+        return this.richTextValidator.getValidity();
+    }
+
+    /**
+     * @public
+     */
+    public checkValidity(): boolean {
+        return this.richTextValidator.isValid();
+    }
 
     /**
      * @internal
@@ -36,27 +55,41 @@ export abstract class RichText extends FoundationElement {
      * @internal
      */
     public handleChange(source: unknown, args: unknown): void {
-        if (
-            source instanceof MentionInternals
-            && MarkdownParserMentionConfiguration.isObservedMentionInternalsProperty(
+        if (source instanceof MentionInternals && typeof args === 'string') {
+            this.richTextUpdateTracker.trackMentionInternalsPropertyChanged(
                 args
-            )
-        ) {
-            this.configuration = this.createConfig();
+            );
         }
     }
 
-    protected mentionElementsChanged(_old: unknown, _new: unknown): void {
-        this.observeMentionInternals();
-        this.configuration = this.createConfig();
+    /**
+     * @internal
+     */
+    public createConfig(): void {
+        this.validate();
+        if (this.richTextValidator.isValid()) {
+            if (
+                this.richTextUpdateTracker.updateMappingConfigs
+                || this.richTextUpdateTracker.updatePattern
+            ) {
+                this.configuration = new Configuration(this.mentionElements);
+            }
+        } else {
+            this.configuration = undefined;
+        }
     }
 
-    protected createConfig(): Configuration {
-        return new Configuration(this.mentionElements);
+    protected validate(): void {
+        this.richTextValidator.validate(this.mentionElements);
     }
 
-    private childItemsChanged(_prev: unknown, _next: unknown): void {
-        void this.updateMentionElementsFromChildItems();
+    private childItemsChanged(
+        prev: Element[] | undefined,
+        _next: Element[]
+    ): void {
+        if (prev !== undefined) {
+            void this.updateMentionElementsFromChildItems();
+        }
     }
 
     private async updateMentionElementsFromChildItems(): Promise<void> {
@@ -64,6 +97,8 @@ export abstract class RichText extends FoundationElement {
         this.mentionElements = this.childItems.filter(
             (x): x is RichTextMention => x instanceof RichTextMention
         );
+        this.observeMentionInternals();
+        this.richTextUpdateTracker.trackMentionElementsInstancesChanged();
     }
 
     private observeMentionInternals(): void {
