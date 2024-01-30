@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { parameterizeNamedList } from '../../tests/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { DecimalUnitFormat } from '../decimal-unit-format';
 import {
     ScaledUnit,
@@ -123,7 +123,7 @@ describe('DecimalUnitFormat', () => {
         }
     ] as const;
 
-    parameterizeNamedList(testCases, (spec, name, value) => {
+    parameterizeSpec(testCases, (spec, name, value) => {
         spec(name, () => {
             const options = {
                 minimumFractionDigits: value.minDigits,
@@ -240,20 +240,17 @@ describe('DecimalUnitFormat', () => {
                 expectedFormattedValue: '0 x0.001'
             }
         ] as const;
-        parameterizeNamedList(
-            appendedLabelUnitTestCases,
-            (spec, name, value) => {
-                spec(name, () => {
-                    const formatter = new DecimalUnitFormat('en', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                        unitScale: new TestUnitScale()
-                    });
-                    expect(formatter.format(value.value)).toEqual(
-                        value.expectedFormattedValue
-                    );
+        parameterizeSpec(appendedLabelUnitTestCases, (spec, name, value) => {
+            spec(name, () => {
+                const formatter = new DecimalUnitFormat('en', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                    unitScale: new TestUnitScale()
                 });
-            }
-        );
+                expect(formatter.format(value.value)).toEqual(
+                    value.expectedFormattedValue
+                );
+            });
+        });
     });
 });

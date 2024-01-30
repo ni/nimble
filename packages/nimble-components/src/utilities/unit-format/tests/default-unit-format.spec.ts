@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { parameterizeNamedList } from '../../tests/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { DefaultUnitFormat } from '../default-unit-format';
 import { IntlNumberFormatScaledUnitFormat } from '../scaled-unit-format/intl-number-format-scaled-unit-format';
 import {
@@ -213,7 +213,7 @@ describe('DefaultUnitFormat', () => {
         }
     ] as const;
 
-    parameterizeNamedList(testCases, (spec, name, value) => {
+    parameterizeSpec(testCases, (spec, name, value) => {
         spec(name, () => {
             const options = {
                 unitScale: passthroughUnitScale
@@ -314,21 +314,15 @@ describe('DefaultUnitFormat', () => {
                 expectedFormattedValue: '2E9 x1' // rather than '2E6 x1000'
             }
         ] as const;
-        parameterizeNamedList(
-            appendedLabelUnitTestCases,
-            (spec, name, value) => {
-                spec(name, () => {
-                    const formatterForAppendedLabel = new DefaultUnitFormat(
-                        'en',
-                        {
-                            unitScale: new TestUnitScale()
-                        }
-                    );
-                    expect(
-                        formatterForAppendedLabel.format(value.value)
-                    ).toEqual(value.expectedFormattedValue);
+        parameterizeSpec(appendedLabelUnitTestCases, (spec, name, value) => {
+            spec(name, () => {
+                const formatterForAppendedLabel = new DefaultUnitFormat('en', {
+                    unitScale: new TestUnitScale()
                 });
-            }
-        );
+                expect(formatterForAppendedLabel.format(value.value)).toEqual(
+                    value.expectedFormattedValue
+                );
+            });
+        });
     });
 });

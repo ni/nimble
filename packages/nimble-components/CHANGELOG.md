@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 18 Jan 2024 17:21:22 GMT and should not be manually modified.
+This log was last generated on Mon, 29 Jan 2024 11:31:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.0.5
+
+Mon, 29 Jan 2024 11:31:46 GMT
+
+### Patches
+
+- Add validator, tracker and batch updates in rich text components for mention configuration ([ni/nimble@ec2e0dd](https://github.com/ni/nimble/commit/ec2e0ddef1d910d44097ccb2a976ad2343dbac63))
+
+## 21.0.4
+
+Thu, 25 Jan 2024 02:58:12 GMT
+
+### Patches
+
+- Pin fast-foundation version to avoid regression ([ni/nimble@d3f330a](https://github.com/ni/nimble/commit/d3f330a41625cfb3be92eff8fd150f4cac5e11e1))
+
+## 21.0.3
+
+Wed, 24 Jan 2024 00:18:26 GMT
+
+### Patches
+
+- Fix bug where table rows are not rendered correctly when the table is reattached to the DOM ([ni/nimble@c3ba509](https://github.com/ni/nimble/commit/c3ba50940c9aa158b21f6c0d78056985f4a7c1c0))
+
+## 21.0.2
+
+Tue, 23 Jan 2024 22:00:33 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.1
+
+## 21.0.1
+
+Tue, 23 Jan 2024 16:01:09 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.0
+
+## 21.0.0
+
+Fri, 19 Jan 2024 22:22:02 GMT
+
+### Major changes
+
+- Introducing data hierarchy to table. Renamed 'groupCollapseAll' on the table label provider to 'collapseAll'. ([ni/nimble@398b7ab](https://github.com/ni/nimble/commit/398b7ab7e2be2597de26e15e0ee463df4a02f228))
 
 ## 20.18.1
 

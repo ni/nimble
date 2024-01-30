@@ -21,10 +21,10 @@ export const tableRowExpandLabel = DesignToken.create<string>({
     cssCustomPropertyName: null
 }).withDefault(tableLabelDefaults.tableRowExpandLabel);
 
-export const tableGroupsCollapseAllLabel = DesignToken.create<string>({
-    name: 'table-groups-collapse-all-label',
+export const tableCollapseAllLabel = DesignToken.create<string>({
+    name: 'table-collapse-all-label',
     cssCustomPropertyName: null
-}).withDefault(tableLabelDefaults.tableGroupsCollapseAllLabel);
+}).withDefault(tableLabelDefaults.tableCollapseAllLabel);
 
 export const tableCellActionMenuLabel = DesignToken.create<string>({
     name: 'table-cell-action-menu-label',

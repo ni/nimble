@@ -33,6 +33,8 @@ interface RichTextEditorArgs extends LabelUserArgs {
     input: unknown;
     empty: unknown;
     placeholder: string;
+    validity: undefined;
+    checkValidity: undefined;
 }
 
 type ExampleDataType = (typeof exampleDataType)[keyof typeof exampleDataType];
@@ -74,6 +76,12 @@ Nimble will set the height of the buttons to \`$ni-nimble-control-slim-height\`.
 Note: The content in the \`footer-actions\` slot will not adjust based on the state of the rich-text-editor (e.g. disabled). It is the responsibility of the
 client application to make any necessary adjustments. For example, if the buttons should be disabled when the rich-text-editor is disabled, the
 client application must implement that functionality.
+`;
+
+const validityDescription = `Readonly object of boolean values that represents the validity states that the editor's configuration can be in.
+The object's type is \`RichTextValidity\`, and it contains the following boolean properties:
+-   \`invalidMentionConfiguration\`: \`true\` when a mention configuration is invalid. Call \`checkValidity()\` on each mention component to see which configuration is invalid, and read the \`validity\` property of that mention for details about why it's invalid.
+-   \`duplicateMentionConfiguration\`: \`true\` if more than one of the same type of mention configuration element is provided
 `;
 
 const metadata: Meta<RichTextEditorArgs> = {
@@ -202,6 +210,16 @@ const metadata: Meta<RichTextEditorArgs> = {
             description:
                 'This event is fired when there is a change in the content of the editor.',
             control: false
+        },
+        validity: {
+            description: validityDescription,
+            control: false
+        },
+        checkValidity: {
+            name: 'checkValidity()',
+            description:
+                'A function that returns `true` if the configuration of the rich text editor is valid and `false` if the configuration is not valid.',
+            control: false
         }
     },
     args: {
@@ -221,7 +239,9 @@ const metadata: Meta<RichTextEditorArgs> = {
                 await customElements.whenDefined('nimble-rich-text-editor');
                 x.editorRef.setMarkdown(dataSets[x.data]);
             })();
-        }
+        },
+        validity: undefined,
+        checkValidity: undefined
     }
 };
 
