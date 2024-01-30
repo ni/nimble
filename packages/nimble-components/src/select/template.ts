@@ -37,8 +37,8 @@ SelectOptions
     ]
         .filter(Boolean)
         .join(' ')}"
-        aria-activedescendant="${x => x.ariaActiveDescendant}"
-        aria-controls="${x => x.ariaControls}"
+        aria-activedescendant="${x => (x.filterMode === FilterMode.none ? x.ariaActiveDescendant : null)}"
+        aria-controls="${x => (x.filterMode === FilterMode.none ? x.ariaControls : null)}"
         aria-disabled="${x => x.ariaDisabled}"
         aria-expanded="${x => x.ariaExpanded}"
         aria-haspopup="${x => (x.collapsible ? 'listbox' : null)}"
@@ -105,6 +105,8 @@ SelectOptions
                             <${iconMagnifyingGlassTag} class="filter-icon"></${iconMagnifyingGlassTag}>
                             <input
                                 class="filter-input"
+                                aria-controls="${x => (x.open ? x.ariaControls : null)}"
+                                aria-activedescendant="${x => (x.open ? x.ariaActiveDescendant : null)}"
                                 ?disabled="${x => x.disabled}"
                                 @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
                                 @click="${(x, c) => x.inputClickHandler(c.event as MouseEvent)}"
