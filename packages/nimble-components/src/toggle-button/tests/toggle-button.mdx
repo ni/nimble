@@ -1,17 +1,15 @@
-import {
-    Controls,
-    DocsStory,
-    Meta,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Controls, DocsStory, Meta, Title } from '@storybook/blocks';
 import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
 import * as toggleButtonStories from './toggle-button.stories';
 
 <Meta of={toggleButtonStories} />
 <Title of={toggleButtonStories} />
-<Description of={toggleButtonStories} />
+
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/) - A toggle button is a two-state button
+that can be either off (not pressed) or on (pressed). For example, a button labeled mute in an audio player could
+indicate that sound is muted by setting the pressed state true. Important: it is critical the label on a toggle does
+not change when its state changes. In this example, when the pressed state is true, the label remains "Mute" so a
+screen reader would say something like "Mute toggle button pressed".
 
 <DocsStory of={toggleButtonStories.outlineButton} expanded={false} />
 <Controls of={toggleButtonStories.outlineButton} />

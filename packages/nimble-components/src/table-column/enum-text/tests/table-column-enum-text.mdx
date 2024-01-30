@@ -2,17 +2,19 @@ import {
     DocsStory,
     Meta,
     Controls,
-    Stories,
     Title,
     Description
 } from '@storybook/blocks';
+import { columnOperationBehavior } from '../../base/tests/table-column-stories-utils';
 import * as tableColumnEnumTextStories from './table-column-enum-text.stories';
 import * as textMappingStories from '../../../mapping/text/tests/mapping-text.stories';
 
 <Meta of={tableColumnEnumTextStories} />
-
 <Title of={tableColumnEnumTextStories} />
-<Description of={tableColumnEnumTextStories} />
+
+The `nimble-table-column-enum-text` column renders string, number, or boolean values as mapped text in the `nimble-table`.
+
+<p>{columnOperationBehavior}</p>
 
 <DocsStory of={tableColumnEnumTextStories.enumTextColumn} expanded={false} />
 <Controls of={tableColumnEnumTextStories.enumTextColumn} />

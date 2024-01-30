@@ -33,12 +33,6 @@ interface AnchorButtonArgs {
 const metadata: Meta<AnchorButtonArgs> = {
     title: 'Components/Anchor Button',
     parameters: {
-        docs: {
-            description: {
-                component:
-                    'An anchor button is a component with the visual appearance of a button, but it navigates like an anchor/link when pressed.'
-            }
-        },
         actions: {}
     },
     // prettier-ignore

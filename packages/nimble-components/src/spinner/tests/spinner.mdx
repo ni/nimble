@@ -1,17 +1,16 @@
-import {
-    DocsStory,
-    Meta,
-    Controls,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
 import * as spinnerStories from './spinner.stories';
 
 <Meta of={spinnerStories} />
 
 <Title of={spinnerStories} />
-<Description of={spinnerStories} />
+
+    The `nimble-spinner` is an animating indicator that can be placed in a
+    particular region of a page to represent loading progress, or an
+    ongoing operation, of an indeterminate / unknown duration.
+
+    It has 3 sizes (64px, 32px, and 16px) and 2 appearance types (default and
+    accent).
 
 <DocsStory of={spinnerStories.spinner} expanded={false} />
 <Controls of={spinnerStories.spinner} />

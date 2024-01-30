@@ -1,18 +1,18 @@
-import {
-    Controls,
-    DocsStory,
-    Meta,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Controls, DocsStory, Meta, Title } from '@storybook/blocks';
 import TargetDocs from '../../patterns/anchor/tests/target-docs.mdx';
 import * as treeViewStories from './tree-view.stories';
 
 <Meta of={treeViewStories} />
-
 <Title of={treeViewStories} />
-<Description of={treeViewStories} />
+
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/treeview/) - A tree view widget
+presents a hierarchical list. Any item in the hierarchy may have child items, and items that have
+children may be expanded or collapsed to show or hide the children. For example, in a file system
+navigator that uses a tree view to display folders and files, an item representing a folder can be
+expanded to reveal the contents of the folder, which may be files, folders, or both.
+
+The \`nimble-tree-view\` supports standard \`nimble-tree-item\`s and \`nimble-anchor-tree-item\`s,
+which navigate to a url upon activation. Both types of tree items support icons as slotted content.
 
 <DocsStory of={treeViewStories.treeItem} expanded={false} />
 <Controls of={treeViewStories.treeItem} />

@@ -1,16 +1,12 @@
-import {
-    Meta,
-    Controls,
-    DocsStory,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Meta, Controls, DocsStory, Title } from '@storybook/blocks';
 import * as iconsStories from './icons.stories';
+import { iconAddTag } from '../../icons/add';
 
 <Meta of={iconsStories} />
 
 <Title of={iconsStories} />
-<Description of={iconsStories} />
+
+Nimble icons can be slotted into other components or used independently. Each icon is available as a custom element. For example, `<nimble-icon-add></nimble-icon-add>`.
 
 <DocsStory of={iconsStories.icons} expanded={false} />
 <Controls of={iconsStories.icons} />

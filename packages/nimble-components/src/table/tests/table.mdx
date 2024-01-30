@@ -1,17 +1,11 @@
-import {
-    Controls,
-    DocsStory,
-    Meta,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Controls, DocsStory, Meta, Title } from '@storybook/blocks';
 import * as tableStories from './table.stories';
 
 <Meta of={tableStories} />
-
 <Title of={tableStories} />
-<Description of={tableStories} />
+
+The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.
+For information about configuring table columns, see **Table Column Configuration** and **Table Column Types**.
 
 <DocsStory of={tableStories.table} expanded={false} />
 <Controls of={tableStories.table} />

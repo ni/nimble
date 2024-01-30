@@ -1,0 +1,24 @@
+import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { NimbleTooltip } from './tooltip.react';
+import * as tooltipStories from './tooltip.stories';
+
+<Meta of={tooltipStories} />
+<Title of={tooltipStories} />
+
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) - A tooltip is a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. It typically appears after a small delay and disappears when Escape is pressed or on mouse out.
+It is recommended to set up aria-describedby, an accessibility feature that sets the description of another element through ID references. To do this, the anchor element (button, text, icon, etc.) of the tooltip must have `aria-describedby= name` in its attributes. To call it, use `id= name` in the nimble-tooltip attributes. More information can be found in the [aria-describedby docs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby).
+
+<DocsStory of={tooltipStories.tooltip} expanded={false} />
+<Controls of={tooltipStories.tooltip} />
+
+## Appearances
+
+## Appearance Variants
+
+## Usage
+
+## Examples
+
+## Accessibility
+
+## Resources
