@@ -3,7 +3,7 @@ module.exports = {
       collect: {
           staticDistDir: './packages/nimble-components',
           url: [
-              'http://localhost:58452/index.html',
+              'http://localhost:58452/src/wafer-map/tests/index.html',
           ],
           numberOfRuns: 1,
       },
