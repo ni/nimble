@@ -84,7 +84,7 @@ describe('NumberTextUnitFormat', () => {
                 decimalMaximumDigits: 0
             });
         }).toThrowError(
-            /decimalDigits is mutually exclusive with decimalMaximumDigits/g
+            /decimalDigits and decimalMaximumDigits are mutually exclusive/g
         );
     });
 

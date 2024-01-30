@@ -2,12 +2,7 @@ import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 import { NumberTextFormat } from '@ni/nimble-components/dist/esm/table-column/number-text/types';
 import { NumberTextUnitFormat } from '@ni/nimble-components/dist/esm/table-column/number-text/models/number-text-unit-format';
 import { passthroughUnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/passthrough-unit-scale';
-import { byteUnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/byte-unit-scale';
-import { byte1024UnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/byte-1024-unit-scale';
-import { voltUnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/volt-unit-scale';
 import type { UnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/unit-scale';
-
-export { byteUnitScale, byte1024UnitScale, voltUnitScale };
 
 /**
  * A pipe that transforms a number into a string with optional unit

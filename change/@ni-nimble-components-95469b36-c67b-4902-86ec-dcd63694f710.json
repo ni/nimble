@@ -1,6 +1,6 @@
 {
   "type": "none",
-  "comment": "Document new Angular number formatting pipes and update documentation of DurationPipe",
+  "comment": "Document new Angular number formatting pipe and update documentation of DurationPipe",
   "packageName": "@ni/nimble-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "none"

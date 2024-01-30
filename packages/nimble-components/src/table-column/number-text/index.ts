@@ -182,7 +182,11 @@ export class TableColumnNumberText extends TableColumnTextBase {
     private createFormatter(): UnitFormat {
         const unitScale = this.unit?.resolvedUnitScale;
         return new NumberTextUnitFormat(lang.getValueFor(this), {
-            numberTextFormat: this.format,
+            // Setting the `format` attribute to `undefined` (the value backing NumberTextFormat.default) removes
+            // the attribute, which results in the web component's property being set to `null`.
+            // See https://github.com/microsoft/fast/issues/6630.
+            // Work around this by translating `null` back to NumberTextFormat.default
+            numberTextFormat: this.format ?? NumberTextFormat.default,
             decimalDigits: this.decimalDigits,
             decimalMaximumDigits: this.decimalMaximumDigits,
             unitScale

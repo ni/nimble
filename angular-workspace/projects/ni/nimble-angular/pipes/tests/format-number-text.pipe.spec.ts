@@ -1,8 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { FormatNumberTextPipe, byteUnitScale } from '../format-number-text.pipe';
+import { FormatNumberTextPipe } from '../format-number-text.pipe';
 import { NumberTextFormat } from '../../table-column/number-text/nimble-table-column-number-text.directive';
+import { byteUnitScale } from '../public-api';
 
 describe('FormatNumberTextPipe', () => {
     const testCases: readonly {

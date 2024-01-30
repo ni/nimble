@@ -16,7 +16,7 @@ interface NumberTextUnitFormatOptions extends UnitFormatOptions {
 }
 
 /**
- * Format for decimal numbers with units.
+ * Format for numbers (with optional units) in a number-text table column.
  */
 export class NumberTextUnitFormat extends UnitFormat {
     private static readonly defaultDecimalDigits = 2;
@@ -41,7 +41,7 @@ export class NumberTextUnitFormat extends UnitFormat {
             const decimalMaximumDigitsHasValue = typeof decimalMaximumDigits === 'number';
             if (decimalDigitsHasValue && decimalMaximumDigitsHasValue) {
                 throw new Error(
-                    'decimalDigits is mutually exclusive with decimalMaximumDigits. Do not specify both.'
+                    'decimalDigits and decimalMaximumDigits are mutually exclusive. Do not specify both.'
                 );
             }
             const minimumFractionDigits = decimalMaximumDigitsHasValue
