@@ -1,5 +1,4 @@
 import { html } from '@microsoft/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,

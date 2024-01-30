@@ -2,7 +2,6 @@ import {
     DocsStory,
     Meta,
     Controls,
-    Stories,
     Title,
     Description
 } from '@storybook/blocks';
@@ -21,19 +20,17 @@ The `nimble-table-column-icon` column renders string, number, or boolean values 
 <DocsStory of={tableColumnIconStories.iconColumn} expanded={false} />
 <Controls of={tableColumnIconStories.iconColumn} />
 
-# Usage Docs
-
 ## Blazor Usage
 
 When setting a child mapping element's `Key` value to a string, you must wrap it in `@()` so that the compiler treats it as a string, e.g.
 `<NimbleMappingIcon Key=@("foo") ...>`
 
-# Icon Mapping
+## Icon Mapping
 
 <Description of={iconMappingStories} />
 <Controls of={iconMappingStories.iconMapping} />
 
-# Spinner Mapping
+## Spinner Mapping
 
 <Description of={spinnerMappingStories} />
 <Controls of={spinnerMappingStories.spinnerMapping} />

@@ -10,8 +10,6 @@ The `nimble-table-column-anchor` column is used to display string fields as link
 <DocsStory of={tableColumnAnchorStories.anchorColumn} expanded={false} />
 <Controls of={tableColumnAnchorStories.anchorColumn} />
 
-# Usage Docs
-
 ## Target Configuration
 
 <TargetDocs />
@@ -20,7 +18,7 @@ The `nimble-table-column-anchor` column is used to display string fields as link
 
 In an Angular app, you can configure a callback to intercept clicks so that you may invoke the router to perform the navigation instead of the default handler:
 
-```
+```html
 <nimble-table-column-anchor [navigationGuard]="doRouterNavigation">
     Link
 </nimble-table-column-anchor>
