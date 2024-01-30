@@ -43,8 +43,8 @@ export class DecimalUnitFormat extends UnitFormat<DecimalUnitFormatOptions> {
                 scaledUnit.scaledUnitFormatFactory({
                     locale,
                     // Hack to avoid a ts error about signDisplay not accepting the value 'negative'.
-                    // The value has been supported by browsers since 11/22, but TypeScript still hasn't
-                    // added it to the type definitions.
+                    // The value has been supported by browsers since 8/23, but TypeScript still hasn't
+                    // added it to the type definitions. See https://github.com/microsoft/TypeScript/issues/56269
                     intlNumberFormatOptions:
                         intlNumberFormatOptions as Intl.NumberFormatOptions
                 })

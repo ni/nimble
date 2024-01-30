@@ -5,7 +5,7 @@ import {
     ScaledUnit,
     ScaledUnitFormatFactoryOptions
 } from '../scaled-unit/scaled-unit';
-import { ScaledUnitFormat } from '../scaled-unit-format/scaled-unit-format';
+import { IntlNumberFormatScaledUnitFormat } from '../scaled-unit-format/intl-number-format-scaled-unit-format';
 import { UnitScale } from '../unit-scale/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
 
@@ -144,20 +144,15 @@ describe('DecimalUnitFormat', () => {
     });
 
     describe('with unit', () => {
-        class TestScaledUnitFormat extends ScaledUnitFormat {
-            private readonly formatter: Intl.NumberFormat;
+        class TestScaledUnitFormat extends IntlNumberFormatScaledUnitFormat {
             public constructor(
                 scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
                 private readonly scaleFactor: number
             ) {
-                super(scaledUnitFormatFactoryOptions);
-                this.formatter = new Intl.NumberFormat(
-                    this.locale,
-                    this.intlNumberFormatOptions
-                );
+                super(scaledUnitFormatFactoryOptions, {});
             }
 
-            public static createFactory(scaleFactor: number) {
+            public static createTestFactory(scaleFactor: number) {
                 return (
                     scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
                 ) => new TestScaledUnitFormat(
@@ -166,8 +161,8 @@ describe('DecimalUnitFormat', () => {
                 );
             }
 
-            public format(value: number): string {
-                return `${this.formatter.format(value)} x${this.scaleFactor}`;
+            public override format(value: number): string {
+                return `${super.format(value)} x${this.scaleFactor}`;
             }
         }
 
@@ -176,11 +171,17 @@ describe('DecimalUnitFormat', () => {
                 super([
                     new ScaledUnit(
                         0.001,
-                        TestScaledUnitFormat.createFactory(0.001)
+                        TestScaledUnitFormat.createTestFactory(0.001)
                     ),
-                    new ScaledUnit(1, TestScaledUnitFormat.createFactory(1)),
-                    new ScaledUnit(2, TestScaledUnitFormat.createFactory(2)),
-                    new ScaledUnit(4, TestScaledUnitFormat.createFactory(4))
+                    new ScaledUnit(
+                        1,
+                        TestScaledUnitFormat.createTestFactory(1)
+                    ),
+                    new ScaledUnit(
+                        2,
+                        TestScaledUnitFormat.createTestFactory(2)
+                    ),
+                    new ScaledUnit(4, TestScaledUnitFormat.createTestFactory(4))
                 ]);
             }
         }

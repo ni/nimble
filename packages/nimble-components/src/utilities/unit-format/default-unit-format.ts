@@ -3,8 +3,6 @@ import type { ScaledUnitFormat } from './scaled-unit-format/scaled-unit-format';
 import type { UnitScale } from './unit-scale/unit-scale';
 import { passthroughUnitScale } from './unit-scale/passthrough-unit-scale';
 
-type NumberStyle = 'default' | 'leadingZero' | 'exponential';
-
 /**
  * Format for numbers with units to show in a tabular form.
  * Large and tiny numbers are shown exponentially and the rest as decimal.
@@ -24,26 +22,15 @@ export class DefaultUnitFormat extends UnitFormat {
 
     private readonly unitScale: UnitScale;
 
-    // Format options to use by default. It renders the number with a maximum of 6 signficant digits.
+    // Format options to use by default. It renders the number with a maximum of 6 signficant digits (including zero before decimal point).
     private readonly defaultIntlNumberFormatOptions = {
         maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
+        maximumFractionDigits: DefaultUnitFormat.maximumDigits - 1,
+        roundingPriority: 'lessPrecision',
         signDisplay: 'negative'
     };
 
     private readonly defaultScaledUnitFormatters = new Map<
-    number,
-    ScaledUnitFormat
-    >();
-
-    // Format options to use for numbers that have leading zeros. It limits the number of rendered
-    // digits using 'maximumFractionDigits', which will result in less than 6 significant digits
-    // in order to render no more than 6 total digits.
-    private readonly leadingZeroIntlNumberFormatOptions = {
-        maximumFractionDigits: DefaultUnitFormat.maximumDigits - 1,
-        signDisplay: 'negative'
-    };
-
-    private readonly leadingZeroScaledUnitFormatters = new Map<
     number,
     ScaledUnitFormat
     >();
@@ -70,20 +57,12 @@ export class DefaultUnitFormat extends UnitFormat {
                 unit.scaleFactor,
                 unit.scaledUnitFormatFactory({
                     locale,
-                    // Hack to avoid a ts error about signDisplay not accepting the value 'negative'.
-                    // The value has been supported by browsers since 11/22, but TypeScript still hasn't
-                    // added it to the type definitions.
+                    // Hack to avoid ts errors about signDisplay not accepting the value 'negative' and
+                    // roundingPriority not being a known option.
+                    // These have both been supported by browsers since 8/23, but TypeScript still hasn't
+                    // added it to the type definitions. See https://github.com/microsoft/TypeScript/issues/56269
                     intlNumberFormatOptions: this
                         .defaultIntlNumberFormatOptions as Intl.NumberFormatOptions
-                })
-            );
-            this.leadingZeroScaledUnitFormatters.set(
-                unit.scaleFactor,
-                unit.scaledUnitFormatFactory({
-                    locale,
-                    // Same as above comment
-                    intlNumberFormatOptions: this
-                        .leadingZeroIntlNumberFormatOptions as Intl.NumberFormatOptions
                 })
             );
         }
@@ -105,47 +84,14 @@ export class DefaultUnitFormat extends UnitFormat {
     protected tryFormat(number: number): string {
         const { scaledValue, scaledUnit } = this.unitScale.scaleNumber(number);
 
-        const numberStyle = this.resolveNumberStyle(scaledValue);
-        switch (numberStyle) {
-            case 'default': {
-                const scaledUnitFormatter = this.defaultScaledUnitFormatters.get(
-                    scaledUnit.scaleFactor
-                )!;
-                return scaledUnitFormatter.format(scaledValue);
-            }
-            case 'leadingZero': {
-                const scaledUnitFormatter = this.leadingZeroScaledUnitFormatters.get(
-                    scaledUnit.scaleFactor
-                )!;
-                return scaledUnitFormatter.format(scaledValue);
-            }
-            case 'exponential': {
-                const scaledUnitFormatter = this.exponentialScaledUnitFormatter;
-                return scaledUnitFormatter.format(number);
-            }
-            default:
-                throw new Error('Unexpected number format style');
-        }
-    }
-
-    private resolveNumberStyle(number: number): NumberStyle {
-        if (number === 0) {
-            return 'default';
-        }
-
-        const absoluteValue = Math.abs(number);
-        if (
-            absoluteValue >= DefaultUnitFormat.exponentialUpperBound
-            || absoluteValue < DefaultUnitFormat.exponentialLowerBound
-        ) {
-            return 'exponential';
-        }
-        // Ideally, we could set 'roundingPriority: "lessPrecision"' with a formatter that has both 'maximumSignificantDigits' and
-        // 'maximumFractionDigits' configured instead of having two different formatters that we conditionally choose between. However,
-        // 'roundingPrioirty' is not supported yet in all browsers.
-        if (absoluteValue < 1) {
-            return 'leadingZero';
-        }
-        return 'default';
+        const absoluteValue = Math.abs(scaledValue);
+        const useExponential = absoluteValue !== 0
+            && (absoluteValue >= DefaultUnitFormat.exponentialUpperBound
+                || absoluteValue < DefaultUnitFormat.exponentialLowerBound);
+        return useExponential
+            ? this.exponentialScaledUnitFormatter.format(number)
+            : this.defaultScaledUnitFormatters
+                .get(scaledUnit.scaleFactor)!
+                .format(scaledValue);
     }
 }

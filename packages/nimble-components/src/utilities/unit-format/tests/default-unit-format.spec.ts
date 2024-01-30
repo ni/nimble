@@ -304,11 +304,6 @@ describe('DefaultUnitFormat', () => {
                 expectedFormattedValue: '2,000 x1000'
             },
             {
-                name: 'uses unit-scaled value when deciding whether to format with leading-zero formatter',
-                value: 0.123456789,
-                expectedFormattedValue: '12.3457 x0.01' // rather than '12.34568 x0.01'
-            },
-            {
                 name: 'always uses base unit if exponential notation is used',
                 value: 2000000000,
                 expectedFormattedValue: '2E9 x1' // rather than '2E6 x1000'
