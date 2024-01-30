@@ -78,7 +78,7 @@ export const styles = css`
     }
 
     .filter-field:before {
-        bottom: calc(${controlHeight} + ${smallPadding});
+        bottom: calc(${controlHeight} + ${smallPadding} - ${borderWidth});
     }
 
     .filter-field:not(.above)::after,
@@ -113,15 +113,9 @@ export const styles = css`
         height: ${controlHeight};
         display: inline-flex;
         align-items: center;
+        padding: ${smallPadding} ${mediumPadding} ${smallPadding} ${mediumPadding};
     }
 
-    .no-results-label.below {
-        padding: ${smallPadding} ${mediumPadding} 0 ${mediumPadding};
-    }
-
-    .no-results-label.above {
-        padding: 0 ${mediumPadding} ${smallPadding} ${mediumPadding};
-    }
 `.withBehaviors(
     appearanceBehavior(
         DropdownAppearance.block,
