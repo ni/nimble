@@ -195,7 +195,7 @@ describe('DecimalUnitFormat', () => {
                 expect(resolvedOptions.unitScale).toBe(passthroughUnitScale);
             });
 
-            it('minimum configured less than max default', () => {
+            it('minimum configured less than default maximum', () => {
                 const formatter = new DecimalUnitFormat('en', {
                     minimumFractionDigits: 1
                 });
@@ -205,7 +205,7 @@ describe('DecimalUnitFormat', () => {
                 expect(resolvedOptions.unitScale).toBe(passthroughUnitScale);
             });
 
-            it('minimum configured greater than max default', () => {
+            it('minimum configured greater than default maximum', () => {
                 const formatter = new DecimalUnitFormat('en', {
                     minimumFractionDigits: 10
                 });
@@ -218,13 +218,13 @@ describe('DecimalUnitFormat', () => {
             it('all configured', () => {
                 const unitScale = new TestUnitScale();
                 const formatter = new DecimalUnitFormat('en', {
-                    minimumFractionDigits: 20,
-                    maximumFractionDigits: 30,
+                    minimumFractionDigits: 10,
+                    maximumFractionDigits: 20,
                     unitScale
                 });
                 const resolvedOptions = formatter.resolvedOptions();
-                expect(resolvedOptions.minimumFractionDigits).toBe(20);
-                expect(resolvedOptions.maximumFractionDigits).toBe(30);
+                expect(resolvedOptions.minimumFractionDigits).toBe(10);
+                expect(resolvedOptions.maximumFractionDigits).toBe(20);
                 expect(resolvedOptions.unitScale).toBe(unitScale);
             });
         });
