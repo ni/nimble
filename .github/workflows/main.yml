@@ -112,12 +112,21 @@ jobs:
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
-      # Run Wafer Lighthouse audit (from any push)
+      # Run Wafer Lighthouse audit (only when wafermap changes)
+      - name: Check for changes in wafer-map directory
+        id: check_changes
+        run: |
+          if git diff ../../packages/nimble-components/src/wafer-map then
+            echo "CHANGES_FOUND=true" >> $GITHUB_ENV
+          else
+            echo "CHANGES_FOUND=false" >> $GITHUB_ENV
+        shell: bash
+
       - name: Wafermap Performance Audit with Lighthouse CI
-        if: env.HAS_LHCI_GITHUB_APP_TOKEN == 'true' && github.event_name == 'push'
+        if: env.HAS_LHCI_GITHUB_APP_TOKEN == 'true' && github.event_name == 'push' && env.CHANGES_FOUND == 'true'
         run: npm run wafer-performance
         env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+         LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
       # Check Changelog
       - run: npm run check
