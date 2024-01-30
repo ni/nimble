@@ -3,6 +3,8 @@ import type { ScaledUnitFormat } from './scaled-unit-format/scaled-unit-format';
 import type { UnitScale } from './unit-scale/unit-scale';
 import { passthroughUnitScale } from './unit-scale/passthrough-unit-scale';
 
+type SignDisplay = Intl.NumberFormatOptions['signDisplay'];
+
 /**
  * Format for numbers with units to show in a tabular form.
  * Large and tiny numbers are shown exponentially and the rest as decimal.
@@ -21,13 +23,14 @@ export class DefaultUnitFormat extends UnitFormat {
     private static readonly exponentialUpperBound = 999999.5;
 
     private readonly unitScale: UnitScale;
-
     // Format options to use by default. It renders the number with a maximum of 6 signficant digits (including zero before decimal point).
-    private readonly defaultIntlNumberFormatOptions = {
+    private readonly defaultIntlNumberFormatOptions: Intl.NumberFormatOptions = {
         maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
         maximumFractionDigits: DefaultUnitFormat.maximumDigits - 1,
-        roundingPriority: 'lessPrecision',
-        signDisplay: 'negative'
+        // Hack to avoid ts errors about signDisplay not accepting the value 'negative'.
+        // It has been supported by browsers since 8/23, but TypeScript still hasn't
+        // added it to the type definitions. See https://github.com/microsoft/TypeScript/issues/56269
+        signDisplay: 'negative' as SignDisplay
     };
 
     private readonly defaultScaledUnitFormatters = new Map<
@@ -37,10 +40,11 @@ export class DefaultUnitFormat extends UnitFormat {
 
     // Format options for numbers that should be displayed in exponential notation. This should be used
     // for numbers with magintudes over 'exponentialUpperBound' or under 'exponentialLowerBound'.
-    private readonly exponentialIntlNumberFormatOptions = {
+    private readonly exponentialIntlNumberFormatOptions: Intl.NumberFormatOptions = {
         maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
         notation: 'scientific',
-        signDisplay: 'negative'
+        // See comment above defaultIntlNumberFormatOptions.signDisplay
+        signDisplay: 'negative' as SignDisplay
     };
 
     private readonly exponentialScaledUnitFormatter: ScaledUnitFormat;
@@ -57,20 +61,20 @@ export class DefaultUnitFormat extends UnitFormat {
                 unit.scaleFactor,
                 unit.scaledUnitFormatFactory({
                     locale,
-                    // Hack to avoid ts errors about signDisplay not accepting the value 'negative' and
-                    // roundingPriority not being a known option.
-                    // These have both been supported by browsers since 8/23, but TypeScript still hasn't
+                    // Hack to avoid ts error about roundingPriority not being a known option.
+                    // It has been supported by browsers since 8/23, but TypeScript still hasn't
                     // added it to the type definitions. See https://github.com/microsoft/TypeScript/issues/56269
-                    intlNumberFormatOptions: this
-                        .defaultIntlNumberFormatOptions as Intl.NumberFormatOptions
+                    intlNumberFormatOptions: {
+                        ...this.defaultIntlNumberFormatOptions,
+                        roundingPriority: 'lessPrecision'
+                    } as Intl.NumberFormatOptions
                 })
             );
         }
         this.exponentialScaledUnitFormatter = unitScale.baseScaledUnit.scaledUnitFormatFactory({
             locale,
             // Same as above comment
-            intlNumberFormatOptions: this
-                .exponentialIntlNumberFormatOptions as Intl.NumberFormatOptions
+            intlNumberFormatOptions: this.exponentialIntlNumberFormatOptions
         });
         this.unitScale = unitScale;
     }
