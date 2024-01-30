@@ -19,15 +19,15 @@ const generateValue = (
     return value;
 };
 
-const generateTagValue = (valueGenerator: IValueGenerator): string => {
-    let value: string;
-    if (valueGenerator !== undefined) {
-        value = String.fromCharCode(Math.ceil(valueGenerator()));
-    } else {
-        value = String.fromCharCode(Math.random() * 100);
-    }
-    return value;
-};
+// const generateTagValue = (valueGenerator: IValueGenerator): string => {
+//     let value: string;
+//     if (valueGenerator !== undefined) {
+//         value = String.fromCharCode(Math.ceil(valueGenerator()));
+//     } else {
+//         value = String.fromCharCode(Math.random() * 100);
+//     }
+//     return value;
+// };
 
 export const generateDieContent = (
     x: number,
