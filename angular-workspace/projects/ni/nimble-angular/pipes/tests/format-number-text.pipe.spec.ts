@@ -6,57 +6,57 @@ import { NumberTextFormat } from '../../table-column/number-text/nimble-table-co
 import { byteUnitScale } from '../public-api';
 
 describe('FormatNumberTextPipe', () => {
-    const testCases: readonly {
-        name: string,
-        locale?: string,
-        unitScale?: typeof byteUnitScale,
-        value: number,
-        expected: string
-    }[] = [
+    const testCases = [
         {
             name: 'default formatting is as expected',
+            locale: 'en',
             value: 100,
-            expected: '100'
+            expected: '100',
+            options: undefined
         },
         {
             name: 'honors the unitScale value',
-            unitScale: byteUnitScale,
+            locale: 'en',
             value: 3000,
-            expected: '3 kB'
+            expected: '3 kB',
+            options: {
+                unitScale: byteUnitScale,
+            }
         },
         {
             name: 'honors the locale value',
             locale: 'de',
             value: 300.123,
-            expected: '300,123'
+            expected: '300,123',
+            options: undefined
         },
+        {
+            name: 'honors the decimalDigits value',
+            locale: 'en',
+            value: 100,
+            expected: '100.0',
+            options: {
+                numberTextFormat: NumberTextFormat.decimal,
+                decimalDigits: 1
+            }
+        },
+        {
+            name: 'honors the decimalMaximumDigits value',
+            locale: 'en',
+            value: 100.1234,
+            expected: '100.1',
+            options: {
+                numberTextFormat: NumberTextFormat.decimal,
+                decimalMaximumDigits: 1
+            }
+        }
     ] as const;
 
     parameterizeSpec(testCases, (spec, name, value) => {
         spec(name, () => {
-            const pipe = new FormatNumberTextPipe(value.locale ?? 'en');
-            expect(pipe.transform(value.value, {
-                unitScale: value.unitScale
-            })).toEqual(value.expected);
+            const pipe = new FormatNumberTextPipe(value.locale);
+            expect(pipe.transform(value.value, value.options)).toEqual(value.expected);
         });
-    });
-
-    // cannot be part of testCases, because of typing limitations
-    it('honors the decimalDigits value', () => {
-        const pipe = new FormatNumberTextPipe('en');
-        expect(pipe.transform(100, {
-            numberTextFormat: NumberTextFormat.decimal,
-            decimalDigits: 1
-        })).toEqual('100.0');
-    });
-
-    // cannot be part of testCases, because of typing limitations
-    it('honors the decimalMaximumDigits value', () => {
-        const pipe = new FormatNumberTextPipe('en');
-        expect(pipe.transform(100.1234, {
-            numberTextFormat: NumberTextFormat.decimal,
-            decimalMaximumDigits: 1
-        })).toEqual('100.1');
     });
 
     it('honors change to numberTextFormat argument in subsequent call to transform()', () => {
