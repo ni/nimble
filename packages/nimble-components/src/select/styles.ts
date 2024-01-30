@@ -78,7 +78,7 @@ export const styles = css`
     }
 
     .filter-field:before {
-        bottom: calc(${controlHeight} + ${smallPadding} + (2 * ${borderWidth}));
+        bottom: calc(${controlHeight} + ${smallPadding});
     }
 
     .filter-field:not(.above)::after,
