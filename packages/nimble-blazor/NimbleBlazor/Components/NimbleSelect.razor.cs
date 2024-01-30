@@ -14,14 +14,29 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     [Parameter]
     public string? Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets the disabled state of the select.
+    /// </summary>
     [Parameter]
     public bool? Disabled { get; set; }
 
+    /// <summary>
+    /// Gets or sets the select dropdown position.
+    /// </summary>
     [Parameter]
     public Position? Position { get; set; }
 
+    /// <summary>
+    /// Gets or sets the select appearance <see cref="DropdownAppearance"/>.
+    /// </summary>
     [Parameter]
     public DropdownAppearance? Appearance { get; set; }
+
+    /// <summary>
+    /// Gets or sets the select filter mode.
+    /// </summary>
+    [Parameter]
+    public FilterMode? FilterMode { get; set; }
 
     /// <summary>
     /// Gets or sets the select error text

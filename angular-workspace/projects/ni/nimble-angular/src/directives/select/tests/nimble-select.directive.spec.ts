@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { DropdownAppearance } from '../../../public-api';
-import { NimbleSelectDirective, Select } from '../nimble-select.directive';
+import { FilterMode, NimbleSelectDirective, Select } from '../nimble-select.directive';
 import { NimbleSelectModule } from '../nimble-select.module';
 
 describe('Nimble select', () => {
@@ -52,6 +52,11 @@ describe('Nimble select', () => {
             expect(nativeElement.appearance).toBe(DropdownAppearance.underline);
         });
 
+        it('has expected defaults for filterMode', () => {
+            expect(directive.filterMode).toBe(FilterMode.none);
+            expect(nativeElement.filterMode).toBe(FilterMode.none);
+        });
+
         it('has expected defaults for errorText', () => {
             expect(directive.errorText).toBeUndefined();
             expect(nativeElement.errorText).toBeUndefined();
@@ -80,6 +85,7 @@ describe('Nimble select', () => {
                 <nimble-select #select
                     disabled
                     appearance="${DropdownAppearance.block}"
+                    filter-mode="${FilterMode.standard}"
                     error-text="error text"
                     error-visible
                 >
@@ -116,6 +122,11 @@ describe('Nimble select', () => {
             expect(nativeElement.appearance).toBe(DropdownAppearance.block);
         });
 
+        it('will use template string values for filterMode', () => {
+            expect(directive.filterMode).toBe(FilterMode.standard);
+            expect(directive.filterMode).toBe(FilterMode.standard);
+        });
+
         it('will use template string values for errorText', () => {
             expect(directive.errorText).toBe('error text');
             expect(nativeElement.errorText).toBe('error text');
@@ -133,6 +144,7 @@ describe('Nimble select', () => {
                 <nimble-select #select
                     [disabled] = "disabled"
                     [appearance]="appearance"
+                    [filter-mode]="filterMode"
                     [error-text]="errorText"
                     [error-visible]="errorVisible"
                 >
@@ -144,6 +156,7 @@ describe('Nimble select', () => {
             @ViewChild('select', { read: ElementRef }) public elementRef: ElementRef<Select>;
             public disabled = false;
             public appearance: DropdownAppearance = DropdownAppearance.block;
+            public filterMode: FilterMode = FilterMode.standard;
             public errorText = 'initial value';
             public errorVisible = false;
         }
@@ -185,6 +198,17 @@ describe('Nimble select', () => {
             expect(nativeElement.appearance).toBe(DropdownAppearance.outline);
         });
 
+        it('can be configured with property binding for filterMode', () => {
+            expect(directive.filterMode).toBe(FilterMode.standard);
+            expect(nativeElement.filterMode).toBe(FilterMode.standard);
+
+            fixture.componentInstance.filterMode = FilterMode.none;
+            fixture.detectChanges();
+
+            expect(directive.filterMode).toBe(FilterMode.none);
+            expect(nativeElement.filterMode).toBe(FilterMode.none);
+        });
+
         it('can be configured with property binding for errorText', () => {
             expect(directive.errorText).toBe('initial value');
             expect(nativeElement.errorText).toBe('initial value');
@@ -214,6 +238,7 @@ describe('Nimble select', () => {
                 <nimble-select #select
                     [attr.disabled]="disabled"
                     [attr.appearance]="appearance"
+                    [attr.filter-mode]="filterMode"
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible"
                 >
@@ -225,6 +250,7 @@ describe('Nimble select', () => {
             @ViewChild('select', { read: ElementRef }) public elementRef: ElementRef<Select>;
             public disabled: BooleanValueOrAttribute = null;
             public appearance: DropdownAppearance = DropdownAppearance.block;
+            public filterMode: FilterMode = FilterMode.standard;
             public errorText = 'initial value';
             public errorVisible: BooleanValueOrAttribute = null;
         }
@@ -264,6 +290,17 @@ describe('Nimble select', () => {
 
             expect(directive.appearance).toBe(DropdownAppearance.outline);
             expect(nativeElement.appearance).toBe(DropdownAppearance.outline);
+        });
+
+        it('can be configured with attribute binding for filterMode', () => {
+            expect(directive.filterMode).toBe(FilterMode.standard);
+            expect(nativeElement.filterMode).toBe(FilterMode.standard);
+
+            fixture.componentInstance.filterMode = FilterMode.none;
+            fixture.detectChanges();
+
+            expect(directive.filterMode).toBe(FilterMode.none);
+            expect(nativeElement.filterMode).toBe(FilterMode.none);
         });
 
         it('can be configured with attribute binding for errorText', () => {

@@ -77,6 +77,23 @@ public class NimbleSelectTests
         Assert.Contains(expectedAttribute, select.Markup);
     }
 
+    [Fact]
+    public void Select_FilterModeStandardIsSet()
+    {
+        var expectedContents = "filter-mode=\"standard\"";
+        var breadcrumb = RenderWithPropertySet(x => x.FilterMode, FilterMode.Standard);
+
+        Assert.Contains(expectedContents, breadcrumb.Markup);
+    }
+
+    [Fact]
+    public void Select_FilterModeNoneIsSet()
+    {
+        var breadcrumb = RenderWithPropertySet(x => x.FilterMode, FilterMode.None);
+
+        Assert.DoesNotContain("filter-mode", breadcrumb.Markup);
+    }
+
     private IRenderedComponent<NimbleSelect> RenderWithPropertySet<TProperty>(Expression<Func<NimbleSelect, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
