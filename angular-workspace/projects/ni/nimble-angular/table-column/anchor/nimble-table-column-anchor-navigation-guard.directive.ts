@@ -1,7 +1,7 @@
 import { Directive, HostListener, Input } from '@angular/core';
 import type { TableColumnAnchorCellView } from '@ni/nimble-components/dist/esm/table-column/anchor/cell-view';
 
-export type NavigationGuard = (rowRecordId: string | undefined) => boolean;
+export type NavigationGuard = (rowRecordId: string | undefined, href: string) => boolean;
 
 /**
  * Directive to allow client to intercept anchor clicks and do router navigation instead of
@@ -42,7 +42,7 @@ export class NimbleTableColumnAnchorNavigationGuardDirective {
             return;
         }
 
-        if (this.navigationGuard && !this.navigationGuard(recordId)) {
+        if (this.navigationGuard && !this.navigationGuard(recordId, href)) {
             clickEvent.preventDefault();
         }
     }
