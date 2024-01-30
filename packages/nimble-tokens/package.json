@@ -49,8 +49,5 @@
     "dist/styledictionary/scss/**",
     "dist/fonts/**",
     "dist/icons/js/**"
-  ],
-  "dependencies": {
-    "@11ty/eleventy": "2.0.1"
-  }
+  ]
 }
