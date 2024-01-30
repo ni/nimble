@@ -409,14 +409,11 @@ export class Select extends FoundationSelect implements ErrorPattern {
     }
 
     private updateSelectedIndexFromFilteredSet(): void {
-        if (
-            !this.options[this.selectedIndex]
-            && !this.committedSelectedOption
-        ) {
+        const selectedItem = this.options[this.selectedIndex] ?? this.committedSelectedOption;
+        
+        if (!selectedItem) {
             return;
         }
-
-        const selectedItem = this.options[this.selectedIndex] ?? this.committedSelectedOption!;
         // Clear filter and re-filter options so any logic resolving against 'this.options'
         // resolves against all options, since selectedIndex should be relative to entire set.
         this.filter = '';
