@@ -13,12 +13,10 @@ namespace NimbleBlazor.Tests.Acceptance
         [Fact]
         public async Task WaferMap_RendersCircleAsync()
         {
-            await using (var pageWrapper = await NewPageForRouteAsync("WaferMapRendersCircle"))
-            {
-                var page = pageWrapper.Page;
-                var waferMap = page.Locator("nimble-wafer-map");
-                await Assertions.Expect(waferMap).ToBeVisibleAsync();
-            }
+            await using var pageWrapper = await NewPageForRouteAsync("WaferMapRendersCircle");
+            var page = pageWrapper.Page;
+            var bytes = await page.Locator("canvas").ScreenshotAsync();
+            Assert.Equal(bytes, await File.ReadAllBytesAsync("../../../WaferMapRendersCircle.png"));
         }
     }
 }
