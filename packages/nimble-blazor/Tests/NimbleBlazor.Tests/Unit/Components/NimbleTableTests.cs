@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Security.Principal;
 using System.Text.Json;
 using Bunit;
 using Xunit;
@@ -62,6 +63,15 @@ public class NimbleTableTests
         var table = RenderWithPropertySet<string, TableRowData>(x => x.IdFieldName!, "FirstName");
 
         var expectedMarkup = @"id-field-name=""FirstName""";
+        Assert.Contains(expectedMarkup, table.Markup);
+    }
+
+    [Fact]
+    public void NimbleTable_WithParentIdFieldNameAttribute_HasTableMarkup()
+    {
+        var table = RenderWithPropertySet<string, TableRowData>(x => x.ParentIdFieldName!, "FirstName");
+
+        var expectedMarkup = @"parent-id-field-name=""FirstName""";
         Assert.Contains(expectedMarkup, table.Markup);
     }
 

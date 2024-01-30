@@ -219,7 +219,7 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Table</div>
-            <NimbleTable IdFieldName="Id" @bind-Data="TableData" SelectionMode="TableRowSelectionMode.Multiple" class="table">
+            <NimbleTable IdFieldName="Id" ParentIdFieldName="ParentId" @bind-Data="TableData" SelectionMode="TableRowSelectionMode.Multiple" class="table">
                 <NimbleTableColumnText
                     FieldName="StringValue1"
                     ActionMenuSlot="action-menu"
