@@ -113,9 +113,9 @@ export const styles = css`
         height: ${controlHeight};
         display: inline-flex;
         align-items: center;
-        padding: ${smallPadding} ${mediumPadding} ${smallPadding} ${mediumPadding};
+        padding: ${smallPadding} ${mediumPadding} ${smallPadding}
+            ${mediumPadding};
     }
-
 `.withBehaviors(
     appearanceBehavior(
         DropdownAppearance.block,
