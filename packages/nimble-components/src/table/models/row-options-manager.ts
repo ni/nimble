@@ -1,5 +1,4 @@
-import { TableRecord, TableRecordDelayedHierarchyState, type TableRecordHierarchyOptions } from '../types';
-import type { TableValidator } from './table-validator';
+import { TableRecordDelayedHierarchyState, type TableRecordHierarchyOptions } from '../types';
 
 /**
  * Manages the options that have been configured on a row.

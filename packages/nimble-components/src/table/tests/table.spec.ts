@@ -1654,7 +1654,10 @@ describe('Table', () => {
                 ).toBeTrue();
 
                 // Set the data to have duplicate record ids and then reset it to the original data
-                await element.setData([{ id: 'duplicate', parentId: undefined, stringData: 'a'}, { id: 'duplicate', parentId: undefined, stringData: 'b'}]);
+                await element.setData([
+                    { id: 'duplicate', parentId: undefined, stringData: 'a' },
+                    { id: 'duplicate', parentId: undefined, stringData: 'b' }
+                ]);
                 await element.setData(hierarchicalData);
                 await waitForUpdatesAsync();
 
