@@ -1214,8 +1214,10 @@ describe('RichTextEditorMentionListbox', () => {
             await pageObject.setEditorTextContent('@');
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
 
+            // prettier-ignore
             // eslint-disable-next-line no-console
             console.log('Selection:', window.getSelection());
+            // prettier-ignore
             // eslint-disable-next-line no-console
             console.log('collapseToEnd:', window.getSelection()?.collapseToEnd());
 
