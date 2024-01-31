@@ -50,13 +50,17 @@ const simpleTableData = [
     }
 ] as const;
 
-const largeTableData = Array.from(Array(500), (_, i) => {
-    return {
-        stringData: `string ${i}`,
-        numericData: i,
-        moreStringData: 'foo'
-    };
-});
+function createLargeData(dataLength: number): SimpleTableRecord[] {
+    return Array.from(Array(dataLength), (_, i) => {
+        return {
+            stringData: `string ${i}`,
+            numericData: i,
+            moreStringData: 'foo'
+        };
+    });
+}
+
+const largeTableData = createLargeData(500);
 
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
@@ -1450,6 +1454,141 @@ describe('Table', () => {
             await waitForUpdatesAsync();
             expect(element.checkValidity()).toBeTrue();
             expect(element.validity.invalidColumnConfiguration).toBeFalse();
+        });
+    });
+
+    describe('detaching and reattaching', () => {
+        let element: Table<SimpleTableRecord>;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+        let pageObject: TablePageObject<SimpleTableRecord>;
+        const largeData200 = createLargeData(200);
+        const largeData400 = createLargeData(400);
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            element.idFieldName = 'stringData';
+            await connect();
+            pageObject = new TablePageObject(element);
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        function getFirstRenderedRowDataIndex(
+            data: readonly SimpleTableRecord[]
+        ): number {
+            const lastRenderedRowId = pageObject.getRecordId(0);
+            return data.findIndex(x => x.stringData === lastRenderedRowId);
+        }
+
+        async function setDataAndScrollToBottom(
+            data: readonly SimpleTableRecord[]
+        ): Promise<void> {
+            await element.setData(data);
+            await waitForUpdatesAsync();
+            await pageObject.scrollToLastRowAsync();
+        }
+
+        async function disconnectAndReconnect(
+            updatesWhileDisconnected: {
+                data?: readonly SimpleTableRecord[],
+                height?: string
+            } = { data: undefined, height: undefined }
+        ): Promise<void> {
+            await disconnect();
+            if (updatesWhileDisconnected.data !== undefined) {
+                await element.setData(updatesWhileDisconnected.data);
+            }
+            if (updatesWhileDisconnected.height) {
+                element.style.height = updatesWhileDisconnected.height;
+            }
+            await connect();
+            await waitForUpdatesAsync();
+        }
+
+        it('maintains scroll position if data does not change', async () => {
+            await setDataAndScrollToBottom(largeData200);
+            const scrollTopBeforeDisconnect = element.viewport.scrollTop;
+            const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData200);
+
+            await disconnectAndReconnect();
+
+            expect(element.viewport.scrollTop).toBe(scrollTopBeforeDisconnect);
+            const firstRenderedRowAfterReconnect = getFirstRenderedRowDataIndex(largeData200);
+            expect(firstRenderedRowAfterReconnect).toBe(
+                firstRenderedRowBeforeDisconnect
+            );
+        });
+
+        it('updates scroll position if data length is reduced while not attached', async () => {
+            await setDataAndScrollToBottom(largeData400);
+            const scrollTopBeforeDisconnect = element.viewport.scrollTop;
+            const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData400);
+
+            await disconnectAndReconnect({ data: largeData200 });
+
+            expect(element.viewport.scrollTop).toBeGreaterThan(0);
+            expect(element.viewport.scrollTop).toBeLessThan(
+                scrollTopBeforeDisconnect
+            );
+            const firstRenderedRowAfterReconnect = getFirstRenderedRowDataIndex(largeData200);
+            expect(firstRenderedRowAfterReconnect).toBeGreaterThan(0);
+            expect(firstRenderedRowAfterReconnect).toBeLessThan(
+                firstRenderedRowBeforeDisconnect
+            );
+        });
+
+        it('maintains scroll position if data length is increased while not attached', async () => {
+            await setDataAndScrollToBottom(largeData200);
+            const scrollTopBeforeDisconnect = element.viewport.scrollTop;
+            const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData200);
+
+            await disconnectAndReconnect({ data: largeData400 });
+
+            expect(element.viewport.scrollTop).toBe(scrollTopBeforeDisconnect);
+            const firstRenderedRowAfterReconnect = getFirstRenderedRowDataIndex(largeData400);
+            expect(firstRenderedRowAfterReconnect).toBe(
+                firstRenderedRowBeforeDisconnect
+            );
+        });
+
+        it('updates scroll position if data is cleared while not attached', async () => {
+            await setDataAndScrollToBottom(largeData200);
+
+            await disconnectAndReconnect({ data: [] });
+
+            expect(element.viewport.scrollTop).toBe(0);
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+        });
+
+        it('adjusts the number of rendered rows when the table height increases while not attached', async () => {
+            element.style.height = '500px';
+            await element.setData(largeData200);
+            await waitForUpdatesAsync();
+            const renderedRowCountBeforeDisconnect = pageObject.getRenderedRowCount();
+
+            await disconnectAndReconnect({ height: '700px' });
+
+            const renderedRowCountAfterReconnect = pageObject.getRenderedRowCount();
+            expect(renderedRowCountAfterReconnect).toBeGreaterThan(
+                renderedRowCountBeforeDisconnect
+            );
+        });
+
+        it('adjusts the number of rendered rows when the table height decreases while not attached', async () => {
+            element.style.height = '500px';
+            await element.setData(largeData200);
+            await waitForUpdatesAsync();
+            const renderedRowCountBeforeDisconnect = pageObject.getRenderedRowCount();
+
+            await disconnectAndReconnect({ height: '200px' });
+
+            const renderedRowCountAfterReconnect = pageObject.getRenderedRowCount();
+            expect(renderedRowCountAfterReconnect).toBeLessThan(
+                renderedRowCountBeforeDisconnect
+            );
         });
     });
 });

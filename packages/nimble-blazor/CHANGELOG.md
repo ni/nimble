@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 22 Jan 2024 21:39:06 GMT and should not be manually modified.
+This log was last generated on Sat, 27 Jan 2024 17:56:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 13.2.0
+
+Sat, 27 Jan 2024 17:56:18 GMT
+
+### Minor changes
+
+- Adding Blazor support for table data hierarchy ([ni/nimble@39bd1f8](https://github.com/ni/nimble/commit/39bd1f821cd5394c75187abbcf3c3dcc9b3a1572))
+
+## 13.1.4
+
+Wed, 24 Jan 2024 00:57:02 GMT
+
+### Patches
+
+- Updating package versions ([ni/nimble@cb516b7](https://github.com/ni/nimble/commit/cb516b7b5b7334d2ef30319b8f8c483df214c81e))
 
 ## 13.1.0
 
