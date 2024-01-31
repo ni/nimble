@@ -1,10 +1,4 @@
-import {
-    DocsStory,
-    Meta,
-    Controls,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
 import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
 import { NimbleButton } from './button.react';
 import { NimbleIconKey } from '../../icons/tests/key.react';
@@ -13,7 +7,13 @@ import * as buttonStories from './button.stories';
 
 <Meta of={buttonStories} />
 <Title of={buttonStories} />
-<Description of={buttonStories} />
+
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/) - A button is a widget that
+enables users to trigger an action or event, such as submitting a form, opening a dialog, canceling an
+action, or performing a delete operation.
+
+If you want a button that triggers navigation to a URL, use the `nimble-anchor-button` instead.
+
 <DocsStory of={buttonStories.outlineButton} expanded={false} />
 <Controls of={buttonStories.outlineButton} />
 
