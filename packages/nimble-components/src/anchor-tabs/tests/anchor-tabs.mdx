@@ -1,12 +1,6 @@
-import {
-    Controls,
-    DocsStory,
-    Meta,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Controls, DocsStory, Meta, Title } from '@storybook/blocks';
 import TargetDocs from '../../patterns/anchor/tests/target-docs.mdx';
+import { anchorTabTag } from '../../anchor-tab';
 import * as anchorTabsStories from './anchor-tabs.stories';
 
 <Meta of={anchorTabsStories} />
@@ -36,7 +30,7 @@ tab panels hosted on the same page.
 ## Angular Usage
 
 In an Angular application, it is common to integrate with the router by setting `nimbleRouterLink` (rather than `href`)
-on each `nimble-anchor-tab` element. In those cases, it is recommended to also set `replaceUrl="true"` so that switching
+on each <code>{anchorTabTag}</code> element. In those cases, it is recommended to also set `replaceUrl="true"` so that switching
 between tabs does not add to the browser history.
 
 {/* ## Accessibility */}

@@ -2,11 +2,11 @@ import {
     Controls,
     DocsStory,
     Meta,
-    Stories,
     Title,
     Description
 } from '@storybook/blocks';
 import * as comboboxStories from './combobox.stories';
+import { listOptionTag } from '../../list-option/';
 
 <Meta of={comboboxStories} />
 
@@ -26,11 +26,11 @@ import * as comboboxStories from './combobox.stories';
 
 ### Native element and Blazor
 
-The value of the combobox comes from the text content of the selected autocomplete `nimble-list-option`, or, if no matching autocomplete is found, the value is the user-entered text.
+The value of the combobox comes from the text content of the selected autocomplete <code>{listOptionTag}</code>, or, if no matching autocomplete is found, the value is the user-entered text.
 
 ### Angular
 
-In Angular, an autocomplete `nimble-list-option` can be created with an `ngValue`. In that case the `ngModel` of the combobox will be the `ngValue` of the matched autocomplete option.
+In Angular, an autocomplete <code>{listOptionTag}</code> can be created with an `ngValue`. In that case the `ngModel` of the combobox will be the `ngValue` of the matched autocomplete option.
 If no matching autocomplete option is found, the `ngModel` of the combobox will be set to `OPTION_NOT_FOUND`, and if the application needs to access the user-entered text, that should be done
 through the `value` property on the `NimbleComboboxDirective`.
 
