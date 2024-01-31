@@ -5,6 +5,11 @@ import { passthroughUnitScale } from './unit-scale/passthrough-unit-scale';
 
 type NumberStyle = 'default' | 'leadingZero' | 'exponential';
 
+// Allow consistent pattern for defining Options and ResolvedOptions
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface DefaultUnitFormatOptions extends UnitFormatOptions {}
+type ResolvedDefaultUnitFormatOptions = Required<DefaultUnitFormatOptions>;
+
 /**
  * Format for numbers with units to show in a tabular form.
  * Large and tiny numbers are shown exponentially and the rest as decimal.
@@ -59,7 +64,7 @@ export class DefaultUnitFormat extends UnitFormat {
 
     public constructor(
         locale: string,
-        { unitScale = passthroughUnitScale }: UnitFormatOptions = {
+        { unitScale = passthroughUnitScale }: DefaultUnitFormatOptions = {
             unitScale: passthroughUnitScale
         }
     ) {
@@ -88,7 +93,7 @@ export class DefaultUnitFormat extends UnitFormat {
         this.unitScale = unitScale;
     }
 
-    public override resolvedOptions(): Required<UnitFormatOptions> {
+    public override resolvedOptions(): ResolvedDefaultUnitFormatOptions {
         return {
             unitScale: this.unitScale
         };
