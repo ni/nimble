@@ -58,7 +58,7 @@ import { InteractiveSelectionManager } from './models/interactive-selection-mana
 import { DataHierarchyManager } from './models/data-hierarchy-manager';
 import { ExpansionManager } from './models/expansion-manager';
 import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
-import { RowOptionsManager } from './models/row-options-manager';
+import { RowHierarchyOptionsManager } from './models/row-hierarchy-options-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -224,7 +224,7 @@ export class Table<
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly tableValidator = new TableValidator<TData>();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
-    private readonly rowOptionsManager = new RowOptionsManager();
+    private readonly rowHierarchyOptionsManager = new RowHierarchyOptionsManager();
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private dataHierarchyManager?: DataHierarchyManager<TData>;
     private readonly expansionManager: ExpansionManager<TData>;
@@ -276,7 +276,7 @@ export class Table<
         );
         this.expansionManager = new ExpansionManager(
             this.table,
-            this.rowOptionsManager
+            this.rowHierarchyOptionsManager
         );
     }
 
@@ -286,7 +286,7 @@ export class Table<
         this.updateTableOptions(tanstackUpdates);
 
         if (this.tableValidator.areRecordIdsValid()) {
-            this.rowOptionsManager.handleDataChange(this.tableValidator.getAllRecordIds());
+            this.rowHierarchyOptionsManager.handleDataChange(this.tableValidator.getAllRecordIds());
         }
     }
 
@@ -325,7 +325,7 @@ export class Table<
         const recordIds = this.tableValidator.getAllRecordIds();
         const presentOptions = rowHierarchyOptions
             .filter(option => recordIds.has(option.id));
-        this.rowOptionsManager.setHierarchyOptions(presentOptions);
+        this.rowHierarchyOptionsManager.setOptions(presentOptions);
         this.refreshRows();
     }
 
@@ -799,7 +799,7 @@ export class Table<
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
             updatedOptions.state.rowSelection = {};
             this.selectionManager.handleSelectionReset();
-            this.rowOptionsManager.reset();
+            this.rowHierarchyOptionsManager.reset();
         }
         if (this.tableUpdateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;

@@ -1,12 +1,12 @@
 import { TableRecordDelayedHierarchyState, type TableRecordHierarchyOptions } from '../types';
 
 /**
- * Manages the options that have been configured on a row.
+ * Manages the hierarchy options that have been configured on a row.
  */
-export class RowOptionsManager {
+export class RowHierarchyOptionsManager {
     private readonly options = new Map<string, TableRecordHierarchyOptions>();
 
-    public setHierarchyOptions(hierarchyOptions: { id: string, options: TableRecordHierarchyOptions }[]): void {
+    public setOptions(hierarchyOptions: { id: string, options: TableRecordHierarchyOptions }[]): void {
         this.options.clear();
 
         for (const { id, options } of hierarchyOptions) {

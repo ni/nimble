@@ -31,11 +31,11 @@ interface TableArgs extends LabelUserArgs {
     getSelectedRecordIds: undefined;
     tableRef: Table;
     updateData: (args: TableArgs) => void;
-    addDynamicChildrenIfNeeded: (
+    addDelayedChildrenIfNeeded: (
         args: TableArgs,
         event: CustomEvent<TableRowExpansionToggleEventDetail>
     ) => void;
-    processedDynamicParentExpansion: boolean;
+    processedDelayedParentExpansion: boolean;
 }
 
 const simpleData = [
@@ -234,21 +234,23 @@ const setSelectedRecordIdsDescription = `A function that makes the rows associat
 If a record does not exist in the table's data, it will not be selected. If multiple record IDs are specified when the table's selection
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
-const setRowOptionsDescription = `A function to set options on a row. This information is provided as an array of recordId/\`TableRowOptions\` pairs.
+const setRecordHierarchyOptionsDescription = `A function to set hierarchy options for a data record. This information is provided as an array of recordId/\`TableRecordHierarchyOptions\` pairs.
 
-**Note:** The feature to lazy load child rows is still in development, so it should not be used yet in production. Specifically, the feature to
+**Note:** The feature for delayed hierarchy is still in development, so it should not be used yet in production. Specifically, the feature to
 show a loading indicator while the child rows are being loaded has not been implemented. Therefore, the user experience is not optimal.
 
 
 <details>
     <summary>Behavior specifics</summary>
-    - previously set row options will be cleared when \`setData\` is called
-    - previously set row options will be cleared with the table's \`id-field-name\` changes
-    - an option associated with a row ID that does not match a record in the data will be ignored
-    - calling \`setRowOptions\` when row options have already been set on the table will have the following behavior:
-        - existing options not passed in the new \`rowOptions\` array will be left unmodified
-        - existing options passed in the new \`rowOptions\` array will be overwritten
-</details>`;
+    - all options will be cleared when the table's \`idFieldName\` changes
+    - an option passed to \`setRecordHierarchyOptions\` with an ID that does not match a record in the data will be ignored
+    - the options passed to \`setRecordHierarchyOptions\` will override any options previously set to become the complete set of options configured on the table
+    - all options will be ignored if \`parentIdFieldName\` is not configured on the table
+    - the table will not render delayed hierarchy state (loading or expandable) if the table's \`parentIdFieldName\` is not configured; however, the options will remain cached within the table if the \`parentIdFieldName\` becomes \`undefined\`, and that cached configuration will render in the table if the table's \`parentIdFieldName\` is changed back to a non-\`undefined\` value
+    - calling \`setData\` will clear options associated with IDs that are no longer present in the data
+    - a row with no children and a \`delayedHierarchyState\` of \`canLoadChildren\` will always be collapsed
+</details>
+`;
 
 const metadata: Meta<TableArgs> = {
     title: 'Components/Table',
@@ -277,7 +279,7 @@ const metadata: Meta<TableArgs> = {
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
-            @row-expand-toggle="${(x, c) => x.addDynamicChildrenIfNeeded(x, c.event as CustomEvent<TableRowExpansionToggleEventDetail>)}"
+            @row-expand-toggle="${(x, c) => x.addDelayedChildrenIfNeeded(x, c.event as CustomEvent<TableRowExpansionToggleEventDetail>)}"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
@@ -381,9 +383,9 @@ const metadata: Meta<TableArgs> = {
                 'A function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.',
             control: false
         },
-        addDynamicChildrenIfNeeded: {
-            name: 'setRowOptions()',
-            description: setRowOptionsDescription,
+        addDelayedChildrenIfNeeded: {
+            name: 'setRecordHierarchyOptions()',
+            description: setRecordHierarchyOptionsDescription,
             control: false
         },
         tableRef: {
@@ -396,7 +398,7 @@ const metadata: Meta<TableArgs> = {
                 disable: true
             }
         },
-        processedDynamicParentExpansion: {
+        processedDelayedParentExpansion: {
             table: {
                 disable: true
             }
@@ -420,16 +422,16 @@ const metadata: Meta<TableArgs> = {
                 ]);
             })();
         },
-        addDynamicChildrenIfNeeded: (x, e) => {
+        addDelayedChildrenIfNeeded: (x, e) => {
             if (x.data !== ExampleDataType.hierarchicalDataSet
                 || e.detail.recordId !== '9'
                 || e.detail.newState !== true
-                || x.processedDynamicParentExpansion
+                || x.processedDelayedParentExpansion
             ) {
                 return;
             }
 
-            x.processedDynamicParentExpansion = true;
+            x.processedDelayedParentExpansion = true;
 
             setTimeout(() => {
                 const newData = [

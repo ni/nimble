@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Extend nimble-table API to allow specifying that a record has lazy loaded children",
+  "comment": "Extend nimble-table API to allow specifying that a record has children that can be loaded when the row is expanded",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"

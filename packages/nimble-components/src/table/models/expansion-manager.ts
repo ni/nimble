@@ -3,7 +3,7 @@ import type {
     Table as TanStackTable
 } from '@tanstack/table-core';
 import type { TableNode, TableRecord } from '../types';
-import type { RowOptionsManager } from './row-options-manager';
+import type { RowHierarchyOptionsManager } from './row-hierarchy-options-manager';
 
 /**
  * Manages the expanded/collapsed state of rows in the table.
@@ -25,7 +25,7 @@ export class ExpansionManager<TData extends TableRecord> {
 
     public constructor(
         private readonly tanStackTable: TanStackTable<TableNode<TData>>,
-        private readonly rowOptionsManager: RowOptionsManager
+        private readonly rowHierarchyOptionsManager: RowHierarchyOptionsManager
     ) {}
 
     public isRowExpanded(row: TanStackRow<TableNode<TData>>): boolean {
@@ -92,7 +92,7 @@ export class ExpansionManager<TData extends TableRecord> {
     public isRowExpandable(row: TanStackRow<TableNode<TData>>): boolean {
         return (
             row.subRows.length > 0
-            || this.rowOptionsManager.canLoadDelayedChildren(row.id)
+            || this.rowHierarchyOptionsManager.canLoadDelayedChildren(row.id)
         );
     }
 }
