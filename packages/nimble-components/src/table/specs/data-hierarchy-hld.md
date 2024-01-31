@@ -95,6 +95,7 @@ Some notes about the `setRecordHierarchyOptions` API:
 -   all options will be ignored if `parentIdFieldName` is not configured on the table
 -   the table will not render delayed hierarchy state (loading or expandable) if the table's `parentIdFieldName` is not configured; however, the options will remain cached within the table if the `parentIdFieldName` becomes `undefined`, and that cached configuration will render in the table if the table's `parentIdFieldName` is changed back to a non-`undefined` value
 -   calling `setData` will clear options associated with IDs that are no longer present in the data
+-   a row with no children and a `delayedHierarchyState` of `canLoadChildren` will always be collapsed
 
 The expected usage of the dynamically loaded hierarchy is as follows:
 
@@ -207,7 +208,6 @@ Each record passed to the table could have a boolean field that indicates whethe
 
 The table could have a generic `setRowOptions` function instead of `setRecordHierarchyOptions`. The options set through that function could include delayed hierarchy information but also be extended easily in the future to include additional options. `setRecordHierarchyOptions` was chosen over a more generic `setRowOptions` function for the following reasons:
 
--   Hierarchy options should be cleared when `parentIdFieldName` changes, but it doesn't make sense to clear non-hierarchical options in that case.
 -   Hierarchy options should not be configurable without `parentIdFieldName` set, but it would be more complex to prevent a client from trying to configure hierarchy options if they are coupled with other row options.
 -   Clients that are not using hierarchy in their table should be able to easily ignore the hierarchy options. Therefore, they shouldn't need to worry about setting default values for hierarchy state when configuring other row options.
 -   `setRowOptions` can be added in the future, if desired, and it can contain more generic row options.
