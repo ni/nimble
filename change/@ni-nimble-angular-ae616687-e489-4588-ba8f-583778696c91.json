@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add validator APIs to rich text editor and viewer components",
-  "packageName": "@ni/nimble-angular",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

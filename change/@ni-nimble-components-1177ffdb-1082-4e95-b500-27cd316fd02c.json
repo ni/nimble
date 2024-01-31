@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add validator, tracker and batch updates in rich text components for mention configuration",
-  "packageName": "@ni/nimble-components",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
