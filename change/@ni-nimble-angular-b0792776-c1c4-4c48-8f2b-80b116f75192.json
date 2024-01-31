@@ -1,5 +1,5 @@
 {
-  "type": "major",
+  "type": "minor",
   "comment": "Include href in NavigationGuard",
   "packageName": "@ni/nimble-angular",
   "email": "20542556+mollykreis@users.noreply.github.com",
