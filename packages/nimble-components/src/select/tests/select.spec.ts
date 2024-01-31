@@ -151,7 +151,7 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('pressing Esc after navigating to new option in dropdown reverts to original selected option', async () => {
+    it('pressing Esc after navigating to new option in dropdown maintains original selected option', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const pageObject = new SelectPageObject(element);
@@ -164,6 +164,18 @@ describe('Select', () => {
         await waitForUpdatesAsync();
 
         expect(element.value).toBe('one');
+        await disconnect();
+    });
+
+    it('navigating between options in dropdown does not update display value', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const pageObject = new SelectPageObject(element);
+        await pageObject.clickSelect();
+        pageObject.pressArrowDownKey();
+        await waitForUpdatesAsync();
+
+        expect(element.displayValue).toBe('One');
         await disconnect();
     });
 
