@@ -5,14 +5,17 @@ import {
     Title,
     Description
 } from '@storybook/blocks';
+import { Tag } from '../../../../.storybook/blocks/StoryLayout';
 import { columnOperationBehavior } from '../../base/tests/table-column-stories-utils';
 import * as tableColumnEnumTextStories from './table-column-enum-text.stories';
 import * as textMappingStories from '../../../mapping/text/tests/mapping-text.stories';
+import { tableColumnEnumTextTag } from '../';
+import { tableTag } from '../../../table';
 
 <Meta of={tableColumnEnumTextStories} />
 <Title of={tableColumnEnumTextStories} />
 
-The `nimble-table-column-enum-text` column renders string, number, or boolean values as mapped text in the `nimble-table`.
+The <Tag name={tableColumnEnumTextTag}/> column renders string, number, or boolean values as mapped text in the <Tag name={tableTag}/>.
 
 <p>{columnOperationBehavior}</p>
 

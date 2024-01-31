@@ -1,11 +1,12 @@
 import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import * as spinnerStories from './spinner.stories';
+import { spinnerTag } from '..';
 
 <Meta of={spinnerStories} />
-
 <Title of={spinnerStories} />
 
-    The `nimble-spinner` is an animating indicator that can be placed in a
+    The <Tag name={spinnerTag}/> is an animating indicator that can be placed in a
     particular region of a page to represent loading progress, or an
     ongoing operation, of an indeterminate / unknown duration.
 

@@ -1,8 +1,10 @@
 import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
 import { NimbleButton } from './button.react';
 import { NimbleIconKey } from '../../icons/tests/key.react';
 import { buttonTag } from '..';
+import { anchorButtonTag } from '../../anchor-button';
 import * as buttonStories from './button.stories';
 
 <Meta of={buttonStories} />
@@ -12,7 +14,7 @@ Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/) - A button is a widg
 enables users to trigger an action or event, such as submitting a form, opening a dialog, canceling an
 action, or performing a delete operation.
 
-If you want a button that triggers navigation to a URL, use the `nimble-anchor-button` instead.
+If you want a button that triggers navigation to a URL, use the <Tag name={anchorButtonTag}/> instead.
 
 <DocsStory of={buttonStories.outlineButton} expanded={false} />
 <Controls of={buttonStories.outlineButton} />
@@ -21,7 +23,7 @@ If you want a button that triggers navigation to a URL, use the `nimble-anchor-b
 
 ### Appearances
 
-These appearances have the default styling of the <code>{buttonTag}</code>. Each should be considered for use before using appearance variant buttons.
+These appearances have the default styling of the <Tag name={buttonTag}/>. Each should be considered for use before using appearance variant buttons.
 
 #### Ghost Button:
 

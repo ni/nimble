@@ -1,13 +1,16 @@
 import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Tag } from '../../../../.storybook/blocks/StoryLayout';
 import { NimbleTableColumnNumberText } from './table-column-number-text.react';
 import { columnOperationBehavior } from '../../base/tests/table-column-stories-utils';
 import * as tableColumnNumberTextStories from './table-column-number-text.stories';
+import { tableColumnNumberTextTag } from '..';
+import { tableTag } from '../../../table';
 
 <Meta of={tableColumnNumberTextStories} />
 <Title of={tableColumnNumberTextStories} />
 
-The `nimble-table-column-number-text` column is used to display number fields as text in the `nimble-table`. Numbers are formatted in a locale-specific way
-based on the value of the `lang` token, which can be set via the [`nimble-theme-provider`](?path=/docs/tokens-theme-provider--docs).
+The <Tag name={tableColumnNumberTextTag}/> column is used to display number fields as text in the <Tag name={tableTag}/>. Numbers are formatted in a locale-specific way
+based on the value of the `lang` token, which can be set via the [nimble-theme-provider](?path=/docs/tokens-theme-provider--docs).
 
 <p>{columnOperationBehavior}</p>
 

@@ -1,9 +1,7 @@
 import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
 import * as dialogStories from './dialog.stories';
-import { dialogTag } from '..';
 
 <Meta of={dialogStories} />
-
 <Title of={dialogStories} />
 
 A modal dialog that appears centered on top of all other windows, blocking other interaction until dismissed.\n\nBy default, the first focusable control gets focus when the dialog is opened. To focus a specific element instead, set the `autofocus` attribute on that element.
@@ -17,7 +15,7 @@ A modal dialog that appears centered on top of all other windows, blocking other
 
 ## Sizing
 
-The dialog size can be customized by modyfing the width, height and max-height properties of <code>{dialogTag}::part(control)</code>.
+The dialog size can be customized by modyfing the width, height and max-height properties of `nimble-dialog::part(control)`.
 
 By default, the dialog is sized to be small and growable. This should be used for small dialogs like a confirmation dialog.
 This is equivalent of using the following style configuration:

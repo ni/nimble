@@ -5,21 +5,25 @@ import {
     Title,
     Description
 } from '@storybook/blocks';
+import { Tag } from '../../../../.storybook/blocks/StoryLayout';
 import * as viewerStories from './rich-text-viewer.stories';
 import * as mentionUserStories from '../../../rich-text-mention/users/tests/rich-text-mention-users.stories';
 import * as userMappingStories from '../../../mapping/user/tests/mapping-user.stories';
+import { richTextViewerTag } from '..';
 
 <Meta of={viewerStories} />
 <Title of={viewerStories} />
 
-The rich text viewer component allows users to view text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The rich text to render is provided as a markdown string.\n\n See the [rich text editor](?path=/docs/incubating-rich-text-editor--docs) component to enable users to modify the markdown contents.
+The rich text viewer component allows users to view text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The rich text to render is provided as a markdown string.
+
+See the [rich text editor](?path=/docs/incubating-rich-text-editor--docs) component to enable users to modify the markdown contents.
 
 <DocsStory of={viewerStories.richTextViewer} expanded={false} />
 <Controls of={viewerStories.richTextViewer} />
 
 ## User Mention Usage
 
-To enable support for `@mention` in the `nimble-rich-text-viewer` component, include the specified configuration and mapping components as children. These components facilitate the conversion of input markdown into a mention node, displaying a user's name. Additionally, ensure that each user mentioned in the markdown input has a corresponding user mapping. For more details, see [Client Usage Guidance on Filtered Users](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/rich-text/specs/mention-hld.md#client-usage-guidance-on-filtered-users-1).
+To enable support for `@mention` in the <Tag name={richTextViewerTag}/> component, include the specified configuration and mapping components as children. These components facilitate the conversion of input markdown into a mention node, displaying a user's name. Additionally, ensure that each user mentioned in the markdown input has a corresponding user mapping. For more details, see [Client Usage Guidance on Filtered Users](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/rich-text/specs/mention-hld.md#client-usage-guidance-on-filtered-users-1).
 
 ## User Configuration
 

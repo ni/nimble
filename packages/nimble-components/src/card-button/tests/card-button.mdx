@@ -1,13 +1,15 @@
 import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import { NimbleCardButton } from './card-button.react';
+import { cardButtonTag } from '..';
 import { buttonTag } from '../../button';
 import * as cardButtonStories from './card-button.stories';
 
 <Meta of={cardButtonStories} />
 <Title of={cardButtonStories} />
 
-The `nimble-card-button` is a button that is designed to contain arbitrary content that is specified by a client
-application. The `nimble-card-button` is intended to be larger and more prominent on a page than the standard <code>{buttonTag}</code>.
+The <Tag name={cardButtonTag}/> is a button that is designed to contain arbitrary content that is specified by a client
+application. The <Tag name={cardButtonTag}/> is intended to be larger and more prominent on a page than the standard <Tag name={buttonTag}/>.
 
 Note: The styling for the "Color" theme is not complete.
 

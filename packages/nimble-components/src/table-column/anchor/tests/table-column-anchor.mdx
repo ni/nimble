@@ -1,11 +1,14 @@
 import { Controls, DocsStory, Meta, Title } from '@storybook/blocks';
+import { Tag } from '../../../../.storybook/blocks/StoryLayout';
 import TargetDocs from '../../../patterns/anchor/tests/target-docs.mdx';
 import * as tableColumnAnchorStories from './table-column-anchor.stories';
+import { tableColumnAnchorTag } from '..';
+import { tableTag } from '../../../table';
 
 <Meta of={tableColumnAnchorStories} />
 <Title of={tableColumnAnchorStories} />
 
-The `nimble-table-column-anchor` column is used to display string fields as links or text in the `nimble-table`. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.
+The <Tag name={tableColumnAnchorTag}/> column is used to display string fields as links or text in the <Tag name={tableTag}/>. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.
 
 <DocsStory of={tableColumnAnchorStories.anchorColumn} expanded={false} />
 <Controls of={tableColumnAnchorStories.anchorColumn} />
