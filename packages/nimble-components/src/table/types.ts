@@ -79,13 +79,18 @@ export interface TableValidity extends ValidityObject {
 }
 
 /**
- * Describes the options that can be configured for a row in the table.
+ * Describes the daa hierarchy options that can be configured for a record in the table.
  */
-export interface TableRowOptions {
-    // Specifies whether or not the row should show the expand-collapse button
-    // even if it does not have any children in the data.
-    forceExpandable: boolean;
+export interface TableRecordHierarchyOptions {
+    delayedHierarchyState: TableRecordDelayedHierarchyState;
 }
+
+export const TableRecordDelayedHierarchyState = {
+    none: undefined,
+    canLoadChildren: 'canLoadChildren'
+} as const;
+export type TableRecordDelayedHierarchyState =
+    (typeof TableRecordDelayedHierarchyState)[keyof typeof TableRecordDelayedHierarchyState];
 
 export interface TableActionMenuToggleEventDetail {
     newState: boolean;

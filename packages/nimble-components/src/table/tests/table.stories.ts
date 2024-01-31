@@ -5,6 +5,7 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
 import {
+    TableRecordDelayedHierarchyState,
     TableRowExpansionToggleEventDetail,
     TableRowSelectionMode
 } from '../types';
@@ -414,8 +415,8 @@ const metadata: Meta<TableArgs> = {
                 // but doesn't seem to be upgraded to a custom element yet
                 await customElements.whenDefined('nimble-table');
                 await x.tableRef.setData(dataSets[x.data]);
-                await x.tableRef.setRowOptions([
-                    { id: '9', options: { forceExpandable: true } }
+                await x.tableRef.setRecordHierarchyOptions([
+                    { id: '9', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
                 ]);
             })();
         },

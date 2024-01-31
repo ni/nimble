@@ -46,7 +46,7 @@ import {
     TableRowSelectionToggleEventDetail,
     TableRowState,
     TableValidity,
-    TableRowOptions
+    TableRecordHierarchyOptions
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -224,7 +224,7 @@ export class Table<
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly tableValidator = new TableValidator<TData>();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
-    private readonly rowOptionsManager = new RowOptionsManager();
+    private readonly rowOptionsManager: RowOptionsManager;
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private dataHierarchyManager?: DataHierarchyManager<TData>;
     private readonly expansionManager: ExpansionManager<TData>;
@@ -274,6 +274,7 @@ export class Table<
             this.table,
             this.selectionMode
         );
+        this.rowOptionsManager = new RowOptionsManager(this.tableValidator);
         this.expansionManager = new ExpansionManager(
             this.table,
             this.rowOptionsManager
@@ -282,8 +283,8 @@ export class Table<
 
     public async setData(newData: readonly TData[]): Promise<void> {
         await this.processPendingUpdates();
-        this.rowOptionsManager.reset();
         const tanstackUpdates = this.calculateTanStackData(newData);
+        this.rowOptionsManager.handleDataChange();
         this.updateTableOptions(tanstackUpdates);
     }
 
@@ -308,16 +309,18 @@ export class Table<
         });
     }
 
-    public async setRowOptions(
-        rowOptions: { id: string, options: TableRowOptions }[]
+    public async setRecordHierarchyOptions(
+        rowHierarchyOptions: { id: string, options: TableRecordHierarchyOptions }[]
     ): Promise<void> {
         await this.processPendingUpdates();
 
-        for (const { id, options } of rowOptions) {
-            if (this.tableValidator.isRecordIdPresent(id)) {
-                this.rowOptionsManager.setRowOptions(id, options);
-            }
+        if (!this.isHierarchyEnabled()) {
+            // Do not allow hierarchy options to be configured when hierarchy is not
+            // configured on the table.
+            return;
         }
+
+        this.rowOptionsManager.setHierarchyOptions(rowHierarchyOptions);
         this.refreshRows();
     }
 
@@ -918,6 +921,10 @@ export class Table<
         }
     }
 
+    private isHierarchyEnabled(): boolean {
+        return typeof this.parentIdFieldName === 'string';
+    }
+
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
 
@@ -926,7 +933,7 @@ export class Table<
         this.tableData = rows.map(row => {
             const isGroupRow = row.getIsGrouped();
             const hasParentRow = isGroupRow ? false : row.getParentRow();
-            const isParent = !isGroupRow && this.getRowCanExpand(row);
+            const isParent = !isGroupRow && this.isHierarchyEnabled() && this.getRowCanExpand(row);
             const isChildOfGroupRowWithNoHierarchy = !isGroupRow
                 && !isParent
                 && !hasParentRow

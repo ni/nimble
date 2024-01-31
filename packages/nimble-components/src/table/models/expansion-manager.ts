@@ -11,7 +11,7 @@ import type { RowOptionsManager } from './row-options-manager';
  * We must track the expansion state separately from TanStack because:
  *   1. TanStack does not support having a different initial expansion state per row unless explicitly
  *      specified for each row by ID. This causes problems in the nimble-table because we could have
- *      a different initial expansion state for group rows, parent rows, and parent rows with lazy
+ *      a different initial expansion state for group rows, parent rows, and parent rows with delay
  *      loaded children.
  *   2. TanStack does not remove entries from its expanded state when those rows are no longer present
  *      in the data. This is not ideal because the object maintaining the expansion state can grow unbounded.
@@ -33,6 +33,9 @@ export class ExpansionManager<TData extends TableRecord> {
             return false;
         }
 
+        if (row.subRows.length === 0) {
+            return false;
+        }
         if (this.isInDefaultState) {
             return this.getDefaultExpansionState(row);
         }
@@ -92,7 +95,7 @@ export class ExpansionManager<TData extends TableRecord> {
     public isRowExpandable(row: TanStackRow<TableNode<TData>>): boolean {
         return (
             row.subRows.length > 0
-            || this.rowOptionsManager.isRowForceExpandable(row.id)
+            || this.rowOptionsManager.canLoadDelayedChildren(row.id)
         );
     }
 
@@ -100,7 +103,7 @@ export class ExpansionManager<TData extends TableRecord> {
         row: TanStackRow<TableNode<TData>>
     ): boolean {
         // Rows with children (group rows and parent rows with populated children)
-        // default to expanded. Other rows (parent rows with lazy-loaded children)
+        // default to expanded. Other rows (parent rows with delay loaded children)
         // default to collapsed.
         return row.subRows.length !== 0;
     }
