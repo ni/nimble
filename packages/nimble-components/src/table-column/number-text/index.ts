@@ -20,8 +20,7 @@ import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { NumberTextAlignment, NumberTextFormat } from './types';
 import type { UnitFormat } from '../../utilities/unit-format/unit-format';
-import { DefaultUnitFormat } from '../../utilities/unit-format/default-unit-format';
-import { DecimalUnitFormat } from '../../utilities/unit-format/decimal-unit-format';
+import { NumberTextUnitFormat } from './models/number-text-unit-format';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
 import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
@@ -39,8 +38,6 @@ declare global {
         'nimble-table-column-number-text': TableColumnNumberText;
     }
 }
-
-const defaultDecimalDigits = 2;
 
 /**
  * The table column for displaying numbers as text.
@@ -184,26 +181,14 @@ export class TableColumnNumberText extends TableColumnTextBase {
 
     private createFormatter(): UnitFormat {
         const unitScale = this.unit?.resolvedUnitScale;
-        switch (this.format) {
-            case NumberTextFormat.decimal: {
-                const minimumFractionDigits = typeof this.decimalMaximumDigits === 'number'
-                    ? 0
-                    : this.decimalDigits ?? defaultDecimalDigits;
-                const maximumFractionDigits = this.decimalMaximumDigits
-                    ?? this.decimalDigits
-                    ?? defaultDecimalDigits;
-                return new DecimalUnitFormat(lang.getValueFor(this), {
-                    minimumFractionDigits,
-                    maximumFractionDigits,
-                    unitScale
-                });
-            }
-            default: {
-                return new DefaultUnitFormat(lang.getValueFor(this), {
-                    unitScale
-                });
-            }
-        }
+        return new NumberTextUnitFormat(lang.getValueFor(this), {
+            // Attribute values sometimes resolve to either null or undefined
+            // See https://github.com/microsoft/fast/issues/6630
+            numberTextFormat: this.format ?? undefined,
+            decimalDigits: this.decimalDigits ?? undefined,
+            decimalMaximumDigits: this.decimalMaximumDigits ?? undefined,
+            unitScale
+        });
     }
 
     private determineCellContentAlignment(): TextCellViewBaseAlignment {
