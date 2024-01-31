@@ -70,7 +70,7 @@ This attribute controls the filtering behavior of the \`Select\`. The default of
 
 The act of filtering will use the \`hidden\` attribute on the options to remove and re-add them to the visible set. Thus, any client-provided \`hidden\` settings of the options will be overridden.
 
-It is recommended that if the \`Select\` has fewer than 7 options that you use the \`none\` setting for the \`filter-mode\`.
+It is recommended that if the \`Select\` has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`.
 `;
 
 const metadata: Meta<SelectArgs> = {
