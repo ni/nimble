@@ -13,23 +13,22 @@
             values: ['1', '33', '66', '100']
         };
 
-        function createWaferMap(functionName, dieCount) {
+        async function createWaferMap(functionName, dieCount) {
             waferMapDies = generateDies(dieCount).wafermapDieSet;
             performance.mark(`${functionName}_start`);
             const waferMap = document.createElement('nimble-wafer-map');
             waferMap.dies = waferMapDies
             waferMap.colorScale = colorScales;
             document.body.appendChild(waferMap);
+            await new Promise(requestAnimationFrame);
             performance.mark(`${functionName}_end`);
             performance.measure(functionName, `${functionName}_start`, `${functionName}_end`);
-            performance.clearMarks(`${functionName}_start`);
-            performance.clearMarks(`${functionName}_end`);
         }
         
-        function main() {
-            createWaferMap('smallWafer', 10 ** 4);
-            createWaferMap('mediumWafer', 10 ** 5);
-            createWaferMap('largeWafer', 10 ** 6);
+        async function main() {
+            await createWaferMap('smallWafer', 10 ** 4);
+            await createWaferMap('mediumWafer', 10 ** 5);
+            await createWaferMap('largeWafer', 10 ** 6);
         }
         
         function generateDies(diesCount) {
