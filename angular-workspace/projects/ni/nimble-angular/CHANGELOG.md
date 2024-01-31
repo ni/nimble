@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 29 Jan 2024 11:31:46 GMT and should not be manually modified.
+This log was last generated on Wed, 31 Jan 2024 17:51:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.4.0
+
+Wed, 31 Jan 2024 17:51:55 GMT
+
+### Minor changes
+
+- Include href in NavigationGuard ([ni/nimble@147777a](https://github.com/ni/nimble/commit/147777aaf8332d80a89aecec247a95ee31233965))
 
 ## 19.3.1
 

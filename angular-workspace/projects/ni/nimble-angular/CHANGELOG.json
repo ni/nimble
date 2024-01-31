@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 31 Jan 2024 17:51:55 GMT",
+      "version": "19.4.0",
+      "tag": "@ni/nimble-angular_v19.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "147777aaf8332d80a89aecec247a95ee31233965",
+            "comment": "Include href in NavigationGuard"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 29 Jan 2024 11:31:46 GMT",
       "version": "19.3.1",
       "tag": "@ni/nimble-angular_v19.3.1",
