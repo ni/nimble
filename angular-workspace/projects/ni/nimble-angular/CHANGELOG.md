@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 31 Jan 2024 17:51:55 GMT and should not be manually modified.
+This log was last generated on Wed, 31 Jan 2024 20:22:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.0.0
+
+Wed, 31 Jan 2024 20:22:58 GMT
+
+### Major changes
+
+- Create new NumberTextPipe and change existing DurationPipe to be a standalone pipe (removing NimblePipesModule) ([ni/nimble@bf9013d](https://github.com/ni/nimble/commit/bf9013d5cb92106ddd1fcf6fd84e6684930462b8))
+- Bump @ni/nimble-components to v21.1.0
 
 ## 19.4.0
 
