@@ -1,0 +1,62 @@
+﻿@page "/WaferMapRenderTest"
+@namespace NimbleBlazor.Tests.Acceptance.Pages
+@using System.Diagnostics.CodeAnalysis;
+@inherits LayoutComponentBase
+
+<NimbleWaferMap OriginLocation="WaferMapOriginLocation.BottomLeft"
+                Orientation="WaferMapOrientation.Bottom"
+                MaxCharacters=2
+                DieLabelsHidden="true"
+                ColorScaleMode="WaferMapColorScaleMode.Linear"
+                @bind-Dies="Dies"
+                @bind-ColorScale="ColorScale"
+                @bind-HighlightedTags="HighlightedTags">
+</NimbleWaferMap>
+
+@code {
+    [NotNull]
+    public IEnumerable<WaferMapDie> Dies { get; set; } = Enumerable.Empty<WaferMapDie>();
+    [NotNull]
+    public IEnumerable<string> HighlightedTags { get; set; } = Enumerable.Empty<string>();
+    [NotNull]
+    public WaferMapColorScale ColorScale { get; set; } = new WaferMapColorScale(new List<string> { "red", "green" }, new List<string> { "0", "6" });
+
+    public WaferMapRenderTest()
+    {
+        UpdateDies(5);
+    }
+
+    public void UpdateDies(int numDies)
+    {
+
+        var dies = new List<WaferMapDie>();
+        int radius = (int)Math.Ceiling(Math.Sqrt(numDies / Math.PI));
+        var centerX = radius;
+        var centerY = radius;
+
+        for (var i = centerY - radius; i <= centerY + radius; i++)
+        {
+            // generate points left of centerX
+            for (
+                var j = centerX;
+                (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
+                <= radius * radius;
+                j--)
+            {
+                var value = (i + j) % 100;
+                dies.Add(new WaferMapDie(i, j, value.ToString()));
+            }
+            // generate points right of centerX
+            for (
+                var j = centerX + 1;
+                (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
+                <= radius * radius;
+                j++)
+            {
+                var value = (i + j) % 100;
+                dies.Add(new WaferMapDie(i, j, value.ToString()));
+            }
+        }
+        Dies = dies;
+    }
+}
