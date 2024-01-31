@@ -7,26 +7,18 @@ import type { TableValidator } from './table-validator';
 export class RowOptionsManager {
     private readonly options = new Map<string, TableRecordHierarchyOptions>();
 
-    public constructor(private readonly tableValidator: TableValidator<TableRecord>) {}
-
     public setHierarchyOptions(hierarchyOptions: { id: string, options: TableRecordHierarchyOptions }[]): void {
         this.options.clear();
 
         for (const { id, options } of hierarchyOptions) {
-            if (this.tableValidator.isRecordIdPresent(id)) {
-                this.options.set(id, options);
-            }
+            this.options.set(id, options);
         }
     }
 
-    public handleDataChange(): void {
-        if (!this.tableValidator.areRecordIdsValid) {
-            return;
-        }
-
+    public handleDataChange(recordIds: Set<string>): void {
         const configuredRecordIds = this.options.keys();
         for (const id of configuredRecordIds) {
-            if (!this.tableValidator.isRecordIdPresent(id)) {
+            if (!recordIds.has(id)) {
                 this.options.delete(id);
             }
         }

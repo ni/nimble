@@ -224,7 +224,7 @@ export class Table<
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly tableValidator = new TableValidator<TData>();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
-    private readonly rowOptionsManager: RowOptionsManager;
+    private readonly rowOptionsManager = new RowOptionsManager();
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private dataHierarchyManager?: DataHierarchyManager<TData>;
     private readonly expansionManager: ExpansionManager<TData>;
@@ -274,7 +274,6 @@ export class Table<
             this.table,
             this.selectionMode
         );
-        this.rowOptionsManager = new RowOptionsManager(this.tableValidator);
         this.expansionManager = new ExpansionManager(
             this.table,
             this.rowOptionsManager
@@ -284,8 +283,11 @@ export class Table<
     public async setData(newData: readonly TData[]): Promise<void> {
         await this.processPendingUpdates();
         const tanstackUpdates = this.calculateTanStackData(newData);
-        this.rowOptionsManager.handleDataChange();
         this.updateTableOptions(tanstackUpdates);
+
+        if (this.tableValidator.areRecordIdsValid()) {
+            this.rowOptionsManager.handleDataChange(this.tableValidator.getAllRecordIds());
+        }
     }
 
     public async getSelectedRecordIds(): Promise<string[]> {
@@ -320,7 +322,10 @@ export class Table<
             return;
         }
 
-        this.rowOptionsManager.setHierarchyOptions(rowHierarchyOptions);
+        const recordIds = this.tableValidator.getAllRecordIds();
+        const presentOptions = rowHierarchyOptions
+            .filter(option => recordIds.has(option.id));
+        this.rowOptionsManager.setHierarchyOptions(presentOptions);
         this.refreshRows();
     }
 

@@ -715,6 +715,56 @@ describe('TableValidator', () => {
         });
     });
 
+    describe('getAllRecordIds', () => {
+        it('returns an empty set if no data has been validated', () => {
+            const recordIds = validator.getAllRecordIds();
+            expect(recordIds.size).toBe(0);
+        });
+
+        it('returns all ids that existed when validateRecordIds was called', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, 'stringField');
+
+            const recordIds = validator.getAllRecordIds();
+            expect(recordIds.size).toBe(2);
+            expect(recordIds.has('value-1')).toBeTrue();
+            expect(recordIds.has('value-2')).toBeTrue();
+        });
+
+        it('updates return value when validateRecordIds is called multiple times', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, 'stringField');
+
+            const newData = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-3', numberField: 11 }
+            ];
+            validator.validateRecordIds(newData, 'stringField');
+
+            const recordIds = validator.getAllRecordIds();
+            expect(recordIds.size).toBe(2);
+            expect(recordIds.has('value-1')).toBeTrue();
+            expect(recordIds.has('value-3')).toBeTrue();
+        });
+
+        it('filters out all records when there is no id field name', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, undefined);
+
+            const recordIds = validator.getAllRecordIds();
+            expect(recordIds.size).toBe(0);
+        });
+    });
+
     describe('validation checks do not reset unrelated state', () => {
         it('invalid record IDs stay invalid when validating column IDs', () => {
             const data = [

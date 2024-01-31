@@ -1377,7 +1377,7 @@ describe('Table', () => {
             });
         });
 
-        fdescribe('delay loaded hierarchical data', () => {
+        describe('delay loaded hierarchical data', () => {
             const hierarchicalData: SimpleTableRecord[] = [
                 {
                     id: '0',
@@ -1642,6 +1642,25 @@ describe('Table', () => {
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
                 ).toBeFalse();
+            });
+
+            it('updating data to have invalid record IDs does not remove row options for records no longer in the data', async () => {
+                await element.setRecordHierarchyOptions([
+                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                ]);
+                await waitForUpdatesAsync();
+                expect(
+                    pageObject.isDataRowExpandCollapseButtonVisible(0)
+                ).toBeTrue();
+
+                // Set the data to have duplicate record ids and then reset it to the original data
+                await element.setData([{ id: 'duplicate', parentId: undefined, stringData: 'a'}, { id: 'duplicate', parentId: undefined, stringData: 'b'}]);
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+
+                expect(
+                    pageObject.isDataRowExpandCollapseButtonVisible(0)
+                ).toBeTrue();
             });
         });
     });

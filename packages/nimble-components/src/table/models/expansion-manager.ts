@@ -36,10 +36,7 @@ export class ExpansionManager<TData extends TableRecord> {
         if (row.subRows.length === 0) {
             return false;
         }
-        if (this.isInDefaultState) {
-            return this.getDefaultExpansionState(row);
-        }
-        return !this.collapsedRows.has(row.id);
+        return this.isInDefaultState || !this.collapsedRows.has(row.id);
     }
 
     public toggleRowExpansion(row: TanStackRow<TableNode<TData>>): void {
@@ -97,14 +94,5 @@ export class ExpansionManager<TData extends TableRecord> {
             row.subRows.length > 0
             || this.rowOptionsManager.canLoadDelayedChildren(row.id)
         );
-    }
-
-    private getDefaultExpansionState(
-        row: TanStackRow<TableNode<TData>>
-    ): boolean {
-        // Rows with children (group rows and parent rows with populated children)
-        // default to expanded. Other rows (parent rows with delay loaded children)
-        // default to collapsed.
-        return row.subRows.length !== 0;
     }
 }
