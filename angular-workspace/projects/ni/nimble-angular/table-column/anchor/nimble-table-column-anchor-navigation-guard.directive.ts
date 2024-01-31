@@ -26,13 +26,13 @@ export class NimbleTableColumnAnchorNavigationGuardDirective {
         const clickEvent = delegatedEvent as MouseEvent;
         // Only call the navigationGuard for plain left clicks.
         // Those are the only ones that should potentially use the router.
-        // Based on: https://github.com/angular/angular/blob/35a3fde5b71ef3b50282fe6f7b37ca1c92b8d2a0/packages/router/src/directives/router_link.ts#L453
+        // Based on: https://github.com/angular/angular/blob/15.2.10/packages/router/src/directives/router_link.ts#L302
         if (clickEvent.button !== 0 || clickEvent.ctrlKey || clickEvent.shiftKey || clickEvent.altKey || clickEvent.metaKey) {
             return;
         }
 
         const cellView = delegatedEvent.target as TableColumnAnchorCellView;
-        // Based on: https://github.com/angular/angular/blob/35a3fde5b71ef3b50282fe6f7b37ca1c92b8d2a0/packages/router/src/directives/router_link.ts#L457
+        // Based on: https://github.com/angular/angular/blob/15.2.10/packages/router/src/directives/router_link.ts#L306
         if (typeof cellView.columnConfig?.target === 'string' && cellView.columnConfig.target !== '_self') {
             return;
         }
