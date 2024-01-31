@@ -29,8 +29,8 @@ An Angular pipe is provided for formatting number values into strings outside of
 
 To use it:
 
--   Import `FormatNumberTextPipe` from `@ni/nimble-angular/pipes`
--   Use the pipe in your templates (pipe name is `formatNumberText`), or instantiate and use directly in your code
+-   Import `NumberTextPipe` from `@ni/nimble-angular/pipes`
+-   Use the pipe in your templates (pipe name is `numberText`), or instantiate and use directly in your code
 -   As input, the pipe optionally takes a configuration object as a parameter. The object may include any of the following properties:
     -   `numberTextFormat` - Either `NumberTextFormat.default` or `NumberTextFormat.decimal`. Defaults to `NumberTextFormat.default`.
     -   `decimalDigits` - When `numberTextFormat` is `NumberTextFormat.decimal`, specifies the number of decimal places to show. If neither `decimalDigits` or `decimalMaximumDigits` are set, a default value of 2 is used. `decimalDigits` and `decimalMaximumDigits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).

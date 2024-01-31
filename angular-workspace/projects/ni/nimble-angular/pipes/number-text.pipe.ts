@@ -5,10 +5,10 @@ import { NumberTextUnitFormat, NumberTextUnitFormatOptions } from '@ni/nimble-co
  * A pipe that transforms a number into a string with optional unit
  */
 @Pipe({
-    name: 'formatNumberText',
+    name: 'numberText',
     standalone: true
 })
-export class FormatNumberTextPipe implements PipeTransform {
+export class NumberTextPipe implements PipeTransform {
     /**
      * @internal
      */
