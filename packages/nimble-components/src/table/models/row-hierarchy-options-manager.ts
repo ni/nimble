@@ -1,4 +1,7 @@
-import { TableRecordDelayedHierarchyState, type TableRecordHierarchyOptions } from '../types';
+import {
+    TableRecordDelayedHierarchyState,
+    type TableRecordHierarchyOptions
+} from '../types';
 
 /**
  * Manages the hierarchy options that have been configured on a row.
@@ -6,7 +9,9 @@ import { TableRecordDelayedHierarchyState, type TableRecordHierarchyOptions } fr
 export class RowHierarchyOptionsManager {
     private readonly options = new Map<string, TableRecordHierarchyOptions>();
 
-    public setOptions(hierarchyOptions: { id: string, options: TableRecordHierarchyOptions }[]): void {
+    public setOptions(
+        hierarchyOptions: { id: string, options: TableRecordHierarchyOptions }[]
+    ): void {
         this.options.clear();
 
         for (const { id, options } of hierarchyOptions) {
@@ -29,6 +34,9 @@ export class RowHierarchyOptionsManager {
 
     public canLoadDelayedChildren(id: string): boolean {
         const configuredOptions = this.options.get(id);
-        return configuredOptions?.delayedHierarchyState === TableRecordDelayedHierarchyState.canLoadChildren ?? false;
+        return (
+            configuredOptions?.delayedHierarchyState
+                === TableRecordDelayedHierarchyState.canLoadChildren ?? false
+        );
     }
 }

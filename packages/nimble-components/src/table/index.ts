@@ -225,6 +225,7 @@ export class Table<
     private readonly tableValidator = new TableValidator<TData>();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
     private readonly rowHierarchyOptionsManager = new RowHierarchyOptionsManager();
+
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private dataHierarchyManager?: DataHierarchyManager<TData>;
     private readonly expansionManager: ExpansionManager<TData>;
@@ -286,7 +287,9 @@ export class Table<
         this.updateTableOptions(tanstackUpdates);
 
         if (this.tableValidator.areRecordIdsValid()) {
-            this.rowHierarchyOptionsManager.handleDataChange(this.tableValidator.getAllRecordIds());
+            this.rowHierarchyOptionsManager.handleDataChange(
+                this.tableValidator.getAllRecordIds()
+            );
         }
     }
 
@@ -312,7 +315,10 @@ export class Table<
     }
 
     public async setRecordHierarchyOptions(
-        rowHierarchyOptions: { id: string, options: TableRecordHierarchyOptions }[]
+        rowHierarchyOptions: {
+            id: string,
+            options: TableRecordHierarchyOptions
+        }[]
     ): Promise<void> {
         await this.processPendingUpdates();
 
@@ -323,8 +329,7 @@ export class Table<
         }
 
         const recordIds = this.tableValidator.getAllRecordIds();
-        const presentOptions = rowHierarchyOptions
-            .filter(option => recordIds.has(option.id));
+        const presentOptions = rowHierarchyOptions.filter(option => recordIds.has(option.id));
         this.rowHierarchyOptionsManager.setOptions(presentOptions);
         this.refreshRows();
     }
@@ -938,7 +943,9 @@ export class Table<
         this.tableData = rows.map(row => {
             const isGroupRow = row.getIsGrouped();
             const hasParentRow = isGroupRow ? false : row.getParentRow();
-            const isParent = !isGroupRow && this.isHierarchyEnabled() && this.getRowCanExpand(row);
+            const isParent = !isGroupRow
+                && this.isHierarchyEnabled()
+                && this.getRowCanExpand(row);
             const isChildOfGroupRowWithNoHierarchy = !isGroupRow
                 && !isParent
                 && !hasParentRow

@@ -418,12 +418,19 @@ const metadata: Meta<TableArgs> = {
                 await customElements.whenDefined('nimble-table');
                 await x.tableRef.setData(dataSets[x.data]);
                 await x.tableRef.setRecordHierarchyOptions([
-                    { id: '9', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '9',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
             })();
         },
         addDelayedChildrenIfNeeded: (x, e) => {
-            if (x.data !== ExampleDataType.hierarchicalDataSet
+            if (
+                x.data !== ExampleDataType.hierarchicalDataSet
                 || e.detail.recordId !== '9'
                 || e.detail.newState !== true
                 || x.processedDelayedParentExpansion

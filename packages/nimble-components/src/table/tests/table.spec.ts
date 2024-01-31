@@ -13,7 +13,11 @@ import {
     fixture,
     uniqueElementName
 } from '../../utilities/tests/fixture';
-import { TableColumnSortDirection, TableRecord, TableRecordDelayedHierarchyState } from '../types';
+import {
+    TableColumnSortDirection,
+    TableRecord,
+    TableRecordDelayedHierarchyState
+} from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import {
     tableColumnEmptyGroupHeaderViewTag,
@@ -1413,13 +1417,25 @@ describe('Table', () => {
                 expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
 
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
 
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.none } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.none
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
@@ -1429,7 +1445,13 @@ describe('Table', () => {
                 expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
 
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
@@ -1443,7 +1465,13 @@ describe('Table', () => {
                 expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
 
                 await element.setRecordHierarchyOptions([
-                    { id: 'does-not-exist', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: 'does-not-exist',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
@@ -1451,17 +1479,53 @@ describe('Table', () => {
 
             it('collapse all button remains visible when row options are updated but one row is still forceExpandable', async () => {
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } },
-                    { id: '1', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } },
-                    { id: '2', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    },
+                    {
+                        id: '1',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    },
+                    {
+                        id: '2',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
 
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } },
-                    { id: '1', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.none } },
-                    { id: '2', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.none } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    },
+                    {
+                        id: '1',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.none
+                        }
+                    },
+                    {
+                        id: '2',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.none
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
@@ -1469,16 +1533,46 @@ describe('Table', () => {
 
             it('setRecordHierarchyOptions clears options that are not in specified options', async () => {
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } },
-                    { id: '1', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } },
-                    { id: '2', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    },
+                    {
+                        id: '1',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    },
+                    {
+                        id: '2',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
 
                 await element.setRecordHierarchyOptions([
-                    { id: '1', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.none } },
-                    { id: '2', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.none } }
+                    {
+                        id: '1',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.none
+                        }
+                    },
+                    {
+                        id: '2',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.none
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
@@ -1486,7 +1580,13 @@ describe('Table', () => {
 
             it("setting a record's delayedHierarchyState to canLoadChildren when it has no children defaults the row to not expanded", async () => {
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(pageObject.getAllDataRowsExpandedState()).toEqual([
@@ -1498,14 +1598,29 @@ describe('Table', () => {
             });
 
             it("setting a record's delayedHierarchyState to canLoadChildren when it has children defaults the row to expanded", async () => {
-                const dataWithChild = [...hierarchicalData, { id: 'child-item', parentId: '0', stringData: 'hello world' }];
+                const dataWithChild = [
+                    ...hierarchicalData,
+                    {
+                        id: 'child-item',
+                        parentId: '0',
+                        stringData: 'hello world'
+                    }
+                ];
                 await element.setData(dataWithChild);
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
 
-                expect(pageObject.isDataRowExpandCollapseButtonVisible(0)).toBeTrue();
+                expect(
+                    pageObject.isDataRowExpandCollapseButtonVisible(0)
+                ).toBeTrue();
                 expect(pageObject.getAllDataRowsExpandedState()).toEqual([
                     true,
                     false,
@@ -1516,14 +1631,29 @@ describe('Table', () => {
             });
 
             it('removing all children from a row that is expanded and has a delayedHierarchyState of canLoadChildren collapses the row and keeps it expandable', async () => {
-                const dataWithChild = [...hierarchicalData, { id: 'child-item', parentId: '0', stringData: 'hello world' }];
+                const dataWithChild = [
+                    ...hierarchicalData,
+                    {
+                        id: 'child-item',
+                        parentId: '0',
+                        stringData: 'hello world'
+                    }
+                ];
                 await element.setData(dataWithChild);
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
 
-                expect(pageObject.isDataRowExpandCollapseButtonVisible(0)).toBeTrue();
+                expect(
+                    pageObject.isDataRowExpandCollapseButtonVisible(0)
+                ).toBeTrue();
                 expect(pageObject.getAllDataRowsExpandedState()).toEqual([
                     true,
                     false,
@@ -1536,7 +1666,9 @@ describe('Table', () => {
                 await element.setData(hierarchicalData);
                 await waitForUpdatesAsync();
 
-                expect(pageObject.isDataRowExpandCollapseButtonVisible(0)).toBeTrue();
+                expect(
+                    pageObject.isDataRowExpandCollapseButtonVisible(0)
+                ).toBeTrue();
                 expect(pageObject.getAllDataRowsExpandedState()).toEqual([
                     false,
                     false,
@@ -1551,7 +1683,13 @@ describe('Table', () => {
                 ).toBeFalse();
 
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(
@@ -1567,7 +1705,13 @@ describe('Table', () => {
 
             it('updating data to include children of an expanded delayed parent renders parent as expanded and renders child rows', async () => {
                 await element.setRecordHierarchyOptions([
-                    { id: '3', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '3',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
 
@@ -1578,7 +1722,7 @@ describe('Table', () => {
                 await element.setData([
                     ...hierarchicalData,
                     { id: 'child-record-0', parentId: '3', stringData: 'a' },
-                    { id: 'child-record-1', parentId: '3', stringData: 'b' },
+                    { id: 'child-record-1', parentId: '3', stringData: 'b' }
                 ]);
                 await waitForUpdatesAsync();
 
@@ -1595,7 +1739,13 @@ describe('Table', () => {
 
             it('updating idFieldName clears configured row options', async () => {
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(
@@ -1611,14 +1761,22 @@ describe('Table', () => {
 
             it('updating data does not clear configured row options', async () => {
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
                 ).toBeTrue();
 
-                await element.setData(hierarchicalData.filter(x => x.id === '0'));
+                await element.setData(
+                    hierarchicalData.filter(x => x.id === '0')
+                );
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
@@ -1627,7 +1785,13 @@ describe('Table', () => {
 
             it('updating data removes row options for records no longer in the data', async () => {
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(
@@ -1635,7 +1799,9 @@ describe('Table', () => {
                 ).toBeTrue();
 
                 // Remove record '0' and then readd it
-                await element.setData(hierarchicalData.filter(x => x.id !== '0'));
+                await element.setData(
+                    hierarchicalData.filter(x => x.id !== '0')
+                );
                 await element.setData(hierarchicalData);
                 await waitForUpdatesAsync();
 
@@ -1646,7 +1812,13 @@ describe('Table', () => {
 
             it('updating data to have invalid record IDs does not remove row options for records no longer in the data', async () => {
                 await element.setRecordHierarchyOptions([
-                    { id: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        id: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await waitForUpdatesAsync();
                 expect(
