@@ -88,19 +88,19 @@ export class SelectPageObject {
         await waitForUpdatesAsync();
     }
 
-    public pressEnter(): void {
+    public pressEnterKey(): void {
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyEnter })
         );
     }
 
-    public pressEscape(): void {
+    public pressEscapeKey(): void {
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyEscape })
         );
     }
 
-    public pressArrowDown(): void {
+    public pressArrowDownKey(): void {
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyArrowDown })
         );
