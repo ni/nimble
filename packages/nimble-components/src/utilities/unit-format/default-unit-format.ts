@@ -73,7 +73,6 @@ export class DefaultUnitFormat extends UnitFormat {
         }
         this.exponentialScaledUnitFormatter = unitScale.baseScaledUnit.scaledUnitFormatFactory({
             locale,
-            // Same as above comment
             intlNumberFormatOptions: this.exponentialIntlNumberFormatOptions
         });
         this.unitScale = unitScale;
