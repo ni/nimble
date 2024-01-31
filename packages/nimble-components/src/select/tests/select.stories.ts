@@ -69,6 +69,8 @@ const filterModeDescription = `
 This attribute controls the filtering behavior of the \`Select\`. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the popup is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
 
 The act of filtering will use the \`hidden\` attribute on the options to remove and re-add them to the visible set. Thus, any client-provided \`hidden\` settings of the options will be overridden.
+
+It is recommended that if the \`Select\` has fewer than 7 options that you use the \`none\` setting for the \`filter-mode\`.
 `;
 
 const metadata: Meta<SelectArgs> = {
