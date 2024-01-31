@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Create new NumberTextPipe and change existing DurationPipe to be a standalone pipe (removing NimblePipesModule)",
+  "packageName": "@ni/nimble-angular",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
