@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 31 Jan 2024 16:40:01 GMT",
+      "version": "21.0.5",
+      "tag": "@ni/nimble-components_v21.0.5",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f8e4d4f227c3e090d0bc179ef526db699707971a",
+            "comment": "Update Data Hierarchy HLD with updated plan of dealing with lazy loaded hierarchy"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 29 Jan 2024 11:31:46 GMT",
       "version": "21.0.5",
       "tag": "@ni/nimble-components_v21.0.5",
