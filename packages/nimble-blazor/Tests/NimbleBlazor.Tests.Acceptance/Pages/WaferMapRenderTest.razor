@@ -3,17 +3,25 @@
 @using System.Diagnostics.CodeAnalysis;
 @inherits LayoutComponentBase
 
-<NimbleWaferMap OriginLocation="WaferMapOriginLocation.BottomLeft"
+<NimbleWaferMap @ref="_waferMap"
+                OriginLocation="WaferMapOriginLocation.BottomLeft"
                 Orientation="WaferMapOrientation.Bottom"
                 MaxCharacters=2
                 DieLabelsHidden="true"
                 ColorScaleMode="WaferMapColorScaleMode.Linear"
+                GridMaxX="4"
+                GridMaxY="4"
+                GridMinX="0"
+                GridMinY="0"
                 @bind-Dies="Dies"
                 @bind-ColorScale="ColorScale"
                 @bind-HighlightedTags="HighlightedTags">
 </NimbleWaferMap>
-
+<NimbleButton @onclick="GetValidityAsync">Get Validity Async</NimbleButton>
+<NimbleTextField @bind-Value="InvalidGridDimensions"></NimbleTextField>
 @code {
+    public NimbleWaferMap? _waferMap;
+    private string? InvalidGridDimensions { get; set; }
     [NotNull]
     public IEnumerable<WaferMapDie> Dies { get; set; } = Enumerable.Empty<WaferMapDie>();
     [NotNull]
@@ -58,5 +66,18 @@
             }
         }
         Dies = dies;
+    }
+
+    public async Task GetValidityAsync()
+    {
+        if (_waferMap == null)
+        {
+            return;
+        }
+
+        var validity = await _waferMap.GetValidityAsync();
+
+        InvalidGridDimensions = validity.InvalidGridDimensions.ToString();
+
     }
 }
