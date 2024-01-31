@@ -36,7 +36,7 @@ export class DecimalUnitFormat extends UnitFormat<DecimalUnitFormatOptions> {
         const intlNumberFormatOptions = {
             maximumFractionDigits,
             minimumFractionDigits,
-            // Hack to avoid a ts error about signDisplay not accepting the value 'negative'.
+            // Workaround to avoid a ts error about signDisplay not accepting the value 'negative'.
             // The value has been supported by browsers since 8/23, but TypeScript still hasn't
             // added it to the type definitions. See https://github.com/microsoft/TypeScript/issues/56269
             signDisplay: 'negative' as SignDisplay

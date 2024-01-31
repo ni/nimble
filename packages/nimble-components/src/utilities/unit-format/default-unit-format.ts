@@ -27,7 +27,7 @@ export class DefaultUnitFormat extends UnitFormat {
     private readonly defaultIntlNumberFormatOptions: Intl.NumberFormatOptions = {
         maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
         maximumFractionDigits: DefaultUnitFormat.maximumDigits - 1,
-        // Hack to avoid ts errors about signDisplay not accepting the value 'negative'.
+        // Workaround to avoid ts errors about signDisplay not accepting the value 'negative'.
         // It has been supported by browsers since 8/23, but TypeScript still hasn't
         // added it to the type definitions. See https://github.com/microsoft/TypeScript/issues/56269
         signDisplay: 'negative' as SignDisplay
@@ -61,7 +61,7 @@ export class DefaultUnitFormat extends UnitFormat {
                 unit.scaleFactor,
                 unit.scaledUnitFormatFactory({
                     locale,
-                    // Hack to avoid ts error about roundingPriority not being a known option.
+                    // Workaround to avoid ts error about roundingPriority not being a known option.
                     // It has been supported by browsers since 8/23, but TypeScript still hasn't
                     // added it to the type definitions. See https://github.com/microsoft/TypeScript/issues/56269
                     intlNumberFormatOptions: {
