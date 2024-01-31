@@ -1119,6 +1119,12 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
+
+            // eslint-disable-next-line no-console
+            console.log('Selection:', window.getSelection());
+            // eslint-disable-next-line no-console
+            console.log('collapseToEnd:', window.getSelection()?.collapseToEnd());
+
             await pageObject.pressEnterKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
