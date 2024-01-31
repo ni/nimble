@@ -9,19 +9,37 @@ From the `nimble` directory:
 3. To view the component documentation in Storybook: `npm run storybook -w @ni/nimble-components`
 
 ## Documentation Workflow
-Add a `docs.description.component` string to the component `parameters` object. E.g.
 
-```ts
-const metadata: Meta<ComponentArgs> = {
-    title: 'SomeComponent',
-    parameters: {
-        docs: {
-            description: {
-                component: '**Some component description**'
-            }
-        },
-        ...
+Add `component-name.mdx` file in component `test` directory with the following template:
+
+```jsx
+import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { NimbleComponentName } from './<FTName>.react';
+import * as componentNameStories from './<FTName>.stories';
+
+<Meta of={componentNameStories} />
+<Title of={componentNameStories} />
+
+*Component description*
+
+<DocsStory of={componentNameStories.firstStoryName} expanded={false} />
+<Controls of={componentNameStories.firstStoryName} />
+
+## Appearances
+
+## Appearance Variants
+
+## Usage 
+
+## Examples
+
+## Accessibility
+
+## Resources
+
 ```
+
+Fill out the template with all available information, and comment out any empty sections. E.g. `{/* ## Examples */}`
 
 If the component has a [W3C ARIA description](https://www.w3.org/WAI/ARIA/apg/patterns/), consider using that to describe the component purpose.
 
