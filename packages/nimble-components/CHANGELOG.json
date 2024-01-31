@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 31 Jan 2024 20:22:58 GMT",
+      "version": "21.1.0",
+      "tag": "@ni/nimble-components_v21.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bf9013d5cb92106ddd1fcf6fd84e6684930462b8",
+            "comment": "Export new NumberTextUnitFormat and update documentation for new Angular number formatting pipe and existing duration pipe"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 31 Jan 2024 16:40:01 GMT",
       "version": "21.0.5",
       "tag": "@ni/nimble-components_v21.0.5",

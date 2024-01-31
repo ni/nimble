@@ -57,7 +57,6 @@ const simpleData = [
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Number Text',
     decorators: [withActions],
-    tags: ['autodocs'],
     parameters: {
         actions: {
             handles: sharedTableActions
