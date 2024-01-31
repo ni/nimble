@@ -87,16 +87,15 @@ export class Select extends FoundationSelect implements ErrorPattern {
     @observable
     public scrollbarIsVisible = false;
 
-    private committedSelectedOption: ListboxOption | undefined = undefined;
+    /**
+     * @internal
+     */
+    @observable
+    public committedSelectedOption: ListboxOption | undefined = undefined;
 
     public constructor() {
         super();
         this.addEventListener('change', this.changeValueHandler);
-        this.addEventListener('focusout', this.focusoutHander);
-    }
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
     }
 
     /**
@@ -156,15 +155,25 @@ export class Select extends FoundationSelect implements ErrorPattern {
             newValue = this.firstSelectedOption?.value ?? newValue;
         }
 
-        if (prev !== newValue) {
+        if (prev !== newValue && !(this.open && this.selectedIndex < 0)) {
             // eslint-disable-next-line @typescript-eslint/dot-notation
             this['_value'] = newValue;
             super.valueChanged(prev, newValue);
+            if (!this.open) {
+                this.committedSelectedOption = this._options.find(
+                    o => o.value === newValue
+                );
+            }
             Observable.notify(this, 'value');
             if (this.collapsible) {
                 Observable.notify(this, 'displayValue');
             }
         }
+    }
+
+    public override get displayValue(): string {
+        Observable.track(this, 'displayValue');
+        return this.committedSelectedOption?.text ?? '';
     }
 
     public regionChanged(
@@ -209,6 +218,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
         if (value) {
             this.value = value;
         }
+        this.committedSelectedOption = this.options[this.selectedIndex];
     }
 
     // disabling linting since the override return type should match the parent class return type
@@ -249,7 +259,6 @@ export class Select extends FoundationSelect implements ErrorPattern {
             && this.committedSelectedOption
             && !this.filteredOptions.includes(this.committedSelectedOption)
         ) {
-            this.committedSelectedOption.selected = false;
             const enabledOptions = this.filteredOptions.filter(
                 o => !o.disabled
             );
@@ -259,7 +268,6 @@ export class Select extends FoundationSelect implements ErrorPattern {
                 // only filtered option is disabled
                 this.selectedOptions = [];
                 this.selectedIndex = -1;
-                this.filteredOptions[0]!.selected = false;
             }
         } else if (this.committedSelectedOption) {
             this.committedSelectedOption.selected = true;
@@ -271,6 +279,13 @@ export class Select extends FoundationSelect implements ErrorPattern {
 
         e.stopPropagation();
         return true;
+    }
+
+    // disabling linting since the override return type should match the parent class return type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    public override focusoutHandler(e: FocusEvent): boolean | void {
+        this.updateSelectedIndexFromFilteredSet();
+        return super.focusoutHandler(e);
     }
 
     // disabling linting since the override return type should match the parent class return type
@@ -295,15 +310,21 @@ export class Select extends FoundationSelect implements ErrorPattern {
             }
 
             case keyEnter: {
+                if (
+                    this.filteredOptions.length === 0
+                    || this.filteredOptions.every(o => o.disabled)
+                ) {
+                    return false;
+                }
                 this.updateSelectedIndexFromFilteredSet();
                 super.keydownHandler(e);
                 this.focus();
                 break;
             }
             case keyEscape: {
-                // clear filteredOptions as call to `super.keydownHandler` will process
+                // clear filter as call to `super.keydownHandler` will process
                 // "options" and not "_options"
-                this.filteredOptions = [];
+                this.filter = '';
                 if (this.committedSelectedOption) {
                     this.clearSelection();
                     this.selectedIndex = this._options.indexOf(
@@ -344,9 +365,6 @@ export class Select extends FoundationSelect implements ErrorPattern {
         next: boolean
     ): void {
         super.openChanged(prev, next);
-        if (!this.$fastController.isConnected) {
-            return;
-        }
 
         if (this.open) {
             this.committedSelectedOption = this._options[this.selectedIndex];
@@ -409,30 +427,29 @@ export class Select extends FoundationSelect implements ErrorPattern {
     }
 
     private updateSelectedIndexFromFilteredSet(): void {
-        if (
-            !this.options[this.selectedIndex]
-            && !this.committedSelectedOption
-        ) {
+        const selectedItem = this.filteredOptions.length > 0
+            ? this.options[this.selectedIndex]
+                  ?? this.committedSelectedOption
+            : this.committedSelectedOption;
+
+        if (!selectedItem) {
             return;
         }
-
-        const selectedItem = this.options[this.selectedIndex] ?? this.committedSelectedOption!;
-        // Clear filter and re-filter options so any logic resolving against 'this.options'
-        // resolves against all options, since selectedIndex should be relative to entire set.
+        // Clear filter so any logic resolving against 'this.options' resolves against all options,
+        // since selectedIndex should be relative to entire set.
         this.filter = '';
-        this.filterOptions();
         // translate selectedIndex for filtered list to selectedIndex for all items
         this.selectedIndex = this._options.indexOf(selectedItem);
+        // force selected to true again if the selection hasn't actually changed
+        if (selectedItem === this.committedSelectedOption) {
+            selectedItem.selected = true;
+        }
     }
 
     private readonly changeValueHandler = (): void => {
         this.committedSelectedOption = this.options.find(
             option => option.selected
         );
-    };
-
-    private readonly focusoutHander = (): void => {
-        this.updateSelectedIndexFromFilteredSet();
     };
 }
 

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 29 Jan 2024 11:31:46 GMT and should not be manually modified.
+This log was last generated on Wed, 31 Jan 2024 20:22:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.1.0
+
+Wed, 31 Jan 2024 20:22:58 GMT
+
+### Minor changes
+
+- Export new NumberTextUnitFormat and update documentation for new Angular number formatting pipe and existing duration pipe ([ni/nimble@bf9013d](https://github.com/ni/nimble/commit/bf9013d5cb92106ddd1fcf6fd84e6684930462b8))
 
 ## 21.0.5
 

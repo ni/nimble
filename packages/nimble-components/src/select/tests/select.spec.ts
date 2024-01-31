@@ -151,19 +151,31 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('pressing Esc after navigating to new option in dropdown reverts to original selected option', async () => {
+    it('pressing Esc after navigating to new option in dropdown maintains original selected option', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const pageObject = new SelectPageObject(element);
         await pageObject.clickSelect();
-        pageObject.pressArrowDown();
+        pageObject.pressArrowDownKey();
         await waitForUpdatesAsync();
         expect(element.selectedIndex).toBe(1);
 
-        pageObject.pressEscape();
+        pageObject.pressEscapeKey();
         await waitForUpdatesAsync();
 
         expect(element.value).toBe('one');
+        await disconnect();
+    });
+
+    it('navigating between options in dropdown does not update display value', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const pageObject = new SelectPageObject(element);
+        await pageObject.clickSelect();
+        pageObject.pressArrowDownKey();
+        await waitForUpdatesAsync();
+
+        expect(element.displayValue).toBe('One');
         await disconnect();
     });
 
@@ -349,7 +361,7 @@ describe('Select', () => {
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            pageObject.pressEscape();
+            pageObject.pressEscapeKey();
             currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.text).toBe('One');
             expect(element.value).toBe('one');
@@ -362,7 +374,20 @@ describe('Select', () => {
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            pageObject.pressEscape();
+            pageObject.pressEscapeKey();
+
+            await pageObject.clickSelect();
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.selected).toBeTrue();
+        });
+
+        it('opening popup shows correct selected element after filtering and committing but not changing selected option', async () => {
+            let currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.text).toBe('One');
+            expect(element.value).toBe('one');
+
+            await pageObject.openAndSetFilterText('One'); // Matches 'One'
+            pageObject.pressEnterKey();
 
             await pageObject.clickSelect();
             currentSelection = pageObject.getSelectedOption();
@@ -375,7 +400,7 @@ describe('Select', () => {
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            pageObject.pressEnter();
+            pageObject.pressEnterKey();
             expect(element.value).toBe('two'); // 'Two' is first option in list so it should be selected now
             expect(element.open).toBeFalse();
         });
@@ -456,14 +481,28 @@ describe('Select', () => {
             expect(pageObject.getSelectedOption()?.text).toBe('Two');
         });
 
-        it('filtering to only disabled item, then pressing <Enter> reverts selection', async () => {
+        it('filtering to only disabled item, then pressing <Enter> does not close popup or change value', async () => {
             await pageObject.openAndSetFilterText('Disabled');
-            pageObject.pressEnter();
-            const currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.value).toBe('one');
+            pageObject.pressEnterKey();
+            expect(element.open).toBeTrue();
+            expect(element.value).toBe('one');
         });
 
-        it('filtering to only disabled item, then clicking away reverts selection', async () => {
+        it('filtering to no available options, then pressing <Enter> does not close popup or change value', async () => {
+            await pageObject.openAndSetFilterText('abc');
+            pageObject.pressEnterKey();
+            expect(element.open).toBeTrue();
+            expect(element.value).toBe('one');
+        });
+
+        it('after pressing <Esc> to close dropdown, <Enter> will re-open dropdown', async () => {
+            await pageObject.clickSelect();
+            pageObject.pressEscapeKey();
+            pageObject.pressEnterKey();
+            expect(element.open).toBeTrue();
+        });
+
+        it('filtering to only disabled item, then clicking away does not change value', async () => {
             await pageObject.openAndSetFilterText('Disabled');
             await pageObject.clickAway();
             const currentSelection = pageObject.getSelectedOption();
