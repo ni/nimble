@@ -230,30 +230,31 @@ export class MatrixRenderer {
             )
         ) {
             minPoint = {
-                x: this.wafermap.dieMatrix[0]!.xIndex,
-                y: this.wafermap.dieMatrix[0]!.yIndexes[0]!
+                x: this.wafermap.dieMatrix.dieColIndexArray[0]!,
+                y: this.wafermap.dieMatrix.dieRowIndexLayer[0]!
             };
             maxPoint = {
-                x: this.wafermap.dieMatrix[0]!.xIndex,
-                y: this.wafermap.dieMatrix[0]!.yIndexes[0]!
+                x: this.wafermap.dieMatrix.dieColIndexArray[0]!,
+                y: this.wafermap.dieMatrix.dieRowIndexLayer[0]!
             };
 
-            for (const dieRow of this.wafermap.dieMatrix) {
-                if (dieRow.xIndex < minPoint.x) {
-                    minPoint.x = dieRow.xIndex;
+            // eslint-disable-next-line @typescript-eslint/prefer-for-of
+            for (let index = 0; index < this.wafermap.dieMatrix.dieColIndexArray.length; index++) {
+                if (this.wafermap.dieMatrix.dieColIndexArray[index]! < minPoint.x) {
+                    minPoint.x = this.wafermap.dieMatrix.dieColIndexArray[index]!;
                 }
-                if (dieRow.xIndex > maxPoint.x) {
-                    maxPoint.x = dieRow.xIndex;
+                if (this.wafermap.dieMatrix.dieColIndexArray[index]! > maxPoint.x) {
+                    maxPoint.x = this.wafermap.dieMatrix.dieColIndexArray[index]!;
                 }
-                // eslint-disable-next-line @typescript-eslint/prefer-for-of
-                for (let index = 0; index < dieRow.yIndexes.length; index++) {
-                    const y = dieRow.yIndexes[index]!;
-                    if (y < minPoint.y) {
-                        minPoint.y = y;
-                    }
-                    if (y > maxPoint.y) {
-                        maxPoint.y = y;
-                    }
+            }
+
+            // eslint-disable-next-line @typescript-eslint/prefer-for-of
+            for (let index = 0; index < this.wafermap.dieMatrix.dieRowIndexLayer.length; index++) {
+                if (this.wafermap.dieMatrix.dieRowIndexLayer[index]! < minPoint.y) {
+                    minPoint.y = this.wafermap.dieMatrix.dieRowIndexLayer[index]!;
+                }
+                if (this.wafermap.dieMatrix.dieRowIndexLayer[index]! > maxPoint.y) {
+                    maxPoint.y = this.wafermap.dieMatrix.dieRowIndexLayer[index]!;
                 }
             }
         } else {
@@ -324,30 +325,24 @@ export class MatrixRenderer {
         this.worker.postMessage({
             method: 'emptyMatrix'
         });
-        const dieMatrix = this.wafermap.dieMatrix;
-        for (const diesRow of dieMatrix) {
-            const scaledX = this._horizontalScale.a
-                + this._horizontalScale.b * diesRow.xIndex
-                + this._margin.right;
-            if (
-                scaledX >= transformedCanvasMinPoint[0]
-                && scaledX < transformedCanvasMaxPoint[0]
-            ) {
-                const yIndexes = new Int32Array(diesRow.yIndexes.length);
-                yIndexes.set(diesRow.yIndexes);
-                const values = new Float32Array(diesRow.values.length);
-                values.set(diesRow.values);
-                this.worker.postMessage(
-                    {
-                        method: 'renderDies',
-                        xIndex: diesRow.xIndex,
-                        scaledX,
-                        yBuffer: yIndexes,
-                        valueBuffer: values
-                    },
-                    [yIndexes.buffer, values.buffer]
-                );
-            }
-        }
+        const dieColIndexArray = new Int32Array(this.wafermap.dieMatrix.dieColIndexArray);
+        const rowLengthsArray = new Int32Array(this.wafermap.dieMatrix.rowLengthsArray);
+        const dieRowIndexLayer = new Int32Array(this.wafermap.dieMatrix.dieRowIndexLayer);
+        const dieValuesLayer = new Int32Array(this.wafermap.dieMatrix.dieValuesLayer);
+        this.worker.postMessage(
+            {
+                method: 'renderDies',
+                dieColIndexArray,
+                rowLengthsArray,
+                dieRowIndexLayer,
+                dieValuesLayer,
+            },
+            [
+                dieColIndexArray.buffer,
+                rowLengthsArray.buffer,
+                dieRowIndexLayer.buffer,
+                dieValuesLayer.buffer
+            ]
+        );
     }
 }

@@ -4,8 +4,24 @@
 export class RenderWorker {
     private canvas!: OffscreenCanvas;
     private context!: OffscreenCanvasRenderingContext2D;
-    private dieMatrix: { [key: number]: Int32Array } = {};
-    private valueMatrix: { [key: number]: Float32Array } = {};
+    private dieMatrix: {
+        // the x coordinates of each column of dies
+        dieColIndexArray: Int32Array;
+        // the lengths of each row of dies
+        rowLengthsArray: Int32Array;
+        // the y coordinates of each die as a matrix row by row
+        dieRowIndexLayer: Int32Array;
+        // the value of each die as a matrix row by row
+        dieValuesLayer: Int32Array;
+        // the highlight state of each die as a matrix row by row
+        dieHighlightsLayer: Int8Array;
+    } = {
+        dieColIndexArray: Int32Array.from([]),
+        rowLengthsArray: Int32Array.from([]),
+        dieRowIndexLayer: Int32Array.from([]),
+        dieValuesLayer: Int32Array.from([]),
+        dieHighlightsLayer: Int8Array.from([])
+    };
     private verticalScale: { a: number, b: number } = { a: 0, b: 1 };
     private horizontalScale: { a: number, b: number } = { a: 0, b: 1 };
     private margin: { top: number, right: number } = { top: 0, right: 0 };
@@ -78,30 +94,40 @@ export class RenderWorker {
     }
 
     public emptyMatrix(): void {
-        this.dieMatrix = {};
-        this.valueMatrix = {};
+        this.dieMatrix = {
+            dieColIndexArray: Int32Array.from([]),
+            rowLengthsArray: Int32Array.from([]),
+            dieRowIndexLayer: Int32Array.from([]),
+            dieValuesLayer: Int32Array.from([]),
+            dieHighlightsLayer: Int8Array.from([])
+        };
     }
 
     public rerenderDies(): void {
-        for (const [rowIndex, yIndexes] of Object.entries(this.dieMatrix)) {
-            const scaledX = this.horizontalScale.a + this.horizontalScale.b * (+rowIndex) + this.margin.right;
+        let startRowIndex = 0
+        for (let index = 0; index < this.dieMatrix.dieColIndexArray.length; index++) {
+            const colIndex = this.dieMatrix.dieColIndexArray[index]!;
+            const rowLength = this.dieMatrix.rowLengthsArray[index]!;
+            const scaledX = this.horizontalScale.a + this.horizontalScale.b * (+colIndex) + this.margin.right;
             if (
                 scaledX >= this.xLimits.min
                 && scaledX < this.xLimits.max
             ) {
-                const values = this.valueMatrix[+rowIndex]!;
-                for (let index = 0; index < yIndexes.length; index++) {
-                    const scaledY = this.verticalScale.a + this.verticalScale.b * yIndexes[index]! + this.margin.top;
+                for (let layerIndex = 0; layerIndex < rowLength; layerIndex++) {
+                    const rowIndex = this.dieMatrix.dieRowIndexLayer[startRowIndex + layerIndex]!;
+                    const value = this.dieMatrix.dieValuesLayer[startRowIndex + layerIndex]!;
+                    const scaledY = this.verticalScale.a + this.verticalScale.b * rowIndex + this.margin.top;
                     if (
                         scaledY >= this.yLimits.min
                         && scaledY < this.yLimits.max
                     ) {
-                        const category = this.colorCategories.find(cat => cat.startValue <= values[index]! && (cat.endValue === undefined || cat.endValue > values[index]!));
+                        const category = this.colorCategories.find(cat => cat.startValue <= value && (cat.endValue === undefined || cat.endValue > value));
                         this.context.fillStyle = category ? category.color : 'blue';
                         this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
                     }
                 }
             }
+            startRowIndex += rowLength;
         }
     }
 
@@ -114,21 +140,26 @@ export class RenderWorker {
             this.context.textAlign = 'center';
             this.context.lineCap = 'butt';
 
-            for (const [rowIndex, yIndexes] of Object.entries(this.dieMatrix)) {
-                const scaledX = this.horizontalScale.a + (this.horizontalScale.b * (+rowIndex)) + this.margin.right;
-                if (
-                    scaledX >= this.xLimits.min
-                    && scaledX < this.xLimits.max
-                ) {
-                    const values = this.valueMatrix[+rowIndex]!;
-                    for (let index = 0; index < yIndexes.length; index++) {
-                        const scaledY = this.verticalScale.a + (this.verticalScale.b * yIndexes[index]!) + this.margin.top;
-                        if (
-                            scaledY >= this.yLimits.min
-                           && scaledY < this.yLimits.max
-                        ) {
+            
+        let startRowIndex = 0
+        for (let index = 0; index < this.dieMatrix.dieColIndexArray.length; index++) {
+            const colIndex = this.dieMatrix.dieColIndexArray[index]!;
+            const rowLength = this.dieMatrix.rowLengthsArray[index]!;
+            const scaledX = this.horizontalScale.a + this.horizontalScale.b * (+colIndex) + this.margin.right;
+            if (
+                scaledX >= this.xLimits.min
+                && scaledX < this.xLimits.max
+            ) {
+                for (let layerIndex = 0; layerIndex < rowLength; layerIndex++) {
+                    const rowIndex = this.dieMatrix.dieRowIndexLayer[startRowIndex + layerIndex]!;
+                    const value = this.dieMatrix.dieValuesLayer[startRowIndex + layerIndex]!;
+                    const scaledY = this.verticalScale.a + this.verticalScale.b * rowIndex + this.margin.top;
+                    if (
+                        scaledY >= this.yLimits.min
+                        && scaledY < this.yLimits.max
+                    ) {
                             this.context.fillText(
-                                values[index]!.toFixed(1),
+                                value.toFixed(1),
                                 scaledX + this.dieDimensions.width / 2,
                                 scaledY + this.dieDimensions.height - approximateTextHeight,
                                 this.dieDimensions.width - (this.dieDimensions.width / 5)
@@ -136,32 +167,23 @@ export class RenderWorker {
                         }
                     }
                 }
+                startRowIndex += rowLength;
             }
         }
     }
 
     public renderDies(
         data: {
-            xIndex: number,
-            scaledX: number,
-            yBuffer: Iterable<number>,
-            valueBuffer: Iterable<number>
+            dieColIndexArray: Iterable<number>,
+            rowLengthsArray: Iterable<number>,
+            dieRowIndexLayer: Iterable<number>,
+            dieValuesLayer: Iterable<number>,
         }
     ): void {
-        const yIndexes = new Int32Array(data.yBuffer);
-        const values = new Float32Array(data.valueBuffer);
-        this.dieMatrix[data.xIndex] = yIndexes;
-        this.valueMatrix[data.xIndex] = values;
-        for (let index = 0; index < yIndexes.length; index++) {
-            const scaledY = this.verticalScale.a + this.verticalScale.b * yIndexes[index]! + this.margin.top;
-            if (
-                scaledY >= this.yLimits.min
-                && scaledY < this.yLimits.max
-            ) {
-                const category = this.colorCategories.find(cat => cat.startValue <= values[index]! && (cat.endValue === undefined || cat.endValue > values[index]!));
-                this.context.fillStyle = category ? category.color : 'blue';
-                this.context.fillRect(data.scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
-            }
-        }
+        this.dieMatrix.dieColIndexArray = Int32Array.from(data.dieColIndexArray);
+        this.dieMatrix.rowLengthsArray = Int32Array.from(data.rowLengthsArray);
+        this.dieMatrix.dieRowIndexLayer = Int32Array.from(data.dieRowIndexLayer);
+        this.dieMatrix.dieValuesLayer = Int32Array.from(data.dieValuesLayer);
+        this.rerenderDies();
     }
 }

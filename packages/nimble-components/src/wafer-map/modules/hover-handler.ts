@@ -64,21 +64,24 @@ export class HoverHandler {
     private getWaferMapDie(
         dieCoordinates: PointCoordinates
     ): WaferMapDie | undefined {
-        const diesRow = this.wafermap.dieMatrix.find(
-            x => x.xIndex === dieCoordinates.x
-        );
-        if (diesRow === undefined) {
+        const colIndex = this.wafermap.dieMatrix.dieColIndexArray.indexOf(dieCoordinates.x);
+        if (colIndex === -1) {
             return undefined;
         }
-        const yIndex = diesRow.yIndexes.indexOf(dieCoordinates.y);
-        if (yIndex === -1) {
-            return undefined;
+        let startRowIndex = 0;
+        for (let index = 0; index < colIndex; index++) {
+            startRowIndex += this.wafermap.dieMatrix.rowLengthsArray[index]!;
         }
-        return {
-            x: dieCoordinates.x,
-            y: dieCoordinates.y,
-            value: `${diesRow.values[yIndex]!}`,
-            metadata: diesRow.metadata?.[yIndex]
-        };
+        for (let index = startRowIndex; index < this.wafermap.dieMatrix.rowLengthsArray[colIndex]!; index++) {
+            const rowIndex = this.wafermap.dieMatrix.dieRowIndexLayer[startRowIndex + index]!;
+            if (rowIndex === dieCoordinates.y) {
+                return {
+                    x: dieCoordinates.x,
+                    y: dieCoordinates.y,
+                    value: `${this.wafermap.dieMatrix.dieValuesLayer[startRowIndex + index]!}`,
+                };
+            }
+        }
+        return undefined;
     }
 }

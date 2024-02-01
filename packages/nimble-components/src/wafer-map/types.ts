@@ -42,12 +42,25 @@ export interface WaferMapDie {
     metadata?: unknown;
     tags?: string[];
 }
+export interface WaferMapData {
+    // the x coordinates of each column of dies
+    dieColIndexArray: Int32Array;
+    // the lengths of each row of dies
+    rowLengthsArray: Int32Array;
+    // the y coordinates of each die as a matrix row by row
+    dieRowIndexLayer: Int32Array;
+    // the value of each die as a matrix row by row
+    dieValuesLayer: Int32Array;
+    // the highlight state of each die as a matrix row by row
+    dieHighlightsLayer: Int8Array;
+    // extra values layers
+    extraLayers?: WaferMapLayer[];
+}
 
-export interface WaferMapRow {
-    xIndex: number;
-    yIndexes: Int32Array;
-    values: Float32Array;
-    metadata?: unknown[];
+export interface WaferMapLayer {
+    name: string;
+    type: string;
+    buffer: Int32Array;
 }
 
 export interface WaferMapColorScale {

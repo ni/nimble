@@ -13,8 +13,8 @@ import {
 } from './value-generator';
 import type {
     WaferMapValidity,
-    WaferMapRow,
-    WaferMapColorCategory
+    WaferMapColorCategory,
+    WaferMapData
 } from '../types';
 import {
     WaferMapOriginLocation,
@@ -46,9 +46,9 @@ interface WaferMapArgs {
     highlightedTags: string;
 }
 
-const getDiesSet = (setName: string, sets: WaferMapRow[][]): WaferMapRow[] => {
+const getDiesSet = (setName: string, sets: WaferMapData[]): WaferMapData => {
     const seed = 0.5;
-    let returnedValue: WaferMapRow[];
+    let returnedValue: WaferMapData;
     switch (setName) {
         case 'fixedDies10':
             returnedValue = sets[0]!;
@@ -75,7 +75,7 @@ const getDiesSet = (setName: string, sets: WaferMapRow[][]): WaferMapRow[] => {
             )!;
             break;
         default:
-            returnedValue = [] as WaferMapRow[];
+            returnedValue = {} as WaferMapData;
     }
     return returnedValue;
 };

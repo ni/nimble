@@ -13,10 +13,10 @@ import {
     WaferMapColorCategory,
     WaferMapColorScale,
     WaferMapColorScaleMode,
+    WaferMapData,
     WaferMapDie,
     WaferMapOrientation,
     WaferMapOriginLocation,
-    WaferMapRow,
     WaferMapValidity
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
@@ -149,7 +149,14 @@ export class WaferMap extends FoundationElement {
 
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
-    @observable public dieMatrix: WaferMapRow[] = [];
+    @observable public dieMatrix: WaferMapData = {
+        dieColIndexArray: Int32Array.from([]),
+        rowLengthsArray: Int32Array.from([]),
+        dieRowIndexLayer: Int32Array.from([]),
+        dieValuesLayer: Int32Array.from([]),
+        dieHighlightsLayer: Int8Array.from([])
+    };
+
     @observable public colorCategories: WaferMapColorCategory[] = [];
     @observable public colorScale: WaferMapColorScale = {
         colors: [],

@@ -1,4 +1,4 @@
-import type { WaferMapDie, WaferMapRow, WaferMapColorCategory } from '../types';
+import type { WaferMapDie, WaferMapData, WaferMapColorCategory } from '../types';
 
 export const highlightedTagsSets: string[][] = [
     [],
@@ -6,34 +6,14 @@ export const highlightedTagsSets: string[][] = [
     [''],
     ['a', 'b', 'c']
 ];
-export const wafermapDieMatrix: WaferMapRow[][] = [
-    [
-        {
-            xIndex: 0,
-            yIndexes: Int32Array.from([2]),
-            values: Float32Array.from([14.24])
-        },
-        {
-            xIndex: 1,
-            yIndexes: Int32Array.from([1, 2, 3]),
-            values: Float32Array.from([44.63, 76.43, 67.93])
-        },
-        {
-            xIndex: 2,
-            yIndexes: Int32Array.from([0, 1, 2, 3, 4]),
-            values: Float32Array.from([26.49, 79.04, 72.71, 37.79, 37.79])
-        },
-        {
-            xIndex: 3,
-            yIndexes: Int32Array.from([1, 2, 3]),
-            values: Float32Array.from([98.5, 52.9, 20.83])
-        },
-        {
-            xIndex: 4,
-            yIndexes: Int32Array.from([2]),
-            values: Float32Array.from([62.8])
-        }
-    ]
+export const wafermapDieMatrix: WaferMapData[] = [
+    {
+        dieColIndexArray: Int32Array.from([0, 1, 2, 3, 4]),
+        rowLengthsArray: Int32Array.from([1, 3, 5, 3, 1]),
+        dieRowIndexLayer: Int32Array.from([2, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 2]),
+        dieValuesLayer: Int32Array.from([14.24, 44.63, 76.43, 67.93, 26.49, 79.04, 72.71, 37.79, 37.79, 98.5, 52.9, 20.83, 62.8]),
+        dieHighlightsLayer: Int8Array.from([]),
+    }
 ];
 
 export const wafermapDieSets: WaferMapDie[][] = [
