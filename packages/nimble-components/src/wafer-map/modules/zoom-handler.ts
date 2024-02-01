@@ -60,7 +60,11 @@ export class ZoomHandler {
         if (transform.k === this.minScale) {
             this.zoomTransform = zoomIdentity;
             this.zoomBehavior.transform(
-                select(this.wafermap.canvas as Element),
+                select(this.wafermap.canvasOne as Element),
+                zoomIdentity
+            );
+            this.zoomBehavior.transform(
+                select(this.wafermap.canvasTwo as Element),
                 zoomIdentity
             );
         } else {

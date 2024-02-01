@@ -23,12 +23,14 @@ export class MatrixRenderer {
 
     private canvasSet = false;
 
-    private readonly worker: Worker;
+    private readonly workerOne: Worker;
+    private readonly workerTwo: Worker;
 
     public constructor(private readonly wafermap: WaferMap) {
         const blob = new Blob([workerCode], { type: 'text/javascript' });
         const url = URL.createObjectURL(blob);
-        this.worker = new Worker(url);
+        this.workerOne = new Worker(url);
+        this.workerTwo = new Worker(url);
     }
 
     public get containerWidth(): number {
@@ -88,7 +90,12 @@ export class MatrixRenderer {
 
     public setCanvasDimensions(width: number, height: number): void {
         if (this.canvasSet) {
-            this.worker.postMessage({
+            this.workerOne.postMessage({
+                method: 'setCanvasDimensions',
+                width,
+                height
+            });
+            this.workerTwo.postMessage({
                 method: 'setCanvasDimensions',
                 width,
                 height
@@ -99,15 +106,28 @@ export class MatrixRenderer {
     public setCanvas(): void {
         if (!this.canvasSet) {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-            const offscreen = this.wafermap.canvas.transferControlToOffscreen();
-            this.worker.postMessage(
+            const offscreenOne = this.wafermap.canvasOne.transferControlToOffscreen();
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+            const offscreenTwo = this.wafermap.canvasTwo.transferControlToOffscreen();
+            this.workerOne.postMessage(
                 {
                     method: 'setCanvas',
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                    canvas: offscreen
+                    canvas: offscreenOne,
+                    worker: 0
                 },
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                [offscreen]
+                [offscreenOne]
+            );
+            this.workerTwo.postMessage(
+                {
+                    method: 'setCanvas',
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                    canvas: offscreenTwo,
+                    worker: 1
+                },
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                [offscreenTwo]
             );
             this.canvasSet = true;
         }
@@ -115,7 +135,10 @@ export class MatrixRenderer {
 
     private rerenderDies(): void {
         if (this.canvasSet) {
-            this.worker.postMessage({
+            this.workerOne.postMessage({
+                method: 'rerenderDies'
+            });
+            this.workerTwo.postMessage({
                 method: 'rerenderDies'
             });
         }
@@ -123,7 +146,10 @@ export class MatrixRenderer {
 
     private rerenderText(): void {
         if (this.canvasSet) {
-            this.worker.postMessage({
+            this.workerOne.postMessage({
+                method: 'rerenderText'
+            });
+            this.workerTwo.postMessage({
                 method: 'rerenderText'
             });
         }
@@ -131,7 +157,10 @@ export class MatrixRenderer {
 
     private clearCanvas(): void {
         if (this.canvasSet) {
-            this.worker.postMessage({
+            this.workerOne.postMessage({
+                method: 'clearCanvas'
+            });
+            this.workerTwo.postMessage({
                 method: 'clearCanvas'
             });
         }
@@ -154,7 +183,11 @@ export class MatrixRenderer {
 
     private scaleCanvas(): void {
         if (this.canvasSet) {
-            this.worker.postMessage({
+            this.workerOne.postMessage({
+                method: 'scaleCanvas',
+                transform: this.wafermap.transform
+            });
+            this.workerTwo.postMessage({
                 method: 'scaleCanvas',
                 transform: this.wafermap.transform
             });
@@ -163,7 +196,10 @@ export class MatrixRenderer {
 
     private saveContext(): void {
         if (this.canvasSet) {
-            this.worker.postMessage({
+            this.workerOne.postMessage({
+                method: 'saveContext'
+            });
+            this.workerTwo.postMessage({
                 method: 'saveContext'
             });
         }
@@ -171,7 +207,10 @@ export class MatrixRenderer {
 
     private restoreContext(): void {
         if (this.canvasSet) {
-            this.worker.postMessage({
+            this.workerOne.postMessage({
+                method: 'restoreContext'
+            });
+            this.workerTwo.postMessage({
                 method: 'restoreContext'
             });
         }
@@ -305,7 +344,7 @@ export class MatrixRenderer {
         ]);
         transformedCanvasMinPoint[0] -= this._dieDimensions.width;
         transformedCanvasMinPoint[1] -= this._dieDimensions.height;
-        this.worker.postMessage({
+        this.workerOne.postMessage({
             method: 'updateRenderConfig',
             margin: this._margin,
             verticalScale: this._verticalScale,
@@ -322,14 +361,53 @@ export class MatrixRenderer {
                 max: transformedCanvasMaxPoint[0]
             }
         });
-        this.worker.postMessage({
+        this.workerTwo.postMessage({
+            method: 'updateRenderConfig',
+            margin: this._margin,
+            verticalScale: this._verticalScale,
+            horizontalScale: this._horizontalScale,
+            dieDimensions: this._dieDimensions,
+            colorCategories: this.wafermap.colorCategories,
+            transform: this.wafermap.transform,
+            yLimits: {
+                min: transformedCanvasMinPoint[1],
+                max: transformedCanvasMaxPoint[1]
+            },
+            xLimits: {
+                min: transformedCanvasMinPoint[0],
+                max: transformedCanvasMaxPoint[0]
+            }
+        });
+        this.workerOne.postMessage({
             method: 'emptyMatrix'
         });
-        const dieColIndexArray = new Int32Array(this.wafermap.dieMatrix.dieColIndexArray);
-        const rowLengthsArray = new Int32Array(this.wafermap.dieMatrix.rowLengthsArray);
-        const dieRowIndexLayer = new Int32Array(this.wafermap.dieMatrix.dieRowIndexLayer);
-        const dieValuesLayer = new Int32Array(this.wafermap.dieMatrix.dieValuesLayer);
-        this.worker.postMessage(
+        this.workerTwo.postMessage({
+            method: 'emptyMatrix'
+        });
+        let dieColIndexArray = new Int32Array(this.wafermap.dieMatrix.dieColIndexArray);
+        let rowLengthsArray = new Int32Array(this.wafermap.dieMatrix.rowLengthsArray);
+        let dieRowIndexLayer = new Int32Array(this.wafermap.dieMatrix.dieRowIndexLayer);
+        let dieValuesLayer = new Int32Array(this.wafermap.dieMatrix.dieValuesLayer);
+        this.workerOne.postMessage(
+            {
+                method: 'renderDies',
+                dieColIndexArray,
+                rowLengthsArray,
+                dieRowIndexLayer,
+                dieValuesLayer,
+            },
+            [
+                dieColIndexArray.buffer,
+                rowLengthsArray.buffer,
+                dieRowIndexLayer.buffer,
+                dieValuesLayer.buffer
+            ]
+        );
+        dieColIndexArray = new Int32Array(this.wafermap.dieMatrix.dieColIndexArray);
+        rowLengthsArray = new Int32Array(this.wafermap.dieMatrix.rowLengthsArray);
+        dieRowIndexLayer = new Int32Array(this.wafermap.dieMatrix.dieRowIndexLayer);
+        dieValuesLayer = new Int32Array(this.wafermap.dieMatrix.dieValuesLayer);
+        this.workerTwo.postMessage(
             {
                 method: 'renderDies',
                 dieColIndexArray,

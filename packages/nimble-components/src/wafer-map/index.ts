@@ -72,7 +72,12 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly canvas!: HTMLCanvasElement;
+    public readonly canvasOne!: HTMLCanvasElement;
+
+    /**
+     * @internal
+     */
+    public readonly canvasTwo!: HTMLCanvasElement;
 
     // /**
     //  * @internal

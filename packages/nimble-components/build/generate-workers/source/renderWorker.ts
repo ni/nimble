@@ -3,6 +3,7 @@
  */
 export class RenderWorker {
     private canvas!: OffscreenCanvas;
+    private worker!: number;
     private context!: OffscreenCanvasRenderingContext2D;
     private dieMatrix: {
         // the x coordinates of each column of dies
@@ -64,8 +65,9 @@ export class RenderWorker {
         );
     }
 
-    public setCanvas(data: { canvas: OffscreenCanvas }): void {
+    public setCanvas(data: { canvas: OffscreenCanvas, worker: number }): void {
         this.canvas = data.canvas;
+        this.worker = data.worker;
         this.context = data.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
@@ -110,7 +112,8 @@ export class RenderWorker {
             const rowLength = this.dieMatrix.rowLengthsArray[index]!;
             const scaledX = this.horizontalScale.a + this.horizontalScale.b * (+colIndex) + this.margin.right;
             if (
-                scaledX >= this.xLimits.min
+                index % 2 === this.worker
+                && scaledX >= this.xLimits.min
                 && scaledX < this.xLimits.max
             ) {
                 for (let layerIndex = 0; layerIndex < rowLength; layerIndex++) {

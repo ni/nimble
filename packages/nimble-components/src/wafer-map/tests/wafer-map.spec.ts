@@ -120,7 +120,7 @@ describe('WaferMap', () => {
         });
 
         it('will zoom in the wafer-map', () => {
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
             processUpdates();
@@ -129,7 +129,7 @@ describe('WaferMap', () => {
         });
 
         it('will zoom out to identity', () => {
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
 
@@ -137,7 +137,7 @@ describe('WaferMap', () => {
             const zoomedValue = getTransform();
             expect(zoomedValue).not.toEqual(initialValue);
 
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
             );
 
@@ -147,7 +147,7 @@ describe('WaferMap', () => {
         });
 
         it('will not zoom out when at identity', () => {
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
             );
             processUpdates();
@@ -187,7 +187,7 @@ describe('WaferMap', () => {
             expect(initialHeight).toBe(460);
             expect(initialWidth).toBe(460);
 
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
             processUpdates();
@@ -206,7 +206,7 @@ describe('WaferMap', () => {
             processUpdates();
             const initialTransform = element.hoverTransform;
             expect(initialTransform).not.toEqual('');
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
             processUpdates();
