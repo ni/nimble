@@ -3,7 +3,7 @@
 @using System.Diagnostics.CodeAnalysis;
 @inherits LayoutComponentBase
 
-<NimbleTable IdFieldName="Id" @bind-Data="TableData">
+<NimbleTable TData="RowData" IdFieldName="Id" @ref="_table">
     <NimbleTableColumnIcon TKey="bool" FieldName="Field1" ColumnId="1">
         <NimbleMappingIcon Key="true" Text="foo" Icon="nimble-icon-check" Severity="IconSeverity.Success"></NimbleMappingIcon>
         <NimbleMappingSpinner Key="false" Text="bar"></NimbleMappingSpinner>
@@ -14,6 +14,7 @@
 @code {
     [NotNull]
     public IEnumerable<RowData> TableData { get; set; } = Enumerable.Empty<RowData>();
+    private NimbleTable<RowData>? _table;
 
     public TableColumnIconBoolKey()
     {
@@ -29,6 +30,12 @@
         }
 
         TableData = tableData;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _table!.SetDataAsync(TableData);
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     public class RowData

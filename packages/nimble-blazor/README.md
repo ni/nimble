@@ -78,6 +78,32 @@ To test out your changes, do "Debug" >> "Start without Debugging" in Visual Stud
 
 More complete examples can be found in the Demo.Client/Server example projects.
 
+#### NimbleTable usage
+
+The `NimbleTable` requires that its data be set via the `SetDataAsync` method. The appropriate place to call this method is either in the `OnAfterRenderAsync` override of the hosting component or after that method has been called for the first time.
+
+As the `NimbleTable` is generic a client must supply its generic type in the markup using the `TData` property syntax. The following code represents a typical usage of the `NimbleTable`:
+```html
+<NimbleTable TData="MyRecordType" @ref="_table">
+@code {
+    private NimbleTable<MyRecordType>? _table;
+    private IEnumerable<MyRecordType> TableData { get; set; } = Enumerable.Empty<MyRecordType>();
+    ...
+    public override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        await _table.SetDataAsync(TableData); // populate TableData before here
+    }
+
+    public class MyRecordType
+    {
+        ...
+    }
+}
+```
+
+For more information regarding the Blazor component lifecycle mechanisms (such as `OnAfterRenderAsync`), please consult the [Microsoft Blazor docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-8.0).
+
 ### Theming and Design Tokens
 
 To use Nimble's theme-aware design tokens in a Blazor app, you should have a `<NimbleThemeProvider>` element as an ancestor to all of the Nimble components you use. The app's default layout (`MainLayout.razor` in the examples) is a good place to put the theme provider (as the root content of the page).
