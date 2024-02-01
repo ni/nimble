@@ -911,6 +911,10 @@ export class Table<
         }
     }
 
+    private isHierarchyEnabled(): boolean {
+        return typeof this.parentIdFieldName === 'string';
+    }
+
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
 
@@ -919,7 +923,9 @@ export class Table<
         this.tableData = rows.map(row => {
             const isGroupRow = row.getIsGrouped();
             const hasParentRow = isGroupRow ? false : row.getParentRow();
-            const isParent = !isGroupRow && this.getRowCanExpand(row);
+            const isParent = !isGroupRow
+                && this.isHierarchyEnabled()
+                && this.getRowCanExpand(row);
             const isChildOfGroupRowWithNoHierarchy = !isGroupRow
                 && !isParent
                 && !hasParentRow
@@ -1038,7 +1044,7 @@ export class Table<
     private readonly getRowCanExpand = (
         row: TanStackRow<TableNode<TData>>
     ): boolean => {
-        return this.expansionManager.isRowExpandable(row, this.parentIdFieldName);
+        return this.expansionManager.isRowExpandable(row);
     };
 
     private readonly getIsRowExpanded = (
