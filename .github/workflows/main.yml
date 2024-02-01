@@ -108,16 +108,9 @@ jobs:
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
         if: env.HAS_LHCI_GITHUB_APP_TOKEN == 'true' && github.event_name == 'push'
-        run: npm run performance
+        run: npm run wafer-performance && npm run performance
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-
-      # Run Wafer Lighthouse audit (from any push)
-      - name: Wafermap Performance Audit with Lighthouse CI
-        if: env.HAS_LHCI_GITHUB_APP_TOKEN == 'true' && github.event_name == 'push'
-        run: npm run wafer-performance
-        env:
-         LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
       # Check Changelog
       - run: npm run check
