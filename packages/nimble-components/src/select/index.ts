@@ -93,9 +93,12 @@ export class Select extends FoundationSelect implements ErrorPattern {
     @observable
     public committedSelectedOption: ListboxOption | undefined = undefined;
 
-    public constructor() {
-        super();
+    public override connectedCallback(): void {
         this.addEventListener('change', this.changeValueHandler);
+    }
+
+    public override disconnectedCallback(): void {
+        this.removeEventListener('change', this.changeValueHandler);
     }
 
     /**
