@@ -1477,7 +1477,7 @@ describe('Table', () => {
                 expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
             });
 
-            it('collapse all button remains visible when row options are updated but one row is still forceExpandable', async () => {
+            it('collapse all button remains visible when row options are updated but one row still has canLoadChildren configured', async () => {
                 await element.setRecordHierarchyOptions([
                     {
                         id: '0',
