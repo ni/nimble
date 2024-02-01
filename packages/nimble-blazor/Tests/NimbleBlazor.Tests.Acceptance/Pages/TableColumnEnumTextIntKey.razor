@@ -35,7 +35,7 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await _table.SetDataAsync(TableData);
+        await _table!.SetDataAsync(TableData);
         await base.OnAfterRenderAsync(firstRender);
     }
 
