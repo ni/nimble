@@ -14,8 +14,6 @@ namespace NimbleBlazor;
 public partial class NimbleTable<TData> : ComponentBase
 {
     private ElementReference _table;
-    private bool _dataUpdated = false;
-    private IEnumerable<TData> _data = Enumerable.Empty<TData>();
     internal static string SetTableDataMethodName = "NimbleBlazor.Table.setData";
     internal static string GetSelectedRecordIdsMethodName = "NimbleBlazor.Table.getSelectedRecordIds";
     internal static string SetSelectedRecordIdsMethodName = "NimbleBlazor.Table.setSelectedRecordIds";
@@ -36,7 +34,6 @@ public partial class NimbleTable<TData> : ComponentBase
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
