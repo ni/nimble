@@ -100,10 +100,12 @@ export class Select extends FoundationSelect implements ErrorPattern {
     public committedSelectedOption: ListboxOption | undefined = undefined;
 
     public override connectedCallback(): void {
+        super.connectedCallback();
         this.addEventListener('change', this.changeValueHandler);
     }
 
     public override disconnectedCallback(): void {
+        super.disconnectedCallback();
         this.removeEventListener('change', this.changeValueHandler);
     }
 
@@ -319,7 +321,10 @@ export class Select extends FoundationSelect implements ErrorPattern {
             }
 
             case keyEnter: {
-                if (this.filteredOptions.some(o => !o.disabled)) {
+                if (
+                    this.filteredOptions.length === 0
+                    || this.filteredOptions.every(o => o.disabled)
+                ) {
                     return false;
                 }
                 this.updateSelectedIndexFromFilteredSet();
