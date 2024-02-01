@@ -1,4 +1,4 @@
-import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleCard } from './card.react';
 import { cardTag } from '..';
 import * as cardStories from './card.stories';
@@ -9,7 +9,7 @@ import * as cardStories from './card.stories';
 The <code>{cardTag}</code> is a container that is designed to contain arbitrary content that is specified by a client
 application. The <code>{cardTag}</code> is intended for grouping related content.
 
-<DocsStory of={cardStories.card} expanded={false} />
+<Canvas of={cardStories.card} />
 <Controls of={cardStories.card} />
 
 {/* ## Appearances */}

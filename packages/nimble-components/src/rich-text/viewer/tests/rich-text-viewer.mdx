@@ -1,10 +1,4 @@
-import {
-    Controls,
-    DocsStory,
-    Meta,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title, Description } from '@storybook/blocks';
 import { Tag } from '../../../../.storybook/blocks/StoryLayout';
 import * as viewerStories from './rich-text-viewer.stories';
 import * as mentionUserStories from '../../../rich-text-mention/users/tests/rich-text-mention-users.stories';
@@ -18,7 +12,7 @@ The rich text viewer component allows users to view text formatted with various 
 
 See the [rich text editor](?path=/docs/incubating-rich-text-editor--docs) component to enable users to modify the markdown contents.
 
-<DocsStory of={viewerStories.richTextViewer} expanded={false} />
+<Canvas of={viewerStories.richTextViewer} />
 <Controls of={viewerStories.richTextViewer} />
 
 ## User Mention Usage

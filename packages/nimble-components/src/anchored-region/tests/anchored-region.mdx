@@ -1,4 +1,4 @@
-import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleAnchoredRegion } from './anchored-region.react';
 import * as anchoredRegionStories from './anchored-region.stories';
 
@@ -14,7 +14,7 @@ to another "anchor" element. Additionally, the anchored region can react to the 
 ["viewport"](https://developer.mozilla.org/en-US/docs/Glossary/viewport) element such that the region is placed on the side of the anchor with the most
 available space, or even resize itself based on that space.
 
-<DocsStory of={anchoredRegionStories.anchoredRegion} expanded={false} />
+<Canvas of={anchoredRegionStories.anchoredRegion} />
 <Controls of={anchoredRegionStories.anchoredRegion} />
 
 {/* ## Appearances */}

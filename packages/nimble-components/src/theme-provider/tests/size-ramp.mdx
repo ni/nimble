@@ -1,4 +1,4 @@
-import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import * as sizeRampStories from './size-ramp.stories';
 
 <Meta of={sizeRampStories} />
@@ -6,7 +6,7 @@ import * as sizeRampStories from './size-ramp.stories';
 
 Design Tokens representing the range of fixed sizes to use for spacing and layout. Use these tokens when no designated token exists for the purpose.
 
-<DocsStory of={sizeRampStories.sizeRampTokens} expanded={false} />
+<Canvas of={sizeRampStories.sizeRampTokens} />
 <Controls of={sizeRampStories.sizeRampTokens} />
 
 {/* ## Usage */}

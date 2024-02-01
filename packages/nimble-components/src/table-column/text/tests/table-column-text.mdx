@@ -1,4 +1,4 @@
-import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { Tag } from '../../../../.storybook/blocks/StoryLayout';
 import { NimbleTableColumnText } from './table-column-text.react';
 import * as tableColumnTextStories from './table-column-text.stories';
@@ -10,7 +10,7 @@ import { tableTag } from '../../../table';
 
 The <Tag name={tableColumnTextTag}/> column is used to display string fields as text in the <Tag name={tableTag}/>.
 
-<DocsStory of={tableColumnTextStories.textColumn} expanded={false} />
+<Canvas of={tableColumnTextStories.textColumn} />
 <Controls of={tableColumnTextStories.textColumn} />
 
 {/* ## Appearances */}

@@ -1,4 +1,4 @@
-import { Controls, DocsStory, Meta, Title } from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import { Tag } from '../../../../.storybook/blocks/StoryLayout';
 import TargetDocs from '../../../patterns/anchor/tests/target-docs.mdx';
 import * as tableColumnAnchorStories from './table-column-anchor.stories';
@@ -10,7 +10,7 @@ import { tableTag } from '../../../table';
 
 The <Tag name={tableColumnAnchorTag}/> column is used to display string fields as links or text in the <Tag name={tableTag}/>. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.
 
-<DocsStory of={tableColumnAnchorStories.anchorColumn} expanded={false} />
+<Canvas of={tableColumnAnchorStories.anchorColumn} />
 <Controls of={tableColumnAnchorStories.anchorColumn} />
 
 ## Target Configuration

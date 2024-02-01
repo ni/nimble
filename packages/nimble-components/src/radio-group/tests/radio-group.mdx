@@ -1,4 +1,4 @@
-import { Controls, DocsStory, Meta, Title } from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import * as radioGroupStories from './radio-group.stories';
 
 <Meta of={radioGroupStories} />
@@ -6,7 +6,7 @@ import * as radioGroupStories from './radio-group.stories';
 
 Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) - A radio group is a set of checkable buttons, known as radio buttons, where no more than one of the buttons can be checked at a time. Some implementations may initialize the set with all buttons in the unchecked state in order to force the user to check one of the buttons before moving past a certain point in the workflow.
 
-<DocsStory of={radioGroupStories.radioGroup} expanded={false} />
+<Canvas of={radioGroupStories.radioGroup} />
 <Controls of={radioGroupStories.radioGroup} />
 
 {/* ## Appearances */}

@@ -1,4 +1,4 @@
-import { Controls, DocsStory, Meta, Title } from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import TargetDocs from '../../patterns/anchor/tests/target-docs.mdx';
 import { anchorTabTag } from '../../anchor-tab';
 import * as anchorTabsStories from './anchor-tabs.stories';
@@ -11,7 +11,7 @@ be distinguished as the currently active item. Use this component instead of the
 represents a different URL to navigate to. Use the standard tabs component when the tabs should switch between different
 tab panels hosted on the same page.
 
-<DocsStory of={anchorTabsStories.anchorTabs} expanded={false} />
+<Canvas of={anchorTabsStories.anchorTabs} />
 <Controls of={anchorTabsStories.anchorTabs} />
 
 {/* ## Appearances */}

@@ -1,4 +1,4 @@
-import { Controls, DocsStory, Meta, Title } from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import * as tableStories from './table.stories';
 import { tableTag } from '..';
@@ -9,7 +9,7 @@ import { tableTag } from '..';
 The <Tag name={tableTag}/> is a component that offers a way to render tabular data in a variety of ways in each column.
 For information about configuring table columns, see **Table Column Configuration** and **Table Column Types**.
 
-<DocsStory of={tableStories.table} expanded={false} />
+<Canvas of={tableStories.table} />
 <Controls of={tableStories.table} />
 
 {/* ## Appearances */}

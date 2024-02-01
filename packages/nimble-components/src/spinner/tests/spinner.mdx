@@ -1,4 +1,4 @@
-import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import * as spinnerStories from './spinner.stories';
 import { spinnerTag } from '..';
@@ -13,7 +13,7 @@ import { spinnerTag } from '..';
     It has 3 sizes (64px, 32px, and 16px) and 2 appearance types (default and
     accent).
 
-<DocsStory of={spinnerStories.spinner} expanded={false} />
+<Canvas of={spinnerStories.spinner} />
 <Controls of={spinnerStories.spinner} />
 
 ## Sizing

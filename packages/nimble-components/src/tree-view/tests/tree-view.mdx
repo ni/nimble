@@ -1,4 +1,4 @@
-import { Controls, DocsStory, Meta, Title } from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import TargetDocs from '../../patterns/anchor/tests/target-docs.mdx';
 import * as treeViewStories from './tree-view.stories';
@@ -18,7 +18,7 @@ expanded to reveal the contents of the folder, which may be files, folders, or b
 The <Tag name={treeViewTag}/> supports standard <Tag name={treeItemTag}/> and <Tag name={anchorTreeItemTag}/>,
 which navigate to a url upon activation. Both types of tree items support icons as slotted content.
 
-<DocsStory of={treeViewStories.treeItem} expanded={false} />
+<Canvas of={treeViewStories.treeItem} />
 <Controls of={treeViewStories.treeItem} />
 
 {/* ## Appearances */}

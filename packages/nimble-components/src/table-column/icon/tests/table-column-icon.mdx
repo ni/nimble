@@ -1,10 +1,4 @@
-import {
-    DocsStory,
-    Meta,
-    Controls,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title, Description } from '@storybook/blocks';
 import { Tag } from '../../../../.storybook/blocks/StoryLayout';
 import { columnOperationBehavior } from '../../base/tests/table-column-stories-utils';
 import * as tableColumnIconStories from './table-column-icon.stories';
@@ -21,7 +15,7 @@ The <Tag name={tableColumnIconTag}/> column renders string, number, or boolean v
 
 <p>{columnOperationBehavior}</p>
 
-<DocsStory of={tableColumnIconStories.iconColumn} expanded={false} />
+<Canvas of={tableColumnIconStories.iconColumn} />
 <Controls of={tableColumnIconStories.iconColumn} />
 
 ## Blazor Usage

@@ -1,4 +1,4 @@
-import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { Tag } from '../../../../.storybook/blocks/StoryLayout';
 import { NimbleTableColumnNumberText } from './table-column-number-text.react';
 import { columnOperationBehavior } from '../../base/tests/table-column-stories-utils';
@@ -14,10 +14,7 @@ based on the value of the `lang` token, which can be set via the [nimble-theme-p
 
 <p>{columnOperationBehavior}</p>
 
-<DocsStory
-    of={tableColumnNumberTextStories.numberTextColumn}
-    expanded={false}
-/>
+<Canvas of={tableColumnNumberTextStories.numberTextColumn} />
 <Controls of={tableColumnNumberTextStories.numberTextColumn} />
 
 {/* ## Appearances */}

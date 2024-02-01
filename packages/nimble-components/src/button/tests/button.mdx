@@ -1,4 +1,4 @@
-import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
 import { NimbleButton } from './button.react';
@@ -16,7 +16,7 @@ action, or performing a delete operation.
 
 If you want a button that triggers navigation to a URL, use the <Tag name={anchorButtonTag}/> instead.
 
-<DocsStory of={buttonStories.outlineButton} expanded={false} />
+<Canvas of={buttonStories.outlineButton} />
 <Controls of={buttonStories.outlineButton} />
 
 ## Styling

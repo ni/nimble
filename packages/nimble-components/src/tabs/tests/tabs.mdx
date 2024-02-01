@@ -1,4 +1,4 @@
-import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleTabs } from './tabs.react';
 import * as tabsStories from './tabs.stories';
 
@@ -15,7 +15,7 @@ horizontal scrolling. Content may be any height; the tab panel will display a ve
 
 If you want a sequence of tabs that navigate to different URLs, use the Anchor Tabs component instead.
 
-<DocsStory of={tabsStories.tabs} expanded={false} />
+<Canvas of={tabsStories.tabs} />
 <Controls of={tabsStories.tabs} />
 
 {/* ## Appearances */}

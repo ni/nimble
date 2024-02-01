@@ -1,4 +1,4 @@
-import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleBanner } from './banner.react';
 import { bannerGapSize } from '../../theme-provider/design-tokens';
 import * as bannerStories from './banner.stories';
@@ -13,7 +13,7 @@ Banner messages should be limited to approximately three lines of text under nor
 location. Multiple banners may be stacked vertically in order of age, with the newest at the top. Stacked banners
 should be spaced apart using the <code>{bannerGapSize.cssCustomProperty}</code> design token.
 
-<DocsStory of={bannerStories._banner} expanded={false} />
+<Canvas of={bannerStories._banner} />
 <Controls of={bannerStories._banner} />
 
 {/* ## Appearances */}

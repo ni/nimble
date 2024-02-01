@@ -1,4 +1,4 @@
-import { Controls, DocsStory, Meta, Title } from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
 import * as toggleButtonStories from './toggle-button.stories';
 
@@ -11,7 +11,7 @@ indicate that sound is muted by setting the pressed state true. Important: it is
 not change when its state changes. In this example, when the pressed state is true, the label remains "Mute" so a
 screen reader would say something like "Mute toggle button pressed".
 
-<DocsStory of={toggleButtonStories.outlineButton} expanded={false} />
+<Canvas of={toggleButtonStories.outlineButton} />
 <Controls of={toggleButtonStories.outlineButton} />
 
 {/* ## Appearances */}

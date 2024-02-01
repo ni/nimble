@@ -1,10 +1,4 @@
-import {
-    Controls,
-    DocsStory,
-    Meta,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title, Description } from '@storybook/blocks';
 import { Tag } from '../../../../.storybook/blocks/StoryLayout';
 import * as editorStories from './rich-text-editor.stories';
 import * as mentionUserStories from '../../../rich-text-mention/users/tests/rich-text-mention-users.stories';
@@ -18,7 +12,7 @@ The rich text editor component allows users to add/edit text formatted with vari
 
 See the [rich text viewer](?path=/docs/incubating-rich-text-viewer--docs) component to render markdown without allowing editing.
 
-<DocsStory of={editorStories.richTextEditor} expanded={false} />
+<Canvas of={editorStories.richTextEditor} />
 <Controls of={editorStories.richTextEditor} />
 
 ## User Mention Usage

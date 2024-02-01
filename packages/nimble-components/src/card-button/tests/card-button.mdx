@@ -1,4 +1,4 @@
-import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import { NimbleCardButton } from './card-button.react';
 import { cardButtonTag } from '..';
@@ -13,7 +13,7 @@ application. The <Tag name={cardButtonTag}/> is intended to be larger and more p
 
 Note: The styling for the "Color" theme is not complete.
 
-<DocsStory of={cardButtonStories.cardButton} expanded={false} />
+<Canvas of={cardButtonStories.cardButton} />
 <Controls of={cardButtonStories.cardButton} />
 
 {/* ## Appearances */}

@@ -1,10 +1,4 @@
-import {
-    DocsStory,
-    Meta,
-    Controls,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title, Description } from '@storybook/blocks';
 import { Tag } from '../../../../.storybook/blocks/StoryLayout';
 import { columnOperationBehavior } from '../../base/tests/table-column-stories-utils';
 import * as tableColumnEnumTextStories from './table-column-enum-text.stories';
@@ -19,7 +13,7 @@ The <Tag name={tableColumnEnumTextTag}/> column renders string, number, or boole
 
 <p>{columnOperationBehavior}</p>
 
-<DocsStory of={tableColumnEnumTextStories.enumTextColumn} expanded={false} />
+<Canvas of={tableColumnEnumTextStories.enumTextColumn} />
 <Controls of={tableColumnEnumTextStories.enumTextColumn} />
 
 ## Blazor Usage

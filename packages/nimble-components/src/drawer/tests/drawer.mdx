@@ -1,4 +1,4 @@
-import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import * as drawerStories from './drawer.stories';
 
 <Meta of={drawerStories} />
@@ -6,7 +6,7 @@ import * as drawerStories from './drawer.stories';
 
 Specialized dialog designed to slide in from either side of the page. Typically used for a configuration pane.
 
-<DocsStory of={drawerStories.drawer} expanded={false} />
+<Canvas of={drawerStories.drawer} />
 <Controls of={drawerStories.drawer} />
 
 {/* ## Appearances */}

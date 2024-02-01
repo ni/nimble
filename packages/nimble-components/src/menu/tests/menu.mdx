@@ -1,4 +1,4 @@
-import { Controls, DocsStory, Meta, Title } from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import TargetDocs from '../../patterns/anchor/tests/target-docs.mdx';
 import * as menuStories from './menu.stories';
@@ -17,7 +17,7 @@ When a user activates a choice in a menu, the menu usually closes unless the cho
 
 The <Tag name={menuTag}/> supports several child elements including `<header>`, `<hr>`, <Tag name={menuItemTag} open/> and <Tag name={anchorMenuItemTag} open/>.
 
-<DocsStory of={menuStories.menu} expanded={false} />
+<Canvas of={menuStories.menu} />
 <Controls of={menuStories.menu} />
 
 ## Child Elements
@@ -38,4 +38,4 @@ The menu can be configured to display a custom header with arbitrary content. Th
 
 For example:
 
-<DocsStory of={menuStories.customMenu} expanded={false} />
+<Canvas of={menuStories.customMenu} />
