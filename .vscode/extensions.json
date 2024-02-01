@@ -8,7 +8,6 @@
         "rvest.vs-code-prettier-eslint",
         "unifiedjs.vscode-mdx",
         "ms-dotnettools.csharp",
-        "ms-dotnettools.blazorwasm-companion",
-        "huuums.vscode-fast-folder-structure"
+        "ms-dotnettools.blazorwasm-companion"
     ]
 }
