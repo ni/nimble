@@ -1578,7 +1578,7 @@ describe('Table', () => {
                 expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
             });
 
-            it("setting a record's delayedHierarchyState to canLoadChildren when it has no children defaults the row to not expanded", async () => {
+            it("setting a record's delayedHierarchyState to canLoadChildren when it has no children defaults the row to collapsed", async () => {
                 await element.setRecordHierarchyOptions([
                     {
                         recordId: '0',

@@ -223,7 +223,6 @@ export class Table<
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly tableValidator = new TableValidator<TData>();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
-
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private dataHierarchyManager?: DataHierarchyManager<TData>;
     private readonly expansionManager: ExpansionManager<TData>;
@@ -310,7 +309,6 @@ export class Table<
         }[]
     ): Promise<void> {
         await this.processPendingUpdates();
-
         const presentOptions = this.tableValidator.getItemsWithPresentIds(hierarchyOptions);
         this.expansionManager.setHierarchyOptions(presentOptions);
         this.refreshRows();

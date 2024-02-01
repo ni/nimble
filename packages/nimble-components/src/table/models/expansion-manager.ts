@@ -114,7 +114,6 @@ export class ExpansionManager<TData extends TableRecord> {
         }[]
     ): void {
         this.hierarchyOptions.clear();
-
         for (const { recordId, options } of hierarchyOptions) {
             this.hierarchyOptions.set(recordId, options);
         }

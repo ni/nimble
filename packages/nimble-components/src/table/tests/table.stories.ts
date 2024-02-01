@@ -418,7 +418,7 @@ const metadata: Meta<TableArgs> = {
                 await x.tableRef.setData(dataSets[x.data]);
                 await x.tableRef.setRecordHierarchyOptions([
                     {
-                        id: '9',
+                        recordId: '9',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
