@@ -1205,7 +1205,7 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        // Re-enabled the test to monitor the intermittency failure
+        // This test is failing intermittently, if noticed any failures report here: https://github.com/ni/nimble/issues/1761
         it('should commit mention into the editor on Enter', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
@@ -1213,14 +1213,6 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
-
-            // prettier-ignore
-            // eslint-disable-next-line no-console
-            console.log('Selection:', window.getSelection());
-            // prettier-ignore
-            // eslint-disable-next-line no-console
-            console.log('collapseToEnd:', window.getSelection()?.collapseToEnd());
-
             await pageObject.pressEnterKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
