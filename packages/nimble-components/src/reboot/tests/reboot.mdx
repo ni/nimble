@@ -1,0 +1,14 @@
+import { Controls, DocsStory, Meta, Stories, Title } from '@storybook/blocks';
+import * as rebootStories from './reboot.stories';
+
+<Meta of={rebootStories} />
+
+<Title of={rebootStories} />
+
+The `reboot.css` builds on Reboot efforts from [Fluent UI Web Components for Blazor](https://www.fluentui-blazor.net/Reboot)
+and [Bootstrap](https://getbootstrap.com/docs/4.0/content/reboot/) to define a
+set of sensible defaults for standard HTML elements used alongside Nimble components.
+
+To use Reboot CSS, review the nimble-components [README](https://github.com/ni/nimble/blob/main/packages/nimble-components/README.md#using-the-theming-system) for instructions.
+
+<Stories of={rebootStories} expanded={false} />
