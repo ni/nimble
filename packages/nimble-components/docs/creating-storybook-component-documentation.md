@@ -62,7 +62,4 @@ All other Markdown formatting is supported. See any [Markdown Cheatsheet](https:
 
 ### Testing 
 
-When you run Storybook (See **Getting Started** above), you should see the component description within the **Docs** tab. E.g. 
-
-![Storybook DocsPage overview](/packages/nimble-components/docs/images/docs-page-overview.png)
-
+When you run Storybook (See **Getting Started** above), you should see the `component-name.mdx` file rendered as the component **Docs** page.
