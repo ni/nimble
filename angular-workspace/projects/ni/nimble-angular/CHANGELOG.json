@@ -2,6 +2,42 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 31 Jan 2024 20:22:58 GMT",
+      "version": "20.0.0",
+      "tag": "@ni/nimble-angular_v20.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "bf9013d5cb92106ddd1fcf6fd84e6684930462b8",
+            "comment": "Create new NumberTextPipe and change existing DurationPipe to be a standalone pipe (removing NimblePipesModule)"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v21.1.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 31 Jan 2024 17:51:55 GMT",
+      "version": "19.4.0",
+      "tag": "@ni/nimble-angular_v19.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "147777aaf8332d80a89aecec247a95ee31233965",
+            "comment": "Include href in NavigationGuard"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 29 Jan 2024 11:31:46 GMT",
       "version": "19.3.1",
       "tag": "@ni/nimble-angular_v19.3.1",
