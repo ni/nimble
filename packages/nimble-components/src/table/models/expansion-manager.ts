@@ -28,7 +28,9 @@ export class ExpansionManager<TData extends TableRecord> {
     private collapsedRows = new Set<string>();
     private hierarchyOptions = new Map<string, TableRecordHierarchyOptions>();
 
-    public constructor(private readonly tanStackTable: TanStackTable<TableNode<TData>>) {}
+    public constructor(
+        private readonly tanStackTable: TanStackTable<TableNode<TData>>
+    ) {}
 
     public isRowExpanded(row: TanStackRow<TableNode<TData>>): boolean {
         if (!this.isRowExpandable(row)) {
@@ -85,7 +87,10 @@ export class ExpansionManager<TData extends TableRecord> {
         }
 
         const updatedCollapsedRows = new Set<string>();
-        const updatedHierarchyOptions = new Map<string, TableRecordHierarchyOptions>();
+        const updatedHierarchyOptions = new Map<
+        string,
+        TableRecordHierarchyOptions
+        >();
         for (const row of rows) {
             const rowId = row.id;
             if (this.collapsedRows.has(rowId)) {
@@ -103,7 +108,10 @@ export class ExpansionManager<TData extends TableRecord> {
     }
 
     public setHierarchyOptions(
-        hierarchyOptions: { recordId: string, options: TableRecordHierarchyOptions }[]
+        hierarchyOptions: {
+            recordId: string,
+            options: TableRecordHierarchyOptions
+        }[]
     ): void {
         this.hierarchyOptions.clear();
 
@@ -113,13 +121,13 @@ export class ExpansionManager<TData extends TableRecord> {
     }
 
     public isRowExpandable(row: TanStackRow<TableNode<TData>>): boolean {
-        return (
-            row.subRows.length > 0
-            || this.canLoadDelayedChildren(row.id)
-        );
+        return row.subRows.length > 0 || this.canLoadDelayedChildren(row.id);
     }
 
     private canLoadDelayedChildren(id: string): boolean {
-        return this.hierarchyOptions.get(id)?.delayedHierarchyState === TableRecordDelayedHierarchyState.canLoadChildren ?? false;
+        return (
+            this.hierarchyOptions.get(id)?.delayedHierarchyState
+                === TableRecordDelayedHierarchyState.canLoadChildren ?? false
+        );
     }
 }

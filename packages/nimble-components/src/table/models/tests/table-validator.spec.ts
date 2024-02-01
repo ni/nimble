@@ -717,8 +717,14 @@ describe('TableValidator', () => {
 
     describe('getItemsWithPresentIds', () => {
         const value1Object = { recordId: 'value-1', moreData: 10 } as const;
-        const value2Object = { recordId: 'value-2', somethingElse: 'value-1' } as const;
-        const value3Object = { recordId: 'value-3', complexType: ['value-1', 'value-2'] } as const;
+        const value2Object = {
+            recordId: 'value-2',
+            somethingElse: 'value-1'
+        } as const;
+        const value3Object = {
+            recordId: 'value-3',
+            complexType: ['value-1', 'value-2']
+        } as const;
 
         it('filters out record IDs that are not in the data set', () => {
             const data = [
