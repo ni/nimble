@@ -715,26 +715,44 @@ describe('TableValidator', () => {
         });
     });
 
-    describe('getAllRecordIds', () => {
-        it('returns an empty set if no data has been validated', () => {
-            const recordIds = validator.getAllRecordIds();
-            expect(recordIds.size).toBe(0);
-        });
+    describe('getItemsWithPresentIds', () => {
+        const value1Object = { recordId: 'value-1', moreData: 10 } as const;
+        const value2Object = { recordId: 'value-2', somethingElse: 'value-1' } as const;
+        const value3Object = { recordId: 'value-3', complexType: ['value-1', 'value-2'] } as const;
 
-        it('returns all ids that existed when validateRecordIds was called', () => {
+        it('filters out record IDs that are not in the data set', () => {
             const data = [
                 { stringField: 'value-1', numberField: 10 },
                 { stringField: 'value-2', numberField: 11 }
             ];
             validator.validateRecordIds(data, 'stringField');
 
-            const recordIds = validator.getAllRecordIds();
-            expect(recordIds.size).toBe(2);
-            expect(recordIds.has('value-1')).toBeTrue();
-            expect(recordIds.has('value-2')).toBeTrue();
+            const presentRecordIds = validator.getItemsWithPresentIds([
+                value2Object,
+                value3Object
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([value2Object])
+            );
         });
 
-        it('updates return value when validateRecordIds is called multiple times', () => {
+        it('returns all record IDs if they are all in the data set', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, 'stringField');
+
+            const presentRecordIds = validator.getItemsWithPresentIds([
+                value2Object,
+                value1Object
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([value1Object, value2Object])
+            );
+        });
+
+        it('filters out records that previously were in the data set but no longer are', () => {
             const data = [
                 { stringField: 'value-1', numberField: 10 },
                 { stringField: 'value-2', numberField: 11 }
@@ -747,10 +765,13 @@ describe('TableValidator', () => {
             ];
             validator.validateRecordIds(newData, 'stringField');
 
-            const recordIds = validator.getAllRecordIds();
-            expect(recordIds.size).toBe(2);
-            expect(recordIds.has('value-1')).toBeTrue();
-            expect(recordIds.has('value-3')).toBeTrue();
+            const presentRecordIds = validator.getItemsWithPresentIds([
+                value2Object,
+                value1Object
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([value1Object])
+            );
         });
 
         it('filters out all records when there is no id field name', () => {
@@ -760,8 +781,13 @@ describe('TableValidator', () => {
             ];
             validator.validateRecordIds(data, undefined);
 
-            const recordIds = validator.getAllRecordIds();
-            expect(recordIds.size).toBe(0);
+            const presentRecordIds = validator.getItemsWithPresentIds([
+                value2Object,
+                value1Object
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([])
+            );
         });
     });
 

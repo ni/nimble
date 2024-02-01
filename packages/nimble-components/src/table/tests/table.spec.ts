@@ -1418,7 +1418,7 @@ describe('Table', () => {
 
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1430,7 +1430,7 @@ describe('Table', () => {
 
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.none
@@ -1446,7 +1446,7 @@ describe('Table', () => {
 
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1466,7 +1466,7 @@ describe('Table', () => {
 
                 await element.setRecordHierarchyOptions([
                     {
-                        id: 'does-not-exist',
+                        recordId: 'does-not-exist',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1480,21 +1480,21 @@ describe('Table', () => {
             it('collapse all button remains visible when row options are updated but one row still has canLoadChildren configured', async () => {
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     },
                     {
-                        id: '1',
+                        recordId: '1',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     },
                     {
-                        id: '2',
+                        recordId: '2',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1506,21 +1506,21 @@ describe('Table', () => {
 
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     },
                     {
-                        id: '1',
+                        recordId: '1',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.none
                         }
                     },
                     {
-                        id: '2',
+                        recordId: '2',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.none
@@ -1534,21 +1534,21 @@ describe('Table', () => {
             it('setRecordHierarchyOptions clears options that are not in specified options', async () => {
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     },
                     {
-                        id: '1',
+                        recordId: '1',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     },
                     {
-                        id: '2',
+                        recordId: '2',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1560,14 +1560,14 @@ describe('Table', () => {
 
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '1',
+                        recordId: '1',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.none
                         }
                     },
                     {
-                        id: '2',
+                        recordId: '2',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.none
@@ -1581,7 +1581,7 @@ describe('Table', () => {
             it("setting a record's delayedHierarchyState to canLoadChildren when it has no children defaults the row to not expanded", async () => {
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1609,7 +1609,7 @@ describe('Table', () => {
                 await element.setData(dataWithChild);
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1642,7 +1642,7 @@ describe('Table', () => {
                 await element.setData(dataWithChild);
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1684,7 +1684,7 @@ describe('Table', () => {
 
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1706,7 +1706,7 @@ describe('Table', () => {
             it('updating data to include children of an expanded delayed parent renders parent as expanded and renders child rows', async () => {
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '3',
+                        recordId: '3',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1740,7 +1740,7 @@ describe('Table', () => {
             it('updating idFieldName clears configured row options', async () => {
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1759,10 +1759,33 @@ describe('Table', () => {
                 ).toBeFalse();
             });
 
+            it('updating parentIdFieldName does not clear configured row options', async () => {
+                await element.setRecordHierarchyOptions([
+                    {
+                        recordId: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
+                ]);
+                await waitForUpdatesAsync();
+                expect(
+                    pageObject.isDataRowExpandCollapseButtonVisible(0)
+                ).toBeTrue();
+
+                element.parentIdFieldName = 'newParentId';
+                await waitForUpdatesAsync();
+
+                expect(
+                    pageObject.isDataRowExpandCollapseButtonVisible(0)
+                ).toBeTrue();
+            });
+
             it('updating data does not clear configured row options', async () => {
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1786,7 +1809,7 @@ describe('Table', () => {
             it('updating data removes row options for records no longer in the data', async () => {
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1813,7 +1836,7 @@ describe('Table', () => {
             it('updating data to have invalid record IDs does not remove row options for records no longer in the data', async () => {
                 await element.setRecordHierarchyOptions([
                     {
-                        id: '0',
+                        recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
@@ -1831,6 +1854,32 @@ describe('Table', () => {
                     { id: 'duplicate', parentId: undefined, stringData: 'b' }
                 ]);
                 await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+
+                expect(
+                    pageObject.isDataRowExpandCollapseButtonVisible(0)
+                ).toBeTrue();
+            });
+
+            it('hierarchy options set when a parentIdFieldName is not configured are used when the parentIdFieldName is set', async () => {
+                element.parentIdFieldName = undefined;
+                await waitForUpdatesAsync();
+
+                await element.setRecordHierarchyOptions([
+                    {
+                        recordId: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
+                ]);
+                await waitForUpdatesAsync();
+                expect(
+                    pageObject.isDataRowExpandCollapseButtonVisible(0)
+                ).toBeFalse();
+
+                element.parentIdFieldName = 'parentId';
                 await waitForUpdatesAsync();
 
                 expect(

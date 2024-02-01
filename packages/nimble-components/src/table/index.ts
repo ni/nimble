@@ -58,7 +58,6 @@ import { InteractiveSelectionManager } from './models/interactive-selection-mana
 import { DataHierarchyManager } from './models/data-hierarchy-manager';
 import { ExpansionManager } from './models/expansion-manager';
 import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
-import { RowHierarchyOptionsManager } from './models/row-hierarchy-options-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -224,7 +223,6 @@ export class Table<
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly tableValidator = new TableValidator<TData>();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
-    private readonly rowHierarchyOptionsManager = new RowHierarchyOptionsManager();
 
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private dataHierarchyManager?: DataHierarchyManager<TData>;
@@ -275,22 +273,13 @@ export class Table<
             this.table,
             this.selectionMode
         );
-        this.expansionManager = new ExpansionManager(
-            this.table,
-            this.rowHierarchyOptionsManager
-        );
+        this.expansionManager = new ExpansionManager(this.table);
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
         await this.processPendingUpdates();
         const tanstackUpdates = this.calculateTanStackData(newData);
         this.updateTableOptions(tanstackUpdates);
-
-        if (this.tableValidator.areRecordIdsValid()) {
-            this.rowHierarchyOptionsManager.handleDataChange(
-                this.tableValidator.getAllRecordIds()
-            );
-        }
     }
 
     public async getSelectedRecordIds(): Promise<string[]> {
@@ -315,22 +304,15 @@ export class Table<
     }
 
     public async setRecordHierarchyOptions(
-        rowHierarchyOptions: {
-            id: string,
+        hierarchyOptions: {
+            recordId: string,
             options: TableRecordHierarchyOptions
         }[]
     ): Promise<void> {
         await this.processPendingUpdates();
 
-        if (!this.isHierarchyEnabled()) {
-            // Do not allow hierarchy options to be configured when hierarchy is not
-            // configured on the table.
-            return;
-        }
-
-        const recordIds = this.tableValidator.getAllRecordIds();
-        const presentOptions = rowHierarchyOptions.filter(option => recordIds.has(option.id));
-        this.rowHierarchyOptionsManager.setOptions(presentOptions);
+        const presentOptions = this.tableValidator.getItemsWithPresentIds(hierarchyOptions);
+        this.expansionManager.setHierarchyOptions(presentOptions);
         this.refreshRows();
     }
 
@@ -804,7 +786,7 @@ export class Table<
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
             updatedOptions.state.rowSelection = {};
             this.selectionManager.handleSelectionReset();
-            this.rowHierarchyOptionsManager.reset();
+            this.expansionManager.resetHierarchyOptions();
         }
         if (this.tableUpdateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
@@ -844,7 +826,7 @@ export class Table<
             || this.tableUpdateTracker.updateGroupRows
         ) {
             updatedOptions.state.expanded = true;
-            this.expansionManager.reset();
+            this.expansionManager.resetExpansionState();
         }
 
         this.updateTableOptions(updatedOptions);
@@ -1054,7 +1036,7 @@ export class Table<
             state: { ...this.options.state, ...updatedOptions.state }
         };
         this.table.setOptions(this.options);
-        if (updatedOptions.data) {
+        if (updatedOptions.data && this.tableValidator.areRecordIdsValid()) {
             const rows = this.table.getRowModel().flatRows;
             this.expansionManager.processDataUpdate(rows);
         }

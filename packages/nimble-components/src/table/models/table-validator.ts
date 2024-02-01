@@ -156,8 +156,10 @@ export class TableValidator<TData extends TableRecord> {
         return requestedRecordIds.filter(id => this.recordIds.has(id));
     }
 
-    public getAllRecordIds(): Set<string> {
-        return this.recordIds;
+    public getItemsWithPresentIds<T extends { recordId: string }>(
+        requestedItems: readonly T[]
+    ): T[] {
+        return requestedItems.filter(item => this.recordIds.has(item.recordId));
     }
 
     public setParentIdConfigurationValidity(valid: boolean): void {
