@@ -119,11 +119,15 @@ export class ExpansionManager<TData extends TableRecord> {
         }
     }
 
-    public isRowExpandable(row: TanStackRow<TableNode<TData>>): boolean {
-        return row.subRows.length > 0 || this.canLoadDelayedChildren(row.id);
+    public isRowExpandable(row: TanStackRow<TableNode<TData>>, parentIdFieldName: string | undefined): boolean {
+        return row.subRows.length > 0 || this.canLoadDelayedChildren(row.id, parentIdFieldName);
     }
 
-    private canLoadDelayedChildren(id: string): boolean {
+    private canLoadDelayedChildren(id: string, parentIdFieldName: string | undefined): boolean {
+        if (typeof parentIdFieldName !== 'string') {
+            return false;
+        }
+
         return (
             this.hierarchyOptions.get(id)?.delayedHierarchyState
                 === TableRecordDelayedHierarchyState.canLoadChildren ?? false
