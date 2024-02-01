@@ -310,10 +310,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
             }
 
             case keyEnter: {
-                if (
-                    this.filteredOptions.length === 0
-                    || this.filteredOptions.every(o => o.disabled)
-                ) {
+                if (this.filteredOptions.some(o => !o.disabled)) {
                     return false;
                 }
                 this.updateSelectedIndexFromFilteredSet();
