@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Change data API of Nimble Blazor Table.",
+  "packageName": "@ni/nimble-blazor",
+  "email": "26874831+atmgrifter00@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
