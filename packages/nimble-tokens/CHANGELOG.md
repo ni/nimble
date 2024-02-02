@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Thu, 04 Jan 2024 16:50:24 GMT and should not be manually modified.
+This log was last generated on Fri, 02 Feb 2024 21:51:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.10.0
+
+Fri, 02 Feb 2024 21:51:03 GMT
+
+### Minor changes
+
+- New pause, play, stop, and external link icons. Updated running-arrow icon. ([ni/nimble@8ba4f05](https://github.com/ni/nimble/commit/8ba4f05ec0bd828265d2f74b16a278adf46db268))
 
 ## 6.9.1
 

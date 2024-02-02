@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "New pause, play, stop, and external link icons. Updated running-arrow icon.",
-  "packageName": "@ni/nimble-tokens",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
