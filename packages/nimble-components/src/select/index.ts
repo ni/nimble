@@ -194,6 +194,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         super.connectedCallback();
         this.addEventListener('change', this.changeValueHandler);
         this.addEventListener('contentchange', this.updateDisplayValue);
+        if (this.open) {
+            this.initializeOpenState();
+        }
         this.forcedPosition = !!this.positionAttribute;
     }
 
@@ -667,17 +670,12 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     protected openChanged(): void {
-        if (!this.collapsible) {
+        if (!this.$fastController.isConnected || !this.collapsible) {
             return;
         }
 
         if (this.open) {
-            this.committedSelectedOption = this._options[this.selectedIndex];
-            this.ariaControls = this.listboxId;
-            this.ariaExpanded = 'true';
-
-            this.setPositioning();
-            this.focusAndScrollOptionIntoView();
+            this.initializeOpenState();
             this.indexWhenOpened = this.selectedIndex;
             if (this.filterMode === FilterMode.none) {
                 DOM.queueUpdate(() => this.focus());
@@ -819,6 +817,19 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
     private maxHeightChanged(): void {
         this.updateListboxMaxHeightCssVariable();
+    }
+
+    private initializeOpenState(): void {
+        if (!this.open) {
+            return;
+        }
+
+        this.committedSelectedOption = this._options[this.selectedIndex];
+        this.ariaControls = this.listboxId;
+        this.ariaExpanded = 'true';
+
+        this.setPositioning();
+        this.focusAndScrollOptionIntoView();
     }
 
     private updateListboxMaxHeightCssVariable(): void {
