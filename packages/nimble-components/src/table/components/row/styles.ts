@@ -53,6 +53,7 @@ export const styles = css`
     }
 
     .expand-collapse-button {
+        flex: 0 0 auto;
         padding-left: calc(
             ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
                 ${controlHeight}
@@ -60,6 +61,7 @@ export const styles = css`
     }
 
     .row-operations-container {
+        flex: 0 0 auto;
         display: flex;
     }
 
