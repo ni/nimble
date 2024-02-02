@@ -786,6 +786,9 @@ export class Table<
             this.selectionManager.handleSelectionReset();
             this.expansionManager.resetHierarchyOptions();
         }
+        if (this.tableUpdateTracker.updateRowParentIds) {
+            this.expansionManager.isTableHierarchyEnabled = this.isHierarchyEnabled();
+        }
         if (this.tableUpdateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
@@ -924,7 +927,6 @@ export class Table<
             const isGroupRow = row.getIsGrouped();
             const hasParentRow = isGroupRow ? false : row.getParentRow();
             const isParent = !isGroupRow
-                && this.isHierarchyEnabled()
                 && this.getRowCanExpand(row);
             const isChildOfGroupRowWithNoHierarchy = !isGroupRow
                 && !isParent

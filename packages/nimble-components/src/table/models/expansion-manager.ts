@@ -21,6 +21,7 @@ import {
  *      in the data. This is not ideal because the object maintaining the expansion state can grow unbounded.
  */
 export class ExpansionManager<TData extends TableRecord> {
+    public isTableHierarchyEnabled = false;
     // This field represents whether or not the expanded state of **all** rows is in the default expanded
     // state or not. Note that the default expanded state for a particular row type (group vs parent) can
     // potentially be different (e.g. expanded for groups and collapsed for parent rows).
@@ -124,6 +125,10 @@ export class ExpansionManager<TData extends TableRecord> {
     }
 
     private canLoadDelayedChildren(id: string): boolean {
+        if (!this.isTableHierarchyEnabled) {
+            return false;
+        }
+
         return (
             this.hierarchyOptions.get(id)?.delayedHierarchyState
                 === TableRecordDelayedHierarchyState.canLoadChildren ?? false
