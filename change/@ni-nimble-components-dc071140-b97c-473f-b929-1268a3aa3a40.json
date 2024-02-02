@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Make dialog and drawer more resilient to behavior changes from upcoming CloseWatcher API",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
