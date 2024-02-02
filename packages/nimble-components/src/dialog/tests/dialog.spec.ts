@@ -174,6 +174,22 @@ describe('Dialog', () => {
         await disconnect();
     });
 
+    // This can potentially happen if the dialog is implemented with the CloseWatcher API
+    it('should resolve promise with UserDismissed when only close event fired', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const dialogPromise = element.show();
+        await waitForUpdatesAsync();
+        // Simulate user dismiss events in browser
+        nativeDialogElement(element).dispatchEvent(new Event('close'));
+        await waitForUpdatesAsync();
+
+        await expectAsync(dialogPromise).toBeResolvedTo(UserDismissed);
+        expect(element.open).toBeFalse();
+
+        await disconnect();
+    });
+
     it('should dismiss an attempted cancel event when prevent-dismiss is enabled', async () => {
         const { element, connect, disconnect } = await setup(true);
         await connect();
