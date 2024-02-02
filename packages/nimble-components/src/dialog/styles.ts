@@ -25,6 +25,7 @@ import {
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
 import { accessiblyHidden } from '../utilities/style/accessibly-hidden';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${display('grid')}
@@ -42,6 +43,10 @@ export const styles = css`
 
     dialog[open] {
         display: flex;
+    }
+
+    dialog${focusVisible} {
+        outline: none;
     }
 
     header {
