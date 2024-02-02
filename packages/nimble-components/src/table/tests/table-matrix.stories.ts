@@ -12,7 +12,10 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { Table, tableTag } from '..';
 import { iconUserTag } from '../../icons/user';
 import { tableColumnTextTag } from '../../table-column/text';
-import { TableRecordDelayedHierarchyState, TableRowSelectionMode } from '../types';
+import {
+    TableRecordDelayedHierarchyState,
+    TableRowSelectionMode
+} from '../types';
 import { tableColumnNumberTextTag } from '../../table-column/number-text';
 
 const metadata: Meta = {
@@ -115,7 +118,13 @@ const playFunction = async (): Promise<void> => {
             async table => {
                 await table.setData(data);
                 await table.setRecordHierarchyOptions([
-                    { recordId: '0', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } }
+                    {
+                        recordId: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
                 ]);
                 await table.setSelectedRecordIds(['', '2']);
             }
