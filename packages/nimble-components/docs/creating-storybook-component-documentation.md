@@ -13,16 +13,16 @@ From the `nimble` directory:
 Add `component-name.mdx` file in component `test` directory with the following template:
 
 ```jsx
-import { DocsStory, Meta, Controls, Title } from '@storybook/blocks';
-import { NimbleComponentName } from './<FTName>.react';
-import * as componentNameStories from './<FTName>.stories';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import { NimbleComponentName } from './component-name.react';
+import * as componentNameStories from './component-name.stories';
 
 <Meta of={componentNameStories} />
 <Title of={componentNameStories} />
 
 *Component description*
 
-<DocsStory of={componentNameStories.firstStoryName} expanded={false} />
+<Canvas of={componentNameStories.firstStoryName} />
 <Controls of={componentNameStories.firstStoryName} />
 
 ## Appearances
