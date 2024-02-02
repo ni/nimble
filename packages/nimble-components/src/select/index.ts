@@ -40,7 +40,7 @@ import { template } from './template';
 import type { ListOption } from '../list-option';
 import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
-import { FormAssociatedSelect } from './select-form-associated';
+import { FormAssociatedSelect } from './models/select-form-associated';
 
 declare global {
     interface HTMLElementTagNameMap {
