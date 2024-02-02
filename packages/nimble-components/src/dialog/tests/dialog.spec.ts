@@ -1,6 +1,5 @@
 import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { keydownOnActiveElement } from '../../utilities/tests/component';
 import { Dialog, dialogTag, UserDismissed } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { ExtendedDialog } from '../../dialog-base';
@@ -186,70 +185,6 @@ describe('Dialog', () => {
         await waitForUpdatesAsync();
 
         expect(cancelEvent.defaultPrevented).toBeTrue();
-        expect(element.open).toBeTrue();
-
-        await disconnect();
-    });
-
-    it('should resolve promise with UserDismissed when ESC key pressed', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-        const dialogPromise = element.show();
-        await waitForUpdatesAsync();
-
-        const keydownEvent = keydownOnActiveElement('Escape');
-        await waitForUpdatesAsync();
-
-        await expectAsync(dialogPromise).toBeResolvedTo(UserDismissed);
-        expect(keydownEvent.defaultPrevented).toBeFalse();
-        expect(element.open).toBeFalse();
-
-        await disconnect();
-    });
-
-    it('should ignore ESC key press when prevent-dismiss is enabled and contained control has focus', async () => {
-        const { element, connect, disconnect } = await setup(true);
-        await connect();
-        void element.show();
-        await waitForUpdatesAsync();
-
-        // Ensure repeatedly pressing ESC is blocked
-        let keydownEvent = keydownOnActiveElement('Escape');
-        await waitForUpdatesAsync();
-        expect(keydownEvent.defaultPrevented).toBeTrue();
-        expect(element.open).toBeTrue();
-
-        keydownEvent = keydownOnActiveElement('Escape');
-        await waitForUpdatesAsync();
-        expect(element.open).toBeTrue();
-
-        keydownEvent = keydownOnActiveElement('Escape');
-        await waitForUpdatesAsync();
-        expect(element.open).toBeTrue();
-
-        await disconnect();
-    });
-
-    it('should ignore ESC key press when prevent-dismiss is enabled and host has focus', async () => {
-        const { element, connect, disconnect } = await setup(true);
-        await connect();
-        void element.show();
-        await waitForUpdatesAsync();
-
-        nativeDialogElement(element).focus();
-
-        // Ensure repeatedly pressing ESC is blocked
-        let keydownEvent = keydownOnActiveElement('Escape');
-        await waitForUpdatesAsync();
-        expect(keydownEvent.defaultPrevented).toBeTrue();
-        expect(element.open).toBeTrue();
-
-        keydownEvent = keydownOnActiveElement('Escape');
-        await waitForUpdatesAsync();
-        expect(element.open).toBeTrue();
-
-        keydownEvent = keydownOnActiveElement('Escape');
-        await waitForUpdatesAsync();
         expect(element.open).toBeTrue();
 
         await disconnect();

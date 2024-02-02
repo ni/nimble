@@ -5,16 +5,6 @@ export async function clickElement(element: HTMLElement): Promise<void> {
     await waitForUpdatesAsync();
 }
 
-export function keydownOnActiveElement(key: string): KeyboardEvent {
-    const keydownEvent = new KeyboardEvent('keydown', {
-        key,
-        bubbles: true,
-        cancelable: true
-    });
-    document.activeElement!.dispatchEvent(keydownEvent);
-    return keydownEvent;
-}
-
 /** A helper function to abstract adding an event listener, spying
  * on the event being called, and removing the event listener. The returned promise
  * should be resolved prior to completing a test.

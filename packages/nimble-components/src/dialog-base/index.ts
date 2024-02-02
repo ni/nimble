@@ -84,30 +84,12 @@ export abstract class DialogBase<CloseReason = void> extends FoundationElement {
      */
     public closeHandler(): void {
         if (this.resolveShow) {
-            // This happens if all of the following are true:
-            //   1. the browser implements dialogs with the CloseWatcher API
-            //   2. preventDismiss is true
-            //   3. nothing in the component has focus
-            //   4. the user pressed ESC twice without intervening user interaction (e.g. clicking)
-            // In that case, cancel is not fired because of #1 & #4, we don't get a keydown
-            // because of #3, and the dialog just closes.
-            // Ideally, preventDismiss should always prevent ESC from closing the dialog,
-            // but we can't work around this corner case.
+            // If
+            // - the browser implements dialogs with the CloseWatcher API, and
+            // - the user presses ESC without first interacting with the dialog (e.g. clicking, scrolling),
+            // the cancel event is not fired and the dialog just closes.
             this.notifyClosed(UserDismissed);
         }
-    }
-
-    /**
-     * @internal
-     */
-    public keydownHandler(event: KeyboardEvent): boolean {
-        // Historically, we could expect a cancel event to fire every time the user presses ESC,
-        // so a separate keydownHandler would not be needed. But with the advent of the CloseWatcher
-        // API, cancel is not fired if there was no user interaction since the last ESC
-        // (https://github.com/WICG/close-watcher?tab=readme-ov-file#asking-for-confirmation).
-        // In that case, we have to rely on handling keydown instead. But we only get a keydown
-        // if an element within the component has focus.
-        return event.key === 'Escape' ? this.cancelHandler(event) : true;
     }
 
     protected openDialog(): void {
