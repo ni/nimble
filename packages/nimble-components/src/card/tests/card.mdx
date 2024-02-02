@@ -1,4 +1,5 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import { NimbleCard } from './card.react';
 import { cardTag } from '..';
 import * as cardStories from './card.stories';
@@ -6,8 +7,8 @@ import * as cardStories from './card.stories';
 <Meta of={cardStories} />
 <Title of={cardStories} />
 
-The <code>{cardTag}</code> is a container that is designed to contain arbitrary content that is specified by a client
-application. The <code>{cardTag}</code> is intended for grouping related content.
+The <Tag of={cardTag} /> is a container that is designed to contain arbitrary content that is specified by a client
+application. The <Tag of={cardTag} /> is intended for grouping related content.
 
 <Canvas of={cardStories.card} />
 <Controls of={cardStories.card} />
