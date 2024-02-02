@@ -61,7 +61,6 @@ export const styles = css`
     }
 
     .row-operations-container {
-        background: purple;
         flex: 0 0 auto;
         display: flex;
     }
@@ -75,7 +74,6 @@ export const styles = css`
     }
 
     .row-front-spacer {
-        background: red;
         width: ${controlHeight};
         flex: 0 0 auto;
     }
@@ -85,7 +83,6 @@ export const styles = css`
     }
 
     .cell-container {
-        background: yellow;
         display: grid;
         width: 100%;
         grid-auto-flow: column;
