@@ -48,6 +48,9 @@ declare global {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+type BooleanOrVoid = boolean | void;
+
 /**
  * A nimble-styled HTML select
  */
@@ -319,8 +322,8 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
             : this.position;
 
         this.maxHeight = this.position === SelectPosition.above
-            ? -(currentBox.top + 1)
-            : -(availableBottom + 1);
+            ? Math.trunc(currentBox.top)
+            : Math.trunc(availableBottom);
         this.updateListboxMaxHeightCssVariable();
     }
 
@@ -351,9 +354,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.committedSelectedOption = this.options[this.selectedIndex];
     }
 
-    // disabling linting since the override return type should match the parent class return type
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    public override clickHandler(e: MouseEvent): boolean | void {
+    public override clickHandler(e: MouseEvent): BooleanOrVoid {
         // do nothing if the select is disabled
         if (this.disabled) {
             return;
@@ -375,9 +376,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.open = this.collapsible && !this.open;
 
         if (this.open && this.filterMode !== FilterMode.none) {
-            DOM.queueUpdate(async () => Promise.resolve().then(() => {
+            window.requestAnimationFrame(() => {
                 this.filterInputElement?.focus();
-            }));
+            });
         }
 
         if (!this.open && this.indexWhenOpened !== this.selectedIndex) {
@@ -409,9 +410,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @override
      * @internal
      */
-    // disabling linting since the override return type should match the parent class return type
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    public override mousedownHandler(e: MouseEvent): boolean | void {
+    public override mousedownHandler(e: MouseEvent): BooleanOrVoid {
         if (e.offsetX >= 0 && e.offsetX <= this.listbox?.scrollWidth) {
             return super.mousedownHandler(e);
         }
@@ -483,9 +482,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         return true;
     }
 
-    // disabling linting since the override return type should match the parent class return type
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    public override focusoutHandler(e: FocusEvent): boolean | void {
+    public override focusoutHandler(e: FocusEvent): BooleanOrVoid {
         this.updateSelectedIndexFromFilteredSet();
         if (!this.open) {
             return true;
@@ -507,9 +504,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         return true;
     }
 
-    // disabling linting since the override return type should match the parent class return type
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    public override keydownHandler(e: KeyboardEvent): boolean | void {
+    public override keydownHandler(e: KeyboardEvent): BooleanOrVoid {
         super.keydownHandler(e);
         const key = e.key;
         if (e.ctrlKey || e.shiftKey) {
