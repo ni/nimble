@@ -62,7 +62,6 @@ export class Drawer<CloseReason = void> extends DialogBase<CloseReason> {
     }
 
     protected override openDialog(): void {
-        super.openDialog();
         this.dialogElement.showModal();
         this.triggerAnimation();
     }
