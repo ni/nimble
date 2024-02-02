@@ -194,10 +194,10 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         super.connectedCallback();
         this.addEventListener('change', this.changeValueHandler);
         this.addEventListener('contentchange', this.updateDisplayValue);
+        this.forcedPosition = !!this.positionAttribute;
         if (this.open) {
             this.initializeOpenState();
         }
-        this.forcedPosition = !!this.positionAttribute;
     }
 
     public override disconnectedCallback(): void {
@@ -230,7 +230,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     //  for a property setter, you must also provide its corresponding getter.
     public override get value(): string {
         Observable.track(this, 'value');
-        // eslint-disable-next-line @typescript-eslint/dot-notation
         return this._value;
     }
 
@@ -264,7 +263,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
 
         if (prev !== newValue && !(this.open && this.selectedIndex < 0)) {
-            // eslint-disable-next-line @typescript-eslint/dot-notation
             this._value = newValue;
             super.valueChanged(prev, newValue);
             if (!this.open) {
