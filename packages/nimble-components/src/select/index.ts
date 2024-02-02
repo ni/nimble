@@ -195,9 +195,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.addEventListener('change', this.changeValueHandler);
         this.addEventListener('contentchange', this.updateDisplayValue);
         this.forcedPosition = !!this.positionAttribute;
-        if (this.open) {
-            this.initializeOpenState();
-        }
+        this.initializeOpenState();
     }
 
     public override disconnectedCallback(): void {
@@ -668,7 +666,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     protected openChanged(): void {
-        if (!this.$fastController.isConnected || !this.collapsible) {
+        if (!this.collapsible) {
             return;
         }
 
@@ -819,6 +817,8 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
     private initializeOpenState(): void {
         if (!this.open) {
+            this.ariaExpanded = 'false';
+            this.ariaControls = '';
             return;
         }
 
