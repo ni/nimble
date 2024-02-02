@@ -1381,7 +1381,7 @@ describe('Table', () => {
             });
         });
 
-        fdescribe('delay loaded hierarchical data', () => {
+        describe('delay loaded hierarchical data', () => {
             const hierarchicalData: SimpleTableRecord[] = [
                 {
                     id: '0',
