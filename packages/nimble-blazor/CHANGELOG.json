@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Fri, 02 Feb 2024 22:35:35 GMT",
+      "version": "13.2.3",
+      "tag": "@ni/nimble-blazor_v13.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "944d0b3e15fcb2e4695793a4f463cfd83ef6108d",
+            "comment": "Update bunit test deps"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 27 Jan 2024 17:56:18 GMT",
       "version": "13.2.0",
       "tag": "@ni/nimble-blazor_v13.2.0",
