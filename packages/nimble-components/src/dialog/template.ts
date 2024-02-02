@@ -2,14 +2,15 @@ import { html, ref, slotted } from '@microsoft/fast-element';
 import type { Dialog } from '.';
 
 export const template = html<Dialog>`
-    <template>
+    <template
+        @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
+    >
         <dialog
             ${ref('dialogElement')}
             role="dialog"
             part="control"
             @cancel="${(x, c) => x.cancelHandler(c.event)}"
             @close="${x => x.closeHandler()}"
-            @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
             aria-labelledby="header"
         >
             <header id="header">
