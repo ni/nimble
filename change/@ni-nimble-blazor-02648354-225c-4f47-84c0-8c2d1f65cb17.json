@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update bunit test deps",
-  "packageName": "@ni/nimble-blazor",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
