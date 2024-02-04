@@ -1205,7 +1205,6 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        // This test is failing intermittently, if noticed any failures report here: https://github.com/ni/nimble/issues/1761
         it('should commit mention into the editor on Enter', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
