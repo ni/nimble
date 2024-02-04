@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Re-enable intermittent test in rich text editor for mention support",
+  "packageName": "@ni/nimble-components",
+  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
