@@ -1,7 +1,8 @@
 import type {
     TableColumnSortDirection,
     TableRowSelectionMode,
-    TableRowSelectionState
+    TableRowSelectionState,
+    TableDelayedHierarchyState
 } from '../types';
 
 describe('Table type', () => {
@@ -26,6 +27,6 @@ describe('Table type', () => {
     it('TableDelayedHierarchyState fails compile if assigning arbitrary string values', () => {
         // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
         const delayedHierarchyState: TableDelayedHierarchyState = 'hello';
-        expect(delayedHierarchyState).toEqual('hello');
+        expect(delayedHierarchyState!).toEqual('hello');
     });
 });

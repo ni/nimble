@@ -1910,7 +1910,6 @@ describe('Table', () => {
                 ).toBeTrue();
             });
         });
-        });
     });
 
     describe('without connection', () => {
