@@ -1,4 +1,4 @@
-﻿@page "/TableBindToData"
+﻿@page "/TableSetData"
 @namespace NimbleBlazor.Tests.Acceptance.Pages
 @using System.Diagnostics.CodeAnalysis;
 @inherits LayoutComponentBase
@@ -12,7 +12,7 @@
     public IEnumerable<RowData> TableData { get; set; } = Enumerable.Empty<RowData>();
     private NimbleTable<RowData>? _table;
 
-    public TableBindToData()
+    public TableSetData()
     {
         UpdateTableData(5);
     }
