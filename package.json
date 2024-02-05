@@ -15,8 +15,8 @@
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
     "validate": "npm run build && npm run lint && npm run test",
-    "performance": "lhci autorun",
-    "wafer-performance": "lhci autorun --config='./packages/nimble-components/performance/waferlighthouserc.js'"
+    "performance": "lhci autorun"
+  },
   },
   "repository": {
     "type": "git",
