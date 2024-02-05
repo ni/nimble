@@ -46,7 +46,7 @@ import {
     TableRowSelectionToggleEventDetail,
     TableRowState,
     TableValidity,
-    TableRecordHierarchyOptions
+    TableRecordHierarchyConfiguration
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -303,7 +303,7 @@ export class Table<
     }
 
     public async setRecordHierarchyOptions(
-        hierarchyOptions: TableRecordHierarchyOptions[]
+        hierarchyOptions: TableRecordHierarchyConfiguration[]
     ): Promise<void> {
         await this.processPendingUpdates();
         const presentOptions = this.tableValidator.getItemsWithPresentIds(hierarchyOptions);
@@ -785,7 +785,9 @@ export class Table<
             this.expansionManager.resetHierarchyOptions();
         }
         if (this.tableUpdateTracker.updateRowParentIds) {
-            this.expansionManager.setHierarchyEnabled(this.isHierarchyEnabled());
+            this.expansionManager.setHierarchyEnabled(
+                this.isHierarchyEnabled()
+            );
         }
         if (this.tableUpdateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;

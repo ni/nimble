@@ -81,24 +81,24 @@ export interface TableValidity extends ValidityObject {
 /**
  * The hierarachy options for a record in the table.
  */
-export interface TableRecordHierarchyOptions {
+export interface TableRecordHierarchyConfiguration {
     recordId: string;
-    options: TableHierarchyOptions;
+    options: TableRecordHierarchyOptions;
 }
 
 /**
  * Describes the hierarchy options that can be configured for a record in the table.
  */
-export interface TableHierarchyOptions {
-    delayedHierarchyState: TableDelayedHierarchyState;
+export interface TableRecordHierarchyOptions {
+    delayedHierarchyState: TableRecordDelayedHierarchyState;
 }
 
-export const TableDelayedHierarchyState = {
+export const TableRecordDelayedHierarchyState = {
     none: undefined,
     canLoadChildren: 'canLoadChildren'
 } as const;
-export type TableDelayedHierarchyState =
-    (typeof TableDelayedHierarchyState)[keyof typeof TableDelayedHierarchyState];
+export type TableRecordDelayedHierarchyState =
+    (typeof TableRecordDelayedHierarchyState)[keyof typeof TableRecordDelayedHierarchyState];
 
 export interface TableActionMenuToggleEventDetail {
     newState: boolean;

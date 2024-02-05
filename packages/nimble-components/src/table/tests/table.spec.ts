@@ -16,8 +16,8 @@ import {
 import {
     TableColumnSortDirection,
     TableRecord,
-    TableDelayedHierarchyState,
-    TableHierarchyOptions
+    TableRecordDelayedHierarchyState,
+    TableRecordHierarchyOptions
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import {
@@ -1382,8 +1382,8 @@ describe('Table', () => {
             });
         });
 
-        fdescribe('delay loaded hierarchical data', () => {
-            const initialData: SimpleTableRecord[] = [
+        describe('delay loaded hierarchical data', () => {
+            const initialData: readonly SimpleTableRecord[] = [
                 {
                     id: '0',
                     stringData: 'hello',
@@ -1422,7 +1422,7 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1434,7 +1434,7 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.none
+                                TableRecordDelayedHierarchyState.none
                         }
                     }
                 ]);
@@ -1450,7 +1450,7 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1470,7 +1470,7 @@ describe('Table', () => {
                         recordId: 'does-not-exist',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1484,21 +1484,21 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     },
                     {
                         recordId: '1',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     },
                     {
                         recordId: '2',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1510,21 +1510,21 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     },
                     {
                         recordId: '1',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.none
+                                TableRecordDelayedHierarchyState.none
                         }
                     },
                     {
                         recordId: '2',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.none
+                                TableRecordDelayedHierarchyState.none
                         }
                     }
                 ]);
@@ -1538,21 +1538,21 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     },
                     {
                         recordId: '1',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     },
                     {
                         recordId: '2',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1564,14 +1564,14 @@ describe('Table', () => {
                         recordId: '1',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.none
+                                TableRecordDelayedHierarchyState.none
                         }
                     },
                     {
                         recordId: '2',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.none
+                                TableRecordDelayedHierarchyState.none
                         }
                     }
                 ]);
@@ -1585,7 +1585,7 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1613,7 +1613,7 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1646,7 +1646,7 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1688,7 +1688,7 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1710,7 +1710,7 @@ describe('Table', () => {
                         recordId: '3',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1744,7 +1744,7 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1766,7 +1766,7 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1789,7 +1789,7 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1798,9 +1798,7 @@ describe('Table', () => {
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
                 ).toBeTrue();
 
-                await element.setData(
-                    initialData.filter(x => x.id === '0')
-                );
+                await element.setData(initialData.filter(x => x.id === '0'));
                 await waitForUpdatesAsync();
                 expect(
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
@@ -1813,7 +1811,7 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1823,9 +1821,7 @@ describe('Table', () => {
                 ).toBeTrue();
 
                 // Remove record '0' and then readd it
-                await element.setData(
-                    initialData.filter(x => x.id !== '0')
-                );
+                await element.setData(initialData.filter(x => x.id !== '0'));
                 await element.setData(initialData);
                 await waitForUpdatesAsync();
 
@@ -1840,7 +1836,7 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1871,7 +1867,7 @@ describe('Table', () => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
@@ -1889,7 +1885,10 @@ describe('Table', () => {
             });
 
             it('modifying passed hierarchy options does not change table state', async () => {
-                const hierarchyOptions: TableHierarchyOptions = { delayedHierarchyState: TableDelayedHierarchyState.canLoadChildren };
+                const hierarchyOptions: TableRecordHierarchyOptions = {
+                    delayedHierarchyState:
+                        TableRecordDelayedHierarchyState.canLoadChildren
+                };
                 await element.setRecordHierarchyOptions([
                     {
                         recordId: '0',
@@ -1901,7 +1900,7 @@ describe('Table', () => {
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
                 ).toBeTrue();
 
-                hierarchyOptions.delayedHierarchyState = TableDelayedHierarchyState.none;
+                hierarchyOptions.delayedHierarchyState = TableRecordDelayedHierarchyState.none;
                 await element.setData(initialData); // Reset the data to force the row state to be re-evaluated
                 await waitForUpdatesAsync();
 

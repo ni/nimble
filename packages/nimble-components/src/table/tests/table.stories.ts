@@ -5,7 +5,7 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
 import {
-    TableDelayedHierarchyState,
+    TableRecordDelayedHierarchyState,
     TableRowExpansionToggleEventDetail,
     TableRowSelectionMode
 } from '../types';
@@ -234,7 +234,7 @@ const setSelectedRecordIdsDescription = `A function that makes the rows associat
 If a record does not exist in the table's data, it will not be selected. If multiple record IDs are specified when the table's selection
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
-const setRecordHierarchyOptionsDescription = `A function to set hierarchy options for a data record. This information is provided as an array of recordId/\`TableRecordHierarchyOptions\` pairs.
+const setRecordHierarchyOptionsDescription = `A function to set hierarchy options for a data record. This information is provided as an array of recordId/\`TableRecordHierarchyConfiguration\` pairs.
 
 **Note:** The feature for delayed hierarchy is still in development, so it should not be used yet in production. Specifically, the feature to
 show a loading indicator while the child rows are being loaded has not been implemented. Therefore, the user experience is not optimal.
@@ -421,7 +421,7 @@ const metadata: Meta<TableArgs> = {
                         recordId: '9',
                         options: {
                             delayedHierarchyState:
-                            TableDelayedHierarchyState.canLoadChildren
+                                TableRecordDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);

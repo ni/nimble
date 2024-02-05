@@ -5,9 +5,9 @@ import type {
 import {
     type TableNode,
     type TableRecord,
+    type TableRecordHierarchyConfiguration,
     type TableRecordHierarchyOptions,
-    type TableHierarchyOptions,
-    TableDelayedHierarchyState
+    TableRecordDelayedHierarchyState
 } from '../types';
 
 /**
@@ -27,7 +27,7 @@ export class ExpansionManager<TData extends TableRecord> {
     // potentially be different (e.g. expanded for groups and collapsed for parent rows).
     private isInDefaultState = true;
     private collapsedRows = new Set<string>();
-    private hierarchyOptions = new Map<string, TableHierarchyOptions>();
+    private hierarchyOptions = new Map<string, TableRecordHierarchyOptions>();
     private isHierarchyEnabled = false;
 
     public constructor(
@@ -91,7 +91,7 @@ export class ExpansionManager<TData extends TableRecord> {
         const updatedCollapsedRows = new Set<string>();
         const updatedHierarchyOptions = new Map<
         string,
-        TableHierarchyOptions
+        TableRecordHierarchyOptions
         >();
         for (const row of rows) {
             const rowId = row.id;
@@ -110,7 +110,7 @@ export class ExpansionManager<TData extends TableRecord> {
     }
 
     public setHierarchyOptions(
-        hierarchyOptions: TableRecordHierarchyOptions[]
+        hierarchyOptions: TableRecordHierarchyConfiguration[]
     ): void {
         this.hierarchyOptions.clear();
         for (const { recordId, options } of hierarchyOptions) {
@@ -133,7 +133,7 @@ export class ExpansionManager<TData extends TableRecord> {
 
         return (
             this.hierarchyOptions.get(id)?.delayedHierarchyState
-                === TableDelayedHierarchyState.canLoadChildren ?? false
+                === TableRecordDelayedHierarchyState.canLoadChildren ?? false
         );
     }
 }
