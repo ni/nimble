@@ -26,18 +26,9 @@ interface SpinnerArgs {
     appearance: keyof typeof SpinnerAppearance;
 }
 
-const overviewText = '<p>The `nimble-spinner` is an animating indicator that can be placed in a particular region of a page to represent '
-    + 'loading progress, or an ongoing operation, of an indeterminate / unknown duration.</p>'
-    + '<p>It has 3 sizes (64px, 32px, and 16px) and 2 appearance types (default and accent).</p>';
 const metadata: Meta<SpinnerArgs> = {
     title: 'Components/Spinner',
-    parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        }
-    },
+    parameters: {},
     argTypes: {
         size: {
             description:

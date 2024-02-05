@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 29 Jan 2024 11:31:46 GMT and should not be manually modified.
+This log was last generated on Fri, 02 Feb 2024 21:51:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.0.1
+
+Fri, 02 Feb 2024 21:51:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.2.0
+
+## 20.0.0
+
+Wed, 31 Jan 2024 20:22:58 GMT
+
+### Major changes
+
+- Create new NumberTextPipe and change existing DurationPipe to be a standalone pipe (removing NimblePipesModule) ([ni/nimble@bf9013d](https://github.com/ni/nimble/commit/bf9013d5cb92106ddd1fcf6fd84e6684930462b8))
+- Bump @ni/nimble-components to v21.1.0
+
+## 19.4.0
+
+Wed, 31 Jan 2024 17:51:55 GMT
+
+### Minor changes
+
+- Include href in NavigationGuard ([ni/nimble@147777a](https://github.com/ni/nimble/commit/147777aaf8332d80a89aecec247a95ee31233965))
 
 ## 19.3.1
 

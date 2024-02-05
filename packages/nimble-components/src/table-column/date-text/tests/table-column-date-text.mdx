@@ -1,0 +1,26 @@
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import { Tag } from '../../../../.storybook/blocks/StoryLayout';
+import { NimbleTableColumnDateText } from './table-column-date-text.react';
+import * as tableColumnDateTextStories from './table-column-date-text.stories';
+import { tableColumnDateTextTag } from '..';
+import { tableTag } from '../../../table';
+
+<Meta of={tableColumnDateTextStories} />
+<Title of={tableColumnDateTextStories} />
+
+The <Tag name={tableColumnDateTextTag}/> column is used to display date-time fields as text in the <Tag name={tableTag}/>. The date-time values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the [JavaScript `Date` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date). Dates are formatted in a locale-specific way based on the value of the `lang` token, which can be set via the [nimble-theme-provider](?path=/docs/tokens-theme-provider--docs).
+
+<Canvas of={tableColumnDateTextStories.dateTextColumn} />
+<Controls of={tableColumnDateTextStories.dateTextColumn} />
+
+{/* ## Appearances */}
+
+{/* ## Appearance Variants */}
+
+{/* ## Usage */}
+
+{/* ## Examples */}
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}

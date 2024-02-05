@@ -66,7 +66,6 @@ const mentionDataSets = {
     }
 } as const;
 
-const richTextEditorDescription = 'The rich text editor component allows users to add/edit text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The editor generates markdown output and takes markdown as input. The markdown flavor used is [CommonMark](https://spec.commonmark.org/0.30/).\n\n See the [rich text viewer](?path=/docs/incubating-rich-text-viewer--docs) component to render markdown without allowing editing.';
 const setMarkdownDescription = 'A function that sets content in the editor with the provided markdown string.';
 const getMarkdownDescription = 'A function that serializes the current data in the editor and returns the markdown string.';
 const footerActionButtonDescription = `You can place a button or anchor button at the far-right of the footer section, set \`slot="footer-actions"\`.
@@ -88,11 +87,6 @@ const metadata: Meta<RichTextEditorArgs> = {
     title: 'Incubating/Rich Text Editor',
     decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component: richTextEditorDescription
-            }
-        },
         actions: {
             handles: ['input', 'mention-update']
         }
