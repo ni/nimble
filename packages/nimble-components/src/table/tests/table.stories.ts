@@ -5,7 +5,7 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
 import {
-    TableRecordDelayedHierarchyState,
+    TableDelayedHierarchyState,
     TableRowExpansionToggleEventDetail,
     TableRowSelectionMode
 } from '../types';
@@ -421,7 +421,7 @@ const metadata: Meta<TableArgs> = {
                         recordId: '9',
                         options: {
                             delayedHierarchyState:
-                                TableRecordDelayedHierarchyState.canLoadChildren
+                            TableDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);

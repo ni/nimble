@@ -3,10 +3,11 @@ import type {
     Table as TanStackTable
 } from '@tanstack/table-core';
 import {
-    TableRecordDelayedHierarchyState,
     type TableNode,
     type TableRecord,
-    type TableRecordHierarchyOptions
+    type TableRecordHierarchyOptions,
+    type TableHierarchyOptions,
+    TableDelayedHierarchyState
 } from '../types';
 
 /**
@@ -21,13 +22,13 @@ import {
  *      in the data. This is not ideal because the object maintaining the expansion state can grow unbounded.
  */
 export class ExpansionManager<TData extends TableRecord> {
-    public isTableHierarchyEnabled = false;
     // This field represents whether or not the expanded state of **all** rows is in the default expanded
     // state or not. Note that the default expanded state for a particular row type (group vs parent) can
     // potentially be different (e.g. expanded for groups and collapsed for parent rows).
     private isInDefaultState = true;
     private collapsedRows = new Set<string>();
-    private hierarchyOptions = new Map<string, TableRecordHierarchyOptions>();
+    private hierarchyOptions = new Map<string, TableHierarchyOptions>();
+    private isHierarchyEnabled = false;
 
     public constructor(
         private readonly tanStackTable: TanStackTable<TableNode<TData>>
@@ -90,7 +91,7 @@ export class ExpansionManager<TData extends TableRecord> {
         const updatedCollapsedRows = new Set<string>();
         const updatedHierarchyOptions = new Map<
         string,
-        TableRecordHierarchyOptions
+        TableHierarchyOptions
         >();
         for (const row of rows) {
             const rowId = row.id;
@@ -109,10 +110,7 @@ export class ExpansionManager<TData extends TableRecord> {
     }
 
     public setHierarchyOptions(
-        hierarchyOptions: {
-            recordId: string,
-            options: TableRecordHierarchyOptions
-        }[]
+        hierarchyOptions: TableRecordHierarchyOptions[]
     ): void {
         this.hierarchyOptions.clear();
         for (const { recordId, options } of hierarchyOptions) {
@@ -124,14 +122,18 @@ export class ExpansionManager<TData extends TableRecord> {
         return row.subRows.length > 0 || this.canLoadDelayedChildren(row.id);
     }
 
+    public setHierarchyEnabled(isHierarchyEnabled: boolean): void {
+        this.isHierarchyEnabled = isHierarchyEnabled;
+    }
+
     private canLoadDelayedChildren(id: string): boolean {
-        if (!this.isTableHierarchyEnabled) {
+        if (!this.isHierarchyEnabled) {
             return false;
         }
 
         return (
             this.hierarchyOptions.get(id)?.delayedHierarchyState
-                === TableRecordDelayedHierarchyState.canLoadChildren ?? false
+                === TableDelayedHierarchyState.canLoadChildren ?? false
         );
     }
 }

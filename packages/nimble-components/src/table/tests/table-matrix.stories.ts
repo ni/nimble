@@ -13,7 +13,7 @@ import { Table, tableTag } from '..';
 import { iconUserTag } from '../../icons/user';
 import { tableColumnTextTag } from '../../table-column/text';
 import {
-    TableRecordDelayedHierarchyState,
+    TableDelayedHierarchyState,
     TableRowSelectionMode
 } from '../types';
 import { tableColumnNumberTextTag } from '../../table-column/number-text';
@@ -122,7 +122,7 @@ const playFunction = async (): Promise<void> => {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
-                                TableRecordDelayedHierarchyState.canLoadChildren
+                                TableDelayedHierarchyState.canLoadChildren
                         }
                     }
                 ]);
