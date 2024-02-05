@@ -1,18 +1,35 @@
+// eslint-disable-next-line max-classes-per-file
 import {
     attr,
     DOM,
     html,
     observable,
-    Observable
+    Observable,
+    volatile
 } from '@microsoft/fast-element';
 import {
     AnchoredRegion,
     DesignSystem,
     Select as FoundationSelect,
     ListboxOption,
-    SelectOptions
+    SelectOptions,
+    SelectPosition,
+    applyMixins,
+    StartEnd,
+    DelegatesARIASelect,
+    Listbox
 } from '@microsoft/fast-foundation';
-import { keyEnter, keyEscape, keySpace } from '@microsoft/fast-web-utilities';
+import {
+    keyArrowDown,
+    keyArrowUp,
+    keyEnd,
+    keyEnter,
+    keyEscape,
+    keyHome,
+    keySpace,
+    keyTab,
+    uniqueId
+} from '@microsoft/fast-web-utilities';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import { DropdownAppearance } from '../patterns/dropdown/types';
@@ -23,6 +40,7 @@ import { template } from './template';
 import type { ListOption } from '../list-option';
 import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
+import { FormAssociatedSelect } from './models/select-form-associated';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -30,12 +48,35 @@ declare global {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+type BooleanOrVoid = boolean | void;
+
 /**
- * A nimble-styled HTML select
+ * A nimble-styled HTML select. The FAST Select implementation has largely been
+ * forked into here, as there was enough divergence to merit severing the
+ * relationship.
  */
-export class Select extends FoundationSelect implements ErrorPattern {
+export class Select extends FormAssociatedSelect implements ErrorPattern {
+    /**
+     * The open attribute.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: open
+     */
+    @attr({ attribute: 'open', mode: 'boolean' })
+    public open = false;
+
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
+
+    /**
+     * Reflects the placement for the listbox when the select is open.
+     *
+     * @public
+     */
+    @attr({ attribute: 'position' })
+    public positionAttribute?: SelectPosition;
 
     /**
      * A message explaining why the value is invalid.
@@ -52,6 +93,36 @@ export class Select extends FoundationSelect implements ErrorPattern {
 
     @attr({ attribute: 'filter-mode' })
     public filterMode: FilterMode = FilterMode.none;
+
+    /**
+     * Holds the current state for the calculated position of the listbox.
+     *
+     * @public
+     */
+    @observable
+    public position?: SelectPosition;
+
+    /**
+     * The ref to the internal `.control` element.
+     *
+     * @internal
+     */
+    @observable
+    public control!: HTMLElement;
+
+    /**
+     * Reference to the internal listbox element.
+     *
+     * @internal
+     */
+    public listbox!: HTMLDivElement;
+
+    /**
+     * The unique id for the internal listbox element.
+     *
+     * @internal
+     */
+    public listboxId: string = uniqueId('listbox-');
 
     /**
      * @internal
@@ -99,14 +170,40 @@ export class Select extends FoundationSelect implements ErrorPattern {
     @observable
     public committedSelectedOption: ListboxOption | undefined = undefined;
 
+    /**
+     * The max height for the listbox when opened.
+     *
+     * @internal
+     */
+    @observable
+    public maxHeight = 0;
+
+    /**
+     * The component is collapsible when in single-selection mode with no size attribute.
+     *
+     * @internal
+     */
+    @volatile
+    public get collapsible(): boolean {
+        return !(this.multiple || typeof this.size === 'number');
+    }
+
+    private _value = '';
+    private forcedPosition = false;
+    private indexWhenOpened?: number;
+
     public override connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('change', this.changeValueHandler);
+        this.addEventListener('contentchange', this.updateDisplayValue);
+        this.forcedPosition = !!this.positionAttribute;
+        this.initializeOpenState();
     }
 
     public override disconnectedCallback(): void {
-        super.disconnectedCallback();
         this.removeEventListener('change', this.changeValueHandler);
+        this.removeEventListener('contentchange', this.updateDisplayValue);
+        super.disconnectedCallback();
     }
 
     /**
@@ -133,19 +230,15 @@ export class Select extends FoundationSelect implements ErrorPattern {
     //  for a property setter, you must also provide its corresponding getter.
     public override get value(): string {
         Observable.track(this, 'value');
-        // eslint-disable-next-line @typescript-eslint/dot-notation
-        return this['_value'] as string;
+        return this._value;
     }
 
     // This is copied directly from FAST's implemention of its Select component, with
     // one main difference: we use 'options' (the filtered set of options) vs '_options'.
     // This is needed because while the dropdown is open the current 'selectedIndex' (set
-    // within this implementation) needs to be relative to the filtered options. This
-    // results in the unfortunate hack where we have to set this['_value'], as '_value'
-    // is private. I have filed this issue to FAST to hopefully provide a better means
-    // of accomplishing this: https://github.com/microsoft/fast/issues/6896
+    // within this implementation) needs to be relative to the filtered options.
     public override set value(next: string) {
-        const prev = `${this.value}`;
+        const prev = `${this._value}`;
         let newValue = next;
 
         if (this.options?.length) {
@@ -167,8 +260,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
         }
 
         if (prev !== newValue && !(this.open && this.selectedIndex < 0)) {
-            // eslint-disable-next-line @typescript-eslint/dot-notation
-            this['_value'] = newValue;
+            this._value = newValue;
             super.valueChanged(prev, newValue);
             if (!this.open) {
                 this.committedSelectedOption = this._options.find(
@@ -182,7 +274,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
         }
     }
 
-    public override get displayValue(): string {
+    public get displayValue(): string {
         Observable.track(this, 'displayValue');
         return this.committedSelectedOption?.text ?? '';
     }
@@ -205,26 +297,54 @@ export class Select extends FoundationSelect implements ErrorPattern {
         }
     }
 
-    // Workaround for https://github.com/microsoft/fast/issues/5123
-    public override setPositioning(): void {
+    public setPositioning(): void {
         if (!this.$fastController.isConnected) {
             // Don't call setPositioning() until we're connected,
             // since this.forcedPosition isn't initialized yet.
             return;
         }
-        super.setPositioning();
+        const currentBox = this.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const availableBottom = viewportHeight - currentBox.bottom;
+
+        if (this.forcedPosition) {
+            this.position = this.positionAttribute;
+        } else if (currentBox.top > availableBottom) {
+            this.position = SelectPosition.above;
+        } else {
+            this.position = SelectPosition.below;
+        }
+
+        this.positionAttribute = this.forcedPosition
+            ? this.positionAttribute
+            : this.position;
+
+        this.maxHeight = this.position === SelectPosition.above
+            ? Math.trunc(currentBox.top)
+            : Math.trunc(availableBottom);
         this.updateListboxMaxHeightCssVariable();
     }
 
-    // Workaround for https://github.com/microsoft/fast/issues/5773d
-    // Additionally, we need to force an update to the filteredOptions observable
-    // (by calling 'filterOptions()) so that the template correctly updates.
     public override slottedOptionsChanged(
         prev: Element[],
         next: Element[]
     ): void {
         const value = this.value;
+        this.options.forEach(o => {
+            const notifier = Observable.getNotifier(o);
+            notifier.unsubscribe(this, 'value');
+        });
+
         super.slottedOptionsChanged(prev, next);
+
+        this.options.forEach(o => {
+            const notifier = Observable.getNotifier(o);
+            notifier.subscribe(this, 'value');
+        });
+        this.setProxyOptions();
+        this.updateValue();
+        // We need to force an update to the filteredOptions observable
+        // (by calling 'filterOptions()) so that the template correctly updates.
         this.filterOptions();
         if (value) {
             this.value = value;
@@ -232,9 +352,12 @@ export class Select extends FoundationSelect implements ErrorPattern {
         this.committedSelectedOption = this.options[this.selectedIndex];
     }
 
-    // disabling linting since the override return type should match the parent class return type
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    public override clickHandler(e: MouseEvent): boolean | void {
+    public override clickHandler(e: MouseEvent): BooleanOrVoid {
+        // do nothing if the select is disabled
+        if (this.disabled) {
+            return;
+        }
+
         const captured = (e.target as HTMLElement).closest<ListOption>(
             'option,[role=option]'
         );
@@ -242,7 +365,72 @@ export class Select extends FoundationSelect implements ErrorPattern {
         if (!captured?.disabled) {
             this.updateSelectedIndexFromFilteredSet();
         }
-        return super.clickHandler(e);
+        if (this.open && captured && captured.disabled) {
+            return;
+        }
+
+        super.clickHandler(e);
+
+        this.open = this.collapsible && !this.open;
+
+        if (this.open && this.filterMode !== FilterMode.none) {
+            window.requestAnimationFrame(() => {
+                this.filterInputElement?.focus();
+            });
+        }
+
+        if (!this.open && this.indexWhenOpened !== this.selectedIndex) {
+            this.updateValue(true);
+        }
+    }
+
+    /**
+     * Updates the value when an option's value changes.
+     *
+     * @param source - the source object
+     * @param propertyName - the property to evaluate
+     *
+     * @internal
+     * @override
+     */
+    public override handleChange(source: unknown, propertyName: string): void {
+        super.handleChange(source, propertyName);
+        if (propertyName === 'value') {
+            this.updateValue();
+        }
+    }
+
+    /**
+     * Prevents focus when size is set and a scrollbar is clicked.
+     *
+     * @param e - the mouse event object
+     *
+     * @override
+     * @internal
+     */
+    public override mousedownHandler(e: MouseEvent): BooleanOrVoid {
+        if (e.offsetX >= 0 && e.offsetX <= this.listbox?.scrollWidth) {
+            return super.mousedownHandler(e);
+        }
+
+        return this.collapsible;
+    }
+
+    /**
+     * Sets the multiple property on the proxy element.
+     *
+     * @param prev - the previous multiple value
+     * @param next - the current multiple value
+     */
+    public override multipleChanged(
+        prev: boolean | undefined,
+        next: boolean
+    ): void {
+        super.multipleChanged(prev, next);
+
+        if (this.proxy) {
+            this.proxy.multiple = next;
+        }
     }
 
     public inputClickHandler(e: MouseEvent): void {
@@ -292,16 +480,30 @@ export class Select extends FoundationSelect implements ErrorPattern {
         return true;
     }
 
-    // disabling linting since the override return type should match the parent class return type
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    public override focusoutHandler(e: FocusEvent): boolean | void {
+    public override focusoutHandler(e: FocusEvent): BooleanOrVoid {
         this.updateSelectedIndexFromFilteredSet();
-        return super.focusoutHandler(e);
+        if (!this.open) {
+            return true;
+        }
+
+        const focusTarget = e.relatedTarget as HTMLElement;
+        if (this.isSameNode(focusTarget)) {
+            this.focus();
+            return true;
+        }
+
+        if (!this.options?.includes(focusTarget as ListboxOption)) {
+            this.open = false;
+            if (this.indexWhenOpened !== this.selectedIndex) {
+                this.updateValue(true);
+            }
+        }
+        super.focusoutHandler(e);
+        return true;
     }
 
-    // disabling linting since the override return type should match the parent class return type
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    public override keydownHandler(e: KeyboardEvent): boolean | void {
+    public override keydownHandler(e: KeyboardEvent): BooleanOrVoid {
+        super.keydownHandler(e);
         const key = e.key;
         if (e.ctrlKey || e.shiftKey) {
             return true;
@@ -309,18 +511,21 @@ export class Select extends FoundationSelect implements ErrorPattern {
 
         switch (key) {
             case keySpace: {
+                e.preventDefault();
                 if (this.filterMode === FilterMode.none) {
-                    return super.keydownHandler(e);
-                }
-                // when dropdown is open allow user to enter a space for filter text
-                // (calling super method will close dropdown)
-                if (!this.open) {
-                    super.keydownHandler(e);
+                    if (this.collapsible && this.typeAheadExpired) {
+                        this.open = !this.open;
+                    }
                 }
                 break;
             }
-
+            case keyHome:
+            case keyEnd: {
+                e.preventDefault();
+                break;
+            }
             case keyEnter: {
+                e.preventDefault();
                 if (
                     this.filteredOptions.length === 0
                     || this.filteredOptions.every(o => o.disabled)
@@ -328,12 +533,11 @@ export class Select extends FoundationSelect implements ErrorPattern {
                     return false;
                 }
                 this.updateSelectedIndexFromFilteredSet();
-                super.keydownHandler(e);
-                this.focus();
+                this.open = !this.open;
                 break;
             }
             case keyEscape: {
-                // clear filter as call to `super.keydownHandler` will process
+                // clear filter as update to "selectedIndex" will result in processing
                 // "options" and not "_options"
                 this.filter = '';
                 if (this.committedSelectedOption) {
@@ -342,22 +546,83 @@ export class Select extends FoundationSelect implements ErrorPattern {
                         this.committedSelectedOption
                     );
                 }
-                super.keydownHandler(e);
-                // reset 'selected' state after super.keydownHandler is called, otherwise
-                // the selected state doesn't stick.
+                if (this.collapsible && this.open) {
+                    e.preventDefault();
+                    this.open = false;
+                }
+                // reset 'selected' state otherwise the selected state doesn't stick.
                 const selectedOption = this._options[this.selectedIndex];
                 if (selectedOption) {
                     selectedOption.selected = true;
                 }
-                this.focus();
                 break;
+            }
+            case keyTab: {
+                if (this.collapsible && this.open) {
+                    e.preventDefault();
+                    this.open = false;
+                }
+
+                return true;
             }
 
             default: {
-                super.keydownHandler(e);
+                break;
             }
         }
-        return true;
+
+        if (!this.open && this.indexWhenOpened !== this.selectedIndex) {
+            this.updateValue(true);
+            this.indexWhenOpened = this.selectedIndex;
+        }
+
+        return !(key === keyArrowDown || key === keyArrowUp);
+    }
+
+    /**
+     * Updates the proxy value when the selected index changes.
+     *
+     * @param prev - the previous selected index
+     * @param next - the next selected index
+     *
+     * @internal
+     */
+    public override selectedIndexChanged(
+        prev: number | undefined,
+        next: number
+    ): void {
+        super.selectedIndexChanged(prev, next);
+        this.updateValue();
+    }
+
+    /**
+     * Synchronize the `aria-disabled` property when the `disabled` property changes.
+     *
+     * @param prev - The previous disabled value
+     * @param next - The next disabled value
+     *
+     * @internal
+     */
+    public override disabledChanged(prev: boolean, next: boolean): void {
+        if (super.disabledChanged) {
+            super.disabledChanged(prev, next);
+        }
+        this.ariaDisabled = this.disabled ? 'true' : 'false';
+    }
+
+    /**
+     * Reset the element to its first selectable option when its parent form is reset.
+     *
+     * @internal
+     */
+    public override formResetCallback(): void {
+        this.setProxyOptions();
+        // Call the base class's implementation setDefaultSelectedOption instead of the select's
+        // override, in order to reset the selectedIndex without using the value property.
+        super.setDefaultSelectedOption();
+        if (this.selectedIndex === -1) {
+            this.selectedIndex = 0;
+        }
     }
 
     // Prevents parent classes from resetting selectedIndex to a positive
@@ -371,26 +636,103 @@ export class Select extends FoundationSelect implements ErrorPattern {
         super.setSelectedOptions();
     }
 
-    protected override openChanged(
-        prev: boolean | undefined,
-        next: boolean
+    protected positionChanged(
+        _: SelectPosition | undefined,
+        next: SelectPosition | undefined
     ): void {
-        super.openChanged(prev, next);
+        this.positionAttribute = next;
+        this.setPositioning();
+    }
+
+    /**
+     * Updates the proxy's size property when the size attribute changes.
+     *
+     * @param prev - the previous size
+     * @param next - the current size
+     *
+     * @override
+     * @internal
+     */
+    protected override sizeChanged(
+        prev: number | undefined,
+        next: number
+    ): void {
+        super.sizeChanged(prev, next);
+
+        if (this.proxy) {
+            this.proxy.size = next;
+        }
+    }
+
+    protected openChanged(): void {
+        if (!this.collapsible) {
+            return;
+        }
 
         if (this.open) {
-            this.committedSelectedOption = this._options[this.selectedIndex];
-            if (this.filterMode !== FilterMode.none) {
-                this.filterOptions();
-                DOM.queueUpdate(() => {
-                    this.filterInputElement?.focus();
-                });
+            this.initializeOpenState();
+            this.indexWhenOpened = this.selectedIndex;
+            if (this.filterMode === FilterMode.none) {
+                DOM.queueUpdate(() => this.focus());
             }
-        } else {
-            this.filter = '';
-            if (this.filterInputElement) {
-                this.filterInputElement.value = '';
-            }
+
+            return;
         }
+
+        this.filter = '';
+        if (this.filterInputElement) {
+            this.filterInputElement.value = '';
+        }
+
+        this.ariaControls = '';
+        this.ariaExpanded = 'false';
+    }
+
+    /**
+     * Updates the selectedness of each option when the list of selected options changes.
+     *
+     * @param prev - the previous list of selected options
+     * @param next - the current list of selected options
+     *
+     * @override
+     * @internal
+     */
+    protected override selectedOptionsChanged(
+        prev: ListboxOption[] | undefined,
+        next: ListboxOption[]
+    ): void {
+        super.selectedOptionsChanged(prev, next);
+        this.options?.forEach((o, i) => {
+            const proxyOption = this.proxy?.options.item(i);
+            if (proxyOption) {
+                proxyOption.selected = o.selected;
+            }
+        });
+    }
+
+    /**
+     * Sets the selected index to match the first option with the selected attribute, or
+     * the first selectable option.
+     *
+     * @override
+     * @internal
+     */
+    protected override setDefaultSelectedOption(): void {
+        const options: ListboxOption[] = this.options
+            ?? Array.from(this.children).filter(o => Listbox.slottedOptionFilter(o as HTMLElement));
+
+        const selectedIndex = options?.findIndex(
+            el => el.hasAttribute('selected')
+                || el.selected
+                || el.value === this.value
+        );
+
+        if (selectedIndex !== -1) {
+            this.selectedIndex = selectedIndex;
+            return;
+        }
+
+        this.selectedIndex = 0;
     }
 
     /**
@@ -416,6 +758,48 @@ export class Select extends FoundationSelect implements ErrorPattern {
         });
     }
 
+    /**
+     * Sets the value and display value to match the first selected option.
+     *
+     * @param shouldEmit - if true, the input and change events will be emitted
+     *
+     * @internal
+     */
+    private updateValue(shouldEmit?: boolean): void {
+        if (this.$fastController.isConnected) {
+            this.value = this.firstSelectedOption?.value ?? '';
+        }
+
+        if (shouldEmit) {
+            this.$emit('input');
+            this.$emit('change', this, {
+                bubbles: true,
+                composed: undefined
+            });
+        }
+    }
+
+    /**
+     * Resets and fills the proxy to match the component's options.
+     *
+     * @internal
+     */
+    private setProxyOptions(): void {
+        if (this.proxy instanceof HTMLSelectElement && this.options) {
+            this.proxy.options.length = 0;
+            this.options.forEach(option => {
+                const proxyOption = option.proxy
+                    || (option instanceof HTMLOptionElement
+                        ? option.cloneNode()
+                        : null);
+
+                if (proxyOption) {
+                    this.proxy.options.add(proxyOption);
+                }
+            });
+        }
+    }
+
     private clearSelection(): void {
         this.options.forEach(option => {
             option.selected = false;
@@ -428,6 +812,21 @@ export class Select extends FoundationSelect implements ErrorPattern {
 
     private maxHeightChanged(): void {
         this.updateListboxMaxHeightCssVariable();
+    }
+
+    private initializeOpenState(): void {
+        if (!this.open) {
+            this.ariaExpanded = 'false';
+            this.ariaControls = '';
+            return;
+        }
+
+        this.committedSelectedOption = this._options[this.selectedIndex];
+        this.ariaControls = this.listboxId;
+        this.ariaExpanded = 'true';
+
+        this.setPositioning();
+        this.focusAndScrollOptionIntoView();
     }
 
     private updateListboxMaxHeightCssVariable(): void {
@@ -464,6 +863,12 @@ export class Select extends FoundationSelect implements ErrorPattern {
             option => option.selected
         );
     };
+
+    private readonly updateDisplayValue = (): void => {
+        if (this.collapsible) {
+            Observable.notify(this, 'displayValue');
+        }
+    };
 }
 
 const nimbleSelect = Select.compose<SelectOptions>({
@@ -481,5 +886,6 @@ const nimbleSelect = Select.compose<SelectOptions>({
     `
 });
 
+applyMixins(Select, StartEnd, DelegatesARIASelect);
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSelect());
 export const selectTag = 'nimble-select';
