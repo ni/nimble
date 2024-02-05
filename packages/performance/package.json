@@ -1,8 +1,8 @@
 {
-    "name": "@ni-private/site",
+    "name": "@ni-private/performance",
     "version": "1.0.0",
     "private": true,
-    "description": "A meta package used for creating GitHub pages site contents",
+    "description": "A package to measure the performance of the Nimble Components",
     "scripts": {
         "build": "npm run build:landing",
         "build:landing": "tsc && vite build landing",

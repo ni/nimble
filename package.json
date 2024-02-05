@@ -40,7 +40,8 @@
     "angular-workspace",
     "angular-workspace/projects/ni/nimble-angular",
     "packages/nimble-blazor",
-    "packages/site"
+    "packages/site",
+    "packages/performance"
   ],
   "devDependencies": {
     "beachball": "^2.31.0",
