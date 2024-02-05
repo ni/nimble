@@ -48,5 +48,9 @@
     "cross-env": "^7.0.3",
     "patch-package": "^6.4.7",
     "playwright": "1.40.0"
+  },
+  "dependencies": {
+    "@microsoft/fast-element": "file:microsoft-fast-element-1.12.0.tgz",
+    "@microsoft/fast-foundation": "file:microsoft-fast-foundation-2.49.5.tgz"
   }
 }
