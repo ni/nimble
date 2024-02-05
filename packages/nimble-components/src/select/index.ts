@@ -358,20 +358,26 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
             return;
         }
 
-        const captured = (e.target as HTMLElement).closest<ListOption>(
-            'option,[role=option]'
-        );
+        if (this.open) {
+            const captured = (e.target as HTMLElement).closest<ListOption>(
+                'option,[role=option]'
+            );
 
-        if (!captured?.disabled) {
-            this.updateSelectedIndexFromFilteredSet();
-        }
-        if (this.open && captured && captured.disabled) {
-            return;
+            if (!captured?.disabled) {
+                this.updateSelectedIndexFromFilteredSet();
+            }
+
+            if (captured?.disabled) {
+                return;
+            }
         }
 
         super.clickHandler(e);
+
         this.open = this.collapsible && !this.open;
+
         this.focusFilterInput();
+
         if (!this.open && this.indexWhenOpened !== this.selectedIndex) {
             this.updateValue(true);
         }
