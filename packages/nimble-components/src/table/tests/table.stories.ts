@@ -6,7 +6,6 @@ import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
 import {
     TableRecordDelayedHierarchyState,
-    TableRowExpansionToggleEventDetail,
     TableRowSelectionMode
 } from '../types';
 import { iconUserTag } from '../../icons/user';
@@ -20,22 +19,20 @@ import {
 import { labelProviderTableTag } from '../../label-provider/table';
 import { tableColumnNumberTextTag } from '../../table-column/number-text';
 
-interface TableArgs extends LabelUserArgs {
+interface BaseTableArgs extends LabelUserArgs {
+    tableRef: Table;
+    updateData: (args: TableArgs) => void;
     data: ExampleDataType;
     selectionMode: keyof typeof TableRowSelectionMode;
+}
+
+interface TableArgs extends BaseTableArgs {
     idFieldName: undefined;
     parentIdFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
     setSelectedRecordIds: undefined;
     getSelectedRecordIds: undefined;
-    tableRef: Table;
-    updateData: (args: TableArgs) => void;
-    addDelayedChildrenIfNeeded: (
-        args: TableArgs,
-        event: CustomEvent<TableRowExpansionToggleEventDetail>
-    ) => void;
-    processedDelayedParentExpansion: boolean;
 }
 
 const simpleData = [
@@ -44,21 +41,24 @@ const simpleData = [
         lastName: 'Wiggum',
         age: 12,
         quote: "I'm in danger!",
-        parentId: undefined
+        parentId: undefined,
+        id: '0'
     },
     {
         firstName: 'Milhouse',
         lastName: 'Van Houten',
         age: 12,
         quote: "Not only am I not learning, I'm forgetting stuff I used to know!",
-        parentId: undefined
+        parentId: undefined,
+        id: '1'
     },
     {
         firstName: 'Ned',
         lastName: 'Flanders',
         age: 34,
         quote: 'Hi diddly-ho neighbor!',
-        parentId: undefined
+        parentId: undefined,
+        id: '2'
     }
 ] as const;
 
@@ -142,6 +142,14 @@ const hierarchicalData = [
         quote: 'See you in hell, Seymour.',
         id: '9',
         parentId: undefined
+    },
+    {
+        firstName: 'Seymour',
+        lastName: 'Skinner',
+        quote: 'Isn’t it nice we hate the same things?',
+        age: 42,
+        id: '10',
+        parentId: '9'
     }
 ];
 
@@ -168,14 +176,44 @@ const dataSets = {
     [ExampleDataType.hierarchicalDataSet]: hierarchicalData
 } as const;
 
-const dataSetIdFieldNames = {
-    [ExampleDataType.simpleData]: 'firstName',
-    [ExampleDataType.largeDataSet]: 'id',
-    [ExampleDataType.hierarchicalDataSet]: 'id'
-} as const;
-
 const overviewText = `The \`nimble-table\` is a component that offers a way to render tabular data in a variety of ways in each column.
 For information about configuring table columns, see **Table Column Configuration** and **Table Column Types**.`;
+
+const metadata: Meta<BaseTableArgs> = {
+    title: 'Components/Table',
+    decorators: [withActions],
+    parameters: {
+        docs: {
+            description: {
+                component: overviewText
+            }
+        },
+        actions: {
+            handles: [
+                'action-menu-beforetoggle',
+                'action-menu-toggle',
+                'selection-change',
+                'column-configuration-change',
+                'row-expand-toggle'
+            ]
+        }
+    },
+    argTypes: {
+        tableRef: {
+            table: {
+                disable: true
+            }
+        },
+        updateData: {
+            table: {
+                disable: true
+            }
+        }
+    }
+};
+
+export default metadata;
+addLabelUseMetadata(metadata, labelProviderTableTag);
 
 const dataDescription = `To set the data on the table, call \`setData()\` with an array data records. Each record is made up of fields,
 which are key/value pairs. The key in each pair must be of type \`string\`, which is defined by the type \`TableFieldName\`. The value
@@ -234,51 +272,15 @@ const setSelectedRecordIdsDescription = `A function that makes the rows associat
 If a record does not exist in the table's data, it will not be selected. If multiple record IDs are specified when the table's selection
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
-const setRecordHierarchyOptionsDescription = `A function to set hierarchy options for a data record. This information is provided as an array of recordId/\`TableSetRecordHierarchyOptions\` pairs.
-
-**Note:** The feature for delayed hierarchy is still in development, so it should not be used yet in production. Specifically, the feature to
-show a loading indicator while the child rows are being loaded has not been implemented. Therefore, the user experience is not optimal.
-
-
-<details>
-    <summary>Behavior specifics</summary>
-    - all options will be cleared when the table's \`idFieldName\` changes
-    - an option passed to \`setRecordHierarchyOptions\` with an ID that does not match a record in the data will be ignored
-    - the options passed to \`setRecordHierarchyOptions\` will override any options previously set to become the complete set of options configured on the table
-    - the table will not render delayed hierarchy state (loading or expandable) if the table's \`parentIdFieldName\` is not configured; however, the options will remain cached within the table if the \`parentIdFieldName\` becomes \`undefined\`, and that cached configuration will render in the table if the table's \`parentIdFieldName\` is changed back to a non-\`undefined\` value
-    - calling \`setData\` will clear options associated with IDs that are no longer present in the data
-    - a row with no children and a \`delayedHierarchyState\` of \`canLoadChildren\` will always be collapsed
-</details>
-`;
-
-const metadata: Meta<TableArgs> = {
-    title: 'Components/Table',
-    decorators: [withActions],
-    parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
-        actions: {
-            handles: [
-                'action-menu-beforetoggle',
-                'action-menu-toggle',
-                'selection-change',
-                'column-configuration-change',
-                'row-expand-toggle'
-            ]
-        }
-    },
+export const table: StoryObj<TableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
-            id-field-name="${x => dataSetIdFieldNames[x.data]}"
+            id-field-name="id"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
-            @row-expand-toggle="${(x, c) => x.addDelayedChildrenIfNeeded(x, c.event as CustomEvent<TableRowExpansionToggleEventDetail>)}"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
@@ -381,26 +383,6 @@ const metadata: Meta<TableArgs> = {
             description:
                 'A function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.',
             control: false
-        },
-        addDelayedChildrenIfNeeded: {
-            name: 'setRecordHierarchyOptions()',
-            description: setRecordHierarchyOptionsDescription,
-            control: false
-        },
-        tableRef: {
-            table: {
-                disable: true
-            }
-        },
-        updateData: {
-            table: {
-                disable: true
-            }
-        },
-        processedDelayedParentExpansion: {
-            table: {
-                disable: true
-            }
         }
     },
     args: {
@@ -416,48 +398,82 @@ const metadata: Meta<TableArgs> = {
                 // but doesn't seem to be upgraded to a custom element yet
                 await customElements.whenDefined('nimble-table');
                 await x.tableRef.setData(dataSets[x.data]);
+            })();
+        }
+    }
+};
+
+interface DelayedHierarchyTableArgs {
+    tableRef: Table;
+    updateData: (args: DelayedHierarchyTableArgs) => void;
+    firstRecordState: keyof typeof TableRecordDelayedHierarchyState;
+}
+
+const delayedHierarchyDescription = `**Note:** The feature for delayed hierarchy is still in development, so it should not be used yet in production. Specifically, the feature to
+show a loading indicator while the child rows are being loaded has not been implemented. Therefore, the user experience is not optimal.
+
+In some cases, it may be known that a record has children, but the
+records for those children are not know. For performance reasons, it may be preferred to load the children
+of the row on demand when a user expands the row. To accomplish this, use the \`setRecordHierarchyOptions()\` function on the table to set the hierarchy options
+associated with records in the data.`;
+
+export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: delayedHierarchyDescription
+            }
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html<DelayedHierarchyTableArgs>`
+        <${tableTag}
+            ${ref('tableRef')}
+            id-field-name="id"
+            data-unused="${x => x.updateData(x)}"
+            parent-id-field-name="parentId"
+        >
+            <${tableColumnTextTag}
+                column-id="first-name-column"
+                field-name="firstName"
+                action-menu-slot="name-menu" action-menu-label="Configure name"
+            >
+                <${iconUserTag} title="First Name"></${iconUserTag}>
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                column-id="last-name-column"
+                field-name="lastName"
+                action-menu-slot="name-menu" action-menu-label="Configure name"
+            >
+                Last Name
+            </${tableColumnTextTag}>
+        </${tableTag}>
+    `),
+    argTypes: {
+        firstRecordState: {
+            name: 'setRecordHierarchyOptions()',
+            options: Object.keys(TableRecordDelayedHierarchyState),
+            control: { type: 'radio' }
+        }
+    },
+    args: {
+        tableRef: undefined,
+        firstRecordState: TableRecordDelayedHierarchyState.canLoadChildren,
+        updateData: x => {
+            void (async () => {
+                // Safari workaround: the table element instance is made at this point
+                // but doesn't seem to be upgraded to a custom element yet
+                await customElements.whenDefined('nimble-table');
+                await x.tableRef.setData(dataSets[ExampleDataType.simpleData]);
                 await x.tableRef.setRecordHierarchyOptions([
                     {
-                        recordId: '9',
+                        recordId: '0',
                         options: {
-                            delayedHierarchyState:
-                                TableRecordDelayedHierarchyState.canLoadChildren
+                            delayedHierarchyState: TableRecordDelayedHierarchyState[x.firstRecordState]
                         }
                     }
                 ]);
             })();
-        },
-        addDelayedChildrenIfNeeded: (x, e) => {
-            if (
-                x.data !== ExampleDataType.hierarchicalDataSet
-                || e.detail.recordId !== '9'
-                || e.detail.newState !== true
-                || x.processedDelayedParentExpansion
-            ) {
-                return;
-            }
-
-            x.processedDelayedParentExpansion = true;
-
-            setTimeout(() => {
-                const newData = [
-                    ...dataSets[x.data],
-                    {
-                        firstName: 'Seymour',
-                        lastName: 'Skinner',
-                        quote: 'Isn’t it nice we hate the same things?',
-                        age: 42,
-                        id: '10',
-                        parentId: '9'
-                    }
-                ];
-                void x.tableRef.setData(newData);
-            }, 500);
         }
     }
 };
-addLabelUseMetadata(metadata, labelProviderTableTag);
-
-export default metadata;
-
-export const table: StoryObj<TableArgs> = {};
