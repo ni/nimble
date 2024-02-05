@@ -17,7 +17,6 @@
     "validate": "npm run build && npm run lint && npm run test",
     "performance": "lhci autorun"
   },
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
