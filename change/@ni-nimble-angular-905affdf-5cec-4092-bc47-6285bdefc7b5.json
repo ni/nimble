@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "working version",
+  "packageName": "@ni/nimble-angular",
+  "email": "razvan.nazare@ni.com",
+  "dependentChangeType": "patch"
+}
