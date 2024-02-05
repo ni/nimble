@@ -1383,7 +1383,7 @@ describe('Table', () => {
         });
 
         fdescribe('delay loaded hierarchical data', () => {
-            const hierarchicalData: SimpleTableRecord[] = [
+            const initialData: SimpleTableRecord[] = [
                 {
                     id: '0',
                     stringData: 'hello',
@@ -1404,13 +1404,13 @@ describe('Table', () => {
                     stringData: 'bar',
                     parentId: undefined
                 }
-            ];
+            ] as const;
 
             beforeEach(async () => {
                 await connect();
                 element.idFieldName = 'id';
                 element.parentIdFieldName = 'parentId';
-                await element.setData(hierarchicalData);
+                await element.setData(initialData);
                 await waitForUpdatesAsync();
             });
 
@@ -1600,7 +1600,7 @@ describe('Table', () => {
 
             it("setting a record's delayedHierarchyState to canLoadChildren when it has children defaults the row to expanded", async () => {
                 const dataWithChild = [
-                    ...hierarchicalData,
+                    ...initialData,
                     {
                         id: 'child-item',
                         parentId: '0',
@@ -1633,7 +1633,7 @@ describe('Table', () => {
 
             it('removing all children from a row that is expanded and has a delayedHierarchyState of canLoadChildren collapses the row and keeps it expandable', async () => {
                 const dataWithChild = [
-                    ...hierarchicalData,
+                    ...initialData,
                     {
                         id: 'child-item',
                         parentId: '0',
@@ -1664,7 +1664,7 @@ describe('Table', () => {
                 ]);
 
                 // reset to initial data where item '0' does not have any children
-                await element.setData(hierarchicalData);
+                await element.setData(initialData);
                 await waitForUpdatesAsync();
 
                 expect(
@@ -1721,7 +1721,7 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 await element.setData([
-                    ...hierarchicalData,
+                    ...initialData,
                     { id: 'child-record-0', parentId: '3', stringData: 'a' },
                     { id: 'child-record-1', parentId: '3', stringData: 'b' }
                 ]);
@@ -1799,7 +1799,7 @@ describe('Table', () => {
                 ).toBeTrue();
 
                 await element.setData(
-                    hierarchicalData.filter(x => x.id === '0')
+                    initialData.filter(x => x.id === '0')
                 );
                 await waitForUpdatesAsync();
                 expect(
@@ -1824,9 +1824,9 @@ describe('Table', () => {
 
                 // Remove record '0' and then readd it
                 await element.setData(
-                    hierarchicalData.filter(x => x.id !== '0')
+                    initialData.filter(x => x.id !== '0')
                 );
-                await element.setData(hierarchicalData);
+                await element.setData(initialData);
                 await waitForUpdatesAsync();
 
                 expect(
@@ -1854,7 +1854,7 @@ describe('Table', () => {
                     { id: 'duplicate', parentId: undefined, stringData: 'a' },
                     { id: 'duplicate', parentId: undefined, stringData: 'b' }
                 ]);
-                await element.setData(hierarchicalData);
+                await element.setData(initialData);
                 await waitForUpdatesAsync();
 
                 expect(
@@ -1902,7 +1902,7 @@ describe('Table', () => {
                 ).toBeTrue();
 
                 hierarchyOptions.delayedHierarchyState = TableDelayedHierarchyState.none;
-                await element.setData(hierarchicalData);  // Reset the data to force the row state to be re-evaluated
+                await element.setData(initialData); // Reset the data to force the row state to be re-evaluated
                 await waitForUpdatesAsync();
 
                 expect(
