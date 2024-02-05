@@ -481,6 +481,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
     public override focusoutHandler(e: FocusEvent): BooleanOrVoid {
         this.updateSelectedIndexFromFilteredSet();
+        super.focusoutHandler(e);
         if (!this.open) {
             return true;
         }
@@ -497,7 +498,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 this.updateValue(true);
             }
         }
-        super.focusoutHandler(e);
         return true;
     }
 
