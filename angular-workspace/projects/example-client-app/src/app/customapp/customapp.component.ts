@@ -155,14 +155,14 @@ export class CustomAppComponent implements OnInit {
 
         const wafer = document.getElementById('wafer') as WaferMap;
         const dies = this.generateDies(10 ** 6);
-        const functionName = 'wafer';
-        performance.mark(`${functionName}_start`);
+        const functionName = 'Zone:Wafer';
+        performance.mark(`${functionName}:StartRender`);
         wafer.dies = dies;
         wafer.colorScale = colorScales;
         wafer.update();
         await new Promise(requestAnimationFrame);
-        performance.mark(`${functionName}_end`);
-        performance.measure(functionName, `${functionName}_start`, `${functionName}_end`);
+        performance.mark(`${functionName}:FinishRender`);
+        performance.measure(functionName, `${functionName}:StartRender`, `${functionName}:FinishRender`);
     }
 
     public generateDies(diesCount: number): WaferMapDie[] {
