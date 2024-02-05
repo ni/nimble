@@ -1,10 +1,13 @@
 /* eslint-disable no-alert */
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed } from '@ni/nimble-angular';
 import type { TableRecord } from '@ni/nimble-angular/table';
 import { NimbleRichTextEditorDirective } from '@ni/nimble-angular/rich-text/editor';
 import { BehaviorSubject, Observable } from 'rxjs';
+import type { WaferMap } from '@ni/nimble-angular/wafer-map';
+// eslint-disable-next-line no-restricted-imports
+import type { WaferMapDie } from '@ni/nimble-components/dist/esm/wafer-map/types';
 
 interface ComboboxItem {
     first: string;
@@ -30,7 +33,7 @@ interface SimpleTableRecord extends TableRecord {
     templateUrl: './customapp.component.html',
     styleUrls: ['./customapp.component.scss']
 })
-export class CustomAppComponent {
+export class CustomAppComponent implements OnInit {
     public bannerOpen = false;
     public dialogCloseReason: string;
     public drawerCloseReason: string;
@@ -79,6 +82,10 @@ export class CustomAppComponent {
                 last: i.toString()
             });
         }
+    }
+
+    public async ngOnInit(): Promise<void> {
+        await this.populateWafer();
     }
 
     public onMenuButtonMenuChange(event: Event): void {
@@ -138,5 +145,40 @@ export class CustomAppComponent {
 
     public loadRichTextEditorContent(): void {
         this.editor.setMarkdown(this.markdownString);
+    }
+
+    public async populateWafer(): Promise<void> {
+        const colorScales = {
+            colors: ['red', 'orange', 'yellow', 'green'],
+            values: ['1', '33', '66', '100']
+        };
+
+        const wafer = document.getElementById('wafer') as WaferMap;
+        const dies = this.generateDies(10 ** 6);
+        const functionName = 'wafer';
+        performance.mark(`${functionName}_start`);
+        wafer.dies = dies;
+        wafer.colorScale = colorScales;
+        wafer.update();
+        await new Promise(requestAnimationFrame);
+        performance.mark(`${functionName}_end`);
+        performance.measure(functionName, `${functionName}_start`, `${functionName}_end`);
+    }
+
+    public generateDies(diesCount: number): WaferMapDie[] {
+        const wafermapDieSet: WaferMapDie[] = [];
+        const sideLength = Math.sqrt(diesCount / Math.PI) * 2;
+        const radius = sideLength / 2;
+        const centerX = radius;
+        const centerY = centerX;
+        for (let i = 0; i <= sideLength; i++) {
+            for (let j = 0; j <= sideLength; j++) {
+                const distance = Math.sqrt((i - centerX) ** 2 + (j - centerY) ** 2);
+                if (distance <= radius) {
+                    wafermapDieSet.push({ x: i, y: j, value: `${(i + j) % 100}` });
+                }
+            }
+        }
+        return wafermapDieSet;
     }
 }
