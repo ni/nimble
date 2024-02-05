@@ -1,0 +1,25 @@
+{
+    "name": "@ni-private/site",
+    "version": "1.0.0",
+    "private": true,
+    "description": "A meta package used for creating GitHub pages site contents",
+    "scripts": {
+        "build": "npm run build:landing",
+        "build:landing": "tsc && vite build landing",
+        "pack": "npm pack",
+        "lint": "eslint .",
+        "start:landing": "vite landing",
+        "performance": "lhci autorun"
+    },
+    "dependencies": {
+        "@ni/nimble-components": "*"
+    },
+    "devDependencies": {
+        "typescript": "~4.8.2",
+        "vite": "^4.0.4"
+    },
+    "files": [
+        "dist",
+        "!*.tgz"
+    ]
+}
