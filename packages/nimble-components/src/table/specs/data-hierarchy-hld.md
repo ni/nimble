@@ -79,7 +79,7 @@ export type TableRecordDelayedHierarchyState =
 public Table() {
     ...
     // Sets the hierarchy options for the rows specified by the passed IDs.
-    public async setRecordHierarchyOptions(hierarchyOptions: { recordId: string, options: TableRecordHierarchyConfiguration }[]): Promise<void>;
+    public async setRecordHierarchyOptions(hierarchyOptions: { recordId: string, options: TableRecordHierarchyOptions }[]): Promise<void>;
 }
 ```
 
