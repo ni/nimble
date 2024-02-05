@@ -46,7 +46,7 @@ import {
     TableRowSelectionToggleEventDetail,
     TableRowState,
     TableValidity,
-    TableRecordHierarchyConfiguration
+    TableSetRecordHierarchyOptions
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -303,7 +303,7 @@ export class Table<
     }
 
     public async setRecordHierarchyOptions(
-        hierarchyOptions: TableRecordHierarchyConfiguration[]
+        hierarchyOptions: TableSetRecordHierarchyOptions[]
     ): Promise<void> {
         await this.processPendingUpdates();
         const presentOptions = this.tableValidator.getItemsWithPresentIds(hierarchyOptions);

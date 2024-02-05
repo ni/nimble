@@ -58,7 +58,7 @@ Note: This event will _not_ be emitted for group rows.
 In some cases, a client might know that a given row has children, but for performance reasons, that data hasn't been loaded from the backend and given to the table. To enable this use case, there will be an API on the table to specify that a given row should be expandable even if it has no children within the data and to specify that a row is loading its children. That API will look as follows:
 
 ```ts
-interface TableRecordHierarchyConfiguration {
+interface TableSetRecordHierarchyOptions {
     // The state of the row with respect to delayed hierarchy.
     //
     // The state can be one of the following:

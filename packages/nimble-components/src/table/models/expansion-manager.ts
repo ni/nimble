@@ -5,7 +5,7 @@ import type {
 import {
     type TableNode,
     type TableRecord,
-    type TableRecordHierarchyConfiguration,
+    type TableSetRecordHierarchyOptions,
     type TableRecordHierarchyOptions,
     TableRecordDelayedHierarchyState
 } from '../types';
@@ -110,7 +110,7 @@ export class ExpansionManager<TData extends TableRecord> {
     }
 
     public setHierarchyOptions(
-        hierarchyOptions: TableRecordHierarchyConfiguration[]
+        hierarchyOptions: TableSetRecordHierarchyOptions[]
     ): void {
         this.hierarchyOptions.clear();
         for (const { recordId, options } of hierarchyOptions) {

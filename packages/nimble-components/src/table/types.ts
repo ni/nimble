@@ -81,7 +81,7 @@ export interface TableValidity extends ValidityObject {
 /**
  * The hierarachy options for a record in the table.
  */
-export interface TableRecordHierarchyConfiguration {
+export interface TableSetRecordHierarchyOptions {
     recordId: string;
     options: TableRecordHierarchyOptions;
 }
