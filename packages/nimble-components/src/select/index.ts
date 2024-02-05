@@ -52,7 +52,9 @@ declare global {
 type BooleanOrVoid = boolean | void;
 
 /**
- * A nimble-styled HTML select
+ * A nimble-styled HTML select. The FAST Select implementation has largely been
+ * forked into here, as there was enough divergence to merit severing the
+ * relationship.
  */
 export class Select extends FormAssociatedSelect implements ErrorPattern {
     /**
@@ -234,10 +236,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     // This is copied directly from FAST's implemention of its Select component, with
     // one main difference: we use 'options' (the filtered set of options) vs '_options'.
     // This is needed because while the dropdown is open the current 'selectedIndex' (set
-    // within this implementation) needs to be relative to the filtered options. This
-    // results in the unfortunate hack where we have to set this['_value'], as '_value'
-    // is private. I have filed this issue to FAST to hopefully provide a better means
-    // of accomplishing this: https://github.com/microsoft/fast/issues/6896
+    // within this implementation) needs to be relative to the filtered options.
     public override set value(next: string) {
         const prev = `${this._value}`;
         let newValue = next;
@@ -326,8 +325,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.updateListboxMaxHeightCssVariable();
     }
 
-    // We need to force an update to the filteredOptions observable
-    // (by calling 'filterOptions()) so that the template correctly updates.
     public override slottedOptionsChanged(
         prev: Element[],
         next: Element[]
@@ -346,6 +343,8 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         });
         this.setProxyOptions();
         this.updateValue();
+        // We need to force an update to the filteredOptions observable
+        // (by calling 'filterOptions()) so that the template correctly updates.
         this.filterOptions();
         if (value) {
             this.value = value;
