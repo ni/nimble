@@ -1,24 +1,19 @@
-import {
-    Controls,
-    DocsStory,
-    Meta,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
+import { Tag } from '../../../../.storybook/blocks/StoryLayout';
 import * as tableColumnDurationTextStories from './table-column-duration-text.stories';
+import { tableColumnDurationTextTag } from '..';
+import { tableTag } from '../../../table';
 
 <Meta of={tableColumnDurationTextStories} />
-
 <Title of={tableColumnDurationTextStories} />
-<Description of={tableColumnDurationTextStories.durationTextColumn} />
 
-<DocsStory
+The <Tag name={tableColumnDurationTextTag}/> column is used to display a period of elapsed time as text in the <Tag name={tableTag}/>. The values must be of type `number` and each represent a positive total number of milliseconds. Values that represent more than 999 days or less than a millisecond will be formatted in scientific notation as seconds only. All sub-second values will be represented with up to 3 digits of precision. Values are formatted in a locale-specific way based on the value of the lang token, which can be set via the [nimble-theme-provider](https://60e89457a987cf003efc0a5b-ckpboqfrwq.chromatic.com/iframe.html?path=/docs/tokens-theme-provider--docs).
+
+<Canvas
     of={tableColumnDurationTextStories.durationTextColumn}
     expanded={false}
 />
 <Controls of={tableColumnDurationTextStories.durationTextColumn} />
-
-# Usage Docs
 
 ## Angular Usage
 

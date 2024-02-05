@@ -36,6 +36,18 @@ This folder contains reusable React components used in Nimble component MDX docu
 
 -   Renders a frame to match visual design of existing Storybook Doc blocks.
 
+### Tag
+
+-   Renders a tag string in code blocks. Optionally surrounding it with angle brackets to show as HTML elements.
+
+    | Property  | Example                                 |
+    | --------- | --------------------------------------- |
+    | _default_ | `nimble-component`                      |
+    | open      | `<nimble-component>`                    |
+    | openClose | `<nimble-component></nimble-component>` |
+    | close     | `</nimble-component>`                   |
+    | selfClose | `<nimble-components/>`                  |
+
 ## Usage
 
 Compose the components to create clear and attractive usage documentation.

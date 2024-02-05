@@ -1,0 +1,25 @@
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import { Tag } from '../../../.storybook/blocks/StoryLayout';
+import { NimbleSelect } from './select.react';
+import * as selectStories from './select.stories';
+import { listOptionTag } from '../../list-option';
+
+<Meta of={selectStories} />
+<Title of={selectStories} />
+
+Select is a control for selecting amongst a set of options. Its value comes from the `value` of the currently selected <Tag name={listOptionTag}/>, or, if no value exists for that option, the option's content. Upon clicking on the element, the other options are visible. The user cannot manually enter values, and thus the list cannot be filtered.
+
+<Canvas of={selectStories.underlineSelect} />
+<Controls of={selectStories.underlineSelect} />
+
+{/* ## Appearances */}
+
+{/* ## Appearance Variants */}
+
+{/* ## Usage */}
+
+{/* ## Examples */}
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}
