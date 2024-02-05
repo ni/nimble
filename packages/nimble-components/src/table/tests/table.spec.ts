@@ -16,7 +16,8 @@ import {
 import {
     TableColumnSortDirection,
     TableRecord,
-    TableDelayedHierarchyState
+    TableDelayedHierarchyState,
+    TableHierarchyOptions
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import {
@@ -1886,6 +1887,29 @@ describe('Table', () => {
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
                 ).toBeTrue();
             });
+
+            it('modifying passed hierarchy options does not change table state', async () => {
+                const hierarchyOptions: TableHierarchyOptions = { delayedHierarchyState: TableDelayedHierarchyState.canLoadChildren };
+                await element.setRecordHierarchyOptions([
+                    {
+                        recordId: '0',
+                        options: hierarchyOptions
+                    }
+                ]);
+                await waitForUpdatesAsync();
+                expect(
+                    pageObject.isDataRowExpandCollapseButtonVisible(0)
+                ).toBeTrue();
+
+                hierarchyOptions.delayedHierarchyState = TableDelayedHierarchyState.none;
+                await element.setData(hierarchicalData);  // Reset the data to force the row state to be re-evaluated
+                await waitForUpdatesAsync();
+
+                expect(
+                    pageObject.isDataRowExpandCollapseButtonVisible(0)
+                ).toBeTrue();
+            });
+        });
         });
     });
 

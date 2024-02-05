@@ -307,7 +307,8 @@ export class Table<
     ): Promise<void> {
         await this.processPendingUpdates();
         const presentOptions = this.tableValidator.getItemsWithPresentIds(hierarchyOptions);
-        this.expansionManager.setHierarchyOptions(presentOptions);
+        const clone = structuredClone(presentOptions);
+        this.expansionManager.setHierarchyOptions(clone);
         this.refreshRows();
     }
 
