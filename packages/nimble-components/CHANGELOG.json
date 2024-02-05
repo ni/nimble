@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 05 Feb 2024 18:16:28 GMT",
+      "version": "21.2.0",
+      "tag": "@ni/nimble-components_v21.2.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5c681c75a8c40ea060d961da29df59e0f0a550fc",
+            "comment": "Migrate Storybook docs to MDX format"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 04 Feb 2024 04:31:52 GMT",
       "version": "21.2.0",
       "tag": "@ni/nimble-components_v21.2.0",

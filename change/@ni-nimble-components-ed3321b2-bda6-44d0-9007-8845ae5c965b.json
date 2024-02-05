@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Migrate Storybook docs to MDX format",
-  "packageName": "@ni/nimble-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
