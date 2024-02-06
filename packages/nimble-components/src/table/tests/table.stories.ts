@@ -409,13 +409,12 @@ interface DelayedHierarchyTableArgs {
     firstRecordState: keyof typeof TableRecordDelayedHierarchyState;
 }
 
-const delayedHierarchyDescription = `**Note:** The feature for delayed hierarchy is still in development, so it should not be used yet in production. Specifically, the feature to
-show a loading indicator while the child rows are being loaded has not been implemented. Therefore, the user experience is not optimal.
+const delayedHierarchyDescription = `**Note:** The feature for delayed hierarchy is still in development, so it should not be used yet in production. Specifically,
+the feature to show a loading indicator while the child rows are being loaded has not been implemented. Therefore, the user experience is not optimal.
 
-In some cases, it may be known that a record has children, but the
-records for those children are not know. For performance reasons, it may be preferred to load the children
-of the row on demand when a user expands the row. To accomplish this, use the \`setRecordHierarchyOptions()\` function on the table to set the hierarchy options
-associated with records in the data.`;
+In some cases, it may be known that a record has children, but the records for those children are not known. For performance reasons, it may be preferred to load
+the children on demand when a user expands the parent row. To accomplish this, use the \`setRecordHierarchyOptions()\` function on the table to set the hierarchy
+options associated with records in the data.`;
 
 export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
     parameters: {
