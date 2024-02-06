@@ -4,7 +4,8 @@ module.exports = eleventyConfig => {
         'landing/dist': './',
         '../../packages/nimble-components/dist/storybook': 'storybook',
         '../../angular-workspace/dist/example-client-app': 'storybook/example-client-app',
-        '../../packages/nimble-blazor/dist/blazor-client-app': 'storybook/blazor-client-app'
+        '../../packages/nimble-blazor/dist/blazor-client-app': 'storybook/blazor-client-app',
+        '../../packages/performance/landing/dist': 'storybook/performance'
     });
     eleventyConfig.setTemplateFormats([
         'md',
