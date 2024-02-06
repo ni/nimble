@@ -16,8 +16,7 @@ import {
     dialogSmallWidth,
     dialogSmallHeight,
     dialogSmallMaxHeight,
-    borderHoverColor,
-    borderWidth
+    borderHoverColor
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -48,7 +47,7 @@ export const styles = css`
     }
 
     dialog${focusVisible} {
-        outline: ${borderWidth} solid ${borderHoverColor};
+        outline: 2px solid ${borderHoverColor};
     }
 
     header {
