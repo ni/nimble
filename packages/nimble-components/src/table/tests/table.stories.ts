@@ -21,9 +21,7 @@ import { tableColumnNumberTextTag } from '../../table-column/number-text';
 
 interface BaseTableArgs extends LabelUserArgs {
     tableRef: Table;
-    updateData: (args: TableArgs) => void;
-    data: ExampleDataType;
-    selectionMode: keyof typeof TableRowSelectionMode;
+    updateData: (args: BaseTableArgs) => void;
 }
 
 const metadata: Meta<BaseTableArgs> = {
@@ -58,12 +56,14 @@ export default metadata;
 addLabelUseMetadata(metadata, labelProviderTableTag);
 
 interface TableArgs extends BaseTableArgs {
+    selectionMode: keyof typeof TableRowSelectionMode;
     idFieldName: undefined;
     parentIdFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
     setSelectedRecordIds: undefined;
     getSelectedRecordIds: undefined;
+    data: ExampleDataType;
 }
 
 const simpleData = [
@@ -388,16 +388,15 @@ export const table: StoryObj<TableArgs> = {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
+                const args = x as TableArgs;
                 await customElements.whenDefined('nimble-table');
-                await x.tableRef.setData(dataSets[x.data]);
+                await args.tableRef.setData(dataSets[args.data]);
             })();
         }
     }
 };
 
-interface DelayedHierarchyTableArgs {
-    tableRef: Table;
-    updateData: (args: DelayedHierarchyTableArgs) => void;
+interface DelayedHierarchyTableArgs extends BaseTableArgs {
     firstRecordState: keyof typeof TableRecordDelayedHierarchyState;
 }
 
@@ -431,6 +430,11 @@ export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
             name: 'First record delayed hierarchy state',
             options: Object.keys(TableRecordDelayedHierarchyState),
             control: { type: 'radio' }
+        },
+        usedLabels: {
+            table: {
+                disable: true
+            }
         }
     },
     args: {
@@ -440,15 +444,16 @@ export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
+                const args = x as DelayedHierarchyTableArgs;
                 await customElements.whenDefined('nimble-table');
-                await x.tableRef.setData(dataSets[ExampleDataType.simpleData]);
-                await x.tableRef.setRecordHierarchyOptions([
+                await args.tableRef.setData(dataSets[ExampleDataType.simpleData]);
+                await args.tableRef.setRecordHierarchyOptions([
                     {
                         recordId: '0',
                         options: {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState[
-                                    x.firstRecordState
+                                    args.firstRecordState
                                 ]
                         }
                     }
