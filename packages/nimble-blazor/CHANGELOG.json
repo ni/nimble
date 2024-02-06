@@ -2,6 +2,36 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 06 Feb 2024 15:30:34 GMT",
+      "version": "14.0.0",
+      "tag": "@ni/nimble-blazor_v14.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "fc0d7f686aa4dca6232c949a765e5b201bf8fc58",
+            "comment": "BREAKING CHANGE: Nimble Blazor Data bindable property changed to SetDataAsync method . See Nimble Blazor README for usage info."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 02 Feb 2024 22:35:35 GMT",
+      "version": "13.2.3",
+      "tag": "@ni/nimble-blazor_v13.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "944d0b3e15fcb2e4695793a4f463cfd83ef6108d",
+            "comment": "Update bunit test deps"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 27 Jan 2024 17:56:18 GMT",
       "version": "13.2.0",
       "tag": "@ni/nimble-blazor_v13.2.0",

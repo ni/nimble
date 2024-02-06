@@ -26,18 +26,10 @@ interface BaseTableArgs extends LabelUserArgs {
     selectionMode: keyof typeof TableRowSelectionMode;
 }
 
-const overviewText = `The \`nimble-table\` is a component that offers a way to render tabular data in a variety of ways in each column.
-For information about configuring table columns, see **Table Column Configuration** and **Table Column Types**.`;
-
 const metadata: Meta<BaseTableArgs> = {
     title: 'Components/Table',
     decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
         actions: {
             handles: [
                 'action-menu-beforetoggle',

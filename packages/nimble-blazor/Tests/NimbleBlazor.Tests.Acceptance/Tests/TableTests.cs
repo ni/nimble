@@ -13,7 +13,7 @@ namespace NimbleBlazor.Tests.Acceptance
         [Fact]
         public async Task Table_RendersBoundDataAsync()
         {
-            await using (var pageWrapper = await NewPageForRouteAsync("TableBindToData"))
+            await using (var pageWrapper = await NewPageForRouteAsync("TableSetData"))
             {
                 var page = pageWrapper.Page;
                 var table = page.Locator("nimble-table");

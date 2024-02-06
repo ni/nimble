@@ -1,23 +1,26 @@
-import {
-    Controls,
-    DocsStory,
-    Meta,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import TargetDocs from '../../patterns/anchor/tests/target-docs.mdx';
 import * as anchorStories from './anchor.stories';
 
 <Meta of={anchorStories} />
-
 <Title of={anchorStories} />
-<Description of={anchorStories} />
 
-<DocsStory of={anchorStories.anchor} expanded={false} />
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/link/), an anchor/link widget provides an interactive reference to a resource. The target resource can be either external or local, i.e., either outside or within the current page or application.
+
+<Canvas of={anchorStories.anchor} />
 <Controls of={anchorStories.anchor} />
 
-# Usage Docs
+{/* ## Appearances */}
+
+{/* ## Appearance Variants */}
+
+{/* ## Usage */}
+
+{/* ## Examples */}
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}
 
 ## Target Configuration
 
