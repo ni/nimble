@@ -445,6 +445,17 @@ describe('Select', () => {
             expect(element.open).toBeTrue();
         });
 
+        it('pressing <Space> twice when Select is focused will enter " " as filter text', async () => {
+            await pageObject.pressSpaceKey();
+            await waitForUpdatesAsync();
+            expect(element.open).toBeTrue();
+
+            await pageObject.pressSpaceKey();
+            await waitForUpdatesAsync();
+            expect(element.open).toBeTrue();
+            expect(pageObject.getFilterInputText()).toBe(' ');
+        });
+
         it('opening dropdown after applying filter previously starts with empty filter', async () => {
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
             await pageObject.closeDropdown();

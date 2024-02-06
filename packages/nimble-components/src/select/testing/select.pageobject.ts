@@ -1,7 +1,8 @@
 import {
     keyEnter,
     keyEscape,
-    keyArrowDown
+    keyArrowDown,
+    keySpace
 } from '@microsoft/fast-web-utilities';
 import type { Select } from '..';
 import type { ListOption } from '../../list-option';
@@ -105,6 +106,30 @@ export class SelectPageObject {
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyArrowDown })
         );
+    }
+
+    public async pressSpaceKey(): Promise<void> {
+        const alreadyOpen = this.selectElement.open;
+        this.selectElement.dispatchEvent(
+            new KeyboardEvent('keydown', { key: keySpace, bubbles: true })
+        );
+        await waitForUpdatesAsync();
+        if (
+            this.selectElement.filterMode === FilterMode.standard
+            && alreadyOpen
+        ) {
+            // add space to end of current filter
+            const filterValue = `${
+                this.selectElement.filterInputElement?.value ?? ''
+            } `;
+            if (this.selectElement.filterInputElement) {
+                this.selectElement.filterInputElement.value = filterValue;
+            }
+            this.selectElement.filterInputElement?.dispatchEvent(
+                new InputEvent('input', { inputType: 'insertText' })
+            );
+        }
+        await waitForUpdatesAsync();
     }
 
     public isDropdownVisible(): boolean {

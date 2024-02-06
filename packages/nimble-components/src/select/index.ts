@@ -358,26 +358,25 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
             return;
         }
 
-        const captured = (e.target as HTMLElement).closest<ListOption>(
-            'option,[role=option]'
-        );
+        if (this.open) {
+            const captured = (e.target as HTMLElement).closest<ListOption>(
+                'option,[role=option]'
+            );
 
-        if (!captured?.disabled) {
-            this.updateSelectedIndexFromFilteredSet();
-        }
-        if (this.open && captured && captured.disabled) {
-            return;
+            if (!captured?.disabled) {
+                this.updateSelectedIndexFromFilteredSet();
+            }
+
+            if (captured?.disabled) {
+                return;
+            }
         }
 
         super.clickHandler(e);
 
         this.open = this.collapsible && !this.open;
 
-        if (this.open && this.filterMode !== FilterMode.none) {
-            window.requestAnimationFrame(() => {
-                this.filterInputElement?.focus();
-            });
-        }
+        this.focusFilterInput();
 
         if (!this.open && this.indexWhenOpened !== this.selectedIndex) {
             this.updateValue(true);
@@ -482,6 +481,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
     public override focusoutHandler(e: FocusEvent): BooleanOrVoid {
         this.updateSelectedIndexFromFilteredSet();
+        super.focusoutHandler(e);
         if (!this.open) {
             return true;
         }
@@ -498,7 +498,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 this.updateValue(true);
             }
         }
-        super.focusoutHandler(e);
         return true;
     }
 
@@ -511,11 +510,15 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
         switch (key) {
             case keySpace: {
+                // when dropdown is open allow user to enter a space for filter text
+                if (this.open && this.filterMode !== FilterMode.none) {
+                    break;
+                }
+
                 e.preventDefault();
-                if (this.filterMode === FilterMode.none) {
-                    if (this.collapsible && this.typeAheadExpired) {
-                        this.open = !this.open;
-                    }
+                if (this.collapsible && this.typeAheadExpired) {
+                    this.open = !this.open;
+                    this.focusFilterInput();
                 }
                 break;
             }
@@ -534,6 +537,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 }
                 this.updateSelectedIndexFromFilteredSet();
                 this.open = !this.open;
+                this.focusFilterInput();
                 break;
             }
             case keyEscape: {
@@ -827,6 +831,14 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
         this.setPositioning();
         this.focusAndScrollOptionIntoView();
+    }
+
+    private focusFilterInput(): void {
+        if (this.open && this.filterMode !== FilterMode.none) {
+            window.requestAnimationFrame(() => {
+                this.filterInputElement?.focus();
+            });
+        }
     }
 
     private updateListboxMaxHeightCssVariable(): void {
