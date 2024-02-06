@@ -306,9 +306,9 @@ export class Table<
         hierarchyOptions: TableSetRecordHierarchyOptions[]
     ): Promise<void> {
         await this.processPendingUpdates();
-        const presentOptions = this.tableValidator.getItemsWithPresentIds(hierarchyOptions);
-        const clonedPresentOptions = structuredClone(presentOptions);
-        this.expansionManager.setHierarchyOptions(clonedPresentOptions);
+        const clonedOptions = structuredClone(hierarchyOptions);
+        const presentOptions = this.tableValidator.getOptionsWithPresentIds(clonedOptions);
+        this.expansionManager.setHierarchyOptions(presentOptions);
         this.refreshRows();
     }
 

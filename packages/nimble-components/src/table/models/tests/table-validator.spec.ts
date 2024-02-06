@@ -1,5 +1,5 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { TableRecord, TableRowSelectionMode } from '../../types';
+import { TableRecord, TableRecordDelayedHierarchyState, TableRecordHierarchyOptions, TableRowSelectionMode, TableSetRecordHierarchyOptions } from '../../types';
 import { TableValidator } from '../table-validator';
 import {
     TableColumnValidationTest,
@@ -715,16 +715,10 @@ describe('TableValidator', () => {
         });
     });
 
-    describe('getItemsWithPresentIds', () => {
-        const value1Object = { recordId: 'value-1', moreData: 10 } as const;
-        const value2Object = {
-            recordId: 'value-2',
-            somethingElse: 'value-1'
-        } as const;
-        const value3Object = {
-            recordId: 'value-3',
-            complexType: ['value-1', 'value-2']
-        } as const;
+    describe('getOptionsWithPresentIds', () => {
+        const value1Options: TableSetRecordHierarchyOptions = { recordId: 'value-1', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.none } } as const;
+        const value2Options: TableSetRecordHierarchyOptions = { recordId: 'value-2', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } } as const;
+        const value3Options: TableSetRecordHierarchyOptions = { recordId: 'value-3', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } } as const;
 
         it('filters out record IDs that are not in the data set', () => {
             const data = [
@@ -733,12 +727,12 @@ describe('TableValidator', () => {
             ];
             validator.validateRecordIds(data, 'stringField');
 
-            const presentRecordIds = validator.getItemsWithPresentIds([
-                value2Object,
-                value3Object
+            const presentRecordIds = validator.getOptionsWithPresentIds([
+                value2Options,
+                value3Options
             ]);
             expect(presentRecordIds).toEqual(
-                jasmine.arrayWithExactContents([value2Object])
+                jasmine.arrayWithExactContents([value2Options])
             );
         });
 
@@ -749,12 +743,12 @@ describe('TableValidator', () => {
             ];
             validator.validateRecordIds(data, 'stringField');
 
-            const presentRecordIds = validator.getItemsWithPresentIds([
-                value2Object,
-                value1Object
+            const presentRecordIds = validator.getOptionsWithPresentIds([
+                value2Options,
+                value1Options
             ]);
             expect(presentRecordIds).toEqual(
-                jasmine.arrayWithExactContents([value1Object, value2Object])
+                jasmine.arrayWithExactContents([value1Options, value2Options])
             );
         });
 
@@ -771,12 +765,12 @@ describe('TableValidator', () => {
             ];
             validator.validateRecordIds(newData, 'stringField');
 
-            const presentRecordIds = validator.getItemsWithPresentIds([
-                value2Object,
-                value1Object
+            const presentRecordIds = validator.getOptionsWithPresentIds([
+                value2Options,
+                value1Options
             ]);
             expect(presentRecordIds).toEqual(
-                jasmine.arrayWithExactContents([value1Object])
+                jasmine.arrayWithExactContents([value1Options])
             );
         });
 
@@ -787,9 +781,9 @@ describe('TableValidator', () => {
             ];
             validator.validateRecordIds(data, undefined);
 
-            const presentRecordIds = validator.getItemsWithPresentIds([
-                value2Object,
-                value1Object
+            const presentRecordIds = validator.getOptionsWithPresentIds([
+                value2Options,
+                value1Options
             ]);
             expect(presentRecordIds).toEqual(
                 jasmine.arrayWithExactContents([])
