@@ -145,10 +145,10 @@ const metadata: Meta<WaferMapArgs> = {
         maxCharacters: 4,
         orientation: WaferMapOrientation.left,
         originLocation: WaferMapOriginLocation.bottomLeft,
-        gridMinX: undefined,
-        gridMaxX: undefined,
-        gridMinY: undefined,
-        gridMaxY: undefined
+        gridMinX: 0,
+        gridMaxX: 1150, // 3500,
+        gridMinY: 0,
+        gridMaxY: 1150, // 3500
     },
     argTypes: {
         colorScale: {
