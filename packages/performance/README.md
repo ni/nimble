@@ -2,4 +2,4 @@
 
 ## Overview
 
-This package contains the performance tests that are run for every CI.
+This package contains the performance tests that run for every CI.
