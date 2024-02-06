@@ -1,6 +1,6 @@
 {
   "type": "major",
-  "comment": "Change data API of Nimble Blazor Table.",
+  "comment": "BREAKING CHANGE: Nimble Blazor Data bindable property changed to SetDataAsync method . See Nimble Blazor README for usage info.",
   "packageName": "@ni/nimble-blazor",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
   "dependentChangeType": "patch"
