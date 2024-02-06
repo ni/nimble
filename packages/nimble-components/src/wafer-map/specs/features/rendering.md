@@ -97,7 +97,9 @@ The previous inputs can be adapted to this new structure to maintain backwards c
 
 The rendering will also be changed to take place inside a worker thread. The worker will be responsible for parsing each layer of the data set and it will render the information contained with the specific color codes and opacity.
 
-We will be using the [threads.js](https://threads.js.org/) library to spin up the worker and communicate with it.
+We will be using the [comlink](https://github.com/GoogleChromeLabs/comlink) library to spin up the worker and communicate with it.
+
+The worker code will be precompiled by rollup in a library and sent as a Blob to the worker.
 
 The worker will function as a state automaton which will need some data after initialization, and it will render everything using an [OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas).
 
@@ -105,11 +107,24 @@ The main thread will communicate with the worker by signaling any data changes o
 
 The strategy for improvement will be gradual. We will try to reuse the existing code as much as possible, but if the performance will not be met, we will improve the existing parsing methods and increase the number of workers.
 
+Some performance records for multithreaded rendering are recorded in the table bellow:
+
+| FTL      | method     | memory space | attempt 1 | attempt 2 | attempt 3 | size    |
+| -------- | ---------- | ------------ | --------- | --------- | --------- | ------- |
+| baseline | update     | main         | 4341ms    | 4547ms    | 4359ms    | 1M dies |
+| 1 thread | update     | main         | 2.0ms     | 2.0ms     | 0.0ms     | 1M dies |
+|          | renderDies | worker       | 392ms     | 372ms     | 399ms     | 1M dies |
+| 2 thread | update     | main         | 4.0ms     | 4.1ms     | 4.2ms     | 1M dies |
+|          | renderDies | worker       | 204ms     | 207ms     | 209ms     | 1M dies |
+
 #### Size Limitations
 
 Because we are reaching out to support very large amounts of data, an issue that is popping out is the limits of the component's canvas size to the amount of displayed data. For example we could find ourselves in the situation to render more dies than there are pixels on the canvas, at least in the zoomed out state.
 
-The solution to this issue is creating a new validity warning or event which will signal this state to the user when the count of individual dies will overtake the size of the canvas. A heuristic which will calculate this based on the zoom level and the component height and width will be implemented and used during data validation.
+The temporary solution to this issue is creating a new validity warning or event which will signal this state to the user when the count of individual dies will overtake the size of the canvas. A heuristic which will calculate this based on the zoom level and the component height and width will be implemented and used during data validation.
+
+The warning will be displayed by the existing warning signaling mechanism used in the Ozone application.
+![warning display](resources/warning-integration.png)
 
 ### Performance Testing
 
@@ -161,6 +176,12 @@ Another option is to break each object property as a separate attribute for the 
 ### Alternative Rendering
 
 Alternatives to the described rendering are splitting the data and canvas and using multiple threads to enhance performance even more.
+
+### Alternative Size Limitations
+
+In order to provide a smooth user experience, if the existing event interaction rendering is not sufficiently fast we would implement a more instantaneous response to zoom gestures using bitmap scaling of the canvas while the renderer is updating the final display.
+
+Another alternative to remove the size limits is to create a point reduction algorithm which will create a reduced set of dies fit to the size limits creating an average, median or other approximation. This approach introduces additional complexity to the rendering and is a lossy compression algorithm, so it's implementation should be carefully considered.
 
 ## Open Issues
 
