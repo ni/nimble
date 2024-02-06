@@ -9,4 +9,4 @@ To run the site locally:
 
 To add a test:
 1. Create a typescript function that appends your component into landing/index.html
-2. Put `performance.mark` between the points you want to measure your performance, many examples can be found in landing/index.ts
+2. Put `performance.mark` between the points you want to measure your performance, examples can be found in landing/index.ts
