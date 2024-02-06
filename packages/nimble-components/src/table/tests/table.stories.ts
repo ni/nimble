@@ -446,7 +446,9 @@ export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
                 // but doesn't seem to be upgraded to a custom element yet
                 const args = x as DelayedHierarchyTableArgs;
                 await customElements.whenDefined('nimble-table');
-                await args.tableRef.setData(dataSets[ExampleDataType.simpleData]);
+                await args.tableRef.setData(
+                    dataSets[ExampleDataType.simpleData]
+                );
                 await args.tableRef.setRecordHierarchyOptions([
                     {
                         recordId: '0',
