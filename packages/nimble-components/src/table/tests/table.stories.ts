@@ -469,7 +469,10 @@ export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
                     {
                         recordId: '0',
                         options: {
-                            delayedHierarchyState: TableRecordDelayedHierarchyState[x.firstRecordState]
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState[
+                                    x.firstRecordState
+                                ]
                         }
                     }
                 ]);

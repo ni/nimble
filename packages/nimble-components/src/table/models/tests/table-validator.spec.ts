@@ -1,5 +1,10 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { TableRecord, TableRecordDelayedHierarchyState, TableRecordHierarchyOptions, TableRowSelectionMode, TableSetRecordHierarchyOptions } from '../../types';
+import {
+    TableRecord,
+    TableRecordDelayedHierarchyState,
+    TableRowSelectionMode,
+    TableSetRecordHierarchyOptions
+} from '../../types';
 import { TableValidator } from '../table-validator';
 import {
     TableColumnValidationTest,
@@ -716,9 +721,26 @@ describe('TableValidator', () => {
     });
 
     describe('getOptionsWithPresentIds', () => {
-        const value1Options: TableSetRecordHierarchyOptions = { recordId: 'value-1', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.none } } as const;
-        const value2Options: TableSetRecordHierarchyOptions = { recordId: 'value-2', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } } as const;
-        const value3Options: TableSetRecordHierarchyOptions = { recordId: 'value-3', options: { delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren } } as const;
+        const value1Options: TableSetRecordHierarchyOptions = {
+            recordId: 'value-1',
+            options: {
+                delayedHierarchyState: TableRecordDelayedHierarchyState.none
+            }
+        } as const;
+        const value2Options: TableSetRecordHierarchyOptions = {
+            recordId: 'value-2',
+            options: {
+                delayedHierarchyState:
+                    TableRecordDelayedHierarchyState.canLoadChildren
+            }
+        } as const;
+        const value3Options: TableSetRecordHierarchyOptions = {
+            recordId: 'value-3',
+            options: {
+                delayedHierarchyState:
+                    TableRecordDelayedHierarchyState.canLoadChildren
+            }
+        } as const;
 
         it('filters out record IDs that are not in the data set', () => {
             const data = [

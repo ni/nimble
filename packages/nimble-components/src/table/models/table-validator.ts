@@ -1,5 +1,10 @@
 import type { TableColumn } from '../../table-column/base';
-import { TableRecord, TableRowSelectionMode, TableSetRecordHierarchyOptions, TableValidity } from '../types';
+import {
+    TableRecord,
+    TableRowSelectionMode,
+    TableSetRecordHierarchyOptions,
+    TableValidity
+} from '../types';
 
 /**
  * Helper class for the nimble-table to validate that the table's configuration
