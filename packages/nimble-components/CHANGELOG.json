@@ -2,6 +2,57 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 05 Feb 2024 18:16:28 GMT",
+      "version": "21.2.0",
+      "tag": "@ni/nimble-components_v21.2.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5c681c75a8c40ea060d961da29df59e0f0a550fc",
+            "comment": "Migrate Storybook docs to MDX format"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sun, 04 Feb 2024 04:31:52 GMT",
+      "version": "21.2.0",
+      "tag": "@ni/nimble-components_v21.2.0",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c36b37f3ab227bc7422a059e332cca42e63ea5ea",
+            "comment": "Re-enable intermittent test in rich text editor for mention support"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 02 Feb 2024 21:51:03 GMT",
+      "version": "21.2.0",
+      "tag": "@ni/nimble-components_v21.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8ba4f05ec0bd828265d2f74b16a278adf46db268",
+            "comment": "New pause, play, stop, and external link icons. Updated running-arrow icon."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.10.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 31 Jan 2024 20:22:58 GMT",
       "version": "21.1.0",
       "tag": "@ni/nimble-components_v21.1.0",

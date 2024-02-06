@@ -24,20 +24,14 @@ type TokenName = keyof typeof tokenNames;
 const tokenNameKeys = Object.keys(tokenNames) as TokenName[];
 tokenNameKeys.sort((a, b) => a.localeCompare(b));
 
-const overviewText = 'Design Tokens to use in applications. See the <a href="https://github.com/ni/nimble/tree/main/packages/nimble-components">nimble-components</a> readme for more information.';
-
 interface TokenArgs {
     propertyFormat: PropertyFormat;
 }
 
 const metadata: Meta = {
     title: 'Tokens/Theme-aware Tokens',
-    tags: ['autodocs'],
     parameters: {
         docs: {
-            description: {
-                component: overviewText
-            },
             source: {
                 code: null
             }

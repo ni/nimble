@@ -1,5 +1,4 @@
 import { html } from '@microsoft/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
@@ -107,15 +106,7 @@ const getHighlightedTags = (setName: string, sets: string[][]): string[] => {
 
 const metadata: Meta<WaferMapArgs> = {
     title: 'Incubating/Wafer Map',
-    tags: ['autodocs'],
-    decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    'A wafer map is a component for visualizing data from the manufacture of semiconductor wafers. Each die on the wafer can show numerical information and be colored to indicate information about that die.'
-            }
-        },
         actions: {
             handles: ['click', 'die-hover']
         }

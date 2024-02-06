@@ -1,23 +1,29 @@
-import {
-    Controls,
-    DocsStory,
-    Meta,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
+import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import * as tableStories from './table.stories';
+import { tableTag } from '..';
 
 <Meta of={tableStories} />
-
 <Title of={tableStories} />
-<Description of={tableStories} />
 
-<DocsStory of={tableStories.table} expanded={false} />
+The <Tag name={tableTag}/> is a component that offers a way to render tabular data in a variety of ways in each column.
+For information about configuring table columns, see **Table Column Configuration** and **Table Column Types**.
+
+<Canvas of={tableStories.table} />
 <Controls of={tableStories.table} />
 
-# Usage Docs
+{/* ## Appearances */}
+
+{/* ## Appearance Variants */}
 
 ## Styling
 
-The `nimble-table` should be sized explicitly or sized to fill the space of a parent container. The `nimble-table` does not currently support being styled with `height: auto`. The ability to auto size the table is tracked with [issue 1624](https://github.com/ni/nimble/issues/1624).
+The <Tag name={tableTag}/> should be sized explicitly or sized to fill the space of a parent container. The <Tag name={tableTag}/> does not currently support being styled with `height: auto`. The ability to auto size the table is tracked with [issue 1624](https://github.com/ni/nimble/issues/1624).
+
+{/* ## Usage */}
+
+{/* ## Examples */}
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}

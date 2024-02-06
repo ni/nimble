@@ -1,36 +1,34 @@
-import {
-    DocsStory,
-    Meta,
-    Controls,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title, Description } from '@storybook/blocks';
+import { Tag } from '../../../../.storybook/blocks/StoryLayout';
+import { columnOperationBehavior } from '../../base/tests/table-column-stories-utils';
 import * as tableColumnIconStories from './table-column-icon.stories';
 import * as iconMappingStories from '../../../mapping/icon/tests/mapping-icon.stories';
 import * as spinnerMappingStories from '../../../mapping/spinner/tests/mapping-spinner.stories';
+import { tableColumnIconTag } from '../';
+import { tableTag } from '../../../table';
+import { spinnerTag } from '../../../spinner';
 
 <Meta of={tableColumnIconStories} />
-
 <Title of={tableColumnIconStories} />
-<Description of={tableColumnIconStories} />
 
-<DocsStory of={tableColumnIconStories.iconColumn} expanded={false} />
+The <Tag name={tableColumnIconTag}/> column renders string, number, or boolean values as a Nimble icon or <Tag name={spinnerTag}/> in the <Tag name={tableTag}/>.
+
+<p>{columnOperationBehavior}</p>
+
+<Canvas of={tableColumnIconStories.iconColumn} />
 <Controls of={tableColumnIconStories.iconColumn} />
-
-# Usage Docs
 
 ## Blazor Usage
 
 When setting a child mapping element's `Key` value to a string, you must wrap it in `@()` so that the compiler treats it as a string, e.g.
 `<NimbleMappingIcon Key=@("foo") ...>`
 
-# Icon Mapping
+## Icon Mapping
 
 <Description of={iconMappingStories} />
 <Controls of={iconMappingStories.iconMapping} />
 
-# Spinner Mapping
+## Spinner Mapping
 
 <Description of={spinnerMappingStories} />
 <Controls of={spinnerMappingStories.spinnerMapping} />
