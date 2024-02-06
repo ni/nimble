@@ -15,7 +15,9 @@ import {
     elevation3BoxShadow,
     dialogSmallWidth,
     dialogSmallHeight,
-    dialogSmallMaxHeight
+    dialogSmallMaxHeight,
+    borderHoverColor,
+    borderWidth
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -46,7 +48,7 @@ export const styles = css`
     }
 
     dialog${focusVisible} {
-        outline: none;
+        outline: ${borderWidth} solid ${borderHoverColor};
     }
 
     header {

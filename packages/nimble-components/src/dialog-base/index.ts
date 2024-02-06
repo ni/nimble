@@ -97,7 +97,12 @@ export abstract class DialogBase<CloseReason = void> extends FoundationElement {
     }
 
     protected notifyClosed(reason: CloseReason | UserDismissed): void {
-        this.resolveShow!(reason);
+        if (!this.resolveShow) {
+            throw new Error(
+                'Do not call notifyClosed unless there is a promise to resolve'
+            );
+        }
+        this.resolveShow(reason);
         this.resolveShow = undefined;
     }
 }

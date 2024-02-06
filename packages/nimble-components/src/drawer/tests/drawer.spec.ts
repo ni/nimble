@@ -10,7 +10,7 @@ async function setup<CloseReason = void>(
     preventDismiss = false
 ): Promise<Fixture<Drawer<CloseReason>>> {
     const viewTemplate = html`
-        <nimble-drawer ?prevent-dismiss="${() => preventDismiss ?? null}">
+        <nimble-drawer ?prevent-dismiss="${() => preventDismiss}">
             <nimble-button id="ok">OK</nimble-button>
             <nimble-button id="cancel">Cancel</nimble-button>
         </nimble-drawer>
