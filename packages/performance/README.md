@@ -2,4 +2,8 @@
 
 ## Overview
 
-This package contains the performance tests that run for every CI.
+This package contains performance tests for nimble components.
+
+## Contributing
+
+Follow the instructions in [CONTRIBUTING.md](/packages/performance/CONTRIBUTING.md) to modify this library.

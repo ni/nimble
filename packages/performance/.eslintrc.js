@@ -6,6 +6,7 @@ module.exports = {
     ignorePatterns: [
         // Force inclusion of config dot file
         '!.eleventy.js',
+        '!.eslintrc.js',
         'node_modules',
         'dist'
     ],
