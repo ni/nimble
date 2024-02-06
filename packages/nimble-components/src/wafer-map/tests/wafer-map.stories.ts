@@ -69,9 +69,9 @@ const getDiesSet = (
                 highlightedValueGenerator(seed)
             )!;
             break;
-        case 'badDies10000':
+        case 'badDies1000000':
             returnedValue = generateWaferData(
-                10000,
+                10 ** 6,
                 badValueGenerator(seed),
                 highlightedValueGenerator(seed)
             )!;
@@ -138,7 +138,7 @@ const metadata: Meta<WaferMapArgs> = {
     args: {
         colorScale: waferMapColorScaleSets[0],
         colorScaleMode: WaferMapColorScaleMode.linear,
-        dies: 'fixedDies10',
+        dies: 'badDies1000000',
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
         highlightedTags: 'set1',
@@ -196,7 +196,7 @@ const metadata: Meta<WaferMapArgs> = {
                 'fixedDies10',
                 'goodDies100',
                 'goodDies1000',
-                'badDies10000'
+                'badDies1000000'
             ],
             control: {
                 type: 'radio',
@@ -204,7 +204,7 @@ const metadata: Meta<WaferMapArgs> = {
                     fixedDies10: 'Small dies set of fixed values',
                     goodDies100: 'Medium dies set of mostly good values',
                     goodDies1000: 'Large dies set of mostly good values',
-                    badDies10000: 'Very large dies set of mostly bad values'
+                    badDies1000000: 'Very large dies set of mostly bad values'
                 }
             },
             defaultValue: 'set1'
