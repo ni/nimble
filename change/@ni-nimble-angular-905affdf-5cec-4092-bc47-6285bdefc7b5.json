@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Created lighthouse performance tests for wafermap component",
-  "packageName": "@ni/nimble-angular",
-  "email": "110180309+Razvan1928@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
