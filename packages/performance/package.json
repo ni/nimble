@@ -4,13 +4,11 @@
     "private": true,
     "description": "A package to measure the performance of the Nimble Components",
     "scripts": {
-        "build": "npm run build:wafer-map",
-        "build:wafer-map": "cd wafer-map && tsc && vite build src --config ./vite.config.js",
+        "build": "tsc && vite build src",
         "pack": "npm pack",
         "lint": "eslint .",
-        "start:wafer-map": "cd wafer-map && vite src",
-        "performance": "npm run performance:wafer-map",
-        "performance:wafer-map": "cd wafer-map && lhci autorun"
+        "start": "vite src",
+        "performance": "lhci autorun"
     },
     "dependencies": {
         "@ni/nimble-components": "*"

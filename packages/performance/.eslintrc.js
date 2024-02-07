@@ -5,7 +5,6 @@ module.exports = {
     ],
     ignorePatterns: [
         // Force inclusion of config dot file
-        '!.eleventy.js',
         '!.eslintrc.js',
         'node_modules',
         'dist'
@@ -13,5 +12,20 @@ module.exports = {
     rules: {
         // Enabled to prevent accidental usage of async-await
         'require-await': 'error'
-    }
+    },
+    overrides: [{
+        files: ['*.ts'],
+        extends: [
+            '@ni/eslint-config-typescript',
+            '@ni/eslint-config-typescript/requiring-type-checking'
+        ],
+        parserOptions: {
+            project: './tsconfig.json',
+            tsconfigRootDir: __dirname
+        },
+        rules: {
+            // Rules enabled due to strictNullChecks
+            '@typescript-eslint/no-non-null-assertion': 'off',
+        }
+    }]
 };
