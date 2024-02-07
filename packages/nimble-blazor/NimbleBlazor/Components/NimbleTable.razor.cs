@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
@@ -13,8 +14,6 @@ namespace NimbleBlazor;
 public partial class NimbleTable<TData> : ComponentBase
 {
     private ElementReference _table;
-    private bool _dataUpdated = false;
-    private IEnumerable<TData> _data = Enumerable.Empty<TData>();
     internal static string SetTableDataMethodName = "NimbleBlazor.Table.setData";
     internal static string GetSelectedRecordIdsMethodName = "NimbleBlazor.Table.getSelectedRecordIds";
     internal static string SetSelectedRecordIdsMethodName = "NimbleBlazor.Table.setSelectedRecordIds";
@@ -28,36 +27,26 @@ public partial class NimbleTable<TData> : ComponentBase
     public string? IdFieldName { get; set; }
 
     [Parameter]
+    public string? ParentIdFieldName { get; set; }
+
+    [Parameter]
     public TableRowSelectionMode? SelectionMode { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>
-    /// Gets or sets the data for the table.
-    /// </summary>
-    [Parameter]
-    public IEnumerable<TData> Data
-    {
-        get
-        {
-            return _data;
-        }
-        set
-        {
-            _data = value;
-            _dataUpdated = true;
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets a callback that's invoked when the data changes
-    /// </summary>
-    [Parameter]
-    public EventCallback<IEnumerable<TData>> DataChanged { get; set; }
-
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    /// <summary>
+    /// Sets the data in the table.
+    /// </summary>
+    /// <param name="data">The data to set in the table</param>
+    public async Task SetDataAsync(IEnumerable<TData> data)
+    {
+        var options = new JsonSerializerOptions { MaxDepth = 3 };
+        await JSRuntime!.InvokeVoidAsync(SetTableDataMethodName, _table, JsonSerializer.Serialize(data, options));
+    }
 
     /// <summary>
     /// Returns the set of selected record IDs.
@@ -150,17 +139,5 @@ public partial class NimbleTable<TData> : ComponentBase
     protected async void HandleColumnConfigurationChange(TableColumnConfigurationEventArgs eventArgs)
     {
         await ColumnConfigurationChange.InvokeAsync(eventArgs);
-    }
-
-    /// <inheritdoc/>
-    /// <exception cref="JsonException"></exception>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        var options = new JsonSerializerOptions { MaxDepth = 3 };
-        if (_dataUpdated)
-        {
-            await JSRuntime!.InvokeVoidAsync(SetTableDataMethodName, _table, JsonSerializer.Serialize(Data, options));
-        }
-        _dataUpdated = false;
     }
 }

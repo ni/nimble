@@ -33,6 +33,8 @@ interface RichTextEditorArgs extends LabelUserArgs {
     input: unknown;
     empty: unknown;
     placeholder: string;
+    validity: undefined;
+    checkValidity: undefined;
 }
 
 type ExampleDataType = (typeof exampleDataType)[keyof typeof exampleDataType];
@@ -64,7 +66,6 @@ const mentionDataSets = {
     }
 } as const;
 
-const richTextEditorDescription = 'The rich text editor component allows users to add/edit text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The editor generates markdown output and takes markdown as input. The markdown flavor used is [CommonMark](https://spec.commonmark.org/0.30/).\n\n See the [rich text viewer](?path=/docs/incubating-rich-text-viewer--docs) component to render markdown without allowing editing.';
 const setMarkdownDescription = 'A function that sets content in the editor with the provided markdown string.';
 const getMarkdownDescription = 'A function that serializes the current data in the editor and returns the markdown string.';
 const footerActionButtonDescription = `You can place a button or anchor button at the far-right of the footer section, set \`slot="footer-actions"\`.
@@ -76,15 +77,16 @@ client application to make any necessary adjustments. For example, if the button
 client application must implement that functionality.
 `;
 
+const validityDescription = `Readonly object of boolean values that represents the validity states that the editor's configuration can be in.
+The object's type is \`RichTextValidity\`, and it contains the following boolean properties:
+-   \`invalidMentionConfiguration\`: \`true\` when a mention configuration is invalid. Call \`checkValidity()\` on each mention component to see which configuration is invalid, and read the \`validity\` property of that mention for details about why it's invalid.
+-   \`duplicateMentionConfiguration\`: \`true\` if more than one of the same type of mention configuration element is provided
+`;
+
 const metadata: Meta<RichTextEditorArgs> = {
     title: 'Incubating/Rich Text Editor',
     decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component: richTextEditorDescription
-            }
-        },
         actions: {
             handles: ['input', 'mention-update']
         }
@@ -202,6 +204,16 @@ const metadata: Meta<RichTextEditorArgs> = {
             description:
                 'This event is fired when there is a change in the content of the editor.',
             control: false
+        },
+        validity: {
+            description: validityDescription,
+            control: false
+        },
+        checkValidity: {
+            name: 'checkValidity()',
+            description:
+                'A function that returns `true` if the configuration of the rich text editor is valid and `false` if the configuration is not valid.',
+            control: false
         }
     },
     args: {
@@ -221,7 +233,9 @@ const metadata: Meta<RichTextEditorArgs> = {
                 await customElements.whenDefined('nimble-rich-text-editor');
                 x.editorRef.setMarkdown(dataSets[x.data]);
             })();
-        }
+        },
+        validity: undefined,
+        checkValidity: undefined
     }
 };
 

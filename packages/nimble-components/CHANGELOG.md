@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 25 Jan 2024 02:58:12 GMT and should not be manually modified.
+This log was last generated on Fri, 02 Feb 2024 21:51:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.2.0
+
+Fri, 02 Feb 2024 21:51:03 GMT
+
+### Minor changes
+
+- New pause, play, stop, and external link icons. Updated running-arrow icon. ([ni/nimble@8ba4f05](https://github.com/ni/nimble/commit/8ba4f05ec0bd828265d2f74b16a278adf46db268))
+- Bump @ni/nimble-tokens to v6.10.0
+
+## 21.1.0
+
+Wed, 31 Jan 2024 20:22:58 GMT
+
+### Minor changes
+
+- Export new NumberTextUnitFormat and update documentation for new Angular number formatting pipe and existing duration pipe ([ni/nimble@bf9013d](https://github.com/ni/nimble/commit/bf9013d5cb92106ddd1fcf6fd84e6684930462b8))
+
+## 21.0.5
+
+Mon, 29 Jan 2024 11:31:46 GMT
+
+### Patches
+
+- Add validator, tracker and batch updates in rich text components for mention configuration ([ni/nimble@ec2e0dd](https://github.com/ni/nimble/commit/ec2e0ddef1d910d44097ccb2a976ad2343dbac63))
 
 ## 21.0.4
 

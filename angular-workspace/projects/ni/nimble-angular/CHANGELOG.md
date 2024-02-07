@@ -1,8 +1,50 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 25 Jan 2024 02:58:12 GMT and should not be manually modified.
+This log was last generated on Fri, 02 Feb 2024 21:51:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.0.1
+
+Fri, 02 Feb 2024 21:51:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.2.0
+
+## 20.0.0
+
+Wed, 31 Jan 2024 20:22:58 GMT
+
+### Major changes
+
+- Create new NumberTextPipe and change existing DurationPipe to be a standalone pipe (removing NimblePipesModule) ([ni/nimble@bf9013d](https://github.com/ni/nimble/commit/bf9013d5cb92106ddd1fcf6fd84e6684930462b8))
+- Bump @ni/nimble-components to v21.1.0
+
+## 19.4.0
+
+Wed, 31 Jan 2024 17:51:55 GMT
+
+### Minor changes
+
+- Include href in NavigationGuard ([ni/nimble@147777a](https://github.com/ni/nimble/commit/147777aaf8332d80a89aecec247a95ee31233965))
+
+## 19.3.1
+
+Mon, 29 Jan 2024 11:31:46 GMT
+
+### Patches
+
+- Add validator APIs to rich text editor and viewer components ([ni/nimble@ec2e0dd](https://github.com/ni/nimble/commit/ec2e0ddef1d910d44097ccb2a976ad2343dbac63))
+- Bump @ni/nimble-components to v21.0.5
+
+## 19.3.0
+
+Sat, 27 Jan 2024 17:56:18 GMT
+
+### Minor changes
+
+- Adding Angular support for table data hierarchy ([ni/nimble@39bd1f8](https://github.com/ni/nimble/commit/39bd1f821cd5394c75187abbcf3c3dcc9b3a1572))
 
 ## 19.2.4
 

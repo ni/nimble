@@ -33,14 +33,8 @@ consuming application must implement that functionality.
 
 const metadata: Meta<TextFieldArgs> = {
     title: 'Components/Text Field',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component: 'A single-line text field.'
-            }
-        },
         actions: {
             handles: ['change', 'input']
         }

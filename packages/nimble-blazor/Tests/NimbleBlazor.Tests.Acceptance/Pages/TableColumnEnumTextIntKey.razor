@@ -3,7 +3,7 @@
 @using System.Diagnostics.CodeAnalysis;
 @inherits LayoutComponentBase
 
-<NimbleTable IdFieldName="Id" @bind-Data="TableData">
+<NimbleTable TData="RowData" IdFieldName="Id" @ref="_table">
     <NimbleTableColumnEnumText TKey="int" FieldName="Field1" ColumnId="1">
         <NimbleMappingText Key="0" Text="foo"></NimbleMappingText>
         <NimbleMappingText Key="1" Text="bar"></NimbleMappingText>
@@ -15,6 +15,7 @@
 @code {
     [NotNull]
     public IEnumerable<RowData> TableData { get; set; } = Enumerable.Empty<RowData>();
+    private NimbleTable<RowData>? _table;
 
     public TableColumnEnumTextIntKey()
     {
@@ -30,6 +31,12 @@
         }
 
         TableData = tableData;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _table!.SetDataAsync(TableData);
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     public class RowData

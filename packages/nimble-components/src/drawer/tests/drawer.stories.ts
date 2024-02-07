@@ -115,15 +115,8 @@ ${overrideWarning('Drawer Width', widthDescriptionOverride)}
 
 const metadata: Meta<DrawerArgs> = {
     title: 'Components/Drawer',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    'Specialized dialog designed to slide in from either side of the page. Typically used for a configuration pane.'
-            }
-        },
         actions: {
             handles: []
         }

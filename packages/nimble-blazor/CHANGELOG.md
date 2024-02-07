@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 24 Jan 2024 00:57:02 GMT and should not be manually modified.
+This log was last generated on Tue, 06 Feb 2024 15:30:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.0.0
+
+Tue, 06 Feb 2024 15:30:34 GMT
+
+### Major changes
+
+- BREAKING CHANGE: Nimble Blazor Data bindable property changed to SetDataAsync method . See Nimble Blazor README for usage info. ([ni/nimble@fc0d7f6](https://github.com/ni/nimble/commit/fc0d7f686aa4dca6232c949a765e5b201bf8fc58))
+
+## 13.2.0
+
+Sat, 27 Jan 2024 17:56:18 GMT
+
+### Minor changes
+
+- Adding Blazor support for table data hierarchy ([ni/nimble@39bd1f8](https://github.com/ni/nimble/commit/39bd1f821cd5394c75187abbcf3c3dcc9b3a1572))
 
 ## 13.1.4
 

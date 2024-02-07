@@ -5,7 +5,6 @@ import { tableTag } from '../../../table';
 import { tableColumnEnumTextTag } from '..';
 import {
     SharedTableArgs,
-    columnOperationBehavior,
     sharedTableArgTypes,
     sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
@@ -36,19 +35,9 @@ const simpleData = [
     }
 ] as const;
 
-const enumTextColumnDescription = `The \`nimble-table-column-enum-text\` column renders string, number, or boolean values as mapped text in the \`nimble-table\`.
-
-${columnOperationBehavior}`;
-
 const metadata: Meta<EnumTextColumnTableArgs> = {
     title: 'Components/Table Column: Enum Text',
-    parameters: {
-        docs: {
-            description: {
-                component: enumTextColumnDescription
-            }
-        }
-    }
+    parameters: {}
 };
 
 export default metadata;

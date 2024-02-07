@@ -1,23 +1,20 @@
-import {
-    DocsStory,
-    Meta,
-    Controls,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title, Description } from '@storybook/blocks';
+import { Tag } from '../../../../.storybook/blocks/StoryLayout';
+import { columnOperationBehavior } from '../../base/tests/table-column-stories-utils';
 import * as tableColumnEnumTextStories from './table-column-enum-text.stories';
 import * as textMappingStories from '../../../mapping/text/tests/mapping-text.stories';
+import { tableColumnEnumTextTag } from '../';
+import { tableTag } from '../../../table';
 
 <Meta of={tableColumnEnumTextStories} />
-
 <Title of={tableColumnEnumTextStories} />
-<Description of={tableColumnEnumTextStories} />
 
-<DocsStory of={tableColumnEnumTextStories.enumTextColumn} expanded={false} />
+The <Tag name={tableColumnEnumTextTag}/> column renders string, number, or boolean values as mapped text in the <Tag name={tableTag}/>.
+
+<p>{columnOperationBehavior}</p>
+
+<Canvas of={tableColumnEnumTextStories.enumTextColumn} />
 <Controls of={tableColumnEnumTextStories.enumTextColumn} />
-
-# Usage Docs
 
 ## Blazor Usage
 

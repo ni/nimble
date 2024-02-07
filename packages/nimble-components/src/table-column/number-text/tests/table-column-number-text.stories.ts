@@ -6,7 +6,6 @@ import { tableTag } from '../../../table';
 import { tableColumnNumberTextTag } from '..';
 import {
     SharedTableArgs,
-    columnOperationBehavior,
     sharedTableActions,
     sharedTableArgTypes,
     sharedTableArgs
@@ -57,7 +56,6 @@ const simpleData = [
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Number Text',
     decorators: [withActions],
-    tags: ['autodocs'],
     parameters: {
         actions: {
             handles: sharedTableActions
@@ -89,11 +87,6 @@ interface NumberTextColumnTableArgs extends SharedTableArgs {
     checkValidity: () => void;
     validity: () => void;
 }
-
-const numberTextColumnDescription = `The \`nimble-table-column-number-text\` column is used to display number fields as text in the \`nimble-table\`. Numbers are formatted in a locale-specific way
-based on the value of the \`lang\` token, which can be set via the [\`nimble-theme-provider\`](?path=/docs/tokens-theme-provider--docs).
-
-${columnOperationBehavior}`;
 
 const formatDescription = `Configures the way that the numeric value is formatted to render within the column.
 
@@ -152,13 +145,7 @@ const unitDescription = `A unit for the column may be configured by providing a 
 `;
 
 export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: numberTextColumnDescription
-            }
-        }
-    },
+    parameters: {},
     // prettier-ignore
     render: createUserSelectedThemeStory(html<NumberTextColumnTableArgs>`
         <${tableTag}

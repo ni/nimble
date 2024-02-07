@@ -10,6 +10,10 @@ import {
 } from '../../../rich-text-mention/users';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import { MappingUser, mappingUserTag } from '../../../mapping/user';
+import type {
+    MappingConfiguration,
+    UserMentionElements
+} from '../../editor/testing/types';
 
 async function setup(): Promise<Fixture<RichTextViewer>> {
     return fixture<RichTextViewer>(
@@ -31,22 +35,24 @@ async function setupMentionConfig(): Promise<Fixture<RichTextViewer>> {
 
 async function appendUserMentionConfiguration(
     element: RichTextViewer,
-    userKeys?: string[],
-    displayNames?: string[]
-): Promise<void> {
-    const userMention = document.createElement(richTextMentionUsersTag);
-    userMention.pattern = '^user:(.*)';
-
-    if (userKeys || displayNames) {
-        userKeys?.forEach((userKey, index) => {
-            const mappingUser = document.createElement(mappingUserTag);
-            mappingUser.key = userKey ?? '';
-            mappingUser.displayName = displayNames?.[index] ?? '';
-            userMention.appendChild(mappingUser);
-        });
-    }
-    element.appendChild(userMention);
+    mappings?: MappingConfiguration[]
+): Promise<UserMentionElements> {
+    const userMentionElement = document.createElement(richTextMentionUsersTag);
+    userMentionElement.pattern = '^user:(.*)';
+    const mappingElements: MappingUser[] = [];
+    mappings?.forEach(mapping => {
+        const mappingUser = document.createElement(mappingUserTag);
+        mappingUser.key = mapping.key ?? '';
+        mappingUser.displayName = mapping.displayName;
+        userMentionElement.appendChild(mappingUser);
+        mappingElements.push(mappingUser);
+    });
+    element.appendChild(userMentionElement);
     await waitForUpdatesAsync();
+    return {
+        userMentionElement,
+        mappingElements
+    };
 }
 
 describe('RichTextViewer', () => {
@@ -58,6 +64,12 @@ describe('RichTextViewer', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         pageObject = new RichTextViewerPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+    });
+
+    afterEach(async () => {
+        await disconnect();
     });
 
     it('can construct an element instance', () => {
@@ -70,39 +82,25 @@ describe('RichTextViewer', () => {
         expect(richTextViewerTag).toBe('nimble-rich-text-viewer');
     });
 
-    it('set the markdown attribute and ensure the markdown property is not modified', async () => {
-        await connect();
-
+    it('set the markdown attribute and ensure the markdown property is not modified', () => {
         element.setAttribute('markdown', '**markdown string**');
 
         expect(element.markdown).toBe('');
-
-        await disconnect();
     });
 
-    it('set the markdown property and ensure there is no markdown attribute', async () => {
-        await connect();
-
+    it('set the markdown property and ensure there is no markdown attribute', () => {
         element.markdown = '**markdown string**';
 
         expect(element.hasAttribute('markdown')).toBeFalse();
-
-        await disconnect();
     });
 
-    it('set the markdown property and ensure that getting the markdown property returns the same value', async () => {
-        await connect();
-
+    it('set the markdown property and ensure that getting the markdown property returns the same value', () => {
         element.markdown = '**markdown string**';
 
         expect(element.markdown).toBe('**markdown string**');
-
-        await disconnect();
     });
 
-    it('set a empty string should clear a value in the viewer', async () => {
-        await connect();
-
+    it('set a empty string should clear a value in the viewer', () => {
         element.markdown = 'markdown string';
         expect(pageObject.getRenderedMarkdownTagNames()).toEqual(['P']);
         expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
@@ -118,19 +116,9 @@ describe('RichTextViewer', () => {
         expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
             'new markdown string'
         );
-
-        await disconnect();
     });
 
     describe('user mention dynamic loading', () => {
-        beforeEach(async () => {
-            await connect();
-        });
-
-        afterEach(async () => {
-            await disconnect();
-        });
-
         it('adding mention configuration converts the absolute link matching the pattern to mention node', async () => {
             element.markdown = '<user:1>';
 
@@ -154,30 +142,22 @@ describe('RichTextViewer', () => {
             ).toEqual('1');
         });
 
-        // TODO: Once the rich text validator (https://github.com/ni/nimble/pull/1688) added for duplicate configuration elements, below test case should be updated
-        it('adding two mention configuration elements in the same viewer should render as mention view', async () => {
+        it('adding duplicate mention configuration elements in the same viewer should not render as mention view', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element);
             await appendUserMentionConfiguration(element);
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
-                `${richTextMentionUsersViewTag}`.toUpperCase()
+                `${anchorTag}`.toUpperCase()
             ]);
-            expect(
-                pageObject.getRenderedMarkdownLastChildAttribute(
-                    'mention-label'
-                )
-            ).toEqual('1');
         });
 
         it('adding mention mapping elements renders the mapped display name', async () => {
             element.markdown = '<user:1>';
-            await appendUserMentionConfiguration(
-                element,
-                ['user:1'],
-                ['username1']
-            );
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
@@ -192,11 +172,10 @@ describe('RichTextViewer', () => {
 
         it('adding two mention mapping elements renders the mapped display names', async () => {
             element.markdown = '<user:1> <user:2>';
-            await appendUserMentionConfiguration(
-                element,
-                ['user:1', 'user:2'],
-                ['username1', 'username2']
-            );
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
@@ -210,11 +189,9 @@ describe('RichTextViewer', () => {
 
         it('removing configuration element renders the mention node as absolute link', async () => {
             element.markdown = '<user:1>';
-            await appendUserMentionConfiguration(
-                element,
-                ['user:1'],
-                ['username1']
-            );
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
 
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
             element.removeChild(renderedUserMention);
@@ -231,11 +208,9 @@ describe('RichTextViewer', () => {
 
         it('removing mapping element renders the mention node with user ID', async () => {
             element.markdown = '<user:1>';
-            await appendUserMentionConfiguration(
-                element,
-                ['user:1'],
-                ['username1']
-            );
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
 
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
             const renderedMappingUser = renderedUserMention.firstElementChild as MappingUser;
@@ -255,11 +230,9 @@ describe('RichTextViewer', () => {
 
         it('updating to the `pattern` in mention configuration converts the mention to absolute link', async () => {
             element.markdown = '<user:1>';
-            await appendUserMentionConfiguration(
-                element,
-                ['user:1'],
-                ['username1']
-            );
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
 
             (element.firstElementChild as RichTextMentionUsers).pattern = 'invalid';
             await waitForUpdatesAsync();
@@ -275,11 +248,9 @@ describe('RichTextViewer', () => {
 
         it('updating `display-name` in mapping mention should update the `mention-label` in view', async () => {
             element.markdown = '<user:1>';
-            await appendUserMentionConfiguration(
-                element,
-                ['user:1'],
-                ['username1']
-            );
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
 
             const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
             const renderedMappingUser = renderedUserMention.firstElementChild as MappingUser;
@@ -299,11 +270,9 @@ describe('RichTextViewer', () => {
 
         it('updating valid `key` in mapping mention should update it to a mention view if it is a absolute link before', async () => {
             element.markdown = '<user:2>';
-            await appendUserMentionConfiguration(
-                element,
-                ['invalid'],
-                ['username']
-            );
+            await appendUserMentionConfiguration(element, [
+                { key: 'invalid', displayName: 'username' }
+            ]);
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
@@ -331,11 +300,9 @@ describe('RichTextViewer', () => {
 
         it('updating invalid `key` in mapping mention should update it to absolute link if it is a mention before', async () => {
             element.markdown = '<user:2>';
-            await appendUserMentionConfiguration(
-                element,
-                ['user:2'],
-                ['username']
-            );
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:2', displayName: 'username' }
+            ]);
 
             expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
@@ -360,6 +327,97 @@ describe('RichTextViewer', () => {
                 'user:2'
             );
         });
+
+        describe('validity', () => {
+            it('should have valid states by default', () => {
+                expect(element.checkValidity()).toBeTrue();
+                expect(
+                    element.validity.invalidMentionConfiguration
+                ).toBeFalse();
+                expect(
+                    element.validity.duplicateMentionConfiguration
+                ).toBeFalse();
+            });
+
+            it('should have valid states when there is no mapping elements but with a configuration element', async () => {
+                element.markdown = '<user:1>';
+                await appendUserMentionConfiguration(element);
+
+                expect(element.checkValidity()).toBeTrue();
+                expect(
+                    element.validity.invalidMentionConfiguration
+                ).toBeFalse();
+                expect(
+                    element.validity.duplicateMentionConfiguration
+                ).toBeFalse();
+            });
+
+            it('should have invalid states when setting invalid `key` in mapping mention', async () => {
+                element.markdown = '<user:1>';
+                await appendUserMentionConfiguration(element, [
+                    { key: 'invalid', displayName: 'username' }
+                ]);
+
+                expect(element.checkValidity()).toBeFalse();
+                expect(element.validity.invalidMentionConfiguration).toBeTrue();
+            });
+
+            it('should have invalid states when removing `pattern` from configuration element', async () => {
+                element.markdown = '<user:1>';
+                const { userMentionElement } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username' }
+                ]);
+                userMentionElement.removeAttribute('pattern');
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeFalse();
+                expect(element.validity.invalidMentionConfiguration).toBeTrue();
+            });
+
+            it('should have invalid states when it is a invalid regex `pattern`', async () => {
+                element.markdown = '<user:1>';
+                const { userMentionElement } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username' }
+                ]);
+                userMentionElement.pattern = '(invalid';
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeFalse();
+                expect(element.validity.invalidMentionConfiguration).toBeTrue();
+            });
+
+            it('should have invalid states when we have duplicate configuration element', async () => {
+                element.markdown = '<user:1>';
+                await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username' }
+                ]);
+                await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username' }
+                ]);
+                expect(element.checkValidity()).toBeFalse();
+                expect(
+                    element.validity.duplicateMentionConfiguration
+                ).toBeTrue();
+            });
+
+            it('should have valid states when the duplicate configuration element removed', async () => {
+                element.markdown = '<user:1>';
+                await appendUserMentionConfiguration(element);
+                await appendUserMentionConfiguration(element);
+
+                const renderedUserMention = element.firstElementChild as RichTextMentionUsers;
+                element.removeChild(renderedUserMention);
+                await waitForUpdatesAsync();
+
+                expect(element.checkValidity()).toBeTrue();
+                expect(
+                    element.validity.duplicateMentionConfiguration
+                ).toBeFalse();
+                expect(
+                    element.validity.invalidMentionConfiguration
+                ).toBeFalse();
+            });
+        });
     });
 
     describe('user mention via template', () => {
@@ -367,6 +425,7 @@ describe('RichTextViewer', () => {
             ({ element, connect, disconnect } = await setupMentionConfig());
             pageObject = new RichTextViewerPageObject(element);
             await connect();
+            await waitForUpdatesAsync();
         });
 
         afterEach(async () => {
@@ -417,14 +476,6 @@ describe('RichTextViewer', () => {
     });
 
     describe('getMentionedHref() for viewer mentions', () => {
-        beforeEach(async () => {
-            await connect();
-        });
-
-        afterEach(async () => {
-            await disconnect();
-        });
-
         it('should return different mentionedHrefs instance', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element);
@@ -439,12 +490,11 @@ describe('RichTextViewer', () => {
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
         });
 
-        // TODO: Once the rich text validator (https://github.com/ni/nimble/pull/1688) added for duplicate configuration elements, below test case should be updated
-        it('should return the mentioned href for duplicate mention configuration elements', async () => {
+        it('should return empty mentioned href for duplicate mention configuration elements', async () => {
             element.markdown = '<user:1>';
             await appendUserMentionConfiguration(element);
             await appendUserMentionConfiguration(element);
-            expect(element.getMentionedHrefs()).toEqual(['user:1']);
+            expect(element.getMentionedHrefs()).toEqual([]);
         });
 
         it('should return unique mentioned href if same users exist twice', async () => {
@@ -461,38 +511,30 @@ describe('RichTextViewer', () => {
 
         it('should return updated href when mention configuration element pattern get updated', async () => {
             element.markdown = '<user:1>';
-            await appendUserMentionConfiguration(
-                element,
-                ['user:1'],
-                ['username1']
-            );
-            await waitForUpdatesAsync();
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
             const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
             renderedUserMention.pattern = 'invalid';
+            await waitForUpdatesAsync();
             expect(element.getMentionedHrefs()).toEqual([]);
         });
 
         it('should return updated href when mention configuration element added dynamically', async () => {
             element.markdown = '<user:1>';
-            await appendUserMentionConfiguration(
-                element,
-                ['user:1'],
-                ['username1']
-            );
-            await waitForUpdatesAsync();
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
             const renderedUserMention = element.lastElementChild as RichTextMentionUsers;
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
             element.removeChild(renderedUserMention);
             await waitForUpdatesAsync();
             expect(element.children.length).toBe(0);
             expect(element.getMentionedHrefs()).toEqual([]);
-            await appendUserMentionConfiguration(
-                element,
-                ['user:1'],
-                ['username1']
-            );
-            await waitForUpdatesAsync();
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
             expect(element.getMentionedHrefs()).toEqual(['user:1']);
         });
     });

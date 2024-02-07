@@ -173,9 +173,6 @@ const dataSetIdFieldNames = {
     [ExampleDataType.hierarchicalDataSet]: 'id'
 } as const;
 
-const overviewText = `The \`nimble-table\` is a component that offers a way to render tabular data in a variety of ways in each column.
-For information about configuring table columns, see **Table Column Configuration** and **Table Column Types**.`;
-
 const dataDescription = `To set the data on the table, call \`setData()\` with an array data records. Each record is made up of fields,
 which are key/value pairs. The key in each pair must be of type \`string\`, which is defined by the type \`TableFieldName\`. The value
 in each pair must be of type \`string\`, \`number\`, \`boolean\`, \`null\`, or \`undefined\`, which is defined by the type \`TableFieldValue\`.
@@ -237,11 +234,6 @@ const metadata: Meta<TableArgs> = {
     title: 'Components/Table',
     decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
         actions: {
             handles: [
                 'action-menu-beforetoggle',
