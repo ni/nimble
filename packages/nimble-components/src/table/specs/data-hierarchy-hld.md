@@ -41,7 +41,7 @@ public Table() {
 
 ### `TableRowExpansionToggleEventDetail` API
 
-The `Table` will also provide a `row-expansion-toggle` event for when a row is expanded/collapsed that will provide details to the client including which row was expanded/collapsed, and what its new state is:
+The `Table` will also provide a `row-expand-toggle` event for when a row is expanded/collapsed that will provide details to the client including which row was expanded/collapsed, and what its new state is:
 
 ```ts
 interface TableRowExpansionToggleEventDetail {
@@ -58,7 +58,7 @@ Note: This event will _not_ be emitted for group rows.
 In some cases, a client might know that a given row has children, but for performance reasons, that data hasn't been loaded from the backend and given to the table. To enable this use case, there will be an API on the table to specify that a given row should be expandable even if it has no children within the data and to specify that a row is loading its children. That API will look as follows:
 
 ```ts
-interface TableRecordHierarchyOptions {
+interface TableSetRecordHierarchyOptions {
     // The state of the row with respect to delayed hierarchy.
     //
     // The state can be one of the following:
@@ -79,7 +79,7 @@ export type TableRecordDelayedHierarchyState =
 public Table() {
     ...
     // Sets the hierarchy options for the rows specified by the passed IDs.
-    public async setRecordHierarchyOptions(rowHierarchyOptions: { id: string, options: TableRecordHierarchyOptions }[]): Promise<void>;
+    public async setRecordHierarchyOptions(hierarchyOptions: { recordId: string, options: TableRecordHierarchyOptions }[]): Promise<void>;
 }
 ```
 
@@ -92,7 +92,6 @@ Some notes about the `setRecordHierarchyOptions` API:
 -   all options will be cleared when the table's `idFieldName` changes
 -   an option passed to `setRecordHierarchyOptions` with an ID that does not match a record in the data will be ignored
 -   the options passed to `setRecordHierarchyOptions` will override any options previously set to become the complete set of options configured on the table
--   all options will be ignored if `parentIdFieldName` is not configured on the table
 -   the table will not render delayed hierarchy state (loading or expandable) if the table's `parentIdFieldName` is not configured; however, the options will remain cached within the table if the `parentIdFieldName` becomes `undefined`, and that cached configuration will render in the table if the table's `parentIdFieldName` is changed back to a non-`undefined` value
 -   calling `setData` will clear options associated with IDs that are no longer present in the data
 -   a row with no children and a `delayedHierarchyState` of `canLoadChildren` will always be collapsed
@@ -102,7 +101,7 @@ The expected usage of the dynamically loaded hierarchy is as follows:
 1. Configure `idFieldName` and `parentIdFieldName` on the table
 1. Call `setData` on the table with the records that are known
 1. Call `setRecordHierarchyOptions` with an option of `{ delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren }` for IDs associated with records that are known to have children that have not been loaded.
-1. Handle the `row-expansion-toggle` event on the table by doing the following for rows that need to dynamically load their data:
+1. Handle the `row-expand-toggle` event on the table by doing the following for rows that need to dynamically load their data:
     1. Start loading the data in the background.
     1. Call `setRecordHierarchyOptions` on the table to update the state of the row whose data is being loaded to `{ delayedHierarchyState: TableRecordDelayedHierarchyState.loadingChildren }`. This call must include the current state of any records not in the default state.
 1. When the dynamically loaded data has finished loading, do the following based on the result of loading data:
