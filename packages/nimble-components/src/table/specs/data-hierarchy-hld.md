@@ -94,7 +94,6 @@ Some notes about the `setRecordHierarchyOptions` API:
 -   the options passed to `setRecordHierarchyOptions` will override any options previously set to become the complete set of options configured on the table
 -   the table will not render delayed hierarchy state (loading or expandable) if the table's `parentIdFieldName` is not configured; however, the options will remain cached within the table if the `parentIdFieldName` becomes `undefined`, and that cached configuration will render in the table if the table's `parentIdFieldName` is changed back to a non-`undefined` value
 -   calling `setData` will clear options associated with IDs that are no longer present in the data
--   a row with no children and a `delayedHierarchyState` of `canLoadChildren` will always be collapsed
 
 The expected usage of the dynamically loaded hierarchy is as follows:
 
