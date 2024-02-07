@@ -41,7 +41,7 @@ public Table() {
 
 ### `TableRowExpansionToggleEventDetail` API
 
-The `Table` will also provide a `row-expansion-toggle` event for when a row is expanded/collapsed that will provide details to the client including which row was expanded/collapsed, and what its new state is:
+The `Table` will also provide a `row-expand-toggle` event for when a row is expanded/collapsed that will provide details to the client including which row was expanded/collapsed, and what its new state is:
 
 ```ts
 interface TableRowExpansionToggleEventDetail {
@@ -101,7 +101,7 @@ The expected usage of the dynamically loaded hierarchy is as follows:
 1. Configure `idFieldName` and `parentIdFieldName` on the table
 1. Call `setData` on the table with the records that are known
 1. Call `setRecordHierarchyOptions` with an option of `{ delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren }` for IDs associated with records that are known to have children that have not been loaded.
-1. Handle the `row-expansion-toggle` event on the table by doing the following for rows that need to dynamically load their data:
+1. Handle the `row-expand-toggle` event on the table by doing the following for rows that need to dynamically load their data:
     1. Start loading the data in the background.
     1. Call `setRecordHierarchyOptions` on the table to update the state of the row whose data is being loaded to `{ delayedHierarchyState: TableRecordDelayedHierarchyState.loadingChildren }`. This call must include the current state of any records not in the default state.
 1. When the dynamically loaded data has finished loading, do the following based on the result of loading data:
