@@ -10,6 +10,8 @@ export function formatNumericDate(
         } catch (e) {
             return '';
         }
+    } else if (typeof date === 'string') {
+        return date;
     } else {
         return '';
     }

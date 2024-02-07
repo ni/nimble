@@ -760,6 +760,13 @@ export class Table<
         > = {};
         updatedOptions.state = {};
 
+        // if (this.tableUpdateTracker.updateColumnSort || this.tableUpdateTracker.updateColumnDefinition) {
+        //     const sortingState = this.calculateTanStackSortState();
+        //     if (this.tableUpdateTracker.updateColumnSort) {
+        //         updatedOptions.state.sorting = sortingState;
+        //     }
+        //     updatedOptions.columns = this.calculateTanStackColumns(sortingState);
+        // }
         if (this.tableUpdateTracker.updateColumnSort) {
             updatedOptions.state.sorting = this.calculateTanStackSortState();
         }
@@ -896,6 +903,14 @@ export class Table<
         }
     }
 
+    private convertToBinnedColumnId(columnId: string): string {
+        return `${columnId}_binned`;
+    }
+
+    private convertFromBinnedColumnId(columnId: string): string {
+        return columnId.substring(0, columnId.length - 7);
+    }
+
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
 
@@ -997,8 +1012,9 @@ export class Table<
     private getGroupRowColumn(
         row: TanStackRow<TableNode<TData>>
     ): TableColumn | undefined {
-        const groupedId = row.groupingColumnId;
+        let groupedId = row.groupingColumnId;
         if (groupedId !== undefined) {
+            groupedId = this.convertFromBinnedColumnId(groupedId);
             return this.columns.find(
                 c => c.columnInternals.uniqueId === groupedId
             );
@@ -1083,7 +1099,12 @@ export class Table<
             (x, y) => x.columnInternals.groupIndex! - y.columnInternals.groupIndex!
         );
 
-        return groupedColumns.map(column => column.columnInternals.uniqueId);
+        return groupedColumns.map(column => {
+            if (column.columnInternals.binnedDataRecordFieldName) {
+                return `${column.columnInternals.uniqueId}_binned`;
+            }
+            return column.columnInternals.uniqueId;
+        });
     }
 
     private calculateTanStackRowIdFunction():
@@ -1098,9 +1119,19 @@ export class Table<
             : (record: TableNode<TData>) => record.clientRecord[this.idFieldName!] as string;
     }
 
-    private calculateTanStackColumns(): TanStackColumnDef<TableNode<TData>>[] {
-        return this.columns.map(column => {
-            return {
+    // private getColumnSortDirection(sortingState: TanStackSortingState, columnId: string): TableColumnSortDirection {
+    //     const columnSortState = sortingState.find(x => x.id === columnId);
+    //     if (!columnSortState) {
+    //         return TableColumnSortDirection.none;
+    //     }
+
+    //     return columnSortState.desc ? TableColumnSortDirection.descending : TableColumnSortDirection.ascending;
+    // }
+
+    private calculateTanStackColumns(/*sortingState: TanStackSortingState*/): TanStackColumnDef<TableNode<TData>>[] {
+        const tanstackColumns: TanStackColumnDef<TableNode<TData>>[] = [];
+        for (const column of this.columns) {
+            tanstackColumns.push({
                 id: column.columnInternals.uniqueId,
                 accessorFn: (record: TableNode<TData>): TableFieldValue => {
                     const fieldName = column.columnInternals.operandDataRecordFieldName;
@@ -1112,9 +1143,27 @@ export class Table<
                 sortingFn: getTanStackSortingFunction(
                     column.columnInternals.sortOperation
                 ),
-                sortUndefined: false
-            };
-        });
+                sortUndefined: false,
+                // aggregationFn: this.getColumnSortDirection(sortingState, column.columnInternals.uniqueId) === TableColumnSortDirection.ascending ? 'min' : 'max'
+                aggregationFn: 'min'
+            });
+
+            if (column.columnInternals.binnedDataRecordFieldName) {
+                tanstackColumns.push({
+                    id: `${column.columnInternals.uniqueId}_binned`,
+                    accessorFn: (record: TableNode<TData>): TableFieldValue => {
+                        const fieldName = column.columnInternals.binnedDataRecordFieldName;
+                        if (typeof fieldName !== 'string') {
+                            return undefined;
+                        }
+                        return record.clientRecord[fieldName];
+                    },
+                    aggregationFn: 'min'
+                });
+            }
+        }
+
+        return tanstackColumns;
     }
 
     private calculateTanStackSelectionState(

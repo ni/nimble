@@ -85,6 +85,12 @@ export class ColumnInternals<TColumnConfig> {
     public operandDataRecordFieldName?: TableFieldName;
 
     /**
+     * The name of the data field that will be used for operations on the table, such as sorting and grouping.
+     */
+    @observable
+    public binnedDataRecordFieldName?: TableFieldName;
+
+    /**
      * The operation to use when sorting the table by this column.
      */
     @observable

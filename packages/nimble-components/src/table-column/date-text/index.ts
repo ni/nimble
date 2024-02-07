@@ -114,6 +114,9 @@ export class TableColumnDateText extends TableColumnTextBase {
     @attr({ attribute: 'custom-hour-cycle' })
     public customHourCycle: HourCycleFormat;
 
+    @attr({ attribute: 'binned-field-name' })
+    public binnedFieldName?: string;
+
     private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
         handleChange: () => {
             this.updateColumnConfig();
@@ -144,6 +147,16 @@ export class TableColumnDateText extends TableColumnTextBase {
             sortOperation: TableColumnSortOperation.basic
         };
     }
+
+    protected binnedFieldNameChanged(): void {
+        // this.columnInternals.dataRecordFieldNames = [this.fieldName, this.binnedFieldName];
+        this.columnInternals.binnedDataRecordFieldName = this.binnedFieldName;
+    }
+
+    // protected override fieldNameChanged(): void {
+    //     this.columnInternals.dataRecordFieldNames = [this.fieldName, this.binnedFieldName];
+    //     this.columnInternals.operandDataRecordFieldName = this.fieldName;
+    // }
 
     protected formatChanged(): void {
         this.updateColumnConfig();

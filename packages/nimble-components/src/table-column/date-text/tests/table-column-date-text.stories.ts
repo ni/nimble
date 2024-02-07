@@ -29,29 +29,80 @@ import {
     TimeZoneNameFormat,
     WeekdayFormat
 } from '../types';
+import { tableColumnNumberTextTag } from '../../number-text';
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const TimeBin = {
+    none: undefined,
+    today: 'Today',
+    yesterday: 'Yesterday',
+    thisWeek: 'This week',
+    lastWeek: 'Last week',
+    thisMonth: 'This month',
+    lastMonth: 'Last month',
+    older: 'Older'
+} as const;
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+type TimeBin =
+    (typeof TimeBin)[keyof typeof TimeBin];
 
 const simpleData = [
     {
-        firstName: 'Homer',
-        lastName: 'Simpson',
-        birthday: new Date(1984, 4, 12, 14, 34, 19, 377).valueOf()
+        firstName: 'E2E_Test_7a660ec4-41ba-490c-8c0b-74dcf0fcdab6',
+        updatedDate: new Date(2024, 1, 7, 14, 34, 19, 377).valueOf(),
+        binnedUpdatedDate: TimeBin.today
     },
     {
-        firstName: 'Marge',
-        lastName: 'Simpson',
-        birthday: new Date(1984, 2, 19, 7, 6, 48, 584).valueOf()
+        firstName: 'E2E_Test_607c6bb7-2617-43c8-b590-bf43c5d165ff',
+        updatedDate: new Date(2024, 1, 6, 14, 34, 19, 377).valueOf(),
+        binnedUpdatedDate: TimeBin.yesterday
     },
     {
-        firstName: 'Bart',
-        lastName: 'Simpson',
-        birthday: new Date(2013, 3, 1, 20, 4, 37, 975).valueOf()
+        firstName: 'spec-test',
+        updatedDate: new Date(2013, 3, 1, 20, 4, 37, 975).valueOf(),
+        binnedUpdatedDate: TimeBin.older
     },
     {
-        firstName: 'Maggie',
-        lastName: 'Simpson',
-        birthday: new Date(2022, 0, 12, 20, 4, 37, 975).valueOf()
+        firstName: 'Test product',
+        updatedDate: new Date(2024, 1, 2, 20, 4, 37, 975).valueOf(),
+        binnedUpdatedDate: TimeBin.lastWeek
+    },
+    {
+        firstName: 'MP_BDC_Files',
+        updatedDate: new Date(2022, 0, 12, 20, 4, 37, 975).valueOf(),
+        binnedUpdatedDate: TimeBin.older
+    },
+    {
+        firstName: 'test-1',
+        updatedDate: new Date(2024, 0, 12, 20, 4, 37, 975).valueOf(),
+        binnedUpdatedDate: TimeBin.lastMonth
+    },
+    {
+        firstName: 'PN 12345',
+        updatedDate: new Date(2023, 7, 16, 20, 4, 37, 975).valueOf(),
+        binnedUpdatedDate: TimeBin.older
+    },
+    {
+        firstName: 'NI product 3',
+        updatedDate: new Date(2024, 1, 7, 2, 0, 4, 124).valueOf(),
+        binnedUpdatedDate: TimeBin.today
     }
 ] as const;
+
+// function getTimeBin(): TimeBin {
+//     const now = new Date();
+//     if (now.getDate)
+// }
+
+// function addBinnedTime(data: readonly TableRecord[], fieldName: string): TableRecord[] {
+//     data.map(x => {
+//         const date = new Date(x[fieldName]! as number);
+//         return {
+//             ...x,
+//             binnedBirthday: getTimeBin(date)
+//         };
+//     });
+// }
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Date Text',
@@ -119,10 +170,12 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             <${tableColumnTextTag}
                 field-name="${x => x.fieldName}"
             >
-            Name
+            Part number
             </${tableColumnTextTag}>
             <${tableColumnDateTextTag}
-                field-name="birthday"
+                group-index="0"
+                field-name="updatedDate"
+                binned-field-name="binnedUpdatedDate"
                 format="${x => DateTextFormat[x.format]}"
                 custom-date-style="${x => x.customDateStyle}"
                 custom-time-style="${x => x.customTimeStyle}"
@@ -144,7 +197,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 custom-format-matcher="${x => x.customFormatMatcher}"
                 custom-locale-matcher="${x => x.customLocaleMatcher}"
             >
-            Birthday
+            Updated
             </${tableColumnDateTextTag}>
         </${tableTag}>
     `),
