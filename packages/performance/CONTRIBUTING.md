@@ -19,6 +19,7 @@ To run the benchmark page in a browser for development, from workspace root:
 1. Build the Nimble monorepo  with `npm run build`.
 2. Run the npm start command for the component, such as `npm run start:wafer-map -w packages/performance`.
 3. Open the URL printed to the console in your web browser.
+
 ## Adding a new component benchmark
 
 Duplicate an existing component benchmark making sure the `package.json` is updated with corresponding component specific `build`, `performance`, and `start` commands.
