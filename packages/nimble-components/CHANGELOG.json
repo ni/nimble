@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 07 Feb 2024 19:06:22 GMT",
+      "version": "21.2.1",
+      "tag": "@ni/nimble-components_v21.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9fdd20db5366e435fc4576d5a4881959fa143e30",
+            "comment": "fixed wafer map component test warnings"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 07 Feb 2024 10:17:13 GMT",
       "version": "21.2.0",
       "tag": "@ni/nimble-components_v21.2.0",

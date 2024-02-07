@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 02 Feb 2024 21:51:03 GMT and should not be manually modified.
+This log was last generated on Wed, 07 Feb 2024 19:06:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.2.1
+
+Wed, 07 Feb 2024 19:06:22 GMT
+
+### Patches
+
+- fixed wafer map component test warnings ([ni/nimble@9fdd20d](https://github.com/ni/nimble/commit/9fdd20db5366e435fc4576d5a4881959fa143e30))
 
 ## 21.2.0
 
