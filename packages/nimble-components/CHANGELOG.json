@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 07 Feb 2024 10:17:13 GMT",
+      "version": "21.2.0",
+      "tag": "@ni/nimble-components_v21.2.0",
+      "comments": {
+        "none": [
+          {
+            "author": "110180309+Razvan1928@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "712034c7f2fb25979165f022149c4e31e9b787bd",
+            "comment": "Add storybook links to nimble-components intro page"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 05 Feb 2024 18:16:28 GMT",
       "version": "21.2.0",
       "tag": "@ni/nimble-components_v21.2.0",
