@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 07 Feb 2024 19:06:22 GMT and should not be manually modified.
+This log was last generated on Wed, 07 Feb 2024 21:48:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.3.0
+
+Wed, 07 Feb 2024 21:48:45 GMT
+
+### Minor changes
+
+- Extend nimble-table API to allow specifying that a record has children that can be loaded when the row is expanded ([ni/nimble@8d58b01](https://github.com/ni/nimble/commit/8d58b0180a3fb2c5a837718a6da3489b67d821bc))
 
 ## 21.2.1
 

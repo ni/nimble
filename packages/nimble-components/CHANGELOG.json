@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 07 Feb 2024 21:48:45 GMT",
+      "version": "21.3.0",
+      "tag": "@ni/nimble-components_v21.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8d58b0180a3fb2c5a837718a6da3489b67d821bc",
+            "comment": "Extend nimble-table API to allow specifying that a record has children that can be loaded when the row is expanded"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 07 Feb 2024 19:06:22 GMT",
       "version": "21.2.1",
       "tag": "@ni/nimble-components_v21.2.1",
