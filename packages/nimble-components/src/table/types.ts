@@ -95,7 +95,8 @@ export interface TableRecordHierarchyOptions {
 
 export const TableRecordDelayedHierarchyState = {
     none: undefined,
-    canLoadChildren: 'canLoadChildren'
+    canLoadChildren: 'canLoadChildren',
+    loadingChildren: 'loadingChildren'
 } as const;
 export type TableRecordDelayedHierarchyState =
     (typeof TableRecordDelayedHierarchyState)[keyof typeof TableRecordDelayedHierarchyState];
@@ -209,4 +210,5 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     immediateChildCount?: number;
     groupColumn?: TableColumn;
     isParentRow: boolean;
+    isLoadingChildren: boolean;
 }

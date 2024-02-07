@@ -1,4 +1,5 @@
 import type { TableRow } from '..';
+import { spinnerTag } from '../../../../spinner';
 import type { TableRecord } from '../../../types';
 import { tableCellTag, TableCell } from '../../cell';
 
@@ -26,6 +27,12 @@ export class TableRowPageObject<T extends TableRecord = TableRecord> {
     public getExpandCollapseButton(): HTMLElement | null {
         return this.tableRowElement.shadowRoot!.querySelector<HTMLElement>(
             '.expand-collapse-button'
+        );
+    }
+
+    public getLoadingSpinner(): HTMLElement | null {
+        return this.tableRowElement.shadowRoot!.querySelector<HTMLElement>(
+            `${spinnerTag}`
         );
     }
 }

@@ -5,6 +5,7 @@ import {
     applicationBackgroundColor,
     borderWidth,
     controlHeight,
+    controlSlimHeight,
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
@@ -52,14 +53,26 @@ export const styles = css`
         background-color: ${fillHoverSelectedColor};
     }
 
+    .spinner-container,
     .expand-collapse-button {
+        flex: 0 0 auto;
         padding-left: calc(
             ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
                 ${controlHeight}
         );
     }
 
+    .spinner-container {
+        width: ${controlSlimHeight};
+        height: ${controlSlimHeight};
+        align-self: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .row-operations-container {
+        flex: 0 0 auto;
         display: flex;
     }
 

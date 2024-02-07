@@ -946,7 +946,8 @@ export class Table<
                     : row.depth,
                 isParentRow: isParent,
                 immediateChildCount: row.subRows.length,
-                groupColumn: this.getGroupRowColumn(row)
+                groupColumn: this.getGroupRowColumn(row),
+                isLoadingChildren: this.expansionManager.isLoadingChildren(row.id)
             };
             hasDataHierarchy = hasDataHierarchy || isParent;
             return rowState;
