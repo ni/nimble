@@ -22,13 +22,10 @@ import {
  *      in the data. This is not ideal because the object maintaining the expansion state can grow unbounded.
  */
 export class ExpansionManager<TData extends TableRecord> {
-    // This field represents whether or not the expanded state of **all** rows is in the default expanded
-    // state or not. Note that the default expanded state for a particular row type (group vs parent) can
-    // potentially be different (e.g. expanded for groups and collapsed for parent rows).
-    private isInDefaultState = true;
-    private collapsedRows = new Set<string>();
+    private modifiedCollapsedStates = new Map<string, boolean>();
     private hierarchyOptions = new Map<string, TableRecordHierarchyOptions>();
     private isHierarchyEnabled = false;
+    private expandableRowsWithoutChildren = new Set<string>();
 
     public constructor(
         private readonly tanStackTable: TanStackTable<TableNode<TData>>
@@ -39,10 +36,8 @@ export class ExpansionManager<TData extends TableRecord> {
             return false;
         }
 
-        if (row.subRows.length === 0) {
-            return false;
-        }
-        return this.isInDefaultState || !this.collapsedRows.has(row.id);
+        const state = this.modifiedCollapsedStates.get(row.id);
+        return state ?? this.getDefaultExpansionState(row);
     }
 
     public toggleRowExpansion(row: TanStackRow<TableNode<TData>>): void {
@@ -51,12 +46,7 @@ export class ExpansionManager<TData extends TableRecord> {
         }
 
         const wasExpanded = this.isRowExpanded(row);
-        this.isInDefaultState = false;
-        if (wasExpanded) {
-            this.collapsedRows.add(row.id);
-        } else {
-            this.collapsedRows.delete(row.id);
-        }
+        this.modifiedCollapsedStates.set(row.id, !wasExpanded);
 
         row.toggleExpanded();
     }
@@ -64,19 +54,17 @@ export class ExpansionManager<TData extends TableRecord> {
     public collapseAll(): void {
         this.resetExpansionState();
 
-        this.isInDefaultState = false;
         const rows = this.tanStackTable.getRowModel().flatRows;
         for (const row of rows) {
             if (this.isRowExpandable(row)) {
-                this.collapsedRows.add(row.id);
+                this.modifiedCollapsedStates.set(row.id, false);
             }
         }
         this.tanStackTable.toggleAllRowsExpanded(false);
     }
 
     public resetExpansionState(): void {
-        this.collapsedRows.clear();
-        this.isInDefaultState = true;
+        this.modifiedCollapsedStates.clear();
     }
 
     public resetHierarchyOptions(): void {
@@ -84,29 +72,45 @@ export class ExpansionManager<TData extends TableRecord> {
     }
 
     public processDataUpdate(rows: TanStackRow<TableNode<TData>>[]): void {
-        if (this.collapsedRows.size === 0 && this.hierarchyOptions.size === 0) {
+        if (this.modifiedCollapsedStates.size === 0 && this.hierarchyOptions.size === 0) {
             return;
         }
 
-        const updatedCollapsedRows = new Set<string>();
+        const updatedModifiedCollapsedStates = new Map<string, boolean>();
         const updatedHierarchyOptions = new Map<
         string,
         TableRecordHierarchyOptions
         >();
+        const updatedExpandableRowsWithoutChildren = new Set<string>();
         for (const row of rows) {
             const rowId = row.id;
-            if (this.collapsedRows.has(rowId)) {
-                updatedCollapsedRows.add(rowId);
-            }
-
             const rowHierarchyOptions = this.hierarchyOptions.get(rowId);
             if (!row.getIsGrouped() && rowHierarchyOptions) {
                 updatedHierarchyOptions.set(rowId, rowHierarchyOptions);
             }
+
+            if (this.isRowExpandable(row)) {
+                const collapsedState = this.modifiedCollapsedStates.get(rowId);
+                if (collapsedState !== undefined) {
+                    updatedModifiedCollapsedStates.set(rowId, collapsedState);
+                }
+
+                if (row.subRows.length === 0) {
+                    if (this.expandableRowsWithoutChildren.has(rowId)) {
+                        updatedExpandableRowsWithoutChildren.add(rowId);
+                    } else {
+                        // The row used to have children, but now it does not. Therefore,
+                        // collapse the row.
+                        updatedModifiedCollapsedStates.set(rowId, false);
+                        this.expandableRowsWithoutChildren.add(rowId);
+                    }
+                }
+            }
         }
 
-        this.collapsedRows = updatedCollapsedRows;
+        this.modifiedCollapsedStates = updatedModifiedCollapsedStates;
         this.hierarchyOptions = updatedHierarchyOptions;
+        this.expandableRowsWithoutChildren = updatedExpandableRowsWithoutChildren;
     }
 
     public setHierarchyOptions(
@@ -135,5 +139,12 @@ export class ExpansionManager<TData extends TableRecord> {
             this.hierarchyOptions.get(id)?.delayedHierarchyState
                 === TableRecordDelayedHierarchyState.canLoadChildren ?? false
         );
+    }
+
+    private getDefaultExpansionState(row: TanStackRow<TableNode<TData>>): boolean {
+        // Rows with children (group rows and parent rows with populated children)
+        // default to expanded. Other rows (parent rows with lazy-loaded children)
+        // default to collapsed.
+        return row.subRows.length !== 0;
     }
 }
