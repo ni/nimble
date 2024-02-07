@@ -6,7 +6,7 @@ The problem we are addressing is the need for faster rendering in our applicatio
 
 The proposed design should consider the following factors:
 
--   Efficiently handle large and complex datasets
+-   Efficiently handle large datasets with multiple layers of metadata
 -   Minimize rendering time and improve overall performance
 -   Measure and improve performance metrics
 -   Maintain compatibility with existing design patterns and web standards
@@ -46,6 +46,22 @@ We can see a drastic increase in performance, moreover these benchmarks were
 made using a single worker thread, splitting the workload between 2 or 4 will
 increase this performance even further.
 
+Regarding the memory performance, there are improvements as can be seen in the following table:
+
+| FTL      | die count | size     |
+| -------- | --------- | -------- |
+| baseline | 13 dies   | 49.78MB  |
+|          | 1M dies   | 509.81MB |
+| 1 thread | 13 dies   | 40.40MB  |
+|          | 1M dies   | 44.65MB  |
+| 2 thread | 13 dies   | 40.50MB  |
+|          | 1M dies   | 44.56MB  |
+
+Using TypedArrays seems to lower the memory needed for large data sets.
+The arrays are cloned before being sent to the threads, but this does not seem to impact the needed memory very much.
+
+There are also no noticeable degradations in user experience or interactions with smaller data sets.
+
 ## Links To Relevant Work Items and Reference Material
 
 [Feature 2391160: Faster Rendering of Large Wafer Maps](https://dev.azure.com/ni/DevCentral/_workitems/edit/2391160)
@@ -56,7 +72,7 @@ increase this performance even further.
 
 ## Implementation / Design
 
-We will change the whole process of ingesting the data and rendering it in the canvas. The main changes are the data structures used and the process from single threaded to multi threaded. We expect that using better structured data we will gain access time which will improve the rendering and allow distributing the workload if necessary. Moreover, the adoption of thread based processing will free the main thread of the browser to handle user requests and other page events, while allowing us to scale in the future by parallel processing if the need arises.
+We will change the whole process of ingesting the data and rendering it in the canvas. The main changes are the data structures used and the process from single threaded to multi threaded. We expect that using better structured data will lead to time improvements when iterating over values which will improve the rendering and allow distributing the workload if necessary. Moreover, the adoption of thread based processing will free the main thread of the browser to handle user requests and other page events, while allowing us to scale in the future by parallel processing if the need arises.
 
 The detailed plan can be found in the azure HLD [Faster Rendering of Large Wafer Maps HLD](https://ni.visualstudio.com/DevCentral/_git/Skyline?path=/docs/design-documents/Ozone/Requirements/Optimize-Wafer-Map-to-Handle-NXP-s-340k-die-per-wafer-data-set/Faster-rendering-of-Large-Wafer-Maps.md&version=GC00f8bb9e698a7310f68fa54395eee63a99cec368&_a=preview).
 
@@ -87,11 +103,13 @@ class WaferData {
 }
 ```
 
-It will be used to store the information and it can be transferred to a worker thread with minimal effort by copying the arrayBuffers and reconstructing the object.
+Using TypedArrays has the benefit of direct transfer to web workers without structured cloning of the object by transferring the arrayBuffers and reconstructing the object.
 
-Other benefits include the low access time to the values and the possibility to extend the layers of values.
+Other benefits of typedArrays include the low access time when iterating over the values, more memory efficiency and faster direct access to metadata layers values.
 
 The previous inputs can be adapted to this new structure to maintain backwards compatibility.
+
+This API will have [optimized byte-array interop from Blazor](https://learn.microsoft.com/en-us/dotnet/core/compatibility/aspnet-core/6.0/byte-array-interop) and should be supported by Angular as a [vanilla javascript feature](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer).
 
 ### Rendering
 
@@ -169,17 +187,17 @@ Our target goals are:
 
 ### Alternative Data Structures and Interfaces
 
-The above mentioned structure can also be implemented as an [apache arrow](https://arrow.apache.org/docs/js/index.html) table with columns and metadata.
+The above mentioned structure can also be implemented as an [apache arrow](https://arrow.apache.org/docs/js/index.html) table with columns and metadata. This may introduce an additional overhead that is not needed for the moment as the research towards database caching is still proceeding.
 
-Another option is to break each object property as a separate attribute for the wafer map component.
+Another option is to break each object property as a separate attribute for the wafer map component. This can also lead to increased complexity and confusion for the user which will need to pass several structured objects instead of a singular object.
 
 ### Alternative Rendering
 
-Alternatives to the described rendering are splitting the data and canvas and using multiple threads to enhance performance even more.
+Alternatives to the described rendering are splitting the data and canvas and using multiple threads to enhance performance even more. This approach introduces the overhead of managing multiple canvases, splitting the dataset and handling any race conditions, which may not be needed if the single worker approach satisfies the performance requirements.
 
 ### Alternative Size Limitations
 
-In order to provide a smooth user experience, if the existing event interaction rendering is not sufficiently fast we would implement a more instantaneous response to zoom gestures using bitmap scaling of the canvas while the renderer is updating the final display.
+In order to provide a smooth user experience, if the existing event interaction rendering is not sufficiently fast we would implement a more instantaneous response to zoom gestures using bitmap scaling of the canvas while the renderer is updating the final display. This approach will introduce the overhead of switching between the two canvas scaling strategies and may increase the load time for smaller datasets.
 
 Another alternative to remove the size limits is to create a point reduction algorithm which will create a reduced set of dies fit to the size limits creating an average, median or other approximation. This approach introduces additional complexity to the rendering and is a lossy compression algorithm, so it's implementation should be carefully considered.
 
