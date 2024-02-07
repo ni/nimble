@@ -7,7 +7,8 @@ import {
     defaultHorizontalScale,
     defaultVerticalScale,
     getWaferMapDies,
-    getWaferMapMockPrerendering
+    getWaferMapMockPrerendering,
+    getScaleBand
 } from './utilities';
 
 describe('Wafermap Prerendering module', () => {
@@ -250,10 +251,7 @@ describe('Wafermap Prerendering module', () => {
         });
     });
 
-    // Test disabled as it currently does not have expect statements
-    // that run to perform any useful validation
-    // See: https://github.com/ni/nimble/issues/1746
-    xdescribe('with non numeric values', () => {
+    describe('with non numeric values', () => {
         const dieDimensions = { width: 10, height: 10 };
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
@@ -280,8 +278,8 @@ describe('Wafermap Prerendering module', () => {
             const dataManagerMock = getDataManagerMock(
                 dieDimensions,
                 margin,
-                defaultHorizontalScale,
-                defaultVerticalScale
+                getScaleBand([0, 1], [0, 100]),
+                getScaleBand([0, 1], [0, 100])
             );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
@@ -291,7 +289,7 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it('should have NaN color fill style', () => {
-            const expectedValues = Array(18).fill(nanDieColor);
+            const expectedValues = [nanDieColor];
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.fillStyle
             );
@@ -301,10 +299,7 @@ describe('Wafermap Prerendering module', () => {
         });
     });
 
-    // Test disabled as it currently does not have expect statements
-    // that run to perform any useful validation
-    // See: https://github.com/ni/nimble/issues/1746
-    xdescribe('with undefined values', () => {
+    describe('with undefined values', () => {
         const dieDimensions = { width: 10, height: 10 };
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
@@ -331,8 +326,8 @@ describe('Wafermap Prerendering module', () => {
             const dataManagerMock = getDataManagerMock(
                 dieDimensions,
                 margin,
-                defaultHorizontalScale,
-                defaultVerticalScale
+                getScaleBand([0, 1], [0, 100]),
+                getScaleBand([0, 1], [0, 100])
             );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
@@ -342,7 +337,7 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it('should have empty color fill style', () => {
-            const expectedValues = Array(18).fill(emptyDieColor);
+            const expectedValues = [emptyDieColor];
             const actualValues = prerenderingModule.diesRenderInfo.map(
                 dieRenderInfo => dieRenderInfo.fillStyle
             );
