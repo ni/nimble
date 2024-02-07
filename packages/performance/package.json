@@ -1,0 +1,25 @@
+{
+    "name": "@ni-private/performance",
+    "version": "1.0.0",
+    "private": true,
+    "description": "A package to measure the performance of the Nimble Components",
+    "scripts": {
+        "build": "tsc && vite build src",
+        "pack": "npm pack",
+        "lint": "eslint .",
+        "start": "vite src",
+        "performance": "lhci autorun"
+    },
+    "dependencies": {
+        "@ni/nimble-components": "*"
+    },
+    "devDependencies": {
+        "@lhci/cli": "^0.13.0",
+        "typescript": "~4.8.2",
+        "vite": "^4.0.4"
+    },
+    "files": [
+        "dist",
+        "!*.tgz"
+    ]
+}
