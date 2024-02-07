@@ -3,7 +3,7 @@ module.exports = {
         collect: {
             staticDistDir: './dist/',
             url: [
-                'http://localhost/wafer-map'
+                'http://localhost/wafer-map/'
             ],
             numberOfRuns: 1,
             settings: {
