@@ -1,11 +1,17 @@
 module.exports = {
     ci: {
         collect: {
-            staticDistDir: './dist/example-client-app',
+            // Serve from dist folder so Angular project name is part of url path
+            // and shows up in GitHub status checks
+            staticDistDir: './dist/',
             url: [
-                'http://localhost:58452/#/customapp'
+                'http://localhost/example-client-app/#/customapp'
             ],
             numberOfRuns: 3,
+            settings: {
+                // Omit the pwa category
+                onlyCategories: ['accessibility', 'best-practices', 'performance', 'seo']
+            }
         },
         assert: {
             assertions: {
