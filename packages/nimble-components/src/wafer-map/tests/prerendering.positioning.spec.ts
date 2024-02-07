@@ -47,20 +47,26 @@ describe('Wafermap Prerendering module', () => {
 
         it('should have die positions offset from margins', () => {
             const waferMapDies = getWaferMapDies();
-            const expectedValues = waferMapDies.map(die => {
-                return {
-                    x: die.x + margin.right,
-                    y: die.y + margin.top
-                };
-            });
-            for (let i = 0; i < waferMapDies.length; i += 1) {
-                expect(prerenderingModule.diesRenderInfo[i]!.x).toEqual(
-                    expectedValues[i]!.x
-                );
-                expect(prerenderingModule.diesRenderInfo[i]!.y).toEqual(
-                    expectedValues[i]!.y
-                );
-            }
+
+            let expectedValues = waferMapDies.map(
+                waferMapDie => waferMapDie.x + margin.right
+            );
+            let actualValues = prerenderingModule.diesRenderInfo.map(
+                dieRenderInfo => dieRenderInfo.x
+            );
+            expect(actualValues).toEqual(
+                jasmine.arrayWithExactContents(expectedValues)
+            );
+
+            expectedValues = waferMapDies.map(
+                waferMapDie => waferMapDie.y + margin.top
+            );
+            actualValues = prerenderingModule.diesRenderInfo.map(
+                dieRenderInfo => dieRenderInfo.y
+            );
+            expect(actualValues).toEqual(
+                jasmine.arrayWithExactContents(expectedValues)
+            );
         });
     });
 
@@ -101,16 +107,15 @@ describe('Wafermap Prerendering module', () => {
 
         it('should have die horizontal position scaled', () => {
             const waferMapDies = getWaferMapDies();
-            const expectedValues = waferMapDies.map(x => {
-                return {
-                    x: x.x * 10
-                };
-            });
-            for (let i = 0; i < waferMapDies.length; i += 1) {
-                expect(prerenderingModule.diesRenderInfo[i]!.x).toEqual(
-                    expectedValues[i]!.x
-                );
-            }
+            const expectedValues = waferMapDies.map(
+                waferMapDie => waferMapDie.x * 10
+            );
+            const actualValues = prerenderingModule.diesRenderInfo.map(
+                dieRenderInfo => dieRenderInfo.x
+            );
+            expect(actualValues).toEqual(
+                jasmine.arrayWithExactContents(expectedValues)
+            );
         });
     });
 
@@ -151,16 +156,15 @@ describe('Wafermap Prerendering module', () => {
 
         it('should have die horizontal position scaled', () => {
             const waferMapDies = getWaferMapDies();
-            const expectedValues = waferMapDies.map(waferMapDie => {
-                return {
-                    y: waferMapDie.y * 10
-                };
-            });
-            for (let i = 0; i < waferMapDies.length; i += 1) {
-                expect(prerenderingModule.diesRenderInfo[i]!.y).toEqual(
-                    expectedValues[i]!.y
-                );
-            }
+            const expectedValues = waferMapDies.map(
+                waferMapDie => waferMapDie.y * 10
+            );
+            const actualValues = prerenderingModule.diesRenderInfo.map(
+                dieRenderInfo => dieRenderInfo.y
+            );
+            expect(actualValues).toEqual(
+                jasmine.arrayWithExactContents(expectedValues)
+            );
         });
     });
 });
