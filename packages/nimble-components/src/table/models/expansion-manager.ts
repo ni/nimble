@@ -72,7 +72,10 @@ export class ExpansionManager<TData extends TableRecord> {
     }
 
     public processDataUpdate(rows: TanStackRow<TableNode<TData>>[]): void {
-        if (this.modifiedCollapsedStates.size === 0 && this.hierarchyOptions.size === 0) {
+        if (
+            this.modifiedCollapsedStates.size === 0
+            && this.hierarchyOptions.size === 0
+        ) {
             return;
         }
 
@@ -141,7 +144,9 @@ export class ExpansionManager<TData extends TableRecord> {
         );
     }
 
-    private getDefaultExpansionState(row: TanStackRow<TableNode<TData>>): boolean {
+    private getDefaultExpansionState(
+        row: TanStackRow<TableNode<TData>>
+    ): boolean {
         // Rows with children (group rows and parent rows with populated children)
         // default to expanded. Other rows (parent rows with lazy-loaded children)
         // default to collapsed.
