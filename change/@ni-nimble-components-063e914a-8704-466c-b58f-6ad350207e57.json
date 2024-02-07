@@ -1,5 +1,5 @@
 {
-  "type": "patch",
+  "type": "none",
   "comment": "New rendering HLD for the Wafer Map Component",
   "packageName": "@ni/nimble-components",
   "email": "33986780+munteannatan@users.noreply.github.com",
