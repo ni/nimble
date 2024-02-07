@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 07 Feb 2024 23:00:18 GMT",
+      "version": "14.0.2",
+      "tag": "@ni/nimble-blazor_v14.0.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "13e5ad68cd11ea94b12b0480a2586fd5596189a7",
+            "comment": "Disable card in example apps"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 06 Feb 2024 15:30:34 GMT",
       "version": "14.0.0",
       "tag": "@ni/nimble-blazor_v14.0.0",

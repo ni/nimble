@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Disable card in example apps",
-  "packageName": "@ni/nimble-blazor",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
