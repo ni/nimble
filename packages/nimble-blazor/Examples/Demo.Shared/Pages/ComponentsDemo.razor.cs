@@ -22,10 +22,17 @@ namespace Demo.Shared.Pages
 
         [NotNull]
         public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();
+        [NotNull]
+        public IEnumerable<WaferMapDie> Dies { get; set; } = Enumerable.Empty<WaferMapDie>();
+        [NotNull]
+        public IEnumerable<string> HighlightedTags { get; set; } = Enumerable.Empty<string>();
+        [NotNull]
+        public WaferMapColorScale ColorScale { get; set; } = new WaferMapColorScale(new List<string> { "red", "green" }, new List<string> { "0", "100" });
 
         public ComponentsDemo()
         {
             AddTableRows(10);
+            UpdateDies(5);
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -88,6 +95,50 @@ namespace Demo.Shared.Pages
             }
 
             TableData = tableData;
+        }
+
+        public void UpdateDies(int numberOfDies)
+        {
+            if (numberOfDies < 0)
+            {
+                return;
+            }
+            var dies = new List<WaferMapDie>();
+            int radius = (int)Math.Ceiling(Math.Sqrt(numberOfDies / Math.PI));
+            var centerX = radius;
+            var centerY = radius;
+
+            for (var i = centerY - radius; i <= centerY + radius; i++)
+            {
+                for (
+                    var j = centerX;
+                    (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
+                    <= radius * radius;
+                    j--)
+                {
+                    var value = (i + j) % 100;
+                    dies.Add(new WaferMapDie(i, j, value.ToString(CultureInfo.CurrentCulture)));
+                }
+                // generate points right of centerX
+                for (
+                    var j = centerX + 1;
+                    (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
+                    <= radius * radius;
+                    j++)
+                {
+                    var value = (i + j) % 100;
+                    dies.Add(new WaferMapDie(i, j, value.ToString(CultureInfo.CurrentCulture)));
+                }
+            }
+            Dies = dies;
+        }
+        public void AddDiesToRadius(int numberOfDies)
+        {
+            UpdateDies(Dies.Count() + (int)(numberOfDies * numberOfDies * Math.PI));
+        }
+        public void RemoveDiesFromRadius(int numberOfDies)
+        {
+            UpdateDies(Dies.Count() - (int)(numberOfDies * numberOfDies * Math.PI));
         }
     }
 

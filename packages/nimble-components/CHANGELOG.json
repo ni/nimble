@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 08 Feb 2024 19:42:05 GMT",
+      "version": "21.3.0",
+      "tag": "@ni/nimble-components_v21.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5c8cf7be5e962dee7518e9e27ccf2a14315d84a7",
+            "comment": "Updated Wafer Map Blazor Component Status"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 07 Feb 2024 21:48:45 GMT",
       "version": "21.3.0",
       "tag": "@ni/nimble-components_v21.3.0",
