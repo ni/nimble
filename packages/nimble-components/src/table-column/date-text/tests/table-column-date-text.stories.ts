@@ -29,7 +29,6 @@ import {
     TimeZoneNameFormat,
     WeekdayFormat
 } from '../types';
-import { tableColumnNumberTextTag } from '../../number-text';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const TimeBin = {
@@ -43,8 +42,7 @@ const TimeBin = {
     older: 'Older'
 } as const;
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-type TimeBin =
-    (typeof TimeBin)[keyof typeof TimeBin];
+type TimeBin = (typeof TimeBin)[keyof typeof TimeBin];
 
 const simpleData = [
     {

@@ -1128,7 +1128,9 @@ export class Table<
     //     return columnSortState.desc ? TableColumnSortDirection.descending : TableColumnSortDirection.ascending;
     // }
 
-    private calculateTanStackColumns(/*sortingState: TanStackSortingState*/): TanStackColumnDef<TableNode<TData>>[] {
+    private calculateTanStackColumns(/* sortingState: TanStackSortingState */): TanStackColumnDef<
+    TableNode<TData>
+    >[] {
         const tanstackColumns: TanStackColumnDef<TableNode<TData>>[] = [];
         for (const column of this.columns) {
             tanstackColumns.push({
