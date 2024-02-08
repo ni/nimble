@@ -62,6 +62,11 @@ public class TableColumnConfiguration
     public double? PixelWidth { get; set; }
 }
 
+public class WaferMapHoverDieChangedEventArgs : EventArgs
+{
+    public WaferMapDie? CurrentDie { get; set; }
+}
+
 [EventHandler("onnimbletabsactiveidchange", typeof(TabsChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onnimblecheckedchange", typeof(CheckboxChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onnimblemenubuttontoggle", typeof(MenuButtonToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
@@ -71,6 +76,7 @@ public class TableColumnConfiguration
 [EventHandler("onnimbleactionmenubeforetoggle", typeof(TableActionMenuToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimbletablerowselectionchange", typeof(TableRowSelectionEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimbletablecolumnconfigurationchange", typeof(TableColumnConfigurationEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
+[EventHandler("onnimblewafermapdiehoverchange", typeof(WaferMapHoverDieChangedEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 public static class EventHandlers
 {
 }
