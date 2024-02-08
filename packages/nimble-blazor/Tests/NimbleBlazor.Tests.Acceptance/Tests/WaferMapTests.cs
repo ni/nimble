@@ -40,5 +40,20 @@ namespace NimbleBlazor.Tests.Acceptance
 
             await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "False");
         }
+
+        [Fact]
+        public async Task WaferMap_WithHoverEvent_TriggersDieChangeEventAsync()
+        {
+            await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
+            var page = pageWrapper.Page;
+            var canvas = page.Locator("canvas");
+            var textField = page.Locator("nimble-text-field");
+
+            await Assertions.Expect(canvas).ToBeVisibleAsync();
+            await Task.Delay(RenderingTimeout);
+            await canvas.HoverAsync();
+
+            await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "4");
+        }
     }
 }

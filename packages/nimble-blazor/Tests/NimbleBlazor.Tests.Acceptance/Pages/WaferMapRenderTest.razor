@@ -13,15 +13,16 @@
                 GridMaxY="4"
                 GridMinX="0"
                 GridMinY="0"
+                HoverDieChanged="@ShowCurrentDie"
                 @bind-Dies="Dies"
                 @bind-ColorScale="ColorScale"
                 @bind-HighlightedTags="HighlightedTags">
 </NimbleWaferMap>
 <NimbleButton @onclick="GetValidityAsync">Get Validity Async</NimbleButton>
-<NimbleTextField @bind-Value="InvalidGridDimensions"></NimbleTextField>
+<NimbleTextField @bind-Value="TextFieldText"></NimbleTextField>
 @code {
     public NimbleWaferMap? _waferMap;
-    private string? InvalidGridDimensions { get; set; }
+    private string? TextFieldText { get; set; }
     [NotNull]
     public IEnumerable<WaferMapDie> Dies { get; set; } = Enumerable.Empty<WaferMapDie>();
     [NotNull]
@@ -77,7 +78,20 @@
 
         var validity = await _waferMap.GetValidityAsync();
 
-        InvalidGridDimensions = validity.InvalidGridDimensions.ToString();
+        TextFieldText = validity.InvalidGridDimensions.ToString();
+
+    }
+
+    private void ShowCurrentDie(WaferMapHoverDieChangedEventArgs e)
+    {
+        if (_waferMap == null)
+        {
+            return;
+        }
+
+        var currentDie = e.CurrentDie;
+
+        TextFieldText = currentDie?.Value;
 
     }
 }
