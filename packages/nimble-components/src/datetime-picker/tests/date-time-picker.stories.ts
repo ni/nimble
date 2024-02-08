@@ -68,14 +68,14 @@ const metadata: Meta<DateTimePickerArgs> = {
 
 export default metadata;
 
-export const underlineTextField: StoryObj<DateTimePickerArgs> = {
+export const underlineDateTimePicker: StoryObj<DateTimePickerArgs> = {
     args: { label: 'Underline Date/Time Picker', appearance: 'underline' }
 };
 
-export const blockTextField: StoryObj<DateTimePickerArgs> = {
+export const blockDateTimePicker: StoryObj<DateTimePickerArgs> = {
     args: { label: 'Block Date/Time Picker', appearance: 'block' }
 };
 
-export const outlineTextField: StoryObj<DateTimePickerArgs> = {
+export const outlineDateTimePicker: StoryObj<DateTimePickerArgs> = {
     args: { label: 'Outline Date/Time Picker', appearance: 'outline' }
 };

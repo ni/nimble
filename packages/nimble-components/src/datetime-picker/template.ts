@@ -20,10 +20,15 @@ TextFieldOptions
         <div class="root">
             <${textFieldTag} appearance="${x => x.appearance}" readonly error-text="${x => x.errorText}" ?error-visible="${x => x.errorVisible}" ${ref('textField')}>
                 <slot></slot>
+                ${when(
+        x => x.supportsShowPicker,
+        html<DateTimePicker>`
                 <${buttonTag} class="calendar-button" appearance="ghost" slot="actions" @click="${x => x.onCalendarButtonClick()}">
                     <${iconCalendarTag}>
                     </${iconCalendarTag}>
                 </${buttonTag}>
+                    `
+    )}
                 <${buttonTag} class="calendar-button" appearance="ghost" slot="actions" @click="${x => x.onMoreButtonClick()}">
                     <${iconThreeDotsLineTag}>
                     </${iconThreeDotsLineTag}>
