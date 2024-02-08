@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 08 Feb 2024 23:16:48 GMT",
+      "version": "14.1.0",
+      "tag": "@ni/nimble-blazor_v14.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "eb485793ec661b713e2f05cc8a33b4773ebf9981",
+            "comment": "Consistent lang and meta description on public pages"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 08 Feb 2024 19:42:05 GMT",
       "version": "14.1.0",
       "tag": "@ni/nimble-blazor_v14.1.0",
