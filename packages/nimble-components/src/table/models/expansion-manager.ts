@@ -22,7 +22,7 @@ import {
  *      in the data. This is not ideal because the object maintaining the expansion state can grow unbounded.
  */
 export class ExpansionManager<TData extends TableRecord> {
-    private modifiedCollapsedStates = new Map<string, boolean>();
+    private nonDefaultExpansionStates = new Map<string, boolean>();
     private hierarchyOptions = new Map<string, TableRecordHierarchyOptions>();
     private isHierarchyEnabled = false;
     private expandableRowsWithoutChildren = new Set<string>();
@@ -36,8 +36,8 @@ export class ExpansionManager<TData extends TableRecord> {
             return false;
         }
 
-        const state = this.modifiedCollapsedStates.get(row.id);
-        return state ?? this.getDefaultExpansionState(row);
+        const expansionState = this.nonDefaultExpansionStates.get(row.id);
+        return expansionState ?? this.getDefaultExpansionState(row);
     }
 
     public toggleRowExpansion(row: TanStackRow<TableNode<TData>>): void {
@@ -46,7 +46,7 @@ export class ExpansionManager<TData extends TableRecord> {
         }
 
         const wasExpanded = this.isRowExpanded(row);
-        this.modifiedCollapsedStates.set(row.id, !wasExpanded);
+        this.nonDefaultExpansionStates.set(row.id, !wasExpanded);
 
         row.toggleExpanded();
     }
@@ -57,14 +57,14 @@ export class ExpansionManager<TData extends TableRecord> {
         const rows = this.tanStackTable.getRowModel().flatRows;
         for (const row of rows) {
             if (this.isRowExpandable(row)) {
-                this.modifiedCollapsedStates.set(row.id, false);
+                this.nonDefaultExpansionStates.set(row.id, false);
             }
         }
         this.tanStackTable.toggleAllRowsExpanded(false);
     }
 
     public resetExpansionState(): void {
-        this.modifiedCollapsedStates.clear();
+        this.nonDefaultExpansionStates.clear();
     }
 
     public resetHierarchyOptions(): void {
@@ -73,13 +73,13 @@ export class ExpansionManager<TData extends TableRecord> {
 
     public processDataUpdate(rows: TanStackRow<TableNode<TData>>[]): void {
         if (
-            this.modifiedCollapsedStates.size === 0
+            this.nonDefaultExpansionStates.size === 0
             && this.hierarchyOptions.size === 0
         ) {
             return;
         }
 
-        const updatedModifiedCollapsedStates = new Map<string, boolean>();
+        const updatedNonDefaultExpansionStates = new Map<string, boolean>();
         const updatedHierarchyOptions = new Map<
         string,
         TableRecordHierarchyOptions
@@ -93,9 +93,9 @@ export class ExpansionManager<TData extends TableRecord> {
             }
 
             if (this.isRowExpandable(row)) {
-                const collapsedState = this.modifiedCollapsedStates.get(rowId);
-                if (collapsedState !== undefined) {
-                    updatedModifiedCollapsedStates.set(rowId, collapsedState);
+                const expansionState = this.nonDefaultExpansionStates.get(rowId);
+                if (expansionState !== undefined) {
+                    updatedNonDefaultExpansionStates.set(rowId, expansionState);
                 }
 
                 if (row.subRows.length === 0) {
@@ -104,14 +104,14 @@ export class ExpansionManager<TData extends TableRecord> {
                     } else {
                         // The row used to have children, but now it does not. Therefore,
                         // collapse the row.
-                        updatedModifiedCollapsedStates.set(rowId, false);
+                        updatedNonDefaultExpansionStates.set(rowId, false);
                         this.expandableRowsWithoutChildren.add(rowId);
                     }
                 }
             }
         }
 
-        this.modifiedCollapsedStates = updatedModifiedCollapsedStates;
+        this.nonDefaultExpansionStates = updatedNonDefaultExpansionStates;
         this.hierarchyOptions = updatedHierarchyOptions;
         this.expandableRowsWithoutChildren = updatedExpandableRowsWithoutChildren;
     }
