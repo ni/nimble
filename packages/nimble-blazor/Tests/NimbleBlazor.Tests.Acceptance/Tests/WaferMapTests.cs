@@ -5,6 +5,7 @@ namespace NimbleBlazor.Tests.Acceptance
 {
     public class WaferMapTests : AcceptanceTestsBase
     {
+        private const int RenderingTimeout = 200;
         public WaferMapTests(PlaywrightFixture playwrightFixture, BlazorServerWebHostFixture blazorServerClassFixture)
             : base(playwrightFixture, blazorServerClassFixture)
         { }
@@ -17,6 +18,7 @@ namespace NimbleBlazor.Tests.Acceptance
             var canvas = page.Locator("canvas");
 
             await Assertions.Expect(canvas).ToBeVisibleAsync();
+            await Task.Delay(RenderingTimeout);
             var color = await page.EvaluateAsync<string>(
                 @"document.getElementsByTagName('nimble-wafer-map')[0].canvas.getContext('2d').getImageData(249, 249, 1, 1).data.toString()");
 
@@ -28,10 +30,14 @@ namespace NimbleBlazor.Tests.Acceptance
         {
             await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
             var page = pageWrapper.Page;
+            var canvas = page.Locator("canvas");
             var validButton = page.Locator("nimble-button");
             var textField = page.Locator("nimble-text-field");
 
+            await Assertions.Expect(canvas).ToBeVisibleAsync();
+            await Task.Delay(RenderingTimeout);
             await validButton.ClickAsync();
+
             await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "False");
         }
     }
