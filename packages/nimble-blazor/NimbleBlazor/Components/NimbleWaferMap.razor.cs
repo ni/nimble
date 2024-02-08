@@ -37,13 +37,13 @@ public partial class NimbleWaferMap : ComponentBase
     public double? GridMinX { get; set; }
 
     /// <summary>
-    /// Represents the Y coordinate of the minimum corner of the the grid bounding box for rendering the wafer map.
+    /// Represents the X coordinate of the maximum corner of the the grid bounding box for rendering the wafer map.
     /// </summary>
     [Parameter]
     public double? GridMaxX { get; set; }
 
     /// <summary>
-    /// Represents the X coordinate of the maximum corner of the the grid bounding box for rendering the wafer map.
+    /// Represents the Y coordinate of the minimum corner of the the grid bounding box for rendering the wafer map.
     /// </summary>
     [Parameter]
     public double? GridMinY { get; set; }
