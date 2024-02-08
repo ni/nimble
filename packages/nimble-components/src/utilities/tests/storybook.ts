@@ -12,6 +12,7 @@ import {
 } from './states';
 
 // Workaround for issue https://github.com/storybookjs/storybook/issues/25170
+// taken from this comment in related issue: https://github.com/storybookjs/storybook/issues/22384#issuecomment-1538504158
 export const withActions: <T extends Renderer>(
     storyFn: PartialStoryFn<T>
 ) => T['storyResult'] = withActionsOriginal;
