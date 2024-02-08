@@ -1908,6 +1908,41 @@ describe('Table', () => {
                     pageObject.isDataRowExpandCollapseButtonVisible(0)
                 ).toBeTrue();
             });
+
+            it('setting a record to loadingChildren shows a spinner on its row', async () => {
+                await element.setRecordHierarchyOptions([
+                    {
+                        recordId: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.loadingChildren
+                        }
+                    }
+                ]);
+                await waitForUpdatesAsync();
+
+                expect(
+                    pageObject.isDataRowLoadingSpinnerVisible(0)
+                ).toBeTrue();
+            });
+
+            it('removing the state from a record that was loadingChildren does not show a spinner on its row', async () => {
+                await element.setRecordHierarchyOptions([
+                    {
+                        recordId: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.loadingChildren
+                        }
+                    }
+                ]);
+                await element.setRecordHierarchyOptions([]);
+                await waitForUpdatesAsync();
+
+                expect(
+                    pageObject.isDataRowLoadingSpinnerVisible(0)
+                ).toBeFalse();
+            });
         });
     });
 

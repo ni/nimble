@@ -17,7 +17,7 @@ import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
 import { Icon } from '../../icon-base';
-import { Spinner } from '../../spinner';
+import { Spinner, spinnerTag } from '../../spinner';
 
 /**
  * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
@@ -471,6 +471,12 @@ export class TablePageObject<T extends TableRecord> {
     public isDataRowExpandCollapseButtonVisible(rowIndex: number): boolean {
         const expandCollapseButton = this.getExpandCollapseButtonForRow(rowIndex);
         return expandCollapseButton !== null;
+    }
+
+    public isDataRowLoadingSpinnerVisible(rowIndex: number): boolean {
+        const row = this.getRow(rowIndex);
+        const spinner = row.shadowRoot!.querySelector<Spinner>(spinnerTag);
+        return spinner !== null;
     }
 
     public isTableSelectionCheckboxVisible(): boolean {
