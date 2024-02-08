@@ -9,6 +9,7 @@ module.exports = {
             ],
             numberOfRuns: 3,
             settings: {
+                preset: 'desktop',
                 // Omit the pwa category
                 onlyCategories: ['accessibility', 'best-practices', 'performance', 'seo']
             }

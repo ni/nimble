@@ -9,6 +9,7 @@ module.exports = {
             ],
             numberOfRuns: 1,
             settings: {
+                preset: 'desktop',
                 onlyAudits: ['user-timings']
             }
         },
