@@ -142,6 +142,15 @@ public partial class NimbleWaferMap : ComponentBase
     public EventCallback<WaferMapHoverDieChangedEventArgs> HoverDieChanged { get; set; }
 
     /// <summary>
+    /// Called when the 'die-hover' event is fired on the web component.
+    /// </summary>
+    /// <param name="eventArgs">The configuration of the columns</param>
+    protected async void HandleDieHoverChange(WaferMapHoverDieChangedEventArgs eventArgs)
+    {
+        await HoverDieChanged.InvokeAsync(eventArgs);
+    }
+
+    /// <summary>
     /// Returns an object of boolean values that represents the validity states that the wafer map's configuration can be in.
     /// </summary>
     public async Task<IWaferMapValidity> GetValidityAsync()

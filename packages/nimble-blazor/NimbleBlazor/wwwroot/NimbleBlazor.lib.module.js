@@ -118,6 +118,15 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleWaferMap.razor
+    Blazor.registerCustomEventType('nimblewafermapdiehoverchange', {
+        browserEventName: 'die-hover',
+        createEventArgs: event => {
+            return {
+                currentDie: event.detail.currentDie
+            };
+        }
+    });
 }
 
 if (window.NimbleBlazor) {
