@@ -24,21 +24,10 @@ interface ButtonArgs {
     endIcon: boolean;
 }
 
-const overviewText = `Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/) - A button is a widget that
-enables users to trigger an action or event, such as submitting a form, opening a dialog, canceling an
-action, or performing a delete operation.
-
-If you want a button that triggers navigation to a URL, use the \`nimble-anchor-button\` instead.`;
-
 const metadata: Meta<ButtonArgs> = {
     title: 'Components/Button',
     decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
         actions: {
             handles: ['click']
         }

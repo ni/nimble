@@ -22,22 +22,10 @@ interface TextAreaArgs {
     maxlength: number;
 }
 
-const description = `
-A multi-line text input control. The text area is often used in a form to collect user inputs like comments or reviews.
-
-If you configure your text area to be resizable (with the \`resize\` attribute) in a certain dimension, do not set an explicit size for that dimension (via \`height\` and/or \`width\` \`style\` properties), or you may experience unexpected resize behavior. If you want to set the initial size of a resizable text area, use the \`rows\` and/or \`cols\` attribute(s).
-`;
-
 const metadata: Meta<TextAreaArgs> = {
     title: 'Components/Text Area',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component: description
-            }
-        },
         actions: {
             handles: ['change']
         }

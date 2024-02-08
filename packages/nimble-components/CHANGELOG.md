@@ -1,8 +1,81 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 19 Jan 2024 22:22:02 GMT and should not be manually modified.
+This log was last generated on Wed, 07 Feb 2024 21:48:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.3.0
+
+Wed, 07 Feb 2024 21:48:45 GMT
+
+### Minor changes
+
+- Extend nimble-table API to allow specifying that a record has children that can be loaded when the row is expanded ([ni/nimble@8d58b01](https://github.com/ni/nimble/commit/8d58b0180a3fb2c5a837718a6da3489b67d821bc))
+
+## 21.2.1
+
+Wed, 07 Feb 2024 19:06:22 GMT
+
+### Patches
+
+- fixed wafer map component test warnings ([ni/nimble@9fdd20d](https://github.com/ni/nimble/commit/9fdd20db5366e435fc4576d5a4881959fa143e30))
+
+## 21.2.0
+
+Fri, 02 Feb 2024 21:51:03 GMT
+
+### Minor changes
+
+- New pause, play, stop, and external link icons. Updated running-arrow icon. ([ni/nimble@8ba4f05](https://github.com/ni/nimble/commit/8ba4f05ec0bd828265d2f74b16a278adf46db268))
+- Bump @ni/nimble-tokens to v6.10.0
+
+## 21.1.0
+
+Wed, 31 Jan 2024 20:22:58 GMT
+
+### Minor changes
+
+- Export new NumberTextUnitFormat and update documentation for new Angular number formatting pipe and existing duration pipe ([ni/nimble@bf9013d](https://github.com/ni/nimble/commit/bf9013d5cb92106ddd1fcf6fd84e6684930462b8))
+
+## 21.0.5
+
+Mon, 29 Jan 2024 11:31:46 GMT
+
+### Patches
+
+- Add validator, tracker and batch updates in rich text components for mention configuration ([ni/nimble@ec2e0dd](https://github.com/ni/nimble/commit/ec2e0ddef1d910d44097ccb2a976ad2343dbac63))
+
+## 21.0.4
+
+Thu, 25 Jan 2024 02:58:12 GMT
+
+### Patches
+
+- Pin fast-foundation version to avoid regression ([ni/nimble@d3f330a](https://github.com/ni/nimble/commit/d3f330a41625cfb3be92eff8fd150f4cac5e11e1))
+
+## 21.0.3
+
+Wed, 24 Jan 2024 00:18:26 GMT
+
+### Patches
+
+- Fix bug where table rows are not rendered correctly when the table is reattached to the DOM ([ni/nimble@c3ba509](https://github.com/ni/nimble/commit/c3ba50940c9aa158b21f6c0d78056985f4a7c1c0))
+
+## 21.0.2
+
+Tue, 23 Jan 2024 22:00:33 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.1
+
+## 21.0.1
+
+Tue, 23 Jan 2024 16:01:09 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.0
 
 ## 21.0.0
 

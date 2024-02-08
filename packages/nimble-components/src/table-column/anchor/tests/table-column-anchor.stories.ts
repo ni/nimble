@@ -71,16 +71,8 @@ interface AnchorColumnTableArgs extends SharedTableArgs {
     underlineHidden: boolean;
 }
 
-const anchorColumnDescription = 'The `nimble-table-column-anchor` column is used to display string fields as links or text in the `nimble-table`. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.';
-
 export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: anchorColumnDescription
-            }
-        }
-    },
+    parameters: {},
     // prettier-ignore
     render: createUserSelectedThemeStory(html<AnchorColumnTableArgs>`
         <${tableTag}

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Anchor, processUpdates, waitForUpdatesAsync } from '@ni/nimble-angular';
 import { TablePageObject } from '@ni/nimble-angular/table/testing';
 import { NimbleTableModule, Table } from '@ni/nimble-angular/table';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.module';
 
 describe('Nimble anchor table column navigation guard', () => {
@@ -23,7 +24,7 @@ describe('Nimble anchor table column navigation guard', () => {
     class TestHostBasicComponent {
         @ViewChild('table', { static: true }) public table: ElementRef<Table>;
 
-        public onClick(_rowRecordId: string | undefined): boolean {
+        public onClick(_rowRecordId: string | undefined, _href: string): boolean {
             return false;
         }
     }
@@ -40,7 +41,7 @@ describe('Nimble anchor table column navigation guard', () => {
     class TestHostWithTargetComponent {
         @ViewChild('table', { static: true }) public table: ElementRef<Table>;
 
-        public onClick(_rowRecordId: string | undefined): boolean {
+        public onClick(_rowRecordId: string | undefined, _href: string): boolean {
             return false;
         }
     }
@@ -86,21 +87,21 @@ describe('Nimble anchor table column navigation guard', () => {
             innerAnchor.click();
             tick();
 
-            expect(onClickSpy).toHaveBeenCalledOnceWith('1');
+            expect(onClickSpy).toHaveBeenCalledOnceWith('1', 'page1');
         }));
 
-        const secondaryClickTests: { testName: string, clickArgs: { [key: string]: unknown } }[] = [
-            { testName: 'middle mouse click', clickArgs: { button: 1 } },
-            { testName: 'Ctrl + left-click', clickArgs: { button: 0, ctrlKey: true } }
-        ];
-        secondaryClickTests.forEach(test => {
-            it(`does not call navigationGuard for non-primary-mouse link clicks for ${test.testName}`, fakeAsync(() => {
+        const secondaryClickTests = [
+            { name: 'middle mouse click', clickArgs: { button: 1 } },
+            { name: 'Ctrl + left-click', clickArgs: { button: 0, ctrlKey: true } }
+        ] as const;
+        parameterizeSpec(secondaryClickTests, (spec, name, value) => {
+            spec(`does not call navigationGuard for non-primary-mouse link clicks for ${name}`, fakeAsync(() => {
                 innerAnchor.dispatchEvent(new MouseEvent('click', {
                     ...{
                         bubbles: true,
                         cancelable: true
                     },
-                    ...test.clickArgs
+                    ...value.clickArgs
                 }));
                 tick();
 

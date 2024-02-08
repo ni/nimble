@@ -1,4 +1,5 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
@@ -11,7 +12,6 @@ import {
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import type { TableColumnText } from '../../table-column/text';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;
@@ -772,38 +772,35 @@ describe('Table row selection', () => {
                             expectedSelection: ['0']
                         }
                     ] as const;
-                    parameterizeNamedList(
-                        configurations,
-                        (spec, name, value) => {
-                            spec(name, async () => {
-                                await element.setSelectedRecordIds(
-                                    value.initialSelection
-                                );
-                                await pageObject.clickRow(
-                                    value.rowToClick,
-                                    value.clickModifiers
-                                );
+                    parameterizeSpec(configurations, (spec, name, value) => {
+                        spec(name, async () => {
+                            await element.setSelectedRecordIds(
+                                value.initialSelection
+                            );
+                            await pageObject.clickRow(
+                                value.rowToClick,
+                                value.clickModifiers
+                            );
 
-                                const currentSelection = await element.getSelectedRecordIds();
-                                expect(currentSelection).toEqual(
-                                    jasmine.arrayWithExactContents(
-                                        value.expectedSelection
-                                    )
-                                );
-                                expect(
-                                    selectionChangeListener.spy
-                                ).toHaveBeenCalledTimes(1);
-                                const emittedIds = getEmittedRecordIdsFromSpy(
-                                    selectionChangeListener.spy
-                                );
-                                expect(emittedIds).toEqual(
-                                    jasmine.arrayWithExactContents(
-                                        value.expectedSelection
-                                    )
-                                );
-                            });
-                        }
-                    );
+                            const currentSelection = await element.getSelectedRecordIds();
+                            expect(currentSelection).toEqual(
+                                jasmine.arrayWithExactContents(
+                                    value.expectedSelection
+                                )
+                            );
+                            expect(
+                                selectionChangeListener.spy
+                            ).toHaveBeenCalledTimes(1);
+                            const emittedIds = getEmittedRecordIdsFromSpy(
+                                selectionChangeListener.spy
+                            );
+                            expect(emittedIds).toEqual(
+                                jasmine.arrayWithExactContents(
+                                    value.expectedSelection
+                                )
+                            );
+                        });
+                    });
                 });
 
                 describe('interactions that do not modify the selection', () => {
@@ -827,30 +824,27 @@ describe('Table row selection', () => {
                             clickModifiers: { shiftKey: true }
                         }
                     ] as const;
-                    parameterizeNamedList(
-                        configurations,
-                        (spec, name, value) => {
-                            spec(name, async () => {
-                                await element.setSelectedRecordIds(
-                                    value.initialSelection
-                                );
-                                await pageObject.clickRow(
-                                    value.rowToClick,
-                                    value.clickModifiers
-                                );
+                    parameterizeSpec(configurations, (spec, name, value) => {
+                        spec(name, async () => {
+                            await element.setSelectedRecordIds(
+                                value.initialSelection
+                            );
+                            await pageObject.clickRow(
+                                value.rowToClick,
+                                value.clickModifiers
+                            );
 
-                                const currentSelection = await element.getSelectedRecordIds();
-                                expect(currentSelection).toEqual(
-                                    jasmine.arrayWithExactContents(
-                                        value.initialSelection
-                                    )
-                                );
-                                expect(
-                                    selectionChangeListener.spy
-                                ).not.toHaveBeenCalled();
-                            });
-                        }
-                    );
+                            const currentSelection = await element.getSelectedRecordIds();
+                            expect(currentSelection).toEqual(
+                                jasmine.arrayWithExactContents(
+                                    value.initialSelection
+                                )
+                            );
+                            expect(
+                                selectionChangeListener.spy
+                            ).not.toHaveBeenCalled();
+                        });
+                    });
                 });
             });
 
@@ -926,7 +920,7 @@ describe('Table row selection', () => {
                         expectedSelection: ['2']
                     }
                 ] as const;
-                parameterizeNamedList(configurations, (spec, name, value) => {
+                parameterizeSpec(configurations, (spec, name, value) => {
                     spec(name, async () => {
                         await element.setSelectedRecordIds(
                             value.initialSelection

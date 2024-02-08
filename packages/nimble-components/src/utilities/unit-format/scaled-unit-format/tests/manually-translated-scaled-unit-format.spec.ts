@@ -1,4 +1,4 @@
-import { parameterizeNamedList } from '../../../tests/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import {
     ManuallyTranslatedScaledUnitFormat,
     UnitTranslation
@@ -48,7 +48,7 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
 
     const scaledPrefixText = '';
 
-    parameterizeNamedList(translationTestCases, (spec, name, value) => {
+    parameterizeSpec(translationTestCases, (spec, name, value) => {
         spec(name, () => {
             const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
                 unitTranslations,
@@ -171,7 +171,7 @@ describe('ManuallyTranslatedScaledUnitFormat', () => {
         }
     ] as const;
 
-    parameterizeNamedList(pluralizationTestCases, (spec, name, value) => {
+    parameterizeSpec(pluralizationTestCases, (spec, name, value) => {
         spec(`uses expected pluralization for ${name}`, () => {
             const scaledUnitFormatter = ManuallyTranslatedScaledUnitFormat.createFactory({
                 unitTranslations,

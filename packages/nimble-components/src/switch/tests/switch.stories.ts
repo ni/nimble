@@ -12,23 +12,10 @@ interface SwitchArgs {
     uncheckedMessage: string;
 }
 
-const overviewText = `Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/switch/) - A switch is an input widget that
-allows users to choose one of two values: on or off. Switches are similar to checkboxes and toggle buttons, which
-can also serve as binary inputs. One difference, however, is that switches can only be used for binary input while
-checkboxes and toggle buttons allow implementations the option of supporting a third middle state. Checkboxes can
-be checked or not checked and can optionally also allow for a partially checked state. Toggle buttons can be
-pressed or not pressed and can optionally allow for a partially pressed state.`;
-
 const metadata: Meta<SwitchArgs> = {
     title: 'Components/Switch',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
         actions: {
             handles: ['change']
         }

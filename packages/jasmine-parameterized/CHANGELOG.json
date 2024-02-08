@@ -1,0 +1,35 @@
+{
+  "name": "@ni/jasmine-parameterized",
+  "entries": [
+    {
+      "date": "Tue, 23 Jan 2024 22:00:33 GMT",
+      "version": "0.2.1",
+      "tag": "@ni/jasmine-parameterized_v0.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "1739d6a94fc2e33867fcf781dd3ac34759bf6231",
+            "comment": "Fix README markdown formatting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 Jan 2024 16:01:09 GMT",
+      "version": "0.2.0",
+      "tag": "@ni/jasmine-parameterized_v0.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "609265d5472b644adabb18b7aba6586b2df92aaa",
+            "comment": "Create jasmine-parameterized workspace"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -13,12 +13,6 @@ public abstract class NimbleMappingBase<TKey> : ComponentBase
     public string? FormattedKey => (Key is bool b) ? (b ? "true" : "false") : Key?.ToString();
 
     /// <summary>
-    /// Gets or sets text that is either the mapped value, or a value that can be used for the tooltip and accessible name.
-    /// </summary>
-    [Parameter]
-    public string? Text { get; set; }
-
-    /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.
     /// </summary>
     [Parameter(CaptureUnmatchedValues = true)]

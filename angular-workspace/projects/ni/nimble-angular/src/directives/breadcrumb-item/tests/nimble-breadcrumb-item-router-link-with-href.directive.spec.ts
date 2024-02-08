@@ -3,6 +3,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { processUpdates } from '../../../testing/async-helpers';
 import { NimbleBreadcrumbModule } from '../../breadcrumb/nimble-breadcrumb.module';
 import { NimbleBreadcrumbItemModule } from '../nimble-breadcrumb-item.module';
@@ -102,18 +103,18 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
         expect(routerNavigateByUrlSpy).not.toHaveBeenCalled();
     }));
 
-    const secondaryClickTests: { testName: string, clickArgs: { [key: string]: unknown } }[] = [
-        { testName: 'middle mouse click', clickArgs: { button: 1 } },
-        { testName: 'Ctrl + left-click', clickArgs: { button: 0, ctrlKey: true } }
-    ];
-    secondaryClickTests.forEach(test => {
-        it(`does not do router navigation for non-primary-mouse link clicks for ${test.testName}`, fakeAsync(() => {
+    const secondaryClickTests = [
+        { name: 'middle mouse click', clickArgs: { button: 1 } },
+        { name: 'Ctrl + left-click', clickArgs: { button: 0, ctrlKey: true } }
+    ] as const;
+    parameterizeSpec(secondaryClickTests, (spec, name, value) => {
+        spec(`does not do router navigation for non-primary-mouse link clicks for ${name}`, fakeAsync(() => {
             anchor!.dispatchEvent(new MouseEvent('click', {
                 ...{
                     bubbles: true,
                     cancelable: true
                 },
-                ...test.clickArgs
+                ...value.clickArgs
             }));
             tick();
 

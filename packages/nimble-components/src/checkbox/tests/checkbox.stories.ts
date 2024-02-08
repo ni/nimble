@@ -13,15 +13,8 @@ interface CheckboxArgs {
 
 const metadata: Meta<CheckboxArgs> = {
     title: 'Components/Checkbox',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    'Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/) – The dual-state checkbox is the most common type, as it allows the user to toggle between two choices: checked and not checked.'
-            }
-        },
         actions: {
             handles: ['change']
         }

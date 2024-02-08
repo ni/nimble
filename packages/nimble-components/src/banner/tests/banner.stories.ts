@@ -3,7 +3,6 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { BannerSeverity } from '../types';
-import { bannerGapSize } from '../../theme-provider/design-tokens';
 import { bannerTag } from '..';
 import { iconKeyTag } from '../../icons/key';
 import { buttonTag } from '../../button';
@@ -37,24 +36,10 @@ interface BannerArgs extends LabelUserArgs {
     toggle: unknown;
 }
 
-const overviewText = `The banner is a component used to display a persistent notification to a user.
-
-Banners span the full width of their parent element, and that parent should span the full width of the page/panel.
-Banner messages should be limited to approximately three lines of text under normal display size at the intended
-location. Multiple banners may be stacked vertically in order of age, with the newest at the top. Stacked banners
-should be spaced apart using the \`${bannerGapSize.cssCustomProperty}\` design token.
-`;
-
 const metadata: Meta<BannerArgs> = {
     title: 'Components/Banner',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
         actions: {
             handles: ['toggle']
         }

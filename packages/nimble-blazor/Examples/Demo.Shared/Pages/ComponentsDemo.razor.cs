@@ -15,6 +15,7 @@ namespace Demo.Shared.Pages
         private NimbleDialog<DialogResult>? _dialog;
         private string? DialogClosedReason { get; set; }
         private NimbleDrawer<DialogResult>? _drawer;
+        private NimbleTable<SimpleTableRecord>? _table;
         private string? DrawerClosedReason { get; set; }
         private string? SelectedRadio { get; set; } = "2";
         private bool BannerOpen { get; set; }
@@ -32,6 +33,12 @@ namespace Demo.Shared.Pages
         {
             AddTableRows(10);
             UpdateDies(5);
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await _table!.SetDataAsync(TableData);
+            await base.OnAfterRenderAsync(firstRender);
         }
 
         private string DrawerLocationAsString
@@ -75,6 +82,7 @@ namespace Demo.Shared.Pages
 
                 tableData.Add(new SimpleTableRecord(
                     rowCountString,
+                    tableData.Count >= 4 ? (tableData.Count % 4).ToString(CultureInfo.CurrentCulture) : null,
                     $"new string {rowCountString}",
                     $"bar {rowCountString}",
                     "/",
@@ -138,6 +146,7 @@ namespace Demo.Shared.Pages
     {
         public SimpleTableRecord(
             string id,
+            string? parentId,
             string stringValue1,
             string stringValue2,
             string? href,
@@ -149,6 +158,7 @@ namespace Demo.Shared.Pages
             double duration)
         {
             Id = id;
+            ParentId = parentId;
             StringValue1 = stringValue1;
             StringValue2 = stringValue2;
             Href = href;
@@ -161,6 +171,7 @@ namespace Demo.Shared.Pages
         }
 
         public string Id { get; }
+        public string? ParentId { get; }
         public string StringValue1 { get; }
         public string StringValue2 { get; }
         public string? Href { get; }

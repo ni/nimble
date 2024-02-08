@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
 import { spinalCase } from '@microsoft/fast-web-utilities';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as designTokensNamespace from '../design-tokens';
 import { tokenNames, suffixFromTokenName } from '../design-token-names';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 import { ThemeProvider, lang, themeProviderTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
@@ -147,7 +147,7 @@ describe('Theme Provider', () => {
         );
         const tokenNameValues = Object.values(tokenNames);
 
-        parameterizeNamedList(tokenEntries, (spec, name, value) => {
+        parameterizeSpec(tokenEntries, (spec, name, value) => {
             spec(`for token name ${name}`, () => {
                 const tokenValue = value.cssDesignToken.name.split('ni-nimble-')[1]!;
                 expect(tokenNameValues).toContain(tokenValue);
@@ -161,7 +161,7 @@ describe('Theme Provider', () => {
         );
         const tokenNameValues = Object.values(tokenNames);
 
-        parameterizeNamedList(propertyNames, (spec, name) => {
+        parameterizeSpec(propertyNames, (spec, name) => {
             spec(`for token name ${name}`, () => {
                 const convertedTokenValue = spinalCase(name);
                 expect(tokenNameValues).toContain(convertedTokenValue);
@@ -173,7 +173,7 @@ describe('Theme Provider', () => {
         const propertyNames = designTokenPropertyNames.map(
             (name: DesignTokenPropertyName) => ({ name })
         );
-        parameterizeNamedList(propertyNames, (spec, name) => {
+        parameterizeSpec(propertyNames, (spec, name) => {
             spec(`for token name ${name}`, () => {
                 expect(suffixFromTokenName(name)).not.toBeUndefined();
             });

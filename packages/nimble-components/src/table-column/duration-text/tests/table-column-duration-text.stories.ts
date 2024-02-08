@@ -68,16 +68,8 @@ interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
 }
 
-const durationTextColumnDescription = 'The `nimble-table-column-duration-text` column is used to display a period of elapsed time as text in the `nimble-table`. The values must be of type `number` and each represent a positive total number of milliseconds. Values that represent more than 999 days or less than a millisecond will be formatted in scientific notation as seconds only. All sub-second values will be represented with up to 3 digits of precision. Values are formatted in a locale-specific way based on the value of the lang token, which can be set via the [nimble-theme-provider](https://60e89457a987cf003efc0a5b-ckpboqfrwq.chromatic.com/iframe.html?path=/docs/tokens-theme-provider--docs).';
-
 export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: durationTextColumnDescription
-            }
-        }
-    },
+    parameters: {},
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
         <${tableTag}

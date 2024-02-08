@@ -89,7 +89,7 @@ type ObjectFromNamedList<T extends readonly { name: string }[]> = {
  *   { name: 'men', type: 'lyrics'}
  * ] as const;
  * describe('Different rains', () => {
- *     parameterizeNamedList(rainTests, (spec, name, value) => {
+ *     parameterizeSpec(rainTests, (spec, name, value) => {
  *         spec(`of type ${name} exist`, () => {
  *             expect(value.type).toBeDefined();
  *         });
@@ -99,7 +99,7 @@ type ObjectFromNamedList<T extends readonly { name: string }[]> = {
  *     });
  * });
  */
-export const parameterizeNamedList = <T extends readonly { name: string }[]>(
+export const parameterizeSpec = <T extends readonly { name: string }[]>(
     list: T,
     test: (
         spec: Spec,

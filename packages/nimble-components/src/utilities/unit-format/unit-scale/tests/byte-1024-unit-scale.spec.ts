@@ -1,4 +1,4 @@
-import { parameterizeNamedList } from '../../../tests/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { byte1024UnitScale } from '../byte-1024-unit-scale';
 
 describe('Byte1024UnitScale', () => {
@@ -78,7 +78,7 @@ describe('Byte1024UnitScale', () => {
         }
     ] as const;
 
-    parameterizeNamedList(testCases, (spec, name, value) => {
+    parameterizeSpec(testCases, (spec, name, value) => {
         spec(`gets expected unit for ${name}`, () => {
             const { scaledValue, scaledUnit } = byte1024UnitScale.scaleNumber(
                 value.number

@@ -41,6 +41,8 @@ export interface TableRecord {
 }
 
 /**
+ * @internal
+ *
  * Describes a hierarchical data structure that is used for
  * the internal representation of the data, and allows us to represent data with
  * parent-child relationships within Tanstack.
@@ -75,6 +77,28 @@ export interface TableValidity extends ValidityObject {
     readonly invalidColumnConfiguration: boolean;
     readonly invalidParentIdConfiguration: boolean;
 }
+
+/**
+ * The hierarachy options for a record in the table.
+ */
+export interface TableSetRecordHierarchyOptions {
+    recordId: string;
+    options: TableRecordHierarchyOptions;
+}
+
+/**
+ * Describes the hierarchy options that can be configured for a record in the table.
+ */
+export interface TableRecordHierarchyOptions {
+    delayedHierarchyState: TableRecordDelayedHierarchyState;
+}
+
+export const TableRecordDelayedHierarchyState = {
+    none: undefined,
+    canLoadChildren: 'canLoadChildren'
+} as const;
+export type TableRecordDelayedHierarchyState =
+    (typeof TableRecordDelayedHierarchyState)[keyof typeof TableRecordDelayedHierarchyState];
 
 export interface TableActionMenuToggleEventDetail {
     newState: boolean;

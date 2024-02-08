@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 02 Feb 2024 21:51:03 GMT",
+      "version": "6.10.0",
+      "tag": "@ni/nimble-tokens_v6.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "8ba4f05ec0bd828265d2f74b16a278adf46db268",
+            "comment": "New pause, play, stop, and external link icons. Updated running-arrow icon."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Jan 2024 16:50:24 GMT",
       "version": "6.9.1",
       "tag": "@ni/nimble-tokens_v6.9.1",

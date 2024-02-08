@@ -1,8 +1,8 @@
 import { spinalCase } from '@microsoft/fast-web-utilities';
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as labelTokensNamespace from '../label-tokens';
 import { LabelProviderCore, labelProviderCoreTag } from '..';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import {
     getAttributeName,
     getPropertyName
@@ -53,7 +53,7 @@ describe('Label Provider Core', () => {
             })
         );
 
-        parameterizeNamedList(tokenEntries, (spec, name, value) => {
+        parameterizeSpec(tokenEntries, (spec, name, value) => {
             spec(`for token name ${name}`, () => {
                 const convertedTokenValue = spinalCase(value.name);
                 expect(value.labelToken.name).toBe(convertedTokenValue);
@@ -69,7 +69,7 @@ describe('Label Provider Core', () => {
             })
         );
 
-        parameterizeNamedList(tokenEntries, (spec, name, value) => {
+        parameterizeSpec(tokenEntries, (spec, name, value) => {
             spec(`for token name ${name}`, () => {
                 const expectedPropertyName = getPropertyName(value.name);
                 const expectedAttributeName = getAttributeName(value.name);
@@ -92,7 +92,7 @@ describe('Label Provider Core', () => {
             })
         );
 
-        parameterizeNamedList(tokenEntries, (spec, name, value) => {
+        parameterizeSpec(tokenEntries, (spec, name, value) => {
             spec(`for token name ${name}`, () => {
                 const attributeName = getAttributeName(value.name);
                 const updatedValue = `NewString-${value.name}`;

@@ -29,15 +29,8 @@ interface NumberFieldArgs extends LabelUserArgs {
 
 const metadata: Meta<NumberFieldArgs> = {
     title: 'Components/Number Field',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    'Similar to a single line text box but only used for numeric data. The controls allow the user to increment and decrement the value.'
-            }
-        },
         actions: {
             handles: ['change', 'input']
         }

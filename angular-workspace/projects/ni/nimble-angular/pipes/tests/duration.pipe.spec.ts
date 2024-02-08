@@ -1,3 +1,4 @@
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { DurationPipe } from '../duration.pipe';
 
 describe('DurationPipe', () => {
@@ -78,12 +79,12 @@ describe('DurationPipe', () => {
                 value: Number.NaN,
                 expected: ''
             },
-        ];
+        ] as const;
 
-        testCases.forEach(test => {
-            it(`${test.name} transforms to ${test.expected}`, () => {
-                const result = pipe.transform(test.value);
-                expect(result).toEqual(test.expected);
+        parameterizeSpec(testCases, (spec, name, value) => {
+            spec(`${name} transforms to ${value.expected}`, () => {
+                const result = pipe.transform(value.value);
+                expect(result).toEqual(value.expected);
             });
         });
     });

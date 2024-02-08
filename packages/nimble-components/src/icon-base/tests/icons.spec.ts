@@ -1,7 +1,7 @@
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist/icons/js';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';
 import { iconMetadata } from './icon-metadata';
 import { Fixture, fixture } from '../../utilities/tests/fixture';
@@ -18,7 +18,7 @@ describe('Icons', () => {
         };
         const getPaths = (svg: SVGElement): SVGPathElement[] => Array.from(svg.querySelectorAll('path'));
 
-        parameterizeNamedList(nimbleIcons, (spec, name, value) => {
+        parameterizeSpec(nimbleIcons, (spec, name, value) => {
             spec(`for icon ${name}`, () => {
                 const svg = getSVGElement(value.data);
                 const paths = getPaths(svg);
@@ -40,7 +40,7 @@ describe('Icons', () => {
             (x: IconName) => ({ name: x, iconClass: allIconsNamespace[x] })
         );
 
-        parameterizeNamedList(allIconNames, (spec, name, value) => {
+        parameterizeSpec(allIconNames, (spec, name, value) => {
             spec(`for icon ${name}`, () => {
                 const tagName = DesignSystem.tagFor(value.iconClass);
                 expect(typeof tagName).toBe('string');
@@ -59,7 +59,7 @@ describe('Icons', () => {
             metadata: iconMetadata[name]
         }));
 
-        parameterizeNamedList(icons, (spec, name, value) => {
+        parameterizeSpec(icons, (spec, name, value) => {
             spec(`for icon ${name}`, () => {
                 expect(value.metadata.tags).not.toContain('');
             });

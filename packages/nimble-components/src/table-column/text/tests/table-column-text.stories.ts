@@ -40,7 +40,6 @@ const simpleData = [
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Text',
     decorators: [withActions],
-    tags: ['autodocs'],
     parameters: {
         actions: {
             handles: sharedTableActions
@@ -68,16 +67,8 @@ interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: TextColumnFieldNameOption;
 }
 
-const textColumnDescription = 'The `nimble-table-column-text` column is used to display string fields as text in the `nimble-table`.';
-
 export const textColumn: StoryObj<TextColumnTableArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: textColumnDescription
-            }
-        }
-    },
+    parameters: {},
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
         <${tableTag}

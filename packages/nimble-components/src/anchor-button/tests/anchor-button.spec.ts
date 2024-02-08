@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorButton } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<AnchorButton>> {
     return fixture<AnchorButton>(
@@ -79,7 +79,7 @@ describe('AnchorButton', () => {
         { name: 'aria-roledescription' }
     ] as const;
     describe('should reflect value to the internal control', () => {
-        parameterizeNamedList(attributeNames, (spec, name) => {
+        parameterizeSpec(attributeNames, (spec, name) => {
             spec(`for attribute ${name}`, async () => {
                 await connect();
 
