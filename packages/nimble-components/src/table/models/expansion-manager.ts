@@ -22,10 +22,10 @@ import {
  *      in the data. This is not ideal because the object maintaining the expansion state can grow unbounded.
  */
 export class ExpansionManager<TData extends TableRecord> {
-    private nonDefaultExpansionStates = new Map<string, boolean>();
+    private explicitExpansionStates = new Map<string, boolean>();
     private hierarchyOptions = new Map<string, TableRecordHierarchyOptions>();
     private isHierarchyEnabled = false;
-    private expandableRowsWithoutChildren = new Set<string>();
+    private parentRowsWithChildren = new Set<string>();
 
     public constructor(
         private readonly tanStackTable: TanStackTable<TableNode<TData>>
@@ -36,7 +36,7 @@ export class ExpansionManager<TData extends TableRecord> {
             return false;
         }
 
-        const expansionState = this.nonDefaultExpansionStates.get(row.id);
+        const expansionState = this.explicitExpansionStates.get(row.id);
         return expansionState ?? this.getDefaultExpansionState(row);
     }
 
@@ -46,7 +46,7 @@ export class ExpansionManager<TData extends TableRecord> {
         }
 
         const wasExpanded = this.isRowExpanded(row);
-        this.nonDefaultExpansionStates.set(row.id, !wasExpanded);
+        this.explicitExpansionStates.set(row.id, !wasExpanded);
 
         row.toggleExpanded();
     }
@@ -57,14 +57,14 @@ export class ExpansionManager<TData extends TableRecord> {
         const rows = this.tanStackTable.getRowModel().flatRows;
         for (const row of rows) {
             if (this.isRowExpandable(row)) {
-                this.nonDefaultExpansionStates.set(row.id, false);
+                this.explicitExpansionStates.set(row.id, false);
             }
         }
         this.tanStackTable.toggleAllRowsExpanded(false);
     }
 
     public resetExpansionState(): void {
-        this.nonDefaultExpansionStates.clear();
+        this.explicitExpansionStates.clear();
     }
 
     public resetHierarchyOptions(): void {
@@ -73,7 +73,7 @@ export class ExpansionManager<TData extends TableRecord> {
 
     public processDataUpdate(rows: TanStackRow<TableNode<TData>>[]): void {
         if (
-            this.nonDefaultExpansionStates.size === 0
+            this.explicitExpansionStates.size === 0
             && this.hierarchyOptions.size === 0
         ) {
             return;
@@ -84,7 +84,7 @@ export class ExpansionManager<TData extends TableRecord> {
         string,
         TableRecordHierarchyOptions
         >();
-        const updatedExpandableRowsWithoutChildren = new Set<string>();
+        const updatedParentRowsWithChildren = new Set<string>();
         for (const row of rows) {
             const rowId = row.id;
             const rowHierarchyOptions = this.hierarchyOptions.get(rowId);
@@ -93,27 +93,26 @@ export class ExpansionManager<TData extends TableRecord> {
             }
 
             if (this.isRowExpandable(row)) {
-                const expansionState = this.nonDefaultExpansionStates.get(rowId);
+                const expansionState = this.explicitExpansionStates.get(rowId);
                 if (expansionState !== undefined) {
                     updatedNonDefaultExpansionStates.set(rowId, expansionState);
                 }
 
                 if (row.subRows.length === 0) {
-                    if (this.expandableRowsWithoutChildren.has(rowId)) {
-                        updatedExpandableRowsWithoutChildren.add(rowId);
-                    } else {
+                    if (this.parentRowsWithChildren.has(rowId)) {
                         // The row used to have children, but now it does not. Therefore,
                         // collapse the row.
                         updatedNonDefaultExpansionStates.set(rowId, false);
-                        this.expandableRowsWithoutChildren.add(rowId);
                     }
+                } else {
+                    updatedParentRowsWithChildren.add(rowId);
                 }
             }
         }
 
-        this.nonDefaultExpansionStates = updatedNonDefaultExpansionStates;
+        this.explicitExpansionStates = updatedNonDefaultExpansionStates;
         this.hierarchyOptions = updatedHierarchyOptions;
-        this.expandableRowsWithoutChildren = updatedExpandableRowsWithoutChildren;
+        this.parentRowsWithChildren = updatedParentRowsWithChildren;
     }
 
     public setHierarchyOptions(
