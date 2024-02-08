@@ -1,11 +1,11 @@
 import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
 import { html, repeat } from '@microsoft/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../list-option';
 import {
     createUserSelectedThemeStory,
-    disableStorybookZoomTransform
+    disableStorybookZoomTransform,
+    withActions
 } from '../../utilities/tests/storybook';
 import {
     DropdownAppearance,

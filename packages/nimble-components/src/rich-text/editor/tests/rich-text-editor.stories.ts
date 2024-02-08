@@ -1,10 +1,10 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
     disableStorybookZoomTransform,
-    incubatingWarning
+    incubatingWarning,
+    withActions
 } from '../../../utilities/tests/storybook';
 import { RichTextEditor, richTextEditorTag } from '..';
 import { buttonTag } from '../../../button';

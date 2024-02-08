@@ -1,4 +1,6 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { withActions as withActionsOriginal } from '@storybook/addon-actions/decorator';
+import type { PartialStoryFn, Renderer } from '@storybook/types';
 import { themeProviderTag } from '../../theme-provider';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import type { Theme } from '../../theme-provider/types';
@@ -8,6 +10,11 @@ import {
     backgroundStates,
     defaultBackgroundState
 } from './states';
+
+// Workaround for issue https://github.com/storybookjs/storybook/issues/25170
+export const withActions: <T extends Renderer>(
+    storyFn: PartialStoryFn<T>
+) => T['storyResult'] = withActionsOriginal;
 
 /**
  * Renders a ViewTemplate as elements in a DocumentFragment.

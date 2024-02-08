@@ -1,10 +1,10 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { AutoUpdateMode } from '@microsoft/fast-foundation';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
-    incubatingWarning
+    incubatingWarning,
+    withActions
 } from '../../utilities/tests/storybook';
 import {
     borderColor,

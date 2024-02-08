@@ -1,9 +1,9 @@
 import { html, repeat } from '@microsoft/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
-    disableStorybookZoomTransform
+    disableStorybookZoomTransform,
+    withActions
 } from '../../utilities/tests/storybook';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
 import { selectTag } from '..';

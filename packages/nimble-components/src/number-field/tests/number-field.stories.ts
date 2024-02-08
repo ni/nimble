@@ -1,7 +1,9 @@
 import { html } from '@microsoft/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    withActions
+} from '../../utilities/tests/storybook';
 import { NumberFieldAppearance } from '../types';
 import { numberFieldTag } from '..';
 import { labelProviderCoreTag } from '../../label-provider/core';
