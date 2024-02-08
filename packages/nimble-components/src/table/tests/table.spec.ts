@@ -1921,9 +1921,7 @@ describe('Table', () => {
                 ]);
                 await waitForUpdatesAsync();
 
-                expect(
-                    pageObject.isDataRowLoadingSpinnerVisible(0)
-                ).toBeTrue();
+                expect(pageObject.isDataRowLoadingSpinnerVisible(0)).toBeTrue();
             });
 
             it('removing the state from a record that was loadingChildren does not show a spinner on its row', async () => {
