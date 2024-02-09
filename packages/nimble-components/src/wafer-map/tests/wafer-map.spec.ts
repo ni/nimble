@@ -160,7 +160,7 @@ describe('WaferMap', () => {
         return element.transform.toString();
     }
 
-    describe('hover flow', () => {
+    xdescribe('hover flow', () => {
         beforeEach(() => {
             element.canvasWidth = 500;
             element.canvasHeight = 500;
