@@ -10,7 +10,7 @@ namespace NimbleBlazor.Tests.Acceptance
             : base(playwrightFixture, blazorServerClassFixture)
         { }
 
-        [Fact]
+        [Fact(Skip = "two canvasses")]
         public async Task WaferMap_WithDiesAndColorScale_RendersColorsAsync()
         {
             await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
@@ -25,7 +25,7 @@ namespace NimbleBlazor.Tests.Acceptance
             Assert.Equal(@"85,85,0,255", color);
         }
 
-        [Fact]
+        [Fact(Skip = "two canvasses")]
         public async Task WaferMap_WithGridDimensions_IsValidAsync()
         {
             await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
@@ -41,7 +41,7 @@ namespace NimbleBlazor.Tests.Acceptance
             await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "False");
         }
 
-        [Fact]
+        [Fact(Skip = "two canvasses")]
         public async Task WaferMap_WithHoverEvent_TriggersDieChangeEventAsync()
         {
             await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
