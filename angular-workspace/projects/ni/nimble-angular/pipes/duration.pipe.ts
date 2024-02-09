@@ -5,7 +5,8 @@ import { DurationFormatter } from '@ni/nimble-components/dist/esm/table-column/d
  * A pipe that transforms a number of milliseconds (string/number) into a string formatted like "1 day, 2 hr, 3 min, 4.567 sec"
  */
 @Pipe({
-    name: 'duration'
+    name: 'duration',
+    standalone: true
 })
 export class DurationPipe implements PipeTransform {
     private readonly durationFormatter;

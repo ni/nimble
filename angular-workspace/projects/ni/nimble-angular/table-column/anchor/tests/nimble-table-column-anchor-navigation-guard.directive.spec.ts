@@ -24,7 +24,7 @@ describe('Nimble anchor table column navigation guard', () => {
     class TestHostBasicComponent {
         @ViewChild('table', { static: true }) public table: ElementRef<Table>;
 
-        public onClick(_rowRecordId: string | undefined): boolean {
+        public onClick(_rowRecordId: string | undefined, _href: string): boolean {
             return false;
         }
     }
@@ -41,7 +41,7 @@ describe('Nimble anchor table column navigation guard', () => {
     class TestHostWithTargetComponent {
         @ViewChild('table', { static: true }) public table: ElementRef<Table>;
 
-        public onClick(_rowRecordId: string | undefined): boolean {
+        public onClick(_rowRecordId: string | undefined, _href: string): boolean {
             return false;
         }
     }
@@ -87,7 +87,7 @@ describe('Nimble anchor table column navigation guard', () => {
             innerAnchor.click();
             tick();
 
-            expect(onClickSpy).toHaveBeenCalledOnceWith('1');
+            expect(onClickSpy).toHaveBeenCalledOnceWith('1', 'page1');
         }));
 
         const secondaryClickTests = [

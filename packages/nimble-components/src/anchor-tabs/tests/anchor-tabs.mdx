@@ -1,23 +1,27 @@
-import {
-    Controls,
-    DocsStory,
-    Meta,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
+import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import TargetDocs from '../../patterns/anchor/tests/target-docs.mdx';
+import { anchorTabTag } from '../../anchor-tab';
 import * as anchorTabsStories from './anchor-tabs.stories';
 
 <Meta of={anchorTabsStories} />
-
 <Title of={anchorTabsStories} />
-<Description of={anchorTabsStories} />
 
-<DocsStory of={anchorTabsStories.anchorTabs} expanded={false} />
+Anchor tabs are a sequence of links that are styled to look like tab elements, where one link can
+be distinguished as the currently active item. Use this component instead of the standard tabs component when each tab
+represents a different URL to navigate to. Use the standard tabs component when the tabs should switch between different
+tab panels hosted on the same page.
+
+<Canvas of={anchorTabsStories.anchorTabs} />
 <Controls of={anchorTabsStories.anchorTabs} />
 
-# Usage Docs
+{/* ## Appearances */}
+
+{/* ## Appearance Variants */}
+
+{/* ## Usage */}
+
+{/* ## Examples */}
 
 ## Target Configuration
 
@@ -26,5 +30,9 @@ import * as anchorTabsStories from './anchor-tabs.stories';
 ## Angular Usage
 
 In an Angular application, it is common to integrate with the router by setting `nimbleRouterLink` (rather than `href`)
-on each `nimble-anchor-tab` element. In those cases, it is recommended to also set `replaceUrl="true"` so that switching
+on each <Tag of={anchorTabTag} /> element. In those cases, it is recommended to also set `replaceUrl="true"` so that switching
 between tabs does not add to the browser history.
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}

@@ -1,5 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
@@ -15,7 +15,7 @@ import { AnchorAppearance } from '../../../anchor/types';
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Anchor',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: sharedTableActions
@@ -71,16 +71,8 @@ interface AnchorColumnTableArgs extends SharedTableArgs {
     underlineHidden: boolean;
 }
 
-const anchorColumnDescription = 'The `nimble-table-column-anchor` column is used to display string fields as links or text in the `nimble-table`. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.';
-
 export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: anchorColumnDescription
-            }
-        }
-    },
+    parameters: {},
     // prettier-ignore
     render: createUserSelectedThemeStory(html<AnchorColumnTableArgs>`
         <${tableTag}

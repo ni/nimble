@@ -13,20 +13,9 @@ interface TabsArgs {
     tabDisabled: boolean;
 }
 
-const overviewText = `Anchor tabs are a sequence of links that are styled to look like tab elements, where one link can
-be distinguished as the currently active item. Use this component instead of the standard tabs component when each tab
-represents a different URL to navigate to. Use the standard tabs component when the tabs should switch between different
-tab panels hosted on the same page.`;
-
 const metadata: Meta<TabsArgs> = {
     title: 'Components/Anchor Tabs',
-    parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        }
-    },
+    parameters: {},
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${anchorTabsTag} activeid="${x => x.activeId}">

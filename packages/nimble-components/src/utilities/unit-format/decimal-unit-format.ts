@@ -6,8 +6,8 @@ import { passthroughUnitScale } from './unit-scale/passthrough-unit-scale';
 interface DecimalUnitFormatOptions extends UnitFormatOptions {
     minimumFractionDigits?: number;
     maximumFractionDigits?: number;
-    unitScale?: UnitScale;
 }
+type ResolvedDecimalUnitFormatOptions = Required<DecimalUnitFormatOptions>;
 
 /**
  * Format for decimal numbers with units.
@@ -53,7 +53,7 @@ export class DecimalUnitFormat extends UnitFormat<DecimalUnitFormatOptions> {
         this.maximumFractionDigits = maximumFractionDigits;
     }
 
-    public override resolvedOptions(): Required<DecimalUnitFormatOptions> {
+    public override resolvedOptions(): ResolvedDecimalUnitFormatOptions {
         return {
             unitScale: this.unitScale,
             maximumFractionDigits: this.maximumFractionDigits,

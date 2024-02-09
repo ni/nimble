@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { NumberFieldAppearance } from '../types';
 import { numberFieldTag } from '..';
@@ -29,15 +29,8 @@ interface NumberFieldArgs extends LabelUserArgs {
 
 const metadata: Meta<NumberFieldArgs> = {
     title: 'Components/Number Field',
-    tags: ['autodocs'],
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    'Similar to a single line text box but only used for numeric data. The controls allow the user to increment and decrement the value.'
-            }
-        },
         actions: {
             handles: ['change', 'input']
         }

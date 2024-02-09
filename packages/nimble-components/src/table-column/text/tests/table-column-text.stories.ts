@@ -1,5 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
@@ -39,8 +39,7 @@ const simpleData = [
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Text',
-    decorators: [withActions],
-    tags: ['autodocs'],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: sharedTableActions
@@ -68,16 +67,8 @@ interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: TextColumnFieldNameOption;
 }
 
-const textColumnDescription = 'The `nimble-table-column-text` column is used to display string fields as text in the `nimble-table`.';
-
 export const textColumn: StoryObj<TextColumnTableArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: textColumnDescription
-            }
-        }
-    },
+    parameters: {},
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
         <${tableTag}

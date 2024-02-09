@@ -1,24 +1,20 @@
-import {
-    DocsStory,
-    Meta,
-    Controls,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import * as spinnerStories from './spinner.stories';
+import { spinnerTag } from '..';
 
 <Meta of={spinnerStories} />
-
 <Title of={spinnerStories} />
-<Description of={spinnerStories} />
 
-<DocsStory of={spinnerStories.spinner} expanded={false} />
+    The <Tag name={spinnerTag}/> is an animating indicator that can be placed in a
+    particular region of a page to represent loading progress, or an
+    ongoing operation, of an indeterminate / unknown duration.
+
+    It has 3 sizes (64px, 32px, and 16px) and 2 appearance types (default and
+    accent).
+
+<Canvas of={spinnerStories.spinner} />
 <Controls of={spinnerStories.spinner} />
-
-# Usage Docs
-
-<br />
 
 ## Sizing
 
