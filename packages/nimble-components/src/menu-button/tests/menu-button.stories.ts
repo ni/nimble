@@ -1,9 +1,9 @@
 import { html, when } from '@microsoft/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html' from '@storybook/html';
 import {
     createUserSelectedThemeStory,
-    disableStorybookZoomTransform,
-    withActions
+    disableStorybookZoomTransform
 } from '../../utilities/tests/storybook';
 import { ButtonAppearance, MenuButtonPosition } from '../types';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
@@ -30,7 +30,7 @@ This icon will be hidden when \`contentHidden\` is set to \`true\`
 
 const metadata: Meta<MenuButtonArgs> = {
     title: 'Components/Menu Button',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: ['toggle', 'beforetoggle']

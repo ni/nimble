@@ -1,9 +1,7 @@
 import { html, ref, when } from '@microsoft/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory,
-    withActions
-} from '../../../utilities/tests/storybook';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html' from '@storybook/html';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import {
     ExampleColumnFractionalWidthType,
     ExampleGroupingDisabledType,
@@ -81,7 +79,7 @@ information about specific types of column.`;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column Configuration',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         docs: {
             description: {

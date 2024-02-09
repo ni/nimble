@@ -1,9 +1,7 @@
 import { html, repeat, when } from '@microsoft/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory,
-    withActions
-} from '../../utilities/tests/storybook';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html' from '@storybook/html';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TreeViewSelectionMode } from '../types';
 import { treeViewTag } from '..';
 import { iconCogTag } from '../../icons/cog';
@@ -47,7 +45,7 @@ In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g
 
 const metadata: Meta<TreeArgs> = {
     title: 'Components/Tree View',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: ['expanded-change', 'selected-change']

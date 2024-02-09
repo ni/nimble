@@ -1,9 +1,7 @@
 import { html, when } from '@microsoft/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory,
-    withActions
-} from '../../utilities/tests/storybook';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html' from '@storybook/html';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ButtonAppearance } from '../types';
 import {
     contentHiddenDescription,
@@ -26,7 +24,7 @@ interface ToggleButtonArgs {
 
 const metadata: Meta<ToggleButtonArgs> = {
     title: 'Components/Toggle Button',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: ['change']

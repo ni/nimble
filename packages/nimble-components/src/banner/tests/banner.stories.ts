@@ -1,9 +1,7 @@
 import { html, when } from '@microsoft/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory,
-    withActions
-} from '../../utilities/tests/storybook';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { BannerSeverity } from '../types';
 import { bannerTag } from '..';
 import { iconKeyTag } from '../../icons/key';
@@ -40,7 +38,7 @@ interface BannerArgs extends LabelUserArgs {
 
 const metadata: Meta<BannerArgs> = {
     title: 'Components/Banner',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: ['toggle']

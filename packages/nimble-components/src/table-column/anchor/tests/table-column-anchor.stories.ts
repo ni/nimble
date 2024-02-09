@@ -1,9 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory,
-    withActions
-} from '../../../utilities/tests/storybook';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html' from '@storybook/html';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnAnchorTag } from '..';
 import {
@@ -17,7 +15,7 @@ import { AnchorAppearance } from '../../../anchor/types';
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Anchor',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: sharedTableActions

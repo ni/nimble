@@ -1,10 +1,8 @@
 import { html } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import { Orientation } from '@microsoft/fast-web-utilities';
 import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory,
-    withActions
-} from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { radioGroupTag } from '..';
 import { radioTag } from '../../radio';
 
@@ -18,7 +16,7 @@ interface RadioGroupArgs {
 
 const metadata: Meta<RadioGroupArgs> = {
     title: 'Components/Radio Group',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: ['change']

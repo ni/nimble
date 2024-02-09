@@ -1,10 +1,10 @@
 import { html, ref } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { AutoUpdateMode } from '@microsoft/fast-foundation';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
-    incubatingWarning,
-    withActions
+    incubatingWarning
 } from '../../utilities/tests/storybook';
 import {
     borderColor,
@@ -95,7 +95,7 @@ const complexContent = html<TooltipArgs>`
 
 const metadata: Meta<TooltipArgs> = {
     title: 'Incubating/Tooltip',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: ['dismiss']

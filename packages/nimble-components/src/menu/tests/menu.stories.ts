@@ -1,9 +1,7 @@
 import { html, repeat, when } from '@microsoft/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory,
-    withActions
-} from '../../utilities/tests/storybook';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html' from '@storybook/html';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { menuTag } from '..';
 import { iconArrowLeftFromLineTag } from '../../icons/arrow-left-from-line';
 import { iconUserTag } from '../../icons/user';
@@ -40,7 +38,7 @@ interface ItemArgs extends MenuItemArgs {
 
 const metadata: Meta<MenuArgs> = {
     title: 'Components/Menu',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: ['change']
