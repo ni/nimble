@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update import of <Tag> component to match other layout components",
-  "packageName": "@ni/nimble-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
