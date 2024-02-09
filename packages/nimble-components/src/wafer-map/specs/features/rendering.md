@@ -228,7 +228,7 @@ We may also implement an external queue canceling functionality.
 
 ## Open Issues
 
-User Indication for interactions in progress (>200ms) alternatives:
+User Indication for [interactions in progress (>200ms)](https://web.dev/articles/inp) possibilities:
 
 -   the wafer-map itself will show a spinner
 -   the wafer-map will fire an event to notify the app to present something that work is in progress
