@@ -1,7 +1,7 @@
-// eslint-disable-next-line max-classes-per-file
+// The FAST Select implementation has largely been forked into here, as there
+// was enough divergence to merit severing the relationship.
 import {
     attr,
-    DOM,
     html,
     observable,
     Observable,
@@ -52,9 +52,7 @@ declare global {
 type BooleanOrVoid = boolean | void;
 
 /**
- * A nimble-styled HTML select. The FAST Select implementation has largely been
- * forked into here, as there was enough divergence to merit severing the
- * relationship.
+ * A nimble-styled HTML select.
  */
 export class Select extends FormAssociatedSelect implements ErrorPattern {
     /**
@@ -140,7 +138,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @internal
      */
     @observable
-    public region?: AnchoredRegion;
+    public region!: AnchoredRegion;
 
     /** @internal */
     @observable
@@ -192,18 +190,38 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     private forcedPosition = false;
     private indexWhenOpened?: number;
 
+    // This intersection observer is to handle focus behavior for when the dropdown becomes
+    // visible.
+    private readonly regionElementIntersectionObserver: IntersectionObserver = new IntersectionObserver(
+        entries => {
+            if (
+                entries.length > 0
+                    && entries[entries.length - 1]!.intersectionRatio > 0
+            ) {
+                if (this.filterMode !== FilterMode.none) {
+                    this.filterInputElement?.focus();
+                } else {
+                    this.focus();
+                }
+            }
+        },
+        { threshold: 1.0, root: document }
+    );
+
     public override connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('change', this.changeValueHandler);
         this.addEventListener('contentchange', this.updateDisplayValue);
         this.forcedPosition = !!this.positionAttribute;
         this.initializeOpenState();
+        this.regionElementIntersectionObserver.observe(this.region);
     }
 
     public override disconnectedCallback(): void {
         this.removeEventListener('change', this.changeValueHandler);
         this.removeEventListener('contentchange', this.updateDisplayValue);
         super.disconnectedCallback();
+        this.regionElementIntersectionObserver.unobserve(this.region);
     }
 
     /**
@@ -330,14 +348,14 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         next: Element[]
     ): void {
         const value = this.value;
-        this.options.forEach(o => {
+        this._options.forEach(o => {
             const notifier = Observable.getNotifier(o);
             notifier.unsubscribe(this, 'value');
         });
 
         super.slottedOptionsChanged(prev, next);
 
-        this.options.forEach(o => {
+        this._options.forEach(o => {
             const notifier = Observable.getNotifier(o);
             notifier.subscribe(this, 'value');
         });
@@ -375,8 +393,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         super.clickHandler(e);
 
         this.open = this.collapsible && !this.open;
-
-        this.focusFilterInput();
 
         if (!this.open && this.indexWhenOpened !== this.selectedIndex) {
             this.updateValue(true);
@@ -518,7 +534,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 e.preventDefault();
                 if (this.collapsible && this.typeAheadExpired) {
                     this.open = !this.open;
-                    this.focusFilterInput();
+                }
+                if (!this.open) {
+                    this.focus();
                 }
                 break;
             }
@@ -537,7 +555,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 }
                 this.updateSelectedIndexFromFilteredSet();
                 this.open = !this.open;
-                this.focusFilterInput();
+                if (!this.open) {
+                    this.focus();
+                }
                 break;
             }
             case keyEscape: {
@@ -559,6 +579,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 if (selectedOption) {
                     selectedOption.selected = true;
                 }
+                this.focus();
                 break;
             }
             case keyTab: {
@@ -676,9 +697,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         if (this.open) {
             this.initializeOpenState();
             this.indexWhenOpened = this.selectedIndex;
-            if (this.filterMode === FilterMode.none) {
-                DOM.queueUpdate(() => this.focus());
-            }
 
             return;
         }
@@ -831,14 +849,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
         this.setPositioning();
         this.focusAndScrollOptionIntoView();
-    }
-
-    private focusFilterInput(): void {
-        if (this.open && this.filterMode !== FilterMode.none) {
-            window.requestAnimationFrame(() => {
-                this.filterInputElement?.focus();
-            });
-        }
     }
 
     private updateListboxMaxHeightCssVariable(): void {

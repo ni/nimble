@@ -1,28 +1,32 @@
-import {
-    Controls,
-    DocsStory,
-    Meta,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
+import { Tag } from '../../../.storybook/blocks/StoryLayout';
 import TargetDocs from '../../patterns/anchor/tests/target-docs.mdx';
 import * as menuStories from './menu.stories';
+import { menuTag } from '..';
+import { menuItemTag } from '../../menu-item';
+import { anchorMenuItemTag } from '../../anchor-menu-item';
 
 <Meta of={menuStories} />
-
 <Title of={menuStories} />
-<Description of={menuStories} />
 
-<DocsStory of={menuStories.menu} expanded={false} />
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/) - A menu is a widget that offers a list of choices to the user,
+such as a set of actions or functions. Menu widgets behave like native operating system menus, such as the menus that pull down from the
+menubars commonly found at the top of many desktop application windows. A menu is usually opened, or made visible, by activating a menu button,
+choosing an item in a menu that opens a sub menu, or by invoking a command, such as Shift + F10 in Windows, that opens a context specific menu.
+When a user activates a choice in a menu, the menu usually closes unless the choice opened a submenu.
+
+The <Tag name={menuTag}/> supports several child elements including `<header>`, `<hr>`, <Tag name={menuItemTag} open/> and <Tag name={anchorMenuItemTag} open/>.
+
+<Canvas of={menuStories.menu} />
 <Controls of={menuStories.menu} />
-
-# Usage Docs
 
 ## Child Elements
 
--   `nimble-menu-item` - Use this child element to execute a function when the item is activated or to include a sub-menu. To include a sub-menu, place a `nimble-menu` as a child of a `nimble-menu-item`.
--   `nimble-anchor-menu-item` - Use this child element to navigate to a URL when the item is activated.
+-   <Tag name={menuItemTag} /> - Use this child element to execute a function when
+    the item is activated or to include a sub-menu. To include a sub-menu, place
+    a <Tag name={menuTag} /> as a child of a <Tag name={menuItemTag} />.
+-   <Tag name={anchorMenuItemTag} /> - Use this child element to navigate to a URL
+    when the item is activated.
 
 ### Anchor Menu Item Target Configuration
 
@@ -34,4 +38,4 @@ The menu can be configured to display a custom header with arbitrary content. Th
 
 For example:
 
-<DocsStory of={menuStories.customMenu} expanded={false} />
+<Canvas of={menuStories.customMenu} />

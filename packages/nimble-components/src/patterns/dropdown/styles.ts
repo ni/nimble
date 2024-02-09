@@ -128,6 +128,10 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
+    :host([disabled]) .anchored-region {
+        color: ${bodyDisabledFontColor};
+    }
+
     :host([error-visible]) .control,
     :host([error-visible][open]) .control,
     :host([error-visible][disabled]) .control {
@@ -135,7 +139,7 @@ export const styles = css`
     }
 
     .anchored-region[hidden] {
-        visibility: hidden;
+        display: none;
     }
 
     .listbox {

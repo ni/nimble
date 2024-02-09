@@ -39,6 +39,14 @@ export class SelectPageObject {
         await waitForUpdatesAsync();
     }
 
+    public async setOptions(options: ListOption[]): Promise<void> {
+        options.forEach(option => {
+            option.setAttribute('role', 'option');
+        });
+        this.selectElement.slottedOptions = options;
+        await waitForUpdatesAsync();
+    }
+
     public getFilteredOptions(): ListOption[] {
         return this.selectElement.filteredOptions as ListOption[];
     }
@@ -61,6 +69,14 @@ export class SelectPageObject {
         }
 
         this.clickOption(this.selectElement.selectedIndex);
+    }
+
+    public async clickFilterInput(): Promise<void> {
+        if (!this.selectElement.filterInputElement) {
+            throw new Error('Filter input is not available.');
+        }
+        this.selectElement.filterInputElement.click();
+        await waitForUpdatesAsync();
     }
 
     public clickOption(index: number): void {

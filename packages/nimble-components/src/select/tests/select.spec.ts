@@ -1,12 +1,13 @@
 import { html, repeat } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
-import { listOptionTag } from '../../list-option';
+import { ListOption, listOptionTag } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { FilterMode } from '../types';
 import { SelectPageObject } from '../testing/select.pageobject';
 import { createEventListener } from '../../utilities/tests/component';
+import { filterSearchLabel } from '../../label-provider/core/label-tokens';
 
 async function setup(
     position?: string,
@@ -179,6 +180,19 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('pressing <Space> will select a new value and close dropdown', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const pageObject = new SelectPageObject(element);
+        await pageObject.clickSelect();
+        pageObject.pressArrowDownKey();
+        await pageObject.pressSpaceKey();
+        expect(element.value).toBe('two');
+        expect(element.open).toBeFalse();
+
+        await disconnect();
+    });
+
     describe('with 500 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             // prettier-ignore
@@ -302,6 +316,73 @@ describe('Select', () => {
             dispatchEventToSelectedValue(new MouseEvent('mouseout'));
             await waitForUpdatesAsync();
             expect(getSelectedValueTitle()).toBe('');
+        });
+    });
+
+    describe('opening and closing dropdown', () => {
+        let element: Select;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+        let pageObject: SelectPageObject;
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            element.style.width = '200px';
+            element.filterMode = FilterMode.standard;
+            await connect();
+            pageObject = new SelectPageObject(element);
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        const filterModeTestData = [
+            {
+                filter: FilterMode.none,
+                name: 'none'
+            },
+            {
+                filter: FilterMode.standard,
+                name: 'standard'
+            }
+        ];
+        filterModeTestData.forEach(testData => {
+            it(`pressing <Enter> opens dropdown when filterMode = ${testData.name}`, () => {
+                element.filterMode = testData.filter;
+                pageObject.pressEnterKey();
+                expect(element.open).toBeTrue();
+            });
+
+            it(`pressing <Space> opens dropdown when filterMode = ${testData.name}`, async () => {
+                element.filterMode = testData.filter;
+                await pageObject.pressSpaceKey();
+                expect(element.open).toBeTrue();
+            });
+
+            it(`after pressing <Esc> to close dropdown, <Enter> will re-open dropdown when filterMode = ${testData.name}`, async () => {
+                element.filterMode = testData.filter;
+                await pageObject.clickSelect();
+                pageObject.pressEscapeKey();
+                expect(element.open).toBeFalse();
+                pageObject.pressEnterKey();
+                expect(element.open).toBeTrue();
+            });
+
+            it(`after closing dropdown by pressing <Esc>, activeElement is Select element when filterMode = ${testData.name}`, async () => {
+                element.filterMode = testData.filter;
+                await pageObject.clickSelect();
+                pageObject.pressEscapeKey();
+                expect(document.activeElement).toBe(element);
+            });
+
+            it(`after closing dropdown by committing a value with <Enter>, activeElement is Select element when filterMode = ${testData.name}`, async () => {
+                element.filterMode = testData.filter;
+                await pageObject.clickSelect();
+                pageObject.pressArrowDownKey();
+                pageObject.pressEnterKey();
+                expect(document.activeElement).toBe(element);
+            });
         });
     });
 
@@ -445,11 +526,9 @@ describe('Select', () => {
             expect(element.open).toBeTrue();
         });
 
-        it('pressing <Space> twice when Select is focused will enter " " as filter text', async () => {
-            await pageObject.pressSpaceKey();
+        it('pressing <Space> after dropdown is open will enter " " as filter text and keep dropdown open', async () => {
+            await pageObject.clickSelect();
             await waitForUpdatesAsync();
-            expect(element.open).toBeTrue();
-
             await pageObject.pressSpaceKey();
             await waitForUpdatesAsync();
             expect(element.open).toBeTrue();
@@ -506,13 +585,6 @@ describe('Select', () => {
             expect(element.value).toBe('one');
         });
 
-        it('after pressing <Esc> to close dropdown, <Enter> will re-open dropdown', async () => {
-            await pageObject.clickSelect();
-            pageObject.pressEscapeKey();
-            pageObject.pressEnterKey();
-            expect(element.open).toBeTrue();
-        });
-
         it('filtering to only disabled item, then clicking away does not change value', async () => {
             await pageObject.openAndSetFilterText('Disabled');
             await pageObject.clickAway();
@@ -523,6 +595,41 @@ describe('Select', () => {
         it('filtering to only disabled item does not select item', async () => {
             await pageObject.openAndSetFilterText('Disabled');
             expect(pageObject.getSelectedOption()).toBeNull();
+        });
+
+        it('updating slottedOptions while open applies filter to new options', async () => {
+            const newOptions = [
+                new ListOption('Ten', 'ten'),
+                new ListOption('Twenty', 'twenty')
+            ];
+            await pageObject.openAndSetFilterText('tw');
+            expect(pageObject.getFilteredOptions()[0]?.value).toBe('two');
+            await pageObject.setOptions(newOptions);
+            expect(pageObject.getFilteredOptions()[0]?.value).toBe('twenty');
+        });
+
+        it('clicking in filter input after dropdown is open, does not close dropdown', async () => {
+            await pageObject.clickSelect();
+            await pageObject.clickFilterInput();
+            expect(element.open).toBeTrue();
+        });
+
+        it('filter input placeholder gets text from design token', async () => {
+            filterSearchLabel.setValueFor(element, 'foo');
+            await waitForUpdatesAsync();
+            const filterInput = element.shadowRoot?.querySelector('.filter-input');
+            expect(filterInput?.getAttribute('placeholder')).toBe('foo');
+        });
+
+        it('filter input "aria-controls" and "aria-activedescendant" attributes are set to element state', async () => {
+            await pageObject.clickSelect();
+            const filterInput = element.shadowRoot?.querySelector('.filter-input');
+            expect(filterInput?.getAttribute('aria-controls')).toBe(
+                element.ariaControls
+            );
+            expect(filterInput?.getAttribute('aria-activedescendant')).toBe(
+                element.ariaActiveDescendant
+            );
         });
     });
 });

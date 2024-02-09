@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 02 Feb 2024 21:51:03 GMT and should not be manually modified.
+This log was last generated on Fri, 09 Feb 2024 02:02:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.3.1
+
+Fri, 09 Feb 2024 02:02:53 GMT
+
+### Patches
+
+- Update Storybook to 7.6.13 ([ni/nimble@e68df6d](https://github.com/ni/nimble/commit/e68df6d348dcaa664e87db35725f9d30f2d2dca5))
+
+## 21.3.0
+
+Wed, 07 Feb 2024 21:48:45 GMT
+
+### Minor changes
+
+- Extend nimble-table API to allow specifying that a record has children that can be loaded when the row is expanded ([ni/nimble@8d58b01](https://github.com/ni/nimble/commit/8d58b0180a3fb2c5a837718a6da3489b67d821bc))
+
+## 21.2.1
+
+Wed, 07 Feb 2024 19:06:22 GMT
+
+### Patches
+
+- fixed wafer map component test warnings ([ni/nimble@9fdd20d](https://github.com/ni/nimble/commit/9fdd20db5366e435fc4576d5a4881959fa143e30))
 
 ## 21.2.0
 
