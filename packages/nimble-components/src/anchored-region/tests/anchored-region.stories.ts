@@ -14,24 +14,9 @@ interface AnchoredRegionArgs {
     verticalPosition: string;
 }
 
-const overviewText = `The anchored region should not generally be used directly by nimble clients. Instead, it is intended to be used within other nimble
-components where one part of the component needs to be dynamically positioned based on another element within the component. For example, the popup menu
-within a menu button or a tooltip.
-
-An anchored region is a container component which enables authors to create layouts where the contents of the anchored region can be positioned relative
-to another "anchor" element. Additionally, the anchored region can react to the available space between the anchor and a parent
-["viewport"](https://developer.mozilla.org/en-US/docs/Glossary/viewport) element such that the region is placed on the side of the anchor with the most
-available space, or even resize itself based on that space.`;
-
 const metadata: Meta<AnchoredRegionArgs> = {
     title: 'Tests/Anchored Region',
-    parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        }
-    },
+    parameters: {},
     // prettier-ignore
     render: createUserSelectedThemeStory(html<AnchoredRegionArgs>`
         <style>

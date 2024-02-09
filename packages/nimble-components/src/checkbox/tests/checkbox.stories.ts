@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { checkboxTag } from '..';
 
@@ -13,15 +13,8 @@ interface CheckboxArgs {
 
 const metadata: Meta<CheckboxArgs> = {
     title: 'Components/Checkbox',
-    tags: ['autodocs'],
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    'Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/) – The dual-state checkbox is the most common type, as it allows the user to toggle between two choices: checked and not checked.'
-            }
-        },
         actions: {
             handles: ['change']
         }

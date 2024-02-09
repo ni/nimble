@@ -1,25 +1,27 @@
-import {
-    Controls,
-    DocsStory,
-    Meta,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import { Tag } from '../../../../.storybook/blocks/StoryLayout';
+import { NimbleTableColumnNumberText } from './table-column-number-text.react';
+import { columnOperationBehavior } from '../../base/tests/table-column-stories-utils';
 import * as tableColumnNumberTextStories from './table-column-number-text.stories';
+import { tableColumnNumberTextTag } from '..';
+import { tableTag } from '../../../table';
 
 <Meta of={tableColumnNumberTextStories} />
-
 <Title of={tableColumnNumberTextStories} />
-<Description of={tableColumnNumberTextStories} />
 
-<DocsStory
-    of={tableColumnNumberTextStories.numberTextColumn}
-    expanded={false}
-/>
+The <Tag name={tableColumnNumberTextTag}/> column is used to display number fields as text in the <Tag name={tableTag}/>. Numbers are formatted in a locale-specific way
+based on the value of the `lang` token, which can be set via the [nimble-theme-provider](?path=/docs/tokens-theme-provider--docs).
+
+<p>{columnOperationBehavior}</p>
+
+<Canvas of={tableColumnNumberTextStories.numberTextColumn} />
 <Controls of={tableColumnNumberTextStories.numberTextColumn} />
 
-# Usage Docs
+{/* ## Appearances */}
+
+{/* ## Appearance Variants */}
+
+{/* ## Usage */}
 
 ## Angular Usage
 
@@ -36,3 +38,9 @@ To use it:
     -   `decimalDigits` - When `numberTextFormat` is `NumberTextFormat.decimal`, specifies the number of decimal places to show. If neither `decimalDigits` or `decimalMaximumDigits` are set, a default value of 2 is used. `decimalDigits` and `decimalMaximumDigits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).
     -   `decimalMaximumDigits` - When `numberTextFormat` is `NumberTextFormat.decimal`, specifies the maximum number of decimal places to show. This differs from `decimalDigits` in that trailing zeros are omitted. `decimalDigits` and `decimalMaximumDigits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).
     -   `unitScale` - A `UnitScale` object indicating units to display. Possible values are `byteUnitScale`, `byte1024UnitScale`, and `voltUnitScale` which are exported from `@ni/nimble-angular/pipes`.
+
+{/* ## Examples */}
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Security.Principal;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Bunit;
 using Xunit;
 #nullable enable
@@ -106,27 +107,29 @@ public class NimbleTableTests
     }
 
     [Fact]
-    public void NimbleTable_GivenSupportedData_ThrowsNoException()
+    public async Task NimbleTable_GivenSupportedData_ThrowsNoExceptionAsync()
     {
         var parentRowData = new TableRowData("Bob", "Smith");
         var childRowData = new TableRowData("Sally", "Smith");
         var tableData = new TableRowData[] { parentRowData, childRowData };
+        var table = Render<TableRowData>();
 
-        var ex = Record.Exception(() => { RenderWithPropertySet<IEnumerable<TableRowData>, TableRowData>(x => x.Data, tableData); });
+        var ex = Record.ExceptionAsync(async () => { await table.Instance.SetDataAsync(tableData); });
 
-        Assert.Null(ex);
+        Assert.Null(ex.Result);
     }
 
     [Fact]
-    public void NimbleTable_GivenUnsupportedData_ThrowsJsonException()
+    public async Task NimbleTable_GivenUnsupportedData_ThrowsJsonExceptionAsync()
     {
         var parentRowData = new BadTableRowData("Bob", "Smith");
         var childRowData = new BadTableRowData("Sally", "Smith", parentRowData);
         var tableData = new BadTableRowData[] { parentRowData, childRowData };
+        var table = Render<BadTableRowData>();
 
-        var ex = Record.Exception(() => { RenderWithPropertySet<IEnumerable<BadTableRowData>, BadTableRowData>(x => x.Data, tableData); });
+        var ex = Record.ExceptionAsync(async () => { await table.Instance.SetDataAsync(tableData); });
 
-        Assert.IsType<JsonException>(ex);
+        Assert.IsType<JsonException>(ex.Result);
     }
 
     private IRenderedComponent<NimbleTable<TTable>> RenderWithPropertySet<TProperty, TTable>(Expression<Func<NimbleTable<TTable>, TProperty>> propertyGetter, TProperty propertyValue)
@@ -134,5 +137,12 @@ public class NimbleTableTests
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         return context.RenderComponent<NimbleTable<TTable>>(p => p.Add(propertyGetter, propertyValue));
+    }
+
+    private IRenderedComponent<NimbleTable<TTable>> Render<TTable>()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        return context.RenderComponent<NimbleTable<TTable>>();
     }
 }

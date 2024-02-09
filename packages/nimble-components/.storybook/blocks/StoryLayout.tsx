@@ -61,3 +61,20 @@ export const Dont = ({ children }) => {
         </Container>
     );
 };
+
+/**
+ * Renders a "Tag" component for Storybook documentation.
+ */
+export const Tag = ({ name, open, openClose, close, selfClose }) => {
+    if (open) {
+        return (<code>&lt;{name}&gt;</code>);
+    } else if (close) {
+        return (<code>&lt;/{name}&gt;</code>);
+    } else if (openClose) {
+        return (<code>&lt;{name}&gt;&lt;/{name}&gt;</code>);
+    } else if (selfClose) {
+        return (<code>&lt;{name}/&gt;</code>);
+    } else {
+        return (<code>{name}</code>);
+    }
+};
