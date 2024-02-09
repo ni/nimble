@@ -2,12 +2,11 @@ import { ViewTemplate, html } from '@microsoft/fast-element';
 import type { Meta, StoryFn } from '@storybook/html';
 import {
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    createMatrixThemeStory
 } from '../../utilities/tests/matrix';
-import {
-    createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
+import { createStory } from '../../utilities/tests/storybook';
+
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { listOptionTag } from '../../list-option';
 import { numberFieldTag } from '../../number-field';
