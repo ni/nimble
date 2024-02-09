@@ -523,10 +523,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         if (e.ctrlKey || e.shiftKey) {
             return true;
         }
-        if (this.filterMode !== FilterMode.none && this.open && document.activeElement !== this.filterInputElement) {
-            this.filterInputElement?.focus();
-            return this.filterInputElement?.dispatchEvent(e);
-        }
 
         switch (key) {
             case keySpace: {
