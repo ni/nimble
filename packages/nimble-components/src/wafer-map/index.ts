@@ -152,6 +152,11 @@ export class WaferMap extends FoundationElement {
      */
     @observable public hoverDie: WaferMapDie | undefined;
 
+    /**
+     * @internal
+     */
+    @observable public performanceTest: string | undefined;
+
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public dieMatrix: WaferMapData = {
@@ -199,6 +204,7 @@ export class WaferMap extends FoundationElement {
      * The hover does not require an event update, but it's also the last update in the sequence.
      */
     public update(): void {
+        const start = this.performanceTest !== undefined ? performance.now() : undefined;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
             this.waferMapValidator.validateGridDimensions();
@@ -229,6 +235,9 @@ export class WaferMap extends FoundationElement {
             this.eventCoordinator.attachEvents();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.matrixRenderer.renderHover();
+        }
+        if (this.performanceTest !== undefined) {
+            performance.measure(`${this.performanceTest} - update`, { start });
         }
     }
 
@@ -333,6 +342,11 @@ export class WaferMap extends FoundationElement {
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
         this.waferMapUpdateTracker.track('hoverDie');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private performanceTestChanged(): void {
+        this.waferMapUpdateTracker.track('canvasHeight');
         this.waferMapUpdateTracker.queueUpdate();
     }
 }

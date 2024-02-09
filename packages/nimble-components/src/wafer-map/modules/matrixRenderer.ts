@@ -114,7 +114,8 @@ export class MatrixRenderer {
                     method: 'setCanvas',
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                     canvas: offscreenOne,
-                    worker: 0
+                    worker: 0,
+                    performanceTest: this.wafermap.performanceTest
                 },
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                 [offscreenOne]
@@ -124,7 +125,8 @@ export class MatrixRenderer {
                     method: 'setCanvas',
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                     canvas: offscreenTwo,
-                    worker: 1
+                    worker: 1,
+                    performanceTest: this.wafermap.performanceTest
                 },
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                 [offscreenTwo]

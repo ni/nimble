@@ -3,6 +3,7 @@ import type { WaferMap } from '..';
 import { UpdateTracker } from '../../utilities/models/update-tracker';
 
 const trackedItems = [
+    'performanceTest',
     'highlightedTags',
     'canvasWidth',
     'canvasHeight',
@@ -50,6 +51,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('dieLabelsHidden')
             || this.isTracked('dieLabelsSuffix')
             || this.isTracked('transform')
+            || this.isTracked('performanceTest')
         );
     }
 
@@ -85,6 +87,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('highlightedTags')
             || this.isTracked('dieLabelsHidden')
             || this.isTracked('dieLabelsSuffix')
+            || this.isTracked('performanceTest')
         );
     }
 

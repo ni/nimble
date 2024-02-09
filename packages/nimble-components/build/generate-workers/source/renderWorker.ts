@@ -31,6 +31,7 @@ export class RenderWorker {
     private yLimits: { min: number, max: number } = { min: 0, max: 0 };
     private xLimits: { min: number, max: number } = { min: 0, max: 0 };
     private transform: { k: number, x: number, y: number } = { k: 1, x: 0, y: 0 };
+    private performanceTest: string | undefined;
 
     public setCanvasDimensions(data: { width: number, height: number }): void {
         this.canvas.width = data.width;
@@ -65,9 +66,10 @@ export class RenderWorker {
         );
     }
 
-    public setCanvas(data: { canvas: OffscreenCanvas, worker: number }): void {
+    public setCanvas(data: { canvas: OffscreenCanvas, worker: number, performanceTest: string| undefined }): void {
         this.canvas = data.canvas;
         this.worker = data.worker;
+        this.performanceTest = data.performanceTest;
         this.context = data.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
@@ -183,10 +185,14 @@ export class RenderWorker {
             dieValuesLayer: Iterable<number>,
         }
     ): void {
+        const start = this.performanceTest !== undefined ? self.performance.now() : undefined;
         this.dieMatrix.dieColIndexArray = Int32Array.from(data.dieColIndexArray);
         this.dieMatrix.rowLengthsArray = Int32Array.from(data.rowLengthsArray);
         this.dieMatrix.dieRowIndexLayer = Int32Array.from(data.dieRowIndexLayer);
         this.dieMatrix.dieValuesLayer = Int32Array.from(data.dieValuesLayer);
         this.rerenderDies();
+        if (this.performanceTest !== undefined) {
+            self.performance.measure(`${this.performanceTest} - worker:${this.worker} - renderDies`, { start });
+        }
     }
 }

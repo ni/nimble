@@ -14,6 +14,7 @@ async function runBenchmark(benchmark: string, dieCount: number): Promise<void> 
 
     const start = performance.now();
     const waferMap = document.createElement(waferMapTag);
+    waferMap.performanceTest = benchmark;
     waferMap.dies = waferMapDies;
     waferMap.colorScale = {
         colors: ['red', 'orange', 'yellow', 'green'],
