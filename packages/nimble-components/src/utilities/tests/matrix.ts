@@ -1,15 +1,12 @@
 import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
+import { fastParameters, renderViewTemplate } from './storybook';
+import { themeProviderTag } from '../../theme-provider';
+import { type BackgroundState, backgroundStates } from './states';
 
 export const sharedMatrixParameters = () => ({
+    ...fastParameters(),
     controls: {
         hideNoControlsWarning: true
-    },
-    a11y: { disable: true },
-    docs: {
-        source: {
-            code: null
-        },
-        transformSource: (source: string): string => source
     },
     backgrounds: {
         disable: true,
@@ -223,3 +220,30 @@ export function createMatrix(
         `)}
     `;
 }
+/**
+ *  Renders a FAST `html` template for each theme.
+ */
+
+export const createMatrixThemeStory = <TSource>(
+    viewTemplate: ViewTemplate<TSource>
+): ((source: TSource) => Element) => {
+    return (source: TSource): Element => {
+        const matrixTemplate = createMatrix(
+            ({ theme, value }: BackgroundState) => html`
+                <${themeProviderTag}
+                    theme="${theme}">
+                    <div style="background-color: ${value}; padding:20px;">
+                        ${viewTemplate}
+                    </div>
+                </${themeProviderTag}>
+            `,
+            [backgroundStates]
+        );
+        const wrappedMatrixTemplate = html<TSource>`
+            <div class="code-hide-top-container">${matrixTemplate}</div>
+        `;
+        const fragment = renderViewTemplate(wrappedMatrixTemplate, source);
+        const content = fragment.firstElementChild!;
+        return content;
+    };
+};

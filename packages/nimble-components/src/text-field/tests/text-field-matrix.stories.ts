@@ -3,14 +3,14 @@ import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createStory,
-    createFixedThemeStory,
-    createMatrixThemeStory
+    createFixedThemeStory
 } from '../../utilities/tests/storybook';
-import { TextFieldAppearance, TextFieldType } from '../types';
 import {
+    createMatrixThemeStory,
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
+import { TextFieldAppearance, TextFieldType } from '../types';
 import {
     disabledStates,
     DisabledState,
