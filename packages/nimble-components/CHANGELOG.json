@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 09 Feb 2024 02:02:53 GMT",
+      "version": "21.3.1",
+      "tag": "@ni/nimble-components_v21.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e68df6d348dcaa664e87db35725f9d30f2d2dca5",
+            "comment": "Update Storybook to 7.6.13"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 08 Feb 2024 19:42:05 GMT",
       "version": "21.3.0",
       "tag": "@ni/nimble-components_v21.3.0",
