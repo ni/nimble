@@ -191,7 +191,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     private forcedPosition = false;
     private indexWhenOpened?: number;
 
-    private readonly anchorElementIntersectionObserver: IntersectionObserver = new IntersectionObserver(
+    private readonly regionElementIntersectionObserver: IntersectionObserver = new IntersectionObserver(
         entries => {
             if (
                 entries.length > 0
@@ -213,14 +213,14 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.addEventListener('contentchange', this.updateDisplayValue);
         this.forcedPosition = !!this.positionAttribute;
         this.initializeOpenState();
-        this.anchorElementIntersectionObserver.observe(this.region);
+        this.regionElementIntersectionObserver.observe(this.region);
     }
 
     public override disconnectedCallback(): void {
         this.removeEventListener('change', this.changeValueHandler);
         this.removeEventListener('contentchange', this.updateDisplayValue);
         super.disconnectedCallback();
-        this.anchorElementIntersectionObserver.unobserve(this.region);
+        this.regionElementIntersectionObserver.unobserve(this.region);
     }
 
     /**
