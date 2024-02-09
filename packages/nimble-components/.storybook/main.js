@@ -1,3 +1,4 @@
+import { dirname, join } from 'path';
 import remarkGfm from 'remark-gfm';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 
@@ -22,12 +23,13 @@ export const addons = [
             }
         }
     },
-    '@storybook/addon-a11y',
-    '@storybook/addon-interactions'
+    getAbsolutePath('@storybook/addon-a11y'),
+    getAbsolutePath('@storybook/addon-interactions')
+    // getAbsolutePath('@storybook/addon-webpack5-compiler-babel')
 ];
 export function webpackFinal(config) {
     config.module.rules.push({
-        test: /\.ts$/,
+        test: /\.(ts|tsx)$/,
         use: [
             {
                 loader: require.resolve('ts-loader')
@@ -47,10 +49,18 @@ export function webpackFinal(config) {
 }
 export const staticDirs = ['public'];
 export const framework = {
-    name: '@storybook/html-webpack5',
+    name: getAbsolutePath('@storybook/html-webpack5'),
     options: {
         builder: {
             useSWC: true
         }
     }
 };
+
+export const docs = {
+    autodocs: false
+};
+
+function getAbsolutePath(value) {
+    return dirname(require.resolve(join(value, 'package.json')));
+}

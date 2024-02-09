@@ -20,7 +20,8 @@
         "importsNotUsedAsValues": "error",
         "noImplicitOverride": true,
         "noUncheckedIndexedAccess": true,
-        "noPropertyAccessFromIndexSignature": false
+        "noPropertyAccessFromIndexSignature": false,
+        "jsx": "react"
     },
     "include": ["src"]
 }

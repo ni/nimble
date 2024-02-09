@@ -1,4 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -83,7 +83,7 @@ const component = (
     <div style="height: var(${bannerGapSize.cssCustomProperty})"></div>
 `;
 
-export const bannerThemeMatrix: Story = createMatrixThemeStory(
+export const bannerThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         severityStates,
         actionStates,
@@ -92,7 +92,7 @@ export const bannerThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenBanner: Story = createStory(
+export const hiddenBanner: StoryFn = createStory(
     hiddenWrapper(
         html`<${bannerTag} hidden>
             <span slot="title">Hidden banner</span>

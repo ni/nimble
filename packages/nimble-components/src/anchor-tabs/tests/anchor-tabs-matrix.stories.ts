@@ -1,4 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
+import type { Meta, StoryFn } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
@@ -48,11 +48,11 @@ const component = (
     </${anchorTabsTag}>
 `;
 
-export const anchorTabsThemeMatrix: Story = createMatrixThemeStory(
+export const anchorTabsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [tabsToolbarState, disabledStates])
 );
 
-export const hiddenTabs: Story = createStory(
+export const hiddenTabs: StoryFn = createStory(
     hiddenWrapper(
         html`<${anchorTabsTag} hidden>
             <${anchorTabTag}>Tab One</${anchorTabTag}>
@@ -60,7 +60,7 @@ export const hiddenTabs: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
             <${anchorTabsTag}>
