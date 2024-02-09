@@ -156,6 +156,7 @@ export const incubatingWarning = (config: IncubatingWarningConfig): string => `
 #incubating-warning {
     color: red;
     font: var(${bodyFont.cssCustomProperty});
+    padding-bottom: 16px;
 }
 </style>
 <div id="incubating-warning" class="code-hide">

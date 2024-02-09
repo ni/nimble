@@ -81,14 +81,7 @@ const maxHeights = {
 
 const metadata: Meta<DialogArgs> = {
     title: 'Components/Dialog',
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    'A modal dialog that appears centered on top of all other windows, blocking other interaction until dismissed.\n\nBy default, the first focusable control gets focus when the dialog is opened. To focus a specific element instead, set the `autofocus` attribute on that element.'
-            }
-        }
-    },
+    parameters: {},
     render: createUserSelectedThemeStory(html`
         <style class="code-hide">
             .first-button {

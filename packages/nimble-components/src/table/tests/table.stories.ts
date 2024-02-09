@@ -1,10 +1,13 @@
 import { html, ref } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
-import { TableRowSelectionMode } from '../types';
+import {
+    TableRecordDelayedHierarchyState,
+    TableRowSelectionMode
+} from '../types';
 import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
@@ -16,8 +19,43 @@ import {
 import { labelProviderTableTag } from '../../label-provider/table';
 import { tableColumnNumberTextTag } from '../../table-column/number-text';
 
-interface TableArgs extends LabelUserArgs {
-    data: ExampleDataType;
+interface BaseTableArgs extends LabelUserArgs {
+    tableRef: Table;
+    updateData: (args: BaseTableArgs) => void;
+}
+
+const metadata: Meta<BaseTableArgs> = {
+    title: 'Components/Table',
+    decorators: [withActions<HtmlRenderer>],
+    parameters: {
+        actions: {
+            handles: [
+                'action-menu-beforetoggle',
+                'action-menu-toggle',
+                'selection-change',
+                'column-configuration-change',
+                'row-expand-toggle'
+            ]
+        }
+    },
+    argTypes: {
+        tableRef: {
+            table: {
+                disable: true
+            }
+        },
+        updateData: {
+            table: {
+                disable: true
+            }
+        }
+    }
+};
+
+export default metadata;
+addLabelUseMetadata(metadata, labelProviderTableTag);
+
+interface TableArgs extends BaseTableArgs {
     selectionMode: keyof typeof TableRowSelectionMode;
     idFieldName: undefined;
     parentIdFieldName: undefined;
@@ -25,8 +63,7 @@ interface TableArgs extends LabelUserArgs {
     checkValidity: undefined;
     setSelectedRecordIds: undefined;
     getSelectedRecordIds: undefined;
-    tableRef: Table;
-    updateData: (args: TableArgs) => void;
+    data: ExampleDataType;
 }
 
 const simpleData = [
@@ -35,21 +72,24 @@ const simpleData = [
         lastName: 'Wiggum',
         age: 12,
         quote: "I'm in danger!",
-        parentId: undefined
+        parentId: undefined,
+        id: '0'
     },
     {
         firstName: 'Milhouse',
         lastName: 'Van Houten',
         age: 12,
         quote: "Not only am I not learning, I'm forgetting stuff I used to know!",
-        parentId: undefined
+        parentId: undefined,
+        id: '1'
     },
     {
         firstName: 'Ned',
         lastName: 'Flanders',
         age: 34,
         quote: 'Hi diddly-ho neighbor!',
-        parentId: undefined
+        parentId: undefined,
+        id: '2'
     }
 ] as const;
 
@@ -167,15 +207,6 @@ const dataSets = {
     [ExampleDataType.hierarchicalDataSet]: hierarchicalData
 } as const;
 
-const dataSetIdFieldNames = {
-    [ExampleDataType.simpleData]: 'firstName',
-    [ExampleDataType.largeDataSet]: 'id',
-    [ExampleDataType.hierarchicalDataSet]: 'id'
-} as const;
-
-const overviewText = `The \`nimble-table\` is a component that offers a way to render tabular data in a variety of ways in each column.
-For information about configuring table columns, see **Table Column Configuration** and **Table Column Types**.`;
-
 const dataDescription = `To set the data on the table, call \`setData()\` with an array data records. Each record is made up of fields,
 which are key/value pairs. The key in each pair must be of type \`string\`, which is defined by the type \`TableFieldName\`. The value
 in each pair must be of type \`string\`, \`number\`, \`boolean\`, \`null\`, or \`undefined\`, which is defined by the type \`TableFieldValue\`.
@@ -233,31 +264,13 @@ const setSelectedRecordIdsDescription = `A function that makes the rows associat
 If a record does not exist in the table's data, it will not be selected. If multiple record IDs are specified when the table's selection
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
-const metadata: Meta<TableArgs> = {
-    title: 'Components/Table',
-    decorators: [withActions],
-    parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
-        actions: {
-            handles: [
-                'action-menu-beforetoggle',
-                'action-menu-toggle',
-                'selection-change',
-                'column-configuration-change',
-                'row-expand-toggle'
-            ]
-        }
-    },
+export const table: StoryObj<TableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
-            id-field-name="${x => dataSetIdFieldNames[x.data]}"
+            id-field-name="id"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
         >
@@ -362,16 +375,6 @@ const metadata: Meta<TableArgs> = {
             description:
                 'A function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.',
             control: false
-        },
-        tableRef: {
-            table: {
-                disable: true
-            }
-        },
-        updateData: {
-            table: {
-                disable: true
-            }
         }
     },
     args: {
@@ -385,14 +388,79 @@ const metadata: Meta<TableArgs> = {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
+                const args = x as TableArgs;
                 await customElements.whenDefined('nimble-table');
-                await x.tableRef.setData(dataSets[x.data]);
+                await args.tableRef.setData(dataSets[args.data]);
             })();
         }
     }
 };
-addLabelUseMetadata(metadata, labelProviderTableTag);
 
-export default metadata;
+interface DelayedHierarchyTableArgs extends BaseTableArgs {
+    firstRecordState: keyof typeof TableRecordDelayedHierarchyState;
+}
 
-export const table: StoryObj<TableArgs> = {};
+export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html<DelayedHierarchyTableArgs>`
+        <${tableTag}
+            ${ref('tableRef')}
+            id-field-name="id"
+            data-unused="${x => x.updateData(x)}"
+            parent-id-field-name="parentId"
+        >
+            <${tableColumnTextTag}
+                column-id="first-name-column"
+                field-name="firstName"
+                action-menu-slot="name-menu" action-menu-label="Configure name"
+            >
+                <${iconUserTag} title="First Name"></${iconUserTag}>
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                column-id="last-name-column"
+                field-name="lastName"
+                action-menu-slot="name-menu" action-menu-label="Configure name"
+            >
+                Last Name
+            </${tableColumnTextTag}>
+        </${tableTag}>
+    `),
+    argTypes: {
+        firstRecordState: {
+            name: 'First record delayed hierarchy state',
+            options: Object.keys(TableRecordDelayedHierarchyState),
+            control: { type: 'radio' }
+        },
+        usedLabels: {
+            table: {
+                disable: true
+            }
+        }
+    },
+    args: {
+        tableRef: undefined,
+        firstRecordState: TableRecordDelayedHierarchyState.canLoadChildren,
+        updateData: x => {
+            void (async () => {
+                // Safari workaround: the table element instance is made at this point
+                // but doesn't seem to be upgraded to a custom element yet
+                const args = x as DelayedHierarchyTableArgs;
+                await customElements.whenDefined('nimble-table');
+                await args.tableRef.setData(
+                    dataSets[ExampleDataType.simpleData]
+                );
+                await args.tableRef.setRecordHierarchyOptions([
+                    {
+                        recordId: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState[
+                                    args.firstRecordState
+                                ]
+                        }
+                    }
+                ]);
+            })();
+        }
+    }
+};

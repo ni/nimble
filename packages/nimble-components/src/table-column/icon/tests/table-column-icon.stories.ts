@@ -5,7 +5,6 @@ import { tableTag } from '../../../table';
 import { tableColumnIconTag } from '..';
 import {
     SharedTableArgs,
-    columnOperationBehavior,
     sharedTableArgTypes,
     sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
@@ -44,19 +43,9 @@ const simpleData = [
     }
 ] as const;
 
-const iconColumnDescription = `The \`nimble-table-column-icon\` column renders string, number, or boolean values as a Nimble icon or \`nimble-spinner\` in the \`nimble-table\`.
-
-${columnOperationBehavior}`;
-
 const metadata: Meta<IconColumnTableArgs> = {
     title: 'Components/Table Column: Icon',
-    parameters: {
-        docs: {
-            description: {
-                component: iconColumnDescription
-            }
-        }
-    }
+    parameters: {}
 };
 
 export default metadata;
