@@ -15,6 +15,8 @@ The proposed design should consider the following factors:
 
 By addressing these challenges, we aim to enhance the rendering capabilities of our application and provide a smoother and more responsive user interface.
 
+The current datasets for the wafer map component sit at an upper bound of 400k dies. We soon expect that number to increase, maybe even double, which is why we are aiming to provide adequate performance at the 1M threshold and useable performance for higher die counts.
+
 ### Observed Wafer Component Improvements
 
 The next table records the previous wafer implementation First Time Load with
@@ -80,7 +82,7 @@ The POC is found in this branch [Worker Rendering POC](https://github.com/ni/nim
 
 ### Data Structure and Interface
 
-This is the proposed representation of the wafer information in memory
+We have two possible solutions for representing the data in the memory. They will be decided with a spec update. The fist one is an in-house solution:
 
 ```TS
 class WaferData {
@@ -91,37 +93,51 @@ class WaferData {
     // the y coordinates of each die as a matrix row by row
     dieRowIndexLayer: Int32Array;
     // the value of each die as a matrix row by row
-    dieValuesLayer: Int32Array;
-    // the highlight state of each die as a matrix row by row
+    dieValuesLayer: Float64Array;
+    // the highlight  approach is still undecided, we have two options:
+    // the highlight state of each die as a matrix; user will have to pre-calculate tags into highlighted conditions.
     dieHighlightsLayer: Int8Array;
-    // extra values layers
-    extraLayers : {
-        name: string;
-        type: string;
-        buffer: TypedArray;
-    }[]
+    // a 32 bitset array of tags for each die; aligns more closely to the existing public api but limits users to 32 tags.
+    dieHighlightsLayer: Int32Array;
+    // metadata array for each die; it will not be sent to the worker
+    metadata : unknown[]
 }
 ```
 
-Using TypedArrays has the benefit of direct transfer to web workers without structured cloning of the object by transferring the arrayBuffers and reconstructing the object.
-
-Other benefits of typedArrays include the low access time when iterating over the values, more memory efficiency and faster direct access to metadata layers values.
-
-The previous inputs can be adapted to this new structure to maintain backwards compatibility.
+Using TypedArrays has the benefit of direct transfer to web workers without structured cloning of the object by transferring the arrayBuffers and reconstructing the object. Other benefits of typedArrays include the low access time when iterating over the values, more memory efficiency and faster direct access to metadata layers values. The previous inputs can be adapted to this new structure to maintain backwards compatibility.
 
 This API will have [optimized byte-array interop from Blazor](https://learn.microsoft.com/en-us/dotnet/core/compatibility/aspnet-core/6.0/byte-array-interop) and should be supported by Angular as a [vanilla javascript feature](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer).
 
+The alternative to the above mentioned data structure is an [apache arrow](https://arrow.apache.org/docs/js/index.html) table with columns and metadata.
+
+Pros of using Apache:
+
+-   A row based format that aligns well with the existing public api
+-   Well supported and tested format
+-   Nice public API to use, we don't have to invent a new format, just document our schema for the arrow tables
+-   Designed for large dataset visualizations
+
+In order to choose from these alternatives we will prototype and check:
+
+-   Does it have comparable memory performance
+-   Does it perform well or have significant overhead
+-   Is it easy to divide and use in parallel
+
 ### Rendering
 
-The rendering will also be changed to take place inside a worker thread. The worker will be responsible for parsing each layer of the data set and it will render the information contained with the specific color codes and opacity.
+An alternate renderer inside a worker thread will be created to live in parallel in the wafer-map :
 
-We will be using the [comlink](https://github.com/GoogleChromeLabs/comlink) library to spin up the worker and communicate with it.
+-   During development the data assigned to the dies property will determine the renderer to use. The current WaferMapDie type will choose the current renderer and the new WaferDataFormat will pick the new renderer.
+-   When development is complete the old renderer will be removed and the previous WaferMapDie format will be supported and map to the new format internally.
 
-The worker code will be precompiled by rollup in a library and sent as a Blob to the worker.
+The render worker:
 
-The worker will function as a state automaton which will need some data after initialization, and it will render everything using an [OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas).
+-   will be responsible for parsing each layer of the data set and it will render the information contained with the specific color codes and opacity.
+-   will be using the [comlink](https://github.com/GoogleChromeLabs/comlink) library to communicate with the main thread.
+-   will be precompiled by rollup in a library and sent as a Blob to the worker initializer. Workers normally require a separate script file that is downloaded dynamically to run. To avoid the need for dynamically fetched resources and enable static compilation the worker code will be precompiled by rollup in a library and sent as a Blob to the worker.
+-   will function as a state automaton which will need some data after initialization, and it will render everything using an [OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas). `SharedArrayBuffers` can be used to efficiently share memory buffers across multiple web workers but require strict server configuration to be enabled. As such they will not be leveraged and are not needed to meet the performance targets.
 
-The main thread will communicate with the worker by signaling any data changes or user events which will trigger full or partial renders.
+The main thread will communicate with the worker by signaling any data changes or user events which will trigger full or partial renders. We will implement an event queue inside the worker which will batch events together.
 
 The strategy for improvement will be gradual. We will try to reuse the existing code as much as possible, but if the performance will not be met, we will improve the existing parsing methods and increase the number of workers.
 
@@ -169,6 +185,11 @@ These records will be made in a separate web page from the existing performance 
 
 Our target goals are:
 
+1. We will follow the Chrome Interaction to Next Paint (INP) [guideline](https://web.dev/articles/inp).
+
+    1. An interactions such as a pan or zoom should complete within a "good" INP interval (<200 ms)
+    1. If an interaction will take longer the user will see an indication that the interaction is in progress.
+
 1. For wafers >200k and <1m die
 
     1. Initial rendering: <1 second
@@ -183,11 +204,11 @@ Our target goals are:
     1. Interactions that don't modify the dataset (e.g. show labels): <1 second
     1. Interactions that modify the dataset (e.g. replace layers): <10 seconds
 
+The current expectation is for a singular wafer component to be displayed on the web page with a large data set. The wafer dataset can be switched without recreating the component. Wafer galleries are handled using static pre-rendered images. Future performance improvements may allow multiple wafer components to be displayed at the same time.
+
 ## Alternative Implementations / Designs
 
 ### Alternative Data Structures and Interfaces
-
-The above mentioned structure can also be implemented as an [apache arrow](https://arrow.apache.org/docs/js/index.html) table with columns and metadata. This may introduce an additional overhead that is not needed for the moment as the research towards database caching is still proceeding.
 
 Another option is to break each object property as a separate attribute for the wafer map component. This can also lead to increased complexity and confusion for the user which will need to pass several structured objects instead of a singular object.
 
@@ -195,13 +216,27 @@ Another option is to break each object property as a separate attribute for the 
 
 Alternatives to the described rendering are splitting the data and canvas and using multiple threads to enhance performance even more. This approach introduces the overhead of managing multiple canvases, splitting the dataset and handling any race conditions, which may not be needed if the single worker approach satisfies the performance requirements.
 
-### Alternative Size Limitations
+## Future Implementations / Designs
 
-In order to provide a smooth user experience, if the existing event interaction rendering is not sufficiently fast we would implement a more instantaneous response to zoom gestures using bitmap scaling of the canvas while the renderer is updating the final display. This approach will introduce the overhead of switching between the two canvas scaling strategies and may increase the load time for smaller datasets.
+### Future user interactions
 
-Another alternative to remove the size limits is to create a point reduction algorithm which will create a reduced set of dies fit to the size limits creating an average, median or other approximation. This approach introduces additional complexity to the rendering and is a lossy compression algorithm, so it's implementation should be carefully considered.
+In order to provide a smooth user experience, if the existing event interaction rendering is not sufficiently fast we would implement a more instantaneous response to zoom gestures using bitmap scaling of the canvas while the renderer is updating the final display. This approach will introduce the overhead of switching between the two canvas scaling strategies and may increase the load time for smaller datasets. The process can be optimized by pre-caching fixed zoom levels and switching between them.
+
+Another alternative is to create a point reduction algorithm which will create a reduced set of dies fit to the size limits creating an average, median or other approximation. This approach introduces additional complexity to the rendering and is a lossy compression algorithm, so it's implementation should be carefully considered.
+
+We may also implement an external queue canceling functionality.
 
 ## Open Issues
+
+User Indication for interactions in progress (>200ms) alternatives:
+
+-   the wafer-map itself will show a spinner
+-   the wafer-map will fire an event to notify the app to present something that work is in progress
+-   the wafer-map will use bitmap scaling in addition to a spinner
+-   the wafer-map will immediately show the spinner / fire event or only after, for example 200ms
+-   the renderer will report progress for larger wait times.
+
+A follow-on HLD update will specify the approved decision.
 
 _Describe any open issues with the design that you need feedback on before proceeding._
 _It is expected that these issues will be resolved during the review process and this section will be removed when this documented in pulled into source._
