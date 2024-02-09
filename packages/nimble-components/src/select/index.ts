@@ -1,4 +1,5 @@
-// eslint-disable-next-line max-classes-per-file
+// The FAST Select implementation has largely been forked into here, as there
+// was enough divergence to merit severing the relationship.
 import {
     attr,
     html,
@@ -51,9 +52,7 @@ declare global {
 type BooleanOrVoid = boolean | void;
 
 /**
- * A nimble-styled HTML select. The FAST Select implementation has largely been
- * forked into here, as there was enough divergence to merit severing the
- * relationship.
+ * A nimble-styled HTML select.
  */
 export class Select extends FormAssociatedSelect implements ErrorPattern {
     /**
@@ -191,6 +190,8 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     private forcedPosition = false;
     private indexWhenOpened?: number;
 
+    // This intersection observer is to handle focus behavior for when the dropdown becomes
+    // visible.
     private readonly regionElementIntersectionObserver: IntersectionObserver = new IntersectionObserver(
         entries => {
             if (
