@@ -1,5 +1,5 @@
 import { html, ref, when } from '@microsoft/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
@@ -85,7 +85,7 @@ The object's type is \`RichTextValidity\`, and it contains the following boolean
 
 const metadata: Meta<RichTextEditorArgs> = {
     title: 'Incubating/Rich Text Editor',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: ['input', 'mention-update']
