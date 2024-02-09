@@ -105,9 +105,8 @@ SelectOptions
                             <${iconMagnifyingGlassTag} class="filter-icon"></${iconMagnifyingGlassTag}>
                             <input
                                 class="filter-input"
-                                aria-controls="${x => (x.open ? x.ariaControls : null)}"
-                                aria-activedescendant="${x => (x.open ? x.ariaActiveDescendant : null)}"
-                                ?disabled="${x => x.disabled}"
+                                aria-controls="${x => x.ariaControls}"
+                                aria-activedescendant="${x => x.ariaActiveDescendant}"
                                 @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
                                 @click="${(x, c) => x.inputClickHandler(c.event as MouseEvent)}"
                                 ${ref('filterInputElement')}
