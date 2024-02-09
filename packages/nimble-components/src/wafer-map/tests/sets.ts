@@ -1,4 +1,8 @@
-import type { WaferMapDie, WaferMapData, WaferMapColorCategory } from '../types';
+import type {
+    WaferMapDie,
+    WaferMapData,
+    WaferMapColorCategory
+} from '../types';
 
 export const highlightedTagsSets: string[][] = [
     [],
@@ -10,9 +14,14 @@ export const wafermapDieMatrix: WaferMapData[] = [
     {
         dieColIndexArray: Int32Array.from([0, 1, 2, 3, 4]),
         rowLengthsArray: Int32Array.from([1, 3, 5, 3, 1]),
-        dieRowIndexLayer: Int32Array.from([2, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 2]),
-        dieValuesLayer: Int32Array.from([14.24, 44.63, 76.43, 67.93, 26.49, 79.04, 72.71, 37.79, 37.79, 98.5, 52.9, 20.83, 62.8]),
-        dieHighlightsLayer: Int8Array.from([]),
+        dieRowIndexLayer: Int32Array.from([
+            2, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 2
+        ]),
+        dieValuesLayer: Int32Array.from([
+            14.24, 44.63, 76.43, 67.93, 26.49, 79.04, 72.71, 37.79, 37.79, 98.5,
+            52.9, 20.83, 62.8
+        ]),
+        dieHighlightsLayer: Int8Array.from([])
     }
 ];
 

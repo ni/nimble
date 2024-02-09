@@ -146,7 +146,7 @@ const metadata: Meta<WaferMapArgs> = {
         gridMinX: 0,
         gridMaxX: 1150, // 3500,
         gridMinY: 0,
-        gridMaxY: 1150, // 3500
+        gridMaxY: 1150 // 3500
     },
     argTypes: {
         colorScale: {

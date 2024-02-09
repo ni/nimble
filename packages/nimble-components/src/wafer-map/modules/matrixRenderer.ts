@@ -278,21 +278,41 @@ export class MatrixRenderer {
             };
 
             // eslint-disable-next-line @typescript-eslint/prefer-for-of
-            for (let index = 0; index < this.wafermap.dieMatrix.dieColIndexArray.length; index++) {
-                if (this.wafermap.dieMatrix.dieColIndexArray[index]! < minPoint.x) {
+            for (
+                let index = 0;
+                index < this.wafermap.dieMatrix.dieColIndexArray.length;
+                index++
+            ) {
+                if (
+                    this.wafermap.dieMatrix.dieColIndexArray[index]!
+                    < minPoint.x
+                ) {
                     minPoint.x = this.wafermap.dieMatrix.dieColIndexArray[index]!;
                 }
-                if (this.wafermap.dieMatrix.dieColIndexArray[index]! > maxPoint.x) {
+                if (
+                    this.wafermap.dieMatrix.dieColIndexArray[index]!
+                    > maxPoint.x
+                ) {
                     maxPoint.x = this.wafermap.dieMatrix.dieColIndexArray[index]!;
                 }
             }
 
             // eslint-disable-next-line @typescript-eslint/prefer-for-of
-            for (let index = 0; index < this.wafermap.dieMatrix.dieRowIndexLayer.length; index++) {
-                if (this.wafermap.dieMatrix.dieRowIndexLayer[index]! < minPoint.y) {
+            for (
+                let index = 0;
+                index < this.wafermap.dieMatrix.dieRowIndexLayer.length;
+                index++
+            ) {
+                if (
+                    this.wafermap.dieMatrix.dieRowIndexLayer[index]!
+                    < minPoint.y
+                ) {
                     minPoint.y = this.wafermap.dieMatrix.dieRowIndexLayer[index]!;
                 }
-                if (this.wafermap.dieMatrix.dieRowIndexLayer[index]! > maxPoint.y) {
+                if (
+                    this.wafermap.dieMatrix.dieRowIndexLayer[index]!
+                    > maxPoint.y
+                ) {
                     maxPoint.y = this.wafermap.dieMatrix.dieRowIndexLayer[index]!;
                 }
             }
@@ -384,17 +404,25 @@ export class MatrixRenderer {
         this.workerTwo.postMessage({
             method: 'emptyMatrix'
         });
-        let dieColIndexArray = new Int32Array(this.wafermap.dieMatrix.dieColIndexArray);
-        let rowLengthsArray = new Int32Array(this.wafermap.dieMatrix.rowLengthsArray);
-        let dieRowIndexLayer = new Int32Array(this.wafermap.dieMatrix.dieRowIndexLayer);
-        let dieValuesLayer = new Int32Array(this.wafermap.dieMatrix.dieValuesLayer);
+        let dieColIndexArray = new Int32Array(
+            this.wafermap.dieMatrix.dieColIndexArray
+        );
+        let rowLengthsArray = new Int32Array(
+            this.wafermap.dieMatrix.rowLengthsArray
+        );
+        let dieRowIndexLayer = new Int32Array(
+            this.wafermap.dieMatrix.dieRowIndexLayer
+        );
+        let dieValuesLayer = new Int32Array(
+            this.wafermap.dieMatrix.dieValuesLayer
+        );
         this.workerOne.postMessage(
             {
                 method: 'renderDies',
                 dieColIndexArray,
                 rowLengthsArray,
                 dieRowIndexLayer,
-                dieValuesLayer,
+                dieValuesLayer
             },
             [
                 dieColIndexArray.buffer,
@@ -403,9 +431,15 @@ export class MatrixRenderer {
                 dieValuesLayer.buffer
             ]
         );
-        dieColIndexArray = new Int32Array(this.wafermap.dieMatrix.dieColIndexArray);
-        rowLengthsArray = new Int32Array(this.wafermap.dieMatrix.rowLengthsArray);
-        dieRowIndexLayer = new Int32Array(this.wafermap.dieMatrix.dieRowIndexLayer);
+        dieColIndexArray = new Int32Array(
+            this.wafermap.dieMatrix.dieColIndexArray
+        );
+        rowLengthsArray = new Int32Array(
+            this.wafermap.dieMatrix.rowLengthsArray
+        );
+        dieRowIndexLayer = new Int32Array(
+            this.wafermap.dieMatrix.dieRowIndexLayer
+        );
         dieValuesLayer = new Int32Array(this.wafermap.dieMatrix.dieValuesLayer);
         this.workerTwo.postMessage(
             {
@@ -413,7 +447,7 @@ export class MatrixRenderer {
                 dieColIndexArray,
                 rowLengthsArray,
                 dieRowIndexLayer,
-                dieValuesLayer,
+                dieValuesLayer
             },
             [
                 dieColIndexArray.buffer,
