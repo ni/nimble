@@ -1,7 +1,7 @@
 import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
 import { html, repeat } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html' from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../list-option';
 import {
     createUserSelectedThemeStory,

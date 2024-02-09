@@ -1,6 +1,6 @@
 import { html, ref, when } from '@microsoft/fast-element';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html' from '@storybook/html';
 import {
     createUserSelectedThemeStory,
     disableStorybookZoomTransform,

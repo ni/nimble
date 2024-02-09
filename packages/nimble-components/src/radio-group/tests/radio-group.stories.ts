@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
 import { Orientation } from '@microsoft/fast-web-utilities';
-import type { Meta, StoryObj } from '@storybook/html';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { radioGroupTag } from '..';
 import { radioTag } from '../../radio';

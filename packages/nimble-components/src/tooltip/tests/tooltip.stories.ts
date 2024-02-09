@@ -1,7 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { AutoUpdateMode } from '@microsoft/fast-foundation';
-import type { Meta, StoryObj } from '@storybook/html';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
