@@ -220,10 +220,10 @@ export function createMatrix(
         `)}
     `;
 }
+
 /**
  *  Renders a FAST `html` template for each theme.
  */
-
 export const createMatrixThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
 ): ((source: TSource) => Element) => {
