@@ -1,6 +1,6 @@
 import { html, repeat } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
     disableStorybookZoomTransform
@@ -64,15 +64,8 @@ const optionSets = {
 
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
-    tags: ['autodocs'],
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    "Select is a control for selecting amongst a set of options. Its value comes from the `value` of the currently selected `nimble-list-option`, or, if no value exists for that option, the option's content. Upon clicking on the element, the other options are visible. The user cannot manually enter values, and thus the list cannot be filtered."
-            }
-        },
         actions: {
             handles: ['change']
         },

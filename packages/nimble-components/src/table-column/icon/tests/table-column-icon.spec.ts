@@ -1,4 +1,5 @@
 import { html, repeat, ref } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '../../../table';
 import { TableColumnIcon, tableColumnIconTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -6,7 +7,6 @@ import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { mappingTextTag } from '../../../mapping/text';
 import { MappingIcon, mappingIconTag } from '../../../mapping/icon';
 import { iconXmarkTag } from '../../../icons/xmark';
@@ -101,7 +101,7 @@ describe('TableColumnIcon', () => {
             { name: MappingKeyType.number, key: 10 },
             { name: MappingKeyType.boolean, key: true }
         ] as const;
-        parameterizeNamedList(dataTypeTests, (spec, name, value) => {
+        parameterizeSpec(dataTypeTests, (spec, name, value) => {
             spec(`displays icon mapped from ${name}`, async () => {
                 ({ element, connect, disconnect, model } = await setup({
                     keyType: value.name,
@@ -121,7 +121,7 @@ describe('TableColumnIcon', () => {
             });
         });
 
-        parameterizeNamedList(dataTypeTests, (spec, name, value) => {
+        parameterizeSpec(dataTypeTests, (spec, name, value) => {
             spec(`displays spinner mapped from ${name}`, async () => {
                 ({ element, connect, disconnect, model } = await setup({
                     keyType: value.name,
@@ -265,7 +265,7 @@ describe('TableColumnIcon', () => {
     });
 
     describe('various string values render in group header as expected', () => {
-        parameterizeNamedList(wackyStrings, (spec, name) => {
+        parameterizeSpec(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
                 ({ element, connect, disconnect, model } = await setup({
                     keyType: MappingKeyType.string,
@@ -391,7 +391,7 @@ describe('TableColumnIcon', () => {
                 { name: 'FALSE', key: 'FALSE' },
                 { name: '0', key: 0 }
             ] as const;
-            parameterizeNamedList(dataTypeTests, (spec, name, value) => {
+            parameterizeSpec(dataTypeTests, (spec, name, value) => {
                 spec(name, async () => {
                     ({ element, connect, disconnect, model } = await setup({
                         keyType: MappingKeyType.boolean,

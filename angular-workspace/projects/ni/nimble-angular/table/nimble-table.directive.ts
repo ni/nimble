@@ -50,6 +50,14 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
         this.renderer.setProperty(this.elementRef.nativeElement, 'idFieldName', value);
     }
 
+    public get parentIdFieldName(): string | null | undefined {
+        return this.elementRef.nativeElement.parentIdFieldName;
+    }
+
+    @Input('parent-id-field-name') public set parentIdFieldName(value: string | null | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'parentIdFieldName', value);
+    }
+
     public get selectionMode(): TableRowSelectionMode {
         return this.elementRef.nativeElement.selectionMode;
     }

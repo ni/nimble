@@ -28,6 +28,7 @@ This repository contains the source for the following packages:
 - **[`@ni/nimble-tokens`](/packages/nimble-tokens/)** - design tokens used by the component packages
 
 And some additional utility packages:
+- [`@ni/jasmine-parameterized`](/packages/jasmine-parameterized/) - a utility for writing [Jasmine](https://jasmine.github.io/) parameterized tests
 - [`@ni/xliff-to-json-converter`](/packages/xliff-to-json-converter/) - a utility to convert translation files from XLIFF to JSON for Angular localization
 
 Consult the `README.md` for each package to learn more, including how to use it in an application.

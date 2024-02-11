@@ -1,4 +1,5 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import type { Table } from '../../../table';
 import { TableColumnText, tableColumnTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -6,7 +7,6 @@ import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     field?: string | null;
@@ -70,7 +70,7 @@ describe('TableColumnText', () => {
             data: [{ field: 10 as unknown as string }]
         }
     ] as const;
-    parameterizeNamedList(noValueData, (spec, name, value) => {
+    parameterizeSpec(noValueData, (spec, name, value) => {
         spec(`displays empty string when ${name}`, async () => {
             await element.setData(value.data);
             await connect();
@@ -196,7 +196,7 @@ describe('TableColumnText', () => {
     });
 
     describe('various string values render as expected', () => {
-        parameterizeNamedList(wackyStrings, (spec, name) => {
+        parameterizeSpec(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
                 await connect();
 
@@ -209,7 +209,7 @@ describe('TableColumnText', () => {
     });
 
     describe('various string values render in group header as expected', () => {
-        parameterizeNamedList(wackyStrings, (spec, name) => {
+        parameterizeSpec(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
                 await connect();
 

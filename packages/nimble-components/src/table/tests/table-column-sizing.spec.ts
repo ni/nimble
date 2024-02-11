@@ -1,4 +1,5 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -8,7 +9,6 @@ import type {
     TableRecord
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 import { createEventListener } from '../../utilities/tests/component';
 
 interface SimpleTableRecord extends TableRecord {
@@ -194,7 +194,7 @@ describe('Table Column Sizing', () => {
                 column2ExpectedRenderedWidth: 100
             }
         ] as const;
-        parameterizeNamedList(columnSizeTests, (spec, name, value) => {
+        parameterizeSpec(columnSizeTests, (spec, name, value) => {
             spec(name, async () => {
                 await connect();
                 await pageObject.sizeTableToGivenRowWidth(
@@ -295,7 +295,7 @@ describe('Table Column Sizing', () => {
                 column2MinPixelWidth: null
             }
         ] as const;
-        parameterizeNamedList(tests, (spec, name, value) => {
+        parameterizeSpec(tests, (spec, name, value) => {
             spec(name, async () => {
                 await connect();
                 await pageObject.sizeTableToGivenRowWidth(300, element);
@@ -463,7 +463,7 @@ describe('Table Interactive Column Sizing', () => {
                 expectedColumnWidths: [75, 75, 50, 200]
             }
         ] as const;
-        parameterizeNamedList(columnSizeTests, (spec, name, value) => {
+        parameterizeSpec(columnSizeTests, (spec, name, value) => {
             spec(name, async () => {
                 element.columns.forEach((column, i) => {
                     column.columnInternals.fractionalWidth = value.fractionalWidths[i]!;
@@ -630,7 +630,7 @@ describe('Table Interactive Column Sizing', () => {
                 expectedColumnWidths: [100, 50, 150]
             }
         ] as const;
-        parameterizeNamedList(
+        parameterizeSpec(
             hiddenColumDragRightDividerTests,
             (spec, name, value) => {
                 spec(name, async () => {
@@ -722,7 +722,7 @@ describe('Table Interactive Column Sizing', () => {
                 expectedColumnWidths: [100, 50, 150]
             }
         ] as const;
-        parameterizeNamedList(
+        parameterizeSpec(
             hiddenColumDragRightDividerTests,
             (spec, name, value) => {
                 spec(name, async () => {
@@ -781,7 +781,7 @@ describe('Table Interactive Column Sizing', () => {
                 expectedActiveIndexes: [5]
             }
         ] as const;
-        parameterizeNamedList(dividerActiveTests, (spec, name, value) => {
+        parameterizeSpec(dividerActiveTests, (spec, name, value) => {
             spec(name, async () => {
                 const dividers = Array.from(
                     element.shadowRoot!.querySelectorAll('.column-divider')

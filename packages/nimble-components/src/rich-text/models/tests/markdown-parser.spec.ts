@@ -1,11 +1,11 @@
 import { html, repeat } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { mappingUserTag } from '../../../mapping/user';
 import {
     type RichTextMentionUsers,
     richTextMentionUsersTag
 } from '../../../rich-text-mention/users';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../../utilities/tests/parameterized';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { RichTextMarkdownParser } from '../markdown-parser';
 import {
@@ -311,7 +311,7 @@ describe('Markdown parser', () => {
                 ] as const;
 
                 describe('should reflect value to the internal control', () => {
-                    parameterizeNamedList(
+                    parameterizeSpec(
                         supportedAbsoluteLink,
                         (spec, name, value) => {
                             spec(
@@ -421,7 +421,7 @@ describe('Markdown parser', () => {
                 ] as const;
 
                 describe('should reflect value to the internal control', () => {
-                    parameterizeNamedList(
+                    parameterizeSpec(
                         supportedAbsoluteLink,
                         (spec, name, value) => {
                             spec(
@@ -562,7 +562,7 @@ describe('Markdown parser', () => {
                     },
                     { name: '<test://test.com>' }
                 ] as const;
-                parameterizeNamedList(differentProtocolLinks, (spec, name) => {
+                parameterizeSpec(differentProtocolLinks, (spec, name) => {
                     spec(
                         `string "${name}" renders within nimble-anchor without 'href' attribute`,
                         () => {
@@ -600,7 +600,7 @@ describe('Markdown parser', () => {
                     { name: '<issue:1>' },
                     { name: '<system:12345-56789>' }
                 ] as const;
-                parameterizeNamedList(differentProtocolLinks, (spec, name) => {
+                parameterizeSpec(differentProtocolLinks, (spec, name) => {
                     spec(
                         `string "${name}" renders within nimble-anchor with 'class' attribute`,
                         () => {
@@ -636,24 +636,21 @@ describe('Markdown parser', () => {
                     { name: '<file:///path/to/local/file.txt>' },
                     { name: '<javascript:vbscript:alert("not alert")>' }
                 ] as const;
-                parameterizeNamedList(
-                    notSupportedAbsoluteLink,
-                    (spec, name) => {
-                        spec(
-                            `string "${name}" renders as plain text within paragraph tag`,
-                            () => {
-                                const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                                    name
-                                ).fragment;
+                parameterizeSpec(notSupportedAbsoluteLink, (spec, name) => {
+                    spec(
+                        `string "${name}" renders as plain text within paragraph tag`,
+                        () => {
+                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                name
+                            ).fragment;
 
-                                expect(getTagsFromElement(doc)).toEqual(['P']);
-                                expect(getLeafContentsFromElement(doc)).toEqual(
-                                    [name]
-                                );
-                            }
-                        );
-                    }
-                );
+                            expect(getTagsFromElement(doc)).toEqual(['P']);
+                            expect(getLeafContentsFromElement(doc)).toEqual([
+                                name
+                            ]);
+                        }
+                    );
+                });
             });
         });
 
@@ -724,21 +721,18 @@ describe('Markdown parser', () => {
             }
         ] as const;
 
-        parameterizeNamedList(
-            testsWithEscapeCharacters,
-            (spec, name, value) => {
-                spec(`"${name}"`, () => {
-                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                        value.name
-                    ).fragment;
+        parameterizeSpec(testsWithEscapeCharacters, (spec, name, value) => {
+            spec(`"${name}"`, () => {
+                const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                    value.name
+                ).fragment;
 
-                    expect(getTagsFromElement(doc)).toEqual(value.tags);
-                    expect(getLeafContentsFromElement(doc)).toEqual(
-                        value.textContent
-                    );
-                });
-            }
-        );
+                expect(getTagsFromElement(doc)).toEqual(value.tags);
+                expect(getLeafContentsFromElement(doc)).toEqual(
+                    value.textContent
+                );
+            });
+        });
 
         it('special character `.` should be parsed properly (number list test)', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
@@ -821,7 +815,7 @@ describe('Markdown parser', () => {
             { name: '<script>alert("not alert")</script>' }
         ] as const;
 
-        parameterizeNamedList(notSupportedMarkdownStrings, (spec, name) => {
+        parameterizeSpec(notSupportedMarkdownStrings, (spec, name) => {
             spec(
                 `string "${name}" renders as plain text "${name}" within paragraph tag`,
                 () => {
@@ -841,7 +835,7 @@ describe('Markdown parser', () => {
             value => value.name !== '\x00'
         );
 
-        parameterizeNamedList(wackyStringsToTest, (spec, name) => {
+        parameterizeSpec(wackyStringsToTest, (spec, name) => {
             spec(
                 `wacky string "${name}" that are unmodified when set the same "${name}" within paragraph tag`,
                 () => {
@@ -869,7 +863,7 @@ describe('Markdown parser', () => {
             { name: '\\x00', value: '\x00', tags: ['P'], textContent: ['�'] }
         ] as const;
 
-        parameterizeNamedList(modifiedWackyStrings, (spec, name, value) => {
+        parameterizeSpec(modifiedWackyStrings, (spec, name, value) => {
             spec(`wacky string "${name}" modified when rendered`, () => {
                 const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                     value.value
@@ -938,17 +932,14 @@ describe('Markdown parser', () => {
             }
         ] as const;
 
-        parameterizeNamedList(
-            markdownStringWithHardBreak,
-            (spec, name, value) => {
-                spec(`should render br tag with "${name}"`, () => {
-                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                        value.value
-                    ).fragment;
-                    expect(getTagsFromElement(doc)).toEqual(value.tags);
-                });
-            }
-        );
+        parameterizeSpec(markdownStringWithHardBreak, (spec, name, value) => {
+            spec(`should render br tag with "${name}"`, () => {
+                const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                    value.value
+                ).fragment;
+                expect(getTagsFromElement(doc)).toEqual(value.tags);
+            });
+        });
     });
 
     describe('user mention', () => {
@@ -1403,7 +1394,7 @@ describe('Markdown parser', () => {
         });
 
         describe('various wacky strings should reflect the `mention-label` attribute value of user mention view', () => {
-            parameterizeNamedList(wackyStrings, (spec, name) => {
+            parameterizeSpec(wackyStrings, (spec, name) => {
                 spec(`for ${name}`, async () => {
                     ({ element, connect, disconnect } = await setup(
                         [{ key: 'user:1', displayName: name }],

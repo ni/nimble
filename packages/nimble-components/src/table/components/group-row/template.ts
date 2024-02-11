@@ -48,7 +48,7 @@ export const template = html<TableGroupRow>`
 
         <div class="group-row-header-content">
             ${x => x.groupColumn?.columnInternals.groupHeaderViewTemplate}
-            <span class="group-row-child-count">(${x => x.leafItemCount})</span>
+            <span class="group-row-child-count">(${x => x.immediateChildCount})</span>
         </div>
     </template>
 `;

@@ -13,6 +13,7 @@ interface ComboboxItem {
 
 interface SimpleTableRecord extends TableRecord {
     id: string;
+    parentId?: string;
     stringValue1: string;
     stringValue2: string;
     href?: string;
@@ -120,6 +121,7 @@ export class CustomAppComponent {
         for (let i = 0; i < numberOfRowsToAdd; i++) {
             tableData.push({
                 id: tableData.length.toString(),
+                parentId: (tableData.length >= 4 ? (tableData.length % 4).toString() : undefined),
                 stringValue1: `new string ${tableData.length}`,
                 stringValue2: `bar ${tableData.length}`,
                 href: '/customapp',

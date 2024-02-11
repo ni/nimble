@@ -1,4 +1,5 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { NimbleMappingDirective } from '@ni/nimble-angular/mapping/base';
 import { type MappingIcon, mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import type { MappingKey } from '@ni/nimble-components/dist/esm/mapping/base/types';
 import type { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
@@ -12,15 +13,7 @@ export { mappingIconTag };
 @Directive({
     selector: 'nimble-mapping-icon'
 })
-export class NimbleMappingIconDirective {
-    public get key(): MappingKey | undefined {
-        return this.elementRef.nativeElement.key;
-    }
-
-    @Input() public set key(value: MappingKey | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'key', value);
-    }
-
+export class NimbleMappingIconDirective extends NimbleMappingDirective<MappingKey> {
     public get text(): string | undefined {
         return this.elementRef.nativeElement.text;
     }
@@ -45,5 +38,7 @@ export class NimbleMappingIconDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'severity', value);
     }
 
-    public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<MappingIcon>) {}
+    public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<MappingIcon>) {
+        super(renderer, elementRef);
+    }
 }

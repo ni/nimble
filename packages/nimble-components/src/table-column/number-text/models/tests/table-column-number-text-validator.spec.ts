@@ -4,6 +4,7 @@ import { TableColumnSortOperation } from '../../../base/types';
 import { NumberTextFormat } from '../../types';
 import { tableColumnNumberTextCellViewTag } from '../../cell-view';
 import { tableColumnNumberTextGroupHeaderTag } from '../../group-header-view';
+import { unitByteTag } from '../../../../unit/byte';
 
 describe('TableColumnNumberTextValidator', () => {
     let validator: TableColumnNumberTextValidator;
@@ -54,5 +55,26 @@ describe('TableColumnNumberTextValidator', () => {
         validator.validateDecimalDigits(NumberTextFormat.default, -1);
         expect(validator.isValid()).toBeTrue();
         expect(validator.getValidity().invalidDecimalDigits).toBeFalse();
+    });
+
+    it('is valid with no units', () => {
+        validator.validateAtMostOneUnit([]);
+        expect(validator.isValid()).toBeTrue();
+        expect(validator.getValidity().moreThanOneUnitSpecified).toBeFalse();
+    });
+
+    it('is valid with one unit', () => {
+        validator.validateAtMostOneUnit([document.createElement(unitByteTag)]);
+        expect(validator.isValid()).toBeTrue();
+        expect(validator.getValidity().moreThanOneUnitSpecified).toBeFalse();
+    });
+
+    it('is invalid with more than one unit', () => {
+        validator.validateAtMostOneUnit([
+            document.createElement(unitByteTag),
+            document.createElement(unitByteTag)
+        ]);
+        expect(validator.isValid()).toBeFalse();
+        expect(validator.getValidity().moreThanOneUnitSpecified).toBeTrue();
     });
 });

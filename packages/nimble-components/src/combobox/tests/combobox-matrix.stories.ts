@@ -1,11 +1,9 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
+import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
-import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
@@ -37,9 +35,7 @@ type ValueState = (typeof valueStates)[number];
 const metadata: Meta = {
     title: 'Tests/Combobox',
     parameters: {
-        ...sharedMatrixParameters(),
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        ...sharedMatrixParameters()
     }
 };
 

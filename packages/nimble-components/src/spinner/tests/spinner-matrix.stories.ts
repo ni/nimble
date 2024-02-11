@@ -5,12 +5,10 @@ import { isChromatic } from '../../utilities/tests/isChromatic';
 
 import {
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    createMatrixThemeStory
 } from '../../utilities/tests/matrix';
-import {
-    createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
+import { createStory } from '../../utilities/tests/storybook';
 import {
     bodyFontColor,
     spinnerLargeHeight,

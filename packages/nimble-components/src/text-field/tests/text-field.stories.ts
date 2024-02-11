@@ -1,6 +1,6 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TextFieldAppearance, TextFieldType } from '../types';
 import { textFieldTag } from '..';
@@ -33,14 +33,8 @@ consuming application must implement that functionality.
 
 const metadata: Meta<TextFieldArgs> = {
     title: 'Components/Text Field',
-    tags: ['autodocs'],
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
-        docs: {
-            description: {
-                component: 'A single-line text field.'
-            }
-        },
         actions: {
             handles: ['change', 'input']
         }

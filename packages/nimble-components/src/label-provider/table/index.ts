@@ -9,7 +9,7 @@ import {
     tableGroupCollapseLabel,
     tableGroupExpandLabel,
     tableGroupSelectAllLabel,
-    tableGroupsCollapseAllLabel,
+    tableCollapseAllLabel,
     tableRowCollapseLabel,
     tableRowExpandLabel,
     tableRowOperationColumnLabel,
@@ -28,7 +28,7 @@ const supportedLabels = {
     groupExpand: tableGroupExpandLabel,
     rowCollapse: tableRowCollapseLabel,
     rowExpand: tableRowExpandLabel,
-    groupsCollapseAll: tableGroupsCollapseAllLabel,
+    collapseAll: tableCollapseAllLabel,
     cellActionMenu: tableCellActionMenuLabel,
     columnHeaderGrouped: tableColumnHeaderGroupedLabel,
     columnHeaderSortedAscending: tableColumnHeaderSortedAscendingLabel,
@@ -57,8 +57,8 @@ export class LabelProviderTable
     @attr({ attribute: 'row-expand' })
     public rowExpand: string | undefined;
 
-    @attr({ attribute: 'groups-collapse-all' })
-    public groupsCollapseAll: string | undefined;
+    @attr({ attribute: 'collapse-all' })
+    public collapseAll: string | undefined;
 
     @attr({ attribute: 'cell-action-menu' })
     public cellActionMenu: string | undefined;

@@ -157,7 +157,8 @@ describe('Nimble table', () => {
                 duplicateSortIndex: false,
                 duplicateGroupIndex: false,
                 idFieldNameNotConfigured: false,
-                invalidColumnConfiguration: false
+                invalidColumnConfiguration: false,
+                invalidParentIdConfiguration: false
             };
             expect(directive.validity).toEqual(expectedValidity);
             expect(nativeElement.validity).toEqual(expectedValidity);
@@ -199,6 +200,11 @@ describe('Nimble table', () => {
             expect(nativeElement.idFieldName).toEqual(undefined);
         });
 
+        it('has expected defaults for parentIdFieldName', () => {
+            expect(directive.parentIdFieldName).toEqual(undefined);
+            expect(nativeElement.parentIdFieldName).toEqual(undefined);
+        });
+
         it('has expected defaults for selectionMode', () => {
             expect(directive.selectionMode).toEqual(TableRowSelectionMode.none);
             expect(nativeElement.selectionMode).toEqual(TableRowSelectionMode.none);
@@ -209,6 +215,8 @@ describe('Nimble table', () => {
         interface SimpleRecord extends TableRecord {
             field1: string;
             field2: string;
+            parentField1: string;
+            parentField2: string;
         }
 
         @Component({
@@ -216,6 +224,7 @@ describe('Nimble table', () => {
                 <nimble-table #table
                     [data$]="data$"
                     [idFieldName]="idFieldName"
+                    [parentIdFieldName]="parentIdFieldName"
                     [selectionMode]="selectionMode"
                 >
                 </nimble-table>
@@ -227,6 +236,7 @@ describe('Nimble table', () => {
 
             public data$ = new Observable<SimpleRecord[]>();
             public idFieldName = 'field1';
+            public parentIdFieldName = 'parentField1';
             public selectionMode: TableRowSelectionMode = TableRowSelectionMode.multiple;
         }
 
@@ -265,6 +275,17 @@ describe('Nimble table', () => {
             expect(nativeElement.idFieldName).toEqual('field2');
         });
 
+        it('can be configured with property binding for parentIdFieldName', () => {
+            expect(directive.parentIdFieldName).toEqual(fixture.componentInstance.parentIdFieldName);
+            expect(nativeElement.parentIdFieldName).toEqual(fixture.componentInstance.parentIdFieldName);
+
+            fixture.componentInstance.parentIdFieldName = 'parentField2';
+            fixture.detectChanges();
+
+            expect(directive.parentIdFieldName).toEqual('parentField2');
+            expect(nativeElement.parentIdFieldName).toEqual('parentField2');
+        });
+
         it('can be configured with property binding for selectionMode', () => {
             expect(directive.selectionMode).toEqual(fixture.componentInstance.selectionMode);
             expect(nativeElement.selectionMode).toEqual(fixture.componentInstance.selectionMode);
@@ -281,12 +302,15 @@ describe('Nimble table', () => {
         interface SimpleRecord extends TableRecord {
             field1: string;
             field2: string;
+            parentField1: string;
+            parentField2: string;
         }
 
         @Component({
             template: `
                 <nimble-table #table
                     [attr.id-field-name]="idFieldName"
+                    [attr.parent-id-field-name]="parentIdFieldName"
                     [attr.selection-mode]="selectionMode"
                 >
                 </nimble-table>
@@ -301,6 +325,7 @@ describe('Nimble table', () => {
             }] as const;
 
             public idFieldName = 'field1';
+            public parentIdFieldName = 'parentField1';
             public selectionMode: TableRowSelectionMode = TableRowSelectionMode.multiple;
         }
 
@@ -330,6 +355,17 @@ describe('Nimble table', () => {
             expect(nativeElement.idFieldName).toEqual('field2');
         });
 
+        it('can be configured with attribute binding for parentIdFieldName', () => {
+            expect(directive.parentIdFieldName).toEqual(fixture.componentInstance.parentIdFieldName);
+            expect(nativeElement.parentIdFieldName).toEqual(fixture.componentInstance.parentIdFieldName);
+
+            fixture.componentInstance.parentIdFieldName = 'parentField2';
+            fixture.detectChanges();
+
+            expect(directive.parentIdFieldName).toEqual('parentField2');
+            expect(nativeElement.parentIdFieldName).toEqual('parentField2');
+        });
+
         it('can be configured with attribute binding for selectionMode', () => {
             expect(directive.selectionMode).toEqual(fixture.componentInstance.selectionMode);
             expect(nativeElement.selectionMode).toEqual(fixture.componentInstance.selectionMode);
@@ -339,6 +375,63 @@ describe('Nimble table', () => {
 
             expect(directive.selectionMode).toEqual(TableRowSelectionMode.single);
             expect(nativeElement.selectionMode).toEqual(TableRowSelectionMode.single);
+        });
+    });
+
+    describe('with template string values', () => {
+        const idField = 'field1';
+        const parentIdField = 'parentField1';
+        const selectionMode = TableRowSelectionMode.single;
+        interface SimpleRecord extends TableRecord {
+            field1: string;
+            field2: string;
+            parentField1: string;
+            parentField2: string;
+        }
+
+        @Component({
+            template: `
+                <nimble-table #table
+                    id-field-name="${idField}"
+                    parent-id-field-name="${parentIdField}"
+                    selection-mode="${selectionMode}"
+                >
+                </nimble-table>
+            `
+        })
+        class TestHostComponent {
+            @ViewChild('table', { read: NimbleTableDirective }) public directive: NimbleTableDirective<SimpleRecord>;
+            @ViewChild('table', { read: ElementRef }) public elementRef: ElementRef<Table<SimpleRecord>>;
+        }
+
+        let fixture: ComponentFixture<TestHostComponent>;
+        let directive: NimbleTableDirective<SimpleRecord>;
+        let nativeElement: Table<SimpleRecord>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestHostComponent],
+                imports: [NimbleTableModule]
+            });
+            fixture = TestBed.createComponent(TestHostComponent);
+            fixture.detectChanges();
+            directive = fixture.componentInstance.directive;
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
+        });
+
+        it('will use template string values for idFieldName', () => {
+            expect(directive.idFieldName).toBe(idField);
+            expect(nativeElement.idFieldName).toBe(idField);
+        });
+
+        it('will use template string values for parentIdFieldName', () => {
+            expect(directive.parentIdFieldName).toBe(parentIdField);
+            expect(nativeElement.parentIdFieldName).toBe(parentIdField);
+        });
+
+        it('will use template string values for selectionMode', () => {
+            expect(directive.selectionMode).toBe(selectionMode);
+            expect(nativeElement.selectionMode).toBe(selectionMode);
         });
     });
 });

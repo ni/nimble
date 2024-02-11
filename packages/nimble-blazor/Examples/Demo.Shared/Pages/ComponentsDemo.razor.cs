@@ -15,16 +15,30 @@ namespace Demo.Shared.Pages
         private NimbleDialog<DialogResult>? _dialog;
         private string? DialogClosedReason { get; set; }
         private NimbleDrawer<DialogResult>? _drawer;
+        private NimbleTable<SimpleTableRecord>? _table;
         private string? DrawerClosedReason { get; set; }
         private string? SelectedRadio { get; set; } = "2";
         private bool BannerOpen { get; set; }
 
         [NotNull]
         public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();
+        [NotNull]
+        public IEnumerable<WaferMapDie> Dies { get; set; } = Enumerable.Empty<WaferMapDie>();
+        [NotNull]
+        public IEnumerable<string> HighlightedTags { get; set; } = Enumerable.Empty<string>();
+        [NotNull]
+        public WaferMapColorScale ColorScale { get; set; } = new WaferMapColorScale(new List<string> { "red", "green" }, new List<string> { "0", "100" });
 
         public ComponentsDemo()
         {
             AddTableRows(10);
+            UpdateDies(5);
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await _table!.SetDataAsync(TableData);
+            await base.OnAfterRenderAsync(firstRender);
         }
 
         private string DrawerLocationAsString
@@ -68,6 +82,7 @@ namespace Demo.Shared.Pages
 
                 tableData.Add(new SimpleTableRecord(
                     rowCountString,
+                    tableData.Count >= 4 ? (tableData.Count % 4).ToString(CultureInfo.CurrentCulture) : null,
                     $"new string {rowCountString}",
                     $"bar {rowCountString}",
                     "/",
@@ -81,12 +96,57 @@ namespace Demo.Shared.Pages
 
             TableData = tableData;
         }
+
+        public void UpdateDies(int numberOfDies)
+        {
+            if (numberOfDies < 0)
+            {
+                return;
+            }
+            var dies = new List<WaferMapDie>();
+            int radius = (int)Math.Ceiling(Math.Sqrt(numberOfDies / Math.PI));
+            var centerX = radius;
+            var centerY = radius;
+
+            for (var i = centerY - radius; i <= centerY + radius; i++)
+            {
+                for (
+                    var j = centerX;
+                    (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
+                    <= radius * radius;
+                    j--)
+                {
+                    var value = (i + j) % 100;
+                    dies.Add(new WaferMapDie(i, j, value.ToString(CultureInfo.CurrentCulture)));
+                }
+                // generate points right of centerX
+                for (
+                    var j = centerX + 1;
+                    (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
+                    <= radius * radius;
+                    j++)
+                {
+                    var value = (i + j) % 100;
+                    dies.Add(new WaferMapDie(i, j, value.ToString(CultureInfo.CurrentCulture)));
+                }
+            }
+            Dies = dies;
+        }
+        public void AddDiesToRadius(int numberOfDies)
+        {
+            UpdateDies(Dies.Count() + (int)(numberOfDies * numberOfDies * Math.PI));
+        }
+        public void RemoveDiesFromRadius(int numberOfDies)
+        {
+            UpdateDies(Dies.Count() - (int)(numberOfDies * numberOfDies * Math.PI));
+        }
     }
 
     public class SimpleTableRecord
     {
         public SimpleTableRecord(
             string id,
+            string? parentId,
             string stringValue1,
             string stringValue2,
             string? href,
@@ -98,6 +158,7 @@ namespace Demo.Shared.Pages
             double duration)
         {
             Id = id;
+            ParentId = parentId;
             StringValue1 = stringValue1;
             StringValue2 = stringValue2;
             Href = href;
@@ -110,6 +171,7 @@ namespace Demo.Shared.Pages
         }
 
         public string Id { get; }
+        public string? ParentId { get; }
         public string StringValue1 { get; }
         public string StringValue2 { get; }
         public string? Href { get; }

@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorTab } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { Fixture, fixture } from '../../utilities/tests/fixture';
-import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<AnchorTab>> {
     return fixture<AnchorTab>(html`<nimble-anchor-tab></nimble-anchor-tab>`);
@@ -38,7 +38,7 @@ describe('AnchorTab', () => {
         { name: 'type' }
     ] as const;
     describe('should reflect value to the internal anchor element', () => {
-        parameterizeNamedList(attributeNames, (spec, name) => {
+        parameterizeSpec(attributeNames, (spec, name) => {
             spec(`for attribute ${name}`, async () => {
                 await connect();
 

@@ -132,6 +132,11 @@ export class TablePageObject<T extends TableRecord> {
         return Array.from(groupRows).map(row => row.expanded);
     }
 
+    public getAllDataRowsExpandedState(): boolean[] {
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        return Array.from(rows).map(row => row.expanded);
+    }
+
     public getRenderedCellView(
         rowIndex: number,
         columnIndex: number
@@ -442,6 +447,17 @@ export class TablePageObject<T extends TableRecord> {
         this.getCollapseAllButton()?.click();
     }
 
+    public clickDataRowExpandCollapseButton(rowIndex: number): void {
+        const expandCollapseButton = this.getExpandCollapseButtonForRow(rowIndex);
+        if (!expandCollapseButton) {
+            throw new Error(
+                'The provided row index has no visible expand collapse button associated with it.'
+            );
+        }
+
+        expandCollapseButton.click();
+    }
+
     public isCollapseAllButtonVisible(): boolean {
         const collapseButton = this.getCollapseAllButton();
         if (collapseButton) {
@@ -450,6 +466,11 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
         return false;
+    }
+
+    public isDataRowExpandCollapseButtonVisible(rowIndex: number): boolean {
+        const expandCollapseButton = this.getExpandCollapseButtonForRow(rowIndex);
+        return expandCollapseButton !== null;
     }
 
     public isTableSelectionCheckboxVisible(): boolean {
@@ -730,6 +751,21 @@ export class TablePageObject<T extends TableRecord> {
         return this.tableElement.shadowRoot!.querySelector<Button>(
             '.collapse-all-button'
         );
+    }
+
+    private getExpandCollapseButtonForRow(rowIndex: number): Button | null {
+        const row = this.getRow(rowIndex);
+        const rowExpandCollapseButton = row.shadowRoot!.querySelector<Button>(
+            '.expand-collapse-button'
+        );
+        if (!rowExpandCollapseButton) {
+            const firstCell = this.getCell(rowIndex, 0);
+            return firstCell?.shadowRoot!.querySelector<Button>(
+                '.expand-collapse-button'
+            );
+        }
+
+        return rowExpandCollapseButton;
     }
 
     private getSelectionCheckboxForRow(rowIndex: number): Checkbox | null {

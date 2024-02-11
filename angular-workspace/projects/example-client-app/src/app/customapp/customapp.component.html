@@ -42,6 +42,7 @@
             <nimble-anchor-button nimbleRouterLink="/customapp" appearance="block">Block Anchor Button</nimble-anchor-button>
             <nimble-anchor-button nimbleRouterLink="/customapp" appearance="ghost">Ghost Anchor Button</nimble-anchor-button>
         </div>
+        <!-- Disabled as it breaks accessibility tooling, see: https://github.com/ni/nimble/issues/1650
         <div class="sub-container">
             <div class="container-label">Card</div>
             <nimble-card>
@@ -55,6 +56,7 @@
                 </nimble-select>
             </nimble-card>
         </div>
+        -->
         <div class="sub-container">
             <div class="container-label">Card Button</div>
             <nimble-card-button>
@@ -221,7 +223,7 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Table</div>
-            <nimble-table [data$]="tableData$" id-field-name="id" selection-mode="multiple">
+            <nimble-table [data$]="tableData$" id-field-name="id" parent-id-field-name="parentId" selection-mode="multiple">
                 <nimble-table-column-text
                     field-name="stringValue1"
                     action-menu-slot="action-menu"

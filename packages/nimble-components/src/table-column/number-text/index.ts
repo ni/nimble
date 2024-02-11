@@ -2,9 +2,16 @@ import {
     DesignSystem,
     DesignTokenSubscriber
 } from '@microsoft/fast-foundation';
-import { attr, nullableNumberConverter } from '@microsoft/fast-element';
+import {
+    attr,
+    Notifier,
+    nullableNumberConverter,
+    Observable,
+    observable,
+    Subscriber
+} from '@microsoft/fast-element';
 import { styles } from '../base/styles';
-import { template } from '../base/template';
+import { template } from './template';
 import type { TableNumberField } from '../../table/types';
 import { TableColumnTextBase } from '../text-base';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
@@ -12,16 +19,17 @@ import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { NumberTextAlignment, NumberTextFormat } from './types';
-import type { NumberFormatter } from './models/number-formatter';
-import { DefaultFormatter } from './models/default-formatter';
-import { DecimalFormatter } from './models/decimal-formatter';
+import type { UnitFormat } from '../../utilities/unit-format/unit-format';
+import { NumberTextUnitFormat } from './models/number-text-unit-format';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
 import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
+import { Unit } from '../../unit/base/unit';
+import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-custom-elements-defined-async';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
-    formatter: NumberFormatter;
+    formatter: UnitFormat;
     alignment: TextCellViewBaseAlignment;
 }
 
@@ -30,8 +38,6 @@ declare global {
         'nimble-table-column-number-text': TableColumnNumberText;
     }
 }
-
-const defaultDecimalDigits = 2;
 
 /**
  * The table column for displaying numbers as text.
@@ -55,7 +61,22 @@ export class TableColumnNumberText extends TableColumnTextBase {
     })
     public decimalMaximumDigits?: number;
 
+    /** @internal */
+    @observable
+    public unitElements?: Element[];
+
+    @observable
+    private unit?: Unit;
+
+    private unitNotifier?: Notifier;
+
     private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
+        handleChange: () => {
+            this.updateColumnConfig();
+        }
+    };
+
+    private readonly unitSubscriber: Subscriber = {
         handleChange: () => {
             this.updateColumnConfig();
         }
@@ -86,6 +107,19 @@ export class TableColumnNumberText extends TableColumnTextBase {
         };
     }
 
+    private updateUnitNotifier(): void {
+        if (this.unitNotifier) {
+            this.unitNotifier.unsubscribe(this.unitSubscriber);
+            this.unitNotifier = undefined;
+        }
+
+        if (this.unit) {
+            const notifier = Observable.getNotifier(this.unit);
+            notifier.subscribe(this.unitSubscriber, 'resolvedUnitScale');
+            this.unitNotifier = notifier;
+        }
+    }
+
     private formatChanged(): void {
         this.updateColumnConfig();
     }
@@ -102,6 +136,25 @@ export class TableColumnNumberText extends TableColumnTextBase {
         this.updateColumnConfig();
     }
 
+    private unitElementsChanged(): void {
+        void this.updateUnit();
+    }
+
+    private async updateUnit(): Promise<void> {
+        this.unit = undefined;
+        if (this.unitElements) {
+            await waitUntilCustomElementsDefinedAsync(this.unitElements);
+            this.unit = this.unitElements.find(
+                (x): x is Unit => x instanceof Unit
+            );
+        }
+        this.updateUnitNotifier();
+    }
+
+    private unitChanged(): void {
+        this.updateColumnConfig();
+    }
+
     private updateColumnConfig(): void {
         this.validator.validateDecimalDigits(this.format, this.decimalDigits);
         this.validator.validateDecimalMaximumDigits(
@@ -113,6 +166,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
             this.decimalDigits,
             this.decimalMaximumDigits
         );
+        this.validator.validateAtMostOneUnit(this.unitElements ?? []);
 
         if (this.validator.isValid()) {
             const columnConfig: TableColumnNumberTextColumnConfig = {
@@ -125,25 +179,16 @@ export class TableColumnNumberText extends TableColumnTextBase {
         }
     }
 
-    private createFormatter(): NumberFormatter {
-        let minimumDigits;
-        let maximumDigits;
-        switch (this.format) {
-            case NumberTextFormat.decimal:
-                minimumDigits = typeof this.decimalMaximumDigits === 'number'
-                    ? 0
-                    : this.decimalDigits ?? defaultDecimalDigits;
-                maximumDigits = this.decimalMaximumDigits
-                    ?? this.decimalDigits
-                    ?? defaultDecimalDigits;
-                return new DecimalFormatter(
-                    lang.getValueFor(this),
-                    minimumDigits,
-                    maximumDigits
-                );
-            default:
-                return new DefaultFormatter(lang.getValueFor(this));
-        }
+    private createFormatter(): UnitFormat {
+        const unitScale = this.unit?.resolvedUnitScale;
+        return new NumberTextUnitFormat(lang.getValueFor(this), {
+            // Attribute values sometimes resolve to either null or undefined
+            // See https://github.com/microsoft/fast/issues/6630
+            numberTextFormat: this.format ?? undefined,
+            decimalDigits: this.decimalDigits ?? undefined,
+            decimalMaximumDigits: this.decimalMaximumDigits ?? undefined,
+            unitScale
+        });
     }
 
     private determineCellContentAlignment(): TextCellViewBaseAlignment {
@@ -155,10 +200,11 @@ export class TableColumnNumberText extends TableColumnTextBase {
             return TextCellViewBaseAlignment.right;
         }
 
-        // Look at format and decimal max digits to determine the default alignment
+        // Look at format and decimal max digits and unit to determine the default alignment
         if (
             this.format === NumberTextFormat.decimal
             && typeof this.decimalMaximumDigits !== 'number'
+            && !this.unit
         ) {
             return TextCellViewBaseAlignment.right;
         }
