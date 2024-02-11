@@ -110,7 +110,7 @@ This API will have [optimized byte-array interop from Blazor](https://learn.micr
 
 The alternative to the above mentioned data structure is an [apache arrow](https://arrow.apache.org/docs/js/index.html) table with columns and metadata.
 
-Pros of using Apache:
+Pros of using Apache Arrow:
 
 -   A row based format that aligns well with the existing public api
 -   Well supported and tested format
