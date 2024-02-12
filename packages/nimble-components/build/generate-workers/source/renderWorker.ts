@@ -1,4 +1,4 @@
-export class Worker {
+export class RenderWorker {
     private canvas!: OffscreenCanvas;
     private worker!: number;
     private context!: OffscreenCanvasRenderingContext2D;
