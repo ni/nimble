@@ -2,9 +2,9 @@ import { ViewTemplate, html } from '@microsoft/fast-element';
 import type { Meta, StoryFn } from '@storybook/html';
 import {
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    createMatrixThemeStory
 } from '../../../../utilities/tests/matrix';
-import { createMatrixThemeStory } from '../../../../utilities/tests/storybook';
 import { richTextMentionUsersViewTag } from '..';
 import {
     bodyFont,
