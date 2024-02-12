@@ -1,3 +1,5 @@
+import * as Comlink from 'comlink';
+
 export class RenderWorker {
     private canvas!: OffscreenCanvas;
     private worker!: number;
@@ -58,3 +60,5 @@ export class RenderWorker {
         }
     }
 }
+
+Comlink.expose(RenderWorker);
