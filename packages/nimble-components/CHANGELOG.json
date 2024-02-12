@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 12 Feb 2024 13:48:12 GMT",
+      "version": "21.3.1",
+      "tag": "@ni/nimble-components_v21.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fd66105bfc34419b0ccab692d3d21669970eebfc",
+            "comment": "New rendering HLD for the Wafer Map Component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 09 Feb 2024 22:59:31 GMT",
       "version": "21.3.1",
       "tag": "@ni/nimble-components_v21.3.1",
