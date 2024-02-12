@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 12 Feb 2024 13:48:12 GMT",
+      "version": "21.3.1",
+      "tag": "@ni/nimble-components_v21.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fd66105bfc34419b0ccab692d3d21669970eebfc",
+            "comment": "New rendering HLD for the Wafer Map Component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 09 Feb 2024 22:59:31 GMT",
+      "version": "21.3.1",
+      "tag": "@ni/nimble-components_v21.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8032637eb7eb28f455a712ed74c9119b21f55fc9",
+            "comment": "Create fastParameters for icons and status table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 09 Feb 2024 21:58:13 GMT",
+      "version": "21.3.1",
+      "tag": "@ni/nimble-components_v21.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "77d91358a4e7b3d6581bcecb7a301b023a3face1",
+            "comment": "Update import of <Tag> component to match other layout components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 09 Feb 2024 02:02:53 GMT",
       "version": "21.3.1",
       "tag": "@ni/nimble-components_v21.3.1",

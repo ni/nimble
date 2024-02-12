@@ -3,12 +3,10 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { WaferMapOrientation, WaferMapOriginLocation } from '../types';
 import {
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    createMatrixThemeStory
 } from '../../utilities/tests/matrix';
-import {
-    createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
+import { createStory } from '../../utilities/tests/storybook';
 import { waferMapTag } from '..';
 
 const metadata: Meta = {
