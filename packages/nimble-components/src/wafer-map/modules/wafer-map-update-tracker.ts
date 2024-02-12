@@ -3,6 +3,7 @@ import type { WaferMap } from '..';
 import { UpdateTracker } from '../../utilities/models/update-tracker';
 
 const trackedItems = [
+    'performanceTest',
     'highlightedTags',
     'canvasWidth',
     'canvasHeight',
@@ -11,6 +12,7 @@ const trackedItems = [
     'gridMaxX',
     'gridMinY',
     'gridMaxY',
+    'dieTable',
     'dies',
     'maxCharacters',
     'colorScale',
@@ -41,6 +43,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('gridMaxX')
             || this.isTracked('gridMinY')
             || this.isTracked('gridMaxY')
+            || this.isTracked('dieTable')
             || this.isTracked('dies')
             || this.isTracked('maxCharacters')
             || this.isTracked('colorScale')
@@ -48,6 +51,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('dieLabelsHidden')
             || this.isTracked('dieLabelsSuffix')
             || this.isTracked('transform')
+            || this.isTracked('performanceTest')
         );
     }
 
@@ -66,6 +70,26 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         );
     }
 
+    public get requiresMatrixUpdate(): boolean {
+        return (
+            this.isTracked('canvasWidth')
+            || this.isTracked('canvasHeight')
+            || this.isTracked('originLocation')
+            || this.isTracked('gridMinX')
+            || this.isTracked('gridMaxX')
+            || this.isTracked('gridMinY')
+            || this.isTracked('gridMaxY')
+            || this.isTracked('dieTable')
+            || this.isTracked('maxCharacters')
+            || this.isTracked('colorScale')
+            || this.isTracked('colorScaleMode')
+            || this.isTracked('highlightedTags')
+            || this.isTracked('dieLabelsHidden')
+            || this.isTracked('dieLabelsSuffix')
+            || this.isTracked('performanceTest')
+        );
+    }
+
     public get requiresLabelsFontSizeUpdate(): boolean {
         return this.isTracked('maxCharacters');
     }
@@ -80,7 +104,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         );
     }
 
-    public get requiresDrawnWaferUpdate(): boolean {
+    public get requiresRerenderUpdate(): boolean {
         return this.isTracked('transform');
     }
 
@@ -98,8 +122,8 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         }
         if (!this.updateQueued) {
             this.updateQueued = true;
-            DOM.queueUpdate(() => {
-                this.wafermap.update();
+            DOM.queueUpdate(async () => {
+                await this.wafermap.update();
                 this.untrackAll();
                 this.updateQueued = false;
             });

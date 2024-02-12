@@ -5,13 +5,18 @@ import {
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
+import {
+    tableFromArrays,
+    type Float32,
+    type Int32,
+    type Table
+} from 'apache-arrow';
 import { template } from './template';
 import { styles } from './styles';
-import { DataManager } from './modules/data-manager';
-import { RenderingModule } from './modules/rendering';
 import { EventCoordinator } from './modules/event-coordinator';
 import {
     HoverDieOpacity,
+    WaferMapColorCategory,
     WaferMapColorScale,
     WaferMapColorScaleMode,
     WaferMapDie,
@@ -21,6 +26,7 @@ import {
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
+import { MatrixRenderer } from './modules/matrixRenderer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -71,26 +77,35 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly canvas!: HTMLCanvasElement;
+    public readonly canvasOne!: HTMLCanvasElement;
 
     /**
      * @internal
      */
-    public canvasContext!: CanvasRenderingContext2D;
+    public readonly canvasTwo!: HTMLCanvasElement;
+
+    // /**
+    //  * @internal
+    //  */
+    // public canvasContext!: CanvasRenderingContext2D;
 
     /**
      * @internal
      */
     public readonly zoomContainer!: HTMLElement;
 
+    // /**
+    //  * @internal
+    //  */
+    // public readonly dataManager = new DataManager(this);
+    // /**
+    //  * @internal
+    //  */
+    // public readonly renderer = new RenderingModule(this);
     /**
      * @internal
      */
-    public readonly dataManager = new DataManager(this);
-    /**
-     * @internal
-     */
-    public readonly renderer = new RenderingModule(this);
+    public readonly matrixRenderer = new MatrixRenderer(this);
 
     /**
      * @internal
@@ -120,6 +135,11 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
+    @observable public reticleTransform = '';
+
+    /**
+     * @internal
+     */
     @observable public hoverOpacity: HoverDieOpacity = HoverDieOpacity.hide;
 
     /**
@@ -137,8 +157,24 @@ export class WaferMap extends FoundationElement {
      */
     @observable public hoverDie: WaferMapDie | undefined;
 
+    /**
+     * @internal
+     */
+    @observable public performanceTest: string | undefined;
+
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
+    @observable public dieTable: Table<{
+        colIndex: Int32,
+        rowIndex: Int32,
+        value: Float32
+    }> = tableFromArrays({
+            colIndex: new Int32Array(),
+            rowIndex: new Int32Array(),
+            value: new Float32Array()
+        });
+
+    @observable public colorCategories: WaferMapColorCategory[] = [];
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
@@ -154,9 +190,9 @@ export class WaferMap extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.canvasContext = this.canvas.getContext('2d', {
-            willReadFrequently: true
-        })!;
+        // this.canvasContext = this.canvas.getContext('2d', {
+        //     willReadFrequently: true
+        // })!;
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
     }
@@ -174,32 +210,41 @@ export class WaferMap extends FoundationElement {
      * The updates snowball one after the other, this function only choses the 'altitude'.
      * The hover does not require an event update, but it's also the last update in the sequence.
      */
-    public update(): void {
+    public async update(): Promise<void> {
+        const start = this.performanceTest !== undefined ? performance.now() : undefined;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
             this.waferMapValidator.validateGridDimensions();
-            if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
-                this.dataManager.updateContainerDimensions();
-                this.renderer.updateSortedDiesAndDrawWafer();
-            } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
-                this.dataManager.updateScales();
-                this.renderer.updateSortedDiesAndDrawWafer();
-            } else if (
-                this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
-            ) {
-                this.dataManager.updateLabelsFontSize();
-                this.renderer.updateSortedDiesAndDrawWafer();
-            } else if (
-                this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
-            ) {
-                this.dataManager.updateDiesRenderInfo();
-                this.renderer.updateSortedDiesAndDrawWafer();
-            } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
-                this.renderer.drawWafer();
+            if (this.waferMapUpdateTracker.requiresMatrixUpdate) {
+                await this.matrixRenderer.renderMatrix();
+            } else if (this.waferMapUpdateTracker.requiresRerenderUpdate) {
+                await this.matrixRenderer.rerenderMatrix();
             }
+            // if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
+            //     this.dataManager.updateContainerDimensions();
+            //     this.renderer.updateSortedDiesAndDrawWafer();
+            // } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
+            //     this.dataManager.updateScales();
+            //     this.renderer.updateSortedDiesAndDrawWafer();
+            // } else if (
+            //     this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
+            // ) {
+            //     this.dataManager.updateLabelsFontSize();
+            //     this.renderer.updateSortedDiesAndDrawWafer();
+            // } else if (
+            //     this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
+            // ) {
+            //     this.dataManager.updateDiesRenderInfo();
+            //     this.renderer.updateSortedDiesAndDrawWafer();
+            // } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
+            //     this.renderer.drawWafer();
+            // }
             this.eventCoordinator.attachEvents();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
-            this.renderer.renderHover();
+            this.matrixRenderer.renderHover();
+        }
+        if (this.performanceTest !== undefined) {
+            performance.measure(`${this.performanceTest} - update`, { start });
         }
     }
 
@@ -210,12 +255,21 @@ export class WaferMap extends FoundationElement {
                 return;
             }
             const { height, width } = entry.contentRect;
+
             // Updating the canvas size clears its contents so update it explicitly instead of
             // via template bindings so we can confirm that it happens before render
-            this.canvas.width = width;
-            this.canvas.height = height;
-            this.canvasWidth = width;
-            this.canvasHeight = height;
+            this.matrixRenderer.setCanvas().then(
+                () => {
+                    this.matrixRenderer.setCanvasDimensions(width, height).then(
+                        () => {
+                            this.canvasWidth = width;
+                            this.canvasHeight = height;
+                        },
+                        () => {}
+                    );
+                },
+                () => {}
+            );
         });
         return resizeObserver;
     }
@@ -275,6 +329,11 @@ export class WaferMap extends FoundationElement {
         this.waferMapUpdateTracker.queueUpdate();
     }
 
+    private dieTableChanged(): void {
+        this.waferMapUpdateTracker.track('dieTable');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
     private colorScaleChanged(): void {
         this.waferMapUpdateTracker.track('colorScale');
         this.waferMapUpdateTracker.queueUpdate();
@@ -298,6 +357,11 @@ export class WaferMap extends FoundationElement {
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
         this.waferMapUpdateTracker.track('hoverDie');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private performanceTestChanged(): void {
+        this.waferMapUpdateTracker.track('canvasHeight');
         this.waferMapUpdateTracker.queueUpdate();
     }
 }

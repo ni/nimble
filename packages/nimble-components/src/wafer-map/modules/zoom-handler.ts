@@ -30,8 +30,8 @@ export class ZoomHandler {
                 1.1,
                 this.getZoomMax(
                     this.wafermap.canvasWidth * this.wafermap.canvasHeight,
-                    this.wafermap.dataManager.containerDimensions.width
-                        * this.wafermap.dataManager.containerDimensions.height
+                    this.wafermap.matrixRenderer.containerWidth
+                        * this.wafermap.matrixRenderer.containerHeight
                 )
             ])
             .translateExtent([
@@ -42,7 +42,7 @@ export class ZoomHandler {
                 ]
             ])
             .filter((event: Event) => {
-                const transform = zoomTransform(this.wafermap.canvas);
+                const transform = zoomTransform(this.wafermap);
                 const filterEval = transform.k >= this.minScale || event.type === 'wheel';
                 return filterEval;
             })
@@ -52,7 +52,7 @@ export class ZoomHandler {
                 this.rescale(event);
             });
 
-        this.zoomBehavior(select(this.wafermap.canvas as Element));
+        this.zoomBehavior(select(this.wafermap as Element));
     }
 
     private rescale(event: ZoomEvent): void {
@@ -60,7 +60,11 @@ export class ZoomHandler {
         if (transform.k === this.minScale) {
             this.zoomTransform = zoomIdentity;
             this.zoomBehavior.transform(
-                select(this.wafermap.canvas as Element),
+                select(this.wafermap.canvasOne as Element),
+                zoomIdentity
+            );
+            this.zoomBehavior.transform(
+                select(this.wafermap.canvasTwo as Element),
                 zoomIdentity
             );
         } else {

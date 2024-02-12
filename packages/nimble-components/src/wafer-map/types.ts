@@ -1,5 +1,3 @@
-import type { DataManager } from './modules/data-manager';
-
 export const WaferMapOriginLocation = {
     bottomLeft: 'bottom-left',
     bottomRight: 'bottom-right',
@@ -45,16 +43,21 @@ export interface WaferMapDie {
     tags?: string[];
 }
 
+export interface WaferMapLayer {
+    name: string;
+    type: string;
+    buffer: Int32Array;
+}
+
 export interface WaferMapColorScale {
     colors: string[];
     values: string[];
 }
 
-export interface HoverHandlerData {
-    canvas: HTMLCanvasElement;
-    rect: HTMLElement;
-    dataManager: DataManager;
-    originLocation: WaferMapOriginLocation;
+export interface WaferMapColorCategory {
+    color: string;
+    startValue: number;
+    endValue?: number;
 }
 
 export interface Dimensions {

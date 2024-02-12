@@ -1,5 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import type { Float32, Int32, Table } from 'apache-arrow';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
@@ -10,11 +11,7 @@ import {
     badValueGenerator,
     highlightedValueGenerator
 } from './value-generator';
-import type {
-    WaferMapDie,
-    WaferMapColorScale,
-    WaferMapValidity
-} from '../types';
+import type { WaferMapValidity, WaferMapColorCategory } from '../types';
 import {
     WaferMapOriginLocation,
     WaferMapOrientation,
@@ -22,13 +19,13 @@ import {
 } from '../types';
 import {
     highlightedTagsSets,
-    wafermapDieSets,
-    waferMapColorScaleSets
+    waferMapColorScaleSets,
+    wafermapDieTable
 } from './sets';
 import { waferMapTag } from '..';
 
 interface WaferMapArgs {
-    colorScale: WaferMapColorScale;
+    colorScale: WaferMapColorCategory[];
     colorScaleMode: WaferMapColorScaleMode;
     dieLabelsHidden: boolean;
     dieLabelsSuffix: string;
@@ -47,10 +44,22 @@ interface WaferMapArgs {
 
 const getDiesSet = (
     setName: string,
-    sets: WaferMapDie[][]
-): WaferMapDie[] | undefined => {
+    sets: Table<{
+        colIndex: Int32,
+        rowIndex: Int32,
+        value: Float32
+    }>[]
+): Table<{
+    colIndex: Int32,
+    rowIndex: Int32,
+    value: Float32
+}> => {
     const seed = 0.5;
-    let returnedValue: WaferMapDie[];
+    let returnedValue: Table<{
+        colIndex: Int32,
+        rowIndex: Int32,
+        value: Float32
+    }>;
     switch (setName) {
         case 'fixedDies10':
             returnedValue = sets[0]!;
@@ -69,15 +78,19 @@ const getDiesSet = (
                 highlightedValueGenerator(seed)
             )!;
             break;
-        case 'badDies10000':
+        case 'badDies1000000':
             returnedValue = generateWaferData(
-                10000,
+                10 ** 6,
                 badValueGenerator(seed),
                 highlightedValueGenerator(seed)
             )!;
             break;
         default:
-            returnedValue = [] as WaferMapDie[];
+            returnedValue = {} as Table<{
+                colIndex: Int32,
+                rowIndex: Int32,
+                value: Float32
+            }>;
     }
     return returnedValue;
 };
@@ -123,10 +136,11 @@ const metadata: Meta<WaferMapArgs> = {
             grid-max-x=${x => x.gridMaxX}
             grid-min-y=${x => x.gridMinY}
             grid-max-y=${x => x.gridMaxY}
-            :colorScale="${x => x.colorScale}"
-            :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
+            :colorCategories="${x => x.colorScale}"
+            :dieTable="${x => getDiesSet(x.dies, wafermapDieTable)}"
+            
             :highlightedTags="${x => getHighlightedTags(x.highlightedTags, highlightedTagsSets)}"
-            >
+        >
         </${waferMapTag}>
         <style class="code-hide">
             #wafer-map {
@@ -138,17 +152,17 @@ const metadata: Meta<WaferMapArgs> = {
     args: {
         colorScale: waferMapColorScaleSets[0],
         colorScaleMode: WaferMapColorScaleMode.linear,
-        dies: 'fixedDies10',
+        dies: 'badDies1000000',
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
         highlightedTags: 'set1',
         maxCharacters: 4,
         orientation: WaferMapOrientation.left,
         originLocation: WaferMapOriginLocation.bottomLeft,
-        gridMinX: undefined,
-        gridMaxX: undefined,
-        gridMinY: undefined,
-        gridMaxY: undefined
+        gridMinX: 0,
+        gridMaxX: 1150, // 3500,
+        gridMinY: 0,
+        gridMaxY: 1150 // 3500
     },
     argTypes: {
         colorScale: {
@@ -196,7 +210,7 @@ const metadata: Meta<WaferMapArgs> = {
                 'fixedDies10',
                 'goodDies100',
                 'goodDies1000',
-                'badDies10000'
+                'badDies1000000'
             ],
             control: {
                 type: 'radio',
@@ -204,7 +218,7 @@ const metadata: Meta<WaferMapArgs> = {
                     fixedDies10: 'Small dies set of fixed values',
                     goodDies100: 'Medium dies set of mostly good values',
                     goodDies1000: 'Large dies set of mostly good values',
-                    badDies10000: 'Very large dies set of mostly bad values'
+                    badDies1000000: 'Very large dies set of mostly bad values'
                 }
             },
             defaultValue: 'set1'

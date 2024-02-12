@@ -1,14 +1,6 @@
-import { ScaleBand, scaleBand } from 'd3-scale';
-import {
-    Dimensions,
-    Margin,
-    WaferMapColorScale,
-    WaferMapColorScaleMode,
-    WaferMapDie,
-    WaferMapOriginLocation,
-    WaferMapValidity
-} from '../types';
-import type { DataManager } from '../modules/data-manager';
+// import { ScaleLinear, scaleLinear } from 'd3-scale';
+import type { WaferMapColorScale, WaferMapDie } from '../types';
+// import type { DataManager } from '../modules/data-manager';
 import type { WaferMap } from '..';
 
 export function getWaferMapDies(): WaferMapDie[] {
@@ -56,85 +48,38 @@ export function getHighlightedTags(): string[] {
     return ['5', '10', '15'];
 }
 
-export function getScaleBand(
-    domain: number[] = [],
-    range: number[] = []
-): ScaleBand<number> {
-    return scaleBand<number>().domain(domain).range(range);
-}
+// export function getScaleBand(
+//     domain: number[] = [],
+//     range: number[] = []
+// ): ScaleLinear<number, number> {
+//     return scaleLinear<number, number>().domain(domain).range(range);
+// }
 
-export const defaultHorizontalScale = scaleBand<number>()
-    .domain([2, 3, 4, 5, 6])
-    .range([2, 7]);
+// export const defaultHorizontalScale = scaleLinear<number, number>()
+//     .domain([2, 3, 4, 5, 6])
+//     .range([2, 7]);
 
-export const defaultVerticalScale = scaleBand<number>()
-    .domain([1, 2, 3, 4, 5, 6])
-    .range([1, 7]);
+// export const defaultVerticalScale = scaleLinear<number, number>()
+//     .domain([1, 2, 3, 4, 5, 6])
+//     .range([1, 7]);
 
-export function getDataManagerMock(
-    dieDimensions: Dimensions,
-    margin: Margin,
-    horizontalScale: ScaleBand<number> = getScaleBand([], []),
-    verticalScale: ScaleBand<number> = getScaleBand([], [])
-): Pick<
-    DataManager,
-    'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
-    > {
-    return {
-        horizontalScale,
-        verticalScale,
-        dieDimensions,
-        margin
-    };
-}
-
-export function getWaferMapMockPrerendering(
-    dies: WaferMapDie[] = getWaferMapDies(),
-    colorScale: WaferMapColorScale = { colors: [], values: [] },
-    highlightedTags: string[] = [],
-    colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear,
-    dieLabelsHidden = true,
-    dieLabelsSuffix = '',
-    maxCharacters = 4
-): Pick<
-    WaferMap,
-    | 'dies'
-    | 'colorScale'
-    | 'highlightedTags'
-    | 'colorScaleMode'
-    | 'dieLabelsHidden'
-    | 'dieLabelsSuffix'
-    | 'maxCharacters'
-    > {
-    return {
-        dies,
-        colorScale,
-        highlightedTags,
-        colorScaleMode,
-        dieLabelsHidden,
-        dieLabelsSuffix,
-        maxCharacters
-    };
-}
-
-export function getWaferMapMockComputations(
-    dies: WaferMapDie[] = getWaferMapDies(),
-    originLocation: WaferMapOriginLocation,
-    canvasWidth: number,
-    canvasHeight: number,
-    validity: WaferMapValidity = { invalidGridDimensions: false }
-): Pick<
-    WaferMap,
-    'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
-    > {
-    return {
-        dies,
-        originLocation,
-        canvasWidth,
-        canvasHeight,
-        validity
-    };
-}
+// export function getDataManagerMock(
+//     dieDimensions: Dimensions,
+//     margin: Margin,
+//     horizontalScale: ScaleBand<number> = getScaleBand([], []),
+//     verticalScale: ScaleBand<number> = getScaleBand([], [])
+// ): Pick<
+//     WaferMap,
+//     'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
+//     > {
+//     return {
+//         dies,
+//         originLocation,
+//         canvasWidth,
+//         canvasHeight,
+//         validity
+//     };
+// }
 
 export function getWaferMapMockValidator(
     gridMinX: number | undefined,
