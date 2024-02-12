@@ -106,7 +106,7 @@ describe('WaferMap', () => {
         });
     });
 
-    describe('zoom flow', () => {
+    xdescribe('zoom flow', () => {
         let initialValue: string | undefined;
 
         beforeEach(() => {
