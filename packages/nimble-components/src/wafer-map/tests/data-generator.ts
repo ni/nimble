@@ -1,4 +1,5 @@
-import type { WaferMapData, WaferMapDie } from '../types';
+import { Float32, Int32, Table, tableFromArrays } from 'apache-arrow';
+import type { WaferMapDie } from '../types';
 import type { IValueGenerator } from './value-generator';
 
 // const valueToString = (value: number): string => {
@@ -48,29 +49,24 @@ export const generateWaferData = (
     numDies: number,
     valueGenerator?: IValueGenerator,
     _highlightedTagsGenerator?: IValueGenerator
-): WaferMapData => {
-    const diesMatrix: WaferMapData = {
-        dieColIndexArray: Int32Array.from([]),
-        rowLengthsArray: Int32Array.from([]),
-        dieRowIndexLayer: Int32Array.from([]),
-        dieValuesLayer: Int32Array.from([]),
-        dieHighlightsLayer: Int8Array.from([])
-    };
-
+): Table<{
+    colIndex: Int32,
+    rowIndex: Int32,
+    value: Float32
+}> => {
     if (numDies > 0) {
         // calculate the equivalent radius of a circle that would contain the <<<<numDies>>>> number of dies
         const radius = Math.ceil(Math.sqrt(numDies / Math.PI));
         const centerX = radius;
         const centerY = radius;
-        const dieColIndexArray: number[] = [];
-        const rowLengthsArray: number[] = [];
+        const dieColIndexLayer: number[] = [];
         const dieRowIndexLayer: number[] = [];
         const dieValuesLayer: number[] = [];
 
         // Generate dies values - start from the bottom and go up
         for (let i = centerY - radius; i <= centerY + radius; i++) {
             const values: number[] = [];
-            const yIndexes: number[] = [];
+            const rowIndexes: number[] = [];
 
             // generate points left of centerX
             for (
@@ -79,10 +75,10 @@ export const generateWaferData = (
                 <= radius * radius;
                 j--
             ) {
-                yIndexes.push(j);
+                rowIndexes.push(j);
                 values.push(generateValue(i, j, valueGenerator));
             }
-            yIndexes.reverse();
+            rowIndexes.reverse();
             values.reverse();
             // generate points right of centerX
             for (
@@ -91,18 +87,23 @@ export const generateWaferData = (
                 <= radius * radius;
                 j++
             ) {
-                yIndexes.push(j);
+                rowIndexes.push(j);
                 values.push(generateValue(i, j, valueGenerator));
             }
-            dieColIndexArray.push(i);
-            rowLengthsArray.push(values.length);
-            dieRowIndexLayer.push(...yIndexes);
+            dieColIndexLayer.push(...Array<number>(rowIndexes.length).fill(i));
+            dieRowIndexLayer.push(...rowIndexes);
             dieValuesLayer.push(...values);
         }
-        diesMatrix.dieColIndexArray = Int32Array.from(dieColIndexArray);
-        diesMatrix.rowLengthsArray = Int32Array.from(rowLengthsArray);
-        diesMatrix.dieRowIndexLayer = Int32Array.from(dieRowIndexLayer);
-        diesMatrix.dieValuesLayer = Int32Array.from(dieValuesLayer);
+        const table = tableFromArrays({
+            colIndex: Int32Array.from(dieColIndexLayer),
+            rowIndex: Int32Array.from(dieRowIndexLayer),
+            value: Float32Array.from(dieValuesLayer)
+        });
+        return table;
     }
-    return diesMatrix;
+    return tableFromArrays({
+        colIndex: new Int32Array(),
+        rowIndex: new Int32Array(),
+        value: new Float32Array()
+    });
 };

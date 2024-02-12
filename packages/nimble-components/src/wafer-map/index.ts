@@ -5,6 +5,12 @@ import {
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
+import {
+    tableFromArrays,
+    type Float32,
+    type Int32,
+    type Table
+} from 'apache-arrow';
 import { template } from './template';
 import { styles } from './styles';
 import { EventCoordinator } from './modules/event-coordinator';
@@ -13,7 +19,6 @@ import {
     WaferMapColorCategory,
     WaferMapColorScale,
     WaferMapColorScaleMode,
-    WaferMapData,
     WaferMapDie,
     WaferMapOrientation,
     WaferMapOriginLocation,
@@ -159,13 +164,15 @@ export class WaferMap extends FoundationElement {
 
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
-    @observable public dieMatrix: WaferMapData = {
-        dieColIndexArray: Int32Array.from([]),
-        rowLengthsArray: Int32Array.from([]),
-        dieRowIndexLayer: Int32Array.from([]),
-        dieValuesLayer: Int32Array.from([]),
-        dieHighlightsLayer: Int8Array.from([])
-    };
+    @observable public dieTable: Table<{
+        colIndex: Int32,
+        rowIndex: Int32,
+        value: Float32
+    }> = tableFromArrays({
+            colIndex: new Int32Array(),
+            rowIndex: new Int32Array(),
+            value: new Float32Array()
+        });
 
     @observable public colorCategories: WaferMapColorCategory[] = [];
     @observable public colorScale: WaferMapColorScale = {
@@ -203,15 +210,15 @@ export class WaferMap extends FoundationElement {
      * The updates snowball one after the other, this function only choses the 'altitude'.
      * The hover does not require an event update, but it's also the last update in the sequence.
      */
-    public update(): void {
+    public async update(): Promise<void> {
         const start = this.performanceTest !== undefined ? performance.now() : undefined;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
             this.waferMapValidator.validateGridDimensions();
             if (this.waferMapUpdateTracker.requiresMatrixUpdate) {
-                this.matrixRenderer.renderMatrix();
+                await this.matrixRenderer.renderMatrix();
             } else if (this.waferMapUpdateTracker.requiresRerenderUpdate) {
-                this.matrixRenderer.rerenderMatrix();
+                await this.matrixRenderer.rerenderMatrix();
             }
             // if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
             //     this.dataManager.updateContainerDimensions();
@@ -251,10 +258,18 @@ export class WaferMap extends FoundationElement {
 
             // Updating the canvas size clears its contents so update it explicitly instead of
             // via template bindings so we can confirm that it happens before render
-            this.matrixRenderer.setCanvas();
-            this.matrixRenderer.setCanvasDimensions(width, height);
-            this.canvasWidth = width;
-            this.canvasHeight = height;
+            this.matrixRenderer.setCanvas().then(
+                () => {
+                    this.matrixRenderer.setCanvasDimensions(width, height).then(
+                        () => {
+                            this.canvasWidth = width;
+                            this.canvasHeight = height;
+                        },
+                        () => {}
+                    );
+                },
+                () => {}
+            );
         });
         return resizeObserver;
     }
@@ -314,8 +329,8 @@ export class WaferMap extends FoundationElement {
         this.waferMapUpdateTracker.queueUpdate();
     }
 
-    private dieMatrixChanged(): void {
-        this.waferMapUpdateTracker.track('dieMatrix');
+    private dieTableChanged(): void {
+        this.waferMapUpdateTracker.track('dieTable');
         this.waferMapUpdateTracker.queueUpdate();
     }
 

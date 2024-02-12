@@ -62,36 +62,36 @@ export class HoverHandler {
     }
 
     private getWaferMapDie(
-        dieCoordinates: PointCoordinates
+        _dieCoordinates: PointCoordinates
     ): WaferMapDie | undefined {
-        const colIndex = this.wafermap.dieMatrix.dieColIndexArray.indexOf(
-            dieCoordinates.x
-        );
-        if (colIndex === -1) {
-            return undefined;
-        }
-        let startRowIndex = 0;
-        for (let index = 0; index < colIndex; index++) {
-            startRowIndex += this.wafermap.dieMatrix.rowLengthsArray[index]!;
-        }
-        for (
-            let index = startRowIndex;
-            index < this.wafermap.dieMatrix.rowLengthsArray[colIndex]!;
-            index++
-        ) {
-            const rowIndex = this.wafermap.dieMatrix.dieRowIndexLayer[
-                startRowIndex + index
-            ]!;
-            if (rowIndex === dieCoordinates.y) {
-                return {
-                    x: dieCoordinates.x,
-                    y: dieCoordinates.y,
-                    value: `${this.wafermap.dieMatrix.dieValuesLayer[
-                        startRowIndex + index
-                    ]!}`
-                };
-            }
-        }
+        // const colIndex = this.wafermap.dieMatrix.dieColIndexArray.indexOf(
+        //     dieCoordinates.x
+        // );
+        // if (colIndex === -1) {
+        //     return undefined;
+        // }
+        // let startRowIndex = 0;
+        // for (let index = 0; index < colIndex; index++) {
+        //     startRowIndex += this.wafermap.dieMatrix.rowLengthsArray[index]!;
+        // }
+        // for (
+        //     let index = startRowIndex;
+        //     index < this.wafermap.dieMatrix.rowLengthsArray[colIndex]!;
+        //     index++
+        // ) {
+        //     const rowIndex = this.wafermap.dieMatrix.dieRowIndexLayer[
+        //         startRowIndex + index
+        //     ]!;
+        //     if (rowIndex === dieCoordinates.y) {
+        //         return {
+        //             x: dieCoordinates.x,
+        //             y: dieCoordinates.y,
+        //             value: `${this.wafermap.dieMatrix.dieValuesLayer[
+        //                 startRowIndex + index
+        //             ]!}`
+        //         };
+        //     }
+        // }
         return undefined;
     }
 }

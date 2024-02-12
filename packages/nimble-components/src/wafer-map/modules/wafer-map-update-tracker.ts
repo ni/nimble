@@ -12,7 +12,7 @@ const trackedItems = [
     'gridMaxX',
     'gridMinY',
     'gridMaxY',
-    'dieMatrix',
+    'dieTable',
     'dies',
     'maxCharacters',
     'colorScale',
@@ -43,7 +43,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('gridMaxX')
             || this.isTracked('gridMinY')
             || this.isTracked('gridMaxY')
-            || this.isTracked('dieMatrix')
+            || this.isTracked('dieTable')
             || this.isTracked('dies')
             || this.isTracked('maxCharacters')
             || this.isTracked('colorScale')
@@ -79,8 +79,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('gridMaxX')
             || this.isTracked('gridMinY')
             || this.isTracked('gridMaxY')
-            || this.isTracked('dieMatrix')
-            || this.isTracked('dieMatrix')
+            || this.isTracked('dieTable')
             || this.isTracked('maxCharacters')
             || this.isTracked('colorScale')
             || this.isTracked('colorScaleMode')
@@ -123,8 +122,8 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         }
         if (!this.updateQueued) {
             this.updateQueued = true;
-            DOM.queueUpdate(() => {
-                this.wafermap.update();
+            DOM.queueUpdate(async () => {
+                await this.wafermap.update();
                 this.untrackAll();
                 this.updateQueued = false;
             });

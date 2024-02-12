@@ -18,17 +18,14 @@ const modulePath = require.resolve(moduleName);
 const sourceCode = fs.readFileSync(modulePath, 'utf-8');
 
 const componentFileContents =
-`export const workerCode = \`
-${sourceCode.replaceAll('`','\\`').replaceAll('$','\\$').replaceAll('exports.RenderWorker = RenderWorker;','')}
-
-const renderWorker = new RenderWorker();
-self.onmessage = function(e) {
-    if (renderWorker[e.data.method] !== undefined) {
-        renderWorker[e.data.method](e.data);
-    } else {
-        console.log('unknown method: ' + e.data.method);
-    }
-};\`;`;
+`export const workerCode = \`${sourceCode.
+    replaceAll('\\`','\\\\`').
+    replaceAll('`','\\`').
+    replaceAll('${','\\${').
+    replaceAll('\\n','\\\\n').
+    replaceAll('\\_','\\\\_').
+    replaceAll('exports.RenderWorker = RenderWorker;','')
+}\`;`;
 
 const filePath = path.resolve(workersDirectory, 'renderWorker.ts');
 console.log(`Writing worker file "${filePath}"`);

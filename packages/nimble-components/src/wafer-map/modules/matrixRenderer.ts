@@ -1,6 +1,9 @@
+import { tableToIPC } from 'apache-arrow';
+import * as Comlink from 'comlink';
 import type { WaferMap } from '..';
 import { HoverDieOpacity } from '../types';
 import { workerCode } from '../workers/renderWorker';
+import type { RenderWorker } from '../../../build/generate-workers/dist/esm/renderWorker';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
@@ -23,14 +26,12 @@ export class MatrixRenderer {
 
     private canvasSet = false;
 
-    private readonly workerOne: Worker;
-    private readonly workerTwo: Worker;
+    private readonly workerOne!: Comlink.Remote<RenderWorker>;
 
     public constructor(private readonly wafermap: WaferMap) {
         const blob = new Blob([workerCode], { type: 'text/javascript' });
         const url = URL.createObjectURL(blob);
-        this.workerOne = new Worker(url);
-        this.workerTwo = new Worker(url);
+        this.workerOne = Comlink.wrap<RenderWorker>(new Worker(url));
     }
 
     public get containerWidth(): number {
@@ -58,24 +59,24 @@ export class MatrixRenderer {
         return this._margin;
     }
 
-    public renderMatrix(): void {
-        this.restoreContext();
-        this.saveContext();
-        this.clearCanvas();
-        this.scaleCanvas();
+    public async renderMatrix(): Promise<void> {
+        await this.restoreContext();
+        await this.saveContext();
+        await this.clearCanvas();
+        await this.scaleCanvas();
         this.prepareDies();
-        this.renderDiesFromMatrix();
-        this.rerenderText();
+        await this.renderDiesFromMatrix();
+        await this.rerenderText();
         this.renderHover();
     }
 
-    public rerenderMatrix(): void {
-        this.restoreContext();
-        this.saveContext();
-        this.clearCanvas();
-        this.scaleCanvas();
-        this.rerenderDies();
-        this.rerenderText();
+    public async rerenderMatrix(): Promise<void> {
+        await this.restoreContext();
+        await this.saveContext();
+        await this.clearCanvas();
+        await this.scaleCanvas();
+        await this.rerenderDies();
+        await this.rerenderText();
         this.renderHover();
     }
 
@@ -88,83 +89,46 @@ export class MatrixRenderer {
         this.wafermap.hoverTransform = this.calculateHoverTransform();
     }
 
-    public setCanvasDimensions(width: number, height: number): void {
+    public async setCanvasDimensions(
+        width: number,
+        height: number
+    ): Promise<void> {
         if (this.canvasSet) {
-            this.workerOne.postMessage({
-                method: 'setCanvasDimensions',
-                width,
-                height
-            });
-            this.workerTwo.postMessage({
-                method: 'setCanvasDimensions',
+            await this.workerOne.setCanvasDimensions({
                 width,
                 height
             });
         }
     }
 
-    public setCanvas(): void {
+    public async setCanvas(): Promise<void> {
         if (!this.canvasSet) {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
             const offscreenOne = this.wafermap.canvasOne.transferControlToOffscreen();
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-            const offscreenTwo = this.wafermap.canvasTwo.transferControlToOffscreen();
-            this.workerOne.postMessage(
-                {
-                    method: 'setCanvas',
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                    canvas: offscreenOne,
-                    worker: 0,
-                    performanceTest: this.wafermap.performanceTest
-                },
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                [offscreenOne]
-            );
-            this.workerTwo.postMessage(
-                {
-                    method: 'setCanvas',
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                    canvas: offscreenTwo,
-                    worker: 1,
-                    performanceTest: this.wafermap.performanceTest
-                },
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                [offscreenTwo]
+            await this.workerOne.setCanvas(
+                Comlink.transfer(offscreenOne, [
+                    offscreenOne as unknown as Transferable
+                ])
             );
             this.canvasSet = true;
         }
     }
 
-    private rerenderDies(): void {
+    private async rerenderDies(): Promise<void> {
         if (this.canvasSet) {
-            this.workerOne.postMessage({
-                method: 'rerenderDies'
-            });
-            this.workerTwo.postMessage({
-                method: 'rerenderDies'
-            });
+            await this.workerOne.rerenderDies();
         }
     }
 
-    private rerenderText(): void {
+    private async rerenderText(): Promise<void> {
         if (this.canvasSet) {
-            this.workerOne.postMessage({
-                method: 'rerenderText'
-            });
-            this.workerTwo.postMessage({
-                method: 'rerenderText'
-            });
+            await this.workerOne.rerenderText();
         }
     }
 
-    private clearCanvas(): void {
+    private async clearCanvas(): Promise<void> {
         if (this.canvasSet) {
-            this.workerOne.postMessage({
-                method: 'clearCanvas'
-            });
-            this.workerTwo.postMessage({
-                method: 'clearCanvas'
-            });
+            await this.workerOne.clearCanvas();
         }
     }
 
@@ -183,38 +147,23 @@ export class MatrixRenderer {
         return '';
     }
 
-    private scaleCanvas(): void {
+    private async scaleCanvas(): Promise<void> {
         if (this.canvasSet) {
-            this.workerOne.postMessage({
-                method: 'scaleCanvas',
-                transform: this.wafermap.transform
-            });
-            this.workerTwo.postMessage({
-                method: 'scaleCanvas',
+            await this.workerOne.scaleCanvas({
                 transform: this.wafermap.transform
             });
         }
     }
 
-    private saveContext(): void {
+    private async saveContext(): Promise<void> {
         if (this.canvasSet) {
-            this.workerOne.postMessage({
-                method: 'saveContext'
-            });
-            this.workerTwo.postMessage({
-                method: 'saveContext'
-            });
+            await this.workerOne.saveContext();
         }
     }
 
-    private restoreContext(): void {
+    private async restoreContext(): Promise<void> {
         if (this.canvasSet) {
-            this.workerOne.postMessage({
-                method: 'restoreContext'
-            });
-            this.workerTwo.postMessage({
-                method: 'restoreContext'
-            });
+            await this.workerOne.restoreContext();
         }
     }
 
@@ -270,52 +219,34 @@ export class MatrixRenderer {
                 && typeof this.wafermap.gridMaxY === 'number'
             )
         ) {
+            const firstRow = this.wafermap.dieTable.get(0)!;
             minPoint = {
-                x: this.wafermap.dieMatrix.dieColIndexArray[0]!,
-                y: this.wafermap.dieMatrix.dieRowIndexLayer[0]!
+                x: firstRow.colIndex,
+                y: firstRow?.rowIndex
             };
             maxPoint = {
-                x: this.wafermap.dieMatrix.dieColIndexArray[0]!,
-                y: this.wafermap.dieMatrix.dieRowIndexLayer[0]!
+                x: firstRow?.colIndex,
+                y: firstRow?.rowIndex
             };
 
             // eslint-disable-next-line @typescript-eslint/prefer-for-of
             for (
-                let index = 0;
-                index < this.wafermap.dieMatrix.dieColIndexArray.length;
+                let index = 0, length = this.wafermap.dieTable.numRows;
+                index < length;
                 index++
             ) {
-                if (
-                    this.wafermap.dieMatrix.dieColIndexArray[index]!
-                    < minPoint.x
-                ) {
-                    minPoint.x = this.wafermap.dieMatrix.dieColIndexArray[index]!;
+                const tableRow = this.wafermap.dieTable.get(index)!;
+                if (tableRow.colIndex < minPoint?.x) {
+                    minPoint.x = tableRow.colIndex;
                 }
-                if (
-                    this.wafermap.dieMatrix.dieColIndexArray[index]!
-                    > maxPoint.x
-                ) {
-                    maxPoint.x = this.wafermap.dieMatrix.dieColIndexArray[index]!;
+                if (tableRow.colIndex > maxPoint.x) {
+                    maxPoint.x = tableRow.colIndex;
                 }
-            }
-
-            // eslint-disable-next-line @typescript-eslint/prefer-for-of
-            for (
-                let index = 0;
-                index < this.wafermap.dieMatrix.dieRowIndexLayer.length;
-                index++
-            ) {
-                if (
-                    this.wafermap.dieMatrix.dieRowIndexLayer[index]!
-                    < minPoint.y
-                ) {
-                    minPoint.y = this.wafermap.dieMatrix.dieRowIndexLayer[index]!;
+                if (tableRow.rowIndex < minPoint.y) {
+                    minPoint.y = tableRow.rowIndex;
                 }
-                if (
-                    this.wafermap.dieMatrix.dieRowIndexLayer[index]!
-                    > maxPoint.y
-                ) {
-                    maxPoint.y = this.wafermap.dieMatrix.dieRowIndexLayer[index]!;
+                if (tableRow.rowIndex > maxPoint.y) {
+                    maxPoint.y = tableRow.rowIndex;
                 }
             }
         } else {
@@ -356,7 +287,7 @@ export class MatrixRenderer {
         };
     }
 
-    private renderDiesFromMatrix(): void {
+    private async renderDiesFromMatrix(): Promise<void> {
         const transformedCanvasMinPoint = this.wafermap.transform.invert([
             0, 0
         ]);
@@ -366,8 +297,7 @@ export class MatrixRenderer {
         ]);
         transformedCanvasMinPoint[0] -= this._dieDimensions.width;
         transformedCanvasMinPoint[1] -= this._dieDimensions.height;
-        this.workerOne.postMessage({
-            method: 'updateRenderConfig',
+        await this.workerOne.updateRenderConfig({
             margin: this._margin,
             verticalScale: this._verticalScale,
             horizontalScale: this._horizontalScale,
@@ -383,80 +313,10 @@ export class MatrixRenderer {
                 max: transformedCanvasMaxPoint[0]
             }
         });
-        this.workerTwo.postMessage({
-            method: 'updateRenderConfig',
-            margin: this._margin,
-            verticalScale: this._verticalScale,
-            horizontalScale: this._horizontalScale,
-            dieDimensions: this._dieDimensions,
-            colorCategories: this.wafermap.colorCategories,
-            transform: this.wafermap.transform,
-            yLimits: {
-                min: transformedCanvasMinPoint[1],
-                max: transformedCanvasMaxPoint[1]
-            },
-            xLimits: {
-                min: transformedCanvasMinPoint[0],
-                max: transformedCanvasMaxPoint[0]
-            }
-        });
-        this.workerOne.postMessage({
-            method: 'emptyMatrix'
-        });
-        this.workerTwo.postMessage({
-            method: 'emptyMatrix'
-        });
-        let dieColIndexArray = new Int32Array(
-            this.wafermap.dieMatrix.dieColIndexArray
-        );
-        let rowLengthsArray = new Int32Array(
-            this.wafermap.dieMatrix.rowLengthsArray
-        );
-        let dieRowIndexLayer = new Int32Array(
-            this.wafermap.dieMatrix.dieRowIndexLayer
-        );
-        let dieValuesLayer = new Int32Array(
-            this.wafermap.dieMatrix.dieValuesLayer
-        );
-        this.workerOne.postMessage(
-            {
-                method: 'renderDies',
-                dieColIndexArray,
-                rowLengthsArray,
-                dieRowIndexLayer,
-                dieValuesLayer
-            },
-            [
-                dieColIndexArray.buffer,
-                rowLengthsArray.buffer,
-                dieRowIndexLayer.buffer,
-                dieValuesLayer.buffer
-            ]
-        );
-        dieColIndexArray = new Int32Array(
-            this.wafermap.dieMatrix.dieColIndexArray
-        );
-        rowLengthsArray = new Int32Array(
-            this.wafermap.dieMatrix.rowLengthsArray
-        );
-        dieRowIndexLayer = new Int32Array(
-            this.wafermap.dieMatrix.dieRowIndexLayer
-        );
-        dieValuesLayer = new Int32Array(this.wafermap.dieMatrix.dieValuesLayer);
-        this.workerTwo.postMessage(
-            {
-                method: 'renderDies',
-                dieColIndexArray,
-                rowLengthsArray,
-                dieRowIndexLayer,
-                dieValuesLayer
-            },
-            [
-                dieColIndexArray.buffer,
-                rowLengthsArray.buffer,
-                dieRowIndexLayer.buffer,
-                dieValuesLayer.buffer
-            ]
+        await this.workerOne.emptyMatrix();
+        const tableBuffer = tableToIPC(this.wafermap.dieTable);
+        await this.workerOne.renderDies(
+            Comlink.transfer(tableBuffer, [tableBuffer.buffer])
         );
     }
 }

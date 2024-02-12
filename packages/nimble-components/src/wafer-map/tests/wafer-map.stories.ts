@@ -1,5 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import type { Float32, Int32, Table } from 'apache-arrow';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
@@ -10,11 +11,7 @@ import {
     badValueGenerator,
     highlightedValueGenerator
 } from './value-generator';
-import type {
-    WaferMapValidity,
-    WaferMapColorCategory,
-    WaferMapData
-} from '../types';
+import type { WaferMapValidity, WaferMapColorCategory } from '../types';
 import {
     WaferMapOriginLocation,
     WaferMapOrientation,
@@ -23,7 +20,7 @@ import {
 import {
     highlightedTagsSets,
     waferMapColorScaleSets,
-    wafermapDieMatrix
+    wafermapDieTable
 } from './sets';
 import { waferMapTag } from '..';
 
@@ -45,9 +42,24 @@ interface WaferMapArgs {
     highlightedTags: string;
 }
 
-const getDiesSet = (setName: string, sets: WaferMapData[]): WaferMapData => {
+const getDiesSet = (
+    setName: string,
+    sets: Table<{
+        colIndex: Int32,
+        rowIndex: Int32,
+        value: Float32
+    }>[]
+): Table<{
+    colIndex: Int32,
+    rowIndex: Int32,
+    value: Float32
+}> => {
     const seed = 0.5;
-    let returnedValue: WaferMapData;
+    let returnedValue: Table<{
+        colIndex: Int32,
+        rowIndex: Int32,
+        value: Float32
+    }>;
     switch (setName) {
         case 'fixedDies10':
             returnedValue = sets[0]!;
@@ -74,7 +86,11 @@ const getDiesSet = (setName: string, sets: WaferMapData[]): WaferMapData => {
             )!;
             break;
         default:
-            returnedValue = {} as WaferMapData;
+            returnedValue = {} as Table<{
+                colIndex: Int32,
+                rowIndex: Int32,
+                value: Float32
+            }>;
     }
     return returnedValue;
 };
@@ -121,7 +137,7 @@ const metadata: Meta<WaferMapArgs> = {
             grid-min-y=${x => x.gridMinY}
             grid-max-y=${x => x.gridMaxY}
             :colorCategories="${x => x.colorScale}"
-            :dieMatrix="${x => getDiesSet(x.dies, wafermapDieMatrix)}"
+            :dieTable="${x => getDiesSet(x.dies, wafermapDieTable)}"
             
             :highlightedTags="${x => getHighlightedTags(x.highlightedTags, highlightedTagsSets)}"
         >
@@ -194,7 +210,7 @@ const metadata: Meta<WaferMapArgs> = {
                 'fixedDies10',
                 'goodDies100',
                 'goodDies1000',
-                'badDies10000'
+                'badDies1000000'
             ],
             control: {
                 type: 'radio',
@@ -202,7 +218,7 @@ const metadata: Meta<WaferMapArgs> = {
                     fixedDies10: 'Small dies set of fixed values',
                     goodDies100: 'Medium dies set of mostly good values',
                     goodDies1000: 'Large dies set of mostly good values',
-                    badDies10000: 'Very large dies set of mostly bad values'
+                    badDies1000000: 'Very large dies set of mostly bad values'
                 }
             },
             defaultValue: 'set1'

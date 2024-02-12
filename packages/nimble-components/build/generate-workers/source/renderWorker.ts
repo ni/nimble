@@ -1,3 +1,5 @@
+import { tableFromArrays, type Table, Int32, Float32, tableFromIPC } from 'apache-arrow';
+import * as Comlink from 'comlink';
 /**
  * render worker
  */
@@ -5,24 +7,15 @@ export class RenderWorker {
     private canvas!: OffscreenCanvas;
     private worker!: number;
     private context!: OffscreenCanvasRenderingContext2D;
-    private dieMatrix: {
-        // the x coordinates of each column of dies
-        dieColIndexArray: Int32Array;
-        // the lengths of each row of dies
-        rowLengthsArray: Int32Array;
-        // the y coordinates of each die as a matrix row by row
-        dieRowIndexLayer: Int32Array;
-        // the value of each die as a matrix row by row
-        dieValuesLayer: Int32Array;
-        // the highlight state of each die as a matrix row by row
-        dieHighlightsLayer: Int8Array;
-    } = {
-        dieColIndexArray: Int32Array.from([]),
-        rowLengthsArray: Int32Array.from([]),
-        dieRowIndexLayer: Int32Array.from([]),
-        dieValuesLayer: Int32Array.from([]),
-        dieHighlightsLayer: Int8Array.from([])
-    };
+    private dieTable: Table<{
+        colIndex: Int32,
+        rowIndex: Int32,
+        value: Float32
+    }> = tableFromArrays({
+            colIndex: new Int32Array(),
+            rowIndex: new Int32Array(),
+            value: new Float32Array()
+        });
     private verticalScale: { a: number, b: number } = { a: 0, b: 1 };
     private horizontalScale: { a: number, b: number } = { a: 0, b: 1 };
     private margin: { top: number, right: number } = { top: 0, right: 0 };
@@ -66,11 +59,9 @@ export class RenderWorker {
         );
     }
 
-    public setCanvas(data: { canvas: OffscreenCanvas, worker: number, performanceTest: string| undefined }): void {
-        this.canvas = data.canvas;
-        this.worker = data.worker;
-        this.performanceTest = data.performanceTest;
-        this.context = data.canvas.getContext('2d', {
+    public setCanvas(canvas: OffscreenCanvas): void {
+        this.canvas = canvas;
+        this.context = canvas.getContext('2d', {
             willReadFrequently: true
         })!;
     }
@@ -98,41 +89,30 @@ export class RenderWorker {
     }
 
     public emptyMatrix(): void {
-        this.dieMatrix = {
-            dieColIndexArray: Int32Array.from([]),
-            rowLengthsArray: Int32Array.from([]),
-            dieRowIndexLayer: Int32Array.from([]),
-            dieValuesLayer: Int32Array.from([]),
-            dieHighlightsLayer: Int8Array.from([])
-        };
+        this.dieTable = tableFromArrays({
+            colIndex: new Int32Array(),
+            rowIndex: new Int32Array(),
+            value: new Float32Array()
+        });
     }
 
     public rerenderDies(): void {
-        let startRowIndex = 0
-        for (let index = 0; index < this.dieMatrix.dieColIndexArray.length; index++) {
-            const colIndex = this.dieMatrix.dieColIndexArray[index]!;
-            const rowLength = this.dieMatrix.rowLengthsArray[index]!;
-            const scaledX = this.horizontalScale.a + this.horizontalScale.b * (+colIndex) + this.margin.right;
+        for (const tableRow of this.dieTable) {
+            const scaledX = this.horizontalScale.a + this.horizontalScale.b * tableRow.colIndex + this.margin.right;
             if (
-                index % 2 === this.worker
-                && scaledX >= this.xLimits.min
+                scaledX >= this.xLimits.min
                 && scaledX < this.xLimits.max
             ) {
-                for (let layerIndex = 0; layerIndex < rowLength; layerIndex++) {
-                    const rowIndex = this.dieMatrix.dieRowIndexLayer[startRowIndex + layerIndex]!;
-                    const value = this.dieMatrix.dieValuesLayer[startRowIndex + layerIndex]!;
-                    const scaledY = this.verticalScale.a + this.verticalScale.b * rowIndex + this.margin.top;
-                    if (
-                        scaledY >= this.yLimits.min
-                        && scaledY < this.yLimits.max
-                    ) {
-                        const category = this.colorCategories.find(cat => cat.startValue <= value && (cat.endValue === undefined || cat.endValue > value));
-                        this.context.fillStyle = category ? category.color : 'blue';
-                        this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
-                    }
+                const scaledY = this.verticalScale.a + this.verticalScale.b * tableRow.rowIndex + this.margin.top;
+                if (
+                    scaledY >= this.yLimits.min
+                    && scaledY < this.yLimits.max
+                ) {
+                    const category = this.colorCategories.find(cat => cat.startValue <= tableRow.value && (cat.endValue === undefined || cat.endValue > tableRow.value));
+                    this.context.fillStyle = category ? category.color : 'blue';
+                    this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
                 }
             }
-            startRowIndex += rowLength;
         }
     }
 
@@ -146,53 +126,42 @@ export class RenderWorker {
             this.context.lineCap = 'butt';
 
             
-        let startRowIndex = 0
-        for (let index = 0; index < this.dieMatrix.dieColIndexArray.length; index++) {
-            const colIndex = this.dieMatrix.dieColIndexArray[index]!;
-            const rowLength = this.dieMatrix.rowLengthsArray[index]!;
-            const scaledX = this.horizontalScale.a + this.horizontalScale.b * (+colIndex) + this.margin.right;
-            if (
-                scaledX >= this.xLimits.min
-                && scaledX < this.xLimits.max
-            ) {
-                for (let layerIndex = 0; layerIndex < rowLength; layerIndex++) {
-                    const rowIndex = this.dieMatrix.dieRowIndexLayer[startRowIndex + layerIndex]!;
-                    const value = this.dieMatrix.dieValuesLayer[startRowIndex + layerIndex]!;
-                    const scaledY = this.verticalScale.a + this.verticalScale.b * rowIndex + this.margin.top;
+        for (const tableRow of this.dieTable) {
+                const scaledX = this.horizontalScale.a + this.horizontalScale.b * tableRow.colIndex + this.margin.right;
+                if (
+                    scaledX >= this.xLimits.min
+                    && scaledX < this.xLimits.max
+                ) {
+                    const scaledY = this.verticalScale.a + this.verticalScale.b * tableRow.rowIndex + this.margin.top;
                     if (
                         scaledY >= this.yLimits.min
                         && scaledY < this.yLimits.max
                     ) {
-                            this.context.fillText(
-                                value.toFixed(1),
-                                scaledX + this.dieDimensions.width / 2,
-                                scaledY + this.dieDimensions.height - approximateTextHeight,
-                                this.dieDimensions.width - (this.dieDimensions.width / 5)
-                            );
-                        }
+                        this.context.fillText(
+                            tableRow.value.toFixed(1),
+                            scaledX + this.dieDimensions.width / 2,
+                            scaledY + this.dieDimensions.height - approximateTextHeight,
+                            this.dieDimensions.width - (this.dieDimensions.width / 5)
+                        );
                     }
                 }
-                startRowIndex += rowLength;
             }
         }
     }
 
     public renderDies(
-        data: {
-            dieColIndexArray: Iterable<number>,
-            rowLengthsArray: Iterable<number>,
-            dieRowIndexLayer: Iterable<number>,
-            dieValuesLayer: Iterable<number>,
-        }
+            tableBuffer: Uint8Array
     ): void {
         const start = this.performanceTest !== undefined ? self.performance.now() : undefined;
-        this.dieMatrix.dieColIndexArray = Int32Array.from(data.dieColIndexArray);
-        this.dieMatrix.rowLengthsArray = Int32Array.from(data.rowLengthsArray);
-        this.dieMatrix.dieRowIndexLayer = Int32Array.from(data.dieRowIndexLayer);
-        this.dieMatrix.dieValuesLayer = Int32Array.from(data.dieValuesLayer);
+
+       this.dieTable = tableFromIPC(tableBuffer);
         this.rerenderDies();
         if (this.performanceTest !== undefined) {
             self.performance.measure(`${this.performanceTest} - worker:${this.worker} - renderDies`, { start });
         }
     }
 }
+
+const renderWorker = new RenderWorker()
+
+Comlink.expose(renderWorker);

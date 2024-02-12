@@ -1,8 +1,5 @@
-import type {
-    WaferMapDie,
-    WaferMapData,
-    WaferMapColorCategory
-} from '../types';
+import { tableFromArrays, type Table, Int32, Float32 } from 'apache-arrow';
+import type { WaferMapDie, WaferMapColorCategory } from '../types';
 
 export const highlightedTagsSets: string[][] = [
     [],
@@ -10,19 +7,19 @@ export const highlightedTagsSets: string[][] = [
     [''],
     ['a', 'b', 'c']
 ];
-export const wafermapDieMatrix: WaferMapData[] = [
-    {
-        dieColIndexArray: Int32Array.from([0, 1, 2, 3, 4]),
-        rowLengthsArray: Int32Array.from([1, 3, 5, 3, 1]),
-        dieRowIndexLayer: Int32Array.from([
-            2, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 2
-        ]),
-        dieValuesLayer: Int32Array.from([
+export const wafermapDieTable: Table<{
+    colIndex: Int32,
+    rowIndex: Int32,
+    value: Float32
+}>[] = [
+    tableFromArrays({
+        colIndex: Int32Array.from([0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4]),
+        rowIndex: Int32Array.from([2, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 2]),
+        value: Float32Array.from([
             14.24, 44.63, 76.43, 67.93, 26.49, 79.04, 72.71, 37.79, 37.79, 98.5,
             52.9, 20.83, 62.8
-        ]),
-        dieHighlightsLayer: Int8Array.from([])
-    }
+        ])
+    })
 ];
 
 export const wafermapDieSets: WaferMapDie[][] = [
