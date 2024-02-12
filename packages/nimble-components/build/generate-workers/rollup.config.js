@@ -6,9 +6,9 @@ const path = require('path');
 
 export default [
     {
-        input: path.resolve(__dirname, 'source/worker.ts'),
+        input: path.resolve(__dirname, 'source/renderWorker.ts'),
         output: {
-            file: path.resolve(__dirname, 'dist/worker.js'),
+            file: path.resolve(__dirname, 'dist/renderWorker.js'),
             format: 'cjs'
         },
         plugins: [resolve(), commonjs(), typescript({
