@@ -12,7 +12,8 @@ import {
     Do,
     Dont,
     Frame,
-    Divider
+    Divider,
+    Tag
 } from './blocks/StoryLayout.tsx';
 
 export const parameters = {
@@ -54,7 +55,8 @@ export const parameters = {
             Do,
             Dont,
             Frame,
-            Divider
+            Divider,
+            Tag
         }
     }
 };

@@ -1,7 +1,9 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createMatrixThemeStory } from '../../../utilities/tests/storybook';
-import { sharedMatrixParameters } from '../../../utilities/tests/matrix';
+import {
+    createMatrixThemeStory,
+    sharedMatrixParameters
+} from '../../../utilities/tests/matrix';
 import { Table, tableTag } from '../../../table';
 import { tableColumnEnumTextTag } from '..';
 import { mappingTextTag } from '../../../mapping/text';
