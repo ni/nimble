@@ -404,6 +404,13 @@ describe('Select', () => {
             await disconnect();
         });
 
+        it('opening dropdown puts focus in filter input', async () => {
+            await clickAndWaitForOpen(element);
+            expect(document.activeElement!.shadowRoot!.activeElement).toBe(
+                element.filterInputElement!
+            );
+        });
+
         it('matches any character in option strings', async () => {
             await pageObject.openAndSetFilterText('o'); // Matches 'One' and 'Two'
             const filteredOptions = pageObject
@@ -631,5 +638,19 @@ describe('Select', () => {
                 element.ariaActiveDescendant
             );
         });
+    });
+
+    it('filter input gets focus if open and filterMode are set before Select is connected', async () => {
+        const { element, connect, disconnect } = await setup();
+        element.open = true;
+        element.filterMode = FilterMode.standard;
+        const regionLoadedListener = createEventListener(element, 'loaded');
+        await connect();
+        await regionLoadedListener.promise;
+        expect(document.activeElement!.shadowRoot!.activeElement).toBe(
+            element.filterInputElement!
+        );
+
+        await disconnect();
     });
 });

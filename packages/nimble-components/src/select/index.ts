@@ -198,11 +198,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 entries.length > 0
                     && entries[entries.length - 1]!.intersectionRatio > 0
             ) {
-                if (this.filterMode !== FilterMode.none) {
-                    this.filterInputElement?.focus();
-                } else {
-                    this.focus();
-                }
+                this.focusAndScrollOptionIntoView();
             }
         },
         { threshold: 1.0, root: document }
@@ -213,15 +209,15 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.addEventListener('change', this.changeValueHandler);
         this.addEventListener('contentchange', this.updateDisplayValue);
         this.forcedPosition = !!this.positionAttribute;
-        this.initializeOpenState();
         this.regionElementIntersectionObserver.observe(this.region);
+        this.initializeOpenState();
     }
 
     public override disconnectedCallback(): void {
         this.removeEventListener('change', this.changeValueHandler);
         this.removeEventListener('contentchange', this.updateDisplayValue);
-        super.disconnectedCallback();
         this.regionElementIntersectionObserver.unobserve(this.region);
+        super.disconnectedCallback();
     }
 
     /**
@@ -429,6 +425,13 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
 
         return this.collapsible;
+    }
+
+    /**
+     * @ainternal
+     */
+    public regionLoadedHandler(): void {
+        this.focusAndScrollOptionIntoView();
     }
 
     /**
@@ -659,6 +662,11 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
 
         super.setSelectedOptions();
+    }
+
+    protected override focusAndScrollOptionIntoView(): void {
+        super.focusAndScrollOptionIntoView();
+        this.filterInputElement?.focus();
     }
 
     protected positionChanged(

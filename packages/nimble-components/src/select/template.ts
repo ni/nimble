@@ -86,6 +86,7 @@ SelectOptions
             horizontal-default-position="center"
             horizontal-positioning-mode="locktodefault"
             horizontal-scaling="anchor"
+            @loaded="${x => x.regionLoadedHandler()}"
             ?hidden="${x => (x.collapsible ? !x.open : false)}">
             <div class="listbox-background">
                 <div
