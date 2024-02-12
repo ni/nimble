@@ -1,34 +1,43 @@
 import * as Comlink from 'comlink';
-import * as jest from '@jest/globals';
 import { MatrixRenderer } from '../modules/matrixRenderer';
 import type { WaferMap } from '..';
-import { getWaferMapMockValidator } from './utilities';
-
-jest.mock('comlink', () => ({
-    wrap: jest.fn(),
-}));
 
 describe('MatrixRenderer', () => {
-    it('should create an instance with a WaferMap', () => {
-        const waferMapMock = getWaferMapMockValidator(0, 0, 0, 0);
-        const renderer = new MatrixRenderer(waferMapMock as WaferMap);
-        expect(renderer).toBeInstanceOf(MatrixRenderer);
+    let originalWorker: typeof Worker;
+
+    beforeEach(() => {
+        // Save the original Worker to restore it after tests
+        originalWorker = window.Worker;
+
+        // Mock the Worker constructor
+        window.Worker = jasmine.createSpy('Worker').and.callFake(() => {
+            // Return a fake worker instance
+            return {
+                postMessage: jasmine.createSpy('postMessage'),
+                terminate: jasmine.createSpy('terminate'),
+                addEventListener: jasmine.createSpy('addEventListener'),
+                removeEventListener: jasmine.createSpy('removeEventListener'),
+            } as unknown as Worker;
+        });
+
+        // Mock Comlink.wrap
+        spyOn(Comlink, 'wrap').and.returnValue({});
     });
 
-    it('initializes a worker and wraps it with Comlink', () => {
-        const waferMapMock = {} as WaferMap; // Mocking WaferMap, adjust accordingly
-        const workerInitSpy = jest.spyOn(window, 'Worker').mockImplementation(() => {
-            return {} as unknown as Worker; // Mocking Worker instance
-        });
-        const comlinkWrapSpy = jest.spyOn(Comlink, 'wrap');
+    afterEach(() => {
+        // Restore the original Worker after each test
+        window.Worker = originalWorker;
+    });
 
-        new MatrixRenderer(waferMapMock as WaferMap);
+    it('should create a Worker instance and wrap it with Comlink', () => {
+        const waferMapMock = {} as WaferMap; // Adjust this mock as necessary for your tests
+        // eslint-disable-next-line no-new
+        new MatrixRenderer(waferMapMock);
 
-        expect(workerInitSpy).toHaveBeenCalled();
-        expect(comlinkWrapSpy).toHaveBeenCalled();
+        // Check that a Worker was created
+        expect(window.Worker).toHaveBeenCalled();
 
-        // Cleanup
-        workerInitSpy.mockRestore();
-        comlinkWrapSpy.mockRestore();
+        // Verify that Comlink.wrap was called with a mocked Worker instance
+        expect(Comlink.wrap).toHaveBeenCalled();
     });
 });
