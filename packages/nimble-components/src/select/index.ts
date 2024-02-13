@@ -160,12 +160,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @internal
      */
     @observable
-    public scrollbarIsVisible = false;
-
-    /**
-     * @internal
-     */
-    @observable
     public committedSelectedOption: ListboxOption | undefined = undefined;
 
     /**
@@ -252,7 +246,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     // This is needed because while the dropdown is open the current 'selectedIndex' (set
     // within this implementation) needs to be relative to the filtered options.
     public override set value(next: string) {
-        const prev = `${this._value}`;
+        const prev = this._value;
         let newValue = next;
 
         if (this.options?.length) {

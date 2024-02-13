@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import {
     html,
     ref,
@@ -30,11 +31,11 @@ SelectOptions
 > = (context, definition) => html<Select>`
     <template
         class="${x => [
-        x.collapsible && 'collapsible',
-        x.collapsible && x.open && 'open',
-        x.disabled && 'disabled',
-        x.collapsible && x.position,
-    ]
+            x.collapsible && 'collapsible',
+            x.collapsible && x.open && 'open',
+            x.disabled && 'disabled',
+            x.collapsible && x.position,
+        ]
         .filter(Boolean)
         .join(' ')}"
         aria-activedescendant="${x => (x.filterMode === FilterMode.none ? x.ariaActiveDescendant : null)}"
@@ -120,10 +121,10 @@ SelectOptions
                         class="scrollable-element">
                         <slot
                             ${slotted({
-        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
-        flatten: true,
-        property: 'slottedOptions',
-    })}
+                                filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
+                                flatten: true,
+                                property: 'slottedOptions',
+                            })}
                         ></slot>
                     </div>
                     ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0), html<Select>`
