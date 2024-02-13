@@ -210,8 +210,12 @@ function createCustomMentionExtension(
             return [
                 config.viewElement,
                 mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-                this.options.renderText({
+                (
+                    this.options.renderText as (props: {
+                        options: MentionOptions,
+                        node: FragmentNode
+                    }) => string
+                )({
                     options: this.options,
                     node
                 })
