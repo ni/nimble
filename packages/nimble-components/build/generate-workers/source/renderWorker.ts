@@ -16,12 +16,12 @@ export class RenderWorker {
         // the highlight state of each die as a matrix row by row
         dieHighlightsLayer: Int8Array;
     } = {
-        dieColIndexArray: Int32Array.from([]),
-        rowLengthsArray: Int32Array.from([]),
-        dieRowIndexLayer: Int32Array.from([]),
-        dieValuesLayer: Int32Array.from([]),
-        dieHighlightsLayer: Int8Array.from([])
-    };
+            dieColIndexArray: Int32Array.from([]),
+            rowLengthsArray: Int32Array.from([]),
+            dieRowIndexLayer: Int32Array.from([]),
+            dieValuesLayer: Int32Array.from([]),
+            dieHighlightsLayer: Int8Array.from([])
+        };
     private verticalScale: { a: number, b: number } = { a: 0, b: 1 };
     private horizontalScale: { a: number, b: number } = { a: 0, b: 1 };
     private margin: { top: number, right: number } = { top: 0, right: 0 };
