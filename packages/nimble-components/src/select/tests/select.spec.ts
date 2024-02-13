@@ -211,7 +211,7 @@ describe('Select', () => {
             await clickAndWaitForOpen(element);
             const fullyVisible = await checkFullyInViewport(element.listbox);
 
-            expect(element.scrollableElement.scrollHeight).toBeGreaterThan(
+            expect(element.scrollableRegion.scrollHeight).toBeGreaterThan(
                 window.innerHeight
             );
             expect(fullyVisible).toBe(true);
@@ -407,7 +407,7 @@ describe('Select', () => {
         it('opening dropdown puts focus in filter input', async () => {
             await clickAndWaitForOpen(element);
             expect(document.activeElement!.shadowRoot!.activeElement).toBe(
-                element.filterInputElement!
+                element.filterInput!
             );
         });
 
@@ -648,7 +648,7 @@ describe('Select', () => {
         await connect();
         await regionLoadedListener.promise;
         expect(document.activeElement!.shadowRoot!.activeElement).toBe(
-            element.filterInputElement!
+            element.filterInput!
         );
 
         await disconnect();

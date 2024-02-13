@@ -1,10 +1,10 @@
 import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
 import { ZIndexLevels } from '../utilities/style/types';
 
 export const styles = css`
-    :host {
+    ${display('block')}:host {
         contain: layout;
-        display: block;
         z-index: ${ZIndexLevels.zIndex1000};
     }
 `;

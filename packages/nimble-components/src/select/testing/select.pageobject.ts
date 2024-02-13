@@ -72,10 +72,10 @@ export class SelectPageObject {
     }
 
     public async clickFilterInput(): Promise<void> {
-        if (!this.selectElement.filterInputElement) {
+        if (!this.selectElement.filterInput) {
             throw new Error('Filter input is not available.');
         }
-        this.selectElement.filterInputElement.click();
+        this.selectElement.filterInput.click();
         await waitForUpdatesAsync();
     }
 
@@ -136,12 +136,12 @@ export class SelectPageObject {
         ) {
             // add space to end of current filter
             const filterValue = `${
-                this.selectElement.filterInputElement?.value ?? ''
+                this.selectElement.filterInput?.value ?? ''
             } `;
-            if (this.selectElement.filterInputElement) {
-                this.selectElement.filterInputElement.value = filterValue;
+            if (this.selectElement.filterInput) {
+                this.selectElement.filterInput.value = filterValue;
             }
-            this.selectElement.filterInputElement?.dispatchEvent(
+            this.selectElement.filterInput?.dispatchEvent(
                 new InputEvent('input', { inputType: 'insertText' })
             );
         }

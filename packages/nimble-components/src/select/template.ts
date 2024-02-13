@@ -48,6 +48,8 @@ SelectOptions
         role="combobox"
         tabindex="${x => (!x.disabled ? '0' : null)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
+        @change="${x => x.changeValueHandler()}"
+        @contentchange="${x => x.updateDisplayValue()}"
         @focusin="${(x, c) => x.focusinHandler(c.event as FocusEvent)}"
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
@@ -78,7 +80,7 @@ SelectOptions
                 `
     )}
         <${anchoredRegionTag}
-            ${ref('region')}
+            ${ref('anchoredRegion')}
             class="anchored-region"
             fixed-placement
             auto-update-mode="auto"
@@ -106,19 +108,19 @@ SelectOptions
                         <div class="filter-field ${x => x.positionAttribute}">
                             <${iconMagnifyingGlassTag} class="filter-icon"></${iconMagnifyingGlassTag}>
                             <input
+                                ${ref('filterInput')}
                                 class="filter-input"
                                 aria-controls="${x => x.ariaControls}"
                                 aria-activedescendant="${x => x.ariaActiveDescendant}"
                                 @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
                                 @click="${(x, c) => x.inputClickHandler(c.event as MouseEvent)}"
-                                ${ref('filterInputElement')}
                                 placeholder="${x => filterSearchLabel.getValueFor(x)}"
                                 value="${x => x.filter}"
                             />
                         </div>
                     `)}
-                    <div ${ref('scrollableElement')}
-                        class="scrollable-element">
+                    <div ${ref('scrollableRegion')}
+                        class="scrollable-region">
                         <slot
                             ${slotted({
                                 filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),

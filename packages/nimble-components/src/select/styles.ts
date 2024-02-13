@@ -104,7 +104,7 @@ export const styles = css`
         outline: 0px;
     }
 
-    .scrollable-element {
+    .scrollable-region {
         overflow: auto;
     }
 

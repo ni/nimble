@@ -125,19 +125,19 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @internal
      */
     @observable
-    public scrollableElement!: HTMLElement;
+    public scrollableRegion!: HTMLElement;
 
     /**
      * @internal
      */
     @observable
-    public filterInputElement?: HTMLInputElement;
+    public filterInput?: HTMLInputElement;
 
     /**
      * @internal
      */
     @observable
-    public region!: AnchoredRegion;
+    public anchoredRegion!: AnchoredRegion;
 
     /** @internal */
     @observable
@@ -185,7 +185,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
     // This intersection observer is used to wait for anchored region styles to resolve to visible
     // before programmatically calling focus and scrolling selected options into view
-    private readonly regionElementIntersectionObserver: IntersectionObserver = new IntersectionObserver(
+    private readonly anchoredRegionIntersectionObserver: IntersectionObserver = new IntersectionObserver(
         entries => {
             if (
                 entries.length > 0
@@ -199,18 +199,14 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.addEventListener('change', this.changeValueHandler);
-        this.addEventListener('contentchange', this.updateDisplayValue);
         this.forcedPosition = !!this.positionAttribute;
-        this.regionElementIntersectionObserver.observe(this.region);
+        this.anchoredRegionIntersectionObserver.observe(this.anchoredRegion);
         this.initializeOpenState();
     }
 
     public override disconnectedCallback(): void {
-        this.removeEventListener('change', this.changeValueHandler);
-        this.removeEventListener('contentchange', this.updateDisplayValue);
-        this.regionElementIntersectionObserver.unobserve(this.region);
         super.disconnectedCallback();
+        this.anchoredRegionIntersectionObserver.unobserve(this.anchoredRegion);
     }
 
     /**
@@ -286,24 +282,33 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         return this.committedSelectedOption?.text ?? '';
     }
 
-    public regionChanged(
+    /**
+     * @ainternal
+     */
+    public anchoredRegionChanged(
         _prev: AnchoredRegion | undefined,
         _next: AnchoredRegion | undefined
     ): void {
-        if (this.region && this.control) {
-            this.region.anchorElement = this.control;
+        if (this.anchoredRegion && this.control) {
+            this.anchoredRegion.anchorElement = this.control;
         }
     }
 
+    /**
+     * @ainternal
+     */
     public controlChanged(
         _prev: HTMLElement | undefined,
         _next: HTMLElement | undefined
     ): void {
-        if (this.region && this.control) {
-            this.region.anchorElement = this.control;
+        if (this.anchoredRegion && this.control) {
+            this.anchoredRegion.anchorElement = this.control;
         }
     }
 
+    /**
+     * @ainternal
+     */
     public setPositioning(): void {
         if (!this.$fastController.isConnected) {
             // Don't call setPositioning() until we're connected,
@@ -332,6 +337,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.updateListboxMaxHeightCssVariable();
     }
 
+    /**
+     * @ainternal
+     */
     public override slottedOptionsChanged(
         prev: Element[],
         next: Element[]
@@ -359,6 +367,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.committedSelectedOption = this.options[this.selectedIndex];
     }
 
+    /**
+     * @ainternal
+     */
     public override clickHandler(e: MouseEvent): BooleanOrVoid {
         // do nothing if the select is disabled
         if (this.disabled) {
@@ -444,8 +455,29 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
     }
 
+    /**
+     * @internal
+     */
     public inputClickHandler(e: MouseEvent): void {
         e.stopPropagation(); // clicking in filter input shouldn't close dropdown
+    }
+
+    /**
+     * @internal
+     */
+    public changeValueHandler(): void {
+        this.committedSelectedOption = this.options.find(
+            option => option.selected
+        );
+    }
+
+    /**
+     * @internal
+     */
+    public updateDisplayValue(): void {
+        if (this.collapsible) {
+            Observable.notify(this, 'displayValue');
+        }
     }
 
     /**
@@ -455,7 +487,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @internal
      */
     public inputHandler(e: InputEvent): boolean {
-        this.filter = this.filterInputElement?.value ?? '';
+        this.filter = this.filterInput?.value ?? '';
         if (!this.committedSelectedOption) {
             this.committedSelectedOption = this._options.find(
                 option => option.selected
@@ -513,6 +545,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         return true;
     }
 
+    /**
+     * @ainternal
+     */
     public override keydownHandler(e: KeyboardEvent): BooleanOrVoid {
         super.keydownHandler(e);
         const key = e.key;
@@ -659,7 +694,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
     protected override focusAndScrollOptionIntoView(): void {
         super.focusAndScrollOptionIntoView();
-        this.filterInputElement?.focus();
+        this.filterInput?.focus();
     }
 
     protected positionChanged(
@@ -703,8 +738,8 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
 
         this.filter = '';
-        if (this.filterInputElement) {
-            this.filterInputElement.value = '';
+        if (this.filterInput) {
+            this.filterInput.value = '';
         }
 
         this.ariaControls = '';
@@ -880,18 +915,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
             selectedItem.selected = true;
         }
     }
-
-    private readonly changeValueHandler = (): void => {
-        this.committedSelectedOption = this.options.find(
-            option => option.selected
-        );
-    };
-
-    private readonly updateDisplayValue = (): void => {
-        if (this.collapsible) {
-            Observable.notify(this, 'displayValue');
-        }
-    };
 }
 
 const nimbleSelect = Select.compose<SelectOptions>({
