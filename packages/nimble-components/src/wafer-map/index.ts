@@ -4,6 +4,7 @@ import {
     observable
 } from '@microsoft/fast-element';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
+import { FoundationElement } from '@microsoft/fast-foundation';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
