@@ -193,7 +193,7 @@ export class CustomAppComponent implements AfterViewInit {
             }
 
             this.recordsLoadingChildren.add(recordId);
-            // this.updateDelayedHierarchyTable(false);
+            // void this.updateDelayedHierarchyTable(false);
 
             window.setTimeout(() => {
                 this.delayedHierarchyTableData = [
@@ -202,7 +202,7 @@ export class CustomAppComponent implements AfterViewInit {
                 ];
                 this.recordsLoadingChildren.delete(recordId);
                 this.recordsWithLoadedChildren.add(recordId);
-                this.updateDelayedHierarchyTable();
+                void this.updateDelayedHierarchyTable();
             }, 1500);
         }
     }
