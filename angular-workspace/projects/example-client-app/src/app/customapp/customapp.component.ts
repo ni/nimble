@@ -99,6 +99,7 @@ export class CustomAppComponent implements AfterViewInit {
             hasChildren: true
         },
     ];
+
     private readonly recordsLoadingChildren = new Set<string>();
     private readonly recordsWithLoadedChildren = new Set<string>();
 
