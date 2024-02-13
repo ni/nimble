@@ -11,7 +11,9 @@ import {
     disabledStates,
     DisabledState,
     errorStates,
-    ErrorState
+    ErrorState,
+    InteractionState,
+    interactionStates
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { NumberFieldAppearance } from '../types';
@@ -44,6 +46,7 @@ const hideStepStates = [
 type HideStepState = (typeof hideStepStates)[number];
 
 const component = (
+    [interactionName, interaction]: InteractionState,
     [disabledName, disabled]: DisabledState,
     [hideStepName, hideStep]: HideStepState,
     [valueName, valueValue, placeholderValue]: ValueState,
@@ -52,7 +55,7 @@ const component = (
 ): ViewTemplate => html`
     <${numberFieldTag}
         style="width: 250px; padding: 8px;"
-        class="${() => errorVisible}"
+        class="${() => errorVisible} ${() => interaction}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         appearance="${() => appearance}"
@@ -61,17 +64,29 @@ const component = (
         error-text="${() => errorText}"
         ?error-visible="${() => errorVisible}"
     >
-        ${() => errorName} ${() => appearanceName} ${() => valueName}
+    ${interactionName} ${() => errorName} ${() => appearanceName} ${() => valueName}
         ${() => hideStepName} ${() => disabledName}
     </${numberFieldTag}>
 `;
 
 export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        interactionStates.slice(0, 1),
         disabledStates,
         hideStepStates,
         valueStates,
         errorStates,
+        appearanceStates
+    ])
+);
+
+export const numberFieldInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        interactionStates.filter(x => x[0] && !x[0].includes('Active')),
+        disabledStates,
+        hideStepStates.slice(0, 1),
+        valueStates.slice(1, 2),
+        errorStates.slice(0, 2),
         appearanceStates
     ])
 );

@@ -10,7 +10,12 @@ import {
     sharedMatrixParameters,
     createMatrixThemeStory
 } from '../../utilities/tests/matrix';
-import { disabledStates, DisabledState } from '../../utilities/tests/states';
+import {
+    disabledStates,
+    DisabledState,
+    InteractionState,
+    interactionStates
+} from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
@@ -49,12 +54,14 @@ type AppearanceVariantState = (typeof appearanceVariantStates)[number];
 
 // prettier-ignore
 const component = (
+    [interactionName, interaction]: InteractionState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [appearanceVariantName, appearanceVariant]: AppearanceVariantState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
     <${anchorButtonTag}
+        class="${() => interaction}"
         href="https://nimble.ni.dev"
         appearance="${() => appearance}"
         appearance-variant="${() => appearanceVariant}"
@@ -62,17 +69,28 @@ const component = (
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconLinkTag} slot="start"></${iconLinkTag}>`)}
-            ${() => `${appearanceVariantName} ${appearanceName} Link ${disabledName}`}
+            ${() => `${interactionName} ${appearanceVariantName} ${appearanceName} Link ${disabledName}`}
             ${when(() => endIconVisible, html`<${iconArrowExpanderRightTag} slot="end"></${iconArrowExpanderRightTag}>`)}
     </${anchorButtonTag}>
 `;
 
 export const anchorButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        interactionStates.slice(0, 1),
         disabledStates,
         appearanceStates,
         appearanceVariantStates,
         partVisibilityStates
+    ])
+);
+
+export const anchorButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        interactionStates.slice(1),
+        disabledStates,
+        appearanceStates,
+        appearanceVariantStates,
+        [[false, true, false]]
     ])
 );
 

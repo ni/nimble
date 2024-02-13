@@ -12,6 +12,10 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import { anchorTag } from '..';
+import {
+    interactionStates,
+    type InteractionState
+} from '../../utilities/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Anchor',
@@ -41,20 +45,32 @@ type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (
+    [interactionName, interaction]: InteractionState,
     [disabledName, href]: DisabledState,
     [underlineHiddenName, underlineHidden]: UnderlineHiddenState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <${anchorTag}
+        class="${() => interaction}"
         href=${() => href}
         ?underline-hidden="${() => underlineHidden}"
         appearance="${() => appearance}"
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${() => `${underlineHiddenName} ${appearanceName} ${disabledName} Link`}</${anchorTag}>
+            ${() => `${interactionName} ${underlineHiddenName} ${appearanceName} ${disabledName} Link`}</${anchorTag}>
 `;
 
 export const anchorThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        interactionStates.slice(0, 1),
+        disabledStates,
+        underlineHiddenStates,
+        appearanceStates
+    ])
+);
+
+export const anchorInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        interactionStates.slice(1),
         disabledStates,
         underlineHiddenStates,
         appearanceStates

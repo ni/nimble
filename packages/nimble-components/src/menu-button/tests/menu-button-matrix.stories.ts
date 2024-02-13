@@ -7,14 +7,17 @@ import {
     sharedMatrixParameters,
     createMatrixThemeStory
 } from '../../utilities/tests/matrix';
-import { disabledStates, DisabledState } from '../../utilities/tests/states';
+import {
+    disabledStates,
+    DisabledState,
+    InteractionState,
+    interactionStates
+} from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
 import { iconKeyTag } from '../../icons/key';
 import { menuButtonTag } from '..';
-import { menuTag } from '../../menu';
-import { menuItemTag } from '../../menu-item';
 
 const metadata: Meta = {
     title: 'Tests/Menu Button',
@@ -35,6 +38,12 @@ const partVisibilityStates = [
 ] as const;
 type PartVisibilityState = (typeof partVisibilityStates)[number];
 
+const openStates = [
+    ['', false],
+    ['Open', true]
+] as const;
+type OpenState = (typeof openStates)[number];
+
 const appearanceStates = Object.entries(ButtonAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
@@ -42,29 +51,40 @@ type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (
+    [interactionName, interaction]: InteractionState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
+    [openName, open]: OpenState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <${menuButtonTag}
+        class="${() => interaction}"
         appearance="${() => appearance}"
+        ?open="${() => open}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
-            ${() => `${appearanceName!} Menu Button ${disabledName}`}
+            ${() => `${interactionName} ${openName} ${appearanceName!} Menu Button ${disabledName}`}
             ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
-
-        <${menuTag} slot="menu">
-            <${menuItemTag}>Item 1</${menuItemTag}>
-            <${menuItemTag}>Item 2</${menuItemTag}>
-        </${menuTag}>
     </${menuButtonTag}>
 `;
 
 export const menuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        interactionStates.slice(0, 1),
         partVisibilityStates,
+        openStates,
+        disabledStates,
+        appearanceStates
+    ])
+);
+
+export const menuButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        interactionStates.slice(1),
+        [[false, true, false]],
+        openStates,
         disabledStates,
         appearanceStates
     ])
