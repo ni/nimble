@@ -1,5 +1,4 @@
-// The FAST Select implementation has largely been forked into here, as there
-// was enough divergence to merit severing the relationship.
+// Based on: https://github.com/microsoft/fast/blob/%40microsoft/fast-foundation_v2.49.5/packages/web-components/fast-foundation/src/select/select.ts
 import {
     attr,
     html,
@@ -184,8 +183,8 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     private forcedPosition = false;
     private indexWhenOpened?: number;
 
-    // This intersection observer is to handle focus behavior for when the dropdown becomes
-    // visible.
+    // This intersection observer is used to wait for anchored region styles to resolve to visible
+    // before programmatically calling focus and scrolling selected options into view
     private readonly regionElementIntersectionObserver: IntersectionObserver = new IntersectionObserver(
         entries => {
             if (
