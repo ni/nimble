@@ -228,6 +228,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this._options = value;
         Observable.notify(this, 'options');
     }
+
     // This is copied directly from FAST's implemention of its Select component.
     public override get value(): string {
         Observable.track(this, 'value');
@@ -302,37 +303,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         if (this.anchoredRegion && this.control) {
             this.anchoredRegion.anchorElement = this.control;
         }
-    }
-
-    /**
-     * @ainternal
-     */
-    public setPositioning(): void {
-        if (!this.$fastController.isConnected) {
-            // Don't call setPositioning() until we're connected,
-            // since this.forcedPosition isn't initialized yet.
-            return;
-        }
-        const currentBox = this.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const availableBottom = viewportHeight - currentBox.bottom;
-
-        if (this.forcedPosition) {
-            this.position = this.positionAttribute;
-        } else if (currentBox.top > availableBottom) {
-            this.position = SelectPosition.above;
-        } else {
-            this.position = SelectPosition.below;
-        }
-
-        this.positionAttribute = this.forcedPosition
-            ? this.positionAttribute
-            : this.position;
-
-        this.maxHeight = this.position === SelectPosition.above
-            ? Math.trunc(currentBox.top)
-            : Math.trunc(availableBottom);
-        this.updateListboxMaxHeightCssVariable();
     }
 
     /**
@@ -789,6 +759,34 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
 
         this.selectedIndex = 0;
+    }
+
+    private setPositioning(): void {
+        if (!this.$fastController.isConnected) {
+            // Don't call setPositioning() until we're connected,
+            // since this.forcedPosition isn't initialized yet.
+            return;
+        }
+        const currentBox = this.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const availableBottom = viewportHeight - currentBox.bottom;
+
+        if (this.forcedPosition) {
+            this.position = this.positionAttribute;
+        } else if (currentBox.top > availableBottom) {
+            this.position = SelectPosition.above;
+        } else {
+            this.position = SelectPosition.below;
+        }
+
+        this.positionAttribute = this.forcedPosition
+            ? this.positionAttribute
+            : this.position;
+
+        this.maxHeight = this.position === SelectPosition.above
+            ? Math.trunc(currentBox.top)
+            : Math.trunc(availableBottom);
+        this.updateListboxMaxHeightCssVariable();
     }
 
     /**
