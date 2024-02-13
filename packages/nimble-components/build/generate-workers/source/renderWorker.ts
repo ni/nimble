@@ -32,6 +32,9 @@ export class RenderWorker {
     private transform: { k: number, x: number, y: number } = { k: 1, x: 0, y: 0 };
     private performanceTest: string | undefined;
 
+    constructor() {
+    }
+
     public emptyMatrix(): void {
         this.dieMatrix = {
             dieColIndexArray: Int32Array.from([]),

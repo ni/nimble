@@ -13,4 +13,11 @@ export class MatrixRenderer {
         const url = URL.createObjectURL(blob);
         this.workerOne = Comlink.wrap(new Worker(url));
     }
+
+    public isWorkerHealthy(): boolean {
+        if (this.workerOne !== undefined && this.workerOne !== null) {
+            return true;
+        }
+        return false;
+    }
 }

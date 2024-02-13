@@ -38,7 +38,6 @@ export class WaferMap extends FoundationElement {
      * needs to be initialized before the properties trigger changes
      */
     public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
-
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
 
@@ -183,8 +182,6 @@ export class WaferMap extends FoundationElement {
     public update(): void {
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
-            // eslint-disable-next-line no-console
-            console.log('changes are being made to the wafer map.');
             this.waferMapValidator.validateGridDimensions();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
