@@ -3,8 +3,8 @@ import {
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
-import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
@@ -21,7 +21,6 @@ import {
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
-import { MatrixRenderer } from './modules/matrixRenderer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -38,6 +37,7 @@ export class WaferMap extends FoundationElement {
      * needs to be initialized before the properties trigger changes
      */
     public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
+
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
 
@@ -67,11 +67,6 @@ export class WaferMap extends FoundationElement {
 
     @attr({ attribute: 'color-scale-mode' })
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
-
-    /**
-     * @internal
-     */
-    public readonly matrixRenderer = new MatrixRenderer(this);
 
     /**
      * @internal
