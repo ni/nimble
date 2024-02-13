@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/indent */
 import {
     html,
     ref,
@@ -24,6 +23,7 @@ import {
 } from '../label-provider/core/label-tokens';
 import { FilterMode } from './types';
 
+/* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Select>,
@@ -55,30 +55,28 @@ SelectOptions
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
         @mousedown="${(x, c) => x.mousedownHandler(c.event as MouseEvent)}"
     >
-        ${when(
-        x => x.collapsible,
-        html<Select>`
-                <div
-                    class="control"
-                    part="control"
-                    ?disabled="${x => x.disabled}"
-                    ${ref('control')}
-                >
-                    ${startSlotTemplate(context, definition)}
-                    <slot name="button-container">
-                        <div class="selected-value" part="selected-value" ${overflow('hasOverflow')} title=${x => (x.hasOverflow && x.displayValue ? x.displayValue : null)}>
-                            <slot name="selected-value">${x => x.displayValue}</slot>
-                        </div>
-                        <div aria-hidden="true" class="indicator" part="indicator">
-                            <slot name="indicator">
-                                ${definition.indicator || ''}
-                            </slot>
-                        </div>
-                    </slot>
-                    ${endSlotTemplate(context, definition)}
-                </div>
-                `
-    )}
+        ${when(x => x.collapsible, html<Select>`
+            <div
+                class="control"
+                part="control"
+                ?disabled="${x => x.disabled}"
+                ${ref('control')}
+            >
+                ${startSlotTemplate(context, definition)}
+                <slot name="button-container">
+                    <div class="selected-value" part="selected-value" ${overflow('hasOverflow')} title=${x => (x.hasOverflow && x.displayValue ? x.displayValue : null)}>
+                        <slot name="selected-value">${x => x.displayValue}</slot>
+                    </div>
+                    <div aria-hidden="true" class="indicator" part="indicator">
+                        <slot name="indicator">
+                            ${definition.indicator || ''}
+                        </slot>
+                    </div>
+                </slot>
+                ${endSlotTemplate(context, definition)}
+            </div>
+            `)
+        }
         <${anchoredRegionTag}
             ${ref('anchoredRegion')}
             class="anchored-region"

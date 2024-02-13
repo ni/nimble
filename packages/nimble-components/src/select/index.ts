@@ -244,18 +244,18 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         let newValue = next;
 
         if (this.options?.length) {
-            const selectedIndex = this.options.findIndex(
+            const newValueIndex = this.options.findIndex(
                 el => el.value === newValue
             );
             const prevSelectedValue = this.options[this.selectedIndex]?.value ?? null;
-            const nextSelectedValue = this.options[selectedIndex]?.value ?? null;
+            const nextSelectedValue = this.options[newValueIndex]?.value ?? null;
 
             if (
-                selectedIndex === -1
+                newValueIndex === -1
                 || prevSelectedValue !== nextSelectedValue
             ) {
                 newValue = '';
-                this.selectedIndex = selectedIndex;
+                this.selectedIndex = newValueIndex;
             }
 
             newValue = this.firstSelectedOption?.value ?? newValue;
