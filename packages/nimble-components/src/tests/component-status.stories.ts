@@ -1,6 +1,9 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory } from '../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    fastParameters
+} from '../utilities/tests/storybook';
 import { Table, tableTag } from '../table';
 import { tableColumnAnchorTag } from '../table-column/anchor';
 import { tableColumnIconTag } from '../table-column/icon';
@@ -545,7 +548,9 @@ const metadata: Meta<TableArgs> = {
     title: 'Internal/Component Status',
     tags: [],
     decorators: [],
-    parameters: {},
+    parameters: {
+        ...fastParameters()
+    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
         <${tableTag}
