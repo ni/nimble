@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 09 Feb 2024 02:02:53 GMT and should not be manually modified.
+This log was last generated on Tue, 13 Feb 2024 17:44:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.3.2
+
+Tue, 13 Feb 2024 17:44:00 GMT
+
+### Patches
+
+- Update dependency on Tiptap extensions to fix mention issue in rich text editor ([ni/nimble@34efe55](https://github.com/ni/nimble/commit/34efe55087a58bb99e4aa42873512946164b47d2))
 
 ## 21.3.1
 
