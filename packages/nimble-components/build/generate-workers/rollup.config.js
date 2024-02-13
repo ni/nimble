@@ -9,7 +9,7 @@ export default [
         input: path.resolve(__dirname, 'source/renderWorker.ts'),
         output: {
             file: path.resolve(__dirname, 'dist/renderWorker.js'),
-            format: 'cjs'
+            format: 'iife'
         },
         plugins: [resolve(), commonjs(), typescript({
             tsconfig: 'build/generate-workers/tsconfig.json'
@@ -19,7 +19,7 @@ export default [
         input: path.resolve(__dirname, 'source/index.ts'),
         output: {
             file: path.resolve(__dirname, 'dist/index.js'),
-            format: 'cjs'
+            format: 'iife'
         },
         plugins: [resolve(), commonjs(), typescript({
             tsconfig: 'build/generate-workers/tsconfig.json'

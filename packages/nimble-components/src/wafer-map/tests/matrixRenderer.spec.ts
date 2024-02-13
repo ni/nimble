@@ -7,6 +7,4 @@ describe('MatrixRenderer', () => {
         const renderer = new MatrixRenderer(waferMap);
         expect(renderer.workerOne).toBeInstanceOf(Worker);
     });
-
-    // Add more tests here as needed
 });
