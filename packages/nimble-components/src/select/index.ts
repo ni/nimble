@@ -238,9 +238,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this._options = value;
         Observable.notify(this, 'options');
     }
-
-    // NOTE: This is a copy of the parent implementation. When providing an override
-    //  for a property setter, you must also provide its corresponding getter.
+    // This is copied directly from FAST's implemention of its Select component.
     public override get value(): string {
         Observable.track(this, 'value');
         return this._value;
