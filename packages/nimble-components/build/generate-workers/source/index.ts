@@ -18,7 +18,8 @@ const modulePath = require.resolve(moduleName);
 const sourceCode = fs.readFileSync(modulePath, 'utf-8');
 
 const componentFileContents =
-`export const workerCode = \`
+`/* eslint-disable no-useless-escape */
+export const workerCode = \`
 ${sourceCode.replaceAll('`','\\`').replaceAll('$','\\$').replaceAll('exports.RenderWorker = RenderWorker;','')}
 \`;`;
 
