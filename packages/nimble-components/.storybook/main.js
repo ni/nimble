@@ -45,6 +45,14 @@ export function webpackFinal(config) {
     config.performance = {
         hints: false
     };
+    const TerserPlugin = require('terser-webpack-plugin');
+    config.optimization.minimizer = [
+        new TerserPlugin({
+            terserOptions: {
+                keep_classnames: true
+            }
+        })
+    ];
     return config;
 }
 export const staticDirs = ['public'];
