@@ -269,7 +269,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     /**
-     * @ainternal
+     * @internal
      */
     public anchoredRegionChanged(
         _prev: AnchoredRegion | undefined,
@@ -281,7 +281,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     /**
-     * @ainternal
+     * @internal
      */
     public controlChanged(
         _prev: HTMLElement | undefined,
@@ -293,7 +293,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     /**
-     * @ainternal
+     * @internal
      */
     public override slottedOptionsChanged(
         prev: Element[],
@@ -323,7 +323,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     /**
-     * @ainternal
+     * @internal
      */
     public override clickHandler(e: MouseEvent): BooleanOrVoid {
         // do nothing if the select is disabled
@@ -387,7 +387,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     /**
-     * @ainternal
+     * @internal
      */
     public regionLoadedHandler(): void {
         this.focusAndScrollOptionIntoView();
