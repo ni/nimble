@@ -28,9 +28,6 @@
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "author": {
     "name": "National Instruments"
   },
