@@ -475,7 +475,7 @@ export class TablePageObject<T extends TableRecord> {
 
     public isDataRowLoadingSpinnerVisible(rowIndex: number): boolean {
         const row = this.getRow(rowIndex);
-        const spinner = row.shadowRoot!.querySelector<Spinner>(spinnerTag);
+        const spinner = row.shadowRoot!.querySelector(spinnerTag);
         return spinner !== null;
     }
 

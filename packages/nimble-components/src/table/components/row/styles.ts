@@ -53,7 +53,6 @@ export const styles = css`
         background-color: ${fillHoverSelectedColor};
     }
 
-    .spinner-container,
     .expand-collapse-button {
         flex: 0 0 auto;
         padding-left: calc(
@@ -63,12 +62,17 @@ export const styles = css`
     }
 
     .spinner-container {
+        flex: 0 0 auto;
         width: ${controlSlimHeight};
         height: ${controlSlimHeight};
         align-self: center;
         display: flex;
         align-items: center;
         justify-content: center;
+        padding-left: calc(
+            ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
+                ${controlHeight}
+        );
     }
 
     .row-operations-container {
