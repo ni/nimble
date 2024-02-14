@@ -22,7 +22,7 @@ const sourceCode = fs.readFileSync(modulePath, 'utf-8');
 
 const combinedFileContents =
 `// eslint-disable-next-line no-template-curly-in-string
-export const workerCode = ${JSON.stringify(healthStatusContent + sourceCode)}`;
+export const workerCode = ${JSON.stringify(healthStatusContent + sourceCode)};`;
 
 const filePath = path.resolve(workersDirectory, 'render-worker.ts');
 console.log(`Writing worker file "${filePath}"`);
