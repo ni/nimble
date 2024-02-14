@@ -5,24 +5,7 @@ export class RenderWorker {
     private canvas!: OffscreenCanvas;
     private worker!: number;
     private context!: OffscreenCanvasRenderingContext2D;
-    private dieMatrix: {
-        // the x coordinates of each column of dies
-        dieColIndexArray: Int32Array;
-        // the lengths of each row of dies
-        rowLengthsArray: Int32Array;
-        // the y coordinates of each die as a matrix row by row
-        dieRowIndexLayer: Int32Array;
-        // the value of each die as a matrix row by row
-        dieValuesLayer: Int32Array;
-        // the highlight state of each die as a matrix row by row
-        dieHighlightsLayer: Int8Array;
-    } = {
-            dieColIndexArray: Int32Array.from([]),
-            rowLengthsArray: Int32Array.from([]),
-            dieRowIndexLayer: Int32Array.from([]),
-            dieValuesLayer: Int32Array.from([]),
-            dieHighlightsLayer: Int8Array.from([])
-        };
+    private dieMatrix: Uint8Array = Uint8Array.from([]);
     private verticalScale: { a: number, b: number } = { a: 0, b: 1 };
     private horizontalScale: { a: number, b: number } = { a: 0, b: 1 };
     private margin: { top: number, right: number } = { top: 0, right: 0 };
