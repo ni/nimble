@@ -31,13 +31,11 @@ SelectOptions
 > = (context, definition) => html<Select>`
     <template
         class="${x => [
-            x.collapsible && 'collapsible',
-            x.collapsible && x.open && 'open',
-            x.disabled && 'disabled',
-            x.collapsible && x.position,
-        ]
-        .filter(Boolean)
-        .join(' ')}"
+                x.collapsible && 'collapsible',
+                x.collapsible && x.open && 'open',
+                x.disabled && 'disabled',
+                x.collapsible && x.position,
+            ].filter(Boolean).join(' ')}"
         aria-activedescendant="${x => (x.filterMode === FilterMode.none ? x.ariaActiveDescendant : null)}"
         aria-controls="${x => (x.filterMode === FilterMode.none ? x.ariaControls : null)}"
         aria-disabled="${x => x.ariaDisabled}"

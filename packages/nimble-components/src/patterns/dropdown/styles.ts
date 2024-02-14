@@ -134,6 +134,10 @@ export const styles = css`
         border-bottom-color: ${failColor};
     }
 
+    .anchored-region[hidden] {
+        visibility: hidden;
+    }
+
     .listbox {
         box-sizing: border-box;
         display: inline-flex;

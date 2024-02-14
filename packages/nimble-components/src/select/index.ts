@@ -54,16 +54,6 @@ type BooleanOrVoid = boolean | void;
  * A nimble-styled HTML select.
  */
 export class Select extends FormAssociatedSelect implements ErrorPattern {
-    /**
-     * The open attribute.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: open
-     */
-    @attr({ attribute: 'open', mode: 'boolean' })
-    public open = false;
-
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
@@ -90,6 +80,12 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
     @attr({ attribute: 'filter-mode' })
     public filterMode: FilterMode = FilterMode.none;
+
+    /**
+     * @internal
+     */
+    @attr({ attribute: 'open', mode: 'boolean' })
+    public open = false;
 
     /**
      * Holds the current state for the calculated position of the listbox.
@@ -183,30 +179,20 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     private forcedPosition = false;
     private indexWhenOpened?: number;
 
-    // This intersection observer is used to wait for anchored region styles to resolve to visible
-    // before programmatically calling focus and scrolling selected options into view
-    private readonly anchoredRegionIntersectionObserver: IntersectionObserver = new IntersectionObserver(
-        entries => {
-            if (
-                entries.length > 0
-                    && entries[entries.length - 1]!.intersectionRatio > 0
-            ) {
-                this.focusAndScrollOptionIntoView();
-            }
-        },
-        { threshold: 1.0, root: document }
-    );
-
+    /**
+     * @internal
+     */
     public override connectedCallback(): void {
         super.connectedCallback();
         this.forcedPosition = !!this.positionAttribute;
-        this.anchoredRegionIntersectionObserver.observe(this.anchoredRegion);
         this.initializeOpenState();
     }
 
+    /**
+     * @internal
+     */
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.anchoredRegionIntersectionObserver.unobserve(this.anchoredRegion);
     }
 
     /**
@@ -229,20 +215,17 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         Observable.notify(this, 'options');
     }
 
-    // This is copied directly from FAST's implemention of its Select component.
     public override get value(): string {
         Observable.track(this, 'value');
         return this._value;
     }
 
-    // This is copied directly from FAST's implemention of its Select component, with
-    // one main difference: we use 'options' (the filtered set of options) vs '_options'.
-    // This is needed because while the dropdown is open the current 'selectedIndex' (set
-    // within this implementation) needs to be relative to the filtered options.
     public override set value(next: string) {
         const prev = this._value;
         let newValue = next;
 
+        // use 'options' here instead of '_options' as 'selectedIndex' may be relative
+        // to filtered set
         if (this.options?.length) {
             const newValueIndex = this.options.findIndex(
                 el => el.value === newValue
@@ -276,6 +259,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
     }
 
+    /**
+     * @internal
+     */
     public get displayValue(): string {
         Observable.track(this, 'displayValue');
         return this.committedSelectedOption?.text ?? '';
@@ -491,6 +477,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         return true;
     }
 
+    /**
+     * @internal
+     */
     public override focusoutHandler(e: FocusEvent): BooleanOrVoid {
         this.updateSelectedIndexFromFilteredSet();
         super.focusoutHandler(e);
@@ -514,7 +503,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     /**
-     * @ainternal
+     * @internal
      */
     public override keydownHandler(e: KeyboardEvent): BooleanOrVoid {
         super.keydownHandler(e);
@@ -662,7 +651,11 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
     protected override focusAndScrollOptionIntoView(): void {
         super.focusAndScrollOptionIntoView();
-        this.filterInput?.focus();
+        if (this.open) {
+            window.requestAnimationFrame(() => {
+                this.filterInput?.focus();
+            });
+        }
     }
 
     protected positionChanged(
