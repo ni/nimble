@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 13 Feb 2024 17:44:00 GMT and should not be manually modified.
+This log was last generated on Tue, 13 Feb 2024 21:22:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.3.3
+
+Tue, 13 Feb 2024 21:22:58 GMT
+
+### Patches
+
+- Fix performance issue for table with many grouped columns ([ni/nimble@0180d30](https://github.com/ni/nimble/commit/0180d30c8833d50eb529794c362cc476f305f88d))
 
 ## 21.3.2
 

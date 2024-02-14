@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 13 Feb 2024 23:45:09 GMT",
+      "version": "21.3.3",
+      "tag": "@ni/nimble-components_v21.3.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d9255477187a8fc95fff5fea7f1418b2b76cf93d",
+            "comment": "Pin react wrapper version"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Feb 2024 21:22:58 GMT",
+      "version": "21.3.3",
+      "tag": "@ni/nimble-components_v21.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0180d30c8833d50eb529794c362cc476f305f88d",
+            "comment": "Fix performance issue for table with many grouped columns"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 13 Feb 2024 17:44:00 GMT",
       "version": "21.3.2",
       "tag": "@ni/nimble-components_v21.3.2",
