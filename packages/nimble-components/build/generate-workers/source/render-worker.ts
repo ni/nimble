@@ -21,28 +21,14 @@ export class RenderWorker {
     }
 
     public emptyMatrix(): void {
-        this.dieMatrix = {
-            dieColIndexArray: Int32Array.from([]),
-            rowLengthsArray: Int32Array.from([]),
-            dieRowIndexLayer: Int32Array.from([]),
-            dieValuesLayer: Int32Array.from([]),
-            dieHighlightsLayer: Int8Array.from([])
-        };
+        this.dieMatrix = Uint8Array.from([]);;
     }
 
     public updateMatrix(
-        data: {
-            dieColIndexArray: Iterable<number>,
-            rowLengthsArray: Iterable<number>,
-            dieRowIndexLayer: Iterable<number>,
-            dieValuesLayer: Iterable<number>,
-        }
+        data: Iterable<number>
     ): void {
         const start = this.performanceTest !== undefined ? self.performance.now() : undefined;
-        this.dieMatrix.dieColIndexArray = Int32Array.from(data.dieColIndexArray);
-        this.dieMatrix.rowLengthsArray = Int32Array.from(data.rowLengthsArray);
-        this.dieMatrix.dieRowIndexLayer = Int32Array.from(data.dieRowIndexLayer);
-        this.dieMatrix.dieValuesLayer = Int32Array.from(data.dieValuesLayer);
+        this.dieMatrix = Uint8Array.from(data);
         if (this.performanceTest !== undefined) {
             self.performance.measure(`${this.performanceTest} - worker:${this.worker} - renderDies`, { start });
         }
