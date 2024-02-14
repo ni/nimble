@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 14 Feb 2024 21:03:17 GMT",
+      "version": "21.4.0",
+      "tag": "@ni/nimble-components_v21.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b3fc70ec6857d24fcc257eeab7697ac89c663a55",
+            "comment": "Add `loadingChildren` delayed hierarchy state"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 13 Feb 2024 23:45:09 GMT",
       "version": "21.3.3",
       "tag": "@ni/nimble-components_v21.3.3",
