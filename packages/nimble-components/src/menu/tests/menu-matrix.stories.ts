@@ -1,10 +1,8 @@
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import type { StoryFn, Meta } from '@storybook/html';
+import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
-import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';

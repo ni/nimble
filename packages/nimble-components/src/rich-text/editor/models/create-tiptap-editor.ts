@@ -210,7 +210,7 @@ function createCustomMentionExtension(
             return [
                 config.viewElement,
                 mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-                this.options.renderLabel({
+                this.options.renderText({
                     options: this.options,
                     node
                 })
