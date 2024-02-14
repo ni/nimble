@@ -32,8 +32,6 @@ export class TableRowPageObject<T extends TableRecord = TableRecord> {
     }
 
     public getLoadingSpinner(): Spinner | null {
-        return this.tableRowElement.shadowRoot!.querySelector(
-            spinnerTag
-        );
+        return this.tableRowElement.shadowRoot!.querySelector(spinnerTag);
     }
 }
