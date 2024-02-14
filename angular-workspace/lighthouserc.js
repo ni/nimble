@@ -9,13 +9,14 @@ module.exports = {
             ],
             numberOfRuns: 3,
             settings: {
+                preset: 'desktop',
                 // Omit the pwa category
                 onlyCategories: ['accessibility', 'best-practices', 'performance', 'seo']
             }
         },
         assert: {
             assertions: {
-                'categories:performance': ['warn', { minScore: 0.9 }],
+                'categories:performance': ['error', { minScore: 0.9 }],
                 'categories:accessibility': ['error', { minScore: 0.8 }]
             }
         },

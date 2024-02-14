@@ -6,6 +6,10 @@ on:
     branches:
       - '**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   GITHUB_SERVICE_USER: "rajsite"
   GITHUB_SERVICE_EMAIL: "rajsite@users.noreply.github.com"

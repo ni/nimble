@@ -2,18 +2,27 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { themeProviderTag } from '../../theme-provider';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import type { Theme } from '../../theme-provider/types';
-import { createMatrix } from './matrix';
 import {
     BackgroundState,
     backgroundStates,
     defaultBackgroundState
 } from './states';
 
+export const fastParameters = () => ({
+    a11y: { disable: true },
+    docs: {
+        source: {
+            code: null
+        },
+        transformSource: (source: string): string => source
+    }
+} as const);
+
 /**
  * Renders a ViewTemplate as elements in a DocumentFragment.
  * Bindings, such as event binding, will be active.
  */
-const renderViewTemplate = <TSource>(
+export const renderViewTemplate = <TSource>(
     viewTemplate: ViewTemplate<TSource>,
     source: TSource
 ): DocumentFragment => {
@@ -103,33 +112,6 @@ export const createFixedThemeStory = <TSource>(
             </${themeProviderTag}>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
-        const content = fragment.firstElementChild!;
-        return content;
-    };
-};
-
-/**
- *  Renders a FAST `html` template for each theme.
- */
-export const createMatrixThemeStory = <TSource>(
-    viewTemplate: ViewTemplate<TSource>
-): ((source: TSource) => Element) => {
-    return (source: TSource): Element => {
-        const matrixTemplate = createMatrix(
-            ({ theme, value }: BackgroundState) => html`
-                <${themeProviderTag}
-                    theme="${theme}">
-                    <div style="background-color: ${value}; padding:20px;">
-                        ${viewTemplate}
-                    </div>
-                </${themeProviderTag}>
-            `,
-            [backgroundStates]
-        );
-        const wrappedMatrixTemplate = html<TSource>`
-            <div class="code-hide-top-container">${matrixTemplate}</div>
-        `;
-        const fragment = renderViewTemplate(wrappedMatrixTemplate, source);
         const content = fragment.firstElementChild!;
         return content;
     };

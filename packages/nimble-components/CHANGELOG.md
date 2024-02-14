@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 07 Feb 2024 21:48:45 GMT and should not be manually modified.
+This log was last generated on Tue, 13 Feb 2024 17:44:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.3.2
+
+Tue, 13 Feb 2024 17:44:00 GMT
+
+### Patches
+
+- Update dependency on Tiptap extensions to fix mention issue in rich text editor ([ni/nimble@34efe55](https://github.com/ni/nimble/commit/34efe55087a58bb99e4aa42873512946164b47d2))
+
+## 21.3.1
+
+Fri, 09 Feb 2024 02:02:53 GMT
+
+### Patches
+
+- Update Storybook to 7.6.13 ([ni/nimble@e68df6d](https://github.com/ni/nimble/commit/e68df6d348dcaa664e87db35725f9d30f2d2dca5))
 
 ## 21.3.0
 

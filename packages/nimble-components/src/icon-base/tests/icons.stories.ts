@@ -5,6 +5,7 @@ import * as nimbleIconComponentsMap from '../../icons/all-icons';
 import { IconSeverity } from '../types';
 import {
     createUserSelectedThemeStory,
+    fastParameters,
     overrideWarning
 } from '../../utilities/tests/storybook';
 import {
@@ -33,11 +34,7 @@ interface IconArgs {
 const metadata: Meta<IconArgs> = {
     title: 'Components/Icons',
     parameters: {
-        docs: {
-            source: {
-                code: null
-            }
-        }
+        ...fastParameters()
     }
 };
 

@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { checkboxTag } from '..';
 
@@ -13,7 +13,7 @@ interface CheckboxArgs {
 
 const metadata: Meta<CheckboxArgs> = {
     title: 'Components/Checkbox',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: ['change']

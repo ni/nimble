@@ -1,6 +1,6 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { switchTag } from '..';
 
@@ -14,7 +14,7 @@ interface SwitchArgs {
 
 const metadata: Meta<SwitchArgs> = {
     title: 'Components/Switch',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: ['change']

@@ -1,12 +1,10 @@
 import type { Meta, Story } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import {
-    createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
+import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    createMatrixThemeStory
 } from '../../utilities/tests/matrix';
 import { DisabledState, disabledStates } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
