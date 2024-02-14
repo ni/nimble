@@ -47,6 +47,7 @@ declare global {
     }
 }
 
+// Used in overrides of base class methods
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type BooleanOrVoid = boolean | void;
 
