@@ -1,4 +1,5 @@
 import * as Comlink from 'comlink';
+import { HealthStatus } from './health-status';
 
 export class RenderWorker {
     private canvas!: OffscreenCanvas;
@@ -31,6 +32,7 @@ export class RenderWorker {
     private xLimits: { min: number, max: number } = { min: 0, max: 0 };
     private transform: { k: number, x: number, y: number } = { k: 1, x: 0, y: 0 };
     private performanceTest: string | undefined;
+    private healthStatus: HealthStatus = HealthStatus.Unknown;
 
     constructor() {
     }
@@ -62,6 +64,18 @@ export class RenderWorker {
             self.performance.measure(`${this.performanceTest} - worker:${this.worker} - renderDies`, { start });
         }
     }
-}
 
+    public areMethodsCallable(): boolean {
+        return typeof this.updateMatrix === 'function' && typeof this.emptyMatrix === 'function';
+    }
+
+    public isWorkerHealthy(): HealthStatus {
+        try {
+            this.areMethodsCallable();
+            return this.healthStatus = HealthStatus.Healty;
+        } catch (e) {
+            return this.healthStatus = HealthStatus.Error;
+        }
+    }
+}
 Comlink.expose(RenderWorker);

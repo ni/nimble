@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const moduleName = './renderWorker.js';
+const moduleName = './render-worker.js';
 
 const workersDirectory = path.resolve('./src/wafer-map/workers');
 if (fs.existsSync(workersDirectory)) {
@@ -22,7 +22,7 @@ export const workerCode = \`
 ${sourceCode.replaceAll('`','\\`').replaceAll('$','\\$').replaceAll('exports.RenderWorker = RenderWorker;','')}
 \`;`;
 
-const filePath = path.resolve(workersDirectory, 'renderWorker.ts');
+const filePath = path.resolve(workersDirectory, 'render-worker.ts');
 console.log(`Writing worker file "${filePath}"`);
 fs.writeFileSync(filePath, componentFileContents, { encoding: 'utf-8' });
 console.log('Finished writing worker file');

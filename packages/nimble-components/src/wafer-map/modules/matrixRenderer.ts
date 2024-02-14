@@ -1,6 +1,6 @@
 import * as Comlink from 'comlink';
 import type { WaferMap } from '..';
-import { workerCode } from '../workers/renderWorker';
+import { workerCode } from '../workers/render-worker';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
@@ -12,12 +12,5 @@ export class MatrixRenderer {
         const blob = new Blob([workerCode], { type: 'text/javascript' });
         const url = URL.createObjectURL(blob);
         this.workerOne = Comlink.wrap(new Worker(url));
-    }
-
-    public isWorkerHealthy(): boolean {
-        if (this.workerOne !== undefined && this.workerOne !== null) {
-            return true;
-        }
-        return false;
     }
 }
