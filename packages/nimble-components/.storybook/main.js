@@ -24,8 +24,8 @@ export const addons = [
         }
     },
     getAbsolutePath('@storybook/addon-a11y'),
-    getAbsolutePath('@storybook/addon-interactions')
-    // getAbsolutePath('@storybook/addon-webpack5-compiler-babel')
+    getAbsolutePath('@storybook/addon-interactions'),
+    getAbsolutePath('@chromatic-com/storybook')
 ];
 export function webpackFinal(config) {
     config.module.rules.push({
