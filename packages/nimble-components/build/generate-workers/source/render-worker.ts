@@ -71,7 +71,10 @@ export class RenderWorker {
 
     public isWorkerHealthy(): HealthStatus {
         try {
-            this.areMethodsCallable();
+            const areMethodsCallable = this.areMethodsCallable();
+            if (!areMethodsCallable) {
+                return this.healthStatus = HealthStatus.Error;
+            }
             return this.healthStatus = HealthStatus.Healty;
         } catch (e) {
             return this.healthStatus = HealthStatus.Error;
