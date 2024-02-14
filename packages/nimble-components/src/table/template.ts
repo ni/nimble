@@ -141,6 +141,7 @@ export const template = html<Table>`
                                         :isParentRow="${(x, c) => c.parent.tableData[x.index]?.isParentRow}"
                                         :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                         ?row-operation-grid-cell-hidden="${(_, c) => !c.parent.showRowOperationColumn}"
+                                        ?loading="${(x, c) => c.parent.tableData[x.index]?.isLoadingChildren}"
                                         @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"
                                         @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
