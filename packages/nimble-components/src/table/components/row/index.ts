@@ -86,6 +86,9 @@ export class TableRow<
     @attr({ attribute: 'row-operation-grid-cell-hidden', mode: 'boolean' })
     public rowOperationGridCellHidden = false;
 
+    @attr({ mode: 'boolean' })
+    public loading = false;
+
     /**
      * @internal
      * An array that parallels the `columns` array and contains the indent

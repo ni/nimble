@@ -67,3 +67,8 @@ export const tableRowOperationColumnLabel = DesignToken.create<string>({
     name: 'table-row-operation-column-label',
     cssCustomPropertyName: null
 }).withDefault(tableLabelDefaults.tableRowOperationColumnLabel);
+
+export const tableRowLoadingLabel = DesignToken.create<string>({
+    name: 'table-row-loading-label',
+    cssCustomPropertyName: null
+}).withDefault(tableLabelDefaults.tableRowLoadingLabel);
