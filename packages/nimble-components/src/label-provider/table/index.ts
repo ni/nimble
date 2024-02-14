@@ -14,7 +14,8 @@ import {
     tableRowExpandLabel,
     tableRowOperationColumnLabel,
     tableRowSelectLabel,
-    tableSelectAllLabel
+    tableSelectAllLabel,
+    tableRowLoadingLabel
 } from './label-tokens';
 
 declare global {
@@ -36,7 +37,8 @@ const supportedLabels = {
     selectAll: tableSelectAllLabel,
     groupSelectAll: tableGroupSelectAllLabel,
     rowSelect: tableRowSelectLabel,
-    rowOperationColumn: tableRowOperationColumnLabel
+    rowOperationColumn: tableRowOperationColumnLabel,
+    rowLoading: tableRowLoadingLabel
 } as const;
 
 /**
@@ -83,6 +85,9 @@ export class LabelProviderTable
 
     @attr({ attribute: 'row-operation-column' })
     public rowOperationColumn: string | undefined;
+
+    @attr({ attribute: 'row-loading' })
+    public rowLoading: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }
