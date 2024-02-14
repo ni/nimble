@@ -99,6 +99,7 @@
     "tslib": "^2.2.0"
   },
   "devDependencies": {
+    "comlink": "^4.4.1",
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.20.12",
     "@microsoft/fast-react-wrapper": "^0.3.20",
