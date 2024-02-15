@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 13 Feb 2024 21:22:58 GMT and should not be manually modified.
+This log was last generated on Wed, 14 Feb 2024 21:03:17 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.4.0
+
+Wed, 14 Feb 2024 21:03:17 GMT
+
+### Minor changes
+
+- Add `loadingChildren` delayed hierarchy state ([ni/nimble@b3fc70e](https://github.com/ni/nimble/commit/b3fc70ec6857d24fcc257eeab7697ac89c663a55))
 
 ## 21.3.3
 

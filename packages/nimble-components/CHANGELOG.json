@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 15 Feb 2024 01:01:57 GMT",
+      "version": "21.4.0",
+      "tag": "@ni/nimble-components_v21.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "19c97b51b82b32b95517a914d43a028860f1279a",
+            "comment": "Add publishConfig key to package files"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 14 Feb 2024 21:03:17 GMT",
+      "version": "21.4.0",
+      "tag": "@ni/nimble-components_v21.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b3fc70ec6857d24fcc257eeab7697ac89c663a55",
+            "comment": "Add `loadingChildren` delayed hierarchy state"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 13 Feb 2024 23:45:09 GMT",
       "version": "21.3.3",
       "tag": "@ni/nimble-components_v21.3.3",
