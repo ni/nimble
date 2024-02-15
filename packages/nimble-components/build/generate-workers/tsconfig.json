@@ -4,7 +4,6 @@
         "esModuleInterop": true,
         "moduleResolution": "node",
         "outDir": "dist",
-        "rootDir": "source",
         "strict": true,
         "experimentalDecorators": true,
         "target": "ES2020",
@@ -23,5 +22,5 @@
         "noUncheckedIndexedAccess": true,
         "noPropertyAccessFromIndexSignature": false
     },
-    "include": ["source", "tsconfig.json"]
+    "include": ["source", "tsconfig.json", "render-worker.ts", "index.ts", "health-status.ts", "tests"]
 }
