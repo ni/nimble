@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 15 Feb 2024 01:01:57 GMT",
+      "version": "6.10.0",
+      "tag": "@ni/nimble-tokens_v6.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "19c97b51b82b32b95517a914d43a028860f1279a",
+            "comment": "Add publishConfig key to package files"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 02 Feb 2024 21:51:03 GMT",
       "version": "6.10.0",
       "tag": "@ni/nimble-tokens_v6.10.0",
