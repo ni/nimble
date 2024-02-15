@@ -41,7 +41,6 @@ export default [
             format: 'iife',
             name: 'RenderWorkerSpec',
             sourcemap: false
-        },
-        plugins: [resolve(), commonjs()]
+        }
     }
 ];
