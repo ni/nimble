@@ -1,4 +1,3 @@
-import { tableToIPC } from 'apache-arrow';
 import * as Comlink from 'comlink';
 import type { WaferMap } from '..';
 import { HoverDieOpacity } from '../types';
@@ -66,7 +65,7 @@ export class MatrixRenderer {
         await this.scaleCanvas();
         this.prepareDies();
         await this.renderDiesFromMatrix();
-        await this.rerenderText();
+        await this.renderText();
         this.renderHover();
     }
 
@@ -75,8 +74,8 @@ export class MatrixRenderer {
         await this.saveContext();
         await this.clearCanvas();
         await this.scaleCanvas();
-        await this.rerenderDies();
-        await this.rerenderText();
+        await this.renderDies();
+        await this.renderText();
         this.renderHover();
     }
 
@@ -114,15 +113,15 @@ export class MatrixRenderer {
         }
     }
 
-    private async rerenderDies(): Promise<void> {
+    private async renderDies(): Promise<void> {
         if (this.canvasSet) {
-            await this.workerOne.rerenderDies();
+            await this.workerOne.renderDies();
         }
     }
 
-    private async rerenderText(): Promise<void> {
+    private async renderText(): Promise<void> {
         if (this.canvasSet) {
-            await this.workerOne.rerenderText();
+            await this.workerOne.renderText();
         }
     }
 
@@ -313,10 +312,18 @@ export class MatrixRenderer {
                 max: transformedCanvasMaxPoint[0]
             }
         });
-        await this.workerOne.emptyMatrix();
-        const tableBuffer = tableToIPC(this.wafermap.dieTable);
-        await this.workerOne.renderDies(
-            Comlink.transfer(tableBuffer, [tableBuffer.buffer])
-        );
+        const colBuffer = this.wafermap.dieTable
+            .getChild('colIndex')!
+            .toArray();
+        const rowBuffer = this.wafermap.dieTable
+            .getChild('rowIndex')!
+            .toArray();
+        const valueBuffer = this.wafermap.dieTable.getChild('value')!.toArray();
+        await this.workerOne.setBuffers({
+            colIndex: Comlink.transfer(colBuffer, [colBuffer.buffer]),
+            rowIndex: Comlink.transfer(rowBuffer, [rowBuffer.buffer]),
+            value: Comlink.transfer(valueBuffer, [valueBuffer.buffer])
+        });
+        await this.workerOne.renderDies();
     }
 }

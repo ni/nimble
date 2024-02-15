@@ -1,4 +1,3 @@
-import { tableFromArrays, type Table, Int32, Float32, tableFromIPC } from 'apache-arrow';
 import * as Comlink from 'comlink';
 /**
  * render worker
@@ -7,15 +6,10 @@ export class RenderWorker {
     private canvas!: OffscreenCanvas;
     private worker!: number;
     private context!: OffscreenCanvasRenderingContext2D;
-    private dieTable: Table<{
-        colIndex: Int32,
-        rowIndex: Int32,
-        value: Float32
-    }> = tableFromArrays({
-            colIndex: new Int32Array(),
-            rowIndex: new Int32Array(),
-            value: new Float32Array()
-        });
+    private colIndex!: Int32Array;
+    private colIndexPositions!: Int32Array;
+    private rowIndex!: Int32Array;
+    private value!: Float32Array;
     private verticalScale: { a: number, b: number } = { a: 0, b: 1 };
     private horizontalScale: { a: number, b: number } = { a: 0, b: 1 };
     private margin: { top: number, right: number } = { top: 0, right: 0 };
@@ -88,35 +82,36 @@ export class RenderWorker {
         this.transform = data.transform;
     }
 
-    public emptyMatrix(): void {
-        this.dieTable = tableFromArrays({
-            colIndex: new Int32Array(),
-            rowIndex: new Int32Array(),
-            value: new Float32Array()
-        });
-    }
-
-    public rerenderDies(): void {
-        for (const tableRow of this.dieTable) {
-            const scaledX = this.horizontalScale.a + this.horizontalScale.b * tableRow.colIndex + this.margin.right;
+    public renderDies(): void {
+        const start = this.performanceTest !== undefined ? self.performance.now() : undefined;
+        for (let colIndex = 0, length = this.colIndex.length; colIndex < length; colIndex++) {
+            const scaledX = this.horizontalScale.a + this.horizontalScale.b * this.colIndex[colIndex]! + this.margin.right;
             if (
                 scaledX >= this.xLimits.min
                 && scaledX < this.xLimits.max
             ) {
-                const scaledY = this.verticalScale.a + this.verticalScale.b * tableRow.rowIndex + this.margin.top;
-                if (
-                    scaledY >= this.yLimits.min
-                    && scaledY < this.yLimits.max
-                ) {
-                    const category = this.colorCategories.find(cat => cat.startValue <= tableRow.value && (cat.endValue === undefined || cat.endValue > tableRow.value));
-                    this.context.fillStyle = category ? category.color : 'blue';
-                    this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
+                for (let rowPosition = this.colIndexPositions[colIndex]!,
+                    length = this.colIndexPositions[colIndex + 1] !== undefined ? this.colIndexPositions[colIndex + 1]! : this.rowIndex.length;
+                    rowPosition < length; rowPosition++) {
+                    const scaledY = this.verticalScale.a + this.verticalScale.b * this.rowIndex[rowPosition]! + this.margin.top;
+                    if (
+                        scaledY >= this.yLimits.min
+                        && scaledY < this.yLimits.max
+                    ) {
+                        const value = this.value[rowPosition]!;
+                        const category = this.colorCategories.find(cat => cat.startValue <= value && (cat.endValue === undefined || cat.endValue > value));
+                        this.context.fillStyle = category ? category.color : 'blue';
+                        this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
+                    }
                 }
             }
         }
+        if (this.performanceTest !== undefined) {
+            self.performance.measure(`${this.performanceTest} - worker:${this.worker} - renderDies`, { start });
+        }
     }
 
-    public rerenderText(): void {
+    public renderText(): void {
         const dieSize = this.dieDimensions.width * this.dieDimensions.height * (this.transform.k || 1);
         if (dieSize >= 50) {
             const approximateTextHeight = this.context.measureText('M').width;
@@ -125,40 +120,46 @@ export class RenderWorker {
             this.context.textAlign = 'center';
             this.context.lineCap = 'butt';
 
-            
-        for (const tableRow of this.dieTable) {
-                const scaledX = this.horizontalScale.a + this.horizontalScale.b * tableRow.colIndex + this.margin.right;
+            for (let colIndex = 0, length = this.colIndex.length; colIndex < length; colIndex++) {
+                const scaledX = this.horizontalScale.a + this.horizontalScale.b * this.colIndex[colIndex]! + this.margin.right;
                 if (
                     scaledX >= this.xLimits.min
                     && scaledX < this.xLimits.max
                 ) {
-                    const scaledY = this.verticalScale.a + this.verticalScale.b * tableRow.rowIndex + this.margin.top;
-                    if (
-                        scaledY >= this.yLimits.min
-                        && scaledY < this.yLimits.max
-                    ) {
-                        this.context.fillText(
-                            tableRow.value.toFixed(1),
-                            scaledX + this.dieDimensions.width / 2,
-                            scaledY + this.dieDimensions.height - approximateTextHeight,
-                            this.dieDimensions.width - (this.dieDimensions.width / 5)
-                        );
+                    for (let rowPosition = this.colIndexPositions[colIndex]!,
+                        length = this.colIndexPositions[colIndex + 1] !== undefined ? this.colIndexPositions[colIndex + 1]! : this.rowIndex.length;
+                        rowPosition < length; rowPosition++) {
+                    const scaledY = this.verticalScale.a + this.verticalScale.b * this.rowIndex[rowPosition]! + this.margin.top;
+                        if (
+                            scaledY >= this.yLimits.min
+                            && scaledY < this.yLimits.max
+                        ) {
+                            this.context.fillText(
+                                this.value[rowPosition]!.toFixed(1),
+                                scaledX + this.dieDimensions.width / 2,
+                                scaledY + this.dieDimensions.height - approximateTextHeight,
+                                this.dieDimensions.width - (this.dieDimensions.width / 5)
+                            );
+                        }
                     }
                 }
             }
         }
     }
 
-    public renderDies(
-            tableBuffer: Uint8Array
-    ): void {
-        const start = this.performanceTest !== undefined ? self.performance.now() : undefined;
-
-       this.dieTable = tableFromIPC(tableBuffer);
-        this.rerenderDies();
-        if (this.performanceTest !== undefined) {
-            self.performance.measure(`${this.performanceTest} - worker:${this.worker} - renderDies`, { start });
+    public setBuffers(data: { colIndex: Int32Array, rowIndex: Int32Array, value: Float32Array }): void {
+        const colIndex: number[] =[];
+        const colPosition = [];
+        for (let i = 0, length = data.colIndex.length; i < length; i++) {
+            if (data.colIndex[i] && data.colIndex[i] !== colIndex[colIndex.length - 1]) {
+                colIndex.push(data.colIndex[i]!);
+                colPosition.push(i);
+            }
         }
+        this.colIndex = Int32Array.from(colIndex);
+        this.colIndexPositions = Int32Array.from(colPosition);
+        this.rowIndex = data.rowIndex;
+        this.value = data.value;
     }
 }
 
