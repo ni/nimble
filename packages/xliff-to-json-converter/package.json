@@ -22,6 +22,9 @@
     "url": "git+https://github.com/ni/nimble.git",
     "directory": "packages/xliff-to-json-converter"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
