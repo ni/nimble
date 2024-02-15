@@ -10,4 +10,3 @@ require('./setup-configuration.js');
 
 // all browser test scripts
 importAll(require.context('../../', true, /\.spec\.js$/));
-importAll(require.context('../../../../build', true, /\.spec\.js$/));
