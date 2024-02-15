@@ -118,15 +118,20 @@ export class ExpansionManager<TData extends TableRecord> {
     public setHierarchyOptions(
         hierarchyOptions: TableSetRecordHierarchyOptions[]
     ): void {
-        const updatedHierarchyOptions = new Map<string, TableRecordHierarchyOptions>();
+        const updatedHierarchyOptions = new Map<
+        string,
+        TableRecordHierarchyOptions
+        >();
         for (const { recordId, options } of hierarchyOptions) {
             updatedHierarchyOptions.set(recordId, options);
 
             const oldState = this.hierarchyOptions.get(recordId)?.delayedHierarchyState;
             const newState = options.delayedHierarchyState;
-            if (oldState === TableRecordDelayedHierarchyState.loadingChildren
+            if (
+                oldState === TableRecordDelayedHierarchyState.loadingChildren
                 && newState === TableRecordDelayedHierarchyState.canLoadChildren
-                && !this.parentRowsWithChildren.has(recordId)) {
+                && !this.parentRowsWithChildren.has(recordId)
+            ) {
                 // If a row without children transitions from loadingChildren to canLoadChildren,
                 // put it back in its default state of collapsed.
                 this.explicitExpansionStates.delete(recordId);
