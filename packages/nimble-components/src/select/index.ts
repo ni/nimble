@@ -190,13 +190,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     /**
-     * @internal
-     */
-    public override disconnectedCallback(): void {
-        super.disconnectedCallback();
-    }
-
-    /**
      * The list of options. This mirrors FAST's override implementation for this
      * member for the Combobox to support a filtered list in the dropdown.
      *
