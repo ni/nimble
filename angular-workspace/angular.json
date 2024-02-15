@@ -109,8 +109,7 @@
                 }
               ],
               "buildOptimizer": true,
-              "optimization": true,
-              "sourceMap": true
+              "optimization": true
             },
             "development": {
               "buildOptimizer": false,

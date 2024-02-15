@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Disable source map generation",
+  "packageName": "@ni/jasmine-parameterized",
+  "email": "makinc@gmail.com",
+  "dependentChangeType": "patch"
+}
