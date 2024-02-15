@@ -210,8 +210,8 @@ describe('Nimble Label Provider Table', () => {
         });
 
         it('will use template string values for rowLoading', () => {
-            expect(directive.rowOperationColumn).toBe(label12);
-            expect(nativeElement.rowOperationColumn).toBe(label12);
+            expect(directive.rowLoading).toBe(label12);
+            expect(nativeElement.rowLoading).toBe(label12);
         });
     });
 
