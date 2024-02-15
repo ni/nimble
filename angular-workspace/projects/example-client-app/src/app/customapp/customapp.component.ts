@@ -2,10 +2,9 @@
 import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed } from '@ni/nimble-angular';
-import { NimbleTableDirective, TableRecordDelayedHierarchyState, TableRecord, TableRowExpansionToggleEventDetail } from '@ni/nimble-angular/table';
+import { NimbleTableDirective, TableRecordDelayedHierarchyState, TableRecord, TableRowExpansionToggleEventDetail, TableSetRecordHierarchyOptions } from '@ni/nimble-angular/table';
 import { NimbleRichTextEditorDirective } from '@ni/nimble-angular/rich-text/editor';
 import { BehaviorSubject, Observable } from 'rxjs';
-import type { TableSetRecordHierarchyOptions } from '@ni/nimble-angular/table';
 
 interface ComboboxItem {
     first: string;
@@ -194,7 +193,7 @@ export class CustomAppComponent implements AfterViewInit {
             }
 
             this.recordsLoadingChildren.add(recordId);
-            // void this.updateDelayedHierarchyTable(false);
+            void this.updateDelayedHierarchyTable(false);
 
             window.setTimeout(() => {
                 this.delayedHierarchyTableData = [
@@ -206,6 +205,24 @@ export class CustomAppComponent implements AfterViewInit {
                 void this.updateDelayedHierarchyTable();
             }, 1500);
         }
+    }
+
+    private async updateDelayedHierarchyTable(setData = true): Promise<void> {
+        if (setData) {
+            await this.delayedHierarchyTable.setData(this.delayedHierarchyTableData);
+        }
+        const hierarchyOptions = this.delayedHierarchyTableData.filter(person => {
+            return person.hasChildren && !this.recordsWithLoadedChildren.has(person.id);
+        }).map<TableSetRecordHierarchyOptions>(person => {
+            const state = this.recordsLoadingChildren.has(person.id)
+                ? TableRecordDelayedHierarchyState.loadingChildren
+                : TableRecordDelayedHierarchyState.canLoadChildren;
+            return {
+                recordId: person.id,
+                options: { delayedHierarchyState: state }
+            };
+        });
+        await this.delayedHierarchyTable.setRecordHierarchyOptions(hierarchyOptions);
     }
 
     private getChildren(id: string): PersonTableRecord[] {
@@ -270,24 +287,5 @@ export class CustomAppComponent implements AfterViewInit {
             default:
                 return [];
         }
-    }
-
-    private async updateDelayedHierarchyTable(setData = true): Promise<void> {
-        if (setData) {
-            await this.delayedHierarchyTable.setData(this.delayedHierarchyTableData);
-        }
-        const hierarchyOptions = this.delayedHierarchyTableData.filter(person => {
-            return person.hasChildren && !this.recordsWithLoadedChildren.has(person.id);
-        }).map<TableSetRecordHierarchyOptions>(person => {
-            const state = TableRecordDelayedHierarchyState.canLoadChildren;
-            // const state = this.recordsLoadingChildren.has(person.id)
-            //     ? TableRecordDelayedHierarchyState.loadingChildren
-            //     : TableRecordDelayedHierarchyState.canLoadChildren;
-            return {
-                recordId: person.id,
-                options: { delayedHierarchyState: state }
-            };
-        });
-        await this.delayedHierarchyTable.setRecordHierarchyOptions(hierarchyOptions);
     }
 }
