@@ -5,7 +5,7 @@ const path = require('path');
 
 export default [
     {
-        input: path.resolve(__dirname, 'dist/health-status.js'),
+        input: path.resolve(__dirname, 'source/health-status.ts'),
         output: {
             file: path.resolve(__dirname, 'dist/health-status.js'),
             format: 'iife',
@@ -15,7 +15,7 @@ export default [
         plugins: [resolve(), commonjs()]
     },
     {
-        input: path.resolve(__dirname, 'dist/render-worker.js'),
+        input: path.resolve(__dirname, 'source/render-worker.ts'),
         output: {
             file: path.resolve(__dirname, 'dist/render-worker.js'),
             format: 'iife',
@@ -25,7 +25,7 @@ export default [
         plugins: [resolve(), commonjs()]
     },
     {
-        input: path.resolve(__dirname, 'dist/index.js'),
+        input: path.resolve(__dirname, 'source/index.ts'),
         output: {
             file: path.resolve(__dirname, 'dist/index.js'),
             format: 'iife',
@@ -35,7 +35,7 @@ export default [
         plugins: [resolve(), commonjs()]
     },
     {
-        input: path.resolve(__dirname, 'dist/tests/render-worker.spec.js'),
+        input: path.resolve(__dirname, 'source/tests/render-worker.spec.ts'),
         output: {
             file: path.resolve(__dirname, 'dist/tests/render-worker.spec.js'),
             format: 'iife',
