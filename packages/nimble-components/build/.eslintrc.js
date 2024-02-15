@@ -4,7 +4,7 @@ module.exports = {
         '@ni/eslint-config-javascript'
     ],
     ignorePatterns: [
-        'dist', 'build'
+        'dist'
     ],
     rules: {
         // Build scripts should give verbose logging
