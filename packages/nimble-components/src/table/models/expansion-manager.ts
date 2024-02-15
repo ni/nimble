@@ -87,8 +87,9 @@ export class ExpansionManager<TData extends TableRecord> {
         const updatedParentRowsWithChildren = new Set<string>();
         for (const row of rows) {
             const rowId = row.id;
+            const isGroupRow = row.getIsGrouped();
             const rowHierarchyOptions = this.hierarchyOptions.get(rowId);
-            if (!row.getIsGrouped() && rowHierarchyOptions) {
+            if (!isGroupRow && rowHierarchyOptions) {
                 updatedHierarchyOptions.set(rowId, rowHierarchyOptions);
             }
 
@@ -98,14 +99,15 @@ export class ExpansionManager<TData extends TableRecord> {
                     updatedExplicitExpansionStates.set(rowId, expansionState);
                 }
 
-                if (row.subRows.length === 0) {
-                    if (this.parentRowsWithChildren.has(rowId)) {
+                if (!isGroupRow) {
+                    const hasChildRows = row.subRows.length === 0;
+                    if (hasChildRows) {
+                        updatedParentRowsWithChildren.add(rowId);
+                    } else if (this.parentRowsWithChildren.has(rowId)) {
                         // The row used to have children, but now it does not. Therefore,
                         // collapse the row.
                         updatedExplicitExpansionStates.set(rowId, false);
                     }
-                } else {
-                    updatedParentRowsWithChildren.add(rowId);
                 }
             }
         }
