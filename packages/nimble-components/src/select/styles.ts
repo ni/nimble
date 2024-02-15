@@ -61,29 +61,32 @@ export const styles = css`
         background: transparent;
     }
 
-    .filter-icon {
-        padding-left: ${smallPadding};
-    }
-
-    .filter-field::after,
     .filter-field::before {
         content: '';
         position: absolute;
         height: 0px;
         border-bottom: rgba(${borderRgbPartialColor}, 0.1) 2px solid;
-    }
-
-    .filter-field::after {
-        top: calc(${controlHeight} + ${smallPadding} - ${borderWidth});
-    }
-
-    .filter-field:before {
         bottom: calc(${controlHeight} + ${smallPadding} - ${borderWidth});
     }
 
-    .filter-field:not(.above)::after,
     .filter-field.above::before {
         width: calc(100% - (2 * ${borderWidth}));
+    }
+
+    .filter-field::after {
+        content: '';
+        position: absolute;
+        height: 0px;
+        border-bottom: rgba(${borderRgbPartialColor}, 0.1) 2px solid;
+        top: calc(${controlHeight} + ${smallPadding} - ${borderWidth});
+    }
+
+    .filter-field:not(.above)::after {
+        width: calc(100% - (2 * ${borderWidth}));
+    }
+
+    .filter-icon {
+        padding-left: ${smallPadding};
     }
 
     .filter-input {
@@ -104,7 +107,7 @@ export const styles = css`
         outline: 0px;
     }
 
-    .scrollable-element {
+    .scrollable-region {
         overflow: auto;
     }
 

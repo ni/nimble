@@ -126,14 +126,23 @@ export class ExpansionManager<TData extends TableRecord> {
         this.isHierarchyEnabled = isHierarchyEnabled;
     }
 
-    private canLoadDelayedChildren(id: string): boolean {
+    public isLoadingChildren(id: string): boolean {
         if (!this.isHierarchyEnabled) {
             return false;
         }
 
         return (
             this.hierarchyOptions.get(id)?.delayedHierarchyState
-                === TableRecordDelayedHierarchyState.canLoadChildren ?? false
+                === TableRecordDelayedHierarchyState.loadingChildren ?? false
         );
+    }
+
+    private canLoadDelayedChildren(id: string): boolean {
+        if (!this.isHierarchyEnabled) {
+            return false;
+        }
+
+        const delayedHierarchyState = this.hierarchyOptions.get(id)?.delayedHierarchyState;
+        return delayedHierarchyState !== TableRecordDelayedHierarchyState.none;
     }
 }

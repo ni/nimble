@@ -946,7 +946,10 @@ export class Table<
                     : row.depth,
                 isParentRow: isParent,
                 immediateChildCount: row.subRows.length,
-                groupColumn: this.getGroupRowColumn(row)
+                groupColumn: this.getGroupRowColumn(row),
+                isLoadingChildren: this.expansionManager.isLoadingChildren(
+                    row.id
+                )
             };
             hasDataHierarchy = hasDataHierarchy || isParent;
             return rowState;
@@ -981,23 +984,11 @@ export class Table<
     private getGroupedRowSelectionState(
         groupedRow: TanStackRow<TableNode<TData>>
     ): TableRowSelectionState {
-        const leafRows = groupedRow.getLeafRows() ?? [];
+        const leafRows = groupedRow.getLeafRows().filter(x => !x.getIsGrouped()) ?? [];
         let foundSelectedRow = false;
         let foundNotSelectedRow = false;
         for (const row of leafRows) {
-            if (row.getIsGrouped()) {
-                const subGroupRowSelectionState = this.getGroupedRowSelectionState(row);
-                switch (subGroupRowSelectionState) {
-                    case TableRowSelectionState.notSelected:
-                        foundNotSelectedRow = true;
-                        break;
-                    case TableRowSelectionState.selected:
-                        foundSelectedRow = true;
-                        break;
-                    default:
-                        return TableRowSelectionState.partiallySelected;
-                }
-            } else if (row.getIsSelected()) {
+            if (row.getIsSelected()) {
                 foundSelectedRow = true;
             } else {
                 foundNotSelectedRow = true;

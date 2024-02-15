@@ -1,4 +1,6 @@
 import type { TableRow } from '..';
+import type { Button } from '../../../../button';
+import { Spinner, spinnerTag } from '../../../../spinner';
 import type { TableRecord } from '../../../types';
 import { tableCellTag, TableCell } from '../../cell';
 
@@ -23,9 +25,13 @@ export class TableRowPageObject<T extends TableRecord = TableRecord> {
         );
     }
 
-    public getExpandCollapseButton(): HTMLElement | null {
-        return this.tableRowElement.shadowRoot!.querySelector<HTMLElement>(
+    public getExpandCollapseButton(): Button | null {
+        return this.tableRowElement.shadowRoot!.querySelector<Button>(
             '.expand-collapse-button'
         );
+    }
+
+    public getLoadingSpinner(): Spinner | null {
+        return this.tableRowElement.shadowRoot!.querySelector(spinnerTag);
     }
 }

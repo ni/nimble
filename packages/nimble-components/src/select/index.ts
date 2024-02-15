@@ -1,5 +1,4 @@
-// The FAST Select implementation has largely been forked into here, as there
-// was enough divergence to merit severing the relationship.
+// Based on: https://github.com/microsoft/fast/blob/%40microsoft/fast-foundation_v2.49.5/packages/web-components/fast-foundation/src/select/select.ts
 import {
     attr,
     html,
@@ -48,6 +47,7 @@ declare global {
     }
 }
 
+// Used in overrides of base class methods
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type BooleanOrVoid = boolean | void;
 
@@ -55,16 +55,6 @@ type BooleanOrVoid = boolean | void;
  * A nimble-styled HTML select.
  */
 export class Select extends FormAssociatedSelect implements ErrorPattern {
-    /**
-     * The open attribute.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: open
-     */
-    @attr({ attribute: 'open', mode: 'boolean' })
-    public open = false;
-
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
@@ -91,6 +81,12 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
     @attr({ attribute: 'filter-mode' })
     public filterMode: FilterMode = FilterMode.none;
+
+    /**
+     * @internal
+     */
+    @attr({ attribute: 'open', mode: 'boolean' })
+    public open = false;
 
     /**
      * Holds the current state for the calculated position of the listbox.
@@ -126,19 +122,19 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @internal
      */
     @observable
-    public scrollableElement!: HTMLElement;
+    public scrollableRegion!: HTMLElement;
 
     /**
      * @internal
      */
     @observable
-    public filterInputElement?: HTMLInputElement;
+    public filterInput?: HTMLInputElement;
 
     /**
      * @internal
      */
     @observable
-    public region!: AnchoredRegion;
+    public anchoredRegion!: AnchoredRegion;
 
     /** @internal */
     @observable
@@ -155,12 +151,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      */
     @observable
     public filter = '';
-
-    /**
-     * @internal
-     */
-    @observable
-    public scrollbarIsVisible = false;
 
     /**
      * @internal
@@ -190,38 +180,13 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     private forcedPosition = false;
     private indexWhenOpened?: number;
 
-    // This intersection observer is to handle focus behavior for when the dropdown becomes
-    // visible.
-    private readonly regionElementIntersectionObserver: IntersectionObserver = new IntersectionObserver(
-        entries => {
-            if (
-                entries.length > 0
-                    && entries[entries.length - 1]!.intersectionRatio > 0
-            ) {
-                if (this.filterMode !== FilterMode.none) {
-                    this.filterInputElement?.focus();
-                } else {
-                    this.focus();
-                }
-            }
-        },
-        { threshold: 1.0, root: document }
-    );
-
+    /**
+     * @internal
+     */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.addEventListener('change', this.changeValueHandler);
-        this.addEventListener('contentchange', this.updateDisplayValue);
         this.forcedPosition = !!this.positionAttribute;
         this.initializeOpenState();
-        this.regionElementIntersectionObserver.observe(this.region);
-    }
-
-    public override disconnectedCallback(): void {
-        this.removeEventListener('change', this.changeValueHandler);
-        this.removeEventListener('contentchange', this.updateDisplayValue);
-        super.disconnectedCallback();
-        this.regionElementIntersectionObserver.unobserve(this.region);
     }
 
     /**
@@ -244,34 +209,30 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         Observable.notify(this, 'options');
     }
 
-    // NOTE: This is a copy of the parent implementation. When providing an override
-    //  for a property setter, you must also provide its corresponding getter.
     public override get value(): string {
         Observable.track(this, 'value');
         return this._value;
     }
 
-    // This is copied directly from FAST's implemention of its Select component, with
-    // one main difference: we use 'options' (the filtered set of options) vs '_options'.
-    // This is needed because while the dropdown is open the current 'selectedIndex' (set
-    // within this implementation) needs to be relative to the filtered options.
     public override set value(next: string) {
-        const prev = `${this._value}`;
+        const prev = this._value;
         let newValue = next;
 
+        // use 'options' here instead of '_options' as 'selectedIndex' may be relative
+        // to filtered set
         if (this.options?.length) {
-            const selectedIndex = this.options.findIndex(
+            const newValueIndex = this.options.findIndex(
                 el => el.value === newValue
             );
             const prevSelectedValue = this.options[this.selectedIndex]?.value ?? null;
-            const nextSelectedValue = this.options[selectedIndex]?.value ?? null;
+            const nextSelectedValue = this.options[newValueIndex]?.value ?? null;
 
             if (
-                selectedIndex === -1
+                newValueIndex === -1
                 || prevSelectedValue !== nextSelectedValue
             ) {
                 newValue = '';
-                this.selectedIndex = selectedIndex;
+                this.selectedIndex = newValueIndex;
             }
 
             newValue = this.firstSelectedOption?.value ?? newValue;
@@ -292,57 +253,41 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
     }
 
+    /**
+     * @internal
+     */
     public get displayValue(): string {
         Observable.track(this, 'displayValue');
         return this.committedSelectedOption?.text ?? '';
     }
 
-    public regionChanged(
+    /**
+     * @internal
+     */
+    public anchoredRegionChanged(
         _prev: AnchoredRegion | undefined,
         _next: AnchoredRegion | undefined
     ): void {
-        if (this.region && this.control) {
-            this.region.anchorElement = this.control;
+        if (this.anchoredRegion && this.control) {
+            this.anchoredRegion.anchorElement = this.control;
         }
     }
 
+    /**
+     * @internal
+     */
     public controlChanged(
         _prev: HTMLElement | undefined,
         _next: HTMLElement | undefined
     ): void {
-        if (this.region && this.control) {
-            this.region.anchorElement = this.control;
+        if (this.anchoredRegion && this.control) {
+            this.anchoredRegion.anchorElement = this.control;
         }
     }
 
-    public setPositioning(): void {
-        if (!this.$fastController.isConnected) {
-            // Don't call setPositioning() until we're connected,
-            // since this.forcedPosition isn't initialized yet.
-            return;
-        }
-        const currentBox = this.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const availableBottom = viewportHeight - currentBox.bottom;
-
-        if (this.forcedPosition) {
-            this.position = this.positionAttribute;
-        } else if (currentBox.top > availableBottom) {
-            this.position = SelectPosition.above;
-        } else {
-            this.position = SelectPosition.below;
-        }
-
-        this.positionAttribute = this.forcedPosition
-            ? this.positionAttribute
-            : this.position;
-
-        this.maxHeight = this.position === SelectPosition.above
-            ? Math.trunc(currentBox.top)
-            : Math.trunc(availableBottom);
-        this.updateListboxMaxHeightCssVariable();
-    }
-
+    /**
+     * @internal
+     */
     public override slottedOptionsChanged(
         prev: Element[],
         next: Element[]
@@ -370,6 +315,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.committedSelectedOption = this.options[this.selectedIndex];
     }
 
+    /**
+     * @internal
+     */
     public override clickHandler(e: MouseEvent): BooleanOrVoid {
         // do nothing if the select is disabled
         if (this.disabled) {
@@ -432,6 +380,13 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     /**
+     * @internal
+     */
+    public regionLoadedHandler(): void {
+        this.focusAndScrollOptionIntoView();
+    }
+
+    /**
      * Sets the multiple property on the proxy element.
      *
      * @param prev - the previous multiple value
@@ -448,8 +403,29 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
     }
 
+    /**
+     * @internal
+     */
     public inputClickHandler(e: MouseEvent): void {
         e.stopPropagation(); // clicking in filter input shouldn't close dropdown
+    }
+
+    /**
+     * @internal
+     */
+    public changeValueHandler(): void {
+        this.committedSelectedOption = this.options.find(
+            option => option.selected
+        );
+    }
+
+    /**
+     * @internal
+     */
+    public updateDisplayValue(): void {
+        if (this.collapsible) {
+            Observable.notify(this, 'displayValue');
+        }
     }
 
     /**
@@ -459,7 +435,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @internal
      */
     public inputHandler(e: InputEvent): boolean {
-        this.filter = this.filterInputElement?.value ?? '';
+        this.filter = this.filterInput?.value ?? '';
         if (!this.committedSelectedOption) {
             this.committedSelectedOption = this._options.find(
                 option => option.selected
@@ -495,6 +471,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         return true;
     }
 
+    /**
+     * @internal
+     */
     public override focusoutHandler(e: FocusEvent): BooleanOrVoid {
         this.updateSelectedIndexFromFilteredSet();
         super.focusoutHandler(e);
@@ -517,6 +496,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         return true;
     }
 
+    /**
+     * @internal
+     */
     public override keydownHandler(e: KeyboardEvent): BooleanOrVoid {
         super.keydownHandler(e);
         const key = e.key;
@@ -661,6 +643,15 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         super.setSelectedOptions();
     }
 
+    protected override focusAndScrollOptionIntoView(): void {
+        super.focusAndScrollOptionIntoView();
+        if (this.open) {
+            window.requestAnimationFrame(() => {
+                this.filterInput?.focus();
+            });
+        }
+    }
+
     protected positionChanged(
         _: SelectPosition | undefined,
         next: SelectPosition | undefined
@@ -702,8 +693,8 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
 
         this.filter = '';
-        if (this.filterInputElement) {
-            this.filterInputElement.value = '';
+        if (this.filterInput) {
+            this.filterInput.value = '';
         }
 
         this.ariaControls = '';
@@ -755,6 +746,34 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
 
         this.selectedIndex = 0;
+    }
+
+    private setPositioning(): void {
+        if (!this.$fastController.isConnected) {
+            // Don't call setPositioning() until we're connected,
+            // since this.forcedPosition isn't initialized yet.
+            return;
+        }
+        const currentBox = this.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const availableBottom = viewportHeight - currentBox.bottom;
+
+        if (this.forcedPosition) {
+            this.position = this.positionAttribute;
+        } else if (currentBox.top > availableBottom) {
+            this.position = SelectPosition.above;
+        } else {
+            this.position = SelectPosition.below;
+        }
+
+        this.positionAttribute = this.forcedPosition
+            ? this.positionAttribute
+            : this.position;
+
+        this.maxHeight = this.position === SelectPosition.above
+            ? Math.trunc(currentBox.top)
+            : Math.trunc(availableBottom);
+        this.updateListboxMaxHeightCssVariable();
     }
 
     /**
@@ -879,18 +898,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
             selectedItem.selected = true;
         }
     }
-
-    private readonly changeValueHandler = (): void => {
-        this.committedSelectedOption = this.options.find(
-            option => option.selected
-        );
-    };
-
-    private readonly updateDisplayValue = (): void => {
-        if (this.collapsible) {
-            Observable.notify(this, 'displayValue');
-        }
-    };
 }
 
 const nimbleSelect = Select.compose<SelectOptions>({

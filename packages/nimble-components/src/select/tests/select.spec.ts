@@ -211,7 +211,7 @@ describe('Select', () => {
             await clickAndWaitForOpen(element);
             const fullyVisible = await checkFullyInViewport(element.listbox);
 
-            expect(element.scrollableElement.scrollHeight).toBeGreaterThan(
+            expect(element.scrollableRegion.scrollHeight).toBeGreaterThan(
                 window.innerHeight
             );
             expect(fullyVisible).toBe(true);
@@ -348,40 +348,42 @@ describe('Select', () => {
             }
         ];
         filterModeTestData.forEach(testData => {
-            it(`pressing <Enter> opens dropdown when filterMode = ${testData.name}`, () => {
-                element.filterMode = testData.filter;
-                pageObject.pressEnterKey();
-                expect(element.open).toBeTrue();
-            });
+            describe(`with filterMode = ${testData.name}`, () => {
+                it('pressing <Enter> opens dropdown', () => {
+                    element.filterMode = testData.filter;
+                    pageObject.pressEnterKey();
+                    expect(element.open).toBeTrue();
+                });
 
-            it(`pressing <Space> opens dropdown when filterMode = ${testData.name}`, async () => {
-                element.filterMode = testData.filter;
-                await pageObject.pressSpaceKey();
-                expect(element.open).toBeTrue();
-            });
+                it('pressing <Space> opens dropdown', async () => {
+                    element.filterMode = testData.filter;
+                    await pageObject.pressSpaceKey();
+                    expect(element.open).toBeTrue();
+                });
 
-            it(`after pressing <Esc> to close dropdown, <Enter> will re-open dropdown when filterMode = ${testData.name}`, async () => {
-                element.filterMode = testData.filter;
-                await pageObject.clickSelect();
-                pageObject.pressEscapeKey();
-                expect(element.open).toBeFalse();
-                pageObject.pressEnterKey();
-                expect(element.open).toBeTrue();
-            });
+                it('after pressing <Esc> to close dropdown, <Enter> will re-open dropdown', async () => {
+                    element.filterMode = testData.filter;
+                    await pageObject.clickSelect();
+                    pageObject.pressEscapeKey();
+                    expect(element.open).toBeFalse();
+                    pageObject.pressEnterKey();
+                    expect(element.open).toBeTrue();
+                });
 
-            it(`after closing dropdown by pressing <Esc>, activeElement is Select element when filterMode = ${testData.name}`, async () => {
-                element.filterMode = testData.filter;
-                await pageObject.clickSelect();
-                pageObject.pressEscapeKey();
-                expect(document.activeElement).toBe(element);
-            });
+                it('after closing dropdown by pressing <Esc>, activeElement is Select element', async () => {
+                    element.filterMode = testData.filter;
+                    await pageObject.clickSelect();
+                    pageObject.pressEscapeKey();
+                    expect(document.activeElement).toBe(element);
+                });
 
-            it(`after closing dropdown by committing a value with <Enter>, activeElement is Select element when filterMode = ${testData.name}`, async () => {
-                element.filterMode = testData.filter;
-                await pageObject.clickSelect();
-                pageObject.pressArrowDownKey();
-                pageObject.pressEnterKey();
-                expect(document.activeElement).toBe(element);
+                it('after closing dropdown by committing a value with <Enter>, activeElement is Select element', async () => {
+                    element.filterMode = testData.filter;
+                    await pageObject.clickSelect();
+                    pageObject.pressArrowDownKey();
+                    pageObject.pressEnterKey();
+                    expect(document.activeElement).toBe(element);
+                });
             });
         });
     });
