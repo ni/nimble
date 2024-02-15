@@ -22,5 +22,5 @@
         "noUncheckedIndexedAccess": true,
         "noPropertyAccessFromIndexSignature": false
     },
-    "include": ["source", "tsconfig.json", "render-worker.ts", "index.ts", "health-status.ts", "tests"]
+    "include": ["source"]
 }
