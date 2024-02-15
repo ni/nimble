@@ -4,6 +4,7 @@
         "esModuleInterop": true,
         "moduleResolution": "node",
         "outDir": "dist",
+        "rootDir": "source",
         "strict": true,
         "experimentalDecorators": true,
         "target": "ES2020",
