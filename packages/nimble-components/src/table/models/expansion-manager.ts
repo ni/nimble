@@ -79,7 +79,7 @@ export class ExpansionManager<TData extends TableRecord> {
             return;
         }
 
-        const updatedNonDefaultExpansionStates = new Map<string, boolean>();
+        const updatedExplicitExpansionStates = new Map<string, boolean>();
         const updatedHierarchyOptions = new Map<
         string,
         TableRecordHierarchyOptions
@@ -95,14 +95,14 @@ export class ExpansionManager<TData extends TableRecord> {
             if (this.isRowExpandable(row)) {
                 const expansionState = this.explicitExpansionStates.get(rowId);
                 if (expansionState !== undefined) {
-                    updatedNonDefaultExpansionStates.set(rowId, expansionState);
+                    updatedExplicitExpansionStates.set(rowId, expansionState);
                 }
 
                 if (row.subRows.length === 0) {
                     if (this.parentRowsWithChildren.has(rowId)) {
                         // The row used to have children, but now it does not. Therefore,
                         // collapse the row.
-                        updatedNonDefaultExpansionStates.set(rowId, false);
+                        updatedExplicitExpansionStates.set(rowId, false);
                     }
                 } else {
                     updatedParentRowsWithChildren.add(rowId);
@@ -110,7 +110,7 @@ export class ExpansionManager<TData extends TableRecord> {
             }
         }
 
-        this.explicitExpansionStates = updatedNonDefaultExpansionStates;
+        this.explicitExpansionStates = updatedExplicitExpansionStates;
         this.hierarchyOptions = updatedHierarchyOptions;
         this.parentRowsWithChildren = updatedParentRowsWithChildren;
     }
@@ -118,10 +118,21 @@ export class ExpansionManager<TData extends TableRecord> {
     public setHierarchyOptions(
         hierarchyOptions: TableSetRecordHierarchyOptions[]
     ): void {
-        this.hierarchyOptions.clear();
+        const updatedHierarchyOptions = new Map<string, TableRecordHierarchyOptions>();
         for (const { recordId, options } of hierarchyOptions) {
-            this.hierarchyOptions.set(recordId, options);
+            updatedHierarchyOptions.set(recordId, options);
+
+            const oldState = this.hierarchyOptions.get(recordId)?.delayedHierarchyState;
+            const newState = options.delayedHierarchyState;
+            if (oldState === TableRecordDelayedHierarchyState.loadingChildren
+                && newState === TableRecordDelayedHierarchyState.canLoadChildren
+                && !this.parentRowsWithChildren.has(recordId)) {
+                // If a row without children transitions from loadingChildren to canLoadChildren,
+                // put it back in its default state of collapsed.
+                this.explicitExpansionStates.delete(recordId);
+            }
         }
+        this.hierarchyOptions = updatedHierarchyOptions;
     }
 
     public isRowExpandable(row: TanStackRow<TableNode<TData>>): boolean {
