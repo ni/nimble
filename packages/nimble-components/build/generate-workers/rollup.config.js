@@ -1,56 +1,42 @@
-import typescript from '@rollup/plugin-typescript';
-import commonjs from '@rollup/plugin-commonjs';
-import resolve from '@rollup/plugin-node-resolve';
-
+const commonjs = require('@rollup/plugin-commonjs');
+const resolve = require('@rollup/plugin-node-resolve');
 const path = require('path');
 
 export default [
     {
-        input: path.resolve(__dirname, 'source/health-status.ts'),
+        input: path.resolve(__dirname, 'dist/health-status.js'), // Adjusted for JS input
         output: {
-            file: path.resolve(__dirname, 'dist/health-status.js'),
+            file: path.resolve(__dirname, 'dist/bundles/health-status.js'),
             format: 'iife',
-            name: 'HealthStatus',
-            sourcemap: true
+            sourcemap: false,
         },
-        plugins: [resolve(), commonjs(), typescript({
-            tsconfig: 'build/generate-workers/tsconfig.json'
-        })]
+        plugins: [resolve(), commonjs()]
     },
     {
-        input: path.resolve(__dirname, 'source/render-worker.ts'),
+        input: path.resolve(__dirname, 'dist/render-worker.js'), // Adjusted for JS input
         output: {
-            file: path.resolve(__dirname, 'dist/render-worker.js'),
+            file: path.resolve(__dirname, 'dist/bundles/render-worker.js'),
             format: 'iife',
-            name: 'RenderWorker',
-            sourcemap: true
+            sourcemap: false,
         },
-        plugins: [resolve(), commonjs(), typescript({
-            tsconfig: 'build/generate-workers/tsconfig.json'
-        })]
+        plugins: [resolve(), commonjs()]
     },
     {
-        input: path.resolve(__dirname, 'source/index.ts'),
+        input: path.resolve(__dirname, 'dist/index.js'), // Adjusted for JS input
         output: {
-            file: path.resolve(__dirname, 'dist/index.js'),
+            file: path.resolve(__dirname, 'dist/bundles/index.js'),
             format: 'iife',
-            name: 'Main',
-            sourcemap: true
+            sourcemap: false,
         },
-        plugins: [resolve(), commonjs(), typescript({
-            tsconfig: 'build/generate-workers/tsconfig.json'
-        })]
+        plugins: [resolve(), commonjs()]
     },
     {
-        input: path.resolve(__dirname, 'source/tests/render-worker.spec.ts'),
+        input: path.resolve(__dirname, 'dist/tests/render-worker.spec.js'), // Adjusted for JS input
         output: {
-            file: path.resolve(__dirname, 'dist/tests/render-worker.spec.js'),
+            file: path.resolve(__dirname, 'dist/bundles/tests/render-worker.spec.js'),
             format: 'iife',
-            name: 'RenderWorkerTest',
-            sourcemap: true
+            sourcemap: false,
         },
-        plugins: [resolve(), commonjs(), typescript({
-            tsconfig: 'build/generate-workers/tsconfig.json'
-        })]
+        plugins: [resolve(), commonjs()]
     }
 ];
