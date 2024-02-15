@@ -58,6 +58,7 @@ import { InteractiveSelectionManager } from './models/interactive-selection-mana
 import { DataHierarchyManager } from './models/data-hierarchy-manager';
 import { ExpansionManager } from './models/expansion-manager';
 import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
+import { TableColumnSortOperation } from '../table-column/base/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -918,6 +919,10 @@ export class Table<
         return typeof this.parentIdFieldName === 'string';
     }
 
+    private convertToSortColumnOverrideId(columnId: string): string {
+        return `${columnId}_nimbleColumnSortOverride`;
+    }
+
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
 
@@ -1085,8 +1090,12 @@ export class Table<
             : undefined;
 
         return sortedColumns.map(column => {
+            const sortOverrideOperandDataRecordFieldName = column.columnInternals.sortOverrideOperandDataRecordFieldName;
+            const tanStackColumnId = (typeof sortOverrideOperandDataRecordFieldName === 'string')
+                ? this.convertToSortColumnOverrideId(column.columnInternals.uniqueId)
+                : column.columnInternals.uniqueId;
             return {
-                id: column.columnInternals.uniqueId,
+                id: tanStackColumnId,
                 desc:
                     column.columnInternals.currentSortDirection
                     === TableColumnSortDirection.descending
@@ -1115,8 +1124,9 @@ export class Table<
     }
 
     private calculateTanStackColumns(): TanStackColumnDef<TableNode<TData>>[] {
-        return this.columns.map(column => {
-            return {
+        const tanstackColumns: TanStackColumnDef<TableNode<TData>>[] = [];
+        for (const column of this.columns) {
+            tanstackColumns.push({
                 id: column.columnInternals.uniqueId,
                 accessorFn: (record: TableNode<TData>): TableFieldValue => {
                     const fieldName = column.columnInternals.operandDataRecordFieldName;
@@ -1129,8 +1139,26 @@ export class Table<
                     column.columnInternals.sortOperation
                 ),
                 sortUndefined: false
-            };
-        });
+            });
+
+            if (typeof column.columnInternals.sortOverrideOperandDataRecordFieldName === 'string') {
+                tanstackColumns.push({
+                    id: this.convertToSortColumnOverrideId(column.columnInternals.uniqueId),
+                    accessorFn: (record: TableNode<TData>): TableFieldValue => {
+                        const fieldName = column.columnInternals.sortOverrideOperandDataRecordFieldName;
+                        if (typeof fieldName !== 'string') {
+                            return undefined;
+                        }
+                        return record.clientRecord[fieldName];
+                    },
+                    sortingFn: getTanStackSortingFunction(
+                        TableColumnSortOperation.basic
+                    ),
+                    sortUndefined: false
+                });
+            }
+        }
+        return tanstackColumns;
     }
 
     private calculateTanStackSelectionState(

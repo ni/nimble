@@ -38,28 +38,69 @@ const simpleData = [
     {
         firstName: 'Ralph',
         lastName: 'Wiggum',
-        url: 'https://www.google.com/search?q=ralph+wiggum'
+        url: 'https://www.google.com/search?q=ralph+wiggum',
+        sortOrder: 10
+    },
+    {
+        firstName: '100',
+        url: 'https://www.google.com/search?q=100',
+        sortOrder: 5
     },
     {
         firstName: 'Milhouse',
         lastName: 'Van Houten',
-        url: 'https://www.google.com/search?q=milhouse+van+houten'
+        url: 'https://www.google.com/search?q=milhouse+van+houten',
+        sortOrder: 8
     },
     {
         firstName: 'Ned',
         lastName: 'Flanders',
-        url: 'https://www.google.com/search?q=ned+flanders'
+        url: 'https://www.google.com/search?q=ned+flanders',
+        sortOrder: 9
     },
     {
         firstName: 'Maggie (no link)',
-        lastName: 'Simpson'
+        lastName: 'Simpson',
+        sortOrder: 7
     },
     {
         lastName: 'Simpson',
-        url: 'https://www.google.com/search?q=simpsons'
+        url: 'https://www.google.com/search?q=simpsons',
+        sortOrder: -1
     },
     {
-        lastName: 'Simpson'
+        lastName: 'Simpson',
+        sortOrder: -2
+    },
+    {
+        firstName: '0',
+        url: 'https://www.google.com/search?q=0',
+        sortOrder: 2
+    },
+    {
+        firstName: 'false',
+        url: 'https://www.google.com/search?q=false',
+        sortOrder: 0
+    },
+    {
+        firstName: 'abc',
+        url: 'https://www.google.com/search?q=abc',
+        sortOrder: 6
+    },
+    {
+        firstName: '5',
+        url: 'https://www.google.com/search?q=5',
+        sortOrder: 3
+    },
+    {
+        firstName: '20',
+        url: 'https://www.google.com/search?q=20',
+        sortOrder: 4
+    },
+    {
+        firstName: 'true',
+        url: 'https://www.google.com/search?q=true',
+        sortOrder: 1
     }
 ] as const;
 
@@ -82,6 +123,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             <${tableColumnAnchorTag}
                 label-field-name="${x => x.labelFieldName}"
                 href-field-name="${x => x.hrefFieldName}"
+                sort-by-field-name="sortOrder"
                 appearance="${x => x.appearance}"
                 ?underline-hidden="${x => x.underlineHidden}"
             >

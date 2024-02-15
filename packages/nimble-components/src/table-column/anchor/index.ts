@@ -43,6 +43,9 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     @attr({ attribute: 'href-field-name' })
     public hrefFieldName?: string;
 
+    @attr({ attribute: 'sort-by-field-name' })
+    public sortByFieldName?: string;
+
     @attr
     public appearance?: AnchorAppearance;
 
@@ -93,6 +96,10 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             this.labelFieldName,
             this.hrefFieldName
         ] as const;
+    }
+
+    protected sortByFieldNameChanged(): void {
+        this.columnInternals.sortOverrideOperandDataRecordFieldName = this.sortByFieldName;
     }
 
     protected appearanceChanged(): void {

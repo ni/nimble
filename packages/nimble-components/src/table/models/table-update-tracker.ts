@@ -113,7 +113,8 @@ export class TableUpdateTracker<
             isColumnInternalsProperty(
                 changedColumnProperty,
                 'operandDataRecordFieldName',
-                'sortOperation'
+                'sortOperation',
+                'sortOverrideOperandDataRecordFieldName'
             )
         ) {
             this.track('columnDefinition');
