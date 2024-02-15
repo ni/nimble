@@ -34,5 +34,15 @@ export default [
         plugins: [resolve(), commonjs(), typescript({
             tsconfig: 'build/generate-workers/tsconfig.json'
         })]
+    },
+    {
+        input: path.resolve(__dirname, 'source/tests/render-worker.spec.ts'),
+        output: {
+            file: path.resolve(__dirname, 'dist/tests/render-worker.spec.js'),
+            format: 'iife'
+        },
+        plugins: [resolve(), commonjs(), typescript({
+            tsconfig: 'build/generate-workers/tsconfig.json'
+        })]
     }
 ];
