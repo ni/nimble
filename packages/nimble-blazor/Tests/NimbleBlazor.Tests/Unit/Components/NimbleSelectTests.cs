@@ -89,7 +89,7 @@ public class NimbleSelectTests
     [Fact]
     public void Select_FilterModeNoneIsSet()
     {
-        var select= RenderWithPropertySet(x => x.FilterMode, FilterMode.None);
+        var select = RenderWithPropertySet(x => x.FilterMode, FilterMode.None);
 
         Assert.DoesNotContain("filter-mode", select.Markup);
     }
