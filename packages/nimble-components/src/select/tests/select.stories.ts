@@ -10,6 +10,7 @@ import { selectTag } from '..';
 import { listOptionTag } from '../../list-option';
 import { ExampleOptionsType } from './types';
 import { menuMinWidth } from '../../theme-provider/design-tokens';
+import { FilterMode } from '../types';
 
 interface SelectArgs {
     disabled: boolean;
@@ -18,6 +19,7 @@ interface SelectArgs {
     dropDownPosition: string;
     optionsType: ExampleOptionsType;
     appearance: string;
+    filterMode: keyof typeof FilterMode;
 }
 
 interface OptionArgs {
@@ -30,7 +32,8 @@ const simpleOptions: readonly OptionArgs[] = [
     { label: 'Option 1', value: '1', disabled: false },
     { label: 'Option 2', value: '2', disabled: true },
     { label: 'Option 3', value: '3', disabled: false },
-    { label: 'Option 4', value: '4', disabled: false }
+    { label: 'Option 4', value: '4', disabled: false },
+    { label: 'Zürich', value: '5', disabled: false }
 ] as const;
 
 const wideOptions: readonly OptionArgs[] = [
@@ -62,6 +65,14 @@ const optionSets = {
     [ExampleOptionsType.manyOptions]: manyOptions
 } as const;
 
+const filterModeDescription = `
+This attribute controls the filtering behavior of the \`Select\`. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the popup is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
+
+The act of filtering will use the \`hidden\` attribute on the options to remove and re-add them to the visible set. Thus, any client-provided \`hidden\` settings of the options will be overridden.
+
+It is recommended that if the \`Select\` has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`.
+`;
+
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
     decorators: [withActions<HtmlRenderer>],
@@ -82,6 +93,7 @@ const metadata: Meta<SelectArgs> = {
             ?disabled="${x => x.disabled}"
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             style="width: var(${menuMinWidth.cssCustomProperty});"
         >
             ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
@@ -102,6 +114,11 @@ const metadata: Meta<SelectArgs> = {
         appearance: {
             options: Object.values(DropdownAppearance),
             control: { type: 'radio' }
+        },
+        filterMode: {
+            options: Object.keys(FilterMode),
+            control: { type: 'radio' },
+            description: filterModeDescription
         },
         errorText: {
             name: 'error-text'
@@ -126,6 +143,7 @@ const metadata: Meta<SelectArgs> = {
         disabled: false,
         errorVisible: false,
         errorText: 'Value is invalid',
+        filterMode: 'none',
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions
