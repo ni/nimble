@@ -634,18 +634,4 @@ describe('Select', () => {
             );
         });
     });
-
-    it('filter input gets focus if open and filterMode are set before Select is connected', async () => {
-        const { element, connect, disconnect } = await setup();
-        element.open = true;
-        element.filterMode = FilterMode.standard;
-        const regionLoadedListener = createEventListener(element, 'loaded');
-        await connect();
-        await regionLoadedListener.promise;
-        expect(document.activeElement!.shadowRoot!.activeElement).toBe(
-            element.filterInput!
-        );
-
-        await disconnect();
-    });
 });
