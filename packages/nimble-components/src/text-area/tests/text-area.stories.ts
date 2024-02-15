@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TextAreaAppearance, TextAreaResize } from '../types';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
@@ -24,7 +24,7 @@ interface TextAreaArgs {
 
 const metadata: Meta<TextAreaArgs> = {
     title: 'Components/Text Area',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: ['change']

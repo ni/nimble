@@ -1,10 +1,10 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import {
-    createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
+    sharedMatrixParameters,
+    createMatrixThemeStory
+} from '../../utilities/tests/matrix';
+import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { toolbarTag } from '..';
 import { buttonTag } from '../../button';

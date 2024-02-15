@@ -15,5 +15,6 @@ export const tableLabelDefaults: { readonly [key in TokenName]: string } = {
     tableSelectAllLabel: 'Select all rows',
     tableGroupSelectAllLabel: 'Select all rows in group',
     tableRowSelectLabel: 'Select row',
-    tableRowOperationColumnLabel: 'Row operations'
+    tableRowOperationColumnLabel: 'Row operations',
+    tableRowLoadingLabel: 'Loading'
 };

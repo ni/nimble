@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 06 Feb 2024 15:30:34 GMT and should not be manually modified.
+This log was last generated on Thu, 08 Feb 2024 19:42:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.1.0
+
+Thu, 08 Feb 2024 19:42:05 GMT
+
+### Minor changes
+
+- Create Wafer Map Blazor Component ([ni/nimble@5c8cf7b](https://github.com/ni/nimble/commit/5c8cf7be5e962dee7518e9e27ccf2a14315d84a7))
 
 ## 14.0.0
 

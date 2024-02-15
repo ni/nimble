@@ -1,6 +1,6 @@
 import { html, ref } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { DrawerWidthOptions, ExampleContentType } from './types';
 import {
     createUserSelectedThemeStory,
@@ -115,7 +115,7 @@ ${overrideWarning('Drawer Width', widthDescriptionOverride)}
 
 const metadata: Meta<DrawerArgs> = {
     title: 'Components/Drawer',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: []

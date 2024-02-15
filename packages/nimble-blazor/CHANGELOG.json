@@ -2,6 +2,51 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 14 Feb 2024 20:28:40 GMT",
+      "version": "14.1.4",
+      "tag": "@ni/nimble-blazor_v14.1.4",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "40ae7a8e651e78bdbe1d9ab073b75ddda6814760",
+            "comment": "Update test project dependency version (Microsoft.NET.Test.Sdk)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 08 Feb 2024 23:16:48 GMT",
+      "version": "14.1.0",
+      "tag": "@ni/nimble-blazor_v14.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "eb485793ec661b713e2f05cc8a33b4773ebf9981",
+            "comment": "Consistent lang and meta description on public pages"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 08 Feb 2024 19:42:05 GMT",
+      "version": "14.1.0",
+      "tag": "@ni/nimble-blazor_v14.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "5c8cf7be5e962dee7518e9e27ccf2a14315d84a7",
+            "comment": "Create Wafer Map Blazor Component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 07 Feb 2024 23:00:18 GMT",
       "version": "14.0.2",
       "tag": "@ni/nimble-blazor_v14.0.2",

@@ -1,6 +1,6 @@
 import { html, ref } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
@@ -18,6 +18,7 @@ import {
 } from '../../label-provider/base/tests/label-user-stories-utils';
 import { labelProviderTableTag } from '../../label-provider/table';
 import { tableColumnNumberTextTag } from '../../table-column/number-text';
+import { isChromatic } from '../../utilities/tests/isChromatic';
 
 interface BaseTableArgs extends LabelUserArgs {
     tableRef: Table;
@@ -26,7 +27,7 @@ interface BaseTableArgs extends LabelUserArgs {
 
 const metadata: Meta<BaseTableArgs> = {
     title: 'Components/Table',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: [
@@ -408,6 +409,7 @@ export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
             id-field-name="id"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
+            style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"

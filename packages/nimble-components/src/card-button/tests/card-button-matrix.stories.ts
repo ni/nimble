@@ -2,13 +2,11 @@ import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    createMatrixThemeStory
 } from '../../utilities/tests/matrix';
 import { disabledStates, DisabledState } from '../../utilities/tests/states';
-import {
-    createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
+import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import { cardButtonTag } from '..';

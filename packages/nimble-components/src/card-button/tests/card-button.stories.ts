@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import { cardButtonTag } from '..';
@@ -12,7 +12,7 @@ interface CardButtonArgs {
 
 const metadata: Meta<CardButtonArgs> = {
     title: 'Components/Card Button',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: ['click']

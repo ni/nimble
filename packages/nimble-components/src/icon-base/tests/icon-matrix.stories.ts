@@ -3,12 +3,10 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    createMatrixThemeStory
 } from '../../utilities/tests/matrix';
-import {
-    createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
+import { createStory } from '../../utilities/tests/storybook';
 import { IconSeverity } from '../types';
 import { bodyFontColor } from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';

@@ -360,5 +360,21 @@
                 </NimbleTreeItem>
             </NimbleTreeView>
         </div>
+        <div class="sub-container">
+            <div class="container-label">Wafer Map</div>
+            <NimbleWaferMap 
+                OriginLocation="WaferMapOriginLocation.BottomLeft"
+                Orientation="WaferMapOrientation.Bottom"
+                MaxCharacters=2
+                DieLabelsHidden="false"
+                ColorScaleMode="WaferMapColorScaleMode.Linear"
+                @bind-Dies="Dies"
+                @bind-ColorScale="ColorScale"
+                @bind-HighlightedTags="HighlightedTags"
+            >
+            </NimbleWaferMap>
+            <NimbleButton @onclick=@(_ => AddDiesToRadius(10))>Increase Die Count</NimbleButton>
+            <NimbleButton @onclick=@(_ => RemoveDiesFromRadius(10))>Decrease Die Count</NimbleButton>
+        </div>
     </div>
 </div>
