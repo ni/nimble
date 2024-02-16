@@ -24,7 +24,7 @@
     "generate-scss": "npm run generate-scss:bundle && npm run generate-scss:run",
     "generate-scss:bundle": "rollup --bundleConfigAsCjs --config build/generate-scss/rollup.config.js",
     "generate-scss:run": "node build/generate-scss/dist/index.js",
-    "generate-workers": "npm run generate-workers:build && npm run generate-workers:run",
+    "generate-workers": "npm run generate-workers:build && generate-workers:bundle && npm run generate-workers:run",
     "generate-workers:build": "tsc -p build/generate-workers/tsconfig.json",
     "generate-workers:bundle": "rollup --bundleConfigAsCjs --config build/generate-workers/rollup.config.js",
     "generate-workers:run": "node build/generate-workers/dist/esm/index.js",
