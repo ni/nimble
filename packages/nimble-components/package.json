@@ -26,6 +26,7 @@
     "generate-scss:run": "node build/generate-scss/dist/index.js",
     "generate-workers": "npm run generate-workers:build && npm run generate-workers:run",
     "generate-workers:build": "tsc -p build/generate-workers/tsconfig.json",
+    "generate-workers:bundle": "rollup --bundleConfigAsCjs --config build/generate-workers/rollup.config.js",
     "generate-workers:run": "node build/generate-workers/dist/esm/index.js",
     "tdd": "npm run build-components && npm run test-chrome",
     "tdd:watch": "npm run build-components:watch & npm run test-chrome:watch",
