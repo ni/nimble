@@ -1138,6 +1138,7 @@ export class Table<
                 sortingFn: getTanStackSortingFunction(
                     column.columnInternals.sortOperation
                 ),
+                aggregationFn: 'min',
                 sortUndefined: false
             });
 

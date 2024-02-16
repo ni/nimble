@@ -69,6 +69,11 @@ const simpleData = [
         sortOrder: -1
     },
     {
+        firstName: 'abc',
+        url: 'https://www.google.com/search?q=abc(2)',
+        sortOrder: 6
+    },
+    {
         lastName: 'Simpson',
         sortOrder: -2
     },
@@ -83,6 +88,11 @@ const simpleData = [
         sortOrder: 0
     },
     {
+        firstName: 'true',
+        url: 'https://www.google.com/search?q=true(3)',
+        sortOrder: 1
+    },
+    {
         firstName: 'abc',
         url: 'https://www.google.com/search?q=abc',
         sortOrder: 6
@@ -91,6 +101,11 @@ const simpleData = [
         firstName: '5',
         url: 'https://www.google.com/search?q=5',
         sortOrder: 3
+    },
+    {
+        firstName: 'true',
+        url: 'https://www.google.com/search?q=true(2)',
+        sortOrder: 1
     },
     {
         firstName: '20',
