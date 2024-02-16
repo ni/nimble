@@ -82,6 +82,46 @@ The POC is found in this branch [Worker Rendering POC](https://github.com/ni/nim
 
 ### Data Structure and Interface
 
+The best solution to solve teh API of the wafermap is to use both of the proposed methods.
+
+The Public API will be the following:
+
+```TS
+public diesTable: Table<{
+        colIndex: Int32,
+        rowIndex: Int32,
+        value: Float32,
+        tags: Uint32;
+        metadata: never;
+    }>
+```
+
+This will be the [Apache Arrow](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html) table schema.
+The row and column indices will be `Int32` columns, the values will be `Float32` columns.
+The tags for each die will be represented as a 32 bit mask stored in a `Uint32` column.
+The metadata column will be stored in an wildcard typed column.
+
+This approach has the benefits of a row based format that aligns well with the existing public api, a nice public API to use and the ease of future improvements.
+
+The limits for this approach are the following:
+
+1. There seems to be no support for columns of lists of strings. We decided to overcome this using a bit mask of tags. Another possible solution can be a dynamic number of rows for storing tags, but the performance may suffer.
+1. There is no support currently for [searching or filtering the table](https://github.com/apache/arrow/issues/13233). The possible solutions for this are searching by iterating over the whole table, which is not feasible (see 3.) or using a higher level library such as [aquero](https://uwdata.github.io/arquero/).The solution we chose is using a custom method for finding rows based on column and row indexes cached as typed arrays. This method provides faster access to row values and metadata and does not induce additional dependencies.
+1. The transfer method for arrow tables is cumbersome, we would have to use another higher level library [geoarrow](https://github.com/geoarrow/geoarrow-js/blob/main/src/worker/transferable.ts). Fortunately we can skip over this problem by not transferring the tables.
+1. The iteration over stored rows is very bad compared to typed arrays as seen in the table below. This impacts the goals we set for this rendering improvement. The solution to this issue and the transferring issue is splitting the relevant columns from the table (rows, columns, values, tags mask) and messaging them to the worker separately. This can be done with a very small overhead using the [getChild](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html#getChild) method and calling [toArray](https://arrow.apache.org/docs/js/classes/Arrow_dom.Vector.html#toArray) on the resulting vector. After being transferred, The buffers can be cached to speed up value access and filtering.
+
+| name                      | duration (ms) [1]  | duration (ms) [2]  | detail                                                                                                    |
+| ------------------------- | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------- |
+| typed iterate             | 7.551699995994568  | 6.052600026130676  | iterating over two 1M typed arrays and calculating the sums                                               |
+| typed from table iterate  | 6.4953999519348145 | 5.136900067329407  | iterating over two 1M typed arrays from Table columns and calculating the sums (time includes conversion) |
+| vector iterate            | 76.4708000421524   | 66.58230006694794  | iterating over two 1M Vectors and calculating the sums                                                    |
+| table get() iterate       | 1350.0404000282288 | 1030.582899928093  | iterating over the 1M Table using `table.get(rowIndex)` and calculating the sums                          |
+| table [iterator] iterate  | 1091.6706000566483 | 1011.069100022316  | iterating over the 1M Table using the [iterator] and calculating the sums                                 |
+| array from table iterate  | 943.0076999664307  | 980.0875999927521  | iterating over the 1M Table after converting `toArray()` and calculating the sums                         |
+| vector from table iterate | 965.2465000152588  | 1012.9023000001907 | iterating over the 1M Vector after converting the Table with `makeVector()` and calculating the sums      |
+
+#### Previously proposed solutions
+
 We have two possible solutions for representing the data in the memory. They will be decided with a spec update. The fist one is an in-house solution:
 
 ```TS
