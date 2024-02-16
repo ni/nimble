@@ -1,5 +1,5 @@
 export enum HealthStatus{
-    Healty = "Healthy",
+    Healthy = "Healthy",
     Error = "Error",
     Unknown = "Unknown"
 }

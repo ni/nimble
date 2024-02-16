@@ -34,7 +34,7 @@ export class RenderWorker {
             if (!areMethodsCallable) {
                 return this.healthStatus = HealthStatus.Error;
             }
-            return this.healthStatus = HealthStatus.Healty;
+            return this.healthStatus = HealthStatus.Healthy;
         } catch (e) {
             return this.healthStatus = HealthStatus.Error;
         }
