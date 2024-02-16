@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 15 Feb 2024 20:48:52 GMT",
+      "version": "21.5.0",
+      "tag": "@ni/nimble-components_v21.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f2ecb4e69a8c9569d9e19cacfa0533b8b170b3f9",
+            "comment": "Adding filter input to Select"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 15 Feb 2024 01:01:57 GMT",
       "version": "21.4.0",
       "tag": "@ni/nimble-components_v21.4.0",
