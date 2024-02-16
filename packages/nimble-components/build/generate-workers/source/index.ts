@@ -14,17 +14,14 @@ console.log(`Creating workers directory "${workersDirectory}"`);
 fs.mkdirSync(workersDirectory);
 console.log('Finished creating workers directory');
 
-const healthStatusSourcePath = require.resolve(healthStatusFileName);
-const healthStatusContent = fs.readFileSync(healthStatusSourcePath, 'utf-8');
-
 const modulePath = require.resolve(moduleName);
 const sourceCode = fs.readFileSync(modulePath, 'utf-8');
 
-const combinedFileContents =
+const fileContent =
 `// eslint-disable-next-line no-template-curly-in-string
-export const workerCode = ${JSON.stringify(healthStatusContent + sourceCode)};`;
+export const workerCode = ${JSON.stringify(sourceCode)};`;
 
 const filePath = path.resolve(workersDirectory, 'render-worker.ts');
 console.log(`Writing worker file "${filePath}"`);
-fs.writeFileSync(filePath, combinedFileContents, { encoding: 'utf-8' });
+fs.writeFileSync(filePath, fileContent, { encoding: 'utf-8' });
 console.log('Finished writing worker file');
