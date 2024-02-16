@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 16 Feb 2024 18:10:59 GMT",
+      "version": "21.5.1",
+      "tag": "@ni/nimble-components_v21.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2b6c327fd3bc4f49178ac370f695a8b941278c46",
+            "comment": "Inline sources into map files"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.10.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 15 Feb 2024 20:48:52 GMT",
       "version": "21.5.0",
       "tag": "@ni/nimble-components_v21.5.0",
