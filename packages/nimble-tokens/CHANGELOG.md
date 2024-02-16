@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 02 Feb 2024 21:51:03 GMT and should not be manually modified.
+This log was last generated on Fri, 16 Feb 2024 18:10:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.10.1
+
+Fri, 16 Feb 2024 18:10:59 GMT
+
+### Patches
+
+- Inline sources into map files ([ni/nimble@2b6c327](https://github.com/ni/nimble/commit/2b6c327fd3bc4f49178ac370f695a8b941278c46))
 
 ## 6.10.0
 

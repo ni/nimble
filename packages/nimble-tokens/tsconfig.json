@@ -12,6 +12,7 @@
         "importHelpers": true,
         "resolveJsonModule": true,
         "sourceMap": true,
+        "inlineSources": true,
         "lib": [
             "DOM",
             "ES2015",
