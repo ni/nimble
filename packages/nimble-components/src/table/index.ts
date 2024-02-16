@@ -968,7 +968,10 @@ export class Table<
         this.virtualizer.dataChanged();
     }
 
-    private getGroupRowValue(groupColumn: TableColumn | undefined, groupRow: TanStackRow<TableNode<TData>>): unknown {
+    private getGroupRowValue(
+        groupColumn: TableColumn | undefined,
+        groupRow: TanStackRow<TableNode<TData>>
+    ): unknown {
         if (!groupColumn) {
             return undefined;
         }
@@ -1109,8 +1112,10 @@ export class Table<
 
         return sortedColumns.map(column => {
             const sortOverrideOperandDataRecordFieldName = column.columnInternals.sortOverrideOperandDataRecordFieldName;
-            const tanStackColumnId = (typeof sortOverrideOperandDataRecordFieldName === 'string')
-                ? this.convertToSortColumnOverrideId(column.columnInternals.uniqueId)
+            const tanStackColumnId = typeof sortOverrideOperandDataRecordFieldName === 'string'
+                ? this.convertToSortColumnOverrideId(
+                    column.columnInternals.uniqueId
+                )
                 : column.columnInternals.uniqueId;
             return {
                 id: tanStackColumnId,
@@ -1127,8 +1132,13 @@ export class Table<
         );
 
         return groupedColumns.map(column => {
-            if (typeof column.columnInternals.sortOverrideOperandDataRecordFieldName === 'string') {
-                return this.convertToSortColumnOverrideId(column.columnInternals.uniqueId);
+            if (
+                typeof column.columnInternals
+                    .sortOverrideOperandDataRecordFieldName === 'string'
+            ) {
+                return this.convertToSortColumnOverrideId(
+                    column.columnInternals.uniqueId
+                );
             }
             return column.columnInternals.uniqueId;
         });
@@ -1165,11 +1175,17 @@ export class Table<
                 sortUndefined: false
             });
 
-            if (typeof column.columnInternals.sortOverrideOperandDataRecordFieldName === 'string') {
+            if (
+                typeof column.columnInternals
+                    .sortOverrideOperandDataRecordFieldName === 'string'
+            ) {
                 tanstackColumns.push({
-                    id: this.convertToSortColumnOverrideId(column.columnInternals.uniqueId),
+                    id: this.convertToSortColumnOverrideId(
+                        column.columnInternals.uniqueId
+                    ),
                     accessorFn: (record: TableNode<TData>): TableFieldValue => {
-                        const fieldName = column.columnInternals.sortOverrideOperandDataRecordFieldName;
+                        const fieldName = column.columnInternals
+                            .sortOverrideOperandDataRecordFieldName;
                         if (typeof fieldName !== 'string') {
                             return undefined;
                         }
