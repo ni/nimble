@@ -266,6 +266,14 @@
             <NimbleButton class="table-update-button" @onclick=@(_ => AddTableRows(10))>Add rows</NimbleButton>
         </div>
         <div class="sub-container">
+            <div class="container-label">Table with delayed hierarchy</div>
+            <NimbleTable TData="PersonTableRecord" RowExpandToggle="OnRowExpandToggleAsync" @ref="_delayedHierarchyTable" IdFieldName="Id" ParentIdFieldName="ParentId" SelectionMode="TableRowSelectionMode.Multiple" class="table">
+                <NimbleTableColumnText FieldName="FirstName">First name</NimbleTableColumnText>
+                <NimbleTableColumnText FieldName="LastName">Last name</NimbleTableColumnText>
+                <NimbleTableColumnNumberText FieldName="Age" Format="NumberTextFormat.Decimal" DecimalDigits="0">Age</NimbleTableColumnNumberText>
+            </NimbleTable>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Tabs</div>
             <NimbleTabs @bind-ActiveId="@ActiveTabId">
                 <NimbleTab id="tab-1">Tab 1</NimbleTab>

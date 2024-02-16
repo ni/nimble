@@ -95,8 +95,8 @@ export interface TableRecordHierarchyOptions {
 
 export const TableRecordDelayedHierarchyState = {
     none: undefined,
-    canLoadChildren: 'canLoadChildren',
-    loadingChildren: 'loadingChildren'
+    canLoadChildren: 'can-load-children',
+    loadingChildren: 'loading-children'
 } as const;
 export type TableRecordDelayedHierarchyState =
     (typeof TableRecordDelayedHierarchyState)[keyof typeof TableRecordDelayedHierarchyState];
