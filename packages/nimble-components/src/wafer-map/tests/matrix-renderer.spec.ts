@@ -3,12 +3,11 @@ import { HealthStatus } from '../../../build/generate-workers/source/health-stat
 import { MatrixRenderer } from '../modules/matrix-renderer';
 
 describe('MatrixRenderer', () => {
-    it('worker should be healthy', () => {
+    it('worker should be healthy', async () => {
         const wafermap = new WaferMap();
         const renderer = new MatrixRenderer(wafermap);
-        const healthStatus = renderer.workerOne.isWorkerHealthy();
-        expect(healthStatus).toBe(new Promise<HealthStatus.Healthy>(resolve => {
-            resolve(HealthStatus.Healthy);
-        }));
+        // Assuming isWorkerHealthy() returns a Promise<HealthStatus>
+        const healthStatus = await renderer.workerOne.isWorkerHealthy();
+        expect(healthStatus).toBe(HealthStatus.Healthy);
     });
 });
