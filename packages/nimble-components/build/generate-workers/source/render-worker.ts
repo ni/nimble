@@ -28,7 +28,7 @@ export class RenderWorker {
         return typeof this.updateMatrix === 'function' && typeof this.emptyMatrix === 'function';
     }
 
-    public async isWorkerHealthy(): Promise<HealthStatus> {
+    public isWorkerHealthy(): HealthStatus {
         try {
             const areMethodsCallable = this.areMethodsCallable();
             if (!areMethodsCallable) {
