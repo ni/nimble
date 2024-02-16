@@ -4,7 +4,7 @@ import path from 'path';
 export default {
     input: path.resolve(__dirname, 'dist/esm/render-worker.js'),
     output: {
-        file: path.resolve(__dirname, 'dist/esm/render-worker.js'),
+        file: path.resolve(__dirname, 'dist/bundle/render-worker.js'),
         format: 'iife',
         name: 'RenderWorker',
         sourcemap: false

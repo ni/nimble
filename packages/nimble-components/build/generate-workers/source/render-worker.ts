@@ -40,4 +40,5 @@ export class RenderWorker {
         }
     }
 }
-Comlink.expose(RenderWorker);
+const worker = new RenderWorker();
+Comlink.expose(worker);
