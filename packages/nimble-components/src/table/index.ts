@@ -923,6 +923,10 @@ export class Table<
         return `${columnId}_nimbleColumnSortOverride`;
     }
 
+    private convertFromSortColumnOverrideId(columnId: string): string {
+        return columnId.substring(0, columnId.length - 25);
+    }
+
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
 
@@ -937,21 +941,21 @@ export class Table<
                 && !hasParentRow
                 && row.depth > 0
                 && !this.parentIdFieldName;
+            const groupColumn = this.getGroupRowColumn(row);
+            const groupRowValue = this.getGroupRowValue(groupColumn, row);
             const rowState: TableRowState<TData> = {
                 record: row.original.clientRecord,
                 id: row.id,
                 selectionState: this.getRowSelectionState(row),
                 isGroupRow,
                 isExpanded: row.getIsExpanded(),
-                groupRowValue: isGroupRow
-                    ? row.getValue(row.groupingColumnId!)
-                    : undefined,
+                groupRowValue,
                 nestingLevel: isChildOfGroupRowWithNoHierarchy
                     ? row.depth - 1
                     : row.depth,
                 isParentRow: isParent,
                 immediateChildCount: row.subRows.length,
-                groupColumn: this.getGroupRowColumn(row),
+                groupColumn,
                 isLoadingChildren: this.expansionManager.isLoadingChildren(
                     row.id
                 )
@@ -962,6 +966,13 @@ export class Table<
         this.showCollapseAll = hasDataHierarchy
             || this.getColumnsParticipatingInGrouping().length > 0;
         this.virtualizer.dataChanged();
+    }
+
+    private getGroupRowValue(groupColumn: TableColumn | undefined, groupRow: TanStackRow<TableNode<TData>>): unknown {
+        if (!groupColumn) {
+            return undefined;
+        }
+        return groupRow.getValue(groupColumn.columnInternals.uniqueId);
     }
 
     private getTableSelectionState(): TableRowSelectionState {
@@ -1014,6 +1025,13 @@ export class Table<
     ): TableColumn | undefined {
         const groupedId = row.groupingColumnId;
         if (groupedId !== undefined) {
+            if (groupedId.endsWith('_nimbleColumnSortOverride')) {
+                const groupedColumnId = this.convertFromSortColumnOverrideId(groupedId);
+                return this.columns.find(
+                    c => c.columnInternals.uniqueId === groupedColumnId
+                );
+            }
+
             return this.columns.find(
                 c => c.columnInternals.uniqueId === groupedId
             );
@@ -1108,7 +1126,12 @@ export class Table<
             (x, y) => x.columnInternals.groupIndex! - y.columnInternals.groupIndex!
         );
 
-        return groupedColumns.map(column => column.columnInternals.uniqueId);
+        return groupedColumns.map(column => {
+            if (typeof column.columnInternals.sortOverrideOperandDataRecordFieldName === 'string') {
+                return this.convertToSortColumnOverrideId(column.columnInternals.uniqueId);
+            }
+            return column.columnInternals.uniqueId;
+        });
     }
 
     private calculateTanStackRowIdFunction():
@@ -1155,6 +1178,7 @@ export class Table<
                     sortingFn: getTanStackSortingFunction(
                         TableColumnSortOperation.basic
                     ),
+                    aggregationFn: 'min',
                     sortUndefined: false
                 });
             }
