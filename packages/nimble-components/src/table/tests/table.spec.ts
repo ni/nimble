@@ -2145,7 +2145,7 @@ describe('Table', () => {
                 ]);
             });
 
-            it('row with canLoadChildren state collapses if its children are removed', async () => {
+            it('removing all children from a row in the canLoadChildren state collapses the row', async () => {
                 await element.setRecordHierarchyOptions([
                     {
                         recordId: '3',
@@ -2188,7 +2188,7 @@ describe('Table', () => {
                 ]);
             });
 
-            it('updating data when a row is expanded without children does not collapse the expanded row', async () => {
+            it('calling setData when a childless row is expanded does not collapse that row', async () => {
                 await element.setRecordHierarchyOptions([
                     {
                         recordId: '2',
@@ -2207,6 +2207,7 @@ describe('Table', () => {
                 ]);
                 await waitForUpdatesAsync();
 
+                // Expand rows 2 and 3
                 pageObject.clickDataRowExpandCollapseButton(2);
                 pageObject.clickDataRowExpandCollapseButton(3);
                 await waitForUpdatesAsync();
@@ -2218,6 +2219,7 @@ describe('Table', () => {
                 ]);
                 await waitForUpdatesAsync();
 
+                // Rows 2 and 3 are expanded. Row 2 has no children and Row 3 has children.
                 expect(pageObject.getAllDataRowsExpandedState()).toEqual([
                     false,
                     false,
@@ -2230,6 +2232,8 @@ describe('Table', () => {
                 await element.setData([...initialData]);
                 await waitForUpdatesAsync();
 
+                // Rows 3 had its children removed, so it collapses. Row 2 hasn't been modified, so it
+                // stays in its current state of expanded.
                 expect(pageObject.getAllDataRowsExpandedState()).toEqual([
                     false,
                     false,
