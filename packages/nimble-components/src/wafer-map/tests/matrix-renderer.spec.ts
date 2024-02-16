@@ -7,6 +7,8 @@ describe('MatrixRenderer', () => {
         const wafermap = new WaferMap();
         const renderer = new MatrixRenderer(wafermap);
         const healthStatus = renderer.workerOne.isWorkerHealthy();
-        expect(healthStatus).toBe(HealthStatus.Healthy);
+        expect(healthStatus).toBe(new Promise<HealthStatus.Healthy>(resolve => {
+            resolve(HealthStatus.Healthy);
+        }));
     });
 });
