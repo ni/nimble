@@ -2144,6 +2144,102 @@ describe('Table', () => {
                     false
                 ]);
             });
+
+            it('row with canLoadChildren state collapses if its children are removed', async () => {
+                await element.setRecordHierarchyOptions([
+                    {
+                        recordId: '3',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
+                ]);
+                await waitForUpdatesAsync();
+
+                // Expand the row
+                pageObject.clickDataRowExpandCollapseButton(3);
+                await waitForUpdatesAsync();
+
+                await element.setData([
+                    ...initialData,
+                    { id: 'child-record-0', parentId: '3', stringData: 'a' },
+                    { id: 'child-record-1', parentId: '3', stringData: 'b' }
+                ]);
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    false,
+                    false,
+                    false,
+                    true,
+                    false,
+                    false,
+                ]);
+
+                await element.setData([
+                    ...initialData
+                ]);
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    false,
+                    false,
+                    false,
+                    false
+                ]);
+            });
+
+            it('updating data when a row is expanded without children does not collapse the expanded row', async () => {
+                await element.setRecordHierarchyOptions([
+                    {
+                        recordId: '2',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }, {
+                        recordId: '3',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    }
+                ]);
+                await waitForUpdatesAsync();
+
+                pageObject.clickDataRowExpandCollapseButton(2);
+                pageObject.clickDataRowExpandCollapseButton(3);
+                await waitForUpdatesAsync();
+
+                await element.setData([
+                    ...initialData,
+                    { id: 'child-record-0', parentId: '3', stringData: 'a' },
+                    { id: 'child-record-1', parentId: '3', stringData: 'b' }
+                ]);
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    false,
+                    false,
+                    true,
+                    true,
+                    false,
+                    false,
+                ]);
+
+                await element.setData([
+                    ...initialData
+                ]);
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getAllDataRowsExpandedState()).toEqual([
+                    false,
+                    false,
+                    true,
+                    false
+                ]);
+            });
         });
     });
 

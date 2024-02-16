@@ -100,7 +100,7 @@ export class ExpansionManager<TData extends TableRecord> {
                 }
 
                 if (!isGroupRow) {
-                    const hasChildRows = row.subRows.length === 0;
+                    const hasChildRows = row.subRows.length !== 0;
                     if (hasChildRows) {
                         updatedParentRowsWithChildren.add(rowId);
                     } else if (this.parentRowsWithChildren.has(rowId)) {
