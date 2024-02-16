@@ -21,6 +21,7 @@ import {
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
+import { MatrixRenderer } from './modules/matrix-renderer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -67,6 +68,11 @@ export class WaferMap extends FoundationElement {
 
     @attr({ attribute: 'color-scale-mode' })
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
+
+    /**
+         * @internal
+         */
+    public matrixRenderer!: MatrixRenderer;
 
     /**
      * @internal
@@ -177,6 +183,7 @@ export class WaferMap extends FoundationElement {
     public update(): void {
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
+            this.matrixRenderer = new MatrixRenderer(this);
             this.waferMapValidator.validateGridDimensions();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
