@@ -2174,12 +2174,10 @@ describe('Table', () => {
                     false,
                     true,
                     false,
-                    false,
+                    false
                 ]);
 
-                await element.setData([
-                    ...initialData
-                ]);
+                await element.setData([...initialData]);
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getAllDataRowsExpandedState()).toEqual([
@@ -2198,7 +2196,8 @@ describe('Table', () => {
                             delayedHierarchyState:
                                 TableRecordDelayedHierarchyState.canLoadChildren
                         }
-                    }, {
+                    },
+                    {
                         recordId: '3',
                         options: {
                             delayedHierarchyState:
@@ -2225,12 +2224,10 @@ describe('Table', () => {
                     true,
                     true,
                     false,
-                    false,
+                    false
                 ]);
 
-                await element.setData([
-                    ...initialData
-                ]);
+                await element.setData([...initialData]);
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getAllDataRowsExpandedState()).toEqual([
