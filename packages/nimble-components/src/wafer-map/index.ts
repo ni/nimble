@@ -177,7 +177,6 @@ export class WaferMap extends FoundationElement {
     public update(): void {
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
-            this.matrixRenderer = new MatrixRenderer(this);
             this.waferMapValidator.validateGridDimensions();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
