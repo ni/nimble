@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 14 Feb 2024 21:03:17 GMT and should not be manually modified.
+This log was last generated on Thu, 15 Feb 2024 20:48:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.5.0
+
+Thu, 15 Feb 2024 20:48:52 GMT
+
+### Minor changes
+
+- Adding filter input to Select ([ni/nimble@f2ecb4e](https://github.com/ni/nimble/commit/f2ecb4e69a8c9569d9e19cacfa0533b8b170b3f9))
 
 ## 21.4.0
 
