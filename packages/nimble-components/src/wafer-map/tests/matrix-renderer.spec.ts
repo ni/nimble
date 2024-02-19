@@ -6,7 +6,7 @@ describe('MatrixRenderer', () => {
     it('worker should be healthy', async () => {
         const wafermap = new WaferMap();
         const renderer = new MatrixRenderer(wafermap);
-        const isWorkerHealthy = await renderer.workerOne.isWorkerHealthy();
+        const isWorkerHealthy = await renderer.workerOne.isWorkerHealthy() as HealthStatus;
         expect(isWorkerHealthy).toBe(HealthStatus.Healthy);
     });
 });
