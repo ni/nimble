@@ -1,20 +1,22 @@
 import { dirname, join } from 'path';
 import remarkGfm from 'remark-gfm';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import TerserPlugin from 'terser-webpack-plugin';
 
 // All files participating in storybook should be in src
 // so that TypeScript and linters can track them correctly
 export const stories = ['../src/**/*.mdx', '../src/**/*.stories.ts'];
 export const addons = [
     {
-        name: '@storybook/addon-essentials',
+        name: getAbsolutePath('@storybook/addon-essentials'),
         options: {
             outline: false,
             docs: false
         }
     },
     {
-        name: '@storybook/addon-docs',
+        name: getAbsolutePath('@storybook/addon-docs'),
         options: {
             mdxPluginOptions: {
                 mdxCompileOptions: {
@@ -46,7 +48,6 @@ export function webpackFinal(config) {
         hints: false
     };
     // eslint-disable-next-line global-require, import/no-extraneous-dependencies
-    const TerserPlugin = require('terser-webpack-plugin');
     config.optimization.minimizer = [
         new TerserPlugin({
             terserOptions: {
