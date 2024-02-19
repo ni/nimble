@@ -291,6 +291,28 @@
             <nimble-button class="add-table-row-button" (click)="addTableRows(10)">Add rows</nimble-button>
         </div>
         <div class="sub-container">
+            <div class="container-label">Table with delayed hierarchy</div>
+            <nimble-table #delayedHierarchyTable id-field-name="id" parent-id-field-name="parentId" selection-mode="multiple" (row-expand-toggle)="onRowExpandToggle($event)">
+                <nimble-table-column-text
+                    field-name="firstName"
+                >
+                    First name
+                </nimble-table-column-text>
+                <nimble-table-column-text
+                    field-name="lastName"
+                >
+                    Last name
+                </nimble-table-column-text>
+                <nimble-table-column-number-text
+                    field-name="age"
+                    format="decimal"
+                    decimal-digits="0"
+                >
+                    Age
+                </nimble-table-column-number-text>
+            </nimble-table>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Tabs</div>
             <nimble-tabs [(activeid)]="activeTabId">
                 <nimble-tab id="tab-1">Tab 1</nimble-tab>
