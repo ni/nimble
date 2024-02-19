@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix bug where setting underline-hidden=false on the anchor column would sometimes still hide the underline",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
