@@ -1,5 +1,7 @@
-export enum HealthStatus{
-    Healthy = "Healthy",
-    Error = "Error",
-    Unknown = "Unknown"
-}
+export const healthStatus = {
+    healthy: 'Healthy',
+    error: 'Error',
+    unknown: 'Unknown',
+} as const;
+
+export type HealthStatus = typeof healthStatus[keyof typeof healthStatus];

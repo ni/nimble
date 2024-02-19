@@ -1,5 +1,5 @@
 import { WaferMap } from '..';
-import { HealthStatus } from '../../../build/generate-workers/dist/esm/health-status';
+import { HealthStatus, healthStatus } from '../workers/health-status';
 import { MatrixRenderer } from '../modules/matrix-renderer';
 
 describe('MatrixRenderer', () => {
@@ -7,6 +7,6 @@ describe('MatrixRenderer', () => {
         const wafermap = new WaferMap();
         const renderer = new MatrixRenderer(wafermap);
         const isWorkerHealthy = await renderer.workerOne.isWorkerHealthy() as HealthStatus;
-        expect(isWorkerHealthy).toBe(HealthStatus.Healthy);
+        expect(isWorkerHealthy).toBe(healthStatus.healthy);
     });
 });

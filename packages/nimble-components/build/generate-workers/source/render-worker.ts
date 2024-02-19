@@ -1,11 +1,11 @@
 import * as Comlink from 'comlink';
-import { HealthStatus } from './health-status';
+import { HealthStatus, healthStatus } from './health-status';
 
 export class RenderWorker {
     private worker!: number;
     private dieMatrix: Uint8Array = Uint8Array.from([]);
     private performanceTest: string | undefined;
-    private healthStatus: HealthStatus = HealthStatus.Unknown;
+    private healthStatus: HealthStatus = healthStatus.unknown;
 
     constructor() {
     }
@@ -32,11 +32,11 @@ export class RenderWorker {
         try {
             const areMethodsCallable = this.areMethodsCallable();
             if (!areMethodsCallable) {
-                return this.healthStatus = HealthStatus.Error;
+                return this.healthStatus = healthStatus.error;
             }
-            return this.healthStatus = HealthStatus.Healthy;
+            return this.healthStatus = healthStatus.healthy;
         } catch (e) {
-            return this.healthStatus = HealthStatus.Error;
+            return this.healthStatus = healthStatus.error;
         }
     }
 }
