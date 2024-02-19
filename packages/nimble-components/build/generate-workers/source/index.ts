@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 
 const moduleName = '../bundle/render-worker.js';
-const healthStatusFileName = './health-status.js';
 
 const workersDirectory = path.resolve('./src/wafer-map/workers');
 if (fs.existsSync(workersDirectory)) {
