@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 16 Feb 2024 18:10:59 GMT and should not be manually modified.
+This log was last generated on Mon, 19 Feb 2024 19:14:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.1
+
+Mon, 19 Feb 2024 19:14:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.5.2
+
+## 20.1.0
+
+Mon, 19 Feb 2024 16:59:58 GMT
+
+### Minor changes
+
+- Angular filterable Select ([ni/nimble@315917c](https://github.com/ni/nimble/commit/315917c5cf3768d0dcaf3901eef0087c5299832e))
 
 ## 20.0.10
 
