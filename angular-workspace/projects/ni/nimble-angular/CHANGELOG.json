@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 19 Feb 2024 16:59:58 GMT",
+      "version": "20.1.0",
+      "tag": "@ni/nimble-angular_v20.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "315917c5cf3768d0dcaf3901eef0087c5299832e",
+            "comment": "Angular filterable Select"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 16 Feb 2024 18:10:59 GMT",
       "version": "20.0.10",
       "tag": "@ni/nimble-angular_v20.0.10",
