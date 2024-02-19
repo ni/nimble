@@ -82,7 +82,7 @@ The POC is found in this branch [Worker Rendering POC](https://github.com/ni/nim
 
 ### Data Structure and Interface
 
-The best solution to solve the API of the wafermap is to use both of the proposed methods.
+The best solution to solve the API of the wafermap is to use parts of both of the proposed methods mentioned in the next section. This means using Apache Arrow as the wafer component API and Typed Arrays for their iterating performance and transferability to worker threads.
 
 The Public API will be the following:
 
@@ -101,14 +101,14 @@ The row and column indices will be `Int32` columns, the values will be `Float32`
 The tags for each die will be represented as a 32 bit mask stored in a `Uint32` column.
 The metadata column will be stored in an wildcard typed column.
 
-This approach has the benefits of a row based format that aligns well with the existing public api, a nice public API to use and the ease of future improvements.
+This approach has the benefits of a row based format that aligns well with the existing public API, as well as a nice public API that easily allows future improvements.
 
 The limits for this approach are the following:
 
 1. There seems to be no support for columns of lists of strings. We decided to overcome this using a bit mask of tags. Another possible solution can be a dynamic number of columns for storing tags, but the performance may suffer.
-1. There is no support currently for [searching or filtering the table](https://github.com/apache/arrow/issues/13233). The possible solutions for this are searching by iterating over the whole table, which is not feasible (see 4.) or using a higher level library such as [aquero](https://uwdata.github.io/arquero/).The solution we chose is using a custom method for finding rows based on column and row indexes cached as typed arrays. This method provides faster access to row values and metadata and does not induce additional dependencies.
-1. The transfer method for arrow tables is cumbersome, we would have to use another higher level library [geoarrow](https://github.com/geoarrow/geoarrow-js/blob/main/src/worker/transferable.ts). Fortunately we can skip over this problem by not transferring the tables.
-1. The iteration over stored rows is very bad compared to typed arrays as seen in the table below. This impacts the goals we set for this rendering improvement. The solution to this issue and the transferring issue is splitting the relevant columns from the table (rows, columns, values, tags mask) and messaging them to the worker separately. This can be done with a very small overhead using the [getChild](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html#getChild) method and calling [toArray](https://arrow.apache.org/docs/js/classes/Arrow_dom.Vector.html#toArray) on the resulting vector. After being transferred, The buffers can be cached to speed up value access and filtering.
+2. There is no support currently for [searching or filtering the table](https://github.com/apache/arrow/issues/13233). The possible solutions for this are searching by iterating over the whole table, which is not feasible (see 4.) or using a higher level library such as [aquero](https://uwdata.github.io/arquero/).The solution we chose is using a custom method for finding rows based on column and row indexes cached as typed arrays. This method provides faster access to row values and metadata and does not induce additional dependencies.
+3. The transfer method for arrow tables is cumbersome, we would have to use another higher level library [geoarrow](https://github.com/geoarrow/geoarrow-js/blob/main/src/worker/transferable.ts). Fortunately we can skip over this problem by not transferring the tables.
+4. The iteration over stored rows is very bad compared to typed arrays as seen in the table below. This impacts the goals we set for this rendering improvement. The solution to this issue and the transferring issue is splitting the relevant columns from the table (rows, columns, values, tags mask) and messaging them to the worker separately. This can be done with a very small overhead using the [getChild](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html#getChild) method and calling [toArray](https://arrow.apache.org/docs/js/classes/Arrow_dom.Vector.html#toArray) on the resulting vector. After being transferred, The buffers can be cached to speed up value access and filtering.
 
 | name                      | duration (ms) [1]  | duration (ms) [2]  | detail                                                                                                    |
 | ------------------------- | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------- |
@@ -124,7 +124,7 @@ The memory impact is not very significant, amounting to 74.01MB for 1M dies comp
 
 #### Previously proposed solutions
 
-We have two possible solutions for representing the data in the memory. They will be decided with a spec update. The fist one is an in-house solution:
+These are the two possible solutions identified for representing the data in the memory. The fist one is an in-house solution:
 
 ```TS
 class WaferData {
