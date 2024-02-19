@@ -6,9 +6,9 @@ export class RenderWorker {
     private canvas!: OffscreenCanvas;
     private worker!: number;
     private context!: OffscreenCanvasRenderingContext2D;
-    private colIndex!: Int32Array;
+    private scaledColIndex!: Float64Array;
     private colIndexPositions!: Int32Array;
-    private rowIndex!: Int32Array;
+    private scaledRowIndex!: Float64Array;
     private value!: Float32Array;
     private verticalScale: { a: number, b: number } = { a: 0, b: 1 };
     private horizontalScale: { a: number, b: number } = { a: 0, b: 1 };
@@ -19,6 +19,8 @@ export class RenderWorker {
     private xLimits: { min: number, max: number } = { min: 0, max: 0 };
     private transform: { k: number, x: number, y: number } = { k: 1, x: 0, y: 0 };
     private performanceTest: string | undefined;
+    private colIndex = 0;
+    private numCols = 0;
 
     public setCanvasDimensions(data: { width: number, height: number }): void {
         this.canvas.width = data.width;
@@ -82,18 +84,18 @@ export class RenderWorker {
         this.transform = data.transform;
     }
 
-    public renderDies(): void {
-        const start = this.performanceTest !== undefined ? self.performance.now() : undefined;
-        for (let colIndex = 0, length = this.colIndex.length; colIndex < length; colIndex++) {
-            const scaledX = this.horizontalScale.a + this.horizontalScale.b * this.colIndex[colIndex]! + this.margin.right;
+    private renderDiesAnimation (prevTime: DOMHighResTimeStamp ): void {
+        // console.log('renderDiesAnimation', prevTime);
+        for (let cols = 0; this.colIndex < this.scaledColIndex.length && cols < this.numCols ; this.colIndex++, cols++) {
+            const scaledX = this.scaledColIndex[this.colIndex]!;
             if (
                 scaledX >= this.xLimits.min
                 && scaledX < this.xLimits.max
             ) {
-                for (let rowPosition = this.colIndexPositions[colIndex]!,
-                    length = this.colIndexPositions[colIndex + 1] !== undefined ? this.colIndexPositions[colIndex + 1]! : this.rowIndex.length;
+                for (let rowPosition = this.colIndexPositions[this.colIndex]!,
+                    length = this.colIndexPositions[this.colIndex + 1] !== undefined ? this.colIndexPositions[this.colIndex + 1]! : this.scaledRowIndex.length;
                     rowPosition < length; rowPosition++) {
-                    const scaledY = this.verticalScale.a + this.verticalScale.b * this.rowIndex[rowPosition]! + this.margin.top;
+                    const scaledY = this.scaledRowIndex[rowPosition]!;
                     if (
                         scaledY >= this.yLimits.min
                         && scaledY < this.yLimits.max
@@ -106,7 +108,18 @@ export class RenderWorker {
                 }
             }
         }
+        if(this.colIndex < this.scaledColIndex.length ) {
+            self.requestAnimationFrame(this.renderDiesAnimation.bind(this));
+        }
+    }
+
+    public renderDies(): void {
+        const start = this.performanceTest !== undefined ? self.performance.now() : undefined;
+        this.numCols = 100000;
+        this.colIndex = 0;
+        self.requestAnimationFrame(this.renderDiesAnimation.bind(this));
         if (this.performanceTest !== undefined) {
+            self.requestAnimationFrame(() => {});
             self.performance.measure(`${this.performanceTest} - worker:${this.worker} - renderDies`, { start });
         }
     }
@@ -120,16 +133,16 @@ export class RenderWorker {
             this.context.textAlign = 'center';
             this.context.lineCap = 'butt';
 
-            for (let colIndex = 0, length = this.colIndex.length; colIndex < length; colIndex++) {
-                const scaledX = this.horizontalScale.a + this.horizontalScale.b * this.colIndex[colIndex]! + this.margin.right;
+            for (let colIndex = 0, length = this.scaledColIndex.length; colIndex < length; colIndex++) {
+                const scaledX = this.scaledColIndex[colIndex]!;
                 if (
                     scaledX >= this.xLimits.min
                     && scaledX < this.xLimits.max
                 ) {
                     for (let rowPosition = this.colIndexPositions[colIndex]!,
-                        length = this.colIndexPositions[colIndex + 1] !== undefined ? this.colIndexPositions[colIndex + 1]! : this.rowIndex.length;
+                        length = this.colIndexPositions[colIndex + 1] !== undefined ? this.colIndexPositions[colIndex + 1]! : this.scaledRowIndex.length;
                         rowPosition < length; rowPosition++) {
-                    const scaledY = this.verticalScale.a + this.verticalScale.b * this.rowIndex[rowPosition]! + this.margin.top;
+                    const scaledY = this.scaledRowIndex[rowPosition]!;
                         if (
                             scaledY >= this.yLimits.min
                             && scaledY < this.yLimits.max
@@ -148,17 +161,24 @@ export class RenderWorker {
     }
 
     public setBuffers(data: { colIndex: Int32Array, rowIndex: Int32Array, value: Float32Array }): void {
-        const colIndex: number[] =[];
+        const scaledColIndex: number[] =[];
         const colPosition = [];
         for (let i = 0, length = data.colIndex.length; i < length; i++) {
-            if (data.colIndex[i] && data.colIndex[i] !== colIndex[colIndex.length - 1]) {
-                colIndex.push(data.colIndex[i]!);
+            const xIndex = data.colIndex[i];
+            if (xIndex && xIndex !== scaledColIndex[scaledColIndex.length - 1]) {
+                const scaledX = this.horizontalScale.a + this.horizontalScale.b * xIndex + this.margin.right;
+                scaledColIndex.push(scaledX);
                 colPosition.push(i);
             }
         }
-        this.colIndex = Int32Array.from(colIndex);
+        this.scaledColIndex = Float64Array.from(scaledColIndex);
         this.colIndexPositions = Int32Array.from(colPosition);
-        this.rowIndex = data.rowIndex;
+        const scaledRowIndex: number[] =[];
+        const colors: number[] = [];
+        for (let i = 0, length = data.rowIndex.length; i < length; i++) {
+            scaledRowIndex.push(this.verticalScale.a + this.verticalScale.b * data.rowIndex[i]! + this.margin.top);
+        }
+        this.scaledRowIndex = Float64Array.from(scaledRowIndex);
         this.value = data.value;
     }
 }

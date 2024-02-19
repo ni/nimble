@@ -25,6 +25,7 @@ export class ZoomHandler {
     public constructor(private readonly wafermap: WaferMap) {}
 
     public createZoomBehavior(): void {
+        let timeoutId: number | undefined;
         this.zoomBehavior = zoom()
             .scaleExtent([
                 1.1,
@@ -47,9 +48,12 @@ export class ZoomHandler {
                 return filterEval;
             })
             .on('zoom', (event: ZoomEvent) => {
-                // D3 will automatically remove existing handlers when adding new ones
-                // See: https://github.com/d3/d3-zoom/blob/v3.0.0/README.md#zoom_on
-                this.rescale(event);
+                window.clearTimeout(timeoutId);
+                timeoutId = window.setTimeout(() => {
+                    // D3 will automatically remove existing handlers when adding new ones
+                    // See: https://github.com/d3/d3-zoom/blob/v3.0.0/README.md#zoom_on
+                    this.rescale(event);
+                }, 100);
             });
 
         this.zoomBehavior(select(this.wafermap as Element));
