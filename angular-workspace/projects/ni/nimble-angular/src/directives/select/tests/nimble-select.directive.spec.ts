@@ -124,7 +124,7 @@ describe('Nimble select', () => {
 
         it('will use template string values for filterMode', () => {
             expect(directive.filterMode).toBe(FilterMode.standard);
-            expect(directive.filterMode).toBe(FilterMode.standard);
+            expect(nativeElement.filterMode).toBe(FilterMode.standard);
         });
 
         it('will use template string values for errorText', () => {
