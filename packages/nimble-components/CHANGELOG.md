@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 09 Feb 2024 02:02:53 GMT and should not be manually modified.
+This log was last generated on Fri, 16 Feb 2024 18:10:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.5.1
+
+Fri, 16 Feb 2024 18:10:59 GMT
+
+### Patches
+
+- Inline sources into map files ([ni/nimble@2b6c327](https://github.com/ni/nimble/commit/2b6c327fd3bc4f49178ac370f695a8b941278c46))
+- Bump @ni/nimble-tokens to v6.10.1
+
+## 21.5.0
+
+Thu, 15 Feb 2024 20:48:52 GMT
+
+### Minor changes
+
+- Adding filter input to Select ([ni/nimble@f2ecb4e](https://github.com/ni/nimble/commit/f2ecb4e69a8c9569d9e19cacfa0533b8b170b3f9))
+
+## 21.4.0
+
+Wed, 14 Feb 2024 21:03:17 GMT
+
+### Minor changes
+
+- Add `loadingChildren` delayed hierarchy state ([ni/nimble@b3fc70e](https://github.com/ni/nimble/commit/b3fc70ec6857d24fcc257eeab7697ac89c663a55))
+
+## 21.3.3
+
+Tue, 13 Feb 2024 21:22:58 GMT
+
+### Patches
+
+- Fix performance issue for table with many grouped columns ([ni/nimble@0180d30](https://github.com/ni/nimble/commit/0180d30c8833d50eb529794c362cc476f305f88d))
+
+## 21.3.2
+
+Tue, 13 Feb 2024 17:44:00 GMT
+
+### Patches
+
+- Update dependency on Tiptap extensions to fix mention issue in rich text editor ([ni/nimble@34efe55](https://github.com/ni/nimble/commit/34efe55087a58bb99e4aa42873512946164b47d2))
 
 ## 21.3.1
 

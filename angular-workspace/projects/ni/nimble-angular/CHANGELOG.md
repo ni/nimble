@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 09 Feb 2024 02:02:53 GMT and should not be manually modified.
+This log was last generated on Fri, 16 Feb 2024 18:10:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.0.10
+
+Fri, 16 Feb 2024 18:10:59 GMT
+
+### Patches
+
+- Inline sources into map files ([ni/nimble@2b6c327](https://github.com/ni/nimble/commit/2b6c327fd3bc4f49178ac370f695a8b941278c46))
+- Bump @ni/nimble-components to v21.5.1
+
+## 20.0.9
+
+Thu, 15 Feb 2024 20:48:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.5.0
+
+## 20.0.8
+
+Wed, 14 Feb 2024 21:03:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.4.0
+
+## 20.0.7
+
+Tue, 13 Feb 2024 21:22:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.3.3
+
+## 20.0.6
+
+Tue, 13 Feb 2024 17:44:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.3.2
 
 ## 20.0.4
 
