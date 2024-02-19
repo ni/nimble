@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 08 Feb 2024 19:42:05 GMT and should not be manually modified.
+This log was last generated on Mon, 19 Feb 2024 16:59:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.2.0
+
+Mon, 19 Feb 2024 16:59:58 GMT
+
+### Minor changes
+
+- Blazor filterable Select ([ni/nimble@315917c](https://github.com/ni/nimble/commit/315917c5cf3768d0dcaf3901eef0087c5299832e))
 
 ## 14.1.0
 
