@@ -4,8 +4,8 @@ namespace NimbleBlazor;
 public enum TableRecordDelayedHierarchyState
 {
     None,
-    CanLoadChildren, // can-load-children
-    LoadingChildren  // loading-children
+    CanLoadChildren,
+    LoadingChildren
 }
 
 internal static class TableRecordDelayedHierarchyStateExtensions

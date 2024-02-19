@@ -170,6 +170,14 @@ window.NimbleBlazor = window.NimbleBlazor ?? {
             await tableReference.setData(dataObject);
         },
         setRecordHierarchyOptions: async function (tableReference, options) {
+            // Blazor converts the 'None' delayed hierarchy state to null,
+            // but nimble-components expects 'None' to be passed as undefined.
+            // Therefore, change any null values to undefined.
+            for (const option of options) {
+                if (option.options.delayedHierarchyState === null) {
+                    option.options.delayedHierarchyState = undefined;
+                }
+            }
             await tableReference.setRecordHierarchyOptions(options);
         },
         getSelectedRecordIds: async function (tableReference) {
