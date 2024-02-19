@@ -128,6 +128,11 @@ export class TableRow<
         return this.isParentRow && this.nestingLevel === 0;
     }
 
+    @volatile
+    public get isNestedParent(): boolean {
+        return this.isParentRow && this.nestingLevel > 0;
+    }
+
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
     // the selection checkbox 'checked' value should be ingored.
