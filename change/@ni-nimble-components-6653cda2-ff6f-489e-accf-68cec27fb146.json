@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Allow a row with a state of `canLoadChildren` to be expanded when it does not have children",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

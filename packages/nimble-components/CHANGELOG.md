@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 16 Feb 2024 18:10:59 GMT and should not be manually modified.
+This log was last generated on Mon, 19 Feb 2024 19:14:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.5.2
+
+Mon, 19 Feb 2024 19:14:51 GMT
+
+### Patches
+
+- Allow a row with a state of `canLoadChildren` to be expanded when it does not have children ([ni/nimble@15a30c5](https://github.com/ni/nimble/commit/15a30c5a9c04fae9c3f6d2eadb0b31056c87db56))
 
 ## 21.5.1
 
