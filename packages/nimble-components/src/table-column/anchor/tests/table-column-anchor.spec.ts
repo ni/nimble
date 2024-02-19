@@ -247,11 +247,19 @@ describe('TableColumnAnchor', () => {
             const firstColumn = element.columns[0] as TableColumnAnchor;
             firstColumn.underlineHidden = true;
             await waitForUpdatesAsync();
-            expect(pageObject.getRenderedCellAnchor(0, 0).hasAttribute('underline-hidden')).toBeTrue();
+            expect(
+                pageObject
+                    .getRenderedCellAnchor(0, 0)
+                    .hasAttribute('underline-hidden')
+            ).toBeTrue();
 
             firstColumn.underlineHidden = false;
             await waitForUpdatesAsync();
-            expect(pageObject.getRenderedCellAnchor(0, 0).hasAttribute('underline-hidden')).toBeFalse();
+            expect(
+                pageObject
+                    .getRenderedCellAnchor(0, 0)
+                    .hasAttribute('underline-hidden')
+            ).toBeFalse();
         });
 
         const linkOptionData = [
