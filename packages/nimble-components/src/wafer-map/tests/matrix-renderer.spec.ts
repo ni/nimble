@@ -1,5 +1,5 @@
 import { WaferMap } from '..';
-import { HealthStatus } from '../../../build/generate-workers/source/health-status';
+import { HealthStatus } from '../../../build/generate-workers/dist/esm/health-status';
 import { MatrixRenderer } from '../modules/matrix-renderer';
 
 describe('MatrixRenderer', () => {
