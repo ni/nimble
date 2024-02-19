@@ -210,19 +210,31 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Font line height for the "Placeholder" base token',
     placeholderFallbackFontFamily:
         'Fallback font family for the "Placeholder" base token',
-    bodyEmphasizedFont: 'Font shorthand for the "Body_Emphasized" base token',
-    bodyEmphasizedFontColor: 'Font color for the "Body_Emphasized" base token',
+    bodyEmphasizedFont: 'Font shorthand for the "BodyEmphasized" base token',
+    bodyEmphasizedFontColor: 'Font color for the "BodyEmphasized" base token',
     bodyEmphasizedDisabledFontColor:
-        'Disabled font color for the "Body_Emphasized" base token',
-    bodyEmphasizedFontFamily:
-        'Font family for the "Body_Emphasized" base token',
-    bodyEmphasizedFontSize: 'Font size for the "Body_Emphasized" base token',
-    bodyEmphasizedFontWeight:
-        'Font weight for the "Body_Emphasized" base token',
+        'Disabled font color for the "BodyEmphasized" base token',
+    bodyEmphasizedFontFamily: 'Font family for the "BodyEmphasized" base token',
+    bodyEmphasizedFontSize: 'Font size for the "BodyEmphasized" base token',
+    bodyEmphasizedFontWeight: 'Font weight for the "BodyEmphasized" base token',
     bodyEmphasizedFontLineHeight:
-        'Font line height for the "Body_Emphasized" base token',
+        'Font line height for the "BodyEmphasized" base token',
     bodyEmphasizedFallbackFontFamily:
-        'Fallback font family for the "Body_Emphasized" base token',
+        'Fallback font family for the "BodyEmphasized" base token',
+    bodyEmphasized2Font: 'Font shorthand for the "BodyEmphasized_2" base token',
+    bodyEmphasized2FontColor:
+        'Font color for the "BodyEmphasized_2" base token',
+    bodyEmphasized2DisabledFontColor:
+        'Disabled font color for the "BodyEmphasized_2" base token',
+    bodyEmphasized2FontFamily:
+        'Font family for the "BodyEmphasized_2" base token',
+    bodyEmphasized2FontSize: 'Font size for the "BodyEmphasized_2" base token',
+    bodyEmphasized2FontWeight:
+        'Font weight for the "BodyEmphasized_2" base token',
+    bodyEmphasized2FontLineHeight:
+        'Font line height for the "BodyEmphasized_2" base token',
+    bodyEmphasized2FallbackFontFamily:
+        'Fallback font family for the "BodyEmphasized_2" base token',
     bodyFont: 'Font shorthand for the "Body" base token',
     bodyFontColor: 'Font color for the "Body" base token',
     bodyDisabledFontColor: 'Disabled font color for the "Body" base token',

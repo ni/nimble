@@ -5,10 +5,9 @@
 | Folder               | Description                             |
 | -------------------- | --------------------------------------- |
 | build                | Build scripts for generating files      |
-| data                 | _Managed by Adobe XD DSP plugin_        |
 | dist/fonts           | Fonts for use in applications           |
 | dist/icons           | Icons for use in applications           |
-| dist/styledictionary | _Managed by Adobe XD DSP plugin_        |
+| dist/styledictionary | JSON token source files                 |
 | docs                 | Files used by the documentation         |
 | NimbleTokens         | Project for building the Nuget package  |
 | source/icons         | Illustrator files for editing icons     |
@@ -16,7 +15,6 @@
 ## Getting started
 
 1. Build the monorepo, see [Getting Started](/CONTRIBUTING.md#getting-started)
-2. Ensure you have the [Adobe XD extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Adobe.xd&ssr=false#overview) installed.
 
 ## Editing Tokens
 

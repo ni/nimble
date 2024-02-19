@@ -59,6 +59,7 @@ import {
     BodyEmphasizedSize,
     BodyEmphasizedFamily,
     BodyEmphasizedWeight,
+    BodyEmphasized2Size,
     ButtonLabel1Size,
     ButtonLabel1Family,
     ButtonLabel1Weight,
@@ -78,6 +79,7 @@ import {
     LinkLineHeight,
     PlaceholderLineHeight,
     BodyEmphasizedLineHeight,
+    BodyEmphasized2LineHeight,
     BodyLineHeight,
     GroupLabel1LineHeight,
     ControlLabel1LineHeight,
@@ -639,6 +641,26 @@ export const [
     BodyEmphasizedWeight,
     BodyEmphasizedSize,
     BodyEmphasizedLineHeight,
+    BodyEmphasizedFallbackFontFamily
+);
+
+export const [
+    bodyEmphasized2Font,
+    bodyEmphasized2FontColor,
+    bodyEmphasized2DisabledFontColor,
+    bodyEmphasized2FontFamily,
+    bodyEmphasized2FontWeight,
+    bodyEmphasized2FontSize,
+    bodyEmphasized2FontLineHeight,
+    bodyEmphasized2FallbackFontFamily
+] = createFontTokens(
+    tokenNames.bodyEmphasized2Font,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    BodyEmphasizedFamily,
+    BodyEmphasizedWeight,
+    BodyEmphasized2Size,
+    BodyEmphasized2LineHeight,
     BodyEmphasizedFallbackFontFamily
 );
 
