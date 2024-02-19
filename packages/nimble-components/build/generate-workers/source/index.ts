@@ -1,37 +1,48 @@
 const fs = require('fs');
 const path = require('path');
 
-const moduleName = '../bundle/render-worker.js';
-const healthCheckModuleName = '../../source/health-status.ts';
-
-const workersDirectory = path.resolve('./src/wafer-map/workers');
-if (fs.existsSync(workersDirectory)) {
-    console.log(`Deleting existing workers directory "${workersDirectory}"`);
-    fs.rmSync(workersDirectory, { recursive: true });
-    console.log('Finished deleting existing workers directory');
+function resolveModulePath(moduleName: string): string {
+    return path.resolve(require.resolve(moduleName));
 }
-console.log(`Creating workers directory "${workersDirectory}"`);
-fs.mkdirSync(workersDirectory);
-console.log('Finished creating workers directory');
 
-const modulePath = require.resolve(moduleName);
-const sourceCode = fs.readFileSync(modulePath, 'utf-8');
+function prepareDirectory(dirPath: string): void {
+    if (fs.existsSync(dirPath)) {
+        console.log(`Deleting existing directory "${dirPath}"`);
+        fs.rmSync(dirPath, { recursive: true });
+        console.log('Finished deleting existing directory');
+    }
+    console.log(`Creating directory "${dirPath}"`);
+    fs.mkdirSync(dirPath);
+    console.log('Finished creating directory');
+}
 
-const healthModulePath = require.resolve(healthCheckModuleName);
+function writeFile(filePath: string, content: string): void {
+    console.log(`Writing file "${filePath}"`);
+    fs.writeFileSync(filePath, content, { encoding: 'utf-8' });
+    console.log('Finished writing file');
+}
 
-const fileContent =
-    `// eslint-disable-next-line no-template-curly-in-string
-export const workerCode = ${JSON.stringify(sourceCode)};`;
+function copyFile(sourcePath: string, destinationPath: string): void {
+    console.log(`Copying file from "${sourcePath}" to "${destinationPath}"`);
+    fs.copyFileSync(sourcePath, destinationPath);
+    console.log('Finished copying file');
+}
 
-const filePath = path.resolve(workersDirectory, 'render-worker.ts');
-const healthFilePath = path.resolve(workersDirectory, 'health-status.ts');
+const renderModuleName: string = '../bundle/render-worker.js';
+const healthStatusModuleName: string = '../../source/health-status.ts';
+const workersDirectory: string = path.resolve('./src/wafer-map/workers');
 
-console.log(`Writing worker file "${filePath}"`);
-fs.writeFileSync(filePath, fileContent, { encoding: 'utf-8' });
+prepareDirectory(workersDirectory);
 
-fs.copyFile(healthModulePath, healthFilePath, (err: Error) => {
-    if (err) throw err;
-    console.log('source.txt was copied to destination.txt');
-});
+const modulePath: string = resolveModulePath(renderModuleName);
+const sourceCode: string = fs.readFileSync(modulePath, 'utf-8');
 
-console.log('Finished writing worker file');
+const healthModulePath: string = resolveModulePath(healthStatusModuleName);
+
+const fileContent: string = `// eslint-disable-next-line no-template-curly-in-string\nexport const workerCode = ${JSON.stringify(sourceCode)};`;
+
+const renderFilePath: string = path.resolve(workersDirectory, 'render-worker.ts');
+const healthFilePath: string = path.resolve(workersDirectory, 'health-status.ts');
+
+writeFile(renderFilePath, fileContent);
+copyFile(healthModulePath, healthFilePath);
