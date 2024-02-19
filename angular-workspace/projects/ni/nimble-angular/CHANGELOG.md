@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 19 Feb 2024 22:25:59 GMT and should not be manually modified.
+This log was last generated on Mon, 19 Feb 2024 23:03:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.0
+
+Mon, 19 Feb 2024 23:03:42 GMT
+
+### Minor changes
+
+- Add support for delayed hierarchy in the table ([ni/nimble@8fc186e](https://github.com/ni/nimble/commit/8fc186e3c759eac9d69ba01802b07dfb9e51efbd))
 
 ## 20.1.2
 
