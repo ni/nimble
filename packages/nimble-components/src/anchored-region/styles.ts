@@ -3,8 +3,13 @@ import { ZIndexLevels } from '../utilities/style/types';
 
 export const styles = css`
     :host {
-        contain: layout;
+        /* Avoid using the 'display' helper to customize hidden behavior */
         display: block;
+        contain: layout;
         z-index: ${ZIndexLevels.zIndex1000};
+    }
+
+    :host([hidden]) {
+        visibility: hidden;
     }
 `;

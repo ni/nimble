@@ -2,6 +2,72 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 19 Feb 2024 22:25:59 GMT",
+      "version": "21.5.3",
+      "tag": "@ni/nimble-components_v21.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "28825d16c421175868f88992be64874e0d74b655",
+            "comment": "Fix bug where setting underline-hidden=false on the anchor column would sometimes still hide the underline"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 19 Feb 2024 19:14:51 GMT",
+      "version": "21.5.2",
+      "tag": "@ni/nimble-components_v21.5.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "15a30c5a9c04fae9c3f6d2eadb0b31056c87db56",
+            "comment": "Allow a row with a state of `canLoadChildren` to be expanded when it does not have children"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 16 Feb 2024 18:10:59 GMT",
+      "version": "21.5.1",
+      "tag": "@ni/nimble-components_v21.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2b6c327fd3bc4f49178ac370f695a8b941278c46",
+            "comment": "Inline sources into map files"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.10.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Feb 2024 20:48:52 GMT",
+      "version": "21.5.0",
+      "tag": "@ni/nimble-components_v21.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f2ecb4e69a8c9569d9e19cacfa0533b8b170b3f9",
+            "comment": "Adding filter input to Select"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 15 Feb 2024 01:01:57 GMT",
       "version": "21.4.0",
       "tag": "@ni/nimble-components_v21.4.0",
