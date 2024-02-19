@@ -45,7 +45,7 @@ export function webpackFinal(config) {
     config.performance = {
         hints: false
     };
-    // eslint-disable-next-line global-require
+    // eslint-disable-next-line global-require, import/no-extraneous-dependencies
     const TerserPlugin = require('terser-webpack-plugin');
     config.optimization.minimizer = [
         new TerserPlugin({
