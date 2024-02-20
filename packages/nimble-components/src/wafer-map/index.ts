@@ -5,6 +5,7 @@ import {
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
+import { Table, Uint32, Int32, Float32 } from 'apache-arrow';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
@@ -21,6 +22,7 @@ import {
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
+import { MatrixRenderer } from './modules/matrix-renderer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -90,7 +92,11 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly renderer = new RenderingModule(this);
+    public readonly listRenderer = new RenderingModule(this);
+    /**
+     * @internal
+     */
+    public readonly matrixRenderer = new MatrixRenderer(this);
 
     /**
      * @internal
@@ -137,8 +143,21 @@ export class WaferMap extends FoundationElement {
      */
     @observable public hoverDie: WaferMapDie | undefined;
 
+    /**
+     * @internal
+     */
+    @observable public renderStrategy: 'list' | 'matrix' = 'list';
+
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
+    @observable public diesTable: Table<{
+        colIndex: Int32,
+        rowIndex: Int32,
+        value: Float32,
+        tags: Uint32,
+        metadata: never
+    }> = new Table();
+
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
@@ -201,6 +220,13 @@ export class WaferMap extends FoundationElement {
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
+    }
+
+    private get renderer(): RenderingModule | MatrixRenderer {
+        if (this.renderStrategy === 'list') {
+            return this.listRenderer;
+        }
+        return this.matrixRenderer;
     }
 
     private createResizeObserver(): ResizeObserver {
@@ -272,6 +298,13 @@ export class WaferMap extends FoundationElement {
 
     private diesChanged(): void {
         this.waferMapUpdateTracker.track('dies');
+        this.renderStrategy = 'list';
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private diesTableChanged(): void {
+        this.waferMapUpdateTracker.track('dies');
+        this.renderStrategy = 'matrix';
         this.waferMapUpdateTracker.queueUpdate();
     }
 
