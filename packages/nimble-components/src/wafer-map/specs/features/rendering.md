@@ -87,6 +87,9 @@ The best solution to solve the API of the wafermap is to use parts of both of th
 The Public API will be the following:
 
 ```TS
+import { Table } from 'apache-arrow';
+export class WaferMap extends FoundationElement {
+...
 public diesTable: Table<{
         colIndex: Int32,
         rowIndex: Int32,
@@ -94,6 +97,8 @@ public diesTable: Table<{
         tags: Uint32;
         metadata: never;
     }>
+...
+}
 ```
 
 This will be the [Apache Arrow](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html) table schema.
@@ -106,9 +111,9 @@ This approach has the benefits of a row based format that aligns well with the e
 The limits for this approach are the following:
 
 1. There seems to be no support for columns of lists of strings. We decided to overcome this using a bit mask of tags. Another possible solution can be a dynamic number of columns for storing tags, but the performance may suffer.
-2. There is no support currently for [searching or filtering the table](https://github.com/apache/arrow/issues/13233). The possible solutions for this are searching by iterating over the whole table, which is not feasible (see 4.) or using a higher level library such as [aquero](https://uwdata.github.io/arquero/).The solution we chose is using a custom method for finding rows based on column and row indexes cached as typed arrays. This method provides faster access to row values and metadata and does not induce additional dependencies.
-3. The transfer method for arrow tables is cumbersome, we would have to use another higher level library [geoarrow](https://github.com/geoarrow/geoarrow-js/blob/main/src/worker/transferable.ts). Fortunately we can skip over this problem by not transferring the tables.
-4. The iteration over stored rows is very bad compared to typed arrays as seen in the table below. This impacts the goals we set for this rendering improvement. The solution to this issue and the transferring issue is splitting the relevant columns from the table (rows, columns, values, tags mask) and messaging them to the worker separately. This can be done with a very small overhead using the [getChild](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html#getChild) method and calling [toArray](https://arrow.apache.org/docs/js/classes/Arrow_dom.Vector.html#toArray) on the resulting vector. After being transferred, The buffers can be cached to speed up value access and filtering.
+2. There is no support currently for [searching or filtering the table](https://github.com/apache/arrow/issues/13233). The possible solutions for this are searching by iterating over the whole table, which is not feasible (see 4.) or using a higher level library such as [aquero](https://uwdata.github.io/arquero/). Searching for dies based on their position is crucial for highlighting and sending the highlighted die metadata with the `die-hover` event. The solution we chose is using a custom method for finding rows based on column and row indexes cached as typed arrays. This method provides faster access to row values and metadata and does not induce additional dependencies.
+3. The transfer method between the main an worker thread for arrow tables is cumbersome, we would have to use another higher level library [geoarrow](https://github.com/geoarrow/geoarrow-js/blob/main/src/worker/transferable.ts). Fortunately we can skip over this problem by not transferring the tables to the worker.
+4. The iteration over stored rows is very slow compared to typed arrays as seen in the table below. This impacts the goals we set for this rendering improvement. The solution to this issue and the transferring issue is splitting the relevant columns from the table (rows, columns, values, tags mask) and messaging them to the worker separately. This can be done with a very small overhead using the [getChild](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html#getChild) method and calling [toArray](https://arrow.apache.org/docs/js/classes/Arrow_dom.Vector.html#toArray) on the resulting vector. After being transferred, The buffers can be cached to speed up value access and filtering.
 
 | name                      | duration (ms) [1]  | duration (ms) [2]  | detail                                                                                                    |
 | ------------------------- | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------- |
@@ -277,6 +282,7 @@ User Indication for [interactions in progress (>200ms)](https://web.dev/articles
 -   the wafer-map will use bitmap scaling in addition to a spinner
 -   the wafer-map will immediately show the spinner / fire event or only after, for example 200ms
 -   the renderer will report progress for larger wait times.
+-   the rendering will be done sequentially in animation frames so the user will see the progress at 60Hz
 
 A follow-on HLD update will specify the approved decision.
 
