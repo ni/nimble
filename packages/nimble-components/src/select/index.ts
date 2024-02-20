@@ -82,6 +82,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     @attr({ attribute: 'filter-mode' })
     public filterMode: FilterMode = FilterMode.none;
 
+    /**
+     * @internal
+     */
     @attr({ attribute: 'placeholder-visible', mode: 'boolean' })
     public placeholderVisible = false;
 
