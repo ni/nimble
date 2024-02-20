@@ -809,16 +809,12 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
         if (filter) {
             this.filteredOptions = this._options.filter(option => {
-                return (
-                    diacriticInsensitiveStringNormalizer(option.text).includes(
-                        diacriticInsensitiveStringNormalizer(filter)
-                    )
-                );
+                return diacriticInsensitiveStringNormalizer(
+                    option.text
+                ).includes(diacriticInsensitiveStringNormalizer(filter));
             });
         } else {
-            this.filteredOptions = this._options.filter(
-                o => !(o.selected && o.disabled)
-            );
+            this.filteredOptions = this._options;
         }
 
         this._options.forEach(o => {
