@@ -26,8 +26,8 @@ namespace Demo.Shared.Pages
             new ("mona-simpson", null, "Mona", "Simpson", 77, true),
             new ("agnes-skinner", null, "Agnes", "Skinner", 88, true)
         };
-        private HashSet<string> _recordsLoadingChildren = new();
-        private HashSet<string> _recordsWithLoadedChildren = new();
+        private HashSet<string> _recordsLoadingChildren = new ();
+        private HashSet<string> _recordsWithLoadedChildren = new ();
 
         [NotNull]
         public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();

@@ -1,5 +1,4 @@
-﻿
-namespace NimbleBlazor;
+﻿namespace NimbleBlazor;
 
 public enum TableRecordDelayedHierarchyState
 {
