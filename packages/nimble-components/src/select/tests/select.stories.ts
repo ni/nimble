@@ -113,7 +113,6 @@ const metadata: Meta<SelectArgs> = {
                 <${listOptionTag}
                     value="${x => x.value}"
                     ?disabled="${x => x.disabled}"
-                    ?selected="${x => x.selected}"
                 >
                     ${x => x.label}
                 </${listOptionTag}>
