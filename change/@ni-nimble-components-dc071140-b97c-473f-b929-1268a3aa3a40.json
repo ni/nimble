@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Make dialog and drawer more resilient to behavior changes from upcoming CloseWatcher API",
+  "comment": "Refactor common dialog and drawer code into base class",
   "packageName": "@ni/nimble-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"

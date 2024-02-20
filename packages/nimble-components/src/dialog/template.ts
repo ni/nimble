@@ -8,7 +8,6 @@ export const template = html<Dialog>`
             role="dialog"
             part="control"
             @cancel="${(x, c) => x.cancelHandler(c.event)}"
-            @close="${x => x.closeHandler()}"
             aria-labelledby="header"
         >
             <header id="header">

@@ -79,19 +79,6 @@ export abstract class DialogBase<CloseReason = void> extends FoundationElement {
         return true;
     }
 
-    /**
-     * @internal
-     */
-    public closeHandler(): void {
-        if (this.resolveShow) {
-            // If
-            // - the browser implements dialogs with the CloseWatcher API, and
-            // - the user presses ESC without first interacting with the dialog (e.g. clicking, scrolling),
-            // the cancel event is not fired and the dialog just closes.
-            this.notifyClosed(UserDismissed);
-        }
-    }
-
     protected openDialog(): void {
         this.dialogElement.showModal();
     }
