@@ -456,9 +456,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.clearSelection();
         this.filterOptions();
 
-        if (
-            this.filteredOptions.length > 0
-        ) {
+        if (this.filteredOptions.length > 0) {
             const enabledOptions = this.filteredOptions.filter(
                 o => !o.disabled
             );
@@ -758,7 +756,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 || el.value === this.value
         );
 
-        if (selectedIndex === -1 && (typeof this.placeholderText === 'string')) {
+        if (selectedIndex === -1 && typeof this.placeholderText === 'string') {
             this.selectedIndex = selectedIndex;
             this.placeholderVisible = true;
             return;
