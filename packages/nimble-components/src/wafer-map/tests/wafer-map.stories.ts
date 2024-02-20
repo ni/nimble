@@ -94,21 +94,25 @@ const getDiesTableSet = (
         tags: Uint32,
         metadata: never
     }>[]
-): Table<{
+):
+| Table<{
     colIndex: Int32,
     rowIndex: Int32,
     value: Float32,
     tags: Uint32,
     metadata: never
-}> | undefined => {
+}>
+| undefined => {
     const seed = 0.5;
-    let returnedValue: Table<{
+    let returnedValue:
+    | Table<{
         colIndex: Int32,
         rowIndex: Int32,
         value: Float32,
         tags: Uint32,
         metadata: never
-    }> | undefined;
+    }>
+    | undefined;
     switch (setName) {
         case 'fixedDies10':
             returnedValue = sets[0]!;
@@ -288,7 +292,7 @@ const metadata: Meta<WaferMapArgs> = {
                     goodDies1000: 'Large dies set of mostly good values',
                     badDies10000: 'Very large dies set of mostly bad values'
                 }
-            },
+            }
         },
         dieLabelsHidden: {
             name: 'die-labels-hidden',

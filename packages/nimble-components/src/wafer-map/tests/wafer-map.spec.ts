@@ -106,7 +106,10 @@ describe('WaferMap', () => {
         });
 
         xit('will trigger render-complete after diesTable change', async () => {
-            const renderCompleteListener = createEventListener(element, 'render-complete');
+            const renderCompleteListener = createEventListener(
+                element,
+                'render-complete'
+            );
             element.diesTable = new Table();
             processUpdates();
             await renderCompleteListener.promise;

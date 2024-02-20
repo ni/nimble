@@ -111,7 +111,10 @@ export const wafermapDiesTableSets: Table<{
     tableFromArrays({
         colIndex: Int32Array.from([0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4]),
         rowIndex: Int32Array.from([2, 2, 1, 3, 2, 1, 0, 3, 4, 2, 1, 3, 2]),
-        value: Float32Array.from([14.24, 76.43, 44.63, 67.93, 72.71, 79.04, 26.49, 37.79, 59.82, 52.90, 98.50, 20.83, 62.80]),
+        value: Float32Array.from([
+            14.24, 76.43, 44.63, 67.93, 72.71, 79.04, 26.49, 37.79, 59.82, 52.9,
+            98.5, 20.83, 62.8
+        ]),
         tags: Uint32Array.from([
             0b000011, // a, b
             0b000110, // b, c

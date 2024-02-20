@@ -150,13 +150,15 @@ export class WaferMap extends FoundationElement {
 
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
-    @observable public diesTable: Table<{
+    @observable public diesTable:
+    | Table<{
         colIndex: Int32,
         rowIndex: Int32,
         value: Float32,
         tags: Uint32,
         metadata: never
-    }> | undefined;
+    }>
+    | undefined;
 
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
