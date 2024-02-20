@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 19 Feb 2024 19:14:51 GMT and should not be manually modified.
+This log was last generated on Mon, 19 Feb 2024 22:25:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.5.3
+
+Mon, 19 Feb 2024 22:25:59 GMT
+
+### Patches
+
+- Fix bug where setting underline-hidden=false on the anchor column would sometimes still hide the underline ([ni/nimble@28825d1](https://github.com/ni/nimble/commit/28825d16c421175868f88992be64874e0d74b655))
 
 ## 21.5.2
 
