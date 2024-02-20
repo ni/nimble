@@ -20,14 +20,14 @@ namespace Demo.Shared.Pages
         private string? DrawerClosedReason { get; set; }
         private string? SelectedRadio { get; set; } = "2";
         private bool BannerOpen { get; set; }
-        private List<PersonTableRecord> _delayedHierarchyTableData = new ()
+        private List<PersonTableRecord> _delayedHierarchyTableData = new List<PersonTableRecord>()
         {
-            new ("jacqueline-bouvier", null, "Jacqueline", "Bouvier", 80, true),
-            new ("mona-simpson", null, "Mona", "Simpson", 77, true),
-            new ("agnes-skinner", null, "Agnes", "Skinner", 88, true)
+            new PersonTableRecord("jacqueline-bouvier", null, "Jacqueline", "Bouvier", 80, true),
+            new PersonTableRecord("mona-simpson", null, "Mona", "Simpson", 77, true),
+            new PersonTableRecord("agnes-skinner", null, "Agnes", "Skinner", 88, true)
         };
-        private HashSet<string> _recordsLoadingChildren = new ();
-        private HashSet<string> _recordsWithLoadedChildren = new ();
+        private HashSet<string> _recordsLoadingChildren = new HashSet<string>();
+        private HashSet<string> _recordsWithLoadedChildren = new HashSet<string>();
 
         [NotNull]
         public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();
@@ -114,7 +114,7 @@ namespace Demo.Shared.Pages
                 await _delayedHierarchyTable!.SetDataAsync(_delayedHierarchyTableData);
             }
 
-            List<TableSetRecordHierarchyOptions> options = new ();
+            List<TableSetRecordHierarchyOptions> options = new List<TableSetRecordHierarchyOptions>();
             _delayedHierarchyTableData.ForEach(person =>
             {
                 if (_recordsLoadingChildren.Contains(person.Id))
