@@ -1,10 +1,11 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import type { Table, Uint32, Int32, Float32 } from 'apache-arrow';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
 } from '../../utilities/tests/storybook';
-import { generateWaferData } from './data-generator';
+import { generateWaferData, generateWaferTableData } from './data-generator';
 import {
     goodValueGenerator,
     badValueGenerator,
@@ -23,7 +24,8 @@ import {
 import {
     highlightedTagsSets,
     wafermapDieSets,
-    waferMapColorScaleSets
+    waferMapColorScaleSets,
+    wafermapDiesTableSets
 } from './sets';
 import { waferMapTag } from '..';
 
@@ -33,6 +35,7 @@ interface WaferMapArgs {
     dieLabelsHidden: boolean;
     dieLabelsSuffix: string;
     dies: string;
+    diesTable: string;
     maxCharacters: number;
     orientation: WaferMapOrientation;
     originLocation: WaferMapOriginLocation;
@@ -82,6 +85,58 @@ const getDiesSet = (
     return returnedValue;
 };
 
+const getDiesTableSet = (
+    setName: string,
+    sets: Table<{
+        colIndex: Int32,
+        rowIndex: Int32,
+        value: Float32,
+        tags: Uint32,
+        metadata: never
+    }>[]
+): Table<{
+    colIndex: Int32,
+    rowIndex: Int32,
+    value: Float32,
+    tags: Uint32,
+    metadata: never
+}> | undefined => {
+    const seed = 0.5;
+    let returnedValue: Table<{
+        colIndex: Int32,
+        rowIndex: Int32,
+        value: Float32,
+        tags: Uint32,
+        metadata: never
+    }> | undefined;
+    switch (setName) {
+        case 'fixedDies10':
+            returnedValue = sets[0]!;
+            break;
+        case 'goodDies100':
+            returnedValue = generateWaferTableData(
+                100,
+                goodValueGenerator(seed)
+            );
+            break;
+        case 'goodDies1000':
+            returnedValue = generateWaferTableData(
+                1000,
+                goodValueGenerator(seed)
+            )!;
+            break;
+        case 'badDies10000':
+            returnedValue = generateWaferTableData(
+                10000,
+                badValueGenerator(seed)
+            )!;
+            break;
+        default:
+            returnedValue = undefined;
+    }
+    return returnedValue;
+};
+
 const getHighlightedTags = (setName: string, sets: string[][]): string[] => {
     let returnedValue: string[];
     switch (setName) {
@@ -125,6 +180,7 @@ const metadata: Meta<WaferMapArgs> = {
             grid-max-y=${x => x.gridMaxY}
             :colorScale="${x => x.colorScale}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
+            :diesTable="${x => getDiesTableSet(x.diesTable, wafermapDiesTableSets)}"
             :highlightedTags="${x => getHighlightedTags(x.highlightedTags, highlightedTagsSets)}"
             >
         </${waferMapTag}>
@@ -139,6 +195,7 @@ const metadata: Meta<WaferMapArgs> = {
         colorScale: waferMapColorScaleSets[0],
         colorScaleMode: WaferMapColorScaleMode.linear,
         dies: 'fixedDies10',
+        diesTable: undefined,
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
         highlightedTags: 'set1',
@@ -208,6 +265,30 @@ const metadata: Meta<WaferMapArgs> = {
                 }
             },
             defaultValue: 'set1'
+        },
+        diesTable: {
+            description: `Represents the input data, an apache-arrow \`Table\`, which will be rendered by the wafer map
+
+<details>
+    <summary>Usage details</summary>
+    The \`diesTable\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
+</details>
+                `,
+            options: [
+                'fixedDies10',
+                'goodDies100',
+                'goodDies1000',
+                'badDies10000'
+            ],
+            control: {
+                type: 'radio',
+                labels: {
+                    fixedDies10: 'Small dies set of fixed values',
+                    goodDies100: 'Medium dies set of mostly good values',
+                    goodDies1000: 'Large dies set of mostly good values',
+                    badDies10000: 'Very large dies set of mostly bad values'
+                }
+            },
         },
         dieLabelsHidden: {
             name: 'die-labels-hidden',

@@ -5,7 +5,7 @@ import {
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
-import { Table, Uint32, Int32, Float32 } from 'apache-arrow';
+import type { Table, Uint32, Int32, Float32 } from 'apache-arrow';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
@@ -156,7 +156,7 @@ export class WaferMap extends FoundationElement {
         value: Float32,
         tags: Uint32,
         metadata: never
-    }> = new Table();
+    }> | undefined;
 
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
@@ -304,7 +304,9 @@ export class WaferMap extends FoundationElement {
 
     private diesTableChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderStrategy = 'matrix';
+        if (this.diesTable !== undefined) {
+            this.renderStrategy = 'matrix';
+        }
         this.waferMapUpdateTracker.queueUpdate();
     }
 
