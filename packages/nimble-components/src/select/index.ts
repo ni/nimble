@@ -214,6 +214,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     public override set options(value: ListboxOption[]) {
         const firstOptionIsPlaceholder = value.length > 0 && value[0]?.selected && value[0].disabled;
         if (firstOptionIsPlaceholder) {
+            // remove placeholder option from rest with splice
             const placeholderOption = value.splice(0, 1)[0];
             this.placeholderText = placeholderOption!.text;
             placeholderOption!.hidden = true;
