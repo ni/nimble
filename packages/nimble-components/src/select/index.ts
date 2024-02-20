@@ -452,18 +452,11 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      */
     public inputHandler(e: InputEvent): boolean {
         this.filter = this.filterInput?.value ?? '';
-        if (!this.committedSelectedOption) {
-            this.committedSelectedOption = this._options.find(
-                option => option.selected && !option.disabled
-            );
-        }
         this.clearSelection();
         this.filterOptions();
 
         if (
             this.filteredOptions.length > 0
-            && this.committedSelectedOption
-            && !this.filteredOptions.includes(this.committedSelectedOption)
         ) {
             const enabledOptions = this.filteredOptions.filter(
                 o => !o.disabled
@@ -559,6 +552,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 break;
             }
             case keyEscape: {
+                if (!this.open) {
+                    break;
+                }
                 // clear filter as update to "selectedIndex" will result in processing
                 // "options" and not "_options"
                 this.filter = '';
@@ -573,9 +569,14 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                     this.open = false;
                 }
                 // reset 'selected' state otherwise the selected state doesn't stick.
-                const selectedOption = this._options[this.selectedIndex];
+                const selectedOption = this._options[this.indexWhenOpened!];
                 if (selectedOption) {
                     selectedOption.selected = true;
+                }
+
+                if (this.selectedIndex !== this.indexWhenOpened!) {
+                    this._options[this.selectedIndex]!.selected = false;
+                    this.selectedIndex = this.indexWhenOpened!;
                 }
                 this.focus();
                 break;
@@ -809,8 +810,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         if (filter) {
             this.filteredOptions = this._options.filter(option => {
                 return (
-                    !option.disabled
-                    && diacriticInsensitiveStringNormalizer(option.text).includes(
+                    diacriticInsensitiveStringNormalizer(option.text).includes(
                         diacriticInsensitiveStringNormalizer(filter)
                     )
                 );
