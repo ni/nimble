@@ -130,7 +130,6 @@
     "@types/webpack-env": "^1.15.2",
     "babel-loader": "^9.1.2",
     "circular-dependency-plugin": "^5.2.0",
-    "comlink": "^4.4.1",
     "css-loader": "^6.7.3",
     "dotenv-webpack": "^8.0.1",
     "eslint-plugin-jsdoc": "^46.8.2",
