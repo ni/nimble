@@ -37,7 +37,7 @@
     "typescript": "~4.8.2"
   },
   "dependencies": {
-    "xliff": "^6.0.3",
+    "xliff": "^6.1.0",
     "yargs": "^17.5.1"
   }
 }
