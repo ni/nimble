@@ -82,6 +82,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     @attr({ attribute: 'filter-mode' })
     public filterMode: FilterMode = FilterMode.none;
 
+    @attr({ attribute: 'placeholder-visible', mode: 'boolean' })
+    public placeholderVisible = false;
+
     /**
      * @internal
      */
@@ -156,7 +159,13 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @internal
      */
     @observable
-    public committedSelectedOption: ListboxOption | undefined = undefined;
+    public committedSelectedOption?: ListboxOption;
+
+    /**
+     * @internal
+     */
+    @observable
+    public placeholderOption?: ListboxOption;
 
     /**
      * The max height for the listbox when opened.
@@ -205,6 +214,11 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     public override set options(value: ListboxOption[]) {
+        const firstOptionIsPlaceholder = value.length > 0 && value[0]?.selected && value[0].disabled;
+        if (firstOptionIsPlaceholder) {
+            this.placeholderOption = value.splice(0, 1)[0];
+            this.placeholderOption!.hidden = true;
+        }
         this._options = value;
         Observable.notify(this, 'options');
     }
@@ -256,9 +270,12 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     /**
      * @internal
      */
+    @volatile
     public get displayValue(): string {
         Observable.track(this, 'displayValue');
-        return this.committedSelectedOption?.text ?? '';
+        return this.placeholderVisible
+            ? this.placeholderOption!.text
+            : this.committedSelectedOption?.text ?? '';
     }
 
     /**
@@ -438,7 +455,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.filter = this.filterInput?.value ?? '';
         if (!this.committedSelectedOption) {
             this.committedSelectedOption = this._options.find(
-                option => option.selected
+                option => option.selected && !option.disabled
             );
         }
         this.clearSelection();
@@ -740,6 +757,12 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 || el.value === this.value
         );
 
+        if (selectedIndex === -1 && this.placeholderOption) {
+            this.selectedIndex = selectedIndex;
+            this.placeholderVisible = true;
+            return;
+        }
+
         if (selectedIndex !== -1) {
             this.selectedIndex = selectedIndex;
             return;
@@ -786,12 +809,17 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
         if (filter) {
             this.filteredOptions = this._options.filter(option => {
-                return diacriticInsensitiveStringNormalizer(
-                    option.text
-                ).includes(diacriticInsensitiveStringNormalizer(filter));
+                return (
+                    !option.disabled
+                    && diacriticInsensitiveStringNormalizer(option.text).includes(
+                        diacriticInsensitiveStringNormalizer(filter)
+                    )
+                );
             });
         } else {
-            this.filteredOptions = this._options;
+            this.filteredOptions = this._options.filter(
+                o => !(o.selected && o.disabled)
+            );
         }
 
         this._options.forEach(o => {
@@ -812,6 +840,12 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
 
         if (shouldEmit) {
+            if (
+                this.placeholderVisible
+                && this.value !== this.placeholderOption!.value
+            ) {
+                this.placeholderVisible = false;
+            }
             this.$emit('input');
             this.$emit('change', this, {
                 bubbles: true,

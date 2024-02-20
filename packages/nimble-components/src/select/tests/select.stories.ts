@@ -1,4 +1,4 @@
-import { html, repeat } from '@microsoft/fast-element';
+import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import {
@@ -20,12 +20,14 @@ interface SelectArgs {
     optionsType: ExampleOptionsType;
     appearance: string;
     filterMode: keyof typeof FilterMode;
+    placeholder: boolean;
 }
 
 interface OptionArgs {
     label: string;
     value: string;
     disabled: boolean;
+    selected?: boolean;
 }
 
 const simpleOptions: readonly OptionArgs[] = [
@@ -73,6 +75,10 @@ The act of filtering will use the \`hidden\` attribute on the options to remove 
 It is recommended that if the \`Select\` has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`.
 `;
 
+const placeholderDescription = `
+To display placeholder text within the \`Select\` you must provide an option before all other options that has both the \`disabled\` and \`selected\` attributes initially set. This option will not be available in the dropdown, and its contents will be used as the placeholder text.
+`;
+
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
     decorators: [withActions<HtmlRenderer>],
@@ -96,10 +102,18 @@ const metadata: Meta<SelectArgs> = {
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             style="width: var(${menuMinWidth.cssCustomProperty});"
         >
+            ${when(x => x.placeholder, html`
+                <${listOptionTag}
+                    disabled
+                    selected>
+                    Select an option:
+                </${listOptionTag}?
+            `)}
             ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
                 <${listOptionTag}
                     value="${x => x.value}"
                     ?disabled="${x => x.disabled}"
+                    ?selected="${x => x.selected}"
                 >
                     ${x => x.label}
                 </${listOptionTag}>
@@ -126,6 +140,10 @@ const metadata: Meta<SelectArgs> = {
         errorVisible: {
             name: 'error-visible'
         },
+        placeholder: {
+            name: 'placeholder',
+            description: placeholderDescription
+        },
         optionsType: {
             name: 'options',
             options: Object.values(ExampleOptionsType),
@@ -146,7 +164,8 @@ const metadata: Meta<SelectArgs> = {
         filterMode: 'none',
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
-        optionsType: ExampleOptionsType.simpleOptions
+        optionsType: ExampleOptionsType.simpleOptions,
+        placeholder: false
     }
 };
 
