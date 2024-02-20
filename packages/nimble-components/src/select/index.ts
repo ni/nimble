@@ -162,12 +162,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     public committedSelectedOption?: ListboxOption;
 
     /**
-     * @internal
-     */
-    @observable
-    public placeholderOption?: ListboxOption;
-
-    /**
      * The max height for the listbox when opened.
      *
      * @internal
@@ -188,6 +182,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     private _value = '';
     private forcedPosition = false;
     private indexWhenOpened?: number;
+    private placeholderText?: string;
 
     /**
      * @internal
@@ -216,8 +211,9 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     public override set options(value: ListboxOption[]) {
         const firstOptionIsPlaceholder = value.length > 0 && value[0]?.selected && value[0].disabled;
         if (firstOptionIsPlaceholder) {
-            this.placeholderOption = value.splice(0, 1)[0];
-            this.placeholderOption!.hidden = true;
+            const placeholderOption = value.splice(0, 1)[0];
+            this.placeholderText = placeholderOption!.text;
+            placeholderOption!.hidden = true;
         }
         this._options = value;
         Observable.notify(this, 'options');
@@ -274,7 +270,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     public get displayValue(): string {
         Observable.track(this, 'displayValue');
         return this.placeholderVisible
-            ? this.placeholderOption!.text
+            ? this.placeholderText!
             : this.committedSelectedOption?.text ?? '';
     }
 
@@ -757,7 +753,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 || el.value === this.value
         );
 
-        if (selectedIndex === -1 && this.placeholderOption) {
+        if (selectedIndex === -1 && (typeof this.placeholderText === 'string')) {
             this.selectedIndex = selectedIndex;
             this.placeholderVisible = true;
             return;
@@ -842,7 +838,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         if (shouldEmit) {
             if (
                 this.placeholderVisible
-                && this.value !== this.placeholderOption!.value
+                && this.value !== this.placeholderText
             ) {
                 this.placeholderVisible = false;
             }
