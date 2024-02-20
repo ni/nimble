@@ -15,6 +15,7 @@ describe('Nimble Label Provider Table', () => {
     const label9 = 'String 9';
     const label10 = 'String 10';
     const label11 = 'String 11';
+    const label12 = 'String 12';
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -106,6 +107,11 @@ describe('Nimble Label Provider Table', () => {
             expect(directive.rowOperationColumn).toBeUndefined();
             expect(nativeElement.rowOperationColumn).toBeUndefined();
         });
+
+        it('has expected defaults for rowLoading', () => {
+            expect(directive.rowLoading).toBeUndefined();
+            expect(nativeElement.rowLoading).toBeUndefined();
+        });
     });
 
     describe('with template string values', () => {
@@ -123,6 +129,7 @@ describe('Nimble Label Provider Table', () => {
                     group-select-all="${label9}"
                     row-select="${label10}"
                     row-operation-column="${label11}"
+                    row-loading="${label12}"
                     >
                 </nimble-label-provider-table>
             `
@@ -201,6 +208,11 @@ describe('Nimble Label Provider Table', () => {
             expect(directive.rowOperationColumn).toBe(label11);
             expect(nativeElement.rowOperationColumn).toBe(label11);
         });
+
+        it('will use template string values for rowLoading', () => {
+            expect(directive.rowLoading).toBe(label12);
+            expect(nativeElement.rowLoading).toBe(label12);
+        });
     });
 
     describe('with property bound values', () => {
@@ -218,6 +230,7 @@ describe('Nimble Label Provider Table', () => {
                     [groupSelectAll]="groupSelectAll"
                     [rowSelect]="rowSelect"
                     [rowOperationColumn]="rowOperationColumn"
+                    [rowLoading]="rowLoading"
                     >
                 </nimble-label-provider-table>
             `
@@ -236,6 +249,7 @@ describe('Nimble Label Provider Table', () => {
             public groupSelectAll = label1;
             public rowSelect = label1;
             public rowOperationColumn = label1;
+            public rowLoading = label1;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -373,6 +387,17 @@ describe('Nimble Label Provider Table', () => {
             expect(directive.rowOperationColumn).toBe(label2);
             expect(nativeElement.rowOperationColumn).toBe(label2);
         });
+
+        it('can be configured with property binding for rowLoading', () => {
+            expect(directive.rowLoading).toBe(label1);
+            expect(nativeElement.rowLoading).toBe(label1);
+
+            fixture.componentInstance.rowLoading = label2;
+            fixture.detectChanges();
+
+            expect(directive.rowLoading).toBe(label2);
+            expect(nativeElement.rowLoading).toBe(label2);
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -390,6 +415,7 @@ describe('Nimble Label Provider Table', () => {
                     [attr.group-select-all]="groupSelectAll"
                     [attr.row-select]="rowSelect"
                     [attr.row-operation-column]="rowOperationColumn"
+                    [attr.row-loading]="rowLoading"
                     >
                 </nimble-label-provider-table>
             `
@@ -408,6 +434,7 @@ describe('Nimble Label Provider Table', () => {
             public groupSelectAll = label1;
             public rowSelect = label1;
             public rowOperationColumn = label1;
+            public rowLoading = label1;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -544,6 +571,17 @@ describe('Nimble Label Provider Table', () => {
 
             expect(directive.rowOperationColumn).toBe(label2);
             expect(nativeElement.rowOperationColumn).toBe(label2);
+        });
+
+        it('can be configured with attribute binding for rowLoading', () => {
+            expect(directive.rowLoading).toBe(label1);
+            expect(nativeElement.rowLoading).toBe(label1);
+
+            fixture.componentInstance.rowLoading = label2;
+            fixture.detectChanges();
+
+            expect(directive.rowLoading).toBe(label2);
+            expect(nativeElement.rowLoading).toBe(label2);
         });
     });
 });

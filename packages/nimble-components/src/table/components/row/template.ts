@@ -69,7 +69,7 @@ export const template = html<TableRow>`
         `)}
 
         <span ${ref('cellContainer')} 
-            class="cell-container ${x => (x.isParentRow && x.nestingLevel > 0 ? 'nested-parent' : '')}"
+            class="cell-container ${x => (x.isNestedParent ? 'nested-parent' : '')}"
         >
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
                 ${when(x => !x.columnHidden, html<TableColumn, TableRow>`

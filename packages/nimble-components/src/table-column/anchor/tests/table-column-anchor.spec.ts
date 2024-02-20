@@ -239,6 +239,29 @@ describe('TableColumnAnchor', () => {
             );
         });
 
+        it('updating underline-hidden from true to false removes the underline-hidden attribute from the anchor', async () => {
+            await element.setData([{ link: 'foo' }]);
+            await connect();
+            await waitForUpdatesAsync();
+
+            const firstColumn = element.columns[0] as TableColumnAnchor;
+            firstColumn.underlineHidden = true;
+            await waitForUpdatesAsync();
+            expect(
+                pageObject
+                    .getRenderedCellAnchor(0, 0)
+                    .hasAttribute('underline-hidden')
+            ).toBeTrue();
+
+            firstColumn.underlineHidden = false;
+            await waitForUpdatesAsync();
+            expect(
+                pageObject
+                    .getRenderedCellAnchor(0, 0)
+                    .hasAttribute('underline-hidden')
+            ).toBeFalse();
+        });
+
         const linkOptionData = [
             { name: 'hreflang', accessor: (x: Anchor) => x.hreflang },
             { name: 'ping', accessor: (x: Anchor) => x.ping },

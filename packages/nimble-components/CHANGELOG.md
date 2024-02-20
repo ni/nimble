@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 15 Feb 2024 20:48:52 GMT and should not be manually modified.
+This log was last generated on Tue, 20 Feb 2024 17:54:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.5.4
+
+Tue, 20 Feb 2024 17:54:12 GMT
+
+### Patches
+
+- Fix bug where nesting level of rows sometimes gets out of sync with data ([ni/nimble@c6c16de](https://github.com/ni/nimble/commit/c6c16de04b8387dbb999c62fbc3f35a2b3643427))
+
+## 21.5.3
+
+Mon, 19 Feb 2024 22:25:59 GMT
+
+### Patches
+
+- Fix bug where setting underline-hidden=false on the anchor column would sometimes still hide the underline ([ni/nimble@28825d1](https://github.com/ni/nimble/commit/28825d16c421175868f88992be64874e0d74b655))
+
+## 21.5.2
+
+Mon, 19 Feb 2024 19:14:51 GMT
+
+### Patches
+
+- Allow a row with a state of `canLoadChildren` to be expanded when it does not have children ([ni/nimble@15a30c5](https://github.com/ni/nimble/commit/15a30c5a9c04fae9c3f6d2eadb0b31056c87db56))
+
+## 21.5.1
+
+Fri, 16 Feb 2024 18:10:59 GMT
+
+### Patches
+
+- Inline sources into map files ([ni/nimble@2b6c327](https://github.com/ni/nimble/commit/2b6c327fd3bc4f49178ac370f695a8b941278c46))
+- Bump @ni/nimble-tokens to v6.10.1
 
 ## 21.5.0
 
