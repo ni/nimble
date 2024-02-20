@@ -82,7 +82,7 @@ The POC is found in this branch [Worker Rendering POC](https://github.com/ni/nim
 
 ### Data Structure and Interface
 
-The best solution to solve the API of the wafermap is to use parts of both of the proposed methods mentioned in the next section. This means using Apache Arrow as the wafer component API and Typed Arrays for their iterating performance and transferability to worker threads.
+The best solution to solve the API of the wafermap is to use Apache Arrow as the wafer component API, and Typed Arrays as teh worker API for their iterating performance and transferability to worker threads.
 
 The Public API will be the following:
 
@@ -126,49 +126,6 @@ The limits for this approach are the following:
 | vector from table iterate | 965.2465000152588  | 1012.9023000001907 | iterating over the 1M Vector after converting the Table with `makeVector()` and calculating the sums      |
 
 The memory impact is not very significant, amounting to 74.01MB for 1M dies compared with 44.65MB for the previously prototyped API.
-
-#### Previously proposed solutions
-
-These are the two possible solutions identified for representing the data in the memory. The fist one is an in-house solution:
-
-```TS
-class WaferData {
-    // the x coordinates of each column of dies
-    dieColIndexArray: Int32Array;
-    // the lengths of each row of dies
-    rowLengthsArray: Int32Array;
-    // the y coordinates of each die as a matrix row by row
-    dieRowIndexLayer: Int32Array;
-    // the value of each die as a matrix row by row
-    dieValuesLayer: Float64Array;
-    // the highlight  approach is still undecided, we have two options:
-    // the highlight state of each die as a matrix; user will have to pre-calculate tags into highlighted conditions.
-    dieHighlightsLayer: Int8Array;
-    // a 32 bitset array of tags for each die; aligns more closely to the existing public api but limits users to 32 tags.
-    dieHighlightsLayer: Int32Array;
-    // metadata array for each die; it will not be sent to the worker
-    metadata : unknown[]
-}
-```
-
-Using TypedArrays has the benefit of direct transfer to web workers without structured cloning of the object by transferring the arrayBuffers and reconstructing the object. Other benefits of typedArrays include the low access time when iterating over the values, more memory efficiency and faster direct access to metadata layers values. The previous inputs can be adapted to this new structure to maintain backwards compatibility.
-
-This API will have [optimized byte-array interop from Blazor](https://learn.microsoft.com/en-us/dotnet/core/compatibility/aspnet-core/6.0/byte-array-interop) and should be supported by Angular as a [vanilla javascript feature](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer).
-
-The alternative to the above mentioned data structure is an [apache arrow](https://arrow.apache.org/docs/js/index.html) table with columns and metadata.
-
-Pros of using Apache Arrow:
-
--   A row based format that aligns well with the existing public api
--   Well supported and tested format
--   Nice public API to use, we don't have to invent a new format, just document our schema for the arrow tables
--   Designed for large dataset visualizations
-
-In order to choose from these alternatives we will prototype and check:
-
--   Does it have comparable memory performance
--   Does it perform well or have significant overhead
--   Is it easy to divide and use in parallel
 
 ### Rendering
 
@@ -256,6 +213,39 @@ The current expectation is for a singular wafer component to be displayed on the
 ## Alternative Implementations / Designs
 
 ### Alternative Data Structures and Interfaces
+
+The alternative to using Apache Arrow tables is an in-house solution:
+
+```TS
+class WaferData {
+    // the x coordinates of each column of dies
+    dieColIndexArray: Int32Array;
+    // the lengths of each row of dies
+    rowLengthsArray: Int32Array;
+    // the y coordinates of each die as a matrix row by row
+    dieRowIndexLayer: Int32Array;
+    // the value of each die as a matrix row by row
+    dieValuesLayer: Float64Array;
+    // the highlight  approach is still undecided, we have two options:
+    // the highlight state of each die as a matrix; user will have to pre-calculate tags into highlighted conditions.
+    dieHighlightsLayer: Int8Array;
+    // a 32 bitset array of tags for each die; aligns more closely to the existing public api but limits users to 32 tags.
+    dieHighlightsLayer: Int32Array;
+    // metadata array for each die; it will not be sent to the worker
+    metadata : unknown[]
+}
+```
+
+Using TypedArrays has the benefit of direct transfer to web workers without structured cloning of the object by transferring the arrayBuffers and reconstructing the object. Other benefits of typedArrays include the low access time when iterating over the values, more memory efficiency and faster direct access to metadata layers values. The previous inputs can be adapted to this new structure to maintain backwards compatibility.
+
+This API will have [optimized byte-array interop from Blazor](https://learn.microsoft.com/en-us/dotnet/core/compatibility/aspnet-core/6.0/byte-array-interop) and should be supported by Angular as a [vanilla javascript feature](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer).
+
+Pros of using Apache Arrow:
+
+-   A row based format that aligns well with the existing public api
+-   Well supported and tested format
+-   Nice public API to use, we don't have to invent a new format, just document our schema for the arrow tables
+-   Designed for large dataset visualizations
 
 Another option is to break each object property as a separate attribute for the wafer map component. This can also lead to increased complexity and confusion for the user which will need to pass several structured objects instead of a singular object.
 
