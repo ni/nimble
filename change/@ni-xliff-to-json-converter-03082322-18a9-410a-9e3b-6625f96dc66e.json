@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Preserve spaces between inline elements",
+  "packageName": "@ni/xliff-to-json-converter",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
