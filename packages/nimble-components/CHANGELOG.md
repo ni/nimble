@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 19 Feb 2024 22:25:59 GMT and should not be manually modified.
+This log was last generated on Tue, 20 Feb 2024 17:54:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.5.4
+
+Tue, 20 Feb 2024 17:54:12 GMT
+
+### Patches
+
+- Fix bug where nesting level of rows sometimes gets out of sync with data ([ni/nimble@c6c16de](https://github.com/ni/nimble/commit/c6c16de04b8387dbb999c62fbc3f35a2b3643427))
 
 ## 21.5.3
 

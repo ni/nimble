@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix bug where nesting level of rows sometimes gets out of sync with data",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
