@@ -27,7 +27,8 @@ export const addons = [
     },
     getAbsolutePath('@storybook/addon-a11y'),
     getAbsolutePath('@storybook/addon-interactions'),
-    getAbsolutePath('@chromatic-com/storybook')
+    getAbsolutePath('@chromatic-com/storybook'),
+    '@storybook/addon-webpack5-compiler-swc'
 ];
 export function webpackFinal(config) {
     config.module.rules.push({
@@ -59,12 +60,7 @@ export function webpackFinal(config) {
 }
 export const staticDirs = ['public'];
 export const framework = {
-    name: getAbsolutePath('@storybook/html-webpack5'),
-    options: {
-        builder: {
-            useSWC: true
-        }
-    }
+    name: getAbsolutePath('@storybook/html-webpack5')
 };
 
 export const docs = {
