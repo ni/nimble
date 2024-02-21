@@ -2,6 +2,42 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 21 Feb 2024 21:18:20 GMT",
+      "version": "21.6.0",
+      "tag": "@ni/nimble-components_v21.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4037b7c13da51926e6fbfd774a4da19cd75cb98e",
+            "comment": "Add bodyEmphasizedPlus1Font tokens"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.11.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 21 Feb 2024 19:48:20 GMT",
+      "version": "21.5.5",
+      "tag": "@ni/nimble-components_v21.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v0.2.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 20 Feb 2024 17:54:12 GMT",
       "version": "21.5.4",
       "tag": "@ni/nimble-components_v21.5.4",
