@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 16 Feb 2024 18:10:59 GMT and should not be manually modified.
+This log was last generated on Tue, 20 Feb 2024 17:54:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.1
+
+Tue, 20 Feb 2024 17:54:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.5.4
+
+## 20.2.0
+
+Mon, 19 Feb 2024 23:03:42 GMT
+
+### Minor changes
+
+- Add support for delayed hierarchy in the table ([ni/nimble@8fc186e](https://github.com/ni/nimble/commit/8fc186e3c759eac9d69ba01802b07dfb9e51efbd))
+
+## 20.1.2
+
+Mon, 19 Feb 2024 22:25:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.5.3
+
+## 20.1.1
+
+Mon, 19 Feb 2024 19:14:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.5.2
+
+## 20.1.0
+
+Mon, 19 Feb 2024 16:59:58 GMT
+
+### Minor changes
+
+- Angular filterable Select ([ni/nimble@315917c](https://github.com/ni/nimble/commit/315917c5cf3768d0dcaf3901eef0087c5299832e))
 
 ## 20.0.10
 
