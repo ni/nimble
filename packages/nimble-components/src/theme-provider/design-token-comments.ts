@@ -221,19 +221,21 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Font line height for the "BodyEmphasized" base token',
     bodyEmphasizedFallbackFontFamily:
         'Fallback font family for the "BodyEmphasized" base token',
-    bodyEmphasized2Font: 'Font shorthand for the "BodyEmphasized_2" base token',
-    bodyEmphasized2FontColor:
+    bodyEmphasizedPlus1Font:
+        'Font shorthand for the "BodyEmphasized_2" base token',
+    bodyEmphasizedPlus1FontColor:
         'Font color for the "BodyEmphasized_2" base token',
-    bodyEmphasized2DisabledFontColor:
+    bodyEmphasizedPlus1DisabledFontColor:
         'Disabled font color for the "BodyEmphasized_2" base token',
-    bodyEmphasized2FontFamily:
+    bodyEmphasizedPlus1FontFamily:
         'Font family for the "BodyEmphasized_2" base token',
-    bodyEmphasized2FontSize: 'Font size for the "BodyEmphasized_2" base token',
-    bodyEmphasized2FontWeight:
+    bodyEmphasizedPlus1FontSize:
+        'Font size for the "BodyEmphasized_2" base token',
+    bodyEmphasizedPlus1FontWeight:
         'Font weight for the "BodyEmphasized_2" base token',
-    bodyEmphasized2FontLineHeight:
+    bodyEmphasizedPlus1FontLineHeight:
         'Font line height for the "BodyEmphasized_2" base token',
-    bodyEmphasized2FallbackFontFamily:
+    bodyEmphasizedPlus1FallbackFontFamily:
         'Fallback font family for the "BodyEmphasized_2" base token',
     bodyFont: 'Font shorthand for the "Body" base token',
     bodyFontColor: 'Font color for the "Body" base token',
