@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add keywords to package metadata and fix typo in examples",
+  "packageName": "@ni/jasmine-parameterized",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
