@@ -16,9 +16,18 @@ namespace Demo.Shared.Pages
         private string? DialogClosedReason { get; set; }
         private NimbleDrawer<DialogResult>? _drawer;
         private NimbleTable<SimpleTableRecord>? _table;
+        private NimbleTable<PersonTableRecord>? _delayedHierarchyTable;
         private string? DrawerClosedReason { get; set; }
         private string? SelectedRadio { get; set; } = "2";
         private bool BannerOpen { get; set; }
+        private List<PersonTableRecord> _delayedHierarchyTableData = new List<PersonTableRecord>()
+        {
+            new PersonTableRecord("jacqueline-bouvier", null, "Jacqueline", "Bouvier", 80, true),
+            new PersonTableRecord("mona-simpson", null, "Mona", "Simpson", 77, true),
+            new PersonTableRecord("agnes-skinner", null, "Agnes", "Skinner", 88, true)
+        };
+        private HashSet<string> _recordsLoadingChildren = new HashSet<string>();
+        private HashSet<string> _recordsWithLoadedChildren = new HashSet<string>();
 
         [NotNull]
         public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();
@@ -38,7 +47,92 @@ namespace Demo.Shared.Pages
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await _table!.SetDataAsync(TableData);
+            await UpdateDelayedHierarchyTableAsync();
             await base.OnAfterRenderAsync(firstRender);
+        }
+
+        private async Task OnRowExpandToggleAsync(TableRowExpandToggleEventArgs e)
+        {
+            var recordId = e.RecordId;
+            if (e.NewState && !_recordsLoadingChildren.Contains(recordId) && !_recordsWithLoadedChildren.Contains(recordId))
+            {
+                var record = _delayedHierarchyTableData.Find(person => person.Id == recordId);
+                if (record == null)
+                {
+                    return;
+                }
+
+                _recordsLoadingChildren.Add(recordId);
+                await UpdateDelayedHierarchyTableAsync(false);
+
+                await Task.Delay(1500);
+                _recordsLoadingChildren.Remove(recordId);
+                _recordsWithLoadedChildren.Add(recordId);
+                var childrenToAdd = GetChildren(recordId);
+                childrenToAdd.ForEach(child => _delayedHierarchyTableData.Add(child));
+                await UpdateDelayedHierarchyTableAsync();
+            }
+        }
+
+        private List<PersonTableRecord> GetChildren(string recordId)
+        {
+            switch (recordId)
+            {
+                case "jacqueline-bouvier":
+                    return new List<PersonTableRecord>()
+                    {
+                        new PersonTableRecord("marge-simpson", recordId, "Marge", "Simpson", 35, true),
+                        new PersonTableRecord("selma-bouvier", recordId, "Selma", "Bouvier", 45, false),
+                        new PersonTableRecord("patty-bouvier", recordId, "Patty", "Bouvier", 45, false)
+                    };
+                case "marge-simpson":
+                    return new List<PersonTableRecord>()
+                    {
+                        new PersonTableRecord("bart-simpson", recordId, "Bart", "Simpson", 12, false),
+                        new PersonTableRecord("lisa-bouvier", recordId, "Lisa", "Simpson", 10, false),
+                        new PersonTableRecord("maggie-bouvier", recordId, "Maggie", "Simpson", 1, false)
+                    };
+                case "mona-simpson":
+                    return new List<PersonTableRecord>()
+                    {
+                        new PersonTableRecord("homer-simpson", recordId, "Homer", "Simpson", 35, false)
+                    };
+                case "agnes-skinner":
+                    return new List<PersonTableRecord>()
+                    {
+                        new PersonTableRecord("seymour-skinner", recordId, "Seymour", "Skinner", 42, false)
+                    };
+                default:
+                    return new List<PersonTableRecord>();
+            }
+        }
+
+        private async Task UpdateDelayedHierarchyTableAsync(bool setData = true)
+        {
+            if (setData)
+            {
+                await _delayedHierarchyTable!.SetDataAsync(_delayedHierarchyTableData);
+            }
+
+            List<TableSetRecordHierarchyOptions> options = new List<TableSetRecordHierarchyOptions>();
+            _delayedHierarchyTableData.ForEach(person =>
+            {
+                if (_recordsLoadingChildren.Contains(person.Id))
+                {
+                    options.Add(
+                        new TableSetRecordHierarchyOptions(
+                            person.Id,
+                            new TableRecordHierarchyOptions(TableRecordDelayedHierarchyState.LoadingChildren)));
+                }
+                else if (person.HasChildren && !_recordsWithLoadedChildren.Contains(person.Id))
+                {
+                    options.Add(
+                        new TableSetRecordHierarchyOptions(
+                            person.Id,
+                            new TableRecordHierarchyOptions(TableRecordDelayedHierarchyState.CanLoadChildren)));
+                }
+            });
+            await _delayedHierarchyTable!.SetRecordHierarchyOptionsAsync(options);
         }
 
         private string DrawerLocationAsString
@@ -181,6 +275,26 @@ namespace Demo.Shared.Pages
         public string Result { get; }
         public double Number { get; }
         public double Duration { get; }
+    }
+
+    public class PersonTableRecord
+    {
+        public PersonTableRecord(string id, string? parentId, string firstName, string lastName, int age, bool hasChildren)
+        {
+            Id = id;
+            ParentId = parentId;
+            FirstName = firstName;
+            LastName = lastName;
+            Age = age;
+            HasChildren = hasChildren;
+        }
+
+        public string Id { get; }
+        public string? ParentId { get; }
+        public string FirstName { get; }
+        public string LastName { get; }
+        public int Age { get; }
+        public bool HasChildren { get; }
     }
 
     public enum DialogResult

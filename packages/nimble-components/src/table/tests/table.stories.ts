@@ -441,7 +441,7 @@ export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
     },
     args: {
         tableRef: undefined,
-        firstRecordState: TableRecordDelayedHierarchyState.canLoadChildren,
+        firstRecordState: 'canLoadChildren',
         updateData: x => {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point

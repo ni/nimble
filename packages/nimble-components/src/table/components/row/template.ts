@@ -50,7 +50,7 @@ export const template = html<TableRow>`
                         aria-label="${x => tableRowLoadingLabel.getValueFor(x)}"
                         title="${x => tableRowLoadingLabel.getValueFor(x)}"
                     >
-                    <${spinnerTag}>
+                    </${spinnerTag}>
                 </span>
             `)}
             ${when(x => !x.loading, html<TableRow>`

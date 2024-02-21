@@ -40,6 +40,9 @@ public partial class NimbleLabelProviderTable : ComponentBase
     [Parameter]
     public string? RowOperationColumn { get; set; }
 
+    [Parameter]
+    public string? RowLoading { get; set; }
+
     /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.
     /// </summary>
