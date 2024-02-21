@@ -64,5 +64,27 @@ namespace NimbleBlazor.Tests.Acceptance
                 }
             }
         }
+
+        [Fact]
+        public async Task Table_TriggersRowExpandToggleEventAsync()
+        {
+            await using (var pageWrapper = await NewPageForRouteAsync("TableSetRecordHierarchyOptionsTest"))
+            {
+                var page = pageWrapper.Page;
+                var table = page.Locator("nimble-table");
+                await Assertions.Expect(table).ToBeVisibleAsync();
+                var textField = page.Locator("nimble-text-field");
+
+                var rows = table.Locator("nimble-table-row");
+                var expandableRow = rows.Nth(0);
+                var rowExpandCollapseButton = expandableRow.Locator("nimble-button");
+
+                await rowExpandCollapseButton.ClickAsync();
+                await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "RecordId: 0, OldState: False, NewState: True");
+
+                await rowExpandCollapseButton.ClickAsync();
+                await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "RecordId: 0, OldState: True, NewState: False");
+            }
+        }
     }
 }

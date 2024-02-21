@@ -3,15 +3,17 @@
 @using System.Diagnostics.CodeAnalysis;
 @inherits LayoutComponentBase
 
-<NimbleTable TData="RowData" IdFieldName="Id" ParentIdFieldName="ParentId" @ref="_table">
+<NimbleTable TData="RowData" IdFieldName="Id" ParentIdFieldName="ParentId" @ref="_table" RowExpandToggle="OnRowExpandToggle">
     <NimbleTableColumnText FieldName="Field1" ColumnId="1">Column 1</NimbleTableColumnText>
 </NimbleTable>
+<NimbleTextField @bind-Value="TextFieldText"></NimbleTextField>
 
 @code {
     [NotNull]
     public IEnumerable<RowData> TableData { get; set; } = Enumerable.Empty<RowData>();
     [NotNull]
     public IEnumerable<TableSetRecordHierarchyOptions> HiearchyOptions { get; set; } = Enumerable.Empty<TableSetRecordHierarchyOptions>();
+    public string TextFieldText = string.Empty;
     private NimbleTable<RowData>? _table;
 
     public TableSetRecordHierarchyOptionsTest()
@@ -45,6 +47,11 @@
         await _table!.SetDataAsync(TableData);
         await _table!.SetRecordHierarchyOptionsAsync(HiearchyOptions);
         await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private void OnRowExpandToggle(TableRowExpandToggleEventArgs e)
+    {
+        TextFieldText = $"RecordId: {e.RecordId}, OldState: {e.OldState}, NewState: {e.NewState}";
     }
 
     public class RowData
