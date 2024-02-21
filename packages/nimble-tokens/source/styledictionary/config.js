@@ -128,6 +128,9 @@ const rsOrdUpper = '\\d*(?:1ST|2ND|3RD|(?![123])\\dTH)(?=\\b|[a-z_])';
 const rsSeq = rsOptVar + reOptMod + rsOptJoin;
 const rsEmoji = `(?:${[rsDingbat, rsRegional, rsSurrPair].join('|')})${rsSeq}`;
 
+// Triggers eslint violation but difficult to analyze why / avoiding changing
+// initial implementation behavior from Adobe XD DSP code generation
+// eslint-disable-next-line no-misleading-character-class
 const reUnicodeWords = RegExp([
     `${rsUpper}?${rsLower}+${rsOptContrLower}(?=${[rsBreak, rsUpper, '$'].join('|')})`,
     `${rsMiscUpper}+${rsOptContrUpper}(?=${[rsBreak, rsUpper + rsMiscLower, '$'].join('|')})`,

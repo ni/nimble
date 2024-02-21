@@ -3,7 +3,8 @@
 public enum ButtonAppearanceVariant
 {
     Default,
-    Primary
+    Primary,
+    Accent
 }
 
 internal static class ButtonAppearanceVariantExtensions

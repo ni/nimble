@@ -46,7 +46,10 @@ module.exports = {
             ],
             rules: {
                 // Use package.json from angular-workspace root
-                'import/no-extraneous-dependencies': ['error', { packageDir: path.resolve(__dirname, '../../../') }]
+                'import/no-extraneous-dependencies': ['error', { packageDir: path.resolve(__dirname, '../../../') }],
+                // Nimble Angular Components follow web component naming conventions
+                // where the attribute and property names are different formats
+                '@angular-eslint/no-input-rename': 'off'
             }
         },
         {

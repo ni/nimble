@@ -1,10 +1,11 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { AnchorButton } from '@ni/nimble-components/dist/esm/anchor-button';
+import { type AnchorButton, anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import type { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/anchor-button/types';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { AnchorButton };
+export { anchorButtonTag };
 
 /**
  * Directive to provide Angular integration for the anchor button.
@@ -25,8 +26,6 @@ export class NimbleAnchorButtonDirective extends NimbleAnchorBaseDirective<Ancho
         return this.elementRef.nativeElement.appearanceVariant;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('appearance-variant') public set appearanceVariant(value: ButtonAppearanceVariant) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearanceVariant', value);
     }
@@ -35,8 +34,6 @@ export class NimbleAnchorButtonDirective extends NimbleAnchorBaseDirective<Ancho
         return this.elementRef.nativeElement.contentHidden;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('content-hidden') public set contentHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'contentHidden', toBooleanProperty(value));
     }

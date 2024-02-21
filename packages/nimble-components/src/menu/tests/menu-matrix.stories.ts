@@ -1,10 +1,8 @@
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import type { StoryFn, Meta } from '@storybook/html';
+import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
-import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
@@ -62,7 +60,7 @@ const component = (
                 `)}
             </${menuItemTag}>
             <hr>
-            <${menuItemTag} disabled>Item 2</${menuItemTag}>
+            <${menuItemTag} disabled>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Item 2</${menuItemTag}>
             <${menuItemTag}>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Item 3</${menuItemTag}>
             <${menuItemTag} hidden>Item 4</${menuItemTag}>
             <${anchorMenuItemTag} href='#'>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Anchor item</${anchorMenuItemTag}>

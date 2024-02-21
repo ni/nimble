@@ -7,10 +7,10 @@ import {
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
+    bodyFont,
     borderHoverColor,
     borderWidth,
     buttonLabelDisabledFontColor,
-    buttonLabelFont,
     buttonLabelFontColor,
     controlHeight,
     controlLabelDisabledFontColor,
@@ -29,7 +29,7 @@ export const styles = css`
 
     :host {
         outline: none;
-        font: ${buttonLabelFont};
+        font: ${bodyFont};
         color: ${buttonLabelFontColor};
         flex-direction: column;
         cursor: pointer;

@@ -11,7 +11,9 @@ import {
     groupHeaderTextTransform,
     groupHeaderFontColor,
     smallPadding,
-    elevation2BoxShadow
+    mediumPadding,
+    elevation2BoxShadow,
+    menuMinWidth
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -24,7 +26,7 @@ export const styles = css`
         background: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         margin: 0;
-        min-width: 176px;
+        min-width: ${menuMinWidth};
         width: max-content;
         box-shadow: ${elevation2BoxShadow};
     }
@@ -35,7 +37,7 @@ export const styles = css`
     }
 
     :host([slot='submenu']) {
-        margin: 0 calc(${smallPadding} * 2);
+        margin: 0 ${mediumPadding};
     }
 
     ::slotted(*) {

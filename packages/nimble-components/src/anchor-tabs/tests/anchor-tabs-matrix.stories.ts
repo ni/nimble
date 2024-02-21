@@ -1,12 +1,10 @@
 import type { Meta, Story } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import {
-    createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
+import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    createMatrixThemeStory
 } from '../../utilities/tests/matrix';
 import { DisabledState, disabledStates } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -37,6 +35,7 @@ const component = (
         ${when(() => toolbar, html`
             <${tabsToolbarTag}>
                 <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
+                <${buttonTag} appearance="ghost" style="margin-left: auto;">Right-aligned Button</${buttonTag}>
             </${tabsToolbarTag}>
         `)}
         <${anchorTabTag} id="tab1">Tab One</${anchorTabTag}>

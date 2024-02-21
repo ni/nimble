@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { AnchorTabs } from '@ni/nimble-components/dist/esm/anchor-tabs';
+import { type AnchorTabs, anchorTabsTag } from '@ni/nimble-components/dist/esm/anchor-tabs';
 
 export type { AnchorTabs };
+export { anchorTabsTag };
 
 /**
  * Directive to provide Angular integration for the anchor tabs element.

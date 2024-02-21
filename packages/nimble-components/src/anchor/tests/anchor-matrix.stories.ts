@@ -3,12 +3,10 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    createMatrixThemeStory
 } from '../../utilities/tests/matrix';
-import {
-    createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
+import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 import { AnchorAppearance } from '../types';
@@ -84,4 +82,13 @@ export const textWrapping: StoryFn = createStory(
         consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</${anchorTag}> ut aliquip ex ea commodo consequat.
     </p>
     `
+);
+
+export const inlineSpacing: StoryFn = createStory(
+    html`<style>
+        .inline-link {
+            font: var(${bodyFont.cssCustomProperty});
+        }
+    </style>
+    <span class="inline-link">ABC<${anchorTag} href='#'>DEF</${anchorTag}>GHI</span>`
 );

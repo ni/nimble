@@ -20,36 +20,18 @@ export class ZoomHandler {
     private readonly minScale = 1.1;
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
-    private readonly zoomBehavior: ZoomBehavior<Element, unknown>;
+    private zoomBehavior!: ZoomBehavior<Element, unknown>;
 
-    public constructor(private readonly wafermap: WaferMap) {
-        this.zoomBehavior = this.createZoomBehavior();
-        this.zoomBehavior(select(this.wafermap.canvas as Element));
-    }
+    public constructor(private readonly wafermap: WaferMap) {}
 
-    private rescale(event: ZoomEvent): void {
-        const transform = event.transform;
-        if (transform.k === this.minScale) {
-            this.zoomTransform = zoomIdentity;
-            this.zoomBehavior.transform(
-                select(this.wafermap.canvas as Element),
-                zoomIdentity
-            );
-        } else {
-            this.zoomTransform = transform;
-        }
-
-        this.wafermap.transform = this.zoomTransform;
-    }
-
-    private createZoomBehavior(): ZoomBehavior<Element, unknown> {
-        const zoomBehavior = zoom()
+    public createZoomBehavior(): void {
+        this.zoomBehavior = zoom()
             .scaleExtent([
                 1.1,
                 this.getZoomMax(
                     this.wafermap.canvasWidth * this.wafermap.canvasHeight,
-                    this.wafermap.dataManager!.containerDimensions.width
-                        * this.wafermap.dataManager!.containerDimensions.height
+                    this.wafermap.dataManager.containerDimensions.width
+                        * this.wafermap.dataManager.containerDimensions.height
                 )
             ])
             .translateExtent([
@@ -70,7 +52,22 @@ export class ZoomHandler {
                 this.rescale(event);
             });
 
-        return zoomBehavior;
+        this.zoomBehavior(select(this.wafermap.canvas as Element));
+    }
+
+    private rescale(event: ZoomEvent): void {
+        const transform = event.transform;
+        if (transform.k === this.minScale) {
+            this.zoomTransform = zoomIdentity;
+            this.zoomBehavior.transform(
+                select(this.wafermap.canvas as Element),
+                zoomIdentity
+            );
+        } else {
+            this.zoomTransform = transform;
+        }
+
+        this.wafermap.transform = this.zoomTransform;
     }
 
     private getZoomMax(canvasArea: number, dataArea: number): number {

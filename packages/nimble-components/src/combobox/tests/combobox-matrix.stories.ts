@@ -1,11 +1,9 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
+import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
-import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
@@ -20,23 +18,24 @@ import { DropdownAppearance } from '../../patterns/dropdown/types';
 import {
     controlLabelFont,
     controlLabelFontColor,
+    menuMinWidth,
     standardPadding
 } from '../../theme-provider/design-tokens';
 import { comboboxTag } from '..';
 import { listOptionTag } from '../../list-option';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const valueStates = [
     ['No Value', undefined, 'placeholder'],
-    ['Value', 'Hello', 'placeholder']
+    ['Short Value', 'Hello', 'placeholder'],
+    ['Long Value', loremIpsum, 'placeholder']
 ] as const;
 type ValueState = (typeof valueStates)[number];
 
 const metadata: Meta = {
     title: 'Tests/Combobox',
     parameters: {
-        ...sharedMatrixParameters(),
-        controls: { hideNoControlsWarning: true },
-        a11y: { disabled: true }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -75,6 +74,7 @@ const component = (
             error-text="${() => errorText}"
             value="${() => value}"
             placeholder="${() => placeholder}"
+            style="width: var(${menuMinWidth.cssCustomProperty});"
         >
             <${listOptionTag} value="1">Option 1</${listOptionTag}>
             <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>

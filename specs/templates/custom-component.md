@@ -50,6 +50,7 @@
 - *Methods*
 - *Events*
 - *CSS Classes and CSS Custom Properties that affect the component*
+- *How native CSS Properties (height, width, etc.) affect the component*
 
 *Consider high and low-level APIs. Attempt to design a powerful and extensible low-level API with a high-level API for developer/designer ergonomics and simplicity.*
 
@@ -74,7 +75,7 @@
 
 ### Visual Appearance
 
-*Work with Visual Design to create Adobe XD files and other design assets. Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants. Focus primarily on the officially supported design system as well as known community scenarios as appropriate. Consider other popular design systems during this process and, where possible, ensure that common design features that may not be part of the officially supported design system can be accommodated. Work closely with engineering to co-develop the visual design along side the API and anatomy.*
+*Work with Visual Design to create Figma files and other design assets. Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants.*
 
 ---
 
@@ -95,12 +96,20 @@
 *Consider the accessibility of the component, including:*
 
 - *Keyboard Navigation and Focus*
-- *Form Input*
+- *Form Input and Autofill*
 - *Use with Assistive Technology. For example:*
   - *All components should define a role and support labels / being labelled so that assistive technology can identify them*
-  - *The implications shadow dom might have on how roles and attributes are presented in the accessibility tree.*
-  - *Components which delegate focus require all global ARIA attributes to be enumerated.*
+  - *The implications shadow dom might have on how roles and attributes are presented in the accessibility tree*
+  - *Components which delegate focus require all global ARIA attributes to be enumerated*
 - *Behavior with browser configurations like "Prefers reduced motion"*
+
+### Mobile
+
+*Consider how the component will behave on mobile devices, including:*
+
+- *Overflow behavior when screen space is constrained*
+- *Interactions that are affected by touch rather than a pointer device (e.g. hover)*
+- *Integration with common mobile experiences like native pickers, on-screen keyboards, and dictation*
 
 ### Globalization
 

@@ -1,10 +1,11 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import { Orientation } from '@ni/nimble-components/dist/esm/radio-group';
+import { Orientation, radioGroupTag } from '@ni/nimble-components/dist/esm/radio-group';
 import type { RadioGroup } from '@ni/nimble-components/dist/esm/radio-group';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export { Orientation };
 export type { RadioGroup };
+export { radioGroupTag };
 
 /**
  * Directive to provide Angular integration for the radio group.

@@ -1,7 +1,7 @@
 ---
 name: 🧑‍🎨 Visual Design (ViD) User story
 about: (DEV TEAM ONLY) A small chunk of work to be done by Visual Designer
-title: '(Fully descriptive title)'
+title: 'nimble-{name} visual design request'
 labels: 'ViD,triage'
 ---
 
@@ -12,7 +12,7 @@ labels: 'ViD,triage'
 <!-- A short description of the request and requester. E.g. Who is the client and how do they expect to use the component? -->
 <!-- Link to Interaction Design spec -->
 
-## Core Requirements
+## 🎯 Core Requirements
 
 <!-- Outline the essential requirements of the component visual design. What states, variations, or other constraints are required? E.g. For a date picker… 
 
@@ -21,7 +21,7 @@ labels: 'ViD,triage'
 - Reuse the existing calendar icon
 - … -->
 
-## Non-requirements
+## 🍆 Non-requirements
 
 <!-- What ideas are out of scope for this component? E.g. For a date picker… 
 
@@ -29,7 +29,7 @@ labels: 'ViD,triage'
 - … -->
 
 
-## Acceptance Criteria
+## 🥅 Acceptance Criteria
 
 - [ ] Visual Design Spec submitted (link)
 - [ ] Visual Design Spec reviewed by design team

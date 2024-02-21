@@ -1,8 +1,7 @@
 import { Component, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { waitTask } from '../../../async-test-utilities';
 import { NimbleTabsModule } from '../nimble-tabs.module';
-import { processUpdates } from '../../../testing/async-helpers';
+import { processUpdates, waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { Tabs } from '../nimble-tabs.directive';
 import type { Tab } from '../../tab/nimble-tab.directive';
 
@@ -44,7 +43,7 @@ describe('Nimble tabs', () => {
         tabs = testHostComponent.tabs.nativeElement;
         fixture.detectChanges();
         // wait for tabs's 'tabs' and 'tabpanels' properties to be updated from slotted content
-        await waitTask();
+        await waitForUpdatesAsync();
     });
 
     afterEach(() => {

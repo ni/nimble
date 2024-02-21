@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { TextArea } from '@ni/nimble-components/dist/esm/text-area';
+import { type TextArea, textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
 import { TextAreaAppearance, TextAreaResize } from '@ni/nimble-components/dist/esm/text-area/types';
-import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { TextArea };
+export { textAreaTag };
 export { TextAreaAppearance, TextAreaResize };
 
 /**
@@ -27,7 +28,6 @@ export class NimbleTextAreaDirective {
 
     // readOnly property maps to the readonly attribute
     // See: https://github.com/microsoft/fast/blob/46bb6d9aab2c37105f4434db3795e176c2354a4f/packages/web-components/fast-foundation/src/text-area/text-area.ts#L22
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('readonly') public set readOnly(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'readOnly', toBooleanProperty(value));
     }
@@ -60,8 +60,6 @@ export class NimbleTextAreaDirective {
         return this.elementRef.nativeElement.errorVisible;
     }
 
-    // errorVisible property maps to the error-visible attribute
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
     }
@@ -70,8 +68,6 @@ export class NimbleTextAreaDirective {
         return this.elementRef.nativeElement.errorText;
     }
 
-    // errorText property maps to the error-text attribute
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('error-text') public set errorText(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
     }
@@ -90,7 +86,6 @@ export class NimbleTextAreaDirective {
 
     // formId property maps to the form attribute
     // See: https://github.com/microsoft/fast/blob/46bb6d9aab2c37105f4434db3795e176c2354a4f/packages/web-components/fast-foundation/src/text-area/text-area.ts#L63
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('form') public set formId(value: string) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'formId', value);
     }

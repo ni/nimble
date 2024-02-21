@@ -1,7 +1,8 @@
 import { Directive } from '@angular/core';
-import type { TabsToolbar } from '@ni/nimble-components/dist/esm/tabs-toolbar';
+import { type TabsToolbar, tabsToolbarTag } from '@ni/nimble-components/dist/esm/tabs-toolbar';
 
 export type { TabsToolbar };
+export { tabsToolbarTag };
 
 /**
  * Directive to provide Angular integration for the tabs toolbar.

@@ -1,0 +1,37 @@
+import {
+    Controls,
+    Canvas,
+    Meta,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import TargetDocs from '../../patterns/anchor/tests/target-docs.mdx';
+import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
+import * as anchorButtonStories from './anchor-button.stories';
+
+<Meta of={anchorButtonStories} />
+<Title of={anchorButtonStories} />
+
+An anchor button is a component with the visual appearance of a button, but it navigates like an anchor/link when pressed.
+
+<Canvas of={anchorButtonStories.outlineAnchorButton} />
+<Controls of={anchorButtonStories.outlineAnchorButton} />
+
+{/* ## Appearances */}
+
+{/* ## Appearance Variants */}
+
+{/* ## Usage */}
+
+{/* ## Examples */}
+
+## Target Configuration
+
+<TargetDocs />
+
+## Accessibility
+
+<ContentHiddenDocs buttonElement="nimble-anchor-button" />
+
+{/* ## Resources */}

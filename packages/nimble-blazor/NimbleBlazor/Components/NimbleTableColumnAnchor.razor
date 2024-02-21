@@ -4,7 +4,6 @@
 <nimble-table-column-anchor
     label-field-name="@LabelFieldName"
     href-field-name="@HrefFieldName"
-    placeholder="@Placeholder"
     appearance="@Appearance.ToAttributeValue()"
     underline-hidden="@UnderlineHidden"
     hreflang="@HrefLang"
@@ -24,6 +23,7 @@
     sort-index="@SortIndex"
     group-index="@GroupIndex"
     grouping-disabled="@GroupingDisabled"
+    @attributes="AdditionalAttributes"
 >
     @ChildContent
 </nimble-table-column-anchor>

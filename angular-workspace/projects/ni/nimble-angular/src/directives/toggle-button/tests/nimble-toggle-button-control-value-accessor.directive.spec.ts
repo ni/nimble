@@ -12,7 +12,7 @@ function toggleButtonState(button: ToggleButton): void {
 describe('Nimble toggle button control value accessor', () => {
     @Component({
         template: `
-            <nimble-toggle-button #toggleButton [(ngModel)]="value" [disabled]="fieldDisabled"></nimble-toggle-button>
+            <nimble-toggle-button #toggleButton [(ngModel)]="value" (ngModelChange)="onModelValueChange($event)" [disabled]="fieldDisabled"></nimble-toggle-button>
          `
     })
     class TestHostComponent {
@@ -21,6 +21,8 @@ describe('Nimble toggle button control value accessor', () => {
         public readonly initialValue = true;
         public value = this.initialValue;
         public fieldDisabled = false;
+
+        public onModelValueChange(_value: boolean): void {}
     }
 
     let toggleButton: ToggleButton;
@@ -76,4 +78,11 @@ describe('Nimble toggle button control value accessor', () => {
         expect(toggleButton.getAttribute('disabled')).toBe('');
         expect(toggleButton.disabled).toBe(true);
     }));
+
+    it('fires ngModelChange one time with expected value', () => {
+        const ngModelChangeSpy = spyOn(testHostComponent, 'onModelValueChange');
+        toggleButtonState(toggleButton);
+        fixture.detectChanges();
+        expect(ngModelChangeSpy).toHaveBeenCalledOnceWith(false);
+    });
 });

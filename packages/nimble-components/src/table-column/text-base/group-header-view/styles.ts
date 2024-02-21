@@ -1,9 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import {
-    bodyFont,
-    bodyFontColor,
-    controlLabelFontColor
-} from '../../../theme-provider/design-tokens';
+import { bodyFont, bodyFontColor } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
     span {
@@ -12,9 +8,5 @@ export const styles = css`
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-    }
-
-    .placeholder {
-        color: ${controlLabelFontColor};
     }
 `;

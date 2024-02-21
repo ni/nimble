@@ -14,7 +14,8 @@ import {
     bodyFont,
     controlLabelFontColor,
     controlLabelDisabledFontColor,
-    standardPadding
+    mediumPadding,
+    iconColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
@@ -62,7 +63,7 @@ export const styles = css`
         align-items: center;
         justify-content: center;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
-        gap: calc(${standardPadding} / 2);
+        gap: ${mediumPadding};
         padding: ${borderWidth};
     }
 
@@ -117,6 +118,7 @@ export const styles = css`
 
     slot[name='start']::slotted(*) {
         flex: none;
+        ${iconColor.cssCustomProperty}: currentcolor;
     }
 
     .control {

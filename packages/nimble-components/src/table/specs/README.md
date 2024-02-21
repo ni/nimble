@@ -107,6 +107,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   [TableColumnText](table-column-specs/table-column-text-field.md)
         -   [Formatted Text Columns](table-column-specs/table-column-formatted-text.md)
         -   [TableColumnAnchor](table-column-specs/table-column-anchor-hld.md)
+        -   [TableColumnMapping](table-column-specs/table-column-mapping.md)
 -   Headers
     -   Define the anatomy of headers in the table DOM
         -   What is the component to use for interaction? Outline Button? Ghost button?
@@ -267,7 +268,7 @@ Placeholder
 
 ### Accessibility
 
-The `nimble-table` should align either to the W3C [grid interaction model](https://w3c.github.io/aria-practices/#grid) or the [table interaction model](https://w3c.github.io/aria-practices/#table) (TBD).
+The `nimble-table` should align either to the W3C [grid interaction model](https://www.w3.org/WAI/ARIA/apg/patterns/grid/) or the [table interaction model](https://www.w3.org/WAI/ARIA/apg/patterns/table/) (TBD).
 
 ### Globalization
 

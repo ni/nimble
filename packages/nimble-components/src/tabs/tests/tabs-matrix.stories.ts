@@ -1,10 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
+import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
-import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
@@ -39,6 +37,7 @@ const component = (
         ${when(() => toolbar, html`
             <${tabsToolbarTag}>
                 <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
+                <${buttonTag} appearance="ghost" style="margin-left: auto;">Right-aligned Button</${buttonTag}>
             </${tabsToolbarTag}>
         `)}
         <${tabTag}>Tab One</${tabTag}>

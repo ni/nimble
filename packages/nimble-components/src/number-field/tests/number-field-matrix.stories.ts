@@ -1,11 +1,9 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
+import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
-import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
@@ -39,8 +37,15 @@ const appearanceStates = Object.entries(NumberFieldAppearance).map(
 );
 type AppearanceState = (typeof appearanceStates)[number];
 
+const hideStepStates = [
+    ['', false],
+    ['Hide Step', true]
+] as const;
+type HideStepState = (typeof hideStepStates)[number];
+
 const component = (
     [disabledName, disabled]: DisabledState,
+    [hideStepName, hideStep]: HideStepState,
     [valueName, valueValue, placeholderValue]: ValueState,
     [errorName, errorVisible, errorText]: ErrorState,
     [appearanceName, appearance]: AppearanceState
@@ -51,18 +56,20 @@ const component = (
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         appearance="${() => appearance}"
+        ?hide-step="${() => hideStep}"
         ?disabled="${() => disabled}"
         error-text="${() => errorText}"
         ?error-visible="${() => errorVisible}"
     >
         ${() => errorName} ${() => appearanceName} ${() => valueName}
-        ${() => disabledName}
+        ${() => hideStepName} ${() => disabledName}
     </${numberFieldTag}>
 `;
 
 export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
+        hideStepStates,
         valueStates,
         errorStates,
         appearanceStates

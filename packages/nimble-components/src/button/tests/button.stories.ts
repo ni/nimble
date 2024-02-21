@@ -1,9 +1,10 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
+    appearanceDescription,
     appearanceVariantDescription,
     contentHiddenDescription,
     endIconDescription,
@@ -23,22 +24,10 @@ interface ButtonArgs {
     endIcon: boolean;
 }
 
-const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#button) - A button is a widget that
-enables users to trigger an action or event, such as submitting a form, opening a dialog, canceling an
-action, or performing a delete operation. A common convention for informing users that a button launches
-a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".
-
-If you want a button that triggers navigation to a URL, use the \`nimble-anchor-button\` instead.`;
-
 const metadata: Meta<ButtonArgs> = {
-    title: 'Button',
-    decorators: [withActions],
+    title: 'Components/Button',
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
         actions: {
             handles: ['click']
         }
@@ -46,7 +35,8 @@ const metadata: Meta<ButtonArgs> = {
     argTypes: {
         appearance: {
             options: Object.keys(ButtonAppearance),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: appearanceDescription
         },
         appearanceVariant: {
             name: 'appearance-variant',

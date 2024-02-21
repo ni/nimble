@@ -1,5 +1,6 @@
 import { Directive, Input } from '@angular/core';
-import { RouterLinkWithHref } from '@angular/router';
+import type { AnchorMenuItem } from './nimble-anchor-menu-item.directive';
+import { DisableableRouterLinkWithHrefDirective } from '../anchor-base/disableable-router-link-with-href.directive';
 
 /**
  * Selectors used for built-in Angular RouterLink directives:
@@ -15,7 +16,7 @@ import { RouterLinkWithHref } from '@angular/router';
  * won't also be an active RouterLink directive incorrectly handling navigation.
  */
 @Directive({ selector: 'nimble-anchor-menu-item[nimbleRouterLink]' })
-export class NimbleAnchorMenuItemRouterLinkWithHrefDirective extends RouterLinkWithHref {
+export class NimbleAnchorMenuItemRouterLinkWithHrefDirective extends DisableableRouterLinkWithHrefDirective<AnchorMenuItem> {
     @Input()
     public set nimbleRouterLink(commands: never[] | string | null | undefined) {
         this.routerLink = commands;

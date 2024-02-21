@@ -1,8 +1,9 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Dialog, UserDismissed } from '@ni/nimble-components/dist/esm/dialog';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+import { type Dialog, type UserDismissed, dialogTag } from '@ni/nimble-components/dist/esm/dialog';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Dialog };
+export { dialogTag };
 
 /**
  * Directive to provide Angular integration for the dialog element.
@@ -22,8 +23,6 @@ export class NimbleDialogDirective<CloseReason = void> {
         return this.elementRef.nativeElement.preventDismiss;
     }
 
-    // preventDismiss property intentionally maps to the prevent-dismiss attribute
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('prevent-dismiss') public set preventDismiss(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'preventDismiss', toBooleanProperty(value));
     }
@@ -32,8 +31,6 @@ export class NimbleDialogDirective<CloseReason = void> {
         return this.elementRef.nativeElement.headerHidden;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('header-hidden') public set headerHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'headerHidden', toBooleanProperty(value));
     }
@@ -42,8 +39,6 @@ export class NimbleDialogDirective<CloseReason = void> {
         return this.elementRef.nativeElement.footerHidden;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('footer-hidden') public set footerHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'footerHidden', toBooleanProperty(value));
     }

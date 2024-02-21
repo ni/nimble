@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { BooleanValueOrAttribute, NumberValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTextFieldModule } from '../nimble-text-field.module';
 import { NimbleTextFieldDirective, TextField, TextFieldAppearance, TextFieldType } from '../nimble-text-field.directive';
-import type { BooleanValueOrAttribute, NumberValueOrAttribute } from '../../utilities/template-value-helpers';
 
 describe('Nimble text field', () => {
     describe('module', () => {

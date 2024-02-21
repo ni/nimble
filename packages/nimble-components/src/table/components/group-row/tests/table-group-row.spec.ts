@@ -183,4 +183,18 @@ describe('TableGroupRow', () => {
 
         expect(groupExpandListener.spy).not.toHaveBeenCalled();
     });
+
+    it('has aria-expanded attribute set to "true" when it is expanded', async () => {
+        element.expanded = true;
+        await connect();
+
+        expect(element.getAttribute('aria-expanded')).toBe('true');
+    });
+
+    it('has aria-expanded attribute set to "false" when it is not expanded', async () => {
+        element.expanded = false;
+        await connect();
+
+        expect(element.getAttribute('aria-expanded')).toBe('false');
+    });
 });

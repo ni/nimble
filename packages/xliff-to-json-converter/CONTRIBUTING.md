@@ -1,7 +1,7 @@
 # Contributing to XLIFF to JSON Converter for Angular
 
 ## Requirements
-- [`node.js` LTS release](https://nodejs.org/en/download/) (16.14.2 at the moment, already includes `npm`)
+- [`node.js` LTS release](https://nodejs.org/en/download/)
 
 ## Workflows
 

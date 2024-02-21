@@ -1,6 +1,11 @@
-import { TableRecord, TableRowSelectionMode, TableValidity } from '../../types';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import {
+    TableRecord,
+    TableRecordDelayedHierarchyState,
+    TableRowSelectionMode,
+    TableSetRecordHierarchyOptions
+} from '../../types';
 import { TableValidator } from '../table-validator';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import {
     TableColumnValidationTest,
     tableColumnValidationTestTag
@@ -136,6 +141,34 @@ describe('TableValidator', () => {
             );
         });
 
+        it('parentId being set when id is not is invalid', () => {
+            const isValid = validator.validateIdFieldConfiguration(
+                TableRowSelectionMode.none,
+                undefined,
+                'parentId'
+            );
+            expect(isValid).toBeFalse();
+            expect(validator.isValid()).toBeFalse();
+            expect(getInvalidKeys(validator)).toEqual(
+                jasmine.arrayWithExactContents(['idFieldNameNotConfigured'])
+            );
+        });
+
+        it('setting data with IDs and parent IDs after invalid configuration results in valid configuration', () => {
+            let isValid = validator.validateIdFieldConfiguration(
+                TableRowSelectionMode.none,
+                undefined,
+                'parentId'
+            );
+            expect(isValid).toBeFalse();
+            isValid = validator.validateIdFieldConfiguration(
+                TableRowSelectionMode.none,
+                'id',
+                'parentId'
+            );
+            expect(isValid).toBeTrue();
+        });
+
         it('multiple errors are reported during validation', () => {
             const data = [
                 { stringField: 'value-1', numberField: 10 },
@@ -211,8 +244,10 @@ describe('TableValidator', () => {
 
         it('ID field name can be an empty string', () => {
             const data = [
+                // prettier-ignore
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 { stringField: 'value-1', numberField: 10, '': 'empty-1' },
+                // prettier-ignore
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 { stringField: 'value-2', numberField: 11, '': 'empty-2' }
             ];
@@ -226,8 +261,10 @@ describe('TableValidator', () => {
 
         it('validation occurs when ID field name is an empty string', () => {
             const data = [
+                // prettier-ignore
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 { stringField: 'value-1', numberField: 10, '': 'empty-1' },
+                // prettier-ignore
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 { stringField: 'value-2', numberField: 11, '': 'empty-1' }
             ];
@@ -243,11 +280,7 @@ describe('TableValidator', () => {
     });
 
     describe('column config validation', () => {
-        const columnConfigurations: {
-            columns: TableColumnValidationTest[],
-            isValid: boolean,
-            name: string
-        }[] = [
+        const columnConfigurations = [
             {
                 columns: [
                     Object.assign(
@@ -276,28 +309,19 @@ describe('TableValidator', () => {
                 isValid: true,
                 name: 'is valid when all columns return true from checkValidity'
             }
-        ];
+        ] as const;
 
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const columnConfiguration of columnConfigurations) {
-            const specType = getSpecTypeByNamedList(
-                columnConfiguration,
-                focused,
-                disabled
-            );
-            specType(columnConfiguration.name, () => {
+        parameterizeSpec(columnConfigurations, (spec, name, value) => {
+            spec(name, () => {
                 const tableValidator = new TableValidator();
                 const isValid = tableValidator.validateColumnConfigurations(
-                    columnConfiguration.columns
+                    value.columns
                 );
 
-                expect(isValid).toBe(columnConfiguration.isValid);
-                expect(tableValidator.isValid()).toBe(
-                    columnConfiguration.isValid
-                );
+                expect(isValid).toBe(value.isValid);
+                expect(tableValidator.isValid()).toBe(value.isValid);
             });
-        }
+        });
 
         it('updates when column validity changes to invalid', () => {
             const tableValidator = new TableValidator();
@@ -331,12 +355,7 @@ describe('TableValidator', () => {
     });
 
     describe('column ID validation', () => {
-        const columnConfigurations: {
-            columnIds: (string | undefined)[],
-            isValid: boolean,
-            invalidKeys: (keyof TableValidity)[],
-            name: string
-        }[] = [
+        const columnConfigurations = [
             {
                 columnIds: [undefined, ''],
                 isValid: true,
@@ -373,42 +392,28 @@ describe('TableValidator', () => {
                 invalidKeys: ['missingColumnId'],
                 name: 'does not allow empty string as a defined column ID'
             }
-        ];
+        ] as const;
 
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const columnConfiguration of columnConfigurations) {
-            const specType = getSpecTypeByNamedList(
-                columnConfiguration,
-                focused,
-                disabled
-            );
-            specType(columnConfiguration.name, () => {
+        parameterizeSpec(columnConfigurations, (spec, name, value) => {
+            spec(name, () => {
                 const tableValidator = new TableValidator();
                 const isValid = tableValidator.validateColumnIds(
-                    columnConfiguration.columnIds
+                    value.columnIds
                 );
 
-                expect(isValid).toBe(columnConfiguration.isValid);
+                expect(isValid).toBe(value.isValid);
                 expect(tableValidator.isValid()).toBe(
-                    columnConfiguration.invalidKeys.length === 0
+                    value.invalidKeys.length === 0
                 );
                 expect(getInvalidKeys(tableValidator)).toEqual(
-                    jasmine.arrayWithExactContents(
-                        columnConfiguration.invalidKeys
-                    )
+                    jasmine.arrayWithExactContents(value.invalidKeys)
                 );
             });
-        }
+        });
     });
 
     describe('column sort index validation', () => {
-        const columnConfigurations: {
-            sortIndices: number[],
-            isValid: boolean,
-            invalidKeys: (keyof TableValidity)[],
-            name: string
-        }[] = [
+        const columnConfigurations = [
             {
                 sortIndices: [1, 2, 3],
                 isValid: true,
@@ -469,42 +474,28 @@ describe('TableValidator', () => {
                 invalidKeys: [],
                 name: 'special numeric values are valid'
             }
-        ];
+        ] as const;
 
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const columnConfiguration of columnConfigurations) {
-            const specType = getSpecTypeByNamedList(
-                columnConfiguration,
-                focused,
-                disabled
-            );
-            specType(columnConfiguration.name, () => {
+        parameterizeSpec(columnConfigurations, (spec, name, value) => {
+            spec(name, () => {
                 const tableValidator = new TableValidator();
                 const isValid = tableValidator.validateColumnSortIndices(
-                    columnConfiguration.sortIndices
+                    value.sortIndices
                 );
 
-                expect(isValid).toBe(columnConfiguration.isValid);
+                expect(isValid).toBe(value.isValid);
                 expect(tableValidator.isValid()).toBe(
-                    columnConfiguration.invalidKeys.length === 0
+                    value.invalidKeys.length === 0
                 );
                 expect(getInvalidKeys(tableValidator)).toEqual(
-                    jasmine.arrayWithExactContents(
-                        columnConfiguration.invalidKeys
-                    )
+                    jasmine.arrayWithExactContents(value.invalidKeys)
                 );
             });
-        }
+        });
     });
 
     describe('column group index validation', () => {
-        const columnConfigurations: {
-            groupIndices: number[],
-            isValid: boolean,
-            invalidKeys: (keyof TableValidity)[],
-            name: string
-        }[] = [
+        const columnConfigurations = [
             {
                 groupIndices: [1, 2, 3],
                 isValid: true,
@@ -573,43 +564,28 @@ describe('TableValidator', () => {
                 invalidKeys: [],
                 name: 'special numeric values are valid'
             }
-        ];
+        ] as const;
 
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const columnConfiguration of columnConfigurations) {
-            const specType = getSpecTypeByNamedList(
-                columnConfiguration,
-                focused,
-                disabled
-            );
-            specType(columnConfiguration.name, () => {
+        parameterizeSpec(columnConfigurations, (spec, name, value) => {
+            spec(name, () => {
                 const tableValidator = new TableValidator();
                 const isValid = tableValidator.validateColumnGroupIndices(
-                    columnConfiguration.groupIndices
+                    value.groupIndices
                 );
 
-                expect(isValid).toBe(columnConfiguration.isValid);
+                expect(isValid).toBe(value.isValid);
                 expect(tableValidator.isValid()).toBe(
-                    columnConfiguration.invalidKeys.length === 0
+                    value.invalidKeys.length === 0
                 );
                 expect(getInvalidKeys(tableValidator)).toEqual(
-                    jasmine.arrayWithExactContents(
-                        columnConfiguration.invalidKeys
-                    )
+                    jasmine.arrayWithExactContents(value.invalidKeys)
                 );
             });
-        }
+        });
     });
 
     describe('row selection mode validation', () => {
-        const selectionConfigurations: {
-            selectionMode: TableRowSelectionMode,
-            idFieldName: string | undefined,
-            isValid: boolean,
-            invalidKeys: (keyof TableValidity)[],
-            name: string
-        }[] = [
+        const selectionConfigurations = [
             {
                 selectionMode: TableRowSelectionMode.none,
                 idFieldName: 'my-id',
@@ -652,34 +628,24 @@ describe('TableValidator', () => {
                 invalidKeys: ['idFieldNameNotConfigured'],
                 name: 'selection mode of "multiple" without an id field name specified is invalid'
             }
-        ];
+        ] as const;
 
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const selectionConfiguration of selectionConfigurations) {
-            const specType = getSpecTypeByNamedList(
-                selectionConfiguration,
-                focused,
-                disabled
-            );
-            specType(selectionConfiguration.name, () => {
+        parameterizeSpec(selectionConfigurations, (spec, name, value) => {
+            spec(name, () => {
                 const tableValidator = new TableValidator();
-                const isValid = tableValidator.validateSelectionMode(
-                    selectionConfiguration.selectionMode,
-                    selectionConfiguration.idFieldName
+                const isValid = tableValidator.validateIdFieldConfiguration(
+                    value.selectionMode,
+                    value.idFieldName,
+                    undefined
                 );
 
-                expect(isValid).toBe(selectionConfiguration.isValid);
-                expect(tableValidator.isValid()).toBe(
-                    selectionConfiguration.isValid
-                );
+                expect(isValid).toBe(value.isValid);
+                expect(tableValidator.isValid()).toBe(value.isValid);
                 expect(getInvalidKeys(tableValidator)).toEqual(
-                    jasmine.arrayWithExactContents(
-                        selectionConfiguration.invalidKeys
-                    )
+                    jasmine.arrayWithExactContents(value.invalidKeys)
                 );
             });
-        }
+        });
     });
 
     describe('getPresentRecordIds', () => {
@@ -747,6 +713,99 @@ describe('TableValidator', () => {
             const presentRecordIds = validator.getPresentRecordIds([
                 'value-2',
                 'value-1'
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([])
+            );
+        });
+    });
+
+    describe('getOptionsWithPresentIds', () => {
+        const value1Options: TableSetRecordHierarchyOptions = {
+            recordId: 'value-1',
+            options: {
+                delayedHierarchyState: TableRecordDelayedHierarchyState.none
+            }
+        } as const;
+        const value2Options: TableSetRecordHierarchyOptions = {
+            recordId: 'value-2',
+            options: {
+                delayedHierarchyState:
+                    TableRecordDelayedHierarchyState.canLoadChildren
+            }
+        } as const;
+        const value3Options: TableSetRecordHierarchyOptions = {
+            recordId: 'value-3',
+            options: {
+                delayedHierarchyState:
+                    TableRecordDelayedHierarchyState.canLoadChildren
+            }
+        } as const;
+
+        it('filters out record IDs that are not in the data set', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, 'stringField');
+
+            const presentRecordIds = validator.getOptionsWithPresentIds([
+                value2Options,
+                value3Options
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([value2Options])
+            );
+        });
+
+        it('returns all record IDs if they are all in the data set', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, 'stringField');
+
+            const presentRecordIds = validator.getOptionsWithPresentIds([
+                value2Options,
+                value1Options
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([value1Options, value2Options])
+            );
+        });
+
+        it('filters out records that previously were in the data set but no longer are', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, 'stringField');
+
+            const newData = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-3', numberField: 11 }
+            ];
+            validator.validateRecordIds(newData, 'stringField');
+
+            const presentRecordIds = validator.getOptionsWithPresentIds([
+                value2Options,
+                value1Options
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([value1Options])
+            );
+        });
+
+        it('filters out all records when there is no id field name', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, undefined);
+
+            const presentRecordIds = validator.getOptionsWithPresentIds([
+                value2Options,
+                value1Options
             ]);
             expect(presentRecordIds).toEqual(
                 jasmine.arrayWithExactContents([])

@@ -2,18 +2,27 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { themeProviderTag } from '../../theme-provider';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import type { Theme } from '../../theme-provider/types';
-import { createMatrix } from './matrix';
 import {
     BackgroundState,
     backgroundStates,
     defaultBackgroundState
 } from './states';
 
+export const fastParameters = () => ({
+    a11y: { disable: true },
+    docs: {
+        source: {
+            code: null
+        },
+        transformSource: (source: string): string => source
+    }
+} as const);
+
 /**
  * Renders a ViewTemplate as elements in a DocumentFragment.
  * Bindings, such as event binding, will be active.
  */
-const renderViewTemplate = <TSource>(
+export const renderViewTemplate = <TSource>(
     viewTemplate: ViewTemplate<TSource>,
     source: TSource
 ): DocumentFragment => {
@@ -108,33 +117,6 @@ export const createFixedThemeStory = <TSource>(
     };
 };
 
-/**
- *  Renders a FAST `html` template for each theme.
- */
-export const createMatrixThemeStory = <TSource>(
-    viewTemplate: ViewTemplate<TSource>
-): ((source: TSource) => Element) => {
-    return (source: TSource): Element => {
-        const matrixTemplate = createMatrix(
-            ({ theme, value }: BackgroundState) => html`
-                <${themeProviderTag}
-                    theme="${theme}">
-                    <div style="background-color: ${value}; padding:20px;">
-                        ${viewTemplate}
-                    </div>
-                </${themeProviderTag}>
-            `,
-            [backgroundStates]
-        );
-        const wrappedMatrixTemplate = html<TSource>`
-            <div class="code-hide-top-container">${matrixTemplate}</div>
-        `;
-        const fragment = renderViewTemplate(wrappedMatrixTemplate, source);
-        const content = fragment.firstElementChild!;
-        return content;
-    };
-};
-
 export const overrideWarning = (
     propertySummaryName: string,
     howToOverride: string
@@ -146,14 +128,36 @@ Overrides of properties are not recommended and are not theme-aware by default. 
 ${howToOverride}
 </details>`;
 
-export const usageWarning = (componentName: string): string => `
+export interface IncubatingWarningConfig {
+    componentName: string;
+    statusLink: string;
+}
+
+export const incubatingWarning = (config: IncubatingWarningConfig): string => `
 <style class="code-hide">
-#usage-warning {
+#incubating-warning {
     color: red;
     font: var(${bodyFont.cssCustomProperty});
+    padding-bottom: 16px;
 }
 </style>
-<div id="usage-warning" class="code-hide">
-WARNING - The ${componentName} is still in development and considered
-experimental. It is not recommended for application use.
+<div id="incubating-warning" class="code-hide">
+WARNING - The ${config.componentName} is still incubating. It is not recommended for application use. 
+See the <a href="${config.statusLink}">incubating component status</a>.
 </div>`;
+
+// On the Docs page, there is a div with a scale(1) transform that causes the dropdown to be
+// confined to the div. We remove the transform to allow the dropdown to escape the div, but
+// that also breaks zooming behavior, so we remove the zoom buttons on the docs page.
+export const disableStorybookZoomTransform = `
+<style class="code-hide">
+    [scale] {
+        transform: none !important;
+    }
+    button[title="Zoom in"],
+    button[title="Zoom out"],
+    button[title="Reset zoom"] {
+        display: none;
+    }
+</style>
+`;

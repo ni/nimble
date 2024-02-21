@@ -13,12 +13,6 @@ public partial class NimbleTableColumnText : NimbleTableColumn, IFractionalWidth
     public string FieldName { get; set; } = null!;
 
     /// <summary>
-    /// The text to show when no value is available for a particular cell in the column of a <see cref="NimbleTable{TData}"/>
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
-
-    /// <summary>
     /// The fractional/proportional width to use for this column
     /// </summary>
     [Parameter]

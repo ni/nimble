@@ -1,0 +1,38 @@
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import * as spinnerStories from './spinner.stories';
+import { spinnerTag } from '..';
+
+<Meta of={spinnerStories} />
+<Title of={spinnerStories} />
+
+    The <Tag name={spinnerTag}/> is an animating indicator that can be placed in a
+    particular region of a page to represent loading progress, or an
+    ongoing operation, of an indeterminate / unknown duration.
+
+    It has 3 sizes (64px, 32px, and 16px) and 2 appearance types (default and
+    accent).
+
+<Canvas of={spinnerStories.spinner} />
+<Controls of={spinnerStories.spinner} />
+
+## Sizing
+
+The 64px spinner is a less commonly used size reserved for large negative empty space. Only one 64px spinner should be used on a single screen at one time.
+
+The 32px spinner is a more commonly used size for negative empty space. No more than three 32px spinners should be used on a single screen at one time.
+
+The 16px spinner is the most compact option for tight spaces such as grid cells and dense UI interfaces without much negative empty space.
+
+Multiple 16px spinners can be used on a single screen at one time.
+
+## Styling / Theme
+
+Use the `default` appearance Color UI version for backgrounds with color (e.g. purple, blue). Do not use the `accent` appearance on any colored backgrounds, instead use the `default` Color UI version.
+
+See the `size` and `appearance` usage details for information on customizing the spinner size and guidance for which appearance to use.
+
+## Accessibility
+
+A low-motion/low-frame rate version of the spinner is also available. It can be activated by enabling `prefers-reduced-motion`.
+
+When using colored backgrounds, confirm with your designer that a 3:1 contrast ratio is met.

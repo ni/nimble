@@ -11,14 +11,20 @@ export interface EventCoordinatorCallbacks {
  * EventCoordinator deals with user interactions and events
  */
 export class EventCoordinator {
-    private readonly zoomHandler: ZoomHandler;
-    private readonly hoverHandler: HoverHandler;
-
+    private readonly zoomHandler;
+    private readonly hoverHandler;
     public constructor(private readonly wafermap: WaferMap) {
         this.zoomHandler = new ZoomHandler(wafermap);
         this.hoverHandler = new HoverHandler(wafermap);
+    }
 
-        this.attachEvents();
+    public attachEvents(): void {
+        this.zoomHandler.createZoomBehavior();
+        this.wafermap.addEventListener('mousemove', this.onMouseMove);
+        this.wafermap.addEventListener('mouseout', this.onMouseOut);
+        this.wafermap.canvas.addEventListener('wheel', this.onWheelMove, {
+            passive: false
+        });
     }
 
     public detachEvents(): void {
@@ -35,15 +41,7 @@ export class EventCoordinator {
         this.hoverHandler.mousemove(event);
     };
 
-    private readonly onMouseOut = (event: MouseEvent): void => {
-        this.hoverHandler.mouseout(event);
+    private readonly onMouseOut = (): void => {
+        this.hoverHandler.mouseout();
     };
-
-    private attachEvents(): void {
-        this.wafermap.addEventListener('mousemove', this.onMouseMove);
-        this.wafermap.addEventListener('mouseout', this.onMouseOut);
-        this.wafermap.canvas.addEventListener('wheel', this.onWheelMove, {
-            passive: false
-        });
-    }
 }

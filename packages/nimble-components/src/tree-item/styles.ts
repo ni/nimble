@@ -12,7 +12,9 @@ import {
     fillHoverSelectedColor,
     borderWidth,
     iconSize,
-    mediumDelay
+    mediumDelay,
+    bodyDisabledFontColor,
+    iconColor
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
 import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
@@ -33,6 +35,11 @@ export const styles = css`
         color: ${bodyFontColor};
         cursor: pointer;
         --ni-private-tree-item-nested-width: 0;
+    }
+
+    :host([disabled]) {
+        color: ${bodyDisabledFontColor};
+        cursor: default;
     }
 
     ${/* this controls the side border */ ''}
@@ -76,6 +83,10 @@ export const styles = css`
         background: ${fillHoverSelectedColor};
     }
 
+    :host([disabled]) .positioning-region:hover {
+        background-color: transparent;
+    }
+
     .positioning-region::before {
         content: '';
         display: block;
@@ -100,11 +111,6 @@ export const styles = css`
         outline: none;
     }
 
-    :host([disabled]) .content-region {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-
     .expand-collapse-button {
         background: none;
         border: none;
@@ -114,7 +120,6 @@ export const styles = css`
         padding: 0px;
         justify-content: center;
         align-items: center;
-        cursor: pointer;
         margin-left: 10px;
         position: absolute;
     }
@@ -130,7 +135,7 @@ export const styles = css`
     ${
         /* this rule keeps children without an icon text aligned with parents */ ''
     }
-    span[part="start"] {
+    [part="start"] {
         width: ${iconSize};
     }
 
@@ -139,12 +144,12 @@ export const styles = css`
     }
     .start {
         display: flex;
-        fill: currentcolor;
         margin-inline-start: ${iconSize};
         margin-inline-end: ${iconSize};
     }
 
     slot[name='start']::slotted(*) {
+        ${iconColor.cssCustomProperty}: currentcolor;
         width: ${iconSize};
         height: ${iconSize};
     }
@@ -156,11 +161,8 @@ export const styles = css`
         );
     }
 
-    ${/* the end class is applied when the corresponding slots is filled */ ''}
-    .end {
-        display: flex;
-        fill: currentcolor;
-        margin-inline-start: ${iconSize};
+    [part='end'] {
+        display: none;
     }
 
     .items {

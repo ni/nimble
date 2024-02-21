@@ -6,8 +6,12 @@ export const styles = css`
 
     :host {
         box-sizing: border-box;
-        grid-template-columns: auto auto 1fr;
+        grid-template-columns: auto 1fr;
         grid-template-rows: auto 1fr;
+    }
+
+    [part='start'] {
+        display: none;
     }
 
     .tablist {

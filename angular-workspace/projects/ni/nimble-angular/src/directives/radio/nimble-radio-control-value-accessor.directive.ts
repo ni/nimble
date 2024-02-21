@@ -1,5 +1,4 @@
 import { Directive, ElementRef, forwardRef, Injector, OnInit, Renderer2 } from '@angular/core';
-// eslint-disable-next-line camelcase
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioGroup } from '@ni/nimble-components/dist/esm/radio-group';
 import type { Radio } from '@ni/nimble-components/dist/esm/radio';

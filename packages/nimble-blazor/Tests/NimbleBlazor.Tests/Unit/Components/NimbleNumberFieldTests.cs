@@ -51,6 +51,14 @@ public class NimbleNumberFieldTests
     }
 
     [Fact]
+    public void NumberFieldHideStep_AttributeIsSet()
+    {
+        var numberField = RenderWithPropertySet(x => x.HideStep, true);
+
+        Assert.Contains("hide-step", numberField.Markup);
+    }
+
+    [Fact]
     public void NumberFieldMin_AttributeIsSet()
     {
         var numberField = RenderWithPropertySet(x => x.Min, 2.3);

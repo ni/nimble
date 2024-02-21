@@ -18,13 +18,16 @@ export abstract class TableCellView<
     extends FoundationElement
     implements TableCellState<TCellRecord, TColumnConfig> {
     @observable
-    public cellRecord!: TCellRecord;
+    public cellRecord?: TCellRecord;
 
     @observable
-    public columnConfig!: TColumnConfig;
+    public columnConfig?: TColumnConfig;
 
     @observable
     public column?: TableColumn<TColumnConfig>;
+
+    @observable
+    public recordId?: string;
 
     private delegatedEvents: readonly string[] = [];
 
@@ -47,11 +50,19 @@ export abstract class TableCellView<
         }
         this.delegatedEvents = this.column.columnInternals.delegatedEvents;
         this.delegatedEventHandler = (event: Event) => {
-            this.column?.dispatchEvent(
-                new CustomEvent<DelegatedEventEventDetails>('delegated-event', {
-                    detail: { originalEvent: event }
-                })
-            );
+            if (this.recordId) {
+                this.column?.dispatchEvent(
+                    new CustomEvent<DelegatedEventEventDetails>(
+                        'delegated-event',
+                        {
+                            detail: {
+                                originalEvent: event,
+                                recordId: this.recordId
+                            }
+                        }
+                    )
+                );
+            }
         };
 
         for (const delegatedEvent of this.delegatedEvents) {

@@ -1,10 +1,11 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Combobox } from '@ni/nimble-components/dist/esm/combobox';
+import { type Combobox, comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { ComboboxAutocomplete } from '@ni/nimble-components/dist/esm/combobox/types';
 import type { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Combobox };
+export { comboboxTag };
 export { ComboboxAutocomplete };
 
 /**
@@ -50,8 +51,6 @@ export class NimbleComboboxDirective {
         return this.elementRef.nativeElement.errorText;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('error-text') public set errorText(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
     }
@@ -60,10 +59,20 @@ export class NimbleComboboxDirective {
         return this.elementRef.nativeElement.errorVisible;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
+    }
+
+    public get value(): string {
+        return this.elementRef.nativeElement.value;
+    }
+
+    public get open(): boolean {
+        return this.elementRef.nativeElement.open;
+    }
+
+    @Input() public set open(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'open', toBooleanProperty(value));
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Combobox>) {}

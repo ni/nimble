@@ -69,4 +69,4 @@ const nimbleButton = Button.compose<ButtonOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());
-export const buttonTag = DesignSystem.tagFor(Button);
+export const buttonTag = 'nimble-button';

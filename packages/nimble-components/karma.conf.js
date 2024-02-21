@@ -28,7 +28,8 @@ const commonChromeFlags = [
     '--disable-extensions',
     '--disable-infobars',
     '--disable-translate',
-    '--force-prefers-reduced-motion'
+    '--force-prefers-reduced-motion',
+    '--lang=en-US'
 ];
 
 // Create a webpack environment plugin to use while running tests so that
@@ -141,6 +142,9 @@ module.exports = config => {
             }
         },
         client: {
+            jasmine: {
+                stopSpecOnExpectationFailure: false
+            },
             captureConsole: true
         },
         logLevel: config.LOG_ERROR // to disable the WARN 404 for image requests

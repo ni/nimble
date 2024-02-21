@@ -29,6 +29,12 @@ export class TableCell<
     @observable
     public column?: TableColumn;
 
+    @observable
+    public recordId?: string;
+
+    @attr({ attribute: 'column-id' })
+    public columnId?: string;
+
     @attr({ attribute: 'has-action-menu', mode: 'boolean' })
     public hasActionMenu = false;
 
@@ -67,4 +73,4 @@ const nimbleTableCell = TableCell.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableCell());
-export const tableCellTag = DesignSystem.tagFor(TableCell);
+export const tableCellTag = 'nimble-table-cell';

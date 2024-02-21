@@ -1,13 +1,18 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { BannerSeverity } from '../types';
-import { bannerGapSize } from '../../theme-provider/design-tokens';
 import { bannerTag } from '..';
 import { iconKeyTag } from '../../icons/key';
 import { buttonTag } from '../../button';
 import { anchorTag } from '../../anchor';
+import { labelProviderCoreTag } from '../../label-provider/core';
+import {
+    LabelUserArgs,
+    addLabelUseMetadata
+} from '../../label-provider/base/tests/label-user-stories-utils';
+import { popupDismissLabel } from '../../label-provider/core/label-tokens';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ActionType = {
@@ -20,41 +25,27 @@ const ActionType = {
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 type ActionType = (typeof ActionType)[keyof typeof ActionType];
 
-interface BannerArgs {
+interface BannerArgs extends LabelUserArgs {
     open: boolean;
     title: string;
     text: string;
-    severity: BannerSeverity;
+    severity: keyof typeof BannerSeverity;
     action: ActionType;
     preventDismiss: boolean;
     titleHidden: boolean;
-    dismissButtonLabel: string;
     toggle: unknown;
 }
 
-const overviewText = `The banner is a component used to display a persistent notification to a user.
-
-Banners span the full width of their parent element, and that parent should span the full width of the page/panel.
-Banner messages should be limited to approximately three lines of text under normal display size at the intended
-location. Multiple banners may be stacked vertically in order of age, with the newest at the top. Stacked banners
-should be spaced apart using the \`${bannerGapSize.cssCustomProperty}\` design token.
-`;
-
 const metadata: Meta<BannerArgs> = {
-    title: 'Banner',
-    tags: ['autodocs'],
-    decorators: [withActions],
+    title: 'Components/Banner',
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
         actions: {
             handles: ['toggle']
         }
     }
 };
+addLabelUseMetadata(metadata, labelProviderCoreTag, popupDismissLabel);
 
 export default metadata;
 
@@ -63,10 +54,9 @@ export const _banner: StoryObj<BannerArgs> = {
     render: createUserSelectedThemeStory(html`
         <${bannerTag}
             ?open="${x => x.open}"
-            severity="${x => x.severity}"
+            severity="${x => BannerSeverity[x.severity]}"
             ?title-hidden="${x => x.titleHidden}"
             ?prevent-dismiss="${x => x.preventDismiss}"
-            dismiss-button-label="Close"
         >
             <span slot="title">${x => x.title}</span>
             ${x => x.text}
@@ -118,23 +108,20 @@ export const _banner: StoryObj<BannerArgs> = {
             name: 'title-hidden',
             description: 'If set, hides the provided title.'
         },
-        dismissButtonLabel: {
-            name: 'dismiss-button-label',
-            description:
-                'Set to a localized label (e.g. `"Close"`) for the dismiss button. This provides an accessible name for assistive technologies.'
-        },
         toggle: {
             description:
-                'Event emitted by the banner when the `open` state changes. The event details include the booleans `oldState` and `newState`.'
+                'Event emitted by the banner when the `open` state changes. The event details include the booleans `oldState` and `newState`.',
+            control: { type: 'none' }
         }
     },
     args: {
         open: true,
         title: 'Title text',
         text: 'This is the body text of the banner.',
-        severity: BannerSeverity.error,
+        severity: 'error',
         action: 'none',
         preventDismiss: false,
-        titleHidden: false
+        titleHidden: false,
+        toggle: undefined
     }
 };

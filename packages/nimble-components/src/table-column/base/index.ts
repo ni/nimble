@@ -1,9 +1,13 @@
-import { attr, nullableNumberConverter } from '@microsoft/fast-element';
+import {
+    attr,
+    nullableNumberConverter,
+    observable
+} from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { TableColumnSortDirection } from '../../table/types';
 import {
-    ColumnInternalsOptions,
-    ColumnInternals
+    ColumnInternals,
+    ColumnInternalsOptions
 } from './models/column-internals';
 import type { TableColumnValidity } from './types';
 
@@ -13,6 +17,13 @@ import type { TableColumnValidity } from './types';
 export abstract class TableColumn<
     TColumnConfig = unknown
 > extends FoundationElement {
+    /**
+     * @internal
+     *
+     * Column properties configurable by plugin authors
+     */
+    public readonly columnInternals: ColumnInternals<TColumnConfig> = new ColumnInternals(this.getColumnInternalsOptions());
+
     @attr({ attribute: 'column-id' })
     public columnId?: string;
 
@@ -34,24 +45,12 @@ export abstract class TableColumn<
     @attr({ attribute: 'sorting-disabled', mode: 'boolean' })
     public sortingDisabled = false;
 
-    /**
-     * @internal
-     *
-     * Column properties configurable by plugin authors
-     */
-    public readonly columnInternals: ColumnInternals<TColumnConfig>;
+    /** @internal */
+    @observable
+    public hasOverflow = false;
 
-    public constructor(options: ColumnInternalsOptions) {
-        super();
-        if (!options) {
-            throw new Error(
-                'ColumnInternalsOptions must be provided to constructor'
-            );
-        }
-        this.columnInternals = new ColumnInternals(options);
-        this.columnInternals.currentSortDirection = this.sortDirection;
-        this.columnInternals.currentSortIndex = this.sortIndex;
-    }
+    /** @internal */
+    public contentSlot!: HTMLSlotElement;
 
     public checkValidity(): boolean {
         return this.columnInternals.validConfiguration;
@@ -60,6 +59,23 @@ export abstract class TableColumn<
     public get validity(): TableColumnValidity {
         return {};
     }
+
+    /** @internal */
+    public get headerTextContent(): string {
+        return this.contentSlot
+            .assignedNodes()
+            .map(node => node.textContent?.trim())
+            .join(' ');
+    }
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+
+        // Done here to enforce consistency across headers as they may have custom templates
+        this.setAttribute('slot', this.columnInternals.uniqueId);
+    }
+
+    protected abstract getColumnInternalsOptions(): ColumnInternalsOptions;
 
     protected sortDirectionChanged(): void {
         if (!this.sortingDisabled) {
@@ -74,15 +90,12 @@ export abstract class TableColumn<
     }
 
     protected sortingDisabledChanged(): void {
-        // Ignore the default value sortingDisabled initialization from undefined to false (which runs before columnInternals is initialized)
-        if (this.columnInternals) {
-            if (this.sortingDisabled) {
-                this.columnInternals.currentSortDirection = TableColumnSortDirection.none;
-                this.columnInternals.currentSortIndex = undefined;
-            } else {
-                this.columnInternals.currentSortDirection = this.sortDirection;
-                this.columnInternals.currentSortIndex = this.sortIndex;
-            }
+        if (this.sortingDisabled) {
+            this.columnInternals.currentSortDirection = TableColumnSortDirection.none;
+            this.columnInternals.currentSortIndex = undefined;
+        } else {
+            this.columnInternals.currentSortDirection = this.sortDirection;
+            this.columnInternals.currentSortIndex = this.sortIndex;
         }
     }
 }

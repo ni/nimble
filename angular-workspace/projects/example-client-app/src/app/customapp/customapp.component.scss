@@ -70,10 +70,27 @@ nimble-drawer {
 }
 
 nimble-table {
-    height: auto;
     max-height: 480px;
 }
 
 .query-param-word {
     margin-top: $ni-nimble-standard-padding;
+}
+
+.rich-text-viewer-container {
+    border: $ni-nimble-border-width solid rgba($ni-nimble-action-rgb-partial-color, 0.3);
+    padding: $ni-nimble-small-padding;
+    width: 350px;
+}
+
+.rich-text-editor-container {
+    padding: $ni-nimble-small-padding;
+}
+
+.rich-text-editor {
+    height: 280px;
+}
+
+.add-table-row-button {
+    margin-top: $ni-nimble-small-padding;
 }

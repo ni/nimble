@@ -1,6 +1,6 @@
 import { html, ref } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { DrawerWidthOptions, ExampleContentType } from './types';
 import {
     createUserSelectedThemeStory,
@@ -34,7 +34,7 @@ interface DrawerArgs {
     openAndHandleResult: (
         drawerRef: Drawer<string>,
         textFieldRef: TextField
-    ) => Promise<void> | undefined;
+    ) => void;
 }
 
 const simpleContent = html<DrawerArgs>`
@@ -114,16 +114,9 @@ ${overrideWarning('Drawer Width', widthDescriptionOverride)}
 `;
 
 const metadata: Meta<DrawerArgs> = {
-    title: 'Drawer',
-    tags: ['autodocs'],
-    decorators: [withActions],
+    title: 'Components/Drawer',
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    'Specialized dialog designed to slide in from either side of the page. Typically used for a configuration pane.'
-            }
-        },
         actions: {
             handles: []
         }
@@ -230,9 +223,11 @@ const metadata: Meta<DrawerArgs> = {
         width: DrawerWidthOptions.default,
         drawerRef: undefined,
         textFieldRef: undefined,
-        openAndHandleResult: async (drawerRef, textFieldRef) => {
-            const reason = await drawerRef.show();
-            textFieldRef.value = reason === UserDismissed ? 'User dismissed' : reason;
+        openAndHandleResult: (drawerRef, textFieldRef) => {
+            void (async () => {
+                const reason = await drawerRef.show();
+                textFieldRef.value = reason === UserDismissed ? 'User dismissed' : reason;
+            })();
         }
     }
 };

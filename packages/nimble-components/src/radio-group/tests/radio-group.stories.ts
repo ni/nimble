@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { Orientation } from '@microsoft/fast-web-utilities';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { radioGroupTag } from '..';
 import { radioTag } from '../../radio';
@@ -15,16 +15,9 @@ interface RadioGroupArgs {
 }
 
 const metadata: Meta<RadioGroupArgs> = {
-    title: 'Radio Group',
-    tags: ['autodocs'],
-    decorators: [withActions],
+    title: 'Components/Radio Group',
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    'Per [W3C](https://w3c.github.io/aria-practices/#radiobutton) – A radio group is a set of checkable buttons, known as radio buttons, where no more than one of the buttons can be checked at a time. Some implementations may initialize the set with all buttons in the unchecked state in order to force the user to check one of the buttons before moving past a certain point in the workflow.'
-            }
-        },
         actions: {
             handles: ['change']
         }
@@ -75,7 +68,7 @@ const metadata: Meta<RadioGroupArgs> = {
         },
         name: {
             description:
-                'Radio buttons whose values are mutually exclusive should set the same `name` attribute. Setting the name on the group sets it on all child radio buttons.'
+                'Radio buttons whose values are mutually exclusive should set the same `name` attribute. Setting the name on the group sets it on all child radio buttons. When using radio buttons in an Angular form, you must explicitly set either `name` or `formControlName` on each radio button. In that scenario, setting `name` on the group is ineffective.'
         }
     }
 };

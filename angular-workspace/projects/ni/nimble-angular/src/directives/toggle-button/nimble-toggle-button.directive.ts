@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { ToggleButton } from '@ni/nimble-components/dist/esm/toggle-button';
+import { type ToggleButton, toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
 import type { ButtonAppearance } from '@ni/nimble-components/dist/esm/toggle-button/types';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { ToggleButton };
+export { toggleButtonTag };
 
 /**
  * Directive to provide Angular integration for the toggle button.
@@ -32,8 +33,6 @@ export class NimbleToggleButtonDirective {
         return this.elementRef.nativeElement.contentHidden;
     }
 
-    // contentHidden property intentionally maps to the content-hidden attribute
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('content-hidden') public set contentHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'contentHidden', toBooleanProperty(value));
     }

@@ -14,7 +14,7 @@ import {
     smallDelay,
     smallPadding,
     borderRgbPartialColor,
-    standardPadding,
+    mediumPadding,
     failColor,
     elevation2BoxShadow
 } from '../../theme-provider/design-tokens';
@@ -102,6 +102,10 @@ export const styles = css`
         width: 0px;
     }
 
+    [part='start'] {
+        display: none;
+    }
+
     .control {
         align-items: center;
         box-sizing: border-box;
@@ -134,16 +138,10 @@ export const styles = css`
         box-sizing: border-box;
         display: inline-flex;
         flex-direction: column;
-        left: 0;
         overflow-y: auto;
-        position: absolute;
         width: 100%;
         --ni-private-listbox-padding: ${smallPadding};
-        max-height: calc(
-            var(--ni-private-select-max-height) - 2 *
-                var(--ni-private-listbox-padding)
-        );
-        z-index: 1;
+        max-height: calc(var(--ni-private-select-max-height) - ${smallPadding});
         box-shadow: ${elevation2BoxShadow};
         border: 1px solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};
@@ -153,10 +151,6 @@ export const styles = css`
         display: block;
         background: transparent;
         padding: var(--ni-private-listbox-padding);
-    }
-
-    .listbox[hidden] {
-        display: none;
     }
 
     :host([open][position='above']) .listbox {
@@ -169,12 +163,12 @@ export const styles = css`
         border-top-right-radius: 0;
     }
 
-    :host([open][position='above']) .listbox {
-        bottom: ${controlHeight};
+    :host([open][position='above']) .anchored-region {
+        padding-bottom: ${smallPadding};
     }
 
-    :host([open][position='below']) .listbox {
-        top: calc(${controlHeight} + ${smallPadding});
+    :host([open][position='below']) .anchored-region {
+        padding-top: ${smallPadding};
     }
 
     .selected-value {
@@ -185,7 +179,7 @@ export const styles = css`
         text-overflow: ellipsis;
         overflow: hidden;
         padding: 0px;
-        padding-left: calc(${standardPadding} / 2);
+        padding-left: ${mediumPadding};
     }
 
     .selected-value[disabled]::placeholder {
@@ -211,17 +205,7 @@ export const styles = css`
         fill: ${bodyDisabledFontColor};
     }
 
-    slot[name='listbox'] {
-        display: none;
-        width: 100%;
-    }
-
-    :host([open]) slot[name='listbox'] {
-        display: flex;
-        position: absolute;
-    }
-
-    .end {
+    [part='end'] {
         margin-inline-start: auto;
     }
 

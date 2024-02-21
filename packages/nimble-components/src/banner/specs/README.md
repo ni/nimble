@@ -50,7 +50,6 @@ _The key elements of the component's public API surface:_
     -   `prevent-dismiss` - set to hide the dismiss button (attr name taken from Nimble dialog)
     -   `severity` - one of `error`, `warning`, `info`, or undefined (default)
     -   `title-hidden` - set to hide the title text, which should always be provided for a11y reasons
-    -   `dismiss-button-label` - a localized label to give the dismiss button (for a11y purposes)
 -   _Methods_
 -   _Events_
     -   `toggle` - fired when the banner is closed or opened. Event has `newState` and `oldState`.
@@ -167,7 +166,7 @@ _Consider the accessibility of the component, including:_
 
 ### Globalization
 
-N/A
+Localization: The banner will use the `popupDismiss` label on `nimble-label-provider-core` for the dismiss button label text (hidden visually, but present for accessibility).
 
 ### Security
 

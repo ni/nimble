@@ -61,7 +61,7 @@
         "value": "Source Sans Pro"
       },
       "weight": {
-        "value": "Regular"
+        "value": "Semibold"
       }
     },
     "Title_1": {
@@ -113,6 +113,14 @@
       }
     },
     "BodyEmphasized": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Semibold"
+      }
+    },
+    "BodyEmphasized_2": {
       "family": {
         "value": "Source Sans Pro"
       },
@@ -287,6 +295,9 @@
       },
       "BodyEmphasized": {
         "value": "14"
+      },
+      "BodyEmphasized_2": {
+        "value": "16"
       },
       "Subtitle_1": {
         "value": "12.800000190734863"

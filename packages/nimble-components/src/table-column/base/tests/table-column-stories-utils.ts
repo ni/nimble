@@ -26,7 +26,7 @@ export const sharedTableArgTypes = {
 } as const;
 
 export const sharedTableArgs = (
-    data: TableRecord[]
+    data: readonly TableRecord[]
 ): {
         selectionMode: keyof typeof TableRowSelectionMode,
         tableRef: undefined,
@@ -50,3 +50,5 @@ export const sharedTableActions = [
     'selection-change',
     'column-configuration-change'
 ] as const;
+
+export const columnOperationBehavior = 'Column operations, such as sorting and grouping, are performed on the field values in the data records, not on the formatted values displayed within the cells.';

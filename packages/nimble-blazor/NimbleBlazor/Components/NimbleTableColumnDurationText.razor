@@ -1,0 +1,19 @@
+﻿@namespace NimbleBlazor
+@inherits NimbleTableColumn
+
+<nimble-table-column-duration-text
+    column-id="@ColumnId"
+    field-name="@FieldName"
+    action-menu-slot="@ActionMenuSlot"
+    action-menu-label="@ActionMenuLabel"
+    column-hidden="@ColumnHidden"
+    fractional-width="@FractionalWidth"
+    min-pixel-width="@MinPixelWidth"
+    sort-direction="@SortDirection.ToAttributeValue()"
+    sort-index="@SortIndex"
+    group-index="@GroupIndex"
+    grouping-disabled="@GroupingDisabled"
+    @attributes="AdditionalAttributes"
+>
+    @ChildContent
+</nimble-table-column-duration-text>

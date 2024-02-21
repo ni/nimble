@@ -4,10 +4,18 @@ import { attr, customElement } from '@microsoft/fast-element';
 import { TableCellView } from '../cell-view';
 import { TableGroupHeaderView } from '../group-header-view';
 import { TableColumn } from '..';
+import type {
+    ColumnInternalsOptions,
+    ColumnInternals
+} from '../models/column-internals';
 import { ColumnValidator } from '../models/column-validator';
-import type { ColumnInternals } from '../models/column-internals';
 
 export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
+declare global {
+    interface HTMLElementTagNameMap {
+        [tableColumnEmptyCellViewTag]: TableCellView;
+    }
+}
 /**
  * Simple empty cell view for testing
  */
@@ -17,6 +25,11 @@ export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-
 class EmptyTableCellView extends TableCellView {}
 
 export const tableColumnEmptyGroupHeaderViewTag = 'nimble-test-table-column-empty-group-header-view';
+declare global {
+    interface HTMLElementTagNameMap {
+        [tableColumnEmptyGroupHeaderViewTag]: EmptyTableGroupHeaderView;
+    }
+}
 /**
  * Simple empty group header view for testing
  */
@@ -26,6 +39,11 @@ export const tableColumnEmptyGroupHeaderViewTag = 'nimble-test-table-column-empt
 class EmptyTableGroupHeaderView extends TableGroupHeaderView {}
 
 export const tableColumnEmptyTag = 'nimble-test-table-column-empty';
+declare global {
+    interface HTMLElementTagNameMap {
+        [tableColumnEmptyTag]: TableColumnEmpty;
+    }
+}
 /**
  * Simple empty table column for testing
  */
@@ -33,13 +51,13 @@ export const tableColumnEmptyTag = 'nimble-test-table-column-empty';
     name: tableColumnEmptyTag
 })
 export class TableColumnEmpty extends TableColumn {
-    public constructor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
             delegatedEvents: []
-        });
+        };
     }
 }
 
@@ -64,13 +82,12 @@ export class TestColumnValidator extends ColumnValidator<
     }
 }
 
+export const tableColumnValidationTestTag = 'nimble-test-table-column-validation';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-test-table-column-validation': TableColumnValidationTest;
+        [tableColumnValidationTestTag]: TableColumnValidationTest;
     }
 }
-
-export const tableColumnValidationTestTag = 'nimble-test-table-column-validation';
 /**
  * Test column type used to verify column config validation.
  * The foo and bar properties are only considered valid when their values are true.
@@ -79,26 +96,22 @@ export const tableColumnValidationTestTag = 'nimble-test-table-column-validation
     name: tableColumnValidationTestTag
 })
 export class TableColumnValidationTest extends TableColumn {
-    @attr({ mode: 'boolean' })
-    public foo: boolean;
+    /* @internal */
+    public readonly validator = new TestColumnValidator(this.columnInternals);
 
     @attr({ mode: 'boolean' })
-    public bar: boolean;
+    public foo = false;
 
-    private readonly validator: TestColumnValidator;
+    @attr({ mode: 'boolean' })
+    public bar = false;
 
-    public constructor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
             delegatedEvents: []
-        });
-        this.validator = new TestColumnValidator(this.columnInternals);
-        // Initializing in constructor instead of in property declaration because it triggers
-        // our foo/barChanged handlers, which should not be run before the validator is initialized.
-        this.foo = false;
-        this.bar = false;
+        };
     }
 
     private fooChanged(): void {

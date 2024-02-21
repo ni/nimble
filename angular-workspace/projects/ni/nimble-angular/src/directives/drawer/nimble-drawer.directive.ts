@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Drawer, UserDismissed } from '@ni/nimble-components/dist/esm/drawer';
+import { type Drawer, type UserDismissed, drawerTag } from '@ni/nimble-components/dist/esm/drawer';
 import { DrawerLocation } from '@ni/nimble-components/dist/esm/drawer/types';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Drawer };
+export { drawerTag };
 export { DrawerLocation };
 
 /**
@@ -32,8 +33,6 @@ export class NimbleDrawerDirective<CloseReason = void> {
         return this.elementRef.nativeElement.preventDismiss;
     }
 
-    // preventDismiss property intentionally maps to the prevent-dismiss attribute
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('prevent-dismiss') public set preventDismiss(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'preventDismiss', toBooleanProperty(value));
     }
@@ -42,8 +41,6 @@ export class NimbleDrawerDirective<CloseReason = void> {
         return this.elementRef.nativeElement.ariaLabel;
     }
 
-    // ariaLabel property intentionally maps to the aria-label attribute
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('aria-label') public set ariaLabel(value: string | null) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'ariaLabel', value);
     }

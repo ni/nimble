@@ -1,4 +1,5 @@
-import type { TableRecord, ValidityObject } from '../../table/types';
+import type { TableRecord } from '../../table/types';
+import type { ValidityObject } from '../../utilities/models/validator';
 
 /**
  * An object whose fields are defined by a particular TableColumn, which is used by the column's
@@ -11,12 +12,8 @@ export interface TableCellState<
     TCellRecord extends TableCellRecord = TableCellRecord,
     TColumnConfig = unknown
 > {
-    cellRecord: TCellRecord;
-    columnConfig: TColumnConfig;
-}
-
-export interface TableColumnWithPlaceholderColumnConfig {
-    placeholder: string;
+    cellRecord?: TCellRecord;
+    columnConfig?: TColumnConfig;
 }
 
 /**
@@ -24,6 +21,7 @@ export interface TableColumnWithPlaceholderColumnConfig {
  */
 export interface DelegatedEventEventDetails {
     originalEvent: Event;
+    recordId: string;
 }
 
 /**

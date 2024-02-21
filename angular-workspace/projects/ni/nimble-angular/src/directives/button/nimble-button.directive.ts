@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Button } from '@ni/nimble-components/dist/esm/button';
+import { type Button, buttonTag } from '@ni/nimble-components/dist/esm/button';
 import type { ButtonType, ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Button };
+export { buttonTag };
 export { ButtonType };
 
 /**
@@ -25,8 +26,6 @@ export class NimbleButtonDirective {
         return this.elementRef.nativeElement.appearanceVariant;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('appearance-variant') public set appearanceVariant(value: ButtonAppearanceVariant) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearanceVariant', value);
     }
@@ -51,8 +50,6 @@ export class NimbleButtonDirective {
         return this.elementRef.nativeElement.contentHidden;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('content-hidden') public set contentHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'contentHidden', toBooleanProperty(value));
     }

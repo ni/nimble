@@ -9,12 +9,30 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     dividerBackgroundColor: 'Divider background color',
     headerBackgroundColor: 'Background color for application headers',
     sectionBackgroundColor: 'Background color for sections',
+    buttonFillPrimaryColor:
+        'Control fill color for "primary" appearance-variant buttons',
+    buttonPrimaryFontColor:
+        'Font color for "primary" appearance-variant buttons',
+    buttonFillActivePrimaryColor:
+        'Active fill color for "primary" appearance-variant buttons',
+    buttonFillAccentColor:
+        'Control fill color for "accent" appearance-variant buttons',
+    buttonAccentBlockFontColor:
+        'Font color for "accent" appearance-variant block buttons',
+    buttonAccentOutlineFontColor:
+        'Font color for "accent" appearance-variant outline buttons',
+    buttonBorderAccentOutlineColor:
+        'Border color for "accent" appearance-variant outline buttons',
+    buttonFillAccentActiveColor:
+        'Active fill color for "accent" appearance-variant buttons',
     fillSelectedColor: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     fillHoverSelectedColor:
         'Control fill color when hovering a selected control',
     fillHoverColor: 'Control fill color when hovering component',
+    fillHoverRgbPartialColor:
+        'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     fillDownColor: 'Control fill color when mousedown event occurs',
     borderColor: 'Standard control outline or border color',
     borderRgbPartialColor:
@@ -30,18 +48,31 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     iconColor: 'Equivalent to the font color for icons',
     modalBackdropColor: 'Color of background overlay behind modal dialog boxes',
     popupBorderColor: 'Border color for menus and dialog boxes',
+    cardBorderColor: 'Border color for cards',
     controlHeight:
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
     controlSlimHeight:
         'Height of controls that are somewhat shorter than standard height.',
-    smallPadding: 'Small layout padding for components',
-    standardPadding: 'Standard layout padding for components',
+    smallPadding: 'Fixed 4px size ramp token for component layout',
+    mediumPadding: 'Fixed 8px size ramp token for component layout',
+    standardPadding: 'Fixed 16px size ramp token for component layout',
+    largePadding: 'Fixed 24px size ramp token for component layout',
     labelHeight:
         'Standard label height for components. Set the label font rather than explicitly setting the height for a label.',
     borderWidth: 'Standard border width for most components',
     iconSize: 'Standard layout height for all icons',
     groupHeaderTextTransform: 'CSS text-transform string to use for headers',
     drawerWidth: 'TODO: delete when able',
+    dialogSmallWidth:
+        'Standard width for small dialogs like a confirmation dialog.',
+    dialogSmallHeight:
+        'Standard height for small dialogs like a confirmation dialog.',
+    dialogSmallMaxHeight:
+        'Standard maximum height for small dialogs like a confirmation dialog.',
+    dialogLargeWidth: 'Standard width for large dialogs.',
+    dialogLargeHeight: 'Standard height for large dialogs.',
+    dialogLargeMaxHeight: 'Standard maximum height for large dialogs.',
+    menuMinWidth: 'Standard menu min width for menu popup.',
     bannerGapSize: 'Space between stacked banners',
     spinnerSmallHeight: 'Small height (16px) for a spinner component',
     spinnerMediumHeight: 'Medium height (32px) for a spinner component',
@@ -179,19 +210,33 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Font line height for the "Placeholder" base token',
     placeholderFallbackFontFamily:
         'Fallback font family for the "Placeholder" base token',
-    bodyEmphasizedFont: 'Font shorthand for the "Body_Emphasized" base token',
-    bodyEmphasizedFontColor: 'Font color for the "Body_Emphasized" base token',
+    bodyEmphasizedFont: 'Font shorthand for the "BodyEmphasized" base token',
+    bodyEmphasizedFontColor: 'Font color for the "BodyEmphasized" base token',
     bodyEmphasizedDisabledFontColor:
-        'Disabled font color for the "Body_Emphasized" base token',
-    bodyEmphasizedFontFamily:
-        'Font family for the "Body_Emphasized" base token',
-    bodyEmphasizedFontSize: 'Font size for the "Body_Emphasized" base token',
-    bodyEmphasizedFontWeight:
-        'Font weight for the "Body_Emphasized" base token',
+        'Disabled font color for the "BodyEmphasized" base token',
+    bodyEmphasizedFontFamily: 'Font family for the "BodyEmphasized" base token',
+    bodyEmphasizedFontSize: 'Font size for the "BodyEmphasized" base token',
+    bodyEmphasizedFontWeight: 'Font weight for the "BodyEmphasized" base token',
     bodyEmphasizedFontLineHeight:
-        'Font line height for the "Body_Emphasized" base token',
+        'Font line height for the "BodyEmphasized" base token',
     bodyEmphasizedFallbackFontFamily:
-        'Fallback font family for the "Body_Emphasized" base token',
+        'Fallback font family for the "BodyEmphasized" base token',
+    bodyEmphasizedPlus1Font:
+        'Font shorthand for the "BodyEmphasized_2" base token',
+    bodyEmphasizedPlus1FontColor:
+        'Font color for the "BodyEmphasized_2" base token',
+    bodyEmphasizedPlus1DisabledFontColor:
+        'Disabled font color for the "BodyEmphasized_2" base token',
+    bodyEmphasizedPlus1FontFamily:
+        'Font family for the "BodyEmphasized_2" base token',
+    bodyEmphasizedPlus1FontSize:
+        'Font size for the "BodyEmphasized_2" base token',
+    bodyEmphasizedPlus1FontWeight:
+        'Font weight for the "BodyEmphasized_2" base token',
+    bodyEmphasizedPlus1FontLineHeight:
+        'Font line height for the "BodyEmphasized_2" base token',
+    bodyEmphasizedPlus1FallbackFontFamily:
+        'Fallback font family for the "BodyEmphasized_2" base token',
     bodyFont: 'Font shorthand for the "Body" base token',
     bodyFontColor: 'Font color for the "Body" base token',
     bodyDisabledFontColor: 'Disabled font color for the "Body" base token',
@@ -264,5 +309,14 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     elevation2BoxShadow:
         'The box shadow for elevation 2. Used for components such as menus, banners, tooltips, error notifications, and scrolling.',
     elevation3BoxShadow:
-        'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.'
+        'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.',
+    graphGridlineColor: 'Gridline color for graphs',
+    mentionFont: 'Font shorthand for mention views',
+    mentionFontColor: 'Font color for mention views',
+    mentionDisabledFontColor: 'Disabled font color for mention views',
+    mentionFontFamily: 'Font family for mention views',
+    mentionFontSize: 'Font size for mention views',
+    mentionFontWeight: 'Font weight for mention views',
+    mentionFontLineHeight: 'Font line height for mention views',
+    mentionFallbackFontFamily: 'Fallback font family for mention views'
 };

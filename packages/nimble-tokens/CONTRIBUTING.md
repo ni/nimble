@@ -5,10 +5,9 @@
 | Folder               | Description                             |
 | -------------------- | --------------------------------------- |
 | build                | Build scripts for generating files      |
-| data                 | _Managed by Adobe XD DSP plugin_        |
 | dist/fonts           | Fonts for use in applications           |
 | dist/icons           | Icons for use in applications           |
-| dist/styledictionary | _Managed by Adobe XD DSP plugin_        |
+| dist/styledictionary | JSON token source files                 |
 | docs                 | Files used by the documentation         |
 | NimbleTokens         | Project for building the Nuget package  |
 | source/icons         | Illustrator files for editing icons     |
@@ -16,21 +15,22 @@
 ## Getting started
 
 1. Build the monorepo, see [Getting Started](/CONTRIBUTING.md#getting-started)
-2. Ensure you have the [Adobe XD extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Adobe.xd&ssr=false#overview) installed.
 
-## Editing Tokens
+## Editing Base Tokens
 
-Tokens are generated using the [Style Dictionary](https://amzn.github.io/style-dictionary/#/) build system, which transforms platform-agnostic token definition files into platform-specific output. These JSON definition files are the source of truth for the colors, fonts, and component design tokens in this repository. To modify the generated tokens, complete these steps:
+Base tokens are generated using the [Style Dictionary](https://amzn.github.io/style-dictionary/#/) build system, which transforms platform-agnostic token definition files into platform-specific output. These JSON definition files are the source of truth for the colors, fonts, and component design tokens in this repository. To modify the generated tokens, complete these steps:
 
 1. Edit the JSON files in `source/styledictionary/properties`. Long term these tokens will be sourced from a Figma design spec but for now it's OK to make manual edits.
 2. Rebuild the generated token files by running the repository's build command, `npm run build`.
 3. Test your changes locally and create a PR using the normal process.
 
+To style a component with token values, you must first map base tokens to [theme-aware tokens](/packages/nimble-components/CONTRIBUTING.md#theme-aware-tokens).
+
 ## Updating icons
 
 ### Icon naming
 
-Prefer [FontAwesome](https://fontawesome.com) names for icons. I.e. Minimize the use of metaphors; choose descriptive and unambiguous names instead.
+Use [Font Awesome](https://fontawesome.com) names for icons. If Font Awesome doesn't contain an equivalent icon, minimize the use of metaphors; choose descriptive and unambiguous names instead.
 
 | ✅ Descriptive name    | ❌ Metaphor            |
 |------------------------|------------------------|
@@ -38,7 +38,7 @@ Prefer [FontAwesome](https://fontawesome.com) names for icons. I.e. Minimize the
 | `cog`                  | `system-configuration` |
 | `arrow-left-from-line` | `logout`               |
 
-Add all appropriate metaphors and synonyms to the `icon-metadata.ts` file, so clients can quickly find icons in Storybook.
+Add all appropriate metaphors and synonyms to the `icon-metadata.ts` file, so clients can quickly find icons in Storybook. You can find ideas for synonyms in the [Font Awesome metadata](https://github.com/FortAwesome/Font-Awesome/blob/master/metadata/icons.yml).
 
 ### Extract icons from Adobe Illustrator
 
@@ -73,7 +73,7 @@ These steps require access to Adobe Illustrator and Perforce so will typically b
 
 3. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens`.
 4. Generate and build icon components by running `npm run build -w @ni/nimble-components`. This step will report an error at this point but is necessary to enable the next step.
-5. Add metadata for the new icons to `nimble-components\src\icon-base\icon-metadata.ts`.
+5. Add metadata for the new icons to `nimble-components/src/icon-base/tests/icon-metadata.ts`.
 6. Run `npm run build -w @ni/nimble-components` again. It should now succeed.
-7. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** story to confirm that your changes appear correctly. Inspect the icons in each **Severity** and ensure their color changes.
+7. Preview the built files by running: `npm run storybook -w @ni/nimble-components`, and review the **Icons** story to confirm that your changes appear correctly. Inspect the icons in each **Severity** and ensure their color changes. Ensure the table is large enough to see all icons without nested scrollbars.
 8. Publish a PR with your changes. If there are any new icons, set `changeType` and `dependentChangeType` to minor in the beachball change file.

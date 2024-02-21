@@ -2,7 +2,7 @@ import { range } from 'd3-array';
 import { ScaleBand, scaleBand, scaleQuantile, ScaleQuantile } from 'd3-scale';
 import type { WaferMap } from '..';
 import type { WaferMapDie } from '../types';
-import { Dimensions, Margin, WaferMapQuadrant } from '../types';
+import { Dimensions, Margin, WaferMapOriginLocation } from '../types';
 
 interface GridDimensions {
     origin: {
@@ -17,26 +17,56 @@ interface GridDimensions {
  * Computations calculates and stores different measures which are used in the Wafermap
  */
 export class Computations {
-    public readonly containerDimensions: Dimensions;
-    public readonly dieDimensions: Dimensions;
-    public readonly radius: number;
-    public readonly margin: Margin;
+    public get containerDimensions(): Dimensions {
+        return this._containerDimensions;
+    }
 
-    public readonly horizontalScale: ScaleBand<number>;
-    public readonly verticalScale: ScaleBand<number>;
+    public get dieDimensions(): Dimensions {
+        return this._dieDimensions;
+    }
 
-    public readonly invertedHorizontalScale: ScaleQuantile<number, number>;
-    public readonly invertedVerticalScale: ScaleQuantile<number, number>;
+    public get radius(): number {
+        return this._radius;
+    }
 
+    public get margin(): Margin {
+        return this._margin;
+    }
+
+    public get horizontalScale(): ScaleBand<number> {
+        return this._horizontalScale;
+    }
+
+    public get verticalScale(): ScaleBand<number> {
+        return this._verticalScale;
+    }
+
+    public get invertedHorizontalScale(): ScaleQuantile<number, number> {
+        return this._invertedHorizontalScale;
+    }
+
+    public get invertedVerticalScale(): ScaleQuantile<number, number> {
+        return this._invertedVerticalScale;
+    }
+
+    private _containerDimensions!: Dimensions;
+    private _dieDimensions!: Dimensions;
+    private _radius!: number;
+    private _margin!: Margin;
+    private _horizontalScale!: ScaleBand<number>;
+    private _verticalScale!: ScaleBand<number>;
+    private _invertedHorizontalScale!: ScaleQuantile<number, number>;
+    private _invertedVerticalScale!: ScaleQuantile<number, number>;
     private readonly defaultPadding = 0;
     private readonly baseMarginPercentage = 0.04;
 
-    public constructor(wafermap: WaferMap) {
+    public constructor(private readonly wafermap: WaferMap) {}
+
+    public updateContainerDimensions(): void {
         const canvasDimensions = {
-            width: wafermap.canvasWidth,
-            height: wafermap.canvasHeight
+            width: this.wafermap.canvasWidth,
+            height: this.wafermap.canvasHeight
         };
-        const gridDimensions = this.calculateGridDimensions(wafermap.dies);
         const canvasDiameter = Math.min(
             canvasDimensions.width,
             canvasDimensions.height
@@ -53,45 +83,83 @@ export class Computations {
             bottom: canvasDiameter * this.baseMarginPercentage,
             left: canvasDiameter * this.baseMarginPercentage
         };
-        this.margin = this.calculateMarginAddition(baseMargin, canvasMargin);
-        this.containerDimensions = this.calculateContainerDimensions(
+        this._margin = this.calculateMarginAddition(baseMargin, canvasMargin);
+        this._containerDimensions = this.calculateContainerDimensions(
             canvasDimensions,
-            this.margin
+            this._margin
         );
         const containerDiameter = Math.min(
-            this.containerDimensions.width,
-            this.containerDimensions.height
+            this._containerDimensions.width,
+            this._containerDimensions.height
+        );
+        this._radius = containerDiameter / 2;
+        this.updateScales();
+    }
+
+    public updateScales(): void {
+        const containerDiameter = Math.min(
+            this._containerDimensions.width,
+            this._containerDimensions.height
+        );
+        const gridDimensions = this.gridDimensionsValidAndDefined()
+            ? this.calculateGridDimensionsFromBoundingBox()
+            : this.calculateGridDimensionsFromDies(this.wafermap.dies);
+        // this scale is used for positioning the dies on the canvas
+        const originLocation = this.wafermap.originLocation;
+        this._horizontalScale = this.createHorizontalScale(
+            originLocation,
+            gridDimensions,
+            containerDiameter
+        );
+        this._invertedHorizontalScale = this.createInvertedHorizontalScale(
+            originLocation,
+            gridDimensions,
+            containerDiameter
         );
         // this scale is used for positioning the dies on the canvas
-        this.horizontalScale = this.createHorizontalScale(
-            wafermap.quadrant,
+        this._verticalScale = this.createVerticalScale(
+            originLocation,
             gridDimensions,
             containerDiameter
         );
-        this.invertedHorizontalScale = this.createInvertedHorizontalScale(
-            wafermap.quadrant,
+        this._invertedVerticalScale = this.createInvertedVerticalScale(
+            originLocation,
             gridDimensions,
             containerDiameter
         );
-        // this scale is used for positioning the dies on the canvas
-        this.verticalScale = this.createVerticalScale(
-            wafermap.quadrant,
-            gridDimensions,
-            containerDiameter
-        );
-        this.invertedVerticalScale = this.createInvertedVerticalScale(
-            wafermap.quadrant,
-            gridDimensions,
-            containerDiameter
-        );
-        this.dieDimensions = {
+        this._dieDimensions = {
             width: this.horizontalScale.bandwidth(),
             height: this.verticalScale.bandwidth()
         };
-        this.radius = containerDiameter / 2;
     }
 
-    private calculateGridDimensions(
+    private gridDimensionsValidAndDefined(): boolean {
+        return (
+            !this.wafermap.validity.invalidGridDimensions
+            && typeof this.wafermap.gridMinX === 'number'
+            && typeof this.wafermap.gridMinY === 'number'
+            && typeof this.wafermap.gridMaxX === 'number'
+            && typeof this.wafermap.gridMinX === 'number'
+        );
+    }
+
+    private calculateGridDimensionsFromBoundingBox(): GridDimensions {
+        const gridDimensions = { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
+        if (
+            typeof this.wafermap.gridMaxY === 'number'
+            && typeof this.wafermap.gridMinY === 'number'
+            && typeof this.wafermap.gridMaxX === 'number'
+            && typeof this.wafermap.gridMinX === 'number'
+        ) {
+            gridDimensions.origin.x = this.wafermap.gridMinX;
+            gridDimensions.origin.y = this.wafermap.gridMinY;
+            gridDimensions.rows = this.wafermap.gridMaxY - this.wafermap.gridMinY + 1;
+            gridDimensions.cols = this.wafermap.gridMaxX - this.wafermap.gridMinX + 1;
+        }
+        return gridDimensions;
+    }
+
+    private calculateGridDimensionsFromDies(
         dies: Readonly<Readonly<WaferMapDie>[]>
     ): GridDimensions {
         if (dies.length === 0 || dies[0] === undefined) {
@@ -134,7 +202,7 @@ export class Computations {
     }
 
     private createHorizontalScale(
-        axisLocation: WaferMapQuadrant,
+        originLocation: WaferMapOriginLocation,
         grid: GridDimensions,
         containerWidth: number
     ): ScaleBand<number> {
@@ -145,8 +213,8 @@ export class Computations {
             .align(0)
             .round(false);
         if (
-            axisLocation === WaferMapQuadrant.bottomLeft
-            || axisLocation === WaferMapQuadrant.topLeft
+            originLocation === WaferMapOriginLocation.bottomLeft
+            || originLocation === WaferMapOriginLocation.topLeft
         ) {
             return scale.range([0, containerWidth]);
         }
@@ -154,14 +222,14 @@ export class Computations {
     }
 
     private createInvertedHorizontalScale(
-        axisLocation: WaferMapQuadrant,
+        originLocation: WaferMapOriginLocation,
         grid: GridDimensions,
         containerWidth: number
     ): ScaleQuantile<number, number> {
         const scale = scaleQuantile().domain([0, containerWidth]);
         if (
-            axisLocation === WaferMapQuadrant.bottomLeft
-            || axisLocation === WaferMapQuadrant.topLeft
+            originLocation === WaferMapOriginLocation.bottomLeft
+            || originLocation === WaferMapOriginLocation.topLeft
         ) {
             return scale.range(range(grid.origin.x, grid.origin.x + grid.cols));
         }
@@ -171,7 +239,7 @@ export class Computations {
     }
 
     private createVerticalScale(
-        axisLocation: WaferMapQuadrant,
+        originLocation: WaferMapOriginLocation,
         grid: GridDimensions,
         containerHeight: number
     ): ScaleBand<number> {
@@ -181,9 +249,11 @@ export class Computations {
             .paddingOuter(0)
             .align(0)
             .round(false);
+        // html canvas has top-left origin https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#the_grid
+        // we need to flip the vertical scale
         if (
-            axisLocation === WaferMapQuadrant.bottomLeft
-            || axisLocation === WaferMapQuadrant.bottomRight
+            originLocation === WaferMapOriginLocation.bottomLeft
+            || originLocation === WaferMapOriginLocation.bottomRight
         ) {
             return scale.range([containerHeight, 0]);
         }
@@ -191,14 +261,16 @@ export class Computations {
     }
 
     private createInvertedVerticalScale(
-        axisLocation: WaferMapQuadrant,
+        originLocation: WaferMapOriginLocation,
         grid: GridDimensions,
         containerHeight: number
     ): ScaleQuantile<number, number> {
         const scale = scaleQuantile().domain([0, containerHeight]);
+        // html canvas has top-left origin https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#the_grid
+        // we need to flip the inverted vertical scale
         if (
-            axisLocation === WaferMapQuadrant.bottomLeft
-            || axisLocation === WaferMapQuadrant.bottomRight
+            originLocation === WaferMapOriginLocation.bottomLeft
+            || originLocation === WaferMapOriginLocation.bottomRight
         ) {
             return scale.range(
                 range(grid.origin.y, grid.origin.y + grid.rows).reverse()

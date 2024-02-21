@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { TextArea, textAreaTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<TextArea>> {
     return fixture<TextArea>(html`<nimble-text-area></nimble-text-area>`);
@@ -41,7 +41,7 @@ describe('Text Area', () => {
         expect(element.control.part.contains('control')).toBe(true);
     });
 
-    const attributeNames: {
+    const attributeNames: readonly {
         name: string,
         value?: string,
         boolean?: boolean
@@ -77,37 +77,27 @@ describe('Text Area', () => {
         { name: 'aria-owns' },
         { name: 'aria-relevant' },
         { name: 'aria-roledescription' }
-    ];
+    ] as const;
     describe('should reflect value to the internal control', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const attribute of attributeNames) {
-            const specType = getSpecTypeByNamedList(
-                attribute,
-                focused,
-                disabled
-            );
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(`for attribute ${attribute.name}`, async () => {
+        parameterizeSpec(attributeNames, (spec, name, value) => {
+            spec(`for attribute ${name}`, async () => {
                 await connect();
 
                 element.setAttribute(
-                    attribute.name,
-                    attribute.value ?? (attribute.boolean ? '' : 'foo')
+                    value.name,
+                    value.value ?? (value.boolean ? '' : 'foo')
                 );
                 await waitForUpdatesAsync();
 
-                if (attribute.boolean) {
-                    expect(
-                        element.control.hasAttribute(attribute.name)
-                    ).toBeTrue();
+                if (value.boolean) {
+                    expect(element.control.hasAttribute(value.name)).toBeTrue();
                 } else {
-                    expect(element.control.getAttribute(attribute.name)).toBe(
-                        attribute.value ?? 'foo'
+                    expect(element.control.getAttribute(value.name)).toBe(
+                        value.value ?? 'foo'
                     );
                 }
             });
-        }
+        });
 
         it('for property value', async () => {
             await connect();

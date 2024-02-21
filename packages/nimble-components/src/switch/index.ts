@@ -25,4 +25,4 @@ const nimbleSwitch = Switch.compose<SwitchOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSwitch());
-export const switchTag = DesignSystem.tagFor(Switch);
+export const switchTag = 'nimble-switch';
