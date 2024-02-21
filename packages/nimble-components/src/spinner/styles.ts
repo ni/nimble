@@ -21,7 +21,7 @@ export const styles = css`
 
     div.overlay {
         z-index: 1;
-        position: absolute;        
+        position: absolute;
         height: inherit;
         aspect-ratio: 1 / 1;
     }
