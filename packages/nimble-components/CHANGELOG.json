@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 21 Feb 2024 19:48:20 GMT",
+      "version": "21.5.5",
+      "tag": "@ni/nimble-components_v21.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v0.2.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 20 Feb 2024 17:54:12 GMT",
       "version": "21.5.4",
       "tag": "@ni/nimble-components_v21.5.4",

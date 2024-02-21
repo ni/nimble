@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 20 Feb 2024 17:54:12 GMT and should not be manually modified.
+This log was last generated on Wed, 21 Feb 2024 19:48:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.5.5
+
+Wed, 21 Feb 2024 19:48:20 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.2
 
 ## 21.5.4
 
