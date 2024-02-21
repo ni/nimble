@@ -19,6 +19,13 @@ export const styles = css`
         aspect-ratio: 1 / 1;
     }
 
+    div.overlay {
+        z-index: 1;
+        position: absolute;        
+        height: inherit;
+        aspect-ratio: 1 / 1;
+    }
+
     div.container {
         margin: max(2px, 6.25%);
         flex: 1;
