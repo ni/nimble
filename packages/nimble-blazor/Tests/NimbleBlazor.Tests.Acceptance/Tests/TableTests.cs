@@ -26,11 +26,11 @@ namespace NimbleBlazor.Tests.Acceptance
         }
 
         [Theory]
-        [InlineData(0, true, false)]
-        [InlineData(1, false, false)]
-        [InlineData(2, false, true)]
-        [InlineData(3, false, false)]
-        public async Task Table_RendersHierarchyOptionsAsync(int rowIndex, bool shouldHaveExpandCollapseButton, bool shouldHaveSpinner)
+        [InlineData(0, TableRecordDelayedHierarchyState.CanLoadChildren)]
+        [InlineData(1, TableRecordDelayedHierarchyState.None)]
+        [InlineData(2, TableRecordDelayedHierarchyState.LoadingChildren)]
+        [InlineData(3, TableRecordDelayedHierarchyState.None)]
+        public async Task Table_RendersHierarchyOptionsAsync(int rowIndex, TableRecordDelayedHierarchyState expectedHierarchyState)
         {
             await using (var pageWrapper = await NewPageForRouteAsync("TableSetRecordHierarchyOptionsTest"))
             {
@@ -45,7 +45,7 @@ namespace NimbleBlazor.Tests.Acceptance
                 var rowExpandCollapseButton = row.Locator("nimble-button");
                 var rowSpinner = row.Locator("nimble-spinner");
 
-                if (shouldHaveExpandCollapseButton)
+                if (expectedHierarchyState == TableRecordDelayedHierarchyState.CanLoadChildren)
                 {
                     await Assertions.Expect(rowExpandCollapseButton).ToBeVisibleAsync();
                 }
@@ -54,7 +54,7 @@ namespace NimbleBlazor.Tests.Acceptance
                     await Assertions.Expect(rowExpandCollapseButton).Not.ToBeVisibleAsync();
                 }
 
-                if (shouldHaveSpinner)
+                if (expectedHierarchyState == TableRecordDelayedHierarchyState.LoadingChildren)
                 {
                     await Assertions.Expect(rowSpinner).ToBeVisibleAsync();
                 }
