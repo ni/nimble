@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 21 Feb 2024 19:48:20 GMT and should not be manually modified.
+This log was last generated on Wed, 21 Feb 2024 21:18:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.6.0
+
+Wed, 21 Feb 2024 21:18:20 GMT
+
+### Minor changes
+
+- Add bodyEmphasizedPlus1Font tokens ([ni/nimble@4037b7c](https://github.com/ni/nimble/commit/4037b7c13da51926e6fbfd774a4da19cd75cb98e))
+- Bump @ni/nimble-tokens to v6.11.0
 
 ## 21.5.5
 
