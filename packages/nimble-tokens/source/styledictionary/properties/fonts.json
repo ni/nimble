@@ -120,6 +120,14 @@
         "value": "Semibold"
       }
     },
+    "BodyEmphasized_2": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Semibold"
+      }
+    },
     "Subtitle_1": {
       "family": {
         "value": "Source Sans Pro"
