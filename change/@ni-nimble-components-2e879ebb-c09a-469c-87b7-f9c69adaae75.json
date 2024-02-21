@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add BodyEmphasized_2 font",
+  "comment": "Add bodyEmphasizedPlus1Font tokens",
   "packageName": "@ni/nimble-components",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "patch"
