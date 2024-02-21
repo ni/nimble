@@ -103,4 +103,12 @@ export class NimbleLabelProviderTableDirective {
     @Input('row-operation-column') public set rowOperationColumn(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'rowOperationColumn', value);
     }
+
+    public get rowLoading(): string | undefined {
+        return this.elementRef.nativeElement.rowLoading;
+    }
+
+    @Input('row-loading') public set rowLoading(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'rowLoading', value);
+    }
 }
