@@ -31,6 +31,7 @@ export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
     formatter: UnitFormat;
     alignment: TextCellViewBaseAlignment;
+    placeholder?: string;
 }
 
 declare global {
@@ -107,6 +108,10 @@ export class TableColumnNumberText extends TableColumnTextBase {
         };
     }
 
+    protected placeholderChanged(): void {
+        this.updateColumnConfig();
+    }
+
     private updateUnitNotifier(): void {
         if (this.unitNotifier) {
             this.unitNotifier.unsubscribe(this.unitSubscriber);
@@ -171,7 +176,8 @@ export class TableColumnNumberText extends TableColumnTextBase {
         if (this.validator.isValid()) {
             const columnConfig: TableColumnNumberTextColumnConfig = {
                 formatter: this.createFormatter(),
-                alignment: this.determineCellContentAlignment()
+                alignment: this.determineCellContentAlignment(),
+                placeholder: this.placeholder
             };
             this.columnInternals.columnConfig = columnConfig;
         } else {

@@ -40,6 +40,12 @@ const simpleData = [
         lastName: 'Simpson',
         status: 'success',
         isChild: true
+    },
+    {
+        firstName: 'John',
+        lastName: 'Doe',
+        status: undefined,
+        isChild: false
     }
 ] as const;
 

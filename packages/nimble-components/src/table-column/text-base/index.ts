@@ -12,8 +12,13 @@ export abstract class TableColumnTextBase extends mixinGroupableColumnAPI(
     @attr({ attribute: 'field-name' })
     public fieldName?: string;
 
+    @attr()
+    public placeholder?: string;
+
     protected fieldNameChanged(): void {
         this.columnInternals.dataRecordFieldNames = [this.fieldName];
         this.columnInternals.operandDataRecordFieldName = this.fieldName;
     }
+
+    protected abstract placeholderChanged(): void;
 }

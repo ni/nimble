@@ -27,16 +27,27 @@ TableColumnAnchorColumnConfig
     public hasOverflow = false;
 
     /** @internal */
+    @observable
+    public isPlaceholder = false;
+
+    /** @internal */
     public anchor?: Anchor;
 
     @volatile
     public get text(): string {
         if (typeof this.cellRecord?.label === 'string') {
+            this.isPlaceholder = false;
             return this.cellRecord.label;
         }
+        if (typeof this.columnConfig?.placeholder === 'string') {
+            this.isPlaceholder = true;
+            return this.columnConfig?.placeholder;
+        }
         if (typeof this.cellRecord?.href === 'string') {
+            this.isPlaceholder = false;
             return this.cellRecord.href;
         }
+        this.isPlaceholder = false;
         return '';
     }
 

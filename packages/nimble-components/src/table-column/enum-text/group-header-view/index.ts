@@ -29,12 +29,11 @@ TableColumnEnumColumnConfig
 
     private updateText(): void {
         const value = this.groupHeaderValue;
-        if (value === undefined || value === null) {
-            this.text = '';
+        if (this.applyPlaceholderTextIfNeeded(value)) {
             return;
         }
 
-        const config = this.columnConfig?.mappingConfigs.get(value);
+        const config = this.columnConfig?.mappingConfigs.get(value!);
         this.text = config instanceof MappingTextConfig && config.text
             ? config.text
             : '';

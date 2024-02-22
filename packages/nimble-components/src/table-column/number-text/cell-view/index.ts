@@ -31,7 +31,8 @@ TableColumnNumberTextColumnConfig
     }
 
     private updateText(): void {
-        this.text = this.columnConfig?.formatter?.format(this.cellRecord?.value) ?? '';
+        const cellText = this.columnConfig?.formatter?.format(this.cellRecord?.value);
+        this.applyTextOrPlaceholder(cellText, this.columnConfig?.placeholder, false);
     }
 }
 

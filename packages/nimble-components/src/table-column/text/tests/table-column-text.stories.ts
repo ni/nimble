@@ -82,6 +82,8 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 field-name="quote"
+                placeholder="None"
+                group-index="0"
             >
             Quote
             </${tableColumnTextTag}>

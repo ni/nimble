@@ -36,7 +36,7 @@ const simpleData = [
     {
         firstName: 'Montgomery',
         lastName: 'Burns',
-        swearWordCadence: 3.78e12
+        swearWordCadence: undefined
     }
 ] as const;
 
@@ -83,6 +83,8 @@ export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnDurationTextTag}
                 field-name="swearWordCadence"
+                group-index="0"
+                placeholder="None"
             >
             Time since last swear word
             </${tableColumnDurationTextTag}>

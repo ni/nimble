@@ -13,6 +13,7 @@ export const template = html<TableColumnAnchorCellView>`
             }
             return true;
         }}"
+        class="${x => (x.isPlaceholder ? 'placeholder' : '')}"
     >
         ${when(x => typeof x.cellRecord?.href === 'string', html<TableColumnAnchorCellView>`
             <${anchorTag}

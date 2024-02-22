@@ -18,6 +18,10 @@ TableStringFieldValue,
 TableColumnTextColumnConfig
 > {
     private groupHeaderValueChanged(): void {
+        if (this.applyPlaceholderTextIfNeeded(this.groupHeaderValue)) {
+            return;
+        }
+
         this.text = typeof this.groupHeaderValue === 'string'
             ? this.groupHeaderValue
             : '';

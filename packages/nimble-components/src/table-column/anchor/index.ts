@@ -23,6 +23,7 @@ export interface TableColumnAnchorColumnConfig {
     target?: string;
     type?: string;
     download?: string;
+    placeholder?: string;
 }
 
 declare global {
@@ -70,6 +71,9 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     @attr
     public download?: string;
 
+    @attr
+    public placeholder?: string;
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['label', 'href'],
@@ -93,6 +97,10 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             this.labelFieldName,
             this.hrefFieldName
         ] as const;
+    }
+
+    protected placeholderChanged(): void {
+        this.updateColumnConfig();
     }
 
     protected appearanceChanged(): void {
@@ -141,7 +149,8 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             rel: this.rel,
             target: this.target,
             type: this.type,
-            download: this.download
+            download: this.download,
+            placeholder: this.placeholder
         };
     }
 }

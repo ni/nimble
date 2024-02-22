@@ -9,8 +9,10 @@ import { tableColumnTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TableColumnTextColumnConfig {}
+
+export interface TableColumnTextColumnConfig {
+    placeholder?: string;
+}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -29,6 +31,12 @@ export class TableColumnText extends TableColumnTextBase {
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: [],
             sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
+        };
+    }
+
+    protected placeholderChanged(): void {
+        this.columnInternals.columnConfig = {
+            placeholder: this.placeholder
         };
     }
 }

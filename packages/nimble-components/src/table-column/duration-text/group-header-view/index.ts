@@ -26,6 +26,10 @@ TableColumnDurationTextColumnConfig
     }
 
     private updateText(): void {
+        if (this.applyPlaceholderTextIfNeeded(this.groupHeaderValue)) {
+            return;
+        }
+
         if (this.columnConfig) {
             this.text = this.columnConfig.formatter.format(
                 this.groupHeaderValue

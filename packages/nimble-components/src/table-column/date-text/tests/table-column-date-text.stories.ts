@@ -49,7 +49,7 @@ const simpleData = [
     {
         firstName: 'Maggie',
         lastName: 'Simpson',
-        birthday: new Date(2022, 0, 12, 20, 4, 37, 975).valueOf()
+        birthday: undefined
     }
 ] as const;
 
@@ -143,6 +143,8 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 custom-numbering-system="${x => x.customNumberingSystem}"
                 custom-format-matcher="${x => x.customFormatMatcher}"
                 custom-locale-matcher="${x => x.customLocaleMatcher}"
+                group-index="0"
+                placeholder="Unknown"
             >
             Birthday
             </${tableColumnDateTextTag}>

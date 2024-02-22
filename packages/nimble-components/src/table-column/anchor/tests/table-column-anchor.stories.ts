@@ -84,6 +84,8 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 href-field-name="${x => x.hrefFieldName}"
                 appearance="${x => x.appearance}"
                 ?underline-hidden="${x => x.underlineHidden}"
+                group-index="0"
+                placeholder="Unknown value"
             >
             Link Column
             </${tableColumnAnchorTag}>

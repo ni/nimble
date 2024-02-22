@@ -20,10 +20,19 @@ export class TableColumnTextCellView extends TableColumnTextCellViewBase<
 TableColumnTextCellRecord,
 TableColumnTextColumnConfig
 > {
+    private columnConfigChanged(): void {
+        this.updateText();
+    }
+
     private cellRecordChanged(): void {
-        this.text = typeof this.cellRecord?.value === 'string'
+        this.updateText();
+    }
+
+    private updateText(): void {
+        const cellText = typeof this.cellRecord?.value === 'string'
             ? this.cellRecord.value
-            : '';
+            : undefined;
+        this.applyTextOrPlaceholder(cellText, this.columnConfig?.placeholder, true);
     }
 }
 

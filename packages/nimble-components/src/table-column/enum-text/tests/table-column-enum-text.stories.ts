@@ -32,6 +32,16 @@ const simpleData = [
         firstName: 'Bart',
         lastName: 'Simpson',
         status: 'success'
+    },
+    {
+        firstName: 'Unknown',
+        lastName: 'Person',
+        status: undefined
+    },
+    {
+        firstName: 'John',
+        lastName: 'Doe',
+        status: 'foo'
     }
 ] as const;
 
@@ -59,7 +69,7 @@ export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
             <${tableColumnTextTag} field-name="firstName" >
                 Name
             </${tableColumnTextTag}>
-            <${tableColumnEnumTextTag} field-name="status">
+            <${tableColumnEnumTextTag} field-name="status" group-index="0">
                 Status
                 <${mappingTextTag} key="fail" text="Not a Simpson"></${mappingTextTag}>
                 <${mappingTextTag} key="success" text="Is a Simpson"></${mappingTextTag}>

@@ -17,5 +17,19 @@ export abstract class TableColumnTextGroupHeaderViewBase<
      * Text to render in the cell.
      */
     @observable
-    public text = '';
+    public text = 'No value'; // mkreis TODO: Localize
+
+    /**
+     * Sets `this.text` to the default placeholder if `groupHeaderValue` is `null` or `undefined`
+     * @param groupHeaderValue The value for the group
+     * @returns `true` if `this.text` was set to the default placeholder, `false` otherwise.
+     */
+    protected applyPlaceholderTextIfNeeded(groupHeaderValue: TableFieldValue): boolean {
+        if (groupHeaderValue === null || groupHeaderValue === undefined) {
+            // mkreis TODO: Localize
+            this.text = 'No value';
+            return true;
+        }
+        return false;
+    }
 }
