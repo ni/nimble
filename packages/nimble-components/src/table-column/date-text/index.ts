@@ -136,6 +136,10 @@ export class TableColumnDateText extends TableColumnTextBase {
         return this.validator.getValidity();
     }
 
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
+    }
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
@@ -223,10 +227,6 @@ export class TableColumnDateText extends TableColumnTextBase {
     }
 
     protected customHourCycleChanged(): void {
-        this.updateColumnConfig();
-    }
-
-    protected placeholderChanged(): void {
         this.updateColumnConfig();
     }
 

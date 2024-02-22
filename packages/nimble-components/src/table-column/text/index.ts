@@ -24,6 +24,12 @@ declare global {
  * The table column for displaying string fields as text.
  */
 export class TableColumnText extends TableColumnTextBase {
+    public placeholderChanged(): void {
+        this.columnInternals.columnConfig = {
+            placeholder: this.placeholder
+        };
+    }
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
@@ -31,12 +37,6 @@ export class TableColumnText extends TableColumnTextBase {
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: [],
             sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
-        };
-    }
-
-    protected placeholderChanged(): void {
-        this.columnInternals.columnConfig = {
-            placeholder: this.placeholder
         };
     }
 }

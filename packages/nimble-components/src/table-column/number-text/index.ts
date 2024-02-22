@@ -98,6 +98,10 @@ export class TableColumnNumberText extends TableColumnTextBase {
         return this.validator.getValidity();
     }
 
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
+    }
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
@@ -106,10 +110,6 @@ export class TableColumnNumberText extends TableColumnTextBase {
             delegatedEvents: [],
             sortOperation: TableColumnSortOperation.basic
         };
-    }
-
-    protected placeholderChanged(): void {
-        this.updateColumnConfig();
     }
 
     private updateUnitNotifier(): void {

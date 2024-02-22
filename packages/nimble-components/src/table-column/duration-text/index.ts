@@ -46,6 +46,10 @@ export class TableColumnDurationText extends TableColumnTextBase {
         lang.unsubscribe(this.langSubscriber, this);
     }
 
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
+    }
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
@@ -54,10 +58,6 @@ export class TableColumnDurationText extends TableColumnTextBase {
             delegatedEvents: [],
             sortOperation: TableColumnSortOperation.basic
         };
-    }
-
-    protected placeholderChanged(): void {
-        this.updateColumnConfig();
     }
 
     private updateColumnConfig(): void {
