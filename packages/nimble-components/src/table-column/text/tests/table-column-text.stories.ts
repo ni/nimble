@@ -34,6 +34,12 @@ const simpleData = [
         firstName: 'Maggie',
         lastName: 'Simpson',
         favoriteColor: 'Red'
+    },
+    {
+        firstName: 'John',
+        lastName: 'Doe',
+        favoriteColor: 'Red',
+        quote: ''
     }
 ] as const;
 

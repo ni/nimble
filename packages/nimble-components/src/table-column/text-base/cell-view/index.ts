@@ -2,7 +2,7 @@ import { observable } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import type { TableCellRecord } from '../../base/types';
 import { TextCellViewBaseAlignment } from './types';
-import type { TableStringFieldValue } from '../../../table/types';
+import type { TableFieldValue } from '../../../table/types';
 
 /**
  * The cell view base class for displaying fields of any type as text.
@@ -33,13 +33,14 @@ export abstract class TableColumnTextCellViewBase<
     @observable
     public alignment: TextCellViewBaseAlignment = TextCellViewBaseAlignment.left;
 
-    protected applyTextOrPlaceholder(cellValue: TableStringFieldValue, placeholder: string | undefined, allowEmptyString: boolean): void {
-        if (placeholder && (cellValue === null || cellValue === undefined || (cellValue === '' && !allowEmptyString))) {
+    protected applyPlaceholderTextIfNeeded(cellValue: TableFieldValue, placeholder: string | undefined): boolean {
+        if (placeholder && (cellValue === null || cellValue === undefined)) {
             this.text = placeholder;
             this.isPlaceholder = true;
         } else {
-            this.text = cellValue ?? '';
             this.isPlaceholder = false;
         }
+
+        return this.isPlaceholder;
     }
 }

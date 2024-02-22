@@ -31,8 +31,11 @@ TableColumnNumberTextColumnConfig
     }
 
     private updateText(): void {
-        const cellText = this.columnConfig?.formatter?.format(this.cellRecord?.value);
-        this.applyTextOrPlaceholder(cellText, this.columnConfig?.placeholder, false);
+        const cellValue = this.cellRecord?.value;
+        if (this.applyPlaceholderTextIfNeeded(cellValue, this.columnConfig?.placeholder)) {
+            return;
+        }
+        this.text = this.columnConfig?.formatter?.format(cellValue) ?? '';
     }
 }
 

@@ -29,10 +29,13 @@ TableColumnTextColumnConfig
     }
 
     private updateText(): void {
-        const cellText = typeof this.cellRecord?.value === 'string'
-            ? this.cellRecord.value
-            : undefined;
-        this.applyTextOrPlaceholder(cellText, this.columnConfig?.placeholder, true);
+        const cellValue = this.cellRecord?.value;
+        if (this.applyPlaceholderTextIfNeeded(cellValue, this.columnConfig?.placeholder)) {
+            return;
+        }
+        this.text = typeof cellValue === 'string'
+            ? cellValue
+            : '';
     }
 }
 

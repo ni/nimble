@@ -30,15 +30,19 @@ TableColumnDateTextColumnConfig
     }
 
     private updateText(): void {
-        let cellText: string | undefined;
-        if (this.columnConfig) {
-            cellText = formatNumericDate(
-                this.columnConfig.formatter,
-                this.cellRecord?.value
-            );
+        const cellValue = this.cellRecord?.value;
+        if (this.applyPlaceholderTextIfNeeded(cellValue, this.columnConfig?.placeholder)) {
+            return;
         }
 
-        this.applyTextOrPlaceholder(cellText, this.columnConfig?.placeholder, false);
+        if (this.columnConfig) {
+            this.text = formatNumericDate(
+                this.columnConfig.formatter,
+                cellValue
+            );
+        } else {
+            this.text = '';
+        }
     }
 }
 

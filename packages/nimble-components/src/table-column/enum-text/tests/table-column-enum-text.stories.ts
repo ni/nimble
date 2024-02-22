@@ -34,8 +34,8 @@ const simpleData = [
         status: 'success'
     },
     {
-        firstName: 'Unknown',
-        lastName: 'Person',
+        firstName: 'Jane',
+        lastName: 'Doe',
         status: undefined
     },
     {
