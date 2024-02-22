@@ -40,7 +40,7 @@ export abstract class Modal<CloseReason = void> extends FoundationElement {
      *
      * @internal
      */
-    protected readonly dialogElement!: ExtendedDialog;
+    public readonly dialogElement!: ExtendedDialog;
 
     protected state: ModalState = ModalState.closed;
 
