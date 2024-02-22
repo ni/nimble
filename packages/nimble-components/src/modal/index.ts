@@ -48,7 +48,7 @@ export abstract class Modal<CloseReason = void> extends FoundationElement {
      * True if the Modal is open/showing, false otherwise
      */
     public get open(): boolean {
-        return this.resolveShow !== undefined;
+        return this.state === ModalState.open;
     }
 
     private resolveShow?: (reason: CloseReason | UserDismissed) => void;
