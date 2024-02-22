@@ -107,7 +107,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
             throw new Error('Dialog is not open');
         }
         this.dialogElement.close();
-        this.notifyClosed(reason);
+        this.doResolveShow(reason);
     }
 
     public slottedFooterElementsChanged(
@@ -124,7 +124,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         if (this.preventDismiss) {
             event.preventDefault();
         } else {
-            this.notifyClosed(UserDismissed);
+            this.doResolveShow(UserDismissed);
         }
         return true;
     }
@@ -137,15 +137,15 @@ export class Dialog<CloseReason = void> extends FoundationElement {
             // If
             // - the browser implements dialogs with the CloseWatcher API, and
             // - the user presses ESC without first interacting with the dialog (e.g. clicking, scrolling),
-            // the cancel event is not fired and the dialog just closes.
-            this.notifyClosed(UserDismissed);
+            // the cancel event is not fired, but the close event still is, and the dialog just closes.
+            this.doResolveShow(UserDismissed);
         }
     }
 
-    private notifyClosed(reason: CloseReason | UserDismissed): void {
+    private doResolveShow(reason: CloseReason | UserDismissed): void {
         if (!this.resolveShow) {
             throw new Error(
-                'Do not call notifyClosed unless there is a promise to resolve'
+                'Do not call doResolveShow unless there is a promise to resolve'
             );
         }
         this.resolveShow(reason);
