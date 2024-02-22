@@ -1,6 +1,7 @@
 import { attr } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { UserDismissed } from '../patterns/dialog/types';
+import { ModalState } from './types';
 
 /**
  * This is a workaround for an incomplete definition of the native dialog element. Remove when using Typescript >=4.8.3.
@@ -11,15 +12,6 @@ export interface ExtendedDialog extends HTMLDialogElement {
     showModal(): void;
     close(): void;
 }
-
-export const ModalState = {
-    opening: 'opening',
-    open: 'open',
-    closing: 'closing',
-    closed: 'closed'
-} as const;
-export type ModalState =
-    (typeof ModalState)[keyof typeof ModalState];
 
 /**
  * A base class for components based on a native dialog.
@@ -42,15 +34,22 @@ export abstract class Modal<CloseReason = void> extends FoundationElement {
      */
     public readonly dialogElement!: ExtendedDialog;
 
-    protected state: ModalState = ModalState.closed;
-
-    /**
-     * True if the Modal is open/showing, false otherwise
-     */
-    public get open(): boolean {
-        return this.state === ModalState.open;
+    protected get state(): ModalState {
+        return this._state;
     }
 
+    private set state(value: ModalState) {
+        this._state = value;
+    }
+
+    /**
+     * False if the Modal is closed, true otherwise
+     */
+    public get open(): boolean {
+        return this.state !== ModalState.closed;
+    }
+
+    private _state: ModalState = ModalState.closed;
     private resolveShow?: (reason: CloseReason | UserDismissed) => void;
 
     /**
@@ -58,9 +57,13 @@ export abstract class Modal<CloseReason = void> extends FoundationElement {
      * @returns Promise that is resolved when the Modal is closed. The value of the resolved Promise is the reason value passed to the close() method, or UserDismissed if closed via the ESC key.
      */
     public async show(): Promise<CloseReason | UserDismissed> {
-        if (this.open) {
-            throw new Error('Already open');
+        if (
+            this.state === ModalState.open
+            || this.state === ModalState.opening
+        ) {
+            throw new Error('Already open or opening');
         }
+        this.state = ModalState.opening;
         this.startOpening();
         return new Promise((resolve, _reject) => {
             this.resolveShow = resolve;
@@ -72,9 +75,10 @@ export abstract class Modal<CloseReason = void> extends FoundationElement {
      * @param reason An optional value indicating how/why the Modal was closed.
      */
     public close(reason: CloseReason): void {
-        if (!this.open || this.state === ModalState.closing) {
-            throw new Error('Not open or already closing');
+        if (this.state !== ModalState.open) {
+            throw new Error('Not open');
         }
+        this.state = ModalState.closing;
         this.startClosing(reason);
     }
 
@@ -85,26 +89,29 @@ export abstract class Modal<CloseReason = void> extends FoundationElement {
         if (this.preventDismiss) {
             event.preventDefault();
         } else {
+            this.state = ModalState.closing;
             this.startClosing(UserDismissed);
         }
         return true;
     }
 
+    // Derived classes can override this, but should not call it directly (except from the override).
     protected startOpening(): void {
-        this.state = ModalState.opening;
         this.finishOpening();
     }
 
+    // Overrides must call the base implementation, so that state gets updated.
     protected finishOpening(): void {
         this.state = ModalState.open;
         this.dialogElement.showModal();
     }
 
+    // Derived classes can override this, but should not call it directly (except from the override).
     protected startClosing(reason: CloseReason | UserDismissed): void {
-        this.state = ModalState.closing;
         this.finishClosing(reason);
     }
 
+    // Overrides must call the base implementation, so that state gets updated.
     protected finishClosing(reason: CloseReason | UserDismissed): void {
         this.state = ModalState.closed;
         this.dialogElement.close();

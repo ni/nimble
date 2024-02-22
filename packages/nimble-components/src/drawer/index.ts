@@ -6,7 +6,8 @@ import {
 } from '@microsoft/fast-foundation';
 import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { UserDismissed } from '../patterns/dialog/types';
-import { Modal, ModalState } from '../modal';
+import { Modal } from '../modal';
+import { ModalState } from '../modal/types';
 import { styles } from './styles';
 import { template } from './template';
 import { DrawerLocation } from './types';
@@ -50,7 +51,6 @@ export class Drawer<CloseReason = void> extends Modal<CloseReason> {
     }
 
     protected override startClosing(reason: CloseReason | UserDismissed): void {
-        this.state = ModalState.closing;
         this.closeReason = reason;
         this.triggerAnimation();
     }
