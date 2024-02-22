@@ -30,7 +30,7 @@ const data = [
     },
     {
         id: '1',
-        number: -9.54021
+        number: -9.5402111111
     },
     {
         id: '2'
