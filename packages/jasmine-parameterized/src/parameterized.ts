@@ -85,7 +85,7 @@ type ObjectFromNamedList<T extends readonly { name: string }[]> = {
  * @example
  * const rainTests = [
  *   { name: 'cats-and-dogs', type: 'idiom' },
- *   { name: 'frogs' type: 'idiom'},
+ *   { name: 'frogs', type: 'idiom'},
  *   { name: 'men', type: 'lyrics'}
  * ] as const;
  * describe('Different rains', () => {

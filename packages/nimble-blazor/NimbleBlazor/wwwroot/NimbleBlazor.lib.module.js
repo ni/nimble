@@ -118,6 +118,17 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleTable.razor
+    Blazor.registerCustomEventType('nimbletablerowexpandtoggle', {
+        browserEventName: 'row-expand-toggle',
+        createEventArgs: event => {
+            return {
+                recordId: event.detail.recordId,
+                newState: event.detail.newState,
+                oldState: event.detail.oldState
+            };
+        }
+    });
     // Used by NimbleWaferMap.razor
     Blazor.registerCustomEventType('nimblewafermapdiehoverchange', {
         browserEventName: 'die-hover',
@@ -157,6 +168,17 @@ window.NimbleBlazor = window.NimbleBlazor ?? {
         setData: async function (tableReference, data) {
             const dataObject = JSON.parse(data);
             await tableReference.setData(dataObject);
+        },
+        setRecordHierarchyOptions: async function (tableReference, options) {
+            // Blazor converts the 'None' delayed hierarchy state to null,
+            // but nimble-components expects 'None' to be passed as undefined.
+            // Therefore, change any null values to undefined.
+            for (const option of options) {
+                if (option.options.delayedHierarchyState === null) {
+                    option.options.delayedHierarchyState = undefined;
+                }
+            }
+            await tableReference.setRecordHierarchyOptions(options);
         },
         getSelectedRecordIds: async function (tableReference) {
             return tableReference.getSelectedRecordIds();
