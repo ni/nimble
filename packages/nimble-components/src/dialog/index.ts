@@ -5,7 +5,7 @@ import {
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { UserDismissed } from '../patterns/dialog/types';
-import { DialogBase } from '../dialog-base';
+import { Modal } from '../modal';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -21,7 +21,7 @@ declare global {
  * A nimble-styled dialog.
  */
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-export class Dialog<CloseReason = void> extends DialogBase<CloseReason> {
+export class Dialog<CloseReason = void> extends Modal<CloseReason> {
     // We want the member to match the name of the constant
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public static readonly UserDismissed = UserDismissed;

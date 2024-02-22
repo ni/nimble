@@ -6,7 +6,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { UserDismissed } from '../patterns/dialog/types';
-import { DialogBase } from '../dialog-base';
+import { Modal, ModalState } from '../modal';
 import { styles } from './styles';
 import { template } from './template';
 import { DrawerLocation } from './types';
@@ -24,7 +24,7 @@ declare global {
  * which animates to be visible with a slide-in / slide-out animation.
  */
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-export class Drawer<CloseReason = void> extends DialogBase<CloseReason> {
+export class Drawer<CloseReason = void> extends Modal<CloseReason> {
     // We want the member to match the name of the constant
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public static readonly UserDismissed = UserDismissed;
@@ -32,20 +32,7 @@ export class Drawer<CloseReason = void> extends DialogBase<CloseReason> {
     @attr
     public location: DrawerLocation = DrawerLocation.right;
 
-    private closing = false;
-
     private closeReason!: CloseReason | UserDismissed;
-
-    /**
-     * Closes the Drawer
-     * @param reason An optional value indicating how/why the Drawer was closed.
-     */
-    public override close(reason: CloseReason): void {
-        if (!this.open || this.closing) {
-            throw new Error('Drawer is not open or already closing');
-        }
-        this.startClosing(reason);
-    }
 
     /**
      * @internal
@@ -54,34 +41,25 @@ export class Drawer<CloseReason = void> extends DialogBase<CloseReason> {
         // Allowing the dialog to close itself bypasses the drawer's animation logic, so we
         // should close the drawer ourselves when preventDismiss is false.
         event.preventDefault();
-
-        if (!this.preventDismiss) {
-            this.startClosing(UserDismissed);
-        }
-        return true;
+        return super.cancelHandler(event);
     }
 
-    protected override openDialog(): void {
-        this.dialogElement.showModal();
+    protected override startOpening(): void {
+        super.startOpening();
+        this.triggerAnimation();
+    }
+
+    protected override startClosing(reason: CloseReason | UserDismissed): void {
+        this.state = ModalState.closing;
+        this.closeReason = reason;
         this.triggerAnimation();
     }
 
     private readonly animationEndHandlerFunction = (): void => this.animationEndHandler();
 
-    private startClosing(reason: CloseReason | UserDismissed): void {
-        this.closeReason = reason;
-        this.closing = true;
-        this.triggerAnimation();
-    }
-
-    private doneClosing(): void {
-        this.closing = false;
-        this.notifyClosed(this.closeReason);
-    }
-
     private triggerAnimation(): void {
         this.dialogElement.classList.add('animating');
-        if (this.closing) {
+        if (this.state === ModalState.closing) {
             this.dialogElement.classList.add('closing');
         }
 
@@ -97,10 +75,9 @@ export class Drawer<CloseReason = void> extends DialogBase<CloseReason> {
             this.animationEndHandlerFunction
         );
         this.dialogElement.classList.remove('animating');
-        if (this.closing) {
+        if (this.state === ModalState.closing) {
             this.dialogElement.classList.remove('closing');
-            this.dialogElement.close();
-            this.doneClosing();
+            this.finishClosing(this.closeReason);
         }
     }
 }
