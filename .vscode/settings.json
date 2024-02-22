@@ -6,7 +6,6 @@
       "mode": "auto"
     }
   ],
-  "xd.globalEditor": true,
   "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
   "omnisharp.useModernNet": true
 }

@@ -1,7 +1,7 @@
 import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
 import { html, repeat } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../list-option';
 import {
     createUserSelectedThemeStory,
@@ -76,7 +76,7 @@ const optionSets = {
 
 const metadata: Meta<ComboboxArgs> = {
     title: 'Components/Combobox',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         docs: {
             description: {

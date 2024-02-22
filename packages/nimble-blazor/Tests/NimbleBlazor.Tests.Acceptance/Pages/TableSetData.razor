@@ -1,17 +1,18 @@
-﻿@page "/TableBindToData"
+﻿@page "/TableSetData"
 @namespace NimbleBlazor.Tests.Acceptance.Pages
 @using System.Diagnostics.CodeAnalysis;
 @inherits LayoutComponentBase
 
-<NimbleTable IdFieldName="Id" @bind-Data="TableData">
+<NimbleTable TData="RowData" IdFieldName="Id" @ref="_table">
     <NimbleTableColumnText FieldName="Field1" ColumnId="1">Column 1</NimbleTableColumnText>
 </NimbleTable>
 
 @code {
     [NotNull]
     public IEnumerable<RowData> TableData { get; set; } = Enumerable.Empty<RowData>();
+    private NimbleTable<RowData>? _table;
 
-    public TableBindToData()
+    public TableSetData()
     {
         UpdateTableData(5);
     }
@@ -27,6 +28,12 @@
         }
 
         TableData = tableData;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _table!.SetDataAsync(TableData);
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     public class RowData

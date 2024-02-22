@@ -23,7 +23,7 @@ const createTemplate = (
     labelProviderTag: string
 ): ViewTemplate<LabelProviderArgs> => html<LabelProviderArgs>`
 <${labelProviderTag}></${labelProviderTag}>
-<p>Element name: <code>${x => x.labelProviderTag}</code></p>
+<p>Element name: ${x => x.labelProviderTag}</p>
 <${tableTag}
     ${ref('tableRef')}
     data-unused="${x => x.updateData(x)}"
@@ -63,7 +63,7 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
                 }
                 ${tableTag} {
                     /* Make the table big enough to remove vertical scrollbar */
-                    height: 450px;
+                    height: 550px;
                 }
             </style>
             ${x => createTemplate(x.labelProviderTag)}

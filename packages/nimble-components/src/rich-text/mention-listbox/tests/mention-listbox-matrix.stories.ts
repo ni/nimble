@@ -6,12 +6,10 @@ import { hiddenWrapper } from '../../../utilities/tests/hidden';
 import { loremIpsum } from '../../../utilities/tests/lorem-ipsum';
 import {
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    createMatrixThemeStory
 } from '../../../utilities/tests/matrix';
-import {
-    createMatrixThemeStory,
-    createStory
-} from '../../../utilities/tests/storybook';
+import { createStory } from '../../../utilities/tests/storybook';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Mention Listbox',

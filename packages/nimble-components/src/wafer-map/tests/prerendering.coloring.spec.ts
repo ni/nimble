@@ -7,7 +7,8 @@ import {
     defaultHorizontalScale,
     defaultVerticalScale,
     getWaferMapDies,
-    getWaferMapMockPrerendering
+    getWaferMapMockPrerendering,
+    getScaleBand
 } from './utilities';
 
 describe('Wafermap Prerendering module', () => {
@@ -50,9 +51,13 @@ describe('Wafermap Prerendering module', () => {
             });
 
             it('should have black fill style for all dies', () => {
-                for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                    expect(dieRenderInfo.fillStyle).toEqual(emptyDieColor);
-                }
+                const expectedValues = Array(18).fill(emptyDieColor);
+                const actualValues = prerenderingModule.diesRenderInfo.map(
+                    dieRenderInfo => dieRenderInfo.fillStyle
+                );
+                expect(actualValues).toEqual(
+                    jasmine.arrayWithExactContents(expectedValues)
+                );
             });
         });
 
@@ -91,9 +96,13 @@ describe('Wafermap Prerendering module', () => {
             });
 
             it('should have the same fill style for all dies', () => {
-                for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                    expect(dieRenderInfo.fillStyle).toEqual('rgba(255,0,0,1)');
-                }
+                const expectedValues = Array(18).fill('rgba(255,0,0,1)');
+                const actualValues = prerenderingModule.diesRenderInfo.map(
+                    dieRenderInfo => dieRenderInfo.fillStyle
+                );
+                expect(actualValues).toEqual(
+                    jasmine.arrayWithExactContents(expectedValues)
+                );
             });
         });
 
@@ -134,17 +143,14 @@ describe('Wafermap Prerendering module', () => {
             it('should have the fill style equally distributed to dies', () => {
                 const waferMapDies = getWaferMapDies();
                 const expectedValues = waferMapDies.map(waferMapDie => {
-                    return {
-                        fillStyle: `rgba(${
-                            (+waferMapDie.value - 1) * 15
-                        },0,0,1)`
-                    };
+                    return `rgba(${(+waferMapDie.value - 1) * 15},0,0,1)`;
                 });
-                for (let i = 0; i < waferMapDies.length; i += 1) {
-                    expect(
-                        prerenderingModule.diesRenderInfo[i]!.fillStyle
-                    ).toEqual(expectedValues[i]!.fillStyle);
-                }
+                const actualValues = prerenderingModule.diesRenderInfo.map(
+                    dieRenderInfo => dieRenderInfo.fillStyle
+                );
+                expect(actualValues).toEqual(
+                    jasmine.arrayWithExactContents(expectedValues)
+                );
             });
         });
     });
@@ -184,9 +190,13 @@ describe('Wafermap Prerendering module', () => {
             });
 
             it('should have the same fill style for all dies', () => {
-                for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                    expect(dieRenderInfo.fillStyle).toEqual('rgba(255,0,0,1)');
-                }
+                const expectedValues = Array(18).fill('rgba(255,0,0,1)');
+                const actualValues = prerenderingModule.diesRenderInfo.map(
+                    dieRenderInfo => dieRenderInfo.fillStyle
+                );
+                expect(actualValues).toEqual(
+                    jasmine.arrayWithExactContents(expectedValues)
+                );
             });
         });
 
@@ -227,26 +237,21 @@ describe('Wafermap Prerendering module', () => {
             it('should have alternating fill style for the dies', () => {
                 const waferMapDies = getWaferMapDies();
                 const expectedValues = waferMapDies.map(waferMapDie => {
-                    const fillStyle = +waferMapDie.value % 2 === 1
+                    return +waferMapDie.value % 2 === 1
                         ? 'rgba(0,0,0,1)'
                         : 'rgba(255,0,0,1)';
-                    return {
-                        fillStyle
-                    };
                 });
-                for (let i = 0; i < waferMapDies.length; i += 1) {
-                    expect(
-                        prerenderingModule.diesRenderInfo[i]!.fillStyle
-                    ).toEqual(expectedValues[i]!.fillStyle);
-                }
+                const actualValues = prerenderingModule.diesRenderInfo.map(
+                    dieRenderInfo => dieRenderInfo.fillStyle
+                );
+                expect(actualValues).toEqual(
+                    jasmine.arrayWithExactContents(expectedValues)
+                );
             });
         });
     });
 
-    // Test disabled as it currently does not have expect statements
-    // that run to perform any useful validation
-    // See: https://github.com/ni/nimble/issues/1746
-    xdescribe('with non numeric values', () => {
+    describe('with non numeric values', () => {
         const dieDimensions = { width: 10, height: 10 };
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
@@ -273,8 +278,8 @@ describe('Wafermap Prerendering module', () => {
             const dataManagerMock = getDataManagerMock(
                 dieDimensions,
                 margin,
-                defaultHorizontalScale,
-                defaultVerticalScale
+                getScaleBand([0, 1], [0, 100]),
+                getScaleBand([0, 1], [0, 100])
             );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
@@ -284,16 +289,17 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it('should have NaN color fill style', () => {
-            for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                expect(dieRenderInfo.fillStyle).toEqual(nanDieColor);
-            }
+            const expectedValues = [nanDieColor];
+            const actualValues = prerenderingModule.diesRenderInfo.map(
+                dieRenderInfo => dieRenderInfo.fillStyle
+            );
+            expect(actualValues).toEqual(
+                jasmine.arrayWithExactContents(expectedValues)
+            );
         });
     });
 
-    // Test disabled as it currently does not have expect statements
-    // that run to perform any useful validation
-    // See: https://github.com/ni/nimble/issues/1746
-    xdescribe('with undefined values', () => {
+    describe('with undefined values', () => {
         const dieDimensions = { width: 10, height: 10 };
         const dieLabelsSuffix = '';
         const dieLabelsHidden = true;
@@ -320,8 +326,8 @@ describe('Wafermap Prerendering module', () => {
             const dataManagerMock = getDataManagerMock(
                 dieDimensions,
                 margin,
-                defaultHorizontalScale,
-                defaultVerticalScale
+                getScaleBand([0, 1], [0, 100]),
+                getScaleBand([0, 1], [0, 100])
             );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
@@ -331,9 +337,13 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it('should have empty color fill style', () => {
-            for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                expect(dieRenderInfo.fillStyle).toEqual(emptyDieColor);
-            }
+            const expectedValues = [emptyDieColor];
+            const actualValues = prerenderingModule.diesRenderInfo.map(
+                dieRenderInfo => dieRenderInfo.fillStyle
+            );
+            expect(actualValues).toEqual(
+                jasmine.arrayWithExactContents(expectedValues)
+            );
         });
     });
 
@@ -372,20 +382,17 @@ describe('Wafermap Prerendering module', () => {
             const waferMapDies = getWaferMapDies();
             const expectedValues = waferMapDies.map(waferMapDie => {
                 if (!waferMapDie.tags) {
-                    return {
-                        fillStyle: 'rgba(255,0,0,0.3)'
-                    };
+                    return 'rgba(255,0,0,0.3)';
                 }
                 const opacity = waferMapDie.tags[0] === highlightedTag ? 1 : 0.3;
-                return {
-                    fillStyle: `rgba(255,0,0,${opacity})`
-                };
+                return `rgba(255,0,0,${opacity})`;
             });
-            for (let i = 0; i < waferMapDies.length; i += 1) {
-                expect(prerenderingModule.diesRenderInfo[i]!.fillStyle).toEqual(
-                    expectedValues[i]!.fillStyle
-                );
-            }
+            const actualValues = prerenderingModule.diesRenderInfo.map(
+                dieRenderInfo => dieRenderInfo.fillStyle
+            );
+            expect(actualValues).toEqual(
+                jasmine.arrayWithExactContents(expectedValues)
+            );
         });
     });
 
@@ -421,9 +428,13 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it('should have all dies with full opacity', () => {
-            for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                expect(dieRenderInfo.fillStyle).toEqual('rgba(255,0,0,1)');
-            }
+            const expectedValues = Array(18).fill('rgba(255,0,0,1)');
+            const actualValues = prerenderingModule.diesRenderInfo.map(
+                dieRenderInfo => dieRenderInfo.fillStyle
+            );
+            expect(actualValues).toEqual(
+                jasmine.arrayWithExactContents(expectedValues)
+            );
         });
     });
 });

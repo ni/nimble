@@ -1,5 +1,10 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { TableRecord, TableRowSelectionMode } from '../../types';
+import {
+    TableRecord,
+    TableRecordDelayedHierarchyState,
+    TableRowSelectionMode,
+    TableSetRecordHierarchyOptions
+} from '../../types';
 import { TableValidator } from '../table-validator';
 import {
     TableColumnValidationTest,
@@ -708,6 +713,99 @@ describe('TableValidator', () => {
             const presentRecordIds = validator.getPresentRecordIds([
                 'value-2',
                 'value-1'
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([])
+            );
+        });
+    });
+
+    describe('getOptionsWithPresentIds', () => {
+        const value1Options: TableSetRecordHierarchyOptions = {
+            recordId: 'value-1',
+            options: {
+                delayedHierarchyState: TableRecordDelayedHierarchyState.none
+            }
+        } as const;
+        const value2Options: TableSetRecordHierarchyOptions = {
+            recordId: 'value-2',
+            options: {
+                delayedHierarchyState:
+                    TableRecordDelayedHierarchyState.canLoadChildren
+            }
+        } as const;
+        const value3Options: TableSetRecordHierarchyOptions = {
+            recordId: 'value-3',
+            options: {
+                delayedHierarchyState:
+                    TableRecordDelayedHierarchyState.canLoadChildren
+            }
+        } as const;
+
+        it('filters out record IDs that are not in the data set', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, 'stringField');
+
+            const presentRecordIds = validator.getOptionsWithPresentIds([
+                value2Options,
+                value3Options
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([value2Options])
+            );
+        });
+
+        it('returns all record IDs if they are all in the data set', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, 'stringField');
+
+            const presentRecordIds = validator.getOptionsWithPresentIds([
+                value2Options,
+                value1Options
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([value1Options, value2Options])
+            );
+        });
+
+        it('filters out records that previously were in the data set but no longer are', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, 'stringField');
+
+            const newData = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-3', numberField: 11 }
+            ];
+            validator.validateRecordIds(newData, 'stringField');
+
+            const presentRecordIds = validator.getOptionsWithPresentIds([
+                value2Options,
+                value1Options
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([value1Options])
+            );
+        });
+
+        it('filters out all records when there is no id field name', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, undefined);
+
+            const presentRecordIds = validator.getOptionsWithPresentIds([
+                value2Options,
+                value1Options
             ]);
             expect(presentRecordIds).toEqual(
                 jasmine.arrayWithExactContents([])

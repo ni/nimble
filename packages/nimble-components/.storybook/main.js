@@ -8,7 +8,8 @@ export const addons = [
     {
         name: '@storybook/addon-essentials',
         options: {
-            outline: false
+            outline: false,
+            docs: false
         }
     },
     {

@@ -5,6 +5,7 @@ import {
     applicationBackgroundColor,
     borderWidth,
     controlHeight,
+    controlSlimHeight,
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
@@ -53,6 +54,21 @@ export const styles = css`
     }
 
     .expand-collapse-button {
+        flex: 0 0 auto;
+        padding-left: calc(
+            ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
+                ${controlHeight}
+        );
+    }
+
+    .spinner-container {
+        flex: 0 0 auto;
+        width: ${controlSlimHeight};
+        height: ${controlSlimHeight};
+        align-self: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         padding-left: calc(
             ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
                 ${controlHeight}
@@ -60,6 +76,7 @@ export const styles = css`
     }
 
     .row-operations-container {
+        flex: 0 0 auto;
         display: flex;
     }
 

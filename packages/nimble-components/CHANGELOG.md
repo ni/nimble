@@ -1,8 +1,147 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 31 Jan 2024 20:22:58 GMT and should not be manually modified.
+This log was last generated on Thu, 22 Feb 2024 19:42:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.6.3
+
+Thu, 22 Feb 2024 19:42:35 GMT
+
+### Patches
+
+- Clean up dialog/drawer properly if cancel event skipped ([ni/nimble@70e9234](https://github.com/ni/nimble/commit/70e9234b636b0a2e67a658ecef06008ac8e96fa2))
+
+## 21.6.2
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v6.11.1
+
+## 21.6.1
+
+Wed, 21 Feb 2024 23:32:45 GMT
+
+### Patches
+
+- Update `TableRecordDelayedHierarchyState` enum values to follow kebab casing convention ([ni/nimble@ff99d91](https://github.com/ni/nimble/commit/ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d))
+
+## 21.6.0
+
+Wed, 21 Feb 2024 21:18:20 GMT
+
+### Minor changes
+
+- Add bodyEmphasizedPlus1Font tokens ([ni/nimble@4037b7c](https://github.com/ni/nimble/commit/4037b7c13da51926e6fbfd774a4da19cd75cb98e))
+- Bump @ni/nimble-tokens to v6.11.0
+
+## 21.5.5
+
+Wed, 21 Feb 2024 19:48:20 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.2
+
+## 21.5.4
+
+Tue, 20 Feb 2024 17:54:12 GMT
+
+### Patches
+
+- Fix bug where nesting level of rows sometimes gets out of sync with data ([ni/nimble@c6c16de](https://github.com/ni/nimble/commit/c6c16de04b8387dbb999c62fbc3f35a2b3643427))
+
+## 21.5.3
+
+Mon, 19 Feb 2024 22:25:59 GMT
+
+### Patches
+
+- Fix bug where setting underline-hidden=false on the anchor column would sometimes still hide the underline ([ni/nimble@28825d1](https://github.com/ni/nimble/commit/28825d16c421175868f88992be64874e0d74b655))
+
+## 21.5.2
+
+Mon, 19 Feb 2024 19:14:51 GMT
+
+### Patches
+
+- Allow a row with a state of `canLoadChildren` to be expanded when it does not have children ([ni/nimble@15a30c5](https://github.com/ni/nimble/commit/15a30c5a9c04fae9c3f6d2eadb0b31056c87db56))
+
+## 21.5.1
+
+Fri, 16 Feb 2024 18:10:59 GMT
+
+### Patches
+
+- Inline sources into map files ([ni/nimble@2b6c327](https://github.com/ni/nimble/commit/2b6c327fd3bc4f49178ac370f695a8b941278c46))
+- Bump @ni/nimble-tokens to v6.10.1
+
+## 21.5.0
+
+Thu, 15 Feb 2024 20:48:52 GMT
+
+### Minor changes
+
+- Adding filter input to Select ([ni/nimble@f2ecb4e](https://github.com/ni/nimble/commit/f2ecb4e69a8c9569d9e19cacfa0533b8b170b3f9))
+
+## 21.4.0
+
+Wed, 14 Feb 2024 21:03:17 GMT
+
+### Minor changes
+
+- Add `loadingChildren` delayed hierarchy state ([ni/nimble@b3fc70e](https://github.com/ni/nimble/commit/b3fc70ec6857d24fcc257eeab7697ac89c663a55))
+
+## 21.3.3
+
+Tue, 13 Feb 2024 21:22:58 GMT
+
+### Patches
+
+- Fix performance issue for table with many grouped columns ([ni/nimble@0180d30](https://github.com/ni/nimble/commit/0180d30c8833d50eb529794c362cc476f305f88d))
+
+## 21.3.2
+
+Tue, 13 Feb 2024 17:44:00 GMT
+
+### Patches
+
+- Update dependency on Tiptap extensions to fix mention issue in rich text editor ([ni/nimble@34efe55](https://github.com/ni/nimble/commit/34efe55087a58bb99e4aa42873512946164b47d2))
+
+## 21.3.1
+
+Fri, 09 Feb 2024 02:02:53 GMT
+
+### Patches
+
+- Update Storybook to 7.6.13 ([ni/nimble@e68df6d](https://github.com/ni/nimble/commit/e68df6d348dcaa664e87db35725f9d30f2d2dca5))
+
+## 21.3.0
+
+Wed, 07 Feb 2024 21:48:45 GMT
+
+### Minor changes
+
+- Extend nimble-table API to allow specifying that a record has children that can be loaded when the row is expanded ([ni/nimble@8d58b01](https://github.com/ni/nimble/commit/8d58b0180a3fb2c5a837718a6da3489b67d821bc))
+
+## 21.2.1
+
+Wed, 07 Feb 2024 19:06:22 GMT
+
+### Patches
+
+- fixed wafer map component test warnings ([ni/nimble@9fdd20d](https://github.com/ni/nimble/commit/9fdd20db5366e435fc4576d5a4881959fa143e30))
+
+## 21.2.0
+
+Fri, 02 Feb 2024 21:51:03 GMT
+
+### Minor changes
+
+- New pause, play, stop, and external link icons. Updated running-arrow icon. ([ni/nimble@8ba4f05](https://github.com/ni/nimble/commit/8ba4f05ec0bd828265d2f74b16a278adf46db268))
+- Bump @ni/nimble-tokens to v6.10.0
 
 ## 21.1.0
 

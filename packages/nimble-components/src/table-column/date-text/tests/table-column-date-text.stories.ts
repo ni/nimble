@@ -1,5 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
@@ -55,8 +55,7 @@ const simpleData = [
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Date Text',
-    decorators: [withActions],
-    tags: ['autodocs'],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
             handles: sharedTableActions
@@ -104,21 +103,13 @@ interface TextColumnTableArgs extends SharedTableArgs {
     validity: () => void;
 }
 
-const dateTextColumnDescription = 'The `nimble-table-column-date-text` column is used to display date-time fields as text in the `nimble-table`. The date-time values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the [JavaScript `Date` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date). Dates are formatted in a locale-specific way based on the value of the `lang` token, which can be set via the [`nimble-theme-provider`](?path=/docs/tokens-theme-provider--docs).';
-
 const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
 The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
 -   \`invalidCustomOptionsCombination\`: \`true\` when an invalid combination of formatting options (i.e. \`custom-*\`) have been specified. To determine which specific options are in conflict, you may use [MDN's Try It widget](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#try_it) or a browser console to get a detailed exception message.
 `;
 
 export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: dateTextColumnDescription
-            }
-        }
-    },
+    parameters: {},
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
         <${tableTag}

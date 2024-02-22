@@ -42,6 +42,7 @@
             <nimble-anchor-button nimbleRouterLink="/customapp" appearance="block">Block Anchor Button</nimble-anchor-button>
             <nimble-anchor-button nimbleRouterLink="/customapp" appearance="ghost">Ghost Anchor Button</nimble-anchor-button>
         </div>
+        <!-- Disabled as it breaks accessibility tooling, see: https://github.com/ni/nimble/issues/1650
         <div class="sub-container">
             <div class="container-label">Card</div>
             <nimble-card>
@@ -55,6 +56,7 @@
                 </nimble-select>
             </nimble-card>
         </div>
+        -->
         <div class="sub-container">
             <div class="container-label">Card Button</div>
             <nimble-card-button>
@@ -150,7 +152,7 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Select</div>
-            <nimble-select appearance="underline">
+            <nimble-select filter-mode="standard" appearance="underline">
                 <nimble-list-option>Option 1</nimble-list-option>
                 <nimble-list-option>Option 2</nimble-list-option>
                 <nimble-list-option>Option 3</nimble-list-option>
@@ -287,6 +289,28 @@
                 </nimble-menu>
             </nimble-table>
             <nimble-button class="add-table-row-button" (click)="addTableRows(10)">Add rows</nimble-button>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Table with delayed hierarchy</div>
+            <nimble-table #delayedHierarchyTable id-field-name="id" parent-id-field-name="parentId" selection-mode="multiple" (row-expand-toggle)="onRowExpandToggle($event)">
+                <nimble-table-column-text
+                    field-name="firstName"
+                >
+                    First name
+                </nimble-table-column-text>
+                <nimble-table-column-text
+                    field-name="lastName"
+                >
+                    Last name
+                </nimble-table-column-text>
+                <nimble-table-column-number-text
+                    field-name="age"
+                    format="decimal"
+                    decimal-digits="0"
+                >
+                    Age
+                </nimble-table-column-number-text>
+            </nimble-table>
         </div>
         <div class="sub-container">
             <div class="container-label">Tabs</div>
