@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 22 Feb 2024 01:13:03 GMT and should not be manually modified.
+This log was last generated on Thu, 22 Feb 2024 19:42:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.6.3
+
+Thu, 22 Feb 2024 19:42:35 GMT
+
+### Patches
+
+- Clean up dialog/drawer properly if cancel event skipped ([ni/nimble@70e9234](https://github.com/ni/nimble/commit/70e9234b636b0a2e67a658ecef06008ac8e96fa2))
 
 ## 21.6.2
 
