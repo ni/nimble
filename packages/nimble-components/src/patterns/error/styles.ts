@@ -28,7 +28,7 @@ export const styles = css`
         color: ${failColor};
         width: 100%;
         position: absolute;
-        bottom: calc(-1 * ${errorTextFontLineHeight});
+        bottom: calc(-1 * (${errorTextFontLineHeight} + 2px));
         left: 0px;
         overflow: hidden;
         text-overflow: ellipsis;
