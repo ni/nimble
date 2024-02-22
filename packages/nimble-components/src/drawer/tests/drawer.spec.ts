@@ -161,6 +161,15 @@ describe('Drawer', () => {
             expect(element.open).toBeFalse();
         });
 
+        // This can potentially happen if the dialog is implemented with the CloseWatcher API
+        it('should resolve promise with UserDismissed when only close event fired', async () => {
+            const promise = element.show();
+            // Simulate user dismiss events in browser
+            nativeDialogElement(element).dispatchEvent(new Event('close'));
+            await expectAsync(promise).toBeResolvedTo(UserDismissed);
+            expect(element.open).toBeFalse();
+        });
+
         it('throws calling show() a second time', async () => {
             void element.show();
             await expectAsync(element.show()).toBeRejectedWithError();
