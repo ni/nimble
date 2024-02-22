@@ -1,7 +1,6 @@
 import { dirname, join } from 'path';
 import remarkGfm from 'remark-gfm';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import TerserPlugin from 'terser-webpack-plugin';
 
 // All files participating in storybook should be in src
@@ -48,11 +47,11 @@ export function webpackFinal(config) {
     config.performance = {
         hints: false
     };
-    // eslint-disable-next-line global-require, import/no-extraneous-dependencies
     config.optimization.minimizer = [
         new TerserPlugin({
             terserOptions: {
-                keep_classnames: true
+                keep_classnames: true,
+                keep_fnames: true
             }
         })
     ];
