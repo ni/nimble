@@ -15,7 +15,8 @@
     "pack": "npm run pack:npm && npm run pack:nuget",
     "pack:npm": "npm pack",
     "pack:nuget": "cross-env-shell dotnet pack ./NimbleTokens --configuration Release -p:PackageVersion=$npm_package_version",
-    "invoke-publish": "npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
+    "invoke-publish": "npm run invoke-publish:clean-nuget && npm run pack && npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
+    "invoke-publish:clean-nuget": "rimraf --glob \"NimbleTokens/bin/Release/*.nupkg\"",
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"NimbleTokens/bin/Release/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
     "invoke-publish:npm": "npm publish"
   },
@@ -40,6 +41,7 @@
     "cross-env": "^7.0.3",
     "glob": "^8.1.0",
     "lodash": "^4.17.21",
+    "rimraf": "^5.0.5",
     "sharp": "^0.32.1",
     "style-dictionary": "3.7.2",
     "svg-to-ts": "^10.1.0",
