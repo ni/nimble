@@ -7,5 +7,5 @@ export async function loadXliff(path: string): Promise<XliffFile> {
 }
 
 export async function parseXliff(contents: string): Promise<XliffFile> {
-    return xliff12ToJs(contents);
+    return xliff12ToJs(contents, { captureSpacesBetweenElements: true });
 }

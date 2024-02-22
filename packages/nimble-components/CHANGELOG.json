@@ -2,6 +2,444 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 22 Feb 2024 19:42:35 GMT",
+      "version": "21.6.3",
+      "tag": "@ni/nimble-components_v21.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "70e9234b636b0a2e67a658ecef06008ac8e96fa2",
+            "comment": "Clean up dialog/drawer properly if cancel event skipped"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 22 Feb 2024 01:13:03 GMT",
+      "version": "21.6.2",
+      "tag": "@ni/nimble-components_v21.6.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.11.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 21 Feb 2024 23:32:45 GMT",
+      "version": "21.6.1",
+      "tag": "@ni/nimble-components_v21.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d",
+            "comment": "Update `TableRecordDelayedHierarchyState` enum values to follow kebab casing convention"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 21 Feb 2024 21:18:20 GMT",
+      "version": "21.6.0",
+      "tag": "@ni/nimble-components_v21.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4037b7c13da51926e6fbfd774a4da19cd75cb98e",
+            "comment": "Add bodyEmphasizedPlus1Font tokens"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.11.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 21 Feb 2024 19:48:20 GMT",
+      "version": "21.5.5",
+      "tag": "@ni/nimble-components_v21.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v0.2.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 20 Feb 2024 17:54:12 GMT",
+      "version": "21.5.4",
+      "tag": "@ni/nimble-components_v21.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c6c16de04b8387dbb999c62fbc3f35a2b3643427",
+            "comment": "Fix bug where nesting level of rows sometimes gets out of sync with data"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 19 Feb 2024 22:25:59 GMT",
+      "version": "21.5.3",
+      "tag": "@ni/nimble-components_v21.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "28825d16c421175868f88992be64874e0d74b655",
+            "comment": "Fix bug where setting underline-hidden=false on the anchor column would sometimes still hide the underline"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 19 Feb 2024 19:14:51 GMT",
+      "version": "21.5.2",
+      "tag": "@ni/nimble-components_v21.5.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "15a30c5a9c04fae9c3f6d2eadb0b31056c87db56",
+            "comment": "Allow a row with a state of `canLoadChildren` to be expanded when it does not have children"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 16 Feb 2024 18:10:59 GMT",
+      "version": "21.5.1",
+      "tag": "@ni/nimble-components_v21.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2b6c327fd3bc4f49178ac370f695a8b941278c46",
+            "comment": "Inline sources into map files"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.10.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Feb 2024 20:48:52 GMT",
+      "version": "21.5.0",
+      "tag": "@ni/nimble-components_v21.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f2ecb4e69a8c9569d9e19cacfa0533b8b170b3f9",
+            "comment": "Adding filter input to Select"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Feb 2024 01:01:57 GMT",
+      "version": "21.4.0",
+      "tag": "@ni/nimble-components_v21.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "19c97b51b82b32b95517a914d43a028860f1279a",
+            "comment": "Add publishConfig key to package files"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 14 Feb 2024 21:03:17 GMT",
+      "version": "21.4.0",
+      "tag": "@ni/nimble-components_v21.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b3fc70ec6857d24fcc257eeab7697ac89c663a55",
+            "comment": "Add `loadingChildren` delayed hierarchy state"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Feb 2024 23:45:09 GMT",
+      "version": "21.3.3",
+      "tag": "@ni/nimble-components_v21.3.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d9255477187a8fc95fff5fea7f1418b2b76cf93d",
+            "comment": "Pin react wrapper version"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Feb 2024 21:22:58 GMT",
+      "version": "21.3.3",
+      "tag": "@ni/nimble-components_v21.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0180d30c8833d50eb529794c362cc476f305f88d",
+            "comment": "Fix performance issue for table with many grouped columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Feb 2024 17:44:00 GMT",
+      "version": "21.3.2",
+      "tag": "@ni/nimble-components_v21.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "34efe55087a58bb99e4aa42873512946164b47d2",
+            "comment": "Update dependency on Tiptap extensions to fix mention issue in rich text editor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Feb 2024 13:48:12 GMT",
+      "version": "21.3.1",
+      "tag": "@ni/nimble-components_v21.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fd66105bfc34419b0ccab692d3d21669970eebfc",
+            "comment": "New rendering HLD for the Wafer Map Component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 09 Feb 2024 22:59:31 GMT",
+      "version": "21.3.1",
+      "tag": "@ni/nimble-components_v21.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8032637eb7eb28f455a712ed74c9119b21f55fc9",
+            "comment": "Create fastParameters for icons and status table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 09 Feb 2024 21:58:13 GMT",
+      "version": "21.3.1",
+      "tag": "@ni/nimble-components_v21.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "77d91358a4e7b3d6581bcecb7a301b023a3face1",
+            "comment": "Update import of <Tag> component to match other layout components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 09 Feb 2024 02:02:53 GMT",
+      "version": "21.3.1",
+      "tag": "@ni/nimble-components_v21.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e68df6d348dcaa664e87db35725f9d30f2d2dca5",
+            "comment": "Update Storybook to 7.6.13"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 08 Feb 2024 19:42:05 GMT",
+      "version": "21.3.0",
+      "tag": "@ni/nimble-components_v21.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5c8cf7be5e962dee7518e9e27ccf2a14315d84a7",
+            "comment": "Updated Wafer Map Blazor Component Status"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 07 Feb 2024 21:48:45 GMT",
+      "version": "21.3.0",
+      "tag": "@ni/nimble-components_v21.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8d58b0180a3fb2c5a837718a6da3489b67d821bc",
+            "comment": "Extend nimble-table API to allow specifying that a record has children that can be loaded when the row is expanded"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 07 Feb 2024 19:06:22 GMT",
+      "version": "21.2.1",
+      "tag": "@ni/nimble-components_v21.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9fdd20db5366e435fc4576d5a4881959fa143e30",
+            "comment": "fixed wafer map component test warnings"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 07 Feb 2024 10:17:13 GMT",
+      "version": "21.2.0",
+      "tag": "@ni/nimble-components_v21.2.0",
+      "comments": {
+        "none": [
+          {
+            "author": "110180309+Razvan1928@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "712034c7f2fb25979165f022149c4e31e9b787bd",
+            "comment": "Add storybook links to nimble-components intro page"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 05 Feb 2024 18:16:28 GMT",
+      "version": "21.2.0",
+      "tag": "@ni/nimble-components_v21.2.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5c681c75a8c40ea060d961da29df59e0f0a550fc",
+            "comment": "Migrate Storybook docs to MDX format"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sun, 04 Feb 2024 04:31:52 GMT",
+      "version": "21.2.0",
+      "tag": "@ni/nimble-components_v21.2.0",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c36b37f3ab227bc7422a059e332cca42e63ea5ea",
+            "comment": "Re-enable intermittent test in rich text editor for mention support"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 02 Feb 2024 21:51:03 GMT",
+      "version": "21.2.0",
+      "tag": "@ni/nimble-components_v21.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8ba4f05ec0bd828265d2f74b16a278adf46db268",
+            "comment": "New pause, play, stop, and external link icons. Updated running-arrow icon."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.10.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 31 Jan 2024 20:22:58 GMT",
+      "version": "21.1.0",
+      "tag": "@ni/nimble-components_v21.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bf9013d5cb92106ddd1fcf6fd84e6684930462b8",
+            "comment": "Export new NumberTextUnitFormat and update documentation for new Angular number formatting pipe and existing duration pipe"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 31 Jan 2024 16:40:01 GMT",
+      "version": "21.0.5",
+      "tag": "@ni/nimble-components_v21.0.5",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f8e4d4f227c3e090d0bc179ef526db699707971a",
+            "comment": "Update Data Hierarchy HLD with updated plan of dealing with lazy loaded hierarchy"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 29 Jan 2024 11:31:46 GMT",
       "version": "21.0.5",
       "tag": "@ni/nimble-components_v21.0.5",

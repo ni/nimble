@@ -55,6 +55,9 @@ export const iconMetadata: {
     IconArrowUpLeftAndArrowDownRight: {
         tags: ['resize', 'expand']
     },
+    IconArrowUpRightFromSquare: {
+        tags: ['open', 'external', 'link']
+    },
     IconArrowsMaximize: {
         tags: ['resize', 'fullscreen']
     },
@@ -385,8 +388,14 @@ export const iconMetadata: {
     IconPaste: {
         tags: ['clipboard']
     },
+    IconPause: {
+        tags: ['stop', 'hold']
+    },
     IconPencil: {
         tags: ['edit']
+    },
+    IconPlay: {
+        tags: ['arrow', 'start', 'go']
     },
     IconPotWithLid: {
         tags: ['box', 'utilities']
@@ -435,6 +444,9 @@ export const iconMetadata: {
     },
     IconSquareT: {
         tags: ['static text']
+    },
+    IconStopSquare: {
+        tags: ['quit', 'end']
     },
     IconSystemlink: {
         tags: ['logo', 'product']

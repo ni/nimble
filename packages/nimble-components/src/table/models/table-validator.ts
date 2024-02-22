@@ -1,5 +1,10 @@
 import type { TableColumn } from '../../table-column/base';
-import { TableRecord, TableRowSelectionMode, TableValidity } from '../types';
+import {
+    TableRecord,
+    TableRowSelectionMode,
+    TableSetRecordHierarchyOptions,
+    TableValidity
+} from '../types';
 
 /**
  * Helper class for the nimble-table to validate that the table's configuration
@@ -154,6 +159,12 @@ export class TableValidator<TData extends TableRecord> {
         requestedRecordIds: readonly string[]
     ): string[] {
         return requestedRecordIds.filter(id => this.recordIds.has(id));
+    }
+
+    public getOptionsWithPresentIds(
+        requestedOptions: readonly TableSetRecordHierarchyOptions[]
+    ): TableSetRecordHierarchyOptions[] {
+        return requestedOptions.filter(item => this.recordIds.has(item.recordId));
     }
 
     public setParentIdConfigurationValidity(valid: boolean): void {

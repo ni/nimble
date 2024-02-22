@@ -300,6 +300,50 @@ describe('TableRow', () => {
             const event = listener.spy.calls.first().args[0] as CustomEvent;
             expect(event.detail).toEqual(collapseDetails);
         });
+
+        it('shows spinner instead of expand-collapse button when loading and isParentRow are true', async () => {
+            const pageObject = new TableRowPageObject(element);
+            await connect();
+            element.isParentRow = true;
+            element.loading = true;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getLoadingSpinner()).toBeTruthy();
+            expect(pageObject.getExpandCollapseButton()).toBeFalsy();
+        });
+
+        it('hides spinner and shows expand-collapse button when isParentRow is true and loading is false', async () => {
+            const pageObject = new TableRowPageObject(element);
+            await connect();
+            element.isParentRow = true;
+            element.loading = false;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getLoadingSpinner()).toBeFalsy();
+            expect(pageObject.getExpandCollapseButton()).toBeTruthy();
+        });
+
+        it('loading spinner has expected aria-label', async () => {
+            const pageObject = new TableRowPageObject(element);
+            await connect();
+            element.isParentRow = true;
+            element.loading = true;
+            await waitForUpdatesAsync();
+
+            const spinner = pageObject.getLoadingSpinner();
+            expect(spinner?.ariaLabel).toBe('Loading');
+        });
+
+        it('loading spinner has expected title', async () => {
+            const pageObject = new TableRowPageObject(element);
+            await connect();
+            element.isParentRow = true;
+            element.loading = true;
+            await waitForUpdatesAsync();
+
+            const spinner = pageObject.getLoadingSpinner();
+            expect(spinner?.title).toBe('Loading');
+        });
     });
 
     describe('in table', () => {

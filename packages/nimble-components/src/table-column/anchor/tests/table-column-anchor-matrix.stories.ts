@@ -1,8 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
-import { createMatrixThemeStory } from '../../../utilities/tests/storybook';
 import {
+    createMatrixThemeStory,
     createMatrix,
     sharedMatrixParameters
 } from '../../../utilities/tests/matrix';
@@ -45,9 +45,9 @@ const appearanceStates: [string, string | undefined][] = Object.entries(
 ).map(([key, value]) => [pascalCase(key), value]);
 type AppearanceState = (typeof appearanceStates)[number];
 
-const underlineHiddenStates: [string, boolean | undefined][] = [
+const underlineHiddenStates: [string, boolean][] = [
     ['Underline Hidden', true],
-    ['', undefined]
+    ['', false]
 ];
 type UnderlineHiddenState = (typeof underlineHiddenStates)[number];
 
@@ -63,7 +63,7 @@ const component = (
             href-field-name="link"
             group-index="0"
             appearance="${() => appearance}"
-            underline-hidden="${() => underlineHidden}"
+            ?underline-hidden="${() => underlineHidden}"
         >
             <${iconUserTag}></${iconUserTag}>
         </${tableColumnAnchorTag}>

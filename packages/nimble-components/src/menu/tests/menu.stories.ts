@@ -1,6 +1,6 @@
 import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { menuTag } from '..';
 import { iconArrowLeftFromLineTag } from '../../icons/arrow-left-from-line';
@@ -36,23 +36,10 @@ interface ItemArgs extends MenuItemArgs {
     type: 'nimble-menu-item' | 'header' | 'hr';
 }
 
-const overviewText = `Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/) - A menu is a widget that offers a list of choices to the user,
-such as a set of actions or functions. Menu widgets behave like native operating system menus, such as the menus that pull down from the
-menubars commonly found at the top of many desktop application windows. A menu is usually opened, or made visible, by activating a menu button,
-choosing an item in a menu that opens a sub menu, or by invoking a command, such as Shift + F10 in Windows, that opens a context specific menu.
-When a user activates a choice in a menu, the menu usually closes unless the choice opened a submenu.
-
-The \`nimble-menu\` supports several child elements including \`<header>\`, \`<hr>\`, \`<nimble-menu-item>\` and \`<nimble-anchor-menu-item>\`.`;
-
 const metadata: Meta<MenuArgs> = {
     title: 'Components/Menu',
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
         actions: {
             handles: ['change']
         }
@@ -62,13 +49,6 @@ const metadata: Meta<MenuArgs> = {
 export default metadata;
 
 export const menu: StoryObj<MenuArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: overviewText
-            }
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${menuTag}>
