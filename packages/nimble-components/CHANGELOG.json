@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 22 Feb 2024 21:27:19 GMT",
+      "version": "21.6.3",
+      "tag": "@ni/nimble-components_v21.6.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "84480ae94997da7240feba4e19d73e42cadcc9f6",
+            "comment": "Remove code element from stories used for formatting"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 22 Feb 2024 19:42:35 GMT",
       "version": "21.6.3",
       "tag": "@ni/nimble-components_v21.6.3",

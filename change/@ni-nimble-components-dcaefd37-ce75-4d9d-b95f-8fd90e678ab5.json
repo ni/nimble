@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Remove code element from stories used for formatting",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
