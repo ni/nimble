@@ -39,7 +39,6 @@ The following table compares the requirements for developing a component in diff
 | `nimble-components`                | 🟢           | 🟢        | 🟢               | 🟢           | 🟢            | 🟢                       | 🟢                  | 🟢                     | 🟢         | 🟢               | 🟡
 | `nimble-components` (incubating)   | 🟢           | 🟢        | 🟢               | 🟢           | 🟡            | 🟡                       | 🟡                  | 🟡                     | 🟡         | 🟡               | 🟡
 | `spright-components-<product>`     | 🟡           | 🟢        | 🟢               | 🟢           | 🟡            | 🟡                       | 🟡                  | 🟡                     | 🟡         | 🟡               | 🟡
-|
 
 🟢 = required\
 🟡 = optional\
