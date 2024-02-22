@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 21 Feb 2024 21:18:20 GMT and should not be manually modified.
+This log was last generated on Wed, 21 Feb 2024 23:32:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.6.1
+
+Wed, 21 Feb 2024 23:32:45 GMT
+
+### Patches
+
+- Update `TableRecordDelayedHierarchyState` enum values to follow kebab casing convention ([ni/nimble@ff99d91](https://github.com/ni/nimble/commit/ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d))
 
 ## 21.6.0
 

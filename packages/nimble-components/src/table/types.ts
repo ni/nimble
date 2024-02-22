@@ -95,8 +95,8 @@ export interface TableRecordHierarchyOptions {
 
 export const TableRecordDelayedHierarchyState = {
     none: undefined,
-    canLoadChildren: 'canLoadChildren',
-    loadingChildren: 'loadingChildren'
+    canLoadChildren: 'can-load-children',
+    loadingChildren: 'loading-children'
 } as const;
 export type TableRecordDelayedHierarchyState =
     (typeof TableRecordDelayedHierarchyState)[keyof typeof TableRecordDelayedHierarchyState];
@@ -136,9 +136,9 @@ export type TableRowSelectionMode =
  * The possible selection states that the table or a table row can be in.
  */
 export const TableRowSelectionState = {
-    notSelected: 'notSelected',
+    notSelected: 'not-selected',
     selected: 'selected',
-    partiallySelected: 'partiallySelected'
+    partiallySelected: 'partially-selected'
 } as const;
 export type TableRowSelectionState =
     (typeof TableRowSelectionState)[keyof typeof TableRowSelectionState];

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 19 Feb 2024 16:59:58 GMT and should not be manually modified.
+This log was last generated on Wed, 21 Feb 2024 23:32:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.3.0
+
+Wed, 21 Feb 2024 23:32:45 GMT
+
+### Minor changes
+
+- Add support for delayed hierarchy in the table ([ni/nimble@ff99d91](https://github.com/ni/nimble/commit/ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d))
 
 ## 14.2.0
 

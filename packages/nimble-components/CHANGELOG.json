@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 21 Feb 2024 23:32:45 GMT",
+      "version": "21.6.1",
+      "tag": "@ni/nimble-components_v21.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d",
+            "comment": "Update `TableRecordDelayedHierarchyState` enum values to follow kebab casing convention"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 21 Feb 2024 21:18:20 GMT",
       "version": "21.6.0",
       "tag": "@ni/nimble-components_v21.6.0",
