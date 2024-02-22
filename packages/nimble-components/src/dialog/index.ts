@@ -56,6 +56,14 @@ export class Dialog<CloseReason = void> extends Modal<CloseReason> {
     ): void {
         this.footerIsEmpty = !next?.length;
     }
+
+    protected override startOpening(): void {
+        this.finishOpening();
+    }
+
+    protected override startClosing(reason: CloseReason | UserDismissed): void {
+        this.finishClosing(reason);
+    }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

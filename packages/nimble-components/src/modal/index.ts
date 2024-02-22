@@ -108,23 +108,15 @@ export abstract class Modal<CloseReason = void> extends FoundationElement {
         }
     }
 
-    // Derived classes can override this, but should not call it directly (except from the override).
-    protected startOpening(): void {
-        this.finishOpening();
-    }
+    protected abstract startOpening(): void;
 
-    // Overrides must call the base implementation, so that state gets updated.
     protected finishOpening(): void {
         this.state = ModalState.open;
         this.dialogElement.showModal();
     }
 
-    // Derived classes can override this, but should not call it directly (except from the override).
-    protected startClosing(reason: CloseReason | UserDismissed): void {
-        this.finishClosing(reason);
-    }
+    protected abstract startClosing(reason: CloseReason | UserDismissed): void;
 
-    // Overrides must call the base implementation, so that state gets updated.
     protected finishClosing(reason: CloseReason | UserDismissed): void {
         this.state = ModalState.closed;
         this.dialogElement.close();

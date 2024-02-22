@@ -46,7 +46,7 @@ export class Drawer<CloseReason = void> extends Modal<CloseReason> {
     }
 
     protected override startOpening(): void {
-        super.startOpening();
+        this.finishOpening(); // has to be open before we can animate it
         this.triggerAnimation();
     }
 
