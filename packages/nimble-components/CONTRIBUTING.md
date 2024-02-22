@@ -35,7 +35,7 @@ From the `nimble` directory:
 Before building a new component, 3 specification documents need to be created:
 
 1. An interaction design (IxD) spec to get agreement on the component's behavior and other core requirements. The spec process is described in the [`/specs` folder](/specs/README.md).
-2. A visual design (ViD) spec to get agreement on the component's appearance, spacing, icons, and tokens. The visual design spec can be created in Adobe XD or Figma, and linked to the component work item and Storybook documentation. See [Tips for using Adobe XD to inspect component designs](/packages/nimble-components/docs/xd-tips.md) to learn more about how to navigate these specs.
+2. A visual design (ViD) spec to get agreement on the component's appearance, spacing, icons, and tokens. The visual design spec should be created in Figma and linked to the component work item and Storybook [Component Status](https://nimble.ni.dev/storybook/?path=/docs/component-status--docs) page.
 3. A technical design spec to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [`/specs` folder](/specs/README.md).
 
 ## Development workflow
@@ -476,7 +476,17 @@ Component custom element names are specified in `index.ts` when registering the 
 3. **variant** can be used to distinguish alternate configurations of one presentation. For example, `anchor-`, `card-`, `menu-`, and `toggle-` are all variants of the `button` presentation. The primary configuration can omit the `variant` segment (e.g. `nimble-button`).
 4. **presentation** describes the visual presentation of the component. For example, `button`, `tab`, or `text-field`.
 
-## Token naming
+## Theme-aware tokens
+
+Nimble maps [base tokens](/packages/nimble-tokens/CONTRIBUTING.md#editing-base-tokens) to theme-aware tokens which are then used to style components. These tokens automatically adjust to the theme set by the `theme-provider` and relate to specific contexts or components.
+
+To modify the generated tokens, complete these steps:
+
+1. Edit the `design-tokens*` typescript files in `src/theme-provider/`.
+2. Rebuild the generated token files by running the repository's build command, `npm run build`.
+3. Test your changes locally and create a PR using the normal process.
+
+### Naming
 
 Public names for theme-aware tokens are specified in `src/theme-provider/design-token-names.ts`. Use the following structure when creating new tokens.
 
@@ -486,3 +496,15 @@ Public names for theme-aware tokens are specified in `src/theme-provider/design-
 2. Where **part** is the specific part of the element to which the token applies (e.g. 'border', 'background', or shadow).
 3. Where **state** is the more specific state descriptor (e.g. 'selected' or 'disabled'). Multiple states should be sorted alphabetically.
 4. Where **token_type** is the token category (e.g. 'color', 'font', 'font-color', 'height', 'width', or 'size').
+
+### Size ramp
+
+For tokens with multiple sizes, use the following structure for **element** names. E.g. for `title`:
+
+| Element name  |
+| ------------- |
+| title-plus-2  |
+| title-plus-1  |
+| title         |
+| title-minus-1 |
+| title-minus-2 |

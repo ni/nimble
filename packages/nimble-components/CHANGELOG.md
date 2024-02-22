@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 20 Feb 2024 17:54:12 GMT and should not be manually modified.
+This log was last generated on Thu, 22 Feb 2024 01:13:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.6.2
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v6.11.1
+
+## 21.6.1
+
+Wed, 21 Feb 2024 23:32:45 GMT
+
+### Patches
+
+- Update `TableRecordDelayedHierarchyState` enum values to follow kebab casing convention ([ni/nimble@ff99d91](https://github.com/ni/nimble/commit/ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d))
+
+## 21.6.0
+
+Wed, 21 Feb 2024 21:18:20 GMT
+
+### Minor changes
+
+- Add bodyEmphasizedPlus1Font tokens ([ni/nimble@4037b7c](https://github.com/ni/nimble/commit/4037b7c13da51926e6fbfd774a4da19cd75cb98e))
+- Bump @ni/nimble-tokens to v6.11.0
+
+## 21.5.5
+
+Wed, 21 Feb 2024 19:48:20 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.2
 
 ## 21.5.4
 
