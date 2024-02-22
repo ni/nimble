@@ -104,7 +104,7 @@ export abstract class Modal<CloseReason = void> extends FoundationElement {
             // - the browser implements dialogs with the CloseWatcher API, and
             // - the user presses ESC without first interacting with the dialog (e.g. clicking, scrolling),
             // the cancel event is not fired, but the close event still is, and the dialog just closes.
-            this.doResolveShow(UserDismissed);
+            this.finishClosing(UserDismissed);
         }
     }
 
