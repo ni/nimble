@@ -22,77 +22,76 @@ Placeholders within a group row will have no special visual treatment.
 
 #### Text column
 
-| Special-cased field values | Cell display | Group row display |
-| ---          | ---          | ---               |
-| `undefined`  | column placeholder, or empty if no placeholder is configured | `"No value"` |
-| `null`       | column placeholder, or empty if no placeholder is configured | `"No value"` |
-| `''`         | \<empty cell> | `"Empty"` |
-
+| Special-cased field values | Cell display                                                 | Group row display |
+| -------------------------- | ------------------------------------------------------------ | ----------------- |
+| `undefined`                | column placeholder, or empty if no placeholder is configured | `"No value"`      |
+| `null`                     | column placeholder, or empty if no placeholder is configured | `"No value"`      |
+| `''`                       | \<empty cell>                                                | `"Empty"`         |
 
 #### Anchor column
 
-| Special-cased field values | Cell display | Group row display |
-| ---          | ---          | ---               |
-| Both label and href are `undefined` or `null` | column placeholder, or empty if no placeholder is configured | `"No value"` |
-| Label `undefined` or `null` with defined href | href value is used as the link's href and the link's display value | `"No alias"` |
-| Label defined with href `undefined` or `null` | label as a plain string with no link | The label |
-| Label is `''` with any href | \<empty cell> | `"Empty"` |
+| Special-cased field values                    | Cell display                                                       | Group row display |
+| --------------------------------------------- | ------------------------------------------------------------------ | ----------------- |
+| Both label and href are `undefined` or `null` | column placeholder, or empty if no placeholder is configured       | `"No value"`      |
+| Label `undefined` or `null` with defined href | href value is used as the link's href and the link's display value | `"No alias"`      |
+| Label defined with href `undefined` or `null` | label as a plain string with no link                               | The label         |
+| Label is `''` with any href                   | \<empty cell>                                                      | `"Empty"`         |
 
 #### Number column
 
-| Special-cased field values | Cell display | Group row display |
-| ---          | ---          | ---               |
-| `undefined`  | column placeholder, or empty if no placeholder is configured | `"No value"` |
-| `null`       | column placeholder, or empty if no placeholder is configured | `"No value"` |
-| Invalid value (e.g. `Number.NaN`)* | \<empty cell> | \<empty group row> |
+| Special-cased field values          | Cell display                                                 | Group row display  |
+| ----------------------------------- | ------------------------------------------------------------ | ------------------ |
+| `undefined`                         | column placeholder, or empty if no placeholder is configured | `"No value"`       |
+| `null`                              | column placeholder, or empty if no placeholder is configured | `"No value"`       |
+| Invalid value (e.g. `Number.NaN`)\* | \<empty cell>                                                | \<empty group row> |
 
-*This is considered invalid data from the table's perspective, and should be fixed within the client application.
+\*This is considered invalid data from the table's perspective, and should be fixed within the client application.
 
 The alignment of the placeholder in the cell will match the alignment of the number in the column.
 
 #### Date column
 
-| Special-cased field values | Cell display | Group row display |
-| ---          | ---          | ---               |
-| `undefined`  | column placeholder, or empty if no placeholder is configured | `"No value"` |
-| `null`       | column placeholder, or empty if no placeholder is configured | `"No value"` |
-| Invalid value (e.g. `Number.NaN`)* | \<empty cell> | \<empty group row> |
+| Special-cased field values          | Cell display                                                 | Group row display  |
+| ----------------------------------- | ------------------------------------------------------------ | ------------------ |
+| `undefined`                         | column placeholder, or empty if no placeholder is configured | `"No value"`       |
+| `null`                              | column placeholder, or empty if no placeholder is configured | `"No value"`       |
+| Invalid value (e.g. `Number.NaN`)\* | \<empty cell>                                                | \<empty group row> |
 
-*This is considered invalid data from the table's perspective, and should be fixed within the client application.
+\*This is considered invalid data from the table's perspective, and should be fixed within the client application.
 
 #### Duration column
 
-| Special-cased field values | Cell display | Group row display |
-| ---          | ---          | ---               |
-| `undefined`  | column placeholder, or empty if no placeholder is configured | `"No value"` |
-| `null`       | column placeholder, or empty if no placeholder is configured | `"No value"` |
-| Invalid value (e.g. `Number.NaN`)* | \<empty cell> | \<empty group row> |
+| Special-cased field values          | Cell display                                                 | Group row display  |
+| ----------------------------------- | ------------------------------------------------------------ | ------------------ |
+| `undefined`                         | column placeholder, or empty if no placeholder is configured | `"No value"`       |
+| `null`                              | column placeholder, or empty if no placeholder is configured | `"No value"`       |
+| Invalid value (e.g. `Number.NaN`)\* | \<empty cell>                                                | \<empty group row> |
 
-*This is considered invalid data from the table's perspective, and should be fixed within the client application.
+\*This is considered invalid data from the table's perspective, and should be fixed within the client application.
 
 #### Icon mapping column
 
 The icon mapping column will not have a configuration for a placeholder.
 
-| Special-cased field values | Cell display | Group row display |
-| ---          | ---          | ---               |
-| `undefined`  | \<empty cell> | `"No value"` |
-| `null`       | \<empty cell> | `"No value"` |
-| Non-mapped value* | \<empty cell> | \<empty group row> |
+| Special-cased field values | Cell display  | Group row display  |
+| -------------------------- | ------------- | ------------------ |
+| `undefined`                | \<empty cell> | `"No value"`       |
+| `null`                     | \<empty cell> | `"No value"`       |
+| Non-mapped value\*         | \<empty cell> | \<empty group row> |
 
-*This is considered invalid data from the table's perspective, and should be fixed within the client application.
+\*This is considered invalid data from the table's perspective, and should be fixed within the client application.
 
 #### Text mapping column
 
 The text mapping column will not have a configuration for a placeholder.
 
-| Special-cased field values | Cell display | Group row display |
-| ---          | ---          | ---               |
-| `undefined`  | \<empty cell> | `"No value"` |
-| `null`       | \<empty cell> | `"No value"` |
-| Non-mapped value* | \<empty cell> | \<empty group row> |
+| Special-cased field values | Cell display  | Group row display  |
+| -------------------------- | ------------- | ------------------ |
+| `undefined`                | \<empty cell> | `"No value"`       |
+| `null`                     | \<empty cell> | `"No value"`       |
+| Non-mapped value\*         | \<empty cell> | \<empty group row> |
 
-*This is considered invalid data from the table's perspective, and should be fixed within the client application.
+\*This is considered invalid data from the table's perspective, and should be fixed within the client application.
 
 ### Implementation plan
 
@@ -100,24 +99,25 @@ A column's placeholder will be stored as part of that column's `columnConfig` ob
 
 We will create a placeholder mixin that adds the following to columns that chose to use it:
 
-- `placeholder` string property
-- `placeholder` attribute
-- abstract `placeholderChanged` function that will force columns using the mixin to implement `placeholderChanged` to update their column configuration
+-   `placeholder` string property
+-   `placeholder` attribute
+-   abstract `placeholderChanged` function that will force columns using the mixin to implement `placeholderChanged` to update their column configuration
 
 The columns that will be updated to use this mixin are:
-- TableColumnText
-- TableColumnAnchor
-- TableColumnNumberText
-- TableColumnDateText
-- TableColumnDurationText
+
+-   TableColumnText
+-   TableColumnAnchor
+-   TableColumnNumberText
+-   TableColumnDateText
+-   TableColumnDurationText
 
 ### Localization
 
 All group row placeholder strings will be localized through the table's localization provider. Those strings are:
 
-- No value
-- Empty
-- No alias
+-   No value
+-   Empty
+-   No alias
 
 ## Alternative Implementations / Designs
 
