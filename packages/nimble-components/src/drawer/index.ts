@@ -2,12 +2,12 @@ import { attr } from '@microsoft/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
-    DesignSystem,
-    FoundationElement
+    DesignSystem
 } from '@microsoft/fast-foundation';
 import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
-import type { ExtendedDialog } from '../dialog';
 import { UserDismissed } from '../patterns/dialog/types';
+import { Modal } from '../modal';
+import { ModalState } from '../modal/types';
 import { styles } from './styles';
 import { template } from './template';
 import { DrawerLocation } from './types';
@@ -25,7 +25,7 @@ declare global {
  * which animates to be visible with a slide-in / slide-out animation.
  */
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-export class Drawer<CloseReason = void> extends FoundationElement {
+export class Drawer<CloseReason = void> extends Modal<CloseReason> {
     // We want the member to match the name of the constant
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public static readonly UserDismissed = UserDismissed;
@@ -33,124 +33,51 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     @attr
     public location: DrawerLocation = DrawerLocation.right;
 
-    @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
-    public preventDismiss = false;
-
-    public dialog!: ExtendedDialog;
-    private closing = false;
-
-    private resolveShow?: (reason: CloseReason | UserDismissed) => void;
     private closeReason!: CloseReason | UserDismissed;
 
     /**
-     * True if the drawer is open, opening, or closing. Otherwise, false.
-     */
-    public get open(): boolean {
-        return this.resolveShow !== undefined;
-    }
-
-    /**
-     * Opens the drawer
-     * @returns Promise that is resolved when the drawer finishes closing. The value of the resolved
-     * Promise is the reason value passed to the close() method, or UserDismissed if the drawer was
-     * closed via the ESC key.
-     */
-    public async show(): Promise<CloseReason | UserDismissed> {
-        if (this.open) {
-            throw new Error('Drawer is already open');
-        }
-        this.openDialog();
-        return new Promise((resolve, _reject) => {
-            this.resolveShow = resolve;
-        });
-    }
-
-    /**
-     * Closes the drawer
-     * @param reason An optional value indicating how/why the drawer was closed.
-     */
-    public close(reason: CloseReason): void {
-        if (!this.open || this.closing) {
-            throw new Error('Drawer is not open or already closing');
-        }
-        this.closeReason = reason;
-        this.closeDialog();
-    }
-
-    /**
      * @internal
      */
-    public cancelHandler(event: Event): boolean {
+    public override cancelHandler(event: Event): boolean {
         // Allowing the dialog to close itself bypasses the drawer's animation logic, so we
         // should close the drawer ourselves when preventDismiss is false.
         event.preventDefault();
-
-        if (!this.preventDismiss) {
-            this.closeReason = UserDismissed;
-            this.closeDialog();
-        }
-        return true;
+        return super.cancelHandler(event);
     }
 
-    /**
-     * @internal
-     */
-    public closeHandler(): void {
-        if (this.resolveShow) {
-            // If
-            // - the browser implements dialogs with the CloseWatcher API, and
-            // - the user presses ESC without first interacting with the drawer (e.g. clicking, scrolling),
-            // the cancel event is not fired, but the close event still is, and the drawer just closes.
-            // The animation is never started, so there is no animation end listener to clean up.
-            this.doResolveShow(UserDismissed);
-        }
+    protected override startOpening(): void {
+        this.finishOpening(); // has to be open before we can animate it
+        this.triggerAnimation();
     }
 
-    private doResolveShow(reason: CloseReason | UserDismissed): void {
-        if (!this.resolveShow) {
-            throw new Error(
-                'Do not call doResolveShow unless there is a promise to resolve'
-            );
-        }
-        this.resolveShow(reason);
-        this.resolveShow = undefined;
+    protected override startClosing(reason: CloseReason | UserDismissed): void {
+        this.closeReason = reason;
+        this.triggerAnimation();
     }
 
     private readonly animationEndHandlerFunction = (): void => this.animationEndHandler();
 
-    private openDialog(): void {
-        this.dialog.showModal();
-        this.triggerAnimation();
-    }
-
-    private closeDialog(): void {
-        this.closing = true;
-        this.triggerAnimation();
-    }
-
     private triggerAnimation(): void {
-        this.dialog.classList.add('animating');
-        if (this.closing) {
-            this.dialog.classList.add('closing');
+        this.dialogElement.classList.add('animating');
+        if (this.state === ModalState.closing) {
+            this.dialogElement.classList.add('closing');
         }
 
-        this.dialog.addEventListener(
+        this.dialogElement.addEventListener(
             eventAnimationEnd,
             this.animationEndHandlerFunction
         );
     }
 
     private animationEndHandler(): void {
-        this.dialog.removeEventListener(
+        this.dialogElement.removeEventListener(
             eventAnimationEnd,
             this.animationEndHandlerFunction
         );
-        this.dialog.classList.remove('animating');
-        if (this.closing) {
-            this.dialog.classList.remove('closing');
-            this.dialog.close();
-            this.closing = false;
-            this.doResolveShow(this.closeReason);
+        this.dialogElement.classList.remove('animating');
+        if (this.state === ModalState.closing) {
+            this.dialogElement.classList.remove('closing');
+            this.finishClosing(this.closeReason);
         }
     }
 }

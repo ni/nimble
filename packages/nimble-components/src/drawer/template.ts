@@ -3,7 +3,7 @@ import type { Drawer } from '.';
 
 export const template = html<Drawer>`
     <dialog
-        ${ref('dialog')}
+        ${ref('dialogElement')}
         aria-label="${x => x.ariaLabel}"
         @cancel="${(x, c) => x.cancelHandler(c.event)}"
         @close="${x => x.closeHandler()}"
