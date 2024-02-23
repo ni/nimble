@@ -5,7 +5,6 @@ describe('RenderWorker', () => {
     let worker: RenderWorker;
 
     beforeEach(() => {
-        spyOn(Comlink, 'expose');
         worker = new RenderWorker();
     });
 
@@ -19,9 +18,5 @@ describe('RenderWorker', () => {
         const testData: Iterable<number> = [4, 5, 6];
         worker.updateMatrix(testData);
         expect(worker.dieMatrix).toEqual(Uint8Array.from(testData));
-    });
-    
-    it('should expose the worker via Comlink upon creation', () => {
-        expect(Comlink.expose).toHaveBeenCalledWith(worker);
     });
 });

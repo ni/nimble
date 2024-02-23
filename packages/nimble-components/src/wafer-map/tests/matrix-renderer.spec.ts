@@ -20,7 +20,7 @@ describe('MatrixRenderer worker:', () => {
         );
     });
 
-    it('emptyMatrix() should empty the dieMatrix', async () => {
+    it('emptyMatrix should empty the dieMatrix', async () => {
         const testData: Iterable<number> = [4, 5, 6];
         await renderer.workerOne.updateMatrix(testData);
         await renderer.workerOne.emptyMatrix();
