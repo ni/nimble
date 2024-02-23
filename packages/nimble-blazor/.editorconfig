@@ -27,6 +27,9 @@ dotnet_diagnostic.IDE0026.severity = none
 # csharp_style_expression_bodied_accessors
 dotnet_diagnostic.IDE0027.severity = none
 
+# Use 'switch' expression
+dotnet_diagnostic.IDE0066.severity = none
+
 # Pattern matching
 # Disable general pattern matching rule for now, may opt in in the future
 dotnet_diagnostic.IDE0078.severity = none
