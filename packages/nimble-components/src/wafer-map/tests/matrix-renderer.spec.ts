@@ -12,20 +12,19 @@ describe('MatrixRenderer worker:', () => {
         renderer = new MatrixRenderer(wafermap);
     });
 
-    it('emptyMatrix() should empty the dieMatrix', async () => {
-        renderer.workerOne.dieMatrix = Promise.resolve(
-            Uint8Array.from([1, 2, 3])
-        );
-        await renderer.workerOne.emptyMatrix();
-        const resolvedDieMatrix = await renderer.workerOne.dieMatrix;
-        expect(resolvedDieMatrix.length).toEqual(0);
-    });
-
     it('updateMatrix should update the dieMatrix correctly', async () => {
         const testData: Iterable<number> = [4, 5, 6];
         await renderer.workerOne.updateMatrix(testData);
         expect(renderer.workerOne.dieMatrix).toEqual(
             Promise.resolve(Uint8Array.from(testData))
         );
+    });
+
+    it('emptyMatrix() should empty the dieMatrix', async () => {
+        const testData: Iterable<number> = [4, 5, 6];
+        await renderer.workerOne.updateMatrix(testData);
+        await renderer.workerOne.emptyMatrix();
+        const resolvedDieMatrix = await renderer.workerOne.dieMatrix;
+        expect(resolvedDieMatrix.length).toEqual(0);
     });
 });
