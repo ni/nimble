@@ -10,7 +10,6 @@ The proposed design should consider the following factors:
 -   Minimize rendering time and improve overall performance
 -   Measure and improve performance metrics
 -   Maintain compatibility with existing design patterns and web standards
--   Avoid introducing new requirements on clients or breaking any APIs
 -   Address any potential impact on testing, documentation, security, and other relevant areas
 
 By addressing these challenges, we aim to enhance the rendering capabilities of our application and provide a smoother and more responsive user interface.
@@ -87,36 +86,43 @@ The best solution to solve the API of the wafermap is to use Apache Arrow as the
 The Public API will be the following:
 
 ```TS
-import { Table } from 'apache-arrow';
-export class WaferMap extends FoundationElement {
+import { Table, TypeMap } from 'apache-arrow';
+
+export interface WaferMapTableType extends TypeMap {
+    colIndex: Int32;
+    rowIndex: Int32;
+    value: Float32;
+}
+
+export class WaferMap<T extends WaferMapTableType> extends FoundationElement {
 ...
-public diesTable: Table<{
-        colIndex: Int32,
-        rowIndex: Int32,
-        value: Float32,
-        tags: Uint32;
-        metadata: never;
-    }>
+public diesTable: Table<T> | undefined;
+public highlightedTable: Table<T> | undefined;
 ...
 }
 ```
 
 This will be the [Apache Arrow](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html) table schema.
-The row and column indices will be `Int32` columns, the values will be `Float32` columns.
-The tags for each die will be represented as a 32 bit mask stored in a `Uint32` column.
-The metadata column will be stored in an wildcard typed column.
+It will require at least three columns for the `diesTable`:
 
-This approach has the benefits of a row based format that aligns well with the existing public API, as well as a nice public API that easily allows future improvements.
+-   The row and column indices will be `Int32` columns
+-   The values will be a `Float32` column.
 
-We are going to split the columns relevant to rendering from the table (rows, columns, values, tags mask) and transfer them to the worker separately. This can be done with a very small overhead using the method below on the resulting vector. After being transferred, the buffers can be cached to speed up value access and filtering.
+If there are more columns needed to store metadata or other values the schema will be extensible.
 
-The same approach will be used when searching for the highlighted die metadata.
+The `highlightedTable` will contain rows partially filled with values which will be used to filter the `diesTable` and enable highlighting.
+
+This approach has the benefits of a row based format that aligns well with the existing public API, as well as a nice public API that easily allows future improvements. It allows for more advanced filtering techniques such as using inner and outer joins for tables, slicing the tables to distribute values to separate workers and applying operations over whole columns.
+
+We are going to split the columns relevant to rendering from the table (rows, columns, values) and transfer them to the worker separately. This can be done with a very small overhead using the method below on the resulting vector. After being transferred, the buffers can be cached to speed up value access and filtering.
 
 ```TS
     const colIndex: Int32Array = diesTable.getChild('colIndex').toArray();
     const rowIndex: Int32Array = diesTable.getChild('rowIndex').toArray();
     ...
 ```
+
+When filtering the highlighted dies and searching for their metadata we will use [arquero](https://uwdata.github.io/arquero/) to perform joins and other operations involving the tables.
 
 ### Rendering
 
@@ -252,7 +258,7 @@ The limits for the apache arrow table approach are the following:
 Alternatives for solving these problems are the following:
 
 1. A dynamic number of columns for storing tags, but the performance may suffer.
-2. Possible solutions for this are searching by iterating over the whole table, which is not feasible (see 4.) or using a higher level library such as [aquero](https://uwdata.github.io/arquero/).
+2. Possible solutions for this are searching by iterating over the whole table, which is not feasible (see 4.) or using typed arrays and caching to speed up the search for the relevant columns.
 3. The use of a higher level library [geoarrow](https://github.com/geoarrow/geoarrow-js/blob/main/src/worker/transferable.ts)
 4. In the following table are presented different iteration strategies over 1M long arrays, and how they compare with the chosen method and the basic typed array iteration:
 
@@ -283,6 +289,19 @@ Another alternative is to create a point reduction algorithm which will create a
 We may also implement an external queue canceling functionality.
 
 ## Open Issues
+
+### Rendering Iterating
+
+From preliminary tests it seems that typed array iteration is the most performant approach for rendering.
+Further inquiries will be made of apache-arrow dev team to make sure the best approach.
+
+### Highlights and Metadata
+
+We decided to use [arquero](https://uwdata.github.io/arquero/) to filter highlighted dies and metadata.
+This approach shows promise, but it may pose a risk.
+If it will be apparent that it's not useful, we will resort to reusing and adapting the existing logic.
+
+### Progress Indicator
 
 User Indication for [interactions in progress (>200ms)](https://web.dev/articles/inp) possibilities:
 
