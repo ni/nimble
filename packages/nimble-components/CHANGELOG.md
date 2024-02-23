@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 23 Feb 2024 21:23:18 GMT and should not be manually modified.
+This log was last generated on Fri, 23 Feb 2024 22:56:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.6.7
+
+Fri, 23 Feb 2024 22:56:07 GMT
+
+### Patches
+
+- Fix bug in Firefox where title on spinner isn't always displayed as expected ([ni/nimble@1e5b10c](https://github.com/ni/nimble/commit/1e5b10c7a247e13dcece70496b5ccbae322075a3))
+
+## 21.6.6
+
+Fri, 23 Feb 2024 22:17:56 GMT
+
+### Patches
+
+- Fix spacing between error text and component ([ni/nimble@c6e803c](https://github.com/ni/nimble/commit/c6e803caaa9757f7584281f096a94c4d58ef194d))
 
 ## 21.6.5
 
