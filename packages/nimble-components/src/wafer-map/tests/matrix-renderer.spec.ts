@@ -16,7 +16,9 @@ describe('MatrixRenderer worker:', () => {
         const testData: Iterable<number> = [4, 5, 6];
         await renderer.workerOne.updateMatrix(testData);
         const resolvedDieMatrix = await renderer.workerOne.dieMatrix;
-        expect(Array.from(resolvedDieMatrix)).toEqual(Array.from(Uint8Array.from(testData)));
+        expect(Array.from(resolvedDieMatrix)).toEqual(
+            Array.from(Uint8Array.from(testData))
+        );
     });
 
     it('emptyMatrix should empty the dieMatrix', async () => {
