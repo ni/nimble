@@ -10,6 +10,7 @@ import {
 import { spinnerSmallHeight } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
+import { ZIndexLevels } from '../utilities/style/types';
 
 export const styles = css`
     ${display('inline-grid')}
@@ -20,7 +21,7 @@ export const styles = css`
     }
 
     div.overlay {
-        z-index: 1;
+        z-index: ${ZIndexLevels.zIndex1};
         margin: max(2px, 6.25%);
         grid-area: 1/1;
     }
