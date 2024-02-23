@@ -18,6 +18,7 @@ import {
 } from '../../label-provider/base/tests/label-user-stories-utils';
 import { labelProviderTableTag } from '../../label-provider/table';
 import { tableColumnNumberTextTag } from '../../table-column/number-text';
+import { isChromatic } from '../../utilities/tests/isChromatic';
 
 interface BaseTableArgs extends LabelUserArgs {
     tableRef: Table;
@@ -408,6 +409,7 @@ export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
             id-field-name="id"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
+            style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
@@ -439,7 +441,7 @@ export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
     },
     args: {
         tableRef: undefined,
-        firstRecordState: TableRecordDelayedHierarchyState.canLoadChildren,
+        firstRecordState: 'canLoadChildren',
         updateData: x => {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point

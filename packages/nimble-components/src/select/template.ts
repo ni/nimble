@@ -16,7 +16,14 @@ import type { Select } from '.';
 import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';
 import { overflow } from '../utilities/directive/overflow';
+import { iconMagnifyingGlassTag } from '../icons/magnifying-glass';
+import {
+    filterNoResultsLabel,
+    filterSearchLabel
+} from '../label-provider/core/label-tokens';
+import { FilterMode } from './types';
 
+/* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Select>,
@@ -24,15 +31,13 @@ SelectOptions
 > = (context, definition) => html<Select>`
     <template
         class="${x => [
-        x.collapsible && 'collapsible',
-        x.collapsible && x.open && 'open',
-        x.disabled && 'disabled',
-        x.collapsible && x.position,
-    ]
-        .filter(Boolean)
-        .join(' ')}"
-        aria-activedescendant="${x => x.ariaActiveDescendant}"
-        aria-controls="${x => x.ariaControls}"
+                x.collapsible && 'collapsible',
+                x.collapsible && x.open && 'open',
+                x.disabled && 'disabled',
+                x.collapsible && x.position,
+            ].filter(Boolean).join(' ')}"
+        aria-activedescendant="${x => (x.filterMode === FilterMode.none ? x.ariaActiveDescendant : null)}"
+        aria-controls="${x => (x.filterMode === FilterMode.none ? x.ariaControls : null)}"
         aria-disabled="${x => x.ariaDisabled}"
         aria-expanded="${x => x.ariaExpanded}"
         aria-haspopup="${x => (x.collapsible ? 'listbox' : null)}"
@@ -41,37 +46,37 @@ SelectOptions
         role="combobox"
         tabindex="${x => (!x.disabled ? '0' : null)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
+        @change="${x => x.changeValueHandler()}"
+        @contentchange="${x => x.updateDisplayValue()}"
         @focusin="${(x, c) => x.focusinHandler(c.event as FocusEvent)}"
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
         @mousedown="${(x, c) => x.mousedownHandler(c.event as MouseEvent)}"
     >
-        ${when(
-        x => x.collapsible,
-        html<Select>`
-                <div
-                    class="control"
-                    part="control"
-                    ?disabled="${x => x.disabled}"
-                    ${ref('control')}
-                >
-                    ${startSlotTemplate(context, definition)}
-                    <slot name="button-container">
-                        <div class="selected-value" part="selected-value" ${overflow('hasOverflow')} title=${x => (x.hasOverflow && x.displayValue ? x.displayValue : null)}>
-                            <slot name="selected-value">${x => x.displayValue}</slot>
-                        </div>
-                        <div aria-hidden="true" class="indicator" part="indicator">
-                            <slot name="indicator">
-                                ${definition.indicator || ''}
-                            </slot>
-                        </div>
-                    </slot>
-                    ${endSlotTemplate(context, definition)}
-                </div>
-                `
-    )}
+        ${when(x => x.collapsible, html<Select>`
+            <div
+                class="control"
+                part="control"
+                ?disabled="${x => x.disabled}"
+                ${ref('control')}
+            >
+                ${startSlotTemplate(context, definition)}
+                <slot name="button-container">
+                    <div class="selected-value" part="selected-value" ${overflow('hasOverflow')} title=${x => (x.hasOverflow && x.displayValue ? x.displayValue : null)}>
+                        <slot name="selected-value">${x => x.displayValue}</slot>
+                    </div>
+                    <div aria-hidden="true" class="indicator" part="indicator">
+                        <slot name="indicator">
+                            ${definition.indicator || ''}
+                        </slot>
+                    </div>
+                </slot>
+                ${endSlotTemplate(context, definition)}
+            </div>
+            `)
+        }
         <${anchoredRegionTag}
-            ${ref('region')}
+            ${ref('anchoredRegion')}
             class="anchored-region"
             fixed-placement
             auto-update-mode="auto"
@@ -80,22 +85,52 @@ SelectOptions
             horizontal-default-position="center"
             horizontal-positioning-mode="locktodefault"
             horizontal-scaling="anchor"
+            @loaded="${x => x.regionLoadedHandler()}"
             ?hidden="${x => (x.collapsible ? !x.open : false)}">
-            <div
-                class="listbox"
-                id="${x => x.listboxId}"
-                part="listbox"
-                role="listbox"
-                ?disabled="${x => x.disabled}"
-                ${ref('listbox')}
-            >
-                <slot
-                    ${slotted({
-        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
-        flatten: true,
-        property: 'slottedOptions',
-    })}
-                ></slot>
+            <div class="listbox-background">
+                <div
+                    class="
+                        listbox 
+                        ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}
+                        ${x => x.positionAttribute}
+                    "
+                    id="${x => x.listboxId}"
+                    part="listbox"
+                    role="listbox"
+                    ?disabled="${x => x.disabled}"
+                    ${ref('listbox')}
+                >
+                    ${when(x => x.filterMode !== FilterMode.none, html<Select>`
+                        <div class="filter-field ${x => x.positionAttribute}">
+                            <${iconMagnifyingGlassTag} class="filter-icon"></${iconMagnifyingGlassTag}>
+                            <input
+                                ${ref('filterInput')}
+                                class="filter-input"
+                                aria-controls="${x => x.ariaControls}"
+                                aria-activedescendant="${x => x.ariaActiveDescendant}"
+                                @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
+                                @click="${(x, c) => x.inputClickHandler(c.event as MouseEvent)}"
+                                placeholder="${x => filterSearchLabel.getValueFor(x)}"
+                                value="${x => x.filter}"
+                            />
+                        </div>
+                    `)}
+                    <div ${ref('scrollableRegion')}
+                        class="scrollable-region">
+                        <slot
+                            ${slotted({
+                                filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
+                                flatten: true,
+                                property: 'slottedOptions',
+                            })}
+                        ></slot>
+                    </div>
+                    ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0), html<Select>`
+                        <span class="no-results-label ${x => x.positionAttribute}">
+                            ${x => filterNoResultsLabel.getValueFor(x)}
+                        </span>
+                    `)}
+                </div>
             </div>
         </${anchoredRegionTag}>
     </template>

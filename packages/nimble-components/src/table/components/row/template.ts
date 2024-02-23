@@ -9,11 +9,14 @@ import { checkboxTag } from '../../../checkbox';
 import {
     tableRowCollapseLabel,
     tableRowExpandLabel,
+    tableRowLoadingLabel,
     tableRowSelectLabel
 } from '../../../label-provider/table/label-tokens';
 import type { TableColumn } from '../../../table-column/base';
 import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
+import { spinnerTag } from '../../../spinner';
+import { SpinnerAppearance } from '../../../spinner/types';
 
 // prettier-ignore
 export const template = html<TableRow>`
@@ -40,21 +43,33 @@ export const template = html<TableRow>`
         `)}
         <span class="row-front-spacer ${x => (x.isTopLevelParentRow ? 'top-level-parent' : '')}"></span>
         ${when(x => x.isParentRow, html<TableRow>`
-            <${buttonTag}
-                appearance="${ButtonAppearance.ghost}"
-                content-hidden
-                class="expand-collapse-button"
-                tabindex="-1"
-                @click="${(x, c) => x.onRowExpandToggle(c.event)}"
-                title="${x => (x.expanded ? tableRowCollapseLabel.getValueFor(x) : tableRowExpandLabel.getValueFor(x))}"
-                aria-hidden="true"
-            >
-                <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
-            </${buttonTag}>
+            ${when(x => x.loading, html<TableRow>`
+                <span class="spinner-container">
+                    <${spinnerTag}
+                        appearance="${SpinnerAppearance.accent}"
+                        aria-label="${x => tableRowLoadingLabel.getValueFor(x)}"
+                        title="${x => tableRowLoadingLabel.getValueFor(x)}"
+                    >
+                    </${spinnerTag}>
+                </span>
+            `)}
+            ${when(x => !x.loading, html<TableRow>`
+                <${buttonTag}
+                    appearance="${ButtonAppearance.ghost}"
+                    content-hidden
+                    class="expand-collapse-button"
+                    tabindex="-1"
+                    @click="${(x, c) => x.onRowExpandToggle(c.event)}"
+                    title="${x => (x.expanded ? tableRowCollapseLabel.getValueFor(x) : tableRowExpandLabel.getValueFor(x))}"
+                    aria-hidden="true"
+                >
+                    <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
+                </${buttonTag}>
+            `)}
         `)}
 
         <span ${ref('cellContainer')} 
-            class="cell-container ${x => (x.isParentRow && x.nestingLevel > 0 ? 'nested-parent' : '')}"
+            class="cell-container ${x => (x.isNestedParent ? 'nested-parent' : '')}"
         >
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
                 ${when(x => !x.columnHidden, html<TableColumn, TableRow>`

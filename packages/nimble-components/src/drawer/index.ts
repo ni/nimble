@@ -92,6 +92,33 @@ export class Drawer<CloseReason = void> extends FoundationElement {
         return true;
     }
 
+    /**
+     * @internal
+     */
+    public closeHandler(event: Event): void {
+        if (event.target !== this.dialog) {
+            return;
+        }
+        if (this.resolveShow) {
+            // If
+            // - the browser implements dialogs with the CloseWatcher API, and
+            // - the user presses ESC without first interacting with the drawer (e.g. clicking, scrolling),
+            // the cancel event is not fired, but the close event still is, and the drawer just closes.
+            // The animation is never started, so there is no animation end listener to clean up.
+            this.doResolveShow(UserDismissed);
+        }
+    }
+
+    private doResolveShow(reason: CloseReason | UserDismissed): void {
+        if (!this.resolveShow) {
+            throw new Error(
+                'Do not call doResolveShow unless there is a promise to resolve'
+            );
+        }
+        this.resolveShow(reason);
+        this.resolveShow = undefined;
+    }
+
     private readonly animationEndHandlerFunction = (): void => this.animationEndHandler();
 
     private openDialog(): void {
@@ -126,8 +153,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
             this.dialog.classList.remove('closing');
             this.dialog.close();
             this.closing = false;
-            this.resolveShow!(this.closeReason);
-            this.resolveShow = undefined;
+            this.doResolveShow(this.closeReason);
         }
     }
 }

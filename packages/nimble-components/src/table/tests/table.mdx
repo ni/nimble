@@ -13,9 +13,6 @@ For information about configuring table columns, see **Table Column Configuratio
 
 ## Delay-loaded Hierarchy
 
-**Note:** The feature for delayed hierarchy is still in development, so it should not be used yet in production. Specifically,
-the feature to show a loading indicator while the child rows are being loaded has not been implemented. Therefore, the user experience is not optimal.
-
 In some cases, it may be known that a record has children, but the records for those children are not known. For performance reasons, it may be preferred to load
 the children on demand when a user expands the parent row. To accomplish this, use the `setRecordHierarchyOptions()` function on the table to set the hierarchy
 options associated with records in the data.
@@ -51,7 +48,6 @@ The expected usage of the dynamically loaded hierarchy is as follows:
 -   the options passed to `setRecordHierarchyOptions` will override any options previously set to become the complete set of options configured on the table
 -   the table will not render delayed hierarchy state (loading or expandable) if the table's `parentIdFieldName` is not configured; however, the options will remain cached within the table if the `parentIdFieldName` becomes `undefined`, and that cached configuration will render in the table if the table's `parentIdFieldName` is changed back to a non-`undefined` value
 -   calling `setData` will clear options associated with IDs that are no longer present in the data
--   a row with no children and a `delayedHierarchyState` of `canLoadChildren` will always be collapsed
 
 {/* ## Appearances */}
 

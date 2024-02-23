@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 08 Feb 2024 19:42:05 GMT and should not be manually modified.
+This log was last generated on Thu, 22 Feb 2024 01:13:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.3.1
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Align nuget and npm package versions ([ni/nimble@bb9f7fc](https://github.com/ni/nimble/commit/bb9f7fcf5aeac256fe9c4bf39c782f64c26d1c52))
+
+## 14.3.0
+
+Wed, 21 Feb 2024 23:32:45 GMT
+
+### Minor changes
+
+- Add support for delayed hierarchy in the table ([ni/nimble@ff99d91](https://github.com/ni/nimble/commit/ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d))
+
+## 14.2.0
+
+Mon, 19 Feb 2024 16:59:58 GMT
+
+### Minor changes
+
+- Blazor filterable Select ([ni/nimble@315917c](https://github.com/ni/nimble/commit/315917c5cf3768d0dcaf3901eef0087c5299832e))
 
 ## 14.1.0
 

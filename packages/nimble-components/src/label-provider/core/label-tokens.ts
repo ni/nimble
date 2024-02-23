@@ -30,3 +30,13 @@ export const informationIconLabel = DesignToken.create<string>({
     name: 'information-icon-label',
     cssCustomPropertyName: null
 }).withDefault(coreLabelDefaults.informationIconLabel);
+
+export const filterSearchLabel = DesignToken.create<string>({
+    name: 'filter-search-label',
+    cssCustomPropertyName: null
+}).withDefault(coreLabelDefaults.filterSearchLabel);
+
+export const filterNoResultsLabel = DesignToken.create<string>({
+    name: 'filter-no-results-label',
+    cssCustomPropertyName: null
+}).withDefault(coreLabelDefaults.filterNoResultsLabel);

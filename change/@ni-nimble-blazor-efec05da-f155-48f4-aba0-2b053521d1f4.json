@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update test project dependency version (Microsoft.NET.Test.Sdk)",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

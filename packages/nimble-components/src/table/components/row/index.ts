@@ -86,6 +86,9 @@ export class TableRow<
     @attr({ attribute: 'row-operation-grid-cell-hidden', mode: 'boolean' })
     public rowOperationGridCellHidden = false;
 
+    @attr({ mode: 'boolean' })
+    public loading = false;
+
     /**
      * @internal
      * An array that parallels the `columns` array and contains the indent
@@ -123,6 +126,11 @@ export class TableRow<
     @volatile
     public get isTopLevelParentRow(): boolean {
         return this.isParentRow && this.nestingLevel === 0;
+    }
+
+    @volatile
+    public get isNestedParent(): boolean {
+        return this.isParentRow && this.nestingLevel > 0;
     }
 
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
