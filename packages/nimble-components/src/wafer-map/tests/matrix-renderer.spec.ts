@@ -13,7 +13,7 @@ describe('MatrixRenderer worker:', () => {
     it('emptyMatrix() should empty the dieMatrix', async () => {
         renderer.workerOne.dieMatrix = Promise.resolve(Uint8Array.from([1, 2, 3]));
         await renderer.workerOne.emptyMatrix();
-        const resolvedDieMatrix = await renderer.workerOne.dieMatrix as Uint8Array;
+        const resolvedDieMatrix = await renderer.workerOne.dieMatrix;
         expect(resolvedDieMatrix.length).toEqual(0);
     });
 
