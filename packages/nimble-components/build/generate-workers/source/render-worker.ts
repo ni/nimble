@@ -4,7 +4,6 @@ import { HealthStatus, healthStatus } from './health-status';
 export class RenderWorker {
     private worker!: number;
     private dieMatrix: Uint8Array = Uint8Array.from([]);
-    private performanceTest: string | undefined;
     private healthStatus: HealthStatus = healthStatus.unknown;
 
     constructor() {
@@ -17,11 +16,7 @@ export class RenderWorker {
     public updateMatrix(
         data: Iterable<number>
     ): void {
-        const start = this.performanceTest !== undefined ? self.performance.now() : undefined;
         this.dieMatrix = Uint8Array.from(data);
-        if (this.performanceTest !== undefined) {
-            self.performance.measure(`${this.performanceTest} - worker:${this.worker} - renderDies`, { start });
-        }
     }
 
     public areMethodsCallable(): boolean {
