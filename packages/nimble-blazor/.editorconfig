@@ -34,7 +34,21 @@ dotnet_diagnostic.IDE0066.severity = none
 # Disable general pattern matching rule for now, may opt in in the future
 dotnet_diagnostic.IDE0078.severity = none
 
+[*.razor.cs]
+# Spurious 'unused' warnings when properties/methods are only used from Razor files
+dotnet_diagnostic.IDE0051.severity = none
+dotnet_diagnostic.IDE0052.severity = none
+
+[Program.cs]
+# Spurious 'unnecessary using' warnings
+dotnet_diagnostic.IDE0005.severity = none
+
 [Tests/NimbleBlazor.Tests.Acceptance/Tests/*.cs]
+dotnet_style_namespace_match_folder = false
+# Disable 'Namespace does not match folder structure'
+dotnet_diagnostic.IDE0130.severity = none
+
+[Examples/Demo.Shared/Shared/*.cs]
 dotnet_style_namespace_match_folder = false
 # Disable 'Namespace does not match folder structure'
 dotnet_diagnostic.IDE0130.severity = none
