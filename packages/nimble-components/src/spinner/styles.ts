@@ -12,7 +12,7 @@ import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
-    ${display('inline-flex')}
+    ${display('inline-grid')}
 
     :host {
         height: ${spinnerSmallHeight};
@@ -21,14 +21,12 @@ export const styles = css`
 
     div.overlay {
         z-index: 1;
-        position: absolute;
-        height: inherit;
-        aspect-ratio: 1 / 1;
+        grid-area: 1/1;
     }
 
     div.container {
         margin: max(2px, 6.25%);
-        flex: 1;
+        grid-area: 1/1;
         ${
             /**
              * At some spinner sizes / browser zoom levels, the spinner bits/squares appear to slightly overlap visually.
