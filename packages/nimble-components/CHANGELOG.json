@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 23 Feb 2024 22:17:56 GMT",
+      "version": "21.6.6",
+      "tag": "@ni/nimble-components_v21.6.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c6e803caaa9757f7584281f096a94c4d58ef194d",
+            "comment": "Fix spacing between error text and component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 23 Feb 2024 21:23:18 GMT",
       "version": "21.6.5",
       "tag": "@ni/nimble-components_v21.6.5",

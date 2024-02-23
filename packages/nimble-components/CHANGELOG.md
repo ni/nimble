@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 23 Feb 2024 21:23:18 GMT and should not be manually modified.
+This log was last generated on Fri, 23 Feb 2024 22:17:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.6.6
+
+Fri, 23 Feb 2024 22:17:56 GMT
+
+### Patches
+
+- Fix spacing between error text and component ([ni/nimble@c6e803c](https://github.com/ni/nimble/commit/c6e803caaa9757f7584281f096a94c4d58ef194d))
 
 ## 21.6.5
 
