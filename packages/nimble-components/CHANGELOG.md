@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 23 Feb 2024 00:08:44 GMT and should not be manually modified.
+This log was last generated on Fri, 23 Feb 2024 21:23:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.6.5
+
+Fri, 23 Feb 2024 21:23:18 GMT
+
+### Patches
+
+- Only handle close events coming from dialog element ([ni/nimble@c1f4f8f](https://github.com/ni/nimble/commit/c1f4f8fb9bbb889608f1d2930f7a29d55fa31c79))
 
 ## 21.6.4
 

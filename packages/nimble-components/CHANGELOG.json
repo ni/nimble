@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 23 Feb 2024 21:23:18 GMT",
+      "version": "21.6.5",
+      "tag": "@ni/nimble-components_v21.6.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c1f4f8fb9bbb889608f1d2930f7a29d55fa31c79",
+            "comment": "Only handle close events coming from dialog element"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 23 Feb 2024 00:08:44 GMT",
       "version": "21.6.4",
       "tag": "@ni/nimble-components_v21.6.4",
