@@ -5,7 +5,6 @@
     "outDir": "../../../out-tsc/lib",
     "declaration": true,
     "declarationMap": true,
-    "inlineSources": true,
     "types": [],
     "preserveSymlinks": true,
     "lib": [

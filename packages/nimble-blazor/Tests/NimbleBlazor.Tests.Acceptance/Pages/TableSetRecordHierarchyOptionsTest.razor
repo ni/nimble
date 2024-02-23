@@ -1,0 +1,68 @@
+﻿@page "/TableSetRecordHierarchyOptionsTest"
+@namespace NimbleBlazor.Tests.Acceptance.Pages
+@using System.Diagnostics.CodeAnalysis;
+@inherits LayoutComponentBase
+
+<NimbleTable TData="RowData" IdFieldName="Id" ParentIdFieldName="ParentId" @ref="_table" RowExpandToggle="OnRowExpandToggle">
+    <NimbleTableColumnText FieldName="Field1" ColumnId="1">Column 1</NimbleTableColumnText>
+</NimbleTable>
+<NimbleTextField @bind-Value="TextFieldText"></NimbleTextField>
+
+@code {
+    [NotNull]
+    public IEnumerable<RowData> TableData { get; set; } = Enumerable.Empty<RowData>();
+    [NotNull]
+    public IEnumerable<TableSetRecordHierarchyOptions> HiearchyOptions { get; set; } = Enumerable.Empty<TableSetRecordHierarchyOptions>();
+    public string TextFieldText = string.Empty;
+    private NimbleTable<RowData>? _table;
+
+    public TableSetRecordHierarchyOptionsTest()
+    {
+        UpdateTableData(4);
+    }
+
+    public void UpdateTableData(int numberOfRows)
+    {
+        var tableData = new RowData[numberOfRows];
+        for (int i = 0; i < numberOfRows; i++)
+        {
+            tableData[i] = new RowData(
+                i.ToString(null, null),
+                $"A{i}");
+        }
+
+        TableData = tableData;
+
+        var hierarchyOptions = new List<TableSetRecordHierarchyOptions>()
+        {
+            new TableSetRecordHierarchyOptions("0", new TableRecordHierarchyOptions(TableRecordDelayedHierarchyState.CanLoadChildren)),
+            new TableSetRecordHierarchyOptions("1", new TableRecordHierarchyOptions(TableRecordDelayedHierarchyState.None)),
+            new TableSetRecordHierarchyOptions("2", new TableRecordHierarchyOptions(TableRecordDelayedHierarchyState.LoadingChildren))
+        };
+        HiearchyOptions = hierarchyOptions;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _table!.SetDataAsync(TableData);
+        await _table!.SetRecordHierarchyOptionsAsync(HiearchyOptions);
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private void OnRowExpandToggle(TableRowExpandToggleEventArgs e)
+    {
+        TextFieldText = $"RecordId: {e.RecordId}, OldState: {e.OldState}, NewState: {e.NewState}";
+    }
+
+    public class RowData
+    {
+        public RowData(string id, string field1)
+        {
+            Id = id;
+            Field1 = field1;
+        }
+
+        public string Id { get; }
+        public string Field1 { get; }
+    }
+}

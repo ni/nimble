@@ -59,7 +59,6 @@
                 Icon Toggle Button
             </NimbleToggleButton>
         </div>
-        <!-- Disabled as it breaks accessibility tooling, see: https://github.com/ni/nimble/issues/1650
         <div class="sub-container">
             <div class="container-label">Card</div>
             <NimbleCard>
@@ -73,7 +72,6 @@
                 </NimbleSelect>
             </NimbleCard>
         </div>
-        -->
         <div class="sub-container">
             <div class="container-label">Card Button</div>
             <NimbleCardButton>
@@ -172,7 +170,7 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Select</div>
-            <NimbleSelect Appearance="DropdownAppearance.Underline">
+            <NimbleSelect Appearance="DropdownAppearance.Underline" FilterMode="FilterMode.Standard">
                 <NimbleListOption>Option 1</NimbleListOption>
                 <NimbleListOption>Option 2</NimbleListOption>
                 <NimbleListOption>Option 3</NimbleListOption>
@@ -264,6 +262,14 @@
                 </NimbleMenu>
             </NimbleTable>
             <NimbleButton class="table-update-button" @onclick=@(_ => AddTableRows(10))>Add rows</NimbleButton>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Table with delayed hierarchy</div>
+            <NimbleTable TData="PersonTableRecord" RowExpandToggle="OnRowExpandToggleAsync" @ref="_delayedHierarchyTable" IdFieldName="Id" ParentIdFieldName="ParentId" SelectionMode="TableRowSelectionMode.Multiple" class="table">
+                <NimbleTableColumnText FieldName="FirstName">First name</NimbleTableColumnText>
+                <NimbleTableColumnText FieldName="LastName">Last name</NimbleTableColumnText>
+                <NimbleTableColumnNumberText FieldName="Age" Format="NumberTextFormat.Decimal" DecimalDigits="0">Age</NimbleTableColumnNumberText>
+            </NimbleTable>
         </div>
         <div class="sub-container">
             <div class="container-label">Tabs</div>
