@@ -2,6 +2,117 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 23 Feb 2024 00:08:44 GMT",
+      "version": "21.6.4",
+      "tag": "@ni/nimble-components_v21.6.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b677d6b9ed7451715bb36043b245369060c8511b",
+            "comment": "Tweak card to workaround lighthouse issue"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 22 Feb 2024 21:27:19 GMT",
+      "version": "21.6.3",
+      "tag": "@ni/nimble-components_v21.6.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "84480ae94997da7240feba4e19d73e42cadcc9f6",
+            "comment": "Remove code element from stories used for formatting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 22 Feb 2024 19:42:35 GMT",
+      "version": "21.6.3",
+      "tag": "@ni/nimble-components_v21.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "70e9234b636b0a2e67a658ecef06008ac8e96fa2",
+            "comment": "Clean up dialog/drawer properly if cancel event skipped"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 22 Feb 2024 01:13:03 GMT",
+      "version": "21.6.2",
+      "tag": "@ni/nimble-components_v21.6.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.11.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 21 Feb 2024 23:32:45 GMT",
+      "version": "21.6.1",
+      "tag": "@ni/nimble-components_v21.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d",
+            "comment": "Update `TableRecordDelayedHierarchyState` enum values to follow kebab casing convention"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 21 Feb 2024 21:18:20 GMT",
+      "version": "21.6.0",
+      "tag": "@ni/nimble-components_v21.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4037b7c13da51926e6fbfd774a4da19cd75cb98e",
+            "comment": "Add bodyEmphasizedPlus1Font tokens"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.11.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 21 Feb 2024 19:48:20 GMT",
+      "version": "21.5.5",
+      "tag": "@ni/nimble-components_v21.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v0.2.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 20 Feb 2024 17:54:12 GMT",
       "version": "21.5.4",
       "tag": "@ni/nimble-components_v21.5.4",
