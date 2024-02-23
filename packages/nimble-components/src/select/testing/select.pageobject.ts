@@ -161,6 +161,15 @@ export class SelectPageObject {
         );
     }
 
+    public isOptionVisible(index: number): boolean {
+        if (index >= this.selectElement.options.length) {
+            throw new Error('Indexing past number of options');
+        }
+        const option = this.selectElement.options[index]!;
+        const optionRects = option.getClientRects();
+        return optionRects.length > 0 && optionRects[0]!.height !== 0;
+    }
+
     public isNoResultsLabelVisible(): boolean {
         return (
             this.selectElement.shadowRoot?.querySelector(

@@ -22,3 +22,7 @@ export const DropdownAppearance = {
 } as const;
 export type DropdownAppearance =
     (typeof DropdownAppearance)[keyof typeof DropdownAppearance];
+
+export interface ForceUpdateDisplayValue {
+    updateDisplayValue: () => void;
+}

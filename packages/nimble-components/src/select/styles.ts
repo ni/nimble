@@ -26,7 +26,7 @@ export const styles = css`
          error icon, and dropdown arrow because they are not "interactive" i.e. part of the tab order */ ''
     }
 
-    :host([placeholder-visible]) [part='selected-value'] {
+    [part='selected-value'].placeholder {
         color: ${placeholderFontColor};
     }
 

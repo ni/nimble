@@ -76,7 +76,7 @@ It is recommended that if the \`Select\` has 15 or fewer options that you use th
 `;
 
 const placeholderDescription = `
-To display placeholder text within the \`Select\` you must provide an option before all other options that has both the \`disabled\` and \`selected\` attributes initially set. This option will not be available in the dropdown, and its contents will be used as the placeholder text.
+To display placeholder text within the \`Select\` you must provide an option that has the \`disabled\`, \`selected\` and \`hidden\` attributes set. This option will not be available in the dropdown, and its contents will be used as the placeholder text.
 `;
 
 const metadata: Meta<SelectArgs> = {
@@ -105,7 +105,8 @@ const metadata: Meta<SelectArgs> = {
             ${when(x => x.placeholder, html`
                 <${listOptionTag}
                     disabled
-                    selected>
+                    selected
+                    hidden>
                     Select an option:
                 </${listOptionTag}?
             `)}

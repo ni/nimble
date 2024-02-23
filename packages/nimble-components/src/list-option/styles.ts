@@ -74,6 +74,10 @@ export const styles = css`
         outline: none;
     }
 
+    :host(.hidden-option) {
+        display: none;
+    }
+
     [part='end'] {
         display: none;
     }
