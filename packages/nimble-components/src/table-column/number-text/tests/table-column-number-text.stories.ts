@@ -151,7 +151,6 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
-            style="height: 270px"
         >
             <${tableColumnTextTag} field-name="firstName">
                 First Name
@@ -172,7 +171,6 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
                 ${when(x => x.unit === 'volt', html`<${unitVoltTag}></${unitVoltTag}>`)}
             </${tableColumnNumberTextTag}>
         </${tableTag}>
-        ${() => navigator.userAgent}
     `),
     argTypes: {
         fieldName: {
