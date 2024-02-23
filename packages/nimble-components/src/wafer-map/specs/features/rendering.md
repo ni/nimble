@@ -82,7 +82,7 @@ The POC is found in this branch [Worker Rendering POC](https://github.com/ni/nim
 
 ### Data Structure and Interface
 
-The best solution to solve the API of the wafermap is to use Apache Arrow as the wafer component API, and Typed Arrays as teh worker API for their iterating performance and transferability to worker threads.
+The best solution to solve the API of the wafermap is to use Apache Arrow as the wafer component API, and Typed Arrays as the worker API for their iterating performance and transferability to worker threads.
 
 The Public API will be the following:
 
@@ -111,19 +111,19 @@ This approach has the benefits of a row based format that aligns well with the e
 The limits for this approach are the following:
 
 1. There seems to be no support for columns of lists of strings. We decided to overcome this using a bit mask of tags. Another possible solution can be a dynamic number of columns for storing tags, but the performance may suffer.
-2. There is no support currently for [searching or filtering the table](https://github.com/apache/arrow/issues/13233). The possible solutions for this are searching by iterating over the whole table, which is not feasible (see 4.) or using a higher level library such as [aquero](https://uwdata.github.io/arquero/). Searching for dies based on their position is crucial for highlighting and sending the highlighted die metadata with the `die-hover` event. The solution we chose is using a custom method for finding rows based on column and row indexes cached as typed arrays. This method provides faster access to row values and metadata and does not induce additional dependencies.
+2. There is no support currently for [searching or filtering the table](https://github.com/apache/arrow/issues/13233). Searching for dies based on their position is crucial for highlighting and sending the highlighted die metadata with the `die-hover` event. The solution we chose is using a custom method for finding rows based on column and row indexes cached as typed arrays. This method provides faster access to row values and metadata and does not induce additional dependencies. Other possible solutions for this are searching by iterating over the whole table, which is not feasible (see 4.) or using a higher level library such as [aquero](https://uwdata.github.io/arquero/).
 3. The transfer method between the main an worker thread for arrow tables is cumbersome, we would have to use another higher level library [geoarrow](https://github.com/geoarrow/geoarrow-js/blob/main/src/worker/transferable.ts). Fortunately we can skip over this problem by not transferring the tables to the worker.
 4. The iteration over stored rows is very slow compared to typed arrays as seen in the table below. This impacts the goals we set for this rendering improvement. The solution to this issue and the transferring issue is splitting the relevant columns from the table (rows, columns, values, tags mask) and messaging them to the worker separately. This can be done with a very small overhead using the [getChild](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html#getChild) method and calling [toArray](https://arrow.apache.org/docs/js/classes/Arrow_dom.Vector.html#toArray) on the resulting vector. After being transferred, The buffers can be cached to speed up value access and filtering.
 
-| name                      | duration (ms) [1]  | duration (ms) [2]  | detail                                                                                                    |
-| ------------------------- | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------- |
-| typed iterate             | 7.551699995994568  | 6.052600026130676  | iterating over two 1M typed arrays and calculating the sums                                               |
-| typed from table iterate  | 6.4953999519348145 | 5.136900067329407  | iterating over two 1M typed arrays from Table columns and calculating the sums (time includes conversion) |
-| vector iterate            | 76.4708000421524   | 66.58230006694794  | iterating over two 1M Vectors and calculating the sums                                                    |
-| table get() iterate       | 1350.0404000282288 | 1030.582899928093  | iterating over the 1M Table using `table.get(rowIndex)` and calculating the sums                          |
-| table [iterator] iterate  | 1091.6706000566483 | 1011.069100022316  | iterating over the 1M Table using the [iterator] and calculating the sums                                 |
-| array from table iterate  | 943.0076999664307  | 980.0875999927521  | iterating over the 1M Table after converting `toArray()` and calculating the sums                         |
-| vector from table iterate | 965.2465000152588  | 1012.9023000001907 | iterating over the 1M Vector after converting the Table with `makeVector()` and calculating the sums      |
+| name                      | duration (ms) [1] | duration (ms) [2] | detail                                                                                                    |
+| ------------------------- | ----------------- | ----------------- | --------------------------------------------------------------------------------------------------------- |
+| typed iterate             | 7                 | 6                 | iterating over two 1M typed arrays and calculating the sums                                               |
+| typed from table iterate  | 6                 | 5                 | iterating over two 1M typed arrays from Table columns and calculating the sums (time includes conversion) |
+| vector iterate            | 76                | 66                | iterating over two 1M Vectors and calculating the sums                                                    |
+| table get() iterate       | 1350              | 1030              | iterating over the 1M Table using `table.get(rowIndex)` and calculating the sums                          |
+| table [iterator] iterate  | 1091              | 1011              | iterating over the 1M Table using the [iterator] and calculating the sums                                 |
+| array from table iterate  | 943               | 980               | iterating over the 1M Table after converting `toArray()` and calculating the sums                         |
+| vector from table iterate | 965               | 1012              | iterating over the 1M Vector after converting the Table with `makeVector()` and calculating the sums      |
 
 The memory impact is not very significant, amounting to 74.01MB for 1M dies compared with 44.65MB for the previously prototyped API.
 
