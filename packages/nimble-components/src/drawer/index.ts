@@ -95,7 +95,10 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     /**
      * @internal
      */
-    public closeHandler(): void {
+    public closeHandler(event: Event): void {
+        if (event.target !== this.dialog) {
+            return;
+        }
         if (this.resolveShow) {
             // If
             // - the browser implements dialogs with the CloseWatcher API, and

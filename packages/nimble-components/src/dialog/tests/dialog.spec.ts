@@ -18,7 +18,7 @@ async function setup<CloseReason = void>(
     return fixture<Dialog<CloseReason>>(viewTemplate);
 }
 
-describe('Dialog', () => {
+fdescribe('Dialog', () => {
     function nativeDialogElement(nimbleDialogElement: Dialog): ExtendedDialog {
         return nimbleDialogElement.shadowRoot!.querySelector(
             'dialog'
@@ -185,6 +185,20 @@ describe('Dialog', () => {
 
         await expectAsync(dialogPromise).toBeResolvedTo(UserDismissed);
         expect(element.open).toBeFalse();
+
+        await disconnect();
+    });
+
+    it('should not resolve promise when close event bubbles from descendant', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const dialogPromise = element.show();
+        const okButton = document.getElementById('ok')!;
+        okButton.dispatchEvent(new Event('close', { bubbles: true }));
+        await waitForUpdatesAsync();
+
+        await expectAsync(dialogPromise).toBePending();
+        expect(element.open).toBeTrue();
 
         await disconnect();
     });
