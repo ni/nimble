@@ -1,8 +1,10 @@
 import { WaferMap } from '..';
 import { MatrixRenderer } from '../modules/matrix-renderer';
 
-// Sometimes methods from render worker become bugged after being built, bundled and copied to a different location
-// with these tests we ensure they behave as expected after this process
+/*
+* Sometimes methods from render worker become bugged after being built, bundled and copied to a different location
+* with these tests we ensure they behave as expected after this process
+*/
 describe('MatrixRenderer worker:', () => {
     const wafermap = new WaferMap();
     let renderer = new MatrixRenderer(wafermap);
