@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 22 Feb 2024 19:42:35 GMT and should not be manually modified.
+This log was last generated on Fri, 23 Feb 2024 00:08:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.6.4
+
+Fri, 23 Feb 2024 00:08:44 GMT
+
+### Patches
+
+- Tweak card to workaround lighthouse issue ([ni/nimble@b677d6b](https://github.com/ni/nimble/commit/b677d6b9ed7451715bb36043b245369060c8511b))
 
 ## 21.6.3
 

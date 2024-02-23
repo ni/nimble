@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 23 Feb 2024 00:08:44 GMT",
+      "version": "21.6.4",
+      "tag": "@ni/nimble-components_v21.6.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b677d6b9ed7451715bb36043b245369060c8511b",
+            "comment": "Tweak card to workaround lighthouse issue"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 22 Feb 2024 21:27:19 GMT",
       "version": "21.6.3",
       "tag": "@ni/nimble-components_v21.6.3",
