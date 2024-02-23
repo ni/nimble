@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 23 Feb 2024 22:17:56 GMT and should not be manually modified.
+This log was last generated on Fri, 23 Feb 2024 22:56:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.6.7
+
+Fri, 23 Feb 2024 22:56:07 GMT
+
+### Patches
+
+- Fix bug in Firefox where title on spinner isn't always displayed as expected ([ni/nimble@1e5b10c](https://github.com/ni/nimble/commit/1e5b10c7a247e13dcece70496b5ccbae322075a3))
 
 ## 21.6.6
 
