@@ -29,7 +29,6 @@ function copyFile(sourcePath: string, destinationPath: string): void {
 }
 
 const renderModuleName: string = '../bundle/render-worker.js';
-const healthStatusModuleName: string = '../../source/health-status.ts';
 const workersDirectory: string = path.resolve('./src/wafer-map/workers');
 
 prepareDirectory(workersDirectory);
@@ -37,12 +36,8 @@ prepareDirectory(workersDirectory);
 const modulePath: string = resolveModulePath(renderModuleName);
 const sourceCode: string = fs.readFileSync(modulePath, 'utf-8');
 
-const healthModulePath: string = resolveModulePath(healthStatusModuleName);
-
 const fileContent: string = `// eslint-disable-next-line no-template-curly-in-string\nexport const workerCode = ${JSON.stringify(sourceCode)};`;
 
 const renderFilePath: string = path.resolve(workersDirectory, 'render-worker.ts');
-const healthFilePath: string = path.resolve(workersDirectory, 'health-status.ts');
 
 writeFile(renderFilePath, fileContent);
-copyFile(healthModulePath, healthFilePath);
