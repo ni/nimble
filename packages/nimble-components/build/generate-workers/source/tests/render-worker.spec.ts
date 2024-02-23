@@ -1,4 +1,3 @@
-import * as Comlink from 'comlink';
 import { RenderWorker } from '../render-worker';
 
 describe('RenderWorker', () => {
