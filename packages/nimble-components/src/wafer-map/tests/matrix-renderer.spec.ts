@@ -7,7 +7,7 @@ import { MatrixRenderer } from '../modules/matrix-renderer';
  */
 describe('MatrixRenderer worker:', () => {
     const wafermap = new WaferMap();
-    let renderer = new MatrixRenderer(wafermap);
+    let renderer: MatrixRenderer;
     beforeEach(() => {
         renderer = new MatrixRenderer(wafermap);
     });
@@ -15,9 +15,8 @@ describe('MatrixRenderer worker:', () => {
     it('updateMatrix should update the dieMatrix correctly', async () => {
         const testData: Iterable<number> = [4, 5, 6];
         await renderer.workerOne.updateMatrix(testData);
-        expect(renderer.workerOne.dieMatrix).toEqual(
-            Promise.resolve(Uint8Array.from(testData))
-        );
+        const resolvedDieMatrix = await renderer.workerOne.dieMatrix;
+        expect(Array.from(resolvedDieMatrix)).toEqual(Array.from(Uint8Array.from(testData)));
     });
 
     it('emptyMatrix should empty the dieMatrix', async () => {
