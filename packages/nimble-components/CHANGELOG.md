@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 22 Feb 2024 01:13:03 GMT and should not be manually modified.
+This log was last generated on Fri, 23 Feb 2024 21:23:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.6.5
+
+Fri, 23 Feb 2024 21:23:18 GMT
+
+### Patches
+
+- Only handle close events coming from dialog element ([ni/nimble@c1f4f8f](https://github.com/ni/nimble/commit/c1f4f8fb9bbb889608f1d2930f7a29d55fa31c79))
+
+## 21.6.4
+
+Fri, 23 Feb 2024 00:08:44 GMT
+
+### Patches
+
+- Tweak card to workaround lighthouse issue ([ni/nimble@b677d6b](https://github.com/ni/nimble/commit/b677d6b9ed7451715bb36043b245369060c8511b))
+
+## 21.6.3
+
+Thu, 22 Feb 2024 19:42:35 GMT
+
+### Patches
+
+- Clean up dialog/drawer properly if cancel event skipped ([ni/nimble@70e9234](https://github.com/ni/nimble/commit/70e9234b636b0a2e67a658ecef06008ac8e96fa2))
 
 ## 21.6.2
 
