@@ -256,15 +256,15 @@ Alternatives for solving these problems are the following:
 3. The use of a higher level library [geoarrow](https://github.com/geoarrow/geoarrow-js/blob/main/src/worker/transferable.ts)
 4. In the following table are presented different iteration strategies over 1M long arrays, and how they compare with the chosen method and the basic typed array iteration:
 
-| name                      | duration (ms) [1] | duration (ms) [2] | detail                                                          |
-| ------------------------- | ----------------- | ----------------- | --------------------------------------------------------------- |
-| typed array               | 7                 | 6                 | basic typed arrays iteration                                    |
-| typed array from table    | 6                 | 5                 | typed arrays converted from Table columns                       |
-| vector from typed array   | 76                | 66                | arrow Vectors directly created from typed arrays                |
-| vector from table         | 965               | 1012              | arrow Vector converted from the arrow Table with `makeVector()` |
-| list array from table     | 943               | 980               | list array converted from the arrow Table with `toArray()`      |
-| table get()               | 1350              | 1030              | arrow Table using `table.get(rowIndex)`                         |
-| table [iterator]          | 1091              | 1011              | arrow Table using the [iterator]                                |
+| name                    | duration (ms) [1] | duration (ms) [2] | detail                                                          |
+| ----------------------- | ----------------- | ----------------- | --------------------------------------------------------------- |
+| typed array             | 7                 | 6                 | basic typed arrays iteration                                    |
+| typed array from table  | 6                 | 5                 | typed arrays converted from Table columns                       |
+| vector from typed array | 76                | 66                | arrow Vectors directly created from typed arrays                |
+| vector from table       | 965               | 1012              | arrow Vector converted from the arrow Table with `makeVector()` |
+| list array from table   | 943               | 980               | list array converted from the arrow Table with `toArray()`      |
+| table get()             | 1350              | 1030              | arrow Table using `table.get(rowIndex)`                         |
+| table [iterator]        | 1091              | 1011              | arrow Table using the [iterator]                                |
 
 The memory impact is not very significant, amounting to 74.01MB for 1M dies compared with 44.65MB for the previously prototyped API.
 
