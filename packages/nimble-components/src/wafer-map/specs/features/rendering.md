@@ -108,24 +108,15 @@ The metadata column will be stored in an wildcard typed column.
 
 This approach has the benefits of a row based format that aligns well with the existing public API, as well as a nice public API that easily allows future improvements.
 
-The limits for this approach are the following:
+We are going to split the columns relevant to rendering from the table (rows, columns, values, tags mask) and transfer them to the worker separately. This can be done with a very small overhead using the method below on the resulting vector. After being transferred, the buffers can be cached to speed up value access and filtering.
 
-1. There seems to be no support for columns of lists of strings. We decided to overcome this using a bit mask of tags. Another possible solution can be a dynamic number of columns for storing tags, but the performance may suffer.
-2. There is no support currently for [searching or filtering the table](https://github.com/apache/arrow/issues/13233). Searching for dies based on their position is crucial for highlighting and sending the highlighted die metadata with the `die-hover` event. The solution we chose is using a custom method for finding rows based on column and row indexes cached as typed arrays. This method provides faster access to row values and metadata and does not induce additional dependencies. Other possible solutions for this are searching by iterating over the whole table, which is not feasible (see 4.) or using a higher level library such as [aquero](https://uwdata.github.io/arquero/).
-3. The transfer method between the main an worker thread for arrow tables is cumbersome, we would have to use another higher level library [geoarrow](https://github.com/geoarrow/geoarrow-js/blob/main/src/worker/transferable.ts). Fortunately we can skip over this problem by not transferring the tables to the worker.
-4. The iteration over stored rows is very slow compared to typed arrays as seen in the table below. This impacts the goals we set for this rendering improvement. The solution to this issue and the transferring issue is splitting the relevant columns from the table (rows, columns, values, tags mask) and messaging them to the worker separately. This can be done with a very small overhead using the [getChild](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html#getChild) method and calling [toArray](https://arrow.apache.org/docs/js/classes/Arrow_dom.Vector.html#toArray) on the resulting vector. After being transferred, The buffers can be cached to speed up value access and filtering.
+The same approach will be used when searching for the highlighted die metadata.
 
-| name                      | duration (ms) [1] | duration (ms) [2] | detail                                                                                                    |
-| ------------------------- | ----------------- | ----------------- | --------------------------------------------------------------------------------------------------------- |
-| typed iterate             | 7                 | 6                 | iterating over two 1M typed arrays and calculating the sums                                               |
-| typed from table iterate  | 6                 | 5                 | iterating over two 1M typed arrays from Table columns and calculating the sums (time includes conversion) |
-| vector iterate            | 76                | 66                | iterating over two 1M Vectors and calculating the sums                                                    |
-| table get() iterate       | 1350              | 1030              | iterating over the 1M Table using `table.get(rowIndex)` and calculating the sums                          |
-| table [iterator] iterate  | 1091              | 1011              | iterating over the 1M Table using the [iterator] and calculating the sums                                 |
-| array from table iterate  | 943               | 980               | iterating over the 1M Table after converting `toArray()` and calculating the sums                         |
-| vector from table iterate | 965               | 1012              | iterating over the 1M Vector after converting the Table with `makeVector()` and calculating the sums      |
-
-The memory impact is not very significant, amounting to 74.01MB for 1M dies compared with 44.65MB for the previously prototyped API.
+```TS
+    const colIndex: Int32Array = diesTable.getChild('colIndex').toArray();
+    const rowIndex: Int32Array = diesTable.getChild('rowIndex').toArray();
+    ...
+```
 
 ### Rendering
 
@@ -248,6 +239,34 @@ Pros of using Apache Arrow:
 -   Designed for large dataset visualizations
 
 Another option is to break each object property as a separate attribute for the wafer map component. This can also lead to increased complexity and confusion for the user which will need to pass several structured objects instead of a singular object.
+
+#### Alternative Iteration and Filtering with Apache Arrow Table
+
+The limits for the apache arrow table approach are the following:
+
+1. There seems to be no support for columns of lists of strings.
+2. There is no support currently for [searching or filtering the table](https://github.com/apache/arrow/issues/13233). Searching for dies based on their position is crucial for highlighting and sending the highlighted die metadata with the `die-hover` event.
+3. The transfer method between the main an worker thread for arrow tables is cumbersome.
+4. The iteration over stored rows is very slow compared to typed arrays as seen in the table below. This impacts the goals we set for this rendering improvement.
+
+Alternatives for solving these problems are the following:
+
+1. A dynamic number of columns for storing tags, but the performance may suffer.
+2. Possible solutions for this are searching by iterating over the whole table, which is not feasible (see 4.) or using a higher level library such as [aquero](https://uwdata.github.io/arquero/).
+3. The use of a higher level library [geoarrow](https://github.com/geoarrow/geoarrow-js/blob/main/src/worker/transferable.ts)
+4. In the following table are presented different iteration strategies over 1M long arrays, and how they compare with the chosen method and the basic typed array iteration:
+
+| name                      | duration (ms) [1] | duration (ms) [2] | detail                                                          |
+| ------------------------- | ----------------- | ----------------- | --------------------------------------------------------------- |
+| typed array               | 7                 | 6                 | basic typed arrays iteration                                    |
+| typed array from table    | 6                 | 5                 | typed arrays converted from Table columns                       |
+| vector from typed array   | 76                | 66                | arrow Vectors directly created from typed arrays                |
+| vector from table         | 965               | 1012              | arrow Vector converted from the arrow Table with `makeVector()` |
+| list array from table     | 943               | 980               | list array converted from the arrow Table with `toArray()`      |
+| table get()               | 1350              | 1030              | arrow Table using `table.get(rowIndex)`                         |
+| table [iterator]          | 1091              | 1011              | arrow Table using the [iterator]                                |
+
+The memory impact is not very significant, amounting to 74.01MB for 1M dies compared with 44.65MB for the previously prototyped API.
 
 ### Alternative Rendering
 
