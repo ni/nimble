@@ -21,6 +21,7 @@ export const styles = css`
 
     div.overlay {
         z-index: 1;
+        margin: max(2px, 6.25%);
         grid-area: 1/1;
     }
 
