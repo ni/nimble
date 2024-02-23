@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
@@ -14,6 +13,7 @@ namespace NimbleBlazor;
 public partial class NimbleTable<TData> : ComponentBase
 {
     private ElementReference _table;
+    private static readonly JsonSerializerOptions _serializationOptions = new() { MaxDepth = 3 };
     internal static string SetTableDataMethodName = "NimbleBlazor.Table.setData";
     internal static string GetSelectedRecordIdsMethodName = "NimbleBlazor.Table.getSelectedRecordIds";
     internal static string SetSelectedRecordIdsMethodName = "NimbleBlazor.Table.setSelectedRecordIds";
@@ -44,8 +44,7 @@ public partial class NimbleTable<TData> : ComponentBase
     /// <param name="data">The data to set in the table</param>
     public async Task SetDataAsync(IEnumerable<TData> data)
     {
-        var options = new JsonSerializerOptions { MaxDepth = 3 };
-        await JSRuntime!.InvokeVoidAsync(SetTableDataMethodName, _table, JsonSerializer.Serialize(data, options));
+        await JSRuntime!.InvokeVoidAsync(SetTableDataMethodName, _table, JsonSerializer.Serialize(data, _serializationOptions));
     }
 
     /// <summary>

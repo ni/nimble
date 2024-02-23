@@ -1,0 +1,37 @@
+[*.cs]
+
+csharp_style_namespace_declarations = file_scoped:warning
+csharp_prefer_simple_using_statement = false
+dotnet_style_prefer_conditional_expression_over_return = false
+
+# Disable: Remove unnecessary expression value (_/discard not required)
+dotnet_diagnostic.IDE0058.severity = none
+
+# Rules for the use of 'var':
+dotnet_diagnostic.IDE0007.severity = none
+dotnet_diagnostic.IDE0008.severity = none
+# Note: ASW generally uses the settings below, may opt in in the future.
+# csharp_style_var_for_built_in_types = false
+# csharp_style_var_when_type_is_apparent = true
+# csharp_style_var_elsewhere = false
+
+# Expression-bodied members
+# Note: May switch to when_on_single_line for methods/properties/accessors
+# in the future
+# csharp_style_expression_bodied_methods
+dotnet_diagnostic.IDE0022.severity = none
+# csharp_style_expression_bodied_properties
+dotnet_diagnostic.IDE0025.severity = none
+# csharp_style_expression_bodied_indexers
+dotnet_diagnostic.IDE0026.severity = none
+# csharp_style_expression_bodied_accessors
+dotnet_diagnostic.IDE0027.severity = none
+
+# Pattern matching
+# Disable general pattern matching rule for now, may opt in in the future
+dotnet_diagnostic.IDE0078.severity = none
+
+[Tests/NimbleBlazor.Tests.Acceptance/Tests/*.cs]
+dotnet_style_namespace_match_folder = false
+# Disable 'Namespace does not match folder structure'
+dotnet_diagnostic.IDE0130.severity = none
