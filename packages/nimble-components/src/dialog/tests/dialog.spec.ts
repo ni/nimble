@@ -18,7 +18,7 @@ async function setup<CloseReason = void>(
     return fixture<Dialog<CloseReason>>(viewTemplate);
 }
 
-fdescribe('Dialog', () => {
+describe('Dialog', () => {
     function nativeDialogElement(nimbleDialogElement: Dialog): ExtendedDialog {
         return nimbleDialogElement.shadowRoot!.querySelector(
             'dialog'

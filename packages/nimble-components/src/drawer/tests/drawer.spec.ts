@@ -3,7 +3,10 @@ import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Drawer, UserDismissed } from '..';
 import { DrawerLocation } from '../types';
-import { processUpdates, waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 async function setup<CloseReason = void>(
@@ -20,7 +23,7 @@ async function setup<CloseReason = void>(
     return fixture<Drawer<CloseReason>>(viewTemplate);
 }
 
-fdescribe('Drawer', () => {
+describe('Drawer', () => {
     function nativeDialogElement(
         nimbleDrawerElement: Drawer | Drawer<string>
     ): HTMLDialogElement {
