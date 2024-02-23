@@ -189,6 +189,20 @@ describe('Dialog', () => {
         await disconnect();
     });
 
+    it('should not resolve promise when close event bubbles from descendant', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const dialogPromise = element.show();
+        const okButton = document.getElementById('ok')!;
+        okButton.dispatchEvent(new Event('close', { bubbles: true }));
+        await waitForUpdatesAsync();
+
+        await expectAsync(dialogPromise).toBePending();
+        expect(element.open).toBeTrue();
+
+        await disconnect();
+    });
+
     it('should dismiss an attempted cancel event when prevent-dismiss is enabled', async () => {
         const { element, connect, disconnect } = await setup(true);
         await connect();
