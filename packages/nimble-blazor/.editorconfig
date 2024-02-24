@@ -38,6 +38,8 @@ dotnet_diagnostic.IDE0078.severity = none
 # Spurious 'unused' warnings when properties/methods are only used from Razor files
 dotnet_diagnostic.IDE0051.severity = none
 dotnet_diagnostic.IDE0052.severity = none
+# 'Make field readonly' incorrectly triggered for component _refs
+dotnet_diagnostic.IDE0044.severity = none
 
 [Program.cs]
 # Spurious 'unnecessary using' warnings

@@ -12,11 +12,11 @@ public partial class ComponentsDemo
     private DrawerLocation _drawerLocation = DrawerLocation.Right;
     private string? ActiveTabId { get; set; }
     private string? ActiveAnchorTabId { get; set; } = "a-tab-1";
-    private readonly NimbleDialog<DialogResult>? _dialog;
+    private NimbleDialog<DialogResult>? _dialog;
     private string? DialogClosedReason { get; set; }
-    private readonly NimbleDrawer<DialogResult>? _drawer;
-    private readonly NimbleTable<SimpleTableRecord>? _table;
-    private readonly NimbleTable<PersonTableRecord>? _delayedHierarchyTable;
+    private NimbleDrawer<DialogResult>? _drawer;
+    private NimbleTable<SimpleTableRecord>? _table;
+    private NimbleTable<PersonTableRecord>? _delayedHierarchyTable;
     private string? DrawerClosedReason { get; set; }
     private string? SelectedRadio { get; set; } = "2";
     private bool BannerOpen { get; set; }

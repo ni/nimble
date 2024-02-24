@@ -8,7 +8,7 @@ namespace Demo.Shared;
 /// </summary>
 public partial class ExampleHeader
 {
-    private readonly NimbleDrawer<string>? _drawerReference;
+    private NimbleDrawer<string>? _drawerReference;
 
     [Parameter]
     public Theme Theme { get; set; }
