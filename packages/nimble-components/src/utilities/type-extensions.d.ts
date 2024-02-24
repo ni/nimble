@@ -5,13 +5,17 @@
  */
 interface HTMLDialogElement {
     showModal(): void;
-    close(): void;
+    close(returnValue?: string): void;
 }
 
 declare namespace Intl {
     // roundingPriority has been supported by browsers since 8/23, but TypeScript still hasn't
     // added it to the type definition. See https://github.com/microsoft/TypeScript/issues/56269
     interface NumberFormatOptions {
-        roundingPriority?: 'auto' | 'morePrecision' | 'lessPrecision';
+        roundingPriority?:
+        | 'auto'
+        | 'morePrecision'
+        | 'lessPrecision'
+        | undefined;
     }
 }

@@ -2,10 +2,10 @@ import { IntlNumberFormatScaledUnitFormat } from '../scaled-unit-format/intl-num
 import type { ScaledUnitFormatFactoryOptions } from '../scaled-unit/scaled-unit';
 
 /**
- * An IntlNumberFormatScaledUnitFormat used in tests
+ * A ScaledUnitFormat that behaves like IntlNumberFormatScaledUnitFormat but also includes the scaleFactor in the formatted number
  */
 export class TestScaledUnitFormat extends IntlNumberFormatScaledUnitFormat {
-    public constructor(
+    protected constructor(
         scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
         private readonly scaleFactor: number
     ) {

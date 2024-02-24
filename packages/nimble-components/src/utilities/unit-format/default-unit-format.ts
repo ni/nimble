@@ -3,7 +3,10 @@ import type { ScaledUnitFormat } from './scaled-unit-format/scaled-unit-format';
 import type { UnitScale } from './unit-scale/unit-scale';
 import { passthroughUnitScale } from './unit-scale/passthrough-unit-scale';
 
-type SignDisplay = Intl.NumberFormatOptions['signDisplay'];
+// Workaround to avoid ts errors about signDisplay not accepting the value 'negative'.
+// It has been supported by browsers since 8/23, but TypeScript still hasn't
+// added it to the type definitions. See https://github.com/microsoft/TypeScript/issues/56269
+const signDisplay = 'negative' as Intl.NumberFormatOptions['signDisplay'];
 
 // Allow consistent pattern for defining Options and ResolvedOptions
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -33,10 +36,7 @@ export class DefaultUnitFormat extends UnitFormat {
         maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
         maximumFractionDigits: DefaultUnitFormat.maximumDigits - 1,
         roundingPriority: 'lessPrecision',
-        // Workaround to avoid ts errors about signDisplay not accepting the value 'negative'.
-        // It has been supported by browsers since 8/23, but TypeScript still hasn't
-        // added it to the type definitions. See https://github.com/microsoft/TypeScript/issues/56269
-        signDisplay: 'negative' as SignDisplay
+        signDisplay
     };
 
     private readonly defaultScaledUnitFormatters = new Map<
@@ -49,8 +49,7 @@ export class DefaultUnitFormat extends UnitFormat {
     private readonly exponentialIntlNumberFormatOptions: Intl.NumberFormatOptions = {
         maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
         notation: 'scientific',
-        // See comment above defaultIntlNumberFormatOptions.signDisplay
-        signDisplay: 'negative' as SignDisplay
+        signDisplay
     };
 
     private readonly exponentialScaledUnitFormatter: ScaledUnitFormat;
