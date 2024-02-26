@@ -130,6 +130,17 @@ export const styles = css`
 
     ${
         /*
+            We have observed incorrect animation behavior in client apps, and having
+            an extra invisible button avoids the behavior somehow.
+        */ ''
+    }
+    button.bug-workaround {
+        padding: 0px;
+        border: none;
+    }
+
+    ${
+        /*
             Styling for a 3-panel drawer with header, footer, and a content
             region filling the remaining space/height
         */ ''
