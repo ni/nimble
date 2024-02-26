@@ -20,8 +20,6 @@ export abstract class TableColumnTextGroupHeaderViewBase<
     @observable
     public text = '';
 
-    protected noValuePlaceholder = tableGroupRowNoValuePlaceholder.getValueFor(this);
-
     public constructor() {
         super();
 
@@ -29,6 +27,10 @@ export abstract class TableColumnTextGroupHeaderViewBase<
         // has a groupHeaderValue defined on it, the change handlers in the implementation
         // may never be called but the text should still be correct.
         this.text = this.noValuePlaceholder;
+    }
+
+    protected get noValuePlaceholder(): string {
+        return tableGroupRowNoValuePlaceholder.getValueFor(this);
     }
 
     /**

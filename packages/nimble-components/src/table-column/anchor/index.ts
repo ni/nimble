@@ -12,6 +12,7 @@ import { tableColumnTextGroupHeaderViewTag } from '../text/group-header-view';
 import type { AnchorAppearance } from '../../anchor/types';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { mixinColumnWithPlaceholderAPI } from '../mixins/placeholder';
+import { tableColumnAnchorGroupHeaderViewTag } from './group-header-view';
 
 export type TableColumnAnchorCellRecord = TableStringField<'label' | 'href'>;
 export interface TableColumnAnchorColumnConfig {
@@ -82,7 +83,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
         return {
             cellRecordFieldNames: ['label', 'href'],
             cellViewTag: tableColumnAnchorCellViewTag,
-            groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
+            groupHeaderViewTag: tableColumnAnchorGroupHeaderViewTag,
             delegatedEvents: ['click'],
             sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
         };

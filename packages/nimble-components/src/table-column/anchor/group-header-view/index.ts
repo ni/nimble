@@ -12,13 +12,15 @@ declare global {
     }
 }
 /**
- * The group header view for displaying string fields as text.
+ * The group header view for displaying string fields as text for the anchor column.
  */
 export class TableColumnAnchorGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
 TableStringFieldValue,
 TableColumnAnchorColumnConfig
 > {
-    protected override noValuePlaceholder = tableGroupRowNoAliasPlaceholder.getValueFor(this);
+    protected override get noValuePlaceholder(): string {
+        return tableGroupRowNoAliasPlaceholder.getValueFor(this);
+    }
 
     private groupHeaderValueChanged(): void {
         if (this.applyPlaceholderTextIfNeeded(this.groupHeaderValue, true)) {

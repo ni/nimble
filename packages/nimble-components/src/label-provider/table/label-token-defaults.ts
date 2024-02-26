@@ -19,5 +19,5 @@ export const tableLabelDefaults: { readonly [key in TokenName]: string } = {
     tableRowLoadingLabel: 'Loading',
     tableGroupRowNoValuePlaceholder: 'No value',
     tableGroupRowEmptyPlaceholder: 'Empty',
-    tableGroupRowNoAliasPlaceholder: 'No Alias'
+    tableGroupRowNoAliasPlaceholder: 'No alias'
 };
