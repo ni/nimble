@@ -349,7 +349,9 @@ export class Select
         }
         if (propertyName === 'selected') {
             if (isListboxOption(source as Element)) {
-                this.selectedIndex = this.options.indexOf(source as ListboxOption);
+                this.selectedIndex = this.options.indexOf(
+                    source as ListboxOption
+                );
             }
             this.setSelectedOptions();
         }
