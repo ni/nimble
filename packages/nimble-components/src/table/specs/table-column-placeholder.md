@@ -6,8 +6,8 @@ In some cases, an application may want to display a placeholder value in the tab
 
 ## Links To Relevant Work Items and Reference Material
 
-- [Nimble issue 1538](https://github.com/ni/nimble/issues/1538)
-- [Nimble issue 1511](https://github.com/ni/nimble/issues/1511)
+-   [Nimble issue 1538](https://github.com/ni/nimble/issues/1538)
+-   [Nimble issue 1511](https://github.com/ni/nimble/issues/1511)
 
 ## Implementation / Design
 
@@ -37,12 +37,12 @@ The exact behavior of placeholders in each existing table column is described be
 
 #### Anchor column
 
-| Special-cased field values                    | Cell display                                                       | Group row display |
-| --------------------------------------------- | ------------------------------------------------------------------ | ----------------- |
-| Both label and href are `undefined` or `null` | column placeholder, or empty if no placeholder is configured       | `"No value"`      |
-| Label is `undefined` or `null` with defined href | href value is used as the link's href and the link's display value | `"No alias"`      |
+| Special-cased field values                          | Cell display                                                       | Group row display |
+| --------------------------------------------------- | ------------------------------------------------------------------ | ----------------- |
+| Both label and href are `undefined` or `null`       | column placeholder, or empty if no placeholder is configured       | `"No value"`      |
+| Label is `undefined` or `null` with defined href    | href value is used as the link's href and the link's display value | `"No alias"`      |
 | Label is defined with href of `undefined` or `null` | label as a plain string with no link                               | The label         |
-| Label is `''` with any href                   | \<empty cell>                                                      | `"Empty"`         |
+| Label is `''` with any href                         | \<empty cell>                                                      | `"Empty"`         |
 
 #### Number column
 
