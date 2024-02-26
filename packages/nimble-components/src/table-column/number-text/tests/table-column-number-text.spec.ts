@@ -78,25 +78,6 @@ describe('TableColumnNumberText', () => {
         expect(elementReferences.column2.checkValidity()).toBeTrue();
     });
 
-    const noValueData = [
-        { name: 'field not present', data: [{ unused: 'foo' }] },
-        { name: 'value is null', data: [{ number1: null }] },
-        { name: 'value is undefined', data: [{ number1: undefined }] },
-        {
-            name: 'value is not a number',
-            data: [{ number1: 'hello world' as unknown as number }]
-        }
-    ] as const;
-    parameterizeSpec(noValueData, (spec, name, value) => {
-        spec(`displays empty string when ${name}`, async () => {
-            await table.setData(value.data);
-            await connect();
-            await waitForUpdatesAsync();
-
-            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-        });
-    });
-
     it('defaults to "default" format', () => {
         expect(elementReferences.column1.format).toBe(NumberTextFormat.default);
     });

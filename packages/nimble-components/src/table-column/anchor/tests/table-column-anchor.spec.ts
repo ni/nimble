@@ -89,25 +89,6 @@ describe('TableColumnAnchor', () => {
     });
 
     describe('with no href', () => {
-        const noValueData = [
-            { name: 'field not present', data: [{ unused: 'foo' }] },
-            { name: 'value is null', data: [{ label: null }] },
-            { name: 'value is undefined', data: [{ label: undefined }] },
-            {
-                name: 'value is not a string',
-                data: [{ label: 10 as unknown as string }]
-            }
-        ] as const;
-        parameterizeSpec(noValueData, (spec, name, value) => {
-            spec(`displays empty string when label ${name}`, async () => {
-                await table.setData(value.data);
-                await connect();
-                await waitForUpdatesAsync();
-
-                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-            });
-        });
-
         it('changing labelFieldName updates display', async () => {
             await table.setData([{ label: 'foo', otherLabel: 'bar' }]);
             await connect();
@@ -528,6 +509,13 @@ describe('TableColumnAnchor', () => {
                 data: [{ label: 'my label', link: undefined }],
                 cellValue: 'my label',
                 groupValue: 'my label',
+                usesColumnPlaceholder: false
+            },
+            {
+                name: 'label is not a string',
+                data: [{ label: 10 as unknown as string }],
+                cellValue: '',
+                groupValue: '',
                 usesColumnPlaceholder: false
             }
         ];
