@@ -26,7 +26,7 @@ In the following example:
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 const rainTests = [
     { name: 'cats-and-dogs', type: 'idiom' },
-    { name: 'frogs' type: 'idiom'},
+    { name: 'frogs', type: 'idiom'},
     { name: 'men', type: 'lyrics'}
 ] as const;
 describe('Different rains', () => {

@@ -5,10 +5,9 @@
 | Folder               | Description                             |
 | -------------------- | --------------------------------------- |
 | build                | Build scripts for generating files      |
-| data                 | _Managed by Adobe XD DSP plugin_        |
 | dist/fonts           | Fonts for use in applications           |
 | dist/icons           | Icons for use in applications           |
-| dist/styledictionary | _Managed by Adobe XD DSP plugin_        |
+| dist/styledictionary | JSON token source files                 |
 | docs                 | Files used by the documentation         |
 | NimbleTokens         | Project for building the Nuget package  |
 | source/icons         | Illustrator files for editing icons     |
@@ -16,15 +15,16 @@
 ## Getting started
 
 1. Build the monorepo, see [Getting Started](/CONTRIBUTING.md#getting-started)
-2. Ensure you have the [Adobe XD extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Adobe.xd&ssr=false#overview) installed.
 
-## Editing Tokens
+## Editing Base Tokens
 
-Tokens are generated using the [Style Dictionary](https://amzn.github.io/style-dictionary/#/) build system, which transforms platform-agnostic token definition files into platform-specific output. These JSON definition files are the source of truth for the colors, fonts, and component design tokens in this repository. To modify the generated tokens, complete these steps:
+Base tokens are generated using the [Style Dictionary](https://amzn.github.io/style-dictionary/#/) build system, which transforms platform-agnostic token definition files into platform-specific output. These JSON definition files are the source of truth for the colors, fonts, and component design tokens in this repository. To modify the generated tokens, complete these steps:
 
 1. Edit the JSON files in `source/styledictionary/properties`. Long term these tokens will be sourced from a Figma design spec but for now it's OK to make manual edits.
 2. Rebuild the generated token files by running the repository's build command, `npm run build`.
 3. Test your changes locally and create a PR using the normal process.
+
+To style a component with token values, you must first map base tokens to [theme-aware tokens](/packages/nimble-components/CONTRIBUTING.md#theme-aware-tokens).
 
 ## Updating icons
 
