@@ -39,13 +39,13 @@ TableColumnAnchorColumnConfig
             this.isPlaceholder = false;
             return this.cellRecord.label;
         }
-        if (typeof this.columnConfig?.placeholder === 'string') {
-            this.isPlaceholder = true;
-            return this.columnConfig?.placeholder;
-        }
         if (typeof this.cellRecord?.href === 'string') {
             this.isPlaceholder = false;
             return this.cellRecord.href;
+        }
+        if (typeof this.columnConfig?.placeholder === 'string') {
+            this.isPlaceholder = true;
+            return this.columnConfig?.placeholder;
         }
         this.isPlaceholder = false;
         return '';

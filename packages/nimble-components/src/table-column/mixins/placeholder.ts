@@ -2,7 +2,8 @@ import { attr } from '@microsoft/fast-element';
 import type { TableColumn } from '../base';
 
 // Pick just the relevant properties the mixin depends on (typescript complains if the mixin declares private / protected base exports)
-type TableColumnWithPlaceholder = Pick<TableColumn, 'columnInternals'>;
+// Because the 'placeholder' mixin doesn't depend on any properties of the TableColumn, there are no properties to pick.
+type TableColumnWithPlaceholder = Pick<TableColumn, never>;
 // prettier-ignore
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TableColumnWithPlaceholderConstructor = abstract new (...args: any[]) => TableColumnWithPlaceholder;

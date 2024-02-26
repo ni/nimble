@@ -11,6 +11,7 @@ import { tableColumnAnchorCellViewTag } from './cell-view';
 import { tableColumnTextGroupHeaderViewTag } from '../text/group-header-view';
 import type { AnchorAppearance } from '../../anchor/types';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
+import { mixinColumnWithPlaceholderAPI } from '../mixins/placeholder';
 
 export type TableColumnAnchorCellRecord = TableStringField<'label' | 'href'>;
 export interface TableColumnAnchorColumnConfig {
@@ -36,7 +37,9 @@ declare global {
  * A table column for displaying links.
  */
 export class TableColumnAnchor extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(TableColumn<TableColumnAnchorColumnConfig>)
+    mixinFractionalWidthColumnAPI(
+        mixinColumnWithPlaceholderAPI(TableColumn<TableColumnAnchorColumnConfig>)
+    )
 ) {
     @attr({ attribute: 'label-field-name' })
     public labelFieldName?: string;
@@ -71,8 +74,9 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     @attr
     public download?: string;
 
-    @attr
-    public placeholder?: string;
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
+    }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
@@ -97,10 +101,6 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             this.labelFieldName,
             this.hrefFieldName
         ] as const;
-    }
-
-    protected placeholderChanged(): void {
-        this.updateColumnConfig();
     }
 
     protected appearanceChanged(): void {

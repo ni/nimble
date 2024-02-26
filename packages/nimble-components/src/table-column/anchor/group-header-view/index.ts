@@ -3,20 +3,23 @@ import type { TableStringFieldValue } from '../../../table/types';
 import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
 import { template } from '../../text-base/group-header-view/template';
 import { styles } from '../../text-base/group-header-view/styles';
-import type { TableColumnTextColumnConfig } from '..';
+import type { TableColumnAnchorColumnConfig } from '..';
+import { tableGroupRowNoAliasPlaceholder } from '../../../label-provider/table/label-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-text-group-header': TableColumnTextGroupHeaderView;
+        'nimble-table-column-anchor-group-header': TableColumnAnchorGroupHeaderView;
     }
 }
 /**
  * The group header view for displaying string fields as text.
  */
-export class TableColumnTextGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
+export class TableColumnAnchorGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
 TableStringFieldValue,
-TableColumnTextColumnConfig
+TableColumnAnchorColumnConfig
 > {
+    protected override noValuePlaceholder = tableGroupRowNoAliasPlaceholder.getValueFor(this);
+
     private groupHeaderValueChanged(): void {
         if (this.applyPlaceholderTextIfNeeded(this.groupHeaderValue, true)) {
             return;
@@ -27,12 +30,12 @@ TableColumnTextColumnConfig
     }
 }
 
-const tableColumnTextGroupHeaderView = TableColumnTextGroupHeaderView.compose({
-    baseName: 'table-column-text-group-header-view',
+const tableColumnAnchorGroupHeaderView = TableColumnAnchorGroupHeaderView.compose({
+    baseName: 'table-column-anchor-group-header',
     template,
     styles
 });
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
-    .register(tableColumnTextGroupHeaderView());
-export const tableColumnTextGroupHeaderViewTag = 'nimble-table-column-text-group-header-view';
+    .register(tableColumnAnchorGroupHeaderView());
+export const tableColumnAnchorGroupHeaderViewTag = 'nimble-table-column-anchor-group-header';
