@@ -19,7 +19,7 @@ class ElementReferences {
     public column1!: TableColumnDateText;
 }
 
-fdescribe('TableColumnDateText', () => {
+describe('TableColumnDateText', () => {
     let table: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;

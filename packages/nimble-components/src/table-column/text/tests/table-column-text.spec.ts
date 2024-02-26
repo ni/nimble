@@ -72,55 +72,6 @@ describe('TableColumnText', () => {
         expect(column.checkValidity()).toBeTrue();
     });
 
-    const emptyStringData = [
-        {
-            name: 'value is not a string',
-            data: [{ field: 10 as unknown as string }]
-        },
-        {
-            name: 'value is an empty string',
-            data: [{ field: '' }]
-        }
-    ] as const;
-    parameterizeSpec(emptyStringData, (spec, name, value) => {
-        spec(`displays empty string when ${name}`, async () => {
-            const placeholder = 'Custom placeholder';
-            column.placeholder = placeholder;
-            await table.setData(value.data);
-            await connect();
-            await waitForUpdatesAsync();
-
-            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-        });
-    });
-
-    const placeholderValueData = [
-        { name: 'field not present', data: [{ unused: 'foo' }] },
-        { name: 'value is null', data: [{ field: null }] },
-        { name: 'value is undefined', data: [{ field: undefined }] }
-    ] as const;
-    parameterizeSpec(placeholderValueData, (spec, name, value) => {
-        spec(`displays placeholder string when ${name} and placeholder is configured`, async () => {
-            const placeholder = 'Custom placeholder';
-            column.placeholder = placeholder;
-            await table.setData(value.data);
-            await connect();
-            await waitForUpdatesAsync();
-
-            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder);
-        });
-    });
-
-    parameterizeSpec(placeholderValueData, (spec, name, value) => {
-        spec(`displays empty string when ${name} and placeholder is not configured`, async () => {
-            await table.setData(value.data);
-            await connect();
-            await waitForUpdatesAsync();
-
-            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-        });
-    });
-
     it('changing fieldName updates display', async () => {
         await table.setData([{ field: 'foo', anotherField: 'bar' }]);
         await connect();
@@ -311,6 +262,110 @@ describe('TableColumnText', () => {
                     pageObject.getRenderedGroupHeaderTextContent(0)
                 ).toContain(name);
             });
+        });
+    });
+
+    describe('placeholder', () => {
+        const testCases = [
+            {
+                name: 'value is not specified',
+                data: [{}],
+                cellValue: '',
+                groupValue: 'No value',
+                usesColumnPlaceholder: true
+            },
+            {
+                name: 'value is undefined',
+                data: [{ field: undefined }],
+                cellValue: '',
+                groupValue: 'No value',
+                usesColumnPlaceholder: true
+            },
+            {
+                name: 'value is null',
+                data: [{ field: null }],
+                cellValue: '',
+                groupValue: 'No value',
+                usesColumnPlaceholder: true
+            },
+            {
+                name: 'value is incorrect type',
+                data: [{ field: 100 as unknown as string }],
+                cellValue: '',
+                groupValue: '',
+                usesColumnPlaceholder: false
+            },
+            {
+                name: 'value is an empty string',
+                data: [{ field: '' }],
+                cellValue: '',
+                groupValue: 'Empty',
+                usesColumnPlaceholder: false
+            }
+        ];
+
+        parameterizeSpec(testCases, (spec, name, value) => {
+            spec(`cell and group row render expected value when ${name} and placeholder is configured`, async () => {
+                const placeholder = 'Custom placeholder';
+                column.placeholder = placeholder;
+                await table.setData(value.data);
+                await connect();
+                await waitForUpdatesAsync();
+
+                const expectedCellText = value.usesColumnPlaceholder ? placeholder : value.cellValue;
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(expectedCellText);
+                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(value.groupValue);
+            });
+        });
+
+        parameterizeSpec(testCases, (spec, name, value) => {
+            spec(`cell and group row render expected value when ${name} and placeholder is not configured`, async () => {
+                await table.setData(value.data);
+                await connect();
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(value.cellValue);
+                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(value.groupValue);
+            });
+        });
+
+        it('setting placeholder to undefined updates cells from displaying placeholder to displaying blank', async () => {
+            const placeholder = 'My placeholder';
+            column.placeholder = placeholder;
+            await table.setData([{}]);
+            await connect();
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder);
+
+            column.placeholder = undefined;
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+        });
+
+        it('setting placeholder to defined string updates cells from displaying placeholder to displaying blank', async () => {
+            await table.setData([{}]);
+            await connect();
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+
+            const placeholder = 'placeholder';
+            column.placeholder = placeholder;
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder);
+        });
+
+        it('updating placeholder from one string to another updates cell', async () => {
+            const placeholder1 = 'My first placeholder';
+            column.placeholder = placeholder1;
+            await table.setData([{}]);
+            await connect();
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder1);
+
+            const placeholder2 = 'My second placeholder';
+            column.placeholder = placeholder2;
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder2);
         });
     });
 });

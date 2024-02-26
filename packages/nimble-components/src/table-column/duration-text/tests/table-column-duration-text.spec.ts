@@ -1,4 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnDurationText, tableColumnDurationTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -7,7 +8,6 @@ import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { lang, themeProviderTag } from '../../../theme-provider';
 import { TableColumnDurationTextPageObject } from '../testing/table-column-duration-text.pageobject';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     field?: number | null;
@@ -19,7 +19,7 @@ class ElementReferences {
     public column1!: TableColumnDurationText;
 }
 
-fdescribe('TableColumnDurationText', () => {
+describe('TableColumnDurationText', () => {
     let table: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
