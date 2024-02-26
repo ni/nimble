@@ -556,5 +556,44 @@ describe('TableColumnAnchor', () => {
                 expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(value.groupValue);
             });
         });
+
+        it('setting placeholder to undefined updates cells from displaying placeholder to displaying blank', async () => {
+            const placeholder = 'My placeholder';
+            column.placeholder = placeholder;
+            await table.setData([{}]);
+            await connect();
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder);
+
+            column.placeholder = undefined;
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+        });
+
+        it('setting placeholder to defined string updates cells from displaying placeholder to displaying blank', async () => {
+            await table.setData([{}]);
+            await connect();
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+
+            const placeholder = 'placeholder';
+            column.placeholder = placeholder;
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder);
+        });
+
+        it('updating placeholder from one string to another updates cell', async () => {
+            const placeholder1 = 'My first placeholder';
+            column.placeholder = placeholder1;
+            await table.setData([{}]);
+            await connect();
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder1);
+
+            const placeholder2 = 'My second placeholder';
+            column.placeholder = placeholder2;
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder2);
+        });
     });
 });

@@ -170,7 +170,7 @@ describe('TableColumnNumberText', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('No value');
     });
 
     it('changing data from null to value displays value', async () => {
@@ -178,7 +178,7 @@ describe('TableColumnNumberText', () => {
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('No value');
 
         await table.setData([{ number1: -16 }]);
         await waitForUpdatesAsync();
@@ -196,7 +196,7 @@ describe('TableColumnNumberText', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('No value');
     });
 
     describe('displays title when appropriate', () => {
@@ -725,6 +725,124 @@ describe('TableColumnNumberText', () => {
             );
             await waitForUpdatesAsync();
             expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.left);
+        });
+    });
+
+    describe('placeholder', () => {
+        const testCases = [
+            {
+                name: 'value is not specified',
+                data: [{}],
+                cellValue: '',
+                groupValue: 'No value',
+                usesColumnPlaceholder: true
+            },
+            {
+                name: 'value is undefined',
+                data: [{ number1: undefined }],
+                cellValue: '',
+                groupValue: 'No value',
+                usesColumnPlaceholder: true
+            },
+            {
+                name: 'value is null',
+                data: [{ number1: null }],
+                cellValue: '',
+                groupValue: 'No value',
+                usesColumnPlaceholder: true
+            },
+            {
+                name: 'value is Number.NaN',
+                data: [{ number1: Number.NaN }],
+                cellValue: 'NaN',
+                groupValue: 'NaN',
+                usesColumnPlaceholder: false
+            },
+            {
+                name: 'value is valid and non-zero',
+                data: [{ number1: 100 }],
+                cellValue: '100',
+                groupValue: '100',
+                usesColumnPlaceholder: false
+            },
+            {
+                name: 'value is incorrect type',
+                data: [{ number1: 'not a number' as unknown as number }],
+                cellValue: '',
+                groupValue: '',
+                usesColumnPlaceholder: false
+            },
+            {
+                name: 'value is specified and falsey',
+                data: [{ number1: 0 }],
+                cellValue: '0',
+                groupValue: '0',
+                usesColumnPlaceholder: false
+            },
+        ];
+
+        parameterizeSpec(testCases, (spec, name, value) => {
+            spec(`cell and group row render expected value when ${name} and placeholder is configured`, async () => {
+                const placeholder = 'Custom placeholder';
+                elementReferences.column1.placeholder = placeholder;
+                await table.setData(value.data);
+                await connect();
+                await waitForUpdatesAsync();
+
+                const expectedCellText = value.usesColumnPlaceholder ? placeholder : value.cellValue;
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(expectedCellText);
+                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(value.groupValue);
+            });
+        });
+
+        parameterizeSpec(testCases, (spec, name, value) => {
+            spec(`cell and group row render expected value when ${name} and placeholder is not configured`, async () => {
+                await table.setData(value.data);
+                await connect();
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(value.cellValue);
+                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(value.groupValue);
+            });
+        });
+
+        it('setting placeholder to undefined updates cells from displaying placeholder to displaying blank', async () => {
+            const placeholder = 'My placeholder';
+            elementReferences.column1.placeholder = placeholder;
+            await table.setData([{}]);
+            await connect();
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder);
+
+            elementReferences.column1.placeholder = undefined;
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+        });
+
+        it('setting placeholder to defined string updates cells from displaying placeholder to displaying blank', async () => {
+            await table.setData([{}]);
+            await connect();
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+
+            const placeholder = 'placeholder';
+            elementReferences.column1.placeholder = placeholder;
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder);
+        });
+
+        it('updating placeholder from one string to another updates cell', async () => {
+            const placeholder1 = 'My first placeholder';
+            elementReferences.column1.placeholder = placeholder1;
+            await table.setData([{}]);
+            await connect();
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder1);
+
+            const placeholder2 = 'My second placeholder';
+            elementReferences.column1.placeholder = placeholder2;
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder2);
         });
     });
 });

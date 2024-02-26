@@ -49,7 +49,7 @@ const simpleData = [
         lastName: 'Van Houten',
         age: 14.1,
         favoriteNumber: -0.00000064532623,
-        measurement: undefined
+        measurement: Number.NaN
     }
 ] as const;
 
