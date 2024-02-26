@@ -39,7 +39,7 @@ The exact behavior of placeholders in each existing table column is described be
 
 | Special-cased field values                          | Cell display                                                       | Group row display |
 | --------------------------------------------------- | ------------------------------------------------------------------ | ----------------- |
-| Both label and href are `undefined` or `null`       | column placeholder, or empty if no placeholder is configured       | `"No value"`      |
+| Both label and href are `undefined` or `null`       | column placeholder, or empty if no placeholder is configured       | `"No alias"`      |
 | Label is `undefined` or `null` with defined href    | href value is used as the link's href and the link's display value | `"No alias"`      |
 | Label is defined with href of `undefined` or `null` | label as a plain string with no link                               | The label         |
 | Label is `''` with any href                         | \<empty cell>                                                      | `"Empty"`         |
