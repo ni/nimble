@@ -18,16 +18,6 @@ declare global {
 }
 
 /**
- * This is a workaround for an incomplete definition of the native dialog element. Remove when using Typescript >=4.8.3.
- * https://github.com/microsoft/TypeScript/issues/48267
- * @internal
- */
-export interface ExtendedDialog extends HTMLDialogElement {
-    showModal(): void;
-    close(): void;
-}
-
-/**
  * A nimble-styled dialog.
  */
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
@@ -65,7 +55,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
      *
      * @internal
      */
-    public readonly dialogElement!: ExtendedDialog;
+    public readonly dialogElement!: HTMLDialogElement;
 
     /** @internal */
     @observable

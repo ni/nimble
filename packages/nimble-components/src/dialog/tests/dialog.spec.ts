@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Dialog, dialogTag, ExtendedDialog, UserDismissed } from '..';
+import { Dialog, dialogTag, UserDismissed } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
@@ -19,10 +19,10 @@ async function setup<CloseReason = void>(
 }
 
 describe('Dialog', () => {
-    function nativeDialogElement(nimbleDialogElement: Dialog): ExtendedDialog {
-        return nimbleDialogElement.shadowRoot!.querySelector(
-            'dialog'
-        ) as ExtendedDialog;
+    function nativeDialogElement(
+        nimbleDialogElement: Dialog
+    ): HTMLDialogElement {
+        return nimbleDialogElement.shadowRoot!.querySelector('dialog')!;
     }
 
     it('should export its tag', () => {
