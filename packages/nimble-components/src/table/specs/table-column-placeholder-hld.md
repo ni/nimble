@@ -46,10 +46,10 @@ The exact behavior of placeholders in each existing table column is described be
 
 #### Number column
 
-| Special-cased field values          | Cell display                                                 | Group row display  |
-| ----------------------------------- | ------------------------------------------------------------ | ------------------ |
-| `undefined`                         | column placeholder, or empty if no placeholder is configured | `"No value"`       |
-| `null`                              | column placeholder, or empty if no placeholder is configured | `"No value"`       |
+| Special-cased field values | Cell display                                                 | Group row display |
+| -------------------------- | ------------------------------------------------------------ | ----------------- |
+| `undefined`                | column placeholder, or empty if no placeholder is configured | `"No value"`      |
+| `null`                     | column placeholder, or empty if no placeholder is configured | `"No value"`      |
 
 The alignment of the placeholder in the cell will match the alignment of the number in the column.
 
