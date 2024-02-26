@@ -343,9 +343,15 @@ export class Select
      * @override
      */
     public override handleChange(source: unknown, propertyName: string): void {
-        super.handleChange(source, propertyName);
+        // don't call super.handleChange so hidden options can be selected programmatically
         if (propertyName === 'value') {
             this.updateValue();
+        }
+        if (propertyName === 'selected') {
+            if (isListboxOption(source as Element)) {
+                this.selectedIndex = this.options.indexOf(source as ListboxOption);
+            }
+            this.setSelectedOptions();
         }
     }
 
@@ -719,7 +725,7 @@ export class Select
      */
     protected override setDefaultSelectedOption(): void {
         const options: ListboxOption[] = this.options
-            ?? Array.from(this.children).filter(o => isListboxOption(o as HTMLElement));
+            ?? Array.from(this.children).filter(o => isListboxOption(o));
 
         const optionIsSelected = (option: ListboxOption): boolean => {
             return option.hasAttribute('selected') || option.selected;

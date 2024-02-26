@@ -710,5 +710,18 @@ describe('Select', () => {
 
             expect(element.displayValue).toBe('Two');
         });
+
+        it('placeholder can be changed to another option programmatically', async () => {
+            await waitForUpdatesAsync();
+            element.options[0]!.hidden = false;
+            element.options[1]!.hidden = true;
+            element.options[1]!.disabled = true;
+            element.options[1]!.selected = true;
+
+            expect(element.displayValue).toBe('Two');
+            expect(element.value).toBe('two');
+            await clickAndWaitForOpen(element);
+            expect(pageObject.isOptionVisible(1)).toBeFalse();
+        });
     });
 });
