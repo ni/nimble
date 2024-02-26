@@ -1,4 +1,4 @@
-import { Table, Uint32, Int32, Float32, tableFromArrays } from 'apache-arrow';
+import { Table, Int32, Float32, tableFromArrays } from 'apache-arrow';
 import type { WaferMapDie } from '../types';
 import type { IValueGenerator } from './value-generator';
 
@@ -112,9 +112,7 @@ export const generateWaferTableData = (
 ): Table<{
     colIndex: Int32,
     rowIndex: Int32,
-    value: Float32,
-    tags: Uint32,
-    metadata: never
+    value: Float32
 }> => {
     const colIndex = [];
     const rowIndex = [];
@@ -159,8 +157,6 @@ export const generateWaferTableData = (
     return tableFromArrays({
         colIndex: Int32Array.from(colIndex),
         rowIndex: Int32Array.from(rowIndex),
-        value: Float32Array.from(value),
-        tags: Uint32Array.from([]),
-        metadata: [] as unknown[]
+        value: Float32Array.from(value)
     });
 };

@@ -4,7 +4,7 @@ import { HoverDieOpacity } from '../types';
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
-export class MatrixRenderer {
+export class WorkerRenderer {
     public constructor(private readonly wafermap: WaferMap) {}
 
     public updateSortedDiesAndDrawWafer(): void {

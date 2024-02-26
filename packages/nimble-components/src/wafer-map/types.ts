@@ -1,4 +1,4 @@
-import type { DataManager } from './modules/data-manager';
+import type { DataType, Float32, Int32 } from 'apache-arrow';
 
 export const WaferMapOriginLocation = {
     bottomLeft: 'bottom-left',
@@ -50,13 +50,6 @@ export interface WaferMapColorScale {
     values: string[];
 }
 
-export interface HoverHandlerData {
-    canvas: HTMLCanvasElement;
-    rect: HTMLElement;
-    dataManager: DataManager;
-    originLocation: WaferMapOriginLocation;
-}
-
 export interface Dimensions {
     readonly width: number;
     readonly height: number;
@@ -86,4 +79,13 @@ export interface ValidityObject {
 }
 export interface WaferMapValidity extends ValidityObject {
     readonly invalidGridDimensions: boolean;
+}
+
+export interface WaferMapTypeMap {
+    [x: string]: DataType;
+    [x: number]: DataType;
+    [x: symbol]: DataType;
+    colIndex: Int32;
+    rowIndex: Int32;
+    value: Float32;
 }

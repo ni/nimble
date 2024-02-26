@@ -1,4 +1,4 @@
-import { Table, Uint32, Int32, Float32, tableFromArrays } from 'apache-arrow';
+import { Table, tableFromArrays } from 'apache-arrow';
 import type { WaferMapDie, WaferMapColorScale } from '../types';
 
 export const highlightedTagsSets: string[][] = [
@@ -101,13 +101,7 @@ export const wafermapDieSets: WaferMapDie[][] = [
     ]
 ];
 
-export const wafermapDiesTableSets: Table<{
-    colIndex: Int32,
-    rowIndex: Int32,
-    value: Float32,
-    tags: Uint32,
-    metadata: never
-}>[] = [
+export const wafermapDiesTableSets: Table[] = [
     tableFromArrays({
         colIndex: Int32Array.from([0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4]),
         rowIndex: Int32Array.from([2, 2, 1, 3, 2, 1, 0, 3, 4, 2, 1, 3, 2]),
@@ -115,36 +109,45 @@ export const wafermapDiesTableSets: Table<{
             14.24, 76.43, 44.63, 67.93, 72.71, 79.04, 26.49, 37.79, 59.82, 52.9,
             98.5, 20.83, 62.8
         ]),
-        tags: Uint32Array.from([
-            0b000011, // a, b
-            0b000110, // b, c
-            0b001000, // g
-            0b000001, // a
-            0b110000, // h, e
-            0b000010, // b
-            0b000100, // c
-            0b000000,
-            0b000000,
-            0b000000,
-            0b001000, // g
-            0b000100, // c
-            0b001000 // g
-        ]),
-        metadata: Array.from([
-            'Placeholder metadata value for Die x: 0 y: 2',
-            'Placeholder metadata value for Die x: 1 y: 2',
-            'Placeholder metadata value for Die x: 1 y: 1',
-            'Placeholder metadata value for Die x: 1 y: 3',
-            'Placeholder metadata value for Die x: 2 y: 2',
-            'Placeholder metadata value for Die x: 2 y: 1',
-            'Placeholder metadata value for Die x: 2 y: 0',
-            'Placeholder metadata value for Die x: 2 y: 3',
-            'Placeholder metadata value for Die x: 2 y: 4',
-            'Placeholder metadata value for Die x: 3 y: 2',
-            'Placeholder metadata value for Die x: 3 y: 1',
-            'Placeholder metadata value for Die x: 3 y: 3',
-            'Placeholder metadata value for Die x: 4 y: 2'
-        ]) as unknown[]
+        firstTag: ['a', 'b', 'g', 'a', 'h', 'b', 'c', null, null, null, 'g', 'c', 'g'],
+        secondTag: ['b', 'c', null, null, 'e', null, null, null, null, null, null, null, null],
+        metadata: [
+            'metadata02',
+            'metadata12',
+            'metadata11',
+            'metadata13',
+            'metadata22',
+            'metadata21',
+            'metadata20',
+            'metadata23',
+            'metadata24',
+            'metadata32',
+            'metadata31',
+            'metadata33',
+            'metadata42'
+        ]
+    })
+];
+
+export const highlightedTableSets: Table[] = [
+    new Table(),
+    tableFromArrays({
+        colIndex: Int32Array.from([]),
+        rowIndex: Int32Array.from([]),
+        value: Float32Array.from([]),
+        firstTag: ['c']
+    }),
+    tableFromArrays({
+        colIndex: Int32Array.from([]),
+        rowIndex: Int32Array.from([]),
+        value: Float32Array.from([]),
+        firstTag: ['']
+    }),
+    tableFromArrays({
+        colIndex: Int32Array.from([]),
+        rowIndex: Int32Array.from([]),
+        value: Float32Array.from([]),
+        firstTag: ['a', 'b', 'c']
     })
 ];
 
