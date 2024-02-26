@@ -122,7 +122,10 @@ export class Dialog<CloseReason = void> extends FoundationElement {
     /**
      * @internal
      */
-    public closeHandler(): void {
+    public closeHandler(event: Event): void {
+        if (event.target !== this.dialogElement) {
+            return;
+        }
         if (this.resolveShow) {
             // If
             // - the browser implements dialogs with the CloseWatcher API, and

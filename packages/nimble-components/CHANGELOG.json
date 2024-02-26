@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 23 Feb 2024 22:56:07 GMT",
+      "version": "21.6.7",
+      "tag": "@ni/nimble-components_v21.6.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1e5b10c7a247e13dcece70496b5ccbae322075a3",
+            "comment": "Fix bug in Firefox where title on spinner isn't always displayed as expected"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 23 Feb 2024 22:17:56 GMT",
+      "version": "21.6.6",
+      "tag": "@ni/nimble-components_v21.6.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c6e803caaa9757f7584281f096a94c4d58ef194d",
+            "comment": "Fix spacing between error text and component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 23 Feb 2024 21:23:18 GMT",
+      "version": "21.6.5",
+      "tag": "@ni/nimble-components_v21.6.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c1f4f8fb9bbb889608f1d2930f7a29d55fa31c79",
+            "comment": "Only handle close events coming from dialog element"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 23 Feb 2024 00:08:44 GMT",
+      "version": "21.6.4",
+      "tag": "@ni/nimble-components_v21.6.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b677d6b9ed7451715bb36043b245369060c8511b",
+            "comment": "Tweak card to workaround lighthouse issue"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 22 Feb 2024 21:27:19 GMT",
+      "version": "21.6.3",
+      "tag": "@ni/nimble-components_v21.6.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "84480ae94997da7240feba4e19d73e42cadcc9f6",
+            "comment": "Remove code element from stories used for formatting"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 22 Feb 2024 19:42:35 GMT",
       "version": "21.6.3",
       "tag": "@ni/nimble-components_v21.6.3",
