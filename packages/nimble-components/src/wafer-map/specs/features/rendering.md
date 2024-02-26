@@ -86,31 +86,27 @@ The best solution to solve the API of the wafermap is to use Apache Arrow as the
 The Public API will be the following:
 
 ```TS
-import { Table, TypeMap } from 'apache-arrow';
+import { Table } from 'apache-arrow';
 
-export interface WaferMapTableType extends TypeMap {
-    colIndex: Int32;
-    rowIndex: Int32;
-    value: Float32;
-}
-
-export class WaferMap<T extends WaferMapTableType> extends FoundationElement {
+export class WaferMap extends FoundationElement {
 ...
-public diesTable: Table<T> | undefined;
-public highlightedTable: Table<T> | undefined;
+public diesTable: Table | undefined;
+public highlightedTable: Table | undefined;
 ...
 }
 ```
 
-This will be the [Apache Arrow](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html) table schema.
+It will be using the [Apache Arrow Table](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html).
 It will require at least three columns for the `diesTable`:
 
 -   The row and column indices will be `Int32` columns
 -   The values will be a `Float32` column.
 
-If there are more columns needed to store metadata or other values the schema will be extensible.
+They will be checked at runtime and a `WaferMapValidity` flag will be raised signaling an `invalidTableInput`.
 
-The `highlightedTable` will contain rows partially filled with values which will be used to filter the `diesTable` and enable highlighting.
+If there are more columns needed to store metadata or other values the schema will be extensible. This will induce a breaking change in the API, as the metadata which was previously `unknown` will have to be recorded in table using the supported column types.
+
+The `highlightedTable` will have the same columns, but they will contain rows only partially filled with values, which will be used to filter the `diesTable` and enable highlighting. The values which are not empty on each individual row, including `colIndex`, `rowIndex`, `value` and others will be used to filter the table as an `AND` operation. Multiple rows will be used as filters with the `OR` operation.
 
 This approach has the benefits of a row based format that aligns well with the existing public API, as well as a nice public API that easily allows future improvements. It allows for more advanced filtering techniques such as using inner and outer joins for tables, slicing the tables to distribute values to separate workers and applying operations over whole columns.
 
@@ -123,6 +119,9 @@ We are going to split the columns relevant to rendering from the table (rows, co
 ```
 
 When filtering the highlighted dies and searching for their metadata we will use [arquero](https://uwdata.github.io/arquero/) to perform joins and other operations involving the tables.
+
+The [JavaScript implementation of Apache Arrow](https://arrow.apache.org/docs/js/index.html) provides TypeScript Types which will work in Angular applications.
+The [C# implementation of Apache Arrow](https://github.com/apache/arrow/blob/main/csharp/README.md) is also providing support for reading Arrow IPC streams which can be used to convert inputs from Balzor.
 
 ### Rendering
 
