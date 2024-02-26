@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 23 Feb 2024 22:56:07 GMT and should not be manually modified.
+This log was last generated on Mon, 26 Feb 2024 22:26:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.6.8
+
+Mon, 26 Feb 2024 22:26:36 GMT
+
+### Patches
+
+- Update usage of Intl.NumberFormat options ([ni/nimble@d74f49e](https://github.com/ni/nimble/commit/d74f49e65f2c63ef9eca571d9470b2a9d5c5d380))
 
 ## 21.6.7
 
