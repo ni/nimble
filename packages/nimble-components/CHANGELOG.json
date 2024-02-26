@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 26 Feb 2024 22:26:36 GMT",
+      "version": "21.6.8",
+      "tag": "@ni/nimble-components_v21.6.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d74f49e65f2c63ef9eca571d9470b2a9d5c5d380",
+            "comment": "Update usage of Intl.NumberFormat options"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 23 Feb 2024 22:56:07 GMT",
       "version": "21.6.7",
       "tag": "@ni/nimble-components_v21.6.7",
