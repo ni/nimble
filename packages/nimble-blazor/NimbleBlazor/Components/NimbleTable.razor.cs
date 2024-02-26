@@ -19,6 +19,7 @@ public partial class NimbleTable<TData> : ComponentBase
     internal static string SetSelectedRecordIdsMethodName = "NimbleBlazor.Table.setSelectedRecordIds";
     internal static string CheckTableValidityMethodName = "NimbleBlazor.Table.checkValidity";
     internal static string GetTableValidityMethodName = "NimbleBlazor.Table.getValidity";
+    internal static string SetRecordHierarchyOptionsMethodName = "NimbleBlazor.Table.setRecordHierarchyOptions";
 
     [Inject]
     private IJSRuntime? JSRuntime { get; set; }
@@ -66,6 +67,15 @@ public partial class NimbleTable<TData> : ComponentBase
     }
 
     /// <summary>
+    /// Sets the hierarchy options for each record in the table.
+    /// </summary>
+    /// <param name="options">The hierarchy options</param>
+    public async Task SetRecordHierarchyOptionsAsync(IEnumerable<TableSetRecordHierarchyOptions> options)
+    {
+        await JSRuntime!.InvokeVoidAsync(SetRecordHierarchyOptionsMethodName, _table, options);
+    }
+
+    /// <summary>
     /// Returns whether or not the table is valid.
     /// </summary>
     public async Task<bool> CheckValidityAsync()
@@ -106,6 +116,12 @@ public partial class NimbleTable<TData> : ComponentBase
     public EventCallback<TableColumnConfigurationEventArgs> ColumnConfigurationChange { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback that's invoked when a column's configuration is changed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TableRowExpandToggleEventArgs> RowExpandToggle { get; set; }
+
+    /// <summary>
     /// Called when 'action-menu-toggle' changes on the web component.
     /// </summary>
     /// <param name="eventArgs">The state of the action menu on the table</param>
@@ -139,5 +155,14 @@ public partial class NimbleTable<TData> : ComponentBase
     protected async void HandleColumnConfigurationChange(TableColumnConfigurationEventArgs eventArgs)
     {
         await ColumnConfigurationChange.InvokeAsync(eventArgs);
+    }
+
+    /// <summary>
+    /// Called when the 'row-expand-toggle' event is fired on the web component.
+    /// </summary>
+    /// <param name="eventArgs">The toggle state of a table row</param>
+    protected async void HandleRowExpandToggle(TableRowExpandToggleEventArgs eventArgs)
+    {
+        await RowExpandToggle.InvokeAsync(eventArgs);
     }
 }
