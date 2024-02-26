@@ -6,19 +6,26 @@ In some cases, an application may want to display a placeholder value in the tab
 
 ## Links To Relevant Work Items and Reference Material
 
-[Nimble issue 1538](https://github.com/ni/nimble/issues/1538)
+- [Nimble issue 1538](https://github.com/ni/nimble/issues/1538)
+- [Nimble issue 1511](https://github.com/ni/nimble/issues/1511)
 
 ## Implementation / Design
 
 ### High-level behavior
 
-There are two places where a value is displayed in the table that placeholders need to be considered: (1) in a cell, and (2) in a group row. The cell placeholder will be configurable on each column that supports having a placeholder, and it will default to an empty string. The group row placeholder will come from the table's localization provider, and it will not be configurable through a column's API.
+There are two places where a value is displayed in the table that placeholders need to be considered: (1) in a cell and (2) in a group row. The cell placeholder will be configurable on each column that supports having a placeholder, and it will default to an empty string. The group row placeholder will come from the table's localization provider, and it will not be configurable through a column's API.
 
-Placeholders within a cell will be rendered with nimble's placeholder font, which is currently 60% opacity.
+Placeholders within a cell will be rendered with nimble's placeholder font, which is currently 60% opacity of nimble's body font.
 
 Placeholders within a group row will have no special visual treatment.
 
+Below is an example of what placeholders will look like in the table. In this example, the table is grouped by the "Quote" column, which has been configured to have a placeholder value of "None".
+
+![Placeholder text example](./spec-images/PlacholderText.png)
+
 ### Column-specific decisions
+
+The exact behavior of placeholders in each existing table column is described below.
 
 #### Text column
 
@@ -33,8 +40,8 @@ Placeholders within a group row will have no special visual treatment.
 | Special-cased field values                    | Cell display                                                       | Group row display |
 | --------------------------------------------- | ------------------------------------------------------------------ | ----------------- |
 | Both label and href are `undefined` or `null` | column placeholder, or empty if no placeholder is configured       | `"No value"`      |
-| Label `undefined` or `null` with defined href | href value is used as the link's href and the link's display value | `"No alias"`      |
-| Label defined with href `undefined` or `null` | label as a plain string with no link                               | The label         |
+| Label is `undefined` or `null` with defined href | href value is used as the link's href and the link's display value | `"No alias"`      |
+| Label is defined with href of `undefined` or `null` | label as a plain string with no link                               | The label         |
 | Label is `''` with any href                   | \<empty cell>                                                      | `"Empty"`         |
 
 #### Number column
@@ -45,7 +52,7 @@ Placeholders within a group row will have no special visual treatment.
 | `null`                              | column placeholder, or empty if no placeholder is configured | `"No value"`       |
 | Invalid value (e.g. `Number.NaN`)\* | \<empty cell>                                                | \<empty group row> |
 
-\*This is considered invalid data from the table's perspective, and should be fixed within the client application.
+\*This is considered invalid data from the table's perspective and should be fixed within the client application.
 
 The alignment of the placeholder in the cell will match the alignment of the number in the column.
 
@@ -57,7 +64,7 @@ The alignment of the placeholder in the cell will match the alignment of the num
 | `null`                              | column placeholder, or empty if no placeholder is configured | `"No value"`       |
 | Invalid value (e.g. `Number.NaN`)\* | \<empty cell>                                                | \<empty group row> |
 
-\*This is considered invalid data from the table's perspective, and should be fixed within the client application.
+\*This is considered invalid data from the table's perspective and should be fixed within the client application.
 
 #### Duration column
 
@@ -79,7 +86,7 @@ The icon mapping column will not have a configuration for a placeholder.
 | `null`                     | \<empty cell> | `"No value"`       |
 | Non-mapped value\*         | \<empty cell> | \<empty group row> |
 
-\*This is considered invalid data from the table's perspective, and should be fixed within the client application.
+\*This is considered invalid data from the table's perspective and should be fixed within the client application.
 
 #### Text mapping column
 
@@ -91,7 +98,7 @@ The text mapping column will not have a configuration for a placeholder.
 | `null`                     | \<empty cell> | `"No value"`       |
 | Non-mapped value\*         | \<empty cell> | \<empty group row> |
 
-\*This is considered invalid data from the table's perspective, and should be fixed within the client application.
+\*This is considered invalid data from the table's perspective and should be fixed within the client application.
 
 ### Implementation plan
 
@@ -119,19 +126,21 @@ All group row placeholder strings will be localized through the table's localiza
 -   Empty
 -   No alias
 
+If an application is localized, it can set a column's `placeholder` to a localized value.
+
 ## Alternative Implementations / Designs
 
-### Configurable group row placeholders per column
+### Configurable placeholders in group rows
 
-In addition to extending column APIs to have a `placeholder` property, they could also be extended to have a `group-placeholder` property. However, this level of configuration is not required by any client applications today. This feature also likely to introduce inconsistency throughout our applications.
+In addition to extending column APIs to have a `placeholder` property, they could also be extended to have a `group-placeholder` property. However, this level of configuration is not required by any client applications today. This feature is also likely to introduce inconsistency throughout our applications.
 
-Additionally, if an application wants to modify the value of one of these strings, they can do so through the localization provider.
+If an application wants to modify the value of a group row placeholder without this feature, they can do so through the localization provider.
 
 ### Allow different placeholders to be configured for each cell
 
 We could add the ability to have different placeholders configured for each cell, but this poses a few different problems:
 
-1. This would likely need to be a drastically different API, such as having the placeholder specified in the record. That would lead to quite a bit of duplicate information being set on the table, particularly when there is no use cases for this right now.
+1. This would likely need to be a drastically different API, such as having the placeholder specified in the record. That would lead to quite a bit of duplicate information being set on the table, particularly when there are no use cases for this right now.
 1. This would lead to a confusing state for the user because the placholder would be different for various rows, but all those rows would be in a single group.
 
 A use case for different information being presented to the user for each cell will likely be solved by [a different feature to show cell-specific state](https://github.com/ni/nimble/issues/1776).
