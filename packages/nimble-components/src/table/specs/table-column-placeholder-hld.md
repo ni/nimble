@@ -50,9 +50,6 @@ The exact behavior of placeholders in each existing table column is described be
 | ----------------------------------- | ------------------------------------------------------------ | ------------------ |
 | `undefined`                         | column placeholder, or empty if no placeholder is configured | `"No value"`       |
 | `null`                              | column placeholder, or empty if no placeholder is configured | `"No value"`       |
-| Invalid value (e.g. `Number.NaN`)\* | \<empty cell>                                                | \<empty group row> |
-
-\*This is considered invalid data from the table's perspective and should be fixed within the client application.
 
 The alignment of the placeholder in the cell will match the alignment of the number in the column.
 
