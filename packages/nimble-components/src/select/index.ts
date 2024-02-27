@@ -764,7 +764,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         let firstValidOptionIndex = -1;
         for (let i = 0; i < options?.length; i++) {
             const option = options[i];
-            if (optionIsSelected(option!)) {
+            if (optionIsSelected(option!) || option?.value === this.value) {
                 selectedIndex = i;
             }
             if (firstValidOptionIndex === -1 && !optionIsDisabled(option!)) {
