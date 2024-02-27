@@ -104,9 +104,9 @@ It will require at least three columns for the `diesTable`:
 
 They will be checked at runtime and a `WaferMapValidity` flag will be raised signaling an `invalidTableInput`.
 
-If there are more columns needed to store metadata or other values the schema will be extensible. This will induce a breaking change in the API, as the metadata which was previously `unknown` will have to be recorded in table using the supported column types.
+The schema will be extensible. This will induce a breaking change in the API, as the metadata which was previously `unknown` will not recorded in table, but the hover event will reference an index which can e used by the client to select the metadata outside the component.
 
-The `highlightedTable` will have the same columns, but they will contain rows only partially filled with values, which will be used to filter the `diesTable` and enable highlighting. The values which are not empty on each individual row, including `colIndex`, `rowIndex`, `value` and others will be used to filter the table as an `AND` operation. Multiple rows will be used as filters with the `OR` operation.
+The `highlightedTable` will have the same columns, but they will contain rows only partially filled with values, which will be used to filter the `diesTable` and enable highlighting. The values which are not empty on each individual row, including `colIndex`, `rowIndex`, `value` and others will be used to filter the table as an `AND` operation. Multiple rows will be used as filters with the `OR` operation. More details regarding highlights will be discussed in an open issue.
 
 This approach has the benefits of a row based format that aligns well with the existing public API, as well as a nice public API that easily allows future improvements. It allows for more advanced filtering techniques such as using inner and outer joins for tables, slicing the tables to distribute values to separate workers and applying operations over whole columns.
 
@@ -288,6 +288,51 @@ Another alternative is to create a point reduction algorithm which will create a
 We may also implement an external queue canceling functionality.
 
 ## Open Issues
+
+### Highlighting
+
+The current proposal is for the highlight table to be used as a filter for the main dies table. This can be realized by using the [`semijoin`](https://uwdata.github.io/arquero/api/verbs#semijoin) operation from the Arquero library. this will function as follows.
+
+The main table:
+
+| (index) | colIndex | rowIndex | value              | firstTag | secondTag |
+| ------- | -------- | -------- | ------------------ | -------- | --------- |
+| 0       | 0        | 2        | 14.239999771118164 | a        | b         |
+| 1       | 1        | 2        | 76.43000030517578  | b        | c         |
+| 2       | 1        | 1        | 44.630001068115234 | g        | null      |
+| 3       | 1        | 3        | 67.93000030517578  | a        | null      |
+| 4       | 2        | 2        | 72.70999908447266  | h        | e         |
+| 5       | 2        | 1        | 79.04000091552734  | b        | null      |
+| 6       | 2        | 0        | 26.489999771118164 | c        | null      |
+| 7       | 2        | 3        | 37.790000915527344 | null     | null      |
+| 8       | 2        | 4        | 59.81999969482422  | null     | null      |
+| 9       | 3        | 2        | 52.900001525878906 | null     | null      |
+| 10      | 3        | 1        | 98.5               | g        | null      |
+| 11      | 3        | 3        | 20.829999923706055 | c        | null      |
+| 12      | 4        | 2        | 62.79999923706055  | g        | null      |
+
+The highlight table:
+
+| (index) | firstTag |
+| ------- | -------- |
+| 0       | a        |
+| 1       | b        |
+| 2       | c        |
+
+The filtered table:
+
+| (index) | colIndex | rowIndex | value              | firstTag | secondTag |
+| ------- | -------- | -------- | ------------------ | -------- | --------- |
+| 0       | 0        | 2        | 14.239999771118164 | a        | b         |
+| 1       | 1        | 2        | 76.43000030517578  | b        | c         |
+| 2       | 1        | 3        | 67.93000030517578  | a        | null      |
+| 3       | 2        | 1        | 79.04000091552734  | b        | null      |
+| 4       | 2        | 0        | 26.489999771118164 | c        | null      |
+| 5       | 3        | 3        | 20.829999923706055 | c        | null      |
+
+The filter matched the rows with the same values from the highlight table. This can be used for tags when filtering value ranges, values themselves, column and row indexes or other types of supported data types.
+
+The details of the implementation and more refined filtering will be discussed.
 
 ### Rendering Iterating
 
