@@ -101,6 +101,10 @@ export class SelectPageObject {
         option.dispatchEvent(clickEvent);
     }
 
+    public selectOptionByValue(value: string): void {
+        this.selectElement.value = value;
+    }
+
     public async clickAway(): Promise<void> {
         this.selectElement.dispatchEvent(new Event('focusout'));
         await waitForUpdatesAsync();

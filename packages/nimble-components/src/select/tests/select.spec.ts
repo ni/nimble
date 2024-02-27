@@ -740,4 +740,33 @@ describe('Select', () => {
             expect(pageObject.isOptionVisible(1)).toBeFalse();
         });
     });
+
+    describe('PageObject', () => {
+        let element: Select;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+        let pageObject: SelectPageObject;
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup(
+                undefined,
+                false,
+                placeholderOption
+            ));
+            element.style.width = '200px';
+            element.filterMode = FilterMode.standard;
+            await connect();
+            pageObject = new SelectPageObject(element);
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('can update selection by setting value', () => {
+            pageObject.selectOptionByValue('two');
+            expect(element.value).toBe('two');
+            expect(element.selectedIndex).toBe(1);
+        });
+    });
 });
