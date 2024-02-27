@@ -9,7 +9,6 @@ export const template = html<Drawer>`
         @close="${x => x.closeHandler()}"
     >
         <div class="dialog-contents">
-            <button class="bug-workaround"></button>
             <slot></slot>
         </div>
     </dialog>
