@@ -281,6 +281,8 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.options.forEach(o => {
             const notifier = Observable.getNotifier(o);
             notifier.unsubscribe(this, 'value');
+            notifier.unsubscribe(this, 'hidden');
+            notifier.unsubscribe(this, 'disabled');
         });
 
         super.slottedOptionsChanged(prev, next);
@@ -288,6 +290,8 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.options.forEach(o => {
             const notifier = Observable.getNotifier(o);
             notifier.subscribe(this, 'value');
+            notifier.subscribe(this, 'hidden');
+            notifier.subscribe(this, 'disabled');
         });
         this.setProxyOptions();
         this.updateValue();
@@ -730,12 +734,8 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.options?.forEach((o, i) => {
             const notifier = Observable.getNotifier(o);
             notifier.unsubscribe(this, 'selected');
-            notifier.unsubscribe(this, 'hidden');
-            notifier.unsubscribe(this, 'disabled');
             o.selected = next.includes(o);
             notifier.subscribe(this, 'selected');
-            notifier.subscribe(this, 'hidden');
-            notifier.subscribe(this, 'disabled');
             const proxyOption = this.proxy?.options.item(i);
             if (proxyOption) {
                 proxyOption.selected = o.selected;
