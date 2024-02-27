@@ -40,6 +40,12 @@ const simpleData = [
         lastName: 'Simpson',
         status: 'success',
         isChild: true
+    },
+    {
+        firstName: 'John',
+        lastName: 'Doe',
+        status: 'unknown',
+        isChild: false
     }
 ] as const;
 
@@ -77,6 +83,7 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
                 <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
                 <${mappingIconTag} key="success" icon="${iconCheckLargeTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
                 <${mappingSpinnerTag} key="calculating" text="Calculating"></${mappingSpinnerTag}>
+                <${mappingIconTag} key="unknown" text="Unknown"></${mappingIconTag}>
             </${tableColumnIconTag}>
             <${tableColumnIconTag} field-name="isChild" key-type="boolean">
                 Is Child
