@@ -1,4 +1,3 @@
-#pragma warning disable CA1812
 using Demo.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

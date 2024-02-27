@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 26 Feb 2024 22:26:36 GMT",
+      "version": "20.2.11",
+      "tag": "@ni/nimble-angular_v20.2.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v21.6.8",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 23 Feb 2024 22:56:07 GMT",
       "version": "20.2.10",
       "tag": "@ni/nimble-angular_v20.2.10",
