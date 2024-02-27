@@ -149,7 +149,7 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
     /// <returns>True if the value could be parsed; otherwise false.</returns>
     protected virtual bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out result))
+        if (BindConverter.TryConvertTo(value, CultureInfo.InvariantCulture, out result))
         {
             validationErrorMessage = null;
             return true;
@@ -162,7 +162,7 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Gets a CSS class string that combines the <c>class</c> attribute and and a string indicating
+    /// Gets a CSS class string that combines the <c>class</c> attribute and a string indicating
     /// the status of the field being edited (a combination of "modified", "valid", and "invalid").
     /// Derived components should typically use this value for the primary HTML element's 'class' attribute.
     /// </summary>

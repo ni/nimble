@@ -1,7 +1,6 @@
 using System;
 using System.Linq.Expressions;
 using Bunit;
-using Microsoft.AspNetCore.Components;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
