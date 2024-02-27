@@ -22,12 +22,6 @@ function writeFile(filePath: string, content: string): void {
     console.log('Finished writing file');
 }
 
-function copyFile(sourcePath: string, destinationPath: string): void {
-    console.log(`Copying file from "${sourcePath}" to "${destinationPath}"`);
-    fs.copyFileSync(sourcePath, destinationPath);
-    console.log('Finished copying file');
-}
-
 const renderModuleName: string = '../bundle/render-worker.js';
 const workersDirectory: string = path.resolve('./src/wafer-map/workers');
 
