@@ -6,8 +6,12 @@ export interface IconView {
     severity: IconSeverity;
     text?: string;
 }
-const createIconTemplate = (icon: string | undefined): ViewTemplate<IconView> => html`
-    ${when(() => icon, html<IconView>`
+const createIconTemplate = (
+    icon: string | undefined
+): ViewTemplate<IconView> => html`
+    ${when(
+        () => icon,
+        html<IconView>`
         <${icon!}
             title="${x => x.text}"
             role="img"
@@ -16,7 +20,8 @@ const createIconTemplate = (icon: string | undefined): ViewTemplate<IconView> =>
             class="no-shrink"
         >
         </${icon!}>
-    `)}
+    `
+    )}
 `;
 
 /**

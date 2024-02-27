@@ -40,7 +40,10 @@ export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
     }
 
     private static hasUnresolvedIcon(mappingIcon: MappingIcon): boolean {
-        return typeof mappingIcon.icon === 'string' && mappingIcon.resolvedIcon === undefined;
+        return (
+            typeof mappingIcon.icon === 'string'
+            && mappingIcon.resolvedIcon === undefined
+        );
     }
 
     public override validate(
