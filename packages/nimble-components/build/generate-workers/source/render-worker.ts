@@ -1,4 +1,4 @@
-import * as Comlink from 'comlink';
+import { expose } from 'comlink';
 
 export class RenderWorker {
     public worker!: number;
@@ -15,4 +15,4 @@ export class RenderWorker {
     }
 }
 const worker = new RenderWorker();
-Comlink.expose(worker);
+expose(worker);
