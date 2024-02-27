@@ -27,7 +27,6 @@ interface OptionArgs {
     label: string;
     value: string;
     disabled: boolean;
-    selected?: boolean;
 }
 
 const simpleOptions: readonly OptionArgs[] = [
