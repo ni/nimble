@@ -2,11 +2,14 @@
 
 ## Behavior
 
-- Generates a js worker class file and moves it inside wafer-map component.
+- the source directory and index.ts are built using tsc
+- source/render-worker.ts is bundled with rollup
+- index.ts has the purpose to prepare and move dist/bundle/render-worker to src/wafer-map/worker
+- src/wafer-map/worker/render-worker will be used to create a `Blob` object which is then used to create a `URL` for a web worker.
 
 ## How to run
 
-This script runs as part of the Nimble Components build.
+This script runs as part of `npm run build` but before `npm run build-components`.
 
 To run manually:
 
