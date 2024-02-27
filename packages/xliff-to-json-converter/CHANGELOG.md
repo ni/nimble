@@ -1,8 +1,16 @@
 # Change Log - @ni/xliff-to-json-converter
 
-This log was last generated on Thu, 04 Jan 2024 16:50:24 GMT and should not be manually modified.
+This log was last generated on Thu, 22 Feb 2024 13:39:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.4
+
+Thu, 22 Feb 2024 13:39:47 GMT
+
+### Patches
+
+- Preserve spaces between inline elements ([ni/nimble@5b43e0a](https://github.com/ni/nimble/commit/5b43e0a102d7a101a08d5aef8c0ffd880d132ec7))
 
 ## 1.1.3
 

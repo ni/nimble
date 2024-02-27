@@ -23,7 +23,7 @@ const createTemplate = (
     labelProviderTag: string
 ): ViewTemplate<LabelProviderArgs> => html<LabelProviderArgs>`
 <${labelProviderTag}></${labelProviderTag}>
-<p>Element name: <code>${x => x.labelProviderTag}</code></p>
+<p>Element name: ${x => x.labelProviderTag}</p>
 <${tableTag}
     ${ref('tableRef')}
     data-unused="${x => x.updateData(x)}"

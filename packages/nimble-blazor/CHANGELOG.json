@@ -2,6 +2,66 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 27 Feb 2024 00:13:05 GMT",
+      "version": "14.3.8",
+      "tag": "@ni/nimble-blazor_v14.3.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c60a5334c62dd0bb769e652076c34d0b50c8c34c",
+            "comment": "Uptake new code analyzer rules, minor code cleanup"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 23 Feb 2024 00:08:44 GMT",
+      "version": "14.3.3",
+      "tag": "@ni/nimble-blazor_v14.3.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "b677d6b9ed7451715bb36043b245369060c8511b",
+            "comment": "Re-enable card example"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 22 Feb 2024 01:13:03 GMT",
+      "version": "14.3.1",
+      "tag": "@ni/nimble-blazor_v14.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "bb9f7fcf5aeac256fe9c4bf39c782f64c26d1c52",
+            "comment": "Align nuget and npm package versions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 21 Feb 2024 23:32:45 GMT",
+      "version": "14.3.0",
+      "tag": "@ni/nimble-blazor_v14.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d",
+            "comment": "Add support for delayed hierarchy in the table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 19 Feb 2024 16:59:58 GMT",
       "version": "14.2.0",
       "tag": "@ni/nimble-blazor_v14.2.0",

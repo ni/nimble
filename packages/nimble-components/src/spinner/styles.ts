@@ -10,18 +10,25 @@ import {
 import { spinnerSmallHeight } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
+import { ZIndexLevels } from '../utilities/style/types';
 
 export const styles = css`
-    ${display('inline-flex')}
+    ${display('inline-grid')}
 
     :host {
         height: ${spinnerSmallHeight};
         aspect-ratio: 1 / 1;
     }
 
+    div.overlay {
+        z-index: ${ZIndexLevels.zIndex1};
+        margin: max(2px, 6.25%);
+        grid-area: 1/1;
+    }
+
     div.container {
         margin: max(2px, 6.25%);
-        flex: 1;
+        grid-area: 1/1;
         ${
             /**
              * At some spinner sizes / browser zoom levels, the spinner bits/squares appear to slightly overlap visually.
