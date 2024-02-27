@@ -5,7 +5,6 @@ import {
 import { observable, attr } from '@microsoft/fast-element';
 import { styles } from './styles';
 import { template } from './template';
-import type { ForceUpdateDisplayValue } from '../patterns/dropdown/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -41,42 +40,6 @@ export class ListOption extends FoundationListboxOption {
             .assignedNodes()
             .map(node => node.textContent?.trim())
             .join(' ');
-    }
-
-    protected override selectedChanged(): void {
-        super.selectedChanged();
-        if (this.parentHasForceUpdateDisplayValue(this.parentElement)) {
-            this.parentElement.updateDisplayValue();
-        }
-    }
-
-    protected override disabledChanged(prev: boolean, next: boolean): void {
-        super.disabledChanged(prev, next);
-        if (this.parentHasForceUpdateDisplayValue(this.parentElement)) {
-            this.parentElement.updateDisplayValue();
-        }
-    }
-
-    private hiddenChanged(): void {
-        if (this.hidden) {
-            this.classList.add('hidden-option');
-        } else {
-            this.classList.remove('hidden-option');
-        }
-
-        if (this.parentHasForceUpdateDisplayValue(this.parentElement)) {
-            this.parentElement.updateDisplayValue();
-        }
-    }
-
-    private parentHasForceUpdateDisplayValue(
-        parent: unknown
-    ): parent is ForceUpdateDisplayValue {
-        if (this.parentElement === null) {
-            return false;
-        }
-
-        return 'updateDisplayValue' in (parent as Element);
     }
 }
 

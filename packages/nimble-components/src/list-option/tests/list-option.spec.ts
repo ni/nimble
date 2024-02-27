@@ -2,7 +2,6 @@ import { html } from '@microsoft/fast-element';
 import { ListOption, listOptionTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import type { Select } from '../../select';
 
 describe('ListboxOption', () => {
     it('should export its tag', () => {
@@ -75,68 +74,6 @@ describe('ListboxOption', () => {
             dispatchEventToListOption(new MouseEvent('mouseout'));
             await waitForUpdatesAsync();
             expect(getListOptionTitle()).toBe('');
-        });
-    });
-
-    describe('ListOption with Select parent', () => {
-        let element: Select;
-        let connect: () => Promise<void>;
-        let disconnect: () => Promise<void>;
-
-        async function setup(): Promise<Fixture<Select>> {
-            return fixture<Select>(
-                html`<nimble-select>
-                    <nimble-list-option style="width: 200px" value="1">
-                        Item 1
-                    </nimble-list-option>
-                    <nimble-list-option style="width: 200px" value="2">
-                        Item 2
-                    </nimble-list-option>
-                </nimble-select>`
-            );
-        }
-
-        beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
-            await connect();
-            await waitForUpdatesAsync();
-        });
-
-        afterEach(async () => {
-            await disconnect();
-        });
-
-        it('updating hidden attribute sets/removes ".hidden-option" class', () => {
-            const option = element.options[0]!;
-            option.hidden = true;
-            expect(option.classList.contains('hidden-option')).toBeTrue();
-
-            option.hidden = false;
-            expect(option.classList.contains('hidden-option')).toBeFalse();
-        });
-
-        it('setting hidden property calls "updateDisplayValue" on parent', () => {
-            const updateDisplayValueSpy = spyOn(element, 'updateDisplayValue');
-            const option = element.options[0]!;
-            option.hidden = true;
-
-            expect(updateDisplayValueSpy.calls.any()).toBeTrue();
-        });
-
-        it('setting disabled property calls "updateDisplayValue" on parent', () => {
-            const updateDisplayValueSpy = spyOn(element, 'updateDisplayValue');
-            const option = element.options[0]!;
-            option.disabled = true;
-
-            expect(updateDisplayValueSpy.calls.any()).toBeTrue();
-        });
-
-        it('setting selected property calls "updateDisplayValue" on parent', () => {
-            const updateDisplayValueSpy = spyOn(element, 'updateDisplayValue');
-            const option = element.options[1]!; // select second option
-            option.selected = true;
-
-            expect(updateDisplayValueSpy.calls.any()).toBeTrue();
         });
     });
 });

@@ -244,6 +244,20 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('updating hidden attribute sets/removes ".hidden-option" class', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+        const option = element.options[0]!;
+        option.hidden = true;
+        expect(option.classList.contains('hidden-option')).toBeTrue();
+
+        option.hidden = false;
+        expect(option.classList.contains('hidden-option')).toBeFalse();
+
+        await disconnect();
+    });
+
     describe('with 500 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             // prettier-ignore
@@ -717,10 +731,12 @@ describe('Select', () => {
             element.options[1]!.hidden = true;
             element.options[1]!.disabled = true;
             element.options[1]!.selected = true;
+            await waitForUpdatesAsync();
 
             expect(element.displayValue).toBe('Two');
             expect(element.value).toBe('two');
             await clickAndWaitForOpen(element);
+            expect(pageObject.isOptionVisible(0)).toBeTrue();
             expect(pageObject.isOptionVisible(1)).toBeFalse();
         });
     });

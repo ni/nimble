@@ -31,10 +31,7 @@ import {
 } from '@microsoft/fast-web-utilities';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
-import {
-    DropdownAppearance,
-    ForceUpdateDisplayValue
-} from '../patterns/dropdown/types';
+import { DropdownAppearance } from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
@@ -57,9 +54,7 @@ type BooleanOrVoid = boolean | void;
 /**
  * A nimble-styled HTML select.
  */
-export class Select
-    extends FormAssociatedSelect
-    implements ErrorPattern, ForceUpdateDisplayValue {
+export class Select extends FormAssociatedSelect implements ErrorPattern {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
@@ -344,16 +339,37 @@ export class Select
      */
     public override handleChange(source: unknown, propertyName: string): void {
         // don't call super.handleChange so hidden options can be selected programmatically
-        if (propertyName === 'value') {
-            this.updateValue();
-        }
-        if (propertyName === 'selected') {
-            if (isListboxOption(source as Element)) {
-                this.selectedIndex = this.options.indexOf(
-                    source as ListboxOption
-                );
+        const sourceElement = source as Element;
+        switch (propertyName) {
+            case 'value': {
+                this.updateValue();
+                break;
             }
-            this.setSelectedOptions();
+            case 'selected': {
+                if (isListboxOption(sourceElement)) {
+                    this.selectedIndex = this.options.indexOf(sourceElement);
+                }
+                this.setSelectedOptions();
+                this.updateDisplayValue();
+                break;
+            }
+            case 'hidden': {
+                if (isListboxOption(sourceElement)) {
+                    if (sourceElement.hidden) {
+                        sourceElement.classList.add('hidden-option');
+                    } else {
+                        sourceElement.classList.remove('hidden-option');
+                    }
+                }
+                this.updateDisplayValue();
+                break;
+            }
+            case 'disabled': {
+                this.updateDisplayValue();
+                break;
+            }
+            default:
+                break;
         }
     }
 
@@ -418,9 +434,9 @@ export class Select
      */
     public updateDisplayValue(): void {
         if (
-            this.committedSelectedOption?.hasAttribute('disabled')
-            && this.committedSelectedOption?.hasAttribute('hidden')
-            && this.committedSelectedOption?.hasAttribute('selected')
+            this.committedSelectedOption?.disabled
+            && this.committedSelectedOption?.hidden
+            && this.committedSelectedOption?.selected
         ) {
             this.displayPlaceholder = true;
         } else {
@@ -706,11 +722,20 @@ export class Select
      * @internal
      */
     protected override selectedOptionsChanged(
-        prev: ListboxOption[] | undefined,
+        _prev: ListboxOption[] | undefined,
         next: ListboxOption[]
     ): void {
-        super.selectedOptionsChanged(prev, next);
+        // don't call super.selectedOptionsChanged so we don't filter out hidden elements
+        // when updating 'selected' state (copied relevant super implementation)
         this.options?.forEach((o, i) => {
+            const notifier = Observable.getNotifier(o);
+            notifier.unsubscribe(this, 'selected');
+            notifier.unsubscribe(this, 'hidden');
+            notifier.unsubscribe(this, 'disabled');
+            o.selected = next.includes(o);
+            notifier.subscribe(this, 'selected');
+            notifier.subscribe(this, 'hidden');
+            notifier.subscribe(this, 'disabled');
             const proxyOption = this.proxy?.options.item(i);
             if (proxyOption) {
                 proxyOption.selected = o.selected;
