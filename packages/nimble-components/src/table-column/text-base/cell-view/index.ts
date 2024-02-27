@@ -33,7 +33,10 @@ export abstract class TableColumnTextCellViewBase<
     @observable
     public alignment: TextCellViewBaseAlignment = TextCellViewBaseAlignment.left;
 
-    protected applyPlaceholderTextIfNeeded(cellValue: TableFieldValue, placeholder: string | undefined): boolean {
+    protected applyPlaceholderTextIfNeeded(
+        cellValue: TableFieldValue,
+        placeholder: string | undefined
+    ): boolean {
         if (placeholder && (cellValue === null || cellValue === undefined)) {
             this.text = placeholder;
             this.isPlaceholder = true;

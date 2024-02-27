@@ -93,7 +93,9 @@ describe('TableColumnEnumText', () => {
                     [{ key: value.key, text: 'alpha' }],
                     value.name
                 ));
-                pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+                pageObject = new TablePageObject<SimpleTableRecord>(
+                    model.table
+                );
                 await model.table.setData([{ field1: value.key }]);
                 await connect();
                 await waitForUpdatesAsync();
@@ -160,7 +162,9 @@ describe('TableColumnEnumText', () => {
                 ({ connect, disconnect, model } = await setup([
                     { key: 'a', text: name }
                 ]));
-                pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+                pageObject = new TablePageObject<SimpleTableRecord>(
+                    model.table
+                );
                 await model.table.setData([{ field1: 'a' }]);
                 await connect();
                 await waitForUpdatesAsync();
@@ -176,7 +180,9 @@ describe('TableColumnEnumText', () => {
                 ({ connect, disconnect, model } = await setup([
                     { key: 'a', text: name }
                 ]));
-                pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+                pageObject = new TablePageObject<SimpleTableRecord>(
+                    model.table
+                );
                 await model.table.setData([{ field1: 'a' }]);
                 await connect();
                 await waitForUpdatesAsync();
@@ -257,10 +263,7 @@ describe('TableColumnEnumText', () => {
 
     describe('validation', () => {
         it('is valid with no mappings', async () => {
-            ({ connect, disconnect, model } = await setup(
-                [],
-                'number'
-            ));
+            ({ connect, disconnect, model } = await setup([], 'number'));
             await connect();
             await waitForUpdatesAsync();
             const column = model.col1;
@@ -409,9 +412,7 @@ describe('TableColumnEnumText', () => {
         });
 
         it('is invalid with missing key value', async () => {
-            ({ connect, disconnect, model } = await setup([
-                { text: 'alpha' }
-            ]));
+            ({ connect, disconnect, model } = await setup([{ text: 'alpha' }]));
             await connect();
             await waitForUpdatesAsync();
             const column = model.col1;
@@ -420,9 +421,7 @@ describe('TableColumnEnumText', () => {
         });
 
         it('is invalid with missing text', async () => {
-            ({ connect, disconnect, model } = await setup([
-                { key: 'a' }
-            ]));
+            ({ connect, disconnect, model } = await setup([{ key: 'a' }]));
             await connect();
             await waitForUpdatesAsync();
             const column = model.col1;
@@ -460,19 +459,28 @@ describe('TableColumnEnumText', () => {
         ];
 
         parameterizeSpec(testCases, (spec, name, value) => {
-            spec(`cell and group row render expected value when ${name}`, async () => {
-                ({ connect, disconnect, model } = await setup([
-                    { key: 'a', text: 'alpha' }
-                ]));
-                pageObject = new TablePageObject<SimpleTableRecord>(model.table);
-                model.col1.groupIndex = 0;
-                await model.table.setData(value.data);
-                await connect();
-                await waitForUpdatesAsync();
+            spec(
+                `cell and group row render expected value when ${name}`,
+                async () => {
+                    ({ connect, disconnect, model } = await setup([
+                        { key: 'a', text: 'alpha' }
+                    ]));
+                    pageObject = new TablePageObject<SimpleTableRecord>(
+                        model.table
+                    );
+                    model.col1.groupIndex = 0;
+                    await model.table.setData(value.data);
+                    await connect();
+                    await waitForUpdatesAsync();
 
-                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(value.cellValue);
-                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(value.groupValue);
-            });
+                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                        value.cellValue
+                    );
+                    expect(
+                        pageObject.getRenderedGroupHeaderTextContent(0)
+                    ).toBe(value.groupValue);
+                }
+            );
         });
     });
 });

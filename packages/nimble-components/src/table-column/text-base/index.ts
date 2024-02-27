@@ -8,9 +8,7 @@ import { mixinColumnWithPlaceholderAPI } from '../mixins/placeholder';
  * The base class for table columns that display fields of any type as text.
  */
 export abstract class TableColumnTextBase extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(
-        mixinColumnWithPlaceholderAPI(TableColumn)
-    )
+    mixinFractionalWidthColumnAPI(mixinColumnWithPlaceholderAPI(TableColumn))
 ) {
     @attr({ attribute: 'field-name' })
     public fieldName?: string;

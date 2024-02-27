@@ -1,7 +1,10 @@
 import { observable } from '@microsoft/fast-element';
 import { TableGroupHeaderView } from '../../base/group-header-view';
 import type { TableFieldValue } from '../../../table/types';
-import { tableGroupRowEmptyPlaceholder, tableGroupRowNoValuePlaceholder } from '../../../label-provider/table/label-tokens';
+import {
+    tableGroupRowEmptyPlaceholder,
+    tableGroupRowNoValuePlaceholder
+} from '../../../label-provider/table/label-tokens';
 
 /**
  * The group header view base class for displaying fields of any type as text.
@@ -38,7 +41,10 @@ export abstract class TableColumnTextGroupHeaderViewBase<
      * @param groupHeaderValue The value for the group
      * @returns `true` if `this.text` was set to the default placeholder, `false` otherwise.
      */
-    protected applyPlaceholderTextIfNeeded(groupHeaderValue: TableFieldValue, checkForEmpty = false): boolean {
+    protected applyPlaceholderTextIfNeeded(
+        groupHeaderValue: TableFieldValue,
+        checkForEmpty = false
+    ): boolean {
         if (groupHeaderValue === null || groupHeaderValue === undefined) {
             this.text = this.noValuePlaceholder;
             return true;

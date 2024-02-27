@@ -8,7 +8,6 @@ import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import type { TableStringField } from '../../table/types';
 import { tableColumnAnchorCellViewTag } from './cell-view';
-import { tableColumnTextGroupHeaderViewTag } from '../text/group-header-view';
 import type { AnchorAppearance } from '../../anchor/types';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { mixinColumnWithPlaceholderAPI } from '../mixins/placeholder';
@@ -39,7 +38,9 @@ declare global {
  */
 export class TableColumnAnchor extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
-        mixinColumnWithPlaceholderAPI(TableColumn<TableColumnAnchorColumnConfig>)
+        mixinColumnWithPlaceholderAPI(
+            TableColumn<TableColumnAnchorColumnConfig>
+        )
     )
 ) {
     @attr({ attribute: 'label-field-name' })

@@ -248,28 +248,44 @@ describe('TableColumnDurationText', () => {
         ];
 
         parameterizeSpec(testCases, (spec, name, value) => {
-            spec(`cell and group row render expected value when ${name} and placeholder is configured`, async () => {
-                const placeholder = 'Custom placeholder';
-                elementReferences.column1.placeholder = placeholder;
-                await table.setData(value.data);
-                await connect();
-                await waitForUpdatesAsync();
+            spec(
+                `cell and group row render expected value when ${name} and placeholder is configured`,
+                async () => {
+                    const placeholder = 'Custom placeholder';
+                    elementReferences.column1.placeholder = placeholder;
+                    await table.setData(value.data);
+                    await connect();
+                    await waitForUpdatesAsync();
 
-                const expectedCellText = value.usesColumnPlaceholder ? placeholder : value.cellValue;
-                expect(pageObject.getRenderedCellContent(0, 0)).toBe(expectedCellText);
-                expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(value.groupValue);
-            });
+                    const expectedCellText = value.usesColumnPlaceholder
+                        ? placeholder
+                        : value.cellValue;
+                    expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                        expectedCellText
+                    );
+                    expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
+                        value.groupValue
+                    );
+                }
+            );
         });
 
         parameterizeSpec(testCases, (spec, name, value) => {
-            spec(`cell and group row render expected value when ${name} and placeholder is not configured`, async () => {
-                await table.setData(value.data);
-                await connect();
-                await waitForUpdatesAsync();
+            spec(
+                `cell and group row render expected value when ${name} and placeholder is not configured`,
+                async () => {
+                    await table.setData(value.data);
+                    await connect();
+                    await waitForUpdatesAsync();
 
-                expect(pageObject.getRenderedCellContent(0, 0)).toBe(value.cellValue);
-                expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(value.groupValue);
-            });
+                    expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                        value.cellValue
+                    );
+                    expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
+                        value.groupValue
+                    );
+                }
+            );
         });
 
         it('setting placeholder to undefined updates cells from displaying placeholder to displaying blank', async () => {

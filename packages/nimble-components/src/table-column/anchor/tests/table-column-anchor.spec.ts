@@ -521,28 +521,44 @@ describe('TableColumnAnchor', () => {
         ];
 
         parameterizeSpec(testCases, (spec, name, value) => {
-            spec(`cell and group row render expected value when ${name} and placeholder is configured`, async () => {
-                const placeholder = 'Custom placeholder';
-                column.placeholder = placeholder;
-                await table.setData(value.data);
-                await connect();
-                await waitForUpdatesAsync();
+            spec(
+                `cell and group row render expected value when ${name} and placeholder is configured`,
+                async () => {
+                    const placeholder = 'Custom placeholder';
+                    column.placeholder = placeholder;
+                    await table.setData(value.data);
+                    await connect();
+                    await waitForUpdatesAsync();
 
-                const expectedCellText = value.usesColumnPlaceholder ? placeholder : value.cellValue;
-                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(expectedCellText);
-                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(value.groupValue);
-            });
+                    const expectedCellText = value.usesColumnPlaceholder
+                        ? placeholder
+                        : value.cellValue;
+                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                        expectedCellText
+                    );
+                    expect(
+                        pageObject.getRenderedGroupHeaderTextContent(0)
+                    ).toBe(value.groupValue);
+                }
+            );
         });
 
         parameterizeSpec(testCases, (spec, name, value) => {
-            spec(`cell and group row render expected value when ${name} and placeholder is not configured`, async () => {
-                await table.setData(value.data);
-                await connect();
-                await waitForUpdatesAsync();
+            spec(
+                `cell and group row render expected value when ${name} and placeholder is not configured`,
+                async () => {
+                    await table.setData(value.data);
+                    await connect();
+                    await waitForUpdatesAsync();
 
-                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(value.cellValue);
-                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(value.groupValue);
-            });
+                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                        value.cellValue
+                    );
+                    expect(
+                        pageObject.getRenderedGroupHeaderTextContent(0)
+                    ).toBe(value.groupValue);
+                }
+            );
         });
 
         it('setting placeholder to undefined updates cells from displaying placeholder to displaying blank', async () => {
@@ -551,7 +567,9 @@ describe('TableColumnAnchor', () => {
             await table.setData([{}]);
             await connect();
             await waitForUpdatesAsync();
-            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder);
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                placeholder
+            );
 
             column.placeholder = undefined;
             await waitForUpdatesAsync();
@@ -567,7 +585,9 @@ describe('TableColumnAnchor', () => {
             const placeholder = 'placeholder';
             column.placeholder = placeholder;
             await waitForUpdatesAsync();
-            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder);
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                placeholder
+            );
         });
 
         it('updating placeholder from one string to another updates cell', async () => {
@@ -576,12 +596,16 @@ describe('TableColumnAnchor', () => {
             await table.setData([{}]);
             await connect();
             await waitForUpdatesAsync();
-            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder1);
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                placeholder1
+            );
 
             const placeholder2 = 'My second placeholder';
             column.placeholder = placeholder2;
             await waitForUpdatesAsync();
-            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(placeholder2);
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                placeholder2
+            );
         });
     });
 });

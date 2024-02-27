@@ -1,5 +1,10 @@
 import { css } from '@microsoft/fast-element';
-import { bodyFont, bodyFontColor, placeholderFont, placeholderFontColor } from '../../../theme-provider/design-tokens';
+import {
+    bodyFont,
+    bodyFontColor,
+    placeholderFont,
+    placeholderFontColor
+} from '../../../theme-provider/design-tokens';
 
 export const styles = css`
     :host(.right-align) {

@@ -7,7 +7,9 @@ import { TextCellViewBaseAlignment } from './types';
 export const template = html<TableColumnTextCellViewBase>`
     <template
         class="
-            ${x => (x.alignment === TextCellViewBaseAlignment.right ? 'right-align' : '')}
+            ${x => (x.alignment === TextCellViewBaseAlignment.right
+        ? 'right-align'
+        : '')}
             ${x => (x.isPlaceholder ? 'placeholder' : '')}
         "
     >

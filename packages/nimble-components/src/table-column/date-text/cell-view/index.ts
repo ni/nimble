@@ -31,7 +31,12 @@ TableColumnDateTextColumnConfig
 
     private updateText(): void {
         const cellValue = this.cellRecord?.value;
-        if (this.applyPlaceholderTextIfNeeded(cellValue, this.columnConfig?.placeholder)) {
+        if (
+            this.applyPlaceholderTextIfNeeded(
+                cellValue,
+                this.columnConfig?.placeholder
+            )
+        ) {
             return;
         }
 
