@@ -19,5 +19,5 @@
         "noUncheckedIndexedAccess": true,
         "noPropertyAccessFromIndexSignature": false
     },
-    "include": ["source"]
+    "include": ["source", "index.ts"]
 }

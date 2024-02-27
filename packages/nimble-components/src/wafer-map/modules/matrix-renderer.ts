@@ -1,7 +1,7 @@
 import * as Comlink from 'comlink';
 import type { WaferMap } from '..';
 import { workerCode } from '../workers/render-worker';
-import type { RenderWorker } from '../../../build/generate-workers/dist/esm/render-worker';
+import type { RenderWorker } from '../../../build/generate-workers/dist/esm/source/render-worker';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
