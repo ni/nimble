@@ -81,7 +81,7 @@ The alignment of the placeholder in the cell will match the alignment of the num
 Column best practices:
 
 -   Avoid mixing `undefined` and `null` as values for the same field. When grouping this will lead to two groups (one for `null` values and one for `undefined` values) that both have the text `"No value"`.
--   Avoid using IEEE 754 special cases of (`-Inf`, `+Inf`, and `NaN`).
+-   Avoid using IEEE 754 special cases of `-Inf`, `+Inf`, `-0`, `+0`, and `NaN`.
 
 #### Date column
 
@@ -105,7 +105,7 @@ Column best practices:
 | `null`                              | column placeholder, or empty if no placeholder is configured | `"No value"`       |
 | Invalid value (e.g. `Number.NaN`)\* | \<empty cell>                                                | \<empty group row> |
 
-\*This is considered invalid data from the table's perspective, and should be fixed within the client application.
+\*This is considered invalid data from the table's perspective and should be fixed within the client application.
 
 Column best practices:
 
