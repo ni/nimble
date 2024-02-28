@@ -13,7 +13,7 @@ describe('RenderWorker', () => {
         expect(worker.dieMatrix.length).toEqual(0);
     });
 
-    it('updateMatrix should update the dieMatrix correctly', () => {
+    it('updateMatrix should update the dieMatrix', () => {
         const testData: Iterable<number> = [4, 5, 6];
         worker.updateMatrix(testData);
         expect(worker.dieMatrix).toEqual(Uint8Array.from(testData));

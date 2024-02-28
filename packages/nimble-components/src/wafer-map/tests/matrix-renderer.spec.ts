@@ -8,7 +8,7 @@ describe('MatrixRenderer worker:', () => {
         renderer = new MatrixRenderer(wafermap);
     });
 
-    it('updateMatrix should update the dieMatrix correctly', async () => {
+    it('updateMatrix should update the dieMatrix', async () => {
         const testData: Iterable<number> = [4, 5, 6];
         await renderer.workerOne.updateMatrix(testData);
         const resolvedDieMatrix = await renderer.workerOne.dieMatrix;
