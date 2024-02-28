@@ -258,6 +258,26 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('can not select a disabled option via the arrow keys', async () => {
+        const { element, connect, disconnect } = await setup(
+            undefined,
+            false,
+            undefined,
+            disabledOption
+        );
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        await clickAndWaitForOpen(element);
+        pageObject.pressArrowDownKey();
+        expect(pageObject.getSelectedOption()?.value).toBe('three');
+
+        pageObject.pressArrowUpKey();
+        expect(pageObject.getSelectedOption()?.value).toBe('one');
+
+        await disconnect();
+    });
+
     describe('with 500 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             // prettier-ignore

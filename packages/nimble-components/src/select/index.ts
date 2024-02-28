@@ -51,6 +51,10 @@ declare global {
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type BooleanOrVoid = boolean | void;
 
+const isListOption = (el: Element): el is ListOption => {
+    return isListboxOption(el);
+};
+
 /**
  * A nimble-styled HTML select.
  */
@@ -350,7 +354,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 break;
             }
             case 'selected': {
-                if (isListboxOption(sourceElement)) {
+                if (isListOption(sourceElement)) {
                     this.selectedIndex = this.options.indexOf(sourceElement);
                 }
                 this.setSelectedOptions();
@@ -358,11 +362,11 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 break;
             }
             case 'hidden': {
-                if (isListboxOption(sourceElement)) {
+                if (isListOption(sourceElement)) {
                     if (sourceElement.hidden) {
-                        sourceElement.classList.add('hidden-option');
+                        sourceElement.visuallyHidden = true;
                     } else {
-                        sourceElement.classList.remove('hidden-option');
+                        sourceElement.visuallyHidden = false;
                     }
                 }
                 this.updateDisplayValue();
@@ -647,6 +651,24 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
     }
 
+    public override selectNextOption(): void {
+        for (let i = this.selectedIndex + 1; i < this.options.length; i++) {
+            if (!this.options[i]?.disabled) {
+                this.selectedIndex = i;
+                break;
+            }
+        }
+    }
+
+    public override selectPreviousOption(): void {
+        for (let i = this.selectedIndex - 1; i >= 0; i--) {
+            if (!this.options[i]?.disabled) {
+                this.selectedIndex = i;
+                break;
+            }
+        }
+    }
+
     // Prevents parent classes from resetting selectedIndex to a positive
     // value while filtering, which can result in a disabled option being
     // selected.
@@ -752,7 +774,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      */
     protected override setDefaultSelectedOption(): void {
         const options: ListboxOption[] = this.options
-            ?? Array.from(this.children).filter(o => isListboxOption(o));
+            ?? Array.from(this.children).filter(o => isListOption(o));
 
         const optionIsSelected = (option: ListboxOption): boolean => {
             return option.hasAttribute('selected') || option.selected;
@@ -838,10 +860,12 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
 
         this.options.forEach(o => {
-            if (!this.filteredOptions.includes(o)) {
-                o.classList.add('hidden-option');
-            } else {
-                o.classList.remove('hidden-option');
+            if (isListOption(o)) {
+                if (!this.filteredOptions.includes(o)) {
+                    o.visuallyHidden = true;
+                } else {
+                    o.visuallyHidden = false;
+                }
             }
         });
     }

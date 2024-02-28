@@ -30,6 +30,12 @@ export class ListOption extends FoundationListboxOption {
     @attr({ mode: 'boolean' })
     public override hidden = false;
 
+    /**
+     * @internal
+     */
+    @attr({ attribute: 'visually-hidden', mode: 'boolean' })
+    public visuallyHidden = false;
+
     /** @internal */
     @observable
     public hasOverflow = false;
