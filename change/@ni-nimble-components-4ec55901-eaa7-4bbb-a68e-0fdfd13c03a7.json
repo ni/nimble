@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Docs and test for table column header text in span",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
