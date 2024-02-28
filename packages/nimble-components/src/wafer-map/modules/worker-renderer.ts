@@ -2,7 +2,6 @@ import { wrap, Remote } from 'comlink';
 import { workerCode } from '../workers/matrix-renderer';
 import type { MatrixRenderer } from '../../../build/generate-workers/dist/esm/source/matrix-renderer';
 
-
 let url: string;
 
 /**
@@ -14,7 +13,7 @@ Remote<MatrixRenderer>
 > => {
     if (url === undefined) {
         const blob = new Blob([workerCode], { type: 'text/javascript' });
-        const url = URL.createObjectURL(blob);
+        url = URL.createObjectURL(blob);
     }
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const RemoteMatrixRenderer = wrap<new() => MatrixRenderer>(
