@@ -15,8 +15,7 @@ import {
     SelectPosition,
     applyMixins,
     StartEnd,
-    DelegatesARIASelect,
-    isListboxOption
+    DelegatesARIASelect
 } from '@microsoft/fast-foundation';
 import {
     keyArrowDown,
@@ -36,7 +35,7 @@ import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { template } from './template';
-import type { ListOption } from '../list-option';
+import { ListOption } from '../list-option';
 import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
@@ -52,7 +51,7 @@ declare global {
 type BooleanOrVoid = boolean | void;
 
 const isListOption = (el: Element): el is ListOption => {
-    return isListboxOption(el);
+    return el instanceof ListOption;
 };
 
 /**
