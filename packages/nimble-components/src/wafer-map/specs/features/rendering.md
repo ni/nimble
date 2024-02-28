@@ -89,10 +89,9 @@ The Public API will be the following:
 import { Table } from 'apache-arrow';
 
 export class WaferMap extends FoundationElement {
-...
-public diesTable: Table | undefined;
-public highlightedTable: Table | undefined;
-...
+    ...
+    public diesTable: Table | undefined;
+    ...
 }
 ```
 
@@ -106,8 +105,6 @@ They will be checked at runtime and a `WaferMapValidity` flag will be raised sig
 
 The schema will be extensible. This will induce a breaking change in the API, as the metadata which was previously `unknown` will not recorded in table, but the hover event will reference an index which can e used by the client to select the metadata outside the component.
 
-The `highlightedTable` will have the same columns, but they will contain rows only partially filled with values, which will be used to filter the `diesTable` and enable highlighting. The values which are not empty on each individual row, including `colIndex`, `rowIndex`, `value` and others will be used to filter the table as an `AND` operation. Multiple rows will be used as filters with the `OR` operation. More details regarding highlights will be discussed in an open issue.
-
 This approach has the benefits of a row based format that aligns well with the existing public API, as well as a nice public API that easily allows future improvements. It allows for more advanced filtering techniques such as using inner and outer joins for tables, slicing the tables to distribute values to separate workers and applying operations over whole columns.
 
 We are going to split the columns relevant to rendering from the table (rows, columns, values) and transfer them to the worker separately. This can be done with a very small overhead using the method below on the resulting vector. After being transferred, the buffers can be cached to speed up value access and filtering.
@@ -118,7 +115,7 @@ We are going to split the columns relevant to rendering from the table (rows, co
     ...
 ```
 
-When filtering the highlighted dies and searching for their metadata we will use [arquero](https://uwdata.github.io/arquero/) to perform joins and other operations involving the tables.
+When filtering the highlighted dies and searching for their index we will use [arquero](https://uwdata.github.io/arquero/) to perform joins and other operations involving the tables.
 
 The [JavaScript implementation of Apache Arrow](https://arrow.apache.org/docs/js/index.html) provides TypeScript Types which will work in Angular applications.
 The [C# implementation of Apache Arrow](https://github.com/apache/arrow/blob/main/csharp/README.md) is also providing support for reading Arrow IPC streams which can be used to convert inputs from Balzor.
@@ -222,7 +219,7 @@ class WaferData {
     dieRowIndexLayer: Int32Array;
     // the value of each die as a matrix row by row
     dieValuesLayer: Float64Array;
-    // the highlight  approach is still undecided, we have two options:
+    // we have two options to highlight:
     // the highlight state of each die as a matrix; user will have to pre-calculate tags into highlighted conditions.
     dieHighlightsLayer: Int8Array;
     // a 32 bitset array of tags for each die; aligns more closely to the existing public api but limits users to 32 tags.
@@ -289,7 +286,19 @@ We may also implement an external queue canceling functionality.
 
 ## Open Issues
 
-### Highlighting
+### Highlighting API
+
+```TS
+import { Table } from 'apache-arrow';
+
+export class WaferMap extends FoundationElement {
+    ...
+    public highlightedTable: Table | undefined;
+    ...
+}
+```
+
+The `highlightedTable` will have the same columns as the `diesTable`, but they will contain rows only partially filled with values, which will be used to filter the `diesTable` and enable highlighting. The values which are not empty on each individual row, including `colIndex`, `rowIndex`, `value` and others will be used to filter the table as an `AND` operation. Multiple rows will be used as filters with the `OR` operation. More details regarding highlights will be discussed in an open issue.
 
 The current proposal is for the highlight table to be used as a filter for the main dies table. This can be realized by using the [`semijoin`](https://uwdata.github.io/arquero/api/verbs#semijoin) operation from the Arquero library. this will function as follows.
 
@@ -333,6 +342,8 @@ The filtered table:
 The filter matched the rows with the same values from the highlight table. This can be used for tags when filtering value ranges, values themselves, column and row indexes or other types of supported data types.
 
 The details of the implementation and more refined filtering will be discussed.
+
+Anther option is using the existing `highlightedTags` API with a `List` column in the table [(listed as supported)](https://arrow.apache.org/docs/status.html).
 
 ### Rendering Iterating
 
