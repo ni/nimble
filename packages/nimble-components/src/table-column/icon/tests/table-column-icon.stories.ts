@@ -42,8 +42,8 @@ const simpleData = [
         isChild: true
     },
     {
-        firstName: 'John',
-        lastName: 'Doe',
+        firstName: 'Abbey',
+        lastName: '?',
         status: 'unknown',
         isChild: false
     }

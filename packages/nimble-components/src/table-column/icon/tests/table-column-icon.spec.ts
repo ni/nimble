@@ -25,7 +25,7 @@ interface SimpleTableRecord extends TableRecord {
 interface BasicIconMapping {
     key?: MappingKey;
     text?: string;
-    icon: string | undefined;
+    icon?: string;
 }
 
 interface BasicSpinnerMapping {
