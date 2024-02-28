@@ -19,9 +19,6 @@ describe('MatrixRenderer worker', () => {
 
     it('updateMatrix should update the dieMatrix', async () => {
         const testData = [4, 5, 6];
-        if (matrixRenderer === undefined) {
-            throw new Error('matrixRenderer is undefined');
-        }
         await matrixRenderer.updateMatrix(testData);
         const resolvedDieMatrix = await matrixRenderer.dieMatrix;
         expect(Array.from(resolvedDieMatrix)).toEqual(
@@ -31,9 +28,6 @@ describe('MatrixRenderer worker', () => {
 
     it('emptyMatrix should empty the dieMatrix', async () => {
         const testData = [4, 5, 6];
-        if (matrixRenderer === undefined) {
-            throw new Error('matrixRenderer is undefined');
-        }
         await matrixRenderer.updateMatrix(testData);
         await matrixRenderer.emptyMatrix();
         const resolvedDieMatrix = await matrixRenderer.dieMatrix;
