@@ -1,5 +1,5 @@
 import type { Remote } from 'comlink';
-import { createMatrixRenderer } from '../modules/worker-renderer';
+import { createMatrixRenderer } from '../modules/create-matrix-renderer';
 import type { MatrixRenderer } from '../../../build/generate-workers/dist/esm/source/matrix-renderer';
 
 describe('MatrixRenderer worker:', () => {
