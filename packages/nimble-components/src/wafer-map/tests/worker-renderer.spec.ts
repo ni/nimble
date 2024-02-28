@@ -10,7 +10,7 @@ describe('MatrixRenderer worker:', () => {
     });
 
     it('updateMatrix should update the dieMatrix', async () => {
-        const testData: Iterable<number> = [4, 5, 6];
+        const testData = [4, 5, 6];
         await remoteWorker.updateMatrix(testData);
         const resolvedDieMatrix = await remoteWorker.dieMatrix;
         expect(Array.from(resolvedDieMatrix)).toEqual(
@@ -19,7 +19,7 @@ describe('MatrixRenderer worker:', () => {
     });
 
     it('emptyMatrix should empty the dieMatrix', async () => {
-        const testData: Iterable<number> = [4, 5, 6];
+        const testData = [4, 5, 6];
         await remoteWorker.updateMatrix(testData);
         await remoteWorker.emptyMatrix();
         const resolvedDieMatrix = await remoteWorker.dieMatrix;

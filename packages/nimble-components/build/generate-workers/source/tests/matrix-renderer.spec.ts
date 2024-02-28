@@ -12,7 +12,7 @@ describe('MatrixRenderer with MessageChannel', () => {
     });
 
     it('updateMatrix should update the dieMatrix', async () => {
-        const testData: Iterable<number> = [4, 5, 6];
+        const testData = [4, 5, 6];
         await matrixRenderer.updateMatrix(testData);
 
         const updatedMatrix = await matrixRenderer.dieMatrix;
