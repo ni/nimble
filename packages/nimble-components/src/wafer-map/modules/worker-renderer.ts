@@ -17,8 +17,12 @@ Remote<MatrixRenderer>
         const url = URL.createObjectURL(blob);
     }
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const RemoteMatrixRenderer = wrap<new() => MatrixRenderer>(
-        new Worker(url));
-    const instance = await new RemoteMatrixRenderer();
-    return instance;
+    const worker = new Worker(url);
+    const RemoteMatrixRenderer = wrap<new() => MatrixRenderer>(worker);
+    const matrixRenderer = await new RemoteMatrixRenderer();
+    const terminate = () => worker.terminate();
+    return {
+        matrixRenderer,
+        terminate
+    };
 };
