@@ -1,14 +1,14 @@
 import { Remote, expose, wrap } from 'comlink';
-import { RenderWorker } from '../render-worker';
+import { MatrixRenderer } from '../matrix-renderer';
 
-describe('RenderWorker with MessageChannel', () => {
-    let wrappedWorker: Remote<RenderWorker>;
+describe('MatrixRenderer with MessageChannel', () => {
+    let wrappedWorker: Remote<MatrixRenderer>;
 
     beforeEach(async () => {
         const { port1, port2 } = new MessageChannel();
-        const worker = new RenderWorker();
+        const worker = new MatrixRenderer();
         expose(worker, port1);
-        wrappedWorker = await wrap<RenderWorker>(port2);
+        wrappedWorker = await wrap<MatrixRenderer>(port2);
     });
 
     it('updateMatrix should update the dieMatrix', async () => {

@@ -1,9 +1,9 @@
 import type { Remote } from 'comlink';
-import { createMatrixRenderer } from '../modules/matrix-renderer';
-import type { RenderWorker } from '../../../build/generate-workers/dist/esm/source/render-worker';
+import { createMatrixRenderer } from '../modules/worker-renderer';
+import type { MatrixRenderer } from '../../../build/generate-workers/dist/esm/source/matrix-renderer';
 
 describe('MatrixRenderer worker:', () => {
-    let remoteWorker: Remote<RenderWorker>;
+    let remoteWorker: Remote<MatrixRenderer>;
 
     beforeEach(async () => {
         remoteWorker = await createMatrixRenderer();

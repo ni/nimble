@@ -22,7 +22,7 @@ function writeFile(filePath: string, content: string): void {
     console.log('Finished writing file');
 }
 
-const renderModuleName: string = '../bundle/render-worker.js';
+const renderModuleName: string = '../bundle/matrix-renderer.js';
 const workersDirectory: string = path.resolve('./src/wafer-map/workers');
 
 prepareDirectory(workersDirectory);
@@ -34,6 +34,6 @@ const fileContent: string = `// eslint-disable-next-line no-template-curly-in-st
 export const workerCode = ${JSON.stringify(sourceCode)};
 `;
 
-const renderFilePath: string = path.resolve(workersDirectory, 'render-worker.ts');
+const renderFilePath: string = path.resolve(workersDirectory, 'matrix-renderer.ts');
 
 writeFile(renderFilePath, fileContent);
