@@ -3,7 +3,7 @@ import { createMatrixRenderer } from '../modules/create-matrix-renderer';
 import type { MatrixRenderer } from '../../../build/generate-workers/dist/esm/source/matrix-renderer';
 
 describe('MatrixRenderer worker:', () => {
-    let matrixRenderer: Remote<MatrixRenderer> | undefined;
+    let matrixRenderer: Remote<MatrixRenderer>;
     let terminate: () => void;
 
     beforeEach(async () => {
@@ -14,7 +14,7 @@ describe('MatrixRenderer worker:', () => {
 
     afterEach(() => {
         terminate();
-        matrixRenderer = undefined;
+        matrixRenderer = undefined!;
     });
 
     it('updateMatrix should update the dieMatrix', async () => {
