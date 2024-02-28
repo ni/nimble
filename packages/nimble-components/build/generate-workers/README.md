@@ -1,5 +1,7 @@
 # Generate Workers
 
+This directory contains wafer map rendering code and build scripts which compile it to run in a web worker.
+
 ## Behavior
 
 - the source directory and index.ts are built using tsc
