@@ -98,8 +98,8 @@ export class WaferMap extends FoundationElement {
 It will be using the [Apache Arrow Table](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html).
 It will require at least three columns for the `diesTable`:
 
--   The row and column indices will be `Int32` columns
--   The values will be a `Float32` column.
+-   The `rowIndex` and `colIndex` will be `Int32` columns
+-   The `value` will be a `Float64` column.
 
 They will be checked at runtime and a `WaferMapValidity` flag will be raised signaling an `invalidTableInput`.
 
@@ -118,7 +118,7 @@ We are going to split the columns relevant to rendering from the table (rows, co
 When filtering the highlighted dies and searching for their index we will use [arquero](https://uwdata.github.io/arquero/) to perform joins and other operations involving the tables.
 
 The [JavaScript implementation of Apache Arrow](https://arrow.apache.org/docs/js/index.html) provides TypeScript Types which will work in Angular applications.
-The [C# implementation of Apache Arrow](https://github.com/apache/arrow/blob/main/csharp/README.md) is also providing support for reading Arrow IPC streams which can be used to convert inputs from Balzor.
+The [C# implementation of Apache Arrow](https://github.com/apache/arrow/blob/main/csharp/README.md) is also providing support for reading Arrow IPC streams which can be used to convert inputs from Blazor.
 
 ### Rendering
 
@@ -246,16 +246,16 @@ Another option is to break each object property as a separate attribute for the 
 
 The limits for the apache arrow table approach are the following:
 
-1. There seems to be no support for columns of lists of strings.
-2. There is no support currently for [searching or filtering the table](https://github.com/apache/arrow/issues/13233). Searching for dies based on their position is crucial for highlighting and sending the highlighted die metadata with the `die-hover` event.
-3. The transfer method between the main an worker thread for arrow tables is cumbersome.
+1. Apache arrow documentation shows [list types are supported](https://arrow.apache.org/docs/status.html) but more research is needed to understand their usage, if they are useful in Tables, and their performance if used.
+2. There is no support currently for [searching or filtering the table](https://github.com/apache/arrow/issues/13233). Searching for dies based on their position is crucial for highlighting and sending the highlighted die metadata with the `die-hover` event. More research is needed to see if alternative libraries can be used for filtering / data analysis. ([POC with arquero](https://stackblitz.com/edit/geoarrow-worker-arquero-demo?file=src%2Fmain.ts)).
+3. Apache arrow does not yet have first class support for efficiently transferring arrow data structures in workers. When asked they said they are [supportive of adding the APIs](https://github.com/apache/arrow/issues/39017#issuecomment-1955653556).
 4. The iteration over stored rows is very slow compared to typed arrays as seen in the table below. This impacts the goals we set for this rendering improvement.
 
 Alternatives for solving these problems are the following:
 
 1. A dynamic number of columns for storing tags, but the performance may suffer.
 2. Possible solutions for this are searching by iterating over the whole table, which is not feasible (see 4.) or using typed arrays and caching to speed up the search for the relevant columns.
-3. The use of a higher level library [geoarrow](https://github.com/geoarrow/geoarrow-js/blob/main/src/worker/transferable.ts)
+3. The use of a higher level library [geoarrow](https://github.com/geoarrow/geoarrow-js/blob/main/src/worker/transferable.ts). ([POC](https://stackblitz.com/edit/geoarrow-worker-arquero-demo?file=src%2Fmain.ts)).
 4. In the following table are presented different iteration strategies over 1M long arrays, and how they compare with the chosen method and the basic typed array iteration:
 
 | name                    | duration (ms) [1] | duration (ms) [2] | detail                                                          |
@@ -343,7 +343,24 @@ The filter matched the rows with the same values from the highlight table. This 
 
 The details of the implementation and more refined filtering will be discussed.
 
-Anther option is using the existing `highlightedTags` API with a `List` column in the table [(listed as supported)](https://arrow.apache.org/docs/status.html).
+Another option is using the existing `highlightedTags` API with a `List` column in the table [(listed as supported)](https://arrow.apache.org/docs/status.html).
+
+Specific open questions:
+
+-   For a highlightedTags table api:
+    -   Should the API be constrained in the [supported arrow types](https://arrow.apache.org/docs/status.html)?
+        -   Should just primitive types be supported?
+        -   Should just types supported in the JavaScript and C# languages be supported?
+        -   Should just types well-supported in all existing implementation be supported?
+        -   Would certain types, ex. like strings, lead to poor performance and be discouraged?
+        -   Are there implementation challenges transferring buffers of arbitrary types across the Web Worker boundary?
+    -   Should the API be constrained in the set of columns that participate in highlighting instead of all columns? Maybe columns with a specific name prefix like `highlighted_`?
+    -   Is there real known benefits for specifying per floating point `value`? Or specific `rowIndex` / `columnIndex` independently?
+    -   Does the highlightTable need to contain all columns used in diesTable? Can it just be a subset of columns?
+-   For a tags columns api:
+    -   Do columns of List<string> work in tables?
+    -   Do dictionary columns work in tables to improve efficiency compared to List<string>?
+    -   What is the performance of a List<string> / Dictionary column api compared to the alternatives?
 
 ### Rendering Iterating
 
