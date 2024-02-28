@@ -215,6 +215,19 @@ describe('Table', () => {
             expect(pageObject.getHeaderTitle(0)).toBe(headerContents);
         });
 
+        it('sets title when header text is ellipsized in a span', async () => {
+            const headerContents = 'a very long value that should get ellipsized due to not fitting within the default header width';
+            await element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+            const span = document.createElement('span');
+            span.textContent = headerContents;
+            element.columns[0]!.appendChild(span);
+            pageObject.dispatchEventToHeader(0, new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(pageObject.getHeaderTitle(0)).toBe(headerContents);
+        });
+
         it('does not set title when header text is fully visible', async () => {
             const headerContents = 'short value';
             await element.setData(simpleTableData);
