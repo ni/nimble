@@ -14,9 +14,6 @@ export class WorkerRenderer {
 
     public drawWafer(): void {
         // rendering will be implemented in a future PR
-        this.wafermap.$emit('render-complete', {
-            count: this.wafermap.diesTable?.numRows
-        });
     }
 
     public renderHover(): void {

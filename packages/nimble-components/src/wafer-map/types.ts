@@ -1,5 +1,3 @@
-import type { DataType, Float32, Int32 } from 'apache-arrow';
-
 export const WaferMapOriginLocation = {
     bottomLeft: 'bottom-left',
     bottomRight: 'bottom-right',
@@ -79,13 +77,4 @@ export interface ValidityObject {
 }
 export interface WaferMapValidity extends ValidityObject {
     readonly invalidGridDimensions: boolean;
-}
-
-export interface WaferMapTypeMap {
-    [x: string]: DataType;
-    [x: number]: DataType;
-    [x: symbol]: DataType;
-    colIndex: Int32;
-    rowIndex: Int32;
-    value: Float32;
 }

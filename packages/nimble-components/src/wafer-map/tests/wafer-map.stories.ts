@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import type { Table, Int32, Float32 } from 'apache-arrow';
+import type { Table } from 'apache-arrow';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
@@ -88,28 +88,9 @@ const getDiesSet = (
     return returnedValue;
 };
 
-const getDiesTableSet = (
-    setName: string,
-    sets: Table<{
-        colIndex: Int32,
-        rowIndex: Int32,
-        value: Float32
-    }>[]
-):
-| Table<{
-    colIndex: Int32,
-    rowIndex: Int32,
-    value: Float32
-}>
-| undefined => {
+const getDiesTableSet = (setName: string, sets: Table[]): Table | undefined => {
     const seed = 0.5;
-    let returnedValue:
-    | Table<{
-        colIndex: Int32,
-        rowIndex: Int32,
-        value: Float32
-    }>
-    | undefined;
+    let returnedValue: Table | undefined;
     switch (setName) {
         case 'fixedDies10':
             returnedValue = sets[0]!;
@@ -160,20 +141,11 @@ const getHighlightedTags = (setName: string, sets: string[][]): string[] => {
     return returnedValue;
 };
 
-const getHighlightedTable = (setName: string, sets: Table<{
-    colIndex: Int32,
-    rowIndex: Int32,
-    value: Float32
-}>[]): Table<{
-    colIndex: Int32,
-    rowIndex: Int32,
-    value: Float32
-}> | undefined => {
-    let returnedValue: Table<{
-        colIndex: Int32,
-        rowIndex: Int32,
-        value: Float32
-    }> | undefined;
+const getHighlightedTable = (
+    setName: string,
+    sets: Table[]
+): Table | undefined => {
+    let returnedValue: Table | undefined;
     switch (setName) {
         case 'set1':
             returnedValue = sets[0]!;
@@ -281,7 +253,8 @@ const metadata: Meta<WaferMapArgs> = {
             }
         },
         apiVersion: {
-            description: 'Displays the API version of the component. The stable version is the one that is recommended for production use, while the experimental version is the one that is still under development and is not recommended for production use. The default value is `stable`.',
+            description:
+                'Displays the API version of the component. The stable version is the one that is recommended for production use, while the experimental version is the one that is still under development and is not recommended for production use. The default value is `stable`.',
             options: ['stable', 'experimental'],
             control: {
                 type: 'inline-radio',

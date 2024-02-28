@@ -109,8 +109,36 @@ export const wafermapDiesTableSets: Table[] = [
             14.24, 76.43, 44.63, 67.93, 72.71, 79.04, 26.49, 37.79, 59.82, 52.9,
             98.5, 20.83, 62.8
         ]),
-        firstTag: ['a', 'b', 'g', 'a', 'h', 'b', 'c', null, null, null, 'g', 'c', 'g'],
-        secondTag: ['b', 'c', null, null, 'e', null, null, null, null, null, null, null, null],
+        firstTag: [
+            'a',
+            'b',
+            'g',
+            'a',
+            'h',
+            'b',
+            'c',
+            null,
+            null,
+            null,
+            'g',
+            'c',
+            'g'
+        ],
+        secondTag: [
+            'b',
+            'c',
+            null,
+            null,
+            'e',
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
         metadata: [
             'metadata02',
             'metadata12',

@@ -18,7 +18,6 @@ import {
     WaferMapDie,
     WaferMapOrientation,
     WaferMapOriginLocation,
-    WaferMapTypeMap,
     WaferMapValidity
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
@@ -151,8 +150,8 @@ export class WaferMap extends FoundationElement {
 
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
-    @observable public diesTable: Table<WaferMapTypeMap> | undefined;
-    @observable public highlightedTable: Table<WaferMapTypeMap> | undefined;
+    @observable public diesTable: Table | undefined;
+    @observable public highlightedTable: Table | undefined;
 
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
