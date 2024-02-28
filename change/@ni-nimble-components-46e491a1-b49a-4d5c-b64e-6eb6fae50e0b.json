@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Create web worker class for future faster rendering wafer map",
-  "packageName": "@ni/nimble-components",
-  "email": "110180309+Razvan1928@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
