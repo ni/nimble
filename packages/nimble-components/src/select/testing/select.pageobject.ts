@@ -110,7 +110,7 @@ export class SelectPageObject {
      * Select the option with the text provided by the 'value' parameter.
      * @param value The text of the option to be selected
      */
-    public async selectOptionByDisplayText(value: string): Promise<void> {
+    public selectOptionByDisplayText(value: string): void {
         const optionIndex = this.selectElement.options.findIndex(
             o => o.text === value
         );
@@ -118,9 +118,7 @@ export class SelectPageObject {
             throw new Error(`No option with "text" of ${value}`);
         }
 
-        await this.clickSelect();
-        await waitForUpdatesAsync();
-        this.clickOption(optionIndex);
+        this.selectElement.selectedIndex = optionIndex;
     }
 
     public async clickAway(): Promise<void> {
