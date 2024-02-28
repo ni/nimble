@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 26 Feb 2024 22:26:36 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Feb 2024 19:35:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.7.0
+
+Wed, 28 Feb 2024 19:35:04 GMT
+
+### Minor changes
+
+- Add new icons for resume, generate, stop, deploy, undeploy, and hide ([ni/nimble@f4f3f45](https://github.com/ni/nimble/commit/f4f3f45c9107ff6d6c964fea69cd48247d6595fe))
+- Bump @ni/nimble-tokens to v6.12.0
 
 ## 21.6.8
 
