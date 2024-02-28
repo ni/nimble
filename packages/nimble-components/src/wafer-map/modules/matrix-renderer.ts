@@ -7,11 +7,20 @@ import type { RenderWorker } from '../../../build/generate-workers/dist/esm/sour
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class MatrixRenderer {
-    public readonly workerOne: Remote<RenderWorker>;
+    private static workerInstance: Remote<RenderWorker> | null = null;
 
-    public constructor(private readonly wafermap: WaferMap) {
+    public constructor(private readonly wafermap: WaferMap) { }
+
+    private static createWorker(): Remote<RenderWorker> {
         const blob = new Blob([workerCode], { type: 'text/javascript' });
         const url = URL.createObjectURL(blob);
-        this.workerOne = wrap<RenderWorker>(new Worker(url));
+        return wrap<RenderWorker>(new Worker(url));
+    }
+
+    public get workerOne(): Remote<RenderWorker> {
+        if (MatrixRenderer.workerInstance === null) {
+            MatrixRenderer.workerInstance = MatrixRenderer.createWorker();
+        }
+        return MatrixRenderer.workerInstance;
     }
 }
