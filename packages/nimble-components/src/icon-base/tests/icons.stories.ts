@@ -82,7 +82,7 @@ export const icons: StoryObj<IconArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             ${/* Make the table big enough to remove vertical scrollbar */ ''}
-            style="height: 6200px;"
+            style="height: 6325px;"
             data-unused="${x => updateData(x.tableRef)}"
         >
             <${tableColumnIconTag} field-name="tag" key-type="string">
