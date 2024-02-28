@@ -1,20 +1,13 @@
-import { Remote, expose, wrap } from 'comlink';
-import { WaferMap } from '..';
-import { MatrixRenderer } from '../modules/matrix-renderer';
+import type { Remote } from 'comlink';
+import { createMatrixRenderer } from '../modules/matrix-renderer';
 import type { RenderWorker } from '../../../build/generate-workers/dist/esm/source/render-worker';
 
 describe('MatrixRenderer worker:', () => {
-    let renderer: MatrixRenderer;
-    let messageChannel: MessageChannel;
     let remoteWorker: Remote<RenderWorker>;
 
-    beforeEach(() => {
-        const wafermap = new WaferMap();
-        renderer = new MatrixRenderer(wafermap);
-
-        messageChannel = new MessageChannel();
-        expose(renderer.workerOne, messageChannel.port1);
-        remoteWorker = wrap(messageChannel.port2);
+    beforeEach(async () => {
+        // Directly create a RenderWorker instance using the new utility function
+        remoteWorker = await createMatrixRenderer();
     });
 
     it('updateMatrix should update the dieMatrix', async () => {
@@ -32,10 +25,5 @@ describe('MatrixRenderer worker:', () => {
         await remoteWorker.emptyMatrix();
         const resolvedDieMatrix = await remoteWorker.dieMatrix;
         expect(resolvedDieMatrix.length).toEqual(0);
-    });
-
-    afterEach(() => {
-        messageChannel.port1.close();
-        messageChannel.port2.close();
     });
 });
