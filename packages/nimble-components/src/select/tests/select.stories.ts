@@ -108,7 +108,7 @@ const metadata: Meta<SelectArgs> = {
                     disabled
                     selected
                     hidden>
-                    Select an option:
+                    Select an option
                 </${listOptionTag}?
             `)}
             ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
