@@ -26,25 +26,33 @@ Nimble contributors may opt to create their component as ["incubating"](https://
 
 ## Decision
 
-- Components with potential for reuse are strongly encouraged to go in Nimble.
+- The Nimble repo will begin hosting "Spright" packages that are not part of the Nimble Design System.
+    - These packages will parallel their Nimble counterparts: `@ni/spright-components`, `@ni/spright-angular`, and `SprightBlazor`.
+    - The Nimble and Spright packages will be part of the same build, using the same infrastructure, and sharing the same dependency versions.
+- `spright-components` is the place for components that are "molecules", product-specific, data-connected, or otherwise not intended for general use.
+- Components that do not have the above characteristics are strongly encouraged to go in the Nimble packages.
     - In some cases (mentioned in the preceeding section), the component may be added as "incubating". It should not be assumed that doing so will significantly shorten development time.
-- The [Spright repo](https://github.com/ni/spright) will be an alternative to Nimble. Ownership and review of Spright components falls to the contributing developers. It is up to those owners to define and enforce appropriate standards, but they should conform to a common set of Spright-wide minimum requirements (see table below).
-- Product- or service-specific components go in Spright, in a suitably scoped package named like `spright-components-stratus`.
-- TODO: When should (strictly Angular) components go in SystemLinkShared?
+    - Components that _could/should_ go in Nimble may still opt to go in Spright if the contributing team wants to take ownership/responsibility so they can make the tradeoffs necessary to meet a deadline.
 
 The following table compares the requirements for developing a component in different libraries: 
 
-|                            | Approved Spec | Unit Tests | SB* Visual Tests | SB* API Docs | SB* Usage Docs | Approved** Visual Design | Approved** UX Design | Angular/Blazor Support | Proper a11y | Minimal Tech Debt | Mobile Support | 
-| ---------------------------------- | :-----------: | :--------: | :--------------: | :----------: | :------------: | :----------------------: | :------------------: | :--------------------: | :---------: | :---------------: | :------------: |
-| `nimble-components`                | 🟢           | 🟢        | 🟢               | 🟢           | 🟢            | 🟢                       | 🟢                  | 🟢                     | 🟢         | 🟢               | 🟡
-| `nimble-components` (incubating)   | 🟢           | 🟢        | 🟢               | 🟢           | 🟡            | 🟡                       | 🟡                  | 🟡                     | 🟡         | 🟡               | 🟡
-| `spright-components-<product>`     | 🟡           | 🟢        | 🟢               | 🟢           | 🟡            | 🟡                       | 🟡                  | 🟡                     | 🟡         | 🟡               | 🟡
+|                                  | Approved Spec | Unit Tests | SB* Visual Tests | SB* API Docs | SB* Usage Docs | Approved** VxD | Approved** IxD | Angular/Blazor Support | Proper a11y | Minimal Tech Debt | Mobile Support | 
+| -------------------------------- | :-----------: | :--------: | :--------------: | :----------: | :------------: | :------------: | :------------: | :--------------------: | :---------: | :---------------: | :------------: |
+| `nimble-components`              | 🟢           | 🟢        | 🟢               | 🟢           | 🟢            | 🟢             | 🟢            | 🟢                     | 🟢         | 🟢               | 🟡
+| `nimble-components` (incubating) | 🟢           | 🟢        | 🟢               | 🟢           | 🟡            | 🟡             | 🟢            | 🟡                     | 🟡         | 🟡               | 🟡
+| `spright-components`   | 🟡           | 🟢        | 🟢               | 🟢           | 🟡            | 🟡             | 🟡            | 🟡                     | 🟡         | 🟡               | 🟡
 
 🟢 = required\
 🟡 = optional\
 *SB = Storybook\
 **By a UX and/or visual designer
 
+### Ownership in Spright
+
+- Each directory under `packages` (and corresponding directory under `angular-workspace/projects/ni`) has a name that reflects the owning product, e.g. `spright-components-stratus`, `spright-angular-stratus`, or `spright-blazor-armstrong`. Since there may be multiple teams working on a given product, representatives will need to be chosen to serve as general code owners for those directories/packages (though components within can instead be owned by their specific contributors).
+- All packages will be part of one npm workspace.
+- To reduce cross-team interference, each product will have its own PR/CI build.
+- Repo/workspace-level infrastructure will be owned by the Design System team.
 
 ## Consequences
 
@@ -54,7 +62,6 @@ consequences should be listed here, not just the "positive" ones. A particular
 decision may have positive, negative, and neutral consequences, but all of them
 affect the team and project in the future.
 -->
-- Spright's infrastructure increases the ease and consistency of UI component development (compared to creating them in an application).
 - Spright gives more visibility to components (than if within an application), increasing likelihood of reuse.
 - By using similar infrastructure, utilities, patterns, and rules as Nimble, Spright can make it easier to "graduate" a component to Nimble (than if written within an application).
 - Spright may provide a path to shorter development time (compared to Nimble) based on which requirements a team chooses to enforce, and the responsiveness/availability of their reviewers. This can give a team more control over the tradeoffs involved in hitting their deadlines.
@@ -62,7 +69,6 @@ affect the team and project in the future.
     - inconsistent, unapproved visual designs
     - inconsistent, unapproved UX interactions
     - missing or incorrect accessibility support
-
 
 ## Conformance
 
