@@ -18,16 +18,6 @@ declare global {
 }
 
 /**
- * This is a workaround for an incomplete definition of the native dialog element. Remove when using Typescript >=4.8.3.
- * https://github.com/microsoft/TypeScript/issues/48267
- * @internal
- */
-export interface ExtendedDialog extends HTMLDialogElement {
-    showModal(): void;
-    close(): void;
-}
-
-/**
  * A nimble-styled dialog.
  */
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
@@ -65,7 +55,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
      *
      * @internal
      */
-    public readonly dialogElement!: ExtendedDialog;
+    public readonly dialogElement!: HTMLDialogElement;
 
     /** @internal */
     @observable
@@ -107,8 +97,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
             throw new Error('Dialog is not open');
         }
         this.dialogElement.close();
-        this.resolveShow!(reason);
-        this.resolveShow = undefined;
+        this.doResolveShow(reason);
     }
 
     public slottedFooterElementsChanged(
@@ -125,10 +114,35 @@ export class Dialog<CloseReason = void> extends FoundationElement {
         if (this.preventDismiss) {
             event.preventDefault();
         } else {
-            this.resolveShow!(UserDismissed);
-            this.resolveShow = undefined;
+            this.doResolveShow(UserDismissed);
         }
         return true;
+    }
+
+    /**
+     * @internal
+     */
+    public closeHandler(event: Event): void {
+        if (event.target !== this.dialogElement) {
+            return;
+        }
+        if (this.resolveShow) {
+            // If
+            // - the browser implements dialogs with the CloseWatcher API, and
+            // - the user presses ESC without first interacting with the dialog (e.g. clicking, scrolling),
+            // the cancel event is not fired, but the close event still is, and the dialog just closes.
+            this.doResolveShow(UserDismissed);
+        }
+    }
+
+    private doResolveShow(reason: CloseReason | UserDismissed): void {
+        if (!this.resolveShow) {
+            throw new Error(
+                'Do not call doResolveShow unless there is a promise to resolve'
+            );
+        }
+        this.resolveShow(reason);
+        this.resolveShow = undefined;
     }
 }
 
