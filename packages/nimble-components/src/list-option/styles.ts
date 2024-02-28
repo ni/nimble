@@ -58,7 +58,7 @@ export const styles = css`
         cursor: default;
     }
 
-    :host(.hidden-option) {
+    :host([visually-hidden]) {
         display: none;
     }
 

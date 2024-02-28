@@ -2,6 +2,7 @@ import {
     keyEnter,
     keyEscape,
     keyArrowDown,
+    keyArrowUp,
     keySpace
 } from '@microsoft/fast-web-utilities';
 import type { Select } from '..';
@@ -125,6 +126,12 @@ export class SelectPageObject {
     public pressArrowDownKey(): void {
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyArrowDown })
+        );
+    }
+
+    public pressArrowUpKey(): void {
+        this.selectElement.dispatchEvent(
+            new KeyboardEvent('keydown', { key: keyArrowUp })
         );
     }
 
