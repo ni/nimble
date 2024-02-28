@@ -1,21 +1,43 @@
+import { Remote, expose, wrap } from 'comlink';
 import { RenderWorker } from '../render-worker';
 
-describe('RenderWorker', () => {
-    let worker: RenderWorker;
+describe('RenderWorker with MessageChannel', () => {
+    let wrappedWorker: Remote<RenderWorker>;
 
-    beforeEach(() => {
-        worker = new RenderWorker();
+    beforeEach(async () => {
+        const { port1, port2 } = new MessageChannel();
+        const worker = new RenderWorker();
+        expose(worker, port1);
+        wrappedWorker = await wrap<RenderWorker>(port2);
     });
 
-    it('emptyMatrix should empty the dieMatrix', () => {
-        worker.dieMatrix = Uint8Array.from([1, 2, 3]);
-        worker.emptyMatrix();
-        expect(worker.dieMatrix.length).toEqual(0);
-    });
+    it('updateMatrix should update the dieMatrix', async () => {
+        const { port1, port2 } = new MessageChannel();
 
-    it('updateMatrix should update the dieMatrix', () => {
+        const worker = new RenderWorker();
+        expose(worker, port1);
+
+        const wrappedWorker = wrap<RenderWorker>(port2);
+
         const testData: Iterable<number> = [4, 5, 6];
-        worker.updateMatrix(testData);
-        expect(worker.dieMatrix).toEqual(Uint8Array.from(testData));
+        await wrappedWorker.updateMatrix(testData);
+
+        const updatedMatrix = await wrappedWorker.dieMatrix;
+        expect(updatedMatrix).toEqual(Uint8Array.from(testData));
+    });
+
+    it('emptyMatrix should empty the dieMatrix', async () => {
+        const { port1, port2 } = new MessageChannel();
+
+        const worker = new RenderWorker();
+        worker.updateMatrix([1, 2, 3]);
+        expose(worker, port1);
+
+        const wrappedWorker = wrap<RenderWorker>(port2);
+
+        await wrappedWorker.emptyMatrix();
+
+        const updatedMatrix = await wrappedWorker.dieMatrix;
+        expect(updatedMatrix.length).toEqual(0);
     });
 });

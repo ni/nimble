@@ -6,7 +6,6 @@ describe('MatrixRenderer worker:', () => {
     let remoteWorker: Remote<RenderWorker>;
 
     beforeEach(async () => {
-        // Directly create a RenderWorker instance using the new utility function
         remoteWorker = await createMatrixRenderer();
     });
 
