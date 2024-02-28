@@ -244,16 +244,16 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('updating hidden attribute sets/removes ".hidden-option" class', async () => {
+    it('updating hidden attribute sets/removes visually-hidden attribute', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         await waitForUpdatesAsync();
-        const option = element.options[0]!;
+        const option = element.options[0]! as ListOption;
         option.hidden = true;
-        expect(option.classList.contains('hidden-option')).toBeTrue();
+        expect(option.visuallyHidden).toBeTrue();
 
         option.hidden = false;
-        expect(option.classList.contains('hidden-option')).toBeFalse();
+        expect(option.visuallyHidden).toBeFalse();
 
         await disconnect();
     });
