@@ -1,19 +1,28 @@
+import { Remote, expose, wrap } from 'comlink';
 import { WaferMap } from '..';
 import { MatrixRenderer } from '../modules/matrix-renderer';
+import type { RenderWorker } from '../../../build/generate-workers/dist/esm/source/render-worker';
 
 describe('MatrixRenderer worker:', () => {
-    const wafermap = new WaferMap();
     let renderer: MatrixRenderer;
+    let messageChannel: MessageChannel;
+    let remoteWorker: Remote<RenderWorker>;
 
     beforeEach(() => {
+        // Initialize MatrixRenderer
+        const wafermap = new WaferMap();
         renderer = new MatrixRenderer(wafermap);
+
+        // Setup MessageChannel for tests
+        messageChannel = new MessageChannel();
+        expose(renderer.workerOne, messageChannel.port1);
+        remoteWorker = wrap(messageChannel.port2);
     });
 
     it('updateMatrix should update the dieMatrix', async () => {
         const testData: Iterable<number> = [4, 5, 6];
-        const worker = renderer.workerOne;
-        await worker.updateMatrix(testData);
-        const resolvedDieMatrix = await worker.dieMatrix;
+        await remoteWorker.updateMatrix(testData);
+        const resolvedDieMatrix = await remoteWorker.dieMatrix;
         expect(Array.from(resolvedDieMatrix)).toEqual(
             Array.from(Uint8Array.from(testData))
         );
@@ -21,10 +30,14 @@ describe('MatrixRenderer worker:', () => {
 
     it('emptyMatrix should empty the dieMatrix', async () => {
         const testData: Iterable<number> = [4, 5, 6];
-        const worker = renderer.workerOne;
-        await worker.updateMatrix(testData);
-        await worker.emptyMatrix();
-        const resolvedDieMatrix = await worker.dieMatrix;
+        await remoteWorker.updateMatrix(testData);
+        await remoteWorker.emptyMatrix();
+        const resolvedDieMatrix = await remoteWorker.dieMatrix;
         expect(resolvedDieMatrix.length).toEqual(0);
+    });
+
+    afterEach(() => {
+        messageChannel.port1.close();
+        messageChannel.port2.close();
     });
 });
