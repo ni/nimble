@@ -131,13 +131,13 @@ export const styles = css`
         );
     }
 
-    .column-divider.active {
+    .column-divider.active.resizable {
         display: block;
         z-index: ${ZIndexLevels.zIndex1};
     }
 
-    .header-container:hover .column-divider.left,
-    .header-container:hover .column-divider.right {
+    .header-container:hover .column-divider.left.resizable,
+    .header-container:hover .column-divider.right.resizable {
         display: block;
         z-index: ${ZIndexLevels.zIndex1};
     }

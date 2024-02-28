@@ -30,13 +30,18 @@ declare global {
  * Table column that maps values to icons / spinners
  */
 export class TableColumnIcon extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(
-        TableColumnEnumBase<
-        TableColumnEnumColumnConfig,
-        TableColumnIconValidator
-        >
-    )
+    TableColumnEnumBase<
+    TableColumnEnumColumnConfig,
+    TableColumnIconValidator
+    >
 ) {
+    public constructor() {
+        super();
+        this.columnInternals.resizingDisabled = true;
+        this.columnInternals.pixelWidth = 32;
+        this.columnInternals.minPixelWidth = 0;
+    }
+
     public override createValidator(): TableColumnIconValidator {
         return new TableColumnIconValidator(this.columnInternals);
     }

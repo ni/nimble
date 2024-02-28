@@ -24,6 +24,7 @@ export const template = html<TableHeader>`
                 class="sort-indicator"
                 title="${x => tableColumnHeaderSortedAscendingLabel.getValueFor(x)}"
                 aria-hidden="true"
+                ?hidden="${x => x.decorationsHidden}"
             ></${iconArrowUpTag}>
         `)}
         ${when(x => x.sortDirection === TableColumnSortDirection.descending, html<TableHeader>`
@@ -31,6 +32,7 @@ export const template = html<TableHeader>`
                 class="sort-indicator"
                 title="${x => tableColumnHeaderSortedDescendingLabel.getValueFor(x)}"
                 aria-hidden="true"
+                ?hidden="${x => x.decorationsHidden}"
             ></${iconArrowDownTag}>
         `)}
         ${when(x => x.isGrouped, html<TableHeader>`
@@ -39,6 +41,7 @@ export const template = html<TableHeader>`
                 title="${x => tableColumnHeaderGroupedLabel.getValueFor(x)}"
                 role="img"
                 aria-label="${x => tableColumnHeaderGroupedLabel.getValueFor(x)}"
+                ?hidden="${x => x.decorationsHidden}"
             ></${iconTwoSquaresInBracketsTag}>
         `)}
     </template>
