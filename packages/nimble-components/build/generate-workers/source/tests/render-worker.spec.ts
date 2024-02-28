@@ -12,13 +12,6 @@ describe('RenderWorker with MessageChannel', () => {
     });
 
     it('updateMatrix should update the dieMatrix', async () => {
-        const { port1, port2 } = new MessageChannel();
-
-        const worker = new RenderWorker();
-        expose(worker, port1);
-
-        const wrappedWorker = wrap<RenderWorker>(port2);
-
         const testData: Iterable<number> = [4, 5, 6];
         await wrappedWorker.updateMatrix(testData);
 
@@ -27,14 +20,6 @@ describe('RenderWorker with MessageChannel', () => {
     });
 
     it('emptyMatrix should empty the dieMatrix', async () => {
-        const { port1, port2 } = new MessageChannel();
-
-        const worker = new RenderWorker();
-        worker.updateMatrix([1, 2, 3]);
-        expose(worker, port1);
-
-        const wrappedWorker = wrap<RenderWorker>(port2);
-
         await wrappedWorker.emptyMatrix();
 
         const updatedMatrix = await wrappedWorker.dieMatrix;
