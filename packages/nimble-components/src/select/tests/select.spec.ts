@@ -788,5 +788,11 @@ describe('Select', () => {
             expect(element.value).toBe('two');
             expect(element.selectedIndex).toBe(1);
         });
+
+        it('can update selection by using text of an option', async () => {
+            await pageObject.selectOptionByDisplayText('Two');
+            expect(element.value).toBe('two');
+            expect(element.selectedIndex).toBe(1);
+        });
     });
 });
