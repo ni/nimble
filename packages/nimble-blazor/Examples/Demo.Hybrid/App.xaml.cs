@@ -1,11 +1,10 @@
-﻿namespace Demo.Hybrid
-{
-    using System.Windows;
+﻿using System.Windows;
 
-    /// <summary>
-    /// Interaction logic for App.xaml.
-    /// </summary>
-    public partial class App : Application
-    {
-    }
+namespace Demo.Hybrid;
+
+/// <summary>
+/// Interaction logic for App.xaml.
+/// </summary>
+public partial class App : Application
+{
 }

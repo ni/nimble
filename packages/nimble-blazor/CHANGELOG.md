@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 22 Feb 2024 01:13:03 GMT and should not be manually modified.
+This log was last generated on Tue, 27 Feb 2024 00:13:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.3.8
+
+Tue, 27 Feb 2024 00:13:05 GMT
+
+### Patches
+
+- Uptake new code analyzer rules, minor code cleanup ([ni/nimble@c60a533](https://github.com/ni/nimble/commit/c60a5334c62dd0bb769e652076c34d0b50c8c34c))
 
 ## 14.3.1
 

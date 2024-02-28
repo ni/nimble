@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 23 Feb 2024 00:08:44 GMT and should not be manually modified.
+This log was last generated on Mon, 26 Feb 2024 22:26:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.6.8
+
+Mon, 26 Feb 2024 22:26:36 GMT
+
+### Patches
+
+- Update usage of Intl.NumberFormat options ([ni/nimble@d74f49e](https://github.com/ni/nimble/commit/d74f49e65f2c63ef9eca571d9470b2a9d5c5d380))
+
+## 21.6.7
+
+Fri, 23 Feb 2024 22:56:07 GMT
+
+### Patches
+
+- Fix bug in Firefox where title on spinner isn't always displayed as expected ([ni/nimble@1e5b10c](https://github.com/ni/nimble/commit/1e5b10c7a247e13dcece70496b5ccbae322075a3))
+
+## 21.6.6
+
+Fri, 23 Feb 2024 22:17:56 GMT
+
+### Patches
+
+- Fix spacing between error text and component ([ni/nimble@c6e803c](https://github.com/ni/nimble/commit/c6e803caaa9757f7584281f096a94c4d58ef194d))
+
+## 21.6.5
+
+Fri, 23 Feb 2024 21:23:18 GMT
+
+### Patches
+
+- Only handle close events coming from dialog element ([ni/nimble@c1f4f8f](https://github.com/ni/nimble/commit/c1f4f8fb9bbb889608f1d2930f7a29d55fa31c79))
 
 ## 21.6.4
 
