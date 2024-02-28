@@ -651,6 +651,8 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     public override selectNextOption(): void {
+        // don't call super.selectNextOption as that relies on side-effecty
+        // behavior to not select disabled option (which no longer works)
         for (let i = this.selectedIndex + 1; i < this.options.length; i++) {
             if (!this.options[i]?.disabled) {
                 this.selectedIndex = i;
@@ -660,6 +662,8 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     public override selectPreviousOption(): void {
+        // don't call super.selectPreviousOption as that relies on side-effecty
+        // behavior to not select disabled option (which no longer works)
         for (let i = this.selectedIndex - 1; i >= 0; i--) {
             if (!this.options[i]?.disabled) {
                 this.selectedIndex = i;
