@@ -8,7 +8,6 @@ import { expose } from 'comlink';
  * This setup is used in the wafer-map component to perform heavy computational duties
  */
 export class MatrixRenderer {
-    public worker!: number;
     public dieMatrix: Uint8Array = Uint8Array.from([]);
 
     public constructor() {
