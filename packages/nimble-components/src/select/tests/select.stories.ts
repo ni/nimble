@@ -76,6 +76,8 @@ It is recommended that if the \`Select\` has 15 or fewer options that you use th
 
 const placeholderDescription = `
 To display placeholder text within the \`Select\` you must provide an option that has the \`disabled\`, \`selected\` and \`hidden\` attributes set. This option will not be available in the dropdown, and its contents will be used as the placeholder text.
+
+Any `Select` without a default selected option should provide placeholder text. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Use sentence casing and don't include punctuation at the end of the prompt.
 `;
 
 const metadata: Meta<SelectArgs> = {
