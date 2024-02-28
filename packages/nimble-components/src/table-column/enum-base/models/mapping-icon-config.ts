@@ -9,6 +9,7 @@ export interface IconView {
 
 // Create an empty template containing only a space because creating a ViewTemplate
 // with an empty string throws an exception at runtime.
+// prettier-ignore
 const emptyTemplate = html<IconView>` `;
 
 const createIconTemplate = (
