@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 28 Feb 2024 19:35:04 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Feb 2024 21:22:49 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.7.1
+
+Wed, 28 Feb 2024 21:22:49 GMT
+
+### Patches
+
+- Create web worker class for future faster rendering wafer map ([ni/nimble@5269352](https://github.com/ni/nimble/commit/52693524c553f3b115e6c1004c902d10e7dd4050))
 
 ## 21.7.0
 
