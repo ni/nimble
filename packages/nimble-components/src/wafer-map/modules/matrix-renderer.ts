@@ -9,7 +9,7 @@ import type { RenderWorker } from '../../../build/generate-workers/dist/esm/sour
 export class MatrixRenderer {
     private static workerInstance: Remote<RenderWorker> | null = null;
 
-    public constructor(private readonly wafermap: WaferMap) { }
+    public constructor(private readonly wafermap: WaferMap) {}
 
     private static createWorker(): Remote<RenderWorker> {
         const blob = new Blob([workerCode], { type: 'text/javascript' });
