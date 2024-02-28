@@ -30,7 +30,9 @@ prepareDirectory(workersDirectory);
 const modulePath: string = resolveModulePath(renderModuleName);
 const sourceCode: string = fs.readFileSync(modulePath, 'utf-8');
 
-const fileContent: string = `// eslint-disable-next-line no-template-curly-in-string\nexport const workerCode = ${JSON.stringify(sourceCode)};`;
+const fileContent: string = `// eslint-disable-next-line no-template-curly-in-string
+export const workerCode = ${JSON.stringify(sourceCode)};
+`;
 
 const renderFilePath: string = path.resolve(workersDirectory, 'render-worker.ts');
 
