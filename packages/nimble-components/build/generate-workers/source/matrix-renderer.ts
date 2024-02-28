@@ -10,9 +10,6 @@ import { expose } from 'comlink';
 export class MatrixRenderer {
     public dieMatrix: Uint8Array = Uint8Array.from([]);
 
-    public constructor() {
-    }
-
     public emptyMatrix(): void {
         this.dieMatrix = Uint8Array.from([]);;
     }
