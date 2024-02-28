@@ -222,6 +222,7 @@ describe('Table', () => {
             await waitForUpdatesAsync();
             const span = document.createElement('span');
             span.textContent = headerContents;
+            element.columns[0]!.textContent = '';
             element.columns[0]!.appendChild(span);
             pageObject.dispatchEventToHeader(0, new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
