@@ -9,11 +9,9 @@ describe('MatrixRenderer worker:', () => {
     let remoteWorker: Remote<RenderWorker>;
 
     beforeEach(() => {
-        // Initialize MatrixRenderer
         const wafermap = new WaferMap();
         renderer = new MatrixRenderer(wafermap);
 
-        // Setup MessageChannel for tests
         messageChannel = new MessageChannel();
         expose(renderer.workerOne, messageChannel.port1);
         remoteWorker = wrap(messageChannel.port2);
