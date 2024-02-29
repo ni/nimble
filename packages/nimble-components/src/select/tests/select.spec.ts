@@ -231,6 +231,7 @@ describe('Select', () => {
 
             element.value = '0';
             await waitForUpdatesAsync();
+            await waitForUpdatesAsync(); // second wait is necessary because scrolling is queued with requestAnimationFrame
 
             expect(element.scrollableRegion.scrollTop).toBeCloseTo(4);
 
