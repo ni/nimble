@@ -5,17 +5,32 @@ import {
 } from 'prosemirror-markdown';
 import type { Node } from 'prosemirror-model';
 
+interface Nodes {
+    [key: string]: (
+        state: MarkdownSerializerState,
+        node: Node,
+        parent: Node,
+        index: number
+    ) => void;
+}
+
 /**
  * Provides markdown serializer for rich text components
  */
 export class RichTextMarkdownSerializer {
-    private static readonly markdownSerializer = this.initializeMarkdownSerializerForTipTap();
+    private readonly markdownSerializer: MarkdownSerializer;
 
-    public static serializeDOMToMarkdown(doc: Node): string {
+    public constructor(mentionList: string[]) {
+        this.markdownSerializer = this.initializeMarkdownSerializerForTipTap(mentionList);
+    }
+
+    public serializeDOMToMarkdown(doc: Node): string {
         return this.markdownSerializer.serialize(doc);
     }
 
-    private static initializeMarkdownSerializerForTipTap(): MarkdownSerializer {
+    private initializeMarkdownSerializerForTipTap(
+        mentionList: string[]
+    ): MarkdownSerializer {
         /**
          * orderedList Node is getting 'order' attribute which it is not present in the
          * tip-tap orderedList Node and having start instead of order, Changed it to start (nodes.attrs.start)
@@ -36,12 +51,24 @@ export class RichTextMarkdownSerializer {
         };
 
         /**
+         * Same as of auto link serialization https://github.com/ProseMirror/prosemirror-markdown/blob/3e5a5d02f7c1b9336744740149767ee1dc4e954d/src/to_markdown.ts#L136,
+         * href been extracted from the mention node and serialized it in between '<>' angular brackets.
+         */
+        const mentionNode = function mention(
+            state: MarkdownSerializerState,
+            node: Node
+        ): void {
+            const href = node.attrs.href as string;
+            state.write(`<${href}>`);
+        };
+
+        /**
          * Internally Tiptap editor creates it own schema ( Nodes AND Marks ) based on the extensions ( Here Starter Kit is used for Bold, italic, orderedList and
          * bulletList extensions) and defaultMarkdownSerializer uses schema from prosemirror-markdown to serialize the markdown.
          * So, there is variations in the nodes and marks name (Eg. 'ordered_list' in prosemirror-markdown schema whereas 'orderedList' in tip tap editor schema),
          * To fix up this reassigned the respective nodes and marks with tip-tap editor schema.
          */
-        const nodes = {
+        const nodes: Nodes = {
             bulletList: defaultMarkdownSerializer.nodes.bullet_list!,
             listItem: defaultMarkdownSerializer.nodes.list_item!,
             orderedList: orderedListNode,
@@ -50,6 +77,11 @@ export class RichTextMarkdownSerializer {
             text: defaultMarkdownSerializer.nodes.text!,
             hardBreak: defaultMarkdownSerializer.nodes.hard_break!
         };
+
+        mentionList.forEach(item => {
+            nodes[item] = mentionNode;
+        });
+
         const marks = {
             italic: defaultMarkdownSerializer.marks.em!,
             bold: defaultMarkdownSerializer.marks.strong!,
@@ -75,6 +107,7 @@ export class RichTextMarkdownSerializer {
                 expelEnclosingWhitespace: true
             }
         };
+
         return new MarkdownSerializer(nodes, marks);
     }
 }

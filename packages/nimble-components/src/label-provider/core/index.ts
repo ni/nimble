@@ -7,7 +7,9 @@ import {
     numericIncrementLabel,
     errorIconLabel,
     warningIconLabel,
-    informationIconLabel
+    informationIconLabel,
+    filterSearchLabel,
+    filterNoResultsLabel
 } from './label-tokens';
 
 declare global {
@@ -22,7 +24,9 @@ const supportedLabels = {
     numericIncrement: numericIncrementLabel,
     errorIcon: errorIconLabel,
     warningIcon: warningIconLabel,
-    informationIcon: informationIconLabel
+    informationIcon: informationIconLabel,
+    filterSearch: filterSearchLabel,
+    filterNoResults: filterNoResultsLabel
 } as const;
 
 /**
@@ -49,6 +53,12 @@ export class LabelProviderCore
     @attr({ attribute: 'information-icon' })
     public informationIcon: string | undefined;
 
+    @attr({ attribute: 'filter-search' })
+    public filterSearch: string | undefined;
+
+    @attr({ attribute: 'filter-no-results' })
+    public filterNoResults: string | undefined;
+
     protected override readonly supportedLabels = supportedLabels;
 }
 
@@ -59,4 +69,4 @@ const nimbleLabelProviderCore = LabelProviderCore.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleLabelProviderCore());
-export const labelProviderCoreTag = DesignSystem.tagFor(LabelProviderCore);
+export const labelProviderCoreTag = 'nimble-label-provider-core';

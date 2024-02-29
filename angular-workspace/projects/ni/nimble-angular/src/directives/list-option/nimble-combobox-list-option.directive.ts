@@ -1,6 +1,5 @@
-import { Directive, ElementRef, Host, Inject, Input, Optional, Renderer2, AfterViewInit, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Host, Inject, Input, Optional, AfterViewInit, OnDestroy } from '@angular/core';
 import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
-import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleComboboxControlValueAccessorDirective } from '../combobox/nimble-combobox-control-value-accessor.directive';
 
 /**
@@ -10,14 +9,6 @@ import { NimbleComboboxControlValueAccessorDirective } from '../combobox/nimble-
     selector: 'nimble-list-option'
 })
 export class NimbleComboboxListOptionDirective implements AfterViewInit, OnDestroy {
-    public get disabled(): boolean {
-        return this.elementRef.nativeElement.disabled;
-    }
-
-    @Input() public set disabled(value: BooleanValueOrAttribute) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
-    }
-
     /**
      * @description
      * Tracks the value bound to the option element.
@@ -34,7 +25,6 @@ export class NimbleComboboxListOptionDirective implements AfterViewInit, OnDestr
 
     public constructor(
         private readonly elementRef: ElementRef<ListOption>,
-        private readonly renderer: Renderer2,
         @Inject(NimbleComboboxControlValueAccessorDirective) @Optional() @Host() private readonly combobox?: NimbleComboboxControlValueAccessorDirective
     ) { }
 

@@ -3,23 +3,22 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using NimbleBlazor;
 
-namespace Demo.Shared
+namespace Demo.Shared;
+
+/// <summary>
+/// The MainLayout Component.
+/// </summary>
+public partial class MainLayout
 {
-    /// <summary>
-    /// The MainLayout Component.
-    /// </summary>
-    public partial class MainLayout
+    private Theme Theme { get; set; } = Theme.Light;
+
+    public ErrorBoundary? ErrorBoundary { get; set; }
+
+    [Inject]
+    public IJSRuntime? JSRuntime { get; set; }
+
+    protected override void OnParametersSet()
     {
-        private Theme Theme { get; set; } = Theme.Light;
-
-        public ErrorBoundary? ErrorBoundary { get; set; }
-
-        [Inject]
-        public IJSRuntime? JSRuntime { get; set; }
-
-        protected override void OnParametersSet()
-        {
-            ErrorBoundary?.Recover();
-        }
+        ErrorBoundary?.Recover();
     }
 }

@@ -1,8 +1,104 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 06 Nov 2023 23:03:00 GMT and should not be manually modified.
+This log was last generated on Tue, 27 Feb 2024 00:13:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.3.8
+
+Tue, 27 Feb 2024 00:13:05 GMT
+
+### Patches
+
+- Uptake new code analyzer rules, minor code cleanup ([ni/nimble@c60a533](https://github.com/ni/nimble/commit/c60a5334c62dd0bb769e652076c34d0b50c8c34c))
+
+## 14.3.1
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Align nuget and npm package versions ([ni/nimble@bb9f7fc](https://github.com/ni/nimble/commit/bb9f7fcf5aeac256fe9c4bf39c782f64c26d1c52))
+
+## 14.3.0
+
+Wed, 21 Feb 2024 23:32:45 GMT
+
+### Minor changes
+
+- Add support for delayed hierarchy in the table ([ni/nimble@ff99d91](https://github.com/ni/nimble/commit/ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d))
+
+## 14.2.0
+
+Mon, 19 Feb 2024 16:59:58 GMT
+
+### Minor changes
+
+- Blazor filterable Select ([ni/nimble@315917c](https://github.com/ni/nimble/commit/315917c5cf3768d0dcaf3901eef0087c5299832e))
+
+## 14.1.0
+
+Thu, 08 Feb 2024 19:42:05 GMT
+
+### Minor changes
+
+- Create Wafer Map Blazor Component ([ni/nimble@5c8cf7b](https://github.com/ni/nimble/commit/5c8cf7be5e962dee7518e9e27ccf2a14315d84a7))
+
+## 14.0.0
+
+Tue, 06 Feb 2024 15:30:34 GMT
+
+### Major changes
+
+- BREAKING CHANGE: Nimble Blazor Data bindable property changed to SetDataAsync method . See Nimble Blazor README for usage info. ([ni/nimble@fc0d7f6](https://github.com/ni/nimble/commit/fc0d7f686aa4dca6232c949a765e5b201bf8fc58))
+
+## 13.2.0
+
+Sat, 27 Jan 2024 17:56:18 GMT
+
+### Minor changes
+
+- Adding Blazor support for table data hierarchy ([ni/nimble@39bd1f8](https://github.com/ni/nimble/commit/39bd1f821cd5394c75187abbcf3c3dcc9b3a1572))
+
+## 13.1.4
+
+Wed, 24 Jan 2024 00:57:02 GMT
+
+### Patches
+
+- Updating package versions ([ni/nimble@cb516b7](https://github.com/ni/nimble/commit/cb516b7b5b7334d2ef30319b8f8c483df214c81e))
+
+## 13.1.0
+
+Mon, 22 Jan 2024 21:39:06 GMT
+
+### Minor changes
+
+- Blazor components for byte unit and volt unit ([ni/nimble@e3325a4](https://github.com/ni/nimble/commit/e3325a4b7847ef4b135321ada1ccc753a1006b35))
+
+## 13.0.1
+
+Mon, 22 Jan 2024 15:41:43 GMT
+
+### Patches
+
+- Update Blazor mapping base class ([ni/nimble@e91fdcd](https://github.com/ni/nimble/commit/e91fdcd3ece03166d22a148a291a72ce7a184c5d))
+
+## 13.0.0
+
+Fri, 19 Jan 2024 22:22:02 GMT
+
+### Major changes
+
+- Introducing data hierarchy for table. Renamed 'groupCollapseAll' on table label provider to 'collapseAll' ([ni/nimble@398b7ab](https://github.com/ni/nimble/commit/398b7ab7e2be2597de26e15e0ee463df4a02f228))
+
+## 12.7.0
+
+Mon, 11 Dec 2023 19:32:21 GMT
+
+### Minor changes
+
+- Add ContentEditable property to anchor ([ni/nimble@487c344](https://github.com/ni/nimble/commit/487c3440588f7b331ea2e90131e41bbf4d4d84f0))
 
 ## 12.5.8
 

@@ -17,8 +17,6 @@ export class NimbleTreeViewDirective {
         return this.elementRef.nativeElement.selectionMode;
     }
 
-    // selectionMode property intentionally maps to the selection-mode attribute
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('selection-mode') public set selectionMode(value: TreeViewSelectionMode) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'selectionMode', value);
     }

@@ -11,6 +11,11 @@ import type {
 import { ColumnValidator } from '../models/column-validator';
 
 export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
+declare global {
+    interface HTMLElementTagNameMap {
+        [tableColumnEmptyCellViewTag]: TableCellView;
+    }
+}
 /**
  * Simple empty cell view for testing
  */
@@ -20,6 +25,11 @@ export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-
 class EmptyTableCellView extends TableCellView {}
 
 export const tableColumnEmptyGroupHeaderViewTag = 'nimble-test-table-column-empty-group-header-view';
+declare global {
+    interface HTMLElementTagNameMap {
+        [tableColumnEmptyGroupHeaderViewTag]: EmptyTableGroupHeaderView;
+    }
+}
 /**
  * Simple empty group header view for testing
  */
@@ -29,6 +39,11 @@ export const tableColumnEmptyGroupHeaderViewTag = 'nimble-test-table-column-empt
 class EmptyTableGroupHeaderView extends TableGroupHeaderView {}
 
 export const tableColumnEmptyTag = 'nimble-test-table-column-empty';
+declare global {
+    interface HTMLElementTagNameMap {
+        [tableColumnEmptyTag]: TableColumnEmpty;
+    }
+}
 /**
  * Simple empty table column for testing
  */
@@ -67,13 +82,12 @@ export class TestColumnValidator extends ColumnValidator<
     }
 }
 
+export const tableColumnValidationTestTag = 'nimble-test-table-column-validation';
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-test-table-column-validation': TableColumnValidationTest;
+        [tableColumnValidationTestTag]: TableColumnValidationTest;
     }
 }
-
-export const tableColumnValidationTestTag = 'nimble-test-table-column-validation';
 /**
  * Test column type used to verify column config validation.
  * The foo and bar properties are only considered valid when their values are true.

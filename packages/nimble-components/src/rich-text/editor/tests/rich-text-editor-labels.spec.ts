@@ -1,4 +1,5 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { richTextEditorTag, type RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { themeProviderTag, type ThemeProvider } from '../../../theme-provider';
@@ -7,8 +8,7 @@ import {
     labelProviderRichTextTag
 } from '../../../label-provider/rich-text';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
-import { LabelProvider, ToolbarButton } from '../testing/types';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import { ToolbarButton } from '../testing/types';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<ThemeProvider>> {
@@ -21,12 +21,7 @@ async function setup(): Promise<Fixture<ThemeProvider>> {
     );
 }
 
-const formattingButtons: {
-    name: string,
-    property: LabelProvider,
-    label: string,
-    toolbarButton: ToolbarButton
-}[] = [
+const formattingButtons = [
     {
         name: 'Bold',
         property: 'toggleBold',
@@ -51,7 +46,7 @@ const formattingButtons: {
         label: 'Customized Numbered List Label',
         toolbarButton: ToolbarButton.numberedList
     }
-];
+] as const;
 
 describe('Rich Text Editor with LabelProviderRichText', () => {
     let element: RichTextEditor;
@@ -59,8 +54,6 @@ describe('Rich Text Editor with LabelProviderRichText', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: RichTextEditorPageObject;
-    const focused: string[] = [];
-    const disabled: string[] = [];
 
     beforeEach(async () => {
         let themeProvider: ThemeProvider;
@@ -75,11 +68,9 @@ describe('Rich Text Editor with LabelProviderRichText', () => {
         await disconnect();
     });
 
-    for (const value of formattingButtons) {
-        const specType = getSpecTypeByNamedList(value, focused, disabled);
-        specType(
-            `uses correct label '${value.label}' for ${value.name} button`,
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
+    parameterizeSpec(formattingButtons, (spec, name, value) => {
+        spec(
+            `uses correct label for '${value.label}' for ${name} button`,
             async () => {
                 labelProvider[value.property] = value.label;
                 await waitForUpdatesAsync();
@@ -93,5 +84,5 @@ describe('Rich Text Editor with LabelProviderRichText', () => {
                 ).toBe(value.label);
             }
         );
-    }
+    });
 });

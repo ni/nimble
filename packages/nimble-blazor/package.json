@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-blazor",
-  "version": "12.5.16",
+  "version": "14.3.11",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
     "postinstall": "node build/generate-playwright-version-properties/source/index.js",
@@ -19,7 +19,8 @@
     "format:js": "eslint . --fix",
     "test": "dotnet test -c Release",
     "pack": "cross-env-shell dotnet pack NimbleBlazor -c Release -p:PackageVersion=$npm_package_version --output dist",
-    "invoke-publish": "npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
+    "invoke-publish": "npm run invoke-publish:clean-nuget && npm run pack && npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
+    "invoke-publish:clean-nuget": "rimraf --glob \"dist/*.nupkg\"",
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"dist/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
     "invoke-publish:npm": "echo \"noop command to swallow npm args\"",
     "copy-resources": "node build/copyNimbleResources.js"
@@ -44,10 +45,11 @@
     "@ni/eslint-config-javascript": "^4.2.0",
     "@ni/nimble-components": "*",
     "@ni/nimble-tokens": "*",
-    "playwright": "1.36.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "cross-env": "^7.0.3",
     "glob": "^8.1.0",
+    "playwright": "1.40.0",
+    "rimraf": "^5.0.5",
     "rollup": "^3.10.1"
   }
 }

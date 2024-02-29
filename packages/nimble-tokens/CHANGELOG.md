@@ -1,8 +1,64 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Thu, 02 Nov 2023 18:26:57 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Feb 2024 19:35:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.12.0
+
+Wed, 28 Feb 2024 19:35:04 GMT
+
+### Minor changes
+
+- Add new icons for resume, generate, stop, deploy, undeploy, and hide ([ni/nimble@f4f3f45](https://github.com/ni/nimble/commit/f4f3f45c9107ff6d6c964fea69cd48247d6595fe))
+
+## 6.11.1
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Align nuget and npm package versions ([ni/nimble@bb9f7fc](https://github.com/ni/nimble/commit/bb9f7fcf5aeac256fe9c4bf39c782f64c26d1c52))
+
+## 6.11.0
+
+Wed, 21 Feb 2024 21:18:20 GMT
+
+### Minor changes
+
+- Add BodyEmphasized_2 font base token ([ni/nimble@4037b7c](https://github.com/ni/nimble/commit/4037b7c13da51926e6fbfd774a4da19cd75cb98e))
+
+## 6.10.1
+
+Fri, 16 Feb 2024 18:10:59 GMT
+
+### Patches
+
+- Inline sources into map files ([ni/nimble@2b6c327](https://github.com/ni/nimble/commit/2b6c327fd3bc4f49178ac370f695a8b941278c46))
+
+## 6.10.0
+
+Fri, 02 Feb 2024 21:51:03 GMT
+
+### Minor changes
+
+- New pause, play, stop, and external link icons. Updated running-arrow icon. ([ni/nimble@8ba4f05](https://github.com/ni/nimble/commit/8ba4f05ec0bd828265d2f74b16a278adf46db268))
+
+## 6.9.1
+
+Thu, 04 Jan 2024 16:50:24 GMT
+
+### Patches
+
+- Upgrade dependencies ([ni/nimble@341146c](https://github.com/ni/nimble/commit/341146ceef057386cea20419277073bd793270ef))
+
+## 6.9.0
+
+Thu, 07 Dec 2023 17:27:04 GMT
+
+### Minor changes
+
+- New icons for calendars and test plans ([ni/nimble@f4a4453](https://github.com/ni/nimble/commit/f4a4453cc34b004f34d4ffed5a9c674427560597))
 
 ## 6.8.0
 

@@ -44,6 +44,4 @@ const tableColumnDurationTextGroupHeaderView = TableColumnDurationTextGroupHeade
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(tableColumnDurationTextGroupHeaderView());
-export const tableColumnDurationTextGroupHeaderViewTag = DesignSystem.tagFor(
-    TableColumnDurationTextGroupHeaderView
-);
+export const tableColumnDurationTextGroupHeaderViewTag = 'nimble-table-column-duration-text-group-header-view';

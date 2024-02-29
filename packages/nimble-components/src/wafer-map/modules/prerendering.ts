@@ -1,7 +1,12 @@
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
 import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 import { WaferMapColorScaleMode } from '../types';
-import type { Dimensions, DieRenderInfo, WaferMapColorScale } from '../types';
+import type {
+    Dimensions,
+    DieRenderInfo,
+    WaferMapColorScale,
+    WaferMapDie
+} from '../types';
 import type { WaferMap } from '..';
 import type { DataManager } from './data-manager';
 
@@ -47,42 +52,37 @@ export class Prerendering {
             this.wafermap.colorScale,
             this.wafermap.colorScaleMode
         );
+        this._diesRenderInfo = this.wafermap.dies
+            .map(die => this.computeDieRenderInfo(die))
+            .filter(info => info !== null) as DieRenderInfo[];
+    }
 
+    private computeDieRenderInfo(die: WaferMapDie): DieRenderInfo | null {
         const margin = this.dataManager.margin;
-        const horizontalScale = this.dataManager.horizontalScale;
-        const verticalScale = this.dataManager.verticalScale;
 
-        const colorScaleMode = this.wafermap.colorScaleMode;
-        const highlightedValues = this.wafermap.highlightedValues;
-        const maxCharacters = this.wafermap.maxCharacters;
-        const dieLabelsHidden = this.wafermap.dieLabelsHidden;
-        const dieLabelsSuffix = this.wafermap.dieLabelsSuffix;
-        this._diesRenderInfo = [];
-        for (const die of this.wafermap.dies) {
-            const scaledX = horizontalScale(die.x);
-            if (scaledX === undefined) {
-                continue;
-            }
-            const scaledY = verticalScale(die.y);
-            if (scaledY === undefined) {
-                continue;
-            }
-            this._diesRenderInfo.push({
-                x: scaledX + margin.right,
-                y: scaledY + margin.top,
-                fillStyle: this.calculateFillStyle(
-                    die.value,
-                    colorScaleMode,
-                    highlightedValues
-                ),
-                text: this.buildLabel(
-                    die.value,
-                    maxCharacters,
-                    dieLabelsHidden,
-                    dieLabelsSuffix
-                )
-            });
+        const scaledX = this.dataManager.horizontalScale(die.x);
+        const scaledY = this.dataManager.verticalScale(die.y);
+
+        if (scaledX === undefined || scaledY === undefined) {
+            return null;
         }
+
+        return {
+            x: scaledX + margin.right,
+            y: scaledY + margin.top,
+            fillStyle: this.calculateFillStyle(
+                die.value,
+                this.wafermap.colorScaleMode,
+                this.wafermap.highlightedTags,
+                die.tags
+            ),
+            text: this.buildLabel(
+                die.value,
+                this.wafermap.maxCharacters,
+                this.wafermap.dieLabelsHidden,
+                this.wafermap.dieLabelsSuffix
+            )
+        };
     }
 
     private calculateLabelsFontSize(
@@ -131,13 +131,19 @@ export class Prerendering {
     }
 
     private calculateOpacity(
-        selectedValue: string,
-        highlightedValues: Readonly<string[]>
+        dieTags?: string[],
+        highlightedTags?: string[]
     ): number {
-        return highlightedValues.length > 0
-            && !highlightedValues.some(dieValue => dieValue === selectedValue)
-            ? this.nonHighlightedOpacity
-            : 1;
+        if (!highlightedTags || highlightedTags.length === 0) {
+            return 1;
+        }
+        const highlightedSet = new Set(highlightedTags);
+
+        if (dieTags?.some(dieTag => highlightedSet.has(dieTag))) {
+            return 1;
+        }
+
+        return this.nonHighlightedOpacity;
     }
 
     private isColorScaleLinear(
@@ -155,7 +161,8 @@ export class Prerendering {
     private calculateFillStyle(
         value: string,
         colorScaleMode: WaferMapColorScaleMode,
-        highlightedValues: Readonly<string[]>
+        highlightedTags?: string[],
+        dieTags?: string[]
     ): string {
         let colorValue: string = this.emptyDieColor;
         if (this.dieHasData(value)) {
@@ -174,11 +181,12 @@ export class Prerendering {
         if (rgbColor === null) {
             return this.emptyDieColor;
         }
+
         rgbColor = new ColorRGBA64(
             rgbColor.r,
             rgbColor.g,
             rgbColor.b,
-            this.calculateOpacity(value, highlightedValues)
+            this.calculateOpacity(dieTags, highlightedTags)
         );
         return rgbColor.toStringWebRGBA();
     }

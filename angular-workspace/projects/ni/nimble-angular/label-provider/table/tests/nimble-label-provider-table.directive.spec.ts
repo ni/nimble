@@ -15,6 +15,7 @@ describe('Nimble Label Provider Table', () => {
     const label9 = 'String 9';
     const label10 = 'String 10';
     const label11 = 'String 11';
+    const label12 = 'String 12';
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -72,9 +73,9 @@ describe('Nimble Label Provider Table', () => {
             expect(nativeElement.groupExpand).toBeUndefined();
         });
 
-        it('has expected defaults for groupsCollapseAll', () => {
-            expect(directive.groupsCollapseAll).toBeUndefined();
-            expect(nativeElement.groupsCollapseAll).toBeUndefined();
+        it('has expected defaults for collapseAll', () => {
+            expect(directive.collapseAll).toBeUndefined();
+            expect(nativeElement.collapseAll).toBeUndefined();
         });
 
         it('has expected defaults for columnHeaderSortedAscending', () => {
@@ -106,6 +107,11 @@ describe('Nimble Label Provider Table', () => {
             expect(directive.rowOperationColumn).toBeUndefined();
             expect(nativeElement.rowOperationColumn).toBeUndefined();
         });
+
+        it('has expected defaults for rowLoading', () => {
+            expect(directive.rowLoading).toBeUndefined();
+            expect(nativeElement.rowLoading).toBeUndefined();
+        });
     });
 
     describe('with template string values', () => {
@@ -116,13 +122,14 @@ describe('Nimble Label Provider Table', () => {
                     column-header-grouped="${label2}"
                     group-collapse="${label3}"
                     group-expand="${label4}"
-                    groups-collapse-all="${label5}"
+                    collapse-all="${label5}"
                     column-header-sorted-ascending="${label6}"
                     column-header-sorted-descending="${label7}"
                     select-all="${label8}"
                     group-select-all="${label9}"
                     row-select="${label10}"
                     row-operation-column="${label11}"
+                    row-loading="${label12}"
                     >
                 </nimble-label-provider-table>
             `
@@ -167,9 +174,9 @@ describe('Nimble Label Provider Table', () => {
             expect(nativeElement.groupExpand).toBe(label4);
         });
 
-        it('will use template string values for groupsCollapseAll', () => {
-            expect(directive.groupsCollapseAll).toBe(label5);
-            expect(nativeElement.groupsCollapseAll).toBe(label5);
+        it('will use template string values for collapseAll', () => {
+            expect(directive.collapseAll).toBe(label5);
+            expect(nativeElement.collapseAll).toBe(label5);
         });
 
         it('will use template string values for columnHeaderSortedAscending', () => {
@@ -201,6 +208,11 @@ describe('Nimble Label Provider Table', () => {
             expect(directive.rowOperationColumn).toBe(label11);
             expect(nativeElement.rowOperationColumn).toBe(label11);
         });
+
+        it('will use template string values for rowLoading', () => {
+            expect(directive.rowLoading).toBe(label12);
+            expect(nativeElement.rowLoading).toBe(label12);
+        });
     });
 
     describe('with property bound values', () => {
@@ -211,13 +223,14 @@ describe('Nimble Label Provider Table', () => {
                     [columnHeaderGrouped]="columnHeaderGrouped"
                     [groupCollapse]="groupCollapse"
                     [groupExpand]="groupExpand"
-                    [groupsCollapseAll]="groupsCollapseAll"
+                    [collapseAll]="collapseAll"
                     [columnHeaderSortedAscending]="columnHeaderSortedAscending"
                     [columnHeaderSortedDescending]="columnHeaderSortedDescending"
                     [selectAll]="selectAll"
                     [groupSelectAll]="groupSelectAll"
                     [rowSelect]="rowSelect"
                     [rowOperationColumn]="rowOperationColumn"
+                    [rowLoading]="rowLoading"
                     >
                 </nimble-label-provider-table>
             `
@@ -229,13 +242,14 @@ describe('Nimble Label Provider Table', () => {
             public columnHeaderGrouped = label1;
             public groupCollapse = label1;
             public groupExpand = label1;
-            public groupsCollapseAll = label1;
+            public collapseAll = label1;
             public columnHeaderSortedAscending = label1;
             public columnHeaderSortedDescending = label1;
             public selectAll = label1;
             public groupSelectAll = label1;
             public rowSelect = label1;
             public rowOperationColumn = label1;
+            public rowLoading = label1;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -297,15 +311,15 @@ describe('Nimble Label Provider Table', () => {
             expect(nativeElement.groupExpand).toBe(label2);
         });
 
-        it('can be configured with property binding for groupsCollapseAll', () => {
-            expect(directive.groupsCollapseAll).toBe(label1);
-            expect(nativeElement.groupsCollapseAll).toBe(label1);
+        it('can be configured with property binding for collapseAll', () => {
+            expect(directive.collapseAll).toBe(label1);
+            expect(nativeElement.collapseAll).toBe(label1);
 
-            fixture.componentInstance.groupsCollapseAll = label2;
+            fixture.componentInstance.collapseAll = label2;
             fixture.detectChanges();
 
-            expect(directive.groupsCollapseAll).toBe(label2);
-            expect(nativeElement.groupsCollapseAll).toBe(label2);
+            expect(directive.collapseAll).toBe(label2);
+            expect(nativeElement.collapseAll).toBe(label2);
         });
 
         it('can be configured with property binding for columnHeaderSortedAscending', () => {
@@ -373,6 +387,17 @@ describe('Nimble Label Provider Table', () => {
             expect(directive.rowOperationColumn).toBe(label2);
             expect(nativeElement.rowOperationColumn).toBe(label2);
         });
+
+        it('can be configured with property binding for rowLoading', () => {
+            expect(directive.rowLoading).toBe(label1);
+            expect(nativeElement.rowLoading).toBe(label1);
+
+            fixture.componentInstance.rowLoading = label2;
+            fixture.detectChanges();
+
+            expect(directive.rowLoading).toBe(label2);
+            expect(nativeElement.rowLoading).toBe(label2);
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -383,13 +408,14 @@ describe('Nimble Label Provider Table', () => {
                     [attr.column-header-grouped]="columnHeaderGrouped"
                     [attr.group-collapse]="groupCollapse"
                     [attr.group-expand]="groupExpand"
-                    [attr.groups-collapse-all]="groupsCollapseAll"
+                    [attr.collapse-all]="collapseAll"
                     [attr.column-header-sorted-ascending]="columnHeaderSortedAscending"
                     [attr.column-header-sorted-descending]="columnHeaderSortedDescending"
                     [attr.select-all]="selectAll"
                     [attr.group-select-all]="groupSelectAll"
                     [attr.row-select]="rowSelect"
                     [attr.row-operation-column]="rowOperationColumn"
+                    [attr.row-loading]="rowLoading"
                     >
                 </nimble-label-provider-table>
             `
@@ -401,13 +427,14 @@ describe('Nimble Label Provider Table', () => {
             public columnHeaderGrouped = label1;
             public groupCollapse = label1;
             public groupExpand = label1;
-            public groupsCollapseAll = label1;
+            public collapseAll = label1;
             public columnHeaderSortedAscending = label1;
             public columnHeaderSortedDescending = label1;
             public selectAll = label1;
             public groupSelectAll = label1;
             public rowSelect = label1;
             public rowOperationColumn = label1;
+            public rowLoading = label1;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -469,15 +496,15 @@ describe('Nimble Label Provider Table', () => {
             expect(nativeElement.groupExpand).toBe(label2);
         });
 
-        it('can be configured with attribute binding for groupsCollapseAll', () => {
-            expect(directive.groupsCollapseAll).toBe(label1);
-            expect(nativeElement.groupsCollapseAll).toBe(label1);
+        it('can be configured with attribute binding for collapseAll', () => {
+            expect(directive.collapseAll).toBe(label1);
+            expect(nativeElement.collapseAll).toBe(label1);
 
-            fixture.componentInstance.groupsCollapseAll = label2;
+            fixture.componentInstance.collapseAll = label2;
             fixture.detectChanges();
 
-            expect(directive.groupsCollapseAll).toBe(label2);
-            expect(nativeElement.groupsCollapseAll).toBe(label2);
+            expect(directive.collapseAll).toBe(label2);
+            expect(nativeElement.collapseAll).toBe(label2);
         });
 
         it('can be configured with attribute binding for columnHeaderSortedAscending', () => {
@@ -544,6 +571,17 @@ describe('Nimble Label Provider Table', () => {
 
             expect(directive.rowOperationColumn).toBe(label2);
             expect(nativeElement.rowOperationColumn).toBe(label2);
+        });
+
+        it('can be configured with attribute binding for rowLoading', () => {
+            expect(directive.rowLoading).toBe(label1);
+            expect(nativeElement.rowLoading).toBe(label1);
+
+            fixture.componentInstance.rowLoading = label2;
+            fixture.detectChanges();
+
+            expect(directive.rowLoading).toBe(label2);
+            expect(nativeElement.rowLoading).toBe(label2);
         });
     });
 });

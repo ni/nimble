@@ -46,7 +46,7 @@ export const styles = css`
                 /*
                     Not sure why but this is needed to get buttons with icons and buttons
                     without icons to align on the same line when the button is inline-flex
-                    See: https://github.com/microsoft/fast/issues/5414
+                    See: https://github.com/ni/nimble/issues/503
                 */ ''
             }
             vertical-align: middle;

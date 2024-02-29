@@ -1,8 +1,9 @@
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { DesignSystem } from '@microsoft/fast-foundation';
 import { observable } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
+import { RichText } from '../base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -13,7 +14,7 @@ declare global {
 /**
  * A nimble styled rich text viewer
  */
-export class RichTextViewer extends FoundationElement {
+export class RichTextViewer extends RichText {
     /**
      *
      * @public
@@ -27,6 +28,8 @@ export class RichTextViewer extends FoundationElement {
      */
     public viewer!: HTMLDivElement;
 
+    private mentionedHrefs: string[] = [];
+
     /**
      * @internal
      */
@@ -39,19 +42,34 @@ export class RichTextViewer extends FoundationElement {
      * @internal
      */
     public markdownChanged(): void {
-        if (this.$fastController.isConnected) {
-            this.updateView();
-        }
+        this.updateView();
+    }
+
+    /**
+     * @internal
+     */
+    public configurationChanged(): void {
+        this.updateView();
+    }
+
+    public getMentionedHrefs(): string[] {
+        return Array.from(this.mentionedHrefs);
     }
 
     private updateView(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
         if (this.markdown) {
-            const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
-                this.markdown
+            const parseResult = RichTextMarkdownParser.parseMarkdownToDOM(
+                this.markdown,
+                this.configuration?.parserMentionConfig
             );
-            this.viewer.replaceChildren(serializedContent);
+            this.viewer.replaceChildren(parseResult.fragment);
+            this.mentionedHrefs = parseResult.mentionedHrefs;
         } else {
             this.viewer.innerHTML = '';
+            this.mentionedHrefs = [];
         }
     }
 }
@@ -65,4 +83,4 @@ const nimbleRichTextViewer = RichTextViewer.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleRichTextViewer());
-export const richTextViewerTag = DesignSystem.tagFor(RichTextViewer);
+export const richTextViewerTag = 'nimble-rich-text-viewer';

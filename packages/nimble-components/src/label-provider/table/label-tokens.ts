@@ -11,10 +11,20 @@ export const tableGroupExpandLabel = DesignToken.create<string>({
     cssCustomPropertyName: null
 }).withDefault(tableLabelDefaults.tableGroupExpandLabel);
 
-export const tableGroupsCollapseAllLabel = DesignToken.create<string>({
-    name: 'table-groups-collapse-all-label',
+export const tableRowCollapseLabel = DesignToken.create<string>({
+    name: 'table-row-collapse-label',
     cssCustomPropertyName: null
-}).withDefault(tableLabelDefaults.tableGroupsCollapseAllLabel);
+}).withDefault(tableLabelDefaults.tableRowCollapseLabel);
+
+export const tableRowExpandLabel = DesignToken.create<string>({
+    name: 'table-row-expand-label',
+    cssCustomPropertyName: null
+}).withDefault(tableLabelDefaults.tableRowExpandLabel);
+
+export const tableCollapseAllLabel = DesignToken.create<string>({
+    name: 'table-collapse-all-label',
+    cssCustomPropertyName: null
+}).withDefault(tableLabelDefaults.tableCollapseAllLabel);
 
 export const tableCellActionMenuLabel = DesignToken.create<string>({
     name: 'table-cell-action-menu-label',
@@ -57,3 +67,8 @@ export const tableRowOperationColumnLabel = DesignToken.create<string>({
     name: 'table-row-operation-column-label',
     cssCustomPropertyName: null
 }).withDefault(tableLabelDefaults.tableRowOperationColumnLabel);
+
+export const tableRowLoadingLabel = DesignToken.create<string>({
+    name: 'table-row-loading-label',
+    cssCustomPropertyName: null
+}).withDefault(tableLabelDefaults.tableRowLoadingLabel);

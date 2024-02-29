@@ -28,4 +28,4 @@ const nimbleToolbar = Toolbar.compose<ToolbarOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleToolbar());
-export const toolbarTag = DesignSystem.tagFor(Toolbar);
+export const toolbarTag = 'nimble-toolbar';

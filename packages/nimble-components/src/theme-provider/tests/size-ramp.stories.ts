@@ -20,13 +20,14 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 const sizeRampTokenNames = (({
     smallPadding,
     mediumPadding,
-    standardPadding
-}) => ({ smallPadding, mediumPadding, standardPadding }))(tokenNames);
+    standardPadding,
+    largePadding
+}) => ({ smallPadding, mediumPadding, standardPadding, largePadding }))(
+    tokenNames
+);
 
 type TokenName = keyof typeof sizeRampTokenNames;
 const tokenNameKeys = Object.keys(sizeRampTokenNames) as TokenName[];
-
-const overviewText = 'Design Tokens representing the range of fixed sizes to use for spacing and layout. Use these tokens when no designated token exists for the purpose.';
 
 interface TokenArgs {
     propertyFormat: PropertyFormat;
@@ -34,12 +35,8 @@ interface TokenArgs {
 
 const metadata: Meta = {
     title: 'Tokens/Size Ramp',
-    tags: ['autodocs'],
     parameters: {
         docs: {
-            description: {
-                component: overviewText
-            },
             source: {
                 code: null
             }

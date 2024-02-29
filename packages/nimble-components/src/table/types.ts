@@ -41,12 +41,15 @@ export interface TableRecord {
 }
 
 /**
+ * @internal
+ *
  * Describes a hierarchical data structure that is used for
  * the internal representation of the data, and allows us to represent data with
  * parent-child relationships within Tanstack.
  */
 export interface TableNode<TRecord extends TableRecord = TableRecord> {
     subRows?: TableNode<TRecord>[];
+    originalIndex: number;
     clientRecord: TRecord;
 }
 
@@ -72,7 +75,31 @@ export interface TableValidity extends ValidityObject {
     readonly duplicateGroupIndex: boolean;
     readonly idFieldNameNotConfigured: boolean;
     readonly invalidColumnConfiguration: boolean;
+    readonly invalidParentIdConfiguration: boolean;
 }
+
+/**
+ * The hierarachy options for a record in the table.
+ */
+export interface TableSetRecordHierarchyOptions {
+    recordId: string;
+    options: TableRecordHierarchyOptions;
+}
+
+/**
+ * Describes the hierarchy options that can be configured for a record in the table.
+ */
+export interface TableRecordHierarchyOptions {
+    delayedHierarchyState: TableRecordDelayedHierarchyState;
+}
+
+export const TableRecordDelayedHierarchyState = {
+    none: undefined,
+    canLoadChildren: 'can-load-children',
+    loadingChildren: 'loading-children'
+} as const;
+export type TableRecordDelayedHierarchyState =
+    (typeof TableRecordDelayedHierarchyState)[keyof typeof TableRecordDelayedHierarchyState];
 
 export interface TableActionMenuToggleEventDetail {
     newState: boolean;
@@ -109,9 +136,9 @@ export type TableRowSelectionMode =
  * The possible selection states that the table or a table row can be in.
  */
 export const TableRowSelectionState = {
-    notSelected: 'notSelected',
+    notSelected: 'not-selected',
     selected: 'selected',
-    partiallySelected: 'partiallySelected'
+    partiallySelected: 'partially-selected'
 } as const;
 export type TableRowSelectionState =
     (typeof TableRowSelectionState)[keyof typeof TableRowSelectionState];
@@ -131,6 +158,15 @@ export interface TableRowSelectionToggleEventDetail {
  */
 export interface TableRowSelectionEventDetail {
     selectedRecordIds: string[];
+}
+
+/**
+ * Event detail type for row toggle events in the table.
+ */
+export interface TableRowExpansionToggleEventDetail {
+    oldState: boolean;
+    newState: boolean;
+    recordId: string;
 }
 
 /**
@@ -167,10 +203,12 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     record: TData;
     id: string;
     selectionState: TableRowSelectionState;
-    isGrouped: boolean;
+    isGroupRow: boolean;
     groupRowValue?: unknown;
     isExpanded: boolean;
     nestingLevel?: number;
-    leafItemCount?: number;
+    immediateChildCount?: number;
     groupColumn?: TableColumn;
+    isParentRow: boolean;
+    isLoadingChildren: boolean;
 }

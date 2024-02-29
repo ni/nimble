@@ -26,6 +26,7 @@ export abstract class LabelProviderBase<
     }
 
     public override disconnectedCallback(): void {
+        super.disconnectedCallback();
         this.propertyNotifier.unsubscribe(this);
         if (this.themeProvider) {
             for (const token of Object.values(this.supportedLabels)) {

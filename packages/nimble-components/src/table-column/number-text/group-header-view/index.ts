@@ -26,8 +26,7 @@ TableColumnNumberTextColumnConfig
     }
 
     private updateText(): void {
-        this.text = this.columnConfig?.formatter?.formatValue(this.groupHeaderValue)
-            ?? '';
+        this.text = this.columnConfig?.formatter?.format(this.groupHeaderValue) ?? '';
     }
 }
 
@@ -39,6 +38,4 @@ const tableColumnNumberTextGroupHeaderView = TableColumnNumberTextGroupHeaderVie
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(tableColumnNumberTextGroupHeaderView());
-export const tableColumnNumberTextGroupHeaderTag = DesignSystem.tagFor(
-    TableColumnNumberTextGroupHeaderView
-);
+export const tableColumnNumberTextGroupHeaderTag = 'nimble-table-column-number-text-group-header-view';

@@ -1,10 +1,8 @@
 import type { Meta, StoryFn } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { createStory } from '../../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
-    createStory
-} from '../../../utilities/tests/storybook';
-import {
     createMatrix,
     sharedMatrixParameters
 } from '../../../utilities/tests/matrix';
@@ -16,6 +14,8 @@ import {
     cssPropertyFromTokenName,
     tokenNames
 } from '../../../theme-provider/design-token-names';
+import { mappingUserTag } from '../../../mapping/user';
+import { richTextMentionUsersTag } from '../../../rich-text-mention/users';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Viewer',
@@ -28,7 +28,11 @@ export default metadata;
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <${richTextViewerTag} :markdown="${_ => richTextMarkdownString}"></${richTextViewerTag}>
+    <${richTextViewerTag} :markdown="${_ => richTextMarkdownString}">
+        <${richTextMentionUsersTag} pattern="^user:(.*)">
+            <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
+        </${richTextMentionUsersTag}>
+    </${richTextViewerTag}>
 `;
 
 const viewerSizingTestCase = (
@@ -43,6 +47,9 @@ const viewerSizingTestCase = (
             style="${widthStyle}; ${heightStyle}; outline: 1px dashed red;"
             :markdown="${_ => richTextMarkdownString}"
         >
+            <${richTextMentionUsersTag} pattern="^user:(.*)">
+                <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
+            </${richTextMentionUsersTag}>
         </${richTextViewerTag}>
     </div>
 `;

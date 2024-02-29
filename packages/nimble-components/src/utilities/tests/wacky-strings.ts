@@ -2,7 +2,6 @@ export const wackyStrings = [
     { name: '<button></button>' },
     { name: 'null' },
     { name: 'undefined' },
-    { name: 'null' },
     { name: 'NaN' },
     { name: '-Infinity' },
     { name: 'Infinity' },
@@ -18,4 +17,4 @@ export const wackyStrings = [
     { name: '中文 (Chinese characters)' },
     { name: 'Iñtërnâtiônàlizætiøn☃💩' },
     { name: '１' }
-];
+] as const;

@@ -1,0 +1,7 @@
+{
+    "extends": "../../tsconfig.json",
+    "include": ["source", "index.ts"],
+    "compilerOptions": {
+        "outDir": "./dist/esm"
+      }
+}

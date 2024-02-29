@@ -1,6 +1,10 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyFont, bodyFontColor } from '../../theme-provider/design-tokens';
+import {
+    bodyFont,
+    bodyFontColor,
+    linkFontColor
+} from '../../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
@@ -40,5 +44,19 @@ export const styles = css`
     }
     li > p:empty {
         display: none;
+    }
+
+    ${
+        /**
+         * When an absolute link is not HTTPS/HTTP, the anchor tag renders without an `href`, appearing as plain text.
+         * However, the `nimble-anchor` displays differently in color when the `href` attribute is absent.
+         * To ensure a consistent appearance, the font color is forced to the default link color regardless of the `href`
+         * attribute's presence.
+         *
+         * See models/markdown-parser.ts where link elements are emitted for more info.
+         */ ''
+    }
+    nimble-anchor::part(control) {
+        color: ${linkFontColor};
     }
 `;

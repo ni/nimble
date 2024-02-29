@@ -9,7 +9,7 @@
     "@ni/nimble-angular": {
       "projectType": "library",
       "root": "projects/ni/nimble-angular",
-      "sourceRoot": "projects/ni/nimble-angular/src",
+      "sourceRoot": "projects/ni/nimble-angular",
       "prefix": "lib",
       "architect": {
         "build": {

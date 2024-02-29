@@ -32,7 +32,7 @@ public class NimbleLabelProviderTableTests
     [Theory]
     [InlineData(nameof(NimbleLabelProviderTable.GroupCollapse))]
     [InlineData(nameof(NimbleLabelProviderTable.GroupExpand))]
-    [InlineData(nameof(NimbleLabelProviderTable.GroupsCollapseAll))]
+    [InlineData(nameof(NimbleLabelProviderTable.CollapseAll))]
     [InlineData(nameof(NimbleLabelProviderTable.CellActionMenu))]
     [InlineData(nameof(NimbleLabelProviderTable.ColumnHeaderGrouped))]
     [InlineData(nameof(NimbleLabelProviderTable.ColumnHeaderSortedAscending))]
@@ -41,6 +41,7 @@ public class NimbleLabelProviderTableTests
     [InlineData(nameof(NimbleLabelProviderTable.GroupSelectAll))]
     [InlineData(nameof(NimbleLabelProviderTable.RowSelect))]
     [InlineData(nameof(NimbleLabelProviderTable.RowOperationColumn))]
+    [InlineData(nameof(NimbleLabelProviderTable.RowLoading))]
     public void NimbleLabelProviderTable_LabelIsSet(string propertyName)
     {
         var labelValue = propertyName + "UpdatedValue";

@@ -16,7 +16,7 @@ describe('Nimble radio control value accessor', () => {
         @Component({
             template: `
                 <nimble-radio-group #radioGroup name="options">
-                    <nimble-radio *ngFor="let button of radios" [value]="button.value" [(ngModel)]="selectedRadio">
+                    <nimble-radio *ngFor="let button of radios" [value]="button.value" [(ngModel)]="selectedRadio" (ngModelChange)="onModelValueChange($event)">
                         {{ button.name }}
                     </nimble-radio>
                 </nimble-radio-group>
@@ -32,6 +32,8 @@ describe('Nimble radio control value accessor', () => {
             ];
 
             public selectedRadio: unknown = this.radios[1].value;
+
+            public onModelValueChange(_value: unknown): void {}
         }
 
         let radioGroup: RadioGroup;
@@ -94,6 +96,14 @@ describe('Nimble radio control value accessor', () => {
             fixture.detectChanges();
 
             expect(testHostComponent.selectedRadio).toBe(testHostComponent.radios[2].value);
+        });
+
+        it('fires ngModelChange one time with expected value', () => {
+            const ngModelChangeSpy = spyOn(testHostComponent, 'onModelValueChange');
+            const indexToSelect = 2;
+            setSelectedRadioIndex(radioGroup, indexToSelect);
+            fixture.detectChanges();
+            expect(ngModelChangeSpy).toHaveBeenCalledOnceWith(testHostComponent.radios[indexToSelect].value);
         });
     });
 

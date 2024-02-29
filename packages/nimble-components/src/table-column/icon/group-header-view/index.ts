@@ -72,6 +72,4 @@ const iconGroupHeaderView = TableColumnIconGroupHeaderView.compose({
     styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(iconGroupHeaderView());
-export const tableColumnIconGroupHeaderViewTag = DesignSystem.tagFor(
-    TableColumnIconGroupHeaderView
-);
+export const tableColumnIconGroupHeaderViewTag = 'nimble-table-column-icon-group-header-view';

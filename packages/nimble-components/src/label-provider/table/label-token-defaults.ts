@@ -5,7 +5,9 @@ type TokenName = keyof typeof TokensNamespace;
 export const tableLabelDefaults: { readonly [key in TokenName]: string } = {
     tableGroupCollapseLabel: 'Collapse group',
     tableGroupExpandLabel: 'Expand group',
-    tableGroupsCollapseAllLabel: 'Collapse all groups',
+    tableRowCollapseLabel: 'Collapse row',
+    tableRowExpandLabel: 'Expand row',
+    tableCollapseAllLabel: 'Collapse all',
     tableCellActionMenuLabel: 'Options',
     tableColumnHeaderGroupedLabel: 'Grouped',
     tableColumnHeaderSortedAscendingLabel: 'Sorted ascending',
@@ -13,5 +15,6 @@ export const tableLabelDefaults: { readonly [key in TokenName]: string } = {
     tableSelectAllLabel: 'Select all rows',
     tableGroupSelectAllLabel: 'Select all rows in group',
     tableRowSelectLabel: 'Select row',
-    tableRowOperationColumnLabel: 'Row operations'
+    tableRowOperationColumnLabel: 'Row operations',
+    tableRowLoadingLabel: 'Loading'
 };

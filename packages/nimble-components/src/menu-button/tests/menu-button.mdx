@@ -1,23 +1,26 @@
-import {
-    Controls,
-    DocsStory,
-    Meta,
-    Stories,
-    Title,
-    Description
-} from '@storybook/blocks';
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
 import * as menuButtonStories from './menu-button.stories';
 
 <Meta of={menuButtonStories} />
 <Title of={menuButtonStories} />
-<Description of={menuButtonStories} />
 
-<DocsStory of={menuButtonStories.outlineButton} expanded={false} />
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/), a menu button is a button that opens a menu. It is
+often styled as a typical push button with a downward pointing arrow or triangle to hint that activating the button will display a menu.
+
+<Canvas of={menuButtonStories.outlineButton} />
 <Controls of={menuButtonStories.outlineButton} />
 
-# Usage Docs
+{/* ## Appearances */}
+
+{/* ## Appearance Variants */}
+
+{/* ## Usage */}
+
+{/* ## Examples */}
 
 ## Accessibility
 
 <ContentHiddenDocs buttonElement="nimble-menu-button" />
+
+{/* ## Resources */}

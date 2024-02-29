@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { Orientation } from '@microsoft/fast-web-utilities';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { radioGroupTag } from '..';
 import { radioTag } from '../../radio';
@@ -16,15 +16,8 @@ interface RadioGroupArgs {
 
 const metadata: Meta<RadioGroupArgs> = {
     title: 'Components/Radio Group',
-    tags: ['autodocs'],
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    'Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) – A radio group is a set of checkable buttons, known as radio buttons, where no more than one of the buttons can be checked at a time. Some implementations may initialize the set with all buttons in the unchecked state in order to force the user to check one of the buttons before moving past a certain point in the workflow.'
-            }
-        },
         actions: {
             handles: ['change']
         }

@@ -30,4 +30,4 @@ const nimbleSpinner = Spinner.compose({
     styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleSpinner());
-export const spinnerTag = DesignSystem.tagFor(Spinner);
+export const spinnerTag = 'nimble-spinner';

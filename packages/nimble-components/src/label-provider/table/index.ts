@@ -9,10 +9,13 @@ import {
     tableGroupCollapseLabel,
     tableGroupExpandLabel,
     tableGroupSelectAllLabel,
-    tableGroupsCollapseAllLabel,
+    tableCollapseAllLabel,
+    tableRowCollapseLabel,
+    tableRowExpandLabel,
     tableRowOperationColumnLabel,
     tableRowSelectLabel,
-    tableSelectAllLabel
+    tableSelectAllLabel,
+    tableRowLoadingLabel
 } from './label-tokens';
 
 declare global {
@@ -24,7 +27,9 @@ declare global {
 const supportedLabels = {
     groupCollapse: tableGroupCollapseLabel,
     groupExpand: tableGroupExpandLabel,
-    groupsCollapseAll: tableGroupsCollapseAllLabel,
+    rowCollapse: tableRowCollapseLabel,
+    rowExpand: tableRowExpandLabel,
+    collapseAll: tableCollapseAllLabel,
     cellActionMenu: tableCellActionMenuLabel,
     columnHeaderGrouped: tableColumnHeaderGroupedLabel,
     columnHeaderSortedAscending: tableColumnHeaderSortedAscendingLabel,
@@ -32,7 +37,8 @@ const supportedLabels = {
     selectAll: tableSelectAllLabel,
     groupSelectAll: tableGroupSelectAllLabel,
     rowSelect: tableRowSelectLabel,
-    rowOperationColumn: tableRowOperationColumnLabel
+    rowOperationColumn: tableRowOperationColumnLabel,
+    rowLoading: tableRowLoadingLabel
 } as const;
 
 /**
@@ -47,8 +53,14 @@ export class LabelProviderTable
     @attr({ attribute: 'group-expand' })
     public groupExpand: string | undefined;
 
-    @attr({ attribute: 'groups-collapse-all' })
-    public groupsCollapseAll: string | undefined;
+    @attr({ attribute: 'row-collapse' })
+    public rowCollapse: string | undefined;
+
+    @attr({ attribute: 'row-expand' })
+    public rowExpand: string | undefined;
+
+    @attr({ attribute: 'collapse-all' })
+    public collapseAll: string | undefined;
 
     @attr({ attribute: 'cell-action-menu' })
     public cellActionMenu: string | undefined;
@@ -74,6 +86,9 @@ export class LabelProviderTable
     @attr({ attribute: 'row-operation-column' })
     public rowOperationColumn: string | undefined;
 
+    @attr({ attribute: 'row-loading' })
+    public rowLoading: string | undefined;
+
     protected override readonly supportedLabels = supportedLabels;
 }
 
@@ -84,4 +99,4 @@ const nimbleLabelProviderTable = LabelProviderTable.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleLabelProviderTable());
-export const labelProviderTableTag = DesignSystem.tagFor(LabelProviderTable);
+export const labelProviderTableTag = 'nimble-label-provider-table';

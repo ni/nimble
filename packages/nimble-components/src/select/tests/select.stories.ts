@@ -1,6 +1,6 @@
 import { html, repeat } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
     disableStorybookZoomTransform
@@ -8,14 +8,18 @@ import {
 import { DropdownAppearance } from '../../patterns/dropdown/types';
 import { selectTag } from '..';
 import { listOptionTag } from '../../list-option';
+import { ExampleOptionsType } from './types';
+import { menuMinWidth } from '../../theme-provider/design-tokens';
+import { FilterMode } from '../types';
 
 interface SelectArgs {
     disabled: boolean;
     errorVisible: boolean;
     errorText: string;
     dropDownPosition: string;
-    options: OptionArgs[];
+    optionsType: ExampleOptionsType;
     appearance: string;
+    filterMode: keyof typeof FilterMode;
 }
 
 interface OptionArgs {
@@ -24,17 +28,55 @@ interface OptionArgs {
     disabled: boolean;
 }
 
+const simpleOptions: readonly OptionArgs[] = [
+    { label: 'Option 1', value: '1', disabled: false },
+    { label: 'Option 2', value: '2', disabled: true },
+    { label: 'Option 3', value: '3', disabled: false },
+    { label: 'Option 4', value: '4', disabled: false },
+    { label: 'Zürich', value: '5', disabled: false }
+] as const;
+
+const wideOptions: readonly OptionArgs[] = [
+    {
+        label: 'Option 1 that is too long to fit in the drop down width',
+        value: '1',
+        disabled: false
+    },
+    {
+        label: 'Option 2 that is also too long but disabled',
+        value: '2',
+        disabled: true
+    },
+    { label: 'Short', value: '3', disabled: false }
+] as const;
+
+const manyOptions: OptionArgs[] = [];
+for (let i = 0; i < 100; i++) {
+    manyOptions.push({
+        label: `Option ${i}`,
+        value: `${i}`,
+        disabled: false
+    });
+}
+
+const optionSets = {
+    [ExampleOptionsType.simpleOptions]: simpleOptions,
+    [ExampleOptionsType.wideOptions]: wideOptions,
+    [ExampleOptionsType.manyOptions]: manyOptions
+} as const;
+
+const filterModeDescription = `
+This attribute controls the filtering behavior of the \`Select\`. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the popup is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
+
+The act of filtering will use the \`hidden\` attribute on the options to remove and re-add them to the visible set. Thus, any client-provided \`hidden\` settings of the options will be overridden.
+
+It is recommended that if the \`Select\` has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`.
+`;
+
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
-    tags: ['autodocs'],
-    decorators: [withActions],
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    "Select is a control for selecting amongst a set of options. Its value comes from the `value` of the currently selected `nimble-list-option`, or, if no value exists for that option, the option's content. Upon clicking on the element, the other options are visible. The user cannot manually enter values, and thus the list cannot be filtered."
-            }
-        },
         actions: {
             handles: ['change']
         },
@@ -51,8 +93,10 @@ const metadata: Meta<SelectArgs> = {
             ?disabled="${x => x.disabled}"
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
+            filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            style="width: var(${menuMinWidth.cssCustomProperty});"
         >
-            ${repeat(x => x.options, html<OptionArgs>`
+            ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
                 <${listOptionTag}
                     value="${x => x.value}"
                     ?disabled="${x => x.disabled}"
@@ -71,41 +115,38 @@ const metadata: Meta<SelectArgs> = {
             options: Object.values(DropdownAppearance),
             control: { type: 'radio' }
         },
+        filterMode: {
+            options: Object.keys(FilterMode),
+            control: { type: 'radio' },
+            description: filterModeDescription
+        },
         errorText: {
             name: 'error-text'
         },
         errorVisible: {
             name: 'error-visible'
+        },
+        optionsType: {
+            name: 'options',
+            options: Object.values(ExampleOptionsType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleOptionsType.simpleOptions]: 'Simple options',
+                    [ExampleOptionsType.manyOptions]: 'Many options',
+                    [ExampleOptionsType.wideOptions]: 'Wide options'
+                }
+            }
         }
     },
     args: {
         disabled: false,
         errorVisible: false,
         errorText: 'Value is invalid',
+        filterMode: 'none',
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
-        options: [
-            { label: 'Option 1', value: '1', disabled: false },
-            { label: 'Option 2', value: '2', disabled: true },
-            { label: 'Option 3', value: '3', disabled: false },
-            { label: 'Option 4', value: '4', disabled: false },
-            { label: 'Option 5', value: '5', disabled: false },
-            { label: 'Option 6', value: '6', disabled: false },
-            { label: 'Option 7', value: '7', disabled: false },
-            { label: 'Option 8', value: '8', disabled: false },
-            { label: 'Option 9', value: '9', disabled: false },
-            { label: 'Option 10', value: '10', disabled: false },
-            { label: 'Option 11', value: '11', disabled: false },
-            { label: 'Option 12', value: '12', disabled: false },
-            { label: 'Option 13', value: '13', disabled: false },
-            { label: 'Option 14', value: '14', disabled: false },
-            { label: 'Option 15', value: '15', disabled: false },
-            { label: 'Option 16', value: '16', disabled: false },
-            { label: 'Option 17', value: '17', disabled: false },
-            { label: 'Option 18', value: '18', disabled: false },
-            { label: 'Option 19', value: '19', disabled: false },
-            { label: 'Option 20', value: '20', disabled: false }
-        ]
+        optionsType: ExampleOptionsType.simpleOptions
     }
 };
 

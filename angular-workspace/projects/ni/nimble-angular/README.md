@@ -143,7 +143,7 @@ To avoid this, call `processUpdates()` after each `fakeAsync` test. This will sy
 
 ## Angular Support Policy
 
-`@ni/nimble-angular` supports Angular 14. To see the exact version it's tested against, view the library's `package.json`.
+`@ni/nimble-angular` supports Angular 15. To see the exact version it's tested against, view the library's `package.json`.
 
 If your application uses an older Angular version you can temporarily use an older version of `@ni/nimble-angular` (versions exist back to Angular 12) but it will not contain the latest features so it's preferable to update the application's Angular dependency.
 

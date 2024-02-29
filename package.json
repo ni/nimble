@@ -4,7 +4,8 @@
   "private": true,
   "description": "The NI Nimble Design System Monorepo",
   "scripts": {
-    "postinstall": "patch-package",
+    "postinstall": "patch-package && npm run playwright:setup",
+    "playwright:setup": "playwright install --with-deps",
     "build": "npm run build --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "format": "npm run format --workspaces --if-present",
@@ -14,7 +15,7 @@
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
     "validate": "npm run build && npm run lint && npm run test",
-    "performance": "lhci autorun"
+    "performance": "npm run performance --workspaces --if-present"
   },
   "repository": {
     "type": "git",
@@ -32,18 +33,20 @@
     "!*"
   ],
   "workspaces": [
+    "packages/jasmine-parameterized",
     "packages/xliff-to-json-converter",
     "packages/nimble-tokens",
     "packages/nimble-components",
     "angular-workspace",
     "angular-workspace/projects/ni/nimble-angular",
     "packages/nimble-blazor",
+    "packages/performance",
     "packages/site"
   ],
   "devDependencies": {
-    "@lhci/cli": "^0.12.0",
     "beachball": "^2.31.0",
     "cross-env": "^7.0.3",
-    "patch-package": "^6.4.7"
+    "patch-package": "^6.4.7",
+    "playwright": "1.40.0"
   }
 }

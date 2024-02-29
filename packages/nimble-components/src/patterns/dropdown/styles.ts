@@ -134,20 +134,14 @@ export const styles = css`
         border-bottom-color: ${failColor};
     }
 
-    .anchored-region[hidden] {
-        visibility: hidden;
-    }
-
     .listbox {
         box-sizing: border-box;
         display: inline-flex;
         flex-direction: column;
-        left: 0;
         overflow-y: auto;
         width: 100%;
         --ni-private-listbox-padding: ${smallPadding};
         max-height: calc(var(--ni-private-select-max-height) - ${smallPadding});
-        z-index: 1;
         box-shadow: ${elevation2BoxShadow};
         border: 1px solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};

@@ -1,8 +1,8 @@
 import { spinalCase } from '@microsoft/fast-web-utilities';
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as labelTokensNamespace from '../label-tokens';
 import { LabelProviderTable, labelProviderTableTag } from '..';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import {
     getAttributeName,
     getPropertyName,
@@ -54,19 +54,12 @@ describe('Label Provider Table', () => {
             })
         );
 
-        for (const tokenEntry of tokenEntries) {
-            const focused: DesignTokenPropertyName[] = [];
-            const disabled: DesignTokenPropertyName[] = [];
-            const specType = getSpecTypeByNamedList(
-                tokenEntry,
-                focused,
-                disabled
-            );
-            specType(`for token name ${tokenEntry.name}`, () => {
-                const convertedTokenValue = spinalCase(tokenEntry.name);
-                expect(tokenEntry.labelToken.name).toBe(convertedTokenValue);
+        parameterizeSpec(tokenEntries, (spec, name, value) => {
+            spec(`for token name ${name}`, () => {
+                const convertedTokenValue = spinalCase(value.name);
+                expect(value.labelToken.name).toBe(convertedTokenValue);
             });
-        }
+        });
     });
 
     describe('token JS key should match a LabelProvider property/attribute', () => {
@@ -77,20 +70,9 @@ describe('Label Provider Table', () => {
             })
         );
 
-        for (const tokenEntry of tokenEntries) {
-            const focused: DesignTokenPropertyName[] = [];
-            const disabled: DesignTokenPropertyName[] = [];
-            const specType = getSpecTypeByNamedList(
-                tokenEntry,
-                focused,
-                disabled
-            );
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(`for token name ${tokenEntry.name}`, () => {
-                const tokenName = removePrefixAndCamelCase(
-                    tokenEntry.name,
-                    'table'
-                );
+        parameterizeSpec(tokenEntries, (spec, name, value) => {
+            spec(`for token name ${name}`, () => {
+                const tokenName = removePrefixAndCamelCase(value.name, 'table');
                 const expectedPropertyName = getPropertyName(tokenName);
                 const expectedAttributeName = getAttributeName(tokenName);
                 const attributeDefinition = element.$fastController.definition.attributes.find(
@@ -101,7 +83,7 @@ describe('Label Provider Table', () => {
                     attributeDefinition!.attribute
                 );
             });
-        }
+        });
     });
 
     describe('token value is updated after setting corresponding LabelProvider attribute', () => {
@@ -112,28 +94,17 @@ describe('Label Provider Table', () => {
             })
         );
 
-        for (const tokenEntry of tokenEntries) {
-            const focused: DesignTokenPropertyName[] = [];
-            const disabled: DesignTokenPropertyName[] = [];
-            const specType = getSpecTypeByNamedList(
-                tokenEntry,
-                focused,
-                disabled
-            );
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(`for token name ${tokenEntry.name}`, () => {
-                const tokenName = removePrefixAndCamelCase(
-                    tokenEntry.name,
-                    'table'
-                );
+        parameterizeSpec(tokenEntries, (spec, name, value) => {
+            spec(`for token name ${name}`, () => {
+                const tokenName = removePrefixAndCamelCase(value.name, 'table');
                 const attributeName = getAttributeName(tokenName);
                 const updatedValue = `NewString-${tokenName}`;
                 element.setAttribute(attributeName, updatedValue);
 
-                expect(tokenEntry.labelToken.getValueFor(themeProvider)).toBe(
+                expect(value.labelToken.getValueFor(themeProvider)).toBe(
                     updatedValue
                 );
             });
-        }
+        });
     });
 });

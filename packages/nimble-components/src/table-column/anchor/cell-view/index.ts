@@ -51,6 +51,4 @@ const anchorCellView = TableColumnAnchorCellView.compose({
     styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(anchorCellView());
-export const tableColumnAnchorCellViewTag = DesignSystem.tagFor(
-    TableColumnAnchorCellView
-);
+export const tableColumnAnchorCellViewTag = 'nimble-table-column-anchor-cell-view';

@@ -8,7 +8,7 @@ const valueToString = (value: number): string => {
 const generateStringValue = (
     x: number,
     y: number,
-    valueGenerator?: IValueGenerator
+    valueGenerator: IValueGenerator
 ): string => {
     let value: number;
     if (valueGenerator !== undefined) {
@@ -19,22 +19,35 @@ const generateStringValue = (
     return valueToString(value);
 };
 
+const generateTagValue = (valueGenerator: IValueGenerator): string => {
+    let value: string;
+    if (valueGenerator !== undefined) {
+        value = String.fromCharCode(Math.ceil(valueGenerator()));
+    } else {
+        value = String.fromCharCode(Math.random() * 100);
+    }
+    return value;
+};
+
 export const generateDieContent = (
     x: number,
     y: number,
-    value: string
+    value: string,
+    tags?: string[]
 ): WaferMapDie => {
     return {
         x,
         y,
         value,
-        metadata: `Placeholder metadata value for Die x: ${x} y: ${y}`
+        metadata: `Placeholder metadata value for Die x: ${x} y: ${y}`,
+        tags
     };
 };
 
 export const generateWaferData = (
     numDies: number,
-    valueGenerator?: IValueGenerator
+    valueGenerator: IValueGenerator,
+    highlightedTagsGenerator: IValueGenerator
 ): WaferMapDie[] => {
     const diesSet: WaferMapDie[] = [];
 
@@ -56,7 +69,10 @@ export const generateWaferData = (
                 j--
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
-                diesSet.push(generateDieContent(i, j, stringValue));
+                const randomLetter = generateTagValue(highlightedTagsGenerator);
+                diesSet.push(
+                    generateDieContent(i, j, stringValue, [randomLetter])
+                );
             }
             // generate points right of centerX
             for (
@@ -66,7 +82,10 @@ export const generateWaferData = (
                 j++
             ) {
                 stringValue = generateStringValue(i, j, valueGenerator);
-                diesSet.push(generateDieContent(i, j, stringValue));
+                const randomLetter = generateTagValue(highlightedTagsGenerator);
+                diesSet.push(
+                    generateDieContent(i, j, stringValue, [randomLetter])
+                );
             }
         }
     }

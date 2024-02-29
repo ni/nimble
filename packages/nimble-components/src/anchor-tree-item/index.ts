@@ -130,4 +130,4 @@ const nimbleAnchorTreeItem = AnchorTreeItem.compose<AnchorOptions>({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleAnchorTreeItem());
-export const anchorTreeItemTag = DesignSystem.tagFor(AnchorTreeItem);
+export const anchorTreeItemTag = 'nimble-anchor-tree-item';

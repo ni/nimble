@@ -46,6 +46,4 @@ const tableColumnDateTextGroupHeaderView = TableColumnDateTextGroupHeaderView.co
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(tableColumnDateTextGroupHeaderView());
-export const tableColumnDateTextGroupHeaderViewTag = DesignSystem.tagFor(
-    TableColumnDateTextGroupHeaderView
-);
+export const tableColumnDateTextGroupHeaderViewTag = 'nimble-table-column-date-text-group-header-view';

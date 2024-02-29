@@ -3,6 +3,12 @@ import { RichTextMentionView } from '../../base/view';
 import { template } from './template';
 import { styles } from './styles';
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-rich-text-mention-users-view': RichTextMentionUsersView;
+    }
+}
+
 /**
  * A nimble styled rich text mention users view
  */
@@ -17,6 +23,4 @@ const nimbleRichTextMentionUsersView = RichTextMentionUsersView.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleRichTextMentionUsersView());
-export const richTextMentionUsersViewTag = DesignSystem.tagFor(
-    RichTextMentionUsersView
-);
+export const richTextMentionUsersViewTag = 'nimble-rich-text-mention-users-view';

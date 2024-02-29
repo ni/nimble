@@ -1,6 +1,9 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory } from '../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    fastParameters
+} from '../utilities/tests/storybook';
 import { Table, tableTag } from '../table';
 import { tableColumnAnchorTag } from '../table-column/anchor';
 import { tableColumnIconTag } from '../table-column/icon';
@@ -111,6 +114,9 @@ const components = [
     {
         componentName: 'Card',
         componentHref: './?path=/docs/incubating-card--docs',
+        designHref:
+            'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=5069%3A8503&mode=dev',
+        designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/296',
         issueLabel: 'Issue',
         componentStatus: ComponentFrameworkStatus.incubating,
@@ -528,7 +534,7 @@ const components = [
         issueLabel: 'Issue',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.incubating
     }
 ] as const;
 
@@ -542,7 +548,9 @@ const metadata: Meta<TableArgs> = {
     title: 'Internal/Component Status',
     tags: [],
     decorators: [],
-    parameters: {},
+    parameters: {
+        ...fastParameters()
+    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
         <${tableTag}

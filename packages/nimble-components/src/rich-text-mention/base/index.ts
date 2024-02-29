@@ -16,28 +16,25 @@ import {
     MentionInternalsOptions
 } from './models/mention-internals';
 import { Mapping } from '../../mapping/base';
-
-export type MappingConfigs = ReadonlyMap<string, MappingConfig>;
-
-export interface RichTextMentionConfig {
-    mappingConfigs: MappingConfigs;
-}
+import type { MappingConfigs, MentionUpdateEventDetail } from './types';
 
 /**
  * The base class for Mention configuration
  */
 export abstract class RichTextMention<
-    TMentionConfig extends RichTextMentionConfig = RichTextMentionConfig,
-    TValidator extends RichTextMentionValidator<
-    []
-    > = RichTextMentionValidator<[]>
+    TValidator extends RichTextMentionValidator = RichTextMentionValidator
 >
     extends FoundationElement
     implements Subscriber {
     /**
      * @internal
      */
-    public readonly mentionInternals: MentionInternals<TMentionConfig> = new MentionInternals(this.getMentionInternalsOptions());
+    public readonly mentionInternals: MentionInternals = new MentionInternals(
+        this.getMentionInternalsOptions(),
+        (filter: string): void => {
+            this.emitMentionUpdate(filter);
+        }
+    );
 
     /** @internal */
     public readonly validator = this.createValidator();
@@ -48,17 +45,29 @@ export abstract class RichTextMention<
     @attr
     public pattern?: string;
 
+    /**
+     * @public
+     */
+    @attr({ attribute: 'button-label' })
+    public buttonLabel?: string;
+
     /** @internal */
     public mappingNotifiers: Notifier[] = [];
 
     /** @internal */
     @observable
-    public mappings: Mapping<unknown>[] = [];
+    public mappingElements: Mapping<unknown>[] = [];
 
+    /**
+     * @public
+     */
     public checkValidity(): boolean {
         return this.mentionInternals.validConfiguration;
     }
 
+    /**
+     * @public
+     */
     public get validity(): RichTextMentionValidity {
         return this.validator.getValidity();
     }
@@ -66,19 +75,31 @@ export abstract class RichTextMention<
     /**
      * @internal
      */
+    public emitMentionUpdate(filter: string): void {
+        const mentionUpdateEventDetails: MentionUpdateEventDetail = {
+            filter
+        };
+        this.$emit('mention-update', mentionUpdateEventDetails);
+    }
+
+    /**
+     * @internal
+     */
     public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof Mapping && typeof args === 'string') {
-            this.updateMentionConfig();
+        if (
+            source instanceof Mapping
+            && typeof args === 'string'
+            && this.getObservedMappingProperty().includes(args)
+        ) {
+            this.updateMappingConfigs();
         }
     }
 
     protected abstract createValidator(): TValidator;
 
-    protected abstract getMentionInternalsOptions(): MentionInternalsOptions;
+    protected abstract getObservedMappingProperty(): string[];
 
-    protected abstract createMentionConfig(
-        mappingConfigs: MappingConfigs
-    ): TMentionConfig;
+    protected abstract getMentionInternalsOptions(): MentionInternalsOptions;
 
     protected abstract createMappingConfig(
         mapping: Mapping<unknown>
@@ -86,7 +107,7 @@ export abstract class RichTextMention<
 
     private getMappingConfigs(): MappingConfigs {
         const mappingConfigs = new Map<string, MappingConfig>();
-        this.mappings.forEach(mapping => {
+        this.mappingElements.forEach(mapping => {
             const href = mapping.key ?? undefined;
             if (href === undefined || typeof href !== 'string') {
                 throw Error(
@@ -99,37 +120,38 @@ export abstract class RichTextMention<
         return mappingConfigs;
     }
 
-    /**
-     * Called when any Mapping related state has changed.
-     */
-    private updateMentionConfig(): void {
-        this.validator.validate(this.mappings, this.pattern);
-        this.mentionInternals.mentionConfig = this.validator.isValid()
-            ? this.createMentionConfig(this.getMappingConfigs())
+    private updateMappingConfigs(): void {
+        this.validator.validate(this.mappingElements, this.pattern);
+        this.mentionInternals.mappingConfigs = this.validator.isValid()
+            ? this.getMappingConfigs()
             : undefined;
     }
 
-    private mappingsChanged(): void {
-        this.updateMentionConfig();
-        this.observeMappings();
+    private mappingElementsChanged(): void {
+        this.updateMappingConfigs();
+        this.observeMappingElements();
     }
 
     private patternChanged(): void {
+        this.validator.validate(this.mappingElements, this.pattern);
         this.mentionInternals.pattern = this.pattern;
-        this.updateMentionConfig();
     }
 
-    private removeMappingObservers(): void {
+    private buttonLabelChanged(): void {
+        this.mentionInternals.buttonLabel = this.buttonLabel;
+    }
+
+    private removeMappingElementObservers(): void {
         this.mappingNotifiers.forEach(notifier => {
             notifier.unsubscribe(this);
         });
         this.mappingNotifiers = [];
     }
 
-    private observeMappings(): void {
-        this.removeMappingObservers();
+    private observeMappingElements(): void {
+        this.removeMappingElementObservers();
 
-        for (const mapping of this.mappings) {
+        for (const mapping of this.mappingElements) {
             const notifier = Observable.getNotifier(mapping);
             notifier.subscribe(this);
             this.mappingNotifiers.push(notifier);

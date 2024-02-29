@@ -20,6 +20,10 @@ export const styles = css`
         font: ${linkFont};
     }
 
+    .top-container {
+        display: contents;
+    }
+
     [part='start'] {
         display: none;
     }

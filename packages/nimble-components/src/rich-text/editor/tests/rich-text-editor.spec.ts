@@ -1,24 +1,28 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import {
-    getSpecTypeByNamedList,
-    parameterizeNamedList
-} from '../../../utilities/tests/parameterized';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import type { Button } from '../../../button';
 import type { ToggleButton } from '../../../toggle-button';
 import { ToolbarButton } from '../testing/types';
 import { createEventListener } from '../../../utilities/tests/component';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return fixture<RichTextEditor>(
+        html`<nimble-rich-text-editor></nimble-rich-text-editor>`
+    );
+}
+
+async function setupWithFooter(): Promise<Fixture<RichTextEditor>> {
+    return fixture<RichTextEditor>(
         // prettier-ignore
         html`<nimble-rich-text-editor>
-    <nimble-button slot="footer-actions" id="cancel">Cancel</nimble-button>
-    <nimble-button slot="footer-actions" id="ok">OK</nimble-button>
-</nimble-rich-text-editor>`
+            <nimble-button slot="footer-actions" id="cancel">Cancel</nimble-button>
+            <nimble-button slot="footer-actions" id="ok">OK</nimble-button>
+        </nimble-rich-text-editor>`
     );
 }
 
@@ -31,6 +35,7 @@ describe('RichTextEditor', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
+        await waitForUpdatesAsync();
         pageObject = new RichTextEditorPageObject(element);
     });
 
@@ -120,34 +125,13 @@ describe('RichTextEditor', () => {
         ).toBeTrue();
     });
 
-    it('clicking buttons in the slot element should call the click event once', () => {
-        const cancelButton: Button = element.querySelector('#cancel')!;
-        const okButton: Button = element.querySelector('#ok')!;
-        const cancelButtonSpy = jasmine.createSpy();
-        const okButtonSpy = jasmine.createSpy();
-        cancelButton?.addEventListener('click', cancelButtonSpy);
-        okButton?.addEventListener('click', okButtonSpy);
-
-        cancelButton.click();
-        okButton.click();
-
-        expect(cancelButtonSpy).toHaveBeenCalledTimes(1);
-        expect(okButtonSpy).toHaveBeenCalledTimes(1);
-    });
-
     it('Should return editor as active element after clicking formatting button', async () => {
         await pageObject.setEditorTextContent('Sample Text');
         await pageObject.toggleFooterButton(ToolbarButton.bulletList);
         expect(pageObject.isRichTextEditorActiveElement()).toBeTrue();
     });
 
-    const formattingButtons: {
-        name: string,
-        toolbarButtonIndex: ToolbarButton,
-        iconName: string,
-        shortcutKey: string,
-        shiftKey: boolean
-    }[] = [
+    const formattingButtons = [
         {
             name: 'bold',
             toolbarButtonIndex: ToolbarButton.bold,
@@ -176,141 +160,82 @@ describe('RichTextEditor', () => {
             shortcutKey: '7',
             shiftKey: true
         }
-    ];
+    ] as const;
 
     describe('clicking buttons should update the checked state of the toggle button with focus', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
+        parameterizeSpec(formattingButtons, (spec, name, value) => {
+            spec(`"${name}" button click check`, async () => {
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeFalse();
 
-        for (const value of formattingButtons) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `"${value.name}" button click check`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeFalse();
+                await pageObject.toggleFooterButton(value.toolbarButtonIndex);
 
-                    await pageObject.toggleFooterButton(
-                        value.toolbarButtonIndex
-                    );
-
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeTrue();
-                    expect(
-                        pageObject.getButtonTabIndex(value.toolbarButtonIndex)
-                    ).toBe(0);
-                }
-            );
-        }
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeTrue();
+                expect(
+                    pageObject.getButtonTabIndex(value.toolbarButtonIndex)
+                ).toBe(0);
+            });
+        });
     });
 
     describe('space key press should update the checked state of the buttons', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
+        parameterizeSpec(formattingButtons, (spec, name, value) => {
+            spec(`"${name}" button key press check`, () => {
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeFalse();
 
-        for (const value of formattingButtons) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `"${value.name}" button key press check`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                () => {
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeFalse();
+                pageObject.spaceKeyActivatesButton(value.toolbarButtonIndex);
 
-                    pageObject.spaceKeyActivatesButton(
-                        value.toolbarButtonIndex
-                    );
-
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeTrue();
-                }
-            );
-        }
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeTrue();
+            });
+        });
     });
 
     describe('enter key press should update the checked state of the buttons', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
+        parameterizeSpec(formattingButtons, (spec, name, value) => {
+            spec(`"${name}" button key press check`, () => {
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeFalse();
 
-        for (const value of formattingButtons) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `"${value.name}" button key press check`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                () => {
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeFalse();
+                pageObject.enterKeyActivatesButton(value.toolbarButtonIndex);
 
-                    pageObject.enterKeyActivatesButton(
-                        value.toolbarButtonIndex
-                    );
-
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeTrue();
-                }
-            );
-        }
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeTrue();
+            });
+        });
     });
 
     describe('keyboard shortcuts should update the checked state of the buttons', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
+        parameterizeSpec(formattingButtons, (spec, name, value) => {
+            spec(`"${name}" button keyboard shortcut check`, async () => {
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeFalse();
 
-        for (const value of formattingButtons) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `"${value.name}" button keyboard shortcut check`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeFalse();
+                await pageObject.clickEditorShortcutKeys(
+                    value.shortcutKey,
+                    value.shiftKey
+                );
 
-                    await pageObject.clickEditorShortcutKeys(
-                        value.shortcutKey,
-                        value.shiftKey
-                    );
-
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeTrue();
-                }
-            );
-        }
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeTrue();
+            });
+        });
     });
 
     describe('should not leak change event through shadow DOM for buttons', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-
-        for (const value of formattingButtons) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `"${value.name}" button not propagate change event to parent element`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeSpec(formattingButtons, (spec, name, value) => {
+            spec(
+                `"${name}" button not propagate change event to parent element`,
                 () => {
                     const buttons: NodeListOf<ToggleButton> = element.shadowRoot!.querySelectorAll(
                         'nimble-toggle-button'
@@ -326,7 +251,7 @@ describe('RichTextEditor', () => {
                     expect(spy).toHaveBeenCalledTimes(0);
                 }
             );
-        }
+        });
     });
 
     describe('rich text formatting options to its respective HTML elements', () => {
@@ -400,7 +325,7 @@ describe('RichTextEditor', () => {
                 { name: 'italics(*)', input: '*italics*' },
                 { name: 'italics(_)', input: '_italics_' }
             ] as const;
-            parameterizeNamedList(markdownInput, (spec, name, value) => {
+            parameterizeSpec(markdownInput, (spec, name, value) => {
                 spec(`for ${name} markdown input to the editor`, async () => {
                     await pageObject.setEditorTextContent(value.input);
 
@@ -414,13 +339,13 @@ describe('RichTextEditor', () => {
 
         describe('should render as lists when its input rule is entered into the editor', () => {
             const markdownInput = [
-                { name: 'bullet list', input: '*', tagName: 'UL' },
-                { name: 'bullet list', input: '+', tagName: 'UL' },
-                { name: 'bullet list', input: '-', tagName: 'UL' },
-                { name: 'numbered list', input: '1.', tagName: 'OL' },
-                { name: 'numbered list', input: '5.', tagName: 'OL' }
+                { name: 'bullet list (*)', input: '*', tagName: 'UL' },
+                { name: 'bullet list (+)', input: '+', tagName: 'UL' },
+                { name: 'bullet list (-)', input: '-', tagName: 'UL' },
+                { name: 'numbered list (1.)', input: '1.', tagName: 'OL' },
+                { name: 'numbered list (5.)', input: '5.', tagName: 'OL' }
             ] as const;
-            parameterizeNamedList(markdownInput, (spec, name, value) => {
+            parameterizeSpec(markdownInput, (spec, name, value) => {
                 spec(`for ${name} markdown input to the editor`, async () => {
                     await pageObject.setEditorTextContent(value.input);
                     await pageObject.pressEnterKeyInEditor();
@@ -500,7 +425,7 @@ describe('RichTextEditor', () => {
                     input: '<script>alert("not alert")</script>'
                 }
             ] as const;
-            parameterizeNamedList(markdownInput, (spec, name, value) => {
+            parameterizeSpec(markdownInput, (spec, name, value) => {
                 spec(`for ${name} markdown syntax to the editor`, () => {
                     pageObject.pasteToEditor(value.input);
 
@@ -874,7 +799,7 @@ describe('RichTextEditor', () => {
 
         describe('Absolute link interactions in the editor', () => {
             describe('various absolute links without other nodes and marks', () => {
-                const supportedAbsoluteLink: { name: string }[] = [
+                const supportedAbsoluteLink = [
                     { name: 'https://nimble.ni.dev/ ' },
                     { name: 'HTTPS://NIMBLE.NI.DEV ' },
                     { name: 'HttPS://NIMBLE.ni.DEV ' },
@@ -888,21 +813,13 @@ describe('RichTextEditor', () => {
                     { name: 'https://example.com/smiley😀.html ' },
                     { name: 'https://www.😀.com ' },
                     { name: 'https://example.com/пример.html ' }
-                ];
+                ] as const;
 
-                const focused: string[] = [];
-                const disabled: string[] = [];
-                for (const value of supportedAbsoluteLink) {
-                    const specType = getSpecTypeByNamedList(
-                        value,
-                        focused,
-                        disabled
-                    );
-                    specType(
-                        `should change the ${value.name} to "a" tag when it is a valid absolute link`,
-                        // eslint-disable-next-line @typescript-eslint/no-loop-func
+                parameterizeSpec(supportedAbsoluteLink, (spec, name) => {
+                    spec(
+                        `should change the ${name} to "a" tag when it is a valid absolute link`,
                         async () => {
-                            await pageObject.setEditorTextContent(value.name);
+                            await pageObject.setEditorTextContent(name);
 
                             expect(pageObject.getEditorTagNames()).toEqual([
                                 'P',
@@ -910,11 +827,11 @@ describe('RichTextEditor', () => {
                             ]);
                             expect(pageObject.getEditorLeafContents()).toEqual([
                                 // Name without the trailing space used by the editor to trigger conversion to a link
-                                value.name.slice(0, -1)
+                                name.slice(0, -1)
                             ]);
                         }
                     );
-                }
+                });
             });
 
             it('the "a" tag should have href and rel attributes', async () => {
@@ -1005,7 +922,7 @@ describe('RichTextEditor', () => {
             });
 
             describe('various absolute links with different protocols other than https/http should be render as unchanged strings', () => {
-                const differentProtocolLinks: { name: string }[] = [
+                const differentProtocolLinks = [
                     { name: 'ftp://example.com/files/document.pdf ' },
                     { name: 'mailto:info@example.com ' },
                     { name: 'info@example.com ' },
@@ -1026,31 +943,23 @@ describe('RichTextEditor', () => {
                     // eslint-disable-next-line no-script-url
                     { name: 'javascript:vbscript:alert("not alert") ' },
                     { name: 'test://test.com ' }
-                ];
+                ] as const;
 
-                const focused: string[] = [];
-                const disabled: string[] = [];
-                for (const value of differentProtocolLinks) {
-                    const specType = getSpecTypeByNamedList(
-                        value,
-                        focused,
-                        disabled
-                    );
-                    specType(
-                        `string "${value.name}" renders as plain text "${value.name}" within paragraph tag`,
-                        // eslint-disable-next-line @typescript-eslint/no-loop-func
+                parameterizeSpec(differentProtocolLinks, (spec, name) => {
+                    spec(
+                        `string "${name}" renders as plain text "${name}" within paragraph tag`,
                         async () => {
-                            await pageObject.setEditorTextContent(value.name);
+                            await pageObject.setEditorTextContent(name);
 
                             expect(pageObject.getEditorTagNames()).toEqual([
                                 'P'
                             ]);
                             expect(pageObject.getEditorLeafContents()).toEqual([
-                                value.name
+                                name
                             ]);
                         }
                     );
-                }
+                });
             });
 
             describe('pasting various valid(https/http) links should render as absolute links', () => {
@@ -1087,30 +996,25 @@ describe('RichTextEditor', () => {
                     }
                 ] as const;
 
-                parameterizeNamedList(
-                    differentValidLinks,
-                    (spec, name, value) => {
-                        spec(
-                            `${name} renders as absolute link(href and text content should be same) in editor`,
-                            () => {
-                                pageObject.pasteHTMLToEditor(value.input);
+                parameterizeSpec(differentValidLinks, (spec, name, value) => {
+                    spec(
+                        `${name} renders as absolute link(href and text content should be same) in editor`,
+                        () => {
+                            pageObject.pasteHTMLToEditor(value.input);
 
-                                expect(pageObject.getEditorTagNames()).toEqual([
-                                    'P',
-                                    'A'
-                                ]);
-                                expect(
-                                    pageObject.getEditorLeafContents()
-                                ).toEqual([value.url]);
-                                expect(
-                                    pageObject.getEditorLastChildAttribute(
-                                        'href'
-                                    )
-                                ).toBe(value.url);
-                            }
-                        );
-                    }
-                );
+                            expect(pageObject.getEditorTagNames()).toEqual([
+                                'P',
+                                'A'
+                            ]);
+                            expect(pageObject.getEditorLeafContents()).toEqual([
+                                value.url
+                            ]);
+                            expect(
+                                pageObject.getEditorLastChildAttribute('href')
+                            ).toBe(value.url);
+                        }
+                    );
+                });
             });
 
             describe('pasting various links within text should render as absolute links within text ', () => {
@@ -1129,7 +1033,7 @@ describe('RichTextEditor', () => {
                     }
                 ] as const;
 
-                parameterizeNamedList(validLinkNodes, (spec, name, value) => {
+                parameterizeSpec(validLinkNodes, (spec, name, value) => {
                     spec(
                         `${name} renders as absolute link(href and text content should be same) in editor`,
                         () => {
@@ -1183,52 +1087,47 @@ describe('RichTextEditor', () => {
                         text: 'info@example.com'
                     },
                     {
-                        name: 'Anchor with invalid link',
+                        name: 'Anchor with invalid link (javascript)',
                         input: '<a href="javascript:vbscript:alert("not alert")">Invalid link</a>',
                         text: 'Invalid link'
                     },
                     {
-                        name: 'Anchor with invalid link',
+                        name: 'Anchor with invalid link (file)',
                         input: '<a href="file:///path/to/local/file.txt">Invalid link</a>',
                         text: 'Invalid link'
                     },
                     {
-                        name: 'Anchor with invalid link',
+                        name: 'Anchor with invalid link (data)',
                         input: '<a href="data:image/png;base64,iVBORw0KG...">Invalid link</a>',
                         text: 'Invalid link'
                     },
                     {
-                        name: 'Anchor with invalid link',
+                        name: 'Anchor with invalid link (tel)',
                         input: '<a href="tel:+1234567890">Invalid link</a>',
                         text: 'Invalid link'
                     },
                     {
-                        name: 'Anchor with invalid link',
+                        name: 'Anchor with invalid link (ssh)',
                         input: '<a href="ssh://username@example.com">Invalid link</a>',
                         text: 'Invalid link'
                     },
                     {
-                        name: 'Anchor with invalid link',
+                        name: 'Anchor with invalid link (urn)',
                         input: '<a href="urn:isbn:0451450523">Invalid link</a>',
                         text: 'Invalid link'
                     }
                 ] as const;
 
-                parameterizeNamedList(
-                    differentInvalidLinks,
-                    (spec, name, value) => {
-                        spec(`${name} renders as plain text in editor`, () => {
-                            pageObject.pasteHTMLToEditor(value.input);
+                parameterizeSpec(differentInvalidLinks, (spec, name, value) => {
+                    spec(`${name} renders as plain text in editor`, () => {
+                        pageObject.pasteHTMLToEditor(value.input);
 
-                            expect(pageObject.getEditorTagNames()).toEqual([
-                                'P'
-                            ]);
-                            expect(pageObject.getEditorLeafContents()).toEqual([
-                                value.text
-                            ]);
-                        });
-                    }
-                );
+                        expect(pageObject.getEditorTagNames()).toEqual(['P']);
+                        expect(pageObject.getEditorLeafContents()).toEqual([
+                            value.text
+                        ]);
+                    });
+                });
             });
 
             it('pasting a plain text URL should render as a plain text', () => {
@@ -1243,16 +1142,11 @@ describe('RichTextEditor', () => {
     });
 
     describe('various wacky string values input into the editor', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-
-        wackyStrings.forEach(value => {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `wacky string "${value.name}" that are unmodified when rendered the same value within paragraph tag`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeSpec(wackyStrings, (spec, name) => {
+            spec(
+                `wacky string "${name}" that are unmodified when rendered the same value within paragraph tag`,
                 async () => {
-                    await pageObject.setEditorTextContent(value.name);
+                    await pageObject.setEditorTextContent(name);
 
                     await connect();
 
@@ -1260,7 +1154,7 @@ describe('RichTextEditor', () => {
                         'P'
                     );
                     expect(pageObject.getEditorFirstChildTextContent()).toBe(
-                        value.name
+                        name
                     );
 
                     await disconnect();
@@ -1588,7 +1482,7 @@ describe('RichTextEditor', () => {
     });
 
     describe('Should return markdown without any changes when various not supported markdown string values are assigned', () => {
-        const notSupportedMarkdownStrings: { name: string }[] = [
+        const notSupportedMarkdownStrings = [
             { name: '&nbsp;' },
             { name: '(c) (C) (r) (R) (tm) (TM) (p) (P) +-' },
             { name: '<div><p>text</p></div>' },
@@ -1600,31 +1494,27 @@ describe('RichTextEditor', () => {
                 name: '<a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a>'
             },
             { name: '<script>alert("not alert")</script>' }
-        ];
+        ] as const;
 
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of notSupportedMarkdownStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `markdown string "${value.name}" returns as plain text "${value.name}" without any change`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeSpec(notSupportedMarkdownStrings, (spec, name) => {
+            spec(
+                `markdown string "${name}" returns as plain text "${name}" without any change`,
                 async () => {
-                    element.setMarkdown(value.name);
+                    element.setMarkdown(name);
 
                     await connect();
 
-                    expect(element.getMarkdown()).toBe(value.name);
+                    expect(element.getMarkdown()).toBe(name);
 
                     await disconnect();
                 }
             );
-        }
+        });
     });
 
     describe('Should return markdown with escape character (back slash) when various special markdown syntax are assigned', () => {
         const r = String.raw;
-        const specialMarkdownStrings: { name: string, value: string }[] = [
+        const specialMarkdownStrings = [
             { name: '> blockquote', value: r`\> blockquote` },
             { name: '`code`', value: '\\`code\\`' },
             { name: '```fence```', value: '\\`\\`\\`fence\\`\\`\\`' },
@@ -1643,15 +1533,11 @@ describe('RichTextEditor', () => {
             { name: '___', value: r`\__\_` },
             { name: '-Infinity', value: r`\-Infinity` },
             { name: '-2147483648/-1', value: r`\-2147483648/-1` }
-        ];
+        ] as const;
 
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of specialMarkdownStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `special markdown string "${value.name}" returns as plain text "${value.value}" with added esacpe character`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeSpec(specialMarkdownStrings, (spec, name, value) => {
+            spec(
+                `special markdown string "${name}" returns as plain text "${value.value}" with added esacpe character`,
                 async () => {
                     element.setMarkdown(value.name);
 
@@ -1662,12 +1548,12 @@ describe('RichTextEditor', () => {
                     await disconnect();
                 }
             );
-        }
+        });
     });
 
     describe('`getMarkdown` with hard break backslashes should be same immediately after `setMarkdown`', () => {
         const r = String.raw;
-        const hardBreakMarkdownStrings: { name: string, value: string }[] = [
+        const hardBreakMarkdownStrings = [
             {
                 name: 'bold and italics',
                 value: r`**bold**\
@@ -1707,15 +1593,11 @@ describe('RichTextEditor', () => {
    1. nested list\
       nested hard break content`
             }
-        ];
+        ] as const;
 
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of hardBreakMarkdownStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `markdown string with hard break in "${value.name}" returns as same without any change`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeSpec(hardBreakMarkdownStrings, (spec, name, value) => {
+            spec(
+                `markdown string with hard break in "${name}" returns as same without any change`,
                 async () => {
                     element.setMarkdown(value.value);
 
@@ -1726,91 +1608,71 @@ describe('RichTextEditor', () => {
                     await disconnect();
                 }
             );
-        }
+        });
     });
 
     describe('Should return markdown without any changes when various wacky string values are assigned', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
+        const wackyStringsToTest = wackyStrings.filter(
+            value => value.name !== '\x00'
+                && value.name !== '-Infinity'
+                && value.name !== '-2147483648/-1'
+        );
 
-        wackyStrings
-            .filter(
-                value => value.name !== '\x00'
-                    && value.name !== '-Infinity'
-                    && value.name !== '-2147483648/-1'
-            )
-            .forEach(value => {
-                const specType = getSpecTypeByNamedList(
-                    value,
-                    focused,
-                    disabled
-                );
-                specType(
-                    `wacky string "${value.name}" returns unmodified when set the same markdown string"${value.name}"`,
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeSpec(wackyStringsToTest, (spec, name) => {
+            spec(
+                `wacky string "${name}" returns unmodified when set the same markdown string "${name}"`,
+                async () => {
+                    element.setMarkdown(name);
+
+                    await connect();
+
+                    expect(element.getMarkdown()).toBe(name);
+
+                    await disconnect();
+                }
+            );
+        });
+    });
+
+    describe('Should return markdown with escape character (back slash) when wacky string with special markdown syntax are assigned', () => {
+        const r = String.raw;
+        const wackyStringWithSpecialMarkdownCharacter = [
+            { name: '-Infinity', value: r`\-Infinity` },
+            { name: '-2147483648/-1', value: r`\-2147483648/-1` }
+        ] as const;
+
+        parameterizeSpec(
+            wackyStringWithSpecialMarkdownCharacter,
+            (spec, name, value) => {
+                spec(
+                    ` wacky string contains special markdown syntax "${name}" returns as plain text "${value.value}" with added escape character`,
                     async () => {
                         element.setMarkdown(value.name);
 
                         await connect();
 
-                        expect(element.getMarkdown()).toBe(value.name);
+                        expect(element.getMarkdown()).toBe(value.value);
 
                         await disconnect();
                     }
                 );
-            });
-    });
-
-    describe('Should return markdown with escape character (back slash) when wacky string with special markdown syntax are assigned', () => {
-        const r = String.raw;
-        const wackyStringWithSpecialMarkdownCharacter: {
-            name: string,
-            value: string
-        }[] = [
-            { name: '-Infinity', value: r`\-Infinity` },
-            { name: '-2147483648/-1', value: r`\-2147483648/-1` }
-        ];
-
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of wackyStringWithSpecialMarkdownCharacter) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                ` wacky string contains special markdown syntax "${value.name}" returns as plain text "${value.value}" with added escape character`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    element.setMarkdown(value.name);
-
-                    await connect();
-
-                    expect(element.getMarkdown()).toBe(value.value);
-
-                    await disconnect();
-                }
-            );
-        }
+            }
+        );
     });
 
     describe('Should return modified markdown when various wacky string values are assigned', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        const modifiedWackyStrings: {
-            name: string,
-            content: string
-        }[] = [
-            { name: '\0', content: '�' },
-            { name: '\uFFFD', content: '�' },
-            { name: '\x00', content: '�' },
-            { name: '\r\r', content: '' }
-        ];
+        const modifiedWackyStrings = [
+            { name: '\\0', value: '\0', content: '�' },
+            { name: '\\uFFFD', value: '\uFFFD', content: '�' },
+            { name: '\\x00', value: '\x00', content: '�' },
+            { name: '\\r\\r', value: '\r\r', content: '' }
+        ] as const;
 
-        for (const value of modifiedWackyStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `wacky string "${value.name}" returns modified when assigned`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
+        parameterizeSpec(modifiedWackyStrings, (spec, name, value) => {
+            spec(
+                `wacky string "${name}" returns modified when assigned`,
                 async () => {
-                    element.setMarkdown(value.name);
+                    element.setMarkdown(value.value);
 
                     await connect();
 
@@ -1819,7 +1681,7 @@ describe('RichTextEditor', () => {
                     await disconnect();
                 }
             );
-        }
+        });
     });
 
     describe('disabled state', () => {
@@ -1860,34 +1722,19 @@ describe('RichTextEditor', () => {
         });
 
         describe('should reflect disabled value to the disabled and aria-disabled state of toggle buttons', () => {
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const value of formattingButtons) {
-                const specType = getSpecTypeByNamedList(
-                    value,
-                    focused,
-                    disabled
-                );
-                specType(
-                    `for "${value.name}" button`,
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
-                    async () => {
-                        expect(
-                            pageObject.isButtonDisabled(
-                                value.toolbarButtonIndex
-                            )
-                        ).toBeFalse();
+            parameterizeSpec(formattingButtons, (spec, name, value) => {
+                spec(`for "${name}" button`, async () => {
+                    expect(
+                        pageObject.isButtonDisabled(value.toolbarButtonIndex)
+                    ).toBeFalse();
 
-                        await pageObject.setDisabled(true);
+                    await pageObject.setDisabled(true);
 
-                        expect(
-                            pageObject.isButtonDisabled(
-                                value.toolbarButtonIndex
-                            )
-                        ).toBeTrue();
-                    }
-                );
-            }
+                    expect(
+                        pageObject.isButtonDisabled(value.toolbarButtonIndex)
+                    ).toBeTrue();
+                });
+            });
         });
     });
 
@@ -1933,7 +1780,7 @@ describe('RichTextEditor', () => {
 
         expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
 
-        await pageObject.setEditorTextContent('');
+        await pageObject.replaceEditorContent('');
         await inputEventListener.promise;
 
         expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
@@ -1996,6 +1843,26 @@ describe('RichTextEditor', () => {
         element.placeholder = '';
 
         expect(pageObject.getPlaceholderValue()).toBe('');
+    });
+});
+
+describe('RichTextEditor With Footer', () => {
+    it('clicking buttons in the slot element should call the click event once', async () => {
+        const { element, connect, disconnect } = await setupWithFooter();
+        await connect();
+        const cancelButton: Button = element.querySelector('#cancel')!;
+        const okButton: Button = element.querySelector('#ok')!;
+        const cancelButtonSpy = jasmine.createSpy();
+        const okButtonSpy = jasmine.createSpy();
+        cancelButton?.addEventListener('click', cancelButtonSpy);
+        okButton?.addEventListener('click', okButtonSpy);
+
+        cancelButton.click();
+        okButton.click();
+
+        expect(cancelButtonSpy).toHaveBeenCalledTimes(1);
+        expect(okButtonSpy).toHaveBeenCalledTimes(1);
+        await disconnect();
     });
 });
 

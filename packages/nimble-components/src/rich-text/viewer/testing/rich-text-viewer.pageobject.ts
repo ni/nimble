@@ -63,10 +63,16 @@ export class RichTextViewerPageObject {
         return Array.from(
             this.getMarkdownRenderedElement()!.querySelectorAll('*')
         )
-            .filter((el, _) => {
-                return el.children.length === 0;
-            })
+            .filter((el, _) => el.children.length === 0)
             .map(el => el.textContent || '');
+    }
+
+    public getRenderedMarkdownAttributeValues(attribute: string): string[] {
+        return Array.from(
+            this.getMarkdownRenderedElement()!.querySelectorAll('*')
+        )
+            .filter((el, _) => el.children.length === 0)
+            .map(el => el.getAttribute(attribute) || '');
     }
 
     private getMarkdownRenderedElement(): Element | null | undefined {

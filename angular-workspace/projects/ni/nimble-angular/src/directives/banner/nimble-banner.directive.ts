@@ -37,8 +37,6 @@ export class NimbleBannerDirective {
         return this.elementRef.nativeElement.titleHidden;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('title-hidden') public set titleHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'titleHidden', toBooleanProperty(value));
     }
@@ -47,8 +45,6 @@ export class NimbleBannerDirective {
         return this.elementRef.nativeElement.preventDismiss;
     }
 
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('prevent-dismiss') public set preventDismiss(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'preventDismiss', toBooleanProperty(value));
     }

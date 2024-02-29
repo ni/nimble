@@ -30,7 +30,7 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
         loadTranslations({
             [computeMsgId('Collapse group', 'Nimble table - collapse group')]: 'Translated collapse group',
             [computeMsgId('Expand group', 'Nimble table - expand group')]: 'Translated expand group',
-            [computeMsgId('Collapse all groups', 'Nimble table - collapse all groups')]: 'Translated collapse all groups',
+            [computeMsgId('Collapse all', 'Nimble table - collapse all')]: 'Translated collapse all',
             [computeMsgId('Options', 'Nimble table - cell action menu')]: 'Translated options',
             [computeMsgId('Grouped', 'Nimble table - column header grouped')]: 'Translated grouped',
             [computeMsgId('Sorted ascending', 'Nimble table - column header sorted ascending')]: 'Translated sorted ascending',
@@ -39,6 +39,7 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
             [computeMsgId('Select all rows in group', 'Nimble table - select all rows in group')]: 'Translated select all rows in group',
             [computeMsgId('Select row', 'Nimble table - select row')]: 'Translated select row',
             [computeMsgId('Row operations', 'Nimble table - row operation column')]: 'Translated row operations',
+            [computeMsgId('Loading', 'Nimble table - row loading')]: 'Translated loading',
         });
         const fixture = TestBed.createComponent(TestHostComponent);
         const testHostComponent = fixture.componentInstance;
@@ -49,7 +50,7 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
     it('applies translated values for each label', () => {
         expect(labelProvider.groupCollapse).toBe('Translated collapse group');
         expect(labelProvider.groupExpand).toBe('Translated expand group');
-        expect(labelProvider.groupsCollapseAll).toBe('Translated collapse all groups');
+        expect(labelProvider.collapseAll).toBe('Translated collapse all');
         expect(labelProvider.cellActionMenu).toBe('Translated options');
         expect(labelProvider.columnHeaderGrouped).toBe('Translated grouped');
         expect(labelProvider.columnHeaderSortedAscending).toBe('Translated sorted ascending');
@@ -58,5 +59,6 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
         expect(labelProvider.groupSelectAll).toBe('Translated select all rows in group');
         expect(labelProvider.rowSelect).toBe('Translated select row');
         expect(labelProvider.rowOperationColumn).toBe('Translated row operations');
+        expect(labelProvider.rowLoading).toBe('Translated loading');
     });
 });

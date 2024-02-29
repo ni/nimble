@@ -59,6 +59,9 @@ import {
     BodyEmphasizedSize,
     BodyEmphasizedFamily,
     BodyEmphasizedWeight,
+    BodyEmphasized2Size,
+    BodyEmphasized2Family,
+    BodyEmphasized2Weight,
     ButtonLabel1Size,
     ButtonLabel1Family,
     ButtonLabel1Weight,
@@ -78,6 +81,7 @@ import {
     LinkLineHeight,
     PlaceholderLineHeight,
     BodyEmphasizedLineHeight,
+    BodyEmphasized2LineHeight,
     BodyLineHeight,
     GroupLabel1LineHeight,
     ControlLabel1LineHeight,
@@ -115,6 +119,7 @@ const LinkFallbackFontFamily = 'Source Sans Pro Fallback';
 const PlaceholderFallbackFontFamily = 'Source Sans Pro Fallback';
 const BodyFallbackFontFamily = 'Source Sans Pro Fallback';
 const BodyEmphasizedFallbackFontFamily = 'Source Sans Pro Fallback';
+const BodyEmphasized2FallbackFontFamily = 'Source Sans Pro Fallback';
 const GroupLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
 const ControlLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
 const ButtonLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
@@ -209,6 +214,10 @@ export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
 
+export const cardBorderColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.cardBorderColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.1));
+
 export const graphGridlineColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphGridlineColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.2));
@@ -294,6 +303,9 @@ export const mediumPadding = DesignToken.create<string>(
 export const standardPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.standardPadding)
 ).withDefault('16px');
+export const largePadding = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.largePadding)
+).withDefault('24px');
 export const labelHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.labelHeight)
 ).withDefault('16px');
@@ -633,6 +645,26 @@ export const [
     BodyEmphasizedSize,
     BodyEmphasizedLineHeight,
     BodyEmphasizedFallbackFontFamily
+);
+
+export const [
+    bodyEmphasizedPlus1Font,
+    bodyEmphasizedPlus1FontColor,
+    bodyEmphasizedPlus1DisabledFontColor,
+    bodyEmphasizedPlus1FontFamily,
+    bodyEmphasizedPlus1FontWeight,
+    bodyEmphasizedPlus1FontSize,
+    bodyEmphasizedPlus1FontLineHeight,
+    bodyEmphasizedPlus1FallbackFontFamily
+] = createFontTokens(
+    tokenNames.bodyEmphasizedPlus1Font,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    BodyEmphasized2Family,
+    BodyEmphasized2Weight,
+    BodyEmphasized2Size,
+    BodyEmphasized2LineHeight,
+    BodyEmphasized2FallbackFontFamily
 );
 
 export const [

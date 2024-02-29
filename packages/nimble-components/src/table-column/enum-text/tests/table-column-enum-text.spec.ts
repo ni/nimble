@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { html, ref, repeat } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '../../../table';
 import { TableColumnEnumText, tableColumnEnumTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -7,7 +8,6 @@ import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import { MappingText, mappingTextTag } from '../../../mapping/text';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { mappingIconTag } from '../../../mapping/icon';
@@ -83,19 +83,15 @@ describe('TableColumnEnumText', () => {
             { name: 'string', key: 'a' },
             { name: 'number', key: 10 },
             { name: 'boolean', key: true }
-        ];
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const test of dataTypeTests) {
-            const specType = getSpecTypeByNamedList(test, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(`displays text mapped from ${test.name}`, async () => {
+        ] as const;
+        parameterizeSpec(dataTypeTests, (spec, name, value) => {
+            spec(`displays text mapped from ${name}`, async () => {
                 ({ element, connect, disconnect, model } = await setup(
-                    [{ key: test.key, text: 'alpha' }],
-                    test.name
+                    [{ key: value.key, text: 'alpha' }],
+                    value.name
                 ));
                 pageObject = new TablePageObject<SimpleTableRecord>(element);
-                await element.setData([{ field1: test.key }]);
+                await element.setData([{ field1: value.key }]);
                 await connect();
                 await waitForUpdatesAsync();
 
@@ -103,7 +99,7 @@ describe('TableColumnEnumText', () => {
                     'alpha'
                 );
             });
-        }
+        });
     });
 
     it('displays blank when no matches', async () => {
@@ -168,59 +164,39 @@ describe('TableColumnEnumText', () => {
     });
 
     describe('various string values render as expected', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of wackyStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `data "${value.name}" renders as "${value.name}"`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    ({ element, connect, disconnect, model } = await setup([
-                        { key: 'a', text: value.name }
-                    ]));
-                    pageObject = new TablePageObject<SimpleTableRecord>(
-                        element
-                    );
-                    await element.setData([{ field1: 'a' }]);
-                    await connect();
-                    await waitForUpdatesAsync();
+        parameterizeSpec(wackyStrings, (spec, name) => {
+            spec(`data "${name}" renders as "${name}"`, async () => {
+                ({ element, connect, disconnect, model } = await setup([
+                    { key: 'a', text: name }
+                ]));
+                pageObject = new TablePageObject<SimpleTableRecord>(element);
+                await element.setData([{ field1: 'a' }]);
+                await connect();
+                await waitForUpdatesAsync();
 
-                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
-                        value.name
-                    );
-                }
-            );
-        }
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(name);
+            });
+        });
     });
 
     describe('various string values render in group header as expected', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of wackyStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `data "${value.name}" renders as "${value.name}"`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    ({ element, connect, disconnect, model } = await setup([
-                        { key: 'a', text: value.name }
-                    ]));
-                    pageObject = new TablePageObject<SimpleTableRecord>(
-                        element
-                    );
-                    await element.setData([{ field1: 'a' }]);
-                    await connect();
-                    await waitForUpdatesAsync();
-                    model.col1.groupIndex = 0;
-                    await waitForUpdatesAsync();
+        parameterizeSpec(wackyStrings, (spec, name) => {
+            spec(`data "${name}" renders as "${name}"`, async () => {
+                ({ element, connect, disconnect, model } = await setup([
+                    { key: 'a', text: name }
+                ]));
+                pageObject = new TablePageObject<SimpleTableRecord>(element);
+                await element.setData([{ field1: 'a' }]);
+                await connect();
+                await waitForUpdatesAsync();
+                model.col1.groupIndex = 0;
+                await waitForUpdatesAsync();
 
-                    expect(
-                        pageObject.getRenderedGroupHeaderTextContent(0)
-                    ).toContain(value.name);
-                }
-            );
-        }
+                expect(
+                    pageObject.getRenderedGroupHeaderTextContent(0)
+                ).toContain(name);
+            });
+        });
     });
 
     it('sets group header text to blank when unmatched', async () => {
@@ -354,19 +330,11 @@ describe('TableColumnEnumText', () => {
                 { name: '(blank)', key: '' },
                 { name: 'FALSE', key: 'FALSE' },
                 { name: '0', key: 0 }
-            ];
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const test of dataTypeTests) {
-                const specType = getSpecTypeByNamedList(
-                    test,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(` ${test.name}`, async () => {
+            ] as const;
+            parameterizeSpec(dataTypeTests, (spec, name, value) => {
+                spec(name, async () => {
                     ({ element, connect, disconnect, model } = await setup(
-                        [{ key: test.key, text: 'alpha' }],
+                        [{ key: value.key, text: 'alpha' }],
                         'boolean'
                     ));
                     await connect();
@@ -377,7 +345,7 @@ describe('TableColumnEnumText', () => {
                         column.validity.invalidMappingKeyValueForType
                     ).toBeTrue();
                 });
-            }
+            });
         });
 
         class ModelInvalidMappings {

@@ -21,11 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.26" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="Microsoft.Playwright" Version="$(PkgMicrosoft_Playwright_Version)" />
-    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.4" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.21" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />

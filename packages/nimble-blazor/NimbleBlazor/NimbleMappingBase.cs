@@ -10,13 +10,9 @@ public abstract class NimbleMappingBase<TKey> : ComponentBase
     [Parameter]
     public TKey? Key { get; set; }
 
+#pragma warning disable RCS1238 // Avoid nested ?: operators.
     public string? FormattedKey => (Key is bool b) ? (b ? "true" : "false") : Key?.ToString();
-
-    /// <summary>
-    /// Gets or sets text that is either the mapped value, or a value that can be used for the tooltip and accessible name.
-    /// </summary>
-    [Parameter]
-    public string? Text { get; set; }
+#pragma warning restore RCS1238 // Avoid nested ?: operators.
 
     /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.

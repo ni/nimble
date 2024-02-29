@@ -25,4 +25,4 @@ const spinnerMapping = MappingSpinner.compose({
     template
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(spinnerMapping());
-export const mappingSpinnerTag = DesignSystem.tagFor(MappingSpinner);
+export const mappingSpinnerTag = 'nimble-mapping-spinner';

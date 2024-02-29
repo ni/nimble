@@ -32,6 +32,4 @@ const tableColumnTextGroupHeaderView = TableColumnTextGroupHeaderView.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(tableColumnTextGroupHeaderView());
-export const tableColumnTextGroupHeaderViewTag = DesignSystem.tagFor(
-    TableColumnTextGroupHeaderView
-);
+export const tableColumnTextGroupHeaderViewTag = 'nimble-table-column-text-group-header-view';

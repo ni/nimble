@@ -71,6 +71,7 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
      * @internal
      */
     public override disconnectedCallback(): void {
+        super.disconnectedCallback();
         this.resizeObserver?.disconnect();
     }
 
@@ -137,4 +138,4 @@ const nimbleTextArea = TextArea.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTextArea());
-export const textAreaTag = DesignSystem.tagFor(TextArea);
+export const textAreaTag = 'nimble-text-area';

@@ -1,14 +1,13 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
+    bodyEmphasizedFontWeight,
     bodyFont,
     bodyFontColor,
-    borderColor,
-    borderWidth,
-    sectionBackgroundColor,
-    standardPadding,
-    titleFont,
-    titleFontColor
+    cardBorderColor,
+    largePadding,
+    subtitleFontColor,
+    subtitlePlus1Font
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -16,12 +15,12 @@ export const styles = css`
 
     :host {
         flex-direction: column;
-        gap: ${standardPadding};
-        padding: ${standardPadding};
-        border: ${borderWidth} solid ${borderColor};
+        gap: ${largePadding};
+        padding: ${largePadding};
+        border: 2px solid ${cardBorderColor};
+        border-radius: 8px;
         font: ${bodyFont};
         color: ${bodyFontColor};
-        background-color: ${sectionBackgroundColor};
     }
 
     section {
@@ -29,7 +28,8 @@ export const styles = css`
     }
 
     slot[name='title'] {
-        font: ${titleFont};
-        color: ${titleFontColor};
+        font: ${subtitlePlus1Font};
+        font-weight: ${bodyEmphasizedFontWeight};
+        color: ${subtitleFontColor};
     }
 `;

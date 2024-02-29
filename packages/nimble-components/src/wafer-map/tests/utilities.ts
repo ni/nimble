@@ -13,12 +13,12 @@ import type { WaferMap } from '..';
 
 export function getWaferMapDies(): WaferMapDie[] {
     return [
-        { value: '1', x: 2, y: 3 },
-        { value: '2', x: 2, y: 4 },
-        { value: '3', x: 3, y: 2 },
-        { value: '4', x: 3, y: 3 },
+        { value: '1', x: 2, y: 3, tags: ['3'] },
+        { value: '2', x: 2, y: 4, tags: ['4'] },
+        { value: '3', x: 3, y: 2, tags: ['5'] },
+        { value: '4', x: 3, y: 3, tags: ['10'] },
         { value: '5', x: 3, y: 4 },
-        { value: '6', x: 3, y: 5 },
+        { value: '6', x: 3, y: 5, tags: ['15'] },
         { value: '7', x: 4, y: 1 },
         { value: '8', x: 4, y: 2 },
         { value: '9', x: 4, y: 3 },
@@ -52,7 +52,7 @@ export function getColorScale(): WaferMapColorScale {
     return { colors: ['red', 'blue', 'green'], values: ['1', '2', '3'] };
 }
 
-export function getHighlightedValues(): string[] {
+export function getHighlightedTags(): string[] {
     return ['5', '10', '15'];
 }
 
@@ -91,7 +91,7 @@ export function getDataManagerMock(
 export function getWaferMapMockPrerendering(
     dies: WaferMapDie[] = getWaferMapDies(),
     colorScale: WaferMapColorScale = { colors: [], values: [] },
-    highlightedValues: string[] = [],
+    highlightedTags: string[] = [],
     colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear,
     dieLabelsHidden = true,
     dieLabelsSuffix = '',
@@ -100,7 +100,7 @@ export function getWaferMapMockPrerendering(
     WaferMap,
     | 'dies'
     | 'colorScale'
-    | 'highlightedValues'
+    | 'highlightedTags'
     | 'colorScaleMode'
     | 'dieLabelsHidden'
     | 'dieLabelsSuffix'
@@ -109,7 +109,7 @@ export function getWaferMapMockPrerendering(
     return {
         dies,
         colorScale,
-        highlightedValues,
+        highlightedTags,
         colorScaleMode,
         dieLabelsHidden,
         dieLabelsSuffix,

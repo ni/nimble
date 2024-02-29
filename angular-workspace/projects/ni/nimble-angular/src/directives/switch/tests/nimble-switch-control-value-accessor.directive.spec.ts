@@ -12,7 +12,7 @@ function toggleSwitchState(switchElement: Switch): void {
 describe('Nimble switch control value accessor', () => {
     @Component({
         template: `
-            <nimble-switch #switch [(ngModel)]="value" [disabled]="fieldDisabled"></nimble-switch>
+            <nimble-switch #switch [(ngModel)]="value" (ngModelChange)="onModelValueChange($event)" [disabled]="fieldDisabled"></nimble-switch>
          `
     })
     class TestHostComponent {
@@ -21,6 +21,8 @@ describe('Nimble switch control value accessor', () => {
         public readonly initialValue = true;
         public value = this.initialValue;
         public fieldDisabled = false;
+
+        public onModelValueChange(_value: boolean): void {}
     }
 
     let switchElement: Switch;
@@ -76,4 +78,11 @@ describe('Nimble switch control value accessor', () => {
         expect(switchElement.getAttribute('disabled')).toBe('');
         expect(switchElement.disabled).toBe(true);
     }));
+
+    it('fires ngModelChange one time with expected value', () => {
+        const ngModelChangeSpy = spyOn(testHostComponent, 'onModelValueChange');
+        toggleSwitchState(switchElement);
+        fixture.detectChanges();
+        expect(ngModelChangeSpy).toHaveBeenCalledOnceWith(false);
+    });
 });

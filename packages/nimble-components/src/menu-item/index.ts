@@ -36,4 +36,4 @@ const nimbleMenuItem = MenuItem.compose<MenuItemOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenuItem());
-export const menuItemTag = DesignSystem.tagFor(MenuItem);
+export const menuItemTag = 'nimble-menu-item';

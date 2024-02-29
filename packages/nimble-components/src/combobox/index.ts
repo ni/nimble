@@ -70,6 +70,10 @@ export class Combobox
     @observable
     public controlWrapper?: HTMLElement;
 
+    /** @internal */
+    @observable
+    public hasOverflow = false;
+
     public override get value(): string {
         return super.value;
     }
@@ -318,4 +322,4 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCombobox());
-export const comboboxTag = DesignSystem.tagFor(Combobox);
+export const comboboxTag = 'nimble-combobox';

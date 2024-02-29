@@ -14,18 +14,9 @@ interface CardArgs {
     title: string;
 }
 
-const overviewText = `The \`nimble-card\` is a container that is designed to contain arbitrary content that is specified by a client
-application. The \`nimble-card\` is intended for grouping related content.`;
-
 const metadata: Meta<CardArgs> = {
     title: 'Incubating/Card',
-    tags: ['autodocs'],
     parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
@@ -48,7 +39,7 @@ const metadata: Meta<CardArgs> = {
     argTypes: {
         title: {
             description:
-                'Text displayed as a title inside the card. Cards should **always include a title**. The title is used to provide an accessible name to assistive technologies.<br><br>Provide the title in an element targeted to the `title` slot.'
+                'Text displayed as a title inside the card. This text should be short enough to fit within two lines when displayed. Cards should **always include a title**. The title is used to provide an accessible name to assistive technologies.<br><br>Provide the title in an element targeted to the `title` slot.'
         }
     },
     args: {

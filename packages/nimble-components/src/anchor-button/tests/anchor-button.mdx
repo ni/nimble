@@ -1,6 +1,6 @@
 import {
     Controls,
-    DocsStory,
+    Canvas,
     Meta,
     Stories,
     Title,
@@ -11,14 +11,20 @@ import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.m
 import * as anchorButtonStories from './anchor-button.stories';
 
 <Meta of={anchorButtonStories} />
-
 <Title of={anchorButtonStories} />
-<Description of={anchorButtonStories} />
 
-<DocsStory of={anchorButtonStories.outlineAnchorButton} expanded={false} />
+An anchor button is a component with the visual appearance of a button, but it navigates like an anchor/link when pressed.
+
+<Canvas of={anchorButtonStories.outlineAnchorButton} />
 <Controls of={anchorButtonStories.outlineAnchorButton} />
 
-# Usage Docs
+{/* ## Appearances */}
+
+{/* ## Appearance Variants */}
+
+{/* ## Usage */}
+
+{/* ## Examples */}
 
 ## Target Configuration
 
@@ -27,3 +33,5 @@ import * as anchorButtonStories from './anchor-button.stories';
 ## Accessibility
 
 <ContentHiddenDocs buttonElement="nimble-anchor-button" />
+
+{/* ## Resources */}

@@ -49,6 +49,4 @@ const enumTextGroupHeaderView = TableColumnEnumTextGroupHeaderView.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(enumTextGroupHeaderView());
-export const tableColumnEnumTextGroupHeaderViewTag = DesignSystem.tagFor(
-    TableColumnEnumTextGroupHeaderView
-);
+export const tableColumnEnumTextGroupHeaderViewTag = 'nimble-table-column-enum-text-group-header-view';

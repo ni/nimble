@@ -89,6 +89,7 @@ _The key elements of the component's public API surface:_
         -   x: number
         -   y: number
         -   value: string
+        -   tags?: string[]
     -   `originLocation` - represents the starting point and the direction of the two axes, X and Y, which are used for displaying the die grid on the wafer map canvas. The four possible combinations are represented with the position of the origin respective to the specific axes directions . It can be represented by a const (as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
     -   topLeft - ![Top Left Origin Location](./Resources/top_left.png)
     -   bottomLeft - ![Bottom Left Origin Location](./Resources/bottom_left.png)
@@ -107,13 +108,13 @@ _The key elements of the component's public API surface:_
     -   `dieLabelsHidden` - a boolean value that determines if the die labels in the wafer map view are shown or not. Default value is false.
     -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value.
     -   `colorScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
-    -   `highlightedValues` - represent a list of strings of dies values that will be highlighted in the wafer map view
+    -   `highlightedTags` - represent a list of strings of dies that will be highlighted in the wafer map view. Each WaferMapDie has a tags?: string[] property, if at least one element of highlightedTags equals at least one element of WaferMapDie.tags the die will be highlighted. Highlighting changes the opacity of the dies. The non-highlighted ones will become faded and highlighted ones will maintain their color.
     -   `disabled` - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed.
     -   `validity` - readonly object of boolean values that represents the validity states that the wafer map's configuration can be in. The object's type is `WaferMapValidity`, and it contains the following boolean properties:
         -   `invalidGridDimensions` : true when any of the `gridMinX`, `gridMinY`, `gridMaxX` or `gridMaxY` is `undefined`, but false when all of them are `undefined`.
 
 The `originLocation`, `orientation`, `gridMinX`, `gridMinY`, `gridMaxX`, `gridMaxY`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
-The `dies`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
+The `dies`, `colorScale` and `highlightedTags` properties will be configurable only via properties and will not have attributes.
 
 Methods: The following methods will be exposed in the public API:
 

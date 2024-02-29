@@ -10,7 +10,9 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
-    bodyFontSize
+    bodyFontSize,
+    bodyDisabledFontColor,
+    iconColor
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
 import { userSelectNone } from '../utilities/style/user-select';
@@ -32,20 +34,21 @@ export const styles = css`
         --ni-private-tree-item-nested-width: 0;
     }
 
+    :host([disabled]) {
+        color: ${bodyDisabledFontColor};
+        cursor: default;
+    }
+
     .control {
         display: flex;
         text-decoration: none;
-        color: ${bodyFontColor};
+        color: inherit;
     }
 
     .control${focusVisible} {
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -2px;
-    }
-
-    :host([disabled]) .control {
-        cursor: not-allowed;
     }
 
     .positioning-region {
@@ -58,6 +61,10 @@ export const styles = css`
 
     .positioning-region:hover {
         background: ${fillHoverColor};
+    }
+
+    :host([disabled]) .positioning-region:hover {
+        background: transparent;
     }
 
     :host([selected]) .positioning-region {
@@ -88,11 +95,6 @@ export const styles = css`
         margin-inline-start: ${iconSize};
     }
 
-    :host([disabled]) .content-region {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-
     ${
         /* this rule keeps children without an icon text aligned with parents */ ''
     }
@@ -103,12 +105,12 @@ export const styles = css`
     ${/* the start class is applied when the corresponding slot is filled */ ''}
     .start {
         display: flex;
-        fill: currentcolor;
         margin-inline-start: ${iconSize};
         margin-inline-end: ${iconSize};
     }
 
     slot[name='start']::slotted(*) {
+        ${iconColor.cssCustomProperty}: currentcolor;
         width: ${iconSize};
         height: ${iconSize};
     }

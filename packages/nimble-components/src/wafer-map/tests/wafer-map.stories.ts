@@ -1,12 +1,15 @@
 import { html } from '@microsoft/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
 } from '../../utilities/tests/storybook';
 import { generateWaferData } from './data-generator';
-import { goodValueGenerator, badValueGenerator } from './value-generator';
+import {
+    goodValueGenerator,
+    badValueGenerator,
+    highlightedValueGenerator
+} from './value-generator';
 import type {
     WaferMapDie,
     WaferMapColorScale,
@@ -18,7 +21,7 @@ import {
     WaferMapColorScaleMode
 } from '../types';
 import {
-    highLightedValueSets,
+    highlightedTagsSets,
     wafermapDieSets,
     waferMapColorScaleSets
 } from './sets';
@@ -30,7 +33,6 @@ interface WaferMapArgs {
     dieLabelsHidden: boolean;
     dieLabelsSuffix: string;
     dies: string;
-    highlightedValues: string;
     maxCharacters: number;
     orientation: WaferMapOrientation;
     originLocation: WaferMapOriginLocation;
@@ -40,6 +42,7 @@ interface WaferMapArgs {
     gridMaxY: number | undefined;
     dieHover: unknown;
     validity: WaferMapValidity;
+    highlightedTags: string;
 }
 
 const getDiesSet = (
@@ -53,13 +56,25 @@ const getDiesSet = (
             returnedValue = sets[0]!;
             break;
         case 'goodDies100':
-            returnedValue = generateWaferData(100, goodValueGenerator(seed));
+            returnedValue = generateWaferData(
+                100,
+                goodValueGenerator(seed),
+                highlightedValueGenerator(seed)
+            );
             break;
         case 'goodDies1000':
-            returnedValue = generateWaferData(1000, goodValueGenerator(seed))!;
+            returnedValue = generateWaferData(
+                1000,
+                goodValueGenerator(seed),
+                highlightedValueGenerator(seed)
+            )!;
             break;
         case 'badDies10000':
-            returnedValue = generateWaferData(10000, badValueGenerator(seed))!;
+            returnedValue = generateWaferData(
+                10000,
+                badValueGenerator(seed),
+                highlightedValueGenerator(seed)
+            )!;
             break;
         default:
             returnedValue = [] as WaferMapDie[];
@@ -67,10 +82,7 @@ const getDiesSet = (
     return returnedValue;
 };
 
-const getHighLightedValueSets = (
-    setName: string,
-    sets: string[][]
-): string[] => {
+const getHighlightedTags = (setName: string, sets: string[][]): string[] => {
     let returnedValue: string[];
     switch (setName) {
         case 'set1':
@@ -94,15 +106,7 @@ const getHighLightedValueSets = (
 
 const metadata: Meta<WaferMapArgs> = {
     title: 'Incubating/Wafer Map',
-    tags: ['autodocs'],
-    decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    'A wafer map is a component for visualizing data from the manufacture of semiconductor wafers. Each die on the wafer can show numerical information and be colored to indicate information about that die.'
-            }
-        },
         actions: {
             handles: ['click', 'die-hover']
         }
@@ -112,25 +116,17 @@ const metadata: Meta<WaferMapArgs> = {
         componentName: 'wafer map',
         statusLink: 'https://github.com/ni/nimble/issues/924'
     })}
-        <${waferMapTag}
-            id="wafer-map"
-            colors-scale-mode="${x => x.colorScaleMode}"
-            ?die-labels-hidden="${x => x.dieLabelsHidden}"
-            die-labels-suffix="${x => x.dieLabelsSuffix}"
-            max-characters="${x => x.maxCharacters}"
-            orientation="${x => x.orientation}"
-            origin-location="${x => x.originLocation}"
-            grid-min-x=${x => x.gridMinX}
+        <${waferMapTag} id="wafer-map" colors-scale-mode="${x => x.colorScaleMode}"
+            ?die-labels-hidden="${x => x.dieLabelsHidden}" die-labels-suffix="${x => x.dieLabelsSuffix}"
+            max-characters="${x => x.maxCharacters}" orientation="${x => x.orientation}"
+            origin-location="${x => x.originLocation}" grid-min-x=${x => x.gridMinX}
             grid-max-x=${x => x.gridMaxX}
             grid-min-y=${x => x.gridMinY}
             grid-max-y=${x => x.gridMaxY}
             :colorScale="${x => x.colorScale}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
-            :highlightedValues="${x => getHighLightedValueSets(
-        x.highlightedValues,
-        highLightedValueSets
-    )}"
-        >
+            :highlightedTags="${x => getHighlightedTags(x.highlightedTags, highlightedTagsSets)}"
+            >
         </${waferMapTag}>
         <style class="code-hide">
             #wafer-map {
@@ -145,7 +141,7 @@ const metadata: Meta<WaferMapArgs> = {
         dies: 'fixedDies10',
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
-        highlightedValues: 'set1',
+        highlightedTags: 'set1',
         maxCharacters: 4,
         orientation: WaferMapOrientation.left,
         originLocation: WaferMapOriginLocation.bottomLeft,
@@ -225,22 +221,22 @@ const metadata: Meta<WaferMapArgs> = {
                 'String that can be added as a label at the end of each wafer map die value',
             control: { type: 'text' }
         },
-        highlightedValues: {
-            description: `Represents an array of die indexes that will be highlighted in the wafer map view
+        highlightedTags: {
+            description: `Represent a list of strings that will be highlighted in the wafer map view. Each die has a tags?: string[] property, if at least one element of highlightedTags equals at least one element of die.tags the die will be highlighted.
 
 <details>
     <summary>Usage details</summary>
-    The \`highlightedValues\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
+    The \`highlightedTags\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
 </details>
                 `,
             options: ['set1', 'set2', 'set3', 'set4'],
             control: {
                 type: 'radio',
                 labels: {
-                    set1: 'Set 1',
-                    set2: 'Set 2',
-                    set3: 'Set 3',
-                    set4: 'Set 4'
+                    set1: 'No die is highlighted',
+                    set2: 'A few dies are highlighted',
+                    set3: 'All dies are faded',
+                    set4: 'Many dies are highlighted'
                 }
             },
             defaultValue: 'set1'
