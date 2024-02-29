@@ -65,13 +65,19 @@
 
 *Work closely with the visual design partner to co-develop the API and anatomy along side the visual design.*
 
+### Native form integration
+
+*Describe the plan for custom element form integration or why it's not necessary.*
+
+*Components that are intended to replace a native form element (input, textarea, select) should generally behave like their native counterpart. See ["More capable form controls" on web.dev](https://web.dev/articles/more-capable-form-controls) for an overview of requirements. Leverage patterns from [FAST Form Associated Custom Elements](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/form-associated/form-associated-custom-element.spec.md).*
+
 ### Angular integration 
 
 *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
 
 ### Blazor integration 
 
-*Describe the plan for Blazor support. See the [nimble-blazor CONTRIBUTING.md](/packages/nimble-blazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.*
+*Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/nimble-blazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.*
 
 ### Visual Appearance
 
@@ -101,6 +107,7 @@
   - *All components should define a role and support labels / being labelled so that assistive technology can identify them*
   - *The implications shadow dom might have on how roles and attributes are presented in the accessibility tree*
   - *Components which delegate focus require all global ARIA attributes to be enumerated*
+  - *Components should either follow an existing [ARIA Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/) or provide thorough research indicating why a new pattern is appropriate. Research should include sources like [Open UI Community Group](https://github.com/openui/open-ui) and other popular design systems.*
 - *Behavior with browser configurations like "Prefers reduced motion"*
 
 ### Mobile
