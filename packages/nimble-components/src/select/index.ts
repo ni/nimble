@@ -644,7 +644,11 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     }
 
     protected override focusAndScrollOptionIntoView(): void {
-        super.focusAndScrollOptionIntoView();
+        const optionToFocus = this.firstSelectedOption;
+        if (this.contains(document.activeElement) && optionToFocus !== null) {
+            optionToFocus.focus();
+            optionToFocus.scrollIntoView({ block: 'nearest' });
+        }
         if (this.open) {
             window.requestAnimationFrame(() => {
                 this.filterInput?.focus();

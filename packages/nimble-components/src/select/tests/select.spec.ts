@@ -218,6 +218,24 @@ describe('Select', () => {
 
             await disconnect();
         });
+
+        it('should scroll the selected option into view when opened', async () => {
+            const { element, connect, disconnect } = await setup500Options();
+            element.value = '300';
+            await connect();
+            element.focus();
+            await clickAndWaitForOpen(element);
+            await waitForUpdatesAsync();
+
+            expect(element.scrollableRegion.scrollTop).toBeCloseTo(9074);
+
+            element.value = '0';
+            await waitForUpdatesAsync();
+
+            expect(element.scrollableRegion.scrollTop).toBeCloseTo(4);
+
+            await disconnect();
+        });
     });
 
     describe('within a div', () => {
