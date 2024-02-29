@@ -39,9 +39,9 @@ The following table compares the requirements for developing a component in diff
 
 |                                  | Approved Spec | Unit Tests | SB* Visual Tests | SB* API Docs | SB* Usage Docs | Approved** VxD | Approved** IxD | Angular/Blazor Support | Proper a11y | Minimal Tech Debt | Mobile Support | 
 | -------------------------------- | :-----------: | :--------: | :--------------: | :----------: | :------------: | :------------: | :------------: | :--------------------: | :---------: | :---------------: | :------------: |
-| `nimble-components`              | 🟢           | 🟢        | 🟢               | 🟢           | 🟢            | 🟢             | 🟢            | 🟢                     | 🟢         | 🟢               | 🟡
-| `nimble-components` (incubating) | 🟢           | 🟢        | 🟢               | 🟢           | 🟡            | 🟡             | 🟢            | 🟡                     | 🟡         | 🟡               | 🟡
-| `spright-components`   | 🟡           | 🟢        | 🟢               | 🟢           | 🟡            | 🟡             | 🟡            | 🟡                     | 🟡         | 🟡               | 🟡
+| `nimble-components`              | 🟢           | 🟢         | 🟢              | 🟢           | 🟢            | 🟢             | 🟢            | 🟢                     | 🟢         | 🟢                | 🟡
+| `nimble-components` (incubating) | 🟢           | 🟢         | 🟢              | 🟢           | 🟡            | 🟡             | 🟢            | 🟡                     | 🟡         | 🟡                | 🟡
+| `spright-components`             | 🟡           | 🟢         | 🟢              | 🟢           | 🟡            | 🟡             | 🟡            | 🟡                     | 🟡         | 🟡                | 🟡
 
 🟢 = required\
 🟡 = optional\
