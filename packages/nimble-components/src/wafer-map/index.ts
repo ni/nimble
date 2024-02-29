@@ -189,6 +189,12 @@ export class WaferMap extends FoundationElement {
      * The hover does not require an event update, but it's also the last update in the sequence.
      */
     public update(): void {
+        if (
+            this.renderStrategy === 'worker'
+            && !this.waferMapValidator.validateDiesTableSchema()
+        ) {
+            return;
+        }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
             this.waferMapValidator.validateGridDimensions();

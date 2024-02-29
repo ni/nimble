@@ -1,3 +1,4 @@
+import { Table, tableFromArrays } from 'apache-arrow';
 import type { WaferMap } from '..';
 import { WaferMapValidator } from '../modules/wafer-map-validator';
 import { getWaferMapMockValidator } from './utilities';
@@ -78,6 +79,89 @@ describe('Wafermap Validator module', () => {
         });
 
         it('should not be valid', () => {
+            expect(waferMapValidator.getValidity()).toEqual({
+                invalidGridDimensions: true,
+                invalidDiesTableSchema: false
+            });
+            expect(waferMapValidator.isValid()).toBeFalse();
+        });
+    });
+
+    describe('with undefined dies table', () => {
+        beforeEach(() => {
+            const waferMock = getWaferMapMockValidator(
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined
+            );
+            waferMapValidator = new WaferMapValidator(waferMock as WaferMap);
+            waferMapValidator.validateDiesTableSchema();
+        });
+
+        it('should be valid', () => {
+            expect(waferMapValidator.isValid()).toBeTrue();
+        });
+    });
+
+    describe('with colIndex, rowIndex and value column dies table', () => {
+        beforeEach(() => {
+            const waferMock = getWaferMapMockValidator(
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                tableFromArrays({
+                    colIndex: Int32Array.from([]),
+                    rowIndex: Int32Array.from([]),
+                    values: Float64Array.from([])
+                })
+            );
+            waferMapValidator = new WaferMapValidator(waferMock as WaferMap);
+            waferMapValidator.validateDiesTableSchema();
+        });
+
+        it('should be valid', () => {
+            expect(waferMapValidator.isValid()).toBeTrue();
+        });
+    });
+
+    describe('with no column dies table', () => {
+        beforeEach(() => {
+            const waferMock = getWaferMapMockValidator(
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                new Table()
+            );
+            waferMapValidator = new WaferMapValidator(waferMock as WaferMap);
+            waferMapValidator.validateDiesTableSchema();
+        });
+
+        it('should be invalid', () => {
+            expect(waferMapValidator.isValid()).toBeFalse();
+        });
+    });
+
+    describe('with just colIndex and rowIndex column dies table', () => {
+        beforeEach(() => {
+            const waferMock = getWaferMapMockValidator(
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                tableFromArrays({
+                    colIndex: Int32Array.from([]),
+                    rowIndex: Int32Array.from([])
+                })
+            );
+            waferMapValidator = new WaferMapValidator(waferMock as WaferMap);
+            waferMapValidator.validateDiesTableSchema();
+        });
+
+        it('should be invalid', () => {
             expect(waferMapValidator.isValid()).toBeFalse();
         });
     });
