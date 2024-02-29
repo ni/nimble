@@ -103,7 +103,7 @@ It will require at least three columns for the `diesTable`:
 
 They will be checked at runtime and a `WaferMapValidity` flag will be raised signaling an `invalidTableInput`.
 
-The schema will be extensible. This will induce a breaking change in the API, as the metadata which was previously `unknown` will not recorded in table, but the hover event will reference an index which can e used by the client to select the metadata outside the component.
+The schema will be extensible. This will induce a breaking change in the API, as the metadata which was previously `unknown` will not recorded in table, but the hover event will reference an index which can be used by the client to select the metadata outside the component.
 
 This approach has the benefits of a row based format that aligns well with the existing public API, as well as a nice public API that easily allows future improvements. It allows for more advanced filtering techniques such as using inner and outer joins for tables, slicing the tables to distribute values to separate workers and applying operations over whole columns.
 
@@ -114,8 +114,6 @@ We are going to split the columns relevant to rendering from the table (rows, co
     const rowIndex: Int32Array = diesTable.getChild('rowIndex').toArray();
     ...
 ```
-
-When filtering the highlighted dies and searching for their index we will use [arquero](https://uwdata.github.io/arquero/) to perform joins and other operations involving the tables.
 
 The [JavaScript implementation of Apache Arrow](https://arrow.apache.org/docs/js/index.html) provides TypeScript Types which will work in Angular applications.
 The [C# implementation of Apache Arrow](https://github.com/apache/arrow/blob/main/csharp/README.md) is also providing support for reading Arrow IPC streams which can be used to convert inputs from Blazor.
