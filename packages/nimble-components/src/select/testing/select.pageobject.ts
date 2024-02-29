@@ -60,7 +60,7 @@ export class SelectPageObject {
      * Either opens or closes the dropdown depending on its current state
      */
     public async clickSelect(): Promise<void> {
-        this.selectElement.dispatchEvent(new Event('click'));
+        this.selectElement.click();
         await waitForUpdatesAsync();
     }
 
