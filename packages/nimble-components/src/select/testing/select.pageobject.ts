@@ -81,10 +81,6 @@ export class SelectPageObject {
     }
 
     public clickOption(index: number): void {
-        if (!this.selectElement.open) {
-            throw new Error('Select must be open to click selectedItem');
-        }
-
         if (index >= this.selectElement.options.length) {
             throw new Error(
                 '"index" greater than number of current displayed options'
