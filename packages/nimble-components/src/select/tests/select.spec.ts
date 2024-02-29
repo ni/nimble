@@ -57,7 +57,7 @@ async function clickAndWaitForOpen(select: Select): Promise<void> {
     await regionLoadedListener.promise;
 }
 
-fdescribe('Select', () => {
+describe('Select', () => {
     it('should set classes based on collapsible, open, disabled, and position', async () => {
         const { element, connect, disconnect } = await setup('above', true);
 
