@@ -93,13 +93,7 @@ export class SelectPageObject {
 
         const option = this.selectElement.options[index]!;
         option.scrollIntoView();
-        const optionRect = option.getClientRects()[0]!;
-        const clickEvent = new MouseEvent('click', {
-            clientY: optionRect.y + optionRect.height / 2,
-            clientX: optionRect.width / 2,
-            bubbles: true
-        });
-        option.dispatchEvent(clickEvent);
+        option.click();
     }
 
     /**
