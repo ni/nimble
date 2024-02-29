@@ -158,7 +158,7 @@ export class MyPixelWidthColumn : TableColumn<...> {
         super();
         this.columnInternals.resizingDisabled = true;
         this.columnInternals.pixelWidth = 100;
-        this.columnInternals.minPixelWidth = 0;
+        this.columnInternals.minPixelWidth = 100;
     }
 }
 ```
