@@ -25,8 +25,7 @@ import {
     highlightedTagsSets,
     wafermapDieSets,
     waferMapColorScaleSets,
-    wafermapDiesTableSets,
-    highlightedTableSets
+    wafermapDiesTableSets
 } from './sets';
 import { waferMapTag } from '..';
 
@@ -39,7 +38,6 @@ interface WaferMapArgs {
     dies: string;
     highlightedTags: string;
     diesTable: string;
-    highlightedTable: string;
     maxCharacters: number;
     orientation: WaferMapOrientation;
     originLocation: WaferMapOriginLocation;
@@ -141,31 +139,6 @@ const getHighlightedTags = (setName: string, sets: string[][]): string[] => {
     return returnedValue;
 };
 
-const getHighlightedTable = (
-    setName: string,
-    sets: Table[]
-): Table | undefined => {
-    let returnedValue: Table | undefined;
-    switch (setName) {
-        case 'set1':
-            returnedValue = sets[0]!;
-            break;
-        case 'set2':
-            returnedValue = sets[1]!;
-            break;
-        case 'set3':
-            returnedValue = sets[2]!;
-            break;
-        case 'set4':
-            returnedValue = sets[3]!;
-            break;
-        default:
-            returnedValue = undefined;
-            break;
-    }
-    return returnedValue;
-};
-
 const metadata: Meta<WaferMapArgs> = {
     title: 'Incubating/Wafer Map',
     parameters: {
@@ -190,7 +163,6 @@ const metadata: Meta<WaferMapArgs> = {
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
             :highlightedTags="${x => getHighlightedTags(x.highlightedTags, highlightedTagsSets)}"
             :diesTable="${x => getDiesTableSet(x.diesTable, wafermapDiesTableSets)}"
-            :highlightedTable="${x => getHighlightedTable(x.highlightedTable, highlightedTableSets)}"
             >
         </${waferMapTag}>
         <style class="code-hide">
@@ -207,7 +179,6 @@ const metadata: Meta<WaferMapArgs> = {
         dies: 'fixedDies10',
         highlightedTags: 'set1',
         diesTable: undefined,
-        highlightedTable: undefined,
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
         maxCharacters: 4,
@@ -336,27 +307,6 @@ const metadata: Meta<WaferMapArgs> = {
                 }
             },
             defaultValue: 'fixedDies10',
-            if: { arg: 'apiVersion', eq: 'experimental' }
-        },
-        highlightedTable: {
-            description: `Represents an apache-arrow \`Table\` that contains values which will be highlighted in the wafer map view. If at least one row value of highlightedTable matches at least one row value of \`dieTable\` the corresponding die will be highlighted.
-
-<details>
-    <summary>Usage details</summary>
-    The \`highlightedTable\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
-</details>
-                `,
-            options: ['set1', 'set2', 'set3', 'set4'],
-            control: {
-                type: 'radio',
-                labels: {
-                    set1: 'No die is highlighted',
-                    set2: 'A few dies are highlighted',
-                    set3: 'All dies are faded',
-                    set4: 'Many dies are highlighted'
-                }
-            },
-            defaultValue: 'set1',
             if: { arg: 'apiVersion', eq: 'experimental' }
         },
         dieLabelsHidden: {

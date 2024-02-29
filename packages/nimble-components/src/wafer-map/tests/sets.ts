@@ -157,28 +157,6 @@ export const wafermapDiesTableSets: Table[] = [
     })
 ];
 
-export const highlightedTableSets: Table[] = [
-    new Table(),
-    tableFromArrays({
-        colIndex: Int32Array.from([]),
-        rowIndex: Int32Array.from([]),
-        value: Float32Array.from([]),
-        firstTag: ['c']
-    }),
-    tableFromArrays({
-        colIndex: Int32Array.from([]),
-        rowIndex: Int32Array.from([]),
-        value: Float32Array.from([]),
-        firstTag: ['']
-    }),
-    tableFromArrays({
-        colIndex: Int32Array.from([]),
-        rowIndex: Int32Array.from([]),
-        value: Float32Array.from([]),
-        firstTag: ['a', 'b', 'c']
-    })
-];
-
 export const waferMapColorScaleSets: WaferMapColorScale[] = [
     {
         colors: ['red', 'orange', 'green'],
