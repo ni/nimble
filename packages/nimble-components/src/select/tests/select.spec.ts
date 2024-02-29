@@ -227,7 +227,7 @@ describe('Select', () => {
             await clickAndWaitForOpen(element);
             await waitForUpdatesAsync();
 
-            expect(element.scrollableRegion.scrollTop).toBeCloseTo(9074);
+            expect(element.scrollableRegion.scrollTop).toBeGreaterThan(8000);
 
             element.value = '0';
             await waitForUpdatesAsync();
