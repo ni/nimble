@@ -39,7 +39,7 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
         super();
         this.columnInternals.resizingDisabled = true;
         this.columnInternals.pixelWidth = 32;
-        this.columnInternals.minPixelWidth = 0;
+        this.columnInternals.minPixelWidth = 32;
     }
 
     public override createValidator(): TableColumnIconValidator {

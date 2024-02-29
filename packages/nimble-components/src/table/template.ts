@@ -28,6 +28,7 @@ import {
     tableRowOperationColumnLabel,
     tableSelectAllLabel
 } from '../label-provider/table/label-tokens';
+import { defaultMinPixelWidth } from '../table-column/base/types';
 
 // prettier-ignore
 export const template = html<Table>`
@@ -84,7 +85,7 @@ export const template = html<Table>`
                                 <div class="header-container">
                                     ${when((_, c) => c.index > 0, html<TableColumn, Table>`
                                         <div
-                                            class="column-divider left ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'active' : ''}`} ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index - 1, c.parent.visibleColumns) && c.parent.layoutManager.hasResizableColumnToRight(c.index, c.parent.visibleColumns) ? 'resizable' : 'foo'}`}"
+                                            class="column-divider left ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'active' : ''}`} ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index - 1, c.parent.visibleColumns) && c.parent.layoutManager.hasResizableColumnToRight(c.index, c.parent.visibleColumns) ? 'resizable' : ''}`}"
                                             @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.event as MouseEvent, c.index)}"
                                         >
                                         </div>
@@ -93,7 +94,7 @@ export const template = html<Table>`
                                             class="header"
                                             sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
                                             ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
-                                            ?decorations-hidden="${x => x.columnInternals.resizingDisabled}"
+                                            ?decorations-hidden="${x => x.columnInternals.minPixelWidth < defaultMinPixelWidth}"
                                             @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
                                             :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                         >
@@ -101,7 +102,7 @@ export const template = html<Table>`
                                         </${tableHeaderTag}>
                                     ${when((_, c) => c.index < c.length - 1, html<TableColumn, Table>`
                                         <div
-                                            class="column-divider right ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'active' : ''}`} ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index, c.parent.visibleColumns) && c.parent.layoutManager.hasResizableColumnToRight(c.index + 1, c.parent.visibleColumns) ? 'resizable' : 'foo'}`}"
+                                            class="column-divider right ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'active' : ''}`} ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index, c.parent.visibleColumns) && c.parent.layoutManager.hasResizableColumnToRight(c.index + 1, c.parent.visibleColumns) ? 'resizable' : ''}`}"
                                             @mousedown="${(_, c) => c.parent.onRightDividerMouseDown(c.event as MouseEvent, c.index)}"
                                         >
                                         </div>
