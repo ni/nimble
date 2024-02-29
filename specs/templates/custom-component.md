@@ -107,7 +107,7 @@
   - *All components should define a role and support labels / being labelled so that assistive technology can identify them*
   - *The implications shadow dom might have on how roles and attributes are presented in the accessibility tree*
   - *Components which delegate focus require all global ARIA attributes to be enumerated*
-  - *Components should either follow an existing [ARIA Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/) or provide thorough research indicating why a new pattern is appropriate. Research should include sources like Open UI Community Group and other popular design systems.*
+  - *Components should either follow an existing [ARIA Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/) or provide thorough research indicating why a new pattern is appropriate. Research should include sources like [Open UI Community Group](https://github.com/openui/open-ui) and other popular design systems.*
 - *Behavior with browser configurations like "Prefers reduced motion"*
 
 ### Mobile
