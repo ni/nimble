@@ -10,7 +10,6 @@ The proposed design should consider the following factors:
 -   Minimize rendering time and improve overall performance
 -   Measure and improve performance metrics
 -   Maintain compatibility with existing design patterns and web standards
--   Avoid introducing new requirements on clients or breaking any APIs
 -   Address any potential impact on testing, documentation, security, and other relevant areas
 
 By addressing these challenges, we aim to enhance the rendering capabilities of our application and provide a smoother and more responsive user interface.
@@ -82,46 +81,42 @@ The POC is found in this branch [Worker Rendering POC](https://github.com/ni/nim
 
 ### Data Structure and Interface
 
-We have two possible solutions for representing the data in the memory. They will be decided with a spec update. The fist one is an in-house solution:
+The best solution to solve the API of the wafermap is to use Apache Arrow as the wafer component API, and Typed Arrays as the worker API for their iterating performance and transferability to worker threads.
+
+The Public API will be the following:
 
 ```TS
-class WaferData {
-    // the x coordinates of each column of dies
-    dieColIndexArray: Int32Array;
-    // the lengths of each row of dies
-    rowLengthsArray: Int32Array;
-    // the y coordinates of each die as a matrix row by row
-    dieRowIndexLayer: Int32Array;
-    // the value of each die as a matrix row by row
-    dieValuesLayer: Float64Array;
-    // the highlight  approach is still undecided, we have two options:
-    // the highlight state of each die as a matrix; user will have to pre-calculate tags into highlighted conditions.
-    dieHighlightsLayer: Int8Array;
-    // a 32 bitset array of tags for each die; aligns more closely to the existing public api but limits users to 32 tags.
-    dieHighlightsLayer: Int32Array;
-    // metadata array for each die; it will not be sent to the worker
-    metadata : unknown[]
+import { Table } from 'apache-arrow';
+
+export class WaferMap extends FoundationElement {
+    ...
+    public diesTable: Table | undefined;
+    ...
 }
 ```
 
-Using TypedArrays has the benefit of direct transfer to web workers without structured cloning of the object by transferring the arrayBuffers and reconstructing the object. Other benefits of typedArrays include the low access time when iterating over the values, more memory efficiency and faster direct access to metadata layers values. The previous inputs can be adapted to this new structure to maintain backwards compatibility.
+It will be using the [Apache Arrow Table](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html).
+It will require at least three columns for the `diesTable`:
 
-This API will have [optimized byte-array interop from Blazor](https://learn.microsoft.com/en-us/dotnet/core/compatibility/aspnet-core/6.0/byte-array-interop) and should be supported by Angular as a [vanilla javascript feature](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer).
+-   The `rowIndex` and `colIndex` will be `Int32` columns
+-   The `value` will be a `Float64` column.
 
-The alternative to the above mentioned data structure is an [apache arrow](https://arrow.apache.org/docs/js/index.html) table with columns and metadata.
+They will be checked at runtime and a `WaferMapValidity` flag will be raised signaling an `invalidTableInput`.
 
-Pros of using Apache Arrow:
+The schema will be extensible. This will induce a breaking change in the API, as the metadata which was previously `unknown` will not recorded in table, but the hover event will reference an index which can be used by the client to select the metadata outside the component.
 
--   A row based format that aligns well with the existing public api
--   Well supported and tested format
--   Nice public API to use, we don't have to invent a new format, just document our schema for the arrow tables
--   Designed for large dataset visualizations
+This approach has the benefits of a row based format that aligns well with the existing public API, as well as a nice public API that easily allows future improvements. It allows for more advanced filtering techniques such as using inner and outer joins for tables, slicing the tables to distribute values to separate workers and applying operations over whole columns.
 
-In order to choose from these alternatives we will prototype and check:
+We are going to split the columns relevant to rendering from the table (rows, columns, values) and transfer them to the worker separately. This can be done with a very small overhead using the method below on the resulting vector. After being transferred, the buffers can be cached to speed up value access and filtering.
 
--   Does it have comparable memory performance
--   Does it perform well or have significant overhead
--   Is it easy to divide and use in parallel
+```TS
+    const colIndex: Int32Array = diesTable.getChild('colIndex').toArray();
+    const rowIndex: Int32Array = diesTable.getChild('rowIndex').toArray();
+    ...
+```
+
+The [JavaScript implementation of Apache Arrow](https://arrow.apache.org/docs/js/index.html) provides TypeScript Types which will work in Angular applications.
+The [C# implementation of Apache Arrow](https://github.com/apache/arrow/blob/main/csharp/README.md) is also providing support for reading Arrow IPC streams which can be used to convert inputs from Blazor.
 
 ### Rendering
 
@@ -210,7 +205,68 @@ The current expectation is for a singular wafer component to be displayed on the
 
 ### Alternative Data Structures and Interfaces
 
+The alternative to using Apache Arrow tables is an in-house solution:
+
+```TS
+class WaferData {
+    // the x coordinates of each column of dies
+    dieColIndexArray: Int32Array;
+    // the lengths of each row of dies
+    rowLengthsArray: Int32Array;
+    // the y coordinates of each die as a matrix row by row
+    dieRowIndexLayer: Int32Array;
+    // the value of each die as a matrix row by row
+    dieValuesLayer: Float64Array;
+    // we have two options to highlight:
+    // the highlight state of each die as a matrix; user will have to pre-calculate tags into highlighted conditions.
+    dieHighlightsLayer: Int8Array;
+    // a 32 bitset array of tags for each die; aligns more closely to the existing public api but limits users to 32 tags.
+    dieHighlightsLayer: Int32Array;
+    // metadata array for each die; it will not be sent to the worker
+    metadata : unknown[]
+}
+```
+
+Using TypedArrays has the benefit of direct transfer to web workers without structured cloning of the object by transferring the arrayBuffers and reconstructing the object. Other benefits of typedArrays include the low access time when iterating over the values, more memory efficiency and faster direct access to metadata layers values. The previous inputs can be adapted to this new structure to maintain backwards compatibility.
+
+This API will have [optimized byte-array interop from Blazor](https://learn.microsoft.com/en-us/dotnet/core/compatibility/aspnet-core/6.0/byte-array-interop) and should be supported by Angular as a [vanilla javascript feature](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer).
+
+Pros of using Apache Arrow:
+
+-   A row based format that aligns well with the existing public api
+-   Well supported and tested format
+-   Nice public API to use, we don't have to invent a new format, just document our schema for the arrow tables
+-   Designed for large dataset visualizations
+
 Another option is to break each object property as a separate attribute for the wafer map component. This can also lead to increased complexity and confusion for the user which will need to pass several structured objects instead of a singular object.
+
+#### Alternative Iteration and Filtering with Apache Arrow Table
+
+The limits for the apache arrow table approach are the following:
+
+1. Apache arrow documentation shows [list types are supported](https://arrow.apache.org/docs/status.html) but more research is needed to understand their usage, if they are useful in Tables, and their performance if used.
+2. There is no support currently for [searching or filtering the table](https://github.com/apache/arrow/issues/13233). Searching for dies based on their position is crucial for highlighting and sending the highlighted die metadata with the `die-hover` event. More research is needed to see if alternative libraries can be used for filtering / data analysis. ([POC with arquero](https://stackblitz.com/edit/geoarrow-worker-arquero-demo?file=src%2Fmain.ts)).
+3. Apache arrow does not yet have first class support for efficiently transferring arrow data structures in workers. When asked they said they are [supportive of adding the APIs](https://github.com/apache/arrow/issues/39017#issuecomment-1955653556).
+4. The iteration over stored rows is very slow compared to typed arrays as seen in the table below. This impacts the goals we set for this rendering improvement.
+
+Alternatives for solving these problems are the following:
+
+1. A dynamic number of columns for storing tags, but the performance may suffer.
+2. Possible solutions for this are searching by iterating over the whole table, which is not feasible (see 4.) or using typed arrays and caching to speed up the search for the relevant columns.
+3. The use of a higher level library [geoarrow](https://github.com/geoarrow/geoarrow-js/blob/main/src/worker/transferable.ts). ([POC](https://stackblitz.com/edit/geoarrow-worker-arquero-demo?file=src%2Fmain.ts)).
+4. In the following table are presented different iteration strategies over 1M long arrays, and how they compare with the chosen method and the basic typed array iteration:
+
+| name                    | duration (ms) [1] | duration (ms) [2] | detail                                                          |
+| ----------------------- | ----------------- | ----------------- | --------------------------------------------------------------- |
+| typed array             | 7                 | 6                 | basic typed arrays iteration                                    |
+| typed array from table  | 6                 | 5                 | typed arrays converted from Table columns                       |
+| vector from typed array | 76                | 66                | arrow Vectors directly created from typed arrays                |
+| vector from table       | 965               | 1012              | arrow Vector converted from the arrow Table with `makeVector()` |
+| list array from table   | 943               | 980               | list array converted from the arrow Table with `toArray()`      |
+| table get()             | 1350              | 1030              | arrow Table using `table.get(rowIndex)`                         |
+| table [iterator]        | 1091              | 1011              | arrow Table using the [iterator]                                |
+
+The memory impact is not very significant, amounting to 74.01MB for 1M dies compared with 44.65MB for the previously prototyped API.
 
 ### Alternative Rendering
 
@@ -228,6 +284,95 @@ We may also implement an external queue canceling functionality.
 
 ## Open Issues
 
+### Highlighting API
+
+```TS
+import { Table } from 'apache-arrow';
+
+export class WaferMap extends FoundationElement {
+    ...
+    public highlightedTable: Table | undefined;
+    ...
+}
+```
+
+The `highlightedTable` will have the same columns as the `diesTable`, but they will contain rows only partially filled with values, which will be used to filter the `diesTable` and enable highlighting. The values which are not empty on each individual row, including `colIndex`, `rowIndex`, `value` and others will be used to filter the table as an `AND` operation. Multiple rows will be used as filters with the `OR` operation. More details regarding highlights will be discussed in an open issue.
+
+The current proposal is for the highlight table to be used as a filter for the main dies table. This can be realized by using the [`semijoin`](https://uwdata.github.io/arquero/api/verbs#semijoin) operation from the Arquero library. this will function as follows.
+
+The main table:
+
+| (index) | colIndex | rowIndex | value              | firstTag | secondTag |
+| ------- | -------- | -------- | ------------------ | -------- | --------- |
+| 0       | 0        | 2        | 14.239999771118164 | a        | b         |
+| 1       | 1        | 2        | 76.43000030517578  | b        | c         |
+| 2       | 1        | 1        | 44.630001068115234 | g        | null      |
+| 3       | 1        | 3        | 67.93000030517578  | a        | null      |
+| 4       | 2        | 2        | 72.70999908447266  | h        | e         |
+| 5       | 2        | 1        | 79.04000091552734  | b        | null      |
+| 6       | 2        | 0        | 26.489999771118164 | c        | null      |
+| 7       | 2        | 3        | 37.790000915527344 | null     | null      |
+| 8       | 2        | 4        | 59.81999969482422  | null     | null      |
+| 9       | 3        | 2        | 52.900001525878906 | null     | null      |
+| 10      | 3        | 1        | 98.5               | g        | null      |
+| 11      | 3        | 3        | 20.829999923706055 | c        | null      |
+| 12      | 4        | 2        | 62.79999923706055  | g        | null      |
+
+The highlight table:
+
+| (index) | firstTag |
+| ------- | -------- |
+| 0       | a        |
+| 1       | b        |
+| 2       | c        |
+
+The filtered table:
+
+| (index) | colIndex | rowIndex | value              | firstTag | secondTag |
+| ------- | -------- | -------- | ------------------ | -------- | --------- |
+| 0       | 0        | 2        | 14.239999771118164 | a        | b         |
+| 1       | 1        | 2        | 76.43000030517578  | b        | c         |
+| 2       | 1        | 3        | 67.93000030517578  | a        | null      |
+| 3       | 2        | 1        | 79.04000091552734  | b        | null      |
+| 4       | 2        | 0        | 26.489999771118164 | c        | null      |
+| 5       | 3        | 3        | 20.829999923706055 | c        | null      |
+
+The filter matched the rows with the same values from the highlight table. This can be used for tags when filtering value ranges, values themselves, column and row indexes or other types of supported data types.
+
+The details of the implementation and more refined filtering will be discussed.
+
+Another option is using the existing `highlightedTags` API with a `List` column in the table [(listed as supported)](https://arrow.apache.org/docs/status.html).
+
+Specific open questions:
+
+-   For a highlightedTags table api:
+    -   Should the API be constrained in the [supported arrow types](https://arrow.apache.org/docs/status.html)?
+        -   Should just primitive types be supported?
+        -   Should just types supported in the JavaScript and C# languages be supported?
+        -   Should just types well-supported in all existing implementation be supported?
+        -   Would certain types, ex. like strings, lead to poor performance and be discouraged?
+        -   Are there implementation challenges transferring buffers of arbitrary types across the Web Worker boundary?
+    -   Should the API be constrained in the set of columns that participate in highlighting instead of all columns? Maybe columns with a specific name prefix like `highlighted_`?
+    -   Is there real known benefits for specifying per floating point `value`? Or specific `rowIndex` / `columnIndex` independently?
+    -   Does the highlightTable need to contain all columns used in diesTable? Can it just be a subset of columns?
+-   For a tags columns api:
+    -   Do columns of List<string> work in tables?
+    -   Do dictionary columns work in tables to improve efficiency compared to List<string>?
+    -   What is the performance of a List<string> / Dictionary column api compared to the alternatives?
+
+### Rendering Iterating
+
+From preliminary tests it seems that typed array iteration is the most performant approach for rendering.
+Further inquiries will be made of apache-arrow dev team to make sure the best approach.
+
+### Highlights and Metadata
+
+We decided to use [arquero](https://uwdata.github.io/arquero/) to filter highlighted dies and metadata.
+This approach shows promise, but it may pose a risk.
+If it will be apparent that it's not useful, we will resort to reusing and adapting the existing logic.
+
+### Progress Indicator
+
 User Indication for [interactions in progress (>200ms)](https://web.dev/articles/inp) possibilities:
 
 -   the wafer-map itself will show a spinner
@@ -235,6 +380,7 @@ User Indication for [interactions in progress (>200ms)](https://web.dev/articles
 -   the wafer-map will use bitmap scaling in addition to a spinner
 -   the wafer-map will immediately show the spinner / fire event or only after, for example 200ms
 -   the renderer will report progress for larger wait times.
+-   the rendering will be done sequentially in animation frames so the user will see the progress at 60Hz
 
 A follow-on HLD update will specify the approved decision.
 

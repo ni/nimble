@@ -6,7 +6,7 @@ namespace NimbleBlazor;
 public partial class NimbleDrawer<TCloseReason> : ComponentBase
 {
     private ElementReference _drawerElement;
-    private TCloseReason? _closeValue = default;
+    private TCloseReason? _closeValue;
 
     internal static string ShowDrawerMethodName = "NimbleBlazor.Drawer.show";
     internal static string CloseDrawerMethodName = "NimbleBlazor.Drawer.close";
@@ -32,7 +32,7 @@ public partial class NimbleDrawer<TCloseReason> : ComponentBase
     public async ValueTask<DrawerResponse<TCloseReason>> ShowAsync()
     {
         // Pass cancellation token to disable default async timeout
-        CancellationTokenSource source = new CancellationTokenSource();
+        CancellationTokenSource source = new();
         CancellationToken token = source.Token;
         var userDismissed = await JSRuntime!.InvokeAsync<bool>(ShowDrawerMethodName, token, _drawerElement);
         var value = _closeValue;

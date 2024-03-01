@@ -6,7 +6,6 @@ import {
     FoundationElement
 } from '@microsoft/fast-foundation';
 import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
-import type { ExtendedDialog } from '../dialog';
 import { UserDismissed } from '../patterns/dialog/types';
 import { styles } from './styles';
 import { template } from './template';
@@ -36,7 +35,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
 
-    public dialog!: ExtendedDialog;
+    public dialog!: HTMLDialogElement;
     private closing = false;
 
     private resolveShow?: (reason: CloseReason | UserDismissed) => void;
@@ -95,7 +94,10 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     /**
      * @internal
      */
-    public closeHandler(): void {
+    public closeHandler(event: Event): void {
+        if (event.target !== this.dialog) {
+            return;
+        }
         if (this.resolveShow) {
             // If
             // - the browser implements dialogs with the CloseWatcher API, and
