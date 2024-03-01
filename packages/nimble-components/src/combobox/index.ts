@@ -154,19 +154,6 @@ export class Combobox
         this.filteredOptions = enabledOptions;
     }
 
-    protected override focusAndScrollOptionIntoView(): void {
-        if (this.open && this.contains(document.activeElement)) {
-            this.control.focus();
-            if (this.firstSelectedOption) {
-                requestAnimationFrame(() => {
-                    this.firstSelectedOption?.scrollIntoView({
-                        block: 'nearest'
-                    });
-                });
-            }
-        }
-    }
-
     /**
      * This is a workaround for the issue described here: https://github.com/microsoft/fast/issues/6267
      * For now, we will update the value ourselves while a user types in text. Note that there is other
@@ -218,6 +205,12 @@ export class Combobox
         this.open = false;
         this.emitChangeIfValueUpdated();
         return returnValue;
+    }
+
+    protected override focusAndScrollOptionIntoView(): void {
+        if (this.open) {
+            super.focusAndScrollOptionIntoView();
+        }
     }
 
     protected override openChanged(): void {
