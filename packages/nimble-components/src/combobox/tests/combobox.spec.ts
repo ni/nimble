@@ -320,6 +320,27 @@ describe('Combobox', () => {
         await disconnect();
     });
 
+    async function waitForSelectionUpdateAsync(): Promise<void> {
+        await waitForUpdatesAsync();
+        await waitForUpdatesAsync(); // second wait is necessary because scrolling is queued with requestAnimationFrame
+    }
+
+    it('should scroll the selected option into view when opened', async () => {
+        const { element, connect, disconnect } = await setupWithManyOptions();
+        await connect();
+        await clickAndWaitForOpen(element);
+
+        element.value = '300';
+        await waitForSelectionUpdateAsync();
+        expect(element.listbox.scrollTop).toBeGreaterThan(8000);
+
+        element.value = '0';
+        await waitForSelectionUpdateAsync();
+        expect(element.listbox.scrollTop).toBeCloseTo(4);
+
+        await disconnect();
+    });
+
     it('setting open programmatically should update checked state of button', async () => {
         const { element, connect, disconnect } = await setup(undefined, false);
         await connect();
