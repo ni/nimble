@@ -10,22 +10,19 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "nuget"],
       "enabled": false
     },
     {
-      "groupName": "npm all dependencies",
+      "groupName": "npm dependencies",
       "matchManagers": ["npm"],
       "rangeStrategy": "in-range-only",
       "matchDepTypes": ["dependencies", "devDependencies"],
       "enabled": true
     },
     {
-      "groupName": "nuget bunit dependencies",
+      "groupName": "nuget dependencies",
       "matchManagers": ["nuget"],
-      "matchPackagePatterns":[
-        "^bunit"
-      ],
       "enabled": true
     }
   ]
