@@ -4,7 +4,10 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
 import { listOptionTag } from '../../list-option';
 import { ComboboxAutocomplete } from '../types';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    waitAnimationFrame,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 
@@ -322,7 +325,7 @@ describe('Combobox', () => {
 
     async function waitForSelectionUpdateAsync(): Promise<void> {
         await waitForUpdatesAsync();
-        await waitForUpdatesAsync(); // second wait is necessary because scrolling is queued with requestAnimationFrame
+        await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
     }
 
     it('should scroll the selected option into view when opened', async () => {

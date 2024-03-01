@@ -2,7 +2,10 @@ import { html, repeat } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
 import { ListOption, listOptionTag } from '../../list-option';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    waitAnimationFrame,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { FilterMode } from '../types';
 import { SelectPageObject } from '../testing/select.pageobject';
@@ -226,12 +229,13 @@ describe('Select', () => {
             element.focus();
             await clickAndWaitForOpen(element);
             await waitForUpdatesAsync();
+            await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
 
             expect(element.scrollableRegion.scrollTop).toBeGreaterThan(8000);
 
             element.value = '0';
             await waitForUpdatesAsync();
-            await waitForUpdatesAsync(); // second wait is necessary because scrolling is queued with requestAnimationFrame
+            await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
 
             expect(element.scrollableRegion.scrollTop).toBeCloseTo(4);
 
