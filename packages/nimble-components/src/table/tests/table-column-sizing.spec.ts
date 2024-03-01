@@ -750,35 +750,35 @@ describe('Table Interactive Column Sizing', () => {
     describe('active divider tests', () => {
         const dividerActiveTests = [
             {
-                name: 'click on first column right divider only results in one active divider',
+                name: 'click on first column right divider only results in one active and one visible divider',
                 dividerClickIndex: 0,
                 leftDividerClick: false,
-                expectedActiveIndexes: [0]
+                expectedVisibleIndexes: [0]
             },
             {
-                name: 'click on second column left divider results in two active dividers',
+                name: 'click on second column left divider results in one active and two visible dividers',
                 dividerClickIndex: 1,
-                expectedActiveIndexes: [1, 2]
+                expectedVisibleIndexes: [1, 2]
             },
             {
-                name: 'click on second column right divider results in two active dividers',
+                name: 'click on second column right divider results in one active and two visible dividers',
                 dividerClickIndex: 2,
-                expectedActiveIndexes: [1, 2]
+                expectedVisibleIndexes: [1, 2]
             },
             {
-                name: 'click on third column left divider results in two active dividers',
+                name: 'click on third column left divider results in one active and two visible dividers',
                 dividerClickIndex: 3,
-                expectedActiveIndexes: [3, 4]
+                expectedVisibleIndexes: [3, 4]
             },
             {
-                name: 'click on third column right divider results in two active dividers',
+                name: 'click on third column right divider results in one active and two visible dividers',
                 dividerClickIndex: 4,
-                expectedActiveIndexes: [3, 4]
+                expectedVisibleIndexes: [3, 4]
             },
             {
-                name: 'click on last column left divider only results in one active divider',
+                name: 'click on last column left divider only results in one active and one visible divider',
                 dividerClickIndex: 5,
-                expectedActiveIndexes: [5]
+                expectedVisibleIndexes: [5]
             }
         ] as const;
         parameterizeSpec(dividerActiveTests, (spec, name, value) => {
@@ -796,13 +796,20 @@ describe('Table Interactive Column Sizing', () => {
                 divider.dispatchEvent(mouseDownEvent);
                 await waitForUpdatesAsync();
                 const activeDividers = [];
+                const visibleDividers = [];
                 for (let i = 0; i < dividers.length; i++) {
                     if (dividers[i]!.classList.contains('active')) {
                         activeDividers.push(i);
                     }
+                    if (dividers[i]!.classList.contains('visible')) {
+                        visibleDividers.push(i);
+                    }
                 }
                 document.dispatchEvent(mouseUpEvent); // clean up registered event handlers
-                expect(activeDividers).toEqual(value.expectedActiveIndexes);
+
+                expect(activeDividers.length).toEqual(1);
+                expect(activeDividers[0]).toEqual(value.dividerClickIndex);
+                expect(visibleDividers).toEqual(value.expectedVisibleIndexes);
             });
         });
 
