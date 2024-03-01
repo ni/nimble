@@ -4,9 +4,11 @@
 
 A toggle tip is a web component that provides a tooltip-like functionality with the ability to toggle its visibility. It is typically used to display additional information or context for a specific element.
 
-The toggle tip consists of a trigger element, such as a button or an icon, and a content panel that is hidden by default. When the trigger element is clicked or hovered over, the content panel is revealed, providing the user with additional information or options. Clicking outside the toggle tip or pressing escape will hide the content panel again.
+The toggle tip consists of a trigger button, and a content panel that is hidden by default. When the trigger button is clicked, the content panel is revealed, providing the user with additional information or options. Clicking outside the toggle tip or pressing escape will hide the content panel again.
 
-Toggle tips are commonly used in user interfaces to provide contextual help, explanations, or additional actions without cluttering the main interface. They can be customized with various styles and animations to match the overall design of the web application.
+Toggle tips are commonly used in user interfaces to provide contextual help, explanations, or additional actions without cluttering the main interface.
+
+![Toggle tip example](./spec-images/example-toggle-tip.png)
 
 ### Background
 
@@ -15,13 +17,12 @@ Toggle tips are commonly used in user interfaces to provide contextual help, exp
 
 ## Usage
 
-When to use:
+**When to use:**
 
--   In a form or editor view to display additional information or context for a specific element
--   Where information density is important
+-   In a _form_ or _editor_ view to display additional information or context for a specific element.
 -   When the additional information or context provided by the toggle tip is not valuable for most users of the control.
 
-When not to use:
+**When not to use:**
 
 -   When the additional information or context is valuable for most users of the control. This context should be visible by default.
 
@@ -37,11 +38,15 @@ When not to use:
 
 ## Sizing
 
-The size of the toggle tip popover should be determined based on the length of the content it contains and the available space in the viewport. If the content is short, the popover should be sized to fit the content to avoid unnecessary visual clutter. For longer content, the popover may be up to 300px wide.
+![Minimal toggle tip](./spec-images/minimal-toggle-tip.png)
+
+![Maximal toggle tip](./spec-images/maximal-toggle-tip.png)
 
 ### Width
 
 The width of the toggle tip popover should be determined based on the length of the content it contains. However, if the content is greater than a single line of text, the width should be set to 300px.
+
+**QUESTION**: How does alignment work if there isn't 300px to the right of the trigger button? Align to the right side of the popover?
 
 ### Height
 
@@ -99,7 +104,7 @@ The toggle-tip does not support an error state. Further, the toggle-tip should n
 
 ![Toggle tip keyboard open](./spec-images/key-toggle-open.png)
 
-Pressing `ENTER` or `SPACE` a second time closes the popover.
+Pressing `ENTER` or `SPACE` a second time (or `ESC`) closes the popover.
 
 ![Toggle tip keyboard close](./spec-images/key-toggle-close.png)
 
@@ -107,12 +112,13 @@ Pressing `TAB` while the popover is open moves focus to the first focusable elem
 
 ![Toggle tip keyboard tab into popover](./spec-images/key-tab-popover.png)
 
+Pressing `TAB` while focused on the last focusable element in the content area will move focus to the next focusable element on the main page. Moving the focus **SHOULD NOT** automatically close the popover. However, interacting with another focusable element outside of the popover **MUST** close the popover.
+
 #### Touch-Screen Devices
 
-There are no specific requirements for mobile and touch-screen devices.
-
+-   The trigger button should have the CSS property `touch-action: manipulation;` set so double-tapping on the trigger button doesn't zoom the page, and so there isn't a 300ms delay before opening the popover.
 -   The toggle-tip popover should appear when a user taps the trigger button, and disappear when the user taps anything other than the popover.
--   Scrolling or zooming the view should not close the popover.
+-   Scrolling or zooming (pinch or double-tap) the view should not close the popover.
 
 ## Open Issues
 
