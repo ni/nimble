@@ -81,7 +81,7 @@ The alignment of the placeholder in the cell will match the alignment of the num
 Column best practices:
 
 -   Avoid mixing `undefined` and `null` as values for the same field. When grouping this will lead to two groups (one for `null` values and one for `undefined` values) that both have the text `"No value"`.
--   Avoid using IEEE 754 special cases of `-Inf`, `+Inf`, `-0`, `+0`, and `NaN`.
+-   If relevant to your data source, make sure to consider the IEEE 754 special cases of `-Inf`, `+Inf`, `-0`, `+0`, and `NaN`.
 
 #### Date column
 
