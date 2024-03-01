@@ -1,10 +1,8 @@
 import { html, repeat } from '@microsoft/fast-element';
 import { RichTextMentionListbox, richTextMentionListboxTag } from '..';
-import {
-    waitAnimationFrame,
-    waitForUpdatesAsync
-} from '../../../testing/async-helpers';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
+import { waitAnimationFrame } from '../../../utilities/tests/component';
 import { listOptionTag } from '../../../list-option';
 
 describe('RichTextMentionListbox', () => {
@@ -32,6 +30,7 @@ describe('RichTextMentionListbox', () => {
     }
 
     async function waitForSelectionUpdateAsync(): Promise<void> {
+        await waitForUpdatesAsync();
         await waitForUpdatesAsync();
         await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
     }

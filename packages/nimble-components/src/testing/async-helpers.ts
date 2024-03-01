@@ -11,10 +11,3 @@ export const waitForUpdatesAsync = async (): Promise<void> => DOM.nextUpdate();
  * updates that resulted from DOM interactions like property or attribute changes.
  */
 export const processUpdates = (): void => DOM.processUpdates();
-
-/**
- * Waits for a requested animation frame to occur.
- */
-export const waitAnimationFrame = async (): Promise<void> => new Promise(resolve => {
-    requestAnimationFrame(() => resolve());
-});

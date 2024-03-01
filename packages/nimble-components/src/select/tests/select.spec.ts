@@ -2,14 +2,14 @@ import { html, repeat } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
 import { ListOption, listOptionTag } from '../../list-option';
-import {
-    waitAnimationFrame,
-    waitForUpdatesAsync
-} from '../../testing/async-helpers';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { FilterMode } from '../types';
 import { SelectPageObject } from '../testing/select.pageobject';
-import { createEventListener } from '../../utilities/tests/component';
+import {
+    createEventListener,
+    waitAnimationFrame
+} from '../../utilities/tests/component';
 import { filterSearchLabel } from '../../label-provider/core/label-tokens';
 
 async function setup(

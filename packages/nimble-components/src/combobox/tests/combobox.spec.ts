@@ -4,11 +4,11 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
 import { listOptionTag } from '../../list-option';
 import { ComboboxAutocomplete } from '../types';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
-    waitAnimationFrame,
-    waitForUpdatesAsync
-} from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/tests/component';
+    createEventListener,
+    waitAnimationFrame
+} from '../../utilities/tests/component';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 
 async function setup(
