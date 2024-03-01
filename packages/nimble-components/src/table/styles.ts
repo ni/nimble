@@ -125,7 +125,6 @@ export const styles = css`
     }
 
     .column-divider.column-active,
-    .header-container:hover .column-divider,
     .header-container:hover .column-divider {
         display: block;
     }
