@@ -1,8 +1,114 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 20 Feb 2024 17:54:12 GMT and should not be manually modified.
+This log was last generated on Thu, 29 Feb 2024 16:22:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.8.0
+
+Thu, 29 Feb 2024 16:22:43 GMT
+
+### Minor changes
+
+- Allow icon mappings to specify an undefined icon ([ni/nimble@d4ca92e](https://github.com/ni/nimble/commit/d4ca92e5d7044d8be7b26ccbc52b91747663bfe2))
+
+## 21.7.1
+
+Wed, 28 Feb 2024 21:22:49 GMT
+
+### Patches
+
+- Create web worker class for future faster rendering wafer map ([ni/nimble@5269352](https://github.com/ni/nimble/commit/52693524c553f3b115e6c1004c902d10e7dd4050))
+
+## 21.7.0
+
+Wed, 28 Feb 2024 19:35:04 GMT
+
+### Minor changes
+
+- Add new icons for resume, generate, stop, deploy, undeploy, and hide ([ni/nimble@f4f3f45](https://github.com/ni/nimble/commit/f4f3f45c9107ff6d6c964fea69cd48247d6595fe))
+- Bump @ni/nimble-tokens to v6.12.0
+
+## 21.6.8
+
+Mon, 26 Feb 2024 22:26:36 GMT
+
+### Patches
+
+- Update usage of Intl.NumberFormat options ([ni/nimble@d74f49e](https://github.com/ni/nimble/commit/d74f49e65f2c63ef9eca571d9470b2a9d5c5d380))
+
+## 21.6.7
+
+Fri, 23 Feb 2024 22:56:07 GMT
+
+### Patches
+
+- Fix bug in Firefox where title on spinner isn't always displayed as expected ([ni/nimble@1e5b10c](https://github.com/ni/nimble/commit/1e5b10c7a247e13dcece70496b5ccbae322075a3))
+
+## 21.6.6
+
+Fri, 23 Feb 2024 22:17:56 GMT
+
+### Patches
+
+- Fix spacing between error text and component ([ni/nimble@c6e803c](https://github.com/ni/nimble/commit/c6e803caaa9757f7584281f096a94c4d58ef194d))
+
+## 21.6.5
+
+Fri, 23 Feb 2024 21:23:18 GMT
+
+### Patches
+
+- Only handle close events coming from dialog element ([ni/nimble@c1f4f8f](https://github.com/ni/nimble/commit/c1f4f8fb9bbb889608f1d2930f7a29d55fa31c79))
+
+## 21.6.4
+
+Fri, 23 Feb 2024 00:08:44 GMT
+
+### Patches
+
+- Tweak card to workaround lighthouse issue ([ni/nimble@b677d6b](https://github.com/ni/nimble/commit/b677d6b9ed7451715bb36043b245369060c8511b))
+
+## 21.6.3
+
+Thu, 22 Feb 2024 19:42:35 GMT
+
+### Patches
+
+- Clean up dialog/drawer properly if cancel event skipped ([ni/nimble@70e9234](https://github.com/ni/nimble/commit/70e9234b636b0a2e67a658ecef06008ac8e96fa2))
+
+## 21.6.2
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v6.11.1
+
+## 21.6.1
+
+Wed, 21 Feb 2024 23:32:45 GMT
+
+### Patches
+
+- Update `TableRecordDelayedHierarchyState` enum values to follow kebab casing convention ([ni/nimble@ff99d91](https://github.com/ni/nimble/commit/ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d))
+
+## 21.6.0
+
+Wed, 21 Feb 2024 21:18:20 GMT
+
+### Minor changes
+
+- Add bodyEmphasizedPlus1Font tokens ([ni/nimble@4037b7c](https://github.com/ni/nimble/commit/4037b7c13da51926e6fbfd774a4da19cd75cb98e))
+- Bump @ni/nimble-tokens to v6.11.0
+
+## 21.5.5
+
+Wed, 21 Feb 2024 19:48:20 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.2
 
 ## 21.5.4
 

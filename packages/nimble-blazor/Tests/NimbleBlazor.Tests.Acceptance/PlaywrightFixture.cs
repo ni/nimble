@@ -1,6 +1,5 @@
 using Microsoft.Playwright;
 using Xunit;
-using PlaywrightProgram = Microsoft.Playwright.Program;
 
 namespace NimbleBlazor.Tests.Acceptance;
 

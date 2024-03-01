@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
@@ -62,6 +61,13 @@ public class TableColumnConfiguration
     public double? PixelWidth { get; set; }
 }
 
+public class TableRowExpandToggleEventArgs : EventArgs
+{
+    public string RecordId { get; set; } = string.Empty;
+    public bool NewState { get; set; }
+    public bool OldState { get; set; }
+}
+
 public class WaferMapHoverDieChangedEventArgs : EventArgs
 {
     public WaferMapDie? CurrentDie { get; set; }
@@ -76,6 +82,7 @@ public class WaferMapHoverDieChangedEventArgs : EventArgs
 [EventHandler("onnimbleactionmenubeforetoggle", typeof(TableActionMenuToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimbletablerowselectionchange", typeof(TableRowSelectionEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimbletablecolumnconfigurationchange", typeof(TableColumnConfigurationEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
+[EventHandler("onnimbletablerowexpandtoggle", typeof(TableRowExpandToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimblewafermapdiehoverchange", typeof(WaferMapHoverDieChangedEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 public static class EventHandlers
 {
