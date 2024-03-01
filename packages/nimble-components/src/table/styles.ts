@@ -116,25 +116,18 @@ export const styles = css`
         height: ${controlSlimHeight};
         cursor: col-resize;
         position: absolute;
-    }
-
-    .column-divider:hover {
-        border-color: ${borderHoverColor};
-    }
-
-    .column-divider.visible {
-        display: block;
         z-index: ${ZIndexLevels.zIndex1};
     }
 
-    .column-divider.active {
+    .column-divider:hover,
+    .column-divider.divider-active {
         border-color: ${borderHoverColor};
     }
 
-    .header-container:hover .column-divider.left,
-    .header-container:hover .column-divider.right {
+    .column-divider.column-active,
+    .header-container:hover .column-divider,
+    .header-container:hover .column-divider {
         display: block;
-        z-index: ${ZIndexLevels.zIndex1};
     }
 
     .column-divider::before {

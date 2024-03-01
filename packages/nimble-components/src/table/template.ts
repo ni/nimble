@@ -87,8 +87,8 @@ export const template = html<Table>`
                                             class="
                                                 column-divider
                                                 left
-                                                ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'visible' : ''}`}
-                                                ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getLeftDividerIndex(c.index) ? 'active' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'column-active' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getLeftDividerIndex(c.index) ? 'divider-active' : ''}`}
                                             "
                                             @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.event as MouseEvent, c.index)}">
                                         </div>
@@ -107,8 +107,8 @@ export const template = html<Table>`
                                             class="
                                                 column-divider
                                                 right
-                                                ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'visible' : ''}`}
-                                                ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getRightDividerIndex(c.index) ? 'active' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'column-active' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getRightDividerIndex(c.index) ? 'divider-active' : ''}`}
                                             "
                                              @mousedown="${(_, c) => c.parent.onRightDividerMouseDown(c.event as MouseEvent, c.index)}">
                                         </div>
