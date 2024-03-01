@@ -9,6 +9,9 @@
 [![Nimble Blazor Nuget version and repo link](https://img.shields.io/nuget/v/NimbleBlazor.svg?label=NimbleBlazor)](https://www.nuget.org/packages/NimbleBlazor)
 [![Nimble Components NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-components.svg?label=@ni/nimble-components)](https://www.npmjs.com/package/@ni/nimble-components)
 [![Nimble Tokens NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-tokens.svg?label=@ni/nimble-tokens)](https://www.npmjs.com/package/@ni/nimble-tokens)
+[![Spright Angular NPM version and repo link](https://img.shields.io/npm/v/@ni/spright-angular.svg?label=@ni/spright-angular)](https://www.npmjs.com/package/@ni/spright-angular)
+[![Spright Blazor Nuget version and repo link](https://img.shields.io/nuget/v/SprightBlazor.svg?label=SprightBlazor)](https://www.nuget.org/packages/SprightBlazor)
+[![Spright Components NPM version and repo link](https://img.shields.io/npm/v/@ni/spright-components.svg?label=@ni/spright-components)](https://www.npmjs.com/package/@ni/spright-components)
 
 The NI Nimble Design System: styled UI components for NI applications.
 
@@ -26,6 +29,9 @@ This repository contains the source for the following packages:
 - **[`@ni/nimble-blazor`](/packages/nimble-blazor/)** - styled Blazor components for use in NI Blazor applications
 - **[`@ni/nimble-components`](/packages/nimble-components/)** - styled web components for use in other applications (also used by `nimble-angular` and `nimble-blazor`)
 - **[`@ni/nimble-tokens`](/packages/nimble-tokens/)** - design tokens used by the component packages
+- **[`@ni/spright-angular`](/angular-workspace/projects/ni/spright-angular/)** - experimental, composite, or product-specific, styled Angular components for use in NI Angular applications
+- **[`@ni/spright-blazor`](/packages/spright-blazor/)** - experimental, composite, or product-specific, styled Blazor components for use in NI Blazor applications
+- **[`@ni/spright-components`](/packages/spright-components/)** - experimental, composite, or product-specific, styled web components for use in other applications (also used by `spright-angular` and `spright-blazor`)
 
 And some additional utility packages:
 - [`@ni/jasmine-parameterized`](/packages/jasmine-parameterized/) - a utility for writing [Jasmine](https://jasmine.github.io/) parameterized tests
@@ -60,3 +66,24 @@ See `Getting Started` in [`Contributing.md`](/CONTRIBUTING.md#getting-started) t
 ## Component Status
 
 View status of components that are completed and on the roadmap in the [Component Status](https://ni.github.io/nimble/storybook/?path=/docs/component-status--docs) page.
+
+## Spright
+
+`spright-components`, `spright-angular`, and `SprightBlazor` are counterparts of the Nimble packages for components that do not belong in the Nimble Design System.   
+
+### What are the different types of Spright components?
+
+Examples include:
+1. "Molecule" components which combine Nimble "atom" components. For example, a group of card buttons with a specific layout.
+2. Product-specific components. For example, a configuration pane that uses product-specific terminology or connects to a product-specific data model.
+3. Data-connected components. For example, a table that populates itself by making HTTP requests to a specific service.
+4. Experimental components that are trying out new UX patterns to see if they should someday be promoted to Nimble.
+
+### Why Spright?
+
+"Spright" is an archaic variant of "sprite" that is the root of "sprightly"; think of it as a rapidly moving peer of Nimble.
+
+This concept is inspired by the "recipes" concept in [Design System Pace Layers](https://bigmedium.com/ideas/design-system-pace-layers-slow-fast.html). The goals are:
+
+1. Keep Nimble's core components at a high level of quality and reusability.
+2. Allow innovative new contributions to follow Nimble's architecture, leverage its infrastructure, and start on a path to being part of Nimble without being unnecessarily slowed by the rigorous process needed to achieve the first goal.

@@ -202,3 +202,19 @@ Some ways to make progress on an intermittent test tech debt issue are:
 
 1. In a branch a developer can try and re-enable the test and reproduce the failure by including additional logging, etc. Creating a PR is not necessary to queue a build in nimble; every commit has an associated build and will re-run the tests.
 2. If the failure is too intermittent to detect by manually queuing builds in a branch and needs additional logging and executions in main, then modify the test so that it will not fail the test suite and add the additional logging needed to make it run in main. Actively monitor the change and have a pre-defined date to disable the test and re-evaluate how to handle the issue.
+
+## Contributing to Spright
+
+The Spright packages, while part of the Nimble monorepo, have some differing contribution policies.
+
+### Code ownership
+
+Spright packages generally follow the inner source model. The Nimble team owns shared code and configuration, but the components, their tests, and their documentation are owned by the teams that created them. Bug fixes and new features should be contributed by the team that needs them.
+
+### Code quality
+
+Code should adhere to NI and Nimble standards for quality and test coverage. Spright components may choose to compromise on Nimble standards for aspects like visual design or API breadth, but should always have a level of quality suitable for use in production applications.
+
+### Documentation
+
+Storybook documentation for components should include a **Usage Guidance** section that explains what the component should and should not be used for. This could include information about feature gaps, guidance about when to use the component rather than a comparable Nimble component, and context about why the component is in Spright rather than Nimble.

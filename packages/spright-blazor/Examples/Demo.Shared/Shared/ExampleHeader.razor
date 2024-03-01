@@ -1,0 +1,19 @@
+﻿@using NimbleBlazor
+@namespace Demo.Shared
+
+<div class="header">
+    <NimbleDrawer TCloseReason="string" @ref="_drawerReference" Location="DrawerLocation.Right">
+        <div class="user-settings-drawer">
+            <h1>User settings</h1>
+            <NimbleSelect class="theme-select" Value="@ThemeAsString" ValueChanged="OnUserThemeChange">
+                <NimbleListOption Value="@Theme.Light.ToString()">Light theme</NimbleListOption>
+                <NimbleListOption Value="@Theme.Dark.ToString()">Dark theme</NimbleListOption>
+            </NimbleSelect>
+            <NimbleButton class="close-button" Appearance="ButtonAppearance.Outline" @onclick="OnCloseButtonClicked">Close</NimbleButton>
+        </div>
+    </NimbleDrawer>
+    <div class="button-container">
+        <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OnUserSettingsSelected">User Settings</NimbleButton>
+    </div>
+</div>
+

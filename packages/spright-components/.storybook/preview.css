@@ -1,0 +1,5 @@
+/* The code-hide-top-container class should only be used
+by the storybook.ts createStory helpers */
+.code-hide-top-container {
+    display: contents;
+}

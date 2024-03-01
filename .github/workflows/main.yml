@@ -87,8 +87,8 @@ jobs:
         with:
           path: 'packages/site/dist'
 
-      # Publish to Chromatic (from any push)
-      - name: Publish to Chromatic
+      # Publish to Chromatic (from any push) - Nimble
+      - name: Publish to Chromatic (Nimble)
         if: env.HAS_CHROMATIC_PROJECT_TOKEN == 'true' && github.event_name == 'push'
         uses: chromaui/action@v1
         with:
@@ -99,6 +99,20 @@ jobs:
             - '.storybook/public/**'
             - '../packages/nimble-tokens/dist/icons/svg/**'
             - '../packages/nimble-tokens/source/styledictionary/properties/**'
+          storybookBuildDir: ../../packages/site/dist/storybook
+          exitOnceUploaded: true # Do not wait for test results
+          exitZeroOnChanges: true # Option to prevent the workflow from failing
+
+      # Publish to Chromatic (from any push) - Spright
+      - name: Publish to Chromatic (Spright)
+        if: env.HAS_CHROMATIC_PROJECT_TOKEN == 'true' && github.event_name == 'push'
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
+          workingDir: ./packages/spright-components
+          externals: |
+            - '.storybook/public/**'
           storybookBuildDir: ../../packages/site/dist/storybook
           exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing

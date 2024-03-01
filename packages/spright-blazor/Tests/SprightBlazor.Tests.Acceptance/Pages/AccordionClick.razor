@@ -1,0 +1,14 @@
+﻿@page "/AccordionClick"
+@namespace SprightBlazor.Tests.Acceptance.Pages
+@inherits LayoutComponentBase
+
+<SprightAccordion @onclick="ClickHandler" @ref="_accordion">Foo</SprightAccordion>
+
+@code {
+    private SprightAccordion? _accordion;
+
+    public async Task ClickHandler()
+    {
+        // do something
+    }
+}

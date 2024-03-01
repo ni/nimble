@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Components
+@using NimbleBlazor
+@namespace SprightBlazor.Tests.Acceptance.Shared
+@inherits LayoutComponentBase
+
+<PageTitle>Spright Blazor tests</PageTitle>
+<NimbleThemeProvider Theme="Theme">
+    <div class="root">
+        <ErrorBoundary @ref="ErrorBoundary">
+            <ChildContent>
+                <div>
+                    @Body
+                </div>
+            </ChildContent>
+            <ErrorContent Context="ex">
+                <p class="error">@ex.Message</p>
+            </ErrorContent>
+        </ErrorBoundary>
+    </div>
+</NimbleThemeProvider>

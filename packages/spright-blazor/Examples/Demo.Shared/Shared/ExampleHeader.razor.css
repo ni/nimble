@@ -1,0 +1,28 @@
+﻿.header {
+    --example-client-header-height: 48px;
+    background-color: var(--ni-nimble-header-background-color);
+    display: flex;
+    justify-content: flex-end;
+    height: var(--example-client-header-height);
+    flex-shrink: 0;
+}
+
+::deep .user-settings-drawer {
+    padding: var(--ni-nimble-standard-padding);
+    display: flex;
+    flex-direction: column;
+}
+
+::deep .theme-select {
+    width: 150px;
+    min-width: unset;
+}
+
+::deep .close-button {
+    align-self: flex-end;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+}

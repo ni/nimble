@@ -47,6 +47,47 @@
         }
       }
     },
+    "@ni/spright-angular": {
+      "projectType": "library",
+      "root": "projects/ni/spright-angular",
+      "sourceRoot": "projects/ni/spright-angular",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ni/spright-angular/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ni/spright-angular/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ni/spright-angular/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ni/spright-angular/test.ts",
+            "tsConfig": "projects/ni/spright-angular/tsconfig.spec.json",
+            "karmaConfig": "projects/ni/spright-angular/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ni/spright-angular/**/*.ts",
+              "projects/ni/spright-angular/**/*.js",
+              "projects/ni/spright-angular/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "example-client-app": {
       "projectType": "application",
       "schematics": {

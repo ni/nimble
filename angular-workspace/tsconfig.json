@@ -8,6 +8,12 @@
       ],
       "@ni/nimble-angular/*": [
         "dist/ni/nimble-angular/*"
+      ],
+      "@ni/spright-angular": [
+        "dist/ni/spright-angular"
+      ],
+      "@ni/spright-angular/*": [
+        "dist/ni/spright-angular/*"
       ]
     },
     "baseUrl": "./",
