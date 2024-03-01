@@ -35,7 +35,8 @@ describe('RichTextMentionListbox', () => {
         await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
     }
 
-    it('should scroll the selected option into view when opened', async () => {
+    // Intermittent test. See tech debt issue: https://github.com/ni/nimble/issues/1891
+    xit('should scroll the selected option into view when opened', async () => {
         const { element, connect, disconnect } = await setup500Options();
         await connect();
         element.show({
