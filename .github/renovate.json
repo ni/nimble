@@ -14,31 +14,10 @@
       "enabled": false
     },
     {
-      "groupName": "npm dependencies",
+      "groupName": "npm all dependencies",
       "matchManagers": ["npm"],
-      "rangeStrategy": "update-lockfile",
-      "matchDepTypes": ["dependencies"],
-      "matchPackagePatterns":[
-        "^@microsoft/fast",
-        "^@tanstack/",
-        "^@tiptap/",
-        "@types/markdown-it",
-        "comlink",
-        "d3-",
-        "prosemirror-"
-      ],
-      "enabled": true
-    },
-    {
-      "groupName": "npm dev dependencies",
-      "matchManagers": ["npm"],
-      "rangeStrategy": "update-lockfile",
-      "matchDepTypes": ["devDependencies"],
-      "matchPackagePatterns":[
-        "^@ni/eslint-config",
-        "beachball",
-        "storybook"
-      ],
+      "rangeStrategy": "in-range-only",
+      "matchDepTypes": ["dependencies", "devDependencies"],
       "enabled": true
     },
     {
