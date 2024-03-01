@@ -9,7 +9,8 @@ import {
     controlSlimHeight,
     mediumPadding,
     standardPadding,
-    tableRowBorderColor
+    tableRowBorderColor,
+    borderHoverColor
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -117,6 +118,25 @@ export const styles = css`
         position: absolute;
     }
 
+    .column-divider:hover {
+        border-color: ${borderHoverColor};
+    }
+
+    .column-divider.visible {
+        display: block;
+        z-index: ${ZIndexLevels.zIndex1};
+    }
+
+    .column-divider.active {
+        border-color: ${borderHoverColor};
+    }
+
+    .header-container:hover .column-divider.left,
+    .header-container:hover .column-divider.right {
+        display: block;
+        z-index: ${ZIndexLevels.zIndex1};
+    }
+
     .column-divider::before {
         content: '';
         position: absolute;
@@ -129,17 +149,6 @@ export const styles = css`
             -1 * (var(--ni-private-column-divider-width) +
                         var(--ni-private-column-divider-padding))
         );
-    }
-
-    .column-divider.active {
-        display: block;
-        z-index: ${ZIndexLevels.zIndex1};
-    }
-
-    .header-container:hover .column-divider.left,
-    .header-container:hover .column-divider.right {
-        display: block;
-        z-index: ${ZIndexLevels.zIndex1};
     }
 
     .column-divider.left {
