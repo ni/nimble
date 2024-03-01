@@ -5,44 +5,41 @@ import type { WaferMapDie } from '../types';
  * This class is used to convert old wafer map data to new wafer map data
  */
 export class WaferMapConvertor {
-    public convertWaferMapDiesToTable(waferMapDies: WaferMapDie[]): Table {
-        const dieColIndexLayer: number[] = [];
-        const dieRowIndexLayer: number[] = [];
-        const dieValuesLayer: number[] = [];
-        const metadataColumns: { [key: string]: (number | string | boolean)[] } = {};
+    public toApacheTable(waferMapDies: WaferMapDie[]): Table {
+        const colIndexLayer: number[] = [];
+        const rowIndexLayer: number[] = [];
+        const valuesLayer: number[] = [];
+        const tags: string[][] = [];
 
-        waferMapDies.forEach(die => {
-            dieColIndexLayer.push(die.x);
-            dieRowIndexLayer.push(die.y);
-            dieValuesLayer.push(parseFloat(die.value));
-            if (typeof die.metadata === 'object' && die.metadata !== null) {
-                Object.entries(die.metadata).forEach(([key, value]) => {
-                    if (!metadataColumns[key]) {
-                        metadataColumns[key] = [];
-                    }
-                    // Ensure value is of type number | string | boolean before pushing
-                    if (typeof value === 'number' || typeof value === 'string' || typeof value === 'boolean') {
-                        metadataColumns[key]?.push(value);
-                    }
-                });
-            }
+        const maxTags: number = Math.max(...waferMapDies.map((die: WaferMapDie) => die.tags?.length ?? 0));
+
+        waferMapDies.forEach((die, index) => {
+            colIndexLayer.push(die.x);
+            rowIndexLayer.push(die.y);
+            valuesLayer.push(parseFloat(die.value));
+            tags[index] = die.tags ?? [];
         });
 
-        // eslint-disable-next-line no-console
-        console.log(waferMapDies);
+        let arrays = {};
 
-        // eslint-disable-next-line no-console
-        console.log(metadataColumns);
-
-        // Construct the arrays for table creation
-        const arrays = {
-            colIndex: new Int32Array(dieColIndexLayer),
-            rowIndex: new Int32Array(dieRowIndexLayer),
-            value: new Float32Array(dieValuesLayer),
-            ...metadataColumns
+        arrays = {
+            colIndex: new Int32Array(colIndexLayer),
+            rowIndex: new Int32Array(rowIndexLayer),
+            value: new Float32Array(valuesLayer),
         };
 
+        for (let i = 0; i < maxTags; i++) {
+            const tagValues = tags.map(tag => tag[i] ?? null);
+            arrays = {
+                ...arrays,
+                [`tag${i}`]: tagValues,
+            };
+        }
+
         const table = tableFromArrays(arrays);
+
+        // eslint-disable-next-line no-console
+        console.table(table.data);
 
         return table;
     }
