@@ -113,7 +113,7 @@ jobs:
           workingDir: ./packages/spright-components
           externals: |
             - '.storybook/public/**'
-          storybookBuildDir: ../../packages/site/dist/storybook
+          storybookBuildDir: ../../packages/site/dist/storybook-spright
           exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing
 

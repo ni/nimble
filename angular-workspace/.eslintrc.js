@@ -14,7 +14,7 @@ module.exports = {
                     message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
                 },
                 {
-                    group: ['@ni/nimble-components/**/tests', '@ni/nimble-components/**/testing'],
+                    group: ['@ni/nimble-components/**/tests', '@ni/nimble-components/**/testing', '@ni/spright-components/**/tests', '@ni/spright-components/**/testing'],
                     message: 'Do not use test code/utilities in production code.'
                 }]
             }],
@@ -45,6 +45,9 @@ module.exports = {
                     }, {
                         group: ['@ni/nimble-components'],
                         message: 'Nimble Angular tests should not have to directly depend on nimble-components.'
+                    }, {
+                        group: ['@ni/spright-components'],
+                        message: 'Spright Angular tests should not have to directly depend on spright-components.'
                     }]
                 }
             ]
