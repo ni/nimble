@@ -42,6 +42,16 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['ChromeHeadless'],
     singleRun: false,
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    customHeaders: [
+      // Add a Content-Security-Policy header for the tests
+      // Following: https://developer.chrome.com/docs/extensions/reference/manifest/content-security-policy
+      // Need 'unsafe-inline' to support karma behavior: https://github.com/karma-runner/karma/issues/3260
+      {
+          match: '\\.html',
+          name: 'Content-Security-Policy',
+          value: "script-src 'self' 'unsafe-inline'; object-src 'self';"
+      }
+  ]
   });
 };
