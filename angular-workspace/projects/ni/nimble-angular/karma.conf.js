@@ -54,11 +54,12 @@ module.exports = config => {
             // Following: https://developer.chrome.com/docs/extensions/reference/manifest/content-security-policy
             // Need script-src 'unsafe-inline' to support karma behavior
             // See https://github.com/karma-runner/karma/issues/3260
+            // Need script-src 'unsafe-eval' to support running in Angular tests
             // Need worker-src blob: to support current worker loading pattern
             {
                 match: '\\.html',
                 name: 'Content-Security-Policy',
-                value: "script-src 'self' 'unsafe-inline'; object-src 'self'; worker-src 'self' blob: ;"
+                value: "script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'self'; worker-src 'self' blob: ;"
             }
         ]
     });
