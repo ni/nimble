@@ -9,7 +9,6 @@ export class WaferMapConvertor {
     public rowIndexLayer: number[];
     public valuesLayer: number[];
     public tags: string[][];
-    public maxTags: number;
     private readonly waferMapDies: WaferMapDie[];
 
     public constructor(waferMapDies: WaferMapDie[]) {
@@ -18,7 +17,6 @@ export class WaferMapConvertor {
         this.rowIndexLayer = [];
         this.valuesLayer = [];
         this.tags = [];
-        this.maxTags = 0;
     }
 
     public toApacheTable(): Table {
