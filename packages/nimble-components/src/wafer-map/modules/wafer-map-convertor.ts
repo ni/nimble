@@ -22,7 +22,6 @@ export class WaferMapConvertor {
     }
 
     public toApacheTable(): Table {
-        this.computeMaximumNumberOfTags();
         this.populateLayers();
 
         let arrays = {};
@@ -46,20 +45,13 @@ export class WaferMapConvertor {
         return table;
     }
 
-    public computeMaximumNumberOfTags(): void {
-        this.maxTags = Math.max(
-            ...this.waferMapDies.map(
-                (die: WaferMapDie) => die.tags?.length ?? 0
-            )
-        );
-    }
-
     public populateLayers(): void {
         this.waferMapDies.forEach((die, index) => {
             this.colIndexLayer.push(die.x);
             this.rowIndexLayer.push(die.y);
             this.valuesLayer.push(parseFloat(die.value));
             this.tags[index] = die.tags ?? [];
+            this.maxTags = Math.max(this.maxTags, this.tags[index]?.length ?? 0);
         });
     }
 }

@@ -11,14 +11,6 @@ describe('WaferMap Convertor', () => {
         waferMapConvertor = new WaferMapConvertor(waferMapDies);
     });
 
-    it('should return the maximum number of tags', () => {
-        waferMapConvertor.computeMaximumNumberOfTags();
-        const maxTags = Math.max(
-            ...waferMapDies.map((die: WaferMapDie) => die.tags?.length ?? 0)
-        );
-        expect(waferMapConvertor.maxTags).toEqual(maxTags);
-    });
-
     it('should populate the wafer layers', () => {
         waferMapConvertor.populateLayers();
         expect(waferMapConvertor.colIndexLayer).toEqual(
@@ -39,7 +31,6 @@ describe('WaferMap Convertor', () => {
         const table = waferMapConvertor.toApacheTable();
 
         const waferMapConvertorForTest = new WaferMapConvertor(waferMapDies);
-        waferMapConvertorForTest.computeMaximumNumberOfTags();
         waferMapConvertorForTest.populateLayers();
 
         let arrays = {};
