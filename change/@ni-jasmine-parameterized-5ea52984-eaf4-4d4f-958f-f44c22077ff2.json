@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Align playwright version across packages",
-  "packageName": "@ni/jasmine-parameterized",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
