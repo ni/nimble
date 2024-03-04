@@ -152,6 +152,10 @@ export class TableLayoutManager<TData extends TableRecord> {
 
         // size left
         let currentIndex = this.leftColumnIndex!;
+        if (!this.hasResizableColumnToRight(this.rightColumnIndex!)) {
+            return 0;
+        }
+
         while (currentIndex >= 0) {
             const columnInitialWidths = this.initialColumnWidths[currentIndex]!;
             if (!columnInitialWidths.resizingDisabled) {

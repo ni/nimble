@@ -90,7 +90,7 @@ export const template = html<Table>`
                                                 left
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'column-active' : ''}`}
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getLeftDividerIndex(c.index) ? 'divider-active' : ''}`}
-                                                ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index - 1, c.parent.visibleColumns) && c.parent.layoutManager.hasResizableColumnToRight(c.index, c.parent.visibleColumns) ? 'resizable' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index - 1, c.parent.visibleColumns) ? 'resizable' : ''}`}
                                             "
                                             @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.event as MouseEvent, c.index)}">
                                         </div>
@@ -112,7 +112,7 @@ export const template = html<Table>`
                                                 right
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'column-active' : ''}`}
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getRightDividerIndex(c.index) ? 'divider-active' : ''}`}
-                                                ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index, c.parent.visibleColumns) && c.parent.layoutManager.hasResizableColumnToRight(c.index + 1, c.parent.visibleColumns) ? 'resizable' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index, c.parent.visibleColumns) ? 'resizable' : ''}`}
                                             "
                                              @mousedown="${(_, c) => c.parent.onRightDividerMouseDown(c.event as MouseEvent, c.index)}">
                                         </div>

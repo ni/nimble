@@ -360,7 +360,8 @@ describe('Table Interactive Column Sizing', () => {
                 fractionalWidths: [1, 1, 1, 1],
                 pixelWidths: [undefined, undefined, undefined, undefined],
                 minPixelWidths: [50, 50, 50, 50],
-                expectedColumnWidths: [101, 99, 100, 100]
+                expectedColumnWidths: [101, 99, 100, 100],
+                resizingDisabled: [false, false, false, false]
             },
             {
                 name: 'sizing right past the minimum size of adjacent right column cascades to next column',
@@ -369,7 +370,8 @@ describe('Table Interactive Column Sizing', () => {
                 fractionalWidths: [1, 1, 1, 1],
                 pixelWidths: [undefined, undefined, undefined, undefined],
                 minPixelWidths: [50, 50, 50, 50],
-                expectedColumnWidths: [151, 50, 99, 100]
+                expectedColumnWidths: [151, 50, 99, 100],
+                resizingDisabled: [false, false, false, false]
             },
             {
                 name: 'sizing right past the minimum size of all columns to right shrinks all columns to minimum size, but allows left column to keep growing',
@@ -378,7 +380,8 @@ describe('Table Interactive Column Sizing', () => {
                 fractionalWidths: [1, 1, 1, 1],
                 pixelWidths: [undefined, undefined, undefined, undefined],
                 minPixelWidths: [50, 50, 50, 50],
-                expectedColumnWidths: [251, 50, 50, 50]
+                expectedColumnWidths: [251, 50, 50, 50],
+                resizingDisabled: [false, false, false, false]
             },
             {
                 name: 'sizing left only affects adjacent left column with delta less than min width',
@@ -387,7 +390,8 @@ describe('Table Interactive Column Sizing', () => {
                 fractionalWidths: [1, 1, 1, 1],
                 pixelWidths: [undefined, undefined, undefined, undefined],
                 minPixelWidths: [50, 50, 50, 50],
-                expectedColumnWidths: [100, 100, 99, 101]
+                expectedColumnWidths: [100, 100, 99, 101],
+                resizingDisabled: [false, false, false, false]
             },
             {
                 name: 'sizing left past the minimum size of adjacent left column cascades to next column',
@@ -396,7 +400,8 @@ describe('Table Interactive Column Sizing', () => {
                 fractionalWidths: [1, 1, 1, 1],
                 pixelWidths: [undefined, undefined, undefined, undefined],
                 minPixelWidths: [50, 50, 50, 50],
-                expectedColumnWidths: [100, 99, 50, 151]
+                expectedColumnWidths: [100, 99, 50, 151],
+                resizingDisabled: [false, false, false, false]
             },
             {
                 name: 'sizing left past the minimum size of all columns to left shrinks all columns to minimum size, and stops growing right most column',
@@ -405,7 +410,8 @@ describe('Table Interactive Column Sizing', () => {
                 fractionalWidths: [1, 1, 1, 1],
                 pixelWidths: [undefined, undefined, undefined, undefined],
                 minPixelWidths: [50, 50, 50, 50],
-                expectedColumnWidths: [50, 50, 50, 250]
+                expectedColumnWidths: [50, 50, 50, 250],
+                resizingDisabled: [false, false, false, false]
             },
             {
                 name: `sizing left past the minimum size of all columns to left shrinks all columns to minimum size, and stops growing right most column,
@@ -415,7 +421,8 @@ describe('Table Interactive Column Sizing', () => {
                 fractionalWidths: [1, 1, 1, 1],
                 pixelWidths: [undefined, undefined, undefined, undefined],
                 minPixelWidths: [50, 50, 50, 50],
-                expectedColumnWidths: [50, 50, 50, 250]
+                expectedColumnWidths: [50, 50, 50, 250],
+                resizingDisabled: [false, false, false, false]
             },
             {
                 name: 'sizing right causing cascade and then sizing left in same interaction reverts cascade effect',
@@ -424,7 +431,8 @@ describe('Table Interactive Column Sizing', () => {
                 fractionalWidths: [1, 1, 1, 1],
                 pixelWidths: [undefined, undefined, undefined, undefined],
                 minPixelWidths: [50, 50, 50, 50],
-                expectedColumnWidths: [100, 100, 150, 50]
+                expectedColumnWidths: [100, 100, 150, 50],
+                resizingDisabled: [false, false, false, false]
             },
             {
                 name: 'sizing left causing cascade and then sizing right in same interaction reverts cascade effect',
@@ -433,7 +441,8 @@ describe('Table Interactive Column Sizing', () => {
                 fractionalWidths: [1, 1, 1, 1],
                 pixelWidths: [undefined, undefined, undefined, undefined],
                 minPixelWidths: [50, 50, 50, 50],
-                expectedColumnWidths: [75, 125, 100, 100]
+                expectedColumnWidths: [75, 125, 100, 100],
+                resizingDisabled: [false, false, false, false]
             },
             {
                 name: 'sizing a column with the same fractional width as other columns, but larger minimum size, does not result in different pixel widths for columns not resized',
@@ -442,7 +451,8 @@ describe('Table Interactive Column Sizing', () => {
                 fractionalWidths: [1, 1, 1, 1],
                 pixelWidths: [undefined, undefined, undefined, undefined],
                 minPixelWidths: [50, 50, 50, 175],
-                expectedColumnWidths: [75, 75, 65, 185]
+                expectedColumnWidths: [75, 75, 65, 185],
+                resizingDisabled: [false, false, false, false]
             },
             {
                 name: 'sizing a column with the same fractional width as other columns, but larger minimum size, with a fixed width column that is not interactively sized, does not result in different pixel widths for columns not resized',
@@ -451,7 +461,8 @@ describe('Table Interactive Column Sizing', () => {
                 fractionalWidths: [1, 1, 1, 1],
                 pixelWidths: [85, undefined, undefined, undefined],
                 minPixelWidths: [50, 50, 45, 175],
-                expectedColumnWidths: [85, 65, 45, 205]
+                expectedColumnWidths: [85, 65, 45, 205],
+                resizingDisabled: [false, false, false, false]
             },
             {
                 name: 'sizing a column with the same fractional width as other columns, but larger minimum size, along with a fixed width column, does not result in different pixel widths for columns not resized',
@@ -460,7 +471,8 @@ describe('Table Interactive Column Sizing', () => {
                 fractionalWidths: [1, 1, 1, 1],
                 pixelWidths: [undefined, undefined, 75, undefined],
                 minPixelWidths: [50, 50, 50, 175],
-                expectedColumnWidths: [75, 75, 50, 200]
+                expectedColumnWidths: [75, 75, 50, 200],
+                resizingDisabled: [false, false, false, false]
             }
         ] as const;
         parameterizeSpec(columnSizeTests, (spec, name, value) => {
@@ -469,6 +481,7 @@ describe('Table Interactive Column Sizing', () => {
                     column.columnInternals.fractionalWidth = value.fractionalWidths[i]!;
                     column.columnInternals.pixelWidth = value.pixelWidths[i]!;
                     column.columnInternals.minPixelWidth = value.minPixelWidths[i]!;
+                    column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
                 });
                 await waitForUpdatesAsync();
                 pageObject.dragSizeColumnByRightDivider(
@@ -509,12 +522,15 @@ describe('Table Interactive Column Sizing', () => {
                 name: 'can resize column surrounded by non-resizable columns if another column can be resized',
                 resizingDisabled: [true, false, true, false],
                 expectedResizableDividers: [2, 3, 4, 5]
-            },
-            // {
-            //     name: 'can resize the only resizable column only to the right',
-            //     resizingDisabled: [true, false, true, true],
-            //     expectedResizableDividers: [2, 3]
-            // }
+            }, {
+                name: 'can resize the only resizable column only to the right',
+                resizingDisabled: [true, true, false, true],
+                expectedResizableDividers: [4, 5]
+            }, {
+                name: 'can resize all columns to the right if one resizable column exists to the left',
+                resizingDisabled: [false, true, true, true],
+                expectedResizableDividers: [2, 3, 4, 5]
+            }
         ] as const;
         parameterizeSpec(resizingDisabledDividerVisibilityTests, (spec, name, value) => {
             spec(name, async () => {
