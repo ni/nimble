@@ -362,11 +362,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
             }
             case 'hidden': {
                 if (isListOption(sourceElement)) {
-                    if (sourceElement.hidden) {
-                        sourceElement.visuallyHidden = true;
-                    } else {
-                        sourceElement.visuallyHidden = false;
-                    }
+                    sourceElement.visuallyHidden = sourceElement.hidden;
                 }
                 this.updateDisplayValue();
                 break;
