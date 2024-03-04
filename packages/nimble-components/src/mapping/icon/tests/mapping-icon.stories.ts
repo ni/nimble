@@ -28,7 +28,7 @@ export const iconMapping: StoryObj = {
         icon: {
             control: { type: 'none' },
             description:
-                'The tag name of the Nimble icon to render, e.g. `nimble-icon-check`.'
+                'The tag name of the Nimble icon to render, e.g. `nimble-icon-check`. Alternatively, set `icon` to `undefined` to render no icon for the mapping while still providing a label to be used when grouping.'
         },
         severity: {
             description:
