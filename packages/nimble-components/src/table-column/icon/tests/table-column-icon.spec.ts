@@ -36,6 +36,7 @@ interface BasicSpinnerMapping {
 class Model {
     public col1!: TableColumnIcon;
 }
+
 interface ModelFixture<T> extends Fixture<T> {
     model: Model;
 }
@@ -57,7 +58,7 @@ describe('TableColumnIcon', () => {
         const result = await fixture<Table<SimpleTableRecord>>(html<Model>`
             <${tableTag} style="width: 700px">
                 <${tableColumnIconTag} ${ref('col1')} field-name="field1" key-type="${options.keyType}">
-                    Column 1
+                    <${iconCheckTag}></${iconCheckTag}>
                     ${repeat(() => options.iconMappings, html<BasicIconMapping>`
                         <${mappingIconTag}
                             key="${x => x.key}"
@@ -93,6 +94,21 @@ describe('TableColumnIcon', () => {
         expect(
             document.createElement('nimble-table-column-icon')
         ).toBeInstanceOf(TableColumnIcon);
+    });
+
+    it('can construct an element instance', async () => {
+        ({ element, connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            iconMappings: [],
+            spinnerMappings: []
+        }));
+        await connect();
+        await waitForUpdatesAsync();
+
+        const columnInternals = model.col1.columnInternals;
+        expect(columnInternals.resizingDisabled).toBeTrue();
+        expect(columnInternals.pixelWidth).toBe(32);
+        expect(columnInternals.minPixelWidth).toBe(32);
     });
 
     describe('various key types', () => {
@@ -353,7 +369,8 @@ describe('TableColumnIcon', () => {
             iconXmarkTag
         );
 
-        model.col1.removeChild(model.col1.firstElementChild!);
+        const mappingElement = element.querySelector(mappingIconTag);
+        mappingElement!.remove();
         await waitForUpdatesAsync();
         expect(() => pageObject.getRenderedIconColumnCellIconTagName(0, 0)).toThrowError();
     });
@@ -373,7 +390,8 @@ describe('TableColumnIcon', () => {
             iconXmarkTag
         );
 
-        model.col1.removeChild(model.col1.firstElementChild!);
+        const mappingElement = element.querySelector(mappingIconTag);
+        mappingElement!.remove();
         await waitForUpdatesAsync();
         expect(() => pageObject.getRenderedIconColumnGroupHeaderIconTagName(0)).toThrowError();
     });

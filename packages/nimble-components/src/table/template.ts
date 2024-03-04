@@ -99,7 +99,7 @@ export const template = html<Table>`
                                             class="header"
                                             sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
                                             ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
-                                            ?decorations-hidden="${x => x.columnInternals.minPixelWidth < defaultMinPixelWidth}"
+                                            ?indicators-hidden="${x => x.columnInternals.minPixelWidth < defaultMinPixelWidth}"
                                             @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
                                             :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                         >

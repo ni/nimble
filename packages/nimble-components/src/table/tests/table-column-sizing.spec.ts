@@ -351,7 +351,7 @@ describe('Table Interactive Column Sizing', () => {
         await disconnect();
     });
 
-    describe('No hidden columns ', () => {
+    describe('No hidden columns', () => {
         const columnSizeTests = [
             {
                 name: 'sizing right only affects adjacent right column with delta less than min width',
@@ -477,6 +477,62 @@ describe('Table Interactive Column Sizing', () => {
                 );
                 await waitForUpdatesAsync();
                 value.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(width));
+            });
+        });
+
+        const resizingDisabledDividerVisibilityTests = [
+            {
+                name: 'all dividers are resizable when no columns having resizing disabled',
+                resizingDisabled: [false, false, false, false],
+                expectedResizableDividers: [0, 1, 2, 3, 4, 5]
+            }, {
+                name: 'no column dividers are visible if no columns are resizable',
+                resizingDisabled: [true, true, true, true],
+                expectedResizableDividers: []
+            }, {
+                name: 'no right divider on a column that cannot be resized to the right',
+                resizingDisabled: [true, false, false, false],
+                expectedResizableDividers: [2, 3, 4, 5]
+            }, {
+                name: 'no right divider on multiple columns that cannot be resized to the right',
+                resizingDisabled: [true, true, false, false],
+                expectedResizableDividers: [4, 5]
+            }, {
+                name: 'no left divider on a column that cannot be resized to the left',
+                resizingDisabled: [false, false, false, true],
+                expectedResizableDividers: [0, 1, 2, 3]
+            }, {
+                name: 'no left divider on multiple columns that cannot be resized to the left',
+                resizingDisabled: [false, false, true, true],
+                expectedResizableDividers: [0, 1]
+            }, {
+                name: 'can resize column surrounded by non-resizable columns if another column can be resized',
+                resizingDisabled: [true, false, true, false],
+                expectedResizableDividers: [2, 3, 4, 5]
+            },
+            // {
+            //     name: 'can resize the only resizable column only to the right',
+            //     resizingDisabled: [true, false, true, true],
+            //     expectedResizableDividers: [2, 3]
+            // }
+        ] as const;
+        parameterizeSpec(resizingDisabledDividerVisibilityTests, (spec, name, value) => {
+            spec(name, async () => {
+                element.columns.forEach((column, i) => {
+                    column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
+                });
+                await waitForUpdatesAsync();
+
+                const dividers = Array.from(
+                    element.shadowRoot!.querySelectorAll('.column-divider')
+                );
+                const resizableDividers = [];
+                for (let i = 0; i < dividers.length; i++) {
+                    if (dividers[i]!.classList.contains('resizable')) {
+                        resizableDividers.push(i);
+                    }
+                }
+                expect(resizableDividers).toEqual(value.expectedResizableDividers);
             });
         });
 
