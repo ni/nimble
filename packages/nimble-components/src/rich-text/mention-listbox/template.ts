@@ -29,6 +29,6 @@ export const template = html<RichTextMentionListbox>`
                 >
                 </slot>
             </div>
-            </${anchoredRegionTag}>
+        </${anchoredRegionTag}>
     </template>
 `;
