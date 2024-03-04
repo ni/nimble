@@ -2,6 +2,29 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 01 Mar 2024 23:02:58 GMT",
+      "version": "21.8.1",
+      "tag": "@ni/nimble-components_v21.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "90df5dd14c1c5ad4116f6b43ae5fb99dc215c83e",
+            "comment": "Fix drawer/select animation bug"
+          }
+        ],
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "64b4301d2e6891403a289166ad78c35982f04a8a",
+            "comment": "Disable intermittent test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 29 Feb 2024 16:22:43 GMT",
       "version": "21.8.0",
       "tag": "@ni/nimble-components_v21.8.0",

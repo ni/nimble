@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 29 Feb 2024 16:22:43 GMT and should not be manually modified.
+This log was last generated on Fri, 01 Mar 2024 23:02:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.8.1
+
+Fri, 01 Mar 2024 23:02:58 GMT
+
+### Patches
+
+- Fix drawer/select animation bug ([ni/nimble@90df5dd](https://github.com/ni/nimble/commit/90df5dd14c1c5ad4116f6b43ae5fb99dc215c83e))
 
 ## 21.8.0
 
