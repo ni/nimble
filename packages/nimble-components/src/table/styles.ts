@@ -9,7 +9,8 @@ import {
     controlSlimHeight,
     mediumPadding,
     standardPadding,
-    tableRowBorderColor
+    tableRowBorderColor,
+    borderHoverColor
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -115,6 +116,17 @@ export const styles = css`
         height: ${controlSlimHeight};
         cursor: col-resize;
         position: absolute;
+        z-index: ${ZIndexLevels.zIndex1};
+    }
+
+    .column-divider:hover,
+    .column-divider.divider-active {
+        border-color: ${borderHoverColor};
+    }
+
+    .column-divider.column-active.resizable,
+    .header-container:hover .column-divider.resizable {
+        display: block;
     }
 
     .column-divider::before {
@@ -129,17 +141,6 @@ export const styles = css`
             -1 * (var(--ni-private-column-divider-width) +
                         var(--ni-private-column-divider-padding))
         );
-    }
-
-    .column-divider.active.resizable {
-        display: block;
-        z-index: ${ZIndexLevels.zIndex1};
-    }
-
-    .header-container:hover .column-divider.left.resizable,
-    .header-container:hover .column-divider.right.resizable {
-        display: block;
-        z-index: ${ZIndexLevels.zIndex1};
     }
 
     .column-divider.left {

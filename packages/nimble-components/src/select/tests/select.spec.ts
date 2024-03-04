@@ -6,7 +6,10 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { FilterMode } from '../types';
 import { SelectPageObject } from '../testing/select.pageobject';
-import { createEventListener } from '../../utilities/tests/component';
+import {
+    createEventListener,
+    waitAnimationFrame
+} from '../../utilities/tests/component';
 import { filterSearchLabel } from '../../label-provider/core/label-tokens';
 
 async function setup(
@@ -215,6 +218,26 @@ describe('Select', () => {
                 window.innerHeight
             );
             expect(fullyVisible).toBe(true);
+
+            await disconnect();
+        });
+
+        it('should scroll the selected option into view when opened', async () => {
+            const { element, connect, disconnect } = await setup500Options();
+            element.value = '300';
+            await connect();
+            element.focus();
+            await clickAndWaitForOpen(element);
+            await waitForUpdatesAsync();
+            await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
+
+            expect(element.scrollableRegion.scrollTop).toBeGreaterThan(8000);
+
+            element.value = '0';
+            await waitForUpdatesAsync();
+            await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
+
+            expect(element.scrollableRegion.scrollTop).toBeCloseTo(4);
 
             await disconnect();
         });
