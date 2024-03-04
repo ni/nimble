@@ -5,12 +5,12 @@ import type { WaferMapDie } from '../types';
  * This class is used to convert old wafer map data to new wafer map data
  */
 export class WaferMapConvertor {
-    public waferMapDies: WaferMapDie[];
     public colIndexLayer: number[];
     public rowIndexLayer: number[];
     public valuesLayer: number[];
     public tags: string[][];
     public maxTags: number;
+    private readonly waferMapDies: WaferMapDie[];
 
     public constructor(waferMapDies: WaferMapDie[]) {
         this.waferMapDies = waferMapDies;
