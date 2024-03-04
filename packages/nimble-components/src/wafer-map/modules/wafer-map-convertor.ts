@@ -30,14 +30,14 @@ export class WaferMapConvertor {
         arrays = {
             colIndex: new Int32Array(this.colIndexLayer),
             rowIndex: new Int32Array(this.rowIndexLayer),
-            value: new Float32Array(this.valuesLayer),
+            value: new Float32Array(this.valuesLayer)
         };
 
         for (let i = 0; i < this.maxTags; i++) {
             const tagValues = this.tags.map(tag => tag[i] ?? null);
             arrays = {
                 ...arrays,
-                [`tag${i}`]: tagValues,
+                [`tag${i}`]: tagValues
             };
         }
 
@@ -47,7 +47,11 @@ export class WaferMapConvertor {
     }
 
     public computeMaximumNumberOfTags(): void {
-        this.maxTags = Math.max(...this.waferMapDies.map((die: WaferMapDie) => die.tags?.length ?? 0));
+        this.maxTags = Math.max(
+            ...this.waferMapDies.map(
+                (die: WaferMapDie) => die.tags?.length ?? 0
+            )
+        );
     }
 
     public populateLayers(): void {
