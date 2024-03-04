@@ -531,11 +531,13 @@ describe('Select', () => {
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.text).toBe('Two');
             pageObject.pressEscapeKey();
 
             await pageObject.clickSelect();
             currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.selected).toBeTrue();
+            expect(currentSelection?.text).toBe('One');
         });
 
         it('opening popup shows correct selected element after filtering and committing but not changing selected option', async () => {

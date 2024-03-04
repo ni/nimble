@@ -96,7 +96,10 @@ export class SelectPageObject {
      * Click the option with the text provided by the 'value' parameter.
      * @param value The text of the option to be selected
      */
-    public clickOptionWithDisplayText(value: string): void {
+    public async clickOptionWithDisplayText(value: string): Promise<void> {
+        if (!this.selectElement.open) {
+            await this.clickSelect();
+        }
         const optionIndex = this.selectElement.options.findIndex(
             o => o.text === value
         );

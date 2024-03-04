@@ -32,6 +32,10 @@ export class ListOption extends FoundationListboxOption {
 
     /**
      * @internal
+     * This attribute is required to allow use-cases that offer dynamic filtering
+     * (like the Select) to visually hide options that are filtered out, but still
+     * allow users to use the native 'hidden' attribute without it being affected
+     * by the filtering process.
      */
     @attr({ attribute: 'visually-hidden', mode: 'boolean' })
     public visuallyHidden = false;
