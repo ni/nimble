@@ -158,6 +158,8 @@ export class MyPixelWidthColumn : TableColumn<...> {
         super();
         this.columnInternals.resizingDisabled = true;
         this.columnInternals.pixelWidth = 100;
+        // Set the minPixelWidth of the column equal to the specified fixed pixel width so that
+        // the column won't be coerced to a larger size based on the default minimum width.
         this.columnInternals.minPixelWidth = 100;
     }
 }
