@@ -49,11 +49,13 @@ module.exports = function (config) {
       // Need script-src 'unsafe-inline' to support karma behavior
       // See https://github.com/karma-runner/karma/issues/3260
       // Need script-src 'unsafe-eval' to support running in Angular tests
+      // Need style-src 'unsafe-inline' to support FAST
+      // See: https://github.com/microsoft/fast/issues/4510
       // Need worker-src blob: to support current worker loading pattern
       {
           match: '\\.html',
           name: 'Content-Security-Policy',
-          value: "default-src 'self'; frame-ancestors 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; worker-src 'self' blob: ;"
+          value: "default-src 'self'; frame-ancestors 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob: ;"
       }
   ]
   });
