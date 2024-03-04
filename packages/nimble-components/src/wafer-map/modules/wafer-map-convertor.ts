@@ -5,17 +5,17 @@ import type { WaferMapDie } from '../types';
  * This class is used to convert old wafer map data to new wafer map data
  */
 export class WaferMapConvertor {
-    public colIndexLayer: number[];
-    public rowIndexLayer: number[];
-    public valuesLayer: number[];
+    public colIndex: number[];
+    public rowIndex: number[];
+    public values: number[];
     public tags: string[][];
     private readonly waferMapDies: WaferMapDie[];
 
     public constructor(waferMapDies: WaferMapDie[]) {
         this.waferMapDies = waferMapDies;
-        this.colIndexLayer = [];
-        this.rowIndexLayer = [];
-        this.valuesLayer = [];
+        this.colIndex = [];
+        this.rowIndex = [];
+        this.values = [];
         this.tags = [];
     }
 
@@ -23,9 +23,9 @@ export class WaferMapConvertor {
         this.populateLayers();
 
         const columnData = {
-            colIndex: vectorFromArray(new Int32Array(this.colIndexLayer)),
-            rowIndex: vectorFromArray(new Int32Array(this.rowIndexLayer)),
-            value: vectorFromArray(new Float32Array(this.valuesLayer)),
+            colIndex: vectorFromArray(new Int32Array(this.colIndex)),
+            rowIndex: vectorFromArray(new Int32Array(this.rowIndex)),
+            value: vectorFromArray(new Float32Array(this.values)),
             tags: vectorFromArray(
                 this.tags,
                 new List<Utf8>(new Field<Utf8>('', new Utf8()))
@@ -39,9 +39,9 @@ export class WaferMapConvertor {
 
     public populateLayers(): void {
         this.waferMapDies.forEach((die, index) => {
-            this.colIndexLayer.push(die.x);
-            this.rowIndexLayer.push(die.y);
-            this.valuesLayer.push(parseFloat(die.value));
+            this.colIndex.push(die.x);
+            this.rowIndex.push(die.y);
+            this.values.push(parseFloat(die.value));
             this.tags[index] = die.tags ?? [];
         });
     }

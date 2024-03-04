@@ -7,10 +7,10 @@ import {
     highlightedValueGenerator
 } from './value-generator';
 import {
-    expectedTagsArray,
-    expectedValuesArray,
-    expectedRowIndexArray,
-    expectedColIndexArray
+    expectedTags,
+    expectedValues,
+    expectedRowIndex,
+    expectedColIndex
 } from '../../utilities/tests/wafer-sets';
 
 describe('WaferMap Convertor', () => {
@@ -28,23 +28,23 @@ describe('WaferMap Convertor', () => {
 
     it('should populate the wafer layers', () => {
         waferMapConvertor.populateLayers();
-        expect(waferMapConvertor.colIndexLayer).toEqual(expectedColIndexArray);
-        expect(waferMapConvertor.rowIndexLayer).toEqual(expectedRowIndexArray);
-        expect(waferMapConvertor.valuesLayer).toEqual(
-            expectedValuesArray.map(value => parseFloat(value.toFixed(2)))
+        expect(waferMapConvertor.colIndex).toEqual(expectedColIndex);
+        expect(waferMapConvertor.rowIndex).toEqual(expectedRowIndex);
+        expect(waferMapConvertor.values).toEqual(
+            expectedValues.map(value => parseFloat(value.toFixed(2)))
         );
-        expect(waferMapConvertor.tags).toEqual(expectedTagsArray);
+        expect(waferMapConvertor.tags).toEqual(expectedTags);
     });
 
     it('should convert wafer map data to apache arrow table', () => {
         const table = waferMapConvertor.toApacheTable();
 
         const computedTable = new Table({
-            colIndex: vectorFromArray(new Int32Array(expectedColIndexArray)),
-            rowIndex: vectorFromArray(new Int32Array(expectedRowIndexArray)),
-            value: vectorFromArray(new Float32Array(expectedValuesArray)),
+            colIndex: vectorFromArray(new Int32Array(expectedColIndex)),
+            rowIndex: vectorFromArray(new Int32Array(expectedRowIndex)),
+            value: vectorFromArray(new Float32Array(expectedValues)),
             tags: vectorFromArray(
-                expectedTagsArray,
+                expectedTags,
                 new List<Utf8>(new Field<Utf8>('', new Utf8()))
             )
         });
