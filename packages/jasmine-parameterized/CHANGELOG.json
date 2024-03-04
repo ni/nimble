@@ -2,6 +2,21 @@
   "name": "@ni/jasmine-parameterized",
   "entries": [
     {
+      "date": "Mon, 04 Mar 2024 17:42:52 GMT",
+      "version": "0.2.2",
+      "tag": "@ni/jasmine-parameterized_v0.2.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "d453002edff85ffcee1b6ab40514625f6c29c2d0",
+            "comment": "Align playwright version across packages"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 21 Feb 2024 19:48:20 GMT",
       "version": "0.2.2",
       "tag": "@ni/jasmine-parameterized_v0.2.2",
