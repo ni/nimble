@@ -49,6 +49,6 @@ describe('WaferMap Convertor', () => {
             )
         });
 
-        expect(table.toString()).toEqual(computedTable.toString());
+        expect(table).toEqual(computedTable);
     });
 });
