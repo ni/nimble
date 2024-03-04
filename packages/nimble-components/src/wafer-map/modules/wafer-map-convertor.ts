@@ -49,7 +49,10 @@ export class WaferMapConvertor {
             this.rowIndexLayer.push(die.y);
             this.valuesLayer.push(parseFloat(die.value));
             this.tags[index] = die.tags ?? [];
-            this.maxTags = Math.max(this.maxTags, this.tags[index]?.length ?? 0);
+            this.maxTags = Math.max(
+                this.maxTags,
+                this.tags[index]?.length ?? 0
+            );
         });
     }
 }

@@ -1,11 +1,21 @@
-import { tableFromArrays } from 'apache-arrow';
+import { tableFromJSON } from 'apache-arrow';
 import { WaferMapConvertor } from '../modules/wafer-map-convertor';
 import type { WaferMapDie } from '../types';
-import { wafermapDieSets } from './sets';
+import { generateWaferData } from './data-generator';
+import {
+    goodValueGenerator,
+    highlightedValueGenerator
+} from './value-generator';
+import { expectedTableJson } from '../../utilities/tests/wafer-sets';
 
 describe('WaferMap Convertor', () => {
     let waferMapConvertor: WaferMapConvertor;
-    const waferMapDies: WaferMapDie[] = wafermapDieSets[0] || [];
+    const seed = 1;
+    const waferMapDies: WaferMapDie[] = generateWaferData(
+        2,
+        goodValueGenerator(seed),
+        highlightedValueGenerator(seed)
+    );
 
     beforeEach(() => {
         waferMapConvertor = new WaferMapConvertor(waferMapDies);
@@ -29,29 +39,9 @@ describe('WaferMap Convertor', () => {
 
     it('should convert wafer map data to apache arrow table', () => {
         const table = waferMapConvertor.toApacheTable();
+        const expectedTestTable = expectedTableJson;
 
-        const waferMapConvertorForTest = new WaferMapConvertor(waferMapDies);
-        waferMapConvertorForTest.populateLayers();
-
-        let arrays = {};
-
-        arrays = {
-            colIndex: new Int32Array(waferMapConvertorForTest.colIndexLayer),
-            rowIndex: new Int32Array(waferMapConvertorForTest.rowIndexLayer),
-            value: new Float32Array(waferMapConvertorForTest.valuesLayer)
-        };
-
-        for (let i = 0; i < waferMapConvertorForTest.maxTags; i++) {
-            const tagValues = waferMapConvertorForTest.tags.map(
-                tag => tag[i] ?? null
-            );
-            arrays = {
-                ...arrays,
-                [`tag${i}`]: tagValues
-            };
-        }
-
-        const computedTable = tableFromArrays(arrays);
+        const computedTable = tableFromJSON(expectedTestTable);
 
         expect(table.toArray()).toEqual(computedTable.toArray());
     });
