@@ -3,14 +3,14 @@
   "extends": [
     "config:base"
   ],
-  "enabledManagers": ["npm", "nuget"],
+  "enabledManagers": ["npm", "nuget", "github-actions"],
   "rebaseWhen": "conflicted",
   "schedule": [
     "monthly"
   ],
   "packageRules": [
     {
-      "matchManagers": ["npm", "nuget"],
+      "matchManagers": ["npm", "nuget", "github-actions"],
       "enabled": false
     },
     {
@@ -23,6 +23,11 @@
     {
       "groupName": "nuget dependencies",
       "matchManagers": ["nuget"],
+      "enabled": true
+    },
+    {
+      "groupName": "github actions dependencies",
+      "matchManagers": ["github-actions"],
       "enabled": true
     }
   ]
