@@ -19,6 +19,8 @@ Placeholders within a cell will be rendered with nimble's placeholder font, whic
 
 Placeholders within a group row will have no special visual treatment.
 
+Placeholder values will behave consistently with other strings rendered in the table in that they will truncate with an ellipsis and title if they are longer than the available space. They will be sorted based on the record value rather than the placeholder string.
+
 Below is an example of what placeholders will look like in the table. In this example, the table is grouped by the "Quote" column, which has been configured to have a placeholder value of "None".
 
 ![Placeholder text example](./spec-images/PlacholderText.png)
@@ -123,12 +125,11 @@ The icon mapping column will not have a configuration for a placeholder.
 
 \*This is considered invalid data from the table's perspective and should be fixed within the client application.
 
-In the future we can add the ability to create a mapping to a blank icon. This will allow a column to specify that it doesn't want an icon to be displayed in a cell for certain record values, but the column can still display an application-specified label on group rows.
-
 Column best practices:
 
 -   Avoid mixing `undefined` and `null` as values for the same field. When grouping this will lead to two groups (one for `null` values and one for `undefined` values) that both have the text `"No value"`.
--   Avoid using values that do not correspond to a mapping for the column
+-   Avoid using values that do not correspond to a mapping for the column.
+-   To display an empty cell but have a non-blank group row, create a mapping of the record value to an `undefined` icon.
 
 #### Text mapping column
 
@@ -145,7 +146,7 @@ The text mapping column will not have a configuration for a placeholder.
 Column best practices:
 
 -   Avoid mixing `undefined` and `null` as values for the same field. When grouping this will lead to two groups (one for `null` values and one for `undefined` values) that both have the text `"No value"`.
--   Avoid using values that do not correspond to a mapping for the column
+-   Avoid using values that do not correspond to a mapping for the column.
 
 ### Implementation plan
 
@@ -193,7 +194,11 @@ A use case for different information being presented to the user for each cell w
 
 ## Future Work
 
-In the future, we should extend the API for the icon column to support mapping a value to no icon. With this type of mapping, the cell would continue to show up as empty, but the label associated with that mapping would be used in the group row.
+Future columns should consider adding a placeholder as part of their API. The general guidance for placeholders is:
+
+-   Group rows should always have a non-blank value to display, assuming the data provided to the table is valid.
+-   A column's API should support an application being able to render placeholder text in cell when the record value is `undefined` or `null`.
+    -   There are exceptions to this, such as the enum text column because the client application is expected to provide only known values that correspond to specified mappings.
 
 ## Open Issues
 
