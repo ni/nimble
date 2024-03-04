@@ -1,11 +1,13 @@
 ---
-name: 🧑‍💼 Interaction Design (IxD) User story
+name:  👈 Interaction Design Request
 about: (PO ONLY) A small chunk of work to be done by an Interaction Designer
 title: 'nimble-{name} interaction design request'
-labels: 'IxD,triage'
+labels: 'interaction design,triage'
 ---
 
 <!-- Ensure the title can be understood without the parent item's context, e.g. "nimble-datepicker interaction design request" rather than just "Interaction Design" -->
+
+# 👈 Interaction Design Request
 
 ## 📌 Request Background
 

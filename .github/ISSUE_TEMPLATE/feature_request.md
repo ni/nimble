@@ -1,5 +1,5 @@
 ---
-name: 🙋 Feature request
+name: 🙋 Feature Request
 about: Suggest an idea for this project
 title: ''
 labels: 'enhancement,triage'
@@ -10,6 +10,8 @@ Thanks for filing an issue 😄! Before you submit, please read the following:
 
 Search open/closed issues before submitting. Someone may have requested the same feature before.
 -->
+
+# 🙋 Feature Request
 
 ## 😯 Problem to Solve
 
