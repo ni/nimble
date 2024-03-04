@@ -149,15 +149,15 @@ module.exports = config => {
         },
         logLevel: config.LOG_ERROR, // to disable the WARN 404 for image requests
         customHeaders: [
-            // Add a Content-Security-Policy header for the tests
-            // Following: https://developer.chrome.com/docs/extensions/reference/manifest/content-security-policy
+            // Test under the OWASP Basic non-strict CSP Policy
+            // See: https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html#basic-non-strict-csp-policy
             // Need script-src 'unsafe-inline' to support karma behavior
             // See https://github.com/karma-runner/karma/issues/3260
             // Need worker-src blob: to support current worker loading pattern
             {
                 match: '\\.html',
                 name: 'Content-Security-Policy',
-                value: "script-src 'self' 'unsafe-inline'; object-src 'self'; worker-src 'self' blob: ;"
+                value: "default-src 'self'; frame-ancestors 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; worker-src 'self' blob: ;"
             }
         ]
     };
