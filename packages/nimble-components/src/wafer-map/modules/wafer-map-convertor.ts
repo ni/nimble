@@ -24,9 +24,7 @@ export class WaferMapConvertor {
     public toApacheTable(): Table {
         this.populateLayers();
 
-        let arrays = {};
-
-        arrays = {
+        let columnData = {
             colIndex: new Int32Array(this.colIndexLayer),
             rowIndex: new Int32Array(this.rowIndexLayer),
             value: new Float32Array(this.valuesLayer)
@@ -34,13 +32,13 @@ export class WaferMapConvertor {
 
         for (let i = 0; i < this.maxTags; i++) {
             const tagValues = this.tags.map(tag => tag[i] ?? null);
-            arrays = {
-                ...arrays,
+            columnData = {
+                ...columnData,
                 [`tag${i}`]: tagValues
             };
         }
 
-        const table = tableFromArrays(arrays);
+        const table = tableFromArrays(columnData);
 
         return table;
     }
