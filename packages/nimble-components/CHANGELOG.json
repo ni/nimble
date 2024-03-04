@@ -2,6 +2,74 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 01 Mar 2024 23:02:58 GMT",
+      "version": "21.8.1",
+      "tag": "@ni/nimble-components_v21.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "90df5dd14c1c5ad4116f6b43ae5fb99dc215c83e",
+            "comment": "Fix drawer/select animation bug"
+          }
+        ],
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "64b4301d2e6891403a289166ad78c35982f04a8a",
+            "comment": "Disable intermittent test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 29 Feb 2024 16:22:43 GMT",
+      "version": "21.8.0",
+      "tag": "@ni/nimble-components_v21.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d4ca92e5d7044d8be7b26ccbc52b91747663bfe2",
+            "comment": "Allow icon mappings to specify an undefined icon"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 29 Feb 2024 07:48:58 GMT",
+      "version": "21.7.1",
+      "tag": "@ni/nimble-components_v21.7.1",
+      "comments": {
+        "none": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f3ec1ba17e88c1669c133cb5bebf5cb5ec09546c",
+            "comment": "Update rendering spec for Wafer Map component with API changes"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 28 Feb 2024 23:45:15 GMT",
+      "version": "21.7.1",
+      "tag": "@ni/nimble-components_v21.7.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "62af2a597dbc070a55bbc49194bffbcb72fde5f2",
+            "comment": "Docs and test for table column header text in span"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 28 Feb 2024 21:22:49 GMT",
       "version": "21.7.1",
       "tag": "@ni/nimble-components_v21.7.1",

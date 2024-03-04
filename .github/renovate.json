@@ -10,43 +10,19 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "nuget"],
       "enabled": false
     },
     {
       "groupName": "npm dependencies",
       "matchManagers": ["npm"],
-      "rangeStrategy": "update-lockfile",
-      "matchDepTypes": ["dependencies"],
-      "matchPackagePatterns":[
-        "^@microsoft/fast",
-        "^@tanstack/",
-        "^@tiptap/",
-        "@types/markdown-it",
-        "comlink",
-        "d3-",
-        "prosemirror-"
-      ],
+      "rangeStrategy": "in-range-only",
+      "matchDepTypes": ["dependencies", "devDependencies"],
       "enabled": true
     },
     {
-      "groupName": "npm dev dependencies",
-      "matchManagers": ["npm"],
-      "rangeStrategy": "update-lockfile",
-      "matchDepTypes": ["devDependencies"],
-      "matchPackagePatterns":[
-        "^@ni/eslint-config",
-        "beachball",
-        "storybook"
-      ],
-      "enabled": true
-    },
-    {
-      "groupName": "nuget bunit dependencies",
+      "groupName": "nuget dependencies",
       "matchManagers": ["nuget"],
-      "matchPackagePatterns":[
-        "^bunit"
-      ],
       "enabled": true
     }
   ]
