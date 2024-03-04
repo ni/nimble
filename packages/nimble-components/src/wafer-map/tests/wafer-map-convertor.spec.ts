@@ -50,6 +50,6 @@ describe('WaferMap Convertor', () => {
 
         const computedTable = tableFromArrays(arrays);
 
-        expect(table).toEqual(computedTable);
+        expect(table.toArray()).toBe(computedTable.toArray());
     });
 });
