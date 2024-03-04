@@ -1,4 +1,4 @@
-import { Table, tableFromArrays } from 'apache-arrow';
+import { Field, List, Table, Utf8, vectorFromArray } from 'apache-arrow';
 import type { WaferMapDie } from '../types';
 
 /**
@@ -24,21 +24,17 @@ export class WaferMapConvertor {
     public toApacheTable(): Table {
         this.populateLayers();
 
-        let columnData = {
-            colIndex: new Int32Array(this.colIndexLayer),
-            rowIndex: new Int32Array(this.rowIndexLayer),
-            value: new Float32Array(this.valuesLayer)
+        const columnData = {
+            colIndex: vectorFromArray(new Int32Array(this.colIndexLayer)),
+            rowIndex: vectorFromArray(new Int32Array(this.rowIndexLayer)),
+            value: vectorFromArray(new Float32Array(this.valuesLayer)),
+            tags: vectorFromArray(
+                this.tags,
+                new List<Utf8>(new Field<Utf8>('', new Utf8()))
+            )
         };
 
-        for (let i = 0; i < this.maxTags; i++) {
-            const tagValues = this.tags.map(tag => tag[i] ?? null);
-            columnData = {
-                ...columnData,
-                [`tag${i}`]: tagValues
-            };
-        }
-
-        const table = tableFromArrays(columnData);
+        const table = new Table(columnData);
 
         return table;
     }
@@ -49,10 +45,6 @@ export class WaferMapConvertor {
             this.rowIndexLayer.push(die.y);
             this.valuesLayer.push(parseFloat(die.value));
             this.tags[index] = die.tags ?? [];
-            this.maxTags = Math.max(
-                this.maxTags,
-                this.tags[index]?.length ?? 0
-            );
         });
     }
 }

@@ -1,4 +1,4 @@
-import { tableFromJSON } from 'apache-arrow';
+import { Field, List, Table, Utf8, vectorFromArray } from 'apache-arrow';
 import { WaferMapConvertor } from '../modules/wafer-map-convertor';
 import type { WaferMapDie } from '../types';
 import { generateWaferData } from './data-generator';
@@ -6,7 +6,12 @@ import {
     goodValueGenerator,
     highlightedValueGenerator
 } from './value-generator';
-import { expectedTableJson } from '../../utilities/tests/wafer-sets';
+import {
+    expectedTagsArray,
+    expectedValuesArray,
+    expectedRowIndexArray,
+    expectedColIndexArray
+} from '../../utilities/tests/wafer-sets';
 
 describe('WaferMap Convertor', () => {
     let waferMapConvertor: WaferMapConvertor;
@@ -39,10 +44,17 @@ describe('WaferMap Convertor', () => {
 
     it('should convert wafer map data to apache arrow table', () => {
         const table = waferMapConvertor.toApacheTable();
-        const expectedTestTable = expectedTableJson;
 
-        const computedTable = tableFromJSON(expectedTestTable);
+        const computedTable = new Table({
+            colIndex: vectorFromArray(new Int32Array(expectedColIndexArray)),
+            rowIndex: vectorFromArray(new Int32Array(expectedRowIndexArray)),
+            value: vectorFromArray(new Float32Array(expectedValuesArray)),
+            tags: vectorFromArray(
+                expectedTagsArray,
+                new List<Utf8>(new Field<Utf8>('', new Utf8()))
+            )
+        });
 
-        expect(table.toArray()).toEqual(computedTable.toArray());
+        expect(table.toString()).toEqual(computedTable.toString());
     });
 });

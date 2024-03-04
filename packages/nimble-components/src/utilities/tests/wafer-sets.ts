@@ -1,32 +1,16 @@
-export const expectedTableJson: { [key: string]: unknown }[] = [
-    {
-        colIndex: 0,
-        rowIndex: 1,
-        value: 88.55000305175781,
-        tag0: 'g'
-    },
-    {
-        colIndex: 1,
-        rowIndex: 1,
-        value: 90.54000091552734,
-        tag0: 'k'
-    },
-    {
-        colIndex: 1,
-        rowIndex: 0,
-        value: 92.55999755859375,
-        tag0: 'n'
-    },
-    {
-        colIndex: 1,
-        rowIndex: 2,
-        value: 95.56999969482422,
-        tag0: 's'
-    },
-    {
-        colIndex: 2,
-        rowIndex: 1,
-        value: 85.76000213623047,
-        tag0: 'c'
-    }
+export const expectedColIndexArray: number[] = [0, 1, 1, 1, 2];
+
+export const expectedRowIndexArray: number[] = [1, 1, 0, 2, 1];
+
+export const expectedValuesArray: number[] = [
+    88.55000305175781, 90.54000091552734, 92.55999755859375, 95.56999969482422,
+    85.76000213623047
+];
+
+export const expectedTagsArray: string[][] = [
+    ['g'],
+    ['k'],
+    ['n'],
+    ['s'],
+    ['c']
 ];
