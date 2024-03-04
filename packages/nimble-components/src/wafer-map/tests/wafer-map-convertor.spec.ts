@@ -28,18 +28,12 @@ describe('WaferMap Convertor', () => {
 
     it('should populate the wafer layers', () => {
         waferMapConvertor.populateLayers();
-        expect(waferMapConvertor.colIndexLayer).toEqual(
-            waferMapDies.map(die => die.x)
-        );
-        expect(waferMapConvertor.rowIndexLayer).toEqual(
-            waferMapDies.map(die => die.y)
-        );
+        expect(waferMapConvertor.colIndexLayer).toEqual(expectedColIndexArray);
+        expect(waferMapConvertor.rowIndexLayer).toEqual(expectedRowIndexArray);
         expect(waferMapConvertor.valuesLayer).toEqual(
-            waferMapDies.map(die => Number(die.value))
+            expectedValuesArray.map(value => parseFloat(value.toFixed(2)))
         );
-        expect(waferMapConvertor.tags).toEqual(
-            waferMapDies.map(die => die.tags ?? [])
-        );
+        expect(waferMapConvertor.tags).toEqual(expectedTagsArray);
     });
 
     it('should convert wafer map data to apache arrow table', () => {
