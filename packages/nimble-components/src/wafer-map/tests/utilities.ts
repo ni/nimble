@@ -123,7 +123,10 @@ export function getWaferMapMockComputations(
     originLocation: WaferMapOriginLocation,
     canvasWidth: number,
     canvasHeight: number,
-    validity: WaferMapValidity = { invalidGridDimensions: false }
+    validity: WaferMapValidity = {
+        invalidGridDimensions: false,
+        invalidDiesTableSchema: false
+    }
 ): Pick<
     WaferMap,
     'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'

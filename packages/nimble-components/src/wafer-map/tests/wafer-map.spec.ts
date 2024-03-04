@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { Table } from 'apache-arrow';
+import { Table, tableFromArrays } from 'apache-arrow';
 import { WaferMap } from '..';
 import { processUpdates } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
@@ -34,10 +34,8 @@ describe('WaferMap', () => {
 
     describe('update flow', () => {
         let spy: jasmine.Spy;
-        let workerRendererSpy: jasmine.Spy;
         beforeEach(() => {
             spy = spyOn(element, 'update');
-            workerRendererSpy = spyOn(element.workerRenderer, 'drawWafer');
         });
 
         it('will update once after originLocation changes', () => {
@@ -106,12 +104,6 @@ describe('WaferMap', () => {
             expect(element.renderStrategy).toEqual('worker');
         });
 
-        xit('will call drawWafer after diesTable change', () => {
-            element.diesTable = new Table();
-            processUpdates();
-            expect(workerRendererSpy).toHaveBeenCalledTimes(1);
-        });
-
         it('will update once after colorScale changes', () => {
             element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
             processUpdates();
@@ -130,6 +122,56 @@ describe('WaferMap', () => {
             element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('worker renderer draw flow', () => {
+        let spy: jasmine.Spy;
+        beforeEach(() => {
+            spy = spyOn(element.workerRenderer, 'drawWafer');
+        });
+
+        it('will call drawWafer after supported diesTable change', () => {
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([]),
+                rowIndex: Int32Array.from([]),
+                value: Float64Array.from([])
+            });
+            processUpdates();
+            expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
+
+        it('will not call drawWafer after unsupported diesTable change', () => {
+            element.diesTable = new Table();
+            processUpdates();
+            expect(element.validity.invalidDiesTableSchema).toBeTrue();
+            expect(spy).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('worker renderer flow', () => {
+        let spy: jasmine.Spy;
+        beforeEach(() => {
+            spy = spyOn(element.workerRenderer, 'renderHover');
+        });
+
+        it('will call renderHover after supported diesTable change', () => {
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([]),
+                rowIndex: Int32Array.from([]),
+                value: Float64Array.from([])
+            });
+            processUpdates();
+            expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
+
+        it('will not call renderHover after unsupported diesTable change', () => {
+            element.diesTable = new Table();
+            processUpdates();
+            expect(element.validity.invalidDiesTableSchema).toBeTrue();
+            expect(spy).toHaveBeenCalledTimes(0);
         });
     });
 

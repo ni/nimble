@@ -38,7 +38,7 @@ export class WaferMap extends FoundationElement {
      * @internal
      * needs to be initialized before the properties trigger changes
      */
-    public readonly waferMapUpdateTracker: WaferMapUpdateTracker = new WaferMapUpdateTracker(this);
+    public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
 
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
@@ -88,7 +88,7 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly dataManager: DataManager = new DataManager(this);
+    public readonly dataManager = new DataManager(this);
     /**
      * @internal
      */

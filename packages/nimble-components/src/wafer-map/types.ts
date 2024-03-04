@@ -77,4 +77,5 @@ export interface ValidityObject {
 }
 export interface WaferMapValidity extends ValidityObject {
     readonly invalidGridDimensions: boolean;
+    readonly invalidDiesTableSchema: boolean;
 }

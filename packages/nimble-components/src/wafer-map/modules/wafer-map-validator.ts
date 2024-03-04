@@ -56,7 +56,7 @@ export class WaferMapValidator {
                 f => f.name === 'rowIndex'
             ) === -1
             || this.wafermap.diesTable.schema.fields.findIndex(
-                f => f.name === 'values'
+                f => f.name === 'value'
             ) === -1
         ) {
             this.invalidDiesTableSchema = true;

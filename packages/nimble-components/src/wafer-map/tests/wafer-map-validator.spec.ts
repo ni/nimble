@@ -115,7 +115,7 @@ describe('Wafermap Validator module', () => {
                 tableFromArrays({
                     colIndex: Int32Array.from([]),
                     rowIndex: Int32Array.from([]),
-                    values: Float64Array.from([])
+                    value: Float64Array.from([])
                 })
             );
             waferMapValidator = new WaferMapValidator(waferMock as WaferMap);
