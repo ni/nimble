@@ -261,12 +261,14 @@ For icons, if multiple values map to the same icon, it is possible that sorting 
 `nimble-table-column-icon` will be a fixed pixel size (32px) and will not be resizable. The 32px fixed size allows room from a single icon along with left and right cell padding of 8px each.
 
 This has the following implications:
+
 -   The grouping indicator and sorting indicator will always be hidden on the icon column.
 -   A client is expected to only place an icon as the header content of an icon column.
 -   A user cannot resize an icon column.
 -   There will be no public API exposed on the icon column related to sizing. Unlike other columns today, the icon column will not have attributes for `min-pixel-width` or `fractional-width`.
 
 This will be accomplished through the following configuration on the column:
+
 -   The icon column will not use the `mixinFractionalWidthColumnAPI` mixin because it will not expose a sizing API.
 -   The icon column will set `columnInternals.resizingDisabled` to `true`.
 -   The icon column will set both `columnInternals.pixelWidth` and `columnInternals.minPixelWidth` to `32`, which is equal to the icon size plus left and right paddings of 8px
