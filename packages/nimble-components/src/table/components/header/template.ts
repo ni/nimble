@@ -18,31 +18,31 @@ export const template = html<TableHeader>`
         @mousedown="${(_x, c) => !((c.event as MouseEvent).detail > 1)}"
     >
         <slot></slot>
-        ${'' /* Set aria-hidden="true" on sort indicators because aria-sort is set on the 1st sorted column */}
-        ${when(x => x.sortDirection === TableColumnSortDirection.ascending, html<TableHeader>`
-            <${iconArrowUpTag}
-                class="sort-indicator"
-                title="${x => tableColumnHeaderSortedAscendingLabel.getValueFor(x)}"
-                aria-hidden="true"
-                ?hidden="${x => x.indicatorsHidden}"
-            ></${iconArrowUpTag}>
-        `)}
-        ${when(x => x.sortDirection === TableColumnSortDirection.descending, html<TableHeader>`
-            <${iconArrowDownTag}
-                class="sort-indicator"
-                title="${x => tableColumnHeaderSortedDescendingLabel.getValueFor(x)}"
-                aria-hidden="true"
-                ?hidden="${x => x.indicatorsHidden}"
-            ></${iconArrowDownTag}>
-        `)}
-        ${when(x => x.isGrouped, html<TableHeader>`
-            <${iconTwoSquaresInBracketsTag}
-                class="grouped-indicator"
-                title="${x => tableColumnHeaderGroupedLabel.getValueFor(x)}"
-                role="img"
-                aria-label="${x => tableColumnHeaderGroupedLabel.getValueFor(x)}"
-                ?hidden="${x => x.indicatorsHidden}"
-            ></${iconTwoSquaresInBracketsTag}>
+
+        ${when(x => !x.indicatorsHidden, html<TableHeader>`
+            ${'' /* Set aria-hidden="true" on sort indicators because aria-sort is set on the 1st sorted column */}
+            ${when(x => x.sortDirection === TableColumnSortDirection.ascending, html<TableHeader>`
+                <${iconArrowUpTag}
+                    class="sort-indicator"
+                    title="${x => tableColumnHeaderSortedAscendingLabel.getValueFor(x)}"
+                    aria-hidden="true"
+                ></${iconArrowUpTag}>
+            `)}
+            ${when(x => x.sortDirection === TableColumnSortDirection.descending, html<TableHeader>`
+                <${iconArrowDownTag}
+                    class="sort-indicator"
+                    title="${x => tableColumnHeaderSortedDescendingLabel.getValueFor(x)}"
+                    aria-hidden="true"
+                ></${iconArrowDownTag}>
+            `)}
+            ${when(x => x.isGrouped, html<TableHeader>`
+                <${iconTwoSquaresInBracketsTag}
+                    class="grouped-indicator"
+                    title="${x => tableColumnHeaderGroupedLabel.getValueFor(x)}"
+                    role="img"
+                    aria-label="${x => tableColumnHeaderGroupedLabel.getValueFor(x)}"
+                ></${iconTwoSquaresInBracketsTag}>
+            `)}
         `)}
     </template>
 `;

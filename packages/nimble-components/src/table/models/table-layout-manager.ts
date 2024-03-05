@@ -83,6 +83,9 @@ export class TableLayoutManager<TData extends TableRecord> {
         document.addEventListener('mouseup', this.onDividerMouseUp);
     }
 
+    /**
+     * Determines if the specified column or any columns to the left are resizable.
+     */
     public hasResizableColumnToLeft(
         columnIndex: number,
         visibleColumns = this.visibleColumns
@@ -95,7 +98,10 @@ export class TableLayoutManager<TData extends TableRecord> {
         );
     }
 
-    public hasResizableColumnToRight(
+    /**
+     * Determines if the specified column or any columns to the right are resizable.
+     */
+    private hasResizableColumnToRight(
         columnIndex: number,
         visibleColumns = this.visibleColumns
     ): boolean {
@@ -169,23 +175,26 @@ export class TableLayoutManager<TData extends TableRecord> {
         }
 
         // size left
-        let currentIndex = this.leftColumnIndex!;
         if (!this.hasResizableColumnToRight(this.rightColumnIndex!)) {
             return 0;
         }
 
-        while (currentIndex >= 0) {
-            const columnInitialWidths = this.initialColumnWidths[currentIndex]!;
+        for (let i = this.leftColumnIndex!; i >= 0; i--) {
+            const columnInitialWidths = this.initialColumnWidths[i]!;
             if (!columnInitialWidths.resizingDisabled) {
                 availableSpace
                     += columnInitialWidths.initialPixelWidth
                     - columnInitialWidths.minPixelWidth;
             }
-            currentIndex -= 1;
         }
         return Math.max(requestedResizeAmount, -availableSpace);
     }
 
+    /**
+     * Gets the index of the first resizable column starting with
+     * `columnIndex` and moving to the left. If no resizable column
+     * is found, returns -1.
+     */
     private getFirstLeftResizableColumnIndex(
         columnIndex: number,
         visibleColumns = this.visibleColumns
@@ -202,6 +211,11 @@ export class TableLayoutManager<TData extends TableRecord> {
         return -1;
     }
 
+    /**
+     * Gets the index of the first resizable column starting with
+     * `columnIndex` and moving to the right. If no resizable column
+     * is found, returns -1.
+     */
     private getFirstRightResizableColumnIndex(
         columnIndex: number,
         visibleColumns = this.visibleColumns

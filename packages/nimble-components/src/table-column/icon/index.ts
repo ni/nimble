@@ -19,6 +19,10 @@ import type { MappingConfig } from '../enum-base/models/mapping-config';
 import { MappingIconConfig } from '../enum-base/models/mapping-icon-config';
 import { MappingSpinnerConfig } from '../enum-base/models/mapping-spinner-config';
 
+const cellPadding = 8;
+const iconSize = 16;
+const fixedColumnSize = iconSize + 2 * cellPadding;
+
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-table-column-icon': TableColumnIcon;
@@ -33,9 +37,10 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
 ) {
     public constructor() {
         super();
+
         this.columnInternals.resizingDisabled = true;
-        this.columnInternals.pixelWidth = 32;
-        this.columnInternals.minPixelWidth = 32;
+        this.columnInternals.pixelWidth = fixedColumnSize;
+        this.columnInternals.minPixelWidth = fixedColumnSize;
     }
 
     public override createValidator(): TableColumnIconValidator {

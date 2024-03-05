@@ -36,7 +36,6 @@ interface BasicSpinnerMapping {
 class Model {
     public col1!: TableColumnIcon;
 }
-
 interface ModelFixture<T> extends Fixture<T> {
     model: Model;
 }
@@ -96,7 +95,7 @@ describe('TableColumnIcon', () => {
         ).toBeInstanceOf(TableColumnIcon);
     });
 
-    it('can construct an element instance', async () => {
+    it('configures correct sizing options', async () => {
         ({ element, connect, disconnect, model } = await setup({
             keyType: MappingKeyType.string,
             iconMappings: [],
