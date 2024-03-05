@@ -173,12 +173,12 @@ const metadata: Meta<WaferMapArgs> = {
         </style>
     `),
     args: {
+        apiVersion: 'stable',
         colorScale: waferMapColorScaleSets[0],
         colorScaleMode: WaferMapColorScaleMode.linear,
-        apiVersion: 'stable',
         dies: 'fixedDies10',
-        highlightedTags: 'set1',
         diesTable: undefined,
+        highlightedTags: 'set1',
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
         maxCharacters: 4,
@@ -190,6 +190,20 @@ const metadata: Meta<WaferMapArgs> = {
         gridMaxY: undefined
     },
     argTypes: {
+        apiVersion: {
+            name: 'API Version',
+            description:
+                'Select the API version of the component. The stable version is the one that is recommended for production use, while the experimental version is the one that is still under development and is not recommended for production use. The default value is `stable`. To enable the Experimental API in code, the `diesTable` should be used in place of the `dies`.',
+            options: ['stable', 'experimental'],
+            control: {
+                type: 'inline-radio',
+                labels: {
+                    stable: 'Stable',
+                    experimental: 'Experimental'
+                }
+            },
+            defaultValue: 'stable'
+        },
         colorScale: {
             description: `Represents the color spectrum which shows the status of the dies on the wafer.
 
@@ -223,21 +237,8 @@ const metadata: Meta<WaferMapArgs> = {
                 }
             }
         },
-        apiVersion: {
-            description:
-                'Displays the API version of the component. The stable version is the one that is recommended for production use, while the experimental version is the one that is still under development and is not recommended for production use. The default value is `stable`.',
-            options: ['stable', 'experimental'],
-            control: {
-                type: 'inline-radio',
-                labels: {
-                    stable: 'Stable',
-                    experimental: 'Experimental'
-                }
-            },
-            defaultValue: 'stable'
-        },
         dies: {
-            description: `Represents the input data, an array of \`WaferMapDie\`, which will be rendered by the wafer map
+            description: `Represents the input data, an array of \`WaferMapDie\`, which will be rendered by the wafer map. Part of the Stable API.
 
 <details>
     <summary>Usage details</summary>
@@ -262,29 +263,8 @@ const metadata: Meta<WaferMapArgs> = {
             defaultValue: 'fixedDies10',
             if: { arg: 'apiVersion', eq: 'stable' }
         },
-        highlightedTags: {
-            description: `Represent a list of strings that will be highlighted in the wafer map view. Each die has a tags?: string[] property, if at least one element of highlightedTags equals at least one element of die.tags the die will be highlighted.
-
-<details>
-    <summary>Usage details</summary>
-    The \`highlightedTags\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
-</details>
-                `,
-            options: ['set1', 'set2', 'set3', 'set4'],
-            control: {
-                type: 'radio',
-                labels: {
-                    set1: 'No die is highlighted',
-                    set2: 'A few dies are highlighted',
-                    set3: 'All dies are faded',
-                    set4: 'Many dies are highlighted'
-                }
-            },
-            defaultValue: 'set1',
-            if: { arg: 'apiVersion', eq: 'stable' }
-        },
         diesTable: {
-            description: `Represents the input data, an apache-arrow \`Table\`, which will be rendered by the wafer map
+            description: `Represents the input data, an apache-arrow \`Table\`, which will be rendered by the wafer map. Part of the Experimental API.
 
 <details>
     <summary>Usage details</summary>
@@ -308,6 +288,26 @@ const metadata: Meta<WaferMapArgs> = {
             },
             defaultValue: 'fixedDies10',
             if: { arg: 'apiVersion', eq: 'experimental' }
+        },
+        highlightedTags: {
+            description: `Represent a list of strings that will be highlighted in the wafer map view. Each die has a tags?: string[] property, if at least one element of highlightedTags equals at least one element of die.tags the die will be highlighted.
+
+<details>
+    <summary>Usage details</summary>
+    The \`highlightedTags\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
+</details>
+                `,
+            options: ['set1', 'set2', 'set3', 'set4'],
+            control: {
+                type: 'radio',
+                labels: {
+                    set1: 'No die is highlighted',
+                    set2: 'A few dies are highlighted',
+                    set3: 'All dies are faded',
+                    set4: 'Many dies are highlighted'
+                }
+            },
+            defaultValue: 'set1'
         },
         dieLabelsHidden: {
             name: 'die-labels-hidden',
@@ -388,7 +388,9 @@ const metadata: Meta<WaferMapArgs> = {
             description: `Readonly object of boolean values that represents the validity states that the wafer map's configuration can be in.
 The object's type is \`WaferMapValidity\`, and it contains the following boolean properties:
 
--   \`invalidGridDimensions \`: \`true\` when some of the \`gridMinX\`, \`gridMinY\`, \`gridMaxX\` or \`gridMaxY\` are \`undefined\`, but \`false\` when all of them are provided or all of them are \`undefined\``,
+-   \`invalidGridDimensions \`: \`true\` when some of the \`gridMinX\`, \`gridMinY\`, \`gridMaxX\` or \`gridMaxY\` are \`undefined\`, but \`false\` when all of them are provided or all of them are \`undefined\`
+
+-   \`invalidDiesTableSchema \`: \`true\` when the \`diesTable\` does not have all of the three expected columns: \`colIndex\`, \`rowIndex\` and \`value\`, but \`false\` when all of them are provided or the \`diesTable\` is \`undefined\``,
             control: false
         }
     }

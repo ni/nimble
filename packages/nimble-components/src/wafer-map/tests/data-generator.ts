@@ -19,6 +19,7 @@ const generateStringValue = (
     }
     return valueToString(value);
 };
+
 const generateFloatValue = (
     x: number,
     y: number,

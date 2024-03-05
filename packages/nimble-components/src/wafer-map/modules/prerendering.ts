@@ -53,7 +53,7 @@ export class Prerendering {
             this.wafermap.colorScaleMode
         );
         this._diesRenderInfo = this.wafermap.dies
-            .map(die => this.computeDieRenderInfo(die))
+            ?.map(die => this.computeDieRenderInfo(die))
             .filter(info => info !== null) as DieRenderInfo[];
     }
 
