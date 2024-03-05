@@ -26,18 +26,20 @@ export class WaferMapConverter {
     public static populateLayers(
         waferMapDies: WaferMapDie[]
     ): WaferMapLayerData {
-        const colIndex: number[] = [];
-        const rowIndex: number[] = [];
-        const values: number[] = [];
-        const tags: string[][] = [];
+        const layers: WaferMapLayerData = {
+            colIndex: [],
+            rowIndex: [],
+            values: [],
+            tags: []
+        };
 
         waferMapDies.forEach((die, index) => {
-            colIndex.push(die.x);
-            rowIndex.push(die.y);
-            values.push(parseFloat(die.value));
-            tags[index] = die.tags ?? [];
+            layers.colIndex.push(die.x);
+            layers.rowIndex.push(die.y);
+            layers.values.push(parseFloat(die.value));
+            layers.tags[index] = die.tags ?? [];
         });
 
-        return { colIndex, rowIndex, values, tags };
+        return layers;
     }
 }
