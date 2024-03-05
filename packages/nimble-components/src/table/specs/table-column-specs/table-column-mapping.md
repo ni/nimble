@@ -102,11 +102,10 @@ _Props/Attrs_
 
 -   `field-name`: string
 -   `key-type`: 'string' | 'number' | 'boolean'
--   `pixel-width`: number (set to the desired fixed column width, else will use a default fixed width)
 
 _Content_
 
--   column title (text or icon)
+-   column title (icon)
 -   1 or more `nimble-mapping-icon` or `nimble-mapping-spinner` elements
 
 #### General mapping column element:
@@ -259,7 +258,22 @@ For icons, if multiple values map to the same icon, it is possible that sorting 
 
 ### Sizing
 
-`nimble-table-column-icon` will support only a fixed width. We will introduce a new mixin for fixed-width support that exposes a `pixel-width` property. The default value will be the minimum supported by the table, which is still significantly larger than the width of an icon.
+`nimble-table-column-icon` will be a fixed pixel size (32px) and will not be resizable. The 32px fixed size allows room from a single icon along with left and right cell padding of 8px each.
+
+This has the following implications:
+
+-   The grouping indicator and sorting indicator will always be hidden on the icon column.
+-   A client is expected to only place an icon as the header content of an icon column.
+-   A user cannot resize an icon column.
+-   There will be no public API exposed on the icon column related to sizing. Unlike other columns today, the icon column will not have attributes for `min-pixel-width` or `fractional-width`.
+
+This will be accomplished through the following configuration on the column:
+
+-   The icon column will not use the `mixinFractionalWidthColumnAPI` mixin because it will not expose a sizing API.
+-   The icon column will set `columnInternals.resizingDisabled` to `true`.
+-   The icon column will set both `columnInternals.pixelWidth` and `columnInternals.minPixelWidth` to `32`, which is equal to the icon size plus left and right paddings of 8px
+
+In the future, we can consider adding an API to allow the icon column to have its size configured by a user and/or client, but that is currently out of scope.
 
 `nimble-table-column-enum-text` will support fixed or fractional widths. If `pixel-width` is set, the column will have a fixed width, otherwise it defaults to a fractional width of 1. The client may configure `fractional-width` and/or `min-pixel-width`.
 

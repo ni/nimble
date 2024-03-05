@@ -14,7 +14,9 @@ export class TableLayoutManager<TData extends TableRecord> {
     @observable
     public activeColumnIndex?: number;
 
-    private activeColumnDivider?: number;
+    @observable
+    public activeColumnDivider?: number;
+
     private gridSizedColumns?: TableColumn[];
     private visibleColumns: TableColumn[] = [];
     private initialTableScrollableWidth?: number;
@@ -111,6 +113,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.resetGridSizedColumns();
         this.isColumnBeingSized = false;
         this.activeColumnIndex = undefined;
+        this.activeColumnDivider = undefined;
     };
 
     private getTotalColumnFixedWidth(): number {

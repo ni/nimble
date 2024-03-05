@@ -439,7 +439,7 @@ export class Table<
         if (event.button === 0) {
             this.layoutManager.beginColumnInteractiveSize(
                 event.clientX,
-                columnIndex * 2
+                this.getRightDividerIndex(columnIndex)
             );
         }
     }
@@ -452,9 +452,19 @@ export class Table<
         if (event.button === 0) {
             this.layoutManager.beginColumnInteractiveSize(
                 event.clientX,
-                columnIndex * 2 - 1
+                this.getLeftDividerIndex(columnIndex)
             );
         }
+    }
+
+    /** @internal */
+    public getLeftDividerIndex(columnIndex: number): number {
+        return columnIndex * 2 - 1;
+    }
+
+    /** @internal */
+    public getRightDividerIndex(columnIndex: number): number {
+        return columnIndex * 2;
     }
 
     /** @internal */
