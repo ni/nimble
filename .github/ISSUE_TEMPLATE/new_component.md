@@ -1,9 +1,11 @@
 ---
-name: 💡 New component
+name: 💡 New Component
 about: (DEV TEAM ONLY) New Nimble component
 title: 'nimble-{name} Component'
-labels: 'enhancement'
+labels: 'new component,enhancement'
 ---
+
+# 💡 New Component
 
 ## 😯 Problem to Solve
 
@@ -18,8 +20,7 @@ labels: 'enhancement'
 
 ## 📋 Tasks
 
-<!-- Refer to [CONTR
-IBUTING](https://github.com/ni/nimble/blob/main/packages/nimble-components/CONTRIBUTING.md) for details -->
+<!-- Refer to https://github.com/ni/nimble/blob/main/packages/nimble-components/CONTRIBUTING.md for details -->
 
 - [ ] nimble-{name} interaction design issue
 - [ ] nimble-{name} interaction design spec
