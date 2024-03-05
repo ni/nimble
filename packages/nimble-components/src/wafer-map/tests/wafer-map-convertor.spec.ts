@@ -1,4 +1,4 @@
-import { Field, List, Table, Utf8, vectorFromArray } from 'apache-arrow';
+import { Field, List, Table, Utf8, vectorFromArray, Float32, Int32 } from 'apache-arrow';
 import { WaferMapConvertor } from '../modules/wafer-map-convertor';
 import type { WaferMapDie } from '../types';
 import { generateWaferData } from './data-generator';
@@ -36,7 +36,7 @@ describe('WaferMap Convertor', () => {
         expect(waferMapConvertor.tags).toEqual(expectedTags);
     });
 
-    it('should convert wafer map data to apache arrow table', () => {
+    it('should convert wafer map data and types to apache arrow table', () => {
         const table = waferMapConvertor.toApacheTable();
 
         const computedTable = new Table({
@@ -50,5 +50,13 @@ describe('WaferMap Convertor', () => {
         });
 
         expect(table).toEqual(computedTable);
+
+        const columnNames = table.schema.fields.map(field => field.name);
+        expect(columnNames).toEqual(['colIndex', 'rowIndex', 'value', 'tags']);
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+        const columnTypes = table.schema.fields.map(field => field.type.toString() as string);
+        const expectedTypes = [new Int32(), new Int32(), new Float32(), new List<Utf8>(new Field<Utf8>('', new Utf8()))].map(type => type.toString());
+        expect(columnTypes).toEqual(expectedTypes);
     });
 });
