@@ -50,7 +50,7 @@ declare global {
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type BooleanOrVoid = boolean | void;
 
-const isListOption = (el: Element): el is ListOption => {
+const isNimbleListOption = (el: Element): el is ListOption => {
     return el instanceof ListOption;
 };
 
@@ -353,7 +353,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 break;
             }
             case 'selected': {
-                if (isListOption(sourceElement)) {
+                if (isNimbleListOption(sourceElement)) {
                     this.selectedIndex = this.options.indexOf(sourceElement);
                 }
                 this.setSelectedOptions();
@@ -361,7 +361,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 break;
             }
             case 'hidden': {
-                if (isListOption(sourceElement)) {
+                if (isNimbleListOption(sourceElement)) {
                     sourceElement.visuallyHidden = sourceElement.hidden;
                 }
                 this.updateDisplayValue();
@@ -773,7 +773,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      */
     protected override setDefaultSelectedOption(): void {
         const options: ListboxOption[] = this.options
-            ?? Array.from(this.children).filter(o => isListOption(o));
+            ?? Array.from(this.children).filter(o => isNimbleListOption(o));
 
         const optionIsSelected = (option: ListboxOption): boolean => {
             return option.hasAttribute('selected') || option.selected;
@@ -845,10 +845,11 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
         if (filter) {
             this.filteredOptions = this.options.filter(option => {
+                const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
                 return (
                     !option.hidden
                     && diacriticInsensitiveStringNormalizer(option.text).includes(
-                        diacriticInsensitiveStringNormalizer(filter)
+                        normalizedFilter
                     )
                 );
             });
@@ -859,7 +860,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         }
 
         this.options.forEach(o => {
-            if (isListOption(o)) {
+            if (isNimbleListOption(o)) {
                 if (!this.filteredOptions.includes(o)) {
                     o.visuallyHidden = true;
                 } else {
