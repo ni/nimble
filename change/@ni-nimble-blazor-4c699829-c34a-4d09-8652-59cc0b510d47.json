@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Remove fractional-width and min-pixel-width configuration from icon column",
+  "packageName": "@ni/nimble-blazor",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
