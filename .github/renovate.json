@@ -17,7 +17,7 @@
       "groupName": "npm dependencies",
       "matchManagers": ["npm"],
       "rangeStrategy": "in-range-only",
-      "matchDepTypes": ["dependencies", "devDependencies"],
+      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
       "enabled": true
     },
     {
