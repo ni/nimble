@@ -89,7 +89,7 @@ describe('WaferMap', () => {
         it('will use `main` render strategy after dies change', () => {
             element.dies = [{ x: 1, y: 1, value: '1' }];
             processUpdates();
-            expect(element.renderStrategy).toEqual('main');
+            expect(typeof element.renderer).toEqual('RenderingModule');
         });
 
         it('will update once after diesTable change', () => {
@@ -101,7 +101,7 @@ describe('WaferMap', () => {
         it('will use `worker` render strategy after diesTable change', () => {
             element.diesTable = new Table();
             processUpdates();
-            expect(element.renderStrategy).toEqual('worker');
+            expect(typeof element.renderer).toEqual('WorkerRenderer');
         });
 
         it('will update once after colorScale changes', () => {

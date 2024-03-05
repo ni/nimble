@@ -98,6 +98,9 @@ export class WaferMap extends FoundationElement {
      */
     public readonly workerRenderer = new WorkerRenderer(this);
 
+    @observable
+    public renderer: RenderingModule | WorkerRenderer = this.mainRenderer;
+
     /**
      * @internal
      */
@@ -143,11 +146,6 @@ export class WaferMap extends FoundationElement {
      */
     @observable public hoverDie: WaferMapDie | undefined;
 
-    /**
-     * @internal
-     */
-    @observable public renderStrategy: 'main' | 'worker' = 'main';
-
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] | undefined;
     @observable public diesTable: Table | undefined;
@@ -189,10 +187,7 @@ export class WaferMap extends FoundationElement {
      */
     public update(): void {
         this.validate();
-        if (
-            this.renderStrategy === 'worker'
-            && this.validity.invalidDiesTableSchema
-        ) {
+        if (this.validity.invalidDiesTableSchema) {
             return;
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
@@ -225,13 +220,6 @@ export class WaferMap extends FoundationElement {
     private validate(): void {
         this.waferMapValidator.validateGridDimensions();
         this.waferMapValidator.validateDiesTableSchema();
-    }
-
-    private get renderer(): RenderingModule | WorkerRenderer {
-        if (this.renderStrategy === 'main') {
-            return this.mainRenderer;
-        }
-        return this.workerRenderer;
     }
 
     private createResizeObserver(): ResizeObserver {
@@ -303,13 +291,13 @@ export class WaferMap extends FoundationElement {
 
     private diesChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderStrategy = this.dies === undefined ? 'worker' : 'main';
+        this.renderer = this.diesTable === undefined ? this.mainRenderer : this.workerRenderer;
         this.waferMapUpdateTracker.queueUpdate();
     }
 
     private diesTableChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderStrategy = this.diesTable === undefined ? 'main' : 'worker';
+        this.renderer = this.diesTable === undefined ? this.mainRenderer : this.workerRenderer;
         this.waferMapUpdateTracker.queueUpdate();
     }
 
