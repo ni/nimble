@@ -291,13 +291,17 @@ export class WaferMap extends FoundationElement {
 
     private diesChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderer = this.diesTable === undefined ? this.mainRenderer : this.workerRenderer;
+        this.renderer = this.diesTable === undefined
+            ? this.mainRenderer
+            : this.workerRenderer;
         this.waferMapUpdateTracker.queueUpdate();
     }
 
     private diesTableChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderer = this.diesTable === undefined ? this.mainRenderer : this.workerRenderer;
+        this.renderer = this.diesTable === undefined
+            ? this.mainRenderer
+            : this.workerRenderer;
         this.waferMapUpdateTracker.queueUpdate();
     }
 

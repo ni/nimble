@@ -72,9 +72,15 @@ export class WaferMapValidator {
                 f => f.name === 'value'
             );
             if (
-                !DataType.isInt(this.wafermap.diesTable.schema.fields[colIndex]!.type)
-                || !DataType.isInt(this.wafermap.diesTable.schema.fields[rowIndex]!.type)
-                || !DataType.isFloat(this.wafermap.diesTable.schema.fields[value]!.type)
+                !DataType.isInt(
+                    this.wafermap.diesTable.schema.fields[colIndex]!.type
+                )
+                || !DataType.isInt(
+                    this.wafermap.diesTable.schema.fields[rowIndex]!.type
+                )
+                || !DataType.isFloat(
+                    this.wafermap.diesTable.schema.fields[value]!.type
+                )
             ) {
                 this.invalidDiesTableSchema = true;
             }
