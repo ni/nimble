@@ -5,29 +5,15 @@ import type { WaferMapDie } from '../types';
  * This class is used to convert old wafer map data to new wafer map data
  */
 export class WaferMapConvertor {
-    public colIndex: number[];
-    public rowIndex: number[];
-    public values: number[];
-    public tags: string[][];
-    private readonly waferMapDies: WaferMapDie[];
-
-    public constructor(waferMapDies: WaferMapDie[]) {
-        this.waferMapDies = waferMapDies;
-        this.colIndex = [];
-        this.rowIndex = [];
-        this.values = [];
-        this.tags = [];
-    }
-
-    public toApacheTable(): Table {
-        this.populateLayers();
+    public static toApacheTable(waferMapDies: WaferMapDie[]): Table {
+        const layers = this.populateLayers(waferMapDies);
 
         const columnData = {
-            colIndex: vectorFromArray(new Int32Array(this.colIndex)),
-            rowIndex: vectorFromArray(new Int32Array(this.rowIndex)),
-            value: vectorFromArray(new Float32Array(this.values)),
+            colIndex: vectorFromArray(new Int32Array(layers.colIndex)),
+            rowIndex: vectorFromArray(new Int32Array(layers.rowIndex)),
+            value: vectorFromArray(new Float32Array(layers.values)),
             tags: vectorFromArray(
-                this.tags,
+                layers.tags,
                 new List<Utf8>(new Field<Utf8>('', new Utf8()))
             )
         };
@@ -37,12 +23,24 @@ export class WaferMapConvertor {
         return table;
     }
 
-    public populateLayers(): void {
-        this.waferMapDies.forEach((die, index) => {
-            this.colIndex.push(die.x);
-            this.rowIndex.push(die.y);
-            this.values.push(parseFloat(die.value));
-            this.tags[index] = die.tags ?? [];
+    public static populateLayers(waferMapDies: WaferMapDie[]): {
+        colIndex: number[],
+        rowIndex: number[],
+        values: number[],
+        tags: string[][]
+    } {
+        const colIndex: number[] = [];
+        const rowIndex: number[] = [];
+        const values: number[] = [];
+        const tags: string[][] = [];
+
+        waferMapDies.forEach((die, index) => {
+            colIndex.push(die.x);
+            rowIndex.push(die.y);
+            values.push(parseFloat(die.value));
+            tags[index] = die.tags ?? [];
         });
+
+        return { colIndex, rowIndex, values, tags };
     }
 }
