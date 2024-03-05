@@ -1,5 +1,5 @@
 import { Field, List, Table, Utf8, vectorFromArray } from 'apache-arrow';
-import type { WaferMapDie } from '../types';
+import type { WaferMapDie, WaferMapLayerData } from '../types';
 
 /**
  * This class is used to convert old wafer map data to new wafer map data
@@ -23,12 +23,9 @@ export class WaferMapConverter {
         return table;
     }
 
-    public static populateLayers(waferMapDies: WaferMapDie[]): {
-        colIndex: number[],
-        rowIndex: number[],
-        values: number[],
-        tags: string[][]
-    } {
+    public static populateLayers(
+        waferMapDies: WaferMapDie[]
+    ): WaferMapLayerData {
         const colIndex: number[] = [];
         const rowIndex: number[] = [];
         const values: number[] = [];

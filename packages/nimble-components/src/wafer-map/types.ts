@@ -87,3 +87,10 @@ export interface ValidityObject {
 export interface WaferMapValidity extends ValidityObject {
     readonly invalidGridDimensions: boolean;
 }
+
+export interface WaferMapLayerData {
+    colIndex: number[];
+    rowIndex: number[];
+    values: number[];
+    tags: string[][];
+}
