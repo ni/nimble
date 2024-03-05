@@ -188,15 +188,15 @@ export class WaferMap extends FoundationElement {
      * The hover does not require an event update, but it's also the last update in the sequence.
      */
     public update(): void {
+        this.validate();
         if (
             this.renderStrategy === 'worker'
-            && !this.waferMapValidator.validateDiesTableSchema()
+            && this.validity.invalidDiesTableSchema
         ) {
             return;
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
-            this.waferMapValidator.validateGridDimensions();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -220,6 +220,11 @@ export class WaferMap extends FoundationElement {
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
+    }
+
+    private validate(): void {
+        this.waferMapValidator.validateGridDimensions();
+        this.waferMapValidator.validateDiesTableSchema();
     }
 
     private get renderer(): RenderingModule | WorkerRenderer {
