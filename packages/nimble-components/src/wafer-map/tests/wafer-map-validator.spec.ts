@@ -75,7 +75,7 @@ describe('Wafermap Validator module', () => {
         expect(waferMapValidator.isValid()).toBeTrue();
     });
 
-    it('with colIndex, rowIndex and value column dies table should be valid', () => {
+    it('with colIndex, rowIndex and value column as Int32, Int32 and Float64 dies table should be valid', () => {
         const waferMock = getWaferMapMockValidator(
             undefined,
             undefined,
@@ -91,6 +91,24 @@ describe('Wafermap Validator module', () => {
         waferMapValidator.validateDiesTableSchema();
 
         expect(waferMapValidator.isValid()).toBeTrue();
+    });
+
+    it('with colIndex, rowIndex and value column as Int32 dies table should be invalid', () => {
+        const waferMock = getWaferMapMockValidator(
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            tableFromArrays({
+                colIndex: Int32Array.from([]),
+                rowIndex: Int32Array.from([]),
+                value: Int32Array.from([])
+            })
+        );
+        waferMapValidator = new WaferMapValidator(waferMock as WaferMap);
+        waferMapValidator.validateDiesTableSchema();
+
+        expect(waferMapValidator.isValid()).toBeFalse();
     });
 
     it('with no column dies table should be invalid', () => {

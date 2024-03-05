@@ -1,3 +1,4 @@
+import { DataType } from 'apache-arrow';
 import type { WaferMap } from '..';
 import type { WaferMapValidity } from '../types';
 
@@ -60,6 +61,23 @@ export class WaferMapValidator {
             ) === -1
         ) {
             this.invalidDiesTableSchema = true;
+        } else {
+            const colIndex = this.wafermap.diesTable.schema.fields.findIndex(
+                f => f.name === 'colIndex'
+            );
+            const rowIndex = this.wafermap.diesTable.schema.fields.findIndex(
+                f => f.name === 'rowIndex'
+            );
+            const value = this.wafermap.diesTable.schema.fields.findIndex(
+                f => f.name === 'value'
+            );
+            if (
+                !DataType.isInt(this.wafermap.diesTable.schema.fields[colIndex]!.type)
+                || !DataType.isInt(this.wafermap.diesTable.schema.fields[rowIndex]!.type)
+                || !DataType.isFloat(this.wafermap.diesTable.schema.fields[value]!.type)
+            ) {
+                this.invalidDiesTableSchema = true;
+            }
         }
         return !this.invalidDiesTableSchema;
     }
