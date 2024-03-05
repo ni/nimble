@@ -58,8 +58,7 @@ describe('WaferMap Converter', () => {
         expect(columnNames).toEqual(['colIndex', 'rowIndex', 'value', 'tags']);
 
         const columnTypes = table.schema.fields.map(
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return
-            field => field.type.toString()
+            field => (field.type as Field).toString()
         );
         const expectedTypes = [
             new Int32(),
