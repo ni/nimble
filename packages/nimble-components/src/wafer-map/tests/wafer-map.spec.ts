@@ -126,9 +126,9 @@ describe('WaferMap', () => {
     });
 
     describe('worker renderer draw flow', () => {
-        let spy: jasmine.Spy;
+        let drawWaferSpy: jasmine.Spy;
         beforeEach(() => {
-            spy = spyOn(element.workerRenderer, 'drawWafer');
+            drawWaferSpy = spyOn(element.workerRenderer, 'drawWafer');
         });
 
         it('will call drawWafer after supported diesTable change', () => {
@@ -139,21 +139,21 @@ describe('WaferMap', () => {
             });
             processUpdates();
             expect(element.validity.invalidDiesTableSchema).toBeFalse();
-            expect(spy).toHaveBeenCalledTimes(1);
+            expect(drawWaferSpy).toHaveBeenCalledTimes(1);
         });
 
         it('will not call drawWafer after unsupported diesTable change', () => {
             element.diesTable = new Table();
             processUpdates();
             expect(element.validity.invalidDiesTableSchema).toBeTrue();
-            expect(spy).toHaveBeenCalledTimes(0);
+            expect(drawWaferSpy).toHaveBeenCalledTimes(0);
         });
     });
 
     describe('worker renderer flow', () => {
-        let spy: jasmine.Spy;
+        let renderHoverSpy: jasmine.Spy;
         beforeEach(() => {
-            spy = spyOn(element.workerRenderer, 'renderHover');
+            renderHoverSpy = spyOn(element.workerRenderer, 'renderHover');
         });
 
         it('will call renderHover after supported diesTable change', () => {
@@ -164,14 +164,14 @@ describe('WaferMap', () => {
             });
             processUpdates();
             expect(element.validity.invalidDiesTableSchema).toBeFalse();
-            expect(spy).toHaveBeenCalledTimes(1);
+            expect(renderHoverSpy).toHaveBeenCalledTimes(1);
         });
 
         it('will not call renderHover after unsupported diesTable change', () => {
             element.diesTable = new Table();
             processUpdates();
             expect(element.validity.invalidDiesTableSchema).toBeTrue();
-            expect(spy).toHaveBeenCalledTimes(0);
+            expect(renderHoverSpy).toHaveBeenCalledTimes(0);
         });
     });
 
