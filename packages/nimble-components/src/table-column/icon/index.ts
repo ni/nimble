@@ -8,7 +8,6 @@ import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
-import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { MappingSpinner } from '../../mapping/spinner';
 import { MappingIcon } from '../../mapping/icon';
 import { TableColumnIconValidator } from './models/table-column-icon-validator';
