@@ -4,7 +4,7 @@ import type { WaferMapDie } from '../types';
 /**
  * This class is used to convert old wafer map data to new wafer map data
  */
-export class WaferMapConvertor {
+export class WaferMapConverter {
     public static toApacheTable(waferMapDies: WaferMapDie[]): Table {
         const layers = this.populateLayers(waferMapDies);
 

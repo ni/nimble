@@ -1,5 +1,5 @@
 import { Field, List, Table, Utf8, vectorFromArray, Float32, Int32 } from 'apache-arrow';
-import { WaferMapConvertor } from '../modules/wafer-map-convertor';
+import { WaferMapConverter } from '../modules/wafer-map-converter';
 import type { WaferMapDie } from '../types';
 import { generateWaferData } from './data-generator';
 import {
@@ -13,7 +13,7 @@ import {
     expectedColIndex
 } from '../../utilities/tests/wafer-sets';
 
-describe('WaferMap Convertor', () => {
+describe('WaferMap Converter', () => {
     const seed = 1;
     const waferMapDies: WaferMapDie[] = generateWaferData(
         2,
@@ -22,7 +22,7 @@ describe('WaferMap Convertor', () => {
     );
 
     it('should populate the wafer layers', () => {
-        const layers = WaferMapConvertor.populateLayers(waferMapDies);
+        const layers = WaferMapConverter.populateLayers(waferMapDies);
         expect(layers.colIndex).toEqual(expectedColIndex);
         expect(layers.rowIndex).toEqual(expectedRowIndex);
         expect(layers.values).toEqual(
@@ -32,7 +32,7 @@ describe('WaferMap Convertor', () => {
     });
 
     it('should convert wafer map data and types to apache arrow table', () => {
-        const table = WaferMapConvertor.toApacheTable(waferMapDies);
+        const table = WaferMapConverter.toApacheTable(waferMapDies);
 
         const computedTable = new Table({
             colIndex: vectorFromArray(new Int32Array(expectedColIndex)),
