@@ -97,9 +97,6 @@ export class Computations {
     }
 
     public updateScales(): void {
-        if (this.wafermap.dies === undefined) {
-            return;
-        }
         const containerDiameter = Math.min(
             this._containerDimensions.width,
             this._containerDimensions.height
@@ -163,9 +160,9 @@ export class Computations {
     }
 
     private calculateGridDimensionsFromDies(
-        dies: Readonly<Readonly<WaferMapDie>[]>
+        dies: Readonly<Readonly<WaferMapDie>[]> | undefined
     ): GridDimensions {
-        if (dies.length === 0 || dies[0] === undefined) {
+        if (dies === undefined || dies.length === 0 || dies[0] === undefined) {
             return { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
         }
 
