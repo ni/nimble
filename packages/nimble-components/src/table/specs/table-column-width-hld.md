@@ -82,6 +82,12 @@ ColumnInternals<TColumnConfig> {
     @observable
     public minPixelWidth = defaultMinPixelWidth;
 
+    /**
+     * Whether or not this column can be interactively resized.
+     */
+    @observable
+    public resizingDisabled = false;
+
     ...
 }
 ```
@@ -150,10 +156,20 @@ At the moment there is no recognized use case for a pixel-width column that woul
 export class MyPixelWidthColumn : TableColumn<...> {
     public constructor() {
         super();
-        this.columnInternals.currentPixelWidth = 100;
+        this.columnInternals.resizingDisabled = true;
+        this.columnInternals.pixelWidth = 100;
+        // Set the minPixelWidth of the column equal to the specified fixed pixel width so that
+        // the column won't be coerced to a larger size based on the default minimum width.
+        this.columnInternals.minPixelWidth = 100;
     }
 }
 ```
+
+#### Hiding Header Indicators On Narrow Columns
+
+In some cases a column may not have space in its header for the sorting indicator or grouping indicator. For example, the icon column will be fixed width with enough space to render only a single icon. Therefore, there will not be space for a sorting indicator or grouping indicator next to the column's header icon.
+
+In this case, the sorting indicator and grouping indicator will be hidden in the column header. This scenario will be determined by comparing the column's `minPixelWidth` with `defaultMinPixelWidth`. If the `minPixelWidth` of the column is less than `defaultMinPixelWidth`, then the sorting and grouping indicator will automatically be hidden in the header.
 
 ### Implementation considerations
 
@@ -176,7 +192,9 @@ Because we will allow a horizontal scrollbar once the right-most column reaches 
 
 #### **Interactive visual states**
 
-Consult the [design document](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/) for details on the column divider appearance states, as well as the cursor appearance while hovering over a divider. If a user hovers over a column that is not resizable, no dividers will be shown.
+Consult the [design document](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/) for details on the column divider appearance states, as well as the cursor appearance while hovering over a divider.
+
+If a divider can never be dragged because only non-resizable columns exist to that column's left or right, the divider will be hidden. It is possible, however, for a column that is not resizable to have visible dividers if the column divider can be moved in a way such that other columns are resized.
 
 #### **Mobile considerations**
 
