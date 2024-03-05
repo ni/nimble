@@ -473,6 +473,46 @@ describe('Table Interactive Column Sizing', () => {
                 minPixelWidths: [50, 50, 50, 175],
                 expectedColumnWidths: [75, 75, 50, 200],
                 resizingDisabled: [false, false, false, false]
+            },
+            {
+                name: 'dragging the left divider of the right most column to the left when it is not resizable does not result in any column being resized',
+                dragDeltas: [-25],
+                columnDragIndex: 2,
+                fractionalWidths: [1, 1, 1, undefined],
+                pixelWidths: [undefined, undefined, undefined, 50],
+                minPixelWidths: [50, 50, 50, 50],
+                expectedColumnWidths: [116.7, 116.7, 116.7, 50],
+                resizingDisabled: [false, false, false, true]
+            },
+            {
+                name: 'resizing to the left skips non-resizable columns',
+                dragDeltas: [-25],
+                columnDragIndex: 2,
+                fractionalWidths: [1, undefined, undefined, 1],
+                pixelWidths: [undefined, 50, 50, undefined],
+                minPixelWidths: [50, 50, 50, 50],
+                expectedColumnWidths: [125, 50, 50, 175],
+                resizingDisabled: [false, true, true, false]
+            },
+            {
+                name: 'resizing to the right skips non-resizable columns',
+                dragDeltas: [25],
+                columnDragIndex: 0,
+                fractionalWidths: [1, undefined, undefined, 1],
+                pixelWidths: [undefined, 50, 50, undefined],
+                minPixelWidths: [50, 50, 50, 50],
+                expectedColumnWidths: [175, 50, 50, 125],
+                resizingDisabled: [false, true, true, false]
+            },
+            {
+                name: 'dragging divider between two non-resizable columns resizes the surrounding columns',
+                dragDeltas: [25],
+                columnDragIndex: 1,
+                fractionalWidths: [1, undefined, undefined, 1],
+                pixelWidths: [undefined, 50, 50, undefined],
+                minPixelWidths: [50, 50, 50, 50],
+                expectedColumnWidths: [175, 50, 50, 125],
+                resizingDisabled: [false, true, true, false]
             }
         ] as const;
         parameterizeSpec(columnSizeTests, (spec, name, value) => {
@@ -503,21 +543,13 @@ describe('Table Interactive Column Sizing', () => {
                 resizingDisabled: [true, true, true, true],
                 expectedResizableDividers: []
             }, {
-                name: 'no right divider on a column that cannot be resized to the right',
+                name: 'no dividers between columns that cannot be resized to the right or left',
                 resizingDisabled: [true, false, false, false],
                 expectedResizableDividers: [2, 3, 4, 5]
             }, {
-                name: 'no right divider on multiple columns that cannot be resized to the right',
+                name: 'no divider on multiple columns that cannot be resized to the right or left',
                 resizingDisabled: [true, true, false, false],
                 expectedResizableDividers: [4, 5]
-            }, {
-                name: 'no left divider on a column that cannot be resized to the left',
-                resizingDisabled: [false, false, false, true],
-                expectedResizableDividers: [0, 1, 2, 3]
-            }, {
-                name: 'no left divider on multiple columns that cannot be resized to the left',
-                resizingDisabled: [false, false, true, true],
-                expectedResizableDividers: [0, 1]
             }, {
                 name: 'can resize column surrounded by non-resizable columns if another column can be resized',
                 resizingDisabled: [true, false, true, false],
@@ -529,7 +561,7 @@ describe('Table Interactive Column Sizing', () => {
             }, {
                 name: 'can resize all columns to the right if one resizable column exists to the left',
                 resizingDisabled: [false, true, true, true],
-                expectedResizableDividers: [2, 3, 4, 5]
+                expectedResizableDividers: [0, 1, 2, 3, 4, 5]
             }
         ] as const;
         parameterizeSpec(resizingDisabledDividerVisibilityTests, (spec, name, value) => {
@@ -635,11 +667,15 @@ describe('Table Interactive Column Sizing', () => {
         });
     });
 
-    describe('hidden column drag right divider tests ', () => {
+    describe('hidden column drag right divider tests', () => {
         const hiddenColumDragRightDividerTests = [
             {
                 name: 'first column hidden, drag first right divider to right results in correct columns widths',
                 tableWidth: 300,
+                resizingDisabled: [false, false, false, false],
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [25, 25, 25, 25],
                 hiddenColumns: [0],
                 dragColumnIndex: 0,
                 dragDeltas: [50],
@@ -648,6 +684,10 @@ describe('Table Interactive Column Sizing', () => {
             {
                 name: 'first column hidden, drag second right divider to right results in correct columns widths',
                 tableWidth: 300,
+                resizingDisabled: [false, false, false, false],
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [25, 25, 25, 25],
                 hiddenColumns: [0],
                 dragColumnIndex: 1,
                 dragDeltas: [50],
@@ -656,6 +696,10 @@ describe('Table Interactive Column Sizing', () => {
             {
                 name: 'second column hidden, drag first right divider to right results in correct columns widths',
                 tableWidth: 300,
+                resizingDisabled: [false, false, false, false],
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [25, 25, 25, 25],
                 hiddenColumns: [1],
                 dragColumnIndex: 0,
                 dragDeltas: [50],
@@ -664,6 +708,10 @@ describe('Table Interactive Column Sizing', () => {
             {
                 name: 'second column hidden, drag second right divider to right results in correct columns widths',
                 tableWidth: 300,
+                resizingDisabled: [false, false, false, false],
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [25, 25, 25, 25],
                 hiddenColumns: [1],
                 dragColumnIndex: 1,
                 dragDeltas: [50],
@@ -672,6 +720,10 @@ describe('Table Interactive Column Sizing', () => {
             {
                 name: 'first column hidden, drag first right divider to left results in correct columns widths',
                 tableWidth: 300,
+                resizingDisabled: [false, false, false, false],
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [25, 25, 25, 25],
                 hiddenColumns: [0],
                 dragColumnIndex: 0,
                 dragDeltas: [-50],
@@ -680,6 +732,10 @@ describe('Table Interactive Column Sizing', () => {
             {
                 name: 'first column hidden, drag second right divider to left results in correct columns widths',
                 tableWidth: 300,
+                resizingDisabled: [false, false, false, false],
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [25, 25, 25, 25],
                 hiddenColumns: [0],
                 dragColumnIndex: 1,
                 dragDeltas: [-50],
@@ -688,6 +744,10 @@ describe('Table Interactive Column Sizing', () => {
             {
                 name: 'second column hidden, drag first right divider to left results in correct columns widths',
                 tableWidth: 300,
+                resizingDisabled: [false, false, false, false],
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [25, 25, 25, 25],
                 hiddenColumns: [1],
                 dragColumnIndex: 0,
                 dragDeltas: [-50],
@@ -696,10 +756,26 @@ describe('Table Interactive Column Sizing', () => {
             {
                 name: 'second column hidden, drag second right divider to left results in correct columns widths',
                 tableWidth: 300,
+                resizingDisabled: [false, false, false, false],
+                fractionalWidths: [1, 1, 1, 1],
+                pixelWidths: [undefined, undefined, undefined, undefined],
+                minPixelWidths: [25, 25, 25, 25],
                 hiddenColumns: [1],
                 dragColumnIndex: 1,
                 dragDeltas: [-50],
                 expectedColumnWidths: [100, 50, 150]
+            },
+            {
+                name: 'does not change size of non-resizable or hidden columns',
+                tableWidth: 300,
+                resizingDisabled: [false, true, false, false],
+                fractionalWidths: [1, undefined, 1, 1],
+                pixelWidths: [undefined, 50, undefined, undefined],
+                minPixelWidths: [25, 25, 25, 25],
+                hiddenColumns: [2],
+                dragColumnIndex: 0,
+                dragDeltas: [50],
+                expectedColumnWidths: [175, 50, 75]
             }
         ] as const;
         parameterizeSpec(
@@ -710,6 +786,12 @@ describe('Table Interactive Column Sizing', () => {
                         value.tableWidth,
                         element
                     );
+                    element.columns.forEach((column, i) => {
+                        column.columnInternals.fractionalWidth = value.fractionalWidths[i]!;
+                        column.columnInternals.pixelWidth = value.pixelWidths[i]!;
+                        column.columnInternals.minPixelWidth = value.minPixelWidths[i]!;
+                        column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
+                    });
                     value.hiddenColumns.forEach(columnIndex => {
                         element.columns[columnIndex]!.columnHidden = true;
                     });
@@ -725,6 +807,42 @@ describe('Table Interactive Column Sizing', () => {
                 });
             }
         );
+
+        const resizingDisabledDividerVisibilityTests = [
+            {
+                name: 'all dividers are visible when no visible columns have resizing disabled',
+                resizingDisabled: [true, false, false, false],
+                hiddenColumns: [0],
+                expectedResizableDividers: [0, 1, 2, 3]
+            }, {
+                name: 'no column dividers are visible if no visible columns are resizable',
+                resizingDisabled: [true, true, false, true],
+                hiddenColumns: [2],
+                expectedResizableDividers: []
+            }
+        ] as const;
+        parameterizeSpec(resizingDisabledDividerVisibilityTests, (spec, name, value) => {
+            spec(name, async () => {
+                element.columns.forEach((column, i) => {
+                    column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
+                });
+                value.hiddenColumns.forEach(columnIndex => {
+                    element.columns[columnIndex]!.columnHidden = true;
+                });
+                await waitForUpdatesAsync();
+
+                const dividers = Array.from(
+                    element.shadowRoot!.querySelectorAll('.column-divider')
+                );
+                const resizableDividers = [];
+                for (let i = 0; i < dividers.length; i++) {
+                    if (dividers[i]!.classList.contains('resizable')) {
+                        resizableDividers.push(i);
+                    }
+                }
+                expect(resizableDividers).toEqual(value.expectedResizableDividers);
+            });
+        });
     });
 
     describe('hidden column drag left divider tests ', () => {
