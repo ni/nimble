@@ -307,7 +307,7 @@ const metadata: Meta<WaferMapArgs> = {
                     set4: 'Many dies are highlighted'
                 }
             },
-            defaultValue: 'set1',
+            defaultValue: 'set1'
         },
         dieLabelsHidden: {
             name: 'die-labels-hidden',

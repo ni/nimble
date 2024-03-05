@@ -149,7 +149,7 @@ export class WaferMap extends FoundationElement {
     @observable public renderStrategy: 'main' | 'worker' = 'main';
 
     @observable public highlightedTags: string[] = [];
-    @observable public dies: WaferMapDie[] = [];
+    @observable public dies: WaferMapDie[] | undefined;
     @observable public diesTable: Table | undefined;
 
     @observable public colorScale: WaferMapColorScale = {
@@ -298,15 +298,13 @@ export class WaferMap extends FoundationElement {
 
     private diesChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderStrategy = 'main';
+        this.renderStrategy = this.dies === undefined ? 'worker' : 'main';
         this.waferMapUpdateTracker.queueUpdate();
     }
 
     private diesTableChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        if (this.diesTable !== undefined) {
-            this.renderStrategy = 'worker';
-        }
+        this.renderStrategy = this.diesTable === undefined ? 'main' : 'worker';
         this.waferMapUpdateTracker.queueUpdate();
     }
 
