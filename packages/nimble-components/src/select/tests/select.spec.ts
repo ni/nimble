@@ -811,7 +811,7 @@ describe('Select', () => {
         it('exercise clickOptionWithDisplayText', async () => {
             await pageObject.clickSelect();
             await waitForUpdatesAsync();
-            pageObject.clickOptionWithDisplayText('Two');
+            await pageObject.clickOptionWithDisplayText('Two');
             expect(element.value).toBe('two');
             expect(element.selectedIndex).toBe(1);
         });
