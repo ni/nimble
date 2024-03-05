@@ -21,6 +21,30 @@
       "enabled": true
     },
     {
+      "groupName": "npm dependencies bump",
+      "matchManagers": ["npm"],
+      "rangeStrategy": "update-lockfile",
+      "matchDepTypes": ["dependencies", "devDependencies"],
+      "matchPackagePatterns":[
+        "^@microsoft/fast",
+        "^@tanstack/",
+        "^@tiptap/",
+        "@types/markdown-it",
+        "comlink",
+        "d3-",
+        "prosemirror-",
+
+        "^@ni/eslint-config",
+        "beachball",
+        "storybook"
+      ],
+      "excludePackagePatterns":[
+        "@microsoft/fast-foundation",
+        "@microsoft/fast-react-wrapper"
+      ],
+      "enabled": true
+    },
+    {
       "groupName": "nuget dependencies",
       "matchManagers": ["nuget"],
       "enabled": true
