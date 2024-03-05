@@ -6,7 +6,10 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { FilterMode } from '../types';
 import { SelectPageObject } from '../testing/select.pageobject';
-import { createEventListener } from '../../utilities/tests/component';
+import {
+    createEventListener,
+    waitAnimationFrame
+} from '../../utilities/tests/component';
 import { filterSearchLabel } from '../../label-provider/core/label-tokens';
 
 const disabledOption = 'disabled';
@@ -303,6 +306,26 @@ describe('Select', () => {
 
             await disconnect();
         });
+
+        it('should scroll the selected option into view when opened', async () => {
+            const { element, connect, disconnect } = await setup500Options();
+            element.value = '300';
+            await connect();
+            element.focus();
+            await clickAndWaitForOpen(element);
+            await waitForUpdatesAsync();
+            await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
+
+            expect(element.scrollableRegion.scrollTop).toBeGreaterThan(8000);
+
+            element.value = '0';
+            await waitForUpdatesAsync();
+            await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
+
+            expect(element.scrollableRegion.scrollTop).toBeCloseTo(4);
+
+            await disconnect();
+        });
     });
 
     describe('within a div', () => {
@@ -531,11 +554,13 @@ describe('Select', () => {
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.text).toBe('Two');
             pageObject.pressEscapeKey();
 
             await pageObject.clickSelect();
             currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.selected).toBeTrue();
+            expect(currentSelection?.text).toBe('One');
         });
 
         it('opening popup shows correct selected element after filtering and committing but not changing selected option', async () => {
@@ -786,7 +811,7 @@ describe('Select', () => {
         it('exercise clickOptionWithDisplayText', async () => {
             await pageObject.clickSelect();
             await waitForUpdatesAsync();
-            pageObject.clickOptionWithDisplayText('Two');
+            await pageObject.clickOptionWithDisplayText('Two');
             expect(element.value).toBe('two');
             expect(element.selectedIndex).toBe(1);
         });

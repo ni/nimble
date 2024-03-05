@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 28 Feb 2024 21:22:49 GMT and should not be manually modified.
+This log was last generated on Fri, 01 Mar 2024 23:02:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.8.1
+
+Fri, 01 Mar 2024 23:02:58 GMT
+
+### Patches
+
+- Fix drawer/select animation bug ([ni/nimble@90df5dd](https://github.com/ni/nimble/commit/90df5dd14c1c5ad4116f6b43ae5fb99dc215c83e))
+
+## 21.8.0
+
+Thu, 29 Feb 2024 16:22:43 GMT
+
+### Minor changes
+
+- Allow icon mappings to specify an undefined icon ([ni/nimble@d4ca92e](https://github.com/ni/nimble/commit/d4ca92e5d7044d8be7b26ccbc52b91747663bfe2))
 
 ## 21.7.1
 

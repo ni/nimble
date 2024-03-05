@@ -6,15 +6,30 @@ export interface IconView {
     severity: IconSeverity;
     text?: string;
 }
-const createIconTemplate = (icon: string): ViewTemplate<IconView> => html`
-    <${icon}
-        title="${x => x.text}"
-        role="img"
-        aria-label="${x => x.text}"
-        severity="${x => x.severity}"
-        class="no-shrink"
-    >
-    </${icon}>`;
+
+// Create an empty template containing only a space because creating a ViewTemplate
+// with an empty string throws an exception at runtime.
+// prettier-ignore
+const emptyTemplate = html<IconView>` `;
+
+const createIconTemplate = (
+    icon: string | undefined
+): ViewTemplate<IconView> => {
+    if (icon === undefined) {
+        return emptyTemplate;
+    }
+
+    return html`
+        <${icon}
+            title="${x => x.text}"
+            role="img"
+            aria-label="${x => x.text}"
+            severity="${x => x.severity}"
+            class="no-shrink"
+        >
+        </${icon}>
+    `;
+};
 
 /**
  * Mapping configuration corresponding to a icon mapping
@@ -22,7 +37,7 @@ const createIconTemplate = (icon: string): ViewTemplate<IconView> => html`
 export class MappingIconConfig extends MappingConfig {
     public readonly iconTemplate: ViewTemplate<IconView>;
     public constructor(
-        resolvedIcon: string,
+        resolvedIcon: string | undefined,
         public readonly severity: IconSeverity,
         text: string | undefined
     ) {
