@@ -57,9 +57,7 @@ describe('WaferMap Converter', () => {
         const columnNames = table.schema.fields.map(field => field.name);
         expect(columnNames).toEqual(['colIndex', 'rowIndex', 'value', 'tags']);
 
-        const columnTypes = table.schema.fields.map(
-            field => (field.type as Field).toString()
-        );
+        const columnTypes = table.schema.fields.map(field => (field.type as Field).toString());
         const expectedTypes = [
             new Int32(),
             new Int32(),
