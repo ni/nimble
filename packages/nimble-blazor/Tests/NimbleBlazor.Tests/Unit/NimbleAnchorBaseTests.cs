@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using Bunit;
 using Xunit;
@@ -12,22 +11,19 @@ namespace NimbleBlazor.Tests.Unit;
 public abstract class NimbleAnchorBaseTests<T> where T : NimbleAnchorBase
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1000:Do not declare static members on generic types", Justification = "Static needed for MemberData of Theory")]
-    public static IEnumerable<object[]> Data =>
-        new List<object[]>
+    public static TheoryData<Expression<Func<T, string>>, string> Data => new()
         {
-            new object[] { (Expression<Func<T, string>>)(x => x.Href), "href" },
-            new object[] { (Expression<Func<T, string>>)(x => x.HrefLang), "hreflang" },
-            new object[] { (Expression<Func<T, string>>)(x => x.Ping), "ping" },
-            new object[] { (Expression<Func<T, string>>)(x => x.ReferrerPolicy), "referrerpolicy" },
-            new object[] { (Expression<Func<T, string>>)(x => x.Rel), "rel" },
-            new object[] { (Expression<Func<T, string>>)(x => x.Target), "target" },
-            new object[] { (Expression<Func<T, string>>)(x => x.Type), "type" }
+            { x => x.Href, "href" },
+            { x => x.HrefLang, "hreflang" },
+            { x => x.Ping, "ping" },
+            { x => x.ReferrerPolicy, "referrerpolicy" },
+            { x => x.Rel, "rel" },
+            { x => x.Target, "target" },
+            { x => x.Type, "type" }
         };
 
     [Theory]
-#pragma warning disable xUnit1042 // The member referenced by the MemberData attribute returns untyped data rows
     [MemberData(nameof(Data))]
-#pragma warning restore xUnit1042 // The member referenced by the MemberData attribute returns untyped data rows
     public void NimbleAnchorBase_AttributeIsSet(Expression<Func<T, string>> propertyGetter, string markupName)
     {
         var anchorMenuItem = RenderWithPropertySet(propertyGetter, "foo");
