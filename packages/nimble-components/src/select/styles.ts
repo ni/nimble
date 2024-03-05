@@ -26,11 +26,11 @@ export const styles = css`
          error icon, and dropdown arrow because they are not "interactive" i.e. part of the tab order */ ''
     }
 
-    [part='selected-value'].placeholder {
+    .selected-value.placeholder {
         color: ${placeholderFontColor};
     }
 
-    [part='selected-value'] {
+    .selected-value {
         order: 1;
     }
 
