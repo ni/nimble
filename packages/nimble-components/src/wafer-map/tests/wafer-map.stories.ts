@@ -388,7 +388,9 @@ const metadata: Meta<WaferMapArgs> = {
             description: `Readonly object of boolean values that represents the validity states that the wafer map's configuration can be in.
 The object's type is \`WaferMapValidity\`, and it contains the following boolean properties:
 
--   \`invalidGridDimensions \`: \`true\` when some of the \`gridMinX\`, \`gridMinY\`, \`gridMaxX\` or \`gridMaxY\` are \`undefined\`, but \`false\` when all of them are provided or all of them are \`undefined\``,
+-   \`invalidGridDimensions \`: \`true\` when some of the \`gridMinX\`, \`gridMinY\`, \`gridMaxX\` or \`gridMaxY\` are \`undefined\`, but \`false\` when all of them are provided or all of them are \`undefined\`
+
+-   \`invalidDiesTableSchema \`: \`true\` when the \`diesTable\` does not have all of the three expected columns: \`colIndex\`, \`rowIndex\` and \`value\`, but \`false\` when all of them are provided or the \`diesTable\` is \`undefined\``,
             control: false
         }
     }
