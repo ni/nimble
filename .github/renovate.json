@@ -23,6 +23,7 @@
         "^@tanstack/",
         "^@tiptap/",
         "@types/markdown-it",
+        "comlink",
         "d3-",
         "prosemirror-"
       ],

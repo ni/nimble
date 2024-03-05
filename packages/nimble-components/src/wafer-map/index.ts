@@ -5,7 +5,7 @@ import {
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
-import type { Table, Uint32, Int32, Float32 } from 'apache-arrow';
+import type { Table } from 'apache-arrow';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
@@ -22,7 +22,7 @@ import {
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
-import { MatrixRenderer } from './modules/matrix-renderer';
+import { WorkerRenderer } from './modules/worker-renderer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -92,11 +92,11 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly listRenderer = new RenderingModule(this);
+    public readonly mainRenderer = new RenderingModule(this);
     /**
      * @internal
      */
-    public readonly matrixRenderer = new MatrixRenderer(this);
+    public readonly workerRenderer = new WorkerRenderer(this);
 
     /**
      * @internal
@@ -146,19 +146,11 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    @observable public renderStrategy: 'list' | 'matrix' = 'list';
+    @observable public renderStrategy: 'main' | 'worker' = 'main';
 
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
-    @observable public diesTable:
-    | Table<{
-        colIndex: Int32,
-        rowIndex: Int32,
-        value: Float32,
-        tags: Uint32,
-        metadata: never
-    }>
-    | undefined;
+    @observable public diesTable: Table | undefined;
 
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
@@ -196,6 +188,12 @@ export class WaferMap extends FoundationElement {
      * The hover does not require an event update, but it's also the last update in the sequence.
      */
     public update(): void {
+        if (
+            this.renderStrategy === 'worker'
+            && !this.waferMapValidator.validateDiesTableSchema()
+        ) {
+            return;
+        }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
             this.waferMapValidator.validateGridDimensions();
@@ -224,11 +222,11 @@ export class WaferMap extends FoundationElement {
         }
     }
 
-    private get renderer(): RenderingModule | MatrixRenderer {
-        if (this.renderStrategy === 'list') {
-            return this.listRenderer;
+    private get renderer(): RenderingModule | WorkerRenderer {
+        if (this.renderStrategy === 'main') {
+            return this.mainRenderer;
         }
-        return this.matrixRenderer;
+        return this.workerRenderer;
     }
 
     private createResizeObserver(): ResizeObserver {
@@ -300,14 +298,14 @@ export class WaferMap extends FoundationElement {
 
     private diesChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderStrategy = 'list';
+        this.renderStrategy = 'main';
         this.waferMapUpdateTracker.queueUpdate();
     }
 
     private diesTableChanged(): void {
         this.waferMapUpdateTracker.track('dies');
         if (this.diesTable !== undefined) {
-            this.renderStrategy = 'matrix';
+            this.renderStrategy = 'worker';
         }
         this.waferMapUpdateTracker.queueUpdate();
     }

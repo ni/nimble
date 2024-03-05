@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import type { Table, Uint32, Int32, Float32 } from 'apache-arrow';
+import type { Table } from 'apache-arrow';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
@@ -34,7 +34,9 @@ interface WaferMapArgs {
     colorScaleMode: WaferMapColorScaleMode;
     dieLabelsHidden: boolean;
     dieLabelsSuffix: string;
+    apiVersion: 'stable' | 'experimental';
     dies: string;
+    highlightedTags: string;
     diesTable: string;
     maxCharacters: number;
     orientation: WaferMapOrientation;
@@ -45,7 +47,6 @@ interface WaferMapArgs {
     gridMaxY: number | undefined;
     dieHover: unknown;
     validity: WaferMapValidity;
-    highlightedTags: string;
 }
 
 const getDiesSet = (
@@ -85,34 +86,9 @@ const getDiesSet = (
     return returnedValue;
 };
 
-const getDiesTableSet = (
-    setName: string,
-    sets: Table<{
-        colIndex: Int32,
-        rowIndex: Int32,
-        value: Float32,
-        tags: Uint32,
-        metadata: never
-    }>[]
-):
-| Table<{
-    colIndex: Int32,
-    rowIndex: Int32,
-    value: Float32,
-    tags: Uint32,
-    metadata: never
-}>
-| undefined => {
+const getDiesTableSet = (setName: string, sets: Table[]): Table | undefined => {
     const seed = 0.5;
-    let returnedValue:
-    | Table<{
-        colIndex: Int32,
-        rowIndex: Int32,
-        value: Float32,
-        tags: Uint32,
-        metadata: never
-    }>
-    | undefined;
+    let returnedValue: Table | undefined;
     switch (setName) {
         case 'fixedDies10':
             returnedValue = sets[0]!;
@@ -166,6 +142,7 @@ const getHighlightedTags = (setName: string, sets: string[][]): string[] => {
 const metadata: Meta<WaferMapArgs> = {
     title: 'Incubating/Wafer Map',
     parameters: {
+        viewMode: 'docs',
         actions: {
             handles: ['click', 'die-hover']
         }
@@ -184,8 +161,8 @@ const metadata: Meta<WaferMapArgs> = {
             grid-max-y=${x => x.gridMaxY}
             :colorScale="${x => x.colorScale}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
-            :diesTable="${x => getDiesTableSet(x.diesTable, wafermapDiesTableSets)}"
             :highlightedTags="${x => getHighlightedTags(x.highlightedTags, highlightedTagsSets)}"
+            :diesTable="${x => getDiesTableSet(x.diesTable, wafermapDiesTableSets)}"
             >
         </${waferMapTag}>
         <style class="code-hide">
@@ -198,11 +175,12 @@ const metadata: Meta<WaferMapArgs> = {
     args: {
         colorScale: waferMapColorScaleSets[0],
         colorScaleMode: WaferMapColorScaleMode.linear,
+        apiVersion: 'stable',
         dies: 'fixedDies10',
+        highlightedTags: 'set1',
         diesTable: undefined,
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
-        highlightedTags: 'set1',
         maxCharacters: 4,
         orientation: WaferMapOrientation.left,
         originLocation: WaferMapOriginLocation.bottomLeft,
@@ -245,6 +223,19 @@ const metadata: Meta<WaferMapArgs> = {
                 }
             }
         },
+        apiVersion: {
+            description:
+                'Displays the API version of the component. The stable version is the one that is recommended for production use, while the experimental version is the one that is still under development and is not recommended for production use. The default value is `stable`.',
+            options: ['stable', 'experimental'],
+            control: {
+                type: 'inline-radio',
+                labels: {
+                    stable: 'Stable',
+                    experimental: 'Experimental'
+                }
+            },
+            defaultValue: 'stable'
+        },
         dies: {
             description: `Represents the input data, an array of \`WaferMapDie\`, which will be rendered by the wafer map
 
@@ -268,7 +259,29 @@ const metadata: Meta<WaferMapArgs> = {
                     badDies10000: 'Very large dies set of mostly bad values'
                 }
             },
-            defaultValue: 'set1'
+            defaultValue: 'fixedDies10',
+            if: { arg: 'apiVersion', eq: 'stable' }
+        },
+        highlightedTags: {
+            description: `Represent a list of strings that will be highlighted in the wafer map view. Each die has a tags?: string[] property, if at least one element of highlightedTags equals at least one element of die.tags the die will be highlighted.
+
+<details>
+    <summary>Usage details</summary>
+    The \`highlightedTags\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
+</details>
+                `,
+            options: ['set1', 'set2', 'set3', 'set4'],
+            control: {
+                type: 'radio',
+                labels: {
+                    set1: 'No die is highlighted',
+                    set2: 'A few dies are highlighted',
+                    set3: 'All dies are faded',
+                    set4: 'Many dies are highlighted'
+                }
+            },
+            defaultValue: 'set1',
+            if: { arg: 'apiVersion', eq: 'stable' }
         },
         diesTable: {
             description: `Represents the input data, an apache-arrow \`Table\`, which will be rendered by the wafer map
@@ -292,7 +305,9 @@ const metadata: Meta<WaferMapArgs> = {
                     goodDies1000: 'Large dies set of mostly good values',
                     badDies10000: 'Very large dies set of mostly bad values'
                 }
-            }
+            },
+            defaultValue: 'fixedDies10',
+            if: { arg: 'apiVersion', eq: 'experimental' }
         },
         dieLabelsHidden: {
             name: 'die-labels-hidden',
@@ -305,26 +320,6 @@ const metadata: Meta<WaferMapArgs> = {
             description:
                 'String that can be added as a label at the end of each wafer map die value',
             control: { type: 'text' }
-        },
-        highlightedTags: {
-            description: `Represent a list of strings that will be highlighted in the wafer map view. Each die has a tags?: string[] property, if at least one element of highlightedTags equals at least one element of die.tags the die will be highlighted.
-
-<details>
-    <summary>Usage details</summary>
-    The \`highlightedTags\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
-</details>
-                `,
-            options: ['set1', 'set2', 'set3', 'set4'],
-            control: {
-                type: 'radio',
-                labels: {
-                    set1: 'No die is highlighted',
-                    set2: 'A few dies are highlighted',
-                    set3: 'All dies are faded',
-                    set4: 'Many dies are highlighted'
-                }
-            },
-            defaultValue: 'set1'
         },
         maxCharacters: {
             name: 'max-characters',

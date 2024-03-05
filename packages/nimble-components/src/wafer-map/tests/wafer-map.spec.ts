@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { Table } from 'apache-arrow';
+import { Table, tableFromArrays } from 'apache-arrow';
 import { WaferMap } from '..';
 import { processUpdates } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
@@ -8,7 +8,6 @@ import {
     WaferMapOrientation,
     WaferMapOriginLocation
 } from '../types';
-import { createEventListener } from '../../utilities/tests/component';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
@@ -87,10 +86,10 @@ describe('WaferMap', () => {
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will have list render strategy after dies change', () => {
+        it('will use `main` render strategy after dies change', () => {
             element.dies = [{ x: 1, y: 1, value: '1' }];
             processUpdates();
-            expect(element.renderStrategy).toEqual('list');
+            expect(element.renderStrategy).toEqual('main');
         });
 
         it('will update once after diesTable change', () => {
@@ -99,27 +98,10 @@ describe('WaferMap', () => {
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will have matrix render strategy after diesTable change', () => {
+        it('will use `worker` render strategy after diesTable change', () => {
             element.diesTable = new Table();
             processUpdates();
-            expect(element.renderStrategy).toEqual('matrix');
-        });
-
-        xit('will trigger render-complete after diesTable change', async () => {
-            const renderCompleteListener = createEventListener(
-                element,
-                'render-complete'
-            );
-            element.diesTable = new Table();
-            processUpdates();
-            await renderCompleteListener.promise;
-            expect(renderCompleteListener.spy).toHaveBeenCalledTimes(1);
-            const expectedDetails = {
-                count: 0
-            };
-            const event = renderCompleteListener.spy.calls.first()
-                .args[0] as CustomEvent;
-            expect(event.detail).toEqual(expectedDetails);
+            expect(element.renderStrategy).toEqual('worker');
         });
 
         it('will update once after colorScale changes', () => {
@@ -140,6 +122,56 @@ describe('WaferMap', () => {
             element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('worker renderer draw flow', () => {
+        let spy: jasmine.Spy;
+        beforeEach(() => {
+            spy = spyOn(element.workerRenderer, 'drawWafer');
+        });
+
+        it('will call drawWafer after supported diesTable change', () => {
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([]),
+                rowIndex: Int32Array.from([]),
+                value: Float64Array.from([])
+            });
+            processUpdates();
+            expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
+
+        it('will not call drawWafer after unsupported diesTable change', () => {
+            element.diesTable = new Table();
+            processUpdates();
+            expect(element.validity.invalidDiesTableSchema).toBeTrue();
+            expect(spy).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('worker renderer flow', () => {
+        let spy: jasmine.Spy;
+        beforeEach(() => {
+            spy = spyOn(element.workerRenderer, 'renderHover');
+        });
+
+        it('will call renderHover after supported diesTable change', () => {
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([]),
+                rowIndex: Int32Array.from([]),
+                value: Float64Array.from([])
+            });
+            processUpdates();
+            expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
+
+        it('will not call renderHover after unsupported diesTable change', () => {
+            element.diesTable = new Table();
+            processUpdates();
+            expect(element.validity.invalidDiesTableSchema).toBeTrue();
+            expect(spy).toHaveBeenCalledTimes(0);
         });
     });
 

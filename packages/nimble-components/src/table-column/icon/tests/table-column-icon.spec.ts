@@ -25,7 +25,7 @@ interface SimpleTableRecord extends TableRecord {
 interface BasicIconMapping {
     key?: MappingKey;
     text?: string;
-    icon: string;
+    icon?: string;
 }
 
 interface BasicSpinnerMapping {
@@ -148,6 +148,20 @@ describe('TableColumnIcon', () => {
         }));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'no match' }]);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(() => pageObject.getRenderedIconColumnCellIconTagName(0, 0)).toThrowError();
+    });
+
+    it('displays blank when no icon specified for mapping', async () => {
+        ({ element, connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            iconMappings: [{ key: 'a', text: 'alpha', icon: undefined }],
+            spinnerMappings: []
+        }));
+        pageObject = new TablePageObject<SimpleTableRecord>(element);
+        await element.setData([{ field1: 'a' }]);
         await connect();
         await waitForUpdatesAsync();
 
@@ -306,6 +320,23 @@ describe('TableColumnIcon', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('');
+    });
+
+    it('sets group header text label and no icon when icon is undefined', async () => {
+        ({ element, connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            iconMappings: [{ key: 'b', text: 'bravo', icon: undefined }],
+            spinnerMappings: []
+        }));
+        pageObject = new TablePageObject<SimpleTableRecord>(element);
+        await element.setData([{ field1: 'b' }]);
+        await connect();
+        await waitForUpdatesAsync();
+        model.col1.groupIndex = 0;
+        await waitForUpdatesAsync();
+
+        expect(() => pageObject.getRenderedIconColumnGroupHeaderIconTagName(0)).toThrowError();
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('bravo');
     });
 
     it('clears cell when mappings removed', async () => {

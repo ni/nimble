@@ -7,11 +7,13 @@ import type { WaferMapValidity } from '../types';
  */
 export class WaferMapValidator {
     private invalidGridDimensions = false;
+    private invalidDiesTableSchema = false;
 
     public constructor(private readonly wafermap: WaferMap) {}
     public getValidity(): WaferMapValidity {
         return {
-            invalidGridDimensions: this.invalidGridDimensions
+            invalidGridDimensions: this.invalidGridDimensions,
+            invalidDiesTableSchema: this.invalidDiesTableSchema
         };
     }
 
@@ -39,5 +41,26 @@ export class WaferMapValidator {
             this.invalidGridDimensions = true;
         }
         return !this.invalidGridDimensions;
+    }
+
+    public validateDiesTableSchema(): boolean {
+        this.invalidDiesTableSchema = false;
+        if (this.wafermap.diesTable === undefined) {
+            this.invalidDiesTableSchema = false;
+        } else if (
+            this.wafermap.diesTable.numCols < 3
+            || this.wafermap.diesTable.schema.fields.findIndex(
+                f => f.name === 'colIndex'
+            ) === -1
+            || this.wafermap.diesTable.schema.fields.findIndex(
+                f => f.name === 'rowIndex'
+            ) === -1
+            || this.wafermap.diesTable.schema.fields.findIndex(
+                f => f.name === 'value'
+            ) === -1
+        ) {
+            this.invalidDiesTableSchema = true;
+        }
+        return !this.invalidDiesTableSchema;
     }
 }

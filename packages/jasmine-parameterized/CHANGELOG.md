@@ -1,8 +1,16 @@
 # Change Log - @ni/jasmine-parameterized
 
-This log was last generated on Tue, 23 Jan 2024 22:00:33 GMT and should not be manually modified.
+This log was last generated on Wed, 21 Feb 2024 19:48:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.2.2
+
+Wed, 21 Feb 2024 19:48:20 GMT
+
+### Patches
+
+- Add keywords to package metadata and fix typo in examples ([ni/nimble@a9ba0b6](https://github.com/ni/nimble/commit/a9ba0b6027479fe1cc2267f11957caa329910dfc))
 
 ## 0.2.1
 

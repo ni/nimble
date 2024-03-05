@@ -27,5 +27,5 @@ declare module 'xliff' {
         };
     }
 
-    function xliff12ToJs(contents: string): Promise<XliffFile>;
+    function xliff12ToJs(contents: string, options: { captureSpacesBetweenElements: boolean }): Promise<XliffFile>;
 }

@@ -1,13 +1,10 @@
 /* eslint-disable max-classes-per-file */
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { DefaultUnitFormat } from '../default-unit-format';
-import { IntlNumberFormatScaledUnitFormat } from '../scaled-unit-format/intl-number-format-scaled-unit-format';
-import {
-    ScaledUnit,
-    ScaledUnitFormatFactoryOptions
-} from '../scaled-unit/scaled-unit';
+import { ScaledUnit } from '../scaled-unit/scaled-unit';
 import { UnitScale } from '../unit-scale/unit-scale';
 import { passthroughUnitScale } from '../unit-scale/passthrough-unit-scale';
+import { TestScaledUnitFormat } from './test-scaled-unit-format';
 
 describe('DefaultUnitFormat', () => {
     const testCases = [
@@ -232,28 +229,6 @@ describe('DefaultUnitFormat', () => {
     });
 
     describe('with unit', () => {
-        class TestScaledUnitFormat extends IntlNumberFormatScaledUnitFormat {
-            public constructor(
-                scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions,
-                private readonly scaleFactor: number
-            ) {
-                super(scaledUnitFormatFactoryOptions, {});
-            }
-
-            public static createTestFactory(scaleFactor: number) {
-                return (
-                    scaledUnitFormatFactoryOptions: ScaledUnitFormatFactoryOptions
-                ): TestScaledUnitFormat => new TestScaledUnitFormat(
-                    scaledUnitFormatFactoryOptions,
-                    scaleFactor
-                );
-            }
-
-            public override format(value: number): string {
-                return `${super.format(value)} x${this.scaleFactor}`;
-            }
-        }
-
         class TestUnitScale extends UnitScale {
             public constructor() {
                 super([
@@ -302,11 +277,6 @@ describe('DefaultUnitFormat', () => {
                 name: 'uses unit-scaled value when deciding whether to format in exponential notation',
                 value: 2000000,
                 expectedFormattedValue: '2,000 x1000'
-            },
-            {
-                name: 'uses unit-scaled value when deciding whether to format with leading-zero formatter',
-                value: 0.123456789,
-                expectedFormattedValue: '12.3457 x0.01' // rather than '12.34568 x0.01'
             },
             {
                 name: 'always uses base unit if exponential notation is used',

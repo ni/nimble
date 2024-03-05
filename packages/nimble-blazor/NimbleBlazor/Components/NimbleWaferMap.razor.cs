@@ -10,12 +10,12 @@ namespace NimbleBlazor;
 public partial class NimbleWaferMap : ComponentBase
 {
     private ElementReference _waferMap;
-    private bool _diesUpdated = false;
-    private IEnumerable<WaferMapDie>? _dies = Enumerable.Empty<WaferMapDie>();
-    private bool _colorScaleUpdated = false;
+    private bool _diesUpdated;
+    private IEnumerable<WaferMapDie>? _dies;
+    private bool _colorScaleUpdated;
     private WaferMapColorScale? _colorScale;
-    private bool _highlightedTagsUpdated = false;
-    private IEnumerable<string>? _highlightedTags = Enumerable.Empty<string>();
+    private bool _highlightedTagsUpdated;
+    private IEnumerable<string>? _highlightedTags;
     internal static string GetWaferMapValidityMethodName = "NimbleBlazor.WaferMap.getValidity";
     internal static string SetWaferMapDiesMethodName = "NimbleBlazor.WaferMap.setDies";
     internal static string SetWaferMapColorScaleMethodName = "NimbleBlazor.WaferMap.setColorScale";
@@ -31,25 +31,25 @@ public partial class NimbleWaferMap : ComponentBase
     public WaferMapOriginLocation? OriginLocation { get; set; }
 
     /// <summary>
-    /// Represents the X coordinate of the minimum corner of the the grid bounding box for rendering the wafer map.
+    /// Represents the X coordinate of the minimum corner of the grid bounding box for rendering the wafer map.
     /// </summary>
     [Parameter]
     public double? GridMinX { get; set; }
 
     /// <summary>
-    /// Represents the X coordinate of the maximum corner of the the grid bounding box for rendering the wafer map.
+    /// Represents the X coordinate of the maximum corner of the grid bounding box for rendering the wafer map.
     /// </summary>
     [Parameter]
     public double? GridMaxX { get; set; }
 
     /// <summary>
-    /// Represents the Y coordinate of the minimum corner of the the grid bounding box for rendering the wafer map.
+    /// Represents the Y coordinate of the minimum corner of the grid bounding box for rendering the wafer map.
     /// </summary>
     [Parameter]
     public double? GridMinY { get; set; }
 
     /// <summary>
-    /// Represents the Y coordinate of the maximum corner of the the grid bounding box for rendering the wafer map.
+    /// Represents the Y coordinate of the maximum corner of the grid bounding box for rendering the wafer map.
     /// </summary>
     [Parameter]
     public double? GridMaxY { get; set; }

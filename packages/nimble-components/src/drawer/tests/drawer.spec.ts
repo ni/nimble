@@ -3,7 +3,10 @@ import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Drawer, UserDismissed } from '..';
 import { DrawerLocation } from '../types';
-import { processUpdates } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 async function setup<CloseReason = void>(
@@ -159,6 +162,24 @@ describe('Drawer', () => {
             nativeDialogElement(element).dispatchEvent(cancelEvent);
             await expectAsync(promise).toBeResolvedTo(UserDismissed);
             expect(element.open).toBeFalse();
+        });
+
+        // This can potentially happen if the dialog is implemented with the CloseWatcher API
+        it('should resolve promise with UserDismissed when only close event fired', async () => {
+            const promise = element.show();
+            // Simulate user dismiss events in browser
+            nativeDialogElement(element).dispatchEvent(new Event('close'));
+            await expectAsync(promise).toBeResolvedTo(UserDismissed);
+            expect(element.open).toBeFalse();
+        });
+
+        it('should not resolve promise when close event bubbles from descendant', async () => {
+            const promise = element.show();
+            const okButton = document.getElementById('ok')!;
+            okButton.dispatchEvent(new Event('close', { bubbles: true }));
+            await waitForUpdatesAsync();
+            await expectAsync(promise).toBePending();
+            expect(element.open).toBeTrue();
         });
 
         it('throws calling show() a second time', async () => {
