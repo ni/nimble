@@ -8,6 +8,8 @@ import {
     WaferMapOrientation,
     WaferMapOriginLocation
 } from '../types';
+import { RenderingModule } from '../modules/rendering';
+import { WorkerRenderer } from '../modules/worker-renderer';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
@@ -86,10 +88,10 @@ describe('WaferMap', () => {
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will use `main` render strategy after dies change', () => {
+        it('will use RenderingModule after dies change', () => {
             element.dies = [{ x: 1, y: 1, value: '1' }];
             processUpdates();
-            expect(typeof element.renderer).toEqual('RenderingModule');
+            expect(element.renderer instanceof RenderingModule).toBeTrue();
         });
 
         it('will update once after diesTable change', () => {
@@ -98,10 +100,10 @@ describe('WaferMap', () => {
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will use `worker` render strategy after diesTable change', () => {
+        it('will use WorkerRenderer after diesTable change', () => {
             element.diesTable = new Table();
             processUpdates();
-            expect(typeof element.renderer).toEqual('WorkerRenderer');
+            expect(element.renderer instanceof WorkerRenderer).toBeTrue();
         });
 
         it('will update once after colorScale changes', () => {
