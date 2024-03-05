@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 01 Mar 2024 23:02:58 GMT and should not be manually modified.
+This log was last generated on Mon, 04 Mar 2024 19:02:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.8.2
+
+Mon, 04 Mar 2024 19:02:52 GMT
+
+### Patches
+
+- Update column divider color on hover ([ni/nimble@4b05012](https://github.com/ni/nimble/commit/4b0501210e4096c23350dbe5cb2eb9e4d6901ed6))
 
 ## 21.8.1
 
