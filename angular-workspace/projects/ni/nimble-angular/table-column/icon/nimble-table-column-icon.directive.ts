@@ -30,22 +30,6 @@ export class NimbleTableColumnIconDirective extends NimbleTableColumnBaseDirecti
         this.renderer.setProperty(this.elementRef.nativeElement, 'keyType', value);
     }
 
-    public get fractionalWidth(): number | null | undefined {
-        return this.elementRef.nativeElement.fractionalWidth;
-    }
-
-    @Input('fractional-width') public set fractionalWidth(value: NumberValueOrAttribute | null | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'fractionalWidth', toNullableNumberProperty(value));
-    }
-
-    public get minPixelWidth(): number | null | undefined {
-        return this.elementRef.nativeElement.minPixelWidth;
-    }
-
-    @Input('min-pixel-width') public set minPixelWidth(value: NumberValueOrAttribute | null | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'minPixelWidth', toNullableNumberProperty(value));
-    }
-
     public get groupIndex(): number | null | undefined {
         return this.elementRef.nativeElement.groupIndex;
     }
