@@ -1,11 +1,13 @@
 ---
-name: 🧑‍🎨 Visual Design (ViD) User story
+name: 🎨 Visual Design Request
 about: (DEV TEAM ONLY) A small chunk of work to be done by Visual Designer
 title: 'nimble-{name} visual design request'
-labels: 'ViD,triage'
+labels: 'visual design,triage'
 ---
 
 <!-- Ensure the title can be understood without the parent item's context, e.g. "nimble-datepicker Visual Design" rather than just "Visual Design" -->
+
+# 🎨 Visual Design Request
 
 ## 📌 Request Background
 
