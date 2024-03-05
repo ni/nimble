@@ -83,8 +83,14 @@ export const template = html<Table>`
                             ${repeat(x => x.visibleColumns, html<TableColumn, Table>`
                                 <div class="header-container">
                                     ${when((_, c) => c.index > 0, html<TableColumn, Table>`
-                                        <div class="column-divider left ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'active' : ''}`}" 
-                                             @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.event as MouseEvent, c.index)}">
+                                        <div
+                                            class="
+                                                column-divider
+                                                left
+                                                ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'column-active' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getLeftDividerIndex(c.index) ? 'divider-active' : ''}`}
+                                            "
+                                            @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.event as MouseEvent, c.index)}">
                                         </div>
                                     `)}
                                         <${tableHeaderTag}
@@ -97,7 +103,13 @@ export const template = html<Table>`
                                             <slot name="${x => x.slot}"></slot>
                                         </${tableHeaderTag}>
                                     ${when((_, c) => c.index < c.length - 1, html<TableColumn, Table>`
-                                        <div class="column-divider right ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'active' : ''}`}"
+                                        <div
+                                            class="
+                                                column-divider
+                                                right
+                                                ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'column-active' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getRightDividerIndex(c.index) ? 'divider-active' : ''}`}
+                                            "
                                              @mousedown="${(_, c) => c.parent.onRightDividerMouseDown(c.event as MouseEvent, c.index)}">
                                         </div>
                                     `)}                        
