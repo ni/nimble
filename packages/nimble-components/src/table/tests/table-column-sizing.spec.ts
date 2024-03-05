@@ -538,51 +538,62 @@ describe('Table Interactive Column Sizing', () => {
                 name: 'all dividers are resizable when no columns having resizing disabled',
                 resizingDisabled: [false, false, false, false],
                 expectedResizableDividers: [0, 1, 2, 3, 4, 5]
-            }, {
+            },
+            {
                 name: 'no column dividers are visible if no columns are resizable',
                 resizingDisabled: [true, true, true, true],
                 expectedResizableDividers: []
-            }, {
+            },
+            {
                 name: 'no dividers between columns that cannot be resized to the right or left',
                 resizingDisabled: [true, false, false, false],
                 expectedResizableDividers: [2, 3, 4, 5]
-            }, {
+            },
+            {
                 name: 'no divider on multiple columns that cannot be resized to the right or left',
                 resizingDisabled: [true, true, false, false],
                 expectedResizableDividers: [4, 5]
-            }, {
+            },
+            {
                 name: 'can resize column surrounded by non-resizable columns if another column can be resized',
                 resizingDisabled: [true, false, true, false],
                 expectedResizableDividers: [2, 3, 4, 5]
-            }, {
+            },
+            {
                 name: 'can resize the only resizable column only to the right',
                 resizingDisabled: [true, true, false, true],
                 expectedResizableDividers: [4, 5]
-            }, {
+            },
+            {
                 name: 'can resize all columns to the right if one resizable column exists to the left',
                 resizingDisabled: [false, true, true, true],
                 expectedResizableDividers: [0, 1, 2, 3, 4, 5]
             }
         ] as const;
-        parameterizeSpec(resizingDisabledDividerVisibilityTests, (spec, name, value) => {
-            spec(name, async () => {
-                element.columns.forEach((column, i) => {
-                    column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
-                });
-                await waitForUpdatesAsync();
+        parameterizeSpec(
+            resizingDisabledDividerVisibilityTests,
+            (spec, name, value) => {
+                spec(name, async () => {
+                    element.columns.forEach((column, i) => {
+                        column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
+                    });
+                    await waitForUpdatesAsync();
 
-                const dividers = Array.from(
-                    element.shadowRoot!.querySelectorAll('.column-divider')
-                );
-                const resizableDividers = [];
-                for (let i = 0; i < dividers.length; i++) {
-                    if (dividers[i]!.classList.contains('resizable')) {
-                        resizableDividers.push(i);
+                    const dividers = Array.from(
+                        element.shadowRoot!.querySelectorAll('.column-divider')
+                    );
+                    const resizableDividers = [];
+                    for (let i = 0; i < dividers.length; i++) {
+                        if (dividers[i]!.classList.contains('resizable')) {
+                            resizableDividers.push(i);
+                        }
                     }
-                }
-                expect(resizableDividers).toEqual(value.expectedResizableDividers);
-            });
-        });
+                    expect(resizableDividers).toEqual(
+                        value.expectedResizableDividers
+                    );
+                });
+            }
+        );
 
         it('when table width is smaller than total column min width, dragging column still expands column', async () => {
             await pageObject.sizeTableToGivenRowWidth(100, element);
@@ -814,35 +825,41 @@ describe('Table Interactive Column Sizing', () => {
                 resizingDisabled: [true, false, false, false],
                 hiddenColumns: [0],
                 expectedResizableDividers: [0, 1, 2, 3]
-            }, {
+            },
+            {
                 name: 'no column dividers are visible if no visible columns are resizable',
                 resizingDisabled: [true, true, false, true],
                 hiddenColumns: [2],
                 expectedResizableDividers: []
             }
         ] as const;
-        parameterizeSpec(resizingDisabledDividerVisibilityTests, (spec, name, value) => {
-            spec(name, async () => {
-                element.columns.forEach((column, i) => {
-                    column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
-                });
-                value.hiddenColumns.forEach(columnIndex => {
-                    element.columns[columnIndex]!.columnHidden = true;
-                });
-                await waitForUpdatesAsync();
+        parameterizeSpec(
+            resizingDisabledDividerVisibilityTests,
+            (spec, name, value) => {
+                spec(name, async () => {
+                    element.columns.forEach((column, i) => {
+                        column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
+                    });
+                    value.hiddenColumns.forEach(columnIndex => {
+                        element.columns[columnIndex]!.columnHidden = true;
+                    });
+                    await waitForUpdatesAsync();
 
-                const dividers = Array.from(
-                    element.shadowRoot!.querySelectorAll('.column-divider')
-                );
-                const resizableDividers = [];
-                for (let i = 0; i < dividers.length; i++) {
-                    if (dividers[i]!.classList.contains('resizable')) {
-                        resizableDividers.push(i);
+                    const dividers = Array.from(
+                        element.shadowRoot!.querySelectorAll('.column-divider')
+                    );
+                    const resizableDividers = [];
+                    for (let i = 0; i < dividers.length; i++) {
+                        if (dividers[i]!.classList.contains('resizable')) {
+                            resizableDividers.push(i);
+                        }
                     }
-                }
-                expect(resizableDividers).toEqual(value.expectedResizableDividers);
-            });
-        });
+                    expect(resizableDividers).toEqual(
+                        value.expectedResizableDividers
+                    );
+                });
+            }
+        );
     });
 
     describe('hidden column drag left divider tests ', () => {

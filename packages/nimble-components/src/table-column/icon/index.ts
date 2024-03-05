@@ -29,10 +29,7 @@ declare global {
  * Table column that maps values to icons / spinners
  */
 export class TableColumnIcon extends mixinGroupableColumnAPI(
-    TableColumnEnumBase<
-    TableColumnEnumColumnConfig,
-    TableColumnIconValidator
-    >
+    TableColumnEnumBase<TableColumnEnumColumnConfig, TableColumnIconValidator>
 ) {
     public constructor() {
         super();

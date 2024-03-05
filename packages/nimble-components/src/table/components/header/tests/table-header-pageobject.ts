@@ -48,9 +48,7 @@ export class TableHeaderPageObject {
         }
         const display = window.getComputedStyle(element).display;
         if (typeof display !== 'string' || display === '') {
-            throw new Error(
-                'Invalid display value was calcualted'
-            );
+            throw new Error('Invalid display value was calculated');
         }
         return display !== 'none';
     }

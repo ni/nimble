@@ -83,12 +83,28 @@ export class TableLayoutManager<TData extends TableRecord> {
         document.addEventListener('mouseup', this.onDividerMouseUp);
     }
 
-    public hasResizableColumnToLeft(columnIndex: number, visibleColumns = this.visibleColumns): boolean {
-        return this.getFirstLeftResizableColumnIndex(columnIndex, visibleColumns) !== -1;
+    public hasResizableColumnToLeft(
+        columnIndex: number,
+        visibleColumns = this.visibleColumns
+    ): boolean {
+        return (
+            this.getFirstLeftResizableColumnIndex(
+                columnIndex,
+                visibleColumns
+            ) !== -1
+        );
     }
 
-    public hasResizableColumnToRight(columnIndex: number, visibleColumns = this.visibleColumns): boolean {
-        return this.getFirstRightResizableColumnIndex(columnIndex, visibleColumns) !== -1;
+    public hasResizableColumnToRight(
+        columnIndex: number,
+        visibleColumns = this.visibleColumns
+    ): boolean {
+        return (
+            this.getFirstRightResizableColumnIndex(
+                columnIndex,
+                visibleColumns
+            ) !== -1
+        );
     }
 
     private readonly onDividerMouseMove = (event: Event): void => {
@@ -147,7 +163,9 @@ export class TableLayoutManager<TData extends TableRecord> {
         let availableSpace = 0;
         if (requestedResizeAmount > 0) {
             // size right
-            return this.hasResizableColumnToLeft(this.leftColumnIndex!) ? requestedResizeAmount : 0;
+            return this.hasResizableColumnToLeft(this.leftColumnIndex!)
+                ? requestedResizeAmount
+                : 0;
         }
 
         // size left
@@ -168,7 +186,10 @@ export class TableLayoutManager<TData extends TableRecord> {
         return Math.max(requestedResizeAmount, -availableSpace);
     }
 
-    private getFirstLeftResizableColumnIndex(columnIndex: number, visibleColumns = this.visibleColumns): number {
+    private getFirstLeftResizableColumnIndex(
+        columnIndex: number,
+        visibleColumns = this.visibleColumns
+    ): number {
         for (let i = columnIndex; i >= 0; i--) {
             const column = visibleColumns[i];
             if (!column) {
@@ -181,7 +202,10 @@ export class TableLayoutManager<TData extends TableRecord> {
         return -1;
     }
 
-    private getFirstRightResizableColumnIndex(columnIndex: number, visibleColumns = this.visibleColumns): number {
+    private getFirstRightResizableColumnIndex(
+        columnIndex: number,
+        visibleColumns = this.visibleColumns
+    ): number {
         for (let i = columnIndex; i < visibleColumns.length; i++) {
             const column = visibleColumns[i];
             if (!column) {
@@ -216,9 +240,16 @@ export class TableLayoutManager<TData extends TableRecord> {
         const leftColumn = this.visibleColumns[firstLeftResizableColumn]!;
         leftColumn.columnInternals.currentPixelWidth! += actualDelta;
 
-        if (actualDelta > currentDelta && firstLeftResizableColumn > 0 && delta < 0) {
+        if (
+            actualDelta > currentDelta
+            && firstLeftResizableColumn > 0
+            && delta < 0
+        ) {
             currentDelta -= allowedDelta;
-            this.performCascadeSizeLeft(firstLeftResizableColumn - 1, currentDelta);
+            this.performCascadeSizeLeft(
+                firstLeftResizableColumn - 1,
+                currentDelta
+            );
         }
     }
 
@@ -239,7 +270,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         } else if (delta > 0) {
             allowedDelta = Math.min(
                 rightColumnInitialWidths.initialPixelWidth
-                          - rightColumnInitialWidths.minPixelWidth,
+                    - rightColumnInitialWidths.minPixelWidth,
                 currentDelta
             );
         } else {
@@ -255,7 +286,10 @@ export class TableLayoutManager<TData extends TableRecord> {
             && delta > 0
         ) {
             currentDelta -= allowedDelta;
-            this.performCascadeSizeRight(firstRightResizableColumn + 1, currentDelta);
+            this.performCascadeSizeRight(
+                firstRightResizableColumn + 1,
+                currentDelta
+            );
         }
     }
 
