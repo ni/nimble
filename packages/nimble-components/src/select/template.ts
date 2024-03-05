@@ -119,7 +119,7 @@ SelectOptions
                         class="scrollable-region">
                         <slot
                             ${slotted({
-                                filter: (n: Node) => n instanceof HTMLElement && isListboxOption(n),
+                                filter: (n: Node) => isListboxOption(n),
                                 flatten: true,
                                 property: 'slottedOptions',
                             })}
