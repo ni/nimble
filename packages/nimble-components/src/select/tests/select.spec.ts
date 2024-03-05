@@ -12,17 +12,37 @@ import {
 } from '../../utilities/tests/component';
 import { filterSearchLabel } from '../../label-provider/core/label-tokens';
 
+const disabledOption = 'disabled';
+const disabledSelectedOption = 'disabled selected';
+const placeholderOption = 'disabled selected hidden';
+
 async function setup(
     position?: string,
-    open?: boolean
+    open?: boolean,
+    firstOptionState?:
+    | 'disabled'
+    | 'disabled selected'
+    | 'disabled selected hidden',
+    secondOptionState?:
+    | 'disabled'
+    | 'disabled selected'
+    | 'disabled selected hidden'
 ): Promise<Fixture<Select>> {
     const viewTemplate = html`
         <nimble-select
             ${position !== undefined ? `position="${position}"` : ''}
             ${open ? 'open' : ''}
         >
-            <nimble-list-option value="one">One</nimble-list-option>
-            <nimble-list-option value="two">Two</nimble-list-option>
+            <nimble-list-option
+                value="one"
+                ${firstOptionState !== undefined ? firstOptionState : ''}
+                >One</nimble-list-option
+            >
+            <nimble-list-option
+                value="two"
+                ${secondOptionState !== undefined ? secondOptionState : ''}
+                >Two</nimble-list-option
+            >
             <nimble-list-option value="three">Three</nimble-list-option>
             <nimble-list-option disabled value="t-disabled"
                 >T Disabled</nimble-list-option
@@ -192,6 +212,84 @@ describe('Select', () => {
         await pageObject.pressSpaceKey();
         expect(element.value).toBe('two');
         expect(element.open).toBeFalse();
+
+        await disconnect();
+    });
+
+    it('disabled option that is marked as selected initially will be used as value', async () => {
+        // mark second option as selected to be different than default
+        const { element, connect, disconnect } = await setup(
+            undefined,
+            false,
+            undefined,
+            disabledSelectedOption
+        );
+        await connect();
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('two');
+
+        await disconnect();
+    });
+
+    it('can set value to a disabled option', async () => {
+        const { element, connect, disconnect } = await setup(
+            undefined,
+            false,
+            undefined,
+            disabledOption
+        );
+        await connect();
+        await waitForUpdatesAsync();
+        element.value = 'two';
+        expect(element.value).toEqual('two');
+        expect(element.selectedIndex).toEqual(1);
+
+        await disconnect();
+    });
+
+    it('updating hidden attribute sets/removes visually-hidden attribute', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+        const option = element.options[0]! as ListOption;
+        option.hidden = true;
+        expect(option.visuallyHidden).toBeTrue();
+
+        option.hidden = false;
+        expect(option.visuallyHidden).toBeFalse();
+
+        await disconnect();
+    });
+
+    it('can not select a disabled option via the arrow keys', async () => {
+        const { element, connect, disconnect } = await setup(
+            undefined,
+            false,
+            undefined,
+            disabledOption
+        );
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        await clickAndWaitForOpen(element);
+        pageObject.pressArrowDownKey();
+        expect(pageObject.getSelectedOption()?.value).toBe('three');
+
+        pageObject.pressArrowUpKey();
+        expect(pageObject.getSelectedOption()?.value).toBe('one');
+
+        await disconnect();
+    });
+
+    it('changing textContent of selected option updates display of select', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        const selectedOption = pageObject.getSelectedOption();
+        selectedOption!.textContent = 'foo';
+        await waitForUpdatesAsync();
+        expect(element.displayValue).toBe('foo');
 
         await disconnect();
     });
@@ -450,17 +548,6 @@ describe('Select', () => {
             expect(filteredOptions.length).toBe(1);
         });
 
-        it('filtering out current selected item changes selected item but not value', async () => {
-            let currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.text).toBe('One');
-            expect(element.value).toBe('one');
-
-            await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.text).toBe('Two');
-            expect(element.value).toBe('one');
-        });
-
         it('filtering out current selected item and then pressing <Esc> does not change value, reverts selected item and closes popup', async () => {
             let currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.text).toBe('One');
@@ -480,11 +567,13 @@ describe('Select', () => {
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.text).toBe('Two');
             pageObject.pressEscapeKey();
 
             await pageObject.clickSelect();
             currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.selected).toBeTrue();
+            expect(currentSelection?.text).toBe('One');
         });
 
         it('opening popup shows correct selected element after filtering and committing but not changing selected option', async () => {
@@ -528,7 +617,7 @@ describe('Select', () => {
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            pageObject.clickOption(1); // index 1 matches option with 'Three' text
+            pageObject.clickOption(2); // index 2 matches option with 'Three' text
             expect(element.value).toBe('three');
             expect(element.open).toBeFalse();
         });
@@ -587,7 +676,7 @@ describe('Select', () => {
         it('clicking disabled option does not cause select to change state', async () => {
             await pageObject.openAndSetFilterText('T');
             const currentFilteredOptions = pageObject.getFilteredOptions();
-            pageObject.clickOption(2); // click disabled option
+            pageObject.clickOption(3); // click disabled option
 
             expect(pageObject.getFilteredOptions()).toEqual(
                 currentFilteredOptions
@@ -655,6 +744,89 @@ describe('Select', () => {
             expect(filterInput?.getAttribute('aria-activedescendant')).toBe(
                 element.ariaActiveDescendant
             );
+        });
+    });
+
+    describe('placeholder', () => {
+        let element: Select;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+        let pageObject: SelectPageObject;
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup(
+                undefined,
+                false,
+                placeholderOption
+            ));
+            element.style.width = '200px';
+            element.filterMode = FilterMode.standard;
+            await connect();
+            pageObject = new SelectPageObject(element);
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('placeholder option is not present in dropdown', async () => {
+            await clickAndWaitForOpen(element);
+            expect(pageObject.isOptionVisible(0)).toBeFalse();
+        });
+
+        it('selecting option will replace placeholder text with selected option text', async () => {
+            expect(element.displayValue).toBe('One');
+            await clickAndWaitForOpen(element);
+            pageObject.clickOption(1);
+            await waitForUpdatesAsync();
+
+            expect(element.displayValue).toBe('Two');
+        });
+
+        it('placeholder can be changed to another option programmatically', async () => {
+            await waitForUpdatesAsync();
+            element.options[0]!.hidden = false;
+            element.options[1]!.hidden = true;
+            element.options[1]!.disabled = true;
+            element.options[1]!.selected = true;
+            await waitForUpdatesAsync();
+
+            expect(element.displayValue).toBe('Two');
+            expect(element.value).toBe('two');
+            await clickAndWaitForOpen(element);
+            expect(pageObject.isOptionVisible(0)).toBeTrue();
+            expect(pageObject.isOptionVisible(1)).toBeFalse();
+        });
+    });
+
+    describe('PageObject', () => {
+        let element: Select;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+        let pageObject: SelectPageObject;
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup(
+                undefined,
+                false,
+                placeholderOption
+            ));
+            element.style.width = '200px';
+            element.filterMode = FilterMode.standard;
+            await connect();
+            pageObject = new SelectPageObject(element);
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('exercise clickOptionWithDisplayText', async () => {
+            await pageObject.clickSelect();
+            await waitForUpdatesAsync();
+            await pageObject.clickOptionWithDisplayText('Two');
+            expect(element.value).toBe('two');
+            expect(element.selectedIndex).toBe(1);
         });
     });
 });

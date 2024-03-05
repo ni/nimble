@@ -25,7 +25,12 @@ export const styles = css`
         /* We are using flex `order` to define the visual ordering of the selected value,
          error icon, and dropdown arrow because they are not "interactive" i.e. part of the tab order */ ''
     }
-    [part='selected-value'] {
+
+    .selected-value.placeholder {
+        color: ${placeholderFontColor};
+    }
+
+    .selected-value {
         order: 1;
     }
 

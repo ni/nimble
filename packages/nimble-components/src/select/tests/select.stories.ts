@@ -1,4 +1,4 @@
-import { html, repeat } from '@microsoft/fast-element';
+import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import {
@@ -20,6 +20,7 @@ interface SelectArgs {
     optionsType: ExampleOptionsType;
     appearance: string;
     filterMode: keyof typeof FilterMode;
+    placeholder: boolean;
 }
 
 interface OptionArgs {
@@ -68,9 +69,13 @@ const optionSets = {
 const filterModeDescription = `
 This attribute controls the filtering behavior of the \`Select\`. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the popup is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
 
-The act of filtering will use the \`hidden\` attribute on the options to remove and re-add them to the visible set. Thus, any client-provided \`hidden\` settings of the options will be overridden.
-
 It is recommended that if the \`Select\` has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`.
+`;
+
+const placeholderDescription = `
+To display placeholder text within the \`Select\` you must provide an option that has the \`disabled\`, \`selected\` and \`hidden\` attributes set. This option will not be available in the dropdown, and its contents will be used as the placeholder text.
+
+Any \`Select\` without a default selected option should provide placeholder text. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Use sentence casing and don't include punctuation at the end of the prompt.
 `;
 
 const metadata: Meta<SelectArgs> = {
@@ -96,6 +101,14 @@ const metadata: Meta<SelectArgs> = {
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             style="width: var(${menuMinWidth.cssCustomProperty});"
         >
+            ${when(x => x.placeholder, html`
+                <${listOptionTag}
+                    disabled
+                    selected
+                    hidden>
+                    Select an option
+                </${listOptionTag}?
+            `)}
             ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
                 <${listOptionTag}
                     value="${x => x.value}"
@@ -118,6 +131,7 @@ const metadata: Meta<SelectArgs> = {
         filterMode: {
             options: Object.keys(FilterMode),
             control: { type: 'radio' },
+            name: 'filter-mode',
             description: filterModeDescription
         },
         errorText: {
@@ -125,6 +139,10 @@ const metadata: Meta<SelectArgs> = {
         },
         errorVisible: {
             name: 'error-visible'
+        },
+        placeholder: {
+            name: 'placeholder',
+            description: placeholderDescription
         },
         optionsType: {
             name: 'options',
@@ -146,7 +164,8 @@ const metadata: Meta<SelectArgs> = {
         filterMode: 'none',
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
-        optionsType: ExampleOptionsType.simpleOptions
+        optionsType: ExampleOptionsType.simpleOptions,
+        placeholder: false
     }
 };
 
