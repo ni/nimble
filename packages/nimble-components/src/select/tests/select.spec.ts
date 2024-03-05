@@ -281,6 +281,19 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('changing textContent of selected option updates display of select', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        const selectedOption = pageObject.getSelectedOption();
+        selectedOption!.textContent = 'foo';
+        await waitForUpdatesAsync();
+        expect(element.displayValue).toBe('foo');
+
+        await disconnect();
+    });
+
     describe('with 500 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             // prettier-ignore
