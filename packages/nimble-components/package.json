@@ -91,7 +91,6 @@
     "@types/d3-selection": "^3.0.0",
     "@types/d3-zoom": "^3.0.0",
     "@types/markdown-it": "^13.0.0",
-    "apache-arrow": "^15.0.0",
     "comlink": "4.4.1",
     "d3-array": "^3.2.2",
     "d3-random": "^3.0.1",
@@ -102,6 +101,9 @@
     "prosemirror-model": "^1.19.2",
     "prosemirror-state": "^1.4.3",
     "tslib": "^2.2.0"
+  },
+  "peerDependencies": {
+    "apache-arrow": "^15.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",
