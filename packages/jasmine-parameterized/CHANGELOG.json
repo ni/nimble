@@ -2,6 +2,21 @@
   "name": "@ni/jasmine-parameterized",
   "entries": [
     {
+      "date": "Wed, 06 Mar 2024 17:56:10 GMT",
+      "version": "0.2.2",
+      "tag": "@ni/jasmine-parameterized_v0.2.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "dfd8accc27d885df5eb8024d57e60f486066719a",
+            "comment": "devDep updates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 04 Mar 2024 17:42:52 GMT",
       "version": "0.2.2",
       "tag": "@ni/jasmine-parameterized_v0.2.2",
