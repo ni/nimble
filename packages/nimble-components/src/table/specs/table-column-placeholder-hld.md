@@ -64,7 +64,7 @@ Column best practices:
 -   Applications should avoid having duplicate labels to different hrefs as those are inaccessible to screen readers (and sighted users). See [high-level discussion](https://fae.disability.illinois.edu/rulesets/LINK_2/) of [aria SC 2.4.4](https://www.w3.org/TR/WCAG22/#link-purpose-in-context).
     -   For example, applications should avoid having `undefined` / `null` as the label as that causes multiple unrelated URLs to be grouped together under the group label "No value". Accessibility is okay as the full url will be shown but the value of grouping is limited.
     -   For example, if a label is missing, an application should avoid generating a non-unique label for multiple URLs (i.e. `Missing Notebook`) as that harms accessibility and limits the value of grouping.
--   Avoid using empty string or other whitespaces labels with defined hrefs. This will cause the rendered anchor to have no text associated with it, and it will be difficult for a user to see that the anchor exists.
+-   Avoid using empty string or other whitespace-only labels with defined hrefs. This will cause the rendered anchor to have no text associated with it, and it will be difficult for a user to see that the anchor exists.
 -   Applications may leave the href as `null` / `undefined` to have the anchor column behave effectively like a string column
 -   Avoid mixing `undefined` and `null` as values for the label field. When grouping this will lead to two groups (one for `null` values and one for `undefined` values) that both have the text `"No value"`.
     -   As explained above, it is not recommended to use `undefined` or `null` labels when the data has defined hrefs.
