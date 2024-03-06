@@ -14,33 +14,27 @@
       "enabled": false
     },
     {
-      "groupName": "npm dependencies",
+      "groupName": "npm dependencies lock update only",
       "matchManagers": ["npm"],
       "rangeStrategy": "in-range-only",
       "matchDepTypes": ["dependencies", "devDependencies"],
       "enabled": true
     },
     {
-      "groupName": "npm dependencies bump",
+      "groupName": "npm dependencies update to latest",
       "matchManagers": ["npm"],
       "rangeStrategy": "update-lockfile",
       "matchDepTypes": ["dependencies", "devDependencies"],
-      "matchPackagePatterns":[
-        "^@microsoft/fast",
-        "^@tanstack/",
-        "^@tiptap/",
-        "@types/markdown-it",
-        "comlink",
-        "d3-",
-        "prosemirror-",
-
-        "^@ni/eslint-config",
-        "beachball",
-        "storybook"
-      ],
       "excludePackagePatterns":[
+        "^@angular",
         "@microsoft/fast-foundation",
-        "@microsoft/fast-react-wrapper"
+        "@microsoft/fast-react-wrapper",
+        "comlink",
+        "ng-packagr",
+        "playwright",
+        "remark-gfm",
+        "typescript",
+        "zone.js"
       ],
       "enabled": true
     },
