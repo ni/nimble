@@ -77,9 +77,7 @@ const component = (): ViewTemplate => html`
     </${tableTag}>
 `;
 
-export const tableColumnIconThemeMatrix: StoryFn = createMatrixThemeStory(
-    component()
-);
+export const tableColumnIconThemeMatrix: StoryFn = createMatrixThemeStory(component());
 
 tableColumnIconThemeMatrix.play = async (): Promise<void> => {
     await Promise.all(

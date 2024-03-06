@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 06 Mar 2024 17:56:10 GMT",
+      "version": "21.9.1",
+      "tag": "@ni/nimble-components_v21.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dfd8accc27d885df5eb8024d57e60f486066719a",
+            "comment": "Minor updates from lint"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 05 Mar 2024 22:27:12 GMT",
       "version": "21.9.0",
       "tag": "@ni/nimble-components_v21.9.0",
