@@ -65,9 +65,6 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
 
     protected createMappingConfig(mapping: Mapping<unknown>): MappingConfig {
         if (mapping instanceof MappingIcon) {
-            if (!mapping.resolvedIcon) {
-                throw Error('Unresolved icon');
-            }
             return new MappingIconConfig(
                 mapping.resolvedIcon,
                 mapping.severity,

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 27 Feb 2024 00:13:05 GMT and should not be manually modified.
+This log was last generated on Tue, 05 Mar 2024 21:15:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.3.15
+
+Tue, 05 Mar 2024 21:15:27 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@dcf2bc4](https://github.com/ni/nimble/commit/dcf2bc498565a7b7069dae14a46c9cd992a262a3))
 
 ## 14.3.8
 

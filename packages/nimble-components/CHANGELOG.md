@@ -1,8 +1,65 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 26 Feb 2024 22:26:36 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Mar 2024 17:56:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.9.1
+
+Wed, 06 Mar 2024 17:56:10 GMT
+
+### Patches
+
+- Minor updates from lint ([ni/nimble@dfd8acc](https://github.com/ni/nimble/commit/dfd8accc27d885df5eb8024d57e60f486066719a))
+
+## 21.9.0
+
+Tue, 05 Mar 2024 22:27:12 GMT
+
+### Minor changes
+
+- Adding placeholder behavior for Select ([ni/nimble@19643f4](https://github.com/ni/nimble/commit/19643f4e13056e414aedd6b8ef89beb7ad1e95ab))
+
+## 21.8.2
+
+Mon, 04 Mar 2024 19:02:52 GMT
+
+### Patches
+
+- Update column divider color on hover ([ni/nimble@4b05012](https://github.com/ni/nimble/commit/4b0501210e4096c23350dbe5cb2eb9e4d6901ed6))
+
+## 21.8.1
+
+Fri, 01 Mar 2024 23:02:58 GMT
+
+### Patches
+
+- Fix drawer/select animation bug ([ni/nimble@90df5dd](https://github.com/ni/nimble/commit/90df5dd14c1c5ad4116f6b43ae5fb99dc215c83e))
+
+## 21.8.0
+
+Thu, 29 Feb 2024 16:22:43 GMT
+
+### Minor changes
+
+- Allow icon mappings to specify an undefined icon ([ni/nimble@d4ca92e](https://github.com/ni/nimble/commit/d4ca92e5d7044d8be7b26ccbc52b91747663bfe2))
+
+## 21.7.1
+
+Wed, 28 Feb 2024 21:22:49 GMT
+
+### Patches
+
+- Create web worker class for future faster rendering wafer map ([ni/nimble@5269352](https://github.com/ni/nimble/commit/52693524c553f3b115e6c1004c902d10e7dd4050))
+
+## 21.7.0
+
+Wed, 28 Feb 2024 19:35:04 GMT
+
+### Minor changes
+
+- Add new icons for resume, generate, stop, deploy, undeploy, and hide ([ni/nimble@f4f3f45](https://github.com/ni/nimble/commit/f4f3f45c9107ff6d6c964fea69cd48247d6595fe))
+- Bump @ni/nimble-tokens to v6.12.0
 
 ## 21.6.8
 

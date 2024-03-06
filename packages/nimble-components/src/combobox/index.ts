@@ -207,6 +207,12 @@ export class Combobox
         return returnValue;
     }
 
+    protected override focusAndScrollOptionIntoView(): void {
+        if (this.open) {
+            super.focusAndScrollOptionIntoView();
+        }
+    }
+
     protected override openChanged(): void {
         super.openChanged();
         if (this.dropdownButton) {

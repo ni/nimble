@@ -2,6 +2,36 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 06 Mar 2024 17:56:10 GMT",
+      "version": "6.12.0",
+      "tag": "@ni/nimble-tokens_v6.12.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "dfd8accc27d885df5eb8024d57e60f486066719a",
+            "comment": "devDep updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 28 Feb 2024 19:35:04 GMT",
+      "version": "6.12.0",
+      "tag": "@ni/nimble-tokens_v6.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "f4f3f45c9107ff6d6c964fea69cd48247d6595fe",
+            "comment": "Add new icons for resume, generate, stop, deploy, undeploy, and hide"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 22 Feb 2024 01:13:03 GMT",
       "version": "6.11.1",
       "tag": "@ni/nimble-tokens_v6.11.1",
