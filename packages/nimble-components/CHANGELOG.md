@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 05 Mar 2024 22:27:12 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Mar 2024 17:56:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.9.1
+
+Wed, 06 Mar 2024 17:56:10 GMT
+
+### Patches
+
+- Minor updates from lint ([ni/nimble@dfd8acc](https://github.com/ni/nimble/commit/dfd8accc27d885df5eb8024d57e60f486066719a))
 
 ## 21.9.0
 
