@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 04 Mar 2024 19:02:52 GMT and should not be manually modified.
+This log was last generated on Tue, 05 Mar 2024 22:27:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.9.0
+
+Tue, 05 Mar 2024 22:27:12 GMT
+
+### Minor changes
+
+- Adding placeholder behavior for Select ([ni/nimble@19643f4](https://github.com/ni/nimble/commit/19643f4e13056e414aedd6b8ef89beb7ad1e95ab))
 
 ## 21.8.2
 

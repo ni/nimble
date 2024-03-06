@@ -15,8 +15,7 @@ import {
     SelectPosition,
     applyMixins,
     StartEnd,
-    DelegatesARIASelect,
-    Listbox
+    DelegatesARIASelect
 } from '@microsoft/fast-foundation';
 import {
     keyArrowDown,
@@ -36,7 +35,7 @@ import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { template } from './template';
-import type { ListOption } from '../list-option';
+import { ListOption } from '../list-option';
 import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
@@ -50,6 +49,10 @@ declare global {
 // Used in overrides of base class methods
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type BooleanOrVoid = boolean | void;
+
+const isNimbleListOption = (el: Element): el is ListOption => {
+    return el instanceof ListOption;
+};
 
 /**
  * A nimble-styled HTML select.
@@ -81,6 +84,12 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
     @attr({ attribute: 'filter-mode' })
     public filterMode: FilterMode = FilterMode.none;
+
+    /**
+     * @internal
+     */
+    @observable
+    public displayPlaceholder = false;
 
     /**
      * @internal
@@ -156,7 +165,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @internal
      */
     @observable
-    public committedSelectedOption: ListboxOption | undefined = undefined;
+    public committedSelectedOption?: ListboxOption;
 
     /**
      * The max height for the listbox when opened.
@@ -189,26 +198,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         this.initializeOpenState();
     }
 
-    /**
-     * The list of options. This mirrors FAST's override implementation for this
-     * member for the Combobox to support a filtered list in the dropdown.
-     *
-     * @public
-     * @remarks
-     * Overrides `Listbox.options`.
-     */
-    public override get options(): ListboxOption[] {
-        Observable.track(this, 'options');
-        return this.filteredOptions?.length
-            ? this.filteredOptions
-            : (this._options as ListOption[]);
-    }
-
-    public override set options(value: ListboxOption[]) {
-        this._options = value;
-        Observable.notify(this, 'options');
-    }
-
     public override get value(): string {
         Observable.track(this, 'value');
         return this._value;
@@ -218,8 +207,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         const prev = this._value;
         let newValue = next;
 
-        // use 'options' here instead of '_options' as 'selectedIndex' may be relative
-        // to filtered set
         if (this.options?.length) {
             const newValueIndex = this.options.findIndex(
                 el => el.value === newValue
@@ -242,7 +229,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
             this._value = newValue;
             super.valueChanged(prev, newValue);
             if (!this.open) {
-                this.committedSelectedOption = this._options.find(
+                this.committedSelectedOption = this.options.find(
                     o => o.value === newValue
                 );
             }
@@ -256,6 +243,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
     /**
      * @internal
      */
+    @volatile
     public get displayValue(): string {
         Observable.track(this, 'displayValue');
         return this.committedSelectedOption?.text ?? '';
@@ -293,16 +281,20 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         next: Element[]
     ): void {
         const value = this.value;
-        this._options.forEach(o => {
+        this.options.forEach(o => {
             const notifier = Observable.getNotifier(o);
             notifier.unsubscribe(this, 'value');
+            notifier.unsubscribe(this, 'hidden');
+            notifier.unsubscribe(this, 'disabled');
         });
 
         super.slottedOptionsChanged(prev, next);
 
-        this._options.forEach(o => {
+        this.options.forEach(o => {
             const notifier = Observable.getNotifier(o);
             notifier.subscribe(this, 'value');
+            notifier.subscribe(this, 'hidden');
+            notifier.subscribe(this, 'disabled');
         });
         this.setProxyOptions();
         this.updateValue();
@@ -329,10 +321,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 'option,[role=option]'
             );
 
-            if (!captured?.disabled) {
-                this.updateSelectedIndexFromFilteredSet();
-            }
-
             if (captured?.disabled) {
                 return;
             }
@@ -357,9 +345,34 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @override
      */
     public override handleChange(source: unknown, propertyName: string): void {
-        super.handleChange(source, propertyName);
-        if (propertyName === 'value') {
-            this.updateValue();
+        // don't call super.handleChange so hidden options can be selected programmatically
+        const sourceElement = source as Element;
+        switch (propertyName) {
+            case 'value': {
+                this.updateValue();
+                break;
+            }
+            case 'selected': {
+                if (isNimbleListOption(sourceElement)) {
+                    this.selectedIndex = this.options.indexOf(sourceElement);
+                }
+                this.setSelectedOptions();
+                this.updateDisplayValue();
+                break;
+            }
+            case 'hidden': {
+                if (isNimbleListOption(sourceElement)) {
+                    sourceElement.visuallyHidden = sourceElement.hidden;
+                }
+                this.updateDisplayValue();
+                break;
+            }
+            case 'disabled': {
+                this.updateDisplayValue();
+                break;
+            }
+            default:
+                break;
         }
     }
 
@@ -423,6 +436,16 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @internal
      */
     public updateDisplayValue(): void {
+        if (
+            this.committedSelectedOption?.disabled
+            && this.committedSelectedOption?.hidden
+            && this.committedSelectedOption?.selected
+        ) {
+            this.displayPlaceholder = true;
+        } else {
+            this.displayPlaceholder = false;
+        }
+
         if (this.collapsible) {
             Observable.notify(this, 'displayValue');
         }
@@ -436,19 +459,10 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      */
     public inputHandler(e: InputEvent): boolean {
         this.filter = this.filterInput?.value ?? '';
-        if (!this.committedSelectedOption) {
-            this.committedSelectedOption = this._options.find(
-                option => option.selected
-            );
-        }
         this.clearSelection();
         this.filterOptions();
 
-        if (
-            this.filteredOptions.length > 0
-            && this.committedSelectedOption
-            && !this.filteredOptions.includes(this.committedSelectedOption)
-        ) {
+        if (this.filteredOptions.length > 0) {
             const enabledOptions = this.filteredOptions.filter(
                 o => !o.disabled
             );
@@ -475,7 +489,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @internal
      */
     public override focusoutHandler(e: FocusEvent): BooleanOrVoid {
-        this.updateSelectedIndexFromFilteredSet();
         super.focusoutHandler(e);
         if (!this.open) {
             return true;
@@ -489,6 +502,10 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
 
         if (!this.options?.includes(focusTarget as ListboxOption)) {
             this.open = false;
+            if (this.selectedIndex === -1) {
+                this.selectedIndex = this.indexWhenOpened!;
+            }
+
             if (this.indexWhenOpened !== this.selectedIndex) {
                 this.updateValue(true);
             }
@@ -535,7 +552,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 ) {
                     return false;
                 }
-                this.updateSelectedIndexFromFilteredSet();
                 this.open = !this.open;
                 if (!this.open) {
                     this.focus();
@@ -543,23 +559,17 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 break;
             }
             case keyEscape: {
-                // clear filter as update to "selectedIndex" will result in processing
-                // "options" and not "_options"
-                this.filter = '';
-                if (this.committedSelectedOption) {
-                    this.clearSelection();
-                    this.selectedIndex = this._options.indexOf(
-                        this.committedSelectedOption
-                    );
+                if (!this.open) {
+                    break;
                 }
                 if (this.collapsible && this.open) {
                     e.preventDefault();
                     this.open = false;
                 }
-                // reset 'selected' state otherwise the selected state doesn't stick.
-                const selectedOption = this._options[this.selectedIndex];
-                if (selectedOption) {
-                    selectedOption.selected = true;
+
+                if (this.selectedIndex !== this.indexWhenOpened!) {
+                    this.options[this.selectedIndex]!.selected = false;
+                    this.selectedIndex = this.indexWhenOpened!;
                 }
                 this.focus();
                 break;
@@ -595,10 +605,14 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @internal
      */
     public override selectedIndexChanged(
-        prev: number | undefined,
-        next: number
+        _: number | undefined,
+        __: number
     ): void {
-        super.selectedIndexChanged(prev, next);
+        // Don't call super.selectedIndexChanged as this will disallow disabled options
+        // from being valid initial selected values. Our setDefaultSelectedOption
+        // implementation handles skipping non-selected disabled options for the initial
+        // selected value.
+        this.setSelectedOptions();
         this.updateValue();
     }
 
@@ -629,6 +643,28 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         super.setDefaultSelectedOption();
         if (this.selectedIndex === -1) {
             this.selectedIndex = 0;
+        }
+    }
+
+    public override selectNextOption(): void {
+        // don't call super.selectNextOption as that relies on side-effecty
+        // behavior to not select disabled option (which no longer works)
+        for (let i = this.selectedIndex + 1; i < this.options.length; i++) {
+            if (!this.options[i]?.disabled) {
+                this.selectedIndex = i;
+                break;
+            }
+        }
+    }
+
+    public override selectPreviousOption(): void {
+        // don't call super.selectPreviousOption as that relies on side-effecty
+        // behavior to not select disabled option (which no longer works)
+        for (let i = this.selectedIndex - 1; i >= 0; i--) {
+            if (!this.options[i]?.disabled) {
+                this.selectedIndex = i;
+                break;
+            }
         }
     }
 
@@ -711,11 +747,16 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      * @internal
      */
     protected override selectedOptionsChanged(
-        prev: ListboxOption[] | undefined,
+        _prev: ListboxOption[] | undefined,
         next: ListboxOption[]
     ): void {
-        super.selectedOptionsChanged(prev, next);
+        // don't call super.selectedOptionsChanged so we don't filter out hidden elements
+        // when updating 'selected' state (copied relevant super implementation)
         this.options?.forEach((o, i) => {
+            const notifier = Observable.getNotifier(o);
+            notifier.unsubscribe(this, 'selected');
+            o.selected = next.includes(o);
+            notifier.subscribe(this, 'selected');
             const proxyOption = this.proxy?.options.item(i);
             if (proxyOption) {
                 proxyOption.selected = o.selected;
@@ -732,20 +773,38 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
      */
     protected override setDefaultSelectedOption(): void {
         const options: ListboxOption[] = this.options
-            ?? Array.from(this.children).filter(o => Listbox.slottedOptionFilter(o as HTMLElement));
+            ?? Array.from(this.children).filter(o => isNimbleListOption(o));
 
-        const selectedIndex = options?.findIndex(
-            el => el.hasAttribute('selected')
-                || el.selected
-                || el.value === this.value
-        );
+        const optionIsSelected = (option: ListboxOption): boolean => {
+            return option.hasAttribute('selected') || option.selected;
+        };
+        const optionIsDisabled = (option: ListboxOption): boolean => {
+            return option.hasAttribute('disabled') || option.disabled;
+        };
+        let selectedIndex = -1;
+        let firstValidOptionIndex = -1;
+        for (let i = 0; i < options?.length; i++) {
+            const option = options[i];
+            if (optionIsSelected(option!) || option?.value === this.value) {
+                selectedIndex = i;
+            }
+            if (firstValidOptionIndex === -1 && !optionIsDisabled(option!)) {
+                firstValidOptionIndex = i;
+            }
+        }
 
         if (selectedIndex !== -1) {
             this.selectedIndex = selectedIndex;
-            return;
+        } else if (firstValidOptionIndex !== -1) {
+            this.selectedIndex = firstValidOptionIndex;
+        } else {
+            this.selectedIndex = 0;
         }
+        this.committedSelectedOption = options[this.selectedIndex];
+    }
 
-        this.selectedIndex = 0;
+    private committedSelectedOptionChanged(): void {
+        this.updateDisplayValue();
     }
 
     private setPositioning(): void {
@@ -785,17 +844,29 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         const filter = this.filter.toLowerCase();
 
         if (filter) {
-            this.filteredOptions = this._options.filter(option => {
-                return diacriticInsensitiveStringNormalizer(
-                    option.text
-                ).includes(diacriticInsensitiveStringNormalizer(filter));
+            this.filteredOptions = this.options.filter(option => {
+                const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
+                return (
+                    !option.hidden
+                    && diacriticInsensitiveStringNormalizer(option.text).includes(
+                        normalizedFilter
+                    )
+                );
             });
         } else {
-            this.filteredOptions = this._options;
+            this.filteredOptions = this.options.filter(
+                option => !option.hidden
+            );
         }
 
-        this._options.forEach(o => {
-            o.hidden = !this.filteredOptions.includes(o);
+        this.options.forEach(o => {
+            if (isNimbleListOption(o)) {
+                if (!this.filteredOptions.includes(o)) {
+                    o.visuallyHidden = true;
+                } else {
+                    o.visuallyHidden = false;
+                }
+            }
         });
     }
 
@@ -862,7 +933,7 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
             return;
         }
 
-        this.committedSelectedOption = this._options[this.selectedIndex];
+        this.committedSelectedOption = this.options[this.selectedIndex];
         this.ariaControls = this.listboxId;
         this.ariaExpanded = 'true';
 
@@ -876,26 +947,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 '--ni-private-select-max-height',
                 `${this.maxHeight}px`
             );
-        }
-    }
-
-    private updateSelectedIndexFromFilteredSet(): void {
-        const selectedItem = this.filteredOptions.length > 0
-            ? this.options[this.selectedIndex]
-                  ?? this.committedSelectedOption
-            : this.committedSelectedOption;
-
-        if (!selectedItem) {
-            return;
-        }
-        // Clear filter so any logic resolving against 'this.options' resolves against all options,
-        // since selectedIndex should be relative to entire set.
-        this.filter = '';
-        // translate selectedIndex for filtered list to selectedIndex for all items
-        this.selectedIndex = this._options.indexOf(selectedItem);
-        // force selected to true again if the selection hasn't actually changed
-        if (selectedItem === this.committedSelectedOption) {
-            selectedItem.selected = true;
         }
     }
 }

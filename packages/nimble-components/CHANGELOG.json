@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 05 Mar 2024 22:27:12 GMT",
+      "version": "21.9.0",
+      "tag": "@ni/nimble-components_v21.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "19643f4e13056e414aedd6b8ef89beb7ad1e95ab",
+            "comment": "Adding placeholder behavior for Select"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 05 Mar 2024 14:49:48 GMT",
+      "version": "21.8.2",
+      "tag": "@ni/nimble-components_v21.8.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3a75f1cc06b3c8967fa3e28d12a2bd6ddb4adf9c",
+            "comment": "Update Table Column Width HLD with details about non-resizable columns"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 04 Mar 2024 19:02:52 GMT",
       "version": "21.8.2",
       "tag": "@ni/nimble-components_v21.8.2",

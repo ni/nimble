@@ -25,13 +25,17 @@ type PositionState = (typeof positionStates)[number];
 const filterModeStates = Object.values(FilterMode);
 type FilterModeState = (typeof filterModeStates)[number];
 
+const placeholderStates = [false, true] as const;
+type PlaceholderState = (typeof placeholderStates)[number];
+
 // prettier-ignore
 const component = (
     [position, positionStyle]: PositionState,
-    filterMode: FilterModeState
+    filterMode: FilterModeState,
+    placeholder?: PlaceholderState
 ): ViewTemplate => html`
     <${selectTag} open position="${() => position}" style="${() => positionStyle}" filter-mode="${() => filterMode}">
-        <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        <${listOptionTag} value="1" ${placeholder ? 'selected disabled hidden' : ''} >Option 1</${listOptionTag}>
         <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
         <${listOptionTag} value="3">Option 3</${listOptionTag}>
         <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
@@ -155,3 +159,18 @@ export const selectBelowOpenFilterNoMatchColorThemeGreenBackground: StoryFn = cr
 );
 
 selectBelowOpenFilterNoMatchColorThemeGreenBackground.play = noMatchesFilterPlayFunction;
+
+export const selectBelowOpenNoFilterLightThemeWhiteBackgroundWithPlaceholder: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.none, true),
+    lightThemeWhiteBackground
+);
+
+export const selectBelowOpenNoFilterColorThemeWhiteBackgroundWithPlaceholder: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.none, true),
+    colorThemeDarkGreenBackground
+);
+
+export const selectBelowOpenNoFilterDarkThemeWhiteBackgroundWithPlaceholder: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.none, true),
+    darkThemeBlackBackground
+);

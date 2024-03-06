@@ -245,24 +245,6 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('should select the next selectable option when the value is set to match a disabled option', async () => {
-        const { element, connect, disconnect, option2 } = await setup();
-
-        option2.disabled = true;
-
-        await connect();
-
-        expect(element.value).toEqual('one');
-        expect(element.selectedIndex).toEqual(0);
-
-        element.value = 'two';
-
-        expect(element.value).toEqual('three');
-        expect(element.selectedIndex).toEqual(2);
-
-        await disconnect();
-    });
-
     it("should update the value when the selected option's value changes", async () => {
         const { element, connect, disconnect, option1 } = await setup();
 
