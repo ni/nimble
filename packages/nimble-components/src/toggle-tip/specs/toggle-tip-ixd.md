@@ -46,11 +46,22 @@ Toggle tips are commonly used in user interfaces to provide contextual help, exp
 
 The width of the toggle tip popover should be determined based on the length of the content it contains. However, if the content is greater than a single line of text, the width should be set to 300px.
 
-**QUESTION**: How does alignment work if there isn't 300px to the right of the trigger button? Align to the right side of the popover?
-
 ### Height
 
-When the popover height exceeds that of the viewport, the popover should not become scrollable to try and fit in the viewport(not pictured). The popover should always be tall enough to show all its content. The surrounding content, for example the page itself, should scroll instead.
+When the popover height exceeds that of the viewport, the popover should not become scrollable to try and fit in the viewport (not pictured). The popover should always be tall enough to show all its content. The surrounding content, for example the page itself, should scroll instead.
+
+## Alignment
+
+The toggle tip popover should avoid obscuring other content where possible. [^1]
+
+![Popover alignment](./spec-images/popover-orientation.png)
+
+The toggle tip popover should be aligned with the "Top - Right" of trigger button by default. If there isn't enough room in the viewport for the entire popover to be visible, the popover should align with the trigger button in the following order:
+
+1. Top - Right
+2. Top - Left
+3. Bottom - Right
+4. Bottom - Left
 
 ## Behavior
 
@@ -123,3 +134,8 @@ Pressing `TAB` while focused on the last focusable element in the content area w
 ## Open Issues
 
 See content marked "**QUESTION**" or "**NOTE**".
+
+## References
+
+-   [^1]: Pearson's [Toggle Tip](https://accessibility.pearson.com/resources/developers-corner/reference-library/tooltips-and-toggletips/index.php) reference document
+-   [Grafana - Saga Toggletip](https://grafana.com/developers/saga/Components/toggletip)
