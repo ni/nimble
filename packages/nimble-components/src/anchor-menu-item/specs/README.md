@@ -61,16 +61,10 @@ _The key elements of the component's public API surface:_
 
 ```html
 <template role="menuitem" aria-disabled="${x => x.disabled}">
-    <a
-        download="${x => x.download}"
-        href=${x => (x.disabled ? null : x.href)}
-        hreflang="${x => x.hreflang}"
-        ping="${x => x.ping}"
-        referrerpolicy="${x => x.referrerpolicy}"
-        rel="${x => x.rel}"
-        target="${x => x.target}"
-        type="${x => x.type}"
-    >
+    <a download="${x => x.download}" href="${x" ="">
+        (x.disabled ? null : x.href)} hreflang="${x => x.hreflang}" ping="${x =>
+        x.ping}" referrerpolicy="${x => x.referrerpolicy}" rel="${x => x.rel}"
+        target="${x => x.target}" type="${x => x.type}" >
         ${startSlotTemplate(options)}
         <slot></slot>
     </a>
