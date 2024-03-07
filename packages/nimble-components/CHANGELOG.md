@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 06 Mar 2024 17:56:10 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Mar 2024 21:20:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.10.0
+
+Thu, 07 Mar 2024 21:20:52 GMT
+
+### Minor changes
+
+- New Wafer Map Component API. Introduced `diesTable` and two rendering strategies switched by this input ([ni/nimble@a9b5ced](https://github.com/ni/nimble/commit/a9b5cede5ebbb79127bf36e91b31d17d4bf241b9))
 
 ## 21.9.1
 
