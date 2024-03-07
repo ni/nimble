@@ -9,6 +9,15 @@ import { expose } from 'comlink';
  */
 export class MatrixRenderer {
     public dieMatrix: Uint8Array = Uint8Array.from([]);
+    private canvas!: OffscreenCanvas;
+    private context!: OffscreenCanvasRenderingContext2D;
+
+    public setCanvas(canvas: OffscreenCanvas): void {
+        this.canvas = canvas;
+        this.context = canvas.getContext('2d')!;
+        this.context.fillStyle = 'red';
+        this.context.fillRect(0, 0, 100, 100);
+    }
 
     public emptyMatrix(): void {
         this.dieMatrix = Uint8Array.from([]);;

@@ -5,6 +5,7 @@ import {
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
+import { type Remote, transfer } from 'comlink';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
@@ -21,6 +22,8 @@ import {
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
+import type { MatrixRenderer } from '../../build/generate-workers/dist/esm/source/matrix-renderer';
+import { createMatrixRenderer } from './modules/create-matrix-renderer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -69,9 +72,19 @@ export class WaferMap extends FoundationElement {
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     /**
+ * @internal
+ */
+    public workerOne!: Remote<MatrixRenderer>;
+
+    /**
      * @internal
      */
     public readonly canvas!: HTMLCanvasElement;
+
+    /**
+ * @internal
+ */
+    public readonly canvasOne!: HTMLCanvasElement;
 
     /**
      * @internal
@@ -152,18 +165,23 @@ export class WaferMap extends FoundationElement {
         return this.waferMapValidator.getValidity();
     }
 
-    public override connectedCallback(): void {
+    public override async connectedCallback(): Promise<void> {
         super.connectedCallback();
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
+        const { matrixRenderer } = await createMatrixRenderer();
+        this.workerOne = matrixRenderer;
+
+        const offscreenOne = this.canvasOne.transferControlToOffscreen();
+        await this.workerOne.setCanvas(
+            transfer(offscreenOne, [
+                offscreenOne as unknown as Transferable
+            ])
+        );
+
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
-    }
-
-    public override disconnectedCallback(): void {
-        super.disconnectedCallback();
-        this.resizeObserver.unobserve(this);
     }
 
     /**
