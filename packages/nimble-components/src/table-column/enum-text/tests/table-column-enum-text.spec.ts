@@ -12,10 +12,11 @@ import { MappingText, mappingTextTag } from '../../../mapping/text';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { mappingIconTag } from '../../../mapping/icon';
 import type { MappingKey } from '../../../mapping/base/types';
+import { themeProviderTag } from '../../../theme-provider';
 
 interface SimpleTableRecord extends TableRecord {
-    field1?: MappingKey | undefined;
-    field2?: MappingKey | undefined;
+    field1?: MappingKey | null;
+    field2?: MappingKey | null;
 }
 
 interface BasicTextMapping {
@@ -24,6 +25,7 @@ interface BasicTextMapping {
 }
 
 class Model {
+    public table!: Table<SimpleTableRecord>;
     public col1!: TableColumnEnumText;
     public col2!: TableColumnEnumText;
 }
@@ -32,7 +34,6 @@ interface ModelFixture<T> extends Fixture<T> {
 }
 
 describe('TableColumnEnumText', () => {
-    let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: TablePageObject<SimpleTableRecord>;
@@ -42,20 +43,22 @@ describe('TableColumnEnumText', () => {
     async function setup(mappings: BasicTextMapping[], keyType = 'string'): Promise<ModelFixture<Table<SimpleTableRecord>>> {
         const source = new Model();
         const result = await fixture<Table<SimpleTableRecord>>(html<Model>`
-            <${tableTag} style="width: 700px">
-                <${tableColumnEnumTextTag} ${ref('col1')} field-name="field1" key-type="${keyType}">
-                    Column 1
-                    ${repeat(() => mappings, html<BasicTextMapping>`
-                        <${mappingTextTag}
-                            key="${x => x.key}"
-                            text="${x => x.text}">
-                        </${mappingTextTag}>
-                    `)}
-                </${tableColumnEnumTextTag}>
-                <${tableColumnEnumTextTag} ${ref('col2')}>
-                    Column 2
-                </${tableColumnEnumTextTag}>
-            </${tableTag}>`, { source });
+            <${themeProviderTag} lang="en-US">
+                <${tableTag} ${ref('table')} style="width: 700px">
+                    <${tableColumnEnumTextTag} ${ref('col1')} field-name="field1" key-type="${keyType}">
+                        Column 1
+                        ${repeat(() => mappings, html<BasicTextMapping>`
+                            <${mappingTextTag}
+                                key="${x => x.key}"
+                                text="${x => x.text}">
+                            </${mappingTextTag}>
+                        `)}
+                    </${tableColumnEnumTextTag}>
+                    <${tableColumnEnumTextTag} ${ref('col2')}>
+                        Column 2
+                    </${tableColumnEnumTextTag}>
+                </${tableTag}>
+            <${themeProviderTag}>`, { source });
         return {
             ...result,
             model: source
@@ -86,12 +89,12 @@ describe('TableColumnEnumText', () => {
         ] as const;
         parameterizeSpec(dataTypeTests, (spec, name, value) => {
             spec(`displays text mapped from ${name}`, async () => {
-                ({ element, connect, disconnect, model } = await setup(
+                ({ connect, disconnect, model } = await setup(
                     [{ key: value.key, text: 'alpha' }],
                     value.name
                 ));
-                pageObject = new TablePageObject<SimpleTableRecord>(element);
-                await element.setData([{ field1: value.key }]);
+                pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+                await model.table.setData([{ field1: value.key }]);
                 await connect();
                 await waitForUpdatesAsync();
 
@@ -103,11 +106,11 @@ describe('TableColumnEnumText', () => {
     });
 
     it('displays blank when no matches', async () => {
-        ({ element, connect, disconnect, model } = await setup([
+        ({ connect, disconnect, model } = await setup([
             { key: 'a', text: 'alpha' }
         ]));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'no match' }]);
+        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        await model.table.setData([{ field1: 'no match' }]);
         await connect();
         await waitForUpdatesAsync();
 
@@ -115,12 +118,12 @@ describe('TableColumnEnumText', () => {
     });
 
     it('changing fieldName updates display', async () => {
-        ({ element, connect, disconnect, model } = await setup([
+        ({ connect, disconnect, model } = await setup([
             { key: 'a', text: 'alpha' },
             { key: 'b', text: 'bravo' }
         ]));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'a', field2: 'b' }]);
+        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        await model.table.setData([{ field1: 'a', field2: 'b' }]);
         await connect();
         await waitForUpdatesAsync();
 
@@ -132,11 +135,11 @@ describe('TableColumnEnumText', () => {
     });
 
     it('changing mapping text updates display', async () => {
-        ({ element, connect, disconnect, model } = await setup([
+        ({ connect, disconnect, model } = await setup([
             { key: 'a', text: 'alpha' }
         ]));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'a' }]);
+        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        await model.table.setData([{ field1: 'a' }]);
         await connect();
         await waitForUpdatesAsync();
 
@@ -148,11 +151,11 @@ describe('TableColumnEnumText', () => {
     });
 
     it('changing mapping key updates display', async () => {
-        ({ element, connect, disconnect, model } = await setup([
+        ({ connect, disconnect, model } = await setup([
             { key: 'a', text: 'alpha' }
         ]));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'b' }]);
+        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        await model.table.setData([{ field1: 'b' }]);
         await connect();
         await waitForUpdatesAsync();
 
@@ -166,11 +169,11 @@ describe('TableColumnEnumText', () => {
     describe('various string values render as expected', () => {
         parameterizeSpec(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
-                ({ element, connect, disconnect, model } = await setup([
+                ({ connect, disconnect, model } = await setup([
                     { key: 'a', text: name }
                 ]));
-                pageObject = new TablePageObject<SimpleTableRecord>(element);
-                await element.setData([{ field1: 'a' }]);
+                pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+                await model.table.setData([{ field1: 'a' }]);
                 await connect();
                 await waitForUpdatesAsync();
 
@@ -182,11 +185,11 @@ describe('TableColumnEnumText', () => {
     describe('various string values render in group header as expected', () => {
         parameterizeSpec(wackyStrings, (spec, name) => {
             spec(`data "${name}" renders as "${name}"`, async () => {
-                ({ element, connect, disconnect, model } = await setup([
+                ({ connect, disconnect, model } = await setup([
                     { key: 'a', text: name }
                 ]));
-                pageObject = new TablePageObject<SimpleTableRecord>(element);
-                await element.setData([{ field1: 'a' }]);
+                pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+                await model.table.setData([{ field1: 'a' }]);
                 await connect();
                 await waitForUpdatesAsync();
                 model.col1.groupIndex = 0;
@@ -200,11 +203,11 @@ describe('TableColumnEnumText', () => {
     });
 
     it('sets group header text to blank when unmatched', async () => {
-        ({ element, connect, disconnect, model } = await setup([
+        ({ connect, disconnect, model } = await setup([
             { key: 'b', text: 'bravo' }
         ]));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'unmatched' }]);
+        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        await model.table.setData([{ field1: 'unmatched' }]);
         await connect();
         await waitForUpdatesAsync();
         model.col1.groupIndex = 0;
@@ -215,12 +218,12 @@ describe('TableColumnEnumText', () => {
 
     it('sets title when group header text is ellipsized', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        ({ element, connect, disconnect, model } = await setup([
+        ({ connect, disconnect, model } = await setup([
             { key: 'a', text: cellContents }
         ]));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'a' }]);
-        element.style.width = '200px';
+        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        await model.table.setData([{ field1: 'a' }]);
+        model.table.style.width = '200px';
         await connect();
         await waitForUpdatesAsync();
         model.col1.groupIndex = 0;
@@ -231,11 +234,11 @@ describe('TableColumnEnumText', () => {
     });
 
     it('does not set title when group header text is fully visible', async () => {
-        ({ element, connect, disconnect, model } = await setup([
+        ({ connect, disconnect, model } = await setup([
             { key: 'a', text: 'alpha' }
         ]));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'a' }]);
+        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        await model.table.setData([{ field1: 'a' }]);
         await connect();
         await waitForUpdatesAsync();
         model.col1.groupIndex = 0;
@@ -247,12 +250,12 @@ describe('TableColumnEnumText', () => {
 
     it('removes title on mouseout of group header', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        ({ element, connect, disconnect, model } = await setup([
+        ({ connect, disconnect, model } = await setup([
             { key: 'a', text: cellContents }
         ]));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'a' }]);
-        element.style.width = '200px';
+        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        await model.table.setData([{ field1: 'a' }]);
+        model.table.style.width = '200px';
         await connect();
         await waitForUpdatesAsync();
         model.col1.groupIndex = 0;
@@ -266,7 +269,7 @@ describe('TableColumnEnumText', () => {
 
     describe('validation', () => {
         it('is valid with no mappings', async () => {
-            ({ element, connect, disconnect, model } = await setup(
+            ({ connect, disconnect, model } = await setup(
                 [],
                 'number'
             ));
@@ -281,7 +284,7 @@ describe('TableColumnEnumText', () => {
         });
 
         it('is valid with valid numeric key values', async () => {
-            ({ element, connect, disconnect, model } = await setup(
+            ({ connect, disconnect, model } = await setup(
                 [
                     { key: '0', text: 'alpha' },
                     { key: '1', text: 'alpha' },
@@ -299,7 +302,7 @@ describe('TableColumnEnumText', () => {
         });
 
         it('is invalid with invalid numeric key values', async () => {
-            ({ element, connect, disconnect, model } = await setup(
+            ({ connect, disconnect, model } = await setup(
                 [{ key: 'a', text: 'alpha' }],
                 'number'
             ));
@@ -311,7 +314,7 @@ describe('TableColumnEnumText', () => {
         });
 
         it('is valid with valid boolean key values', async () => {
-            ({ element, connect, disconnect, model } = await setup(
+            ({ connect, disconnect, model } = await setup(
                 [
                     { key: true, text: 'alpha' },
                     { key: false, text: 'alpha' }
@@ -333,7 +336,7 @@ describe('TableColumnEnumText', () => {
             ] as const;
             parameterizeSpec(dataTypeTests, (spec, name, value) => {
                 spec(name, async () => {
-                    ({ element, connect, disconnect, model } = await setup(
+                    ({ connect, disconnect, model } = await setup(
                         [{ key: value.key, text: 'alpha' }],
                         'boolean'
                     ));
@@ -349,6 +352,7 @@ describe('TableColumnEnumText', () => {
         });
 
         class ModelInvalidMappings {
+            public table!: Table;
             public col1!: TableColumnEnumText;
             public col2!: TableColumnEnumText;
         }
@@ -359,7 +363,7 @@ describe('TableColumnEnumText', () => {
         async function setupInvalidMappings(): Promise<ModelInvalidMappingsFixture<Table<SimpleTableRecord>>> {
             const source = new ModelInvalidMappings();
             const result = await fixture<Table<SimpleTableRecord>>(html<ModelInvalidMappings>`
-                <${tableTag} style="width: 700px">
+                <${tableTag} ${ref('table')} style="width: 700px">
                     <${tableColumnEnumTextTag} ${ref('col1')} field-name="field1">
                         Column 1
                         <${mappingTextTag} key="foo" label="foo"></${mappingTextTag}>
@@ -378,7 +382,7 @@ describe('TableColumnEnumText', () => {
             };
         }
         it('is invalid with icon or spinner mappings', async () => {
-            ({ element, connect, disconnect, model } = await setupInvalidMappings());
+            ({ connect, disconnect, model } = await setupInvalidMappings());
             await connect();
             await waitForUpdatesAsync();
             const column1 = model.col1;
@@ -390,7 +394,7 @@ describe('TableColumnEnumText', () => {
         });
 
         it('is invalid with duplicate key values', async () => {
-            ({ element, connect, disconnect, model } = await setup([
+            ({ connect, disconnect, model } = await setup([
                 { key: 'a', text: 'alpha' },
                 { key: 'a', text: 'alpha' }
             ]));
@@ -402,7 +406,7 @@ describe('TableColumnEnumText', () => {
         });
 
         it('is invalid with equivalent numeric key values', async () => {
-            ({ element, connect, disconnect, model } = await setup(
+            ({ connect, disconnect, model } = await setup(
                 [
                     { key: '0', text: 'alpha' },
                     { key: '0.0', text: 'alpha' }
@@ -417,7 +421,7 @@ describe('TableColumnEnumText', () => {
         });
 
         it('is invalid with missing key value', async () => {
-            ({ element, connect, disconnect, model } = await setup([
+            ({ connect, disconnect, model } = await setup([
                 { text: 'alpha' }
             ]));
             await connect();
@@ -428,7 +432,7 @@ describe('TableColumnEnumText', () => {
         });
 
         it('is invalid with missing text', async () => {
-            ({ element, connect, disconnect, model } = await setup([
+            ({ connect, disconnect, model } = await setup([
                 { key: 'a' }
             ]));
             await connect();
@@ -436,6 +440,53 @@ describe('TableColumnEnumText', () => {
             const column = model.col1;
             expect(column.checkValidity()).toBeFalse();
             expect(column.validity.missingTextValue).toBeTrue();
+        });
+    });
+
+    describe('placeholder', () => {
+        const testCases = [
+            {
+                name: 'value is not specified',
+                data: [{}],
+                groupValue: 'No value'
+            },
+            {
+                name: 'value is undefined',
+                data: [{ field1: undefined }],
+                groupValue: 'No value'
+            },
+            {
+                name: 'value is null',
+                data: [{ field1: null }],
+                groupValue: 'No value'
+            },
+            {
+                name: 'value is unmapped value',
+                data: [{ field1: 'no match' }],
+                groupValue: ''
+            }
+        ];
+
+        parameterizeSpec(testCases, (spec, name, value) => {
+            spec(
+                `group row renders expected value when ${name}`,
+                async () => {
+                    ({ connect, disconnect, model } = await setup([
+                        { key: 'a', text: 'alpha' }
+                    ]));
+                    pageObject = new TablePageObject<SimpleTableRecord>(
+                        model.table
+                    );
+                    model.col1.groupIndex = 0;
+                    await model.table.setData(value.data);
+                    await connect();
+                    await waitForUpdatesAsync();
+
+                    expect(
+                        pageObject.getRenderedGroupHeaderTextContent(0)
+                    ).toBe(value.groupValue);
+                }
+            );
         });
     });
 });

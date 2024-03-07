@@ -27,6 +27,10 @@ TableColumnDateTextColumnConfig
     }
 
     private updateText(): void {
+        if (this.applyPlaceholderTextIfNeeded(this.groupHeaderValue)) {
+            return;
+        }
+
         if (this.columnConfig) {
             this.text = formatNumericDate(
                 this.columnConfig.formatter,

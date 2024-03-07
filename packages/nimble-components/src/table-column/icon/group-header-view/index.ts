@@ -47,13 +47,14 @@ export class TableColumnIconGroupHeaderView
     private updateState(): void {
         this.visual = undefined;
         if (!this.columnConfig) {
+            this.text = '';
             return;
         }
         const value = this.groupHeaderValue;
-        if (value === undefined || value === null) {
+        if (this.applyPlaceholderTextIfNeeded(value)) {
             return;
         }
-        const mappingConfig = this.columnConfig.mappingConfigs.get(value);
+        const mappingConfig = this.columnConfig.mappingConfigs.get(value!);
         if (mappingConfig instanceof MappingIconConfig) {
             this.visual = 'icon';
             this.severity = mappingConfig.severity;

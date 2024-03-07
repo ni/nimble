@@ -26,6 +26,9 @@ TableColumnNumberTextColumnConfig
     }
 
     private updateText(): void {
+        if (this.applyPlaceholderTextIfNeeded(this.groupHeaderValue)) {
+            return;
+        }
         this.text = this.columnConfig?.formatter?.format(this.groupHeaderValue) ?? '';
     }
 }

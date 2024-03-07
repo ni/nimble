@@ -509,6 +509,98 @@ describe('TableColumnDateText', () => {
             await waitForUpdatesAsync();
             expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
         });
+
+        describe('placeholder', () => {
+            const testCases = [
+                {
+                    name: 'value is not specified',
+                    data: [{}],
+                    cellValue: '',
+                    groupValue: 'No value',
+                    usesColumnPlaceholder: true
+                },
+                {
+                    name: 'value is undefined',
+                    data: [{ field: undefined }],
+                    cellValue: '',
+                    groupValue: 'No value',
+                    usesColumnPlaceholder: true
+                },
+                {
+                    name: 'value is null',
+                    data: [{ field: null }],
+                    cellValue: '',
+                    groupValue: 'No value',
+                    usesColumnPlaceholder: true
+                },
+                {
+                    name: 'value is Number.NaN',
+                    data: [{ field: Number.NaN }],
+                    cellValue: '',
+                    groupValue: '',
+                    usesColumnPlaceholder: false
+                },
+                {
+                    name: 'value is valid and non-zero',
+                    data: [{ field: 1708984169258 }],
+                    cellValue: 'Feb 26, 2024, 3:49:29 PM',
+                    groupValue: 'Feb 26, 2024, 3:49:29 PM',
+                    usesColumnPlaceholder: false
+                },
+                {
+                    name: 'value is incorrect type',
+                    data: [{ field: 'not a number' as unknown as number }],
+                    cellValue: '',
+                    groupValue: '',
+                    usesColumnPlaceholder: false
+                },
+                {
+                    name: 'value is specified and falsey',
+                    data: [{ field: 0 }],
+                    groupValue: 'Dec 31, 1969, 6:00:00 PM'
+                },
+                {
+                    name: 'value is Inf',
+                    data: [{ field: Number.POSITIVE_INFINITY }],
+                    groupValue: ''
+                },
+                {
+                    name: 'value is -Inf',
+                    data: [{ field: Number.NEGATIVE_INFINITY }],
+                    groupValue: ''
+                },
+                {
+                    name: 'value is MAX_VALUE',
+                    data: [{ field: Number.MAX_VALUE }],
+                    groupValue: ''
+                },
+                {
+                    name: 'value is too large for Date',
+                    data: [{ field: 8640000000000000 + 1 }],
+                    groupValue: ''
+                },
+                {
+                    name: 'value is too small for Date',
+                    data: [{ field: -8640000000000000 - 1 }],
+                    groupValue: ''
+                }
+            ];
+
+            parameterizeSpec(testCases, (spec, name, value) => {
+                spec(
+                    `group row renders expected value when ${name}`,
+                    async () => {
+                        await table.setData(value.data);
+                        await connect();
+                        await waitForUpdatesAsync();
+
+                        expect(
+                            pageObject.getRenderedGroupHeaderContent(0)
+                        ).toBe(value.groupValue);
+                    }
+                );
+            });
+        });
     });
 
     describe('with static config', () => {

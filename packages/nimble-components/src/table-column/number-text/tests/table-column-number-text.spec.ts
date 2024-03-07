@@ -170,7 +170,7 @@ describe('TableColumnNumberText', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('No value');
     });
 
     it('changing data from null to value displays value', async () => {
@@ -178,7 +178,7 @@ describe('TableColumnNumberText', () => {
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('No value');
 
         await table.setData([{ number1: -16 }]);
         await waitForUpdatesAsync();
@@ -196,7 +196,7 @@ describe('TableColumnNumberText', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('No value');
     });
 
     describe('displays title when appropriate', () => {
@@ -725,6 +725,61 @@ describe('TableColumnNumberText', () => {
             );
             await waitForUpdatesAsync();
             expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.left);
+        });
+    });
+
+    describe('placeholder', () => {
+        const testCases = [
+            {
+                name: 'value is not specified',
+                data: [{}],
+                groupValue: 'No value'
+            },
+            {
+                name: 'value is undefined',
+                data: [{ number1: undefined }],
+                groupValue: 'No value'
+            },
+            {
+                name: 'value is null',
+                data: [{ number1: null }],
+                groupValue: 'No value'
+            },
+            {
+                name: 'value is Number.NaN',
+                data: [{ number1: Number.NaN }],
+                groupValue: 'NaN'
+            },
+            {
+                name: 'value is valid and non-zero',
+                data: [{ number1: 100 }],
+                groupValue: '100'
+            },
+            {
+                name: 'value is incorrect type',
+                data: [{ number1: 'not a number' as unknown as number }],
+                groupValue: ''
+            },
+            {
+                name: 'value is specified and falsey',
+                data: [{ number1: 0 }],
+                groupValue: '0'
+            }
+        ];
+
+        parameterizeSpec(testCases, (spec, name, value) => {
+            spec(
+                `group row renders expected value when ${name}`,
+                async () => {
+                    await table.setData(value.data);
+                    await connect();
+                    await waitForUpdatesAsync();
+
+                    expect(
+                        pageObject.getRenderedGroupHeaderTextContent(0)
+                    ).toBe(value.groupValue);
+                }
+            );
         });
     });
 });
