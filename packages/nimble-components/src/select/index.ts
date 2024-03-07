@@ -30,7 +30,7 @@ import {
 } from '@microsoft/fast-web-utilities';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
-import { DropdownAppearance } from '../patterns/dropdown/types';
+import { DropdownAppearance, DropdownOwner } from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
@@ -57,7 +57,9 @@ const isNimbleListOption = (el: Element): el is ListOption => {
 /**
  * A nimble-styled HTML select.
  */
-export class Select extends FormAssociatedSelect implements ErrorPattern {
+export class Select
+    extends FormAssociatedSelect
+    implements ErrorPattern, DropdownOwner {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
@@ -666,6 +668,14 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 break;
             }
         }
+    }
+
+    public registerOption(option: ListOption): void {
+        if (this.options.includes(option)) {
+            return;
+        }
+
+        this.options.push(option);
     }
 
     // Prevents parent classes from resetting selectedIndex to a positive

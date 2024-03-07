@@ -44,7 +44,7 @@ describe('Nimble listbox option', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        fit('has expected defaults for disabled', () => {
+        it('has expected defaults for disabled', () => {
             expect(directive.disabled).toBeUndefined();
             expect(nativeElement.disabled).toBeUndefined();
         });
@@ -174,7 +174,7 @@ describe('Nimble listbox option', () => {
         });
     });
 
-    fdescribe('with property attribute values', () => {
+    describe('with property attribute values', () => {
         @Component({
             template: `
                 <nimble-list-option #listOption

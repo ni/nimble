@@ -5,6 +5,7 @@ import {
 import { observable, attr } from '@microsoft/fast-element';
 import { styles } from './styles';
 import { template } from './template';
+import type { DropdownOwner } from '../patterns/dropdown/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -50,6 +51,17 @@ export class ListOption extends FoundationListboxOption {
             .assignedNodes()
             .map(node => node.textContent?.trim())
             .join(' ');
+    }
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        if (this.isDropdownOwner(this.parentElement)) {
+            this.parentElement.registerOption(this);
+        }
+    }
+
+    private isDropdownOwner(parent: unknown): parent is DropdownOwner {
+        return typeof (parent as DropdownOwner).registerOption === 'function';
     }
 }
 
