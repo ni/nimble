@@ -160,9 +160,9 @@ export class Computations {
     }
 
     private calculateGridDimensionsFromDies(
-        dies: Readonly<Readonly<WaferMapDie>[]> | undefined
+        dies: Readonly<Readonly<WaferMapDie>[]>
     ): GridDimensions {
-        if (dies === undefined || dies.length === 0 || dies[0] === undefined) {
+        if (dies.length === 0 || dies[0] === undefined) {
             return { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
         }
 

@@ -93,7 +93,7 @@ export class DataManager {
 
     private updateDataMap(): void {
         this.dataMap = new Map(
-            this.wafermap.dies?.map(die => [`${die.x}_${die.y}`, die])
+            this.wafermap.dies.map(die => [`${die.x}_${die.y}`, die])
         );
     }
 }

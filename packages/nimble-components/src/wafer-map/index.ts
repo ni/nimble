@@ -147,7 +147,7 @@ export class WaferMap extends FoundationElement {
     @observable public hoverDie: WaferMapDie | undefined;
 
     @observable public highlightedTags: string[] = [];
-    @observable public dies: WaferMapDie[] | undefined;
+    @observable public dies: WaferMapDie[] = [];
     @observable public diesTable: Table | undefined;
 
     @observable public colorScale: WaferMapColorScale = {
