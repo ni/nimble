@@ -110,7 +110,8 @@ jobs:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
       # Check Changelog
-      - run: npm run check
+      - if: github.repository_owner == 'ni'
+        run: npm run check
 
       - name: Validate no changes to tracked files
         run: |
@@ -136,7 +137,7 @@ jobs:
 
   pages:
     needs: build
-    if: startsWith(github.ref, 'refs/heads/main')
+    if: github.repository_owner == 'ni' && startsWith(github.ref, 'refs/heads/main')
     runs-on: ubuntu-22.04
     permissions:
       pages: write # to deploy to Pages
