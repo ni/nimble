@@ -1,6 +1,6 @@
 {
-  "type": "minor",
-  "comment": "Adding placeholder behavior for Select",
+  "type": "patch",
+  "comment": "Adding DropdownOwner interface allowing Select to register options during connectedCallback.",
   "packageName": "@ni/nimble-components",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
   "dependentChangeType": "patch"
