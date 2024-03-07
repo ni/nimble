@@ -1,6 +1,6 @@
 ---
 name: 💡 New Component
-about: (DEV TEAM ONLY) New Nimble component
+about: New Nimble component
 title: 'nimble-{name} Component'
 labels: 'new component,enhancement'
 ---
