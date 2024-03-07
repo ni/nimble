@@ -24,7 +24,7 @@
       "groupName": "npm dependencies update to latest",
       "matchManagers": ["npm"],
       "rangeStrategy": "update-lockfile",
-      "matchDepTypes": ["dependencies", "devDependencies"],
+      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
       "excludePackagePatterns":[
         "^@angular",
         "@microsoft/fast-foundation",
