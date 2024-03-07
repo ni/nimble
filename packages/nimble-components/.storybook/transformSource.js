@@ -1,5 +1,5 @@
-import prettier from 'prettier/esm/standalone';
-import parserHTML from 'prettier/esm/parser-html';
+import prettier from 'prettier/standalone';
+import parserHTML from 'prettier/plugins/html';
 
 const createFragmentFromHTML = html => {
     const template = document.createElement('template');
