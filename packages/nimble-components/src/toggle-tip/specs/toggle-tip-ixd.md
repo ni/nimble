@@ -1,14 +1,14 @@
-# Nimble Toggle Tip (IxD)
+# Nimble Toggletip (IxD)
 
 ## Overview
 
-A toggle tip is a web component that provides a tooltip-like functionality with the ability to toggle its visibility. It is typically used to display additional information or context for a specific element.
+A toggletip is a web component that provides a tooltip-like functionality with the ability to toggle its visibility. It is typically used to display additional information or context for a specific element.
 
-The toggle tip consists of a trigger button, and a content panel that is hidden by default. When the trigger button is clicked, the content panel is revealed, providing the user with additional information or options. Clicking outside the toggle tip or pressing escape will hide the content panel again.
+The toggletip consists of a trigger button and a content panel that is hidden by default. When the trigger button is clicked, the content panel is revealed, providing the user with additional information or options. Clicking outside the toggletip or pressing escape will hide the content panel again.
 
-Toggle tips are commonly used in user interfaces to provide contextual help, explanations, or additional actions without cluttering the main interface.
+Toggletips are commonly used in user interfaces to provide contextual help, explanations, or additional actions without cluttering the main interface.
 
-![Toggle tip example](./spec-images/example-toggle-tip.png)
+![Toggletip example](./spec-images/example-toggle-tip.png)
 
 ### Background
 
@@ -20,7 +20,7 @@ Toggle tips are commonly used in user interfaces to provide contextual help, exp
 **When to use:**
 
 -   In a _form_ or _editor_ view to display additional information or context for a specific element.
--   When the additional information or context provided by the toggle tip is not valuable for most users of the control.
+-   When the additional information or context provided by the toggletip is not valuable for most users of the control.
 
 **When not to use:**
 
@@ -28,7 +28,7 @@ Toggle tips are commonly used in user interfaces to provide contextual help, exp
 
 ## Anatomy
 
-![Toggle tip anatomy](./spec-images/anatomy.png)
+![Toggletip anatomy](./spec-images/anatomy.png)
 
 | Element        | Description                                                   |
 | -------------- | ------------------------------------------------------------- |
@@ -38,13 +38,13 @@ Toggle tips are commonly used in user interfaces to provide contextual help, exp
 
 ## Sizing
 
-![Minimal toggle tip](./spec-images/minimal-toggle-tip.png)
+![Minimal toggletip](./spec-images/minimal-toggle-tip.png)
 
-![Maximal toggle tip](./spec-images/maximal-toggle-tip.png)
+![Maximal toggletip](./spec-images/maximal-toggle-tip.png)
 
 ### Width
 
-The width of the toggle tip popover should be determined based on the length of the content it contains. However, if the content is greater than a single line of text, the width should be set to 300px.
+The width of the toggletip popover should be determined based on the length of the content it contains. However, if the content is greater than a single line of text, the width should be set to 300px.
 
 ### Height
 
@@ -52,11 +52,13 @@ When the popover height exceeds that of the viewport, the popover should not bec
 
 ## Alignment
 
-The toggle tip popover should avoid obscuring other content where possible. [^1]
+The toggletip popover should avoid obscuring other content where possible. [^1]
+
+[^1]: [Pearson Toggletip requirements](https://accessibility.pearson.com/resources/developers-corner/reference-library/tooltips-and-toggletips/index.php)
 
 ![Popover alignment](./spec-images/popover-orientation.png)
 
-The toggle tip popover should be aligned with the "Top - Right" of trigger button by default. If there isn't enough room in the viewport for the entire popover to be visible, the popover should align with the trigger button in the following order:
+The toggletip popover should be aligned with the "Top - Right" of trigger button by default. If there isn't enough room in the viewport for the entire popover to be visible, the popover should align with the trigger button in the following order:
 
 1. Top - Right
 2. Top - Left
@@ -67,7 +69,7 @@ The toggle tip popover should be aligned with the "Top - Right" of trigger butto
 
 ### States
 
-![Toggle tip states](./spec-images/states.png)
+![Toggletip states](./spec-images/states.png)
 
 #### Error State
 
@@ -75,7 +77,7 @@ The toggle-tip does not support an error state. Further, the toggle-tip should n
 
 ### ARIA Considerations
 
-> NOTE: From Pearson's [Toggle Tip](https://accessibility.pearson.com/resources/developers-corner/reference-library/tooltips-and-toggletips/index.php) reference document.
+> NOTE: From Pearson's [Toggletip](https://accessibility.pearson.com/resources/developers-corner/reference-library/tooltips-and-toggletips/index.php) reference document.
 
 #### Triggering
 
@@ -113,17 +115,17 @@ The toggle-tip does not support an error state. Further, the toggle-tip should n
 
 `ENTER` or `SPACE` on a focused trigger button opens the popover. Key focus remains on the trigger button, but the trigger button changes to the select state.
 
-![Toggle tip keyboard open](./spec-images/key-toggle-open.png)
+![Toggletip keyboard open](./spec-images/key-toggle-open.png)
 
 Pressing `ENTER` or `SPACE` a second time (or `ESC`) closes the popover.
 
-![Toggle tip keyboard close](./spec-images/key-toggle-close.png)
+![Toggletip keyboard close](./spec-images/key-toggle-close.png)
 
 Pressing `TAB` while the popover is open moves focus to the first focusable element in the content area.
 
-![Toggle tip keyboard tab into popover](./spec-images/key-tab-popover.png)
+![Toggletip keyboard tab into popover](./spec-images/key-tab-popover.png)
 
-Pressing `TAB` while focused on the last focusable element in the content area will move focus to the next focusable element on the main page. Moving the focus **SHOULD NOT** automatically close the popover. However, interacting with another focusable element outside of the popover **MUST** close the popover.
+Pressing `TAB` while focused on the last focusable element in the content area will move focus to the next focusable element on the main page. Moving the focus to the next focusable element on the main page **SHOULD** close the popover.
 
 #### Touch-Screen Devices
 
@@ -137,5 +139,6 @@ See content marked "**QUESTION**" or "**NOTE**".
 
 ## References
 
--   [^1]: Pearson's [Toggle Tip](https://accessibility.pearson.com/resources/developers-corner/reference-library/tooltips-and-toggletips/index.php) reference document
+-   [Pearson Toggletip requirements](https://accessibility.pearson.com/resources/developers-corner/reference-library/tooltips-and-toggletips/index.php)
 -   [Grafana - Saga Toggletip](https://grafana.com/developers/saga/Components/toggletip)
+-   [IBM - Carbon Toggletip](https://carbondesignsystem.com/components/toggletip/usage/)
