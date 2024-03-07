@@ -1,8 +1,72 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 24 Jan 2024 00:57:02 GMT and should not be manually modified.
+This log was last generated on Tue, 05 Mar 2024 21:15:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.3.15
+
+Tue, 05 Mar 2024 21:15:27 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@dcf2bc4](https://github.com/ni/nimble/commit/dcf2bc498565a7b7069dae14a46c9cd992a262a3))
+
+## 14.3.8
+
+Tue, 27 Feb 2024 00:13:05 GMT
+
+### Patches
+
+- Uptake new code analyzer rules, minor code cleanup ([ni/nimble@c60a533](https://github.com/ni/nimble/commit/c60a5334c62dd0bb769e652076c34d0b50c8c34c))
+
+## 14.3.1
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Align nuget and npm package versions ([ni/nimble@bb9f7fc](https://github.com/ni/nimble/commit/bb9f7fcf5aeac256fe9c4bf39c782f64c26d1c52))
+
+## 14.3.0
+
+Wed, 21 Feb 2024 23:32:45 GMT
+
+### Minor changes
+
+- Add support for delayed hierarchy in the table ([ni/nimble@ff99d91](https://github.com/ni/nimble/commit/ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d))
+
+## 14.2.0
+
+Mon, 19 Feb 2024 16:59:58 GMT
+
+### Minor changes
+
+- Blazor filterable Select ([ni/nimble@315917c](https://github.com/ni/nimble/commit/315917c5cf3768d0dcaf3901eef0087c5299832e))
+
+## 14.1.0
+
+Thu, 08 Feb 2024 19:42:05 GMT
+
+### Minor changes
+
+- Create Wafer Map Blazor Component ([ni/nimble@5c8cf7b](https://github.com/ni/nimble/commit/5c8cf7be5e962dee7518e9e27ccf2a14315d84a7))
+
+## 14.0.0
+
+Tue, 06 Feb 2024 15:30:34 GMT
+
+### Major changes
+
+- BREAKING CHANGE: Nimble Blazor Data bindable property changed to SetDataAsync method . See Nimble Blazor README for usage info. ([ni/nimble@fc0d7f6](https://github.com/ni/nimble/commit/fc0d7f686aa4dca6232c949a765e5b201bf8fc58))
+
+## 13.2.0
+
+Sat, 27 Jan 2024 17:56:18 GMT
+
+### Minor changes
+
+- Adding Blazor support for table data hierarchy ([ni/nimble@39bd1f8](https://github.com/ni/nimble/commit/39bd1f821cd5394c75187abbcf3c3dcc9b3a1572))
 
 ## 13.1.4
 

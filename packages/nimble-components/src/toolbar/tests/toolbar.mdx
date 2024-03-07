@@ -1,0 +1,35 @@
+import { Canvas, Meta, Title } from '@storybook/blocks';
+import { NimbleToolbar } from './toolbar.react';
+import * as toolbarStories from './toolbar.stories';
+
+<Meta of={toolbarStories} />
+<Title of={toolbarStories} />
+
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/) - A toolbar is a container
+for grouping a set of controls, such as buttons, menubuttons, or checkboxes.
+
+When a set of controls is visually presented as a group, the toolbar role can be used to communicate the
+presence and purpose of the grouping to screen reader users. Grouping controls into toolbars can also be
+an effective way of reducing the number of tab stops in the keyboard interface.
+
+To override the toolbar's background color, style the `positioning-region` part:
+
+```css
+nimble-toolbar::part(positioning-region) {
+    background: red;
+}
+```
+
+<Canvas of={toolbarStories.toolbar} />
+
+{/* ## Appearances */}
+
+{/* ## Appearance Variants */}
+
+{/* ## Usage */}
+
+{/* ## Examples */}
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}

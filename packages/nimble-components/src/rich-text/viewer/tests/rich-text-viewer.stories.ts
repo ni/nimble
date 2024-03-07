@@ -13,6 +13,8 @@ interface RichTextViewerArgs {
     markdown: string;
     data: ExampleDataType;
     getMentionedHrefs: undefined;
+    validity: undefined;
+    checkValidity: undefined;
 }
 
 type ExampleDataType = (typeof exampleDataType)[keyof typeof exampleDataType];
@@ -30,17 +32,15 @@ const dataSets = {
     }
 } as const;
 
-const richTextViewerDescription = 'The rich text viewer component allows users to view text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The rich text to render is provided as a markdown string.\n\n See the [rich text editor](?path=/docs/incubating-rich-text-editor--docs) component to enable users to modify the markdown contents.';
+const validityDescription = `Readonly object of boolean values that represents the validity states that the viewer's configuration can be in.
+The object's type is \`RichTextValidity\`, and it contains the following boolean properties:
+-   \`invalidMentionConfiguration\`: \`true\` when a mention configuration is invalid. Call \`checkValidity()\` on each mention component to see which configuration is invalid, and read the \`validity\` property of that mention for details about why it's invalid.
+-   \`duplicateMentionConfiguration\`: \`true\` if more than one of the same type of mention configuration element is provided
+`;
 
 const metadata: Meta<RichTextViewerArgs> = {
     title: 'Incubating/Rich Text Viewer',
-    parameters: {
-        docs: {
-            description: {
-                component: richTextViewerDescription
-            }
-        }
-    },
+    parameters: {},
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
     ${incubatingWarning({
@@ -78,6 +78,16 @@ const metadata: Meta<RichTextViewerArgs> = {
                 }
             }
         },
+        validity: {
+            description: validityDescription,
+            control: false
+        },
+        checkValidity: {
+            name: 'checkValidity()',
+            description:
+                'A function that returns `true` if the configuration of the rich text viewer is valid and `false` if the configuration is not valid.',
+            control: false
+        },
         getMentionedHrefs: {
             name: 'getMentionedHrefs()',
             description:
@@ -87,7 +97,9 @@ const metadata: Meta<RichTextViewerArgs> = {
     },
     args: {
         markdown: richTextMarkdownString,
-        data: exampleDataType.userPattern
+        data: exampleDataType.userPattern,
+        validity: undefined,
+        checkValidity: undefined
     }
 };
 

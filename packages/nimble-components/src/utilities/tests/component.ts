@@ -29,3 +29,12 @@ export function createEventListener(
         spy
     };
 }
+
+/**
+ * Waits for a requested animation frame to occur.
+ */
+export async function waitAnimationFrame(): Promise<void> {
+    return new Promise(resolve => {
+        requestAnimationFrame(() => resolve());
+    });
+}

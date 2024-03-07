@@ -3,7 +3,15 @@ import type { ScaledUnitFormat } from './scaled-unit-format/scaled-unit-format';
 import type { UnitScale } from './unit-scale/unit-scale';
 import { passthroughUnitScale } from './unit-scale/passthrough-unit-scale';
 
-type NumberStyle = 'default' | 'leadingZero' | 'exponential';
+// Workaround to avoid ts errors about signDisplay not accepting the value 'negative'.
+// It has been supported by browsers since 8/23, but TypeScript still hasn't
+// added it to the type definitions. See https://github.com/microsoft/TypeScript/issues/56269
+const signDisplay = 'negative' as Intl.NumberFormatOptions['signDisplay'];
+
+// Allow consistent pattern for defining Options and ResolvedOptions
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface DefaultUnitFormatOptions extends UnitFormatOptions {}
+type ResolvedDefaultUnitFormatOptions = Required<DefaultUnitFormatOptions>;
 
 /**
  * Format for numbers with units to show in a tabular form.
@@ -23,27 +31,15 @@ export class DefaultUnitFormat extends UnitFormat {
     private static readonly exponentialUpperBound = 999999.5;
 
     private readonly unitScale: UnitScale;
-
-    // Format options to use by default. It renders the number with a maximum of 6 signficant digits.
+    // Format options to use by default. It renders the number with a maximum of 6 signficant digits (including zero before decimal point).
     private readonly defaultIntlNumberFormatOptions: Intl.NumberFormatOptions = {
         maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
-        useGrouping: true
+        maximumFractionDigits: DefaultUnitFormat.maximumDigits - 1,
+        roundingPriority: 'lessPrecision',
+        signDisplay
     };
 
     private readonly defaultScaledUnitFormatters = new Map<
-    number,
-    ScaledUnitFormat
-    >();
-
-    // Format options to use for numbers that have leading zeros. It limits the number of rendered
-    // digits using 'maximumFractionDigits', which will result in less than 6 significant digits
-    // in order to render no more than 6 total digits.
-    private readonly leadingZeroIntlNumberFormatOptions: Intl.NumberFormatOptions = {
-        maximumFractionDigits: DefaultUnitFormat.maximumDigits - 1,
-        useGrouping: true
-    };
-
-    private readonly leadingZeroScaledUnitFormatters = new Map<
     number,
     ScaledUnitFormat
     >();
@@ -52,14 +48,15 @@ export class DefaultUnitFormat extends UnitFormat {
     // for numbers with magintudes over 'exponentialUpperBound' or under 'exponentialLowerBound'.
     private readonly exponentialIntlNumberFormatOptions: Intl.NumberFormatOptions = {
         maximumSignificantDigits: DefaultUnitFormat.maximumDigits,
-        notation: 'scientific'
+        notation: 'scientific',
+        signDisplay
     };
 
     private readonly exponentialScaledUnitFormatter: ScaledUnitFormat;
 
     public constructor(
         locale: string,
-        { unitScale = passthroughUnitScale }: UnitFormatOptions = {
+        { unitScale = passthroughUnitScale }: DefaultUnitFormatOptions = {
             unitScale: passthroughUnitScale
         }
     ) {
@@ -72,14 +69,6 @@ export class DefaultUnitFormat extends UnitFormat {
                     intlNumberFormatOptions: this.defaultIntlNumberFormatOptions
                 })
             );
-            this.leadingZeroScaledUnitFormatters.set(
-                unit.scaleFactor,
-                unit.scaledUnitFormatFactory({
-                    locale,
-                    intlNumberFormatOptions:
-                        this.leadingZeroIntlNumberFormatOptions
-                })
-            );
         }
         this.exponentialScaledUnitFormatter = unitScale.baseScaledUnit.scaledUnitFormatFactory({
             locale,
@@ -88,59 +77,23 @@ export class DefaultUnitFormat extends UnitFormat {
         this.unitScale = unitScale;
     }
 
-    public override resolvedOptions(): Required<UnitFormatOptions> {
+    public override resolvedOptions(): ResolvedDefaultUnitFormatOptions {
         return {
             unitScale: this.unitScale
         };
     }
 
     protected tryFormat(number: number): string {
-        // Normalize +0 / -0 --> +0
-        const numberNormalized = number === 0 ? 0 : number;
+        const { scaledValue, scaledUnit } = this.unitScale.scaleNumber(number);
 
-        const { scaledValue, scaledUnit } = this.unitScale.scaleNumber(numberNormalized);
-
-        const numberStyle = this.resolveNumberStyle(scaledValue);
-        switch (numberStyle) {
-            case 'default': {
-                const scaledUnitFormatter = this.defaultScaledUnitFormatters.get(
-                    scaledUnit.scaleFactor
-                )!;
-                return scaledUnitFormatter.format(scaledValue);
-            }
-            case 'leadingZero': {
-                const scaledUnitFormatter = this.leadingZeroScaledUnitFormatters.get(
-                    scaledUnit.scaleFactor
-                )!;
-                return scaledUnitFormatter.format(scaledValue);
-            }
-            case 'exponential': {
-                const scaledUnitFormatter = this.exponentialScaledUnitFormatter;
-                return scaledUnitFormatter.format(numberNormalized);
-            }
-            default:
-                throw new Error('Unexpected number format style');
-        }
-    }
-
-    private resolveNumberStyle(number: number): NumberStyle {
-        if (number === 0) {
-            return 'default';
-        }
-
-        const absoluteValue = Math.abs(number);
-        if (
-            absoluteValue >= DefaultUnitFormat.exponentialUpperBound
-            || absoluteValue < DefaultUnitFormat.exponentialLowerBound
-        ) {
-            return 'exponential';
-        }
-        // Ideally, we could set 'roundingPriority: "lessPrecision"' with a formatter that has both 'maximumSignificantDigits' and
-        // 'maximumFractionDigits' configured instead of having two different formatters that we conditionally choose between. However,
-        // 'roundingPrioirty' is not supported yet in all browsers.
-        if (absoluteValue < 1) {
-            return 'leadingZero';
-        }
-        return 'default';
+        const absoluteValue = Math.abs(scaledValue);
+        const useExponential = absoluteValue !== 0
+            && (absoluteValue >= DefaultUnitFormat.exponentialUpperBound
+                || absoluteValue < DefaultUnitFormat.exponentialLowerBound);
+        return useExponential
+            ? this.exponentialScaledUnitFormatter.format(number)
+            : this.defaultScaledUnitFormatters
+                .get(scaledUnit.scaleFactor)!
+                .format(scaledValue);
     }
 }

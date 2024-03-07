@@ -1,10 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
-import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
@@ -12,8 +10,12 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { Table, tableTag } from '..';
 import { iconUserTag } from '../../icons/user';
 import { tableColumnTextTag } from '../../table-column/text';
-import { TableRowSelectionMode } from '../types';
+import {
+    TableRecordDelayedHierarchyState,
+    TableRowSelectionMode
+} from '../types';
 import { tableColumnNumberTextTag } from '../../table-column/number-text';
+import { isChromatic } from '../../utilities/tests/isChromatic';
 
 const metadata: Meta = {
     title: 'Tests/Table',
@@ -101,7 +103,12 @@ const component = (
     [hierarchyStateName, hierarchyState]: HierarchyState
 ): ViewTemplate => html`
     <span>${() => `Selection mode: ${selectionMode ?? 'none'}, ${groupedStateName}, ${hierarchyStateName}`} </span>
-    <${tableTag} selection-mode="${() => selectionMode}"" id-field-name="id" parent-id-field-name="${() => (hierarchyState ? 'parentId' : '')}">
+    <${tableTag}
+        selection-mode="${() => selectionMode}"
+        id-field-name="id"
+        parent-id-field-name="${() => (hierarchyState ? 'parentId' : undefined)}"
+        style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
+    >
         <${tableColumnTextTag} field-name="firstName" sort-direction="ascending" sort-index="0" group-index="${() => (groupedState ? '0' : undefined)}"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
         <${tableColumnTextTag} field-name="lastName">Last Name</${tableColumnTextTag}>
         <${tableColumnNumberTextTag} field-name="age" sort-direction="descending" sort-index="1" fractional-width=".5">Age</${tableColumnNumberTextTag}>
@@ -114,6 +121,22 @@ const playFunction = async (): Promise<void> => {
         Array.from(document.querySelectorAll<Table>('nimble-table')).map(
             async table => {
                 await table.setData(data);
+                await table.setRecordHierarchyOptions([
+                    {
+                        recordId: '0',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.canLoadChildren
+                        }
+                    },
+                    {
+                        recordId: '1',
+                        options: {
+                            delayedHierarchyState:
+                                TableRecordDelayedHierarchyState.loadingChildren
+                        }
+                    }
+                ]);
                 await table.setSelectedRecordIds(['', '2']);
             }
         )

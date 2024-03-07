@@ -33,8 +33,4 @@ export class MentionExtensionConfiguration {
         this.buttonLabel = mentionInternals.buttonLabel ?? '';
         this.mentionUpdateEmitter = mentionInternals.mentionUpdateEmitter;
     }
-
-    public static isObservedMentionInternalsProperty(arg: unknown): boolean {
-        return typeof arg === 'string' && ['buttonLabel'].includes(arg);
-    }
 }

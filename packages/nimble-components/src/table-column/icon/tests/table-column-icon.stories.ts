@@ -5,7 +5,6 @@ import { tableTag } from '../../../table';
 import { tableColumnIconTag } from '..';
 import {
     SharedTableArgs,
-    columnOperationBehavior,
     sharedTableArgTypes,
     sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
@@ -41,22 +40,18 @@ const simpleData = [
         lastName: 'Simpson',
         status: 'success',
         isChild: true
+    },
+    {
+        firstName: 'Abbey',
+        lastName: '?',
+        status: 'unknown',
+        isChild: false
     }
 ] as const;
 
-const iconColumnDescription = `The \`nimble-table-column-icon\` column renders string, number, or boolean values as a Nimble icon or \`nimble-spinner\` in the \`nimble-table\`.
-
-${columnOperationBehavior}`;
-
 const metadata: Meta<IconColumnTableArgs> = {
     title: 'Components/Table Column: Icon',
-    parameters: {
-        docs: {
-            description: {
-                component: iconColumnDescription
-            }
-        }
-    }
+    parameters: {}
 };
 
 export default metadata;
@@ -88,6 +83,7 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
                 <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
                 <${mappingIconTag} key="success" icon="${iconCheckLargeTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
                 <${mappingSpinnerTag} key="calculating" text="Calculating"></${mappingSpinnerTag}>
+                <${mappingIconTag} key="unknown" text="Unknown"></${mappingIconTag}>
             </${tableColumnIconTag}>
             <${tableColumnIconTag} field-name="isChild" key-type="boolean">
                 Is Child

@@ -6,4 +6,4 @@ title: '(Fully descriptive title)'
 
 <!-- Ensure the title can be understood without the parent item's context, e.g. "nimble-button Angular wrapper" rather than just "Angular wrapper" -->
 
-## 📌 User Story
+# 📌 User Story

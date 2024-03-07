@@ -1,7 +1,9 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { createMatrixThemeStory } from '../../../utilities/tests/storybook';
-import { sharedMatrixParameters } from '../../../utilities/tests/matrix';
+import {
+    createMatrixThemeStory,
+    sharedMatrixParameters
+} from '../../../utilities/tests/matrix';
 import { Table, tableTag } from '../../../table';
 import { tableColumnEnumTextTag } from '..';
 import { mappingTextTag } from '../../../mapping/text';
@@ -45,9 +47,7 @@ const component = (): ViewTemplate => html`
     </${tableTag}>
 `;
 
-export const tableColumnEnumTextThemeMatrix: StoryFn = createMatrixThemeStory(
-    component()
-);
+export const tableColumnEnumTextThemeMatrix: StoryFn = createMatrixThemeStory(component());
 
 tableColumnEnumTextThemeMatrix.play = async (): Promise<void> => {
     await Promise.all(

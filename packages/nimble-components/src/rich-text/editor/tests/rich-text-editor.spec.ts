@@ -8,6 +8,7 @@ import type { Button } from '../../../button';
 import type { ToggleButton } from '../../../toggle-button';
 import { ToolbarButton } from '../testing/types';
 import { createEventListener } from '../../../utilities/tests/component';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return fixture<RichTextEditor>(
@@ -34,6 +35,7 @@ describe('RichTextEditor', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
+        await waitForUpdatesAsync();
         pageObject = new RichTextEditorPageObject(element);
     });
 

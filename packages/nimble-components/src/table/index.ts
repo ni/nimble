@@ -45,7 +45,8 @@ import {
     TableRowSelectionState,
     TableRowSelectionToggleEventDetail,
     TableRowState,
-    TableValidity
+    TableValidity,
+    TableSetRecordHierarchyOptions
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -245,6 +246,7 @@ export class Table<
             getSortedRowModel: tanStackGetSortedRowModel(),
             getGroupedRowModel: tanStackGetGroupedRowModel(),
             getExpandedRowModel: tanStackGetExpandedRowModel(),
+            getRowCanExpand: this.getRowCanExpand,
             getIsRowExpanded: this.getIsRowExpanded,
             getSubRows: r => r.subRows,
             columns: [],
@@ -298,6 +300,16 @@ export class Table<
                 rowSelection: this.calculateTanStackSelectionState(recordIds)
             }
         });
+    }
+
+    public async setRecordHierarchyOptions(
+        hierarchyOptions: TableSetRecordHierarchyOptions[]
+    ): Promise<void> {
+        await this.processPendingUpdates();
+        const clonedOptions = structuredClone(hierarchyOptions);
+        const presentOptions = this.tableValidator.getOptionsWithPresentIds(clonedOptions);
+        this.expansionManager.setHierarchyOptions(presentOptions);
+        this.refreshRows();
     }
 
     public override connectedCallback(): void {
@@ -427,7 +439,7 @@ export class Table<
         if (event.button === 0) {
             this.layoutManager.beginColumnInteractiveSize(
                 event.clientX,
-                columnIndex * 2
+                this.getRightDividerIndex(columnIndex)
             );
         }
     }
@@ -440,9 +452,19 @@ export class Table<
         if (event.button === 0) {
             this.layoutManager.beginColumnInteractiveSize(
                 event.clientX,
-                columnIndex * 2 - 1
+                this.getLeftDividerIndex(columnIndex)
             );
         }
+    }
+
+    /** @internal */
+    public getLeftDividerIndex(columnIndex: number): number {
+        return columnIndex * 2 - 1;
+    }
+
+    /** @internal */
+    public getRightDividerIndex(columnIndex: number): number {
+        return columnIndex * 2;
     }
 
     /** @internal */
@@ -770,6 +792,12 @@ export class Table<
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
             updatedOptions.state.rowSelection = {};
             this.selectionManager.handleSelectionReset();
+            this.expansionManager.resetHierarchyOptions();
+        }
+        if (this.tableUpdateTracker.updateRowParentIds) {
+            this.expansionManager.setHierarchyEnabled(
+                this.isHierarchyEnabled()
+            );
         }
         if (this.tableUpdateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
@@ -809,7 +837,7 @@ export class Table<
             || this.tableUpdateTracker.updateGroupRows
         ) {
             updatedOptions.state.expanded = true;
-            this.expansionManager.reset();
+            this.expansionManager.resetExpansionState();
         }
 
         this.updateTableOptions(updatedOptions);
@@ -896,6 +924,10 @@ export class Table<
         }
     }
 
+    private isHierarchyEnabled(): boolean {
+        return typeof this.parentIdFieldName === 'string';
+    }
+
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
 
@@ -904,10 +936,7 @@ export class Table<
         this.tableData = rows.map(row => {
             const isGroupRow = row.getIsGrouped();
             const hasParentRow = isGroupRow ? false : row.getParentRow();
-            // we check row.original.subRows below because row.subRows is populated for group rows
-            // which we don't want to include
-            const isParent = row.original.subRows !== undefined
-                && row.original.subRows.length > 0;
+            const isParent = !isGroupRow && this.getRowCanExpand(row);
             const isChildOfGroupRowWithNoHierarchy = !isGroupRow
                 && !isParent
                 && !hasParentRow
@@ -927,7 +956,10 @@ export class Table<
                     : row.depth,
                 isParentRow: isParent,
                 immediateChildCount: row.subRows.length,
-                groupColumn: this.getGroupRowColumn(row)
+                groupColumn: this.getGroupRowColumn(row),
+                isLoadingChildren: this.expansionManager.isLoadingChildren(
+                    row.id
+                )
             };
             hasDataHierarchy = hasDataHierarchy || isParent;
             return rowState;
@@ -962,23 +994,11 @@ export class Table<
     private getGroupedRowSelectionState(
         groupedRow: TanStackRow<TableNode<TData>>
     ): TableRowSelectionState {
-        const leafRows = groupedRow.getLeafRows() ?? [];
+        const leafRows = groupedRow.getLeafRows().filter(x => !x.getIsGrouped()) ?? [];
         let foundSelectedRow = false;
         let foundNotSelectedRow = false;
         for (const row of leafRows) {
-            if (row.getIsGrouped()) {
-                const subGroupRowSelectionState = this.getGroupedRowSelectionState(row);
-                switch (subGroupRowSelectionState) {
-                    case TableRowSelectionState.notSelected:
-                        foundNotSelectedRow = true;
-                        break;
-                    case TableRowSelectionState.selected:
-                        foundSelectedRow = true;
-                        break;
-                    default:
-                        return TableRowSelectionState.partiallySelected;
-                }
-            } else if (row.getIsSelected()) {
+            if (row.getIsSelected()) {
                 foundSelectedRow = true;
             } else {
                 foundNotSelectedRow = true;
@@ -1016,12 +1036,18 @@ export class Table<
             state: { ...this.options.state, ...updatedOptions.state }
         };
         this.table.setOptions(this.options);
-        if (updatedOptions.data) {
+        if (updatedOptions.data && this.tableValidator.areRecordIdsValid()) {
             const rows = this.table.getRowModel().flatRows;
             this.expansionManager.processDataUpdate(rows);
         }
         this.refreshRows();
     }
+
+    private readonly getRowCanExpand = (
+        row: TanStackRow<TableNode<TData>>
+    ): boolean => {
+        return this.expansionManager.isRowExpandable(row);
+    };
 
     private readonly getIsRowExpanded = (
         row: TanStackRow<TableNode<TData>>

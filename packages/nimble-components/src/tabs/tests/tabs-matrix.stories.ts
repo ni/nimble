@@ -1,10 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
+import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
-    createStory
-} from '../../utilities/tests/storybook';
-import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
@@ -78,13 +76,9 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
     )
 );
 
-export const panelOverflow: StoryFn = createStory(
-    html`
-        <nimble-tabs style="height: 120px; width: 400px;">
-            <nimble-tab>Tab One</nimble-tab>
-            <nimble-tab-panel style="width: 450px;"
-                >${loremIpsum}</nimble-tab-panel
-            >
-        </nimble-tabs>
-    `
-);
+export const panelOverflow: StoryFn = createStory(html`
+    <nimble-tabs style="height: 120px; width: 400px;">
+        <nimble-tab>Tab One</nimble-tab>
+        <nimble-tab-panel style="width: 450px;">${loremIpsum}</nimble-tab-panel>
+    </nimble-tabs>
+`);

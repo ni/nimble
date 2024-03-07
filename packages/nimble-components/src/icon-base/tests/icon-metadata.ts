@@ -55,6 +55,9 @@ export const iconMetadata: {
     IconArrowUpLeftAndArrowDownRight: {
         tags: ['resize', 'expand']
     },
+    IconArrowUpRightFromSquare: {
+        tags: ['open', 'external', 'link']
+    },
     IconArrowsMaximize: {
         tags: ['resize', 'fullscreen']
     },
@@ -241,6 +244,9 @@ export const iconMetadata: {
     IconEye: {
         tags: ['details', 'view']
     },
+    IconEyeDash: {
+        tags: ['hide', 'show', 'view', 'remove']
+    },
     IconFancyA: {
         tags: ['tdms string channel']
     },
@@ -310,6 +316,9 @@ export const iconMetadata: {
     IconHourglass: {
         tags: ['history', 'timer']
     },
+    IconHorizontalTriangleOutline: {
+        tags: ['resume', 'play', 'start', 'go', 'now']
+    },
     IconIndent: {
         tags: ['increase list level', 'indent right']
     },
@@ -321,6 +330,9 @@ export const iconMetadata: {
     },
     IconInfoCircle: {
         tags: []
+    },
+    IconInwardSquaresThree: {
+        tags: ['deploy']
     },
     IconItalicI: {
         tags: []
@@ -382,11 +394,20 @@ export const iconMetadata: {
     IconOutdent: {
         tags: ['decrease list level', 'indent left']
     },
+    IconOutwardSquaresThree: {
+        tags: ['undeploy']
+    },
     IconPaste: {
         tags: ['clipboard']
     },
+    IconPause: {
+        tags: ['stop', 'hold']
+    },
     IconPencil: {
         tags: ['edit']
+    },
+    IconPlay: {
+        tags: ['arrow', 'start', 'go']
     },
     IconPotWithLid: {
         tags: ['box', 'utilities']
@@ -436,6 +457,12 @@ export const iconMetadata: {
     IconSquareT: {
         tags: ['static text']
     },
+    IconSquareX: {
+        tags: ['quit', 'end', 'abort', 'stop', 'terminate']
+    },
+    IconStopSquare: {
+        tags: ['quit', 'end']
+    },
     IconSystemlink: {
         tags: ['logo', 'product']
     },
@@ -456,6 +483,9 @@ export const iconMetadata: {
     },
     IconTargetCrosshairsProgress: {
         tags: ['calibrate', 'self calibrate']
+    },
+    IconThreeCirclesAscendingContainer: {
+        tags: ['generate', 'produce']
     },
     IconThreeDotsLine: {
         tags: ['ellipsis', 'options']

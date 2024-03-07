@@ -1,8 +1,291 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 25 Jan 2024 02:58:12 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Mar 2024 17:56:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.19
+
+Wed, 06 Mar 2024 17:56:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.9.1
+
+## 20.2.18
+
+Tue, 05 Mar 2024 22:27:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.9.0
+
+## 20.2.17
+
+Mon, 04 Mar 2024 19:02:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.8.2
+
+## 20.2.16
+
+Fri, 01 Mar 2024 23:02:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.8.1
+
+## 20.2.15
+
+Thu, 29 Feb 2024 16:22:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.8.0
+
+## 20.2.13
+
+Wed, 28 Feb 2024 21:22:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.7.1
+
+## 20.2.12
+
+Wed, 28 Feb 2024 19:35:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.7.0
+
+## 20.2.11
+
+Mon, 26 Feb 2024 22:26:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.8
+
+## 20.2.10
+
+Fri, 23 Feb 2024 22:56:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.7
+
+## 20.2.9
+
+Fri, 23 Feb 2024 22:17:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.6
+
+## 20.2.8
+
+Fri, 23 Feb 2024 21:23:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.5
+
+## 20.2.7
+
+Fri, 23 Feb 2024 00:08:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.4
+
+## 20.2.6
+
+Thu, 22 Feb 2024 19:42:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.3
+
+## 20.2.5
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.2
+
+## 20.2.4
+
+Wed, 21 Feb 2024 23:32:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.1
+
+## 20.2.3
+
+Wed, 21 Feb 2024 21:18:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.0
+
+## 20.2.2
+
+Wed, 21 Feb 2024 19:48:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.5.5
+
+## 20.2.1
+
+Tue, 20 Feb 2024 17:54:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.5.4
+
+## 20.2.0
+
+Mon, 19 Feb 2024 23:03:42 GMT
+
+### Minor changes
+
+- Add support for delayed hierarchy in the table ([ni/nimble@8fc186e](https://github.com/ni/nimble/commit/8fc186e3c759eac9d69ba01802b07dfb9e51efbd))
+
+## 20.1.2
+
+Mon, 19 Feb 2024 22:25:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.5.3
+
+## 20.1.1
+
+Mon, 19 Feb 2024 19:14:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.5.2
+
+## 20.1.0
+
+Mon, 19 Feb 2024 16:59:58 GMT
+
+### Minor changes
+
+- Angular filterable Select ([ni/nimble@315917c](https://github.com/ni/nimble/commit/315917c5cf3768d0dcaf3901eef0087c5299832e))
+
+## 20.0.10
+
+Fri, 16 Feb 2024 18:10:59 GMT
+
+### Patches
+
+- Inline sources into map files ([ni/nimble@2b6c327](https://github.com/ni/nimble/commit/2b6c327fd3bc4f49178ac370f695a8b941278c46))
+- Bump @ni/nimble-components to v21.5.1
+
+## 20.0.9
+
+Thu, 15 Feb 2024 20:48:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.5.0
+
+## 20.0.8
+
+Wed, 14 Feb 2024 21:03:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.4.0
+
+## 20.0.7
+
+Tue, 13 Feb 2024 21:22:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.3.3
+
+## 20.0.6
+
+Tue, 13 Feb 2024 17:44:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.3.2
+
+## 20.0.4
+
+Fri, 09 Feb 2024 02:02:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.3.1
+
+## 20.0.3
+
+Wed, 07 Feb 2024 21:48:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.3.0
+
+## 20.0.2
+
+Wed, 07 Feb 2024 19:06:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.2.1
+
+## 20.0.1
+
+Fri, 02 Feb 2024 21:51:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.2.0
+
+## 20.0.0
+
+Wed, 31 Jan 2024 20:22:58 GMT
+
+### Major changes
+
+- Create new NumberTextPipe and change existing DurationPipe to be a standalone pipe (removing NimblePipesModule) ([ni/nimble@bf9013d](https://github.com/ni/nimble/commit/bf9013d5cb92106ddd1fcf6fd84e6684930462b8))
+- Bump @ni/nimble-components to v21.1.0
+
+## 19.4.0
+
+Wed, 31 Jan 2024 17:51:55 GMT
+
+### Minor changes
+
+- Include href in NavigationGuard ([ni/nimble@147777a](https://github.com/ni/nimble/commit/147777aaf8332d80a89aecec247a95ee31233965))
+
+## 19.3.1
+
+Mon, 29 Jan 2024 11:31:46 GMT
+
+### Patches
+
+- Add validator APIs to rich text editor and viewer components ([ni/nimble@ec2e0dd](https://github.com/ni/nimble/commit/ec2e0ddef1d910d44097ccb2a976ad2343dbac63))
+- Bump @ni/nimble-components to v21.0.5
+
+## 19.3.0
+
+Sat, 27 Jan 2024 17:56:18 GMT
+
+### Minor changes
+
+- Adding Angular support for table data hierarchy ([ni/nimble@39bd1f8](https://github.com/ni/nimble/commit/39bd1f821cd5394c75187abbcf3c3dcc9b3a1572))
 
 ## 19.2.4
 
