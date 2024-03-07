@@ -79,3 +79,10 @@ export interface WaferMapValidity extends ValidityObject {
     readonly invalidGridDimensions: boolean;
     readonly invalidDiesTableSchema: boolean;
 }
+
+export interface WaferMapLayerData {
+    colIndex: number[];
+    rowIndex: number[];
+    values: number[];
+    tags: string[][];
+}
