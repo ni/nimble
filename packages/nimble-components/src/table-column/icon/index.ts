@@ -6,7 +6,12 @@ import {
 } from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
-import { TableColumnSortOperation, TableColumnValidity, columnIconSize, columnSpacing } from '../base/types';
+import {
+    TableColumnSortOperation,
+    TableColumnValidity,
+    columnIconSize,
+    columnSpacing
+} from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { MappingSpinner } from '../../mapping/spinner';
 import { MappingIcon } from '../../mapping/icon';
