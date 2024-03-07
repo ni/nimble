@@ -1,7 +1,7 @@
 import { XliffFile, XliffTranslationArray, XliffTranslationObject, XliffTranslationString } from 'xliff';
-import { JsonFile, saveJson, Translations } from './json-file';
-import { Writeable } from './util';
-import { loadXliff } from './xliff-file';
+import { JsonFile, saveJson, Translations } from './json-file.js';
+import { Writeable } from './util.js';
+import { loadXliff } from './xliff-file.js';
 
 export async function convertXliff2Json(src: string, dst: string): Promise<void> {
     const xliff = await loadXliff(src);

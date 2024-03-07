@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFileSync } from 'node:fs';
 import { xliff12ToJs, XliffFile } from 'xliff';
 
 export async function loadXliff(path: string): Promise<XliffFile> {

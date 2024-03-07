@@ -1,5 +1,5 @@
-require('./config');
-require('./nimble-extensions');
+require('./config.cjs');
+require('./nimble-extensions.cjs');
 const StyleDictionary = require('style-dictionary');
 
 (async () => {

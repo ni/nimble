@@ -1,5 +1,5 @@
-import { xliff2Json } from './convert';
-import { parseXliff } from './xliff-file';
+import { xliff2Json } from './convert.js';
+import { parseXliff } from './xliff-file.js';
 
 describe('xliff2Json', () => {
     it('produces an object with language and translations', async () => {

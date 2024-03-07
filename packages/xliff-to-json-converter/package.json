@@ -2,7 +2,7 @@
   "name": "@ni/xliff-to-json-converter",
   "version": "1.1.4",
   "description": "A utility to convert translation files from XLIFF to JSON for Angular localization",
-  "main": "dist/commonjs/cli.js",
+  "main": "dist/esm/cli.js",
   "bin": {
     "xliff-to-json-converter": "./dist/commonjs/cli.js"
   },
@@ -22,6 +22,7 @@
     "url": "git+https://github.com/ni/nimble.git",
     "directory": "packages/xliff-to-json-converter"
   },
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
