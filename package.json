@@ -49,5 +49,13 @@
     "cross-env": "^7.0.3",
     "patch-package": "^8.0.0",
     "playwright": "1.40.0"
+  },
+  "peerDependencies": {
+    "svg-to-ts": "*"
+  },
+  "overrides": {
+    "svg-to-ts": {
+      "cosmiconfig": "^8.0.0"
+    }
   }
 }

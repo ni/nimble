@@ -49,11 +49,6 @@
     "to-ico": "^1.1.5",
     "typescript": "~4.8.2"
   },
-  "overrides": {
-    "svg-to-ts": {
-      "cosmiconfig": "^8.0.0"
-    }
-  },
   "files": [
     "dist/styledictionary/css/**",
     "dist/styledictionary/js/**",
