@@ -75,6 +75,7 @@
     "@tiptap/extension-bold": "^2.2.2",
     "@tiptap/extension-bullet-list": "^2.2.2",
     "@tiptap/extension-document": "^2.2.2",
+    "@tiptap/extension-hard-break": "^2.2.2",
     "@tiptap/extension-history": "^2.2.2",
     "@tiptap/extension-italic": "^2.2.2",
     "@tiptap/extension-link": "^2.2.2",
@@ -84,7 +85,6 @@
     "@tiptap/extension-paragraph": "^2.2.2",
     "@tiptap/extension-placeholder": "^2.2.2",
     "@tiptap/extension-text": "^2.2.2",
-    "@tiptap/extension-hard-break": "^2.2.2",
     "@types/d3-array": "^3.0.4",
     "@types/d3-random": "^3.0.1",
     "@types/d3-scale": "^4.0.2",
@@ -101,6 +101,9 @@
     "prosemirror-model": "^1.19.2",
     "prosemirror-state": "^1.4.3",
     "tslib": "^2.2.0"
+  },
+  "peerDependencies": {
+    "apache-arrow": "^15.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",
