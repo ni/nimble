@@ -6,7 +6,7 @@ import {
 } from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
-import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
+import { TableColumnSortOperation, TableColumnValidity, columnIconSize, columnSpacing } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { MappingSpinner } from '../../mapping/spinner';
 import { MappingIcon } from '../../mapping/icon';
@@ -19,9 +19,7 @@ import type { MappingConfig } from '../enum-base/models/mapping-config';
 import { MappingIconConfig } from '../enum-base/models/mapping-icon-config';
 import { MappingSpinnerConfig } from '../enum-base/models/mapping-spinner-config';
 
-const cellPadding = 8;
-const iconSize = 16;
-const fixedColumnSize = iconSize + 2 * cellPadding;
+const fixedColumnSize = columnIconSize + 2 * columnSpacing;
 
 declare global {
     interface HTMLElementTagNameMap {
