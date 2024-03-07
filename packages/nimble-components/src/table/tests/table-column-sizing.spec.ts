@@ -535,7 +535,7 @@ describe('Table Interactive Column Sizing', () => {
 
         const resizingDisabledDividerDraggabilityTests = [
             {
-                name: 'all dividers are draggable when no columns having resizing disabled',
+                name: 'all dividers are draggable when no columns have resizing disabled',
                 resizingDisabled: [false, false, false, false],
                 expectedDraggableDividers: [0, 1, 2, 3, 4, 5]
             },
