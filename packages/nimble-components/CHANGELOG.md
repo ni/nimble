@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 01 Mar 2024 23:02:58 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Mar 2024 17:56:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.9.1
+
+Wed, 06 Mar 2024 17:56:10 GMT
+
+### Patches
+
+- Minor updates from lint ([ni/nimble@dfd8acc](https://github.com/ni/nimble/commit/dfd8accc27d885df5eb8024d57e60f486066719a))
+
+## 21.9.0
+
+Tue, 05 Mar 2024 22:27:12 GMT
+
+### Minor changes
+
+- Adding placeholder behavior for Select ([ni/nimble@19643f4](https://github.com/ni/nimble/commit/19643f4e13056e414aedd6b8ef89beb7ad1e95ab))
+
+## 21.8.2
+
+Mon, 04 Mar 2024 19:02:52 GMT
+
+### Patches
+
+- Update column divider color on hover ([ni/nimble@4b05012](https://github.com/ni/nimble/commit/4b0501210e4096c23350dbe5cb2eb9e4d6901ed6))
 
 ## 21.8.1
 

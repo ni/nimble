@@ -670,6 +670,9 @@ export class Select
         }
     }
 
+    /**
+     * @internal
+     */
     public registerOption(option: ListOption): void {
         if (this.options.includes(option)) {
             return;

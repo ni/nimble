@@ -21,7 +21,7 @@ export const sharedMatrixParameters = () => ({
             hidden: true
         }
     }
-} as const);
+}) as const;
 
 /**
  * Takes an array of state values that can be used with the template to match the permutations of the provided states.
