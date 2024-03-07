@@ -559,7 +559,7 @@ describe('TableColumnIcon', () => {
         });
     });
 
-    fdescribe('placeholder', () => {
+    describe('placeholder', () => {
         const testCases = [
             {
                 name: 'value is not specified',
