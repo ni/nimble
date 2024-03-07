@@ -58,7 +58,8 @@ export class WaferMapValidator {
             const valueField = this.wafermap.diesTable.schema.fields.findIndex(
                 f => f.name === 'value'
             );
-            if (this.wafermap.diesTable.numCols < 3
+            if (
+                this.wafermap.diesTable.numCols < 3
                 || colIndexField === -1
                 || rowIndexField === -1
                 || valueField === -1
@@ -66,17 +67,20 @@ export class WaferMapValidator {
                     this.wafermap.diesTable.schema.fields[colIndexField]!.type
                 )
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                || this.wafermap.diesTable.schema.fields[colIndexField]!.type.bitWidth !== 32
+                || this.wafermap.diesTable.schema.fields[colIndexField]!.type
+                    .bitWidth !== 32
                 || !DataType.isInt(
                     this.wafermap.diesTable.schema.fields[rowIndexField]!.type
                 )
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                || this.wafermap.diesTable.schema.fields[rowIndexField]!.type.bitWidth !== 32
+                || this.wafermap.diesTable.schema.fields[rowIndexField]!.type
+                    .bitWidth !== 32
                 || !DataType.isFloat(
                     this.wafermap.diesTable.schema.fields[valueField]!.type
                 )
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                || this.wafermap.diesTable.schema.fields[valueField]!.type.precision !== Precision.DOUBLE
+                || this.wafermap.diesTable.schema.fields[valueField]!.type
+                    .precision !== Precision.DOUBLE
             ) {
                 this.invalidDiesTableSchema = true;
             }
