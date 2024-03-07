@@ -1,4 +1,4 @@
-import { DataType } from 'apache-arrow';
+import { DataType, Precision, Type } from 'apache-arrow';
 import type { WaferMap } from '..';
 import type { WaferMapValidity } from '../types';
 
@@ -48,39 +48,35 @@ export class WaferMapValidator {
         this.invalidDiesTableSchema = false;
         if (this.wafermap.diesTable === undefined) {
             this.invalidDiesTableSchema = false;
-        } else if (
-            this.wafermap.diesTable.numCols < 3
-            || this.wafermap.diesTable.schema.fields.findIndex(
-                f => f.name === 'colIndex'
-            ) === -1
-            || this.wafermap.diesTable.schema.fields.findIndex(
-                f => f.name === 'rowIndex'
-            ) === -1
-            || this.wafermap.diesTable.schema.fields.findIndex(
-                f => f.name === 'value'
-            ) === -1
-        ) {
-            this.invalidDiesTableSchema = true;
         } else {
-            const colIndex = this.wafermap.diesTable.schema.fields.findIndex(
+            const colIndexField = this.wafermap.diesTable.schema.fields.findIndex(
                 f => f.name === 'colIndex'
             );
-            const rowIndex = this.wafermap.diesTable.schema.fields.findIndex(
+            const rowIndexField = this.wafermap.diesTable.schema.fields.findIndex(
                 f => f.name === 'rowIndex'
             );
-            const value = this.wafermap.diesTable.schema.fields.findIndex(
+            const valueField = this.wafermap.diesTable.schema.fields.findIndex(
                 f => f.name === 'value'
             );
-            if (
-                !DataType.isInt(
-                    this.wafermap.diesTable.schema.fields[colIndex]!.type
-                )
+            if (this.wafermap.diesTable.numCols < 3
+                || colIndexField === -1
+                || rowIndexField === -1
+                || valueField === -1
                 || !DataType.isInt(
-                    this.wafermap.diesTable.schema.fields[rowIndex]!.type
+                    this.wafermap.diesTable.schema.fields[colIndexField]!.type
                 )
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                || this.wafermap.diesTable.schema.fields[colIndexField]!.type.bitWidth !== 32
+                || !DataType.isInt(
+                    this.wafermap.diesTable.schema.fields[rowIndexField]!.type
+                )
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                || this.wafermap.diesTable.schema.fields[rowIndexField]!.type.bitWidth !== 32
                 || !DataType.isFloat(
-                    this.wafermap.diesTable.schema.fields[value]!.type
+                    this.wafermap.diesTable.schema.fields[valueField]!.type
                 )
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                || this.wafermap.diesTable.schema.fields[valueField]!.type.precision !== Precision.DOUBLE
             ) {
                 this.invalidDiesTableSchema = true;
             }
