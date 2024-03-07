@@ -1,4 +1,4 @@
-import { stringify, JsonFile } from './json-file';
+import { stringify, JsonFile } from './json-file.js';
 
 describe('JsonFile', () => {
     it('can convert to string', async () => {
