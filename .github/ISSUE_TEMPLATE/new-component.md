@@ -2,7 +2,7 @@
 name: 💡 New Component
 about: New Nimble component
 title: 'nimble-{name} Component'
-labels: 'new component,enhancement'
+labels: 'new component,enhancement,triage'
 ---
 
 # 💡 New Component
