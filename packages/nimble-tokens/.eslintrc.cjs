@@ -9,7 +9,7 @@ module.exports = {
                 ecmaVersion: '2020'
             },
             files: [
-                'source/styledictionary/*.js',
+                'source/styledictionary/*.cjs',
             ],
             rules: {
                 // Build scripts will not be in published package and are allowed to use devDependencies
