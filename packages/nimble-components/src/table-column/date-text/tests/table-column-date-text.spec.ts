@@ -8,6 +8,7 @@ import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { TableColumnDateTextPageObject } from '../testing/table-column-date-text.pageobject';
 import { lang, themeProviderTag } from '../../../theme-provider';
+import { DateTextFormat } from '../types';
 
 interface SimpleTableRecord extends TableRecord {
     field?: number | null;
@@ -515,49 +516,37 @@ describe('TableColumnDateText', () => {
                 {
                     name: 'value is not specified',
                     data: [{}],
-                    cellValue: '',
-                    groupValue: 'No value',
-                    usesColumnPlaceholder: true
+                    groupValue: 'No value'
                 },
                 {
                     name: 'value is undefined',
                     data: [{ field: undefined }],
-                    cellValue: '',
-                    groupValue: 'No value',
-                    usesColumnPlaceholder: true
+                    groupValue: 'No value'
                 },
                 {
                     name: 'value is null',
                     data: [{ field: null }],
-                    cellValue: '',
-                    groupValue: 'No value',
-                    usesColumnPlaceholder: true
+                    groupValue: 'No value'
                 },
                 {
                     name: 'value is Number.NaN',
                     data: [{ field: Number.NaN }],
-                    cellValue: '',
-                    groupValue: '',
-                    usesColumnPlaceholder: false
+                    groupValue: ''
                 },
                 {
                     name: 'value is valid and non-zero',
                     data: [{ field: 1708984169258 }],
-                    cellValue: 'Feb 26, 2024, 3:49:29 PM',
-                    groupValue: 'Feb 26, 2024, 3:49:29 PM',
-                    usesColumnPlaceholder: false
+                    groupValue: '2/26/2024'
                 },
                 {
                     name: 'value is incorrect type',
                     data: [{ field: 'not a number' as unknown as number }],
-                    cellValue: '',
-                    groupValue: '',
-                    usesColumnPlaceholder: false
+                    groupValue: ''
                 },
                 {
                     name: 'value is specified and falsey',
                     data: [{ field: 0 }],
-                    groupValue: 'Dec 31, 1969, 6:00:00 PM'
+                    groupValue: '1/1/1970'
                 },
                 {
                     name: 'value is Inf',
@@ -590,6 +579,10 @@ describe('TableColumnDateText', () => {
                 spec(
                     `group row renders expected value when ${name}`,
                     async () => {
+                        // Set a custom time zone so that the behavior of the test does not
+                        // depend on the configuration of the computer running the tests.
+                        column.format = DateTextFormat.custom;
+                        column.customTimeZone = 'UTC';
                         await table.setData(value.data);
                         await connect();
                         await waitForUpdatesAsync();

@@ -21,8 +21,8 @@ export abstract class TableColumnTextGroupHeaderViewBase<
      * Text to render in the cell.
      *
      * The value is initialized to `tableGroupRowNoValuePlaceholder` because if the group
-     * row never has a value defined on it, the change handlers in the implementation may
-     * never get called but the text needs to be correct.
+     * row never has a value defined on it, the change handlers may never get called but
+     * the text needs to be correct.
      */
     @observable
     public text = tableGroupRowNoValuePlaceholderLabel.getValueFor(this);
