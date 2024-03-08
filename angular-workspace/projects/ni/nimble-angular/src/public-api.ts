@@ -67,7 +67,6 @@ export * from './directives/radio-group/nimble-radio-group.directive';
 export * from './directives/radio-group/nimble-radio-group.module';
 export * from './directives/select/nimble-select-control-value-accessor.directive';
 export * from './directives/select/nimble-select.directive';
-export * from './directives/select/testing/select.pageobject';
 export * from './directives/select/nimble-select.module';
 export * from './directives/spinner/nimble-spinner.directive';
 export * from './directives/spinner/nimble-spinner.module';

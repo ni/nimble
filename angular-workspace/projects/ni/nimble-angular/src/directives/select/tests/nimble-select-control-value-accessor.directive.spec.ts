@@ -1,15 +1,11 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SelectPageObject } from '@ni/nimble-angular/select/testing';
 import { NimbleSelectModule } from '../nimble-select.module';
 import { NimbleListOptionModule } from '../../list-option/nimble-list-option.module';
 import { processUpdates, waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { Select } from '../nimble-select.directive';
-
-function setSelectValue(select: Select, index: number): void {
-    select.dispatchEvent(new Event('click'));
-    select.options[index].dispatchEvent(new Event('click', { bubbles: true }));
-}
 
 describe('Nimble select control value accessor', () => {
     describe('when using option\'s [ngValue] binding', () => {
@@ -46,6 +42,7 @@ describe('Nimble select control value accessor', () => {
         let select: Select;
         let fixture: ComponentFixture<TestHostComponent>;
         let testHostComponent: TestHostComponent;
+        let pageObject: SelectPageObject;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -58,6 +55,7 @@ describe('Nimble select control value accessor', () => {
             fixture = TestBed.createComponent(TestHostComponent);
             testHostComponent = fixture.componentInstance;
             select = testHostComponent.select.nativeElement;
+            pageObject = new SelectPageObject(select);
             fixture.detectChanges();
             // wait for select's 'options' property to be updated from slotted content
             await waitForUpdatesAsync();
@@ -81,7 +79,8 @@ describe('Nimble select control value accessor', () => {
         }));
 
         it('updates bound property when selected value is changed', () => {
-            setSelectValue(select, 2);
+            pageObject.clickSelect();
+            pageObject.clickOption(2);
             fixture.detectChanges();
 
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[2]);
@@ -110,7 +109,8 @@ describe('Nimble select control value accessor', () => {
         it('fires ngModelChange one time with expected value', () => {
             const ngModelChangeSpy = spyOn(testHostComponent, 'onModelValueChange');
             const indexToSelect = 2;
-            setSelectValue(select, indexToSelect);
+            pageObject.clickSelect();
+            pageObject.clickOption(indexToSelect);
             fixture.detectChanges();
             expect(ngModelChangeSpy).toHaveBeenCalledOnceWith(testHostComponent.selectOptions[indexToSelect]);
         });
@@ -142,6 +142,7 @@ describe('Nimble select control value accessor', () => {
         let select: Select;
         let fixture: ComponentFixture<TestHostComponent>;
         let testHostComponent: TestHostComponent;
+        let pageObject: SelectPageObject;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -154,6 +155,7 @@ describe('Nimble select control value accessor', () => {
             fixture = TestBed.createComponent(TestHostComponent);
             testHostComponent = fixture.componentInstance;
             select = testHostComponent.select.nativeElement;
+            pageObject = new SelectPageObject(select);
             fixture.detectChanges();
             // wait for select's 'options' property to be updated from slotted content
             await waitForUpdatesAsync();
@@ -177,7 +179,8 @@ describe('Nimble select control value accessor', () => {
         }));
 
         it('updates bound property when selected value is changed', () => {
-            setSelectValue(select, 2);
+            pageObject.clickSelect();
+            pageObject.clickOption(2);
             fixture.detectChanges();
 
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[2].value.toString());
