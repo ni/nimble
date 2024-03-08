@@ -12,6 +12,8 @@ import { spinnerTag } from '../../../spinner';
 
 The <Tag name={tableColumnIconTag}/> column renders string, number, or boolean values as a Nimble icon or <Tag name={spinnerTag}/> in the <Tag name={tableTag}/>.
 
+The column is a fixed size and cannot be resized by a user. The column is wide enough for a single icon, so the column's header should be a nimble icon that has a `title` configured on it for accessibility.
+
 <p>{columnOperationBehavior}</p>
 
 <Canvas of={tableColumnIconStories.iconColumn} />

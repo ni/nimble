@@ -132,7 +132,8 @@ export class TableUpdateTracker<
                 changedColumnProperty,
                 'currentFractionalWidth',
                 'currentPixelWidth',
-                'minPixelWidth'
+                'minPixelWidth',
+                'resizingDisabled'
             )
         ) {
             this.track('columnWidths');

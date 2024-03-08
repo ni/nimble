@@ -124,8 +124,8 @@ export const styles = css`
         border-color: ${borderHoverColor};
     }
 
-    .column-divider.column-active,
-    .header-container:hover .column-divider {
+    .column-divider.column-active.draggable,
+    .header-container:hover .column-divider.draggable {
         display: block;
     }
 

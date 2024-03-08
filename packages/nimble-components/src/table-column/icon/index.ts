@@ -6,9 +6,13 @@ import {
 } from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
-import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
+import {
+    TableColumnSortOperation,
+    TableColumnValidity,
+    columnIconSize,
+    columnSpacing
+} from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
-import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { MappingSpinner } from '../../mapping/spinner';
 import { MappingIcon } from '../../mapping/icon';
 import { TableColumnIconValidator } from './models/table-column-icon-validator';
@@ -20,6 +24,8 @@ import type { MappingConfig } from '../enum-base/models/mapping-config';
 import { MappingIconConfig } from '../enum-base/models/mapping-icon-config';
 import { MappingSpinnerConfig } from '../enum-base/models/mapping-spinner-config';
 
+const fixedColumnSize = columnIconSize + 2 * columnSpacing;
+
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-table-column-icon': TableColumnIcon;
@@ -30,13 +36,16 @@ declare global {
  * Table column that maps values to icons / spinners
  */
 export class TableColumnIcon extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(
-        TableColumnEnumBase<
-        TableColumnEnumColumnConfig,
-        TableColumnIconValidator
-        >
-    )
+    TableColumnEnumBase<TableColumnEnumColumnConfig, TableColumnIconValidator>
 ) {
+    public constructor() {
+        super();
+
+        this.columnInternals.resizingDisabled = true;
+        this.columnInternals.pixelWidth = fixedColumnSize;
+        this.columnInternals.minPixelWidth = fixedColumnSize;
+    }
+
     public override createValidator(): TableColumnIconValidator {
         return new TableColumnIconValidator(this.columnInternals);
     }

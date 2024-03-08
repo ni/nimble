@@ -15,6 +15,8 @@ import { mappingIconTag } from '../../../mapping/icon';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { sharedMappingValidityDescription } from '../../enum-base/tests/shared-storybook-docs';
 import { isChromatic } from '../../../utilities/tests/isChromatic';
+import { iconChartDiagramChildFocusTag } from '../../../icons/chart-diagram-child-focus';
+import { iconXmarkCheckTag } from '../../../icons/xmark-check';
 
 const simpleData = [
     {
@@ -76,17 +78,22 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
             style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
         >
             <${tableColumnTextTag} field-name="firstName" >
-                Name
+                First name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag} field-name="lastName" >
+                Last name
             </${tableColumnTextTag}>
             <${tableColumnIconTag} field-name="status" group-index="0">
-                Status
+                <${iconXmarkCheckTag} title="Is a Simpson"></${iconXmarkCheckTag}>
+
                 <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
                 <${mappingIconTag} key="success" icon="${iconCheckLargeTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
                 <${mappingSpinnerTag} key="calculating" text="Calculating"></${mappingSpinnerTag}>
                 <${mappingIconTag} key="unknown" text="Unknown"></${mappingIconTag}>
             </${tableColumnIconTag}>
             <${tableColumnIconTag} field-name="isChild" key-type="boolean">
-                Is Child
+                <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}>
+
                 <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child"></${mappingIconTag}>
                 <${mappingIconTag} key="true" icon="${iconCheckLargeTag}" severity="success" text="Is a child"></${mappingIconTag}>
             </${tableColumnIconTag}>

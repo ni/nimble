@@ -10,6 +10,7 @@ import { iconCheckTag } from '../../../icons/check';
 import { mappingIconTag } from '../../../mapping/icon';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { isChromatic } from '../../../utilities/tests/isChromatic';
+import { iconCircleFilledTag } from '../../../icons/circle-filled';
 
 const metadata: Meta = {
     title: 'Tests/Table Column: Icon',
@@ -47,7 +48,8 @@ const component = (): ViewTemplate => html`
             key-type="number"
             group-index="0"
         >
-            Column 1
+            <${iconCircleFilledTag} title="Column 1"></${iconCircleFilledTag}>
+
             <${mappingIconTag} key="-1" text="Unknown value"></${mappingIconTag}>
             <${mappingIconTag} key="0" text="Zero" icon="${iconCheckTag}"></${mappingIconTag}>
             <${mappingSpinnerTag} key="1" text="One"></${mappingSpinnerTag}>
@@ -56,7 +58,8 @@ const component = (): ViewTemplate => html`
             field-name="code"
             key-type="number"
         >
-            Column 2
+            <${iconCircleFilledTag} title="Column 2"></${iconCircleFilledTag}>
+
             <${mappingIconTag} key="-1" text="Unknown value"></${mappingIconTag}>
             <${mappingIconTag} key="0" text="Zero" icon="${iconCheckTag}" severity="success"></${mappingIconTag}>
             <${mappingIconTag} key="1" text="One" icon="${iconCheckTag}" severity="warning"></${mappingIconTag}>
@@ -66,7 +69,8 @@ const component = (): ViewTemplate => html`
             field-name="code"
             key-type="number"
         >
-            Column 3
+            <${iconCircleFilledTag} title="Column 3"></${iconCircleFilledTag}>
+
             <${mappingIconTag} key="-1" text="Unknown value"></${mappingIconTag}>
             <${mappingIconTag} key="0" text="Zero" icon="${iconCheckTag}" severity="information"></${mappingIconTag}>
         </${tableColumnIconTag}>

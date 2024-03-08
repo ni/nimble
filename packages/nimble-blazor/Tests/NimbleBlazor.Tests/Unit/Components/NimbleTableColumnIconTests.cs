@@ -165,13 +165,6 @@ public class NimbleTableColumnIconBaseTests : NimbleTableColumnTests<NimbleTable
 }
 
 /// <summary>
-/// Tests for FractionalWidthAPI on <see cref="NimbleTableColumnIcon"/>
-/// </summary>
-public class NimbleTableColumnIconFractionalWidthTests : FractionalWidthBaseTests<NimbleTableColumnIcon<int>>
-{
-}
-
-/// <summary>
 /// Tests for GroupableAPI on <see cref="NimbleTableColumnIcon"/>
 /// </summary>
 public class NimbleTableColumnIconGroupableTests : GroupableBaseTests<NimbleTableColumnIcon<int>>
