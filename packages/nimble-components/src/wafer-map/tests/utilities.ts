@@ -1,4 +1,5 @@
 import { ScaleBand, scaleBand } from 'd3-scale';
+import type { Table } from 'apache-arrow';
 import {
     Dimensions,
     Margin,
@@ -122,7 +123,10 @@ export function getWaferMapMockComputations(
     originLocation: WaferMapOriginLocation,
     canvasWidth: number,
     canvasHeight: number,
-    validity: WaferMapValidity = { invalidGridDimensions: false }
+    validity: WaferMapValidity = {
+        invalidGridDimensions: false,
+        invalidDiesTableSchema: false
+    }
 ): Pick<
     WaferMap,
     'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
@@ -140,12 +144,17 @@ export function getWaferMapMockValidator(
     gridMinX: number | undefined,
     gridMaxX: number | undefined,
     gridMinY: number | undefined,
-    gridMaxY: number | undefined
-): Pick<WaferMap, 'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY'> {
+    gridMaxY: number | undefined,
+    diesTable: Table | undefined = undefined
+): Pick<
+    WaferMap,
+    'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY' | 'diesTable'
+    > {
     return {
         gridMinX,
         gridMaxX,
         gridMinY,
-        gridMaxY
+        gridMaxY,
+        diesTable
     };
 }

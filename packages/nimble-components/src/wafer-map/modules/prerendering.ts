@@ -52,9 +52,12 @@ export class Prerendering {
             this.wafermap.colorScale,
             this.wafermap.colorScaleMode
         );
+        const isDieRenderInfo = (
+            info: DieRenderInfo | null
+        ): info is DieRenderInfo => info !== null;
         this._diesRenderInfo = this.wafermap.dies
             .map(die => this.computeDieRenderInfo(die))
-            .filter(info => info !== null) as DieRenderInfo[];
+            .filter(isDieRenderInfo);
     }
 
     private computeDieRenderInfo(die: WaferMapDie): DieRenderInfo | null {
