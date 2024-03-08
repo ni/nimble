@@ -269,7 +269,7 @@ describe('Nimble select control value accessor', () => {
         class TestHostComponent implements OnChanges {
             @ViewChild('select', { static: true }) public select: ElementRef<Select>;
 
-            @Input() public selectValue = '';
+            @Input() public selectValue?: { name: string, value: number };
 
             public selectOptions: { name: string, value: number }[] = [
                 { name: 'Option 1', value: 1 },
@@ -289,8 +289,10 @@ describe('Nimble select control value accessor', () => {
 
             public ngOnChanges(changes: SimpleChanges): void {
                 if (changes.selectValue.currentValue !== changes.selectValue.previousValue) {
-                    this.selectOptions.push({ name: this.selectValue, value: 4 });
-                    this.selectValueField.setValue(this.selectOptions.find(o => o.name === this.selectValue));
+                    // intentionally adding option after first option for DOM order
+                    const newValue = changes.selectValue.currentValue as { name: string, value: number };
+                    this.selectOptions.splice(1, 0, newValue);
+                    this.selectValueField.setValue(newValue);
                 }
             }
         }
@@ -321,12 +323,14 @@ describe('Nimble select control value accessor', () => {
 
         it('can set value to option that is dynamically added from input', async () => {
             const oldSelectValue = testHostComponent.selectValue;
-            testHostComponent.selectValue = 'Option 4';
+            const newValue = { name: 'Option 4', value: 4 };
+            testHostComponent.selectValue = newValue;
+            // this will result in an option added after the first option in DOM order
             testHostComponent.ngOnChanges({ selectValue: new SimpleChange(oldSelectValue, testHostComponent.selectValue, false) });
             fixture.detectChanges();
             await fixture.whenStable();
             await waitForUpdatesAsync();
-            expect(select.selectedIndex).toBe(3);
+            expect(select.selectedIndex).toBe(1);
         });
     });
 });

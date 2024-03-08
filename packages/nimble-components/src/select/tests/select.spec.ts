@@ -281,7 +281,7 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('option added directly to DOM synchronously registers with Select', async () => {
+    fit('option added directly to DOM synchronously registers with Select', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         await waitForUpdatesAsync();
@@ -291,10 +291,14 @@ describe('Select', () => {
             'registerOption'
         ).and.callThrough();
         registerOptionSpy.calls.reset();
-        element.appendChild(newOption);
+        element.insertBefore(newOption, element.options[0]!);
 
         expect(registerOptionSpy.calls.count()).toBe(1);
         expect(element.options).toContain(newOption);
+        expect(element.selectedIndex).toBe(0);
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('one');
+        expect(element.selectedIndex).toBe(1);
         await disconnect();
     });
 
