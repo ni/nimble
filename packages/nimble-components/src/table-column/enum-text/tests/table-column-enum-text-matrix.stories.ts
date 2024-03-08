@@ -47,9 +47,7 @@ const component = (): ViewTemplate => html`
     </${tableTag}>
 `;
 
-export const tableColumnEnumTextThemeMatrix: StoryFn = createMatrixThemeStory(
-    component()
-);
+export const tableColumnEnumTextThemeMatrix: StoryFn = createMatrixThemeStory(component());
 
 tableColumnEnumTextThemeMatrix.play = async (): Promise<void> => {
     await Promise.all(

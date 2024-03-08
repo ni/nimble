@@ -5,6 +5,7 @@ import {
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
+import type { Table } from 'apache-arrow';
 import { type Remote, transfer } from 'comlink';
 import { template } from './template';
 import { styles } from './styles';
@@ -22,6 +23,7 @@ import {
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
+import { WorkerRenderer } from './modules/worker-renderer';
 import type { MatrixRenderer } from '../../build/generate-workers/dist/esm/source/matrix-renderer';
 import { createMatrixRenderer } from './modules/create-matrix-renderer';
 
@@ -103,7 +105,14 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly renderer = new RenderingModule(this);
+    public readonly mainRenderer = new RenderingModule(this);
+    /**
+     * @internal
+     */
+    public readonly workerRenderer = new WorkerRenderer(this);
+
+    @observable
+    public renderer: RenderingModule | WorkerRenderer = this.mainRenderer;
 
     /**
      * @internal
@@ -152,6 +161,8 @@ export class WaferMap extends FoundationElement {
 
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
+    @observable public diesTable: Table | undefined;
+
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
@@ -193,9 +204,12 @@ export class WaferMap extends FoundationElement {
      * The hover does not require an event update, but it's also the last update in the sequence.
      */
     public update(): void {
+        this.validate();
+        if (this.validity.invalidDiesTableSchema) {
+            return;
+        }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
-            this.waferMapValidator.validateGridDimensions();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -219,6 +233,11 @@ export class WaferMap extends FoundationElement {
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
+    }
+
+    private validate(): void {
+        this.waferMapValidator.validateGridDimensions();
+        this.waferMapValidator.validateDiesTableSchema();
     }
 
     private createResizeObserver(): ResizeObserver {
@@ -290,6 +309,17 @@ export class WaferMap extends FoundationElement {
 
     private diesChanged(): void {
         this.waferMapUpdateTracker.track('dies');
+        this.renderer = this.diesTable === undefined
+            ? this.mainRenderer
+            : this.workerRenderer;
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private diesTableChanged(): void {
+        this.waferMapUpdateTracker.track('dies');
+        this.renderer = this.diesTable === undefined
+            ? this.mainRenderer
+            : this.workerRenderer;
         this.waferMapUpdateTracker.queueUpdate();
     }
 

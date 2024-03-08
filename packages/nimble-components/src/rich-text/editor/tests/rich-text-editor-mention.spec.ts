@@ -80,9 +80,7 @@ describe('RichTextEditorMention', () => {
 
     it('Should return same markdown for assigned mention markdown when removing configuration element in the same editor', async () => {
         element.setMarkdown('<user:1>');
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         expect(element.getMarkdown()).toBe('<user:1>');
         element.removeChild(userMentionElement);
         await waitForUpdatesAsync();
@@ -746,9 +744,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event from configuration element when there is @mention in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         await pageObject.setEditorTextContent('@test');
@@ -756,9 +752,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event from configuration element when there is update in @mention in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
@@ -767,9 +761,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event from configuration element when pasting @ in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         pageObject.pasteToEditor('@test');
@@ -778,9 +770,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event when deleting an existing @mention partially in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
@@ -789,9 +779,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should not fire "mention-update" event when deleting an existing @mention completely in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
@@ -800,9 +788,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should not fire "mention-update" event when adding text near an existing @ mention', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         element.setMarkdown('<user:1>');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
@@ -826,9 +812,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event with specific filter details from configuration element when there is @mention in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         await pageObject.setEditorTextContent('@test');

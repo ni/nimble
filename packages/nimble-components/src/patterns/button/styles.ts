@@ -71,7 +71,8 @@ export const styles = css`
             margin: 0;
             padding: 0 ${standardPadding};
             position: relative;
-            transition: box-shadow ${smallDelay} ease-in-out,
+            transition:
+                box-shadow ${smallDelay} ease-in-out,
                 border-color ${smallDelay} ease-in-out,
                 background-size ${smallDelay} ease-in-out;
             background-size: 100% 100%;

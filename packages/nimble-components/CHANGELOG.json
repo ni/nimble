@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 07 Mar 2024 22:17:07 GMT",
+      "version": "21.10.0",
+      "tag": "@ni/nimble-components_v21.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ece50add37226bd2c2c7d9df9283cdb1853941ce",
+            "comment": "Create HLD for placeholders in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Mar 2024 21:20:52 GMT",
+      "version": "21.10.0",
+      "tag": "@ni/nimble-components_v21.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a9b5cede5ebbb79127bf36e91b31d17d4bf241b9",
+            "comment": "New Wafer Map Component API. Introduced `diesTable` and two rendering strategies switched by this input"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 06 Mar 2024 17:56:10 GMT",
+      "version": "21.9.1",
+      "tag": "@ni/nimble-components_v21.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dfd8accc27d885df5eb8024d57e60f486066719a",
+            "comment": "Minor updates from lint"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 05 Mar 2024 22:27:12 GMT",
       "version": "21.9.0",
       "tag": "@ni/nimble-components_v21.9.0",
