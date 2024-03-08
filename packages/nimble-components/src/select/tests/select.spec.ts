@@ -281,7 +281,7 @@ describe('Select', () => {
         await disconnect();
     });
 
-    fit('option added directly to DOM synchronously registers with Select', async () => {
+    it('option added directly to DOM synchronously registers with Select', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         await waitForUpdatesAsync();
