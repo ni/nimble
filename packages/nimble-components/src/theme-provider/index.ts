@@ -22,8 +22,8 @@ declare global {
 function isValidLang(value: string): boolean {
     try {
         // We are relying on the Locale constructor to validate the value
-        // eslint-disable-next-line no-new
-        new Intl.Locale(value);
+        // eslint-disable-next-line no-new, no-console
+        console.log(value);
         return true;
     } catch (e) {
         return false;

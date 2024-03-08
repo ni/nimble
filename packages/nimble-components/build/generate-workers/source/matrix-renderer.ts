@@ -1,4 +1,5 @@
 import { expose } from 'comlink';
+import type { WaferMap } from '../../../src/wafer-map';
 
 /**
  * MatrixRenderer class is meant to be used within a Web Worker context, 
@@ -12,11 +13,12 @@ export class MatrixRenderer {
     private canvas!: OffscreenCanvas;
     private context!: OffscreenCanvasRenderingContext2D;
 
-    public setCanvas(canvas: OffscreenCanvas): void {
+    public setCanvas(canvas: OffscreenCanvas, waferMap: WaferMap): void {
         this.canvas = canvas;
         this.context = canvas.getContext('2d')!;
         this.context.fillStyle = 'red';
-        this.context.fillRect(0, 0, 100, 100);
+        this.context.fillRect(0, 0, 300, 300);
+        console.log(waferMap);
     }
 
     public emptyMatrix(): void {
