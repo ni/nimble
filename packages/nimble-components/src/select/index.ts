@@ -30,7 +30,10 @@ import {
 } from '@microsoft/fast-web-utilities';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
-import { DropdownAppearance, ListOptionOwner } from '../patterns/dropdown/types';
+import {
+    DropdownAppearance,
+    ListOptionOwner
+} from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
