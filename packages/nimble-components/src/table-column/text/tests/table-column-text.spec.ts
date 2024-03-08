@@ -262,18 +262,15 @@ describe('TableColumnText', () => {
         ];
 
         parameterizeSpec(testCases, (spec, name, value) => {
-            spec(
-                `group row renders expected value when ${name}`,
-                async () => {
-                    await table.setData(value.data);
-                    await connect();
-                    await waitForUpdatesAsync();
+            spec(`group row renders expected value when ${name}`, async () => {
+                await table.setData(value.data);
+                await connect();
+                await waitForUpdatesAsync();
 
-                    expect(
-                        pageObject.getRenderedGroupHeaderTextContent(0)
-                    ).toBe(value.groupValue);
-                }
-            );
+                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                    value.groupValue
+                );
+            });
         });
     });
 });

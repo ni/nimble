@@ -1,7 +1,10 @@
 import { observable } from '@microsoft/fast-element';
 import { TableGroupHeaderView } from '../../base/group-header-view';
 import type { TableFieldValue } from '../../../table/types';
-import { tableGroupRowEmptyPlaceholderLabel, tableGroupRowNoValuePlaceholderLabel } from '../../../label-provider/table/label-tokens';
+import {
+    tableGroupRowEmptyPlaceholderLabel,
+    tableGroupRowNoValuePlaceholderLabel
+} from '../../../label-provider/table/label-tokens';
 
 /**
  * The group header view base class for displaying fields of any type as text.

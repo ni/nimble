@@ -1,4 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnDurationText, tableColumnDurationTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -7,7 +8,6 @@ import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { lang, themeProviderTag } from '../../../theme-provider';
 import { TableColumnDurationTextPageObject } from '../testing/table-column-duration-text.pageobject';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     field?: number | null;
@@ -210,7 +210,7 @@ describe('TableColumnDurationText', () => {
             {
                 name: 'value is incorrect type',
                 data: [{ field: 'not a number' as unknown as number }],
-                groupValue: '',
+                groupValue: ''
             },
             {
                 name: 'value is specified and falsey',
@@ -230,18 +230,15 @@ describe('TableColumnDurationText', () => {
         ];
 
         parameterizeSpec(testCases, (spec, name, value) => {
-            spec(
-                `group row renders expected value when ${name}`,
-                async () => {
-                    await table.setData(value.data);
-                    await connect();
-                    await waitForUpdatesAsync();
+            spec(`group row renders expected value when ${name}`, async () => {
+                await table.setData(value.data);
+                await connect();
+                await waitForUpdatesAsync();
 
-                    expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
-                        value.groupValue
-                    );
-                }
-            );
+                expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
+                    value.groupValue
+                );
+            });
         });
     });
 });

@@ -113,7 +113,9 @@ describe('TableColumnIcon', () => {
                     ],
                     spinnerMappings: []
                 }));
-                pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+                pageObject = new TablePageObject<SimpleTableRecord>(
+                    model.table
+                );
                 await model.table.setData([{ field1: value.key }]);
                 await connect();
                 await waitForUpdatesAsync();
@@ -131,7 +133,9 @@ describe('TableColumnIcon', () => {
                     iconMappings: [],
                     spinnerMappings: [{ key: value.key, text: 'alpha' }]
                 }));
-                pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+                pageObject = new TablePageObject<SimpleTableRecord>(
+                    model.table
+                );
                 await model.table.setData([{ field1: value.key }]);
                 await connect();
                 await waitForUpdatesAsync();
@@ -295,7 +299,9 @@ describe('TableColumnIcon', () => {
                     ],
                     spinnerMappings: []
                 }));
-                pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+                pageObject = new TablePageObject<SimpleTableRecord>(
+                    model.table
+                );
                 await model.table.setData([{ field1: 'a' }]);
                 await connect();
                 await waitForUpdatesAsync();
@@ -584,27 +590,24 @@ describe('TableColumnIcon', () => {
         ];
 
         parameterizeSpec(testCases, (spec, name, value) => {
-            spec(
-                `group row renders expected value when ${name}`,
-                async () => {
-                    ({ connect, disconnect, model } = await setup({
-                        keyType: MappingKeyType.string,
-                        iconMappings: [],
-                        spinnerMappings: [{ key: 'a', text: 'a' }]
-                    }));
-                    pageObject = new TablePageObject<SimpleTableRecord>(
-                        model.table
-                    );
-                    model.col1.groupIndex = 0;
-                    await model.table.setData(value.data);
-                    await connect();
-                    await waitForUpdatesAsync();
+            spec(`group row renders expected value when ${name}`, async () => {
+                ({ connect, disconnect, model } = await setup({
+                    keyType: MappingKeyType.string,
+                    iconMappings: [],
+                    spinnerMappings: [{ key: 'a', text: 'a' }]
+                }));
+                pageObject = new TablePageObject<SimpleTableRecord>(
+                    model.table
+                );
+                model.col1.groupIndex = 0;
+                await model.table.setData(value.data);
+                await connect();
+                await waitForUpdatesAsync();
 
-                    expect(
-                        pageObject.getRenderedGroupHeaderTextContent(0)
-                    ).toBe(value.groupValue);
-                }
-            );
+                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                    value.groupValue
+                );
+            });
         });
     });
 });

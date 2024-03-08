@@ -170,7 +170,9 @@ describe('TableColumnNumberText', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('No value');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+            'No value'
+        );
     });
 
     it('changing data from null to value displays value', async () => {
@@ -178,7 +180,9 @@ describe('TableColumnNumberText', () => {
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('No value');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+            'No value'
+        );
 
         await table.setData([{ number1: -16 }]);
         await waitForUpdatesAsync();
@@ -196,7 +200,9 @@ describe('TableColumnNumberText', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('No value');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+            'No value'
+        );
     });
 
     describe('displays title when appropriate', () => {
@@ -768,18 +774,15 @@ describe('TableColumnNumberText', () => {
         ];
 
         parameterizeSpec(testCases, (spec, name, value) => {
-            spec(
-                `group row renders expected value when ${name}`,
-                async () => {
-                    await table.setData(value.data);
-                    await connect();
-                    await waitForUpdatesAsync();
+            spec(`group row renders expected value when ${name}`, async () => {
+                await table.setData(value.data);
+                await connect();
+                await waitForUpdatesAsync();
 
-                    expect(
-                        pageObject.getRenderedGroupHeaderTextContent(0)
-                    ).toBe(value.groupValue);
-                }
-            );
+                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                    value.groupValue
+                );
+            });
         });
     });
 });
