@@ -1,8 +1,5 @@
 import { select } from 'd3-selection';
-import {
-    zoom,
-    ZoomTransform
-} from 'd3-zoom';
+import { zoom, ZoomTransform } from 'd3-zoom';
 import type { WaferMap } from '../..';
 
 interface ZoomEvent {
@@ -23,10 +20,7 @@ export class ZoomHandler {
             .scaleExtent(this.scaleExtent)
             .translateExtent([
                 this.minExtentPoint,
-                [
-                    this.wafermap.canvasWidth,
-                    this.wafermap.canvasHeight
-                ]
+                [this.wafermap.canvasWidth, this.wafermap.canvasHeight]
             ])
             .on('zoom', (event: ZoomEvent) => {
                 this.wafermap.transform = event.transform;

@@ -26,9 +26,20 @@ export class HoverHandler {
         });
         const table = fromArrow(this.wafermap.diesTable);
 
-        const indices = table.filter((row: { colIndex: number, rowIndex: number }) => row.colIndex === dieCoordinates.x && row.rowIndex === dieCoordinates.y).indices();
+        const indices = table
+            .filter(
+                (row: { colIndex: number, rowIndex: number }) => row.colIndex === dieCoordinates.x
+                    && row.rowIndex === dieCoordinates.y
+            )
+            .indices();
 
-        this.wafermap.hoverDie = indices.length > 0 ? { index: indices[0]!, x: dieCoordinates.x, y: dieCoordinates.y } : undefined;
+        this.wafermap.hoverDie = indices.length > 0
+            ? {
+                index: indices[0]!,
+                x: dieCoordinates.x,
+                y: dieCoordinates.y
+            }
+            : undefined;
     }
 
     public mouseout(): void {

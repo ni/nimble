@@ -157,9 +157,13 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    private readonly stableEventCoordinator = new ExperimentalEventCoordinator(this);
+    private readonly stableEventCoordinator = new ExperimentalEventCoordinator(
+        this
+    );
+
     private readonly experimentalEventCoordinator = new EventCoordinator(this);
     private eventCoordinator: EventCoordinator | ExperimentalEventCoordinator = this.stableEventCoordinator;
+
     private readonly resizeObserver = this.createResizeObserver();
     private readonly waferMapValidator = new WaferMapValidator(this);
 
