@@ -23,7 +23,8 @@ export const addons = [
         }
     },
     '@storybook/addon-a11y',
-    '@storybook/addon-interactions'
+    '@storybook/addon-interactions',
+    'storybook-addon-pseudo-states'
 ];
 export function webpackFinal(config) {
     config.module.rules.push({
