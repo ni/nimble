@@ -295,9 +295,14 @@ describe('Select', () => {
 
         expect(registerOptionSpy.calls.count()).toBe(1);
         expect(element.options).toContain(newOption);
+        // The below assertion is simply showing a current expected, but
+        // incorrect, behavior. See 'https://github.com/ni/nimble/issues/1915'
+        // for details.
         expect(element.selectedIndex).toBe(0);
         await waitForUpdatesAsync();
         expect(element.value).toBe('one');
+        // This assertion shows that after 'slottedOptionsChanged' runs, the
+        // 'selectedIndex' state has been corrected to expected DOM order.
         expect(element.selectedIndex).toBe(1);
         await disconnect();
     });

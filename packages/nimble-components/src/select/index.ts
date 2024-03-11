@@ -681,6 +681,12 @@ export class Select
             return;
         }
 
+        // Adding an option to the end, ultimately, isn't the correct
+        // thing to do, as this will mean the option's index in the options,
+        // at least temporarily, does not match the DOM order. However, it
+        // is expected that a successive run of `slottedOptionsChanged` will
+        // correct this order issue. See 'https://github.com/ni/nimble/issues/1915'
+        // for more info.
         this.options.push(option);
     }
 

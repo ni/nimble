@@ -2,7 +2,7 @@ import { html, repeat } from '@microsoft/fast-element';
 import { keyArrowDown, keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
-import { listOptionTag } from '../../list-option';
+import { ListOption, listOptionTag } from '../../list-option';
 import { ComboboxAutocomplete } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
@@ -124,6 +124,33 @@ describe('Combobox', () => {
         await waitForUpdatesAsync();
         expect(element.getAttribute('tabindex')).toBeNull();
 
+        await disconnect();
+    });
+
+    it('option added directly to DOM synchronously registers with Combobox', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        element.selectedIndex = 0;
+        await waitForUpdatesAsync();
+        const newOption = new ListOption('foo', 'foo');
+        const registerOptionSpy = spyOn(
+            element,
+            'registerOption'
+        ).and.callThrough();
+        registerOptionSpy.calls.reset();
+        element.insertBefore(newOption, element.options[0]!);
+
+        expect(registerOptionSpy.calls.count()).toBe(1);
+        expect(element.options).toContain(newOption);
+        // The below assertion is simply showing a current expected, but
+        // incorrect, behavior, as the new option was added before the currently
+        // selected one. See 'https://github.com/ni/nimble/issues/1915'
+        // for details.
+        expect(element.selectedIndex).toBe(0);
+        await waitForUpdatesAsync();
+        // This assertion shows that after 'slottedOptionsChanged' runs, the
+        // 'selectedIndex' state has been corrected to expected DOM order.
+        expect(element.selectedIndex).toBe(1);
         await disconnect();
     });
 
