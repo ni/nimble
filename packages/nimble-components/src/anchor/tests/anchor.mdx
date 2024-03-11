@@ -1,16 +1,118 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import TargetDocs from '../../patterns/anchor/tests/target-docs.mdx';
 import * as anchorStories from './anchor.stories';
+import { NimbleAnchor } from './anchor.react';
+import { NimbleIconArrowUpRightFromSquare } from '../../icons/tests/arrow-up-right-from-square.react';
 
 <Meta of={anchorStories} />
 <Title of={anchorStories} />
 
-Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/link/), an anchor/link widget provides an interactive reference to a resource. The target resource can be either external or local, i.e., either outside or within the current page or application.
+An HTML anchor or link is an element that allows you to create a clickable reference to another web page, a specific section within the same page, or an external resource such as a file or an email address.
+
+The `nimble-anchor` component is a wrapper around the native HTML anchor element. It provides a consistent way to create links that follow Nimble design and interaction best practices.
 
 <Canvas of={anchorStories.anchor} />
 <Controls of={anchorStories.anchor} />
 
-{/* ## Appearances */}
+## Best practices
+
+    <Do>
+        Always use the `nimble-anchor` component to create links that follow
+        Nimble visual and interaction design best practices.
+    </Do>
+    <Dont>
+        Avoid using full URLs as the link text. Consider the users who must
+        _speak it out loud_ and who must listen to a screen reader announce
+        it.[^1] <br />
+        The link text alone should convey the function and purpose of the link.
+    </Dont>
+    <Do>
+        Use unique link text where possible. <br />
+        E.g. `[Product A, Product B, Product C]` instead of `[View Details, View
+        Details, View Details]`.
+    </Do>
+    <Dont>
+        Do not use `appearance="default"` with the **underline-hidden**
+        property. This makes the link text indistinguishable from the body text.
+    </Dont>
+
+[^1]: [Yale - Link Text - Usability & Web Accessibility](https://usability.yale.edu/web-accessibility/articles/links#link-text)
+
+### Buttons vs links
+
+Use buttons for actions and links for navigation. Buttons are used to perform actions, such as submitting a form or opening a modal. Links are used to navigate to a different page or section.
+
+### Inline links
+
+Inline links are used within a block of text to navigate to a different page or section.
+
+<Do>Use `appearance="prominent"` with the underline **enabled** (default).</Do>
+
+    {/* prettier-ignore */}
+    <Frame>
+        <span class="anchor-container">Click on the <NimbleAnchor href="https://nimble.ni.dev" appearance="prominent">link</NimbleAnchor> to navigate.</span>
+    </Frame>
+
+### Standalone links
+
+Standalone links are used to navigate to a different page or section.
+
+<Do>Use `appearance="prominent"` with the **underline-hidden** property.</Do>
+
+    {/* prettier-ignore */}
+    <Frame>
+        <div class="anchor-container">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br/>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br/><br/>
+            <div><NimbleAnchor href="https://nimble.ni.dev" appearance="prominent" underlineHidden>NI Terms and Conditions</NimbleAnchor></div>
+        </div>
+    </Frame>
+
+### Opening links in a new tabs
+
+<Dont>Avoid forcing the user to open links in a new tab.</Dont>
+<Do>
+    Let the user decide if they want to open a link in a new tab. E.g. Using
+    **Ctrl + click** or **Cmd + click**.
+</Do>
+<Do>
+    If an application _will_ open the link in a new tab or window, inform the
+    user in advance by appending the `nimble-icon-arrow-up-right-from-square`
+    icon to the link text.
+</Do>
+
+    {/* prettier-ignore */}
+    <Frame>
+        <span class="anchor-container">Open the <NimbleAnchor href="https://nimble.ni.dev" appearance="prominent" target="_blank">Nimble homepage<NimbleIconArrowUpRightFromSquare/></NimbleAnchor>in a new tab</span>
+    </Frame>
+
+#### Further reading
+
+For further discussion about when it is appropriate to force users to open links in a new tab or window, see the [WCAG guidelines for opening new tabs and windows](https://www.w3.org/TR/WCAG20-TECHS/G200.html).
+
+The NN Group notes[^2]:
+
+[^2]: [Opening Links in New Browser Windows and Tabs](https://www.nngroup.com/articles/new-browser-windows-and-tabs/)
+
+> Since 1999, it's been a firm web-usability guideline to **refrain from** [opening new browser windows](https://www.nngroup.com/articles/the-top-ten-web-design-mistakes-of-1999/) for several reasons. All of these also apply to opening new browser tabs and are still valid today:
+>
+> -   More windows or tabs increase the clutter of the user's information space and require more effort to manage.
+> -   New windows or tabs can cause disorientation, with users often not realizing that a new window or tab has opened. This problem is exacerbated on mobile, where the old window is never visible.
+> -   Less-technical users struggle to manage multiple windows and tabs, especially on mobile. (On tablets, where users can have both multiple windows and tabs for the browser, it's even more confusing.)
+> -   New windows or tabs prevent the use of the Back button for returning to the previous page and force the user to spend effort to find their way back to the previous content.
+> -   New windows or tabs are not inclusive for blind or low-vision users — especially when they open outside of the area that's magnified.
+
+> However, if you hypothesize that opening a new tab or window may help users in their task, don't base this decision on the type of link or content alone. Rely on observational research methods, like usability testing, contextual inquiry, and field studies to help you make the right call.
+
+> Don't go overboard with opening links in new browser tabs or windows simply because you _think_ users _might_ need them to display that way for certain cases.
+
+Smashing Magazine documents[^3] a list of potential exceptions to the rule, including:
+
+[^3]: [Should Links Open In New Windows?](https://www.smashingmagazine.com/2008/07/should-links-open-in-new-windows/)
+
+> -   **The link provides assistance or help.** If you are on a shopping cart page, and users click on a “help” link. In that case, users don't want to navigate away from the cart page, so a new window is acceptable. In such cases dynamic tooltips are usually better than pop-ups that are again better than opening new windows.
+> -   **The link may interrupt an ongoing process.** For instance, if users are filling a web-form and the form provides the link to terms of service or privacy policy below the form it is reasonable to enforce this link to open in a new window to not interrupt the ongoing process. This is important in sign-up forms and crucial in checkout-forms. Otherwise, users may lose the information they've already typed in and close the browser window in response.
+> -   **The link leads to a non-html-document.** E.g. .pdf-file, .xls-file, .mp3 and so on. Warn users in advance that a new window will appear. When using PC-native file formats such as PDF or spreadsheets, users feel like they're interacting with a PC application. Because users are no longer browsing a website, they shouldn't be given a browser UI. Best of all, prevent the browser from opening the document in the first place.
 
 {/* ## Appearance Variants */}
 
@@ -20,8 +122,8 @@ Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/link/), an anchor/link widget
 
 {/* ## Accessibility */}
 
-{/* ## Resources */}
+## Resources
 
-## Target Configuration
-
-<TargetDocs />
+-   [Nimble - Figma - Links](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1295-76706&mode=design)
+-   [W3C - Link Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/link/)
+-   [Uber - Base Design System - Link](https://base.uber.com/6d2425e9f/p/407fe0-link)
