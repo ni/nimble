@@ -227,6 +227,60 @@ describe('WaferMap', () => {
         });
     });
 
+    xdescribe('experimental zoom flow', () => {
+        let initialValue: string | undefined;
+
+        beforeEach(() => {
+            element.canvasWidth = 500;
+            element.canvasHeight = 500;
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([1]),
+                rowIndex: Int32Array.from([1]),
+                value: Float64Array.from([1])
+            });
+            element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
+            processUpdates();
+            initialValue = getTransform();
+            expect(initialValue).toBe('translate(0,0) scale(1)');
+        });
+
+        it('will zoom in the wafer-map', () => {
+            element.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: -100, deltaMode: 0 })
+            );
+            processUpdates();
+            const zoomedValue = getTransform();
+            expect(zoomedValue).not.toBe(initialValue);
+        });
+
+        it('will zoom out to identity', () => {
+            element.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
+            );
+
+            processUpdates();
+            const zoomedValue = getTransform();
+            expect(zoomedValue).not.toEqual(initialValue);
+
+            element.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
+            );
+
+            processUpdates();
+            const zoomedOut = getTransform();
+            expect(zoomedOut).toBe(initialValue);
+        });
+
+        it('will not zoom out when at identity', () => {
+            element.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
+            );
+            processUpdates();
+            const zoomedOut = getTransform();
+            expect(zoomedOut).toBe(initialValue);
+        });
+    });
+
     function getTransform(): string | undefined {
         return element.transform.toString();
     }

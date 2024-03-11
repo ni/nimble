@@ -298,6 +298,7 @@ export class WaferMap extends FoundationElement {
         this.renderer = this.diesTable === undefined
             ? this.mainRenderer
             : this.workerRenderer;
+        this.eventCoordinator?.detachEvents();
         this.eventCoordinator = this.diesTable === undefined
             ? this.stableEventCoordinator
             : this.experimentalEventCoordinator;
@@ -309,6 +310,7 @@ export class WaferMap extends FoundationElement {
         this.renderer = this.diesTable === undefined
             ? this.mainRenderer
             : this.workerRenderer;
+        this.eventCoordinator?.detachEvents();
         this.eventCoordinator = this.diesTable === undefined
             ? this.stableEventCoordinator
             : this.experimentalEventCoordinator;

@@ -23,6 +23,7 @@ export class EventCoordinator {
     }
 
     public detachEvents(): void {
+        this.zoomHandler.removeZoomBehavior();
         this.wafermap.removeEventListener('mousemove', this.onMouseMove);
         this.wafermap.removeEventListener('mouseout', this.onMouseOut);
         this.wafermap.removeEventListener('wheel', this.onWheelMove);

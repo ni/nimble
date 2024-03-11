@@ -55,6 +55,10 @@ export class ZoomHandler {
         this.zoomBehavior(select(this.wafermap.canvas as Element));
     }
 
+    public removeZoomBehavior(): void {
+        zoom().on('zoom', null)(select(this.wafermap.canvas as Element));
+    }
+
     private rescale(event: ZoomEvent): void {
         const transform = event.transform;
         if (transform.k === this.minScale) {

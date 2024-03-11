@@ -19,7 +19,7 @@ export class ZoomHandler {
     public constructor(private readonly wafermap: WaferMap) {}
 
     public createZoomBehavior(): void {
-        const zoomBehavior = zoom()
+        zoom()
             .scaleExtent(this.scaleExtent)
             .translateExtent([
                 this.minExtentPoint,
@@ -29,11 +29,11 @@ export class ZoomHandler {
                 ]
             ])
             .on('zoom', (event: ZoomEvent) => {
-                // D3 will automatically remove existing handlers when adding new ones
-                // See: https://github.com/d3/d3-zoom/blob/v3.0.0/README.md#zoom_on
                 this.wafermap.transform = event.transform;
-            });
+            })(select(this.wafermap as Element));
+    }
 
-        zoomBehavior(select(this.wafermap as Element));
+    public removeZoomBehavior(): void {
+        zoom().on('zoom', null)(select(this.wafermap as Element));
     }
 }
