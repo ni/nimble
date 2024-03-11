@@ -52,7 +52,7 @@ export default [
             umdDevelopmentPlugin(),
             nodePolyfills(),
             sourcemaps(),
-            resolve(),
+            resolve({ browser: true }),
             commonJS(),
             json()
         ],
@@ -76,7 +76,7 @@ export default [
             umdProductionPlugin(),
             nodePolyfills(),
             sourcemaps(),
-            resolve(),
+            resolve({ browser: true }),
             commonJS(),
             json()
         ],
