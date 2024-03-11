@@ -55,12 +55,12 @@ export class ListOption extends FoundationListboxOption {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        if (this.isDropdownOwner(this.parentElement)) {
+        if (this.isListOptionOwner(this.parentElement)) {
             this.parentElement.registerOption(this);
         }
     }
 
-    private isDropdownOwner(parent: unknown): parent is ListOptionOwner {
+    private isListOptionOwner(parent: unknown): parent is ListOptionOwner {
         return typeof (parent as ListOptionOwner).registerOption === 'function';
     }
 }
