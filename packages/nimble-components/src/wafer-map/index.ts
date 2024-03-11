@@ -11,7 +11,9 @@ import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
 import { EventCoordinator } from './modules/event-coordinator';
+import { EventCoordinator as ExperimentalEventCoordinator } from './modules/experimental/event-coordinator';
 import {
+    HoverDie,
     HoverDieOpacity,
     WaferMapColorScale,
     WaferMapColorScaleMode,
@@ -144,7 +146,7 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    @observable public hoverDie: WaferMapDie | undefined;
+    @observable public hoverDie: WaferMapDie | HoverDie | undefined;
 
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
@@ -155,7 +157,9 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    private readonly eventCoordinator = new EventCoordinator(this);
+    private readonly stableEventCoordinator = new ExperimentalEventCoordinator(this);
+    private readonly experimentalEventCoordinator = new EventCoordinator(this);
+    private eventCoordinator: EventCoordinator | ExperimentalEventCoordinator = this.stableEventCoordinator;
     private readonly resizeObserver = this.createResizeObserver();
     private readonly waferMapValidator = new WaferMapValidator(this);
 
@@ -294,6 +298,9 @@ export class WaferMap extends FoundationElement {
         this.renderer = this.diesTable === undefined
             ? this.mainRenderer
             : this.workerRenderer;
+        this.eventCoordinator = this.diesTable === undefined
+            ? this.stableEventCoordinator
+            : this.experimentalEventCoordinator;
         this.waferMapUpdateTracker.queueUpdate();
     }
 
@@ -302,6 +309,9 @@ export class WaferMap extends FoundationElement {
         this.renderer = this.diesTable === undefined
             ? this.mainRenderer
             : this.workerRenderer;
+        this.eventCoordinator = this.diesTable === undefined
+            ? this.stableEventCoordinator
+            : this.experimentalEventCoordinator;
         this.waferMapUpdateTracker.queueUpdate();
     }
 

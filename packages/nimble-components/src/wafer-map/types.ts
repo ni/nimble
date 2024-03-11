@@ -43,6 +43,12 @@ export interface WaferMapDie {
     tags?: string[];
 }
 
+export interface HoverDie {
+    index: number;
+    x: number;
+    y: number;
+}
+
 export interface WaferMapColorScale {
     colors: string[];
     values: string[];
