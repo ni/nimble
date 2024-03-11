@@ -34,6 +34,6 @@ export type DropdownAppearance =
  * reactive form, where the form value is set to an option immediately after
  * dynamically adding it.
  */
-export interface ListOptionOwner {
+export interface ListOptionOwner extends HTMLElement {
     registerOption: (option: ListOption) => void;
 }

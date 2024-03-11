@@ -60,7 +60,11 @@ export class ListOption extends FoundationListboxOption {
         }
     }
 
-    private isListOptionOwner(parent: unknown): parent is ListOptionOwner {
+    private isListOptionOwner(parent: HTMLElement | null): parent is ListOptionOwner {
+        if (!parent) {
+            return false;
+        }
+
         return typeof (parent as ListOptionOwner).registerOption === 'function';
     }
 }
