@@ -22,7 +22,7 @@
         "noImplicitOverride": true,
         "noUncheckedIndexedAccess": true,
         "noPropertyAccessFromIndexSignature": false,
-        "jsx": "react"
+        "jsx": "preserve"
     },
     "include": ["src"]
 }
