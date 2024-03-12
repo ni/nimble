@@ -17,10 +17,14 @@ import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 import { styles } from './styles';
 import type { ErrorPattern } from '../patterns/error/types';
-import type { DropdownPattern } from '../patterns/dropdown/types';
+import type {
+    DropdownPattern,
+    ListOptionOwner
+} from '../patterns/dropdown/types';
 import { DropdownAppearance } from '../patterns/dropdown/types';
 import type { AnchoredRegion } from '../anchored-region';
 import { template } from './template';
+import type { ListOption } from '../list-option';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -33,7 +37,7 @@ declare global {
  */
 export class Combobox
     extends FoundationCombobox
-    implements DropdownPattern, ErrorPattern {
+    implements DropdownPattern, ErrorPattern, ListOptionOwner {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
@@ -210,19 +214,19 @@ export class Combobox
     /**
      * @internal
      */
-    // public registerOption(option: ListOption): void {
-    //     if (this.options.includes(option)) {
-    //         return;
-    //     }
+    public registerOption(option: ListOption): void {
+        if (this.options.includes(option)) {
+            return;
+        }
 
-    //     // Adding an option to the end, ultimately, isn't the correct
-    //     // thing to do, as this will mean the option's index in the options,
-    //     // at least temporarily, does not match the DOM order. However, it
-    //     // is expected that a successive run of `slottedOptionsChanged` will
-    //     // correct this order issue. See 'https://github.com/ni/nimble/issues/1915'
-    //     // for more info.
-    //     this.options.push(option);
-    // }
+        // Adding an option to the end, ultimately, isn't the correct
+        // thing to do, as this will mean the option's index in the options,
+        // at least temporarily, does not match the DOM order. However, it
+        // is expected that a successive run of `slottedOptionsChanged` will
+        // correct this order issue. See 'https://github.com/ni/nimble/issues/1915'
+        // for more info.
+        this.options.push(option);
+    }
 
     protected override focusAndScrollOptionIntoView(): void {
         if (this.open) {
