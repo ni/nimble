@@ -48,6 +48,16 @@ describe('Nimble listbox option', () => {
             expect(directive.disabled).toBeUndefined();
             expect(nativeElement.disabled).toBeUndefined();
         });
+
+        it('has expected defaults for selected', () => {
+            expect(directive.selected).toBeFalse();
+            expect(nativeElement.selected).toBeFalse();
+        });
+
+        it('has expected defaults for hidden', () => {
+            expect(directive.hidden).toBeFalse();
+            expect(nativeElement.hidden).toBeFalse();
+        });
     });
 
     describe('with template string values', () => {
@@ -55,6 +65,8 @@ describe('Nimble listbox option', () => {
             template: `
                 <nimble-list-option #listOption
                     disabled
+                    selected
+                    hidden
                 ></nimble-list-option>
             `
         })
@@ -82,6 +94,16 @@ describe('Nimble listbox option', () => {
             expect(directive.disabled).toBeTrue();
             expect(nativeElement.disabled).toBeTrue();
         });
+
+        it('will use template string values for selected', () => {
+            expect(directive.selected).toBeTrue();
+            expect(nativeElement.selected).toBeTrue();
+        });
+
+        it('will use template string values for hidden', () => {
+            expect(directive.hidden).toBeTrue();
+            expect(nativeElement.hidden).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -89,6 +111,8 @@ describe('Nimble listbox option', () => {
             template: `
                 <nimble-list-option #listOption
                     [disabled]="disabled"
+                    [selected]="selected"
+                    [hidden]="hidden"
                 ></nimble-list-option>
             `
         })
@@ -97,6 +121,8 @@ describe('Nimble listbox option', () => {
             @ViewChild('listOption', { read: ElementRef }) public elementRef: ElementRef<ListOption>;
 
             public disabled = false;
+            public selected = false;
+            public hidden = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -124,13 +150,37 @@ describe('Nimble listbox option', () => {
             expect(directive.disabled).toBeTrue();
             expect(nativeElement.disabled).toBeTrue();
         });
+
+        it('can be configured with property binding for selected', () => {
+            expect(directive.selected).toBeFalse();
+            expect(nativeElement.selected).toBeFalse();
+
+            fixture.componentInstance.selected = true;
+            fixture.detectChanges();
+
+            expect(directive.selected).toBeTrue();
+            expect(nativeElement.selected).toBeTrue();
+        });
+
+        it('can be configured with property binding for hidden', () => {
+            expect(directive.hidden).toBeFalse();
+            expect(nativeElement.hidden).toBeFalse();
+
+            fixture.componentInstance.hidden = true;
+            fixture.detectChanges();
+
+            expect(directive.hidden).toBeTrue();
+            expect(nativeElement.hidden).toBeTrue();
+        });
     });
 
     describe('with property attribute values', () => {
         @Component({
             template: `
                 <nimble-list-option #listOption
-                    [attr.disabled]="disabled">
+                    [attr.disabled]="disabled"
+                    [attr.selected]="selected"
+                    [attr.hidden]="hidden">
                 </nimble-list-option>
             `
         })
@@ -139,6 +189,8 @@ describe('Nimble listbox option', () => {
             @ViewChild('listOption', { read: ElementRef }) public elementRef: ElementRef<ListOption>;
 
             public disabled: BooleanValueOrAttribute = null;
+            public selected: BooleanValueOrAttribute = null;
+            public hidden: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -165,6 +217,28 @@ describe('Nimble listbox option', () => {
 
             expect(directive.disabled).toBeTrue();
             expect(nativeElement.disabled).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for selected', () => {
+            expect(directive.selected).toBeFalse();
+            expect(nativeElement.selected).toBeFalse();
+
+            fixture.componentInstance.selected = '';
+            fixture.detectChanges();
+
+            expect(directive.selected).toBeTrue();
+            expect(nativeElement.selected).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for hidden', () => {
+            expect(directive.hidden).toBeFalse();
+            expect(nativeElement.hidden).toBeFalse();
+
+            fixture.componentInstance.hidden = '';
+            fixture.detectChanges();
+
+            expect(directive.hidden).toBeTrue();
+            expect(nativeElement.hidden).toBeTrue();
         });
     });
 });

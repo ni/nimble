@@ -30,7 +30,10 @@ import {
 } from '@microsoft/fast-web-utilities';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
-import { DropdownAppearance } from '../patterns/dropdown/types';
+import {
+    DropdownAppearance,
+    ListOptionOwner
+} from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
@@ -57,7 +60,9 @@ const isNimbleListOption = (el: Element): el is ListOption => {
 /**
  * A nimble-styled HTML select.
  */
-export class Select extends FormAssociatedSelect implements ErrorPattern {
+export class Select
+    extends FormAssociatedSelect
+    implements ErrorPattern, ListOptionOwner {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
@@ -666,6 +671,23 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
                 break;
             }
         }
+    }
+
+    /**
+     * @internal
+     */
+    public registerOption(option: ListOption): void {
+        if (this.options.includes(option)) {
+            return;
+        }
+
+        // Adding an option to the end, ultimately, isn't the correct
+        // thing to do, as this will mean the option's index in the options,
+        // at least temporarily, does not match the DOM order. However, it
+        // is expected that a successive run of `slottedOptionsChanged` will
+        // correct this order issue. See 'https://github.com/ni/nimble/issues/1915'
+        // for more info.
+        this.options.push(option);
     }
 
     // Prevents parent classes from resetting selectedIndex to a positive
