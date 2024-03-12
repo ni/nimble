@@ -15,5 +15,10 @@ export class NimbleLabelProviderCoreWithDefaultsDirective {
         this.elementRef.nativeElement.popupDismiss = $localize`:Nimble popup - dismiss|:Close`;
         this.elementRef.nativeElement.numericDecrement = $localize`:Nimble numeric - decrement|:Decrement`;
         this.elementRef.nativeElement.numericIncrement = $localize`:Nimble numeric - increment|:Increment`;
+        this.elementRef.nativeElement.errorIcon = $localize`:Nimble icon - error|:Error`;
+        this.elementRef.nativeElement.warningIcon = $localize`:Nimble icon - warning|:Warning`;
+        this.elementRef.nativeElement.informationIcon = $localize`:Nimble icon - information|:Information`;
+        this.elementRef.nativeElement.filterSearch = $localize`:Nimble select - search items|:Search`;
+        this.elementRef.nativeElement.filterNoResults = $localize`:Nimble select - no items|:No items found`;
     }
 }
