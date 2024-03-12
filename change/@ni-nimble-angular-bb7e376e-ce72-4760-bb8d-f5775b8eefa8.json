@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Update default translations",
+  "comment": "Update default values in label provider directives",
   "packageName": "@ni/nimble-angular",
   "email": "jattasNI@users.noreply.github.com",
   "dependentChangeType": "patch"
