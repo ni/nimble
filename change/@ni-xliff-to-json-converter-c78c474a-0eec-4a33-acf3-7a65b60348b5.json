@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update typescript to 4.9.5",
-  "packageName": "@ni/xliff-to-json-converter",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
