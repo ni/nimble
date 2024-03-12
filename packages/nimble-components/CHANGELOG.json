@@ -2,6 +2,149 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 12 Mar 2024 20:17:37 GMT",
+      "version": "21.10.0",
+      "tag": "@ni/nimble-components_v21.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e5972ee4e47f02a4224311d696da2d15573dbab3",
+            "comment": "Fix sb mdx backgrounds"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Mar 2024 16:59:31 GMT",
+      "version": "21.10.0",
+      "tag": "@ni/nimble-components_v21.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d8aa87d33c0066f7f3f73348288222c30a2a8cbf",
+            "comment": "Fix Storybook source preview"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Mar 2024 22:17:07 GMT",
+      "version": "21.10.0",
+      "tag": "@ni/nimble-components_v21.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ece50add37226bd2c2c7d9df9283cdb1853941ce",
+            "comment": "Create HLD for placeholders in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Mar 2024 21:20:52 GMT",
+      "version": "21.10.0",
+      "tag": "@ni/nimble-components_v21.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a9b5cede5ebbb79127bf36e91b31d17d4bf241b9",
+            "comment": "New Wafer Map Component API. Introduced `diesTable` and two rendering strategies switched by this input"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 06 Mar 2024 17:56:10 GMT",
+      "version": "21.9.1",
+      "tag": "@ni/nimble-components_v21.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dfd8accc27d885df5eb8024d57e60f486066719a",
+            "comment": "Minor updates from lint"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 05 Mar 2024 22:27:12 GMT",
+      "version": "21.9.0",
+      "tag": "@ni/nimble-components_v21.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "19643f4e13056e414aedd6b8ef89beb7ad1e95ab",
+            "comment": "Adding placeholder behavior for Select"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 05 Mar 2024 14:49:48 GMT",
+      "version": "21.8.2",
+      "tag": "@ni/nimble-components_v21.8.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3a75f1cc06b3c8967fa3e28d12a2bd6ddb4adf9c",
+            "comment": "Update Table Column Width HLD with details about non-resizable columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 04 Mar 2024 19:02:52 GMT",
+      "version": "21.8.2",
+      "tag": "@ni/nimble-components_v21.8.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4b0501210e4096c23350dbe5cb2eb9e4d6901ed6",
+            "comment": "Update column divider color on hover"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 01 Mar 2024 23:02:58 GMT",
+      "version": "21.8.1",
+      "tag": "@ni/nimble-components_v21.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "90df5dd14c1c5ad4116f6b43ae5fb99dc215c83e",
+            "comment": "Fix drawer/select animation bug"
+          }
+        ],
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "64b4301d2e6891403a289166ad78c35982f04a8a",
+            "comment": "Disable intermittent test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 29 Feb 2024 16:22:43 GMT",
       "version": "21.8.0",
       "tag": "@ni/nimble-components_v21.8.0",

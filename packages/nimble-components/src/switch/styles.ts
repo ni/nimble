@@ -107,8 +107,9 @@ export const styles = css`
         border-radius: calc(var(--ni-private-switch-indicator-size) / 2);
         margin: calc(
             calc(
-                    var(--ni-private-switch-height) -
-                        var(--ni-private-switch-indicator-size)
+                    var(--ni-private-switch-height) - var(
+                            --ni-private-switch-indicator-size
+                        )
                 ) / 2
         );
         border: ${borderWidth} solid

@@ -79,7 +79,7 @@ public class NimbleTableTests
     [InlineData(TableRowSelectionMode.None, null)]
     [InlineData(TableRowSelectionMode.Single, "single")]
     [InlineData(TableRowSelectionMode.Multiple, "multiple")]
-    public void TextFieldAppearance_AttributeIsSet(TableRowSelectionMode value, string expectedAttribute)
+    public void TextFieldAppearance_AttributeIsSet(TableRowSelectionMode value, string? expectedAttribute)
     {
         var table = RenderWithPropertySet<TableRowSelectionMode?, TableRowData>(x => x.SelectionMode, value);
 

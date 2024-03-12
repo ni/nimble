@@ -16,7 +16,7 @@
     "devDependencies": {
         "@lhci/cli": "^0.13.0",
         "typescript": "~4.8.2",
-        "vite": "^4.0.4"
+        "vite": "^5.1.5"
     },
     "files": [
         "dist",

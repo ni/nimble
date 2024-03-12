@@ -8,9 +8,9 @@ import {
 import {
     endSlotTemplate,
     FoundationElementTemplate,
-    Listbox,
     SelectOptions,
-    startSlotTemplate
+    startSlotTemplate,
+    isListboxOption
 } from '@microsoft/fast-foundation';
 import type { Select } from '.';
 import { anchoredRegionTag } from '../anchored-region';
@@ -62,7 +62,7 @@ SelectOptions
             >
                 ${startSlotTemplate(context, definition)}
                 <slot name="button-container">
-                    <div class="selected-value" part="selected-value" ${overflow('hasOverflow')} title=${x => (x.hasOverflow && x.displayValue ? x.displayValue : null)}>
+                    <div class="selected-value ${x => (x.displayPlaceholder ? 'placeholder' : '')}" part="selected-value" ${overflow('hasOverflow')} title=${x => (x.hasOverflow && x.displayValue ? x.displayValue : null)}>
                         <slot name="selected-value">${x => x.displayValue}</slot>
                     </div>
                     <div aria-hidden="true" class="indicator" part="indicator">
@@ -119,7 +119,7 @@ SelectOptions
                         class="scrollable-region">
                         <slot
                             ${slotted({
-                                filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
+                                filter: (n: Node) => n instanceof HTMLElement && isListboxOption(n),
                                 flatten: true,
                                 property: 'slottedOptions',
                             })}
