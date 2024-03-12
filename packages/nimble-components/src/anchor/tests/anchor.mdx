@@ -42,32 +42,6 @@ The `nimble-anchor` component is a wrapper around the native HTML anchor element
 
 Use buttons for actions and links for navigation. Buttons are used to perform actions, such as submitting a form or opening a modal. Links are used to navigate to a different page or section.
 
-### Inline links
-
-Inline links are used within a block of text to navigate to a different page or section.
-
-<Do>Use `appearance="prominent"` with the underline **enabled** (default).</Do>
-
-    {/* prettier-ignore */}
-    <Frame>
-        <span class="anchor-container">Click on the <NimbleAnchor href="https://nimble.ni.dev" appearance="prominent">link</NimbleAnchor> to navigate.</span>
-    </Frame>
-
-### Standalone links
-
-Standalone links are used to navigate to a different page or section.
-
-<Do>Use `appearance="prominent"` with the **underline-hidden** property.</Do>
-
-    {/* prettier-ignore */}
-    <Frame>
-        <div class="anchor-container">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br/>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br/><br/>
-            <div><NimbleAnchor href="https://nimble.ni.dev" appearance="prominent" underlineHidden>NI Terms and Conditions</NimbleAnchor></div>
-        </div>
-    </Frame>
-
 ### Opening links in a new tabs
 
 <Dont>Avoid forcing the user to open links in a new tab.</Dont>
@@ -114,16 +88,63 @@ Smashing Magazine documents[^3] a list of potential exceptions to the rule, incl
 > -   **The link may interrupt an ongoing process.** For instance, if users are filling a web-form and the form provides the link to terms of service or privacy policy below the form it is reasonable to enforce this link to open in a new window to not interrupt the ongoing process. This is important in sign-up forms and crucial in checkout-forms. Otherwise, users may lose the information they've already typed in and close the browser window in response.
 > -   **The link leads to a non-html-document.** E.g. .pdf-file, .xls-file, .mp3 and so on. Warn users in advance that a new window will appear. When using PC-native file formats such as PDF or spreadsheets, users feel like they're interacting with a PC application. Because users are no longer browsing a website, they shouldn't be given a browser UI. Best of all, prevent the browser from opening the document in the first place.
 
-{/* ## Appearance Variants */}
+## Appearance Variants
+
+### Inline links
+
+Inline links are used within a block of text to navigate to a different page or section.
+
+<Do>Use `appearance="prominent"` with the underline **enabled** (default).</Do>
+
+    {/* prettier-ignore */}
+    <Frame>
+        <span class="anchor-container">Click on the <NimbleAnchor href="https://nimble.ni.dev" appearance="prominent">link</NimbleAnchor> to navigate.</span>
+    </Frame>
+
+### Standalone links
+
+Standalone links are used to navigate to a different page or section.
+
+<Do>Use `appearance="prominent"` with the **underline-hidden** property.</Do>
+
+    {/* prettier-ignore */}
+    <Frame>
+        <div class="anchor-container">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br/>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br/><br/>
+            <div><NimbleAnchor href="https://nimble.ni.dev" appearance="prominent" underlineHidden>NI Terms and Conditions</NimbleAnchor></div>
+        </div>
+    </Frame>
+
+### Other appearance variants
+
+Use `appearance="default"` if the `prominent` green accent color would conflict with the surrounding content.
+
+    {/* prettier-ignore */}
+    <Frame>
+        <Do>
+            <div style={{backgroundColor: 'lightblue'}}>
+                <span class="anchor-container">Click on the <NimbleAnchor href="https://nimble.ni.dev" appearance="default">link</NimbleAnchor> to navigate.</span>
+            </div>
+        </Do>
+        <Dont>
+            <div style={{backgroundColor: 'lightblue'}}>
+                <span class="anchor-container">Click on the <NimbleAnchor href="https://nimble.ni.dev" appearance="prominent">link</NimbleAnchor> to navigate.</span>
+            </div>
+        </Dont>
+    </Frame>
 
 {/* ## Usage */}
 
 {/* ## Examples */}
 
-{/* ## Accessibility */}
+## Accessibility
+
+The `nimble-anchor` component is built with accessibility in mind. Follow the best practices above to ensure that your links are accessible to all users.
 
 ## Resources
 
 -   [Nimble - Figma - Links](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1295-76706&mode=design)
 -   [W3C - Link Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/link/)
+-   [W3C - G200: Opening new windows and tabs from a link only when necessary](https://www.w3.org/TR/WCAG20-TECHS/G200.html)
 -   [Uber - Base Design System - Link](https://base.uber.com/6d2425e9f/p/407fe0-link)
