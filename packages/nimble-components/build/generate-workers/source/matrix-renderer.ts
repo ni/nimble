@@ -19,6 +19,16 @@ export class MatrixRenderer {
     ]);
     private scaledColIndex = new Float64Array([0, 100, 100, 100, 200, 200, 200, 200, 200, 300, 300, 300, 400]);
     private scaledRowIndex = new Float64Array([200, 200, 100, 300, 200, 100, 0, 300, 400, 200, 100, 300, 200]);
+    private dieDimensions: Dimensions = { width: 1, height: 1 };
+    private transform: Transform = { k: 1, x: 0, y: 0 };
+
+    public setDieDimensions(dieDimensions: Dimensions): void {
+        this.dieDimensions = dieDimensions;
+    }
+
+    public setTransform(transform: Transform): void {
+        this.transform = transform;
+    }
 
     public setCanvas(canvas: OffscreenCanvas): void {
         this.canvas = canvas;
@@ -39,14 +49,14 @@ export class MatrixRenderer {
         this.values = Float32Array.from([]);
     }
 
-    public scaleCanvas(data: { transform: Transform }): void {
+    private scaleCanvas(): void {
         this.context.translate(
-            data.transform.x,
-            data.transform.y
+            this.transform.x,
+            this.transform.y
         );
         this.context.scale(
-            data.transform.k,
-            data.transform.k
+            this.transform.k,
+            this.transform.k
         );
     }
 
@@ -63,61 +73,56 @@ export class MatrixRenderer {
         this.canvas.height = data.height;
     }
 
-    public drawWafer(transform: Transform, dieDimensions: Dimensions): void {
-
-        console.log(transform);
-
-        this.context.restore();
-
-        this.context.save();
-
+    private clearCanvas(): void {
         this.context.clearRect(
             0,
             0,
             this.canvas.width,
             this.canvas.height
         );
+    }
 
-        this.scaleCanvas({ transform });
-
-        this.context.translate(
-            transform.x,
-            transform.y
-        );
-
-        this.context.scale(
-            transform.k,
-            transform.k
-        );
+    public drawWafer(): void {
+        this.context.restore();
+        this.context.save();
+        this.clearCanvas();
+        this.scaleCanvas();
 
         for (let i = 0; i < this.scaledColIndex.length; i++) {
             this.context.fillStyle = 'Blue';
-
             const x = this.scaledColIndex[i]!;
             const y = this.scaledRowIndex[i]!;
-            const width = dieDimensions.width;
-            const height = dieDimensions.height;
-            this.context.fillRect(x, y, width, height);
-
-            const fontSize = Math.floor(height * 0.35);
-            this.context.font = `${fontSize}px Arial`;
-            this.context.fillStyle = 'White';
-
-            // Calculate the position to center the text in the rectangle
-            const textX = x + width / 2;
-            let textY = y + height / 2;
-
-            // Check if the value has more than one decimal place
-            let formattedValue = parseFloat(this.values[i]!.toFixed(1)) + '...';
-
-            // Adjust text alignment to center
-            this.context.textAlign = 'center';
-            this.context.textBaseline = 'middle';
-
-            // Draw the formatted value in the center of the rectangle
-            this.context.fillText(formattedValue, textX, textY);
+            if (!this.isDieVisible(x, y, { x: 0, y: 0 }, { x: 250, y: 250 })) { continue; }
+            this.context.fillRect(x, y, this.dieDimensions.width, this.dieDimensions.height);
+            this.addTextOnDie(x, y, i);
         }
-        console.log(this);
+    }
+
+    private formatValue(value: number | undefined): string {
+        if (value === undefined) return '';
+        return parseFloat(value.toFixed(1)) + '...';
+    }
+
+    private addTextOnDie(x: number, y: number, i: number) {
+        const fontSize = Math.floor(this.dieDimensions.height * 0.35);
+        this.context.font = `${fontSize}px Arial`;
+        this.context.fillStyle = 'White';
+
+        const textX = x + this.dieDimensions.width / 2;
+        const textY = y + this.dieDimensions.height / 2;
+
+        let formattedValue = this.formatValue(this.values[i]);
+
+        this.context.textAlign = 'center';
+        this.context.textBaseline = 'middle';
+        this.context.fillText(formattedValue, textX, textY);
+    }
+
+    private isDieVisible(x: number, y: number, topLeftCanvasCorner: { x: number, y: number }, bottomRightCanvasCorner: { x: number, y: number }): boolean {
+        return x >= topLeftCanvasCorner.x &&
+            x <= bottomRightCanvasCorner.x &&
+            y >= topLeftCanvasCorner.y &&
+            y <= bottomRightCanvasCorner.y;
     }
 }
 expose(MatrixRenderer);
