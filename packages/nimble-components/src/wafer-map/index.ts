@@ -233,6 +233,11 @@ export class WaferMap extends FoundationElement {
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
+        this.workerOne.drawWafer(this.transform, this.dataManager.dieDimensions).then(
+            () => {
+            },
+            () => { }
+        );
     }
 
     private validate(): void {
@@ -253,6 +258,11 @@ export class WaferMap extends FoundationElement {
             this.canvas.height = height;
             this.canvasWidth = width;
             this.canvasHeight = height;
+            this.workerOne.setCanvasDimensions({ width, height }).then(
+                () => {
+                },
+                () => { }
+            );
         });
         return resizeObserver;
     }
