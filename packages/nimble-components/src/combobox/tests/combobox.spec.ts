@@ -142,10 +142,10 @@ describe('Combobox', () => {
 
         expect(registerOptionSpy.calls.count()).toBe(1);
         expect(element.options).toContain(newOption);
-        // The below assertion is simply showing a current expected, but
-        // incorrect, behavior, as the new option was added before the currently
-        // selected one. See 'https://github.com/ni/nimble/issues/1915'
-        // for details.
+
+        // While the option is registered synchronously as shown above,
+        // properties like selectedIndex will only be correct asynchronously
+        // See https://github.com/ni/nimble/issues/1915
         expect(element.selectedIndex).toBe(0);
         await waitForUpdatesAsync();
         // This assertion shows that after 'slottedOptionsChanged' runs, the

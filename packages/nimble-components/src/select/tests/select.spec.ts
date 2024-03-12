@@ -281,6 +281,19 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('changing textContent of selected option updates display of select', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        const selectedOption = pageObject.getSelectedOption();
+        selectedOption!.textContent = 'foo';
+        await waitForUpdatesAsync();
+        expect(element.displayValue).toBe('foo');
+
+        await disconnect();
+    });
+
     it('option added directly to DOM synchronously registers with Select', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
@@ -295,9 +308,10 @@ describe('Select', () => {
 
         expect(registerOptionSpy.calls.count()).toBe(1);
         expect(element.options).toContain(newOption);
-        // The below assertion is simply showing a current expected, but
-        // incorrect, behavior. See 'https://github.com/ni/nimble/issues/1915'
-        // for details.
+
+        // While the option is registered synchronously as shown above,
+        // properties like selectedIndex will only be correct asynchronously
+        // See https://github.com/ni/nimble/issues/1915
         expect(element.selectedIndex).toBe(0);
         await waitForUpdatesAsync();
         expect(element.value).toBe('one');
