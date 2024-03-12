@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 12 Mar 2024 22:17:11 GMT",
+      "version": "21.10.2",
+      "tag": "@ni/nimble-components_v21.10.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "19643f4e13056e414aedd6b8ef89beb7ad1e95ab",
+            "comment": "Adding DropdownOwner interface allowing Select to register options during connectedCallback."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 12 Mar 2024 21:01:54 GMT",
       "version": "21.10.1",
       "tag": "@ni/nimble-components_v21.10.1",
