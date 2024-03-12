@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 12 Mar 2024 21:01:54 GMT and should not be manually modified.
+This log was last generated on Tue, 12 Mar 2024 22:17:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.3.0
+
+Tue, 12 Mar 2024 22:17:11 GMT
+
+### Minor changes
+
+- Add selected and hidden attributes to NimbleListOptionDirective. Also exporting SelectPageObject. ([ni/nimble@880dfa1](https://github.com/ni/nimble/commit/880dfa1a7f1f9f478dc87199184dba3e5e2c0a56))
+- Bump @ni/nimble-components to v21.10.2
 
 ## 20.2.21
 

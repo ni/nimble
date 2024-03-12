@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 12 Mar 2024 21:01:54 GMT and should not be manually modified.
+This log was last generated on Tue, 12 Mar 2024 22:17:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.10.2
+
+Tue, 12 Mar 2024 22:17:11 GMT
+
+### Patches
+
+- Adding DropdownOwner interface allowing Select to register options during connectedCallback. ([ni/nimble@19643f4](https://github.com/ni/nimble/commit/19643f4e13056e414aedd6b8ef89beb7ad1e95ab))
 
 ## 21.10.1
 
