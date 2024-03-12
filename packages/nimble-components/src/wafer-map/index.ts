@@ -11,7 +11,6 @@ import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
 import { EventCoordinator } from './modules/event-coordinator';
-import { EventCoordinator as ExperimentalEventCoordinator } from './modules/experimental/event-coordinator';
 import {
     HoverDie,
     HoverDieOpacity,
@@ -24,7 +23,7 @@ import {
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
-import { WorkerRenderer } from './modules/worker-renderer';
+import { WorkerRenderer } from './modules/experimental/worker-renderer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -157,12 +156,7 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    private readonly stableEventCoordinator = new ExperimentalEventCoordinator(
-        this
-    );
-
-    private readonly experimentalEventCoordinator = new EventCoordinator(this);
-    private eventCoordinator: EventCoordinator | ExperimentalEventCoordinator = this.stableEventCoordinator;
+    private readonly eventCoordinator = new EventCoordinator(this);
 
     private readonly resizeObserver = this.createResizeObserver();
     private readonly waferMapValidator = new WaferMapValidator(this);
@@ -198,8 +192,12 @@ export class WaferMap extends FoundationElement {
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
+        this.renderer = this.diesTable === undefined
+            ? this.mainRenderer
+            : this.workerRenderer;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
+            this.eventCoordinator.setStrategy();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -299,25 +297,11 @@ export class WaferMap extends FoundationElement {
 
     private diesChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderer = this.diesTable === undefined
-            ? this.mainRenderer
-            : this.workerRenderer;
-        this.eventCoordinator?.detachEvents();
-        this.eventCoordinator = this.diesTable === undefined
-            ? this.stableEventCoordinator
-            : this.experimentalEventCoordinator;
         this.waferMapUpdateTracker.queueUpdate();
     }
 
     private diesTableChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderer = this.diesTable === undefined
-            ? this.mainRenderer
-            : this.workerRenderer;
-        this.eventCoordinator?.detachEvents();
-        this.eventCoordinator = this.diesTable === undefined
-            ? this.stableEventCoordinator
-            : this.experimentalEventCoordinator;
         this.waferMapUpdateTracker.queueUpdate();
     }
 

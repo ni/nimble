@@ -1,4 +1,5 @@
 import { fromArrow } from 'arquero';
+import type ColumnTable from 'arquero/dist/types/table/column-table';
 import type { WaferMap } from '../..';
 import { PointCoordinates, WaferMapOriginLocation } from '../../types';
 
@@ -24,12 +25,17 @@ export class HoverHandler {
             x: invertedPoint[0],
             y: invertedPoint[1]
         });
-        const table = fromArrow(this.wafermap.diesTable);
+        const table = fromArrow(this.wafermap.diesTable).params({
+            dieCoordinates
+        }) as ColumnTable;
 
         const indices = table
             .filter(
-                (row: { colIndex: number, rowIndex: number }) => row.colIndex === dieCoordinates.x
-                    && row.rowIndex === dieCoordinates.y
+                (
+                    row: { colIndex: number, rowIndex: number },
+                    params: { dieCoordinates: { x: number, y: number } }
+                ) => row.colIndex === params.dieCoordinates.x
+                    && row.rowIndex === params.dieCoordinates.y
             )
             .indices();
 

@@ -2,6 +2,7 @@ import type { WaferMapDie } from '../types';
 import { ZoomHandler } from './zoom-handler';
 import type { WaferMap } from '..';
 import { HoverHandler } from './hover-handler';
+import { HoverHandler as ExpHoverHandler } from './experimental/hover-handler';
 
 export interface EventCoordinatorCallbacks {
     dieSelected: (die: WaferMapDie) => void;
@@ -12,26 +13,35 @@ export interface EventCoordinatorCallbacks {
  */
 export class EventCoordinator {
     private readonly zoomHandler;
-    private readonly hoverHandler;
+    private readonly stableHoverHandler;
+    private readonly expHoverHandler;
+    private hoverHandler: HoverHandler | ExpHoverHandler;
     public constructor(private readonly wafermap: WaferMap) {
         this.zoomHandler = new ZoomHandler(wafermap);
-        this.hoverHandler = new HoverHandler(wafermap);
+        this.stableHoverHandler = new HoverHandler(wafermap);
+        this.expHoverHandler = new ExpHoverHandler(wafermap);
+        this.hoverHandler = this.stableHoverHandler;
+    }
+
+    public setStrategy(): void {
+        this.hoverHandler = this.wafermap.diesTable === undefined
+            ? this.stableHoverHandler
+            : this.expHoverHandler;
     }
 
     public attachEvents(): void {
         this.zoomHandler.createZoomBehavior();
         this.wafermap.addEventListener('mousemove', this.onMouseMove);
         this.wafermap.addEventListener('mouseout', this.onMouseOut);
-        this.wafermap.canvas.addEventListener('wheel', this.onWheelMove, {
+        this.wafermap.addEventListener('wheel', this.onWheelMove, {
             passive: false
         });
     }
 
     public detachEvents(): void {
-        this.zoomHandler.removeZoomBehavior();
         this.wafermap.removeEventListener('mousemove', this.onMouseMove);
         this.wafermap.removeEventListener('mouseout', this.onMouseOut);
-        this.wafermap.canvas.removeEventListener('wheel', this.onWheelMove);
+        this.wafermap.removeEventListener('wheel', this.onWheelMove);
     }
 
     private readonly onWheelMove = (event: Event): void => {
