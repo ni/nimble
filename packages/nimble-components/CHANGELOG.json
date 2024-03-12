@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 12 Mar 2024 20:17:37 GMT",
+      "version": "21.10.0",
+      "tag": "@ni/nimble-components_v21.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e5972ee4e47f02a4224311d696da2d15573dbab3",
+            "comment": "Fix sb mdx backgrounds"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 12 Mar 2024 16:59:31 GMT",
       "version": "21.10.0",
       "tag": "@ni/nimble-components_v21.10.0",
