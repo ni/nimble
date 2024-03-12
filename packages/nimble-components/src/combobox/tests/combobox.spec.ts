@@ -9,6 +9,7 @@ import {
     waitAnimationFrame
 } from '../../utilities/tests/component';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
+import { listOptionTag } from '../../list-option';
 
 async function setup(
     position?: string,
