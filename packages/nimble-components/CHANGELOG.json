@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 12 Mar 2024 16:59:31 GMT",
+      "version": "21.10.0",
+      "tag": "@ni/nimble-components_v21.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d8aa87d33c0066f7f3f73348288222c30a2a8cbf",
+            "comment": "Fix Storybook source preview"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 07 Mar 2024 22:17:07 GMT",
       "version": "21.10.0",
       "tag": "@ni/nimble-components_v21.10.0",
