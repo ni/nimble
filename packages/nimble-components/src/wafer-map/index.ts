@@ -74,8 +74,8 @@ export class WaferMap extends FoundationElement {
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     /**
- * @internal
- */
+     * @internal
+     */
     public workerOne!: Remote<MatrixRenderer>;
 
     /**
@@ -84,8 +84,8 @@ export class WaferMap extends FoundationElement {
     public readonly canvas!: HTMLCanvasElement;
 
     /**
- * @internal
- */
+     * @internal
+     */
     public readonly canvasOne!: HTMLCanvasElement;
 
     /**
@@ -186,9 +186,7 @@ export class WaferMap extends FoundationElement {
 
         const offscreenOne = this.canvasOne.transferControlToOffscreen();
         await this.workerOne.setCanvas(
-            transfer(offscreenOne, [
-                offscreenOne as unknown as Transferable
-            ])
+            transfer(offscreenOne, [offscreenOne as unknown as Transferable])
         );
 
         this.resizeObserver.observe(this);
@@ -259,9 +257,8 @@ export class WaferMap extends FoundationElement {
             this.canvasWidth = width;
             this.canvasHeight = height;
             this.workerOne.setCanvasDimensions({ width, height }).then(
-                () => {
-                },
-                () => { }
+                () => {},
+                () => {}
             );
         });
         return resizeObserver;
