@@ -22,7 +22,9 @@ describe('RichTextMentionListbox', () => {
         public anchorDiv!: HTMLDivElement;
     }
 
-    async function setup500Options(source: Model): Promise<Fixture<RichTextMentionListbox>> {
+    async function setup500Options(
+        source: Model
+    ): Promise<Fixture<RichTextMentionListbox>> {
         // prettier-ignore
         return fixture<RichTextMentionListbox>(
             html<Model>`
