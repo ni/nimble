@@ -354,18 +354,10 @@ describe('TableColumnEnumText', () => {
             });
         });
 
-        class ModelInvalidMappings {
-            public table!: Table;
-            public col1!: TableColumnEnumText;
-            public col2!: TableColumnEnumText;
-        }
-        interface ModelInvalidMappingsFixture<T> extends Fixture<T> {
-            model: ModelInvalidMappings;
-        }
         // prettier-ignore
-        async function setupInvalidMappings(): Promise<ModelInvalidMappingsFixture<Table<SimpleTableRecord>>> {
-            const source = new ModelInvalidMappings();
-            const result = await fixture<Table<SimpleTableRecord>>(html<ModelInvalidMappings>`
+        async function setupInvalidMappings(): Promise<ModelFixture<Table<SimpleTableRecord>>> {
+            const source = new Model();
+            const result = await fixture<Table<SimpleTableRecord>>(html<Model>`
                 <${tableTag} ${ref('table')} style="width: 700px">
                     <${tableColumnEnumTextTag} ${ref('col1')} field-name="field1">
                         Column 1
