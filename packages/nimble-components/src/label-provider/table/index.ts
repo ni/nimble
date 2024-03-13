@@ -93,10 +93,10 @@ export class LabelProviderTable
     @attr({ attribute: 'row-loading' })
     public rowLoading: string | undefined;
 
-    @attr({ attribute: 'group-row-no-value-placeholder' })
+    @attr({ attribute: 'group-row-placeholder-no-value' })
     public groupRowPlaceholderNoValue: string | undefined;
 
-    @attr({ attribute: 'group-row-empty-placeholder' })
+    @attr({ attribute: 'group-row-placeholder-empty' })
     public groupRowPlaceholderEmpty: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;

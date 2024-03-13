@@ -74,11 +74,11 @@ export const tableRowLoadingLabel = DesignToken.create<string>({
 }).withDefault(tableLabelDefaults.tableRowLoadingLabel);
 
 export const tableGroupRowPlaceholderNoValueLabel = DesignToken.create<string>({
-    name: 'table-group-row-no-value-placeholder-label',
+    name: 'table-group-row-placeholder-no-value-label',
     cssCustomPropertyName: null
 }).withDefault(tableLabelDefaults.tableGroupRowPlaceholderNoValueLabel);
 
 export const tableGroupRowPlaceholderEmptyLabel = DesignToken.create<string>({
-    name: 'table-group-row-empty-placeholder-label',
+    name: 'table-group-row-placeholder-empty-label',
     cssCustomPropertyName: null
 }).withDefault(tableLabelDefaults.tableGroupRowPlaceholderEmptyLabel);
