@@ -1,6 +1,6 @@
 {
-  "type": "patch",
-  "comment": "Update default values in label provider directives",
+  "type": "minor",
+  "comment": "Update default values in label provider directives and expose additional label provider properties",
   "packageName": "@ni/nimble-angular",
   "email": "jattasNI@users.noreply.github.com",
   "dependentChangeType": "patch"

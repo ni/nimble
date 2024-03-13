@@ -31,9 +31,9 @@ describe('Nimble LabelProviderCore withDefaults directive', () => {
             [computeMsgId('Close', 'Nimble popup - dismiss')]: 'Translated close',
             [computeMsgId('Decrement', 'Nimble numeric - decrement')]: 'Translated decrement',
             [computeMsgId('Increment', 'Nimble numeric - increment')]: 'Translated increment',
-            [computeMsgId('Error', 'Nimble icon - error')]: 'Translated error',
-            [computeMsgId('Warning', 'Nimble icon - warning')]: 'Translated warning',
-            [computeMsgId('Information', 'Nimble icon - information')]: 'Translated information',
+            [computeMsgId('Error', 'Nimble popup icon - error')]: 'Translated error',
+            [computeMsgId('Warning', 'Nimble popup icon - warning')]: 'Translated warning',
+            [computeMsgId('Information', 'Nimble popup icon - information')]: 'Translated information',
             [computeMsgId('Search', 'Nimble select - search items')]: 'Translated search',
             [computeMsgId('No items found', 'Nimble select - no items')]: 'Translated no items found'
         });
