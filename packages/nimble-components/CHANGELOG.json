@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 13 Mar 2024 22:25:27 GMT",
+      "version": "21.10.2",
+      "tag": "@ni/nimble-components_v21.10.2",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "52783423015bc7b1cfd3718646923d36b1f9d32c",
+            "comment": "Fix missing element names in some Storybook docs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 12 Mar 2024 22:17:11 GMT",
       "version": "21.10.2",
       "tag": "@ni/nimble-components_v21.10.2",
