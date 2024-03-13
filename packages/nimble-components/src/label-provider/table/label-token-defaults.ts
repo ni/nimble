@@ -17,6 +17,6 @@ export const tableLabelDefaults: { readonly [key in TokenName]: string } = {
     tableRowSelectLabel: 'Select row',
     tableRowOperationColumnLabel: 'Row operations',
     tableRowLoadingLabel: 'Loading',
-    tableGroupRowNoValuePlaceholderLabel: 'No value',
-    tableGroupRowEmptyPlaceholderLabel: 'Empty'
+    tableGroupRowPlaceholderNoValueLabel: 'No value',
+    tableGroupRowPlaceholderEmptyLabel: 'Empty'
 };

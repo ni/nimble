@@ -2,8 +2,8 @@ import { observable } from '@microsoft/fast-element';
 import { TableGroupHeaderView } from '../../base/group-header-view';
 import type { TableFieldValue } from '../../../table/types';
 import {
-    tableGroupRowEmptyPlaceholderLabel,
-    tableGroupRowNoValuePlaceholderLabel
+    tableGroupRowPlaceholderEmptyLabel,
+    tableGroupRowPlaceholderNoValueLabel
 } from '../../../label-provider/table/label-tokens';
 
 /**
@@ -20,12 +20,12 @@ export abstract class TableColumnTextGroupHeaderViewBase<
     /**
      * Text to render in the cell.
      *
-     * The value is initialized to `tableGroupRowNoValuePlaceholder` because if the group
+     * The value is initialized to `tableGroupRowPlaceholderNoValue` because if the group
      * row never has a value defined on it, the change handlers may never get called but
      * the text needs to be correct.
      */
     @observable
-    public text = tableGroupRowNoValuePlaceholderLabel.getValueFor(this);
+    public text = tableGroupRowPlaceholderNoValueLabel.getValueFor(this);
 
     /**
      * Sets `this.text` to the appropriate placeholder if `groupHeaderValue` warrants it.
@@ -36,11 +36,11 @@ export abstract class TableColumnTextGroupHeaderViewBase<
         groupHeaderValue: TableFieldValue
     ): boolean {
         if (groupHeaderValue === null || groupHeaderValue === undefined) {
-            this.text = tableGroupRowNoValuePlaceholderLabel.getValueFor(this);
+            this.text = tableGroupRowPlaceholderNoValueLabel.getValueFor(this);
             return true;
         }
         if (groupHeaderValue === '') {
-            this.text = tableGroupRowEmptyPlaceholderLabel.getValueFor(this);
+            this.text = tableGroupRowPlaceholderEmptyLabel.getValueFor(this);
             return true;
         }
         return false;
