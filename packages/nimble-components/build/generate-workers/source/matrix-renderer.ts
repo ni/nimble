@@ -14,8 +14,8 @@ export class MatrixRenderer {
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
     public values = new Float32Array([]);
-    public scaledColIndex = new Float64Array([]);
-    public scaledRowIndex = new Float64Array([]);
+    public scaledColIndex = new Float32Array([]);
+    public scaledRowIndex = new Float32Array([]);
     public dieDimensions: Dimensions = { width: 1, height: 1 };
     public transform: Transform = { k: 1, x: 0, y: 0 };
     public topLeftCanvasCorner: { x: number, y: number } = { x: 0, y: 0 };

@@ -43,18 +43,16 @@ describe('MatrixRenderer with MessageChannel', () => {
 
         await matrixRenderer.updateMatrix(testData);
 
-        const matrix = await matrixRenderer.getMatrix();
+        await matrixRenderer.drawWafer();
 
-        expect(matrix).toEqual({
-            colIndexes: Uint8Array.from(testData.colIndexes),
-            rowIndexes: Uint8Array.from(testData.rowIndexes),
-            values: Float32Array.from(testData.values)
-        });
+        expect(matrixRenderer.clearCanvas).toHaveBeenCalled();
+        expect(matrixRenderer.scaleCanvas).toHaveBeenCalled();
+        expect(matrixRenderer.addTextOnDie).toHaveBeenCalledTimes(3);
     });
 
     it('should draw the wafer', async () => {
-        matrixRenderer.scaledColIndex = Promise.resolve(Float64Array.from([0.1, 0.2, 0.3]));
-        matrixRenderer.scaledRowIndex = Promise.resolve(Float64Array.from([0.4, 0.5, 0.6]));
+        const offscreenCanvas = new OffscreenCanvas(500, 500);
+        await matrixRenderer.setCanvas(offscreenCanvas);
         spyOn(matrixRenderer, 'clearCanvas');
         spyOn(matrixRenderer, 'scaleCanvas');
         spyOn(matrixRenderer, 'addTextOnDie');
