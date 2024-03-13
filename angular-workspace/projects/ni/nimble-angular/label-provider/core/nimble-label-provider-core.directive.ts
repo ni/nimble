@@ -39,7 +39,7 @@ export class NimbleLabelProviderCoreDirective {
     }
 
     public get errorIcon(): string | undefined {
-        return this.elementRef.nativeElement.errorIcon;
+        return this.elementRef.nativeElement.popupIconError;
     }
 
     @Input('error-icon') public set errorIcon(value: string | undefined) {
@@ -47,7 +47,7 @@ export class NimbleLabelProviderCoreDirective {
     }
 
     public get warningIcon(): string | undefined {
-        return this.elementRef.nativeElement.warningIcon;
+        return this.elementRef.nativeElement.popupIconWarning;
     }
 
     @Input('warning-icon') public set warningIcon(value: string | undefined) {
@@ -55,7 +55,7 @@ export class NimbleLabelProviderCoreDirective {
     }
 
     public get informationIcon(): string | undefined {
-        return this.elementRef.nativeElement.informationIcon;
+        return this.elementRef.nativeElement.popupIconInformation;
     }
 
     @Input('information-icon') public set informationIcon(value: string | undefined) {

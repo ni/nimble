@@ -47,9 +47,9 @@ describe('Nimble LabelProviderCore withDefaults directive', () => {
         expect(labelProvider.popupDismiss).toBe('Translated close');
         expect(labelProvider.numericDecrement).toBe('Translated decrement');
         expect(labelProvider.numericIncrement).toBe('Translated increment');
-        expect(labelProvider.errorIcon).toBe('Translated error');
-        expect(labelProvider.warningIcon).toBe('Translated warning');
-        expect(labelProvider.informationIcon).toBe('Translated information');
+        expect(labelProvider.popupIconError).toBe('Translated error');
+        expect(labelProvider.popupIconWarning).toBe('Translated warning');
+        expect(labelProvider.popupIconInformation).toBe('Translated information');
         expect(labelProvider.filterSearch).toBe('Translated search');
         expect(labelProvider.filterNoResults).toBe('Translated no items found');
     });

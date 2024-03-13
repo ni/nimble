@@ -16,20 +16,20 @@ export const numericIncrementLabel = DesignToken.create<string>({
     cssCustomPropertyName: null
 }).withDefault(coreLabelDefaults.numericIncrementLabel);
 
-export const errorIconLabel = DesignToken.create<string>({
+export const popupIconErrorLabel = DesignToken.create<string>({
     name: 'error-icon-label',
     cssCustomPropertyName: null
-}).withDefault(coreLabelDefaults.errorIconLabel);
+}).withDefault(coreLabelDefaults.popupIconErrorLabel);
 
-export const warningIconLabel = DesignToken.create<string>({
+export const popupIconWarningLabel = DesignToken.create<string>({
     name: 'warning-icon-label',
     cssCustomPropertyName: null
-}).withDefault(coreLabelDefaults.warningIconLabel);
+}).withDefault(coreLabelDefaults.popupIconWarningLabel);
 
-export const informationIconLabel = DesignToken.create<string>({
+export const popupIconInformationLabel = DesignToken.create<string>({
     name: 'information-icon-label',
     cssCustomPropertyName: null
-}).withDefault(coreLabelDefaults.informationIconLabel);
+}).withDefault(coreLabelDefaults.popupIconInformationLabel);
 
 export const filterSearchLabel = DesignToken.create<string>({
     name: 'filter-search-label',
