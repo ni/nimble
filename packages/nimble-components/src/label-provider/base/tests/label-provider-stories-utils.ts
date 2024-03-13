@@ -27,6 +27,7 @@ const createTemplate = (
 <${tableTag}
     ${ref('tableRef')}
     data-unused="${x => x.updateData(x)}"
+    class="${x => x.labelProviderTag}"
 >
     <${tableColumnTextTag}
         column-id="token-name-column"
@@ -61,9 +62,9 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
                 p {
                     font: var(${bodyFont.cssCustomProperty});
                 }
-                ${tableTag} {
+                ${tableTag}.${x => x.labelProviderTag} {
                     /* Make the table big enough to remove vertical scrollbar */
-                    height: 650px;
+                    height: ${x => `calc((34px * ${x.labelTokens.length.toString()}) + 32px)`}
                 }
             </style>
             ${x => createTemplate(x.labelProviderTag)}
