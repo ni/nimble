@@ -21,6 +21,11 @@ export class MatrixRenderer {
     public topLeftCanvasCorner: { x: number, y: number } = { x: 0, y: 0 };
     public bottomRightCanvasCorner: { x: number, y: number } = { x: 500, y: 500 };
 
+    public setCanvas(canvas: OffscreenCanvas): void {
+        this.canvas = canvas;
+        this.context = canvas.getContext('2d')!;
+    }
+
     public getMatrix(): WaferMapTypedMatrix {
         return {
             colIndexes: this.colIndexes,
