@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 05 Mar 2024 21:15:27 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Mar 2024 23:07:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.4.0
+
+Wed, 13 Mar 2024 23:07:24 GMT
+
+### Minor changes
+
+- Expose additional label provider properties ([ni/nimble@518c229](https://github.com/ni/nimble/commit/518c229b964d2c4a2e77210692f5d367f2937ff4))
 
 ## 14.3.15
 

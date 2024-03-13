@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 13 Mar 2024 23:07:24 GMT",
+      "version": "22.0.0",
+      "tag": "@ni/nimble-components_v22.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "518c229b964d2c4a2e77210692f5d367f2937ff4",
+            "comment": "Rename icon labels to follow naming convention"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Mar 2024 22:25:27 GMT",
       "version": "21.10.2",
       "tag": "@ni/nimble-components_v21.10.2",

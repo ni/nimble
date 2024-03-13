@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 13 Mar 2024 23:07:24 GMT",
+      "version": "20.4.0",
+      "tag": "@ni/nimble-angular_v20.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "518c229b964d2c4a2e77210692f5d367f2937ff4",
+            "comment": "Update default values in label provider directives and expose additional label provider properties"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v22.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 12 Mar 2024 22:17:11 GMT",
       "version": "20.3.0",
       "tag": "@ni/nimble-angular_v20.3.0",
