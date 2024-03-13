@@ -13,7 +13,9 @@ import {
     errorStates,
     ErrorState,
     InteractionState,
-    interactionStates
+    interactionStates,
+    nonInteractionStates,
+    disabledInteractionsFilter
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { NumberFieldAppearance } from '../types';
@@ -71,7 +73,7 @@ const component = (
 
 export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        interactionStates.slice(0, 1),
+        nonInteractionStates,
         disabledStates,
         hideStepStates,
         valueStates,
@@ -81,14 +83,18 @@ export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 export const numberFieldInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
-        interactionStates.filter(x => x[0] && !x[0].includes('Active')),
-        disabledStates,
-        hideStepStates.slice(0, 1),
-        valueStates.slice(1, 2),
-        errorStates.slice(0, 2),
-        appearanceStates
-    ])
+    createMatrix(
+        component,
+        [
+            interactionStates.filter(x => !x[0].includes('Active')), // skip irrelevant active states
+            disabledStates,
+            hideStepStates.filter(x => x[0] !== 'Hide Step'), // always show inc/dec buttons
+            valueStates.filter(x => x[0] !== 'Placeholder'), // don't test placeholder text
+            errorStates.filter(x => x[0] !== 'Error No Message'), // don't test error state w/o error text
+            appearanceStates
+        ],
+        disabledInteractionsFilter
+    )
 );
 
 export const hiddenNumberField: StoryFn = createStory(

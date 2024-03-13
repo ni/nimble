@@ -30,12 +30,14 @@ export function createMatrix(component: () => ViewTemplate): ViewTemplate;
 
 export function createMatrix<State1>(
     component: (state1: State1) => ViewTemplate,
-    dimensions: readonly [readonly State1[]]
+    dimensions: readonly [readonly State1[]],
+    filter?: (state1: State1) => boolean
 ): ViewTemplate;
 
 export function createMatrix<State1, State2>(
     component: (state1: State1, state2: State2) => ViewTemplate,
-    dimensions: readonly [readonly State1[], readonly State2[]]
+    dimensions: readonly [readonly State1[], readonly State2[]],
+    filter?: (state1: State1, state2: State2) => boolean
 ): ViewTemplate;
 
 export function createMatrix<State1, State2, State3>(
@@ -44,7 +46,8 @@ export function createMatrix<State1, State2, State3>(
         readonly State1[],
         readonly State2[],
         readonly State3[]
-    ]
+    ],
+    filter?: (state1: State1, state2: State2, state3: State3) => boolean
 ): ViewTemplate;
 
 export function createMatrix<State1, State2, State3, State4>(
@@ -59,7 +62,13 @@ export function createMatrix<State1, State2, State3, State4>(
         readonly State2[],
         readonly State3[],
         readonly State4[]
-    ]
+    ],
+    filter?: (
+        state1: State1,
+        state2: State2,
+        state3: State3,
+        state4: State4
+    ) => boolean
 ): ViewTemplate;
 
 export function createMatrix<State1, State2, State3, State4, State5>(
@@ -76,7 +85,14 @@ export function createMatrix<State1, State2, State3, State4, State5>(
         readonly State3[],
         readonly State4[],
         readonly State5[]
-    ]
+    ],
+    filter?: (
+        state1: State1,
+        state2: State2,
+        state3: State3,
+        state4: State4,
+        state5: State5
+    ) => boolean
 ): ViewTemplate;
 
 export function createMatrix<State1, State2, State3, State4, State5, State6>(
@@ -95,7 +111,15 @@ export function createMatrix<State1, State2, State3, State4, State5, State6>(
         readonly State4[],
         readonly State5[],
         readonly State6[]
-    ]
+    ],
+    filter?: (
+        state1: State1,
+        state2: State2,
+        state3: State3,
+        state4: State4,
+        state5: State5,
+        state6: State6
+    ) => boolean
 ): ViewTemplate;
 
 export function createMatrix<
@@ -124,7 +148,16 @@ export function createMatrix<
         readonly State5[],
         readonly State6[],
         readonly State7[]
-    ]
+    ],
+    filter?: (
+        state1: State1,
+        state2: State2,
+        state3: State3,
+        state4: State4,
+        state5: State5,
+        state6: State6,
+        state7: State7
+    ) => boolean
 ): ViewTemplate;
 
 export function createMatrix<
@@ -156,7 +189,17 @@ export function createMatrix<
         readonly State6[],
         readonly State7[],
         readonly State8[]
-    ]
+    ],
+    filter?: (
+        state1: State1,
+        state2: State2,
+        state3: State3,
+        state4: State4,
+        state5: State5,
+        state6: State6,
+        state7: State7,
+        state8: State8
+    ) => boolean
 ): ViewTemplate;
 
 export function createMatrix<
@@ -191,12 +234,24 @@ export function createMatrix<
         readonly State7[],
         readonly State8[],
         readonly State9[]
-    ]
+    ],
+    filter?: (
+        state1: State1,
+        state2: State2,
+        state3: State3,
+        state4: State4,
+        state5: State5,
+        state6: State6,
+        state7: State7,
+        state8: State8,
+        state9: State9
+    ) => boolean
 ): ViewTemplate;
 
 export function createMatrix(
     component: (...states: readonly unknown[]) => ViewTemplate,
-    dimensions?: readonly (readonly unknown[])[]
+    dimensions?: readonly (readonly unknown[])[],
+    filter?: (...states: readonly unknown[]) => boolean
 ): ViewTemplate {
     const matrix: ViewTemplate[] = [];
     const recurseDimensions = (
@@ -208,7 +263,7 @@ export function createMatrix(
             for (const currentState of currentDimension!) {
                 recurseDimensions(remainingDimensions, ...states, currentState);
             }
-        } else {
+        } else if (!filter || filter(...states)) {
             matrix.push(component(...states));
         }
     };

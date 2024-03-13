@@ -42,8 +42,8 @@ export type ReadOnlyState = (typeof readOnlyStates)[number];
 export const iconVisibleStates = [false, true] as const;
 export type IconVisibleState = (typeof iconVisibleStates)[number];
 
+export const nonInteractionStates = [['', '']] as const;
 export const interactionStates = [
-    ['', ''],
     // Using pseudo-*-all will turn on the effect for any nested custom elements (e.g. inc/dec buttons in number field).
     // It works around the limitation that selectors for shadow elements can only see the immediate host's classes.
     ['Hovered', 'hover pseudo-hover-all'],
@@ -54,4 +54,14 @@ export const interactionStates = [
         'focus-visible focus-within pseudo-focus-visible-all pseudo-focus-within-all'
     ]
 ] as const;
-export type InteractionState = (typeof interactionStates)[number];
+export type InteractionState =
+    | (typeof interactionStates)[number]
+    | (typeof nonInteractionStates)[number];
+
+// Only interaction relevant to disabled controls is hover
+export function disabledInteractionsFilter(
+    interactionState: InteractionState,
+    disabledState: DisabledState
+): boolean {
+    return disabledState[0] !== 'Disabled' || interactionState[0] === 'Hovered';
+}

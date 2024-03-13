@@ -11,7 +11,9 @@ import {
     disabledStates,
     DisabledState,
     InteractionState,
-    interactionStates
+    interactionStates,
+    nonInteractionStates,
+    disabledInteractionsFilter
 } from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -71,23 +73,50 @@ const component = (
 `;
 
 export const menuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
-        interactionStates.slice(0, 1),
-        partVisibilityStates,
-        openStates,
-        disabledStates,
-        appearanceStates
-    ])
+    createMatrix(
+        component,
+        [
+            nonInteractionStates,
+            partVisibilityStates,
+            openStates,
+            disabledStates,
+            appearanceStates
+        ],
+        // Disabled and open is not a valid state
+        (
+            _interactionState: InteractionState,
+            _partVisibilityState: PartVisibilityState,
+            openState: OpenState,
+            disabledState: DisabledState
+        ) => {
+            return disabledState[0] !== 'Disabled' || openState[0] !== 'Open';
+        }
+    )
 );
 
 export const menuButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
-        interactionStates.slice(1),
-        [[false, true, false]],
-        openStates,
-        disabledStates,
-        appearanceStates
-    ])
+    createMatrix(
+        component,
+        [
+            interactionStates,
+            [[false, true, false]],
+            openStates,
+            disabledStates,
+            appearanceStates
+        ],
+        // Only interaction relevant to disabled controls is hover
+        (
+            interactionState: InteractionState,
+            _partVisibilityState: PartVisibilityState,
+            _openState: OpenState,
+            disabledState: DisabledState
+        ) => {
+            return disabledInteractionsFilter(
+                interactionState,
+                disabledState
+            );
+        }
+    )
 );
 
 export const hiddenMenuButton: StoryFn = createStory(

@@ -14,7 +14,9 @@ import {
     disabledStates,
     DisabledState,
     InteractionState,
-    interactionStates
+    interactionStates,
+    nonInteractionStates,
+    disabledInteractionsFilter
 } from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -76,7 +78,7 @@ const component = (
 
 export const anchorButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        interactionStates.slice(0, 1),
+        nonInteractionStates,
         disabledStates,
         appearanceStates,
         appearanceVariantStates,
@@ -85,13 +87,17 @@ export const anchorButtonThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 export const anchorButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
-        interactionStates.slice(1),
-        disabledStates,
-        appearanceStates,
-        appearanceVariantStates,
-        [[false, true, false]]
-    ])
+    createMatrix(
+        component,
+        [
+            interactionStates,
+            disabledStates,
+            appearanceStates,
+            appearanceVariantStates,
+            [[false, true, false]]
+        ],
+        disabledInteractionsFilter
+    )
 );
 
 export const hiddenAnchorButton: StoryFn = createStory(

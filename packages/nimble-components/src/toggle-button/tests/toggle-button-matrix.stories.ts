@@ -11,7 +11,9 @@ import {
     disabledStates,
     DisabledState,
     InteractionState,
-    interactionStates
+    interactionStates,
+    nonInteractionStates,
+    disabledInteractionsFilter
 } from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -73,7 +75,7 @@ const component = (
 
 export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        interactionStates.slice(0, 1),
+        nonInteractionStates,
         partVisibilityStates,
         checkedStates,
         disabledStates,
@@ -82,13 +84,28 @@ export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 export const toggleButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
-        interactionStates.filter(x => x[0] && !x[0].includes('Active')),
-        [[false, true, false]],
-        checkedStates,
-        disabledStates,
-        appearanceStates
-    ])
+    createMatrix(
+        component,
+        [
+            interactionStates,
+            [[false, true, false]],
+            checkedStates,
+            disabledStates,
+            appearanceStates
+        ],
+        // Only interaction relevant to disabled controls is hover
+        (
+            interactionState: InteractionState,
+            _partVisibilityState: PartVisibilityState,
+            _checkedState: CheckedState,
+            disabledState: DisabledState
+        ) => {
+            return disabledInteractionsFilter(
+                interactionState,
+                disabledState
+            );
+        }
+    )
 );
 
 export const hiddenButton: StoryFn = createStory(

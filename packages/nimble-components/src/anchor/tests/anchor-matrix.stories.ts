@@ -14,7 +14,9 @@ import { bodyFont } from '../../theme-provider/design-tokens';
 import { anchorTag } from '..';
 import {
     interactionStates,
-    type InteractionState
+    nonInteractionStates,
+    type InteractionState,
+    disabledInteractionsFilter
 } from '../../utilities/tests/states';
 
 const metadata: Meta = {
@@ -61,7 +63,7 @@ const component = (
 
 export const anchorThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        interactionStates.slice(0, 1),
+        nonInteractionStates,
         disabledStates,
         underlineHiddenStates,
         appearanceStates
@@ -69,12 +71,22 @@ export const anchorThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 export const anchorInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
-        interactionStates.slice(1),
-        disabledStates,
-        underlineHiddenStates,
-        appearanceStates
-    ])
+    createMatrix(
+        component,
+        [
+            interactionStates,
+            disabledStates,
+            underlineHiddenStates,
+            appearanceStates
+        ],
+        // A custom DisabledState type is used in this file, so we can't use the shared disabledInteractionsFilter
+        (interactionState: InteractionState, disabledState: DisabledState) => {
+            return (
+                disabledState[0] !== 'Disabled'
+                || interactionState[0] === 'Hovered'
+            );
+        }
+    )
 );
 
 export const hiddenAnchor: StoryFn = createStory(
