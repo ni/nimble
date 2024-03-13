@@ -29,7 +29,7 @@ Nimble contributors may opt to create their component as ["incubating"](https://
 - The Nimble repo will begin hosting "Spright" packages that are not part of the Nimble Design System.
     - These packages will parallel their Nimble counterparts: `@ni/spright-components`, `@ni/spright-angular`, and `SprightBlazor`.
 - Code in Spright packages will still be owned and reviewed by the Design System team, at least initially. Over time, as expertise is developed in other teams, they may take over ownership.
-- The Nimble and Spright packages will be part of the same build, use the same infrastructure, and share the same dependency versions. 
+- The Nimble and Spright packages will be part of the same build, use the same infrastructure, and share the same dependency versions. Spright packages will depend on their corresponding Nimble packages.
 - `spright-components` is the place for components that are "[molecules](https://atomicdesign.bradfrost.com/chapter-2/)", product-specific, data-connected, or otherwise not intended for general use.
 - Components that do not have the above characteristics are strongly encouraged to go in the Nimble packages.
     - In some cases (mentioned in the preceeding section), the component may be added as "incubating". It should not be assumed that doing so will significantly shorten development time.
