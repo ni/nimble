@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "offscreencanvas working",
+  "packageName": "@ni/nimble-components",
+  "email": "razvan.nazare@ni.com",
+  "dependentChangeType": "patch"
+}
