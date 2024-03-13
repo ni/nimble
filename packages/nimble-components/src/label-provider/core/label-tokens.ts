@@ -17,17 +17,17 @@ export const numericIncrementLabel = DesignToken.create<string>({
 }).withDefault(coreLabelDefaults.numericIncrementLabel);
 
 export const popupIconErrorLabel = DesignToken.create<string>({
-    name: 'error-icon-label',
+    name: 'popup-icon-error-label',
     cssCustomPropertyName: null
 }).withDefault(coreLabelDefaults.popupIconErrorLabel);
 
 export const popupIconWarningLabel = DesignToken.create<string>({
-    name: 'warning-icon-label',
+    name: 'popup-icon-warning-label',
     cssCustomPropertyName: null
 }).withDefault(coreLabelDefaults.popupIconWarningLabel);
 
 export const popupIconInformationLabel = DesignToken.create<string>({
-    name: 'information-icon-label',
+    name: 'popup-icon-information-label',
     cssCustomPropertyName: null
 }).withDefault(coreLabelDefaults.popupIconInformationLabel);
 

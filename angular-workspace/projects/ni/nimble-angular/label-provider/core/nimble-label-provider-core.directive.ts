@@ -38,28 +38,28 @@ export class NimbleLabelProviderCoreDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'numericIncrement', value);
     }
 
-    public get errorIcon(): string | undefined {
+    public get popupIconError(): string | undefined {
         return this.elementRef.nativeElement.popupIconError;
     }
 
-    @Input('error-icon') public set errorIcon(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'errorIcon', value);
+    @Input('popup-icon-error') public set popupIconError(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'popupIconError', value);
     }
 
-    public get warningIcon(): string | undefined {
+    public get popupIconWarning(): string | undefined {
         return this.elementRef.nativeElement.popupIconWarning;
     }
 
-    @Input('warning-icon') public set warningIcon(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'warningIcon', value);
+    @Input('popup-icon-warning') public set popupIconWarning(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'popupIconWarning', value);
     }
 
-    public get informationIcon(): string | undefined {
+    public get popupIconInformation(): string | undefined {
         return this.elementRef.nativeElement.popupIconInformation;
     }
 
-    @Input('information-icon') public set informationIcon(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'informationIcon', value);
+    @Input('popup-icon-information') public set popupIconInformation(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'popupIconInformation', value);
     }
 
     public get filterSearch(): string | undefined {

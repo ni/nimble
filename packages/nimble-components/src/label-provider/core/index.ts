@@ -44,13 +44,13 @@ export class LabelProviderCore
     @attr({ attribute: 'numeric-increment' })
     public numericIncrement: string | undefined;
 
-    @attr({ attribute: 'error-icon' })
+    @attr({ attribute: 'popup-icon-error' })
     public popupIconError: string | undefined;
 
-    @attr({ attribute: 'warning-icon' })
+    @attr({ attribute: 'popup-icon-warning' })
     public popupIconWarning: string | undefined;
 
-    @attr({ attribute: 'information-icon' })
+    @attr({ attribute: 'popup-icon-information' })
     public popupIconInformation: string | undefined;
 
     @attr({ attribute: 'filter-search' })
