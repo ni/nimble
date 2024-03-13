@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Rename icon labels to follow naming convention",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

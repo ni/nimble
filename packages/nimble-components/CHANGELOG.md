@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 12 Mar 2024 22:17:11 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Mar 2024 23:07:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 22.0.0
+
+Wed, 13 Mar 2024 23:07:24 GMT
+
+### Major changes
+
+- Rename icon labels to follow naming convention ([ni/nimble@518c229](https://github.com/ni/nimble/commit/518c229b964d2c4a2e77210692f5d367f2937ff4))
 
 ## 21.10.2
 
