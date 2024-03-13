@@ -30,11 +30,11 @@ Toggletips are commonly used in user interfaces to provide contextual help, expl
 
 ![Toggletip anatomy](./spec-images/anatomy.png)
 
-| Element        | Description                                                   |
-| -------------- | ------------------------------------------------------------- |
-| Trigger button | Info icon button for showing and hiding an associated popover |
-| Popover        | Overlay container for text and interactive components         |
-| Content area   | Area for text and interactive components                      |
+| Element        | Description                                                                                        |
+| -------------- | -------------------------------------------------------------------------------------------------- |
+| Trigger button | Info icon button for showing and hiding an associated popover                                      |
+| Popover        | Overlay container for text and interactive components                                              |
+| Content area   | Area consisting of slots for a title, 1-3 lines of text, and a button or link. See the Banner API. |
 
 ## Sizing
 
@@ -50,9 +50,11 @@ The width of the toggletip popover should be determined based on the length of t
 
 When the popover height exceeds that of the viewport, the popover should not become scrollable to try and fit in the viewport (not pictured). The popover should always be tall enough to show all its content. The surrounding content, for example the page itself, should scroll instead.
 
+Popovers with text should be limited to approximately three lines of text under normal display size at the intended location.
+
 ## Alignment
 
-The toggletip popover should avoid obscuring other content where possible. [^1]
+The toggletip popover should avoid obscuring other content where possible. [^1] In particular it should avoid obscuring the content which it annotates.
 
 [^1]: [Pearson Toggletip requirements](https://accessibility.pearson.com/resources/developers-corner/reference-library/tooltips-and-toggletips/index.php)
 
@@ -101,8 +103,9 @@ The toggle-tip does not support an error state. Further, the toggle-tip should n
 
 ### Mouse Interactions
 
--   The toggle-tip popover should appear when a user clicks the trigger button, and disappear when the user clicks anything other than the popover.
--   Scrolling or zooming the view should not close the popover.
+-   The toggle-tip popover **MUST** appear when a user clicks the trigger button, and disappear when the user clicks anything other than the popover.
+-   The toggle-tip popover **MUST NOT** appear when a user _hovers_ the trigger button.
+-   Scrolling or zooming the view **SHOULD NOT** close the popover.
 
 ### Non-Mouse Interactions
 
@@ -121,7 +124,7 @@ Pressing `ENTER` or `SPACE` a second time (or `ESC`) closes the popover.
 
 ![Toggletip keyboard close](./spec-images/key-toggle-close.png)
 
-Pressing `TAB` while the popover is open moves focus to the first focusable element in the content area.
+Pressing `TAB` while the popover is open moves focus to the first focusable element in the content area. If nothing is focusable in the content area, the focus moves to the next focusable element on the main page. Moving the focus to the next focusable element on the main page **SHOULD** close the popover.
 
 ![Toggletip keyboard tab into popover](./spec-images/key-tab-popover.png)
 
