@@ -46,7 +46,10 @@ export abstract class TableColumnTextGroupHeaderViewBase<
      * @returns `true` if `this.text` was set to a placeholder, `false` otherwise.
      */
     private applyPlaceholderTextIfNeeded(): boolean {
-        if (this.groupHeaderValue === null || this.groupHeaderValue === undefined) {
+        if (
+            this.groupHeaderValue === null
+            || this.groupHeaderValue === undefined
+        ) {
             this.text = tableGroupRowPlaceholderNoValueLabel.getValueFor(this);
             return true;
         }

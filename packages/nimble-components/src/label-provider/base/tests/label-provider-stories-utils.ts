@@ -64,7 +64,7 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
                 }
                 ${tableTag}.${x => x.labelProviderTag} {
                     /* Make the table big enough to remove vertical scrollbar */
-                    height: ${x => `calc((34px * ${x.labelTokens.length.toString()}) + 32px)`}
+                    height: ${x => `calc((34px * ${x.labelTokens.length.toString()}) + 32px)`};
                 }
             </style>
             ${x => createTemplate(x.labelProviderTag)}

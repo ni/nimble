@@ -20,7 +20,9 @@ TableFieldValue,
 TableColumnEnumColumnConfig
 > {
     protected updateText(): void {
-        const config = this.columnConfig?.mappingConfigs.get(this.groupHeaderValue!);
+        const config = this.columnConfig?.mappingConfigs.get(
+            this.groupHeaderValue!
+        );
         this.text = config instanceof MappingTextConfig && config.text
             ? config.text
             : '';
