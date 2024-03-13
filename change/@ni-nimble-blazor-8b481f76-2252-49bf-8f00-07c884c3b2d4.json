@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Expose additional label provider properties",
+  "packageName": "@ni/nimble-blazor",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
