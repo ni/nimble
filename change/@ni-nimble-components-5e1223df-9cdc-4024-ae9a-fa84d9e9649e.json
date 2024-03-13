@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Build warnings for apache-arrow were cleaned up",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
