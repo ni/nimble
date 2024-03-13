@@ -18,19 +18,7 @@ export class TableColumnDateTextGroupHeaderView extends TableColumnTextGroupHead
 TableNumberFieldValue,
 TableColumnDateTextColumnConfig
 > {
-    private columnConfigChanged(): void {
-        this.updateText();
-    }
-
-    private groupHeaderValueChanged(): void {
-        this.updateText();
-    }
-
-    private updateText(): void {
-        if (this.applyPlaceholderTextIfNeeded(this.groupHeaderValue)) {
-            return;
-        }
-
+    protected updateText(): void {
         if (this.columnConfig) {
             this.text = formatNumericDate(
                 this.columnConfig.formatter,

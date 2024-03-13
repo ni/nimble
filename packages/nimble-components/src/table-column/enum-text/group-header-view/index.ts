@@ -19,21 +19,8 @@ export class TableColumnEnumTextGroupHeaderView extends TableColumnTextGroupHead
 TableFieldValue,
 TableColumnEnumColumnConfig
 > {
-    private columnConfigChanged(): void {
-        this.updateText();
-    }
-
-    private groupHeaderValueChanged(): void {
-        this.updateText();
-    }
-
-    private updateText(): void {
-        const value = this.groupHeaderValue;
-        if (this.applyPlaceholderTextIfNeeded(value)) {
-            return;
-        }
-
-        const config = this.columnConfig?.mappingConfigs.get(value!);
+    protected updateText(): void {
+        const config = this.columnConfig?.mappingConfigs.get(this.groupHeaderValue!);
         this.text = config instanceof MappingTextConfig && config.text
             ? config.text
             : '';

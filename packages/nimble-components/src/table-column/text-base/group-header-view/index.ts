@@ -27,19 +27,30 @@ export abstract class TableColumnTextGroupHeaderViewBase<
     @observable
     public text = tableGroupRowPlaceholderNoValueLabel.getValueFor(this);
 
+    protected columnConfigChanged(): void {
+        if (!this.applyPlaceholderTextIfNeeded()) {
+            this.updateText();
+        }
+    }
+
+    protected groupHeaderValueChanged(): void {
+        if (!this.applyPlaceholderTextIfNeeded()) {
+            this.updateText();
+        }
+    }
+
+    protected abstract updateText(): void;
+
     /**
      * Sets `this.text` to the appropriate placeholder if `groupHeaderValue` warrants it.
-     * @param groupHeaderValue The value for the group
      * @returns `true` if `this.text` was set to a placeholder, `false` otherwise.
      */
-    protected applyPlaceholderTextIfNeeded(
-        groupHeaderValue: TableFieldValue
-    ): boolean {
-        if (groupHeaderValue === null || groupHeaderValue === undefined) {
+    private applyPlaceholderTextIfNeeded(): boolean {
+        if (this.groupHeaderValue === null || this.groupHeaderValue === undefined) {
             this.text = tableGroupRowPlaceholderNoValueLabel.getValueFor(this);
             return true;
         }
-        if (groupHeaderValue === '') {
+        if (this.groupHeaderValue === '') {
             this.text = tableGroupRowPlaceholderEmptyLabel.getValueFor(this);
             return true;
         }

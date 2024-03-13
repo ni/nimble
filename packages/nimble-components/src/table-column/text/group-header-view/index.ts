@@ -17,10 +17,7 @@ export class TableColumnTextGroupHeaderView extends TableColumnTextGroupHeaderVi
 TableStringFieldValue,
 TableColumnTextColumnConfig
 > {
-    private groupHeaderValueChanged(): void {
-        if (this.applyPlaceholderTextIfNeeded(this.groupHeaderValue)) {
-            return;
-        }
+    protected updateText(): void {
         this.text = typeof this.groupHeaderValue === 'string'
             ? this.groupHeaderValue
             : '';

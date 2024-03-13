@@ -36,24 +36,13 @@ export class TableColumnIconGroupHeaderView
     @observable
     public visual?: 'spinner' | 'icon';
 
-    private columnConfigChanged(): void {
-        this.updateState();
-    }
-
-    private groupHeaderValueChanged(): void {
-        this.updateState();
-    }
-
-    private updateState(): void {
+    protected updateText(): void {
         this.visual = undefined;
         if (!this.columnConfig) {
             this.text = '';
             return;
         }
         const value = this.groupHeaderValue;
-        if (this.applyPlaceholderTextIfNeeded(value)) {
-            return;
-        }
         const mappingConfig = this.columnConfig.mappingConfigs.get(value!);
         if (mappingConfig instanceof MappingIconConfig) {
             this.visual = 'icon';
