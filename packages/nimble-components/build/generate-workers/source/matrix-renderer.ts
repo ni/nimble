@@ -13,15 +13,40 @@ export class MatrixRenderer {
     private rowIndexes: Uint8Array = Uint8Array.from([]);
     private canvas!: OffscreenCanvas;
     private context!: OffscreenCanvasRenderingContext2D;
-    private values = new Float32Array([
-        14.24, 76.43, 44.63, 67.93, 72.71, 79.04, 26.49, 37.79, 59.82, 52.92,
-        98.53, 20.83, 62.81
-    ]);
-    private scaledColIndex = new Float64Array([0, 100, 100, 100, 200, 200, 200, 200, 200, 300, 300, 300, 400]);
-    private scaledRowIndex = new Float64Array([200, 200, 100, 300, 200, 100, 0, 300, 400, 200, 100, 300, 200]);
+    private values = new Float32Array([]);
+    private scaledColIndex = new Float64Array([]);
+    private scaledRowIndex = new Float64Array([]);
     private dieDimensions: Dimensions = { width: 1, height: 1 };
     private transform: Transform = { k: 1, x: 0, y: 0 };
+    private topLeftCanvasCorner: { x: number, y: number } = { x: 0, y: 0 };
+    private bottomRightCanvasCorner: { x: number, y: number } = { x: 500, y: 500 };
+    public setTopLeftCanvasCorner(topLeftCanvasCorner: { x: number, y: number }): void {
+        this.topLeftCanvasCorner = topLeftCanvasCorner;
+    }
 
+    public setBottomRightCanvasCorner(bottomRightCanvasCorner: { x: number, y: number }): void {
+        this.bottomRightCanvasCorner = bottomRightCanvasCorner;
+    }
+
+    public setColIndexes(colIndexes: Uint8Array): void {
+        this.colIndexes = colIndexes;
+    }
+
+    public setRowIndexes(rowIndexes: Uint8Array): void {
+        this.rowIndexes = rowIndexes;
+    }
+
+    public setValues(values: Float32Array): void {
+        this.values = values;
+    }
+
+    public setScaledColIndex(scaledColIndex: Float64Array): void {
+        this.scaledColIndex = scaledColIndex;
+    }
+
+    public setScaledRowIndex(scaledRowIndex: Float64Array): void {
+        this.scaledRowIndex = scaledRowIndex;
+    }
     public setDieDimensions(dieDimensions: Dimensions): void {
         this.dieDimensions = dieDimensions;
     }
@@ -92,7 +117,7 @@ export class MatrixRenderer {
             this.context.fillStyle = 'Blue';
             const x = this.scaledColIndex[i]!;
             const y = this.scaledRowIndex[i]!;
-            if (!this.isDieVisible(x, y, { x: 0, y: 0 }, { x: 250, y: 250 })) { continue; }
+            if (!this.isDieVisible(x, y)) { continue; }
             this.context.fillRect(x, y, this.dieDimensions.width, this.dieDimensions.height);
             this.addTextOnDie(x, y, i);
         }
@@ -118,11 +143,11 @@ export class MatrixRenderer {
         this.context.fillText(formattedValue, textX, textY);
     }
 
-    private isDieVisible(x: number, y: number, topLeftCanvasCorner: { x: number, y: number }, bottomRightCanvasCorner: { x: number, y: number }): boolean {
-        return x >= topLeftCanvasCorner.x &&
-            x <= bottomRightCanvasCorner.x &&
-            y >= topLeftCanvasCorner.y &&
-            y <= bottomRightCanvasCorner.y;
+    private isDieVisible(x: number, y: number): boolean {
+        return x >= this.topLeftCanvasCorner.x &&
+            x <= this.bottomRightCanvasCorner.x &&
+            y >= this.topLeftCanvasCorner.y &&
+            y <= this.bottomRightCanvasCorner.y;
     }
 }
 expose(MatrixRenderer);
