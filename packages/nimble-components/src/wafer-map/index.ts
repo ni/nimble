@@ -195,6 +195,11 @@ export class WaferMap extends FoundationElement {
         this.waferMapUpdateTracker.trackAll();
     }
 
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.resizeObserver.unobserve(this);
+    }
+
     /**
      * @internal
      * Update function called when an update is queued.
