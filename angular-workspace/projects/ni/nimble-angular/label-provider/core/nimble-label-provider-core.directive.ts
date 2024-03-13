@@ -37,4 +37,44 @@ export class NimbleLabelProviderCoreDirective {
     @Input('numeric-increment') public set numericIncrement(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'numericIncrement', value);
     }
+
+    public get errorIcon(): string | undefined {
+        return this.elementRef.nativeElement.errorIcon;
+    }
+
+    @Input('error-icon') public set errorIcon(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'errorIcon', value);
+    }
+
+    public get warningIcon(): string | undefined {
+        return this.elementRef.nativeElement.warningIcon;
+    }
+
+    @Input('warning-icon') public set warningIcon(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'warningIcon', value);
+    }
+
+    public get informationIcon(): string | undefined {
+        return this.elementRef.nativeElement.informationIcon;
+    }
+
+    @Input('information-icon') public set informationIcon(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'informationIcon', value);
+    }
+
+    public get filterSearch(): string | undefined {
+        return this.elementRef.nativeElement.filterSearch;
+    }
+
+    @Input('filter-search') public set filterSearch(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'filterSearch', value);
+    }
+
+    public get filterNoResults(): string | undefined {
+        return this.elementRef.nativeElement.filterNoResults;
+    }
+
+    @Input('filter-no-results') public set filterNoResults(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'filterNoResults', value);
+    }
 }

@@ -30,6 +30,8 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
         loadTranslations({
             [computeMsgId('Collapse group', 'Nimble table - collapse group')]: 'Translated collapse group',
             [computeMsgId('Expand group', 'Nimble table - expand group')]: 'Translated expand group',
+            [computeMsgId('Collapse row', 'Nimble table - collapse row')]: 'Translated collapse row',
+            [computeMsgId('Expand row', 'Nimble table - expand row')]: 'Translated expand row',
             [computeMsgId('Collapse all', 'Nimble table - collapse all')]: 'Translated collapse all',
             [computeMsgId('Options', 'Nimble table - cell action menu')]: 'Translated options',
             [computeMsgId('Grouped', 'Nimble table - column header grouped')]: 'Translated grouped',
@@ -50,6 +52,8 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
     it('applies translated values for each label', () => {
         expect(labelProvider.groupCollapse).toBe('Translated collapse group');
         expect(labelProvider.groupExpand).toBe('Translated expand group');
+        expect(labelProvider.rowCollapse).toBe('Translated collapse row');
+        expect(labelProvider.rowExpand).toBe('Translated expand row');
         expect(labelProvider.collapseAll).toBe('Translated collapse all');
         expect(labelProvider.cellActionMenu).toBe('Translated options');
         expect(labelProvider.columnHeaderGrouped).toBe('Translated grouped');
