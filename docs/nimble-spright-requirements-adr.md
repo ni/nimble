@@ -28,12 +28,13 @@ Nimble contributors may opt to create their component as ["incubating"](https://
 
 - The Nimble repo will begin hosting "Spright" packages that are not part of the Nimble Design System.
     - These packages will parallel their Nimble counterparts: `@ni/spright-components`, `@ni/spright-angular`, and `SprightBlazor`.
-- The Nimble and Spright packages will be part of the same build, use the same infrastructure, and share the same dependency versions.
-- Code in Spright packages will be owned and reviewed by contributing teams rather than the Design System team (except for the initial submission establishing the CODEOWNERS). 
+- Code in Spright packages will still be owned and reviewed by the Design System team, at least initially. Over time, as expertise is developed in other teams, they may take over ownership.
+- The Nimble and Spright packages will be part of the same build, use the same infrastructure, and share the same dependency versions. 
 - `spright-components` is the place for components that are "molecules", product-specific, data-connected, or otherwise not intended for general use.
 - Components that do not have the above characteristics are strongly encouraged to go in the Nimble packages.
     - In some cases (mentioned in the preceeding section), the component may be added as "incubating". It should not be assumed that doing so will significantly shorten development time.
-    - Components that _could/should_ go in Nimble may still opt to go in Spright if the contributing team wants to take ownership/responsibility so they can make the tradeoffs necessary to meet a deadline.
+    - Components that _could/should_ go in Nimble may still opt to go in Spright if the contributing team needs to defer or omit certain work (like creating a full accessibility/interaction plan) to meet a deadline.
+- While Spright makes a formal IxD spec optional, the Design System team may still enforce general design, usability, and consistency baselines.
 
 The following table compares the requirements for developing a component in different packages: 
 
@@ -41,7 +42,7 @@ The following table compares the requirements for developing a component in diff
 | -------------------------------- | :-----------: | :--------: | :--------------: | :----------: | :------------: | :------------: | :------------: | :--------------------: | :---------: | :---------------: | :------------: |
 | `nimble-components`              | 🟢           | 🟢         | 🟢              | 🟢           | 🟢            | 🟢             | 🟢            | 🟢                     | 🟢         | 🟢                | 🟡
 | `nimble-components` (incubating) | 🟢           | 🟢         | 🟢              | 🟢           | 🟡            | 🟡             | 🟢            | 🟡                     | 🟡         | 🟡                | 🟡
-| `spright-components`             | 🟡           | 🟢         | 🟢              | 🟢           | 🟡            | 🟡             | 🟡            | 🟡                     | 🟡         | 🟡                | 🟡
+| `spright-components`             | 🟢           | 🟢         | 🟢              | 🟢           | 🟡            | 🟡             | 🟡            | 🟡                     | 🟡         | 🟡                | 🟡
 
 🟢 = required\
 🟡 = optional\
@@ -57,21 +58,21 @@ decision may have positive, negative, and neutral consequences, but all of them
 affect the team and project in the future.
 -->
 - Developers of components that do not belong in Nimble can still enjoy the benefits of the Nimble tooling, infrastructure, and patterns.
-- Compared to Nimble, Spright provides a team more control over hitting their deadlines by putting them in charge of their reviews.
+- Design Team's oversight will result in high quality bar and appropriate level of consistency for components not suitable for Nimble.
+- Spright's reduced set of requirements provides a team a path to execute a component in a shorter time than in Nimble.
 - Components in Spright have more visibility and higher likelihood of reuse (than if developed directly in an app).
 - Components in Spright are easier to "graduate" to Nimble due to common dependencies, linting rules, and build configurations. (Though this is only relevant for components that belong in Nimble.)
 
 ### High Risk
-- Nimble builds will take longer
-- As an alternative to Nimble, Spright (and its delegated oversight) could increase the risk of shipping products with:
-    - inconsistent, unapproved visual designs
-    - inconsistent, unapproved UX interactions
-    - missing or incorrect accessibility support
+- Nimble builds will take longer.
+- Design System team's bandwidth may still limit the development pace of other teams' components.
+    - Other teams should still consult with the Design System team before committing to features dependent on new Nimble/Spright component development.
+- There is more ambiguity in Spright around the right balance of reusability vs minimal implementation ([YAGNI](https://martinfowler.com/bliki/Yagni.html)), potentially leading to disagreements in reviews and/or stalled development.
 
 ### Low Risk
 - More flaky tests (to disable and file bugs for)
-- Additional Chromatic snapshots could exhaust our budget
-- Indifferent team could introduce dependencies with security vulnerabilities to a Spright package and leave another team to resolve it. 
+- Additional Chromatic snapshots could exhaust our budget.
+- Indifferent team could introduce dependencies with security vulnerabilities to a Spright package and leave another team to resolve it.
 
 ## Conformance
 
@@ -82,6 +83,6 @@ consideration for conformance should be the need for exceptions, the benefit of
 prevention versus detection, and the efficacy of automated versus manual
 processes compared to the cost of automation.
 -->
-- Nimble code owners review any new code in Nimble and any new directories added in the Spright packages (before new ownership is established), so they will ensure components go where they should.
-- It will be up to Spright code owners (i.e. component developers) to enforce component requirements like unit tests, Storybook tests, and Storybook docs.
-- It will be up to Spright code owners to enforce conformance to the repo's lint rules (i.e. do not disable or suppress), naming conventions, structure, and other patterns.
+- Nimble code owners review any new code or specs in the Nimble repo, so they will ensure components:
+    - go where they should (i.e. Nimble vs Spright)
+    - meet the requirements for the package they are in
