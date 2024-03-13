@@ -213,19 +213,6 @@ export class WaferMap extends FoundationElement {
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
-                void this.workerOne.setValues(new Float32Array([
-                    14.24, 76.43, 44.63, 67.93, 72.71, 79.04, 26.49, 37.79, 59.82, 52.92,
-                    98.53, 20.83, 62.81
-                ]));
-                void this.workerOne.setScaledColIndex(new Float64Array([0, 100, 100, 100, 200, 200, 200, 200, 200, 300, 300, 300, 400]));
-                void this.workerOne.setScaledRowIndex(new Float64Array([200, 200, 100, 300, 200, 100, 0, 300, 400, 200, 100, 300, 200]));
-                void this.workerOne.setDieDimensions(this.dataManager.dieDimensions);
-                void this.workerOne.setTransform(this.transform);
-                this.workerOne.drawWafer().then(
-                    () => {
-                    },
-                    () => { }
-                );
             } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
                 this.dataManager.updateScales();
                 this.renderer.updateSortedDiesAndDrawWafer();
