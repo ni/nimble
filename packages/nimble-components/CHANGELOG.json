@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 13 Mar 2024 23:56:16 GMT",
+      "version": "22.0.0",
+      "tag": "@ni/nimble-components_v22.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2a9abefcd6160716070fd4f3bbca097919112d23",
+            "comment": "Build warnings for apache-arrow were cleaned up"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Mar 2024 23:07:24 GMT",
       "version": "22.0.0",
       "tag": "@ni/nimble-components_v22.0.0",
