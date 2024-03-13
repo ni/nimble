@@ -2,7 +2,6 @@ import { html, repeat } from '@microsoft/fast-element';
 import { keyArrowDown, keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
-import { listOptionTag } from '../../list-option';
 import { ComboboxAutocomplete } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
@@ -10,6 +9,7 @@ import {
     waitAnimationFrame
 } from '../../utilities/tests/component';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
+import { ListOption, listOptionTag } from '../../list-option';
 
 async function setup(
     position?: string,
@@ -124,6 +124,33 @@ describe('Combobox', () => {
         await waitForUpdatesAsync();
         expect(element.getAttribute('tabindex')).toBeNull();
 
+        await disconnect();
+    });
+
+    it('option added directly to DOM synchronously registers with Combobox', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        element.selectedIndex = 0;
+        await waitForUpdatesAsync();
+        const newOption = new ListOption('foo', 'foo');
+        const registerOptionSpy = spyOn(
+            element,
+            'registerOption'
+        ).and.callThrough();
+        registerOptionSpy.calls.reset();
+        element.insertBefore(newOption, element.options[0]!);
+
+        expect(registerOptionSpy.calls.count()).toBe(1);
+        expect(element.options).toContain(newOption);
+
+        // While the option is registered synchronously as shown above,
+        // properties like selectedIndex will only be correct asynchronously
+        // See https://github.com/ni/nimble/issues/1915
+        expect(element.selectedIndex).toBe(0);
+        await waitForUpdatesAsync();
+        // This assertion shows that after 'slottedOptionsChanged' runs, the
+        // 'selectedIndex' state has been corrected to expected DOM order.
+        expect(element.selectedIndex).toBe(1);
         await disconnect();
     });
 
