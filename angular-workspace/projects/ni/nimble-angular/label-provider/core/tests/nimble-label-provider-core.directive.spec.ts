@@ -99,7 +99,7 @@ describe('Nimble Label Provider Core', () => {
                     numeric-increment="${label3}"
                     popup-icon-error="${label4}"
                     popup-icon-warning="${label5}"
-                    popup-icon-info="${label6}"
+                    popup-icon-information="${label6}"
                     filter-search="${label7}"
                     filter-no-results="${label8}"
                     >
