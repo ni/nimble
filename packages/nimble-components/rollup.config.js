@@ -31,7 +31,7 @@ const onwarn = (warning, defaultHandler) => {
         {
             code: 'CIRCULAR_DEPENDENCY',
             file: 'node_modules/apache-arrow'
-        },
+        }
     ];
 
     if (
