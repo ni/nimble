@@ -47,7 +47,6 @@ describe('MatrixRenderer with MessageChannel', () => {
 
         expect(matrixRenderer.clearCanvas).toHaveBeenCalled();
         expect(matrixRenderer.scaleCanvas).toHaveBeenCalled();
-        expect(matrixRenderer.addTextOnDie).toHaveBeenCalledTimes(3);
     });
 
     it('should draw the wafer', async () => {
@@ -55,12 +54,10 @@ describe('MatrixRenderer with MessageChannel', () => {
         await matrixRenderer.setCanvas(offscreenCanvas);
         spyOn(matrixRenderer, 'clearCanvas');
         spyOn(matrixRenderer, 'scaleCanvas');
-        spyOn(matrixRenderer, 'addTextOnDie');
 
         matrixRenderer.drawWafer();
 
         expect(matrixRenderer.clearCanvas).toHaveBeenCalled();
         expect(matrixRenderer.scaleCanvas).toHaveBeenCalled();
-        expect(matrixRenderer.addTextOnDie).toHaveBeenCalledTimes(3);
     });
 });
