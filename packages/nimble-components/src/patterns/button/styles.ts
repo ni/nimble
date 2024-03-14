@@ -16,10 +16,8 @@ import {
     standardPadding,
     buttonPrimaryFontColor,
     buttonFillPrimaryColor,
-    buttonFillActivePrimaryColor,
     buttonFillAccentColor,
     buttonAccentBlockFontColor,
-    buttonFillAccentActiveColor,
     buttonBorderAccentOutlineColor,
     buttonAccentOutlineFontColor
 } from '../../theme-provider/design-tokens';
@@ -106,11 +104,7 @@ export const styles = css`
             ${accessiblyHidden}
         }
 
-        [part='start'] {
-            display: contents;
-            ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
-        }
-
+        [part='start'],
         [part='end'] {
             display: contents;
             ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
@@ -139,11 +133,18 @@ export const styles = css`
     @layer active {
         .control:active {
             box-shadow: none;
+            color: ${buttonLabelFontColor};
+            border-color: ${borderHoverColor};
             background-image: linear-gradient(
                 ${fillSelectedColor},
                 ${fillSelectedColor}
             );
             background-size: calc(100% - 2px) calc(100% - 2px);
+        }
+
+        .control:active [part='start'],
+        .control:active [part='end'] {
+            ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
         }
 
         .control:active::before {
@@ -153,25 +154,20 @@ export const styles = css`
 
     @layer disabled {
         :host([disabled]) {
-            color: ${buttonLabelDisabledFontColor};
             cursor: default;
         }
 
         :host([disabled]) .control {
+            color: ${buttonLabelDisabledFontColor};
             box-shadow: none;
             background-image: none;
-            color: rgba(${actionRgbPartialColor}, 0.3);
         }
 
         :host([disabled]) .control::before {
             box-shadow: none;
         }
 
-        :host([disabled]) slot[name='start']::slotted(*) {
-            opacity: 0.3;
-            ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
-        }
-
+        :host([disabled]) slot[name='start']::slotted(*),
         :host([disabled]) slot[name='end']::slotted(*) {
             opacity: 0.3;
             ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
@@ -264,6 +260,11 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                     border-color: ${actionRgbPartialColor};
                 }
 
+                :host([appearance-variant='accent']) [part='start'],
+                :host([appearance-variant='accent']) [part='end'] {
+                    ${iconColor.cssCustomProperty}: ${buttonAccentOutlineFontColor};
+                }
+
                 :host([appearance-variant='accent']) .control {
                     border-color: ${buttonBorderAccentOutlineColor};
                     color: ${buttonAccentOutlineFontColor};
@@ -275,7 +276,8 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
         ButtonAppearance.block,
         css`
             @layer base {
-                :host([appearance-variant='primary']) [part='start'] {
+                :host([appearance-variant='primary']) [part='start'],
+                :host([appearance-variant='primary']) [part='end'] {
                     ${iconColor.cssCustomProperty}: white;
                 }
 
@@ -288,11 +290,8 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                     border-color: ${buttonFillPrimaryColor};
                 }
 
-                :host([appearance-variant='primary']) [part='end'] {
-                    ${iconColor.cssCustomProperty}: white;
-                }
-
-                :host([appearance-variant='accent']) [part='start'] {
+                :host([appearance-variant='accent']) [part='start'],
+                :host([appearance-variant='accent']) [part='end'] {
                     ${iconColor.cssCustomProperty}: white;
                 }
 
@@ -303,26 +302,6 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                     );
                     color: ${buttonAccentBlockFontColor};
                     border-color: ${buttonFillAccentColor};
-                }
-
-                :host([appearance-variant='accent']) [part='end'] {
-                    ${iconColor.cssCustomProperty}: white;
-                }
-            }
-
-            @layer active {
-                :host([appearance-variant='primary']) .control:active {
-                    background-image: linear-gradient(
-                        ${buttonFillActivePrimaryColor},
-                        ${buttonFillActivePrimaryColor}
-                    );
-                }
-
-                :host([appearance-variant='accent']) .control:active {
-                    background-image: linear-gradient(
-                        ${buttonFillAccentActiveColor},
-                        ${buttonFillAccentActiveColor}
-                    );
                 }
             }
         `

@@ -4,9 +4,11 @@ import { focusVisible } from '../utilities/style/focus';
 import {
     borderHoverColor,
     borderWidth,
+    buttonAccentOutlineFontColor,
     buttonLabelFontColor,
     fillSelectedColor,
-    fillSelectedRgbPartialColor
+    fillSelectedRgbPartialColor,
+    iconColor
 } from '../theme-provider/design-tokens';
 import {
     buttonAppearanceVariantStyles,
@@ -19,7 +21,7 @@ export const styles = css`
     ${buttonStyles}
     ${buttonAppearanceVariantStyles}
 
-    @layer checked {
+    @layer pressed {
         @layer base {
             .control[aria-pressed='true'] {
                 background-color: transparent;
@@ -69,6 +71,7 @@ export const styles = css`
                     ${fillSelectedColor}
                 );
                 background-size: calc(100% - 2px) calc(100% - 2px);
+                border-color: ${borderHoverColor};
             }
 
             .control[aria-pressed='true']:active::before {
@@ -98,9 +101,33 @@ export const styles = css`
     }
 `.withBehaviors(
     appearanceBehavior(
+        ButtonAppearance.outline,
+        css`
+            @layer active {
+                :host([appearance-variant='accent'])
+                    .control:active
+                    [part='start'],
+                :host([appearance-variant='accent'])
+                    .control:active
+                    [part='end'] {
+                    ${iconColor.cssCustomProperty}: ${buttonAccentOutlineFontColor};
+                }
+
+                :host([appearance-variant='accent']) .control:active {
+                    color: ${buttonAccentOutlineFontColor};
+                }
+            }
+        `
+    ),
+    appearanceBehavior(
         ButtonAppearance.block,
         css`
-            @layer checked.base {
+            @layer pressed.base {
+                .control[aria-pressed='true'] [part='start'],
+                .control[aria-pressed='true'] [part='end'] {
+                    ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+                }
+
                 .control[aria-pressed='true'] {
                     color: ${buttonLabelFontColor};
                 }
@@ -109,11 +136,12 @@ export const styles = css`
             @layer active {
                 :host([appearance-variant='primary']) .control:active,
                 :host([appearance-variant='accent']) .control:active {
+                    color: ${buttonLabelFontColor};
+                    border-color: ${borderHoverColor};
                     background-image: linear-gradient(
                         ${fillSelectedColor},
                         ${fillSelectedColor}
                     );
-                    color: ${buttonLabelFontColor};
                 }
             }
         `
