@@ -43,6 +43,11 @@ public partial class NimbleLabelProviderTable : ComponentBase
     [Parameter]
     public string? RowLoading { get; set; }
 
+    [Parameter]
+    public string? GroupRowPlaceholderNoValue { get; set; }
+
+    [Parameter]
+    public string? GroupRowPlaceholderEmpty { get; set; }
     /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.
     /// </summary>
