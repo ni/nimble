@@ -88,9 +88,9 @@ export const numberFieldInteractionsThemeMatrix: StoryFn = createMatrixThemeStor
         [
             interactionStates,
             disabledStates,
-            hideStepStates.filter(x => x[0] !== 'Hide Step'), // always show inc/dec buttons
-            valueStates.filter(x => x[0] !== 'Placeholder'), // don't test placeholder text
-            errorStates.filter(x => x[0] !== 'Error No Message'), // don't test error state w/o error text
+            hideStepStates.filter(x => x[0] !== 'Hide Step'), // always show inc/dec buttons (no need to test without)
+            valueStates.filter(x => x[0] !== 'Placeholder'), // value states shouldn't affect styling, so just test one (non-placeholder)
+            errorStates.filter(x => x[0] !== 'Error No Message'), // with or without message shouldn't matter, so just test with message
             appearanceStates
         ],
         disabledInteractionsFilter
