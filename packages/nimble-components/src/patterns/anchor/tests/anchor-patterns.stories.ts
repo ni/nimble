@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, ref } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
-import { controlLabelFont, controlLabelFontColor, mediumPadding, standardPadding } from '../../../theme-provider/design-tokens';
+import {
+    controlLabelFont,
+    controlLabelFontColor,
+    mediumPadding,
+    standardPadding
+} from '../../../theme-provider/design-tokens';
 import { anchorTag } from '../../../anchor';
 import { anchorButtonTag } from '../../../anchor-button';
 import { anchorTabsTag } from '../../../anchor-tabs';
@@ -118,7 +123,7 @@ const metadata: Meta<AnchorPatternsArgs> = {
                 const data = `Absolute link: <${x.href}>`;
                 x.richTextViewerRef.markdown = data;
             })();
-        },
+        }
     }
 };
 
