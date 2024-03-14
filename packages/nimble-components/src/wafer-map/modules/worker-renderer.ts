@@ -13,25 +13,7 @@ export class WorkerRenderer {
     }
 
     public drawWafer(): void {
-        const testData = {
-            colIndexes: [0, 100, 100, 100, 200, 200, 200, 200, 200, 300, 300, 300, 400],
-            rowIndexes: [200, 200, 100, 300, 200, 100, 0, 300, 400, 200, 100, 300, 200],
-            values: [
-                14.24, 76.43, 44.63, 67.93, 72.71, 79.04, 26.49, 37.79, 59.82, 52.92,
-                98.53, 20.83, 62.81
-            ]
-        };
-
         // rendering will be implemented in a future PR
-        this.wafermap.workerOne.setTransform(this.wafermap.transform).then(() => {
-            this.wafermap.workerOne.updateMatrix(
-                testData
-            ).then(() => {
-                this.wafermap.workerOne.drawWafer().then(() => {
-                    this.renderHover();
-                }, () => { });
-            }, () => { });
-        }, () => { });
     }
 
     public renderHover(): void {
