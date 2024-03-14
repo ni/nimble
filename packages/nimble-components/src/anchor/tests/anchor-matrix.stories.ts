@@ -15,8 +15,7 @@ import { anchorTag } from '..';
 import {
     interactionStates,
     nonInteractionStates,
-    type InteractionState,
-    disabledInteractionsFilter
+    type InteractionState
 } from '../../utilities/tests/states';
 
 const metadata: Meta = {
