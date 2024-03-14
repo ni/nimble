@@ -89,28 +89,12 @@ export class MatrixRenderer {
             const y = this.scaledRowIndex[i]!;
             if (!this.isDieVisible(x, y)) { continue; }
             this.context.fillRect(x, y, this.dieDimensions.width, this.dieDimensions.height);
-            this.addTextOnDie(x, y, i);
         }
     }
 
     public formatValue(value: number | undefined): string {
         if (value === undefined) return '';
         return parseFloat(value.toFixed(1)) + '...';
-    }
-
-    public addTextOnDie(x: number, y: number, i: number) {
-        const fontSize = Math.floor(this.dieDimensions.height * 0.35);
-        this.context.font = `${fontSize}px Arial`;
-        this.context.fillStyle = 'White';
-
-        const textX = x + this.dieDimensions.width / 2;
-        const textY = y + this.dieDimensions.height / 2;
-
-        let formattedValue = this.formatValue(this.values[i]);
-
-        this.context.textAlign = 'center';
-        this.context.textBaseline = 'middle';
-        this.context.fillText(formattedValue, textX, textY);
     }
 
     public isDieVisible(x: number, y: number): boolean {
