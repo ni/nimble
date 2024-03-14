@@ -1,3 +1,4 @@
+import type { DesignTokenSubscriber } from '@microsoft/fast-foundation';
 import { observable } from '@microsoft/fast-element';
 import { TableGroupHeaderView } from '../../base/group-header-view';
 import type { TableFieldValue } from '../../../table/types';
@@ -27,13 +28,38 @@ export abstract class TableColumnTextGroupHeaderViewBase<
     @observable
     public text = tableGroupRowPlaceholderNoValueLabel.getValueFor(this);
 
-    protected columnConfigChanged(): void {
+    private readonly noValuePlaceholderLabelSubscriber: DesignTokenSubscriber<typeof tableGroupRowPlaceholderNoValueLabel> = {
+        handleChange: () => {
+            this.applyPlaceholderTextIfNeeded();
+        }
+    };
+
+    private readonly emptyPlaceholderLabelSubscriber: DesignTokenSubscriber<typeof tableGroupRowPlaceholderEmptyLabel> = {
+        handleChange: () => {
+            this.applyPlaceholderTextIfNeeded();
+        }
+    };
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        tableGroupRowPlaceholderNoValueLabel.subscribe(this.noValuePlaceholderLabelSubscriber, this);
+        tableGroupRowPlaceholderEmptyLabel.subscribe(this.emptyPlaceholderLabelSubscriber, this);
+        this.applyPlaceholderTextIfNeeded();
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        tableGroupRowPlaceholderNoValueLabel.unsubscribe(this.noValuePlaceholderLabelSubscriber);
+        tableGroupRowPlaceholderEmptyLabel.unsubscribe(this.emptyPlaceholderLabelSubscriber);
+    }
+
+    private columnConfigChanged(): void {
         if (!this.applyPlaceholderTextIfNeeded()) {
             this.updateText();
         }
     }
 
-    protected groupHeaderValueChanged(): void {
+    private groupHeaderValueChanged(): void {
         if (!this.applyPlaceholderTextIfNeeded()) {
             this.updateText();
         }
