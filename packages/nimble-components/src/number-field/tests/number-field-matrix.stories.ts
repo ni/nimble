@@ -86,7 +86,7 @@ export const numberFieldInteractionsThemeMatrix: StoryFn = createMatrixThemeStor
     createMatrix(
         component,
         [
-            interactionStates.filter(x => !x[0].includes('Active')), // skip irrelevant active states
+            interactionStates,
             disabledStates,
             hideStepStates.filter(x => x[0] !== 'Hide Step'), // always show inc/dec buttons
             valueStates.filter(x => x[0] !== 'Placeholder'), // don't test placeholder text

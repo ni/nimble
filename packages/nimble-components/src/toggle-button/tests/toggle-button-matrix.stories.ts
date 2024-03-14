@@ -55,9 +55,9 @@ type CheckedState = (typeof checkedStates)[number];
 // prettier-ignore
 const component = (
     [interactionName, interaction]: InteractionState,
+    [disabledName, disabled]: DisabledState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
     [checkedName, checked]: CheckedState,
-    [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <${toggleButtonTag}
@@ -76,9 +76,9 @@ const component = (
 export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         nonInteractionStates,
+        disabledStates,
         partVisibilityStates,
         checkedStates,
-        disabledStates,
         appearanceStates
     ])
 );
@@ -88,23 +88,12 @@ export const toggleButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeSto
         component,
         [
             interactionStates,
+            disabledStates,
             [[false, true, false]],
             checkedStates,
-            disabledStates,
             appearanceStates
         ],
-        // Only interaction relevant to disabled controls is hover
-        (
-            interactionState: InteractionState,
-            _partVisibilityState: PartVisibilityState,
-            _checkedState: CheckedState,
-            disabledState: DisabledState
-        ) => {
-            return disabledInteractionsFilter(
-                interactionState,
-                disabledState
-            );
-        }
+        disabledInteractionsFilter
     )
 );
 

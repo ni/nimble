@@ -54,9 +54,9 @@ type AppearanceState = (typeof appearanceStates)[number];
 // prettier-ignore
 const component = (
     [interactionName, interaction]: InteractionState,
+    [disabledName, disabled]: DisabledState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
     [openName, open]: OpenState,
-    [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <${menuButtonTag}
@@ -77,17 +77,17 @@ export const menuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
         component,
         [
             nonInteractionStates,
+            disabledStates,
             partVisibilityStates,
             openStates,
-            disabledStates,
             appearanceStates
         ],
         // Disabled and open is not a valid state
         (
             _interactionState: InteractionState,
+            disabledState: DisabledState,
             _partVisibilityState: PartVisibilityState,
-            openState: OpenState,
-            disabledState: DisabledState
+            openState: OpenState
         ) => {
             return disabledState[0] !== 'Disabled' || openState[0] !== 'Open';
         }
@@ -99,23 +99,12 @@ export const menuButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory
         component,
         [
             interactionStates,
+            disabledStates,
             [[false, true, false]],
             openStates,
-            disabledStates,
             appearanceStates
         ],
-        // Only interaction relevant to disabled controls is hover
-        (
-            interactionState: InteractionState,
-            _partVisibilityState: PartVisibilityState,
-            _openState: OpenState,
-            disabledState: DisabledState
-        ) => {
-            return disabledInteractionsFilter(
-                interactionState,
-                disabledState
-            );
-        }
+        disabledInteractionsFilter
     )
 );
 
