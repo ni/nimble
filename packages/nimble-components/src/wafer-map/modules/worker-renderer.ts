@@ -14,6 +14,7 @@ export class WorkerRenderer {
 
     public drawWafer(): void {
         // rendering will be implemented in a future PR
+        this.renderHover();
     }
 
     public renderHover(): void {
