@@ -1,5 +1,7 @@
 import { expose } from 'comlink';
 import type { Dimensions, Transform, WaferMapMatrix, WaferMapTypedMatrix } from './types';
+import type { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
+import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 
 /**
  * MatrixRenderer class is meant to be used within a Web Worker context, 
@@ -13,13 +15,21 @@ export class MatrixRenderer {
     public rowIndexes: Uint32Array = Uint32Array.from([]);
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
-    public values = new Float64Array([]);
-    public scaledColIndex = new Float64Array([]);
-    public scaledRowIndex = new Float64Array([]);
-    public dieDimensions: Dimensions = { width: 1, height: 1 };
+    public values = new Float64Array([14.24, 76.43, 44.63, 67.93, 72.71, 79.04, 26.49, 37.79, 59.82, 52.92,
+        98.53, 20.83, 62.81]);
+    public scaledColIndex = new Float64Array([0, 100, 100, 100, 200, 200, 200, 200, 200, 300, 300, 300, 400]);
+    public scaledRowIndex = new Float64Array([200, 200, 100, 300, 200, 100, 0, 300, 400, 200, 100, 300, 200]);
+    public dieDimensions: Dimensions = { width: 100, height: 100 };
     public transform: Transform = { k: 1, x: 0, y: 0 };
     public topLeftCanvasCorner: { x: number, y: number } = { x: 0, y: 0 };
     public bottomRightCanvasCorner: { x: number, y: number } = { x: 500, y: 500 };
+    public colors: string[] = ['red', 'yellow', 'green', 'blue', 'purple'];
+    public colorsValues = new Float64Array([0, 25, 50, 75, 100]);
+
+    private readonly emptyDieColor = 'rgba(218,223,236,1)';
+    private readonly nanDieColor = 'rgba(122,122,122,1)';
+    private readonly fontSizeFactor = 0.35;
+    private fontSize = 12;
 
     public setTransform(transform: Transform): void {
         this.transform = transform;
@@ -82,14 +92,63 @@ export class MatrixRenderer {
         this.context.save();
         this.clearCanvas();
         this.scaleCanvas();
+        this.calculateLabelsFontSize(1);
+        this.parseDies();
+    }
 
+    public parseDies(): void{
         for (let i = 0; i < this.scaledColIndex.length; i++) {
-            this.context.fillStyle = 'Blue';
+            if (this.dieHasData(this.values[i]!.toString()) === false) { continue; }
+            const nearestValue = this.findNearestValue(this.colorsValues, this.values[i]!);
+            this.context.fillStyle = this.colors[this.colorsValues.indexOf(nearestValue)]!;
             const x = this.scaledColIndex[i]!;
             const y = this.scaledRowIndex[i]!;
             if (!this.isDieVisible(x, y)) { continue; }
             this.context.fillRect(x, y, this.dieDimensions.width, this.dieDimensions.height);
+            this.addTextOnDie(x, y, i);
         }
+    }
+
+    public findNearestValue(arr: Float64Array, target: number): number {
+        let start = 0;
+        let end = arr.length - 1;
+
+        while (start <= end) {
+            let mid = Math.floor((start + end) / 2);
+            if (arr[mid] === target) return arr[mid] as number;
+            if (arr[mid]! < target) start = mid + 1;
+            else end = mid - 1;
+        }
+
+        return ((arr[start]! - target) < (target - arr[start - 1]!) ? arr[start] : arr[start - 1]) as number;
+    }
+
+    private calculateLabelsFontSize(
+        maxCharacters: number
+    ): void {
+        this.fontSize = Math.min(
+            this.dieDimensions.height,
+            (this.dieDimensions.width / (Math.max(2, maxCharacters) * 0.5))
+            * this.fontSizeFactor
+        );
+    }
+
+    private dieHasData(dieData: string): boolean {
+        return dieData !== null && dieData !== undefined && dieData !== '';
+    }
+
+    public addTextOnDie(x: number, y: number, i: number) {
+        this.context.font = `${this.fontSize}px sans-serif`;
+        this.context.fillStyle = 'White';
+
+        const textX = x + this.dieDimensions.width / 2;
+        const textY = y + this.dieDimensions.height / 2;
+
+        let formattedValue = this.formatValue(this.values[i]);
+
+        this.context.textAlign = 'center';
+        this.context.textBaseline = 'middle';
+        this.context.fillText(formattedValue, textX, textY);
     }
 
     public formatValue(value: number | undefined): string {
