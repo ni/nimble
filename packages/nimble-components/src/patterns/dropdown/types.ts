@@ -1,3 +1,4 @@
+import type { ListOption } from '../../list-option';
 import type { ErrorPattern } from '../error/types';
 
 /**
@@ -22,3 +23,17 @@ export const DropdownAppearance = {
 } as const;
 export type DropdownAppearance =
     (typeof DropdownAppearance)[keyof typeof DropdownAppearance];
+
+/**
+ * @internal
+ *
+ * This interface is used to register options with their parent once their
+ * 'connectedCallback' method is run. This allows for the "owner", like the
+ * Select, to have its value set to that newly registered option earlier than it
+ * might otherwise in certain situations. One such scenario is in an Angular
+ * reactive form, where the form value is set to an option immediately after
+ * dynamically adding it.
+ */
+export interface ListOptionOwner extends HTMLElement {
+    registerOption: (option: ListOption) => void;
+}

@@ -30,7 +30,12 @@ describe('Nimble LabelProviderCore withDefaults directive', () => {
         loadTranslations({
             [computeMsgId('Close', 'Nimble popup - dismiss')]: 'Translated close',
             [computeMsgId('Decrement', 'Nimble numeric - decrement')]: 'Translated decrement',
-            [computeMsgId('Increment', 'Nimble numeric - increment')]: 'Translated increment'
+            [computeMsgId('Increment', 'Nimble numeric - increment')]: 'Translated increment',
+            [computeMsgId('Error', 'Nimble popup icon - error')]: 'Translated error',
+            [computeMsgId('Warning', 'Nimble popup icon - warning')]: 'Translated warning',
+            [computeMsgId('Information', 'Nimble popup icon - information')]: 'Translated information',
+            [computeMsgId('Search', 'Nimble select - search items')]: 'Translated search',
+            [computeMsgId('No items found', 'Nimble select - no items')]: 'Translated no items found'
         });
         const fixture = TestBed.createComponent(TestHostComponent);
         const testHostComponent = fixture.componentInstance;
@@ -42,5 +47,10 @@ describe('Nimble LabelProviderCore withDefaults directive', () => {
         expect(labelProvider.popupDismiss).toBe('Translated close');
         expect(labelProvider.numericDecrement).toBe('Translated decrement');
         expect(labelProvider.numericIncrement).toBe('Translated increment');
+        expect(labelProvider.popupIconError).toBe('Translated error');
+        expect(labelProvider.popupIconWarning).toBe('Translated warning');
+        expect(labelProvider.popupIconInformation).toBe('Translated information');
+        expect(labelProvider.filterSearch).toBe('Translated search');
+        expect(labelProvider.filterNoResults).toBe('Translated no items found');
     });
 });
