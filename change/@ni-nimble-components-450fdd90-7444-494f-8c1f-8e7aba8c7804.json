@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix bug where an anchor element's link couldn't be dragged correctly",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
