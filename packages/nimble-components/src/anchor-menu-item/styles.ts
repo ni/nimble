@@ -69,6 +69,7 @@ export const styles = css`
 
     [part='start'] {
         display: contents;
+        pointer-events: none;
     }
 
     slot[name='start']::slotted(*) {
@@ -79,6 +80,10 @@ export const styles = css`
 
     :host(.indent-1) [part='start'] {
         grid-column: 1;
+    }
+
+    .content {
+        pointer-events: none;
     }
 
     :host(.indent-1) .content {
