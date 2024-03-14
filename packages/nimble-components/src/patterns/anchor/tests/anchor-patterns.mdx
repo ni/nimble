@@ -1,0 +1,22 @@
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
+import * as anchorPatternStories from './anchor-patterns.stories';
+
+<Meta of={anchorPatternStories} />
+<Title of={anchorPatternStories} />
+
+Anchor components in nimble should behave like native anchors in a number of different ways that are difficult to unit test in an automated manner.
+Therefore, this story contains a native anchor element along with all of the nimble components that are anchors or contain anchors.
+The following behaviors should be true of the nimble components:
+
+-   Dragging the nimble component should behave like the native anchor
+-   CTRL + CLICK opens in a new tab
+-   Right clicking should open the link menu
+-   Focusing via tab should show the URL preview at the bottom of the browser window
+-   Hovering over the component should show the URL preview at the bottom of the browser window
+-   The hover state of the component and mouse pointer should match the area of the component that navigates when clicked (i.e. clicking the white space around the control should not navigate)
+-   Pressing ENTER or SPACE when focused should activate the link
+-   Pressing the MENU KEY on the keyboard should open the same link menu as a right click
+-   Copying the link through the right-click link menu should result in the expected string to be copied to the clipboard
+
+<Canvas of={anchorPatternStories.anchorPatterns} />
+<Controls of={anchorPatternStories.anchorPatterns} />
