@@ -16,6 +16,7 @@ export class EventCoordinator {
     private readonly stableHoverHandler;
     private readonly expHoverHandler;
     private hoverHandler: HoverHandler | ExpHoverHandler;
+
     public constructor(private readonly wafermap: WaferMap) {
         this.zoomHandler = new ZoomHandler(wafermap);
         this.stableHoverHandler = new HoverHandler(wafermap);

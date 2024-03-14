@@ -9,6 +9,7 @@ import type {
 } from '../types';
 import type { WaferMap } from '..';
 import type { DataManager } from './data-manager';
+import type { DataManager as ExpDataManager } from './experimental/data-manager';
 
 /**
  * Prerendering prepares render-ready dies data to be used by the rendering module
@@ -36,7 +37,7 @@ export class Prerendering {
 
     public constructor(
         private readonly wafermap: WaferMap,
-        private readonly dataManager: Readonly<DataManager>
+        private readonly dataManager: Readonly<DataManager | ExpDataManager>
     ) {}
 
     public updateLabelsFontSize(): void {
@@ -55,7 +56,17 @@ export class Prerendering {
         const isDieRenderInfo = (
             info: DieRenderInfo | null
         ): info is DieRenderInfo => info !== null;
-        this._diesRenderInfo = this.wafermap.dies
+        if (this.wafermap.columnTable === undefined) {
+            this._diesRenderInfo = this.wafermap.dies
+                .map(die => this.computeDieRenderInfo(die))
+                .filter(isDieRenderInfo);
+            return;
+        }
+        this._diesRenderInfo = (this.wafermap.columnTable.objects() as { colIndex: number, rowIndex: number, value: string }[])
+            .map(row => {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                return { x: row.colIndex, y: row.rowIndex, value: row.value, tags: [] };
+            })
             .map(die => this.computeDieRenderInfo(die))
             .filter(isDieRenderInfo);
     }
@@ -127,7 +138,7 @@ export class Prerendering {
             return '';
         }
         const label = `${value}${dieLabelsSuffix}`;
-        if (label.length > maxCharacters) {
+        if (label.length >= maxCharacters) {
             return `${label.substring(0, maxCharacters)}…`;
         }
         return label;

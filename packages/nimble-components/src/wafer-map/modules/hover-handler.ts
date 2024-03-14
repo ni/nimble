@@ -1,5 +1,6 @@
 import type { WaferMap } from '..';
 import { PointCoordinates, WaferMapOriginLocation } from '../types';
+import { DataManager } from './data-manager';
 
 /**
  * HoverHandler deals with user interactions and events like hovering
@@ -26,6 +27,10 @@ export class HoverHandler {
             x: invertedPoint[0],
             y: invertedPoint[1]
         });
+        if (dieCoordinates === undefined) {
+            this.wafermap.hoverDie = undefined;
+            return;
+        }
 
         this.wafermap.hoverDie = this.wafermap.dataManager.getWaferMapDie(dieCoordinates);
     }
@@ -37,28 +42,31 @@ export class HoverHandler {
     private calculateDieCoordinates(
         wafermap: WaferMap,
         mousePosition: PointCoordinates
-    ): PointCoordinates {
-        const originLocation = wafermap.originLocation;
-        const xRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
+    ): PointCoordinates | undefined {
+        if (wafermap.dataManager instanceof DataManager) {
+            const originLocation = wafermap.originLocation;
+            const xRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
             || originLocation === WaferMapOriginLocation.topLeft
-            ? Math.floor
-            : Math.ceil;
-        const yRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
+                ? Math.floor
+                : Math.ceil;
+            const yRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
             || originLocation === WaferMapOriginLocation.bottomRight
-            ? Math.floor
-            : Math.ceil;
-        // go to x and y scale to get the x,y values of the die.
-        const x = xRoundFunction(
-            wafermap.dataManager.invertedHorizontalScale(
-                mousePosition.x - wafermap.dataManager.margin.left
-            )
-        );
-        const y = yRoundFunction(
-            wafermap.dataManager.invertedVerticalScale(
-                mousePosition.y - wafermap.dataManager.margin.top
-            )
-        );
-        return { x, y };
+                ? Math.floor
+                : Math.ceil;
+            // go to x and y scale to get the x,y values of the die.
+            const x = xRoundFunction(
+                wafermap.dataManager.invertedHorizontalScale(
+                    mousePosition.x - wafermap.dataManager.margin.left
+                )
+            );
+            const y = yRoundFunction(
+                wafermap.dataManager.invertedVerticalScale(
+                    mousePosition.y - wafermap.dataManager.margin.top
+                )
+            );
+            return { x, y };
+        }
+        return undefined;
     }
 
     private hoversOverDie(
