@@ -1,5 +1,6 @@
 // eslint-disable-next-line max-classes-per-file
 import { customElement, html, ref } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import {
     uniqueElementName,
     type Fixture,
@@ -10,10 +11,12 @@ import { template as textBaseGroupHeaderViewTemplate } from '../template';
 import { styles as textBaseGroupHeaderViewStyles } from '../styles';
 import { TableColumnTextGroupHeaderViewBase } from '../../group-header-view';
 import { ThemeProvider, themeProviderTag } from '../../../../theme-provider';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { LabelProviderTable, labelProviderTableTag } from '../../../../label-provider/table';
+import {
+    LabelProviderTable,
+    labelProviderTableTag
+} from '../../../../label-provider/table';
 
-fdescribe('TableColumnTextBaseGroupHeaderView', () => {
+describe('TableColumnTextBaseGroupHeaderView', () => {
     let labelProvider: LabelProviderTable;
     let groupHeaderView: TableColumnTextGroupHeaderViewBase;
     let connect: () => Promise<void>;
@@ -40,7 +43,9 @@ fdescribe('TableColumnTextBaseGroupHeaderView', () => {
         public groupView!: TableColumnTextGroupHeaderViewBase;
     }
 
-    async function setup(source: ElementReferences): Promise<Fixture<ThemeProvider>> {
+    async function setup(
+        source: ElementReferences
+    ): Promise<Fixture<ThemeProvider>> {
         return fixture<ThemeProvider>(
             html`<${themeProviderTag} lang="en-US">
                     <${labelProviderTableTag} ${ref('labelProvider')}></${labelProviderTableTag}>
@@ -51,7 +56,9 @@ fdescribe('TableColumnTextBaseGroupHeaderView', () => {
     }
 
     function getRenderedText(): string {
-        return groupHeaderView.shadowRoot!.querySelector('span')!.innerText.trim();
+        return groupHeaderView
+            .shadowRoot!.querySelector('span')!
+            .innerText.trim();
     }
 
     beforeEach(async () => {
@@ -88,38 +95,47 @@ fdescribe('TableColumnTextBaseGroupHeaderView', () => {
     ] as const;
 
     parameterizeSpec(testCases, (spec, name, value) => {
-        spec(`uses default label provider string when the value is ${name}`, async () => {
-            groupHeaderView.groupHeaderValue = value.value;
-            await waitForUpdatesAsync();
-            expect(getRenderedText()).toBe(value.renderedText);
-        });
+        spec(
+            `uses default label provider string when the value is ${name}`,
+            async () => {
+                groupHeaderView.groupHeaderValue = value.value;
+                await waitForUpdatesAsync();
+                expect(getRenderedText()).toBe(value.renderedText);
+            }
+        );
     });
 
     parameterizeSpec(testCases, (spec, name, value) => {
-        spec(`updates group row with modified label provider string when the value is ${name}`, async () => {
-            const customLabelProviderValue = 'Custom label provider value';
-            groupHeaderView.groupHeaderValue = value.value;
-            await waitForUpdatesAsync();
-            labelProvider[value.labelProviderProperty] = customLabelProviderValue;
-            await waitForUpdatesAsync();
+        spec(
+            `updates group row with modified label provider string when the value is ${name}`,
+            async () => {
+                const customLabelProviderValue = 'Custom label provider value';
+                groupHeaderView.groupHeaderValue = value.value;
+                await waitForUpdatesAsync();
+                labelProvider[value.labelProviderProperty] = customLabelProviderValue;
+                await waitForUpdatesAsync();
 
-            expect(getRenderedText()).toBe(customLabelProviderValue);
-        });
+                expect(getRenderedText()).toBe(customLabelProviderValue);
+            }
+        );
     });
 
     parameterizeSpec(testCases, (spec, name, value) => {
-        spec(`uses label provider value that was modified while the element was disconnected when the value is ${name}`, async () => {
-            groupHeaderView.groupHeaderValue = value.value;
-            await waitForUpdatesAsync();
-            await disconnect();
+        spec(
+            `uses label provider value that was modified while the element was disconnected when the value is ${name}`,
+            async () => {
+                groupHeaderView.groupHeaderValue = value.value;
+                await waitForUpdatesAsync();
+                await disconnect();
 
-            const customLabelProviderValue = 'Custom label provider value';
-            labelProvider[value.labelProviderProperty] = customLabelProviderValue;
+                const customLabelProviderValue = 'Custom label provider value';
+                labelProvider[value.labelProviderProperty] = customLabelProviderValue;
 
-            await connect();
-            await waitForUpdatesAsync();
+                await connect();
+                await waitForUpdatesAsync();
 
-            expect(getRenderedText()).toBe(customLabelProviderValue);
-        });
+                expect(getRenderedText()).toBe(customLabelProviderValue);
+            }
+        );
     });
 });

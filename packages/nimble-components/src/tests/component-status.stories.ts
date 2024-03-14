@@ -644,7 +644,10 @@ const metadata: Meta<TableArgs> = {
                 const data = components.filter(component => (x.status === 'future'
                     ? isFuture(component)
                     : !isFuture(component)));
-                x.tableRef.style.setProperty('--data-length', data.length.toString());
+                x.tableRef.style.setProperty(
+                    '--data-length',
+                    data.length.toString()
+                );
                 await x.tableRef.setData(data);
             })();
         },

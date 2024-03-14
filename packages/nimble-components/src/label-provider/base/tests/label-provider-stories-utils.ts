@@ -123,7 +123,10 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
                         defaultValue: token[1].getValueFor(document.body)
                     };
                 });
-                x.tableRef.style.setProperty('--data-length', data.length.toString());
+                x.tableRef.style.setProperty(
+                    '--data-length',
+                    data.length.toString()
+                );
                 await x.tableRef.setData(data);
             })();
         }

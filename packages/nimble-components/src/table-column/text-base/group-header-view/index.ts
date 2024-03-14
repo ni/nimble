@@ -28,30 +28,46 @@ export abstract class TableColumnTextGroupHeaderViewBase<
     @observable
     public text = tableGroupRowPlaceholderNoValueLabel.getValueFor(this);
 
-    private readonly noValuePlaceholderLabelSubscriber: DesignTokenSubscriber<typeof tableGroupRowPlaceholderNoValueLabel> = {
-        handleChange: () => {
-            this.applyPlaceholderTextIfNeeded();
-        }
-    };
+    private readonly noValuePlaceholderLabelSubscriber: DesignTokenSubscriber<
+        typeof tableGroupRowPlaceholderNoValueLabel
+    > = {
+            handleChange: () => {
+                this.applyPlaceholderTextIfNeeded();
+            }
+        };
 
-    private readonly emptyPlaceholderLabelSubscriber: DesignTokenSubscriber<typeof tableGroupRowPlaceholderEmptyLabel> = {
-        handleChange: () => {
-            this.applyPlaceholderTextIfNeeded();
-        }
-    };
+    private readonly emptyPlaceholderLabelSubscriber: DesignTokenSubscriber<
+        typeof tableGroupRowPlaceholderEmptyLabel
+    > = {
+            handleChange: () => {
+                this.applyPlaceholderTextIfNeeded();
+            }
+        };
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        tableGroupRowPlaceholderNoValueLabel.subscribe(this.noValuePlaceholderLabelSubscriber, this);
-        tableGroupRowPlaceholderEmptyLabel.subscribe(this.emptyPlaceholderLabelSubscriber, this);
+        tableGroupRowPlaceholderNoValueLabel.subscribe(
+            this.noValuePlaceholderLabelSubscriber,
+            this
+        );
+        tableGroupRowPlaceholderEmptyLabel.subscribe(
+            this.emptyPlaceholderLabelSubscriber,
+            this
+        );
         this.applyPlaceholderTextIfNeeded();
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        tableGroupRowPlaceholderNoValueLabel.unsubscribe(this.noValuePlaceholderLabelSubscriber);
-        tableGroupRowPlaceholderEmptyLabel.unsubscribe(this.emptyPlaceholderLabelSubscriber);
+        tableGroupRowPlaceholderNoValueLabel.unsubscribe(
+            this.noValuePlaceholderLabelSubscriber
+        );
+        tableGroupRowPlaceholderEmptyLabel.unsubscribe(
+            this.emptyPlaceholderLabelSubscriber
+        );
     }
+
+    protected abstract updateText(): void;
 
     private columnConfigChanged(): void {
         if (!this.applyPlaceholderTextIfNeeded()) {
@@ -64,8 +80,6 @@ export abstract class TableColumnTextGroupHeaderViewBase<
             this.updateText();
         }
     }
-
-    protected abstract updateText(): void;
 
     /**
      * Sets `this.text` to the appropriate placeholder if `groupHeaderValue` warrants it.
