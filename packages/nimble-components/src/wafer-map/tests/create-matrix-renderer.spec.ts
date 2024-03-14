@@ -23,13 +23,13 @@ describe('MatrixRenderer worker', () => {
         const resolvedDieMatrix = await matrixRenderer.getMatrix();
 
         expect(resolvedDieMatrix.colIndexes).toEqual(
-            Uint8Array.from(testData.colIndexes)
+            Uint32Array.from(testData.colIndexes)
         );
         expect(resolvedDieMatrix.rowIndexes).toEqual(
-            Uint8Array.from(testData.rowIndexes)
+            Uint32Array.from(testData.rowIndexes)
         );
         expect(resolvedDieMatrix.values).toEqual(
-            Float32Array.from(testData.values)
+            Float64Array.from(testData.values)
         );
     });
 

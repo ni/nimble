@@ -9,17 +9,21 @@ import type { Dimensions, Transform, WaferMapMatrix, WaferMapTypedMatrix } from 
  * This setup is used in the wafer-map component to perform heavy computational duties
  */
 export class MatrixRenderer {
-    public colIndexes: Uint8Array = Uint8Array.from([]);
-    public rowIndexes: Uint8Array = Uint8Array.from([]);
+    public colIndexes: Uint32Array = Uint32Array.from([]);
+    public rowIndexes: Uint32Array = Uint32Array.from([]);
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
-    public values = new Float32Array([]);
-    public scaledColIndex = new Float32Array([]);
-    public scaledRowIndex = new Float32Array([]);
+    public values = new Float64Array([]);
+    public scaledColIndex = new Float64Array([]);
+    public scaledRowIndex = new Float64Array([]);
     public dieDimensions: Dimensions = { width: 1, height: 1 };
     public transform: Transform = { k: 1, x: 0, y: 0 };
     public topLeftCanvasCorner: { x: number, y: number } = { x: 0, y: 0 };
     public bottomRightCanvasCorner: { x: number, y: number } = { x: 500, y: 500 };
+
+    public setTransform(transform: Transform): void {
+        this.transform = transform;
+    }
 
     public setCanvas(canvas: OffscreenCanvas): void {
         this.canvas = canvas;
@@ -35,9 +39,9 @@ export class MatrixRenderer {
     }
 
     public emptyMatrix(): void {
-        this.colIndexes = Uint8Array.from([]);
-        this.rowIndexes = Uint8Array.from([]);
-        this.values = Float32Array.from([]);
+        this.colIndexes = Uint32Array.from([]);
+        this.rowIndexes = Uint32Array.from([]);
+        this.values = Float64Array.from([]);
     }
 
     public scaleCanvas(): void {
@@ -54,9 +58,9 @@ export class MatrixRenderer {
     public updateMatrix(
         data: WaferMapMatrix
     ): void {
-        this.colIndexes = Uint8Array.from(data.colIndexes);
-        this.rowIndexes = Uint8Array.from(data.rowIndexes);
-        this.values = Float32Array.from(data.values);
+        this.colIndexes = Uint32Array.from(data.colIndexes);
+        this.rowIndexes = Uint32Array.from(data.rowIndexes);
+        this.values = Float64Array.from(data.values);
     }
 
     public setCanvasDimensions(data: Dimensions): void {

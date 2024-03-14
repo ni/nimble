@@ -1,7 +1,7 @@
 export interface WaferMapTypedMatrix {
-    colIndexes: Uint8Array;
-    rowIndexes: Uint8Array;
-    values: Float32Array;
+    colIndexes: Uint32Array;
+    rowIndexes: Uint32Array;
+    values: Float64Array;
 }
 
 export interface WaferMapMatrix {
