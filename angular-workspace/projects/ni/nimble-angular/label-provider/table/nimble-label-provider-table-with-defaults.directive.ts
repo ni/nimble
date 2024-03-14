@@ -14,6 +14,8 @@ export class NimbleLabelProviderTableWithDefaultsDirective {
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<LabelProviderTable>) {
         this.elementRef.nativeElement.groupCollapse = $localize`:Nimble table - collapse group|:Collapse group`;
         this.elementRef.nativeElement.groupExpand = $localize`:Nimble table - expand group|:Expand group`;
+        this.elementRef.nativeElement.rowCollapse = $localize`:Nimble table - collapse row|:Collapse row`;
+        this.elementRef.nativeElement.rowExpand = $localize`:Nimble table - expand row|:Expand row`;
         this.elementRef.nativeElement.collapseAll = $localize`:Nimble table - collapse all|:Collapse all`;
         this.elementRef.nativeElement.cellActionMenu = $localize`:Nimble table - cell action menu|:Options`;
         this.elementRef.nativeElement.columnHeaderGrouped = $localize`:Nimble table - column header grouped|:Grouped`;
