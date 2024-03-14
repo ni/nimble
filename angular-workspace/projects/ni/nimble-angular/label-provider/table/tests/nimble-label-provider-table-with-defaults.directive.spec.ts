@@ -40,6 +40,8 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
             [computeMsgId('Select row', 'Nimble table - select row')]: 'Translated select row',
             [computeMsgId('Row operations', 'Nimble table - row operation column')]: 'Translated row operations',
             [computeMsgId('Loading', 'Nimble table - row loading')]: 'Translated loading',
+            [computeMsgId('No value', 'Nimble table - group row placeholder no value')]: 'Translated no value',
+            [computeMsgId('Empty', 'Nimble table - group row placeholder empty')]: 'Translated empty',
         });
         const fixture = TestBed.createComponent(TestHostComponent);
         const testHostComponent = fixture.componentInstance;
@@ -60,5 +62,7 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
         expect(labelProvider.rowSelect).toBe('Translated select row');
         expect(labelProvider.rowOperationColumn).toBe('Translated row operations');
         expect(labelProvider.rowLoading).toBe('Translated loading');
+        expect(labelProvider.groupRowPlaceholderNoValue).toBe('Translated no value');
+        expect(labelProvider.groupRowPlaceholderEmpty).toBe('Translated empty');
     });
 });

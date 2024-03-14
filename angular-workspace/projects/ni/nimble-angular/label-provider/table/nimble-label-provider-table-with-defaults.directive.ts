@@ -24,5 +24,7 @@ export class NimbleLabelProviderTableWithDefaultsDirective {
         this.elementRef.nativeElement.rowSelect = $localize`:Nimble table - select row|:Select row`;
         this.elementRef.nativeElement.rowOperationColumn = $localize`:Nimble table - row operation column|:Row operations`;
         this.elementRef.nativeElement.rowLoading = $localize`:Nimble table - row loading|:Loading`;
+        this.elementRef.nativeElement.groupRowPlaceholderNoValue = $localize`:Nimble table - group row placeholder no value|:No value`;
+        this.elementRef.nativeElement.groupRowPlaceholderEmpty = $localize`:Nimble table - group row placeholder empty|:Empty`;
     }
 }
