@@ -43,10 +43,10 @@ describe('Drawer', () => {
         return new Promise(resolve => {
             const dialogElement = nativeDialogElement(nimbleDrawerElement);
             const handler = (): void => {
-                dialogElement.removeEventListener('animationend', handler);
+                dialogElement.removeEventListener(eventAnimationEnd, handler);
                 resolve();
             };
-            dialogElement.addEventListener('animationend', handler);
+            dialogElement.addEventListener(eventAnimationEnd, handler);
         });
     }
 
