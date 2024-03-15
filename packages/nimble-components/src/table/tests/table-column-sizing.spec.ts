@@ -495,7 +495,8 @@ describe('Table Interactive Column Sizing', () => {
             expect(pageObject.isHorizontalScrollbarVisible()).toBeTrue();
         });
 
-        it('sizing table with a horizontal scrollbar does not change column widths until sized beyond current column pixel widths', async () => {
+        // Disabled on webkit https://github.com/ni/nimble/issues/1939
+        it('sizing table with a horizontal scrollbar does not change column widths until sized beyond current column pixel widths #SkipWebkit', async () => {
             // create horizontal scrollbar with total column width of 450
             pageObject.dragSizeColumnByRightDivider(2, [100]);
             // size table below threshhold of total column widths
