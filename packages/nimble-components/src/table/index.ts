@@ -276,45 +276,68 @@ export class Table<
             //     foo: this.getGlobalFilterFn
             // }
             // globalFilterFn: this.getGlobalFilterFn
-            globalFilterFn: (row: TanStackRow<TableNode<TData>>, columnId: string, filterValue: string[]): boolean => {
-                let cellText: string | undefined = '';
-                const record = row.original.clientRecord;
-                const column = that.columns.find(x => x.columnInternals.uniqueId === columnId);
-                if (!column) {
-                    return false;
+            globalFilterFn: (row: TanStackRow<TableNode<TData>>, _columnId: string, filterValue: TableFilter[]): boolean => {
+                if (filterValue.length === 0) {
+                    // Empty filter
+                    return true;
                 }
-                if (column.getText) {
-                    const fieldNames = column.columnInternals.dataRecordFieldNames;
-                    if (that.hasValidFieldNames(fieldNames) && record) {
-                        const cellDataValues = fieldNames.map(
-                            field => record[field]
-                        );
-                        const cellRecord = Object.fromEntries(
-                            column.columnInternals.cellRecordFieldNames.map((k, j) => [
-                                k,
-                                cellDataValues[j]
-                            ])
-                        );
-                        cellText = column.getText(cellRecord);
-                    } else {
-                        return false;
+
+                const record = row.original.clientRecord;
+
+                for (const filter of filterValue) {
+                    let columnsToConsider: TableColumn[] = [];
+                    if (filter.columns === 'all') {
+                        columnsToConsider = that.columns;
                     }
-                } else {
-                    const fieldName = column.columnInternals.operandDataRecordFieldName;
-                    if (typeof fieldName !== 'string') {
-                        cellText = undefined;
-                    } else {
-                        const cellValue = record[fieldName];
-                        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                        cellText = cellValue === undefined || cellValue === null ? undefined : `${cellValue}`;
+                    if (filter.columns === 'visible-only') {
+                        columnsToConsider = that.columns.filter(x => x.columnHidden !== true);
+                    }
+                    if (filter.columns === 'custom') {
+                        columnsToConsider = that.columns.filter(x => typeof x.columnId === 'string' && filter.customColumns.some(y => y === x.columnId));
+                    }
+
+                    const columnMatchesFilter = columnsToConsider.some(column => {
+                        let cellText: string | undefined = '';
+                        if (column.getText && filter.matchMode === 'renderedValue') {
+                            const fieldNames = column.columnInternals.dataRecordFieldNames;
+                            if (that.hasValidFieldNames(fieldNames) && record) {
+                                const cellDataValues = fieldNames.map(
+                                    field => record[field]
+                                );
+                                const cellRecord = Object.fromEntries(
+                                    column.columnInternals.cellRecordFieldNames.map((k, j) => [
+                                        k,
+                                        cellDataValues[j]
+                                    ])
+                                );
+                                cellText = column.getText(cellRecord);
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            const fieldName = column.columnInternals.operandDataRecordFieldName;
+                            if (typeof fieldName !== 'string') {
+                                cellText = undefined;
+                            } else {
+                                const cellValue = record[fieldName];
+                                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                                cellText = cellValue === undefined || cellValue === null ? undefined : `${cellValue}`;
+                            }
+                        }
+
+                        if (typeof cellText !== 'string') {
+                            return false;
+                        }
+                        const normalizedCellText = diacriticInsensitiveStringNormalizer(cellText);
+                        return normalizedCellText.includes(diacriticInsensitiveStringNormalizer(filter.matchString.toString()));
+                    });
+
+                    if (!columnMatchesFilter) {
+                        return false;
                     }
                 }
 
-                if (typeof cellText !== 'string') {
-                    return false;
-                }
-                const normalizedCellText = diacriticInsensitiveStringNormalizer(cellText);
-                return filterValue.some(x => normalizedCellText.includes(diacriticInsensitiveStringNormalizer(x.toString())));
+                return true;
             }
         };
         this.table = tanStackCreateTable(this.options);
@@ -335,12 +358,9 @@ export class Table<
         this.updateTableOptions(tanstackUpdates);
     }
 
-    public async filterData(/*filter: TableFilter[]*/filter: string[]): Promise<void> {
+    public async filterData(filter: TableFilter[]): Promise<void> {
         await this.processPendingUpdates();
-        // this.updateTableOptions({
-        //     filterFns: this.calculateTanStackFilter(filter)
-        // });
-        // this.table.setGlobalFilter()
+        // TODO: Validate `filter` and do something (what?) if it is invalid
         this.updateTableOptions({
             state: {
                 globalFilter: filter
