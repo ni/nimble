@@ -1,5 +1,3 @@
-import { fromArrow } from 'arquero';
-import type ColumnTable from 'arquero/dist/types/table/column-table';
 import type { WaferMap } from '../..';
 import { PointCoordinates, WaferMapOriginLocation } from '../../types';
 
@@ -25,27 +23,27 @@ export class HoverHandler {
             x: invertedPoint[0],
             y: invertedPoint[1]
         });
-        const table = fromArrow(this.wafermap.diesTable).params({
-            dieCoordinates
-        }) as ColumnTable;
+        const colIndex = this.wafermap.diesTable
+            .getChild('colIndex')!
+            .toArray() as Int32Array;
+        const rowIndex = this.wafermap.diesTable
+            .getChild('rowIndex')!
+            .toArray() as Int32Array;
 
-        const indices = table
-            .filter(
-                (
-                    row: { colIndex: number, rowIndex: number },
-                    params: { dieCoordinates: { x: number, y: number } }
-                ) => row.colIndex === params.dieCoordinates.x
-                    && row.rowIndex === params.dieCoordinates.y
-            )
-            .indices();
-
-        this.wafermap.hoverDie = indices.length > 0
-            ? {
-                index: indices[0]!,
-                x: dieCoordinates.x,
-                y: dieCoordinates.y
+        for (let i = 0; i < colIndex.length; i++) {
+            if (
+                colIndex[i] === dieCoordinates.x
+                && rowIndex[i] === dieCoordinates.y
+            ) {
+                this.wafermap.hoverDie = {
+                    index: i,
+                    x: dieCoordinates.x,
+                    y: dieCoordinates.y
+                };
+                return;
             }
-            : undefined;
+        }
+        this.wafermap.hoverDie = undefined;
     }
 
     public mouseout(): void {
