@@ -119,7 +119,7 @@ describe('TableColumnDateText', () => {
             });
         });
 
-        // Disabled in WebKit: https://github.com/ni/nimble/issues/1940
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
         it('changing fieldName updates display #SkipWebkit', async () => {
             await table.setData([
                 {
@@ -137,7 +137,7 @@ describe('TableColumnDateText', () => {
             );
         });
 
-        // Disabled in WebKit: https://github.com/ni/nimble/issues/1940
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
         it('changing data from value to null displays blank #SkipWebkit', async () => {
             await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
@@ -155,7 +155,7 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
         });
 
-        // Disabled in WebKit: https://github.com/ni/nimble/issues/1940
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
         it('changing data from null to value displays value #SkipWebkit', async () => {
             await table.setData([{ field: null }]);
             await waitForUpdatesAsync();
@@ -181,7 +181,7 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
         });
 
-        // Disabled in WebKit: https://github.com/ni/nimble/issues/1940
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
         it('sets title when cell text is ellipsized #SkipWebkit', async () => {
             table.style.width = '200px';
             await table.setData([
@@ -234,7 +234,7 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getCellTitle(0, 0)).toEqual('');
         });
 
-        // Disabled in WebKit: https://github.com/ni/nimble/issues/1940
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
         it('sets group header text to rendered date value #SkipWebkit', async () => {
             await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
@@ -255,7 +255,7 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('12/10/2012');
         });
 
-        // Disabled in WebKit: https://github.com/ni/nimble/issues/1940
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
         it('updates displayed date when lang token changes #SkipWebkit', async () => {
             await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
