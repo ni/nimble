@@ -41,6 +41,17 @@ public class NimbleMenuButtonTests
     }
 
     [Theory]
+    [InlineData(ButtonAppearanceVariant.Default, "<nimble-menu-button>")]
+    [InlineData(ButtonAppearanceVariant.Primary, "appearance-variant=\"primary\"")]
+    [InlineData(ButtonAppearanceVariant.Accent, "appearance-variant=\"accent\"")]
+    public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string expectedAttribute)
+    {
+        var button = RenderNimbleMenuButton(value);
+
+        Assert.Contains(expectedAttribute, button.Markup);
+    }
+
+    [Theory]
     [InlineData(MenuButtonPosition.Above, "above")]
     [InlineData(MenuButtonPosition.Below, "below")]
     [InlineData(MenuButtonPosition.Auto, "auto")]
@@ -56,6 +67,13 @@ public class NimbleMenuButtonTests
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         return context.RenderComponent<NimbleMenuButton>(p => p.Add(x => x.Appearance, appearance));
+    }
+
+    private IRenderedComponent<NimbleMenuButton> RenderNimbleMenuButton(ButtonAppearanceVariant appearanceVariant)
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        return context.RenderComponent<NimbleMenuButton>(p => p.Add(x => x.AppearanceVariant, appearanceVariant));
     }
 
     private IRenderedComponent<NimbleMenuButton> RenderNimbleMenuButton(MenuButtonPosition position)

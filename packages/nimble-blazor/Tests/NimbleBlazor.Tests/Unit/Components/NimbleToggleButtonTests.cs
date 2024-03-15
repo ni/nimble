@@ -40,10 +40,28 @@ public class NimbleToggleButtonTests
         Assert.Contains(expectedAttribute, button.Markup);
     }
 
+    [Theory]
+    [InlineData(ButtonAppearanceVariant.Default, "<nimble-toggle-button>")]
+    [InlineData(ButtonAppearanceVariant.Primary, "appearance-variant=\"primary\"")]
+    [InlineData(ButtonAppearanceVariant.Accent, "appearance-variant=\"accent\"")]
+    public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string expectedAttribute)
+    {
+        var button = RenderNimbleToggleButton(value);
+
+        Assert.Contains(expectedAttribute, button.Markup);
+    }
+
     private IRenderedComponent<NimbleToggleButton> RenderNimbleToggleButton(ButtonAppearance appearance)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         return context.RenderComponent<NimbleToggleButton>(p => p.Add(x => x.Appearance, appearance));
+    }
+
+    private IRenderedComponent<NimbleToggleButton> RenderNimbleToggleButton(ButtonAppearanceVariant appearanceVariant)
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        return context.RenderComponent<NimbleToggleButton>(p => p.Add(x => x.AppearanceVariant, appearanceVariant));
     }
 }
