@@ -353,7 +353,8 @@ describe('RichTextEditorMention', () => {
                 expect(pageObject.getMentionButtonLabel(0)).toBe('');
             });
 
-            it('should have button title and text when `button-label` updated', async () => {
+            // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+            it('should have button title and text when `button-label` updated #SkipWebkit', async () => {
                 const { userMentionElement } = await appendUserMentionConfiguration(element);
                 userMentionElement.buttonLabel = 'at mention';
                 await waitForUpdatesAsync();
@@ -1032,7 +1033,8 @@ describe('RichTextEditor user mention via template', () => {
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User @');
         });
 
-        it('should get `@` text without a preceding whitespace after a hard break, when button clicked', async () => {
+        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        it('should get `@` text without a preceding whitespace after a hard break, when button clicked #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('User');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.clickUserMentionButton();
@@ -1045,7 +1047,8 @@ describe('RichTextEditor user mention via template', () => {
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User@');
         });
 
-        it('should get `@` text with a single preceding whitespace after a hard break with a text, when button clicked', async () => {
+        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        it('should get `@` text with a single preceding whitespace after a hard break with a text, when button clicked #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('User');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('Text');
@@ -1354,7 +1357,8 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        it('setting `disabled` should close the mention popup', async () => {
+        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        it('setting `disabled` should close the mention popup #SkipWebkit', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
