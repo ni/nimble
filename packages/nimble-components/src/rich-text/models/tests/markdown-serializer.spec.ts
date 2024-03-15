@@ -273,7 +273,7 @@ describe('Markdown serializer', () => {
    * Nested bulleted list`);
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('Hard break #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('Plain text 1');
             await pageObject.pressShiftEnterKeysInEditor();
@@ -285,7 +285,7 @@ Plain text 2\
 Plain text 3`);
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('Hard break with bold #SkipWebkit', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('Bold');
@@ -295,7 +295,7 @@ Plain text 3`);
 **Bold**`);
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('Hard break with italics #SkipWebkit', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('Italics');
@@ -305,7 +305,7 @@ Plain text 3`);
 *Italics*`);
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('Hard break with bulleted list #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('Bulleted');
             await pageObject.toggleFooterButton(ToolbarButton.bulletList);
@@ -315,7 +315,7 @@ Plain text 3`);
   list`);
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('Hard break with numbered list #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('Numbered');
             await pageObject.toggleFooterButton(ToolbarButton.numberedList);
@@ -325,7 +325,7 @@ Plain text 3`);
    list`);
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('Hard break with mention node #SkipWebkit', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }

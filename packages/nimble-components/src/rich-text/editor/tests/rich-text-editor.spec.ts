@@ -216,7 +216,7 @@ describe('RichTextEditor', () => {
     describe('keyboard shortcuts should update the checked state of the buttons', () => {
         parameterizeSpec(formattingButtons, (spec, name, value) => {
             spec(
-                // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+                // WebKit skipped, see https://github.com/ni/nimble/issues/1938
                 `"${name}" button keyboard shortcut check #SkipWebkit`,
                 async () => {
                     expect(
@@ -263,7 +263,7 @@ describe('RichTextEditor', () => {
     });
 
     describe('rich text formatting options to its respective HTML elements', () => {
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('should have br tag name when pressing shift + enter #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('Plain text 1');
             await pageObject.pressShiftEnterKeysInEditor();
@@ -281,7 +281,7 @@ describe('RichTextEditor', () => {
             expect(pageObject.getEditorLeafContents()).toEqual(['bold']);
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('should have br tag name when pressing shift + Enter with bold content #SkipWebkit', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('bold1');
@@ -304,7 +304,7 @@ describe('RichTextEditor', () => {
             expect(pageObject.getEditorLeafContents()).toEqual(['italics']);
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('should have br tag name when pressing shift + Enter with Italics content #SkipWebkit', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('italics1');
@@ -448,7 +448,7 @@ describe('RichTextEditor', () => {
             });
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('should have br tag name when pressing shift + Enter with numbered list content #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('numbered list1');
             await pageObject.toggleFooterButton(ToolbarButton.numberedList);
@@ -508,7 +508,7 @@ describe('RichTextEditor', () => {
             ).toBeTrue();
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('should have br tag name when pressing shift + Enter with nested numbered lists content #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('List');
             await pageObject.toggleFooterButton(ToolbarButton.numberedList);
@@ -598,7 +598,7 @@ describe('RichTextEditor', () => {
             expect(pageObject.getEditorLeafContents()).toEqual(['Bullet List']);
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('should have br tag name when pressing shift + Enter with bulleted list content #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('Bulleted List 1');
             await pageObject.toggleFooterButton(ToolbarButton.bulletList);
@@ -658,7 +658,7 @@ describe('RichTextEditor', () => {
             ).toBeTrue();
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('should have br tag name when pressing shift + Enter with nested bulleted lists content #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('List');
             await pageObject.toggleFooterButton(ToolbarButton.bulletList);

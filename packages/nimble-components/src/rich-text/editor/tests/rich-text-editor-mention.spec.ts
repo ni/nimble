@@ -353,7 +353,7 @@ describe('RichTextEditorMention', () => {
                 expect(pageObject.getMentionButtonLabel(0)).toBe('');
             });
 
-            // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+            // WebKit skipped, see https://github.com/ni/nimble/issues/1938
             it('should have button title and text when `button-label` updated #SkipWebkit', async () => {
                 const { userMentionElement } = await appendUserMentionConfiguration(element);
                 userMentionElement.buttonLabel = 'at mention';
@@ -1033,7 +1033,7 @@ describe('RichTextEditor user mention via template', () => {
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User @');
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('should get `@` text without a preceding whitespace after a hard break, when button clicked #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('User');
             await pageObject.pressShiftEnterKeysInEditor();
@@ -1047,7 +1047,7 @@ describe('RichTextEditor user mention via template', () => {
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User@');
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('should get `@` text with a single preceding whitespace after a hard break with a text, when button clicked #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('User');
             await pageObject.pressShiftEnterKeysInEditor();
@@ -1357,7 +1357,7 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        // Skipped in Safari: https://github.com/ni/nimble/issues/1938
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
         it('setting `disabled` should close the mention popup #SkipWebkit', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
