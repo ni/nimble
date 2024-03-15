@@ -161,6 +161,7 @@ export const styles = css`
             color: ${buttonLabelDisabledFontColor};
             box-shadow: none;
             background-image: none;
+            background-size: 100% 100%;
         }
 
         :host([disabled]) .control::before {
@@ -243,7 +244,6 @@ export const styles = css`
                         rgba(${borderRgbPartialColor}, 0.1),
                         rgba(${borderRgbPartialColor}, 0.1)
                     );
-                    background-size: 100% 100%;
                     border-color: rgba(${borderRgbPartialColor}, 0.1);
                 }
             }
@@ -270,6 +270,21 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                     color: ${buttonAccentOutlineFontColor};
                 }
             }
+
+            @layer active {
+                :host([appearance-variant='accent'])
+                    .control:active
+                    [part='start'],
+                :host([appearance-variant='accent'])
+                    .control:active
+                    [part='end'] {
+                    ${iconColor.cssCustomProperty}: ${buttonAccentOutlineFontColor};
+                }
+
+                :host([appearance-variant='accent']) .control:active {
+                    color: ${buttonAccentOutlineFontColor};
+                }
+            }
         `
     ),
     appearanceBehavior(
@@ -278,7 +293,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             @layer base {
                 :host([appearance-variant='primary']) [part='start'],
                 :host([appearance-variant='primary']) [part='end'] {
-                    ${iconColor.cssCustomProperty}: white;
+                    ${iconColor.cssCustomProperty}: ${buttonPrimaryFontColor};
                 }
 
                 :host([appearance-variant='primary']) .control {
@@ -292,7 +307,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
 
                 :host([appearance-variant='accent']) [part='start'],
                 :host([appearance-variant='accent']) [part='end'] {
-                    ${iconColor.cssCustomProperty}: white;
+                    ${iconColor.cssCustomProperty}: ${buttonPrimaryFontColor};
                 }
 
                 :host([appearance-variant='accent']) .control {
