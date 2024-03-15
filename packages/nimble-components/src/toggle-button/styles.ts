@@ -65,17 +65,6 @@ export const styles = css`
                     color: ${buttonAccentOutlineFontColor};
                 }
             }
-
-            @layer active {
-                :host([appearance-variant='accent'])
-                    .control:active
-                    [part='start'],
-                :host([appearance-variant='accent'])
-                    .control:active
-                    [part='end'] {
-                    ${iconColor.cssCustomProperty}: ${buttonAccentOutlineFontColor};
-                }
-            }
         `
     )
 );
