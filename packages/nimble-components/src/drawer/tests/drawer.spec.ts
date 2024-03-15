@@ -134,7 +134,7 @@ describe('Drawer', () => {
         });
 
         // Firefox skipped, see: https://github.com/ni/nimble/issues/1937
-        it('should resolve promise if drawer completely opens before being closed', async () => {
+        it('should resolve promise if drawer completely opens before being closed #SkipFirefox', async () => {
             const promise = element.show();
             await completeAnimationAsync(element);
             element.close();
