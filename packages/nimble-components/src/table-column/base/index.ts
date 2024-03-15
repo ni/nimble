@@ -75,6 +75,8 @@ export abstract class TableColumn<
         this.setAttribute('slot', this.columnInternals.uniqueId);
     }
 
+    public getText?(cellRecord: unknown): string;
+
     protected abstract getColumnInternalsOptions(): ColumnInternalsOptions;
 
     protected sortDirectionChanged(): void {

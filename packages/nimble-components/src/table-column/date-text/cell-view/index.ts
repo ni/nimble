@@ -21,6 +21,16 @@ export class TableColumnDateTextCellView extends TableColumnTextCellViewBase<
 TableColumnDateTextCellRecord,
 TableColumnDateTextColumnConfig
 > {
+    public static getText(cellRecord: TableColumnDateTextCellRecord | undefined, columnConfig: TableColumnDateTextColumnConfig | undefined): string {
+        if (columnConfig) {
+            return formatNumericDate(
+                columnConfig.formatter,
+                cellRecord?.value
+            );
+        }
+        return '';
+    }
+
     private columnConfigChanged(): void {
         this.updateText();
     }
@@ -30,14 +40,7 @@ TableColumnDateTextColumnConfig
     }
 
     private updateText(): void {
-        if (this.columnConfig) {
-            this.text = formatNumericDate(
-                this.columnConfig.formatter,
-                this.cellRecord?.value
-            );
-        } else {
-            this.text = '';
-        }
+        this.text = TableColumnDateTextCellView.getText(this.cellRecord, this.columnConfig);
     }
 }
 

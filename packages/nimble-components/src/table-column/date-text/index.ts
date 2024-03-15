@@ -9,7 +9,7 @@ import type { TableNumberField } from '../../table/types';
 import { TableColumnTextBase } from '../text-base';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { tableColumnDateTextGroupHeaderViewTag } from './group-header-view';
-import { tableColumnDateTextCellViewTag } from './cell-view';
+import { TableColumnDateTextCellView, tableColumnDateTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import {
     DateTextFormat,
@@ -133,6 +133,10 @@ export class TableColumnDateText extends TableColumnTextBase {
 
     public override get validity(): TableColumnValidity {
         return this.validator.getValidity();
+    }
+
+    public override getText(cellRecord: TableColumnDateTextCellRecord): string {
+        return TableColumnDateTextCellView.getText(cellRecord, this.columnInternals.columnConfig as TableColumnDateTextColumnConfig);
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {

@@ -21,12 +21,14 @@ import {
     getSortedRowModel as tanStackGetSortedRowModel,
     getGroupedRowModel as tanStackGetGroupedRowModel,
     getExpandedRowModel as tanStackGetExpandedRowModel,
+    getFilteredRowModel as tanStackGetFilteredRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved,
     SortingState as TanStackSortingState,
     RowSelectionState as TanStackRowSelectionState,
     GroupingState as TanStackGroupingState,
     ExpandedState as TanStackExpandedState,
-    OnChangeFn as TanStackOnChangeFn
+    OnChangeFn as TanStackOnChangeFn,
+    FilterFn as TanStackFilterFn
 } from '@tanstack/table-core';
 import { keyShift } from '@microsoft/fast-web-utilities';
 import { TableColumn } from '../table-column/base';
@@ -46,7 +48,9 @@ import {
     TableRowSelectionToggleEventDetail,
     TableRowState,
     TableValidity,
-    TableSetRecordHierarchyOptions
+    TableSetRecordHierarchyOptions,
+    TableFilter,
+    TableFieldName
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -58,6 +62,7 @@ import { InteractiveSelectionManager } from './models/interactive-selection-mana
 import { DataHierarchyManager } from './models/data-hierarchy-manager';
 import { ExpansionManager } from './models/expansion-manager';
 import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
+import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -237,6 +242,8 @@ export class Table<
 
     public constructor() {
         super();
+
+        const that = this;
         this.options = {
             data: [],
             onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
@@ -246,6 +253,7 @@ export class Table<
             getSortedRowModel: tanStackGetSortedRowModel(),
             getGroupedRowModel: tanStackGetGroupedRowModel(),
             getExpandedRowModel: tanStackGetExpandedRowModel(),
+            getFilteredRowModel: tanStackGetFilteredRowModel(),
             getRowCanExpand: this.getRowCanExpand,
             getIsRowExpanded: this.getIsRowExpanded,
             getSubRows: r => r.subRows,
@@ -253,6 +261,7 @@ export class Table<
             state: {
                 rowSelection: {},
                 grouping: [],
+                columnFilters: [],
                 expanded: true // Workaround until we can apply a fix to TanStack regarding leveraging our getIsRowExpanded implementation
             },
             enableRowSelection: row => !row.getIsGrouped(),
@@ -260,8 +269,53 @@ export class Table<
             enableSubRowSelection: false,
             enableSorting: true,
             enableGrouping: true,
+            filterFromLeafRows: true,
             renderFallbackValue: null,
-            autoResetAll: false
+            autoResetAll: false,
+            // filterFns: {
+            //     foo: this.getGlobalFilterFn
+            // }
+            // globalFilterFn: this.getGlobalFilterFn
+            globalFilterFn: (row: TanStackRow<TableNode<TData>>, columnId: string, filterValue: string[]): boolean => {
+                let cellText: string | undefined = '';
+                const record = row.original.clientRecord;
+                const column = that.columns.find(x => x.columnInternals.uniqueId === columnId);
+                if (!column) {
+                    return false;
+                }
+                if (column.getText) {
+                    const fieldNames = column.columnInternals.dataRecordFieldNames;
+                    if (that.hasValidFieldNames(fieldNames) && record) {
+                        const cellDataValues = fieldNames.map(
+                            field => record[field]
+                        );
+                        const cellRecord = Object.fromEntries(
+                            column.columnInternals.cellRecordFieldNames.map((k, j) => [
+                                k,
+                                cellDataValues[j]
+                            ])
+                        );
+                        cellText = column.getText(cellRecord);
+                    } else {
+                        return false;
+                    }
+                } else {
+                    const fieldName = column.columnInternals.operandDataRecordFieldName;
+                    if (typeof fieldName !== 'string') {
+                        cellText = undefined;
+                    } else {
+                        const cellValue = record[fieldName];
+                        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                        cellText = cellValue === undefined || cellValue === null ? undefined : `${cellValue}`;
+                    }
+                }
+
+                if (typeof cellText !== 'string') {
+                    return false;
+                }
+                const normalizedCellText = diacriticInsensitiveStringNormalizer(cellText);
+                return filterValue.some(x => normalizedCellText.includes(diacriticInsensitiveStringNormalizer(x.toString())));
+            }
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
@@ -279,6 +333,24 @@ export class Table<
         await this.processPendingUpdates();
         const tanstackUpdates = this.calculateTanStackData(newData);
         this.updateTableOptions(tanstackUpdates);
+    }
+
+    public async filterData(/*filter: TableFilter[]*/filter: string[]): Promise<void> {
+        await this.processPendingUpdates();
+        // this.updateTableOptions({
+        //     filterFns: this.calculateTanStackFilter(filter)
+        // });
+        // this.table.setGlobalFilter()
+        this.updateTableOptions({
+            state: {
+                globalFilter: filter
+            }
+        });
+    }
+
+    public async clearFilter(): Promise<void> {
+        await this.processPendingUpdates();
+        this.table.resetGlobalFilter();
     }
 
     public async getSelectedRecordIds(): Promise<string[]> {
@@ -1067,6 +1139,46 @@ export class Table<
         });
     };
 
+    // private readonly getGlobalFilterFn: TanStackFilterFn<TableNode<TData>> = (row: TanStackRow<TableNode<TData>>, columnId: string, filterValue: string): boolean => {
+    //     let cellText: string | undefined = '';
+    //     const record = row.original.clientRecord;
+    //     const column = this.columns.find(x => x.id === columnId);
+    //     if (!column) {
+    //         return false;
+    //     }
+    //     if (column.getText) {
+    //         const fieldNames = column.columnInternals.dataRecordFieldNames;
+    //         if (this.hasValidFieldNames(fieldNames) && record) {
+    //             const cellDataValues = fieldNames.map(
+    //                 field => record[field]
+    //             );
+    //             const cellRecord = Object.fromEntries(
+    //                 column.columnInternals.cellRecordFieldNames.map((k, j) => [
+    //                     k,
+    //                     cellDataValues[j]
+    //                 ])
+    //             );
+    //             cellText = column.getText(cellRecord);
+    //         } else {
+    //             return false;
+    //         }
+    //     } else {
+    //         const fieldName = column.columnInternals.operandDataRecordFieldName;
+    //         if (typeof fieldName !== 'string') {
+    //             cellText = undefined;
+    //         } else {
+    //             const cellValue = record[fieldName];
+    //             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    //             cellText = cellValue === undefined || cellValue === null ? undefined : `${cellValue}`;
+    //         }
+    //     }
+
+    //     if (typeof cellText !== 'string') {
+    //         return false;
+    //     }
+    //     return diacriticInsensitiveStringNormalizer(filterValue).includes(diacriticInsensitiveStringNormalizer(filterValue.toString()));
+    // };
+
     private readonly handleExpandedChange: TanStackOnChangeFn<TanStackExpandedState> = (updaterOrValue: TanStackUpdater<TanStackExpandedState>): void => {
         const expandedState = updaterOrValue instanceof Function
             ? updaterOrValue(this.table.getState().expanded)
@@ -1084,6 +1196,20 @@ export class Table<
         const row = rows[rowIndex]!;
         this.expansionManager.toggleRowExpansion(row);
     }
+
+    // private calculateTanStackFilter(filters: TableFilter[]): { [name: string]: TanStackFilterFn<TableNode<TData>> } {
+    //     const retValue = {};
+    //     filters.forEach((filter: TableFilter, index: number) => {
+    //         retValue[`filter${index}`] = (row: TanStackRow<TData>, columnId: string, filterValue: any) => {
+    //             const cellValue = row.getValue(columnId);
+    //             return cellValue === filterValue;
+    //         };
+    //     });
+    //     return retValue;
+
+    //     this.table.setGlobalFilter();
+    //     this.table.resetGlobalFilter();
+    // }
 
     private calculateTanStackSortState(): TanStackSortingState {
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(
@@ -1141,6 +1267,12 @@ export class Table<
                 sortUndefined: false
             };
         });
+    }
+
+    private hasValidFieldNames(
+        keys: readonly (TableFieldName | undefined)[]
+    ): keys is TableFieldName[] {
+        return keys.every(key => key !== undefined);
     }
 
     private calculateTanStackSelectionState(

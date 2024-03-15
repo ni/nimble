@@ -194,6 +194,14 @@ export interface TableColumnConfiguration {
     pixelWidth?: number;
 }
 
+export interface TableFilter {
+    matchString: string; // Does this need to support different types?
+    // matchMode: 'recordValue' | 'renderedValue' | 'custom'
+    // hierachyMode: 'includeChildren' | 'includeParent' | 'includeMatchesOnly' | 'includeFulHierarchy' -- look at Tanstack's `filterFromLeafRows`. I think our options here may be limited
+    // columns: 'all' | 'visible-only' | 'custom'
+    // customColumns: []
+}
+
 /**
  * @internal
  *
