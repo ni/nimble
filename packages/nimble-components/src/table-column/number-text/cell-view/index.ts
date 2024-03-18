@@ -21,6 +21,15 @@ export class TableColumnNumberTextCellView extends TableColumnTextCellViewBase<
 TableColumnNumberTextCellRecord,
 TableColumnNumberTextColumnConfig
 > {
+    public static getText(cellRecord: TableColumnNumberTextCellRecord | undefined, columnConfig: TableColumnNumberTextColumnConfig | undefined): string {
+        if (columnConfig?.formatter) {
+            return columnConfig.formatter.format(
+                cellRecord?.value
+            );
+        }
+        return '';
+    }
+
     private columnConfigChanged(): void {
         this.updateText();
         this.alignment = this.columnConfig?.alignment ?? TextCellViewBaseAlignment.left;
@@ -31,7 +40,7 @@ TableColumnNumberTextColumnConfig
     }
 
     private updateText(): void {
-        this.text = this.columnConfig?.formatter?.format(this.cellRecord?.value) ?? '';
+        this.text = TableColumnNumberTextCellView.getText(this.cellRecord, this.columnConfig);
     }
 }
 

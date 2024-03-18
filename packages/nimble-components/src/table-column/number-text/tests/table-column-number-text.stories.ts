@@ -152,19 +152,19 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
         >
-            <${tableColumnTextTag} field-name="firstName">
+            <${tableColumnTextTag} field-name="firstName" column-id="firstName">
                 First Name
             </${tableColumnTextTag}>
-            <${tableColumnTextTag} field-name="lastName">
+            <${tableColumnTextTag} field-name="lastName" column-id="lastName">
                 Last Name
             </${tableColumnTextTag}>
-            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
+            <${tableColumnNumberTextTag} field-name="age" column-id="age" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
                 Age
             </${tableColumnNumberTextTag}>
-            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
+            <${tableColumnNumberTextTag} field-name="favoriteNumber" column-id="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
                 Favorite Number
             </${tableColumnNumberTextTag}>
-            <${tableColumnNumberTextTag} field-name="measurement" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
+            <${tableColumnNumberTextTag} field-name="measurement" column-id="measurement" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
                 Measurement
                 ${when(x => x.unit === 'byte', html`<${unitByteTag}></${unitByteTag}>`)}
                 ${when(x => x.unit === 'byte (1024)', html`<${unitByteTag} binary></${unitByteTag}>`)}

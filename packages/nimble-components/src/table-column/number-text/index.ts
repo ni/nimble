@@ -16,7 +16,7 @@ import type { TableNumberField } from '../../table/types';
 import { TableColumnTextBase } from '../text-base';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
-import { tableColumnNumberTextCellViewTag } from './cell-view';
+import { TableColumnNumberTextCellView, tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { NumberTextAlignment, NumberTextFormat } from './types';
 import type { UnitFormat } from '../../utilities/unit-format/unit-format';
@@ -95,6 +95,10 @@ export class TableColumnNumberText extends TableColumnTextBase {
 
     public override get validity(): TableColumnValidity {
         return this.validator.getValidity();
+    }
+
+    public override getText(cellRecord: TableColumnNumberTextCellRecord): string {
+        return TableColumnNumberTextCellView.getText(cellRecord, this.columnInternals.columnConfig as TableColumnNumberTextColumnConfig);
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {

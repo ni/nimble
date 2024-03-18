@@ -56,10 +56,10 @@ export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
         >
-            <${tableColumnTextTag} field-name="firstName" >
+            <${tableColumnTextTag} field-name="firstName" column-id="firstName">
                 Name
             </${tableColumnTextTag}>
-            <${tableColumnEnumTextTag} field-name="status">
+            <${tableColumnEnumTextTag} field-name="status" column-id="status">
                 Status
                 <${mappingTextTag} key="fail" text="Not a Simpson"></${mappingTextTag}>
                 <${mappingTextTag} key="success" text="Is a Simpson"></${mappingTextTag}>
