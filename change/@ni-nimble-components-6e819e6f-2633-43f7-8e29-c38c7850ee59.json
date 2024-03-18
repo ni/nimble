@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add BodyPlus1 (Body_2) font token",
+  "comment": "Add BodyPlus1 font token",
   "packageName": "@ni/nimble-components",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "patch"
