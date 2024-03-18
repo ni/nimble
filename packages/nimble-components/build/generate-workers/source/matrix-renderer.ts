@@ -1,7 +1,5 @@
 import { expose } from 'comlink';
 import type { Dimensions, Transform, WaferMapMatrix, WaferMapTypedMatrix } from './types';
-import type { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
-import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 
 /**
  * MatrixRenderer class is meant to be used within a Web Worker context, 
@@ -15,8 +13,8 @@ export class MatrixRenderer {
     public rowIndexes: Uint32Array = Uint32Array.from([]);
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
-    public values = new Float64Array([14.24, 76.43, 44.63, 67.93, 72.71, 79.04, 26.49, 37.79, 59.82, 52.92,
-        98.53, 20.83, 62.81]);
+    public values = new Float64Array([14.24, 76.43, 44.63, 67.93, 72.71, 79.04, 26.49, 137.79, 59.82, 52.92,
+        98.53, 20.83, 462.81]);
     public scaledColIndex = new Float64Array([0, 100, 100, 100, 200, 200, 200, 200, 200, 300, 300, 300, 400]);
     public scaledRowIndex = new Float64Array([200, 200, 100, 300, 200, 100, 0, 300, 400, 200, 100, 300, 200]);
     public dieDimensions: Dimensions = { width: 100, height: 100 };
@@ -24,11 +22,12 @@ export class MatrixRenderer {
     public topLeftCanvasCorner: { x: number, y: number } = { x: 0, y: 0 };
     public bottomRightCanvasCorner: { x: number, y: number } = { x: 500, y: 500 };
     public colors: string[] = ['red', 'yellow', 'green', 'blue', 'purple'];
-    public colorsValues = new Float64Array([0, 25, 50, 75, 100]);
+    public colorsValues = new Float64Array([50, 0, 25, 75, 100]);
+    public maxCharactersOnDies: number = 6;
+    public isDieLabelHidden: boolean = true;
 
-    private readonly emptyDieColor = 'rgba(218,223,236,1)';
-    private readonly nanDieColor = 'rgba(122,122,122,1)';
-    private readonly fontSizeFactor = 0.35;
+    private readonly outsideRangeDieColor = 'rgba(218,223,236,1)';
+    private readonly fontSizeFactor = 0.8;
     private fontSize = 12;
 
     public setTransform(transform: Transform): void {
@@ -92,35 +91,45 @@ export class MatrixRenderer {
         this.context.save();
         this.clearCanvas();
         this.scaleCanvas();
-        this.calculateLabelsFontSize(1);
+        this.calculateLabelsFontSize(6);
+        this.colorsValues.sort((a, b) => a - b);
         this.parseDies();
     }
 
-    public parseDies(): void{
+    public parseDies(): void {
         for (let i = 0; i < this.scaledColIndex.length; i++) {
-            if (this.dieHasData(this.values[i]!.toString()) === false) { continue; }
-            const nearestValue = this.findNearestValue(this.colorsValues, this.values[i]!);
-            this.context.fillStyle = this.colors[this.colorsValues.indexOf(nearestValue)]!;
+            const currentDieValue = this.values[i]!;
+            if (this.dieHasData(currentDieValue.toString()) === false) { continue; }
+            if (this.isValueInRange(currentDieValue)) {
+                const nearestValue = this.findNearestValue(currentDieValue);
+                this.context.fillStyle = this.colors[this.colorsValues.indexOf(nearestValue)]!;
+            }
+            else { this.context.fillStyle = this.outsideRangeDieColor; }
             const x = this.scaledColIndex[i]!;
             const y = this.scaledRowIndex[i]!;
             if (!this.isDieVisible(x, y)) { continue; }
             this.context.fillRect(x, y, this.dieDimensions.width, this.dieDimensions.height);
+            if (this.isDieLabelHidden === true) { continue }
             this.addTextOnDie(x, y, i);
         }
     }
 
-    public findNearestValue(arr: Float64Array, target: number): number {
+    public isValueInRange(value: number): boolean {
+        return value >= this.colorsValues[0]! && value <= this.colorsValues[this.colorsValues.length - 1]!;
+    }
+
+    public findNearestValue(target: number): number {
         let start = 0;
-        let end = arr.length - 1;
+        let end = this.colorsValues.length - 1;
 
         while (start <= end) {
             let mid = Math.floor((start + end) / 2);
-            if (arr[mid] === target) return arr[mid] as number;
-            if (arr[mid]! < target) start = mid + 1;
+            if (this.colorsValues[mid] === target) return this.colorsValues[mid] as number;
+            if (this.colorsValues[mid]! < target) start = mid + 1;
             else end = mid - 1;
         }
 
-        return ((arr[start]! - target) < (target - arr[start - 1]!) ? arr[start] : arr[start - 1]) as number;
+        return ((this.colorsValues[start]! - target) < (target - this.colorsValues[start - 1]!) ? this.colorsValues[start] : this.colorsValues[start - 1]) as number;
     }
 
     private calculateLabelsFontSize(
