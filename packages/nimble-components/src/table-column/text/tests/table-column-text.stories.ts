@@ -65,6 +65,7 @@ type TextColumnFieldNameOption = 'firstName' | 'lastName';
 
 interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: TextColumnFieldNameOption;
+    placeholder: string;
 }
 
 export const textColumn: StoryObj<TextColumnTableArgs> = {
@@ -82,6 +83,7 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 field-name="quote"
+                placeholder="${x => x.placeholder}"
             >
             Quote
             </${tableColumnTextTag}>
@@ -97,6 +99,7 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
         }
     },
     args: {
-        fieldName: 'firstName'
+        fieldName: 'firstName',
+        placeholder: 'Unknown value'
     }
 };

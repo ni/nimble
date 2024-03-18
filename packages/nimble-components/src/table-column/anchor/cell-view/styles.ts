@@ -9,6 +9,10 @@ export const styles = css`
         align-self: center;
     }
 
+    :host(.placeholder) {
+        opacity: 0.6;
+    }
+
     nimble-anchor {
         white-space: nowrap;
         overflow: hidden;

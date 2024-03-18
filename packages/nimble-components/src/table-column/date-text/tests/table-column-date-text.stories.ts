@@ -49,7 +49,7 @@ const simpleData = [
     {
         firstName: 'Maggie',
         lastName: 'Simpson',
-        birthday: new Date(2022, 0, 12, 20, 4, 37, 975).valueOf()
+        birthday: undefined
     }
 ] as const;
 
@@ -79,6 +79,7 @@ export default metadata;
 
 interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
+    placeholder: string;
     format: keyof typeof DateTextFormat;
     customDateStyle: DateStyle;
     customTimeStyle: TimeStyle;
@@ -123,6 +124,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnDateTextTag}
                 field-name="birthday"
+                placeholder=${x => x.placeholder}"
                 format="${x => DateTextFormat[x.format]}"
                 custom-date-style="${x => x.customDateStyle}"
                 custom-time-style="${x => x.customTimeStyle}"
@@ -333,6 +335,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
     },
     args: {
         fieldName: 'firstName',
+        placeholder: 'Unknown value',
         format: 'default',
         customDateStyle: undefined,
         customTimeStyle: undefined,

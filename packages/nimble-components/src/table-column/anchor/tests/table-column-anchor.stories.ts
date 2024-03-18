@@ -69,6 +69,7 @@ interface AnchorColumnTableArgs extends SharedTableArgs {
     hrefFieldName: string;
     appearance: keyof typeof AnchorAppearance;
     underlineHidden: boolean;
+    placeholder: string;
 }
 
 export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
@@ -84,6 +85,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 href-field-name="${x => x.hrefFieldName}"
                 appearance="${x => x.appearance}"
                 ?underline-hidden="${x => x.underlineHidden}"
+                placeholder="${x => x.placeholder}"
             >
             Link Column
             </${tableColumnAnchorTag}>
@@ -125,6 +127,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
         hrefFieldName: 'url',
         appearance: 'default',
         underlineHidden: false,
+        placeholder: 'Unknown value',
         ...sharedTableArgs(simpleData)
     }
 };

@@ -49,7 +49,7 @@ const simpleData = [
         lastName: 'Van Houten',
         age: 14.1,
         favoriteNumber: -0.00000064532623,
-        measurement: -0.00000064532623
+        measurement: undefined
     }
 ] as const;
 
@@ -84,6 +84,7 @@ interface NumberTextColumnTableArgs extends SharedTableArgs {
     decimalDigits: number;
     decimalMaximumDigits: number;
     unit: string;
+    placeholder: string;
     checkValidity: () => void;
     validity: () => void;
 }
@@ -161,10 +162,10 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
                 Age
             </${tableColumnNumberTextTag}>
-            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
+            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}" placeholder="${x => x.placeholder}">
                 Favorite Number
             </${tableColumnNumberTextTag}>
-            <${tableColumnNumberTextTag} field-name="measurement" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}">
+            <${tableColumnNumberTextTag} field-name="measurement" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}" placeholder="${x => x.placeholder}">
                 Measurement
                 ${when(x => x.unit === 'byte', html`<${unitByteTag}></${unitByteTag}>`)}
                 ${when(x => x.unit === 'byte (1024)', html`<${unitByteTag} binary></${unitByteTag}>`)}
@@ -223,6 +224,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         alignment: 'default',
         decimalDigits: 2,
         decimalMaximumDigits: undefined,
-        unit: 'volt'
+        unit: 'volt',
+        placeholder: 'Unknown value'
     }
 };

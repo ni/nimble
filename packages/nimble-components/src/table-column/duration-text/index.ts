@@ -16,6 +16,7 @@ import { tableColumnDurationTextGroupHeaderViewTag } from './group-header-view';
 export type TableColumnDurationTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDurationTextColumnConfig {
     formatter: DurationFormatter;
+    placeholder?: string;
 }
 
 declare global {
@@ -45,6 +46,10 @@ export class TableColumnDurationText extends TableColumnTextBase {
         lang.unsubscribe(this.langSubscriber, this);
     }
 
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
+    }
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
@@ -58,14 +63,11 @@ export class TableColumnDurationText extends TableColumnTextBase {
     private updateColumnConfig(): void {
         const formatter = new DurationFormatter(lang.getValueFor(this));
 
-        if (formatter) {
-            const columnConfig: TableColumnDurationTextColumnConfig = {
-                formatter
-            };
-            this.columnInternals.columnConfig = columnConfig;
-        } else {
-            this.columnInternals.columnConfig = undefined;
-        }
+        const columnConfig: TableColumnDurationTextColumnConfig = {
+            formatter,
+            placeholder: this.placeholder
+        };
+        this.columnInternals.columnConfig = columnConfig;
     }
 }
 

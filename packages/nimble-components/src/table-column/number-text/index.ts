@@ -31,6 +31,7 @@ export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
     formatter: UnitFormat;
     alignment: TextCellViewBaseAlignment;
+    placeholder?: string;
 }
 
 declare global {
@@ -95,6 +96,10 @@ export class TableColumnNumberText extends TableColumnTextBase {
 
     public override get validity(): TableColumnValidity {
         return this.validator.getValidity();
+    }
+
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
@@ -171,7 +176,8 @@ export class TableColumnNumberText extends TableColumnTextBase {
         if (this.validator.isValid()) {
             const columnConfig: TableColumnNumberTextColumnConfig = {
                 formatter: this.createFormatter(),
-                alignment: this.determineCellContentAlignment()
+                alignment: this.determineCellContentAlignment(),
+                placeholder: this.placeholder
             };
             this.columnInternals.columnConfig = columnConfig;
         } else {

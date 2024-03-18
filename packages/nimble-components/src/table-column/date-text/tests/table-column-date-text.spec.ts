@@ -78,48 +78,6 @@ describe('TableColumnDateText', () => {
             expect(column.checkValidity()).toBeTrue();
         });
 
-        describe('displays blank when', () => {
-            const badValueData = [
-                { name: 'field not present', data: [{ unused: 'foo' }] },
-                { name: 'value is null', data: [{ field: null }] },
-                { name: 'value is undefined', data: [{ field: undefined }] },
-                {
-                    name: 'value is Inf',
-                    data: [{ field: Number.POSITIVE_INFINITY }]
-                },
-                {
-                    name: 'value is -Inf',
-                    data: [{ field: Number.NEGATIVE_INFINITY }]
-                },
-                { name: 'value is NaN', data: [{ field: Number.NaN }] },
-                {
-                    name: 'value is MAX_VALUE',
-                    data: [{ field: Number.MAX_VALUE }]
-                },
-                {
-                    name: 'value is too large for Date',
-                    data: [{ field: 8640000000000000 + 1 }]
-                },
-                {
-                    name: 'value is too small for Date',
-                    data: [{ field: -8640000000000000 - 1 }]
-                },
-                {
-                    name: 'value is not a number',
-                    data: [{ field: 'foo' as unknown as number }]
-                }
-            ] as const;
-
-            parameterizeSpec(badValueData, (spec, name, value) => {
-                spec(name, async () => {
-                    await table.setData(value.data);
-                    await waitForUpdatesAsync();
-
-                    expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
-                });
-            });
-        });
-
         // WebKit skipped, see https://github.com/ni/nimble/issues/1940
         it('changing fieldName updates display #SkipWebkit', async () => {
             await table.setData([
@@ -518,86 +476,189 @@ describe('TableColumnDateText', () => {
         });
 
         describe('placeholder', () => {
-            const testCases = [
-                {
-                    name: 'value is not specified',
-                    data: [{}],
-                    groupValue: 'No value'
-                },
-                {
-                    name: 'value is undefined',
-                    data: [{ field: undefined }],
-                    groupValue: 'No value'
-                },
-                {
-                    name: 'value is null',
-                    data: [{ field: null }],
-                    groupValue: 'No value'
-                },
-                {
-                    name: 'value is Number.NaN',
-                    data: [{ field: Number.NaN }],
-                    groupValue: ''
-                },
-                {
-                    name: 'value is valid and non-zero',
-                    data: [{ field: 1708984169258 }],
-                    groupValue: '2/26/2024'
-                },
-                {
-                    name: 'value is incorrect type',
-                    data: [{ field: 'not a number' as unknown as number }],
-                    groupValue: ''
-                },
-                {
-                    name: 'value is specified and falsey',
-                    data: [{ field: 0 }],
-                    groupValue: '1/1/1970'
-                },
-                {
-                    name: 'value is Inf',
-                    data: [{ field: Number.POSITIVE_INFINITY }],
-                    groupValue: ''
-                },
-                {
-                    name: 'value is -Inf',
-                    data: [{ field: Number.NEGATIVE_INFINITY }],
-                    groupValue: ''
-                },
-                {
-                    name: 'value is MAX_VALUE',
-                    data: [{ field: Number.MAX_VALUE }],
-                    groupValue: ''
-                },
-                {
-                    name: 'value is too large for Date',
-                    data: [{ field: 8640000000000000 + 1 }],
-                    groupValue: ''
-                },
-                {
-                    name: 'value is too small for Date',
-                    data: [{ field: -8640000000000000 - 1 }],
-                    groupValue: ''
-                }
-            ];
-
-            parameterizeSpec(testCases, (spec, name, value) => {
-                spec(
-                    `group row renders expected value when ${name}`,
-                    async () => {
-                        // Set a custom time zone so that the behavior of the test does not
-                        // depend on the configuration of the computer running the tests.
-                        column.format = DateTextFormat.custom;
-                        column.customTimeZone = 'UTC';
-                        await table.setData(value.data);
-                        await connect();
-                        await waitForUpdatesAsync();
-
-                        expect(
-                            pageObject.getRenderedGroupHeaderContent(0)
-                        ).toBe(value.groupValue);
+            describe('placeholder', () => {
+                const testCases = [
+                    {
+                        name: 'value is not specified',
+                        data: [{}],
+                        cellValue: '',
+                        groupValue: 'No value',
+                        usesColumnPlaceholder: true
+                    },
+                    {
+                        name: 'value is undefined',
+                        data: [{ field: undefined }],
+                        cellValue: '',
+                        groupValue: 'No value',
+                        usesColumnPlaceholder: true
+                    },
+                    {
+                        name: 'value is null',
+                        data: [{ field: null }],
+                        cellValue: '',
+                        groupValue: 'No value',
+                        usesColumnPlaceholder: true
+                    },
+                    {
+                        name: 'value is Number.NaN',
+                        data: [{ field: Number.NaN }],
+                        cellValue: '',
+                        groupValue: '',
+                        usesColumnPlaceholder: false
+                    },
+                    {
+                        name: 'value is valid and non-zero',
+                        data: [{ field: 1708984169258 }],
+                        cellValue: 'Feb 26, 2024, 3:49:29 PM',
+                        groupValue: 'Feb 26, 2024, 3:49:29 PM',
+                        usesColumnPlaceholder: false
+                    },
+                    {
+                        name: 'value is incorrect type',
+                        data: [{ field: 'not a number' as unknown as number }],
+                        cellValue: '',
+                        groupValue: '',
+                        usesColumnPlaceholder: false
+                    },
+                    {
+                        name: 'value is specified and falsey',
+                        data: [{ field: 0 }],
+                        cellValue: 'Dec 31, 1969, 6:00:00 PM',
+                        groupValue: 'Dec 31, 1969, 6:00:00 PM',
+                        usesColumnPlaceholder: false
+                    },
+                    {
+                        name: 'value is Inf',
+                        data: [{ field: Number.POSITIVE_INFINITY }],
+                        cellValue: '',
+                        groupValue: '',
+                        usesColumnPlaceholder: false
+                    },
+                    {
+                        name: 'value is -Inf',
+                        data: [{ field: Number.NEGATIVE_INFINITY }],
+                        cellValue: '',
+                        groupValue: '',
+                        usesColumnPlaceholder: false
+                    },
+                    {
+                        name: 'value is MAX_VALUE',
+                        data: [{ field: Number.MAX_VALUE }],
+                        cellValue: '',
+                        groupValue: '',
+                        usesColumnPlaceholder: false
+                    },
+                    {
+                        name: 'value is too large for Date',
+                        data: [{ field: 8640000000000000 + 1 }],
+                        cellValue: '',
+                        groupValue: '',
+                        usesColumnPlaceholder: false
+                    },
+                    {
+                        name: 'value is too small for Date',
+                        data: [{ field: -8640000000000000 - 1 }],
+                        cellValue: '',
+                        groupValue: '',
+                        usesColumnPlaceholder: false
                     }
-                );
+                ];
+
+                parameterizeSpec(testCases, (spec, name, value) => {
+                    spec(
+                        `cell and group row render expected value when ${name} and placeholder is configured`,
+                        async () => {
+                            // Set a custom time zone so that the behavior of the test does not
+                            // depend on the configuration of the computer running the tests.
+                            column.format = DateTextFormat.custom;
+                            column.customTimeZone = 'UTC';
+                            const placeholder = 'Custom placeholder';
+                            elementReferences.column1.placeholder = placeholder;
+                            await table.setData(value.data);
+                            await connect();
+                            await waitForUpdatesAsync();
+
+                            const expectedCellText = value.usesColumnPlaceholder
+                                ? placeholder
+                                : value.cellValue;
+                            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                                expectedCellText
+                            );
+                            expect(
+                                pageObject.getRenderedGroupHeaderContent(0)
+                            ).toBe(value.groupValue);
+                        }
+                    );
+                });
+
+                parameterizeSpec(testCases, (spec, name, value) => {
+                    spec(
+                        `cell and group row render expected value when ${name} and placeholder is not configured`,
+                        async () => {
+                            // Set a custom time zone so that the behavior of the test does not
+                            // depend on the configuration of the computer running the tests.
+                            column.format = DateTextFormat.custom;
+                            column.customTimeZone = 'UTC';
+                            await table.setData(value.data);
+                            await connect();
+                            await waitForUpdatesAsync();
+
+                            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                                value.cellValue
+                            );
+                            expect(
+                                pageObject.getRenderedGroupHeaderContent(0)
+                            ).toBe(value.groupValue);
+                        }
+                    );
+                });
+
+                it('setting placeholder to undefined updates cells from displaying placeholder to displaying blank', async () => {
+                    const placeholder = 'My placeholder';
+                    elementReferences.column1.placeholder = placeholder;
+                    await table.setData([{}]);
+                    await connect();
+                    await waitForUpdatesAsync();
+                    expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                        placeholder
+                    );
+
+                    elementReferences.column1.placeholder = undefined;
+                    await waitForUpdatesAsync();
+                    expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+                });
+
+                it('setting placeholder to defined string updates cells from displaying placeholder to displaying blank', async () => {
+                    await table.setData([{}]);
+                    await connect();
+                    await waitForUpdatesAsync();
+                    expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+
+                    const placeholder = 'placeholder';
+                    elementReferences.column1.placeholder = placeholder;
+                    await waitForUpdatesAsync();
+                    expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                        placeholder
+                    );
+                });
+
+                it('updating placeholder from one string to another updates cell', async () => {
+                    const placeholder1 = 'My first placeholder';
+                    elementReferences.column1.placeholder = placeholder1;
+                    await table.setData([{}]);
+                    await connect();
+                    await waitForUpdatesAsync();
+                    expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                        placeholder1
+                    );
+
+                    const placeholder2 = 'My second placeholder';
+                    elementReferences.column1.placeholder = placeholder2;
+                    await waitForUpdatesAsync();
+                    expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                        placeholder2
+                    );
+                });
             });
         });
     });

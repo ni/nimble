@@ -36,6 +36,7 @@ import { optionalBooleanConverter } from '../../utilities/models/converter';
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDateTextColumnConfig {
     formatter: Intl.DateTimeFormat;
+    placeholder?: string;
 }
 
 declare global {
@@ -135,6 +136,10 @@ export class TableColumnDateText extends TableColumnTextBase {
         return this.validator.getValidity();
     }
 
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
+    }
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
@@ -230,7 +235,8 @@ export class TableColumnDateText extends TableColumnTextBase {
 
         if (formatter) {
             const columnConfig: TableColumnDateTextColumnConfig = {
-                formatter
+                formatter,
+                placeholder: this.placeholder
             };
             this.columnInternals.columnConfig = columnConfig;
             this.validator.setCustomOptionsValidity(true);

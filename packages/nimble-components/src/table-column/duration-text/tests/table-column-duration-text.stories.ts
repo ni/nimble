@@ -36,7 +36,7 @@ const simpleData = [
     {
         firstName: 'Montgomery',
         lastName: 'Burns',
-        swearWordCadence: 3.78e12
+        swearWordCadence: undefined
     }
 ] as const;
 
@@ -66,6 +66,7 @@ export default metadata;
 
 interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
+    placeholder: string;
 }
 
 export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
@@ -83,6 +84,7 @@ export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnDurationTextTag}
                 field-name="swearWordCadence"
+                placeholder="${x => x.placeholder}"
             >
             Time since last swear word
             </${tableColumnDurationTextTag}>
@@ -97,6 +99,7 @@ export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
         }
     },
     args: {
-        fieldName: 'firstName'
+        fieldName: 'firstName',
+        placeholder: 'Unknown value'
     }
 };
