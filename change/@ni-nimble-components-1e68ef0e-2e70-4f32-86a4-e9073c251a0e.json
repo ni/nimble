@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Marking tests that fail on some browsers",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
