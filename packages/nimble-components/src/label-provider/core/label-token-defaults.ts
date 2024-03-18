@@ -6,9 +6,9 @@ export const coreLabelDefaults: { readonly [key in TokenName]: string } = {
     popupDismissLabel: 'Close',
     numericIncrementLabel: 'Increment',
     numericDecrementLabel: 'Decrement',
-    errorIconLabel: 'Error',
-    warningIconLabel: 'Warning',
-    informationIconLabel: 'Information',
+    popupIconErrorLabel: 'Error',
+    popupIconWarningLabel: 'Warning',
+    popupIconInformationLabel: 'Information',
     filterSearchLabel: 'Search',
     filterNoResultsLabel: 'No items found'
 };

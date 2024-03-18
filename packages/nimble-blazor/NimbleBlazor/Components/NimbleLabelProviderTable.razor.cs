@@ -14,6 +14,12 @@ public partial class NimbleLabelProviderTable : ComponentBase
     public string? GroupExpand { get; set; }
 
     [Parameter]
+    public string? RowCollapse { get; set; }
+
+    [Parameter]
+    public string? RowExpand { get; set; }
+
+    [Parameter]
     public string? CollapseAll { get; set; }
 
     [Parameter]
