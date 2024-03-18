@@ -131,10 +131,12 @@ const metadata: Meta<AnchorPatternsArgs> = {
                 // Safari workaround: the nimble-table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
                 await customElements.whenDefined('nimble-table');
-                const data = [{
-                    label: x.label,
-                    href: x.href
-                }];
+                const data = [
+                    {
+                        label: x.label,
+                        href: x.href
+                    }
+                ];
                 void x.tableRef.setData(data);
             })();
         },
