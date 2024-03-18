@@ -272,8 +272,8 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-    it('focuses the first button on the dialog when it opens #SkipFirefox', async () => {
+    // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+    it('focuses the first button on the dialog when it opens #SkipFirefox #SkipWebkit', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const okButton = document.getElementById('ok')!;
@@ -285,8 +285,8 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-    it('focuses the button with autofocus when the dialog opens #SkipFirefox', async () => {
+    // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+    it('focuses the button with autofocus when the dialog opens #SkipFirefox #SkipWebkit', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const cancelButton = document.getElementById('cancel')!;
@@ -300,8 +300,8 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-    it('supports opening multiple dialogs on top of each other #SkipFirefox', async () => {
+    // Some browsers skipped, see: https://github.com/ni/nimble/issues/1943
+    it('supports opening multiple dialogs on top of each other #SkipFirefox #SkipWebkit', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const secondDialog = document.createElement('nimble-dialog');
