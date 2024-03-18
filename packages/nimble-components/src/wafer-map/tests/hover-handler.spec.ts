@@ -1,5 +1,6 @@
 import { zoomIdentity } from 'd3-zoom';
 import { tableFromArrays } from 'apache-arrow';
+import { html } from '@microsoft/fast-element';
 import { HoverHandler } from '../modules/experimental/hover-handler';
 import { WaferMapOriginLocation } from '../types';
 import {
@@ -10,14 +11,22 @@ import {
 import type { WaferMap } from '..';
 import type { DataManager } from '../modules/data-manager';
 import { processUpdates } from '../../testing/async-helpers';
+import { Fixture, fixture } from '../../utilities/tests/fixture';
+
+async function setup(): Promise<Fixture<HTMLDivElement>> {
+    return fixture<HTMLDivElement>(html`<div></div>`);
+}
 
 describe('HoverHandler', () => {
     let element: HTMLDivElement;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
     let hoverHandler: HoverHandler;
     let waferMock: WaferMap;
 
-    beforeEach(() => {
-        element = document.createElement('div');
+    beforeEach(async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
         waferMock = getWaferMapMockHover(
             tableFromArrays({
                 colIndex: Int32Array.from([1]),
@@ -37,8 +46,8 @@ describe('HoverHandler', () => {
         element.addEventListener('mousemove', event => hoverHandler.mousemove(event));
     });
 
-    afterEach(() => {
-        element.remove();
+    afterEach(async () => {
+        await disconnect();
     });
 
     it('will return the only index when mouse moved in range', () => {
