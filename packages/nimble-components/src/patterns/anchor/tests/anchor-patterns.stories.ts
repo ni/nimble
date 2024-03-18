@@ -18,12 +18,16 @@ import { anchorTreeItemTag } from '../../../anchor-tree-item';
 import { treeViewTag } from '../../../tree-view';
 import { anchorMenuItemTag } from '../../../anchor-menu-item';
 import { menuTag } from '../../../menu';
+import { Table, tableTag } from '../../../table';
+import { tableColumnAnchorTag } from '../../../table-column/anchor';
 
 const hrefDescription = 'To disable the control, remove the `href` attribute.';
 
 interface AnchorPatternsArgs {
     label: string;
     href: string;
+    tableRef: Table;
+    setTableData: (args: AnchorPatternsArgs) => void;
     richTextViewerRef: RichTextViewer;
     setRichTextViewerData: (args: AnchorPatternsArgs) => void;
 }
@@ -92,6 +96,13 @@ const metadata: Meta<AnchorPatternsArgs> = {
         </div>
 
         <div class="control-container">
+            <div class="label">${tableColumnAnchorTag}</div>
+            <${tableTag} ${ref('tableRef')} data-unused="${x => x.setTableData(x)}" style="height: 100px;">
+                <${tableColumnAnchorTag} label-field-name="label" href-field-name="href">Anchor</${tableColumnAnchorTag}>
+            </${tableTag}>
+        </div>
+
+        <div class="control-container">
             <div class="label">${richTextViewerTag}</div>
             <${richTextViewerTag} ${ref('richTextViewerRef')}
                 href="${x => x.href}"
@@ -115,6 +126,18 @@ const metadata: Meta<AnchorPatternsArgs> = {
     args: {
         label: 'link',
         href: 'https://nimble.ni.dev',
+        setTableData: x => {
+            void (async () => {
+                // Safari workaround: the nimble-table element instance is made at this point
+                // but doesn't seem to be upgraded to a custom element yet
+                await customElements.whenDefined('nimble-table');
+                const data = [{
+                    label: x.label,
+                    href: x.href
+                }];
+                void x.tableRef.setData(data);
+            })();
+        },
         setRichTextViewerData: x => {
             void (async () => {
                 // Safari workaround: the nimble-rich-text-viewer element instance is made at this point
