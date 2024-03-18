@@ -5,6 +5,7 @@
  * - comment out all tests not involving RouterLink
  * - modify imports
  * - define and use TestRouterLinkDirective/TestRouterLinkModule instead of RouterLink
+ * - change selector to avoid NG0912 component ID collision
  */
 
 /**
@@ -7123,7 +7124,8 @@ class DummyLinkCmp {
 class AbsoluteSimpleLinkCmp {
 }
 
-@Component({selector: 'link-cmp', template: `<a [routerLink]="['../simple']">link</a>`})
+// [Nimble] add irrelevant :not(head) to selector to force distinct component ID generation
+@Component({selector: 'link-cmp:not(head)', template: `<a [routerLink]="['../simple']">link</a>`})
 class RelativeLinkCmp {
 }
 
