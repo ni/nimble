@@ -99,7 +99,6 @@ export class MatrixRenderer {
     public parseDies(): void {
         for (let i = 0; i < this.scaledColIndex.length; i++) {
             const currentDieValue = this.values[i]!;
-            if (this.dieHasData(currentDieValue.toString()) === false) { continue; }
             if (this.isValueInRange(currentDieValue)) {
                 const nearestValueIndex = this.findNearestValueIndex(currentDieValue);
                 this.context.fillStyle = this.colors[nearestValueIndex]!;
@@ -109,9 +108,9 @@ export class MatrixRenderer {
             const y = this.scaledRowIndex[i]!;
             if (!this.isDieVisible(x, y)) { continue; }
             this.context.fillRect(x, y, this.dieDimensions.width, this.dieDimensions.height);
-            if (this.isDieLabelHidden === true) { continue }
-            this.addTextOnDie(x, y, i);
         }
+        if (this.isDieLabelHidden === true) { return; }
+        this.addTextOnDies();
     }
 
     public isValueInRange(value: number): boolean {
@@ -146,18 +145,20 @@ export class MatrixRenderer {
         return dieData !== null && dieData !== undefined && dieData !== '';
     }
 
-    public addTextOnDie(x: number, y: number, i: number) {
-        this.context.font = `${this.fontSize}px sans-serif`;
-        this.context.fillStyle = 'White';
+    public addTextOnDies() {
+        for (let i = 0; i < this.scaledColIndex.length; i++) {
+            this.context.font = `${this.fontSize}px sans-serif`;
+            this.context.fillStyle = 'White';
 
-        const textX = x + this.dieDimensions.width / 2;
-        const textY = y + this.dieDimensions.height / 2;
+            const textX = this.scaledColIndex[i]! + this.dieDimensions.width / 2;
+            const textY = this.scaledRowIndex[i]! + this.dieDimensions.height / 2;
 
-        let formattedValue = this.formatValue(this.values[i]);
+            let formattedValue = this.formatValue(this.values[i]);
 
-        this.context.textAlign = 'center';
-        this.context.textBaseline = 'middle';
-        this.context.fillText(formattedValue, textX, textY);
+            this.context.textAlign = 'center';
+            this.context.textBaseline = 'middle';
+            this.context.fillText(formattedValue, textX, textY);
+        }
     }
 
     public formatValue(value: number | undefined): string {
