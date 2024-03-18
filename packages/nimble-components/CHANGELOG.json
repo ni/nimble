@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 18 Mar 2024 18:10:43 GMT",
+      "version": "22.1.0",
+      "tag": "@ni/nimble-components_v22.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ca8201733c653a4d74537c530c60a5c6d21bcbc3",
+            "comment": "Fix intermittent RichTextMentionListbox test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 18 Mar 2024 17:12:34 GMT",
       "version": "22.1.0",
       "tag": "@ni/nimble-components_v22.1.0",
