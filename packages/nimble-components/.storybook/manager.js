@@ -15,5 +15,8 @@ addons.setConfig({
             }
         }
     },
-    theme
+    theme,
+    toolbar: {
+        'storybook/pseudo-states/tool': { hidden: true }
+    }
 });
