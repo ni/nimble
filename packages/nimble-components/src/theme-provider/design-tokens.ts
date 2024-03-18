@@ -23,6 +23,9 @@ import {
     BodyFamily,
     BodySize,
     BodyWeight,
+    Body2Family,
+    Body2Size,
+    Body2Weight,
     ControlLabel1Family,
     ControlLabel1Size,
     ControlLabel1Weight,
@@ -83,6 +86,7 @@ import {
     BodyEmphasizedLineHeight,
     BodyEmphasized2LineHeight,
     BodyLineHeight,
+    Body2LineHeight,
     GroupLabel1LineHeight,
     ControlLabel1LineHeight,
     ButtonLabel1LineHeight,
@@ -118,6 +122,7 @@ const Subtitle2FallbackFontFamily = 'Source Sans Pro Fallback';
 const LinkFallbackFontFamily = 'Source Sans Pro Fallback';
 const PlaceholderFallbackFontFamily = 'Source Sans Pro Fallback';
 const BodyFallbackFontFamily = 'Source Sans Pro Fallback';
+const Body2FallbackFontFamily = 'Source Sans Pro Fallback';
 const BodyEmphasizedFallbackFontFamily = 'Source Sans Pro Fallback';
 const BodyEmphasized2FallbackFontFamily = 'Source Sans Pro Fallback';
 const GroupLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
@@ -685,6 +690,26 @@ export const [
     BodySize,
     BodyLineHeight,
     BodyFallbackFontFamily
+);
+
+export const [
+    bodyPlus1Font,
+    bodyPlus1FontColor,
+    bodyPlus1DisabledFontColor,
+    bodyPlus1FontFamily,
+    bodyPlus1FontWeight,
+    bodyPlus1FontSize,
+    bodyPlus1FontLineHeight,
+    bodyPlus1FallbackFontFamily
+] = createFontTokens(
+    tokenNames.bodyPlus1Font,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    Body2Family,
+    Body2Weight,
+    Body2Size,
+    Body2LineHeight,
+    Body2FallbackFontFamily
 );
 
 export const [

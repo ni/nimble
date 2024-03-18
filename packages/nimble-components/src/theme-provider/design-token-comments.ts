@@ -245,6 +245,16 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     bodyFontWeight: 'Font weight for the "Body" base token',
     bodyFontLineHeight: 'Font line height for the "Body" base token',
     bodyFallbackFontFamily: 'Fallback font family for the "Body" base token',
+    bodyPlus1Font: 'Font shorthand for the "Body_2" base token',
+    bodyPlus1FontColor: 'Font color for the "Body_2" base token',
+    bodyPlus1DisabledFontColor:
+        'Disabled font color for the "Body_2" base token',
+    bodyPlus1FontFamily: 'Font family for the "Body_2" base token',
+    bodyPlus1FontSize: 'Font size for the "Body_2" base token',
+    bodyPlus1FontWeight: 'Font weight for the "Body_2" base token',
+    bodyPlus1FontLineHeight: 'Font line height for the "Body_2" base token',
+    bodyPlus1FallbackFontFamily:
+        'Fallback font family for the "Body_2" base token',
     groupHeaderFont: 'Font shorthand for the "Group_Header_1" base token',
     groupHeaderFontColor: 'Font color for the "Group_Header_1" base token',
     groupHeaderDisabledFontColor:
