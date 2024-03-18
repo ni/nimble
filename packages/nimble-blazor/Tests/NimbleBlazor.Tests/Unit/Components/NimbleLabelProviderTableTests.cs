@@ -32,6 +32,8 @@ public class NimbleLabelProviderTableTests
     [Theory]
     [InlineData(nameof(NimbleLabelProviderTable.GroupCollapse))]
     [InlineData(nameof(NimbleLabelProviderTable.GroupExpand))]
+    [InlineData(nameof(NimbleLabelProviderTable.RowCollapse))]
+    [InlineData(nameof(NimbleLabelProviderTable.RowExpand))]
     [InlineData(nameof(NimbleLabelProviderTable.CollapseAll))]
     [InlineData(nameof(NimbleLabelProviderTable.CellActionMenu))]
     [InlineData(nameof(NimbleLabelProviderTable.ColumnHeaderGrouped))]

@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 12 Mar 2024 22:17:11 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Mar 2024 14:48:16 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.4.1
+
+Thu, 14 Mar 2024 14:48:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v22.0.1
+
+## 20.4.0
+
+Wed, 13 Mar 2024 23:07:24 GMT
+
+### Minor changes
+
+- Update default values in label provider directives and expose additional label provider properties ([ni/nimble@518c229](https://github.com/ni/nimble/commit/518c229b964d2c4a2e77210692f5d367f2937ff4))
+- Bump @ni/nimble-components to v22.0.0
 
 ## 20.3.0
 
