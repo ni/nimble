@@ -101,8 +101,8 @@ export class MatrixRenderer {
             const currentDieValue = this.values[i]!;
             if (this.dieHasData(currentDieValue.toString()) === false) { continue; }
             if (this.isValueInRange(currentDieValue)) {
-                const nearestValue = this.findNearestValue(currentDieValue);
-                this.context.fillStyle = this.colors[this.colorsValues.indexOf(nearestValue)]!;
+                const nearestValueIndex = this.findNearestValueIndex(currentDieValue);
+                this.context.fillStyle = this.colors[nearestValueIndex]!;
             }
             else { this.context.fillStyle = this.outsideRangeDieColor; }
             const x = this.scaledColIndex[i]!;
@@ -118,18 +118,18 @@ export class MatrixRenderer {
         return value >= this.colorsValues[0]! && value <= this.colorsValues[this.colorsValues.length - 1]!;
     }
 
-    public findNearestValue(target: number): number {
+    public findNearestValueIndex(dieValue: number): number {
         let start = 0;
         let end = this.colorsValues.length - 1;
 
         while (start <= end) {
             let mid = Math.floor((start + end) / 2);
-            if (this.colorsValues[mid] === target) return this.colorsValues[mid] as number;
-            if (this.colorsValues[mid]! < target) start = mid + 1;
+            if (this.colorsValues[mid] === dieValue) return mid;
+            if (this.colorsValues[mid]! < dieValue) start = mid + 1;
             else end = mid - 1;
         }
 
-        return ((this.colorsValues[start]! - target) < (target - this.colorsValues[start - 1]!) ? this.colorsValues[start] : this.colorsValues[start - 1]) as number;
+        return (this.colorsValues[start]! - dieValue) < (dieValue - this.colorsValues[start - 1]!) ? start : start - 1;
     }
 
     private calculateLabelsFontSize(
