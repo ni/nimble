@@ -16,7 +16,13 @@ The <Tag name={tableColumnTextTag}/> column is used to display string fields as 
 
 {/* ## Appearance Variants */}
 
-{/* ## Usage */}
+## Usage
+
+### Best Practices
+
+-   Avoid mixing `undefined` and `null` as values for the same field. When grouping this will lead to two groups (one for `null` values and one for `undefined` values) that both have the text `"No value"`.
+-   Avoid mixing empty string with `undefined`/`null`. The distinction when grouping between `"No value"` and `"Empty"` is not likely meaningful to a user.
+-   Avoid displaying whitespace values that are not empty string (`''`) as these values will be rendered as-is in group rows.
 
 {/* ## Examples */}
 

@@ -20,11 +20,16 @@ based on the value of the `lang` token, which can be set via the [nimble-theme-p
 
 {/* ## Appearance Variants */}
 
-{/* ## Usage */}
+## Usage
 
-## Angular Usage
+### Best Practices
 
-### Number Format Pipe
+-   Avoid mixing `undefined` and `null` as values for the same field. When grouping this will lead to two groups (one for `null` values and one for `undefined` values) that both have the text `"No value"`.
+-   If relevant to your data source, make sure to consider the IEEE 754 special cases of `-Inf`, `+Inf`, `-0`, `+0`, and `NaN`.
+
+### Angular Usage
+
+#### Number Format Pipe
 
 An Angular pipe is provided for formatting number values into strings outside of the Nimble table. It uses the same formatting rules (and localization) as the number-text table column.
 
