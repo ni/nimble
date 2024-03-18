@@ -18,6 +18,8 @@ describe('Nimble Label Provider Table', () => {
     const label12 = 'String 12';
     const label13 = 'String 13';
     const label14 = 'String 14';
+    const label15 = 'String 15';
+    const label16 = 'String 16';
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -124,6 +126,16 @@ describe('Nimble Label Provider Table', () => {
             expect(directive.rowLoading).toBeUndefined();
             expect(nativeElement.rowLoading).toBeUndefined();
         });
+
+        it('has expected defaults for groupRowPlaceholderNoValue', () => {
+            expect(directive.groupRowPlaceholderNoValue).toBeUndefined();
+            expect(nativeElement.groupRowPlaceholderNoValue).toBeUndefined();
+        });
+
+        it('has expected defaults for groupRowPlaceholderEmpty', () => {
+            expect(directive.groupRowPlaceholderEmpty).toBeUndefined();
+            expect(nativeElement.groupRowPlaceholderEmpty).toBeUndefined();
+        });
     });
 
     describe('with template string values', () => {
@@ -144,6 +156,8 @@ describe('Nimble Label Provider Table', () => {
                     row-select="${label12}"
                     row-operation-column="${label13}"
                     row-loading="${label14}"
+                    group-row-placeholder-no-value="${label15}"
+                    group-row-placeholder-empty="${label16}"
                     >
                 </nimble-label-provider-table>
             `
@@ -237,6 +251,16 @@ describe('Nimble Label Provider Table', () => {
             expect(directive.rowLoading).toBe(label14);
             expect(nativeElement.rowLoading).toBe(label14);
         });
+
+        it('will use template string values for groupRowPlaceholderNoValue', () => {
+            expect(directive.groupRowPlaceholderNoValue).toBe(label15);
+            expect(nativeElement.groupRowPlaceholderNoValue).toBe(label15);
+        });
+
+        it('will use template string values for groupRowPlaceholderEmpty', () => {
+            expect(directive.groupRowPlaceholderEmpty).toBe(label16);
+            expect(nativeElement.groupRowPlaceholderEmpty).toBe(label16);
+        });
     });
 
     describe('with property bound values', () => {
@@ -257,6 +281,8 @@ describe('Nimble Label Provider Table', () => {
                     [rowSelect]="rowSelect"
                     [rowOperationColumn]="rowOperationColumn"
                     [rowLoading]="rowLoading"
+                    [groupRowPlaceholderNoValue]="groupRowPlaceholderNoValue"
+                    [groupRowPlaceholderEmpty]="groupRowPlaceholderEmpty"
                     >
                 </nimble-label-provider-table>
             `
@@ -278,6 +304,8 @@ describe('Nimble Label Provider Table', () => {
             public rowSelect = label1;
             public rowOperationColumn = label1;
             public rowLoading = label1;
+            public groupRowPlaceholderNoValue = label1;
+            public groupRowPlaceholderEmpty = label1;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -448,6 +476,28 @@ describe('Nimble Label Provider Table', () => {
             expect(directive.rowLoading).toBe(label2);
             expect(nativeElement.rowLoading).toBe(label2);
         });
+
+        it('can be configured with property binding for groupRowPlaceholderNoValue', () => {
+            expect(directive.groupRowPlaceholderNoValue).toBe(label1);
+            expect(nativeElement.groupRowPlaceholderNoValue).toBe(label1);
+
+            fixture.componentInstance.groupRowPlaceholderNoValue = label2;
+            fixture.detectChanges();
+
+            expect(directive.groupRowPlaceholderNoValue).toBe(label2);
+            expect(nativeElement.groupRowPlaceholderNoValue).toBe(label2);
+        });
+
+        it('can be configured with property binding for groupRowPlaceholderEmpty', () => {
+            expect(directive.groupRowPlaceholderEmpty).toBe(label1);
+            expect(nativeElement.groupRowPlaceholderEmpty).toBe(label1);
+
+            fixture.componentInstance.groupRowPlaceholderEmpty = label2;
+            fixture.detectChanges();
+
+            expect(directive.groupRowPlaceholderEmpty).toBe(label2);
+            expect(nativeElement.groupRowPlaceholderEmpty).toBe(label2);
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -468,6 +518,8 @@ describe('Nimble Label Provider Table', () => {
                     [attr.row-select]="rowSelect"
                     [attr.row-operation-column]="rowOperationColumn"
                     [attr.row-loading]="rowLoading"
+                    [attr.group-row-placeholder-no-value]="groupRowPlaceholderNoValue"
+                    [attr.group-row-placeholder-empty]="groupRowPlaceholderEmpty"
                     >
                 </nimble-label-provider-table>
             `
@@ -489,6 +541,8 @@ describe('Nimble Label Provider Table', () => {
             public rowSelect = label1;
             public rowOperationColumn = label1;
             public rowLoading = label1;
+            public groupRowPlaceholderNoValue = label1;
+            public groupRowPlaceholderEmpty = label1;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -658,6 +712,28 @@ describe('Nimble Label Provider Table', () => {
 
             expect(directive.rowLoading).toBe(label2);
             expect(nativeElement.rowLoading).toBe(label2);
+        });
+
+        it('can be configured with attribute binding for groupRowPlaceholderNoValue', () => {
+            expect(directive.groupRowPlaceholderNoValue).toBe(label1);
+            expect(nativeElement.groupRowPlaceholderNoValue).toBe(label1);
+
+            fixture.componentInstance.groupRowPlaceholderNoValue = label2;
+            fixture.detectChanges();
+
+            expect(directive.groupRowPlaceholderNoValue).toBe(label2);
+            expect(nativeElement.groupRowPlaceholderNoValue).toBe(label2);
+        });
+
+        it('can be configured with attribute binding for groupRowPlaceholderEmpty', () => {
+            expect(directive.groupRowPlaceholderEmpty).toBe(label1);
+            expect(nativeElement.groupRowPlaceholderEmpty).toBe(label1);
+
+            fixture.componentInstance.groupRowPlaceholderEmpty = label2;
+            fixture.detectChanges();
+
+            expect(directive.groupRowPlaceholderEmpty).toBe(label2);
+            expect(nativeElement.groupRowPlaceholderEmpty).toBe(label2);
         });
     });
 });
