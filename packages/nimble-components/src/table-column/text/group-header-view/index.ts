@@ -17,7 +17,7 @@ export class TableColumnTextGroupHeaderView extends TableColumnTextGroupHeaderVi
 TableStringFieldValue,
 TableColumnTextColumnConfig
 > {
-    private groupHeaderValueChanged(): void {
+    protected updateText(): void {
         this.text = typeof this.groupHeaderValue === 'string'
             ? this.groupHeaderValue
             : '';
