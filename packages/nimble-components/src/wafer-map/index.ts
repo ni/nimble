@@ -232,6 +232,7 @@ export class WaferMap extends FoundationElement {
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
                 this.renderer.drawWafer();
             }
+            this.workerOne.drawWafer();
             this.eventCoordinator.attachEvents();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();

@@ -98,7 +98,7 @@ export class RenderingModule {
 
     private renderText(): void {
         if (this.wafermap.dieLabelsHidden) {
-            return;
+            return; 
         }
         const dieWidth = this.wafermap.dataManager.dieDimensions.width;
         const dieHeight = this.wafermap.dataManager.dieDimensions.height;
