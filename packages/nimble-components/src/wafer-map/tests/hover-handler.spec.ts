@@ -2,7 +2,7 @@ import { zoomIdentity } from 'd3-zoom';
 import { tableFromArrays } from 'apache-arrow';
 import { html } from '@microsoft/fast-element';
 import { HoverHandler } from '../modules/experimental/hover-handler';
-import { WaferMapOriginLocation } from '../types';
+import { HoverDie, WaferMapOriginLocation } from '../types';
 import {
     getDataManagerMockForHover,
     getScaleQuantile,
@@ -29,50 +29,94 @@ describe('HoverHandler', () => {
         await connect();
         waferMock = getWaferMapMockHover(
             tableFromArrays({
-                colIndex: Int32Array.from([1]),
-                rowIndex: Int32Array.from([1]),
-                value: Float64Array.from([1])
+                colIndex: Int32Array.from([1, 2, 3]),
+                rowIndex: Int32Array.from([1, 2, 3]),
+                value: Float64Array.from([1, 2, 3])
             }),
             zoomIdentity,
             WaferMapOriginLocation.bottomLeft,
             undefined,
             getDataManagerMockForHover(
                 { left: 0, right: 0, top: 0, bottom: 0 },
-                getScaleQuantile([1, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-                getScaleQuantile([1, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+                getScaleQuantile([1, 11], [1, 2, 3, 4]),
+                getScaleQuantile([1, 11], [1, 2, 3, 4])
             ) as DataManager
         ) as WaferMap;
-        hoverHandler = new HoverHandler(waferMock);
-        element.addEventListener('mousemove', event => hoverHandler.mousemove(event));
     });
 
     afterEach(async () => {
         await disconnect();
     });
 
-    it('will return the only index when mouse moved in range', () => {
-        element.dispatchEvent(
-            new MouseEvent('mousemove', {
-                clientX: 1,
-                clientY: 1
-            })
-        );
-        processUpdates();
-        expect(waferMock.hoverDie).toEqual({
-            index: 0,
-            x: 1,
-            y: 1
+    it('will return the expected index when mouse moved in range', () => {
+        const parameters: [WaferMapOriginLocation, HoverDie][] = [
+            [
+                WaferMapOriginLocation.bottomLeft,
+                {
+                    index: 1,
+                    x: 2,
+                    y: 2
+                }
+            ],
+            [
+                WaferMapOriginLocation.topLeft,
+                {
+                    index: 1,
+                    x: 2,
+                    y: 2
+                }
+            ],
+            [
+                WaferMapOriginLocation.bottomRight,
+                {
+                    index: 1,
+                    x: 2,
+                    y: 2
+                }
+            ],
+            [
+                WaferMapOriginLocation.topRight,
+                {
+                    index: 1,
+                    x: 2,
+                    y: 2
+                }
+            ]
+        ];
+        parameters.forEach(value => {
+            waferMock.originLocation = value[0];
+            hoverHandler = new HoverHandler(waferMock);
+            element.addEventListener('mousemove', event => hoverHandler.mousemove(event));
+            element.dispatchEvent(
+                new MouseEvent('mousemove', {
+                    clientX: 4,
+                    clientY: 4
+                })
+            );
+            processUpdates();
+            expect(waferMock.hoverDie).toEqual(value[1]);
         });
     });
 
     it('will return undefined when mouse moved out of range', () => {
-        element.dispatchEvent(
-            new MouseEvent('mousemove', {
-                clientX: 10,
-                clientY: 10
-            })
-        );
-        processUpdates();
-        expect(waferMock.hoverDie).toEqual(undefined);
+        const parameters: [WaferMapOriginLocation, HoverDie | undefined][] = [
+            [WaferMapOriginLocation.bottomLeft, undefined],
+            [WaferMapOriginLocation.topLeft, undefined],
+            [WaferMapOriginLocation.bottomRight, undefined],
+            [WaferMapOriginLocation.topRight, undefined]
+        ];
+        parameters.forEach(value => {
+            waferMock.originLocation = value[0];
+            hoverHandler = new HoverHandler(waferMock);
+            element.addEventListener('mousemove', event => hoverHandler.mousemove(event));
+            element.dispatchEvent(
+                new MouseEvent('mousemove', {
+                    clientX: 15,
+                    clientY: 15
+                })
+            );
+            processUpdates();
+            expect(waferMock.hoverDie).toEqual(value[1]);
+        });
     });
 });

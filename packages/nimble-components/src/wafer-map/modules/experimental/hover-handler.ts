@@ -30,6 +30,7 @@ export class HoverHandler {
             .getChild('rowIndex')!
             .toArray() as Int32Array;
 
+        // will replace iterating with arquero filtering after fixing errors
         for (let i = 0; i < colIndex.length; i++) {
             if (
                 colIndex[i] === dieCoordinates.x
