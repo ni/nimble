@@ -79,12 +79,12 @@ export default metadata;
 
 interface NumberTextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
+    placeholder: string;
     format: keyof typeof NumberTextFormat;
     alignment: keyof typeof NumberTextAlignment;
     decimalDigits: number;
     decimalMaximumDigits: number;
     unit: string;
-    placeholder: string;
     checkValidity: () => void;
     validity: () => void;
 }
@@ -179,6 +179,9 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             description:
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `number`.',
             control: { type: 'none' }
+        },
+        placeholder: {
+            description: 'The placeholder text to display when the field value is `undefined` or `null` for a record.'
         },
         format: {
             description: formatDescription,

@@ -124,7 +124,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnDateTextTag}
                 field-name="birthday"
-                placeholder=${x => x.placeholder}"
+                placeholder="${x => x.placeholder}"
                 format="${x => DateTextFormat[x.format]}"
                 custom-date-style="${x => x.customDateStyle}"
                 custom-time-style="${x => x.customTimeStyle}"
@@ -156,6 +156,9 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             description:
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the `Date` type.',
             control: { type: 'none' }
+        },
+        placeholder: {
+            description: 'The placeholder text to display when the field value is `undefined` or `null` for a record.'
         },
         format: {
             description:

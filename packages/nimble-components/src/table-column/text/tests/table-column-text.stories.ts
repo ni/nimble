@@ -96,6 +96,9 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `string`.',
             options: ['firstName', 'lastName'],
             control: { type: 'radio' }
+        },
+        placeholder: {
+            description: 'The placeholder text to display when the field value is `undefined` or `null` for a record.'
         }
     },
     args: {
