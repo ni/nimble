@@ -490,12 +490,13 @@ To modify the generated tokens, complete these steps:
 
 Public names for theme-aware tokens are specified in `src/theme-provider/design-token-names.ts`. Use the following structure when creating new tokens.
 
-`[element]-[part]-[state]-[token_type]`
+`[element]-[part]-[state]-[variant]-[token_type]`
 
 1. Where **element** is the type to which the token applies (e.g. 'application', 'body', or 'title-plus-1').
 2. Where **part** is the specific part of the element to which the token applies (e.g. 'border', 'background', or shadow).
-3. Where **state** is the more specific state descriptor (e.g. 'selected' or 'disabled'). Multiple states should be sorted alphabetically.
-4. Where **token_type** is the token category (e.g. 'color', 'font', 'font-color', 'height', 'width', or 'size').
+3. Where **state** is one or more of the following interaction states: 'active', 'disabled', 'hover', or 'selected'. Multiple states should be sorted alphabetically.
+4. Where **variant** is any other distinguishing descriptor (e.g. 'accent', 'primary, or 'large'). Multiple variants should be sorted alphabetically.
+5. Where **token_type** is the token category (e.g. 'color', 'font', 'font-color', 'height', 'width', or 'size').
 
 ### Size ramp
 
