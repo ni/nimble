@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Created new hover event for the new diesTable api and changed the zoom event",
+  "comment": "Created new computations experimental module and tested it, created new data manager experimental and integrated with hover and old renderer",
   "packageName": "@ni/nimble-components",
   "email": "33986780+munteannatan@users.noreply.github.com",
   "dependentChangeType": "patch"
