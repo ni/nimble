@@ -9,7 +9,7 @@ export class HoverHandler {
     public constructor(private readonly wafermap: WaferMap) {}
 
     public mousemove(event: MouseEvent): void {
-        if (this.wafermap.columnTable === undefined) {
+        if (this.wafermap.diesTable === undefined) {
             this.wafermap.hoverDie = undefined;
             return;
         }
@@ -22,6 +22,10 @@ export class HoverHandler {
             x: invertedPoint[0],
             y: invertedPoint[1]
         });
+        if (dieCoordinates === undefined) {
+            this.wafermap.hoverDie = undefined;
+            return;
+        }
         const colIndex = this.wafermap.diesTable
             .getChild('colIndex')!
             .toArray() as Int32Array;

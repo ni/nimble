@@ -1,5 +1,4 @@
 import { scaleLinear, ScaleLinear } from 'd3-scale';
-import { op } from 'arquero';
 import type { WaferMap } from '../..';
 import { Dimensions, Margin, WaferMapOriginLocation } from '../../types';
 
@@ -129,18 +128,35 @@ export class Computations {
     }
 
     private calculateGridDimensionsFromDies(): GridDimensions {
-        if (this.wafermap.columnTable === undefined) {
+        if (this.wafermap.diesTable === undefined) {
             return { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
         }
 
-        const box = this.wafermap.columnTable.rollup({
-            minCol: op.min('colIndex'),
-            maxCol: op.max('colIndex'),
-            minRow: op.min('rowIndex'),
-            maxRow: op.max('rowIndex')
-        });
-        const minPoint = { x: box.get('minCol', 0) as number, y: box.get('minRow', 0) as number };
-        const maxPoint = { x: box.get('maxCol', 0) as number, y: box.get('maxRow', 0) as number };
+        const colIndex = this.wafermap.diesTable
+            .getChild('colIndex')!
+            .toArray() as Int32Array;
+        const rowIndex = this.wafermap.diesTable
+            .getChild('rowIndex')!
+            .toArray() as Int32Array;
+
+        const minPoint = { x: colIndex[0]!, y: rowIndex[0]! };
+        const maxPoint = { x: colIndex[0]!, y: rowIndex[0]! };
+
+        // will replace iterating with arquero derive after fixing errors
+        for (let i = 0; i < colIndex.length; i++) {
+            if (colIndex[i]! < minPoint.x) {
+                minPoint.x = colIndex[i]!;
+            }
+            if (colIndex[i]! > maxPoint.x) {
+                maxPoint.x = colIndex[i]!;
+            }
+            if (rowIndex[i]! < minPoint.y) {
+                minPoint.y = rowIndex[i]!;
+            }
+            if (rowIndex[i]! > maxPoint.y) {
+                maxPoint.y = rowIndex[i]!;
+            }
+        }
 
         return {
             origin: minPoint,

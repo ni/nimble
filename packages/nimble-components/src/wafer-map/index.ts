@@ -6,12 +6,10 @@ import {
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import type { Table } from 'apache-arrow';
-import type ColumnTable from 'arquero/dist/types/table/column-table';
-import { fromArrow } from 'arquero';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
-import { DataManager as ExpDataManager } from './modules/experimental/data-manager';
+import { DataManager as ExperimentalDataManager } from './modules/experimental/data-manager';
 import { RenderingModule } from './modules/rendering';
 import { EventCoordinator } from './modules/event-coordinator';
 import {
@@ -97,12 +95,12 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly expDataManager = new ExpDataManager(this);
+    public readonly experimentalDataManager = new ExperimentalDataManager(this);
 
     /**
      * @internal
      */
-    public dataManager: DataManager | ExpDataManager = this.stableDataManager;
+    public dataManager: DataManager | ExperimentalDataManager = this.stableDataManager;
     /**
      * @internal
      */
@@ -169,11 +167,6 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    /**
-     * @internal
-     */
-    public columnTable: ColumnTable | undefined;
-
     private readonly eventCoordinator = new EventCoordinator(this);
 
     private readonly resizeObserver = this.createResizeObserver();
@@ -210,15 +203,16 @@ export class WaferMap extends FoundationElement {
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
-        this.renderer = this.diesTable === undefined
-            ? this.mainRenderer
-            : this.workerRenderer;
+        // will switch the renderer after prerendering changes
+        // this.renderer = this.diesTable === undefined
+        //     ? this.mainRenderer
+        //     : this.workerRenderer;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
             this.eventCoordinator.setStrategy();
             this.dataManager = this.diesTable === undefined
                 ? this.stableDataManager
-                : this.expDataManager;
+                : this.experimentalDataManager;
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -323,9 +317,6 @@ export class WaferMap extends FoundationElement {
 
     private diesTableChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.columnTable = this.diesTable !== undefined
-            ? fromArrow(this.diesTable)
-            : undefined;
         this.waferMapUpdateTracker.queueUpdate();
     }
 
