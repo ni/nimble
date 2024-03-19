@@ -8,9 +8,18 @@ import { DataManager } from './data-manager';
 export class HoverHandler {
     public constructor(private readonly wafermap: WaferMap) {}
 
-    public mousemove(event: MouseEvent): void {
+    public connect(): void {
+        this.wafermap.addEventListener('mousemove', this.onMouseMove);
+        this.wafermap.addEventListener('mouseout', this.onMouseOut);
+    }
+
+    public disconnect(): void {
+        this.wafermap.removeEventListener('mousemove', this.onMouseMove);
+        this.wafermap.removeEventListener('mouseout', this.onMouseOut);
+    }
+
+    private readonly onMouseMove = (event: MouseEvent): void => {
         if (this.wafermap.diesTable === undefined) {
-            this.wafermap.hoverDie = undefined;
             return;
         }
         // get original mouse position in case we are in zoom.
@@ -48,11 +57,11 @@ export class HoverHandler {
             }
         }
         this.wafermap.hoverDie = undefined;
-    }
+    };
 
-    public mouseout(): void {
+    private readonly onMouseOut = (_event: MouseEvent): void => {
         this.wafermap.hoverDie = undefined;
-    }
+    };
 
     private calculateDieCoordinates(
         mousePosition: PointCoordinates

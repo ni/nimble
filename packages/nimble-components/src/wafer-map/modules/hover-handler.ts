@@ -7,7 +7,21 @@ import { DataManager } from './data-manager';
  */
 export class HoverHandler {
     public constructor(private readonly wafermap: WaferMap) {}
-    public mousemove(event: MouseEvent): void {
+
+    public connect(): void {
+        this.wafermap.addEventListener('mousemove', this.onMouseMove);
+        this.wafermap.addEventListener('mouseout', this.onMouseOut);
+    }
+
+    public disconnect(): void {
+        this.wafermap.removeEventListener('mousemove', this.onMouseMove);
+        this.wafermap.removeEventListener('mouseout', this.onMouseOut);
+    }
+
+    private readonly onMouseMove = (event: MouseEvent): void => {
+        if (this.wafermap.diesTable !== undefined) {
+            return;
+        }
         const mousePosition: PointCoordinates = {
             x: event.offsetX,
             y: event.offsetY
@@ -33,11 +47,11 @@ export class HoverHandler {
         }
 
         this.wafermap.hoverDie = this.wafermap.dataManager.getWaferMapDie(dieCoordinates);
-    }
+    };
 
-    public mouseout(): void {
+    private readonly onMouseOut = (_event: MouseEvent): void => {
         this.wafermap.hoverDie = undefined;
-    }
+    };
 
     private calculateDieCoordinates(
         wafermap: WaferMap,
