@@ -144,7 +144,9 @@ const metadata: Meta<AnchorPatternsArgs> = {
                 const data = [
                     {
                         label: x.label,
-                        href: x.disabled ? undefined : 'https://nimble.ni.dev?type=nimble-table-column-anchor'
+                        href: x.disabled
+                            ? undefined
+                            : 'https://nimble.ni.dev?type=nimble-table-column-anchor'
                     }
                 ];
                 void x.tableRef.setData(data);
