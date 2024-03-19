@@ -57,6 +57,7 @@
 - *Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?*
 - *Tooling: Any new tools, updates to tools, code generation, etc?*
 - *Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc.*
+    - *Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](../../packages/nimble-components/src/patterns/anchor/tests/anchor-patterns.mdx). The story should be updated to include the new component.*
 - *Mobile: small screens, touch interactions, mobile-specific integrations*
 - *Globalization: special RTL handling, swapping of icons/visuals, localization, etc.*
 - *Performance: does the FAST component meet Nimble's performance requirements?*
