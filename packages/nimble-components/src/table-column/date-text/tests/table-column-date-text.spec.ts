@@ -8,6 +8,7 @@ import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { TableColumnDateTextPageObject } from '../testing/table-column-date-text.pageobject';
 import { lang, themeProviderTag } from '../../../theme-provider';
+import { DateTextFormat } from '../types';
 
 interface SimpleTableRecord extends TableRecord {
     field?: number | null;
@@ -119,7 +120,8 @@ describe('TableColumnDateText', () => {
             });
         });
 
-        it('changing fieldName updates display', async () => {
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
+        it('changing fieldName updates display #SkipWebkit', async () => {
             await table.setData([
                 {
                     field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf(),
@@ -136,7 +138,8 @@ describe('TableColumnDateText', () => {
             );
         });
 
-        it('changing data from value to null displays blank', async () => {
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
+        it('changing data from value to null displays blank #SkipWebkit', async () => {
             await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
@@ -153,7 +156,8 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
         });
 
-        it('changing data from null to value displays value', async () => {
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
+        it('changing data from null to value displays value #SkipWebkit', async () => {
             await table.setData([{ field: null }]);
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
@@ -178,7 +182,8 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
         });
 
-        it('sets title when cell text is ellipsized', async () => {
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
+        it('sets title when cell text is ellipsized #SkipWebkit', async () => {
             table.style.width = '200px';
             await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
@@ -230,7 +235,8 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getCellTitle(0, 0)).toEqual('');
         });
 
-        it('sets group header text to rendered date value', async () => {
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
+        it('sets group header text to rendered date value #SkipWebkit', async () => {
             await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
@@ -250,7 +256,8 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('12/10/2012');
         });
 
-        it('updates displayed date when lang token changes', async () => {
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
+        it('updates displayed date when lang token changes #SkipWebkit', async () => {
             await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
@@ -508,6 +515,90 @@ describe('TableColumnDateText', () => {
             column.customDateStyle = undefined;
             await waitForUpdatesAsync();
             expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
+        });
+
+        describe('placeholder', () => {
+            const testCases = [
+                {
+                    name: 'value is not specified',
+                    data: [{}],
+                    groupValue: 'No value'
+                },
+                {
+                    name: 'value is undefined',
+                    data: [{ field: undefined }],
+                    groupValue: 'No value'
+                },
+                {
+                    name: 'value is null',
+                    data: [{ field: null }],
+                    groupValue: 'No value'
+                },
+                {
+                    name: 'value is Number.NaN',
+                    data: [{ field: Number.NaN }],
+                    groupValue: ''
+                },
+                {
+                    name: 'value is valid and non-zero',
+                    data: [{ field: 1708984169258 }],
+                    groupValue: '2/26/2024'
+                },
+                {
+                    name: 'value is incorrect type',
+                    data: [{ field: 'not a number' as unknown as number }],
+                    groupValue: ''
+                },
+                {
+                    name: 'value is specified and falsey',
+                    data: [{ field: 0 }],
+                    groupValue: '1/1/1970'
+                },
+                {
+                    name: 'value is Inf',
+                    data: [{ field: Number.POSITIVE_INFINITY }],
+                    groupValue: ''
+                },
+                {
+                    name: 'value is -Inf',
+                    data: [{ field: Number.NEGATIVE_INFINITY }],
+                    groupValue: ''
+                },
+                {
+                    name: 'value is MAX_VALUE',
+                    data: [{ field: Number.MAX_VALUE }],
+                    groupValue: ''
+                },
+                {
+                    name: 'value is too large for Date',
+                    data: [{ field: 8640000000000000 + 1 }],
+                    groupValue: ''
+                },
+                {
+                    name: 'value is too small for Date',
+                    data: [{ field: -8640000000000000 - 1 }],
+                    groupValue: ''
+                }
+            ];
+
+            parameterizeSpec(testCases, (spec, name, value) => {
+                spec(
+                    `group row renders expected value when ${name}`,
+                    async () => {
+                        // Set a custom time zone so that the behavior of the test does not
+                        // depend on the configuration of the computer running the tests.
+                        column.format = DateTextFormat.custom;
+                        column.customTimeZone = 'UTC';
+                        await table.setData(value.data);
+                        await connect();
+                        await waitForUpdatesAsync();
+
+                        expect(
+                            pageObject.getRenderedGroupHeaderContent(0)
+                        ).toBe(value.groupValue);
+                    }
+                );
+            });
         });
     });
 
