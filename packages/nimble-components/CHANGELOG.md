@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 14 Mar 2024 14:48:16 GMT and should not be manually modified.
+This log was last generated on Mon, 18 Mar 2024 17:12:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 22.1.0
+
+Mon, 18 Mar 2024 17:12:34 GMT
+
+### Minor changes
+
+- Add placeholders for group rows in the table ([ni/nimble@3bbf8d7](https://github.com/ni/nimble/commit/3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda))
 
 ## 22.0.1
 
