@@ -15,6 +15,9 @@ export class ZoomHandler {
 
     public constructor(private readonly wafermap: WaferMap) {}
 
+    /**
+     * @internal
+     */
     public connect(): void {
         this.createZoomBehavior();
         this.wafermap.addEventListener('wheel', this.onWheelMove, {
@@ -22,6 +25,9 @@ export class ZoomHandler {
         });
     }
 
+    /**
+     * @internal
+     */
     public disconnect(): void {
         zoom().on('zoom', null)(select(this.wafermap as Element));
         this.wafermap.removeEventListener('wheel', this.onWheelMove);

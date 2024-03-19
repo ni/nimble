@@ -8,11 +8,17 @@ import { DataManager } from './data-manager';
 export class HoverHandler {
     public constructor(private readonly wafermap: WaferMap) {}
 
+    /**
+     * @internal
+     */
     public connect(): void {
         this.wafermap.addEventListener('mousemove', this.onMouseMove);
         this.wafermap.addEventListener('mouseout', this.onMouseOut);
     }
 
+    /**
+     * @internal
+     */
     public disconnect(): void {
         this.wafermap.removeEventListener('mousemove', this.onMouseMove);
         this.wafermap.removeEventListener('mouseout', this.onMouseOut);
