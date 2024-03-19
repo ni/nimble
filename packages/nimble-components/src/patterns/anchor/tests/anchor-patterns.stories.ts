@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { html, ref } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import {
+    bodyFont,
+    bodyFontColor,
     controlLabelFont,
     controlLabelFontColor,
     mediumPadding,
@@ -21,11 +23,9 @@ import { menuTag } from '../../../menu';
 import { Table, tableTag } from '../../../table';
 import { tableColumnAnchorTag } from '../../../table-column/anchor';
 
-const hrefDescription = 'To disable the control, remove the `href` attribute.';
-
 interface AnchorPatternsArgs {
     label: string;
-    href: string;
+    disabled: boolean;
     tableRef: Table;
     setTableData: (args: AnchorPatternsArgs) => void;
     richTextViewerRef: RichTextViewer;
@@ -49,34 +49,42 @@ const metadata: Meta<AnchorPatternsArgs> = {
                 color: var(${controlLabelFontColor.cssCustomProperty});
                 margin-bottom: var(${mediumPadding.cssCustomProperty});
             }
+
+            .text {
+                font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
+                margin-top: var(${mediumPadding.cssCustomProperty});
+            }
         </style>
         <div class="control-container">
             <div class="label">Native anchor</div>
-            <a href="${x => x.href}">${x => x.label}</a>
+            <a href="${x => (x.disabled ? undefined : 'https://nimble.ni.dev?type=native-anchor')}">${x => x.label}</a>
+            <div class="text">Text that contains a <a href="${x => (x.disabled ? undefined : 'https://nimble.ni.dev?type=native-anchor')}">native anchor element</a>.</div>
         </div>
 
         <div class="control-container">
             <div class="label">${anchorTag}</div>
-            <${anchorTag} href="${x => x.href}">${x => x.label}</${anchorTag}>
+            <${anchorTag} href="${x => (x.disabled ? undefined : 'https://nimble.ni.dev?type=nimble-anchor')}">${x => x.label}</${anchorTag}>
+            <div class="text">Text that contains a <${anchorTag} href="${x => (x.disabled ? undefined : 'https://nimble.ni.dev?type=nimble-anchor')}">nimble anchor element</${anchorTag}>.</div>
         </div>
 
         <div class="control-container">
             <div class="label">${anchorButtonTag}</div>
-            <${anchorButtonTag} href="${x => x.href}">${x => x.label}</${anchorButtonTag}>
+            <${anchorButtonTag} href="https://nimble.ni.dev?type=nimble-anchor-button" ?disabled="${x => x.disabled}">${x => x.label}</${anchorButtonTag}>
         </div>
 
         <div class="control-container">
             <div class="label">${anchorTabsTag}</div>
             <${anchorTabsTag}>
-                <${anchorTabTag} href="${x => x.href}">${x => x.label} - 1</${anchorTabTag}>
-                <${anchorTabTag} href="${x => x.href}">${x => x.label} - 2</${anchorTabTag}>
+                <${anchorTabTag} href="https://nimble.ni.dev?type=nimble-anchor-tab-1" ?disabled="${x => x.disabled}">${x => x.label} - 1</${anchorTabTag}>
+                <${anchorTabTag} href="https://nimble.ni.dev?type=nimble-anchor-tab-2" ?disabled="${x => x.disabled}">${x => x.label} - 2</${anchorTabTag}>
             </${anchorTabsTag}>            
         </div>
 
         <div class="control-container">
             <div class="label">${breadcrumbTag}</div>
             <${breadcrumbTag}>
-                <${breadcrumbItemTag} href="${x => x.href}">${x => x.label}</${breadcrumbItemTag}>
+                <${breadcrumbItemTag} href="${x => (x.disabled ? undefined : 'https://nimble.ni.dev?type=nimble-breadcrumb-item')}">${x => x.label}</${breadcrumbItemTag}>
                 <${breadcrumbItemTag}>Current page (no link)</${breadcrumbItemTag}>
             </${breadcrumbTag}>
         </div>
@@ -84,14 +92,14 @@ const metadata: Meta<AnchorPatternsArgs> = {
         <div class="control-container">
             <div class="label">${anchorTreeItemTag}</div>
             <${treeViewTag}>
-                <${anchorTreeItemTag} href="${x => x.href}">${x => x.label}</${anchorTreeItemTag}>
+                <${anchorTreeItemTag} href="https://nimble.ni.dev?type=nimble-anchor-tree-item" ?disabled="${x => x.disabled}">${x => x.label}</${anchorTreeItemTag}>
             </${treeViewTag}>
         </div>
 
         <div class="control-container">
             <div class="label">${anchorMenuItemTag}</div>
             <${menuTag}>
-                <${anchorMenuItemTag} href="${x => x.href}">${x => x.label}</${anchorMenuItemTag}>
+                <${anchorMenuItemTag} href="https://nimble.ni.dev?type=nimble-anchor-menu-item" ?disabled="${x => x.disabled}">${x => x.label}</${anchorMenuItemTag}>
             </${menuTag}>
         </div>
 
@@ -105,7 +113,6 @@ const metadata: Meta<AnchorPatternsArgs> = {
         <div class="control-container">
             <div class="label">${richTextViewerTag}</div>
             <${richTextViewerTag} ${ref('richTextViewerRef')}
-                href="${x => x.href}"
                 data-unused="${x => x.setRichTextViewerData(x)}"
             >
                 ${x => x.label}
@@ -113,8 +120,11 @@ const metadata: Meta<AnchorPatternsArgs> = {
         </div>
     `),
     argTypes: {
-        href: {
-            description: hrefDescription
+        tableRef: {
+            table: { disable: true }
+        },
+        setTableData: {
+            table: { disable: true }
         },
         richTextViewerRef: {
             table: { disable: true }
@@ -125,7 +135,7 @@ const metadata: Meta<AnchorPatternsArgs> = {
     },
     args: {
         label: 'link',
-        href: 'https://nimble.ni.dev',
+        disabled: false,
         setTableData: x => {
             void (async () => {
                 // Safari workaround: the nimble-table element instance is made at this point
@@ -134,7 +144,7 @@ const metadata: Meta<AnchorPatternsArgs> = {
                 const data = [
                     {
                         label: x.label,
-                        href: x.href
+                        href: x.disabled ? undefined : 'https://nimble.ni.dev?type=nimble-table-column-anchor'
                     }
                 ];
                 void x.tableRef.setData(data);
@@ -145,7 +155,7 @@ const metadata: Meta<AnchorPatternsArgs> = {
                 // Safari workaround: the nimble-rich-text-viewer element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
                 await customElements.whenDefined('nimble-rich-text-viewer');
-                const data = `Absolute link: <${x.href}>`;
+                const data = `Absolute link: <${x.disabled ? '' : 'https://nimble.ni.dev?type=nimble-rich-text-viewer'}>`;
                 x.richTextViewerRef.markdown = data;
             })();
         }
