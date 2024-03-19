@@ -17,7 +17,9 @@ export class HoverHandler {
         this.wafermap.removeEventListener('mouseout', this.onMouseOut);
     }
 
-    // keep public for testing until data manager refactor
+    /**
+     * @internal
+     */
     public readonly onMouseMove = (event: MouseEvent): void => {
         if (this.wafermap.diesTable === undefined) {
             return;
