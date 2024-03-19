@@ -509,8 +509,8 @@ describe('TableColumnDateText', () => {
                     {
                         name: 'value is valid and non-zero',
                         data: [{ field: 1708984169258 }],
-                        cellValue: 'Feb 26, 2024, 3:49:29 PM',
-                        groupValue: 'Feb 26, 2024, 3:49:29 PM',
+                        cellValue: '2/26/2024',
+                        groupValue: '2/26/2024',
                         usesColumnPlaceholder: false
                     },
                     {
@@ -523,8 +523,8 @@ describe('TableColumnDateText', () => {
                     {
                         name: 'value is specified and falsey',
                         data: [{ field: 0 }],
-                        cellValue: 'Dec 31, 1969, 6:00:00 PM',
-                        groupValue: 'Dec 31, 1969, 6:00:00 PM',
+                        cellValue: '1/1/1970',
+                        groupValue: '1/1/1970',
                         usesColumnPlaceholder: false
                     },
                     {

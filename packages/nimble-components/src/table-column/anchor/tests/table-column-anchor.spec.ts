@@ -466,35 +466,35 @@ describe('TableColumnAnchor', () => {
                 name: 'label and href are both missing',
                 data: [{}],
                 cellValue: '',
-                groupValue: 'No alias',
+                groupValue: 'No value',
                 usesColumnPlaceholder: true
             },
             {
                 name: 'label and href are both undefined',
                 data: [{ label: undefined, link: undefined }],
                 cellValue: '',
-                groupValue: 'No alias',
+                groupValue: 'No value',
                 usesColumnPlaceholder: true
             },
             {
                 name: 'label and href are both null',
                 data: [{ label: null, link: null }],
                 cellValue: '',
-                groupValue: 'No alias',
+                groupValue: 'No value',
                 usesColumnPlaceholder: true
             },
             {
                 name: 'label is null and href is undefined',
                 data: [{ label: null, link: undefined }],
                 cellValue: '',
-                groupValue: 'No alias',
+                groupValue: 'No value',
                 usesColumnPlaceholder: true
             },
             {
                 name: 'label is undefined and href is null',
                 data: [{ label: undefined, link: null }],
                 cellValue: '',
-                groupValue: 'No alias',
+                groupValue: 'No value',
                 usesColumnPlaceholder: true
             },
             {
