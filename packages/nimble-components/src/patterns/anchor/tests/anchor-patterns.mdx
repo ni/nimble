@@ -9,9 +9,10 @@ Therefore, this story contains a native anchor element along with all of the nim
 The following behaviors should be true of the nimble components:
 
 -   Dragging the nimble component should behave like the native anchor
--   CTRL + CLICK opens in a new tab
+-   CTRL + CLICK opens in a new tab (⌘ + CLICK on macOS)
 -   Right clicking should open the link menu
 -   Focusing via tab should show the URL preview at the bottom of the browser window
+    - Note: [macOS Firefox doesn't allow focusing links via tab by default](https://stackoverflow.com/questions/11704828/how-to-allow-keyboard-focus-of-links-in-firefox)
 -   Hovering over the component should show the URL preview at the bottom of the browser window
 -   The hover state of the component and mouse pointer should match the area of the component that navigates when clicked (i.e. clicking the white space around the control should not navigate)
 -   Pressing ENTER or SPACE when focused should activate the link
