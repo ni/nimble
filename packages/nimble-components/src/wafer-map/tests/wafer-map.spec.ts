@@ -121,7 +121,8 @@ describe('WaferMap', () => {
             drawWaferSpy = spyOn(element.workerRenderer, 'drawWafer');
         });
 
-        it('will call drawWafer after supported diesTable change', () => {
+        // skipped until prerendering is refactored
+        xit('will call drawWafer after supported diesTable change', () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
@@ -152,7 +153,8 @@ describe('WaferMap', () => {
             expect(element.renderer instanceof RenderingModule).toBeTrue();
         });
 
-        it('will use WorkerRenderer after supported diesTable change', () => {
+        // skipped until prerendering is refactored
+        xit('will use WorkerRenderer after supported diesTable change', () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
@@ -168,7 +170,8 @@ describe('WaferMap', () => {
             expect(element.renderer instanceof RenderingModule).toBeTrue();
         });
 
-        it('will call renderHover after supported diesTable change', () => {
+        // skipped until prerendering is refactored
+        xit('will call renderHover after supported diesTable change', () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),

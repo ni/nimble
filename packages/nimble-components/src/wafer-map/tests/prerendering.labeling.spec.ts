@@ -186,7 +186,7 @@ describe('Wafermap Prerendering module', () => {
         const dieDimensions = { width: 10, height: 10 };
         const dieLabelsSuffix = '';
         const dieLabelsHidden = false;
-        const maxCharacters = 2;
+        const maxCharacters = 3;
         const highlightedTags: string[] = [];
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
@@ -231,7 +231,7 @@ describe('Wafermap Prerendering module', () => {
         const dieDimensions = { width: 10, height: 10 };
         const dieLabelsSuffix = '';
         const dieLabelsHidden = false;
-        const maxCharacters = 3;
+        const maxCharacters = 4;
         const highlightedTags: string[] = [];
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
