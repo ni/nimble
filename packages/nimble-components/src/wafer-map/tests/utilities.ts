@@ -38,9 +38,15 @@ export function getWaferMapDies(): WaferMapDie[] {
 }
 export function getWaferMapDiesTable(): Table {
     return tableFromArrays({
-        colIndex: new Int32Array([2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6]),
-        rowIndex: new Int32Array([3, 4, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 2, 3, 4, 5, 3, 4]),
-        value: new Float64Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18])
+        colIndex: new Int32Array([
+            2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6
+        ]),
+        rowIndex: new Int32Array([
+            3, 4, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 2, 3, 4, 5, 3, 4
+        ]),
+        value: new Float64Array([
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18
+        ])
     });
 }
 

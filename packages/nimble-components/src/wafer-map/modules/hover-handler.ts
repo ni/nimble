@@ -46,11 +46,11 @@ export class HoverHandler {
         if (wafermap.dataManager instanceof DataManager) {
             const originLocation = wafermap.originLocation;
             const xRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
-            || originLocation === WaferMapOriginLocation.topLeft
+                || originLocation === WaferMapOriginLocation.topLeft
                 ? Math.floor
                 : Math.ceil;
             const yRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
-            || originLocation === WaferMapOriginLocation.bottomRight
+                || originLocation === WaferMapOriginLocation.bottomRight
                 ? Math.floor
                 : Math.ceil;
             // go to x and y scale to get the x,y values of the die.

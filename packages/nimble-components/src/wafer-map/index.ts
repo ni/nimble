@@ -101,6 +101,7 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     public dataManager: DataManager | ExperimentalDataManager = this.stableDataManager;
+
     /**
      * @internal
      */

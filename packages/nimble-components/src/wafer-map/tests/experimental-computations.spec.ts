@@ -1,7 +1,10 @@
 import type { WaferMap } from '..';
 import { Computations } from '../modules/experimental/computations';
 import { Margin, WaferMapOriginLocation } from '../types';
-import { getWaferMapMockComputationsExperimental, getWaferMapDiesTable } from './utilities';
+import {
+    getWaferMapMockComputationsExperimental,
+    getWaferMapDiesTable
+} from './utilities';
 
 describe('Wafermap Experimental Computations module', () => {
     let computationsModule: Computations;
@@ -47,14 +50,10 @@ describe('Wafermap Experimental Computations module', () => {
         });
 
         it('should have horizontal domain containing min and max column indexes', () => {
-            expect(computationsModule.horizontalScale.domain()).toEqual([
-                2, 7
-            ]);
+            expect(computationsModule.horizontalScale.domain()).toEqual([2, 7]);
         });
         it('should have vertical domain containing min and max  row indexes, ', () => {
-            expect(computationsModule.verticalScale.domain()).toEqual([
-                1, 7
-            ]);
+            expect(computationsModule.verticalScale.domain()).toEqual([1, 7]);
         });
     });
 

@@ -63,10 +63,21 @@ export class Prerendering {
             return;
         }
         // will chnange prerendering info for the new strategy in the following PR
-        this._diesRenderInfo = (this.wafermap.diesTable.toArray() as { colIndex: number, rowIndex: number, value: string }[])
+        this._diesRenderInfo = (
+            this.wafermap.diesTable.toArray() as {
+                colIndex: number,
+                rowIndex: number,
+                value: string
+            }[]
+        )
             .map(row => {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                return { x: row.colIndex, y: row.rowIndex, value: row.value, tags: [] };
+                return {
+                    x: row.colIndex,
+                    y: row.rowIndex,
+                    value: row.value,
+                    tags: []
+                };
             })
             .map(die => this.computeDieRenderInfo(die))
             .filter(isDieRenderInfo);
