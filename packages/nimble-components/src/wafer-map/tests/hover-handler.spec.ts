@@ -86,7 +86,7 @@ describe('HoverHandler', () => {
         parameters.forEach(value => {
             waferMock.originLocation = value[0];
             hoverHandler = new HoverHandler(waferMock);
-            element.addEventListener('mousemove', event => hoverHandler.mousemove(event));
+            element.addEventListener('mousemove', event => hoverHandler.onMouseMove(event));
             element.dispatchEvent(
                 new MouseEvent('mousemove', {
                     clientX: 4,
@@ -108,7 +108,7 @@ describe('HoverHandler', () => {
         parameters.forEach(value => {
             waferMock.originLocation = value[0];
             hoverHandler = new HoverHandler(waferMock);
-            element.addEventListener('mousemove', event => hoverHandler.mousemove(event));
+            element.addEventListener('mousemove', event => hoverHandler.onMouseMove(event));
             element.dispatchEvent(
                 new MouseEvent('mousemove', {
                     clientX: 15,

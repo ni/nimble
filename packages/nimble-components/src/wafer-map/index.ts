@@ -10,7 +10,6 @@ import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
-import { EventCoordinator } from './modules/event-coordinator';
 import {
     HoverDie,
     HoverDieOpacity,
@@ -24,6 +23,9 @@ import {
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
 import { WorkerRenderer } from './modules/experimental/worker-renderer';
+import { HoverHandler } from './modules/hover-handler';
+import { HoverHandler as ExperimentalHoverHandler } from './modules/experimental/hover-handler';
+import { ZoomHandler } from './modules/zoom-handler';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -156,7 +158,12 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    private readonly eventCoordinator = new EventCoordinator(this);
+    private readonly hoverHandler = new HoverHandler(this);
+    private readonly experimentalHoverHandler = new ExperimentalHoverHandler(
+        this
+    );
+
+    private readonly zoomHandler = new ZoomHandler(this);
 
     private readonly resizeObserver = this.createResizeObserver();
     private readonly waferMapValidator = new WaferMapValidator(this);
@@ -170,12 +177,18 @@ export class WaferMap extends FoundationElement {
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
+        this.hoverHandler.connect();
+        this.experimentalHoverHandler.connect();
+        this.zoomHandler.connect();
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
+        this.hoverHandler.disconnect();
+        this.experimentalHoverHandler.disconnect();
+        this.zoomHandler.disconnect();
         this.resizeObserver.unobserve(this);
     }
 
@@ -196,8 +209,8 @@ export class WaferMap extends FoundationElement {
             ? this.mainRenderer
             : this.workerRenderer;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            this.eventCoordinator.detachEvents();
-            this.eventCoordinator.setStrategy();
+            // zoom translateExtent needs to be recalculated when canvas size changes
+            this.zoomHandler.disconnect();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -217,7 +230,7 @@ export class WaferMap extends FoundationElement {
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
                 this.renderer.drawWafer();
             }
-            this.eventCoordinator.attachEvents();
+            this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
