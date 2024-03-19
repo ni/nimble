@@ -100,6 +100,7 @@ export const styles = css`
     }
     [part="start"] {
         width: ${iconSize};
+        pointer-events: none;
     }
 
     ${/* the start class is applied when the corresponding slot is filled */ ''}
@@ -113,6 +114,10 @@ export const styles = css`
         ${iconColor.cssCustomProperty}: currentcolor;
         width: ${iconSize};
         height: ${iconSize};
+    }
+
+    .content {
+        pointer-events: none;
     }
 
     [part='end'] {
