@@ -155,7 +155,12 @@ export function getWaferMapMockHover(
     isExperimentalRenderer: boolean
 ): Pick<
     WaferMap,
-    'diesTable' | 'transform' | 'originLocation' | 'hoverDie' | 'dataManager' | 'isExperimentalRenderer'
+    | 'diesTable'
+    | 'transform'
+    | 'originLocation'
+    | 'hoverDie'
+    | 'dataManager'
+    | 'isExperimentalRenderer'
     > {
     return {
         diesTable,
