@@ -42,11 +42,11 @@ export class HoverHandler {
             x: invertedPoint[0],
             y: invertedPoint[1]
         });
-        const colIndex = this.wafermap.diesTable!
-            .getChild('colIndex')!
+        const colIndex = this.wafermap
+            .diesTable!.getChild('colIndex')!
             .toArray() as Int32Array;
-        const rowIndex = this.wafermap.diesTable!
-            .getChild('rowIndex')!
+        const rowIndex = this.wafermap
+            .diesTable!.getChild('rowIndex')!
             .toArray() as Int32Array;
 
         // will replace iterating with arquero filtering after fixing errors
