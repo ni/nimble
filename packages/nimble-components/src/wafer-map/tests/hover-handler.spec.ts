@@ -1,6 +1,7 @@
 import { zoomIdentity } from 'd3-zoom';
 import { tableFromArrays } from 'apache-arrow';
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { HoverHandler } from '../modules/experimental/hover-handler';
 import { HoverDie, WaferMapOriginLocation } from '../types';
 import {
@@ -48,43 +49,16 @@ describe('HoverHandler', () => {
         await disconnect();
     });
 
-    it('will return the expected index when mouse moved in range', () => {
-        const parameters: [WaferMapOriginLocation, HoverDie][] = [
-            [
-                WaferMapOriginLocation.bottomLeft,
-                {
-                    index: 1,
-                    x: 2,
-                    y: 2
-                }
-            ],
-            [
-                WaferMapOriginLocation.topLeft,
-                {
-                    index: 1,
-                    x: 2,
-                    y: 2
-                }
-            ],
-            [
-                WaferMapOriginLocation.bottomRight,
-                {
-                    index: 1,
-                    x: 2,
-                    y: 2
-                }
-            ],
-            [
-                WaferMapOriginLocation.topRight,
-                {
-                    index: 1,
-                    x: 2,
-                    y: 2
-                }
-            ]
-        ];
-        parameters.forEach(value => {
-            waferMock.originLocation = value[0];
+    const testCases = [
+        { name: WaferMapOriginLocation.bottomLeft, expectedDie: { index: 1, x: 2, y: 2 } },
+        { name: WaferMapOriginLocation.topLeft, expectedDie: { index: 1, x: 2, y: 2 } },
+        { name: WaferMapOriginLocation.bottomRight, expectedDie: { index: 1, x: 2, y: 2 } },
+        { name: WaferMapOriginLocation.topRight, expectedDie: { index: 1, x: 2, y: 2 } },
+    ] as const;
+
+    parameterizeSpec(testCases, (spec, name, value) => {
+        spec(`will return the expected index when mouse moved in range from ${name}`, () => {
+            waferMock.originLocation = value.name;
             hoverHandler = new HoverHandler(waferMock);
             element.addEventListener('mousemove', event => hoverHandler.onMouseMove(event));
             element.dispatchEvent(
@@ -94,19 +68,19 @@ describe('HoverHandler', () => {
                 })
             );
             processUpdates();
-            expect(waferMock.hoverDie).toEqual(value[1]);
+            expect(waferMock.hoverDie).toEqual(value.expectedDie);
         });
     });
 
-    it('will return undefined when mouse moved out of range', () => {
-        const parameters: [WaferMapOriginLocation, HoverDie | undefined][] = [
-            [WaferMapOriginLocation.bottomLeft, undefined],
-            [WaferMapOriginLocation.topLeft, undefined],
-            [WaferMapOriginLocation.bottomRight, undefined],
-            [WaferMapOriginLocation.topRight, undefined]
-        ];
-        parameters.forEach(value => {
-            waferMock.originLocation = value[0];
+    const undefinedTestCases = [
+        { name: WaferMapOriginLocation.bottomLeft, expectedDie: undefined },
+        { name: WaferMapOriginLocation.topLeft, expectedDie: undefined },
+        { name: WaferMapOriginLocation.bottomRight, expectedDie: undefined },
+        { name: WaferMapOriginLocation.topRight, expectedDie: undefined },
+    ] as const;
+    parameterizeSpec(undefinedTestCases, (spec, name, value) => {
+        spec(`will return undefined when mouse moved out of range from ${name}`, () => {
+            waferMock.originLocation = value.name;
             hoverHandler = new HoverHandler(waferMock);
             element.addEventListener('mousemove', event => hoverHandler.onMouseMove(event));
             element.dispatchEvent(
@@ -116,7 +90,7 @@ describe('HoverHandler', () => {
                 })
             );
             processUpdates();
-            expect(waferMock.hoverDie).toEqual(value[1]);
+            expect(waferMock.hoverDie).toEqual(value.expectedDie);
         });
     });
 });
