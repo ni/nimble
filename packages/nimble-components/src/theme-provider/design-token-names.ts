@@ -195,8 +195,8 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     bodyPlus1FallbackFontFamily: 'body-plus-1-fallback-font-family',
     bodyPlus1EmphasizedFont: 'body-plus-1-emphasized-font',
     bodyPlus1EmphasizedFontColor: 'body-plus-1-emphasized-font-color',
-    bodyPlus1DisabledEmphasizedFontColor:
-        'body-plus-1-disabled-emphasized-font-color',
+    bodyPlus1EmphasizedDisabledFontColor:
+        'body-plus-1-emphasized-disabled-font-color',
     bodyPlus1EmphasizedFontFamily: 'body-plus-1-emphasized-font-family',
     bodyPlus1EmphasizedFontSize: 'body-plus-1-emphasized-font-size',
     bodyPlus1EmphasizedFontWeight: 'body-plus-1-emphasized-font-weight',
@@ -278,6 +278,7 @@ export const scssInternalPropertySetterMarkdown = (
 // Order of suffixes in the array matter, as we want single word suffixes after the multi-word ones
 const tokenSuffixes = [
     'RgbPartialColor',
+    'DisabledFontColor',
     'FontColor',
     'FontLineHeight',
     'FontWeight',

@@ -695,7 +695,7 @@ export const [
 export const [
     bodyPlus1EmphasizedFont,
     bodyPlus1EmphasizedFontColor,
-    bodyPlus1DisabledEmphasizedFontColor,
+    bodyPlus1EmphasizedDisabledFontColor,
     bodyPlus1EmphasizedFontFamily,
     bodyPlus1EmphasizedFontWeight,
     bodyPlus1EmphasizedFontSize,
