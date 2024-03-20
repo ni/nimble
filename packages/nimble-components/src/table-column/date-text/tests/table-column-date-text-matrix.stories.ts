@@ -36,13 +36,24 @@ const data = [
     }
 ] as const;
 
+const placeholderStates: [string, string | undefined][] = [
+    ['With Placeholder', 'Custom placeholder'],
+    ['', undefined]
+];
+type PlaceholderState = (typeof placeholderStates)[number];
+
 // prettier-ignore
-const component = (): ViewTemplate => html`
-    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">Date Text Table Column</label>
+const component = (
+    [placeholderName, placeholder]: PlaceholderState
+): ViewTemplate => html`
+    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
+        Date Text Table Column ${placeholderName} 
+    </label>
     <${tableTag} id-field-name="id" style="height: 250px">
         <${tableColumnDateTextTag}
             field-name="date"
             group-index="0"
+            placeholder="${() => placeholder}"
         >
             <${iconUserTag}></${iconUserTag}>
         </${tableColumnDateTextTag}>
@@ -50,7 +61,7 @@ const component = (): ViewTemplate => html`
 `;
 
 export const tableColumnDateTextThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component)
+    createMatrix(component, [placeholderStates])
 );
 
 tableColumnDateTextThemeMatrix.play = async (): Promise<void> => {
