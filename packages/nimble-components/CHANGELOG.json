@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 18 Mar 2024 18:10:43 GMT",
+      "version": "22.1.0",
+      "tag": "@ni/nimble-components_v22.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ca8201733c653a4d74537c530c60a5c6d21bcbc3",
+            "comment": "Fix intermittent RichTextMentionListbox test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 18 Mar 2024 17:12:34 GMT",
+      "version": "22.1.0",
+      "tag": "@ni/nimble-components_v22.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda",
+            "comment": "Add placeholders for group rows in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 18 Mar 2024 16:35:18 GMT",
+      "version": "22.0.1",
+      "tag": "@ni/nimble-components_v22.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a112528ec429c96f2017e95bbbdb22e578be1c08",
+            "comment": "Marking tests that fail on some browsers"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 14 Mar 2024 14:48:16 GMT",
       "version": "22.0.1",
       "tag": "@ni/nimble-components_v22.0.1",
