@@ -94,7 +94,7 @@ export class WaferMap<
     /**
      * @internal
      */
-    public readonly dataManager = new DataManager(this);
+    public readonly dataManager: DataManager<T> = new DataManager(this);
     /**
      * @internal
      */
@@ -105,7 +105,7 @@ export class WaferMap<
     public readonly workerRenderer = new WorkerRenderer(this);
 
     @observable
-    public renderer: RenderingModule | WorkerRenderer = this.mainRenderer;
+    public renderer: RenderingModule<T> | WorkerRenderer<T> = this.mainRenderer;
 
     /**
      * @internal

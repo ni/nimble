@@ -9,7 +9,8 @@ import {
     WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOriginLocation,
-    WaferMapValidity
+    WaferMapValidity,
+    WaferRequiredTypeMap
 } from '../types';
 import type { DataManager } from '../modules/data-manager';
 import type { WaferMap } from '..';
@@ -86,7 +87,7 @@ export function getDataManagerMock(
     horizontalScale: ScaleBand<number> = getScaleBand([], []),
     verticalScale: ScaleBand<number> = getScaleBand([], [])
 ): Pick<
-    DataManager,
+    DataManager<WaferRequiredTypeMap>,
     'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
     > {
     return {
@@ -107,7 +108,7 @@ export function getDataManagerMockForHover(
         []
     )
 ): Pick<
-    DataManager,
+    DataManager<WaferRequiredTypeMap>,
     'invertedHorizontalScale' | 'invertedVerticalScale' | 'margin'
     > {
     return {
@@ -124,7 +125,8 @@ export function getWaferMapMockPrerendering(
     colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear,
     dieLabelsHidden = true,
     dieLabelsSuffix = '',
-    maxCharacters = 4
+    maxCharacters = 4,
+    dataManager = {} as DataManager<WaferRequiredTypeMap>
 ): Pick<
     WaferMap,
     | 'dies'
@@ -134,6 +136,7 @@ export function getWaferMapMockPrerendering(
     | 'dieLabelsHidden'
     | 'dieLabelsSuffix'
     | 'maxCharacters'
+    | 'dataManager'
     > {
     return {
         dies,
@@ -142,7 +145,8 @@ export function getWaferMapMockPrerendering(
         colorScaleMode,
         dieLabelsHidden,
         dieLabelsSuffix,
-        maxCharacters
+        maxCharacters,
+        dataManager
     };
 }
 
@@ -151,7 +155,7 @@ export function getWaferMapMockHover(
     transform: ZoomTransform,
     originLocation: WaferMapOriginLocation,
     hoverDie: HoverDie | undefined,
-    dataManager: DataManager,
+    dataManager: DataManager<WaferRequiredTypeMap>,
     isExperimentalRenderer: boolean
 ): Pick<
     WaferMap,
