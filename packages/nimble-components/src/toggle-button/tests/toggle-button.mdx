@@ -1,6 +1,7 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
 import StylingDocs from '../../patterns/button/tests/styling-docs.mdx';
+import { toggleButtonTag } from '..';
 import * as toggleButtonStories from './toggle-button.stories';
 
 <Meta of={toggleButtonStories} />
@@ -15,7 +16,7 @@ screen reader would say something like "Mute toggle button pressed".
 <Canvas of={toggleButtonStories.outlineButton} />
 <Controls of={toggleButtonStories.outlineButton} />
 
-<StylingDocs />
+<StylingDocs components={{ Button: toggleButtonTag }} />
 
 {/* ## Usage */}
 

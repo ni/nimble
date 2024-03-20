@@ -1,6 +1,7 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
 import StylingDocs from '../../patterns/button/tests/styling-docs.mdx';
+import { buttonTag } from '..';
 import { anchorButtonTag } from '../../anchor-button';
 import * as buttonStories from './button.stories';
 
@@ -16,7 +17,7 @@ If you want a button that triggers navigation to a URL, use the <Tag name={ancho
 <Canvas of={buttonStories.outlineButton} />
 <Controls of={buttonStories.outlineButton} />
 
-<StylingDocs />
+<StylingDocs components={{ Button: buttonTag }} />
 
 ## Sizing
 
