@@ -25,14 +25,12 @@ export const sharedMatrixParameters = () => ({
 
 type MakeTupleEntriesArrays<T> = { [K in keyof T]: readonly T[K][] };
 /**
- * Takes an array of state values that can be used with the template to match the permutations of the provided states.
+ * Takes an array of state values and finds the permutations of the provided states.
  */
-export function createMatrix<T extends readonly unknown[]>(
-    component: (...states: T) => ViewTemplate,
-    dimensions?: MakeTupleEntriesArrays<T>,
-    filter?: (...states: T) => boolean
-): ViewTemplate {
-    const matrix: ViewTemplate[] = [];
+function permute<T extends readonly unknown[]>(
+    dimensions?: MakeTupleEntriesArrays<T>
+): T[] {
+    const permutations: T[] = [];
     const recurseDimensions = (
         currentDimensions?: readonly (readonly unknown[])[],
         ...states: readonly unknown[]
@@ -42,11 +40,25 @@ export function createMatrix<T extends readonly unknown[]>(
             for (const currentState of currentDimension!) {
                 recurseDimensions(remainingDimensions, ...states, currentState);
             }
-        } else if (!filter || filter(...(states as T))) {
-            matrix.push(component(...(states as T)));
+        } else {
+            permutations.push(states as T);
         }
     };
     recurseDimensions(dimensions);
+    return permutations;
+}
+
+/**
+ * Takes an array of state values that can be used with the template to match the permutations of the provided states.
+ */
+export function createMatrix<T extends readonly unknown[]>(
+    component: (...states: T) => ViewTemplate,
+    dimensions?: MakeTupleEntriesArrays<T>,
+    filter?: (...states: T) => boolean
+): ViewTemplate {
+    const matrix = permute(dimensions)
+        .filter(states => !filter || filter(...states))
+        .map(states => component(...states));
     // prettier-ignore
     return html`
         ${repeat(() => matrix, html`
