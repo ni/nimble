@@ -653,16 +653,16 @@ export const [
 );
 
 export const [
-    bodyEmphasizedPlus1Font,
-    bodyEmphasizedPlus1FontColor,
-    bodyEmphasizedPlus1DisabledFontColor,
-    bodyEmphasizedPlus1FontFamily,
-    bodyEmphasizedPlus1FontWeight,
-    bodyEmphasizedPlus1FontSize,
-    bodyEmphasizedPlus1FontLineHeight,
-    bodyEmphasizedPlus1FallbackFontFamily
+    bodyPlus1EmphasizedFont,
+    bodyPlus1EmphasizedFontColor,
+    bodyPlus1DisabledEmphasizedFontColor,
+    bodyPlus1EmphasizedFontFamily,
+    bodyPlus1EmphasizedFontWeight,
+    bodyPlus1EmphasizedFontSize,
+    bodyPlus1EmphasizedFontLineHeight,
+    bodyPlus1EmphasizedFallbackFontFamily
 ] = createFontTokens(
-    tokenNames.bodyEmphasizedPlus1Font,
+    tokenNames.bodyPlus1EmphasizedFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     BodyEmphasized2Family,
