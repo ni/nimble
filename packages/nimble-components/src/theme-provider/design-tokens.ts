@@ -633,46 +633,6 @@ export const [
 );
 
 export const [
-    bodyEmphasizedFont,
-    bodyEmphasizedFontColor,
-    bodyEmphasizedDisabledFontColor,
-    bodyEmphasizedFontFamily,
-    bodyEmphasizedFontWeight,
-    bodyEmphasizedFontSize,
-    bodyEmphasizedFontLineHeight,
-    bodyEmphasizedFallbackFontFamily
-] = createFontTokens(
-    tokenNames.bodyEmphasizedFont,
-    (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
-    BodyEmphasizedFamily,
-    BodyEmphasizedWeight,
-    BodyEmphasizedSize,
-    BodyEmphasizedLineHeight,
-    BodyEmphasizedFallbackFontFamily
-);
-
-export const [
-    bodyPlus1EmphasizedFont,
-    bodyPlus1EmphasizedFontColor,
-    bodyPlus1DisabledEmphasizedFontColor,
-    bodyPlus1EmphasizedFontFamily,
-    bodyPlus1EmphasizedFontWeight,
-    bodyPlus1EmphasizedFontSize,
-    bodyPlus1EmphasizedFontLineHeight,
-    bodyPlus1EmphasizedFallbackFontFamily
-] = createFontTokens(
-    tokenNames.bodyPlus1EmphasizedFont,
-    (element: HTMLElement) => getDefaultFontColorForTheme(element),
-    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
-    BodyEmphasized2Family,
-    BodyEmphasized2Weight,
-    BodyEmphasized2Size,
-    BodyEmphasized2LineHeight,
-    BodyEmphasized2FallbackFontFamily
-);
-
-export const [
     bodyFont,
     bodyFontColor,
     bodyDisabledFontColor,
@@ -693,6 +653,26 @@ export const [
 );
 
 export const [
+    bodyEmphasizedFont,
+    bodyEmphasizedFontColor,
+    bodyEmphasizedDisabledFontColor,
+    bodyEmphasizedFontFamily,
+    bodyEmphasizedFontWeight,
+    bodyEmphasizedFontSize,
+    bodyEmphasizedFontLineHeight,
+    bodyEmphasizedFallbackFontFamily
+] = createFontTokens(
+    tokenNames.bodyEmphasizedFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    BodyEmphasizedFamily,
+    BodyEmphasizedWeight,
+    BodyEmphasizedSize,
+    BodyEmphasizedLineHeight,
+    BodyEmphasizedFallbackFontFamily
+);
+
+export const [
     bodyPlus1Font,
     bodyPlus1FontColor,
     bodyPlus1DisabledFontColor,
@@ -710,6 +690,26 @@ export const [
     Body2Size,
     Body2LineHeight,
     Body2FallbackFontFamily
+);
+
+export const [
+    bodyPlus1EmphasizedFont,
+    bodyPlus1EmphasizedFontColor,
+    bodyPlus1DisabledEmphasizedFontColor,
+    bodyPlus1EmphasizedFontFamily,
+    bodyPlus1EmphasizedFontWeight,
+    bodyPlus1EmphasizedFontSize,
+    bodyPlus1EmphasizedFontLineHeight,
+    bodyPlus1EmphasizedFallbackFontFamily
+] = createFontTokens(
+    tokenNames.bodyPlus1EmphasizedFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    BodyEmphasized2Family,
+    BodyEmphasized2Weight,
+    BodyEmphasized2Size,
+    BodyEmphasized2LineHeight,
+    BodyEmphasized2FallbackFontFamily
 );
 
 export const [

@@ -185,7 +185,6 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     bodyEmphasizedFontWeight: 'body-emphasized-font-weight',
     bodyEmphasizedFontLineHeight: 'body-emphasized-font-line-height',
     bodyEmphasizedFallbackFontFamily: 'body-emphasized-fallback-font-family',
-
     bodyPlus1Font: 'body-plus-1-font',
     bodyPlus1FontColor: 'body-plus-1-font-color',
     bodyPlus1DisabledFontColor: 'body-plus-1-disabled-font-color',
