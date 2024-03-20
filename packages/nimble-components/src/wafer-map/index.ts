@@ -18,7 +18,8 @@ import {
     WaferMapDie,
     WaferMapOrientation,
     WaferMapOriginLocation,
-    WaferMapValidity
+    WaferMapValidity,
+    WaferRequiredTypeMap
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
@@ -36,12 +37,14 @@ declare global {
 /**
  * A nimble-styled WaferMap
  */
-export class WaferMap extends FoundationElement {
+export class WaferMap<
+    T extends WaferRequiredTypeMap = WaferRequiredTypeMap
+> extends FoundationElement {
     /**
      * @internal
      * needs to be initialized before the properties trigger changes
      */
-    public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
+    public readonly waferMapUpdateTracker: WaferMapUpdateTracker<T> = new WaferMapUpdateTracker(this);
 
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
@@ -151,7 +154,7 @@ export class WaferMap extends FoundationElement {
 
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
-    @observable public diesTable: Table | undefined;
+    @observable public diesTable: Table<T> | undefined;
 
     @observable public colorScale: WaferMapColorScale = {
         colors: [],

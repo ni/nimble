@@ -1,11 +1,15 @@
 import type { WaferMap } from '../..';
-import { PointCoordinates, WaferMapOriginLocation } from '../../types';
+import {
+    PointCoordinates,
+    WaferMapOriginLocation,
+    WaferRequiredTypeMap
+} from '../../types';
 
 /**
  * HoverHandler deals with user interactions and events like hovering
  */
-export class HoverHandler {
-    public constructor(private readonly wafermap: WaferMap) {}
+export class HoverHandler<T extends WaferRequiredTypeMap> {
+    public constructor(private readonly wafermap: WaferMap<T>) {}
 
     /**
      * @internal
@@ -38,7 +42,7 @@ export class HoverHandler {
         ]);
 
         // does not work yet until data manager will parse diesTable
-        const dieCoordinates = this.calculateDieCoordinates(this.wafermap, {
+        const dieCoordinates = this.calculateDieCoordinates({
             x: invertedPoint[0],
             y: invertedPoint[1]
         });
@@ -71,10 +75,9 @@ export class HoverHandler {
     };
 
     private calculateDieCoordinates(
-        wafermap: WaferMap,
         mousePosition: PointCoordinates
     ): PointCoordinates {
-        const originLocation = wafermap.originLocation;
+        const originLocation = this.wafermap.originLocation;
         const xRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
             || originLocation === WaferMapOriginLocation.topLeft
             ? Math.floor
@@ -85,13 +88,13 @@ export class HoverHandler {
             : Math.ceil;
         // go to x and y scale to get the x,y values of the die.
         const x = xRoundFunction(
-            wafermap.dataManager.invertedHorizontalScale(
-                mousePosition.x - wafermap.dataManager.margin.left
+            this.wafermap.dataManager.invertedHorizontalScale(
+                mousePosition.x - this.wafermap.dataManager.margin.left
             )
         );
         const y = yRoundFunction(
-            wafermap.dataManager.invertedVerticalScale(
-                mousePosition.y - wafermap.dataManager.margin.top
+            this.wafermap.dataManager.invertedVerticalScale(
+                mousePosition.y - this.wafermap.dataManager.margin.top
             )
         );
         return { x, y };

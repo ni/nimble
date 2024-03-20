@@ -3,7 +3,7 @@ import { tableFromArrays } from 'apache-arrow';
 import { html } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { HoverHandler } from '../modules/experimental/hover-handler';
-import { WaferMapOriginLocation } from '../types';
+import { WaferMapOriginLocation, WaferRequiredTypeMap } from '../types';
 import {
     getDataManagerMockForHover,
     getScaleQuantile,
@@ -22,7 +22,7 @@ describe('HoverHandler', () => {
     let element: HTMLDivElement;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
-    let hoverHandler: HoverHandler;
+    let hoverHandler: HoverHandler<WaferRequiredTypeMap>;
     let waferMock: WaferMap;
 
     beforeEach(async () => {
