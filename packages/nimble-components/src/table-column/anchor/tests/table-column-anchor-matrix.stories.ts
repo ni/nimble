@@ -32,11 +32,16 @@ const data = [
     },
     {
         id: '1',
+        firstName: 'https://nimble.ni.dev',
         link: 'https://nimble.ni.dev'
     },
     {
         id: '2',
         firstName: null
+    },
+    {
+        id: '3',
+        firstName: ''
     }
 ] as const;
 
@@ -57,7 +62,7 @@ const component = (
     [underlineHiddenName, underlineHidden]: UnderlineHiddenState
 ): ViewTemplate => html`
     <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">${appearanceName} ${underlineHiddenName} Anchor Table Column</label>
-    <${tableTag} id-field-name="id" style="height: 300px">
+    <${tableTag} id-field-name="id" style="height: 320px">
         <${tableColumnAnchorTag}
             label-field-name="firstName"
             href-field-name="link"

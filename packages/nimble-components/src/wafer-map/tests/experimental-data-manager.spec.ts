@@ -2,33 +2,27 @@ import { html } from '@microsoft/fast-element';
 
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { processUpdates } from '../../testing/async-helpers';
-import type { DataManager } from '../modules/data-manager';
+import type { DataManager } from '../modules/experimental/data-manager';
 import type { WaferMap } from '..';
 import {
-    Dimensions,
     Margin,
     WaferMapColorScaleMode,
     WaferMapOriginLocation
 } from '../types';
 import {
     getColorScale,
-    getHighlightedTags,
-    getWaferMapDies
+    getWaferMapDiesTable
 } from './utilities';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
 }
 
-describe('Wafermap Data Manager', () => {
+describe('Wafermap Experimental Data Manager', () => {
     let dataManagerModule: DataManager;
     const dieLabelsSuffix = '%';
     const canvasWidth = 200;
     const canvasHeight = 100;
-    const canvasDimensions: Dimensions = {
-        width: canvasWidth,
-        height: canvasHeight
-    };
     const expectedMargin: Margin = {
         top: 4,
         right: 54,
@@ -43,20 +37,19 @@ describe('Wafermap Data Manager', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        element.dies = getWaferMapDies();
+        element.diesTable = getWaferMapDiesTable();
         element.colorScale = getColorScale();
         element.originLocation = WaferMapOriginLocation.bottomLeft;
         element.dieLabelsSuffix = dieLabelsSuffix;
         element.dieLabelsHidden = false;
         element.maxCharacters = 3;
         element.colorScaleMode = WaferMapColorScaleMode.ordinal;
-        element.highlightedTags = getHighlightedTags();
         element.canvasWidth = canvasWidth;
         element.canvasHeight = canvasHeight;
 
         processUpdates();
 
-        dataManagerModule = element.stableDataManager;
+        dataManagerModule = element.experimentalDataManager;
     });
 
     afterEach(async () => {
@@ -68,10 +61,6 @@ describe('Wafermap Data Manager', () => {
             width: 92,
             height: 92
         });
-    });
-
-    it('computes the correct radius', () => {
-        expect(dataManagerModule.radius).toEqual(46);
     });
 
     it('computes the correct dieDimensions', () => {
@@ -108,56 +97,5 @@ describe('Wafermap Data Manager', () => {
         expect(dataManagerModule.labelsFontSize).toBeLessThanOrEqual(
             dataManagerModule.dieDimensions.width
         );
-    });
-
-    it('should have as many dies as provided', () => {
-        expect(dataManagerModule.diesRenderInfo.length).toEqual(
-            getWaferMapDies().length
-        );
-    });
-
-    it('should have label with suffix for each die', () => {
-        for (const dieInfo of dataManagerModule.diesRenderInfo) {
-            expect(dieInfo.text).toContain(dieLabelsSuffix);
-        }
-    });
-
-    it('should have all dies with full opacity from the highlighted list', () => {
-        const highlightedTags = getHighlightedTags();
-        const dies = getWaferMapDies().filter(die => die.tags?.some(dieTag => highlightedTags.some(
-            highlightedTag => dieTag === highlightedTag
-        )));
-        const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(',1)'));
-        expect(dies.length).toEqual(diesWithFullOpacity.length);
-    });
-
-    it('should not have any dies with partial opacity from the highlighted list', () => {
-        const highlightedTags = getHighlightedTags();
-        const dies = getWaferMapDies().filter(
-            die => !die.tags?.some(dieTag => highlightedTags.some(
-                highlightedTag => dieTag === highlightedTag
-            ))
-        );
-        const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
-            x => !x.fillStyle.endsWith(',1)')
-        );
-        expect(dies.length).toEqual(diesWithPartialOpacity.length);
-    });
-
-    it('should have all dies inside the canvas with margins', () => {
-        for (const dieRenderInfo of dataManagerModule.diesRenderInfo) {
-            expect(dieRenderInfo.x).toBeGreaterThanOrEqual(0);
-            expect(dieRenderInfo.y).toBeGreaterThanOrEqual(0);
-            expect(dieRenderInfo.x).toBeLessThanOrEqual(
-                canvasDimensions.width
-                    - dataManagerModule.dieDimensions.width
-                    - expectedMargin.left
-            );
-            expect(dieRenderInfo.y).toBeLessThanOrEqual(
-                canvasDimensions.height
-                    - dataManagerModule.dieDimensions.height
-                    - expectedMargin.bottom
-            );
-        }
     });
 });

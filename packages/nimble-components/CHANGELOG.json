@@ -2,6 +2,111 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 18 Mar 2024 18:10:43 GMT",
+      "version": "22.1.0",
+      "tag": "@ni/nimble-components_v22.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ca8201733c653a4d74537c530c60a5c6d21bcbc3",
+            "comment": "Fix intermittent RichTextMentionListbox test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 18 Mar 2024 17:12:34 GMT",
+      "version": "22.1.0",
+      "tag": "@ni/nimble-components_v22.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda",
+            "comment": "Add placeholders for group rows in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 18 Mar 2024 16:35:18 GMT",
+      "version": "22.0.1",
+      "tag": "@ni/nimble-components_v22.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a112528ec429c96f2017e95bbbdb22e578be1c08",
+            "comment": "Marking tests that fail on some browsers"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 14 Mar 2024 14:48:16 GMT",
+      "version": "22.0.1",
+      "tag": "@ni/nimble-components_v22.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a1eebb02b4fb66ca77e0e32bb52497b2da1cb4cf",
+            "comment": "Fix bug where an anchor element's link couldn't be dragged correctly"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Mar 2024 23:56:16 GMT",
+      "version": "22.0.0",
+      "tag": "@ni/nimble-components_v22.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2a9abefcd6160716070fd4f3bbca097919112d23",
+            "comment": "Build warnings for apache-arrow were cleaned up"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Mar 2024 23:07:24 GMT",
+      "version": "22.0.0",
+      "tag": "@ni/nimble-components_v22.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "518c229b964d2c4a2e77210692f5d367f2937ff4",
+            "comment": "Rename icon labels to follow naming convention"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Mar 2024 22:25:27 GMT",
+      "version": "21.10.2",
+      "tag": "@ni/nimble-components_v21.10.2",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "52783423015bc7b1cfd3718646923d36b1f9d32c",
+            "comment": "Fix missing element names in some Storybook docs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 12 Mar 2024 22:17:11 GMT",
       "version": "21.10.2",
       "tag": "@ni/nimble-components_v21.10.2",

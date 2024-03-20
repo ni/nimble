@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 12 Mar 2024 22:17:11 GMT and should not be manually modified.
+This log was last generated on Mon, 18 Mar 2024 17:12:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 22.1.0
+
+Mon, 18 Mar 2024 17:12:34 GMT
+
+### Minor changes
+
+- Add placeholders for group rows in the table ([ni/nimble@3bbf8d7](https://github.com/ni/nimble/commit/3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda))
+
+## 22.0.1
+
+Thu, 14 Mar 2024 14:48:16 GMT
+
+### Patches
+
+- Fix bug where an anchor element's link couldn't be dragged correctly ([ni/nimble@a1eebb0](https://github.com/ni/nimble/commit/a1eebb02b4fb66ca77e0e32bb52497b2da1cb4cf))
+
+## 22.0.0
+
+Wed, 13 Mar 2024 23:07:24 GMT
+
+### Major changes
+
+- Rename icon labels to follow naming convention ([ni/nimble@518c229](https://github.com/ni/nimble/commit/518c229b964d2c4a2e77210692f5d367f2937ff4))
 
 ## 21.10.2
 

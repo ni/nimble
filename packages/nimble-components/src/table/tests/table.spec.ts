@@ -677,7 +677,8 @@ describe('Table', () => {
                 verifyRenderedData(dataSubsetAtEnd);
             });
 
-            it('and calls focusedRecycleCallback on focused cell views when a scroll happens', async () => {
+            // WebKit skipped, see https://github.com/ni/nimble/issues/1942
+            it('and calls focusedRecycleCallback on focused cell views when a scroll happens #SkipWebkit', async () => {
                 const focusableColumn = document.createElement(
                     focusableColumnName
                 ) as TestFocusableTableColumn;

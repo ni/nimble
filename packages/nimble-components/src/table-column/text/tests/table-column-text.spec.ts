@@ -1,41 +1,54 @@
-import { html } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import type { Table } from '../../../table';
+import { tableTag, type Table } from '../../../table';
 import { TableColumnText, tableColumnTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
+import { themeProviderTag } from '../../../theme-provider';
 
 interface SimpleTableRecord extends TableRecord {
     field?: string | null;
     anotherField?: string | null;
 }
 
+class ElementReferences {
+    public table!: Table;
+    public column!: TableColumnText;
+}
+
 // prettier-ignore
-async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
+async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table style="width: 700px">
-                <${tableColumnTextTag} field-name="field" group-index="0">
-                    Column 1
-                </${tableColumnTextTag}>
-                <${tableColumnTextTag} field-name="anotherField">
-                    Squeeze Column 1
-                </${tableColumnTextTag}>
-            </nimble-table>`
+        html`<${themeProviderTag} lang="en-US">
+                <${tableTag} ${ref('table')} style="width: 700px">
+                    <${tableColumnTextTag} ${ref('column')} field-name="field" group-index="0">
+                        Column 1
+                    </${tableColumnTextTag}>
+                    <${tableColumnTextTag} field-name="anotherField">
+                        Squeeze Column 1
+                    </${tableColumnTextTag}>
+                </${tableTag}>
+            </${themeProviderTag}>`,
+        { source }
     );
 }
 
 describe('TableColumnText', () => {
-    let element: Table<SimpleTableRecord>;
+    let table: Table<SimpleTableRecord>;
+    let column: TableColumnText;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: TablePageObject<SimpleTableRecord>;
 
     beforeEach(async () => {
-        ({ element, connect, disconnect } = await setup());
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
+        const elementReferences = new ElementReferences();
+        ({ connect, disconnect } = await setup(elementReferences));
+        table = elementReferences.table;
+        column = elementReferences.column;
+        pageObject = new TablePageObject<SimpleTableRecord>(table);
     });
 
     afterEach(async () => {
@@ -56,9 +69,7 @@ describe('TableColumnText', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const firstColumn = element.columns[0] as TableColumnText;
-
-        expect(firstColumn.checkValidity()).toBeTrue();
+        expect(column.checkValidity()).toBeTrue();
     });
 
     const noValueData = [
@@ -72,7 +83,7 @@ describe('TableColumnText', () => {
     ] as const;
     parameterizeSpec(noValueData, (spec, name, value) => {
         spec(`displays empty string when ${name}`, async () => {
-            await element.setData(value.data);
+            await table.setData(value.data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -81,38 +92,37 @@ describe('TableColumnText', () => {
     });
 
     it('changing fieldName updates display', async () => {
-        await element.setData([{ field: 'foo', anotherField: 'bar' }]);
+        await table.setData([{ field: 'foo', anotherField: 'bar' }]);
         await connect();
         await waitForUpdatesAsync();
 
-        const firstColumn = element.columns[0] as TableColumnText;
-        firstColumn.fieldName = 'anotherField';
+        column.fieldName = 'anotherField';
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('bar');
     });
 
     it('changing data from value to null displays blank', async () => {
-        await element.setData([{ field: 'foo' }]);
+        await table.setData([{ field: 'foo' }]);
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('foo');
 
         const updatedValue = { field: null };
         const updatedData = [updatedValue];
-        await element.setData(updatedData);
+        await table.setData(updatedData);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
     });
 
     it('changing data from null to value displays value', async () => {
-        await element.setData([{ field: null }]);
+        await table.setData([{ field: null }]);
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
 
-        await element.setData([{ field: 'foo' }]);
+        await table.setData([{ field: 'foo' }]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('foo');
@@ -122,9 +132,8 @@ describe('TableColumnText', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const firstColumn = element.columns[0] as TableColumnText;
-        firstColumn.fieldName = undefined;
-        await element.setData([{ field: 'foo' }]);
+        column.fieldName = undefined;
+        await table.setData([{ field: 'foo' }]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
@@ -132,7 +141,7 @@ describe('TableColumnText', () => {
 
     it('sets title when cell text is ellipsized', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        await element.setData([{ field: cellContents }]);
+        await table.setData([{ field: cellContents }]);
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -142,7 +151,7 @@ describe('TableColumnText', () => {
 
     it('does not set title when cell text is fully visible', async () => {
         const cellContents = 'short value';
-        await element.setData([{ field: cellContents }]);
+        await table.setData([{ field: cellContents }]);
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -152,7 +161,7 @@ describe('TableColumnText', () => {
 
     it('removes title on mouseout of cell', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        await element.setData([{ field: cellContents }]);
+        await table.setData([{ field: cellContents }]);
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -164,8 +173,8 @@ describe('TableColumnText', () => {
 
     it('sets title when group header text is ellipsized', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        await element.setData([{ field: cellContents }]);
-        element.style.width = '200px';
+        await table.setData([{ field: cellContents }]);
+        table.style.width = '200px';
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
@@ -175,7 +184,7 @@ describe('TableColumnText', () => {
 
     it('does not set title when group header text is fully visible', async () => {
         const cellContents = 'foo';
-        await element.setData([{ field: cellContents }]);
+        await table.setData([{ field: cellContents }]);
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
@@ -185,7 +194,7 @@ describe('TableColumnText', () => {
 
     it('removes title on mouseout of group header', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        await element.setData([{ field: cellContents }]);
+        await table.setData([{ field: cellContents }]);
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
@@ -200,7 +209,7 @@ describe('TableColumnText', () => {
             spec(`data "${name}" renders as "${name}"`, async () => {
                 await connect();
 
-                await element.setData([{ field: name }]);
+                await table.setData([{ field: name }]);
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(name);
@@ -213,12 +222,54 @@ describe('TableColumnText', () => {
             spec(`data "${name}" renders as "${name}"`, async () => {
                 await connect();
 
-                await element.setData([{ field: name }]);
+                await table.setData([{ field: name }]);
                 await waitForUpdatesAsync();
 
                 expect(
                     pageObject.getRenderedGroupHeaderTextContent(0)
                 ).toContain(name);
+            });
+        });
+    });
+
+    describe('placeholder', () => {
+        const testCases = [
+            {
+                name: 'value is not specified',
+                data: [{}],
+                groupValue: 'No value'
+            },
+            {
+                name: 'value is undefined',
+                data: [{ field: undefined }],
+                groupValue: 'No value'
+            },
+            {
+                name: 'value is null',
+                data: [{ field: null }],
+                groupValue: 'No value'
+            },
+            {
+                name: 'value is incorrect type',
+                data: [{ field: 100 as unknown as string }],
+                groupValue: ''
+            },
+            {
+                name: 'value is an empty string',
+                data: [{ field: '' }],
+                groupValue: 'Empty'
+            }
+        ];
+
+        parameterizeSpec(testCases, (spec, name, value) => {
+            spec(`group row renders expected value when ${name}`, async () => {
+                await table.setData(value.data);
+                await connect();
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                    value.groupValue
+                );
             });
         });
     });

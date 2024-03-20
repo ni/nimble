@@ -37,4 +37,44 @@ export class NimbleLabelProviderCoreDirective {
     @Input('numeric-increment') public set numericIncrement(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'numericIncrement', value);
     }
+
+    public get popupIconError(): string | undefined {
+        return this.elementRef.nativeElement.popupIconError;
+    }
+
+    @Input('popup-icon-error') public set popupIconError(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'popupIconError', value);
+    }
+
+    public get popupIconWarning(): string | undefined {
+        return this.elementRef.nativeElement.popupIconWarning;
+    }
+
+    @Input('popup-icon-warning') public set popupIconWarning(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'popupIconWarning', value);
+    }
+
+    public get popupIconInformation(): string | undefined {
+        return this.elementRef.nativeElement.popupIconInformation;
+    }
+
+    @Input('popup-icon-information') public set popupIconInformation(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'popupIconInformation', value);
+    }
+
+    public get filterSearch(): string | undefined {
+        return this.elementRef.nativeElement.filterSearch;
+    }
+
+    @Input('filter-search') public set filterSearch(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'filterSearch', value);
+    }
+
+    public get filterNoResults(): string | undefined {
+        return this.elementRef.nativeElement.filterNoResults;
+    }
+
+    @Input('filter-no-results') public set filterNoResults(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'filterNoResults', value);
+    }
 }

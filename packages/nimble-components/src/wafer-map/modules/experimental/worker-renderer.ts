@@ -1,5 +1,5 @@
-import type { WaferMap } from '..';
-import { HoverDieOpacity } from '../types';
+import type { WaferMap } from '../..';
+import { HoverDieOpacity } from '../../types';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas

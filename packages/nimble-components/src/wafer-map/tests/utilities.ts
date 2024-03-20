@@ -1,7 +1,9 @@
-import { ScaleBand, scaleBand } from 'd3-scale';
-import type { Table } from 'apache-arrow';
+import { ScaleBand, ScaleQuantile, scaleBand, scaleQuantile } from 'd3-scale';
+import { type Table, tableFromArrays } from 'apache-arrow';
+import type { ZoomTransform } from 'd3-zoom';
 import {
     Dimensions,
+    HoverDie,
     Margin,
     WaferMapColorScale,
     WaferMapColorScaleMode,
@@ -34,6 +36,19 @@ export function getWaferMapDies(): WaferMapDie[] {
         { value: '18', x: 6, y: 4 }
     ];
 }
+export function getWaferMapDiesTable(): Table {
+    return tableFromArrays({
+        colIndex: new Int32Array([
+            2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6
+        ]),
+        rowIndex: new Int32Array([
+            3, 4, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 2, 3, 4, 5, 3, 4
+        ]),
+        value: new Float64Array([
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18
+        ])
+    });
+}
 
 export function getWaferMapDiesAsFloats(): WaferMapDie[] {
     return getWaferMapDies().map(die => {
@@ -64,6 +79,12 @@ export function getScaleBand(
     return scaleBand<number>().domain(domain).range(range);
 }
 
+export function getScaleQuantile(
+    domain: number[] = [],
+    range: number[] = []
+): ScaleQuantile<number, number> {
+    return scaleQuantile().domain(domain).range(range);
+}
 export const defaultHorizontalScale = scaleBand<number>()
     .domain([2, 3, 4, 5, 6])
     .range([2, 7]);
@@ -85,6 +106,26 @@ export function getDataManagerMock(
         horizontalScale,
         verticalScale,
         dieDimensions,
+        margin
+    };
+}
+export function getDataManagerMockForHover(
+    margin: Margin,
+    invertedHorizontalScale: ScaleQuantile<number, number> = getScaleQuantile(
+        [],
+        []
+    ),
+    invertedVerticalScale: ScaleQuantile<number, number> = getScaleQuantile(
+        [],
+        []
+    )
+): Pick<
+    DataManager,
+    'invertedHorizontalScale' | 'invertedVerticalScale' | 'margin'
+    > {
+    return {
+        invertedHorizontalScale,
+        invertedVerticalScale,
         margin
     };
 }
@@ -118,6 +159,24 @@ export function getWaferMapMockPrerendering(
     };
 }
 
+export function getWaferMapMockHover(
+    diesTable: Table,
+    transform: ZoomTransform,
+    originLocation: WaferMapOriginLocation,
+    hoverDie: HoverDie | undefined,
+    dataManager: DataManager
+): Pick<
+    WaferMap,
+    'diesTable' | 'transform' | 'originLocation' | 'hoverDie' | 'dataManager'
+    > {
+    return {
+        diesTable,
+        transform,
+        originLocation,
+        hoverDie,
+        dataManager
+    };
+}
 export function getWaferMapMockComputations(
     dies: WaferMapDie[] = getWaferMapDies(),
     originLocation: WaferMapOriginLocation,
@@ -133,6 +192,27 @@ export function getWaferMapMockComputations(
     > {
     return {
         dies,
+        originLocation,
+        canvasWidth,
+        canvasHeight,
+        validity
+    };
+}
+export function getWaferMapMockComputationsExperimental(
+    diesTable: Table = getWaferMapDiesTable(),
+    originLocation: WaferMapOriginLocation,
+    canvasWidth: number,
+    canvasHeight: number,
+    validity: WaferMapValidity = {
+        invalidGridDimensions: false,
+        invalidDiesTableSchema: false
+    }
+): Pick<
+    WaferMap,
+    'diesTable' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
+    > {
+    return {
+        diesTable,
         originLocation,
         canvasWidth,
         canvasHeight,

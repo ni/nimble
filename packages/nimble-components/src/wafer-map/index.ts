@@ -10,9 +10,10 @@ import { type Remote, transfer } from 'comlink';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
+import { DataManager as ExperimentalDataManager } from './modules/experimental/data-manager';
 import { RenderingModule } from './modules/rendering';
-import { EventCoordinator } from './modules/event-coordinator';
 import {
+    HoverDie,
     HoverDieOpacity,
     WaferMapColorScale,
     WaferMapColorScaleMode,
@@ -23,7 +24,10 @@ import {
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
-import { WorkerRenderer } from './modules/worker-renderer';
+import { WorkerRenderer } from './modules/experimental/worker-renderer';
+import { HoverHandler } from './modules/hover-handler';
+import { HoverHandler as ExperimentalHoverHandler } from './modules/experimental/hover-handler';
+import { ZoomHandler } from './modules/zoom-handler';
 import type { MatrixRenderer } from '../../build/generate-workers/dist/esm/source/matrix-renderer';
 import { createMatrixRenderer } from './modules/create-matrix-renderer';
 
@@ -101,7 +105,18 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly dataManager = new DataManager(this);
+    public readonly stableDataManager = new DataManager(this);
+
+    /**
+     * @internal
+     */
+    public readonly experimentalDataManager = new ExperimentalDataManager(this);
+
+    /**
+     * @internal
+     */
+    public dataManager: DataManager | ExperimentalDataManager = this.stableDataManager;
+
     /**
      * @internal
      */
@@ -157,7 +172,7 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    @observable public hoverDie: WaferMapDie | undefined;
+    @observable public hoverDie: WaferMapDie | HoverDie | undefined;
 
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
@@ -168,7 +183,13 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    private readonly eventCoordinator = new EventCoordinator(this);
+    private readonly hoverHandler = new HoverHandler(this);
+    private readonly experimentalHoverHandler = new ExperimentalHoverHandler(
+        this
+    );
+
+    private readonly zoomHandler = new ZoomHandler(this);
+
     private readonly resizeObserver = this.createResizeObserver();
     private readonly waferMapValidator = new WaferMapValidator(this);
 
@@ -181,6 +202,9 @@ export class WaferMap extends FoundationElement {
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
+        this.hoverHandler.connect();
+        this.experimentalHoverHandler.connect();
+        this.zoomHandler.connect();
         const { matrixRenderer } = await createMatrixRenderer();
         this.workerOne = matrixRenderer;
 
@@ -195,6 +219,9 @@ export class WaferMap extends FoundationElement {
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
+        this.hoverHandler.disconnect();
+        this.experimentalHoverHandler.disconnect();
+        this.zoomHandler.disconnect();
         this.resizeObserver.unobserve(this);
     }
 
@@ -211,8 +238,16 @@ export class WaferMap extends FoundationElement {
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
+        // will switch the renderer after prerendering changes
+        this.renderer = this.diesTable === undefined
+            ? this.mainRenderer
+            : this.workerRenderer;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            this.eventCoordinator.detachEvents();
+            // zoom translateExtent needs to be recalculated when canvas size changes
+            this.zoomHandler.disconnect();
+            this.dataManager = this.diesTable === undefined
+                ? this.stableDataManager
+                : this.experimentalDataManager;
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -232,7 +267,7 @@ export class WaferMap extends FoundationElement {
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
                 this.renderer.drawWafer();
             }
-            this.eventCoordinator.attachEvents();
+            this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
@@ -316,17 +351,11 @@ export class WaferMap extends FoundationElement {
 
     private diesChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderer = this.diesTable === undefined
-            ? this.mainRenderer
-            : this.workerRenderer;
         this.waferMapUpdateTracker.queueUpdate();
     }
 
     private diesTableChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderer = this.diesTable === undefined
-            ? this.mainRenderer
-            : this.workerRenderer;
         this.waferMapUpdateTracker.queueUpdate();
     }
 
