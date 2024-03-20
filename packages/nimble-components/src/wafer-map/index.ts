@@ -205,9 +205,9 @@ export class WaferMap extends FoundationElement {
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
-        this.renderer = !this.isExperimentalRenderer()
-            ? this.mainRenderer
-            : this.workerRenderer;
+        this.renderer = this.isExperimentalRenderer()
+            ? this.workerRenderer
+            : this.mainRenderer;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             // zoom translateExtent needs to be recalculated when canvas size changes
             this.zoomHandler.disconnect();
