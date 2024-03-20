@@ -495,16 +495,15 @@ describe('Table Interactive Column Sizing', () => {
             expect(pageObject.isHorizontalScrollbarVisible()).toBeTrue();
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1939
-        it('sizing table with a horizontal scrollbar does not change column widths until sized beyond current column pixel widths #SkipWebkit', async () => {
-            // create horizontal scrollbar with total column width of 450
-            pageObject.dragSizeColumnByRightDivider(2, [100]);
+        it('sizing table with a horizontal scrollbar does not change column widths until sized beyond current column pixel widths', async () => {
+            // create horizontal scrollbar with total column width of 500
+            pageObject.dragSizeColumnByRightDivider(2, [150]);
             // size table below threshhold of total column widths
             await pageObject.sizeTableToGivenRowWidth(425, element);
-            expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
-            // size table 50 pixels beyond total column widths
-            await pageObject.sizeTableToGivenRowWidth(500, element);
             expect(pageObject.getTotalCellRenderedWidth()).toBe(500);
+            // size table 100 pixels beyond total column widths
+            await pageObject.sizeTableToGivenRowWidth(600, element);
+            expect(pageObject.getTotalCellRenderedWidth()).toBe(600);
             expect(pageObject.isHorizontalScrollbarVisible()).toBeFalse();
         });
 
