@@ -93,6 +93,10 @@ export const styles = css`
         color: ${linkProminentDisabledFontColor};
     }
 
+    .content {
+        pointer-events: none;
+    }
+
     [part='end'] {
         display: none;
     }

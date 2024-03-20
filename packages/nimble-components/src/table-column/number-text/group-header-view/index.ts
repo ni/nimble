@@ -17,15 +17,7 @@ export class TableColumnNumberTextGroupHeaderView extends TableColumnTextGroupHe
 TableNumberFieldValue,
 TableColumnNumberTextColumnConfig
 > {
-    private columnConfigChanged(): void {
-        this.updateText();
-    }
-
-    private groupHeaderValueChanged(): void {
-        this.updateText();
-    }
-
-    private updateText(): void {
+    protected updateText(): void {
         this.text = this.columnConfig?.formatter?.format(this.groupHeaderValue) ?? '';
     }
 }

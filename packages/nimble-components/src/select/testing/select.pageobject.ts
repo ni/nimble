@@ -23,7 +23,7 @@ export class SelectPageObject {
                 'Can not set filter text with filterMode set to "none".'
             );
         }
-        await this.clickSelect();
+        this.clickSelect();
         const filterInput = this.getFilterInput();
         if (filterInput) {
             filterInput.value = filterText;
@@ -59,9 +59,8 @@ export class SelectPageObject {
     /**
      * Either opens or closes the dropdown depending on its current state
      */
-    public async clickSelect(): Promise<void> {
+    public clickSelect(): void {
         this.selectElement.click();
-        await waitForUpdatesAsync();
     }
 
     public clickSelectedItem(): void {
@@ -96,11 +95,9 @@ export class SelectPageObject {
      * Click the option with the text provided by the 'displayText' parameter.
      * @param value The text of the option to be selected
      */
-    public async clickOptionWithDisplayText(
-        displayText: string
-    ): Promise<void> {
+    public clickOptionWithDisplayText(displayText: string): void {
         if (!this.selectElement.open) {
-            await this.clickSelect();
+            this.clickSelect();
         }
         const optionIndex = this.selectElement.options.findIndex(
             o => o.text === displayText

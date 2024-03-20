@@ -2,6 +2,21 @@
   "name": "@ni/xliff-to-json-converter",
   "entries": [
     {
+      "date": "Tue, 12 Mar 2024 21:01:54 GMT",
+      "version": "1.1.5",
+      "tag": "@ni/xliff-to-json-converter_v1.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "bc825e1b057eafd8bc005d11e9a224aa9aee9619",
+            "comment": "Update typescript to 4.9.5"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 06 Mar 2024 17:56:10 GMT",
       "version": "1.1.4",
       "tag": "@ni/xliff-to-json-converter_v1.1.4",
