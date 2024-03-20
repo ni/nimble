@@ -30,6 +30,8 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
         loadTranslations({
             [computeMsgId('Collapse group', 'Nimble table - collapse group')]: 'Translated collapse group',
             [computeMsgId('Expand group', 'Nimble table - expand group')]: 'Translated expand group',
+            [computeMsgId('Collapse row', 'Nimble table - collapse row')]: 'Translated collapse row',
+            [computeMsgId('Expand row', 'Nimble table - expand row')]: 'Translated expand row',
             [computeMsgId('Collapse all', 'Nimble table - collapse all')]: 'Translated collapse all',
             [computeMsgId('Options', 'Nimble table - cell action menu')]: 'Translated options',
             [computeMsgId('Grouped', 'Nimble table - column header grouped')]: 'Translated grouped',
@@ -40,6 +42,8 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
             [computeMsgId('Select row', 'Nimble table - select row')]: 'Translated select row',
             [computeMsgId('Row operations', 'Nimble table - row operation column')]: 'Translated row operations',
             [computeMsgId('Loading', 'Nimble table - row loading')]: 'Translated loading',
+            [computeMsgId('No value', 'Nimble table - group row placeholder no value')]: 'Translated no value',
+            [computeMsgId('Empty', 'Nimble table - group row placeholder empty')]: 'Translated empty',
         });
         const fixture = TestBed.createComponent(TestHostComponent);
         const testHostComponent = fixture.componentInstance;
@@ -50,6 +54,8 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
     it('applies translated values for each label', () => {
         expect(labelProvider.groupCollapse).toBe('Translated collapse group');
         expect(labelProvider.groupExpand).toBe('Translated expand group');
+        expect(labelProvider.rowCollapse).toBe('Translated collapse row');
+        expect(labelProvider.rowExpand).toBe('Translated expand row');
         expect(labelProvider.collapseAll).toBe('Translated collapse all');
         expect(labelProvider.cellActionMenu).toBe('Translated options');
         expect(labelProvider.columnHeaderGrouped).toBe('Translated grouped');
@@ -60,5 +66,7 @@ describe('Nimble LabelProviderTable withDefaults directive', () => {
         expect(labelProvider.rowSelect).toBe('Translated select row');
         expect(labelProvider.rowOperationColumn).toBe('Translated row operations');
         expect(labelProvider.rowLoading).toBe('Translated loading');
+        expect(labelProvider.groupRowPlaceholderNoValue).toBe('Translated no value');
+        expect(labelProvider.groupRowPlaceholderEmpty).toBe('Translated empty');
     });
 });

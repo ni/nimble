@@ -5,9 +5,9 @@ import {
     popupDismissLabel,
     numericDecrementLabel,
     numericIncrementLabel,
-    errorIconLabel,
-    warningIconLabel,
-    informationIconLabel,
+    popupIconErrorLabel,
+    popupIconWarningLabel,
+    popupIconInformationLabel,
     filterSearchLabel,
     filterNoResultsLabel
 } from './label-tokens';
@@ -22,9 +22,9 @@ const supportedLabels = {
     popupDismiss: popupDismissLabel,
     numericDecrement: numericDecrementLabel,
     numericIncrement: numericIncrementLabel,
-    errorIcon: errorIconLabel,
-    warningIcon: warningIconLabel,
-    informationIcon: informationIconLabel,
+    popupIconError: popupIconErrorLabel,
+    popupIconWarning: popupIconWarningLabel,
+    popupIconInformation: popupIconInformationLabel,
     filterSearch: filterSearchLabel,
     filterNoResults: filterNoResultsLabel
 } as const;
@@ -44,14 +44,14 @@ export class LabelProviderCore
     @attr({ attribute: 'numeric-increment' })
     public numericIncrement: string | undefined;
 
-    @attr({ attribute: 'error-icon' })
-    public errorIcon: string | undefined;
+    @attr({ attribute: 'popup-icon-error' })
+    public popupIconError: string | undefined;
 
-    @attr({ attribute: 'warning-icon' })
-    public warningIcon: string | undefined;
+    @attr({ attribute: 'popup-icon-warning' })
+    public popupIconWarning: string | undefined;
 
-    @attr({ attribute: 'information-icon' })
-    public informationIcon: string | undefined;
+    @attr({ attribute: 'popup-icon-information' })
+    public popupIconInformation: string | undefined;
 
     @attr({ attribute: 'filter-search' })
     public filterSearch: string | undefined;

@@ -1,4 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnDurationText, tableColumnDurationTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -177,5 +178,67 @@ describe('TableColumnDurationText', () => {
         expect(pageObject.getRenderedCellContent(0, 0)).toBe(
             '99 j, 14 h, 50 min, 22 s'
         );
+    });
+
+    describe('placeholder', () => {
+        const testCases = [
+            {
+                name: 'value is not specified',
+                data: [{}],
+                groupValue: 'No value'
+            },
+            {
+                name: 'value is undefined',
+                data: [{ field: undefined }],
+                groupValue: 'No value'
+            },
+            {
+                name: 'value is null',
+                data: [{ field: null }],
+                groupValue: 'No value'
+            },
+            {
+                name: 'value is Number.NaN',
+                data: [{ field: Number.NaN }],
+                groupValue: ''
+            },
+            {
+                name: 'value is valid and non-zero',
+                data: [{ field: 20000 }],
+                groupValue: '20 sec'
+            },
+            {
+                name: 'value is incorrect type',
+                data: [{ field: 'not a number' as unknown as number }],
+                groupValue: ''
+            },
+            {
+                name: 'value is specified and falsey',
+                data: [{ field: 0 }],
+                groupValue: '0 sec'
+            },
+            {
+                name: 'value is Inf',
+                data: [{ field: Number.POSITIVE_INFINITY }],
+                groupValue: ''
+            },
+            {
+                name: 'value is negative',
+                data: [{ field: -5 }],
+                groupValue: ''
+            }
+        ];
+
+        parameterizeSpec(testCases, (spec, name, value) => {
+            spec(`group row renders expected value when ${name}`, async () => {
+                await table.setData(value.data);
+                await connect();
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
+                    value.groupValue
+                );
+            });
+        });
     });
 });

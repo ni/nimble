@@ -14,6 +14,12 @@ public partial class NimbleLabelProviderTable : ComponentBase
     public string? GroupExpand { get; set; }
 
     [Parameter]
+    public string? RowCollapse { get; set; }
+
+    [Parameter]
+    public string? RowExpand { get; set; }
+
+    [Parameter]
     public string? CollapseAll { get; set; }
 
     [Parameter]
@@ -43,6 +49,11 @@ public partial class NimbleLabelProviderTable : ComponentBase
     [Parameter]
     public string? RowLoading { get; set; }
 
+    [Parameter]
+    public string? GroupRowPlaceholderNoValue { get; set; }
+
+    [Parameter]
+    public string? GroupRowPlaceholderEmpty { get; set; }
     /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.
     /// </summary>

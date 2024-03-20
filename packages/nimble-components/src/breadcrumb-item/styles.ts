@@ -61,6 +61,10 @@ export const styles = css`
         display: none;
     }
 
+    .content {
+        pointer-events: none;
+    }
+
     [part='end'] {
         display: none;
     }
