@@ -9,7 +9,6 @@ import type {
 } from '../types';
 import type { WaferMap } from '..';
 import type { DataManager } from './data-manager';
-import type { DataManager as ExpDataManager } from './experimental/data-manager';
 
 /**
  * Prerendering prepares render-ready dies data to be used by the rendering module
@@ -37,7 +36,7 @@ export class Prerendering {
 
     public constructor(
         private readonly wafermap: WaferMap,
-        private readonly dataManager: Readonly<DataManager | ExpDataManager>
+        private readonly dataManager: Readonly<DataManager>
     ) {}
 
     public updateLabelsFontSize(): void {
