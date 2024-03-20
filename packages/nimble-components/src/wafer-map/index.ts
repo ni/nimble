@@ -270,22 +270,16 @@ export class WaferMap extends FoundationElement {
             }
             this.zoomHandler.connect();
             if (this.dataManager instanceof ExperimentalDataManager) {
-                // eslint-disable-next-line no-console
-                console.log(this.diesTable);
                 const waferMapMatrix = {
-                    colIndexes: this.diesTable?.getChild('colIndex')?.data as unknown as Uint32Array,
-                    rowIndexes: this.diesTable?.getChild('rowIndex')?.data as unknown as Uint32Array,
-                    values: this.diesTable?.getChild('rowIndex')?.data as unknown as Float64Array
+                    colIndexes: Uint32Array.from(this.diesTable?.getChild('colIndex')?.toArray() as number[]),
+                    rowIndexes: Uint32Array.from(this.diesTable?.getChild('rowIndex')?.toArray() as number[]),
+                    values: Float64Array.from(this.diesTable?.getChild('value')?.toArray() as number[])
                 } as unknown as WaferMapMatrix;
-                // eslint-disable-next-line no-console
-                console.log(waferMapMatrix);
-                // eslint-disable-next-line no-console
-                console.log(typeof waferMapMatrix.colIndexes);
-                // eslint-disable-next-line no-console
-                console.log(typeof waferMapMatrix.rowIndexes);
-                this.workerOne.updateMatrix(waferMapMatrix).then(() => {
-                    this.workerOne.setScaling(this.dataManager.horizontalScale(0)!, this.dataManager.verticalScale(0)!, this.dataManager.horizontalScale(1)!, this.dataManager.verticalScale(1)!).then(() => {
-                        this.workerOne.drawWafer().then(() => { }, () => { });
+                this.workerOne.setDiesDimensions(10, 10).then(() => {
+                    this.workerOne.updateMatrix(waferMapMatrix).then(() => {
+                        this.workerOne.setScaling(this.dataManager.horizontalScale(0)!, this.dataManager.verticalScale(0)!, this.dataManager.horizontalScale(1)!, this.dataManager.verticalScale(1)!).then(() => {
+                            this.workerOne.drawWafer().then(() => { }, () => { });
+                        }, () => { });
                     }, () => { });
                 }, () => { });
             }

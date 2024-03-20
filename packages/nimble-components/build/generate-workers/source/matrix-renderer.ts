@@ -25,6 +25,10 @@ export class MatrixRenderer {
     public topLeftCanvasCorner: { x: number, y: number } = { x: 0, y: 0 };
     public bottomRightCanvasCorner: { x: number, y: number } = { x: 500, y: 500 };
 
+    public setDiesDimensions(x: number, y: number): void {
+        this.dieDimensions = { width: x, height: y };
+    }
+
     public setScaling(scaleX: number, scaleY: number, baseX: number, baseY: number): void {
         this.scaleX = scaleX;
         this.scaleY = scaleY;
@@ -74,7 +78,6 @@ export class MatrixRenderer {
     public updateMatrix(
         data: WaferMapMatrix
     ): void {
-        console.log('updateMatrix');
         this.colIndexes = Uint32Array.from(data.colIndexes);
         this.rowIndexes = Uint32Array.from(data.rowIndexes);
         this.values = Float64Array.from(data.values);
@@ -106,7 +109,7 @@ export class MatrixRenderer {
             this.context.fillStyle = 'Red';
             const x = this.scaledColIndex[i]!;
             const y = this.scaledRowIndex[i]!;
-             if (!this.isDieVisible(x, y)) { continue; }
+            if (!this.isDieVisible(x, y)) { continue; }
             this.context.fillRect(x, y, this.dieDimensions.width, this.dieDimensions.height);
         }
     }
