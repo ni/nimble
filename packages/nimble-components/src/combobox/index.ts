@@ -17,14 +17,10 @@ import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 import { styles } from './styles';
 import type { ErrorPattern } from '../patterns/error/types';
-import type {
-    DropdownPattern,
-    ListOptionOwner
-} from '../patterns/dropdown/types';
+import type { DropdownPattern } from '../patterns/dropdown/types';
 import { DropdownAppearance } from '../patterns/dropdown/types';
 import type { AnchoredRegion } from '../anchored-region';
 import { template } from './template';
-import type { ListOption } from '../list-option';
 
 declare global {
     interface HTMLElementTagNameMap {
