@@ -58,14 +58,14 @@ const metadata: Meta<AnchorPatternsArgs> = {
         </style>
         <div class="control-container">
             <div class="label">Native anchor</div>
-            <a href="${x => (x.disabled ? undefined : 'https://nimble.ni.dev?type=native-anchor')}">${x => x.label}</a>
-            <div class="text">Text that contains a <a href="${x => (x.disabled ? undefined : 'https://nimble.ni.dev?type=native-anchor')}">native anchor element</a>.</div>
+            <a href="${x => (x.disabled ? undefined : 'https://nimble.ni.dev?type=native-anchor-1')}">${x => x.label}</a>
+            <div class="text">Text that contains a <a href="${x => (x.disabled ? undefined : 'https://nimble.ni.dev?type=native-anchor-2')}">native anchor element</a>.</div>
         </div>
 
         <div class="control-container">
             <div class="label">${anchorTag}</div>
-            <${anchorTag} href="${x => (x.disabled ? undefined : 'https://nimble.ni.dev?type=nimble-anchor')}">${x => x.label}</${anchorTag}>
-            <div class="text">Text that contains a <${anchorTag} href="${x => (x.disabled ? undefined : 'https://nimble.ni.dev?type=nimble-anchor')}">nimble anchor element</${anchorTag}>.</div>
+            <${anchorTag} href="${x => (x.disabled ? undefined : 'https://nimble.ni.dev?type=nimble-anchor-1')}">${x => x.label}</${anchorTag}>
+            <div class="text">Text that contains a <${anchorTag} href="${x => (x.disabled ? undefined : 'https://nimble.ni.dev?type=nimble-anchor-2')}">nimble anchor element</${anchorTag}>.</div>
         </div>
 
         <div class="control-container">
