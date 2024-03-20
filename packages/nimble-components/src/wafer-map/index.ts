@@ -271,17 +271,46 @@ export class WaferMap extends FoundationElement {
             this.zoomHandler.connect();
             if (this.dataManager instanceof ExperimentalDataManager) {
                 const waferMapMatrix = {
-                    colIndexes: Uint32Array.from(this.diesTable?.getChild('colIndex')?.toArray() as number[]),
-                    rowIndexes: Uint32Array.from(this.diesTable?.getChild('rowIndex')?.toArray() as number[]),
-                    values: Float64Array.from(this.diesTable?.getChild('value')?.toArray() as number[])
+                    colIndexes: Uint32Array.from(
+                        this.diesTable
+                            ?.getChild('colIndex')
+                            ?.toArray() as number[]
+                    ),
+                    rowIndexes: Uint32Array.from(
+                        this.diesTable
+                            ?.getChild('rowIndex')
+                            ?.toArray() as number[]
+                    ),
+                    values: Float64Array.from(
+                        this.diesTable?.getChild('value')?.toArray() as number[]
+                    )
                 } as unknown as WaferMapMatrix;
-                this.workerOne.setDiesDimensions(10, 10).then(() => {
-                    this.workerOne.updateMatrix(waferMapMatrix).then(() => {
-                        this.workerOne.setScaling(this.dataManager.horizontalScale(0)!, this.dataManager.verticalScale(0)!, this.dataManager.horizontalScale(1)!, this.dataManager.verticalScale(1)!).then(() => {
-                            this.workerOne.drawWafer().then(() => { }, () => { });
-                        }, () => { });
-                    }, () => { });
-                }, () => { });
+                this.workerOne.setDiesDimensions(10, 10).then(
+                    () => {
+                        this.workerOne.updateMatrix(waferMapMatrix).then(
+                            () => {
+                                this.workerOne
+                                    .setScaling(
+                                        this.dataManager.horizontalScale(0)!,
+                                        this.dataManager.verticalScale(0)!,
+                                        this.dataManager.horizontalScale(1)!,
+                                        this.dataManager.verticalScale(1)!
+                                    )
+                                    .then(
+                                        () => {
+                                            this.workerOne.drawWafer().then(
+                                                () => {},
+                                                () => {}
+                                            );
+                                        },
+                                        () => {}
+                                    );
+                            },
+                            () => {}
+                        );
+                    },
+                    () => {}
+                );
             }
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
@@ -307,8 +336,8 @@ export class WaferMap extends FoundationElement {
             this.canvasWidth = width;
             this.canvasHeight = height;
             this.workerOne.setCanvasDimensions({ width, height }).then(
-                () => { },
-                () => { }
+                () => {},
+                () => {}
             );
         });
         return resizeObserver;
