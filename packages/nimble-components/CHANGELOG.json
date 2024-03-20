@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 20 Mar 2024 16:45:59 GMT",
+      "version": "22.1.1",
+      "tag": "@ni/nimble-components_v22.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "83f7fd9e601eed789e8f6eb61a9d4a87a1d1835b",
+            "comment": "Remove ListOptionOwner from Combobox to address issue found in Angular"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 20 Mar 2024 15:46:00 GMT",
       "version": "22.1.0",
       "tag": "@ni/nimble-components_v22.1.0",
