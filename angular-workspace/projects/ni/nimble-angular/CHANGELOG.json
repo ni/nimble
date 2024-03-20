@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 18 Mar 2024 17:12:34 GMT",
+      "version": "20.5.0",
+      "tag": "@ni/nimble-angular_v20.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda",
+            "comment": "Add new properties to the table label provider"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v22.1.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 14 Mar 2024 14:48:16 GMT",
       "version": "20.4.1",
       "tag": "@ni/nimble-angular_v20.4.1",
