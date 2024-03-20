@@ -43,11 +43,11 @@ describe('HoverHandler', () => {
         },
         {
             name: WaferMapOriginLocation.bottomRight,
-            expectedDie: { index: 8, x: 4, y: 3 }
+            expectedDie: { index: 10, x: 4, y: 5 }
         },
         {
             name: WaferMapOriginLocation.topRight,
-            expectedDie: { index: 14, x: 5, y: 4 }
+            expectedDie: { index: 9, x: 4, y: 4 }
         }
     ] as const;
 

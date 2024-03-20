@@ -45,8 +45,8 @@ export class HoverHandler {
             this.wafermap.hoverDie = undefined;
             return;
         }
-        const colIndex = this.wafermap.diesTable!
-            .getChild('colIndex')!
+        const colIndex = this.wafermap
+            .diesTable!.getChild('colIndex')!
             .toArray() as Int32Array;
         const rowIndex = this.wafermap
             .diesTable!.getChild('rowIndex')!
