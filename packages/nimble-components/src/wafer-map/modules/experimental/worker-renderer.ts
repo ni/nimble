@@ -13,7 +13,9 @@ export class WorkerRenderer {
     }
 
     public drawWafer(): void {
-        this.wafermap.workerOne.drawWafer().then(() => {}, () => {});
+        this.wafermap.workerOne.setTransform(this.wafermap.transform).then(() => {
+            this.wafermap.workerOne.drawWafer().then(() => { }, () => { });
+        }, () => { });
         this.renderHover();
     }
 

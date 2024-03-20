@@ -16,10 +16,21 @@ export class MatrixRenderer {
     public values = new Float64Array([]);
     public scaledColIndex = new Float64Array([]);
     public scaledRowIndex = new Float64Array([]);
+    private scaleX: number = 1;
+    private scaleY: number = 1;
+    private baseX: number = 1;
+    private baseY: number = 1;
     public dieDimensions: Dimensions = { width: 1, height: 1 };
     public transform: Transform = { k: 1, x: 0, y: 0 };
     public topLeftCanvasCorner: { x: number, y: number } = { x: 0, y: 0 };
     public bottomRightCanvasCorner: { x: number, y: number } = { x: 500, y: 500 };
+
+    public setScaling(scaleX: number, scaleY: number, baseX: number, baseY: number): void {
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+        this.baseX = baseX;
+        this.baseY = baseY;
+    }
 
     public setTransform(transform: Transform): void {
         this.transform = transform;
@@ -28,6 +39,11 @@ export class MatrixRenderer {
     public setCanvas(canvas: OffscreenCanvas): void {
         this.canvas = canvas;
         this.context = canvas.getContext('2d')!;
+    }
+
+    private scaleIndexes(): void {
+        this.scaledColIndex = new Float64Array(this.colIndexes.map((colIndex) => colIndex * this.scaleX + this.baseX));
+        this.scaledRowIndex = new Float64Array(this.rowIndexes.map((rowIndex) => rowIndex * this.scaleY + this.baseY));
     }
 
     public getMatrix(): WaferMapTypedMatrix {
@@ -58,6 +74,7 @@ export class MatrixRenderer {
     public updateMatrix(
         data: WaferMapMatrix
     ): void {
+        console.log('updateMatrix');
         this.colIndexes = Uint32Array.from(data.colIndexes);
         this.rowIndexes = Uint32Array.from(data.rowIndexes);
         this.values = Float64Array.from(data.values);
@@ -82,19 +99,16 @@ export class MatrixRenderer {
         this.context.save();
         this.clearCanvas();
         this.scaleCanvas();
-
+        this.scaleIndexes();
+        console.log(this.scaledColIndex, this.scaledRowIndex);
         for (let i = 0; i < this.scaledColIndex.length; i++) {
-            this.context.fillStyle = 'Blue';
+            // the fillStyle will be changed in a future pr
+            this.context.fillStyle = 'Red';
             const x = this.scaledColIndex[i]!;
             const y = this.scaledRowIndex[i]!;
-            if (!this.isDieVisible(x, y)) { continue; }
+             if (!this.isDieVisible(x, y)) { continue; }
             this.context.fillRect(x, y, this.dieDimensions.width, this.dieDimensions.height);
         }
-    }
-
-    public formatValue(value: number | undefined): string {
-        if (value === undefined) return '';
-        return parseFloat(value.toFixed(1)) + '...';
     }
 
     public isDieVisible(x: number, y: number): boolean {
