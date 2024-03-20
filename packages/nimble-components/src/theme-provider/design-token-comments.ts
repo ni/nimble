@@ -243,7 +243,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Font shorthand for the "BodyEmphasized_2" base token',
     bodyPlus1EmphasizedFontColor:
         'Font color for the "BodyEmphasized_2" base token',
-    bodyPlus1DisabledEmphasizedFontColor:
+    bodyPlus1EmphasizedDisabledFontColor:
         'Disabled font color for the "BodyEmphasized_2" base token',
     bodyPlus1EmphasizedFontFamily:
         'Font family for the "BodyEmphasized_2" base token',
