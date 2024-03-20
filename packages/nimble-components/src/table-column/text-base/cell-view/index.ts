@@ -4,7 +4,7 @@ import type { TableCellRecord } from '../../base/types';
 import { TextCellViewBaseAlignment } from './types';
 import type { TableFieldValue } from '../../../table/types';
 
-export interface TableColumnTextBaseCellRecord extends TableCellRecord{
+export interface TableColumnTextBaseCellRecord extends TableCellRecord {
     value: TableFieldValue;
 }
 
@@ -16,8 +16,10 @@ export interface TableColumnTextBaseColumnConfig {
  * The cell view base class for displaying fields of any type as text.
  */
 export abstract class TableColumnTextCellViewBase<
-    TCellRecord extends TableColumnTextBaseCellRecord = TableColumnTextBaseCellRecord,
-    TColumnConfig extends TableColumnTextBaseColumnConfig = TableColumnTextBaseColumnConfig
+    TCellRecord extends
+    TableColumnTextBaseCellRecord = TableColumnTextBaseCellRecord,
+    TColumnConfig extends
+    TableColumnTextBaseColumnConfig = TableColumnTextBaseColumnConfig
 > extends TableCellView<TCellRecord, TColumnConfig> {
     /** @internal */
     @observable

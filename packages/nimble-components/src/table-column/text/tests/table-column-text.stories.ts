@@ -98,7 +98,8 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
             control: { type: 'radio' }
         },
         placeholder: {
-            description: 'The placeholder text to display when the field value is `undefined` or `null` for a record.'
+            description:
+                'The placeholder text to display when the field value is `undefined` or `null` for a record.'
         }
     },
     args: {

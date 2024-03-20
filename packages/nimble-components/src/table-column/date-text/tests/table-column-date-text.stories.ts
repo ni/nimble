@@ -158,7 +158,8 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             control: { type: 'none' }
         },
         placeholder: {
-            description: 'The placeholder text to display when the field value is `undefined` or `null` for a record.'
+            description:
+                'The placeholder text to display when the field value is `undefined` or `null` for a record.'
         },
         format: {
             description:

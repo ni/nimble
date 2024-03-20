@@ -15,7 +15,8 @@ import { tableColumnDurationTextGroupHeaderViewTag } from './group-header-view';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
 export type TableColumnDurationTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnDurationTextColumnConfig extends TableColumnTextBaseColumnConfig {
+export interface TableColumnDurationTextColumnConfig
+    extends TableColumnTextBaseColumnConfig {
     formatter: DurationFormatter;
 }
 

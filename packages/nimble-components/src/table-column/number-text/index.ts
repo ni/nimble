@@ -29,7 +29,8 @@ import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnNumberTextColumnConfig extends TableColumnTextBaseColumnConfig {
+export interface TableColumnNumberTextColumnConfig
+    extends TableColumnTextBaseColumnConfig {
     formatter: UnitFormat;
     alignment: TextCellViewBaseAlignment;
 }

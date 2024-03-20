@@ -581,9 +581,9 @@ describe('TableColumnDateText', () => {
                             const expectedCellText = value.usesColumnPlaceholder
                                 ? placeholder
                                 : value.cellValue;
-                            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                                expectedCellText
-                            );
+                            expect(
+                                pageObject.getRenderedCellContent(0, 0)
+                            ).toBe(expectedCellText);
                             expect(
                                 pageObject.getRenderedGroupHeaderContent(0)
                             ).toBe(value.groupValue);
@@ -603,9 +603,9 @@ describe('TableColumnDateText', () => {
                             await connect();
                             await waitForUpdatesAsync();
 
-                            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                                value.cellValue
-                            );
+                            expect(
+                                pageObject.getRenderedCellContent(0, 0)
+                            ).toBe(value.cellValue);
                             expect(
                                 pageObject.getRenderedGroupHeaderContent(0)
                             ).toBe(value.groupValue);

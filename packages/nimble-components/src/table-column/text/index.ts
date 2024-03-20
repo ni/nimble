@@ -12,7 +12,8 @@ import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TableColumnTextColumnConfig extends TableColumnTextBaseColumnConfig {}
+export interface TableColumnTextColumnConfig
+    extends TableColumnTextBaseColumnConfig {}
 
 declare global {
     interface HTMLElementTagNameMap {

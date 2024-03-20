@@ -7,7 +7,10 @@ import {
 } from '../../../utilities/tests/matrix';
 import { Table, tableTag } from '../../../table';
 import { tableColumnTextTag } from '..';
-import { controlLabelFont, controlLabelFontColor } from '../../../theme-provider/design-tokens';
+import {
+    controlLabelFont,
+    controlLabelFontColor
+} from '../../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Table Column: Text',

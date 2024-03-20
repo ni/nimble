@@ -86,7 +86,11 @@ const component = (
 `;
 
 export const tableColumnAnchorThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [appearanceStates, underlineHiddenStates, placeholderStates])
+    createMatrix(component, [
+        appearanceStates,
+        underlineHiddenStates,
+        placeholderStates
+    ])
 );
 
 tableColumnAnchorThemeMatrix.play = async (): Promise<void> => {

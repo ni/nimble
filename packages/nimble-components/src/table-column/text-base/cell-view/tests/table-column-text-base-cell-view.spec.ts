@@ -26,7 +26,7 @@ describe('TableColumnTextCellViewBase', () => {
     })
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     class TestTextBaseCellView extends TableColumnTextCellViewBase {
-        protected override updateText(): void { }
+        protected override updateText(): void {}
     }
 
     async function setup(): Promise<Fixture<TableColumnTextCellViewBase>> {

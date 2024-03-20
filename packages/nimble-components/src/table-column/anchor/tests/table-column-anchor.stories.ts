@@ -122,7 +122,8 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             description: 'Causes the underline to be hidden except on hover.'
         },
         placeholder: {
-            description: 'The placeholder text to display when the label and href are both `undefined` or `null` for a record.'
+            description:
+                'The placeholder text to display when the label and href are both `undefined` or `null` for a record.'
         }
     },
     args: {

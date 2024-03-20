@@ -35,7 +35,8 @@ import { optionalBooleanConverter } from '../../utilities/models/converter';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnDateTextColumnConfig extends TableColumnTextBaseColumnConfig {
+export interface TableColumnDateTextColumnConfig
+    extends TableColumnTextBaseColumnConfig {
     formatter: Intl.DateTimeFormat;
 }
 

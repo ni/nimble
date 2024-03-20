@@ -36,7 +36,10 @@ TableColumnAnchorColumnConfig
     @volatile
     public get text(): string {
         const displayedText = this.cellRecord?.label ?? this.cellRecord?.href;
-        if ((displayedText === undefined || displayedText === null) && this.columnConfig?.placeholder) {
+        if (
+            (displayedText === undefined || displayedText === null)
+            && this.columnConfig?.placeholder
+        ) {
             this.isPlaceholder = true;
             return this.columnConfig.placeholder;
         }
