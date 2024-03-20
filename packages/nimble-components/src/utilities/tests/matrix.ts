@@ -27,7 +27,7 @@ type MakeTupleEntriesArrays<T> = { [K in keyof T]: readonly T[K][] };
 /**
  * Takes an array of state values and finds the permutations of the provided states.
  */
-function permute<T extends readonly unknown[]>(
+export function permute<T extends readonly unknown[]>(
     dimensions?: MakeTupleEntriesArrays<T>
 ): T[] {
     const permutations: T[] = [];
@@ -49,6 +49,22 @@ function permute<T extends readonly unknown[]>(
 }
 
 /**
+ * Takes an array of state values that can be used with a template.
+ */
+export function createMatrixFromStates<T extends readonly unknown[]>(
+    component: (...states: T) => ViewTemplate,
+    states: T[]
+): ViewTemplate {
+    const matrix = states.map(state => component(...state));
+    // prettier-ignore
+    return html`
+    ${repeat(() => matrix, html`
+        ${(x: ViewTemplate): ViewTemplate => x}
+    `)}
+`;
+}
+
+/**
  * Takes an array of state values that can be used with the template to match the permutations of the provided states.
  */
 export function createMatrix<T extends readonly unknown[]>(
@@ -56,15 +72,10 @@ export function createMatrix<T extends readonly unknown[]>(
     dimensions?: MakeTupleEntriesArrays<T>,
     filter?: (...states: T) => boolean
 ): ViewTemplate {
-    const matrix = permute(dimensions)
-        .filter(states => !filter || filter(...states))
-        .map(states => component(...states));
-    // prettier-ignore
-    return html`
-        ${repeat(() => matrix, html`
-            ${(x: ViewTemplate): ViewTemplate => x}
-        `)}
-    `;
+    const states = permute(dimensions).filter(
+        state => !filter || filter(...state)
+    );
+    return createMatrixFromStates(component, states);
 }
 
 /**
@@ -74,17 +85,18 @@ export const createMatrixThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
 ): ((source: TSource) => Element) => {
     return (source: TSource): Element => {
-        const matrixTemplate = createMatrix(
-            ({ theme, value }: BackgroundState) => html`
-                <${themeProviderTag}
-                    theme="${theme}">
-                    <div style="background-color: ${value}; padding:20px;">
-                        ${viewTemplate}
-                    </div>
-                </${themeProviderTag}>
-            `,
-            [backgroundStates]
-        );
+        const component = ({
+            theme,
+            value
+        }: BackgroundState): ViewTemplate => html`
+            <${themeProviderTag}
+                theme="${theme}">
+                <div style="background-color: ${value}; padding:20px;">
+                    ${viewTemplate}
+                </div>
+            </${themeProviderTag}>
+        `;
+        const matrixTemplate = createMatrix(component, [backgroundStates]);
         const wrappedMatrixTemplate = html<TSource>`
             <div class="code-hide-top-container">${matrixTemplate}</div>
         `;
