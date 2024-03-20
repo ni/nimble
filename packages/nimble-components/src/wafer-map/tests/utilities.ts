@@ -151,17 +151,19 @@ export function getWaferMapMockHover(
     transform: ZoomTransform,
     originLocation: WaferMapOriginLocation,
     hoverDie: HoverDie | undefined,
-    dataManager: DataManager
+    dataManager: DataManager,
+    isExperimentalRenderer: boolean
 ): Pick<
     WaferMap,
-    'diesTable' | 'transform' | 'originLocation' | 'hoverDie' | 'dataManager'
+    'diesTable' | 'transform' | 'originLocation' | 'hoverDie' | 'dataManager' | 'isExperimentalRenderer'
     > {
     return {
         diesTable,
         transform,
         originLocation,
         hoverDie,
-        dataManager
+        dataManager,
+        isExperimentalRenderer: () => isExperimentalRenderer
     };
 }
 export function getWaferMapMockComputations(
