@@ -48,10 +48,10 @@ export class HoverHandler<T extends WaferRequiredTypeMap> {
         });
         const colIndex = this.wafermap
             .diesTable!.getChild('colIndex')!
-            .toArray() as Int32Array;
+            .toArray();
         const rowIndex = this.wafermap
             .diesTable!.getChild('rowIndex')!
-            .toArray() as Int32Array;
+            .toArray();
 
         // will replace iterating with arquero filtering after fixing errors
         for (let i = 0; i < colIndex.length; i++) {
