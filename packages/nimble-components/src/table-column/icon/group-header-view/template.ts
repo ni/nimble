@@ -29,4 +29,13 @@ export const template = html<TableColumnIconGroupHeaderView>`
         >${x => x.text}</span>
     `
     )}
+    ${when(
+        x => x.visual === undefined,
+        html<TableColumnIconGroupHeaderView>`
+        <span    
+            ${overflow('hasOverflow')}
+            title="${x => (x.hasOverflow && x.text ? x.text : null)}"
+        >${x => x.text}</span>
+    `
+    )}
 `;

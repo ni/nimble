@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 12 Mar 2024 21:01:54 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Mar 2024 16:45:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 22.1.1
+
+Wed, 20 Mar 2024 16:45:59 GMT
+
+### Patches
+
+- Remove ListOptionOwner from Combobox to address issue found in Angular ([ni/nimble@83f7fd9](https://github.com/ni/nimble/commit/83f7fd9e601eed789e8f6eb61a9d4a87a1d1835b))
+
+## 22.1.0
+
+Mon, 18 Mar 2024 17:12:34 GMT
+
+### Minor changes
+
+- Add placeholders for group rows in the table ([ni/nimble@3bbf8d7](https://github.com/ni/nimble/commit/3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda))
+
+## 22.0.1
+
+Thu, 14 Mar 2024 14:48:16 GMT
+
+### Patches
+
+- Fix bug where an anchor element's link couldn't be dragged correctly ([ni/nimble@a1eebb0](https://github.com/ni/nimble/commit/a1eebb02b4fb66ca77e0e32bb52497b2da1cb4cf))
+
+## 22.0.0
+
+Wed, 13 Mar 2024 23:07:24 GMT
+
+### Major changes
+
+- Rename icon labels to follow naming convention ([ni/nimble@518c229](https://github.com/ni/nimble/commit/518c229b964d2c4a2e77210692f5d367f2937ff4))
+
+## 21.10.2
+
+Tue, 12 Mar 2024 22:17:11 GMT
+
+### Patches
+
+- Adding DropdownOwner interface allowing Select to register options during connectedCallback. ([ni/nimble@19643f4](https://github.com/ni/nimble/commit/19643f4e13056e414aedd6b8ef89beb7ad1e95ab))
 
 ## 21.10.1
 

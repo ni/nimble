@@ -33,6 +33,11 @@ public class NimbleLabelProviderCoreTests
     [InlineData(nameof(NimbleLabelProviderCore.PopupDismiss))]
     [InlineData(nameof(NimbleLabelProviderCore.NumericDecrement))]
     [InlineData(nameof(NimbleLabelProviderCore.NumericIncrement))]
+    [InlineData(nameof(NimbleLabelProviderCore.PopupIconError))]
+    [InlineData(nameof(NimbleLabelProviderCore.PopupIconWarning))]
+    [InlineData(nameof(NimbleLabelProviderCore.PopupIconInformation))]
+    [InlineData(nameof(NimbleLabelProviderCore.FilterSearch))]
+    [InlineData(nameof(NimbleLabelProviderCore.FilterNoResults))]
     public void NimbleLabelProviderCore_LabelIsSet(string propertyName)
     {
         var labelValue = propertyName + "UpdatedValue";
