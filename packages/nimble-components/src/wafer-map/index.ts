@@ -252,6 +252,13 @@ export class WaferMap extends FoundationElement {
         }
     }
 
+    /**
+     * @internal
+     */
+    public isExperimentalRenderer(): boolean {
+        return this.diesTable !== undefined;
+    }
+
     private validate(): void {
         this.waferMapValidator.validateGridDimensions();
         this.waferMapValidator.validateDiesTableSchema();
