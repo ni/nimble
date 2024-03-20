@@ -29,8 +29,8 @@ type MakeTupleEntriesArrays<T> = { [K in keyof T]: readonly T[K][] };
  */
 export function permute<T extends readonly unknown[]>(
     dimensions?: MakeTupleEntriesArrays<T>
-): T[] {
-    const permutations: T[] = [];
+): [...T][] {
+    const permutations: [...T][] = [];
     const recurseDimensions = (
         currentDimensions?: readonly (readonly unknown[])[],
         ...states: readonly unknown[]
@@ -41,7 +41,7 @@ export function permute<T extends readonly unknown[]>(
                 recurseDimensions(remainingDimensions, ...states, currentState);
             }
         } else {
-            permutations.push(states as T);
+            permutations.push(states as [...T]);
         }
     };
     recurseDimensions(dimensions);
