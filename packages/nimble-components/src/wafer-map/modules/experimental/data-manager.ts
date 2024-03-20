@@ -35,6 +35,13 @@ export class DataManager {
         return this.prerendering.labelsFontSize;
     }
 
+    public get colorScale(): {
+        colors: string[],
+        values: number[]
+    } {
+        return this.prerendering.colorScale;
+    }
+
     private readonly computations;
     private readonly prerendering;
 
