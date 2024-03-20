@@ -24,7 +24,7 @@ export class HoverHandler {
     }
 
     private readonly onMouseMove = (event: MouseEvent): void => {
-        if (this.wafermap.diesTable !== undefined) {
+        if (this.wafermap.isExperimentalRenderer()) {
             return;
         }
         const mousePosition: PointCoordinates = {

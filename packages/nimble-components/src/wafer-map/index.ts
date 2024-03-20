@@ -205,7 +205,7 @@ export class WaferMap extends FoundationElement {
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
-        this.renderer = this.diesTable === undefined
+        this.renderer = !this.isExperimentalRenderer()
             ? this.mainRenderer
             : this.workerRenderer;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
@@ -234,6 +234,13 @@ export class WaferMap extends FoundationElement {
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
+    }
+
+    /**
+     * @internal
+     */
+    public isExperimentalRenderer(): boolean {
+        return this.diesTable !== undefined;
     }
 
     private validate(): void {

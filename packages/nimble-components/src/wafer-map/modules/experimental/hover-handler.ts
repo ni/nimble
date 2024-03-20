@@ -28,7 +28,7 @@ export class HoverHandler {
      * keep public for testing until data manager refactor
      */
     public readonly onMouseMove = (event: MouseEvent): void => {
-        if (this.wafermap.diesTable === undefined) {
+        if (!this.wafermap.isExperimentalRenderer()) {
             return;
         }
         // get original mouse position in case we are in zoom.
@@ -42,10 +42,10 @@ export class HoverHandler {
             x: invertedPoint[0],
             y: invertedPoint[1]
         });
-        const colIndex = this.wafermap.diesTable
+        const colIndex = this.wafermap.diesTable!
             .getChild('colIndex')!
             .toArray() as Int32Array;
-        const rowIndex = this.wafermap.diesTable
+        const rowIndex = this.wafermap.diesTable!
             .getChild('rowIndex')!
             .toArray() as Int32Array;
 
