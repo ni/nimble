@@ -13,7 +13,7 @@ export class WorkerRenderer {
     }
 
     public drawWafer(): void {
-        // rendering will be implemented in a future PR
+        this.wafermap.workerOne.drawWafer().then(() => {}, () => {});
         this.renderHover();
     }
 
