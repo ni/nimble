@@ -7,12 +7,12 @@ import { TableColumnSortOperation } from '../base/types';
 import { tableColumnTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
+import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 
-export interface TableColumnTextColumnConfig {
-    placeholder?: string;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TableColumnTextColumnConfig extends TableColumnTextBaseColumnConfig {}
 
 declare global {
     interface HTMLElementTagNameMap {

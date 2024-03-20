@@ -20,25 +20,8 @@ export class TableColumnDurationTextCellView extends TableColumnTextCellViewBase
 TableColumnDurationTextCellRecord,
 TableColumnDurationTextColumnConfig
 > {
-    private columnConfigChanged(): void {
-        this.updateText();
-    }
-
-    private cellRecordChanged(): void {
-        this.updateText();
-    }
-
-    private updateText(): void {
-        const cellValue = this.cellRecord?.value;
-        if (
-            this.applyPlaceholderTextIfNeeded(
-                cellValue,
-                this.columnConfig?.placeholder
-            )
-        ) {
-            return;
-        }
-        this.text = this.columnConfig?.formatter.format(cellValue) ?? '';
+    protected updateText(): void {
+        this.text = this.columnConfig?.formatter.format(this.cellRecord?.value) ?? '';
     }
 }
 

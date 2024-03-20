@@ -4,12 +4,20 @@ import type { TableCellRecord } from '../../base/types';
 import { TextCellViewBaseAlignment } from './types';
 import type { TableFieldValue } from '../../../table/types';
 
+export interface TableColumnTextBaseCellRecord extends TableCellRecord{
+    value: TableFieldValue;
+}
+
+export interface TableColumnTextBaseColumnConfig {
+    placeholder?: string;
+}
+
 /**
  * The cell view base class for displaying fields of any type as text.
  */
 export abstract class TableColumnTextCellViewBase<
-    TCellRecord extends TableCellRecord = TableCellRecord,
-    TColumnConfig = unknown
+    TCellRecord extends TableColumnTextBaseCellRecord = TableColumnTextBaseCellRecord,
+    TColumnConfig extends TableColumnTextBaseColumnConfig = TableColumnTextBaseColumnConfig
 > extends TableCellView<TCellRecord, TColumnConfig> {
     /** @internal */
     @observable
@@ -22,21 +30,38 @@ export abstract class TableColumnTextCellViewBase<
     public text = '';
 
     /**
-     * Whether or not the text being displayed in the cell view is a placeholder.
-     */
-    @observable
-    public isPlaceholder = false;
-
-    /**
      * The alignment of the text within the cell.
      */
     @observable
     public alignment: TextCellViewBaseAlignment = TextCellViewBaseAlignment.left;
 
-    protected applyPlaceholderTextIfNeeded(
-        cellValue: TableFieldValue,
-        placeholder: string | undefined
-    ): boolean {
+    /**
+     * Whether or not the text being displayed in the cell view is a placeholder.
+     */
+    @observable
+    public isPlaceholder = false;
+
+    protected abstract updateText(): void;
+
+    protected columnConfigChanged(): void {
+        if (!this.applyPlaceholderTextIfNeeded()) {
+            this.updateText();
+        }
+    }
+
+    private cellRecordChanged(): void {
+        if (!this.applyPlaceholderTextIfNeeded()) {
+            this.updateText();
+        }
+    }
+
+    /**
+     * Sets `this.text` to the appropriate placeholder if `cellValue` warrants it.
+     * @returns `true` if `this.text` was set to a placeholder, `false` otherwise.
+     */
+    private applyPlaceholderTextIfNeeded(): boolean {
+        const cellValue = this.cellRecord?.value;
+        const placeholder = this.columnConfig?.placeholder;
         if (placeholder && (cellValue === null || cellValue === undefined)) {
             this.text = placeholder;
             this.isPlaceholder = true;

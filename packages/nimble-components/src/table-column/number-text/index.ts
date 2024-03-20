@@ -26,12 +26,12 @@ import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
 import { Unit } from '../../unit/base/unit';
 import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-custom-elements-defined-async';
+import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnNumberTextColumnConfig {
+export interface TableColumnNumberTextColumnConfig extends TableColumnTextBaseColumnConfig {
     formatter: UnitFormat;
     alignment: TextCellViewBaseAlignment;
-    placeholder?: string;
 }
 
 declare global {

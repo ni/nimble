@@ -32,11 +32,11 @@ import {
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
 import { lang } from '../../theme-provider';
 import { optionalBooleanConverter } from '../../utilities/models/converter';
+import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnDateTextColumnConfig {
+export interface TableColumnDateTextColumnConfig extends TableColumnTextBaseColumnConfig {
     formatter: Intl.DateTimeFormat;
-    placeholder?: string;
 }
 
 declare global {

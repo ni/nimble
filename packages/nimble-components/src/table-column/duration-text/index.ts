@@ -12,11 +12,11 @@ import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { lang } from '../../theme-provider';
 import { DurationFormatter } from './models/duration-formatter';
 import { tableColumnDurationTextGroupHeaderViewTag } from './group-header-view';
+import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
 export type TableColumnDurationTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnDurationTextColumnConfig {
+export interface TableColumnDurationTextColumnConfig extends TableColumnTextBaseColumnConfig {
     formatter: DurationFormatter;
-    placeholder?: string;
 }
 
 declare global {

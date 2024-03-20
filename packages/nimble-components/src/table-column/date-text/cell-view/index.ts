@@ -21,28 +21,11 @@ export class TableColumnDateTextCellView extends TableColumnTextCellViewBase<
 TableColumnDateTextCellRecord,
 TableColumnDateTextColumnConfig
 > {
-    private columnConfigChanged(): void {
-        this.updateText();
-    }
-
-    private cellRecordChanged(): void {
-        this.updateText();
-    }
-
-    private updateText(): void {
-        const cellValue = this.cellRecord?.value;
-        if (
-            this.applyPlaceholderTextIfNeeded(
-                cellValue,
-                this.columnConfig?.placeholder
-            )
-        ) {
-            return;
-        }
+    protected updateText(): void {
         if (this.columnConfig) {
             this.text = formatNumericDate(
                 this.columnConfig.formatter,
-                cellValue
+                this.cellRecord?.value
             );
         } else {
             this.text = '';
