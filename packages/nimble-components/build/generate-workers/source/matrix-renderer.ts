@@ -103,7 +103,6 @@ export class MatrixRenderer {
         this.clearCanvas();
         this.scaleCanvas();
         this.scaleIndexes();
-        console.log(this.scaledColIndex, this.scaledRowIndex);
         for (let i = 0; i < this.scaledColIndex.length; i++) {
             // the fillStyle will be changed in a future pr
             this.context.fillStyle = 'Red';
