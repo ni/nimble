@@ -108,7 +108,7 @@
   "devDependencies": {
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.20.12",
-    "@chromatic-com/storybook": "^1.2.18",
+    "@chromatic-com/storybook": "^1.2.25",
     "@microsoft/fast-react-wrapper": "0.3.22",
     "@ni/eslint-config-javascript": "^4.2.0",
     "@ni/eslint-config-typescript": "^4.2.0",
@@ -139,8 +139,6 @@
     "dotenv-webpack": "^8.0.1",
     "eslint-plugin-jsdoc": "^48.2.0",
     "eslint-plugin-storybook": "^0.8.0",
-    "hast-util-is-element": "^3.0.0",
-    "hast-util-to-string": "^3.0.0",
     "html-webpack-plugin": "^5.3.1",
     "jasmine-core": "^5.1.2",
     "js-beautify": "^1.15.1",
