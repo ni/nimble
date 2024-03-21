@@ -3,6 +3,7 @@ import { MatrixRenderer } from '../matrix-renderer';
 
 describe('MatrixRenderer with MessageChannel', () => {
     let matrixRenderer: Remote<MatrixRenderer>;
+    const testData = { colIndexes: [4, 1, 2], rowIndexes: [54, 54, 62], values: [8.12, 9.0, 0.32] };
 
     beforeEach(async () => {
         const { port1, port2 } = new MessageChannel();
@@ -12,7 +13,6 @@ describe('MatrixRenderer with MessageChannel', () => {
     });
 
     it('updateMatrix should update the dieMatrix', async () => {
-        const testData = { colIndexes: [4, 1, 2], rowIndexes: [54, 54, 62], values: [8.12, 9.0, 0.32] };
         await matrixRenderer.updateMatrix(testData);
 
         const updatedMatrix = await matrixRenderer.getMatrix();
@@ -35,11 +35,6 @@ describe('MatrixRenderer with MessageChannel', () => {
     });
 
     it('should get the matrix', async () => {
-        const testData = {
-            colIndexes: [4, 1, 2],
-            rowIndexes: [54, 54, 62],
-            values: [8.12, 9.0, 0.32]
-        };
 
         await matrixRenderer.updateMatrix(testData);
 
