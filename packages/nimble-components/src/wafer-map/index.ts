@@ -280,16 +280,10 @@ export class WaferMap extends FoundationElement {
             return;
         }
         const waferMapMatrix = {
-            colIndexes: Uint32Array.from(
-                this.diesTable.getChild('colIndex')?.toArray() as number[]
-            ),
-            rowIndexes: Uint32Array.from(
-                this.diesTable.getChild('rowIndex')?.toArray() as number[]
-            ),
-            values: Float64Array.from(
-                this.diesTable.getChild('value')?.toArray() as number[]
-            )
-        } as unknown as WaferMapMatrix;
+            colIndexes: this.diesTable.getChild('colIndex')?.toArray() as number[],
+            rowIndexes: this.diesTable.getChild('rowIndex')?.toArray() as number[],
+            values: this.diesTable.getChild('value')?.toArray() as number[]
+        } as WaferMapMatrix;
         await this.workerOne.updateMatrix(waferMapMatrix);
         await this.setupWorker();
         await this.workerOne.drawWafer();
