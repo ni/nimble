@@ -11,11 +11,11 @@ import type { Dimensions, Transform, WaferMapMatrix, WaferMapTypedMatrix } from 
 export class MatrixRenderer {
     public colIndexes: Uint32Array = Uint32Array.from([]);
     public rowIndexes: Uint32Array = Uint32Array.from([]);
-    public canvas!: OffscreenCanvas;
-    public context!: OffscreenCanvasRenderingContext2D;
     public values = new Float64Array([]);
     public scaledColIndex = new Float64Array([]);
     public scaledRowIndex = new Float64Array([]);
+    public canvas!: OffscreenCanvas;
+    public context!: OffscreenCanvasRenderingContext2D;
     private scaleX: number = 1;
     private scaleY: number = 1;
     private baseX: number = 1;
@@ -24,7 +24,7 @@ export class MatrixRenderer {
     private transform: Transform = { k: 1, x: 0, y: 0 };
     private topLeftCanvasCorner: { x: number, y: number } = { x: 0, y: 0 };
     private bottomRightCanvasCorner: { x: number, y: number } = { x: 500, y: 500 };
-    public margin: { top: number, right: number, bottom: number, left: number } = { top: 20, right: 20, bottom: 20, left: 20 };
+    private margin: { top: number, right: number, bottom: number, left: number } = { top: 20, right: 20, bottom: 20, left: 20 };
 
     public setMargin(margin: { top: number, right: number, bottom: number, left: number }): void {
         this.margin = margin;
