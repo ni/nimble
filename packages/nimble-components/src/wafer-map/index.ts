@@ -110,11 +110,16 @@ export class WaferMap<
     /**
      * @internal
      */
-    public readonly mainRenderer: RenderingModule<T> = new RenderingModule(this);
+    public readonly mainRenderer: RenderingModule<T> = new RenderingModule(
+        this
+    );
+
     /**
      * @internal
      */
-    public readonly workerRenderer: WorkerRenderer<T> = new WorkerRenderer(this);
+    public readonly workerRenderer: WorkerRenderer<T> = new WorkerRenderer(
+        this
+    );
 
     @observable
     public renderer: RenderingModule<T> | WorkerRenderer<T> = this.mainRenderer;
