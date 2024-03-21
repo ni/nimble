@@ -1,3 +1,4 @@
+import { html, type ViewTemplate } from '@microsoft/fast-element';
 import { Theme } from '../../theme-provider/types';
 
 export const backgroundStates = [
@@ -25,6 +26,7 @@ export const disabledStates = [
     ['Disabled', true]
 ] as const;
 export type DisabledState = (typeof disabledStates)[number];
+const disabledStateDisabled = disabledStates[1];
 
 export const errorStates = [
     ['', false, ''],
@@ -57,11 +59,32 @@ export const interactionStates = [
 export type InteractionState =
     | (typeof interactionStates)[number]
     | (typeof nonInteractionStates)[number];
+const interactionStateHovered = interactionStates[0];
 
-// Only interaction relevant to disabled controls is hover
+export function interactionsWrapper<T extends readonly unknown[]>(
+    component: (...states: T) => ViewTemplate
+): (interactionState: InteractionState, ...states: T) => ViewTemplate {
+    return ([interactionName, interaction]: InteractionState, ...original) => html`
+        <div class="${interaction}">
+            <span>${interactionName}</span>
+            ${component(...original)}
+        </div>
+    `;
+}
+
 export function disabledInteractionsFilter(
     interactionState: InteractionState,
     disabledState: DisabledState
 ): boolean {
     return disabledState[0] !== 'Disabled' || interactionState[0] === 'Hovered';
+}
+
+export function removeUnusuedDisabledInteractions<U extends unknown[], T extends [InteractionState, DisabledState, ...U]>([
+    interactionState,
+    disabledState,
+]: T): boolean {
+    if (disabledState === disabledStateDisabled && interactionState !== interactionStateHovered) {
+        return false;
+    }
+    return true;
 }

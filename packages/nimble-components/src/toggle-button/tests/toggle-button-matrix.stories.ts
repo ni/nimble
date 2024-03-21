@@ -5,15 +5,16 @@ import { ButtonAppearance } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters,
-    createMatrixThemeStory
+    createMatrixThemeStory,
+    createMatrixFromStates,
+    permute
 } from '../../utilities/tests/matrix';
 import {
     disabledStates,
     DisabledState,
-    InteractionState,
     interactionStates,
-    nonInteractionStates,
-    disabledInteractionsFilter
+    removeUnusuedDisabledInteractions,
+    interactionsWrapper
 } from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -40,6 +41,7 @@ const partVisibilityStates = [
     [false, true, true]
 ] as const;
 type PartVisibilityState = (typeof partVisibilityStates)[number];
+const partVisibilityStatesOnlyLabel = partVisibilityStates[2];
 
 const appearanceStates: [string, string | undefined][] = Object.entries(
     ButtonAppearance
@@ -54,28 +56,25 @@ type CheckedState = (typeof checkedStates)[number];
 
 // prettier-ignore
 const component = (
-    [interactionName, interaction]: InteractionState,
     [disabledName, disabled]: DisabledState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
     [checkedName, checked]: CheckedState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <${toggleButtonTag}
-        class="${() => interaction}"
         appearance="${() => appearance}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         ?checked=${() => checked}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
-            ${() => `${interactionName} ${checkedName} ${appearanceName} Toggle Button ${disabledName}`}
+            ${() => `${checkedName} ${appearanceName} Toggle Button ${disabledName}`}
             ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
     </${toggleButtonTag}>
 `;
 
 export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        nonInteractionStates,
         disabledStates,
         partVisibilityStates,
         checkedStates,
@@ -84,16 +83,15 @@ export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 export const toggleButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(
-        component,
-        [
+    createMatrixFromStates(
+        interactionsWrapper(component),
+        permute([
             interactionStates,
             disabledStates,
-            [[false, true, false]],
+            [partVisibilityStatesOnlyLabel],
             checkedStates,
             appearanceStates
-        ],
-        disabledInteractionsFilter
+        ] as const).filter(removeUnusuedDisabledInteractions)
     )
 );
 
