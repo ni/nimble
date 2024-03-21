@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Breaking change: Renamed bodyEmphasizedPlus1 to bodyPlus1Emphasized to align with token conventions. Also, added bodyPlus1 font token",
-  "packageName": "@ni/nimble-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

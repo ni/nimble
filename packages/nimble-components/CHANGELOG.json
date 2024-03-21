@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 21 Mar 2024 17:13:38 GMT",
+      "version": "23.0.0",
+      "tag": "@ni/nimble-components_v23.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b93385a27672ebc03e18a864e8fa268727595c66",
+            "comment": "Breaking change: Renamed bodyEmphasizedPlus1 to bodyPlus1Emphasized to align with token conventions. Also, added bodyPlus1 font token"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.13.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 21 Mar 2024 16:25:39 GMT",
       "version": "22.1.1",
       "tag": "@ni/nimble-components_v22.1.1",
