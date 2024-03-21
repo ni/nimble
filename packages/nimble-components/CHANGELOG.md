@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 18 Mar 2024 17:12:34 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Mar 2024 16:45:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 22.1.1
+
+Wed, 20 Mar 2024 16:45:59 GMT
+
+### Patches
+
+- Remove ListOptionOwner from Combobox to address issue found in Angular ([ni/nimble@83f7fd9](https://github.com/ni/nimble/commit/83f7fd9e601eed789e8f6eb61a9d4a87a1d1835b))
 
 ## 22.1.0
 

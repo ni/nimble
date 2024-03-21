@@ -5,16 +5,15 @@ import type {
     Dimensions,
     DieRenderInfo,
     WaferMapColorScale,
-    WaferMapDie
+    WaferMapDie,
+    WaferRequiredTypeMap
 } from '../types';
 import type { WaferMap } from '..';
-import type { DataManager } from './data-manager';
-import type { DataManager as ExpDataManager } from './experimental/data-manager';
 
 /**
  * Prerendering prepares render-ready dies data to be used by the rendering module
  */
-export class Prerendering {
+export class Prerendering<T extends WaferRequiredTypeMap> {
     public get labelsFontSize(): number {
         return this._labelsFontSize;
     }
@@ -35,14 +34,11 @@ export class Prerendering {
     private readonly emptyDieColor = 'rgba(218,223,236,1)';
     private readonly nanDieColor = 'rgba(122,122,122,1)';
 
-    public constructor(
-        private readonly wafermap: WaferMap,
-        private readonly dataManager: Readonly<DataManager | ExpDataManager>
-    ) {}
+    public constructor(private readonly wafermap: WaferMap<T>) {}
 
     public updateLabelsFontSize(): void {
         this._labelsFontSize = this.calculateLabelsFontSize(
-            this.dataManager.dieDimensions,
+            this.wafermap.dataManager.dieDimensions,
             this.wafermap.maxCharacters
         );
         this.updateDiesRenderInfo();
@@ -84,10 +80,10 @@ export class Prerendering {
     }
 
     private computeDieRenderInfo(die: WaferMapDie): DieRenderInfo | null {
-        const margin = this.dataManager.margin;
+        const margin = this.wafermap.dataManager.margin;
 
-        const scaledX = this.dataManager.horizontalScale(die.x);
-        const scaledY = this.dataManager.verticalScale(die.y);
+        const scaledX = this.wafermap.dataManager.horizontalScale(die.x);
+        const scaledY = this.wafermap.dataManager.verticalScale(die.y);
 
         if (scaledX === undefined || scaledY === undefined) {
             return null;

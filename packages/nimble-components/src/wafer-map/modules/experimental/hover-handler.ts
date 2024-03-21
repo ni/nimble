@@ -1,12 +1,12 @@
 import type { WaferMap } from '../..';
-import { PointCoordinates, WaferMapOriginLocation } from '../../types';
+import { PointCoordinates, WaferMapOriginLocation, WaferRequiredTypeMap } from '../../types';
 import { DataManager } from './data-manager';
 
 /**
  * HoverHandler deals with user interactions and events like hovering
  */
-export class HoverHandler {
-    public constructor(private readonly wafermap: WaferMap) {}
+export class HoverHandler<T extends WaferRequiredTypeMap> {
+    public constructor(private readonly wafermap: WaferMap<T>) {}
 
     /**
      * @internal
@@ -47,10 +47,10 @@ export class HoverHandler {
         }
         const colIndex = this.wafermap
             .diesTable!.getChild('colIndex')!
-            .toArray() as Int32Array;
+            .toArray();
         const rowIndex = this.wafermap
             .diesTable!.getChild('rowIndex')!
-            .toArray() as Int32Array;
+            .toArray();
 
         // will replace iterating with arquero filtering after fixing errors
         for (let i = 0; i < colIndex.length; i++) {

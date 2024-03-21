@@ -19,7 +19,8 @@ import {
     WaferMapDie,
     WaferMapOrientation,
     WaferMapOriginLocation,
-    WaferMapValidity
+    WaferMapValidity,
+    WaferRequiredTypeMap
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
@@ -37,12 +38,14 @@ declare global {
 /**
  * A nimble-styled WaferMap
  */
-export class WaferMap extends FoundationElement {
+export class WaferMap<
+    T extends WaferRequiredTypeMap = WaferRequiredTypeMap
+> extends FoundationElement {
     /**
      * @internal
      * needs to be initialized before the properties trigger changes
      */
-    public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
+    public readonly waferMapUpdateTracker: WaferMapUpdateTracker<T> = new WaferMapUpdateTracker(this);
 
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
@@ -92,7 +95,7 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly stableDataManager = new DataManager(this);
+    public readonly stableDataManager: DataManager<T> = new DataManager(this);
 
     /**
      * @internal
@@ -102,7 +105,7 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public dataManager: DataManager | ExperimentalDataManager = this.stableDataManager;
+    public dataManager: DataManager<T> | ExperimentalDataManager = this.stableDataManager;
 
     /**
      * @internal
@@ -114,7 +117,7 @@ export class WaferMap extends FoundationElement {
     public readonly workerRenderer = new WorkerRenderer(this);
 
     @observable
-    public renderer: RenderingModule | WorkerRenderer = this.mainRenderer;
+    public renderer: RenderingModule<T> | WorkerRenderer<T> = this.mainRenderer;
 
     /**
      * @internal
@@ -163,7 +166,7 @@ export class WaferMap extends FoundationElement {
 
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
-    @observable public diesTable: Table | undefined;
+    @observable public diesTable: Table<T> | undefined;
 
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
@@ -218,9 +221,9 @@ export class WaferMap extends FoundationElement {
             return;
         }
         // will switch the renderer after prerendering changes
-        // this.renderer = this.diesTable === undefined
-        //     ? this.mainRenderer
-        //     : this.workerRenderer;
+        // this.renderer = this.isExperimentalRenderer()
+        //     ? this.workerRenderer
+        //     : this.mainRenderer;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             // zoom translateExtent needs to be recalculated when canvas size changes
             this.zoomHandler.disconnect();

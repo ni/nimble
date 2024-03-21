@@ -1,14 +1,14 @@
 import type { WaferMap } from '..';
-import { DieRenderInfo, HoverDieOpacity } from '../types';
+import { DieRenderInfo, HoverDieOpacity, WaferRequiredTypeMap } from '../types';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
-export class RenderingModule {
+export class RenderingModule<T extends WaferRequiredTypeMap> {
     private dies!: DieRenderInfo[];
     private readonly minDieDim = 50;
 
-    public constructor(private readonly wafermap: WaferMap) {}
+    public constructor(private readonly wafermap: WaferMap<T>) {}
 
     public updateSortedDiesAndDrawWafer(): void {
         this.dies = this.wafermap.dataManager.diesRenderInfo.sort((a, b) => {
