@@ -19,7 +19,7 @@
  */
 
 import {LocationStrategy} from '@angular/common';
-import {Attribute, booleanAttribute, Directive, ElementRef, HostBinding, HostListener, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges, ɵɵsanitizeUrlOrResourceUrl} from '@angular/core';
+import {Attribute, booleanAttribute, Directive, ElementRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges, ɵɵsanitizeUrlOrResourceUrl} from '@angular/core';
 import {Subject, Subscription} from 'rxjs';
 
 import { Event, Params, QueryParamsHandling, ActivatedRoute, Router, NavigationEnd, UrlTree } from '@angular/router';
@@ -197,7 +197,8 @@ export class RouterLink implements OnChanges, OnDestroy {
       private router: Router, private route: ActivatedRoute,
       @Attribute('tabindex') private readonly tabIndexAttribute: string|null|undefined,
       private readonly renderer: Renderer2, private readonly el: ElementRef,
-      private locationStrategy?: LocationStrategy) {
+      // [Nimble] Need Inject decorator
+      @Inject(LocationStrategy) private locationStrategy?: LocationStrategy) {
 
     // [Nimble] Hard-coding `isAnchorElement` to `true`
     // const tagName = el.nativeElement.tagName?.toLowerCase();
