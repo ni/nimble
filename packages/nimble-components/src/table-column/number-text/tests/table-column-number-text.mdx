@@ -28,7 +28,11 @@ based on the value of the `lang` token, which can be set via the [nimble-theme-p
 ### Best Practices
 
 -   {noNullAndUndefinedBestPractice}
--   If relevant to your data source, make sure to consider the IEEE 754 special cases of `-Inf`, `+Inf`, `-0`, `+0`, and `NaN`.
+-   If relevant to your data source, make sure to consider the IEEE 754 special cases of `-Inf`, `+Inf`, `-0`, `+0`, and `NaN`. Those values are handled as follows in the table.
+    -   `-Inf` will be rendered as `-∞` in the table. It is considered the smallest possible number when sorting.
+    -   `+Inf` will be rendered as `∞` in the table. It is considered the largest possible number when sorting.
+    -   `-0` will be rendered as `0` in the table. It will not be grouped together with values of `+0`, so avoid mixing `-0` and `+0` as values for the same field.
+    -   `NaN` will be rendered as `NaN` in the table. It is sorted between non-defined values of `undefined`/`null` and `-Inf`.
 
 ### Angular Usage
 
