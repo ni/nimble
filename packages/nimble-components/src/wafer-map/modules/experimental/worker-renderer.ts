@@ -9,13 +9,12 @@ export class WorkerRenderer {
 
     public updateSortedDiesAndDrawWafer(): void {
         // redundant function for backwards compatibility
-        this.drawWafer();
+        void this.drawWafer();
     }
 
-    public drawWafer(): void {
-        this.wafermap.workerOne.setTransform(this.wafermap.transform).then(() => {
-            this.wafermap.workerOne.drawWafer().then(() => { }, () => { });
-        }, () => { });
+    public async drawWafer(): Promise<void> {
+        await this.wafermap.workerOne.setTransform(this.wafermap.transform);
+        await this.wafermap.workerOne.drawWafer();
         this.renderHover();
     }
 
