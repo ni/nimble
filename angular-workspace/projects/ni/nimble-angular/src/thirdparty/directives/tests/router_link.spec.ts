@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/15.2.10/packages/router/test/router_link_spec.ts
+ * Copied from https://github.com/angular/angular/blob/16.2.12/packages/router/test/router_link_spec.ts
  * with the following modifications:
  * - replace import of Angular's RouterLink with our forked version
  * - define TestRouterLinkDirective to use in tests, and add it to declarations of testing modules
@@ -18,8 +18,7 @@
 import {Component, Directive} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
-import {Router} from '@angular/router';
-import {RouterTestingModule} from '@angular/router/testing';
+import {Router, RouterModule} from '@angular/router';
 import {RouterLink} from '../router_link';
 
 describe('RouterLink', () => {
@@ -33,7 +32,8 @@ describe('RouterLink', () => {
       link: string|null|undefined = '/';
     }
     // [Nimble] Declare TestRouterLinkDirective
-    TestBed.configureTestingModule({imports: [RouterTestingModule], declarations: [LinkComponent, TestRouterLinkDirective]});
+    TestBed.configureTestingModule(
+        {imports: [RouterModule.forRoot([])], declarations: [LinkComponent, TestRouterLinkDirective]});
     const fixture = TestBed.createComponent(LinkComponent);
     fixture.detectChanges();
     const link = fixture.debugElement.query(By.css('div')).nativeElement;
@@ -45,9 +45,20 @@ describe('RouterLink', () => {
   });
 
   describe('on a non-anchor', () => {
-    @Component({template: `<div [routerLink]="link"></div>`})
+    @Component({
+      template: `
+        <div
+          [routerLink]="link"
+          [preserveFragment]="preserveFragment"
+          [skipLocationChange]="skipLocationChange"
+          [replaceUrl]="replaceUrl"></div>
+      `
+    })
     class LinkComponent {
       link: string|null|undefined = '/';
+      preserveFragment: unknown;
+      skipLocationChange: unknown;
+      replaceUrl: unknown;
     }
     let fixture: ComponentFixture<LinkComponent>;
     let link: HTMLDivElement;
@@ -55,9 +66,9 @@ describe('RouterLink', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [RouterTestingModule],
+        imports: [RouterModule.forRoot([])],
         // [Nimble] Declare TestRouterLinkDirective
-        declarations: [LinkComponent, TestRouterLinkDirective]
+        declarations: [LinkComponent, TestRouterLinkDirective],
       });
       fixture = TestBed.createComponent(LinkComponent);
       fixture.detectChanges();
@@ -93,18 +104,20 @@ describe('RouterLink', () => {
       const dir = fixture.debugElement.query(By.directive(TestRouterLinkDirective)).injector.get(TestRouterLinkDirective);
 
       for (const truthy of [true, '', 'true', 'anything']) {
-        dir.preserveFragment = truthy;
-        dir.skipLocationChange = truthy;
-        dir.replaceUrl = truthy;
+        fixture.componentInstance.preserveFragment = truthy;
+        fixture.componentInstance.skipLocationChange = truthy;
+        fixture.componentInstance.replaceUrl = truthy;
+        fixture.detectChanges();
         expect(dir.preserveFragment).toBeTrue();
         expect(dir.skipLocationChange).toBeTrue();
         expect(dir.replaceUrl).toBeTrue();
       }
 
       for (const falsy of [false, null, undefined, 'false']) {
-        dir.preserveFragment = falsy;
-        dir.skipLocationChange = falsy;
-        dir.replaceUrl = falsy;
+        fixture.componentInstance.preserveFragment = falsy;
+        fixture.componentInstance.skipLocationChange = falsy;
+        fixture.componentInstance.replaceUrl = falsy;
+        fixture.detectChanges();
         expect(dir.preserveFragment).toBeFalse();
         expect(dir.skipLocationChange).toBeFalse();
         expect(dir.replaceUrl).toBeFalse();
@@ -114,18 +127,29 @@ describe('RouterLink', () => {
 
   describe('on an anchor', () => {
     describe('RouterLink for elements with `href` attributes', () => {
-      @Component({template: `<a [routerLink]="link"></a>`})
+      @Component({
+        template: `
+          <a
+            [routerLink]="link"
+            [preserveFragment]="preserveFragment"
+            [skipLocationChange]="skipLocationChange"
+            [replaceUrl]="replaceUrl"></a>
+        `
+      })
       class LinkComponent {
         link: string|null|undefined = '/';
+        preserveFragment: unknown;
+        skipLocationChange: unknown;
+        replaceUrl: unknown;
       }
       let fixture: ComponentFixture<LinkComponent>;
       let link: HTMLAnchorElement;
 
       beforeEach(() => {
         TestBed.configureTestingModule({
-          imports: [RouterTestingModule],
+          imports: [RouterModule.forRoot([])],
           // [Nimble] Declare TestRouterLinkDirective
-          declarations: [LinkComponent, TestRouterLinkDirective]
+          declarations: [LinkComponent, TestRouterLinkDirective],
         });
         fixture = TestBed.createComponent(LinkComponent);
         fixture.detectChanges();
@@ -151,18 +175,20 @@ describe('RouterLink', () => {
         const dir = fixture.debugElement.query(By.directive(TestRouterLinkDirective)).injector.get(TestRouterLinkDirective);
 
         for (const truthy of [true, '', 'true', 'anything']) {
-          dir.preserveFragment = truthy;
-          dir.skipLocationChange = truthy;
-          dir.replaceUrl = truthy;
+          fixture.componentInstance.preserveFragment = truthy;
+          fixture.componentInstance.skipLocationChange = truthy;
+          fixture.componentInstance.replaceUrl = truthy;
+          fixture.detectChanges();
           expect(dir.preserveFragment).toBeTrue();
           expect(dir.skipLocationChange).toBeTrue();
           expect(dir.replaceUrl).toBeTrue();
         }
 
         for (const falsy of [false, null, undefined, 'false']) {
-          dir.preserveFragment = falsy;
-          dir.skipLocationChange = falsy;
-          dir.replaceUrl = falsy;
+          fixture.componentInstance.preserveFragment = falsy;
+          fixture.componentInstance.skipLocationChange = falsy;
+          fixture.componentInstance.replaceUrl = falsy;
+          fixture.detectChanges();
           expect(dir.preserveFragment).toBeFalse();
           expect(dir.skipLocationChange).toBeFalse();
           expect(dir.replaceUrl).toBeFalse();
@@ -176,9 +202,9 @@ describe('RouterLink', () => {
       }
 
       TestBed.configureTestingModule({
-        imports: [RouterTestingModule],
+        imports: [RouterModule.forRoot([])],
         // [Nimble] Declare TestRouterLinkDirective
-        declarations: [LinkComponent, TestRouterLinkDirective]
+        declarations: [LinkComponent, TestRouterLinkDirective],
       });
       const fixture = TestBed.createComponent(LinkComponent);
       fixture.detectChanges();
