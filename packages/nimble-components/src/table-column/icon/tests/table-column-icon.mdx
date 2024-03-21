@@ -23,6 +23,7 @@ The <Tag name={tableColumnIconTag}/> column renders string, number, or boolean v
 
 -   Provide a mapping for every expected record value. Because grouping is performed on the record value, non-mapped record values can result in multiple groups without group labels.
     -   To improve grouping behavior of values that don't correspond to icons, explicitly map those values to an `undefined` icon.
+-   Avoid having multiple values that map to the same label because grouping and sorting is done on the record value rather than the mapped label.
 
 ### Blazor Usage
 
