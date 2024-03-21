@@ -563,7 +563,10 @@ describe('TableColumnDateText', () => {
                 }
             ];
 
-            async function initializeColumnAndTable(data: readonly SimpleTableRecord[], placeholder?: string): Promise<void> {
+            async function initializeColumnAndTable(
+                data: readonly SimpleTableRecord[],
+                placeholder?: string
+            ): Promise<void> {
                 // Set a custom time zone so that the behavior of the test does not
                 // depend on the configuration of the computer running the tests.
                 column.format = DateTextFormat.custom;
@@ -584,9 +587,9 @@ describe('TableColumnDateText', () => {
                         const expectedCellText = value.usesColumnPlaceholder
                             ? placeholder
                             : value.cellValue;
-                        expect(
-                            pageObject.getRenderedCellContent(0, 0)
-                        ).toBe(expectedCellText);
+                        expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                            expectedCellText
+                        );
                         expect(
                             pageObject.getRenderedGroupHeaderContent(0)
                         ).toBe(value.groupValue);
@@ -600,9 +603,9 @@ describe('TableColumnDateText', () => {
                     async () => {
                         await initializeColumnAndTable(value.data);
 
-                        expect(
-                            pageObject.getRenderedCellContent(0, 0)
-                        ).toBe(value.cellValue);
+                        expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                            value.cellValue
+                        );
                         expect(
                             pageObject.getRenderedGroupHeaderContent(0)
                         ).toBe(value.groupValue);

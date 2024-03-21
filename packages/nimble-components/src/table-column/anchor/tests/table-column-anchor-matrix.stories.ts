@@ -14,7 +14,10 @@ import {
     controlLabelFont,
     controlLabelFontColor
 } from '../../../theme-provider/design-tokens';
-import { placeholderStates, type PlaceholderState } from '../../../utilities/tests/states';
+import {
+    placeholderStates,
+    type PlaceholderState
+} from '../../../utilities/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Table Column: Anchor',

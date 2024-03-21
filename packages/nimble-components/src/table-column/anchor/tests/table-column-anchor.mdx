@@ -20,7 +20,7 @@ The <Tag name={tableColumnAnchorTag}/> column is used to display string fields a
     -   Do not provide `null`, `undefined`, empty, or whitespace labels with non-empty urls.
     -   Do not provide duplicate labels for different urls.
     -   If a label is not available or known for a url, the url itself may be explicitly provided for the label to ensure each distinct url has a distinct label.
--   For records without a url, the label may also be omitted, but the omitted label should be consistent in using `null`, `undefined`, or empty string.
+-   For records without a url, the label may also be omitted. All omitted labels should consistently use `null`, `undefined`, or empty string but not a combination of those values.
 
 ### Target Configuration
 

@@ -259,7 +259,10 @@ describe('TableColumnText', () => {
             }
         ];
 
-        async function initializeColumnAndTable(data: readonly SimpleTableRecord[], placeholder?: string): Promise<void> {
+        async function initializeColumnAndTable(
+            data: readonly SimpleTableRecord[],
+            placeholder?: string
+        ): Promise<void> {
             column.placeholder = placeholder;
             await table.setData(data);
             await connect();

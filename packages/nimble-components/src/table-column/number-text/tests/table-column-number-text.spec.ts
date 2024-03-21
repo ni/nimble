@@ -768,7 +768,10 @@ describe('TableColumnNumberText', () => {
             }
         ];
 
-        async function initializeColumnAndTable(data: readonly SimpleTableRecord[], placeholder?: string): Promise<void> {
+        async function initializeColumnAndTable(
+            data: readonly SimpleTableRecord[],
+            placeholder?: string
+        ): Promise<void> {
             elementReferences.column1.placeholder = placeholder;
             await table.setData(data);
             await connect();

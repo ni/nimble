@@ -13,7 +13,10 @@ import {
     controlLabelFontColor
 } from '../../../theme-provider/design-tokens';
 import { NumberTextAlignment } from '../types';
-import { placeholderStates, type PlaceholderState } from '../../../utilities/tests/states';
+import {
+    placeholderStates,
+    type PlaceholderState
+} from '../../../utilities/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Table Column: Number Text',
