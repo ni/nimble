@@ -8,7 +8,7 @@ type TableColumnWithPlaceholder = Pick<TableColumn, never>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TableColumnWithPlaceholderConstructor = abstract new (...args: any[]) => TableColumnWithPlaceholder;
 
-// As the returned class is internal to the function, we can't write a signature that uses is directly, so rely on inference
+// As the returned class is internal to the function, we can't write a signature that uses it directly, so rely on inference
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
 export function mixinColumnWithPlaceholderAPI<
     TBase extends TableColumnWithPlaceholderConstructor

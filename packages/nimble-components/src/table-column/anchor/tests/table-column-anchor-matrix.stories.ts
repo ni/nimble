@@ -14,6 +14,7 @@ import {
     controlLabelFont,
     controlLabelFontColor
 } from '../../../theme-provider/design-tokens';
+import { placeholderStates, type PlaceholderState } from '../../../utilities/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Table Column: Anchor',
@@ -50,17 +51,11 @@ const appearanceStates: [string, string | undefined][] = Object.entries(
 ).map(([key, value]) => [pascalCase(key), value]);
 type AppearanceState = (typeof appearanceStates)[number];
 
-const underlineHiddenStates: [string, boolean][] = [
+const underlineHiddenStates = [
     ['Underline Hidden', true],
     ['', false]
-];
+] as const;
 type UnderlineHiddenState = (typeof underlineHiddenStates)[number];
-
-const placeholderStates: [string, string | undefined][] = [
-    ['With Placeholder', 'Custom placeholder'],
-    ['', undefined]
-];
-type PlaceholderState = (typeof placeholderStates)[number];
 
 // prettier-ignore
 const component = (

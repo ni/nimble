@@ -13,6 +13,7 @@ import {
     controlLabelFontColor
 } from '../../../theme-provider/design-tokens';
 import { NumberTextAlignment } from '../types';
+import { placeholderStates, type PlaceholderState } from '../../../utilities/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Table Column: Number Text',
@@ -42,19 +43,13 @@ const alignmentStates: [string, string | undefined][] = Object.entries(
 ).map(([key, value]) => [pascalCase(key), value]);
 type AlignmentState = (typeof alignmentStates)[number];
 
-const placeholderStates: [string, string | undefined][] = [
-    ['With Placeholder', 'Custom placeholder'],
-    ['', undefined]
-];
-type PlaceholderState = (typeof placeholderStates)[number];
-
 // prettier-ignore
 const component = (
     [alignmentName, alignment]: AlignmentState,
     [placeholderName, placeholder]: PlaceholderState
 ): ViewTemplate => html`
     <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
-        Number Text Table Column with ${alignmentName} alignment ${placeholderName}
+        Number Text Table Column With ${alignmentName} Alignment ${placeholderName}
     </label>
     <${tableTag} id-field-name="id" style="height: 450px">
         <${tableColumnNumberTextTag}

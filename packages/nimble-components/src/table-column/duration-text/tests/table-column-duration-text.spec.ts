@@ -247,15 +247,19 @@ describe('TableColumnDurationText', () => {
             }
         ];
 
+        async function initializeColumnAndTable(data: readonly SimpleTableRecord[], placeholder?: string): Promise<void> {
+            column.placeholder = placeholder;
+            await table.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+        }
+
         parameterizeSpec(testCases, (spec, name, value) => {
             spec(
                 `cell and group row render expected value when ${name} and placeholder is configured`,
                 async () => {
                     const placeholder = 'Custom placeholder';
-                    elementReferences.column1.placeholder = placeholder;
-                    await table.setData(value.data);
-                    await connect();
-                    await waitForUpdatesAsync();
+                    await initializeColumnAndTable(value.data, placeholder);
 
                     const expectedCellText = value.usesColumnPlaceholder
                         ? placeholder
@@ -274,9 +278,7 @@ describe('TableColumnDurationText', () => {
             spec(
                 `cell and group row render expected value when ${name} and placeholder is not configured`,
                 async () => {
-                    await table.setData(value.data);
-                    await connect();
-                    await waitForUpdatesAsync();
+                    await initializeColumnAndTable(value.data);
 
                     expect(pageObject.getRenderedCellContent(0, 0)).toBe(
                         value.cellValue
@@ -290,39 +292,31 @@ describe('TableColumnDurationText', () => {
 
         it('setting placeholder to undefined updates cells from displaying placeholder to displaying blank', async () => {
             const placeholder = 'My placeholder';
-            elementReferences.column1.placeholder = placeholder;
-            await table.setData([{}]);
-            await connect();
-            await waitForUpdatesAsync();
+            await initializeColumnAndTable([{}], placeholder);
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(placeholder);
 
-            elementReferences.column1.placeholder = undefined;
+            column.placeholder = undefined;
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
         });
 
-        it('setting placeholder to defined string updates cells from displaying placeholder to displaying blank', async () => {
-            await table.setData([{}]);
-            await connect();
-            await waitForUpdatesAsync();
+        it('setting placeholder to defined string updates cells from displaying blank to displaying placeholder', async () => {
+            await initializeColumnAndTable([{}]);
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
 
             const placeholder = 'placeholder';
-            elementReferences.column1.placeholder = placeholder;
+            column.placeholder = placeholder;
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(placeholder);
         });
 
         it('updating placeholder from one string to another updates cell', async () => {
             const placeholder1 = 'My first placeholder';
-            elementReferences.column1.placeholder = placeholder1;
-            await table.setData([{}]);
-            await connect();
-            await waitForUpdatesAsync();
+            await initializeColumnAndTable([{}], placeholder1);
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(placeholder1);
 
             const placeholder2 = 'My second placeholder';
-            elementReferences.column1.placeholder = placeholder2;
+            column.placeholder = placeholder2;
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(placeholder2);
         });

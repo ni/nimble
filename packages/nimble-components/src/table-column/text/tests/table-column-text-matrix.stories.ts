@@ -11,6 +11,7 @@ import {
     controlLabelFont,
     controlLabelFontColor
 } from '../../../theme-provider/design-tokens';
+import { placeholderStates, type PlaceholderState } from '../../../utilities/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Table Column: Text',
@@ -40,19 +41,13 @@ const data = [
     }
 ] as const;
 
-const placeholderStates: [string, string | undefined][] = [
-    ['With Placeholder', 'Custom placeholder'],
-    ['', undefined]
-];
-type PlaceholderState = (typeof placeholderStates)[number];
-
 // prettier-ignore
 const component = (
     [placeholderName, placeholder]: PlaceholderState
 ): ViewTemplate => html`
-<label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
-    Text Table Column ${placeholderName}
-</label>
+    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
+        Text Table Column ${placeholderName}
+    </label>
     <${tableTag} id-field-name="id" style="height: 320px">
         <${tableColumnTextTag}
             field-name="id"

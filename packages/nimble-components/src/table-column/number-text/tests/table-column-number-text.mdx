@@ -1,6 +1,6 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleTableColumnNumberText } from './table-column-number-text.react';
-import { columnOperationBehavior } from '../../base/tests/table-column-stories-utils';
+import { columnOperationBehavior, noNullAndUndefinedBestPractice } from '../../base/tests/table-column-stories-utils';
 import * as tableColumnNumberTextStories from './table-column-number-text.stories';
 import { tableColumnNumberTextTag } from '..';
 import { tableTag } from '../../../table';
@@ -24,7 +24,7 @@ based on the value of the `lang` token, which can be set via the [nimble-theme-p
 
 ### Best Practices
 
--   Avoid mixing `undefined` and `null` as values for the same field. When grouping this will lead to two groups (one for `null` values and one for `undefined` values) that both have the text `"No value"`.
+-   {noNullAndUndefinedBestPractice}
 -   If relevant to your data source, make sure to consider the IEEE 754 special cases of `-Inf`, `+Inf`, `-0`, `+0`, and `NaN`.
 
 ### Angular Usage

@@ -19,8 +19,7 @@ The <Tag name={tableColumnEnumTextTag}/> column renders string, number, or boole
 
 ### Best Practices
 
--   Avoid mixing `undefined` and `null` as values for the same field. When grouping this will lead to two groups (one for `null` values and one for `undefined` values) that both have the text `"No value"`.
--   Avoid using values that do not correspond to a mapping for the column.
+-   Provide a mapping for every expected record value. Because grouping is performed on the record value, non-mapped record values may be grouped unexpectedly and will not have a group label.
 
 ### Blazor Usage
 

@@ -8,7 +8,6 @@ import { TableColumnSortDirection, TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import type { Anchor } from '../../../anchor';
-import { themeProviderTag } from '../../../theme-provider';
 
 interface SimpleTableRecord extends TableRecord {
     label?: string | null;
@@ -25,29 +24,27 @@ class ElementReferences {
 // prettier-ignore
 async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<${themeProviderTag} lang="en-US">
-                <${tableTag} style="width: 700px" ${ref('table')}>
-                    <${tableColumnAnchorTag}
-                        ${ref('column')}
-                        label-field-name="label"
-                        href-field-name="link"
-                        appearance="prominent"
-                        hreflang="hreflang value"
-                        ping="ping value"
-                        referrerpolicy="referrerpolicy value"
-                        rel="rel value"
-                        target="target value"
-                        type="type value"
-                        download="download value"
-                        group-index="0"
-                    >
-                        Column 1
-                    </${tableColumnAnchorTag}>
-                    <${tableColumnAnchorTag}>
-                        Column 2
-                    </${tableColumnAnchorTag}>
-                </${tableTag}>
-            </${themeProviderTag}>`,
+        html`<${tableTag} style="width: 700px" ${ref('table')}>
+                <${tableColumnAnchorTag}
+                    ${ref('column')}
+                    label-field-name="label"
+                    href-field-name="link"
+                    appearance="prominent"
+                    hreflang="hreflang value"
+                    ping="ping value"
+                    referrerpolicy="referrerpolicy value"
+                    rel="rel value"
+                    target="target value"
+                    type="type value"
+                    download="download value"
+                    group-index="0"
+                >
+                    Column 1
+                </${tableColumnAnchorTag}>
+                <${tableColumnAnchorTag}>
+                    Column 2
+                </${tableColumnAnchorTag}>
+            </${tableTag}>`,
         { source }
     );
 }
@@ -512,23 +509,34 @@ describe('TableColumnAnchor', () => {
                 usesColumnPlaceholder: false
             },
             {
-                name: 'label is not a string',
+                name: 'label is not a string with no href',
                 data: [{ label: 10 as unknown as string }],
                 cellValue: '',
                 groupValue: '',
                 usesColumnPlaceholder: false
+            },
+            {
+                name: 'label is not a string with a defined href',
+                data: [{ label: 10 as unknown as string, link: 'link' }],
+                cellValue: 'link',
+                groupValue: '',
+                usesColumnPlaceholder: false
             }
         ];
+
+        async function initializeColumnAndTable(data: readonly SimpleTableRecord[], placeholder?: string): Promise<void> {
+            column.placeholder = placeholder;
+            await table.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+        }
 
         parameterizeSpec(testCases, (spec, name, value) => {
             spec(
                 `cell and group row render expected value when ${name} and placeholder is configured`,
                 async () => {
                     const placeholder = 'Custom placeholder';
-                    column.placeholder = placeholder;
-                    await table.setData(value.data);
-                    await connect();
-                    await waitForUpdatesAsync();
+                    await initializeColumnAndTable(value.data, placeholder);
 
                     const expectedCellText = value.usesColumnPlaceholder
                         ? placeholder
@@ -547,9 +555,7 @@ describe('TableColumnAnchor', () => {
             spec(
                 `cell and group row render expected value when ${name} and placeholder is not configured`,
                 async () => {
-                    await table.setData(value.data);
-                    await connect();
-                    await waitForUpdatesAsync();
+                    await initializeColumnAndTable(value.data);
 
                     expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
                         value.cellValue
@@ -563,10 +569,7 @@ describe('TableColumnAnchor', () => {
 
         it('setting placeholder to undefined updates cells from displaying placeholder to displaying blank', async () => {
             const placeholder = 'My placeholder';
-            column.placeholder = placeholder;
-            await table.setData([{}]);
-            await connect();
-            await waitForUpdatesAsync();
+            await initializeColumnAndTable([{}], placeholder);
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
                 placeholder
             );
@@ -576,10 +579,8 @@ describe('TableColumnAnchor', () => {
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
         });
 
-        it('setting placeholder to defined string updates cells from displaying placeholder to displaying blank', async () => {
-            await table.setData([{}]);
-            await connect();
-            await waitForUpdatesAsync();
+        it('setting placeholder to defined string updates cells from displaying blank to displaying placeholder', async () => {
+            await initializeColumnAndTable([{}]);
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
 
             const placeholder = 'placeholder';
@@ -592,10 +593,7 @@ describe('TableColumnAnchor', () => {
 
         it('updating placeholder from one string to another updates cell', async () => {
             const placeholder1 = 'My first placeholder';
-            column.placeholder = placeholder1;
-            await table.setData([{}]);
-            await connect();
-            await waitForUpdatesAsync();
+            await initializeColumnAndTable([{}], placeholder1);
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
                 placeholder1
             );

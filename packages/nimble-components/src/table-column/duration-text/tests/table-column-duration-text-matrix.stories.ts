@@ -11,6 +11,7 @@ import {
     controlLabelFont,
     controlLabelFontColor
 } from '../../../theme-provider/design-tokens';
+import { placeholderStates, type PlaceholderState } from '../../../utilities/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Table Column: Duration Text',
@@ -34,12 +35,6 @@ const data = [
         id: '2'
     }
 ] as const;
-
-const placeholderStates: [string, string | undefined][] = [
-    ['With Placeholder', 'Custom placeholder'],
-    ['', undefined]
-];
-type PlaceholderState = (typeof placeholderStates)[number];
 
 // prettier-ignore
 const component = (
