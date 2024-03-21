@@ -496,7 +496,10 @@ describe('Table Interactive Column Sizing', () => {
         });
 
         it('sizing table with a horizontal scrollbar does not change column widths until sized beyond current column pixel widths', async () => {
-            // create horizontal scrollbar with total column width of 500
+            // Create a horizontal scrollbar with a total column width of 500. This updates the columns'
+            // current fractional widths to 0.8, 0.8, 2, and 0.4, which keeps the columns widths as
+            // integers when the table is resized later in the test. Otherwise, different browsers
+            // may have slightly different rounding behaviors.
             pageObject.dragSizeColumnByRightDivider(2, [150]);
             // size table below threshhold of total column widths
             await pageObject.sizeTableToGivenRowWidth(425, element);
