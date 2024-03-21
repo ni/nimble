@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 21 Mar 2024 00:31:13 GMT",
+      "version": "22.1.1",
+      "tag": "@ni/nimble-components_v22.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "755823b11215aa2a2c48f296546d0cb8acf6f64c",
+            "comment": "Small change to design token naming scheme"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 20 Mar 2024 16:45:59 GMT",
       "version": "22.1.1",
       "tag": "@ni/nimble-components_v22.1.1",
