@@ -2,14 +2,14 @@ import { scaleLinear } from 'd3-scale';
 import { ticks } from 'd3-array';
 import { WaferMapColorScaleMode } from '../../types';
 import type {
-    Dimensions
+    Dimensions, WaferRequiredTypeMap
 } from '../../types';
 import type { WaferMap } from '../..';
 
 /**
  * Prerendering prepares render-ready dies data to be used by the rendering module
  */
-export class Prerendering {
+export class Prerendering<T extends WaferRequiredTypeMap> {
     public get labelsFontSize(): number {
         return this._labelsFontSize;
     }
@@ -34,7 +34,7 @@ export class Prerendering {
     private readonly nanDieColor = 'rgba(122,122,122,1)';
 
     public constructor(
-        private readonly wafermap: WaferMap,
+        private readonly wafermap: WaferMap<T>,
     ) {}
 
     public update(): void {

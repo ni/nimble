@@ -1,6 +1,7 @@
 import { DOM } from '@microsoft/fast-element';
 import type { WaferMap } from '..';
 import { UpdateTracker } from '../../utilities/models/update-tracker';
+import type { WaferRequiredTypeMap } from '../types';
 
 const trackedItems = [
     'highlightedTags',
@@ -25,9 +26,11 @@ const trackedItems = [
  * Helper class to track what updates are needed to the wafer based on configuration
  * changes.
  */
-export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
+export class WaferMapUpdateTracker<
+    T extends WaferRequiredTypeMap
+> extends UpdateTracker<typeof trackedItems> {
     private updateQueued = false;
-    public constructor(private readonly wafermap: WaferMap) {
+    public constructor(private readonly wafermap: WaferMap<T>) {
         super(trackedItems);
     }
 

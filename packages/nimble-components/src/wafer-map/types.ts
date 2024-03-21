@@ -1,3 +1,5 @@
+import type { DataType, Float64, Int32 } from 'apache-arrow';
+
 export const WaferMapOriginLocation = {
     bottomLeft: 'bottom-left',
     bottomRight: 'bottom-right',
@@ -84,4 +86,13 @@ export interface ValidityObject {
 export interface WaferMapValidity extends ValidityObject {
     readonly invalidGridDimensions: boolean;
     readonly invalidDiesTableSchema: boolean;
+}
+
+export interface WaferRequiredTypeMap {
+    [key: string]: DataType;
+    [key: number]: DataType;
+    [key: symbol]: DataType;
+    colIndex: Int32;
+    rowIndex: Int32;
+    value: Float64;
 }

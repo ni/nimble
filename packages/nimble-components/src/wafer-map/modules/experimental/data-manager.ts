@@ -4,13 +4,14 @@ import { Prerendering } from './prerendering';
 import type { WaferMap } from '../..';
 import type {
     Dimensions,
-    Margin
+    Margin,
+    WaferRequiredTypeMap
 } from '../../types';
 
 /**
  * Data Manager uses Computations and Prerendering modules in order and exposes the results
  */
-export class DataManager {
+export class DataManager<T extends WaferRequiredTypeMap> {
     public get containerDimensions(): Dimensions {
         return this.computations.containerDimensions;
     }
@@ -42,10 +43,10 @@ export class DataManager {
         return this.prerendering.colorScale;
     }
 
-    private readonly computations;
-    private readonly prerendering;
+    private readonly computations: Computations<T>;
+    private readonly prerendering: Prerendering<T>;
 
-    public constructor(private readonly wafermap: WaferMap) {
+    public constructor(private readonly wafermap: WaferMap<T>) {
         this.computations = new Computations(wafermap);
         this.prerendering = new Prerendering(wafermap);
     }
