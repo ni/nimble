@@ -10,10 +10,7 @@ import {
     WaferMapOriginLocation,
     WaferRequiredTypeMap
 } from '../types';
-import {
-    getColorScale,
-    getWaferMapDiesTable
-} from './utilities';
+import { getColorScale, getWaferMapDiesTable } from './utilities';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);

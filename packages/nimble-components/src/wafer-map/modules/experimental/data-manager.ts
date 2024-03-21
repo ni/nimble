@@ -2,11 +2,7 @@ import type { ScaleLinear } from 'd3-scale';
 import { Computations } from './computations';
 import { Prerendering } from './prerendering';
 import type { WaferMap } from '../..';
-import type {
-    Dimensions,
-    Margin,
-    WaferRequiredTypeMap
-} from '../../types';
+import type { Dimensions, Margin, WaferRequiredTypeMap } from '../../types';
 
 /**
  * Data Manager uses Computations and Prerendering modules in order and exposes the results
