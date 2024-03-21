@@ -21,7 +21,7 @@ The <Tag name={tableColumnIconTag}/> column renders string, number, or boolean v
 
 ### Best Practices
 
--   Provide a mapping for every expected record value. Because grouping is performed on the record value, non-mapped record values may be grouped unexpectedly and will not have a group label.
+-   Provide a mapping for every expected record value. Because grouping is performed on the record value, non-mapped record values can result in multiple groups without group labels.
     -   To improve grouping behavior of values that don't correspond to icons, explicitly map those values to an `undefined` icon.
 
 ### Blazor Usage
