@@ -64,7 +64,10 @@ const interactionStateHovered = interactionStates[0];
 export function interactionsWrapper<T extends readonly unknown[]>(
     component: (...states: T) => ViewTemplate
 ): (interactionState: InteractionState, ...states: T) => ViewTemplate {
-    return ([interactionName, interaction]: InteractionState, ...original) => html`
+    return (
+        [interactionName, interaction]: InteractionState,
+        ...original
+    ) => html`
         <div class="${interaction}">
             <span>${interactionName}</span>
             ${component(...original)}
@@ -79,11 +82,14 @@ export function disabledInteractionsFilter(
     return disabledState[0] !== 'Disabled' || interactionState[0] === 'Hovered';
 }
 
-export function removeUnusuedDisabledInteractions<U extends unknown[], T extends [InteractionState, DisabledState, ...U]>([
-    interactionState,
-    disabledState,
-]: T): boolean {
-    if (disabledState === disabledStateDisabled && interactionState !== interactionStateHovered) {
+export function removeUnusuedDisabledInteractions<
+    U extends unknown[],
+    T extends [InteractionState, DisabledState, ...U]
+>([interactionState, disabledState]: T): boolean {
+    if (
+        disabledState === disabledStateDisabled
+        && interactionState !== interactionStateHovered
+    ) {
         return false;
     }
     return true;
