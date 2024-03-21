@@ -91,7 +91,7 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly canvasOne!: HTMLCanvasElement;
+    public readonly workerCanvas!: HTMLCanvasElement;
 
     /**
      * @internal
@@ -209,7 +209,7 @@ export class WaferMap extends FoundationElement {
         const { matrixRenderer } = await createMatrixRenderer();
         this.worker = matrixRenderer;
 
-        const offscreenOne = this.canvasOne.transferControlToOffscreen();
+        const offscreenOne = this.workerCanvas.transferControlToOffscreen();
         await this.worker.setCanvas(
             transfer(offscreenOne, [offscreenOne as unknown as Transferable])
         );
@@ -252,6 +252,7 @@ export class WaferMap extends FoundationElement {
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
+                await this.drawWafer();
             } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
                 this.dataManager.updateScales();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -268,7 +269,6 @@ export class WaferMap extends FoundationElement {
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
                 await this.renderer.drawWafer();
             }
-            await this.drawWafer();
             this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
