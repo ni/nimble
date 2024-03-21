@@ -1,5 +1,9 @@
 import type { WaferMap } from '../..';
-import { PointCoordinates, WaferMapOriginLocation, WaferRequiredTypeMap } from '../../types';
+import {
+    PointCoordinates,
+    WaferMapOriginLocation,
+    WaferRequiredTypeMap
+} from '../../types';
 import { DataManager } from './data-manager';
 
 /**

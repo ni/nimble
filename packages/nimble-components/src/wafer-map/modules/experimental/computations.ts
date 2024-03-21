@@ -1,6 +1,11 @@
 import { scaleLinear, ScaleLinear } from 'd3-scale';
 import type { WaferMap } from '../..';
-import { Dimensions, Margin, WaferMapOriginLocation, WaferRequiredTypeMap } from '../../types';
+import {
+    Dimensions,
+    Margin,
+    WaferMapOriginLocation,
+    WaferRequiredTypeMap
+} from '../../types';
 
 interface GridDimensions {
     origin: {
