@@ -266,16 +266,16 @@ export class WaferMap extends FoundationElement {
                 this.dataManager.updateDiesRenderInfo();
                 this.renderer.updateSortedDiesAndDrawWafer();
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
-                this.renderer.drawWafer();
+                await this.renderer.drawWafer();
             }
-            await this.drawWorkerWafer();
+            await this.drawWafer();
             this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
     }
 
-    private async drawWorkerWafer(): Promise<void> {
+    private async drawWafer(): Promise<void> {
         if (this.diesTable === undefined) {
             return;
         }
