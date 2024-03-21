@@ -13,8 +13,8 @@ export class WorkerRenderer {
     }
 
     public async drawWafer(): Promise<void> {
-        await this.wafermap.workerOne.setTransform(this.wafermap.transform);
-        await this.wafermap.workerOne.drawWafer();
+        await this.wafermap.worker.setTransform(this.wafermap.transform);
+        await this.wafermap.worker.drawWafer();
         this.renderHover();
     }
 

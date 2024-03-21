@@ -81,7 +81,7 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public workerOne!: Remote<MatrixRenderer>;
+    public worker!: Remote<MatrixRenderer>;
 
     /**
      * @internal
@@ -207,10 +207,10 @@ export class WaferMap extends FoundationElement {
         this.experimentalHoverHandler.connect();
         this.zoomHandler.connect();
         const { matrixRenderer } = await createMatrixRenderer();
-        this.workerOne = matrixRenderer;
+        this.worker = matrixRenderer;
 
         const offscreenOne = this.canvasOne.transferControlToOffscreen();
-        await this.workerOne.setCanvas(
+        await this.worker.setCanvas(
             transfer(offscreenOne, [offscreenOne as unknown as Transferable])
         );
 
@@ -288,32 +288,32 @@ export class WaferMap extends FoundationElement {
                 ?.toArray() as number[],
             values: this.diesTable.getChild('value')?.toArray() as number[]
         } as WaferMapMatrix;
-        await this.workerOne.updateMatrix(waferMapMatrix);
+        await this.worker.updateMatrix(waferMapMatrix);
         await this.setupWorker();
-        await this.workerOne.drawWafer();
+        await this.worker.drawWafer();
     }
 
     private async setupWorker(): Promise<void> {
-        await this.workerOne.setDiesDimensions(this.dataManager.dieDimensions);
+        await this.worker.setDiesDimensions(this.dataManager.dieDimensions);
 
         const scaleX = this.dataManager.horizontalScale(1)!
             - this.dataManager.horizontalScale(0)!;
         const scaleY = this.dataManager.verticalScale(1)!
             - this.dataManager.verticalScale(0)!;
-        await this.workerOne.setScaling(scaleX, scaleY);
+        await this.worker.setScaling(scaleX, scaleY);
 
-        await this.workerOne.setBases(
+        await this.worker.setBases(
             this.dataManager.horizontalScale(0)!,
             this.dataManager.verticalScale(0)!
         );
-        await this.workerOne.setMargin(this.dataManager.margin);
+        await this.worker.setMargin(this.dataManager.margin);
 
         const topLeftCanvasCorner = this.transform.invert([0, 0]);
         const bottomRightCanvasCorner = this.transform.invert([
             this.canvas.width,
             this.canvas.height
         ]);
-        await this.workerOne.setCanvasCorners(
+        await this.worker.setCanvasCorners(
             {
                 x: topLeftCanvasCorner[0],
                 y: topLeftCanvasCorner[1]
@@ -343,7 +343,7 @@ export class WaferMap extends FoundationElement {
             this.canvas.height = height;
             this.canvasWidth = width;
             this.canvasHeight = height;
-            this.workerOne.setCanvasDimensions({ width, height }).then(
+            this.worker.setCanvasDimensions({ width, height }).then(
                 () => {},
                 () => {}
             );
