@@ -25,12 +25,12 @@ export const sharedMatrixParameters = () => ({
 
 type MakeTupleEntriesArrays<T> = { [K in keyof T]: readonly T[K][] };
 /**
- * Takes an array of state values and finds the permutations of the provided states.
+ * Calculates the cartesian product of an array of sets.
  */
-export function permute<T extends readonly unknown[]>(
+export function cartesianProduct<T extends readonly unknown[]>(
     dimensions?: MakeTupleEntriesArrays<T>
 ): [...T][] {
-    const permutations: [...T][] = [];
+    const result: [...T][] = [];
     const recurseDimensions = (
         currentDimensions?: readonly (readonly unknown[])[],
         ...states: readonly unknown[]
@@ -41,15 +41,15 @@ export function permute<T extends readonly unknown[]>(
                 recurseDimensions(remainingDimensions, ...states, currentState);
             }
         } else {
-            permutations.push(states as [...T]);
+            result.push(states as [...T]);
         }
     };
     recurseDimensions(dimensions);
-    return permutations;
+    return result;
 }
 
 /**
- * Takes an array of state values that can be used with a template.
+ * Takes a template rendered with an array of states.
  */
 export function createMatrixFromStates<T extends readonly unknown[]>(
     component: (...states: T) => ViewTemplate,
@@ -65,14 +65,14 @@ export function createMatrixFromStates<T extends readonly unknown[]>(
 }
 
 /**
- * Takes an array of state values that can be used with the template to match the permutations of the provided states.
+ * Takes a template rendered with the cartesian product the provided states.
  */
 export function createMatrix<T extends readonly unknown[]>(
     component: (...states: T) => ViewTemplate,
     dimensions?: MakeTupleEntriesArrays<T>,
     filter?: (...states: T) => boolean
 ): ViewTemplate {
-    const states = permute(dimensions).filter(
+    const states = cartesianProduct(dimensions).filter(
         state => !filter || filter(...state)
     );
     return createMatrixFromStates(component, states);

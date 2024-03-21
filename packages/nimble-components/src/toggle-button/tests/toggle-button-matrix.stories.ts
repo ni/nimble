@@ -7,7 +7,7 @@ import {
     sharedMatrixParameters,
     createMatrixThemeStory,
     createMatrixFromStates,
-    permute
+    cartesianProduct
 } from '../../utilities/tests/matrix';
 import {
     disabledStates,
@@ -85,7 +85,7 @@ export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
 export const toggleButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixFromStates(
         interactionsWrapper(component),
-        permute([
+        cartesianProduct([
             interactionStates,
             disabledStates,
             [partVisibilityStatesOnlyLabel],
