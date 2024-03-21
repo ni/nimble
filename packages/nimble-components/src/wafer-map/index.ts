@@ -100,12 +100,12 @@ export class WaferMap<
     /**
      * @internal
      */
-    public readonly experimentalDataManager = new ExperimentalDataManager(this);
+    public readonly experimentalDataManager: ExperimentalDataManager<T> = new ExperimentalDataManager(this);
 
     /**
      * @internal
      */
-    public dataManager: DataManager<T> | ExperimentalDataManager = this.stableDataManager;
+    public dataManager: DataManager<T> | ExperimentalDataManager<T> = this.stableDataManager;
 
     /**
      * @internal

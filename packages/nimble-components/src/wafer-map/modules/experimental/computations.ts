@@ -1,6 +1,6 @@
 import { scaleLinear, ScaleLinear } from 'd3-scale';
 import type { WaferMap } from '../..';
-import { Dimensions, Margin, WaferMapOriginLocation } from '../../types';
+import { Dimensions, Margin, WaferMapOriginLocation, WaferRequiredTypeMap } from '../../types';
 
 interface GridDimensions {
     origin: {
@@ -14,7 +14,7 @@ interface GridDimensions {
 /**
  * Computations calculates and stores different measures which are used in the Wafermap
  */
-export class Computations {
+export class Computations<T extends WaferRequiredTypeMap> {
     public get containerDimensions(): Dimensions {
         return this._containerDimensions;
     }
@@ -43,7 +43,7 @@ export class Computations {
     private readonly defaultPadding = 0;
     private readonly baseMarginPercentage = 0.04;
 
-    public constructor(private readonly wafermap: WaferMap) {}
+    public constructor(private readonly wafermap: WaferMap<T>) {}
 
     public updateContainerDimensions(): void {
         const canvasDimensions = {

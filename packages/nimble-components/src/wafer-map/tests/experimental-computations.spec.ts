@@ -1,14 +1,14 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import type { WaferMap } from '..';
 import { Computations } from '../modules/experimental/computations';
-import { Margin, WaferMapOriginLocation } from '../types';
+import { Margin, WaferMapOriginLocation, WaferRequiredTypeMap } from '../types';
 import {
     getWaferMapMockComputationsExperimental,
     getWaferMapDiesTable
 } from './utilities';
 
 describe('Wafermap Experimental Computations module', () => {
-    let computationsModule: Computations;
+    let computationsModule: Computations<WaferRequiredTypeMap>;
 
     describe('with 100 square canvas', () => {
         const expectedMargin: Margin = {

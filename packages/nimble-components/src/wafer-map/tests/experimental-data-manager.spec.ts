@@ -8,7 +8,8 @@ import {
     Dimensions,
     Margin,
     WaferMapColorScaleMode,
-    WaferMapOriginLocation
+    WaferMapOriginLocation,
+    WaferRequiredTypeMap
 } from '../types';
 import {
     getColorScale,
@@ -22,7 +23,7 @@ async function setup(): Promise<Fixture<WaferMap>> {
 }
 
 describe('Wafermap Experimental Data Manager', () => {
-    let dataManagerModule: DataManager;
+    let dataManagerModule: DataManager<WaferRequiredTypeMap>;
     const dieLabelsSuffix = '%';
     const canvasWidth = 200;
     const canvasHeight = 100;
