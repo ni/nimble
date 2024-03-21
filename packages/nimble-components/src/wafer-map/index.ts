@@ -30,7 +30,7 @@ import { HoverHandler as ExperimentalHoverHandler } from './modules/experimental
 import { ZoomHandler } from './modules/zoom-handler';
 import type { MatrixRenderer } from '../../build/generate-workers/dist/esm/source/matrix-renderer';
 import { createMatrixRenderer } from './modules/create-matrix-renderer';
-import type { WaferMapMatrix } from '../../build/generate-workers/source/types';
+import type { WaferMapMatrix } from '../../build/generate-workers/dist/esm/source/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -234,7 +234,7 @@ export class WaferMap extends FoundationElement {
      * The updates snowball one after the other, this function only choses the 'altitude'.
      * The hover does not require an event update, but it's also the last update in the sequence.
      */
-    public update(): void {
+    public async update(): Promise<void> {
         this.validate();
         if (this.validity.invalidDiesTableSchema) {
             return;
@@ -268,53 +268,63 @@ export class WaferMap extends FoundationElement {
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
                 this.renderer.drawWafer();
             }
+            await this.drawWorkerWafer();
             this.zoomHandler.connect();
-            if (this.dataManager instanceof ExperimentalDataManager) {
-                const waferMapMatrix = {
-                    colIndexes: Uint32Array.from(
-                        this.diesTable
-                            ?.getChild('colIndex')
-                            ?.toArray() as number[]
-                    ),
-                    rowIndexes: Uint32Array.from(
-                        this.diesTable
-                            ?.getChild('rowIndex')
-                            ?.toArray() as number[]
-                    ),
-                    values: Float64Array.from(
-                        this.diesTable?.getChild('value')?.toArray() as number[]
-                    )
-                } as unknown as WaferMapMatrix;
-                this.workerOne.setDiesDimensions(10, 10).then(
-                    () => {
-                        this.workerOne.updateMatrix(waferMapMatrix).then(
-                            () => {
-                                this.workerOne
-                                    .setScaling(
-                                        this.dataManager.horizontalScale(0)!,
-                                        this.dataManager.verticalScale(0)!,
-                                        this.dataManager.horizontalScale(1)!,
-                                        this.dataManager.verticalScale(1)!
-                                    )
-                                    .then(
-                                        () => {
-                                            this.workerOne.drawWafer().then(
-                                                () => {},
-                                                () => {}
-                                            );
-                                        },
-                                        () => {}
-                                    );
-                            },
-                            () => {}
-                        );
-                    },
-                    () => {}
-                );
-            }
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
+    }
+
+    private async drawWorkerWafer(): Promise<void> {
+        if (this.diesTable === undefined) {
+            return;
+        }
+        const waferMapMatrix = {
+            colIndexes: Uint32Array.from(
+                this.diesTable.getChild('colIndex')?.toArray() as number[]
+            ),
+            rowIndexes: Uint32Array.from(
+                this.diesTable.getChild('rowIndex')?.toArray() as number[]
+            ),
+            values: Float64Array.from(
+                this.diesTable.getChild('value')?.toArray() as number[]
+            )
+        } as unknown as WaferMapMatrix;
+        await this.workerOne.updateMatrix(waferMapMatrix);
+        await this.setupWorker();
+        await this.workerOne.drawWafer();
+    }
+
+    private async setupWorker(): Promise<void> {
+        await this.workerOne.setDiesDimensions(this.dataManager.dieDimensions);
+
+        const scaleX = this.dataManager.horizontalScale(1)!
+            - this.dataManager.horizontalScale(0)!;
+        const scaleY = this.dataManager.verticalScale(1)!
+            - this.dataManager.verticalScale(0)!;
+        await this.workerOne.setScaling(scaleX, scaleY);
+
+        await this.workerOne.setBases(
+            this.dataManager.horizontalScale(0)!,
+            this.dataManager.verticalScale(0)!
+        );
+        await this.workerOne.setMargin(this.dataManager.margin);
+
+        const topLeftCanvasCorner = this.transform.invert([0, 0]);
+        const bottomRightCanvasCorner = this.transform.invert([
+            this.canvas.width,
+            this.canvas.height
+        ]);
+        await this.workerOne.setCanvasCorners(
+            {
+                x: topLeftCanvasCorner[0],
+                y: topLeftCanvasCorner[1]
+            },
+            {
+                x: bottomRightCanvasCorner[0],
+                y: bottomRightCanvasCorner[1]
+            }
+        );
     }
 
     private validate(): void {

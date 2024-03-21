@@ -20,18 +20,31 @@ export class MatrixRenderer {
     private scaleY: number = 1;
     private baseX: number = 1;
     private baseY: number = 1;
-    public dieDimensions: Dimensions = { width: 1, height: 1 };
-    public transform: Transform = { k: 1, x: 0, y: 0 };
-    public topLeftCanvasCorner: { x: number, y: number } = { x: 0, y: 0 };
-    public bottomRightCanvasCorner: { x: number, y: number } = { x: 500, y: 500 };
+    private dieDimensions: Dimensions = { width: 1, height: 1 };
+    private transform: Transform = { k: 1, x: 0, y: 0 };
+    private topLeftCanvasCorner: { x: number, y: number } = { x: 0, y: 0 };
+    private bottomRightCanvasCorner: { x: number, y: number } = { x: 500, y: 500 };
+    public margin: { top: number, right: number, bottom: number, left: number } = { top: 20, right: 20, bottom: 20, left: 20 };
 
-    public setDiesDimensions(x: number, y: number): void {
-        this.dieDimensions = { width: x, height: y };
+    public setMargin(margin: { top: number, right: number, bottom: number, left: number }): void {
+        this.margin = margin;
     }
 
-    public setScaling(scaleX: number, scaleY: number, baseX: number, baseY: number): void {
+    public setCanvasCorners(topLeft: { x: number, y: number }, bottomRight: { x: number, y: number }): void {
+        this.topLeftCanvasCorner = topLeft;
+        this.bottomRightCanvasCorner = bottomRight;
+    }
+
+    public setDiesDimensions(data: Dimensions): void {
+        this.dieDimensions = { width: data.width, height: data.height };
+    }
+
+    public setScaling(scaleX: number, scaleY: number): void {
         this.scaleX = scaleX;
         this.scaleY = scaleY;
+    }
+
+    public setBases(baseX: number, baseY: number): void {
         this.baseX = baseX;
         this.baseY = baseY;
     }
@@ -46,8 +59,8 @@ export class MatrixRenderer {
     }
 
     private scaleIndexes(): void {
-        this.scaledColIndex = new Float64Array(this.colIndexes.map((colIndex) => colIndex * this.scaleX + this.baseX));
-        this.scaledRowIndex = new Float64Array(this.rowIndexes.map((rowIndex) => rowIndex * this.scaleY + this.baseY));
+        this.scaledColIndex = new Float64Array(this.colIndexes.map((colIndex) => colIndex * this.scaleX + this.baseX + this.margin.right));
+        this.scaledRowIndex = new Float64Array(this.rowIndexes.map((rowIndex) => rowIndex * this.scaleY + this.baseY + this.margin.top));
     }
 
     public getMatrix(): WaferMapTypedMatrix {
@@ -105,7 +118,7 @@ export class MatrixRenderer {
         this.scaleIndexes();
         for (let i = 0; i < this.scaledColIndex.length; i++) {
             // the fillStyle will be changed in a future pr
-            this.context.fillStyle = 'Red';
+            this.context.fillStyle = 'Green';
             const x = this.scaledColIndex[i]!;
             const y = this.scaledRowIndex[i]!;
             if (!this.isDieVisible(x, y)) { continue; }
