@@ -26,44 +26,44 @@ export class MatrixRenderer {
     private bottomRightCanvasCorner: { x: number, y: number } = { x: 500, y: 500 };
     private margin: { top: number, right: number, bottom: number, left: number } = { top: 20, right: 20, bottom: 20, left: 20 };
 
-    public async setMargin(margin: { top: number, right: number, bottom: number, left: number }): Promise<void> {
+    public setMargin(margin: { top: number, right: number, bottom: number, left: number }): void {
         this.margin = margin;
     }
 
-    public async setCanvasCorners(topLeft: { x: number, y: number }, bottomRight: { x: number, y: number }): Promise<void> {
+    public setCanvasCorners(topLeft: { x: number, y: number }, bottomRight: { x: number, y: number }): void {
         this.topLeftCanvasCorner = topLeft;
         this.bottomRightCanvasCorner = bottomRight;
     }
 
-    public async setDiesDimensions(data: Dimensions): Promise<void> {
+    public setDiesDimensions(data: Dimensions): void {
         this.dieDimensions = { width: data.width, height: data.height };
     }
 
-    public async setScaling(scaleX: number, scaleY: number): Promise<void> {
+    public setScaling(scaleX: number, scaleY: number): void {
         this.scaleX = scaleX;
         this.scaleY = scaleY;
     }
 
-    public async setBases(baseX: number, baseY: number): Promise<void> {
+    public setBases(baseX: number, baseY: number): void {
         this.baseX = baseX;
         this.baseY = baseY;
     }
 
-    public async setTransform(transform: Transform): Promise<void> {
+    public setTransform(transform: Transform): void {
         this.transform = transform;
     }
 
-    public async setCanvas(canvas: OffscreenCanvas): Promise<void> {
+    public setCanvas(canvas: OffscreenCanvas): void {
         this.canvas = canvas;
         this.context = canvas.getContext('2d')!;
     }
 
-    private async scaleIndexes(): Promise<void> {
+    private scaleIndexes(): void {
         this.scaledColIndex = new Float64Array(this.colIndexes.map((colIndex) => colIndex * this.scaleX + this.baseX + this.margin.right));
         this.scaledRowIndex = new Float64Array(this.rowIndexes.map((rowIndex) => rowIndex * this.scaleY + this.baseY + this.margin.top));
     }
 
-    public async getMatrix(): Promise<WaferMapTypedMatrix> {
+    public getMatrix(): WaferMapTypedMatrix {
         return {
             colIndexes: this.colIndexes,
             rowIndexes: this.rowIndexes,
@@ -71,13 +71,13 @@ export class MatrixRenderer {
         };
     }
 
-    public async emptyMatrix(): Promise<void> {
+    public emptyMatrix(): void {
         this.colIndexes = Uint32Array.from([]);
         this.rowIndexes = Uint32Array.from([]);
         this.values = Float64Array.from([]);
     }
 
-    public async scaleCanvas(): Promise<void> {
+    public scaleCanvas(): void {
         this.context.translate(
             this.transform.x,
             this.transform.y
@@ -88,20 +88,20 @@ export class MatrixRenderer {
         );
     }
 
-    public async updateMatrix(
+    public updateMatrix(
         data: WaferMapMatrix
-    ): Promise<void> {
+    ): void {
         this.colIndexes = Uint32Array.from(data.colIndexes);
         this.rowIndexes = Uint32Array.from(data.rowIndexes);
         this.values = Float64Array.from(data.values);
     }
 
-    public async setCanvasDimensions(data: Dimensions): Promise<void> {
+    public setCanvasDimensions(data: Dimensions): void {
         this.canvas.width = data.width;
         this.canvas.height = data.height;
     }
 
-    public async clearCanvas(): Promise<void> {
+    public clearCanvas(): void {
         this.context.clearRect(
             0,
             0,
@@ -110,7 +110,7 @@ export class MatrixRenderer {
         );
     }
 
-    public async drawWafer(): Promise<void> {
+    public drawWafer(): void {
         this.context.restore();
         this.context.save();
         this.clearCanvas();
@@ -126,7 +126,7 @@ export class MatrixRenderer {
         }
     }
 
-    public async isDieVisible(x: number, y: number): Promise<boolean> {
+    public isDieVisible(x: number, y: number): boolean {
         return x >= this.topLeftCanvasCorner.x &&
             x <= this.bottomRightCanvasCorner.x &&
             y >= this.topLeftCanvasCorner.y &&
