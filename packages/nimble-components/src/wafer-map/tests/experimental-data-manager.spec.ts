@@ -7,19 +7,17 @@ import type { WaferMap } from '..';
 import {
     Margin,
     WaferMapColorScaleMode,
-    WaferMapOriginLocation
+    WaferMapOriginLocation,
+    WaferRequiredTypeMap
 } from '../types';
-import {
-    getColorScale,
-    getWaferMapDiesTable
-} from './utilities';
+import { getColorScale, getWaferMapDiesTable } from './utilities';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
 }
 
 describe('Wafermap Experimental Data Manager', () => {
-    let dataManagerModule: DataManager;
+    let dataManagerModule: DataManager<WaferRequiredTypeMap>;
     const dieLabelsSuffix = '%';
     const canvasWidth = 200;
     const canvasHeight = 100;

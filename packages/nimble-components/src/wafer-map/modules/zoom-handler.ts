@@ -1,6 +1,7 @@
 import { select } from 'd3-selection';
 import { zoom, ZoomTransform } from 'd3-zoom';
 import type { WaferMap } from '..';
+import type { WaferRequiredTypeMap } from '../types';
 
 interface ZoomEvent {
     transform: ZoomTransform;
@@ -9,11 +10,11 @@ interface ZoomEvent {
 /**
  * ZoomHandler deals with user interactions and events like zooming
  */
-export class ZoomHandler {
+export class ZoomHandler<T extends WaferRequiredTypeMap> {
     private readonly scaleExtent: [number, number] = [1, 100];
     private readonly minExtentPoint: [number, number] = [0, 0];
 
-    public constructor(private readonly wafermap: WaferMap) {}
+    public constructor(private readonly wafermap: WaferMap<T>) {}
 
     /**
      * @internal
