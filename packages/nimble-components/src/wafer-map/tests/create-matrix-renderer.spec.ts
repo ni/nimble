@@ -18,7 +18,11 @@ describe('MatrixRenderer worker', () => {
     });
 
     it('updateMatrix should update the dieMatrix', async () => {
-        const testData = { colIndexes: [1, 2, 3], rowIndexes: [4, 5, 6], values: [8.1, 9.2, 10.32] };
+        const testData = {
+            colIndexes: [1, 2, 3],
+            rowIndexes: [4, 5, 6],
+            values: [8.1, 9.2, 10.32]
+        };
         await matrixRenderer.updateMatrix(testData);
         const resolvedDieMatrix = await matrixRenderer.getMatrix();
 
@@ -34,12 +38,18 @@ describe('MatrixRenderer worker', () => {
     });
 
     it('emptyMatrix should empty the dieMatrix', async () => {
-        const testData = { colIndexes: [4, 1, 2], rowIndexes: [54, 54, 62], values: [8.12, 9.0, 0.32] };
+        const testData = {
+            colIndexes: [4, 1, 2],
+            rowIndexes: [54, 54, 62],
+            values: [8.12, 9.0, 0.32]
+        };
         await matrixRenderer.updateMatrix(testData);
         await matrixRenderer.emptyMatrix();
         const resolvedDieMatrix = await matrixRenderer.getMatrix();
-        expect(resolvedDieMatrix.colIndexes.length
-            + resolvedDieMatrix.rowIndexes.length
-            + resolvedDieMatrix.values.length).toEqual(0);
+        expect(
+            resolvedDieMatrix.colIndexes.length
+                + resolvedDieMatrix.rowIndexes.length
+                + resolvedDieMatrix.values.length
+        ).toEqual(0);
     });
 });
