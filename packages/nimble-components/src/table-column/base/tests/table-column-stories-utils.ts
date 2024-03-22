@@ -52,5 +52,3 @@ export const sharedTableActions = [
 ] as const;
 
 export const columnOperationBehavior = 'Column operations, such as sorting and grouping, are performed on the field values in the data records, not on the formatted values displayed within the cells.';
-
-export const noNullAndUndefinedBestPractice = 'Avoid mixing `undefined` and `null` as values for the same field. When grouping this will lead to two groups (one for `null` values and one for `undefined` values) that both have the text `"No value"`.';

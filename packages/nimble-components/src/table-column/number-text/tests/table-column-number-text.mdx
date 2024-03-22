@@ -7,6 +7,7 @@ import {
 import * as tableColumnNumberTextStories from './table-column-number-text.stories';
 import { tableColumnNumberTextTag } from '..';
 import { tableTag } from '../../../table';
+import NoNullAndUndefinedBestPractice from '../../../patterns/table-column/tests/no-null-and-undefined-best-practice-docs.mdx';
 
 <Meta of={tableColumnNumberTextStories} />
 <Title of={tableColumnNumberTextStories} />
@@ -27,7 +28,7 @@ based on the value of the `lang` token, which can be set via the [nimble-theme-p
 
 ### Best Practices
 
--   {noNullAndUndefinedBestPractice}
+-   <NoNullAndUndefinedBestPractice />
 -   If relevant to your data source, make sure to consider the IEEE 754 special cases of `-Inf`, `+Inf`, `-0`, `+0`, and `NaN`. Those values are handled as follows in the table:
     -   `-Inf` will be rendered as `-∞` in the table. It is considered the smallest possible number when sorting.
     -   `+Inf` will be rendered as `∞` in the table. It is considered the largest possible number when sorting.
