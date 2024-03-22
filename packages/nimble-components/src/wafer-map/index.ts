@@ -91,11 +91,6 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly workerCanvas!: HTMLCanvasElement;
-
-    /**
-     * @internal
-     */
     public canvasContext!: CanvasRenderingContext2D;
 
     /**
@@ -200,20 +195,23 @@ export class WaferMap extends FoundationElement {
 
     public override async connectedCallback(): Promise<void> {
         super.connectedCallback();
-        this.canvasContext = this.canvas.getContext('2d', {
-            willReadFrequently: true
-        })!;
         this.hoverHandler.connect();
         this.experimentalHoverHandler.connect();
         this.zoomHandler.connect();
         const { matrixRenderer } = await createMatrixRenderer();
         this.worker = matrixRenderer;
-
-        const offscreenOne = this.workerCanvas.transferControlToOffscreen();
-        await this.worker.setCanvas(
-            transfer(offscreenOne, [offscreenOne as unknown as Transferable])
-        );
-
+        if (this.diesTable !== undefined) {
+            const offscreenOne = this.canvas.transferControlToOffscreen();
+            await this.worker.setCanvas(
+                transfer(offscreenOne, [
+                    offscreenOne as unknown as Transferable
+                ])
+            );
+        } else {
+            this.canvasContext = this.canvas.getContext('2d', {
+                willReadFrequently: true
+            })!;
+        }
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
     }
@@ -339,14 +337,16 @@ export class WaferMap extends FoundationElement {
             const { height, width } = entry.contentRect;
             // Updating the canvas size clears its contents so update it explicitly instead of
             // via template bindings so we can confirm that it happens before render
-            this.canvas.width = width;
-            this.canvas.height = height;
             this.canvasWidth = width;
             this.canvasHeight = height;
             this.worker.setCanvasDimensions({ width, height }).then(
                 () => {},
                 () => {}
             );
+            if (this.diesTable === undefined) {
+                this.canvas.width = width;
+                this.canvas.height = height;
+            }
         });
         return resizeObserver;
     }

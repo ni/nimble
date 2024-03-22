@@ -22,7 +22,6 @@ export const template = html<WaferMap>`
             </g>
         </svg>
         <canvas class="wafer-map-canvas" ${ref('canvas')}></canvas>
-        <canvas class="wafer-map-canvas" ${ref('workerCanvas')}></canvas>
         <svg class="hover-layer">
             <rect
                 class="hover-rect ${x => x.hoverOpacity}"
