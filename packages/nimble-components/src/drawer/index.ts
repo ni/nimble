@@ -131,6 +131,12 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     }
 
     private triggerAnimation(): void {
+        // Read the offsetHeight of the dialog to trigger a reflow. This guarantees that the browser
+        // has processed the 'animating' class being removed before trying to readd it, even if the previous
+        // animation has just finished. Otherwise, problems can occur. For example, trying to close the
+        // drawer immediately after the opening animation ends does not actually close the drawer.
+        void this.dialog.offsetHeight;
+
         this.dialog.classList.add('animating');
         if (this.closing) {
             this.dialog.classList.add('closing');
