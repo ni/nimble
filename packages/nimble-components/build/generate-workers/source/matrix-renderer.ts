@@ -16,15 +16,15 @@ export class MatrixRenderer {
     public scaledRowIndex = new Float64Array([]);
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
-    private scaleX: number = 1;
-    private scaleY: number = 1;
-    private baseX: number = 1;
-    private baseY: number = 1;
-    private dieDimensions: Dimensions = { width: 1, height: 1 };
-    private transform: Transform = { k: 1, x: 0, y: 0 };
-    private topLeftCanvasCorner: { x: number, y: number } = { x: 0, y: 0 };
-    private bottomRightCanvasCorner: { x: number, y: number } = { x: 500, y: 500 };
-    private margin: { top: number, right: number, bottom: number, left: number } = { top: 20, right: 20, bottom: 20, left: 20 };
+    private scaleX!: number;
+    private scaleY!: number;
+    private baseX!: number;
+    private baseY!: number;
+    private dieDimensions!: Dimensions;
+    private transform!: Transform;
+    private topLeftCanvasCorner!: { x: number; y: number; };
+    private bottomRightCanvasCorner!: { x: number; y: number; };
+    private margin!: { top: number; right: number; bottom: number; left: number; };
 
     public setMargin(margin: { top: number, right: number, bottom: number, left: number }): void {
         this.margin = margin;
