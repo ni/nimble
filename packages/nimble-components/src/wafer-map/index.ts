@@ -241,33 +241,27 @@ export class WaferMap extends FoundationElement {
         this.renderer = this.diesTable === undefined
             ? this.mainRenderer
             : this.workerRenderer;
-        if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            // zoom translateExtent needs to be recalculated when canvas size changes
+        // zoom translateExtent needs to be recalculated when canvas size changes
+        this.dataManager = this.diesTable === undefined
+            ? this.stableDataManager
+            : this.experimentalDataManager;
+        if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
             this.zoomHandler.disconnect();
-            this.dataManager = this.diesTable === undefined
-                ? this.stableDataManager
-                : this.experimentalDataManager;
-            if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
-                this.dataManager.updateContainerDimensions();
-                this.renderer.updateSortedDiesAndDrawWafer();
-                await this.drawWafer();
-            } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
-                this.dataManager.updateScales();
-                this.renderer.updateSortedDiesAndDrawWafer();
-            } else if (
-                this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
-            ) {
-                this.dataManager.updateLabelsFontSize();
-                this.renderer.updateSortedDiesAndDrawWafer();
-            } else if (
-                this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
-            ) {
-                this.dataManager.updateDiesRenderInfo();
-                this.renderer.updateSortedDiesAndDrawWafer();
-            } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
-                await this.renderer.drawWafer();
-            }
+            this.dataManager.updateContainerDimensions();
+            this.renderer.updateSortedDiesAndDrawWafer();
+            await this.drawWafer();
             this.zoomHandler.connect();
+        } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
+            this.dataManager.updateScales();
+            this.renderer.updateSortedDiesAndDrawWafer();
+        } else if (this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate) {
+            this.dataManager.updateLabelsFontSize();
+            this.renderer.updateSortedDiesAndDrawWafer();
+        } else if (this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate) {
+            this.dataManager.updateDiesRenderInfo();
+            this.renderer.updateSortedDiesAndDrawWafer();
+        } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
+            await this.renderer.drawWafer();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
@@ -340,8 +334,8 @@ export class WaferMap extends FoundationElement {
             this.canvasWidth = width;
             this.canvasHeight = height;
             this.worker.setCanvasDimensions({ width, height }).then(
-                () => {},
-                () => {}
+                () => { },
+                () => { }
             );
             if (this.diesTable === undefined) {
                 this.canvas.width = width;
