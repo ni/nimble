@@ -288,11 +288,13 @@ export class WaferMap<
         const waferMapMatrix = {
             colIndexes: this.diesTable
                 .getChild('colIndex')
-                ?.toArray() as number[],
+                ?.toArray() as unknown as number[],
             rowIndexes: this.diesTable
                 .getChild('rowIndex')
-                ?.toArray() as number[],
-            values: this.diesTable.getChild('value')?.toArray() as number[]
+                ?.toArray() as unknown as number[],
+            values: this.diesTable
+                .getChild('value')
+                ?.toArray() as unknown as number[]
         } as WaferMapMatrix;
         await this.worker.updateMatrix(waferMapMatrix);
         await this.setupWorker();
@@ -348,8 +350,8 @@ export class WaferMap<
             this.canvasWidth = width;
             this.canvasHeight = height;
             this.worker.setCanvasDimensions({ width, height }).then(
-                () => { },
-                () => { }
+                () => {},
+                () => {}
             );
             if (this.diesTable === undefined) {
                 this.canvas.width = width;
