@@ -81,7 +81,7 @@ const getDiesSet = (
             )!;
             break;
         default:
-            returnedValue = [] as WaferMapDie[];
+            returnedValue = [];
     }
     return returnedValue;
 };
@@ -133,7 +133,7 @@ const getHighlightedTags = (setName: string, sets: string[][]): string[] => {
             returnedValue = sets[3]!;
             break;
         default:
-            returnedValue = [] as string[];
+            returnedValue = [];
             break;
     }
     return returnedValue;
