@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 21 Mar 2024 17:13:38 GMT and should not be manually modified.
+This log was last generated on Mon, 25 Mar 2024 17:03:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 23.0.1
+
+Mon, 25 Mar 2024 17:03:11 GMT
+
+### Patches
+
+- Created new hover event for the new diesTable api and changed the zoom event ([ni/nimble@f56b73b](https://github.com/ni/nimble/commit/f56b73b45161a55b967dc03bbdd094a6527c814c))
 
 ## 23.0.0
 
