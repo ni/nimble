@@ -21,7 +21,7 @@ import {
     WaferMapOrientation,
     WaferMapOriginLocation,
     WaferMapValidity,
-    WaferRequiredTypeMap
+    type WaferRequiredFields
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
@@ -43,13 +43,13 @@ declare global {
  * A nimble-styled WaferMap
  */
 export class WaferMap<
-    T extends WaferRequiredTypeMap = WaferRequiredTypeMap
+    T extends WaferRequiredFields = WaferRequiredFields
 > extends FoundationElement {
     /**
      * @internal
      * needs to be initialized before the properties trigger changes
      */
-    public readonly waferMapUpdateTracker: WaferMapUpdateTracker<T> = new WaferMapUpdateTracker(this);
+    public readonly waferMapUpdateTracker: WaferMapUpdateTracker = new WaferMapUpdateTracker(this as WaferMap);
 
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
@@ -104,34 +104,36 @@ export class WaferMap<
     /**
      * @internal
      */
-    public readonly stableDataManager: DataManager<T> = new DataManager(this);
-
-    /**
-     * @internal
-     */
-    public readonly experimentalDataManager: ExperimentalDataManager<T> = new ExperimentalDataManager(this);
-
-    /**
-     * @internal
-     */
-    public dataManager: DataManager<T> | ExperimentalDataManager<T> = this.stableDataManager;
-
-    /**
-     * @internal
-     */
-    public readonly mainRenderer: RenderingModule<T> = new RenderingModule(
-        this
+    public readonly stableDataManager: DataManager = new DataManager(
+        this as WaferMap
     );
 
     /**
      * @internal
      */
-    public readonly workerRenderer: WorkerRenderer<T> = new WorkerRenderer(
-        this
+    public readonly experimentalDataManager: ExperimentalDataManager = new ExperimentalDataManager(this as WaferMap);
+
+    /**
+     * @internal
+     */
+    public dataManager: DataManager | ExperimentalDataManager = this.stableDataManager;
+
+    /**
+     * @internal
+     */
+    public readonly mainRenderer: RenderingModule = new RenderingModule(
+        this as WaferMap
+    );
+
+    /**
+     * @internal
+     */
+    public readonly workerRenderer: WorkerRenderer = new WorkerRenderer(
+        this as WaferMap
     );
 
     @observable
-    public renderer: RenderingModule<T> | WorkerRenderer<T> = this.mainRenderer;
+    public renderer: RenderingModule | WorkerRenderer = this.mainRenderer;
 
     /**
      * @internal
@@ -187,15 +189,18 @@ export class WaferMap<
         values: []
     };
 
-    private readonly hoverHandler = new HoverHandler(this);
-    private readonly experimentalHoverHandler = new ExperimentalHoverHandler(
-        this
+    private readonly hoverHandler: HoverHandler = new HoverHandler(
+        this as WaferMap
     );
 
-    private readonly zoomHandler = new ZoomHandler(this);
+    private readonly experimentalHoverHandler: ExperimentalHoverHandler = new ExperimentalHoverHandler(this as WaferMap);
+
+    private readonly zoomHandler: ZoomHandler = new ZoomHandler(
+        this as WaferMap
+    );
 
     private readonly resizeObserver = this.createResizeObserver();
-    private readonly waferMapValidator = new WaferMapValidator(this);
+    private readonly waferMapValidator: WaferMapValidator = new WaferMapValidator(this as WaferMap);
 
     public get validity(): WaferMapValidity {
         return this.waferMapValidator.getValidity();

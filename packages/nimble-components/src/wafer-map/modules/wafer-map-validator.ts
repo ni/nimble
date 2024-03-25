@@ -1,16 +1,16 @@
 import { DataType, Float, Int, Precision } from 'apache-arrow';
 import type { WaferMap } from '..';
-import type { WaferMapValidity, WaferRequiredTypeMap } from '../types';
+import type { WaferMapValidity } from '../types';
 
 /**
  * Helper class for the nimble-wafer-map to validate that the wafer maps's grid dimensions
  * configuration is valid and report which aspects of the configuration are valid or invalid.
  */
-export class WaferMapValidator<T extends WaferRequiredTypeMap> {
+export class WaferMapValidator {
     private invalidGridDimensions = false;
     private invalidDiesTableSchema = false;
 
-    public constructor(private readonly wafermap: WaferMap<T>) {}
+    public constructor(private readonly wafermap: WaferMap) {}
     public getValidity(): WaferMapValidity {
         return {
             invalidGridDimensions: this.invalidGridDimensions,
@@ -68,21 +68,21 @@ export class WaferMapValidator<T extends WaferRequiredTypeMap> {
                 )
                 || (
                     this.wafermap.diesTable.schema.fields[colIndexField]!
-                        .type as unknown as Int
+                        .type as Int
                 ).bitWidth !== 32
                 || !DataType.isInt(
                     this.wafermap.diesTable.schema.fields[rowIndexField]!.type
                 )
                 || (
                     this.wafermap.diesTable.schema.fields[rowIndexField]!
-                        .type as unknown as Int
+                        .type as Int
                 ).bitWidth !== 32
                 || !DataType.isFloat(
                     this.wafermap.diesTable.schema.fields[valueField]!.type
                 )
                 || (
                     this.wafermap.diesTable.schema.fields[valueField]!
-                        .type as unknown as Float
+                        .type as Float
                 ).precision !== Precision.DOUBLE
             ) {
                 this.invalidDiesTableSchema = true;

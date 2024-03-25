@@ -1,11 +1,11 @@
 import type { WaferMap } from '../..';
-import { HoverDieOpacity, WaferRequiredTypeMap } from '../../types';
+import { HoverDieOpacity } from '../../types';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
-export class WorkerRenderer<T extends WaferRequiredTypeMap> {
-    public constructor(private readonly wafermap: WaferMap<T>) {}
+export class WorkerRenderer {
+    public constructor(private readonly wafermap: WaferMap) {}
 
     public updateSortedDiesAndDrawWafer(): void {
         // redundant function for backwards compatibility

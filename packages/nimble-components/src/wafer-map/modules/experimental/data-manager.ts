@@ -2,12 +2,12 @@ import type { ScaleLinear } from 'd3-scale';
 import { Computations } from './computations';
 import { Prerendering } from './prerendering';
 import type { WaferMap } from '../..';
-import type { Dimensions, Margin, WaferRequiredTypeMap } from '../../types';
+import type { Dimensions, Margin } from '../../types';
 
 /**
  * Data Manager uses Computations and Prerendering modules in order and exposes the results
  */
-export class DataManager<T extends WaferRequiredTypeMap> {
+export class DataManager {
     public get containerDimensions(): Dimensions {
         return this.computations.containerDimensions;
     }
@@ -39,10 +39,10 @@ export class DataManager<T extends WaferRequiredTypeMap> {
         return this.prerendering.colorScale;
     }
 
-    private readonly computations: Computations<T>;
-    private readonly prerendering: Prerendering<T>;
+    private readonly computations: Computations;
+    private readonly prerendering: Prerendering;
 
-    public constructor(private readonly wafermap: WaferMap<T>) {
+    public constructor(private readonly wafermap: WaferMap) {
         this.computations = new Computations(wafermap);
         this.prerendering = new Prerendering(wafermap);
     }
