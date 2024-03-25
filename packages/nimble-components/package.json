@@ -46,7 +46,7 @@
     "test-webkit:verbose": "karma start karma.conf.verbose.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
     "test-webkit": "karma start karma.conf.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
-    "test": "npm run test-chrome:verbose && npm run test-firefox:verbose"
+    "test": "npm run test-chrome:verbose && npm run test-firefox:verbose && npm run test-webkit:verbose"
   },
   "repository": {
     "type": "git",
