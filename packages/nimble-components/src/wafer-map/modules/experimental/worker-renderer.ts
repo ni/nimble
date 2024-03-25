@@ -7,9 +7,9 @@ import { HoverDieOpacity } from '../../types';
 export class WorkerRenderer {
     public constructor(private readonly wafermap: WaferMap) {}
 
-    public updateSortedDiesAndDrawWafer(): void {
+    public async updateSortedDiesAndDrawWafer(): Promise<void> {
         // redundant function for backwards compatibility
-        void this.drawWafer();
+        await this.drawWafer();
     }
 
     public async drawWafer(): Promise<void> {
