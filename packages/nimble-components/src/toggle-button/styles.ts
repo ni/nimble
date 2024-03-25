@@ -15,12 +15,12 @@ import { appearanceBehavior } from '../utilities/style/appearance';
 import { ButtonAppearance } from './types';
 
 export const styles = css`
-    @layer base, pressed, hover, focusVisible, active, disabled, top;
+    @layer base, checked, hover, focusVisible, active, disabled, top;
 
     ${buttonStyles}
     ${buttonAppearanceVariantStyles}
 
-    @layer pressed {
+    @layer checked {
         .control[aria-pressed='true'] {
             background-color: transparent;
             color: ${buttonLabelFontColor};
@@ -50,7 +50,7 @@ export const styles = css`
     appearanceBehavior(
         ButtonAppearance.outline,
         css`
-            @layer pressed {
+            @layer checked {
                 :host([appearance-variant='accent'])
                     .control[aria-pressed='true'] {
                     color: ${buttonAccentOutlineFontColor};
