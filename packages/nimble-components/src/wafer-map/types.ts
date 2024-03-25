@@ -88,11 +88,15 @@ export interface WaferMapValidity extends ValidityObject {
     readonly invalidDiesTableSchema: boolean;
 }
 
-export interface WaferRequiredTypeMap {
-    [key: string]: DataType;
-    [key: number]: DataType;
-    [key: symbol]: DataType;
-    colIndex: Int32;
-    rowIndex: Int32;
-    value: Float64;
-}
+// Apache arrow probably should not be using a Record and index types on TypeMap
+// because in strict checking they end up required.
+// See: https://github.com/apache/arrow/issues/12663#issuecomment-1088244575
+// We can work around that issue by using a type alias instead of an interface
+// Where index signatures are looser.
+// See: https://github.com/microsoft/TypeScript/issues/15300#issuecomment-1317901527
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type WaferRequiredFields = {
+    colIndex: Int32,
+    rowIndex: Int32,
+    value: Float64
+};

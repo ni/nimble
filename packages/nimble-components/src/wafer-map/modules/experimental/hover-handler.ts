@@ -1,15 +1,14 @@
 import type { WaferMap } from '../..';
 import {
     PointCoordinates,
-    WaferMapOriginLocation,
-    WaferRequiredTypeMap
+    WaferMapOriginLocation
 } from '../../types';
 
 /**
  * HoverHandler deals with user interactions and events like hovering
  */
-export class HoverHandler<T extends WaferRequiredTypeMap> {
-    public constructor(private readonly wafermap: WaferMap<T>) {}
+export class HoverHandler {
+    public constructor(private readonly wafermap: WaferMap) {}
 
     /**
      * @internal

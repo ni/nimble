@@ -1,7 +1,7 @@
 import type { WaferMap } from '..';
 import type { DataManager } from '../modules/data-manager';
 import { Prerendering } from '../modules/prerendering';
-import { WaferMapColorScaleMode, WaferRequiredTypeMap } from '../types';
+import { WaferMapColorScaleMode } from '../types';
 import {
     getDataManagerMock,
     defaultHorizontalScale,
@@ -13,7 +13,7 @@ import {
 } from './utilities';
 
 describe('Wafermap Prerendering module', () => {
-    let prerenderingModule: Prerendering<WaferRequiredTypeMap>;
+    let prerenderingModule: Prerendering;
 
     describe('with die input and small die height', () => {
         const dieDimensions = { width: 10, height: 1 };
@@ -38,7 +38,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
-                dataManagerMock as DataManager<WaferRequiredTypeMap>
+                dataManagerMock as DataManager
             );
             prerenderingModule = new Prerendering(waferMock as WaferMap);
             prerenderingModule.updateLabelsFontSize();
@@ -80,7 +80,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
-                dataManagerMock as DataManager<WaferRequiredTypeMap>
+                dataManagerMock as DataManager
             );
             prerenderingModule = new Prerendering(waferMock as WaferMap);
             prerenderingModule.updateLabelsFontSize();
@@ -116,7 +116,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
-                dataManagerMock as DataManager<WaferRequiredTypeMap>
+                dataManagerMock as DataManager
             );
             prerenderingModule = new Prerendering(waferMock as WaferMap);
             prerenderingModule.updateLabelsFontSize();
@@ -156,7 +156,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
-                dataManagerMock as DataManager<WaferRequiredTypeMap>
+                dataManagerMock as DataManager
             );
             prerenderingModule = new Prerendering(waferMock as WaferMap);
             prerenderingModule.updateLabelsFontSize();
@@ -197,7 +197,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
-                dataManagerMock as DataManager<WaferRequiredTypeMap>
+                dataManagerMock as DataManager
             );
             prerenderingModule = new Prerendering(waferMock as WaferMap);
             prerenderingModule.updateLabelsFontSize();
@@ -240,7 +240,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
-                dataManagerMock as DataManager<WaferRequiredTypeMap>
+                dataManagerMock as DataManager
             );
             prerenderingModule = new Prerendering(waferMock as WaferMap);
             prerenderingModule.updateLabelsFontSize();
@@ -283,7 +283,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
-                dataManagerMock as DataManager<WaferRequiredTypeMap>
+                dataManagerMock as DataManager
             );
             prerenderingModule = new Prerendering(waferMock as WaferMap);
             prerenderingModule.updateLabelsFontSize();
@@ -330,7 +330,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsHidden,
                 dieLabelsSuffix,
                 maxCharacters,
-                dataManagerMock as DataManager<WaferRequiredTypeMap>
+                dataManagerMock as DataManager
             );
             prerenderingModule = new Prerendering(waferMock as WaferMap);
             prerenderingModule.updateLabelsFontSize();

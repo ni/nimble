@@ -19,7 +19,7 @@ import {
     WaferMapOrientation,
     WaferMapOriginLocation,
     WaferMapValidity,
-    WaferRequiredTypeMap
+    type WaferRequiredFields
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
@@ -38,13 +38,13 @@ declare global {
  * A nimble-styled WaferMap
  */
 export class WaferMap<
-    T extends WaferRequiredTypeMap = WaferRequiredTypeMap
+    T extends WaferRequiredFields = WaferRequiredFields
 > extends FoundationElement {
     /**
      * @internal
      * needs to be initialized before the properties trigger changes
      */
-    public readonly waferMapUpdateTracker: WaferMapUpdateTracker<T> = new WaferMapUpdateTracker(this);
+    public readonly waferMapUpdateTracker: WaferMapUpdateTracker = new WaferMapUpdateTracker(this);
 
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
@@ -94,7 +94,7 @@ export class WaferMap<
     /**
      * @internal
      */
-    public readonly dataManager: DataManager<T> = new DataManager(this);
+    public readonly dataManager: DataManager = new DataManager(this);
     /**
      * @internal
      */
@@ -105,7 +105,7 @@ export class WaferMap<
     public readonly workerRenderer = new WorkerRenderer(this);
 
     @observable
-    public renderer: RenderingModule<T> | WorkerRenderer<T> = this.mainRenderer;
+    public renderer: RenderingModule | WorkerRenderer = this.mainRenderer;
 
     /**
      * @internal
