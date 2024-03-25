@@ -44,7 +44,7 @@ export class WaferMap<
      * @internal
      * needs to be initialized before the properties trigger changes
      */
-    public readonly waferMapUpdateTracker: WaferMapUpdateTracker = new WaferMapUpdateTracker(this as WaferMap);
+    public readonly waferMapUpdateTracker: WaferMapUpdateTracker = new WaferMapUpdateTracker(this.asRequiredFieldsWaferMap);
 
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
@@ -95,17 +95,22 @@ export class WaferMap<
      * @internal
      */
     public readonly dataManager: DataManager = new DataManager(
-        this as WaferMap
+        this.asRequiredFieldsWaferMap
     );
 
     /**
      * @internal
      */
-    public readonly mainRenderer = new RenderingModule(this as WaferMap);
+    public readonly mainRenderer = new RenderingModule(
+        this.asRequiredFieldsWaferMap
+    );
+
     /**
      * @internal
      */
-    public readonly workerRenderer = new WorkerRenderer(this as WaferMap);
+    public readonly workerRenderer = new WorkerRenderer(
+        this.asRequiredFieldsWaferMap
+    );
 
     @observable
     public renderer: RenderingModule | WorkerRenderer = this.mainRenderer;
@@ -165,17 +170,17 @@ export class WaferMap<
     };
 
     private readonly hoverHandler: HoverHandler = new HoverHandler(
-        this as WaferMap
+        this.asRequiredFieldsWaferMap
     );
 
-    private readonly experimentalHoverHandler: ExperimentalHoverHandler = new ExperimentalHoverHandler(this as WaferMap);
+    private readonly experimentalHoverHandler: ExperimentalHoverHandler = new ExperimentalHoverHandler(this.asRequiredFieldsWaferMap);
 
     private readonly zoomHandler: ZoomHandler = new ZoomHandler(
-        this as WaferMap
+        this.asRequiredFieldsWaferMap
     );
 
     private readonly resizeObserver = this.createResizeObserver();
-    private readonly waferMapValidator: WaferMapValidator = new WaferMapValidator(this as WaferMap);
+    private readonly waferMapValidator: WaferMapValidator = new WaferMapValidator(this.asRequiredFieldsWaferMap);
 
     public get validity(): WaferMapValidity {
         return this.waferMapValidator.getValidity();
@@ -358,6 +363,10 @@ export class WaferMap<
         this.$emit('die-hover', { currentDie: this.hoverDie });
         this.waferMapUpdateTracker.track('hoverDie');
         this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private get asRequiredFieldsWaferMap(): WaferMap {
+        return this as WaferMap;
     }
 }
 

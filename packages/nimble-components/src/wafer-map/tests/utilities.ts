@@ -85,17 +85,19 @@ export function getDataManagerMock(
     margin: Margin,
     horizontalScale: ScaleBand<number> = getScaleBand([], []),
     verticalScale: ScaleBand<number> = getScaleBand([], [])
-): Pick<
+): DataManager {
+    const dataManagerMock: Pick<
     DataManager,
     'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
-    > {
-    return {
+    > = {
         horizontalScale,
         verticalScale,
         dieDimensions,
         margin
     };
+    return dataManagerMock as DataManager;
 }
+
 export function getDataManagerMockForHover(
     margin: Margin,
     invertedHorizontalScale: ScaleQuantile<number, number> = getScaleQuantile(
@@ -106,15 +108,16 @@ export function getDataManagerMockForHover(
         [],
         []
     )
-): Pick<
+): DataManager {
+    const dataManagerMock: Pick<
     DataManager,
     'invertedHorizontalScale' | 'invertedVerticalScale' | 'margin'
-    > {
-    return {
+    > = {
         invertedHorizontalScale,
         invertedVerticalScale,
         margin
     };
+    return dataManagerMock as DataManager;
 }
 
 export function getWaferMapMockPrerendering(
@@ -126,7 +129,8 @@ export function getWaferMapMockPrerendering(
     dieLabelsSuffix = '',
     maxCharacters = 4,
     dataManager = {} as DataManager
-): Pick<
+): WaferMap {
+    const waferMapMock: Pick<
     WaferMap,
     | 'dies'
     | 'colorScale'
@@ -136,8 +140,7 @@ export function getWaferMapMockPrerendering(
     | 'dieLabelsSuffix'
     | 'maxCharacters'
     | 'dataManager'
-    > {
-    return {
+    > = {
         dies,
         colorScale,
         highlightedTags,
@@ -147,6 +150,7 @@ export function getWaferMapMockPrerendering(
         maxCharacters,
         dataManager
     };
+    return waferMapMock as WaferMap;
 }
 
 export function getWaferMapMockHover(
@@ -156,7 +160,8 @@ export function getWaferMapMockHover(
     hoverDie: HoverDie | undefined,
     dataManager: DataManager,
     isExperimentalRenderer: boolean
-): Pick<
+): WaferMap {
+    const waferMapMock: Pick<
     WaferMap,
     | 'diesTable'
     | 'transform'
@@ -164,8 +169,7 @@ export function getWaferMapMockHover(
     | 'hoverDie'
     | 'dataManager'
     | 'isExperimentalRenderer'
-    > {
-    return {
+    > = {
         diesTable,
         transform,
         originLocation,
@@ -173,6 +177,7 @@ export function getWaferMapMockHover(
         dataManager,
         isExperimentalRenderer: () => isExperimentalRenderer
     };
+    return waferMapMock as WaferMap;
 }
 export function getWaferMapMockComputations(
     dies: WaferMapDie[] = getWaferMapDies(),
@@ -183,17 +188,18 @@ export function getWaferMapMockComputations(
         invalidGridDimensions: false,
         invalidDiesTableSchema: false
     }
-): Pick<
+): WaferMap {
+    const waferMapMock: Pick<
     WaferMap,
     'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
-    > {
-    return {
+    > = {
         dies,
         originLocation,
         canvasWidth,
         canvasHeight,
         validity
     };
+    return waferMapMock as WaferMap;
 }
 
 export function getWaferMapMockValidator(
@@ -202,15 +208,16 @@ export function getWaferMapMockValidator(
     gridMinY: number | undefined,
     gridMaxY: number | undefined,
     diesTable: Table | undefined = undefined
-): Pick<
+): WaferMap {
+    const waferMapMock: Pick<
     WaferMap,
     'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY' | 'diesTable'
-    > {
-    return {
+    > = {
         gridMinX,
         gridMaxX,
         gridMinY,
         gridMaxY,
         diesTable
     };
+    return waferMapMock as WaferMap;
 }
