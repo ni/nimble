@@ -68,7 +68,9 @@ export class Prerendering {
         }
         return {
             colors: this.wafermap.colorScale.colors,
-            values: Float64Array.from(this.wafermap.colorScale.values.map(item => +item))
+            values: Float64Array.from(
+                this.wafermap.colorScale.values.map(item => +item)
+            )
         };
     }
 

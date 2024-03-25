@@ -31,7 +31,6 @@ import { HoverHandler as ExperimentalHoverHandler } from './modules/experimental
 import { ZoomHandler } from './modules/zoom-handler';
 import type { MatrixRenderer } from '../../build/generate-workers/dist/esm/source/matrix-renderer';
 import { createMatrixRenderer } from './modules/create-matrix-renderer';
-import type { WaferMapMatrix } from '../../build/generate-workers/dist/esm/source/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -223,9 +222,7 @@ export class WaferMap<
         this.worker = matrixRenderer;
 
         const offscreenOne = this.workerCanvas.transferControlToOffscreen();
-        await this.worker.setCanvas(
-            transfer(offscreenOne, [offscreenOne])
-        );
+        await this.worker.setCanvas(transfer(offscreenOne, [offscreenOne]));
 
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
