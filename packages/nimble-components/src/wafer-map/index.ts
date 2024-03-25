@@ -6,6 +6,7 @@ import {
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import type { Table } from 'apache-arrow';
+import type { Remote } from 'comlink';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
@@ -28,6 +29,7 @@ import { WorkerRenderer } from './modules/experimental/worker-renderer';
 import { HoverHandler } from './modules/hover-handler';
 import { HoverHandler as ExperimentalHoverHandler } from './modules/experimental/hover-handler';
 import { ZoomHandler } from './modules/zoom-handler';
+import type { MatrixRenderer } from '../../build/generate-workers/dist/esm/source/matrix-renderer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -76,6 +78,11 @@ export class WaferMap<
 
     @attr({ attribute: 'color-scale-mode' })
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
+
+    /**
+ * @internal
+ */
+    public worker!: Remote<MatrixRenderer>;
 
     /**
      * @internal
@@ -225,7 +232,7 @@ export class WaferMap<
      * The updates snowball one after the other, this function only choses the 'altitude'.
      * The hover does not require an event update, but it's also the last update in the sequence.
      */
-    public update(): void {
+    public async update(): Promise<void> {
         this.validate();
         if (this.validity.invalidDiesTableSchema) {
             return;
@@ -256,7 +263,7 @@ export class WaferMap<
                 this.dataManager.updateDiesRenderInfo();
                 this.renderer.updateSortedDiesAndDrawWafer();
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
-                this.renderer.drawWafer();
+                await this.renderer.drawWafer();
             }
             this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {

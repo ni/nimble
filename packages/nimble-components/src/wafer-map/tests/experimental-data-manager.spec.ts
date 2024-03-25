@@ -43,7 +43,6 @@ describe('Wafermap Experimental Data Manager', () => {
         element.colorScaleMode = WaferMapColorScaleMode.ordinal;
         element.canvasWidth = canvasWidth;
         element.canvasHeight = canvasHeight;
-
         processUpdates();
 
         dataManagerModule = element.experimentalDataManager;
