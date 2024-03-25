@@ -94,7 +94,10 @@ export class WaferMap<
     /**
      * @internal
      */
-    public readonly dataManager: DataManager = new DataManager(this as WaferMap);
+    public readonly dataManager: DataManager = new DataManager(
+        this as WaferMap
+    );
+
     /**
      * @internal
      */
@@ -161,12 +164,15 @@ export class WaferMap<
         values: []
     };
 
-    private readonly hoverHandler: HoverHandler = new HoverHandler(this as WaferMap);
-    private readonly experimentalHoverHandler: ExperimentalHoverHandler = new ExperimentalHoverHandler(
+    private readonly hoverHandler: HoverHandler = new HoverHandler(
         this as WaferMap
     );
 
-    private readonly zoomHandler: ZoomHandler = new ZoomHandler(this as WaferMap);
+    private readonly experimentalHoverHandler: ExperimentalHoverHandler = new ExperimentalHoverHandler(this as WaferMap);
+
+    private readonly zoomHandler: ZoomHandler = new ZoomHandler(
+        this as WaferMap
+    );
 
     private readonly resizeObserver = this.createResizeObserver();
     private readonly waferMapValidator: WaferMapValidator = new WaferMapValidator(this as WaferMap);

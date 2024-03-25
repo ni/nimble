@@ -1,8 +1,5 @@
 import type { WaferMap } from '..';
-import {
-    PointCoordinates,
-    WaferMapOriginLocation
-} from '../types';
+import { PointCoordinates, WaferMapOriginLocation } from '../types';
 
 /**
  * HoverHandler deals with user interactions and events like hovering
