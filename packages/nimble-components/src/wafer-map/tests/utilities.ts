@@ -10,7 +10,7 @@ import {
     WaferMapDie,
     WaferMapOriginLocation,
     WaferMapValidity,
-    WaferRequiredTypeMap
+    WaferRequiredFields
 } from '../types';
 import type { DataManager } from '../modules/data-manager';
 import type { WaferMap } from '..';
@@ -37,7 +37,7 @@ export function getWaferMapDies(): WaferMapDie[] {
         { value: '18', x: 6, y: 4 }
     ];
 }
-export function getWaferMapDiesTable(): Table<WaferRequiredTypeMap> {
+export function getWaferMapDiesTable(): Table<WaferRequiredFields> {
     return tableFromArrays({
         colIndex: new Int32Array([
             2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6
@@ -100,7 +100,7 @@ export function getDataManagerMock(
     horizontalScale: ScaleBand<number> = getScaleBand([], []),
     verticalScale: ScaleBand<number> = getScaleBand([], [])
 ): Pick<
-    DataManager<WaferRequiredTypeMap>,
+    DataManager,
     'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
     > {
     return {
@@ -121,7 +121,7 @@ export function getDataManagerMockForHover(
         []
     )
 ): Pick<
-    DataManager<WaferRequiredTypeMap>,
+    DataManager,
     'invertedHorizontalScale' | 'invertedVerticalScale' | 'margin'
     > {
     return {
@@ -139,7 +139,7 @@ export function getWaferMapMockPrerendering(
     dieLabelsHidden = true,
     dieLabelsSuffix = '',
     maxCharacters = 4,
-    dataManager = {} as DataManager<WaferRequiredTypeMap>
+    dataManager = {} as DataManager
 ): Pick<
     WaferMap,
     | 'dies'
@@ -168,7 +168,7 @@ export function getWaferMapMockHover(
     transform: ZoomTransform,
     originLocation: WaferMapOriginLocation,
     hoverDie: HoverDie | undefined,
-    dataManager: DataManager<WaferRequiredTypeMap>,
+    dataManager: DataManager,
     isExperimentalRenderer: boolean
 ): Pick<
     WaferMap,
