@@ -102,9 +102,7 @@ export class WaferMap<
     /**
      * @internal
      */
-    public readonly experimentalDataManager: ExperimentalDataManager = new ExperimentalDataManager(
-        this.asRequiredFieldsWaferMap
-    );
+    public readonly experimentalDataManager: ExperimentalDataManager = new ExperimentalDataManager(this.asRequiredFieldsWaferMap);
 
     public dataManager: DataManager | ExperimentalDataManager = this.stableDataManager;
 
