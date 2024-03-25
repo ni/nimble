@@ -1,8 +1,9 @@
-import { Remote, expose, wrap } from 'comlink';
+import { Remote, expose, transfer, wrap } from 'comlink';
 import { MatrixRenderer } from '../matrix-renderer';
 
 describe('MatrixRenderer with MessageChannel', () => {
     let matrixRenderer: Remote<MatrixRenderer>;
+    const testData = { colIndexes: [4, 1, 2], rowIndexes: [54, 54, 62], values: [8.12, 9.0, 0.32] };
 
     beforeEach(async () => {
         const { port1, port2 } = new MessageChannel();
@@ -12,17 +13,49 @@ describe('MatrixRenderer with MessageChannel', () => {
     });
 
     it('updateMatrix should update the dieMatrix', async () => {
-        const testData = [4, 5, 6];
         await matrixRenderer.updateMatrix(testData);
 
-        const updatedMatrix = await matrixRenderer.dieMatrix;
-        expect(updatedMatrix).toEqual(Uint8Array.from(testData));
+        const updatedMatrix = await matrixRenderer.getMatrix();
+        expect(updatedMatrix).toEqual(
+            {
+                colIndexes: Uint32Array.from(testData.colIndexes),
+                rowIndexes: Uint32Array.from(testData.rowIndexes),
+                values: Float64Array.from(testData.values)
+            }
+        );
     });
 
     it('emptyMatrix should empty the dieMatrix', async () => {
         await matrixRenderer.emptyMatrix();
 
-        const updatedMatrix = await matrixRenderer.dieMatrix;
-        expect(updatedMatrix.length).toEqual(0);
+        const updatedMatrix = await matrixRenderer.getMatrix();
+        expect(updatedMatrix.colIndexes.length
+            + updatedMatrix.rowIndexes.length
+            + updatedMatrix.values.length).toEqual(0);
+    });
+
+    it('indexes should be scaled', async () => {
+        await matrixRenderer.updateMatrix(testData);
+        const offscreenCanvas = new OffscreenCanvas(300, 300);
+        matrixRenderer.setCanvas(
+            transfer(offscreenCanvas, [
+                offscreenCanvas as unknown as Transferable
+            ])
+        );
+
+        matrixRenderer.setDiesDimensions({ width: 10, height: 10 });
+        matrixRenderer.setCanvasCorners({ x: 0, y: 0 }, { x: 500, y: 500 });
+        matrixRenderer.setScaling(2, 2);
+        matrixRenderer.setBases(2, 2);
+        matrixRenderer.setCanvasCorners({ x: 0, y: 0 }, { x: 500, y: 500 });
+        matrixRenderer.setTransform({ x: 0, y: 0, k: 1 });
+        matrixRenderer.setMargin({ top: 10, right: 10, bottom: 10, left: 10 });
+        matrixRenderer.drawWafer();
+
+        const scaledColIndexes = await matrixRenderer.scaledColIndex;
+        const scaledRowIndexes = await matrixRenderer.scaledRowIndex;
+
+        expect(scaledColIndexes).toEqual(Float64Array.from([20, 14, 16]));
+        expect(scaledRowIndexes).toEqual(Float64Array.from([120, 120, 136]));
     });
 });

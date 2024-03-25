@@ -7,5 +7,8 @@
     }
   ],
   "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-  "omnisharp.useModernNet": true
+  "omnisharp.useModernNet": true,
+  "cSpell.words": [
+    "offscreencanvas"
+  ]
 }
