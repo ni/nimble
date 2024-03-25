@@ -154,6 +154,6 @@ export const generateWaferTableData = (
     return tableFromArrays({
         colIndex: Int32Array.from(colIndex),
         rowIndex: Int32Array.from(rowIndex),
-        value: Float32Array.from(value)
+        value: Float64Array.from(value)
     });
 };
