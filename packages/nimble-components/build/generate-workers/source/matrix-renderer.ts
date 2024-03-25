@@ -25,9 +25,23 @@ export class MatrixRenderer {
     private topLeftCanvasCorner: { x: number, y: number } = { x: 0, y: 0 };
     private bottomRightCanvasCorner: { x: number, y: number } = { x: 500, y: 500 };
     private margin: { top: number, right: number, bottom: number, left: number } = { top: 20, right: 20, bottom: 20, left: 20 };
+    private colors!: string[];
+    private colorValues!: Float64Array;
+    private readonly outsideRangeDieColor = 'rgba(218,223,236,1)';
+    private readonly fontSizeFactor = 0.8;
+    private fontSize = 12;
+
 
     public setMargin(margin: { top: number, right: number, bottom: number, left: number }): void {
         this.margin = margin;
+    }
+
+    public setColors(colors: string[]): void {
+        this.colors = colors;
+    }
+
+    public setColorValues(colorValues: Float64Array): void {
+        this.colorValues = colorValues;
     }
 
     public setCanvasCorners(topLeft: { x: number, y: number }, bottomRight: { x: number, y: number }): void {
@@ -58,11 +72,6 @@ export class MatrixRenderer {
         this.context = canvas.getContext('2d')!;
     }
 
-    private scaleIndexes(): void {
-        this.scaledColIndex = new Float64Array(this.colIndexes.map((colIndex) => colIndex * this.scaleX + this.baseX + this.margin.right));
-        this.scaledRowIndex = new Float64Array(this.rowIndexes.map((rowIndex) => rowIndex * this.scaleY + this.baseY + this.margin.top));
-    }
-
     public getMatrix(): WaferMapTypedMatrix {
         return {
             colIndexes: this.colIndexes,
@@ -89,15 +98,17 @@ export class MatrixRenderer {
     }
 
     public setColIndexes(colIndexesBuffer: Int32Array): void {
-        this.colIndexes = colIndexesBuffer
+        this.colIndexes = colIndexesBuffer;
+        this.scaledColIndex = new Float64Array(this.colIndexes.map((colIndex) => colIndex * this.scaleX + this.baseX + this.margin.right));
     }
 
     public setRowIndexes(rowIndexesBuffer: Int32Array): void {
-        this.rowIndexes = rowIndexesBuffer
+        this.rowIndexes = rowIndexesBuffer;
+        this.scaledRowIndex = new Float64Array(this.rowIndexes.map((rowIndex) => rowIndex * this.scaleY + this.baseY + this.margin.top));
     }
 
     public setValues(valuesBuffer: Float64Array): void {
-        this.values = valuesBuffer
+        this.values = valuesBuffer;
     }
 
     public setCanvasDimensions(data: Dimensions): void {
@@ -119,15 +130,29 @@ export class MatrixRenderer {
         this.context.save();
         this.clearCanvas();
         this.scaleCanvas();
-        this.scaleIndexes();
         for (let i = 0; i < this.scaledColIndex.length; i++) {
-            // the fillStyle will be changed in a future pr
-            this.context.fillStyle = 'Green';
             const x = this.scaledColIndex[i]!;
             const y = this.scaledRowIndex[i]!;
             if (!this.isDieVisible(x, y)) { continue; }
+            const colorIndex = this.findNearestValueIndex(this.values[i]!);
+            this.context.fillStyle = colorIndex === -1 ? this.outsideRangeDieColor : this.colors[colorIndex]!;
             this.context.fillRect(x, y, this.dieDimensions.width, this.dieDimensions.height);
         }
+    }
+
+    public findNearestValueIndex(dieValue: number): number {
+        let start = 0;
+        let end = this.colorValues.length - 1;
+        if (dieValue < this.colorValues[start]! || dieValue > this.colorValues[end]!) return -1;
+
+        while (start <= end) {
+            const mid = Math.floor((start + end) / 2);
+            if (this.colorValues[mid] === dieValue) return mid;
+            if (this.colorValues[mid]! < dieValue) start = mid + 1;
+            else end = mid - 1;
+        }
+
+        return (this.colorValues[start]! - dieValue) < (dieValue - this.colorValues[start - 1]!) ? start : start - 1;
     }
 
     public isDieVisible(x: number, y: number): boolean {

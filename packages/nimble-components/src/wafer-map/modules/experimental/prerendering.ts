@@ -14,14 +14,14 @@ export class Prerendering {
 
     public get colorScale(): {
         colors: string[],
-        values: number[]
+        values: Float64Array
     } {
         return this._colorScale;
     }
 
     private _colorScale!: {
         colors: string[],
-        values: number[]
+        values: Float64Array
     };
 
     private _labelsFontSize!: number;
@@ -43,7 +43,7 @@ export class Prerendering {
 
     private calculateColorScale(): {
         colors: string[],
-        values: number[]
+        values: Float64Array
     } {
         if (this.wafermap.colorScaleMode === WaferMapColorScaleMode.linear) {
             const values = this.wafermap.colorScale.values.map(item => +item);
@@ -63,12 +63,12 @@ export class Prerendering {
             const valueSamples = ticks(min, max, 100);
             return {
                 colors: valueSamples.map(value => d3ColorScale(value)),
-                values: valueSamples
+                values: Float64Array.from(valueSamples)
             };
         }
         return {
             colors: this.wafermap.colorScale.colors,
-            values: this.wafermap.colorScale.values.map(item => +item)
+            values: Float64Array.from(this.wafermap.colorScale.values.map(item => +item))
         };
     }
 

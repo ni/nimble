@@ -1,6 +1,7 @@
 import { transfer } from 'comlink';
 import type { WaferMap } from '../..';
 import { HoverDieOpacity } from '../../types';
+import { DataManager } from './data-manager';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
@@ -44,7 +45,6 @@ export class WorkerRenderer {
 
     private async setupWorker(): Promise<void> {
         // await this.wafermap.worker.setCanvasDimensions({ width: this.wafermap.canvasWidth, height: this.wafermap.canvasHeight });
-        console.log('this.wafermap.dataManager.dieDimensions', this.wafermap.dataManager.dieDimensions);
         await this.wafermap.worker.setDiesDimensions(this.wafermap.dataManager.dieDimensions);
 
         const scaleX = this.wafermap.dataManager.horizontalScale(1)!
@@ -74,6 +74,10 @@ export class WorkerRenderer {
                 y: bottomRightCanvasCorner[1]
             }
         );
+        if (this.wafermap.dataManager instanceof DataManager) {
+            await this.wafermap.worker.setColors(this.wafermap.dataManager.colorScale.colors);
+            await this.wafermap.worker.setColorValues(this.wafermap.dataManager.colorScale.values);
+        }
     }
 
     private calculateHoverTransform(): string {

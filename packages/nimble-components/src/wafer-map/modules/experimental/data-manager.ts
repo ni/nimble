@@ -34,7 +34,7 @@ export class DataManager {
 
     public get colorScale(): {
         colors: string[],
-        values: number[]
+        values: Float64Array
     } {
         return this.prerendering.colorScale;
     }
