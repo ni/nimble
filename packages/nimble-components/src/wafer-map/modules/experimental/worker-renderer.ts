@@ -7,7 +7,7 @@ import { DataManager } from './data-manager';
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class WorkerRenderer {
-    private readonly minDieDim = 50;
+    private readonly minDieDim = 100;
     public constructor(private readonly wafermap: WaferMap) {}
 
     public async updateSortedDiesAndDrawWafer(): Promise<void> {
@@ -45,10 +45,29 @@ export class WorkerRenderer {
             return;
         }
         await this.wafermap.worker.setTransform(this.wafermap.transform);
+        const topLeftCanvasCorner = this.wafermap.transform.invert([0, 0]);
+        const bottomRightCanvasCorner = this.wafermap.transform.invert([
+            this.wafermap.canvasWidth,
+            this.wafermap.canvasHeight
+        ]);
+        await this.wafermap.worker.setCanvasCorners(
+            {
+                x:
+                    topLeftCanvasCorner[0]
+                    - this.wafermap.dataManager.dieDimensions.width,
+                y:
+                    topLeftCanvasCorner[1]
+                    - this.wafermap.dataManager.dieDimensions.height
+            },
+            {
+                x: bottomRightCanvasCorner[0],
+                y: bottomRightCanvasCorner[1]
+            }
+        );
         await this.wafermap.worker.drawWafer();
         if (
             !this.wafermap.dieLabelsHidden
-            || this.wafermap.dataManager.dieDimensions.width
+            && this.wafermap.dataManager.dieDimensions.width
                 * this.wafermap.dataManager.dieDimensions.height
                 * (this.wafermap.transform.k || 1)
                 >= this.minDieDim
@@ -87,21 +106,6 @@ export class WorkerRenderer {
         );
         await this.wafermap.worker.setMargin(this.wafermap.dataManager.margin);
 
-        const topLeftCanvasCorner = this.wafermap.transform.invert([0, 0]);
-        const bottomRightCanvasCorner = this.wafermap.transform.invert([
-            this.wafermap.workerCanvas.width,
-            this.wafermap.workerCanvas.height
-        ]);
-        await this.wafermap.worker.setCanvasCorners(
-            {
-                x: topLeftCanvasCorner[0],
-                y: topLeftCanvasCorner[1]
-            },
-            {
-                x: bottomRightCanvasCorner[0],
-                y: bottomRightCanvasCorner[1]
-            }
-        );
         await this.wafermap.worker.setFontSize(
             this.wafermap.dataManager.labelsFontSize
         );

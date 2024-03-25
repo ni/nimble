@@ -14,6 +14,8 @@ export class MatrixRenderer {
     public values = new Float64Array([]);
     public scaledColIndex = new Float64Array([]);
     public scaledRowIndex = new Float64Array([]);
+    public colIndexPositions = new Int32Array([]);
+    public colorIndexes = new Int32Array([]);
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
     private scaleX: number = 1;
@@ -113,16 +115,36 @@ export class MatrixRenderer {
 
     public setColIndexes(colIndexesBuffer: Int32Array): void {
         this.colIndexes = colIndexesBuffer;
-        this.scaledColIndex = new Float64Array(this.colIndexes.map((colIndex) => colIndex * this.scaleX + this.baseX + this.margin.right));
+        const scaledColIndex = [this.scaleX * this.colIndexes[0]! + this.baseX + this.margin.left];
+        const colPosition = [0];
+        let prev = this.colIndexes[0];
+        for (let i = 1, length = this.colIndexes.length; i < length; i++) {
+            const xIndex = this.colIndexes[i];
+            if (xIndex && xIndex !== prev) {
+                const scaledX = this.scaleX * this.colIndexes[i]! + this.baseX + this.margin.left;
+                scaledColIndex.push(scaledX);
+                colPosition.push(i);
+                prev = xIndex
+            }
+        }
+        this.scaledColIndex = Float64Array.from(scaledColIndex);
+        this.colIndexPositions = Int32Array.from(colPosition);
     }
 
     public setRowIndexes(rowIndexesBuffer: Int32Array): void {
         this.rowIndexes = rowIndexesBuffer;
-        this.scaledRowIndex = new Float64Array(this.rowIndexes.map((rowIndex) => rowIndex * this.scaleY + this.baseY + this.margin.top));
+        this.scaledRowIndex = new Float64Array(this.rowIndexes.length);
+        for (let i = 0; i < this.rowIndexes.length; i++) {
+            this.scaledRowIndex[i] = this.scaleY * this.rowIndexes[i]! + this.baseY + this.margin.top;
+        }
     }
 
     public setValues(valuesBuffer: Float64Array): void {
         this.values = valuesBuffer;
+        this.colorIndexes = new Int32Array(this.values.length);
+        for (let i = 0; i < this.values.length; i++) {
+            this.colorIndexes[i] = this.findNearestValueIndex(this.values[i]!);
+        }
     }
 
     public setCanvasDimensions(data: Dimensions): void {
@@ -145,12 +167,25 @@ export class MatrixRenderer {
         this.clearCanvas();
         this.scaleCanvas();
         for (let i = 0; i < this.scaledColIndex.length; i++) {
-            const x = this.scaledColIndex[i]!;
-            const y = this.scaledRowIndex[i]!;
-            if (!this.isDieVisible(x, y)) { continue; }
-            const colorIndex = this.findNearestValueIndex(this.values[i]!);
-            this.context.fillStyle = colorIndex === -1 ? this.outsideRangeDieColor : this.colors[colorIndex]!;
-            this.context.fillRect(x, y, this.dieDimensions.width, this.dieDimensions.height);
+            const scaledX = this.scaledColIndex[i]!;
+            if (
+                scaledX >= this.topLeftCanvasCorner.x
+                && scaledX < this.bottomRightCanvasCorner.x
+            ) {
+                for (let j = this.colIndexPositions[i]!,
+                    length = this.colIndexPositions[i + 1] !== undefined ? this.colIndexPositions[i + 1]! : this.scaledRowIndex.length;
+                    j < length; j++) {
+                    const scaledY = this.scaledRowIndex[j]!;
+                    if (
+                        scaledY >= this.topLeftCanvasCorner.y
+                        && scaledY < this.bottomRightCanvasCorner.y
+                    ) {
+                        const colorIndex = this.colorIndexes[j]!;
+                        this.context.fillStyle = colorIndex === -1 ? this.outsideRangeDieColor : this.colors[colorIndex]!;
+                        this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
+                    }
+                }
+            }
         }
     }
 
@@ -160,36 +195,42 @@ export class MatrixRenderer {
         this.context.textAlign = 'center';
         this.context.lineCap = 'butt';
         const approximateTextHeight = this.context.measureText('M');
+        
         for (let i = 0; i < this.scaledColIndex.length; i++) {
-            const x = this.scaledColIndex[i]!;
-            const y = this.scaledRowIndex[i]!;
-            if (!this.isDieVisible(x, y)) { continue; }
-            let label = `${this.values[i!]}${this.dieLabelsSuffix}`;
-            if (label.length >= this.maxCharacters) {
-                label = `${label.substring(0, this.maxCharacters)}…`;
+            const scaledX = this.scaledColIndex[i]!;
+            if (
+                scaledX >= this.topLeftCanvasCorner.x
+                && scaledX < this.bottomRightCanvasCorner.x
+            ) {
+                for (let j = this.colIndexPositions[i]!,
+                    length = this.colIndexPositions[i + 1] !== undefined ? this.colIndexPositions[i + 1]! : this.scaledRowIndex.length;
+                    j < length; j++) {
+                    const scaledY = this.scaledRowIndex[j]!;
+                    if (
+                        scaledY >= this.topLeftCanvasCorner.y
+                        && scaledY < this.bottomRightCanvasCorner.y
+                    ) {
+                        let label = `${this.values[j!]}${this.dieLabelsSuffix}`;
+                        if (label.length >= this.maxCharacters) {
+                            label = `${label.substring(0, this.maxCharacters)}…`;
+                        }
+                        this.context.fillText(
+                            label,
+                            scaledX + this.dieDimensions.width / 2,
+                            scaledY + this.dieDimensions.height / 2 + approximateTextHeight.width / 2,
+                            this.dieDimensions.width * this.fontSizeFactor
+                        );
+                    }
+                }
             }
-            this.context.fillText(
-                label,
-                x + this.dieDimensions.width / 2,
-                y + this.dieDimensions.height / 2 + approximateTextHeight.width / 2,
-                this.dieDimensions.width * this.fontSizeFactor
-            );
         }
     }
 
     public findNearestValueIndex(dieValue: number): number {
-        let start = 0;
-        let end = this.colorValues.length - 1;
-        if (dieValue < this.colorValues[start]! || dieValue > this.colorValues[end]!) return -1;
-
-        while (start <= end) {
-            const mid = Math.floor((start + end) / 2);
-            if (this.colorValues[mid] === dieValue) return mid;
-            if (this.colorValues[mid]! < dieValue) start = mid + 1;
-            else end = mid - 1;
+        for (let i = 0; i < this.colorValues.length; i++) {
+            if (this.colorValues[i]! > dieValue) return i - 1;
         }
-
-        return (this.colorValues[start]! - dieValue) < (dieValue - this.colorValues[start - 1]!) ? start : start - 1;
+        return this.colorValues.length - 1;
     }
 
     public isDieVisible(x: number, y: number): boolean {

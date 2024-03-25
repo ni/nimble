@@ -26,6 +26,7 @@ export class Prerendering {
 
     private _labelsFontSize!: number;
 
+    private readonly colorResolution = 10;
     private readonly fontSizeFactor = 0.8;
     private readonly nonHighlightedOpacity = 0.3;
     private readonly emptyDieColor = 'rgba(218,223,236,1)';
@@ -60,7 +61,11 @@ export class Prerendering {
                     max = value;
                 }
             });
-            const valueSamples = ticks(min, max, 100);
+            const valueSamples = ticks(
+                min,
+                max,
+                values.length * this.colorResolution
+            );
             return {
                 colors: valueSamples.map(value => d3ColorScale(value)),
                 values: Float64Array.from(valueSamples)
