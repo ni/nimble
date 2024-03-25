@@ -120,7 +120,6 @@ describe('TableColumnDateText', () => {
             });
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
         it('changing fieldName updates display', async () => {
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
             const anotherFieldValue = new Date(
@@ -146,7 +145,6 @@ describe('TableColumnDateText', () => {
             );
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
         it('changing data from value to null displays blank', async () => {
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
             await table.setData([{ field: fieldValue }]);
@@ -167,7 +165,6 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
         it('changing data from null to value displays value', async () => {
             await table.setData([{ field: null }]);
             await waitForUpdatesAsync();
@@ -196,7 +193,6 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
         it('sets title when cell text is ellipsized', async () => {
             table.style.width = '200px';
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
@@ -250,7 +246,6 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getCellTitle(0, 0)).toEqual('');
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
         it('sets group header text to rendered date value', async () => {
             table.style.width = '200px';
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
@@ -275,7 +270,6 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('12/10/2012');
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1940
         it('updates displayed date when lang token changes', async () => {
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
             await table.setData([{ field: fieldValue }]);
