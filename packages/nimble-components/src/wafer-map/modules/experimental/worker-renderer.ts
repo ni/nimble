@@ -5,7 +5,7 @@ import { HoverDieOpacity } from '../../types';
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class WorkerRenderer {
-    public constructor(private readonly wafermap: WaferMap) {}
+    public constructor(private readonly wafermap: WaferMap) { }
 
     public updateSortedDiesAndDrawWafer(): void {
         // redundant function for backwards compatibility
@@ -13,9 +13,16 @@ export class WorkerRenderer {
     }
 
     public async drawWafer(): Promise<void> {
-        await this.wafermap.worker.setTransform(this.wafermap.transform);
-        await this.wafermap.worker.drawWafer();
-        this.renderHover();
+        try {
+            await this.wafermap.worker.setTransform(this.wafermap.transform);
+            await this.wafermap.worker.drawWafer();
+            this.renderHover();
+        } catch (error) {
+            // eslint-disable-next-line no-console
+            console.error('hello');
+            // eslint-disable-next-line no-console
+            console.error(this.wafermap.worker);
+        }
     }
 
     public renderHover(): void {

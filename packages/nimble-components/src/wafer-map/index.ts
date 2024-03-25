@@ -90,6 +90,11 @@ export class WaferMap<
     public readonly canvas!: HTMLCanvasElement;
 
     /**
+ * @internal
+ */
+    public readonly canvasWorker!: HTMLCanvasElement;
+
+    /**
      * @internal
      */
     public canvasContext!: CanvasRenderingContext2D;
