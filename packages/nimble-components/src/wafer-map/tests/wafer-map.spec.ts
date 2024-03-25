@@ -19,25 +19,25 @@ describe('WaferMap', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
-    beforeEach(async () => {
-        ({ element, connect, disconnect } = await setup());
-        await connect();
-    });
-
-    afterEach(async () => {
-        await disconnect();
-    });
-
-    it('can construct an element instance', () => {
-        expect(document.createElement('nimble-wafer-map')).toBeInstanceOf(
-            WaferMap
-        );
-    });
-
     describe('update flow', () => {
         let spy: jasmine.Spy;
-        beforeEach(() => {
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            await connect();
+            element.canvasWidth = 500;
+            element.canvasHeight = 500;
             spy = spyOn(element, 'update');
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('can construct an element instance', () => {
+            expect(document.createElement('nimble-wafer-map')).toBeInstanceOf(
+                WaferMap
+            );
         });
 
         it('will update once after originLocation changes', () => {
@@ -117,12 +117,20 @@ describe('WaferMap', () => {
 
     describe('worker renderer draw flow', () => {
         let drawWaferSpy: jasmine.Spy;
-        beforeEach(() => {
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            await connect();
+            element.canvasWidth = 500;
+            element.canvasHeight = 500;
             drawWaferSpy = spyOn(element.workerRenderer, 'drawWafer');
         });
 
-        // skipped until prerendering is refactored
-        xit('will call drawWafer after supported diesTable change', () => {
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('will call drawWafer after supported diesTable change', () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
@@ -143,8 +151,17 @@ describe('WaferMap', () => {
 
     describe('worker renderer flow', () => {
         let renderHoverSpy: jasmine.Spy;
-        beforeEach(() => {
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            await connect();
+            element.canvasWidth = 500;
+            element.canvasHeight = 500;
             renderHoverSpy = spyOn(element.workerRenderer, 'renderHover');
+        });
+
+        afterEach(async () => {
+            await disconnect();
         });
 
         it('will use RenderingModule after dies change', () => {
@@ -153,8 +170,7 @@ describe('WaferMap', () => {
             expect(element.renderer instanceof RenderingModule).toBeTrue();
         });
 
-        // skipped until prerendering is refactored
-        xit('will use WorkerRenderer after supported diesTable change', () => {
+        it('will use WorkerRenderer after supported diesTable change', () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
@@ -170,8 +186,7 @@ describe('WaferMap', () => {
             expect(element.renderer instanceof RenderingModule).toBeTrue();
         });
 
-        // skipped until prerendering is refactored
-        xit('will call renderHover after supported diesTable change', () => {
+        it('will call renderHover after supported diesTable change', () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
@@ -193,7 +208,9 @@ describe('WaferMap', () => {
     describe('zoom flow', () => {
         let initialValue: string | undefined;
 
-        beforeEach(() => {
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            await connect();
             element.canvasWidth = 500;
             element.canvasHeight = 500;
             element.dies = [{ x: 1, y: 1, value: '1' }];
@@ -201,6 +218,10 @@ describe('WaferMap', () => {
             processUpdates();
             initialValue = getTransform();
             expect(initialValue).toBe('translate(0,0) scale(1)');
+        });
+
+        afterEach(async () => {
+            await disconnect();
         });
 
         it('will zoom in the wafer-map', () => {
@@ -245,12 +266,18 @@ describe('WaferMap', () => {
     }
 
     describe('hover flow', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            await connect();
             element.canvasWidth = 500;
             element.canvasHeight = 500;
             element.dies = [{ x: 1, y: 1, value: '1' }];
             element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
             processUpdates();
+        });
+
+        afterEach(async () => {
+            await disconnect();
         });
 
         it('will translate the rectangle when moving the pointer over the wafer-map', () => {

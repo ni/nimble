@@ -1,4 +1,4 @@
-import type { Remote } from 'comlink';
+import { transfer, type Remote } from 'comlink';
 import { createMatrixRenderer } from '../modules/create-matrix-renderer';
 import type { MatrixRenderer } from '../../../build/generate-workers/dist/esm/source/matrix-renderer';
 
@@ -18,24 +18,32 @@ describe('MatrixRenderer worker', () => {
     });
 
     it('updateMatrix should update the dieMatrix', async () => {
-        const testData = { colIndexes: [1, 2, 3], rowIndexes: [4, 5, 6], values: [8.1, 9.2, 10.32] };
-        await matrixRenderer.updateMatrix(testData);
+        const colIndexes = Int32Array.from([1, 2, 3]);
+        const rowIndexes = Int32Array.from([4, 5, 6]);
+        const values = Float64Array.from([8.1, 9.2, 10.32]);
+        await matrixRenderer.setColIndexes(transfer(colIndexes, [colIndexes.buffer]));
+        await matrixRenderer.setRowIndexes(transfer(rowIndexes, [rowIndexes.buffer]));
+        await matrixRenderer.setValues(transfer(values, [values.buffer]));
         const resolvedDieMatrix = await matrixRenderer.getMatrix();
 
         expect(resolvedDieMatrix.colIndexes).toEqual(
-            Uint32Array.from(testData.colIndexes)
+            colIndexes
         );
         expect(resolvedDieMatrix.rowIndexes).toEqual(
-            Uint32Array.from(testData.rowIndexes)
+            rowIndexes
         );
         expect(resolvedDieMatrix.values).toEqual(
-            Float64Array.from(testData.values)
+            values
         );
     });
 
     it('emptyMatrix should empty the dieMatrix', async () => {
-        const testData = { colIndexes: [4, 1, 2], rowIndexes: [54, 54, 62], values: [8.12, 9.0, 0.32] };
-        await matrixRenderer.updateMatrix(testData);
+        const colIndexes = Int32Array.from([4, 1, 2]);
+        const rowIndexes = Int32Array.from([54, 54, 62]);
+        const values = Float64Array.from([8.12, 9.0, 0.32]);
+        await matrixRenderer.setColIndexes(transfer(colIndexes, [colIndexes.buffer]));
+        await matrixRenderer.setRowIndexes(transfer(rowIndexes, [rowIndexes.buffer]));
+        await matrixRenderer.setValues(transfer(values, [values.buffer]));
         await matrixRenderer.emptyMatrix();
         const resolvedDieMatrix = await matrixRenderer.getMatrix();
         expect(resolvedDieMatrix.colIndexes.length

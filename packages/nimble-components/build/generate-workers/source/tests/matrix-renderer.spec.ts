@@ -1,9 +1,11 @@
-import { Remote, expose, wrap } from 'comlink';
+import { Remote, expose, transfer, wrap } from 'comlink';
 import { MatrixRenderer } from '../matrix-renderer';
 
 describe('MatrixRenderer with MessageChannel', () => {
     let matrixRenderer: Remote<MatrixRenderer>;
-    const testData = { colIndexes: [4, 1, 2], rowIndexes: [54, 54, 62], values: [8.12, 9.0, 0.32] };
+    const colIndexes = Int32Array.from([4, 1, 2]);
+    const rowIndexes = Int32Array.from([54, 54, 62]);
+    const values = Float64Array.from([8.12, 9.0, 0.32]);
 
     beforeEach(async () => {
         const { port1, port2 } = new MessageChannel();
@@ -13,14 +15,16 @@ describe('MatrixRenderer with MessageChannel', () => {
     });
 
     it('updateMatrix should update the dieMatrix', async () => {
-        await matrixRenderer.updateMatrix(testData);
+        await matrixRenderer.setColIndexes(transfer(colIndexes, [colIndexes.buffer]));
+        await matrixRenderer.setRowIndexes(transfer(rowIndexes, [rowIndexes.buffer]));
+        await matrixRenderer.setValues(transfer(values , [values.buffer]));
 
         const updatedMatrix = await matrixRenderer.getMatrix();
         expect(updatedMatrix).toEqual(
             {
-                colIndexes: Uint32Array.from(testData.colIndexes),
-                rowIndexes: Uint32Array.from(testData.rowIndexes),
-                values: Float64Array.from(testData.values)
+                colIndexes,
+                rowIndexes,
+                values
             }
         );
     });
@@ -35,8 +39,9 @@ describe('MatrixRenderer with MessageChannel', () => {
     });
 
     it('should get the matrix', async () => {
-
-        await matrixRenderer.updateMatrix(testData);
+        await matrixRenderer.setColIndexes(transfer(colIndexes, [colIndexes.buffer]));
+        await matrixRenderer.setRowIndexes(transfer(rowIndexes, [rowIndexes.buffer]));
+        await matrixRenderer.setValues(transfer(values, [values.buffer]));
 
         await matrixRenderer.drawWafer();
 
