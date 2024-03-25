@@ -7,6 +7,7 @@ import { DataManager } from './data-manager';
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class WorkerRenderer {
+    private readonly minDieDim = 50;
     public constructor(private readonly wafermap: WaferMap) { }
 
     public async updateSortedDiesAndDrawWafer(): Promise<void> {
@@ -29,6 +30,12 @@ export class WorkerRenderer {
         }
         await this.wafermap.worker.setTransform(this.wafermap.transform);
         await this.wafermap.worker.drawWafer();
+        if (!this.wafermap.dieLabelsHidden
+            || this.wafermap.dataManager.dieDimensions.width
+            * this.wafermap.dataManager.dieDimensions.height
+            * (this.wafermap.transform.k || 1) >= this.minDieDim) {
+            await this.wafermap.worker.renderText();
+        }
         this.renderHover();
     }
 
@@ -74,6 +81,9 @@ export class WorkerRenderer {
                 y: bottomRightCanvasCorner[1]
             }
         );
+        await this.wafermap.worker.setFontSize(this.wafermap.dataManager.labelsFontSize);
+        await this.wafermap.worker.setMaxCharacters(this.wafermap.maxCharacters);
+        await this.wafermap.worker.setDieLabelsSuffix(this.wafermap.dieLabelsSuffix);
         if (this.wafermap.dataManager instanceof DataManager) {
             await this.wafermap.worker.setColors(this.wafermap.dataManager.colorScale.colors);
             await this.wafermap.worker.setColorValues(this.wafermap.dataManager.colorScale.values);

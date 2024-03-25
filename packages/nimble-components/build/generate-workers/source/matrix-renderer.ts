@@ -29,7 +29,9 @@ export class MatrixRenderer {
     private colorValues!: Float64Array;
     private readonly outsideRangeDieColor = 'rgba(218,223,236,1)';
     private readonly fontSizeFactor = 0.8;
-    private fontSize = 12;
+    private fontSize!: number;
+    private dieLabelsSuffix = '';
+    private maxCharacters!: number;
 
 
     public setMargin(margin: { top: number, right: number, bottom: number, left: number }): void {
@@ -42,6 +44,18 @@ export class MatrixRenderer {
 
     public setColorValues(colorValues: Float64Array): void {
         this.colorValues = colorValues;
+    }
+
+    public setFontSize(fontSize: number): void {
+        this.fontSize = fontSize;
+    }
+
+    public setMaxCharacters(maxCharacters: number): void {
+        this.maxCharacters = maxCharacters;
+    }
+
+    public setDieLabelsSuffix(dieLabelsSuffix: string): void {
+        this.dieLabelsSuffix = dieLabelsSuffix;
     }
 
     public setCanvasCorners(topLeft: { x: number, y: number }, bottomRight: { x: number, y: number }): void {
@@ -137,6 +151,29 @@ export class MatrixRenderer {
             const colorIndex = this.findNearestValueIndex(this.values[i]!);
             this.context.fillStyle = colorIndex === -1 ? this.outsideRangeDieColor : this.colors[colorIndex]!;
             this.context.fillRect(x, y, this.dieDimensions.width, this.dieDimensions.height);
+        }
+    }
+
+    public renderText(): void {
+        this.context.font = `${this.fontSize.toString()}px sans-serif`;
+        this.context.fillStyle = '#ffffff';
+        this.context.textAlign = 'center';
+        this.context.lineCap = 'butt';
+        const approximateTextHeight = this.context.measureText('M');
+        for (let i = 0; i < this.scaledColIndex.length; i++) {
+            const x = this.scaledColIndex[i]!;
+            const y = this.scaledRowIndex[i]!;
+            if (!this.isDieVisible(x, y)) { continue; }
+            let label = `${this.values[i!]}${this.dieLabelsSuffix}`;
+            if (label.length >= this.maxCharacters) {
+                label = `${label.substring(0, this.maxCharacters)}…`;
+            }
+            this.context.fillText(
+                label,
+                x + this.dieDimensions.width / 2,
+                y + this.dieDimensions.height / 2 + approximateTextHeight.width / 2,
+                this.dieDimensions.width * this.fontSizeFactor
+            );
         }
     }
 
