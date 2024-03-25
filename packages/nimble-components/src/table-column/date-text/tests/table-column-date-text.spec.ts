@@ -121,11 +121,15 @@ describe('TableColumnDateText', () => {
         });
 
         // WebKit skipped, see https://github.com/ni/nimble/issues/1940
-        it('changing fieldName updates display #SkipWebkit', async () => {
+        it('changing fieldName updates display', async () => {
+            const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
+            const anotherFieldValue = new Date(
+                'Jan 20, 2018, 4:05:45 AM'
+            ).valueOf();
             await table.setData([
                 {
-                    field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf(),
-                    anotherField: new Date('Jan 20, 2018, 4:05:45 AM').valueOf()
+                    field: fieldValue,
+                    anotherField: anotherFieldValue
                 }
             ]);
             await waitForUpdatesAsync();
@@ -133,19 +137,26 @@ describe('TableColumnDateText', () => {
             column.fieldName = 'anotherField';
             await waitForUpdatesAsync();
 
+            const anotherFieldValueFormatted = pageObject.getDefaultFormattedCellText(
+                anotherFieldValue,
+                'en-US'
+            );
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
-                'Jan 20, 2018, 4:05:45 AM'
+                anotherFieldValueFormatted
             );
         });
 
         // WebKit skipped, see https://github.com/ni/nimble/issues/1940
-        it('changing data from value to null displays blank #SkipWebkit', async () => {
-            await table.setData([
-                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
-            ]);
+        it('changing data from value to null displays blank', async () => {
+            const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
+            await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
+            const fieldValueFormatted = pageObject.getDefaultFormattedCellText(
+                fieldValue,
+                'en-US'
+            );
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
-                'Dec 10, 2012, 10:35:05 PM'
+                fieldValueFormatted
             );
 
             const updatedValue = { field: null };
@@ -157,18 +168,21 @@ describe('TableColumnDateText', () => {
         });
 
         // WebKit skipped, see https://github.com/ni/nimble/issues/1940
-        it('changing data from null to value displays value #SkipWebkit', async () => {
+        it('changing data from null to value displays value', async () => {
             await table.setData([{ field: null }]);
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
 
-            await table.setData([
-                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
-            ]);
+            const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
+            await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
 
+            const fieldValueFormatted = pageObject.getDefaultFormattedCellText(
+                fieldValue,
+                'en-US'
+            );
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
-                'Dec 10, 2012, 10:35:05 PM'
+                fieldValueFormatted
             );
         });
 
@@ -183,11 +197,10 @@ describe('TableColumnDateText', () => {
         });
 
         // WebKit skipped, see https://github.com/ni/nimble/issues/1940
-        it('sets title when cell text is ellipsized #SkipWebkit', async () => {
+        it('sets title when cell text is ellipsized', async () => {
             table.style.width = '200px';
-            await table.setData([
-                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
-            ]);
+            const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
+            await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
             tablePageObject.dispatchEventToCell(
                 0,
@@ -195,9 +208,11 @@ describe('TableColumnDateText', () => {
                 new MouseEvent('mouseover')
             );
             await waitForUpdatesAsync();
-            expect(pageObject.getCellTitle(0, 0)).toEqual(
-                'Dec 10, 2012, 10:35:05 PM'
+            const fieldValueFormatted = pageObject.getDefaultFormattedCellText(
+                fieldValue,
+                'en-US'
             );
+            expect(pageObject.getCellTitle(0, 0)).toEqual(fieldValueFormatted);
         });
 
         it('does not set title when cell text is fully visible', async () => {
@@ -236,13 +251,17 @@ describe('TableColumnDateText', () => {
         });
 
         // WebKit skipped, see https://github.com/ni/nimble/issues/1940
-        it('sets group header text to rendered date value #SkipWebkit', async () => {
-            await table.setData([
-                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
-            ]);
+        it('sets group header text to rendered date value', async () => {
+            table.style.width = '200px';
+            const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
+            await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
+            const fieldValueFormatted = pageObject.getDefaultFormattedCellText(
+                fieldValue,
+                'en-US'
+            );
             expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
-                'Dec 10, 2012, 10:35:05 PM'
+                fieldValueFormatted
             );
         });
 
@@ -257,18 +276,19 @@ describe('TableColumnDateText', () => {
         });
 
         // WebKit skipped, see https://github.com/ni/nimble/issues/1940
-        it('updates displayed date when lang token changes #SkipWebkit', async () => {
-            await table.setData([
-                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
-            ]);
+        it('updates displayed date when lang token changes', async () => {
+            const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
+            await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
+            const fieldValueFormattedEnglish = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                'Dec 10, 2012, 10:35:05 PM'
+                fieldValueFormattedEnglish
             );
             lang.setValueFor(table, 'fr');
             await waitForUpdatesAsync();
+            const fieldValueFormattedFrench = pageObject.getDefaultFormattedCellText(fieldValue, 'fr');
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                '10 déc. 2012, 22:35:05'
+                fieldValueFormattedFrench
             );
         });
 
