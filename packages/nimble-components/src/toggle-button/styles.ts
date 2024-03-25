@@ -15,17 +15,12 @@ import { appearanceBehavior } from '../utilities/style/appearance';
 import { ButtonAppearance } from './types';
 
 export const styles = css`
-    @layer base, base-selected, hover, focusVisible, active, disabled, top;
+    @layer base, pressed, hover, focusVisible, active, disabled, top;
 
     ${buttonStyles}
     ${buttonAppearanceVariantStyles}
 
-    @layer base-selected {
-        .control[aria-pressed='true'] [part='start'],
-        .control[aria-pressed='true'] [part='end'] {
-            ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
-        }
-
+    @layer base {
         .control[aria-pressed='true'] {
             background-color: transparent;
             color: ${buttonLabelFontColor};
@@ -34,6 +29,11 @@ export const styles = css`
                 ${fillSelectedColor}
             );
             border-color: rgba(${fillSelectedRgbPartialColor}, 0.3);
+        }
+
+        .control[aria-pressed='true'] [part='start'],
+        .control[aria-pressed='true'] [part='end'] {
+            ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
         }
     }
 
@@ -50,7 +50,12 @@ export const styles = css`
     appearanceBehavior(
         ButtonAppearance.outline,
         css`
-            @layer base-selected {
+            @layer base {
+                :host([appearance-variant='accent'])
+                    .control[aria-pressed='true'] {
+                    color: ${buttonAccentOutlineFontColor};
+                }
+
                 :host([appearance-variant='accent'])
                     .control[aria-pressed='true']
                     [part='start'],
@@ -58,11 +63,6 @@ export const styles = css`
                     .control[aria-pressed='true']
                     [part='end'] {
                     ${iconColor.cssCustomProperty}: ${buttonAccentOutlineFontColor};
-                }
-
-                :host([appearance-variant='accent'])
-                    .control[aria-pressed='true'] {
-                    color: ${buttonAccentOutlineFontColor};
                 }
             }
         `

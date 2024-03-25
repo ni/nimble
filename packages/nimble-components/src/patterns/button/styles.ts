@@ -142,13 +142,13 @@ export const styles = css`
             background-size: calc(100% - 2px) calc(100% - 2px);
         }
 
+        .control:active::before {
+            outline: none;
+        }
+
         .control:active [part='start'],
         .control:active [part='end'] {
             ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
-        }
-
-        .control:active::before {
-            outline: none;
         }
     }
 
@@ -260,18 +260,22 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                     border-color: ${actionRgbPartialColor};
                 }
 
-                :host([appearance-variant='accent']) [part='start'],
-                :host([appearance-variant='accent']) [part='end'] {
-                    ${iconColor.cssCustomProperty}: ${buttonAccentOutlineFontColor};
-                }
-
                 :host([appearance-variant='accent']) .control {
                     border-color: ${buttonBorderAccentOutlineColor};
                     color: ${buttonAccentOutlineFontColor};
                 }
+
+                :host([appearance-variant='accent']) [part='start'],
+                :host([appearance-variant='accent']) [part='end'] {
+                    ${iconColor.cssCustomProperty}: ${buttonAccentOutlineFontColor};
+                }
             }
 
             @layer active {
+                :host([appearance-variant='accent']) .control:active {
+                    color: ${buttonAccentOutlineFontColor};
+                }
+
                 :host([appearance-variant='accent'])
                     .control:active
                     [part='start'],
@@ -280,10 +284,6 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                     [part='end'] {
                     ${iconColor.cssCustomProperty}: ${buttonAccentOutlineFontColor};
                 }
-
-                :host([appearance-variant='accent']) .control:active {
-                    color: ${buttonAccentOutlineFontColor};
-                }
             }
         `
     ),
@@ -291,11 +291,6 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
         ButtonAppearance.block,
         css`
             @layer base {
-                :host([appearance-variant='primary']) [part='start'],
-                :host([appearance-variant='primary']) [part='end'] {
-                    ${iconColor.cssCustomProperty}: ${buttonPrimaryFontColor};
-                }
-
                 :host([appearance-variant='primary']) .control {
                     background-image: linear-gradient(
                         ${buttonFillPrimaryColor},
@@ -305,11 +300,6 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                     border-color: ${buttonFillPrimaryColor};
                 }
 
-                :host([appearance-variant='accent']) [part='start'],
-                :host([appearance-variant='accent']) [part='end'] {
-                    ${iconColor.cssCustomProperty}: ${buttonPrimaryFontColor};
-                }
-
                 :host([appearance-variant='accent']) .control {
                     background-image: linear-gradient(
                         ${buttonFillAccentColor},
@@ -317,6 +307,16 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                     );
                     color: ${buttonAccentBlockFontColor};
                     border-color: ${buttonFillAccentColor};
+                }
+
+                :host([appearance-variant='primary']) [part='start'],
+                :host([appearance-variant='primary']) [part='end'] {
+                    ${iconColor.cssCustomProperty}: ${buttonPrimaryFontColor};
+                }
+
+                :host([appearance-variant='accent']) [part='start'],
+                :host([appearance-variant='accent']) [part='end'] {
+                    ${iconColor.cssCustomProperty}: ${buttonPrimaryFontColor};
                 }
             }
         `
