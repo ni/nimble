@@ -260,18 +260,18 @@ export class WaferMap<
         if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
             this.zoomHandler.disconnect();
             this.dataManager.updateContainerDimensions();
-            this.renderer.updateSortedDiesAndDrawWafer();
+            await this.renderer.updateSortedDiesAndDrawWafer();
             await this.drawWafer();
             this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
             this.dataManager.updateScales();
-            this.renderer.updateSortedDiesAndDrawWafer();
+            await this.renderer.updateSortedDiesAndDrawWafer();
         } else if (this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate) {
             this.dataManager.updateLabelsFontSize();
-            this.renderer.updateSortedDiesAndDrawWafer();
+            await this.renderer.updateSortedDiesAndDrawWafer();
         } else if (this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate) {
             this.dataManager.updateDiesRenderInfo();
-            this.renderer.updateSortedDiesAndDrawWafer();
+            await this.renderer.updateSortedDiesAndDrawWafer();
         } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
             await this.renderer.drawWafer();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
