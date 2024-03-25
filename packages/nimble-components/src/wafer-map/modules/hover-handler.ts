@@ -25,7 +25,7 @@ export class HoverHandler {
     }
 
     private readonly onMouseMove = (event: MouseEvent): void => {
-        if (this.wafermap.diesTable !== undefined) {
+        if (this.wafermap.isExperimentalRenderer()) {
             return;
         }
         const mousePosition: PointCoordinates = {
@@ -33,7 +33,7 @@ export class HoverHandler {
             y: event.offsetY
         };
 
-        if (!this.hoversOverDie(this.wafermap, mousePosition)) {
+        if (!this.hoversOverDie(mousePosition)) {
             this.wafermap.hoverDie = undefined;
             return;
         }
@@ -43,7 +43,7 @@ export class HoverHandler {
             mousePosition.y
         ]);
 
-        const dieCoordinates = this.calculateDieCoordinates(this.wafermap, {
+        const dieCoordinates = this.calculateDieCoordinates({
             x: invertedPoint[0],
             y: invertedPoint[1]
         });
@@ -62,11 +62,10 @@ export class HoverHandler {
     };
 
     private calculateDieCoordinates(
-        wafermap: WaferMap,
         mousePosition: PointCoordinates
     ): PointCoordinates | undefined {
-        if (wafermap.dataManager instanceof DataManager) {
-            const originLocation = wafermap.originLocation;
+        if (this.wafermap.dataManager instanceof DataManager) {
+            const originLocation = this.wafermap.originLocation;
             const xRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
                 || originLocation === WaferMapOriginLocation.topLeft
                 ? Math.floor
@@ -77,13 +76,13 @@ export class HoverHandler {
                 : Math.ceil;
             // go to x and y scale to get the x,y values of the die.
             const x = xRoundFunction(
-                wafermap.dataManager.invertedHorizontalScale(
-                    mousePosition.x - wafermap.dataManager.margin.left
+                this.wafermap.dataManager.invertedHorizontalScale(
+                    mousePosition.x - this.wafermap.dataManager.margin.left
                 )
             );
             const y = yRoundFunction(
-                wafermap.dataManager.invertedVerticalScale(
-                    mousePosition.y - wafermap.dataManager.margin.top
+                this.wafermap.dataManager.invertedVerticalScale(
+                    mousePosition.y - this.wafermap.dataManager.margin.top
                 )
             );
             return { x, y };
@@ -91,11 +90,8 @@ export class HoverHandler {
         return undefined;
     }
 
-    private hoversOverDie(
-        wafermap: WaferMap,
-        mousePosition: PointCoordinates
-    ): boolean {
-        const rgba = wafermap.canvasContext.getImageData(
+    private hoversOverDie(mousePosition: PointCoordinates): boolean {
+        const rgba = this.wafermap.canvasContext.getImageData(
             mousePosition.x,
             mousePosition.y,
             1,

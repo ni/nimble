@@ -29,7 +29,7 @@ export class HoverHandler {
      * keep public for testing until data manager refactor
      */
     public readonly onMouseMove = (event: MouseEvent): void => {
-        if (this.wafermap.diesTable === undefined) {
+        if (!this.wafermap.isExperimentalRenderer()) {
             return;
         }
         // get original mouse position in case we are in zoom.
@@ -45,12 +45,12 @@ export class HoverHandler {
             this.wafermap.hoverDie = undefined;
             return;
         }
-        const colIndex = this.wafermap.diesTable
-            .getChild('colIndex')!
-            .toArray() as Int32Array;
-        const rowIndex = this.wafermap.diesTable
-            .getChild('rowIndex')!
-            .toArray() as Int32Array;
+        const colIndex = this.wafermap
+            .diesTable!.getChild('colIndex')!
+            .toArray();
+        const rowIndex = this.wafermap
+            .diesTable!.getChild('rowIndex')!
+            .toArray();
 
         // will replace iterating with arquero filtering after fixing errors
         for (let i = 0; i < colIndex.length; i++) {

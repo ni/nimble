@@ -20,7 +20,8 @@ import {
     WaferMapDie,
     WaferMapOrientation,
     WaferMapOriginLocation,
-    WaferMapValidity
+    WaferMapValidity,
+    type WaferRequiredFields
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
@@ -41,12 +42,14 @@ declare global {
 /**
  * A nimble-styled WaferMap
  */
-export class WaferMap extends FoundationElement {
+export class WaferMap<
+    T extends WaferRequiredFields = WaferRequiredFields
+> extends FoundationElement {
     /**
      * @internal
      * needs to be initialized before the properties trigger changes
      */
-    public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
+    public readonly waferMapUpdateTracker: WaferMapUpdateTracker = new WaferMapUpdateTracker(this as WaferMap);
 
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
@@ -106,12 +109,14 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly stableDataManager = new DataManager(this);
+    public readonly stableDataManager: DataManager = new DataManager(
+        this as WaferMap
+    );
 
     /**
      * @internal
      */
-    public readonly experimentalDataManager = new ExperimentalDataManager(this);
+    public readonly experimentalDataManager: ExperimentalDataManager = new ExperimentalDataManager(this as WaferMap);
 
     /**
      * @internal
@@ -121,11 +126,16 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly mainRenderer = new RenderingModule(this);
+    public readonly mainRenderer: RenderingModule = new RenderingModule(
+        this as WaferMap
+    );
+
     /**
      * @internal
      */
-    public readonly workerRenderer = new WorkerRenderer(this);
+    public readonly workerRenderer: WorkerRenderer = new WorkerRenderer(
+        this as WaferMap
+    );
 
     @observable
     public renderer: RenderingModule | WorkerRenderer = this.mainRenderer;
@@ -177,22 +187,25 @@ export class WaferMap extends FoundationElement {
 
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
-    @observable public diesTable: Table | undefined;
+    @observable public diesTable: Table<T> | undefined;
 
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
     };
 
-    private readonly hoverHandler = new HoverHandler(this);
-    private readonly experimentalHoverHandler = new ExperimentalHoverHandler(
-        this
+    private readonly hoverHandler: HoverHandler = new HoverHandler(
+        this as WaferMap
     );
 
-    private readonly zoomHandler = new ZoomHandler(this);
+    private readonly experimentalHoverHandler: ExperimentalHoverHandler = new ExperimentalHoverHandler(this as WaferMap);
+
+    private readonly zoomHandler: ZoomHandler = new ZoomHandler(
+        this as WaferMap
+    );
 
     private readonly resizeObserver = this.createResizeObserver();
-    private readonly waferMapValidator = new WaferMapValidator(this);
+    private readonly waferMapValidator: WaferMapValidator = new WaferMapValidator(this as WaferMap);
 
     public get validity(): WaferMapValidity {
         return this.waferMapValidator.getValidity();
@@ -239,20 +252,18 @@ export class WaferMap extends FoundationElement {
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
-        // will switch the renderer after prerendering changes
-        this.renderer = this.diesTable === undefined
-            ? this.mainRenderer
-            : this.workerRenderer;
+        this.renderer = this.isExperimentalRenderer()
+            ? this.workerRenderer
+            : this.mainRenderer;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             // zoom translateExtent needs to be recalculated when canvas size changes
             this.zoomHandler.disconnect();
-            this.dataManager = this.diesTable === undefined
-                ? this.stableDataManager
-                : this.experimentalDataManager;
+            this.dataManager = this.isExperimentalRenderer()
+                ? this.experimentalDataManager
+                : this.stableDataManager;
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
-                await this.drawWafer();
             } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
                 this.dataManager.updateScales();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -275,54 +286,11 @@ export class WaferMap extends FoundationElement {
         }
     }
 
-    private async drawWafer(): Promise<void> {
-        if (this.diesTable === undefined) {
-            return;
-        }
-        const waferMapMatrix = {
-            colIndexes: this.diesTable
-                .getChild('colIndex')
-                ?.toArray() as number[],
-            rowIndexes: this.diesTable
-                .getChild('rowIndex')
-                ?.toArray() as number[],
-            values: this.diesTable.getChild('value')?.toArray() as number[]
-        } as WaferMapMatrix;
-        await this.worker.updateMatrix(waferMapMatrix);
-        await this.setupWorker();
-        await this.worker.drawWafer();
-    }
-
-    private async setupWorker(): Promise<void> {
-        await this.worker.setDiesDimensions(this.dataManager.dieDimensions);
-
-        const scaleX = this.dataManager.horizontalScale(1)!
-            - this.dataManager.horizontalScale(0)!;
-        const scaleY = this.dataManager.verticalScale(1)!
-            - this.dataManager.verticalScale(0)!;
-        await this.worker.setScaling(scaleX, scaleY);
-
-        await this.worker.setBases(
-            this.dataManager.horizontalScale(0)!,
-            this.dataManager.verticalScale(0)!
-        );
-        await this.worker.setMargin(this.dataManager.margin);
-
-        const topLeftCanvasCorner = this.transform.invert([0, 0]);
-        const bottomRightCanvasCorner = this.transform.invert([
-            this.canvas.width,
-            this.canvas.height
-        ]);
-        await this.worker.setCanvasCorners(
-            {
-                x: topLeftCanvasCorner[0],
-                y: topLeftCanvasCorner[1]
-            },
-            {
-                x: bottomRightCanvasCorner[0],
-                y: bottomRightCanvasCorner[1]
-            }
-        );
+    /**
+     * @internal
+     */
+    public isExperimentalRenderer(): boolean {
+        return this.diesTable !== undefined;
     }
 
     private validate(): void {

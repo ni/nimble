@@ -136,15 +136,15 @@ export class Computations {
 
         const colIndex = this.wafermap.diesTable
             .getChild('colIndex')!
-            .toArray() as Int32Array;
+            .toArray();
         const rowIndex = this.wafermap.diesTable
             .getChild('rowIndex')!
-            .toArray() as Int32Array;
+            .toArray();
 
         const minPoint = { x: colIndex[0]!, y: rowIndex[0]! };
         const maxPoint = { x: colIndex[0]!, y: rowIndex[0]! };
 
-        // will replace iterating with arquero derive after fixing errors
+        // will replace iterating with arquero after fixing issues: https://github.com/uwdata/arquero/pull/346
         for (let i = 0; i < colIndex.length; i++) {
             if (colIndex[i]! < minPoint.x) {
                 minPoint.x = colIndex[i]!;

@@ -1,4 +1,4 @@
-import { DataType, Precision } from 'apache-arrow';
+import { DataType, Float, Int, Precision } from 'apache-arrow';
 import type { WaferMap } from '..';
 import type { WaferMapValidity } from '../types';
 
@@ -66,21 +66,24 @@ export class WaferMapValidator {
                 || !DataType.isInt(
                     this.wafermap.diesTable.schema.fields[colIndexField]!.type
                 )
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                || this.wafermap.diesTable.schema.fields[colIndexField]!.type
-                    .bitWidth !== 32
+                || (
+                    this.wafermap.diesTable.schema.fields[colIndexField]!
+                        .type as Int
+                ).bitWidth !== 32
                 || !DataType.isInt(
                     this.wafermap.diesTable.schema.fields[rowIndexField]!.type
                 )
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                || this.wafermap.diesTable.schema.fields[rowIndexField]!.type
-                    .bitWidth !== 32
+                || (
+                    this.wafermap.diesTable.schema.fields[rowIndexField]!
+                        .type as Int
+                ).bitWidth !== 32
                 || !DataType.isFloat(
                     this.wafermap.diesTable.schema.fields[valueField]!.type
                 )
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                || this.wafermap.diesTable.schema.fields[valueField]!.type
-                    .precision !== Precision.DOUBLE
+                || (
+                    this.wafermap.diesTable.schema.fields[valueField]!
+                        .type as Float
+                ).precision !== Precision.DOUBLE
             ) {
                 this.invalidDiesTableSchema = true;
             }

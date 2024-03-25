@@ -1,3 +1,4 @@
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import type { WaferMap } from '..';
 import { Computations } from '../modules/experimental/computations';
 import { Margin, WaferMapOriginLocation } from '../types';
@@ -97,91 +98,48 @@ describe('Wafermap Experimental Computations module', () => {
         });
     });
 
-    describe('with top left originLocation', () => {
-        beforeEach(() => {
-            const waferMock = getWaferMapMockComputationsExperimental(
-                getWaferMapDiesTable(),
-                WaferMapOriginLocation.topLeft,
-                100,
-                100
-            );
-            computationsModule = new Computations(waferMock as WaferMap);
-            computationsModule.updateContainerDimensions();
-        });
+    const testCases = [
+        {
+            name: WaferMapOriginLocation.topLeft,
+            horizontalRange: [0, 92],
+            verticalRange: [0, 92]
+        },
+        {
+            name: WaferMapOriginLocation.topRight,
+            horizontalRange: [92, 0],
+            verticalRange: [0, 92]
+        },
+        {
+            name: WaferMapOriginLocation.bottomLeft,
+            horizontalRange: [0, 92],
+            verticalRange: [92, 0]
+        },
+        {
+            name: WaferMapOriginLocation.bottomRight,
+            horizontalRange: [92, 0],
+            verticalRange: [92, 0]
+        }
+    ] as const;
 
-        it('should have increasing horizontal range', () => {
-            expect(computationsModule.horizontalScale.range()).toEqual([0, 92]);
-        });
-
-        it('should have increasing vertical range', () => {
-            // because the canvas has top-left origin location we need to flip the vertical scale
-            expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
-        });
-    });
-
-    describe('with top right originLocation', () => {
-        beforeEach(() => {
-            const waferMock = getWaferMapMockComputationsExperimental(
-                getWaferMapDiesTable(),
-                WaferMapOriginLocation.topRight,
-                100,
-                100
-            );
-            computationsModule = new Computations(waferMock as WaferMap);
-            computationsModule.updateContainerDimensions();
-        });
-
-        it('should have decreasing horizontal range', () => {
-            expect(computationsModule.horizontalScale.range()).toEqual([92, 0]);
-        });
-
-        it('should have increasing vertical range', () => {
-            // because the canvas has top-left origin location we need to flip the vertical scale
-            expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
-        });
-    });
-
-    describe('with bottom left originLocation', () => {
-        beforeEach(() => {
-            const waferMock = getWaferMapMockComputationsExperimental(
-                getWaferMapDiesTable(),
-                WaferMapOriginLocation.bottomLeft,
-                100,
-                100
-            );
-            computationsModule = new Computations(waferMock as WaferMap);
-            computationsModule.updateContainerDimensions();
-        });
-
-        it('should have increasing horizontal range', () => {
-            expect(computationsModule.horizontalScale.range()).toEqual([0, 92]);
-        });
-
-        it('should have decreasing vertical range', () => {
-            // because the canvas has top-left origin location we need to flip the vertical scale
-            expect(computationsModule.verticalScale.range()).toEqual([92, 0]);
-        });
-    });
-
-    describe('with bottom right originLocation', () => {
-        beforeEach(() => {
-            const waferMock = getWaferMapMockComputationsExperimental(
-                getWaferMapDiesTable(),
-                WaferMapOriginLocation.bottomRight,
-                100,
-                100
-            );
-            computationsModule = new Computations(waferMock as WaferMap);
-            computationsModule.updateContainerDimensions();
-        });
-
-        it('should have decreasing horizontal range', () => {
-            expect(computationsModule.horizontalScale.range()).toEqual([92, 0]);
-        });
-
-        it('should have decreasing vertical range', () => {
-            // because the canvas has top-left origin location we need to flip the vertical scale
-            expect(computationsModule.verticalScale.range()).toEqual([92, 0]);
-        });
+    parameterizeSpec(testCases, (spec, name, value) => {
+        spec(
+            `with ${name} originLocation should have expected horizontal range and vertical range`,
+            () => {
+                const waferMock = getWaferMapMockComputationsExperimental(
+                    getWaferMapDiesTable(),
+                    value.name,
+                    100,
+                    100
+                ) as WaferMap;
+                computationsModule = new Computations(waferMock);
+                computationsModule.updateContainerDimensions();
+                expect(computationsModule.horizontalScale.range()).toEqual(
+                    value.horizontalRange
+                );
+                expect(computationsModule.verticalScale.range()).toEqual(
+                    value.verticalRange
+                );
+            }
+        );
     });
 });

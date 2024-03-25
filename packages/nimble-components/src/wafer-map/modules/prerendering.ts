@@ -8,7 +8,6 @@ import type {
     WaferMapDie
 } from '../types';
 import type { WaferMap } from '..';
-import type { DataManager } from './data-manager';
 
 /**
  * Prerendering prepares render-ready dies data to be used by the rendering module
@@ -34,14 +33,11 @@ export class Prerendering {
     private readonly emptyDieColor = 'rgba(218,223,236,1)';
     private readonly nanDieColor = 'rgba(122,122,122,1)';
 
-    public constructor(
-        private readonly wafermap: WaferMap,
-        private readonly dataManager: Readonly<DataManager>
-    ) {}
+    public constructor(private readonly wafermap: WaferMap) {}
 
     public updateLabelsFontSize(): void {
         this._labelsFontSize = this.calculateLabelsFontSize(
-            this.dataManager.dieDimensions,
+            this.wafermap.dataManager.dieDimensions,
             this.wafermap.maxCharacters
         );
         this.updateDiesRenderInfo();
@@ -83,10 +79,10 @@ export class Prerendering {
     }
 
     private computeDieRenderInfo(die: WaferMapDie): DieRenderInfo | null {
-        const margin = this.dataManager.margin;
+        const margin = this.wafermap.dataManager.margin;
 
-        const scaledX = this.dataManager.horizontalScale(die.x);
-        const scaledY = this.dataManager.verticalScale(die.y);
+        const scaledX = this.wafermap.dataManager.horizontalScale(die.x);
+        const scaledY = this.wafermap.dataManager.verticalScale(die.y);
 
         if (scaledX === undefined || scaledY === undefined) {
             return null;

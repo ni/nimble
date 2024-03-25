@@ -23,6 +23,12 @@ describe('Wafermap Prerendering module', () => {
         const margin = { top: 20, right: 10, bottom: 0, left: 0 };
 
         beforeEach(() => {
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                defaultHorizontalScale,
+                defaultVerticalScale
+            );
             const waferMock = getWaferMapMockPrerendering(
                 getWaferMapDies(),
                 { colors: [], values: [] },
@@ -30,18 +36,10 @@ describe('Wafermap Prerendering module', () => {
                 WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
-                maxCharacters
-            );
-            const dataManagerMock = getDataManagerMock(
-                dieDimensions,
-                margin,
-                defaultHorizontalScale,
-                defaultVerticalScale
-            );
-            prerenderingModule = new Prerendering(
-                waferMock as WaferMap,
+                maxCharacters,
                 dataManagerMock as DataManager
             );
+            prerenderingModule = new Prerendering(waferMock as WaferMap);
             prerenderingModule.updateLabelsFontSize();
         });
 
@@ -83,6 +81,12 @@ describe('Wafermap Prerendering module', () => {
         const highlightedTags: string[] = [];
 
         beforeEach(() => {
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                horizontalScale,
+                defaultVerticalScale
+            );
             const waferMock = getWaferMapMockPrerendering(
                 getWaferMapDies(),
                 { colors: [], values: [] },
@@ -90,18 +94,10 @@ describe('Wafermap Prerendering module', () => {
                 WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
-                maxCharacters
-            );
-            const dataManagerMock = getDataManagerMock(
-                dieDimensions,
-                margin,
-                horizontalScale,
-                defaultVerticalScale
-            );
-            prerenderingModule = new Prerendering(
-                waferMock as WaferMap,
+                maxCharacters,
                 dataManagerMock as DataManager
             );
+            prerenderingModule = new Prerendering(waferMock as WaferMap);
             prerenderingModule.updateLabelsFontSize();
         });
 
@@ -132,6 +128,12 @@ describe('Wafermap Prerendering module', () => {
         const highlightedTags: string[] = [];
 
         beforeEach(() => {
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                defaultHorizontalScale,
+                verticalScale
+            );
             const waferMock = getWaferMapMockPrerendering(
                 getWaferMapDies(),
                 { colors: [], values: [] },
@@ -139,18 +141,10 @@ describe('Wafermap Prerendering module', () => {
                 WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
-                maxCharacters
-            );
-            const dataManagerMock = getDataManagerMock(
-                dieDimensions,
-                margin,
-                defaultHorizontalScale,
-                verticalScale
-            );
-            prerenderingModule = new Prerendering(
-                waferMock as WaferMap,
+                maxCharacters,
                 dataManagerMock as DataManager
             );
+            prerenderingModule = new Prerendering(waferMock as WaferMap);
             prerenderingModule.updateLabelsFontSize();
         });
 
