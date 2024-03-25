@@ -48,12 +48,14 @@ describe('MatrixRenderer with MessageChannel', () => {
         matrixRenderer.setScaling(2, 2);
         matrixRenderer.setBases(2, 2);
         matrixRenderer.setCanvasCorners({ x: 0, y: 0 }, { x: 500, y: 500 });
+        matrixRenderer.setMargin({ top: 10, right: 10, bottom: 10, left: 10 });
+        matrixRenderer.setTransform({ k: 1, x: 0, y: 0 });
         matrixRenderer.drawWafer();
 
         const scaledColIndexes = await matrixRenderer.scaledColIndex;
         const scaledRowIndexes = await matrixRenderer.scaledRowIndex;
 
-        expect(scaledColIndexes).toEqual(Float64Array.from([10, 4, 6]));
-        expect(scaledRowIndexes).toEqual(Float64Array.from([110, 110, 126]));
+        expect(scaledColIndexes).toEqual(Float64Array.from([20, 14, 16]));
+        expect(scaledRowIndexes).toEqual(Float64Array.from([120, 120, 136]));
     });
 });
