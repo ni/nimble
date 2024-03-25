@@ -45,7 +45,7 @@ export class WaferMap<
      * @internal
      * needs to be initialized before the properties trigger changes
      */
-    public readonly waferMapUpdateTracker: WaferMapUpdateTracker = new WaferMapUpdateTracker(this as WaferMap);
+    public readonly waferMapUpdateTracker: WaferMapUpdateTracker = new WaferMapUpdateTracker(this.asRequiredFieldsWaferMap);
 
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
@@ -96,31 +96,30 @@ export class WaferMap<
      * @internal
      */
     public readonly stableDataManager: DataManager = new DataManager(
-        this as WaferMap
+        this.asRequiredFieldsWaferMap
     );
 
     /**
      * @internal
      */
-    public readonly experimentalDataManager: ExperimentalDataManager = new ExperimentalDataManager(this as WaferMap);
+    public readonly experimentalDataManager: ExperimentalDataManager = new ExperimentalDataManager(
+        this.asRequiredFieldsWaferMap
+    );
 
-    /**
-     * @internal
-     */
     public dataManager: DataManager | ExperimentalDataManager = this.stableDataManager;
 
     /**
      * @internal
      */
-    public readonly mainRenderer: RenderingModule = new RenderingModule(
-        this as WaferMap
+    public readonly mainRenderer = new RenderingModule(
+        this.asRequiredFieldsWaferMap
     );
 
     /**
      * @internal
      */
-    public readonly workerRenderer: WorkerRenderer = new WorkerRenderer(
-        this as WaferMap
+    public readonly workerRenderer = new WorkerRenderer(
+        this.asRequiredFieldsWaferMap
     );
 
     @observable
@@ -181,17 +180,17 @@ export class WaferMap<
     };
 
     private readonly hoverHandler: HoverHandler = new HoverHandler(
-        this as WaferMap
+        this.asRequiredFieldsWaferMap
     );
 
-    private readonly experimentalHoverHandler: ExperimentalHoverHandler = new ExperimentalHoverHandler(this as WaferMap);
+    private readonly experimentalHoverHandler: ExperimentalHoverHandler = new ExperimentalHoverHandler(this.asRequiredFieldsWaferMap);
 
     private readonly zoomHandler: ZoomHandler = new ZoomHandler(
-        this as WaferMap
+        this.asRequiredFieldsWaferMap
     );
 
     private readonly resizeObserver = this.createResizeObserver();
-    private readonly waferMapValidator: WaferMapValidator = new WaferMapValidator(this as WaferMap);
+    private readonly waferMapValidator: WaferMapValidator = new WaferMapValidator(this.asRequiredFieldsWaferMap);
 
     public get validity(): WaferMapValidity {
         return this.waferMapValidator.getValidity();
@@ -237,9 +236,9 @@ export class WaferMap<
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             // zoom translateExtent needs to be recalculated when canvas size changes
             this.zoomHandler.disconnect();
-            this.dataManager = this.diesTable === undefined
-                ? this.stableDataManager
-                : this.experimentalDataManager;
+            this.dataManager = this.isExperimentalRenderer()
+                ? this.experimentalDataManager
+                : this.stableDataManager;
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -378,6 +377,10 @@ export class WaferMap<
         this.$emit('die-hover', { currentDie: this.hoverDie });
         this.waferMapUpdateTracker.track('hoverDie');
         this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private get asRequiredFieldsWaferMap(): WaferMap {
+        return this as WaferMap;
     }
 }
 
