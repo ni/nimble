@@ -1,4 +1,4 @@
-import { Remote, expose, wrap } from 'comlink';
+import { Remote, expose, transfer, wrap } from 'comlink';
 import { MatrixRenderer } from '../matrix-renderer';
 
 describe('MatrixRenderer with MessageChannel', () => {
@@ -34,25 +34,26 @@ describe('MatrixRenderer with MessageChannel', () => {
             + updatedMatrix.values.length).toEqual(0);
     });
 
-    it('should get the matrix', async () => {
-
+    it('indexes should be scaled', async () => {
         await matrixRenderer.updateMatrix(testData);
+        const offscreenCanvas = new OffscreenCanvas(300, 300);
+        matrixRenderer.setCanvas(
+            transfer(offscreenCanvas, [
+                offscreenCanvas as unknown as Transferable
+            ])
+        );
 
-        await matrixRenderer.drawWafer();
-
-        expect(matrixRenderer.clearCanvas).toHaveBeenCalled();
-        expect(matrixRenderer.scaleCanvas).toHaveBeenCalled();
-    });
-
-    it('should draw the wafer', async () => {
-        const offscreenCanvas = new OffscreenCanvas(500, 500);
-        await matrixRenderer.setCanvas(offscreenCanvas);
-        spyOn(matrixRenderer, 'clearCanvas');
-        spyOn(matrixRenderer, 'scaleCanvas');
-
+        matrixRenderer.setDiesDimensions({ width: 10, height: 10 });
+        matrixRenderer.setCanvasCorners({ x: 0, y: 0 }, { x: 500, y: 500 });
+        matrixRenderer.setScaling(2, 2);
+        matrixRenderer.setBases(2, 2);
+        matrixRenderer.setCanvasCorners({ x: 0, y: 0 }, { x: 500, y: 500 });
         matrixRenderer.drawWafer();
 
-        expect(matrixRenderer.clearCanvas).toHaveBeenCalled();
-        expect(matrixRenderer.scaleCanvas).toHaveBeenCalled();
+        const scaledColIndexes = await matrixRenderer.scaledColIndex;
+        const scaledRowIndexes = await matrixRenderer.scaledRowIndex;
+
+        expect(scaledColIndexes).toEqual(Float64Array.from([10, 4, 6]));
+        expect(scaledRowIndexes).toEqual(Float64Array.from([110, 110, 126]));
     });
 });
