@@ -2,10 +2,9 @@ import { Table, tableFromArrays } from 'apache-arrow';
 import type { WaferMap } from '..';
 import { WaferMapValidator } from '../modules/wafer-map-validator';
 import { getWaferMapMockValidator } from './utilities';
-import type { WaferRequiredTypeMap } from '../types';
 
 describe('Wafermap Validator module', () => {
-    let waferMapValidator: WaferMapValidator<WaferRequiredTypeMap>;
+    let waferMapValidator: WaferMapValidator;
 
     it('with undefined grid dimensions should be valid', () => {
         const waferMock = getWaferMapMockValidator(

@@ -7,14 +7,13 @@ import type {
     Margin,
     DieRenderInfo,
     WaferMapDie,
-    PointCoordinates,
-    WaferRequiredTypeMap
+    PointCoordinates
 } from '../../types';
 
 /**
  * Data Manager uses Computations and Prerendering modules in order and exposes the results
  */
-export class DataManager<T extends WaferRequiredTypeMap> {
+export class DataManager {
     public get containerDimensions(): Dimensions {
         return this.computations.containerDimensions;
     }
@@ -47,11 +46,11 @@ export class DataManager<T extends WaferRequiredTypeMap> {
         return this.dataMap;
     }
 
-    private readonly computations: Computations<T>;
-    private readonly prerendering: Prerendering<T>;
+    private readonly computations: Computations;
+    private readonly prerendering: Prerendering;
     private dataMap!: Map<string, WaferMapDie>;
 
-    public constructor(private readonly wafermap: WaferMap<T>) {
+    public constructor(private readonly wafermap: WaferMap) {
         this.computations = new Computations(wafermap);
         this.prerendering = new Prerendering(wafermap);
     }
