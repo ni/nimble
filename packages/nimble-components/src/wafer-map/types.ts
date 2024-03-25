@@ -1,4 +1,4 @@
-import type { DataType, Float64, Int32 } from 'apache-arrow';
+import type { Float64, Int32 } from 'apache-arrow';
 
 export const WaferMapOriginLocation = {
     bottomLeft: 'bottom-left',

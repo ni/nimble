@@ -44,7 +44,7 @@ export class WaferMap<
      * @internal
      * needs to be initialized before the properties trigger changes
      */
-    public readonly waferMapUpdateTracker: WaferMapUpdateTracker = new WaferMapUpdateTracker(this);
+    public readonly waferMapUpdateTracker: WaferMapUpdateTracker = new WaferMapUpdateTracker(this as WaferMap);
 
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
@@ -94,15 +94,15 @@ export class WaferMap<
     /**
      * @internal
      */
-    public readonly dataManager: DataManager = new DataManager(this);
+    public readonly dataManager: DataManager = new DataManager(this as WaferMap);
     /**
      * @internal
      */
-    public readonly mainRenderer = new RenderingModule(this);
+    public readonly mainRenderer = new RenderingModule(this as WaferMap);
     /**
      * @internal
      */
-    public readonly workerRenderer = new WorkerRenderer(this);
+    public readonly workerRenderer = new WorkerRenderer(this as WaferMap);
 
     @observable
     public renderer: RenderingModule | WorkerRenderer = this.mainRenderer;
@@ -161,15 +161,15 @@ export class WaferMap<
         values: []
     };
 
-    private readonly hoverHandler = new HoverHandler(this);
-    private readonly experimentalHoverHandler = new ExperimentalHoverHandler(
-        this
+    private readonly hoverHandler: HoverHandler = new HoverHandler(this as WaferMap);
+    private readonly experimentalHoverHandler: ExperimentalHoverHandler = new ExperimentalHoverHandler(
+        this as WaferMap
     );
 
-    private readonly zoomHandler = new ZoomHandler(this);
+    private readonly zoomHandler: ZoomHandler = new ZoomHandler(this as WaferMap);
 
     private readonly resizeObserver = this.createResizeObserver();
-    private readonly waferMapValidator = new WaferMapValidator(this);
+    private readonly waferMapValidator: WaferMapValidator = new WaferMapValidator(this as WaferMap);
 
     public get validity(): WaferMapValidity {
         return this.waferMapValidator.getValidity();
