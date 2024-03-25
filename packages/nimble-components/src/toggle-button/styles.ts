@@ -15,8 +15,6 @@ import { appearanceBehavior } from '../utilities/style/appearance';
 import { ButtonAppearance } from './types';
 
 export const styles = css`
-    @layer base, checked, hover, focusVisible, active, disabled, top;
-
     ${buttonStyles}
     ${buttonAppearanceVariantStyles}
 
