@@ -220,9 +220,9 @@ export class WaferMap<
         this.zoomHandler.connect();
         const { matrixRenderer } = await createMatrixRenderer();
         this.worker = matrixRenderer;
-        const offscreenOne = this.workerCanvas.transferControlToOffscreen();
+        const offscreenCanvas = this.workerCanvas.transferControlToOffscreen();
         await this.worker.setCanvas(
-            transfer(offscreenOne, [offscreenOne as unknown as Transferable])
+            transfer(offscreenCanvas, [offscreenCanvas as unknown as Transferable])
         );
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
