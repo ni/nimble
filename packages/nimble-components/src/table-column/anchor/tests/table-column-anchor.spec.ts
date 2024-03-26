@@ -522,7 +522,7 @@ describe('TableColumnAnchor', () => {
                 groupValue: '',
                 usesColumnPlaceholder: false
             }
-        ];
+        ] as const;
 
         async function initializeColumnAndTable(
             data: readonly SimpleTableRecord[],

@@ -229,6 +229,6 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         decimalDigits: 2,
         decimalMaximumDigits: undefined,
         unit: 'volt',
-        placeholder: 'Unknown value'
+        placeholder: 'Unknown voltage'
     }
 };

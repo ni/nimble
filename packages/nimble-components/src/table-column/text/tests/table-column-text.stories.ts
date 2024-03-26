@@ -104,6 +104,6 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
     },
     args: {
         fieldName: 'firstName',
-        placeholder: 'Unknown value'
+        placeholder: 'Did not respond to request for comment'
     }
 };

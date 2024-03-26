@@ -104,6 +104,6 @@ export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
     },
     args: {
         fieldName: 'firstName',
-        placeholder: 'Unknown value'
+        placeholder: 'Unknown time'
     }
 };

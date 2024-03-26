@@ -47,8 +47,8 @@ const simpleData = [
         birthday: new Date(2013, 3, 1, 20, 4, 37, 975).valueOf()
     },
     {
-        firstName: 'Maggie',
-        lastName: 'Simpson',
+        firstName: 'Abbey',
+        lastName: 'Simpson?',
         birthday: undefined
     }
 ] as const;
@@ -339,7 +339,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
     },
     args: {
         fieldName: 'firstName',
-        placeholder: 'Unknown value',
+        placeholder: 'Unknown birthday',
         format: 'default',
         customDateStyle: undefined,
         customTimeStyle: undefined,

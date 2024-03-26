@@ -131,7 +131,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
         hrefFieldName: 'url',
         appearance: 'default',
         underlineHidden: false,
-        placeholder: 'Unknown value',
+        placeholder: 'Mystery',
         ...sharedTableArgs(simpleData)
     }
 };

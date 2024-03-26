@@ -20,6 +20,7 @@ export function mixinColumnWithPlaceholderAPI<
     abstract class ColumnWithPlaceholder extends base {
         public placeholder?: string;
 
+        /** @internal */
         public abstract placeholderChanged(): void;
     }
     attr({ attribute: 'placeholder' })(
