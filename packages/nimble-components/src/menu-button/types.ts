@@ -2,7 +2,10 @@
  * Types of menu button appearance.
  * @public
  */
-export { ButtonAppearance } from '../patterns/button/types';
+export {
+    ButtonAppearance,
+    ButtonAppearanceVariant
+} from '../patterns/button/types';
 
 /**
  * The options of where to position the menu relative to the menu button.
