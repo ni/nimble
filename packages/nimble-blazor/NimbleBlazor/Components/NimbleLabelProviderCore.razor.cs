@@ -16,6 +16,21 @@ public partial class NimbleLabelProviderCore : ComponentBase
     [Parameter]
     public string? NumericDecrement { get; set; }
 
+    [Parameter]
+    public string? PopupIconError { get; set; }
+
+    [Parameter]
+    public string? PopupIconWarning { get; set; }
+
+    [Parameter]
+    public string? PopupIconInformation { get; set; }
+
+    [Parameter]
+    public string? FilterSearch { get; set; }
+
+    [Parameter]
+    public string? FilterNoResults { get; set; }
+
     /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.
     /// </summary>

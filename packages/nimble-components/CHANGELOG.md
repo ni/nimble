@@ -1,8 +1,75 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 07 Mar 2024 21:20:52 GMT and should not be manually modified.
+This log was last generated on Mon, 25 Mar 2024 17:03:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 23.0.1
+
+Mon, 25 Mar 2024 17:03:11 GMT
+
+### Patches
+
+- Created new hover event for the new diesTable api and changed the zoom event ([ni/nimble@f56b73b](https://github.com/ni/nimble/commit/f56b73b45161a55b967dc03bbdd094a6527c814c))
+
+## 23.0.0
+
+Thu, 21 Mar 2024 17:13:38 GMT
+
+### Major changes
+
+- Breaking change: Renamed bodyEmphasizedPlus1 to bodyPlus1Emphasized to align with token conventions. Also, added bodyPlus1 font token ([ni/nimble@b93385a](https://github.com/ni/nimble/commit/b93385a27672ebc03e18a864e8fa268727595c66))
+- Bump @ni/nimble-tokens to v6.13.0
+
+## 22.1.1
+
+Wed, 20 Mar 2024 16:45:59 GMT
+
+### Patches
+
+- Remove ListOptionOwner from Combobox to address issue found in Angular ([ni/nimble@83f7fd9](https://github.com/ni/nimble/commit/83f7fd9e601eed789e8f6eb61a9d4a87a1d1835b))
+
+## 22.1.0
+
+Mon, 18 Mar 2024 17:12:34 GMT
+
+### Minor changes
+
+- Add placeholders for group rows in the table ([ni/nimble@3bbf8d7](https://github.com/ni/nimble/commit/3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda))
+
+## 22.0.1
+
+Thu, 14 Mar 2024 14:48:16 GMT
+
+### Patches
+
+- Fix bug where an anchor element's link couldn't be dragged correctly ([ni/nimble@a1eebb0](https://github.com/ni/nimble/commit/a1eebb02b4fb66ca77e0e32bb52497b2da1cb4cf))
+
+## 22.0.0
+
+Wed, 13 Mar 2024 23:07:24 GMT
+
+### Major changes
+
+- Rename icon labels to follow naming convention ([ni/nimble@518c229](https://github.com/ni/nimble/commit/518c229b964d2c4a2e77210692f5d367f2937ff4))
+
+## 21.10.2
+
+Tue, 12 Mar 2024 22:17:11 GMT
+
+### Patches
+
+- Adding DropdownOwner interface allowing Select to register options during connectedCallback. ([ni/nimble@19643f4](https://github.com/ni/nimble/commit/19643f4e13056e414aedd6b8ef89beb7ad1e95ab))
+
+## 21.10.1
+
+Tue, 12 Mar 2024 21:01:54 GMT
+
+### Patches
+
+- Update typescript to 4.9.5 ([ni/nimble@bc825e1](https://github.com/ni/nimble/commit/bc825e1b057eafd8bc005d11e9a224aa9aee9619))
+- Bump @ni/nimble-tokens to v6.12.1
+- Bump @ni/jasmine-parameterized to v0.2.3
 
 ## 21.10.0
 
