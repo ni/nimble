@@ -93,6 +93,7 @@ jobs:
             - '../packages/nimble-tokens/dist/icons/svg/**'
             - '../packages/nimble-tokens/source/styledictionary/properties/**'
           storybookBuildDir: ../../packages/site/dist/storybook
+          storybookBaseDir: ./packages/nimble-components
           exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing
 
