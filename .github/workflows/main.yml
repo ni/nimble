@@ -58,11 +58,6 @@ jobs:
       # only informational so swallow error codes
       - run: npm outdated || exit 0
 
-      # Audit
-      - run: npm audit --only=prod
-      # https://github.com/ni/nimble/issues/801
-      # - run: npm audit --audit-level=critical
-
       # Build
       - run: npm run build
 

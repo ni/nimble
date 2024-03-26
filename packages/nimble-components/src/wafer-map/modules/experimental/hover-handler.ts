@@ -1,5 +1,5 @@
-import type { WaferMap } from '..';
-import { PointCoordinates, WaferMapOriginLocation } from '../types';
+import type { WaferMap } from '../..';
+import { PointCoordinates, WaferMapOriginLocation } from '../../types';
 
 /**
  * HoverHandler deals with user interactions and events like hovering
@@ -23,31 +23,47 @@ export class HoverHandler {
         this.wafermap.removeEventListener('mouseout', this.onMouseOut);
     }
 
-    private readonly onMouseMove = (event: MouseEvent): void => {
-        if (this.wafermap.isExperimentalRenderer()) {
-            return;
-        }
-        const mousePosition: PointCoordinates = {
-            x: event.offsetX,
-            y: event.offsetY
-        };
-
-        if (!this.hoversOverDie(mousePosition)) {
-            this.wafermap.hoverDie = undefined;
+    /**
+     * @internal
+     * keep public for testing until data manager refactor
+     */
+    public readonly onMouseMove = (event: MouseEvent): void => {
+        if (!this.wafermap.isExperimentalRenderer()) {
             return;
         }
         // get original mouse position in case we are in zoom.
         const invertedPoint = this.wafermap.transform.invert([
-            mousePosition.x,
-            mousePosition.y
+            event.offsetX,
+            event.offsetY
         ]);
 
+        // does not work yet until data manager will parse diesTable
         const dieCoordinates = this.calculateDieCoordinates({
             x: invertedPoint[0],
             y: invertedPoint[1]
         });
+        const colIndex = this.wafermap
+            .diesTable!.getChild('colIndex')!
+            .toArray();
+        const rowIndex = this.wafermap
+            .diesTable!.getChild('rowIndex')!
+            .toArray();
 
-        this.wafermap.hoverDie = this.wafermap.dataManager.getWaferMapDie(dieCoordinates);
+        // will replace iterating with arquero filtering after fixing errors
+        for (let i = 0; i < colIndex.length; i++) {
+            if (
+                colIndex[i] === dieCoordinates.x
+                && rowIndex[i] === dieCoordinates.y
+            ) {
+                this.wafermap.hoverDie = {
+                    index: i,
+                    x: dieCoordinates.x,
+                    y: dieCoordinates.y
+                };
+                return;
+            }
+        }
+        this.wafermap.hoverDie = undefined;
     };
 
     private readonly onMouseOut = (_event: MouseEvent): void => {
@@ -78,19 +94,5 @@ export class HoverHandler {
             )
         );
         return { x, y };
-    }
-
-    private hoversOverDie(mousePosition: PointCoordinates): boolean {
-        const rgba = this.wafermap.canvasContext.getImageData(
-            mousePosition.x,
-            mousePosition.y,
-            1,
-            1
-        ).data;
-        let rgbaSum = 0;
-        for (const color of rgba) {
-            rgbaSum += color;
-        }
-        return rgbaSum > 0;
     }
 }

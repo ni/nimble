@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 25 Mar 2024 17:03:11 GMT",
+      "version": "23.0.1",
+      "tag": "@ni/nimble-components_v23.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f56b73b45161a55b967dc03bbdd094a6527c814c",
+            "comment": "Created new hover event for the new diesTable api and changed the zoom event"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Mar 2024 16:18:25 GMT",
+      "version": "23.0.0",
+      "tag": "@ni/nimble-components_v23.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "559c12f4b5eaae8fdbd18c6c0d2ecff097b699d5",
+            "comment": "Update Playwright dev dependency to 1.42.0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 21 Mar 2024 17:13:38 GMT",
       "version": "23.0.0",
       "tag": "@ni/nimble-components_v23.0.0",
