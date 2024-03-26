@@ -5,15 +5,14 @@ import { ButtonAppearance } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters,
-    createMatrixThemeStory
+    createMatrixThemeStory,
+    cartesianProduct,
+    createMatrixInteractionsfromStates
 } from '../../utilities/tests/matrix';
 import {
     disabledStates,
     DisabledState,
-    InteractionState,
-    interactionStates,
-    nonInteractionStates,
-    disabledInteractionsFilter
+    disabledStateIsEnabled
 } from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -39,6 +38,7 @@ const partVisibilityStates = [
     [false, true, true]
 ] as const;
 type PartVisibilityState = (typeof partVisibilityStates)[number];
+const partVisibilityStatesOnlyLabel = partVisibilityStates[2];
 
 const openStates = [
     ['', false],
@@ -53,21 +53,19 @@ type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (
-    [interactionName, interaction]: InteractionState,
-    [disabledName, disabled]: DisabledState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
+    [disabledName, disabled]: DisabledState,
     [openName, open]: OpenState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <${menuButtonTag}
-        class="${() => interaction}"
         appearance="${() => appearance}"
         ?open="${() => open}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
-            ${() => `${interactionName} ${openName} ${appearanceName!} Menu Button ${disabledName}`}
+            ${() => `${openName} ${appearanceName!} Menu Button ${disabledName}`}
             ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
     </${menuButtonTag}>
 `;
@@ -76,35 +74,37 @@ export const menuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(
         component,
         [
-            nonInteractionStates,
-            disabledStates,
             partVisibilityStates,
+            disabledStates,
             openStates,
             appearanceStates
-        ],
-        // Disabled and open is not a valid state
-        (
-            _interactionState: InteractionState,
-            disabledState: DisabledState,
-            _partVisibilityState: PartVisibilityState,
-            openState: OpenState
-        ) => {
-            return disabledState[0] !== 'Disabled' || openState[0] !== 'Open';
-        }
+        ]
     )
 );
 
+const interactionStatesHover = cartesianProduct([
+    [partVisibilityStatesOnlyLabel],
+    disabledStates,
+    openStates,
+    appearanceStates
+] as const);
+
+const interactionStates = cartesianProduct([
+    [partVisibilityStatesOnlyLabel],
+    [disabledStateIsEnabled],
+    openStates,
+    appearanceStates
+] as const);
+
 export const menuButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(
+    createMatrixInteractionsfromStates(
         component,
-        [
-            interactionStates,
-            disabledStates,
-            [[false, true, false]],
-            openStates,
-            appearanceStates
-        ],
-        disabledInteractionsFilter
+        {
+            hover: interactionStatesHover,
+            hoverActive: interactionStates,
+            active: interactionStates,
+            focus: interactionStates,
+        }
     )
 );
 

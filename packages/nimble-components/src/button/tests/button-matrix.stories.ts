@@ -5,15 +5,14 @@ import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters,
-    createMatrixThemeStory
+    createMatrixThemeStory,
+    cartesianProduct,
+    createMatrixInteractionsfromStates
 } from '../../utilities/tests/matrix';
 import {
     disabledStates,
     DisabledState,
-    InteractionState,
-    interactionStates,
-    nonInteractionStates,
-    disabledInteractionsFilter
+    disabledStateIsEnabled,
 } from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -41,6 +40,7 @@ const partVisibilityStates = [
     [false, true, true]
 ] as const;
 type PartVisibilityState = (typeof partVisibilityStates)[number];
+const partVisibilityStatesOnlyLabel = partVisibilityStates[2];
 
 const appearanceStates: [string, string | undefined][] = Object.entries(
     ButtonAppearance
@@ -54,28 +54,25 @@ type AppearanceVariantState = (typeof appearanceVariantStates)[number];
 
 // prettier-ignore
 const component = (
-    [interactionName, interaction]: InteractionState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [appearanceVariantName, appearanceVariant]: AppearanceVariantState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
     <${buttonTag}
-        class="${() => interaction}"
         appearance="${() => appearance}"
         appearance-variant="${() => appearanceVariant}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
-            ${() => `${interactionName} ${appearanceVariantName} ${appearanceName} Button ${disabledName}`}
+            ${() => `${appearanceVariantName} ${appearanceName} Button ${disabledName}`}
             ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
     </${buttonTag}>
 `;
 
 export const buttonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        nonInteractionStates,
         disabledStates,
         appearanceStates,
         appearanceVariantStates,
@@ -83,17 +80,29 @@ export const buttonThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
+const interactionStates = cartesianProduct([
+    [disabledStateIsEnabled],
+    appearanceStates,
+    appearanceVariantStates,
+    [partVisibilityStatesOnlyLabel]
+] as const);
+
+const interactionStatesHover = cartesianProduct([
+    disabledStates,
+    appearanceStates,
+    appearanceVariantStates,
+    [partVisibilityStatesOnlyLabel]
+] as const);
+
 export const buttonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(
+    createMatrixInteractionsfromStates(
         component,
-        [
-            interactionStates,
-            disabledStates,
-            appearanceStates,
-            appearanceVariantStates,
-            [[false, true, false]]
-        ],
-        disabledInteractionsFilter
+        {
+            hover: interactionStatesHover,
+            hoverActive: interactionStates,
+            active: interactionStates,
+            focus: interactionStates,
+        }
     )
 );
 

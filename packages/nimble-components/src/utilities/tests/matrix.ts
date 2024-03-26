@@ -2,6 +2,7 @@ import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
 import { fastParameters, renderViewTemplate } from './storybook';
 import { themeProviderTag } from '../../theme-provider';
 import { type BackgroundState, backgroundStates } from './states';
+import { bodyFont, bodyFontColor } from '../../theme-provider/design-tokens';
 
 export const sharedMatrixParameters = () => ({
     ...fastParameters(),
@@ -51,7 +52,7 @@ export function cartesianProduct<T extends readonly unknown[]>(
 /**
  * Takes a template rendered with an array of states.
  */
-export function createMatrixFromStates<T extends readonly unknown[]>(
+function createMatrixFromStates<T extends readonly unknown[]>(
     component: (...states: T) => ViewTemplate,
     states: T[]
 ): ViewTemplate {
@@ -69,12 +70,9 @@ export function createMatrixFromStates<T extends readonly unknown[]>(
  */
 export function createMatrix<T extends readonly unknown[]>(
     component: (...states: T) => ViewTemplate,
-    dimensions?: MakeTupleEntriesArrays<T>,
-    filter?: (...states: T) => boolean
+    dimensions?: MakeTupleEntriesArrays<T>
 ): ViewTemplate {
-    const states = cartesianProduct(dimensions).filter(
-        state => !filter || filter(...state)
-    );
+    const states = cartesianProduct(dimensions);
     return createMatrixFromStates(component, states);
 }
 
@@ -85,18 +83,17 @@ export const createMatrixThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
 ): ((source: TSource) => Element) => {
     return (source: TSource): Element => {
-        const component = ({
-            theme,
-            value
-        }: BackgroundState): ViewTemplate => html`
-            <${themeProviderTag}
-                theme="${theme}">
-                <div style="background-color: ${value}; padding:20px;">
-                    ${viewTemplate}
-                </div>
-            </${themeProviderTag}>
-        `;
-        const matrixTemplate = createMatrix(component, [backgroundStates]);
+        const matrixTemplate = createMatrix(
+            ({ theme, value }: BackgroundState) => html`
+                <${themeProviderTag}
+                    theme="${theme}">
+                    <div style="background-color: ${value}; padding:20px;">
+                        ${viewTemplate}
+                    </div>
+                </${themeProviderTag}>
+            `,
+            [backgroundStates]
+        );
         const wrappedMatrixTemplate = html<TSource>`
             <div class="code-hide-top-container">${matrixTemplate}</div>
         `;
@@ -105,3 +102,45 @@ export const createMatrixThemeStory = <TSource>(
         return content;
     };
 };
+
+export function createMatrixInteractionsfromStates<
+    THover extends readonly unknown[],
+    THoverActive extends readonly unknown[],
+    TActive extends readonly unknown[],
+    TFocus extends readonly unknown[]
+>(
+    component: (
+        ...states: THover | TActive | THoverActive | TFocus
+    ) => ViewTemplate,
+    states: {
+        hover: THover[],
+        hoverActive: THoverActive[],
+        active: TActive[],
+        focus: TFocus[]
+    }
+): ViewTemplate {
+    // prettier-ignore
+    return html`
+    <div style="
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+    ">
+        <div class="pseudo-hover-all">
+            <p>Hover</p>
+            ${createMatrixFromStates(component, states.hover)}
+        </div>
+        <div class="pseudo-hover-all pseudo-active-all">
+            <p>Hover and active</p>
+            ${createMatrixFromStates(component, states.hoverActive)}
+        </div>
+        <div class="pseudo-active-all">
+            <p>Active</p>
+            ${createMatrixFromStates(component, states.active)}
+        </div>
+        <div class="pseudo-focus-visible-all pseudo-focus-within-all">
+            <p>Focus</p>
+            ${createMatrixFromStates(component, states.focus)}
+        </div>
+    </div>
+`;
+}

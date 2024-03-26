@@ -5,17 +5,18 @@ import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    cartesianProduct,
+    createMatrixInteractionsfromStates
 } from '../../utilities/tests/matrix';
 import {
     disabledStates,
     DisabledState,
     errorStates,
     ErrorState,
-    InteractionState,
-    interactionStates,
-    nonInteractionStates,
-    disabledInteractionsFilter
+    disabledStateIsEnabled,
+    errorStatesNoError,
+    errorStatesErrorWithMessage
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { NumberFieldAppearance } from '../types';
@@ -35,6 +36,7 @@ const valueStates = [
     ['Value', '1234', null]
 ] as const;
 type ValueState = (typeof valueStates)[number];
+const valueStatesHasValue = valueStates[1];
 
 const appearanceStates = Object.entries(NumberFieldAppearance).map(
     ([key, value]) => [pascalCase(key), value]
@@ -46,9 +48,9 @@ const hideStepStates = [
     ['Hide Step', true]
 ] as const;
 type HideStepState = (typeof hideStepStates)[number];
+const hideStepStateStepVisible = hideStepStates[0];
 
 const component = (
-    [interactionName, interaction]: InteractionState,
     [disabledName, disabled]: DisabledState,
     [hideStepName, hideStep]: HideStepState,
     [valueName, valueValue, placeholderValue]: ValueState,
@@ -57,7 +59,6 @@ const component = (
 ): ViewTemplate => html`
     <${numberFieldTag}
         style="width: 250px; padding: 8px;"
-        class="${() => errorVisible} ${() => interaction}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         appearance="${() => appearance}"
@@ -66,14 +67,13 @@ const component = (
         error-text="${() => errorText}"
         ?error-visible="${() => errorVisible}"
     >
-    ${interactionName} ${() => errorName} ${() => appearanceName} ${() => valueName}
+    ${() => errorName} ${() => appearanceName} ${() => valueName}
         ${() => hideStepName} ${() => disabledName}
     </${numberFieldTag}>
 `;
 
 export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        nonInteractionStates,
         disabledStates,
         hideStepStates,
         valueStates,
@@ -82,18 +82,31 @@ export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
+const interactionStatesHover = cartesianProduct([
+    disabledStates,
+    [hideStepStateStepVisible],
+    [valueStatesHasValue],
+    [errorStatesNoError, errorStatesErrorWithMessage],
+    appearanceStates
+] as const);
+
+const interactionStates = cartesianProduct([
+    [disabledStateIsEnabled],
+    [hideStepStateStepVisible],
+    [valueStatesHasValue],
+    [errorStatesNoError, errorStatesErrorWithMessage],
+    appearanceStates
+] as const);
+
 export const numberFieldInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(
+    createMatrixInteractionsfromStates(
         component,
-        [
-            interactionStates,
-            disabledStates,
-            hideStepStates.filter(x => x[0] !== 'Hide Step'), // always show inc/dec buttons (no need to test without)
-            valueStates.filter(x => x[0] !== 'Placeholder'), // value states shouldn't affect styling, so just test one (non-placeholder)
-            errorStates.filter(x => x[0] !== 'Error No Message'), // with or without message shouldn't matter, so just test with message
-            appearanceStates
-        ],
-        disabledInteractionsFilter
+        {
+            hover: interactionStatesHover,
+            hoverActive: interactionStates,
+            active: interactionStates,
+            focus: interactionStates,
+        }
     )
 );
 

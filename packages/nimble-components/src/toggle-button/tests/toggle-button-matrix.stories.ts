@@ -6,15 +6,13 @@ import {
     createMatrix,
     sharedMatrixParameters,
     createMatrixThemeStory,
-    createMatrixFromStates,
-    cartesianProduct
+    cartesianProduct,
+    createMatrixInteractionsfromStates
 } from '../../utilities/tests/matrix';
 import {
     disabledStates,
     DisabledState,
-    interactionStates,
-    removeUnusuedDisabledInteractions,
-    interactionsWrapper
+    disabledStateIsEnabled,
 } from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -82,16 +80,29 @@ export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
+const interactionStatesHover = cartesianProduct([
+    disabledStates,
+    [partVisibilityStatesOnlyLabel],
+    checkedStates,
+    appearanceStates
+] as const);
+
+const interactionStates = cartesianProduct([
+    [disabledStateIsEnabled],
+    [partVisibilityStatesOnlyLabel],
+    checkedStates,
+    appearanceStates
+] as const);
+
 export const toggleButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrixFromStates(
-        interactionsWrapper(component),
-        cartesianProduct([
-            interactionStates,
-            disabledStates,
-            [partVisibilityStatesOnlyLabel],
-            checkedStates,
-            appearanceStates
-        ] as const).filter(removeUnusuedDisabledInteractions)
+    createMatrixInteractionsfromStates(
+        component,
+        {
+            hover: interactionStatesHover,
+            hoverActive: interactionStates,
+            active: interactionStates,
+            focus: interactionStates,
+        }
     )
 );
 

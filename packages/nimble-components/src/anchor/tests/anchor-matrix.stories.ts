@@ -4,7 +4,9 @@ import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrix,
     sharedMatrixParameters,
-    createMatrixThemeStory
+    createMatrixThemeStory,
+    cartesianProduct,
+    createMatrixInteractionsfromStates
 } from '../../utilities/tests/matrix';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -12,11 +14,7 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import { anchorTag } from '..';
-import {
-    interactionStates,
-    nonInteractionStates,
-    type InteractionState
-} from '../../utilities/tests/states';
+import { disabledStates, type DisabledState, disabledStateIsEnabled } from '../../utilities/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Anchor',
@@ -26,12 +24,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const disabledStates = [
-    ['', 'https://nimble.ni.dev'],
-    ['Disabled', null]
-] as const;
-type DisabledState = (typeof disabledStates)[number];
 
 const underlineHiddenStates = [
     ['', false],
@@ -46,44 +38,46 @@ type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (
-    [interactionName, interaction]: InteractionState,
-    [disabledName, href]: DisabledState,
+    [disabledName, disabled]: DisabledState,
     [underlineHiddenName, underlineHidden]: UnderlineHiddenState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <${anchorTag}
-        class="${() => interaction}"
-        href=${() => href}
+        href=${() => (disabled ? undefined : 'https://nimble.ni.dev')}
         ?underline-hidden="${() => underlineHidden}"
         appearance="${() => appearance}"
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${() => `${interactionName} ${underlineHiddenName} ${appearanceName} ${disabledName} Link`}</${anchorTag}>
+            ${() => `${underlineHiddenName} ${appearanceName} ${disabledName} Link`}</${anchorTag}>
 `;
 
 export const anchorThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        nonInteractionStates,
         disabledStates,
         underlineHiddenStates,
         appearanceStates
     ])
 );
 
+const interactionStatesHover = cartesianProduct([
+    disabledStates,
+    underlineHiddenStates,
+    appearanceStates
+] as const);
+
+const interactionStates = cartesianProduct([
+    [disabledStateIsEnabled],
+    underlineHiddenStates,
+    appearanceStates
+] as const);
+
 export const anchorInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(
+    createMatrixInteractionsfromStates(
         component,
-        [
-            interactionStates,
-            disabledStates,
-            underlineHiddenStates,
-            appearanceStates
-        ],
-        // A custom DisabledState type is used in this file, so we can't use the shared disabledInteractionsFilter
-        (interactionState: InteractionState, disabledState: DisabledState) => {
-            return (
-                disabledState[0] !== 'Disabled'
-                || interactionState[0] === 'Hovered'
-            );
+        {
+            hover: interactionStatesHover,
+            hoverActive: interactionStates,
+            active: interactionStates,
+            focus: interactionStates,
         }
     )
 );

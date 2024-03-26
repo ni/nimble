@@ -8,15 +8,14 @@ import {
 import {
     createMatrix,
     sharedMatrixParameters,
-    createMatrixThemeStory
+    createMatrixThemeStory,
+    cartesianProduct,
+    createMatrixInteractionsfromStates
 } from '../../utilities/tests/matrix';
 import {
     disabledStates,
     DisabledState,
-    InteractionState,
-    interactionStates,
-    nonInteractionStates,
-    disabledInteractionsFilter
+    disabledStateIsEnabled
 } from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -43,6 +42,7 @@ const partVisibilityStates = [
     [false, true, true]
 ] as const;
 type PartVisibilityState = (typeof partVisibilityStates)[number];
+const partVisibilityStatesOnlyLabel = partVisibilityStates[2];
 
 const appearanceStates: [string, string | undefined][] = Object.entries(
     ButtonAppearance
@@ -56,14 +56,12 @@ type AppearanceVariantState = (typeof appearanceVariantStates)[number];
 
 // prettier-ignore
 const component = (
-    [interactionName, interaction]: InteractionState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [appearanceVariantName, appearanceVariant]: AppearanceVariantState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
     <${anchorButtonTag}
-        class="${() => interaction}"
         href="https://nimble.ni.dev"
         appearance="${() => appearance}"
         appearance-variant="${() => appearanceVariant}"
@@ -71,14 +69,13 @@ const component = (
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconLinkTag} slot="start"></${iconLinkTag}>`)}
-            ${() => `${interactionName} ${appearanceVariantName} ${appearanceName} Link ${disabledName}`}
+            ${() => `${appearanceVariantName} ${appearanceName} Link ${disabledName}`}
             ${when(() => endIconVisible, html`<${iconArrowExpanderRightTag} slot="end"></${iconArrowExpanderRightTag}>`)}
     </${anchorButtonTag}>
 `;
 
 export const anchorButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        nonInteractionStates,
         disabledStates,
         appearanceStates,
         appearanceVariantStates,
@@ -86,17 +83,29 @@ export const anchorButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
+const interactionStatesHover = cartesianProduct([
+    disabledStates,
+    appearanceStates,
+    appearanceVariantStates,
+    [partVisibilityStatesOnlyLabel]
+] as const);
+
+const interactionStates = cartesianProduct([
+    [disabledStateIsEnabled],
+    appearanceStates,
+    appearanceVariantStates,
+    [partVisibilityStatesOnlyLabel]
+] as const);
+
 export const anchorButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(
+    createMatrixInteractionsfromStates(
         component,
-        [
-            interactionStates,
-            disabledStates,
-            appearanceStates,
-            appearanceVariantStates,
-            [[false, true, false]]
-        ],
-        disabledInteractionsFilter
+        {
+            hover: interactionStatesHover,
+            hoverActive: interactionStates,
+            active: interactionStates,
+            focus: interactionStates,
+        }
     )
 );
 
