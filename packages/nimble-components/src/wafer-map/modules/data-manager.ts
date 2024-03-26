@@ -58,13 +58,13 @@ export class DataManager {
         return this.dataMap;
     }
 
-    private readonly computations;
-    private readonly prerendering;
+    private readonly computations: Computations;
+    private readonly prerendering: Prerendering;
     private dataMap!: Map<string, WaferMapDie>;
 
     public constructor(private readonly wafermap: WaferMap) {
         this.computations = new Computations(wafermap);
-        this.prerendering = new Prerendering(wafermap, this);
+        this.prerendering = new Prerendering(wafermap);
     }
 
     public updateContainerDimensions(): void {

@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 14 Mar 2024 14:48:16 GMT and should not be manually modified.
+This log was last generated on Mon, 25 Mar 2024 17:03:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 23.0.1
+
+Mon, 25 Mar 2024 17:03:11 GMT
+
+### Patches
+
+- Created new hover event for the new diesTable api and changed the zoom event ([ni/nimble@f56b73b](https://github.com/ni/nimble/commit/f56b73b45161a55b967dc03bbdd094a6527c814c))
+
+## 23.0.0
+
+Thu, 21 Mar 2024 17:13:38 GMT
+
+### Major changes
+
+- Breaking change: Renamed bodyEmphasizedPlus1 to bodyPlus1Emphasized to align with token conventions. Also, added bodyPlus1 font token ([ni/nimble@b93385a](https://github.com/ni/nimble/commit/b93385a27672ebc03e18a864e8fa268727595c66))
+- Bump @ni/nimble-tokens to v6.13.0
+
+## 22.1.1
+
+Wed, 20 Mar 2024 16:45:59 GMT
+
+### Patches
+
+- Remove ListOptionOwner from Combobox to address issue found in Angular ([ni/nimble@83f7fd9](https://github.com/ni/nimble/commit/83f7fd9e601eed789e8f6eb61a9d4a87a1d1835b))
+
+## 22.1.0
+
+Mon, 18 Mar 2024 17:12:34 GMT
+
+### Minor changes
+
+- Add placeholders for group rows in the table ([ni/nimble@3bbf8d7](https://github.com/ni/nimble/commit/3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda))
 
 ## 22.0.1
 

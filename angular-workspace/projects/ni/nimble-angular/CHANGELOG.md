@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 14 Mar 2024 14:48:16 GMT and should not be manually modified.
+This log was last generated on Mon, 25 Mar 2024 17:03:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.5.3
+
+Mon, 25 Mar 2024 17:03:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v23.0.1
+
+## 20.5.2
+
+Thu, 21 Mar 2024 17:13:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v23.0.0
+
+## 20.5.1
+
+Wed, 20 Mar 2024 16:45:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v22.1.1
+
+## 20.5.0
+
+Mon, 18 Mar 2024 17:12:34 GMT
+
+### Minor changes
+
+- Add new properties to the table label provider ([ni/nimble@3bbf8d7](https://github.com/ni/nimble/commit/3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda))
+- Bump @ni/nimble-components to v22.1.0
 
 ## 20.4.1
 

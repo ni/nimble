@@ -44,6 +44,8 @@ public class NimbleLabelProviderTableTests
     [InlineData(nameof(NimbleLabelProviderTable.RowSelect))]
     [InlineData(nameof(NimbleLabelProviderTable.RowOperationColumn))]
     [InlineData(nameof(NimbleLabelProviderTable.RowLoading))]
+    [InlineData(nameof(NimbleLabelProviderTable.GroupRowPlaceholderNoValue))]
+    [InlineData(nameof(NimbleLabelProviderTable.GroupRowPlaceholderEmpty))]
     public void NimbleLabelProviderTable_LabelIsSet(string propertyName)
     {
         var labelValue = propertyName + "UpdatedValue";
