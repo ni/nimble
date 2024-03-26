@@ -45,9 +45,9 @@ type OpenState = (typeof openStates)[number];
 
 // prettier-ignore
 const component = (
+    [openName, open]: OpenState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
     [disabledName, disabled]: DisabledState,
-    [openName, open]: OpenState,
     [appearanceName, appearance]: AppearanceState,
     [appearanceVariantName, appearanceVariant]: AppearanceVariantState,
 ): ViewTemplate => html`
@@ -66,26 +66,26 @@ const component = (
 
 export const menuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        openStates,
         partVisibilityStates,
         disabledStates,
-        openStates,
         appearanceStates,
         appearanceVariantStates
     ])
 );
 
 const interactionStatesHover = cartesianProduct([
+    openStates,
     [partVisibilityStatesOnlyLabel],
     disabledStates,
-    openStates,
     appearanceStates,
     appearanceVariantStates
 ] as const);
 
 const interactionStates = cartesianProduct([
+    openStates,
     [partVisibilityStatesOnlyLabel],
     [disabledStateIsEnabled],
-    openStates,
     appearanceStates,
     appearanceVariantStates
 ] as const);
