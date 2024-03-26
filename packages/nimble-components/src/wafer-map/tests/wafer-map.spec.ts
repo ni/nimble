@@ -9,7 +9,7 @@ import {
     WaferMapOriginLocation
 } from '../types';
 import { RenderingModule } from '../modules/rendering';
-import { WorkerRenderer } from '../modules/worker-renderer';
+import { WorkerRenderer } from '../modules/experimental/worker-renderer';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
@@ -88,22 +88,10 @@ describe('WaferMap', () => {
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will use RenderingModule after dies change', () => {
-            element.dies = [{ x: 1, y: 1, value: '1' }];
-            processUpdates();
-            expect(element.renderer instanceof RenderingModule).toBeTrue();
-        });
-
         it('will update once after diesTable change', () => {
             element.diesTable = new Table();
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
-        });
-
-        it('will use WorkerRenderer after diesTable change', () => {
-            element.diesTable = new Table();
-            processUpdates();
-            expect(element.renderer instanceof WorkerRenderer).toBeTrue();
         });
 
         it('will update once after colorScale changes', () => {
@@ -158,6 +146,28 @@ describe('WaferMap', () => {
             renderHoverSpy = spyOn(element.workerRenderer, 'renderHover');
         });
 
+        it('will use RenderingModule after dies change', () => {
+            element.dies = [{ x: 1, y: 1, value: '1' }];
+            processUpdates();
+            expect(element.renderer instanceof RenderingModule).toBeTrue();
+        });
+
+        it('will use WorkerRenderer after supported diesTable change', () => {
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([]),
+                rowIndex: Int32Array.from([]),
+                value: Float64Array.from([])
+            });
+            processUpdates();
+            expect(element.renderer instanceof WorkerRenderer).toBeTrue();
+        });
+
+        it('will use RenderingModule after unsupported diesTable change', () => {
+            element.diesTable = new Table();
+            processUpdates();
+            expect(element.renderer instanceof RenderingModule).toBeTrue();
+        });
+
         it('will call renderHover after supported diesTable change', () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
@@ -191,7 +201,7 @@ describe('WaferMap', () => {
         });
 
         it('will zoom in the wafer-map', () => {
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
             processUpdates();
@@ -200,7 +210,7 @@ describe('WaferMap', () => {
         });
 
         it('will zoom out to identity', () => {
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
 
@@ -208,7 +218,7 @@ describe('WaferMap', () => {
             const zoomedValue = getTransform();
             expect(zoomedValue).not.toEqual(initialValue);
 
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
             );
 
@@ -218,7 +228,7 @@ describe('WaferMap', () => {
         });
 
         it('will not zoom out when at identity', () => {
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
             );
             processUpdates();
@@ -258,7 +268,7 @@ describe('WaferMap', () => {
             expect(initialHeight).toBe(460);
             expect(initialWidth).toBe(460);
 
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
             processUpdates();
@@ -277,7 +287,7 @@ describe('WaferMap', () => {
             processUpdates();
             const initialTransform = element.hoverTransform;
             expect(initialTransform).not.toEqual('');
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
             processUpdates();

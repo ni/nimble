@@ -1,7 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
-import { ButtonAppearance } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -14,6 +12,14 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 import { toggleButtonTag } from '..';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
 import { iconKeyTag } from '../../icons/key';
+import {
+    appearanceStates,
+    type AppearanceState,
+    type AppearanceVariantState,
+    type PartVisibilityState,
+    appearanceVariantStates,
+    partVisibilityStates
+} from '../../patterns/button/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Toggle Button',
@@ -23,21 +29,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-/* array of iconVisible, labelVisible, endIconVisible */
-const partVisibilityStates = [
-    [true, true, false],
-    [true, false, false],
-    [false, true, false],
-    [true, true, true],
-    [false, true, true]
-] as const;
-type PartVisibilityState = (typeof partVisibilityStates)[number];
-
-const appearanceStates: [string, string | undefined][] = Object.entries(
-    ButtonAppearance
-).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = (typeof appearanceStates)[number];
 
 const checkedStates = [
     ['Checked', true],
@@ -50,16 +41,18 @@ const component = (
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
     [checkedName, checked]: CheckedState,
     [disabledName, disabled]: DisabledState,
-    [appearanceName, appearance]: AppearanceState
+    [appearanceName, appearance]: AppearanceState,
+    [appearanceVariantName, appearanceVariant]: AppearanceVariantState
 ): ViewTemplate => html`
     <${toggleButtonTag}
         appearance="${() => appearance}"
+        appearance-variant="${() => appearanceVariant}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         ?checked=${() => checked}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
-            ${() => `${checkedName} ${appearanceName} Toggle Button ${disabledName}`}
+            ${() => `${checkedName} ${appearanceVariantName} ${appearanceName} Toggle Button ${disabledName}`}
             ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
     </${toggleButtonTag}>
 `;
@@ -69,7 +62,8 @@ export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
         partVisibilityStates,
         checkedStates,
         disabledStates,
-        appearanceStates
+        appearanceStates,
+        appearanceVariantStates
     ])
 );
 

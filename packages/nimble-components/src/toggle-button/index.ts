@@ -10,7 +10,7 @@ import {
 import { styles } from './styles';
 import { template } from './template';
 import type { ButtonPattern } from '../patterns/button/types';
-import { ButtonAppearance } from './types';
+import { ButtonAppearance, ButtonAppearanceVariant } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -29,6 +29,14 @@ export class ToggleButton extends FoundationSwitch implements ButtonPattern {
      */
     @attr
     public appearance: ButtonAppearance = ButtonAppearance.outline;
+
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: appearance-variant
+     */
+    @attr({ attribute: 'appearance-variant' })
+    public appearanceVariant: ButtonAppearanceVariant;
 
     /**
      * @public
