@@ -81,15 +81,12 @@ const interactionStates = cartesianProduct([
 ] as const);
 
 export const anchorButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrixInteractionsfromStates(
-        component,
-        {
-            hover: interactionStatesHover,
-            hoverActive: interactionStates,
-            active: interactionStates,
-            focus: interactionStates,
-        }
-    )
+    createMatrixInteractionsfromStates(component, {
+        hover: interactionStatesHover,
+        hoverActive: interactionStates,
+        active: interactionStates,
+        focus: interactionStates
+    })
 );
 
 export const hiddenAnchorButton: StoryFn = createStory(

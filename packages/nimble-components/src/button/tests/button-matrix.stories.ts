@@ -10,7 +10,7 @@ import {
 import {
     disabledStates,
     DisabledState,
-    disabledStateIsEnabled,
+    disabledStateIsEnabled
 } from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -81,15 +81,12 @@ const interactionStatesHover = cartesianProduct([
 ] as const);
 
 export const buttonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrixInteractionsfromStates(
-        component,
-        {
-            hover: interactionStatesHover,
-            hoverActive: interactionStates,
-            active: interactionStates,
-            focus: interactionStates,
-        }
-    )
+    createMatrixInteractionsfromStates(component, {
+        hover: interactionStatesHover,
+        hoverActive: interactionStates,
+        active: interactionStates,
+        focus: interactionStates
+    })
 );
 
 export const hiddenButton: StoryFn = createStory(

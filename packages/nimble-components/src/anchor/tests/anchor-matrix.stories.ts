@@ -14,7 +14,11 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import { anchorTag } from '..';
-import { disabledStates, type DisabledState, disabledStateIsEnabled } from '../../utilities/tests/states';
+import {
+    disabledStates,
+    type DisabledState,
+    disabledStateIsEnabled
+} from '../../utilities/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Anchor',
@@ -71,15 +75,12 @@ const interactionStates = cartesianProduct([
 ] as const);
 
 export const anchorInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrixInteractionsfromStates(
-        component,
-        {
-            hover: interactionStatesHover,
-            hoverActive: interactionStates,
-            active: interactionStates,
-            focus: interactionStates,
-        }
-    )
+    createMatrixInteractionsfromStates(component, {
+        hover: interactionStatesHover,
+        hoverActive: interactionStates,
+        active: interactionStates,
+        focus: interactionStates
+    })
 );
 
 export const hiddenAnchor: StoryFn = createStory(

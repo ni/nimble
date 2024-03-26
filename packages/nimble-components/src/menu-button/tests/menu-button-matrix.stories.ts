@@ -65,16 +65,13 @@ const component = (
 `;
 
 export const menuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(
-        component,
-        [
-            partVisibilityStates,
-            disabledStates,
-            openStates,
-            appearanceStates,
-            appearanceVariantStates
-        ]
-    )
+    createMatrix(component, [
+        partVisibilityStates,
+        disabledStates,
+        openStates,
+        appearanceStates,
+        appearanceVariantStates
+    ])
 );
 
 const interactionStatesHover = cartesianProduct([
@@ -94,15 +91,12 @@ const interactionStates = cartesianProduct([
 ] as const);
 
 export const menuButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrixInteractionsfromStates(
-        component,
-        {
-            hover: interactionStatesHover,
-            hoverActive: interactionStates,
-            active: interactionStates,
-            focus: interactionStates,
-        }
-    )
+    createMatrixInteractionsfromStates(component, {
+        hover: interactionStatesHover,
+        hoverActive: interactionStates,
+        active: interactionStates,
+        focus: interactionStates
+    })
 );
 
 export const hiddenMenuButton: StoryFn = createStory(
