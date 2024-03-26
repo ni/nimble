@@ -9,7 +9,7 @@ addons.setConfig({
                 const isPublicSite = window.location.hostname === 'nimble.ni.dev';
                 const isItemInternal = item.title.startsWith('Tests/')
                     || item.title.startsWith('Internal/')
-                    || item.title.startsWith('patterns/');
+                    || item.title.startsWith('Patterns/');
                 const shouldHideInSidebar = isPublicSite && isItemInternal;
                 return !shouldHideInSidebar;
             }
