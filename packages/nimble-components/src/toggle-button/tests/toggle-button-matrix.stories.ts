@@ -24,7 +24,8 @@ import {
     type AppearanceVariantState,
     type PartVisibilityState,
     appearanceVariantStates,
-    partVisibilityStates
+    partVisibilityStates,
+    partVisibilityStatesOnlyLabel
 } from '../../patterns/button/tests/states';
 
 const metadata: Meta = {
@@ -44,7 +45,6 @@ type CheckedState = (typeof checkedStates)[number];
 
 // prettier-ignore
 const component = (
-    [disabledName, disabled]: DisabledState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
     [checkedName, checked]: CheckedState,
     [disabledName, disabled]: DisabledState,
@@ -66,7 +66,6 @@ const component = (
 
 export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        disabledStates,
         partVisibilityStates,
         checkedStates,
         disabledStates,
@@ -76,17 +75,19 @@ export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 const interactionStatesHover = cartesianProduct([
-    disabledStates,
     [partVisibilityStatesOnlyLabel],
     checkedStates,
-    appearanceStates
+    disabledStates,
+    appearanceStates,
+    appearanceVariantStates
 ] as const);
 
 const interactionStates = cartesianProduct([
-    [disabledStateIsEnabled],
     [partVisibilityStatesOnlyLabel],
     checkedStates,
-    appearanceStates
+    [disabledStateIsEnabled],
+    appearanceStates,
+    appearanceVariantStates
 ] as const);
 
 export const toggleButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(

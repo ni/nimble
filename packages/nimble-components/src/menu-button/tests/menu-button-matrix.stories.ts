@@ -17,6 +17,14 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
 import { iconKeyTag } from '../../icons/key';
 import { menuButtonTag } from '..';
+import {
+    appearanceStates,
+    type AppearanceState,
+    type AppearanceVariantState,
+    type PartVisibilityState,
+    appearanceVariantStates,
+    partVisibilityStates
+} from '../../patterns/button/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Menu Button',
@@ -27,15 +35,6 @@ const metadata: Meta = {
 
 export default metadata;
 
-/* array of iconVisible, labelVisible, endIconVisible */
-const partVisibilityStates = [
-    [true, true, false],
-    [true, false, false],
-    [false, true, false],
-    [true, true, true],
-    [false, true, true]
-] as const;
-type PartVisibilityState = (typeof partVisibilityStates)[number];
 const partVisibilityStatesOnlyLabel = partVisibilityStates[2];
 
 const openStates = [
@@ -44,26 +43,23 @@ const openStates = [
 ] as const;
 type OpenState = (typeof openStates)[number];
 
-const appearanceStates = Object.entries(ButtonAppearance).map(
-    ([key, value]) => [pascalCase(key), value]
-);
-type AppearanceState = (typeof appearanceStates)[number];
-
 // prettier-ignore
 const component = (
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
     [disabledName, disabled]: DisabledState,
     [openName, open]: OpenState,
-    [appearanceName, appearance]: AppearanceState
+    [appearanceName, appearance]: AppearanceState,
+    [appearanceVariantName, appearanceVariant]: AppearanceVariantState,
 ): ViewTemplate => html`
     <${menuButtonTag}
         appearance="${() => appearance}"
+        appearance-variant="${() => appearanceVariant}"
         ?open="${() => open}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
-            ${() => `${openName} ${appearanceName!} Menu Button ${disabledName}`}
+            ${() => `${openName} ${appearanceVariantName} ${appearanceName} Menu Button ${disabledName}`}
             ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
     </${menuButtonTag}>
 `;
@@ -75,7 +71,8 @@ export const menuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
             partVisibilityStates,
             disabledStates,
             openStates,
-            appearanceStates
+            appearanceStates,
+            appearanceVariantStates
         ]
     )
 );
@@ -84,14 +81,16 @@ const interactionStatesHover = cartesianProduct([
     [partVisibilityStatesOnlyLabel],
     disabledStates,
     openStates,
-    appearanceStates
+    appearanceStates,
+    appearanceVariantStates
 ] as const);
 
 const interactionStates = cartesianProduct([
     [partVisibilityStatesOnlyLabel],
     [disabledStateIsEnabled],
     openStates,
-    appearanceStates
+    appearanceStates,
+    appearanceVariantStates
 ] as const);
 
 export const menuButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(

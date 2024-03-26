@@ -25,7 +25,8 @@ import {
     type AppearanceVariantState,
     type PartVisibilityState,
     appearanceVariantStates,
-    partVisibilityStates
+    partVisibilityStates,
+    partVisibilityStatesOnlyLabel
 } from '../../patterns/button/tests/states';
 
 const metadata: Meta = {
