@@ -23,7 +23,8 @@ import {
     type AppearanceVariantState,
     type PartVisibilityState,
     appearanceVariantStates,
-    partVisibilityStates
+    partVisibilityStates,
+    partVisibilityStatesOnlyLabel
 } from '../../patterns/button/tests/states';
 
 const metadata: Meta = {
@@ -34,8 +35,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const partVisibilityStatesOnlyLabel = partVisibilityStates[2];
 
 const openStates = [
     ['', false],
