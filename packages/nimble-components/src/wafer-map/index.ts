@@ -222,7 +222,9 @@ export class WaferMap<
         this.worker = matrixRenderer;
         const offscreenCanvas = this.workerCanvas.transferControlToOffscreen();
         await this.worker.setCanvas(
-            transfer(offscreenCanvas, [offscreenCanvas as unknown as Transferable])
+            transfer(offscreenCanvas, [
+                offscreenCanvas as unknown as Transferable
+            ])
         );
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
@@ -256,11 +258,10 @@ export class WaferMap<
         this.dataManager = this.isExperimentalRenderer()
             ? this.experimentalDataManager
             : this.stableDataManager;
+        this.zoomHandler.disconnect();
         if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
-            this.zoomHandler.disconnect();
             this.dataManager.updateContainerDimensions();
             await this.renderer.updateSortedDiesAndDrawWafer();
-            this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
             this.dataManager.updateScales();
             await this.renderer.updateSortedDiesAndDrawWafer();
@@ -275,6 +276,7 @@ export class WaferMap<
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
+        this.zoomHandler.connect();
     }
 
     /**
