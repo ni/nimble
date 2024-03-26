@@ -106,9 +106,9 @@ Since a row's selection checkbox is currently `role=gridcell`, it will be able t
 
 #### Grouping
 
-Group header rows follow the same rules as other rows (as written above).
+Since the entire group header row is a button, the explicit expand/collapse button in that row is not keyboard focusable.
 
-Since a group header row's expand/collapse button is currently `role=gridcell`, it will be able to be navigated to with `ArrowLeft`/`ArrowRight`.
+If a group header row is focused, pressing `Space` or `Enter` will expand or collapse that group.
 
 ### ARIA roles
 
