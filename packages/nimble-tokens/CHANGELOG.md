@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Thu, 21 Mar 2024 17:13:38 GMT and should not be manually modified.
+This log was last generated on Tue, 26 Mar 2024 20:45:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.13.1
+
+Tue, 26 Mar 2024 20:45:41 GMT
+
+### Patches
+
+- Fix value of DigitalGreenDark ([ni/nimble@594ac22](https://github.com/ni/nimble/commit/594ac221124cc1b52cd28113714bb8ff71e5820b))
 
 ## 6.13.0
 

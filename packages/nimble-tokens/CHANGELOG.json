@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 26 Mar 2024 20:45:41 GMT",
+      "version": "6.13.1",
+      "tag": "@ni/nimble-tokens_v6.13.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "594ac221124cc1b52cd28113714bb8ff71e5820b",
+            "comment": "Fix value of DigitalGreenDark"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 21 Mar 2024 17:13:38 GMT",
       "version": "6.13.0",
       "tag": "@ni/nimble-tokens_v6.13.0",
