@@ -27,10 +27,10 @@ describe('MatrixRenderer worker', () => {
         const resolvedDieMatrix = await matrixRenderer.getMatrix();
 
         expect(resolvedDieMatrix.colIndexes).toEqual(
-            Uint32Array.from(testData.colIndexes)
+            Int32Array.from(testData.colIndexes)
         );
         expect(resolvedDieMatrix.rowIndexes).toEqual(
-            Uint32Array.from(testData.rowIndexes)
+            Int32Array.from(testData.rowIndexes)
         );
         expect(resolvedDieMatrix.values).toEqual(
             Float64Array.from(testData.values)

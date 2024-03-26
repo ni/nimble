@@ -18,8 +18,8 @@ describe('MatrixRenderer with MessageChannel', () => {
         const updatedMatrix = await matrixRenderer.getMatrix();
         expect(updatedMatrix).toEqual(
             {
-                colIndexes: Uint32Array.from(testData.colIndexes),
-                rowIndexes: Uint32Array.from(testData.rowIndexes),
+                colIndexes: Int32Array.from(testData.colIndexes),
+                rowIndexes: Int32Array.from(testData.rowIndexes),
                 values: Float64Array.from(testData.values)
             }
         );

@@ -9,8 +9,8 @@ import type { Dimensions, Transform, WaferMapMatrix, WaferMapTypedMatrix } from 
  * This setup is used in the wafer-map component to perform heavy computational duties
  */
 export class MatrixRenderer {
-    public colIndexes: Uint32Array = Uint32Array.from([]);
-    public rowIndexes: Uint32Array = Uint32Array.from([]);
+    public colIndexes: Int32Array = Int32Array.from([]);
+    public rowIndexes: Int32Array = Int32Array.from([]);
     public values = new Float64Array([]);
     public scaledColIndex = new Float64Array([]);
     public scaledRowIndex = new Float64Array([]);
@@ -72,8 +72,8 @@ export class MatrixRenderer {
     }
 
     public emptyMatrix(): void {
-        this.colIndexes = Uint32Array.from([]);
-        this.rowIndexes = Uint32Array.from([]);
+        this.colIndexes = Int32Array.from([]);
+        this.rowIndexes = Int32Array.from([]);
         this.values = Float64Array.from([]);
     }
 
@@ -91,8 +91,8 @@ export class MatrixRenderer {
     public updateMatrix(
         data: WaferMapMatrix
     ): void {
-        this.colIndexes = Uint32Array.from(data.colIndexes);
-        this.rowIndexes = Uint32Array.from(data.rowIndexes);
+        this.colIndexes = Int32Array.from(data.colIndexes);
+        this.rowIndexes = Int32Array.from(data.rowIndexes);
         this.values = Float64Array.from(data.values);
     }
 
