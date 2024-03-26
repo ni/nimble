@@ -14,6 +14,7 @@ export class MatrixRenderer {
     public values = new Float64Array([]);
     public scaledColIndex = new Float64Array([]);
     public scaledRowIndex = new Float64Array([]);
+    public colIndexPositions: Int32Array = Int32Array.from([]);
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
     private scaleX: number = 1;
@@ -25,6 +26,32 @@ export class MatrixRenderer {
     private topLeftCanvasCorner: { x: number; y: number; } = { x: 0, y: 0};
     private bottomRightCanvasCorner: { x: number; y: number; } = { x: 500, y: 500 };
     private margin: { top: number; right: number; bottom: number; left: number; } = { top: 20, right: 20, bottom: 20, left: 20};
+
+    public setColIndexes(colIndexesBuffer: Int32Array): void {
+        this.colIndexes = colIndexesBuffer;
+        const scaledColIndex = [this.scaleX * this.colIndexes[0]! + this.baseX + this.margin.left];
+        const colPosition = [0];
+        let prev = this.colIndexes[0];
+        for (let i = 1, length = this.colIndexes.length; i < length; i++) {
+            const xIndex = this.colIndexes[i];
+            if (xIndex && xIndex !== prev) {
+                const scaledX = this.scaleX * this.colIndexes[i]! + this.baseX + this.margin.left;
+                scaledColIndex.push(scaledX);
+                colPosition.push(i);
+                prev = xIndex
+            }
+        }
+        this.scaledColIndex = Float64Array.from(scaledColIndex);
+        this.colIndexPositions = Int32Array.from(colPosition);
+    }
+
+    public setRowIndexes(rowIndexesBuffer: Int32Array): void {
+        this.rowIndexes = rowIndexesBuffer;
+        this.scaledRowIndex = new Float64Array(this.rowIndexes.length);
+        for (let i = 0; i < this.rowIndexes.length; i++) {
+            this.scaledRowIndex[i] = this.scaleY * this.rowIndexes[i]! + this.baseY + this.margin.top;
+        }
+    }
 
     public setMargin(margin: { top: number, right: number, bottom: number, left: number }): void {
         this.margin = margin;
@@ -56,11 +83,6 @@ export class MatrixRenderer {
     public setCanvas(canvas: OffscreenCanvas): void {
         this.canvas = canvas;
         this.context = canvas.getContext('2d')!;
-    }
-
-    private scaleIndexes(): void {
-        this.scaledColIndex = new Float64Array(this.colIndexes.map((colIndex) => colIndex * this.scaleX + this.baseX + this.margin.right));
-        this.scaledRowIndex = new Float64Array(this.rowIndexes.map((rowIndex) => rowIndex * this.scaleY + this.baseY + this.margin.top));
     }
 
     public getMatrix(): WaferMapTypedMatrix {
@@ -115,14 +137,25 @@ export class MatrixRenderer {
         this.context.save();
         this.clearCanvas();
         this.scaleCanvas();
-        this.scaleIndexes();
         for (let i = 0; i < this.scaledColIndex.length; i++) {
-            // the fillStyle will be changed in a future pr
-            this.context.fillStyle = 'Green';
-            const x = this.scaledColIndex[i]!;
-            const y = this.scaledRowIndex[i]!;
-            if (!this.isDieVisible(x, y)) { continue; }
-            this.context.fillRect(x, y, this.dieDimensions.width, this.dieDimensions.height);
+            const scaledX = this.scaledColIndex[i]!;
+            if (
+                scaledX >= this.topLeftCanvasCorner.x
+                && scaledX < this.bottomRightCanvasCorner.x
+            ) {
+                for (let j = this.colIndexPositions[i]!,
+                    length = this.colIndexPositions[i + 1] !== undefined ? this.colIndexPositions[i + 1]! : this.scaledRowIndex.length;
+                    j < length; j++) {
+                    const scaledY = this.scaledRowIndex[j]!;
+                    if (
+                        scaledY >= this.topLeftCanvasCorner.y
+                        && scaledY < this.bottomRightCanvasCorner.y
+                    ) {
+                        this.context.fillStyle = 'Green';
+                        this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
+                    }
+                }
+            }
         }
     }
 

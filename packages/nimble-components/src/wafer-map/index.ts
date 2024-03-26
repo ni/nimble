@@ -31,7 +31,6 @@ import { HoverHandler as ExperimentalHoverHandler } from './modules/experimental
 import { ZoomHandler } from './modules/zoom-handler';
 import type { MatrixRenderer } from '../../build/generate-workers/dist/esm/source/matrix-renderer';
 import { createMatrixRenderer } from './modules/create-matrix-renderer';
-import type { WaferMapMatrix } from '../../build/generate-workers/dist/esm/source/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -85,6 +84,11 @@ export class WaferMap<
      * @internal
      */
     public worker!: Remote<MatrixRenderer>;
+
+    /**
+     * @internal
+     */
+    public workerCanvas!: HTMLCanvasElement;
 
     /**
      * @internal
@@ -208,23 +212,18 @@ export class WaferMap<
 
     public override async connectedCallback(): Promise<void> {
         super.connectedCallback();
+        this.canvasContext = this.canvas.getContext('2d', {
+            willReadFrequently: true
+        })!;
         this.hoverHandler.connect();
         this.experimentalHoverHandler.connect();
         this.zoomHandler.connect();
         const { matrixRenderer } = await createMatrixRenderer();
         this.worker = matrixRenderer;
-        if (this.diesTable !== undefined) {
-            const offscreenOne = this.canvas.transferControlToOffscreen();
-            await this.worker.setCanvas(
-                transfer(offscreenOne, [
-                    offscreenOne as unknown as Transferable
-                ])
-            );
-        } else {
-            this.canvasContext = this.canvas.getContext('2d', {
-                willReadFrequently: true
-            })!;
-        }
+        const offscreenOne = this.workerCanvas.transferControlToOffscreen();
+        await this.worker.setCanvas(
+            transfer(offscreenOne, [offscreenOne as unknown as Transferable])
+        );
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
     }
@@ -261,7 +260,6 @@ export class WaferMap<
             this.zoomHandler.disconnect();
             this.dataManager.updateContainerDimensions();
             await this.renderer.updateSortedDiesAndDrawWafer();
-            await this.drawWafer();
             this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
             this.dataManager.updateScales();
@@ -284,58 +282,6 @@ export class WaferMap<
      */
     public isExperimentalRenderer(): boolean {
         return this.diesTable !== undefined;
-    }
-
-    private async drawWafer(): Promise<void> {
-        if (this.diesTable === undefined) {
-            return;
-        }
-        const waferMapMatrix = {
-            colIndexes: this.diesTable
-                .getChild('colIndex')
-                ?.toArray() as unknown as number[],
-            rowIndexes: this.diesTable
-                .getChild('rowIndex')
-                ?.toArray() as unknown as number[],
-            values: this.diesTable
-                .getChild('value')
-                ?.toArray() as unknown as number[]
-        } as WaferMapMatrix;
-        await this.worker.updateMatrix(waferMapMatrix);
-        await this.setupWorker();
-        await this.worker.drawWafer();
-    }
-
-    private async setupWorker(): Promise<void> {
-        await this.worker.setDiesDimensions(this.dataManager.dieDimensions);
-
-        const scaleX = this.dataManager.horizontalScale(1)!
-            - this.dataManager.horizontalScale(0)!;
-        const scaleY = this.dataManager.verticalScale(1)!
-            - this.dataManager.verticalScale(0)!;
-        await this.worker.setScaling(scaleX, scaleY);
-
-        await this.worker.setBases(
-            this.dataManager.horizontalScale(0)!,
-            this.dataManager.verticalScale(0)!
-        );
-        await this.worker.setMargin(this.dataManager.margin);
-
-        const topLeftCanvasCorner = this.transform.invert([0, 0]);
-        const bottomRightCanvasCorner = this.transform.invert([
-            this.canvas.width,
-            this.canvas.height
-        ]);
-        await this.worker.setCanvasCorners(
-            {
-                x: topLeftCanvasCorner[0],
-                y: topLeftCanvasCorner[1]
-            },
-            {
-                x: bottomRightCanvasCorner[0],
-                y: bottomRightCanvasCorner[1]
-            }
-        );
     }
 
     private validate(): void {
