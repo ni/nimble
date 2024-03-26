@@ -43,13 +43,12 @@ describe('MatrixRenderer worker', () => {
         const resolvedDieMatrix = await matrixRenderer.getMatrix();
         expect(
             resolvedDieMatrix.colIndexes.length
-            + resolvedDieMatrix.rowIndexes.length
-            + resolvedDieMatrix.values.length
+                + resolvedDieMatrix.rowIndexes.length
+                + resolvedDieMatrix.values.length
         ).toEqual(0);
     });
 
-    it('indexes should be scaled', async () => {
-        await matrixRenderer.updateMatrix(testData);
+    it('indexes should be set', async () => {
         const offscreenCanvas = new OffscreenCanvas(300, 300);
         await matrixRenderer.setCanvas(
             transfer(offscreenCanvas, [
@@ -57,19 +56,20 @@ describe('MatrixRenderer worker', () => {
             ])
         );
 
-        await matrixRenderer.setDiesDimensions({ width: 10, height: 10 });
-        await matrixRenderer.setCanvasCorners({ x: 0, y: 0 }, { x: 500, y: 500 });
-        await matrixRenderer.setScaling(2, 2);
-        await matrixRenderer.setBases(2, 2);
-        await matrixRenderer.setCanvasCorners({ x: 0, y: 0 }, { x: 500, y: 500 });
-        await matrixRenderer.setMargin({ top: 10, right: 10, bottom: 10, left: 10 });
-        await matrixRenderer.setTransform({ k: 1, x: 0, y: 0 });
-        await matrixRenderer.drawWafer();
+        const typedColIndexes = Int32Array.from(testData.colIndexes);
+        const typedRowIndexes = Int32Array.from(testData.rowIndexes);
 
-        const scaledColIndexes = await matrixRenderer.scaledColIndex;
-        const scaledRowIndexes = await matrixRenderer.scaledRowIndex;
+        await matrixRenderer.setColIndexes(
+            transfer(typedColIndexes, [typedColIndexes.buffer])
+        );
+        await matrixRenderer.setRowIndexes(
+            transfer(typedRowIndexes, [typedRowIndexes.buffer])
+        );
 
-        expect(scaledColIndexes).toEqual(Float64Array.from([20, 14, 16]));
-        expect(scaledRowIndexes).toEqual(Float64Array.from([120, 120, 136]));
+        const colIndexes = await matrixRenderer.colIndexes;
+        const rowIndexes = await matrixRenderer.rowIndexes;
+
+        expect(colIndexes).toEqual(Int32Array.from([4, 1, 2]));
+        expect(rowIndexes).toEqual(Int32Array.from([54, 54, 62]));
     });
 });

@@ -34,8 +34,7 @@ describe('MatrixRenderer with MessageChannel', () => {
             + updatedMatrix.values.length).toEqual(0);
     });
 
-    it('indexes should be scaled', async () => {
-        await matrixRenderer.updateMatrix(testData);
+    it('indexes should be set', async () => {
         const offscreenCanvas = new OffscreenCanvas(300, 300);
         matrixRenderer.setCanvas(
             transfer(offscreenCanvas, [
@@ -43,19 +42,20 @@ describe('MatrixRenderer with MessageChannel', () => {
             ])
         );
 
-        matrixRenderer.setDiesDimensions({ width: 10, height: 10 });
-        matrixRenderer.setCanvasCorners({ x: 0, y: 0 }, { x: 500, y: 500 });
-        matrixRenderer.setScaling(2, 2);
-        matrixRenderer.setBases(2, 2);
-        matrixRenderer.setCanvasCorners({ x: 0, y: 0 }, { x: 500, y: 500 });
-        matrixRenderer.setMargin({ top: 10, right: 10, bottom: 10, left: 10 });
-        matrixRenderer.setTransform({ k: 1, x: 0, y: 0 });
-        matrixRenderer.drawWafer();
+        const typedColIndexes = Int32Array.from(testData.colIndexes);
+        const typedRowIndexes = Int32Array.from(testData.rowIndexes);
 
-        const scaledColIndexes = await matrixRenderer.scaledColIndex;
-        const scaledRowIndexes = await matrixRenderer.scaledRowIndex;
+        await matrixRenderer.setColIndexes(
+            transfer(typedColIndexes, [typedColIndexes.buffer])
+        );
+        await matrixRenderer.setRowIndexes(
+            transfer(typedRowIndexes, [typedRowIndexes.buffer])
+        );
 
-        expect(scaledColIndexes).toEqual(Float64Array.from([20, 14, 16]));
-        expect(scaledRowIndexes).toEqual(Float64Array.from([120, 120, 136]));
+        const colIndexes = await matrixRenderer.colIndexes;
+        const rowIndexes = await matrixRenderer.rowIndexes;
+
+        expect(colIndexes).toEqual(Int32Array.from([4, 1, 2]));
+        expect(rowIndexes).toEqual(Int32Array.from([54, 54, 62]));
     });
 });
