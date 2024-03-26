@@ -1,10 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
-import {
-    ButtonAppearance,
-    ButtonAppearanceVariant
-} from '../../patterns/button/types';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -23,6 +18,14 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 import { anchorButtonTag } from '..';
 import { iconLinkTag } from '../../icons/link';
 import { iconArrowExpanderRightTag } from '../../icons/arrow-expander-right';
+import {
+    appearanceStates,
+    type AppearanceState,
+    type AppearanceVariantState,
+    type PartVisibilityState,
+    appearanceVariantStates,
+    partVisibilityStates
+} from '../../patterns/button/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Anchor Button',
@@ -32,27 +35,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-/* array of iconVisible, labelVisible, endIconVisible */
-const partVisibilityStates = [
-    [true, true, false],
-    [true, false, false],
-    [false, true, false],
-    [true, true, true],
-    [false, true, true]
-] as const;
-type PartVisibilityState = (typeof partVisibilityStates)[number];
-const partVisibilityStatesOnlyLabel = partVisibilityStates[2];
-
-const appearanceStates: [string, string | undefined][] = Object.entries(
-    ButtonAppearance
-).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = (typeof appearanceStates)[number];
-
-const appearanceVariantStates: [string, string | undefined][] = Object.entries(
-    ButtonAppearanceVariant
-).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceVariantState = (typeof appearanceVariantStates)[number];
 
 // prettier-ignore
 const component = (

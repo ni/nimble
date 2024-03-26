@@ -1,7 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
-import { ButtonAppearance } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters,
