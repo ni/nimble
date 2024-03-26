@@ -76,7 +76,7 @@ When a cell is focused:
 
 Special case of focusing a cell:
 
--   If a cell does not have an action menu, and only contains a single interactive/focusable element of the following types: button (and variants), switch, checkbox, and anchor/link: that child element will be focused _instead_ of the cell.
+-   If a cell does not have an action menu, and only contains a single interactive/focusable element of the following types: button (and variants), switch, checkbox, or anchor/link: that child element will be focused _instead_ of the cell.
 
 To interact with a cell's interactive contents, starting from the state of a cell being focused:
 
