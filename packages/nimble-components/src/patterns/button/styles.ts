@@ -100,11 +100,15 @@ export const styles = css`
             display: contents;
         }
 
+        [part='start'] {
+            display: contents;
+            ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+        }
+
         :host([content-hidden]) .content {
             ${accessiblyHidden}
         }
 
-        [part='start'],
         [part='end'] {
             display: contents;
             ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
