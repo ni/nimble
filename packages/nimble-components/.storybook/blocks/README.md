@@ -1,6 +1,6 @@
 # Blocks
 
-This folderz contains reusable React components used in Nimble component MDX documentation. Storybook refers to these types of reusable components as [Doc blocks](https://storybook.js.org/docs/writing-docs/doc-blocks).
+This folder contains reusable React components used in Nimble component MDX documentation. Storybook refers to these types of reusable components as [Doc blocks](https://storybook.js.org/docs/writing-docs/doc-blocks).
 
 ## File Structure
 
