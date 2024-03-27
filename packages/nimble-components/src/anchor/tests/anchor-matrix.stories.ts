@@ -12,7 +12,7 @@ import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import { anchorTag } from '..';
 
-export const appearanceStates = [
+const appearanceStates = [
     ['Default', AnchorAppearance.default],
     ['Prominent', AnchorAppearance.prominent]
 ] as const;
