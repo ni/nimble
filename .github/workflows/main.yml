@@ -46,14 +46,20 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: packages/nimble-blazor/global.json
-      - run: dotnet --info
-        working-directory: packages/nimble-blazor/
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
       - run: npm ci
+      - run: dotnet restore --locked-mode
+        working-directory: packages/nimble-blazor/
+
+      # Print resolved dotnet info
+      - run: dotnet --info
+        working-directory: packages/nimble-blazor/
 
       # print a log of outdated npm dependencies
       # only informational so swallow error codes
