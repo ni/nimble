@@ -21,15 +21,7 @@ export class TableColumnEnumTextCellView extends TableColumnTextCellViewBase<
 TableColumnEnumCellRecord,
 TableColumnEnumColumnConfig
 > {
-    private columnConfigChanged(): void {
-        this.updateText();
-    }
-
-    private cellRecordChanged(): void {
-        this.updateText();
-    }
-
-    private updateText(): void {
+    protected updateText(): void {
         const value = this.cellRecord?.value;
         if (value === undefined || value === null) {
             this.text = '';
