@@ -1,0 +1,194 @@
+import { NimbleIconKey } from '../../../icons/tests/key.react';
+
+## Styling
+
+### Appearances
+
+These are the standard styling options for the button. Each should be considered for use before employing an appearance variant.
+
+#### Ghost Button:
+
+<Frame>
+    <Container>
+        <Column stylingClass="controls">
+            <Button appearance="ghost">{`Ghost Button`}</Button>
+            <Button appearance="ghost" content-hidden>
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                {`Ghost Button`}
+            </Button>
+
+        </Column>
+        <Column>
+            <ul>
+                <li>Ghost is the default appearance and should be the first considered for use.</li>
+                <li>
+                    Use as the default and standard option to create a clean airy and open UI
+                    feel. Ghost buttons fit comfortably in tight spaces and help control the
+                    visual density of the UI.
+                </li>
+                <li>
+                    Be careful when using that the surrounding context does not cause this
+                    button to be confused for emphasized body text, tabs or a standalone links.
+                </li>
+                <li>Use in combination with a primary outline or primary block buttons to create a hierarchy of importance. There is no primary ghost button.</li>
+            </ul>
+        </Column>
+    </Container>
+
+</Frame>
+
+#### Outline Button:
+
+<Frame>
+    <Container>
+        <Column stylingClass="controls">
+            <Button appearance="outline">{`Outline Button`}</Button>
+            <Button appearance="outline" content-hidden>
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                {`Outline Button`}
+            </Button>
+        </Column>
+        <Column>
+            <ul>
+                <li>
+                    Outline is the secondary style and should be considered for
+                    use when ghost button is not sufficient.
+                </li>
+                <li>
+                    Use as an alternative standard button when a ghost button is
+                    not suitable. Use like a ghost button to create a clean,
+                    light and airy feel.
+                </li>
+                <li>
+                    The outline button is more visually direct about the
+                    control's functionality than a ghost button.
+                </li>
+                <li>
+                    Use in combination with ghost buttons (but not block
+                    buttons) to create hierarchy.
+                </li>
+            </ul>
+        </Column>
+    </Container>
+</Frame>
+
+#### Block Button:
+
+<Frame>
+    <Container>
+        <Column stylingClass="controls">
+            <Button appearance="block">{`Block Button`}</Button>
+            <Button appearance="block" content-hidden>
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                {`Block Button`}
+            </Button>
+        </Column>
+        <Column>
+            <ul>
+                <li>
+                    Block is the tertiary style used for creating the most eye
+                    catching and functionally direct button. Use in areas where
+                    controls are not often present or obvious, or when lots of
+                    busy information can cause an important control to be
+                    overlooked.
+                </li>
+                <li>
+                    Use as a standard button when the most visible solution is
+                    required. Use as an alternative to overly subtle button
+                    solutions when it is important to emphasize an action and
+                    the functionality of the control.
+                </li>
+                <li>
+                    Use in combination with ghost buttons (but not outline
+                    buttons) to create hierarchy.
+                </li>
+            </ul>
+        </Column>
+    </Container>
+</Frame>
+
+### Appearance Variants
+
+Button appearance variants are mainly used when a button needs be distinguished for one of the following reasons:
+
+-   To indicate the action that allows the user to accomplish their most common or important goal
+-   To indicate the action that allows the user to complete their task
+
+There are two available values for `appearance-variant`: `primary` and `accent`.
+
+#### Accent Button:
+
+<Frame>
+    <Container config="325px 1fr">
+        <Column stylingClass="controls">
+            <Button appearance="ghost">{`Ghost`}</Button>
+            <Button appearance="ghost">{`Ghost`}</Button>
+            <Button
+                appearance="outline"
+                appearance-variant="accent"
+            >{`Outline Accent`}</Button>
+            <Divider />
+            <Button appearance="ghost">{`Ghost`}</Button>
+            <Button appearance="ghost">{`Ghost`}</Button>
+            <Button
+                appearance="block"
+                appearance-variant="accent"
+            >{`Block Accent`}</Button>
+        </Column>
+        <Column>
+            <Do>
+                Use only 1 accent button in a section. It should be used when
+                trying to achieve the most prominent eye-catching approach.
+                Consider the contextual implications of using a green colored
+                button in relation to its name or metaphor. Remember that color
+                has accessibility constraints and the color alone should not be
+                relied on.
+            </Do>
+            <Do>
+                Use in situations that lack color and enthusiasm to help support
+                the brand.
+            </Do>
+            <Do>Use in combination with ghost buttons to create hierarchy.</Do>
+            <Dont>
+                Do not use an outline button with a block button to create
+                hierarchy.
+            </Dont>
+        </Column>
+    </Container>
+</Frame>
+
+#### Primary Button:
+
+<Frame>
+    <Container config="325px 1fr">
+        <Column stylingClass="controls">
+            <Button appearance="ghost">{`Ghost`}</Button>
+            <Button appearance="ghost">{`Ghost`}</Button>
+            <Button appearance="outline" appearance-variant="primary">
+            {`Outline Primary`}
+            </Button>
+            <Divider/>
+            <Button appearance="ghost">{`Ghost`}</Button>
+            <Button appearance="ghost">{`Ghost`}</Button>
+            <Button appearance="block" appearance-variant="primary">
+                {`Block Primary`}
+            </Button>
+        </Column>
+        <Column>
+            <Do>
+                Use only 1 primary button in a section. It should be used when
+                there is a conflict with color and its context.
+            </Do>
+            <Do>Use in combination with ghost buttons to create hierarchy.</Do>
+            <Dont>
+                Do not use an outline button with a block button to create
+                hierarchy.
+            </Dont>
+        </Column>
+    </Container>
+
+</Frame>
+
+#### Examples:
+
+To see more examples of appearance variant button hierarchy, see the Figma docs for [Primary and Standard Actions](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1604-74603&mode=design&t=SQ3lyK83VHBUaOkg-0).

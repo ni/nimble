@@ -69,6 +69,7 @@ interface AnchorColumnTableArgs extends SharedTableArgs {
     hrefFieldName: string;
     appearance: keyof typeof AnchorAppearance;
     underlineHidden: boolean;
+    placeholder: string;
 }
 
 export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
@@ -84,6 +85,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 href-field-name="${x => x.hrefFieldName}"
                 appearance="${x => x.appearance}"
                 ?underline-hidden="${x => x.underlineHidden}"
+                placeholder="${x => x.placeholder}"
             >
             Link Column
             </${tableColumnAnchorTag}>
@@ -118,6 +120,10 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             name: 'underline-hidden',
             defaultValue: { summary: 'false' },
             description: 'Causes the underline to be hidden except on hover.'
+        },
+        placeholder: {
+            description:
+                'The placeholder text to display when the label and href are both `undefined` or `null` for a record.'
         }
     },
     args: {
@@ -125,6 +131,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
         hrefFieldName: 'url',
         appearance: 'default',
         underlineHidden: false,
+        placeholder: 'Mystery',
         ...sharedTableArgs(simpleData)
     }
 };

@@ -9,20 +9,25 @@ import type { Table } from 'apache-arrow';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
+import { DataManager as ExperimentalDataManager } from './modules/experimental/data-manager';
 import { RenderingModule } from './modules/rendering';
-import { EventCoordinator } from './modules/event-coordinator';
 import {
+    HoverDie,
     HoverDieOpacity,
     WaferMapColorScale,
     WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOrientation,
     WaferMapOriginLocation,
-    WaferMapValidity
+    WaferMapValidity,
+    type WaferRequiredFields
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
-import { WorkerRenderer } from './modules/worker-renderer';
+import { WorkerRenderer } from './modules/experimental/worker-renderer';
+import { HoverHandler } from './modules/hover-handler';
+import { HoverHandler as ExperimentalHoverHandler } from './modules/experimental/hover-handler';
+import { ZoomHandler } from './modules/zoom-handler';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -33,12 +38,14 @@ declare global {
 /**
  * A nimble-styled WaferMap
  */
-export class WaferMap extends FoundationElement {
+export class WaferMap<
+    T extends WaferRequiredFields = WaferRequiredFields
+> extends FoundationElement {
     /**
      * @internal
      * needs to be initialized before the properties trigger changes
      */
-    public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
+    public readonly waferMapUpdateTracker: WaferMapUpdateTracker = new WaferMapUpdateTracker(this.asRequiredFieldsWaferMap);
 
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
@@ -88,15 +95,30 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly dataManager = new DataManager(this);
+    public readonly stableDataManager: DataManager = new DataManager(
+        this.asRequiredFieldsWaferMap
+    );
+
     /**
      * @internal
      */
-    public readonly mainRenderer = new RenderingModule(this);
+    public readonly experimentalDataManager: ExperimentalDataManager = new ExperimentalDataManager(this.asRequiredFieldsWaferMap);
+
+    public dataManager: DataManager | ExperimentalDataManager = this.stableDataManager;
+
     /**
      * @internal
      */
-    public readonly workerRenderer = new WorkerRenderer(this);
+    public readonly mainRenderer = new RenderingModule(
+        this.asRequiredFieldsWaferMap
+    );
+
+    /**
+     * @internal
+     */
+    public readonly workerRenderer = new WorkerRenderer(
+        this.asRequiredFieldsWaferMap
+    );
 
     @observable
     public renderer: RenderingModule | WorkerRenderer = this.mainRenderer;
@@ -144,20 +166,29 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    @observable public hoverDie: WaferMapDie | undefined;
+    @observable public hoverDie: WaferMapDie | HoverDie | undefined;
 
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
-    @observable public diesTable: Table | undefined;
+    @observable public diesTable: Table<T> | undefined;
 
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
     };
 
-    private readonly eventCoordinator = new EventCoordinator(this);
+    private readonly hoverHandler: HoverHandler = new HoverHandler(
+        this.asRequiredFieldsWaferMap
+    );
+
+    private readonly experimentalHoverHandler: ExperimentalHoverHandler = new ExperimentalHoverHandler(this.asRequiredFieldsWaferMap);
+
+    private readonly zoomHandler: ZoomHandler = new ZoomHandler(
+        this.asRequiredFieldsWaferMap
+    );
+
     private readonly resizeObserver = this.createResizeObserver();
-    private readonly waferMapValidator = new WaferMapValidator(this);
+    private readonly waferMapValidator: WaferMapValidator = new WaferMapValidator(this.asRequiredFieldsWaferMap);
 
     public get validity(): WaferMapValidity {
         return this.waferMapValidator.getValidity();
@@ -168,12 +199,18 @@ export class WaferMap extends FoundationElement {
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
+        this.hoverHandler.connect();
+        this.experimentalHoverHandler.connect();
+        this.zoomHandler.connect();
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
+        this.hoverHandler.disconnect();
+        this.experimentalHoverHandler.disconnect();
+        this.zoomHandler.disconnect();
         this.resizeObserver.unobserve(this);
     }
 
@@ -190,8 +227,15 @@ export class WaferMap extends FoundationElement {
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
+        this.renderer = this.isExperimentalRenderer()
+            ? this.workerRenderer
+            : this.mainRenderer;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            this.eventCoordinator.detachEvents();
+            // zoom translateExtent needs to be recalculated when canvas size changes
+            this.zoomHandler.disconnect();
+            this.dataManager = this.isExperimentalRenderer()
+                ? this.experimentalDataManager
+                : this.stableDataManager;
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -211,10 +255,17 @@ export class WaferMap extends FoundationElement {
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
                 this.renderer.drawWafer();
             }
-            this.eventCoordinator.attachEvents();
+            this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
+    }
+
+    /**
+     * @internal
+     */
+    public isExperimentalRenderer(): boolean {
+        return this.diesTable !== undefined;
     }
 
     private validate(): void {
@@ -291,17 +342,11 @@ export class WaferMap extends FoundationElement {
 
     private diesChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderer = this.diesTable === undefined
-            ? this.mainRenderer
-            : this.workerRenderer;
         this.waferMapUpdateTracker.queueUpdate();
     }
 
     private diesTableChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderer = this.diesTable === undefined
-            ? this.mainRenderer
-            : this.workerRenderer;
         this.waferMapUpdateTracker.queueUpdate();
     }
 
@@ -329,6 +374,10 @@ export class WaferMap extends FoundationElement {
         this.$emit('die-hover', { currentDie: this.hoverDie });
         this.waferMapUpdateTracker.track('hoverDie');
         this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private get asRequiredFieldsWaferMap(): WaferMap {
+        return this as WaferMap;
     }
 }
 

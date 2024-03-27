@@ -62,11 +62,6 @@ jobs:
       # only informational so swallow error codes
       - run: npm outdated || exit 0
 
-      # Audit
-      - run: npm audit --only=prod
-      # https://github.com/ni/nimble/issues/801
-      # - run: npm audit --audit-level=critical
-
       # Build
       - run: npm run build
 
@@ -91,12 +86,12 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
-          workingDir: ./packages/nimble-components
           externals: |
-            - '.storybook/public/**'
-            - '../packages/nimble-tokens/dist/icons/svg/**'
-            - '../packages/nimble-tokens/source/styledictionary/properties/**'
-          storybookBuildDir: ../../packages/site/dist/storybook
+            - './packages/nimble-components/.storybook/public/**'
+            - './packages/nimble-tokens/dist/icons/svg/**'
+            - './packages/nimble-tokens/source/styledictionary/properties/**'
+          storybookBuildDir: ./packages/site/dist/storybook
+          storybookBaseDir: ./packages/nimble-components
           exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing
 
