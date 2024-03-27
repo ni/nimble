@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 27 Mar 2024 21:22:02 GMT",
+      "version": "24.1.1",
+      "tag": "@ni/nimble-components_v24.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cc82598544694002715db3383b75ed0c0f4793ae",
+            "comment": "Fix table scrolling test on WebKit"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 27 Mar 2024 18:54:51 GMT",
       "version": "24.1.0",
       "tag": "@ni/nimble-components_v24.1.0",
