@@ -61,8 +61,8 @@ const components = [
         componentName: 'Anchor Tabs',
         componentHref: './?path=/docs/components-anchor-tabs--docs',
         designHref:
-            'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b',
-        designLabel: 'XD',
+            'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1295-70711&mode=dev',
+        designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/479',
         issueLabel: 'Issue',
         componentStatus: ComponentFrameworkStatus.ready,
