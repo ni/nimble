@@ -55,6 +55,8 @@ jobs:
       - run: npm ci
       - run: dotnet restore --locked-mode
         working-directory: packages/nimble-blazor/
+
+      # Print resolved dotnet info
       - run: dotnet --info
         working-directory: packages/nimble-blazor/
 
