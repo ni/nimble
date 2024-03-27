@@ -14,8 +14,8 @@ import { anchorTabTag } from '../../anchor-tab';
 import { tabsToolbarTag } from '../../tabs-toolbar';
 import { buttonTag } from '../../button';
 
-const tabsToolbarState = [false, true] as const;
-type TabsToolbarState = (typeof tabsToolbarState)[number];
+const tabsToolbarStates = [false, true] as const;
+type TabsToolbarState = (typeof tabsToolbarStates)[number];
 
 const metadata: Meta = {
     title: 'Tests/Anchor Tabs',
@@ -47,7 +47,7 @@ const component = (
 `;
 
 export const anchorTabsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [tabsToolbarState, disabledStates])
+    createMatrix(component, [tabsToolbarStates, disabledStates])
 );
 
 export const hiddenTabs: StoryFn = createStory(
