@@ -25,9 +25,9 @@ import { listOptionTag } from '../../list-option';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const appearanceStates = [
-    ['Block', DropdownAppearance.block],
+    ['Underline', DropdownAppearance.underline],
     ['Outline', DropdownAppearance.outline],
-    ['Underline', DropdownAppearance.underline]
+    ['Block', DropdownAppearance.block]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 
