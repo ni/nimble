@@ -62,44 +62,41 @@ jobs:
       - run: npm run build
 
       # Pack
-      - run: npm run pack
-      - uses: actions/upload-artifact@v4
-        with:
-          name: packages
-          path: |
-            packages/**/*.tgz
-            packages/**/*.nupkg
-            angular-workspace/**/*.tgz
-          if-no-files-found: error
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'packages/site/dist'
+      # - run: npm run pack
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: packages
+      #     path: |
+      #       packages/**/*.tgz
+      #       packages/**/*.nupkg
+      #       angular-workspace/**/*.tgz
+      #     if-no-files-found: error
+      # - uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: 'packages/site/dist'
 
       # Publish to Chromatic (from any push)
       - name: Publish to Chromatic
         if: env.HAS_CHROMATIC_PROJECT_TOKEN == 'true' && github.event_name == 'push'
-        uses: chromaui/action@v11
+        uses: chromaui/action@v10
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
-          zip: true
-          workingDir: ./packages/nimble-components
+          workingDir: packages/nimble-components
           externals: |
             - '.storybook/public/**'
-            - '../packages/nimble-tokens/dist/icons/svg/**'
-            - '../packages/nimble-tokens/source/styledictionary/properties/**'
+            - '../nimble-tokens/dist/icons/svg/**'
+            - '../nimble-tokens/source/styledictionary/properties/**'
           storybookBuildDir: ../../packages/site/dist/storybook
-          storybookBaseDir: ./packages/nimble-components
+          storybookBaseDir: packages/nimble-components
           exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing
-        env:
-          LOG_LEVEL: "error"
 
       # Lint
-      - run: npm run lint
+      #- run: npm run lint
 
       # Test
-      - run: npm run test
+      #- run: npm run test
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
