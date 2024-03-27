@@ -3,9 +3,15 @@ import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrix,
     sharedMatrixParameters,
-    createMatrixThemeStory
+    createMatrixThemeStory,
+    cartesianProduct,
+    createMatrixInteractionsFromStates
 } from '../../utilities/tests/matrix';
-import { disabledStates, DisabledState } from '../../utilities/tests/states';
+import {
+    disabledStates,
+    DisabledState,
+    disabledStateIsEnabled
+} from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
@@ -18,7 +24,8 @@ import {
     type AppearanceVariantState,
     type PartVisibilityState,
     appearanceVariantStates,
-    partVisibilityStates
+    partVisibilityStates,
+    partVisibilityStatesOnlyLabel
 } from '../../patterns/button/tests/states';
 
 const checkedStates = [
@@ -65,6 +72,31 @@ export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
         appearanceStates,
         appearanceVariantStates
     ])
+);
+
+const interactionStatesHover = cartesianProduct([
+    [partVisibilityStatesOnlyLabel],
+    checkedStates,
+    disabledStates,
+    appearanceStates,
+    appearanceVariantStates
+] as const);
+
+const interactionStates = cartesianProduct([
+    [partVisibilityStatesOnlyLabel],
+    checkedStates,
+    [disabledStateIsEnabled],
+    appearanceStates,
+    appearanceVariantStates
+] as const);
+
+export const toggleButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrixInteractionsFromStates(component, {
+        hover: interactionStatesHover,
+        hoverActive: interactionStates,
+        active: interactionStates,
+        focus: interactionStates
+    })
 );
 
 export const hiddenButton: StoryFn = createStory(

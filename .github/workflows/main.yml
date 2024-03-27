@@ -16,6 +16,7 @@ env:
   LC_ALL: "en_US.UTF-8"
   LANG: "en_US.UTF-8"
   LANGUAGE: "en_US.UTF-8"
+  TZ: "America/Chicago"
   HAS_GITHUBPAGESDEPLOYTOKEN: ${{secrets.GITHUBPAGESDEPLOYTOKEN != ''}}
   HAS_CHROMATIC_PROJECT_TOKEN: ${{secrets.CHROMATIC_PROJECT_TOKEN != ''}}
   HAS_LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN != ''}}
@@ -45,8 +46,6 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: packages/nimble-blazor/global.json
-          cache: true
-          cache-dependency-path: '**/packages.lock.json'
       - uses: actions/setup-node@v4
         with:
           node-version: '20'

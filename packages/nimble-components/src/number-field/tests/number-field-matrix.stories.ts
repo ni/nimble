@@ -4,13 +4,18 @@ import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    cartesianProduct,
+    createMatrixInteractionsFromStates
 } from '../../utilities/tests/matrix';
 import {
     disabledStates,
     DisabledState,
     errorStates,
-    ErrorState
+    ErrorState,
+    disabledStateIsEnabled,
+    errorStatesNoError,
+    errorStatesErrorWithMessage
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { NumberFieldAppearance } from '../types';
@@ -29,12 +34,14 @@ const hideStepStates = [
     ['Hide Step', true]
 ] as const;
 type HideStepState = (typeof hideStepStates)[number];
+const hideStepStateStepVisible = hideStepStates[0];
 
 const valueStates = [
     ['Placeholder', null, 'placeholder'],
     ['Value', '1234', null]
 ] as const;
 type ValueState = (typeof valueStates)[number];
+const valueStatesHasValue = valueStates[1];
 
 const metadata: Meta = {
     title: 'Tests/Number Field',
@@ -54,7 +61,6 @@ const component = (
 ): ViewTemplate => html`
     <${numberFieldTag}
         style="width: 250px; padding: 8px;"
-        class="${() => errorVisible}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         appearance="${() => appearance}"
@@ -76,6 +82,31 @@ export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
         errorStates,
         appearanceStates
     ])
+);
+
+const interactionStatesHover = cartesianProduct([
+    disabledStates,
+    [hideStepStateStepVisible],
+    [valueStatesHasValue],
+    [errorStatesNoError, errorStatesErrorWithMessage],
+    appearanceStates
+] as const);
+
+const interactionStates = cartesianProduct([
+    [disabledStateIsEnabled],
+    [hideStepStateStepVisible],
+    [valueStatesHasValue],
+    [errorStatesNoError, errorStatesErrorWithMessage],
+    appearanceStates
+] as const);
+
+export const numberFieldInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrixInteractionsFromStates(component, {
+        hover: interactionStatesHover,
+        hoverActive: interactionStates,
+        active: interactionStates,
+        focus: interactionStates
+    })
 );
 
 export const hiddenNumberField: StoryFn = createStory(

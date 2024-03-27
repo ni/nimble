@@ -3,7 +3,9 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrix,
     sharedMatrixParameters,
-    createMatrixThemeStory
+    createMatrixThemeStory,
+    cartesianProduct,
+    createMatrixInteractionsFromStates
 } from '../../utilities/tests/matrix';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
@@ -11,18 +13,17 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import { anchorTag } from '..';
+import {
+    disabledStates,
+    type DisabledState,
+    disabledStateIsEnabled
+} from '../../utilities/tests/states';
 
 const appearanceStates = [
     ['Default', AnchorAppearance.default],
     ['Prominent', AnchorAppearance.prominent]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
-
-const disabledStates = [
-    ['', 'https://nimble.ni.dev'],
-    ['Disabled', null]
-] as const;
-type DisabledState = (typeof disabledStates)[number];
 
 const underlineHiddenStates = [
     ['', false],
@@ -41,12 +42,12 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    [disabledName, href]: DisabledState,
+    [disabledName, disabled]: DisabledState,
     [underlineHiddenName, underlineHidden]: UnderlineHiddenState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <${anchorTag}
-        href=${() => href}
+        href=${() => (disabled ? undefined : 'https://nimble.ni.dev')}
         ?underline-hidden="${() => underlineHidden}"
         appearance="${() => appearance}"
         style="margin-right: 8px; margin-bottom: 8px;">
@@ -59,6 +60,27 @@ export const anchorThemeMatrix: StoryFn = createMatrixThemeStory(
         underlineHiddenStates,
         appearanceStates
     ])
+);
+
+const interactionStatesHover = cartesianProduct([
+    disabledStates,
+    underlineHiddenStates,
+    appearanceStates
+] as const);
+
+const interactionStates = cartesianProduct([
+    [disabledStateIsEnabled],
+    underlineHiddenStates,
+    appearanceStates
+] as const);
+
+export const anchorInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrixInteractionsFromStates(component, {
+        hover: interactionStatesHover,
+        hoverActive: interactionStates,
+        active: interactionStates,
+        focus: interactionStates
+    })
 );
 
 export const hiddenAnchor: StoryFn = createStory(
