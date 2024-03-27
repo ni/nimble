@@ -67,7 +67,7 @@ const component = (
         error-text="${() => errorText}"
         ?error-visible="${() => errorVisible}"
     >
-    ${() => errorName} ${() => appearanceName} ${() => valueName}
+        ${() => errorName} ${() => appearanceName} ${() => valueName}
         ${() => hideStepName} ${() => disabledName}
     </${numberFieldTag}>
 `;
