@@ -9,6 +9,7 @@ export const partVisibilityStates = [
     [false, true, true]
 ] as const;
 export type PartVisibilityState = (typeof partVisibilityStates)[number];
+export const partVisibilityStatesOnlyLabel = partVisibilityStates[2];
 
 export const appearanceStates = [
     ['Outline', ButtonAppearance.outline],
