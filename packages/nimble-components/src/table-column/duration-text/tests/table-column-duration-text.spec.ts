@@ -323,5 +323,13 @@ describe('TableColumnDurationText', () => {
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(placeholder2);
         });
+
+        it('can configure empty placeholder', async () => {
+            const placeholder = '';
+            await initializeColumnAndTable([{}], placeholder);
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                placeholder
+            );
+        });
     });
 });

@@ -64,7 +64,7 @@ export abstract class TableColumnTextCellViewBase<
     private applyPlaceholderTextIfNeeded(): boolean {
         const cellValue = this.cellRecord?.value;
         const placeholder = this.columnConfig?.placeholder;
-        if (placeholder && (cellValue === null || cellValue === undefined)) {
+        if (typeof placeholder === 'string' && (cellValue === null || cellValue === undefined)) {
             this.text = placeholder;
             this.isPlaceholder = true;
         } else {

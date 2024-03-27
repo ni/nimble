@@ -343,5 +343,13 @@ describe('TableColumnText', () => {
                 placeholder2
             );
         });
+
+        it('can configure empty placeholder', async () => {
+            const placeholder = '';
+            await initializeColumnAndTable([{}], placeholder);
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                placeholder
+            );
+        });
     });
 });
