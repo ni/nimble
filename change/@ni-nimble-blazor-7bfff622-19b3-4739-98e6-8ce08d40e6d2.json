@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Adding package lock files to allow for reproducible builds",
+  "packageName": "@ni/nimble-blazor",
+  "email": "26874831+atmgrifter00@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
