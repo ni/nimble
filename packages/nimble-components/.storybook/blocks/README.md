@@ -1,6 +1,6 @@
 # Blocks
 
-This folder contains reusable React components used in Nimble component MDX documentation. Storybook refers to these types of reusable components as [Doc blocks](https://storybook.js.org/docs/writing-docs/doc-blocks).
+This folderz contains reusable React components used in Nimble component MDX documentation. Storybook refers to these types of reusable components as [Doc blocks](https://storybook.js.org/docs/writing-docs/doc-blocks).
 
 ## File Structure
 
@@ -74,7 +74,7 @@ E.g. `import { NimbleButton } from './button.react';`
 </Frame>
 ```
 
-Note: The MDX formatter will apply a `<p>` tag around any text on its own line. To prevent this and from breaking Nimble component styling, add `` {`text content`} `` around Nimble component slot content.
+Note: The MDX formatter will apply a `<p>` tag around any text on its own line. To prevent this and from breaking Nimble component styling, add ``{`text content`}`` around Nimble component slot content.
 
 ## Contributing
 
