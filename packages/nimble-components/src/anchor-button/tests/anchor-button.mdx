@@ -8,6 +8,8 @@ import {
 } from '@storybook/blocks';
 import TargetDocs from '../../patterns/anchor/tests/target-docs.mdx';
 import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
+import StylingDocs from '../../patterns/button/tests/styling-docs.mdx';
+import { anchorButtonTag } from '..';
 import * as anchorButtonStories from './anchor-button.stories';
 
 <Meta of={anchorButtonStories} />
@@ -18,9 +20,7 @@ An anchor button is a component with the visual appearance of a button, but it n
 <Canvas of={anchorButtonStories.outlineAnchorButton} />
 <Controls of={anchorButtonStories.outlineAnchorButton} />
 
-{/* ## Appearances */}
-
-{/* ## Appearance Variants */}
+<StylingDocs components={{ Button: anchorButtonTag }} />
 
 {/* ## Usage */}
 

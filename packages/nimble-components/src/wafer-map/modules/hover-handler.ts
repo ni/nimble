@@ -64,7 +64,10 @@ export class HoverHandler {
     private calculateDieCoordinates(
         mousePosition: PointCoordinates
     ): PointCoordinates | undefined {
-        if (this.wafermap.dataManager instanceof DataManager) {
+        if (
+            !this.wafermap.isExperimentalRenderer()
+            && this.wafermap.dataManager instanceof DataManager
+        ) {
             const originLocation = this.wafermap.originLocation;
             const xRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
                 || originLocation === WaferMapOriginLocation.topLeft

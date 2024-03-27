@@ -2,6 +2,42 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 26 Mar 2024 20:45:41 GMT",
+      "version": "24.0.0",
+      "tag": "@ni/nimble-components_v24.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "594ac221124cc1b52cd28113714bb8ff71e5820b",
+            "comment": "Support primary and accent variants for toggle and menu buttons. BREAKING CHANGE: Removed theme-aware tokens `buttonFillActivePrimaryColor` and `buttonFillAccentActiveColor`. Use `fillSelectedColor` instead."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.13.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 25 Mar 2024 17:03:11 GMT",
+      "version": "23.0.1",
+      "tag": "@ni/nimble-components_v23.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f56b73b45161a55b967dc03bbdd094a6527c814c",
+            "comment": "Created new hover event for the new diesTable api and changed the zoom event"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 22 Mar 2024 16:18:25 GMT",
       "version": "23.0.0",
       "tag": "@ni/nimble-components_v23.0.0",

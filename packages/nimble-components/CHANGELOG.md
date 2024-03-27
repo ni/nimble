@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 21 Mar 2024 17:13:38 GMT and should not be manually modified.
+This log was last generated on Tue, 26 Mar 2024 20:45:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.0.0
+
+Tue, 26 Mar 2024 20:45:41 GMT
+
+### Major changes
+
+- Support primary and accent variants for toggle and menu buttons. BREAKING CHANGE: Removed theme-aware tokens `buttonFillActivePrimaryColor` and `buttonFillAccentActiveColor`. Use `fillSelectedColor` instead. ([ni/nimble@594ac22](https://github.com/ni/nimble/commit/594ac221124cc1b52cd28113714bb8ff71e5820b))
+- Bump @ni/nimble-tokens to v6.13.1
+
+## 23.0.1
+
+Mon, 25 Mar 2024 17:03:11 GMT
+
+### Patches
+
+- Created new hover event for the new diesTable api and changed the zoom event ([ni/nimble@f56b73b](https://github.com/ni/nimble/commit/f56b73b45161a55b967dc03bbdd094a6527c814c))
 
 ## 23.0.0
 
