@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Set build timezone to America/Chicago",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
