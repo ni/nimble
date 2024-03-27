@@ -11,6 +11,10 @@ import {
     controlLabelFont,
     controlLabelFontColor
 } from '../../../theme-provider/design-tokens';
+import {
+    placeholderStates,
+    type PlaceholderState
+} from '../../../utilities/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Table Column: Duration Text',
@@ -36,19 +40,24 @@ const data = [
 ] as const;
 
 // prettier-ignore
-const component = (): ViewTemplate => html`
-    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">Duration Text Table Column</label>
+const component = (
+    [placeholderName, placeholder]: PlaceholderState
+): ViewTemplate => html`
+    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
+        Duration Text Table Column ${placeholderName}
+    </label>
     <${tableTag} id-field-name="id" style="height: 250px">
         <${tableColumnDurationTextTag}
             field-name="duration"
             group-index="0"
+            placeholder="${() => placeholder}"
         >
             Duration
         </${tableColumnDurationTextTag}>
     </${tableTag}>
 `;
 
-export const tableColumnDurationTextThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component));
+export const tableColumnDurationTextThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component, [placeholderStates]));
 
 tableColumnDurationTextThemeMatrix.play = async (): Promise<void> => {
     await Promise.all(

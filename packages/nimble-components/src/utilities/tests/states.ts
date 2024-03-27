@@ -45,3 +45,9 @@ export type ReadOnlyState = (typeof readOnlyStates)[number];
 
 export const iconVisibleStates = [false, true] as const;
 export type IconVisibleState = (typeof iconVisibleStates)[number];
+
+export const placeholderStates = [
+    ['With Placeholder', 'Custom placeholder'],
+    ['', undefined]
+] as const;
+export type PlaceholderState = (typeof placeholderStates)[number];

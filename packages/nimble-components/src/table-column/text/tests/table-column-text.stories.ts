@@ -65,6 +65,7 @@ type TextColumnFieldNameOption = 'firstName' | 'lastName';
 
 interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: TextColumnFieldNameOption;
+    placeholder: string;
 }
 
 export const textColumn: StoryObj<TextColumnTableArgs> = {
@@ -82,6 +83,7 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 field-name="quote"
+                placeholder="${x => x.placeholder}"
             >
             Quote
             </${tableColumnTextTag}>
@@ -94,9 +96,14 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `string`.',
             options: ['firstName', 'lastName'],
             control: { type: 'radio' }
+        },
+        placeholder: {
+            description:
+                'The placeholder text to display when the field value is `undefined` or `null` for a record.'
         }
     },
     args: {
-        fieldName: 'firstName'
+        fieldName: 'firstName',
+        placeholder: 'Did not respond to request for comment'
     }
 };
