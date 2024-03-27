@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 12 Mar 2024 21:01:54 GMT and should not be manually modified.
+This log was last generated on Thu, 21 Mar 2024 17:13:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.13.0
+
+Thu, 21 Mar 2024 17:13:38 GMT
+
+### Minor changes
+
+- Add Body_2 base font token ([ni/nimble@b93385a](https://github.com/ni/nimble/commit/b93385a27672ebc03e18a864e8fa268727595c66))
 
 ## 6.12.1
 
