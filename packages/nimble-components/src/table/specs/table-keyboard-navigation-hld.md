@@ -37,8 +37,8 @@ There's also guidance about whether cells themselves, or the elements inside the
 > ARIA: "For assistive technology users, the quality of experience when navigating a grid heavily depends on both what a cell contains and on where keyboard focus is set. For example, if a cell contains a button and a grid navigation key places focus on the cell instead of the button, screen readers announce the button label but do not tell users a button is present.  
 > There are two optimal cell design and focus behavior combinations:
 >
-> -   A cell contains one widget whose operation does not require arrow keys and grid navigation keys set focus on that widget. Examples of such widgets include link, button, menubutton, toggle button, radio button (not radio group), switch, and checkbox.
-> -   A cell contains text or a single graphic and grid navigation keys set focus on the cell."
+> -   When a cell contains _one widget_ whose operation _does not require arrow keys_, the grid navigation keys **will set focus on that widget**. Examples of such widgets include link, button, menubutton, toggle button, radio button (not radio group), switch, and checkbox.
+> -   When a cell contains _text or a single graphic_, the grid navigation keys will **set focus on the cell**."
 
 ### Specifics for nimble-table
 
