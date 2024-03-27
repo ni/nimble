@@ -1,5 +1,5 @@
 import { ScaleBand, ScaleQuantile, scaleBand, scaleQuantile } from 'd3-scale';
-import type { Table } from 'apache-arrow';
+import { type Table, tableFromArrays } from 'apache-arrow';
 import type { ZoomTransform } from 'd3-zoom';
 import {
     Dimensions,
@@ -9,7 +9,8 @@ import {
     WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOriginLocation,
-    WaferMapValidity
+    WaferMapValidity,
+    WaferRequiredFields
 } from '../types';
 import type { DataManager } from '../modules/data-manager';
 import type { WaferMap } from '..';
@@ -35,6 +36,19 @@ export function getWaferMapDies(): WaferMapDie[] {
         { value: '17', x: 6, y: 3 },
         { value: '18', x: 6, y: 4 }
     ];
+}
+export function getWaferMapDiesTable(): Table<WaferRequiredFields> {
+    return tableFromArrays({
+        colIndex: new Int32Array([
+            2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6
+        ]),
+        rowIndex: new Int32Array([
+            3, 4, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 2, 3, 4, 5, 3, 4
+        ]),
+        value: new Float64Array([
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18
+        ])
+    });
 }
 
 export function getWaferMapDiesAsFloats(): WaferMapDie[] {
@@ -194,6 +208,32 @@ export function getWaferMapMockComputations(
     'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
     > = {
         dies,
+        originLocation,
+        canvasWidth,
+        canvasHeight,
+        validity
+    };
+    return waferMapMock as WaferMap;
+}
+export function getWaferMapMockComputationsExperimental(
+    diesTable: Table = getWaferMapDiesTable(),
+    originLocation: WaferMapOriginLocation,
+    canvasWidth: number,
+    canvasHeight: number,
+    validity: WaferMapValidity = {
+        invalidGridDimensions: false,
+        invalidDiesTableSchema: false
+    }
+): WaferMap {
+    const waferMapMock: Pick<
+    WaferMap,
+    | 'diesTable'
+    | 'originLocation'
+    | 'canvasWidth'
+    | 'canvasHeight'
+    | 'validity'
+    > = {
+        diesTable,
         originLocation,
         canvasWidth,
         canvasHeight,

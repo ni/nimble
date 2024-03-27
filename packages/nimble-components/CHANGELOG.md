@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 25 Mar 2024 17:03:11 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Mar 2024 12:05:29 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.0.1
+
+Wed, 27 Mar 2024 12:05:29 GMT
+
+### Patches
+
+- Created new computations experimental module and tested it, created new data manager experimental and integrated with hover and old renderer ([ni/nimble@c6d99d8](https://github.com/ni/nimble/commit/c6d99d8923082bee7a68c244c60d36be339f0ee3))
+
+## 24.0.0
+
+Tue, 26 Mar 2024 20:45:41 GMT
+
+### Major changes
+
+- Support primary and accent variants for toggle and menu buttons. BREAKING CHANGE: Removed theme-aware tokens `buttonFillActivePrimaryColor` and `buttonFillAccentActiveColor`. Use `fillSelectedColor` instead. ([ni/nimble@594ac22](https://github.com/ni/nimble/commit/594ac221124cc1b52cd28113714bb8ff71e5820b))
+- Bump @ni/nimble-tokens to v6.13.1
 
 ## 23.0.1
 

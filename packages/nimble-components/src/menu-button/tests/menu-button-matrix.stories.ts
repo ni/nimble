@@ -1,7 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
-import { ButtonAppearance } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -15,6 +13,14 @@ import { iconKeyTag } from '../../icons/key';
 import { menuButtonTag } from '..';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
+import {
+    appearanceStates,
+    type AppearanceState,
+    type AppearanceVariantState,
+    type PartVisibilityState,
+    appearanceVariantStates,
+    partVisibilityStates
+} from '../../patterns/button/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Menu Button',
@@ -25,34 +31,21 @@ const metadata: Meta = {
 
 export default metadata;
 
-/* array of iconVisible, labelVisible, endIconVisible */
-const partVisibilityStates = [
-    [true, true, false],
-    [true, false, false],
-    [false, true, false],
-    [true, true, true],
-    [false, true, true]
-] as const;
-type PartVisibilityState = (typeof partVisibilityStates)[number];
-
-const appearanceStates = Object.entries(ButtonAppearance).map(
-    ([key, value]) => [pascalCase(key), value]
-);
-type AppearanceState = (typeof appearanceStates)[number];
-
 // prettier-ignore
 const component = (
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
     [disabledName, disabled]: DisabledState,
-    [appearanceName, appearance]: AppearanceState
+    [appearanceName, appearance]: AppearanceState,
+    [appearanceVariantName, appearanceVariant]: AppearanceVariantState,
 ): ViewTemplate => html`
     <${menuButtonTag}
         appearance="${() => appearance}"
+        appearance-variant="${() => appearanceVariant}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
-            ${() => `${appearanceName!} Menu Button ${disabledName}`}
+            ${() => `${appearanceVariantName} ${appearanceName} Menu Button ${disabledName}`}
             ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
 
         <${menuTag} slot="menu">
@@ -66,7 +59,8 @@ export const menuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         partVisibilityStates,
         disabledStates,
-        appearanceStates
+        appearanceStates,
+        appearanceVariantStates
     ])
 );
 

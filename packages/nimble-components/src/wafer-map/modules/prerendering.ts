@@ -123,7 +123,7 @@ export class Prerendering {
             return '';
         }
         const label = `${value}${dieLabelsSuffix}`;
-        if (label.length > maxCharacters) {
+        if (label.length >= maxCharacters) {
             return `${label.substring(0, maxCharacters)}…`;
         }
         return label;
