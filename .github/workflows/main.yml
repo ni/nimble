@@ -84,9 +84,9 @@ jobs:
           onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
           workingDir: packages/nimble-components
           externals: |
-            - '.storybook/public/**'
-            - '../nimble-tokens/dist/icons/svg/**'
-            - '../nimble-tokens/source/styledictionary/properties/**'
+            - 'packages/nimble-components/.storybook/**'
+            - 'packages/nimble-tokens/dist/icons/svg/**'
+            - 'packages/nimble-tokens/source/styledictionary/properties/**'
           storybookBuildDir: ../../packages/site/dist/storybook
           storybookBaseDir: packages/nimble-components
           exitOnceUploaded: true # Do not wait for test results
