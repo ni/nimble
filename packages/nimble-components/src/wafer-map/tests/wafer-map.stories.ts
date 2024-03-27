@@ -1,10 +1,11 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import type { Table } from 'apache-arrow';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
 } from '../../utilities/tests/storybook';
-import { generateWaferData } from './data-generator';
+import { generateWaferData, generateWaferTableData } from './data-generator';
 import {
     goodValueGenerator,
     badValueGenerator,
@@ -23,7 +24,8 @@ import {
 import {
     highlightedTagsSets,
     wafermapDieSets,
-    waferMapColorScaleSets
+    waferMapColorScaleSets,
+    wafermapDiesTableSets
 } from './sets';
 import { waferMapTag } from '..';
 
@@ -32,7 +34,10 @@ interface WaferMapArgs {
     colorScaleMode: WaferMapColorScaleMode;
     dieLabelsHidden: boolean;
     dieLabelsSuffix: string;
+    apiVersion: 'stable' | 'experimental';
     dies: string;
+    highlightedTags: string;
+    diesTable: string;
     maxCharacters: number;
     orientation: WaferMapOrientation;
     originLocation: WaferMapOriginLocation;
@@ -42,7 +47,6 @@ interface WaferMapArgs {
     gridMaxY: number | undefined;
     dieHover: unknown;
     validity: WaferMapValidity;
-    highlightedTags: string;
 }
 
 const getDiesSet = (
@@ -77,7 +81,38 @@ const getDiesSet = (
             )!;
             break;
         default:
-            returnedValue = [] as WaferMapDie[];
+            returnedValue = [];
+    }
+    return returnedValue;
+};
+
+const getDiesTableSet = (setName: string, sets: Table[]): Table | undefined => {
+    const seed = 0.5;
+    let returnedValue: Table | undefined;
+    switch (setName) {
+        case 'fixedDies10':
+            returnedValue = sets[0]!;
+            break;
+        case 'goodDies100':
+            returnedValue = generateWaferTableData(
+                100,
+                goodValueGenerator(seed)
+            );
+            break;
+        case 'goodDies1000':
+            returnedValue = generateWaferTableData(
+                1000,
+                goodValueGenerator(seed)
+            )!;
+            break;
+        case 'badDies10000':
+            returnedValue = generateWaferTableData(
+                10000,
+                badValueGenerator(seed)
+            )!;
+            break;
+        default:
+            returnedValue = undefined;
     }
     return returnedValue;
 };
@@ -98,7 +133,7 @@ const getHighlightedTags = (setName: string, sets: string[][]): string[] => {
             returnedValue = sets[3]!;
             break;
         default:
-            returnedValue = [] as string[];
+            returnedValue = [];
             break;
     }
     return returnedValue;
@@ -107,6 +142,7 @@ const getHighlightedTags = (setName: string, sets: string[][]): string[] => {
 const metadata: Meta<WaferMapArgs> = {
     title: 'Incubating/Wafer Map',
     parameters: {
+        viewMode: 'docs',
         actions: {
             handles: ['click', 'die-hover']
         }
@@ -126,6 +162,7 @@ const metadata: Meta<WaferMapArgs> = {
             :colorScale="${x => x.colorScale}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
             :highlightedTags="${x => getHighlightedTags(x.highlightedTags, highlightedTagsSets)}"
+            :diesTable="${x => getDiesTableSet(x.diesTable, wafermapDiesTableSets)}"
             >
         </${waferMapTag}>
         <style class="code-hide">
@@ -136,12 +173,14 @@ const metadata: Meta<WaferMapArgs> = {
         </style>
     `),
     args: {
+        apiVersion: 'stable',
         colorScale: waferMapColorScaleSets[0],
         colorScaleMode: WaferMapColorScaleMode.linear,
         dies: 'fixedDies10',
+        diesTable: undefined,
+        highlightedTags: 'set1',
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
-        highlightedTags: 'set1',
         maxCharacters: 4,
         orientation: WaferMapOrientation.left,
         originLocation: WaferMapOriginLocation.bottomLeft,
@@ -151,6 +190,20 @@ const metadata: Meta<WaferMapArgs> = {
         gridMaxY: undefined
     },
     argTypes: {
+        apiVersion: {
+            name: 'API Version',
+            description:
+                'Select the API version of the component. The stable version is the one that is recommended for production use, while the experimental version is the one that is still under development and is not recommended for production use. The default value is `stable`. To enable the Experimental API in code, the `diesTable` should be used in place of the `dies`.',
+            options: ['stable', 'experimental'],
+            control: {
+                type: 'inline-radio',
+                labels: {
+                    stable: 'Stable',
+                    experimental: 'Experimental'
+                }
+            },
+            defaultValue: 'stable'
+        },
         colorScale: {
             description: `Represents the color spectrum which shows the status of the dies on the wafer.
 
@@ -185,7 +238,7 @@ const metadata: Meta<WaferMapArgs> = {
             }
         },
         dies: {
-            description: `Represents the input data, an array of \`WaferMapDie\`, which will be rendered by the wafer map
+            description: `Represents the input data, an array of \`WaferMapDie\`, which will be rendered by the wafer map. Part of the Stable API.
 
 <details>
     <summary>Usage details</summary>
@@ -207,19 +260,34 @@ const metadata: Meta<WaferMapArgs> = {
                     badDies10000: 'Very large dies set of mostly bad values'
                 }
             },
-            defaultValue: 'set1'
+            defaultValue: 'fixedDies10',
+            if: { arg: 'apiVersion', eq: 'stable' }
         },
-        dieLabelsHidden: {
-            name: 'die-labels-hidden',
-            description:
-                'Boolean value that determines if the dies labels in the wafer map view are shown or not. Default value is false.',
-            control: { type: 'boolean' }
-        },
-        dieLabelsSuffix: {
-            name: 'die-labels-suffix',
-            description:
-                'String that can be added as a label at the end of each wafer map die value',
-            control: { type: 'text' }
+        diesTable: {
+            description: `Represents the input data, an apache-arrow \`Table\`, which will be rendered by the wafer map. Part of the Experimental API.
+
+<details>
+    <summary>Usage details</summary>
+    The \`diesTable\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
+</details>
+                `,
+            options: [
+                'fixedDies10',
+                'goodDies100',
+                'goodDies1000',
+                'badDies10000'
+            ],
+            control: {
+                type: 'radio',
+                labels: {
+                    fixedDies10: 'Small dies set of fixed values',
+                    goodDies100: 'Medium dies set of mostly good values',
+                    goodDies1000: 'Large dies set of mostly good values',
+                    badDies10000: 'Very large dies set of mostly bad values'
+                }
+            },
+            defaultValue: 'fixedDies10',
+            if: { arg: 'apiVersion', eq: 'experimental' }
         },
         highlightedTags: {
             description: `Represent a list of strings that will be highlighted in the wafer map view. Each die has a tags?: string[] property, if at least one element of highlightedTags equals at least one element of die.tags the die will be highlighted.
@@ -240,6 +308,18 @@ const metadata: Meta<WaferMapArgs> = {
                 }
             },
             defaultValue: 'set1'
+        },
+        dieLabelsHidden: {
+            name: 'die-labels-hidden',
+            description:
+                'Boolean value that determines if the dies labels in the wafer map view are shown or not. Default value is false.',
+            control: { type: 'boolean' }
+        },
+        dieLabelsSuffix: {
+            name: 'die-labels-suffix',
+            description:
+                'String that can be added as a label at the end of each wafer map die value',
+            control: { type: 'text' }
         },
         maxCharacters: {
             name: 'max-characters',
@@ -308,7 +388,9 @@ const metadata: Meta<WaferMapArgs> = {
             description: `Readonly object of boolean values that represents the validity states that the wafer map's configuration can be in.
 The object's type is \`WaferMapValidity\`, and it contains the following boolean properties:
 
--   \`invalidGridDimensions \`: \`true\` when some of the \`gridMinX\`, \`gridMinY\`, \`gridMaxX\` or \`gridMaxY\` are \`undefined\`, but \`false\` when all of them are provided or all of them are \`undefined\``,
+-   \`invalidGridDimensions \`: \`true\` when some of the \`gridMinX\`, \`gridMinY\`, \`gridMaxX\` or \`gridMaxY\` are \`undefined\`, but \`false\` when all of them are provided or all of them are \`undefined\`
+
+-   \`invalidDiesTableSchema \`: \`true\` when the \`diesTable\` does not have all of the three expected columns: \`colIndex\`, \`rowIndex\` and \`value\`, but \`false\` when all of them are provided or the \`diesTable\` is \`undefined\``,
             control: false
         }
     }

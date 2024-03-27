@@ -1,4 +1,4 @@
-import { addons } from '@storybook/addons';
+import { addons } from '@storybook/manager-api';
 import theme from './theme';
 
 addons.setConfig({
@@ -9,7 +9,7 @@ addons.setConfig({
                 const isPublicSite = window.location.hostname === 'nimble.ni.dev';
                 const isItemInternal = item.title.startsWith('Tests/')
                     || item.title.startsWith('Internal/')
-                    || item.title.startsWith('patterns/');
+                    || item.title.startsWith('Patterns/');
                 const shouldHideInSidebar = isPublicSite && isItemInternal;
                 return !shouldHideInSidebar;
             }

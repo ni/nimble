@@ -15,7 +15,9 @@ import {
     tableRowOperationColumnLabel,
     tableRowSelectLabel,
     tableSelectAllLabel,
-    tableRowLoadingLabel
+    tableRowLoadingLabel,
+    tableGroupRowPlaceholderEmptyLabel,
+    tableGroupRowPlaceholderNoValueLabel
 } from './label-tokens';
 
 declare global {
@@ -38,7 +40,9 @@ const supportedLabels = {
     groupSelectAll: tableGroupSelectAllLabel,
     rowSelect: tableRowSelectLabel,
     rowOperationColumn: tableRowOperationColumnLabel,
-    rowLoading: tableRowLoadingLabel
+    rowLoading: tableRowLoadingLabel,
+    groupRowPlaceholderNoValue: tableGroupRowPlaceholderNoValueLabel,
+    groupRowPlaceholderEmpty: tableGroupRowPlaceholderEmptyLabel
 } as const;
 
 /**
@@ -88,6 +92,12 @@ export class LabelProviderTable
 
     @attr({ attribute: 'row-loading' })
     public rowLoading: string | undefined;
+
+    @attr({ attribute: 'group-row-placeholder-no-value' })
+    public groupRowPlaceholderNoValue: string | undefined;
+
+    @attr({ attribute: 'group-row-placeholder-empty' })
+    public groupRowPlaceholderEmpty: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }

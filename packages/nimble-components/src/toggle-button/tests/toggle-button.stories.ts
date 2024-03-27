@@ -2,8 +2,10 @@ import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import { ButtonAppearance } from '../types';
+import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
 import {
+    appearanceDescription,
+    appearanceVariantDescription,
     contentHiddenDescription,
     endIconDescription,
     iconDescription
@@ -14,7 +16,8 @@ import { iconKeyTag } from '../../icons/key';
 
 interface ToggleButtonArgs {
     label: string;
-    appearance: string;
+    appearance: keyof typeof ButtonAppearance;
+    appearanceVariant: keyof typeof ButtonAppearanceVariant;
     checked: boolean;
     disabled: boolean;
     icon: boolean;
@@ -33,7 +36,14 @@ const metadata: Meta<ToggleButtonArgs> = {
     argTypes: {
         appearance: {
             options: Object.values(ButtonAppearance),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: appearanceDescription
+        },
+        appearanceVariant: {
+            name: 'appearance-variant',
+            options: Object.keys(ButtonAppearanceVariant),
+            control: { type: 'radio' },
+            description: appearanceVariantDescription
         },
         contentHidden: {
             description: contentHiddenDescription
@@ -51,7 +61,8 @@ const metadata: Meta<ToggleButtonArgs> = {
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"
             ?content-hidden="${x => x.contentHidden}"
-            appearance="${x => x.appearance}"
+            appearance="${x => ButtonAppearance[x.appearance]}"
+            appearance-variant="${x => ButtonAppearanceVariant[x.appearanceVariant]}"
         >
             ${when(x => x.icon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
             ${x => x.label}
@@ -59,8 +70,9 @@ const metadata: Meta<ToggleButtonArgs> = {
         </${toggleButtonTag}>
     `),
     args: {
-        label: 'Ghost Toggle Button',
-        appearance: 'ghost',
+        label: 'Toggle Button',
+        appearance: 'outline',
+        appearanceVariant: 'default',
         checked: true,
         icon: false,
         endIcon: false,

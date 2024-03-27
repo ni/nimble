@@ -2,6 +2,7 @@
     "name": "@ni-private/performance",
     "version": "1.0.0",
     "private": true,
+    "type": "module",
     "description": "A package to measure the performance of the Nimble Components",
     "scripts": {
         "build": "tsc && vite build src",
@@ -15,7 +16,7 @@
     },
     "devDependencies": {
         "@lhci/cli": "^0.13.0",
-        "typescript": "~4.8.2",
+        "typescript": "~4.9.5",
         "vite": "^5.1.5"
     },
     "files": [

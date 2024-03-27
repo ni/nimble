@@ -13,8 +13,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Control fill color for "primary" appearance-variant buttons',
     buttonPrimaryFontColor:
         'Font color for "primary" appearance-variant buttons',
-    buttonFillActivePrimaryColor:
-        'Active fill color for "primary" appearance-variant buttons',
     buttonFillAccentColor:
         'Control fill color for "accent" appearance-variant buttons',
     buttonAccentBlockFontColor:
@@ -23,8 +21,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Font color for "accent" appearance-variant outline buttons',
     buttonBorderAccentOutlineColor:
         'Border color for "accent" appearance-variant outline buttons',
-    buttonFillAccentActiveColor:
-        'Active fill color for "accent" appearance-variant buttons',
     fillSelectedColor: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
@@ -210,6 +206,14 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Font line height for the "Placeholder" base token',
     placeholderFallbackFontFamily:
         'Fallback font family for the "Placeholder" base token',
+    bodyFont: 'Font shorthand for the "Body" base token',
+    bodyFontColor: 'Font color for the "Body" base token',
+    bodyDisabledFontColor: 'Disabled font color for the "Body" base token',
+    bodyFontFamily: 'Font family for the "Body" base token',
+    bodyFontSize: 'Font size for the "Body" base token',
+    bodyFontWeight: 'Font weight for the "Body" base token',
+    bodyFontLineHeight: 'Font line height for the "Body" base token',
+    bodyFallbackFontFamily: 'Fallback font family for the "Body" base token',
     bodyEmphasizedFont: 'Font shorthand for the "BodyEmphasized" base token',
     bodyEmphasizedFontColor: 'Font color for the "BodyEmphasized" base token',
     bodyEmphasizedDisabledFontColor:
@@ -221,30 +225,32 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Font line height for the "BodyEmphasized" base token',
     bodyEmphasizedFallbackFontFamily:
         'Fallback font family for the "BodyEmphasized" base token',
-    bodyEmphasizedPlus1Font:
+    bodyPlus1Font: 'Font shorthand for the "Body_2" base token',
+    bodyPlus1FontColor: 'Font color for the "Body_2" base token',
+    bodyPlus1DisabledFontColor:
+        'Disabled font color for the "Body_2" base token',
+    bodyPlus1FontFamily: 'Font family for the "Body_2" base token',
+    bodyPlus1FontSize: 'Font size for the "Body_2" base token',
+    bodyPlus1FontWeight: 'Font weight for the "Body_2" base token',
+    bodyPlus1FontLineHeight: 'Font line height for the "Body_2" base token',
+    bodyPlus1FallbackFontFamily:
+        'Fallback font family for the "Body_2" base token',
+    bodyPlus1EmphasizedFont:
         'Font shorthand for the "BodyEmphasized_2" base token',
-    bodyEmphasizedPlus1FontColor:
+    bodyPlus1EmphasizedFontColor:
         'Font color for the "BodyEmphasized_2" base token',
-    bodyEmphasizedPlus1DisabledFontColor:
+    bodyPlus1EmphasizedDisabledFontColor:
         'Disabled font color for the "BodyEmphasized_2" base token',
-    bodyEmphasizedPlus1FontFamily:
+    bodyPlus1EmphasizedFontFamily:
         'Font family for the "BodyEmphasized_2" base token',
-    bodyEmphasizedPlus1FontSize:
+    bodyPlus1EmphasizedFontSize:
         'Font size for the "BodyEmphasized_2" base token',
-    bodyEmphasizedPlus1FontWeight:
+    bodyPlus1EmphasizedFontWeight:
         'Font weight for the "BodyEmphasized_2" base token',
-    bodyEmphasizedPlus1FontLineHeight:
+    bodyPlus1EmphasizedFontLineHeight:
         'Font line height for the "BodyEmphasized_2" base token',
-    bodyEmphasizedPlus1FallbackFontFamily:
+    bodyPlus1EmphasizedFallbackFontFamily:
         'Fallback font family for the "BodyEmphasized_2" base token',
-    bodyFont: 'Font shorthand for the "Body" base token',
-    bodyFontColor: 'Font color for the "Body" base token',
-    bodyDisabledFontColor: 'Disabled font color for the "Body" base token',
-    bodyFontFamily: 'Font family for the "Body" base token',
-    bodyFontSize: 'Font size for the "Body" base token',
-    bodyFontWeight: 'Font weight for the "Body" base token',
-    bodyFontLineHeight: 'Font line height for the "Body" base token',
-    bodyFallbackFontFamily: 'Fallback font family for the "Body" base token',
     groupHeaderFont: 'Font shorthand for the "Group_Header_1" base token',
     groupHeaderFontColor: 'Font color for the "Group_Header_1" base token',
     groupHeaderDisabledFontColor:
