@@ -70,7 +70,6 @@ export const styles = css`
     slot[name='title'] {
         display: inline;
         font-weight: bold;
-        font-size: 24pt;
         padding-right: 8px;
         white-space: nowrap;
     }
