@@ -12,9 +12,11 @@ import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { lang } from '../../theme-provider';
 import { DurationFormatter } from './models/duration-formatter';
 import { tableColumnDurationTextGroupHeaderViewTag } from './group-header-view';
+import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
 export type TableColumnDurationTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnDurationTextColumnConfig {
+export interface TableColumnDurationTextColumnConfig
+    extends TableColumnTextBaseColumnConfig {
     formatter: DurationFormatter;
 }
 
@@ -45,6 +47,10 @@ export class TableColumnDurationText extends TableColumnTextBase {
         lang.unsubscribe(this.langSubscriber, this);
     }
 
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
+    }
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
@@ -58,14 +64,11 @@ export class TableColumnDurationText extends TableColumnTextBase {
     private updateColumnConfig(): void {
         const formatter = new DurationFormatter(lang.getValueFor(this));
 
-        if (formatter) {
-            const columnConfig: TableColumnDurationTextColumnConfig = {
-                formatter
-            };
-            this.columnInternals.columnConfig = columnConfig;
-        } else {
-            this.columnInternals.columnConfig = undefined;
-        }
+        const columnConfig: TableColumnDurationTextColumnConfig = {
+            formatter,
+            placeholder: this.placeholder
+        };
+        this.columnInternals.columnConfig = columnConfig;
     }
 }
 

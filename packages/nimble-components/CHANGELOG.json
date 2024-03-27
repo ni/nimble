@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 27 Mar 2024 18:54:51 GMT",
+      "version": "24.1.0",
+      "tag": "@ni/nimble-components_v24.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a01932bbdb941553a899b8b193af5acf6f67cadd",
+            "comment": "Add placeholders to table columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Mar 2024 14:48:28 GMT",
+      "version": "24.0.1",
+      "tag": "@ni/nimble-components_v24.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fec2d9cdcacc4b6141a9ad3f3f92feb6368701b7",
+            "comment": "Initial SB 8 upgrade"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Mar 2024 12:05:29 GMT",
+      "version": "24.0.1",
+      "tag": "@ni/nimble-components_v24.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c6d99d8923082bee7a68c244c60d36be339f0ee3",
+            "comment": "Created new computations experimental module and tested it, created new data manager experimental and integrated with hover and old renderer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 Mar 2024 20:45:41 GMT",
       "version": "24.0.0",
       "tag": "@ni/nimble-components_v24.0.0",

@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 26 Mar 2024 20:45:41 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Mar 2024 18:54:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.0
+
+Wed, 27 Mar 2024 18:54:51 GMT
+
+### Minor changes
+
+- Add placeholders to table columns ([ni/nimble@a01932b](https://github.com/ni/nimble/commit/a01932bbdb941553a899b8b193af5acf6f67cadd))
+
+## 24.0.1
+
+Wed, 27 Mar 2024 12:05:29 GMT
+
+### Patches
+
+- Created new computations experimental module and tested it, created new data manager experimental and integrated with hover and old renderer ([ni/nimble@c6d99d8](https://github.com/ni/nimble/commit/c6d99d8923082bee7a68c244c60d36be339f0ee3))
 
 ## 24.0.0
 
