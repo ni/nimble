@@ -25,6 +25,7 @@ export const sharedMatrixParameters = () => ({
 }) as const;
 
 type MakeTupleEntriesArrays<T> = { [K in keyof T]: readonly T[K][] };
+
 /**
  * Calculates the cartesian product of an array of sets.
  */
@@ -50,23 +51,22 @@ export function cartesianProduct<T extends readonly unknown[]>(
 }
 
 /**
- * Takes a template rendered with an array of states.
+ * Passes each of the given state combinations into a template function and returns the combined output.
  */
 function createMatrixFromStates<T extends readonly unknown[]>(
     component: (...states: T) => ViewTemplate,
     states: T[]
 ): ViewTemplate {
-    const matrix = states.map(state => component(...state));
     // prettier-ignore
     return html`
-    ${repeat(() => matrix, html`
-        ${(x: ViewTemplate): ViewTemplate => x}
+    ${repeat(() => states, html`
+        ${(x: T): ViewTemplate => component(...x)}
     `)}
 `;
 }
 
 /**
- * Takes a template rendered with the cartesian product the provided states.
+ * Creates a template that renders all combinations of states in the given dimensions.
  */
 export function createMatrix<T extends readonly unknown[]>(
     component: (...states: T) => ViewTemplate,
