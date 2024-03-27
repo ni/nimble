@@ -83,9 +83,9 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: "!(refs/heads/main)" # Use TurboSnap for PR builds
           externals: |
-            - 'packages/nimble-components/.storybook/**'
-            - 'packages/nimble-tokens/dist/icons/svg/**'
-            - 'packages/nimble-tokens/source/styledictionary/properties/**'
+            - packages/nimble-components/.storybook/**
+            - packages/nimble-tokens/dist/icons/svg/**
+            - packages/nimble-tokens/source/styledictionary/properties/**
           storybookBaseDir: packages/nimble-components
           storybookBuildDir: packages/site/dist/storybook
           exitOnceUploaded: true # Do not wait for test results
