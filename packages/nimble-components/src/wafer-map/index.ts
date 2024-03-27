@@ -247,6 +247,7 @@ export class WaferMap<
      * The hover does not require an event update, but it's also the last update in the sequence.
      */
     public async update(): Promise<void> {
+        this.zoomHandler.connect();
         this.validate();
         if (this.validity.invalidDiesTableSchema) {
             return;
@@ -258,7 +259,6 @@ export class WaferMap<
         this.dataManager = this.isExperimentalRenderer()
             ? this.experimentalDataManager
             : this.stableDataManager;
-        this.zoomHandler.disconnect();
         if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
             this.dataManager.updateContainerDimensions();
             await this.renderer.updateSortedDiesAndDrawWafer();
@@ -276,7 +276,6 @@ export class WaferMap<
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
-        this.zoomHandler.connect();
     }
 
     /**
