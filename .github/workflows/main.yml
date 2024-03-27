@@ -78,7 +78,7 @@ jobs:
       # Publish to Chromatic (from any push)
       - name: Publish to Chromatic
         if: env.HAS_CHROMATIC_PROJECT_TOKEN == 'true' && github.event_name == 'push'
-        uses: chromaui/action@v11
+        uses: chromaui/action@v10
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
