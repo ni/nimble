@@ -247,7 +247,6 @@ describe('TableColumnDateText', () => {
         });
 
         it('sets group header text to rendered date value', async () => {
-            table.style.width = '200px';
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
             await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
