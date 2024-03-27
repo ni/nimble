@@ -78,15 +78,15 @@ jobs:
       # Publish to Chromatic (from any push)
       - name: Publish to Chromatic
         if: env.HAS_CHROMATIC_PROJECT_TOKEN == 'true' && github.event_name == 'push'
-        uses: chromaui/action@v10
+        uses: chromaui/action@v11
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
           workingDir: packages/nimble-components
           externals: |
-            - 'packages/nimble-components/.storybook/**'
-            - 'packages/nimble-tokens/dist/icons/svg/**'
-            - 'packages/nimble-tokens/source/styledictionary/properties/**'
+            - '.storybook/**'
+            - '../nimble-tokens/dist/icons/svg/**'
+            - '../nimble-tokens/source/styledictionary/properties/**'
           storybookBuildDir: ../../packages/site/dist/storybook
           storybookBaseDir: packages/nimble-components
           exitOnceUploaded: true # Do not wait for test results
