@@ -13,6 +13,12 @@ public partial class NimbleTableColumnText : NimbleTableColumn, IFractionalWidth
     public string FieldName { get; set; } = null!;
 
     /// <summary>
+    /// The placeholder to display in a cell whose record value is null.
+    /// </summary>
+    [Parameter]
+    public string? Placeholder { get; set; }
+
+    /// <summary>
     /// The fractional/proportional width to use for this column
     /// </summary>
     [Parameter]
