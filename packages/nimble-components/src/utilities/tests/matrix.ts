@@ -103,7 +103,7 @@ export const createMatrixThemeStory = <TSource>(
     };
 };
 
-export function createMatrixInteractionsfromStates<
+export function createMatrixInteractionsFromStates<
     THover extends readonly unknown[],
     THoverActive extends readonly unknown[],
     TActive extends readonly unknown[],

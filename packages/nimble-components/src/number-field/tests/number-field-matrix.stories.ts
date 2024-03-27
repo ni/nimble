@@ -7,7 +7,7 @@ import {
     createMatrix,
     sharedMatrixParameters,
     cartesianProduct,
-    createMatrixInteractionsfromStates
+    createMatrixInteractionsFromStates
 } from '../../utilities/tests/matrix';
 import {
     disabledStates,
@@ -99,7 +99,7 @@ const interactionStates = cartesianProduct([
 ] as const);
 
 export const numberFieldInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrixInteractionsfromStates(component, {
+    createMatrixInteractionsFromStates(component, {
         hover: interactionStatesHover,
         hoverActive: interactionStates,
         active: interactionStates,
