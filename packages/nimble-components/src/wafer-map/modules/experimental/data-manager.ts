@@ -1,14 +1,14 @@
-import type { ScaleBand, ScaleQuantile } from 'd3-scale';
+import type { ScaleLinear } from 'd3-scale';
 import { Computations } from './computations';
-import { Prerendering } from './prerendering';
-import type { WaferMap } from '..';
+import { Prerendering } from '../prerendering';
+import type { WaferMap } from '../..';
 import type {
     Dimensions,
     Margin,
     DieRenderInfo,
     WaferMapDie,
     PointCoordinates
-} from '../types';
+} from '../../types';
 
 /**
  * Data Manager uses Computations and Prerendering modules in order and exposes the results
@@ -22,28 +22,16 @@ export class DataManager {
         return this.computations.dieDimensions;
     }
 
-    public get radius(): number {
-        return this.computations.radius;
-    }
-
     public get margin(): Margin {
         return this.computations.margin;
     }
 
-    public get horizontalScale(): ScaleBand<number> {
+    public get horizontalScale(): ScaleLinear<number, number> {
         return this.computations.horizontalScale;
     }
 
-    public get invertedHorizontalScale(): ScaleQuantile<number, number> {
-        return this.computations.invertedHorizontalScale;
-    }
-
-    public get verticalScale(): ScaleBand<number> {
+    public get verticalScale(): ScaleLinear<number, number> {
         return this.computations.verticalScale;
-    }
-
-    public get invertedVerticalScale(): ScaleQuantile<number, number> {
-        return this.computations.invertedVerticalScale;
     }
 
     public get labelsFontSize(): number {

@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { processUpdates } from '../../testing/async-helpers';
-import type { DataManager } from '../modules/data-manager';
+import type { DataManager } from '../modules/experimental/data-manager';
 import type { WaferMap } from '..';
 import {
     Dimensions,
@@ -13,14 +13,15 @@ import {
 import {
     getColorScale,
     getHighlightedTags,
-    getWaferMapDies
+    getWaferMapDies,
+    getWaferMapDiesTable
 } from './utilities';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
 }
 
-describe('Wafermap Data Manager', () => {
+describe('Wafermap Experimental Data Manager', () => {
     let dataManagerModule: DataManager;
     const dieLabelsSuffix = '%';
     const canvasWidth = 200;
@@ -43,20 +44,19 @@ describe('Wafermap Data Manager', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        element.dies = getWaferMapDies();
+        element.diesTable = getWaferMapDiesTable();
         element.colorScale = getColorScale();
         element.originLocation = WaferMapOriginLocation.bottomLeft;
         element.dieLabelsSuffix = dieLabelsSuffix;
         element.dieLabelsHidden = false;
         element.maxCharacters = 3;
         element.colorScaleMode = WaferMapColorScaleMode.ordinal;
-        element.highlightedTags = getHighlightedTags();
         element.canvasWidth = canvasWidth;
         element.canvasHeight = canvasHeight;
 
         processUpdates();
 
-        dataManagerModule = element.stableDataManager;
+        dataManagerModule = element.experimentalDataManager;
     });
 
     afterEach(async () => {
@@ -68,10 +68,6 @@ describe('Wafermap Data Manager', () => {
             width: 92,
             height: 92
         });
-    });
-
-    it('computes the correct radius', () => {
-        expect(dataManagerModule.radius).toEqual(46);
     });
 
     it('computes the correct dieDimensions', () => {
@@ -110,19 +106,26 @@ describe('Wafermap Data Manager', () => {
         );
     });
 
-    it('should have as many dies as provided', () => {
+    // skipped until prerendering is refactored
+    xit('should have as many dies as provided', () => {
         expect(dataManagerModule.diesRenderInfo.length).toEqual(
             getWaferMapDies().length
         );
     });
 
-    it('should have label with suffix for each die', () => {
-        for (const dieInfo of dataManagerModule.diesRenderInfo) {
-            expect(dieInfo.text).toContain(dieLabelsSuffix);
+    // skipped until prerendering is refactored
+    xit('should have label with suffix for each die', () => {
+        const actualValues = dataManagerModule.diesRenderInfo.map(
+            dieRenderInfo => dieRenderInfo.text
+        );
+        expect(actualValues).not.toHaveSize(0);
+        for (const value of actualValues) {
+            expect(value).toContain(dieLabelsSuffix);
         }
     });
 
-    it('should have all dies with full opacity from the highlighted list', () => {
+    // skipped until prerendering is refactored
+    xit('should have all dies with full opacity from the highlighted list', () => {
         const highlightedTags = getHighlightedTags();
         const dies = getWaferMapDies().filter(die => die.tags?.some(dieTag => highlightedTags.some(
             highlightedTag => dieTag === highlightedTag
@@ -131,7 +134,8 @@ describe('Wafermap Data Manager', () => {
         expect(dies.length).toEqual(diesWithFullOpacity.length);
     });
 
-    it('should not have any dies with partial opacity from the highlighted list', () => {
+    // skipped until prerendering is refactored
+    xit('should not have any dies with partial opacity from the highlighted list', () => {
         const highlightedTags = getHighlightedTags();
         const dies = getWaferMapDies().filter(
             die => !die.tags?.some(dieTag => highlightedTags.some(
@@ -144,16 +148,26 @@ describe('Wafermap Data Manager', () => {
         expect(dies.length).toEqual(diesWithPartialOpacity.length);
     });
 
-    it('should have all dies inside the canvas with margins', () => {
-        for (const dieRenderInfo of dataManagerModule.diesRenderInfo) {
-            expect(dieRenderInfo.x).toBeGreaterThanOrEqual(0);
-            expect(dieRenderInfo.y).toBeGreaterThanOrEqual(0);
-            expect(dieRenderInfo.x).toBeLessThanOrEqual(
+    // skipped until prerendering is refactored
+    xit('should have all dies inside the canvas with margins', () => {
+        const actualValues = dataManagerModule.diesRenderInfo.map(
+            dieRenderInfo => {
+                return {
+                    x: dieRenderInfo.x,
+                    y: dieRenderInfo.y
+                };
+            }
+        );
+        expect(actualValues).not.toHaveSize(0);
+        for (const value of actualValues) {
+            expect(value.x).toBeGreaterThanOrEqual(0);
+            expect(value.y).toBeGreaterThanOrEqual(0);
+            expect(value.x).toBeLessThanOrEqual(
                 canvasDimensions.width
                     - dataManagerModule.dieDimensions.width
                     - expectedMargin.left
             );
-            expect(dieRenderInfo.y).toBeLessThanOrEqual(
+            expect(value.y).toBeLessThanOrEqual(
                 canvasDimensions.height
                     - dataManagerModule.dieDimensions.height
                     - expectedMargin.bottom

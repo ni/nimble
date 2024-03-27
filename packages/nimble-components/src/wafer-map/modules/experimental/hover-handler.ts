@@ -1,5 +1,5 @@
-import type { WaferMap } from '..';
-import { PointCoordinates, WaferMapOriginLocation } from '../types';
+import type { WaferMap } from '../..';
+import { PointCoordinates, WaferMapOriginLocation } from '../../types';
 import { DataManager } from './data-manager';
 
 /**
@@ -24,25 +24,19 @@ export class HoverHandler {
         this.wafermap.removeEventListener('mouseout', this.onMouseOut);
     }
 
-    private readonly onMouseMove = (event: MouseEvent): void => {
-        if (this.wafermap.isExperimentalRenderer()) {
-            return;
-        }
-        const mousePosition: PointCoordinates = {
-            x: event.offsetX,
-            y: event.offsetY
-        };
-
-        if (!this.hoversOverDie(mousePosition)) {
-            this.wafermap.hoverDie = undefined;
+    /**
+     * @internal
+     * keep public for testing until data manager refactor
+     */
+    public readonly onMouseMove = (event: MouseEvent): void => {
+        if (!this.wafermap.isExperimentalRenderer()) {
             return;
         }
         // get original mouse position in case we are in zoom.
         const invertedPoint = this.wafermap.transform.invert([
-            mousePosition.x,
-            mousePosition.y
+            event.offsetX,
+            event.offsetY
         ]);
-
         const dieCoordinates = this.calculateDieCoordinates({
             x: invertedPoint[0],
             y: invertedPoint[1]
@@ -51,8 +45,28 @@ export class HoverHandler {
             this.wafermap.hoverDie = undefined;
             return;
         }
+        const colIndex = this.wafermap
+            .diesTable!.getChild('colIndex')!
+            .toArray();
+        const rowIndex = this.wafermap
+            .diesTable!.getChild('rowIndex')!
+            .toArray();
 
-        this.wafermap.hoverDie = this.wafermap.dataManager.getWaferMapDie(dieCoordinates);
+        // will replace iterating with arquero filtering after fixing errors
+        for (let i = 0; i < colIndex.length; i++) {
+            if (
+                colIndex[i] === dieCoordinates.x
+                && rowIndex[i] === dieCoordinates.y
+            ) {
+                this.wafermap.hoverDie = {
+                    index: i,
+                    x: dieCoordinates.x,
+                    y: dieCoordinates.y
+                };
+                return;
+            }
+        }
+        this.wafermap.hoverDie = undefined;
     };
 
     private readonly onMouseOut = (_event: MouseEvent): void => {
@@ -63,7 +77,7 @@ export class HoverHandler {
         mousePosition: PointCoordinates
     ): PointCoordinates | undefined {
         if (
-            !this.wafermap.isExperimentalRenderer()
+            this.wafermap.isExperimentalRenderer()
             && this.wafermap.dataManager instanceof DataManager
         ) {
             const originLocation = this.wafermap.originLocation;
@@ -73,35 +87,21 @@ export class HoverHandler {
                 : Math.ceil;
             const yRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
                 || originLocation === WaferMapOriginLocation.bottomRight
-                ? Math.floor
-                : Math.ceil;
+                ? Math.ceil
+                : Math.floor;
             // go to x and y scale to get the x,y values of the die.
             const x = xRoundFunction(
-                this.wafermap.dataManager.invertedHorizontalScale(
+                this.wafermap.dataManager.horizontalScale.invert(
                     mousePosition.x - this.wafermap.dataManager.margin.left
                 )
             );
             const y = yRoundFunction(
-                this.wafermap.dataManager.invertedVerticalScale(
+                this.wafermap.dataManager.verticalScale.invert(
                     mousePosition.y - this.wafermap.dataManager.margin.top
                 )
             );
             return { x, y };
         }
         return undefined;
-    }
-
-    private hoversOverDie(mousePosition: PointCoordinates): boolean {
-        const rgba = this.wafermap.canvasContext.getImageData(
-            mousePosition.x,
-            mousePosition.y,
-            1,
-            1
-        ).data;
-        let rgbaSum = 0;
-        for (const color of rgba) {
-            rgbaSum += color;
-        }
-        return rgbaSum > 0;
     }
 }

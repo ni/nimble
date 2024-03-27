@@ -79,9 +79,9 @@ When generating a change file, follow these guidelines:
 2. Write a brief but useful description with Nimble clients in mind. If making a major (breaking) change, explain what clients need to do to adopt it. The description can be plain text or [markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax), with newlines specified via `\n` if needed.
 3. If you prefer not to expose your email address to the world, [configure GitHub to "Keep my email address private"](https://github.com/settings/emails) before generating the change file.
 
-### NPM audit
+### Dependency Review
 
-The repository runs [`npm audit`](https://docs.npmjs.com/cli/v8/commands/npm-audit) to prevent submissions if any dependencies have known vulnerabilities. This can occur during on a PR that introduces a new dependency version or on an unrelated PR if a vulnerability was recently reported on an existing dependency. If this check fails, our options include:
+The repository runs the [Dependency Review](https://github.com/actions/dependency-review-action) action to prevent submissions if any dependencies have known vulnerabilities. This can occur during on a PR that introduces a new dependency version or on an unrelated PR if a vulnerability was recently reported on an existing dependency. If this check fails, our options include:
 
 #### Vulnerabilities with fixes available
 
@@ -93,7 +93,7 @@ The repository runs [`npm audit`](https://docs.npmjs.com/cli/v8/commands/npm-aud
 If a fix for the vulnerability isn't available or if it isn't practical to uptake the fix, our options include:
 
 1. Remove the vulnerable dependency and find a different way to achieve the same functionality.
-2. Temporarily use a more lenient [audit level](https://docs.npmjs.com/cli/v8/commands/npm-audit#audit-level) for this repository (e.g. allowing `low` or `moderate` vulnerabilities). We should ensure there is an issue on the dependency's repository asking them to fix the vulnerability and also file an issue against this repository to track fixing the vulnerability and restoring strict auditing.
+2. Dismiss the alert in the [GitHub Security - Dependabot](https://github.com/ni/nimble/security/dependabot) dashboard, and document your rationale for doing so. We should ensure there is an issue on the dependency's repository asking them to fix the vulnerability and also file an issue against this repository to track fixing the vulnerability and restoring strict auditing.
 
 
 ### Chromatic visual component tests
