@@ -61,21 +61,21 @@ const getDiesSet = (
             break;
         case 'goodDies100':
             returnedValue = generateWaferData(
-                100,
+                2 * (10 ** 5),
                 goodValueGenerator(seed),
                 highlightedValueGenerator(seed)
             );
             break;
         case 'goodDies1000':
             returnedValue = generateWaferData(
-                10 ** 5,
+                10 ** 6,
                 goodValueGenerator(seed),
                 highlightedValueGenerator(seed)
             )!;
             break;
         case 'badDies10000':
             returnedValue = generateWaferData(
-                10 ** 6,
+                10 ** 7,
                 badValueGenerator(seed),
                 highlightedValueGenerator(seed)
             )!;
@@ -95,19 +95,19 @@ const getDiesTableSet = (setName: string, sets: Table[]): Table | undefined => {
             break;
         case 'goodDies100':
             returnedValue = generateWaferTableData(
-                100,
+                2 * (10 ** 5),
                 goodValueGenerator(seed)
             );
             break;
         case 'goodDies1000':
             returnedValue = generateWaferTableData(
-                10 ** 5,
+                10 ** 6,
                 goodValueGenerator(seed)
             )!;
             break;
         case 'badDies10000':
             returnedValue = generateWaferTableData(
-                10 ** 6,
+                10 ** 7,
                 badValueGenerator(seed)
             )!;
             break;
