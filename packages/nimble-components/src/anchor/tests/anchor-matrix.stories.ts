@@ -14,7 +14,7 @@ import { anchorTag } from '..';
 
 export const appearanceStates = [
     ['Default', AnchorAppearance.default],
-    ['prominent', AnchorAppearance.prominent]
+    ['Prominent', AnchorAppearance.prominent]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 

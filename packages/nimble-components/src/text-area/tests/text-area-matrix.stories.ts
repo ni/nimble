@@ -20,18 +20,18 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 import { textAreaTag } from '..';
 
+const appearanceStates = [
+    ['Outline', TextAreaAppearance.outline],
+    ['Block', TextAreaAppearance.block]
+] as const;
+type AppearanceState = (typeof appearanceStates)[number];
+
 const valueStates = [
     ['Placeholder', null, 'placeholder'],
     ['Value', 'Hello', null],
     ['Long Value', loremIpsum, null]
 ] as const;
 type ValueState = (typeof valueStates)[number];
-
-const appearanceStates = [
-    ['Outline', TextAreaAppearance.outline],
-    ['Block', TextAreaAppearance.block]
-] as const;
-type AppearanceState = (typeof appearanceStates)[number];
 
 const metadata: Meta = {
     title: 'Tests/Text Area',

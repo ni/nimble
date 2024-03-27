@@ -16,8 +16,8 @@ import { tabsToolbarTag } from '../../tabs-toolbar';
 import { tabsTag } from '..';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
-const tabsToolbarState = [false, true] as const;
-type TabsToolbarState = (typeof tabsToolbarState)[number];
+const tabsToolbarStates = [false, true] as const;
+type TabsToolbarState = (typeof tabsToolbarStates)[number];
 
 const metadata: Meta = {
     title: 'Tests/Tabs',
@@ -52,7 +52,7 @@ const component = (
 `;
 
 export const tabsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [tabsToolbarState, disabledStates])
+    createMatrix(component, [tabsToolbarStates, disabledStates])
 );
 
 export const hiddenTabs: StoryFn = createStory(
