@@ -20,7 +20,7 @@ public partial class NimbleTableColumnAnchor : NimbleTableColumn, IFractionalWid
     public string HrefFieldName { get; set; } = null!;
 
     /// <summary>
-    /// The placeholder to display in a cell whose record value is null.
+    /// The placeholder text to display when the label and href are both null for a record.
     /// </summary>
     [Parameter]
     public string? Placeholder { get; set; }

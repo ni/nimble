@@ -13,7 +13,7 @@ public partial class NimbleTableColumnDateText : NimbleTableColumn, IFractionalW
     public string FieldName { get; set; } = null!;
 
     /// <summary>
-    /// The placeholder to display in a cell whose record value is null.
+    /// The placeholder text to display when the field value is null for a record.
     /// </summary>
     [Parameter]
     public string? Placeholder { get; set; }
