@@ -2,7 +2,7 @@ import type { ScaleLinear } from 'd3-scale';
 import { Computations } from './computations';
 import { Prerendering } from './prerendering';
 import type { WaferMap } from '../..';
-import type { Dimensions, Margin } from '../../types';
+import type { ColorScale, Dimensions, Margin } from '../../types';
 
 /**
  * Data Manager uses Computations and Prerendering modules in order and exposes the results
@@ -32,10 +32,7 @@ export class DataManager {
         return this.prerendering.labelsFontSize;
     }
 
-    public get colorScale(): {
-        colors: string[],
-        values: number[]
-    } {
+    public get colorScale(): ColorScale {
         return this.prerendering.colorScale;
     }
 
