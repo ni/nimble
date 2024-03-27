@@ -29,7 +29,7 @@ type ValueState = (typeof valueStates)[number];
 
 const appearanceStates = [
     ['Outline', TextAreaAppearance.outline],
-    ['Block', TextAreaAppearance.block],
+    ['Block', TextAreaAppearance.block]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 

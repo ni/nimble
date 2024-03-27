@@ -19,7 +19,7 @@ import { SpinnerAppearance } from '../types';
 
 const appearanceStates = [
     ['Default', SpinnerAppearance.default],
-    ['Accent', SpinnerAppearance.accent],
+    ['Accent', SpinnerAppearance.accent]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 

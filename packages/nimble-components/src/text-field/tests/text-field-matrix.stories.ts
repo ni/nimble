@@ -49,7 +49,7 @@ const appearanceStates = [
     ['Underline', TextFieldAppearance.underline],
     ['Outline', TextFieldAppearance.outline],
     ['Block', TextFieldAppearance.block],
-    ['Frameless', TextFieldAppearance.frameless],
+    ['Frameless', TextFieldAppearance.frameless]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 

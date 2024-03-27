@@ -28,7 +28,7 @@ type IconVisibleState = (typeof iconVisibleStates)[number];
 const severityStates = [
     ['Default', TooltipSeverity.default],
     ['Error', TooltipSeverity.error],
-    ['Information', TooltipSeverity.information],
+    ['Information', TooltipSeverity.information]
 ] as const;
 type SeverityState = (typeof severityStates)[number];
 

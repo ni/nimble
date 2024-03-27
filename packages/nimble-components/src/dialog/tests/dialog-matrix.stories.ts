@@ -16,8 +16,14 @@ import {
 } from '../../theme-provider/design-tokens';
 
 const sizeStates = [
-    ['Small Dialog', `width: var(${dialogSmallWidth.cssCustomProperty}); height: var(${dialogSmallHeight.cssCustomProperty}); max-height: var(${dialogSmallMaxHeight.cssCustomProperty});`],
-    ['Large Dialog', `width: var(${dialogLargeWidth.cssCustomProperty}); height: var(${dialogLargeHeight.cssCustomProperty}); max-height: var(${dialogLargeMaxHeight.cssCustomProperty});`],
+    [
+        'Small Dialog',
+        `width: var(${dialogSmallWidth.cssCustomProperty}); height: var(${dialogSmallHeight.cssCustomProperty}); max-height: var(${dialogSmallMaxHeight.cssCustomProperty});`
+    ],
+    [
+        'Large Dialog',
+        `width: var(${dialogLargeWidth.cssCustomProperty}); height: var(${dialogLargeHeight.cssCustomProperty}); max-height: var(${dialogLargeMaxHeight.cssCustomProperty});`
+    ]
 ] as const;
 type SizeState = (typeof sizeStates)[number];
 
@@ -43,7 +49,10 @@ const component = html`
     </${dialogTag}>
 `;
 
-const dialogSizingTestCase = ([sizeName, size]: SizeState): ViewTemplate => html`
+const dialogSizingTestCase = ([
+    sizeName,
+    size
+]: SizeState): ViewTemplate => html`
     <p class="spacer">${() => sizeName}</p>
     <style>
         ${dialogTag}::part(control) {

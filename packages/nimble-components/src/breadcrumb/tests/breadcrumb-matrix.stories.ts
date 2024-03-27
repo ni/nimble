@@ -14,7 +14,7 @@ import { breadcrumbItemTag } from '../../breadcrumb-item';
 
 const appearanceStates = [
     ['Default', BreadcrumbAppearance.default],
-    ['Prominent', BreadcrumbAppearance.prominent],
+    ['Prominent', BreadcrumbAppearance.prominent]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 

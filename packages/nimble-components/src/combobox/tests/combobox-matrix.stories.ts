@@ -27,7 +27,7 @@ import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 const appearanceStates = [
     ['Block', DropdownAppearance.block],
     ['Outline', DropdownAppearance.outline],
-    ['Underline', DropdownAppearance.underline],
+    ['Underline', DropdownAppearance.underline]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 

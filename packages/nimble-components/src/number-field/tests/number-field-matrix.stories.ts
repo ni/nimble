@@ -20,7 +20,7 @@ import { numberFieldTag } from '..';
 const appearanceStates = [
     ['Underline', NumberFieldAppearance.underline],
     ['Outline', NumberFieldAppearance.outline],
-    ['Block', NumberFieldAppearance.block],
+    ['Block', NumberFieldAppearance.block]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 

@@ -40,7 +40,7 @@ const severityStates = [
     ['Default', BannerSeverity.default],
     ['Error', BannerSeverity.error],
     ['Warning', BannerSeverity.warning],
-    ['Information', BannerSeverity.information],
+    ['Information', BannerSeverity.information]
 ] as const;
 type SeverityState = (typeof severityStates)[number];
 

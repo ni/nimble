@@ -20,7 +20,7 @@ import {
 const alignmentStates = [
     ['Default', NumberTextAlignment.default],
     ['Left', NumberTextAlignment.left],
-    ['Right', NumberTextAlignment.right],
+    ['Right', NumberTextAlignment.right]
 ] as const;
 type AlignmentState = (typeof alignmentStates)[number];
 

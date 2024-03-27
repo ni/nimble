@@ -16,7 +16,7 @@ const severityStates = [
     ['Error', IconSeverity.error],
     ['Warning', IconSeverity.warning],
     ['Success', IconSeverity.success],
-    ['Information', IconSeverity.information],
+    ['Information', IconSeverity.information]
 ] as const;
 type SeverityState = (typeof severityStates)[number];
 
