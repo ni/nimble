@@ -1,6 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
@@ -13,6 +12,12 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 import { breadcrumbTag } from '..';
 import { breadcrumbItemTag } from '../../breadcrumb-item';
 
+const appearanceStates = [
+    ['Default', BreadcrumbAppearance.default],
+    ['Prominent', BreadcrumbAppearance.prominent],
+] as const;
+type AppearanceState = (typeof appearanceStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Breadcrumb',
     parameters: {
@@ -21,11 +26,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const appearanceStates: [string, string | undefined][] = Object.entries(
-    BreadcrumbAppearance
-).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = (typeof appearanceStates)[number];
 
 const component = ([
     appearanceName,

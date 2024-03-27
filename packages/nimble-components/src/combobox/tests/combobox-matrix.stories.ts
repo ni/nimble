@@ -1,6 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
@@ -25,6 +24,13 @@ import { comboboxTag } from '..';
 import { listOptionTag } from '../../list-option';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
+const appearanceStates = [
+    ['Block', DropdownAppearance.block],
+    ['Outline', DropdownAppearance.outline],
+    ['Underline', DropdownAppearance.underline],
+] as const;
+type AppearanceState = (typeof appearanceStates)[number];
+
 const valueStates = [
     ['No Value', undefined, 'placeholder'],
     ['Short Value', 'Hello', 'placeholder'],
@@ -40,12 +46,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const appearanceStates = Object.entries(DropdownAppearance).map(
-    ([key, value]) => [pascalCase(key), value]
-);
-
-type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (

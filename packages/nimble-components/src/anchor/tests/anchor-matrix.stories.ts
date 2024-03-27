@@ -1,6 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -13,14 +12,11 @@ import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import { anchorTag } from '..';
 
-const metadata: Meta = {
-    title: 'Tests/Anchor',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
+export const appearanceStates = [
+    ['Default', AnchorAppearance.default],
+    ['prominent', AnchorAppearance.prominent]
+] as const;
+type AppearanceState = (typeof appearanceStates)[number];
 
 const disabledStates = [
     ['', 'https://nimble.ni.dev'],
@@ -34,10 +30,14 @@ const underlineHiddenStates = [
 ] as const;
 type UnderlineHiddenState = (typeof underlineHiddenStates)[number];
 
-const appearanceStates: [string, string | undefined][] = Object.entries(
-    AnchorAppearance
-).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = (typeof appearanceStates)[number];
+const metadata: Meta = {
+    title: 'Tests/Anchor',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = (

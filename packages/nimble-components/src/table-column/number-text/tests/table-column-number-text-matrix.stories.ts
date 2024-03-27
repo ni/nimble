@@ -1,6 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrixThemeStory,
     createMatrix,
@@ -18,14 +17,12 @@ import {
     type PlaceholderState
 } from '../../../utilities/tests/states';
 
-const metadata: Meta = {
-    title: 'Tests/Table Column: Number Text',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
+const alignmentStates = [
+    ['Default', NumberTextAlignment.default],
+    ['Left', NumberTextAlignment.left],
+    ['Right', NumberTextAlignment.right],
+] as const;
+type AlignmentState = (typeof alignmentStates)[number];
 
 const data = [
     {
@@ -41,10 +38,14 @@ const data = [
     }
 ] as const;
 
-const alignmentStates: [string, string | undefined][] = Object.entries(
-    NumberTextAlignment
-).map(([key, value]) => [pascalCase(key), value]);
-type AlignmentState = (typeof alignmentStates)[number];
+const metadata: Meta = {
+    title: 'Tests/Table Column: Number Text',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = (

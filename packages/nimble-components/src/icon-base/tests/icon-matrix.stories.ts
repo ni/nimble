@@ -1,6 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -12,6 +11,15 @@ import { bodyFontColor } from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { iconCheckTag } from '../../icons/check';
 
+const severityStates = [
+    ['Default', IconSeverity.default],
+    ['Error', IconSeverity.error],
+    ['Warning', IconSeverity.warning],
+    ['Success', IconSeverity.success],
+    ['Information', IconSeverity.information],
+] as const;
+type SeverityState = (typeof severityStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Icon',
     parameters: {
@@ -20,11 +28,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const severityStates: [string, string | undefined][] = Object.entries(
-    IconSeverity
-).map(([key, value]) => [pascalCase(key), value]);
-type SeverityState = (typeof severityStates)[number];
 
 const component = ([stateName, state]: SeverityState): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">

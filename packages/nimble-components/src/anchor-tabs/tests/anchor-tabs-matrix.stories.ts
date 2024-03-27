@@ -14,6 +14,9 @@ import { anchorTabTag } from '../../anchor-tab';
 import { tabsToolbarTag } from '../../tabs-toolbar';
 import { buttonTag } from '../../button';
 
+const tabsToolbarState = [false, true] as const;
+type TabsToolbarState = (typeof tabsToolbarState)[number];
+
 const metadata: Meta = {
     title: 'Tests/Anchor Tabs',
     parameters: {
@@ -22,9 +25,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const tabsToolbarState = [false, true] as const;
-type TabsToolbarState = (typeof tabsToolbarState)[number];
 
 // prettier-ignore
 const component = (

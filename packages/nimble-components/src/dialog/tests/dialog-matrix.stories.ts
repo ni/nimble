@@ -15,6 +15,12 @@ import {
     dialogSmallWidth
 } from '../../theme-provider/design-tokens';
 
+const sizeStates = [
+    ['Small Dialog', `width: var(${dialogSmallWidth.cssCustomProperty}); height: var(${dialogSmallHeight.cssCustomProperty}); max-height: var(${dialogSmallMaxHeight.cssCustomProperty});`],
+    ['Large Dialog', `width: var(${dialogLargeWidth.cssCustomProperty}); height: var(${dialogLargeHeight.cssCustomProperty}); max-height: var(${dialogLargeMaxHeight.cssCustomProperty});`],
+] as const;
+type SizeState = (typeof sizeStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Dialog',
     parameters: {
@@ -23,12 +29,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const sizeStates = [
-    `width: var(${dialogSmallWidth.cssCustomProperty}); height: var(${dialogSmallHeight.cssCustomProperty}); max-height: var(${dialogSmallMaxHeight.cssCustomProperty});`,
-    `width: var(${dialogLargeWidth.cssCustomProperty}); height: var(${dialogLargeHeight.cssCustomProperty}); max-height: var(${dialogLargeMaxHeight.cssCustomProperty});`
-] as const;
-type SizeState = (typeof sizeStates)[number];
 
 const component = html`
     <${dialogTag}>
@@ -43,8 +43,8 @@ const component = html`
     </${dialogTag}>
 `;
 
-const dialogSizingTestCase = (size: SizeState): ViewTemplate => html`
-    <p class="spacer">${() => size};</p>
+const dialogSizingTestCase = ([sizeName, size]: SizeState): ViewTemplate => html`
+    <p class="spacer">${() => sizeName}</p>
     <style>
         ${dialogTag}::part(control) {
             ${() => size};
