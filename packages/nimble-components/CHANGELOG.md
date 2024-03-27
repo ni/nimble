@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 27 Mar 2024 12:05:29 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Mar 2024 18:54:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.0
+
+Wed, 27 Mar 2024 18:54:51 GMT
+
+### Minor changes
+
+- Add placeholders to table columns ([ni/nimble@a01932b](https://github.com/ni/nimble/commit/a01932bbdb941553a899b8b193af5acf6f67cadd))
 
 ## 24.0.1
 
