@@ -227,10 +227,9 @@ export class WaferMap<
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
-        // will switch the renderer after prerendering changes
-        // this.renderer = this.isExperimentalRenderer()
-        //     ? this.workerRenderer
-        //     : this.mainRenderer;
+        this.renderer = this.isExperimentalRenderer()
+            ? this.workerRenderer
+            : this.mainRenderer;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             // zoom translateExtent needs to be recalculated when canvas size changes
             this.zoomHandler.disconnect();

@@ -224,17 +224,22 @@ export function getWaferMapMockComputationsExperimental(
         invalidGridDimensions: false,
         invalidDiesTableSchema: false
     }
-): Pick<
+): WaferMap {
+    const waferMapMock: Pick<
     WaferMap,
-    'diesTable' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
-    > {
-    return {
+    | 'diesTable'
+    | 'originLocation'
+    | 'canvasWidth'
+    | 'canvasHeight'
+    | 'validity'
+    > = {
         diesTable,
         originLocation,
         canvasWidth,
         canvasHeight,
         validity
     };
+    return waferMapMock as WaferMap;
 }
 
 export function getWaferMapMockValidator(

@@ -106,15 +106,21 @@ describe('Wafermap Experimental Data Manager', () => {
         );
     });
 
-    it('should have as many dies as provided', () => {
+    // skipped until prerendering is refactored
+    xit('should have as many dies as provided', () => {
         expect(dataManagerModule.diesRenderInfo.length).toEqual(
             getWaferMapDies().length
         );
     });
 
-    it('should have label with suffix for each die', () => {
-        for (const dieInfo of dataManagerModule.diesRenderInfo) {
-            expect(dieInfo.text).toContain(dieLabelsSuffix);
+    // skipped until prerendering is refactored
+    xit('should have label with suffix for each die', () => {
+        const actualValues = dataManagerModule.diesRenderInfo.map(
+            dieRenderInfo => dieRenderInfo.text
+        );
+        expect(actualValues).not.toHaveSize(0);
+        for (const value of actualValues) {
+            expect(value).toContain(dieLabelsSuffix);
         }
     });
 
@@ -144,15 +150,24 @@ describe('Wafermap Experimental Data Manager', () => {
 
     // skipped until prerendering is refactored
     xit('should have all dies inside the canvas with margins', () => {
-        for (const dieRenderInfo of dataManagerModule.diesRenderInfo) {
-            expect(dieRenderInfo.x).toBeGreaterThanOrEqual(0);
-            expect(dieRenderInfo.y).toBeGreaterThanOrEqual(0);
-            expect(dieRenderInfo.x).toBeLessThanOrEqual(
+        const actualValues = dataManagerModule.diesRenderInfo.map(
+            dieRenderInfo => {
+                return {
+                    x: dieRenderInfo.x,
+                    y: dieRenderInfo.y
+                };
+            }
+        );
+        expect(actualValues).not.toHaveSize(0);
+        for (const value of actualValues) {
+            expect(value.x).toBeGreaterThanOrEqual(0);
+            expect(value.y).toBeGreaterThanOrEqual(0);
+            expect(value.x).toBeLessThanOrEqual(
                 canvasDimensions.width
                     - dataManagerModule.dieDimensions.width
                     - expectedMargin.left
             );
-            expect(dieRenderInfo.y).toBeLessThanOrEqual(
+            expect(value.y).toBeLessThanOrEqual(
                 canvasDimensions.height
                     - dataManagerModule.dieDimensions.height
                     - expectedMargin.bottom

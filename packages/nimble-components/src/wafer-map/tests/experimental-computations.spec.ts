@@ -1,5 +1,4 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import type { WaferMap } from '..';
 import { Computations } from '../modules/experimental/computations';
 import { Margin, WaferMapOriginLocation } from '../types';
 import {
@@ -24,7 +23,7 @@ describe('Wafermap Experimental Computations module', () => {
                 100,
                 100
             );
-            computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule = new Computations(waferMock);
             computationsModule.updateContainerDimensions();
         });
 
@@ -66,7 +65,7 @@ describe('Wafermap Experimental Computations module', () => {
                 200,
                 100
             );
-            computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule = new Computations(waferMock);
             computationsModule.updateContainerDimensions();
         });
 
@@ -130,7 +129,7 @@ describe('Wafermap Experimental Computations module', () => {
                     value.name,
                     100,
                     100
-                ) as WaferMap;
+                );
                 computationsModule = new Computations(waferMock);
                 computationsModule.updateContainerDimensions();
                 expect(computationsModule.horizontalScale.range()).toEqual(
