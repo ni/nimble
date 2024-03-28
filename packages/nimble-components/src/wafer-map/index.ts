@@ -250,7 +250,7 @@ export class WaferMap<
         this.zoomHandler.connect();
         this.validate();
         if (this.validity.invalidDiesTableSchema) {
-            return;
+            throw new Error('Invalid diesTable schema');
         }
         this.renderer = this.isExperimentalRenderer()
             ? this.workerRenderer
