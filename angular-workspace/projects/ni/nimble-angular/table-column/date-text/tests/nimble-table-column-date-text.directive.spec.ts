@@ -115,6 +115,7 @@ describe('NimbleTableColumnDateText', () => {
                         custom-date-style="medium"
                         custom-time-style="full"
                         custom-hour-cycle="h23"
+                        placeholder="Custom placeholder"
                     ></nimble-table-column-date-text>
                 </nimble-table>
             `
@@ -293,6 +294,11 @@ describe('NimbleTableColumnDateText', () => {
             expect(directive.customHourCycle).toBe('h23');
             expect(nativeElement.customHourCycle).toBe('h23');
         });
+
+        it('will use template string values for placeholder', () => {
+            expect(directive.placeholder).toBe('Custom placeholder');
+            expect(nativeElement.placeholder).toBe('Custom placeholder');
+        });
     });
 
     describe('with property bound values', () => {
@@ -332,6 +338,7 @@ describe('NimbleTableColumnDateText', () => {
                         [custom-date-style]="customDateStyle"
                         [custom-time-style]="customTimeStyle"
                         [custom-hour-cycle]="customHourCycle"
+                        [placeholder]="placeholder"
                     ></nimble-table-column-date-text>
                 </nimble-table>
             `
@@ -370,6 +377,7 @@ describe('NimbleTableColumnDateText', () => {
             public customDateStyle: DateStyle = 'medium';
             public customTimeStyle: TimeStyle = 'full';
             public customHourCycle: HourCycleFormat = 'h23';
+            public placeholder = 'Custom placeholder';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -980,6 +988,17 @@ describe('NimbleTableColumnDateText', () => {
             expect(directive.customHourCycle).toBeUndefined();
             expect(nativeElement.customHourCycle).toBeUndefined();
         });
+
+        it('can be configured with property binding for placeholder', () => {
+            expect(directive.placeholder).toBe('Custom placeholder');
+            expect(nativeElement.placeholder).toBe('Custom placeholder');
+
+            fixture.componentInstance.placeholder = 'Updated placeholder';
+            fixture.detectChanges();
+
+            expect(directive.placeholder).toBe('Updated placeholder');
+            expect(nativeElement.placeholder).toBe('Updated placeholder');
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -1019,6 +1038,7 @@ describe('NimbleTableColumnDateText', () => {
                         [attr.custom-date-style]="customDateStyle"
                         [attr.custom-time-style]="customTimeStyle"
                         [attr.custom-hour-cycle]="customHourCycle"
+                        [attr.placeholder]="placeholder"
                     ></nimble-table-column-date-text>
                 </nimble-table>
             `
@@ -1057,6 +1077,7 @@ describe('NimbleTableColumnDateText', () => {
             public customDateStyle: DateStyle = 'medium';
             public customTimeStyle: TimeStyle = 'full';
             public customHourCycle: HourCycleFormat = 'h23';
+            public placeholder = 'Custom placeholder';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -1666,6 +1687,17 @@ describe('NimbleTableColumnDateText', () => {
 
             expect(directive.customHourCycle).toBeNull();
             expect(nativeElement.customHourCycle).toBeNull();
+        });
+
+        it('can be configured with attribute binding for placeholder', () => {
+            expect(directive.placeholder).toBe('Custom placeholder');
+            expect(nativeElement.placeholder).toBe('Custom placeholder');
+
+            fixture.componentInstance.placeholder = 'Updated placeholder';
+            fixture.detectChanges();
+
+            expect(directive.placeholder).toBe('Updated placeholder');
+            expect(nativeElement.placeholder).toBe('Updated placeholder');
         });
     });
 });
