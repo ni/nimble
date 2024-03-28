@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 28 Mar 2024 04:22:40 GMT",
+      "version": "24.1.1",
+      "tag": "@ni/nimble-components_v24.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0973d48f069d61ba67968d2deca0ca61b44299d8",
+            "comment": "Matrix stories consistent strict enum pattern and organize states"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 28 Mar 2024 00:09:24 GMT",
       "version": "24.1.1",
       "tag": "@ni/nimble-components_v24.1.1",
