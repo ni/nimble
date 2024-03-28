@@ -11,15 +11,6 @@ import { mappingIconTag } from '../../../mapping/icon';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { isChromatic } from '../../../utilities/tests/isChromatic';
 
-const metadata: Meta = {
-    title: 'Tests/Table Column: Icon',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
-
 const data = [
     {
         id: '0',
@@ -38,6 +29,15 @@ const data = [
         code: -1
     }
 ] as const;
+
+const metadata: Meta = {
+    title: 'Tests/Table Column: Icon',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = (): ViewTemplate => html`

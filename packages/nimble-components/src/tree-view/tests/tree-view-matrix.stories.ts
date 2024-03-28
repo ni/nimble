@@ -20,13 +20,6 @@ import { iconDatabaseTag } from '../../icons/database';
 import { treeItemTag } from '../../tree-item';
 import { anchorTreeItemTag } from '../../anchor-tree-item';
 
-const metadata: Meta = {
-    title: 'Tests/Tree View',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
 const expandedStates = [
     ['Collapsed', false],
     ['Expanded', true]
@@ -38,6 +31,15 @@ const selectedStates = [
     ['Selected', true]
 ] as const;
 type SelectedState = (typeof selectedStates)[number];
+
+const metadata: Meta = {
+    title: 'Tests/Tree View',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = (
@@ -74,8 +76,6 @@ const component = (
         </${treeItemTag}>
     </${treeViewTag}>
 `;
-
-export default metadata;
 
 export const treeViewThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [

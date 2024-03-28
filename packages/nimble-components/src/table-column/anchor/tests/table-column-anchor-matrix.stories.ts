@@ -1,6 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrixThemeStory,
     createMatrix,
@@ -18,15 +17,6 @@ import {
     placeholderStates,
     type PlaceholderState
 } from '../../../utilities/tests/states';
-
-const metadata: Meta = {
-    title: 'Tests/Table Column: Anchor',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
 
 const data = [
     {
@@ -49,9 +39,10 @@ const data = [
     }
 ] as const;
 
-const appearanceStates: [string, string | undefined][] = Object.entries(
-    AnchorAppearance
-).map(([key, value]) => [pascalCase(key), value]);
+const appearanceStates = [
+    ['Default', AnchorAppearance.default],
+    ['Prominent', AnchorAppearance.prominent]
+] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 
 const underlineHiddenStates = [
@@ -59,6 +50,15 @@ const underlineHiddenStates = [
     ['', false]
 ] as const;
 type UnderlineHiddenState = (typeof underlineHiddenStates)[number];
+
+const metadata: Meta = {
+    title: 'Tests/Table Column: Anchor',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = (

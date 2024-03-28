@@ -7,6 +7,12 @@ import { menuButtonTag } from '..';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 
+const positionStates = [
+    ['below', 'margin-bottom: 80px; position: relative;'],
+    ['above', 'margin-top: 80px; position: relative;']
+] as const;
+type PositionState = (typeof positionStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Menu Button',
     parameters: {
@@ -15,12 +21,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const positionStates = [
-    ['below', 'margin-bottom: 80px; position: relative;'],
-    ['above', 'margin-top: 80px; position: relative;']
-] as const;
-type PositionState = (typeof positionStates)[number];
 
 // prettier-ignore
 const component = ([
