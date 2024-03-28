@@ -35,6 +35,7 @@ describe('NimbleTableColumnDurationText', () => {
                         sort-index="0"
                         group-index="0"
                         grouping-disabled
+                        placeholder="Custom placeholder"
                     ></nimble-table-column-duration-text>
                 </nimble-table>
             `
@@ -113,6 +114,11 @@ describe('NimbleTableColumnDurationText', () => {
             expect(directive.groupingDisabled).toBeTrue();
             expect(nativeElement.groupingDisabled).toBeTrue();
         });
+
+        it('will use template string values for placeholder', () => {
+            expect(directive.placeholder).toBe('Custom placeholder');
+            expect(nativeElement.placeholder).toBe('Custom placeholder');
+        });
     });
 
     describe('with property bound values', () => {
@@ -132,6 +138,7 @@ describe('NimbleTableColumnDurationText', () => {
                         [sort-index]="sortIndex"
                         [group-index]="groupIndex"
                         [grouping-disabled]="groupingDisabled"
+                        [placeholder]="placeholder"
                     ></nimble-table-column-duration-text>
                 </nimble-table>
             `
@@ -150,6 +157,7 @@ describe('NimbleTableColumnDurationText', () => {
             public sortIndex: number | null = 0;
             public groupIndex: number | null = 0;
             public groupingDisabled = false;
+            public placeholder = 'Custom placeholder';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -331,6 +339,17 @@ describe('NimbleTableColumnDurationText', () => {
             expect(directive.groupingDisabled).toBeTrue();
             expect(nativeElement.groupingDisabled).toBeTrue();
         });
+
+        it('can be configured with property binding for placeholder', () => {
+            expect(directive.placeholder).toBe('Custom placeholder');
+            expect(nativeElement.placeholder).toBe('Custom placeholder');
+
+            fixture.componentInstance.placeholder = 'Updated placeholder';
+            fixture.detectChanges();
+
+            expect(directive.placeholder).toBe('Updated placeholder');
+            expect(nativeElement.placeholder).toBe('Updated placeholder');
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -350,6 +369,7 @@ describe('NimbleTableColumnDurationText', () => {
                         [attr.sort-index]="sortIndex"
                         [attr.group-index]="groupIndex"
                         [attr.grouping-disabled]="groupingDisabled"
+                        [attr.placeholder]="placeholder"
                     ></nimble-table-column-duration-text>
                 </nimble-table>
             `
@@ -368,6 +388,7 @@ describe('NimbleTableColumnDurationText', () => {
             public sortIndex: number | null = 0;
             public groupIndex: number | null = 0;
             public groupingDisabled = false;
+            public placeholder = 'Custom placeholder';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -548,6 +569,17 @@ describe('NimbleTableColumnDurationText', () => {
 
             expect(directive.groupingDisabled).toBe(true);
             expect(nativeElement.groupingDisabled).toBe(true);
+        });
+
+        it('can be configured with attribute binding for placeholder', () => {
+            expect(directive.placeholder).toBe('Custom placeholder');
+            expect(nativeElement.placeholder).toBe('Custom placeholder');
+
+            fixture.componentInstance.placeholder = 'Updated placeholder';
+            fixture.detectChanges();
+
+            expect(directive.placeholder).toBe('Updated placeholder');
+            expect(nativeElement.placeholder).toBe('Updated placeholder');
         });
     });
 });
