@@ -259,6 +259,8 @@ export class WaferMap<
                 ? this.experimentalDataManager
                 : this.stableDataManager;
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
+                this.canvas.width = this.canvasWidth;
+                this.canvas.height = this.canvasHeight;
                 this.dataManager.updateContainerDimensions();
                 await this.renderer.updateSortedDiesAndDrawWafer();
             } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
@@ -302,16 +304,8 @@ export class WaferMap<
                 return;
             }
             const { height, width } = entry.contentRect;
-            // Updating the canvas size clears its contents so update it explicitly instead of
-            // via template bindings so we can confirm that it happens before render
-            this.canvas.width = width;
-            this.canvas.height = height;
             this.canvasWidth = width;
             this.canvasHeight = height;
-            this.worker.setCanvasDimensions({ width, height }).then(
-                () => {},
-                () => {}
-            );
         });
         return resizeObserver;
     }

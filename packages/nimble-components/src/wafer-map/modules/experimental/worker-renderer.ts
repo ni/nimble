@@ -123,6 +123,8 @@ export class WorkerRenderer {
                 this.wafermap.dataManager.colorScale.values
             );
         }
+        
+        await this.wafermap.worker.setCanvasDimensions({ width: this.wafermap.canvasWidth, height: this.wafermap.canvasHeight });
     }
 
     private calculateHoverTransform(): string {
