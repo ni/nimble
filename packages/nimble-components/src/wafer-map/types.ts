@@ -100,3 +100,10 @@ export type WaferRequiredFields = {
     rowIndex: Int32,
     value: Float64
 };
+
+interface IColorScaleMarker {
+    color: string;
+    value: number;
+}
+
+export type ColorScale = IColorScaleMarker[];

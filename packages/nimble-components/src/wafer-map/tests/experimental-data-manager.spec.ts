@@ -5,17 +5,11 @@ import { processUpdates } from '../../testing/async-helpers';
 import type { DataManager } from '../modules/experimental/data-manager';
 import type { WaferMap } from '..';
 import {
-    Dimensions,
     Margin,
     WaferMapColorScaleMode,
     WaferMapOriginLocation
 } from '../types';
-import {
-    getColorScale,
-    getHighlightedTags,
-    getWaferMapDies,
-    getWaferMapDiesTable
-} from './utilities';
+import { getColorScale, getWaferMapDiesTable } from './utilities';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
@@ -26,10 +20,6 @@ describe('Wafermap Experimental Data Manager', () => {
     const dieLabelsSuffix = '%';
     const canvasWidth = 200;
     const canvasHeight = 100;
-    const canvasDimensions: Dimensions = {
-        width: canvasWidth,
-        height: canvasHeight
-    };
     const expectedMargin: Margin = {
         top: 4,
         right: 54,
@@ -106,72 +96,13 @@ describe('Wafermap Experimental Data Manager', () => {
         );
     });
 
-    // skipped until prerendering is refactored
-    xit('should have as many dies as provided', () => {
-        expect(dataManagerModule.diesRenderInfo.length).toEqual(
-            getWaferMapDies().length
+    it('should have the same color categories', () => {
+        const expectedValues = getColorScale().colors;
+        const actualValues = dataManagerModule.colorScale.map(
+            colorCategory => colorCategory.color
         );
-    });
-
-    // skipped until prerendering is refactored
-    xit('should have label with suffix for each die', () => {
-        const actualValues = dataManagerModule.diesRenderInfo.map(
-            dieRenderInfo => dieRenderInfo.text
+        expect(actualValues).toEqual(
+            jasmine.arrayWithExactContents(expectedValues)
         );
-        expect(actualValues).not.toHaveSize(0);
-        for (const value of actualValues) {
-            expect(value).toContain(dieLabelsSuffix);
-        }
-    });
-
-    // skipped until prerendering is refactored
-    xit('should have all dies with full opacity from the highlighted list', () => {
-        const highlightedTags = getHighlightedTags();
-        const dies = getWaferMapDies().filter(die => die.tags?.some(dieTag => highlightedTags.some(
-            highlightedTag => dieTag === highlightedTag
-        )));
-        const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(',1)'));
-        expect(dies.length).toEqual(diesWithFullOpacity.length);
-    });
-
-    // skipped until prerendering is refactored
-    xit('should not have any dies with partial opacity from the highlighted list', () => {
-        const highlightedTags = getHighlightedTags();
-        const dies = getWaferMapDies().filter(
-            die => !die.tags?.some(dieTag => highlightedTags.some(
-                highlightedTag => dieTag === highlightedTag
-            ))
-        );
-        const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
-            x => !x.fillStyle.endsWith(',1)')
-        );
-        expect(dies.length).toEqual(diesWithPartialOpacity.length);
-    });
-
-    // skipped until prerendering is refactored
-    xit('should have all dies inside the canvas with margins', () => {
-        const actualValues = dataManagerModule.diesRenderInfo.map(
-            dieRenderInfo => {
-                return {
-                    x: dieRenderInfo.x,
-                    y: dieRenderInfo.y
-                };
-            }
-        );
-        expect(actualValues).not.toHaveSize(0);
-        for (const value of actualValues) {
-            expect(value.x).toBeGreaterThanOrEqual(0);
-            expect(value.y).toBeGreaterThanOrEqual(0);
-            expect(value.x).toBeLessThanOrEqual(
-                canvasDimensions.width
-                    - dataManagerModule.dieDimensions.width
-                    - expectedMargin.left
-            );
-            expect(value.y).toBeLessThanOrEqual(
-                canvasDimensions.height
-                    - dataManagerModule.dieDimensions.height
-                    - expectedMargin.bottom
-            );
-        }
     });
 });

@@ -52,7 +52,9 @@ export class HoverHandler {
             return;
         }
 
-        this.wafermap.hoverDie = this.wafermap.dataManager.getWaferMapDie(dieCoordinates);
+        if (this.wafermap.dataManager instanceof DataManager) {
+            this.wafermap.hoverDie = this.wafermap.dataManager.getWaferMapDie(dieCoordinates);
+        }
     };
 
     private readonly onMouseOut = (_event: MouseEvent): void => {
