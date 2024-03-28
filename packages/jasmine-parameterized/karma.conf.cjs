@@ -58,7 +58,18 @@ module.exports = config => {
             captureConsole: true
         },
         // to disable the WARN 404 for image requests
-        logLevel: config.LOG_ERROR
+        logLevel: config.LOG_ERROR,
+        customHeaders: [
+            // Test under the OWASP Basic non-strict CSP Policy
+            // See: https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html#basic-non-strict-csp-policy
+            // Need script-src 'unsafe-inline' to support karma behavior
+            // See https://github.com/karma-runner/karma/issues/3260
+            {
+                match: '\\.html',
+                name: 'Content-Security-Policy',
+                value: "default-src 'self'; frame-ancestors 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline';"
+            }
+        ]
     };
 
     config.set(options);

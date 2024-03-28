@@ -148,7 +148,21 @@ module.exports = config => {
             },
             captureConsole: true
         },
-        logLevel: config.LOG_ERROR // to disable the WARN 404 for image requests
+        logLevel: config.LOG_ERROR, // to disable the WARN 404 for image requests
+        customHeaders: [
+            // Test under the OWASP Basic non-strict CSP Policy
+            // See: https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html#basic-non-strict-csp-policy
+            // Need script-src 'unsafe-inline' to support karma behavior
+            // See: https://github.com/karma-runner/karma/issues/3260
+            // Need style-src 'unsafe-inline' to support FAST
+            // See: https://github.com/microsoft/fast/issues/4510
+            // Need worker-src blob: to support current worker loading pattern
+            {
+                match: '\\.html',
+                name: 'Content-Security-Policy',
+                value: "default-src 'self'; frame-ancestors 'self'; form-action 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob: ;"
+            }
+        ]
     };
 
     config.set(options);
