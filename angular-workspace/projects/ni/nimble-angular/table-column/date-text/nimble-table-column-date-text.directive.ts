@@ -55,6 +55,14 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         this.renderer.setProperty(this.elementRef.nativeElement, 'fieldName', value);
     }
 
+    public get placeholder(): string | undefined {
+        return this.elementRef.nativeElement.placeholder;
+    }
+
+    @Input() public set placeholder(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
+    }
+
     public get format(): DateTextFormat {
         return this.elementRef.nativeElement.format;
     }

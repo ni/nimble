@@ -1,4 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
+import type { Meta, StoryFn } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { createStory } from '../../utilities/tests/storybook';
 import {
@@ -14,6 +14,9 @@ import { anchorTabTag } from '../../anchor-tab';
 import { tabsToolbarTag } from '../../tabs-toolbar';
 import { buttonTag } from '../../button';
 
+const tabsToolbarStates = [false, true] as const;
+type TabsToolbarState = (typeof tabsToolbarStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Anchor Tabs',
     parameters: {
@@ -22,9 +25,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const tabsToolbarState = [false, true] as const;
-type TabsToolbarState = (typeof tabsToolbarState)[number];
 
 // prettier-ignore
 const component = (
@@ -46,11 +46,11 @@ const component = (
     </${anchorTabsTag}>
 `;
 
-export const anchorTabsThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [tabsToolbarState, disabledStates])
+export const anchorTabsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [tabsToolbarStates, disabledStates])
 );
 
-export const hiddenTabs: Story = createStory(
+export const hiddenTabs: StoryFn = createStory(
     hiddenWrapper(
         html`<${anchorTabsTag} hidden>
             <${anchorTabTag}>Tab One</${anchorTabTag}>
@@ -58,7 +58,7 @@ export const hiddenTabs: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
             <${anchorTabsTag}>
