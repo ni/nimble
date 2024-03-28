@@ -75,6 +75,10 @@ export class Computations {
     }
 
     public updateScales(): void {
+        if (this._containerDimensions === undefined) {
+            this.updateContainerDimensions();
+            return;
+        }
         const containerDiameter = Math.min(
             this._containerDimensions.width,
             this._containerDimensions.height

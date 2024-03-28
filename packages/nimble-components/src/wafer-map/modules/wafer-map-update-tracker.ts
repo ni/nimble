@@ -99,7 +99,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         if (!this.updateQueued) {
             this.updateQueued = true;
             DOM.queueUpdate(() => {
-                this.wafermap.update();
+                void this.wafermap.update();
                 this.untrackAll();
                 this.updateQueued = false;
             });
