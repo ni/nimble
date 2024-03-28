@@ -29,6 +29,15 @@ public class NimbleTableColumnNumberTextTests
     }
 
     [Fact]
+    public void NimbleTableColumnNumberText_WithPlaceholderAttribute_HasTableMarkup()
+    {
+        var table = RenderWithPropertySet(x => x.Placeholder, "Custom placeholder");
+
+        var expectedMarkup = @"placeholder=""Custom placeholder""";
+        Assert.Contains(expectedMarkup, table.Markup);
+    }
+
+    [Fact]
     public void NimbleTableColumnNumberText_WithDecimalDigitsAttribute_HasTableMarkup()
     {
         var table = RenderWithPropertySet(x => x.DecimalDigits!, 5);

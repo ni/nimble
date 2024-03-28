@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 27 Mar 2024 20:11:28 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Mar 2024 21:15:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.6.0
+
+Thu, 28 Mar 2024 21:15:24 GMT
+
+### Minor changes
+
+- Add support for column placeholders ([ni/nimble@446055c](https://github.com/ni/nimble/commit/446055c74f11dd97010f2d0973a9eaf371b06389))
 
 ## 14.5.7
 
