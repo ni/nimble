@@ -1,11 +1,13 @@
 ---
-name: 🧑‍💼 Interaction Design (IxD) User story
-about: (PO ONLY) A small chunk of work to be done by an Interaction Designer
+name:  👈 Interaction Design Request
+about: A small chunk of work to be done by an Interaction Designer
 title: 'nimble-{name} interaction design request'
-labels: 'IxD,triage'
+labels: 'interaction design,triage'
 ---
 
 <!-- Ensure the title can be understood without the parent item's context, e.g. "nimble-datepicker interaction design request" rather than just "Interaction Design" -->
+
+# 👈 Interaction Design Request
 
 ## 📌 Request Background
 
@@ -14,20 +16,19 @@ labels: 'IxD,triage'
 
 ## 🎯 Core Requirements
 
-<!-- Outline the essential requirements of the component. What does the user need to be able to do with the component? E.g. For a date picker… 
-
+<!-- Outline the essential requirements of the component. What does the user need to be able to do with the component? E.g. For a date picker:
+<!--
 - User must to be able to specify a _specific date_ for use in filter query
 - User should not be able to specify an invalid date
 - User must be able to enter date with keyboard interaction alone
-- … -->
+-->
 
 ## 🍆 Non-requirements
 
-<!-- What ideas are out of scope for this component? E.g. For a date picker… 
-
+<!-- What ideas are out of scope for this component? E.g. For a date picker: -->
+<!--
 - User does not need to pick the date from a calendar widget 
-- … -->
-
+-->
 
 ## 🥅 Acceptance Criteria
 

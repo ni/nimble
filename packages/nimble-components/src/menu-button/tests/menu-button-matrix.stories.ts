@@ -1,20 +1,31 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
-import { ButtonAppearance } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters,
-    createMatrixThemeStory
+    createMatrixThemeStory,
+    cartesianProduct,
+    createMatrixInteractionsFromStates
 } from '../../utilities/tests/matrix';
-import { disabledStates, DisabledState } from '../../utilities/tests/states';
+import {
+    disabledStates,
+    DisabledState,
+    disabledStateIsEnabled
+} from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
 import { iconKeyTag } from '../../icons/key';
 import { menuButtonTag } from '..';
-import { menuTag } from '../../menu';
-import { menuItemTag } from '../../menu-item';
+import {
+    appearanceStates,
+    type AppearanceState,
+    type AppearanceVariantState,
+    type PartVisibilityState,
+    appearanceVariantStates,
+    partVisibilityStates,
+    partVisibilityStatesOnlyLabel
+} from '../../patterns/button/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Menu Button',
@@ -25,49 +36,66 @@ const metadata: Meta = {
 
 export default metadata;
 
-/* array of iconVisible, labelVisible, endIconVisible */
-const partVisibilityStates = [
-    [true, true, false],
-    [true, false, false],
-    [false, true, false],
-    [true, true, true],
-    [false, true, true]
+const openStates = [
+    ['', false],
+    ['Open', true]
 ] as const;
-type PartVisibilityState = (typeof partVisibilityStates)[number];
-
-const appearanceStates = Object.entries(ButtonAppearance).map(
-    ([key, value]) => [pascalCase(key), value]
-);
-type AppearanceState = (typeof appearanceStates)[number];
+type OpenState = (typeof openStates)[number];
 
 // prettier-ignore
 const component = (
+    [openName, open]: OpenState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
     [disabledName, disabled]: DisabledState,
-    [appearanceName, appearance]: AppearanceState
+    [appearanceName, appearance]: AppearanceState,
+    [appearanceVariantName, appearanceVariant]: AppearanceVariantState,
 ): ViewTemplate => html`
     <${menuButtonTag}
         appearance="${() => appearance}"
+        appearance-variant="${() => appearanceVariant}"
+        ?open="${() => open}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
-            ${() => `${appearanceName!} Menu Button ${disabledName}`}
+            ${() => `${openName} ${appearanceVariantName} ${appearanceName} Menu Button ${disabledName}`}
             ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
-
-        <${menuTag} slot="menu">
-            <${menuItemTag}>Item 1</${menuItemTag}>
-            <${menuItemTag}>Item 2</${menuItemTag}>
-        </${menuTag}>
     </${menuButtonTag}>
 `;
 
 export const menuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        openStates,
         partVisibilityStates,
         disabledStates,
-        appearanceStates
+        appearanceStates,
+        appearanceVariantStates
     ])
+);
+
+const interactionStatesHover = cartesianProduct([
+    openStates,
+    [partVisibilityStatesOnlyLabel],
+    disabledStates,
+    appearanceStates,
+    appearanceVariantStates
+] as const);
+
+const interactionStates = cartesianProduct([
+    openStates,
+    [partVisibilityStatesOnlyLabel],
+    [disabledStateIsEnabled],
+    appearanceStates,
+    appearanceVariantStates
+] as const);
+
+export const menuButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrixInteractionsFromStates(component, {
+        hover: interactionStatesHover,
+        hoverActive: interactionStates,
+        active: interactionStates,
+        focus: interactionStates
+    })
 );
 
 export const hiddenMenuButton: StoryFn = createStory(

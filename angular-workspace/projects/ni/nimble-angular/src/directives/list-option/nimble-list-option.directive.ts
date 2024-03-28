@@ -25,6 +25,22 @@ export class NimbleListOptionDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
     }
 
+    public get selected(): boolean {
+        return this.elementRef.nativeElement.selected;
+    }
+
+    @Input() public set selected(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'selected', toBooleanProperty(value));
+    }
+
+    public get hidden(): boolean {
+        return this.elementRef.nativeElement.hidden;
+    }
+
+    @Input() public set hidden(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'hidden', toBooleanProperty(value));
+    }
+
     public constructor(
         private readonly elementRef: ElementRef<ListOption>,
         private readonly renderer: Renderer2,

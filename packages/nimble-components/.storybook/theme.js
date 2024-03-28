@@ -1,24 +1,27 @@
 import { create } from '@storybook/theming/create';
 import {
     Black91,
-    Brand100,
     Brand85,
-    Black75,
-    White
+    White,
+    Black7,
+    Black15,
+    DigitalGreenDark105,
+    Black30,
+    Black,
+    Black75
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import logo from './nimble-ui-logo.svg';
 
 export default create({
     base: 'light',
-
-    colorPrimary: Brand100,
-    colorSecondary: Black75,
+    colorPrimary: Brand85,
+    colorSecondary: DigitalGreenDark105,
 
     // UI
-    appBg: 'white',
-    appContentBg: '#F4F4F4',
-    appBorderColor: 'grey',
-    appBorderRadius: 4,
+    appBg: White,
+    appContentBg: White,
+    appBorderColor: Black30,
+    appBorderRadius: 5,
 
     // Typography
     fontBase: '"Open Sans", sans-serif',
@@ -26,17 +29,23 @@ export default create({
 
     // Text colors
     textColor: Black91,
-    textInverseColor: 'rgba(255,255,255,0.9)',
+    textInverseColor: Black15,
+    textMutedColor: Black75,
 
     // Toolbar default and active colors
     barTextColor: White,
-    barSelectedColor: White,
+    barHoverColor: Black15,
+    barSelectedColor: Black7,
     barBg: Brand85,
 
     // Form colors
-    inputBg: 'white',
-    inputBorder: 'silver',
-    inputTextColor: 'black',
+    buttonBg: White,
+    buttonBorder: Black75,
+    booleanBg: White,
+    booleanSelectedBg: Black30,
+    inputBg: White,
+    inputBorder: Black75,
+    inputTextColor: Black,
     inputBorderRadius: 4,
 
     brandTitle: 'Nimble components',

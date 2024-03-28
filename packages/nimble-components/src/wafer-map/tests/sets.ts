@@ -1,3 +1,4 @@
+import { Table, tableFromArrays } from 'apache-arrow';
 import type { WaferMapDie, WaferMapColorScale } from '../types';
 
 export const highlightedTagsSets: string[][] = [
@@ -98,6 +99,62 @@ export const wafermapDieSets: WaferMapDie[][] = [
             tags: ['g']
         }
     ]
+];
+
+export const wafermapDiesTableSets: Table[] = [
+    tableFromArrays({
+        colIndex: Int32Array.from([0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4]),
+        rowIndex: Int32Array.from([2, 2, 1, 3, 2, 1, 0, 3, 4, 2, 1, 3, 2]),
+        value: Float64Array.from([
+            14.24, 76.43, 44.63, 67.93, 72.71, 79.04, 26.49, 37.79, 59.82, 52.9,
+            98.5, 20.83, 62.8
+        ]),
+        firstTag: [
+            'a',
+            'b',
+            'g',
+            'a',
+            'h',
+            'b',
+            'c',
+            null,
+            null,
+            null,
+            'g',
+            'c',
+            'g'
+        ],
+        secondTag: [
+            'b',
+            'c',
+            null,
+            null,
+            'e',
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        metadata: [
+            'metadata02',
+            'metadata12',
+            'metadata11',
+            'metadata13',
+            'metadata22',
+            'metadata21',
+            'metadata20',
+            'metadata23',
+            'metadata24',
+            'metadata32',
+            'metadata31',
+            'metadata33',
+            'metadata42'
+        ]
+    })
 ];
 
 export const waferMapColorScaleSets: WaferMapColorScale[] = [

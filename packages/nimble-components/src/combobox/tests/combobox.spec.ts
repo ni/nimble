@@ -2,7 +2,6 @@ import { html, repeat } from '@microsoft/fast-element';
 import { keyArrowDown, keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
-import { listOptionTag } from '../../list-option';
 import { ComboboxAutocomplete } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
@@ -10,6 +9,7 @@ import {
     waitAnimationFrame
 } from '../../utilities/tests/component';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
+import { listOptionTag } from '../../list-option';
 
 async function setup(
     position?: string,

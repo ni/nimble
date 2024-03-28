@@ -2,6 +2,495 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 28 Mar 2024 00:09:24 GMT",
+      "version": "24.1.1",
+      "tag": "@ni/nimble-components_v24.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "df7f14c56f18b67328b44a33124c73b5d8172502",
+            "comment": "Add interaction stories for buttons, number field, and anchor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Mar 2024 22:06:38 GMT",
+      "version": "24.1.1",
+      "tag": "@ni/nimble-components_v24.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9c19dac60baed62fc12ab8b0908e59e92fd8ea29",
+            "comment": "Set build time zone to America/Chicago"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Mar 2024 21:22:02 GMT",
+      "version": "24.1.1",
+      "tag": "@ni/nimble-components_v24.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cc82598544694002715db3383b75ed0c0f4793ae",
+            "comment": "Fix table scrolling test on WebKit"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Mar 2024 18:54:51 GMT",
+      "version": "24.1.0",
+      "tag": "@ni/nimble-components_v24.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a01932bbdb941553a899b8b193af5acf6f67cadd",
+            "comment": "Add placeholders to table columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Mar 2024 14:48:28 GMT",
+      "version": "24.0.1",
+      "tag": "@ni/nimble-components_v24.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fec2d9cdcacc4b6141a9ad3f3f92feb6368701b7",
+            "comment": "Initial SB 8 upgrade"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Mar 2024 12:05:29 GMT",
+      "version": "24.0.1",
+      "tag": "@ni/nimble-components_v24.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c6d99d8923082bee7a68c244c60d36be339f0ee3",
+            "comment": "Created new computations experimental module and tested it, created new data manager experimental and integrated with hover and old renderer"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 Mar 2024 20:45:41 GMT",
+      "version": "24.0.0",
+      "tag": "@ni/nimble-components_v24.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "594ac221124cc1b52cd28113714bb8ff71e5820b",
+            "comment": "Support primary and accent variants for toggle and menu buttons. BREAKING CHANGE: Removed theme-aware tokens `buttonFillActivePrimaryColor` and `buttonFillAccentActiveColor`. Use `fillSelectedColor` instead."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.13.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 25 Mar 2024 17:03:11 GMT",
+      "version": "23.0.1",
+      "tag": "@ni/nimble-components_v23.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f56b73b45161a55b967dc03bbdd094a6527c814c",
+            "comment": "Created new hover event for the new diesTable api and changed the zoom event"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Mar 2024 16:18:25 GMT",
+      "version": "23.0.0",
+      "tag": "@ni/nimble-components_v23.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "559c12f4b5eaae8fdbd18c6c0d2ecff097b699d5",
+            "comment": "Update Playwright dev dependency to 1.42.0"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 21 Mar 2024 17:13:38 GMT",
+      "version": "23.0.0",
+      "tag": "@ni/nimble-components_v23.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b93385a27672ebc03e18a864e8fa268727595c66",
+            "comment": "Breaking change: Renamed bodyEmphasizedPlus1 to bodyPlus1Emphasized to align with token conventions. Also, added bodyPlus1 font token"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.13.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 21 Mar 2024 16:25:39 GMT",
+      "version": "22.1.1",
+      "tag": "@ni/nimble-components_v22.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7e52ce24569e94af5282b4b77f34608211cf74c9",
+            "comment": "Fix column sizing test to pass in webkit"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 21 Mar 2024 00:31:13 GMT",
+      "version": "22.1.1",
+      "tag": "@ni/nimble-components_v22.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "755823b11215aa2a2c48f296546d0cb8acf6f64c",
+            "comment": "Small change to design token naming scheme"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Mar 2024 16:45:59 GMT",
+      "version": "22.1.1",
+      "tag": "@ni/nimble-components_v22.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "83f7fd9e601eed789e8f6eb61a9d4a87a1d1835b",
+            "comment": "Remove ListOptionOwner from Combobox to address issue found in Angular"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Mar 2024 15:46:00 GMT",
+      "version": "22.1.0",
+      "tag": "@ni/nimble-components_v22.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "517e9450043eb0a3797ff278985cc702c4ad0fab",
+            "comment": "Create anchor patterns story"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 18 Mar 2024 18:10:43 GMT",
+      "version": "22.1.0",
+      "tag": "@ni/nimble-components_v22.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ca8201733c653a4d74537c530c60a5c6d21bcbc3",
+            "comment": "Fix intermittent RichTextMentionListbox test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 18 Mar 2024 17:12:34 GMT",
+      "version": "22.1.0",
+      "tag": "@ni/nimble-components_v22.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda",
+            "comment": "Add placeholders for group rows in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 18 Mar 2024 16:35:18 GMT",
+      "version": "22.0.1",
+      "tag": "@ni/nimble-components_v22.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a112528ec429c96f2017e95bbbdb22e578be1c08",
+            "comment": "Marking tests that fail on some browsers"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 14 Mar 2024 14:48:16 GMT",
+      "version": "22.0.1",
+      "tag": "@ni/nimble-components_v22.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a1eebb02b4fb66ca77e0e32bb52497b2da1cb4cf",
+            "comment": "Fix bug where an anchor element's link couldn't be dragged correctly"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Mar 2024 23:56:16 GMT",
+      "version": "22.0.0",
+      "tag": "@ni/nimble-components_v22.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2a9abefcd6160716070fd4f3bbca097919112d23",
+            "comment": "Build warnings for apache-arrow were cleaned up"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Mar 2024 23:07:24 GMT",
+      "version": "22.0.0",
+      "tag": "@ni/nimble-components_v22.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "518c229b964d2c4a2e77210692f5d367f2937ff4",
+            "comment": "Rename icon labels to follow naming convention"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Mar 2024 22:25:27 GMT",
+      "version": "21.10.2",
+      "tag": "@ni/nimble-components_v21.10.2",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "52783423015bc7b1cfd3718646923d36b1f9d32c",
+            "comment": "Fix missing element names in some Storybook docs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Mar 2024 22:17:11 GMT",
+      "version": "21.10.2",
+      "tag": "@ni/nimble-components_v21.10.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "19643f4e13056e414aedd6b8ef89beb7ad1e95ab",
+            "comment": "Adding DropdownOwner interface allowing Select to register options during connectedCallback."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Mar 2024 21:01:54 GMT",
+      "version": "21.10.1",
+      "tag": "@ni/nimble-components_v21.10.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bc825e1b057eafd8bc005d11e9a224aa9aee9619",
+            "comment": "Update typescript to 4.9.5"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.12.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v0.2.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Mar 2024 20:17:37 GMT",
+      "version": "21.10.0",
+      "tag": "@ni/nimble-components_v21.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e5972ee4e47f02a4224311d696da2d15573dbab3",
+            "comment": "Fix sb mdx backgrounds"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Mar 2024 16:59:31 GMT",
+      "version": "21.10.0",
+      "tag": "@ni/nimble-components_v21.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d8aa87d33c0066f7f3f73348288222c30a2a8cbf",
+            "comment": "Fix Storybook source preview"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Mar 2024 22:17:07 GMT",
+      "version": "21.10.0",
+      "tag": "@ni/nimble-components_v21.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ece50add37226bd2c2c7d9df9283cdb1853941ce",
+            "comment": "Create HLD for placeholders in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Mar 2024 21:20:52 GMT",
+      "version": "21.10.0",
+      "tag": "@ni/nimble-components_v21.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a9b5cede5ebbb79127bf36e91b31d17d4bf241b9",
+            "comment": "New Wafer Map Component API. Introduced `diesTable` and two rendering strategies switched by this input"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 06 Mar 2024 17:56:10 GMT",
+      "version": "21.9.1",
+      "tag": "@ni/nimble-components_v21.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dfd8accc27d885df5eb8024d57e60f486066719a",
+            "comment": "Minor updates from lint"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 05 Mar 2024 22:27:12 GMT",
+      "version": "21.9.0",
+      "tag": "@ni/nimble-components_v21.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "19643f4e13056e414aedd6b8ef89beb7ad1e95ab",
+            "comment": "Adding placeholder behavior for Select"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 05 Mar 2024 14:49:48 GMT",
+      "version": "21.8.2",
+      "tag": "@ni/nimble-components_v21.8.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3a75f1cc06b3c8967fa3e28d12a2bd6ddb4adf9c",
+            "comment": "Update Table Column Width HLD with details about non-resizable columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 04 Mar 2024 19:02:52 GMT",
+      "version": "21.8.2",
+      "tag": "@ni/nimble-components_v21.8.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4b0501210e4096c23350dbe5cb2eb9e4d6901ed6",
+            "comment": "Update column divider color on hover"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 01 Mar 2024 23:02:58 GMT",
       "version": "21.8.1",
       "tag": "@ni/nimble-components_v21.8.1",

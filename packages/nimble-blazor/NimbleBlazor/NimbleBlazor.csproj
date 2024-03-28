@@ -9,6 +9,8 @@
     <PackageProjectUrl>https://github.com/ni/nimble</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ni/nimble</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
     <PackageTags>Web Components, .NET, Nimble, FAST, Blazor, .NET 6.0</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -23,6 +25,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="packages.lock.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="CodeAnalysisDictionary.xml" />
   </ItemGroup>
 
@@ -35,12 +41,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.26" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.27" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.21" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="packages.lock.json" />
   </ItemGroup>
 
   <Target Name="CopyNimbleResources" BeforeTargets="BeforeBuild">

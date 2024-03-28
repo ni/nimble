@@ -3,50 +3,49 @@
   "extends": [
     "config:base"
   ],
-  "enabledManagers": ["npm", "nuget"],
+  "enabledManagers": ["npm", "nuget", "github-actions"],
   "rebaseWhen": "conflicted",
   "schedule": [
     "monthly"
   ],
   "packageRules": [
     {
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "nuget", "github-actions"],
       "enabled": false
     },
     {
-      "groupName": "npm dependencies",
+      "groupName": "npm dependencies lock update only",
+      "matchManagers": ["npm"],
+      "rangeStrategy": "in-range-only",
+      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
+      "enabled": true
+    },
+    {
+      "groupName": "npm dependencies update to latest",
       "matchManagers": ["npm"],
       "rangeStrategy": "update-lockfile",
-      "matchDepTypes": ["dependencies"],
-      "matchPackagePatterns":[
-        "^@microsoft/fast",
-        "^@tanstack/",
-        "^@tiptap/",
-        "@types/markdown-it",
+      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
+      "excludePackagePatterns":[
+        "^@angular",
+        "@microsoft/fast-foundation",
+        "@microsoft/fast-react-wrapper",
         "comlink",
-        "d3-",
-        "prosemirror-"
+        "ng-packagr",
+        "playwright",
+        "remark-gfm",
+        "typescript",
+        "zone.js"
       ],
       "enabled": true
     },
     {
-      "groupName": "npm dev dependencies",
-      "matchManagers": ["npm"],
-      "rangeStrategy": "update-lockfile",
-      "matchDepTypes": ["devDependencies"],
-      "matchPackagePatterns":[
-        "^@ni/eslint-config",
-        "beachball",
-        "storybook"
-      ],
-      "enabled": true
-    },
-    {
-      "groupName": "nuget bunit dependencies",
+      "groupName": "nuget dependencies",
       "matchManagers": ["nuget"],
-      "matchPackagePatterns":[
-        "^bunit"
-      ],
+      "enabled": true
+    },
+    {
+      "groupName": "github actions dependencies",
+      "matchManagers": ["github-actions"],
       "enabled": true
     }
   ]

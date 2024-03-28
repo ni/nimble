@@ -52,6 +52,7 @@ export const styles = css`
     }
 
     slot:not([name]) {
+        pointer-events: none;
         display: block;
         padding: ${mediumPadding} ${standardPadding}
             calc(${mediumPadding} - ${borderWidth});

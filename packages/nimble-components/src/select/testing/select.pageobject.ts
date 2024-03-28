@@ -2,6 +2,7 @@ import {
     keyEnter,
     keyEscape,
     keyArrowDown,
+    keyArrowUp,
     keySpace
 } from '@microsoft/fast-web-utilities';
 import type { Select } from '..';
@@ -22,7 +23,7 @@ export class SelectPageObject {
                 'Can not set filter text with filterMode set to "none".'
             );
         }
-        await this.clickSelect();
+        this.clickSelect();
         const filterInput = this.getFilterInput();
         if (filterInput) {
             filterInput.value = filterText;
@@ -58,9 +59,8 @@ export class SelectPageObject {
     /**
      * Either opens or closes the dropdown depending on its current state
      */
-    public async clickSelect(): Promise<void> {
-        this.selectElement.dispatchEvent(new Event('click'));
-        await waitForUpdatesAsync();
+    public clickSelect(): void {
+        this.selectElement.click();
     }
 
     public clickSelectedItem(): void {
@@ -80,10 +80,6 @@ export class SelectPageObject {
     }
 
     public clickOption(index: number): void {
-        if (!this.selectElement.open) {
-            throw new Error('Select must be open to click selectedItem');
-        }
-
         if (index >= this.selectElement.options.length) {
             throw new Error(
                 '"index" greater than number of current displayed options'
@@ -92,13 +88,25 @@ export class SelectPageObject {
 
         const option = this.selectElement.options[index]!;
         option.scrollIntoView();
-        const optionRect = option.getClientRects()[0]!;
-        const clickEvent = new MouseEvent('click', {
-            clientY: optionRect.y + optionRect.height / 2,
-            clientX: optionRect.width / 2,
-            bubbles: true
-        });
-        option.dispatchEvent(clickEvent);
+        option.click();
+    }
+
+    /**
+     * Click the option with the text provided by the 'displayText' parameter.
+     * @param value The text of the option to be selected
+     */
+    public clickOptionWithDisplayText(displayText: string): void {
+        if (!this.selectElement.open) {
+            this.clickSelect();
+        }
+        const optionIndex = this.selectElement.options.findIndex(
+            o => o.text === displayText
+        );
+        if (optionIndex === -1) {
+            throw new Error(`No option with "text" of ${displayText}`);
+        }
+
+        this.clickOption(optionIndex);
     }
 
     public async clickAway(): Promise<void> {
@@ -121,6 +129,12 @@ export class SelectPageObject {
     public pressArrowDownKey(): void {
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyArrowDown })
+        );
+    }
+
+    public pressArrowUpKey(): void {
+        this.selectElement.dispatchEvent(
+            new KeyboardEvent('keydown', { key: keyArrowUp })
         );
     }
 
@@ -159,6 +173,15 @@ export class SelectPageObject {
             this.selectElement.shadowRoot?.querySelector('.filter-field')
             !== null
         );
+    }
+
+    public isOptionVisible(index: number): boolean {
+        if (index >= this.selectElement.options.length) {
+            throw new Error('Indexing past number of options');
+        }
+        const option = this.selectElement.options[index]!;
+        const optionRects = option.getClientRects();
+        return optionRects.length > 0 && optionRects[0]!.height !== 0;
     }
 
     public isNoResultsLabelVisible(): boolean {

@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-blazor",
-  "version": "14.3.13",
+  "version": "14.5.8",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
     "postinstall": "node build/generate-playwright-version-properties/source/index.js",
@@ -47,9 +47,9 @@
     "@ni/nimble-tokens": "*",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "cross-env": "^7.0.3",
-    "glob": "^8.1.0",
-    "playwright": "1.40.0",
+    "glob": "^10.3.10",
+    "playwright": "1.42.0",
     "rimraf": "^5.0.5",
-    "rollup": "^3.10.1"
+    "rollup": "^4.12.0"
   }
 }
