@@ -41,7 +41,7 @@ public class NimbleToggleButtonTests
     }
 
     [Theory]
-    [InlineData(ButtonAppearanceVariant.Default, "<nimble-toggle-button>")]
+    [InlineData(ButtonAppearanceVariant.Default, "<nimble-toggle-button((?!appearance-variant).)*>")]
     [InlineData(ButtonAppearanceVariant.Primary, "appearance-variant=\"primary\"")]
     [InlineData(ButtonAppearanceVariant.Accent, "appearance-variant=\"accent\"")]
     public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string expectedAttribute)
