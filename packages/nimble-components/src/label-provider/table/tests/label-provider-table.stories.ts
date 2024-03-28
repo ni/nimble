@@ -1,4 +1,4 @@
-import type { StoryObj } from '@storybook/html';
+import type { StoryObj, Meta } from '@storybook/html';
 import {
     LabelProviderArgs,
     labelProviderMetadata
@@ -6,7 +6,7 @@ import {
 import { labelProviderTableTag } from '..';
 import * as labelTokensNamespace from '../label-tokens';
 
-const metadata = {
+const metadata: Meta<LabelProviderArgs> = {
     ...labelProviderMetadata,
     title: 'Tokens/Label Providers'
 };

@@ -2,6 +2,7 @@ import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import * as tableColumnDurationTextStories from './table-column-duration-text.stories';
 import { tableColumnDurationTextTag } from '..';
 import { tableTag } from '../../../table';
+import NoNullAndUndefinedBestPractice from '../../../patterns/table-column/tests/no-null-and-undefined-best-practice-docs.mdx';
 
 <Meta of={tableColumnDurationTextStories} />
 <Title of={tableColumnDurationTextStories} />
@@ -14,9 +15,15 @@ The <Tag name={tableColumnDurationTextTag}/> column is used to display a period 
 />
 <Controls of={tableColumnDurationTextStories.durationTextColumn} />
 
-## Angular Usage
+## Usage
 
-### Duration Pipe
+### Best Practices
+
+-   <NoNullAndUndefinedBestPractice />
+
+### Angular Usage
+
+#### Duration Pipe
 
 An Angular pipe is provided for formatting duration values into strings outside of the Nimble table. This pipe uses the same formatting rules (and localization) as the duration table column.
 

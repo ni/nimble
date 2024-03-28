@@ -26,9 +26,11 @@ import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
 import { Unit } from '../../unit/base/unit';
 import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-custom-elements-defined-async';
+import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnNumberTextColumnConfig {
+export interface TableColumnNumberTextColumnConfig
+    extends TableColumnTextBaseColumnConfig {
     formatter: UnitFormat;
     alignment: TextCellViewBaseAlignment;
 }
@@ -95,6 +97,10 @@ export class TableColumnNumberText extends TableColumnTextBase {
 
     public override get validity(): TableColumnValidity {
         return this.validator.getValidity();
+    }
+
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
@@ -171,7 +177,8 @@ export class TableColumnNumberText extends TableColumnTextBase {
         if (this.validator.isValid()) {
             const columnConfig: TableColumnNumberTextColumnConfig = {
                 formatter: this.createFormatter(),
-                alignment: this.determineCellContentAlignment()
+                alignment: this.determineCellContentAlignment(),
+                placeholder: this.placeholder
             };
             this.columnInternals.columnConfig = columnConfig;
         } else {
