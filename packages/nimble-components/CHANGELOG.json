@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 28 Mar 2024 19:09:26 GMT",
+      "version": "24.1.2",
+      "tag": "@ni/nimble-components_v24.1.2",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2256d78ea9cdd028814cd2f57931ce59681ec183",
+            "comment": "Disable intermittent test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 28 Mar 2024 18:50:08 GMT",
       "version": "24.1.2",
       "tag": "@ni/nimble-components_v24.1.2",
