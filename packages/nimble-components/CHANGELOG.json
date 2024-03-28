@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 28 Mar 2024 00:09:24 GMT",
+      "version": "24.1.1",
+      "tag": "@ni/nimble-components_v24.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "df7f14c56f18b67328b44a33124c73b5d8172502",
+            "comment": "Add interaction stories for buttons, number field, and anchor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 27 Mar 2024 22:06:38 GMT",
       "version": "24.1.1",
       "tag": "@ni/nimble-components_v24.1.1",
