@@ -48,7 +48,7 @@ public class NimbleToggleButtonTests
     {
         var button = RenderNimbleToggleButton(value);
 
-        Assert.Contains(expectedAttribute, button.Markup);
+        Assert.Matches(expectedAttribute, button.Markup);
     }
 
     private IRenderedComponent<NimbleToggleButton> RenderNimbleToggleButton(ButtonAppearance appearance)

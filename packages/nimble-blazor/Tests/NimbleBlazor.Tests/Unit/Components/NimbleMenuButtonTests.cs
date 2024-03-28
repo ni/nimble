@@ -48,7 +48,7 @@ public class NimbleMenuButtonTests
     {
         var button = RenderNimbleMenuButton(value);
 
-        Assert.Contains(expectedAttribute, button.Markup);
+        Assert.Matches(expectedAttribute, button.Markup);
     }
 
     [Theory]
