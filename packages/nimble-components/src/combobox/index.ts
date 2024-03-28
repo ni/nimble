@@ -1,14 +1,30 @@
-import { attr, html, observable, ref } from '@microsoft/fast-element';
+import {
+    DOM,
+    Observable,
+    attr,
+    html,
+    observable,
+    ref
+} from '@microsoft/fast-element';
 import {
     DesignSystem,
-    Combobox as FoundationCombobox,
-    ComboboxOptions
+    ComboboxOptions,
+    ComboboxAutocomplete,
+    SelectPosition,
+    ListboxOption,
+    DelegatesARIACombobox,
+    applyMixins,
+    StartEnd
 } from '@microsoft/fast-foundation';
 import {
     keyArrowDown,
     keyArrowUp,
     keyEnter,
-    keySpace
+    keyEscape,
+    keySpace,
+    keyTab,
+    limit,
+    uniqueId
 } from '@microsoft/fast-web-utilities';
 import { ToggleButton, toggleButtonTag } from '../toggle-button';
 import { errorTextTemplate } from '../patterns/error/template';
@@ -21,6 +37,8 @@ import type { DropdownPattern } from '../patterns/dropdown/types';
 import { DropdownAppearance } from '../patterns/dropdown/types';
 import type { AnchoredRegion } from '../anchored-region';
 import { template } from './template';
+import { FormAssociatedCombobox } from './models/combobox-form-associated';
+import type { ListOption } from '../list-option';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -32,18 +50,10 @@ declare global {
  * A nimble-styed HTML combobox
  */
 export class Combobox
-    extends FoundationCombobox
+    extends FormAssociatedCombobox
     implements DropdownPattern, ErrorPattern {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
-
-    /**
-     * The ref to the internal dropdown button element.
-     *
-     * @internal
-     */
-    @observable
-    public readonly dropdownButton?: ToggleButton;
 
     /**
      * A message explaining why the value is invalid.
@@ -59,6 +69,42 @@ export class Combobox
     public errorVisible = false;
 
     /**
+     * The autocomplete attribute.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: autocomplete
+     */
+    @attr({ attribute: 'autocomplete', mode: 'fromView' })
+    public autocomplete: ComboboxAutocomplete | undefined;
+
+    /**
+     * The placement for the listbox when the combobox is open.
+     *
+     * @public
+     */
+    @attr({ attribute: 'position' })
+    public positionAttribute?: SelectPosition;
+
+    /**
+     * Sets the placeholder value of the element, generally used to provide a hint to the user.
+     * @public
+     * @remarks
+     * HTML Attribute: placeholder
+     * Using this attribute is not a valid substitute for a labeling element.
+     */
+    @attr
+    public placeholder = '';
+
+    /**
+     * The current state of the calculated position of the listbox.
+     *
+     * @public
+     */
+    @observable
+    public position?: SelectPosition;
+
+    /**
      * @internal
      */
     @observable
@@ -68,21 +114,74 @@ export class Combobox
      * @internal
      */
     @observable
-    public controlWrapper?: HTMLElement;
+    public controlWrapper!: HTMLElement;
+
+    /**
+     * @internal
+     */
+    @observable
+    public control!: HTMLInputElement;
+
+    /**
+     * Reference to the internal listbox element.
+     *
+     * @internal
+     */
+    @observable
+    public listbox!: HTMLDivElement;
+
+    /**
+     * The ref to the internal dropdown button element.
+     *
+     * @internal
+     */
+    @observable
+    public readonly dropdownButton?: ToggleButton;
+
+    /**
+     * The collection of currently filtered options.
+     *
+     * @public
+     */
+    public filteredOptions: ListboxOption[] = [];
 
     /** @internal */
     @observable
     public hasOverflow = false;
 
     public override get value(): string {
-        return super.value;
+        Observable.track(this, 'value');
+        return this._value;
     }
 
     // This override is to work around an issue in FAST where an old filter value
     // is used after programmatically setting the value property.
     // See: https://github.com/microsoft/fast/issues/6749
     public override set value(next: string) {
-        super.value = next;
+        const prev = `${this._value}`;
+        let updatedValue = next;
+
+        if (this.$fastController.isConnected && this.options) {
+            const selectedIndex = this.options.findIndex(
+                el => el.text.toLowerCase() === next.toLowerCase()
+            );
+
+            const prevSelectedValue = this.options[this.selectedIndex]?.text;
+            const nextSelectedValue = this.options[selectedIndex]?.text;
+
+            this.selectedIndex = prevSelectedValue !== nextSelectedValue
+                ? selectedIndex
+                : this.selectedIndex;
+
+            updatedValue = this.firstSelectedOption?.text || next;
+        }
+
+        if (prev !== updatedValue) {
+            this._value = updatedValue;
+            super.valueChanged(prev, updatedValue);
+            Observable.notify(this, 'value');
+        }
+
         // Workaround using index notation to manipulate private member
         // Can remove when following resolved: https://github.com/microsoft/fast/issues/6749
         // eslint-disable-next-line @typescript-eslint/dot-notation
@@ -93,17 +192,110 @@ export class Combobox
             .indexOf(this.value);
     }
 
+    /**
+     * The list of options.
+     *
+     * @public
+     * @remarks
+     * Overrides `Listbox.options`.
+     */
+    public override get options(): ListboxOption[] {
+        Observable.track(this, 'options');
+        return this.filteredOptions?.length
+            ? this.filteredOptions
+            : this._options;
+    }
+
+    public override set options(value: ListboxOption[]) {
+        this._options = value;
+        Observable.notify(this, 'options');
+    }
+
+    /**
+     * The unique id for the internal listbox element.
+     *
+     * @internal
+     */
+    public listboxId: string = uniqueId('listbox-');
+
+    /**
+     * The max height for the listbox when opened.
+     *
+     * @internal
+     */
+    @observable
+    public maxHeight = 0;
+
+    /**
+     * The open attribute.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: open
+     */
+    @attr({ attribute: 'open', mode: 'boolean' })
+    public open = false;
+
     private valueUpdatedByInput = false;
     private valueBeforeTextUpdate?: string;
+    private _value = '';
+    /**
+     * The current filter value.
+     */
+    private filter = '';
+
+    /**
+     * The initial state of the position attribute.
+     */
+    private forcedPosition = false;
 
     // Workaround for https://github.com/microsoft/fast/issues/5123
-    public override setPositioning(): void {
+    public setPositioning(): void {
         if (!this.$fastController.isConnected) {
             // Don't call setPositioning() until we're connected,
             // since this.forcedPosition isn't initialized yet.
             return;
         }
-        super.setPositioning();
+        const currentBox = this.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const availableBottom = viewportHeight - currentBox.bottom;
+
+        if (this.forcedPosition) {
+            this.position = this.positionAttribute;
+        } else if (currentBox.top > availableBottom) {
+            this.position = SelectPosition.above;
+        } else {
+            this.position = SelectPosition.below;
+        }
+
+        this.positionAttribute = this.forcedPosition
+            ? this.positionAttribute
+            : this.position;
+
+        // eslint-disable-next-line operator-linebreak
+        this.maxHeight =
+            // eslint-disable-next-line no-bitwise
+            this.position === SelectPosition.above
+                ? ~~currentBox.top
+                : ~~availableBottom;
+    }
+
+    private get isAutocompleteInline(): boolean {
+        return (
+            this.autocomplete === ComboboxAutocomplete.inline
+            || this.isAutocompleteBoth
+        );
+    }
+
+    private get isAutocompleteList(): boolean {
+        return (
+            this.autocomplete === ComboboxAutocomplete.list
+            || this.isAutocompleteBoth
+        );
+    }
+
+    private get isAutocompleteBoth(): boolean {
+        return this.autocomplete === ComboboxAutocomplete.both;
     }
 
     // Workaround for https://github.com/microsoft/fast/issues/5773
@@ -113,6 +305,7 @@ export class Combobox
     ): void {
         const value = this.value;
         super.slottedOptionsChanged(prev, next);
+        this.updateValue();
         if (value) {
             this.value = value;
         }
@@ -120,9 +313,47 @@ export class Combobox
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        // Call setPositioning() after this.forcedPosition is initialized.
+        this.forcedPosition = !!this.positionAttribute;
+        if (this.value) {
+            this.initialValue = this.value;
+        }
         this.setPositioning();
         this.updateInputAriaLabel();
+    }
+
+    /**
+     * Handle opening and closing the listbox when the combobox is clicked.
+     *
+     * @param e - the mouse event
+     * @internal
+     */
+    public override clickHandler(e: MouseEvent): boolean {
+        if (this.disabled) {
+            return false;
+        }
+
+        if (this.open) {
+            const captured = (e.target as HTMLElement).closest<ListOption>(
+                'option,[role=option]'
+            );
+
+            if (!captured || captured.disabled) {
+                return false;
+            }
+
+            this.selectedOptions = [captured];
+            this.control.value = captured.text;
+            this.clearSelectionRange();
+            this.updateValue(true);
+        }
+
+        this.open = !this.open;
+
+        if (this.open) {
+            this.control.focus();
+        }
+
+        return true;
     }
 
     public toggleButtonClickHandler(e: Event): void {
@@ -148,76 +379,363 @@ export class Combobox
         }
     }
 
-    public override filterOptions(): void {
-        super.filterOptions();
+    public filterOptions(): void {
+        if (
+            !this.autocomplete
+            || this.autocomplete === ComboboxAutocomplete.none
+        ) {
+            this.filter = '';
+        }
+
+        const filter = this.filter.toLowerCase();
+
+        this.filteredOptions = this._options.filter(o => o.text.toLowerCase().startsWith(filter));
+
+        if (this.isAutocompleteList) {
+            if (!this.filteredOptions.length && !filter) {
+                this.filteredOptions = this._options;
+            }
+
+            this._options.forEach(o => {
+                (o as ListOption).visuallyHidden = !this.filteredOptions.includes(o);
+            });
+        }
+
         const enabledOptions = this.filteredOptions.filter(o => !o.disabled);
         this.filteredOptions = enabledOptions;
     }
 
-    /**
-     * This is a workaround for the issue described here: https://github.com/microsoft/fast/issues/6267
-     * For now, we will update the value ourselves while a user types in text. Note that there is other
-     * implementation related to this (like the 'keydownEventHandler') needed to create the complete set
-     * of desired behavior described in the issue noted above.
-     */
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    public override inputHandler(e: InputEvent): boolean | void {
-        const returnValue = super.inputHandler(e);
+    public inputHandler(e: InputEvent): boolean {
+        this.filter = this.control.value;
+        this.filterOptions();
+
+        if (!this.isAutocompleteInline) {
+            this.selectedIndex = this.options
+                .map(option => option.text)
+                .indexOf(this.control.value);
+        }
+
+        if (!(e.inputType.includes('deleteContent') || !this.filter.length)) {
+            if (this.isAutocompleteList && !this.open) {
+                this.open = true;
+            }
+
+            if (this.isAutocompleteInline) {
+                if (this.filteredOptions.length) {
+                    this.selectedOptions = [this.filteredOptions[0]!];
+                    this.selectedIndex = this.options.indexOf(
+                        this.firstSelectedOption
+                    );
+                    this.setInlineSelection();
+                } else {
+                    this.selectedIndex = -1;
+                }
+            }
+        }
+
+        // This is a workaround for the issue described here: https://github.com/microsoft/fast/issues/6267
+        // For now, we will update the value ourselves while a user types in text. Note that there is other
+        // implementation related to this (like the 'keydownEventHandler') needed to create the complete set
+        // of desired behavior described in the issue noted above.
         if (!this.valueUpdatedByInput) {
             this.valueBeforeTextUpdate = this.value;
         }
         this.valueUpdatedByInput = true;
+
         // This is a workaround for this FAST issue: https://github.com/microsoft/fast/issues/6776
         if (this.value !== this.control.value) {
             this.focusAndScrollOptionIntoView();
         }
 
         this.value = this.control.value;
-        return returnValue;
+        return true;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public override keydownHandler(e: KeyboardEvent): boolean | void {
-        const returnValue = super.keydownHandler(e);
         if (e.ctrlKey || e.altKey) {
-            return returnValue;
+            return true;
         }
 
         switch (e.key) {
             case keyEnter:
+                this.syncValue();
+                if (this.isAutocompleteInline) {
+                    this.filter = this.value;
+                }
+
+                this.open = false;
+                this.clearSelectionRange();
                 this.emitChangeIfValueUpdated();
+                break;
+            case keyEscape:
+                if (!this.isAutocompleteInline) {
+                    this.selectedIndex = -1;
+                }
+
+                if (this.open) {
+                    this.open = false;
+                    break;
+                }
+
+                this.value = '';
+                this.control.value = '';
+                this.filter = '';
+                this.filterOptions();
+                break;
+            case keyTab:
+                this.setInputToSelection();
+
+                if (!this.open) {
+                    return true;
+                }
+
+                e.preventDefault();
+                this.open = false;
                 break;
             case keyArrowDown:
             case keyArrowUp:
+                this.filterOptions();
+
+                if (!this.open) {
+                    this.open = true;
+                    break;
+                }
+
+                if (this.filteredOptions.length > 0) {
+                    super.keydownHandler(e);
+                }
+
+                if (this.isAutocompleteInline) {
+                    this.setInlineSelection();
+                }
+
                 if (this.open && this.valueUpdatedByInput) {
                     this.valueUpdatedByInput = false;
                 }
                 break;
             default:
-                return returnValue;
+                return true;
         }
-        return returnValue;
+        return true;
+    }
+
+    /**
+     * Handle keyup actions for value input and text field manipulations.
+     *
+     * @param e - the keyboard event
+     * @internal
+     */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    public keyupHandler(e: KeyboardEvent): boolean | void {
+        const key = e.key;
+
+        switch (key) {
+            case 'ArrowLeft':
+            case 'ArrowRight':
+            case 'Backspace':
+            case 'Delete':
+            case 'Home':
+            case 'End': {
+                this.filter = this.control.value;
+                this.selectedIndex = -1;
+                this.filterOptions();
+                break;
+            }
+            default: {
+                break;
+            }
+        }
     }
 
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public override focusoutHandler(e: FocusEvent): boolean | void {
-        const returnValue = super.focusoutHandler(e);
+        this.syncValue();
+
+        if (!this.open) {
+            return true;
+        }
+
+        const focusTarget = e.relatedTarget as HTMLElement;
+        if (this.isSameNode(focusTarget)) {
+            this.focus();
+            return true;
+        }
+
+        if (!this.options?.includes(focusTarget as ListboxOption)) {
+            this.open = false;
+        }
+
         this.open = false;
         this.emitChangeIfValueUpdated();
-        return returnValue;
+        return true;
     }
 
-    protected override focusAndScrollOptionIntoView(): void {
-        if (this.open) {
-            super.focusAndScrollOptionIntoView();
+    /**
+     * Reset the element to its first selectable option when its parent form is reset.
+     *
+     * @internal
+     */
+    public override formResetCallback(): void {
+        super.formResetCallback();
+        this.setDefaultSelectedOption();
+        this.updateValue();
+    }
+
+    /** {@inheritDoc (FormAssociated:interface).validate} */
+    public override validate(): void {
+        super.validate(this.control);
+    }
+
+    /**
+     * Set the default selected options at initialization or reset.
+     *
+     * @internal
+     * @remarks
+     * Overrides `Listbox.setDefaultSelectedOption`
+     */
+    public override setDefaultSelectedOption(): void {
+        if (this.$fastController.isConnected && this.options) {
+            const selectedIndex = this.options.findIndex(
+                el => el.getAttribute('selected') !== null || el.selected
+            );
+
+            this.selectedIndex = selectedIndex;
+            if (!this.dirtyValue && this.firstSelectedOption) {
+                this.value = this.firstSelectedOption.text;
+            }
+            this.setSelectedOptions();
         }
     }
 
-    protected override openChanged(): void {
-        super.openChanged();
+    /**
+     * Ensure that the selectedIndex is within the current allowable filtered range.
+     *
+     * @param prev - the previous selected index value
+     * @param next - the current selected index value
+     *
+     * @internal
+     */
+    public override selectedIndexChanged(
+        prev: number | undefined,
+        next: number
+    ): void {
+        if (this.$fastController.isConnected) {
+            const pinnedSelectedIndex = limit(
+                -1,
+                this.options.length - 1,
+                next
+            );
+
+            // we only want to call the super method when the selectedIndex is in range
+            if (pinnedSelectedIndex !== this.selectedIndex) {
+                this.selectedIndex = pinnedSelectedIndex;
+                return;
+            }
+
+            super.selectedIndexChanged(prev, pinnedSelectedIndex);
+        }
+    }
+
+    /**
+     * Synchronize the `aria-disabled` property when the `disabled` property changes.
+     *
+     * @param prev - The previous disabled value
+     * @param next - The next disabled value
+     *
+     * @internal
+     */
+    public override disabledChanged(prev: boolean, next: boolean): void {
+        if (super.disabledChanged) {
+            super.disabledChanged(prev, next);
+        }
+        this.ariaDisabled = this.disabled ? 'true' : 'false';
+    }
+
+    /**
+     * Move focus to the previous selectable option.
+     *
+     * @internal
+     * @remarks
+     * Overrides `Listbox.selectPreviousOption`
+     */
+    public override selectPreviousOption(): void {
+        if (!this.disabled && this.selectedIndex >= 0) {
+            this.selectedIndex -= 1;
+        }
+    }
+
+    /**
+     * Focus the control and scroll the first selected option into view.
+     *
+     * @internal
+     * @remarks
+     * Overrides: `Listbox.focusAndScrollOptionIntoView`
+     */
+    protected override focusAndScrollOptionIntoView(): void {
+        if (this.open) {
+            if (this.contains(document.activeElement)) {
+                this.control.focus();
+                if (this.firstSelectedOption) {
+                    requestAnimationFrame(() => {
+                        this.firstSelectedOption?.scrollIntoView({
+                            block: 'nearest'
+                        });
+                    });
+                }
+            }
+        }
+    }
+
+    protected openChanged(): void {
+        if (this.open) {
+            this.ariaControls = this.listboxId;
+            this.ariaExpanded = 'true';
+
+            this.setPositioning();
+            this.focusAndScrollOptionIntoView();
+
+            // focus is directed to the element when `open` is changed programmatically
+            DOM.queueUpdate(() => this.focus());
+        } else {
+            this.ariaControls = '';
+            this.ariaExpanded = 'false';
+        }
+
         if (this.dropdownButton) {
             this.dropdownButton.checked = this.open;
         }
+    }
+
+    protected placeholderChanged(): void {
+        if (this.proxy instanceof HTMLInputElement) {
+            this.proxy.placeholder = this.placeholder;
+        }
+    }
+
+    /**
+     * Ensure that the entire list of options is used when setting the selected property.
+     * @internal
+     * @remarks
+     * Overrides: `Listbox.selectedOptionsChanged`
+     */
+    protected override selectedOptionsChanged(
+        _: ListboxOption[] | undefined,
+        next: ListboxOption[]
+    ): void {
+        if (this.$fastController.isConnected) {
+            this._options.forEach(o => {
+                o.selected = next.includes(o);
+            });
+        }
+    }
+
+    protected positionChanged(
+        _: SelectPosition | undefined,
+        next: SelectPosition | undefined
+    ): void {
+        this.positionAttribute = next;
+        this.setPositioning();
     }
 
     private regionChanged(
@@ -245,6 +763,59 @@ export class Combobox
 
     private maxHeightChanged(): void {
         this.updateListboxMaxHeightCssVariable();
+    }
+
+    /**
+     * Sets the value and to match the first selected option.
+     */
+    private updateValue(shouldEmit?: boolean): void {
+        if (this.$fastController.isConnected) {
+            this.value = this.firstSelectedOption?.text || this.control.value;
+            this.control.value = this.value;
+        }
+
+        if (shouldEmit) {
+            this.$emit('change');
+        }
+    }
+
+    /**
+     * Focus and set the content of the control based on the first selected option.
+     */
+    private setInputToSelection(): void {
+        if (this.firstSelectedOption) {
+            this.control.value = this.firstSelectedOption.text;
+            this.control.focus();
+        }
+    }
+
+    /**
+     * Focus, set and select the content of the control based on the first selected option.
+     */
+    private setInlineSelection(): void {
+        if (this.firstSelectedOption) {
+            this.setInputToSelection();
+            this.control.setSelectionRange(
+                this.filter.length,
+                this.control.value.length,
+                'backward'
+            );
+        }
+    }
+
+    private clearSelectionRange(): void {
+        const controlValueLength = this.control.value.length;
+        this.control.setSelectionRange(controlValueLength, controlValueLength);
+    }
+
+    /**
+     * Determines if a value update should involve emitting a change event, then updates the value.
+     */
+    private syncValue(): void {
+        const newValue = this.selectedIndex > -1
+            ? this.firstSelectedOption?.text
+            : this.control.value;
+        this.updateValue(this.value !== newValue);
     }
 
     private updateListboxMaxHeightCssVariable(): void {
@@ -288,7 +859,7 @@ export class Combobox
 
 const nimbleCombobox = Combobox.compose<ComboboxOptions>({
     baseName: 'combobox',
-    baseClass: FoundationCombobox,
+    baseClass: FormAssociatedCombobox,
     template,
     styles,
     shadowOptions: {
@@ -326,6 +897,9 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
         ${errorTextTemplate}
     `
 });
+
+export interface Combobox extends StartEnd, DelegatesARIACombobox {}
+applyMixins(Combobox, StartEnd, DelegatesARIACombobox);
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCombobox());
 export const comboboxTag = 'nimble-combobox';
