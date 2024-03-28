@@ -21,10 +21,12 @@ Toggletips are commonly used in user interfaces to provide contextual help, expl
 
 -   In a _form_ or _editor_ view to display additional information or context for a specific element.
 -   When the additional information or context provided by the toggletip is not valuable for most users of the control.
+-   Content is "static" reference documentation.
 
 **When not to use:**
 
 -   When the additional information or context is valuable for most users of the control. This context should be visible by default.
+-   Content is "dynamic" or updated in response to actions like error messages or server responses.
 
 ## Anatomy
 
@@ -79,7 +81,7 @@ The toggle-tip does not support an error state. Further, the toggle-tip should n
 
 ### ARIA Considerations
 
-> NOTE: From Pearson's [Toggletip](https://accessibility.pearson.com/resources/developers-corner/reference-library/tooltips-and-toggletips/index.php) reference document.
+> NOTE: From Pearson's [Toggletip](https://accessibility.pearson.com/resources/developers-corner/reference-library/tooltips-and-toggletips/index.php) reference document. We should follow the intent of this reference document, but Nimble best practices may differ from any requirements listed here. Any differences should be called out in the HLD.
 
 #### Triggering
 
