@@ -7,14 +7,12 @@ import {
     standardPadding,
     titlePlus1Font,
     drawerWidth,
-    largeDelay,
     actionRgbPartialColor
 } from '../theme-provider/design-tokens';
 import {
     modalBackdropColorThemeColorStatic,
     modalBackdropColorThemeDarkStatic,
-    modalBackdropColorThemeLightStatic,
-    largeDelayStatic
+    modalBackdropColorThemeLightStatic
 } from '../theme-provider/design-tokens-static';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
@@ -48,24 +46,6 @@ export const styles = css`
         overflow: hidden;
     }
 
-    @keyframes ni-private-drawer-fade-in-keyframes {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-
-    dialog.animating::backdrop {
-        animation: ni-private-drawer-fade-in-keyframes ${largeDelayStatic}
-            ease-in;
-    }
-
-    dialog.closing::backdrop {
-        animation-direction: reverse;
-    }
-
     .dialog-contents {
         box-sizing: border-box;
         display: flex;
@@ -76,56 +56,13 @@ export const styles = css`
         background-color: ${applicationBackgroundColor};
     }
 
-    @keyframes ni-private-drawer-slide-in-left-keyframes {
-        0% {
-            transform: translate(-100%);
-        }
-        100% {
-            transform: translate(0%);
-        }
-    }
-
     :host([location='left']) .dialog-contents {
         box-shadow: 3px 0px 8px #00000033;
-    }
-
-    :host([location='left']) dialog.animating .dialog-contents {
-        animation: ni-private-drawer-slide-in-left-keyframes ${largeDelay}
-            ease-in;
-    }
-
-    @keyframes ni-private-drawer-slide-in-right-keyframes {
-        0% {
-            transform: translate(100%);
-        }
-        100% {
-            transform: translate(0%);
-        }
     }
 
     :host([location='right']) .dialog-contents {
         right: 0px;
         box-shadow: -3px 0px 8px #00000033;
-    }
-
-    :host([location='right']) dialog.animating .dialog-contents {
-        animation: ni-private-drawer-slide-in-right-keyframes ${largeDelay}
-            ease-in;
-    }
-
-    @media (prefers-reduced-motion) {
-        :host([location='left']) dialog.animating .dialog-contents,
-        :host([location='right']) dialog.animating .dialog-contents {
-            animation: ni-private-drawer-fade-in-keyframes ${largeDelay} ease-in;
-        }
-    }
-
-    :host([location='left']) dialog.closing .dialog-contents {
-        animation-direction: reverse;
-    }
-
-    :host([location='right']) dialog.closing .dialog-contents {
-        animation-direction: reverse;
     }
 
     ${

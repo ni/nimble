@@ -5,11 +5,12 @@ import {
     DesignSystem,
     FoundationElement
 } from '@microsoft/fast-foundation';
-import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { UserDismissed } from '../patterns/dialog/types';
 import { styles } from './styles';
 import { template } from './template';
 import { DrawerLocation } from './types';
+import { animationConfig } from './animations';
+import { prefersReducedMotionMediaQuery } from '../utilities/style/prefers-reduced-motion';
 
 export { UserDismissed };
 
@@ -36,16 +37,24 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     public preventDismiss = false;
 
     public dialog!: HTMLDialogElement;
+    public dialogContents!: HTMLElement;
     private closing = false;
 
     private resolveShow?: (reason: CloseReason | UserDismissed) => void;
     private closeReason!: CloseReason | UserDismissed;
+
+    private animations: Animation[] = [];
 
     /**
      * True if the drawer is open, opening, or closing. Otherwise, false.
      */
     public get open(): boolean {
         return this.resolveShow !== undefined;
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.cancelCurrentAnimations();
     }
 
     /**
@@ -118,48 +127,56 @@ export class Drawer<CloseReason = void> extends FoundationElement {
         this.resolveShow = undefined;
     }
 
-    private readonly animationEndHandlerFunction = (): void => this.animationEndHandler();
-
     private openDialog(): void {
         this.dialog.showModal();
-        this.triggerAnimation();
+        void this.triggerAnimation();
     }
 
     private closeDialog(): void {
         this.closing = true;
-        this.triggerAnimation();
+        void this.triggerAnimation();
     }
 
-    private triggerAnimation(): void {
-        // Read the offsetHeight of the dialog to trigger a reflow. This guarantees that the browser
-        // has processed the 'animating' class being removed before trying to readd it, even if the previous
-        // animation has just finished. Otherwise, problems can occur. For example, trying to close the
-        // drawer immediately after the opening animation ends does not actually close the drawer.
-        void this.dialog.offsetHeight;
-
-        this.dialog.classList.add('animating');
-        if (this.closing) {
-            this.dialog.classList.add('closing');
+    private async triggerAnimation(): Promise<void> {
+        if (this.animations.length !== 0) {
+            this.animations.forEach(x => x.reverse());
+            return;
         }
 
-        this.dialog.addEventListener(
-            eventAnimationEnd,
-            this.animationEndHandlerFunction
+        const drawerAnimation = this.dialogContents.animate(
+            this.getSlideInKeyframes(),
+            this.closing ? animationConfig.slideOutOptions : animationConfig.slideInOptions
         );
-    }
+        const backdropAnimation = this.dialog.animate(
+            animationConfig.fadeInKeyFrames,
+            this.closing ? animationConfig.backdropFadeOutOptions : animationConfig.backdropFadeInOptions
+        );
+        this.animations.push(drawerAnimation);
+        this.animations.push(backdropAnimation);
 
-    private animationEndHandler(): void {
-        this.dialog.removeEventListener(
-            eventAnimationEnd,
-            this.animationEndHandlerFunction
-        );
-        this.dialog.classList.remove('animating');
+        await Promise.all([drawerAnimation.finished, backdropAnimation.finished]);
+
+        this.animations = [];
         if (this.closing) {
-            this.dialog.classList.remove('closing');
             this.dialog.close();
             this.closing = false;
             this.doResolveShow(this.closeReason);
         }
+    }
+
+    private getSlideInKeyframes(): Keyframe[] {
+        if (prefersReducedMotionMediaQuery.matches) {
+            return animationConfig.fadeInKeyFrames;
+        }
+
+        return this.location === DrawerLocation.right
+            ? animationConfig.slideInRightKeyframes
+            : animationConfig.slideInLeftKeyframes;
+    }
+
+    private cancelCurrentAnimations(): void {
+        this.animations.forEach(x => x.cancel());
+        this.animations = [];
     }
 }
 

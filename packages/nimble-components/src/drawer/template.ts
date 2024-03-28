@@ -8,7 +8,7 @@ export const template = html<Drawer>`
         @cancel="${(x, c) => x.cancelHandler(c.event)}"
         @close="${(x, c) => x.closeHandler(c.event)}"
     >
-        <div class="dialog-contents">
+        <div class="dialog-contents" ${ref('dialogContents')}>
             <slot></slot>
         </div>
     </dialog>
