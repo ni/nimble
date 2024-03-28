@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type ToggleButton, toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
-import type { ButtonAppearance } from '@ni/nimble-components/dist/esm/toggle-button/types';
+import type { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/toggle-button/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { ToggleButton };
@@ -19,6 +19,14 @@ export class NimbleToggleButtonDirective {
 
     @Input() public set appearance(value: ButtonAppearance) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
+    }
+
+    public get appearanceVariant(): ButtonAppearanceVariant {
+        return this.elementRef.nativeElement.appearanceVariant;
+    }
+
+    @Input('appearance-variant') public set appearanceVariant(value: ButtonAppearanceVariant) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'appearanceVariant', value);
     }
 
     public get disabled(): boolean {
