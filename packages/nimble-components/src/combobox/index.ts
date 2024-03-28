@@ -272,12 +272,9 @@ export class Combobox
             ? this.positionAttribute
             : this.position;
 
-        // eslint-disable-next-line operator-linebreak
-        this.maxHeight =
-            // eslint-disable-next-line no-bitwise
-            this.position === SelectPosition.above
-                ? ~~currentBox.top
-                : ~~availableBottom;
+        this.maxHeight = this.position === SelectPosition.above
+            ? Math.trunc(currentBox.top)
+            : Math.trunc(availableBottom);
     }
 
     private get isAutocompleteInline(): boolean {
