@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 28 Mar 2024 00:47:47 GMT",
+      "version": "20.6.0",
+      "tag": "@ni/nimble-angular_v20.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "a9ffce872954c88d7cf4ad0dd84eb55433953886",
+            "comment": "Add support for column placeholders"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 27 Mar 2024 21:22:02 GMT",
       "version": "20.5.7",
       "tag": "@ni/nimble-angular_v20.5.7",
