@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 28 Mar 2024 18:50:08 GMT",
+      "version": "24.1.2",
+      "tag": "@ni/nimble-components_v24.1.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c2b399b709c8bf7a1cfdd0d15b23931a5461e6bb",
+            "comment": "Disable deprecation warnings"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 28 Mar 2024 17:27:01 GMT",
       "version": "24.1.2",
       "tag": "@ni/nimble-components_v24.1.2",
