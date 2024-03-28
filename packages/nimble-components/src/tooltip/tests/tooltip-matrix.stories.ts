@@ -1,6 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -20,6 +19,25 @@ import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 import { TooltipSeverity } from '../types';
 import { tooltipTag } from '..';
 
+const iconVisibleStates = [
+    ['No_Icon', false],
+    ['Icon_Visible', true]
+] as const;
+type IconVisibleState = (typeof iconVisibleStates)[number];
+
+const severityStates = [
+    ['Default', TooltipSeverity.default],
+    ['Error', TooltipSeverity.error],
+    ['Information', TooltipSeverity.information]
+] as const;
+type SeverityState = (typeof severityStates)[number];
+
+const textStates = [
+    ['Short_Text', 'Hello'],
+    ['Long_Text', loremIpsum]
+] as const;
+type TextState = (typeof textStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Tooltip',
     parameters: {
@@ -28,23 +46,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const textStates = [
-    ['Short_Text', 'Hello'],
-    ['Long_Text', loremIpsum]
-] as const;
-type TextState = (typeof textStates)[number];
-
-const severityStates: [string, string | undefined][] = Object.entries(
-    TooltipSeverity
-).map(([key, value]) => [pascalCase(key), value]);
-type SeverityState = (typeof severityStates)[number];
-
-const iconVisibleStates = [
-    ['No_Icon', false],
-    ['Icon_Visible', true]
-] as const;
-type IconVisibleState = (typeof iconVisibleStates)[number];
 
 const component = (
     [textName, text]: TextState,

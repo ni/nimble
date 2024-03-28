@@ -14,15 +14,6 @@ import {
 } from '../../theme-provider/design-tokens';
 import { anchoredRegionTag } from '..';
 
-const metadata: Meta = {
-    title: 'Tests/Anchored Region',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
-
 const horizontalPositionStates = [
     ['Start', 'start'],
     ['End', 'end'],
@@ -38,6 +29,15 @@ const verticalPositionStates = [
     ['Center', 'center']
 ] as const;
 type VerticalPositionState = (typeof verticalPositionStates)[number];
+
+const metadata: Meta = {
+    title: 'Tests/Anchored Region',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 const component = (
     [horizontalPositionName, horizontalPosition]: HorizontalPositionState,

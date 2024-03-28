@@ -37,6 +37,8 @@ export const parameters = {
                 'Tests',
                 ['Docs'],
                 'Internal',
+                ['Docs'],
+                'Patterns',
                 ['Docs']
             ]
         }
@@ -74,10 +76,13 @@ const createOrUpdateBackgroundWorkaround = style => {
 // Storybook background plugin does not support mdx
 // Workaround based on: https://github.com/storybookjs/storybook/issues/13323#issuecomment-876296801
 export default {
+    parameters,
     decorators: [
         (story, context) => {
             const defaultBackgroundColorKey = context?.parameters?.backgrounds?.default;
-            const defaultBackgroundColor = context?.parameters?.backgrounds?.values?.find(v => v.name === defaultBackgroundColorKey)?.value;
+            const defaultBackgroundColor = context?.parameters?.backgrounds?.values?.find(
+                v => v.name === defaultBackgroundColorKey
+            )?.value;
             const currentBackgroundColor = context?.globals?.backgrounds?.value ?? defaultBackgroundColor;
             const style = `.docs-story {
                 background-color: ${currentBackgroundColor}
