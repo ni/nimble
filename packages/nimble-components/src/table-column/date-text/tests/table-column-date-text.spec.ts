@@ -94,12 +94,12 @@ describe('TableColumnDateText', () => {
             column.fieldName = 'anotherField';
             await waitForUpdatesAsync();
 
-            const anotherFieldValueFormatted = pageObject.getDefaultFormattedCellText(
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(
                 anotherFieldValue,
                 'en-US'
             );
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
-                anotherFieldValueFormatted
+                expectedFormattedValue
             );
         });
 
@@ -107,12 +107,12 @@ describe('TableColumnDateText', () => {
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
             await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
-            const fieldValueFormatted = pageObject.getDefaultFormattedCellText(
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(
                 fieldValue,
                 'en-US'
             );
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
-                fieldValueFormatted
+                expectedFormattedValue
             );
 
             const updatedValue = { field: null };
@@ -132,12 +132,12 @@ describe('TableColumnDateText', () => {
             await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
 
-            const fieldValueFormatted = pageObject.getDefaultFormattedCellText(
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(
                 fieldValue,
                 'en-US'
             );
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
-                fieldValueFormatted
+                expectedFormattedValue
             );
         });
 
@@ -162,11 +162,11 @@ describe('TableColumnDateText', () => {
                 new MouseEvent('mouseover')
             );
             await waitForUpdatesAsync();
-            const fieldValueFormatted = pageObject.getDefaultFormattedCellText(
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(
                 fieldValue,
                 'en-US'
             );
-            expect(pageObject.getCellTitle(0, 0)).toEqual(fieldValueFormatted);
+            expect(pageObject.getCellTitle(0, 0)).toEqual(expectedFormattedValue);
         });
 
         it('does not set title when cell text is fully visible', async () => {
@@ -208,12 +208,12 @@ describe('TableColumnDateText', () => {
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
             await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
-            const fieldValueFormatted = pageObject.getDefaultFormattedCellText(
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(
                 fieldValue,
                 'en-US'
             );
             expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
-                fieldValueFormatted
+                expectedFormattedValue
             );
         });
 
@@ -231,15 +231,15 @@ describe('TableColumnDateText', () => {
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
             await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
-            const fieldValueFormattedEnglish = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
+            const expectedEnglishFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                fieldValueFormattedEnglish
+                expectedEnglishFormattedValue
             );
             lang.setValueFor(table, 'fr');
             await waitForUpdatesAsync();
-            const fieldValueFormattedFrench = pageObject.getDefaultFormattedCellText(fieldValue, 'fr');
+            const expectedFrenchFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'fr');
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                fieldValueFormattedFrench
+                expectedFrenchFormattedValue
             );
         });
 
