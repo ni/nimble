@@ -57,10 +57,6 @@ export class Combobox
 
     /**
      * A message explaining why the value is invalid.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: error-text
      */
     @attr({ attribute: 'error-text' })
     public errorText?: string;
@@ -70,28 +66,24 @@ export class Combobox
 
     /**
      * The autocomplete attribute.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: autocomplete
      */
     @attr({ attribute: 'autocomplete', mode: 'fromView' })
     public autocomplete: ComboboxAutocomplete | undefined;
 
     /**
      * The placement for the listbox when the combobox is open.
-     *
-     * @public
      */
     @attr({ attribute: 'position' })
     public positionAttribute?: SelectPosition;
 
     /**
+     * The open attribute.
+     */
+    @attr({ attribute: 'open', mode: 'boolean' })
+    public open = false;
+
+    /**
      * Sets the placeholder value of the element, generally used to provide a hint to the user.
-     * @public
-     * @remarks
-     * HTML Attribute: placeholder
-     * Using this attribute is not a valid substitute for a labeling element.
      */
     @attr
     public placeholder = '';
@@ -123,16 +115,12 @@ export class Combobox
     public control!: HTMLInputElement;
 
     /**
-     * Reference to the internal listbox element.
-     *
      * @internal
      */
     @observable
     public listbox!: HTMLDivElement;
 
     /**
-     * The ref to the internal dropdown button element.
-     *
      * @internal
      */
     @observable
@@ -140,8 +128,6 @@ export class Combobox
 
     /**
      * The collection of currently filtered options.
-     *
-     * @public
      */
     public filteredOptions: ListboxOption[] = [];
 
@@ -154,9 +140,6 @@ export class Combobox
         return this._value;
     }
 
-    // This override is to work around an issue in FAST where an old filter value
-    // is used after programmatically setting the value property.
-    // See: https://github.com/microsoft/fast/issues/6749
     public override set value(next: string) {
         const prev = `${this._value}`;
         let updatedValue = next;
@@ -182,10 +165,8 @@ export class Combobox
             Observable.notify(this, 'value');
         }
 
-        // Workaround using index notation to manipulate private member
         // Can remove when following resolved: https://github.com/microsoft/fast/issues/6749
-        // eslint-disable-next-line @typescript-eslint/dot-notation
-        this['filter'] = next;
+        this.filter = next;
         this.filterOptions();
         this.selectedIndex = this.options
             .map(option => option.text)
@@ -195,8 +176,6 @@ export class Combobox
     /**
      * The list of options.
      *
-     * @public
-     * @remarks
      * Overrides `Listbox.options`.
      */
     public override get options(): ListboxOption[] {
@@ -226,22 +205,9 @@ export class Combobox
     @observable
     public maxHeight = 0;
 
-    /**
-     * The open attribute.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: open
-     */
-    @attr({ attribute: 'open', mode: 'boolean' })
-    public open = false;
-
     private valueUpdatedByInput = false;
     private valueBeforeTextUpdate?: string;
     private _value = '';
-    /**
-     * The current filter value.
-     */
     private filter = '';
 
     /**
@@ -249,8 +215,8 @@ export class Combobox
      */
     private forcedPosition = false;
 
-    // Workaround for https://github.com/microsoft/fast/issues/5123
     public setPositioning(): void {
+        // Workaround for https://github.com/microsoft/fast/issues/5123
         if (!this.$fastController.isConnected) {
             // Don't call setPositioning() until we're connected,
             // since this.forcedPosition isn't initialized yet.
@@ -295,11 +261,11 @@ export class Combobox
         return this.autocomplete === ComboboxAutocomplete.both;
     }
 
-    // Workaround for https://github.com/microsoft/fast/issues/5773
     public override slottedOptionsChanged(
         prev: HTMLElement[],
         next: HTMLElement[]
     ): void {
+        // Workaround for https://github.com/microsoft/fast/issues/5773
         const value = this.value;
         super.slottedOptionsChanged(prev, next);
         this.updateValue();
@@ -319,9 +285,6 @@ export class Combobox
     }
 
     /**
-     * Handle opening and closing the listbox when the combobox is clicked.
-     *
-     * @param e - the mouse event
      * @internal
      */
     public override clickHandler(e: MouseEvent): boolean {
@@ -353,15 +316,24 @@ export class Combobox
         return true;
     }
 
+    /**
+     * @internal
+     */
     public toggleButtonClickHandler(e: Event): void {
         e.stopImmediatePropagation();
     }
 
+    /**
+     * @internal
+     */
     public toggleButtonChangeHandler(e: Event): void {
         this.open = this.dropdownButton!.checked;
         e.stopImmediatePropagation();
     }
 
+    /**
+     * @internal
+     */
     public toggleButtonKeyDownHandler(e: KeyboardEvent): boolean {
         switch (e.key) {
             case keyArrowUp:
@@ -402,6 +374,9 @@ export class Combobox
         this.filteredOptions = enabledOptions;
     }
 
+    /**
+     * @internal
+     */
     public inputHandler(e: InputEvent): boolean {
         this.filter = this.control.value;
         this.filterOptions();
@@ -448,8 +423,7 @@ export class Combobox
         return true;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    public override keydownHandler(e: KeyboardEvent): boolean | void {
+    public override keydownHandler(e: KeyboardEvent): boolean {
         if (e.ctrlKey || e.altKey) {
             return true;
         }
@@ -518,13 +492,9 @@ export class Combobox
     }
 
     /**
-     * Handle keyup actions for value input and text field manipulations.
-     *
-     * @param e - the keyboard event
      * @internal
      */
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    public keyupHandler(e: KeyboardEvent): boolean | void {
+    public keyupHandler(e: KeyboardEvent): boolean {
         const key = e.key;
 
         switch (key) {
@@ -543,10 +513,14 @@ export class Combobox
                 break;
             }
         }
+
+        return true;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    public override focusoutHandler(e: FocusEvent): boolean | void {
+    /**
+     * @internal
+     */
+    public override focusoutHandler(e: FocusEvent): boolean {
         this.syncValue();
 
         if (!this.open) {
@@ -606,11 +580,6 @@ export class Combobox
     }
 
     /**
-     * Ensure that the selectedIndex is within the current allowable filtered range.
-     *
-     * @param prev - the previous selected index value
-     * @param next - the current selected index value
-     *
      * @internal
      */
     public override selectedIndexChanged(
@@ -636,9 +605,6 @@ export class Combobox
 
     /**
      * Synchronize the `aria-disabled` property when the `disabled` property changes.
-     *
-     * @param prev - The previous disabled value
-     * @param next - The next disabled value
      *
      * @internal
      */
