@@ -21,6 +21,7 @@ export class Prerendering {
     private _labelsFontSize!: number;
 
     private readonly fontSizeFactor = 0.8;
+    private readonly colorScaleResolution = 10;
 
     public constructor(private readonly wafermap: WaferMap) {}
 
@@ -48,7 +49,12 @@ export class Prerendering {
                     max = value;
                 }
             });
-            const valueSamples = ticks(min, max, 100);
+            // the linear color scale will not be infinite but will be limited by the color scale resolution
+            const valueSamples = ticks(
+                min,
+                max,
+                values.length * this.colorScaleResolution
+            );
             return valueSamples.map(value => {
                 return {
                     color: d3ColorScale(value),
@@ -56,12 +62,15 @@ export class Prerendering {
                 };
             });
         }
-        return this.wafermap.colorScale.colors.map((color, index) => {
-            return {
-                color,
-                value: +this.wafermap.colorScale.values[index]!
-            };
-        }).sort((a, b) => a.value - b.value);
+        // ordinal color categories have to be sorted by value
+        return this.wafermap.colorScale.colors
+            .map((color, index) => {
+                return {
+                    color,
+                    value: +this.wafermap.colorScale.values[index]!
+                };
+            })
+            .sort((a, b) => a.value - b.value);
     }
 
     private calculateLabelsFontSize(
