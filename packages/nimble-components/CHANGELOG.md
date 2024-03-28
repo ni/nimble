@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 27 Mar 2024 21:22:02 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Mar 2024 17:27:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.2
+
+Thu, 28 Mar 2024 17:27:01 GMT
+
+### Patches
+
+- Update date-text column tests to pass on all browsers ([ni/nimble@0fa5905](https://github.com/ni/nimble/commit/0fa5905a80b1e3fcae91f7e1e25130bf3e5376cb))
 
 ## 24.1.1
 
