@@ -80,9 +80,7 @@ describe('RichTextEditorMention', () => {
 
     it('Should return same markdown for assigned mention markdown when removing configuration element in the same editor', async () => {
         element.setMarkdown('<user:1>');
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         expect(element.getMarkdown()).toBe('<user:1>');
         element.removeChild(userMentionElement);
         await waitForUpdatesAsync();
@@ -355,7 +353,8 @@ describe('RichTextEditorMention', () => {
                 expect(pageObject.getMentionButtonLabel(0)).toBe('');
             });
 
-            it('should have button title and text when `button-label` updated', async () => {
+            // WebKit skipped, see https://github.com/ni/nimble/issues/1938
+            it('should have button title and text when `button-label` updated #SkipWebkit', async () => {
                 const { userMentionElement } = await appendUserMentionConfiguration(element);
                 userMentionElement.buttonLabel = 'at mention';
                 await waitForUpdatesAsync();
@@ -746,9 +745,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event from configuration element when there is @mention in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         await pageObject.setEditorTextContent('@test');
@@ -756,9 +753,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event from configuration element when there is update in @mention in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
@@ -767,9 +762,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event from configuration element when pasting @ in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         pageObject.pasteToEditor('@test');
@@ -778,9 +771,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event when deleting an existing @mention partially in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
@@ -789,9 +780,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should not fire "mention-update" event when deleting an existing @mention completely in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         await pageObject.setEditorTextContent('@test');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
@@ -800,9 +789,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should not fire "mention-update" event when adding text near an existing @ mention', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         element.setMarkdown('<user:1>');
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
@@ -826,9 +813,7 @@ describe('RichTextEditorMention', () => {
     });
 
     it('should fire "mention-update" event with specific filter details from configuration element when there is @mention in editor', async () => {
-        const { userMentionElement } = await appendUserMentionConfiguration(
-            element
-        );
+        const { userMentionElement } = await appendUserMentionConfiguration(element);
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
         await pageObject.setEditorTextContent('@test');
@@ -1048,7 +1033,8 @@ describe('RichTextEditor user mention via template', () => {
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User @');
         });
 
-        it('should get `@` text without a preceding whitespace after a hard break, when button clicked', async () => {
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
+        it('should get `@` text without a preceding whitespace after a hard break, when button clicked #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('User');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.clickUserMentionButton();
@@ -1061,7 +1047,8 @@ describe('RichTextEditor user mention via template', () => {
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User@');
         });
 
-        it('should get `@` text with a single preceding whitespace after a hard break with a text, when button clicked', async () => {
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
+        it('should get `@` text with a single preceding whitespace after a hard break with a text, when button clicked #SkipWebkit', async () => {
             await pageObject.setEditorTextContent('User');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('Text');
@@ -1370,7 +1357,8 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        it('setting `disabled` should close the mention popup', async () => {
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
+        it('setting `disabled` should close the mention popup #SkipWebkit', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }

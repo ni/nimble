@@ -23,6 +23,9 @@ import {
     BodyFamily,
     BodySize,
     BodyWeight,
+    Body2Family,
+    Body2Size,
+    Body2Weight,
     ControlLabel1Family,
     ControlLabel1Size,
     ControlLabel1Weight,
@@ -59,6 +62,9 @@ import {
     BodyEmphasizedSize,
     BodyEmphasizedFamily,
     BodyEmphasizedWeight,
+    BodyEmphasized2Size,
+    BodyEmphasized2Family,
+    BodyEmphasized2Weight,
     ButtonLabel1Size,
     ButtonLabel1Family,
     ButtonLabel1Weight,
@@ -78,7 +84,9 @@ import {
     LinkLineHeight,
     PlaceholderLineHeight,
     BodyEmphasizedLineHeight,
+    BodyEmphasized2LineHeight,
     BodyLineHeight,
+    Body2LineHeight,
     GroupLabel1LineHeight,
     ControlLabel1LineHeight,
     ButtonLabel1LineHeight,
@@ -90,8 +98,7 @@ import {
     GridHeaderFamily,
     GridHeaderWeight,
     GridHeaderSize,
-    DigitalGreenDark105,
-    DigitalGreenDark110
+    DigitalGreenDark105
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -114,7 +121,9 @@ const Subtitle2FallbackFontFamily = 'Source Sans Pro Fallback';
 const LinkFallbackFontFamily = 'Source Sans Pro Fallback';
 const PlaceholderFallbackFontFamily = 'Source Sans Pro Fallback';
 const BodyFallbackFontFamily = 'Source Sans Pro Fallback';
+const Body2FallbackFontFamily = 'Source Sans Pro Fallback';
 const BodyEmphasizedFallbackFontFamily = 'Source Sans Pro Fallback';
+const BodyEmphasized2FallbackFontFamily = 'Source Sans Pro Fallback';
 const GroupLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
 const ControlLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
 const ButtonLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
@@ -238,15 +247,6 @@ export const buttonPrimaryFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonPrimaryFontColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black15, White));
 
-export const buttonFillActivePrimaryColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.buttonFillActivePrimaryColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    hexToRgbaCssColor(Black91, 0.85),
-    hexToRgbaCssColor(Black15, 0.2),
-    hexToRgbaCssColor(White, 0.2)
-));
-
 export const buttonFillAccentColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonFillAccentColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(
@@ -271,15 +271,6 @@ export const buttonBorderAccentOutlineColor = DesignToken.create<string>(
     DigitalGreenLight,
     PowerGreen,
     hexToRgbaCssColor(White, 0.3)
-));
-
-export const buttonFillAccentActiveColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.buttonFillAccentActiveColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenDark110,
-    DigitalGreenDark,
-    hexToRgbaCssColor(White, 0.2)
 ));
 
 // Component Sizing Tokens
@@ -550,8 +541,8 @@ export const [
     tokenNames.linkActiveFont,
     (element: HTMLElement) => getColorForTheme(
         element,
-        DigitalGreenDark,
-        PowerGreen,
+        DigitalGreenLight,
+        DigitalGreenLight,
         hexToRgbaCssColor(White, 0.6)
     ),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
@@ -573,7 +564,7 @@ export const [
     linkProminentFallbackFontFamily
 ] = createFontTokens(
     tokenNames.linkProminentFont,
-    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, PowerGreen),
+    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, PowerGreen),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
     LinkLightUiWeight,
@@ -593,7 +584,12 @@ export const [
     linkActiveProminentFallbackFontFamily
 ] = createFontTokens(
     tokenNames.linkActiveProminentFont,
-    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => getColorForTheme(
+        element,
+        DigitalGreenLight,
+        DigitalGreenLight,
+        PowerGreen
+    ),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
     LinkLightUiWeight,
@@ -623,6 +619,26 @@ export const [
 );
 
 export const [
+    bodyFont,
+    bodyFontColor,
+    bodyDisabledFontColor,
+    bodyFontFamily,
+    bodyFontWeight,
+    bodyFontSize,
+    bodyFontLineHeight,
+    bodyFallbackFontFamily
+] = createFontTokens(
+    tokenNames.bodyFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    BodyFamily,
+    BodyWeight,
+    BodySize,
+    BodyLineHeight,
+    BodyFallbackFontFamily
+);
+
+export const [
     bodyEmphasizedFont,
     bodyEmphasizedFontColor,
     bodyEmphasizedDisabledFontColor,
@@ -643,23 +659,43 @@ export const [
 );
 
 export const [
-    bodyFont,
-    bodyFontColor,
-    bodyDisabledFontColor,
-    bodyFontFamily,
-    bodyFontWeight,
-    bodyFontSize,
-    bodyFontLineHeight,
-    bodyFallbackFontFamily
+    bodyPlus1Font,
+    bodyPlus1FontColor,
+    bodyPlus1DisabledFontColor,
+    bodyPlus1FontFamily,
+    bodyPlus1FontWeight,
+    bodyPlus1FontSize,
+    bodyPlus1FontLineHeight,
+    bodyPlus1FallbackFontFamily
 ] = createFontTokens(
-    tokenNames.bodyFont,
+    tokenNames.bodyPlus1Font,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
-    BodyFamily,
-    BodyWeight,
-    BodySize,
-    BodyLineHeight,
-    BodyFallbackFontFamily
+    Body2Family,
+    Body2Weight,
+    Body2Size,
+    Body2LineHeight,
+    Body2FallbackFontFamily
+);
+
+export const [
+    bodyPlus1EmphasizedFont,
+    bodyPlus1EmphasizedFontColor,
+    bodyPlus1EmphasizedDisabledFontColor,
+    bodyPlus1EmphasizedFontFamily,
+    bodyPlus1EmphasizedFontWeight,
+    bodyPlus1EmphasizedFontSize,
+    bodyPlus1EmphasizedFontLineHeight,
+    bodyPlus1EmphasizedFallbackFontFamily
+] = createFontTokens(
+    tokenNames.bodyPlus1EmphasizedFont,
+    (element: HTMLElement) => getDefaultFontColorForTheme(element),
+    (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
+    BodyEmphasized2Family,
+    BodyEmphasized2Weight,
+    BodyEmphasized2Size,
+    BodyEmphasized2LineHeight,
+    BodyEmphasized2FallbackFontFamily
 );
 
 export const [

@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "6.10.1",
+  "version": "6.13.1",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico && npm run build:generate-font-scss && npm run build:style-dictionary",
@@ -15,7 +15,8 @@
     "pack": "npm run pack:npm && npm run pack:nuget",
     "pack:npm": "npm pack",
     "pack:nuget": "cross-env-shell dotnet pack ./NimbleTokens --configuration Release -p:PackageVersion=$npm_package_version",
-    "invoke-publish": "npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
+    "invoke-publish": "npm run invoke-publish:clean-nuget && npm run pack && npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
+    "invoke-publish:clean-nuget": "rimraf --glob \"NimbleTokens/bin/Release/*.nupkg\"",
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"NimbleTokens/bin/Release/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
     "invoke-publish:npm": "npm publish"
   },
@@ -38,13 +39,14 @@
     "@microsoft/fast-colors": "^5.3.1",
     "@ni/eslint-config-javascript": "^4.2.0",
     "cross-env": "^7.0.3",
-    "glob": "^8.1.0",
+    "glob": "^10.3.10",
     "lodash": "^4.17.21",
-    "sharp": "^0.32.1",
-    "style-dictionary": "3.7.2",
-    "svg-to-ts": "^10.1.0",
+    "rimraf": "^5.0.5",
+    "sharp": "^0.33.2",
+    "style-dictionary": "^3.9.2",
+    "svg-to-ts": "^12.0.0",
     "to-ico": "^1.1.5",
-    "typescript": "~4.8.2"
+    "typescript": "~4.9.5"
   },
   "files": [
     "dist/styledictionary/css/**",

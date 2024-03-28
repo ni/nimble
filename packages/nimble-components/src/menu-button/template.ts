@@ -12,6 +12,7 @@ export const template = html<MenuButton>`
         <${toggleButtonTag}
             part="button"
             appearance="${x => x.appearance}"
+            appearance-variant="${x => x.appearanceVariant}"
             ?content-hidden="${x => x.contentHidden}"
             ?checked="${x => x.open}"
             ?disabled="${x => x.disabled}"

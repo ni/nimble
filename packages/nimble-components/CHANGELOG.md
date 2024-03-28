@@ -1,8 +1,262 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 20 Feb 2024 17:54:12 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Mar 2024 17:27:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.2
+
+Thu, 28 Mar 2024 17:27:01 GMT
+
+### Patches
+
+- Update date-text column tests to pass on all browsers ([ni/nimble@0fa5905](https://github.com/ni/nimble/commit/0fa5905a80b1e3fcae91f7e1e25130bf3e5376cb))
+
+## 24.1.1
+
+Wed, 27 Mar 2024 21:22:02 GMT
+
+### Patches
+
+- Fix table scrolling test on WebKit ([ni/nimble@cc82598](https://github.com/ni/nimble/commit/cc82598544694002715db3383b75ed0c0f4793ae))
+
+## 24.1.0
+
+Wed, 27 Mar 2024 18:54:51 GMT
+
+### Minor changes
+
+- Add placeholders to table columns ([ni/nimble@a01932b](https://github.com/ni/nimble/commit/a01932bbdb941553a899b8b193af5acf6f67cadd))
+
+## 24.0.1
+
+Wed, 27 Mar 2024 12:05:29 GMT
+
+### Patches
+
+- Created new computations experimental module and tested it, created new data manager experimental and integrated with hover and old renderer ([ni/nimble@c6d99d8](https://github.com/ni/nimble/commit/c6d99d8923082bee7a68c244c60d36be339f0ee3))
+
+## 24.0.0
+
+Tue, 26 Mar 2024 20:45:41 GMT
+
+### Major changes
+
+- Support primary and accent variants for toggle and menu buttons. BREAKING CHANGE: Removed theme-aware tokens `buttonFillActivePrimaryColor` and `buttonFillAccentActiveColor`. Use `fillSelectedColor` instead. ([ni/nimble@594ac22](https://github.com/ni/nimble/commit/594ac221124cc1b52cd28113714bb8ff71e5820b))
+- Bump @ni/nimble-tokens to v6.13.1
+
+## 23.0.1
+
+Mon, 25 Mar 2024 17:03:11 GMT
+
+### Patches
+
+- Created new hover event for the new diesTable api and changed the zoom event ([ni/nimble@f56b73b](https://github.com/ni/nimble/commit/f56b73b45161a55b967dc03bbdd094a6527c814c))
+
+## 23.0.0
+
+Thu, 21 Mar 2024 17:13:38 GMT
+
+### Major changes
+
+- Breaking change: Renamed bodyEmphasizedPlus1 to bodyPlus1Emphasized to align with token conventions. Also, added bodyPlus1 font token ([ni/nimble@b93385a](https://github.com/ni/nimble/commit/b93385a27672ebc03e18a864e8fa268727595c66))
+- Bump @ni/nimble-tokens to v6.13.0
+
+## 22.1.1
+
+Wed, 20 Mar 2024 16:45:59 GMT
+
+### Patches
+
+- Remove ListOptionOwner from Combobox to address issue found in Angular ([ni/nimble@83f7fd9](https://github.com/ni/nimble/commit/83f7fd9e601eed789e8f6eb61a9d4a87a1d1835b))
+
+## 22.1.0
+
+Mon, 18 Mar 2024 17:12:34 GMT
+
+### Minor changes
+
+- Add placeholders for group rows in the table ([ni/nimble@3bbf8d7](https://github.com/ni/nimble/commit/3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda))
+
+## 22.0.1
+
+Thu, 14 Mar 2024 14:48:16 GMT
+
+### Patches
+
+- Fix bug where an anchor element's link couldn't be dragged correctly ([ni/nimble@a1eebb0](https://github.com/ni/nimble/commit/a1eebb02b4fb66ca77e0e32bb52497b2da1cb4cf))
+
+## 22.0.0
+
+Wed, 13 Mar 2024 23:07:24 GMT
+
+### Major changes
+
+- Rename icon labels to follow naming convention ([ni/nimble@518c229](https://github.com/ni/nimble/commit/518c229b964d2c4a2e77210692f5d367f2937ff4))
+
+## 21.10.2
+
+Tue, 12 Mar 2024 22:17:11 GMT
+
+### Patches
+
+- Adding DropdownOwner interface allowing Select to register options during connectedCallback. ([ni/nimble@19643f4](https://github.com/ni/nimble/commit/19643f4e13056e414aedd6b8ef89beb7ad1e95ab))
+
+## 21.10.1
+
+Tue, 12 Mar 2024 21:01:54 GMT
+
+### Patches
+
+- Update typescript to 4.9.5 ([ni/nimble@bc825e1](https://github.com/ni/nimble/commit/bc825e1b057eafd8bc005d11e9a224aa9aee9619))
+- Bump @ni/nimble-tokens to v6.12.1
+- Bump @ni/jasmine-parameterized to v0.2.3
+
+## 21.10.0
+
+Thu, 07 Mar 2024 21:20:52 GMT
+
+### Minor changes
+
+- New Wafer Map Component API. Introduced `diesTable` and two rendering strategies switched by this input ([ni/nimble@a9b5ced](https://github.com/ni/nimble/commit/a9b5cede5ebbb79127bf36e91b31d17d4bf241b9))
+
+## 21.9.1
+
+Wed, 06 Mar 2024 17:56:10 GMT
+
+### Patches
+
+- Minor updates from lint ([ni/nimble@dfd8acc](https://github.com/ni/nimble/commit/dfd8accc27d885df5eb8024d57e60f486066719a))
+
+## 21.9.0
+
+Tue, 05 Mar 2024 22:27:12 GMT
+
+### Minor changes
+
+- Adding placeholder behavior for Select ([ni/nimble@19643f4](https://github.com/ni/nimble/commit/19643f4e13056e414aedd6b8ef89beb7ad1e95ab))
+
+## 21.8.2
+
+Mon, 04 Mar 2024 19:02:52 GMT
+
+### Patches
+
+- Update column divider color on hover ([ni/nimble@4b05012](https://github.com/ni/nimble/commit/4b0501210e4096c23350dbe5cb2eb9e4d6901ed6))
+
+## 21.8.1
+
+Fri, 01 Mar 2024 23:02:58 GMT
+
+### Patches
+
+- Fix drawer/select animation bug ([ni/nimble@90df5dd](https://github.com/ni/nimble/commit/90df5dd14c1c5ad4116f6b43ae5fb99dc215c83e))
+
+## 21.8.0
+
+Thu, 29 Feb 2024 16:22:43 GMT
+
+### Minor changes
+
+- Allow icon mappings to specify an undefined icon ([ni/nimble@d4ca92e](https://github.com/ni/nimble/commit/d4ca92e5d7044d8be7b26ccbc52b91747663bfe2))
+
+## 21.7.1
+
+Wed, 28 Feb 2024 21:22:49 GMT
+
+### Patches
+
+- Create web worker class for future faster rendering wafer map ([ni/nimble@5269352](https://github.com/ni/nimble/commit/52693524c553f3b115e6c1004c902d10e7dd4050))
+
+## 21.7.0
+
+Wed, 28 Feb 2024 19:35:04 GMT
+
+### Minor changes
+
+- Add new icons for resume, generate, stop, deploy, undeploy, and hide ([ni/nimble@f4f3f45](https://github.com/ni/nimble/commit/f4f3f45c9107ff6d6c964fea69cd48247d6595fe))
+- Bump @ni/nimble-tokens to v6.12.0
+
+## 21.6.8
+
+Mon, 26 Feb 2024 22:26:36 GMT
+
+### Patches
+
+- Update usage of Intl.NumberFormat options ([ni/nimble@d74f49e](https://github.com/ni/nimble/commit/d74f49e65f2c63ef9eca571d9470b2a9d5c5d380))
+
+## 21.6.7
+
+Fri, 23 Feb 2024 22:56:07 GMT
+
+### Patches
+
+- Fix bug in Firefox where title on spinner isn't always displayed as expected ([ni/nimble@1e5b10c](https://github.com/ni/nimble/commit/1e5b10c7a247e13dcece70496b5ccbae322075a3))
+
+## 21.6.6
+
+Fri, 23 Feb 2024 22:17:56 GMT
+
+### Patches
+
+- Fix spacing between error text and component ([ni/nimble@c6e803c](https://github.com/ni/nimble/commit/c6e803caaa9757f7584281f096a94c4d58ef194d))
+
+## 21.6.5
+
+Fri, 23 Feb 2024 21:23:18 GMT
+
+### Patches
+
+- Only handle close events coming from dialog element ([ni/nimble@c1f4f8f](https://github.com/ni/nimble/commit/c1f4f8fb9bbb889608f1d2930f7a29d55fa31c79))
+
+## 21.6.4
+
+Fri, 23 Feb 2024 00:08:44 GMT
+
+### Patches
+
+- Tweak card to workaround lighthouse issue ([ni/nimble@b677d6b](https://github.com/ni/nimble/commit/b677d6b9ed7451715bb36043b245369060c8511b))
+
+## 21.6.3
+
+Thu, 22 Feb 2024 19:42:35 GMT
+
+### Patches
+
+- Clean up dialog/drawer properly if cancel event skipped ([ni/nimble@70e9234](https://github.com/ni/nimble/commit/70e9234b636b0a2e67a658ecef06008ac8e96fa2))
+
+## 21.6.2
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v6.11.1
+
+## 21.6.1
+
+Wed, 21 Feb 2024 23:32:45 GMT
+
+### Patches
+
+- Update `TableRecordDelayedHierarchyState` enum values to follow kebab casing convention ([ni/nimble@ff99d91](https://github.com/ni/nimble/commit/ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d))
+
+## 21.6.0
+
+Wed, 21 Feb 2024 21:18:20 GMT
+
+### Minor changes
+
+- Add bodyEmphasizedPlus1Font tokens ([ni/nimble@4037b7c](https://github.com/ni/nimble/commit/4037b7c13da51926e6fbfd774a4da19cd75cb98e))
+- Bump @ni/nimble-tokens to v6.11.0
+
+## 21.5.5
+
+Wed, 21 Feb 2024 19:48:20 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.2
 
 ## 21.5.4
 

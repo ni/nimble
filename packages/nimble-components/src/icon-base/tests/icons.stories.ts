@@ -56,6 +56,7 @@ const updateData = (tableRef: Table<Data>): void => {
         // Safari workaround: the table element instance is made at this point
         // but doesn't seem to be upgraded to a custom element yet
         await customElements.whenDefined('nimble-table');
+        tableRef.style.setProperty('--data-length', data.length.toString());
         await tableRef.setData(data);
     })();
 };
@@ -82,7 +83,7 @@ export const icons: StoryObj<IconArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             ${/* Make the table big enough to remove vertical scrollbar */ ''}
-            style="height: 6200px;"
+            style="height: calc((34px * var(--data-length)) + 32px);"
             data-unused="${x => updateData(x.tableRef)}"
         >
             <${tableColumnIconTag} field-name="tag" key-type="string">

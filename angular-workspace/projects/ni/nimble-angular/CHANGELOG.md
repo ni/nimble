@@ -1,8 +1,267 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 20 Feb 2024 17:54:12 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Mar 2024 17:27:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.6.1
+
+Thu, 28 Mar 2024 17:27:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.2
+
+## 20.6.0
+
+Thu, 28 Mar 2024 00:47:47 GMT
+
+### Minor changes
+
+- Add support for column placeholders ([ni/nimble@a9ffce8](https://github.com/ni/nimble/commit/a9ffce872954c88d7cf4ad0dd84eb55433953886))
+
+## 20.5.7
+
+Wed, 27 Mar 2024 21:22:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.1
+
+## 20.5.6
+
+Wed, 27 Mar 2024 18:54:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.0
+
+## 20.5.5
+
+Wed, 27 Mar 2024 12:05:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.0.1
+
+## 20.5.4
+
+Tue, 26 Mar 2024 20:45:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.0.0
+
+## 20.5.3
+
+Mon, 25 Mar 2024 17:03:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v23.0.1
+
+## 20.5.2
+
+Thu, 21 Mar 2024 17:13:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v23.0.0
+
+## 20.5.1
+
+Wed, 20 Mar 2024 16:45:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v22.1.1
+
+## 20.5.0
+
+Mon, 18 Mar 2024 17:12:34 GMT
+
+### Minor changes
+
+- Add new properties to the table label provider ([ni/nimble@3bbf8d7](https://github.com/ni/nimble/commit/3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda))
+- Bump @ni/nimble-components to v22.1.0
+
+## 20.4.1
+
+Thu, 14 Mar 2024 14:48:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v22.0.1
+
+## 20.4.0
+
+Wed, 13 Mar 2024 23:07:24 GMT
+
+### Minor changes
+
+- Update default values in label provider directives and expose additional label provider properties ([ni/nimble@518c229](https://github.com/ni/nimble/commit/518c229b964d2c4a2e77210692f5d367f2937ff4))
+- Bump @ni/nimble-components to v22.0.0
+
+## 20.3.0
+
+Tue, 12 Mar 2024 22:17:11 GMT
+
+### Minor changes
+
+- Add selected and hidden attributes to NimbleListOptionDirective. Also exporting SelectPageObject. ([ni/nimble@880dfa1](https://github.com/ni/nimble/commit/880dfa1a7f1f9f478dc87199184dba3e5e2c0a56))
+- Bump @ni/nimble-components to v21.10.2
+
+## 20.2.21
+
+Tue, 12 Mar 2024 21:01:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.10.1
+
+## 20.2.20
+
+Thu, 07 Mar 2024 21:20:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.10.0
+
+## 20.2.19
+
+Wed, 06 Mar 2024 17:56:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.9.1
+
+## 20.2.18
+
+Tue, 05 Mar 2024 22:27:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.9.0
+
+## 20.2.17
+
+Mon, 04 Mar 2024 19:02:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.8.2
+
+## 20.2.16
+
+Fri, 01 Mar 2024 23:02:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.8.1
+
+## 20.2.15
+
+Thu, 29 Feb 2024 16:22:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.8.0
+
+## 20.2.13
+
+Wed, 28 Feb 2024 21:22:49 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.7.1
+
+## 20.2.12
+
+Wed, 28 Feb 2024 19:35:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.7.0
+
+## 20.2.11
+
+Mon, 26 Feb 2024 22:26:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.8
+
+## 20.2.10
+
+Fri, 23 Feb 2024 22:56:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.7
+
+## 20.2.9
+
+Fri, 23 Feb 2024 22:17:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.6
+
+## 20.2.8
+
+Fri, 23 Feb 2024 21:23:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.5
+
+## 20.2.7
+
+Fri, 23 Feb 2024 00:08:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.4
+
+## 20.2.6
+
+Thu, 22 Feb 2024 19:42:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.3
+
+## 20.2.5
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.2
+
+## 20.2.4
+
+Wed, 21 Feb 2024 23:32:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.1
+
+## 20.2.3
+
+Wed, 21 Feb 2024 21:18:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.6.0
+
+## 20.2.2
+
+Wed, 21 Feb 2024 19:48:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.5.5
 
 ## 20.2.1
 

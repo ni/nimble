@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -19,8 +21,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="packages.lock.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
-    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.4" />
+    <None Include="packages.lock.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.21" />
   </ItemGroup>
 
   <ItemGroup>

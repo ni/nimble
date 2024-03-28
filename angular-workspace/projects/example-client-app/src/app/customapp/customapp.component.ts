@@ -110,14 +110,6 @@ export class CustomAppComponent implements AfterViewInit {
     public constructor(@Inject(ActivatedRoute) public readonly route: ActivatedRoute) {
         this.tableData$ = this.tableDataSubject.asObservable();
         this.addTableRows(10);
-
-        this.comboboxItems = [];
-        for (let i = 0; i < 300; i++) {
-            this.comboboxItems.push({
-                first: i.toString(),
-                last: i.toString()
-            });
-        }
     }
 
     public ngAfterViewInit(): void {

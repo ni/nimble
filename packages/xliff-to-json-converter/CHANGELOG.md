@@ -1,8 +1,24 @@
 # Change Log - @ni/xliff-to-json-converter
 
-This log was last generated on Thu, 04 Jan 2024 16:50:24 GMT and should not be manually modified.
+This log was last generated on Tue, 12 Mar 2024 21:01:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.5
+
+Tue, 12 Mar 2024 21:01:54 GMT
+
+### Patches
+
+- Update typescript to 4.9.5 ([ni/nimble@bc825e1](https://github.com/ni/nimble/commit/bc825e1b057eafd8bc005d11e9a224aa9aee9619))
+
+## 1.1.4
+
+Thu, 22 Feb 2024 13:39:47 GMT
+
+### Patches
+
+- Preserve spaces between inline elements ([ni/nimble@5b43e0a](https://github.com/ni/nimble/commit/5b43e0a102d7a101a08d5aef8c0ffd880d132ec7))
 
 ## 1.1.3
 

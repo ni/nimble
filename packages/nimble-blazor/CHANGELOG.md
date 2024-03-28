@@ -1,8 +1,64 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 19 Feb 2024 16:59:58 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Mar 2024 20:11:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.5.7
+
+Wed, 27 Mar 2024 20:11:28 GMT
+
+### Patches
+
+- Adding package lock files to allow for reproducible builds ([ni/nimble@6e8a7ad](https://github.com/ni/nimble/commit/6e8a7ad44cba28c2b26c138e57ef16cf0d2a1b90))
+
+## 14.5.0
+
+Mon, 18 Mar 2024 17:12:34 GMT
+
+### Minor changes
+
+- Add new properties to the table label provider ([ni/nimble@3bbf8d7](https://github.com/ni/nimble/commit/3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda))
+
+## 14.4.0
+
+Wed, 13 Mar 2024 23:07:24 GMT
+
+### Minor changes
+
+- Expose additional label provider properties ([ni/nimble@518c229](https://github.com/ni/nimble/commit/518c229b964d2c4a2e77210692f5d367f2937ff4))
+
+## 14.3.15
+
+Tue, 05 Mar 2024 21:15:27 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@dcf2bc4](https://github.com/ni/nimble/commit/dcf2bc498565a7b7069dae14a46c9cd992a262a3))
+
+## 14.3.8
+
+Tue, 27 Feb 2024 00:13:05 GMT
+
+### Patches
+
+- Uptake new code analyzer rules, minor code cleanup ([ni/nimble@c60a533](https://github.com/ni/nimble/commit/c60a5334c62dd0bb769e652076c34d0b50c8c34c))
+
+## 14.3.1
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Align nuget and npm package versions ([ni/nimble@bb9f7fc](https://github.com/ni/nimble/commit/bb9f7fcf5aeac256fe9c4bf39c782f64c26d1c52))
+
+## 14.3.0
+
+Wed, 21 Feb 2024 23:32:45 GMT
+
+### Minor changes
+
+- Add support for delayed hierarchy in the table ([ni/nimble@ff99d91](https://github.com/ni/nimble/commit/ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d))
 
 ## 14.2.0
 

@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 16 Feb 2024 18:10:59 GMT and should not be manually modified.
+This log was last generated on Tue, 26 Mar 2024 20:45:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.13.1
+
+Tue, 26 Mar 2024 20:45:41 GMT
+
+### Patches
+
+- Fix value of DigitalGreenDark ([ni/nimble@594ac22](https://github.com/ni/nimble/commit/594ac221124cc1b52cd28113714bb8ff71e5820b))
+
+## 6.13.0
+
+Thu, 21 Mar 2024 17:13:38 GMT
+
+### Minor changes
+
+- Add Body_2 base font token ([ni/nimble@b93385a](https://github.com/ni/nimble/commit/b93385a27672ebc03e18a864e8fa268727595c66))
+
+## 6.12.1
+
+Tue, 12 Mar 2024 21:01:54 GMT
+
+### Patches
+
+- Update typescript to 4.9.5 ([ni/nimble@bc825e1](https://github.com/ni/nimble/commit/bc825e1b057eafd8bc005d11e9a224aa9aee9619))
+
+## 6.12.0
+
+Wed, 28 Feb 2024 19:35:04 GMT
+
+### Minor changes
+
+- Add new icons for resume, generate, stop, deploy, undeploy, and hide ([ni/nimble@f4f3f45](https://github.com/ni/nimble/commit/f4f3f45c9107ff6d6c964fea69cd48247d6595fe))
+
+## 6.11.1
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Align nuget and npm package versions ([ni/nimble@bb9f7fc](https://github.com/ni/nimble/commit/bb9f7fcf5aeac256fe9c4bf39c782f64c26d1c52))
+
+## 6.11.0
+
+Wed, 21 Feb 2024 21:18:20 GMT
+
+### Minor changes
+
+- Add BodyEmphasized_2 font base token ([ni/nimble@4037b7c](https://github.com/ni/nimble/commit/4037b7c13da51926e6fbfd774a4da19cd75cb98e))
 
 ## 6.10.1
 

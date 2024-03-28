@@ -31,6 +31,7 @@
       "dom"
     ],
     "importsNotUsedAsValues": "error",
+    "ignoreDeprecations": "5.0",
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {

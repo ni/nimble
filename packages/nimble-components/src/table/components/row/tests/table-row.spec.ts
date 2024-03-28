@@ -372,9 +372,7 @@ describe('TableRow', () => {
 
         beforeEach(async () => {
             columnReferences = new ColumnReferences();
-            ({ element, connect, disconnect } = await setupTable(
-                columnReferences
-            ));
+            ({ element, connect, disconnect } = await setupTable(columnReferences));
             await connect();
             await element.setData([
                 {

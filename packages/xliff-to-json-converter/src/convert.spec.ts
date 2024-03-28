@@ -229,6 +229,28 @@ describe('xliff2Json', () => {
         expect(json.translations['5478462691360784268']).toEqual('{$PH}, {$PH_1} + 1 weitere');
     });
 
+    it('preserves spaces between inline elements', async () => {
+        const xliffContents = `
+        <?xml version="1.0" encoding="UTF-8"?>
+        <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+            <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="de-DE">
+            <body>
+                <trans-unit id="5478462691360784268" datatype="html">
+                    <source><x id="PH" equiv-text="fileName1"/> <x id="PH_1" equiv-text="fileName2"/> + 1 other</source>
+                    <target state="final"><x id="PH" equiv-text="fileName1"/> <x id="PH_1" equiv-text="fileName2"/> + 1 weitere</target>
+                </trans-unit>
+            </body>
+            </file>
+        </xliff>
+        `;
+
+        const xliff = await parseXliff(xliffContents);
+        const json = xliff2Json(xliff);
+
+        expect(Object.keys(json.translations).length).toEqual(1);
+        expect(json.translations['5478462691360784268']).toEqual('{$PH} {$PH_1} + 1 weitere');
+    });
+
     it('can convert trans-unit with custom % placeholders', async () => {
         const xliffContents = `
         <?xml version="1.0" encoding="UTF-8"?>

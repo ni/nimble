@@ -22,17 +22,6 @@ export const styles = css`
         height: ${controlHeight};
     }
 
-    [part='start'] {
-        display: none;
-    }
-
-    .content {
-        padding: 8px 4px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
     :host([aria-selected='true']) {
         box-shadow: none;
         outline: none;
@@ -67,6 +56,21 @@ export const styles = css`
     :host([disabled]) {
         color: ${bodyDisabledFontColor};
         cursor: default;
+    }
+
+    :host([visually-hidden]) {
+        display: none;
+    }
+
+    [part='start'] {
+        display: none;
+    }
+
+    .content {
+        padding: 8px 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .content[disabled] {

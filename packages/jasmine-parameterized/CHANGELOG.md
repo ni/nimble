@@ -1,8 +1,24 @@
 # Change Log - @ni/jasmine-parameterized
 
-This log was last generated on Tue, 23 Jan 2024 22:00:33 GMT and should not be manually modified.
+This log was last generated on Tue, 12 Mar 2024 21:01:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.2.3
+
+Tue, 12 Mar 2024 21:01:53 GMT
+
+### Patches
+
+- Update typescript to 4.9.5 ([ni/nimble@bc825e1](https://github.com/ni/nimble/commit/bc825e1b057eafd8bc005d11e9a224aa9aee9619))
+
+## 0.2.2
+
+Wed, 21 Feb 2024 19:48:20 GMT
+
+### Patches
+
+- Add keywords to package metadata and fix typo in examples ([ni/nimble@a9ba0b6](https://github.com/ni/nimble/commit/a9ba0b6027479fe1cc2267f11957caa329910dfc))
 
 ## 0.2.1
 

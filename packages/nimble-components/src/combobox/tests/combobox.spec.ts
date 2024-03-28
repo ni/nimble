@@ -2,11 +2,14 @@ import { html, repeat } from '@microsoft/fast-element';
 import { keyArrowDown, keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
-import { listOptionTag } from '../../list-option';
 import { ComboboxAutocomplete } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/tests/component';
+import {
+    createEventListener,
+    waitAnimationFrame
+} from '../../utilities/tests/component';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
+import { listOptionTag } from '../../list-option';
 
 async function setup(
     position?: string,
@@ -316,6 +319,27 @@ describe('Combobox', () => {
         await waitForUpdatesAsync();
 
         expect(element.dropdownButton?.checked).toBeFalse();
+
+        await disconnect();
+    });
+
+    async function waitForSelectionUpdateAsync(): Promise<void> {
+        await waitForUpdatesAsync();
+        await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
+    }
+
+    it('should scroll the selected option into view when opened', async () => {
+        const { element, connect, disconnect } = await setupWithManyOptions();
+        await connect();
+        await clickAndWaitForOpen(element);
+
+        element.value = '300';
+        await waitForSelectionUpdateAsync();
+        expect(element.listbox.scrollTop).toBeGreaterThan(8000);
+
+        element.value = '0';
+        await waitForSelectionUpdateAsync();
+        expect(element.listbox.scrollTop).toBeCloseTo(4);
 
         await disconnect();
     });

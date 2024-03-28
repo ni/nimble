@@ -42,7 +42,6 @@
             <nimble-anchor-button nimbleRouterLink="/customapp" appearance="block">Block Anchor Button</nimble-anchor-button>
             <nimble-anchor-button nimbleRouterLink="/customapp" appearance="ghost">Ghost Anchor Button</nimble-anchor-button>
         </div>
-        <!-- Disabled as it breaks accessibility tooling, see: https://github.com/ni/nimble/issues/1650
         <div class="sub-container">
             <div class="container-label">Card</div>
             <nimble-card>
@@ -56,7 +55,6 @@
                 </nimble-select>
             </nimble-card>
         </div>
-        -->
         <div class="sub-container">
             <div class="container-label">Card Button</div>
             <nimble-card-button>
@@ -153,16 +151,19 @@
         <div class="sub-container">
             <div class="container-label">Select</div>
             <nimble-select filter-mode="standard" appearance="underline">
+                <nimble-list-option hidden selected disabled>Select an option</nimble-list-option>
                 <nimble-list-option>Option 1</nimble-list-option>
                 <nimble-list-option>Option 2</nimble-list-option>
                 <nimble-list-option>Option 3</nimble-list-option>
             </nimble-select>
             <nimble-select appearance="outline">
+                <nimble-list-option hidden selected disabled>Select an option</nimble-list-option>
                 <nimble-list-option>Option 1</nimble-list-option>
                 <nimble-list-option>Option 2</nimble-list-option>
                 <nimble-list-option>Option 3</nimble-list-option>
             </nimble-select>
             <nimble-select appearance="block">
+                <nimble-list-option hidden selected disabled>Select an option</nimble-list-option>
                 <nimble-list-option>Option 1</nimble-list-option>
                 <nimble-list-option>Option 2</nimble-list-option>
                 <nimble-list-option>Option 3</nimble-list-option>
