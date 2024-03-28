@@ -311,7 +311,9 @@ export class WaferMap<
             // via template bindings so we can confirm that it happens before render
             this.canvasWidth = width;
             this.canvasHeight = height;
-            void this.worker.setCanvasDimensions({ width, height });
+            void (async () => {
+                await this.worker.setCanvasDimensions({ width, height });
+            });
             if (this.diesTable === undefined) {
                 this.canvas.width = width;
                 this.canvas.height = height;
