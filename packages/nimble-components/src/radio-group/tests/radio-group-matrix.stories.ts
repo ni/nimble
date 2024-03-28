@@ -13,6 +13,12 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 import { radioGroupTag } from '..';
 import { radioTag } from '../../radio';
 
+const orientationStates = [
+    ['Horizontal', Orientation.horizontal],
+    ['Vertical', Orientation.vertical]
+] as const;
+type OrientationState = (typeof orientationStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Radio Group',
     parameters: {
@@ -21,12 +27,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const orientationStates = [
-    ['Horizontal', Orientation.horizontal],
-    ['Vertical', Orientation.vertical]
-] as const;
-type OrientationState = (typeof orientationStates)[number];
 
 const component = (
     [disabledName, disabled]: DisabledState,

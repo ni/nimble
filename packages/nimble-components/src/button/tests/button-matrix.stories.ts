@@ -1,13 +1,17 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
-import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters,
-    createMatrixThemeStory
+    createMatrixThemeStory,
+    cartesianProduct,
+    createMatrixInteractionsFromStates
 } from '../../utilities/tests/matrix';
-import { disabledStates, DisabledState } from '../../utilities/tests/states';
+import {
+    disabledStates,
+    DisabledState,
+    disabledStateIsEnabled
+} from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
@@ -15,6 +19,15 @@ import { buttonTag } from '..';
 import { iconKeyTag } from '../../icons/key';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
 import { bodyFont } from '../../theme-provider/design-tokens';
+import {
+    appearanceStates,
+    type AppearanceState,
+    type AppearanceVariantState,
+    type PartVisibilityState,
+    appearanceVariantStates,
+    partVisibilityStates,
+    partVisibilityStatesOnlyLabel
+} from '../../patterns/button/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Button',
@@ -24,26 +37,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-/* array of iconVisible, labelVisible, endIconVisible */
-const partVisibilityStates = [
-    [true, true, false],
-    [true, false, false],
-    [false, true, false],
-    [true, true, true],
-    [false, true, true]
-] as const;
-type PartVisibilityState = (typeof partVisibilityStates)[number];
-
-const appearanceStates: [string, string | undefined][] = Object.entries(
-    ButtonAppearance
-).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = (typeof appearanceStates)[number];
-
-const appearanceVariantStates: [string, string | undefined][] = Object.entries(
-    ButtonAppearanceVariant
-).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceVariantState = (typeof appearanceVariantStates)[number];
 
 // prettier-ignore
 const component = (
@@ -71,6 +64,29 @@ export const buttonThemeMatrix: StoryFn = createMatrixThemeStory(
         appearanceVariantStates,
         partVisibilityStates
     ])
+);
+
+const interactionStates = cartesianProduct([
+    [disabledStateIsEnabled],
+    appearanceStates,
+    appearanceVariantStates,
+    [partVisibilityStatesOnlyLabel]
+] as const);
+
+const interactionStatesHover = cartesianProduct([
+    disabledStates,
+    appearanceStates,
+    appearanceVariantStates,
+    [partVisibilityStatesOnlyLabel]
+] as const);
+
+export const buttonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrixInteractionsFromStates(component, {
+        hover: interactionStatesHover,
+        hoverActive: interactionStates,
+        active: interactionStates,
+        focus: interactionStates
+    })
 );
 
 export const hiddenButton: StoryFn = createStory(

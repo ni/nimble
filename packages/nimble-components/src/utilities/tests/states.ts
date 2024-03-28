@@ -25,6 +25,7 @@ export const disabledStates = [
     ['Disabled', true]
 ] as const;
 export type DisabledState = (typeof disabledStates)[number];
+export const disabledStateIsEnabled = disabledStates[0];
 
 export const errorStates = [
     ['', false, ''],
@@ -32,6 +33,9 @@ export const errorStates = [
     ['Error No Message', true, '']
 ] as const;
 export type ErrorState = (typeof errorStates)[number];
+export const errorStatesNoError = errorStates[0];
+export const errorStatesErrorWithMessage = errorStates[1];
+export const errorStatesErrorNoMessage = errorStates[2];
 
 export const readOnlyStates = [
     ['', false],
@@ -41,3 +45,9 @@ export type ReadOnlyState = (typeof readOnlyStates)[number];
 
 export const iconVisibleStates = [false, true] as const;
 export type IconVisibleState = (typeof iconVisibleStates)[number];
+
+export const placeholderStates = [
+    ['With Placeholder', 'Custom placeholder'],
+    ['', undefined]
+] as const;
+export type PlaceholderState = (typeof placeholderStates)[number];

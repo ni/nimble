@@ -6,6 +6,7 @@ import { template } from '../base/template';
 import { TableColumnSortOperation } from '../base/types';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
+import { mixinColumnWithPlaceholderAPI } from '../mixins/placeholder';
 import type { TableStringField } from '../../table/types';
 import { tableColumnAnchorCellViewTag } from './cell-view';
 import { tableColumnTextGroupHeaderViewTag } from '../text/group-header-view';
@@ -23,6 +24,7 @@ export interface TableColumnAnchorColumnConfig {
     target?: string;
     type?: string;
     download?: string;
+    placeholder?: string;
 }
 
 declare global {
@@ -35,7 +37,11 @@ declare global {
  * A table column for displaying links.
  */
 export class TableColumnAnchor extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(TableColumn<TableColumnAnchorColumnConfig>)
+    mixinFractionalWidthColumnAPI(
+        mixinColumnWithPlaceholderAPI(
+            TableColumn<TableColumnAnchorColumnConfig>
+        )
+    )
 ) {
     @attr({ attribute: 'label-field-name' })
     public labelFieldName?: string;
@@ -69,6 +75,10 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
 
     @attr
     public download?: string;
+
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
+    }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
@@ -141,7 +151,8 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             rel: this.rel,
             target: this.target,
             type: this.type,
-            download: this.download
+            download: this.download,
+            placeholder: this.placeholder
         };
     }
 }

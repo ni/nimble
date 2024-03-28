@@ -1,8 +1,64 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 20 Mar 2024 16:45:59 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Mar 2024 00:47:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.6.0
+
+Thu, 28 Mar 2024 00:47:47 GMT
+
+### Minor changes
+
+- Add support for column placeholders ([ni/nimble@a9ffce8](https://github.com/ni/nimble/commit/a9ffce872954c88d7cf4ad0dd84eb55433953886))
+
+## 20.5.7
+
+Wed, 27 Mar 2024 21:22:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.1
+
+## 20.5.6
+
+Wed, 27 Mar 2024 18:54:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.0
+
+## 20.5.5
+
+Wed, 27 Mar 2024 12:05:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.0.1
+
+## 20.5.4
+
+Tue, 26 Mar 2024 20:45:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.0.0
+
+## 20.5.3
+
+Mon, 25 Mar 2024 17:03:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v23.0.1
+
+## 20.5.2
+
+Thu, 21 Mar 2024 17:13:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v23.0.0
 
 ## 20.5.1
 

@@ -25,10 +25,10 @@ export class WaferMapValidator {
     public validateGridDimensions(): boolean {
         this.invalidGridDimensions = false;
         if (
-            typeof this.wafermap.gridMinX === 'undefined'
-            && typeof this.wafermap.gridMaxX === 'undefined'
-            && typeof this.wafermap.gridMinY === 'undefined'
-            && typeof this.wafermap.gridMaxY === 'undefined'
+            this.wafermap.gridMinX === undefined
+            && this.wafermap.gridMaxX === undefined
+            && this.wafermap.gridMinY === undefined
+            && this.wafermap.gridMaxY === undefined
         ) {
             this.invalidGridDimensions = false;
         } else if (
@@ -49,38 +49,20 @@ export class WaferMapValidator {
         if (this.wafermap.diesTable === undefined) {
             this.invalidDiesTableSchema = false;
         } else {
-            const colIndexField = this.wafermap.diesTable.schema.fields.findIndex(
-                f => f.name === 'colIndex'
-            );
-            const rowIndexField = this.wafermap.diesTable.schema.fields.findIndex(
-                f => f.name === 'rowIndex'
-            );
-            const valueField = this.wafermap.diesTable.schema.fields.findIndex(
-                f => f.name === 'value'
-            );
+            const fields = this.wafermap.diesTable.schema.fields;
+            const colField = fields.find(field => field.name === 'colIndex');
+            const rowField = fields.find(field => field.name === 'rowIndex');
+            const valueField = fields.find(field => field.name === 'value');
             if (
-                this.wafermap.diesTable.numCols < 3
-                || colIndexField === -1
-                || rowIndexField === -1
-                || valueField === -1
-                || !DataType.isInt(
-                    this.wafermap.diesTable.schema.fields[colIndexField]!.type
-                )
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                || this.wafermap.diesTable.schema.fields[colIndexField]!.type
-                    .bitWidth !== 32
-                || !DataType.isInt(
-                    this.wafermap.diesTable.schema.fields[rowIndexField]!.type
-                )
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                || this.wafermap.diesTable.schema.fields[rowIndexField]!.type
-                    .bitWidth !== 32
-                || !DataType.isFloat(
-                    this.wafermap.diesTable.schema.fields[valueField]!.type
-                )
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                || this.wafermap.diesTable.schema.fields[valueField]!.type
-                    .precision !== Precision.DOUBLE
+                !colField
+                || !rowField
+                || !valueField
+                || !DataType.isInt(colField.type)
+                || colField.type.bitWidth !== 32
+                || !DataType.isInt(rowField.type)
+                || rowField.type.bitWidth !== 32
+                || !DataType.isFloat(valueField.type)
+                || valueField.type.precision !== Precision.DOUBLE
             ) {
                 this.invalidDiesTableSchema = true;
             }

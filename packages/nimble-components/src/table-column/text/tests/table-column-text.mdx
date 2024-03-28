@@ -3,6 +3,7 @@ import { NimbleTableColumnText } from './table-column-text.react';
 import * as tableColumnTextStories from './table-column-text.stories';
 import { tableColumnTextTag } from '..';
 import { tableTag } from '../../../table';
+import NoNullAndUndefinedBestPractice from '../../../patterns/table-column/tests/no-null-and-undefined-best-practice-docs.mdx';
 
 <Meta of={tableColumnTextStories} />
 <Title of={tableColumnTextStories} />
@@ -16,7 +17,13 @@ The <Tag name={tableColumnTextTag}/> column is used to display string fields as 
 
 {/* ## Appearance Variants */}
 
-{/* ## Usage */}
+## Usage
+
+### Best Practices
+
+-   <NoNullAndUndefinedBestPractice />
+-   Avoid mixing empty string with `undefined`/`null`. The distinction when grouping between `"No value"` and `"Empty"` is not likely meaningful to a user.
+-   Avoid displaying whitespace values that are not empty string (`''`) as these values will be rendered as-is in group rows.
 
 {/* ## Examples */}
 

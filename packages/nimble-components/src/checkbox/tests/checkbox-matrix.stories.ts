@@ -11,15 +11,6 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 import { checkboxTag } from '..';
 
-const metadata: Meta = {
-    title: 'Tests/Checkbox',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
-
 const checkedStates = [
     ['Checked', true],
     ['Unchecked', false]
@@ -31,6 +22,15 @@ const indeterminateStates = [
     ['', false]
 ] as const;
 type IndeterminateState = (typeof indeterminateStates)[number];
+
+const metadata: Meta = {
+    title: 'Tests/Checkbox',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 const component = (
     [disabledName, disabled]: DisabledState,

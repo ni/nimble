@@ -1,8 +1,58 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 20 Mar 2024 16:45:59 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Mar 2024 21:22:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.1
+
+Wed, 27 Mar 2024 21:22:02 GMT
+
+### Patches
+
+- Fix table scrolling test on WebKit ([ni/nimble@cc82598](https://github.com/ni/nimble/commit/cc82598544694002715db3383b75ed0c0f4793ae))
+
+## 24.1.0
+
+Wed, 27 Mar 2024 18:54:51 GMT
+
+### Minor changes
+
+- Add placeholders to table columns ([ni/nimble@a01932b](https://github.com/ni/nimble/commit/a01932bbdb941553a899b8b193af5acf6f67cadd))
+
+## 24.0.1
+
+Wed, 27 Mar 2024 12:05:29 GMT
+
+### Patches
+
+- Created new computations experimental module and tested it, created new data manager experimental and integrated with hover and old renderer ([ni/nimble@c6d99d8](https://github.com/ni/nimble/commit/c6d99d8923082bee7a68c244c60d36be339f0ee3))
+
+## 24.0.0
+
+Tue, 26 Mar 2024 20:45:41 GMT
+
+### Major changes
+
+- Support primary and accent variants for toggle and menu buttons. BREAKING CHANGE: Removed theme-aware tokens `buttonFillActivePrimaryColor` and `buttonFillAccentActiveColor`. Use `fillSelectedColor` instead. ([ni/nimble@594ac22](https://github.com/ni/nimble/commit/594ac221124cc1b52cd28113714bb8ff71e5820b))
+- Bump @ni/nimble-tokens to v6.13.1
+
+## 23.0.1
+
+Mon, 25 Mar 2024 17:03:11 GMT
+
+### Patches
+
+- Created new hover event for the new diesTable api and changed the zoom event ([ni/nimble@f56b73b](https://github.com/ni/nimble/commit/f56b73b45161a55b967dc03bbdd094a6527c814c))
+
+## 23.0.0
+
+Thu, 21 Mar 2024 17:13:38 GMT
+
+### Major changes
+
+- Breaking change: Renamed bodyEmphasizedPlus1 to bodyPlus1Emphasized to align with token conventions. Also, added bodyPlus1 font token ([ni/nimble@b93385a](https://github.com/ni/nimble/commit/b93385a27672ebc03e18a864e8fa268727595c66))
+- Bump @ni/nimble-tokens to v6.13.0
 
 ## 22.1.1
 
