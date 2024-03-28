@@ -107,10 +107,7 @@ describe('TableColumnDateText', () => {
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
             await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
-            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(
-                fieldValue,
-                'en-US'
-            );
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
                 expectedFormattedValue
             );
@@ -132,10 +129,7 @@ describe('TableColumnDateText', () => {
             await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
 
-            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(
-                fieldValue,
-                'en-US'
-            );
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
                 expectedFormattedValue
             );
@@ -162,11 +156,10 @@ describe('TableColumnDateText', () => {
                 new MouseEvent('mouseover')
             );
             await waitForUpdatesAsync();
-            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(
-                fieldValue,
-                'en-US'
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
+            expect(pageObject.getCellTitle(0, 0)).toEqual(
+                expectedFormattedValue
             );
-            expect(pageObject.getCellTitle(0, 0)).toEqual(expectedFormattedValue);
         });
 
         it('does not set title when cell text is fully visible', async () => {
@@ -208,10 +201,7 @@ describe('TableColumnDateText', () => {
             const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
             await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
-            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(
-                fieldValue,
-                'en-US'
-            );
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
                 expectedFormattedValue
             );
