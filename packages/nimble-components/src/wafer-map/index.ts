@@ -210,7 +210,7 @@ export class WaferMap<
         return this.waferMapValidator.getValidity();
     }
 
-    public override connectedCallback(): void {
+    public override async connectedCallback(): Promise<void> {
         super.connectedCallback();
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
@@ -218,8 +218,14 @@ export class WaferMap<
         this.hoverHandler.connect();
         this.experimentalHoverHandler.connect();
         this.zoomHandler.connect();
-        void this.createWorker();
-        void this.createCanvasWorker();
+        const { matrixRenderer } = await createMatrixRenderer();
+        this.worker = matrixRenderer;
+        const offscreenCanvas = this.workerCanvas.transferControlToOffscreen();
+        await this.worker.setCanvas(
+            transfer(offscreenCanvas, [
+                offscreenCanvas as unknown as Transferable
+            ])
+        );
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
     }
@@ -244,7 +250,7 @@ export class WaferMap<
         this.zoomHandler.connect();
         this.validate();
         if (this.validity.invalidDiesTableSchema) {
-            throw new Error('Invalid diesTable schema');
+            return;
         }
         this.renderer = this.isExperimentalRenderer()
             ? this.workerRenderer
@@ -279,20 +285,6 @@ export class WaferMap<
         return this.diesTable !== undefined;
     }
 
-    private async createWorker(): Promise<void> {
-        const { matrixRenderer } = await createMatrixRenderer();
-        this.worker = matrixRenderer;
-    }
-
-    private async createCanvasWorker(): Promise<void> {
-        const offscreenCanvas = this.workerCanvas.transferControlToOffscreen();
-        await this.worker.setCanvas(
-            transfer(offscreenCanvas, [
-                offscreenCanvas as unknown as Transferable
-            ])
-        );
-    }
-
     private validate(): void {
         this.waferMapValidator.validateGridDimensions();
         this.waferMapValidator.validateDiesTableSchema();
@@ -309,10 +301,7 @@ export class WaferMap<
             // via template bindings so we can confirm that it happens before render
             this.canvasWidth = width;
             this.canvasHeight = height;
-            this.worker.setCanvasDimensions({ width, height }).then(
-                () => {},
-                () => {}
-            );
+            void this.worker.setCanvasDimensions({ width, height });
             if (this.diesTable === undefined) {
                 this.canvas.width = width;
                 this.canvas.height = height;
