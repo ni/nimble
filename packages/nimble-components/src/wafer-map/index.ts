@@ -210,7 +210,7 @@ export class WaferMap<
         return this.waferMapValidator.getValidity();
     }
 
-    public override async connectedCallback(): Promise<void> {
+    public override connectedCallback(): void {
         super.connectedCallback();
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
@@ -218,14 +218,8 @@ export class WaferMap<
         this.hoverHandler.connect();
         this.experimentalHoverHandler.connect();
         this.zoomHandler.connect();
-        const { matrixRenderer } = await createMatrixRenderer();
-        this.worker = matrixRenderer;
-        const offscreenCanvas = this.workerCanvas.transferControlToOffscreen();
-        await this.worker.setCanvas(
-            transfer(offscreenCanvas, [
-                offscreenCanvas as unknown as Transferable
-            ])
-        );
+        void this.createWorker();
+        void this.createCanvasWorker();
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
     }
@@ -283,6 +277,20 @@ export class WaferMap<
      */
     public isExperimentalRenderer(): boolean {
         return this.diesTable !== undefined;
+    }
+
+    private async createWorker(): Promise<void> {
+        const { matrixRenderer } = await createMatrixRenderer();
+        this.worker = matrixRenderer;
+    }
+
+    private async createCanvasWorker(): Promise<void> {
+        const offscreenCanvas = this.workerCanvas.transferControlToOffscreen();
+        await this.worker.setCanvas(
+            transfer(offscreenCanvas, [
+                offscreenCanvas as unknown as Transferable
+            ])
+        );
     }
 
     private validate(): void {
