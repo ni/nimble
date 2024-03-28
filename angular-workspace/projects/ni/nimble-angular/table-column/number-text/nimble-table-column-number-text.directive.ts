@@ -22,6 +22,14 @@ export class NimbleTableColumnNumberTextDirective extends NimbleTableColumnBaseD
         this.renderer.setProperty(this.elementRef.nativeElement, 'fieldName', value);
     }
 
+    public get placeholder(): string | undefined {
+        return this.elementRef.nativeElement.placeholder;
+    }
+
+    @Input() public set placeholder(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
+    }
+
     public get format(): NumberTextFormat {
         return this.elementRef.nativeElement.format;
     }

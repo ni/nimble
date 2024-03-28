@@ -160,6 +160,11 @@ describe('Nimble anchor table column', () => {
             expect(directive.groupingDisabled).toBeFalse();
             expect(nativeElement.groupingDisabled).toBeFalse();
         });
+
+        it('has expected defaults for placeholder', () => {
+            expect(directive.placeholder).toBeUndefined();
+            expect(nativeElement.placeholder).toBeUndefined();
+        });
     });
 
     describe('with template string values', () => {
@@ -187,6 +192,7 @@ describe('Nimble anchor table column', () => {
                     min-pixel-width="40"
                     group-index="0"
                     grouping-disabled
+                    placeholder="Custom placeholder"
                     >
                 </nimble-table-column-anchor>
             `
@@ -315,6 +321,11 @@ describe('Nimble anchor table column', () => {
             expect(directive.groupingDisabled).toBeTrue();
             expect(nativeElement.groupingDisabled).toBeTrue();
         });
+
+        it('will use template string values for placeholder', () => {
+            expect(directive.placeholder).toBe('Custom placeholder');
+            expect(nativeElement.placeholder).toBe('Custom placeholder');
+        });
     });
 
     describe('with property bound values', () => {
@@ -342,6 +353,7 @@ describe('Nimble anchor table column', () => {
                     [min-pixel-width]="minPixelWidth"
                     [group-index]="groupIndex"
                     [grouping-disabled]="groupingDisabled"
+                    [placeholder]="placeholder"
                     >
                     </nimble-table-column-anchor>
             `
@@ -370,6 +382,7 @@ describe('Nimble anchor table column', () => {
             public minPixelWidth: number | null = 40;
             public groupIndex: number | null = 0;
             public groupingDisabled = false;
+            public placeholder = 'Custom placeholder';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -661,6 +674,17 @@ describe('Nimble anchor table column', () => {
             expect(directive.groupingDisabled).toBeTrue();
             expect(nativeElement.groupingDisabled).toBeTrue();
         });
+
+        it('can be configured with property binding for placeholder', () => {
+            expect(directive.placeholder).toBe('Custom placeholder');
+            expect(nativeElement.placeholder).toBe('Custom placeholder');
+
+            fixture.componentInstance.placeholder = 'Updated placeholder';
+            fixture.detectChanges();
+
+            expect(directive.placeholder).toBe('Updated placeholder');
+            expect(nativeElement.placeholder).toBe('Updated placeholder');
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -688,6 +712,7 @@ describe('Nimble anchor table column', () => {
                     [attr.min-pixel-width]="minPixelWidth"
                     [attr.group-index]="groupIndex"
                     [attr.grouping-disabled]="groupingDisabled"
+                    [attr.placeholder]="placeholder"
                     >
                 </nimble-table-column-anchor>
             `
@@ -716,6 +741,7 @@ describe('Nimble anchor table column', () => {
             public minPixelWidth: number | null = 40;
             public groupIndex: number | null = 0;
             public groupingDisabled = false;
+            public placeholder = 'Custom placeholder';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -1006,6 +1032,17 @@ describe('Nimble anchor table column', () => {
 
             expect(directive.groupingDisabled).toBe(true);
             expect(nativeElement.groupingDisabled).toBe(true);
+        });
+
+        it('can be configured with attribute binding for placeholder', () => {
+            expect(directive.placeholder).toBe('Custom placeholder');
+            expect(nativeElement.placeholder).toBe('Custom placeholder');
+
+            fixture.componentInstance.placeholder = 'Updated placeholder';
+            fixture.detectChanges();
+
+            expect(directive.placeholder).toBe('Updated placeholder');
+            expect(nativeElement.placeholder).toBe('Updated placeholder');
         });
     });
 });

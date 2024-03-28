@@ -16,15 +16,6 @@ import {
     type PlaceholderState
 } from '../../../utilities/tests/states';
 
-const metadata: Meta = {
-    title: 'Tests/Table Column: Duration Text',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
-
 const data = [
     {
         id: '0',
@@ -38,6 +29,15 @@ const data = [
         id: '2'
     }
 ] as const;
+
+const metadata: Meta = {
+    title: 'Tests/Table Column: Duration Text',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = (

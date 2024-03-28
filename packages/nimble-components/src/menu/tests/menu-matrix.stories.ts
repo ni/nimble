@@ -18,15 +18,6 @@ import { iconXmarkTag } from '../../icons/xmark';
 import { menuItemTag } from '../../menu-item';
 import { anchorMenuItemTag } from '../../anchor-menu-item';
 
-const metadata: Meta = {
-    title: 'Tests/Menu',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
-
 /* array of showSubMenu, childIcon, advancedSubMenu */
 const subMenuStates = [
     [false, false, false],
@@ -36,6 +27,15 @@ const subMenuStates = [
     [true, true, true]
 ] as const;
 type SubMenuState = (typeof subMenuStates)[number];
+
+const metadata: Meta = {
+    title: 'Tests/Menu',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = (

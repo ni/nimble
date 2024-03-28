@@ -2,6 +2,7 @@ import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
 import { fastParameters, renderViewTemplate } from './storybook';
 import { themeProviderTag } from '../../theme-provider';
 import { type BackgroundState, backgroundStates } from './states';
+import { bodyFont, bodyFontColor } from '../../theme-provider/design-tokens';
 
 export const sharedMatrixParameters = () => ({
     ...fastParameters(),
@@ -23,182 +24,15 @@ export const sharedMatrixParameters = () => ({
     }
 }) as const;
 
+type MakeTupleEntriesArrays<T> = { [K in keyof T]: readonly T[K][] };
+
 /**
- * Takes an array of state values that can be used with the template to match the permutations of the provided states.
+ * Calculates the cartesian product of an array of sets.
  */
-export function createMatrix(component: () => ViewTemplate): ViewTemplate;
-
-export function createMatrix<State1>(
-    component: (state1: State1) => ViewTemplate,
-    dimensions: readonly [readonly State1[]]
-): ViewTemplate;
-
-export function createMatrix<State1, State2>(
-    component: (state1: State1, state2: State2) => ViewTemplate,
-    dimensions: readonly [readonly State1[], readonly State2[]]
-): ViewTemplate;
-
-export function createMatrix<State1, State2, State3>(
-    component: (state1: State1, state2: State2, state3: State3) => ViewTemplate,
-    dimensions: readonly [
-        readonly State1[],
-        readonly State2[],
-        readonly State3[]
-    ]
-): ViewTemplate;
-
-export function createMatrix<State1, State2, State3, State4>(
-    component: (
-        state1: State1,
-        state2: State2,
-        state3: State3,
-        state4: State4
-    ) => ViewTemplate,
-    dimensions: readonly [
-        readonly State1[],
-        readonly State2[],
-        readonly State3[],
-        readonly State4[]
-    ]
-): ViewTemplate;
-
-export function createMatrix<State1, State2, State3, State4, State5>(
-    component: (
-        state1: State1,
-        state2: State2,
-        state3: State3,
-        state4: State4,
-        state5: State5
-    ) => ViewTemplate,
-    dimensions: readonly [
-        readonly State1[],
-        readonly State2[],
-        readonly State3[],
-        readonly State4[],
-        readonly State5[]
-    ]
-): ViewTemplate;
-
-export function createMatrix<State1, State2, State3, State4, State5, State6>(
-    component: (
-        state1: State1,
-        state2: State2,
-        state3: State3,
-        state4: State4,
-        state5: State5,
-        state6: State6
-    ) => ViewTemplate,
-    dimensions: readonly [
-        readonly State1[],
-        readonly State2[],
-        readonly State3[],
-        readonly State4[],
-        readonly State5[],
-        readonly State6[]
-    ]
-): ViewTemplate;
-
-export function createMatrix<
-    State1,
-    State2,
-    State3,
-    State4,
-    State5,
-    State6,
-    State7
->(
-    component: (
-        state1: State1,
-        state2: State2,
-        state3: State3,
-        state4: State4,
-        state5: State5,
-        state6: State6,
-        state7: State7
-    ) => ViewTemplate,
-    dimensions: readonly [
-        readonly State1[],
-        readonly State2[],
-        readonly State3[],
-        readonly State4[],
-        readonly State5[],
-        readonly State6[],
-        readonly State7[]
-    ]
-): ViewTemplate;
-
-export function createMatrix<
-    State1,
-    State2,
-    State3,
-    State4,
-    State5,
-    State6,
-    State7,
-    State8
->(
-    component: (
-        state1: State1,
-        state2: State2,
-        state3: State3,
-        state4: State4,
-        state5: State5,
-        state6: State6,
-        state7: State7,
-        state8: State8
-    ) => ViewTemplate,
-    dimensions: readonly [
-        readonly State1[],
-        readonly State2[],
-        readonly State3[],
-        readonly State4[],
-        readonly State5[],
-        readonly State6[],
-        readonly State7[],
-        readonly State8[]
-    ]
-): ViewTemplate;
-
-export function createMatrix<
-    State1,
-    State2,
-    State3,
-    State4,
-    State5,
-    State6,
-    State7,
-    State8,
-    State9
->(
-    component: (
-        state1: State1,
-        state2: State2,
-        state3: State3,
-        state4: State4,
-        state5: State5,
-        state6: State6,
-        state7: State7,
-        state8: State8,
-        state9: State9
-    ) => ViewTemplate,
-    dimensions: readonly [
-        readonly State1[],
-        readonly State2[],
-        readonly State3[],
-        readonly State4[],
-        readonly State5[],
-        readonly State6[],
-        readonly State7[],
-        readonly State8[],
-        readonly State9[]
-    ]
-): ViewTemplate;
-
-export function createMatrix(
-    component: (...states: readonly unknown[]) => ViewTemplate,
-    dimensions?: readonly (readonly unknown[])[]
-): ViewTemplate {
-    const matrix: ViewTemplate[] = [];
+export function cartesianProduct<T extends readonly unknown[]>(
+    dimensions?: MakeTupleEntriesArrays<T>
+): [...T][] {
+    const result: [...T][] = [];
     const recurseDimensions = (
         currentDimensions?: readonly (readonly unknown[])[],
         ...states: readonly unknown[]
@@ -209,16 +43,37 @@ export function createMatrix(
                 recurseDimensions(remainingDimensions, ...states, currentState);
             }
         } else {
-            matrix.push(component(...states));
+            result.push(states as [...T]);
         }
     };
     recurseDimensions(dimensions);
+    return result;
+}
+
+/**
+ * Passes each of the given state combinations into a template function and returns the combined output.
+ */
+function createMatrixFromStates<T extends readonly unknown[]>(
+    component: (...states: T) => ViewTemplate,
+    states: T[]
+): ViewTemplate {
     // prettier-ignore
     return html`
-        ${repeat(() => matrix, html`
-            ${(x: ViewTemplate): ViewTemplate => x}
-        `)}
-    `;
+    ${repeat(() => states, html`
+        ${(x: T): ViewTemplate => component(...x)}
+    `)}
+`;
+}
+
+/**
+ * Creates a template that renders all combinations of states in the given dimensions.
+ */
+export function createMatrix<T extends readonly unknown[]>(
+    component: (...states: T) => ViewTemplate,
+    dimensions?: MakeTupleEntriesArrays<T>
+): ViewTemplate {
+    const states = cartesianProduct(dimensions);
+    return createMatrixFromStates(component, states);
 }
 
 /**
@@ -247,3 +102,45 @@ export const createMatrixThemeStory = <TSource>(
         return content;
     };
 };
+
+export function createMatrixInteractionsFromStates<
+    THover extends readonly unknown[],
+    THoverActive extends readonly unknown[],
+    TActive extends readonly unknown[],
+    TFocus extends readonly unknown[]
+>(
+    component: (
+        ...states: THover | TActive | THoverActive | TFocus
+    ) => ViewTemplate,
+    states: {
+        hover: THover[],
+        hoverActive: THoverActive[],
+        active: TActive[],
+        focus: TFocus[]
+    }
+): ViewTemplate {
+    // prettier-ignore
+    return html`
+    <div style="
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+    ">
+        <div class="pseudo-hover-all">
+            <p>Hover</p>
+            ${createMatrixFromStates(component, states.hover)}
+        </div>
+        <div class="pseudo-hover-all pseudo-active-all">
+            <p>Hover and active</p>
+            ${createMatrixFromStates(component, states.hoverActive)}
+        </div>
+        <div class="pseudo-active-all">
+            <p>Active</p>
+            ${createMatrixFromStates(component, states.active)}
+        </div>
+        <div class="pseudo-focus-visible-all pseudo-focus-within-all">
+            <p>Focus</p>
+            ${createMatrixFromStates(component, states.focus)}
+        </div>
+    </div>
+`;
+}
