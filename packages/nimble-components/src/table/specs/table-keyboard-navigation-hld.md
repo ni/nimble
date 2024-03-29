@@ -22,7 +22,7 @@ We have decided to use the ARIA `treegrid` role/ pattern for our table component
 
 Some noteworthy aspects of the treegrid pattern are:
 
-1. All cells are focusable, even those that have no interactive elements. The left and right arrow keys, while in navigation modes, move focus from cell to cell. In the case where a cell has a single interactive element, the element can be given the focus instead of the containing cell.
+1. All cells are focusable, even those that have no interactive elements. The left and right arrow keys, while in navigation modes, move focus from cell to cell. In the case where a cell has only one interactive element (it optionally may contain non-interactive content like text also), the element can be given the focus instead of the containing cell.
 
 > ARIA: "One reason it is important for all cells to be able to receive or contain keyboard focus is that screen readers will typically be in their application reading mode, rather than their document reading mode, when users are interacting with the grid. While in application mode, a screen reader user hears only focusable elements and content that labels focusable elements. So, screen reader users may unknowingly overlook elements contained in a treegrid that are either not focusable or not used to label a column or row."
 
@@ -52,8 +52,11 @@ There's also guidance about whether cells themselves, or the elements inside the
 
 As noted above, `Tab` / `Shift-Tab` key moves focus between the focusable elements in a row or the header (not the cells). When focus has reached the end (or beginning) of the row/header, a continued `Tab` (or `Shift-Tab`) will move focus outside of the table.
 
-Optionally, if a particular table row has been focused, then tab focus leaves the table and later returns, we may return focus to that row (rather than it restarting at the first row/ header).  
-**Open question**: Do we want to adopt this behavior?
+**Losing and regaining focus**:
+
+-   If a particular table row has been focused, then tab focus leaves the table and later returns, we will return focus to that row (based on row index), rather than it restarting at the first row/ header.
+-   If the previously focused row index is not currently in view, we'll scroll so that it's in view.
+-   If there is no longer a row at the previous row index (e.g. data updates resulted in fewer rows), we'll return focus to the first row (not the header).
 
 #### Navigating rows/cells
 
@@ -65,6 +68,7 @@ When a row is focused:
 -   If the row is expanded and can be collapsed, pressing `ArrowLeft` will collapse the row
 -   If the row cannot be expanded (or is already expanded), pressing `ArrowRight` will move focus to the first cell
 -   If the row cannot be collapsed (or is already collapsed), pressing `ArrowLeft` does nothing
+-   Action menus: All cell action menu buttons for the given row will be visible
 
 When a cell is focused:
 
@@ -73,6 +77,8 @@ When a cell is focused:
 -   If the focus is on any cell other than the last, pressing `ArrowRight` will move focus to the next cell to the right
 -   If the focus is on the last cell, pressing `ArrowRight` does nothing
 -   Note: If a focused cell has multiple interactive elements for its contents, those elements will _not_ receive focus from pressing `ArrowLeft` or `ArrowRight`, and instead focus will be shifted to the appropriate neighboring cell (or do nothing if focus is at the extents of the row).
+-   If`ArrowDown` or `ArrowUp` is pressed, when there is an available row in the navigation direction, focus will move to the cell in the current focused column of the new row.
+-   Action menus: The cell menu for the given cell will be visible. Any other action menu buttons for the row will be hidden as usual (unless the row is also mouse-hovered)
 
 Special case of focusing a cell:
 
@@ -90,7 +96,10 @@ To interact with a cell's interactive contents, starting from the state of a cel
     -   `Ctrl-Enter` will trigger the action menu button and open the action menu. Note: If the action menu button is the only interactive element in the cell, `Enter` will do the same thing.
 -   Pressing `Tab` will focus the 1st/ primary interactive element in the cell. Subsequent `Tab` presses will focus subsequent interactive elements in the cell, including the action menu button. `Shift-Tab` will focus the previous interactive element. Note: `Tab` will not cycle within the cell (it will go to the next focusable elements in the row, or focus will leave the table, as outlined in the "`Tab`/`Shift-Tab` behavior" section above).
 
-If a cell is focused and `ArrowDown` or `ArrowUp` is pressed, when there is an available row in the navigation direction, focus will move to the cell in the current focused column of the new row.
+Scrolling the table:
+
+-   If a row or cell is focused, and the table is scrolled such that the focused row/cell is no longer visible, then it's scrolled back, the same row/cell should be focused again.
+-   The row/cell keyboard navigation actions will scroll the table if required, such that the newly focused row/cell is visible.
 
 `Ctrl-Alt modifiers`: It appears to be a common convention for screen readers to leverage `Ctrl-Alt Arrows` to move the screen reader focus to each of the cells in a row. As such, it may be desirable for our implementation to explicitly not handle keyboard interactions that involve both modifier keys, and instead respond to any resulting focus change, and update any internal state as needed based on the newly focused element. This is what the ARIA `treegrid` example does. It's not clear whether this behavior will require special handling by us or not, but we should test this scenario.
 
@@ -99,22 +108,40 @@ If a cell is focused and `ArrowDown` or `ArrowUp` is pressed, when there is an a
 If the table has `selection-mode` of `single` or `multiple`:
 
 -   If a row is focused, pressing `Space` will select/unselect that row
+    -   One exception: group header rows will require focusing the selection checkbox to select/unselect, as `Space` is used for group interactions (see below)
 -   If a row's selection checkbox is focused, pressing `Space` will toggle the checkbox, selecting/unselecting that row
--   **(Open question)** If a single cell is focused, should pressing `Space` select/unselect that row?
+-   (Optional but suggested by ARIA WPG) If a row or cell is focused, `Shift-Space` will select/unselect the associated row
 
 Since a row's selection checkbox is currently `role=gridcell`, it will be able to be navigated to with `LeftArrow`/`RightArrow`.
+
+#### Sorting
+
+If at least one column can be sorted, all of the column headers will be keyboard focusable (the [ARIA grid examples](https://www.w3.org/WAI/ARIA/apg/patterns/grid/examples/data-grids/#examples) illustrate this idea), to allow for column sorting via the keyboard.
+
+In this scenario:
+
+-   `ArrowLeft` and `ArrowRight` will navigate between the selection checkbox and expand/collapse button, and each of the column headers, following similar semantics as the cell navigation (above).
+-   `Enter` will toggle column sorting (between ascending/descending/none, in the same way a mouse click does)
+-   `Shift-Enter` will add/remove the given column from sorting, while maintaining any other sorted columns (e.g. multi-sort), in the same way a Shift-mouse-click does
 
 #### Grouping
 
 Since the entire group header row is a button, the explicit expand/collapse button in that row is not keyboard focusable.
 
-If a group header row is focused, pressing `Space` or `Enter` will expand or collapse that group.
+If a group header row is focused:
+
+-   `Space` / `Enter` will expand or collapse that group (toggling the expansion state)
+-   `ArrowLeft` will collapse the group, and `ArrowRight` will expand it (for consistency with the row interactions)
+
+#### Unsupported Functionality
+
+**Column sizing:** Currently we don't plan to support column sizing via the keyboard. In the future, one way we may support this is via a column header action menu, with Size to Fit or similar functions.
 
 ### ARIA roles
 
 Assigning appropriate ARIA roles to the various elements inside the table is critical for technologies like screen readers to work as intended. We believe the following ARIA designations will provide the expected behaviors:
 
--   `role="rows"` : Provided to both the `TableRow` element and the element hosting all of the column header content
+-   `role="row"` : Provided to `TableRow` and `TableGroupRow` elements, and the element hosting all of the column header content
 -   `role="columnheader"` : Provided to each `TableHeader` element as well as the container for the components responsible for various row actions like selection and collapse-all.
 -   `role="gridcell"` : Provided to each `TableCell` element. This is the recommended role for cells in a `treegrid`. This would also be applied to the container element at the front of each row that would host the row selection checkbox.
 
@@ -175,6 +202,4 @@ If you consult the IxD document you will see that the design diverges from the a
 
 ## Open Issues
 
--   Row selection: Should pressing `Space` when a single cell is focused, result in selecting that row?
--   When focus leaves the table and later returns, should we return focus to the previously focused row, or restart focus on the top row/ header?
--   Are we satisfied with the keyboard interactions dealing with the cell action menus? Specifically, they can be `Tab`'d to, but arrow keys will not stop at them specifically (since they're part of a cell, not their own cell). So it may require multiple key presses to focus and activate them (or the direct `Ctrl-Enter` key combo if the cell is focused).
+None
