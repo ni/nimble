@@ -8,15 +8,6 @@ import { Table, tableTag } from '../../../table';
 import { tableColumnEnumTextTag } from '..';
 import { mappingTextTag } from '../../../mapping/text';
 
-const metadata: Meta = {
-    title: 'Tests/Table Column: Enum Text',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
-
 const data = [
     {
         id: '0',
@@ -31,6 +22,15 @@ const data = [
         code: 2
     }
 ] as const;
+
+const metadata: Meta = {
+    title: 'Tests/Table Column: Enum Text',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = (): ViewTemplate => html`

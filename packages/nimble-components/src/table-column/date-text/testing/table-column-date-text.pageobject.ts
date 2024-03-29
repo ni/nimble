@@ -8,6 +8,15 @@ import { TableColumnDateTextCellView } from '../cell-view';
 export class TableColumnDateTextPageObject<
     T extends TableRecord
 > extends TableColumnFormattedTextPageObject<T> {
+    public getDefaultFormattedCellText(value: number, locale: string): string {
+        const defaultOptions: Intl.DateTimeFormatOptions = {
+            dateStyle: 'medium',
+            timeStyle: 'medium'
+        };
+        const formatter = new Intl.DateTimeFormat(locale, defaultOptions);
+        return formatter.format(value);
+    }
+
     protected override verifyCellType(
         rowIndex: number,
         columnIndex: number

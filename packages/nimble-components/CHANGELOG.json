@@ -2,6 +2,156 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 28 Mar 2024 19:09:26 GMT",
+      "version": "24.1.2",
+      "tag": "@ni/nimble-components_v24.1.2",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2256d78ea9cdd028814cd2f57931ce59681ec183",
+            "comment": "Disable intermittent test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 28 Mar 2024 18:50:08 GMT",
+      "version": "24.1.2",
+      "tag": "@ni/nimble-components_v24.1.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c2b399b709c8bf7a1cfdd0d15b23931a5461e6bb",
+            "comment": "Disable deprecation warnings"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 28 Mar 2024 17:27:01 GMT",
+      "version": "24.1.2",
+      "tag": "@ni/nimble-components_v24.1.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0fa5905a80b1e3fcae91f7e1e25130bf3e5376cb",
+            "comment": "Update date-text column tests to pass on all browsers"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 28 Mar 2024 04:22:40 GMT",
+      "version": "24.1.1",
+      "tag": "@ni/nimble-components_v24.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0973d48f069d61ba67968d2deca0ca61b44299d8",
+            "comment": "Matrix stories consistent strict enum pattern and organize states"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 28 Mar 2024 00:09:24 GMT",
+      "version": "24.1.1",
+      "tag": "@ni/nimble-components_v24.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "df7f14c56f18b67328b44a33124c73b5d8172502",
+            "comment": "Add interaction stories for buttons, number field, and anchor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Mar 2024 22:06:38 GMT",
+      "version": "24.1.1",
+      "tag": "@ni/nimble-components_v24.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9c19dac60baed62fc12ab8b0908e59e92fd8ea29",
+            "comment": "Set build time zone to America/Chicago"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Mar 2024 21:22:02 GMT",
+      "version": "24.1.1",
+      "tag": "@ni/nimble-components_v24.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cc82598544694002715db3383b75ed0c0f4793ae",
+            "comment": "Fix table scrolling test on WebKit"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Mar 2024 18:54:51 GMT",
+      "version": "24.1.0",
+      "tag": "@ni/nimble-components_v24.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a01932bbdb941553a899b8b193af5acf6f67cadd",
+            "comment": "Add placeholders to table columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Mar 2024 14:48:28 GMT",
+      "version": "24.0.1",
+      "tag": "@ni/nimble-components_v24.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fec2d9cdcacc4b6141a9ad3f3f92feb6368701b7",
+            "comment": "Initial SB 8 upgrade"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Mar 2024 12:05:29 GMT",
+      "version": "24.0.1",
+      "tag": "@ni/nimble-components_v24.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c6d99d8923082bee7a68c244c60d36be339f0ee3",
+            "comment": "Created new computations experimental module and tested it, created new data manager experimental and integrated with hover and old renderer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 Mar 2024 20:45:41 GMT",
       "version": "24.0.0",
       "tag": "@ni/nimble-components_v24.0.0",

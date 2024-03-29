@@ -1,6 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
@@ -21,14 +20,11 @@ import { textCustomizationWrapper } from '../../utilities/tests/text-customizati
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 import { textAreaTag } from '..';
 
-const metadata: Meta = {
-    title: 'Tests/Text Area',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
+const appearanceStates = [
+    ['Outline', TextAreaAppearance.outline],
+    ['Block', TextAreaAppearance.block]
+] as const;
+type AppearanceState = (typeof appearanceStates)[number];
 
 const valueStates = [
     ['Placeholder', null, 'placeholder'],
@@ -37,10 +33,14 @@ const valueStates = [
 ] as const;
 type ValueState = (typeof valueStates)[number];
 
-const appearanceStates = Object.entries(TextAreaAppearance).map(
-    ([key, value]) => [pascalCase(key), value]
-);
-type AppearanceState = (typeof appearanceStates)[number];
+const metadata: Meta = {
+    title: 'Tests/Text Area',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 const component = (
     [readOnlyName, readonly]: ReadOnlyState,

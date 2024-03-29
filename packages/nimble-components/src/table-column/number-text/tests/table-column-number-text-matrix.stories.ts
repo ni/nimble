@@ -1,6 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrixThemeStory,
     createMatrix,
@@ -13,15 +12,17 @@ import {
     controlLabelFontColor
 } from '../../../theme-provider/design-tokens';
 import { NumberTextAlignment } from '../types';
+import {
+    placeholderStates,
+    type PlaceholderState
+} from '../../../utilities/tests/states';
 
-const metadata: Meta = {
-    title: 'Tests/Table Column: Number Text',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
+const alignmentStates = [
+    ['Default', NumberTextAlignment.default],
+    ['Left', NumberTextAlignment.left],
+    ['Right', NumberTextAlignment.right]
+] as const;
+type AlignmentState = (typeof alignmentStates)[number];
 
 const data = [
     {
@@ -37,23 +38,29 @@ const data = [
     }
 ] as const;
 
-const alignmentStates: [string, string | undefined][] = Object.entries(
-    NumberTextAlignment
-).map(([key, value]) => [pascalCase(key), value]);
-type AlignmentState = (typeof alignmentStates)[number];
+const metadata: Meta = {
+    title: 'Tests/Table Column: Number Text',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = (
-    [alignmentName, alignment]: AlignmentState
+    [alignmentName, alignment]: AlignmentState,
+    [placeholderName, placeholder]: PlaceholderState
 ): ViewTemplate => html`
     <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
-        Number Text Table Column with ${alignmentName} alignment
+        Number Text Table Column With ${alignmentName} Alignment ${placeholderName}
     </label>
     <${tableTag} id-field-name="id" style="height: 450px">
         <${tableColumnNumberTextTag}
             field-name="number"
             group-index="0"
             alignment="${() => alignment}"
+            placeholder="${() => placeholder}"
         >
             Default
         </${tableColumnNumberTextTag}>
@@ -63,6 +70,7 @@ const component = (
             field-name="number"
             group-index="2"
             alignment="${() => alignment}"
+            placeholder="${() => placeholder}"
         >
             Decimal (3 digits)
         </${tableColumnNumberTextTag}>
@@ -70,7 +78,7 @@ const component = (
 `;
 
 export const tableColumnNumberTextThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [alignmentStates])
+    createMatrix(component, [alignmentStates, placeholderStates])
 );
 
 tableColumnNumberTextThemeMatrix.play = async (): Promise<void> => {

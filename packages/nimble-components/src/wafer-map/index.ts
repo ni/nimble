@@ -9,6 +9,7 @@ import type { Table } from 'apache-arrow';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
+import { DataManager as ExperimentalDataManager } from './modules/experimental/data-manager';
 import { RenderingModule } from './modules/rendering';
 import {
     HoverDie,
@@ -94,9 +95,16 @@ export class WaferMap<
     /**
      * @internal
      */
-    public readonly dataManager: DataManager = new DataManager(
+    public readonly stableDataManager: DataManager = new DataManager(
         this.asRequiredFieldsWaferMap
     );
+
+    /**
+     * @internal
+     */
+    public readonly experimentalDataManager: ExperimentalDataManager = new ExperimentalDataManager(this.asRequiredFieldsWaferMap);
+
+    public dataManager: DataManager | ExperimentalDataManager = this.stableDataManager;
 
     /**
      * @internal
@@ -225,6 +233,9 @@ export class WaferMap<
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             // zoom translateExtent needs to be recalculated when canvas size changes
             this.zoomHandler.disconnect();
+            this.dataManager = this.isExperimentalRenderer()
+                ? this.experimentalDataManager
+                : this.stableDataManager;
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
