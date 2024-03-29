@@ -295,7 +295,7 @@ export class WaferMap<
         const offscreenCanvas = this.canvas.transferControlToOffscreen();
         await this.worker.setCanvas(
             transfer(offscreenCanvas, [
-                offscreenCanvas as unknown as Transferable
+                offscreenCanvas as Transferable
             ])
         );
     }
