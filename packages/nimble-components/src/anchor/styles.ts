@@ -76,11 +76,6 @@ export const styles = css`
             color: ${linkActiveProminentFontColor};
         }
 
-        ${
-            '' /* It's probably cleaner to add :not(active) to the selector in the 'active' layer (rather
-                than resetting text-decoration back to the value from the 'default' layer), but
-                there's a bug in storybook-addon-pseudo-states where it doesn't handle :not() properly. */
-        }
         :host([underline-hidden]) .control:active {
             text-decoration: none;
         }
