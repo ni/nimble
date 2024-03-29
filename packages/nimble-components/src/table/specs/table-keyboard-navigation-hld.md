@@ -46,7 +46,7 @@ There's also guidance about whether cells themselves, or the elements inside the
 
 `Tab` or `Shift-Tab`, from neighboring elements on the page (according to tab order), will focus the table:
 
--   If the table header contains any interactive/focusable elements, the 1st will be focused. Examples: 'Select all rows' checkbox, 'Collapse all groups' button
+-   If the table header contains any interactive/focusable elements, the 1st will be focused. Examples: 'Select all rows' checkbox, 'Collapse all groups' button, column headers (if any are sortable)
 -   Otherwise, the 1st table row will be focused
 -   (If no header elements are focusable, and the table has no rows, the table cannot be focused)
 
@@ -80,6 +80,15 @@ When a cell is focused:
 -   Note: If a focused cell has multiple interactive elements for its contents, those elements will _not_ receive focus from pressing `ArrowLeft` or `ArrowRight`, and instead focus will be shifted to the appropriate neighboring cell (or do nothing if focus is at the extents of the row).
 -   If `ArrowDown` or `ArrowUp` is pressed, when there is an available row in the navigation direction, focus will move to the cell in the current focused column of the new row (next row or previous row, respectively)
 -   Action menus: The cell menu for the given cell will be visible. Any other action menu buttons for the row will be hidden as usual (unless the row is also mouse-hovered)
+
+To navigate by multiple rows/cells, when a row or cell is focused:
+
+-   `PageUp`: Navigate up by a table height's worth of rows. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
+-   `PageDown`: Navigate down by a table height's worth of rows. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
+-   `Home`: Navigate to the 1st row (if a row is selected), or the 1st cell of the row (if a cell is selected)
+-   `End`: Navigate to the last row (if a row is selected), or the last cell of the row (if a cell is selected)
+-   `Ctrl-Home`: Navigate to the first row. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
+-   `Ctrl-End`: Navigate to the last row. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
 
 Special case of focusing a cell:
 
