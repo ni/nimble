@@ -523,18 +523,11 @@ export class Combobox
     public override focusoutHandler(e: FocusEvent): boolean {
         this.syncValue();
 
-        if (!this.open) {
-            return true;
-        }
-
-        const focusTarget = e.relatedTarget as HTMLElement;
-        if (this.isSameNode(focusTarget)) {
-            this.focus();
-            return true;
-        }
-
-        if (!this.options?.includes(focusTarget as ListboxOption)) {
-            this.open = false;
+        if (this.open) {
+            const focusTarget = e.relatedTarget as HTMLElement;
+            if (this.isSameNode(focusTarget)) {
+                this.focus();
+            }
         }
 
         this.open = false;
