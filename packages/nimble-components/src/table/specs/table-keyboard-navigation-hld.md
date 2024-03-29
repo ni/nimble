@@ -68,6 +68,7 @@ When a row is focused:
 -   If the row is expanded and can be collapsed, pressing `ArrowLeft` will collapse the row
 -   If the row cannot be expanded (or is already expanded), pressing `ArrowRight` will move focus to the first cell
 -   If the row cannot be collapsed (or is already collapsed), pressing `ArrowLeft` does nothing
+-   If `ArrowDown` or `ArrowUp` is pressed, the next or previous row will be focused (if a row is available in the given direction to move to)
 -   Action menus: All cell action menu buttons for the given row will be visible
 
 When a cell is focused:
@@ -77,7 +78,7 @@ When a cell is focused:
 -   If the focus is on any cell other than the last, pressing `ArrowRight` will move focus to the next cell to the right
 -   If the focus is on the last cell, pressing `ArrowRight` does nothing
 -   Note: If a focused cell has multiple interactive elements for its contents, those elements will _not_ receive focus from pressing `ArrowLeft` or `ArrowRight`, and instead focus will be shifted to the appropriate neighboring cell (or do nothing if focus is at the extents of the row).
--   If`ArrowDown` or `ArrowUp` is pressed, when there is an available row in the navigation direction, focus will move to the cell in the current focused column of the new row.
+-   If `ArrowDown` or `ArrowUp` is pressed, when there is an available row in the navigation direction, focus will move to the cell in the current focused column of the new row (next row or previous row, respectively)
 -   Action menus: The cell menu for the given cell will be visible. Any other action menu buttons for the row will be hidden as usual (unless the row is also mouse-hovered)
 
 Special case of focusing a cell:
