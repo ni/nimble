@@ -36,7 +36,6 @@ The `nimble-table-column-icon` is a component that supports rendering specific n
 
 Below is an example of how these elements would be used within a `nimble-table`:
 
-// mkreis TODO: update example
 ```HTML
 <nimble-table>
     <nimble-table-column-icon field-name="status" key-type="string" label-hidden>
