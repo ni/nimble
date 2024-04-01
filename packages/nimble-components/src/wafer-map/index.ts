@@ -83,6 +83,11 @@ export class WaferMap<
     /**
      * @internal
      */
+    public isWorkerAlive = false;
+
+    /**
+     * @internal
+     */
     public worker!: Remote<MatrixRenderer>;
 
     /**
@@ -193,11 +198,6 @@ export class WaferMap<
         values: []
     };
 
-    /**
-     * @internal
-     */
-    private workerInitialized = false;
-
     private readonly hoverHandler: HoverHandler = new HoverHandler(
         this as WaferMap
     );
@@ -245,18 +245,18 @@ export class WaferMap<
      */
     public async update(): Promise<void> {
         this.zoomHandler.connect();
-        if (!this.workerInitialized && this.isExperimentalRenderer()) {
+        this.validate();
+        if (this.validity.invalidDiesTableSchema) {
+            return;
+        }
+        if (!this.isWorkerAlive && this.isExperimentalRenderer()) {
             await this.createWorker();
             await this.createWorkerCanvas();
             await this.worker.setCanvasDimensions({
                 width: this.canvasWidth,
                 height: this.canvasHeight
             });
-            this.workerInitialized = true;
-        }
-        this.validate();
-        if (this.validity.invalidDiesTableSchema) {
-            return;
+            this.isWorkerAlive = true;
         }
         this.renderer = this.isExperimentalRenderer()
             ? this.workerRenderer
@@ -265,6 +265,7 @@ export class WaferMap<
         this.dataManager = this.isExperimentalRenderer()
             ? this.experimentalDataManager
             : this.stableDataManager;
+
         if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
             if (!this.isExperimentalRenderer()) {
                 this.canvas.width = this.canvasWidth;
