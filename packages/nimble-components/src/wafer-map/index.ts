@@ -245,7 +245,7 @@ export class WaferMap<
      */
     public async update(): Promise<void> {
         this.zoomHandler.connect();
-        if (!this.workerInitialized) {
+        if (!this.workerInitialized && this.isExperimentalRenderer()) {
             await this.createWorker();
             await this.createWorkerCanvas();
             this.workerInitialized = true;
