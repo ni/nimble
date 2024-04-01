@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `nimble-table-column-icon` is a component that supports rendering specific number, boolean, or string values as to icon/label pairs and/or spinner/label pairs. The mappings are defined by child elements of `nimble-mapping-icon` and `nimble-mapping-spinner`.
+The `nimble-table-column-icon` is a component that supports rendering specific number, boolean, or string values as icon/label pairs and/or spinner/label pairs. The mappings are defined by child elements of `nimble-mapping-icon` and `nimble-mapping-spinner`.
 
 ### Background
 
@@ -20,7 +20,8 @@ The `nimble-table-column-icon` is a component that supports rendering specific n
     -   Text
     -   Icon
     -   Spinner
-    -   Icon (or Spinner) with text
+    -   Icon with text
+    -   Spinner with text
     -   (empty)
 
 ### Non-goals
@@ -38,7 +39,7 @@ Below is an example of how these elements would be used within a `nimble-table`:
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-icon field-name="status" key-type="string" label-hidden>
+    <nimble-table-column-icon field-name="status" key-type="string" display="iconOnly">
         Status
         <nimble-mapping-icon key="fail" icon="nimble-icon-xmark" severity="error" label="Failed"></nimble-mapping-icon>
         <nimble-mapping-icon key="error" icon="nimble-icon-xmark" severity="error" label="Errored"></nimble-mapping-icon>
@@ -103,8 +104,8 @@ _Props/Attrs_
 
 -   `field-name`: string
 -   `key-type`: 'string' | 'number' | 'boolean'
--   `label-hidden`: boolean - When `true`, the `label` for a mapping will be rendered in a cell next to the specified icon. Note, that this attribute only affects what is rendered in a cell; a group row will always render both the icon and the label.
--   `icon-width`: boolean - When `true`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set to `true` when the header contains a single icon (no text) and `label-hidden` is `true`. If set to `true` when `label-hidden` is `false`, the column's configuration will be considered invalid.
+-   `display`: enum with possible values of `iconOnly`, `labelOnly`, and `iconAndLabel` - Specifies what is rendered in a cell for the column. Note, that this attribute only affects a cell's rendering; a group row will always render both the icon and the label.
+-   `icon-width`: boolean - When `true`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set to `true` when the header contains a single icon (no text) and `display` is `iconOnly`. If set to `true` when `display` is not `iconOnly`, the column's configuration will be considered invalid.
 
 _Content_
 
@@ -265,7 +266,7 @@ None
     -   nothing rendered when value matches no mappings
     -   validation error when non-unique mapping keys exist
     -   validation error when invalid icon name given
-    -   validation error when `icon-width` is set to `true` while `label-hidden` is set to `false`
+    -   validation error when `icon-width` is set to `true` while `display` is not `iconOnly`
     -   grouping header for icon column includes label
 -   Verify manually that the column content appears in the accessibility tree and can be read by a screen reader.
 -   Verify manually that several mapping columns with thousands of elements scrolls performantly.
