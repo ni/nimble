@@ -11,6 +11,12 @@ public partial class NimbleMenuButton : ComponentBase
     public ButtonAppearance? Appearance { get; set; }
 
     /// <summary>
+    /// Gets or sets the appearance variant of the menu button.
+    /// </summary>
+    [Parameter]
+    public ButtonAppearanceVariant? AppearanceVariant { get; set; }
+
+    /// <summary>
     /// Gets or sets whether or not the menu is open.
     /// </summary>
     [Parameter]
