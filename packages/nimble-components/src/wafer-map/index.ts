@@ -269,6 +269,7 @@ export class WaferMap<
             if (!this.isExperimentalRenderer()) {
                 this.canvas.width = this.canvasWidth;
                 this.canvas.height = this.canvasHeight;
+            }
             this.dataManager.updateContainerDimensions();
             await this.renderer.updateSortedDiesAndDrawWafer();
         } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
