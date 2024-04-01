@@ -127,7 +127,7 @@ describe('Combobox', () => {
         await disconnect();
     });
 
-    fit('option added directly to DOM synchronously registers with Combobox', async () => {
+    it('option added directly to DOM synchronously registers with Combobox', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         element.selectedIndex = 0;
