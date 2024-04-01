@@ -223,11 +223,6 @@ export class WaferMap<
         this.hoverHandler.connect();
         this.experimentalHoverHandler.connect();
         this.zoomHandler.connect();
-        void (async () => {
-            await this.createWorker();
-            await this.createWorkerCanvas();
-            this.workerInitialized = true;
-        })();
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
     }
@@ -250,6 +245,11 @@ export class WaferMap<
      */
     public async update(): Promise<void> {
         this.zoomHandler.connect();
+        if (!this.workerInitialized) {
+            await this.createWorker();
+            await this.createWorkerCanvas();
+            this.workerInitialized = true;
+        }
         this.validate();
         if (this.validity.invalidDiesTableSchema) {
             return;
@@ -262,6 +262,15 @@ export class WaferMap<
             ? this.experimentalDataManager
             : this.stableDataManager;
         if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
+            if (this.isExperimentalRenderer()) {
+                await this.worker.setCanvasDimensions({
+                    width: this.canvasWidth,
+                    height: this.canvasHeight
+                });
+            } else {
+                this.canvas.width = this.canvasWidth;
+                this.canvas.height = this.canvasHeight;
+            }
             this.dataManager.updateContainerDimensions();
             await this.renderer.updateSortedDiesAndDrawWafer();
         } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
@@ -313,27 +322,8 @@ export class WaferMap<
             const { height, width } = entry.contentRect;
             // Updating the canvas size clears its contents so update it explicitly instead of
             // via template bindings so we can confirm that it happens before render
-            void (async () => {
-                if (!this.workerInitialized) {
-                    await new Promise(resolve => {
-                        const checkInterval = setInterval(() => {
-                            if (this.workerInitialized) {
-                                clearInterval(checkInterval);
-                                resolve(undefined);
-                            }
-                        }, 100);
-                    });
-                }
-                // eslint-disable-next-line no-console
-                console.log(this.worker);
-                await this.worker.setCanvasDimensions({ width, height });
-            })();
             this.canvasWidth = width;
             this.canvasHeight = height;
-            if (this.diesTable === undefined) {
-                this.canvas.width = width;
-                this.canvas.height = height;
-            }
         });
         return resizeObserver;
     }
