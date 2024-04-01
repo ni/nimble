@@ -193,6 +193,11 @@ export class WaferMap<
         values: []
     };
 
+    /**
+     * @internal
+     */
+    private workerInitialized = false;
+
     private readonly hoverHandler: HoverHandler = new HoverHandler(
         this as WaferMap
     );
@@ -221,7 +226,8 @@ export class WaferMap<
         void (async () => {
             await this.createWorker();
             await this.createWorkerCanvas();
-        });
+            this.workerInitialized = true;
+        })();
         this.resizeObserver.observe(this);
         this.waferMapUpdateTracker.trackAll();
     }
@@ -292,11 +298,9 @@ export class WaferMap<
     }
 
     private async createWorkerCanvas(): Promise<void> {
-        const offscreenCanvas = this.canvas.transferControlToOffscreen();
+        const offscreenCanvas = this.workerCanvas.transferControlToOffscreen();
         await this.worker.setCanvas(
-            transfer(offscreenCanvas, [
-                offscreenCanvas as Transferable
-            ])
+            transfer(offscreenCanvas, [offscreenCanvas as Transferable])
         );
     }
 
@@ -309,11 +313,23 @@ export class WaferMap<
             const { height, width } = entry.contentRect;
             // Updating the canvas size clears its contents so update it explicitly instead of
             // via template bindings so we can confirm that it happens before render
+            void (async () => {
+                if (!this.workerInitialized) {
+                    await new Promise(resolve => {
+                        const checkInterval = setInterval(() => {
+                            if (this.workerInitialized) {
+                                clearInterval(checkInterval);
+                                resolve(undefined);
+                            }
+                        }, 100);
+                    });
+                }
+                // eslint-disable-next-line no-console
+                console.log(this.worker);
+                await this.worker.setCanvasDimensions({ width, height });
+            })();
             this.canvasWidth = width;
             this.canvasHeight = height;
-            void (async () => {
-                await this.worker.setCanvasDimensions({ width, height });
-            });
             if (this.diesTable === undefined) {
                 this.canvas.width = width;
                 this.canvas.height = height;
