@@ -248,6 +248,10 @@ export class WaferMap<
         if (!this.workerInitialized && this.isExperimentalRenderer()) {
             await this.createWorker();
             await this.createWorkerCanvas();
+            await this.worker.setCanvasDimensions({
+                width: this.canvasWidth,
+                height: this.canvasHeight
+            });
             this.workerInitialized = true;
         }
         this.validate();
@@ -262,15 +266,9 @@ export class WaferMap<
             ? this.experimentalDataManager
             : this.stableDataManager;
         if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
-            if (this.isExperimentalRenderer()) {
-                await this.worker.setCanvasDimensions({
-                    width: this.canvasWidth,
-                    height: this.canvasHeight
-                });
-            } else {
+            if (!this.isExperimentalRenderer()) {
                 this.canvas.width = this.canvasWidth;
                 this.canvas.height = this.canvasHeight;
-            }
             this.dataManager.updateContainerDimensions();
             await this.renderer.updateSortedDiesAndDrawWafer();
         } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
