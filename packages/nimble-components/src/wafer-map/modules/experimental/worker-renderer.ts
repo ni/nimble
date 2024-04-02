@@ -9,10 +9,7 @@ export class WorkerRenderer {
     public constructor(private readonly wafermap: WaferMap) {}
 
     public async updateSortedDiesAndDrawWafer(): Promise<void> {
-        if (
-            this.wafermap.diesTable === undefined
-            || this.wafermap.worker === undefined
-        ) {
+        if (this.wafermap.diesTable === undefined) {
             return;
         }
         await this.setupWorker();
@@ -32,10 +29,7 @@ export class WorkerRenderer {
     }
 
     public async drawWafer(): Promise<void> {
-        if (
-            this.wafermap.diesTable === undefined
-            || this.wafermap.worker === undefined
-        ) {
+        if (this.wafermap.diesTable === undefined) {
             return;
         }
         await this.wafermap.worker.setTransform(this.wafermap.transform);
@@ -74,7 +68,20 @@ export class WorkerRenderer {
     }
 
     private async setupWorker(): Promise<void> {
-        // await this.wafermap.worker.setCanvasDimensions({ width: this.wafermap.canvasWidth, height: this.wafermap.canvasHeight });
+        if (
+            this.wafermap.isWorkerAlive
+            || !this.wafermap.isExperimentalRenderer()
+        ) {
+            return;
+        }
+
+        this.wafermap.isWorkerAlive = true;
+        await this.wafermap.createWorker();
+        await this.wafermap.createWorkerCanvas();
+        await this.wafermap.worker.setCanvasDimensions({
+            width: this.wafermap.canvasWidth,
+            height: this.wafermap.canvasHeight
+        });
         await this.wafermap.worker.setDiesDimensions(
             this.wafermap.dataManager.dieDimensions
         );

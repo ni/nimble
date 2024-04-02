@@ -249,15 +249,6 @@ export class WaferMap<
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
-        if (!this.isWorkerAlive && this.isExperimentalRenderer()) {
-            await this.createWorker();
-            await this.createWorkerCanvas();
-            await this.worker.setCanvasDimensions({
-                width: this.canvasWidth,
-                height: this.canvasHeight
-            });
-            this.isWorkerAlive = true;
-        }
         this.renderer = this.isExperimentalRenderer()
             ? this.workerRenderer
             : this.mainRenderer;
@@ -296,21 +287,21 @@ export class WaferMap<
         return this.diesTable !== undefined;
     }
 
-    private validate(): void {
-        this.waferMapValidator.validateGridDimensions();
-        this.waferMapValidator.validateDiesTableSchema();
-    }
-
-    private async createWorker(): Promise<void> {
+    public async createWorker(): Promise<void> {
         const { matrixRenderer } = await createMatrixRenderer();
         this.worker = matrixRenderer;
     }
 
-    private async createWorkerCanvas(): Promise<void> {
+    public async createWorkerCanvas(): Promise<void> {
         const offscreenCanvas = this.workerCanvas.transferControlToOffscreen();
         await this.worker.setCanvas(
-            transfer(offscreenCanvas, [offscreenCanvas as Transferable])
+            transfer(offscreenCanvas, [offscreenCanvas])
         );
+    }
+
+    private validate(): void {
+        this.waferMapValidator.validateGridDimensions();
+        this.waferMapValidator.validateDiesTableSchema();
     }
 
     private createResizeObserver(): ResizeObserver {
