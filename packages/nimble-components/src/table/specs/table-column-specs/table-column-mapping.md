@@ -130,6 +130,7 @@ _Props/Attrs_
 -   `label-hidden`: boolean - When set, the label will not be rendered within a cell. When unset, the label will be rendered with a cell. This does not affect the rendering of group rows; group rows will always display the label associated with the mapping.
 
 The label will be used in the following places:
+
 -   In the group row for a mapping
 -   If `label-hidden` is set, as the accessible name and `title` of the icon within a cell
 -   If `label-hidden` is not set, as text rendered next to the icon within a cell
@@ -149,6 +150,7 @@ _Props/Attrs_
 -   `label-hidden`: boolean - When set, the label will not be rendered within a cell. When unset, the label will be rendered with a cell. This does not affect the rendering of group rows; group rows will always display the label associated with the mapping.
 
 The label will be used in the following places:
+
 -   In the group row for a mapping
 -   If `label-hidden` is set, as the accessible name and `title` of the spinner within a cell
 -   If `label-hidden` is not set, as text rendered next to the spinner within a cell
