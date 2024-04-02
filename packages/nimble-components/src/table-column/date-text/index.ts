@@ -33,6 +33,9 @@ import { TableColumnDateTextValidator } from './models/table-column-date-text-va
 import { lang } from '../../theme-provider';
 import { optionalBooleanConverter } from '../../utilities/models/converter';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
+import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
+import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
+import { mixinColumnWithPlaceholderAPI } from '../mixins/placeholder';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDateTextColumnConfig
@@ -49,7 +52,9 @@ declare global {
 /**
  * The table column for displaying dates/times as text.
  */
-export class TableColumnDateText extends TableColumnTextBase {
+export class TableColumnDateText extends mixinGroupableColumnAPI(
+    mixinFractionalWidthColumnAPI(mixinColumnWithPlaceholderAPI(TableColumnTextBase<TableColumnDateTextColumnConfig>))
+) {
     /** @internal */
     public validator = new TableColumnDateTextValidator(this.columnInternals);
 

@@ -8,6 +8,9 @@ import { tableColumnTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
+import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
+import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
+import { mixinColumnWithPlaceholderAPI } from '../mixins/placeholder';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 
@@ -24,7 +27,9 @@ declare global {
 /**
  * The table column for displaying string fields as text.
  */
-export class TableColumnText extends TableColumnTextBase {
+export class TableColumnText extends mixinGroupableColumnAPI(
+    mixinFractionalWidthColumnAPI(mixinColumnWithPlaceholderAPI(TableColumnTextBase<TableColumnTextColumnConfig>))
+) {
     public placeholderChanged(): void {
         this.columnInternals.columnConfig = {
             placeholder: this.placeholder
