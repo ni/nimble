@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 02 Apr 2024 15:32:11 GMT and should not be manually modified.
+This log was last generated on Tue, 02 Apr 2024 17:10:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.4
+
+Tue, 02 Apr 2024 17:10:35 GMT
+
+### Patches
+
+- Fix race condition when closing the drawer immediately after it finishes opening ([ni/nimble@2319edc](https://github.com/ni/nimble/commit/2319edca45a8bf3aded03c62d77a4818c9c55d60))
 
 ## 24.1.3
 
