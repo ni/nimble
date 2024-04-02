@@ -9,8 +9,8 @@ import { UserDismissed } from '../patterns/dialog/types';
 import { styles } from './styles';
 import { template } from './template';
 import { DrawerLocation } from './types';
-import { animationConfig } from './animations';
 import { prefersReducedMotionMediaQuery } from '../utilities/style/prefers-reduced-motion';
+import { largeDelay } from '../theme-provider/design-tokens';
 
 export { UserDismissed };
 
@@ -19,6 +19,19 @@ declare global {
         'nimble-drawer': Drawer;
     }
 }
+
+const slideInLeftKeyframes: Keyframe[] = [
+    { transform: 'translate(-100%)' },
+    { transform: 'translate(0%)' }
+];
+const slideInRightKeyframes: Keyframe[] = [
+    { transform: 'translate(100%)' },
+    { transform: 'translate(0%)' }
+];
+const fadeInKeyFrames: Keyframe[] = [
+    { opacity: '0' },
+    { opacity: '1' }
+];
 
 /**
  * Drawer control. Shows content in a panel on the left / right side of the screen,
@@ -38,12 +51,13 @@ export class Drawer<CloseReason = void> extends FoundationElement {
 
     public dialog!: HTMLDialogElement;
     public dialogContents!: HTMLElement;
+    /** @internal */
+    public animations: Animation[] = [];
     private closing = false;
 
     private resolveShow?: (reason: CloseReason | UserDismissed) => void;
     private closeReason!: CloseReason | UserDismissed;
 
-    private animations: Animation[] = [];
 
     /**
      * True if the drawer is open, opening, or closing. Otherwise, false.
@@ -145,33 +159,52 @@ export class Drawer<CloseReason = void> extends FoundationElement {
 
         const drawerAnimation = this.dialogContents.animate(
             this.getSlideInKeyframes(),
-            this.closing ? animationConfig.slideOutOptions : animationConfig.slideInOptions
+            this.getAnimationOptions(false)
         );
         const backdropAnimation = this.dialog.animate(
-            animationConfig.fadeInKeyFrames,
-            this.closing ? animationConfig.backdropFadeOutOptions : animationConfig.backdropFadeInOptions
+            fadeInKeyFrames,
+            this.getAnimationOptions(true)
         );
         this.animations.push(drawerAnimation);
         this.animations.push(backdropAnimation);
 
-        await Promise.all([drawerAnimation.finished, backdropAnimation.finished]);
+        try {
+            await Promise.all([drawerAnimation.finished, backdropAnimation.finished]);
 
-        this.animations = [];
-        if (this.closing) {
-            this.dialog.close();
-            this.closing = false;
-            this.doResolveShow(this.closeReason);
+            this.animations = [];
+            if (this.closing) {
+                this.dialog.close();
+                this.closing = false;
+                this.doResolveShow(this.closeReason);
+            }
+        } catch (_) {
+            // Do nothing -- the animation promises are rejected if the animation is cancelled.
         }
     }
 
     private getSlideInKeyframes(): Keyframe[] {
         if (prefersReducedMotionMediaQuery.matches) {
-            return animationConfig.fadeInKeyFrames;
+            return fadeInKeyFrames;
         }
 
         return this.location === DrawerLocation.right
-            ? animationConfig.slideInRightKeyframes
-            : animationConfig.slideInLeftKeyframes;
+            ? slideInRightKeyframes
+            : slideInLeftKeyframes;
+    }
+
+    private getAnimationOptions(isBackdrop: boolean): KeyframeAnimationOptions {
+        const options: KeyframeAnimationOptions = {
+            // duration: largeDelay.getValueFor(this),
+            duration: 1500,
+            easing: 'ease-in'
+        };
+        if (this.closing) {
+            options.direction = 'reverse';
+        }
+        if (isBackdrop) {
+            options.pseudoElement = '::backdrop';
+        }
+        return options;
     }
 
     private cancelCurrentAnimations(): void {

@@ -1,5 +1,4 @@
 import { html } from '@microsoft/fast-element';
-import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Drawer, UserDismissed } from '..';
 import { DrawerLocation } from '../types';
@@ -33,21 +32,19 @@ describe('Drawer', () => {
     function isDrawerAnimating(
         nimbleDrawerElement: Drawer | Drawer<string>
     ): boolean {
-        const dialogElement = nativeDialogElement(nimbleDrawerElement);
-        return dialogElement.classList.contains('animating');
+        return nimbleDrawerElement.animations.length !== 0;
     }
 
     async function completeAnimationAsync(
         nimbleDrawerElement: Drawer | Drawer<string>
     ): Promise<void> {
-        return new Promise(resolve => {
-            const dialogElement = nativeDialogElement(nimbleDrawerElement);
-            const handler = (): void => {
-                dialogElement.removeEventListener(eventAnimationEnd, handler);
-                resolve();
-            };
-            dialogElement.addEventListener(eventAnimationEnd, handler);
-        });
+        if (nimbleDrawerElement.animations.length === 0) {
+            return;
+        }
+
+        await Promise.all(
+            nimbleDrawerElement.animations.map(async x => x.finished)
+        );
     }
 
     describe('with default setup', () => {
