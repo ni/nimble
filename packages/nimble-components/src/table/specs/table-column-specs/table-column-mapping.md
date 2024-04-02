@@ -48,9 +48,9 @@ Below is an example of how these elements would be used within a `nimble-table`:
     </nimble-table-column-icon>
     <nimble-table-column-icon field-name="errorCode" key-type="number">
         Error Code
-        <nimble-mapping-text key="1" label="A bad thing happened"></nimble-mapping-text>
-        <nimble-mapping-text key="2" label="A worse thing happened"></nimble-mapping-text>
-        <nimble-mapping-text key="3" label="A terrible thing happened"></nimble-mapping-text>
+        <nimble-mapping-icon key="1" label="A bad thing happened"></nimble-mapping-icon>
+        <nimble-mapping-icon key="2" label="A worse thing happened"></nimble-mapping-icon>
+        <nimble-mapping-icon key="3" label="A terrible thing happened"></nimble-mapping-icon>
     </nimble-table-column-icon>
     <nimble-table-column-icon field-name="archived" key-type="boolean">
         Archived
@@ -183,9 +183,9 @@ Text in a grouping header will be ellipsized and gain a tooltip if there is not 
 Sorting will be based on the record value. For boolean and number values, a basic sort (just using basic comparison/equality operators) is the clear choice. For string values, it is less clear. In the case where the strings are enum values, they are likely to be non-localized, English strings. Using a basic (alphabetical) sort is not unreasonable. However, if there is a semantically meaningful sort order (e.g. "NOT_STARTED" < "RUNNING" < "DONE"), it would be nice to sort by that. We can only infer that semantic order from the order in which the mappings are given, e.g.:
 
 ```HTML
-    <nimble-mapping-text key="NOT_STARTED" label="Not Started"></nimble-mapping-text>
-    <nimble-mapping-text key="RUNNING" label="Running"></nimble-mapping-text>
-    <nimble-mapping-text key="DONE" label="Done"></nimble-mapping-text>
+    <nimble-mapping-icon key="NOT_STARTED" label="Not Started"></nimble-mapping-icon>
+    <nimble-mapping-icon key="RUNNING" label="Running"></nimble-mapping-icon>
+    <nimble-mapping-icon key="DONE" label="Done"></nimble-mapping-icon>
 ```
 
 We would need new support for sorting this way. We could define a new sorting option, "enumerated sort", where the column provides an ordered list of values, and the table sorts the column based on that given order. To compare the relative order of two values, we have to search the list, making the sort operation a bit more expensive, but still probably reasonable except in the case of enums with many values.
