@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 28 Mar 2024 17:27:01 GMT and should not be manually modified.
+This log was last generated on Fri, 29 Mar 2024 23:26:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.7.0
+
+Fri, 29 Mar 2024 23:26:43 GMT
+
+### Minor changes
+
+- Angular support for appearance-variant on toggle and menu buttons ([ni/nimble@82d484e](https://github.com/ni/nimble/commit/82d484e2b69dc93f526c72249f32002d355ade91))
 
 ## 20.6.1
 

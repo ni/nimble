@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 29 Mar 2024 23:26:43 GMT",
+      "version": "20.7.0",
+      "tag": "@ni/nimble-angular_v20.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "82d484e2b69dc93f526c72249f32002d355ade91",
+            "comment": "Angular support for appearance-variant on toggle and menu buttons"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 28 Mar 2024 17:27:01 GMT",
       "version": "20.6.1",
       "tag": "@ni/nimble-angular_v20.6.1",
