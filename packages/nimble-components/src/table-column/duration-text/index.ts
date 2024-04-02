@@ -33,7 +33,11 @@ declare global {
  * The table column for displaying a duration value as text.
  */
 export class TableColumnDurationText extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(mixinColumnWithPlaceholderAPI(TableColumnTextBase<TableColumnDurationTextColumnConfig>))
+    mixinFractionalWidthColumnAPI(
+        mixinColumnWithPlaceholderAPI(
+            TableColumnTextBase<TableColumnDurationTextColumnConfig>
+        )
+    )
 ) {
     private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
         handleChange: () => {

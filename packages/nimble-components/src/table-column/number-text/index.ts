@@ -48,7 +48,11 @@ declare global {
  * The table column for displaying numbers as text.
  */
 export class TableColumnNumberText extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(mixinColumnWithPlaceholderAPI(TableColumnTextBase<TableColumnNumberTextColumnConfig>))
+    mixinFractionalWidthColumnAPI(
+        mixinColumnWithPlaceholderAPI(
+            TableColumnTextBase<TableColumnNumberTextColumnConfig>
+        )
+    )
 ) {
     /** @internal */
     public validator = new TableColumnNumberTextValidator(this.columnInternals);

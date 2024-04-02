@@ -28,7 +28,11 @@ declare global {
  * The table column for displaying string fields as text.
  */
 export class TableColumnText extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(mixinColumnWithPlaceholderAPI(TableColumnTextBase<TableColumnTextColumnConfig>))
+    mixinFractionalWidthColumnAPI(
+        mixinColumnWithPlaceholderAPI(
+            TableColumnTextBase<TableColumnTextColumnConfig>
+        )
+    )
 ) {
     public placeholderChanged(): void {
         this.columnInternals.columnConfig = {

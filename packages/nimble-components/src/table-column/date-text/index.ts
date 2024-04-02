@@ -53,7 +53,11 @@ declare global {
  * The table column for displaying dates/times as text.
  */
 export class TableColumnDateText extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(mixinColumnWithPlaceholderAPI(TableColumnTextBase<TableColumnDateTextColumnConfig>))
+    mixinFractionalWidthColumnAPI(
+        mixinColumnWithPlaceholderAPI(
+            TableColumnTextBase<TableColumnDateTextColumnConfig>
+        )
+    )
 ) {
     /** @internal */
     public validator = new TableColumnDateTextValidator(this.columnInternals);
