@@ -135,6 +135,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
         // has processed the 'animating' class being removed before trying to readd it, even if the previous
         // animation has just finished. Otherwise, problems can occur. For example, trying to close the
         // drawer immediately after the opening animation ends does not actually close the drawer.
+        // https://github.com/ni/nimble/issues/1994
         void this.dialog.offsetHeight;
 
         this.dialog.classList.add('animating');
