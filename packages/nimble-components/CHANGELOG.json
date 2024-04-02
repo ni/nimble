@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 01 Apr 2024 22:25:47 GMT",
+      "version": "24.1.2",
+      "tag": "@ni/nimble-components_v24.1.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8a0315cd3a2789f38ad69d8fbeab0d88c085b253",
+            "comment": "devdeps update only"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 28 Mar 2024 19:09:26 GMT",
       "version": "24.1.2",
       "tag": "@ni/nimble-components_v24.1.2",
