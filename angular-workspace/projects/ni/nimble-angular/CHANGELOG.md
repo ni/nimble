@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 29 Mar 2024 23:26:43 GMT and should not be manually modified.
+This log was last generated on Tue, 02 Apr 2024 17:10:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.7.2
+
+Tue, 02 Apr 2024 17:10:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.4
+
+## 20.7.1
+
+Tue, 02 Apr 2024 15:32:11 GMT
+
+### Patches
+
+- Combobox CVA optimization ([ni/nimble@7f2f704](https://github.com/ni/nimble/commit/7f2f7042d7b4006b32a841c3c5124bf33489392a))
+- Bump @ni/nimble-components to v24.1.3
 
 ## 20.7.0
 

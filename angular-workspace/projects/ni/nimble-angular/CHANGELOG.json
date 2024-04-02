@@ -2,6 +2,42 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 02 Apr 2024 17:10:35 GMT",
+      "version": "20.7.2",
+      "tag": "@ni/nimble-angular_v20.7.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v24.1.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 02 Apr 2024 15:32:11 GMT",
+      "version": "20.7.1",
+      "tag": "@ni/nimble-angular_v20.7.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "7f2f7042d7b4006b32a841c3c5124bf33489392a",
+            "comment": "Combobox CVA optimization"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v24.1.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 29 Mar 2024 23:26:43 GMT",
       "version": "20.7.0",
       "tag": "@ni/nimble-angular_v20.7.0",
