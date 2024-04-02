@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 02 Apr 2024 22:01:51 GMT",
+      "version": "24.1.5",
+      "tag": "@ni/nimble-components_v24.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "47d91bc3cb98a52843ffb9f0b7d3e3e1baaea344",
+            "comment": "Reverting changes."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 Apr 2024 17:10:35 GMT",
       "version": "24.1.4",
       "tag": "@ni/nimble-components_v24.1.4",
