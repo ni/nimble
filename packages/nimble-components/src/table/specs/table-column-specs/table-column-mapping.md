@@ -109,7 +109,7 @@ _Props/Attrs_
 
 _Content_
 
--   column title
+-   column title (icon and/or text)
 -   1 or more `nimble-mapping-icon` or `nimble-mapping-spinner` elements
 
 #### Mapping element (icon):
