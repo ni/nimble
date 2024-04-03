@@ -1,7 +1,10 @@
 import { html } from '@microsoft/fast-element';
 import { Table, tableFromArrays } from 'apache-arrow';
 import { WaferMap } from '..';
-import { processUpdates, waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     WaferMapColorScaleMode,
