@@ -1,5 +1,5 @@
 import { uniqueId } from '@microsoft/fast-web-utilities';
-import { ViewTemplate, observable } from '@microsoft/fast-element';
+import { Observable, ViewTemplate, observable } from '@microsoft/fast-element';
 import { TableColumnSortDirection, TableFieldName } from '../../../table/types';
 import type { TableCell } from '../../../table/components/cell';
 import {
@@ -10,8 +10,9 @@ import {
 import type { TableGroupRow } from '../../../table/components/group-row';
 import { createGroupHeaderViewTemplate } from '../group-header-view/template';
 import { createCellViewTemplate } from '../cell-view/template';
+import { ColumnValidator } from './column-validator';
 
-export interface ColumnInternalsOptions {
+export interface ColumnInternalsOptions<TColumnValidator extends ColumnValidator<[]> = ColumnValidator<[]>> {
     /**
      * The tag (element name) of the custom element that renders the cell content for the column.
      * That element should derive from TableCellView<TCellRecord, TColumnConfig>.
@@ -39,13 +40,18 @@ export interface ColumnInternalsOptions {
      * The sort operation to use for the column (defaults to TableColumnSortOperation.basic)
      */
     readonly sortOperation?: TableColumnSortOperation;
+
+    /**
+    * The validator for the column
+    */
+    readonly validator?: TColumnValidator;
 }
 
 /**
  * Internal column state configured by plugin authors
  * @internal
  */
-export class ColumnInternals<TColumnConfig> {
+export class ColumnInternals<TColumnConfig, TColumnValidator extends ColumnValidator<[]>> {
     /**
      * @see ColumnInternalsOptions.cellRecordFieldNames
      */
@@ -163,7 +169,9 @@ export class ColumnInternals<TColumnConfig> {
     @observable
     public currentSortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
-    public constructor(options: ColumnInternalsOptions) {
+    public readonly validator?: TColumnValidator;
+
+    public constructor(options: ColumnInternalsOptions<TColumnValidator>) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;
         this.cellViewTemplate = createCellViewTemplate(options.cellViewTag);
         this.groupHeaderViewTemplate = createGroupHeaderViewTemplate(
@@ -171,6 +179,20 @@ export class ColumnInternals<TColumnConfig> {
         );
         this.delegatedEvents = options.delegatedEvents;
         this.sortOperation = options.sortOperation ?? TableColumnSortOperation.basic;
+        this.validator = options.validator;
+
+        if (this.validator) {
+            const notifier = Observable.getNotifier(this.validator);
+            notifier.subscribe(this);
+        }
+    }
+
+    /** @internal */
+    public handleChange(source: unknown, args: unknown): void {
+        if (source instanceof ColumnValidator && args === 'isColumnValid') {
+            const validator = source as ColumnValidator<[]>;
+            this.validConfiguration = validator.isColumnValid;
+        }
     }
 
     protected fractionalWidthChanged(): void {
@@ -184,7 +206,7 @@ export class ColumnInternals<TColumnConfig> {
 
 export function isColumnInternalsProperty(
     changedProperty: string,
-    ...args: (keyof ColumnInternals<unknown>)[]
+    ...args: (keyof ColumnInternals<unknown, ColumnValidator<[]>>)[]
 ): boolean {
     for (const arg of args) {
         if (changedProperty === arg) {

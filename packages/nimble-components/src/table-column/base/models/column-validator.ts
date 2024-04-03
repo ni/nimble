@@ -1,6 +1,6 @@
+import { observable } from '@microsoft/fast-element';
 import { Validator } from '../../../utilities/models/validator';
 import type { TableColumnValidity } from '../types';
-import type { ColumnInternals } from './column-internals';
 
 /**
  * Base column validator
@@ -8,8 +8,10 @@ import type { ColumnInternals } from './column-internals';
 export class ColumnValidator<
     ValidityFlagNames extends readonly string[]
 > extends Validator<ValidityFlagNames> {
+    @observable
+    public isColumnValid = true;
+
     public constructor(
-        private readonly columnInternals: ColumnInternals<unknown>,
         configValidityKeys: ValidityFlagNames
     ) {
         super(configValidityKeys);
@@ -38,6 +40,6 @@ export class ColumnValidator<
     }
 
     private updateColumnInternalsFlag(): void {
-        this.columnInternals.validConfiguration = this.isValid();
+        this.isColumnValid = this.isValid();
     }
 }

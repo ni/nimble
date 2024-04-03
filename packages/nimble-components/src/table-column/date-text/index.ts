@@ -49,10 +49,7 @@ declare global {
 /**
  * The table column for displaying dates/times as text.
  */
-export class TableColumnDateText extends mixinTextBase<TableColumnDateTextColumnConfig>() {
-    /** @internal */
-    public validator = new TableColumnDateTextValidator(this.columnInternals);
-
+export class TableColumnDateText extends mixinTextBase<TableColumnDateTextColumnConfig, TableColumnDateTextValidator>() {
     @attr
     public format: DateTextFormat;
 
@@ -133,21 +130,18 @@ export class TableColumnDateText extends mixinTextBase<TableColumnDateTextColumn
         lang.unsubscribe(this.langSubscriber, this);
     }
 
-    public override get validity(): TableColumnValidity {
-        return this.validator.getValidity();
-    }
-
     public placeholderChanged(): void {
         this.updateColumnConfig();
     }
 
-    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnDateTextValidator> {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnDateTextCellViewTag,
             groupHeaderViewTag: tableColumnDateTextGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
+            sortOperation: TableColumnSortOperation.basic,
+            validator: new TableColumnDateTextValidator()
         };
     }
 
@@ -240,10 +234,10 @@ export class TableColumnDateText extends mixinTextBase<TableColumnDateTextColumn
                 placeholder: this.placeholder
             };
             this.columnInternals.columnConfig = columnConfig;
-            this.validator.setCustomOptionsValidity(true);
+            this.columnInternals.validator!.setCustomOptionsValidity(true);
         } else {
             this.columnInternals.columnConfig = undefined;
-            this.validator.setCustomOptionsValidity(false);
+            this.columnInternals.validator!.setCustomOptionsValidity(false);
         }
     }
 

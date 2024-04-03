@@ -35,21 +35,14 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
         >
     )
 ) {
-    public override createValidator(): TableColumnEnumTextValidator {
-        return new TableColumnEnumTextValidator(this.columnInternals);
-    }
-
-    public override get validity(): TableColumnValidity {
-        return this.validator.getValidity();
-    }
-
-    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnEnumTextValidator> {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnEnumTextCellViewTag,
             groupHeaderViewTag: tableColumnEnumTextGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
+            sortOperation: TableColumnSortOperation.basic,
+            validator: new TableColumnEnumTextValidator()
         };
     }
 
