@@ -156,7 +156,7 @@ export class TableColumnNumberText extends mixinTextBase<TableColumnNumberTextCo
     }
 
     private updateColumnConfig(): void {
-        const validator = this.columnInternals.validator!;
+        const validator = this.columnInternals.validator;
         validator.validateDecimalDigits(this.format, this.decimalDigits);
         validator.validateDecimalMaximumDigits(
             this.format,

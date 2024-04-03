@@ -55,7 +55,8 @@ export class TableColumnEmpty extends TableColumn {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: []
+            delegatedEvents: [],
+            validator: new ColumnValidator<[]>([])
         };
     }
 }
@@ -112,10 +113,10 @@ export class TableColumnValidationTest extends TableColumn<unknown, TestColumnVa
     }
 
     private fooChanged(): void {
-        this.columnInternals.validator!.validateFoo(this.foo);
+        this.columnInternals.validator.validateFoo(this.foo);
     }
 
     private barChanged(): void {
-        this.columnInternals.validator!.validateBar(this.bar);
+        this.columnInternals.validator.validateBar(this.bar);
     }
 }

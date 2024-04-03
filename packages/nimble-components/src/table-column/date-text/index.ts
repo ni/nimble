@@ -234,10 +234,10 @@ export class TableColumnDateText extends mixinTextBase<TableColumnDateTextColumn
                 placeholder: this.placeholder
             };
             this.columnInternals.columnConfig = columnConfig;
-            this.columnInternals.validator!.setCustomOptionsValidity(true);
+            this.columnInternals.validator.setCustomOptionsValidity(true);
         } else {
             this.columnInternals.columnConfig = undefined;
-            this.columnInternals.validator!.setCustomOptionsValidity(false);
+            this.columnInternals.validator.setCustomOptionsValidity(false);
         }
     }
 

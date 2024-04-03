@@ -59,7 +59,7 @@ export abstract class TableColumn<
     }
 
     public get validity(): TableColumnValidity {
-        return this.columnInternals.validator?.getValidity() ?? {};
+        return this.columnInternals.validator.getValidity();
     }
 
     /** @internal */

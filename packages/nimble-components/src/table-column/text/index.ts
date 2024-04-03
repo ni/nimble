@@ -8,6 +8,7 @@ import { tableColumnTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
+import { ColumnValidator } from '../base/models/column-validator';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 
@@ -37,7 +38,8 @@ export class TableColumnText extends mixinTextBase<TableColumnTextColumnConfig>(
             cellViewTag: tableColumnTextCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
+            sortOperation: TableColumnSortOperation.localeAwareCaseSensitive,
+            validator: new ColumnValidator<[]>([])
         };
     }
 }
