@@ -27,7 +27,7 @@ export class Prerendering {
 
     public update(): void {
         this._labelsFontSize = this.calculateLabelsFontSize(
-            this.wafermap.dataManager.dieDimensions,
+            this.wafermap.experimentalDataManager.dieDimensions,
             this.wafermap.maxCharacters
         );
         this._colorScale = this.calculateColorScale();

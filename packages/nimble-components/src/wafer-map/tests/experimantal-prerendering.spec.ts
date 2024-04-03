@@ -1,11 +1,11 @@
 import { Prerendering } from '../modules/experimental/prerendering';
 import { WaferMapColorScaleMode } from '../types';
 import {
-    getDataManagerMock,
-    defaultHorizontalScale,
-    defaultVerticalScale,
+    getExperimentalDataManagerMock,
+    defaultExperimentalHorizontalScale,
+    defaultExperimentalVerticalScale,
     getWaferMapDies,
-    getWaferMapMockPrerendering
+    getExperimentalWaferMapMockPrerendering
 } from './utilities';
 
 describe('Wafermap Experimental Prerendering module', () => {
@@ -19,13 +19,13 @@ describe('Wafermap Experimental Prerendering module', () => {
         const highlightedTags: string[] = [];
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-        const dataManagerMock = getDataManagerMock(
+        const dataManagerMock = getExperimentalDataManagerMock(
             dieDimensions,
             margin,
-            defaultHorizontalScale,
-            defaultVerticalScale
+            defaultExperimentalHorizontalScale,
+            defaultExperimentalVerticalScale
         );
-        const waferMock = getWaferMapMockPrerendering(
+        const waferMock = getExperimentalWaferMapMockPrerendering(
             getWaferMapDies(),
             { colors: [], values: [] },
             highlightedTags,
@@ -51,13 +51,13 @@ describe('Wafermap Experimental Prerendering module', () => {
         const highlightedTags: string[] = [];
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-        const dataManagerMock = getDataManagerMock(
+        const dataManagerMock = getExperimentalDataManagerMock(
             dieDimensions,
             margin,
-            defaultHorizontalScale,
-            defaultVerticalScale
+            defaultExperimentalHorizontalScale,
+            defaultExperimentalVerticalScale
         );
-        const waferMock = getWaferMapMockPrerendering(
+        const waferMock = getExperimentalWaferMapMockPrerendering(
             getWaferMapDies(),
             { colors: [], values: [] },
             highlightedTags,
@@ -86,13 +86,13 @@ describe('Wafermap Experimental Prerendering module', () => {
             const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const dataManagerMock = getDataManagerMock(
+            const dataManagerMock = getExperimentalDataManagerMock(
                 dieDimensions,
                 margin,
-                defaultHorizontalScale,
-                defaultVerticalScale
+                defaultExperimentalHorizontalScale,
+                defaultExperimentalVerticalScale
             );
-            const waferMock = getWaferMapMockPrerendering(
+            const waferMock = getExperimentalWaferMapMockPrerendering(
                 getWaferMapDies(),
                 { colors: ['red'], values: ['1'] },
                 highlightedTags,
@@ -123,13 +123,13 @@ describe('Wafermap Experimental Prerendering module', () => {
             const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const dataManagerMock = getDataManagerMock(
+            const dataManagerMock = getExperimentalDataManagerMock(
                 dieDimensions,
                 margin,
-                defaultHorizontalScale,
-                defaultVerticalScale
+                defaultExperimentalHorizontalScale,
+                defaultExperimentalVerticalScale
             );
-            const waferMock = getWaferMapMockPrerendering(
+            const waferMock = getExperimentalWaferMapMockPrerendering(
                 getWaferMapDies(),
                 {
                     colors: ['red', 'red'],
@@ -162,13 +162,13 @@ describe('Wafermap Experimental Prerendering module', () => {
             const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const dataManagerMock = getDataManagerMock(
+            const dataManagerMock = getExperimentalDataManagerMock(
                 dieDimensions,
                 margin,
-                defaultHorizontalScale,
-                defaultVerticalScale
+                defaultExperimentalHorizontalScale,
+                defaultExperimentalVerticalScale
             );
-            const waferMock = getWaferMapMockPrerendering(
+            const waferMock = getExperimentalWaferMapMockPrerendering(
                 getWaferMapDies(),
                 {
                     colors: ['black', 'red'],
@@ -209,13 +209,13 @@ describe('Wafermap Experimental Prerendering module', () => {
             const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const dataManagerMock = getDataManagerMock(
+            const dataManagerMock = getExperimentalDataManagerMock(
                 dieDimensions,
                 margin,
-                defaultHorizontalScale,
-                defaultVerticalScale
+                defaultExperimentalHorizontalScale,
+                defaultExperimentalVerticalScale
             );
-            const waferMock = getWaferMapMockPrerendering(
+            const waferMock = getExperimentalWaferMapMockPrerendering(
                 getWaferMapDies(),
                 { colors: ['red'], values: ['1'] },
                 highlightedTags,
@@ -244,13 +244,13 @@ describe('Wafermap Experimental Prerendering module', () => {
             const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const dataManagerMock = getDataManagerMock(
+            const dataManagerMock = getExperimentalDataManagerMock(
                 dieDimensions,
                 margin,
-                defaultHorizontalScale,
-                defaultVerticalScale
+                defaultExperimentalHorizontalScale,
+                defaultExperimentalVerticalScale
             );
-            const waferMock = getWaferMapMockPrerendering(
+            const waferMock = getExperimentalWaferMapMockPrerendering(
                 getWaferMapDies(),
                 {
                     colors: ['black', 'red'],

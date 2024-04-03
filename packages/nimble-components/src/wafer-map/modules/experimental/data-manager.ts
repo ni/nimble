@@ -44,21 +44,12 @@ export class DataManager {
         this.prerendering = new Prerendering(wafermap);
     }
 
-    public updateContainerDimensions(): void {
-        this.computations.updateContainerDimensions();
+    public updateComputations(): void {
+        this.computations.update();
         this.prerendering.update();
     }
 
-    public updateScales(): void {
-        this.computations.updateScales();
-        this.prerendering.update();
-    }
-
-    public updateLabelsFontSize(): void {
-        this.prerendering.update();
-    }
-
-    public updateDiesRenderInfo(): void {
+    public updatePrerendering(): void {
         this.prerendering.update();
     }
 }

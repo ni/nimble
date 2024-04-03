@@ -1,4 +1,11 @@
-import { ScaleBand, ScaleQuantile, scaleBand, scaleQuantile } from 'd3-scale';
+import {
+    ScaleBand,
+    ScaleLinear,
+    ScaleQuantile,
+    scaleBand,
+    scaleLinear,
+    scaleQuantile
+} from 'd3-scale';
 import { type Table, tableFromArrays } from 'apache-arrow';
 import type { ZoomTransform } from 'd3-zoom';
 import {
@@ -13,6 +20,7 @@ import {
     WaferRequiredFields
 } from '../types';
 import type { DataManager } from '../modules/data-manager';
+import type { DataManager as ExperimentalDataManager } from '../modules/experimental/data-manager';
 import type { WaferMap } from '..';
 
 export function getWaferMapDies(): WaferMapDie[] {
@@ -73,6 +81,13 @@ export function getHighlightedTags(): string[] {
     return ['5', '10', '15'];
 }
 
+export function getScaleLinear(
+    domain: number[] = [],
+    range: number[] = []
+): ScaleLinear<number, number> {
+    return scaleLinear<number, number>().domain(domain).range(range);
+}
+
 export function getScaleBand(
     domain: number[] = [],
     range: number[] = []
@@ -94,6 +109,14 @@ export const defaultVerticalScale = scaleBand<number>()
     .domain([1, 2, 3, 4, 5, 6])
     .range([1, 7]);
 
+export const defaultExperimentalHorizontalScale = scaleLinear<number, number>()
+    .domain([2, 6])
+    .range([2, 7]);
+
+export const defaultExperimentalVerticalScale = scaleLinear<number, number>()
+    .domain([1, 6])
+    .range([1, 7]);
+
 export function getDataManagerMock(
     dieDimensions: Dimensions,
     margin: Margin,
@@ -110,6 +133,23 @@ export function getDataManagerMock(
         margin
     };
     return dataManagerMock as DataManager;
+}
+export function getExperimentalDataManagerMock(
+    dieDimensions: Dimensions,
+    margin: Margin,
+    horizontalScale: ScaleLinear<number, number> = getScaleLinear([], []),
+    verticalScale: ScaleLinear<number, number> = getScaleLinear([], [])
+): ExperimentalDataManager {
+    const dataManagerMock: Pick<
+    ExperimentalDataManager,
+    'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
+    > = {
+        horizontalScale,
+        verticalScale,
+        dieDimensions,
+        margin
+    };
+    return dataManagerMock as ExperimentalDataManager;
 }
 
 export function getDataManagerMockForHover(
@@ -134,6 +174,38 @@ export function getDataManagerMockForHover(
     return dataManagerMock as DataManager;
 }
 
+export function getExperimentalWaferMapMockPrerendering(
+    dies: WaferMapDie[] = getWaferMapDies(),
+    colorScale: WaferMapColorScale = { colors: [], values: [] },
+    highlightedTags: string[] = [],
+    colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear,
+    dieLabelsHidden = true,
+    dieLabelsSuffix = '',
+    maxCharacters = 4,
+    experimentalDataManager = {} as ExperimentalDataManager
+): WaferMap {
+    const waferMapMock: Pick<
+    WaferMap,
+    | 'dies'
+    | 'colorScale'
+    | 'highlightedTags'
+    | 'colorScaleMode'
+    | 'dieLabelsHidden'
+    | 'dieLabelsSuffix'
+    | 'maxCharacters'
+    | 'experimentalDataManager'
+    > = {
+        dies,
+        colorScale,
+        highlightedTags,
+        colorScaleMode,
+        dieLabelsHidden,
+        dieLabelsSuffix,
+        maxCharacters,
+        experimentalDataManager
+    };
+    return waferMapMock as WaferMap;
+}
 export function getWaferMapMockPrerendering(
     dies: WaferMapDie[] = getWaferMapDies(),
     colorScale: WaferMapColorScale = { colors: [], values: [] },
@@ -173,7 +245,7 @@ export function getWaferMapMockHover(
     originLocation: WaferMapOriginLocation,
     hoverDie: HoverDie | undefined,
     dataManager: DataManager,
-    isExperimentalRenderer: boolean
+    isExperimentalUpdate: boolean
 ): WaferMap {
     const waferMapMock: Pick<
     WaferMap,
@@ -182,14 +254,14 @@ export function getWaferMapMockHover(
     | 'originLocation'
     | 'hoverDie'
     | 'dataManager'
-    | 'isExperimentalRenderer'
+    | 'isExperimentalUpdate'
     > = {
         diesTable,
         transform,
         originLocation,
         hoverDie,
         dataManager,
-        isExperimentalRenderer: () => isExperimentalRenderer
+        isExperimentalUpdate: () => isExperimentalUpdate
     };
     return waferMapMock as WaferMap;
 }

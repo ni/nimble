@@ -1,6 +1,5 @@
 import type { WaferMap } from '..';
 import { DieRenderInfo, HoverDieOpacity } from '../types';
-import { DataManager } from './data-manager';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
@@ -12,21 +11,17 @@ export class RenderingModule {
     public constructor(private readonly wafermap: WaferMap) {}
 
     public updateSortedDiesAndDrawWafer(): void {
-        if (this.wafermap.dataManager instanceof DataManager) {
-            this.dies = this.wafermap.dataManager.diesRenderInfo.sort(
-                (a, b) => {
-                    if (a.fillStyle > b.fillStyle) {
-                        return 1;
-                    }
-                    if (b.fillStyle > a.fillStyle) {
-                        return -1;
-                    }
+        this.dies = this.wafermap.dataManager.diesRenderInfo.sort((a, b) => {
+            if (a.fillStyle > b.fillStyle) {
+                return 1;
+            }
+            if (b.fillStyle > a.fillStyle) {
+                return -1;
+            }
 
-                    return 0;
-                }
-            );
-            this.drawWafer();
-        }
+            return 0;
+        });
+        this.drawWafer();
     }
 
     public drawWafer(): void {

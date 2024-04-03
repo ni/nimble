@@ -8,8 +8,6 @@ import {
     WaferMapOrientation,
     WaferMapOriginLocation
 } from '../types';
-import { RenderingModule } from '../modules/rendering';
-import { WorkerRenderer } from '../modules/experimental/worker-renderer';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
@@ -121,8 +119,7 @@ describe('WaferMap', () => {
             drawWaferSpy = spyOn(element.workerRenderer, 'drawWafer');
         });
 
-        // skipped until prerendering is refactored
-        xit('will call drawWafer after supported diesTable change', () => {
+        it('will call drawWafer after supported diesTable change', () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
@@ -143,14 +140,19 @@ describe('WaferMap', () => {
 
     describe('worker renderer flow', () => {
         let renderHoverSpy: jasmine.Spy;
+        let experimentalUpdateSpy: jasmine.Spy;
         beforeEach(() => {
             renderHoverSpy = spyOn(element.workerRenderer, 'renderHover');
+            experimentalUpdateSpy = spyOn(
+                element,
+                'experimentalUpdate'
+            ).and.callThrough();
         });
 
         it('will use RenderingModule after dies change', () => {
             element.dies = [{ x: 1, y: 1, value: '1' }];
             processUpdates();
-            expect(element.renderer instanceof RenderingModule).toBeTrue();
+            expect(experimentalUpdateSpy).toHaveBeenCalledTimes(0);
         });
 
         it('will use WorkerRenderer after supported diesTable change', () => {
@@ -160,13 +162,14 @@ describe('WaferMap', () => {
                 value: Float64Array.from([])
             });
             processUpdates();
-            expect(element.renderer instanceof WorkerRenderer).toBeTrue();
+            expect(experimentalUpdateSpy).toHaveBeenCalledTimes(1);
         });
 
-        it('will use RenderingModule after unsupported diesTable change', () => {
+        it('will use WorkerRenderer after unsupported diesTable change but it will fail', () => {
             element.diesTable = new Table();
             processUpdates();
-            expect(element.renderer instanceof RenderingModule).toBeTrue();
+            expect(experimentalUpdateSpy).toHaveBeenCalledTimes(1);
+            expect(renderHoverSpy).toHaveBeenCalledTimes(0);
         });
 
         it('will call renderHover after supported diesTable change', () => {
