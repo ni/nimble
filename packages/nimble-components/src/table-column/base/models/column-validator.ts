@@ -11,9 +11,7 @@ export class ColumnValidator<
     @observable
     public isColumnValid = true;
 
-    public constructor(
-        configValidityKeys: ValidityFlagNames
-    ) {
+    public constructor(configValidityKeys: ValidityFlagNames) {
         super(configValidityKeys);
     }
 

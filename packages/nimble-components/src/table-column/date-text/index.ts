@@ -7,7 +7,7 @@ import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
 import { mixinTextBase } from '../text-base';
-import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
+import { TableColumnSortOperation } from '../base/types';
 import { tableColumnDateTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnDateTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
@@ -49,7 +49,10 @@ declare global {
 /**
  * The table column for displaying dates/times as text.
  */
-export class TableColumnDateText extends mixinTextBase<TableColumnDateTextColumnConfig, TableColumnDateTextValidator>() {
+export class TableColumnDateText extends mixinTextBase<
+TableColumnDateTextColumnConfig,
+TableColumnDateTextValidator
+>() {
     @attr
     public format: DateTextFormat;
 

@@ -17,9 +17,7 @@ export abstract class TableColumnEnumBaseValidator<
 > extends ColumnValidator<
     typeof enumBaseValidityFlagNames | ValidityFlagNames
     > {
-    public constructor(
-        configValidityKeys: ValidityFlagNames
-    ) {
+    public constructor(configValidityKeys: ValidityFlagNames) {
         super(configValidityKeys);
     }
 

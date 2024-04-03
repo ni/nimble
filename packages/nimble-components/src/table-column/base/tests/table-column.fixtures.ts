@@ -4,9 +4,7 @@ import { attr, customElement } from '@microsoft/fast-element';
 import { TableCellView } from '../cell-view';
 import { TableGroupHeaderView } from '../group-header-view';
 import { TableColumn } from '..';
-import type {
-    ColumnInternalsOptions
-} from '../models/column-internals';
+import type { ColumnInternalsOptions } from '../models/column-internals';
 import { ColumnValidator } from '../models/column-validator';
 
 export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
@@ -95,7 +93,10 @@ declare global {
 @customElement({
     name: tableColumnValidationTestTag
 })
-export class TableColumnValidationTest extends TableColumn<unknown, TestColumnValidator> {
+export class TableColumnValidationTest extends TableColumn<
+unknown,
+TestColumnValidator
+> {
     @attr({ mode: 'boolean' })
     public foo = false;
 

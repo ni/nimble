@@ -24,7 +24,10 @@ export abstract class TableColumn<
      *
      * Column properties configurable by plugin authors
      */
-    public readonly columnInternals: ColumnInternals<TColumnConfig, TColumnValidator> = new ColumnInternals(this.getColumnInternalsOptions());
+    public readonly columnInternals: ColumnInternals<
+    TColumnConfig,
+    TColumnValidator
+    > = new ColumnInternals(this.getColumnInternalsOptions());
 
     @attr({ attribute: 'column-id' })
     public columnId?: string;
