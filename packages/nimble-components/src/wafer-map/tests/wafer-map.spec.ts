@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { Table, tableFromArrays } from 'apache-arrow';
 import { WaferMap } from '..';
-import { processUpdates } from '../../testing/async-helpers';
+import { processUpdates, waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     WaferMapColorScaleMode,
@@ -245,15 +245,15 @@ describe('WaferMap', () => {
     }
 
     describe('hover flow', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             element.canvasWidth = 500;
             element.canvasHeight = 500;
             element.dies = [{ x: 1, y: 1, value: '1' }];
             element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
-            processUpdates();
+            await waitForUpdatesAsync();
         });
 
-        it('will translate the rectangle when moving the pointer over the wafer-map', () => {
+        it('will translate the rectangle when moving the pointer over the wafer-map', async () => {
             const initialTransform = element.hoverTransform;
             element.dispatchEvent(
                 new MouseEvent('mousemove', {
@@ -261,11 +261,11 @@ describe('WaferMap', () => {
                     clientY: element.offsetTop + 50
                 })
             );
-            processUpdates();
+            await waitForUpdatesAsync();
             expect(element.hoverTransform).not.toEqual(initialTransform);
         });
 
-        it('will resize the rectangle when zooming in the wafer-map', () => {
+        it('will resize the rectangle when zooming in the wafer-map', async () => {
             const initialHeight = element.hoverHeight;
             const initialWidth = element.hoverWidth;
             expect(initialHeight).toBe(460);
@@ -274,26 +274,26 @@ describe('WaferMap', () => {
             element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
-            processUpdates();
+            await waitForUpdatesAsync();
 
             expect(element.hoverHeight).not.toBe(initialHeight);
             expect(element.hoverWidth).not.toBe(initialWidth);
         });
 
-        it('will translate when zooming in the wafer-map', () => {
+        it('will translate when zooming in the wafer-map', async () => {
             element.dispatchEvent(
                 new MouseEvent('mousemove', {
                     clientX: element.offsetLeft + 50,
                     clientY: element.offsetTop + 50
                 })
             );
-            processUpdates();
+            await waitForUpdatesAsync();
             const initialTransform = element.hoverTransform;
             expect(initialTransform).not.toEqual('');
             element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
-            processUpdates();
+            await waitForUpdatesAsync();
             expect(element.hoverTransform).not.toEqual(initialTransform);
         });
     });
