@@ -151,6 +151,7 @@ export class MatrixRenderer {
                         scaledY >= this.topLeftCanvasCorner.y
                         && scaledY < this.bottomRightCanvasCorner.y
                     ) {
+                        // Fill style is temporary green for all dies, will be replaced with a color based on the value of the die in a future implementation
                         this.context.fillStyle = 'Green';
                         this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
                     }
