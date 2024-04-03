@@ -21,11 +21,11 @@ export class MatrixRenderer {
     private scaleY: number = 1;
     private baseX: number = 1;
     private baseY: number = 1;
-    private dieDimensions: Dimensions = { width: 1, height: 1};
+    private dieDimensions: Dimensions = { width: 1, height: 1 };
     private transform: Transform = { k: 1, x: 0, y: 0 };
-    private topLeftCanvasCorner: { x: number; y: number; } = { x: 0, y: 0};
-    private bottomRightCanvasCorner: { x: number; y: number; } = { x: 500, y: 500 };
-    private margin: { top: number; right: number; bottom: number; left: number; } = { top: 20, right: 20, bottom: 20, left: 20};
+    private topLeftCanvasCorner!: { x: number; y: number; };
+    private bottomRightCanvasCorner!: { x: number; y: number; };
+    private margin: { top: number; right: number; bottom: number; left: number; } = { top: 20, right: 20, bottom: 20, left: 20 };
 
     public setColIndexes(colIndexesBuffer: Int32Array): void {
         this.colIndexes = colIndexesBuffer;
@@ -137,25 +137,28 @@ export class MatrixRenderer {
         this.context.save();
         this.clearCanvas();
         this.scaleCanvas();
+        if (this.topLeftCanvasCorner === undefined || this.bottomRightCanvasCorner === undefined) { return; }
         for (let i = 0; i < this.scaledColIndex.length; i++) {
             const scaledX = this.scaledColIndex[i]!;
             if (
-                scaledX >= this.topLeftCanvasCorner.x
-                && scaledX < this.bottomRightCanvasCorner.x
+                !(scaledX >= this.topLeftCanvasCorner.x
+                    && scaledX < this.bottomRightCanvasCorner.x)
             ) {
-                for (let j = this.colIndexPositions[i]!,
-                    length = this.colIndexPositions[i + 1] !== undefined ? this.colIndexPositions[i + 1]! : this.scaledRowIndex.length;
-                    j < length; j++) {
-                    const scaledY = this.scaledRowIndex[j]!;
-                    if (
-                        scaledY >= this.topLeftCanvasCorner.y
-                        && scaledY < this.bottomRightCanvasCorner.y
-                    ) {
-                        // Fill style is temporary green for all dies, will be replaced with a color based on the value of the die in a future implementation
-                        this.context.fillStyle = 'Green';
-                        this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
-                    }
+                continue;
+            }
+            for (let j = this.colIndexPositions[i]!,
+                length = this.colIndexPositions[i + 1] !== undefined ? this.colIndexPositions[i + 1]! : this.scaledRowIndex.length;
+                j < length; j++) {
+                const scaledY = this.scaledRowIndex[j]!;
+                if (
+                    !(scaledY >= this.topLeftCanvasCorner.y
+                        && scaledY < this.bottomRightCanvasCorner.y)
+                ) {
+                    continue;
                 }
+                // Fill style is temporary green for all dies, will be replaced with a color based on the value of the die in a future implementation
+                this.context.fillStyle = 'Green';
+                this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
             }
         }
     }
