@@ -6,7 +6,7 @@ import { attr } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
-import { TableColumnTextBase } from '../text-base';
+import { mixinTextBase } from '../text-base';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { tableColumnDateTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnDateTextCellViewTag } from './cell-view';
@@ -33,9 +33,6 @@ import { TableColumnDateTextValidator } from './models/table-column-date-text-va
 import { lang } from '../../theme-provider';
 import { optionalBooleanConverter } from '../../utilities/models/converter';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
-import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
-import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
-import { mixinColumnWithPlaceholderAPI } from '../mixins/placeholder';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDateTextColumnConfig
@@ -52,13 +49,7 @@ declare global {
 /**
  * The table column for displaying dates/times as text.
  */
-export class TableColumnDateText extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(
-        mixinColumnWithPlaceholderAPI(
-            TableColumnTextBase<TableColumnDateTextColumnConfig>
-        )
-    )
-) {
+export class TableColumnDateText extends mixinTextBase<TableColumnDateTextColumnConfig>() {
     /** @internal */
     public validator = new TableColumnDateTextValidator(this.columnInternals);
 

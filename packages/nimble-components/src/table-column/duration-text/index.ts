@@ -5,7 +5,6 @@ import {
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
-import { TableColumnTextBase } from '../text-base';
 import { TableColumnSortOperation } from '../base/types';
 import { tableColumnDurationTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
@@ -13,9 +12,7 @@ import { lang } from '../../theme-provider';
 import { DurationFormatter } from './models/duration-formatter';
 import { tableColumnDurationTextGroupHeaderViewTag } from './group-header-view';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
-import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
-import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
-import { mixinColumnWithPlaceholderAPI } from '../mixins/placeholder';
+import { mixinTextBase } from '../text-base';
 
 export type TableColumnDurationTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDurationTextColumnConfig
@@ -32,13 +29,7 @@ declare global {
 /**
  * The table column for displaying a duration value as text.
  */
-export class TableColumnDurationText extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(
-        mixinColumnWithPlaceholderAPI(
-            TableColumnTextBase<TableColumnDurationTextColumnConfig>
-        )
-    )
-) {
+export class TableColumnDurationText extends mixinTextBase<TableColumnDurationTextColumnConfig>() {
     private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
         handleChange: () => {
             this.updateColumnConfig();

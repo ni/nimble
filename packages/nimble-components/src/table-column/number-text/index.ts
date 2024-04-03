@@ -13,7 +13,7 @@ import {
 import { styles } from '../base/styles';
 import { template } from './template';
 import type { TableNumberField } from '../../table/types';
-import { TableColumnTextBase } from '../text-base';
+import { mixinTextBase } from '../text-base';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
@@ -27,9 +27,6 @@ import { lang } from '../../theme-provider';
 import { Unit } from '../../unit/base/unit';
 import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-custom-elements-defined-async';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
-import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
-import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
-import { mixinColumnWithPlaceholderAPI } from '../mixins/placeholder';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig
@@ -47,13 +44,7 @@ declare global {
 /**
  * The table column for displaying numbers as text.
  */
-export class TableColumnNumberText extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(
-        mixinColumnWithPlaceholderAPI(
-            TableColumnTextBase<TableColumnNumberTextColumnConfig>
-        )
-    )
-) {
+export class TableColumnNumberText extends mixinTextBase<TableColumnNumberTextColumnConfig>() {
     /** @internal */
     public validator = new TableColumnNumberTextValidator(this.columnInternals);
 
