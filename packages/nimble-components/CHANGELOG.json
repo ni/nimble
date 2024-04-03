@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 02 Apr 2024 22:01:51 GMT",
+      "version": "24.1.5",
+      "tag": "@ni/nimble-components_v24.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "47d91bc3cb98a52843ffb9f0b7d3e3e1baaea344",
+            "comment": "Reverting changes."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 02 Apr 2024 17:10:35 GMT",
+      "version": "24.1.4",
+      "tag": "@ni/nimble-components_v24.1.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2319edca45a8bf3aded03c62d77a4818c9c55d60",
+            "comment": "Fix race condition when closing the drawer immediately after it finishes opening"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 02 Apr 2024 15:32:11 GMT",
+      "version": "24.1.3",
+      "tag": "@ni/nimble-components_v24.1.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7f2f7042d7b4006b32a841c3c5124bf33489392a",
+            "comment": "Re-introduce ListOptionOwner to Combobox."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Apr 2024 22:25:47 GMT",
+      "version": "24.1.2",
+      "tag": "@ni/nimble-components_v24.1.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8a0315cd3a2789f38ad69d8fbeab0d88c085b253",
+            "comment": "devdeps update only"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 28 Mar 2024 19:09:26 GMT",
       "version": "24.1.2",
       "tag": "@ni/nimble-components_v24.1.2",
