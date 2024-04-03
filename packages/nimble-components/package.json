@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "24.0.1",
+  "version": "24.1.5",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss && npm run build-storybook",
@@ -162,6 +162,7 @@
     "rollup-plugin-sourcemaps": "^0.6.3",
     "source-map-loader": "^5.0.0",
     "storybook": "^8.0.4",
+    "storybook-addon-pseudo-states": "^3.0.0",
     "terser-webpack-plugin": "^5.3.10",
     "ts-loader": "^9.2.5",
     "typescript": "~4.9.5",

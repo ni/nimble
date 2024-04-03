@@ -1,5 +1,10 @@
 import { css } from '@microsoft/fast-element';
-import { bodyFont, bodyFontColor } from '../../../theme-provider/design-tokens';
+import {
+    bodyFont,
+    bodyFontColor,
+    placeholderFont,
+    placeholderFontColor
+} from '../../../theme-provider/design-tokens';
 
 export const styles = css`
     :host {
@@ -21,5 +26,10 @@ export const styles = css`
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    :host(.placeholder) span {
+        font: ${placeholderFont};
+        color: ${placeholderFontColor};
     }
 `;

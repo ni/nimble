@@ -3,9 +3,15 @@ import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrix,
     sharedMatrixParameters,
-    createMatrixThemeStory
+    createMatrixThemeStory,
+    cartesianProduct,
+    createMatrixInteractionsFromStates
 } from '../../utilities/tests/matrix';
-import { disabledStates, DisabledState } from '../../utilities/tests/states';
+import {
+    disabledStates,
+    DisabledState,
+    disabledStateIsEnabled
+} from '../../utilities/tests/states';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
@@ -18,7 +24,8 @@ import {
     type AppearanceVariantState,
     type PartVisibilityState,
     appearanceVariantStates,
-    partVisibilityStates
+    partVisibilityStates,
+    partVisibilityStatesOnlyLabel
 } from '../../patterns/button/tests/states';
 
 const metadata: Meta = {
@@ -57,6 +64,29 @@ export const anchorButtonThemeMatrix: StoryFn = createMatrixThemeStory(
         appearanceVariantStates,
         partVisibilityStates
     ])
+);
+
+const interactionStatesHover = cartesianProduct([
+    disabledStates,
+    appearanceStates,
+    appearanceVariantStates,
+    [partVisibilityStatesOnlyLabel]
+] as const);
+
+const interactionStates = cartesianProduct([
+    [disabledStateIsEnabled],
+    appearanceStates,
+    appearanceVariantStates,
+    [partVisibilityStatesOnlyLabel]
+] as const);
+
+export const anchorButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrixInteractionsFromStates(component, {
+        hover: interactionStatesHover,
+        hoverActive: interactionStates,
+        active: interactionStates,
+        focus: interactionStates
+    })
 );
 
 export const hiddenAnchorButton: StoryFn = createStory(

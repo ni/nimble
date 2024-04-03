@@ -9,6 +9,9 @@ public partial class NimbleToggleButton : NimbleInputBase<bool>
     public ButtonAppearance? Appearance { get; set; }
 
     [Parameter]
+    public ButtonAppearanceVariant? AppearanceVariant { get; set; }
+
+    [Parameter]
     public bool? Disabled { get; set; }
 
     [Parameter]
