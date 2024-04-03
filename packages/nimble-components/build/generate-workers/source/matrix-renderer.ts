@@ -158,12 +158,5 @@ export class MatrixRenderer {
             }
         }
     }
-
-    public isDieVisible(x: number, y: number): boolean {
-        return x >= this.topLeftCanvasCorner.x &&
-            x <= this.bottomRightCanvasCorner.x &&
-            y >= this.topLeftCanvasCorner.y &&
-            y <= this.bottomRightCanvasCorner.y;
-    }
 }
 expose(MatrixRenderer);
