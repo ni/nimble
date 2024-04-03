@@ -106,7 +106,7 @@ _Props/Attrs_
 
 -   `field-name`: string
 -   `key-type`: 'string' | 'number' | 'boolean'
--   `fixed-to-icon-width`: boolean - When `true`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set to `true` when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell.
+-   `fixed-to-icon-width`: boolean - When set, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell.
 
 _Content_
 
@@ -115,7 +115,7 @@ _Content_
 
 #### Mapping element (icon):
 
-The icon mapping element will support displaying an icon, icon + text, or only text in a cell. If only text is displayed in a cell, space will be reserved for an icon so that the text associated with all icon mapping elements is aligned. A group row associated with an icon mapping element will always display the icon, if specified, and text.
+The icon mapping element will support displaying an icon, icon with text, or only text in a cell. If only text is displayed in a cell, space will be reserved for an icon so that the text associated with all icon mapping elements is aligned. A group row associated with an icon mapping element will always display the icon, if specified, and text.
 
 _Component Name_
 
@@ -137,7 +137,7 @@ The label will be used in the following places:
 
 #### Mapping element (spinner):
 
-The spinner mapping element will support displaying a spinner or spinner + text in a cell. A group row associated with a spinner mapping element will always display the spinner and text.
+The spinner mapping element will support displaying a spinner or spinner with text in a cell. A group row associated with a spinner mapping element will always display the spinner and text.
 
 _Component Name_
 
