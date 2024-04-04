@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 04 Apr 2024 14:57:17 GMT and should not be manually modified.
+This log was last generated on Thu, 04 Apr 2024 18:11:08 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.7
+
+Thu, 04 Apr 2024 18:11:08 GMT
+
+### Patches
+
+- Fork FAST Combobox. ([ni/nimble@53b2c45](https://github.com/ni/nimble/commit/53b2c4572f3e24fc862ab39e30808908b372e3e4))
 
 ## 24.1.6
 
