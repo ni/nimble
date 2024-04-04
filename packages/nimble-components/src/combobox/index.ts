@@ -68,7 +68,7 @@ export class Combobox
      * The autocomplete attribute.
      */
     @attr({ attribute: 'autocomplete', mode: 'fromView' })
-    public autocomplete: ComboboxAutocomplete | undefined;
+    public autocomplete?: ComboboxAutocomplete;
 
     /**
      * The placement for the listbox when the combobox is open.
