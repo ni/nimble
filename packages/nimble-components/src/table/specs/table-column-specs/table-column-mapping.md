@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `nimble-table-column-enum` is a component that supports rendering specific number, boolean, or string values as an icon, a spinner, text, or an icon/spinner with text. The mappings are defined by child elements of `nimble-mapping-icon`, `nimble-mapping-spinner`, `nimble-mapping-text`, or `nimble-mapping-placeholder`.
+The `nimble-table-column-enum` is a component that supports rendering specific number, boolean, or string values as an icon, a spinner, text, or an icon/spinner with text. The mappings are defined by child elements of `nimble-mapping-icon`, `nimble-mapping-spinner`, `nimble-mapping-text`, or `nimble-mapping-blank`.
 
 ### Background
 
@@ -57,7 +57,7 @@ Below is an example of how these elements would be used within a `nimble-table`:
     <nimble-table-column-enum field-name="archived" key-type="boolean">
         Archived
         <nimble-mapping-icon key="true" icon="nimble-icon-database" label="Archived" label-hidden></nimble-mapping-icon>
-        <nimble-mapping-placeholder key="false" label="Not archived"></nimble-mapping-placeholder>
+        <nimble-mapping-blank key="false" label="Not archived"></nimble-mapping-blank>
     </nimble-table-column-enum>
 </nimble-table>
 ```
@@ -73,7 +73,6 @@ Validation will be performed to ensure each mapping's key value can be converted
 If multiple mappings in a column have the same key, an error flag will be set on the column's validity object.
 
 If an invalid `icon` value is passed to `nimble-mapping-icon`, an error flag will be set on the column's validity object. An invalid `icon` value is any element that cannot be resolved or that does not derive from `Icon`.
-
 
 Text in a grouping header or in the cell will be ellipsized and gain a tooltip when the full text is too long to display.
 
@@ -110,7 +109,7 @@ _Props/Attrs_
 _Content_
 
 -   column title (icon and/or text)
--   1 or more `nimble-mapping-icon`, `nimble-mapping-spinner`, `nimble-mapping-text`, or `nimble-mapping-placeholder` elements
+-   1 or more `nimble-mapping-icon`, `nimble-mapping-spinner`, `nimble-mapping-text`, or `nimble-mapping-blank` elements
 
 #### Mapping element (icon):
 
@@ -167,13 +166,13 @@ _Props/Attrs_
 -   `key`: string | number | boolean | undefined
 -   `label`: string - display text
 
-#### Mapping element (placeholder):
+#### Mapping element (blank):
 
-The placeholder mapping element will display an empty cell. A group row associated with a placeholder mapping will display the mapping's text. The purpose of the placeholder mapping element is to allow clients to avoid cluttering their table with information that isn't particularly helpful to a user (e.g. that the state of a system is 'idle') while still having a good grouping experience that ensures group rows are not blank.
+The blank mapping element will display an empty cell. A group row associated with a blank mapping will display the mapping's text. The purpose of the blank mapping element is to allow clients to avoid cluttering their table with information that isn't particularly helpful to a user (e.g. that the state of a system is 'idle') while still having a good grouping experience that ensures group rows are not blank.
 
 _Component Name_
 
--   `nimble-mapping-placeholder`
+-   `nimble-mapping-blank`
 
 _Props/Attrs_
 
