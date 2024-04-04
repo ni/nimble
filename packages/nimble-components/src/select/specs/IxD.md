@@ -31,12 +31,13 @@ When not to use:
 
 ![ ](spec-images/select-1.png)
 
-| Element      | Description                                                                 |
-| ------------ | --------------------------------------------------------------------------- |
-| Label        | Text that tells the end-user what to expect in the list of options          |
-| Field button | Click area that opens the dropdown and displays the current selected option |
-| Dropdown     | A list of options to choose from displayed as an _open_ state               |
-| List option  | A selection the end-user can make, shown with other options in the dropdown |
+| Element                | Description                                                                 |
+| ---------------------- | --------------------------------------------------------------------------- |
+| Label                  | Text that tells the end-user what to expect in the list of options          |
+| Field button           | Click area that opens the dropdown and displays the current selected option |
+| Dropdown               | A list of options to choose from displayed as an _open_ state               |
+| List option            | A selection the end-user can make, shown with other options in the dropdown |
+| Clear selection button | Button to clear the selected item and revert to the placeholder state       |
 
 #### Label
 
@@ -50,11 +51,15 @@ In a form, use the label to indicate whether the select is optional or required 
 
 #### Field Button
 
-Selects can be empty by default or have a default selection from the menu. Empty selects should include placeholder text that propts the end-user to select an option from the menu. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Ellipses are not needed. Use sentence casing.
+Selects can be empty by default or have a default selection from the menu. Empty selects should include placeholder text that prompts the end-user to select an option from the menu. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Ellipses are not needed. Use sentence casing.
 
 ![ ](spec-images/select-4.png)
 
-Once the end-user has made a selection, they cannot clear the field button and get back to the empty state. Only use an empty state default in a select where there is no obvious default list option.
+#### Clear selection button
+
+Selects can be configured to support clearing the selected item and reverting to the empty state. The _Clear selection button_ will appear when there is a selected item, and will disappear in the empty state.
+
+![ ](spec-images/select-clearable-1.png)
 
 #### Dropdown & List Options
 
@@ -119,6 +124,10 @@ The client-user should be able to specify whether they want secondary text on li
 The client-user should be able to specify whether they want groups, secondary text, or neither in the field input.
 
 ![ ](spec-images/select-10.png)
+
+#### Clear selection
+
+The client-user should be able to specify whether they want users to be able to clear the current selection and revert to the placeholder state. The clear selection button appears when an option is selected, and is not present in the placeholder state.
 
 #### Filter
 
@@ -188,7 +197,9 @@ When the dropdown is open, clicking anywhere outside of a list option (including
 
 ![ ](spec-images/select-23.png)
 
-> NOTE: NEEDS VISUAL DESIGN FOR MULTIPLE FOCUS STATES?
+If the select component allows clearing the selected item, the _Clear selection button_ will appear when an option is selected. Clicking the button will clear the selected item and revert to the placeholder state.
+
+![ ](spec-images/select-clearable-2-mouse.png)
 
 If the select component allows filtering, the filter bar has text cursor focus when the dropdown is open. The filter bar maintains this focus while the dropdown is open.
 
@@ -204,7 +215,7 @@ Typing into the filter bar filters the list options in the dropdown (not picture
 
 > NOTE: Based on ARIA APG [select-only combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/)
 
-#### Field Button
+#### Field Button and clear selection
 
 | Key                    | Description                                                                                                                                                                             |
 | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -215,6 +226,7 @@ Typing into the filter bar filters the list options in the dropdown (not picture
 | `HOME`                 | Opens the dropdown and moves visual focus to the first list option                                                                                                                      |
 | `END`                  | Opens the dropdown and moves visual focus to the last list option                                                                                                                       |
 | _Printable characters_ | Opens the dropdown (if closed), moves visual focus to the filter input (if filterable) with the characters typed or to the first list option that matches the typed character or string |
+| `ESC`                  | Clears the selected item without moving focus                                                                                                                                           |
 
 `TAB` focuses the select component from the previous or next focusable element on the page.
 
@@ -233,6 +245,10 @@ Typing into the filter bar filters the list options in the dropdown (not picture
 `UP ARROW` on the focused component opens the dropdown and focuses (but does not select) the first or last list option.
 
 ![ ](spec-images/select-29.png)
+
+`ESC` on a focused control with a selected item, will clear the selected item and revert to the placeholder state.
+
+![ ](spec-images/select-clearable-2-key.png)
 
 #### Dropdown
 
@@ -273,3 +289,10 @@ From a focused list option, `UP ARROW` moves focus and selects the previous list
 -   Should the client-user be able to specify whether they want to display selection with or without a check mark?
 -   On touch-screen devices, it would be nice for the select component to bring up the dropdown in a Nimble or native popover. More exploration is needed to support all sets of features.
 -   Do we need to provide a "load more" UX pattern for clients to implement (we have decided not to implement anything related to this in the component, as it is overly prescriptive)
+
+## References
+
+-   [ARIA – Combobox Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/)
+-   [Shoelace – Select](https://shoelace.style/components/select)
+-   [Dash - Select](https://dash.plotly.com/dash-core-components/dropdown)
+-   [Monday - Select](https://style.monday.com/?path=/story/inputs-dropdown--dropdown-value-selection)
