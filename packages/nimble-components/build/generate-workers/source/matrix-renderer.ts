@@ -27,9 +27,10 @@ export class MatrixRenderer {
     private bottomRightCanvasCorner!: { x: number; y: number; };
     private margin: { top: number; right: number; bottom: number; left: number; } = { top: 20, right: 20, bottom: 20, left: 20 };
 
-    public setColumnIndexes(columnIndexesBuffer: Int32Array): void {
-        this.columnIndexes = columnIndexesBuffer;
-        const scaledColumnIndex = [this.scaleX * this.columnIndexes[0]! + this.baseX + this.margin.left];
+    public setColumnIndexes(columnIndexes: Int32Array): void {
+        this.columnIndexes = columnIndexes;
+        if (columnIndexes.length === 0 || this.columnIndexes[0] === undefined) { return; }
+        const scaledColumnIndex = [this.scaleX * this.columnIndexes[0] + this.baseX + this.margin.left];
         const columnPosition = [0];
         let prev = this.columnIndexes[0];
         for (let i = 1, length = this.columnIndexes.length; i < length; i++) {
