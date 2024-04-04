@@ -19,11 +19,16 @@ export class DatePicker
     @observable
     public value: string;
 
+    @observable
+    public locale: string;
+
     public constructor() {
         super();
         const dateString = new Date(Date.now()).toISOString();
         const removeIndex = dateString.indexOf('T');
         this.value = dateString.substring(0, removeIndex);
+
+        this.locale = 'en-US';
     }
 }
 

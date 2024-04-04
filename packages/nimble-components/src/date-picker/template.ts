@@ -12,6 +12,8 @@ ViewTemplate<DatePicker>> = () => html`
     <template
     >
         <calendar-date
+            :value="${x => x.value}"
+            :locale="${x => x.locale}"
         >
             <${buttonTag} slot="previous" content-hidden name="chevron-left">
                 <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
