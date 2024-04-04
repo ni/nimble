@@ -74,7 +74,6 @@ If multiple mappings in a column have the same key, an error flag will be set on
 
 If an invalid `icon` value is passed to `nimble-mapping-icon`, an error flag will be set on the column's validity object. An invalid `icon` value is any element that cannot be resolved or that does not derive from `Icon`.
 
-`nimble-table-column-enum` supports `nimble-mapping-icon`, `nimble-mapping-spinner`, `nimble-mapping-text`, and `nimble-mapping-placeholder` as mapping elements. Unsupported mappings will result in an error flag being set on the column's validity object.
 
 Text in a grouping header or in the cell will be ellipsized and gain a tooltip when the full text is too long to display.
 
