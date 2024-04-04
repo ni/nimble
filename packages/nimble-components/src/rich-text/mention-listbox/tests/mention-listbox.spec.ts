@@ -1,8 +1,7 @@
-import { html, repeat } from '@microsoft/fast-element';
+import { html, ref, repeat } from '@microsoft/fast-element';
 import { RichTextMentionListbox, richTextMentionListboxTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import { waitAnimationFrame } from '../../../utilities/tests/component';
 import { listOptionTag } from '../../../list-option';
 
 describe('RichTextMentionListbox', () => {
@@ -18,39 +17,50 @@ describe('RichTextMentionListbox', () => {
         ).toBeInstanceOf(RichTextMentionListbox);
     });
 
-    async function setup500Options(): Promise<Fixture<RichTextMentionListbox>> {
+    class Model {
+        public mentionListbox!: RichTextMentionListbox;
+        public anchorDiv!: HTMLDivElement;
+    }
+
+    async function setup500Options(
+        source: Model
+    ): Promise<Fixture<RichTextMentionListbox>> {
         // prettier-ignore
-        const viewTemplate = html`
-            <${richTextMentionListboxTag}>
-                ${repeat(() => [...Array(500).keys()], html<number>`
-                    <${listOptionTag} value="${x => x}">${x => x}</${listOptionTag}>`)}
-            </${richTextMentionListboxTag}>
-        `;
-        return fixture<RichTextMentionListbox>(viewTemplate);
+        return fixture<RichTextMentionListbox>(
+            html<Model>`
+            <div>
+                <div ${ref('anchorDiv')}></div>
+                <${richTextMentionListboxTag} ${ref('mentionListbox')}>
+                    ${repeat(() => [...Array(500).keys()], html<number>`
+                        <${listOptionTag} value="${x => x}">${x => x}</${listOptionTag}>`)}
+                </${richTextMentionListboxTag}>
+            </div>`,
+            { source }
+        );
     }
 
     async function waitForSelectionUpdateAsync(): Promise<void> {
         await waitForUpdatesAsync();
         await waitForUpdatesAsync();
-        await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
     }
 
-    // Intermittent test. See tech debt issue: https://github.com/ni/nimble/issues/1891
+    // Intermittent test tracked by https://github.com/ni/nimble/issues/1891
     xit('should scroll the selected option into view when opened', async () => {
-        const { element, connect, disconnect } = await setup500Options();
+        const model = new Model();
+        const { connect, disconnect } = await setup500Options(model);
         await connect();
-        element.show({
-            anchorNode: document.documentElement,
+        model.mentionListbox.show({
+            anchorNode: model.anchorDiv,
             filter: ''
         });
         await waitForSelectionUpdateAsync(); // showing filters the options and modifies the selection
 
-        element.selectedIndex = 300;
+        model.mentionListbox.selectedIndex = 300;
         await waitForSelectionUpdateAsync();
-        const listbox = element.region!.querySelector('.listbox')!;
+        const listbox = model.mentionListbox.region!.querySelector('.listbox')!;
         expect(listbox.scrollTop).toBeGreaterThan(8000);
 
-        element.selectedIndex = 0;
+        model.mentionListbox.selectedIndex = 0;
         await waitForSelectionUpdateAsync();
         expect(listbox.scrollTop).toBeCloseTo(4);
 

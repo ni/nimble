@@ -5,16 +5,25 @@ import {
     createUserSelectedThemeStory,
     disableStorybookZoomTransform
 } from '../../utilities/tests/storybook';
-import { ButtonAppearance, MenuButtonPosition } from '../types';
+import {
+    ButtonAppearance,
+    ButtonAppearanceVariant,
+    MenuButtonPosition
+} from '../types';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
 import { iconKeyTag } from '../../icons/key';
 import { menuButtonTag } from '..';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
+import {
+    appearanceDescription,
+    appearanceVariantDescription
+} from '../../patterns/button/tests/doc-strings';
 
 interface MenuButtonArgs {
     label: string;
-    appearance: string;
+    appearance: keyof typeof ButtonAppearance;
+    appearanceVariant: keyof typeof ButtonAppearanceVariant;
     open: boolean;
     disabled: boolean;
     icon: boolean;
@@ -41,8 +50,15 @@ const metadata: Meta<MenuButtonArgs> = {
     },
     argTypes: {
         appearance: {
-            options: Object.values(ButtonAppearance),
-            control: { type: 'radio' }
+            options: Object.keys(ButtonAppearance),
+            control: { type: 'radio' },
+            description: appearanceDescription
+        },
+        appearanceVariant: {
+            name: 'appearance-variant',
+            options: Object.keys(ButtonAppearanceVariant),
+            control: { type: 'radio' },
+            description: appearanceVariantDescription
         },
         icon: {
             description:
@@ -63,7 +79,8 @@ const metadata: Meta<MenuButtonArgs> = {
             ?open="${x => x.open}"
             ?disabled="${x => x.disabled}"
             ?content-hidden="${x => x.contentHidden}"
-            appearance="${x => x.appearance}"
+            appearance="${x => ButtonAppearance[x.appearance]}"
+            appearance-variant="${x => ButtonAppearanceVariant[x.appearanceVariant]}"
             position="${x => x.menuPosition}"
         >
             ${when(x => x.icon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
@@ -88,8 +105,9 @@ const metadata: Meta<MenuButtonArgs> = {
         </${menuButtonTag}>
     `),
     args: {
-        label: 'Ghost Menu Button',
-        appearance: 'ghost',
+        label: 'Menu Button',
+        appearance: 'outline',
+        appearanceVariant: 'default',
         open: false,
         disabled: false,
         icon: false,

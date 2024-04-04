@@ -16,6 +16,9 @@ import { tabsToolbarTag } from '../../tabs-toolbar';
 import { tabsTag } from '..';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
+const tabsToolbarStates = [false, true] as const;
+type TabsToolbarState = (typeof tabsToolbarStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Tabs',
     parameters: {
@@ -24,9 +27,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const tabsToolbarState = [false, true] as const;
-type TabsToolbarState = (typeof tabsToolbarState)[number];
 
 // prettier-ignore
 const component = (
@@ -52,7 +52,7 @@ const component = (
 `;
 
 export const tabsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [tabsToolbarState, disabledStates])
+    createMatrix(component, [tabsToolbarStates, disabledStates])
 );
 
 export const hiddenTabs: StoryFn = createStory(
@@ -76,13 +76,9 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
     )
 );
 
-export const panelOverflow: StoryFn = createStory(
-    html`
-        <nimble-tabs style="height: 120px; width: 400px;">
-            <nimble-tab>Tab One</nimble-tab>
-            <nimble-tab-panel style="width: 450px;"
-                >${loremIpsum}</nimble-tab-panel
-            >
-        </nimble-tabs>
-    `
-);
+export const panelOverflow: StoryFn = createStory(html`
+    <nimble-tabs style="height: 120px; width: 400px;">
+        <nimble-tab>Tab One</nimble-tab>
+        <nimble-tab-panel style="width: 450px;">${loremIpsum}</nimble-tab-panel>
+    </nimble-tabs>
+`);

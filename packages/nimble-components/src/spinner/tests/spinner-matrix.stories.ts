@@ -1,6 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import { isChromatic } from '../../utilities/tests/isChromatic';
 
 import {
@@ -18,6 +17,19 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { spinnerTag } from '..';
 import { SpinnerAppearance } from '../types';
 
+const appearanceStates = [
+    ['Default', SpinnerAppearance.default],
+    ['Accent', SpinnerAppearance.accent]
+] as const;
+type AppearanceState = (typeof appearanceStates)[number];
+
+const sizeStates = [
+    ['Small (16x16)', ''],
+    ['Medium (32x32)', `height: var(${spinnerMediumHeight.cssCustomProperty})`],
+    ['Large (64x64)', `height: var(${spinnerLargeHeight.cssCustomProperty})`]
+] as const;
+type SizeState = (typeof sizeStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Spinner',
     parameters: {
@@ -26,18 +38,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const sizeStates = [
-    ['Small (16x16)', ''],
-    ['Medium (32x32)', `height: var(${spinnerMediumHeight.cssCustomProperty})`],
-    ['Large (64x64)', `height: var(${spinnerLargeHeight.cssCustomProperty})`]
-];
-type SizeState = (typeof sizeStates)[number];
-
-const appearanceStates: [string, string | undefined][] = Object.entries(
-    SpinnerAppearance
-).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = (typeof appearanceStates)[number];
 
 // Disable animation in Chromatic because it intermittently causes shapshot differences
 // prettier-ignore

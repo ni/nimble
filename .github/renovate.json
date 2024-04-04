@@ -3,26 +3,49 @@
   "extends": [
     "config:base"
   ],
-  "enabledManagers": ["npm", "nuget"],
+  "enabledManagers": ["npm", "nuget", "github-actions"],
   "rebaseWhen": "conflicted",
   "schedule": [
     "monthly"
   ],
   "packageRules": [
     {
-      "matchManagers": ["npm", "nuget"],
+      "matchManagers": ["npm", "nuget", "github-actions"],
       "enabled": false
     },
     {
-      "groupName": "npm dependencies",
+      "groupName": "npm dependencies lock update only",
       "matchManagers": ["npm"],
       "rangeStrategy": "in-range-only",
-      "matchDepTypes": ["dependencies", "devDependencies"],
+      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
+      "enabled": true
+    },
+    {
+      "groupName": "npm dependencies update to latest",
+      "matchManagers": ["npm"],
+      "rangeStrategy": "update-lockfile",
+      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
+      "excludePackagePatterns":[
+        "^@angular",
+        "@microsoft/fast-foundation",
+        "@microsoft/fast-react-wrapper",
+        "comlink",
+        "ng-packagr",
+        "playwright",
+        "remark-gfm",
+        "typescript",
+        "zone.js"
+      ],
       "enabled": true
     },
     {
       "groupName": "nuget dependencies",
       "matchManagers": ["nuget"],
+      "enabled": true
+    },
+    {
+      "groupName": "github actions dependencies",
+      "matchManagers": ["github-actions"],
       "enabled": true
     }
   ]

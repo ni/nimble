@@ -24,6 +24,14 @@
         "value": "Regular"
       }
     },
+    "Body_2": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
     "Header0": {
       "family": {
         "value": "Noto Serif"
@@ -259,6 +267,9 @@
       },
       "Body": {
         "value": "14"
+      },
+      "Body_2": {
+        "value": "16"
       },
       "Header0": {
         "value": "36"

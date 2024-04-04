@@ -16,7 +16,7 @@ export const fastParameters = () => ({
         },
         transformSource: (source: string): string => source
     }
-} as const);
+}) as const;
 
 /**
  * Renders a ViewTemplate as elements in a DocumentFragment.

@@ -21,16 +21,12 @@ export class TableColumnNumberTextCellView extends TableColumnTextCellViewBase<
 TableColumnNumberTextCellRecord,
 TableColumnNumberTextColumnConfig
 > {
-    private columnConfigChanged(): void {
-        this.updateText();
+    protected override columnConfigChanged(): void {
+        super.columnConfigChanged();
         this.alignment = this.columnConfig?.alignment ?? TextCellViewBaseAlignment.left;
     }
 
-    private cellRecordChanged(): void {
-        this.updateText();
-    }
-
-    private updateText(): void {
+    protected updateText(): void {
         this.text = this.columnConfig?.formatter?.format(this.cellRecord?.value) ?? '';
     }
 }

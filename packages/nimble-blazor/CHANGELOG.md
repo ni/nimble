@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 27 Feb 2024 00:13:05 GMT and should not be manually modified.
+This log was last generated on Fri, 29 Mar 2024 23:26:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.7.0
+
+Fri, 29 Mar 2024 23:26:43 GMT
+
+### Minor changes
+
+- Blazor support for appearance-variant on menu and toggle buttons ([ni/nimble@82d484e](https://github.com/ni/nimble/commit/82d484e2b69dc93f526c72249f32002d355ade91))
+
+## 14.6.0
+
+Thu, 28 Mar 2024 21:15:24 GMT
+
+### Minor changes
+
+- Add support for column placeholders ([ni/nimble@446055c](https://github.com/ni/nimble/commit/446055c74f11dd97010f2d0973a9eaf371b06389))
+
+## 14.5.7
+
+Wed, 27 Mar 2024 20:11:28 GMT
+
+### Patches
+
+- Adding package lock files to allow for reproducible builds ([ni/nimble@6e8a7ad](https://github.com/ni/nimble/commit/6e8a7ad44cba28c2b26c138e57ef16cf0d2a1b90))
+
+## 14.5.0
+
+Mon, 18 Mar 2024 17:12:34 GMT
+
+### Minor changes
+
+- Add new properties to the table label provider ([ni/nimble@3bbf8d7](https://github.com/ni/nimble/commit/3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda))
+
+## 14.4.0
+
+Wed, 13 Mar 2024 23:07:24 GMT
+
+### Minor changes
+
+- Expose additional label provider properties ([ni/nimble@518c229](https://github.com/ni/nimble/commit/518c229b964d2c4a2e77210692f5d367f2937ff4))
+
+## 14.3.15
+
+Tue, 05 Mar 2024 21:15:27 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@dcf2bc4](https://github.com/ni/nimble/commit/dcf2bc498565a7b7069dae14a46c9cd992a262a3))
 
 ## 14.3.8
 
