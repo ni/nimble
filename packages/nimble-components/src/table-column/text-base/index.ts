@@ -19,11 +19,14 @@ export abstract class TableColumnTextBase<
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
-export function mixinTextBase<TColumnConfig>() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type TableColumnBaseConstructor<TColumnConfig> = abstract new (...args: any[]) => TableColumnTextBase<TColumnConfig>;
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type, @typescript-eslint/no-explicit-any
+export function mixinTextBase<TBase extends TableColumnBaseConstructor<TColumnConfig>, TColumnConfig>(base: TBase) {
     return mixinGroupableColumnAPI(
         mixinFractionalWidthColumnAPI(
-            mixinColumnWithPlaceholderAPI(TableColumnTextBase<TColumnConfig>)
+            mixinColumnWithPlaceholderAPI(base)
         )
     );
 }

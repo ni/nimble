@@ -2,7 +2,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableStringField } from '../../table/types';
-import { mixinTextBase } from '../text-base';
+import { TableColumnTextBase, mixinTextBase } from '../text-base';
 import { TableColumnSortOperation } from '../base/types';
 import { tableColumnTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
@@ -24,11 +24,13 @@ declare global {
 /**
  * The table column for displaying string fields as text.
  */
-export class TableColumnText extends mixinTextBase<TableColumnTextColumnConfig>() {
+export class TableColumnText extends mixinTextBase(TableColumnTextBase<TableColumnTextColumnConfig>) {
     public placeholderChanged(): void {
         this.columnInternals.columnConfig = {
             placeholder: this.placeholder
         };
+
+        this.templateChanged();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
