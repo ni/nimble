@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 04 Apr 2024 14:57:17 GMT",
+      "version": "24.1.6",
+      "tag": "@ni/nimble-components_v24.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b6e22fee05e26937cb2bb0749de83def60c33bf3",
+            "comment": "Created new Experimental Prerendering Module and tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 Apr 2024 22:01:51 GMT",
       "version": "24.1.5",
       "tag": "@ni/nimble-components_v24.1.5",

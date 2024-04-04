@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 02 Apr 2024 22:01:51 GMT and should not be manually modified.
+This log was last generated on Thu, 04 Apr 2024 14:57:17 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.6
+
+Thu, 04 Apr 2024 14:57:17 GMT
+
+### Patches
+
+- Created new Experimental Prerendering Module and tests ([ni/nimble@b6e22fe](https://github.com/ni/nimble/commit/b6e22fee05e26937cb2bb0749de83def60c33bf3))
 
 ## 24.1.5
 
