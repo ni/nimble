@@ -55,7 +55,7 @@ Selects can be empty by default or have a default selection from the menu. Empty
 
 ![ ](spec-images/select-4.png)
 
-#### Clear selection button
+#### Clear Selection Button
 
 Selects can be configured to support clearing the selected item and reverting to the empty state. The _Clear selection button_ will appear when there is a selected item, and will disappear in the empty state.
 
@@ -125,7 +125,7 @@ The client-user should be able to specify whether they want groups, secondary te
 
 ![ ](spec-images/select-10.png)
 
-#### Clear selection
+#### Clear Selection
 
 The client-user should be able to specify whether they want users to be able to clear the current selection and revert to the placeholder state. The clear selection button appears when an option is selected, and is not present in the placeholder state.
 
@@ -215,7 +215,7 @@ Typing into the filter bar filters the list options in the dropdown (not picture
 
 > NOTE: Based on ARIA APG [select-only combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/)
 
-#### Field Button and clear selection
+#### Field Button and Clear Selection
 
 | Key                    | Description                                                                                                                                                                             |
 | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -226,7 +226,7 @@ Typing into the filter bar filters the list options in the dropdown (not picture
 | `HOME`                 | Opens the dropdown and moves visual focus to the first list option                                                                                                                      |
 | `END`                  | Opens the dropdown and moves visual focus to the last list option                                                                                                                       |
 | _Printable characters_ | Opens the dropdown (if closed), moves visual focus to the filter input (if filterable) with the characters typed or to the first list option that matches the typed character or string |
-| `ESC`                  | Clears the selected item without moving focus                                                                                                                                           |
+| `ESC`                  | Clears the selected item without moving focus (if clearable)                                                                                                                            |
 
 `TAB` focuses the select component from the previous or next focusable element on the page.
 
