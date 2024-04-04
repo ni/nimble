@@ -9,12 +9,12 @@ import type { Dimensions, Transform, WaferMapMatrix, WaferMapTypedMatrix } from 
  * This setup is used in the wafer-map component to perform heavy computational duties
  */
 export class MatrixRenderer {
-    public colIndexes: Int32Array = Int32Array.from([]);
-    public rowIndexes: Int32Array = Int32Array.from([]);
-    public values = new Float64Array([]);
-    public scaledColIndex = new Float64Array([]);
-    public scaledRowIndex = new Float64Array([]);
-    public colIndexPositions: Int32Array = Int32Array.from([]);
+    public colIndexes = Int32Array.from([]);
+    public rowIndexes = Int32Array.from([]);
+    public values = Float64Array.from([]);
+    public scaledColIndex = Float64Array.from([]);
+    public scaledRowIndex = Float64Array.from([]);
+    public colIndexPositions = Int32Array.from([]);
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
     private scaleX: number = 1;
