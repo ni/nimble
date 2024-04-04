@@ -84,9 +84,12 @@ export class Combobox
 
     /**
      * Sets the placeholder value of the element, generally used to provide a hint to the user.
+     * @remarks Using a non-null assertion to mimic FAST's original improper typing of an
+     * uninitialized property:
+     * https://github.com/microsoft/fast/blob/0c27d027ff6e8616ad4fddc17f4432aa7f6cbad0/packages/web-components/fast-foundation/src/combobox/combobox.ts#L199
      */
     @attr
-    public placeholder?: string;
+    public placeholder!: string;
 
     /**
      * The current state of the calculated position of the listbox.
@@ -215,34 +218,6 @@ export class Combobox
      */
     private forcedPosition = false;
 
-    public setPositioning(): void {
-        // Workaround for https://github.com/microsoft/fast/issues/5123
-        if (!this.$fastController.isConnected) {
-            // Don't call setPositioning() until we're connected,
-            // since this.forcedPosition isn't initialized yet.
-            return;
-        }
-        const currentBox = this.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const availableBottom = viewportHeight - currentBox.bottom;
-
-        if (this.forcedPosition) {
-            this.position = this.positionAttribute;
-        } else if (currentBox.top > availableBottom) {
-            this.position = SelectPosition.above;
-        } else {
-            this.position = SelectPosition.below;
-        }
-
-        this.positionAttribute = this.forcedPosition
-            ? this.positionAttribute
-            : this.position;
-
-        this.maxHeight = this.position === SelectPosition.above
-            ? Math.trunc(currentBox.top)
-            : Math.trunc(availableBottom);
-    }
-
     private get isAutocompleteInline(): boolean {
         return (
             this.autocomplete === ComboboxAutocomplete.inline
@@ -348,6 +323,9 @@ export class Combobox
         }
     }
 
+    /**
+     * @internal
+     */
     public filterOptions(): void {
         if (
             !this.autocomplete
@@ -619,6 +597,37 @@ export class Combobox
         if (!this.disabled && this.selectedIndex >= 0) {
             this.selectedIndex -= 1;
         }
+    }
+
+    /**
+     * @internal
+     */
+    public setPositioning(): void {
+        // Workaround for https://github.com/microsoft/fast/issues/5123
+        if (!this.$fastController.isConnected) {
+            // Don't call setPositioning() until we're connected,
+            // since this.forcedPosition isn't initialized yet.
+            return;
+        }
+        const currentBox = this.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const availableBottom = viewportHeight - currentBox.bottom;
+
+        if (this.forcedPosition) {
+            this.position = this.positionAttribute;
+        } else if (currentBox.top > availableBottom) {
+            this.position = SelectPosition.above;
+        } else {
+            this.position = SelectPosition.below;
+        }
+
+        this.positionAttribute = this.forcedPosition
+            ? this.positionAttribute
+            : this.position;
+
+        this.maxHeight = this.position === SelectPosition.above
+            ? Math.trunc(currentBox.top)
+            : Math.trunc(availableBottom);
     }
 
     /**
