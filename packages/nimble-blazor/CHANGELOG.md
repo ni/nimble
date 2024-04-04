@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 28 Mar 2024 21:15:24 GMT and should not be manually modified.
+This log was last generated on Fri, 29 Mar 2024 23:26:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 14.7.0
+
+Fri, 29 Mar 2024 23:26:43 GMT
+
+### Minor changes
+
+- Blazor support for appearance-variant on menu and toggle buttons ([ni/nimble@82d484e](https://github.com/ni/nimble/commit/82d484e2b69dc93f526c72249f32002d355ade91))
 
 ## 14.6.0
 

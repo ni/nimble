@@ -1,6 +1,5 @@
 import type { WaferMap } from '..';
 import { PointCoordinates, WaferMapOriginLocation } from '../types';
-import { DataManager } from './data-manager';
 
 /**
  * HoverHandler deals with user interactions and events like hovering
@@ -25,7 +24,7 @@ export class HoverHandler {
     }
 
     private readonly onMouseMove = (event: MouseEvent): void => {
-        if (this.wafermap.isExperimentalRenderer()) {
+        if (this.wafermap.isExperimentalUpdate()) {
             return;
         }
         const mousePosition: PointCoordinates = {
@@ -51,7 +50,6 @@ export class HoverHandler {
             this.wafermap.hoverDie = undefined;
             return;
         }
-
         this.wafermap.hoverDie = this.wafermap.dataManager.getWaferMapDie(dieCoordinates);
     };
 
@@ -62,10 +60,7 @@ export class HoverHandler {
     private calculateDieCoordinates(
         mousePosition: PointCoordinates
     ): PointCoordinates | undefined {
-        if (
-            !this.wafermap.isExperimentalRenderer()
-            && this.wafermap.dataManager instanceof DataManager
-        ) {
+        if (!this.wafermap.isExperimentalUpdate()) {
             const originLocation = this.wafermap.originLocation;
             const xRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
                 || originLocation === WaferMapOriginLocation.topLeft
