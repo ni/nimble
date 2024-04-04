@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 04 Apr 2024 18:11:08 GMT and should not be manually modified.
+This log was last generated on Thu, 04 Apr 2024 21:33:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.8
+
+Thu, 04 Apr 2024 21:33:43 GMT
+
+### Patches
+
+- Improve TColumnConfig typing on columns that extend TableColumnTextBase ([ni/nimble@2777f26](https://github.com/ni/nimble/commit/2777f26b80bbdfa68acf76e253e5ce5fcb094631))
 
 ## 24.1.7
 

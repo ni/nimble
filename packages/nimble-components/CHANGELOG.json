@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 04 Apr 2024 21:33:43 GMT",
+      "version": "24.1.8",
+      "tag": "@ni/nimble-components_v24.1.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2777f26b80bbdfa68acf76e253e5ce5fcb094631",
+            "comment": "Improve TColumnConfig typing on columns that extend TableColumnTextBase"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Apr 2024 18:11:08 GMT",
       "version": "24.1.7",
       "tag": "@ni/nimble-components_v24.1.7",
