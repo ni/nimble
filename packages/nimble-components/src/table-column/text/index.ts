@@ -29,8 +29,6 @@ export class TableColumnText extends mixinTextBase(TableColumnTextBase<TableColu
         this.columnInternals.columnConfig = {
             placeholder: this.placeholder
         };
-
-        this.templateChanged();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
