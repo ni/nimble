@@ -86,7 +86,7 @@ export class Combobox
      * Sets the placeholder value of the element, generally used to provide a hint to the user.
      */
     @attr
-    public placeholder = '';
+    public placeholder?: string;
 
     /**
      * The current state of the calculated position of the listbox.
