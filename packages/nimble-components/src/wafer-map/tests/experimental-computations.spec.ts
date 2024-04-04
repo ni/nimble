@@ -24,7 +24,7 @@ describe('Wafermap Experimental Computations module', () => {
                 100
             );
             computationsModule = new Computations(waferMock);
-            computationsModule.updateContainerDimensions();
+            computationsModule.update();
         });
 
         it('should have expected square container', () => {
@@ -66,7 +66,7 @@ describe('Wafermap Experimental Computations module', () => {
                 100
             );
             computationsModule = new Computations(waferMock);
-            computationsModule.updateContainerDimensions();
+            computationsModule.update();
         });
 
         it('should have adjusted square container', () => {
@@ -131,7 +131,7 @@ describe('Wafermap Experimental Computations module', () => {
                     100
                 );
                 computationsModule = new Computations(waferMock);
-                computationsModule.updateContainerDimensions();
+                computationsModule.update();
                 expect(computationsModule.horizontalScale.range()).toEqual(
                     value.horizontalRange
                 );
