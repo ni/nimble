@@ -44,7 +44,9 @@ declare global {
 /**
  * The table column for displaying numbers as text.
  */
-export class TableColumnNumberText extends mixinTextBase(TableColumnTextBase<TableColumnNumberTextColumnConfig>) {
+export class TableColumnNumberText extends mixinTextBase(
+    TableColumnTextBase<TableColumnNumberTextColumnConfig>
+) {
     /** @internal */
     public validator = new TableColumnNumberTextValidator(this.columnInternals);
 

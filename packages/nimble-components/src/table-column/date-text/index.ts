@@ -49,7 +49,9 @@ declare global {
 /**
  * The table column for displaying dates/times as text.
  */
-export class TableColumnDateText extends mixinTextBase(TableColumnTextBase<TableColumnDateTextColumnConfig>) {
+export class TableColumnDateText extends mixinTextBase(
+    TableColumnTextBase<TableColumnDateTextColumnConfig>
+) {
     /** @internal */
     public validator = new TableColumnDateTextValidator(this.columnInternals);
 

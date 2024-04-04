@@ -24,7 +24,9 @@ declare global {
 /**
  * The table column for displaying string fields as text.
  */
-export class TableColumnText extends mixinTextBase(TableColumnTextBase<TableColumnTextColumnConfig>) {
+export class TableColumnText extends mixinTextBase(
+    TableColumnTextBase<TableColumnTextColumnConfig>
+) {
     public placeholderChanged(): void {
         this.columnInternals.columnConfig = {
             placeholder: this.placeholder

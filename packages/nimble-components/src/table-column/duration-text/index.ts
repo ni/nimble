@@ -29,7 +29,9 @@ declare global {
 /**
  * The table column for displaying a duration value as text.
  */
-export class TableColumnDurationText extends mixinTextBase(TableColumnTextBase<TableColumnDurationTextColumnConfig>) {
+export class TableColumnDurationText extends mixinTextBase(
+    TableColumnTextBase<TableColumnDurationTextColumnConfig>
+) {
     private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
         handleChange: () => {
             this.updateColumnConfig();
