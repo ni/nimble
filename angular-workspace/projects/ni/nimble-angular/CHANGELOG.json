@@ -2,6 +2,57 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 04 Apr 2024 18:11:08 GMT",
+      "version": "20.7.5",
+      "tag": "@ni/nimble-angular_v20.7.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v24.1.7",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Apr 2024 14:57:17 GMT",
+      "version": "20.7.4",
+      "tag": "@ni/nimble-angular_v20.7.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v24.1.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 02 Apr 2024 22:01:51 GMT",
+      "version": "20.7.3",
+      "tag": "@ni/nimble-angular_v20.7.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "47d91bc3cb98a52843ffb9f0b7d3e3e1baaea344",
+            "comment": "Reverting changes."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v24.1.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 Apr 2024 17:10:35 GMT",
       "version": "20.7.2",
       "tag": "@ni/nimble-angular_v20.7.2",

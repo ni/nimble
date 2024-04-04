@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 04 Apr 2024 18:11:08 GMT",
+      "version": "24.1.7",
+      "tag": "@ni/nimble-components_v24.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "53b2c4572f3e24fc862ab39e30808908b372e3e4",
+            "comment": "Fork FAST Combobox."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Apr 2024 14:57:17 GMT",
+      "version": "24.1.6",
+      "tag": "@ni/nimble-components_v24.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b6e22fee05e26937cb2bb0749de83def60c33bf3",
+            "comment": "Created new Experimental Prerendering Module and tests"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 02 Apr 2024 22:01:51 GMT",
+      "version": "24.1.5",
+      "tag": "@ni/nimble-components_v24.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "47d91bc3cb98a52843ffb9f0b7d3e3e1baaea344",
+            "comment": "Reverting changes."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 Apr 2024 17:10:35 GMT",
       "version": "24.1.4",
       "tag": "@ni/nimble-components_v24.1.4",
