@@ -27,6 +27,7 @@ import {
     ColumnInternals,
     isColumnInternalsProperty
 } from '../../../table-column/base/models/column-internals';
+import type { Button } from '../../../button';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -77,6 +78,9 @@ export class TableRow<
     @observable
     public nestingLevel = 0;
 
+    @observable
+    public dataIndex?: number;
+
     @attr({ attribute: 'is-parent-row', mode: 'boolean' })
     public isParentRow = false;
 
@@ -108,6 +112,10 @@ export class TableRow<
     /** @internal */
     @observable
     public readonly selectionCheckbox?: Checkbox;
+
+    /** @internal */
+    @observable
+    public readonly expandCollapseButton?: HTMLElement;
 
     /** @internal */
     public readonly cellContainer!: HTMLSpanElement;
@@ -146,6 +154,13 @@ export class TableRow<
         }
 
         return null;
+    }
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        if (this.selectionCheckbox) {
+            this.selectionCheckbox.tabIndex = -1;
+        }
     }
 
     /** @internal */
@@ -213,14 +228,27 @@ export class TableRow<
         }
     }
 
-    public onRowExpandToggle(event: Event): void {
+    /** @internal */
+    public getFocusableElements(): HTMLElement[] {
+        const focusableElements: HTMLElement[] = [];
+        if (this.selectionCheckbox) {
+            focusableElements.push(this.selectionCheckbox);
+        }
+        if (this.expandCollapseButton) {
+            focusableElements.push(this.expandCollapseButton);
+        }
+        this.shadowRoot!.querySelectorAll('nimble-table-cell').forEach(cell => focusableElements.push(cell));
+        return focusableElements;
+    }
+
+    public onRowExpandToggle(event?: Event): void {
         const expandEventDetail: TableRowExpansionToggleEventDetail = {
             oldState: this.expanded,
             newState: !this.expanded,
             recordId: this.recordId!
         };
         this.$emit('row-expand-toggle', expandEventDetail);
-        event.stopImmediatePropagation();
+        event?.stopImmediatePropagation();
         // To avoid a visual glitch with improper expand/collapse icons performing an
         // animation (due to visual re-use apparently), we apply a class to the
         // contained expand-collapse button temporarily. We use the 'transitionend' event

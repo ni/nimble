@@ -32,6 +32,8 @@ export const template = html<TableRow>`
                     <${checkboxTag}
                         ${ref('selectionCheckbox')}
                         class="selection-checkbox"
+                        tabindex="-1" 
+                        :tabIndex="${_ => -1}"
                         @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
                         @click="${(_, c) => c.event.stopPropagation()}"
                         title="${x => tableRowSelectLabel.getValueFor(x)}"
@@ -55,13 +57,12 @@ export const template = html<TableRow>`
             `)}
             ${when(x => !x.loading, html<TableRow>`
                 <${buttonTag}
+                    ${ref('expandCollapseButton')}
                     appearance="${ButtonAppearance.ghost}"
                     content-hidden
                     class="expand-collapse-button"
-                    tabindex="-1"
                     @click="${(x, c) => x.onRowExpandToggle(c.event)}"
                     title="${x => (x.expanded ? tableRowCollapseLabel.getValueFor(x) : tableRowExpandLabel.getValueFor(x))}"
-                    aria-hidden="true"
                 >
                     <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
                 </${buttonTag}>

@@ -30,6 +30,9 @@ export class TableGroupRow extends FoundationElement {
     public nestingLevel = 0;
 
     @observable
+    public dataIndex?: number;
+
+    @observable
     public immediateChildCount?: number;
 
     @observable
@@ -98,6 +101,15 @@ export class TableGroupRow extends FoundationElement {
             newState: checked
         };
         this.$emit('group-selection-toggle', detail);
+    }
+
+    /** @internal */
+    public getFocusableElements(): HTMLElement[] {
+        if (this.selectionCheckbox) {
+            return [this.selectionCheckbox];
+        }
+
+        return [];
     }
 
     private selectionStateChanged(): void {

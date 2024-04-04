@@ -3,6 +3,7 @@ import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
+    borderHoverColor,
     borderWidth,
     controlHeight,
     controlSlimHeight,
@@ -16,6 +17,7 @@ import { Theme } from '../../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
+import { focusVisible } from '../../../utilities/style/focus';
 
 export const styles = css`
     ${expandCollapseStyles}
@@ -51,6 +53,11 @@ export const styles = css`
 
     :host([selected]:hover)::before {
         background-color: ${fillHoverSelectedColor};
+    }
+
+    :host(${focusVisible}) {
+        outline: 2px solid ${borderHoverColor};
+        outline-offset: -2px;
     }
 
     .expand-collapse-button {
@@ -119,11 +126,19 @@ export const styles = css`
         --ni-private-table-cell-action-menu-display: block;
     }
 
+    nimble-table-cell${focusVisible} {
+        --ni-private-table-cell-action-menu-display: block;
+    }
+
     :host(:hover) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
 
     :host([selected]) nimble-table-cell {
+        --ni-private-table-cell-action-menu-display: block;
+    }
+
+    :host(${focusVisible}) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
 `.withBehaviors(

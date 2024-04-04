@@ -1,10 +1,13 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
+    borderHoverColor,
+    borderWidth,
     controlHeight,
     controlSlimHeight,
     mediumPadding
 } from '../../../theme-provider/design-tokens';
+import { focusVisible } from '../../../utilities/style/focus';
 
 export const styles = css`
     ${display('flex')}
@@ -20,6 +23,11 @@ export const styles = css`
         height: 100%;
         /* A default value that will be overridden by the row */
         --ni-private-table-cell-action-menu-display: block;
+    }
+
+    :host(${focusVisible}) {
+        outline: 2px solid ${borderHoverColor};
+        outline-offset: -2px;
     }
 
     .cell-view {

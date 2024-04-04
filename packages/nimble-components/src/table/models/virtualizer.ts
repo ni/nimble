@@ -6,12 +6,14 @@ import {
     elementScroll,
     observeElementOffset,
     observeElementRect,
-    VirtualItem
+    VirtualItem,
+    ScrollToOptions
 } from '@tanstack/virtual-core';
 import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
 import type { TableNode, TableRecord } from '../types';
 import { TableCellView } from '../../table-column/base/cell-view';
+import { TableRow } from '../components/row';
 
 /**
  * Helper class for the nimble-table for row virtualization.
@@ -67,6 +69,10 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         if (this.table.$fastController.isConnected) {
             this.updateVirtualizer();
         }
+    }
+
+    public scrollToIndex(index: number, options?: ScrollToOptions): void {
+        this.virtualizer?.scrollToIndex(index, options);
     }
 
     private updateVirtualizer(): void {
@@ -137,8 +143,8 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         }
         if (this.table.openActionMenuRecordId !== undefined) {
             const activeRow = this.table.rowElements.find(
-                row => row.recordId === this.table.openActionMenuRecordId
-            );
+                row => row instanceof TableRow && row.recordId === this.table.openActionMenuRecordId
+            ) as TableRow | undefined;
             activeRow?.closeOpenActionMenus();
         }
     }

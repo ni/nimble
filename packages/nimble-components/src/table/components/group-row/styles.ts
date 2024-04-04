@@ -3,6 +3,7 @@ import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
+    borderHoverColor,
     borderWidth,
     controlHeight,
     fillHoverColor,
@@ -14,6 +15,7 @@ import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
 import { userSelectNone } from '../../../utilities/style/user-select';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
+import { focusVisible } from '../../../utilities/style/focus';
 
 export const styles = css`
     ${display('grid')}
@@ -53,6 +55,11 @@ export const styles = css`
 
     :host(:hover)::before {
         background-color: ${fillHoverColor};
+    }
+
+    :host(${focusVisible}) {
+        outline: 2px solid ${borderHoverColor};
+        outline-offset: -2px;
     }
 
     .expand-collapse-button {

@@ -28,7 +28,8 @@ import {
     ExpandedState as TanStackExpandedState,
     OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
-import { keyShift } from '@microsoft/fast-web-utilities';
+import { keyEnter, keyShift } from '@microsoft/fast-web-utilities';
+import { tabbable } from 'tabbable';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
@@ -53,11 +54,13 @@ import { getTanStackSortingFunction } from './models/sort-operations';
 import { TableLayoutManager } from './models/table-layout-manager';
 import { TableUpdateTracker } from './models/table-update-tracker';
 import type { TableRow } from './components/row';
+import type { TableGroupRow } from './components/group-row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
 import { DataHierarchyManager } from './models/data-hierarchy-manager';
 import { ExpansionManager } from './models/expansion-manager';
 import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
+import { TableNavigationManager } from './models/table-navigation-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -102,7 +105,7 @@ export class Table<
      * @internal
      */
     @observable
-    public readonly rowElements: TableRow[] = [];
+    public readonly rowElements: (TableRow | TableGroupRow)[] = [];
 
     /**
      * @internal
@@ -169,6 +172,12 @@ export class Table<
      * @internal
      */
     @observable
+    public readonly collapseAllButton?: HTMLElement;
+
+    /**
+     * @internal
+     */
+    @observable
     public showCollapseAll = false;
 
     /**
@@ -223,6 +232,7 @@ export class Table<
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly tableValidator = new TableValidator<TData>();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
+    private readonly tableNavigationManager: TableNavigationManager<TData>;
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private dataHierarchyManager?: DataHierarchyManager<TData>;
     private readonly expansionManager: ExpansionManager<TData>;
@@ -265,6 +275,10 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
+        this.tableNavigationManager = new TableNavigationManager(
+            this,
+            this.virtualizer
+        );
         this.layoutManager = new TableLayoutManager(this);
         this.layoutManagerNotifier = Observable.getNotifier(this.layoutManager);
         this.layoutManagerNotifier.subscribe(this, 'isColumnBeingSized');
@@ -333,6 +347,18 @@ export class Table<
 
     public checkValidity(): boolean {
         return this.tableValidator.isValid();
+    }
+
+    public getTabbableElements(): (HTMLElement | SVGElement)[] {
+        const results1 = tabbable(this, { getShadowRoot: true });
+        // eslint-disable-next-line no-console
+        console.log('tabbable', 'from table', results1);
+        return results1;
+    }
+
+    public getTabbableElementsFrom(element: HTMLElement): (HTMLElement | SVGElement)[] {
+        const results1 = tabbable(element, { getShadowRoot: true });
+        return results1;
     }
 
     /**
@@ -526,6 +552,16 @@ export class Table<
         }
 
         this.emitColumnConfigurationChangeEvent();
+    }
+
+    /**
+     * @internal
+     */
+    public onHeaderKeyDown(column: TableColumn, event: KeyboardEvent): void {
+        const allowMultiSort = event.shiftKey;
+        if (event.key === keyEnter) {
+            this.toggleColumnSort(column, allowMultiSort);
+        }
     }
 
     /**
@@ -957,6 +993,7 @@ export class Table<
                 isParentRow: isParent,
                 immediateChildCount: row.subRows.length,
                 groupColumn: this.getGroupRowColumn(row),
+                dataIndex: row.index,
                 isLoadingChildren: this.expansionManager.isLoadingChildren(
                     row.id
                 )

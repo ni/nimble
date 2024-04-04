@@ -33,6 +33,7 @@ import {
 export const template = html<Table>`
     <template
         role="treegrid"
+        tabindex="0"
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ${children({ property: 'childItems', filter: elements() })}
     >
@@ -69,6 +70,7 @@ export const template = html<Table>`
                                 </span>
                             `)}
                             <${buttonTag}
+                                ${ref('collapseAllButton')}
                                 class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
                                 content-hidden
                                 appearance="${ButtonAppearance.ghost}"
@@ -97,6 +99,7 @@ export const template = html<Table>`
                                             class="header"
                                             sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
                                             ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+                                            @keydown="${(x, c) => c.parent.onHeaderKeyDown(x, c.event as KeyboardEvent)}"
                                             @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
                                             :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                         >
@@ -121,7 +124,7 @@ export const template = html<Table>`
                 </div>
                 <div class="table-viewport" ${ref('viewport')}>
                     <div class="table-scroll"></div>
-                    <div class="table-row-container" ${children({ property: 'rowElements', filter: elements(tableRowTag) })}
+                    <div class="table-row-container" ${children({ property: 'rowElements', filter: elements(`${tableRowTag}, ${tableGroupRowTag}`) })}
                         role="rowgroup">
                         ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                             ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
@@ -135,6 +138,7 @@ export const template = html<Table>`
                                         :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
                                         ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
                                         selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
+                                        :dataIndex="${x => x.index}"
                                         @group-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
                                     >
@@ -154,6 +158,7 @@ export const template = html<Table>`
                                         :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                         ?row-operation-grid-cell-hidden="${(_, c) => !c.parent.showRowOperationColumn}"
                                         ?loading="${(x, c) => c.parent.tableData[x.index]?.isLoadingChildren}"
+                                        :dataIndex="${x => x.index}"
                                         @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"
                                         @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
