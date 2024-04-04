@@ -13,14 +13,14 @@ export class WorkerRenderer {
             return;
         }
         await this.setupWorker();
-        const colIndexes = Int32Array.from(
+        const columnIndexes = Int32Array.from(
             this.wafermap.diesTable.getChild('colIndex')!.toArray()
         );
         const rowIndexes = Int32Array.from(
             this.wafermap.diesTable.getChild('rowIndex')!.toArray()
         );
-        await this.wafermap.worker.setColIndexes(
-            transfer(colIndexes, [colIndexes.buffer])
+        await this.wafermap.worker.setColumnIndexes(
+            transfer(columnIndexes, [columnIndexes.buffer])
         );
         await this.wafermap.worker.setRowIndexes(
             transfer(rowIndexes, [rowIndexes.buffer])
