@@ -9,12 +9,12 @@ import type { Dimensions, Transform, WaferMapMatrix, WaferMapTypedMatrix } from 
  * This setup is used in the wafer-map component to perform heavy computational duties
  */
 export class MatrixRenderer {
-    public colIndexes = Int32Array.from([]);
+    public columnIndexes = Int32Array.from([]);
     public rowIndexes = Int32Array.from([]);
     public values = Float64Array.from([]);
-    public scaledColIndex = Float64Array.from([]);
+    public scaledColumnIndex = Float64Array.from([]);
     public scaledRowIndex = Float64Array.from([]);
-    public colIndexPositions = Int32Array.from([]);
+    public columnIndexPositions = Int32Array.from([]);
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
     private scaleX: number = 1;
@@ -27,22 +27,22 @@ export class MatrixRenderer {
     private bottomRightCanvasCorner!: { x: number; y: number; };
     private margin: { top: number; right: number; bottom: number; left: number; } = { top: 20, right: 20, bottom: 20, left: 20 };
 
-    public setColIndexes(colIndexesBuffer: Int32Array): void {
-        this.colIndexes = colIndexesBuffer;
-        const scaledColIndex = [this.scaleX * this.colIndexes[0]! + this.baseX + this.margin.left];
-        const colPosition = [0];
-        let prev = this.colIndexes[0];
-        for (let i = 1, length = this.colIndexes.length; i < length; i++) {
-            const xIndex = this.colIndexes[i];
+    public setColumnIndexes(columnIndexesBuffer: Int32Array): void {
+        this.columnIndexes = columnIndexesBuffer;
+        const scaledColumnIndex = [this.scaleX * this.columnIndexes[0]! + this.baseX + this.margin.left];
+        const columnPosition = [0];
+        let prev = this.columnIndexes[0];
+        for (let i = 1, length = this.columnIndexes.length; i < length; i++) {
+            const xIndex = this.columnIndexes[i];
             if (xIndex && xIndex !== prev) {
-                const scaledX = this.scaleX * this.colIndexes[i]! + this.baseX + this.margin.left;
-                scaledColIndex.push(scaledX);
-                colPosition.push(i);
+                const scaledX = this.scaleX * this.columnIndexes[i]! + this.baseX + this.margin.left;
+                scaledColumnIndex.push(scaledX);
+                columnPosition.push(i);
                 prev = xIndex
             }
         }
-        this.scaledColIndex = Float64Array.from(scaledColIndex);
-        this.colIndexPositions = Int32Array.from(colPosition);
+        this.scaledColumnIndex = Float64Array.from(scaledColumnIndex);
+        this.columnIndexPositions = Int32Array.from(columnPosition);
     }
 
     public setRowIndexes(rowIndexesBuffer: Int32Array): void {
@@ -87,14 +87,14 @@ export class MatrixRenderer {
 
     public getMatrix(): WaferMapTypedMatrix {
         return {
-            colIndexes: this.colIndexes,
+            columnIndexes: this.columnIndexes,
             rowIndexes: this.rowIndexes,
             values: this.values
         };
     }
 
     public emptyMatrix(): void {
-        this.colIndexes = Int32Array.from([]);
+        this.columnIndexes = Int32Array.from([]);
         this.rowIndexes = Int32Array.from([]);
         this.values = Float64Array.from([]);
     }
@@ -113,7 +113,7 @@ export class MatrixRenderer {
     public updateMatrix(
         data: WaferMapMatrix
     ): void {
-        this.colIndexes = Int32Array.from(data.colIndexes);
+        this.columnIndexes = Int32Array.from(data.columnIndexes);
         this.rowIndexes = Int32Array.from(data.rowIndexes);
         this.values = Float64Array.from(data.values);
     }
@@ -138,16 +138,16 @@ export class MatrixRenderer {
         this.clearCanvas();
         this.scaleCanvas();
         if (this.topLeftCanvasCorner === undefined || this.bottomRightCanvasCorner === undefined) { return; }
-        for (let i = 0; i < this.scaledColIndex.length; i++) {
-            const scaledX = this.scaledColIndex[i]!;
+        for (let i = 0; i < this.scaledColumnIndex.length; i++) {
+            const scaledX = this.scaledColumnIndex[i]!;
             if (
                 !(scaledX >= this.topLeftCanvasCorner.x
                     && scaledX < this.bottomRightCanvasCorner.x)
             ) {
                 continue;
             }
-            for (let j = this.colIndexPositions[i]!,
-                length = this.colIndexPositions[i + 1] !== undefined ? this.colIndexPositions[i + 1]! : this.scaledRowIndex.length;
+            for (let j = this.columnIndexPositions[i]!,
+                length = this.columnIndexPositions[i + 1] !== undefined ? this.columnIndexPositions[i + 1]! : this.scaledRowIndex.length;
                 j < length; j++) {
                 const scaledY = this.scaledRowIndex[j]!;
                 if (

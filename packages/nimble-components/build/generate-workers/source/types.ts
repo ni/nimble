@@ -1,11 +1,11 @@
 export interface WaferMapTypedMatrix {
-    colIndexes: Int32Array;
+    columnIndexes: Int32Array;
     rowIndexes: Int32Array;
     values: Float64Array;
 }
 
 export interface WaferMapMatrix {
-    colIndexes: number[];
+    columnIndexes: number[];
     rowIndexes: number[];
     values: number[];
 }
