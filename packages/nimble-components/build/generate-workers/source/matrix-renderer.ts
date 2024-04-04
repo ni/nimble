@@ -27,16 +27,20 @@ export class MatrixRenderer {
     private bottomRightCanvasCorner!: { x: number; y: number; };
     private margin: { top: number; right: number; bottom: number; left: number; } = { top: 20, right: 20, bottom: 20, left: 20 };
 
+    public calculateScaledIndex(columnIndex: number, margin: number): number{
+        return this.scaleX * columnIndex + this.baseX + margin;
+    }
+
     public setColumnIndexes(columnIndexes: Int32Array): void {
         this.columnIndexes = columnIndexes;
         if (columnIndexes.length === 0 || this.columnIndexes[0] === undefined) { return; }
-        const scaledColumnIndex = [this.scaleX * this.columnIndexes[0] + this.baseX + this.margin.left];
+        const scaledColumnIndex = [this.calculateScaledIndex(this.columnIndexes[0], this.margin.left)];
         const columnPosition = [0];
         let prev = this.columnIndexes[0];
-        for (let i = 1, length = this.columnIndexes.length; i < length; i++) {
+        for (let i = 1; i < this.columnIndexes.length; i++) {
             const xIndex = this.columnIndexes[i];
             if (xIndex && xIndex !== prev) {
-                const scaledX = this.scaleX * this.columnIndexes[i]! + this.baseX + this.margin.left;
+                const scaledX = this.calculateScaledIndex(this.columnIndexes[i]!, this.margin.left);
                 scaledColumnIndex.push(scaledX);
                 columnPosition.push(i);
                 prev = xIndex
@@ -50,7 +54,7 @@ export class MatrixRenderer {
         this.rowIndexes = rowIndexesBuffer;
         this.scaledRowIndex = new Float64Array(this.rowIndexes.length);
         for (let i = 0; i < this.rowIndexes.length; i++) {
-            this.scaledRowIndex[i] = this.scaleY * this.rowIndexes[i]! + this.baseY + this.margin.top;
+            this.scaledRowIndex[i] = this.calculateScaledIndex(this.rowIndexes[i]!, this.margin.top);
         }
     }
 
@@ -138,7 +142,7 @@ export class MatrixRenderer {
         this.context.save();
         this.clearCanvas();
         this.scaleCanvas();
-        if (this.topLeftCanvasCorner === undefined || this.bottomRightCanvasCorner === undefined) { return; }
+        if (this.topLeftCanvasCorner === undefined || this.bottomRightCanvasCorner === undefined) { throw new Error('Canvas corners are not set');}
         for (let i = 0; i < this.scaledColumnIndex.length; i++) {
             const scaledX = this.scaledColumnIndex[i]!;
             if (
