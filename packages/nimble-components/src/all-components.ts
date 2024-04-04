@@ -19,6 +19,7 @@ import './card';
 import './card-button';
 import './checkbox';
 import './combobox';
+import './date-picker';
 import './dialog';
 import './drawer';
 import './icons/all-icons';
