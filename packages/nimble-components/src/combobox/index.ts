@@ -665,7 +665,7 @@ export class Combobox
 
     protected placeholderChanged(): void {
         if (this.proxy instanceof HTMLInputElement) {
-            this.proxy.placeholder = this.placeholder;
+            this.proxy.placeholder = this.placeholder ?? '';
         }
     }
 
