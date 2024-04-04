@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "repaired tests",
+  "packageName": "@ni/nimble-blazor",
+  "email": "razvan.nazare@ni.com",
+  "dependentChangeType": "patch"
+}
