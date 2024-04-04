@@ -2,6 +2,6 @@
   "type": "patch",
   "comment": "Added an additional canvas in wafer map template caused the blazor tests to fail due to missing unique identifiers for canvases, adding different ids for the canvases and explicitly telling the tests to look for one canvas id solved the issue",
   "packageName": "@ni/nimble-blazor",
-  "email": "razvan.nazare@ni.com",
+  "email": "110180309+Razvan1928@users.noreply.github.com",
   "dependentChangeType": "patch"
 }
