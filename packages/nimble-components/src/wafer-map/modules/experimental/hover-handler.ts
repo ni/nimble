@@ -1,6 +1,5 @@
 import type { WaferMap } from '../..';
 import { PointCoordinates, WaferMapOriginLocation } from '../../types';
-import { DataManager } from './data-manager';
 
 /**
  * HoverHandler deals with user interactions and events like hovering
@@ -24,12 +23,8 @@ export class HoverHandler {
         this.wafermap.removeEventListener('mouseout', this.onMouseOut);
     }
 
-    /**
-     * @internal
-     * keep public for testing until data manager refactor
-     */
-    public readonly onMouseMove = (event: MouseEvent): void => {
-        if (!this.wafermap.isExperimentalRenderer()) {
+    private readonly onMouseMove = (event: MouseEvent): void => {
+        if (!this.wafermap.isExperimentalUpdate()) {
             return;
         }
         // get original mouse position in case we are in zoom.
@@ -76,7 +71,7 @@ export class HoverHandler {
     private calculateDieCoordinates(
         mousePosition: PointCoordinates
     ): PointCoordinates | undefined {
-        if (this.wafermap.dataManager instanceof DataManager) {
+        if (this.wafermap.isExperimentalUpdate()) {
             const originLocation = this.wafermap.originLocation;
             const xRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
                 || originLocation === WaferMapOriginLocation.topLeft
@@ -88,13 +83,15 @@ export class HoverHandler {
                 : Math.floor;
             // go to x and y scale to get the x,y values of the die.
             const x = xRoundFunction(
-                this.wafermap.dataManager.horizontalScale.invert(
-                    mousePosition.x - this.wafermap.dataManager.margin.left
+                this.wafermap.experimentalDataManager.horizontalScale.invert(
+                    mousePosition.x
+                        - this.wafermap.experimentalDataManager.margin.left
                 )
             );
             const y = yRoundFunction(
-                this.wafermap.dataManager.verticalScale.invert(
-                    mousePosition.y - this.wafermap.dataManager.margin.top
+                this.wafermap.experimentalDataManager.verticalScale.invert(
+                    mousePosition.y
+                        - this.wafermap.experimentalDataManager.margin.top
                 )
             );
             return { x, y };

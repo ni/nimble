@@ -6,7 +6,7 @@ import { attr } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
-import { TableColumnTextBase } from '../text-base';
+import { TableColumnTextBase, mixinTextBase } from '../text-base';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { tableColumnDateTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnDateTextCellViewTag } from './cell-view';
@@ -32,9 +32,11 @@ import {
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
 import { lang } from '../../theme-provider';
 import { optionalBooleanConverter } from '../../utilities/models/converter';
+import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnDateTextColumnConfig {
+export interface TableColumnDateTextColumnConfig
+    extends TableColumnTextBaseColumnConfig {
     formatter: Intl.DateTimeFormat;
 }
 
@@ -47,7 +49,9 @@ declare global {
 /**
  * The table column for displaying dates/times as text.
  */
-export class TableColumnDateText extends TableColumnTextBase {
+export class TableColumnDateText extends mixinTextBase(
+    TableColumnTextBase<TableColumnDateTextColumnConfig>
+) {
     /** @internal */
     public validator = new TableColumnDateTextValidator(this.columnInternals);
 
@@ -133,6 +137,10 @@ export class TableColumnDateText extends TableColumnTextBase {
 
     public override get validity(): TableColumnValidity {
         return this.validator.getValidity();
+    }
+
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
@@ -230,7 +238,8 @@ export class TableColumnDateText extends TableColumnTextBase {
 
         if (formatter) {
             const columnConfig: TableColumnDateTextColumnConfig = {
-                formatter
+                formatter,
+                placeholder: this.placeholder
             };
             this.columnInternals.columnConfig = columnConfig;
             this.validator.setCustomOptionsValidity(true);

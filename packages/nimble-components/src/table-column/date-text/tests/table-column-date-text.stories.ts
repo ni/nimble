@@ -47,9 +47,9 @@ const simpleData = [
         birthday: new Date(2013, 3, 1, 20, 4, 37, 975).valueOf()
     },
     {
-        firstName: 'Maggie',
-        lastName: 'Simpson',
-        birthday: new Date(2022, 0, 12, 20, 4, 37, 975).valueOf()
+        firstName: 'Abbey',
+        lastName: 'Simpson?',
+        birthday: undefined
     }
 ] as const;
 
@@ -79,6 +79,7 @@ export default metadata;
 
 interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
+    placeholder: string;
     format: keyof typeof DateTextFormat;
     customDateStyle: DateStyle;
     customTimeStyle: TimeStyle;
@@ -108,6 +109,14 @@ The object's type is \`TableColumnValidity\`, and it contains the following bool
 -   \`invalidCustomOptionsCombination\`: \`true\` when an invalid combination of formatting options (i.e. \`custom-*\`) have been specified. To determine which specific options are in conflict, you may use [MDN's Try It widget](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#try_it) or a browser console to get a detailed exception message.
 `;
 
+const formatDescription = `By default, dates are formatted similar to "Jan 1, 2023, 12:00:00 AM". To use a different format, set this attribute to
+\`custom\` and provide additional attributes corresponding to [\`Intl.DateTimeFormat()\` options](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).
+Each \`Intl.DateTimeFormat()\` option has a corresponding attribute whose name is kebab-cased and prefixed with \`custom-\` e.g. \`custom-date-style\`
+corresponds to \`dateStyle\`.
+
+Note: The exact formatting of the resulting date time string is browser-specific and may vary slightly between browsers.
+`;
+
 export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
     parameters: {},
     // prettier-ignore
@@ -123,6 +132,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnDateTextTag}
                 field-name="birthday"
+                placeholder="${x => x.placeholder}"
                 format="${x => DateTextFormat[x.format]}"
                 custom-date-style="${x => x.customDateStyle}"
                 custom-time-style="${x => x.customTimeStyle}"
@@ -155,9 +165,12 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the `Date` type.',
             control: { type: 'none' }
         },
-        format: {
+        placeholder: {
             description:
-                'By default, dates are formatted like "Jan 1, 2023, 12:00:00 AM". To use a different format, set this attribute to `custom` and provide additional attributes corresponding to [`Intl.DateTimeFormat()` options](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat). Each `Intl.DateTimeFormat()` option has a corresponding attribute whose name is kebab-cased and prefixed with `custom-` e.g. `custom-date-style` corresponds to `dateStyle`.',
+                'The placeholder text to display when the field value is `undefined` or `null` for a record.'
+        },
+        format: {
+            description: formatDescription,
             options: Object.keys(DateTextFormat),
             control: { type: 'radio' }
         },
@@ -333,6 +346,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
     },
     args: {
         fieldName: 'firstName',
+        placeholder: 'Unknown birthday',
         format: 'default',
         customDateStyle: undefined,
         customTimeStyle: undefined,

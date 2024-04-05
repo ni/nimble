@@ -95,4 +95,14 @@ describe('Wafermap Experimental Data Manager', () => {
             dataManagerModule.dieDimensions.width
         );
     });
+
+    it('should have the same color categories', () => {
+        const expectedValues = getColorScale().colors;
+        const actualValues = dataManagerModule.colorScale.map(
+            colorCategory => colorCategory.color
+        );
+        expect(actualValues).toEqual(
+            jasmine.arrayWithExactContents(expectedValues)
+        );
+    });
 });

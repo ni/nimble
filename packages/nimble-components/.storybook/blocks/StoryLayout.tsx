@@ -1,28 +1,42 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import './story-layout.css';
 import { NimbleIconCheck } from '../../src/icons/tests/check.react';
 import { NimbleIconExclamationMark } from '../../src/icons/tests/exclamation-mark.react';
 
+interface ChildrenProp {
+    children?: ReactNode
+}
+
 /**
  * Renders a frame to match visual design of existing Storybook Doc blocks.
  */
-export const Frame = ({ children }) => {
+export const Frame = ({ children }: ChildrenProp) => {
     return <div className="story-layout-frame">{children}</div>;
 };
+
+interface ContainerProp {
+    children?: ReactNode
+    config?: string
+}
 
 /**
  * Renders a container with grid configuration. Use with <Column> to create grided documentation.
  * Use CSS grid syntax for the config prop to specify the number of columns and their widths.
  */
-export const Container = ({ children, config = '200px 1fr' }) => {
+export const Container = ({ children, config = '200px 1fr' }: ContainerProp) => {
     return <div className="story-layout-container" style={{gridTemplateColumns: config}}>{children}</div>;
 };
+
+interface ColumnProp {
+    children?: ReactNode
+    stylingClass?: string
+}
 
 /**
  * Renders a column for use with <Container>.
  * If you need to put Nimble components in a column, use the stylingClass="controls" prop to apply the correct margins.
  */
-export const Column = ({ children, stylingClass = '' }) => {
+export const Column = ({ children, stylingClass = '' }: ColumnProp) => {
     const cn = `story-layout-column ${stylingClass}`;
     return <div className={cn}>{children}</div>;
 };
@@ -37,7 +51,7 @@ export const Divider = () => {
 /**
  * Renders a "Do" section for Storybook documentation.
  */
-export const Do = ({ children }) => {
+export const Do = ({ children }: ChildrenProp) => {
     return (
         <Container config='48px 1fr'>
             <Column>
@@ -51,7 +65,7 @@ export const Do = ({ children }) => {
 /**
  * Renders a "Dont" section for Storybook documentation.
  */
-export const Dont = ({ children }) => {
+export const Dont = ({ children }: ChildrenProp) => {
     return (
         <Container config='48px 1fr'>
             <Column>
@@ -62,10 +76,18 @@ export const Dont = ({ children }) => {
     );
 };
 
+interface TagProp {
+    name: string
+    open?: boolean
+    openClose?: boolean
+    close?: boolean
+    selfClose?: boolean
+}
+
 /**
  * Renders a "Tag" component for Storybook documentation.
  */
-export const Tag = ({ name, open, openClose, close, selfClose }) => {
+export const Tag = ({ name, open, openClose, close, selfClose }: TagProp) => {
     if (open) {
         return (<code>&lt;{name}&gt;</code>);
     } else if (close) {

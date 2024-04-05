@@ -11,15 +11,6 @@ import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 import { tableColumnTextTag } from '../../table-column/text';
 
-const metadata: Meta = {
-    title: 'Tests/Table',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
-
 const data = [
     {
         firstName: 'Ralph',
@@ -37,6 +28,15 @@ const data = [
         favoriteColor: null
     }
 ] as const;
+
+const metadata: Meta = {
+    title: 'Tests/Table',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = html`

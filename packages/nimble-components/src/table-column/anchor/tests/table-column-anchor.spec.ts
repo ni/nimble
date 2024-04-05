@@ -1,6 +1,6 @@
-import { html } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import type { Table } from '../../../table';
+import { tableTag, type Table } from '../../../table';
 import { TableColumnAnchor, tableColumnAnchorTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
@@ -16,11 +16,17 @@ interface SimpleTableRecord extends TableRecord {
     otherLink?: string | null;
 }
 
+class ElementReferences {
+    public table!: Table;
+    public column!: TableColumnAnchor;
+}
+
 // prettier-ignore
-async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
+async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table style="width: 700px">
+        html`<${tableTag} style="width: 700px" ${ref('table')}>
                 <${tableColumnAnchorTag}
+                    ${ref('column')}
                     label-field-name="label"
                     href-field-name="link"
                     appearance="prominent"
@@ -38,19 +44,24 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
                 <${tableColumnAnchorTag}>
                     Column 2
                 </${tableColumnAnchorTag}>
-            </nimble-table>`
+            </${tableTag}>`,
+        { source }
     );
 }
 
 describe('TableColumnAnchor', () => {
-    let element: Table<SimpleTableRecord>;
+    let table: Table<SimpleTableRecord>;
+    let column: TableColumnAnchor;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: TablePageObject<SimpleTableRecord>;
 
     beforeEach(async () => {
-        ({ element, connect, disconnect } = await setup());
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
+        const elementReferences = new ElementReferences();
+        ({ connect, disconnect } = await setup(elementReferences));
+        table = elementReferences.table;
+        column = elementReferences.column;
+        pageObject = new TablePageObject<SimpleTableRecord>(table);
     });
 
     afterEach(async () => {
@@ -71,62 +82,40 @@ describe('TableColumnAnchor', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const firstColumn = element.columns[0] as TableColumnAnchor;
-
-        expect(firstColumn.checkValidity()).toBeTrue();
+        expect(column.checkValidity()).toBeTrue();
     });
 
     describe('with no href', () => {
-        const noValueData = [
-            { name: 'field not present', data: [{ unused: 'foo' }] },
-            { name: 'value is null', data: [{ label: null }] },
-            { name: 'value is undefined', data: [{ label: undefined }] },
-            {
-                name: 'value is not a string',
-                data: [{ label: 10 as unknown as string }]
-            }
-        ] as const;
-        parameterizeSpec(noValueData, (spec, name, value) => {
-            spec(`displays empty string when label ${name}`, async () => {
-                await element.setData(value.data);
-                await connect();
-                await waitForUpdatesAsync();
-
-                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
-            });
-        });
-
         it('changing labelFieldName updates display', async () => {
-            await element.setData([{ label: 'foo', otherLabel: 'bar' }]);
+            await table.setData([{ label: 'foo', otherLabel: 'bar' }]);
             await connect();
             await waitForUpdatesAsync();
 
-            const firstColumn = element.columns[0] as TableColumnAnchor;
-            firstColumn.labelFieldName = 'otherLabel';
+            column.labelFieldName = 'otherLabel';
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('bar');
         });
 
         it('changing data from value to null displays blank', async () => {
-            await element.setData([{ label: 'foo' }]);
+            await table.setData([{ label: 'foo' }]);
             await connect();
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('foo');
 
-            await element.setData([{ label: null }]);
+            await table.setData([{ label: null }]);
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
         });
 
         it('changing data from null to value displays value', async () => {
-            await element.setData([{ label: null }]);
+            await table.setData([{ label: null }]);
             await connect();
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
 
-            await element.setData([{ label: 'foo' }]);
+            await table.setData([{ label: 'foo' }]);
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('foo');
@@ -136,9 +125,8 @@ describe('TableColumnAnchor', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const firstColumn = element.columns[0] as TableColumnAnchor;
-            firstColumn.labelFieldName = undefined;
-            await element.setData([{ field: 'foo' }]);
+            column.labelFieldName = undefined;
+            await table.setData([{ field: 'foo' }]);
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
@@ -146,7 +134,7 @@ describe('TableColumnAnchor', () => {
 
         it('sets title when cell text is ellipsized', async () => {
             const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-            await element.setData([{ label: cellContents }]);
+            await table.setData([{ label: cellContents }]);
             await connect();
             await waitForUpdatesAsync();
             pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -156,7 +144,7 @@ describe('TableColumnAnchor', () => {
 
         it('does not set title when cell text is fully visible', async () => {
             const cellContents = 'short value';
-            await element.setData([{ label: cellContents }]);
+            await table.setData([{ label: cellContents }]);
             await connect();
             await waitForUpdatesAsync();
             pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -166,7 +154,7 @@ describe('TableColumnAnchor', () => {
 
         it('removes title on mouseout of cell', async () => {
             const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-            await element.setData([{ label: cellContents }]);
+            await table.setData([{ label: cellContents }]);
             await connect();
             await waitForUpdatesAsync();
             pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -181,7 +169,7 @@ describe('TableColumnAnchor', () => {
                 spec(`data "${name}" renders correctly`, async () => {
                     await connect();
 
-                    await element.setData([{ label: name }]);
+                    await table.setData([{ label: name }]);
                     await waitForUpdatesAsync();
 
                     expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
@@ -194,7 +182,7 @@ describe('TableColumnAnchor', () => {
 
     describe('with href', () => {
         it('displays label when href is not string', async () => {
-            await element.setData([
+            await table.setData([
                 { label: 'foo', link: 10 as unknown as string }
             ]);
             await connect();
@@ -204,33 +192,31 @@ describe('TableColumnAnchor', () => {
         });
 
         it('changing labelFieldName updates display', async () => {
-            await element.setData([
+            await table.setData([
                 { label: 'foo', otherLabel: 'bar', link: 'url' }
             ]);
             await connect();
             await waitForUpdatesAsync();
 
-            const firstColumn = element.columns[0] as TableColumnAnchor;
-            firstColumn.labelFieldName = 'otherLabel';
+            column.labelFieldName = 'otherLabel';
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('bar');
         });
 
         it('changing hrefFieldName updates href', async () => {
-            await element.setData([{ link: 'foo', otherLink: 'bar' }]);
+            await table.setData([{ link: 'foo', otherLink: 'bar' }]);
             await connect();
             await waitForUpdatesAsync();
 
-            const firstColumn = element.columns[0] as TableColumnAnchor;
-            firstColumn.hrefFieldName = 'otherLink';
+            column.hrefFieldName = 'otherLink';
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellAnchor(0, 0).href).toBe('bar');
         });
 
         it('sets appearance on anchor', async () => {
-            await element.setData([{ link: 'foo' }]);
+            await table.setData([{ link: 'foo' }]);
             await connect();
             await waitForUpdatesAsync();
 
@@ -240,12 +226,11 @@ describe('TableColumnAnchor', () => {
         });
 
         it('updating underline-hidden from true to false removes the underline-hidden attribute from the anchor', async () => {
-            await element.setData([{ link: 'foo' }]);
+            await table.setData([{ link: 'foo' }]);
             await connect();
             await waitForUpdatesAsync();
 
-            const firstColumn = element.columns[0] as TableColumnAnchor;
-            firstColumn.underlineHidden = true;
+            column.underlineHidden = true;
             await waitForUpdatesAsync();
             expect(
                 pageObject
@@ -253,7 +238,7 @@ describe('TableColumnAnchor', () => {
                     .hasAttribute('underline-hidden')
             ).toBeTrue();
 
-            firstColumn.underlineHidden = false;
+            column.underlineHidden = false;
             await waitForUpdatesAsync();
             expect(
                 pageObject
@@ -276,7 +261,7 @@ describe('TableColumnAnchor', () => {
         ] as const;
         parameterizeSpec(linkOptionData, (spec, name, value) => {
             spec(`sets ${name} on anchor`, async () => {
-                await element.setData([{ link: 'foo' }]);
+                await table.setData([{ link: 'foo' }]);
                 await connect();
                 await waitForUpdatesAsync();
 
@@ -288,7 +273,7 @@ describe('TableColumnAnchor', () => {
 
         describe('with no label', () => {
             it('displays empty string when href is not string', async () => {
-                await element.setData([{ link: 10 as unknown as string }]);
+                await table.setData([{ link: 10 as unknown as string }]);
                 await connect();
                 await waitForUpdatesAsync();
 
@@ -296,7 +281,7 @@ describe('TableColumnAnchor', () => {
             });
 
             it('displays url', async () => {
-                await element.setData([{ link: 'foo' }]);
+                await table.setData([{ link: 'foo' }]);
                 await connect();
                 await waitForUpdatesAsync();
 
@@ -304,24 +289,24 @@ describe('TableColumnAnchor', () => {
             });
 
             it('changing url from value to null displays blank', async () => {
-                await element.setData([{ link: 'foo' }]);
+                await table.setData([{ link: 'foo' }]);
                 await connect();
                 await waitForUpdatesAsync();
                 expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('foo');
 
-                await element.setData([{ link: null }]);
+                await table.setData([{ link: null }]);
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
             });
 
             it('changing url from null to value displays value', async () => {
-                await element.setData([{ link: null }]);
+                await table.setData([{ link: null }]);
                 await connect();
                 await waitForUpdatesAsync();
                 expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
 
-                await element.setData([{ link: 'foo' }]);
+                await table.setData([{ link: 'foo' }]);
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('foo');
@@ -330,7 +315,7 @@ describe('TableColumnAnchor', () => {
 
         it('sets title when cell text is ellipsized', async () => {
             const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-            await element.setData([{ label: cellContents, link: 'url' }]);
+            await table.setData([{ label: cellContents, link: 'url' }]);
             await connect();
             await waitForUpdatesAsync();
             pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -340,7 +325,7 @@ describe('TableColumnAnchor', () => {
 
         it('does not set title when cell text is fully visible', async () => {
             const cellContents = 'short value';
-            await element.setData([{ label: cellContents, link: 'url' }]);
+            await table.setData([{ label: cellContents, link: 'url' }]);
             await connect();
             await waitForUpdatesAsync();
             pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -350,7 +335,7 @@ describe('TableColumnAnchor', () => {
 
         it('removes title on mouseout of cell', async () => {
             const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-            await element.setData([{ label: cellContents, link: 'url' }]);
+            await table.setData([{ label: cellContents, link: 'url' }]);
             await connect();
             await waitForUpdatesAsync();
             pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -362,8 +347,8 @@ describe('TableColumnAnchor', () => {
 
         it('sets title when group header text is ellipsized', async () => {
             const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-            await element.setData([{ label: cellContents, link: 'url' }]);
-            element.style.width = '200px';
+            await table.setData([{ label: cellContents, link: 'url' }]);
+            table.style.width = '200px';
             await connect();
             await waitForUpdatesAsync();
             pageObject.dispatchEventToGroupHeader(
@@ -376,7 +361,7 @@ describe('TableColumnAnchor', () => {
 
         it('does not set title when group header text is fully visible', async () => {
             const cellContents = 'foo';
-            await element.setData([{ label: cellContents, link: 'url' }]);
+            await table.setData([{ label: cellContents, link: 'url' }]);
             await connect();
             await waitForUpdatesAsync();
             pageObject.dispatchEventToGroupHeader(
@@ -389,7 +374,7 @@ describe('TableColumnAnchor', () => {
 
         it('removes title on mouseout of group header', async () => {
             const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-            await element.setData([{ label: cellContents, link: 'url' }]);
+            await table.setData([{ label: cellContents, link: 'url' }]);
             await connect();
             await waitForUpdatesAsync();
             pageObject.dispatchEventToGroupHeader(
@@ -406,14 +391,13 @@ describe('TableColumnAnchor', () => {
         });
 
         it('sorts by the label field', async () => {
-            element.idFieldName = 'label';
+            table.idFieldName = 'label';
             await connect();
             await waitForUpdatesAsync();
 
-            const firstColumn = element.columns[0] as TableColumnAnchor;
-            firstColumn.sortDirection = TableColumnSortDirection.ascending;
-            firstColumn.sortIndex = 0;
-            await element.setData([
+            column.sortDirection = TableColumnSortDirection.ascending;
+            column.sortIndex = 0;
+            await table.setData([
                 { label: 'd', link: 'foo3' },
                 { label: 'a', link: 'foo4' },
                 { label: 'c', link: 'foo1' },
@@ -440,7 +424,7 @@ describe('TableColumnAnchor', () => {
                 spec(`data "${name}" renders correctly`, async () => {
                     await connect();
 
-                    await element.setData([{ label: name, link: 'url' }]);
+                    await table.setData([{ label: name, link: 'url' }]);
                     await waitForUpdatesAsync();
 
                     expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
@@ -455,7 +439,7 @@ describe('TableColumnAnchor', () => {
                 spec(`data "${name}" renders correctly`, async () => {
                     await connect();
 
-                    await element.setData([{ label: name, link: 'url' }]);
+                    await table.setData([{ label: name, link: 'url' }]);
                     await waitForUpdatesAsync();
 
                     expect(
@@ -463,6 +447,174 @@ describe('TableColumnAnchor', () => {
                     ).toContain(name);
                 });
             });
+        });
+    });
+
+    describe('placeholder', () => {
+        const testCases = [
+            {
+                name: 'label and href are both defined',
+                data: [{ label: 'my label', link: 'url' }],
+                cellValue: 'my label',
+                groupValue: 'my label',
+                usesColumnPlaceholder: false
+            },
+            {
+                name: 'label and href are both missing',
+                data: [{}],
+                cellValue: '',
+                groupValue: 'No value',
+                usesColumnPlaceholder: true
+            },
+            {
+                name: 'label and href are both undefined',
+                data: [{ label: undefined, link: undefined }],
+                cellValue: '',
+                groupValue: 'No value',
+                usesColumnPlaceholder: true
+            },
+            {
+                name: 'label and href are both null',
+                data: [{ label: null, link: null }],
+                cellValue: '',
+                groupValue: 'No value',
+                usesColumnPlaceholder: true
+            },
+            {
+                name: 'label is null and href is undefined',
+                data: [{ label: null, link: undefined }],
+                cellValue: '',
+                groupValue: 'No value',
+                usesColumnPlaceholder: true
+            },
+            {
+                name: 'label is undefined and href is null',
+                data: [{ label: undefined, link: null }],
+                cellValue: '',
+                groupValue: 'No value',
+                usesColumnPlaceholder: true
+            },
+            {
+                name: 'label is empty with defined href',
+                data: [{ label: '', link: 'link' }],
+                cellValue: '',
+                groupValue: 'Empty',
+                usesColumnPlaceholder: false
+            },
+            {
+                name: 'label is non-empty with undefined href',
+                data: [{ label: 'my label', link: undefined }],
+                cellValue: 'my label',
+                groupValue: 'my label',
+                usesColumnPlaceholder: false
+            },
+            {
+                name: 'label is not a string with no href',
+                data: [{ label: 10 as unknown as string }],
+                cellValue: '',
+                groupValue: '',
+                usesColumnPlaceholder: false
+            },
+            {
+                name: 'label is not a string with a defined href',
+                data: [{ label: 10 as unknown as string, link: 'link' }],
+                cellValue: 'link',
+                groupValue: '',
+                usesColumnPlaceholder: false
+            }
+        ] as const;
+
+        async function initializeColumnAndTable(
+            data: readonly SimpleTableRecord[],
+            placeholder?: string
+        ): Promise<void> {
+            column.placeholder = placeholder;
+            await table.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+        }
+
+        parameterizeSpec(testCases, (spec, name, value) => {
+            spec(
+                `cell and group row render expected value when ${name} and placeholder is configured`,
+                async () => {
+                    const placeholder = 'Custom placeholder';
+                    await initializeColumnAndTable(value.data, placeholder);
+
+                    const expectedCellText = value.usesColumnPlaceholder
+                        ? placeholder
+                        : value.cellValue;
+                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                        expectedCellText
+                    );
+                    expect(
+                        pageObject.getRenderedGroupHeaderTextContent(0)
+                    ).toBe(value.groupValue);
+                }
+            );
+        });
+
+        parameterizeSpec(testCases, (spec, name, value) => {
+            spec(
+                `cell and group row render expected value when ${name} and placeholder is not configured`,
+                async () => {
+                    await initializeColumnAndTable(value.data);
+
+                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                        value.cellValue
+                    );
+                    expect(
+                        pageObject.getRenderedGroupHeaderTextContent(0)
+                    ).toBe(value.groupValue);
+                }
+            );
+        });
+
+        it('setting placeholder to undefined updates cells from displaying placeholder to displaying blank', async () => {
+            const placeholder = 'My placeholder';
+            await initializeColumnAndTable([{}], placeholder);
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                placeholder
+            );
+
+            column.placeholder = undefined;
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+        });
+
+        it('setting placeholder to defined string updates cells from displaying blank to displaying placeholder', async () => {
+            await initializeColumnAndTable([{}]);
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+
+            const placeholder = 'placeholder';
+            column.placeholder = placeholder;
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                placeholder
+            );
+        });
+
+        it('updating placeholder from one string to another updates cell', async () => {
+            const placeholder1 = 'My first placeholder';
+            await initializeColumnAndTable([{}], placeholder1);
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                placeholder1
+            );
+
+            const placeholder2 = 'My second placeholder';
+            column.placeholder = placeholder2;
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                placeholder2
+            );
+        });
+
+        it('can configure empty placeholder', async () => {
+            const placeholder = '';
+            await initializeColumnAndTable([{}], placeholder);
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                placeholder
+            );
         });
     });
 });

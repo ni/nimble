@@ -1,5 +1,7 @@
 import type { Float64, Int32 } from 'apache-arrow';
 
+import type { Float64, Int32 } from 'apache-arrow';
+
 export const WaferMapOriginLocation = {
     bottomLeft: 'bottom-left',
     bottomRight: 'bottom-right',
@@ -43,6 +45,12 @@ export interface WaferMapDie {
     // The metadata field is not used by the wafer-map and is only for optionally storing arbitrary metadata.
     metadata?: unknown;
     tags?: string[];
+}
+
+export interface HoverDie {
+    index: number;
+    x: number;
+    y: number;
 }
 
 export interface HoverDie {
@@ -100,3 +108,10 @@ export type WaferRequiredFields = {
     rowIndex: Int32,
     value: Float64
 };
+
+interface IColorScaleMarker {
+    color: string;
+    value: number;
+}
+
+export type ColorScale = IColorScaleMarker[];

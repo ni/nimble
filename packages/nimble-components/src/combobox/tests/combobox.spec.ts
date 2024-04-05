@@ -522,6 +522,29 @@ describe('Combobox', () => {
         await disconnect();
     });
 
+    it('emits one change event on focusout when popup is closed and text was updated', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+
+        const changeEvent = jasmine.createSpy();
+        element.addEventListener('change', changeEvent);
+        element.autocomplete = ComboboxAutocomplete.none;
+        updateComboboxWithText(element, 'O');
+        expect(changeEvent).toHaveBeenCalledTimes(0);
+        await waitForUpdatesAsync();
+
+        updateComboboxWithText(element, 'On');
+        await waitForUpdatesAsync();
+        expect(changeEvent).toHaveBeenCalledTimes(0);
+
+        const focusoutEvent = new FocusEvent('focusout');
+        element.dispatchEvent(focusoutEvent); // commit value
+        expect(changeEvent).toHaveBeenCalledTimes(1);
+
+        await disconnect();
+    });
+
     it('should not emit change event if entered text matches value prior to typing', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();

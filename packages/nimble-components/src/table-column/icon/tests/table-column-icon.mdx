@@ -17,7 +17,15 @@ The <Tag name={tableColumnIconTag}/> column renders string, number, or boolean v
 <Canvas of={tableColumnIconStories.iconColumn} />
 <Controls of={tableColumnIconStories.iconColumn} />
 
-## Blazor Usage
+## Usage
+
+### Best Practices
+
+-   Provide a mapping for every expected record value. Because grouping is performed on the record value, non-mapped record values can result in multiple groups without group labels.
+    -   To improve grouping behavior of values that don't correspond to icons, explicitly map those values to an `undefined` icon.
+-   Avoid having multiple values that map to the same label because grouping and sorting is done on the record value rather than the mapped label.
+
+### Blazor Usage
 
 When setting a child mapping element's `Key` value to a string, you must wrap it in `@()` so that the compiler treats it as a string, e.g.
 `<NimbleMappingIcon Key=@("foo") ...>`

@@ -146,35 +146,12 @@ describe('WaferMap', () => {
 
     describe('worker renderer flow', () => {
         let renderHoverSpy: jasmine.Spy;
+        let experimentalUpdateSpy: jasmine.Spy;
         beforeEach(() => {
             renderHoverSpy = spyOn(element.workerRenderer, 'renderHover');
         });
 
-        it('will use RenderingModule after dies change', () => {
-            element.dies = [{ x: 1, y: 1, value: '1' }];
-            processUpdates();
-            expect(element.renderer instanceof RenderingModule).toBeTrue();
-        });
-
-        // skipped until prerendering is refactored
-        xit('will use WorkerRenderer after supported diesTable change', () => {
-            element.diesTable = tableFromArrays({
-                colIndex: Int32Array.from([]),
-                rowIndex: Int32Array.from([]),
-                value: Float64Array.from([])
-            });
-            processUpdates();
-            expect(element.renderer instanceof WorkerRenderer).toBeTrue();
-        });
-
-        it('will use RenderingModule after unsupported diesTable change', () => {
-            element.diesTable = new Table();
-            processUpdates();
-            expect(element.renderer instanceof RenderingModule).toBeTrue();
-        });
-
-        // skipped until prerendering is refactored
-        xit('will call renderHover after supported diesTable change', () => {
+        it('will call renderHover after supported diesTable change', () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
@@ -208,6 +185,7 @@ describe('WaferMap', () => {
 
         it('will zoom in the wafer-map', () => {
             element.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
             processUpdates();
@@ -217,6 +195,7 @@ describe('WaferMap', () => {
 
         it('will zoom out to identity', () => {
             element.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
 
@@ -224,6 +203,7 @@ describe('WaferMap', () => {
             const zoomedValue = getTransform();
             expect(zoomedValue).not.toEqual(initialValue);
 
+            element.dispatchEvent(
             element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
             );
@@ -275,6 +255,7 @@ describe('WaferMap', () => {
             expect(initialWidth).toBe(460);
 
             element.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
             await waitForUpdatesAsync();
@@ -293,6 +274,7 @@ describe('WaferMap', () => {
             await waitForUpdatesAsync();
             const initialTransform = element.hoverTransform;
             expect(initialTransform).not.toEqual('');
+            element.dispatchEvent(
             element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );

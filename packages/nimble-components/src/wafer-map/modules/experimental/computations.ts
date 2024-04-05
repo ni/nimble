@@ -45,7 +45,7 @@ export class Computations {
 
     public constructor(private readonly wafermap: WaferMap) {}
 
-    public updateContainerDimensions(): void {
+    public update(): void {
         const canvasDimensions = {
             width: this.wafermap.canvasWidth,
             height: this.wafermap.canvasHeight
@@ -71,14 +71,6 @@ export class Computations {
             canvasDimensions,
             this._margin
         );
-        this.updateScales();
-    }
-
-    public updateScales(): void {
-        if (this._containerDimensions === undefined) {
-            this.updateContainerDimensions();
-            return;
-        }
         const containerDiameter = Math.min(
             this._containerDimensions.width,
             this._containerDimensions.height
