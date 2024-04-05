@@ -1,4 +1,4 @@
-import { DataType, Float, Int, Precision } from 'apache-arrow';
+import { DataType, Precision } from 'apache-arrow';
 import type { WaferMap } from '..';
 import type { WaferMapValidity } from '../types';
 

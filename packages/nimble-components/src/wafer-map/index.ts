@@ -220,7 +220,7 @@ export class WaferMap<
      * @internal
      * Experimental update function called when an update is queued.
      */
-    public experimentalUpdate(): void {
+    public async experimentalUpdate(): Promise<void> {
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
@@ -232,15 +232,15 @@ export class WaferMap<
                 || this.waferMapUpdateTracker.requiresScalesUpdate
             ) {
                 this.experimentalDataManager.updateComputations();
-                this.workerRenderer.drawWafer();
+                await this.workerRenderer.drawWafer();
             } else if (
                 this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
                 || this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
             ) {
                 this.experimentalDataManager.updatePrerendering();
-                this.workerRenderer.drawWafer();
+                await this.workerRenderer.drawWafer();
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
-                this.workerRenderer.drawWafer();
+                await this.workerRenderer.drawWafer();
             }
             this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
@@ -260,35 +260,25 @@ export class WaferMap<
         this.zoomHandler.connect();
         this.validate();
         if (this.isExperimentalUpdate()) {
-            this.experimentalUpdate();
+            await this.experimentalUpdate();
+            this.canvas.width = this.canvasWidth;
+            this.canvas.height = this.canvasHeight;
             return;
         }
-        this.renderer = this.isExperimentalRenderer()
-            ? this.workerRenderer
-            : this.mainRenderer;
-        // zoom translateExtent needs to be recalculated when canvas size changes
-        this.dataManager = this.isExperimentalRenderer()
-            ? this.experimentalDataManager
-            : this.stableDataManager;
-
         if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
-            if (!this.isExperimentalRenderer()) {
-                this.canvas.width = this.canvasWidth;
-                this.canvas.height = this.canvasHeight;
-            }
             this.dataManager.updateContainerDimensions();
-            await this.renderer.updateSortedDiesAndDrawWafer();
+            this.renderer.updateSortedDiesAndDrawWafer();
         } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
             this.dataManager.updateScales();
-            await this.renderer.updateSortedDiesAndDrawWafer();
+            this.renderer.updateSortedDiesAndDrawWafer();
         } else if (this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate) {
             this.dataManager.updateLabelsFontSize();
-            await this.renderer.updateSortedDiesAndDrawWafer();
+            this.renderer.updateSortedDiesAndDrawWafer();
         } else if (this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate) {
             this.dataManager.updateDiesRenderInfo();
-            await this.renderer.updateSortedDiesAndDrawWafer();
+            this.renderer.updateSortedDiesAndDrawWafer();
         } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
-            await this.renderer.drawWafer();
+            this.renderer.drawWafer();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
@@ -297,7 +287,7 @@ export class WaferMap<
     /**
      * @internal
      */
-    public isExperimentalRenderer(): boolean {
+    public isExperimentalUpdate(): boolean {
         return this.diesTable !== undefined;
     }
 

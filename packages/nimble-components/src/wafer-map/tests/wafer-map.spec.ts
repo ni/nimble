@@ -11,8 +11,6 @@ import {
     WaferMapOrientation,
     WaferMapOriginLocation
 } from '../types';
-import { RenderingModule } from '../modules/rendering';
-import { WorkerRenderer } from '../modules/experimental/worker-renderer';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
@@ -146,7 +144,6 @@ describe('WaferMap', () => {
 
     describe('worker renderer flow', () => {
         let renderHoverSpy: jasmine.Spy;
-        let experimentalUpdateSpy: jasmine.Spy;
         beforeEach(() => {
             renderHoverSpy = spyOn(element.workerRenderer, 'renderHover');
         });
@@ -185,7 +182,6 @@ describe('WaferMap', () => {
 
         it('will zoom in the wafer-map', () => {
             element.dispatchEvent(
-            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
             processUpdates();
@@ -195,7 +191,6 @@ describe('WaferMap', () => {
 
         it('will zoom out to identity', () => {
             element.dispatchEvent(
-            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
 
@@ -203,7 +198,6 @@ describe('WaferMap', () => {
             const zoomedValue = getTransform();
             expect(zoomedValue).not.toEqual(initialValue);
 
-            element.dispatchEvent(
             element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
             );
@@ -255,7 +249,6 @@ describe('WaferMap', () => {
             expect(initialWidth).toBe(460);
 
             element.dispatchEvent(
-            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
             await waitForUpdatesAsync();
@@ -274,7 +267,6 @@ describe('WaferMap', () => {
             await waitForUpdatesAsync();
             const initialTransform = element.hoverTransform;
             expect(initialTransform).not.toEqual('');
-            element.dispatchEvent(
             element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );

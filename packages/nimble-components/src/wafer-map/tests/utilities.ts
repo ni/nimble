@@ -11,14 +11,11 @@ import type { ZoomTransform } from 'd3-zoom';
 import {
     Dimensions,
     HoverDie,
-    HoverDie,
     Margin,
     WaferMapColorScale,
     WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOriginLocation,
-    WaferMapValidity,
-    WaferRequiredFields
     WaferMapValidity,
     WaferRequiredFields
 } from '../types';
@@ -288,6 +285,33 @@ export function getWaferMapMockComputations(
         canvasHeight,
         validity
     };
+    return waferMapMock as WaferMap;
+}
+export function getWaferMapMockComputationsExperimental(
+    diesTable: Table = getWaferMapDiesTable(),
+    originLocation: WaferMapOriginLocation,
+    canvasWidth: number,
+    canvasHeight: number,
+    validity: WaferMapValidity = {
+        invalidGridDimensions: false,
+        invalidDiesTableSchema: false
+    }
+): WaferMap {
+    const waferMapMock: Pick<
+    WaferMap,
+    | 'diesTable'
+    | 'originLocation'
+    | 'canvasWidth'
+    | 'canvasHeight'
+    | 'validity'
+    > = {
+        diesTable,
+        originLocation,
+        canvasWidth,
+        canvasHeight,
+        validity
+    };
+    return waferMapMock as WaferMap;
 }
 
 export function getWaferMapMockValidator(
