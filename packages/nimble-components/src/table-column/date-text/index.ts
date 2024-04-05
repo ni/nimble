@@ -50,7 +50,10 @@ declare global {
  * The table column for displaying dates/times as text.
  */
 export class TableColumnDateText extends mixinTextBase(
-    TableColumnTextBase<TableColumnDateTextColumnConfig, TableColumnDateTextValidator>
+    TableColumnTextBase<
+    TableColumnDateTextColumnConfig,
+    TableColumnDateTextValidator
+    >
 ) {
     @attr
     public format: DateTextFormat;

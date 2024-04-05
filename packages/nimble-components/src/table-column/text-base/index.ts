@@ -21,7 +21,10 @@ export abstract class TableColumnTextBase<
     }
 }
 
-type TableColumnBaseConstructor<TColumnConfig, TColumnValidator extends ColumnValidator<[]>> = abstract new (
+type TableColumnBaseConstructor<
+    TColumnConfig,
+    TColumnValidator extends ColumnValidator<[]>
+> = abstract new (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ...args: any[]
 ) => TableColumnTextBase<TColumnConfig, TColumnValidator>;

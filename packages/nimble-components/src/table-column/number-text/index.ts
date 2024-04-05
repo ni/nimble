@@ -45,7 +45,10 @@ declare global {
  * The table column for displaying numbers as text.
  */
 export class TableColumnNumberText extends mixinTextBase(
-    TableColumnTextBase<TableColumnNumberTextColumnConfig, TableColumnNumberTextValidator>
+    TableColumnTextBase<
+    TableColumnNumberTextColumnConfig,
+    TableColumnNumberTextValidator
+    >
 ) {
     @attr
     public format: NumberTextFormat;
