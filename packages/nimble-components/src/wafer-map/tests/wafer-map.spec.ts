@@ -122,8 +122,7 @@ describe('WaferMap', () => {
             drawWaferSpy = spyOn(element.workerRenderer, 'drawWafer');
         });
 
-        // skipped until prerendering is refactored
-        xit('will call drawWafer after supported diesTable change', () => {
+        it('will call drawWafer after supported diesTable change', () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
@@ -144,8 +143,37 @@ describe('WaferMap', () => {
 
     describe('worker renderer flow', () => {
         let renderHoverSpy: jasmine.Spy;
+        let experimentalUpdateSpy: jasmine.Spy;
+
         beforeEach(() => {
             renderHoverSpy = spyOn(element.workerRenderer, 'renderHover');
+            experimentalUpdateSpy = spyOn(
+                element,
+                'experimentalUpdate'
+            ).and.callThrough();
+        });
+
+        it('will use RenderingModule after dies change', () => {
+            element.dies = [{ x: 1, y: 1, value: '1' }];
+            processUpdates();
+            expect(experimentalUpdateSpy).toHaveBeenCalledTimes(0);
+        });
+
+        it('will use WorkerRenderer after supported diesTable change', () => {
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([]),
+                rowIndex: Int32Array.from([]),
+                value: Float64Array.from([])
+            });
+            processUpdates();
+            expect(experimentalUpdateSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('will use WorkerRenderer after unsupported diesTable change but it will fail', () => {
+            element.diesTable = new Table();
+            processUpdates();
+            expect(experimentalUpdateSpy).toHaveBeenCalledTimes(1);
+            expect(renderHoverSpy).toHaveBeenCalledTimes(0);
         });
 
         it('will call renderHover after supported diesTable change', () => {
