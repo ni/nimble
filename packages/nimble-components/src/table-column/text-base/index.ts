@@ -10,7 +10,7 @@ import type { ColumnValidator } from '../base/models/column-validator';
  */
 export abstract class TableColumnTextBase<
     TColumnConfig,
-    TColumnValidator extends ColumnValidator<[]>
+    TColumnValidator extends ColumnValidator<[]> = ColumnValidator<[]>
 > extends TableColumn<TColumnConfig, TColumnValidator> {
     @attr({ attribute: 'field-name' })
     public fieldName?: string;
@@ -21,16 +21,18 @@ export abstract class TableColumnTextBase<
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
+type TableColumnBaseConstructor<TColumnConfig, TColumnValidator extends ColumnValidator<[]>> = abstract new (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ...args: any[]
+) => TableColumnTextBase<TColumnConfig, TColumnValidator>;
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type, @typescript-eslint/no-explicit-any
 export function mixinTextBase<
+    TBase extends TableColumnBaseConstructor<TColumnConfig, TColumnValidator>,
     TColumnConfig,
     TColumnValidator extends ColumnValidator<[]> = ColumnValidator<[]>
->() {
+>(base: TBase) {
     return mixinGroupableColumnAPI(
-        mixinFractionalWidthColumnAPI(
-            mixinColumnWithPlaceholderAPI(
-                TableColumnTextBase<TColumnConfig, TColumnValidator>
-            )
-        )
+        mixinFractionalWidthColumnAPI(mixinColumnWithPlaceholderAPI(base))
     );
 }

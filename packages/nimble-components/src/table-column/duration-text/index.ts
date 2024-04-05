@@ -12,7 +12,7 @@ import { lang } from '../../theme-provider';
 import { DurationFormatter } from './models/duration-formatter';
 import { tableColumnDurationTextGroupHeaderViewTag } from './group-header-view';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
-import { mixinTextBase } from '../text-base';
+import { TableColumnTextBase, mixinTextBase } from '../text-base';
 import { ColumnValidator } from '../base/models/column-validator';
 
 export type TableColumnDurationTextCellRecord = TableNumberField<'value'>;
@@ -30,7 +30,9 @@ declare global {
 /**
  * The table column for displaying a duration value as text.
  */
-export class TableColumnDurationText extends mixinTextBase<TableColumnDurationTextColumnConfig>() {
+export class TableColumnDurationText extends mixinTextBase(
+    TableColumnTextBase<TableColumnDurationTextColumnConfig>
+) {
     private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
         handleChange: () => {
             this.updateColumnConfig();

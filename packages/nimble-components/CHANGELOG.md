@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 02 Apr 2024 17:10:35 GMT and should not be manually modified.
+This log was last generated on Thu, 04 Apr 2024 21:33:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.8
+
+Thu, 04 Apr 2024 21:33:43 GMT
+
+### Patches
+
+- Improve TColumnConfig typing on columns that extend TableColumnTextBase ([ni/nimble@2777f26](https://github.com/ni/nimble/commit/2777f26b80bbdfa68acf76e253e5ce5fcb094631))
+
+## 24.1.7
+
+Thu, 04 Apr 2024 18:11:08 GMT
+
+### Patches
+
+- Fork FAST Combobox. ([ni/nimble@53b2c45](https://github.com/ni/nimble/commit/53b2c4572f3e24fc862ab39e30808908b372e3e4))
+
+## 24.1.6
+
+Thu, 04 Apr 2024 14:57:17 GMT
+
+### Patches
+
+- Created new Experimental Prerendering Module and tests ([ni/nimble@b6e22fe](https://github.com/ni/nimble/commit/b6e22fee05e26937cb2bb0749de83def60c33bf3))
+
+## 24.1.5
+
+Tue, 02 Apr 2024 22:01:51 GMT
+
+### Patches
+
+- Reverting changes. ([ni/nimble@47d91bc](https://github.com/ni/nimble/commit/47d91bc3cb98a52843ffb9f0b7d3e3e1baaea344))
 
 ## 24.1.4
 

@@ -56,7 +56,7 @@ describe('Wafermap Data Manager', () => {
 
         processUpdates();
 
-        dataManagerModule = element.stableDataManager;
+        dataManagerModule = element.dataManager;
     });
 
     afterEach(async () => {

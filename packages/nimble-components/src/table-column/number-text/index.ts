@@ -13,7 +13,7 @@ import {
 import { styles } from '../base/styles';
 import { template } from './template';
 import type { TableNumberField } from '../../table/types';
-import { mixinTextBase } from '../text-base';
+import { TableColumnTextBase, mixinTextBase } from '../text-base';
 import { TableColumnSortOperation } from '../base/types';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
@@ -44,10 +44,9 @@ declare global {
 /**
  * The table column for displaying numbers as text.
  */
-export class TableColumnNumberText extends mixinTextBase<
-TableColumnNumberTextColumnConfig,
-TableColumnNumberTextValidator
->() {
+export class TableColumnNumberText extends mixinTextBase(
+    TableColumnTextBase<TableColumnNumberTextColumnConfig, TableColumnNumberTextValidator>
+) {
     @attr
     public format: NumberTextFormat;
 
