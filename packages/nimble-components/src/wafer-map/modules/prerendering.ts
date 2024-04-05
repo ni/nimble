@@ -26,7 +26,7 @@ export class Prerendering {
     | ScaleLinear<string, string>;
 
     private _labelsFontSize!: number;
-    private _diesRenderInfo!: DieRenderInfo[];
+    private readonly _diesRenderInfo!: DieRenderInfo[];
 
     private readonly fontSizeFactor = 0.8;
     private readonly nonHighlightedOpacity = 0.3;
@@ -52,30 +52,10 @@ export class Prerendering {
             info: DieRenderInfo | null
         ): info is DieRenderInfo => info !== null;
         if (this.wafermap.diesTable === undefined) {
-            this._diesRenderInfo = this.wafermap.dies
+            this.wafermap.dies
                 .map(die => this.computeDieRenderInfo(die))
                 .filter(isDieRenderInfo);
-            return;
         }
-        // will chnange prerendering info for the new strategy in the following PR
-        this._diesRenderInfo = (
-            this.wafermap.diesTable.toArray() as {
-                colIndex: number,
-                rowIndex: number,
-                value: string
-            }[]
-        )
-            .map(row => {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                return {
-                    x: row.colIndex,
-                    y: row.rowIndex,
-                    value: row.value,
-                    tags: []
-                };
-            })
-            .map(die => this.computeDieRenderInfo(die))
-            .filter(isDieRenderInfo);
     }
 
     private computeDieRenderInfo(die: WaferMapDie): DieRenderInfo | null {

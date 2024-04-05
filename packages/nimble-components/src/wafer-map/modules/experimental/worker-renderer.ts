@@ -42,10 +42,10 @@ export class WorkerRenderer {
             {
                 x:
                     topLeftCanvasCorner[0]
-                    - this.wafermap.dataManager.dieDimensions.width,
+                    - this.wafermap.experimentalDataManager.dieDimensions.width,
                 y:
                     topLeftCanvasCorner[1]
-                    - this.wafermap.dataManager.dieDimensions.height
+                    - this.wafermap.experimentalDataManager.dieDimensions.height
             },
             {
                 x: bottomRightCanvasCorner[0],
@@ -57,9 +57,9 @@ export class WorkerRenderer {
     }
 
     public renderHover(): void {
-        this.wafermap.hoverWidth = this.wafermap.dataManager.dieDimensions.width
+        this.wafermap.hoverWidth = this.wafermap.experimentalDataManager.dieDimensions.width
             * this.wafermap.transform.k;
-        this.wafermap.hoverHeight = this.wafermap.dataManager.dieDimensions.height
+        this.wafermap.hoverHeight = this.wafermap.experimentalDataManager.dieDimensions.height
             * this.wafermap.transform.k;
         this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
             ? HoverDieOpacity.hide
@@ -83,39 +83,41 @@ export class WorkerRenderer {
             height: this.wafermap.canvasHeight
         });
         await this.wafermap.worker.setDiesDimensions(
-            this.wafermap.dataManager.dieDimensions
+            this.wafermap.experimentalDataManager.dieDimensions
         );
 
-        const scaleX = this.wafermap.dataManager.horizontalScale(1)!
-            - this.wafermap.dataManager.horizontalScale(0)!;
-        const scaleY = this.wafermap.dataManager.verticalScale(1)!
-            - this.wafermap.dataManager.verticalScale(0)!;
+        const scaleX = this.wafermap.experimentalDataManager.horizontalScale(1)!
+            - this.wafermap.experimentalDataManager.horizontalScale(0)!;
+        const scaleY = this.wafermap.experimentalDataManager.verticalScale(1)!
+            - this.wafermap.experimentalDataManager.verticalScale(0)!;
         await this.wafermap.worker.setScaling(scaleX, scaleY);
 
         await this.wafermap.worker.setBases(
-            this.wafermap.dataManager.horizontalScale(0)!,
-            this.wafermap.dataManager.verticalScale(0)!
+            this.wafermap.experimentalDataManager.horizontalScale(0)!,
+            this.wafermap.experimentalDataManager.verticalScale(0)!
         );
-        await this.wafermap.worker.setMargin(this.wafermap.dataManager.margin);
+        await this.wafermap.worker.setMargin(
+            this.wafermap.experimentalDataManager.margin
+        );
     }
 
     private calculateHoverTransform(): string {
         if (this.wafermap.hoverDie !== undefined) {
-            const scaledX = this.wafermap.dataManager.horizontalScale(
+            const scaledX = this.wafermap.experimentalDataManager.horizontalScale(
                 this.wafermap.hoverDie.x
             );
             if (scaledX === undefined) {
                 return '';
             }
-            const scaledY = this.wafermap.dataManager.verticalScale(
+            const scaledY = this.wafermap.experimentalDataManager.verticalScale(
                 this.wafermap.hoverDie.y
             );
             if (scaledY === undefined) {
                 return '';
             }
             const transformedPoint = this.wafermap.transform.apply([
-                scaledX + this.wafermap.dataManager.margin.left,
-                scaledY + this.wafermap.dataManager.margin.top
+                scaledX + this.wafermap.experimentalDataManager.margin.left,
+                scaledY + this.wafermap.experimentalDataManager.margin.top
             ]);
             return `translate(${transformedPoint[0]}, ${transformedPoint[1]})`;
         }
