@@ -35,15 +35,13 @@
       },
       "Microsoft.Playwright": {
         "type": "Direct",
-        "requested": "(, )",
-        "resolved": "1.12.0",
-        "contentHash": "PKrwvb3Yuwmx9jvyZvhdJ2Ur8oMqwBQ7/QHWAnYPC3ghhypo61cmEXGf3ledRP2SWAT1wVPfyWSFMD1sVjYBIA==",
+        "requested": "[1.42.0, )",
+        "resolved": "1.42.0",
+        "contentHash": "vH4dIqJFDRB8+qsoy6vWJwemXwTMDo51aYoDTNrlz+mVqbfZaeEReVdHvwbtIBwm4iADpFQf0xWRoR2pHVKbWQ==",
         "dependencies": {
-          "Macross.Json.Extensions": "2.0.0",
-          "Microsoft.Bcl.AsyncInterfaces": "5.0.0",
-          "Microsoft.Extensions.Logging": "5.0.0",
+          "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
           "System.ComponentModel.Annotations": "5.0.0",
-          "System.Text.Json": "5.0.2"
+          "System.Text.Json": "6.0.0"
         }
       },
       "NI.CSharp.Analyzers": {
@@ -94,14 +92,6 @@
         "requested": "[2.5.7, )",
         "resolved": "2.5.7",
         "contentHash": "31Rl7dBJriX0DNwZfDp8gqFOPsiM0c9kqpcH/HvNi9vDp+K7Ydf42H7mVIvYT918Ywzn1ymLg1c4DDC6iU754w=="
-      },
-      "Macross.Json.Extensions": {
-        "type": "Transitive",
-        "resolved": "2.0.0",
-        "contentHash": "LgC+ZlbequOJsQtP+h1/ldhF9EJVx1zRTTEDjTuziMnymOOTWgzxFlqYQ748lvlCdQYOhNkAjOqHVOsfCWgOhA==",
-        "dependencies": {
-          "System.Text.Json": "4.7.0"
-        }
       },
       "Microsoft.AspNetCore.Authorization": {
         "type": "Transitive",
@@ -162,8 +152,8 @@
       },
       "Microsoft.Bcl.AsyncInterfaces": {
         "type": "Transitive",
-        "resolved": "5.0.0",
-        "contentHash": "W8DPQjkMScOMTtJbPwmPyj9c3zYSFGawDW3jwlBOOsnY+EzZFLgNQ/UMkK35JmkNOVPdCyPr2Tw7Vv9N+KA3ZQ=="
+        "resolved": "6.0.0",
+        "contentHash": "UcSjPsst+DfAdJGVDsu346FX0ci0ah+lw3WRtn18NUwEqRt70HaOQ7lI72vy3+1LxtqI3T5GWwV39rQSrCzAeg=="
       },
       "Microsoft.CodeAnalysis.Analyzers": {
         "type": "Transitive",
