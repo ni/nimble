@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Improve TColumnConfig typing on columns that extend TableColumnTextBase",
+  "comment": "Move validator into ColumnInternals",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
