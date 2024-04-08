@@ -151,8 +151,8 @@ export class MatrixRenderer {
             ) {
                 continue;
             }
-            for (let j = this.columnIndexPositions[i]!,
-                length = this.columnIndexPositions[i + 1] !== undefined ? this.columnIndexPositions[i + 1]! : this.scaledRowIndex.length;
+            const length = this.columnIndexPositions[i + 1] !== undefined ? this.columnIndexPositions[i + 1]! : this.scaledRowIndex.length;
+            for (let j = this.columnIndexPositions[i]!;
                 j < length; j++) {
                 const scaledY = this.scaledRowIndex[j]!;
                 if (
