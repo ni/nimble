@@ -226,6 +226,7 @@ export class WaferMap<
                 this.waferMapUpdateTracker.requiresContainerDimensionsUpdate
                 || this.waferMapUpdateTracker.requiresScalesUpdate
             ) {
+                this.zoomHandler.connect();
                 this.experimentalDataManager.updateComputations();
                 await this.workerRenderer.updateSortedDies();
                 await this.workerRenderer.drawWafer();
@@ -238,8 +239,8 @@ export class WaferMap<
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
                 await this.workerRenderer.drawWafer();
             }
-            this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
+            this.zoomHandler.connect();
             this.workerRenderer.renderHover();
         }
     }
@@ -261,6 +262,7 @@ export class WaferMap<
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.zoomHandler.disconnect();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
+                this.zoomHandler.connect();
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
             } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
@@ -277,9 +279,9 @@ export class WaferMap<
                 this.dataManager.updateDiesRenderInfo();
                 this.renderer.updateSortedDiesAndDrawWafer();
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
+                this.zoomHandler.connect();
                 this.renderer.drawWafer();
             }
-            this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
