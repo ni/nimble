@@ -6,6 +6,7 @@ import {
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import type { Table } from 'apache-arrow';
+import { type Remote, transfer } from 'comlink';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
@@ -28,6 +29,8 @@ import { WorkerRenderer } from './modules/experimental/worker-renderer';
 import { HoverHandler } from './modules/hover-handler';
 import { HoverHandler as ExperimentalHoverHandler } from './modules/experimental/hover-handler';
 import { ZoomHandler } from './modules/zoom-handler';
+import type { MatrixRenderer } from '../../build/generate-workers/dist/esm/source/matrix-renderer';
+import { createMatrixRenderer } from './modules/create-matrix-renderer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -76,6 +79,21 @@ export class WaferMap<
 
     @attr({ attribute: 'color-scale-mode' })
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
+
+    /**
+     * @internal
+     */
+    public isWorkerAlive = false;
+
+    /**
+     * @internal
+     */
+    public worker!: Remote<MatrixRenderer>;
+
+    /**
+     * @internal
+     */
+    public workerCanvas!: HTMLCanvasElement;
 
     /**
      * @internal
@@ -277,6 +295,18 @@ export class WaferMap<
      */
     public isExperimentalUpdate(): boolean {
         return this.diesTable !== undefined;
+    }
+
+    public async createWorker(): Promise<void> {
+        const { matrixRenderer } = await createMatrixRenderer();
+        this.worker = matrixRenderer;
+    }
+
+    public async createWorkerCanvas(): Promise<void> {
+        const offscreenCanvas = this.workerCanvas.transferControlToOffscreen();
+        await this.worker.setCanvas(
+            transfer(offscreenCanvas, [offscreenCanvas])
+        );
     }
 
     private validate(): void {
