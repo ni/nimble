@@ -6,6 +6,8 @@ import { HoverDieOpacity } from '../../types';
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class WorkerRenderer {
+    private isWorkerAlive = false;
+
     public constructor(private readonly wafermap: WaferMap) {}
 
     public async updateSortedDies(): Promise<void> {
@@ -91,14 +93,14 @@ export class WorkerRenderer {
 
     private async setupWorker(): Promise<void> {
         if (
-            this.wafermap.isWorkerAlive
+            this.isWorkerAlive
             || !this.wafermap.isExperimentalUpdate()
         ) {
             return;
         }
 
-        this.wafermap.isWorkerAlive = true;
         await this.wafermap.createWorker();
+        this.isWorkerAlive = true;
         await this.wafermap.createWorkerCanvas();
         await this.wafermap.worker.setCanvasDimensions({
             width: this.wafermap.canvasWidth,
