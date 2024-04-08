@@ -350,7 +350,10 @@ export class Table<
             && typeof args === 'string'
         ) {
             this.tableUpdateTracker.trackColumnPropertyChanged(args);
-        } else if (source instanceof ColumnValidator && args === 'isColumnValid') {
+        } else if (
+            source instanceof ColumnValidator
+            && args === 'isColumnValid'
+        ) {
             this.tableValidator.validateColumnConfigurations(this.columns);
         } else if (
             source instanceof TableLayoutManager
