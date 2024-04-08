@@ -49,10 +49,10 @@ export class Computations {
         return this._invertedVerticalScale;
     }
 
-    private _containerDimensions: Dimensions = { width: 0, height: 0 };
+    private _containerDimensions!: Dimensions;
     private _dieDimensions!: Dimensions;
     private _radius!: number;
-    private _margin: Margin = { top: 0, right: 0, bottom: 0, left: 0 };
+    private _margin!: Margin;
     private _horizontalScale!: ScaleBand<number>;
     private _verticalScale!: ScaleBand<number>;
     private _invertedHorizontalScale!: ScaleQuantile<number, number>;
