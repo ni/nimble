@@ -122,8 +122,8 @@ export class WaferMap<
 
     @observable
     public renderer: RenderingModule = new RenderingModule(
-            this.asRequiredFieldsWaferMap
-        );
+        this.asRequiredFieldsWaferMap
+    );
 
     /**
      * @internal
@@ -220,7 +220,7 @@ export class WaferMap<
      * @internal
      * Experimental update function called when an update is queued.
      */
-    public experimentalUpdate(): void {
+    public async experimentalUpdate(): Promise<void> {
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
@@ -232,15 +232,16 @@ export class WaferMap<
                 || this.waferMapUpdateTracker.requiresScalesUpdate
             ) {
                 this.experimentalDataManager.updateComputations();
-                this.workerRenderer.drawWafer();
+                await this.workerRenderer.updateSortedDies();
+                await this.workerRenderer.drawWafer();
             } else if (
                 this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
                 || this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
             ) {
                 this.experimentalDataManager.updatePrerendering();
-                this.workerRenderer.drawWafer();
+                await this.workerRenderer.drawWafer();
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
-                this.workerRenderer.drawWafer();
+                await this.workerRenderer.drawWafer();
             }
             this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
