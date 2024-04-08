@@ -36,9 +36,6 @@ export abstract class RichTextMention<
         }
     );
 
-    /** @internal */
-    public readonly validator = this.createValidator();
-
     /**
      * A regex used to extract user ID from user key (url) while parsing and serializing a markdown.
      */
@@ -62,14 +59,14 @@ export abstract class RichTextMention<
      * @public
      */
     public checkValidity(): boolean {
-        return this.mentionInternals.validConfiguration;
+        return this.mentionInternals.validator.isValid();
     }
 
     /**
      * @public
      */
     public get validity(): RichTextMentionValidity {
-        return this.validator.getValidity();
+        return this.mentionInternals.validator.getValidity();
     }
 
     /**
@@ -95,11 +92,9 @@ export abstract class RichTextMention<
         }
     }
 
-    protected abstract createValidator(): TValidator;
-
     protected abstract getObservedMappingProperty(): string[];
 
-    protected abstract getMentionInternalsOptions(): MentionInternalsOptions;
+    protected abstract getMentionInternalsOptions(): MentionInternalsOptions<TValidator>;
 
     protected abstract createMappingConfig(
         mapping: Mapping<unknown>
@@ -121,8 +116,8 @@ export abstract class RichTextMention<
     }
 
     private updateMappingConfigs(): void {
-        this.validator.validate(this.mappingElements, this.pattern);
-        this.mentionInternals.mappingConfigs = this.validator.isValid()
+        this.mentionInternals.validator.validate(this.mappingElements, this.pattern);
+        this.mentionInternals.mappingConfigs = this.mentionInternals.validator.isValid()
             ? this.getMappingConfigs()
             : undefined;
     }
@@ -133,7 +128,7 @@ export abstract class RichTextMention<
     }
 
     private patternChanged(): void {
-        this.validator.validate(this.mappingElements, this.pattern);
+        this.mentionInternals.validator.validate(this.mappingElements, this.pattern);
         this.mentionInternals.pattern = this.pattern;
     }
 
