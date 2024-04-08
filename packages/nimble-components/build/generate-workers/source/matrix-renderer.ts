@@ -25,7 +25,8 @@ export class MatrixRenderer {
     private transform: Transform = { k: 1, x: 0, y: 0 };
     private topLeftCanvasCorner!: { x: number; y: number; };
     private bottomRightCanvasCorner!: { x: number; y: number; };
-    private margin: { top: number; right: number; bottom: number; left: number; } = { top: 20, right: 20, bottom: 20, left: 20 };
+    private readonly smallestMarginPossible: number = 20;
+    private margin: { top: number; right: number; bottom: number; left: number; } = { top: this.smallestMarginPossible, right: this.smallestMarginPossible, bottom: this.smallestMarginPossible, left: this.smallestMarginPossible };
 
     public calculateScaledIndex(columnIndex: number, margin: number): number{
         return this.scaleX * columnIndex + this.baseX + margin;
