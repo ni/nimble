@@ -51,9 +51,7 @@ describe('MatrixRenderer worker', () => {
     it('indexes should be set', async () => {
         const offscreenCanvas = new OffscreenCanvas(300, 300);
         await matrixRenderer.setCanvas(
-            transfer(offscreenCanvas, [
-                offscreenCanvas
-            ])
+            transfer(offscreenCanvas, [offscreenCanvas])
         );
 
         const typedColumnIndexes = Int32Array.from(testData.columnIndexes);
