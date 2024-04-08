@@ -122,8 +122,8 @@ export class WaferMap<
 
     @observable
     public renderer: RenderingModule = new RenderingModule(
-        this.asRequiredFieldsWaferMap
-    );
+            this.asRequiredFieldsWaferMap
+        );
 
     /**
      * @internal
@@ -257,10 +257,10 @@ export class WaferMap<
      * The updates snowball one after the other, this function only choses the 'altitude'.
      * The hover does not require an event update, but it's also the last update in the sequence.
      */
-    public update(): void {
+    public async update(): Promise<void> {
         this.validate();
         if (this.isExperimentalUpdate()) {
-            this.experimentalUpdate();
+            await this.experimentalUpdate();
             return;
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
