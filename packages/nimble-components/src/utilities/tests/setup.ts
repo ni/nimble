@@ -9,7 +9,7 @@ function importAll(r: __WebpackModuleApi.RequireContext): void {
 require('./setup-configuration.js');
 
 // all browser test scripts
-importAll(require.context('../../wafer-map', true, /\.spec\.js$/));
+importAll(require.context('../../', true, /\.spec\.js$/));
 importAll(
     require.context(
         '../../../../build/generate-workers/dist/esm',
