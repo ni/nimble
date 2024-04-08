@@ -58,7 +58,7 @@ export abstract class TableColumn<
     public contentSlot!: HTMLSlotElement;
 
     public checkValidity(): boolean {
-        return this.columnInternals.validConfiguration;
+        return this.columnInternals.validator.isColumnValid;
     }
 
     public get validity(): TableColumnValidity {

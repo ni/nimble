@@ -1,5 +1,5 @@
 import { uniqueId } from '@microsoft/fast-web-utilities';
-import { Observable, ViewTemplate, observable } from '@microsoft/fast-element';
+import { ViewTemplate, observable } from '@microsoft/fast-element';
 import { TableColumnSortDirection, TableFieldName } from '../../../table/types';
 import type { TableCell } from '../../../table/components/cell';
 import {
@@ -10,7 +10,7 @@ import {
 import type { TableGroupRow } from '../../../table/components/group-row';
 import { createGroupHeaderViewTemplate } from '../group-header-view/template';
 import { createCellViewTemplate } from '../cell-view/template';
-import { ColumnValidator } from './column-validator';
+import type { ColumnValidator } from './column-validator';
 
 export interface ColumnInternalsOptions<
     TColumnValidator extends ColumnValidator<[]> = ColumnValidator<[]>
@@ -82,12 +82,6 @@ export class ColumnInternals<
      */
     @observable
     public columnConfig?: TColumnConfig;
-
-    /**
-     * Whether this column has a valid configuration.
-     */
-    @observable
-    public validConfiguration = true;
 
     /**
      * The name of the data field that will be used for operations on the table, such as sorting and grouping.
@@ -185,16 +179,6 @@ export class ColumnInternals<
         this.delegatedEvents = options.delegatedEvents;
         this.sortOperation = options.sortOperation ?? TableColumnSortOperation.basic;
         this.validator = options.validator;
-
-        const notifier = Observable.getNotifier(this.validator);
-        notifier.subscribe(this);
-    }
-
-    /** @internal */
-    public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof ColumnValidator && args === 'isColumnValid') {
-            this.validConfiguration = this.validator.isColumnValid;
-        }
     }
 
     protected fractionalWidthChanged(): void {
