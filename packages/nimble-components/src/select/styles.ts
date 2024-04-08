@@ -35,6 +35,10 @@ export const styles = css`
     }
 
     [part='indicator'] {
+        order: 4;
+    }
+
+    .clear-icon {
         order: 3;
     }
 

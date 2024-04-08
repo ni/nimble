@@ -4,7 +4,8 @@ import {
     html,
     observable,
     Observable,
-    volatile
+    volatile,
+    when
 } from '@microsoft/fast-element';
 import {
     AnchoredRegion,
@@ -42,6 +43,7 @@ import { ListOption } from '../list-option';
 import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
+import { iconCircleXTag } from '../icons/circle-x';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -89,6 +91,9 @@ export class Select
 
     @attr({ attribute: 'filter-mode' })
     public filterMode: FilterMode = FilterMode.none;
+
+    @attr({ attribute: 'clearable', mode: 'boolean' })
+    public clearable = false;
 
     /**
      * @internal
@@ -193,6 +198,7 @@ export class Select
     private _value = '';
     private forcedPosition = false;
     private indexWhenOpened?: number;
+    private placeholderOption?: ListboxOption;
 
     /**
      * @internal
@@ -301,6 +307,7 @@ export class Select
             notifier.subscribe(this, 'hidden');
             notifier.subscribe(this, 'disabled');
         });
+        this.findAndCachePlaceholderOption();
         this.setProxyOptions();
         this.updateValue();
         // We need to force an update to the filteredOptions observable
@@ -435,6 +442,16 @@ export class Select
         this.committedSelectedOption = this.options.find(
             option => option.selected
         );
+    }
+
+    public clearClickHandler(e: MouseEvent): void {
+        if (this.placeholderOption) {
+            this.selectedIndex = this.options.indexOf(this.placeholderOption);
+            this.committedSelectedOption = this.placeholderOption;
+        } else {
+            this.selectedIndex = -1;
+        }
+        e.stopPropagation();
     }
 
     /**
@@ -940,6 +957,10 @@ export class Select
         });
     }
 
+    private findAndCachePlaceholderOption(): void {
+        this.placeholderOption = this.options.find(o => o.selected && o.disabled && o.hidden);
+    }
+
     private filterChanged(): void {
         this.filterOptions();
     }
@@ -985,6 +1006,9 @@ const nimbleSelect = Select.compose<SelectOptions>({
             class="error-icon"
         ></${iconExclamationMarkTag}>
         ${errorTextTemplate}
+        ${when(x => x.clearable && !x.displayPlaceholder && x.selectedIndex >= 0, html<Select>`
+            <${iconCircleXTag} class="clear-icon" @click="${(x, c) => x.clearClickHandler(c.event as MouseEvent)}"></${iconCircleXTag}>
+        `)}
     `
 });
 

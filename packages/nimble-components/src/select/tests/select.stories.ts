@@ -21,6 +21,7 @@ interface SelectArgs {
     appearance: string;
     filterMode: keyof typeof FilterMode;
     placeholder: boolean;
+    clearable: boolean;
 }
 
 interface OptionArgs {
@@ -96,6 +97,7 @@ const metadata: Meta<SelectArgs> = {
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
             ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
@@ -165,7 +167,8 @@ const metadata: Meta<SelectArgs> = {
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
-        placeholder: false
+        placeholder: false,
+        clearable: false
     }
 };
 
