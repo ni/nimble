@@ -26,7 +26,7 @@ export class Prerendering {
     | ScaleLinear<string, string>;
 
     private _labelsFontSize!: number;
-    private readonly _diesRenderInfo!: DieRenderInfo[];
+    private _diesRenderInfo!: DieRenderInfo[];
 
     private readonly fontSizeFactor = 0.8;
     private readonly nonHighlightedOpacity = 0.3;
