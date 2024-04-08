@@ -1,4 +1,5 @@
 import { expose } from 'comlink';
+import type { Dimensions, Transform, WaferMapMatrix, WaferMapTypedMatrix } from './types';
 
 /**
  * MatrixRenderer class is meant to be used within a Web Worker context, 
@@ -8,16 +9,163 @@ import { expose } from 'comlink';
  * This setup is used in the wafer-map component to perform heavy computational duties
  */
 export class MatrixRenderer {
-    public dieMatrix: Uint8Array = Uint8Array.from([]);
+    public columnIndexes = Int32Array.from([]);
+    public rowIndexes = Int32Array.from([]);
+    public values = Float64Array.from([]);
+    public scaledColumnIndex = Float64Array.from([]);
+    public scaledRowIndex = Float64Array.from([]);
+    public columnIndexPositions = Int32Array.from([]);
+    public canvas!: OffscreenCanvas;
+    public context!: OffscreenCanvasRenderingContext2D;
+    private scaleX: number = 1;
+    private scaleY: number = 1;
+    private baseX: number = 1;
+    private baseY: number = 1;
+    private dieDimensions: Dimensions = { width: 1, height: 1 };
+    private transform: Transform = { k: 1, x: 0, y: 0 };
+    private topLeftCanvasCorner!: { x: number; y: number; };
+    private bottomRightCanvasCorner!: { x: number; y: number; };
+    private margin: { top: number; right: number; bottom: number; left: number; } = { top: 20, right: 20, bottom: 20, left: 20 };
+
+    public calculateScaledIndex(columnIndex: number, margin: number): number{
+        return this.scaleX * columnIndex + this.baseX + margin;
+    }
+
+    public setColumnIndexes(columnIndexes: Int32Array): void {
+        this.columnIndexes = columnIndexes;
+        if (columnIndexes.length === 0 || this.columnIndexes[0] === undefined) { return; }
+        const scaledColumnIndex = [this.calculateScaledIndex(this.columnIndexes[0], this.margin.left)];
+        const columnPosition = [0];
+        let prev = this.columnIndexes[0];
+        for (let i = 1; i < this.columnIndexes.length; i++) {
+            const xIndex = this.columnIndexes[i];
+            if (xIndex && xIndex !== prev) {
+                const scaledX = this.calculateScaledIndex(this.columnIndexes[i]!, this.margin.left);
+                scaledColumnIndex.push(scaledX);
+                columnPosition.push(i);
+                prev = xIndex
+            }
+        }
+        this.scaledColumnIndex = Float64Array.from(scaledColumnIndex);
+        this.columnIndexPositions = Int32Array.from(columnPosition);
+    }
+
+    public setRowIndexes(rowIndexesBuffer: Int32Array): void {
+        this.rowIndexes = rowIndexesBuffer;
+        this.scaledRowIndex = new Float64Array(this.rowIndexes.length);
+        for (let i = 0; i < this.rowIndexes.length; i++) {
+            this.scaledRowIndex[i] = this.calculateScaledIndex(this.rowIndexes[i]!, this.margin.top);
+        }
+    }
+
+    public setMargin(margin: { top: number, right: number, bottom: number, left: number }): void {
+        this.margin = margin;
+    }
+
+    public setCanvasCorners(topLeft: { x: number, y: number }, bottomRight: { x: number, y: number }): void {
+        this.topLeftCanvasCorner = topLeft;
+        this.bottomRightCanvasCorner = bottomRight;
+    }
+
+    public setDiesDimensions(data: Dimensions): void {
+        this.dieDimensions = { width: data.width, height: data.height };
+    }
+
+    public setScaling(scaleX: number, scaleY: number): void {
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+    }
+
+    public setBases(baseX: number, baseY: number): void {
+        this.baseX = baseX;
+        this.baseY = baseY;
+    }
+
+    public setTransform(transform: Transform): void {
+        this.transform = transform;
+    }
+
+    public setCanvas(canvas: OffscreenCanvas): void {
+        this.canvas = canvas;
+        this.context = canvas.getContext('2d')!;
+    }
+
+    public getMatrix(): WaferMapTypedMatrix {
+        return {
+            columnIndexes: this.columnIndexes,
+            rowIndexes: this.rowIndexes,
+            values: this.values
+        };
+    }
 
     public emptyMatrix(): void {
-        this.dieMatrix = Uint8Array.from([]);;
+        this.columnIndexes = Int32Array.from([]);
+        this.rowIndexes = Int32Array.from([]);
+        this.values = Float64Array.from([]);
+    }
+
+    public scaleCanvas(): void {
+        this.context.translate(
+            this.transform.x,
+            this.transform.y
+        );
+        this.context.scale(
+            this.transform.k,
+            this.transform.k
+        );
     }
 
     public updateMatrix(
-        data: Iterable<number>
+        data: WaferMapMatrix
     ): void {
-        this.dieMatrix = Uint8Array.from(data);
+        this.columnIndexes = Int32Array.from(data.columnIndexes);
+        this.rowIndexes = Int32Array.from(data.rowIndexes);
+        this.values = Float64Array.from(data.values);
+    }
+
+    public setCanvasDimensions(data: Dimensions): void {
+        this.canvas.width = data.width;
+        this.canvas.height = data.height;
+    }
+
+    public clearCanvas(): void {
+        this.context.clearRect(
+            0,
+            0,
+            this.canvas.width,
+            this.canvas.height
+        );
+    }
+
+    public drawWafer(): void {
+        this.context.restore();
+        this.context.save();
+        this.clearCanvas();
+        this.scaleCanvas();
+        if (this.topLeftCanvasCorner === undefined || this.bottomRightCanvasCorner === undefined) { throw new Error('Canvas corners are not set');}
+        for (let i = 0; i < this.scaledColumnIndex.length; i++) {
+            const scaledX = this.scaledColumnIndex[i]!;
+            if (
+                !(scaledX >= this.topLeftCanvasCorner.x
+                    && scaledX < this.bottomRightCanvasCorner.x)
+            ) {
+                continue;
+            }
+            for (let j = this.columnIndexPositions[i]!,
+                length = this.columnIndexPositions[i + 1] !== undefined ? this.columnIndexPositions[i + 1]! : this.scaledRowIndex.length;
+                j < length; j++) {
+                const scaledY = this.scaledRowIndex[j]!;
+                if (
+                    !(scaledY >= this.topLeftCanvasCorner.y
+                        && scaledY < this.bottomRightCanvasCorner.y)
+                ) {
+                    continue;
+                }
+                // Fill style is temporary green for all dies, will be replaced with a color based on the value of the die in a future implementation
+                this.context.fillStyle = 'Green';
+                this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
+            }
+        }
     }
 }
 expose(MatrixRenderer);
