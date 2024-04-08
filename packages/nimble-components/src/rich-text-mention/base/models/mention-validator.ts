@@ -25,9 +25,7 @@ export class RichTextMentionValidator<
     @observable
     public isRichTextMentionValid = true;
 
-    public constructor(
-        configValidityKeys: ValidityFlagNames
-    ) {
+    public constructor(configValidityKeys: ValidityFlagNames) {
         super(configValidityKeys);
     }
 

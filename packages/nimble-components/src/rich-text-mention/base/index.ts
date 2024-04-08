@@ -116,7 +116,10 @@ export abstract class RichTextMention<
     }
 
     private updateMappingConfigs(): void {
-        this.mentionInternals.validator.validate(this.mappingElements, this.pattern);
+        this.mentionInternals.validator.validate(
+            this.mappingElements,
+            this.pattern
+        );
         this.mentionInternals.mappingConfigs = this.mentionInternals.validator.isValid()
             ? this.getMappingConfigs()
             : undefined;
@@ -128,7 +131,10 @@ export abstract class RichTextMention<
     }
 
     private patternChanged(): void {
-        this.mentionInternals.validator.validate(this.mappingElements, this.pattern);
+        this.mentionInternals.validator.validate(
+            this.mappingElements,
+            this.pattern
+        );
         this.mentionInternals.pattern = this.pattern;
     }
 

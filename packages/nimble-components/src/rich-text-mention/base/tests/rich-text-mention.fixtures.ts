@@ -5,9 +5,7 @@ import type { Mapping } from '../../../mapping/base';
 import { MappingUser } from '../../../mapping/user';
 import { richTextMentionUsersViewTag } from '../../users/view';
 import { MappingConfig } from '../models/mapping-config';
-import type {
-    MentionInternalsOptions
-} from '../models/mention-internals';
+import type { MentionInternalsOptions } from '../models/mention-internals';
 import {
     RichTextMentionValidator,
     baseValidityFlagNames
