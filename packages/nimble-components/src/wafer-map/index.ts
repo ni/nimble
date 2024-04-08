@@ -263,23 +263,32 @@ export class WaferMap<
             await this.experimentalUpdate();
             return;
         }
-        this.zoomHandler.disconnect();
-        if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
-            this.dataManager.updateContainerDimensions();
-            this.renderer.updateSortedDiesAndDrawWafer();
-        } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
-            this.dataManager.updateScales();
-            this.renderer.updateSortedDiesAndDrawWafer();
-        } else if (this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate) {
-            this.dataManager.updateLabelsFontSize();
-            this.renderer.updateSortedDiesAndDrawWafer();
-        } else if (this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate) {
-            this.dataManager.updateDiesRenderInfo();
-            this.renderer.updateSortedDiesAndDrawWafer();
-        } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
-            this.renderer.drawWafer();
+        if (this.waferMapUpdateTracker.requiresEventsUpdate) {
+            // zoom translateExtent needs to be recalculated when canvas size changes
+            this.zoomHandler.disconnect();
+            if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
+                this.dataManager.updateContainerDimensions();
+                this.renderer.updateSortedDiesAndDrawWafer();
+            } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
+                this.dataManager.updateScales();
+                this.renderer.updateSortedDiesAndDrawWafer();
+            } else if (
+                this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
+            ) {
+                this.dataManager.updateLabelsFontSize();
+                this.renderer.updateSortedDiesAndDrawWafer();
+            } else if (
+                this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
+            ) {
+                this.dataManager.updateDiesRenderInfo();
+                this.renderer.updateSortedDiesAndDrawWafer();
+            } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
+                this.renderer.drawWafer();
+            }
+            this.zoomHandler.connect();
+        } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
+            this.renderer.renderHover();
         }
-        this.zoomHandler.connect();
     }
 
     /**
