@@ -83,11 +83,6 @@ export class WaferMap<
     /**
      * @internal
      */
-    public isWorkerAlive = false;
-
-    /**
-     * @internal
-     */
     public worker!: Remote<MatrixRenderer>;
 
     /**
@@ -224,8 +219,8 @@ export class WaferMap<
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
+
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            // zoom translateExtent needs to be recalculated when canvas size changes
             this.zoomHandler.disconnect();
             if (
                 this.waferMapUpdateTracker.requiresContainerDimensionsUpdate
@@ -264,7 +259,6 @@ export class WaferMap<
             return;
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            // zoom translateExtent needs to be recalculated when canvas size changes
             this.zoomHandler.disconnect();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
