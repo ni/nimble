@@ -35,19 +35,19 @@ export class MatrixRenderer {
         this.columnIndexes = columnIndexes;
         if (columnIndexes.length === 0 || this.columnIndexes[0] === undefined) { return; }
         const scaledColumnIndex = [this.calculateScaledIndex(this.columnIndexes[0], this.margin.left)];
-        const columnPosition = [0];
+        const columnPositions = [0];
         let prev = this.columnIndexes[0];
         for (let i = 1; i < this.columnIndexes.length; i++) {
             const xIndex = this.columnIndexes[i];
             if (xIndex && xIndex !== prev) {
                 const scaledX = this.calculateScaledIndex(this.columnIndexes[i]!, this.margin.left);
                 scaledColumnIndex.push(scaledX);
-                columnPosition.push(i);
+                columnPositions.push(i);
                 prev = xIndex
             }
         }
         this.scaledColumnIndex = Float64Array.from(scaledColumnIndex);
-        this.columnIndexPositions = Int32Array.from(columnPosition);
+        this.columnIndexPositions = Int32Array.from(columnPositions);
     }
 
     public setRowIndexes(rowIndexesBuffer: Int32Array): void {
