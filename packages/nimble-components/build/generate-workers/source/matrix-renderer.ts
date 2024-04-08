@@ -152,10 +152,10 @@ export class MatrixRenderer {
             ) {
                 continue;
             }
-            const length = this.columnIndexPositions[i + 1] !== undefined ? this.columnIndexPositions[i + 1]! : this.scaledRowIndex.length;
-            for (let j = this.columnIndexPositions[i]!;
-                j < length; j++) {
-                const scaledY = this.scaledRowIndex[j]!;
+            const columnEndIndex = this.columnIndexPositions[i + 1] !== undefined ? this.columnIndexPositions[i + 1]! : this.scaledRowIndex.length;
+            for (let columnStartIndex = this.columnIndexPositions[i]!;
+                columnStartIndex < columnEndIndex; columnStartIndex++) {
+                const scaledY = this.scaledRowIndex[columnStartIndex]!;
                 if (
                     !(scaledY >= this.topLeftCanvasCorner.y
                         && scaledY < this.bottomRightCanvasCorner.y)
