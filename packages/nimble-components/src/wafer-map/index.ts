@@ -234,6 +234,7 @@ export class WaferMap<
                 this.canvas.width = this.canvasWidth;
                 this.canvas.height = this.canvasHeight;
                 this.experimentalDataManager.updateComputations();
+                await this.workerRenderer.updateSortedDies();
                 await this.workerRenderer.drawWafer();
             } else if (
                 this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate

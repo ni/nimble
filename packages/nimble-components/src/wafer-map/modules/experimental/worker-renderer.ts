@@ -122,4 +122,38 @@ export class WorkerRenderer {
         }
         return '';
     }
+
+    private async setupWorker(): Promise<void> {
+        if (
+            this.wafermap.isWorkerAlive
+            || !this.wafermap.isExperimentalUpdate()
+        ) {
+            return;
+        }
+
+        this.wafermap.isWorkerAlive = true;
+        await this.wafermap.createWorker();
+        await this.wafermap.createWorkerCanvas();
+        await this.wafermap.worker.setCanvasDimensions({
+            width: this.wafermap.canvasWidth,
+            height: this.wafermap.canvasHeight
+        });
+        await this.wafermap.worker.setDiesDimensions(
+            this.wafermap.experimentalDataManager.dieDimensions
+        );
+
+        const scaleX = this.wafermap.experimentalDataManager.horizontalScale(1)!
+            - this.wafermap.experimentalDataManager.horizontalScale(0)!;
+        const scaleY = this.wafermap.experimentalDataManager.verticalScale(1)!
+            - this.wafermap.experimentalDataManager.verticalScale(0)!;
+        await this.wafermap.worker.setScaling(scaleX, scaleY);
+
+        await this.wafermap.worker.setBases(
+            this.wafermap.experimentalDataManager.horizontalScale(0)!,
+            this.wafermap.experimentalDataManager.verticalScale(0)!
+        );
+        await this.wafermap.worker.setMargin(
+            this.wafermap.experimentalDataManager.margin
+        );
+    }
 }
