@@ -8,7 +8,7 @@ import { HoverDieOpacity } from '../../types';
 export class WorkerRenderer {
     public constructor(private readonly wafermap: WaferMap) {}
 
-    public async updateSortedDiesAndDrawWafer(): Promise<void> {
+    public async updateSortedDies(): Promise<void> {
         if (this.wafermap.diesTable === undefined) {
             return;
         }
@@ -25,7 +25,6 @@ export class WorkerRenderer {
         await this.wafermap.worker.setRowIndexes(
             transfer(rowIndexes, [rowIndexes.buffer])
         );
-        await this.drawWafer();
     }
 
     public async drawWafer(): Promise<void> {

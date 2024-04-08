@@ -1,22 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    "net6.0": {
-      "demo.shared": {
-        "type": "Project",
-        "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "[6.*, )",
-          "NI.CSharp.Analyzers": "[2.0.21, )",
-          "NimbleBlazor": "[1.0.0, )"
-        }
-      },
-      "nimbleblazor": {
-        "type": "Project",
-        "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "[6.0.27, )"
-        }
-      }
-    },
+    "net6.0": {},
     "net6.0/browser-wasm": {}
   }
 }

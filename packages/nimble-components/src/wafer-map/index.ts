@@ -231,6 +231,8 @@ export class WaferMap<
                 this.waferMapUpdateTracker.requiresContainerDimensionsUpdate
                 || this.waferMapUpdateTracker.requiresScalesUpdate
             ) {
+                this.canvas.width = this.canvasWidth;
+                this.canvas.height = this.canvasHeight;
                 this.experimentalDataManager.updateComputations();
                 await this.workerRenderer.drawWafer();
             } else if (
@@ -257,14 +259,12 @@ export class WaferMap<
      * The hover does not require an event update, but it's also the last update in the sequence.
      */
     public async update(): Promise<void> {
-        this.zoomHandler.connect();
         this.validate();
         if (this.isExperimentalUpdate()) {
             await this.experimentalUpdate();
-            this.canvas.width = this.canvasWidth;
-            this.canvas.height = this.canvasHeight;
             return;
         }
+        this.zoomHandler.disconnect();
         if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
             this.dataManager.updateContainerDimensions();
             this.renderer.updateSortedDiesAndDrawWafer();
@@ -279,9 +279,8 @@ export class WaferMap<
             this.renderer.updateSortedDiesAndDrawWafer();
         } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
             this.renderer.drawWafer();
-        } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
-            this.renderer.renderHover();
         }
+        this.zoomHandler.connect();
     }
 
     /**

@@ -52,7 +52,7 @@ describe('MatrixRenderer worker', () => {
         const offscreenCanvas = new OffscreenCanvas(300, 300);
         await matrixRenderer.setCanvas(
             transfer(offscreenCanvas, [
-                offscreenCanvas as unknown as Transferable
+                offscreenCanvas
             ])
         );
 
