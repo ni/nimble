@@ -119,7 +119,10 @@ describe('WaferMap', () => {
     describe('worker renderer draw flow', () => {
         let setupAndDrawWaferSpy: jasmine.Spy;
         beforeEach(() => {
-            setupAndDrawWaferSpy = spyOn(element.workerRenderer, 'setupAndDrawWafer');
+            setupAndDrawWaferSpy = spyOn(
+                element.workerRenderer,
+                'setupAndDrawWafer'
+            );
         });
 
         it('will call setupAndDrawWafer after supported diesTable change', () => {
