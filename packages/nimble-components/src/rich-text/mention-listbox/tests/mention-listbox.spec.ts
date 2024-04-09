@@ -3,6 +3,7 @@ import { RichTextMentionListbox, richTextMentionListboxTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { listOptionTag } from '../../../list-option';
+import { waitAnimationFrame } from '../../../utilities/tests/component';
 
 describe('RichTextMentionListbox', () => {
     it('should export its tag', () => {
@@ -41,11 +42,10 @@ describe('RichTextMentionListbox', () => {
 
     async function waitForSelectionUpdateAsync(): Promise<void> {
         await waitForUpdatesAsync();
-        await waitForUpdatesAsync();
+        await waitAnimationFrame();
     }
 
-    // Intermittent test tracked by https://github.com/ni/nimble/issues/1891
-    xit('should scroll the selected option into view when opened', async () => {
+    it('should scroll the selected option into view when opened', async () => {
         const model = new Model();
         const { connect, disconnect } = await setup500Options(model);
         await connect();
