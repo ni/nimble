@@ -193,6 +193,8 @@ export class Select
     private _value = '';
     private forcedPosition = false;
     private indexWhenOpened?: number;
+    private firstVisibleOptionIndex?: number;
+    private lastVisibleOptionIndex?: number;
 
     /**
      * @internal
@@ -654,7 +656,11 @@ export class Select
     public override selectNextOption(): void {
         // don't call super.selectNextOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
-        for (let i = this.selectedIndex + 1; i < this.options.length; i++) {
+        for (
+            let i = this.selectedIndex + 1;
+            i < (this.lastVisibleOptionIndex ?? this.options.length);
+            i++
+        ) {
             if (!this.options[i]?.disabled) {
                 this.selectedIndex = i;
                 break;
@@ -665,7 +671,11 @@ export class Select
     public override selectPreviousOption(): void {
         // don't call super.selectPreviousOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
-        for (let i = this.selectedIndex - 1; i >= 0; i--) {
+        for (
+            let i = this.selectedIndex - 1;
+            i >= (this.firstVisibleOptionIndex ?? 0);
+            i--
+        ) {
             if (!this.options[i]?.disabled) {
                 this.selectedIndex = i;
                 break;
@@ -750,6 +760,8 @@ export class Select
             return;
         }
 
+        this.firstVisibleOptionIndex = 0;
+        this.lastVisibleOptionIndex = this.options.length - 1;
         this.filter = '';
         if (this.filterInput) {
             this.filterInput.value = '';
@@ -864,6 +876,8 @@ export class Select
      */
     private filterOptions(): void {
         const filter = this.filter.toLowerCase();
+        this.firstVisibleOptionIndex = 0;
+        this.lastVisibleOptionIndex = this.options.length - 1;
 
         if (filter) {
             this.filteredOptions = this.options.filter(option => {
@@ -881,12 +895,16 @@ export class Select
             );
         }
 
-        this.options.forEach(o => {
+        this.options.forEach((o, i) => {
             if (isNimbleListOption(o)) {
                 if (!this.filteredOptions.includes(o)) {
                     o.visuallyHidden = true;
                 } else {
                     o.visuallyHidden = false;
+                    if (this.firstVisibleOptionIndex === 0) {
+                        this.firstVisibleOptionIndex = i;
+                    }
+                    this.lastVisibleOptionIndex = i;
                 }
             }
         });

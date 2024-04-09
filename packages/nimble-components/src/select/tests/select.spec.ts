@@ -770,6 +770,22 @@ describe('Select', () => {
                 element.ariaActiveDescendant
             );
         });
+
+        it('cant select option that has been filtered out pressing arrowUp', async () => {
+            await pageObject.openAndSetFilterText('tw');
+            pageObject.pressArrowUpKey();
+            pageObject.pressEnterKey();
+            const currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('two');
+        });
+
+        it('cant select option that has been filtered out pressing arrowDown', async () => {
+            await pageObject.openAndSetFilterText('tw');
+            pageObject.pressArrowDownKey();
+            pageObject.pressEnterKey();
+            const currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('two');
+        });
     });
 
     describe('placeholder', () => {
