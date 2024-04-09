@@ -771,7 +771,7 @@ describe('Select', () => {
             );
         });
 
-        fit('pressing arrow keys selects next visible item when option between current and next is filtered out', async () => {
+        it('pressing arrow keys selects next visible item when option between current and next is filtered out', async () => {
             const newOptions = element.options.map(o => o as ListOption);
             newOptions.push(new ListOption('Twenty', 'twenty'));
             await pageObject.setOptions(newOptions);
