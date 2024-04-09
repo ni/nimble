@@ -876,8 +876,8 @@ export class Select
      */
     private filterOptions(): void {
         const filter = this.filter.toLowerCase();
-        this.firstVisibleOptionIndex = 0;
-        this.lastVisibleOptionIndex = this.options.length - 1;
+        this.firstVisibleOptionIndex = undefined;
+        this.lastVisibleOptionIndex = undefined;
 
         if (filter) {
             this.filteredOptions = this.options.filter(option => {
@@ -901,7 +901,7 @@ export class Select
                     o.visuallyHidden = true;
                 } else {
                     o.visuallyHidden = false;
-                    if (this.firstVisibleOptionIndex === 0) {
+                    if (this.firstVisibleOptionIndex === undefined) {
                         this.firstVisibleOptionIndex = i;
                     }
                     this.lastVisibleOptionIndex = i;

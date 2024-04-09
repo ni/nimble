@@ -775,16 +775,31 @@ describe('Select', () => {
             await pageObject.openAndSetFilterText('tw');
             pageObject.pressArrowUpKey();
             pageObject.pressEnterKey();
-            const currentSelection = pageObject.getSelectedOption();
+            await waitForUpdatesAsync();
+            let currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.value).toBe('two');
+
+            // make sure we can select other options after clearing filter
+            pageObject.clickSelect();
+            pageObject.pressArrowUpKey();
+            pageObject.pressEnterKey();
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('one');
         });
 
         it('cant select option that has been filtered out pressing arrowDown', async () => {
             await pageObject.openAndSetFilterText('tw');
             pageObject.pressArrowDownKey();
             pageObject.pressEnterKey();
-            const currentSelection = pageObject.getSelectedOption();
+            let currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.value).toBe('two');
+
+            // make sure we can select other options after clearing filter
+            pageObject.clickSelect();
+            pageObject.pressArrowDownKey();
+            pageObject.pressEnterKey();
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('three');
         });
     });
 
