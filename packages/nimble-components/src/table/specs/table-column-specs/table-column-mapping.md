@@ -104,7 +104,7 @@ _Props/Attrs_
 
 -   `field-name`: string
 -   `key-type`: 'string' | 'number' | 'boolean'
--   `fixed-width-mode`: enum - `flexibleWidth` (default) | `iconWidth` - When set  to `iconWidth`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell.
+-   `fixed-width-mode`: enum - `flexibleWidth` (default) | `iconWidth` - When set to `iconWidth`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell.
 
 _Content_
 
