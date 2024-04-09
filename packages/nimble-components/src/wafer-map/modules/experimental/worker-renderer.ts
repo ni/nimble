@@ -94,13 +94,14 @@ export class WorkerRenderer {
     }
 
     private async setupWorker(): Promise<void> {
-        if (this.isWorkerAlive || !this.wafermap.isExperimentalUpdate()) {
+        if (!this.wafermap.isExperimentalUpdate()) {
             return;
         }
-
-        await this.wafermap.createWorker();
-        this.isWorkerAlive = true;
-        await this.wafermap.createWorkerCanvas();
+        if (!this.isWorkerAlive) {
+            await this.wafermap.createWorker();
+            this.isWorkerAlive = true;
+            await this.wafermap.createWorkerCanvas();
+        }
         await this.wafermap.worker.setCanvasDimensions({
             width: this.wafermap.canvasWidth ?? 0,
             height: this.wafermap.canvasHeight ?? 0
