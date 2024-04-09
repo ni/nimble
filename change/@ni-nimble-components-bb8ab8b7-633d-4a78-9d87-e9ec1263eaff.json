@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Fix and re-enable intermittent mention-listbox test",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

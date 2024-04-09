@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 09 Apr 2024 21:50:30 GMT",
+      "version": "24.1.9",
+      "tag": "@ni/nimble-components_v24.1.9",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ebd9aaa536e64c48005d58cff20bda2062ed7780",
+            "comment": "Fix and re-enable intermittent mention-listbox test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Apr 2024 20:01:30 GMT",
       "version": "24.1.9",
       "tag": "@ni/nimble-components_v24.1.9",
