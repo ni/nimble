@@ -42,7 +42,7 @@ describe('RichTextMentionListbox', () => {
 
     async function waitForSelectionUpdateAsync(): Promise<void> {
         await waitForUpdatesAsync();
-        await waitAnimationFrame();
+        await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
     }
 
     it('should scroll the selected option into view when opened', async () => {
