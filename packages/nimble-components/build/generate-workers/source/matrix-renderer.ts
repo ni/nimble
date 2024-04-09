@@ -28,20 +28,24 @@ export class MatrixRenderer {
     private readonly smallestMarginPossible: number = 20;
     private margin: { top: number; right: number; bottom: number; left: number; } = { top: this.smallestMarginPossible, right: this.smallestMarginPossible, bottom: this.smallestMarginPossible, left: this.smallestMarginPossible };
 
-    public calculateScaledIndex(columnIndex: number, margin: number): number{
-        return this.scaleX * columnIndex + this.baseX + margin;
+    public calculateXScaledIndex(columnIndex: number): number{
+        return this.scaleX * columnIndex + this.baseX + this.margin.left;
+    }
+
+    public calculateYScaledIndex(rowIndex: number): number{
+        return this.scaleY * rowIndex + this.baseY + this.margin.top;
     }
 
     public setColumnIndexes(columnIndexes: Int32Array): void {
         this.columnIndexes = columnIndexes;
         if (columnIndexes.length === 0 || this.columnIndexes[0] === undefined) { return; }
-        const scaledColumnIndex = [this.calculateScaledIndex(this.columnIndexes[0], this.margin.left)];
+        const scaledColumnIndex = [this.calculateXScaledIndex(this.columnIndexes[0])];
         const columnPositions = [0];
         let prev = this.columnIndexes[0];
         for (let i = 1; i < this.columnIndexes.length; i++) {
             const xIndex = this.columnIndexes[i];
             if (xIndex && xIndex !== prev) {
-                const scaledX = this.calculateScaledIndex(this.columnIndexes[i]!, this.margin.left);
+                const scaledX = this.calculateXScaledIndex(this.columnIndexes[i]!);
                 scaledColumnIndex.push(scaledX);
                 columnPositions.push(i);
                 prev = xIndex
@@ -55,7 +59,7 @@ export class MatrixRenderer {
         this.rowIndexes = rowIndexesBuffer;
         this.scaledRowIndex = new Float64Array(this.rowIndexes.length);
         for (let i = 0; i < this.rowIndexes.length; i++) {
-            this.scaledRowIndex[i] = this.calculateScaledIndex(this.rowIndexes[i]!, this.margin.top);
+            this.scaledRowIndex[i] = this.calculateYScaledIndex(this.rowIndexes[i]!);
         }
     }
 
