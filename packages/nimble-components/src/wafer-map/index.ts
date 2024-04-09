@@ -225,10 +225,8 @@ export class WaferMap<
                 this.waferMapUpdateTracker.requiresContainerDimensionsUpdate
                 || this.waferMapUpdateTracker.requiresScalesUpdate
             ) {
-                this.zoomHandler.disconnect();
                 this.experimentalDataManager.updateComputations();
                 await this.workerRenderer.setupAndDrawWafer();
-                this.zoomHandler.connect();
             } else if (
                 this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
                 || this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
@@ -259,10 +257,8 @@ export class WaferMap<
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
-                this.zoomHandler.disconnect();
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
-                this.zoomHandler.connect();
             } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
                 this.dataManager.updateScales();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -396,13 +392,17 @@ export class WaferMap<
     }
 
     private canvasWidthChanged(): void {
+        this.zoomHandler.disconnect();
         this.waferMapUpdateTracker.track('canvasWidth');
         this.waferMapUpdateTracker.queueUpdate();
+        this.zoomHandler.connect();
     }
 
     private canvasHeightChanged(): void {
+        this.zoomHandler.disconnect();
         this.waferMapUpdateTracker.track('canvasHeight');
         this.waferMapUpdateTracker.queueUpdate();
+        this.zoomHandler.connect();
     }
 
     private hoverDieChanged(): void {
