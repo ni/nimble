@@ -221,14 +221,15 @@ export class WaferMap<
         }
 
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            this.zoomHandler.disconnect();
             if (
                 this.waferMapUpdateTracker.requiresContainerDimensionsUpdate
                 || this.waferMapUpdateTracker.requiresScalesUpdate
             ) {
+                this.zoomHandler.disconnect();
                 this.experimentalDataManager.updateComputations();
                 await this.workerRenderer.updateSortedDies();
                 await this.workerRenderer.drawWafer();
+                this.zoomHandler.connect();
             } else if (
                 this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
                 || this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
@@ -241,7 +242,6 @@ export class WaferMap<
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.workerRenderer.renderHover();
         }
-        this.zoomHandler.connect();
     }
 
     /**
@@ -259,10 +259,11 @@ export class WaferMap<
             return;
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            this.zoomHandler.disconnect();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
+                this.zoomHandler.disconnect();
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
+                this.zoomHandler.connect();
             } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
                 this.dataManager.updateScales();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -282,7 +283,6 @@ export class WaferMap<
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
-        this.zoomHandler.connect();
     }
 
     /**
