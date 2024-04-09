@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `nimble-table-column-enum` is a component that supports rendering specific number, boolean, or string values as an icon, a spinner, text, or an icon/spinner with text. The mappings are defined by child elements of `nimble-mapping-icon`, `nimble-mapping-spinner`, `nimble-mapping-text`, or `nimble-mapping-blank`.
+The `nimble-table-column-enum` is a component that supports rendering specific number, boolean, or string values as an icon, a spinner, text, or an icon/spinner with text. The mappings are defined by child elements of `nimble-mapping-icon`, `nimble-mapping-spinner`, `nimble-mapping-text`, or `nimble-mapping-empty`.
 
 ### Background
 
@@ -57,7 +57,7 @@ Below is an example of how these elements would be used within a `nimble-table`:
     <nimble-table-column-enum field-name="archived" key-type="boolean">
         Archived
         <nimble-mapping-icon key="true" icon="nimble-icon-database" label="Archived" label-hidden></nimble-mapping-icon>
-        <nimble-mapping-blank key="false" label="Not archived"></nimble-mapping-blank>
+        <nimble-mapping-empty key="false" label="Not archived"></nimble-mapping-empty>
     </nimble-table-column-enum>
 </nimble-table>
 ```
@@ -104,12 +104,12 @@ _Props/Attrs_
 
 -   `field-name`: string
 -   `key-type`: 'string' | 'number' | 'boolean'
--   `fixed-to-icon-width`: boolean - When set, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell.
+-   `fixed-width-mode`: enum - `flexibleWidth` (default) | `iconWidth` - When set  to `iconWidth`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell.
 
 _Content_
 
 -   column title (icon and/or text)
--   1 or more `nimble-mapping-icon`, `nimble-mapping-spinner`, `nimble-mapping-text`, or `nimble-mapping-blank` elements
+-   1 or more `nimble-mapping-icon`, `nimble-mapping-spinner`, `nimble-mapping-text`, or `nimble-mapping-empty` elements
 
 #### Mapping element (icon):
 
@@ -166,13 +166,13 @@ _Props/Attrs_
 -   `key`: string | number | boolean | undefined
 -   `label`: string - display text
 
-#### Mapping element (blank):
+#### Mapping element (empty):
 
-The blank mapping element will display an empty cell. A group row associated with a blank mapping will display the mapping's text. The purpose of the blank mapping element is to allow clients to avoid cluttering their table with information that isn't particularly helpful to a user (e.g. that the state of a system is 'idle') while still having a good grouping experience that ensures group rows are not blank.
+The empty mapping element will display an empty cell. A group row associated with an empty mapping will display the mapping's text. The purpose of the empty mapping element is to allow clients to avoid cluttering their table with information that isn't particularly helpful to a user (e.g. that the state of a system is 'idle') while still having a good grouping experience that ensures group rows are not empty.
 
 _Component Name_
 
--   `nimble-mapping-blank`
+-   `nimble-mapping-empty`
 
 _Props/Attrs_
 
@@ -240,7 +240,7 @@ For icons, if multiple values map to the same icon, it is possible that sorting 
 
 ### Sizing
 
-By default, the `nimble-table-column-enum` will be a fractional width column with a fractional width of 1. However, it can be configured to be a fixed pixel size (32px) and not be resizable by setting `fixed-to-icon-width` on the column. The 32px fixed size allows room from a single icon or spinner along with left and right cell padding of 8px each.
+By default, the `nimble-table-column-enum` will be a fractional width column with a fractional width of 1. However, it can be configured to be a fixed pixel size (32px) and not be resizable by setting `fixed-width-mode` to `iconWidth`. The 32px fixed size allows room from a single icon or spinner along with left and right cell padding of 8px each.
 
 When the column is a fixed 32px:
 
