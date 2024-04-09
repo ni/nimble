@@ -300,7 +300,7 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    // Some browsers skipped, see: https://github.com/ni/nimble/issues/1943
+    // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
     it('supports opening multiple dialogs on top of each other #SkipFirefox #SkipWebkit', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
