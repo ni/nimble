@@ -771,7 +771,21 @@ describe('Select', () => {
             );
         });
 
-        it('cant select option that has been filtered out pressing arrowUp', async () => {
+        fit('pressing arrow keys selects next visible item when option between current and next is filtered out', async () => {
+            const newOptions = element.options.map(o => o as ListOption);
+            newOptions.push(new ListOption('Twenty', 'twenty'));
+            await pageObject.setOptions(newOptions);
+            await pageObject.openAndSetFilterText('tw');
+            pageObject.pressArrowDownKey();
+            let currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('twenty');
+
+            pageObject.pressArrowUpKey();
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('two');
+        });
+
+        it('can not select option that has been filtered out pressing arrowUp', async () => {
             await pageObject.openAndSetFilterText('tw');
             pageObject.pressArrowUpKey();
             pageObject.pressEnterKey();
@@ -787,7 +801,7 @@ describe('Select', () => {
             expect(currentSelection?.value).toBe('one');
         });
 
-        it('cant select option that has been filtered out pressing arrowDown', async () => {
+        it('cant not select option that has been filtered out pressing arrowDown', async () => {
             await pageObject.openAndSetFilterText('tw');
             pageObject.pressArrowDownKey();
             pageObject.pressEnterKey();

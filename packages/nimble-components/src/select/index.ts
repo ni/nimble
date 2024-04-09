@@ -57,6 +57,10 @@ const isNimbleListOption = (el: Element): el is ListOption => {
     return el instanceof ListOption;
 };
 
+const isOptionSelectable = (el: ListOption): boolean => {
+    return !el.visuallyHidden && !el.disabled && !el.hidden;
+};
+
 /**
  * A nimble-styled HTML select.
  */
@@ -193,8 +197,6 @@ export class Select
     private _value = '';
     private forcedPosition = false;
     private indexWhenOpened?: number;
-    private firstVisibleOptionIndex?: number;
-    private lastVisibleOptionIndex?: number;
 
     /**
      * @internal
@@ -655,10 +657,10 @@ export class Select
 
     public override selectNextOption(): void {
         // don't call super.selectNextOption as that relies on side-effecty
-        // behavior to not select disabled option (which no longer works)\
-        const lastVisibleIndex = this.lastVisibleOptionIndex ?? this.options.length;
-        for (let i = this.selectedIndex + 1; i < lastVisibleIndex; i++) {
-            if (!this.options[i]?.disabled) {
+        // behavior to not select disabled option (which no longer works)
+        for (let i = this.selectedIndex + 1; i < this.options.length; i++) {
+            const listOption = this.options[i]!;
+            if (isNimbleListOption(listOption) && isOptionSelectable(listOption)) {
                 this.selectedIndex = i;
                 break;
             }
@@ -668,9 +670,9 @@ export class Select
     public override selectPreviousOption(): void {
         // don't call super.selectPreviousOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
-        const firstVisibleIndex = this.firstVisibleOptionIndex ?? 0;
-        for (let i = this.selectedIndex - 1; i >= firstVisibleIndex; i--) {
-            if (!this.options[i]?.disabled) {
+        for (let i = this.selectedIndex - 1; i >= 0; i--) {
+            const listOption = this.options[i]!;
+            if (isNimbleListOption(listOption) && isOptionSelectable(listOption)) {
                 this.selectedIndex = i;
                 break;
             }
@@ -754,8 +756,6 @@ export class Select
             return;
         }
 
-        this.firstVisibleOptionIndex = 0;
-        this.lastVisibleOptionIndex = this.options.length - 1;
         this.filter = '';
         if (this.filterInput) {
             this.filterInput.value = '';
@@ -870,8 +870,6 @@ export class Select
      */
     private filterOptions(): void {
         const filter = this.filter.toLowerCase();
-        this.firstVisibleOptionIndex = undefined;
-        this.lastVisibleOptionIndex = undefined;
 
         if (filter) {
             this.filteredOptions = this.options.filter(option => {
@@ -889,16 +887,12 @@ export class Select
             );
         }
 
-        this.options.forEach((o, i) => {
+        this.options.forEach(o => {
             if (isNimbleListOption(o)) {
                 if (!this.filteredOptions.includes(o)) {
                     o.visuallyHidden = true;
                 } else {
                     o.visuallyHidden = false;
-                    if (this.firstVisibleOptionIndex === undefined) {
-                        this.firstVisibleOptionIndex = i;
-                    }
-                    this.lastVisibleOptionIndex = i;
                 }
             }
         });
