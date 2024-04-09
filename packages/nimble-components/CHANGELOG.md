@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 04 Apr 2024 14:57:17 GMT and should not be manually modified.
+This log was last generated on Mon, 08 Apr 2024 20:40:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.9
+
+Mon, 08 Apr 2024 20:40:28 GMT
+
+### Patches
+
+- Move validator into ColumnInternals ([ni/nimble@d16c59e](https://github.com/ni/nimble/commit/d16c59ec133dcbf4d94198d3f26ff7472a143ea5))
+
+## 24.1.8
+
+Thu, 04 Apr 2024 21:33:43 GMT
+
+### Patches
+
+- Improve TColumnConfig typing on columns that extend TableColumnTextBase ([ni/nimble@2777f26](https://github.com/ni/nimble/commit/2777f26b80bbdfa68acf76e253e5ce5fcb094631))
+
+## 24.1.7
+
+Thu, 04 Apr 2024 18:11:08 GMT
+
+### Patches
+
+- Fork FAST Combobox. ([ni/nimble@53b2c45](https://github.com/ni/nimble/commit/53b2c4572f3e24fc862ab39e30808908b372e3e4))
 
 ## 24.1.6
 

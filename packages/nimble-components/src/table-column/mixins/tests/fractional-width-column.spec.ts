@@ -12,6 +12,7 @@ import {
     tableColumnEmptyGroupHeaderViewTag
 } from '../../base/tests/table-column.fixtures';
 import type { ColumnInternalsOptions } from '../../base/models/column-internals';
+import { ColumnValidator } from '../../base/models/column-validator';
 
 const columnName = uniqueElementName();
 @customElement({
@@ -23,7 +24,8 @@ class TestTableColumn extends mixinFractionalWidthColumnAPI(TableColumn) {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: []
+            delegatedEvents: [],
+            validator: new ColumnValidator<[]>([])
         };
     }
 }
