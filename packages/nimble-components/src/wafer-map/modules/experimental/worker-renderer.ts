@@ -103,8 +103,8 @@ export class WorkerRenderer {
         this.isWorkerAlive = true;
         await this.wafermap.createWorkerCanvas();
         await this.wafermap.worker.setCanvasDimensions({
-            width: this.wafermap.canvasWidth,
-            height: this.wafermap.canvasHeight
+            width: this.wafermap.canvasWidth ?? 0,
+            height: this.wafermap.canvasHeight ?? 0
         });
         await this.wafermap.worker.setDiesDimensions(
             this.wafermap.experimentalDataManager.dieDimensions
