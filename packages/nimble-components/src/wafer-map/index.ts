@@ -227,8 +227,7 @@ export class WaferMap<
             ) {
                 this.zoomHandler.disconnect();
                 this.experimentalDataManager.updateComputations();
-                await this.workerRenderer.updateSortedDies();
-                await this.workerRenderer.drawWafer();
+                await this.workerRenderer.setupAndDrawWafer();
                 this.zoomHandler.connect();
             } else if (
                 this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate

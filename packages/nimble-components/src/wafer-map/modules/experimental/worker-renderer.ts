@@ -10,7 +10,7 @@ export class WorkerRenderer {
 
     public constructor(private readonly wafermap: WaferMap) {}
 
-    public async updateSortedDies(): Promise<void> {
+    public async setupAndDrawWafer(): Promise<void> {
         if (this.wafermap.diesTable === undefined) {
             return;
         }
@@ -27,6 +27,7 @@ export class WorkerRenderer {
         await this.wafermap.worker.setRowIndexes(
             transfer(rowIndexes, [rowIndexes.buffer])
         );
+        await this.drawWafer();
     }
 
     public async drawWafer(): Promise<void> {
