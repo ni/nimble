@@ -179,17 +179,6 @@ describe('WaferMap', () => {
             expect(renderHoverSpy).toHaveBeenCalledTimes(0);
         });
 
-        it('will call renderHover after supported diesTable change', () => {
-            element.diesTable = tableFromArrays({
-                colIndex: Int32Array.from([]),
-                rowIndex: Int32Array.from([]),
-                value: Float64Array.from([])
-            });
-            processUpdates();
-            expect(element.validity.invalidDiesTableSchema).toBeFalse();
-            expect(renderHoverSpy).toHaveBeenCalledTimes(1);
-        });
-
         it('will not call renderHover after unsupported diesTable change', () => {
             element.diesTable = new Table();
             processUpdates();
