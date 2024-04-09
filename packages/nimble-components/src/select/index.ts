@@ -660,7 +660,10 @@ export class Select
         // behavior to not select disabled option (which no longer works)
         for (let i = this.selectedIndex + 1; i < this.options.length; i++) {
             const listOption = this.options[i]!;
-            if (isNimbleListOption(listOption) && isOptionSelectable(listOption)) {
+            if (
+                isNimbleListOption(listOption)
+                && isOptionSelectable(listOption)
+            ) {
                 this.selectedIndex = i;
                 break;
             }
@@ -672,7 +675,10 @@ export class Select
         // behavior to not select disabled option (which no longer works)
         for (let i = this.selectedIndex - 1; i >= 0; i--) {
             const listOption = this.options[i]!;
-            if (isNimbleListOption(listOption) && isOptionSelectable(listOption)) {
+            if (
+                isNimbleListOption(listOption)
+                && isOptionSelectable(listOption)
+            ) {
                 this.selectedIndex = i;
                 break;
             }
