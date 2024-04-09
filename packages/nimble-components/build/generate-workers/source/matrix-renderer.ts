@@ -156,6 +156,10 @@ export class MatrixRenderer {
             ) {
                 continue;
             }
+
+            // columnIndexPositions is used to get chunks to determine the start and end index of the column, it looks something like [0, 1, 4, 9, 12]
+            // This means that the first column has a start index of 0 and an end index of 1, the second column has a start index of 1 and an end index of 4, and so on
+            // scaledRowIndex is used when we reach the end of the columnIndexPositions, when columnIndexPositions is [0, 1, 4, 9, 12], scaledRowIndex is 13
             const columnEndIndex = this.columnIndexPositions[i + 1] !== undefined ? this.columnIndexPositions[i + 1]! : this.scaledRowIndex.length;
             for (let columnStartIndex = this.columnIndexPositions[i]!;
                 columnStartIndex < columnEndIndex; columnStartIndex++) {
