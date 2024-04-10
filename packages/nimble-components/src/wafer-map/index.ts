@@ -392,17 +392,13 @@ export class WaferMap<
     }
 
     private canvasWidthChanged(): void {
-        this.zoomHandler.disconnect();
         this.waferMapUpdateTracker.track('canvasWidth');
         this.waferMapUpdateTracker.queueUpdate();
-        this.zoomHandler.connect();
     }
 
     private canvasHeightChanged(): void {
-        this.zoomHandler.disconnect();
         this.waferMapUpdateTracker.track('canvasHeight');
         this.waferMapUpdateTracker.queueUpdate();
-        this.zoomHandler.connect();
     }
 
     private hoverDieChanged(): void {
