@@ -104,7 +104,7 @@ _Props/Attrs_
 
 -   `field-name`: string
 -   `key-type`: 'string' | 'number' | 'boolean'
--   `fixed-width-mode`: enum - `flexibleWidth` (default) | `iconWidth` - When set to `iconWidth`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell.
+-   `width-mode`: enum - `flexibleWidth` (default) | `fixedIconWidth` - When set to `fixedIconWidth`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell.
 
 _Content_
 
@@ -240,7 +240,7 @@ For icons, if multiple values map to the same icon, it is possible that sorting 
 
 ### Sizing
 
-By default, the `nimble-table-column-enum` will be a fractional width column with a fractional width of 1. However, it can be configured to be a fixed pixel size (32px) and not be resizable by setting `fixed-width-mode` to `iconWidth`. The 32px fixed size allows room from a single icon or spinner along with left and right cell padding of 8px each.
+By default, the `nimble-table-column-enum` will be a fractional width column with a fractional width of 1. However, it can be configured to be a fixed pixel size (32px) and not be resizable by setting `width-mode` to `fixedIconWidth`. The 32px fixed size allows room from a single icon or spinner along with left and right cell padding of 8px each.
 
 When the column is a fixed 32px:
 
