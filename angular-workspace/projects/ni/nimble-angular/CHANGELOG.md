@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 10 Apr 2024 19:37:06 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Apr 2024 20:19:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 21.0.0
+
+Wed, 10 Apr 2024 20:19:57 GMT
+
+### Major changes
+
+- Update to Angular 16 ([ni/nimble@1db50a6](https://github.com/ni/nimble/commit/1db50a6f99013664f5130fbb74a5904f1800616c))
 
 ## 20.7.11
 
