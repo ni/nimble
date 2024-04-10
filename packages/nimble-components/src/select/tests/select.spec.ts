@@ -1,4 +1,5 @@
 import { html, repeat } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
 import { ListOption, listOptionTag } from '../../list-option';
@@ -16,17 +17,18 @@ const disabledOption = 'disabled';
 const disabledSelectedOption = 'disabled selected';
 const placeholderOption = 'disabled selected hidden';
 
-async function setup(
-    position?: string,
-    open?: boolean,
-    firstOptionState?:
-    | 'disabled'
-    | 'disabled selected'
-    | 'disabled selected hidden',
-    secondOptionState?:
+type OptionInitialState =
     | 'disabled'
     | 'disabled selected'
     | 'disabled selected hidden'
+    | 'hidden'
+    | 'visually-hidden';
+
+async function setup(
+    position?: string,
+    open?: boolean,
+    firstOptionState?: OptionInitialState,
+    secondOptionState?: OptionInitialState
 ): Promise<Fixture<Select>> {
     const viewTemplate = html`
         <nimble-select
@@ -216,19 +218,54 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('disabled option that is marked as selected initially will be used as value', async () => {
-        // mark second option as selected to be different than default
-        const { element, connect, disconnect } = await setup(
-            undefined,
-            false,
-            undefined,
-            disabledSelectedOption
-        );
-        await connect();
-        await waitForUpdatesAsync();
-        expect(element.value).toBe('two');
+    describe('Default selected option', () => {
+        it('disabled option that is marked as selected initially will be used as value', async () => {
+            // mark second option as selected to be different than default
+            const { element, connect, disconnect } = await setup(
+                undefined,
+                false,
+                undefined,
+                disabledSelectedOption
+            );
+            await connect();
+            await waitForUpdatesAsync();
+            expect(element.value).toBe('two');
 
-        await disconnect();
+            await disconnect();
+        });
+
+        const defaultOptionTestCases: {
+            name: string,
+            value: OptionInitialState
+        }[] = [
+            {
+                name: 'first option disabled, second is default',
+                value: 'disabled'
+            },
+            {
+                name: 'first option hidden, second is default',
+                value: 'hidden'
+            },
+            {
+                name: 'first option visually-hidden, second is default',
+                value: 'visually-hidden'
+            }
+        ];
+        parameterizeSpec(defaultOptionTestCases, (spec, name, value) => {
+            spec(name, async () => {
+                const { element, connect, disconnect } = await setup(
+                    undefined,
+                    false,
+                    value.value,
+                    undefined
+                );
+                await connect();
+                await waitForUpdatesAsync();
+                expect(element.value).toBe('two');
+
+                await disconnect();
+            });
+        });
     });
 
     it('can set value to a disabled option', async () => {

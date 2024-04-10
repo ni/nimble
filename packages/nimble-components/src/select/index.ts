@@ -812,9 +812,6 @@ export class Select
         const optionIsSelected = (option: ListboxOption): boolean => {
             return option.hasAttribute('selected') || option.selected;
         };
-        const optionIsDisabled = (option: ListboxOption): boolean => {
-            return option.hasAttribute('disabled') || option.disabled;
-        };
         let selectedIndex = -1;
         let firstValidOptionIndex = -1;
         for (let i = 0; i < options?.length; i++) {
@@ -822,7 +819,10 @@ export class Select
             if (optionIsSelected(option!) || option?.value === this.value) {
                 selectedIndex = i;
             }
-            if (firstValidOptionIndex === -1 && !optionIsDisabled(option!)) {
+            if (
+                firstValidOptionIndex === -1
+                && isOptionSelectable(option! as ListOption)
+            ) {
                 firstValidOptionIndex = i;
             }
         }
