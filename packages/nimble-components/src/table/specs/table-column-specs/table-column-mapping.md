@@ -30,7 +30,7 @@ The `nimble-table-column-enum` is a component that supports rendering specific n
 -   Arbitrary icon colors
 -   Hyperlink icons
 -   Non-icon, non-spinner Nimble components
--   Specifying different text for an icon/spinner's label than the overall label of the mapping
+-   Specifying different text for an icon/spinner's label than the overall text of the mapping
 -   Detecting that only icons/spinners can be rendered in the cells and column header and automatically making the column non-resizable and 32px
 
 ---
@@ -43,21 +43,21 @@ Below is an example of how these elements would be used within a `nimble-table`:
 <nimble-table>
     <nimble-table-column-enum field-name="status" key-type="string">
         Status
-        <nimble-mapping-icon key="fail" icon="nimble-icon-xmark" severity="error" label="Failed"></nimble-mapping-icon>
-        <nimble-mapping-icon key="error" icon="nimble-icon-xmark" severity="error" label="Errored"></nimble-mapping-icon>
-        <nimble-mapping-icon key="pass" icon="nimble-icon-check" severity="success" label="Passed"></nimble-mapping-icon>
-        <nimble-mapping-spinner key="running" label="Running"></nimble-mapping-spinner>
+        <nimble-mapping-icon key="fail" icon="nimble-icon-xmark" severity="error" text="Failed"></nimble-mapping-icon>
+        <nimble-mapping-icon key="error" icon="nimble-icon-xmark" severity="error" text="Errored"></nimble-mapping-icon>
+        <nimble-mapping-icon key="pass" icon="nimble-icon-check" severity="success" text="Passed"></nimble-mapping-icon>
+        <nimble-mapping-spinner key="running" text="Running"></nimble-mapping-spinner>
     </nimble-table-column-enum>
     <nimble-table-column-enum field-name="errorCode" key-type="number">
         Error Code
-        <nimble-mapping-text key="1" label="A bad thing happened"></nimble-mapping-text>
-        <nimble-mapping-text key="2" label="A worse thing happened"></nimble-mapping-text>
-        <nimble-mapping-text key="3" label="A terrible thing happened"></nimble-mapping-text>
+        <nimble-mapping-text key="1" text="A bad thing happened"></nimble-mapping-text>
+        <nimble-mapping-text key="2" text="A worse thing happened"></nimble-mapping-text>
+        <nimble-mapping-text key="3" text="A terrible thing happened"></nimble-mapping-text>
     </nimble-table-column-enum>
     <nimble-table-column-enum field-name="archived" key-type="boolean">
         Archived
-        <nimble-mapping-icon key="true" icon="nimble-icon-database" label="Archived" label-hidden></nimble-mapping-icon>
-        <nimble-mapping-empty key="false" label="Not archived"></nimble-mapping-empty>
+        <nimble-mapping-icon key="true" icon="nimble-icon-database" text="Archived" text-hidden></nimble-mapping-icon>
+        <nimble-mapping-empty key="false" text="Not archived"></nimble-mapping-empty>
     </nimble-table-column-enum>
 </nimble-table>
 ```
@@ -124,14 +124,14 @@ _Props/Attrs_
 -   `key`: string | number | boolean | undefined
 -   `icon`: string | undefined - name of the Nimble icon element. If `undefined`, no icon will be associated with the given `key`, but space will be reserved in the cell for an icon.
 -   `severity`: string - one of the supported enum values. Controls color of the icon.
--   `label`: string - localized value associated with the given `key`.
--   `label-hidden`: boolean - When set, the label will not be rendered within a cell. When unset, the label will be rendered with a cell. This does not affect the rendering of group rows; group rows will always display the label associated with the mapping.
+-   `text`: string - localized value associated with the given `key`.
+-   `text-hidden`: boolean - When set, the mapping's text will not be rendered within a cell. When unset, the text will be rendered in a cell. This does not affect the rendering of group rows; group rows will always display the text associated with the mapping.
 
-The label will be used in the following places:
+The text will be used in the following places:
 
 -   In the group row for a mapping
--   If `label-hidden` is set, as the accessible name and `title` of the icon within a cell
--   If `label-hidden` is not set, as text rendered next to the icon within a cell
+-   If `text-hidden` is set, as the accessible name and `title` of the icon within a cell
+-   If `text-hidden` is not set, as text rendered next to the icon within a cell
 
 #### Mapping element (spinner):
 
@@ -144,14 +144,14 @@ _Component Name_
 _Props/Attrs_
 
 -   `key`: string | number | boolean | undefined
--   `label`: string - localized value associated with the given `key`.
--   `label-hidden`: boolean - When set, the label will not be rendered within a cell. When unset, the label will be rendered with a cell. This does not affect the rendering of group rows; group rows will always display the label associated with the mapping.
+-   `text`: string - localized value associated with the given `key`.
+-   `text-hidden`: boolean - When set, the mapping's text will not be rendered within a cell. When unset, the text will be rendered in a cell. This does not affect the rendering of group rows; group rows will always display the text associated with the mapping.
 
-The label will be used in the following places:
+The text will be used in the following places:
 
 -   In the group row for a mapping
--   If `label-hidden` is set, as the accessible name and `title` of the spinner within a cell
--   If `label-hidden` is not set, as text rendered next to the spinner within a cell
+-   If `text-hidden` is set, as the accessible name and `title` of the spinner within a cell
+-   If `text-hidden` is not set, as text rendered next to the spinner within a cell
 
 #### Mapping element (text):
 
@@ -164,7 +164,7 @@ _Component Name_
 _Props/Attrs_
 
 -   `key`: string | number | boolean | undefined
--   `label`: string - display text
+-   `text`: string - display text
 
 #### Mapping element (empty):
 
@@ -177,7 +177,7 @@ _Component Name_
 _Props/Attrs_
 
 -   `key`: string | number | boolean | undefined
--   `label`: string - display text
+-   `text`: string - display text
 
 #### `nimble-mapping-*`
 
@@ -191,14 +191,14 @@ _Props/Attrs_
 
 ```HTML
 <${this.icon}
-    title="${x => x.labelHidden ? x.label: null}"
+    title="${x => x.textHidden ? x.text: null}"
     role="img"
-    aria-label="${x  => x.labelHidden ? x.label: null}"
-    aria-hidden="${x => x.labelHidden ? 'false' : 'true'}"
+    aria-label="${x  => x.textHidden ? x.text: null}"
+    aria-hidden="${x => x.textHidden ? 'false' : 'true'}"
     severity="${x => x.severity}">
 </${this.icon}>
-${when(() => !x.labelHidden, html`
-    <span>${x => x.label}</span>
+${when(() => !x.textHidden, html`
+    <span>${x => x.text}</span>
 `)}
 ```
 
@@ -210,13 +210,13 @@ ${when(() => !x.labelHidden, html`
     severity="${x => x.severity}">
 </${this.icon}>
 <span>
-    ${x => x.label}
+    ${x => x.text}
 </span>`;
 ```
 
 ### Grouping
 
-Grouping will be based on the record value. The grouping header will display the rendered label along with the icon/spinner, if configured.
+Grouping will be based on the record value. The grouping header will display the rendered text along with the icon/spinner, if configured.
 
 For values that do not match any mapping, the group row will display only the count. This is considered invalid data from the table's perspective and should be fixed within the client application.
 
@@ -227,9 +227,9 @@ Text in a grouping header will be ellipsized and gain a tooltip if there is not 
 Sorting will be based on the record value. For boolean and number values, a basic sort (just using basic comparison/equality operators) is the clear choice. For string values, it is less clear. In the case where the strings are enum values, they are likely to be non-localized, English strings. Using a basic (alphabetical) sort is not unreasonable. However, if there is a semantically meaningful sort order (e.g. "NOT_STARTED" < "RUNNING" < "DONE"), it would be nice to sort by that. We can only infer that semantic order from the order in which the mappings are given, e.g.:
 
 ```HTML
-    <nimble-mapping-text key="NOT_STARTED" label="Not Started"></nimble-mapping-text>
-    <nimble-mapping-text key="RUNNING" label="Running"></nimble-mapping-text>
-    <nimble-mapping-text key="DONE" label="Done"></nimble-mapping-text>
+    <nimble-mapping-text key="NOT_STARTED" text="Not Started"></nimble-mapping-text>
+    <nimble-mapping-text key="RUNNING" text="Running"></nimble-mapping-text>
+    <nimble-mapping-text key="DONE" text="Done"></nimble-mapping-text>
 ```
 
 We would need new support for sorting this way. We could define a new sorting option, "enumerated sort", where the column provides an ordered list of values, and the table sorts the column based on that given order. To compare the relative order of two values, we have to search the list, making the sort operation a bit more expensive, but still probably reasonable except in the case of enums with many values.
@@ -264,8 +264,8 @@ Blazor wrappers will be created for the components. Columns will be generic in t
 
 ```HTML
 <NimbleTableColumnEnum TKey=int Field="NumberData">
-    <NimbleMappingText Key="1" Label="foo"></NimbleMappingText>
-    <NimbleMappingText Key="2" Label="bar"></NimbleMappingText>
+    <NimbleMappingText Key="1" Text="foo"></NimbleMappingText>
+    <NimbleMappingText Key="2" Text="bar"></NimbleMappingText>
 </NimbleTableColumnEnum>
 ```
 
@@ -284,8 +284,8 @@ N/A
 ### Accessibility
 
 -   Text, icons, and spinner are not interactive and cannot receive keyboard focus.
--   In group rows, the rendered icon/spinner will have `aria-hidden="true"` set because the label is displayed directly next to the icon. The icon/spinner is purely decorative, and it does not contain any additional information that needs to be available with a screen reader.
--   In table cells, if an icon/spinner is displayed with the label, the icon/spinner will have `aria-hidden="true"` set for the same reason explained for group rows above. However, if the label is not displayed, the icon/spinner will have a role of `img` and use the label as its `title` and `aria-label`.
+-   In group rows, the rendered icon/spinner will have `aria-hidden="true"` set because the text is displayed directly next to the icon. The icon/spinner is purely decorative, and it does not contain any additional information that needs to be available with a screen reader.
+-   In table cells, if an icon/spinner is displayed with the text, the icon/spinner will have `aria-hidden="true"` set for the same reason explained for group rows above. However, if the text is not displayed, the icon/spinner will have a role of `img` and use the text as its `title` and `aria-label`.
 
 ### Globalization
 
@@ -310,7 +310,7 @@ None
     -   nothing rendered when value matches no mappings
     -   validation error when non-unique mapping keys exist
     -   validation error when invalid icon name given
-    -   grouping header for icon column includes label
+    -   grouping header for icon column includes text
 -   Verify manually that the column content appears in the accessibility tree and can be read by a screen reader.
 -   Verify manually that several mapping columns with thousands of elements scrolls performantly.
 -   Visual Chromatic tests will be created
