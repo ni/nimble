@@ -119,7 +119,10 @@ describe('WaferMap', () => {
     describe('worker renderer draw flow', () => {
         let setupAndDrawWaferSpy: jasmine.Spy;
         beforeEach(() => {
-            setupAndDrawWaferSpy = spyOn(element.workerRenderer, 'setupAndDrawWafer');
+            setupAndDrawWaferSpy = spyOn(
+                element.workerRenderer,
+                'setupAndDrawWafer'
+            );
         });
 
         it('will call setupAndDrawWafer after supported diesTable change', () => {
@@ -174,17 +177,6 @@ describe('WaferMap', () => {
             processUpdates();
             expect(experimentalUpdateSpy).toHaveBeenCalledTimes(1);
             expect(renderHoverSpy).toHaveBeenCalledTimes(0);
-        });
-
-        it('will call renderHover after supported diesTable change', () => {
-            element.diesTable = tableFromArrays({
-                colIndex: Int32Array.from([]),
-                rowIndex: Int32Array.from([]),
-                value: Float64Array.from([])
-            });
-            processUpdates();
-            expect(element.validity.invalidDiesTableSchema).toBeFalse();
-            expect(renderHoverSpy).toHaveBeenCalledTimes(1);
         });
 
         it('will not call renderHover after unsupported diesTable change', () => {

@@ -13,6 +13,7 @@ import {
     tableColumnEmptyTag
 } from './table-column.fixtures';
 import type { ColumnInternalsOptions } from '../models/column-internals';
+import { ColumnValidator } from '../models/column-validator';
 
 async function setup(): Promise<Fixture<TableCellView>> {
     return fixture(tableColumnEmptyCellViewTag);
@@ -36,7 +37,8 @@ describe('TableCellView', () => {
                 cellRecordFieldNames: [],
                 cellViewTag: tableColumnEmptyCellViewTag,
                 groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-                delegatedEvents: ['click', 'keydown']
+                delegatedEvents: ['click', 'keydown'],
+                validator: new ColumnValidator<[]>([])
             };
         }
     }

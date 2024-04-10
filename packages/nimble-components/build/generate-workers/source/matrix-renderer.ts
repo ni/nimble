@@ -31,8 +31,12 @@ export class MatrixRenderer {
     private colors: string[] = [];
     private colorIndexes= Int32Array.from([]);
 
-    public calculateScaledColumnIndex(columnIndex: number, margin: number): number{
-        return this.scaleX * columnIndex + this.baseX + margin;
+    public calculateXScaledIndex(columnIndex: number): number{
+        return this.scaleX * columnIndex + this.baseX + this.margin.left;
+    }
+
+    public calculateYScaledIndex(rowIndex: number): number{
+        return this.scaleY * rowIndex + this.baseY + this.margin.top;
     }
 
     public calculateScaledRowIndex(columnIndex: number, margin: number): number{
@@ -54,13 +58,13 @@ export class MatrixRenderer {
     public setColumnIndexes(columnIndexes: Int32Array): void {
         this.columnIndexes = columnIndexes;
         if (columnIndexes.length === 0 || this.columnIndexes[0] === undefined) { return; }
-        const scaledColumnIndex = [this.calculateScaledColumnIndex(this.columnIndexes[0], this.margin.left)];
+        const scaledColumnIndex = [this.calculateXScaledIndex(this.columnIndexes[0])];
         const columnPositions = [0];
         let prev = this.columnIndexes[0];
         for (let i = 1; i < this.columnIndexes.length; i++) {
             const xIndex = this.columnIndexes[i];
             if (xIndex && xIndex !== prev) {
-                const scaledX = this.calculateScaledColumnIndex(this.columnIndexes[i]!, this.margin.left);
+                const scaledX = this.calculateXScaledIndex(this.columnIndexes[i]!);
                 scaledColumnIndex.push(scaledX);
                 columnPositions.push(i);
                 prev = xIndex
@@ -74,7 +78,7 @@ export class MatrixRenderer {
         this.rowIndexes = rowIndexesBuffer;
         this.scaledRowIndex = new Float64Array(this.rowIndexes.length);
         for (let i = 0; i < this.rowIndexes.length; i++) {
-            this.scaledRowIndex[i] = this.calculateScaledRowIndex(this.rowIndexes[i]!, this.margin.top);
+            this.scaledRowIndex[i] = this.calculateYScaledIndex(this.rowIndexes[i]!);
         }
     }
 
@@ -184,6 +188,10 @@ export class MatrixRenderer {
             ) {
                 continue;
             }
+
+            // columnIndexPositions is used to get chunks to determine the start and end index of the column, it looks something like [0, 1, 4, 9, 12]
+            // This means that the first column has a start index of 0 and an end index of 1, the second column has a start index of 1 and an end index of 4, and so on
+            // scaledRowIndex is used when we reach the end of the columnIndexPositions, when columnIndexPositions is [0, 1, 4, 9, 12], scaledRowIndex is 13
             const columnEndIndex = this.columnIndexPositions[i + 1] !== undefined ? this.columnIndexPositions[i + 1]! : this.scaledRowIndex.length;
             for (let columnStartIndex = this.columnIndexPositions[i]!;
                 columnStartIndex < columnEndIndex; columnStartIndex++) {

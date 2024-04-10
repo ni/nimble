@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 08 Apr 2024 20:40:28 GMT",
+      "version": "24.1.9",
+      "tag": "@ni/nimble-components_v24.1.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d16c59ec133dcbf4d94198d3f26ff7472a143ea5",
+            "comment": "Move validator into ColumnInternals"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 Apr 2024 15:20:26 GMT",
+      "version": "24.1.8",
+      "tag": "@ni/nimble-components_v24.1.8",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2ab62c64d19f9d645e65568effae6d5ad4844b5b",
+            "comment": "Update issue referenced in skipped tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Apr 2024 21:33:43 GMT",
       "version": "24.1.8",
       "tag": "@ni/nimble-components_v24.1.8",
