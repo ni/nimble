@@ -1,9 +1,5 @@
 // Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/select/select.spec.ts
 import {
-    ListboxOption,
-    listboxOptionTemplate
-} from '@microsoft/fast-foundation';
-import {
     keyArrowDown,
     keyArrowUp,
     keyEnd,
@@ -13,6 +9,8 @@ import { Select } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
+import { ListOption } from '../../list-option';
+import { template as listOptionTemplate } from '../../list-option/template';
 
 /**
  * Timeout for use in async tets.
@@ -32,9 +30,9 @@ describe('Select', () => {
         template
     });
 
-    const option = ListboxOption.compose({
-        baseName: 'option',
-        template: listboxOptionTemplate
+    const option = ListOption.compose({
+        baseName: 'list-option',
+        template: listOptionTemplate
     });
 
     async function setup(): Promise<{
@@ -42,9 +40,9 @@ describe('Select', () => {
         connect: () => Promise<void>,
         disconnect: () => Promise<void>,
         document: Document,
-        option1: ListboxOption,
-        option2: ListboxOption,
-        option3: ListboxOption,
+        option1: ListOption,
+        option2: ListOption,
+        option3: ListOption,
         parent: HTMLElement
     }> {
         const { element, connect, disconnect, parent } = await fixture([
@@ -52,15 +50,15 @@ describe('Select', () => {
             option()
         ]);
 
-        const option1 = document.createElement('fast-option') as ListboxOption;
+        const option1 = document.createElement('nimble-list-option');
         option1.value = 'one';
         option1.textContent = 'option one';
 
-        const option2 = document.createElement('fast-option') as ListboxOption;
+        const option2 = document.createElement('nimble-list-option');
         option2.value = 'two';
         option2.textContent = 'option two';
 
-        const option3 = document.createElement('fast-option') as ListboxOption;
+        const option3 = document.createElement('nimble-list-option');
         option3.value = 'three';
         option3.textContent = 'option three';
 
