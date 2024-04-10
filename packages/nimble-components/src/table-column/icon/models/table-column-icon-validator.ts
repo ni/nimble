@@ -1,7 +1,6 @@
 import type { Mapping } from '../../../mapping/base';
 import { MappingIcon } from '../../../mapping/icon';
 import { MappingSpinner } from '../../../mapping/spinner';
-import type { ColumnInternals } from '../../base/models/column-internals';
 import {
     TableColumnEnumBaseValidator,
     enumBaseValidityFlagNames
@@ -21,8 +20,8 @@ const iconValidityFlagNames = [
 export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
     typeof iconValidityFlagNames
 > {
-    public constructor(columnInternals: ColumnInternals<unknown>) {
-        super(columnInternals, iconValidityFlagNames);
+    public constructor() {
+        super(iconValidityFlagNames);
     }
 
     private static isIconMappingElement(

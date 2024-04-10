@@ -133,8 +133,7 @@ describe('Drawer', () => {
             await expectAsync(promise).toBePending();
         });
 
-        // Firefox skipped, see: https://github.com/ni/nimble/issues/1937
-        it('should resolve promise if drawer completely opens before being closed #SkipFirefox', async () => {
+        it('should resolve promise if drawer completely opens before being closed', async () => {
             const promise = element.show();
             await completeAnimationAsync(element);
             element.close();
@@ -251,7 +250,7 @@ describe('Drawer', () => {
             expect(document.activeElement).toBe(cancelButton);
         });
 
-        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1943
+        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
         it('supports opening multiple drawers on top of each other #SkipFirefox #SkipWebkit', () => {
             const secondDrawer = document.createElement('nimble-drawer');
             const secondDrawerButton = document.createElement('nimble-button');

@@ -27,6 +27,12 @@ import {
     partVisibilityStatesOnlyLabel
 } from '../../patterns/button/tests/states';
 
+const openStates = [
+    ['', false],
+    ['Open', true]
+] as const;
+type OpenState = (typeof openStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Menu Button',
     parameters: {
@@ -35,12 +41,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const openStates = [
-    ['', false],
-    ['Open', true]
-] as const;
-type OpenState = (typeof openStates)[number];
 
 // prettier-ignore
 const component = (

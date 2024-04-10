@@ -1,8 +1,98 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 27 Mar 2024 21:22:02 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Apr 2024 00:29:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.7.9
+
+Wed, 10 Apr 2024 00:29:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.10
+
+## 20.7.7
+
+Mon, 08 Apr 2024 20:40:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.9
+
+## 20.7.6
+
+Thu, 04 Apr 2024 21:33:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.8
+
+## 20.7.5
+
+Thu, 04 Apr 2024 18:11:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.7
+
+## 20.7.4
+
+Thu, 04 Apr 2024 14:57:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.6
+
+## 20.7.3
+
+Tue, 02 Apr 2024 22:01:51 GMT
+
+### Patches
+
+- Reverting changes. ([ni/nimble@47d91bc](https://github.com/ni/nimble/commit/47d91bc3cb98a52843ffb9f0b7d3e3e1baaea344))
+- Bump @ni/nimble-components to v24.1.5
+
+## 20.7.2
+
+Tue, 02 Apr 2024 17:10:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.4
+
+## 20.7.1
+
+Tue, 02 Apr 2024 15:32:11 GMT
+
+### Patches
+
+- Combobox CVA optimization ([ni/nimble@7f2f704](https://github.com/ni/nimble/commit/7f2f7042d7b4006b32a841c3c5124bf33489392a))
+- Bump @ni/nimble-components to v24.1.3
+
+## 20.7.0
+
+Fri, 29 Mar 2024 23:26:43 GMT
+
+### Minor changes
+
+- Angular support for appearance-variant on toggle and menu buttons ([ni/nimble@82d484e](https://github.com/ni/nimble/commit/82d484e2b69dc93f526c72249f32002d355ade91))
+
+## 20.6.1
+
+Thu, 28 Mar 2024 17:27:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.2
+
+## 20.6.0
+
+Thu, 28 Mar 2024 00:47:47 GMT
+
+### Minor changes
+
+- Add support for column placeholders ([ni/nimble@a9ffce8](https://github.com/ni/nimble/commit/a9ffce872954c88d7cf4ad0dd84eb55433953886))
 
 ## 20.5.7
 

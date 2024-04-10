@@ -1,8 +1,80 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 27 Mar 2024 21:22:02 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Apr 2024 00:29:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.10
+
+Wed, 10 Apr 2024 00:29:05 GMT
+
+### Patches
+
+- Update version of FAST ([ni/nimble@5832b42](https://github.com/ni/nimble/commit/5832b42172788170c01eb276eaaba1e6b47cbf92))
+
+## 24.1.9
+
+Mon, 08 Apr 2024 20:40:28 GMT
+
+### Patches
+
+- Move validator into ColumnInternals ([ni/nimble@d16c59e](https://github.com/ni/nimble/commit/d16c59ec133dcbf4d94198d3f26ff7472a143ea5))
+
+## 24.1.8
+
+Thu, 04 Apr 2024 21:33:43 GMT
+
+### Patches
+
+- Improve TColumnConfig typing on columns that extend TableColumnTextBase ([ni/nimble@2777f26](https://github.com/ni/nimble/commit/2777f26b80bbdfa68acf76e253e5ce5fcb094631))
+
+## 24.1.7
+
+Thu, 04 Apr 2024 18:11:08 GMT
+
+### Patches
+
+- Fork FAST Combobox. ([ni/nimble@53b2c45](https://github.com/ni/nimble/commit/53b2c4572f3e24fc862ab39e30808908b372e3e4))
+
+## 24.1.6
+
+Thu, 04 Apr 2024 14:57:17 GMT
+
+### Patches
+
+- Created new Experimental Prerendering Module and tests ([ni/nimble@b6e22fe](https://github.com/ni/nimble/commit/b6e22fee05e26937cb2bb0749de83def60c33bf3))
+
+## 24.1.5
+
+Tue, 02 Apr 2024 22:01:51 GMT
+
+### Patches
+
+- Reverting changes. ([ni/nimble@47d91bc](https://github.com/ni/nimble/commit/47d91bc3cb98a52843ffb9f0b7d3e3e1baaea344))
+
+## 24.1.4
+
+Tue, 02 Apr 2024 17:10:35 GMT
+
+### Patches
+
+- Fix race condition when closing the drawer immediately after it finishes opening ([ni/nimble@2319edc](https://github.com/ni/nimble/commit/2319edca45a8bf3aded03c62d77a4818c9c55d60))
+
+## 24.1.3
+
+Tue, 02 Apr 2024 15:32:11 GMT
+
+### Patches
+
+- Re-introduce ListOptionOwner to Combobox. ([ni/nimble@7f2f704](https://github.com/ni/nimble/commit/7f2f7042d7b4006b32a841c3c5124bf33489392a))
+
+## 24.1.2
+
+Thu, 28 Mar 2024 17:27:01 GMT
+
+### Patches
+
+- Update date-text column tests to pass on all browsers ([ni/nimble@0fa5905](https://github.com/ni/nimble/commit/0fa5905a80b1e3fcae91f7e1e25130bf3e5376cb))
 
 ## 24.1.1
 

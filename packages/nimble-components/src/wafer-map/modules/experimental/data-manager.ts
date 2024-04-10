@@ -1,14 +1,8 @@
 import type { ScaleLinear } from 'd3-scale';
 import { Computations } from './computations';
-import { Prerendering } from '../prerendering';
+import { Prerendering } from './prerendering';
 import type { WaferMap } from '../..';
-import type {
-    Dimensions,
-    Margin,
-    DieRenderInfo,
-    WaferMapDie,
-    PointCoordinates
-} from '../../types';
+import type { ColorScale, Dimensions, Margin } from '../../types';
 
 /**
  * Data Manager uses Computations and Prerendering modules in order and exposes the results
@@ -38,50 +32,24 @@ export class DataManager {
         return this.prerendering.labelsFontSize;
     }
 
-    public get diesRenderInfo(): DieRenderInfo[] {
-        return this.prerendering.diesRenderInfo;
-    }
-
-    public get data(): Map<string, WaferMapDie> {
-        return this.dataMap;
+    public get colorScale(): ColorScale {
+        return this.prerendering.colorScale;
     }
 
     private readonly computations: Computations;
     private readonly prerendering: Prerendering;
-    private dataMap!: Map<string, WaferMapDie>;
 
     public constructor(private readonly wafermap: WaferMap) {
         this.computations = new Computations(wafermap);
         this.prerendering = new Prerendering(wafermap);
     }
 
-    public updateContainerDimensions(): void {
-        this.computations.updateContainerDimensions();
-        this.updateDataMap();
-        this.updateLabelsFontSize();
+    public updateComputations(): void {
+        this.computations.update();
+        this.prerendering.update();
     }
 
-    public updateScales(): void {
-        this.computations.updateScales();
-        this.updateDataMap();
-        this.updateLabelsFontSize();
-    }
-
-    public updateLabelsFontSize(): void {
-        this.prerendering.updateLabelsFontSize();
-    }
-
-    public updateDiesRenderInfo(): void {
-        this.prerendering.updateDiesRenderInfo();
-    }
-
-    public getWaferMapDie(point: PointCoordinates): WaferMapDie | undefined {
-        return this.dataMap.get(`${point.x}_${point.y}`);
-    }
-
-    private updateDataMap(): void {
-        this.dataMap = new Map(
-            this.wafermap.dies.map(die => [`${die.x}_${die.y}`, die])
-        );
+    public updatePrerendering(): void {
+        this.prerendering.update();
     }
 }

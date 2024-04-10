@@ -1,6 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
@@ -23,24 +22,11 @@ import { NumberFieldAppearance } from '../types';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 import { numberFieldTag } from '..';
 
-const metadata: Meta = {
-    title: 'Tests/Number Field',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
-const valueStates = [
-    ['Placeholder', null, 'placeholder'],
-    ['Value', '1234', null]
+const appearanceStates = [
+    ['Underline', NumberFieldAppearance.underline],
+    ['Outline', NumberFieldAppearance.outline],
+    ['Block', NumberFieldAppearance.block]
 ] as const;
-type ValueState = (typeof valueStates)[number];
-const valueStatesHasValue = valueStates[1];
-
-const appearanceStates = Object.entries(NumberFieldAppearance).map(
-    ([key, value]) => [pascalCase(key), value]
-);
 type AppearanceState = (typeof appearanceStates)[number];
 
 const hideStepStates = [
@@ -49,6 +35,22 @@ const hideStepStates = [
 ] as const;
 type HideStepState = (typeof hideStepStates)[number];
 const hideStepStateStepVisible = hideStepStates[0];
+
+const valueStates = [
+    ['Placeholder', null, 'placeholder'],
+    ['Value', '1234', null]
+] as const;
+type ValueState = (typeof valueStates)[number];
+const valueStatesHasValue = valueStates[1];
+
+const metadata: Meta = {
+    title: 'Tests/Number Field',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 const component = (
     [disabledName, disabled]: DisabledState,

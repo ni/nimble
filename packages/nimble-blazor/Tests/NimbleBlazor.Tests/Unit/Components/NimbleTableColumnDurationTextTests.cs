@@ -28,6 +28,15 @@ public class NimbleTableColumnDurationTextTests
         Assert.Contains(expectedMarkup, table.Markup);
     }
 
+    [Fact]
+    public void NimbleTableColumnDurationText_WithPlaceholderAttribute_HasTableMarkup()
+    {
+        var table = RenderWithPropertySet(x => x.Placeholder, "Custom placeholder");
+
+        var expectedMarkup = @"placeholder=""Custom placeholder""";
+        Assert.Contains(expectedMarkup, table.Markup);
+    }
+
     private IRenderedComponent<NimbleTableColumnDurationText> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTableColumnDurationText, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();

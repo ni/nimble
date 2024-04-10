@@ -10,19 +10,24 @@ import {
     ColumnInternalsOptions
 } from './models/column-internals';
 import type { TableColumnValidity } from './types';
+import type { ColumnValidator } from './models/column-validator';
 
 /**
  * The base class for table columns
  */
 export abstract class TableColumn<
-    TColumnConfig = unknown
+    TColumnConfig = unknown,
+    TColumnValidator extends ColumnValidator<[]> = ColumnValidator<[]>
 > extends FoundationElement {
     /**
      * @internal
      *
      * Column properties configurable by plugin authors
      */
-    public readonly columnInternals: ColumnInternals<TColumnConfig> = new ColumnInternals(this.getColumnInternalsOptions());
+    public readonly columnInternals: ColumnInternals<
+    TColumnConfig,
+    TColumnValidator
+    > = new ColumnInternals(this.getColumnInternalsOptions());
 
     @attr({ attribute: 'column-id' })
     public columnId?: string;
@@ -53,11 +58,11 @@ export abstract class TableColumn<
     public contentSlot!: HTMLSlotElement;
 
     public checkValidity(): boolean {
-        return this.columnInternals.validConfiguration;
+        return this.columnInternals.validator.isColumnValid;
     }
 
     public get validity(): TableColumnValidity {
-        return {};
+        return this.columnInternals.validator.getValidity();
     }
 
     /** @internal */
@@ -75,7 +80,7 @@ export abstract class TableColumn<
         this.setAttribute('slot', this.columnInternals.uniqueId);
     }
 
-    protected abstract getColumnInternalsOptions(): ColumnInternalsOptions;
+    protected abstract getColumnInternalsOptions(): ColumnInternalsOptions<TColumnValidator>;
 
     protected sortDirectionChanged(): void {
         if (!this.sortingDisabled) {
