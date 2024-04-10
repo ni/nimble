@@ -25,10 +25,6 @@ export const styles = css`
             display: contents;
         }
 
-        [part='start'] {
-            display: none;
-        }
-
         .control {
             color: ${linkFontColor};
             text-decoration: underline;
@@ -40,6 +36,10 @@ export const styles = css`
 
         :host([appearance='prominent']) .control {
             color: ${linkProminentFontColor};
+        }
+
+        [part='start'] {
+            display: none;
         }
 
         .content {
