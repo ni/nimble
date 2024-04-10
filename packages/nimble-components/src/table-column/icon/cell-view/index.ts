@@ -1,6 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { ViewTemplate, observable } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
+import { styles } from './styles';
 import { template } from './template';
 import type {
     TableColumnEnumCellRecord,
@@ -11,7 +12,7 @@ import {
     MappingIconConfig
 } from '../../enum-base/models/mapping-icon-config';
 import type { IconSeverity } from '../../../icon-base/types';
-import { MappingSpinnerConfig } from '../../enum-base/models/mapping-spinner-config';
+import { MappingSpinnerConfig, SpinnerView } from '../../enum-base/models/mapping-spinner-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,7 +28,7 @@ export class TableColumnIconCellView
     TableColumnEnumCellRecord,
     TableColumnEnumColumnConfig
     >
-    implements IconView {
+    implements IconView, SpinnerView {
     @observable
     public severity: IconSeverity;
 
@@ -35,10 +36,17 @@ export class TableColumnIconCellView
     public text?: string;
 
     @observable
-    public iconTemplate?: ViewTemplate<IconView>;
+    public iconTemplate?: ViewTemplate<IconView> | ViewTemplate<SpinnerView>;
 
     @observable
     public visual?: 'spinner' | 'icon';
+
+    @observable
+    public textHidden = false;
+
+    /** @internal */
+    @observable
+    public hasOverflow = false;
 
     private columnConfigChanged(): void {
         this.updateState();
@@ -62,17 +70,21 @@ export class TableColumnIconCellView
             this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text;
-            this.iconTemplate = mappingConfig.iconTemplate;
+            this.iconTemplate = mappingConfig.iconCellTemplate;
+            this.textHidden = mappingConfig.textHidden;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
             this.visual = 'spinner';
             this.text = mappingConfig.text;
+            this.iconTemplate = mappingConfig.spinnerCellTemplate;
+            this.textHidden = mappingConfig.textHidden;
         }
     }
 }
 
 const iconCellView = TableColumnIconCellView.compose({
     baseName: 'table-column-icon-cell-view',
-    template
+    template,
+    styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(iconCellView());
 export const tableColumnIconCellViewTag = 'nimble-table-column-icon-cell-view';

@@ -10,7 +10,7 @@ import {
     MappingIconConfig,
     type IconView
 } from '../../enum-base/models/mapping-icon-config';
-import { MappingSpinnerConfig } from '../../enum-base/models/mapping-spinner-config';
+import { MappingSpinnerConfig, SpinnerView } from '../../enum-base/models/mapping-spinner-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -26,12 +26,12 @@ export class TableColumnIconGroupHeaderView
     TableFieldValue,
     TableColumnEnumColumnConfig
     >
-    implements IconView {
+    implements IconView, SpinnerView {
     @observable
     public severity: IconSeverity;
 
     @observable
-    public iconTemplate?: ViewTemplate<IconView>;
+    public iconTemplate?: ViewTemplate<IconView> | ViewTemplate<SpinnerView>;
 
     @observable
     public visual?: 'spinner' | 'icon';
@@ -48,10 +48,11 @@ export class TableColumnIconGroupHeaderView
             this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text ?? '';
-            this.iconTemplate = mappingConfig.iconTemplate;
+            this.iconTemplate = mappingConfig.iconGroupRowTemplate;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
             this.visual = 'spinner';
             this.text = mappingConfig.text ?? '';
+            this.iconTemplate = mappingConfig.spinnerGroupRowTemplate;
         }
     }
 }

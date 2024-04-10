@@ -61,11 +61,12 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
             return new MappingIconConfig(
                 mapping.resolvedIcon,
                 mapping.severity,
-                mapping.text
+                mapping.text,
+                mapping.textHidden
             );
         }
         if (mapping instanceof MappingSpinner) {
-            return new MappingSpinnerConfig(mapping.text);
+            return new MappingSpinnerConfig(mapping.text, mapping.textHidden);
         }
         // Getting here would indicate a programming error, b/c validation will prevent
         // this function from running when there is an unsupported mapping.
