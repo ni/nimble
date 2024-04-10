@@ -5,10 +5,7 @@ import type { Mapping } from '../../../mapping/base';
 import { MappingUser } from '../../../mapping/user';
 import { richTextMentionUsersViewTag } from '../../users/view';
 import { MappingConfig } from '../models/mapping-config';
-import type {
-    MentionInternals,
-    MentionInternalsOptions
-} from '../models/mention-internals';
+import type { MentionInternalsOptions } from '../models/mention-internals';
 import {
     RichTextMentionValidator,
     baseValidityFlagNames
@@ -20,8 +17,8 @@ export const richTextMentionTestTag = 'nimble-rich-text-test-mention';
  * validator for testing
  */
 class RichTextMentionTestValidator extends RichTextMentionValidator {
-    public constructor(columnInternals: MentionInternals) {
-        super(columnInternals, baseValidityFlagNames);
+    public constructor() {
+        super(baseValidityFlagNames);
     }
 }
 
@@ -41,15 +38,12 @@ class MappingTestConfig extends MappingConfig {}
     ></slot>`
 })
 export class RichTextMentionTest extends RichTextMention {
-    protected override createValidator(): RichTextMentionTestValidator {
-        return new RichTextMentionTestValidator(this.mentionInternals);
-    }
-
     protected override getMentionInternalsOptions(): MentionInternalsOptions {
         return {
             icon: 'nimble-icon-exclamation-mark',
             character: '!',
-            viewElement: richTextMentionUsersViewTag
+            viewElement: richTextMentionUsersViewTag,
+            validator: new RichTextMentionTestValidator()
         };
     }
 
