@@ -117,37 +117,6 @@ const getDiesTableSet = (setName: string, sets: Table[]): Table | undefined => {
     return returnedValue;
 };
 
-const getDiesTableSet = (setName: string, sets: Table[]): Table | undefined => {
-    const seed = 0.5;
-    let returnedValue: Table | undefined;
-    switch (setName) {
-        case 'fixedDies10':
-            returnedValue = sets[0]!;
-            break;
-        case 'goodDies100':
-            returnedValue = generateWaferTableData(
-                100,
-                goodValueGenerator(seed)
-            );
-            break;
-        case 'goodDies1000':
-            returnedValue = generateWaferTableData(
-                1000,
-                goodValueGenerator(seed)
-            )!;
-            break;
-        case 'badDies10000':
-            returnedValue = generateWaferTableData(
-                10000,
-                badValueGenerator(seed)
-            )!;
-            break;
-        default:
-            returnedValue = undefined;
-    }
-    return returnedValue;
-};
-
 const getHighlightedTags = (setName: string, sets: string[][]): string[] => {
     let returnedValue: string[];
     switch (setName) {

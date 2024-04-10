@@ -353,18 +353,6 @@ export class WaferMap<
 
     private diesChanged(): void {
         this.waferMapUpdateTracker.track('dies');
-        this.renderStrategy = this.dies === undefined ? 'worker' : 'main';
-        this.waferMapUpdateTracker.queueUpdate();
-    }
-
-    private diesTableChanged(): void {
-        this.waferMapUpdateTracker.track('dies');
-        this.renderStrategy = this.diesTable === undefined ? 'main' : 'worker';
-        this.waferMapUpdateTracker.queueUpdate();
-    }
-
-    private diesTableChanged(): void {
-        this.waferMapUpdateTracker.track('dies');
         this.waferMapUpdateTracker.queueUpdate();
     }
 

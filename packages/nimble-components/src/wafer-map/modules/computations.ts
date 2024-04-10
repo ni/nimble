@@ -97,9 +97,6 @@ export class Computations {
     }
 
     public updateScales(): void {
-        if (this.wafermap.dies === undefined) {
-            return;
-        }
         const containerDiameter = Math.min(
             this._containerDimensions.width,
             this._containerDimensions.height
