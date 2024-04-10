@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 10 Apr 2024 00:29:05 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Apr 2024 17:46:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.11
+
+Wed, 10 Apr 2024 17:46:00 GMT
+
+### Patches
+
+- Fix a couple issues with anchor styling ([ni/nimble@8a76c28](https://github.com/ni/nimble/commit/8a76c28fbc7a700234b3629487816cb71709c4a4))
 
 ## 24.1.10
 

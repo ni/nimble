@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 10 Apr 2024 17:46:00 GMT",
+      "version": "24.1.11",
+      "tag": "@ni/nimble-components_v24.1.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8a76c28fbc7a700234b3629487816cb71709c4a4",
+            "comment": "Fix a couple issues with anchor styling"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Apr 2024 00:29:05 GMT",
       "version": "24.1.10",
       "tag": "@ni/nimble-components_v24.1.10",
