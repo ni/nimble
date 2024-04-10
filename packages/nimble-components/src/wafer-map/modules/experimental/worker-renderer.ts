@@ -7,6 +7,7 @@ import { HoverDieOpacity } from '../../types';
  */
 export class WorkerRenderer {
     private isWorkerAlive = false;
+    private readonly minDieDim = 100;
 
     public constructor(private readonly wafermap: WaferMap) {}
 
@@ -62,6 +63,16 @@ export class WorkerRenderer {
             }
         );
         await this.wafermap.worker.drawWafer();
+        if (
+            !this.wafermap.dieLabelsHidden
+            && this.wafermap.experimentalDataManager.dieDimensions
+            && this.wafermap.experimentalDataManager.dieDimensions.width
+                * this.wafermap.experimentalDataManager.dieDimensions.height
+                * (this.wafermap.transform.k || 1)
+                >= this.minDieDim
+        ) {
+            await this.wafermap.worker.drawText();
+        }
         this.renderHover();
     }
 
@@ -130,5 +141,6 @@ export class WorkerRenderer {
             this.wafermap.experimentalDataManager.margin
         );
         await this.wafermap.worker.setColorScale(this.wafermap.experimentalDataManager.colorScale);
+        await this.wafermap.worker.setLabelConfig(this.wafermap.experimentalDataManager.labelsFontSize, this.wafermap.dieLabelsSuffix, this.wafermap.maxCharacters);
     }
 }

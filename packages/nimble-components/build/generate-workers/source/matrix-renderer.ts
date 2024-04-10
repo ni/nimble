@@ -26,10 +26,15 @@ export class MatrixRenderer {
     private topLeftCanvasCorner!: { x: number; y: number; };
     private bottomRightCanvasCorner!: { x: number; y: number; };
     private readonly smallestMarginPossible: number = 20;
+    private readonly outsideRangeDieColor = 'rgba(218,223,236,1)';
+    private readonly fontSizeFactor = 0.8;
     private margin: { top: number; right: number; bottom: number; left: number; } = { top: this.smallestMarginPossible, right: this.smallestMarginPossible, bottom: this.smallestMarginPossible, left: this.smallestMarginPossible };
     private colorValues = Float64Array.from([]);
     private colors: string[] = [];
     private colorIndexes= Int32Array.from([]);
+    private fontSize!: number;
+    private dieLabelsSuffix = '';
+    private maxCharacters!: number;
 
     public calculateXScaledIndex(columnIndex: number): number{
         return this.scaleX * columnIndex + this.baseX + this.margin.left;
@@ -127,6 +132,12 @@ export class MatrixRenderer {
         this.colorValues = Float64Array.from(colorScale.map(category => category.value));
     }
 
+    public setLabelConfig(fontSize: number, dieLabelsSuffix: string, maxCharacters: number): void {
+        this.fontSize = fontSize;
+        this.dieLabelsSuffix = dieLabelsSuffix;
+        this.maxCharacters = maxCharacters;
+    }
+
     public getMatrix(): WaferMapTypedMatrix {
         return {
             columnIndexes: this.columnIndexes,
@@ -202,8 +213,52 @@ export class MatrixRenderer {
                 ) {
                     continue;
                 }
-                this.context.fillStyle = this.colors[this.colorIndexes[columnStartIndex]!]!;
+                const colorIndex = this.colorIndexes[columnStartIndex]!;
+                this.context.fillStyle = colorIndex === -1 ? this.outsideRangeDieColor : this.colors[colorIndex]!;
                 this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
+            }
+        }
+    }
+
+    public drawText(): void {
+        this.context.font = `${this.fontSize.toString()}px sans-serif`;
+        this.context.fillStyle = '#ffffff';
+        this.context.textAlign = 'center';
+        this.context.lineCap = 'butt';
+        const approximateTextHeight = this.context.measureText('M');
+        if (this.topLeftCanvasCorner === undefined || this.bottomRightCanvasCorner === undefined) { throw new Error('Canvas corners are not set');}
+        for (let i = 0; i < this.scaledColumnIndex.length; i++) {
+            const scaledX = this.scaledColumnIndex[i]!;
+            if (
+                !(scaledX >= this.topLeftCanvasCorner.x
+                    && scaledX < this.bottomRightCanvasCorner.x)
+            ) {
+                continue;
+            }
+
+            // columnIndexPositions is used to get chunks to determine the start and end index of the column, it looks something like [0, 1, 4, 9, 12]
+            // This means that the first column has a start index of 0 and an end index of 1, the second column has a start index of 1 and an end index of 4, and so on
+            // scaledRowIndex is used when we reach the end of the columnIndexPositions, when columnIndexPositions is [0, 1, 4, 9, 12], scaledRowIndex is 13
+            const columnEndIndex = this.columnIndexPositions[i + 1] !== undefined ? this.columnIndexPositions[i + 1]! : this.scaledRowIndex.length;
+            for (let columnStartIndex = this.columnIndexPositions[i]!;
+                columnStartIndex < columnEndIndex; columnStartIndex++) {
+                const scaledY = this.scaledRowIndex[columnStartIndex]!;
+                if (
+                    !(scaledY >= this.topLeftCanvasCorner.y
+                        && scaledY < this.bottomRightCanvasCorner.y)
+                ) {
+                    continue;
+                }
+                let label = `${this.values[columnStartIndex]}${this.dieLabelsSuffix}`;
+                if (label.length >= this.maxCharacters) {
+                    label = `${label.substring(0, this.maxCharacters)}…`;
+                }
+                this.context.fillText(
+                    label,
+                    scaledX + this.dieDimensions.width / 2,
+                    scaledY + this.dieDimensions.height / 2 + approximateTextHeight.width / 2,
+                    this.dieDimensions.width * this.fontSizeFactor
+                );
             }
         }
     }
