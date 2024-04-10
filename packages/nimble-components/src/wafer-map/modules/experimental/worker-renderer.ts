@@ -35,6 +35,10 @@ export class WorkerRenderer {
             return;
         }
 
+        if (this.wafermap.worker === undefined) {
+            throw new Error('Worker is not defined');
+        }
+
         await this.wafermap.worker.setTransform(this.wafermap.transform);
         const topLeftCanvasCorner = this.wafermap.transform.invert([0, 0]);
         const bottomRightCanvasCorner = this.wafermap.transform.invert([
