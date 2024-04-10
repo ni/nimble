@@ -27,11 +27,13 @@ interface BasicIconMapping {
     key?: MappingKey;
     text?: string;
     icon?: string;
+    textHidden?: boolean;
 }
 
 interface BasicSpinnerMapping {
     key?: MappingKey;
     text?: string;
+    textHidden?: boolean;
 }
 
 class Model {
@@ -64,13 +66,15 @@ describe('TableColumnIcon', () => {
                             <${mappingIconTag}
                                 key="${x => x.key}"
                                 text="${x => x.text}"
-                                icon="${x => x.icon}">
+                                icon="${x => x.icon}"
+                                ?text-hidden="${x => x.textHidden}">
                             </${mappingIconTag}>
                         `)}
                         ${repeat(() => options.spinnerMappings, html<BasicSpinnerMapping>`
                         <${mappingSpinnerTag}
                             key="${x => x.key}"
                             text="${x => x.text}"
+                            ?text-hidden="${x => x.textHidden}">
                         </${mappingSpinnerTag}>
                         `)}
                     </${tableColumnIconTag}>
@@ -254,34 +258,6 @@ describe('TableColumnIcon', () => {
 
         expect(pageObject.getRenderedIconColumnCellIconTagName(0, 0)).toBe(
             iconXmarkTag
-        );
-    });
-
-    it('sets label as title of icon', async () => {
-        ({ connect, disconnect, model } = await setup({
-            keyType: MappingKeyType.string,
-            iconMappings: [{ key: 'a', text: 'alpha', icon: iconXmarkTag }],
-            spinnerMappings: []
-        }));
-        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
-        await model.table.setData([{ field1: 'a' }]);
-        await connect();
-        await waitForUpdatesAsync();
-        expect(pageObject.getCellTitle(0, 0)).toBe('alpha');
-    });
-
-    it('sets label as aria-label of icon', async () => {
-        ({ connect, disconnect, model } = await setup({
-            keyType: MappingKeyType.string,
-            iconMappings: [{ key: 'a', text: 'alpha', icon: iconXmarkTag }],
-            spinnerMappings: []
-        }));
-        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
-        await model.table.setData([{ field1: 'a' }]);
-        await connect();
-        await waitForUpdatesAsync();
-        expect(pageObject.getRenderedIconColumnCellIconAriaLabel(0, 0)).toBe(
-            'alpha'
         );
     });
 
@@ -609,5 +585,84 @@ describe('TableColumnIcon', () => {
                 );
             });
         });
+    });
+
+    describe('text-hidden', () => {
+        const mappingTypes = [
+            {
+                name: 'spinner mapping',
+                type: 'spinner'
+            },
+            {
+                name: 'icon mapping',
+                type: 'icon'
+            }
+        ] as const;
+
+        for (const mappingType of mappingTypes) {
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            describe(`in ${mappingType.name}`, () => {
+                beforeEach(async () => {
+                    ({ connect, disconnect, model } = await setup({
+                        keyType: MappingKeyType.string,
+                        iconMappings: mappingType.type === 'icon' ? [{ key: 'a', text: 'alpha', icon: iconXmarkTag }] : [],
+                        spinnerMappings: mappingType.type === 'spinner' ? [{ key: 'a', text: 'alpha' }] : [],
+                    }));
+                    pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+                    await model.table.setData([{ field1: 'a' }]);
+                    await connect();
+                    model.col1.groupIndex = 0;
+                    await waitForUpdatesAsync();
+                });
+
+                async function updateTextHiddenAsync(value: boolean) {
+                    if (value) {
+                        model.col1.querySelectorAll(mappingIconTag).forEach(x => x.setAttribute('text-hidden', ''));
+                        model.col1.querySelectorAll(mappingSpinnerTag).forEach(x => x.setAttribute('text-hidden', ''));
+                    } else {
+                        model.col1.querySelectorAll(mappingIconTag).forEach(x => x.removeAttribute('text-hidden'));
+                        model.col1.querySelectorAll(mappingSpinnerTag).forEach(x => x.removeAttribute('text-hidden'));
+                    }
+
+                    await waitForUpdatesAsync();
+                }
+
+                it('renders text in cell when text-hidden is false', () => {
+                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('alpha');
+                });
+
+                it('does not render text in cell when text-hidden is true', async () => {
+                    await updateTextHiddenAsync(true);
+                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+                });
+
+                it('renders text in group row when text-hidden is true', async () => {
+                    await updateTextHiddenAsync(true);
+                    expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                        'alpha'
+                    );
+                });
+
+                it('marks visualization as aria-hidden in cell when text-hidden is false', () => {
+                    expect(pageObject.getRenderedIconColumnCellIconAriaHidden(0, 0)).toBe('true');
+                });
+
+                it('does not mark visualization as aria-hidden in cell when text-hidden is true', async () => {
+                    await updateTextHiddenAsync(true);
+                    expect(pageObject.getRenderedIconColumnCellIconAriaHidden(0, 0)).toBe('false');
+                });
+
+                it('sets text as title of visualization when text-hidden is true', async () => {
+                    await updateTextHiddenAsync(true);
+                    expect(pageObject.getRenderedIconColumnCellIconTitle(0, 0)).toBe('alpha');
+                });
+
+                it('sets text as aria-label of visualization', () => {
+                    expect(pageObject.getRenderedIconColumnCellIconAriaLabel(0, 0)).toBe(
+                        'alpha'
+                    );
+                });
+            });
+        }
     });
 });
