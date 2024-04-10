@@ -30,6 +30,22 @@ export class NimbleLabelProviderTableDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'groupExpand', value);
     }
 
+    public get rowCollapse(): string | undefined {
+        return this.elementRef.nativeElement.rowCollapse;
+    }
+
+    @Input('row-collapse') public set rowCollapse(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'rowCollapse', value);
+    }
+
+    public get rowExpand(): string | undefined {
+        return this.elementRef.nativeElement.rowExpand;
+    }
+
+    @Input('row-expand') public set rowExpand(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'rowExpand', value);
+    }
+
     public get collapseAll(): string | undefined {
         return this.elementRef.nativeElement.collapseAll;
     }
@@ -110,5 +126,21 @@ export class NimbleLabelProviderTableDirective {
 
     @Input('row-loading') public set rowLoading(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'rowLoading', value);
+    }
+
+    public get groupRowPlaceholderNoValue(): string | undefined {
+        return this.elementRef.nativeElement.groupRowPlaceholderNoValue;
+    }
+
+    @Input('group-row-placeholder-no-value') public set groupRowPlaceholderNoValue(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'groupRowPlaceholderNoValue', value);
+    }
+
+    public get groupRowPlaceholderEmpty(): string | undefined {
+        return this.elementRef.nativeElement.groupRowPlaceholderEmpty;
+    }
+
+    @Input('group-row-placeholder-empty') public set groupRowPlaceholderEmpty(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'groupRowPlaceholderEmpty', value);
     }
 }

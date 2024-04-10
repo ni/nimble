@@ -1,6 +1,5 @@
-import type { Story, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrix,
@@ -16,20 +15,6 @@ import { buttonTag } from '../../button';
 import { anchorTag } from '../../anchor';
 import { iconKeyTag } from '../../icons/key';
 
-const metadata: Meta = {
-    title: 'Tests/Banner',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
-
-const severityStates: [string, string | undefined][] = Object.entries(
-    BannerSeverity
-).map(([key, value]) => [pascalCase(key), value]);
-type SeverityState = (typeof severityStates)[number];
-
 const actionStates = [
     ['', false, false, undefined],
     ['link', true, false, undefined],
@@ -39,17 +24,34 @@ const actionStates = [
 ] as const;
 type ActionState = (typeof actionStates)[number];
 
+const longTextStates = [
+    ['', false],
+    ['long text', true]
+] as const;
+type LongTextState = (typeof longTextStates)[number];
+
 const partsHiddenStates = [
     ['', false],
     ['parts hidden', true]
 ] as const;
 type PartsHiddenState = (typeof partsHiddenStates)[number];
 
-const longTextStates = [
-    ['', false],
-    ['long text', true]
+const severityStates = [
+    ['Default', BannerSeverity.default],
+    ['Error', BannerSeverity.error],
+    ['Warning', BannerSeverity.warning],
+    ['Information', BannerSeverity.information]
 ] as const;
-type LongTextState = (typeof longTextStates)[number];
+type SeverityState = (typeof severityStates)[number];
+
+const metadata: Meta = {
+    title: 'Tests/Banner',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = (
@@ -81,7 +83,7 @@ const component = (
     <div style="height: var(${bannerGapSize.cssCustomProperty})"></div>
 `;
 
-export const bannerThemeMatrix: Story = createMatrixThemeStory(
+export const bannerThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         severityStates,
         actionStates,
@@ -90,7 +92,7 @@ export const bannerThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenBanner: Story = createStory(
+export const hiddenBanner: StoryFn = createStory(
     hiddenWrapper(
         html`<${bannerTag} hidden>
             <span slot="title">Hidden banner</span>

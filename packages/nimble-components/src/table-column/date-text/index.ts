@@ -6,8 +6,8 @@ import { attr } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
-import { TableColumnTextBase } from '../text-base';
-import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
+import { TableColumnTextBase, mixinTextBase } from '../text-base';
+import { TableColumnSortOperation } from '../base/types';
 import { tableColumnDateTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnDateTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
@@ -32,9 +32,11 @@ import {
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
 import { lang } from '../../theme-provider';
 import { optionalBooleanConverter } from '../../utilities/models/converter';
+import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnDateTextColumnConfig {
+export interface TableColumnDateTextColumnConfig
+    extends TableColumnTextBaseColumnConfig {
     formatter: Intl.DateTimeFormat;
 }
 
@@ -47,10 +49,12 @@ declare global {
 /**
  * The table column for displaying dates/times as text.
  */
-export class TableColumnDateText extends TableColumnTextBase {
-    /** @internal */
-    public validator = new TableColumnDateTextValidator(this.columnInternals);
-
+export class TableColumnDateText extends mixinTextBase(
+    TableColumnTextBase<
+    TableColumnDateTextColumnConfig,
+    TableColumnDateTextValidator
+    >
+) {
     @attr
     public format: DateTextFormat;
 
@@ -131,17 +135,18 @@ export class TableColumnDateText extends TableColumnTextBase {
         lang.unsubscribe(this.langSubscriber, this);
     }
 
-    public override get validity(): TableColumnValidity {
-        return this.validator.getValidity();
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
     }
 
-    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnDateTextValidator> {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnDateTextCellViewTag,
             groupHeaderViewTag: tableColumnDateTextGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
+            sortOperation: TableColumnSortOperation.basic,
+            validator: new TableColumnDateTextValidator()
         };
     }
 
@@ -230,13 +235,14 @@ export class TableColumnDateText extends TableColumnTextBase {
 
         if (formatter) {
             const columnConfig: TableColumnDateTextColumnConfig = {
-                formatter
+                formatter,
+                placeholder: this.placeholder
             };
             this.columnInternals.columnConfig = columnConfig;
-            this.validator.setCustomOptionsValidity(true);
+            this.columnInternals.validator.setCustomOptionsValidity(true);
         } else {
             this.columnInternals.columnConfig = undefined;
-            this.validator.setCustomOptionsValidity(false);
+            this.columnInternals.validator.setCustomOptionsValidity(false);
         }
     }
 

@@ -1,5 +1,4 @@
-import prettier from 'prettier/esm/standalone';
-import parserHTML from 'prettier/esm/parser-html';
+const beautifyHTML = require('js-beautify').html;
 
 const createFragmentFromHTML = html => {
     const template = document.createElement('template');
@@ -51,7 +50,10 @@ const removeClassAttributes = node => {
     }
     // Assume that all class attributes added to nimble elements were added by FAST
     // and are not part of the control api
-    if (node instanceof HTMLElement && node.tagName.toLowerCase().startsWith('nimble-')) {
+    if (
+        node instanceof HTMLElement
+        && node.tagName.toLowerCase().startsWith('nimble-')
+    ) {
         node.removeAttribute('class');
     }
 };
@@ -61,8 +63,7 @@ const removeBlankLines = html => html
     .filter(line => line.trim() !== '')
     .join('\n');
 
-const removeEmptyAttributes = html => html
-    .replaceAll('=""', '');
+const removeEmptyAttributes = html => html.replaceAll('=""', '');
 
 // A custom source transformer. See:
 // https://github.com/storybookjs/storybook/blob/next/addons/docs/docs/recipes.md#customizing-source-snippets
@@ -78,11 +79,8 @@ export const transformSource = source => {
 
     const trimmedHTML = removeBlankLines(html);
     const emptyAttributesRemovedHTML = removeEmptyAttributes(trimmedHTML);
-    const formmattedHTML = prettier.format(emptyAttributesRemovedHTML, {
-        parser: 'html',
-        plugins: [parserHTML],
-        htmlWhitespaceSensitivity: 'ignore',
-        tabWidth: 4
+    const formmattedHTML = beautifyHTML(emptyAttributesRemovedHTML, {
+        wrap_attributes: 'force-expand-multiline'
     });
     return formmattedHTML;
 };

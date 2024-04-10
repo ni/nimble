@@ -1,6 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createStory,
     createFixedThemeStory
@@ -29,15 +28,6 @@ import { iconPencilTag } from '../../icons/pencil';
 import { iconTagTag } from '../../icons/tag';
 import { iconXmarkTag } from '../../icons/xmark';
 
-const metadata: Meta = {
-    title: 'Tests/Text Field',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
-
 const [
     lightThemeWhiteBackground,
     colorThemeDarkGreenBackground,
@@ -49,33 +39,18 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-const valueStates = [
-    ['No Value', null, 'placeholder'],
-    ['Value', 'Hello', 'placeholder']
-] as const;
-type ValueState = (typeof valueStates)[number];
-
-const typeStates = [
-    ['Text', TextFieldType.text],
-    ['Password', TextFieldType.password]
-] as const;
-type TypeState = (typeof typeStates)[number];
-
 const actionButtonStates = [
     ['', false],
     ['w/ Buttons', true]
 ] as const;
 type ActionButtonState = (typeof actionButtonStates)[number];
 
-const leftIconStates = [
-    ['', false],
-    ['w/ Icon', true]
+const appearanceStates = [
+    ['Underline', TextFieldAppearance.underline],
+    ['Outline', TextFieldAppearance.outline],
+    ['Block', TextFieldAppearance.block],
+    ['Frameless', TextFieldAppearance.frameless]
 ] as const;
-type LeftIconState = (typeof leftIconStates)[number];
-
-const appearanceStates = Object.entries(TextFieldAppearance).map(
-    ([key, value]) => [pascalCase(key), value]
-);
 type AppearanceState = (typeof appearanceStates)[number];
 
 const fullBleedStates = [
@@ -83,6 +58,33 @@ const fullBleedStates = [
     ['Full Bleed', true]
 ] as const;
 type FullBleedState = (typeof fullBleedStates)[number];
+
+const leftIconStates = [
+    ['', false],
+    ['w/ Icon', true]
+] as const;
+type LeftIconState = (typeof leftIconStates)[number];
+
+const typeStates = [
+    ['Text', TextFieldType.text],
+    ['Password', TextFieldType.password]
+] as const;
+type TypeState = (typeof typeStates)[number];
+
+const valueStates = [
+    ['No Value', null, 'placeholder'],
+    ['Value', 'Hello', 'placeholder']
+] as const;
+type ValueState = (typeof valueStates)[number];
+
+const metadata: Meta = {
+    title: 'Tests/Text Field',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = (

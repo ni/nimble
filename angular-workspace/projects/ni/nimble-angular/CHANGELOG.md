@@ -1,8 +1,221 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 04 Mar 2024 19:02:52 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Apr 2024 00:29:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.7.9
+
+Wed, 10 Apr 2024 00:29:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.10
+
+## 20.7.7
+
+Mon, 08 Apr 2024 20:40:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.9
+
+## 20.7.6
+
+Thu, 04 Apr 2024 21:33:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.8
+
+## 20.7.5
+
+Thu, 04 Apr 2024 18:11:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.7
+
+## 20.7.4
+
+Thu, 04 Apr 2024 14:57:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.6
+
+## 20.7.3
+
+Tue, 02 Apr 2024 22:01:51 GMT
+
+### Patches
+
+- Reverting changes. ([ni/nimble@47d91bc](https://github.com/ni/nimble/commit/47d91bc3cb98a52843ffb9f0b7d3e3e1baaea344))
+- Bump @ni/nimble-components to v24.1.5
+
+## 20.7.2
+
+Tue, 02 Apr 2024 17:10:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.4
+
+## 20.7.1
+
+Tue, 02 Apr 2024 15:32:11 GMT
+
+### Patches
+
+- Combobox CVA optimization ([ni/nimble@7f2f704](https://github.com/ni/nimble/commit/7f2f7042d7b4006b32a841c3c5124bf33489392a))
+- Bump @ni/nimble-components to v24.1.3
+
+## 20.7.0
+
+Fri, 29 Mar 2024 23:26:43 GMT
+
+### Minor changes
+
+- Angular support for appearance-variant on toggle and menu buttons ([ni/nimble@82d484e](https://github.com/ni/nimble/commit/82d484e2b69dc93f526c72249f32002d355ade91))
+
+## 20.6.1
+
+Thu, 28 Mar 2024 17:27:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.2
+
+## 20.6.0
+
+Thu, 28 Mar 2024 00:47:47 GMT
+
+### Minor changes
+
+- Add support for column placeholders ([ni/nimble@a9ffce8](https://github.com/ni/nimble/commit/a9ffce872954c88d7cf4ad0dd84eb55433953886))
+
+## 20.5.7
+
+Wed, 27 Mar 2024 21:22:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.1
+
+## 20.5.6
+
+Wed, 27 Mar 2024 18:54:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.0
+
+## 20.5.5
+
+Wed, 27 Mar 2024 12:05:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.0.1
+
+## 20.5.4
+
+Tue, 26 Mar 2024 20:45:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.0.0
+
+## 20.5.3
+
+Mon, 25 Mar 2024 17:03:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v23.0.1
+
+## 20.5.2
+
+Thu, 21 Mar 2024 17:13:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v23.0.0
+
+## 20.5.1
+
+Wed, 20 Mar 2024 16:45:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v22.1.1
+
+## 20.5.0
+
+Mon, 18 Mar 2024 17:12:34 GMT
+
+### Minor changes
+
+- Add new properties to the table label provider ([ni/nimble@3bbf8d7](https://github.com/ni/nimble/commit/3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda))
+- Bump @ni/nimble-components to v22.1.0
+
+## 20.4.1
+
+Thu, 14 Mar 2024 14:48:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v22.0.1
+
+## 20.4.0
+
+Wed, 13 Mar 2024 23:07:24 GMT
+
+### Minor changes
+
+- Update default values in label provider directives and expose additional label provider properties ([ni/nimble@518c229](https://github.com/ni/nimble/commit/518c229b964d2c4a2e77210692f5d367f2937ff4))
+- Bump @ni/nimble-components to v22.0.0
+
+## 20.3.0
+
+Tue, 12 Mar 2024 22:17:11 GMT
+
+### Minor changes
+
+- Add selected and hidden attributes to NimbleListOptionDirective. Also exporting SelectPageObject. ([ni/nimble@880dfa1](https://github.com/ni/nimble/commit/880dfa1a7f1f9f478dc87199184dba3e5e2c0a56))
+- Bump @ni/nimble-components to v21.10.2
+
+## 20.2.21
+
+Tue, 12 Mar 2024 21:01:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.10.1
+
+## 20.2.20
+
+Thu, 07 Mar 2024 21:20:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.10.0
+
+## 20.2.19
+
+Wed, 06 Mar 2024 17:56:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.9.1
+
+## 20.2.18
+
+Tue, 05 Mar 2024 22:27:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v21.9.0
 
 ## 20.2.17
 

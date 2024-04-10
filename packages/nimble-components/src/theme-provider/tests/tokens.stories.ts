@@ -96,6 +96,7 @@ const tokenTemplates: {
 } = {
     Color: colorTemplate,
     RgbPartialColor: rgbColorTemplate,
+    DisabledFontColor: colorTemplate,
     FontColor: colorTemplate,
     FontLineHeight: stringValueTemplate,
     FontWeight: stringValueTemplate,

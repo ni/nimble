@@ -14,10 +14,26 @@
       "enabled": false
     },
     {
-      "groupName": "npm dependencies",
+      "groupName": "npm dependencies lock update only",
       "matchManagers": ["npm"],
       "rangeStrategy": "in-range-only",
       "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
+      "enabled": true
+    },
+    {
+      "groupName": "npm dependencies update to latest",
+      "matchManagers": ["npm"],
+      "rangeStrategy": "update-lockfile",
+      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
+      "excludePackagePatterns":[
+        "^@angular",
+        "comlink",
+        "ng-packagr",
+        "playwright",
+        "remark-gfm",
+        "typescript",
+        "zone.js"
+      ],
       "enabled": true
     },
     {

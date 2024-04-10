@@ -19,9 +19,11 @@
         // Require type only imports where possible
         // so imports with side-effects are explicit
         "importsNotUsedAsValues": "error",
+        "ignoreDeprecations": "5.0",
         "noImplicitOverride": true,
         "noUncheckedIndexedAccess": true,
-        "noPropertyAccessFromIndexSignature": false
+        "noPropertyAccessFromIndexSignature": false,
+        "jsx": "preserve"
     },
     "include": ["src"]
 }

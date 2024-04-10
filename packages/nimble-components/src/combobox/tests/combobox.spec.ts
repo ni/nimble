@@ -2,7 +2,6 @@ import { html, repeat } from '@microsoft/fast-element';
 import { keyArrowDown, keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
-import { listOptionTag } from '../../list-option';
 import { ComboboxAutocomplete } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
@@ -10,6 +9,7 @@ import {
     waitAnimationFrame
 } from '../../utilities/tests/component';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
+import { listOptionTag } from '../../list-option';
 
 async function setup(
     position?: string,
@@ -517,6 +517,29 @@ describe('Combobox', () => {
             relatedTarget: element
         });
         element.dispatchEvent(focusoutEvent); // focusout should not also emit a change event
+        expect(changeEvent).toHaveBeenCalledTimes(1);
+
+        await disconnect();
+    });
+
+    it('emits one change event on focusout when popup is closed and text was updated', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+
+        const changeEvent = jasmine.createSpy();
+        element.addEventListener('change', changeEvent);
+        element.autocomplete = ComboboxAutocomplete.none;
+        updateComboboxWithText(element, 'O');
+        expect(changeEvent).toHaveBeenCalledTimes(0);
+        await waitForUpdatesAsync();
+
+        updateComboboxWithText(element, 'On');
+        await waitForUpdatesAsync();
+        expect(changeEvent).toHaveBeenCalledTimes(0);
+
+        const focusoutEvent = new FocusEvent('focusout');
+        element.dispatchEvent(focusoutEvent); // commit value
         expect(changeEvent).toHaveBeenCalledTimes(1);
 
         await disconnect();

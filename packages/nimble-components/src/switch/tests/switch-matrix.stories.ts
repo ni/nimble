@@ -10,15 +10,6 @@ import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { switchTag } from '..';
 
-const metadata: Meta = {
-    title: 'Tests/Switch',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
-
 const checkedStates = [
     ['Checked', true],
     ['Unchecked', false]
@@ -30,6 +21,15 @@ const messagesStates = [
     ['Without Messages', false]
 ] as const;
 type MessagesState = (typeof messagesStates)[number];
+
+const metadata: Meta = {
+    title: 'Tests/Switch',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = (
