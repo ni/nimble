@@ -588,7 +588,7 @@ export const [
         element,
         DigitalGreenLight,
         DigitalGreenLight,
-        PowerGreen
+        hexToRgbaCssColor(White, 0.6)
     ),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
