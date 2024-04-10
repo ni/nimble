@@ -564,7 +564,7 @@ describe('Markdown parser', () => {
                 ] as const;
                 parameterizeSpec(differentProtocolLinks, (spec, name) => {
                     spec(
-                        `string "${name}" renders within nimble-anchor without 'href' attribute`,
+                        `string "${name}" renders within nimble-anchor without 'href' attribute and with 'underline-hidden'`,
                         () => {
                             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                                 name
@@ -581,6 +581,12 @@ describe('Markdown parser', () => {
                             expect(
                                 lastChildElementHasAttribute('href', doc)
                             ).toBeFalse();
+                            expect(
+                                lastChildElementHasAttribute(
+                                    'underline-hidden',
+                                    doc
+                                )
+                            ).toBeTrue();
                         }
                     );
                 });
