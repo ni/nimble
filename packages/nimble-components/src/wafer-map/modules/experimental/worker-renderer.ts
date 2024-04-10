@@ -1,4 +1,4 @@
-import { transfer } from 'comlink';
+import { proxy, transfer } from 'comlink';
 import type { WaferMap } from '../..';
 import { HoverDieOpacity } from '../../types';
 
@@ -142,5 +142,6 @@ export class WorkerRenderer {
         );
         await this.wafermap.worker.setColorScale(this.wafermap.experimentalDataManager.colorScale);
         await this.wafermap.worker.setLabelConfig(this.wafermap.experimentalDataManager.labelsFontSize, this.wafermap.dieLabelsSuffix, this.wafermap.maxCharacters);
+        await this.wafermap.worker.setRenderFinished(proxy(this.wafermap.renderFinished.bind(this.wafermap)));
     }
 }

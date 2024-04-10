@@ -287,6 +287,10 @@ export class WaferMap<
         return this.diesTable !== undefined;
     }
 
+    public renderFinished(): void {
+        this.$emit('render-finished');
+    }
+
     public async createWorker(): Promise<void> {
         const { matrixRenderer } = await createMatrixRenderer();
         this.worker = matrixRenderer;

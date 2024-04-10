@@ -35,6 +35,7 @@ export class MatrixRenderer {
     private fontSize!: number;
     private dieLabelsSuffix = '';
     private maxCharacters!: number;
+    private renderFinished!: () => void;
 
     public calculateXScaledIndex(columnIndex: number): number{
         return this.scaleX * columnIndex + this.baseX + this.margin.left;
@@ -218,6 +219,7 @@ export class MatrixRenderer {
                 this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
             }
         }
+        this.renderFinished()
     }
 
     public drawText(): void {
@@ -261,6 +263,10 @@ export class MatrixRenderer {
                 );
             }
         }
+    }
+
+    public setRenderFinished(renderFinished: () => void): void {
+        this.renderFinished = renderFinished;
     }
 }
 expose(MatrixRenderer);
