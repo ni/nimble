@@ -17,8 +17,7 @@ export class ZoomHandler {
 
     public constructor(private readonly wafermap: WaferMap) {
         this.wafermapNotifier = Observable.getNotifier(this.wafermap);
-        this.wafermapNotifier.subscribe(this, 'canvasWidth');
-        this.wafermapNotifier.subscribe(this, 'canvasHeight');
+        this.observerWaferMap();
     }
 
     /**
@@ -37,8 +36,6 @@ export class ZoomHandler {
     public disconnect(): void {
         zoom().on('zoom', null)(select(this.wafermap as Element));
         this.wafermap.removeEventListener('wheel', this.onWheelMove);
-        this.wafermapNotifier.unsubscribe(this, 'canvasWidth');
-        this.wafermapNotifier.unsubscribe(this, 'canvasHeight');
     }
 
     public handleChange(source: WaferMap, propertyName: string): void {
@@ -48,6 +45,15 @@ export class ZoomHandler {
         ) {
             this.createZoomBehavior();
         }
+    }
+
+    private observerWaferMap(): void {
+        if (this.wafermapNotifier) {
+            this.wafermapNotifier.unsubscribe(this, 'canvasWidth');
+            this.wafermapNotifier.unsubscribe(this, 'canvasHeight');
+        }
+        this.wafermapNotifier.subscribe(this, 'canvasWidth');
+        this.wafermapNotifier.subscribe(this, 'canvasHeight');
     }
 
     private createZoomBehavior(): void {
