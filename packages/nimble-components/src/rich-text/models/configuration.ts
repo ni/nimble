@@ -11,7 +11,7 @@ export class Configuration {
 
     public constructor(mentionElements: RichTextMention[]) {
         this.isValid = mentionElements.every(
-            mentionElement => mentionElement.mentionInternals.validator.isRichTextMentionValid
+            mentionElement => mentionElement.mentionInternals.validator.isValid()
         );
 
         this.parserMentionConfig = this.isValid

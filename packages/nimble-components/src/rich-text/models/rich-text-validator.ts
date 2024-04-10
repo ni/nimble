@@ -29,7 +29,7 @@ export class RichTextValidator {
         mentions: RichTextMention[]
     ): boolean {
         this.invalidMentionConfiguration = mentions.some(
-            x => !x.mentionInternals.validator.isRichTextMentionValid
+            x => !x.mentionInternals.validator.isValid()
         );
         return !this.invalidMentionConfiguration;
     }

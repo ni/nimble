@@ -1,4 +1,3 @@
-import { observable } from '@microsoft/fast-element';
 import type { Mapping } from '../../../mapping/base';
 import { Validator, ValidityObject } from '../../../utilities/models/validator';
 
@@ -22,9 +21,6 @@ export const baseValidityFlagNames = [
 export class RichTextMentionValidator<
     ValidityFlagNames extends readonly string[] = typeof baseValidityFlagNames
 > extends Validator<typeof baseValidityFlagNames | ValidityFlagNames> {
-    @observable
-    public isRichTextMentionValid = true;
-
     public constructor(configValidityKeys: ValidityFlagNames) {
         super(configValidityKeys);
     }
@@ -62,8 +58,6 @@ export class RichTextMentionValidator<
         } else {
             this.untrack(name);
         }
-
-        this.isRichTextMentionValid = this.isValid();
     }
 
     private validateMissingPattern(pattern: string | undefined): void {
