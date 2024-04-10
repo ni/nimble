@@ -48,7 +48,7 @@ export const styles = css`
 
     ${
         /**
-         * In the rich-text viewer, an absolute link renders as a native anchor, not a `nimble-anchor`. When such a link
+         * In the rich-text editor, an absolute link renders as a native anchor, not a `nimble-anchor`. When such a link
          * is not HTTPS/HTTP, the anchor renders without an `href`, appearing as plain text.
          * However, in the rich-text viewer, absolute links are rendered as `nimble-anchor`s, and they do not look like
          * plain text when the `href` attribute is absent. They have a "disabled" color and may have an underline.
