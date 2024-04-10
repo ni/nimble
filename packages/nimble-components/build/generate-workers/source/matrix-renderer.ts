@@ -1,5 +1,5 @@
 import { expose } from 'comlink';
-import type { Dimensions, Transform, WaferMapMatrix, WaferMapTypedMatrix } from './types';
+import type { Dimensions, Transform, WaferMapMatrix, WaferMapTypedMatrix, ColorScale } from './types';
 
 /**
  * MatrixRenderer class is meant to be used within a Web Worker context, 
@@ -27,21 +27,40 @@ export class MatrixRenderer {
     private bottomRightCanvasCorner!: { x: number; y: number; };
     private readonly smallestMarginPossible: number = 20;
     private margin: { top: number; right: number; bottom: number; left: number; } = { top: this.smallestMarginPossible, right: this.smallestMarginPossible, bottom: this.smallestMarginPossible, left: this.smallestMarginPossible };
+    private colorValues = Float64Array.from([]);
+    private colors: string[] = [];
+    private colorIndexes= Int32Array.from([]);
 
-    public calculateScaledIndex(columnIndex: number, margin: number): number{
+    public calculateScaledColumnIndex(columnIndex: number, margin: number): number{
         return this.scaleX * columnIndex + this.baseX + margin;
+    }
+
+    public calculateScaledRowIndex(columnIndex: number, margin: number): number{
+        return this.scaleY * columnIndex + this.baseY + margin;
+    }
+
+    public calculateColorIndex(value: number): number{
+        let index =  -1
+        if (this.colorValues.length === 0 || this.colorValues[0]! > value) { return index; }
+        for (let i = 0; i < this.colorValues.length; i++) {
+            if (value <= this.colorValues[i]!) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     public setColumnIndexes(columnIndexes: Int32Array): void {
         this.columnIndexes = columnIndexes;
         if (columnIndexes.length === 0 || this.columnIndexes[0] === undefined) { return; }
-        const scaledColumnIndex = [this.calculateScaledIndex(this.columnIndexes[0], this.margin.left)];
+        const scaledColumnIndex = [this.calculateScaledColumnIndex(this.columnIndexes[0], this.margin.left)];
         const columnPositions = [0];
         let prev = this.columnIndexes[0];
         for (let i = 1; i < this.columnIndexes.length; i++) {
             const xIndex = this.columnIndexes[i];
             if (xIndex && xIndex !== prev) {
-                const scaledX = this.calculateScaledIndex(this.columnIndexes[i]!, this.margin.left);
+                const scaledX = this.calculateScaledColumnIndex(this.columnIndexes[i]!, this.margin.left);
                 scaledColumnIndex.push(scaledX);
                 columnPositions.push(i);
                 prev = xIndex
@@ -55,7 +74,15 @@ export class MatrixRenderer {
         this.rowIndexes = rowIndexesBuffer;
         this.scaledRowIndex = new Float64Array(this.rowIndexes.length);
         for (let i = 0; i < this.rowIndexes.length; i++) {
-            this.scaledRowIndex[i] = this.calculateScaledIndex(this.rowIndexes[i]!, this.margin.top);
+            this.scaledRowIndex[i] = this.calculateScaledRowIndex(this.rowIndexes[i]!, this.margin.top);
+        }
+    }
+
+    public setValues(valuesBuffer: Float64Array): void {
+        this.values = valuesBuffer;
+        this.colorIndexes = new Int32Array(this.values.length);
+        for (let i = 0; i < this.values.length; i++) {
+            this.colorIndexes[i] = this.calculateColorIndex(this.values[i]!);
         }
     }
 
@@ -89,6 +116,11 @@ export class MatrixRenderer {
     public setCanvas(canvas: OffscreenCanvas): void {
         this.canvas = canvas;
         this.context = canvas.getContext('2d')!;
+    }
+
+    public setColorScale(colorScale: ColorScale): void {
+        this.colors = colorScale.map(category => category.color);
+        this.colorValues = Float64Array.from(colorScale.map(category => category.value));
     }
 
     public getMatrix(): WaferMapTypedMatrix {
@@ -162,8 +194,7 @@ export class MatrixRenderer {
                 ) {
                     continue;
                 }
-                // Fill style is temporary green for all dies, will be replaced with a color based on the value of the die in a future implementation
-                this.context.fillStyle = 'Green';
+                this.context.fillStyle = this.colors[this.colorIndexes[columnStartIndex]!]!;
                 this.context.fillRect(scaledX, scaledY, this.dieDimensions.width, this.dieDimensions.height);
             }
         }

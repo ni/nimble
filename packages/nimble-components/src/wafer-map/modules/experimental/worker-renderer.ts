@@ -21,11 +21,17 @@ export class WorkerRenderer {
         const rowIndexes = Int32Array.from(
             this.wafermap.diesTable.getChild('rowIndex')!.toArray()
         );
+        const values = Float64Array.from(
+            this.wafermap.diesTable.getChild('value')!.toArray()
+        );
         await this.wafermap.worker.setColumnIndexes(
             transfer(columnIndexes, [columnIndexes.buffer])
         );
         await this.wafermap.worker.setRowIndexes(
             transfer(rowIndexes, [rowIndexes.buffer])
+        );
+        await this.wafermap.worker.setValues(
+            transfer(values, [values.buffer])
         );
         await this.drawWafer();
     }
@@ -93,16 +99,15 @@ export class WorkerRenderer {
     }
 
     private async setupWorker(): Promise<void> {
-        if (
-            this.isWorkerAlive
-            || !this.wafermap.isExperimentalUpdate()
+        if (!this.wafermap.isExperimentalUpdate()
         ) {
             return;
         }
-
-        await this.wafermap.createWorker();
-        this.isWorkerAlive = true;
-        await this.wafermap.createWorkerCanvas();
+        if (!this.isWorkerAlive) {
+            await this.wafermap.createWorker();
+            this.isWorkerAlive = true;
+            await this.wafermap.createWorkerCanvas();
+        }
         await this.wafermap.worker.setCanvasDimensions({
             width: this.wafermap.canvasWidth ?? 0,
             height: this.wafermap.canvasHeight ?? 0
@@ -124,5 +129,6 @@ export class WorkerRenderer {
         await this.wafermap.worker.setMargin(
             this.wafermap.experimentalDataManager.margin
         );
+        await this.wafermap.worker.setColorScale(this.wafermap.experimentalDataManager.colorScale);
     }
 }

@@ -20,3 +20,10 @@ export interface Dimensions{
     width: number;
     height: number;
 }
+
+interface IColorScaleMarker {
+    color: string;
+    value: number;
+}
+
+export type ColorScale = IColorScaleMarker[];
