@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 10 Apr 2024 00:29:05 GMT",
+      "version": "24.1.10",
+      "tag": "@ni/nimble-components_v24.1.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5832b42172788170c01eb276eaaba1e6b47cbf92",
+            "comment": "Update version of FAST"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Apr 2024 21:50:30 GMT",
+      "version": "24.1.9",
+      "tag": "@ni/nimble-components_v24.1.9",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ebd9aaa536e64c48005d58cff20bda2062ed7780",
+            "comment": "Fix and re-enable intermittent mention-listbox test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Apr 2024 20:01:30 GMT",
+      "version": "24.1.9",
+      "tag": "@ni/nimble-components_v24.1.9",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7968a2908e066ad58d13fc7bf48d58aacd1f9a6f",
+            "comment": "Add HLD for table keyboard navigation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 Apr 2024 20:40:28 GMT",
+      "version": "24.1.9",
+      "tag": "@ni/nimble-components_v24.1.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d16c59ec133dcbf4d94198d3f26ff7472a143ea5",
+            "comment": "Move validator into ColumnInternals"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 08 Apr 2024 15:20:26 GMT",
       "version": "24.1.8",
       "tag": "@ni/nimble-components_v24.1.8",
