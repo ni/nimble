@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 10 Apr 2024 17:46:00 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Apr 2024 19:37:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.12
+
+Wed, 10 Apr 2024 19:37:06 GMT
+
+### Patches
+
+- Fix arrow key select issue for Select ([ni/nimble@6c71469](https://github.com/ni/nimble/commit/6c714694685c161e2066c700018ffb1cb42d27ea))
 
 ## 24.1.11
 
