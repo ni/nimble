@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 08 Apr 2024 20:40:28 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Apr 2024 19:37:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.12
+
+Wed, 10 Apr 2024 19:37:06 GMT
+
+### Patches
+
+- Fix arrow key select issue for Select ([ni/nimble@6c71469](https://github.com/ni/nimble/commit/6c714694685c161e2066c700018ffb1cb42d27ea))
+
+## 24.1.11
+
+Wed, 10 Apr 2024 17:46:00 GMT
+
+### Patches
+
+- Fix a couple issues with anchor styling ([ni/nimble@8a76c28](https://github.com/ni/nimble/commit/8a76c28fbc7a700234b3629487816cb71709c4a4))
+
+## 24.1.10
+
+Wed, 10 Apr 2024 00:29:05 GMT
+
+### Patches
+
+- Update version of FAST ([ni/nimble@5832b42](https://github.com/ni/nimble/commit/5832b42172788170c01eb276eaaba1e6b47cbf92))
 
 ## 24.1.9
 
