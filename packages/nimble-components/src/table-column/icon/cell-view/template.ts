@@ -6,11 +6,14 @@ export const template = html<TableColumnIconCellView>`
     ${when(
         x => x.visual === 'icon' || x.visual === 'spinner',
         html<TableColumnIconCellView>`
-            ${x => x.iconTemplate!}
+            <span class="reserve-icon-size">
+                ${x => x.iconTemplate!}
+            </span>
             ${when(x => !x.textHidden, html<TableColumnIconCellView>`
                 <span
                     ${overflow('hasOverflow')}
                     title=${x => (x.hasOverflow && x.text ? x.text : null)}
+                    class="text"
                 >
                     ${x => x.text}
                 </span>

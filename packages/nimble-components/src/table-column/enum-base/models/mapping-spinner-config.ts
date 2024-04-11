@@ -12,7 +12,6 @@ const createSpinnerTemplate = (
 ): ViewTemplate<IconView> => {
     return html`
         <${spinnerTag}
-            class="reserve-icon-width"
             title="${x => (textHidden ? x.text : '')}"
             aria-label="${x => x.text}"
             aria-hidden="${_ => (textHidden ? 'false' : 'true')}"

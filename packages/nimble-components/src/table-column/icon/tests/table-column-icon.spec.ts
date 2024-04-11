@@ -17,6 +17,7 @@ import { MappingKeyType } from '../../enum-base/types';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { spinnerTag } from '../../../spinner';
 import { themeProviderTag } from '../../../theme-provider';
+import { TableColumnIconPageObject } from '../testing/table-column-icon.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
     field1?: MappingKey | null;
@@ -48,6 +49,7 @@ describe('TableColumnIcon', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: TablePageObject<SimpleTableRecord>;
+    let columnPageObject: TableColumnIconPageObject<SimpleTableRecord>;
     let model: Model;
 
     // prettier-ignore
@@ -120,6 +122,7 @@ describe('TableColumnIcon', () => {
                 pageObject = new TablePageObject<SimpleTableRecord>(
                     model.table
                 );
+                columnPageObject = new TableColumnIconPageObject(pageObject);
                 await model.table.setData([{ field1: value.key }]);
                 await connect();
                 await waitForUpdatesAsync();
@@ -140,6 +143,7 @@ describe('TableColumnIcon', () => {
                 pageObject = new TablePageObject<SimpleTableRecord>(
                     model.table
                 );
+                columnPageObject = new TableColumnIconPageObject(pageObject);
                 await model.table.setData([{ field1: value.key }]);
                 await connect();
                 await waitForUpdatesAsync();
@@ -158,6 +162,7 @@ describe('TableColumnIcon', () => {
             spinnerMappings: []
         }));
         pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        columnPageObject = new TableColumnIconPageObject(pageObject);
         await model.table.setData([{ field1: 'no match' }]);
         await connect();
         await waitForUpdatesAsync();
@@ -172,6 +177,7 @@ describe('TableColumnIcon', () => {
             spinnerMappings: []
         }));
         pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        columnPageObject = new TableColumnIconPageObject(pageObject);
         await model.table.setData([{ field1: 'a' }]);
         await connect();
         await waitForUpdatesAsync();
@@ -189,6 +195,7 @@ describe('TableColumnIcon', () => {
             spinnerMappings: []
         }));
         pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        columnPageObject = new TableColumnIconPageObject(pageObject);
         await model.table.setData([{ field1: 'a', field2: 'b' }]);
         await connect();
         await waitForUpdatesAsync();
@@ -208,6 +215,7 @@ describe('TableColumnIcon', () => {
             spinnerMappings: []
         }));
         pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        columnPageObject = new TableColumnIconPageObject(pageObject);
         await model.table.setData([{ field1: 'a' }]);
         await connect();
         await waitForUpdatesAsync();
@@ -228,6 +236,7 @@ describe('TableColumnIcon', () => {
             spinnerMappings: []
         }));
         pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        columnPageObject = new TableColumnIconPageObject(pageObject);
         await model.table.setData([{ field1: 'a' }]);
         await connect();
         await waitForUpdatesAsync();
@@ -236,7 +245,7 @@ describe('TableColumnIcon', () => {
         mapping.severity = IconSeverity.warning;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedIconColumnCellIconSeverity(0, 0)).toBe(
+        expect(columnPageObject.getRenderedCellIconSeverity(0, 0)).toBe(
             IconSeverity.warning
         );
     });
@@ -248,6 +257,7 @@ describe('TableColumnIcon', () => {
             spinnerMappings: []
         }));
         pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        columnPageObject = new TableColumnIconPageObject(pageObject);
         await model.table.setData([{ field1: 'b' }]);
         await connect();
         await waitForUpdatesAsync();
@@ -278,6 +288,7 @@ describe('TableColumnIcon', () => {
                 pageObject = new TablePageObject<SimpleTableRecord>(
                     model.table
                 );
+                columnPageObject = new TableColumnIconPageObject(pageObject);
                 await model.table.setData([{ field1: 'a' }]);
                 await connect();
                 await waitForUpdatesAsync();
@@ -298,13 +309,14 @@ describe('TableColumnIcon', () => {
             spinnerMappings: []
         }));
         pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        columnPageObject = new TableColumnIconPageObject(pageObject);
         await model.table.setData([{ field1: 'b' }]);
         await connect();
         await waitForUpdatesAsync();
         model.col1.groupIndex = 0;
         await waitForUpdatesAsync();
 
-        expect(() => pageObject.getRenderedIconColumnGroupHeaderIconTagName(0)).toThrowError();
+        expect(() => columnPageObject.getRenderedGroupHeaderIconTagName(0)).toThrowError();
         expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('bravo');
     });
 
@@ -315,6 +327,7 @@ describe('TableColumnIcon', () => {
             spinnerMappings: []
         }));
         pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        columnPageObject = new TableColumnIconPageObject(pageObject);
         await model.table.setData([{ field1: 'a' }]);
         await connect();
         await waitForUpdatesAsync();
@@ -334,17 +347,18 @@ describe('TableColumnIcon', () => {
             spinnerMappings: []
         }));
         pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        columnPageObject = new TableColumnIconPageObject(pageObject);
         await model.table.setData([{ field1: 'a' }]);
         model.col1.groupIndex = 0;
         await connect();
         await waitForUpdatesAsync();
-        expect(pageObject.getRenderedIconColumnGroupHeaderIconTagName(0)).toBe(
+        expect(columnPageObject.getRenderedGroupHeaderIconTagName(0)).toBe(
             iconXmarkTag
         );
 
         model.col1.removeChild(model.col1.firstElementChild!);
         await waitForUpdatesAsync();
-        expect(() => pageObject.getRenderedIconColumnGroupHeaderIconTagName(0)).toThrowError();
+        expect(() => columnPageObject.getRenderedGroupHeaderIconTagName(0)).toThrowError();
     });
 
     describe('validation', () => {
@@ -575,6 +589,7 @@ describe('TableColumnIcon', () => {
                 pageObject = new TablePageObject<SimpleTableRecord>(
                     model.table
                 );
+                columnPageObject = new TableColumnIconPageObject(pageObject);
                 model.col1.groupIndex = 0;
                 await model.table.setData(value.data);
                 await connect();
@@ -605,62 +620,150 @@ describe('TableColumnIcon', () => {
                 beforeEach(async () => {
                     ({ connect, disconnect, model } = await setup({
                         keyType: MappingKeyType.string,
-                        iconMappings: mappingType.type === 'icon' ? [{ key: 'a', text: 'alpha', icon: iconXmarkTag }] : [],
-                        spinnerMappings: mappingType.type === 'spinner' ? [{ key: 'a', text: 'alpha' }] : [],
+                        iconMappings: [{ key: 'icon', text: 'alpha', icon: iconXmarkTag }],
+                        spinnerMappings: [{ key: 'spinner', text: 'alpha' }],
                     }));
                     pageObject = new TablePageObject<SimpleTableRecord>(model.table);
-                    await model.table.setData([{ field1: 'a' }]);
+                    columnPageObject = new TableColumnIconPageObject(pageObject);
+                    await model.table.setData([{ field1: mappingType.type }]);
                     await connect();
                     model.col1.groupIndex = 0;
                     await waitForUpdatesAsync();
                 });
 
-                async function updateTextHiddenAsync(value: boolean) {
-                    if (value) {
-                        model.col1.querySelectorAll(mappingIconTag).forEach(x => x.setAttribute('text-hidden', ''));
-                        model.col1.querySelectorAll(mappingSpinnerTag).forEach(x => x.setAttribute('text-hidden', ''));
-                    } else {
-                        model.col1.querySelectorAll(mappingIconTag).forEach(x => x.removeAttribute('text-hidden'));
-                        model.col1.querySelectorAll(mappingSpinnerTag).forEach(x => x.removeAttribute('text-hidden'));
-                    }
+                async function hideTextOnMappings(): Promise<void> {
+                    model.col1.querySelectorAll(mappingIconTag).forEach(x => x.setAttribute('text-hidden', ''));
+                    model.col1.querySelectorAll(mappingSpinnerTag).forEach(x => x.setAttribute('text-hidden', ''));
 
                     await waitForUpdatesAsync();
                 }
 
                 it('renders text in cell when text-hidden is false', () => {
-                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('alpha');
+                    expect(columnPageObject.getRenderedCellText(0, 0)).toBe('alpha');
                 });
 
                 it('does not render text in cell when text-hidden is true', async () => {
-                    await updateTextHiddenAsync(true);
-                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+                    await hideTextOnMappings();
+                    expect(columnPageObject.getRenderedCellText(0, 0)).toBe('');
                 });
 
                 it('renders text in group row when text-hidden is true', async () => {
-                    await updateTextHiddenAsync(true);
-                    expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                    await hideTextOnMappings();
+                    expect(columnPageObject.getRenderedGroupHeaderText(0)).toBe(
                         'alpha'
                     );
                 });
 
                 it('marks visualization as aria-hidden in cell when text-hidden is false', () => {
-                    expect(pageObject.getRenderedIconColumnCellIconAriaHidden(0, 0)).toBe('true');
+                    expect(columnPageObject.getRenderedCellIconAriaHidden(0, 0)).toBe('true');
                 });
 
                 it('does not mark visualization as aria-hidden in cell when text-hidden is true', async () => {
-                    await updateTextHiddenAsync(true);
-                    expect(pageObject.getRenderedIconColumnCellIconAriaHidden(0, 0)).toBe('false');
+                    await hideTextOnMappings();
+                    expect(columnPageObject.getRenderedCellIconAriaHidden(0, 0)).toBe('false');
                 });
 
                 it('sets text as title of visualization when text-hidden is true', async () => {
-                    await updateTextHiddenAsync(true);
-                    expect(pageObject.getRenderedIconColumnCellIconTitle(0, 0)).toBe('alpha');
+                    await hideTextOnMappings();
+                    expect(columnPageObject.getRenderedCellIconTitle(0, 0)).toBe('alpha');
                 });
 
-                it('sets text as aria-label of visualization', () => {
-                    expect(pageObject.getRenderedIconColumnCellIconAriaLabel(0, 0)).toBe(
+                it('does not set text as title of visualization when text-hidden is false', () => {
+                    expect(columnPageObject.getRenderedCellIconTitle(0, 0)).toBe('');
+                });
+
+                it('sets text as aria-label of visualization when text-hidden is true', async () => {
+                    await hideTextOnMappings();
+                    expect(columnPageObject.getRenderedCellIconAriaLabel(0, 0)).toBe(
                         'alpha'
                     );
+                });
+            });
+        }
+    });
+
+    describe('overflow', () => {
+        const mappingTypes = [
+            {
+                name: 'spinner mapping',
+                type: 'spinner'
+            },
+            {
+                name: 'icon mapping',
+                type: 'icon'
+            }
+        ] as const;
+
+        for (const mappingType of mappingTypes) {
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            describe(`in ${mappingType.name}`, () => {
+                const longText = 'a very long value that should get ellipsized due to not fitting within the default cell width';
+                const shortText = 'short value';
+                const longTextRowIndex = 0;
+                const shortTextRowIndex = 1;
+
+                beforeEach(async () => {
+                    ({ connect, disconnect, model } = await setup({
+                        keyType: MappingKeyType.string,
+                        iconMappings: [
+                            { key: 'icon-long', text: longText, icon: iconXmarkTag },
+                            { key: 'icon-short', text: shortText, icon: iconXmarkTag }
+                        ],
+                        spinnerMappings: [
+                            { key: 'spinner-long', text: longText },
+                            { key: 'spinner-short', text: shortText }
+                        ],
+                    }));
+                    pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+                    columnPageObject = new TableColumnIconPageObject(pageObject);
+                    await model.table.setData([
+                        { field1: `${mappingType.type}-long` },
+                        { field1: `${mappingType.type}-short` }
+                    ]);
+                    await connect();
+                    model.table.style.width = '200px';
+                    model.col1.groupIndex = 0;
+                    await waitForUpdatesAsync();
+                });
+
+                it('sets title when cell text is ellipsized', async () => {
+                    columnPageObject.dispatchEventToCellText(longTextRowIndex, 0, new MouseEvent('mouseover'));
+                    await waitForUpdatesAsync();
+                    expect(columnPageObject.getRenderedCellTextTitle(longTextRowIndex, 0)).toBe(longText);
+                });
+
+                it('does not set title when cell text is fully visible', async () => {
+                    columnPageObject.dispatchEventToCellText(shortTextRowIndex, 0, new MouseEvent('mouseover'));
+                    await waitForUpdatesAsync();
+                    expect(columnPageObject.getRenderedCellTextTitle(shortTextRowIndex, 0)).toBe('');
+                });
+
+                it('removes title on mouseout of cell', async () => {
+                    columnPageObject.dispatchEventToCellText(longTextRowIndex, 0, new MouseEvent('mouseover'));
+                    await waitForUpdatesAsync();
+                    columnPageObject.dispatchEventToCellText(longTextRowIndex, 0, new MouseEvent('mouseout'));
+                    await waitForUpdatesAsync();
+                    expect(columnPageObject.getRenderedCellTextTitle(longTextRowIndex, 0)).toBe('');
+                });
+
+                it('sets title when group header text is ellipsized', async () => {
+                    columnPageObject.dispatchEventToGroupHeaderText(longTextRowIndex, new MouseEvent('mouseover'));
+                    await waitForUpdatesAsync();
+                    expect(columnPageObject.getRenderedGroupHeaderTextTitle(longTextRowIndex)).toBe(longText);
+                });
+
+                it('does not set title when group header text is fully visible', async () => {
+                    columnPageObject.dispatchEventToGroupHeaderText(shortTextRowIndex, new MouseEvent('mouseover'));
+                    await waitForUpdatesAsync();
+                    expect(columnPageObject.getRenderedGroupHeaderTextTitle(shortTextRowIndex)).toBe('');
+                });
+
+                it('removes title on mouseout of group header', async () => {
+                    columnPageObject.dispatchEventToGroupHeaderText(longTextRowIndex, new MouseEvent('mouseover'));
+                    await waitForUpdatesAsync();
+                    columnPageObject.dispatchEventToGroupHeaderText(longTextRowIndex, new MouseEvent('mouseout'));
+                    await waitForUpdatesAsync();
+                    expect(columnPageObject.getRenderedGroupHeaderTextTitle(longTextRowIndex)).toBe('');
                 });
             });
         }

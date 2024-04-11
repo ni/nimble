@@ -8,10 +8,11 @@ export const template = html<TableColumnIconGroupHeaderView>`
     ${when(
         x => x.visual === 'icon' || x.visual === 'spinner',
         html<TableColumnIconGroupHeaderView>`
-            ${x => x.iconTemplate!}
+            <span class="reserve-icon-size">${x => x.iconTemplate!}</span>
             <span
                 ${overflow('hasOverflow')}
                 title="${x => (x.hasOverflow && x.text ? x.text : null)}"
+                class="text"
             >${x => x.text}</span>`
     )}
     ${when(
@@ -20,6 +21,7 @@ export const template = html<TableColumnIconGroupHeaderView>`
         <span
             ${overflow('hasOverflow')}
             title="${x => (x.hasOverflow && x.text ? x.text : null)}"
+            class="text"
         >${x => x.text}</span>
     `
     )}

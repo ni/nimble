@@ -15,13 +15,13 @@ export const styles = css`
         align-items: center;
     }
 
-    .reserve-icon-width {
+    .reserve-icon-size {
         flex-shrink: 0;
         width: ${iconSize};
         height: ${iconSize};
     }
 
-    span {
+    .text {
         flex-shrink: 1;
         font: ${bodyFont};
         color: ${bodyFontColor};
