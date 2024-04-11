@@ -31,8 +31,6 @@ export class MappingSpinnerConfig extends MappingConfig {
     ) {
         super(text);
         this.spinnerCellTemplate = createSpinnerTemplate(this.textHidden);
-        this.spinnerGroupRowTemplate = this.textHidden
-            ? createSpinnerTemplate(false)
-            : this.spinnerCellTemplate;
+        this.spinnerGroupRowTemplate = createSpinnerTemplate(false);
     }
 }

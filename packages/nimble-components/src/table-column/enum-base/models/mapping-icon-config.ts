@@ -28,7 +28,7 @@ const createIconTemplate = (
             aria-hidden="${_ => (textHidden ? 'false' : 'true')}"
             severity="${x => x.severity}"
         >
-        </${icon}>     
+        </${icon}>
     `;
 };
 
@@ -47,8 +47,6 @@ export class MappingIconConfig extends MappingConfig {
     ) {
         super(text);
         this.iconCellTemplate = createIconTemplate(resolvedIcon, textHidden);
-        this.iconGroupRowTemplate = textHidden
-            ? createIconTemplate(resolvedIcon, false)
-            : this.iconCellTemplate;
+        this.iconGroupRowTemplate = createIconTemplate(resolvedIcon, false);
     }
 }
