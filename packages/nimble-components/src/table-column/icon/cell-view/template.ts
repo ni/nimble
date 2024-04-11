@@ -8,7 +8,7 @@ export const template = html<TableColumnIconCellView>`
         x => x.visual === 'icon' || x.visual === 'spinner',
         html<TableColumnIconCellView>`
             <span class="reserve-icon-size">
-                ${x => x.iconTemplate!}
+                ${x => x.visualizationTemplate!}
             </span>
             ${when(x => !x.textHidden, html<TableColumnIconCellView>`
                 <span

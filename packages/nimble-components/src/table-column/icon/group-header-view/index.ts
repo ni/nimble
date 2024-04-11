@@ -34,7 +34,7 @@ export class TableColumnIconGroupHeaderView
     public severity: IconSeverity;
 
     @observable
-    public iconTemplate?: ViewTemplate<IconView> | ViewTemplate<SpinnerView>;
+    public visualizationTemplate?: ViewTemplate<IconView> | ViewTemplate<SpinnerView>;
 
     @observable
     public visual?: 'spinner' | 'icon';
@@ -51,11 +51,11 @@ export class TableColumnIconGroupHeaderView
             this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text ?? '';
-            this.iconTemplate = mappingConfig.iconGroupRowTemplate;
+            this.visualizationTemplate = mappingConfig.iconGroupRowTemplate;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
             this.visual = 'spinner';
             this.text = mappingConfig.text ?? '';
-            this.iconTemplate = mappingConfig.spinnerGroupRowTemplate;
+            this.visualizationTemplate = mappingConfig.spinnerGroupRowTemplate;
         }
     }
 }

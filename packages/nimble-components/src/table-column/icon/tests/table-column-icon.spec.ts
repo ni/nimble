@@ -679,6 +679,12 @@ describe('TableColumnIcon', () => {
                     ).toBe('false');
                 });
 
+                it('marks visualization as aria-hidden in group header', () => {
+                    expect(
+                        columnPageObject.getRenderedGroupHeaderIconAriaHidden(0)
+                    ).toBe('true');
+                });
+
                 it('sets text as title of visualization when text-hidden is true', async () => {
                     await hideTextOnMappings();
                     expect(

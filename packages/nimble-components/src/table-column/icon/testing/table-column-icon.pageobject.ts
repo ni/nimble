@@ -46,6 +46,13 @@ export class TableColumnIconPageObject<T extends TableRecord> {
         return iconOrSpinner.getAttribute('aria-hidden') ?? '';
     }
 
+    public getRenderedGroupHeaderIconAriaHidden(groupRowIndex: number): string {
+        const iconOrSpinner = this.getRenderedIconOrSpinner(
+            this.tablePageObject.getGroupRowHeaderView(groupRowIndex)
+        );
+        return iconOrSpinner.getAttribute('aria-hidden') ?? '';
+    }
+
     public getRenderedCellIconTitle(
         rowIndex: number,
         columnIndex: number

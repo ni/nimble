@@ -39,7 +39,7 @@ export class TableColumnIconCellView
     public text?: string;
 
     @observable
-    public iconTemplate?: ViewTemplate<IconView> | ViewTemplate<SpinnerView>;
+    public visualizationTemplate?: ViewTemplate<IconView> | ViewTemplate<SpinnerView>;
 
     @observable
     public visual?: 'spinner' | 'icon';
@@ -73,12 +73,12 @@ export class TableColumnIconCellView
             this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text;
-            this.iconTemplate = mappingConfig.iconCellTemplate;
+            this.visualizationTemplate = mappingConfig.iconCellTemplate;
             this.textHidden = mappingConfig.textHidden;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
             this.visual = 'spinner';
             this.text = mappingConfig.text;
-            this.iconTemplate = mappingConfig.spinnerCellTemplate;
+            this.visualizationTemplate = mappingConfig.spinnerCellTemplate;
             this.textHidden = mappingConfig.textHidden;
         }
     }
