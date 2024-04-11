@@ -34,17 +34,6 @@ describe('MatrixRenderer with MessageChannel', () => {
             + updatedMatrix.values.length).toEqual(0);
     });
 
-    it('setCanvasDimensions should set the canvas dimensions', async () => {
-        const offscreenCanvas = new OffscreenCanvas(0, 0);
-        matrixRenderer.setCanvas(
-            transfer(offscreenCanvas, [
-                offscreenCanvas
-            ])
-        );
-        await matrixRenderer.setCanvasDimensions({ width: 500, height: 500 });
-        expect(await matrixRenderer.getCanvasDimensions()).toEqual({width: 500, height: 500});
-    });
-
     it('calculateYScaledIndex should compute the scaleY index', async () => {
         await matrixRenderer.setBases(2, 2);
         await matrixRenderer.setScaling(0.5, 0.5);
@@ -56,15 +45,31 @@ describe('MatrixRenderer with MessageChannel', () => {
         await matrixRenderer.setScaling(1, 1);
         expect(await matrixRenderer.calculateXScaledIndex(100)).toEqual(123);
     });
+});
 
-    it('indexes should be set', async () => {
+describe('MatrixRenderer with MessageChannel needing canvas context', () => {
+    let matrixRenderer: Remote<MatrixRenderer>;
+    const testData = { columnIndexes: [4, 1, 2], rowIndexes: [54, 54, 62], values: [8.12, 9.0, 0.32] };
+
+    beforeEach(async () => {
+        const { port1, port2 } = new MessageChannel();
+        const worker = new MatrixRenderer();
+        expose(worker, port1);
+        matrixRenderer = await wrap<MatrixRenderer>(port2);
         const offscreenCanvas = new OffscreenCanvas(300, 300);
         matrixRenderer.setCanvas(
             transfer(offscreenCanvas, [
                 offscreenCanvas
             ])
         );
+    });
 
+    it('setCanvasDimensions should set the canvas dimensions', async () => {
+        await matrixRenderer.setCanvasDimensions({ width: 500, height: 500 });
+        expect(await matrixRenderer.getCanvasDimensions()).toEqual({ width: 500, height: 500 });
+    });
+
+    it('indexes should be set', async () => {
         const typedColumnIndexes = Int32Array.from(testData.columnIndexes);
         const typedRowIndexes = Int32Array.from(testData.rowIndexes);
 
@@ -80,5 +85,9 @@ describe('MatrixRenderer with MessageChannel', () => {
 
         expect(columnIndexes).toEqual(Int32Array.from([4, 1, 2]));
         expect(rowIndexes).toEqual(Int32Array.from([54, 54, 62]));
+    });
+
+    it('should throw error calling drawWafer if canvas corners are not set', async () => {
+        await expectAsync(matrixRenderer.drawWafer()).toBeRejectedWithError('Canvas corners are not set');
     });
 });
