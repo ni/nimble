@@ -200,6 +200,26 @@ describe('WaferMap', () => {
             expect(initialValue).toBe('translate(0,0) scale(1)');
         });
 
+        it('can still zoom after canvas height was changed', () => {
+            element.canvasHeight = 250;
+            processUpdates();
+            element.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
+            );
+            const zoomedValue = getTransform();
+            expect(zoomedValue).toBe('translate(0,0) scale(4)');
+        });
+
+        it('can still zoom after canvas width was changed', () => {
+            element.canvasWidth = 250;
+            processUpdates();
+            element.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
+            );
+            const zoomedValue = getTransform();
+            expect(zoomedValue).toBe('translate(0,0) scale(4)');
+        });
+
         it('will zoom in the wafer-map', () => {
             element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
