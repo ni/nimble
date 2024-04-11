@@ -1,6 +1,5 @@
 import type { Mapping } from '../../../mapping/base';
 import { Validator, ValidityObject } from '../../../utilities/models/validator';
-import type { MentionInternals } from './mention-internals';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface RichTextMentionValidity extends ValidityObject {}
@@ -22,10 +21,7 @@ export const baseValidityFlagNames = [
 export class RichTextMentionValidator<
     ValidityFlagNames extends readonly string[] = typeof baseValidityFlagNames
 > extends Validator<typeof baseValidityFlagNames | ValidityFlagNames> {
-    public constructor(
-        private readonly mentionInternals: MentionInternals,
-        configValidityKeys: ValidityFlagNames
-    ) {
+    public constructor(configValidityKeys: ValidityFlagNames) {
         super(configValidityKeys);
     }
 
@@ -62,11 +58,6 @@ export class RichTextMentionValidator<
         } else {
             this.untrack(name);
         }
-        this.updateMentionInternalsFlag();
-    }
-
-    private updateMentionInternalsFlag(): void {
-        this.mentionInternals.validConfiguration = this.isValid();
     }
 
     private validateMissingPattern(pattern: string | undefined): void {

@@ -29,6 +29,7 @@ import { iconAtTag } from '../../../icons/at';
 import { MarkdownParserMentionConfiguration } from '../../models/markdown-parser-mention-configuration';
 import { MentionInternals } from '../../../rich-text-mention/base/models/mention-internals';
 import { MappingUserConfig } from '../../../rich-text-mention/users/models/mapping-user-config';
+import { RichTextMentionUsersValidator } from '../../../rich-text-mention/users/models/rich-text-mention-users-validator';
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -503,7 +504,8 @@ export class RichTextEditorPageObject {
             {
                 character: '',
                 icon: '',
-                viewElement: richTextMentionUsersViewTag
+                viewElement: richTextMentionUsersViewTag,
+                validator: new RichTextMentionUsersValidator()
             },
             () => {}
         );

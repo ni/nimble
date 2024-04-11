@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 11 Apr 2024 16:16:05 GMT",
+      "version": "24.1.13",
+      "tag": "@ni/nimble-components_v24.1.13",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "559ede85d8922f18e98b252660e9c5c8ff99eee6",
+            "comment": "Update mapping column HLD with new plan of supporting icon + text in the same cell"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Apr 2024 22:00:23 GMT",
+      "version": "24.1.13",
+      "tag": "@ni/nimble-components_v24.1.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f83d0762219a2f13d6a96f4241a6c57adf56e7a0",
+            "comment": "Move validator into MentionInternals"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Apr 2024 19:37:06 GMT",
+      "version": "24.1.12",
+      "tag": "@ni/nimble-components_v24.1.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6c714694685c161e2066c700018ffb1cb42d27ea",
+            "comment": "Fix arrow key select issue for Select"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Apr 2024 17:46:00 GMT",
+      "version": "24.1.11",
+      "tag": "@ni/nimble-components_v24.1.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8a76c28fbc7a700234b3629487816cb71709c4a4",
+            "comment": "Fix a couple issues with anchor styling"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Apr 2024 00:29:05 GMT",
       "version": "24.1.10",
       "tag": "@ni/nimble-components_v24.1.10",
