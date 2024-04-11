@@ -133,6 +133,13 @@ export class MatrixRenderer {
         this.canvas.height = data.height;
     }
 
+    public getCanvasDimensions(): Dimensions {
+        return {
+            width: this.canvas.width,
+            height: this.canvas.height
+        };
+    }
+
     public clearCanvas(): void {
         this.context.clearRect(
             0,

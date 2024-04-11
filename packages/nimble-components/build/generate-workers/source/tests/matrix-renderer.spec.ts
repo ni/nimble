@@ -34,11 +34,34 @@ describe('MatrixRenderer with MessageChannel', () => {
             + updatedMatrix.values.length).toEqual(0);
     });
 
+    it('setCanvasDimensions should set the canvas dimensions', async () => {
+        const offscreenCanvas = new OffscreenCanvas(0, 0);
+        matrixRenderer.setCanvas(
+            transfer(offscreenCanvas, [
+                offscreenCanvas
+            ])
+        );
+        await matrixRenderer.setCanvasDimensions({ width: 500, height: 500 });
+        expect(await matrixRenderer.getCanvasDimensions()).toEqual({width: 500, height: 500});
+    });
+
+    it('calculateYScaledIndex should compute the scaleY index', async () => {
+        await matrixRenderer.setBases(2, 2);
+        await matrixRenderer.setScaling(0.5, 0.5);
+        expect(await matrixRenderer.calculateYScaledIndex(100)).toEqual(72);
+    });
+
+    it('calculateXScaledIndex should compute the scaleX index', async () => {
+        await matrixRenderer.setBases(3, 3);
+        await matrixRenderer.setScaling(1, 1);
+        expect(await matrixRenderer.calculateXScaledIndex(100)).toEqual(123);
+    });
+
     it('indexes should be set', async () => {
         const offscreenCanvas = new OffscreenCanvas(300, 300);
         matrixRenderer.setCanvas(
             transfer(offscreenCanvas, [
-                offscreenCanvas as unknown as Transferable
+                offscreenCanvas
             ])
         );
 
