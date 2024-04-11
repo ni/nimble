@@ -28,6 +28,7 @@
     <None Include="packages.lock.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
+    <PackageReference Include="Apache.Arrow" Version="15.0.2" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.21" />
   </ItemGroup>
 

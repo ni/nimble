@@ -1,4 +1,6 @@
 ﻿using System.Text.Json;
+using Apache.Arrow;
+using Apache.Arrow.Ipc;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -12,12 +14,15 @@ public partial class NimbleWaferMap : ComponentBase
     private ElementReference _waferMap;
     private bool _diesUpdated;
     private IEnumerable<WaferMapDie>? _dies;
+    private bool _diesTableUpdated;
+    private RecordBatch? _diesTable;
     private bool _colorScaleUpdated;
     private WaferMapColorScale? _colorScale;
     private bool _highlightedTagsUpdated;
     private IEnumerable<string>? _highlightedTags;
     internal static string GetWaferMapValidityMethodName = "NimbleBlazor.WaferMap.getValidity";
     internal static string SetWaferMapDiesMethodName = "NimbleBlazor.WaferMap.setDies";
+    internal static string SetWaferMapDiesTableMethodName = "NimbleBlazor.WaferMap.setDiesTable";
     internal static string SetWaferMapColorScaleMethodName = "NimbleBlazor.WaferMap.setColorScale";
     internal static string SetWaferMapHighlightedTagsMethodName = "NimbleBlazor.WaferMap.setHighlightedTags";
 
@@ -119,6 +124,23 @@ public partial class NimbleWaferMap : ComponentBase
     }
 
     /// <summary>
+    /// Represents the input data, an apache arrow Table, which fills the wafer map with content
+    /// </summary>
+    [Parameter]
+    public RecordBatch? DiesTable
+    {
+        get
+        {
+            return _diesTable;
+        }
+        set
+        {
+            _diesTable = value;
+            _diesTableUpdated = true;
+        }
+    }
+
+    /// <summary>
     /// Represents the color spectrum which shows the status of the dies on the wafer.
     /// </summary>
     [Parameter]
@@ -169,20 +191,29 @@ public partial class NimbleWaferMap : ComponentBase
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         var options = new JsonSerializerOptions { MaxDepth = 3 };
-        if (_diesUpdated)
+        if (_diesTableUpdated && _diesTable != null)
+        {
+            var stream = new MemoryStream();
+            var writer = new ArrowStreamWriter(stream, _diesTable.Schema);
+            writer.WriteRecordBatch(_diesTable);
+            writer.WriteEnd();
+            await JSRuntime!.InvokeVoidAsync(SetWaferMapDiesTableMethodName, _waferMap, stream.ToArray());
+            _diesTableUpdated = false;
+        }
+        else if (_diesUpdated)
         {
             await JSRuntime!.InvokeVoidAsync(SetWaferMapDiesMethodName, _waferMap, JsonSerializer.Serialize(_dies, options));
+            _diesUpdated = false;
         }
-        _diesUpdated = false;
         if (_colorScaleUpdated)
         {
             await JSRuntime!.InvokeVoidAsync(SetWaferMapColorScaleMethodName, _waferMap, JsonSerializer.Serialize(_colorScale, options));
+            _colorScaleUpdated = false;
         }
-        _colorScaleUpdated = false;
         if (_highlightedTagsUpdated)
         {
             await JSRuntime!.InvokeVoidAsync(SetWaferMapHighlightedTagsMethodName, _waferMap, JsonSerializer.Serialize(_highlightedTags, options));
+            _highlightedTagsUpdated = false;
         }
-        _highlightedTagsUpdated = false;
     }
 }

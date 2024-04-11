@@ -202,12 +202,16 @@ window.NimbleBlazor = window.NimbleBlazor ?? {
         }
     },
     WaferMap: {
+        arrow: import("apache-arrow"),
         getValidity: function (waferMapReference) {
             return waferMapReference.validity;
         },
         setDies: function (waferMapReference, data) {
             const diesObject = JSON.parse(data);
             waferMapReference.dies = diesObject;
+        },
+        setDiesTable: function (waferMapReference, data) {
+            waferMapReference.diesTable = this.arrow.tableFromIPC(data);
         },
         setColorScale: function (waferMapReference, data) {
             const colorScaleObject = JSON.parse(data);

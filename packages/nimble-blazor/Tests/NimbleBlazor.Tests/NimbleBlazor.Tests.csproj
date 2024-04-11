@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Apache.Arrow" Version="15.0.2" />
     <PackageReference Include="bunit" Version="1.27.17" />
     <PackageReference Include="bunit.core" Version="1.27.17" />
     <PackageReference Include="bunit.web" Version="1.27.17" />

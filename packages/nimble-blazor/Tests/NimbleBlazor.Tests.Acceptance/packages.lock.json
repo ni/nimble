@@ -2,6 +2,12 @@
   "version": 1,
   "dependencies": {
     "net6.0": {
+      "Apache.Arrow": {
+        "type": "Direct",
+        "requested": "[15.0.2, )",
+        "resolved": "15.0.2",
+        "contentHash": "4Bx7XPDynY8w9ZB264jVD/3YiTQukJzuMtJe6C7FR7dUM2YsVoUPuvwNLFz7Ciwqhic6PkAwQcg4DyZUyy4Ubw=="
+      },
       "Microsoft.AspNetCore.Mvc.Testing": {
         "type": "Direct",
         "requested": "[6.0.27, )",
@@ -1061,6 +1067,7 @@
       "nimbleblazor": {
         "type": "Project",
         "dependencies": {
+          "Apache.Arrow": "[15.0.2, )",
           "Microsoft.AspNetCore.Components.Web": "[6.0.27, )"
         }
       }
