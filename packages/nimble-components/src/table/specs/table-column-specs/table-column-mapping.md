@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `nimble-table-column-enum` is a component that supports rendering specific number, boolean, or string values as an icon, a spinner, text, or an icon/spinner with text. The mappings are defined by child elements of `nimble-mapping-icon`, `nimble-mapping-spinner`, `nimble-mapping-text`, or `nimble-mapping-empty`.
+The `nimble-table-column-mapping` is a component that supports rendering specific number, boolean, or string values as an icon, a spinner, text, or an icon/spinner with text. The mappings are defined by child elements of `nimble-mapping-icon`, `nimble-mapping-spinner`, `nimble-mapping-text`, or `nimble-mapping-empty`.
 
 ### Background
 
@@ -41,24 +41,24 @@ Below is an example of how these elements would be used within a `nimble-table`:
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-enum field-name="status" key-type="string">
+    <nimble-table-column-mapping field-name="status" key-type="string">
         Status
         <nimble-mapping-icon key="fail" icon="nimble-icon-xmark" severity="error" text="Failed"></nimble-mapping-icon>
         <nimble-mapping-icon key="error" icon="nimble-icon-xmark" severity="error" text="Errored"></nimble-mapping-icon>
         <nimble-mapping-icon key="pass" icon="nimble-icon-check" severity="success" text="Passed"></nimble-mapping-icon>
         <nimble-mapping-spinner key="running" text="Running"></nimble-mapping-spinner>
-    </nimble-table-column-enum>
-    <nimble-table-column-enum field-name="errorCode" key-type="number">
+    </nimble-table-column-mapping>
+    <nimble-table-column-mapping field-name="errorCode" key-type="number">
         Error Code
         <nimble-mapping-text key="1" text="A bad thing happened"></nimble-mapping-text>
         <nimble-mapping-text key="2" text="A worse thing happened"></nimble-mapping-text>
         <nimble-mapping-text key="3" text="A terrible thing happened"></nimble-mapping-text>
-    </nimble-table-column-enum>
-    <nimble-table-column-enum field-name="archived" key-type="boolean">
+    </nimble-table-column-mapping>
+    <nimble-table-column-mapping field-name="archived" key-type="boolean">
         Archived
         <nimble-mapping-icon key="true" icon="nimble-icon-database" text="Archived" text-hidden></nimble-mapping-icon>
         <nimble-mapping-empty key="false" text="Not archived"></nimble-mapping-empty>
-    </nimble-table-column-enum>
+    </nimble-table-column-mapping>
 </nimble-table>
 ```
 
@@ -98,13 +98,15 @@ Cons:
 
 _Component Name_
 
--   `nimble-table-column-enum`
+-   `nimble-table-column-mapping`
 
 _Props/Attrs_
 
 -   `field-name`: string
 -   `key-type`: 'string' | 'number' | 'boolean'
--   `width-mode`: enum - `flexibleWidth` (default) | `fixedIconWidth` - When set to `fixedIconWidth`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell.
+-   `width-mode`: enum - `default` (`undefined`) | `iconSize` (`'icon-size'`) - When set to `iconSize`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell. When unset or set to `default`, the column will be resizable and be sized based on its `fractional-width` and `min-pixel-width` values.
+-   `fractional-width`: number (defaults to 1)
+-   `min-pixel-width`: number (defaults to minimum supported by table)
 
 _Content_
 
@@ -240,7 +242,7 @@ For icons, if multiple values map to the same icon, it is possible that sorting 
 
 ### Sizing
 
-By default, the `nimble-table-column-enum` will be a fractional width column with a fractional width of 1. However, it can be configured to be a fixed pixel size (32px) and not be resizable by setting `width-mode` to `fixedIconWidth`. The 32px fixed size allows room from a single icon or spinner along with left and right cell padding of 8px each.
+By default, the `nimble-table-column-mapping` will be a fractional width column with a fractional width of 1. However, it can be configured to be a fixed pixel size (32px) and not be resizable by setting `width-mode` to `iconSize`. The 32px fixed size allows room from a single icon or spinner along with left and right cell padding of 8px each.
 
 When the column is a fixed 32px:
 
@@ -263,10 +265,10 @@ Angular directives will be created for the column components and the mapping com
 Blazor wrappers will be created for the components. Columns will be generic in the type of the key, and will cascade that type parameter to contained mapping elements (see [`CascadingTypeParameter`](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/generic-type-support?view=aspnetcore-7.0#cascaded-generic-type-support)):
 
 ```HTML
-<NimbleTableColumnEnum TKey=int Field="NumberData">
+<NimbleTableColumnMapping TKey=int Field="NumberData">
     <NimbleMappingText Key="1" Text="foo"></NimbleMappingText>
     <NimbleMappingText Key="2" Text="bar"></NimbleMappingText>
-</NimbleTableColumnEnum>
+</NimbleTableColumnMapping>
 ```
 
 ### Visual Appearance
