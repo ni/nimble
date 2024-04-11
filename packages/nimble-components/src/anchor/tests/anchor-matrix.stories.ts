@@ -1,6 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -20,6 +19,18 @@ import {
     disabledStateIsEnabled
 } from '../../utilities/tests/states';
 
+const appearanceStates = [
+    ['Default', AnchorAppearance.default],
+    ['Prominent', AnchorAppearance.prominent]
+] as const;
+type AppearanceState = (typeof appearanceStates)[number];
+
+const underlineHiddenStates = [
+    ['', false],
+    ['Underline Hidden', true]
+] as const;
+type UnderlineHiddenState = (typeof underlineHiddenStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Anchor',
     parameters: {
@@ -28,17 +39,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const underlineHiddenStates = [
-    ['', false],
-    ['Underline Hidden', true]
-] as const;
-type UnderlineHiddenState = (typeof underlineHiddenStates)[number];
-
-const appearanceStates: [string, string | undefined][] = Object.entries(
-    AnchorAppearance
-).map(([key, value]) => [pascalCase(key), value]);
-type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (

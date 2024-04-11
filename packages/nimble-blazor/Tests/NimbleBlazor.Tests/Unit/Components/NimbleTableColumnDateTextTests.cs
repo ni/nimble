@@ -28,6 +28,15 @@ public class NimbleTableColumnDateTextTests
         Assert.Contains(expectedMarkup, table.Markup);
     }
 
+    [Fact]
+    public void NimbleTableColumnDateText_WithPlaceholderAttribute_HasTableMarkup()
+    {
+        var table = RenderWithPropertySet(x => x.Placeholder, "Custom placeholder");
+
+        var expectedMarkup = @"placeholder=""Custom placeholder""";
+        Assert.Contains(expectedMarkup, table.Markup);
+    }
+
     [Theory]
     [InlineData(DateTextFormat.Default, "<nimble-table-column-date-text((?!format).)*>")]
     [InlineData(DateTextFormat.Custom, @"format=""custom""")]

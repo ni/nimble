@@ -131,6 +131,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
         } else {
             this._displayTextToOptionsMap.set(option.text, [option]);
         }
+
         this.updateDisplayValue();
     }
 

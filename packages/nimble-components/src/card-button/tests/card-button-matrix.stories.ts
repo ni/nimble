@@ -11,6 +11,12 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import { cardButtonTag } from '..';
 
+const selectedStates = [
+    ['Selected', true],
+    ['', false]
+] as const;
+type SelectedState = (typeof selectedStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Card Button',
     parameters: {
@@ -19,12 +25,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const selectedStates = [
-    ['Selected', true],
-    ['', false]
-] as const;
-type SelectedState = (typeof selectedStates)[number];
 
 // prettier-ignore
 const component = (

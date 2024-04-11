@@ -28,6 +28,12 @@ import {
     partVisibilityStatesOnlyLabel
 } from '../../patterns/button/tests/states';
 
+const checkedStates = [
+    ['Checked', true],
+    ['Unchecked', false]
+] as const;
+type CheckedState = (typeof checkedStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Toggle Button',
     parameters: {
@@ -36,12 +42,6 @@ const metadata: Meta = {
 };
 
 export default metadata;
-
-const checkedStates = [
-    ['Checked', true],
-    ['Unchecked', false]
-] as const;
-type CheckedState = (typeof checkedStates)[number];
 
 // prettier-ignore
 const component = (

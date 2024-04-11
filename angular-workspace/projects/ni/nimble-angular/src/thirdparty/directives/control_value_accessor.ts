@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/15.2.10/packages/forms/src/directives/control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/16.2.12/packages/forms/src/directives/control_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Commented out ControlValueAccessor which is exported from @angular/forms
@@ -25,7 +25,7 @@ import {Directive, ElementRef, Renderer2} from '@angular/core';
  * Implement this interface to create a custom form control directive
  * that integrates with Angular forms.
  *
- * @see DefaultValueAccessor
+ * @see {@link DefaultValueAccessor}
  *
  * @publicApi
  */
