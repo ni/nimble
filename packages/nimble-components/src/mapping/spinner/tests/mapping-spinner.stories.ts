@@ -34,7 +34,7 @@ export const spinnerMapping: StoryObj = {
             control: { type: 'none' },
             name: 'text-hidden',
             description:
-                'When set, the text is hidden within the table\'s cells. When unset, the text is rendered next to the spinner within the cell.'
+                "When set, the text is hidden within the table's cells. When unset, the text is rendered next to the spinner within the cell."
         }
     },
     args: {}

@@ -197,7 +197,9 @@ export class TablePageObject<T extends TableRecord> {
         rowIndex: number,
         columnIndex: number
     ): string {
-        const iconOrSpinner = this.getRenderedIconColumnIconOrSpinner(this.getRenderedCellView(rowIndex, columnIndex));
+        const iconOrSpinner = this.getRenderedIconColumnIconOrSpinner(
+            this.getRenderedCellView(rowIndex, columnIndex)
+        );
         return iconOrSpinner.tagName.toLocaleLowerCase();
     }
 
@@ -795,10 +797,16 @@ export class TablePageObject<T extends TableRecord> {
         return nodeChildren[0]; // header content should be first item in final slot element
     }
 
-    private getRenderedIconColumnIconOrSpinner(view: TableCellView | TableGroupHeaderView): Icon | Spinner {
+    private getRenderedIconColumnIconOrSpinner(
+        view: TableCellView | TableGroupHeaderView
+    ): Icon | Spinner {
         const viewShadowRoot = view.shadowRoot!;
-        const spinnerOrIcon = viewShadowRoot.querySelector('.reserve-icon-size')?.firstElementChild;
-        if (!(spinnerOrIcon instanceof Icon || spinnerOrIcon instanceof Spinner)) {
+        const spinnerOrIcon = viewShadowRoot.querySelector(
+            '.reserve-icon-size'
+        )?.firstElementChild;
+        if (
+            !(spinnerOrIcon instanceof Icon || spinnerOrIcon instanceof Spinner)
+        ) {
             throw new Error('Icon or Spinner not found');
         }
 

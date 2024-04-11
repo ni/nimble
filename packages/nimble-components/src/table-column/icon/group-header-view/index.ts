@@ -10,7 +10,10 @@ import {
     MappingIconConfig,
     type IconView
 } from '../../enum-base/models/mapping-icon-config';
-import { MappingSpinnerConfig, SpinnerView } from '../../enum-base/models/mapping-spinner-config';
+import {
+    MappingSpinnerConfig,
+    SpinnerView
+} from '../../enum-base/models/mapping-spinner-config';
 
 declare global {
     interface HTMLElementTagNameMap {

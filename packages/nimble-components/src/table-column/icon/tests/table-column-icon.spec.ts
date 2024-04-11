@@ -620,11 +620,17 @@ describe('TableColumnIcon', () => {
                 beforeEach(async () => {
                     ({ connect, disconnect, model } = await setup({
                         keyType: MappingKeyType.string,
-                        iconMappings: [{ key: 'icon', text: 'alpha', icon: iconXmarkTag }],
-                        spinnerMappings: [{ key: 'spinner', text: 'alpha' }],
+                        iconMappings: [
+                            { key: 'icon', text: 'alpha', icon: iconXmarkTag }
+                        ],
+                        spinnerMappings: [{ key: 'spinner', text: 'alpha' }]
                     }));
-                    pageObject = new TablePageObject<SimpleTableRecord>(model.table);
-                    columnPageObject = new TableColumnIconPageObject(pageObject);
+                    pageObject = new TablePageObject<SimpleTableRecord>(
+                        model.table
+                    );
+                    columnPageObject = new TableColumnIconPageObject(
+                        pageObject
+                    );
                     await model.table.setData([{ field1: mappingType.type }]);
                     await connect();
                     model.col1.groupIndex = 0;
@@ -632,14 +638,20 @@ describe('TableColumnIcon', () => {
                 });
 
                 async function hideTextOnMappings(): Promise<void> {
-                    model.col1.querySelectorAll(mappingIconTag).forEach(x => x.setAttribute('text-hidden', ''));
-                    model.col1.querySelectorAll(mappingSpinnerTag).forEach(x => x.setAttribute('text-hidden', ''));
+                    model.col1
+                        .querySelectorAll(mappingIconTag)
+                        .forEach(x => x.setAttribute('text-hidden', ''));
+                    model.col1
+                        .querySelectorAll(mappingSpinnerTag)
+                        .forEach(x => x.setAttribute('text-hidden', ''));
 
                     await waitForUpdatesAsync();
                 }
 
                 it('renders text in cell when text-hidden is false', () => {
-                    expect(columnPageObject.getRenderedCellText(0, 0)).toBe('alpha');
+                    expect(columnPageObject.getRenderedCellText(0, 0)).toBe(
+                        'alpha'
+                    );
                 });
 
                 it('does not render text in cell when text-hidden is true', async () => {
@@ -655,28 +667,36 @@ describe('TableColumnIcon', () => {
                 });
 
                 it('marks visualization as aria-hidden in cell when text-hidden is false', () => {
-                    expect(columnPageObject.getRenderedCellIconAriaHidden(0, 0)).toBe('true');
+                    expect(
+                        columnPageObject.getRenderedCellIconAriaHidden(0, 0)
+                    ).toBe('true');
                 });
 
                 it('does not mark visualization as aria-hidden in cell when text-hidden is true', async () => {
                     await hideTextOnMappings();
-                    expect(columnPageObject.getRenderedCellIconAriaHidden(0, 0)).toBe('false');
+                    expect(
+                        columnPageObject.getRenderedCellIconAriaHidden(0, 0)
+                    ).toBe('false');
                 });
 
                 it('sets text as title of visualization when text-hidden is true', async () => {
                     await hideTextOnMappings();
-                    expect(columnPageObject.getRenderedCellIconTitle(0, 0)).toBe('alpha');
+                    expect(
+                        columnPageObject.getRenderedCellIconTitle(0, 0)
+                    ).toBe('alpha');
                 });
 
                 it('does not set text as title of visualization when text-hidden is false', () => {
-                    expect(columnPageObject.getRenderedCellIconTitle(0, 0)).toBe('');
+                    expect(
+                        columnPageObject.getRenderedCellIconTitle(0, 0)
+                    ).toBe('');
                 });
 
                 it('sets text as aria-label of visualization when text-hidden is true', async () => {
                     await hideTextOnMappings();
-                    expect(columnPageObject.getRenderedCellIconAriaLabel(0, 0)).toBe(
-                        'alpha'
-                    );
+                    expect(
+                        columnPageObject.getRenderedCellIconAriaLabel(0, 0)
+                    ).toBe('alpha');
                 });
             });
         }
@@ -706,16 +726,28 @@ describe('TableColumnIcon', () => {
                     ({ connect, disconnect, model } = await setup({
                         keyType: MappingKeyType.string,
                         iconMappings: [
-                            { key: 'icon-long', text: longText, icon: iconXmarkTag },
-                            { key: 'icon-short', text: shortText, icon: iconXmarkTag }
+                            {
+                                key: 'icon-long',
+                                text: longText,
+                                icon: iconXmarkTag
+                            },
+                            {
+                                key: 'icon-short',
+                                text: shortText,
+                                icon: iconXmarkTag
+                            }
                         ],
                         spinnerMappings: [
                             { key: 'spinner-long', text: longText },
                             { key: 'spinner-short', text: shortText }
-                        ],
+                        ]
                     }));
-                    pageObject = new TablePageObject<SimpleTableRecord>(model.table);
-                    columnPageObject = new TableColumnIconPageObject(pageObject);
+                    pageObject = new TablePageObject<SimpleTableRecord>(
+                        model.table
+                    );
+                    columnPageObject = new TableColumnIconPageObject(
+                        pageObject
+                    );
                     await model.table.setData([
                         { field1: `${mappingType.type}-long` },
                         { field1: `${mappingType.type}-short` }
@@ -727,43 +759,98 @@ describe('TableColumnIcon', () => {
                 });
 
                 it('sets title when cell text is ellipsized', async () => {
-                    columnPageObject.dispatchEventToCellText(longTextRowIndex, 0, new MouseEvent('mouseover'));
+                    columnPageObject.dispatchEventToCellText(
+                        longTextRowIndex,
+                        0,
+                        new MouseEvent('mouseover')
+                    );
                     await waitForUpdatesAsync();
-                    expect(columnPageObject.getRenderedCellTextTitle(longTextRowIndex, 0)).toBe(longText);
+                    expect(
+                        columnPageObject.getRenderedCellTextTitle(
+                            longTextRowIndex,
+                            0
+                        )
+                    ).toBe(longText);
                 });
 
                 it('does not set title when cell text is fully visible', async () => {
-                    columnPageObject.dispatchEventToCellText(shortTextRowIndex, 0, new MouseEvent('mouseover'));
+                    columnPageObject.dispatchEventToCellText(
+                        shortTextRowIndex,
+                        0,
+                        new MouseEvent('mouseover')
+                    );
                     await waitForUpdatesAsync();
-                    expect(columnPageObject.getRenderedCellTextTitle(shortTextRowIndex, 0)).toBe('');
+                    expect(
+                        columnPageObject.getRenderedCellTextTitle(
+                            shortTextRowIndex,
+                            0
+                        )
+                    ).toBe('');
                 });
 
                 it('removes title on mouseout of cell', async () => {
-                    columnPageObject.dispatchEventToCellText(longTextRowIndex, 0, new MouseEvent('mouseover'));
+                    columnPageObject.dispatchEventToCellText(
+                        longTextRowIndex,
+                        0,
+                        new MouseEvent('mouseover')
+                    );
                     await waitForUpdatesAsync();
-                    columnPageObject.dispatchEventToCellText(longTextRowIndex, 0, new MouseEvent('mouseout'));
+                    columnPageObject.dispatchEventToCellText(
+                        longTextRowIndex,
+                        0,
+                        new MouseEvent('mouseout')
+                    );
                     await waitForUpdatesAsync();
-                    expect(columnPageObject.getRenderedCellTextTitle(longTextRowIndex, 0)).toBe('');
+                    expect(
+                        columnPageObject.getRenderedCellTextTitle(
+                            longTextRowIndex,
+                            0
+                        )
+                    ).toBe('');
                 });
 
                 it('sets title when group header text is ellipsized', async () => {
-                    columnPageObject.dispatchEventToGroupHeaderText(longTextRowIndex, new MouseEvent('mouseover'));
+                    columnPageObject.dispatchEventToGroupHeaderText(
+                        longTextRowIndex,
+                        new MouseEvent('mouseover')
+                    );
                     await waitForUpdatesAsync();
-                    expect(columnPageObject.getRenderedGroupHeaderTextTitle(longTextRowIndex)).toBe(longText);
+                    expect(
+                        columnPageObject.getRenderedGroupHeaderTextTitle(
+                            longTextRowIndex
+                        )
+                    ).toBe(longText);
                 });
 
                 it('does not set title when group header text is fully visible', async () => {
-                    columnPageObject.dispatchEventToGroupHeaderText(shortTextRowIndex, new MouseEvent('mouseover'));
+                    columnPageObject.dispatchEventToGroupHeaderText(
+                        shortTextRowIndex,
+                        new MouseEvent('mouseover')
+                    );
                     await waitForUpdatesAsync();
-                    expect(columnPageObject.getRenderedGroupHeaderTextTitle(shortTextRowIndex)).toBe('');
+                    expect(
+                        columnPageObject.getRenderedGroupHeaderTextTitle(
+                            shortTextRowIndex
+                        )
+                    ).toBe('');
                 });
 
                 it('removes title on mouseout of group header', async () => {
-                    columnPageObject.dispatchEventToGroupHeaderText(longTextRowIndex, new MouseEvent('mouseover'));
+                    columnPageObject.dispatchEventToGroupHeaderText(
+                        longTextRowIndex,
+                        new MouseEvent('mouseover')
+                    );
                     await waitForUpdatesAsync();
-                    columnPageObject.dispatchEventToGroupHeaderText(longTextRowIndex, new MouseEvent('mouseout'));
+                    columnPageObject.dispatchEventToGroupHeaderText(
+                        longTextRowIndex,
+                        new MouseEvent('mouseout')
+                    );
                     await waitForUpdatesAsync();
-                    expect(columnPageObject.getRenderedGroupHeaderTextTitle(longTextRowIndex)).toBe('');
+                    expect(
+                        columnPageObject.getRenderedGroupHeaderTextTitle(
+                            longTextRowIndex
+                        )
+                    ).toBe('');
                 });
             });
         }

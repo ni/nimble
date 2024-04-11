@@ -2,6 +2,7 @@ import { html, when } from '@microsoft/fast-element';
 import type { TableColumnIconCellView } from '.';
 import { overflow } from '../../../utilities/directive/overflow';
 
+// prettier-ignore
 export const template = html<TableColumnIconCellView>`
     ${when(
         x => x.visual === 'icon' || x.visual === 'spinner',

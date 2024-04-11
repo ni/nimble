@@ -12,7 +12,10 @@ import {
     MappingIconConfig
 } from '../../enum-base/models/mapping-icon-config';
 import type { IconSeverity } from '../../../icon-base/types';
-import { MappingSpinnerConfig, SpinnerView } from '../../enum-base/models/mapping-spinner-config';
+import {
+    MappingSpinnerConfig,
+    SpinnerView
+} from '../../enum-base/models/mapping-spinner-config';
 
 declare global {
     interface HTMLElementTagNameMap {

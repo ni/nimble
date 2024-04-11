@@ -27,8 +27,7 @@ export const iconMapping: StoryObj = {
         },
         icon: {
             control: { type: 'none' },
-            description:
-                `The tag name of the Nimble icon to render, e.g. \`nimble-icon-check\`. Alternatively, set \`icon\` to \`undefined\` to render
+            description: `The tag name of the Nimble icon to render, e.g. \`nimble-icon-check\`. Alternatively, set \`icon\` to \`undefined\` to render
                 no icon for the mapping while still providing a label to be used when grouping. Space will always be reserved for the icon so
                 that the text in cells and group rows associated with icon mappings will always be aligned.`
         },
@@ -46,7 +45,7 @@ export const iconMapping: StoryObj = {
             control: { type: 'none' },
             name: 'text-hidden',
             description:
-                'When set, the text is hidden within the table\'s cells. When unset, the text is rendered next to the icon within the cell.'
+                "When set, the text is hidden within the table's cells. When unset, the text is rendered next to the icon within the cell."
         }
     },
     args: {}
