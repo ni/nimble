@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 10 Apr 2024 19:37:06 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Apr 2024 22:00:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.13
+
+Wed, 10 Apr 2024 22:00:23 GMT
+
+### Patches
+
+- Move validator into MentionInternals ([ni/nimble@f83d076](https://github.com/ni/nimble/commit/f83d0762219a2f13d6a96f4241a6c57adf56e7a0))
 
 ## 24.1.12
 
