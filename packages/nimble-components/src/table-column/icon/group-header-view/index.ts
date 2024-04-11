@@ -34,7 +34,9 @@ export class TableColumnIconGroupHeaderView
     public severity: IconSeverity;
 
     @observable
-    public visualizationTemplate?: ViewTemplate<IconView> | ViewTemplate<SpinnerView>;
+    public visualizationTemplate?:
+    | ViewTemplate<IconView>
+    | ViewTemplate<SpinnerView>;
 
     @observable
     public visual?: 'spinner' | 'icon';

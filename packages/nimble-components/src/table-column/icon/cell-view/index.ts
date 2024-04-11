@@ -39,7 +39,9 @@ export class TableColumnIconCellView
     public text?: string;
 
     @observable
-    public visualizationTemplate?: ViewTemplate<IconView> | ViewTemplate<SpinnerView>;
+    public visualizationTemplate?:
+    | ViewTemplate<IconView>
+    | ViewTemplate<SpinnerView>;
 
     @observable
     public visual?: 'spinner' | 'icon';
