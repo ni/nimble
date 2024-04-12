@@ -15,37 +15,43 @@ import { mappingIconTag } from '../../../mapping/icon';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { sharedMappingValidityDescription } from '../../enum-base/tests/shared-storybook-docs';
 import { isChromatic } from '../../../utilities/tests/isChromatic';
+import { mappingTextTag } from '../../../mapping/text';
 
 const simpleData = [
     {
         firstName: 'Ralph',
         lastName: 'Wiggum',
         status: 'fail',
-        isChild: true
+        isChild: true,
+        gender: 'male'
     },
     {
         firstName: 'Marge',
         lastName: 'Simpson',
         status: 'success',
-        isChild: false
+        isChild: false,
+        gender: 'female'
     },
     {
         firstName: 'Homer',
         lastName: 'Simpson',
         status: 'calculating',
-        isChild: false
+        isChild: false,
+        gender: 'male'
     },
     {
         firstName: 'Bart',
         lastName: 'Simpson',
         status: 'success',
-        isChild: true
+        isChild: true,
+        gender: 'male'
     },
     {
         firstName: 'Abbey',
         lastName: '?',
         status: 'unknown',
-        isChild: false
+        isChild: false,
+        gender: 'female'
     }
 ] as const;
 
@@ -89,6 +95,11 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
                 Is Child
                 <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child"></${mappingIconTag}>
                 <${mappingIconTag} key="true" icon="${iconCheckLargeTag}" severity="success" text="Is a child"></${mappingIconTag}>
+            </${tableColumnIconTag}>
+            <${tableColumnIconTag} field-name="gender" key-type="string">
+                Gender
+                <${mappingTextTag} key="male" text="Male"></${mappingTextTag}>
+                <${mappingTextTag} key="female" text="Female"></${mappingTextTag}>
             </${tableColumnIconTag}>
         </${tableTag}>
     `),

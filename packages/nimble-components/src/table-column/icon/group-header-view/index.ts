@@ -14,6 +14,7 @@ import {
     MappingSpinnerConfig,
     SpinnerView
 } from '../../enum-base/models/mapping-spinner-config';
+import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -38,27 +39,29 @@ export class TableColumnIconGroupHeaderView
     | ViewTemplate<IconView>
     | ViewTemplate<SpinnerView>;
 
-    @observable
-    public visual?: 'spinner' | 'icon';
-
     protected updateText(): void {
-        this.visual = undefined;
+        this.resetState();
+
         if (!this.columnConfig) {
-            this.text = '';
             return;
         }
         const value = this.groupHeaderValue;
         const mappingConfig = this.columnConfig.mappingConfigs.get(value!);
         if (mappingConfig instanceof MappingIconConfig) {
-            this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text ?? '';
             this.visualizationTemplate = mappingConfig.iconGroupRowTemplate;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
-            this.visual = 'spinner';
             this.text = mappingConfig.text ?? '';
             this.visualizationTemplate = mappingConfig.spinnerGroupRowTemplate;
+        } else if (mappingConfig instanceof MappingTextConfig) {
+            this.text = mappingConfig.text ?? '';
         }
+    }
+
+    private resetState(): void {
+        this.text = '';
+        this.visualizationTemplate = undefined;
     }
 }
 

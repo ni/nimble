@@ -16,6 +16,7 @@ import {
     MappingSpinnerConfig,
     SpinnerView
 } from '../../enum-base/models/mapping-spinner-config';
+import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -44,9 +45,6 @@ export class TableColumnIconCellView
     | ViewTemplate<SpinnerView>;
 
     @observable
-    public visual?: 'spinner' | 'icon';
-
-    @observable
     public textHidden = false;
 
     /** @internal */
@@ -62,7 +60,8 @@ export class TableColumnIconCellView
     }
 
     private updateState(): void {
-        this.visual = undefined;
+        this.resetState();
+
         if (!this.columnConfig || !this.cellRecord) {
             return;
         }
@@ -72,17 +71,24 @@ export class TableColumnIconCellView
         }
         const mappingConfig = this.columnConfig.mappingConfigs.get(value);
         if (mappingConfig instanceof MappingIconConfig) {
-            this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text;
             this.visualizationTemplate = mappingConfig.iconCellTemplate;
             this.textHidden = mappingConfig.textHidden;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
-            this.visual = 'spinner';
             this.text = mappingConfig.text;
             this.visualizationTemplate = mappingConfig.spinnerCellTemplate;
             this.textHidden = mappingConfig.textHidden;
+        } else if (mappingConfig instanceof MappingTextConfig) {
+            this.text = mappingConfig.text;
+            this.textHidden = false;
         }
+    }
+
+    private resetState(): void {
+        this.text = undefined;
+        this.textHidden = false;
+        this.visualizationTemplate = undefined;
     }
 }
 
