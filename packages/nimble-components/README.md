@@ -125,8 +125,8 @@ If a client is localized, it should:
 
 When using Nimble in an environment with a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) enabled, the following are known required settings beyond "common" settings (such as the [OWASP Basic non-Strict CSP Policy](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html#basic-non-strict-csp-policy)) for using Nimble:
 
-- `style-src 'unsafe-inline'` is [needed to support style patterns in the FAST library](https://github.com/microsoft/fast/issues/4510) leveraged by Nimble.
-- `worker-src blob:` is needed to support controls that leverage Web Workers (for example the Wafer Map).
+-   `style-src 'unsafe-inline'` is [needed to support style patterns in the FAST library](https://github.com/microsoft/fast/issues/4510) leveraged by Nimble.
+-   `worker-src blob:` is needed to support controls that leverage Web Workers (for example the Wafer Map).
 
 ## Accessibility
 
