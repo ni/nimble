@@ -41,7 +41,7 @@ const data = [
     {
         id: '6',
         code: 6
-    },
+    }
 ] as const;
 
 const metadata: Meta = {
