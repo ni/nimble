@@ -38,8 +38,11 @@ export const styles = css`
         order: 4;
     }
 
-    .clear-icon {
+    .clear-button {
         order: 3;
+        width: auto;
+        height: auto;
+        margin-left: ${smallPadding};
     }
 
     .error-icon {

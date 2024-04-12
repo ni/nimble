@@ -44,6 +44,8 @@ import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
 import { iconCircleXTag } from '../icons/circle-x';
+import { buttonTag } from '../button';
+import { iconXmarkTag } from '../icons/xmark';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -245,10 +247,9 @@ export class Select
                 );
             }
             Observable.notify(this, 'value');
-            if (this.collapsible) {
-                Observable.notify(this, 'displayValue');
-            }
         }
+
+        Observable.notify(this, 'displayValue');
     }
 
     /**
@@ -342,8 +343,8 @@ export class Select
 
         this.open = this.collapsible && !this.open;
 
-        if (!this.open && this.indexWhenOpened !== this.selectedIndex) {
-            this.updateValue(true);
+        if (!this.open) {
+            this.updateValue(this.indexWhenOpened !== this.selectedIndex);
         }
     }
 
@@ -919,6 +920,7 @@ export class Select
     private updateValue(shouldEmit?: boolean): void {
         if (this.$fastController.isConnected) {
             this.value = this.firstSelectedOption?.value ?? '';
+            this.committedSelectedOption = this.firstSelectedOption;
         }
 
         if (shouldEmit) {
@@ -1006,9 +1008,6 @@ const nimbleSelect = Select.compose<SelectOptions>({
             class="error-icon"
         ></${iconExclamationMarkTag}>
         ${errorTextTemplate}
-        ${when(x => x.clearable && !x.displayPlaceholder && x.selectedIndex >= 0, html<Select>`
-            <${iconCircleXTag} class="clear-icon" @click="${(x, c) => x.clearClickHandler(c.event as MouseEvent)}"></${iconCircleXTag}>
-        `)}
     `
 });
 

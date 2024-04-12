@@ -188,7 +188,7 @@ export const styles = css`
 
     .indicator {
         flex: none;
-        margin-inline-start: 1em;
+        margin-left: ${smallPadding};
         padding-right: 8px;
         display: flex;
         justify-content: center;
