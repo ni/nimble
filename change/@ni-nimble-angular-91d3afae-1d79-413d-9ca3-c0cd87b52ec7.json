@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Add configuration for icon mappings and spinner mappings to show/hide their text within a table's cells. **Breaking change:** The icon mappings and spinner mappings now default to showing their text within a table's cells in addition to on group rows.",
-  "packageName": "@ni/nimble-angular",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
