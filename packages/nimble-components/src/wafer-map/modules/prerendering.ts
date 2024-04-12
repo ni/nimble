@@ -51,7 +51,7 @@ export class Prerendering {
         const isDieRenderInfo = (
             info: DieRenderInfo | null
         ): info is DieRenderInfo => info !== null;
-        if (this.wafermap.diesTable === undefined) {
+        if (!this.wafermap.isExperimentalUpdate()) {
             this._diesRenderInfo = this.wafermap.dies
                 .map(die => this.computeDieRenderInfo(die))
                 .filter(isDieRenderInfo);
