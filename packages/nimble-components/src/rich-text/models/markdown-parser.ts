@@ -148,12 +148,22 @@ export class RichTextMarkdownParser {
                                  * scheme and no matching mention pattern will be rendered as plain text (anchor with no href).
                                  * With this, the user can click the links only when the scheme is HTTP/HTTPS
                                  */
-                                href: /^https?:\/\//i.test(href) ? href : null,
+                                href: RichTextMarkdownParser.startsWithHttpOrHttps(
+                                    href
+                                )
+                                    ? href
+                                    : null,
                                 rel: node.attrs.rel as Attr,
                                 // Adding `class` here is a workaround to render two mentions without a whitespace as display names
                                 // This attribute can be removed when the below issue is resolved
                                 // https://github.com/ni/nimble/issues/1707
-                                class: href
+                                class: href,
+                                'underline-hidden':
+                                    RichTextMarkdownParser.startsWithHttpOrHttps(
+                                        href
+                                    )
+                                        ? null
+                                        : true
                             }
                         ];
                     }
@@ -176,5 +186,9 @@ export class RichTextMarkdownParser {
     private static cleanup(): void {
         RichTextMarkdownParser.mentionConfigs = undefined;
         RichTextMarkdownParser.mentionedHrefs.clear();
+    }
+
+    private static startsWithHttpOrHttps(href: string): boolean {
+        return /^https?:\/\//i.test(href);
     }
 }

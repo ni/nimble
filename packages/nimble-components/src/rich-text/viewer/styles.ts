@@ -48,10 +48,13 @@ export const styles = css`
 
     ${
         /**
-         * When an absolute link is not HTTPS/HTTP, the anchor tag renders without an `href`, appearing as plain text.
-         * However, the `nimble-anchor` displays differently in color when the `href` attribute is absent.
-         * To ensure a consistent appearance, the font color is forced to the default link color regardless of the `href`
-         * attribute's presence.
+         * In the rich-text editor, an absolute link renders as a native anchor, not a `nimble-anchor`. When such a link
+         * is not HTTPS/HTTP, the anchor renders without an `href`, appearing as plain text.
+         * However, in the rich-text viewer, absolute links are rendered as `nimble-anchor`s, and they do not look like
+         * plain text when the `href` attribute is absent. They have a "disabled" color and may have an underline.
+         * To ensure a consistent appearance between the editor and viewer, we force the font color to the default link/
+         * plain text color regardless of the `href` attribute's presence. To remove the underline, the markdown parser
+         * emits an `underline-hidden` attribute when the `href` attribute is absent.
          *
          * See models/markdown-parser.ts where link elements are emitted for more info.
          */ ''

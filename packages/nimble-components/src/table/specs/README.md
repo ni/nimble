@@ -133,6 +133,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
     -   Define event/property APIs needed for dealing with lazily-loaded hierarchical data (possibly out of scope of initial release)
     -   Describe the UI representation of hierarchical data (there should be a design doc to reference)
 -   [Action Menu](action-menu-hld.md)
+-   [Keyboard Navigation](table-keyboard-navigation-hld.md)
 
 _Attributes_
 
