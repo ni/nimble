@@ -12,5 +12,6 @@
     die-labels-suffix="@DieLabelsSuffix"
     color-scale-mode="@ColorScaleMode.ToAttributeValue()"
     @attributes="AdditionalAttributes"
-    @onnimblewafermapdiehoverchange="(__value) => HandleDieHoverChange(__value)">
+    @onnimblewafermapdiehoverchange="(__value) => HandleDieHoverChange(__value)"
+    @onnimblewafermapdrenderfinished="(__value) => HandleRenderFinished(__value)">
 </nimble-wafer-map>

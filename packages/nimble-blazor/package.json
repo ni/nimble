@@ -46,13 +46,11 @@
     "@ni/nimble-components": "*",
     "@ni/nimble-tokens": "*",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "apache-arrow": "^15.0.2",
     "cross-env": "^7.0.3",
     "glob": "^10.3.10",
     "playwright": "1.42.0",
     "rimraf": "^5.0.5",
     "rollup": "^4.12.0"
-  },
-  "peerDependencies": {
-    "apache-arrow": "^15.0.2"
   }
 }

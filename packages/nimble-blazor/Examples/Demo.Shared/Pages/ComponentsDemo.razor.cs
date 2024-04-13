@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using Apache.Arrow.Types;
+using Apache.Arrow;
 using NimbleBlazor;
 
 namespace Demo.Shared.Pages;
@@ -32,7 +34,7 @@ public partial class ComponentsDemo
     [NotNull]
     public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();
     [NotNull]
-    public IEnumerable<WaferMapDie> Dies { get; set; } = Enumerable.Empty<WaferMapDie>();
+    public RecordBatch? DiesTable { get; set; }
     [NotNull]
     public IEnumerable<string> HighlightedTags { get; set; } = Enumerable.Empty<string>();
     [NotNull]
@@ -41,7 +43,7 @@ public partial class ComponentsDemo
     public ComponentsDemo()
     {
         AddTableRows(10);
-        UpdateDies(5);
+        UpdateDiesTable(5);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -191,48 +193,67 @@ public partial class ComponentsDemo
         TableData = tableData;
     }
 
-    public void UpdateDies(int numberOfDies)
+    public void UpdateDiesTable(int numDies)
     {
-        if (numberOfDies < 0)
-        {
-            return;
-        }
-        var dies = new List<WaferMapDie>();
-        int radius = (int)Math.Ceiling(Math.Sqrt(numberOfDies / Math.PI));
+        var colIndexes = new Int32Array.Builder();
+        var rowIndexes = new Int32Array.Builder();
+        var values = new DoubleArray.Builder();
+
+        int radius = (int)Math.Ceiling(Math.Sqrt(numDies / Math.PI));
         var centerX = radius;
         var centerY = radius;
 
         for (var i = centerY - radius; i <= centerY + radius; i++)
         {
+            // generate points left of centerX
             for (
                 var j = centerX;
-                ((j - centerX) * (j - centerX)) + ((i - centerY) * (i - centerY))
+                (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
                 <= radius * radius;
                 j--)
             {
                 var value = (i + j) % 100;
-                dies.Add(new WaferMapDie(i, j, value.ToString(CultureInfo.CurrentCulture)));
+                colIndexes.Append(i);
+                rowIndexes.Append(j);
+                values.Append(value);
             }
             // generate points right of centerX
             for (
                 var j = centerX + 1;
-                ((j - centerX) * (j - centerX)) + ((i - centerY) * (i - centerY))
+                (j - centerX) * (j - centerX) + (i - centerY) * (i - centerY)
                 <= radius * radius;
                 j++)
             {
                 var value = (i + j) % 100;
-                dies.Add(new WaferMapDie(i, j, value.ToString(CultureInfo.CurrentCulture)));
+                colIndexes.Append(i);
+                rowIndexes.Append(j);
+                values.Append(value);
             }
         }
-        Dies = dies;
+        var colIndexField = new Field("colIndex", new Int32Type(), false);
+        var rowIndexField = new Field("rowIndex", new Int32Type(), false);
+        var valueField = new Field("value", new DoubleType(), false);
+        var schema = new Schema.Builder()
+            .Field(colIndexField)
+            .Field(rowIndexField)
+            .Field(valueField)
+            .Build();
+
+        DiesTable = new RecordBatch(schema, new List<IArrowArray> {
+            colIndexes.Build(),
+            rowIndexes.Build(),
+            values.Build()
+        },
+        colIndexes.Length);
+
     }
     public void AddDiesToRadius(int numberOfDies)
     {
-        UpdateDies(Dies.Count() + (int)(numberOfDies * numberOfDies * Math.PI));
+        UpdateDiesTable(DiesTable.Length + (int)(numberOfDies * numberOfDies * Math.PI));
     }
     public void RemoveDiesFromRadius(int numberOfDies)
     {
-        UpdateDies(Dies.Count() - (int)(numberOfDies * numberOfDies * Math.PI));
+        UpdateDiesTable(DiesTable.Length - (int)(numberOfDies * numberOfDies * Math.PI));
     }
 }
 
