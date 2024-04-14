@@ -5,7 +5,7 @@ import {
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
-import type { Table } from 'apache-arrow';
+import { Table, tableFromIPC } from 'apache-arrow';
 import { type Remote, transfer } from 'comlink';
 import { template } from './template';
 import { styles } from './styles';
@@ -173,6 +173,8 @@ export class WaferMap<
         colors: [],
         values: []
     };
+
+    public tableFromIPC = tableFromIPC;
 
     private readonly hoverHandler: HoverHandler = new HoverHandler(
         this.asRequiredFieldsWaferMap
