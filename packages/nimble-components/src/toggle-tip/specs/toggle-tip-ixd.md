@@ -55,7 +55,9 @@ When the popover height exceeds that of the viewport, the popover should not bec
 Popovers with text should be limited to approximately three lines of text under normal display size at the intended location.
 
 ## Alignment
-The following are recommended guidelines to try and follow but need to be re-evaluated based on technical feasibility: 
+
+The following are recommended guidelines to try and follow but need to be re-evaluated based on technical feasibility:
+
 The toggletip popover should avoid obscuring other content where possible. [^1] In particular it should avoid obscuring the content which it annotates.
 
 [^1]: [Pearson Toggletip requirements](https://accessibility.pearson.com/resources/developers-corner/reference-library/tooltips-and-toggletips/index.php)
